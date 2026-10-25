@@ -1,6 +1,6 @@
 # Skyglass event — loot tables
 
-**Status:** PROPOSAL. Structure ruled by RUL-2026-10-24-011 to -016; every line, tier weight, quantity and package content below is a proposal for the director. Generated from one data source with the review page; edit both together.
+**Status:** PROPOSAL. Structure ruled by RUL-2026-10-24-011 to -017; every line, tier weight, quantity and package content below is a proposal for the director. Generated from one data source with the review page; edit both together.
 
 ## 1. Wreck clear (each member)
 
@@ -58,6 +58,8 @@
 
 ## 4. Treasure hunts
 
+**Reward ladder** (every ending, every hunt; by final opponent and gating): I = Medicine Inro ×1; II = Medicine Inro ×1 + Sage's Strongbox (50%); III = Sage's Strongbox ×1; IV = Sage's Strongbox ×1 + Skyglass Coffer (50%); V = Skyglass Coffer ×1 + Sage's Strongbox ×1; VI = Skyglass Coffer ×2.
+
 Completion pick: **Medic's Haul** (Medicine Inro ×2); **Sage's Haul** (Sage's Strongbox ×1) in every hunt, plus the hunt's own cards.
 
 ### The Drowned Foundry
@@ -66,9 +68,9 @@ Entry: Chart of the Drowned Foundry (consumed at start). Completion: 100,000 ryo
 
 | Ending | Pays (items only) |
 |---|---|
-| Leave after the first fight | Medicine Inro ×1 |
-| Leave after the second fight | Sage's Strongbox ×1 |
-| Defeat the Foundry Warden | Skyglass Coffer ×1 |
+| Leave after the first fight | I: Medicine Inro ×1 |
+| Leave after the second fight | III: Sage's Strongbox ×1 |
+| Defeat the Foundry Warden | V: Skyglass Coffer ×1, Sage's Strongbox ×1 |
 
 ### The Quarantine Vault
 
@@ -76,8 +78,8 @@ Entry: Chart of the Quarantine Vault (consumed at start). Completion: 75,000 ryo
 
 | Ending | Pays (items only) |
 |---|---|
-| Clean run (no alarms) | Skyglass Coffer ×1 |
-| Alarm tripped | Sage's Strongbox ×1 |
+| Clean run (no alarms) | V: Skyglass Coffer ×1, Sage's Strongbox ×1 |
+| Alarm tripped | III: Sage's Strongbox ×1 |
 
 ### The Silent Bastion
 
@@ -85,7 +87,7 @@ Entry: Skyglass Signal Beacon (consumed at start). Completion: 150,000 ryo · 30
 
 | Ending | Pays (items only) |
 |---|---|
-| Defeat Supreme Commander Arakane | Skyglass Coffer ×1 |
+| Defeat Supreme Commander Arakane | VI: Skyglass Coffer ×2 |
 
 ### The Skyglass Expedition
 
@@ -93,12 +95,12 @@ Entry: Chart of the Skyglass Expedition (consumed at start). Completion: 75,000 
 
 | Ending | Pays (items only) |
 |---|---|
-| w_A hidden shore cache | Medicine Inro ×1 |
-| w_B1 accessible hold | Medicine Inro ×1 |
-| w_B2 restricted vault | Sage's Strongbox ×1 |
-| w_C direct Captain | Sage's Strongbox ×1 |
-| w_Co oathbound Crowned Captain | Skyglass Coffer ×1 |
-| w_secret Quarantined Archive | Skyglass Coffer ×1 |
+| w_B1 accessible hold (final: Deck Warden) | I: Medicine Inro ×1 |
+| w_A buried shore cache (final: Skyglass Sentinel, after the dig) | II: Medicine Inro ×1, Sage's Strongbox (50%) |
+| w_B2 restricted vault (final: First Blade) | III: Sage's Strongbox ×1 |
+| w_C direct Captain (final: The Captain) | IV: Sage's Strongbox ×1, Skyglass Coffer (50%) |
+| w_secret archive (seal puzzle, final: Sealwright) | V: Skyglass Coffer ×1, Sage's Strongbox ×1 |
+| w_Co oathbound (oath puzzle, final: Crowned Captain) | VI: Skyglass Coffer ×2 |
 
 ## 5. To check before the manifests
 

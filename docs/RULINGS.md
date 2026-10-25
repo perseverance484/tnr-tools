@@ -2664,3 +2664,28 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "OK, you know what, it's fine. Do one more balance pass of the drop rates and show them to me for review. Exp and ryo only paid on completion, just remove the rewards from the other nodes and dont adjust numbers".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-017 — One reward ladder for every hunt ending
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE.
+
+**Supersedes:** the per-ending cache assignments of RUL-2026-10-24-016's balance pass.
+
+**Ruling:** Every ending in every hunt pays from one six-step ladder, chosen by its **final opponent and gating**; a higher step always pays more and no two Expedition endings pay the same.
+
+| Step | Pays | Endings |
+|---|---|---|
+| I | Medicine Inro | Expedition w_B1 accessible hold; Foundry leave after fight 1 |
+| II | Medicine Inro + Sage's Strongbox 50% | Expedition w_A buried shore cache |
+| III | Sage's Strongbox | Expedition w_B2 restricted vault; Foundry leave after fight 2; Vault alarm tripped |
+| IV | Sage's Strongbox + Skyglass Coffer 50% | Expedition w_C direct Captain |
+| V | Skyglass Coffer + Sage's Strongbox | Expedition w_secret (Sealwright); Foundry Warden; Vault clean run |
+| VI | Skyglass Coffer ×2 | Expedition w_Co (Crowned Captain); Silent Bastion (Arakane) |
+
+**Evidence:** User, 2026-10-24: "Endings in the Skyglass Expedition having the same drops defeats the purpose of them. Accessible crates is a quick finish compared to the buried cache yet they pay the same. The sealwright fight and direct captain fight having the same drops defeats the purpose of them."; then "Yes, apply that ladder." Route data from the push/98 capture: every regular Expedition route is 3 fights; w_secret and w_Co are 2 fights behind a puzzle.
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4.
