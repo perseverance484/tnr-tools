@@ -2606,3 +2606,5 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3.
 
 **Amendment (2026-10-24):** Sage's Strongbox stacks follow its tiers: **Common ×20, Epic ×10, Legendary ×5, Forbidden ×1** (user: "Do x20 common, x10 epic, x5 legendary and x1 forbidden"). The Medicine Inro and pouches keep item 1's ×10 / Pill Pack ×5.
+
+**Amendment (2026-10-24):** each elemental pouch adds its element's kunai **×20 in Rare** and **×30 in Epic**, beside the ×10 guarantee and the ×10 Common entry (user: "Put a x20 roll in rare and a x30 roll in epic of the kunai for the kunai pouches").
