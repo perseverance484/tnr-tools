@@ -29,4 +29,9 @@ Earned once, as a take-once pick on Crownhold's completion (RUL-2026-10-25-002).
 **Note for the director:** Elite Jonin can train jutsu to level 30 (`ELITE_JONIN_JUTSU_LEVEL_CAP`), which takes Lastlight to
 52 damage / 32% wound / 42% heal cut. Accept, or cap the targets at 30 (base 38 / 18 / 28).
 
+**Build route (director, 2026-10-25):** Lastlight is **suggested first** as a new record (Forge suggest-mode create,
+`fable/forge-suggest-create`, RUL-2026-10-25-001), hidden. The Crownhold pick that offers it is added **later**, by a
+separate manifest that references the jutsu's live id once the suggestion is approved (a manifest cannot reference a
+record it only suggests).
+
 **Art:** jutsu icon and a beam animation through isolated sessions (not started).
