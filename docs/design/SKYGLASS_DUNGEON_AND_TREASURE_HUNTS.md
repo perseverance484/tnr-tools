@@ -62,16 +62,16 @@ Seal Charges and Core Canisters are hazards: used sparingly, only alongside real
 
 Roster (captured, all JONIN): Deck Warden L100 12,625 HP (the rank and file); Core Horror, Oathkeeper, The Captain, Sealwright L100 12,625; Wayfinder, Arsenal Keeper L100 15,150; First Blade, Skyglass Sentinel L100 17,675; Crowned Captain L100 18,180. Hazards: Seal Charge L70 3,550; Core Canister L56 2,850.
 
-| Floor | Kind | Wave 1 | Wave 2 | Wave 3 | Wave 4 | Wave 5 |
-|---|---|---|---|---|---|---|
-| 1 | floor | Deck Warden ×3 | Core Horror + Deck Warden ×2 | Wayfinder + Deck Warden ×2 | | |
-| 2 | floor | Deck Warden ×3 | Oathkeeper + Deck Warden ×2 | Core Horror + Wayfinder + Deck Warden | Arsenal Keeper + Deck Warden ×2 + Seal Charge | |
-| 3 | floor | Deck Warden ×3 | Arsenal Keeper + Deck Warden ×2 | First Blade + Wayfinder + Deck Warden | Skyglass Sentinel + Deck Warden ×2 + Core Canister | |
-| 4 | floor | Deck Warden ×3 | Oathkeeper + Wayfinder + Deck Warden | First Blade + Arsenal Keeper + Deck Warden | The Captain + First Blade + Deck Warden | |
-| 5 | boss | Deck Warden ×3 | Core Horror + Arsenal Keeper + Deck Warden | Sealwright + Oathkeeper + Deck Warden | First Blade + Wayfinder + Skyglass Sentinel | Crowned Captain + Deck Warden ×2 + Core Canister ×2 |
+| Floor | Kind | Wave 1 | Wave 2 | Wave 3 | Wave 4 |
+|---|---|---|---|---|---|
+| 1 | floor | Deck Warden ×3 | Core Horror + Deck Warden ×2 | Wayfinder + Deck Warden ×2 | |
+| 2 | floor | Oathkeeper + Deck Warden ×2 | Core Horror + Wayfinder + Deck Warden | Arsenal Keeper + Deck Warden ×2 + Seal Charge | |
+| 3 | floor | Arsenal Keeper + Deck Warden ×2 | First Blade + Wayfinder + Deck Warden | Skyglass Sentinel + Deck Warden ×2 + Core Canister | |
+| 4 | floor | Oathkeeper + Wayfinder + Deck Warden | First Blade + Arsenal Keeper + Deck Warden | The Captain + First Blade + Deck Warden | |
+| 5 | boss | Core Horror + Arsenal Keeper + Deck Warden | Sealwright + Oathkeeper + Deck Warden | First Blade + Wayfinder + Skyglass Sentinel | Crowned Captain + Deck Warden ×2 + Core Canister ×2 |
 
 - **Battle background:** one biome for the whole dungeon (`background`, a `COMBAT_BIOMES` value); custom scene art cannot be set per floor.
-- **Open:** the one-hour limit with five floors of 3-5 waves (20 waves); confirm with a hidden test run before publishing.
+- **Open:** the one-hour limit with five floors of 3-4 waves (16 waves); confirm with a hidden test run before publishing.
 - **Prerequisite:** Skyglass Sentinel rules 0, 1, 3, 4 reference jutsu it does not carry (QA 2026-10-20); fix before the dungeon ships.
 
 ## 4. Completion reward, the chest and the maps
