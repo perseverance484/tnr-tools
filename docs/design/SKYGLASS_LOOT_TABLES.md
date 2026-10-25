@@ -8,17 +8,17 @@
 
 | Container | Owns | Found in |
 |---|---|---|
-| Skyglass Coffer | every Skyglass item | Captain's Watch pick (×1), Silent Bastion pick (×2) |
+| Skyglass Coffer | every Skyglass item | Captain's Watch pick (×1), Crownhold pick (×2) |
 | Sealed Treasury | 100,000 ryo + valuables: Rare Jewels, Imperial Gold, Unobtanium | Wreck clear 3%; every hunt ending at 1% per ladder step (ruled) |
 | Archive Chart Case | the four hunt maps | Quarantined Archive pick |
 | Sage's Strongbox | battle reagents, elite pills, forbidden scrolls | Quarantined Archive pick |
 | Medicine Inro | all pills and potions, Pill Pack included | Captain's Watch pick |
 | Tool Pouches ×5 | element kunai, smoke, oil, venom, bombs, senbon, saki | Drowned Foundry pick |
-| Charts / Beacon | hunt access | Wreck clear drops, Archive Chart Case |
+| Charts / Lastlight | hunt access | Wreck clear drops, Archive Chart Case |
 
 ## 2. Wreck clear (each member)
 
-Currency package (director, in game). Independent drops: Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Skyglass Signal Beacon **3%**, Sealed Treasury **3%** (ruled).
+Currency package (director, in game). Independent drops: Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Lastlight **3%**, Sealed Treasury **3%** (ruled).
 
 ## 3. Caches (weighted, one roll each)
 
@@ -48,7 +48,7 @@ The Skyglass Crystal is not in the Coffer: it comes only from crafting 12 Skygla
 | Common | 60 | Chart of the Drowned Foundry ×1 |
 | Rare | 25 | Chart of the Quarantined Archive ×1 |
 | Epic | 12 | Chart of the Captain's Watch ×1 |
-| Legendary | 3 | Skyglass Signal Beacon ×1 |
+| Legendary | 3 | Lastlight ×1 |
 
 **Medicine Inro** — Common 70 (Field Tonic ×10 / Chakra Pill ×10 / Stamina Pill ×10); Rare 22 (Small Health Pill ×10 / Dr. Kim's Miracle Potion ×10 / Panacea ×10); Epic 7 (Chakra Pill II ×10 / Stamina Pill II ×10); Legendary 1 (Pill Pack ×5).
 
@@ -65,11 +65,11 @@ Every hunt is an isolated Battle Pyramid. **Ending rewards** (always paid, every
 | Drowned Foundry | Katon / Wave / Ikazuchi / Stonefall / Zephyrfang Tool Pouch |
 | Quarantined Archive | Archive Chart Case · Sage's Strongbox · The Records (exp lump) |
 | Captain's Watch | Skyglass Coffer · Captain's Purse (ryo lump) · Medicine Inro ×3 |
-| Silent Bastion | Skyglass Coffer ×2 · Bastion's Honor (village tokens lump; set it large enough to compete with Coffer ×2) · **Bastion badge** · **Bastion jutsu** |
+| Crownhold | Skyglass Coffer ×2 · Crownhold's Honor (village tokens lump; set it large enough to compete with Coffer ×2) · **Crownhold badge** · **Crownhold jutsu** |
 
-The badge and the jutsu grey out once held (the game blocks picking content a player already has), so a player needs at least two Bastion clears to take both; later clears pick the Coffers or Bastion's Honor. Badge and jutsu are still to be designed.
+The badge and the jutsu grey out once held (the game blocks picking content a player already has), so a player needs at least two Crownhold clears to take both; later clears pick the Coffers or Crownhold's Honor. Badge and jutsu are still to be designed.
 
-Ladder per ending: Foundry V (always fought to the Warden; the leave-early endings are removed, RUL-2026-10-25-004); Archive clean V / alarm III; Watch no terms IV / one-two V / all VI; Bastion VI. Exp I-VI = 1,000 / 2,000 / 3,000 / 4,000 / 5,000 / 5,000; Treasury chance = step number %.
+Ladder per ending: Foundry V (always fought to the Warden; the leave-early endings are removed, RUL-2026-10-25-004); Archive clean V / alarm III; Watch no terms IV / one-two V / all VI; Crownhold VI. Exp I-VI = 1,000 / 2,000 / 3,000 / 4,000 / 5,000 / 5,000; Treasury chance = step number %.
 
 The Sealwright's doubled health (push/252) applies to the Archive's final fight too, solo; accepted (RUL-2026-10-25-004).
 

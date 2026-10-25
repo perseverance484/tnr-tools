@@ -93,7 +93,7 @@ Ruled by RUL-2026-10-24-009: the split, chest trade, map rates and map names. Ev
 | | Ornate Chest (`ONMLl57L7o0MivjhySHMA`) | 5% |
 | Caches | Medicine Inro; Shinobi Tool Pouch | 10% each |
 | | Sage's Strongbox | 5% |
-| **Maps** | Chart of the Drowned Foundry **12%**; Chart of the Quarantine Vault **6%**; Chart of the Silent Bastion **6%**; Chart of the Skyglass Expedition **3%** | ruled |
+| **Maps** | Chart of the Drowned Foundry **12%**; Chart of the Quarantine Vault **6%**; Chart of the Crownhold **6%**; Chart of the Skyglass Expedition **3%** | ruled |
 | Jackpot | Lion Token (`FG4xYkI8UmRrJCdD3yPxI`) | 1% |
 
 About 0.27 maps per player per clear. Katana: 3% map × 3% Katana ≈ one per 1,100 player-clears; a Crown (five fragments at 20%) ≈ 25 Expeditions ≈ 830 clears.
@@ -120,14 +120,14 @@ These three are the exemplars for every new item-reward setup. Each needs a full
 
 | Hunt | Hook | Signature mechanic | Signature reward | Map tier |
 |---|---|---|---|---|
-| The Silent Bastion | the deserted fortress that issued the last directive | protocol choice before the boss (Medical heals, Combat buffs); one or two divisions plus Arakane | open | uncommon |
+| Crownhold | the deserted fortress that issued the last directive | protocol choice before the boss (Medical heals, Combat buffs); one or two divisions plus Arakane | open | uncommon |
 | The Drowned Foundry | the flooded works where Skyglass was smelted | timed filament collection under rupture threat; stay for more or leave | Skyglass Filament bundles | common |
 | The Quarantine Vault | sealed archive | riddle seals; a wrong answer diverts to the alarm route instead of failing | the only direct Skyglass Crystal chance | uncommon |
 | The Skyglass Expedition | the original Ghost Ship adventure, preserved | the full 83-node quest with six endings and the seal puzzle | **Skyglass Katana 3% and Crown fragment 20%, Expedition only** | rare |
 
 Later slate (not yet approved for development): Wreck of the Tender (real-coordinate dig across sea sectors), The Crownmaker's Forge (must not compete with the Expedition's Katana/fragment draw).
 
-**Silent Bastion source:** its 99-node design (RUL-2026-10-15-001) lives on side branches, newest `claude/silent-bastion-authoring-69za5u@6271e1f`. The hunt format cuts it to one or two divisions; which divisions survive is the director's.
+**Crownhold source:** its 99-node design (RUL-2026-10-15-001) lives on side branches, newest `claude/silent-bastion-authoring-69za5u@6271e1f`. The hunt format cuts it to one or two divisions; which divisions survive is the director's.
 
 **Expedition source:** a new `battlepyramid` quest reproducing the newest capture of the original (push/98, `harvests/inbox/tnr_results_1791903144042.json`), minus profession gates, Gatherer/Hunter chest lines replaced by universal loot, plus `entryItems`, `isolated` and a "choose" completion. A fresh read-only capture is required before building it.
 
@@ -165,7 +165,7 @@ From committed evidence only (newest captures listed in the 2026-10-23 research)
 3. Weighted or standard mode per reward cache; their lines and rates.
 4. Pyramid pick: pick 1 or 2; War Caches as-is or new Skyglass elemental caches; package bundles or not.
 5. ~~Dungeon sector and coordinates, biome, entrance art.~~ Set (RUL-2026-10-24-022/023).
-6. Silent Bastion: which divisions survive; Bastion signature reward.
+6. Crownhold: which divisions survive; Bastion signature reward.
 7. Hunt bosses: names, kits, art.
 8. Retirement mechanism and timing.
 9. Build route for the dungeon: in-game editor or Lane A.
