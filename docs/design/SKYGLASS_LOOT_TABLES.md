@@ -20,14 +20,13 @@
 | Chart of the Skyglass Expedition | 3% |
 | Lion Token | 1% |
 
-**Weighted part:** 2 rolls; each roll picks a tier, then one entry uniformly.
+**Weighted part:** 2 rolls; each roll gives one cache, which resolves into items when opened.
 
 | Tier | Weight | Entries (per-roll chance each) |
 |---|---|---|
-| Supplies | 60% | Small Health Pill ×5 (12%); Field Tonic ×10 (12%); Smoke Pellet ×10 (12%); Venom Cask ×10 (12%); Elite Smoke Bomb ×5 (12%) |
-| Valuables | 30% | Rare Jewels ×5 (5%); Imperial Gold ×5 (5%); Unobtanium ×5 (5%); Senbon Needles ×5 (5%); Chakra Pill II ×10 (5%); Stamina Pill II ×10 (5%) |
-| Reward cache | 9% | Medicine Inro (3%); Shinobi Tool Pouch (3%); Sage's Strongbox (3%) |
-| Prize | 1% | Ornate Chest (0.3%); Pill Pack ×2 (0.3%); Skyglass Filament ×2 (0.3%) |
+| Medicine Inro | 70% | Medicine Inro (70%) |
+| Ornate Chest | 20% | Ornate Chest (20%) |
+| Sage's Strongbox | 10% | Sage's Strongbox (10%) |
 
 ## 3. Reward caches (weighted, finished items)
 
@@ -40,14 +39,6 @@
 | Epic | 12% | Chakra Pill II ×10; Stamina Pill II ×10 |
 | Legendary | 3% | Pill Pack ×2 |
 
-**Shinobi Tool Pouch** — Kunai and tools; one element per roll; 2 roll(s).
-
-| Tier | Weight | Entries |
-|---|---|---|
-| Common | 60% | Katon Kunai ×10; Wave Kunai ×10; Ikazuchi Kunai ×10; Stonefall Kunai ×10; Zephyrfang Kunai ×10; Elite Smoke Bomb ×5; Chakra Disrupting Needles |
-| Rare | 30% | Smoke Pellet ×10; Whetstone Oil ×10; Venom Cask ×10; Paper Bombs ×5 |
-| Epic | 10% | Senbon Needles ×5; Saki; Bashōsen; Infernum |
-
 **Sage's Strongbox** — High-tier consumables; 1 roll(s).
 
 | Tier | Weight | Entries |
@@ -56,13 +47,21 @@
 | Legendary | 37% | Pill Pack ×2; Solider Pill; Enemy Pill; Mona's Mermaid Song |
 | Forbidden | 3% | Forbidden Jutsu Scroll: Nexus; Forbidden Jutsu Scroll: Rebirth |
 
+**Elemental Tool Pouch ×5** — Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Pouch: one per element, Silent Bastion only; 1 roll(s). Guaranteed: That element's kunai ×10, every opening.
+
+| Tier | Weight | Entries |
+|---|---|---|
+| Common | 60% | That element's kunai ×10; Smoke Pellet ×10; Whetstone Oil ×10; Elite Smoke Bomb ×5; Chakra Disrupting Needles |
+| Rare | 30% | That element's kunai ×20; Venom Cask ×10; Paper Bombs ×5 |
+| Epic | 10% | Senbon Needles ×5; Saki; Bashōsen; Infernum |
+
 ## 4. Treasure hunts
 
-Completion: pick 1 of 4 reward-package cards — **Medic's Haul** (Medicine Inro ×2); **Shinobi's Haul** (Shinobi Tool Pouch ×2); **Sage's Haul** (Sage's Strongbox ×1); plus the hunt's own card.
+Completion pick: **Medic's Haul** (Medicine Inro ×2); **Sage's Haul** (Sage's Strongbox ×1) in every hunt, plus the hunt's own cards.
 
 ### The Drowned Foundry
 
-Entry: Chart of the Drowned Foundry (consumed at start). Own card: **Filament Haul** (Skyglass Filament ×3, Skyglass Serum ×5).
+Entry: Chart of the Drowned Foundry (consumed at start). Pick 1 of 3; own cards: **Filament Haul** (Skyglass Filament ×3, Skyglass Serum ×5).
 
 | Ending | Pays automatically |
 |---|---|
@@ -72,7 +71,7 @@ Entry: Chart of the Drowned Foundry (consumed at start). Own card: **Filament Ha
 
 ### The Quarantine Vault
 
-Entry: Chart of the Quarantine Vault (consumed at start). Own card: **Archive Haul** (Skyglass Reliquary ×1).
+Entry: Chart of the Quarantine Vault (consumed at start). Pick 1 of 3; own cards: **Archive Haul** (Skyglass Reliquary ×1).
 
 | Ending | Pays automatically |
 |---|---|
@@ -81,7 +80,7 @@ Entry: Chart of the Quarantine Vault (consumed at start). Own card: **Archive Ha
 
 ### The Silent Bastion
 
-Entry: Skyglass Signal Beacon (consumed at start). Own card: **Armory Haul** (Senbon Needles ×10, Elite Smoke Bomb ×10, Venom Cask ×20, Dr. Kim's Poison Potion ×5).
+Entry: Skyglass Signal Beacon (consumed at start). Pick 1 of 7; own cards: **Katon Pouch** (Katon Pouch ×2); **Wave Pouch** (Wave Pouch ×2); **Ikazuchi Pouch** (Ikazuchi Pouch ×2); **Stonefall Pouch** (Stonefall Pouch ×2); **Zephyrfang Pouch** (Zephyrfang Pouch ×2).
 
 | Ending | Pays automatically |
 |---|---|
@@ -89,7 +88,7 @@ Entry: Skyglass Signal Beacon (consumed at start). Own card: **Armory Haul** (Se
 
 ### The Skyglass Expedition
 
-Entry: Chart of the Skyglass Expedition (consumed at start). Own card: **Skyglass Haul** (Skyglass Filament ×5, Skyglass Serum ×5).
+Entry: Chart of the Skyglass Expedition (consumed at start). Pick 1 of 3; own cards: **Skyglass Haul** (Skyglass Filament ×5, Skyglass Serum ×5).
 
 | Ending | Pays automatically |
 |---|---|
