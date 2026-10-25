@@ -372,12 +372,30 @@ export class Journal {
    * queued, THEN run the thunk that issues the request. If the flush throws, the thunk never
    * runs and nothing left the device.
    *
+   * `beforeDispatch` runs AFTER the yield and before the thunk: the last moment another tab's
+   * write (a limiter trip, a lease) can still stop the request (review R1). If it throws, the
+   * request provably never left, so the item is WITHDRAWN to exactly its pre-SENT record, with
+   * `withdrawn` saying why, instead of being stranded as an ambiguous SENT. This is the only way
+   * back from SENT, and only for the SENT this call just wrote (matched by its sentAt). A crash
+   * before the withdrawal leaves it SENT, which reconciliation treats as possibly sent.
+   *
    * @returns {Promise<any>} whatever the thunk resolves to
    */
-  async withSent(jobId, idx, patch, thunk) {
-    if (typeof patch === "function") { thunk = patch; patch = {}; }
-    this.transition(jobId, idx, "SENT", patch); // synchronous flush
+  async withSent(jobId, idx, patch, thunk, beforeDispatch = null) {
+    if (typeof patch === "function") { beforeDispatch = thunk; thunk = patch; patch = {}; }
+    const prior = structuredClone(this._mustRead(jobId).items[idx]);
+    const sentAt = this.transition(jobId, idx, "SENT", patch).items[idx].sentAt; // synchronous flush
     await this.yieldTask();
+    if (beforeDispatch) {
+      try { beforeDispatch(); } catch (e) {
+        const job = this._mustRead(jobId);
+        if (job.items[idx].state === "SENT" && job.items[idx].sentAt === sentAt) {
+          job.items[idx] = { ...prior, withdrawn: { at: nowIso(this.clock), reason: String(e && e.message).slice(0, MAX_TEXT) } };
+          this._write(job);
+        }
+        throw e;
+      }
+    }
     return await thunk();
   }
 

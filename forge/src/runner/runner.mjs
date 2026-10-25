@@ -55,6 +55,7 @@ const randomTab = () => Math.random().toString(36).slice(2, 10) + Math.random().
 
 /** The journal item moved under this tab (another tab advanced or resolved it): stop, write nothing. */
 export class StaleItem extends Error { constructor(m) { super(m); this.name = "StaleItem"; } }
+const moved = (journal, jobId, e) => new StaleItem(`job ${jobId} is ${journal.get(jobId).state}; another tab moved it (${e?.message})`);
 export class Paused extends Error {
   constructor(reason, info = {}) { super(`paused: ${reason}`); this.name = "Paused"; this.reason = reason; Object.assign(this, info); }
 }
@@ -299,6 +300,8 @@ export class Runner {
       }
       if (manifest.capture.after.length && !job.capturesAfter) await this._captures(jobId, manifest.capture.after, "after");
     } catch (e) {
+      // a job another tab took over and moved on is not this tab's to pause (review R2)
+      if (!(e instanceof StaleItem) && this.journal.get(jobId).state !== "RUNNING") e = moved(this.journal, jobId, e);
       if (e instanceof Paused) return this._pause(jobId, e.reason, e);
       if (e instanceof AuthRefused) { const p = this._authRefused(e.error, { path: e.path }); return this._pause(jobId, p.reason, p); }
       // raised by the capture passes (item reads pause inside _runItem): never escape as a crash
@@ -493,7 +496,10 @@ export class Runner {
       item = this.journal.get(jobId).items[item.idx];
       if (item.state === "CONFIRMED") await this._verifyOrSkip(jobId, item, planned, manifest);
     } catch (e) {
-      if (e instanceof Paused || e instanceof LeaseHeld || e instanceof StaleItem) throw e;
+      if (e instanceof LeaseHeld || e instanceof StaleItem) throw e;
+      // another tab took this job over and finished or paused it: write nothing over its state
+      if (this.journal.get(jobId).state !== "RUNNING") throw moved(this.journal, jobId, e);
+      if (e instanceof Paused) throw e;
       // A read refused as unauthenticated, raised from somewhere that has no auth dependency of
       // its own (today: the reconciler's pre-create snapshot). It can only come from a READ, so
       // the item is never SENT because of it and the ambiguity handling below does not apply.
@@ -582,7 +588,8 @@ export class Runner {
   async _create(jobId, item, planned) {
     const rc = recipe(item.entity);
     // any throttle wait comes first, so the snapshot and the payload are taken after it
-    const reserved = await this._throttle(jobId, rc.create.path);
+    const expect = this._expect(jobId, item.idx);
+    const reserved = await this._throttle(jobId, item.idx, rc.create.path, expect);
     if (this.reconciler) {
       const key = await this.reconciler.beforeCreate(this.journal.get(jobId), item, item.entity);
       if (key) this.journal.annotate(jobId, item.idx, { snapshotKey: key });
@@ -592,7 +599,7 @@ export class Runner {
       const problems = this.validator.problems(item.entity, createData, null, { preCreate: true });
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
     }
-    const decoded = await this._send(jobId, item, { phase: "create" }, rc.create.path, rc.create.input(createData), reserved);
+    const decoded = await this._send(jobId, item, { phase: "create" }, rc.create.path, rc.create.input(createData), reserved, expect);
     const o = rc.createdId ? readCreatedId(rc, decoded) : readCreate(decoded);
     if (o.kind === "ok") {
       this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: o.id, phase: rc.oneStep ? "verify" : "update", ...(rc.oneStep ? { asserted: Object.keys(planned.data) } : {}) });
@@ -624,14 +631,13 @@ export class Runner {
    *     the item unsent and unchanged.
    * `reserved`: the caller already took this send's token through _throttle (one token per send).
    */
-  async _send(jobId, item, patch, path, input, reserved = false) {
+  async _send(jobId, item, patch, path, input, reserved = false, expect = this._expect(jobId, item.idx)) {
     this._requireAuth(path, item.idx);
-    if (!reserved) await this._throttle(jobId, path);
-    this.budget?.assertNotTripped?.();
-    this._lease(jobId);
-    const cur = this.journal.get(jobId).items[item.idx];
-    if (!["PLANNED", "CONFIRMED"].includes(cur?.state)) throw new StaleItem(`item ${item.idx} is ${cur?.state} in the journal now; another tab moved it, so nothing was sent`);
-    const decoded = await this.journal.withSent(jobId, item.idx, patch, () => this.client.call(path, input));
+    if (!reserved) await this._throttle(jobId, item.idx, path, expect);
+    this._fresh(jobId, item.idx, expect);
+    // and once more after the write-ahead yield, at the last moment before dispatch (review R1)
+    const decoded = await this.journal.withSent(jobId, item.idx, patch, () => this.client.call(path, input),
+      () => { this.budget?.assertNotTripped?.(); this._lease(jobId); });
     if (decoded && decoded.ok === false && decoded.error && decoded.error.code === "TOO_MANY_REQUESTS") {
       let limited = null;
       try { if (this.budget) this.budget.observe([decoded], [path]); } catch (e) { if (!(e instanceof RateLimited)) throw e; limited = e; }
@@ -646,12 +652,30 @@ export class Runner {
    * live read take it BEFORE that read (review R2): a whole-content replacement must be built
    * from what the server holds after the wait, never before it. Returns whether a token was spent.
    */
-  async _throttle(jobId, path) {
+  async _throttle(jobId, idx, path, expect) {
     if (!isLimited(path)) return false;
-    if (!this.budget) throw new Error(`${path} is rate-limited by the server and no budget is wired; nothing was sent`);
+    if (!this.budget) throw new Error(`${path} is rate-limited and no budget is wired; nothing sent`);
     await this.budget.acquire(path, 1);
-    this._lease(jobId); // the wait can outlast the lease heartbeat: never continue a job another tab took
+    this._fresh(jobId, idx, expect); // the wait can outlast the lease: never continue a job another tab moved
     return true;
+  }
+
+  /** The item's {state, phase} when an operation on it begins. */
+  _expect(jobId, idx) { const it = this.journal.get(jobId).items[idx]; return { state: it.state, phase: it.phase ?? null }; }
+
+  /**
+   * Still this operation's to perform (review R1/R2): no active trip, this tab holds the lease, the
+   * job is RUNNING and the item is exactly where the operation found it. Another tab that advanced
+   * the item (say to CONFIRMED/verify) or finished the job (INCOMPLETE) makes this StaleItem, which
+   * propagates without writing anything over that newer state.
+   */
+  _fresh(jobId, idx, expect) {
+    this.budget?.assertNotTripped?.();
+    this._lease(jobId);
+    const job = this.journal.get(jobId), it = job.items[idx];
+    if (job.state !== "RUNNING" || it.state !== expect.state || (it.phase ?? null) !== expect.phase) {
+      throw new StaleItem(`item ${idx} is ${it.state}/${it.phase} in a ${job.state} job; another tab moved it; nothing sent`);
+    }
   }
 
   async _fill(jobId, item, planned) {
@@ -659,7 +683,8 @@ export class Runner {
     const id = item.entityId ?? item.targetId;
     if (!id) throw new Error("no id to fill");
     const data = await this._resolved(planned.data, jobId);
-    const reserved = await this._throttle(jobId, rc.update);
+    const expect = this._expect(jobId, item.idx);
+    const reserved = await this._throttle(jobId, item.idx, rc.update, expect);
     this._requireAuth(rc.get, item.idx);
     const live = await this.reader.get(rc.get, id, { fresh: true });
     if (!live.ok) {
@@ -684,7 +709,7 @@ export class Runner {
     const problems = this.validator.problems(item.entity, data, live.data, { refreshPackages: planned.refreshPackages === true });
     if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
     const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
-    const decoded = await this._send(jobId, item, { phase: "update" }, rc.update, updateInput(rc, id, payload), reserved);
+    const decoded = await this._send(jobId, item, { phase: "update" }, rc.update, updateInput(rc, id, payload), reserved, expect);
     const o = readMutation(decoded);
     await this.cache.invalidateRecord(rc.cacheEntity, id);
     if (o.kind === "ok") {

@@ -280,13 +280,27 @@
       if (to === "VERIFIED") item.verifiedAt = at;
       return this._write(job);
     }
-    async withSent(jobId, idx, patch, thunk) {
+    async withSent(jobId, idx, patch, thunk, beforeDispatch = null) {
       if (typeof patch === "function") {
+        beforeDispatch = thunk;
         thunk = patch;
         patch = {};
       }
-      this.transition(jobId, idx, "SENT", patch);
+      const prior = structuredClone(this._mustRead(jobId).items[idx]);
+      const sentAt = this.transition(jobId, idx, "SENT", patch).items[idx].sentAt;
       await this.yieldTask();
+      if (beforeDispatch) {
+        try {
+          beforeDispatch();
+        } catch (e) {
+          const job = this._mustRead(jobId);
+          if (job.items[idx].state === "SENT" && job.items[idx].sentAt === sentAt) {
+            job.items[idx] = { ...prior, withdrawn: { at: nowIso(this.clock), reason: String(e && e.message).slice(0, MAX_TEXT) } };
+            this._write(job);
+          }
+          throw e;
+        }
+      }
       return await thunk();
     }
     annotate(jobId, idx, patch) {
@@ -2290,7 +2304,7 @@
         const now = this.clock();
         const wakeAt = this._wakeAt(path, n, now);
         if (wakeAt <= now) break;
-        if (guard >= 1e3) throw new RateLimited({ path, until: wakeAt, message: `local budget for ${path} found no room; nothing was sent (wait until ${new Date(wakeAt).toISOString()})` });
+        if (guard >= 1e3) throw new RateLimited({ path, until: wakeAt, message: `no local budget room for ${path}; nothing sent` });
         this.waits++;
         await this.sleep(Math.max(1, wakeAt - now));
       }
@@ -2596,7 +2610,7 @@
   function liveDrift(content) {
     if (!obj2(content)) return ["live dungeon row has no content object; refusing to edit it"];
     const out = [];
-    const why = "schema drift: the live definition carries a key the pinned contract does not know, and any save would delete it; re-derive src/dungeon/contract.json at the game's current source before editing";
+    const why = "schema drift: the pinned contract does not know it and a save would delete it; re-derive src/dungeon/contract.json first";
     unknownKeys(content, contract_default3.contentFields, "live content", out, why);
     if (Array.isArray(content.tiers)) content.tiers.forEach((tier, ti) => Array.isArray(tier) && tier.forEach((f, fi) => {
       if (!obj2(f)) return;
@@ -2628,7 +2642,7 @@
       if (!ok) out.push(message);
     };
     check(str2(d.name) && d.name.trim().length >= 1 && d.name.trim().length <= B.nameMax, `name must contain 1..${B.nameMax} characters`);
-    check(!str2(d.name) || d.name === d.name.trim(), "name must not start or end with whitespace (the server trims it, so the read-back would differ)");
+    check(!str2(d.name) || d.name === d.name.trim(), "name must not start or end with whitespace (the server trims it)");
     check(d.description === void 0 || str2(d.description) && d.description.length <= B.descriptionMax, `description must be text of at most ${B.descriptionMax} characters`);
     check(
       d.structureAssetId === void 0 || str2(d.structureAssetId) && d.structureAssetId.length <= B.structureAssetIdMax && !isRef(d.structureAssetId),
@@ -2643,7 +2657,7 @@
     check(int2(d.latitude, B.latitude.min, B.latitude.max), `latitude must be an integer ${B.latitude.min}..${B.latitude.max}`);
     check(
       "expiresAt" in d && (d.expiresAt === null || validDate(d.expiresAt)),
-      "expiresAt is required: null for no expiry, or a valid date (YYYY-MM-DD, or a date-time with Z or an offset)"
+      "expiresAt is required: null, YYYY-MM-DD, or a date-time with Z or an offset"
     );
     check(d.hidden === void 0 || typeof d.hidden === "boolean", "hidden must be boolean");
     check(d.background === void 0 || contract_default3.biomes.includes(d.background), `background must be one of ${contract_default3.biomes.join(", ")}`);
@@ -2651,7 +2665,7 @@
     rewardProblems(d.rewards, out, preCreate || "rewards" in data);
     const packages = packageDrops(d);
     if (!preCreate && packages.length && !refreshPackages) {
-      out.push(`rewards: this save would carry package drop(s) ${packages.join(", ")}. dungeon.save re-copies every package snapshot from the CURRENT reward-package catalog on each save, so this edit would replace the stored package rewards with whatever the catalog holds now, and Forge cannot read the catalog to prove they are unchanged. Set "refreshPackages": true on this entry to accept the refresh, or make the edit in the game's editor`);
+      out.push(`rewards: package drop(s) ${packages.join(", ")}: dungeon.save re-copies every package snapshot from the CURRENT catalog, which Forge cannot read, so the stored package rewards may change. Set "refreshPackages": true on this entry to accept that, or edit in the game`);
     }
     return out;
   }
@@ -2694,7 +2708,7 @@
             if (p) out.push(p);
           });
           const delay = wave.delayRounds === void 0 ? D.wave.delayRounds : wave.delayRounds;
-          if (!int2(delay, 0, B.maxWaveDelayRounds)) out.push(`${w}.delayRounds must be an integer 0..${B.maxWaveDelayRounds} (omit it for ${D.wave.delayRounds}; null is not accepted)`);
+          if (!int2(delay, 0, B.maxWaveDelayRounds)) out.push(`${w}.delayRounds must be an integer 0..${B.maxWaveDelayRounds} (null is not accepted)`);
           else if (wi === 0 && delay !== 0) out.push(`${w}.delayRounds must be 0: the first wave starts immediately`);
         });
       });
@@ -2716,7 +2730,7 @@
     }
     const drops = rewards.drops === void 0 ? [] : rewards.drops;
     if (!Array.isArray(drops) || drops.length > B.maxDrops) {
-      out.push(`rewards.drops must be a list of at most ${B.maxDrops} drops (omit it for none; null is not accepted)`);
+      out.push(`rewards.drops must be a list of at most ${B.maxDrops} drops (null is not accepted)`);
       return;
     }
     let items = 0;
@@ -2736,7 +2750,7 @@
       if (p) out.push(p);
       if (!(num(drop.chance) && drop.chance >= B.chance.min && drop.chance <= B.chance.max)) out.push(`${where}.chance must be ${B.chance.min}..${B.chance.max}`);
       const quantity = drop.quantity === void 0 ? D.drop.quantity : drop.quantity;
-      if (!int2(quantity, 1, B.maxRewardQuantity)) out.push(`${where}.quantity must be an integer 1..${B.maxRewardQuantity} (omit it for ${D.drop.quantity}; null is not accepted)`);
+      if (!int2(quantity, 1, B.maxRewardQuantity)) out.push(`${where}.quantity must be an integer 1..${B.maxRewardQuantity} (null is not accepted)`);
       else if (drop.type === "jutsu" && quantity !== 1) out.push(`${where}.quantity must be 1: jutsu rewards can only be learned once`);
       else if (drop.type === "item" || drop.type === "cache") items += quantity;
     });
@@ -3824,6 +3838,7 @@
       this.name = "StaleItem";
     }
   };
+  var moved = (journal, jobId, e) => new StaleItem(`job ${jobId} is ${journal.get(jobId).state}; another tab moved it (${e?.message})`);
   var Paused = class extends Error {
     constructor(reason, info = {}) {
       super(`paused: ${reason}`);
@@ -3998,6 +4013,7 @@
         }
         if (manifest.capture.after.length && !job.capturesAfter) await this._captures(jobId, manifest.capture.after, "after");
       } catch (e) {
+        if (!(e instanceof StaleItem) && this.journal.get(jobId).state !== "RUNNING") e = moved(this.journal, jobId, e);
         if (e instanceof Paused) return this._pause(jobId, e.reason, e);
         if (e instanceof AuthRefused) {
           const p = this._authRefused(e.error, { path: e.path });
@@ -4159,7 +4175,9 @@
         item = this.journal.get(jobId).items[item.idx];
         if (item.state === "CONFIRMED") await this._verifyOrSkip(jobId, item, planned, manifest);
       } catch (e) {
-        if (e instanceof Paused || e instanceof LeaseHeld || e instanceof StaleItem) throw e;
+        if (e instanceof LeaseHeld || e instanceof StaleItem) throw e;
+        if (this.journal.get(jobId).state !== "RUNNING") throw moved(this.journal, jobId, e);
+        if (e instanceof Paused) throw e;
         if (e instanceof AuthRefused) throw this._authRefused(e.error, { idx: item.idx, path: e.path });
         if (e instanceof RateLimited) throw new Paused("TOO_MANY_REQUESTS", { path: e.path, until: e.until, idx: item.idx });
         const cur = this.journal.get(jobId).items[item.idx];
@@ -4211,7 +4229,8 @@
     }
     async _create(jobId, item, planned) {
       const rc = recipe(item.entity);
-      const reserved = await this._throttle(jobId, rc.create.path);
+      const expect = this._expect(jobId, item.idx);
+      const reserved = await this._throttle(jobId, item.idx, rc.create.path, expect);
       if (this.reconciler) {
         const key = await this.reconciler.beforeCreate(this.journal.get(jobId), item, item.entity);
         if (key) this.journal.annotate(jobId, item.idx, { snapshotKey: key });
@@ -4221,7 +4240,7 @@
         const problems = this.validator.problems(item.entity, createData, null, { preCreate: true });
         if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
       }
-      const decoded = await this._send(jobId, item, { phase: "create" }, rc.create.path, rc.create.input(createData), reserved);
+      const decoded = await this._send(jobId, item, { phase: "create" }, rc.create.path, rc.create.input(createData), reserved, expect);
       const o = rc.createdId ? readCreatedId(rc, decoded) : readCreate(decoded);
       if (o.kind === "ok") {
         this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: o.id, phase: rc.oneStep ? "verify" : "update", ...rc.oneStep ? { asserted: Object.keys(planned.data) } : {} });
@@ -4232,14 +4251,20 @@
       }
       this._failFromOutcome(jobId, item, o, "create");
     }
-    async _send(jobId, item, patch, path, input, reserved = false) {
+    async _send(jobId, item, patch, path, input, reserved = false, expect = this._expect(jobId, item.idx)) {
       this._requireAuth(path, item.idx);
-      if (!reserved) await this._throttle(jobId, path);
-      this.budget?.assertNotTripped?.();
-      this._lease(jobId);
-      const cur = this.journal.get(jobId).items[item.idx];
-      if (!["PLANNED", "CONFIRMED"].includes(cur?.state)) throw new StaleItem(`item ${item.idx} is ${cur?.state} in the journal now; another tab moved it, so nothing was sent`);
-      const decoded = await this.journal.withSent(jobId, item.idx, patch, () => this.client.call(path, input));
+      if (!reserved) await this._throttle(jobId, item.idx, path, expect);
+      this._fresh(jobId, item.idx, expect);
+      const decoded = await this.journal.withSent(
+        jobId,
+        item.idx,
+        patch,
+        () => this.client.call(path, input),
+        () => {
+          this.budget?.assertNotTripped?.();
+          this._lease(jobId);
+        }
+      );
       if (decoded && decoded.ok === false && decoded.error && decoded.error.code === "TOO_MANY_REQUESTS") {
         let limited = null;
         try {
@@ -4253,19 +4278,32 @@
       }
       return decoded;
     }
-    async _throttle(jobId, path) {
+    async _throttle(jobId, idx, path, expect) {
       if (!isLimited(path)) return false;
-      if (!this.budget) throw new Error(`${path} is rate-limited by the server and no budget is wired; nothing was sent`);
+      if (!this.budget) throw new Error(`${path} is rate-limited and no budget is wired; nothing sent`);
       await this.budget.acquire(path, 1);
-      this._lease(jobId);
+      this._fresh(jobId, idx, expect);
       return true;
+    }
+    _expect(jobId, idx) {
+      const it = this.journal.get(jobId).items[idx];
+      return { state: it.state, phase: it.phase ?? null };
+    }
+    _fresh(jobId, idx, expect) {
+      this.budget?.assertNotTripped?.();
+      this._lease(jobId);
+      const job = this.journal.get(jobId), it = job.items[idx];
+      if (job.state !== "RUNNING" || it.state !== expect.state || (it.phase ?? null) !== expect.phase) {
+        throw new StaleItem(`item ${idx} is ${it.state}/${it.phase} in a ${job.state} job; another tab moved it; nothing sent`);
+      }
     }
     async _fill(jobId, item, planned) {
       const rc = recipe(item.entity);
       const id2 = item.entityId ?? item.targetId;
       if (!id2) throw new Error("no id to fill");
       const data = await this._resolved(planned.data, jobId);
-      const reserved = await this._throttle(jobId, rc.update);
+      const expect = this._expect(jobId, item.idx);
+      const reserved = await this._throttle(jobId, item.idx, rc.update, expect);
       this._requireAuth(rc.get, item.idx);
       const live = await this.reader.get(rc.get, id2, { fresh: true });
       if (!live.ok) {
@@ -4290,7 +4328,7 @@
       const problems = this.validator.problems(item.entity, data, live.data, { refreshPackages: planned.refreshPackages === true });
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
       const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
-      const decoded = await this._send(jobId, item, { phase: "update" }, rc.update, updateInput(rc, id2, payload), reserved);
+      const decoded = await this._send(jobId, item, { phase: "update" }, rc.update, updateInput(rc, id2, payload), reserved, expect);
       const o = readMutation(decoded);
       await this.cache.invalidateRecord(rc.cacheEntity, id2);
       if (o.kind === "ok") {
@@ -4728,7 +4766,7 @@
       return {
         action: "orphan",
         candidates: evidence,
-        note: `lost dungeon create: ${candidates.length} new dungeon row(s) since the snapshot (${n} matching the planned content in every field), ${pending.length} create(s) pending${why}. dungeon.save has no idempotency key, so even a matching row may be another operator's: check it in the game, then adopt it (read back, never saved again) or skip`
+        note: `lost dungeon create: ${candidates.length} new row(s), ${n} matching the plan, ${pending.length} create(s) pending${why}. dungeon.save has no idempotency key: a matching row may be someone else's. Check it, then adopt (read back, never re-saved) or skip`
       };
     }
     async _resolveUpdate(item, rc, ctx) {
@@ -5385,12 +5423,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       for (const c of cands) {
         const id2 = typeof c === "string" ? c : c.id;
         const name = typeof c === "string" ? "" : c.name;
-        const evidence = typeof c === "object" && c.matches !== void 0 ? c.matches ? "matches the planned content (may still be someone else's)" : `differs on ${c.differs.join(", ")}` : null;
+        const evidence = typeof c === "object" && c.matches !== void 0 ? c.matches ? "matches the plan (may still be someone else's)" : `differs on ${c.differs.join(", ")}` : null;
         card.appendChild(h(
           "div",
           { class: "f-row" },
           h("div", { class: "f-grow" }, h("div", { class: "f-mono" }, id2), name ? h("div", { class: "f-mute" }, name) : null, evidence ? h("div", { class: "f-mute" }, evidence) : null),
-          h("button", { onClick: () => app.confirm(`Adopt ${id2} as "${it.name}"? ${evidence ? "It will be read back and verified; nothing is saved again." : "The job will continue with its update."}`, () => app.adopt(job.jobId, it.idx, id2)) }, "Adopt")
+          h("button", { onClick: () => app.confirm(`Adopt ${id2} as "${it.name}"? ${evidence ? "It is read back and verified, never re-saved." : "The job will continue with its update."}`, () => app.adopt(job.jobId, it.idx, id2)) }, "Adopt")
         ));
       }
     } else if (it.op === "create" || !it.entityId) {
