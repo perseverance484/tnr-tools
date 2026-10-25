@@ -759,7 +759,17 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 245–248 Item icon census (read-only): READY TO RUN (any order)
+## 249 Earth Scroll and Heaven Scroll icons (suggest mode): READY TO RUN
+
+Director, 2026-10-25: "Here's Earth Scroll, add it's ticket to the manifest" / "And heaven scroll". New icons for the
+two Chunin Exams quest scrolls, colour + seal direction (`docs/design/chunin_exam_scrolls/PROJECT.md`): the live colours
+and gold caps kept, the painted character and yellow outline glow dropped, a red wax seal (mountains for Earth, a cloud
+for Heaven). One suggestion per item, `image` only, each with its own rationale. Exports 256 x 256 lossless,
+artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deliver objective keeps its own copy of the
+old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
+
+## 245–248 Item icon census (read-only): 245 RUN (bundle tnr_results_1792889303274.json: 132/132 reads ok; item.getAllNames = 852 rows, so ~86 items are newer than the seed and not covered), archived; 246–248 READY TO RUN (any order)
 
 Director, 2026-10-25: "Lets identify some dated items to work on. Pull up some sheets for me to pick from." Committed
 bundles hold only 100 item records, so these read every item the seed index marks visible (528) with `item.get`,
@@ -767,7 +777,7 @@ persist full, so each icon lands in the bundle for review sheets. Part 1 also re
 drift from the seed). 133/132/132/132 reads, zero writes. Built by `push/245_item_icon_census.gen.py`. Gates (each part):
 `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 244 Celestial Dew animations v9: READY TO RUN
+## 244 Celestial Dew animations v9: RUN, verified (bundle tnr_results_1792887344340.json: 3/3 match, v9 strips live), archived
 
 push/243 ran the v5 build, so the live strips are three versions behind. v9: exact portrait geometry from the game's own
 marker and mask images (PROJECT.md section 16), one layout for every screen (director, 2026-10-24: "Just assume the PR is
