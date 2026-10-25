@@ -781,7 +781,9 @@ drafts. If the Skyglass Crystal (`Cmo3JU-D9Nl_-xUxrvEJN`, push/90 CONFIRMED not 
 refused and reported; the rest still run. The Armory Requisition (icon ready) waits for its Special quest.
 Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 253 Skyglass caches convert (2 item edits, SUGGEST MODE): READY TO RUN
+## 253 Skyglass caches convert (2 item edits, SUGGEST MODE): RUN (bundle tnr_results_1792971410207.json), archived
+
+The write-mode version of 253 had already run on 2026-10-25 04:58 UTC (bundle tnr_results_1792904287691.json, 2/2 VERIFIED), so both caches were live (hidden) before this run. The desk found nothing to change on the Medicine Inro (no ticket); the Strongbox ticket carries only the Pill Pack removal.
 
 `253_skyglass_caches_convert.json`: sent to the review desk as two suggestions (category NEW_CONTENT). Medicine Inro
 (`ixEKlJ0MmDrX7JoMNJVhi`) and Sage's Strongbox (`h-d58UCSuHN8EZKbLjT5R`) become weighted caches: one roll; Inro Common
