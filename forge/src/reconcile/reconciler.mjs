@@ -155,7 +155,7 @@ export class Reconciler {
     });
     const n = evidence.filter((c) => c.matches).length;
     return { action: "orphan", candidates: evidence,
-      note: `lost dungeon create: ${candidates.length} new dungeon row(s) since the snapshot (${n} matching the planned content in every field), ${pending.length} create(s) pending${why}. dungeon.save has no idempotency key, so even a matching row may be another operator's: check it in the game, then adopt it (read back, never saved again) or skip` };
+      note: `lost dungeon create: ${candidates.length} new row(s), ${n} matching the plan, ${pending.length} create(s) pending${why}. dungeon.save has no idempotency key: a matching row may be someone else's. Check it, then adopt (read back, never re-saved) or skip` };
   }
 
   async _resolveUpdate(item, rc, ctx) {

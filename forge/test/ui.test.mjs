@@ -481,10 +481,10 @@ test("dungeon orphan: each candidate shows its comparison with the plan, and Ado
   ] });
   app.mount(win.document.body, win.document);
   const text = win.document.querySelector(".f-main").textContent;
-  assert.match(text, /matches the planned content \(may still be someone else's\)/);
+  assert.match(text, /matches the plan \(may still be someone else's\)/);
   assert.match(text, /differs on name, rewards/);
   const asked = [];
   globalThis.confirm = (t) => { asked.push(t); return false; };
   [...win.document.querySelectorAll("button")].find((b) => b.textContent === "Adopt").click();
-  assert.match(asked[0], /read back and verified; nothing is saved again/);
+  assert.match(asked[0], /read back and verified, never re-saved/);
 });

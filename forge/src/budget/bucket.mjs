@@ -189,7 +189,7 @@ export class Budget {
       if (wakeAt <= now) break;
       // Fail closed: a clock that does not advance across sleeps must never turn into a send
       // over the allowance (it used to fall out of the loop and record anyway; review F1).
-      if (guard >= 1000) throw new RateLimited({ path, until: wakeAt, message: `local budget for ${path} found no room; nothing was sent (wait until ${new Date(wakeAt).toISOString()})` });
+      if (guard >= 1000) throw new RateLimited({ path, until: wakeAt, message: `no local budget room for ${path}; nothing sent` });
       this.waits++;
       await this.sleep(Math.max(1, wakeAt - now));
     }

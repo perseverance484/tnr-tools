@@ -62,7 +62,7 @@ function unknownKeys(o, allowed, where, out, why = "the server's validator would
 export function liveDrift(content) {
   if (!obj(content)) return ["live dungeon row has no content object; refusing to edit it"];
   const out = [];
-  const why = "schema drift: the live definition carries a key the pinned contract does not know, and any save would delete it; re-derive src/dungeon/contract.json at the game's current source before editing";
+  const why = "schema drift: the pinned contract does not know it and a save would delete it; re-derive src/dungeon/contract.json first";
   unknownKeys(content, CONTRACT.contentFields, "live content", out, why);
   if (Array.isArray(content.tiers)) content.tiers.forEach((tier, ti) => Array.isArray(tier) && tier.forEach((f, fi) => {
     if (!obj(f)) return;
@@ -106,7 +106,7 @@ export function dungeonProblems(data, live = null, { preCreate = false, refreshP
   const check = (ok, message) => { if (!ok) out.push(message); };
 
   check(str(d.name) && d.name.trim().length >= 1 && d.name.trim().length <= B.nameMax, `name must contain 1..${B.nameMax} characters`);
-  check(!str(d.name) || d.name === d.name.trim(), "name must not start or end with whitespace (the server trims it, so the read-back would differ)");
+  check(!str(d.name) || d.name === d.name.trim(), "name must not start or end with whitespace (the server trims it)");
   check(d.description === undefined || (str(d.description) && d.description.length <= B.descriptionMax), `description must be text of at most ${B.descriptionMax} characters`);
   check(d.structureAssetId === undefined || (str(d.structureAssetId) && d.structureAssetId.length <= B.structureAssetIdMax && !isRef(d.structureAssetId)),
     "structureAssetId must be a literal map-structure asset id (a mapAsset row, not a gameAsset; no ref type exists for it) or empty");
@@ -116,7 +116,7 @@ export function dungeonProblems(data, live = null, { preCreate = false, refreshP
   check(int(d.longitude, B.longitude.min, B.longitude.max), `longitude must be an integer ${B.longitude.min}..${B.longitude.max}`);
   check(int(d.latitude, B.latitude.min, B.latitude.max), `latitude must be an integer ${B.latitude.min}..${B.latitude.max}`);
   check("expiresAt" in d && (d.expiresAt === null || validDate(d.expiresAt)),
-    "expiresAt is required: null for no expiry, or a valid date (YYYY-MM-DD, or a date-time with Z or an offset)");
+    "expiresAt is required: null, YYYY-MM-DD, or a date-time with Z or an offset");
   check(d.hidden === undefined || typeof d.hidden === "boolean", "hidden must be boolean");
   check(d.background === undefined || CONTRACT.biomes.includes(d.background), `background must be one of ${CONTRACT.biomes.join(", ")}`);
 
@@ -126,7 +126,7 @@ export function dungeonProblems(data, live = null, { preCreate = false, refreshP
   rewardProblems(d.rewards, out, preCreate || "rewards" in data);
   const packages = packageDrops(d);
   if (!preCreate && packages.length && !refreshPackages) {
-    out.push(`rewards: this save would carry package drop(s) ${packages.join(", ")}. dungeon.save re-copies every package snapshot from the CURRENT reward-package catalog on each save, so this edit would replace the stored package rewards with whatever the catalog holds now, and Forge cannot read the catalog to prove they are unchanged. Set "refreshPackages": true on this entry to accept the refresh, or make the edit in the game's editor`);
+    out.push(`rewards: package drop(s) ${packages.join(", ")}: dungeon.save re-copies every package snapshot from the CURRENT catalog, which Forge cannot read, so the stored package rewards may change. Set "refreshPackages": true on this entry to accept that, or edit in the game`);
   }
   return out;
 }
@@ -162,7 +162,7 @@ function tierProblems(tiers, out) {
         else wave.aiIds.forEach((id, ai) => { const p = idProblem(id, ["ai"], `${w}.aiIds[${ai}]`); if (p) out.push(p); });
         // zod's prefault fills undefined only: an explicit null is refused (review F6)
         const delay = wave.delayRounds === undefined ? D.wave.delayRounds : wave.delayRounds;
-        if (!int(delay, 0, B.maxWaveDelayRounds)) out.push(`${w}.delayRounds must be an integer 0..${B.maxWaveDelayRounds} (omit it for ${D.wave.delayRounds}; null is not accepted)`);
+        if (!int(delay, 0, B.maxWaveDelayRounds)) out.push(`${w}.delayRounds must be an integer 0..${B.maxWaveDelayRounds} (null is not accepted)`);
         else if (wi === 0 && delay !== 0) out.push(`${w}.delayRounds must be 0: the first wave starts immediately`);
       });
     });
@@ -181,7 +181,7 @@ function rewardProblems(rewards, out, authored) {
     if (v !== undefined && !int(v, 0, B.maxRewardAmount)) out.push(`rewards.${k} must be an integer 0..${B.maxRewardAmount}`);
   }
   const drops = rewards.drops === undefined ? [] : rewards.drops;
-  if (!Array.isArray(drops) || drops.length > B.maxDrops) { out.push(`rewards.drops must be a list of at most ${B.maxDrops} drops (omit it for none; null is not accepted)`); return; }
+  if (!Array.isArray(drops) || drops.length > B.maxDrops) { out.push(`rewards.drops must be a list of at most ${B.maxDrops} drops (null is not accepted)`); return; }
   let items = 0;
   drops.forEach((drop, i) => {
     const where = `rewards.drops[${i}]`;
@@ -193,7 +193,7 @@ function rewardProblems(rewards, out, authored) {
     if (p) out.push(p);
     if (!(num(drop.chance) && drop.chance >= B.chance.min && drop.chance <= B.chance.max)) out.push(`${where}.chance must be ${B.chance.min}..${B.chance.max}`);
     const quantity = drop.quantity === undefined ? D.drop.quantity : drop.quantity;
-    if (!int(quantity, 1, B.maxRewardQuantity)) out.push(`${where}.quantity must be an integer 1..${B.maxRewardQuantity} (omit it for ${D.drop.quantity}; null is not accepted)`);
+    if (!int(quantity, 1, B.maxRewardQuantity)) out.push(`${where}.quantity must be an integer 1..${B.maxRewardQuantity} (null is not accepted)`);
     else if (drop.type === "jutsu" && quantity !== 1) out.push(`${where}.quantity must be 1: jutsu rewards can only be learned once`);
     else if (drop.type === "item" || drop.type === "cache") items += quantity;
   });
