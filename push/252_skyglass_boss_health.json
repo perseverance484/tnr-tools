@@ -1,0 +1,24 @@
+{
+ "_note": "Skyglass Wreck boss health (push/252). Director 2026-10-24: \"Give the Crowned Captain 10x as much health, and the sealwright 2x as much\". HP = calcHP(level) x poolsMultiplier = 5,050 x multiplier at level 100. Sealwright 2.5 -> 5.0 (12,625 -> 25,250 HP). Crowned Captain 3.6 -> 12, the most the game allows at level 100 (maxPoolsMultiplier: floor(65,535 / 5,050) = 12; HP/CP/SP columns cap at 65,535), so 18,180 -> 60,600 HP (3.33x, not 10x). Only poolsMultiplier is asserted; Forge re-sends each live kit and items unchanged. CP and SP scale with it too.",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "RBW5KsIXmTGR710D2y2Y7",
+   "name": "Sealwright: double health (pools 2.5 -> 5)",
+   "data": {
+    "poolsMultiplier": 5
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "fDU9jCPZtH7YHbdQPO9RF",
+   "name": "Crowned Captain: health to the level-100 maximum (pools 3.6 -> 12)",
+   "data": {
+    "poolsMultiplier": 12
+   }
+  }
+ ]
+}

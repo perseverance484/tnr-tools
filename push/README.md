@@ -769,6 +769,14 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
+## 252 Skyglass boss health (2 ai updates): READY TO RUN (any time; independent of 251)
+
+`252_skyglass_boss_health.json`: Sealwright `poolsMultiplier` 2.5 -> 5 (12,625 -> 25,250 HP, 2x). Crowned Captain 3.6 ->
+12 (18,180 -> 60,600 HP). The director asked for 10x; 12 is the most the game accepts at level 100 (HP/CP/SP columns cap at
+65,535; `maxPoolsMultiplier` = floor(65,535 / 5,050) = 12), so the Captain gets 3.33x. Only `poolsMultiplier` is asserted;
+kits and items are re-sent as live. Director (2026-10-24): "Give the Crowned Captain 10x as much health, and the
+sealwright 2x as much". Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
 ## 251 Skyglass crew rules + Oathkeeper attack (1 ai + 4 aiProfile updates): READY TO RUN
 
 `251_skyglass_crew_rules.json`: Deck Warden, Oathkeeper, First Blade and Wayfinder get rule sets that use only their
