@@ -6,6 +6,9 @@
 //   identifier = `${path}-${context.userId ?? context.userIp}`   (:148)
 //   on trip: movedTooFastCount + 1, money * 0.99, bank * 0.99, throw TOO_MANY_REQUESTS (:166-179)
 //   applied to publicProcedure only (:211); protectedProcedure carries none (:230)
+//   ...unless a procedure composes it itself: dungeon.save at 107d7a86 is
+//   protectedProcedure.use(ratelimitMiddleware) (src/dungeon/contract.json, limited:true), so its
+//   saves spend tokens here too, through Runner._send.
 //
 // The local mirror computes the SAME estimate the server does. @upstash/ratelimit 2.0.8
 // (the game's pin) slidingWindowLimitScript: buckets are floor(now / window); at a request,
@@ -171,10 +174,13 @@ export class Budget {
     if (n > this.allowance) throw new Error(`cannot acquire ${n} > allowance ${this.allowance} on ${path}; chunk smaller`);
     const t = this.log.tripped();
     if (t) throw new RateLimited({ path: t.path, until: t.until, message: `limiter tripped on ${t.path}; wait until ${new Date(t.until).toISOString()}` });
-    for (let guard = 0; guard < 1000; guard++) {
+    for (let guard = 0; ; guard++) {
       const now = this.clock();
       const wakeAt = this._wakeAt(path, n, now);
       if (wakeAt <= now) break;
+      // Fail closed: a clock that does not advance across sleeps must never turn into a send
+      // over the allowance (it used to fall out of the loop and record anyway; review F1).
+      if (guard >= 1000) throw new RateLimited({ path, until: wakeAt, message: `local budget for ${path} found no room; nothing was sent (wait until ${new Date(wakeAt).toISOString()})` });
       this.waits++;
       await this.sleep(Math.max(1, wakeAt - now));
     }

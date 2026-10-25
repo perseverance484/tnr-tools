@@ -9,5 +9,7 @@ try {
   if (!["create", "edit", "convert"].includes(entry.slot)) problems.push("invalid slot");
   if (create && !entry.srcId) problems.push("create needs a srcId");
   if (!create && !entry.targetId) problems.push("edit needs targetId");
+  // Same rule as parseManifest: the acknowledgement that a save re-copies package snapshots.
+  if ("refreshPackages" in entry && (entry.refreshPackages !== true || create)) problems.push("refreshPackages is true or absent, and only on a dungeon edit");
   process.stdout.write(JSON.stringify(problems));
 } catch (e) { process.stdout.write(JSON.stringify([e.message])); }

@@ -1,5 +1,5 @@
 import { AI_OMITTED } from "./validate.mjs";
-import { dungeonRow } from "../dungeon/validate.mjs";
+import { dungeonName, mergeDungeon } from "../dungeon/validate.mjs";
 // Per-entity write recipes. Every path and input shape below was read at source
 // (studie-tech/TheNinjaRPG@345d18ac, app/src/server/api/routers/*), not from the old bundle.
 //
@@ -56,13 +56,13 @@ export const RECIPES = Object.freeze({
     // One procedure writes both ways (routers/dungeon.ts save, pin in src/dungeon/contract.json):
     // dungeon.save {content} creates and answers {success, message: "Dungeon saved.", id};
     // {id, content} replaces that definition's whole content. There is no per-id read: get and
-    // names both go through dungeon.getAll, whose rows the reader projects to {id, ...content}.
+    // names both go through dungeon.getAll, whose rows {id, content, updatedAt} are used as they
+    // come, so the row's own id and timestamp never mix with content keys (review F3).
     create: { path: "dungeon.save", input: (d) => ({ content: d }) }, oneStep: true,
     createdId: (data) => data && data.id,
     get: "dungeon.getAll", update: "dungeon.save", names: "dungeon.getAll",
     updateInput: (id, payload) => ({ id, content: payload }),
-    row: (r) => dungeonRow(r),
-    idKey: "id", nameKey: "name", cacheEntity: "dungeon",
+    idKey: "id", nameKey: "name", nameOf: dungeonName, cacheEntity: "dungeon",
   },
   aiProfile: {
     // update-only. targetId is the AI's userId. Rules live on a separate row reached through
@@ -78,6 +78,9 @@ export function recipeRows(rc, data) {
   const rows = Array.isArray(data) ? data : (data && Array.isArray(data.data) ? data.data : []);
   return rc.row ? rows.map(rc.row) : rows;
 }
+
+/** A list row's name: a recipe whose name is nested says where. */
+export const rowName = (rc, r) => (rc.nameOf ? rc.nameOf(r) : r?.[rc.nameKey]);
 
 /** The update mutation's input. Every entity but dungeon takes {id, data}. */
 export function updateInput(rc, id, payload) {
@@ -99,6 +102,7 @@ export function recipe(entity) {
  */
 export function mergeForUpdate(entity, live, data, fields) {
   if (entity === "ai") return mergeAi(live, data);
+  if (entity === "dungeon") return mergeDungeon(live, data);
   const src = { ...(live ?? {}), ...data };
   if (!fields) return src;
   const out = {};

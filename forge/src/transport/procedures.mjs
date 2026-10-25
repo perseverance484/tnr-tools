@@ -89,6 +89,8 @@ export function procedure(path) {
  * server would have answered.
  */
 export function isProtected(path) { return procedure(path).auth === "protected"; }
+/** The server rate-limits this path (its own ratelimitMiddleware): every send spends a budget token. */
+export function isLimited(path) { return procedure(path).limited === true; }
 
 export const LIMITED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].limited));
 export const MUTATION_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].kind === "mutation"));

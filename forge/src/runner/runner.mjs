@@ -1,4 +1,5 @@
 import { assertBloodrightAvailable, unresolvedBloodrightJob } from "../bloodright/jobs.mjs";
+import { packageDrops } from "../dungeon/validate.mjs";
 import { isBloodrightEntity, writableSnapshot } from "../bloodright/validate.mjs";
 // The runner (spec sections 4, 5, 8). Executes a job item by item with write-ahead state
 // transitions, two-phase creates, and read-back on asserted keys only. Never retries.
@@ -19,10 +20,13 @@ import { isBloodrightEntity, writableSnapshot } from "../bloodright/validate.mjs
 // A transport failure on a READ (outside withSent) pauses the job too, leaving the item where
 // it was. A server refusal (success:false) or a validation error is FAILED, never retried.
 // TOO_MANY_REQUESTS from a read pauses the job with the path and countdown (budget layer).
+// Every mutation goes through _send: a rate-limited path spends a persisted budget token first,
+// and a decoded TOO_MANY_REQUESTS fails that item (a definite refusal, never resent), persists
+// the trip and pauses the job before any further write.
 
 import { readCreate, readMutation, classifyError, OutcomeError, NANOID_RE } from "../transport/outcome.mjs";
 import { AuthUnavailable, AuthRefused } from "../transport/auth.mjs";
-import { isProtected } from "../transport/procedures.mjs";
+import { isProtected, isLimited } from "../transport/procedures.mjs";
 import { NetworkError } from "../transport/client.mjs";
 import { TransportError } from "../transport/envelope.mjs";
 import { RateLimited } from "../budget/bucket.mjs";
@@ -32,7 +36,7 @@ import { readAssetUploads, recordAssetUpload, forgetAssetUpload } from "../stora
 import { toHex } from "./imgpack.mjs";
 import { snapshotKey, MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
 import { TERMINAL_ITEM_STATES, jobOutcome } from "../storage/journal.mjs";
-import { recipe, mergeForUpdate, recipeRows, updateInput } from "./recipes.mjs";
+import { recipe, mergeForUpdate, recipeRows, updateInput, rowName } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
 import { diffAsserted, deepEqualPayload } from "./validate.mjs";
 import { parseManifest, planOrder, toJournalSpecs } from "./manifest.mjs";
@@ -487,7 +491,7 @@ export class Runner {
       item = this.journal.get(jobId).items[item.idx];
       if (item.state === "CONFIRMED") await this._verifyOrSkip(jobId, item, planned, manifest);
     } catch (e) {
-      if (e instanceof Paused) throw e;
+      if (e instanceof Paused || e instanceof LeaseHeld) throw e;
       // A read refused as unauthenticated, raised from somewhere that has no auth dependency of
       // its own (today: the reconciler's pre-create snapshot). It can only come from a READ, so
       // the item is never SENT because of it and the ambiguity handling below does not apply.
@@ -584,9 +588,7 @@ export class Runner {
       const problems = this.validator.problems(item.entity, createData, null, { preCreate: true });
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
     }
-    const input = rc.create.input(createData);
-    this._requireAuth(rc.create.path, item.idx);
-    const decoded = await this.journal.withSent(jobId, item.idx, { phase: "create" }, () => this.client.call(rc.create.path, input));
+    const decoded = await this._send(jobId, item, { phase: "create" }, rc.create.path, rc.create.input(createData));
     const o = rc.createdId ? readCreatedId(rc, decoded) : readCreate(decoded);
     if (o.kind === "ok") {
       this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: o.id, phase: rc.oneStep ? "verify" : "update", ...(rc.oneStep ? { asserted: Object.keys(planned.data) } : {}) });
@@ -596,6 +598,38 @@ export class Runner {
       return;
     }
     this._failFromOutcome(jobId, item, o, "create");
+  }
+
+  /**
+   * Send ONE mutation, write-ahead (journal SENT before the request leaves). Every mutation goes
+   * through here, so the budget and the 429 rule cannot be skipped by one call site (review F1).
+   *
+   *   - A path the server rate-limits (dungeon.save composes ratelimitMiddleware) spends a budget
+   *     token first. The token is persisted before the send and a persisted trip refuses it, so
+   *     the per-minute allowance holds across items, jobs and restarts. A refusal here leaves the
+   *     item exactly as it was: nothing is SENT.
+   *   - A DECODED TOO_MANY_REQUESTS is a definite refusal: the middleware answered before the
+   *     resolver ran, so nothing was written, and the server has already docked 1% of money and
+   *     bank. The trip is persisted, the item fails with that refusal (it is never resent), and
+   *     the job pauses before any further write. This holds for every mutation path, limited or
+   *     not, and does not depend on `limited` for anything but the token: the transport still
+   *     sends a mutation as a POST.
+   */
+  async _send(jobId, item, patch, path, input) {
+    this._requireAuth(path, item.idx);
+    if (isLimited(path)) {
+      if (!this.budget) throw new Error(`${path} is rate-limited by the server and no budget is wired; nothing was sent`);
+      await this.budget.acquire(path, 1);
+      this._lease(jobId); // the wait can outlast the lease heartbeat: never send for a job another tab took
+    }
+    const decoded = await this.journal.withSent(jobId, item.idx, patch, () => this.client.call(path, input));
+    if (decoded && decoded.ok === false && decoded.error && decoded.error.code === "TOO_MANY_REQUESTS") {
+      let limited = null;
+      try { if (this.budget) this.budget.observe([decoded], [path]); } catch (e) { if (!(e instanceof RateLimited)) throw e; limited = e; }
+      this.journal.transition(jobId, item.idx, "FAILED", { error: `${patch.phase} TOO_MANY_REQUESTS: ${decoded.error.message} (refused before it applied; not resent)` });
+      throw new Paused("TOO_MANY_REQUESTS", { idx: item.idx, path, until: limited ? limited.until : null, detail: decoded.error.message });
+    }
+    return decoded;
   }
 
   async _fill(jobId, item, planned) {
@@ -624,16 +658,17 @@ export class Runner {
       }
       if (planned.expected && !deepEqualPayload(writableSnapshot(item.entity, live.data), planned.expected)) throw new Paused("STALE_PREVIEW", { idx: item.idx, detail: "record changed since preview; prepare a new job" });
     }
-    const problems = this.validator.problems(item.entity, data, live.data);
+    const problems = this.validator.problems(item.entity, data, live.data, { refreshPackages: planned.refreshPackages === true });
     if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
     const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
-    this._requireAuth(rc.update, item.idx);
-    const decoded = await this.journal.withSent(jobId, item.idx, { phase: "update" }, () => this.client.call(rc.update, updateInput(rc, id, payload)));
+    const decoded = await this._send(jobId, item, { phase: "update" }, rc.update, updateInput(rc, id, payload));
     const o = readMutation(decoded);
     await this.cache.invalidateRecord(rc.cacheEntity, id);
     if (o.kind === "ok") {
       const next = item.entity === "ai" && Array.isArray(planned.data.rules) ? "rules" : "verify";
-      this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id, phase: next, asserted: Object.keys(data) });
+      // a dungeon save re-copied these package snapshots from the catalog (refreshPackages)
+      const refreshed = item.entity === "dungeon" ? packageDrops(payload) : [];
+      this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id, phase: next, asserted: Object.keys(data), ...(refreshed.length ? { packagesRefreshed: refreshed } : {}) });
       if (isBloodrightEntity(item.entity)) this._remember(item.srcId, id);
       return;
     }
@@ -698,9 +733,8 @@ export class Runner {
       // The game's item form and review loader hold a missing store expiry as "", not null.
       if (item.entity === "item" && payload.expireFromStoreAt == null) payload.expireFromStoreAt = "";
       const s = this._suggestion(manifest, planned, jobId, item);
-      this._requireAuth("contentReview.create", item.idx);
-      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "suggest", entityId: id, suggestTitle: s.title },
-        () => this.client.call("contentReview.create", { entityType: REVIEW.entityTypes[item.entity], entityId: id, category: s.category, title: s.title, rationale: s.rationale, data: payload }));
+      const decoded = await this._send(jobId, item, { phase: "suggest", entityId: id, suggestTitle: s.title },
+        "contentReview.create", { entityType: REVIEW.entityTypes[item.entity], entityId: id, category: s.category, title: s.title, rationale: s.rationale, data: payload });
       const o = readMutation(decoded);
       if (o.kind !== "ok") {
         if (/nothing changed/i.test(o.message ?? "")) {
@@ -739,8 +773,7 @@ export class Runner {
     if (!live.ok || !live.data) throw new Error(`profile.getAi failed for ${userId}`);
     let apid = live.data.aiProfileId;
     if (!apid) {
-      this._requireAuth(rc.profileToggle, item.idx);
-      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "rules-toggle", entityId: userId }, () => this.client.call(rc.profileToggle, { aiId: userId }));
+      const decoded = await this._send(jobId, item, { phase: "rules-toggle", entityId: userId }, rc.profileToggle, { aiId: userId });
       const o = readMutation(decoded);
       if (o.kind !== "ok") { this._failFromOutcome(jobId, item, o, "toggle"); return; }
       this.journal.transition(jobId, item.idx, "CONFIRMED", { phase: "rules" });
@@ -753,8 +786,7 @@ export class Runner {
       apid = live.ok && live.data ? live.data.aiProfileId : null;
       if (!apid) throw new Error("no aiProfileId after toggle");
     }
-    this._requireAuth(rc.profileUpdate, item.idx);
-    const decoded = await this.journal.withSent(jobId, item.idx, { phase: "rules", entityId: userId, aiProfileId: apid }, () => this.client.call(rc.profileUpdate, { id: apid, rules, includeDefaultRules }));
+    const decoded = await this._send(jobId, item, { phase: "rules", entityId: userId, aiProfileId: apid }, rc.profileUpdate, { id: apid, rules, includeDefaultRules });
     const o = readMutation(decoded);
     await this.cache.invalidateEntity("ai");
     if (o.kind === "ok") { this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: userId, phase: "verify", aiProfileId: apid, assertedRules: true }); return; }
@@ -839,7 +871,7 @@ export class Runner {
       const rows = recipeRows(rc, r.data);
       const live = new Set();
       for (const row of rows) {
-        const v = row && (row[rc.nameKey] ?? row.name ?? row.username);
+        const v = row && (rowName(rc, row) ?? row.name ?? row.username);
         if (typeof v === "string") live.add(v.trim().toLowerCase());
       }
       for (const e of entries) {
