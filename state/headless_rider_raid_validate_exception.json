@@ -1,0 +1,31 @@
+{
+ "schema": "tnr.release_validate_exception",
+ "ruling": "RUL-2026-10-25-002",
+ "scope": "push/278 only, at exactly this manifest SHA-256; not a doctrine change and not a precedent",
+ "command": "cd skills/building-tnr-content/data && python3 ../scripts/validate.py ../../../push/278_headless_rider_raid.json",
+ "manifest": {
+  "path": "push/278_headless_rider_raid.json",
+  "sha256": "28afa2fda27c4705cd0bd9b5c2620cdd7af4c63caa646c35e226025fb8288ee8"
+ },
+ "validator": {
+  "validate.py": "94dcc248250415d607fb4da7104d1bc59576ba2f42c0d5758fe4645d4e29ae37",
+  "45d_DATA_entity_schemas.json": "71aae6108915890ab03ff3490f2cd1667f033e66407d1abab372bf3950183e4a",
+  "45g_DATA_checks.json": "3c51960d15adc733df31cff2ea60c21cb8a1ed3e9c571e9146905697e972c198"
+ },
+ "exitCode": 0,
+ "summary": "1 errors, 1 warnings",
+ "classes": [
+  {
+   "class": "stale_level_cap",
+   "evidence": "Law 8 caps maxLevel at 100; upstream MAX_PLAYER_LEVEL = 110 bounds it (TheNinjaRPG f381b7f/58801f9, app/src/validators/objectives.ts:905).",
+   "errors": 1,
+   "warnings": 0
+  },
+  {
+   "class": "raid_single_objective",
+   "evidence": "The raid validator requires exactly one objective, open_raid or exclusive_raid (objectives.ts questSuperRefine, questType raid), so a raid has no win_quest node by design; every live raid captured has this shape.",
+   "errors": 0,
+   "warnings": 1
+  }
+ ]
+}
