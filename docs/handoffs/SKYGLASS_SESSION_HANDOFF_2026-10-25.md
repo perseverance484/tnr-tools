@@ -1,0 +1,91 @@
+# Skyglass Wreck + treasure hunts + Crownhold: session handoff (2026-10-25)
+
+Read this first in the next session, then `CLAUDE.md`, `docs/00_INDEX.md` and `docs/RULINGS.md` (RUL-2026-10-24-* and
+RUL-2026-10-25-001 to -014 are this event). Live-game requests by Claude: 0. Credentials: none. The director runs every
+manifest; everything below is HIDDEN in game until the Discord approval thread clears ("once we have it we can switch
+hidden off").
+
+## 1. What exists live (all hidden)
+
+| Thing | Id | Notes |
+|---|---|---|
+| Skyglass Coffer | `THo7rfzP-S82_43aN8fs3` | weighted cache, pure Skyglass |
+| Tool Pouches: Katon / Wave / Ikazuchi / Stonefall / Zephyrfang | `D0gtI5dOgj2dFO4VexsLJ` / `ZZOrFciKSJazAtkW9nt_7` / `we2DtPSH2Q5quEvxj7xO2` / `hcvHkfcYHP6qBEO_dRFl6` / `z9U9wvJKDGtimll6BnTuL` | Foundry pick; Requisition pick |
+| Charts: Foundry / Archive / Watch / Buried Cache | `pY-0O5Gs2n89pf0kYb5J2` / `cRZT41zm5vhPTQwwn8vtv` / `aHFNuo5RkKpDcaOBLIKiu` / `nbLC37UzBamthKXvZsgQB` | pyramid entry items |
+| Lastlight Lantern | `jCJv4N3JSiihuqnK0jJ7t` | Crownhold entry item |
+| Sealed Treasury | `Ma8S90Nmbi0Xvm4u4FzJh` | 100,000 ryo + jewel roll; placeholder icon |
+| Archive Chart Case | `B48dTRsoLJGKBWIUbeUoG` | placeholder icon |
+| Medicine Inro (edited, 2 rolls) | `ixEKlJ0MmDrX7JoMNJVhi` | |
+| Sage's Strongbox (existing) | `h-d58UCSuHN8EZKbLjT5R` | |
+| Armory Requisition token / Special quest | `Fz1MU04kLIIM0EMXgouo6` / `3BYr-HMkOepywS77vJvJh` | untradeable; pick 1 of 5 pouches |
+| Unmarked Cargo | `KzITKJ5BUQRz5QuYWw-0B` | chest of chests, untradeable, placeholder icon |
+| Lastlight (jutsu) | `0F-68bxOXW_LkJnXV0lwT` | EVENT, PVE; statTypes Highest stored as None (server transform, harmless) |
+| Foundry Warden (AI) | `81lnIP-q97gItQYWl5vWD` | placeholder avatar |
+| The Drowned Foundry (pyramid) | `UGHSuhi83C3wRtH3FD4Eu` | |
+| The Quarantined Archive (pyramid) | `-bZ_ZoI6yrUJ_LKT9R5zm` | |
+| The Captain's Watch (pyramid) | `liljq0yVXWTSna4X6dZE1` | purse 100,000 ryo |
+| The Buried Cache (pyramid) | `CgwAVCyZLgNQtEnqgLxxv` | |
+| Crownhold: The Last Directive, Extermination Order, Countermand | `GHFMU_DDKvBBp5BEuTeah`, `EqZsaqser8c2-KpVCaXk_`, `W3lOjQhhIPUYPkIZmiNum` | Arakane's exclusives |
+| Crownhold: 20 AIs | `state/crownhold/ids.json` | Arakane `7QofodAiUwIoM-voiA2p6` has his real avatar |
+
+All four hunts: isolated battlepyramid, entry = chart, **a lost/drawn/fled fight fails the hunt** (RUL-2026-10-25-010;
+an isolated run keeps a loser at 1 HP with no recovery), endings pay the exp ladder + Sealed Treasury at step%.
+
+## 2. Staged, not yet run
+
+| Manifest | State | Blocker |
+|---|---|---|
+| `push/263_skyglass_wreck_dungeon.json` | READY (drops: Unmarked Cargo 10, Buried Cache chart 20, Foundry 12, Archive 6, Watch 6, Lantern 3, Treasury 3) | needs **Forge 0.9.1** (dungeon router is mounted at `coop.dungeon.*`; 0.9.0 calls `dungeon.*` and gets NOT_FOUND). Branch `fable/forge-dungeon-coop-path` was re-frozen for re-review by another session (head 59ae551, code 15ba0b9, budget raised to 436,000 / 105,500). Do not touch it; wait for review, merge, release, then run 263. Then hidden test: do 16 waves fit the hour. |
+| `push/273_crownhold_quest.json` | built, gates 0/0 | HOLD for the **Crownbreaker badge id**: the director creates the badge by hand (Forge has no badge recipe), the id goes in `state/crownhold/ids.json` as `badge:crownbreaker`, then `python3 push/crownhold.gen.py` rewrites 273. |
+
+Generators (never hand-edit outputs): `push/skyglass_hunts.gen.py` (hunts; `REGEN_265` / `REGEN_268` reproduce old
+outputs), `push/crownhold.gen.py` (Crownhold; `REGEN_271` / `REGEN_272`), `push/skyglass_mystery.gen.py` (274).
+Crownhold notes: `state/crownhold/README.md`; source check `state/crownhold/source_check_2026-10-25.md`.
+
+## 3. Art: the 79-image batch (in progress at #1)
+
+- Bible: `docs/handoffs/SKYGLASS_CROWNHOLD_ART_BATCH.md`, built by `state/skyglass_art/build_art_batch.py` (edit the
+  script, never the md; its `SHA` pins the reference links to a commit that contains every reference file).
+- Everything is **premium pixel art** (director). Painted references supply subject/colour only; Arakane's avatar (icons,
+  avatars) or the Captain's portrait (scenes) supply the pixel rendering. Order: 1-5 item icons and the Crownbreaker badge,
+  6 Lastlight jutsu icon, 7 Foundry Warden, 8-26 Crownhold enemies, 27-45 Crownhold scenes (one per room), 46-48 Arakane's
+  exclusives, 49-65 pixel redraws of the live painted icons, 66-79 one scene per Skyglass hunt location.
+- **Workflow that works:** the image session has NO network. For each image, send the director its reference files
+  (SendUserFile) plus one paste block built from the bible section: expected bytes / W x H / full SHA-256 per reference,
+  "abort if any check fails", and the fenced prompt verbatim. Extract the section with awk from the md; never retype
+  prompts or commit hashes from memory (this session mistyped two hashes).
+- **#1 Sealed Treasury:** the painted candidate is kept as the subject
+  (`art/skyglass_event_icons/raw/subject_sealed_treasury_painted_v1.webp`); the pixel version is pending. The last handoff
+  (bible @ `1e4ab8938d8211cf9a132f56d80829ff1114c022`) was sent; the session reports came from older handoffs.
+- **Intake:** `skills/producing-tnr-art/scripts/rawqc.py`, then `chroma.py --target <ICON|AI_AVATAR|JUTSU_ICON|...> --key
+  <lime|magenta>` with `TNR_ART_SPEC=skills/producing-tnr-art/data/25x_DATA_art_spec.json`; scenes are not keyed. Commit
+  under `art/skyglass_event_icons/` or `art/crownhold/`, then edit manifests to swap placeholders (items `image`, AI
+  `avatar`, quest node `sceneBackground` per the "Used by" lists in the bible).
+- Already pixel art, not redrawn: crew avatars, the four scene portraits (Captain, Crowned Captain, Oathkeeper,
+  Sealwright; Sealwright/Oathkeeper portraits exist, so the Archive's Sealwright portrait can go back in), the map structure.
+
+## 4. Open decisions (director)
+
+Wreck clear currency (set in game); Crownhold's Honor tokens (1,000 placeholder); hunt ranks/levels (A/B/S, no gate);
+pyramid lifetime cap 100 (engine max); the Crownhold enemy ×5/3 ladder is a launch value until the calibration fight.
+
+## 5. Gates and known traps
+
+- Every manifest: `validate.py --strict` from `skills/building-tnr-content/data` (`python3 ../scripts/validate.py --strict
+  <file>`) and `node tools/check_manifest.mjs <file>` from `forge/` (Node 24 at `/tmp/claude-0/n24b/...` may be gone; use
+  any Node 24). Never pipe a gate in a way that hides its exit code.
+- Stale validator rules (exceptions approved per manifest via `scripts/validate_exception.py` ledgers): `preferredStat`
+  (law 14), wound `statTypes` (L06), `clear` on items (L18). Fix branch `fable/validate-stale-rules` is in review; add L18
+  plus these unchecked gaps as a follow-up: quest `applyDebuffs` tags need `direction: "offence"`; `statTypes` "Highest"
+  is stored as "None".
+- Quest prose renders as HTML: use `<br>`, not blank lines. A dialog menu may not send two options to one node.
+  validate.py's build-order lint ignores explicit phases (list items before quests; Forge runs by `phase`).
+- Forge "The quota has been exceeded" = browser storage full; nothing is sent; clear finished jobs and re-run (dedupNames
+  stops duplicates).
+- AI stats: the server stores combat stats as the even spread × statsMultiplier (scaleEditedAi), so read-back "drift" on
+  offence/defence/generals is expected.
+
+## 6. Release (after thread approval)
+
+Retire the old Ghost Ship quests (Gather `6Ri-W5TtUrEMWpyYlnf_F`, Hunt `HckXVOf-qk6ESU9t5rxLh`; mechanism is the
+director's); one unhide manifest for every record in section 1 plus the dungeon and Crownhold quest.
