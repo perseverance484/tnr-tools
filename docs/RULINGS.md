@@ -3283,3 +3283,27 @@ have a test harness. Not just throw them in and see what happens. I want the beh
 closely"; targets chosen: "15-20 min", "Clearable, few wipes", "Level 100 Jonin, normal kit".
 
 **Canonical destination:** the dungeon encounter design doc (to be written) and the harness's target checks.
+
+## RUL-2026-10-26-007 — Skyglass Wreck in two versions: a level 40-60 run and the endgame run
+
+**Date:** 2026-10-26
+
+**Domain:** dungeon design; rewards
+
+**Status:** ACTIVE (structure). Both encounter designs are built and tuned in the offline harness (RUL-2026-10-26-006).
+
+**Ruling:**
+1. Two separate dungeon records. The engine has no level or rank gate on dungeons (validators/dungeon.ts content schema;
+   routers/dungeon.ts lobby create), so either version is open to anyone at the entrance; rewards carry the separation.
+2. **Easier version:** tuned for a party of level **40-60**; its own lower-level copies of the crew (enemy strength comes from
+   the AI's own level, with no party scaling); target clear **10-15 minutes**.
+3. **Endgame version:** the existing level-100 Skyglass Wreck (`RHqzYdY4EAQA9HwsBKWDS`), redesigned; target **15-20
+   minutes** (RUL-2026-10-26-006).
+4. **Loot split:** the easier version drops only the entry tier (Chart of the Buried Cache and Unmarked Cargo) at lower odds;
+   the endgame version keeps the full table (every chart, the Lastlight Lantern, the Sealed Treasury).
+5. Both: clearable with few wipes for their target party.
+
+**Evidence:** User, 2026-10-26: "We could do a lower level easier one, and a harder end game one"; choices: "Level 40-60",
+"Easy: entry tier only", "Easy 10-15, endgame 15-20".
+
+**Canonical destination:** the dungeon encounter design doc (to be written); the harness targets.
