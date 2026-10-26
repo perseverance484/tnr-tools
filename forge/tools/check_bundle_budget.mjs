@@ -62,7 +62,10 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // Dungeon recipe (Forge 0.9.0, 2026-10-23): base 412,173 / 98,680, measured 425,490 / 102,323 with
 // the recipe. Raised to 435,000 / 105,000 by the director (RUL-2026-10-23-007); trimming and
 // whitespace minification were offered and declined.
-export const BUDGET = { raw: 435_000, gzip: 105_000 };
+// Dungeon mount path (Forge 0.9.1, 2026-10-26): measured 435,145 / 105,126, over by 145 / 126, mostly
+// the two new source hashes in the bundled dungeon contract. Raised to 436,000 / 105,500 by the
+// director (RUL-2026-10-26-001); trimming the contract's _meta.sources was offered and declined.
+export const BUDGET = { raw: 436_000, gzip: 105_500 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

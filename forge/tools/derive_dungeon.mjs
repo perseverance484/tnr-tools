@@ -176,6 +176,69 @@ function procedureFacts(router, name) {
   return { kind: kinds[0], limited, mcp: /mcp:/.test(body), auth };
 }
 
+/**
+ * Every mount of the one `export const NAME = createTRPCRouter({ ... });` in a router file, as
+ * {key: {local, source}}, where `source` is the repository path the bound router is imported from.
+ * FAILS CLOSED on anything but a plain `key: importedIdentifier,` line - a spread, a computed or
+ * quoted key, shorthand, an inline router, a trailing comment - and on a duplicate key, a router
+ * bound under two keys, a binding with no single-line named import, a second createTRPCRouter( or
+ * a mergeRouters call: each of those can add, rename or override a mount this reader would not see.
+ */
+export function routerMounts(src, name, dir, where) {
+  const calls = src.split("createTRPCRouter(").length - 1;
+  if (calls !== 1) fail(`${where}: expected exactly one createTRPCRouter( call, found ${calls}`);
+  if (/mergeRouters/.test(src)) fail(`${where}: mergeRouters can add mounts this reader does not see`);
+  const imports = {};
+  for (const m of src.matchAll(/^import \{([^}]*)\} from "([^"]+)";$/gm)) {
+    for (const spec of m[1].split(",").map((x) => x.trim()).filter(Boolean)) {
+      if (spec.startsWith("type ")) continue;
+      const n = spec.match(/^(\w+)(?: as (\w+))?$/);
+      if (!n) fail(`${where}: unsupported import ${JSON.stringify(spec)}`);
+      const local = n[2] ?? n[1];
+      if (local in imports) fail(`${where}: ${local} is imported twice`);
+      imports[local] = m[2].startsWith("@/") ? "app/src/" + m[2].slice(2) : m[2].startsWith("./") ? `${dir}/${m[2].slice(2)}` : m[2];
+    }
+  }
+  const body = block(src, `export const ${name} = createTRPCRouter({`, "\n});");
+  const mounts = {}, keyOf = {};
+  for (const line of body.split("\n").slice(1)) {
+    const text = line.trim();
+    if (!text || text.startsWith("//")) continue;
+    const m = line.match(/^ {2}([A-Za-z_$][\w$]*): ([A-Za-z_$][\w$]*),$/);
+    if (!m) fail(`${where}: unsupported router member ${JSON.stringify(text)} (only "key: importedRouter," is read)`);
+    const [, key, local] = m;
+    if (key in mounts) fail(`${where}: duplicate key ${key}`);
+    if (local in keyOf) fail(`${where}: ${local} is mounted twice (${keyOf[local]}, ${key})`);
+    if (!(local in imports)) fail(`${where}: ${key}: ${local} is not a named import`);
+    keyOf[local] = key;
+    mounts[key] = { local, source: imports[local] };
+  }
+  return mounts;
+}
+
+/** The one key in `mounts` bound to the router imported from `source`, which must be named `local`. */
+function mountOf(mounts, source, local, where) {
+  const keys = Object.keys(mounts).filter((k) => mounts[k].source === source);
+  if (keys.length !== 1) fail(`${where}: expected exactly one mount of ${source}, found ${keys.length}`);
+  if (mounts[keys[0]].local !== local) fail(`${where}: ${source} is mounted as ${mounts[keys[0]].local}, not ${local}`);
+  return keys[0];
+}
+
+/** root.ts -> coop.ts -> dungeon.ts, each link validated, as the dotted tRPC path prefix. */
+function mountChain(apiRoot, coop, dungeon) {
+  const root = routerMounts(apiRoot, "appRouter", "app/src/server/api", "root.ts");
+  const coopKey = mountOf(root, "app/src/server/api/routers/coop", "coopRouter", "root.ts");
+  if (Object.values(root).some((m) => m.source === "app/src/server/api/routers/dungeon") || /dungeonRouter/.test(apiRoot)) {
+    fail("root.ts: dungeonRouter is referenced in root.ts: the mount chain changed");
+  }
+  const inner = routerMounts(coop, "coopRouter", "app/src/server/api/routers", "coop.ts");
+  const dungeonKey = mountOf(inner, "app/src/server/api/routers/dungeon", "dungeonRouter", "coop.ts");
+  if (dungeon.split("createTRPCRouter(").length !== 2 || !/^export const dungeonRouter = createTRPCRouter\(\{$/m.test(dungeon)) {
+    fail("dungeon.ts: expected exactly one export const dungeonRouter = createTRPCRouter({");
+  }
+  return `${coopKey}.${dungeonKey}`;
+}
+
 export function derive(root) {
   const read = (p) => readFileSync(`${root}/${p}`, "utf8");
   const validator = read(FILES.validator);
@@ -261,17 +324,9 @@ export function derive(root) {
 
   // The tRPC path is the router's mount chain, not its file name: root.ts mounts coopRouter at
   // `coop`, and coop.ts mounts dungeonRouter at `dungeon`, so the procedures are coop.dungeon.*.
-  // Forge 0.9.0 called "dungeon.getAll" and the server answered NOT_FOUND (2026-10-25). Each link
-  // must appear exactly once, and dungeonRouter must not also be mounted at the root.
-  const apiRoot = readFileSync(`${root}/${FILES.apiRoot}`, "utf8");
-  const coopRouter = readFileSync(`${root}/${FILES.coopRouter}`, "utf8");
-  const once = (s, re, what) => { const all = [...s.matchAll(new RegExp(re.source, re.flags.includes("g") ? re.flags : re.flags + "g"))]; if (all.length !== 1) fail(`${what}: expected exactly one, found ${all.length}`); };
-  once(apiRoot, /^import \{ coopRouter \} from "\.\/routers\/coop";$/m, "root import of coopRouter");
-  once(apiRoot, /^  coop: coopRouter,$/m, "root mount coop: coopRouter");
-  if (/dungeonRouter/.test(apiRoot)) fail("dungeonRouter is referenced in root.ts: the mount chain changed");
-  once(coopRouter, /^import \{ dungeonRouter \} from "@\/server\/api\/routers\/dungeon";$/m, "coop import of dungeonRouter");
-  once(coopRouter, /^  dungeon: dungeonRouter,$/m, "coop mount dungeon: dungeonRouter");
-  const MOUNT = "coop.dungeon";
+  // Forge 0.9.0 called "dungeon.getAll" and the server answered NOT_FOUND (2026-10-25). The path is
+  // DERIVED from both router objects, each read whole by routerMounts() (review C1, 2026-10-26).
+  const MOUNT = mountChain(read(FILES.apiRoot), read(FILES.coopRouter), router);
 
   const procedures = {};
   for (const name of ["getAll", "save"]) procedures[`${MOUNT}.${name}`] = procedureFacts(router, name);
@@ -280,7 +335,7 @@ export function derive(root) {
   return {
     _meta: {
       pin: PIN,
-      scope: "Dungeon definitions only (coop.dungeon.save / coop.dungeon.getAll); lobby, run and claim procedures are out of scope",
+      scope: `Dungeon definitions only (${MOUNT}.save / ${MOUNT}.getAll); lobby, run and claim procedures are out of scope`,
       sources: Object.fromEntries(files.map((p) => [p, createHash("sha256").update(readFileSync(`${root}/${p}`)).digest("hex")])),
     },
     contentFields: Object.keys(content), rewardFields: Object.keys(rewards), dropFields: Object.keys(drop),

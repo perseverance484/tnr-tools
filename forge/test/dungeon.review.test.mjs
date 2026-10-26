@@ -412,6 +412,15 @@ function sourceCopy() {
   return dir;
 }
 
+const ROOT_TS = "app/src/server/api/root.ts", COOP_TS = "app/src/server/api/routers/coop.ts";
+/** A copy of the pinned sources with one exact, present-at-the-pin replacement in `file`. */
+function mutated(file, from, to) {
+  const dir = sourceCopy(), p = join(dir, file), s = readFileSync(p, "utf8");
+  assert.equal(s.split(from).length, 2, `${JSON.stringify(from)} occurs exactly once in ${file} at the pin`);
+  writeFileSync(p, s.replace(from, to));
+  return dir;
+}
+
 test("N1: an unmodified copy of the pinned sources derives exactly the committed contract", { skip: SKIP }, () => {
   assert.equal(JSON.stringify(derive(sourceCopy()), null, 2) + "\n", readFileSync(new URL("../src/dungeon/contract.json", import.meta.url), "utf8"));
 });
@@ -436,23 +445,50 @@ test("N1: the extractor refuses rebound bounds, spreads, computed keys and an un
   }
 });
 
-test("procedure paths follow the router mount chain (coop.dungeon.*), and a moved mount stops the extractor", { skip: SKIP }, () => {
+test("procedure paths follow the router mount chain (coop.dungeon.*), derived from both router objects", { skip: SKIP }, () => {
   // Forge 0.9.0 called "dungeon.getAll"; the server answered NOT_FOUND because root.ts mounts
   // coopRouter at `coop` and coop.ts mounts dungeonRouter at `dungeon` (2026-10-25, push/263).
   assert.deepEqual(Object.keys(CONTRACT.procedures), ["coop.dungeon.getAll", "coop.dungeon.save"]);
-  const root = "app/src/server/api/root.ts", coop = "app/src/server/api/routers/coop.ts";
-  assert.ok(SOURCES.includes(root) && SOURCES.includes(coop), "both mount files are pinned sources");
-  const cases = [
-    ["coop remounted", root, "  coop: coopRouter,", "  party: coopRouter,", /root mount coop: coopRouter/],
-    ["dungeon remounted", coop, "  dungeon: dungeonRouter,", "  dungeons: dungeonRouter,", /coop mount dungeon: dungeonRouter/],
-    ["dungeon also mounted at the root", root, "  coop: coopRouter,", "  coop: coopRouter,\n  dungeon: dungeonRouter,", /dungeonRouter is referenced in root\.ts/],
-  ];
-  for (const [label, file, from, to, expected] of cases) {
-    const dir = sourceCopy(), p = join(dir, file), s = readFileSync(p, "utf8");
-    assert.ok(s.includes(from), `${label}: pattern present at the pin`);
-    writeFileSync(p, s.replace(from, to));
-    assert.throws(() => derive(dir), expected, label);
+  assert.ok(SOURCES.includes(ROOT_TS) && SOURCES.includes(COOP_TS), "both mount files are pinned sources");
+  // The path is derived, not asserted: a renamed link changes the derived path (and so fails
+  // derive_dungeon.mjs --check against the committed contract) instead of being matched by text.
+  for (const [file, from, to, path] of [
+    [ROOT_TS, "  coop: coopRouter,", "  party: coopRouter,", "party.dungeon"],
+    [COOP_TS, "  dungeon: dungeonRouter,", "  dungeons: dungeonRouter,", "coop.dungeons"],
+  ]) {
+    const dir = mutated(file, from, to);
+    assert.deepEqual(Object.keys(derive(dir).procedures), [`${path}.getAll`, `${path}.save`], to);
   }
+});
+
+test("review C1: the mount extractor refuses additional, duplicate, spread, computed and other unsupported bindings", { skip: SKIP }, () => {
+  const R = "  coop: coopRouter,", C = "  dungeon: dungeonRouter,";
+  const cases = [
+    ["additional root alias", ROOT_TS, R, `${R}\n  party: coopRouter,`, /root\.ts: coopRouter is mounted twice \(coop, party\)/],
+    ["additional coop alias", COOP_TS, C, `${C}\n  dungeons: dungeonRouter,`, /coop\.ts: dungeonRouter is mounted twice \(dungeon, dungeons\)/],
+    ["identical duplicate root line", ROOT_TS, R, `${R}\n${R}`, /root\.ts: duplicate key coop/],
+    ["duplicate root key, other router", ROOT_TS, R, `${R}\n  coop: questsRouter,`, /root\.ts: duplicate key coop/],
+    ["identical duplicate coop line", COOP_TS, C, `${C}\n${C}`, /coop\.ts: duplicate key dungeon/],
+    ["root spread after the mount", ROOT_TS, R, `${R}\n  ...overrides,`, /root\.ts: unsupported router member "\.\.\.overrides,"/],
+    ["coop spread after the mount", COOP_TS, C, `${C}\n  ...{ dungeon: otherRouter },`, /coop\.ts: unsupported router member/],
+    ["root computed member", ROOT_TS, R, '  ["coop"]: coopRouter,', /root\.ts: unsupported router member/],
+    ["coop computed member", COOP_TS, C, "  [DUNGEON]: dungeonRouter,", /coop\.ts: unsupported router member/],
+    ["quoted key", COOP_TS, C, '  "dungeon": dungeonRouter,', /coop\.ts: unsupported router member/],
+    ["shorthand member", COOP_TS, C, "  dungeonRouter,", /coop\.ts: unsupported router member/],
+    ["trailing comment", ROOT_TS, R, `${R} // co-op`, /root\.ts: unsupported router member/],
+    ["inline router", ROOT_TS, R, "  coop: createTRPCRouter({ dungeon: dungeonRouter }),", /root\.ts: expected exactly one createTRPCRouter\( call, found 2/],
+    ["second router in coop.ts", COOP_TS, "export const coopRouter", "export const otherRouter = createTRPCRouter({});\nexport const coopRouter", /coop\.ts: expected exactly one createTRPCRouter\( call, found 2/],
+    ["mergeRouters", ROOT_TS, "export const appRouter", "const merged = mergeRouters();\nexport const appRouter", /root\.ts: mergeRouters/],
+    ["binding with no import", ROOT_TS, R, "  coop: localCoopRouter,", /root\.ts: coop: localCoopRouter is not a named import/],
+    ["aliased import", ROOT_TS, 'import { coopRouter } from "./routers/coop";', 'import { coopRouter as party } from "./routers/coop";', /root\.ts: coop: coopRouter is not a named import/],
+    ["coop router renamed in its import", ROOT_TS, "  coop: coopRouter,", "  coop: partyRouter,", /root\.ts: coop: partyRouter is not a named import/],
+    ["coop mount removed", ROOT_TS, `${R}\n`, "", /root\.ts: expected exactly one mount of app\/src\/server\/api\/routers\/coop, found 0/],
+    ["dungeon router imported from elsewhere", COOP_TS, 'from "@/server/api/routers/dungeon"', 'from "@/server/api/routers/dungeonV2"', /coop\.ts: expected exactly one mount of app\/src\/server\/api\/routers\/dungeon, found 0/],
+    ["dungeon also mounted at the root", ROOT_TS, R, `${R}\n  dungeon: dungeonRouter,`, /root\.ts: (dungeon: dungeonRouter is not a named import|dungeonRouter is referenced in root\.ts)/],
+    ["dungeonRouter imported at the root", ROOT_TS, 'import { coopRouter } from "./routers/coop";', 'import { coopRouter } from "./routers/coop";\nimport { dungeonRouter } from "./routers/dungeon";', /dungeonRouter is referenced in root\.ts/],
+    ["dungeon.ts exports a different router", "app/src/server/api/routers/dungeon.ts", "export const dungeonRouter = createTRPCRouter({", "export const dungeonRouterV2 = createTRPCRouter({", /dungeon\.ts: expected exactly one export const dungeonRouter/],
+  ];
+  for (const [label, file, from, to, expected] of cases) assert.throws(() => derive(mutated(file, from, to)), expected, label);
 });
 
 test("N1: the CLI keeps its exact-pin and dirty-file guards", { skip: SKIP }, () => {
