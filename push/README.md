@@ -769,17 +769,17 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
-## 254 Skyglass event items (10 creates, hidden): ON HOLD - to go in as suggestions once Forge suggest-mode creates ship (RUL-2026-10-25-001); contents changed by RUL-2026-10-25-002 (pure-Skyglass Coffer, pouches lose Chakra Disrupting Needles; Footlocker and Chart Case to add); regenerate before running
+## 260 Skyglass event items (12 creates, HIDDEN): READY TO RUN
 
-`254_skyglass_items_create.json`: Skyglass Coffer (weighted cache: Common 70 jewels/gold/unobtanium, Rare 24 Serum x5 /
-Filament x3, Epic 5 Crown Fragment, Legendary 1 Katana or Crystal); Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Tool
-Pouches (that element's kunai x10 every opening + one weighted roll: Common 70 / Rare 25 / Epic 5); Chart of the Drowned
-Foundry, Chart of the Quarantined Archive, Chart of the Captain's Watch (maps of the wreck's own interior,
-RUL-2026-10-24-026) and Skyglass Signal Beacon (OTHER, tradable, no effect; Battle Pyramid entry items later). All hidden.
-**Final icons** from `art/skyglass_event_icons/exports/`, image pack pinned at `c371a8c`. Rarities and descriptions are
-drafts. If the Skyglass Crystal (`Cmo3JU-D9Nl_-xUxrvEJN`, push/90 CONFIRMED not VERIFIED) is missing, the Coffer save is
-refused and reported; the rest still run. The Armory Requisition (icon ready) waits for its Special quest.
-Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+`260_skyglass_items_create.json` (supersedes push/254; the suggestion route is shelved, director 2026-10-25: "Forget
+suggestions for now ... let's do the hidden push of everything"). Creates, all hidden: Skyglass Coffer (pure Skyglass:
+Filament x2 69 / Serum x3 24 / Crown Fragment 5 / Katana 2); the five Tool Pouches (element kunai x10 + one roll, no
+Chakra Disrupting Needles); Chart of the Drowned Foundry, Chart of the Quarantined Archive, Chart of the Captain's Watch
+and the Lastlight Lantern (OTHER, tradable, no effect); Sealed Treasury (100,000 ryo every opening + Rare Jewels x10 /
+Imperial Gold x5 / Unobtanium x5 at 70/24/6); Archive Chart Case (one chart: Foundry 60 / Archive 25 / Watch 12 /
+Lantern 3; phase 2, it references the charts by srcId). Final icons from pack `c371a8c`; **Sealed Treasury and Archive
+Chart Case carry placeholder images** (Ornate Chest, 2nd Map piece) until their art exists. Rarities and descriptions are
+drafts. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
 ## 253 Skyglass caches convert (2 item edits, SUGGEST MODE): RUN (bundle tnr_results_1792971410207.json), archived
 
