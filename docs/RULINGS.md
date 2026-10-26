@@ -3092,19 +3092,19 @@ table once the chart's id exists.
 
 **Domain:** rewards; loot tables
 
-**Status:** ACTIVE (contents and weights). The chest's name is open; the 10% Wreck line is the proposal the director
-adjusted without changing.
+**Status:** ACTIVE. The 10% Wreck line is the proposal the director adjusted without changing.
 
 **Ruling:**
 1. A new chest (replacing the retired Mystery Chest's role; the old item stays a relic) is a weighted cache with **one
    roll**: Common **50** Medicine Inro; Rare **30** Sage's Strongbox or Armory Requisition; Epic **15** Skyglass Coffer or
-   Archive Chart Case; Legendary **5** Sealed Treasury. Tradable. It drops from Wreck clears (10% line).
+   Archive Chart Case; Legendary **5** Sealed Treasury. Named **Unmarked Cargo**; **not tradable**. It drops from Wreck clears (10% line).
 2. The **Armory Requisition** returns here (it was shelved with the 2026-10-25 reward restructure) so players can still
-   pick their Tool Pouch: a tradable token whose use starts a one-node Special quest ending in a pick of 1 of the five
+   pick their Tool Pouch: an untradeable token whose use starts a one-node Special quest ending in a pick of 1 of the five
    Tool Pouches.
 
 **Evidence:** User, 2026-10-25, on the chest-of-chests proposal: "This is where the requisition token goes, so the players
 can still pick their tool pouch. Adjustment: Medicine Inro, common, 50 / Sage's Strongbox + Requisition Token, rare, 30
-/ Skyglass Coffer + Archive Chart Case, epic, 15 / Sealed Treasury, legendary 5. Need a better name for it".
+/ Skyglass Coffer + Archive Chart Case, epic, 15 / Sealed Treasury, legendary 5. Need a better name for it"; then "Not
+tradeable on the token or chest. Unmarked Cargo it is".
 
 **Canonical destination:** `push/skyglass_mystery.gen.py` (push/274); `docs/design/SKYGLASS_LOOT_TABLES.md`.

@@ -18,7 +18,7 @@
 
 ## 2. Wreck clear (each member)
 
-Currency package (director, in game). Independent drops: the chest of chests **10%** (RUL-2026-10-25-014; one roll: Common 50 Medicine Inro / Rare 30 Sage's Strongbox or Armory Requisition / Epic 15 Skyglass Coffer or Archive Chart Case / Legendary 5 Sealed Treasury; name open), Chart of the Buried Cache **20%** (RUL-2026-10-25-012), Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Lastlight Lantern **3%**, Sealed Treasury **3%** (ruled).
+Currency package (director, in game). Independent drops: the chest of chests **10%** (RUL-2026-10-25-014; one roll: Common 50 Medicine Inro / Rare 30 Sage's Strongbox or Armory Requisition / Epic 15 Skyglass Coffer or Archive Chart Case / Legendary 5 Sealed Treasury; **Unmarked Cargo**, untradeable), Chart of the Buried Cache **20%** (RUL-2026-10-25-012), Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Lastlight Lantern **3%**, Sealed Treasury **3%** (ruled).
 
 ## 3. Caches (weighted, one roll each)
 
@@ -83,4 +83,4 @@ The Sealwright's doubled health (push/252) applies to the Archive's final fight 
 - Reward packages are built in the game's catalog editor until Forge has a package recipe.
 - Closed (RUL-2026-10-24-024): the Skyglass Reliquary, the Mystery Chest and the other old Ghost Ship chests are retired relics; their contents, including the Mystery Chest's Reliquary line, are left as they are.
 
-**Armory Requisition** (RUL-2026-10-25-014): tradable token; using it starts a one-node Special quest whose pick is 1 of the five Tool Pouches. Source: the Wreck's chest of chests (Rare tier).
+**Armory Requisition** (RUL-2026-10-25-014): untradeable token; using it starts a one-node Special quest whose pick is 1 of the five Tool Pouches. Source: the Wreck's chest of chests (Rare tier).
