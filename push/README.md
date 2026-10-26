@@ -769,6 +769,16 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
+## 261 Lastlight jutsu (1 create, HIDDEN): BLOCKED on a validate.py lint (see below)
+
+`261_lastlight_jutsu_create.json`: the Crownhold jutsu, hidden (RUL-2026-10-25-006). EVENT, PVE only, no element,
+AOE_LINE_SHOOT range 5, cooldown 8, Jonin; damage 40 (formula) / wound 20 for 2 rounds / decreaseheal 30 for 3 rounds,
+all +0.4 per level. Costs as the live EVENT Jonin jutsu Drops of Renewal (500/500, -10 per level). Placeholders: the
+Lastlight Lantern icon, and KGK: Black Fang Lance's line-strike animation and sound. `check_manifest.mjs` 0 pre-send
+problems. **`validate.py --strict` fails on one stale lint:** L06 demands `statTypes` on `wound`, but the game's
+`WoundTag` (validators/combat.ts) has no `statTypes` and the server drops it; with `statTypes` the Forge pre-send check
+refuses the manifest instead. Needs either a director exception for this manifest or the Lane A lint fix.
+
 ## 260 Skyglass event items (12 creates, HIDDEN): READY TO RUN
 
 `260_skyglass_items_create.json` (supersedes push/254; the suggestion route is shelved, director 2026-10-25: "Forget
