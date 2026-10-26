@@ -145,7 +145,7 @@ SCENES=[
  ("Outer ring and shrine","scene_bg_crownhold_outer_ring.webp","The curved night-watch corridor of the Sanctum's outer ring, the last command shrine glowing in a wall niche, a sealed door ahead, a narrow drainage channel under an iron grate in the floor. (Used by: the Last Watch, Division IV command node, puzzle, protocols.)"),
  ("Throne room","scene_bg_crownhold_throne_room.webp","An obsidian throne room lit by ember light, a tall summit window looking out over a whole mountain range at night, an empty command seat; seven faint blade-shaped cyan glints hang in the dark above it (the commander is not shown). (Used by: Supreme Commander Arakane.)"),
 ]
-SHRINE_NOTE="The quest text still calls this place a terminal (renaming it is a content decision); the art draws an Edo command shrine."
+SHRINE_NOTE=""  # RUL-2026-10-26-004: the quest text now says command shrine too
 for title,fname,brief in SCENES:
     add(n,"Scene: "+title,"SCENE_BACKGROUND","none",fname,[("COLOUR AND LIGHTING only (it is painted: do not copy its rendering)","gallery"),("PIXEL STYLE: rendering only, not the character","captain_portrait")],
         brief,SCENE_STYLE,note=SHRINE_NOTE if "shrine" in title.lower() and "stone shrine" not in title.lower() else ""); n+=1
@@ -154,7 +154,7 @@ add(n,"The Last Directive (jutsu icon)","JUTSU_ICON","none","icon-jutsu-the-last
 add(n,"Extermination Order (jutsu icon)","JUTSU_ICON","none","icon-jutsu-extermination-order.webp",[("STYLE: jutsu icon register","bbe")]+([("MOTIF: the Command Crown","arakane_v2")] if ARAKANE_READY else []),
  "Extermination Order: a killing command. The Command Crown's seven skyglass blades flying in from the edges and converging on one point, where a sealed elemental sigil cracks apart. No gold, no strings or threads.",JUTSU_STYLE,note=CROWN_GATE); n+=1
 add(n,"Countermand (item icon)","ICON","lime","icon-countermand.webp",([("SUBJECT: the seal tablet at Arakane's belt","arakane_v2")] if ARAKANE_READY else [])+[(BLK["reference_object"],"seal_charge")],
- "Countermand: Crownhold's command seal. A rectangular blackwood tablet framed in blackened iron, hanging on a short chain, its face carved with one simple geometric seal and set with a small faceted pale cyan seal stone. No gold.",ICON_STYLE,note=CROWN_GATE); n+=1
+ "Countermand: Crownhold's command seal. A rectangular blackwood tablet framed in blackened iron, hanging on a short chain, its face carved with the Skyglass emblem, a four-point star in a diamond, and set with a small faceted pale cyan seal stone. No gold.",ICON_STYLE,note=CROWN_GATE); n+=1
 
 REDRAW=[("Skyglass Coffer","icon-skyglass-coffer.webp"),("Katon Tool Pouch","icon-tool-pouch-katon.webp"),
  ("Wave Tool Pouch","icon-tool-pouch-wave.webp"),("Ikazuchi Tool Pouch","icon-tool-pouch-ikazuchi.webp"),

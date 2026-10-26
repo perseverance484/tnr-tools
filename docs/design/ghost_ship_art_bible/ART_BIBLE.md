@@ -70,7 +70,8 @@ decorative harnessing.
 
 ## 5. Motifs
 
-- **The Skyglass emblem:** a four-point star in a diamond or circle on banners, chests, vials. A mark, never text.
+- **The Skyglass emblem, the one seal** (RUL-2026-10-26-004): a four-point star in a diamond or circle. Ship and castle
+  share it: banners, chests, vials, the Countermand tablet, the Sealbearer's tablet. A mark, never text; no other seal.
 - **Skyglass:** a faceted pale cyan crystal object; never a body, skin, vein or cloud.
 - **Moon over black water**, wet planks reflecting cyan, tall indigo banners, skyglass lanterns, paper tags, rope
   lashings, tattered hems, salt and weather.
@@ -142,7 +143,7 @@ with tatami and shoji, armouries of racked weapons, archives of scroll shelves a
 halls, a recall chamber, signal towers with bells, cords and taiko drums, a war-council hall, carved command shrines, the
 summit keep. Night or dusk, cold blue fill, skyglass lanterns as focal light. Wide 3:2, eye level, lower thirds readable,
 no people. v0.4 rewrote the seven futuristic Crownhold briefs and the industrial wording in three hunt scenes; locations,
-story beats, files and node ids are unchanged. The quest text still says "terminal" (section 13).
+story beats, files and node ids are unchanged. The quest text says "command shrine" too (RUL-2026-10-26-004).
 
 ## 8. Item icons
 
@@ -215,9 +216,8 @@ Kept: item icons #1-#4.
 ## 13. Open questions and contract issues
 
 1. **Division materials (PROPOSED):** accept the four division material shades in place of per-character accents?
-2. **Seal:** one mark for ship and castle (the Skyglass four-point star), or a separate Crownhold seal? Briefs say "one
-   simple geometric seal" until decided.
-3. **"Terminal" in the quest text:** the art draws command shrines; renaming the quest text is a content decision.
+2. ~~Seal~~ **Decided** (RUL-2026-10-26-004): one shared seal, the Skyglass emblem.
+3. ~~"Terminal" in the quest text~~ **Decided** (RUL-2026-10-26-004): command shrine, renamed in push/273 on main.
 4. **Chroma key contract:** `25x_DATA_art_spec.json` declares **lime** for `AI_AVATAR`; this batch has generated and keyed
    every avatar on **magenta** (`blocks.json` `key_avatar`, `chroma.py --key magenta`). Resolve in the spec's owner before
    more processing; not changed here.
