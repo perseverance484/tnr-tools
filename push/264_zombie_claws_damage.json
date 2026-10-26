@@ -1,0 +1,43 @@
+{
+ "_note": "Zombie Claws (mMl6P4B7v6-_CyDo3HVG7), the Zombie Villager's only item (nqL-uL-Z_7I0iuowlpBDx). push/262 (tnr_results_1793033093598) shows it with effects [] (no damage), range 0 (own tile only, so it can never reach a target) and an empty battleDescription (required non-empty). This edit gives it one damage effect (power 30, the light-weapon anchor, Taijutsu, Strength/Speed), range 1 (adjacent) and a battle line. Everything else on the item stays as captured (fetch-merge). No new moves; the zombie keeps default rules.",
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "mMl6P4B7v6-_CyDo3HVG7",
+   "name": "Zombie Claws: deal damage",
+   "data": {
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 30,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "formula",
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "statTypes": [
+       "Taijutsu"
+      ],
+      "generalTypes": [
+       "Strength",
+       "Speed"
+      ]
+     }
+    ],
+    "range": 1,
+    "battleDescription": "%user rakes %target with rotting claws."
+   }
+  }
+ ]
+}
