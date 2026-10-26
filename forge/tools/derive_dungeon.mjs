@@ -177,41 +177,109 @@ function procedureFacts(router, name) {
 }
 
 /**
- * Every mount of the one `export const NAME = createTRPCRouter({ ... });` in a router file, as
- * {key: {local, source}}, where `source` is the repository path the bound router is imported from.
- * FAILS CLOSED on anything but a plain `key: importedIdentifier,` line - a spread, a computed or
- * quoted key, shorthand, an inline router, a trailing comment - and on a duplicate key, a router
- * bound under two keys, a binding with no single-line named import, a second createTRPCRouter( or
- * a mergeRouters call: each of those can add, rename or override a mount this reader would not see.
+ * `src` with `//` and block comments removed; string literals are kept as written. A comment opener
+ * inside a regular-expression literal would be misread, but the text left in front of it can never
+ * form a statement routerFile() accepts, so a misread fails closed rather than hiding code.
  */
-export function routerMounts(src, name, dir, where) {
-  const calls = src.split("createTRPCRouter(").length - 1;
-  if (calls !== 1) fail(`${where}: expected exactly one createTRPCRouter( call, found ${calls}`);
-  if (/mergeRouters/.test(src)) fail(`${where}: mergeRouters can add mounts this reader does not see`);
-  const imports = {};
-  for (const m of src.matchAll(/^import \{([^}]*)\} from "([^"]+)";$/gm)) {
-    for (const spec of m[1].split(",").map((x) => x.trim()).filter(Boolean)) {
-      if (spec.startsWith("type ")) continue;
-      const n = spec.match(/^(\w+)(?: as (\w+))?$/);
-      if (!n) fail(`${where}: unsupported import ${JSON.stringify(spec)}`);
-      const local = n[2] ?? n[1];
-      if (local in imports) fail(`${where}: ${local} is imported twice`);
-      imports[local] = m[2].startsWith("@/") ? "app/src/" + m[2].slice(2) : m[2].startsWith("./") ? `${dir}/${m[2].slice(2)}` : m[2];
+export function stripComments(src) {
+  let out = "", i = 0, quote = null;
+  while (i < src.length) {
+    const c = src[i], d = src[i + 1];
+    if (quote) {
+      if (c === "\\") { out += c + (d ?? ""); i += 2; continue; }
+      if (c === quote) quote = null;
+      out += c; i++; continue;
     }
+    if (c === '"' || c === "'" || c === "`") { quote = c; out += c; i++; continue; }
+    if (c === "/" && d === "/") { while (i < src.length && src[i] !== "\n") i++; continue; }
+    if (c === "/" && d === "*") {
+      const end = src.indexOf("*/", i + 2);
+      if (end < 0) fail("unterminated block comment");
+      out += " "; i = end + 2; continue;
+    }
+    out += c; i++;
   }
-  const body = block(src, `export const ${name} = createTRPCRouter({`, "\n});");
-  const mounts = {}, keyOf = {};
-  for (const line of body.split("\n").slice(1)) {
-    const text = line.trim();
-    if (!text || text.startsWith("//")) continue;
-    const m = line.match(/^ {2}([A-Za-z_$][\w$]*): ([A-Za-z_$][\w$]*),$/);
-    if (!m) fail(`${where}: unsupported router member ${JSON.stringify(text)} (only "key: importedRouter," is read)`);
-    const [, key, local] = m;
-    if (key in mounts) fail(`${where}: duplicate key ${key}`);
-    if (local in keyOf) fail(`${where}: ${local} is mounted twice (${keyOf[local]}, ${key})`);
-    if (!(local in imports)) fail(`${where}: ${key}: ${local} is not a named import`);
-    keyOf[local] = key;
-    mounts[key] = { local, source: imports[local] };
+  if (quote) fail("unterminated string literal");
+  return out;
+}
+
+/**
+ * A regex for one exact statement: the same tokens in the same order, with any whitespace between
+ * punctuation and at least one space between two words. Nothing else may differ.
+ */
+function statement(text) {
+  const toks = text.match(/[\w$]+|\S/g);
+  const word = (c) => /[\w$]/.test(c);
+  return new RegExp("^" + toks.map((t, i) => (i === 0 ? "" : word(toks[i - 1].at(-1)) && word(t[0]) ? "\\s+" : "\\s*")
+    + t.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&")).join(""));
+}
+
+// The read-only statements root.ts carries after appRouter at the pin, accepted verbatim (modulo
+// whitespace and comments). Anything else after the literal - a delete, an Object.assign, any other
+// statement that could add, remove or rebind a procedure - is refused (review C2, 2026-10-26).
+const ROOT_READ_ONLY = [
+  `export const CDN_CACHED_QUERY_PATHS: readonly string[] = Object.entries(
+  appRouter._def.procedures,
+)
+  .filter(([, procedure]) => {
+    const def = (procedure as { _def?: { type?: string; meta?: ProcedureMeta } })._def;
+    return def?.type === "query" && def.meta?.cdnCached === true;
+  })
+  .map(([path]) => path);`,
+  "export type AppRouter = typeof appRouter;",
+].map(statement);
+
+/**
+ * Read a whole router file under a deliberately narrow grammar. Once comments are stripped, the file
+ * may hold only:
+ *   import { A, B, type C } from "path";        plain named imports: no alias, default or namespace
+ *   export const NAME = createTRPCRouter({ key: importedRouter, ... });   exactly once
+ *   one of `readOnly`, verbatim
+ * Each mount must be `key: identifier` with that identifier a plain named import, so the local name
+ * IS the exported symbol of the imported module. Returns {key: {local, source}}. FAILS CLOSED on
+ * any other statement, a spread, computed, quoted or shorthand key, a duplicate key, one router
+ * bound under two keys, a second createTRPCRouter( and mergeRouters.
+ */
+export function routerMounts(src, name, dir, where, readOnly = []) {
+  const code = stripComments(src);
+  const calls = code.split("createTRPCRouter(").length - 1;
+  if (calls !== 1) fail(`${where}: expected exactly one createTRPCRouter( call, found ${calls}`);
+  if (/mergeRouters/.test(code)) fail(`${where}: mergeRouters can add mounts this reader does not see`);
+  const resolve = (p) => (p.startsWith("@/") ? "app/src/" + p.slice(2) : p.startsWith("./") ? `${dir}/${p.slice(2)}` : p);
+  const router = new RegExp(`^export\\s+const\\s+${name}\\s*=\\s*createTRPCRouter\\(\\s*\\{([^{}]*)\\}\\s*\\)\\s*;`);
+  const imports = {};
+  let mounts = null, rest = code;
+  while ((rest = rest.replace(/^\s+/, ""))) {
+    let m;
+    if ((m = rest.match(/^import\s*\{([^{}]*)\}\s*from\s*"([^"]+)"\s*;/))) {
+      for (const spec of m[1].split(",").map((x) => x.trim()).filter(Boolean)) {
+        if (/^type\s+\w+$/.test(spec)) continue;
+        if (!/^[A-Za-z_$][\w$]*$/.test(spec)) fail(`${where}: unsupported import ${JSON.stringify(spec)} (only plain named imports are read)`);
+        if (spec in imports) fail(`${where}: ${spec} is imported twice`);
+        imports[spec] = resolve(m[2]);
+      }
+    } else if ((m = rest.match(router))) {
+      mounts = {};
+      const keyOf = {}, items = m[1].split(",").map((x) => x.trim());
+      if (items.at(-1) === "") items.pop();
+      for (const item of items) {
+        const mm = item.match(/^([A-Za-z_$][\w$]*)\s*:\s*([A-Za-z_$][\w$]*)$/);
+        if (!mm) fail(`${where}: unsupported router member ${JSON.stringify(item)} (only "key: importedRouter," is read)`);
+        const [, key, local] = mm;
+        if (key in mounts) fail(`${where}: duplicate key ${key}`);
+        if (local in keyOf) fail(`${where}: ${local} is mounted twice (${keyOf[local]}, ${key})`);
+        keyOf[local] = key;
+        mounts[key] = { local };
+      }
+    } else if (!(m = readOnly.map((re) => rest.match(re)).find(Boolean))) {
+      fail(`${where}: unsupported statement ${JSON.stringify(rest.slice(0, 80))} (only plain imports, the ${name} literal and the pin's read-only exports are read)`);
+    }
+    rest = rest.slice(m[0].length);
+  }
+  if (!mounts) fail(`${where}: no export const ${name} = createTRPCRouter({ ... });`);
+  for (const [key, mount] of Object.entries(mounts)) {
+    if (!(mount.local in imports)) fail(`${where}: ${key}: ${mount.local} is not a named import`);
+    mount.source = imports[mount.local];
   }
   return mounts;
 }
@@ -224,18 +292,26 @@ function mountOf(mounts, source, local, where) {
   return keys[0];
 }
 
-/** root.ts -> coop.ts -> dungeon.ts, each link validated, as the dotted tRPC path prefix. */
+/**
+ * root.ts -> coop.ts -> dungeon.ts, each link validated, as the dotted tRPC path prefix. Symbol
+ * identity holds link by link: root imports the plain name coopRouter from routers/coop, whose whole
+ * file (same grammar) exports only `coopRouter`; coop.ts imports the plain name dungeonRouter from
+ * routers/dungeon, where that name appears exactly once, as its definition, and no export-list,
+ * re-export or default export exists (checked on the raw text, so a comment can only fail it).
+ */
 function mountChain(apiRoot, coop, dungeon) {
-  const root = routerMounts(apiRoot, "appRouter", "app/src/server/api", "root.ts");
+  const root = routerMounts(apiRoot, "appRouter", "app/src/server/api", "root.ts", ROOT_READ_ONLY);
   const coopKey = mountOf(root, "app/src/server/api/routers/coop", "coopRouter", "root.ts");
   if (Object.values(root).some((m) => m.source === "app/src/server/api/routers/dungeon") || /dungeonRouter/.test(apiRoot)) {
     fail("root.ts: dungeonRouter is referenced in root.ts: the mount chain changed");
   }
   const inner = routerMounts(coop, "coopRouter", "app/src/server/api/routers", "coop.ts");
   const dungeonKey = mountOf(inner, "app/src/server/api/routers/dungeon", "dungeonRouter", "coop.ts");
-  if (dungeon.split("createTRPCRouter(").length !== 2 || !/^export const dungeonRouter = createTRPCRouter\(\{$/m.test(dungeon)) {
-    fail("dungeon.ts: expected exactly one export const dungeonRouter = createTRPCRouter({");
+  const uses = dungeon.match(/\bdungeonRouter\b/g) ?? [];
+  if (uses.length !== 1 || dungeon.split("createTRPCRouter(").length !== 2 || !/^export const dungeonRouter = createTRPCRouter\(\{$/m.test(dungeon)) {
+    fail("dungeon.ts: expected exactly one export const dungeonRouter = createTRPCRouter({ and no other dungeonRouter reference");
   }
+  if (/\bexport\s*(\{|\*|default\b)/.test(dungeon)) fail("dungeon.ts: an export list, re-export or default export can rebind the router");
   return `${coopKey}.${dungeonKey}`;
 }
 
