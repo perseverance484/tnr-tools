@@ -3260,3 +3260,26 @@ crown with no gold and no threads. Officers are named by their new titles throug
 
 **Canonical destination:** `push/crownhold.gen.py` (`PROSE`, `LABEL`, `CROWN`, `OVERRIDE`, effect descriptions);
 push/273 regenerated.
+
+## RUL-2026-10-26-003 — Skyglass Wreck: design-led encounter tuning; targets
+
+**Date:** 2026-10-26
+
+**Domain:** dungeon encounter design; balance
+
+**Status:** ACTIVE (targets). The encounter redesign itself is pending, built and tuned in the offline engine harness
+(`harness/skyglass_wreck_sim/`, in progress) before any live edit.
+
+**Ruling:**
+1. The dungeon's AI behaviour and waves are designed for a fun, engaging run and tuned closely in the offline harness,
+   not assembled and measured afterwards.
+2. Targets: an **average party** (three level-100 Jonin with a normal kit) clears in **15 to 20 minutes**, and the run is
+   **clearable with few wipes** (about one run in five wipes once).
+3. The live 16-wave definition (push/263, `RHqzYdY4EAQA9HwsBKWDS`) is the baseline to measure, not the design; it is
+   expected to be cut sharply (5 floors are fixed by the engine).
+
+**Evidence:** User, 2026-10-26: "we should design our AI specifically around making a fun and engaging dungeon now that we
+have a test harness. Not just throw them in and see what happens. I want the behavior of the AIs and the waves tuned
+closely"; targets chosen: "15-20 min", "Clearable, few wipes", "Level 100 Jonin, normal kit".
+
+**Canonical destination:** the dungeon encounter design doc (to be written) and the harness's target checks.
