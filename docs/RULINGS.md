@@ -2955,3 +2955,19 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-25: "I like it as Lastlight, a line nuke that does 50 damage, 30% wound and 40% heal cut. PvE only though. Dont wanna upset the balance of PvP"; then "Cooldown 8, wound 2 rounds, heal cut 3 rounds, element none, jutsu type event. Scaling will be .4 per level so we need to take 10 off every value so that it can scale to the proposed values at max level."
 
 **Canonical destination:** `docs/design/CROWNHOLD_LASTLIGHT_JUTSU.md`.
+
+## RUL-2026-10-25-007 — The key item is the Lastlight Lantern
+
+**Date:** 2026-10-25
+
+**Domain:** Ghost Ship / Skyglass naming
+
+**Status:** ACTIVE.
+
+**Supersedes:** the item name "Lastlight" of RUL-2026-10-25-005; the jutsu keeps the name **Lastlight** (RUL-2026-10-25-006).
+
+**Ruling:** Crownhold's entry item is the **Lastlight Lantern**, so the item and the jutsu are told apart.
+
+**Evidence:** User, 2026-10-25: "Lastlight Lantern to differentiate from the jutsu."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`; push/254 (on hold).
