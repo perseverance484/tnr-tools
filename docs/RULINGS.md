@@ -3038,3 +3038,26 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 he needs a better Crown than the captain. Its how they control the other afterimages".
 
 **Canonical destination:** Crownhold build (badge item, Arakane avatar, story text); the art request above.
+
+## RUL-2026-10-25-012 — The Buried Cache (fifth hunt); Medicine Inro two rolls
+
+**Date:** 2026-10-25
+
+**Domain:** content (treasure hunts); rewards; loot tables
+
+**Status:** ACTIVE. questRank B and no level gate are proposals.
+
+**Ruling:**
+1. A fifth treasure hunt, **The Buried Cache**: the original Ghost Ship's buried-cache ending (`w_A`) rebuilt as an
+   isolated Battle Pyramid. Entry: **Chart of the Buried Cache** (OTHER, COMMON, tradable), dropping from the Wreck at
+   **20%** (the most common chart). Right cove: Skyglass Sentinel, ladder II. Wrong cove: a buried Deck Warden and Seal
+   Charge, then the Sentinel, ladder I. No loop back to the riddle. A lost fight fails the hunt (RUL-2026-10-25-010).
+2. Completion pick 1: **50,000 ryo / 5,000 exp / Medicine Inro ×1**.
+3. The **Medicine Inro opens with two rolls** (was one); contents and weights unchanged.
+
+**Evidence:** User, 2026-10-25: "May as well make one more map that drops at a higher drop rate that leads to that buried
+cache on the beach"; on the proposal (20% drop, ladder II/I, pick): "50,000 ryo/5000 exp/1 Medicine Inro. Buff Medicine
+inro to 2 rolls".
+
+**Canonical destination:** `push/skyglass_hunts.gen.py` (push/270); `docs/design/SKYGLASS_LOOT_TABLES.md`; push/263 drop
+table once the chart's id exists.

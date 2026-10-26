@@ -171,6 +171,66 @@ def watch():
     return o
 
 
+# ---- The Buried Cache (RUL-2026-10-25-012): the original Ghost Ship's w_A ending as a short hunt. Riddle and dig prose
+# from the 2026-10-13 capture (harvests/inbox/tnr_results_1791903144042.json, d_map..w_A), adapted to the chart.
+CACHE_PREMISE = ("Before the Skyglass warship vanished, its crew buried a field cache on the shore. The Wayfinder corrected "
+                 "the route to it again and again as the coast changed. This chart carries his last correction. Lose a "
+                 "fight and the tide takes the dig, chart and all.")
+
+
+def cache():
+    o = []
+    o.append(dialog("d_landing", "cache_site", "The chart's route ends on a quiet stretch of coast. Among the ship's "
+        "impossible routes it marks an old field cache, buried before the ship vanished. The ink is decades old. The "
+        "Wayfinder's newest corrections are not.", [("Follow the corrected route", "d_riddle"),
+        ("Compare the old and new routes", "d_overlay")]))
+    o.append(dialog("d_overlay", "cache_site", "Under the first route lies a map of places that did not yet exist when "
+        "the ship vanished. The Wayfinder corrected the same journey again and again as villages moved, roads changed, "
+        "and generations passed. The cache is real, but the final clue must be read against the newest chart.",
+        [("Follow the corrected route", "d_riddle")]))
+    o.append(dialog("d_riddle", "cache_site", "A notation along the route sheet reads: 'Where the cliff drinks and the "
+        "stone keeps watch, the cache sleeps beneath the watcher's shadow.' Three coves match part of the description.",
+        [("The cove beneath the stone shrine", "d_dig"), ("The cove with the split cliff", "d_wrong1"),
+         ("The open beach past the reef", "d_wrong2")]))
+    o.append(dialog("d_wrong1", "cache_site", "You dig where the split cliff breaks the tide. Beneath the sand you find "
+        "old seal fragments, and the fragments wake: a Deck Warden pulls itself out of the sand with a seal charge "
+        "still burning in its hook.", [("Fight", "b_ambush1")]))
+    o.append(dialog("d_wrong2", "cache_site", "The open beach yields an abandoned anchor brace and reef stone, and "
+        "something under it. A Deck Warden rises from the wet sand, dragging a seal charge with it.",
+        [("Fight", "b_ambush2")]))
+    o += battle("b_ambush1", "cache_site", "The buried Deck Warden and its charge.", ["Deck Warden", "Seal Charge"], "d_tracks")
+    o += battle("b_ambush2", "cache_site", "The buried Deck Warden and its charge.", ["Deck Warden", "Seal Charge"], "d_tracks")
+    o.append(dialog("d_tracks", "cache_site", "The Warden falls apart into sand and script. Its tracks lead along the "
+        "shore to a cove beneath a stone shrine, where the watcher's shadow falls across the sand. The cache was here all "
+        "along, and the noise has woken its guardian.", [("Dig beneath the watcher's shadow", "d_guardian_late")]))
+    o.append(dialog("d_dig", "cache_site", "You dig beneath the stone watcher's shadow before the tide shifts. Your "
+        "shovel strikes metal. Sand bursts outward as the Sentinel unfolds from a buried seal frame, armor plated with "
+        "shell and stone around the cache.", [("Fight for the cache", "b_guardian")]))
+    o.append(dialog("d_guardian_late", "cache_site", "Your shovel strikes metal. Sand bursts outward as the Sentinel "
+        "unfolds from a buried seal frame, armor plated with shell and stone around the cache.",
+        [("Fight for the cache", "b_guardian_late")]))
+    o += battle("b_guardian", "cache_site", "The Sentinel rises between you and the cache.", ["Skyglass Sentinel"], "d_claim")
+    o += battle("b_guardian_late", "cache_site", "The Sentinel rises between you and the cache.", ["Skyglass Sentinel"], "d_claim_late")
+    claim = ("The Sentinel breaks apart into sand and fading script. Beneath it sits a sealed field cache stamped with the "
+             "same Skyglass project mark etched into the ship's keel.")
+    o.append(dialog("d_claim", "cache_site", claim, [("Open the cache", "w_clean")]))
+    o.append(dialog("d_claim_late", "cache_site", claim, [("Open the cache", "w_late")]))
+    done = ("You recover a field cache left before the Ghost Ship vanished. Its supplies are old. The seal keeping them "
+            "preserved is still active.")
+    o.append(win("w_clean", "cache_site", done, "II"))
+    o.append(win("w_late", "cache_site", done, "I"))
+    o.append(failed("cache_site", "The tide comes in over the dig. When it goes out, the cache is buried again and the chart has washed away."))
+    return o
+
+
+CHART_CACHE = {
+    "entity": "item", "slot": "create", "phase": 1, "name": "Chart of the Buried Cache", "srcId": "chart_buried_cache",
+    "data": None,  # filled from the Drowned Foundry chart's create (push/260) with its own name, text, rarity, icon
+}
+
+INRO_ROLLS = 2  # RUL-2026-10-25-012: the Medicine Inro opens with two rolls (was one)
+
+
 def quest(src, name, desc, success, chart, image, objectives, reward, rank, target=None):
     head = {"entity": "quest", "slot": "edit", "targetId": target} if target else {"entity": "quest", "slot": "create", "srcId": src}
     return {**head, "name": name, "data": {
@@ -199,35 +259,67 @@ def write(num, slug, note, items):
     m = {"_note": note, "dedupNames": True, "imgSizes": {k: v["bytes"] for k, v in files.items()},
          "imagePack": {"ref": PACK_REF, "files": files}, "items": items}
     json.dump(m, open(os.path.join(ROOT, f"push/{num}_{slug}.json"), "w"), indent=1)
-    for it in items: print(num, it["name"], len(it["data"]["content"]["objectives"]), "objectives")
+    for it in items: print(num, it["name"], len(it["data"].get("content", {}).get("objectives", [])), "objectives")
 
 
 def main():
-    # Earlier outputs (264 failed, 265/266 ran, 267 superseded) are archived. Current output: push/268, the three live
-    # hunts re-sent as whole-record edits with "a lost fight fails the hunt" (director 2026-10-25) and the Watch's ryo
-    # pick at 100,000.
-    write(268, "skyglass_hunts_fail_on_loss", (
-        "Skyglass treasure hunts (push/268): the Drowned Foundry, the Quarantined Archive and the Captain's Watch, all HIDDEN, "
-        "re-sent as whole-record edits. Change: a lost, drawn or fled fight now fails the hunt (fail_quest closes the "
-        "isolated run; the chart was already spent at start). Before this, every loss reset to the fight's dialog, but an "
-        "isolated pyramid keeps a defeated player in the run at 1 HP with no outside recovery (libs/combat/database.ts), so "
-        "the retry could not be won (director 2026-10-25: 'failing a fight fails the quest'). Wins carry the player's pools "
-        "into the next fight (the game default; no givePools). Also: the Captain's Purse pick is 100,000 ryo (was 50,000), "
-        "and the Foundry and Watch premises no longer promise retries. Rewards, ladder, debuffs and proposals unchanged "
-        "(see push/README 264-266). Generated by push/skyglass_hunts.gen.py; do not hand-edit."), [
-        quest("hunt_foundry", "The Drowned Foundry", H.FOUNDRY["premise"],
-              "You carried the last pour out of the keel works.", ITEM["chart_foundry"],
-              "@img:icon-chart-drowned-foundry.webp", foundry(),
-              items_reward(*[(x, 1) for x in ITEM["pouches"]]), "A", "UGHSuhi83C3wRtH3FD4Eu"),
-        quest("hunt_archive", "The Quarantined Archive", H.ARCHIVE["premise"],
-              "The archive's last seal is broken and its records are yours.", ITEM["chart_archive"],
-              "@img:icon-chart-quarantined-archive.webp", archive(),
-              items_reward((ITEM["case"], 1), (ITEM["strongbox"], 1), reward_exp=15000), "A", "-bZ_ZoI6yrUJ_LKT9R5zm"),
-        quest("hunt_watch", "The Captain's Watch", H.WATCH["premise"],
-              "You kept the Captain's watch and claimed its stores.", ITEM["chart_watch"],
-              "@img:icon-chart-captains-watch.webp", watch(),
-              items_reward((ITEM["coffer"], 1), (ITEM["inro"], 3), reward_money=100000), "A", "liljq0yVXWTSna4X6dZE1"),
-    ])
+    # Earlier outputs (264 failed; 265, 266 ran; 267 superseded; 268 staged) are archived or in push/. Current output:
+    # push/270, the Buried Cache and the Medicine Inro's second roll.
+    if os.environ.get("REGEN_268"):  # push/268 is staged; set REGEN_268=1 to reproduce it
+        write(268, "skyglass_hunts_fail_on_loss", (
+            "Skyglass treasure hunts (push/268): the Drowned Foundry, the Quarantined Archive and the Captain's Watch, all HIDDEN, "
+            "re-sent as whole-record edits. Change: a lost, drawn or fled fight now fails the hunt (fail_quest closes the "
+            "isolated run; the chart was already spent at start). Before this, every loss reset to the fight's dialog, but an "
+            "isolated pyramid keeps a defeated player in the run at 1 HP with no outside recovery (libs/combat/database.ts), so "
+            "the retry could not be won (director 2026-10-25: 'failing a fight fails the quest'). Wins carry the player's pools "
+            "into the next fight (the game default; no givePools). Also: the Captain's Purse pick is 100,000 ryo (was 50,000), "
+            "and the Foundry and Watch premises no longer promise retries. Rewards, ladder, debuffs and proposals unchanged "
+            "(see push/README 264-266). Generated by push/skyglass_hunts.gen.py; do not hand-edit."), [
+            quest("hunt_foundry", "The Drowned Foundry", H.FOUNDRY["premise"],
+                  "You carried the last pour out of the keel works.", ITEM["chart_foundry"],
+                  "@img:icon-chart-drowned-foundry.webp", foundry(),
+                  items_reward(*[(x, 1) for x in ITEM["pouches"]]), "A", "UGHSuhi83C3wRtH3FD4Eu"),
+            quest("hunt_archive", "The Quarantined Archive", H.ARCHIVE["premise"],
+                  "The archive's last seal is broken and its records are yours.", ITEM["chart_archive"],
+                  "@img:icon-chart-quarantined-archive.webp", archive(),
+                  items_reward((ITEM["case"], 1), (ITEM["strongbox"], 1), reward_exp=15000), "A", "-bZ_ZoI6yrUJ_LKT9R5zm"),
+            quest("hunt_watch", "The Captain's Watch", H.WATCH["premise"],
+                  "You kept the Captain's watch and claimed its stores.", ITEM["chart_watch"],
+                  "@img:icon-chart-captains-watch.webp", watch(),
+                  items_reward((ITEM["coffer"], 1), (ITEM["inro"], 3), reward_money=100000), "A", "liljq0yVXWTSna4X6dZE1"),
+        ])
+    arch = os.path.join(ROOT, "archive/spent-manifests/push-2026-10-25")
+    chart = json.load(open(os.path.join(arch, "260_skyglass_items_create.json")))
+    base = next(it for it in chart["items"] if it["srcId"] == "chart_foundry")
+    data = dict(base["data"])
+    data.update({"name": "Chart of the Buried Cache", "rarity": "COMMON",
+                 "description": ("A salt-stained chart from the Skyglass wreck, marking a field cache its crew buried on "
+                                 "the shore before the ship vanished. Bring it to the Battle Arena to follow it."),
+                 "image": "@img:icon-chart-drowned-foundry.webp"})  # placeholder icon until the cove chart is drawn
+    chart_item = {**CHART_CACHE, "data": data}
+    inro_src = json.load(open(os.path.join(arch, "253_skyglass_caches_convert.json")))
+    inro = next(it for it in inro_src["items"] if it["targetId"] == ITEM["inro"])
+    eff = json.loads(json.dumps(inro["data"]["effects"]))
+    assert eff[0]["weightedCache"]["rolls"] == [{"count": 1, "probability": 10000}]
+    eff[0]["weightedCache"]["rolls"] = [{"count": INRO_ROLLS, "probability": 10000}]
+    eff[0]["description"] = "Medicine Inro: two rolls of pills and potions"
+    inro_edit = {"entity": "item", "slot": "edit", "targetId": ITEM["inro"], "phase": 1,
+                 "name": "Medicine Inro: two rolls", "data": {"effects": eff, "target": "SELF"}}
+    q = quest("hunt_buried_cache", "The Buried Cache", CACHE_PREMISE,
+              "You dug up the Skyglass crew's field cache.", "@item:chart_buried_cache",
+              "@img:icon-chart-drowned-foundry.webp", cache(),
+              items_reward((ITEM["inro"], 1), reward_money=50000, reward_exp=5000), "B")
+    q["phase"] = 2
+    write(270, "buried_cache_and_inro", (
+        "push/270 (RUL-2026-10-25-012), all HIDDEN. Phase 1: create the Chart of the Buried Cache (OTHER, COMMON, tradable, "
+        "no effect; placeholder icon = the Drowned Foundry chart) and edit the Medicine Inro's weighted cache from one roll "
+        "to two (contents unchanged; Inro last written by push/253). Phase 2: create The Buried Cache, an isolated Battle "
+        "Pyramid entered with that chart: the original Ghost Ship's buried-cache ending (riddle, dig, Skyglass Sentinel). "
+        "Right cove: Sentinel, ladder II (2,000 exp, Sealed Treasury 2%). Wrong cove: a buried Deck Warden + Seal Charge, "
+        "then the Sentinel, ladder I (1,000 exp, Treasury 1%); no loop back to the riddle. A lost fight fails the hunt "
+        "(RUL-2026-10-25-010). Completion pick 1: 50,000 ryo / 5,000 exp / Medicine Inro x1. questRank B, no level gate: "
+        "proposals. The Wreck's 20% drop line for this chart goes into push/263 once this create returns its id. Generated "
+        "by push/skyglass_hunts.gen.py; do not hand-edit."), [chart_item, inro_edit, q])
 
 
 if __name__ == "__main__":

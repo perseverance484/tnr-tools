@@ -21,6 +21,7 @@
 | 7 | Chart of the Drowned Foundry (map of the wreck: keel and lower decks) | `icon-chart-drowned-foundry.webp` | lime | Reliquary (style only) |
 | 8 | Chart of the Quarantined Archive (map of the wreck: sealed chamber amidships) | `icon-chart-quarantined-archive.webp` | lime | approved #7 (style) |
 | 9 | Chart of the Captain's Watch (map of the wreck: upper command decks) | `icon-chart-captains-watch.webp` | lime | approved #7 (style) |
+| 12 | Chart of the Buried Cache (route chart of a shore cove; added 2026-10-25) | `icon-chart-buried-cache.webp` | lime | approved #7 (style) |
 | 10 | Lastlight Lantern | `icon-skyglass-signal-beacon.webp` | lime | Reliquary (style only) |
 | 11 | Armory Requisition | `icon-armory-requisition.webp` | lime | Reliquary (style only) |
 
@@ -163,6 +164,22 @@ Style: game item icon, painted digital illustration with a crisp dark outline, d
 Negative: no text, no letters, no numbers, no labels or legends, no compass-rose lettering, no coastline or land map, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no quill, no bottle, no gold or brass, no water drips.
 
 Return the raw image named raw_icon_chart_captains_watch.png.
+~~~
+
+### 12. Chart of the Buried Cache (added 2026-10-25, RUL-2026-10-25-012)
+Attach the approved Foundry chart (processed). The one chart that maps the shore, not the ship.
+~~~text
+Draw ONE game item icon for The Ninja RPG: the Chart of the Buried Cache, an old salt-stained route chart from a wrecked shinobi sky-warship, marking a cache its crew buried on the shore. Generate exactly one image. Do not crop, key or process it.
+
+Reference attached: Chart of the Drowned Foundry icon. SHAPE, STYLE AND LAYOUT: keep the same half-unrolled chart, the same camera and rendering. The drawing on it and the binding change.
+
+Subject: the same chart, sun-faded and salt-stained, sand caught in its folds. Instead of a ship plan, the unrolled part shows a stretch of coastline in faint pale lines with three small coves, older lines faintly visible beneath newer corrections. Beneath a tiny drawn stone shrine above one cove, a single cross mark is picked out in glowing pale cyan skyglass ink; the other two coves stay plain. A frayed rope cord with one faceted pale cyan skyglass bead ties the rolled end, and a small iron shovel blade tag hangs from the cord.
+
+Style: game item icon, painted digital illustration with a crisp dark outline, faded parchment and blackened iron, one accent of pale cyan skyglass ink and skyglass with a soft inner glow, soft cool rim light, camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+
+Negative: no text, no letters, no numbers, no labels or legends, no compass-rose lettering, no ship plan, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no quill, no bottle, no skull, no pirate imagery, no second object.
+
+Return the raw image named raw_icon_chart_buried_cache.png.
 ~~~
 
 ### 10. Lastlight Lantern
