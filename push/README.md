@@ -794,7 +794,10 @@ fight. maxAttempts/maxCompletes 100 (engine cap). The Sealwright portrait is lef
 The Drowned Foundry follows once push/262 returns the Warden's id. Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems.
 
-## 263 Skyglass Wreck dungeon (1 create, HIDDEN): READY TO RUN (Forge 0.9.0)
+## 263 Skyglass Wreck dungeon (1 create, HIDDEN): BLOCKED on Forge 0.9.1 (run 2026-10-25 paused before any write)
+
+Forge 0.9.0 calls `dungeon.getAll`, but the server mounts the router at `coop.dungeon.*`: the job paused on NOT_FOUND during the name check and wrote nothing. Fix: `fable/forge-dungeon-coop-path@c45fbb9` (Forge 0.9.1, in review; `docs/handoffs/FORGE_DUNGEON_COOP_PATH_HANDOFF.md`). Discard the paused job and re-run after 0.9.1 is released. The manifest itself is unchanged.
+
 
 `263_skyglass_wreck_dungeon.json`: one tier of five floors, 16 waves (every `delayRounds` 0; each floor's elite or boss
 in its last wave; hazards never alone). Completion drops, each member rolls each line: Chart of the Drowned Foundry 12,
