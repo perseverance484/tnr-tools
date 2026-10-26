@@ -1,0 +1,206 @@
+{
+ "_note": "Headless Rider (eaMN5CfciNlxfezSKemJ6) for Headless Rider Horror!: sets the avatar and custom behaviour rules, nothing else. The kit (all 7 equipped) and items (none) are re-sent exactly as captured because an AI edit deletes anything absent (law 70); no stat, rank, level or multiplier field is sent. The live record has aiProfileId null, so the aiProfile entry toggles a profile first. Rules use only his own equipped jutsu, gated at range+1 (law 40), ending in move (law 41). Read from push/259, tnr_results_1792965113987.json.",
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: avatar",
+   "data": {
+    "avatar": "@img:headless_rider_avatar.webp",
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli"
+    ],
+    "items": []
+   }
+  },
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: custom rules",
+   "data": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "NWsB1wY_rAqPCD_RXl0Dh",
+       "target": "SELF"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "N8V10pCnF7sEdrRs-mIdG",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "description": "Target is affected by a specific effect",
+        "effectType": "increasedamagegiven",
+        "target": "CLOSEST_OPPONENT",
+        "threshold": 0
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "tkCD_En4j-IMOMxWz-F4h",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "description": "Distance higher than or equal given value",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "YoIR7p6urskFzfv8NoLli",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "0RrDykUh_IffgNMfIqZKO",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "nWYURXb6gVLvjnVRHsj2_",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "tkCD_En4j-IMOMxWz-F4h",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "YoIR7p6urskFzfv8NoLli",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "IWQNQNs0P_pXS_lmiQiEC",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "Move towards opponent",
+       "target": "CLOSEST_OPPONENT"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "imgSizes": {
+  "headless_rider_avatar.webp": 390932
+ },
+ "imagePack": {
+  "ref": "faf0ac02a4b94a8e37367bd39bbba6bfce34ba5a",
+  "files": {
+   "headless_rider_avatar.webp": {
+    "path": "art/halloween_headless_rider/headless_rider_avatar.webp",
+    "sha256": "008c7df9e7ef5f7491047219b302762c88d9e94560adc098b82f17567e453402",
+    "bytes": 390932
+   }
+  }
+ }
+}

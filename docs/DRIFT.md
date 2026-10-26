@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-23)
+# DRIFT.md - upstream contract drift (2026-10-25)
 
-Upstream: studie-tech/TheNinjaRPG@a18f719dd7d65b02c7573b53198ed83480294172
+Upstream: studie-tech/TheNinjaRPG@1be1c081f68bef168567105322e80a54d9eae340
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -74,6 +74,8 @@ no breaking changes: 144 addition(s), safe to adopt (exit 0)
 
 no breaking changes: 0 addition(s), safe to adopt (exit 0)
 == 45e_DATA_constants ==
+REMOVALS
+  const-member  ACTIVE_VOTING_SITES  bbogd
 ADDITIONS
   const-member  AvailableEffectTypes  siphon
   const-member  CombatActivityTasks  overworld_ai_fought
@@ -107,5 +109,5 @@ ADDITIONS
   const-member  publicState  isMasked
   const-member  tagTypes  siphon
 
-no breaking changes: 31 addition(s), safe to adopt (exit 0)
+BREAKING: 1 change(s) - DO NOT ADOPT (exit 1)
 ~~~
