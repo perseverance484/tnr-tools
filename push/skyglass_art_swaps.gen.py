@@ -37,6 +37,20 @@ SWAPS = [
      "art/crownhold/avatar_crownhold_the_grand_marshal.webp"),
     (11, "ai", "1iJF8VBietrfvxJd_ZhFS", "Crownhold Proving Proctor", "avatar",
      "art/crownhold/avatar_crownhold_proving_proctor.webp"),
+    (14, "ai", "B41DtMALbOTpL82thkBZu", "Calibration Duelist", "avatar",
+     "art/crownhold/avatar_crownhold_calibration_duelist.webp"),
+    (15, "ai", "LZiunyinw9ScK3mh9HiR2", "Skyglass Archive Keeper", "avatar",
+     "art/crownhold/avatar_crownhold_skyglass_archive_keeper.webp"),
+    (16, "ai", "N3E3C6MGgVYql2pTvpuGf", "Impression Containment Warden", "avatar",
+     "art/crownhold/avatar_crownhold_impression_containment_warden.webp"),
+    (17, "ai", "0LON_CwaUuXj4EYL7BtxS", "Unstable Echo Subject", "avatar",
+     "art/crownhold/avatar_crownhold_unstable_echo_subject.webp"),
+    (18, "ai", "jqxu13kNHhfNY-NF68Ftb", "Failed Reconstruction Prototype", "avatar",
+     "art/crownhold/avatar_crownhold_failed_reconstruction_prototype.webp"),
+    (19, "ai", "IJNhy83uB5Lc3sqn6Iqcr", "Command Signal Adjutant", "avatar",
+     "art/crownhold/avatar_crownhold_command_signal_adjutant.webp"),
+    (20, "ai", "5U0WgIrowP6HdP5DrrxBS", "High Command Staff Tactician", "avatar",
+     "art/crownhold/avatar_crownhold_high_command_staff_tactician.webp"),
 ]
 DONE = []
 
