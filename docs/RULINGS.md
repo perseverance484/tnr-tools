@@ -3108,3 +3108,19 @@ can still pick their tool pouch. Adjustment: Medicine Inro, common, 50 / Sage's 
 tradeable on the token or chest. Unmarked Cargo it is".
 
 **Canonical destination:** `push/skyglass_mystery.gen.py` (push/274); `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-26-001 — Forge bundle budget raised to 436,000 raw / 105,500 gzip for the dungeon mount path
+
+**Date:** 2026-10-26
+
+**Domain:** Forge / bundle size budget
+
+**Status:** ACTIVE
+
+**Supersedes:** the 435,000 / 105,000 ceiling (RUL-2026-10-23-007).
+
+**Ruling:** The Forge bundle ceiling is raised to **436,000 raw / 105,500 gzip** for Forge 0.9.1 (`fable/forge-dungeon-coop-path`: dungeon procedures at `coop.dungeon.*`). Measured 435,145 raw / 105,126 gzip, over the old ceiling by 145 / 126, mostly the two new source hashes the bundled dungeon contract carries. Trimming `_meta.sources` from the bundled contract was offered and declined.
+
+**Evidence:** User, 2026-10-26, answering the independent review's required correction 3, choosing "Raise to 436,000 / 105,500 (Recommended)" over "Trim bundled contract" and "Raise more (437,000 / 106,000)".
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).
