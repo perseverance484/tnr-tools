@@ -1,8 +1,9 @@
-# Art batch: Skyglass event and Crownhold (35 images)
+# Art batch: Skyglass event and Crownhold (46 images)
 
 - **Director, 2026-10-25:** "Draft up a design document for the art director to pull each prompt from and use references. Then a short compact hand off for each image in sequence and I hand you back the approved image."
 - **Style (director, 2026-10-25):** every icon in this batch is PREMIUM PIXEL ART, the same rendering as the Crownhold/crew avatars. Painted references (the Coffer, the charts, the jutsu exemplar) supply subject, materials and colours only; Arakane's avatar supplies the pixel rendering.
 - **Protocol:** `docs/workflows/ISOLATED_ART_GENERATION.md`. One image per fresh session, at most two reference images (never a collage), one candidate at a time. The art director returns the RAW image; Claude Code keys, crops, exports and QCs it (`skills/producing-tnr-art`), then swaps the placeholder in game by manifest.
+- **Pixel redraws (#36 to #46):** the event icons already live were painted; each is redrawn as pixel art from its own approved image so the whole set matches (director, 2026-10-25).
 - **Not in this batch:** Arakane (done, `art/crownhold/avatar_crownhold_arakane.webp`); the Sealwright and Oathkeeper scene portraits (already exist). **Deferred:** the Lastlight hit animation (a vertical strip sprite sheet; its placeholder is KGK: Black Fang Lance's).
 - **How a session uses this file:** it is given the link to this file and an image number. It reads that image's section, downloads the reference images from the links there, attaches them in the order given, and runs the prompt exactly as written.
 - **Live-game requests/writes:** 0.
@@ -32,6 +33,17 @@ Every link is pinned to commit `2a79eb90a053c3aa56a70b5d3823e88069104c40`, so it
 | gallery | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp |
 | helm | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp |
 | treasury_subject | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/raw/subject_sealed_treasury_painted_v1.png |
+| redraw_icon-skyglass-coffer.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp |
+| redraw_icon-tool-pouch-katon.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-katon.webp |
+| redraw_icon-tool-pouch-wave.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-wave.webp |
+| redraw_icon-tool-pouch-ikazuchi.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-ikazuchi.webp |
+| redraw_icon-tool-pouch-stonefall.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-stonefall.webp |
+| redraw_icon-tool-pouch-zephyrfang.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-zephyrfang.webp |
+| redraw_icon-chart-drowned-foundry.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp |
+| redraw_icon-chart-quarantined-archive.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-quarantined-archive.webp |
+| redraw_icon-chart-captains-watch.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-captains-watch.webp |
+| redraw_icon-skyglass-signal-beacon.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp |
+| redraw_icon-armory-requisition.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-armory-requisition.webp |
 
 ## Sequence
 
@@ -72,6 +84,17 @@ Every link is pinned to commit `2a79eb90a053c3aa56a70b5d3823e88069104c40`, so it
 | 33 | The Last Directive (jutsu icon) | JUTSU_ICON | none | bbe, arakane | `icon-jutsu-the-last-directive.webp` |
 | 34 | Extermination Order (jutsu icon) | JUTSU_ICON | none | bbe, arakane | `icon-jutsu-extermination-order.webp` |
 | 35 | Countermand (item icon) | ICON | lime | arakane | `icon-countermand.webp` |
+| 36 | Skyglass Coffer (pixel redraw) | ICON | lime | redraw_icon-skyglass-coffer.webp, arakane | `icon-skyglass-coffer-pixel.webp` |
+| 37 | Katon Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-katon.webp, arakane | `icon-tool-pouch-katon-pixel.webp` |
+| 38 | Wave Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-wave.webp, arakane | `icon-tool-pouch-wave-pixel.webp` |
+| 39 | Ikazuchi Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-ikazuchi.webp, arakane | `icon-tool-pouch-ikazuchi-pixel.webp` |
+| 40 | Stonefall Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-stonefall.webp, arakane | `icon-tool-pouch-stonefall-pixel.webp` |
+| 41 | Zephyrfang Tool Pouch (pixel redraw) | ICON | magenta | redraw_icon-tool-pouch-zephyrfang.webp, arakane | `icon-tool-pouch-zephyrfang-pixel.webp` |
+| 42 | Chart of the Drowned Foundry (pixel redraw) | ICON | lime | redraw_icon-chart-drowned-foundry.webp, arakane | `icon-chart-drowned-foundry-pixel.webp` |
+| 43 | Chart of the Quarantined Archive (pixel redraw) | ICON | lime | redraw_icon-chart-quarantined-archive.webp, arakane | `icon-chart-quarantined-archive-pixel.webp` |
+| 44 | Chart of the Captain's Watch (pixel redraw) | ICON | lime | redraw_icon-chart-captains-watch.webp, arakane | `icon-chart-captains-watch-pixel.webp` |
+| 45 | Lastlight Lantern (pixel redraw) | ICON | lime | redraw_icon-skyglass-signal-beacon.webp, arakane | `icon-skyglass-signal-beacon-pixel.webp` |
+| 46 | Armory Requisition (pixel redraw) | ICON | lime | redraw_icon-armory-requisition.webp, arakane | `icon-armory-requisition-pixel.webp` |
 
 ## Prompts
 
@@ -730,5 +753,214 @@ Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL S
 Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
 
 Return the raw image named raw_icon-countermand.png.
+~~~
+
+### 36. Skyglass Coffer (pixel redraw)
+
+References (download and attach, in this order):
+
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Skyglass Coffer (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Skyglass Coffer: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
+
+Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours exactly as the SUBJECT reference. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
+
+Return the raw image named raw_icon-skyglass-coffer-pixel.png.
+~~~
+
+### 37. Katon Tool Pouch (pixel redraw)
+
+References (download and attach, in this order):
+
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-katon.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Katon Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Katon Tool Pouch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
+
+Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours exactly as the SUBJECT reference. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
+
+Return the raw image named raw_icon-tool-pouch-katon-pixel.png.
+~~~
+
+### 38. Wave Tool Pouch (pixel redraw)
+
+References (download and attach, in this order):
+
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-wave.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Wave Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Wave Tool Pouch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
+
+Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours exactly as the SUBJECT reference. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
+
+Return the raw image named raw_icon-tool-pouch-wave-pixel.png.
+~~~
+
+### 39. Ikazuchi Tool Pouch (pixel redraw)
+
+References (download and attach, in this order):
+
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-ikazuchi.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Ikazuchi Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Ikazuchi Tool Pouch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
+
+Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours exactly as the SUBJECT reference. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
+
+Return the raw image named raw_icon-tool-pouch-ikazuchi-pixel.png.
+~~~
+
+### 40. Stonefall Tool Pouch (pixel redraw)
+
+References (download and attach, in this order):
+
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-stonefall.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Stonefall Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Stonefall Tool Pouch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
+
+Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours exactly as the SUBJECT reference. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
+
+Return the raw image named raw_icon-tool-pouch-stonefall-pixel.png.
+~~~
+
+### 41. Zephyrfang Tool Pouch (pixel redraw)
+
+References (download and attach, in this order):
+
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-zephyrfang.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Zephyrfang Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Zephyrfang Tool Pouch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
+
+Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours exactly as the SUBJECT reference. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard.
+Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
+
+Return the raw image named raw_icon-tool-pouch-zephyrfang-pixel.png.
+~~~
+
+### 42. Chart of the Drowned Foundry (pixel redraw)
+
+References (download and attach, in this order):
+
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Chart of the Drowned Foundry (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Chart of the Drowned Foundry: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
+
+Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours exactly as the SUBJECT reference. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
+
+Return the raw image named raw_icon-chart-drowned-foundry-pixel.png.
+~~~
+
+### 43. Chart of the Quarantined Archive (pixel redraw)
+
+References (download and attach, in this order):
+
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-quarantined-archive.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Chart of the Quarantined Archive (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Chart of the Quarantined Archive: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
+
+Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours exactly as the SUBJECT reference. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
+
+Return the raw image named raw_icon-chart-quarantined-archive-pixel.png.
+~~~
+
+### 44. Chart of the Captain's Watch (pixel redraw)
+
+References (download and attach, in this order):
+
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-captains-watch.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Chart of the Captain's Watch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Chart of the Captain's Watch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
+
+Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours exactly as the SUBJECT reference. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
+
+Return the raw image named raw_icon-chart-captains-watch-pixel.png.
+~~~
+
+### 45. Lastlight Lantern (pixel redraw)
+
+References (download and attach, in this order):
+
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Lastlight Lantern (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Lastlight Lantern: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
+
+Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours exactly as the SUBJECT reference. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
+
+Return the raw image named raw_icon-skyglass-signal-beacon-pixel.png.
+~~~
+
+### 46. Armory Requisition (pixel redraw)
+
+References (download and attach, in this order):
+
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-armory-requisition.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Armory Requisition (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Armory Requisition: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
+
+Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours exactly as the SUBJECT reference. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
+
+Return the raw image named raw_icon-armory-requisition-pixel.png.
 ~~~
 
