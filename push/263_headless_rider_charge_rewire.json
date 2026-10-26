@@ -1,0 +1,187 @@
+{
+ "_note": "Headless Rider (eaMN5CfciNlxfezSKemJ6). push/262 (tnr_results_1793033093598) shows Horseman's Charge (YoIR7p6urskFzfv8NoLli) changed to a single-target r4 stun + time compression with no move, and stored equipped:false: editing an equipped jutsu severs its combat link (law 18/60), so battles skip it and every rule naming it falls through. Items 1-2 re-equip it (drop it, re-add it; updateAi re-inserts equipped:true, RUL Bloodright precedent); every other kit row and the empty item list are re-sent unchanged, no other field. Item 3 replaces the rules: Charge becomes the opener after the two auras, gated r4+1; the old 'charge from range' rule is gone. All gates range+1 (law 40), move terminal (law 41).",
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: unequip Horseman's Charge (re-equip step 1)",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h"
+    ],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: re-equip Horseman's Charge (re-equip step 2)",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli"
+    ],
+    "items": []
+   }
+  },
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: rules rewired for the new Horseman's Charge",
+   "data": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "NWsB1wY_rAqPCD_RXl0Dh",
+       "target": "SELF"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "N8V10pCnF7sEdrRs-mIdG",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "YoIR7p6urskFzfv8NoLli",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "description": "Target is affected by a specific effect",
+        "effectType": "increasedamagegiven",
+        "target": "CLOSEST_OPPONENT",
+        "threshold": 0
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "tkCD_En4j-IMOMxWz-F4h",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "0RrDykUh_IffgNMfIqZKO",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "nWYURXb6gVLvjnVRHsj2_",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "tkCD_En4j-IMOMxWz-F4h",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "IWQNQNs0P_pXS_lmiQiEC",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "Move towards opponent",
+       "target": "CLOSEST_OPPONENT"
+      }
+     }
+    ]
+   }
+  }
+ ]
+}
