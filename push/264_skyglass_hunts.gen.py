@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Generate push/264: the Quarantined Archive and the Captain's Watch as hidden, isolated Battle Pyramids.
+"""Generate push/264 (the Quarantined Archive and the Captain's Watch) and push/265 (the Drowned Foundry): hidden, isolated Battle Pyramids.
 
     python3 push/264_skyglass_hunts.gen.py
 
 Source text: state/skyglass_hunts/hunts.py (draft content; docs/design/SKYGLASS_HUNTS_CONTENT.md). Rewards:
-docs/design/SKYGLASS_LOOT_TABLES.md (RUL-2026-10-25-002/-004). The Drowned Foundry follows once the Foundry Warden
-(push/262) exists, since its boss must be referenced by a literal id. Do not hand-edit the output.
+docs/design/SKYGLASS_LOOT_TABLES.md (RUL-2026-10-25-002/-004). The Foundry's boss is the Foundry Warden created by push/262. Do not hand-edit the output.
 """
 import hashlib, importlib.util, json, os
 
@@ -15,12 +14,15 @@ H = importlib.util.module_from_spec(spec); spec.loader.exec_module(H)
 
 AI = {"Core Horror": "AQi-bHJ-5tHXtxrnc0P9E", "Skyglass Sentinel": "3V_gdHYaclMB1gTyOPAbV", "Seal Charge": "wTgO-Q32caSSd0is1QIS7",
       "Sealwright": "RBW5KsIXmTGR710D2y2Y7", "Wayfinder": "v7T9_XdGMfP46em0dPuBc", "First Blade": "d6g0mOM7RBSsYI1hrUVT9",
-      "The Captain": "QY69h271Nx9uHrBeR6jwW"}
+      "The Captain": "QY69h271Nx9uHrBeR6jwW", "Deck Warden": "texZaFi42S3EvJZBwQ8cd", "Core Canister": "frc9LTxqQlM7mncG4VZGK",
+      "Arsenal Keeper": "2OXJEXoktxJcjqMkE851g", "Foundry Warden": "81lnIP-q97gItQYWl5vWD"}  # Warden: push/262 result
 ITEM = {"treasury": "Ma8S90Nmbi0Xvm4u4FzJh", "chart_archive": "cRZT41zm5vhPTQwwn8vtv", "chart_watch": "aHFNuo5RkKpDcaOBLIKiu",
-        "case": "B48dTRsoLJGKBWIUbeUoG", "strongbox": "h-d58UCSuHN8EZKbLjT5R", "coffer": "THo7rfzP-S82_43aN8fs3", "inro": "ixEKlJ0MmDrX7JoMNJVhi"}
+        "case": "B48dTRsoLJGKBWIUbeUoG", "chart_foundry": "pY-0O5Gs2n89pf0kYb5J2",
+        "pouches": ["D0gtI5dOgj2dFO4VexsLJ", "ZZOrFciKSJazAtkW9nt_7", "we2DtPSH2Q5quEvxj7xO2", "hcvHkfcYHP6qBEO_dRFl6", "z9U9wvJKDGtimll6BnTuL"], "strongbox": "h-d58UCSuHN8EZKbLjT5R", "coffer": "THo7rfzP-S82_43aN8fs3", "inro": "ixEKlJ0MmDrX7JoMNJVhi"}
 PORTRAIT = {"Sealwright": "b_K8qdNI651fTsRn9tfkk", "Oathkeeper": "6iwMYC8WTCGJTf2QIYfBz", "The Captain": "xm3F2YXkNPeLWHRAUnbmF"}
 SCENE = {
     "exterior_keel_walk": "@img:scene_bg_ghost_ship_exterior_keel_walk.webp",
+    "hold": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
     "lower_hull": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
     "reconstruction_chamber": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
     "quarantined_archive": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJpo8lFZubKBAOsGCHyl3Sk0mZFrgWPUdjMJ75",
@@ -33,7 +35,8 @@ SCENE = {
 STEP_EXP = {"I": 1000, "II": 2000, "III": 3000, "IV": 4000, "V": 5000, "VI": 5000}
 STEP_N = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6}
 PACK_REF = "c371a8c1a8302ed23ba7287ed77cb780250dbb24"
-IMAGES = {"icon-chart-quarantined-archive.webp": "art/skyglass_event_icons/exports/icon-chart-quarantined-archive.webp",
+IMAGES = {"icon-chart-drowned-foundry.webp": "art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp",
+          "icon-chart-quarantined-archive.webp": "art/skyglass_event_icons/exports/icon-chart-quarantined-archive.webp",
           "icon-chart-captains-watch.webp": "art/skyglass_event_icons/exports/icon-chart-captains-watch.webp",
           "scene_bg_ghost_ship_exterior_keel_walk.webp": "art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp"}
 
@@ -108,6 +111,17 @@ def archive():
     return objs
 
 
+def foundry():
+    objs, prev = [], {}
+    for (i, task, scene, src, text, edges, extra) in H.FOUNDRY["nodes"]:
+        for _, tgt in edges: prev.setdefault(tgt, i)
+    for (i, task, scene, src, text, edges, extra) in H.FOUNDRY["nodes"]:
+        if task == "dialog": objs.append(dialog(i, scene, text, edges))
+        elif task == "start_battle": objs += battle(i, scene, text, extra["fight"], edges[0][1], prev[i])
+        elif task == "win_quest": objs.append(win(i, scene, text, extra["step"]))
+    return objs
+
+
 def watch():
     o = []
     land = H.WATCH["nodes"][0]
@@ -162,7 +176,28 @@ def items_reward(*entries, **scalars):
     return r
 
 
+def write(num, slug, note, items):
+    files = {}
+    used = json.dumps(items)
+    for name, path in IMAGES.items():
+        if "@img:" + name not in used: continue
+        b = open(os.path.join(ROOT, path), "rb").read()
+        files[name] = {"path": path, "sha256": hashlib.sha256(b).hexdigest(), "bytes": len(b)}
+    m = {"_note": note, "dedupNames": True, "imgSizes": {k: v["bytes"] for k, v in files.items()},
+         "imagePack": {"ref": PACK_REF, "files": files}, "items": items}
+    json.dump(m, open(os.path.join(ROOT, f"push/{num}_{slug}.json"), "w"), indent=1)
+    for it in items: print(num, it["name"], len(it["data"]["content"]["objectives"]), "objectives")
+
+
 def main():
+    write(265, "skyglass_foundry_create", ("Skyglass treasure hunts, step 2 (push/265): the Drowned Foundry as a HIDDEN, isolated Battle "
+          "Pyramid. Entry: the Chart of the Drowned Foundry (consumed). Three fights, always to the Foundry Warden (push/262, "
+          "81lnIP-q97gItQYWl5vWD); one ending at ladder V (5,000 exp, Sealed Treasury 5%). Completion is pick 1 of the five "
+          "Tool Pouches. questRank A, no level gate: proposals. Generated by push/264_skyglass_hunts.gen.py; do not hand-edit."),
+          [quest("hunt_foundry", "The Drowned Foundry", H.FOUNDRY["premise"],
+                 "You carried the last pour out of the keel works.", ITEM["chart_foundry"],
+                 "@img:icon-chart-drowned-foundry.webp", foundry(),
+                 items_reward(*[(x, 1) for x in ITEM["pouches"]]), "A")])
     items = [
         quest("hunt_archive", "The Quarantined Archive", H.ARCHIVE["premise"],
               "The archive's last seal is broken and its records are yours.", ITEM["chart_archive"],
@@ -175,6 +210,7 @@ def main():
     ]
     files = {}
     for name, path in IMAGES.items():
+        if "@img:" + name not in json.dumps(items): continue
         b = open(os.path.join(ROOT, path), "rb").read()
         files[name] = {"path": path, "sha256": hashlib.sha256(b).hexdigest(), "bytes": len(b)}
     m = {"_note": ("Skyglass treasure hunts, step 1 (push/264): the Quarantined Archive and the Captain's Watch as HIDDEN, isolated "
