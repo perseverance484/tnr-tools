@@ -38,7 +38,7 @@ function content(over = {}) {
   };
 }
 const harness = (opts = {}) => composeForTest(opts);
-const saves = (game) => game.calls.filter((c) => c.path === "dungeon.save");
+const saves = (game) => game.calls.filter((c) => c.path === "coop.dungeon.save");
 const create = (data = content(), policy = {}) => ({ ...policy, items: [{ entity: "dungeon", slot: "create", name: data.name, srcId: "wreck", data }] });
 const edit = (data, extra = {}, targetId = "dun-1") => ({ items: [{ entity: "dungeon", slot: "edit", name: "W", targetId, data, ...extra }] });
 const edits = (n, label) => ({ items: Array.from({ length: n }, (_, i) => ({ entity: "dungeon", slot: "edit", name: `${label} ${i}`, targetId: `dun-${i}`, data: { name: `${label} ${i}` } })) });
@@ -58,7 +58,7 @@ test("F1: three sequential 30-edit jobs at a fixed clock send 30 saves, not 90; 
     assert.equal(s.state, "PAUSED"); assert.equal(s.pause.reason, "TOO_MANY_REQUESTS");
     assert.ok(s.pause.until > h.clock(), "the pause carries the time the allowance frees up");
   }
-  assert.equal(h.budget.status().paths["dungeon.save"].used, 30);
+  assert.equal(h.budget.status().paths["coop.dungeon.save"].used, 30);
   assert.ok(h.journal.get("b").items.every((it) => it.state === "PLANNED"), "nothing was marked SENT for a save that never left");
 });
 
@@ -67,7 +67,7 @@ test("F1: with a running clock two 30-edit jobs wait rather than overspend; the 
   const h = harness({ game });
   const at = [];
   const handle = game.handle.bind(game);
-  game.handle = (path, input) => { if (path === "dungeon.save") at.push(h.clock()); return handle(path, input); };
+  game.handle = (path, input) => { if (path === "coop.dungeon.save") at.push(h.clock()); return handle(path, input); };
   for (const j of ["a", "b"]) {
     h.runner.plan(edits(30, `Job ${j}`), { jobId: j });
     const s = await h.runner.run(j);
@@ -97,8 +97,8 @@ test("F1: the persisted send log survives a restart: a new tab cannot spend the 
   assert.equal(saves(game).length, 30);
 });
 
-test("F1: a decoded 429 on dungeon.save fails that item as a definite refusal, persists the trip and sends nothing after it", async () => {
-  const game = new FakeGame({ limitPath: "dungeon.save" }); seedMany(game, 3);
+test("F1: a decoded 429 on coop.dungeon.save fails that item as a definite refusal, persists the trip and sends nothing after it", async () => {
+  const game = new FakeGame({ limitPath: "coop.dungeon.save" }); seedMany(game, 3);
   const h = harness({ game });
   h.runner.plan(edits(3, "Limited"), { jobId: "l" });
   const s = await h.runner.run("l");
@@ -108,7 +108,7 @@ test("F1: a decoded 429 on dungeon.save fails that item as a definite refusal, p
   assert.equal(items[0].state, "FAILED"); assert.match(items[0].error, /TOO_MANY_REQUESTS.*not resent/);
   assert.deepEqual(items.slice(1).map((it) => it.state), ["PLANNED", "PLANNED"]);
   const trip = JSON.parse(h.storage.getItem(SENDLOG_KEY)).__tripped;
-  assert.equal(trip.path, "dungeon.save");
+  assert.equal(trip.path, "coop.dungeon.save");
 
   // The same job, a new job and a new tab after a restart all honour the trip until it expires.
   game.limitPath = null;
@@ -140,16 +140,16 @@ test("F1 cross-entity: a 429 on an unlimited mutation (jutsu.update) also stops 
   assert.equal(log["jutsu.update"], undefined, "an unlimited path records no send");
 });
 
-test("F1: dungeon.save is still sent as a POST mutation, and its 429 decodes as a definite error element", async () => {
+test("F1: coop.dungeon.save is still sent as a POST mutation, and its 429 decodes as a definite error element", async () => {
   const fx = (n) => JSON.parse(readFileSync(new URL(`./fixtures/envelope/${n}.json`, import.meta.url), "utf8")).exchanges[0].response;
   const queue = [fx("mutation_create_ok"), fx("query_too_many_requests")];
   const calls = [];
   const fetchImpl = async (url, init) => { calls.push({ url, init }); const r = queue.shift(); return new Response(r.body, { status: r.status, headers: { "content-type": "application/json" } }); };
   const c = new TrpcClient(new CookieSession({ fetchImpl }));
-  await c.call("dungeon.save", { content: { name: "x" } });
-  const r = await c.call("dungeon.save", { content: { name: "x" } });
+  await c.call("coop.dungeon.save", { content: { name: "x" } });
+  const r = await c.call("coop.dungeon.save", { content: { name: "x" } });
   assert.deepEqual(calls.map((x) => x.init.method), ["POST", "POST"]);
-  assert.match(calls[0].url, /^\/api\/trpc\/dungeon\.save\?batch=1$/);
+  assert.match(calls[0].url, /^\/api\/trpc\/coop\.dungeon\.save\?batch=1$/);
   assert.equal(r.ok, false); assert.equal(r.error.code, "TOO_MANY_REQUESTS");
 });
 
@@ -163,7 +163,7 @@ async function lostCreate(data = content(), h = harness({ game: new FakeGame({ d
   assert.equal(h.journal.get(jobId).items[0].state, "SENT");
   return h;
 }
-const foreignSave = (game, c) => assert.equal(game.handle("dungeon.save", { content: c }).data.success, true);
+const foreignSave = (game, c) => assert.equal(game.handle("coop.dungeon.save", { content: c }).data.success, true);
 
 test("F2: a foreign row identical to a lost create is a matching candidate, never adopted or verified by itself", async () => {
   const h = await lostCreate();
@@ -382,7 +382,7 @@ test("F6: explicit null is not omission for delayRounds, quantity and drops", ()
 test("F6: the fake game refuses the same nulls as a BAD_REQUEST, as zod's prefault does", () => {
   const game = new FakeGame();
   for (const [k, make] of Object.entries(nulled)) {
-    const r = game.handle("dungeon.save", { content: make() });
+    const r = game.handle("coop.dungeon.save", { content: make() });
     assert.equal(r.ok, false, k); assert.equal(r.error.code, "BAD_REQUEST", k);
   }
   assert.equal(game.count("dungeon"), 0);
@@ -427,6 +427,25 @@ test("N1: the extractor refuses rebound bounds, spreads, computed keys and an un
     ["new field", validator, "    hidden: z.boolean().prefault(true),", "    hidden: z.boolean().prefault(true),\n    minLevel: z.number(),", /fields .* differ from the understood/],
     ["getAll as a subscription", router, "  getAll: protectedProcedure.query(", "  getAll: protectedProcedure.subscription(", /dungeon\.getAll: expected exactly one \.query\( or \.mutation\(/],
     ["save without its limiter", router, "  save: protectedProcedure\n    .use(ratelimitMiddleware)\n", "  save: protectedProcedure\n", /save input binding/],
+  ];
+  for (const [label, file, from, to, expected] of cases) {
+    const dir = sourceCopy(), p = join(dir, file), s = readFileSync(p, "utf8");
+    assert.ok(s.includes(from), `${label}: pattern present at the pin`);
+    writeFileSync(p, s.replace(from, to));
+    assert.throws(() => derive(dir), expected, label);
+  }
+});
+
+test("procedure paths follow the router mount chain (coop.dungeon.*), and a moved mount stops the extractor", { skip: SKIP }, () => {
+  // Forge 0.9.0 called "dungeon.getAll"; the server answered NOT_FOUND because root.ts mounts
+  // coopRouter at `coop` and coop.ts mounts dungeonRouter at `dungeon` (2026-10-25, push/263).
+  assert.deepEqual(Object.keys(CONTRACT.procedures), ["coop.dungeon.getAll", "coop.dungeon.save"]);
+  const root = "app/src/server/api/root.ts", coop = "app/src/server/api/routers/coop.ts";
+  assert.ok(SOURCES.includes(root) && SOURCES.includes(coop), "both mount files are pinned sources");
+  const cases = [
+    ["coop remounted", root, "  coop: coopRouter,", "  party: coopRouter,", /root mount coop: coopRouter/],
+    ["dungeon remounted", coop, "  dungeon: dungeonRouter,", "  dungeons: dungeonRouter,", /coop mount dungeon: dungeonRouter/],
+    ["dungeon also mounted at the root", root, "  coop: coopRouter,", "  coop: coopRouter,\n  dungeon: dungeonRouter,", /dungeonRouter is referenced in root\.ts/],
   ];
   for (const [label, file, from, to, expected] of cases) {
     const dir = sourceCopy(), p = join(dir, file), s = readFileSync(p, "utf8");

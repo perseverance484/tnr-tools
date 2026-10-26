@@ -18,6 +18,8 @@ const FILES = Object.freeze({
   mapLocation: "app/src/validators/mapLocation.ts",
   constants: "app/drizzle/constants.ts",
   rewards: "app/src/libs/dungeonRewards.ts",
+  apiRoot: "app/src/server/api/root.ts",
+  coopRouter: "app/src/server/api/routers/coop.ts",
 });
 
 const fail = (m) => { throw new Error(m); };
@@ -257,14 +259,28 @@ export function derive(root) {
     inactiveRounds: c("DUNGEON_INACTIVE_ROUNDS"),
   };
 
+  // The tRPC path is the router's mount chain, not its file name: root.ts mounts coopRouter at
+  // `coop`, and coop.ts mounts dungeonRouter at `dungeon`, so the procedures are coop.dungeon.*.
+  // Forge 0.9.0 called "dungeon.getAll" and the server answered NOT_FOUND (2026-10-25). Each link
+  // must appear exactly once, and dungeonRouter must not also be mounted at the root.
+  const apiRoot = readFileSync(`${root}/${FILES.apiRoot}`, "utf8");
+  const coopRouter = readFileSync(`${root}/${FILES.coopRouter}`, "utf8");
+  const once = (s, re, what) => { const all = [...s.matchAll(new RegExp(re.source, re.flags.includes("g") ? re.flags : re.flags + "g"))]; if (all.length !== 1) fail(`${what}: expected exactly one, found ${all.length}`); };
+  once(apiRoot, /^import \{ coopRouter \} from "\.\/routers\/coop";$/m, "root import of coopRouter");
+  once(apiRoot, /^  coop: coopRouter,$/m, "root mount coop: coopRouter");
+  if (/dungeonRouter/.test(apiRoot)) fail("dungeonRouter is referenced in root.ts: the mount chain changed");
+  once(coopRouter, /^import \{ dungeonRouter \} from "@\/server\/api\/routers\/dungeon";$/m, "coop import of dungeonRouter");
+  once(coopRouter, /^  dungeon: dungeonRouter,$/m, "coop mount dungeon: dungeonRouter");
+  const MOUNT = "coop.dungeon";
+
   const procedures = {};
-  for (const name of ["getAll", "save"]) procedures[`dungeon.${name}`] = procedureFacts(router, name);
+  for (const name of ["getAll", "save"]) procedures[`${MOUNT}.${name}`] = procedureFacts(router, name);
 
   const files = Object.values(FILES);
   return {
     _meta: {
       pin: PIN,
-      scope: "Dungeon definitions only (dungeon.save / dungeon.getAll); lobby, run and claim procedures are out of scope",
+      scope: "Dungeon definitions only (coop.dungeon.save / coop.dungeon.getAll); lobby, run and claim procedures are out of scope",
       sources: Object.fromEntries(files.map((p) => [p, createHash("sha256").update(readFileSync(`${root}/${p}`)).digest("hex")])),
     },
     contentFields: Object.keys(content), rewardFields: Object.keys(rewards), dropFields: Object.keys(drop),

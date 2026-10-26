@@ -26,15 +26,15 @@ function scriptedFetch(script) {
 }
 const resOf = (name) => ({ status: fx(name).exchanges[0].response.status, body: fx(name).exchanges[0].response.body });
 
-test("procedure table: 43 legacy plus 7 scoped Bloodright, 3 content-review and 2 dungeon paths; limited set is the publicProcedure reads plus dungeon.save", () => {
+test("procedure table: 43 legacy plus 7 scoped Bloodright, 3 content-review and 2 dungeon paths; limited set is the publicProcedure reads plus coop.dungeon.save", () => {
   assert.equal(Object.keys(PROCEDURES).length, 55);
   assert.equal(LIMITED_PATHS.length, 20);
-  // dungeon.save is protectedProcedure.use(ratelimitMiddleware) at its pin (src/dungeon/contract.json):
+  // coop.dungeon.save is protectedProcedure.use(ratelimitMiddleware) at its pin (src/dungeon/contract.json):
   // the one mutation the server rate-limits. Every other limited path is a public read.
-  for (const p of LIMITED_PATHS) if (p !== "dungeon.save") assert.equal(PROCEDURES[p].kind, "query", p + " limited but not a query");
-  for (const p of MUTATION_PATHS) if (p !== "dungeon.save") assert.equal(PROCEDURES[p].limited, false, p + " is a mutation and must not be limited");
-  assert.deepEqual(PROCEDURES["dungeon.save"], { kind: "mutation", limited: true, mcp: false, auth: "protected" });
-  assert.deepEqual(PROCEDURES["dungeon.getAll"], { kind: "query", limited: false, mcp: false, auth: "protected" });
+  for (const p of LIMITED_PATHS) if (p !== "coop.dungeon.save") assert.equal(PROCEDURES[p].kind, "query", p + " limited but not a query");
+  for (const p of MUTATION_PATHS) if (p !== "coop.dungeon.save") assert.equal(PROCEDURES[p].limited, false, p + " is a mutation and must not be limited");
+  assert.deepEqual(PROCEDURES["coop.dungeon.save"], { kind: "mutation", limited: true, mcp: false, auth: "protected" });
+  assert.deepEqual(PROCEDURES["coop.dungeon.getAll"], { kind: "query", limited: false, mcp: false, auth: "protected" });
   // verification F4 corrections applied
   assert.equal(PROCEDURES["item.get"].mcp, true);
   assert.equal(PROCEDURES["profile.create"].mcp, true);

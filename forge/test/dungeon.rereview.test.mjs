@@ -1,6 +1,6 @@
 // Regressions for the re-review of the dungeon corrections (verdict REJECT on a9af6fcd: R1, R2,
 // N1). Each case runs another tab's action INSIDE a budget wait: the clock's tick (the harness's
-// sleep) is hooked once, so the action happens while this tab is held for a dungeon.save token.
+// sleep) is hooked once, so the action happens while this tab is held for a coop.dungeon.save token.
 // Socket-free; the extractor cases read a copy of the pinned game source and never run it.
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -29,7 +29,7 @@ const content = (over = {}) => ({
 });
 const PACKAGES = { "pk-1": { name: "Wreck Haul", description: "Salvage", rewards: { reward_money: 100, reward_items: [] } },
   "pk-2": { name: "Captain's Chest", description: "Gold", rewards: { reward_money: 700, reward_items: [] } } };
-const saves = (game) => game.calls.filter((c) => c.path === "dungeon.save");
+const saves = (game) => game.calls.filter((c) => c.path === "coop.dungeon.save");
 const edit = (targetId, data, extra = {}) => ({ items: [{ entity: "dungeon", slot: "edit", name: `edit ${targetId}`, targetId, data, ...extra }] });
 
 /** A fake clock whose next sleep first advances time, then runs `fn` (another tab acting during the wait). */
@@ -41,7 +41,7 @@ function hookedClock() {
   return c;
 }
 
-/** A game holding 30 dungeons plus `dun-x`, and a tab that has just spent dungeon.save's whole allowance. */
+/** A game holding 30 dungeons plus `dun-x`, and a tab that has just spent coop.dungeon.save's whole allowance. */
 async function exhausted({ target = content(), clock = hookedClock(), storage = new MemoryStorage(), idb = new IDBFactory(), game = new FakeGame() } = {}) {
   game.packages = new Map(Object.entries(structuredClone(PACKAGES)));
   for (let i = 0; i < 30; i++) game.seed("dungeon", { id: `dun-${i}`, content: content({ name: `Dungeon ${i}` }), updatedAt: new Date(0) });
@@ -49,7 +49,7 @@ async function exhausted({ target = content(), clock = hookedClock(), storage = 
   const h = composeForTest({ game, clock, storage, idb, tabId: "tab-1" });
   h.runner.plan({ items: Array.from({ length: 30 }, (_, i) => ({ entity: "dungeon", slot: "edit", name: `fill ${i}`, targetId: `dun-${i}`, data: { name: `Filled ${i}` } })) }, { jobId: "exhaust" });
   assert.equal((await h.runner.run("exhaust")).counts.VERIFIED, 30);
-  assert.equal(h.budget.available("dungeon.save"), 0);
+  assert.equal(h.budget.available("coop.dungeon.save"), 0);
   return h;
 }
 
@@ -69,7 +69,7 @@ test("R1 A: a trip another tab persists while this tab waits for a token stops t
   const h = await exhausted();
   const other = composeForTest({ game: h.game, clock: h.clock, storage: h.storage, idb: h.idb, tabId: "tab-2" });
   const { s } = await waitingEdit(h, { name: "Waiting" }, {}, async () => {
-    h.game.limitPath = "dungeon.save";
+    h.game.limitPath = "coop.dungeon.save";
     other.runner.plan(edit("dun-0", { name: "Other tab" }), { jobId: "other" });
     assert.equal((await other.runner.run("other")).pause.reason, "TOO_MANY_REQUESTS");
     h.game.limitPath = null;
@@ -129,7 +129,7 @@ test("R2: a known field another operator changes during the wait is preserved; o
   assert.equal(liveX(h).content.description, "Changed by another operator", "the concurrent change survives");
   assert.equal(liveX(h).content.name, "Renamed");
   assert.equal(saves(h.game).at(-1).input.content.description, "Changed by another operator", "the payload was built after the wait");
-  assert.equal(JSON.parse(h.storage.getItem(SENDLOG_KEY))["dungeon.save"].length, saves(h.game).length, "exactly one token per save");
+  assert.equal(JSON.parse(h.storage.getItem(SENDLOG_KEY))["coop.dungeon.save"].length, saves(h.game).length, "exactly one token per save");
 });
 
 test("R2: an unknown content key that appears during the wait is refused as schema drift, not deleted", async () => {
@@ -164,7 +164,7 @@ test("R2: a package drop changed during the wait is the one refreshed and record
 
 test("R2: a lease another tab takes during the wait stops this tab before it reads or sends", async () => {
   const h = await exhausted();
-  const reads = () => h.game.calls.filter((c) => c.path === "dungeon.getAll").length;
+  const reads = () => h.game.calls.filter((c) => c.path === "coop.dungeon.getAll").length;
   let before = 0;
   const { error } = await waitingEdit(h, { name: "Renamed" }, {}, async () => {
     before = reads();
@@ -188,8 +188,8 @@ test("R2: an item another tab resolves during the wait is never sent", async () 
 test("R2: a dungeon create waits before its snapshot and payload, and still sends once", async () => {
   const h = await exhausted();
   let snapshotsDuringWait = -1;
-  h.clock.onNextSleep(async () => { snapshotsDuringWait = h.game.calls.filter((c) => c.path === "dungeon.getAll").length; });
-  const before = h.game.calls.filter((c) => c.path === "dungeon.getAll").length;
+  h.clock.onNextSleep(async () => { snapshotsDuringWait = h.game.calls.filter((c) => c.path === "coop.dungeon.getAll").length; });
+  const before = h.game.calls.filter((c) => c.path === "coop.dungeon.getAll").length;
   h.runner.plan({ items: [{ entity: "dungeon", slot: "create", name: "New Wreck", srcId: "new", data: content({ name: "New Wreck" }) }] }, { jobId: "c" });
   assert.equal((await h.runner.run("c")).counts.VERIFIED, 1);
   assert.equal(snapshotsDuringWait, before, "the pre-create snapshot is taken after the wait");
