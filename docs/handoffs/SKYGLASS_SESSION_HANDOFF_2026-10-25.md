@@ -58,7 +58,7 @@ Crownhold notes: `state/crownhold/README.md`; source check `state/crownhold/sour
   and stops if not. Never retype prompts or commit hashes from memory.
 - **Generic starter prompt** (director pastes it into each fresh session after attaching the folder's files): "Attached:
   one image's prompt.txt and its reference images (ref1_*, ref2_*). Follow prompt.txt exactly: confirm every listed reference
-  is attached, opens at the listed size and shows the described subject; if any is missing or wrong, stop and tell me which.
+  is attached and shows the described subject (size is informational; uploads get resized); if any is missing or wrong, stop and tell me which.
   Then use each reference only for its stated role and run the prompt section of prompt.txt verbatim. Generate exactly one
   image. Do not crop, key, resize or process it."
 - **#1 Sealed Treasury:** the painted candidate is kept as the subject

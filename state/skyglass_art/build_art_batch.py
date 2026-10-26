@@ -268,7 +268,7 @@ L.append("- **How a session uses this file:** it is given the link to this file 
 L.append("- **Live-game requests/writes:** 0.\n")
 L.append("## Session contract (every image, no exceptions)\n")
 L.append("1. **The operator attaches the reference files from that image's folder** in `skyglass_art_batch.zip` (one folder per image: `ref1_*`, `ref2_*` in attach order, plus `prompt.txt`). Art sessions have no network access. The raw URLs below are the canonical source. Never use a text-only repository connector: it cannot return images.")
-L.append("2. **Verify each attached file:** it must open as an image of the listed width x height and show the described subject. Byte size and SHA-256 are advisory only (chat uploads may be recompressed).")
+L.append("2. **Verify each attached file:** it is present and shows the described subject. Width x height, byte size and SHA-256 describe the original and are informational only: chat uploads are resized and recompressed.")
 L.append("3. **Show each reference back** (display it) and confirm it is attached to the generation request, in the listed order, with its listed role.")
 L.append("4. **Abort if any reference is missing, fails verification or cannot be attached.** Report which one and stop. Never generate without all references.")
 L.append("5. **Copy the fenced prompt (or the folder's `prompt.txt`) verbatim.** Do not shorten, summarise or rewrite it.")
@@ -322,7 +322,7 @@ if "--zip" in sys.argv:
         z.writestr("README.txt", (
             "Skyglass / Crownhold art batch. One folder per image, in order.\n"
             "In a fresh image session: attach ref1_*, then ref2_* (if present) from the folder, then paste prompt.txt verbatim.\n"
-            "The session checks each attachment opens at the size in prompt.txt and stops if one is missing.\n"
+            "The session checks each reference is attached and shows its subject, and stops if one is missing.\n"
             "Art bible: docs/handoffs/SKYGLASS_CROWNHOLD_ART_BATCH.md\n"))
         for it in items:
             slug = "%02d_%s" % (it["no"], _re.sub(r"[^a-z0-9]+", "_", it["name"].lower()).strip("_")[:40])
@@ -331,13 +331,14 @@ if "--zip" in sys.argv:
                 path = REF[r]; b, w, h, sh = meta(path)
                 fname = "ref%d_%s" % (i + 1, os.path.basename(path))
                 z.write(REPO + path, f"{slug}/{fname}")
-                refs_txt.append(f"{i+1}. {fname}  ({role}; {w} x {h}; sha256 {sh} [advisory])")
+                refs_txt.append(f"{i+1}. {fname}  ({role}; original {w} x {h}, the app may resize uploads)")
             sec = doc[doc.index("### %d. " % it["no"]):]
             prompt = sec[sec.index("~~~text\n") + 8: sec.index("\n~~~", sec.index("~~~text\n") + 8)]
             head = (f"Art batch #{it['no']}: {it['name']}  |  target {it['target']}  |  key {it['key']}  |  deliver {it['deliver']}\n"
                     "The operator has attached these references in this order (you have no network; do not download):\n"
                     + "\n".join(refs_txt) +
-                    "\nBefore generating: confirm each attachment is present, opens at the listed size, and shows the described subject. "
+                    "\nBefore generating: confirm each reference is attached and shows the described subject. Size is informational: "
+                    "uploads are often resized, so do not stop over size or file bytes. "
                     "If any is missing or wrong, STOP and report which. Then run the prompt below verbatim.\n\n---\n\n")
             z.writestr(f"{slug}/prompt.txt", head + prompt + "\n")
     print("zip:", zpath, os.path.getsize(zpath))
