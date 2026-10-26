@@ -1,11 +1,11 @@
-# Art batch: Skyglass event and Crownhold (79 images)
+# Art batch: Skyglass event and Crownhold (79 images, plus prerequisite brief A)
 
 - **Director, 2026-10-25:** "Draft up a design document for the art director to pull each prompt from and use references. Then a short compact hand off for each image in sequence and I hand you back the approved image."
-- **Style (director, 2026-10-25):** every image in this batch is PREMIUM PIXEL ART, the same rendering as the Crownhold/crew avatars. Painted references (the Coffer, the charts, the jutsu exemplar) supply subject, materials and colours only; Arakane's avatar supplies the pixel rendering.
+- **Style (director, 2026-10-25):** every image in this batch is PREMIUM PIXEL ART, the same rendering as the Crownhold/crew avatars. Painted references (the Coffer, the charts, the jutsu exemplar) supply subject, materials and colours only. **Art bible v0.4 (proposed):** `docs/design/ghost_ship_art_bible/` (ART_BIBLE.md, blocks.json, roster.json); the original crew is the rendering anchor: the Deck Warden for characters, the Seal Charge for objects, the Captain's portrait for scenes. Arakane's gold avatar is off-model and is not a reference.
 - **Protocol:** `docs/workflows/ISOLATED_ART_GENERATION.md`. One image per fresh session, at most two reference images (never a collage), one candidate at a time. The art director returns the RAW image; Claude Code keys, crops, exports and QCs it (`skills/producing-tnr-art`), then swaps the placeholder in game by manifest.
 - **Pixel redraws (#36 to #46):** the event icons already live were painted; each is redrawn as pixel art from its own approved image so the whole set matches (director, 2026-10-25).
 - **More pixel art (#47 onward):** the six Skyglass item icons inside the Coffer (redraws), then one scene per location the hunts actually depict (14; the wreck is now beached, and each Foundry room gets its own). Each scene lists the nodes that use it so the quests can be repointed when the art lands. Already pixel art and NOT redrawn: every crew avatar, the four scene portraits, the map structure. Left out: the retired Reliquary and old chests, and the retiring Ghost Ship quest icon.
-- **Not in this batch:** Arakane (done, `art/crownhold/avatar_crownhold_arakane.webp`); the Sealwright and Oathkeeper scene portraits (already exist). **Deferred:** the Lastlight hit animation (a vertical strip sprite sheet; its placeholder is KGK: Black Fang Lance's).
+- **Prerequisite A:** Supreme Commander Arakane redrawn to the v0.4 crown lock (iron ring, seven skyglass blades, no gold); #5 and #46-#48 are BLOCKED until it is approved. **Not in this batch:** the Sealwright and Oathkeeper scene portraits (already exist). **Deferred:** the Lastlight hit animation (a vertical strip sprite sheet; its placeholder is KGK: Black Fang Lance's).
 - **How a session uses this file:** it is given the link to this file and an image number. It reads that image's section, downloads the reference images from the links there, attaches them in the order given, and runs the prompt exactly as written.
 - **Live-game requests/writes:** 0.
 
@@ -73,11 +73,12 @@ Every link is pinned to commit `60b792ac19ba710d724a247127eb0482d967eeaf`, so it
 
 | # | Image | Target | Key | References | Delivery file |
 |---|---|---|---|---|---|
+| A | Supreme Commander Arakane | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_arakane_v2.webp` |
 | 1 | Sealed Treasury | ICON | lime | treasury_subject, arakane | `icon-sealed-treasury.webp` |
 | 2 | Archive Chart Case | ICON | lime | foundry_chart, arakane | `icon-archive-chart-case.webp` |
 | 3 | Chart of the Buried Cache | ICON | lime | foundry_chart, arakane | `icon-chart-buried-cache.webp` |
 | 4 | Unmarked Cargo | ICON | lime | coffer, arakane | `icon-unmarked-cargo.webp` |
-| 5 | Crownbreaker (badge) | ICON | magenta | arakane, crown | `icon-badge-crownbreaker.webp` |
+| 5 | Crownbreaker (badge) | ICON | magenta | seal_charge | `icon-badge-crownbreaker.webp` |
 | 6 | Lastlight (jutsu icon) | JUTSU_ICON | none | bbe, lantern | `icon-jutsu-lastlight.webp` |
 | 7 | Foundry Warden (AI avatar) | AI_AVATAR | magenta | deck_warden | `avatar_skyglass_foundry_warden.webp` |
 | 8 | Armsmaster (commander) | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_master_of_arms.webp` |
@@ -103,41 +104,41 @@ Every link is pinned to commit `60b792ac19ba710d724a247127eb0482d967eeaf`, so it
 | 28 | Scene: Armory proving hall | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_proving_hall.webp` |
 | 29 | Scene: Ordnance store | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_ordnance_store.webp` |
 | 30 | Scene: Test gallery | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_test_gallery.webp` |
-| 31 | Scene: Armory command terminal | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_armory_terminal.webp` |
+| 31 | Scene: Armory command shrine | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_armory_terminal.webp` |
 | 32 | Scene: Forge wall | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_forge_wall.webp` |
 | 33 | Scene: Archive of impressions | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_archive_of_impressions.webp` |
-| 34 | Scene: Vat halls | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_vat_halls.webp` |
-| 35 | Scene: Research command terminal | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_research_terminal.webp` |
-| 36 | Scene: Reconstruction theatre | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_reconstruction_theatre.webp` |
+| 34 | Scene: Sealing jar halls | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_vat_halls.webp` |
+| 35 | Scene: Research command shrine | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_research_terminal.webp` |
+| 36 | Scene: Recall chamber | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_reconstruction_theatre.webp` |
 | 37 | Scene: High Command signal room | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_signal_room.webp` |
 | 38 | Scene: Planning hall | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_planning_hall.webp` |
 | 39 | Scene: Honor guard corridor | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_honor_guard_corridor.webp` |
-| 40 | Scene: High Command terminal | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_high_command_terminal.webp` |
-| 41 | Scene: The Grand Marshal's office | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_marshals_office.webp` |
+| 40 | Scene: High Command shrine | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_high_command_terminal.webp` |
+| 41 | Scene: The Second's office | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_marshals_office.webp` |
 | 42 | Scene: Sanctum gate | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_sanctum_gate.webp` |
 | 43 | Scene: Sanctum antechamber | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_antechamber.webp` |
-| 44 | Scene: Outer ring and terminal | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_outer_ring.webp` |
+| 44 | Scene: Outer ring and shrine | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_outer_ring.webp` |
 | 45 | Scene: Throne room | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_throne_room.webp` |
-| 46 | The Last Directive (jutsu icon) | JUTSU_ICON | none | bbe, arakane | `icon-jutsu-the-last-directive.webp` |
-| 47 | Extermination Order (jutsu icon) | JUTSU_ICON | none | bbe, arakane | `icon-jutsu-extermination-order.webp` |
-| 48 | Countermand (item icon) | ICON | lime | arakane | `icon-countermand.webp` |
-| 49 | Skyglass Coffer (pixel redraw) | ICON | lime | redraw_icon-skyglass-coffer.webp, arakane | `icon-skyglass-coffer-pixel.webp` |
-| 50 | Katon Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-katon.webp, arakane | `icon-tool-pouch-katon-pixel.webp` |
-| 51 | Wave Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-wave.webp, arakane | `icon-tool-pouch-wave-pixel.webp` |
-| 52 | Ikazuchi Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-ikazuchi.webp, arakane | `icon-tool-pouch-ikazuchi-pixel.webp` |
-| 53 | Stonefall Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-stonefall.webp, arakane | `icon-tool-pouch-stonefall-pixel.webp` |
-| 54 | Zephyrfang Tool Pouch (pixel redraw) | ICON | magenta | redraw_icon-tool-pouch-zephyrfang.webp, arakane | `icon-tool-pouch-zephyrfang-pixel.webp` |
-| 55 | Chart of the Drowned Foundry (pixel redraw) | ICON | lime | redraw_icon-chart-drowned-foundry.webp, arakane | `icon-chart-drowned-foundry-pixel.webp` |
-| 56 | Chart of the Quarantined Archive (pixel redraw) | ICON | lime | redraw_icon-chart-quarantined-archive.webp, arakane | `icon-chart-quarantined-archive-pixel.webp` |
-| 57 | Chart of the Captain's Watch (pixel redraw) | ICON | lime | redraw_icon-chart-captains-watch.webp, arakane | `icon-chart-captains-watch-pixel.webp` |
-| 58 | Lastlight Lantern (pixel redraw) | ICON | lime | redraw_icon-skyglass-signal-beacon.webp, arakane | `icon-skyglass-signal-beacon-pixel.webp` |
-| 59 | Armory Requisition (pixel redraw) | ICON | lime | redraw_icon-armory-requisition.webp, arakane | `icon-armory-requisition-pixel.webp` |
-| 60 | Skyglass Crown (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crown.webp, arakane | `icon_ghost_ship_skyglass_crown_pixel.webp` |
-| 61 | Skyglass Crown Fragment (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crown_fragment.webp, arakane | `icon_ghost_ship_skyglass_crown_fragment_pixel.webp` |
-| 62 | Skyglass Crystal (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crystal.webp, arakane | `icon_ghost_ship_skyglass_crystal_pixel.webp` |
-| 63 | Skyglass Filament (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_filament.webp, arakane | `icon_ghost_ship_skyglass_filament_pixel.webp` |
-| 64 | Skyglass Katana (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_katana.webp, arakane | `icon_ghost_ship_skyglass_katana_pixel.webp` |
-| 65 | Skyglass Serum (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_serum.webp, arakane | `icon_ghost_ship_skyglass_serum_pixel.webp` |
+| 46 | The Last Directive (jutsu icon) | JUTSU_ICON | none | bbe | `icon-jutsu-the-last-directive.webp` |
+| 47 | Extermination Order (jutsu icon) | JUTSU_ICON | none | bbe | `icon-jutsu-extermination-order.webp` |
+| 48 | Countermand (item icon) | ICON | lime | seal_charge | `icon-countermand.webp` |
+| 49 | Skyglass Coffer (pixel redraw) | ICON | lime | redraw_icon-skyglass-coffer.webp, seal_charge | `icon-skyglass-coffer-pixel.webp` |
+| 50 | Katon Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-katon.webp, seal_charge | `icon-tool-pouch-katon-pixel.webp` |
+| 51 | Wave Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-wave.webp, seal_charge | `icon-tool-pouch-wave-pixel.webp` |
+| 52 | Ikazuchi Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-ikazuchi.webp, seal_charge | `icon-tool-pouch-ikazuchi-pixel.webp` |
+| 53 | Stonefall Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-stonefall.webp, seal_charge | `icon-tool-pouch-stonefall-pixel.webp` |
+| 54 | Zephyrfang Tool Pouch (pixel redraw) | ICON | magenta | redraw_icon-tool-pouch-zephyrfang.webp, seal_charge | `icon-tool-pouch-zephyrfang-pixel.webp` |
+| 55 | Chart of the Drowned Foundry (pixel redraw) | ICON | lime | redraw_icon-chart-drowned-foundry.webp, seal_charge | `icon-chart-drowned-foundry-pixel.webp` |
+| 56 | Chart of the Quarantined Archive (pixel redraw) | ICON | lime | redraw_icon-chart-quarantined-archive.webp, seal_charge | `icon-chart-quarantined-archive-pixel.webp` |
+| 57 | Chart of the Captain's Watch (pixel redraw) | ICON | lime | redraw_icon-chart-captains-watch.webp, seal_charge | `icon-chart-captains-watch-pixel.webp` |
+| 58 | Lastlight Lantern (pixel redraw) | ICON | lime | redraw_icon-skyglass-signal-beacon.webp, seal_charge | `icon-skyglass-signal-beacon-pixel.webp` |
+| 59 | Armory Requisition (pixel redraw) | ICON | lime | redraw_icon-armory-requisition.webp, seal_charge | `icon-armory-requisition-pixel.webp` |
+| 60 | Skyglass Crown (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crown.webp, seal_charge | `icon_ghost_ship_skyglass_crown_pixel.webp` |
+| 61 | Skyglass Crown Fragment (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crown_fragment.webp, seal_charge | `icon_ghost_ship_skyglass_crown_fragment_pixel.webp` |
+| 62 | Skyglass Crystal (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crystal.webp, seal_charge | `icon_ghost_ship_skyglass_crystal_pixel.webp` |
+| 63 | Skyglass Filament (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_filament.webp, seal_charge | `icon_ghost_ship_skyglass_filament_pixel.webp` |
+| 64 | Skyglass Katana (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_katana.webp, seal_charge | `icon_ghost_ship_skyglass_katana_pixel.webp` |
+| 65 | Skyglass Serum (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_serum.webp, seal_charge | `icon_ghost_ship_skyglass_serum_pixel.webp` |
 | 66 | Scene: Wreck keel and hatch | SCENE_BACKGROUND | none | scene_exterior_keel_walk, captain_portrait | `scene_bg_skyglass_wreck_keel.webp` |
 | 67 | Scene: Flooded intake | SCENE_BACKGROUND | none | scene_lower_hull, captain_portrait | `scene_bg_skyglass_foundry_intake.webp` |
 | 68 | Scene: Cooling racks | SCENE_BACKGROUND | none | scene_hold, captain_portrait | `scene_bg_skyglass_foundry_racks.webp` |
@@ -154,6 +155,30 @@ Every link is pinned to commit `60b792ac19ba710d724a247127eb0482d967eeaf`, so it
 | 79 | Scene: Three coves and the stone shrine | SCENE_BACKGROUND | none | scene_cache_site, captain_portrait | `scene_bg_skyglass_buried_cache_shore.webp` |
 
 ## Prompts
+
+### A. Supreme Commander Arakane
+
+> Prerequisite brief, outside the 79. Prerequisite for #5 and #46-#48. Replaces the gold design of avatar_crownhold_arakane.webp (kept as history; delivered under a new name).
+
+References (download and attach, in this order):
+
+1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+
+~~~text
+Draw ONE image for The Ninja RPG: Supreme Commander Arakane. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
+
+Subject: Supreme Commander Arakane: Crownhold, Division IV (Sanctum). Head: a plain dark hood, a severe iron half-mask, and the Command Crown described below. Weapon or prop: a single broad black-iron nagamaki. Stance: the tallest of all, lean and commanding, the blade held horizontal. The Command Crown: a thin CLOSED ring of blackened iron with seven blunt iron seal notches and one small faceted pale cyan seal stone at the front; above it, with a small gap, seven separate floating skyglass blades: one central upright blade, a pair of inner diagonals, a pair of outer diagonals and two shorter flanking blades; the crystal blades outlined dark and cel shaded in two or three steps. Crown constraints: no gold, no glowing strings or threads, no extra crystal debris, no jewels, no giant light halo, no radiant ghost body, no ornate armour. Keep: a long straight split haori; a controlled silhouette; outranks the Crowned Captain through disciplined seven-blade geometry and posture, not size or decoration; the crown reads as one powerful head silhouette at 125 px. Rank: a commander, about a tenth taller than a regular, NOT wider: a structured raised collar, a longer split haori, a controlled battle stance; no oversized shoulder plates, no gold; he alone wears the Command Crown, and he stands tallest of all. Division IV, Sanctum: a severe enclosed silhouette, the darkest clothing, straight seal panels, almost no accessories. Division material: pale iron-ash (#86858A) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
+
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
+On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no second crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+
+Return the raw image named raw_avatar_crownhold_arakane_v2.png.
+~~~
 
 ### 1. Sealed Treasury
 
@@ -233,16 +258,17 @@ Return the raw image named raw_icon-unmarked-cargo.png.
 
 ### 5. Crownbreaker (badge)
 
+> BLOCKED until brief A (the Arakane v2 avatar) is approved and committed; then rerun the builder and the approved avatar joins this image as its SUBJECT reference. Do not generate before that.
+
 References (download and attach, in this order):
 
-1. SUBJECT: keep the crown exactly: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
-2. STYLE: icon rendering only: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp  (116290 bytes, 480 x 480, sha256 `02cde28f5fedfaf3…`)
+1. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Crownbreaker (badge). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: keep the crown exactly; 2. STYLE: icon rendering only. Follow each reference only for its stated role.
+References attached: 1. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
-Subject: Crownbreaker: Supreme Commander Arakane's Command Crown at the moment it breaks. Keep the crown from the avatar exactly: the spiked blackened-gold circlet, the halo of floating skyglass blades with the seal ring at the centre, the glowing control threads. The circlet is split down the middle through the seal, the two halves pushed apart; a white-hot crack of light bursts from the broken centre; the blades scatter and tumble outward; the threads are snapped, their loose ends curling and fading. No hands, no figure.
+Subject: Crownbreaker: Supreme Commander Arakane's Command Crown at the moment it breaks. The Command Crown: a thin CLOSED ring of blackened iron with seven blunt iron seal notches and one small faceted pale cyan seal stone at the front; above it, with a small gap, seven separate floating skyglass blades: one central upright blade, a pair of inner diagonals, a pair of outer diagonals and two shorter flanking blades; the crystal blades outlined dark and cel shaded in two or three steps. The iron ring is split through the cyan seal stone, the two halves pushed apart; a sharp white crack of light at the break; the seven skyglass blades scatter and tumble outward. No hands, no figure. Crown constraints: no gold, no glowing strings or threads, no extra crystal debris, no jewels, no giant light halo, no radiant ghost body, no ornate armour.
 
 Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours as the subject: cool blue-black wood and blue-grey iron, silver-grey metal highlights, ONE accent of pale cyan faceted skyglass with a small glow, cool cyan rim light. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard.
 Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
@@ -279,14 +305,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Foundry Warden (AI avatar). Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: The Foundry Warden: keeper of the drowned skyglass foundry under the wreck's keel. A broad shipwright-smith shinobi: a dark tenugui headwrap and a cloth mask, a scorched dark leather apron over an indigo kimono, sleeves tied back with a rope tasuki cord, soaked to the knees; long iron crucible tongs in one hand, a small iron ladle of glowing pale cyan molten skyglass in the other. Accent: molten skyglass cyan.
+Subject: The Foundry Warden: a Skyglass ship's crewman who keeps the drowned foundry under the wreck's keel. Head: a dark tenugui headwrap and a cloth mask. Weapon or tool: long iron crucible tongs, a small iron ladle of molten pale cyan skyglass hanging at the belt. Stance: a lean, braced working guard, tongs held forward like a polearm. Keep: a scorched dark leather apron over an indigo kimono, sleeves tied back with a tasuki cord, soaked to the knees; not bulky, not brown overall. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_skyglass_foundry_warden.png.
 ~~~
@@ -301,14 +327,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Armsmaster (commander). Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Armsmaster: Division I commander. A broad weapons-master shinobi: a plain dark iron jingasa over a hood, a cloth mask with thin forge-orange trim; a heavy dark haori over laced lacquered plates; a yari in one hand and a short ono axe in the other, katana and bundles of kunai strapped across his back; calm and exacting. Accent: forge-orange. Commander presence: clearly a commander: taller than a regular with a longer, heavier cloak or haori and a high collar, not wider or stockier; a commanding, battle-ready stance. Still no gold and no crown.
+Subject: Armsmaster: Crownhold, Division I (Armoury). Head: an asymmetric, shallow, notched iron jingasa over a cloth mask. Weapon or prop: ONE broad curved short-handled ono war-axe. Stance: tall, a controlled diagonal axe strike. Keep: no second axe; no drawn spear; no back filled with weapons. Rank: a commander, about a tenth taller than a regular, NOT wider: a structured raised collar, a longer split haori, a controlled battle stance; no oversized shoulder plates, no gold, no crown. Division I, Armoury: an angular, aggressive silhouette, a short split coat, the weapon prominent. Division material: weathered forge-rust (#624C49) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_master_of_arms.png.
 ~~~
@@ -323,14 +349,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Replicant Zero (commander). Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Replicant Zero: Division II commander. A tall, composed medical-nin: a plain dark grey hood and a dark cloth mask, both eyes lit pale violet; a long layered dark haori with a high stiff collar, a medic's scroll case and a row of sealing-tag pouches across the chest; a small ball of pale violet healing chakra held above his open left palm, the hand drawn normally; the first successful recall; calm and curious. No sword. Accent: pale violet. Commander presence: clearly a commander: taller than a regular with a longer, heavier cloak or haori and a high collar, not wider or stockier; a commanding, battle-ready stance. Still no gold and no crown.
+Subject: Replicant Zero: Crownhold, Division II (Research). Head: a close medical coif framed by a raised collar. Weapon or prop: hand-forged surgical forceps; a medic's scroll case at the waist. Stance: examining his own complete, solid left hand. Keep: the left hand is whole and solid; no ghost or missing hand. Rank: a commander, about a tenth taller than a regular, NOT wider: a structured raised collar, a longer split haori, a controlled battle stance; no oversized shoulder plates, no gold, no crown. Division II, Research: a narrow, vertical, asymmetric silhouette, scroll and seal equipment. Division material: muted ink-mauve (#4C444C) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_replicant_zero.png.
 ~~~
@@ -345,14 +371,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: The Second (commander). Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: The Second: Division III commander, the Supreme Commander's deputy. An older senior shinobi officer: a wide flat kasa hat shading a plain dark cloth mask, a short grey beard visible below it; a plain dark long haori over light laced plates, a katana drawn and held low and calm in one hand; thoughtful and severe; the deputy who could question orders. Accent: muted brass, only as the hat cord and sword fittings. Commander presence: clearly a commander: taller than a regular with a longer, heavier cloak or haori and a high collar, not wider or stockier; a commanding, battle-ready stance. Still no gold and no crown.
+Subject: The Second: Crownhold, Division III (High Command). Head: a wide, nearly flat woven kasa over a cloth mask, a short grey beard below. Weapon or prop: an unsheathed straight shikomi-zue blade. Stance: tall and defensive, the blade low and outward. Keep: severe and composed; never hands behind the back. Rank: a commander, about a tenth taller than a regular, NOT wider: a structured raised collar, a longer split haori, a controlled battle stance; no oversized shoulder plates, no gold, no crown. Division III, High Command: a clean directional silhouette, disciplined weapon handling, restrained straight coat panels. Division material: storm-slate (#5C6474) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_the_grand_marshal.png.
 ~~~
@@ -367,14 +393,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Trialmaster. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Trialmaster: Division I. An armoury proctor: a grey tenugui headwrap and cloth mask, a faded grey drill kimono with tied-back sleeves, a wooden board of trial slips in one hand, two bokken at the obi, a small signal bell on a cord. Accent: drill-yellow.
+Subject: Trialmaster: Crownhold, Division I (Armoury). Head: a flat tenugui headwrap tied in a square knot at the back. Weapon or prop: a single long bokken. Stance: a two-handed intercepting sparring guard. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division I, Armoury: an angular, aggressive silhouette, a short split coat, the weapon prominent. Division material: weathered forge-rust (#624C49) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_proving_proctor.png.
 ~~~
@@ -389,14 +415,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Tagwright. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Tagwright: Division I. A soot-stained short work haori, bandoliers of paper explosive tags glowing faintly at their edges, soot-dark gloves holding a lacquered tray of tags. Accent: tag-orange.
+Subject: Tagwright: Crownhold, Division I (Armoury). Head: a squared, short-peaked, soot-dark hood. Weapon or prop: three broad paper explosive tags held in a throwing fan. Stance: twisting forward to throw. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division I, Armoury: an angular, aggressive silhouette, a short split coat, the weapon prominent. Division material: weathered forge-rust (#624C49) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_ordnance_quartermaster.png.
 ~~~
@@ -411,14 +437,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Lancer. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Lancer: Division I. A lean spear specialist in light laced plates and a hood, a long cross-bladed yari with lightning chakra running along its blade, burn-scarred forearms wrapped in cloth. Accent: electric yellow.
+Subject: Lancer: Crownhold, Division I (Armoury). Head: a fitted ridged cap with a short rear flap. Weapon or prop: a long fork-headed yari thrust horizontally. Stance: a committed forward lunge. Keep: not an upright spear held at rest; no crystal spearhead. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division I, Armoury: an angular, aggressive silhouette, a short split coat, the weapon prominent. Division material: weathered forge-rust (#624C49) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_prototype_lancer_unit.png.
 ~~~
@@ -433,14 +459,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Duelist. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Duelist: Division I. A young duelist in sparring wraps and a tenugui headwrap, a bokken with wind chakra curling along its edge, an apprentice cord on the shoulder. Accent: wind-green.
+Subject: Duelist: Crownhold, Division I (Armoury). Head: a diagonally tied tenugui with one rear cloth fold. Weapon or prop: a slim single drawn tachi. Stance: a long one-handed fencing cut. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division I, Armoury: an angular, aggressive silhouette, a short split coat, the weapon prominent. Division material: weathered forge-rust (#624C49) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_calibration_duelist.png.
 ~~~
@@ -455,14 +481,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Archivist. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Archivist: Division II. An archivist-nin with a satchel of scrolls and a bound ledger, ink-stained gloves, a writing brush behind the ear of the hood, a small skyglass reading lens on a cord. Accent: archive blue.
+Subject: Archivist: Crownhold, Division II (Research). Head: a compact, square-folded cloth eboshi. Weapon or prop: an open V-shaped bound ledger. Stance: a guarded sideways stance, ink-stained gloves. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division II, Research: a narrow, vertical, asymmetric silhouette, scroll and seal equipment. Division material: muted ink-mauve (#4C444C) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_skyglass_archive_keeper.png.
 ~~~
@@ -477,14 +503,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Binder. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Binder: Division II. A sealing specialist in a deep hood, a heavy iron ring of seal keys and tag-wrapped scroll cases on chains, a corked ceramic seal jar of glowing water at the hip. Accent: water teal.
+Subject: Binder: Crownhold, Division II (Research). Head: a deep asymmetric hood with a long folded side panel. Weapon or prop: a large three-toothed iron sealing key. Stance: a low, deliberate sealing guard. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division II, Research: a narrow, vertical, asymmetric silhouette, scroll and seal equipment. Division material: muted ink-mauve (#4C444C) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_impression_containment_warden.png.
 ~~~
@@ -499,14 +525,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Echo. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Echo: Division II. A shinobi caught mid-step splitting into an imperfect shadow clone: the clone a half-step behind and out of line, shadow chakra trailing between them, both figures solid. Accent: shadow violet.
+Subject: Echo: Crownhold, Division II (Research). Head: a split-topped hood with two unequal peaks. Weapon or prop: a single three-pronged iron sai. Stance: an off-centre, twisted stance. Keep: one solid figure only; the instability shows only as haze at the cloth edges; no clone, no double image, no glitch. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division II, Research: a narrow, vertical, asymmetric silhouette, scroll and seal equipment. Division material: muted ink-mauve (#4C444C) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_unstable_echo_subject.png.
 ~~~
@@ -521,14 +547,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Stonebound. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Stonebound: Division II. A hulking earth-style shinobi half-encased in his own stone armour technique, rock plating cracked over one arm and shoulder, rope-bound, a tetsubo in hand. Accent: stone ochre.
+Subject: Stonebound: Crownhold, Division II (Research). Head: a sloping brow-wrap with one rough earth plate. Weapon or prop: a short spiked iron tetsubo. Stance: a grounded, guarded stance. Keep: compact earth armour on one arm and shoulder only; not a bulky rock golem. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division II, Research: a narrow, vertical, asymmetric silhouette, scroll and seal equipment. Division material: muted ink-mauve (#4C444C) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_failed_reconstruction_prototype.png.
 ~~~
@@ -543,14 +569,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Signaller. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Signaller: Division III. A signals shinobi: a war fan (gunbai) raised in one hand and a small nobori signal flag in the other, a message-scroll tube across the back, a rank cord. Accent: signal green.
+Subject: Signaller: Crownhold, Division III (High Command). Head: a side-folded hood with a triangular ear flap. Weapon or prop: a large oval gunbai war fan; a small nobori flag on the back. Stance: directing a troop movement with an extended arm. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division III, High Command: a clean directional silhouette, disciplined weapon handling, restrained straight coat panels. Division material: storm-slate (#5C6474) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_command_signal_adjutant.png.
 ~~~
@@ -565,14 +591,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Tactician. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Tactician: Division III. A tactician in a kasa hat with a campaign map case under one arm and a brush wet with glowing chakra ink, the Second's aide's cord on the shoulder. Accent: ink blue.
+Subject: Tactician: Crownhold, Division III (High Command). Head: a narrow, tall, three-fold angled cloth cap. Weapon or prop: a black-iron jitte with its side prong visible; a small campaign map case at the waist. Stance: a guarded, pointer-like fighting stance. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division III, High Command: a clean directional silhouette, disciplined weapon handling, restrained straight coat panels. Division material: storm-slate (#5C6474) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_high_command_staff_tactician.png.
 ~~~
@@ -587,14 +613,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Honor Guard. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Honor Guard: Division III. A tall guard in ceremonial stone-grey laced armour and a plain jingasa, holding a naginata upright beside him. Accent: polished iron.
+Subject: Honor Guard: Crownhold, Division III (High Command). Head: a fitted hood beneath a triangular iron brow visor. Weapon or prop: a long broad-bladed naginata. Stance: a controlled diagonal sweeping guard. Keep: not ornate ceremonial samurai armour. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division III, High Command: a clean directional silhouette, disciplined weapon handling, restrained straight coat panels. Division material: storm-slate (#5C6474) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_honor_guard_commandant.png.
 ~~~
@@ -609,14 +635,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Runner. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Runner: Division III. A swift courier-shinobi with sealed scroll dispatch tubes on the back crackling with lightning chakra, light lacquered plates, an aide's sash. Accent: lightning white.
+Subject: Runner: Crownhold, Division III (High Command). Head: a tight wrap with two short ties streaming behind. Weapon or prop: a single iron kunai held forward; two bamboo dispatch tubes high on the back. Stance: a low, rapid running strike. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division III, High Command: a clean directional silhouette, disciplined weapon handling, restrained straight coat panels. Division material: storm-slate (#5C6474) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_strategists_aide_de_camp.png.
 ~~~
@@ -631,14 +657,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Vanguard. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Vanguard: Division IV. A front-line shinobi in obsidian-black laced plates and a kabuto with a menpo, fire chakra running along the edge of his katana, a short banner pole on the back. Accent: ember red.
+Subject: Vanguard: Crownhold, Division IV (Sanctum). Head: a low angular iron fighting hood with a notched brow. Weapon or prop: a short-handled iron fire-hook. Stance: an advancing assault. Keep: a few contained ember pixels at the hook only; no fiery body aura. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division IV, Sanctum: a severe enclosed silhouette, the darkest clothing, straight seal panels, almost no accessories. Division material: pale iron-ash (#86858A) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_sanctum_vanguard.png.
 ~~~
@@ -653,14 +679,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Herald. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Herald: Division IV. Long dark ceremonial kimono and a hood, an unrolled scroll of orders in one hand marked with glowing unreadable brush marks, lightning-lit eyes. Accent: lightning gold.
+Subject: Herald: Crownhold, Division IV (Sanctum). Head: a tall, forward-bent cloth eboshi. Weapon or prop: a vertical decree scroll in one hand and a short tanto in the other. Stance: delivering an order while battle-ready. Keep: no floating text; no illuminated parchment panels. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division IV, Sanctum: a severe enclosed silhouette, the darkest clothing, straight seal panels, almost no accessories. Division material: pale iron-ash (#86858A) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_directive_herald.png.
 ~~~
@@ -675,14 +701,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Last Watch. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Last Watch: Division IV. A tattered night-watch cloak and hood, twin kusarigama with wind chakra along the blades, a blank mask stamped with an unreadable seal. Accent: night blue.
+Subject: Last Watch: Crownhold, Division IV (Sanctum). Head: a deep crescent night hood with uneven corners. Weapon or prop: ONE kusarigama with a physical short chain and weight. Stance: a low predatory stance, one controlled chain arc. Keep: no enormous supernatural chain loops. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division IV, Sanctum: a severe enclosed silhouette, the darkest clothing, straight seal panels, almost no accessories. Division material: pale iron-ash (#86858A) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_last_watch_executor.png.
 ~~~
@@ -697,14 +723,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Sealbearer. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Sealbearer: Division IV. Deep-blue Sanctum wraps and a hood, a sealed scroll case on the back, a blank command seal tablet held up in one hand. Accent: deep-sea blue.
+Subject: Sealbearer: Crownhold, Division IV (Sanctum). Head: a rigid box-shaped cowl with a rectangular brow tab. Weapon or prop: an upright rectangular blackwood command-seal tablet. Stance: holding the tablet forward, the other hand ready to seal. Keep: one simple geometric seal; no screen-like glow. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division IV, Sanctum: a severe enclosed silhouette, the darkest clothing, straight seal panels, almost no accessories. Division material: pale iron-ash (#86858A) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
-Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, no airbrush, no bloom, no painterly gradients. Colour: near-black and deep indigo cloth; skyglass cyan along the weapon's edge and in the eyes; brass on only one or two small fittings; rope only at the belt. Build and pose: lean, tall and agile, in a battle-ready stance with the weapon drawn; the sash tail and torn hems trail with movement. Camera at eye level, front three-quarter view, full body inside the frame with a clear margin, grounded adult proportions, both arms within the silhouette.
-Costume: the crew's four marks: a hood or hat, a cloth mask over nose and mouth with eyes lit by pale chakra, an indigo sash with a hanging tail, and cloth-wrapped shins over closed tabi boots; dark layered kimono and plain lacquered plates where the subject asks for armour. Solid gloved hands with five fingers. Period weapons only.
-He is a solid shinobi recalled as a chakra impression; the only signs are chakra-lit eyes and a faint haze of the accent colour at the cloth's torn edges.
-Any chakra is a compact flame-like glow along a weapon's edge, or a small ball of chakra held above an open gloved palm; the hand is drawn normally.
+Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
+Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
+He is a fully solid shinobi recalled as a chakra impression, with normal anatomy and equipment; the only signs are small chakra-lit eyes and a faint haze at the cloth's torn edges.
+Chakra, if any, is compact and purposeful, at a working blade, tool or hand; no free-floating spell effects.
 On a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
-Negative: no modern or sci-fi objects, no machines, cables or glowing panels, no glowing seams or veins, no translucent, crystal or ghost body parts, no floating parts, no thread or line from the head, no gold, no filigree, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
+Negative: no electronic or futuristic objects, no terminals, screens, cables, laboratory machinery or futuristic weapons, no transparent body, no floating limbs, no ghost hands, no glowing seams or veins, no crystal skin, no glitch effects, no threads or lines from the head, no gold, no filigree, no jewellery, no tassels, no crown, no ornate parade armour, no headband, no forehead protector, no clan or village symbol, no text, no bare toes, no aura or halo, no rainbow accents, no realistic or smooth painterly rendering, no anime-scaled eyes, no blur, no scenery, no floor, no cast shadow on the key colour, no key-colour spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no sheet, no grid.
 
 Return the raw image named raw_avatar_crownhold_order_bearer_of_the_sanctum.png.
 ~~~
@@ -738,7 +764,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Armory proving hall. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Inside the Experimental Armory: rows of weapon racks humming behind glass, a live-fire trial range with targets, a brass placard by the first rack, cold stone and military brass. (Used by: Division I opening, the Proving Proctor.)
+Subject: Inside the castle armoury: long wooden racks of yari, naginata and katana, a straw-target trial range on packed earth, a wooden placard by the first rack, cold stone walls and worn tatami. (Used by: Division I opening, the Trialmaster.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -756,7 +782,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Ordnance store. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: An open ordnance store past the trial range: a counter with a ledger, shelves of sealed explosive tags glowing with heat, scorch marks on the stone. (Used by: the Ordnance Quartermaster.)
+Subject: An open ordnance store past the trial range: a wooden counter with a ledger, lacquered boxes of paper explosive tags glowing faintly at their edges, scorch marks on the stone. (Used by: the Tagwright.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -774,14 +800,16 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Test gallery. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A narrow test gallery: an empty heavy firing rig bolted to the floor with lightning-scorched clamps and capacitor cables, crackling yellow sparks. (Used by: the Prototype Lancer Unit.)
+Subject: A narrow stone spear-trial gallery: a heavy wooden thrusting post bound in iron bands and scorched by lightning chakra, split straw targets along the walls, a few crackling sparks. (Used by: the Lancer.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
 Return the raw image named raw_scene_bg_crownhold_test_gallery.png.
 ~~~
 
-### 31. Scene: Armory command terminal
+### 31. Scene: Armory command shrine
+
+> The quest text still calls this place a terminal (renaming it is a content decision); the art draws an Edo command shrine.
 
 References (download and attach, in this order):
 
@@ -789,10 +817,10 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: Armory command terminal. Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: Armory command shrine. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A glowing Military Command Terminal set into the armory wall beside a sealed door, a maintenance crawlway hatch behind live-fire racks with a three-switch lock. (Used by: Division I terminal, puzzle, protocols.)
+Subject: A carved command shrine set into the armoury wall beside a sealed door: a lacquered seal desk with a glowing skyglass seal stone, and a low crawlway hatch behind the weapon racks closed by a three-bolt wooden lock. (Used by: Division I command node, puzzle, protocols.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -810,7 +838,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Forge wall. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: The armory's heart: a towering forge wall hung with every weapon type ever tested, a glowing forge, an anvil, sealed door behind. (Used by: the Master of Arms.)
+Subject: The armoury's heart: a towering forge wall hung with every weapon type ever tested, a glowing charcoal forge, an anvil, a sealed door behind. (Used by: the Armsmaster.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -828,14 +856,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Archive of impressions. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A library of glass: tall shelves of crystal cores, each holding a faint sleeping light, cold blue air, a reading desk with an open ledger. (Used by: Division II opening, the Archive Keeper.)
+Subject: An archive hall of tall wooden shelves: paper-tagged boxes of skyglass record crystals, each holding a faint sleeping light, and racks of scrolls; cold blue air, a low reading desk with an open ledger. (Used by: Division II opening, the Archivist.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
 Return the raw image named raw_scene_bg_crownhold_archive_of_impressions.png.
 ~~~
 
-### 34. Scene: Vat halls
+### 34. Scene: Sealing jar halls
 
 References (download and attach, in this order):
 
@@ -843,17 +871,19 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: Vat halls. Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: Sealing jar halls. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Halls of tall glowing specimen tanks lit by one tall Skyglass lamp column; chains of vat keys on hooks; one tank cracked and dark. (Used by: the Containment Warden, the Unstable Echo Subject.)
+Subject: Halls of tall sealed ceramic jars and lacquered wooden tubs bound in rope and paper seals, a few glowing faintly from within, lit by one tall skyglass lantern pillar; iron rings of seal keys on hooks; one jar cracked and dark. (Used by: the Binder, the Echo.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
 Return the raw image named raw_scene_bg_crownhold_vat_halls.png.
 ~~~
 
-### 35. Scene: Research command terminal
+### 35. Scene: Research command shrine
+
+> The quest text still calls this place a terminal (renaming it is a content decision); the art draws an Edo command shrine.
 
 References (download and attach, in this order):
 
@@ -861,17 +891,17 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: Research command terminal. Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: Research command shrine. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A command terminal beside the door of the reconstruction theatre, a plaque on the door, a locked maintenance stair behind the specimen tanks. (Used by: Division II terminal, puzzle, protocols.)
+Subject: A carved command seal desk beside the sliding door of the recall chamber, a wooden plaque on the door, a locked stair behind the sealing jars. (Used by: Division II command node, puzzle, protocols.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
 Return the raw image named raw_scene_bg_crownhold_research_terminal.png.
 ~~~
 
-### 36. Scene: Reconstruction theatre
+### 36. Scene: Recall chamber
 
 References (download and attach, in this order):
 
@@ -879,10 +909,10 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: Reconstruction theatre. Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: Recall chamber. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: An operating theatre seen from behind observation glass: a central operating floor ringed by tiered seats, a reconstruction rig of light and crystal over an empty table. (Used by: Replicant Zero.)
+Subject: A recall chamber seen from a raised wooden gallery behind half-open shoji panels: a central tatami floor ringed by low tiered benches, an empty healer's table under a frame of bamboo and paper seals with skyglass crystals hung on cords. (Used by: Replicant Zero.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -900,7 +930,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: High Command signal room. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A signal room: a long relay board of brass switches and paper tape, a sheet of paper printing itself line by line, maps of borders that no longer exist on the walls; empty of people. (Used by: Division III opening, the Signal Adjutant, and the aftermath; whoever sends the order is NEVER shown.)
+Subject: A signal tower room: a long wooden board of signal bells and coloured cords, a taiko drum by the window, a scroll on the writing desk filling with brushed lines one by one as if an unseen hand writes, maps of borders that no longer exist on the walls; empty of people. (Used by: Division III opening, the Signaller, and the aftermath; whoever sends the order is NEVER shown.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -918,7 +948,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Planning hall. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A planning hall set for a war council no one will attend: a long table with campaign maps, empty chairs, an inkwell of glowing chakra ink. (Used by: the Staff Tactician.)
+Subject: A planning hall set for a war council no one will attend: a long table with campaign maps, empty chairs, an inkwell of glowing chakra ink. (Used by: the Tactician.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -936,14 +966,16 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Honor guard corridor. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A long corridor lined with suits of ceremonial stone-plated armour on stands, a tower shield with a plain circled-cross seal, leading to a closed office door. (Used by: the Honor Guard Commandant.)
+Subject: A long corridor lined with suits of plain lacquered armour on wooden stands, naginata racked between them, leading to a closed sliding door. (Used by: the Honor Guard.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
 Return the raw image named raw_scene_bg_crownhold_honor_guard_corridor.png.
 ~~~
 
-### 40. Scene: High Command terminal
+### 40. Scene: High Command shrine
+
+> The quest text still calls this place a terminal (renaming it is a content decision); the art draws an Edo command shrine.
 
 References (download and attach, in this order):
 
@@ -951,17 +983,17 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: High Command terminal. Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: High Command shrine. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A command terminal outside a senior officer's office door, a narrow service corridor beside it, dispatch tubes on a rack. (Used by: Division III terminal, puzzle, protocols.)
+Subject: A carved command seal desk outside a senior officer's sliding door, a narrow service corridor beside it, bamboo dispatch tubes on a rack. (Used by: Division III command node, puzzle, protocols.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
 Return the raw image named raw_scene_bg_crownhold_high_command_terminal.png.
 ~~~
 
-### 41. Scene: The Grand Marshal's office
+### 41. Scene: The Second's office
 
 References (download and attach, in this order):
 
@@ -969,10 +1001,10 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: The Grand Marshal's office. Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: The Second's office. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A severe, unadorned office: a folding map table, a single chair, a window onto snow, thirty years of annotated orders pinned to the wall. (Used by: the Grand Marshal.)
+Subject: A severe, unadorned office: a low folding map table, a single cushion, a window onto snow, thirty years of annotated orders pinned to the wall. (Used by: the Second.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -990,7 +1022,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Sanctum gate. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: The summit: a gate of dark obsidian lit by ember light at the top of a long stair, ember braziers, the Supreme Command banner. (Used by: Division IV opening, the Sanctum Vanguard.)
+Subject: The summit: a gate of dark obsidian lit by ember light at the top of a long stair, ember braziers, the Supreme Command banner. (Used by: Division IV opening, the Vanguard.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -1008,14 +1040,16 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Sanctum antechamber. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: An obsidian antechamber with a lectern for a herald's scroll, lightning-blue light on black stone, ember lamps. (Used by: the Directive Herald.)
+Subject: An obsidian antechamber with a lectern for a herald's scroll, lightning-blue light on black stone, ember lamps. (Used by: the Herald.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
 Return the raw image named raw_scene_bg_crownhold_antechamber.png.
 ~~~
 
-### 44. Scene: Outer ring and terminal
+### 44. Scene: Outer ring and shrine
+
+> The quest text still calls this place a terminal (renaming it is a content decision); the art draws an Edo command shrine.
 
 References (download and attach, in this order):
 
@@ -1023,10 +1057,10 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: Outer ring and terminal. Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: Outer ring and shrine. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: The curved night-watch corridor of the Sanctum's outer ring, the last Military Command Terminal glowing in the wall, a sealed door ahead, a maintenance channel grille in the floor. (Used by: the Last Watch Executor, Division IV terminal, puzzle, protocols.)
+Subject: The curved night-watch corridor of the Sanctum's outer ring, the last command shrine glowing in a wall niche, a sealed door ahead, a narrow drainage channel under an iron grate in the floor. (Used by: the Last Watch, Division IV command node, puzzle, protocols.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -1044,7 +1078,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Throne room. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: An obsidian throne room lit by ember light, a tall summit window looking out over a whole mountain range at night, an empty command seat; faint cyan threads of light run from the floor up toward where the commander stands (he is not shown). (Used by: Supreme Commander Arakane.)
+Subject: An obsidian throne room lit by ember light, a tall summit window looking out over a whole mountain range at night, an empty command seat; seven faint blade-shaped cyan glints hang in the dark above it (the commander is not shown). (Used by: Supreme Commander Arakane.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -1053,16 +1087,17 @@ Return the raw image named raw_scene_bg_crownhold_throne_room.png.
 
 ### 46. The Last Directive (jutsu icon)
 
+> BLOCKED until brief A (the Arakane v2 avatar) is approved and committed; then rerun the builder and the approved avatar joins this image as its SUBJECT reference. Do not generate before that.
+
 References (download and attach, in this order):
 
 1. STYLE: jutsu icon register: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp  (61270 bytes, 256 x 256, sha256 `410b8c5a20af40b2…`)
-2. MOTIF: the Command Crown: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: The Last Directive (jutsu icon). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: jutsu icon register; 2. MOTIF: the Command Crown. Follow each reference only for its stated role.
+References attached: 1. STYLE: jutsu icon register. Follow each reference only for its stated role.
 
-Subject: The Last Directive: a commander's final order to himself. The Command Crown's seal ring blazing white-gold above a single upright blade planted point-down, an unbreakable shield of light around it.
+Subject: The Last Directive: a commander's final order to himself. The Command Crown's seven skyglass blades standing in a guarding circle around a single upright blade planted point-down, the blackened-iron ring and its cyan seal stone beneath. The Command Crown: a thin CLOSED ring of blackened iron with seven blunt iron seal notches and one small faceted pale cyan seal stone at the front; above it, with a small gap, seven separate floating skyglass blades: one central upright blade, a pair of inner diagonals, a pair of outer diagonals and two shorter flanking blades; the crystal blades outlined dark and cel shaded in two or three steps. No gold, no strings or threads.
 
 Style: PREMIUM PIXEL ART jutsu icon (crisp hard-edged pixels, clean dark outlines, flat cel shading, limited palette, no painterly blur), laid out like the attached exemplar: a single bold technique emblem on a designed dark background with the same framing, rendering and detail density; square 1024 x 1024; readable at 125 px. A designed background is allowed (no chroma key needed).
 Negative: no text, no letters, no UI, no watermark, no character portrait, no second emblem.
@@ -1072,16 +1107,17 @@ Return the raw image named raw_icon-jutsu-the-last-directive.png.
 
 ### 47. Extermination Order (jutsu icon)
 
+> BLOCKED until brief A (the Arakane v2 avatar) is approved and committed; then rerun the builder and the approved avatar joins this image as its SUBJECT reference. Do not generate before that.
+
 References (download and attach, in this order):
 
 1. STYLE: jutsu icon register: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp  (61270 bytes, 256 x 256, sha256 `410b8c5a20af40b2…`)
-2. MOTIF: the Command Crown: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Extermination Order (jutsu icon). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: jutsu icon register; 2. MOTIF: the Command Crown. Follow each reference only for its stated role.
+References attached: 1. STYLE: jutsu icon register. Follow each reference only for its stated role.
 
-Subject: Extermination Order: a killing command. Seven taut cyan threads converging from the edges onto one point, where a sealed elemental sigil cracks apart.
+Subject: Extermination Order: a killing command. The Command Crown's seven skyglass blades flying in from the edges and converging on one point, where a sealed elemental sigil cracks apart. No gold, no strings or threads.
 
 Style: PREMIUM PIXEL ART jutsu icon (crisp hard-edged pixels, clean dark outlines, flat cel shading, limited palette, no painterly blur), laid out like the attached exemplar: a single bold technique emblem on a designed dark background with the same framing, rendering and detail density; square 1024 x 1024; readable at 125 px. A designed background is allowed (no chroma key needed).
 Negative: no text, no letters, no UI, no watermark, no character portrait, no second emblem.
@@ -1091,15 +1127,17 @@ Return the raw image named raw_icon-jutsu-extermination-order.png.
 
 ### 48. Countermand (item icon)
 
+> BLOCKED until brief A (the Arakane v2 avatar) is approved and committed; then rerun the builder and the approved avatar joins this image as its SUBJECT reference. Do not generate before that.
+
 References (download and attach, in this order):
 
-1. SUBJECT AND PIXEL STYLE: the seal tablet at Arakane's belt: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Countermand (item icon). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT AND PIXEL STYLE: the seal tablet at Arakane's belt. Follow each reference only for its stated role.
+References attached: 1. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
-Subject: Countermand: Crownhold's command seal. The rectangular gold-framed seal tablet that hangs from Arakane's belt, on a short chain, its face carved with a plain circled-cross seal glowing pale cyan.
+Subject: Countermand: Crownhold's command seal. A rectangular blackwood tablet framed in blackened iron, hanging on a short chain, its face carved with one simple geometric seal and set with a small faceted pale cyan seal stone. No gold.
 
 Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours as the subject: cool blue-black wood and blue-grey iron, silver-grey metal highlights, ONE accent of pale cyan faceted skyglass with a small glow, cool cyan rim light. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
 Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
@@ -1112,11 +1150,11 @@ Return the raw image named raw_icon-countermand.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp  (70574 bytes, 256 x 256, sha256 `a7bbfe7e60570aef…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Coffer (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Skyglass Coffer: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1131,11 +1169,11 @@ Return the raw image named raw_icon-skyglass-coffer-pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-katon.webp  (67920 bytes, 256 x 256, sha256 `b1fa26ced2204d1e…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Katon Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Katon Tool Pouch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1150,11 +1188,11 @@ Return the raw image named raw_icon-tool-pouch-katon-pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-wave.webp  (67620 bytes, 256 x 256, sha256 `44fa5437a835a3e0…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Wave Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Wave Tool Pouch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1169,11 +1207,11 @@ Return the raw image named raw_icon-tool-pouch-wave-pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-ikazuchi.webp  (68698 bytes, 256 x 256, sha256 `c644532a96cbf44e…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Ikazuchi Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Ikazuchi Tool Pouch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1188,11 +1226,11 @@ Return the raw image named raw_icon-tool-pouch-ikazuchi-pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-stonefall.webp  (68232 bytes, 256 x 256, sha256 `029a560a5bcbc202…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Stonefall Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Stonefall Tool Pouch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1207,11 +1245,11 @@ Return the raw image named raw_icon-tool-pouch-stonefall-pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-zephyrfang.webp  (66358 bytes, 256 x 256, sha256 `ca3d144715e8385b…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Zephyrfang Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Zephyrfang Tool Pouch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1226,11 +1264,11 @@ Return the raw image named raw_icon-tool-pouch-zephyrfang-pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp  (60940 bytes, 256 x 256, sha256 `0b00806939bd375a…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Chart of the Drowned Foundry (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Chart of the Drowned Foundry: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1245,11 +1283,11 @@ Return the raw image named raw_icon-chart-drowned-foundry-pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-chart-quarantined-archive.webp  (65754 bytes, 256 x 256, sha256 `80df641bad0135e7…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Chart of the Quarantined Archive (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Chart of the Quarantined Archive: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1264,11 +1302,11 @@ Return the raw image named raw_icon-chart-quarantined-archive-pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-chart-captains-watch.webp  (68722 bytes, 256 x 256, sha256 `e576a50a3f066e97…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Chart of the Captain's Watch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Chart of the Captain's Watch: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1283,11 +1321,11 @@ Return the raw image named raw_icon-chart-captains-watch-pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp  (45678 bytes, 256 x 256, sha256 `6b58863e0d526502…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Lastlight Lantern (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Lastlight Lantern: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1302,11 +1340,11 @@ Return the raw image named raw_icon-skyglass-signal-beacon-pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-armory-requisition.webp  (47944 bytes, 256 x 256, sha256 `869b66de517273ad…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Armory Requisition (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Armory Requisition: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1321,11 +1359,11 @@ Return the raw image named raw_icon-armory-requisition-pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp  (116290 bytes, 480 x 480, sha256 `02cde28f5fedfaf3…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Crown (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Skyglass Crown: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1340,11 +1378,11 @@ Return the raw image named raw_icon_ghost_ship_skyglass_crown_pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown_fragment.webp  (107374 bytes, 480 x 480, sha256 `434872cd478550ca…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Crown Fragment (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Skyglass Crown Fragment: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1359,11 +1397,11 @@ Return the raw image named raw_icon_ghost_ship_skyglass_crown_fragment_pixel.png
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp  (103342 bytes, 480 x 480, sha256 `896543c69115e830…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Crystal (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Skyglass Crystal: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1378,11 +1416,11 @@ Return the raw image named raw_icon_ghost_ship_skyglass_crystal_pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp  (129168 bytes, 480 x 480, sha256 `b165dba7e5849bcd…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Filament (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Skyglass Filament: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1397,11 +1435,11 @@ Return the raw image named raw_icon_ghost_ship_skyglass_filament_pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_katana.webp  (56510 bytes, 480 x 480, sha256 `f7a336ca9fc0067a…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Katana (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Skyglass Katana: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1416,11 +1454,11 @@ Return the raw image named raw_icon_ghost_ship_skyglass_katana_pixel.png.
 References (download and attach, in this order):
 
 1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_serum.webp  (277032 bytes, 768 x 768, sha256 `6d83e870aa4bdbd8…`)
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Serum (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+References attached: 1. SUBJECT: redraw this exact icon; 2. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
 Subject: Skyglass Serum: redraw the SUBJECT reference almost exactly (same object, shape, proportions, details, colours and accent) as premium pixel art, so it matches the rest of the set. Change nothing about the design.
 
@@ -1459,7 +1497,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Flooded intake. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A new location: The foundry's intake hall inside the wreck, half flooded: dark water at knee height, empty seal canisters bobbing against the walls, iron pipes and valve wheels, pale cyan light glinting off the water. (Used by: Drowned Foundry d_intake, b_intake.)
+Subject: A new location: The foundry's intake hall inside the wreck, half flooded: dark water at knee height, empty seal casks bobbing against the walls, bamboo-and-timber water channels and wooden sluice gates, pale cyan light glinting off the water. (Used by: Drowned Foundry d_intake, b_intake.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -1495,7 +1533,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Pour hall. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A new location: The pour hall: rows of stone casting moulds wired together with seal charges, an inspector's ledger desk, knee-deep water, and an orange-white crucible glow coming up through iron floor grates from below. (Used by: Drowned Foundry d_hall, b_hall, d_gate.)
+Subject: A new location: The pour hall: rows of stone casting moulds lashed together with rope-bound seal charges, an inspector's ledger desk, knee-deep water, and an orange-white crucible glow coming up through iron floor grates from below. (Used by: Drowned Foundry d_hall, b_hall, d_gate.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
@@ -1531,7 +1569,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Rebuilding lower hull. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: Below the waterline inside the wreck: the hull is rebuilding itself out of timber and cable that do not belong together, half-formed frames knitting in pale cyan seal light; a ladder down to a severed, pulsing conduit. (Used by: Quarantined Archive d_hull, b_horror, d_conduit.)
+Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: Below the waterline inside the wreck: the hull is rebuilding itself out of timber and rope that do not belong together, half-formed frames knitting in pale cyan seal light; a ladder down to a severed seal channel pulsing with cyan light. (Used by: Quarantined Archive d_hull, b_horror, d_conduit.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
