@@ -1,0 +1,12 @@
+{
+ "_note": "READ-ONLY debug capture: Zombie Villager ends every turn without clawing or moving (director screenshot 2026-10-26 14:59, zombies adjacent to Carbon and Kitsu). Zero mutations. Operator-run only. Reads, persist:\"full\": (1) the zombie's live rule profile UXMYxPQd6aL8P1YAZayYU (the id push/268 wrote, per tnr_results_1793044080465) to confirm the three rules are stored as sent; (2) profile.getAi of the zombie for its item row (equipped slot, durability, quantity), AP-relevant state and aiProfileId; (3) item.get of Zombie Claws for the live range, target, method, actionCostPerc, battleUsageType and effects. Source reading (TheNinjaRPG 58801f9, ai_v2.ts performAIaction / actions.ts insertAction) says the claws should fire when adjacent; this checks the live records against that. Keep the full results bundle.",
+ "capture": {
+  "before": [
+   {"proc": "ai.getAiProfile", "input": {"id": "UXMYxPQd6aL8P1YAZayYU"}, "persist": "full"},
+   {"proc": "profile.getAi", "input": {"userId": "nqL-uL-Z_7I0iuowlpBDx"}, "persist": "full"},
+   {"proc": "item.get", "input": {"id": "mMl6P4B7v6-_CyDo3HVG7"}, "persist": "full"}
+  ],
+  "after": []
+ },
+ "items": []
+}
