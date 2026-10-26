@@ -1,0 +1,28 @@
+{
+ "manifest": "push/272_crownhold_ais.json",
+ "ruling": "RUL-2026-10-25-013",
+ "reason": "validate.py law 14 / L05 demands preferredStat on every AI create; the game's AI schema no longer has preferredStat (migration 0056) and Forge refuses the key (RUL-2026-10-25-009)",
+ "sha256": "c8e0abb93dd595979439d7f9803cac744d9dbfacd1c56919fca596543a016bf8",
+ "accepted": [
+  "ERROR  [ai:Calibration Duelist]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Command Signal Adjutant]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Crownhold Proving Proctor]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Directive Herald]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Failed Reconstruction Prototype]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:High Command Staff Tactician]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Honor Guard Commandant]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Impression Containment Warden]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Last Watch Executor]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Master of Arms]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Order-Bearer of the Sanctum]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Ordnance Quartermaster]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Prototype Lancer Unit]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Replicant Zero]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Sanctum Vanguard]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Skyglass Archive Keeper]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Strategist's Aide-de-Camp]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Supreme Commander Arakane]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:The Grand Marshal]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Unstable Echo Subject]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)"
+ ]
+}
