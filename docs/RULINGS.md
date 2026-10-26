@@ -3165,3 +3165,31 @@ Neither finding is a runtime defect. Forge's runtime source, bundle and loader a
 **Evidence:** User, 2026-10-26: "the command line will look silly in game since it cuts off at the edge ... It'll just look like a weird antenna"; "we've drifted into sci-fi too much with these. I wanted like, chakra impression ninjas not blue energy ghosts"; after comparing the live Ghost Ship avatars, on redoing all 11: "Yeah let's redo".
 
 **Canonical destination:** `state/skyglass_art/build_art_batch.py` (`CROWN_THREAD`, `AVATARS`, officer style refs) and the regenerated `docs/handoffs/SKYGLASS_CROWNHOLD_ART_BATCH.md`.
+
+## RUL-2026-10-26-002 — Ghost Ship rebrand: Edo-era Japanese fantasy ninja pixel art, anchored on the original crew
+
+**Date:** 2026-10-26
+
+**Domain:** Art direction / every Ghost Ship, Skyglass Wreck, treasure-hunt and Crownhold image
+
+**Status:** ACTIVE
+
+**Supersedes:** art bible draft v0.1 (it measured newer art as on-model); extends RUL-2026-10-26-001.
+
+**Ruling:**
+1. The collection is branded **Edo-era Japanese fantasy ninja pixel art**.
+2. The palette and rendering anchor is the original Skyglass crew, **Deck Warden to the Crowned Captain**, with their
+   portraits and the ship scenes. Characters are adjusted toward Edo-period shinobi (kimono, haori, hakama, obi, kyahan,
+   tabi, sode and kote plates, hoods, tenugui, kasa, jingasa, kabuto with menpo, period weapons).
+3. Newer approved art that veers from the anchor is not a reference and joins a redo queue: **Arakane** (gold, ornate),
+   **Master of Arms** (samurai, heavy orange), **Foundry Warden** (brown, off-palette), **Crownbreaker badge** (smooth gold
+   medal). Item icons #1-#4 are kept.
+4. Prompt text lives in `docs/design/ghost_ship_art_bible/blocks.json` and is pasted verbatim by the batch builder.
+
+**Evidence:** User, 2026-10-26: "I want to rebrand it as Edo era Japanese fantasy ninja pixel art. The actual art used for
+the initial ghost ship has the correct color palette and rendering style, we just need to adjust our characters some";
+"Like deck warden - crowned captain. Our newer approved art veers in the wrong direction"; on the proposed anchor, Edo
+vocabulary and the four veering images (icons #1-#4 kept): "Yep, correct. Let's proceed based on this."
+
+**Canonical destination:** `docs/design/ghost_ship_art_bible/ART_BIBLE.md` (v0.2) and `blocks.json`;
+`state/skyglass_art/build_art_batch.py`.

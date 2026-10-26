@@ -96,3 +96,12 @@ pyramid lifetime cap 100 (engine max); the Crownhold enemy ×5/3 ladder is a lau
 
 Retire the old Ghost Ship quests (Gather `6Ri-W5TtUrEMWpyYlnf_F`, Hunt `HckXVOf-qk6ESU9t5rxLh`; mechanism is the
 director's); one unhide manifest for every record in section 1 plus the dungeon and Crownhold quest.
+
+## 7. Art direction reset (2026-10-26)
+
+RUL-2026-10-26-001 and -002: the collection is Edo-era Japanese fantasy ninja pixel art, anchored on the original crew
+(Deck Warden to the Crowned Captain). The art bible is `docs/design/ghost_ship_art_bible/` (ART_BIBLE.md v0.2,
+blocks.json, reference sheets); the batch builder pastes its blocks. Every new character attaches only the Seal Charge.
+Redo queue: Arakane (then the Crownbreaker badge, Countermand and his jutsu icons), Master of Arms, Foundry Warden, and
+all Crownhold officers. SWAPS now holds only item icons #1-#4. Pending: Edo rewrites of the seven sci-fi Crownhold scene
+prompts; art director review of the bible.
