@@ -3261,7 +3261,7 @@ crown with no gold and no threads. Officers are named by their new titles throug
 **Canonical destination:** `push/crownhold.gen.py` (`PROSE`, `LABEL`, `CROWN`, `OVERRIDE`, effect descriptions);
 push/273 regenerated.
 
-## RUL-2026-10-26-003 — Skyglass Wreck: design-led encounter tuning; targets
+## RUL-2026-10-26-006 — Skyglass Wreck: design-led encounter tuning; targets
 
 **Date:** 2026-10-26
 
