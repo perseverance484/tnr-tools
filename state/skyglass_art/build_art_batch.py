@@ -97,10 +97,11 @@ add(7,"Foundry Warden (AI avatar)","AI_AVATAR","magenta","avatar_skyglass_foundr
  "rope tasuki cord, soaked to the knees; long iron crucible tongs in one hand, a small iron ladle of glowing pale cyan "
  "molten skyglass in the other. Accent: molten skyglass cyan.",CHAR_STYLE)
 
+NEWNAME={"Master of Arms": "Armsmaster", "Crownhold Proving Proctor": "Trialmaster", "Ordnance Quartermaster": "Tagwright", "Prototype Lancer Unit": "Lancer", "Calibration Duelist": "Duelist", "Skyglass Archive Keeper": "Archivist", "Impression Containment Warden": "Binder", "Unstable Echo Subject": "Echo", "Failed Reconstruction Prototype": "Stonebound", "The Grand Marshal": "The Second", "Command Signal Adjutant": "Signaller", "High Command Staff Tactician": "Tactician", "Honor Guard Commandant": "Honor Guard", "Strategist's Aide-de-Camp": "Runner", "Sanctum Vanguard": "Vanguard", "Directive Herald": "Herald", "Last Watch Executor": "Last Watch", "Order-Bearer of the Sanctum": "Sealbearer"}  # role names without the live "Crown " prefix: the word draws crowns
 AVATARS=[
  ("Master of Arms","Division I commander. A broad weapons-master shinobi: a plain dark iron jingasa over a hood, a cloth mask with thin forge-orange trim; a heavy dark haori over laced lacquered plates; a yari in one hand and a short ono axe in the other, katana and bundles of kunai strapped across his back; calm and exacting. Accent: forge-orange.",True),
  ("Replicant Zero","Division II commander. A tall, composed medical-nin: a plain dark grey hood and a dark cloth mask, both eyes lit pale violet; a long layered dark haori with a high stiff collar, a medic's scroll case and a row of sealing-tag pouches across the chest; a small ball of pale violet healing chakra held above his open left palm, the hand drawn normally; the first successful recall; calm and curious. No sword. Accent: pale violet.",True),
- ("The Grand Marshal","Division III commander, called 'The Second'. An older senior shinobi officer: a wide flat kasa hat shading a plain dark cloth mask, a short grey beard visible below it; a plain dark long haori over light laced plates, hands clasped behind his back, a sheathed katana at the hip; thoughtful and severe; the deputy who could question orders. Accent: muted brass, only as the hat cord and sword fittings.",True),
+ ("The Grand Marshal","Division III commander, the Supreme Commander's deputy. An older senior shinobi officer: a wide flat kasa hat shading a plain dark cloth mask, a short grey beard visible below it; a plain dark long haori over light laced plates, a katana drawn and held low and calm in one hand; thoughtful and severe; the deputy who could question orders. Accent: muted brass, only as the hat cord and sword fittings.",True),
  ("Crownhold Proving Proctor","Division I. An armoury proctor: a grey tenugui headwrap and cloth mask, a faded grey drill kimono with tied-back sleeves, a wooden board of trial slips in one hand, two bokken at the obi, a small signal bell on a cord. Accent: drill-yellow.",False),
  ("Ordnance Quartermaster","Division I. A soot-stained short work haori, bandoliers of paper explosive tags glowing faintly at their edges, soot-dark gloves holding a lacquered tray of tags. Accent: tag-orange.",False),
  ("Prototype Lancer Unit","Division I. A lean spear specialist in light laced plates and a hood, a long cross-bladed yari with lightning chakra running along its blade, burn-scarred forearms wrapped in cloth. Accent: electric yellow.",False),
@@ -110,7 +111,7 @@ AVATARS=[
  ("Unstable Echo Subject","Division II. A shinobi caught mid-step splitting into an imperfect shadow clone: the clone a half-step behind and out of line, shadow chakra trailing between them, both figures solid. Accent: shadow violet.",False),
  ("Failed Reconstruction Prototype","Division II. A hulking earth-style shinobi half-encased in his own stone armour technique, rock plating cracked over one arm and shoulder, rope-bound, a tetsubo in hand. Accent: stone ochre.",False),
  ("Command Signal Adjutant","Division III. A signals shinobi: a war fan (gunbai) raised in one hand and a small nobori signal flag in the other, a message-scroll tube across the back, a rank cord. Accent: signal green.",False),
- ("High Command Staff Tactician","Division III. A tactician in a kasa hat with a campaign map case under one arm and a brush wet with glowing chakra ink, the Grand Marshal's aide's cord on the shoulder. Accent: ink blue.",False),
+ ("High Command Staff Tactician","Division III. A tactician in a kasa hat with a campaign map case under one arm and a brush wet with glowing chakra ink, the Second's aide's cord on the shoulder. Accent: ink blue.",False),
  ("Honor Guard Commandant","Division III. A tall guard in ceremonial stone-grey laced armour and a plain jingasa, holding a naginata upright beside him. Accent: polished iron.",False),
  ("Strategist's Aide-de-Camp","Division III. A swift courier-shinobi with sealed scroll dispatch tubes on the back crackling with lightning chakra, light lacquered plates, an aide's sash. Accent: lightning white.",False),
  ("Sanctum Vanguard","Division IV. A front-line shinobi in obsidian-black laced plates and a kabuto with a menpo, fire chakra running along the edge of his katana, a short banner pole on the back. Accent: ember red.",False),
@@ -120,7 +121,8 @@ AVATARS=[
 ]
 n=8
 for name,look,boss in AVATARS:
-    fname="avatar_crownhold_"+name.lower().removeprefix("crownhold ").replace("'","").replace(" ","_").replace("-","_")+".webp"
+    fname="avatar_crownhold_"+name.lower().removeprefix("crownhold ").replace("'","").replace(" ","_").replace("-","_")+".webp"  # file stem keeps the original name
+    name=NEWNAME.get(name,name)  # RUL-2026-10-26-003
     add(n,name+(" (commander)" if boss else ""),"AI_AVATAR","magenta",fname,[(BLK["reference_character"],"deck_warden")],
         name+": "+look+((" "+BLK["commander"]) if boss else ""),CHAR_STYLE)
     n+=1

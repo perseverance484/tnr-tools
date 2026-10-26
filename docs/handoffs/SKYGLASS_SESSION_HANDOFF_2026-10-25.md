@@ -105,3 +105,11 @@ blocks.json, reference sheets); the batch builder pastes its blocks. Every new c
 Redo queue: Arakane (then the Crownbreaker badge, Countermand and his jutsu icons), Master of Arms, Foundry Warden, and
 all Crownhold officers. SWAPS now holds only item icons #1-#4. Pending: Edo rewrites of the seven sci-fi Crownhold scene
 prompts; art director review of the bible.
+
+## 8. Names and v0.3 (2026-10-26, RUL-2026-10-26-003)
+
+- `push/276_crownhold_ai_rename.json`: READY, gates clean. Username-only edits on 18 hidden Crownhold AIs (Forge
+  re-sends each live kit). If the game refuses a name as taken (law 66), pick a new one in `USERNAME` and regenerate.
+- `push/273_crownhold_quest.json`: regenerated with the new names in prose and option labels; still holds for the
+  Crownbreaker badge id.
+- Art bible v0.3: silhouette, pose and colour rules (section 6.0); blocks.json 0.3; art prompts use the un-prefixed titles.

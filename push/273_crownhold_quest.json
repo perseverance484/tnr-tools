@@ -59,7 +59,7 @@
       {
        "id": "b2.n.f1",
        "task": "start_battle",
-       "description": "Defeat Crownhold Proving Proctor.",
+       "description": "Defeat Trialmaster.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -84,7 +84,7 @@
       {
        "id": "d2.n.f2",
        "task": "dialog",
-       "description": "The proctor dissolves into drifting light, and the drill whistle falls silent. Nothing about that was a ghost. It answered like a man reading from a memory.<br><br>Past the trial range, an ordnance store stands open. A ledger lies on the counter in a careful hand: \"Coolant first, always, or the charge flashes.\" Behind it, the Quartermaster looks up from a tray of sealed tags already glowing with heat.<br><br>\"Live rounds are not for candidates,\" it says, and lifts the tray.",
+       "description": "The proctor dissolves into drifting light, and the drill whistle falls silent. Nothing about that was a ghost. It answered like a man reading from a memory.<br><br>Past the trial range, an ordnance store stands open. A ledger lies on the counter in a careful hand: \"Coolant first, always, or the charge flashes.\" Behind it, the Tagwright looks up from a tray of sealed tags already glowing with heat.<br><br>\"Live rounds are not for candidates,\" it says, and lifts the tray.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -97,7 +97,7 @@
       {
        "id": "b2.n.f2",
        "task": "start_battle",
-       "description": "Defeat the Ordnance Quartermaster.",
+       "description": "Defeat the Tagwright.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -135,7 +135,7 @@
       {
        "id": "b2.n.f3",
        "task": "start_battle",
-       "description": "Defeat the Prototype Lancer Unit.",
+       "description": "Defeat the Lancer.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -160,7 +160,7 @@
       {
        "id": "d2.n.terminal",
        "task": "dialog",
-       "description": "Beyond the gallery, a Military Command Terminal glows in the wall, and beyond that the armory's heart: a sealed door marked MASTER OF ARMS.<br><br>The terminal offers two ways through. A maintenance crawlway runs behind the live-fire racks, but its lock asks for the racks' disable sequence. Or you can request protocol access the proper way, and the duty officer, the Calibration Duelist, is already striding toward you to test your credentials with a blade.",
+       "description": "Beyond the gallery, a Military Command Terminal glows in the wall, and beyond that the armory's heart: a sealed door marked MASTER OF ARMS.<br><br>The terminal offers two ways through. A maintenance crawlway runs behind the live-fire racks, but its lock asks for the racks' disable sequence. Or you can request protocol access the proper way, and the duty officer, the Duelist, is already striding toward you to test your credentials with a blade.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -169,7 +169,7 @@
          "nextObjectiveId": "d2.n.puzzle"
         },
         {
-         "text": "Protocol access: face the Calibration Duelist",
+         "text": "Protocol access: face the Duelist",
          "nextObjectiveId": "b2.n.f4"
         }
        ]
@@ -224,7 +224,7 @@
       {
        "id": "d2.n.boss.clean",
        "task": "dialog",
-       "description": "The racks go quiet one by one, and the crawlway lets you out behind the sealed door before anyone has noticed you.<br><br>The Master of Arms turns from a forge wall hung with every weapon the Skyglass Project ever tested. \"Clean work,\" he says. \"Now show me whether you can fight as well as you can read.\" He chooses two blades without looking.",
+       "description": "The racks go quiet one by one, and the crawlway lets you out behind the sealed door before anyone has noticed you.<br><br>The Armsmaster turns from a forge wall hung with every weapon the Skyglass Project ever tested. \"Clean work,\" he says. \"Now show me whether you can fight as well as you can read.\" He chooses two blades without looking.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -237,7 +237,7 @@
       {
        "id": "b2.n.boss.clean",
        "task": "start_battle",
-       "description": "Defeat the Master of Arms.",
+       "description": "Defeat the Armsmaster.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -262,7 +262,7 @@
       {
        "id": "d2.n.boss.alert",
        "task": "dialog",
-       "description": "The racks spit sparks and an alarm bell hammers through the armory. You reach the sealed door with the whole floor awake behind you.<br><br>The Master of Arms is already armed. \"An intruder who trips the racks,\" he says, \"fights tired and expected. Security Alert: all stations.\" The lights turn red.",
+       "description": "The racks spit sparks and an alarm bell hammers through the armory. You reach the sealed door with the whole floor awake behind you.<br><br>The Armsmaster is already armed. \"An intruder who trips the racks,\" he says, \"fights tired and expected. Security Alert: all stations.\" The lights turn red.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -275,7 +275,7 @@
       {
        "id": "b2.n.boss.alert",
        "task": "start_battle",
-       "description": "Defeat the Master of Arms under Security Alert.",
+       "description": "Defeat the Armsmaster under Security Alert.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -318,7 +318,7 @@
       {
        "id": "b2.n.f4",
        "task": "start_battle",
-       "description": "Defeat the Calibration Duelist to claim protocol access.",
+       "description": "Defeat the Duelist to claim protocol access.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -343,7 +343,7 @@
       {
        "id": "d2.n.protocol",
        "task": "dialog",
-       "description": "The Calibration Duelist kneels, its practice blade broken, and the terminal accepts your credentials. Two field protocols unlock before the Master of Arms' door.<br><br>Medical Protocol will flood you with the armory's restorative mist: you enter the fight fully recovered. Combat Protocol will instead brace you against his Sovereign Fetters, so his stuns will not hold you.",
+       "description": "The Duelist kneels, its practice blade broken, and the terminal accepts your credentials. Two field protocols unlock before the Armsmaster' door.<br><br>Medical Protocol will flood you with the armory's restorative mist: you enter the fight fully recovered. Combat Protocol will instead brace you against his Sovereign Fetters, so his stuns will not hold you.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -360,7 +360,7 @@
       {
        "id": "b2.n.boss.medical",
        "task": "start_battle",
-       "description": "Defeat the Master of Arms (Medical Protocol: fully restored).",
+       "description": "Defeat the Armsmaster (Medical Protocol: fully restored).",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -386,7 +386,7 @@
       {
        "id": "b2.n.boss.combat",
        "task": "start_battle",
-       "description": "Defeat the Master of Arms (Combat Protocol: stun-braced).",
+       "description": "Defeat the Armsmaster (Combat Protocol: stun-braced).",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -442,7 +442,7 @@
       {
        "id": "b3.n.f1",
        "task": "start_battle",
-       "description": "Defeat the Skyglass Archive Keeper.",
+       "description": "Defeat the Archivist.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -480,7 +480,7 @@
       {
        "id": "b3.n.f2",
        "task": "start_battle",
-       "description": "Defeat the Impression Containment Warden.",
+       "description": "Defeat the Binder.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -518,7 +518,7 @@
       {
        "id": "b3.n.f3",
        "task": "start_battle",
-       "description": "Defeat the Unstable Echo Subject.",
+       "description": "Defeat the Echo.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -543,7 +543,7 @@
       {
        "id": "d3.n.terminal",
        "task": "dialog",
-       "description": "A command terminal stands at the door of the reconstruction theatre. The plaque beside the door reads REPLICANT ZERO, and beneath it, smaller: FIRST SUCCESSFUL SUBJECT.<br><br>The terminal offers the maintenance stair behind the specimen tanks, locked until you identify the one original among three subjects. Or request protocol access, and face the theatre's last guardian: the Failed Reconstruction Prototype, the one they kept.",
+       "description": "A command terminal stands at the door of the reconstruction theatre. The plaque beside the door reads REPLICANT ZERO, and beneath it, smaller: FIRST SUCCESSFUL SUBJECT.<br><br>The terminal offers the maintenance stair behind the specimen tanks, locked until you identify the one original among three subjects. Or request protocol access, and face the theatre's last guardian: the Stonebound, the one they kept.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -552,7 +552,7 @@
          "nextObjectiveId": "d3.n.puzzle"
         },
         {
-         "text": "Protocol access: face the Failed Reconstruction Prototype",
+         "text": "Protocol access: face the Stonebound",
          "nextObjectiveId": "b3.n.f4"
         }
        ]
@@ -701,7 +701,7 @@
       {
        "id": "b3.n.f4",
        "task": "start_battle",
-       "description": "Defeat the Failed Reconstruction Prototype to claim protocol access.",
+       "description": "Defeat the Stonebound to claim protocol access.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -726,7 +726,7 @@
       {
        "id": "d3.n.protocol",
        "task": "dialog",
-       "description": "The Failed Reconstruction Prototype collapses into crystal dust, and the theatre's protocols unlock.<br><br>Medical Protocol will run you through the reconstruction rig: you enter the fight fully recovered. Combat Protocol will instead overcharge your chakra, increasing the damage you deal for the opening rounds.",
+       "description": "The Stonebound collapses into crystal dust, and the theatre's protocols unlock.<br><br>Medical Protocol will run you through the reconstruction rig: you enter the fight fully recovered. Combat Protocol will instead overcharge your chakra, increasing the damage you deal for the opening rounds.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -825,7 +825,7 @@
       {
        "id": "b4.n.f1",
        "task": "start_battle",
-       "description": "Defeat the Command Signal Adjutant.",
+       "description": "Defeat the Signaller.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -863,7 +863,7 @@
       {
        "id": "b4.n.f2",
        "task": "start_battle",
-       "description": "Defeat the High Command Staff Tactician.",
+       "description": "Defeat the Tactician.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -888,7 +888,7 @@
       {
        "id": "d4.n.f3",
        "task": "dialog",
-       "description": "The corridor to the Grand Marshal's office is lined with ceremonial armour. One suit is occupied. The Honor Guard Commandant raises a tower shield bearing the High Command seal.<br><br>\"Since the Silence fell over this mountain, no true order has been issued from these halls,\" it says. \"Any order dated after the Silence is a forgery, and so are those who carry them.\"",
+       "description": "The corridor to the Second's office is lined with ceremonial armour. One suit is occupied. The Honor Guard raises a tower shield bearing the High Command seal.<br><br>\"Since the Silence fell over this mountain, no true order has been issued from these halls,\" it says. \"Any order dated after the Silence is a forgery, and so are those who carry them.\"",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -901,7 +901,7 @@
       {
        "id": "b4.n.f3",
        "task": "start_battle",
-       "description": "Defeat the Honor Guard Commandant.",
+       "description": "Defeat the Honor Guard.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -926,7 +926,7 @@
       {
        "id": "d4.n.terminal",
        "task": "dialog",
-       "description": "Outside the office of The Grand Marshal (the Second, the only officer the Supreme Commander allowed to question him), a command terminal waits.<br><br>The service corridor to his office opens only for a properly authorised order. Or request protocol access through the front: the Strategist's Aide-de-Camp, last courier of the Second, stands at the door with sealed dispatches crackling at its belt.",
+       "description": "Outside the office of The Second (the Second, the only officer the Supreme Commander allowed to question him), a command terminal waits.<br><br>The service corridor to his office opens only for a properly authorised order. Or request protocol access through the front: the Runner, last courier of the Second, stands at the door with sealed dispatches crackling at its belt.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -935,7 +935,7 @@
          "nextObjectiveId": "d4.n.puzzle"
         },
         {
-         "text": "Protocol access: face the Strategist's Aide-de-Camp",
+         "text": "Protocol access: face the Runner",
          "nextObjectiveId": "b4.n.f4"
         }
        ]
@@ -990,7 +990,7 @@
       {
        "id": "d4.n.boss.clean",
        "task": "dialog",
-       "description": "The service corridor delivers you into the Grand Marshal's office behind a folding map table. He does not reach for a weapon at once.<br><br>\"Order B,\" says The Grand Marshal. \"So you read before you fight. Good. I questioned his orders for thirty years, and I would question this one too, but I gave my word to hold this door.\" He straightens his coat. \"So I will hold it.\"",
+       "description": "The service corridor delivers you into the Second's office behind a folding map table. He does not reach for a weapon at once.<br><br>\"Order B,\" says The Second. \"So you read before you fight. Good. I questioned his orders for thirty years, and I would question this one too, but I gave my word to hold this door.\" He straightens his coat. \"So I will hold it.\"",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -1003,7 +1003,7 @@
       {
        "id": "b4.n.boss.clean",
        "task": "start_battle",
-       "description": "Defeat The Grand Marshal.",
+       "description": "Defeat The Second.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -1028,7 +1028,7 @@
       {
        "id": "d4.n.boss.alert",
        "task": "dialog",
-       "description": "A forged order is still an order, and High Command logs it. Every relay in the building announces your position as you step into the Grand Marshal's office.<br><br>\"A forgery,\" says The Grand Marshal, and sounds almost disappointed. \"I questioned his orders for thirty years. I never forged one.\" He signals, and the room's wards turn against you.",
+       "description": "A forged order is still an order, and High Command logs it. Every relay in the building announces your position as you step into the Second's office.<br><br>\"A forgery,\" says The Second, and sounds almost disappointed. \"I questioned his orders for thirty years. I never forged one.\" He signals, and the room's wards turn against you.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -1041,7 +1041,7 @@
       {
        "id": "b4.n.boss.alert",
        "task": "start_battle",
-       "description": "Defeat The Grand Marshal under Security Alert.",
+       "description": "Defeat The Second under Security Alert.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -1084,7 +1084,7 @@
       {
        "id": "b4.n.f4",
        "task": "start_battle",
-       "description": "Defeat the Strategist's Aide-de-Camp to claim protocol access.",
+       "description": "Defeat the Runner to claim protocol access.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -1109,7 +1109,7 @@
       {
        "id": "d4.n.protocol",
        "task": "dialog",
-       "description": "The Aide-de-Camp falls, and its sealed dispatches burn away into the terminal, which unlocks two protocols.<br><br>Medical Protocol will open the officers' infirmary to you: you enter the fight fully recovered. Combat Protocol will instead ward your techniques, so the Grand Marshal's seals will not hold you.",
+       "description": "The Runner falls, and its sealed dispatches burn away into the terminal, which unlocks two protocols.<br><br>Medical Protocol will open the officers' infirmary to you: you enter the fight fully recovered. Combat Protocol will instead ward your techniques, so the Second's seals will not hold you.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -1126,7 +1126,7 @@
       {
        "id": "b4.n.boss.medical",
        "task": "start_battle",
-       "description": "Defeat The Grand Marshal (Medical Protocol: fully restored).",
+       "description": "Defeat The Second (Medical Protocol: fully restored).",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -1152,7 +1152,7 @@
       {
        "id": "b4.n.boss.combat",
        "task": "start_battle",
-       "description": "Defeat The Grand Marshal (Combat Protocol: seal-warded).",
+       "description": "Defeat The Second (Combat Protocol: seal-warded).",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -1195,7 +1195,7 @@
       {
        "id": "d5.n.f1",
        "task": "dialog",
-       "description": "The last stair climbs into the summit of the mountain. The Command Sanctum is dark obsidian and ember light, and its vanguard stands across the gate in full regalia.<br><br>\"State your directive,\" says the Sanctum Vanguard. \"No? Then hear the Sanctum's: when two orders disagree, the Sanctum obeys the one that protects the Command.\" Its gauntlets ignite.",
+       "description": "The last stair climbs into the summit of the mountain. The Command Sanctum is dark obsidian and ember light, and its vanguard stands across the gate in full regalia.<br><br>\"State your directive,\" says the Vanguard. \"No? Then hear the Sanctum's: when two orders disagree, the Sanctum obeys the one that protects the Command.\" Its gauntlets ignite.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -1208,7 +1208,7 @@
       {
        "id": "b5.n.f1",
        "task": "start_battle",
-       "description": "Defeat the Sanctum Vanguard.",
+       "description": "Defeat the Vanguard.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -1246,7 +1246,7 @@
       {
        "id": "b5.n.f2",
        "task": "start_battle",
-       "description": "Defeat the Directive Herald.",
+       "description": "Defeat the Herald.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -1271,7 +1271,7 @@
       {
        "id": "d5.n.f3",
        "task": "dialog",
-       "description": "The night-watch corridor ends at the Supreme Commander's outer ring. The Last Watch Executor stands in a tattered cloak, twin glaives crossed.<br><br>\"The newest order countermands the old, if it is signed,\" it recites, as if from a manual worn thin with use. \"I have kept watch for a long time, waiting for a new one. None has come.\" Its mask is stamped with an order no one can read.",
+       "description": "The night-watch corridor ends at the Supreme Commander's outer ring. The Last Watch stands in a tattered cloak, twin glaives crossed.<br><br>\"The newest order countermands the old, if it is signed,\" it recites, as if from a manual worn thin with use. \"I have kept watch for a long time, waiting for a new one. None has come.\" Its mask is stamped with an order no one can read.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -1284,7 +1284,7 @@
       {
        "id": "b5.n.f3",
        "task": "start_battle",
-       "description": "Defeat the Last Watch Executor.",
+       "description": "Defeat the Last Watch.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -1309,7 +1309,7 @@
       {
        "id": "d5.n.terminal",
        "task": "dialog",
-       "description": "The outer ring of the Sanctum holds Crownhold's last Military Command Terminal. Past it is the door of Supreme Commander Arakane.<br><br>The maintenance channel around the ring will open for whoever can name the directive currently in force. Or request protocol access, and face the Order-Bearer of the Sanctum, who guards the door with a sealed scroll case and a blank, unsigned command seal.",
+       "description": "The outer ring of the Sanctum holds Crownhold's last Military Command Terminal. Past it is the door of Supreme Commander Arakane.<br><br>The maintenance channel around the ring will open for whoever can name the directive currently in force. Or request protocol access, and face the Sealbearer, who guards the door with a sealed scroll case and a blank, unsigned command seal.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -1318,7 +1318,7 @@
          "nextObjectiveId": "d5.n.puzzle"
         },
         {
-         "text": "Protocol access: face the Order-Bearer of the Sanctum",
+         "text": "Protocol access: face the Sealbearer",
          "nextObjectiveId": "b5.n.f4"
         }
        ]
@@ -1467,7 +1467,7 @@
       {
        "id": "b5.n.f4",
        "task": "start_battle",
-       "description": "Defeat the Order-Bearer of the Sanctum to claim protocol access.",
+       "description": "Defeat the Sealbearer to claim protocol access.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
        "sceneCharacters": [],
        "opponentAIs": [
@@ -1492,7 +1492,7 @@
       {
        "id": "d5.n.protocol",
        "task": "dialog",
-       "description": "The Order-Bearer falls, and its blank command seal shatters on the floor. The terminal unlocks the Sanctum's last two protocols.<br><br>Medical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive: for the opening rounds, nothing the Supreme Commander does can weaken you.",
+       "description": "The Sealbearer falls, and its blank command seal shatters on the floor. The terminal unlocks the Sanctum's last two protocols.<br><br>Medical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive: for the opening rounds, nothing the Supreme Commander does can weaken you.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
        "sceneCharacters": [],
        "nextObjectiveId": [
