@@ -1,0 +1,88 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:CinzelD;src:url(node_modules/@fontsource/cinzel-decorative/files/cinzel-decorative-latin-900-normal.woff2)}
+@font-face{font-family:Cinzel;font-weight:700;src:url(node_modules/@fontsource/cinzel/files/cinzel-latin-700-normal.woff2)}
+@font-face{font-family:Pix;src:url(node_modules/@fontsource/silkscreen/files/silkscreen-latin-400-normal.woff2)}
+:root{--ink:#07060a;--ember:#ff6a1a;--flame:#ffb347;--blood:#c3141b;--bone:#efe3cf;--ash:#9a8f86}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1600px;height:900px;background:var(--ink);overflow:hidden}
+.card{position:relative;width:1600px;height:900px;overflow:hidden;
+  background:
+   radial-gradient(900px 520px at 30% 112%, rgba(255,90,20,.55), transparent 62%),
+   radial-gradient(600px 380px at 30% 60%, rgba(195,20,27,.35), transparent 70%),
+   radial-gradient(1000px 700px at 85% -10%, rgba(40,30,70,.55), transparent 70%),
+   linear-gradient(180deg,#0b0912 0%,#100a10 55%,#1a0806 100%);}
+.moon{position:absolute;left:640px;top:46px;width:110px;height:110px;border-radius:50%;
+  background:radial-gradient(circle at 40% 40%,#f6efe0,#c9bfae 60%,#8e8576);opacity:.18;filter:blur(.5px)}
+.grain{position:absolute;inset:0;opacity:.18;mix-blend-mode:overlay;
+  background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 3px)}
+.ember{position:absolute;width:6px;height:6px;background:var(--flame);box-shadow:0 0 10px 2px rgba(255,140,40,.8)}
+.ring{position:absolute;left:70px;top:90px;width:760px;height:760px}
+.rider{position:absolute;left:100px;top:110px;width:700px;height:700px;image-rendering:pixelated;
+  filter:drop-shadow(0 0 30px rgba(255,80,20,.55)) drop-shadow(0 18px 30px rgba(0,0,0,.8))}
+.ground{position:absolute;left:0;right:0;bottom:0;height:150px;
+  background:linear-gradient(180deg,transparent,rgba(255,80,20,.18) 40%,rgba(120,10,10,.45));}
+.flames{position:absolute;left:0;right:0;bottom:-6px;height:130px}
+.panel{position:absolute;left:850px;top:64px;width:680px}
+.kicker{font-family:Pix;font-size:22px;letter-spacing:4px;color:var(--flame);text-transform:uppercase}
+h1{font-family:CinzelD;font-size:86px;line-height:.98;margin-top:14px;
+  background:linear-gradient(180deg,#fff3d6 0%,#ffcf6b 35%,#ff6a1a 70%,#b0120f 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 0 #2a0503) drop-shadow(0 0 22px rgba(255,90,20,.45))}
+.sub{font-family:Cinzel;font-weight:700;font-size:26px;color:var(--bone);margin-top:16px;letter-spacing:1px}
+.flavor{font-family:Cinzel;font-size:22px;font-style:italic;color:var(--ash);margin-top:10px;line-height:1.35}
+.stats{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat{position:relative;padding:12px 18px 10px;background:rgba(12,8,10,.72);
+  border:2px solid #3a1410;box-shadow:inset 0 0 0 2px #120607, 0 0 0 2px #000, 0 0 24px rgba(255,80,20,.12)}
+.stat::before{content:"";position:absolute;left:0;top:0;width:6px;bottom:0;background:linear-gradient(var(--flame),var(--blood))}
+.lab{font-family:Pix;font-size:16px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;padding-left:8px}
+.val{font-family:Cinzel;font-weight:700;font-size:34px;color:var(--bone);padding-left:8px;margin-top:2px}
+.val small{font-size:20px;color:var(--flame);margin-left:6px}
+.wide{grid-column:1/3}
+.tip{margin-top:22px;font-family:Pix;font-size:18px;color:var(--flame);letter-spacing:1px;line-height:1.5}
+.foot{position:absolute;left:850px;top:30px;font-family:Pix;font-size:16px;letter-spacing:3px;color:#6d6158}
+</style></head>
+<body><div class="card">
+  
+  <svg class="ring" viewBox="0 0 760 760">
+    <defs>
+      <linearGradient id="fg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffd27a"/><stop offset=".5" stop-color="#ff6a1a"/><stop offset="1" stop-color="#9e0f0c"/>
+      </linearGradient>
+      <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <circle cx="380" cy="380" r="330" fill="none" stroke="url(#fg)" stroke-width="10" stroke-dasharray="1500 600" stroke-linecap="square" transform="rotate(-150 380 380)" filter="url(#glow)" opacity=".9"/>
+    <circle cx="380" cy="380" r="300" fill="none" stroke="#ff6a1a" stroke-width="3" stroke-dasharray="6 14" opacity=".55"/>
+    <circle cx="380" cy="380" r="355" fill="none" stroke="#c3141b" stroke-width="2" stroke-dasharray="2 22" opacity=".6"/>
+  </svg>
+  <img class="rider" src="rider.png">
+  <div class="ground"></div>
+  <svg class="flames" viewBox="0 0 1600 130" preserveAspectRatio="none">
+    <path fill="#7a0b08" d="M0 130 L0 80 L40 60 L70 90 L110 40 L150 85 L190 50 L230 92 L270 30 L310 80 L350 55 L390 95 L430 45 L470 88 L510 60 L550 96 L590 35 L630 82 L670 58 L710 98 L750 42 L790 86 L830 64 L870 100 L910 50 L950 90 L990 66 L1030 104 L1070 58 L1110 94 L1150 72 L1190 106 L1230 70 L1270 100 L1310 80 L1350 110 L1390 84 L1430 112 L1470 90 L1510 116 L1550 96 L1600 118 L1600 130 Z"/>
+    <path fill="#e2470f" opacity=".9" d="M0 130 L0 100 L50 85 L90 110 L130 70 L170 108 L210 80 L250 112 L290 64 L330 104 L370 84 L410 116 L450 76 L490 110 L530 90 L570 118 L610 72 L650 106 L690 90 L730 120 L770 84 L810 112 L850 98 L900 122 L950 100 L1000 124 L1060 108 L1120 126 L1200 114 L1300 128 L1600 130 Z"/>
+    <path fill="#ffb347" opacity=".85" d="M0 130 L0 118 L60 108 L100 124 L150 100 L190 122 L240 108 L290 126 L340 104 L390 124 L440 110 L500 128 L560 112 L620 128 L700 118 L800 130 Z"/>
+  </svg>
+  <div class="panel">
+    <div class="kicker">&#9670; New signature jutsu &#9670;</div>
+    <h1>Hellfire<br>Harvest</h1>
+    <div class="sub">The Headless Rider</div>
+    <div class="flavor">He drags his burning scythe in a wide circle and the whole field catches.</div>
+    <div class="stats">
+      <div class="stat wide"><div class="lab">Targets</div><div class="val">Every opponent on the field</div></div>
+      <div class="stat"><div class="lab">Damage</div><div class="val">70<small>Fire</small></div></div>
+      <div class="stat"><div class="lab">Cooldown</div><div class="val">6<small>rounds</small></div></div>
+      <div class="stat"><div class="lab">Recoil</div><div class="val">60%<small>3 rounds</small></div></div>
+      <div class="stat"><div class="lab">Heal Cut</div><div class="val">60%<small>3 rounds</small></div></div>
+    </div>
+    <div class="tip">Strike while burning and the fire strikes back.</div>
+  </div>
+  <div class="foot">HEADLESS RIDER HORROR! &middot; THE NINJA RPG</div>
+</div>
+<script>
+const c=document.querySelector('.card');let s=7;const r=()=>(s=(s*16807)%2147483647)/2147483647;
+for(let i=0;i<46;i++){const e=document.createElement('div');e.className='ember';
+ const x=r()*800,y=380+r()*480,z=2+Math.floor(r()*3)*2;
+ e.style.cssText=`left:${x}px;top:${y}px;width:${z}px;height:${z}px;opacity:${.35+r()*.65}`;c.appendChild(e);}
+</script>
+</body></html>
