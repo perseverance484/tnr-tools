@@ -62,7 +62,7 @@ Crownhold notes: `state/crownhold/README.md`; source check `state/crownhold/sour
   is attached and shows the described subject (size is informational; uploads get resized); if any is missing or wrong, stop and tell me which.
   Then use each reference only for its stated role and run the prompt section of prompt.txt verbatim. Generate exactly one
   image. Do not crop, key, resize or process it."
-- **#1 Sealed Treasury: DONE** (raw + 256 px export committed `a3d5249`; SWAPS row added, manifest built at the end). Next is #2 Archive Chart Case.
+- **#1 Sealed Treasury: DONE** (raw + 256 px export committed `a3d5249`; SWAPS row added, manifest built at the end). **#2 Archive Chart Case: DONE** (SWAPS row added). Next is #3 Chart of the Buried Cache.
 - **Intake:** `skills/producing-tnr-art/scripts/rawqc.py`, then `chroma.py --target <ICON|AI_AVATAR|JUTSU_ICON|...> --key
   <lime|magenta>` with `TNR_ART_SPEC=skills/producing-tnr-art/data/25x_DATA_art_spec.json`; scenes are not keyed. Commit
   under `art/skyglass_event_icons/` or `art/crownhold/`, then edit manifests to swap placeholders (items `image`, AI

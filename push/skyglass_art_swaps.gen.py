@@ -20,6 +20,8 @@ OUT = os.path.join(ROOT, "push", "275_skyglass_art_swaps.json")
 SWAPS = [
     (1, "item", "Ma8S90Nmbi0Xvm4u4FzJh", "Sealed Treasury", "image",
      "art/skyglass_event_icons/exports/icon-sealed-treasury.webp"),
+    (2, "item", "B48dTRsoLJGKBWIUbeUoG", "Archive Chart Case", "image",
+     "art/skyglass_event_icons/exports/icon-archive-chart-case.webp"),
 ]
 DONE = []
 
