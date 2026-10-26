@@ -267,11 +267,11 @@ L.append("- **Not in this batch:** Arakane (done, `art/crownhold/avatar_crownhol
 L.append("- **How a session uses this file:** it is given the link to this file and an image number. It reads that image's section, downloads the reference images from the links there, attaches them in the order given, and runs the prompt exactly as written.")
 L.append("- **Live-game requests/writes:** 0.\n")
 L.append("## Session contract (every image, no exceptions)\n")
-L.append("1. **The operator attaches the reference files to the session** (art sessions have no network access; every handoff ships with its files). The raw URLs below are the canonical source if a session ever can download bytes directly. Never use a text-only repository connector: it cannot return images.")
-L.append("2. **Verify each attached file** against the table: byte size and SHA-256 must match, and the file must open as an image of the listed width x height.")
+L.append("1. **The operator attaches the reference files from that image's folder** in `skyglass_art_batch.zip` (one folder per image: `ref1_*`, `ref2_*` in attach order, plus `prompt.txt`). Art sessions have no network access. The raw URLs below are the canonical source. Never use a text-only repository connector: it cannot return images.")
+L.append("2. **Verify each attached file:** it must open as an image of the listed width x height and show the described subject. Byte size and SHA-256 are advisory only (chat uploads may be recompressed).")
 L.append("3. **Show each reference back** (display it) and confirm it is attached to the generation request, in the listed order, with its listed role.")
 L.append("4. **Abort if any reference is missing, fails verification or cannot be attached.** Report which one and stop. Never generate without all references.")
-L.append("5. **Copy the fenced prompt verbatim.** Do not shorten, summarise or rewrite it.")
+L.append("5. **Copy the fenced prompt (or the folder's `prompt.txt`) verbatim.** Do not shorten, summarise or rewrite it.")
 L.append("6. Generate exactly one candidate. Do not crop, key, resize or otherwise process it. Return the raw image under the name the prompt gives.\n")
 L.append("## Targets (from `25x_DATA_art_spec.json`)\n")
 L.append("| Target | Canvas to generate | Key | Delivered |\n|---|---|---|---|")
@@ -309,3 +309,35 @@ for it in items:
 open(OUT,"w").write("\n".join(L)+"\n")
 json.dump(items,open(os.path.join(ROOT,"state/skyglass_art/items.json"),"w"),indent=1)
 print(len(items))
+
+
+# ---- per-image folders: skyglass_art_batch.zip (built on request: python3 build_art_batch.py --zip OUTDIR)
+import sys, zipfile, re as _re
+if "--zip" in sys.argv:
+    out = sys.argv[sys.argv.index("--zip") + 1]
+    os.makedirs(out, exist_ok=True)
+    zpath = os.path.join(out, "skyglass_art_batch.zip")
+    doc = open(OUT).read()
+    with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("README.txt", (
+            "Skyglass / Crownhold art batch. One folder per image, in order.\n"
+            "In a fresh image session: attach ref1_*, then ref2_* (if present) from the folder, then paste prompt.txt verbatim.\n"
+            "The session checks each attachment opens at the size in prompt.txt and stops if one is missing.\n"
+            "Art bible: docs/handoffs/SKYGLASS_CROWNHOLD_ART_BATCH.md\n"))
+        for it in items:
+            slug = "%02d_%s" % (it["no"], _re.sub(r"[^a-z0-9]+", "_", it["name"].lower()).strip("_")[:40])
+            refs_txt = []
+            for i, (role, r) in enumerate(it["refs"]):
+                path = REF[r]; b, w, h, sh = meta(path)
+                fname = "ref%d_%s" % (i + 1, os.path.basename(path))
+                z.write(REPO + path, f"{slug}/{fname}")
+                refs_txt.append(f"{i+1}. {fname}  ({role}; {w} x {h}; sha256 {sh} [advisory])")
+            sec = doc[doc.index("### %d. " % it["no"]):]
+            prompt = sec[sec.index("~~~text\n") + 8: sec.index("\n~~~", sec.index("~~~text\n") + 8)]
+            head = (f"Art batch #{it['no']}: {it['name']}  |  target {it['target']}  |  key {it['key']}  |  deliver {it['deliver']}\n"
+                    "The operator has attached these references in this order (you have no network; do not download):\n"
+                    + "\n".join(refs_txt) +
+                    "\nBefore generating: confirm each attachment is present, opens at the listed size, and shows the described subject. "
+                    "If any is missing or wrong, STOP and report which. Then run the prompt below verbatim.\n\n---\n\n")
+            z.writestr(f"{slug}/prompt.txt", head + prompt + "\n")
+    print("zip:", zpath, os.path.getsize(zpath))

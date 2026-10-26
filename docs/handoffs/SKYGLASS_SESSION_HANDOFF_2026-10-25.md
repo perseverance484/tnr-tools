@@ -50,10 +50,12 @@ Crownhold notes: `state/crownhold/README.md`; source check `state/crownhold/sour
   avatars) or the Captain's portrait (scenes) supply the pixel rendering. Order: 1-5 item icons and the Crownbreaker badge,
   6 Lastlight jutsu icon, 7 Foundry Warden, 8-26 Crownhold enemies, 27-45 Crownhold scenes (one per room), 46-48 Arakane's
   exclusives, 49-65 pixel redraws of the live painted icons, 66-79 one scene per Skyglass hunt location.
-- **Workflow that works:** the image session has NO network. For each image, send the director its reference files
-  (SendUserFile) plus one paste block built from the bible section: expected bytes / W x H / full SHA-256 per reference,
-  "abort if any check fails", and the fenced prompt verbatim. Extract the section with awk from the md; never retype
-  prompts or commit hashes from memory (this session mistyped two hashes).
+- **Workflow that works:** the image session has NO network, and images sent through the chat app are recompressed (byte
+  hashes never match). So the references travel in a zip: `python3 state/skyglass_art/build_art_batch.py --zip <outdir>`
+  writes `skyglass_art_batch.zip` with one folder per image (`NN_name/ref1_*`, `ref2_*` in attach order, `prompt.txt` =
+  check list + the verbatim prompt). Send the zip once (SendUserFile, display attach); each handoff then just names the
+  folder. The session checks each attachment is present, opens at the listed size and shows the subject (hash advisory),
+  and stops if not. Never retype prompts or commit hashes from memory.
 - **#1 Sealed Treasury:** the painted candidate is kept as the subject
   (`art/skyglass_event_icons/raw/subject_sealed_treasury_painted_v1.webp`); the pixel version is pending. The last handoff
   (bible @ `1e4ab8938d8211cf9a132f56d80829ff1114c022`) was sent; the session reports came from older handoffs.

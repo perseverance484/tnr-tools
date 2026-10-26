@@ -11,11 +11,11 @@
 
 ## Session contract (every image, no exceptions)
 
-1. **The operator attaches the reference files to the session** (art sessions have no network access; every handoff ships with its files). The raw URLs below are the canonical source if a session ever can download bytes directly. Never use a text-only repository connector: it cannot return images.
-2. **Verify each attached file** against the table: byte size and SHA-256 must match, and the file must open as an image of the listed width x height.
+1. **The operator attaches the reference files from that image's folder** in `skyglass_art_batch.zip` (one folder per image: `ref1_*`, `ref2_*` in attach order, plus `prompt.txt`). Art sessions have no network access. The raw URLs below are the canonical source. Never use a text-only repository connector: it cannot return images.
+2. **Verify each attached file:** it must open as an image of the listed width x height and show the described subject. Byte size and SHA-256 are advisory only (chat uploads may be recompressed).
 3. **Show each reference back** (display it) and confirm it is attached to the generation request, in the listed order, with its listed role.
 4. **Abort if any reference is missing, fails verification or cannot be attached.** Report which one and stop. Never generate without all references.
-5. **Copy the fenced prompt verbatim.** Do not shorten, summarise or rewrite it.
+5. **Copy the fenced prompt (or the folder's `prompt.txt`) verbatim.** Do not shorten, summarise or rewrite it.
 6. Generate exactly one candidate. Do not crop, key, resize or otherwise process it. Return the raw image under the name the prompt gives.
 
 ## Targets (from `25x_DATA_art_spec.json`)
