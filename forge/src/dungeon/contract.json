@@ -1,14 +1,16 @@
 {
   "_meta": {
     "pin": "107d7a86894f806a4c9cec89effef5992118a0ed",
-    "scope": "Dungeon definitions only (dungeon.save / dungeon.getAll); lobby, run and claim procedures are out of scope",
+    "scope": "Dungeon definitions only (coop.dungeon.save / coop.dungeon.getAll); lobby, run and claim procedures are out of scope",
     "sources": {
       "app/src/validators/dungeon.ts": "3ef77e9821e5b456a80c351b8fb91920d730be364d275d3927f6c22c23df0e27",
       "app/src/server/api/routers/dungeon.ts": "6280604be39691695ea72c6e6026ba8f521586b847fd4130dc30463aee8b6ead",
       "app/src/validators/coop.ts": "e4e3c2c5b8e2a7bb865967933b0c51ce5968199fee5e274a27b7b66edf95e450",
       "app/src/validators/mapLocation.ts": "274f5a713ba37c6dea42102071a29fb3ecfca4d563d19a663e3fb6e9f8222b0e",
       "app/drizzle/constants.ts": "4d3cf207812a7ef9403fb4b4e9a5bc74cc2baec8c5ea51b69d4f426bbcedab75",
-      "app/src/libs/dungeonRewards.ts": "4db0b8fb142c03d93021a6da08c4b090a4e4566e34c6638b21011a898d054ae8"
+      "app/src/libs/dungeonRewards.ts": "4db0b8fb142c03d93021a6da08c4b090a4e4566e34c6638b21011a898d054ae8",
+      "app/src/server/api/root.ts": "6f1e67f3d56c9fc60f43fa557ab529c384970896325f1c0db779fa4f968259a9",
+      "app/src/server/api/routers/coop.ts": "2ef0395758c845fe4f5dbc093a3b1a9b38b8bd27915a07e511c8a51508eac898"
     }
   },
   "contentFields": [
@@ -130,13 +132,13 @@
     "inactiveRounds": 3
   },
   "procedures": {
-    "dungeon.getAll": {
+    "coop.dungeon.getAll": {
       "kind": "query",
       "limited": false,
       "mcp": false,
       "auth": "protected"
     },
-    "dungeon.save": {
+    "coop.dungeon.save": {
       "kind": "mutation",
       "limited": true,
       "mcp": false,

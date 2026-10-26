@@ -11,7 +11,7 @@
 //     item, bloodline, quest and ai the placeholder name embeds the id, which is an
 //     independent cross-check; for gameAsset every orphan is named "Placeholder", so the
 //     diff is the ONLY signal, which is why the snapshot is mandatory.
-//   A dungeon create is never adopted here: dungeon.save has no idempotency key, so every lost
+//   A dungeon create is never adopted here: coop.dungeon.save has no idempotency key, so every lost
 //     one is ORPHANED with its candidates compared to the planned content (_dungeonCreate).
 //   phase update (entityId known): read the record; if every asserted key already matches,
 //     the update landed -> confirm with landed:true and the runner goes straight to verify.
@@ -133,7 +133,7 @@ export class Reconciler {
   }
 
   /**
-   * A lost dungeon create is never adopted automatically (review F2). dungeon.save carries no
+   * A lost dungeon create is never adopted automatically (review F2). coop.dungeon.save carries no
    * idempotency key, so a new row matching the planned content in every field may still be another
    * operator's: matching content is evidence, not ownership. Every candidate is listed with how it
    * compares to the FULL planned content (zod defaults applied to both, so an omitted quantity is
@@ -155,7 +155,7 @@ export class Reconciler {
     });
     const n = evidence.filter((c) => c.matches).length;
     return { action: "orphan", candidates: evidence,
-      note: `lost dungeon create: ${candidates.length} new row(s), ${n} matching the plan, ${pending.length} create(s) pending${why}. dungeon.save has no idempotency key: a matching row may be someone else's. Check it, then adopt (read back, never re-saved) or skip` };
+      note: `lost dungeon create: ${candidates.length} new row(s), ${n} matching the plan, ${pending.length} create(s) pending${why}. coop.dungeon.save has no idempotency key: a matching row may be someone else's. Check it, then adopt (read back, never re-saved) or skip` };
   }
 
   async _resolveUpdate(item, rc, ctx) {
