@@ -3145,3 +3145,23 @@ Neither finding is a runtime defect. Forge's runtime source, bundle and loader a
 
 **Canonical destination:** `docs/handoffs/FORGE_DUNGEON_COOP_PATH_HANDOFF.md` (integration disposition); the follow-up is owned by Fable.
 
+
+## RUL-2026-10-26-001 — Crownhold officers are chakra-impression ninjas in the Ghost Ship crew's look; no control thread
+
+**Date:** 2026-10-26
+
+**Domain:** Art direction / Crownhold AI avatars (art batch #8-#26)
+
+**Status:** ACTIVE
+
+**Supersedes:** the Crownhold continuity of the art batch bible (luminous cyan seams, translucency, flicker, the control thread) and Arakane as the officers' style reference; the 11 avatars already made under it (#8-#11, #14-#20) are redone.
+
+**Ruling:**
+1. Crownhold officers are shinobi recalled as chakra impressions, drawn in the Ghost Ship crew's outfit language: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates, a cloth mask or headwrap), worn and grounded. The impression shows only as chakra-lit eyes and a faint haze at the cloth's edges. No glowing seams, no translucent or crystal bodies, no gold filigree or tassels, no crowns (Arakane's Command Crown is his alone), no technology.
+2. Style reference: the Deck Warden for regulars, the Captain for commanders. Arakane is a reference only for his own crown and belt seal.
+3. The sci-fi subjects are re-grounded as ninja roles under their live names (Lancer, Replicant Zero, Containment Warden, Echo Subject, Failed Reconstruction Prototype, and lighter edits to the rest).
+4. No thread, wire or line rising from the head: cut off at the frame edge it reads as an antenna on the moving combat sprite.
+
+**Evidence:** User, 2026-10-26: "the command line will look silly in game since it cuts off at the edge ... It'll just look like a weird antenna"; "we've drifted into sci-fi too much with these. I wanted like, chakra impression ninjas not blue energy ghosts"; after comparing the live Ghost Ship avatars, on redoing all 11: "Yeah let's redo".
+
+**Canonical destination:** `state/skyglass_art/build_art_batch.py` (`CROWN_THREAD`, `AVATARS`, officer style refs) and the regenerated `docs/handoffs/SKYGLASS_CROWNHOLD_ART_BATCH.md`.

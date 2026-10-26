@@ -16,6 +16,8 @@ REF={
  "crown":"art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp",
  "arakane":"art/crownhold/avatar_crownhold_arakane.webp",
  "arsenal":"art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp",
+ "deck_warden":"art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp",
+ "captain":"art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp",
  "bbe":"art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp",
  "gallery":"art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp",
  "helm":"art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp",
@@ -37,10 +39,15 @@ AV_STYLE=("Style: single full-body character avatar, crisp pixel art with clean 
  "Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second "
  "character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no "
  "gradient background, no sheet, no grid.")
-CROWN_THREAD=("Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain "
- "fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire "
- "or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone "
- "greys, military brass, Skyglass blue-white, plus the one accent named below.")
+# Director 2026-10-26 (RUL-2026-10-26-001): Crownhold officers are chakra-impression NINJAS in the Ghost Ship crew's
+# look, not blue energy ghosts; style reference is a crew avatar (Deck Warden / the Captain), never Arakane.
+CROWN_THREAD=("Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. "
+ "Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey "
+ "cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and "
+ "weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at "
+ "the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no "
+ "crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo "
+ "cloth, dull brass fittings, plus the one accent named in the subject.")
 SCENE_STYLE=("Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp "
  "hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly "
  "blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the "
@@ -95,31 +102,33 @@ add(7,"Foundry Warden (AI avatar)","AI_AVATAR","magenta","avatar_skyglass_foundr
  "his gauntlets. Accent: molten cyan.",AV_STYLE)
 
 AVATARS=[
- ("Master of Arms","Division I commander. A forge-wall weapons master in heavy Skyglass armour, two drawn blades, more weapons slung across his back; calm and exacting. Accent: forge-orange.",True),
- ("Replicant Zero","Division II commander. A scientist in a long lab coat rebuilding his own left hand out of light; the first successful reconstruction; calm and curious. Accent: pale violet.",True),
- ("The Grand Marshal","Division III commander, called 'The Second'. A senior officer in an unadorned dark greatcoat, hands behind his back; thoughtful and severe; the deputy who could question orders. Accent: muted brass.",True),
- ("Crownhold Proving Proctor","Division I. An armory proctor in a faded grey drill uniform, a clipboard of stamped trial sheets in one hand, two practice blades at the hip, a whistle on a cord. Accent: drill-yellow.",False),
- ("Ordnance Quartermaster","Division I. A scorched apron over an officer coat, satchels of glowing sealed explosive tags, soot-dark gloves holding a tray of tags. Accent: tag-orange.",False),
- ("Prototype Lancer Unit","Division I. A half-built lightning-lance automaton fused with its test pilot, exposed capacitor coils, a serial plate reading only a stamped number shape (no legible text). Accent: electric yellow.",False),
- ("Calibration Duelist","Division I. A duelist in a calibration harness with chakra-measuring rings on both arms and a wind-swept practice sword, apprentice insignia. Accent: wind-green.",False),
- ("Skyglass Archive Keeper","Division II. An archivist rendered in pale blue chakra light, holding a crystal-core ledger, translucent where the reconstruction is incomplete. Accent: archive blue.",False),
- ("Impression Containment Warden","Division II. A sealed containment suit with a water-filled observation visor and a heavy chain of vat keys. Accent: water teal.",False),
- ("Unstable Echo Subject","Division II. A failed reconstruction glitching between two overlapping silhouettes, shadow chakra leaking from the seams. Accent: shadow violet.",False),
- ("Failed Reconstruction Prototype","Division II. A hulking earth-bound prototype, crystal growths over a half-formed body, a reconstruction rig bolted to its back. Accent: stone ochre.",False),
- ("Command Signal Adjutant","Division III. A relay headset, wind-banner semaphore flags in both hands, High Command rank stripes. Accent: signal green.",False),
- ("High Command Staff Tactician","Division III. A campaign map case and a quill of glowing chakra ink, the Grand Marshal's aide's cord on the shoulder. Accent: ink blue.",False),
- ("Honor Guard Commandant","Division III. Ceremonial stone-plated armour and a tower shield bearing a plain circled-cross seal. Accent: polished brass.",False),
- ("Strategist's Aide-de-Camp","Division III. Sealed dispatch tubes crackling with lightning, reflective lacquered armour, an aide's sash. Accent: lightning white.",False),
- ("Sanctum Vanguard","Division IV. Obsidian-and-ember Sanctum armour, fire-chakra gauntlets ablaze, a short banner pole on the back. Accent: ember red.",False),
- ("Directive Herald","Division IV. Long ceremonial robes, a glowing directive scroll that is rewriting itself, lightning-lit eyes. Accent: lightning gold.",False),
+ ("Master of Arms","Division I commander. A broad weapons master in heavy lacquered plates over dark indigo cloth, two drawn blades, more blades and a spear slung across his back; calm and exacting. Accent: forge-orange.",True),
+ ("Replicant Zero","Division II commander. A gaunt medical-nin in a long dark field coat with pouches of sealing tags, calmly rebuilding his own left hand out of his own healing chakra; the first successful recall; calm and curious. Accent: pale violet.",True),
+ ("The Grand Marshal","Division III commander, called 'The Second'. A senior shinobi officer in a plain dark long coat over light plates, face masked, hands behind his back; thoughtful and severe; the deputy who could question orders. Accent: muted brass.",True),
+ ("Crownhold Proving Proctor","Division I. An armory proctor in a faded grey drill wrap and cloth headwrap, a wooden board of trial slips in one hand, two wooden practice blades at the hip, a whistle on a cord. Accent: drill-yellow.",False),
+ ("Ordnance Quartermaster","Division I. A soot-stained apron over a field vest, bandoliers of glowing explosive tags, soot-dark gloves holding a tray of tags. Accent: tag-orange.",False),
+ ("Prototype Lancer Unit","Division I. A spear specialist in light plates, a long cross-bladed spear crackling with lightning chakra, chakra-burn scars wrapped on both forearms. Accent: electric yellow.",False),
+ ("Calibration Duelist","Division I. A young duelist in sparring wraps, a practice sword wrapped in wind chakra, an apprentice cord on the shoulder. Accent: wind-green.",False),
+ ("Skyglass Archive Keeper","Division II. An archivist-nin with a satchel of scrolls and a bound ledger, ink-stained fingers, a small skyglass reading lens on a cord. Accent: archive blue.",False),
+ ("Impression Containment Warden","Division II. A sealing specialist in a hooded wrap, a heavy ring of seal keys and tag-wrapped scroll cases on chains, a water-filled seal jar at the hip. Accent: water teal.",False),
+ ("Unstable Echo Subject","Division II. A ninja caught mid-step splitting into an imperfect shadow clone: the clone a half-step behind and out of line, shadow chakra trailing between them. Accent: shadow violet.",False),
+ ("Failed Reconstruction Prototype","Division II. A hulking earth-style ninja half-encased in his own stone armour technique, rock plating cracked over one arm and shoulder, rope-bound. Accent: stone ochre.",False),
+ ("Command Signal Adjutant","Division III. A signals ninja with a semaphore flag in each hand, a message-scroll tube across the back, a rank cord. Accent: signal green.",False),
+ ("High Command Staff Tactician","Division III. A tactician with a campaign map case under one arm and a brush wet with glowing chakra ink, the Grand Marshal's aide's cord on the shoulder. Accent: ink blue.",False),
+ ("Honor Guard Commandant","Division III. Ceremonial stone-grey lacquered plates and a tall tower shield bearing a plain circled-cross seal. Accent: polished brass.",False),
+ ("Strategist's Aide-de-Camp","Division III. Sealed dispatch tubes on the back crackling with lightning chakra, light lacquered armour, an aide's sash. Accent: lightning white.",False),
+ ("Sanctum Vanguard","Division IV. Obsidian-black lacquered plates, fire-chakra gauntlets ablaze, a short banner pole on the back. Accent: ember red.",False),
+ ("Directive Herald","Division IV. Long dark ceremonial robes, an unrolled scroll of orders in one hand marked with glowing unreadable marks, lightning-lit eyes. Accent: lightning gold.",False),
  ("Last Watch Executor","Division IV. A tattered night-watch cloak, twin wind glaives, a blank mask stamped with an unreadable seal. Accent: night blue.",False),
- ("Order-Bearer of the Sanctum","Division IV. Deep-water Sanctum regalia, a sealed scroll case, a blank unsigned command seal held up. Accent: deep-sea blue.",False),
+ ("Order-Bearer of the Sanctum","Division IV. Deep-blue Sanctum wraps, a sealed scroll case, a blank command seal tablet held up. Accent: deep-sea blue.",False),
 ]
 n=8
 for name,look,boss in AVATARS:
     fname="avatar_crownhold_"+name.lower().removeprefix("crownhold ").replace("'","").replace(" ","_").replace("-","_")+".webp"
-    add(n,name+(" (commander)" if boss else ""),"AI_AVATAR","magenta",fname,[("STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)","arakane")],
-        name+": "+look+(" Commanders are larger and more ornate than regular officers but wear no crown." if boss else ""),CROWN_THREAD+"\n"+AV_STYLE)
+    ref=("STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon)","captain") if boss else \
+        ("STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon)","deck_warden")
+    add(n,name+(" (commander)" if boss else ""),"AI_AVATAR","magenta",fname,[ref],
+        name+": "+look+(" Commanders are larger, with a heavier cloak and a distinct mask, but wear no crown and no gold." if boss else ""),CROWN_THREAD+"\n"+AV_STYLE)
     n+=1
 SCENES=[
  ("Crownhold gate","scene_bg_crownhold_gate.webp","A snow-drifted parade ground before an open gate cut into a mountain wall; the gate stands open and unguarded; no banners; deep, unbroken snow; faint cyan light deep inside. (Used by: the fail node, 'you wake outside the gate in the snow'.)"),
