@@ -1,0 +1,54 @@
+{
+ "_note": "Zombie Villager (nqL-uL-Z_7I0iuowlpBDx) custom moveset, director 2026-10-26: no default rules; 1 Zombie Claws when in range (range 1, gate 2, law 40); 2 move toward the opponent while not adjacent (path length >= 3, the same point where the engine's own move stops); 3 end turn. The engine runs the rule list from the top for every action (ai_v2.ts performAIaction), so after each one-hex move rule 1 is checked again. The move cap comes from AP: a round is 100 AP, a move costs 10 and the claws 60, so up to 4 moves still leave the claws affordable. Rules cannot count moves, so a zombie that needs more than 4 steps keeps walking on its remaining AP instead of stopping. Supersedes push/267's two-rule set.",
+ "items": [
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "nqL-uL-Z_7I0iuowlpBDx",
+   "name": "Zombie Villager: claw, move, end turn",
+   "data": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_item",
+       "description": "Select specific item",
+       "itemId": "mMl6P4B7v6-_CyDo3HVG7",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "description": "Distance higher than or equal given value",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "Move towards opponent",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn",
+       "description": "End turn"
+      }
+     }
+    ]
+   }
+  }
+ ]
+}
