@@ -20,3 +20,4 @@
   Failed Reconstruction Prototype, Command Signal Adjutant, High Command Staff Tactician): `avatar_crownhold_<name>.webp`,
   keyed from `raw/` with `chroma.py --target AI_AVATAR --key magenta` (rawqc ACCEPT each), native size lossless webp, no
   thread to erase; artpreflight --type AI_AVATAR 0/0.
+- `avatar_crownhold_master_of_arms.webp` replaced 2026-10-26 by the RUL-2026-10-26-001 version (Seal Charge pixel-style reference; iron half-helm, orange face guard, axe and cleaver). Director-approved.

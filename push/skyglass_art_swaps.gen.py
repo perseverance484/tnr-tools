@@ -29,6 +29,8 @@ SWAPS = [
      "art/skyglass_event_icons/exports/icon-unmarked-cargo.webp"),
     (7, "ai", "81lnIP-q97gItQYWl5vWD", "Foundry Warden", "avatar",
      "art/skyglass_event_icons/avatars/avatar_skyglass_foundry_warden.webp"),
+    (8, "ai", "-GKFYAZUg1eF-3VnZhDjx", "Master of Arms", "avatar",
+     "art/crownhold/avatar_crownhold_master_of_arms.webp"),
 ]
 DONE = []
 
