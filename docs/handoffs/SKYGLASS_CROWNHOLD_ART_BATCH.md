@@ -290,13 +290,13 @@ Return the raw image named raw_avatar_skyglass_foundry_warden.png.
 
 References (download and attach, in this order):
 
-1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
+1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Master of Arms (commander). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons. Follow each reference only for its stated role.
 
-Subject: Master of Arms: Division I commander. A broad weapons master in heavy lacquered plates over dark indigo cloth, two drawn blades, more blades and a spear slung across his back; calm and exacting. Accent: forge-orange. Commanders are larger, with a heavier cloak and a distinct mask, but wear no crown and no gold.
+Subject: Master of Arms: Division I commander. A broad, bull-necked weapons master: a dented iron half-helm with a forge-orange lacquered face guard over the mouth and jaw, a bald or close-cropped head (no long hair, no topknot); heavy lacquered plates over dark indigo cloth, a war-axe and a heavy cleaver-blade in his hands, more blades and a spear slung across his back; calm and exacting. Accent: forge-orange. Commanders are larger and heavier-built than regular officers, but wear no crown and no gold.
 
 Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
@@ -309,13 +309,13 @@ Return the raw image named raw_avatar_crownhold_master_of_arms.png.
 
 References (download and attach, in this order):
 
-1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
+1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Replicant Zero (commander). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons. Follow each reference only for its stated role.
 
-Subject: Replicant Zero: Division II commander. A gaunt medical-nin in a long dark field coat with pouches of sealing tags, calmly rebuilding his own left hand out of his own healing chakra; the first successful recall; calm and curious. Accent: pale violet. Commanders are larger, with a heavier cloak and a distinct mask, but wear no crown and no gold.
+Subject: Replicant Zero: Division II commander. A tall, gaunt medical-nin: a close grey cloth hood and a plain surgical face wrap leaving only one chakra-lit eye, the other eye bandaged; a long dark field coat with pouches of sealing tags; calmly rebuilding his own left hand out of his own pale violet healing chakra; the first successful recall; calm and curious. No mask plate, no sword. Accent: pale violet. Commanders are larger and heavier-built than regular officers, but wear no crown and no gold.
 
 Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
@@ -328,13 +328,13 @@ Return the raw image named raw_avatar_crownhold_replicant_zero.png.
 
 References (download and attach, in this order):
 
-1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
+1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: The Grand Marshal (commander). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons. Follow each reference only for its stated role.
 
-Subject: The Grand Marshal: Division III commander, called 'The Second'. A senior shinobi officer in a plain dark long coat over light plates, face masked, hands behind his back; thoughtful and severe; the deputy who could question orders. Accent: muted brass. Commanders are larger, with a heavier cloak and a distinct mask, but wear no crown and no gold.
+Subject: The Grand Marshal: Division III commander, called 'The Second'. An older senior shinobi officer: a wide flat travelling hat with a muted-brass brim band shading a plain dark cloth mask, a short grey beard visible below it; a plain dark long coat over light plates, hands clasped behind his back, no drawn weapon; thoughtful and severe; the deputy who could question orders. Accent: muted brass. Commanders are larger and heavier-built than regular officers, but wear no crown and no gold.
 
 Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
@@ -347,11 +347,11 @@ Return the raw image named raw_avatar_crownhold_the_grand_marshal.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Crownhold Proving Proctor. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Crownhold Proving Proctor: Division I. An armory proctor in a faded grey drill wrap and cloth headwrap, a wooden board of trial slips in one hand, two wooden practice blades at the hip, a whistle on a cord. Accent: drill-yellow.
 
@@ -366,11 +366,11 @@ Return the raw image named raw_avatar_crownhold_proving_proctor.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Ordnance Quartermaster. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Ordnance Quartermaster: Division I. A soot-stained apron over a field vest, bandoliers of glowing explosive tags, soot-dark gloves holding a tray of tags. Accent: tag-orange.
 
@@ -385,11 +385,11 @@ Return the raw image named raw_avatar_crownhold_ordnance_quartermaster.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Prototype Lancer Unit. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Prototype Lancer Unit: Division I. A spear specialist in light plates, a long cross-bladed spear crackling with lightning chakra, chakra-burn scars wrapped on both forearms. Accent: electric yellow.
 
@@ -404,11 +404,11 @@ Return the raw image named raw_avatar_crownhold_prototype_lancer_unit.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Calibration Duelist. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Calibration Duelist: Division I. A young duelist in sparring wraps, a practice sword wrapped in wind chakra, an apprentice cord on the shoulder. Accent: wind-green.
 
@@ -423,11 +423,11 @@ Return the raw image named raw_avatar_crownhold_calibration_duelist.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Archive Keeper. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Skyglass Archive Keeper: Division II. An archivist-nin with a satchel of scrolls and a bound ledger, ink-stained fingers, a small skyglass reading lens on a cord. Accent: archive blue.
 
@@ -442,11 +442,11 @@ Return the raw image named raw_avatar_crownhold_skyglass_archive_keeper.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Impression Containment Warden. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Impression Containment Warden: Division II. A sealing specialist in a hooded wrap, a heavy ring of seal keys and tag-wrapped scroll cases on chains, a water-filled seal jar at the hip. Accent: water teal.
 
@@ -461,11 +461,11 @@ Return the raw image named raw_avatar_crownhold_impression_containment_warden.pn
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Unstable Echo Subject. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Unstable Echo Subject: Division II. A ninja caught mid-step splitting into an imperfect shadow clone: the clone a half-step behind and out of line, shadow chakra trailing between them. Accent: shadow violet.
 
@@ -480,11 +480,11 @@ Return the raw image named raw_avatar_crownhold_unstable_echo_subject.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Failed Reconstruction Prototype. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Failed Reconstruction Prototype: Division II. A hulking earth-style ninja half-encased in his own stone armour technique, rock plating cracked over one arm and shoulder, rope-bound. Accent: stone ochre.
 
@@ -499,11 +499,11 @@ Return the raw image named raw_avatar_crownhold_failed_reconstruction_prototype.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Command Signal Adjutant. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Command Signal Adjutant: Division III. A signals ninja with a semaphore flag in each hand, a message-scroll tube across the back, a rank cord. Accent: signal green.
 
@@ -518,11 +518,11 @@ Return the raw image named raw_avatar_crownhold_command_signal_adjutant.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: High Command Staff Tactician. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: High Command Staff Tactician: Division III. A tactician with a campaign map case under one arm and a brush wet with glowing chakra ink, the Grand Marshal's aide's cord on the shoulder. Accent: ink blue.
 
@@ -537,11 +537,11 @@ Return the raw image named raw_avatar_crownhold_high_command_staff_tactician.png
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Honor Guard Commandant. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Honor Guard Commandant: Division III. Ceremonial stone-grey lacquered plates and a tall tower shield bearing a plain circled-cross seal. Accent: polished brass.
 
@@ -556,11 +556,11 @@ Return the raw image named raw_avatar_crownhold_honor_guard_commandant.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Strategist's Aide-de-Camp. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Strategist's Aide-de-Camp: Division III. Sealed dispatch tubes on the back crackling with lightning chakra, light lacquered armour, an aide's sash. Accent: lightning white.
 
@@ -575,11 +575,11 @@ Return the raw image named raw_avatar_crownhold_strategists_aide_de_camp.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Sanctum Vanguard. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Sanctum Vanguard: Division IV. Obsidian-black lacquered plates, fire-chakra gauntlets ablaze, a short banner pole on the back. Accent: ember red.
 
@@ -594,11 +594,11 @@ Return the raw image named raw_avatar_crownhold_sanctum_vanguard.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Directive Herald. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Directive Herald: Division IV. Long dark ceremonial robes, an unrolled scroll of orders in one hand marked with glowing unreadable marks, lightning-lit eyes. Accent: lightning gold.
 
@@ -613,11 +613,11 @@ Return the raw image named raw_avatar_crownhold_directive_herald.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Last Watch Executor. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Last Watch Executor: Division IV. A tattered night-watch cloak, twin wind glaives, a blank mask stamped with an unreadable seal. Accent: night blue.
 
@@ -632,11 +632,11 @@ Return the raw image named raw_avatar_crownhold_last_watch_executor.png.
 
 References (download and attach, in this order):
 
-1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
+1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Order-Bearer of the Sanctum. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear. Follow each reference only for its stated role.
 
 Subject: Order-Bearer of the Sanctum: Division IV. Deep-blue Sanctum wraps, a sealed scroll case, a blank command seal tablet held up. Accent: deep-sea blue.
 
