@@ -18,7 +18,7 @@
 
 ## 2. Wreck clear (each member)
 
-Currency package (director, in game). Independent drops: Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Lastlight Lantern **3%**, Sealed Treasury **3%** (ruled).
+Currency package (director, in game). Independent drops: Chart of the Buried Cache **20%** (RUL-2026-10-25-012), Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Lastlight Lantern **3%**, Sealed Treasury **3%** (ruled).
 
 ## 3. Caches (weighted, one roll each)
 
@@ -50,7 +50,7 @@ The Skyglass Crystal is not in the Coffer: it comes only from crafting 12 Skygla
 | Epic | 12 | Chart of the Captain's Watch ×1 |
 | Legendary | 3 | Lastlight Lantern ×1 |
 
-**Medicine Inro** — Common 70 (Field Tonic ×10 / Chakra Pill ×10 / Stamina Pill ×10); Rare 22 (Small Health Pill ×10 / Dr. Kim's Miracle Potion ×10 / Panacea ×10); Epic 7 (Chakra Pill II ×10 / Stamina Pill II ×10); Legendary 1 (Pill Pack ×5).
+**Medicine Inro** — **two rolls** (RUL-2026-10-25-012); Common 70 (Field Tonic ×10 / Chakra Pill ×10 / Stamina Pill ×10); Rare 22 (Small Health Pill ×10 / Dr. Kim's Miracle Potion ×10 / Panacea ×10); Epic 7 (Chakra Pill II ×10 / Stamina Pill II ×10); Legendary 1 (Pill Pack ×5).
 
 **Sage's Strongbox** — Common 65 (Dr. Kim Disaster Potion ×20 / Chakra Disrupting Needles ×20); Epic 26 (Infernum ×10 / Bashōsen ×10 / Dr. Kim's Poison Potion ×10); Legendary 8 (Solider Pill ×5 / Enemy Pill ×5 / Mona's Mermaid Song ×5; Pill Pack removed, the Inro owns it); Forbidden 1 (Forbidden Jutsu Scroll: Nexus ×1 / Rebirth ×1).
 
@@ -64,6 +64,7 @@ Every hunt is an isolated Battle Pyramid. **Ending rewards** (always paid, every
 |---|---|
 | Drowned Foundry | Katon / Wave / Ikazuchi / Stonefall / Zephyrfang Tool Pouch |
 | Quarantined Archive | Archive Chart Case · Sage's Strongbox · The Records (exp lump) |
+| Buried Cache | 50,000 ryo · 5,000 exp · Medicine Inro ×1 (RUL-2026-10-25-012) |
 | Captain's Watch | Skyglass Coffer · Captain's Purse (ryo lump) · Medicine Inro ×3 |
 | Crownhold | Skyglass Coffer ×2 · Crownhold's Honor (village tokens lump; set it large enough to compete with Coffer ×2) · **Crownhold badge** · **Crownhold jutsu** |
 
