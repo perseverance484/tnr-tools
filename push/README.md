@@ -788,7 +788,9 @@ problems. **`validate.py --strict` fails on one stale lint:** L06 demands `statT
 `WoundTag` (validators/combat.ts) has no `statTypes` and the server drops it; with `statTypes` the Forge pre-send check
 refuses the manifest instead. Director exception RUL-2026-10-25-008: gate `python3 scripts/validate_exception.py state/validate_exceptions/261_lastlight_jutsu.json` (exit 0).
 
-## 260 Skyglass event items (12 creates, HIDDEN): READY TO RUN
+## 260 Skyglass event items (12 creates, HIDDEN): RUN, verified (bundle tnr_results_1792978320664.json, 12/12 match), archived
+
+Ids: Coffer `THo7rfzP-S82_43aN8fs3`; pouches Katon `D0gtI5dOgj2dFO4VexsLJ`, Wave `ZZOrFciKSJazAtkW9nt_7`, Ikazuchi `we2DtPSH2Q5quEvxj7xO2`, Stonefall `hcvHkfcYHP6qBEO_dRFl6`, Zephyrfang `z9U9wvJKDGtimll6BnTuL`; charts Foundry `pY-0O5Gs2n89pf0kYb5J2`, Archive `cRZT41zm5vhPTQwwn8vtv`, Watch `aHFNuo5RkKpDcaOBLIKiu`; Lastlight Lantern `jCJv4N3JSiihuqnK0jJ7t`; Sealed Treasury `Ma8S90Nmbi0Xvm4u4FzJh`; Archive Chart Case `B48dTRsoLJGKBWIUbeUoG`.
 
 `260_skyglass_items_create.json` (supersedes push/254; the suggestion route is shelved, director 2026-10-25: "Forget
 suggestions for now ... let's do the hidden push of everything"). Creates, all hidden: Skyglass Coffer (pure Skyglass:
