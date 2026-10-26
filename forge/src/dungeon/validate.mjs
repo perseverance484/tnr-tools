@@ -5,7 +5,7 @@ export { CONTRACT };
 
 // Pre-send validation for dungeon definitions (state/prompt_forge_dungeon_recipe.md).
 //
-// The manifest's `data` is the dungeon's `content` object: dungeon.save takes {id?, content} and
+// The manifest's `data` is the dungeon's `content` object: coop.dungeon.save takes {id?, content} and
 // replaces the whole content, so an edit is checked against live content merged with the
 // asserted keys, exactly what the runner will send. Every rule here mirrors one in the pinned
 // source (dungeonContentSchema and its superRefine, dungeonDropSchema, encounterWaveSchema,
@@ -126,7 +126,7 @@ export function dungeonProblems(data, live = null, { preCreate = false, refreshP
   rewardProblems(d.rewards, out, preCreate || "rewards" in data);
   const packages = packageDrops(d);
   if (!preCreate && packages.length && !refreshPackages) {
-    out.push(`rewards: package drop(s) ${packages.join(", ")}: dungeon.save re-copies every package snapshot from the CURRENT catalog, which Forge cannot read, so stored package rewards may change. Set "refreshPackages": true to accept that`);
+    out.push(`rewards: package drop(s) ${packages.join(", ")}: coop.dungeon.save re-copies every package snapshot from the CURRENT catalog, which Forge cannot read, so stored package rewards may change. Set "refreshPackages": true to accept that`);
   }
   return out;
 }

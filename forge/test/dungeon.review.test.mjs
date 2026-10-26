@@ -38,7 +38,7 @@ function content(over = {}) {
   };
 }
 const harness = (opts = {}) => composeForTest(opts);
-const saves = (game) => game.calls.filter((c) => c.path === "dungeon.save");
+const saves = (game) => game.calls.filter((c) => c.path === "coop.dungeon.save");
 const create = (data = content(), policy = {}) => ({ ...policy, items: [{ entity: "dungeon", slot: "create", name: data.name, srcId: "wreck", data }] });
 const edit = (data, extra = {}, targetId = "dun-1") => ({ items: [{ entity: "dungeon", slot: "edit", name: "W", targetId, data, ...extra }] });
 const edits = (n, label) => ({ items: Array.from({ length: n }, (_, i) => ({ entity: "dungeon", slot: "edit", name: `${label} ${i}`, targetId: `dun-${i}`, data: { name: `${label} ${i}` } })) });
@@ -58,7 +58,7 @@ test("F1: three sequential 30-edit jobs at a fixed clock send 30 saves, not 90; 
     assert.equal(s.state, "PAUSED"); assert.equal(s.pause.reason, "TOO_MANY_REQUESTS");
     assert.ok(s.pause.until > h.clock(), "the pause carries the time the allowance frees up");
   }
-  assert.equal(h.budget.status().paths["dungeon.save"].used, 30);
+  assert.equal(h.budget.status().paths["coop.dungeon.save"].used, 30);
   assert.ok(h.journal.get("b").items.every((it) => it.state === "PLANNED"), "nothing was marked SENT for a save that never left");
 });
 
@@ -67,7 +67,7 @@ test("F1: with a running clock two 30-edit jobs wait rather than overspend; the 
   const h = harness({ game });
   const at = [];
   const handle = game.handle.bind(game);
-  game.handle = (path, input) => { if (path === "dungeon.save") at.push(h.clock()); return handle(path, input); };
+  game.handle = (path, input) => { if (path === "coop.dungeon.save") at.push(h.clock()); return handle(path, input); };
   for (const j of ["a", "b"]) {
     h.runner.plan(edits(30, `Job ${j}`), { jobId: j });
     const s = await h.runner.run(j);
@@ -97,8 +97,8 @@ test("F1: the persisted send log survives a restart: a new tab cannot spend the 
   assert.equal(saves(game).length, 30);
 });
 
-test("F1: a decoded 429 on dungeon.save fails that item as a definite refusal, persists the trip and sends nothing after it", async () => {
-  const game = new FakeGame({ limitPath: "dungeon.save" }); seedMany(game, 3);
+test("F1: a decoded 429 on coop.dungeon.save fails that item as a definite refusal, persists the trip and sends nothing after it", async () => {
+  const game = new FakeGame({ limitPath: "coop.dungeon.save" }); seedMany(game, 3);
   const h = harness({ game });
   h.runner.plan(edits(3, "Limited"), { jobId: "l" });
   const s = await h.runner.run("l");
@@ -108,7 +108,7 @@ test("F1: a decoded 429 on dungeon.save fails that item as a definite refusal, p
   assert.equal(items[0].state, "FAILED"); assert.match(items[0].error, /TOO_MANY_REQUESTS.*not resent/);
   assert.deepEqual(items.slice(1).map((it) => it.state), ["PLANNED", "PLANNED"]);
   const trip = JSON.parse(h.storage.getItem(SENDLOG_KEY)).__tripped;
-  assert.equal(trip.path, "dungeon.save");
+  assert.equal(trip.path, "coop.dungeon.save");
 
   // The same job, a new job and a new tab after a restart all honour the trip until it expires.
   game.limitPath = null;
@@ -140,16 +140,16 @@ test("F1 cross-entity: a 429 on an unlimited mutation (jutsu.update) also stops 
   assert.equal(log["jutsu.update"], undefined, "an unlimited path records no send");
 });
 
-test("F1: dungeon.save is still sent as a POST mutation, and its 429 decodes as a definite error element", async () => {
+test("F1: coop.dungeon.save is still sent as a POST mutation, and its 429 decodes as a definite error element", async () => {
   const fx = (n) => JSON.parse(readFileSync(new URL(`./fixtures/envelope/${n}.json`, import.meta.url), "utf8")).exchanges[0].response;
   const queue = [fx("mutation_create_ok"), fx("query_too_many_requests")];
   const calls = [];
   const fetchImpl = async (url, init) => { calls.push({ url, init }); const r = queue.shift(); return new Response(r.body, { status: r.status, headers: { "content-type": "application/json" } }); };
   const c = new TrpcClient(new CookieSession({ fetchImpl }));
-  await c.call("dungeon.save", { content: { name: "x" } });
-  const r = await c.call("dungeon.save", { content: { name: "x" } });
+  await c.call("coop.dungeon.save", { content: { name: "x" } });
+  const r = await c.call("coop.dungeon.save", { content: { name: "x" } });
   assert.deepEqual(calls.map((x) => x.init.method), ["POST", "POST"]);
-  assert.match(calls[0].url, /^\/api\/trpc\/dungeon\.save\?batch=1$/);
+  assert.match(calls[0].url, /^\/api\/trpc\/coop\.dungeon\.save\?batch=1$/);
   assert.equal(r.ok, false); assert.equal(r.error.code, "TOO_MANY_REQUESTS");
 });
 
@@ -163,7 +163,7 @@ async function lostCreate(data = content(), h = harness({ game: new FakeGame({ d
   assert.equal(h.journal.get(jobId).items[0].state, "SENT");
   return h;
 }
-const foreignSave = (game, c) => assert.equal(game.handle("dungeon.save", { content: c }).data.success, true);
+const foreignSave = (game, c) => assert.equal(game.handle("coop.dungeon.save", { content: c }).data.success, true);
 
 test("F2: a foreign row identical to a lost create is a matching candidate, never adopted or verified by itself", async () => {
   const h = await lostCreate();
@@ -382,7 +382,7 @@ test("F6: explicit null is not omission for delayRounds, quantity and drops", ()
 test("F6: the fake game refuses the same nulls as a BAD_REQUEST, as zod's prefault does", () => {
   const game = new FakeGame();
   for (const [k, make] of Object.entries(nulled)) {
-    const r = game.handle("dungeon.save", { content: make() });
+    const r = game.handle("coop.dungeon.save", { content: make() });
     assert.equal(r.ok, false, k); assert.equal(r.error.code, "BAD_REQUEST", k);
   }
   assert.equal(game.count("dungeon"), 0);
@@ -412,6 +412,19 @@ function sourceCopy() {
   return dir;
 }
 
+const ROOT_TS = "app/src/server/api/root.ts", COOP_TS = "app/src/server/api/routers/coop.ts";
+/** A copy of the pinned sources with exact, present-at-the-pin replacements: [file, from, to]... */
+function mutatedAll(edits) {
+  const dir = sourceCopy();
+  for (const [file, from, to] of edits) {
+    const p = join(dir, file), s = readFileSync(p, "utf8");
+    assert.equal(s.split(from).length, 2, `${JSON.stringify(from)} occurs exactly once in ${file} at the pin`);
+    writeFileSync(p, s.replace(from, to));
+  }
+  return dir;
+}
+const mutated = (file, from, to) => mutatedAll([[file, from, to]]);
+
 test("N1: an unmodified copy of the pinned sources derives exactly the committed contract", { skip: SKIP }, () => {
   assert.equal(JSON.stringify(derive(sourceCopy()), null, 2) + "\n", readFileSync(new URL("../src/dungeon/contract.json", import.meta.url), "utf8"));
 });
@@ -434,6 +447,126 @@ test("N1: the extractor refuses rebound bounds, spreads, computed keys and an un
     writeFileSync(p, s.replace(from, to));
     assert.throws(() => derive(dir), expected, label);
   }
+});
+
+test("procedure paths follow the router mount chain (coop.dungeon.*), derived from both router objects", { skip: SKIP }, () => {
+  // Forge 0.9.0 called "dungeon.getAll"; the server answered NOT_FOUND because root.ts mounts
+  // coopRouter at `coop` and coop.ts mounts dungeonRouter at `dungeon` (2026-10-25, push/263).
+  assert.deepEqual(Object.keys(CONTRACT.procedures), ["coop.dungeon.getAll", "coop.dungeon.save"]);
+  assert.ok(SOURCES.includes(ROOT_TS) && SOURCES.includes(COOP_TS), "both mount files are pinned sources");
+  // The path is derived, not asserted: a renamed link changes the derived path (and so fails
+  // derive_dungeon.mjs --check against the committed contract) instead of being matched by text.
+  for (const [file, from, to, path] of [
+    [ROOT_TS, "  coop: coopRouter,", "  party: coopRouter,", "party.dungeon"],
+    [COOP_TS, "  dungeon: dungeonRouter,", "  dungeons: dungeonRouter,", "coop.dungeons"],
+  ]) {
+    const dir = mutated(file, from, to);
+    assert.deepEqual(Object.keys(derive(dir).procedures), [`${path}.getAll`, `${path}.save`], to);
+  }
+});
+
+test("review C1: the mount extractor refuses additional, duplicate, spread, computed and other unsupported bindings", { skip: SKIP }, () => {
+  const R = "  coop: coopRouter,", C = "  dungeon: dungeonRouter,";
+  const cases = [
+    ["additional root alias", ROOT_TS, R, `${R}\n  party: coopRouter,`, /root\.ts: coopRouter is mounted twice \(coop, party\)/],
+    ["additional coop alias", COOP_TS, C, `${C}\n  dungeons: dungeonRouter,`, /coop\.ts: dungeonRouter is mounted twice \(dungeon, dungeons\)/],
+    ["identical duplicate root line", ROOT_TS, R, `${R}\n${R}`, /root\.ts: duplicate key coop/],
+    ["duplicate root key, other router", ROOT_TS, R, `${R}\n  coop: questsRouter,`, /root\.ts: duplicate key coop/],
+    ["identical duplicate coop line", COOP_TS, C, `${C}\n${C}`, /coop\.ts: duplicate key dungeon/],
+    ["root spread after the mount", ROOT_TS, R, `${R}\n  ...overrides,`, /root\.ts: unsupported router member "\.\.\.overrides"/],
+    ["coop spread after the mount", COOP_TS, C, `${C}\n  ...{ dungeon: otherRouter },`, /coop\.ts: unsupported (router member|statement "export const coopRouter)/],
+    ["root computed member", ROOT_TS, R, '  ["coop"]: coopRouter,', /root\.ts: unsupported router member/],
+    ["coop computed member", COOP_TS, C, "  [DUNGEON]: dungeonRouter,", /coop\.ts: unsupported router member/],
+    ["quoted key", COOP_TS, C, '  "dungeon": dungeonRouter,', /coop\.ts: unsupported router member/],
+    ["shorthand member", COOP_TS, C, "  dungeonRouter,", /coop\.ts: unsupported router member/],
+    ["inline router", ROOT_TS, R, "  coop: createTRPCRouter({ dungeon: dungeonRouter }),", /root\.ts: expected exactly one createTRPCRouter\( call, found 2/],
+    ["second router in coop.ts", COOP_TS, "export const coopRouter", "export const otherRouter = createTRPCRouter({});\nexport const coopRouter", /coop\.ts: expected exactly one createTRPCRouter\( call, found 2/],
+    ["mergeRouters", ROOT_TS, "export const appRouter", "const merged = mergeRouters();\nexport const appRouter", /root\.ts: mergeRouters/],
+    ["binding with no import", ROOT_TS, R, "  coop: localCoopRouter,", /root\.ts: coop: localCoopRouter is not a named import/],
+    ["aliased import", ROOT_TS, 'import { coopRouter } from "./routers/coop";', 'import { coopRouter as party } from "./routers/coop";', /root\.ts: unsupported import "coopRouter as party"/],
+    ["coop router renamed in its import", ROOT_TS, "  coop: coopRouter,", "  coop: partyRouter,", /root\.ts: coop: partyRouter is not a named import/],
+    ["coop mount removed", ROOT_TS, `${R}\n`, "", /root\.ts: expected exactly one mount of app\/src\/server\/api\/routers\/coop, found 0/],
+    ["dungeon router imported from elsewhere", COOP_TS, 'from "@/server/api/routers/dungeon"', 'from "@/server/api/routers/dungeonV2"', /coop\.ts: expected exactly one mount of app\/src\/server\/api\/routers\/dungeon, found 0/],
+    ["dungeon also mounted at the root", ROOT_TS, R, `${R}\n  dungeon: dungeonRouter,`, /root\.ts: (dungeon: dungeonRouter is not a named import|dungeonRouter is referenced in root\.ts)/],
+    ["dungeonRouter imported at the root", ROOT_TS, 'import { coopRouter } from "./routers/coop";', 'import { coopRouter } from "./routers/coop";\nimport { dungeonRouter } from "./routers/dungeon";', /dungeonRouter is referenced in root\.ts/],
+    ["dungeon.ts exports a different router", "app/src/server/api/routers/dungeon.ts", "export const dungeonRouter = createTRPCRouter({", "export const dungeonRouterV2 = createTRPCRouter({", /dungeon\.ts: expected exactly one export const dungeonRouter/],
+  ];
+  for (const [label, file, from, to, expected] of cases) assert.throws(() => derive(mutated(file, from, to)), expected, label);
+});
+
+test("review C2: imports keep symbol identity, comments are ignored, and post-construction statements are refused", { skip: SKIP }, () => {
+  const R = "  coop: coopRouter,", C = "  dungeon: dungeonRouter,", DUNGEON_TS = "app/src/server/api/routers/dungeon.ts";
+  const ROOT_IMPORT = 'import { coopRouter } from "./routers/coop";', END = "export type AppRouter = typeof appRouter;";
+  // Comments are not code: a commented line neither adds nor removes a mount. (Any mention of
+  // dungeonRouter in root.ts, comment or not, is still refused by a raw-text check.)
+  const commented = mutatedAll([
+    [ROOT_TS, R, `${R} // co-op\n  /* party: coopRouter, */\n  // raids: raidsRouter,`],
+    [COOP_TS, C, `/* ${C} */ ${C} // kept`],
+  ]);
+  assert.deepEqual(Object.keys(derive(commented).procedures), ["coop.dungeon.getAll", "coop.dungeon.save"]);
+  const cases = [
+    // the reviewer's reproduction 1: an alias over a re-export of a different router
+    ["alias over a re-export", [[ROOT_TS, ROOT_IMPORT, 'import { alternateRouter as coopRouter } from "./routers/coop";'],
+      [COOP_TS, "});", "});\nexport { questPartyRouter as alternateRouter };"]], /root\.ts: unsupported import "alternateRouter as coopRouter"/],
+    ["re-export added to coop.ts alone", [[COOP_TS, "});", "});\nexport { questPartyRouter as alternateRouter };"]], /coop\.ts: unsupported statement "export \{ questPartyRouter as alternateRouter \};/],
+    // the reviewer's reproduction 2: the expected import commented out, a default import active
+    ["commented named import, active default import", [[ROOT_TS, ROOT_IMPORT, `/*\n${ROOT_IMPORT}\n*/\nimport coopRouter from "./routers/coop";`],
+      [COOP_TS, "});", "});\nexport default questPartyRouter;"]], /root\.ts: unsupported statement "import coopRouter from/],
+    ["default export in coop.ts", [[COOP_TS, "});", "});\nexport default questPartyRouter;"]], /coop\.ts: unsupported statement "export default questPartyRouter;/],
+    ["commented-out mount", [[ROOT_TS, R, `// ${R.trim()}`]], /root\.ts: expected exactly one mount of app\/src\/server\/api\/routers\/coop, found 0/],
+    ["namespace import", [[ROOT_TS, ROOT_IMPORT, `${ROOT_IMPORT}\nimport * as routers from "./routers/coop";`]], /root\.ts: unsupported statement "import \* as routers/],
+    ["type-only import", [[ROOT_TS, ROOT_IMPORT, 'import type { coopRouter } from "./routers/coop";']], /root\.ts: unsupported statement "import type/],
+    ["mixed default and named import", [[ROOT_TS, ROOT_IMPORT, 'import other, { coopRouter } from "./routers/coop";']], /root\.ts: unsupported statement "import other/],
+    // post-construction routing mutations
+    ["delete a procedure", [[ROOT_TS, END, `${END}\ndelete appRouter._def.procedures["coop.dungeon.save"];`]], /root\.ts: unsupported statement "delete appRouter/],
+    ["Object.assign a resolver", [[ROOT_TS, END, `${END}\nObject.assign(appRouter._def.procedures, {\n  "coop.dungeon.save": itemRouter._def.procedures.create,\n});`]], /root\.ts: unsupported statement "Object\.assign/],
+    ["assign a procedure", [[ROOT_TS, END, `${END}\nappRouter._def.procedures["coop.dungeon.save"] = undefined;`]], /root\.ts: unsupported statement "appRouter\._def/],
+    ["mutation before the router", [[ROOT_TS, "export const appRouter", "coopRouter._def.procedures = {};\nexport const appRouter"]], /root\.ts: unsupported statement "coopRouter\._def/],
+    ["read-only export altered", [[ROOT_TS, ".map(([path]) => path);", ".map(([path]) => (delete appRouter._def.procedures[path], path));"]], /root\.ts: unsupported statement "export const CDN_CACHED_QUERY_PATHS/],
+    ["read-only export duplicated in coop.ts", [[COOP_TS, "});", "});\nexport type AppRouter = typeof coopRouter;"]], /coop\.ts: unsupported statement "export type AppRouter/],
+    ["mutation in coop.ts", [[COOP_TS, "});", '});\ndelete coopRouter._def.procedures["dungeon.save"];']], /coop\.ts: unsupported statement "delete coopRouter/],
+    ["dungeon.ts no longer defines the name", [[DUNGEON_TS, "export const dungeonRouter = createTRPCRouter({", "const realRouter = createTRPCRouter({"]], /dungeon\.ts: expected exactly one export const dungeonRouter/],
+    ["dungeon.ts export list", [[DUNGEON_TS, "export const dungeonRouter = createTRPCRouter({", "export { otherRouter };\nexport const dungeonRouter = createTRPCRouter({"]], /dungeon\.ts: an export list, re-export or default export/],
+  ];
+  for (const [label, edits, expected] of cases) assert.throws(() => derive(mutatedAll(edits)), expected, label);
+  // a reference to dungeonRouter after its definition (e.g. a mutation) is refused by the raw-text count
+  const dir = sourceCopy(), p = join(dir, DUNGEON_TS);
+  writeFileSync(p, readFileSync(p, "utf8") + '\ndelete dungeonRouter._def.procedures["save"];\n');
+  assert.throws(() => derive(dir), /dungeon\.ts: expected exactly one export const dungeonRouter .* no other dungeonRouter reference/, "dungeon.ts mutation");
+});
+
+test("review C3: dungeon.ts must export the complete router literal as its last statement, with no escaped or indirect reference", { skip: SKIP }, () => {
+  const DUNGEON_TS = "app/src/server/api/routers/dungeon.ts";
+  const pinned = readFileSync(join(GAME, DUNGEON_TS), "utf8");
+  assert.ok(pinned.endsWith("\n});\n"), "at the pin the router literal closes the file");
+  const withText = (text) => { const dir = sourceCopy(); writeFileSync(join(dir, DUNGEON_TS), text); return dir; };
+  const head = pinned.slice(0, -"});\n".length);
+  const cases = [
+    // the reviewer's reproduction 1: export a procedure of the router instead of the router
+    ["}).save; exports a procedure", head + "}).save;\n", /dungeon\.ts: the dungeonRouter initializer must be exactly createTRPCRouter\(\{ \.\.\. \}\); as the last statement, found "\.save;"/],
+    // the reviewer's reproduction 2: an escaped identifier resolving to dungeonRouter
+    ["escaped identifier mutation", pinned + 'delete dungeon\\u0052outer._def.record["save"];\n', /dungeon\.ts: \\u\/\\x escapes are not read/],
+    ["braced escape", pinned + 'delete dungeon\\u{52}outer._def.record["save"];\n', /dungeon\.ts: \\u\/\\x escapes are not read/],
+    ["trailing call", head + "}).lazy();\n", /initializer must be exactly createTRPCRouter/],
+    ["trailing cast", head + "}) as unknown as typeof otherRouter;\n", /initializer must be exactly createTRPCRouter/],
+    ["missing semicolon, statement after", head + "})\nconst after = 1;\n", /initializer must be exactly createTRPCRouter/],
+    ["statement after the router", pinned + "const after = 1;\n", /initializer must be exactly createTRPCRouter.*found ";\\nconst after = 1;"/],
+    ["named mutation after the router", pinned + 'delete dungeonRouter._def.record["save"];\n', /no other dungeonRouter reference/],
+    ["eval reference", pinned.replace("export const dungeonRouter", 'queueMicrotask(() => eval("dungeon" + "Router"));\nexport const dungeonRouter'), /dungeon\.ts: "(queueMicrotask|eval)" can reach or rebind the router indirectly/],
+    ["globalThis", pinned.replace("export const dungeonRouter", "globalThis.x = 1;\nexport const dungeonRouter"), /"globalThis" can reach or rebind/],
+    ["setTimeout", pinned.replace("export const dungeonRouter", "setTimeout(() => {}, 0);\nexport const dungeonRouter"), /"setTimeout" can reach or rebind/],
+    ["Function constructor", pinned.replace("export const dungeonRouter", 'const f = Function("return 1");\nexport const dungeonRouter'), /"Function" can reach or rebind/],
+    ["dynamic import", pinned.replace("export const dungeonRouter", 'void import("./dungeon");\nexport const dungeonRouter'), /"import\(" can reach or rebind/],
+    ["self-import", pinned.replace("export const dungeonRouter", 'import * as self from "@/server/api/routers/dungeon";\nexport const dungeonRouter'), /can reach or rebind the router indirectly/],
+    ["export list", pinned + "export { otherRouter };\n", /an export list, re-export or default export/],
+    ["second router construction", pinned.replace("export const dungeonRouter", "const otherRouter = createTRPCRouter({});\nexport const dungeonRouter"), /expected exactly one createTRPCRouter\( call/],
+  ];
+  for (const [label, text, expected] of cases) {
+    assert.notEqual(text, pinned, `${label}: the edit applies`);
+    assert.throws(() => derive(withText(text)), expected, label);
+  }
+  // comments after the literal are still fine
+  assert.deepEqual(Object.keys(derive(withText(pinned + "// end of router\n/* nothing here */\n")).procedures), ["coop.dungeon.getAll", "coop.dungeon.save"]);
 });
 
 test("N1: the CLI keeps its exact-pin and dirty-file guards", { skip: SKIP }, () => {

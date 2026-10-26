@@ -6,7 +6,7 @@
 //   identifier = `${path}-${context.userId ?? context.userIp}`   (:148)
 //   on trip: movedTooFastCount + 1, money * 0.99, bank * 0.99, throw TOO_MANY_REQUESTS (:166-179)
 //   applied to publicProcedure only (:211); protectedProcedure carries none (:230)
-//   ...unless a procedure composes it itself: dungeon.save at 107d7a86 is
+//   ...unless a procedure composes it itself: coop.dungeon.save at 107d7a86 is
 //   protectedProcedure.use(ratelimitMiddleware) (src/dungeon/contract.json, limited:true), so its
 //   saves spend tokens here too, through Runner._send.
 //

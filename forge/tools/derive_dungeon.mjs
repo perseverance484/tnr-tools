@@ -18,6 +18,8 @@ const FILES = Object.freeze({
   mapLocation: "app/src/validators/mapLocation.ts",
   constants: "app/drizzle/constants.ts",
   rewards: "app/src/libs/dungeonRewards.ts",
+  apiRoot: "app/src/server/api/root.ts",
+  coopRouter: "app/src/server/api/routers/coop.ts",
 });
 
 const fail = (m) => { throw new Error(m); };
@@ -174,6 +176,191 @@ function procedureFacts(router, name) {
   return { kind: kinds[0], limited, mcp: /mcp:/.test(body), auth };
 }
 
+/**
+ * `src` with `//` and block comments removed; string literals are kept as written. A comment opener
+ * inside a regular-expression literal would be misread, but the text left in front of it can never
+ * form a statement routerFile() accepts, so a misread fails closed rather than hiding code.
+ */
+export function stripComments(src) {
+  let out = "", i = 0, quote = null;
+  while (i < src.length) {
+    const c = src[i], d = src[i + 1];
+    if (quote) {
+      if (c === "\\") { out += c + (d ?? ""); i += 2; continue; }
+      if (c === quote) quote = null;
+      out += c; i++; continue;
+    }
+    if (c === '"' || c === "'" || c === "`") { quote = c; out += c; i++; continue; }
+    if (c === "/" && d === "/") { while (i < src.length && src[i] !== "\n") i++; continue; }
+    if (c === "/" && d === "*") {
+      const end = src.indexOf("*/", i + 2);
+      if (end < 0) fail("unterminated block comment");
+      out += " "; i = end + 2; continue;
+    }
+    out += c; i++;
+  }
+  if (quote) fail("unterminated string literal");
+  return out;
+}
+
+/**
+ * A regex for one exact statement: the same tokens in the same order, with any whitespace between
+ * punctuation and at least one space between two words. Nothing else may differ.
+ */
+function statement(text) {
+  const toks = text.match(/[\w$]+|\S/g);
+  const word = (c) => /[\w$]/.test(c);
+  return new RegExp("^" + toks.map((t, i) => (i === 0 ? "" : word(toks[i - 1].at(-1)) && word(t[0]) ? "\\s+" : "\\s*")
+    + t.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&")).join(""));
+}
+
+// The read-only statements root.ts carries after appRouter at the pin, accepted verbatim (modulo
+// whitespace and comments). Anything else after the literal - a delete, an Object.assign, any other
+// statement that could add, remove or rebind a procedure - is refused (review C2, 2026-10-26).
+const ROOT_READ_ONLY = [
+  `export const CDN_CACHED_QUERY_PATHS: readonly string[] = Object.entries(
+  appRouter._def.procedures,
+)
+  .filter(([, procedure]) => {
+    const def = (procedure as { _def?: { type?: string; meta?: ProcedureMeta } })._def;
+    return def?.type === "query" && def.meta?.cdnCached === true;
+  })
+  .map(([path]) => path);`,
+  "export type AppRouter = typeof appRouter;",
+].map(statement);
+
+/**
+ * Read a whole router file under a deliberately narrow grammar. Once comments are stripped, the file
+ * may hold only:
+ *   import { A, B, type C } from "path";        plain named imports: no alias, default or namespace
+ *   export const NAME = createTRPCRouter({ key: importedRouter, ... });   exactly once
+ *   one of `readOnly`, verbatim
+ * Each mount must be `key: identifier` with that identifier a plain named import, so the local name
+ * IS the exported symbol of the imported module. Returns {key: {local, source}}. FAILS CLOSED on
+ * any other statement, a spread, computed, quoted or shorthand key, a duplicate key, one router
+ * bound under two keys, a second createTRPCRouter( and mergeRouters.
+ */
+export function routerMounts(src, name, dir, where, readOnly = []) {
+  const code = stripComments(src);
+  const calls = code.split("createTRPCRouter(").length - 1;
+  if (calls !== 1) fail(`${where}: expected exactly one createTRPCRouter( call, found ${calls}`);
+  if (/mergeRouters/.test(code)) fail(`${where}: mergeRouters can add mounts this reader does not see`);
+  const resolve = (p) => (p.startsWith("@/") ? "app/src/" + p.slice(2) : p.startsWith("./") ? `${dir}/${p.slice(2)}` : p);
+  const router = new RegExp(`^export\\s+const\\s+${name}\\s*=\\s*createTRPCRouter\\(\\s*\\{([^{}]*)\\}\\s*\\)\\s*;`);
+  const imports = {};
+  let mounts = null, rest = code;
+  while ((rest = rest.replace(/^\s+/, ""))) {
+    let m;
+    if ((m = rest.match(/^import\s*\{([^{}]*)\}\s*from\s*"([^"]+)"\s*;/))) {
+      for (const spec of m[1].split(",").map((x) => x.trim()).filter(Boolean)) {
+        if (/^type\s+\w+$/.test(spec)) continue;
+        if (!/^[A-Za-z_$][\w$]*$/.test(spec)) fail(`${where}: unsupported import ${JSON.stringify(spec)} (only plain named imports are read)`);
+        if (spec in imports) fail(`${where}: ${spec} is imported twice`);
+        imports[spec] = resolve(m[2]);
+      }
+    } else if ((m = rest.match(router))) {
+      mounts = {};
+      const keyOf = {}, items = m[1].split(",").map((x) => x.trim());
+      if (items.at(-1) === "") items.pop();
+      for (const item of items) {
+        const mm = item.match(/^([A-Za-z_$][\w$]*)\s*:\s*([A-Za-z_$][\w$]*)$/);
+        if (!mm) fail(`${where}: unsupported router member ${JSON.stringify(item)} (only "key: importedRouter," is read)`);
+        const [, key, local] = mm;
+        if (key in mounts) fail(`${where}: duplicate key ${key}`);
+        if (local in keyOf) fail(`${where}: ${local} is mounted twice (${keyOf[local]}, ${key})`);
+        keyOf[local] = key;
+        mounts[key] = { local };
+      }
+    } else if (!(m = readOnly.map((re) => rest.match(re)).find(Boolean))) {
+      fail(`${where}: unsupported statement ${JSON.stringify(rest.slice(0, 80))} (only plain imports, the ${name} literal and the pin's read-only exports are read)`);
+    }
+    rest = rest.slice(m[0].length);
+  }
+  if (!mounts) fail(`${where}: no export const ${name} = createTRPCRouter({ ... });`);
+  for (const [key, mount] of Object.entries(mounts)) {
+    if (!(mount.local in imports)) fail(`${where}: ${key}: ${mount.local} is not a named import`);
+    mount.source = imports[mount.local];
+  }
+  return mounts;
+}
+
+/** The one key in `mounts` bound to the router imported from `source`, which must be named `local`. */
+function mountOf(mounts, source, local, where) {
+  const keys = Object.keys(mounts).filter((k) => mounts[k].source === source);
+  if (keys.length !== 1) fail(`${where}: expected exactly one mount of ${source}, found ${keys.length}`);
+  if (mounts[keys[0]].local !== local) fail(`${where}: ${source} is mounted as ${mounts[keys[0]].local}, not ${local}`);
+  return keys[0];
+}
+
+/** Index of the bracket closing the one opened at `open` in comment-free `code`; strings skipped. */
+function closing(code, open) {
+  const pair = { "(": ")", "[": "]", "{": "}" }, stack = [];
+  for (let i = open; i < code.length; i++) {
+    const c = code[i];
+    if (c === '"' || c === "'" || c === "`") {
+      for (i++; i < code.length && code[i] !== c; i++) if (code[i] === "\\") i++;
+      if (i >= code.length) fail("dungeon.ts: unterminated string literal");
+    } else if (pair[c]) stack.push(pair[c]);
+    else if (c === ")" || c === "]" || c === "}") {
+      if (stack.pop() !== c) fail(`dungeon.ts: unbalanced ${c} at offset ${i}`);
+      if (!stack.length) return i;
+    }
+  }
+  fail("dungeon.ts: unclosed bracket");
+}
+
+/**
+ * dungeon.ts is too large for the whole-file grammar, so it is held to the shape it has at the pin
+ * (review C3, 2026-10-26):
+ *  - no \u or \x escape anywhere, so no identifier can be spelled other than literally;
+ *  - `dungeonRouter` appears exactly once in the raw text, as its definition;
+ *  - the export's COMPLETE initializer is `createTRPCRouter({ ... })` followed by `;` - bracket-
+ *    matched, so `}).save;` or any other trailing member, call or cast is refused - and it is the
+ *    file's LAST statement: nothing but whitespace and comments may follow it;
+ *  - no export list, re-export, default export, self-import, eval, Function, dynamic import(),
+ *    globalThis or timer: the ways code could reach the router other than by its name, or run
+ *    after the declaration without appearing after it.
+ * Procedures inside the literal are read separately by procedureFacts().
+ */
+function dungeonExport(dungeon) {
+  if (/\\[ux]/.test(dungeon)) fail("dungeon.ts: \\u/\\x escapes are not read (an escaped identifier can name the router without spelling it)");
+  const uses = dungeon.match(/\bdungeonRouter\b/g) ?? [];
+  if (uses.length !== 1 || !/^export const dungeonRouter = createTRPCRouter\(\{$/m.test(dungeon)) {
+    fail("dungeon.ts: expected exactly one export const dungeonRouter = createTRPCRouter({ and no other dungeonRouter reference");
+  }
+  const code = stripComments(dungeon);
+  if (code.split("createTRPCRouter(").length !== 2) fail("dungeon.ts: expected exactly one createTRPCRouter( call");
+  if (/\bexport\s*(\{|\*|default\b)/.test(code)) fail("dungeon.ts: an export list, re-export or default export can rebind the router");
+  const dynamic = code.match(/\b(eval|Function|globalThis|setTimeout|setInterval|setImmediate|queueMicrotask)\b|\bimport\s*\(|from\s*"(?:@\/server\/api\/routers\/dungeon|\.\/dungeon)"/);
+  if (dynamic) fail(`dungeon.ts: ${JSON.stringify(dynamic[0])} can reach or rebind the router indirectly`);
+  const start = code.indexOf("export const dungeonRouter = createTRPCRouter(");
+  const open = start + "export const dungeonRouter = createTRPCRouter".length;
+  const close = closing(code, open);
+  const tail = code.slice(close + 1);
+  if (code[close - 1] !== "}" || !/^\s*;\s*$/.test(tail)) {
+    fail(`dungeon.ts: the dungeonRouter initializer must be exactly createTRPCRouter({ ... }); as the last statement, found ${JSON.stringify(tail.trim().slice(0, 60))} after it`);
+  }
+}
+
+/**
+ * root.ts -> coop.ts -> dungeon.ts, each link validated, as the dotted tRPC path prefix. Symbol
+ * identity holds link by link: root imports the plain name coopRouter from routers/coop, whose whole
+ * file (same grammar) exports only `coopRouter`; coop.ts imports the plain name dungeonRouter from
+ * routers/dungeon, where that name appears exactly once, as its definition, and no export-list,
+ * re-export or default export exists (checked on the raw text, so a comment can only fail it).
+ */
+function mountChain(apiRoot, coop, dungeon) {
+  const root = routerMounts(apiRoot, "appRouter", "app/src/server/api", "root.ts", ROOT_READ_ONLY);
+  const coopKey = mountOf(root, "app/src/server/api/routers/coop", "coopRouter", "root.ts");
+  if (Object.values(root).some((m) => m.source === "app/src/server/api/routers/dungeon") || /dungeonRouter/.test(apiRoot)) {
+    fail("root.ts: dungeonRouter is referenced in root.ts: the mount chain changed");
+  }
+  const inner = routerMounts(coop, "coopRouter", "app/src/server/api/routers", "coop.ts");
+  const dungeonKey = mountOf(inner, "app/src/server/api/routers/dungeon", "dungeonRouter", "coop.ts");
+  dungeonExport(dungeon);
+  return `${coopKey}.${dungeonKey}`;
+}
+
 export function derive(root) {
   const read = (p) => readFileSync(`${root}/${p}`, "utf8");
   const validator = read(FILES.validator);
@@ -257,14 +444,20 @@ export function derive(root) {
     inactiveRounds: c("DUNGEON_INACTIVE_ROUNDS"),
   };
 
+  // The tRPC path is the router's mount chain, not its file name: root.ts mounts coopRouter at
+  // `coop`, and coop.ts mounts dungeonRouter at `dungeon`, so the procedures are coop.dungeon.*.
+  // Forge 0.9.0 called "dungeon.getAll" and the server answered NOT_FOUND (2026-10-25). The path is
+  // DERIVED from both router objects, each read whole by routerMounts() (review C1, 2026-10-26).
+  const MOUNT = mountChain(read(FILES.apiRoot), read(FILES.coopRouter), router);
+
   const procedures = {};
-  for (const name of ["getAll", "save"]) procedures[`dungeon.${name}`] = procedureFacts(router, name);
+  for (const name of ["getAll", "save"]) procedures[`${MOUNT}.${name}`] = procedureFacts(router, name);
 
   const files = Object.values(FILES);
   return {
     _meta: {
       pin: PIN,
-      scope: "Dungeon definitions only (dungeon.save / dungeon.getAll); lobby, run and claim procedures are out of scope",
+      scope: `Dungeon definitions only (${MOUNT}.save / ${MOUNT}.getAll); lobby, run and claim procedures are out of scope`,
       sources: Object.fromEntries(files.map((p) => [p, createHash("sha256").update(readFileSync(`${root}/${p}`)).digest("hex")])),
     },
     contentFields: Object.keys(content), rewardFields: Object.keys(rewards), dropFields: Object.keys(drop),

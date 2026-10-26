@@ -614,7 +614,7 @@ export class Runner {
    * Send ONE mutation, write-ahead (journal SENT before the request leaves). Every mutation goes
    * through here, so the budget and the 429 rule cannot be skipped by one call site (review F1).
    *
-   *   - A path the server rate-limits (dungeon.save composes ratelimitMiddleware) spends a budget
+   *   - A path the server rate-limits (coop.dungeon.save composes ratelimitMiddleware) spends a budget
    *     token first. The token is persisted before the send and a persisted trip refuses it, so
    *     the per-minute allowance holds across items, jobs and restarts. A refusal here leaves the
    *     item exactly as it was: nothing is SENT.
@@ -1121,7 +1121,7 @@ export class Runner {
 
 /**
  * A create whose procedure answers with the new id in its own field rather than in `message`
- * (dungeon.save: {success, message: "Dungeon saved.", id}). Same contract as readCreate: a
+ * (coop.dungeon.save: {success, message: "Dungeon saved.", id}). Same contract as readCreate: a
  * success without a well-formed id is a contract break, never a success.
  */
 function readCreatedId(rc, decoded) {
