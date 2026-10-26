@@ -889,7 +889,11 @@ Both creates made their hidden placeholders ("New Quest - <id>": Archive `-bZ_Zo
 combat tag's `direction` is the literal `"offence"` (validators/combat.ts BaseAttributes). Neither pre-send gate checks
 that field inside `applyDebuffs` (Lane A follow-up). Replaced by push/266.
 
-## 263 Skyglass Wreck dungeon (1 create, HIDDEN): BLOCKED on Forge 0.9.1 (run 2026-10-25 paused before any write)
+## 263 Skyglass Wreck dungeon (1 create, HIDDEN): RUN on Forge 0.9.1, verified (bundle tnr_results_1792991569988.json, 1/1 match, 12 asserted), archived
+
+Id: Skyglass Wreck `RHqzYdY4EAQA9HwsBKWDS`. The 2026-10-25 run on Forge 0.9.0 had paused before any write (NOT_FOUND on
+`dungeon.getAll`); 0.9.1 calls `coop.dungeon.*`. **Next:** hidden test with a party of three to time the 16 waves
+against the one-hour limit; the director sets the clear currency in game.
 
 Forge 0.9.0 calls `dungeon.getAll`, but the server mounts the router at `coop.dungeon.*`: the job paused on NOT_FOUND during the name check and wrote nothing. Fix: `fable/forge-dungeon-coop-path@c45fbb9` (Forge 0.9.1, in review; `docs/handoffs/FORGE_DUNGEON_COOP_PATH_HANDOFF.md`). Discard the paused job and re-run after 0.9.1 is released. The manifest itself is unchanged.
 
