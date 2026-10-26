@@ -3193,3 +3193,29 @@ vocabulary and the four veering images (icons #1-#4 kept): "Yep, correct. Let's 
 
 **Canonical destination:** `docs/design/ghost_ship_art_bible/ART_BIBLE.md` (v0.2) and `blocks.json`;
 `state/skyglass_art/build_art_batch.py`.
+
+## RUL-2026-10-26-003 — Crownhold enemy names; character silhouette, pose and colour
+
+**Date:** 2026-10-26
+
+**Domain:** Content naming (Crownhold AIs, quest text); art direction (Ghost Ship art bible v0.3)
+
+**Status:** ACTIVE
+
+**Ruling:**
+1. **Names.** Short ninja-world titles. Live usernames (law 66: unique across all users) carry a "Crown " prefix on the
+   one-word titles: Crown Armsmaster, Crown Trialmaster, Crown Tagwright, Crown Lancer, Crown Duelist, Crown Archivist,
+   Crown Binder, Crown Echo, Crown Stonebound, Crown Signaller, Crown Tactician, Crown Runner, Crown Vanguard, Crown
+   Herald, Crown Sealbearer; two-word titles stay bare: The Second, Honor Guard, Last Watch. **Replicant Zero** and
+   **Supreme Commander Arakane** keep their names. Quest prose and art prompts use the titles without the prefix ("the
+   Armsmaster"); art avoids the word "Crown" because it draws crowns.
+2. **Characters** (bible v0.3 section 6.0): lean, tall, agile; commanders taller not wider; battle-ready with the weapon
+   drawn; near-black and indigo cloth with skyglass cyan on the blade edge and eyes, brass on one or two fittings, rope
+   only at the belt; trailing cloth; the prompt carries four costume marks, not the full vocabulary.
+
+**Evidence:** User, 2026-10-26: "All the names need to be better. Shorter, more concise, fit in a ninja world"; on the
+proposed list: "Replicant Zero can change. Rest approved"; on the Grand Marshal v1 ("Just isn't doing it for me"), the
+five prompt changes and the "Crown" prefix: "Approved, Replicant Zero stays the same."
+
+**Canonical destination:** `push/crownhold.gen.py` (USERNAME, PROSE; push/276 rename, push/273 text);
+`docs/design/ghost_ship_art_bible/` (ART_BIBLE.md v0.3, blocks.json 0.3); `state/skyglass_art/build_art_batch.py`.

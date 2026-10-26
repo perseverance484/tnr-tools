@@ -1,4 +1,4 @@
-# Ghost Ship / Skyglass art bible (v0.2)
+# Ghost Ship / Skyglass art bible (v0.3)
 
 **Status:** director-directed 2026-10-26 (RUL-2026-10-26-002); open to the art director's review. Collection register for
 every Ghost Ship, Skyglass Wreck, treasure-hunt and Crownhold image (`docs/workflows/ISOLATED_ART_GENERATION.md`
@@ -69,6 +69,17 @@ hand-made from wood, rope, iron, lacquer, paper and cloth. Skyglass is the only 
 
 ## 6. Characters
 
+### 6.0 Silhouette, pose and colour (v0.3, director 2026-10-26)
+
+- **Lean, tall, agile.** Even armoured fighters read slim; commanders are taller, never squat or wide.
+- **Battle-ready, weapon drawn.** Every character is an enemy mid-stance; no hands-behind-back or idle poses.
+- **Colour weight:** near-black and deep indigo cloth carry the figure; skyglass cyan sits on the weapon's edge and the
+  eyes; brass on one or two small fittings only; rope only at the belt.
+- **Cloth moves:** the sash tail and torn hems trail.
+- **Prompt costume = four marks** (hood or hat, cloth mask with lit eyes, indigo sash with tail, wrapped shins over tabi).
+  The full vocabulary below is for choosing a character's distinct pieces, not a list to paste: a long list makes the
+  model pack every item onto one figure.
+
 ### 6.1 Edo costume vocabulary
 
 Built on the anchor crew (hoods, cloth masks, indigo sash, rope belt, lacquered plates, wrapped shins) and pushed to
@@ -110,7 +121,7 @@ One effect per character.
 | Rank | Read |
 |---|---|
 | Regular | crew vocabulary, one accent, one weapon or tool, standard lean build |
-| Commander | bigger and heavier, heavier layered haori or cloak with a high collar, more plates and wraps, commanding stance, a unique head (`blocks.json` `commander`) |
+| Commander | taller (not wider) than a regular, a longer, heavier cloak or haori with a high collar, a commanding battle-ready stance, a unique head (`blocks.json` `commander`) |
 | Unique | a signature no one else may borrow: the Captain (white mask, long hair, katana); Arakane's Command Crown |
 
 ## 7. Scenes
@@ -179,6 +190,7 @@ Kept: item icons #1-#4.
 | Plain regular, bare toes, mummy-bandaged face | 6.1, 6.2, 6.5 |
 | Ghost hand | 6.4 |
 | Samurai parade armour, heavy orange (Master of Arms) | 6.2, 4.1 |
+| Squat, static, brown-and-brass, no weapon (Grand Marshal v1): costume checklist + "heavier-built" + hands behind back | 6.0 |
 
 **Pending scene rewrites (section 2):** Armory, Research and High Command terminals; Test gallery (capacitor cables); Vat
 halls (specimen tanks); Reconstruction theatre (observation glass); High Command signal room (relay board, paper tape).
