@@ -1,0 +1,11 @@
+{
+ "name": "candidate_2waves",
+ "note": "Captured kits/rules/stats unchanged. Two waves per floor: each floor's first authored wave plus its elite/boss wave (10 waves instead of 16).",
+ "floors": [
+  {"kind": "floor", "waves": [{"aiIds": ["Deck Warden", "Deck Warden", "Deck Warden"], "delayRounds": 0}, {"aiIds": ["Wayfinder", "Deck Warden", "Deck Warden"], "delayRounds": 0}]},
+  {"kind": "floor", "waves": [{"aiIds": ["Oathkeeper", "Deck Warden", "Deck Warden"], "delayRounds": 0}, {"aiIds": ["Arsenal Keeper", "Deck Warden", "Deck Warden", "Seal Charge"], "delayRounds": 0}]},
+  {"kind": "floor", "waves": [{"aiIds": ["Arsenal Keeper", "Deck Warden", "Deck Warden"], "delayRounds": 0}, {"aiIds": ["Skyglass Sentinel", "Deck Warden", "Deck Warden", "Core Canister"], "delayRounds": 0}]},
+  {"kind": "floor", "waves": [{"aiIds": ["Oathkeeper", "Wayfinder", "Deck Warden"], "delayRounds": 0}, {"aiIds": ["The Captain", "First Blade", "Deck Warden"], "delayRounds": 0}]},
+  {"kind": "boss", "waves": [{"aiIds": ["Sealwright", "Oathkeeper", "Deck Warden"], "delayRounds": 0}, {"aiIds": ["Crowned Captain", "Deck Warden", "Deck Warden", "Core Canister", "Core Canister"], "delayRounds": 0}]}
+ ]
+}

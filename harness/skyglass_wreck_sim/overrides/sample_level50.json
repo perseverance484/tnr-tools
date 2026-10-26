@@ -1,0 +1,11 @@
+{
+ "name": "sample_level50",
+ "note": "End-to-end check of the easier (level 40-60) version: one floor, one small wave of level-50 copies of the crew (level replayed via scaleEditedAi).",
+ "enemies": {
+  "Deck Warden": {"level": 50},
+  "Core Horror": {"level": 50}
+ },
+ "floors": [
+  {"kind": "floor", "waves": [{"aiIds": ["Deck Warden", "Core Horror"], "delayRounds": 0}]}
+ ]
+}

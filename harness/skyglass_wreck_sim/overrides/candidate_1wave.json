@@ -1,0 +1,11 @@
+{
+ "name": "candidate_1wave",
+ "note": "Captured kits/rules/stats unchanged. One wave per floor: only each floor's elite/boss wave as authored (5 waves).",
+ "floors": [
+  {"kind": "floor", "waves": [{"aiIds": ["Wayfinder", "Deck Warden", "Deck Warden"], "delayRounds": 0}]},
+  {"kind": "floor", "waves": [{"aiIds": ["Arsenal Keeper", "Deck Warden", "Deck Warden", "Seal Charge"], "delayRounds": 0}]},
+  {"kind": "floor", "waves": [{"aiIds": ["Skyglass Sentinel", "Deck Warden", "Deck Warden", "Core Canister"], "delayRounds": 0}]},
+  {"kind": "floor", "waves": [{"aiIds": ["The Captain", "First Blade", "Deck Warden"], "delayRounds": 0}]},
+  {"kind": "boss", "waves": [{"aiIds": ["Crowned Captain", "Deck Warden", "Deck Warden", "Core Canister", "Core Canister"], "delayRounds": 0}]}
+ ]
+}
