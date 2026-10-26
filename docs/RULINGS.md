@@ -3018,3 +3018,23 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-25: "100,000 for ryo pick"; "The obvious solution is that failing a fight fails the quest. Otherwise we're figuring out how to deal with 1hp players. This would allow crownhold to shrink in size massively".
 
 **Canonical destination:** `push/skyglass_hunts.gen.py` (push/268); `docs/design/SKYGLASS_LOOT_TABLES.md` (purse amount); Crownhold build.
+
+## RUL-2026-10-25-011 — Crownhold badge "Crownbreaker"; Arakane's Command Crown
+
+**Date:** 2026-10-25
+
+**Domain:** content naming; lore; art direction
+
+**Status:** ACTIVE (name, concept). Final art is approved image by image.
+
+**Ruling:**
+1. The Crownhold badge is **Crownbreaker**.
+2. Supreme Commander Arakane wears a **Command Crown**, grander than the Crowned Captain's Skyglass Crown. It is how the
+   commanders control the other afterimages.
+3. The Crownbreaker badge icon is that crown breaking. Art request: `docs/handoffs/CROWNHOLD_CROWN_ART_REQUEST.md`
+   (avatar first, which locks the crown; badge second).
+
+**Evidence:** User, 2026-10-25: "Crownbreaker. And now Arakane needs a cool Crown, and the badge is that Crown breaking. So
+he needs a better Crown than the captain. Its how they control the other afterimages".
+
+**Canonical destination:** Crownhold build (badge item, Arakane avatar, story text); the art request above.
