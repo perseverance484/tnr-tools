@@ -56,6 +56,9 @@ been observed working. Not begun: merge, release promotion, any re-run of push/2
 
 # Correction handoff (review of c45fbb93: APPROVE WITH FIXES)
 
+**Superseded by correction 2 below.** After the later rebase, the SHAs here map to: `7253f9b9` -> `9df2ace9`,
+`15ba0b9b` -> `4b965a97`; the reviewed tip `59ae551c` -> `e9fe2563`. Content is unchanged by the rebase.
+
 ```text
 Repository: perseverance484/tnr-tools
 Branch: fable/forge-dungeon-coop-path
@@ -182,6 +185,169 @@ CHECK
    435,145 / 105,126.
 4. Artifact fidelity: forge/src, forge_bundle.js and forge_loader_user.js are byte-identical to c45fbb93;
    the contract is current at the pin.
+Reproduce, separately, recording every exit code (no masking pipes), with a complete checkout at the pin:
+  cd forge
+  TNR_GAME_CHECKOUT=/path/to/pinned-checkout npm test
+  node tools/derive_dungeon.mjs /path/to/pinned-checkout --check
+  npm run build
+  git diff --quiet -- ../forge_bundle.js
+  node tools/check_release_pin.mjs
+  node tools/check_bundle_budget.mjs
+
+REPORT: per finding severity (blocker / should-fix / note), file:line, reproduction, suggested fix; what
+you checked and found clean. Verdict: approve, approve with fixes, or reject.
+~~~
+
+---
+
+# Correction 2 handoff (re-review of 59ae551c: APPROVE WITH FIXES)
+
+```text
+Repository: perseverance484/tnr-tools
+Branch: fable/forge-dungeon-coop-path
+Base: main @ a6bba6176e60a35c38ab84b0f21555db94470106 (rebased; was 7ba661b8)
+Code head: 9ff2322e1b9ec883ecc784f60d922f289eadb1dc
+Head: the tip of this branch = the commit that updates this file; its only parent is the code
+      head and it changes only this file. FROZEN until re-review returns.
+Integration target: main @ a6bba617 (re-verify at integration)
+Game pin: studie-tech/theninjarpg@107d7a86894f806a4c9cec89effef5992118a0ed (read only, never run)
+```
+
+The branch was rebased onto a6bba617 because main had appended RUL-2026-10-25-011 to -014, which
+conflicted with this branch's RUL-2026-10-26-001 at the end of `docs/RULINGS.md`. The resolution keeps
+every ruling, in date order. Main's commits since 7ba661b8 touch no Forge file. Commits after the
+rebase:
+- `9df2ace9`: the original fix (was c45fbb93);
+- `4b965a97`: correction 1;
+- `e9fe2563`: the correction 1 handoff (was the reviewed tip 59ae551c);
+- `9ff2322e`: correction 2;
+- the tip: this section.
+
+The diff from 59ae551c to the code head is limited to `forge/tools/derive_dungeon.mjs`,
+`forge/test/dungeon.review.test.mjs` and `docs/RULINGS.md` (rebase merge only).
+
+## Findings
+
+| # | Finding | Outcome |
+|---|---|---|
+| 1 | Import validation kept source and local name but dropped the imported symbol (alias over a re-export; a named import inside a block comment plus an active default import) | **Fixed** |
+| 2 | Statements after the router literal (`delete`, `Object.assign`) were ignored | **Fixed** |
+
+Both fixes come from one narrow grammar in `forge/tools/derive_dungeon.mjs` `routerMounts()`.
+
+`stripComments()` removes line and block comments and keeps string literals, so comments never count
+as imports or mounts. A comment opener inside a regex literal could be misread, but the text left
+before it can never form an accepted statement, so a misread fails closed.
+
+After that, root.ts and coop.ts may contain only:
+- `import { A, B, type C } from "path";`: plain named imports. Aliases (`x as y`), default, namespace,
+  `import type` and mixed default+named imports are refused.
+- exactly one `export const NAME = createTRPCRouter({ key: importedRouter, ... });`, where each member is
+  `key: identifier` and the identifier is a plain named import;
+- for root.ts only, the pin's two read-only exports (`CDN_CACHED_QUERY_PATHS` and
+  `export type AppRouter = typeof appRouter;`), matched token for token.
+
+Any other statement is refused ("unsupported statement ..."). That covers `delete`, `Object.assign`,
+assignments to `_def`, export lists, default exports, statements before or after the literal, and a
+read-only export with altered code.
+
+Symbol identity is checked link by link:
+- root.ts imports the plain name `coopRouter` from `routers/coop`. Under the same grammar, coop.ts's
+  only export is `export const coopRouter`.
+- coop.ts imports the plain name `dungeonRouter` from `routers/dungeon`. dungeon.ts is checked on its
+  raw text, so a comment can only make the check fail: `dungeonRouter` must appear exactly once, as
+  `export const dungeonRouter = createTRPCRouter({`, and the file may have no export list, re-export
+  or default export.
+
+The contract is byte-identical at the pin. No runtime source, bundle or loader byte changed.
+
+## Regression evidence
+
+The reviewer's four reproductions, applied to scratch copies of the pinned sources:
+
+| Reproduction | 15ba0b9b extractor | Corrected extractor |
+|---|---|---|
+| `import { alternateRouter as coopRouter }` + coop.ts `export { questPartyRouter as alternateRouter };` | accepted, emits coop.dungeon.* | refused: `unsupported import "alternateRouter as coopRouter"` |
+| named import inside a multi-line block comment + active `import coopRouter from "./routers/coop";` + coop.ts default export | accepted, emits coop.dungeon.* | refused: `unsupported statement "import coopRouter from ..."` |
+| `delete appRouter._def.procedures["coop.dungeon.save"];` appended | accepted | refused: `unsupported statement "delete appRouter..."` |
+| `Object.assign(appRouter._def.procedures, { "coop.dungeon.save": itemRouter._def.procedures.create });` appended | accepted | refused: `unsupported statement "Object.assign..."` |
+
+`forge/test/dungeon.review.test.mjs` gains the test "review C2: imports keep symbol identity, comments
+are ignored, and post-construction statements are refused". It has one positive case: mounts with
+line and block comments around and inside both router literals still derive coop.dungeon.*. It has
+18 negative cases:
+- the four reproductions above, two of them also split so each file is tested alone;
+- a commented-out mount;
+- namespace, type-only and mixed default+named imports;
+- assigning a procedure, and a mutation before the router;
+- an altered read-only export, and a read-only export added to coop.ts;
+- a mutation in coop.ts;
+- dungeon.ts no longer defining the name, an export list in dungeon.ts, and a post-definition
+  `delete dungeonRouter...` in dungeon.ts.
+
+The earlier C1 cases were adjusted for comment stripping:
+- a trailing comment is now a positive case;
+- the alias case now expects "unsupported import" (it previously only left the local name unbound,
+  as the reviewer noted);
+- two spread messages were updated.
+
+## Verification (Node v24.22.1; full history; `TNR_GAME_CHECKOUT` = complete checkout of 107d7a86, `git status --porcelain` empty)
+
+Each command run separately; exit codes read directly with `$?`, nothing piped through a gate.
+
+| Command | Result |
+|---|---|
+| `TNR_GAME_CHECKOUT=<pin checkout> npm test` | **exit 0; 720 total, 720 pass, 0 fail, 0 skipped** |
+| `npm test` (no checkout, for reference) | exit 0; 720 total, 712 pass, 0 fail, 8 skipped (the pin-checkout tests) |
+| `node tools/derive_dungeon.mjs <pin checkout> --check` | exit 0, "dungeon contract current" |
+| `npm run build` | exit 0 |
+| `git diff --quiet -- ../forge_bundle.js` | exit 0 |
+| `node tools/check_release_pin.mjs` | exit 0, "release pin ok" |
+| `node tools/check_bundle_budget.mjs` | exit 0; raw 435,145 / 436,000, gzip 105,126 / 105,500 |
+| `npm run fixtures` + `git diff --exit-code -- test/fixtures/envelope test/fixtures/screens` | exit 0 / exit 0 |
+| `node tools/check_imports.mjs`, `node tools/check_boundaries.mjs` | 0 violations each |
+| `npm audit --omit=dev --audit-level=high` | exit 0 |
+| `git diff --quiet c45fbb93 HEAD -- forge/src forge_bundle.js forge_loader_user.js docs/BUILDER_APP_NOTES.md` | exit 0 (runtime byte-identical to the first review target) |
+
+## Scope, residual boundary and risk
+
+- The scope is the extractor binding and statement grammar, its tests and this handoff. Runtime
+  source and architecture are unchanged.
+- **Residual boundary:** the grammar covers the three pinned mount files only. A module outside them
+  that imports `appRouter` and mutates it at load time is not read. The exact-pin and dirty-source
+  CLI checks, and the source hashes in `_meta.sources`, still bind the artifact to the pin.
+  Procedures inside `dungeonRouter` are read by the existing `procedureFacts()`, which this change
+  does not touch.
+- The version collision noted in correction 1 still stands: `fable/validate-stale-rules@271d1103` also
+  stages 0.9.1, and whichever branch integrates second takes 0.9.2.
+- Not performed: browser, live or session checks.
+- Live-game requests: 0. Game writes: 0. Credentials or session material: none. The game source was
+  read only, and nothing in it was executed.
+
+## Copy-ready re-review prompt
+
+~~~text
+You are the independent reviewer for a Lane A correction in perseverance484/tnr-tools. Review only; do not
+patch the Fable branch. Follow docs/workflows/FABLE_REVIEW.md.
+
+TARGET
+- Branch: fable/forge-dungeon-coop-path, tip = the commit that adds the "Correction 2 handoff" section to
+  docs/handoffs/FORGE_DUNGEON_COOP_PATH_HANDOFF.md; its parent is the code head 9ff2322e1b9ec883ecc784f60d922f289eadb1dc (verify
+  with git log). If the branch moved, stop and report.
+- Previous review target: 59ae551ca88c88a5ecd5407bd684aee778e65354 (APPROVE WITH FIXES); after the rebase
+  its content is e9fe2563.
+- Base: main @ a6bba6176e60a35c38ab84b0f21555db94470106.
+- Game pin: studie-tech/theninjarpg@107d7a86894f806a4c9cec89effef5992118a0ed (read only, never run).
+SAFETY: zero live-game requests, no credentials or session material.
+
+CHECK (narrow: extractor binding/statement validation, regression tests, handoff evidence)
+1. forge/tools/derive_dungeon.mjs stripComments/statement/ROOT_READ_ONLY/routerMounts/mountChain: can any
+   import, export or statement form still rebind, add, remove or override the coop or dungeon mount, or a
+   procedure under it, in root.ts, coop.ts or dungeon.ts, and still derive coop.dungeon.*?
+2. Your four reproductions are refused; the "review C2" test's cases are valid (each edit applies to text
+   present once at the pin) and fail for the stated reason.
+3. Runtime fidelity: forge/src, forge_bundle.js and forge_loader_user.js byte-identical to c45fbb93;
+   contract current at the pin; RULINGS.md rebase resolution keeps every ruling.
 Reproduce, separately, recording every exit code (no masking pipes), with a complete checkout at the pin:
   cd forge
   TNR_GAME_CHECKOUT=/path/to/pinned-checkout npm test
