@@ -3,6 +3,7 @@
 - **Director, 2026-10-25:** "Draft up a design document for the art director to pull each prompt from and use references. Then a short compact hand off for each image in sequence and I hand you back the approved image."
 - **Protocol:** `docs/workflows/ISOLATED_ART_GENERATION.md`. One image per fresh session, at most two reference images (never a collage), one candidate at a time. The art director returns the RAW image; Claude Code keys, crops, exports and QCs it (`skills/producing-tnr-art`), then swaps the placeholder in game by manifest.
 - **Not in this batch:** Arakane (done, `art/crownhold/avatar_crownhold_arakane.webp`); the Sealwright and Oathkeeper scene portraits (already exist). **Deferred:** the Lastlight hit animation (a vertical strip sprite sheet; its placeholder is KGK: Black Fang Lance's).
+- **How a session uses this file:** it is given the link to this file and an image number. It reads that image's section, downloads the reference images from the links there, attaches them in the order given, and runs the prompt exactly as written.
 - **Live-game requests/writes:** 0.
 
 ## Targets (from `25x_DATA_art_spec.json`)
@@ -16,17 +17,19 @@
 
 ## Reference files
 
-| Key | File |
+Every link is pinned to commit `019700fdf1521f9f9bac4ff49f442a8f141cc749`, so it never changes. A fresh session downloads the images named in its section and attaches them.
+
+| Key | Image link |
 |---|---|
-| coffer | `art/skyglass_event_icons/exports/icon-skyglass-coffer.webp` |
-| foundry_chart | `art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp` |
-| lantern | `art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp` |
-| crown | `art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp` |
-| arakane | `art/crownhold/avatar_crownhold_arakane.webp` |
-| arsenal | `art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp` |
-| bbe | `art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp` |
-| gallery | `art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp` |
-| helm | `art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp` |
+| coffer | https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp |
+| foundry_chart | https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp |
+| lantern | https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp |
+| crown | https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp |
+| arakane | https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp |
+| arsenal | https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp |
+| bbe | https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp |
+| gallery | https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp |
+| helm | https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp |
 
 ## Sequence
 
@@ -72,7 +75,9 @@
 
 ### 1. Sealed Treasury
 
-Attach: `art/skyglass_event_icons/exports/icon-skyglass-coffer.webp` (STYLE AND MATERIAL).
+References (download and attach, in this order):
+
+1. STYLE AND MATERIAL: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Sealed Treasury. Generate exactly one candidate. Do not crop, key or process it.
@@ -88,7 +93,10 @@ Return the raw image named raw_icon-sealed-treasury.png.
 
 ### 2. Archive Chart Case
 
-Attach: `art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp` (CHART FAMILY); `art/skyglass_event_icons/exports/icon-skyglass-coffer.webp` (STYLE AND MATERIAL).
+References (download and attach, in this order):
+
+1. CHART FAMILY: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp
+2. STYLE AND MATERIAL: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Archive Chart Case. Generate exactly one candidate. Do not crop, key or process it.
@@ -104,7 +112,9 @@ Return the raw image named raw_icon-archive-chart-case.png.
 
 ### 3. Chart of the Buried Cache
 
-Attach: `art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp` (SHAPE, STYLE AND LAYOUT).
+References (download and attach, in this order):
+
+1. SHAPE, STYLE AND LAYOUT: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Chart of the Buried Cache. Generate exactly one candidate. Do not crop, key or process it.
@@ -120,7 +130,9 @@ Return the raw image named raw_icon-chart-buried-cache.png.
 
 ### 4. Unmarked Cargo
 
-Attach: `art/skyglass_event_icons/exports/icon-skyglass-coffer.webp` (STYLE AND MATERIAL).
+References (download and attach, in this order):
+
+1. STYLE AND MATERIAL: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Unmarked Cargo. Generate exactly one candidate. Do not crop, key or process it.
@@ -136,7 +148,10 @@ Return the raw image named raw_icon-unmarked-cargo.png.
 
 ### 5. Crownbreaker (badge)
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (SUBJECT: keep the crown exactly); `art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp` (STYLE: icon rendering only).
+References (download and attach, in this order):
+
+1. SUBJECT: keep the crown exactly: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
+2. STYLE: icon rendering only: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Crownbreaker (badge). Generate exactly one candidate. Do not crop, key or process it.
@@ -152,7 +167,10 @@ Return the raw image named raw_icon-badge-crownbreaker.png.
 
 ### 6. Lastlight (jutsu icon)
 
-Attach: `art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp` (STYLE: jutsu icon register); `art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp` (MOTIF: the lantern's light).
+References (download and attach, in this order):
+
+1. STYLE: jutsu icon register: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp
+2. MOTIF: the lantern's light: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Lastlight (jutsu icon). Generate exactly one candidate. Do not crop, key or process it.
@@ -168,7 +186,9 @@ Return the raw image named raw_icon-jutsu-lastlight.png.
 
 ### 7. Foundry Warden (AI avatar)
 
-Attach: `art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp` (STYLE).
+References (download and attach, in this order):
+
+1. STYLE: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Foundry Warden (AI avatar). Generate exactly one candidate. Do not crop, key or process it.
@@ -184,7 +204,9 @@ Return the raw image named raw_avatar_skyglass_foundry_warden.png.
 
 ### 8. Master of Arms (commander)
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Master of Arms (commander). Generate exactly one candidate. Do not crop, key or process it.
@@ -201,7 +223,9 @@ Return the raw image named raw_avatar_crownhold_master_of_arms.png.
 
 ### 9. Replicant Zero (commander)
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Replicant Zero (commander). Generate exactly one candidate. Do not crop, key or process it.
@@ -218,7 +242,9 @@ Return the raw image named raw_avatar_crownhold_replicant_zero.png.
 
 ### 10. The Grand Marshal (commander)
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: The Grand Marshal (commander). Generate exactly one candidate. Do not crop, key or process it.
@@ -235,7 +261,9 @@ Return the raw image named raw_avatar_crownhold_the_grand_marshal.png.
 
 ### 11. Crownhold Proving Proctor
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Crownhold Proving Proctor. Generate exactly one candidate. Do not crop, key or process it.
@@ -252,7 +280,9 @@ Return the raw image named raw_avatar_crownhold_proving_proctor.png.
 
 ### 12. Ordnance Quartermaster
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Ordnance Quartermaster. Generate exactly one candidate. Do not crop, key or process it.
@@ -269,7 +299,9 @@ Return the raw image named raw_avatar_crownhold_ordnance_quartermaster.png.
 
 ### 13. Prototype Lancer Unit
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Prototype Lancer Unit. Generate exactly one candidate. Do not crop, key or process it.
@@ -286,7 +318,9 @@ Return the raw image named raw_avatar_crownhold_prototype_lancer_unit.png.
 
 ### 14. Calibration Duelist
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Calibration Duelist. Generate exactly one candidate. Do not crop, key or process it.
@@ -303,7 +337,9 @@ Return the raw image named raw_avatar_crownhold_calibration_duelist.png.
 
 ### 15. Skyglass Archive Keeper
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Archive Keeper. Generate exactly one candidate. Do not crop, key or process it.
@@ -320,7 +356,9 @@ Return the raw image named raw_avatar_crownhold_skyglass_archive_keeper.png.
 
 ### 16. Impression Containment Warden
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Impression Containment Warden. Generate exactly one candidate. Do not crop, key or process it.
@@ -337,7 +375,9 @@ Return the raw image named raw_avatar_crownhold_impression_containment_warden.pn
 
 ### 17. Unstable Echo Subject
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Unstable Echo Subject. Generate exactly one candidate. Do not crop, key or process it.
@@ -354,7 +394,9 @@ Return the raw image named raw_avatar_crownhold_unstable_echo_subject.png.
 
 ### 18. Failed Reconstruction Prototype
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Failed Reconstruction Prototype. Generate exactly one candidate. Do not crop, key or process it.
@@ -371,7 +413,9 @@ Return the raw image named raw_avatar_crownhold_failed_reconstruction_prototype.
 
 ### 19. Command Signal Adjutant
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Command Signal Adjutant. Generate exactly one candidate. Do not crop, key or process it.
@@ -388,7 +432,9 @@ Return the raw image named raw_avatar_crownhold_command_signal_adjutant.png.
 
 ### 20. High Command Staff Tactician
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: High Command Staff Tactician. Generate exactly one candidate. Do not crop, key or process it.
@@ -405,7 +451,9 @@ Return the raw image named raw_avatar_crownhold_high_command_staff_tactician.png
 
 ### 21. Honor Guard Commandant
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Honor Guard Commandant. Generate exactly one candidate. Do not crop, key or process it.
@@ -422,7 +470,9 @@ Return the raw image named raw_avatar_crownhold_honor_guard_commandant.png.
 
 ### 22. Strategist's Aide-de-Camp
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Strategist's Aide-de-Camp. Generate exactly one candidate. Do not crop, key or process it.
@@ -439,7 +489,9 @@ Return the raw image named raw_avatar_crownhold_strategists_aide_de_camp.png.
 
 ### 23. Sanctum Vanguard
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Sanctum Vanguard. Generate exactly one candidate. Do not crop, key or process it.
@@ -456,7 +508,9 @@ Return the raw image named raw_avatar_crownhold_sanctum_vanguard.png.
 
 ### 24. Directive Herald
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Directive Herald. Generate exactly one candidate. Do not crop, key or process it.
@@ -473,7 +527,9 @@ Return the raw image named raw_avatar_crownhold_directive_herald.png.
 
 ### 25. Last Watch Executor
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Last Watch Executor. Generate exactly one candidate. Do not crop, key or process it.
@@ -490,7 +546,9 @@ Return the raw image named raw_avatar_crownhold_last_watch_executor.png.
 
 ### 26. Order-Bearer of the Sanctum
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown)).
+References (download and attach, in this order):
+
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Order-Bearer of the Sanctum. Generate exactly one candidate. Do not crop, key or process it.
@@ -507,7 +565,10 @@ Return the raw image named raw_avatar_crownhold_order_bearer_of_the_sanctum.png.
 
 ### 27. Scene: Crownhold gate
 
-Attach: `art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp` (STYLE: rendering and lighting); `art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp` (STYLE: rendering and lighting).
+References (download and attach, in this order):
+
+1. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Crownhold gate. Generate exactly one candidate. Do not crop, key or process it.
@@ -522,7 +583,10 @@ Return the raw image named raw_scene_bg_crownhold_gate.png.
 
 ### 28. Scene: Experimental Armory
 
-Attach: `art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp` (STYLE: rendering and lighting); `art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp` (STYLE: rendering and lighting).
+References (download and attach, in this order):
+
+1. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Experimental Armory. Generate exactly one candidate. Do not crop, key or process it.
@@ -537,7 +601,10 @@ Return the raw image named raw_scene_bg_crownhold_armory.png.
 
 ### 29. Scene: Skyglass Research
 
-Attach: `art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp` (STYLE: rendering and lighting); `art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp` (STYLE: rendering and lighting).
+References (download and attach, in this order):
+
+1. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Skyglass Research. Generate exactly one candidate. Do not crop, key or process it.
@@ -552,7 +619,10 @@ Return the raw image named raw_scene_bg_crownhold_research.png.
 
 ### 30. Scene: High Command
 
-Attach: `art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp` (STYLE: rendering and lighting); `art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp` (STYLE: rendering and lighting).
+References (download and attach, in this order):
+
+1. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: High Command. Generate exactly one candidate. Do not crop, key or process it.
@@ -567,7 +637,10 @@ Return the raw image named raw_scene_bg_crownhold_high_command.png.
 
 ### 31. Scene: Command Sanctum
 
-Attach: `art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp` (STYLE: rendering and lighting); `art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp` (STYLE: rendering and lighting).
+References (download and attach, in this order):
+
+1. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Command Sanctum. Generate exactly one candidate. Do not crop, key or process it.
@@ -582,7 +655,10 @@ Return the raw image named raw_scene_bg_crownhold_sanctum.png.
 
 ### 32. Scene: Signal room (aftermath)
 
-Attach: `art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp` (STYLE: rendering and lighting); `art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp` (STYLE: rendering and lighting).
+References (download and attach, in this order):
+
+1. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. STYLE: rendering and lighting: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Signal room (aftermath). Generate exactly one candidate. Do not crop, key or process it.
@@ -597,7 +673,10 @@ Return the raw image named raw_scene_bg_crownhold_signal_room.png.
 
 ### 33. The Last Directive (jutsu icon)
 
-Attach: `art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp` (STYLE: jutsu icon register); `art/crownhold/avatar_crownhold_arakane.webp` (MOTIF: the Command Crown).
+References (download and attach, in this order):
+
+1. STYLE: jutsu icon register: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp
+2. MOTIF: the Command Crown: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: The Last Directive (jutsu icon). Generate exactly one candidate. Do not crop, key or process it.
@@ -613,7 +692,10 @@ Return the raw image named raw_icon-jutsu-the-last-directive.png.
 
 ### 34. Extermination Order (jutsu icon)
 
-Attach: `art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp` (STYLE: jutsu icon register); `art/crownhold/avatar_crownhold_arakane.webp` (MOTIF: the Command Crown).
+References (download and attach, in this order):
+
+1. STYLE: jutsu icon register: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp
+2. MOTIF: the Command Crown: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Extermination Order (jutsu icon). Generate exactly one candidate. Do not crop, key or process it.
@@ -629,7 +711,10 @@ Return the raw image named raw_icon-jutsu-extermination-order.png.
 
 ### 35. Countermand (item icon)
 
-Attach: `art/crownhold/avatar_crownhold_arakane.webp` (SUBJECT: the seal tablet at Arakane's belt); `art/skyglass_event_icons/exports/icon-skyglass-coffer.webp` (STYLE AND MATERIAL).
+References (download and attach, in this order):
+
+1. SUBJECT: the seal tablet at Arakane's belt: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/crownhold/avatar_crownhold_arakane.webp
+2. STYLE AND MATERIAL: https://raw.githubusercontent.com/perseverance484/tnr-tools/019700fdf1521f9f9bac4ff49f442a8f141cc749/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp
 
 ~~~text
 Draw ONE image for The Ninja RPG: Countermand (item icon). Generate exactly one candidate. Do not crop, key or process it.
