@@ -769,6 +769,16 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
+## 263 Skyglass Wreck dungeon (1 create, HIDDEN): READY TO RUN (Forge 0.9.0)
+
+`263_skyglass_wreck_dungeon.json`: one tier of five floors, 16 waves (every `delayRounds` 0; each floor's elite or boss
+in its last wave; hazards never alone). Completion drops, each member rolls each line: Chart of the Drowned Foundry 12,
+Chart of the Quarantined Archive 6, Chart of the Captain's Watch 6, Lastlight Lantern 3, Sealed Treasury 3 (push/260
+ids). Clear currency 0 for the director to set in game. Entrance: structure `gAsRCVBGRplS31wOYckh7` ("Skyglass Wreck")
+at size 5, sector 210 (15, 6); background default; no expiry. Description as approved 2026-10-24. **After it runs:**
+hidden test with a party of three to time the 16 waves against the one-hour limit. Gates: `validate.py --strict` 0
+errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
 ## 262 Foundry Warden (1 AI create, HIDDEN): READY TO RUN under validate exception RUL-2026-10-25-009
 
 `262_foundry_warden_create.json`: the Drowned Foundry's boss, kit approved by the director 2026-10-25. Level 100 Jonin on
