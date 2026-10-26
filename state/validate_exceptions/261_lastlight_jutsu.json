@@ -1,0 +1,9 @@
+{
+ "manifest": "push/261_lastlight_jutsu_create.json",
+ "ruling": "RUL-2026-10-25-008",
+ "reason": "validate.py L06 demands statTypes on wound; the game's WoundTag has no statTypes (server drops it) and Forge refuses the key",
+ "sha256": "ed6a6afabaddc7ad8db8f637208f81becab01215c890c28b85e614d1e3668e0b",
+ "accepted": [
+  "ERROR  lint Lastlight: L06 wound missing statTypes/generalTypes (generalTypes gap can explode damage)"
+ ]
+}

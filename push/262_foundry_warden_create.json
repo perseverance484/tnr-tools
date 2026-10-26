@@ -1,0 +1,226 @@
+{
+ "_note": "Foundry Warden (push/262), direct HIDDEN create: boss of the Drowned Foundry hunt (RUL-2026-10-25-004; kit approved by the director 2026-10-25: \"Kit sounds good\"). Level 100 Jonin, Arsenal Keeper's stat chassis (pools x3 = 15,150 HP, stats x5, masteries, +200% damage given as two permanent +100% effects (law 6 caps one at 100)). Kit: Quick Strike (burn), Heavy Strike, Rigging Snare (root), Stoneward, Springguard, Windlash Focus, all existing pool AI jutsu, none edited. Rules use only these: Windlash on round 1, Snare -> Quick Strike combo, Heavy Strike, Quick Strike, Snare, Stoneward within 2, Springguard within 5, close in, fallback. PLACEHOLDER avatar: the Arsenal Keeper's sprite until the Warden's art exists.",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "create",
+   "phase": 1,
+   "name": "Foundry Warden",
+   "srcId": "foundry_warden",
+   "data": {
+    "username": "Foundry Warden",
+    "hidden": true,
+    "level": 100,
+    "rank": "JONIN",
+    "poolsMultiplier": 3,
+    "statsMultiplier": 5,
+    "regeneration": 60,
+    "gender": "Unknown",
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Willpower",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "isSummon": false,
+    "avatarFacing": "left",
+    "ninjutsuMastery": 556519.98,
+    "genjutsuMastery": 556519.98,
+    "taijutsuMastery": 556519.98,
+    "bukijutsuMastery": 556519.98,
+    "bloodlineMastery": 10,
+    "sageMastery": 10,
+    "offence": 1391299.95,
+    "defence": 1391299.95,
+    "strength": 1391299.95,
+    "intelligence": 1391299.95,
+    "willpower": 1391299.95,
+    "speed": 1391299.95,
+    "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-2OXJEXoktxJcjqMkE851g-main-e5ee91c495de.webp",
+    "jutsus": [
+     "FeYnH7BBw_usnc1K-TM-J",
+     "pUrUJX8Jml7fUIBXKsPwv",
+     "1jXfTgrtGUaSfqTPSSa83",
+     "V3WrfQ3pB-eCq2hojsxWe",
+     "mOA1hXNf4CcuwOhnnN7ZK",
+     "_9k7kSYUgMtB-AEFgRly5"
+    ],
+    "items": [],
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "includeDefaultRules": true,
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 2,
+        "description": "Current round is lower than specified value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "1jXfTgrtGUaSfqTPSSa83",
+        "FeYnH7BBw_usnc1K-TM-J"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "1jXfTgrtGUaSfqTPSSa83",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "V3WrfQ3pB-eCq2hojsxWe",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 2,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 5,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action"
+      },
+      "conditions": []
+     }
+    ]
+   }
+  }
+ ]
+}

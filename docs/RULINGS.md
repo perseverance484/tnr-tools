@@ -2971,3 +2971,17 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-25: "Lastlight Lantern to differentiate from the jutsu."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`; push/254 (on hold).
+
+## RUL-2026-10-25-008 — validate.py exception for push/261 (Lastlight)
+
+**Date:** 2026-10-25
+
+**Domain:** validation; D-validate-always (`docs/DOCTRINE.md`)
+
+**Status:** ACTIVE. Manifest-specific; not a precedent.
+
+**Ruling:** push/261 (the Lastlight jutsu) may run although `validate.py --strict` reports one diagnostic: L06 "wound missing statTypes/generalTypes". The game's `WoundTag` (`validators/combat.ts`) has `generalTypes` but no `statTypes`, the server drops the key, and Forge's pre-send check refuses it, so the lint is stale for `wound`. The exception holds only while `python3 scripts/validate_exception.py state/validate_exceptions/261_lastlight_jutsu.json` passes (exact manifest SHA-256 and exactly that diagnostic). The lint itself is to be corrected under Lane A.
+
+**Evidence:** User, 2026-10-25, choosing between a one-off exception (A) and the Lane A lint fix (B): "A now."
+
+**Canonical destination:** `state/validate_exceptions/261_lastlight_jutsu.json`; gate `scripts/validate_exception.py`.
