@@ -1,0 +1,121 @@
+{
+ "_note": "Creates Hellfire Harvest, the Headless Rider's new signature jutsu (director spec 2026-10-26), hidden: method ALL on every opponent, damage 70 (Fire, the rider's element), recoil 40% for 3 rounds, heal cut (decreaseheal) 60% for 3 rounds, 60 AP. PLACEHOLDERS: cooldown 6, heal-cut duration 3 (matches recoil), icon reuses Wail of Despair's image until art exists. Create only: equipping it on the rider (eaMN5CfciNlxfezSKemJ6) and the rules follow as a separate edit with this jutsu's live id, because an @jutsu ref in an AI jutsus array is refused by validate (law 17).",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "create",
+   "name": "Hellfire Harvest",
+   "srcId": "hellfire_harvest",
+   "data": {
+    "requiredPetSpeciesId": null,
+    "reskinParentJutsuId": null,
+    "bloodlineReskinId": null,
+    "parentJutsuId": null,
+    "coordinateTargeting": null,
+    "methodSize": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredSkillId": null,
+    "requiredBloodlineItemId": null,
+    "name": "Hellfire Harvest",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "description": "The rider drags his burning scythe in a wide circle and the whole field catches. Every strike made inside the flames burns the striker, and wounds in the fire will not close.",
+    "battleDescription": "%user drags a burning scythe across the field, setting every enemy ablaze with Hellfire Harvest",
+    "target": "OPPONENT",
+    "method": "ALL",
+    "range": 5,
+    "cooldown": 6,
+    "actionCostPerc": 60,
+    "chakraCost": 50,
+    "staminaCost": 50,
+    "healthCost": 0,
+    "extraBaseCost": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "jutsuWeapon": "NONE",
+    "statClassification": "None",
+    "elementClassification": "None",
+    "battleUsageType": "BOTH",
+    "bloodlineId": "",
+    "villageId": "",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQpNq3TjhzBPya1rwfCIqOTU0cV5xgsMeo3u2",
+    "hidden": true,
+    "injectableInBattle": false,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 70,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "formula",
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "statTypes": [
+       "None"
+      ],
+      "generalTypes": [
+       "Highest"
+      ],
+      "elements": [
+       "Fire"
+      ]
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 40,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "recoil",
+      "description": "Recoil damage given back to self",
+      "rounds": 3
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 60,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "decreaseheal",
+      "description": "Decrease how much target can heal others",
+      "rounds": 3
+     }
+    ]
+   }
+  }
+ ]
+}
