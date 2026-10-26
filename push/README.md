@@ -769,15 +769,14 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
-## 262 Foundry Warden (1 AI create, HIDDEN): needs a validate exception (director)
+## 262 Foundry Warden (1 AI create, HIDDEN): READY TO RUN under validate exception RUL-2026-10-25-009
 
 `262_foundry_warden_create.json`: the Drowned Foundry's boss, kit approved by the director 2026-10-25. Level 100 Jonin on
 the Arsenal Keeper's stat chassis (15,150 HP, stats x5, +200% damage given as two +100% effects); kit Quick Strike, Heavy
 Strike, Rigging Snare, Stoneward, Springguard, Windlash Focus (existing pool AI jutsu, none edited); rules on that kit
 only. Placeholder avatar: the Arsenal Keeper's sprite. `check_manifest.mjs` 0 pre-send problems. **`validate.py --strict`
 fails on law 14 / L05 "missing preferredStat"**: the game's AI schema no longer has `preferredStat` and Forge refuses the
-key as unknown, so the rule is stale. Ledger ready at `state/validate_exceptions/262_foundry_warden.json` (ruling
-pending).
+key as unknown, so the rule is stale. Gate: `python3 scripts/validate_exception.py state/validate_exceptions/262_foundry_warden.json` (exit 0).
 
 ## 261 Lastlight jutsu (1 create, HIDDEN): READY TO RUN under validate exception RUL-2026-10-25-008
 
