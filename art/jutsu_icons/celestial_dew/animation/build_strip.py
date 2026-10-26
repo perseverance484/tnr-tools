@@ -1,0 +1,386 @@
+#!/usr/bin/env python3
+"""Celestial Dew animations from the art director's layers (raws/anim_cd_*.png), the Ethereal Rebirth method.
+
+    python3 art/jutsu_icons/celestial_dew/animation/build_strip.py [--only appear|loop|break]
+
+Three strips, one clock (36 ms per frame, 112 px frames), all on the SHIELD effect (director, 2026-10-24: "Have cast and
+ward form both start from shield appear so they can be timed correctly"):
+- appear (shield appearAnimation, 66 frames): a small upright moon appears on top of the head; a drop of starlight swells
+  at its lower horn and falls into the portrait's centre; it splashes, ripples run out, and where they hit the rim it
+  charges into the ward ring (nothing of the ward before); the moon fades.
+- loop (shield staticAnimation, 100 frames, seamless): the ward ring, faint, a brighter arc travelling round it, stars
+  twinkling. The game starts it on the cast's tick, so it is kept to a whisper.
+- break (shield disappearAnimation, 30 frames): the ring flashes and breaks into curved shards that drift out and fade.
+Pillow only.
+"""
+import argparse
+import importlib.util
+import math
+import os
+import random
+
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
+DOCS = os.path.join(ROOT, 'docs', 'design', 'celestial_dew_animation')
+_spec = importlib.util.spec_from_file_location(
+    'er', os.path.join(ROOT, 'art', 'jutsu_icons', 'ethereal_rebirth', 'animation', 'build_strip.py'))
+er = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(er)
+S = er.S                                  # working size
+
+# Portrait geometry in this 50 px effect square, from the pinned game source (a744c04, libs/threejs/combat.ts):
+#   effect sprite: EFFECT_ANIMATION_SIZE = 50 world units, centred at (w/2, h/2) of the tile (drawCombatEffect);
+#   avatar sprite: 0.8 h square, centred at (w/2, 1.0 h), circle-masked (createUserSprite);
+#   white marker: 0.9 h x 1.1 h at (w/2, 0.9 h); star: h/2.5 at (w/2, 0.4 h); health bar at h + w/3;
+#   both groups sit at the tile origin (-x, -y); the camera is orthographic over the canvas width, so a world unit is a
+#   CSS pixel; the battle grid is 12 columns, so hexsize = width / 9.25 and the tile height h = hexsize / 2.
+# Before the upstream change the effect stayed 50 units while h grew with the canvas, so the portrait's place in the
+# square depended on the screen (v6/v7 were tuned to the director's phone, h = 16.1).
+# All screens (director, 2026-10-24: "Just assume the PR is done and build the version that fits all screens"): with
+# the upstream change the effect is drawn at 2.5 h (scale: h * 2.5), so the portrait's place in the square is the same on
+# every screen. In tile heights: the avatar centre is h/2 above the effect centre, radius 0.4 h; the white marker disc
+# (measured on the director's phone, h = 16.1: centre 8.75 units = 0.543 h above the effect centre, radius 8.15 units =
+# 0.506 h); the health bar 1.167 h above it.
+EFFECT_H = 2.5                          # the effect square, in tile heights
+# Exact, from the source and the game's own images (art/battle_refs/, downloaded from the constants' CDN URLs):
+#   IMG_SECTOR_USER_SPRITE_MASK (512 x 512): a disc of radius 250.5 px, so the avatar's radius = 0.8 h x 250.5/512;
+#   IMG_SECTOR_USER_MARKER (512 x 639, its own alpha map): a pin whose round head has radius 254.5 px, centred at
+#   (255.5, 255.5); drawn twice: white at 0.9 h x 1.1 h and, behind it, the village-colour outline at 1.0 h x 1.2 h,
+#   both centred at 0.9 h; so both discs are slightly oval. The outline disc is the portrait's visible outer edge.
+# Checked against the director's pre-change recording (h = 16.1, 50 units): the model puts the outer edge at centre
+# 0.3325 / radius 0.160 and the avatar at 0.339 / 0.126; measured 0.325 / 0.163 and 0.339 / 0.130 (within a pixel).
+_T_W, _T_H, _T_C, _T_R = 512, 639, 255.5, 254.5
+def _disc(sw, sh, sy=0.9):
+    """Marker disc drawn at sprite size sw x sh (tile heights), centred at sy: (centre y, rx, ry) in tile heights."""
+    return sy + sh / 2 - _T_C * sh / _T_H, _T_R * sw / _T_W, _T_R * sh / _T_H
+_Y = lambda y: 0.5 - (y - 0.5) / EFFECT_H          # tile-height y (up, tile origin) -> square fraction from the top
+AV_CY, AV_R = _Y(1.0), 0.8 * 250.5 / 512 / EFFECT_H            # 0.300, 0.1566
+_w, _o = _disc(0.9, 1.1), _disc(1.0, 1.2)
+WHITE_CY, WHITE_RX, WHITE_RY = _Y(_w[0]), _w[1] / EFFECT_H, _w[2] / EFFECT_H     # 0.2959, 0.1789, 0.1752
+EDGE_CY, EDGE_RX, EDGE_RY = _Y(_o[0]), _o[1] / EFFECT_H, _o[2] / EFFECT_H        # 0.2919, 0.1988, 0.1912 (outer edge)
+HPBAR_Y = _Y(1 + 2 / 3)                                          # the health bar (0.033)
+RIM_CY, RIM_OUT = EDGE_CY, EDGE_RX
+RING_SY = EDGE_RY / EDGE_RX                                      # the ward ring is drawn with the edge's slight oval
+PCY = RIM_CY                            # the ward and its ring are centred on the white disc
+ease, seg, smooth = er.ease, er.seg, er.smooth
+BEHIND_MASK = er.BEHIND_MASK
+EDGE_FADE = er._edge_fade(0.025)   # a narrow fade: the ring's top runs close to the frame edge
+
+# Slower (director, 2026-10-24: "it plays way too fast"). Frame times per strip; the appear and the loop start on one
+# tick, and the loop's first glow peak lands when the ripples reach the rim: IGNITE * MS['appear'] = LOOP_N * MS['loop'] / 2.
+MS = {'appear': 46, 'loop': 100, 'break': 46}
+CAST_N, LOOP_N, BREAK_N, SIZE = 92, 64, 30, 112
+IMPACT = 30          # the drop lands (1.38 s)
+IGNITE = 50          # the ripples reach the rim (2.30 s): the ward's first glow peak
+LOOP_PEAK = 0.95     # the ward's glow at its brightest
+# The hand-off (director, 2026-10-24: "The appear animation can brighten it earlier and faster so then it appears to hold
+# longer when the breathe effect reaches its full effect as the appear animation fades"): the appear's copy of the ring
+# flashes up as the ripples touch the rim (IGNITE), holds, and fades over HAND_OUT; the loop rises gently underneath and
+# is at its peak in the middle of that fade, then breathes on its own.
+# Slower brightening (director, 2026-10-24: "It also brightens too suddenly with the appear animation, slow it down a
+# lot"): the appear's copy rises over HAND_RISE frames as the ripples reach the rim, holds, then fades over HAND_OUT.
+HAND_RISE, HAND_HOLD, HAND_OUT = 18, 10, 14       # appear frames (46 ms): 0.83 s rise, 0.46 s hold, 0.64 s fade
+LOOP_PEAK_T = (IGNITE + HAND_RISE + HAND_HOLD + HAND_OUT / 2) * MS['appear'] / (LOOP_N * MS['loop'])   # about 0.61
+LOOP_RISE_T = 0.36                                # loop phase where its gentle rise begins (about when the ripples land)
+# the ward band's inner edge, as a frame radius. The portrait reaches to 0.024 of the frame top, so a ring round it has
+# little room there: the band is tucked over the portrait's rim (outer edge about 0.246, its top at about 0.05) so it
+# stays inside the frame (director, 2026-10-24: "the circle seems to clip at the top when the ward forms")
+RING_INNER = RIM_OUT - 0.01             # the ward band over the portrait's outer edge (its top stays inside the square)
+RIPPLE_END = RING_INNER + 0.02          # where the ripples end: inside the ward band
+W1_INNER = 390 / 1254  # the band's inner edge in the W1 art (measured), as a fraction of its canvas
+R1_OUTER = 536 / 1254  # the R1 art's outer crest radius, as a fraction of its canvas width (measured)
+
+
+def raw(name, crop=True):
+    im = Image.open(os.path.join(HERE, 'raws', f'anim_cd_{name}.png')).convert('RGBA')
+    if crop:   # the two ring layers keep their full canvas: their measured radii are fractions of it
+        im = im.crop(im.getchannel('A').point(lambda v: 255 if v > 8 else 0).getbbox())
+    # tame the painted halo a little (it is wide and saturated; at 50 px it would swallow the shapes)
+    im.putalpha(im.getchannel('A').point(lambda v: int(255 * (v / 255) ** 1.25)))
+    return im
+
+
+def put(layer, img, cx, cy, width, alpha=1.0, rot=0.0, sy=1.0):
+    """Composite img centred at (cx, cy) (frame fractions), `width` frame-widths wide, rotated `rot` degrees
+    counter-clockwise, at `alpha`."""
+    if alpha <= 0.01 or width <= 0:
+        return
+    w = max(2, int(width * S))
+    h = max(2, int(w * img.height / img.width * sy))
+    im = img.resize((w, h), Image.LANCZOS)
+    if rot:
+        im = im.rotate(rot, resample=Image.BICUBIC, expand=True)
+    if alpha < 1:
+        im.putalpha(im.getchannel('A').point(lambda v, a=alpha: int(v * a)))
+    layer.alpha_composite(im, (int(cx * S - im.width / 2), int(cy * S - im.height / 2)))
+
+
+def ring_width():
+    """W1 drawn at this width puts its band's inner edge at RING_INNER."""
+    return 2 * RING_INNER / (2 * W1_INNER)
+
+
+def wedge_mask(a0, span, soft=18):
+    """An angular wedge mask round the portrait centre (degrees, clockwise from 3 o'clock), soft-edged."""
+    m = Image.new('L', (S, S), 0)
+    d = ImageDraw.Draw(m)
+    for i in range(soft, 0, -1):
+        k = i / soft
+        d.pieslice([0.5 * S - S, PCY * S - S, 0.5 * S + S, PCY * S + S], a0 - span / 2 * k, a0 + span / 2 * k,
+                   fill=int(255 * (1 - k) + 40 * k))
+    return m.filter(ImageFilter.GaussianBlur(4))
+
+
+def finish(back, front, top=None):
+    def glowed(layer):
+        g = layer.filter(ImageFilter.GaussianBlur(S * 0.008))
+        g.putalpha(g.getchannel('A').point(lambda v: int(v * 0.4)))
+        return Image.alpha_composite(g, layer)
+    back = glowed(back)
+    back.putalpha(ImageChops.multiply(back.getchannel('A'), BEHIND_MASK))
+    out = Image.alpha_composite(back, glowed(front))
+    if top is not None:
+        out = Image.alpha_composite(out, top)
+    out.putalpha(ImageChops.multiply(out.getchannel('A'), EDGE_FADE))
+    return out.resize((SIZE, SIZE), Image.LANCZOS)
+
+
+L = {}
+
+
+def layers():
+    if not L:
+        for k in ('M1_crescent', 'D1_drop', 'S1_splash'):
+            L[k] = raw(k)
+        L['R1_ripples'] = raw('R1_ripples', crop=False)
+        w1 = raw('W1_ward_ring', crop=False)
+        w1.putalpha(w1.getchannel('A').point(lambda v: int(255 * (v / 255) ** 1.5)))   # a softer outer glow
+        L['W1_ward_ring'] = w1
+        L['glints'] = er.flecks_from(raw('P1_glints'))
+        L['shards'] = er.flecks_from(raw('X1_shards'))
+    return L
+
+
+# The moon (director, 2026-10-24: "a much smaller moon ... oriented directly above the player portrait like we did for
+# the chakra overflow rising star"): upright as in the icon (a C opening to the right), about a fifth of the frame tall,
+# on top of the head (Chakra Overflow's crown star sits at 0.075 of the frame from the top, about 0.24 tall). It is
+# placed so its lower horn's tip is directly above the portrait's centre: the drop falls from it straight down.
+MOON_H, MOON_Y = 0.10, 0.075           # on top of the head, over the health bar (no room above it at 2.5 h)
+
+
+def _moon_place():
+    """(centre x, centre y, width) of the moon, and its lower horn tip."""
+    m = layers()['M1_crescent']
+    w = MOON_H * m.width / m.height
+    lay = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+    put(lay, m, 0.5, MOON_Y, w)
+    a = lay.getchannel('A').load()
+    best, tip = -9, (0.55, MOON_Y + 0.08)
+    for y in range(S // 2):
+        for x in range(S):
+            if a[x, y] > 200 and y / S + 0.5 * x / S > best:     # the lowest, right-most bright point: the lower horn
+                best, tip = y / S + 0.5 * x / S, (x / S, y / S)
+    dx = 0.5 - tip[0]
+    return (0.5 + dx, MOON_Y, w), (0.5, tip[1])
+
+
+def appear_frames():
+    """The shield's appearAnimation: the whole cast on one clock (director: "Have cast and ward form both start from
+    shield appear so they can be timed correctly"). Moon appears, the drop falls from its horn into the portrait's centre
+    and splashes, ripples run out and, reaching the rim, charge it into the ward; the moon fades."""
+    Lr = layers()
+    (mx, my, mw), horn = _moon_place()
+    rnd = random.Random(3)
+    thrown = [dict(img=Lr['glints'][i % len(Lr['glints'])], ang=-math.pi / 2 + rnd.uniform(-1.3, 1.3),
+                   v=rnd.uniform(0.006, 0.010), s=rnd.uniform(0.03, 0.05)) for i in range(6)]
+    out = []
+    for f in range(CAST_N):
+        front = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        top = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        # 1. the moon appears above the head, glints, then fades upward once the ward has formed
+        bloom = ease(seg(f, 0, 14))
+        gone = ease(seg(f, IGNITE - 4, IGNITE + 18))
+        if bloom > 0 and gone < 1:
+            put(top, Lr['M1_crescent'], mx, my - 0.03 * gone, mw * (0.8 + 0.2 * bloom), bloom * (1 - gone))
+        tw = math.sin(math.pi * seg(f, 6, 20))
+        if tw > 0:
+            put(top, Lr['glints'][1], mx - mw * 0.30, my - MOON_H * 0.30, 0.035 * tw, tw)
+        # 2. the drop swells at the lower horn, then falls straight into the portrait's centre, accelerating
+        if 12 <= f < IMPACT:
+            sw = ease(seg(f, 12, 20))
+            q = seg(f, 20, IMPACT) ** 2
+            y = horn[1] + 0.015 + (AV_CY - horn[1] - 0.015) * q
+            put(top, Lr['D1_drop'], 0.5, y, 0.055 * (0.4 + 0.6 * sw), 1.0)
+        # 3. the splash at the centre, a flash, glints thrown up
+        if IMPACT <= f < IMPACT + 15:
+            p = seg(f, IMPACT, IMPACT + 15)
+            put(front, Lr['S1_splash'], 0.5, AV_CY - 0.015, 0.21 * (0.6 + 0.4 * ease(min(1, p * 3))), 0.85 * (1 - ease(p)))
+        fl = ease(seg(f, IMPACT - 1, IMPACT + 1)) * (1 - ease(seg(f, IMPACT + 1, IMPACT + 7)))
+        if fl > 0:
+            g = Image.new('L', (S, S), 0)
+            ImageDraw.Draw(g).ellipse([0.5 * S - 0.045 * S, AV_CY * S - 0.045 * S, 0.5 * S + 0.045 * S, AV_CY * S + 0.045 * S], fill=255)
+            g = g.filter(ImageFilter.GaussianBlur(S * 0.025)).point(lambda v, a=fl: int(v * a))
+            top.alpha_composite(Image.merge('RGBA', (Image.new('L', (S, S), 240), Image.new('L', (S, S), 248), Image.new('L', (S, S), 255), g)))
+        for d in thrown:
+            p = seg(f, IMPACT, IMPACT + 22)
+            if 0 < p < 1:
+                tt = p * 22
+                put(front, d['img'], 0.5 + math.cos(d['ang']) * d['v'] * tt,
+                    AV_CY + math.sin(d['ang']) * d['v'] * tt + 0.0003 * tt * tt, d['s'] * (1 - 0.4 * p), 1 - ease(p))
+        # 4. ripples run out across the portrait; the outer one reaches the rim exactly at IGNITE
+        for k, (f0, f1) in enumerate(((IMPACT + 1, IGNITE), (IMPACT + 6, IGNITE + 5))):
+            p = seg(f, f0, f1)
+            if 0 < p < 1:
+                r_out = 0.015 + (RIPPLE_END - 0.015) * p ** 0.8    # steady outward run, a touch faster at first
+                put(front, Lr['R1_ripples'], 0.5, AV_CY + (PCY - AV_CY) * p, r_out / R1_OUTER, 0.6 * (1 - p ** 4))
+        # 5. the ward flashes up where the ripples hit the rim, holds, and hands over to the loop's breath
+        h0 = IGNITE - 3 + HAND_RISE                       # full at this frame
+        wa = LOOP_PEAK * ease(seg(f, IGNITE - 3, h0)) * (1 - ease(seg(f, h0 + HAND_HOLD, h0 + HAND_HOLD + HAND_OUT)))
+        if wa > 0:
+            front.alpha_composite(ring_layer(f, wa))
+        # sparks round the rim as it ignites
+        for k in range(8):
+            p = seg(f, IGNITE - 1 + (k % 3), IGNITE + 11 + (k % 3))
+            if 0 < p < 1:
+                ang = math.radians(22.5 + 45 * k)
+                r = RING_INNER + 0.03 + 0.015 * p
+                q = math.sin(math.pi * p)
+                put(top, Lr['glints'][(k * 2 + 1) % len(Lr['glints'])], 0.5 + r * math.cos(ang), PCY + r * math.sin(ang),
+                    0.04 * (0.5 + 0.5 * q), q)
+        out.append(finish(Image.new('RGBA', (S, S), (0, 0, 0, 0)), front, top))
+    return out
+
+
+def ring_layer(f_clock, alpha):
+    """The ward ring at loop phase f_clock (turns once per LOOP_N frames), at alpha."""
+    lay = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+    # the ring itself holds still (a turning texture changes every pixel and costs about 3x the bytes); the light
+    # travelling round it and the stars carry the motion
+    put(lay, layers()['W1_ward_ring'], 0.5, PCY, ring_width(), alpha, sy=RING_SY)
+    return lay
+
+
+def loop_frames():
+    """The ward glowing (director, 2026-10-24: "Have the shields loop be the ward glowing, like fading in and out ...
+    timed to when the drops flow outward and power up the shield the first time"). The game starts it on the appear's
+    tick, so it starts dark (nothing of the ward before the ripples), rises as they run out, peaks when they reach the rim
+    (half a loop = IGNITE on the appear's clock), then fades out and breathes again: one slow breath per loop."""
+    Lr = layers()
+    out = []
+    for f in range(LOOP_N):
+        t = f / LOOP_N
+        # dark at the seam; a gentle rise (under the appear's bright copy the first time), the peak as that copy fades,
+        # then a long, soft fade back to dark
+        if t < LOOP_PEAK_T:
+            a = LOOP_PEAK * ease(seg(t, LOOP_RISE_T, LOOP_PEAK_T)) ** 1.4
+        else:
+            a = LOOP_PEAK * (0.5 + 0.5 * math.cos(math.pi * (t - LOOP_PEAK_T) / (1 - LOOP_PEAK_T)))
+        front = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        front.alpha_composite(ring_layer(f, a))
+        for ang, dp in ((300, -0.05), (140, 0.0), (40, 0.05)):            # a few stars wink near each peak
+            ph = LOOP_PEAK_T + dp
+            q = max(0.0, 1 - abs(t - ph) / 0.08)
+            if q > 0:
+                r = RING_INNER + 0.03
+                put(front, Lr['glints'][1], 0.5 + r * math.cos(math.radians(ang)), PCY + r * math.sin(math.radians(ang)),
+                    0.04 * (0.5 + 0.5 * q), 0.9 * q)
+        out.append(finish(Image.new('RGBA', (S, S), (0, 0, 0, 0)), front))
+    return out
+
+
+def ward_parts(f):
+    """The ward forming at IGNITE (front, top layers): the rim ignites as the ripples arrive, flares, a light runs once
+    round it, a sheen washes the portrait, glints spark; then it fades over the loop's copy."""
+    Lr = layers()
+    if True:
+        front = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        top = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        # the ring ignites as the ripples reach the rim, flares, then fades over the loop's copy (same turn angle)
+        a = ease(seg(f, IGNITE - 2, IGNITE + 2)) * (1 - ease(seg(f, IGNITE + 3, CAST_N - 3)))
+        if a > 0:
+            front.alpha_composite(ring_layer(f, min(1.0, a)))
+        # a light runs once round the ring
+        p = seg(f, IGNITE, IGNITE + 14)
+        if 0 < p < 1:
+            arc = ring_layer(f, 1.0)
+            arc.putalpha(ImageChops.multiply(arc.getchannel('A'), wedge_mask(90 + 360 * ease(p), 80)))
+            arc.putalpha(arc.getchannel('A').point(lambda v, k=1 - p: int(v * k)))
+            top.alpha_composite(arc)
+        # a faint glassy sheen washes over the portrait as it is energised
+        sh = ease(seg(f, IGNITE, IGNITE + 3)) * (1 - ease(seg(f, IGNITE + 3, IGNITE + 14)))
+        if sh > 0:
+            g = Image.new('L', (S, S), 0)
+            r = (RING_INNER + 0.01) * S
+            ImageDraw.Draw(g).ellipse([0.5 * S - r, PCY * S - r, 0.5 * S + r, PCY * S + r], fill=int(70 * sh))
+            g = g.filter(ImageFilter.GaussianBlur(S * 0.02))
+            front.alpha_composite(Image.merge('RGBA', (Image.new('L', (S, S), 200), Image.new('L', (S, S), 225), Image.new('L', (S, S), 255), g)))
+        # glints spark round the rim
+        for k in range(6):
+            p = seg(f, IGNITE + k, IGNITE + k + 10)
+            if 0 < p < 1:
+                ang = math.radians(30 + 60 * k)
+                r = RING_INNER + 0.04
+                q = math.sin(math.pi * p)
+                put(top, Lr['glints'][(k * 2 + 1) % len(Lr['glints'])], 0.5 + r * math.cos(ang), PCY + r * math.sin(ang),
+                    0.055 * (0.5 + 0.5 * q), q)
+    return front, top
+
+
+def break_frames():
+    Lr = layers()
+    shards = Lr['shards']
+    rnd = random.Random(9)
+    pieces = [dict(img=shards[i % len(shards)], ang=2 * math.pi * i / 9 + rnd.uniform(-0.15, 0.15),
+                   spin=rnd.uniform(-40, 40), v=rnd.uniform(0.004, 0.007)) for i in range(9)]
+    out = []
+    for f in range(BREAK_N):
+        front = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        top = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        # the ring, at the loop's strength, flashes and is gone
+        a = (0.5 + 0.5 * ease(seg(f, 0, 2))) * (1 - ease(seg(f, 2, 6)))
+        if a > 0:
+            front.alpha_composite(ring_layer(0, a))
+        # curved shards spring from the ring, drift outward, turn and fade
+        for d in pieces:
+            p = seg(f, 2, BREAK_N - 2)
+            if 0 < p < 1:
+                tt = p * (BREAK_N - 4)
+                r = RING_INNER + 0.025 + d['v'] * tt
+                x, y = 0.5 + r * math.cos(d['ang']), PCY + r * math.sin(d['ang']) + 0.0006 * tt * tt
+                tangent = -math.degrees(d['ang']) - 90
+                put(front, d['img'], x, y, 0.07 * (1 - 0.3 * p), (1 - ease(p)) * min(1, f / 3), tangent + d['spin'] * p)
+        # stardust rises
+        for k in range(5):
+            p = seg(f, 3 + k, 3 + k + 16)
+            if 0 < p < 1:
+                ang = math.radians(200 + 35 * k)
+                r = RING_INNER + 0.05
+                put(top, Lr['glints'][(2 * k) % len(Lr['glints'])], 0.5 + r * math.cos(ang), PCY + r * math.sin(ang) - 0.10 * p,
+                    0.032, math.sin(math.pi * p))
+        out.append(finish(Image.new('RGBA', (S, S), (0, 0, 0, 0)), front, top))
+    return out
+
+
+def save_strip(frames, name):
+    strip = Image.new('RGBA', (SIZE, SIZE * len(frames)), (0, 0, 0, 0))
+    for i, fr in enumerate(frames):
+        strip.paste(fr, (0, SIZE * i))
+    strip.putalpha(strip.getchannel('A').point(lambda v: 0 if v < 4 else v))
+    os.makedirs(os.path.join(HERE, 'exports'), exist_ok=True)
+    p = os.path.join(HERE, 'exports', f'anim_celestial_dew_{name}.webp')
+    strip.save(p, lossless=True, method=6)
+    ms = MS[name.split('_')[0]]
+    print(f'{name}: {len(frames)} frames of {SIZE} px at {ms} ms = {len(frames) * ms / 1000:.2f} s, {os.path.getsize(p)} bytes (ceiling 460800)')
+
+
+BUILDERS = {'appear': appear_frames, 'loop': loop_frames, 'break': break_frames}
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--only', choices=list(BUILDERS))
+    a = ap.parse_args()
+    for name, fn in BUILDERS.items():
+        if a.only in (None, name):
+            save_strip(fn(), f'{name}_v9')

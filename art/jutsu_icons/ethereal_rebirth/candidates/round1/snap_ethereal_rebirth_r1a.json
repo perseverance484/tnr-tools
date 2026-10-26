@@ -1,0 +1,39 @@
+{
+ "tool": "pixelsnap.py",
+ "raw": "art/jutsu_icons/ethereal_rebirth/candidates/round1/raw_ethereal_rebirth_r1a.png",
+ "raw_sha256": "3aec6893369f5e88b439325e93d89baec92b1a6d4bf7ced625a0c902e5e4baa4",
+ "raw_size": [
+  1254,
+  1254
+ ],
+ "detection": {
+  "detected": false,
+  "cell": 12.25,
+  "phase_x": 12,
+  "phase_y": 12,
+  "score": 1.15
+ },
+ "region": [
+  0,
+  0,
+  1254,
+  1254
+ ],
+ "aligned_to_raw_grid": false,
+ "grid": 64,
+ "grid_source": "default 64",
+ "denoise": 5,
+ "colors_requested": 24,
+ "colors_used": 24,
+ "cleaned_pixels": 91,
+ "out": "art/jutsu_icons/ethereal_rebirth/candidates/round1/snap_ethereal_rebirth_r1a.png",
+ "out_size": [
+  256,
+  256
+ ],
+ "out_sha256": "7a0980eb22a80d58682d8837531d5ccf64fb34815a846f17122916dc79dd0891",
+ "out_bytes": 7864,
+ "notes": [
+  "no pseudo-pixel grid detected; the whole frame was resampled"
+ ]
+}

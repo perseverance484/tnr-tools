@@ -2334,3 +2334,624 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-23, choosing "Raise to 435k / 105k (Recommended)" over "Trim to fit" and "Whitespace minify".
 
 **Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).
+
+## RUL-2026-10-23-008 — Jutsu icon overhaul: one batch; 15 of our reverted icons go back unchanged
+
+**Date:** 2026-10-23
+
+**Domain:** Art direction / jutsu icons
+
+**Status:** ACTIVE (staff review open; rework not started)
+
+**Supersedes:** the "one icon at a time" pacing stated with the push/227 revert
+
+**Ruling:** After the push/227 revert, the director scored all 51 reverted icons and opened a staff review. The overhaul ships **all at once in one batch**, not one icon at a time. That batch also puts back, unchanged, our icons for all eight Blood-Enchanted Eyes jutsu (Unholy Enhancement included, although one staff member could not tell what it shows), all five Crystal Essence jutsu, Blazing Fang Strike and Celestial Dew. Reworked icons show no people; people renders are the Jutsu Masters' job.
+
+**Evidence:** User, 2026-10-23: "No, we'll do it all at once."; Discord thread: "BEE, CE, Blazing fang strike and Celestial Dew are getting no changes"; "Are we removing the people from everything?" / "I *think* so. I do have a Jutsu Master for each offense for people renders"; on putting the no-change icons back in the batch and keeping Unholy Enhancement: "Yes to both, include them in the batch".
+
+**Canonical destination:** `docs/design/icon_overhaul/ICON_SCORES.md`, `STAFF_FEEDBACK.md`, `BATCH_PLAN.md`.
+
+**Amendment 1 (2026-10-24), roles:** the art director only makes the art (raw images). Claude Code handles everything else: processing, previews and sheets, export and preflight, text rewrites (drafted for the director's approval), and the batch manifest. User: "You're handling text rewrites, manifests, processing, etc. Art Director just makes the art". Recorded in `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md`.
+
+**Amendment 2 (2026-10-24), people:** the five jutsu where staff asked for people (Poisonous Senbon, Blast Shield, Decaying Touch, Ethereal Nexus, Crystal Sphere) each get a people and a no-people version for the director to compare; Crystal Sphere's no-people version is the kept icon. User: "Lets do a people vs no people version for those jutsu". The general no-people lean stands elsewhere until the director decides.
+
+**Amendment 3 (2026-10-24), pilot first:** before the batch, exactly one icon is worked until it is the best premium pixel-art icon we can make, and the rest follow from it. Pilot: Tempest Cleave (director's choice). User: "I think we need to start with exactly one icon and just work it to death. Make it the best most fitting premium pixel art icon we can, and go from there." Project: `docs/design/icon_overhaul/tempest_cleave/PILOT.md`.
+
+## RUL-2026-10-24-001 — Jutsu icons depict the move, not abstractions
+
+**Date:** 2026-10-24
+
+**Domain:** Art direction / jutsu icons
+
+**Status:** SUSPENDED 2026-10-24 by RUL-2026-10-24-002 (abstract emblems for now; the question is open)
+
+**Supersedes:** the "one bold emblem that is the ability's metaphor" direction used for the 2026-10 jutsu icon passes (for example the Chakra Overflow and starter briefs), for future jutsu icon work
+
+**Ruling:** Jutsu icons depict the actual move: who does it, what they do, to whom, with what, at the moment it lands, taken from the jutsu's battle text and lore. Abstract emblems (energy swirls, bursts, orbs, halos) are not a subject. Visual design must pass a 45 px name test (a player can say what is happening), with a silhouette-first composition, one peak moment, concrete objects and bodies, big and few shapes, one line of action, and a dark simple background.
+
+**Evidence:** User, 2026-10-24: "A big mistake we've made with all our icons is they are too abstract. They don't convey the move at all. They compress down to the same amorphous blobs at size. They need to depict the actual move, the lore, the actual thing being done. Visual design needs to be better."
+
+**Canonical destination:** `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` section 2. People appear wherever the move needs them (director, 2026-10-24: "Confirmed, show people wherever the move needs them."), superseding the earlier no-people lean of RUL-2026-10-23-008.
+
+## RUL-2026-10-24-002 — Icon overhaul: abstract emblems for now; visual design and processing decisions
+
+**Date:** 2026-10-24
+
+**Domain:** Art direction / jutsu icons; art tooling
+
+**Status:** SUPERSEDED 2026-10-24 by RUL-2026-10-24-003 (direction); its C1–C3 decisions stand
+
+**Supersedes:** suspends RUL-2026-10-24-001
+
+**Ruling:** The 35 reworked icons are abstract emblems for now, designed to read at 45 px under the visual design rules of `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` section 2 (recognition test, distinct silhouettes per family, specific over generic, big and few shapes, dark simple backgrounds, one light and one glow). From the visual design deep dive: icons are authored at about 48–64 art pixels across and judged at 45 px (C1); a snap-to-grid and palette-quantise processing tool is to be built as Lane A tooling (C2); figure candidates use a dark figure backlit against the brightest energy (C3). C4 (raising the game's abstract icon prompt with the game team) is moot while abstract is the direction.
+
+**Evidence:** User, 2026-10-24: "All approved. Abstract icons is up in the air. We'll do abstract for now"; asked whether this covered only the game's prompt or the rework too, the user chose "Our rework too".
+
+**Canonical destination:** `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md`; `docs/design/icon_overhaul/VISUAL_DESIGN_DEEP_DIVE.md`.
+
+## RUL-2026-10-24-003 — Icon overhaul: premium upgrades of the originals, keeping the people
+
+**Date:** 2026-10-24
+
+**Domain:** Art direction / jutsu icons
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-10-24-002's "abstract emblems for now" direction (its C1–C3 decisions on grid density, the pixelsnap tool and backlit figures stand) and RUL-2026-10-24-001
+
+**Ruling:** Each reworked jutsu icon is a premium upgrade of its **original** icon: it keeps the people and the scene's identity, takes its colour palette from the original, and is rebuilt to read as an icon at thumbnail size (a clear silhouette, the figure large in the frame, a calm background, premium TNR pixel art). The visual design rules for size (45 px recognition, silhouette first, big and few shapes, dark simple background, one glow) still apply. Ethereal Rebirth is prepared next. The Tempest Cleave pilot (round 1 written from an older version without people) is open for the director to reconcile with this ruling.
+
+**Evidence:** User, 2026-10-24: "I've identified the middle ground. We keep the people but make it read well as an icon at thumbnail size. give each a clear silhouette and color palette based on the original. This way players get to see their favorite skills with a premium upgrade AND our icons read well at size. Let's prepare ethereal rebirth next"
+
+**Canonical destination:** `docs/design/icon_overhaul/ethereal_rebirth/PROJECT.md` (first project under this ruling); `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` (header note).
+
+## RUL-2026-10-24-004 — Jutsu text and icon show the same moment
+
+**Date:** 2026-10-24
+
+**Domain:** Jutsu text / art direction
+
+**Status:** ACTIVE
+
+**Supersedes:** none (adds to RUL-2026-10-24-003)
+
+**Ruling:** Reworked jutsu get premium text alongside their icon, and the two tie together: the battle line describes one key moment and the icon draws that moment; the description sums the jutsu up in the same images. Texts are drafted by Claude Code against the live effects and approved by the director; each jutsu's text and icon ship together in one suggestion. First pair: Tempest Cleave and Ethereal Rebirth (`docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md`).
+
+**Evidence:** User, 2026-10-24: "I want to look at upgrading both jutsu descriptions to be more premium, and I want our icons to show those descriptions in action. That should be the goal, they should clearly tie in to one another."
+
+**Canonical destination:** `docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md`; the Tempest Cleave and Ethereal Rebirth round-1 prompts.
+
+**Amendment 1 (2026-10-24), Ethereal Rebirth is non-elemental:** its damage has element `None`, so neither its text nor its icon may show elements; the approved fire, water and lightning text is withdrawn and rewritten (`docs/design/icon_overhaul/ethereal_rebirth/TEXT_V2.md`). Text and icon must match the jutsu's actual element. User: "Old one was misaligned, this is a non-elemental attack so using elements is a no-go. We will rewrite its descriptions as well".
+
+## RUL-2026-10-24-005 — Jutsu icons: no pixel conversion
+
+**Date:** 2026-10-24
+
+**Domain:** Art processing / jutsu icons
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-10-24-002 C1 (48–64 art pixels across) and C2 (build and use the snap-and-quantise tool) for jutsu icons
+
+**Ruling:** Approved jutsu icon raws are exported without pixel conversion: the raw is resized to 256 px and exported as lossless WebP, then checked with `artpreflight.py --type JUTSU_ICON`. The pixelsnap tool (`fable/pixel-art-snap`, frozen at b3382d71, never merged) is parked; it needs no review unless revived. Tested on Ethereal Rebirth round 1: snapping at 64, 96 or 128 art pixels across made the figure blocky and lost the face; at the full 256 grid it only reduced colours and flattened the face's shading; at 45 px every version looked the same.
+
+**Evidence:** User, 2026-10-24: "I think we shouldn't convert at all. Looks too blocky. Unless you can get higher definition out of it". Sheets: `docs/design/icon_overhaul/ethereal_rebirth/round1_grid_density.png`, `round1_hd_test.png`.
+
+**Canonical destination:** `docs/design/icon_overhaul/ethereal_rebirth/ROUND1_REVIEW.md`; the intake steps of the icon session prompts.
+
+## RUL-2026-10-24-006 — Battle assets must not be hidden (law 16c corrected)
+
+**Date:** 2026-10-24
+
+**Domain:** Engine laws / game assets
+
+**Status:** ACTIVE
+
+**Supersedes:** law 16c as written 2026-08-26 ("gameAsset hidden affects listing only, never rendering")
+
+**Ruling:** A hidden game asset does not play in battle. Every animation (and any other asset a battle uses) must end `hidden: false`. Creates still ship `hidden: true` (law 16b, enforced by lint L13 in Forge and validate.py), so each battle asset create is followed by an unhide edit with a literal `targetId`, built from the create's results bundle. Changing the gates so battle-asset creates may ship `hidden: false` directly would be Lane A tooling work and is not done here.
+
+**Evidence:** User, 2026-10-24: "You keep putting animations as hidden which as you would expect... hides them during combat. So they dont play. Stop doing that, I have to manually unhide them each time." Source: `app/src/server/api/routers/misc.ts:660` (`fetchGameAssets` filters `hidden = false`), called via `misc.getAllGameAssetNames` from `app/src/layout/Combat.tsx:316`; `combat.ts:2206` filters the same way.
+
+**Canonical destination:** `docs/ENGINE_LAWS.md` law 16c (corrected), with its hand-kept copies in `references/pipeline.md` (packs re-rendered), `producing-tnr-art/references/processing.md` and `12b_LAWS_coverage.md`; push/230 + push/232; push/226's generator.
+
+## RUL-2026-10-24-007 — The Forbidden Master: one masked character for every Forbidden jutsu
+
+**Date:** 2026-10-24
+
+**Domain:** Art direction / jutsu icons / recurring characters
+
+**Status:** ACTIVE (the character's design is open until the director approves a model sheet)
+
+**Supersedes:** for jutsu of type FORBIDDEN only, RUL-2026-10-24-003's "keeps the people" of the original icon (the
+Forbidden Master replaces each original's figure; palette and the moment still come from the original and the text,
+RUL-2026-10-24-004). Pauses the Ethereal Rebirth round-4 icon prompt, which kept the white-haired warrior.
+
+**Ruling:**
+1. Our recurring characters wear **silhouetted ninja masks at all times**: the mask is the silhouette (it replaces the
+   Weapon Master's shadowed void face with glowing eyes).
+2. One character, the **Forbidden Master**, is used for **every Forbidden jutsu render**: intimidating, imposing, a
+   talented and dangerous practitioner wielding top-tier forbidden arts.
+3. **Identity reference:** the Tempest Cleave original's masked fighter (fox mask, dark segmented armour, white scarf,
+   glowing eyes). **Rendering goal:** the Weapon Master renders. Same type of character as the Weapon Master, but masked.
+4. The design is fixed by a model sheet the director approves before any Forbidden jutsu icon is drawn with it.
+
+**Evidence:** User, 2026-10-24: "I want our characters to wear silhouetted ninja masks at all times. I want to define this
+character as the forbidden jutsu master and the one we use for all forbidden jutsu renders. They need to be intimidating
+and imposing, as they will be using all the top of the line forbidden level skills. Need to look like a talented and
+dangerous practitioner. The tempest Cleave subject is the identity reference and the weapon Master is the rendering goal.
+We want the same type of character but with a mask instead of a silhouette face. The mask is the silhouette now. Let's
+make our forbidden master"
+
+**Canonical destination:** `docs/design/characters/FORBIDDEN_MASTER.md` (character brief); references in
+`art/characters/forbidden_master/refs/`; model-sheet prompt `docs/handoffs/FORBIDDEN_MASTER_MODEL_SHEET_SESSION_PROMPT.md`.
+
+## RUL-2026-10-24-008 — Skyglass Wreck: access, availability, difficulty, placement
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass Wreck dungeon
+
+**Status:** ACTIVE (floor roster to be confirmed by a hidden test run; exact sector and tile open)
+
+**Supersedes:** none (refines RUL-2026-10-23-003)
+
+**Ruling:**
+1. **Party of exactly three**, as the game requires (`DUNGEON_PARTY_SIZE`); no request for 1–3 support. Solo players reach the hunts through traded maps.
+2. **Permanent**: no event window (`expiresAt: null`).
+3. **Two waves per floor**, the roster in `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §3, tuned by a test run while hidden. Enemies do not scale to the party and the ten crew AIs already sit at the JONIN caps, so enemy count and waves are the only difficulty levers.
+4. **Placement: a sector near Wake Island** (222). PvP can no longer be switched off there (director, 2026-10-24); the earlier note offering that is withdrawn.
+
+**Evidence:** User, 2026-10-24: "Accept 3-only", "Permanent", "Two waves per floor", "We'll put it in a sector near Wake Island. Pvp can't be turned off there anymore btw".
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §3.
+
+## RUL-2026-10-24-009 — Skyglass Wreck payout split, chest trade, map rates and names
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass Wreck rewards
+
+**Status:** ACTIVE. Map rates, split, chest trade and map names are ruled. The other chest lines and the completion amounts are the presented proposal, not objected to; they stay tunable until the content manifest is reviewed.
+
+**Supersedes:** the Skyglass Signal Beacon's "10% per Ghost Ship clear" source (RUL-2026-10-16-010) for the Silent Bastion's map, which now drops from the chest at 6%.
+
+**Ruling:**
+1. **Split payout:** exp, tokens and prestige on completion to each player; ryo and items in the chest.
+2. **The chest is not tradable.** One per player per clear.
+3. **Map lines in the chest:** Drowned Foundry **12%**, Quarantine Vault **6%**, Silent Bastion **6%**, Skyglass Expedition **3%**, each an independent line on top of the regular loot.
+4. **Map names:** "Chart of the …" (Chart of the Drowned Foundry, Chart of the Quarantine Vault, Chart of the Silent Bastion, Chart of the Skyglass Expedition).
+
+Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prestige; chest guaranteed 50,000 ryo and Skyglass Serum ×2; supplies, valuables, caches and a 1% Lion Token as in the design doc §4. Maps are OTHER items, tradable, stackable, consumed at hunt start; rarity Foundry RARE, Vault and Bastion EPIC, Expedition LEGENDARY.
+
+**Evidence:** User, 2026-10-24: "Split", "12 / 6 / 6 / 3", "Not tradable", "Chart of the …".
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §4.
+
+## RUL-2026-10-24-010 — Treasure hunts: Silent Bastion whole with its Beacon; Foundry losses retry; event-wide loot review
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass treasure hunts
+
+**Status:** ACTIVE. Hunt outlines for Foundry, Vault and Expedition are the presented proposals (design doc §6); rewards are under review.
+
+**Supersedes:** the "cut Bastion to one or two divisions" hunt format (RUL-2026-10-23-004, design doc §6) and the "Chart of the Silent Bastion" name (RUL-2026-10-24-009 item 4) for Bastion only.
+
+**Ruling:**
+1. **Silent Bastion ships whole**: the authored 99-node, 20-AI design on `claude/silent-bastion-authoring-69za5u@6271e1f` (RUL-2026-10-15-001, RUL-2026-10-16-*).
+2. **Its entry item stays the Skyglass Signal Beacon**, which takes the Bastion map line in the Skyglass Wreck chest (6%). The other three maps keep "Chart of the …".
+3. **Drowned Foundry:** a lost fight on the way down is retried (the Pyramid retry); greed costs time, never the haul.
+4. **Rewards for the whole event are reviewed together**, built on the game's weighted caches and reward packages; Bastion's Arsenal/Research ingredient caches are decided in that review.
+
+**Evidence:** User, 2026-10-24: "Keep it whole", "Keep the Beacon", "Retry, keep the haul", "We need to review loot tables and rewards for the entire event. There are reward packages and Caches in the game now."
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §6.
+
+## RUL-2026-10-24-011 — Event reward structure: hybrid chest, weighted caches, pick 1 of 4
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE (structure). Every line, tier weight, quantity and package content is a proposal under review (`docs/design/SKYGLASS_LOOT_TABLES.md`).
+
+**Supersedes:** the standard-only chest table (RUL-2026-10-24-009 presentation); Silent Bastion's Arsenal and Research ingredient caches (RUL-2026-10-16-001/-010) are dropped.
+
+**Ruling:**
+1. **The Wreck chest is a hybrid item**: a standard part (guaranteed ryo, the map and Beacon bonus lines, Lion Token) and a weighted part (two salvage rolls).
+2. **Medicine Inro, Shinobi Tool Pouch and Sage's Strongbox are weighted caches of finished items.**
+3. **Every hunt's completion is a pick of 1 from 4 reward-package cards**: three universal hauls plus that hunt's own card.
+4. **Silent Bastion's ingredient caches are dropped**; its own card is a finished-item haul like the others.
+
+**Evidence:** User, 2026-10-24: "Hybrid", "1 of 4", "Drop them" (Bastion's ingredient caches), "Weighted".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-012 — Elemental Tool Pouches, cache-only salvage, War Caches dropped
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE (structure). Pouch contents, the salvage weights and every quantity stay proposals (`docs/design/SKYGLASS_LOOT_TABLES.md`). The hunt that offers the pouches is read as the Silent Bastion; confirm.
+
+**Supersedes:** the single Shinobi Tool Pouch and the "Shinobi's Haul" card (RUL-2026-10-24-011 item 3: picks are no longer a uniform 1 of 4); the supply and valuables salvage tiers in the chest; the five elemental War Caches as the source of elemental kunai.
+
+**Ruling:**
+1. **Five elemental Tool Pouches** (Katon, Wave, Ikazuchi, Stonefall, Zephyrfang), one element each plus shared tools. They **drop only from one hunt**, whose completion pick offers all five so each player takes their own element. Every other hunt's pick drops the Shinobi card.
+2. **The elemental War Caches are dropped**; the pouches replace them. Retirement mechanism and timing are the director's; no captured quest pays them.
+3. **The chest's salvage rolls give caches only** (Medicine Inro, Ornate Chest, Sage's Strongbox), which resolve into items when opened. The supply and valuables bundles leave the chest.
+
+**Evidence:** User, 2026-10-24: "Let's do 4. Then that specific hunt has a choice of 5 kunai pouches. We'll drop the elemental kunai Caches. And the shinobi tool pouches only drop from that hunt, so players can choose the one they want. Also, remove the excessive salvage drops from the initial Skyglass salvage cache. Allow the items it drops to resolve that, like medicine inro".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-013 — Sage's Strongbox and cache quantities
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE. Tier weights remain proposals; contents of uncaptured items (Solider Pill, Enemy Pill, Mona's Mermaid Song, Saki, Senbon Needles, Paper Bombs, Pill Pack) are confirmed by capture before the manifest.
+
+**Ruling:**
+1. **Cache stacks are ×10**, except **Pill Pack ×5** and jutsu scrolls ×1; this covers the Medicine Inro, Sage's Strongbox and the five elemental pouches.
+2. **Store-bought items sit in a cache's Common tier**, except Dr. Kim's Miracle Potion (Rare). Chakra Pill II and Stamina Pill II are Epic, Panacea Rare, Pill Pack Legendary. Energy Potion and Full Potion are not in the Inro.
+3. **Sage's Strongbox**: one roll; Common (shop) Dr. Kim Disaster Potion, Chakra Disrupting Needles; Epic Infernum, Bashōsen, Dr. Kim's Poison Potion; Legendary Pill Pack, Solider Pill, Enemy Pill, Mona's Mermaid Song; jackpot the two Forbidden Jutsu Scrolls.
+4. **Infernum and Bashōsen move from the pouches to the Strongbox.**
+
+**Evidence:** User, 2026-10-24: "Chakra Pill II and Stamina Pill II should be Epic. Panacea should be rate. Pill pack should be legendary."; "Store bought items should be in the common tier except for dr. Kims pink which should be rare"; "X10 for everything but pill pack which is x5."; "Forbidden scrolls", "Move to Strongbox", "1 roll", "Yes, ×10 everywhere".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3.
+
+**Amendment (2026-10-24):** Sage's Strongbox stacks follow its tiers: **Common ×20, Epic ×10, Legendary ×5, Forbidden ×1** (user: "Do x20 common, x10 epic, x5 legendary and x1 forbidden"). The Medicine Inro and pouches keep item 1's ×10 / Pill Pack ×5.
+
+**Amendment (2026-10-24):** each elemental pouch adds its element's kunai **×20 in Rare** and **×30 in Epic**, beside the ×10 guarantee and the ×10 Common entry (user: "Put a x20 roll in rare and a x30 roll in epic of the kunai for the kunai pouches").
+
+## RUL-2026-10-24-014 — Skyglass Coffer replaces the Ornate Chest; hunts lose unique drops; Armory Requisition
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE (structure). Coffer contents, ending payouts and quantities are proposals (`docs/design/SKYGLASS_LOOT_TABLES.md`).
+
+**Supersedes:** "Katana and Crown fragment are Expedition-only" (RUL-2026-10-23-004); the Expedition's bespoke ending lines; the Foundry and Vault signature cards and the Bastion's five pouch cards (RUL-2026-10-24-012 item 1, the 1-of-7 pick); the Ornate Chest's place in the event.
+
+**Ruling:**
+1. **Skyglass Coffer**, a new chest, **replaces the Ornate Chest** in the event and is the **only home of Skyglass loot**: Serum, Filament, Reliquary, Crown fragment, Crystal and the **Skyglass Katana**. It drops from the Wreck's salvage rolls and from hunt endings.
+2. **No hunt has unique drops.** Hunts pay ryo, exp and Coffers or caches by ending; they differ by mechanic. The Skyglass Expedition is converted to this system.
+3. **Every hunt's pick is 1 of 3: Medic's Haul, Sage's Haul, Skyglass Coffer.** The Silent Bastion swaps the Coffer for the **Armory Requisition**, a tradable token whose use starts a one-node Special quest ending in a pick of 1 of 5 elemental pouches (`noncombatquest` item effect; Special quests take no completion caps). Pouches stay Bastion-only.
+
+**Evidence:** User, 2026-10-24: "I think we should do away with the skyglass expedition having its own unique drops ... the silent Bastion shouldn't have 7 choices ... I think we should make a new chest instead of the ornate chest"; then "In the Coffer", "Requisition token", "Same three everywhere", "Skyglass Coffer".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-015 — No salvage chest; Wreck clear rolls drops directly; Coffer holds no Reliquary; rebalance
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE (structure). The rebalanced rates on `docs/design/SKYGLASS_LOOT_TABLES.md` are a proposal; the map rates of RUL-2026-10-24-009 stand.
+
+**Supersedes:** the Wreck chest (RUL-2026-10-23-003 "exactly one treasure chest", RUL-2026-10-24-009 items 2 and the chest table, RUL-2026-10-24-011 item 1, RUL-2026-10-24-012 item 3); the Skyglass Reliquary as Coffer content (RUL-2026-10-24-014 item 1).
+
+**Ruling:**
+1. **No salvage chest.** A Wreck clear pays its rolls directly as dungeon completion drops, each rolled by every member: ryo on completion, caches, maps and the Beacon as independent drop lines.
+2. **The Skyglass Coffer does not contain the Skyglass Reliquary**: a chest that yields a chest defeats the purpose.
+3. **Rates were too rewarding**: everything is rebalanced down (proposal on the loot tables page).
+
+**Evidence:** User, 2026-10-24: "Your drop rates are too rewarding and not balanced in some cases. The salvage chest can be done away with, just give players the rolls for clearing the dungeon. Skyglass Coffer giving Skyglass Reliquary defeats the purpose."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-016 — Ryo and exp paid only on completion
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE. The balance pass that accompanies it is a proposal for review. Where a hunt's endings paid different amounts (Foundry 25k/50k/100k, Expedition 25k–75k), the top ending's amount was carried to completion.
+
+**Supersedes:** ryo and exp on hunt endings; the Coffer's guaranteed ryo; an earlier request about per-ending picks (withdrawn: "it's fine").
+
+**Ruling:** **Ryo and exp are paid only on completion**: removed from every other node, amounts not otherwise adjusted. Hunt endings pay items only.
+
+**Engine note:** in a `choose` quest, completion ryo and exp become pick cards of their own (`buildRewardChoiceCards`), so a fixed completion payout is carried inside each pick card (a reward package per card); every player receives it whatever they pick. The choose offer is built only from the quest-level reward, so per-ending picks would need a token per ending (Requisition pattern).
+
+**Evidence:** User, 2026-10-24: "OK, you know what, it's fine. Do one more balance pass of the drop rates and show them to me for review. Exp and ryo only paid on completion, just remove the rewards from the other nodes and dont adjust numbers".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-017 — One reward ladder for every hunt ending
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE.
+
+**Supersedes:** the per-ending cache assignments of RUL-2026-10-24-016's balance pass.
+
+**Ruling:** Every ending in every hunt pays from one six-step ladder, chosen by its **final opponent and gating**; a higher step always pays more and no two Expedition endings pay the same.
+
+| Step | Pays | Endings |
+|---|---|---|
+| I | Medicine Inro | Expedition w_B1 accessible hold; Foundry leave after fight 1 |
+| II | Medicine Inro + Sage's Strongbox 50% | Expedition w_A buried shore cache |
+| III | Sage's Strongbox | Expedition w_B2 restricted vault; Foundry leave after fight 2; Vault alarm tripped |
+| IV | Sage's Strongbox + Skyglass Coffer 50% | Expedition w_C direct Captain |
+| V | Skyglass Coffer + Sage's Strongbox | Expedition w_secret (Sealwright); Foundry Warden; Vault clean run |
+| VI | Skyglass Coffer ×2 | Expedition w_Co (Crowned Captain); Silent Bastion (Arakane) |
+
+**Evidence:** User, 2026-10-24: "Endings in the Skyglass Expedition having the same drops defeats the purpose of them. Accessible crates is a quick finish compared to the buried cache yet they pay the same. The sealwright fight and direct captain fight having the same drops defeats the purpose of them."; then "Yes, apply that ladder." Route data from the push/98 capture: every regular Expedition route is 3 fights; w_secret and w_Co are 2 fights behind a puzzle.
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4.
+
+## RUL-2026-10-24-018 — Exp ladder 1,000 to 5,000; pouch swap; packages from the catalog
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE. The Wreck clear's exp step is read as the cap (its boss is the Crowned Captain); confirm.
+
+**Supersedes:** hunt exp on completion and the Wreck clear's 15,000 exp (RUL-2026-10-24-009 / -016); exp moves onto the ending ladder (RUL-2026-10-24-017), so exp varies by ending; ryo stays on completion inside the pick cards.
+
+**Ruling:**
+1. **Exp is capped at 5,000 with 1,000 the low end.** Ladder steps pay I 1,000, II 2,000, III 3,000, IV 4,000, V 5,000, VI 5,000 exp. A Wreck clear pays 5,000 exp. Ryo, tokens and prestige are not changed by this ruling.
+2. **Elemental pouches:** Venom Cask moves to Common and Elite Smoke Bomb to Rare.
+3. **Ending rewards use the game's existing reward packages where they fit**, new ones proposed only for gaps. The director supplies the catalog from Manual → Rewards; `rewardPackages.getCatalog` is not in Forge's audited procedures.
+
+**Evidence:** User, 2026-10-24: "Swap venom cask and smoke bomb in shinobi tool pouch."; "There are reward packages already made we can use for the ending rewards. Lets examine and use those, or perhaps propose our own. The reward amounts are a bit excessive. 5,000 should be the cap. 1,000 being the low end. 1/2/3/4/5000 should be the ladder."; then "Hunt and Wreck exp", "VI also pays 5,000", "I'll paste or screenshot".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-019 — Reward amounts are set by the director in game; content design begins
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards and content
+
+**Status:** ACTIVE.
+
+**Ruling:** The director sets the reward amounts himself in the in-game editor from the game's reward-package catalog (content-type × rank packages such as S-Rank Dungeons Level 100 and S-Rank Battle Pyramid Level 100). `docs/design/SKYGLASS_LOOT_TABLES.md` is the map of where each reward goes (ladder steps, pick cards, caches, drops); its currency figures are guidance, not values to enforce. Manifests leave currency fields to the director unless he supplies values. Work moves to content design.
+
+**Evidence:** User, 2026-10-24 (with screenshots of the Manual → Rewards catalog): "Tell you what, I'll set the rewards myself since its so easy to do. You've got them mapped out. Now we need to design the content".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` (status line) and this ruling.
+
+## RUL-2026-10-24-020 — The Skyglass Expedition is dropped; its content is borrowed by the hunts
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass content
+
+**Status:** ACTIVE.
+
+**Supersedes:** the Skyglass Expedition hunt and its Chart (RUL-2026-10-23-004 slate, RUL-2026-10-24-009 3% map line, RUL-2026-10-24-017 Expedition ladder rows); the Archivist as the Vault's boss.
+
+**Ruling:**
+1. **No Skyglass Expedition hunt.** The original 83-node quest is not rebuilt; its scenes, dialog, puzzles and AIs are borrowed.
+2. **The Quarantine Vault becomes "The Quarantined Archive"**, borrowing the Expedition's secret route (Lower Hull, Core Horror, Reconstruction Chamber seal puzzle, Quarantined Archive records) with the **Sealwright** as its boss; two more seals reuse the Oathkeeper's time riddle and the Wayfinder's charts.
+3. **The Drowned Foundry moves aboard the wreck** (the keel works), borrowing the Exterior Keel Walk, Lower Hull and Hold scenes; the Foundry Warden stays its one new boss.
+4. **The Skyglass Wreck** borrows the crew, the lore (in its description) and the Crowned Captain; a dungeon shows no scenes or dialog.
+5. **At least one more hunt** is designed from the remaining assets (Deck, Chart Room, Helm, Command Observation Gallery, Cache Site, the Captain and Oathkeeper portraits).
+
+**Evidence:** User, 2026-10-24: "Why dont we forego the skyglass expedition. The hunt structure of these is better. Let's just borrow what content we need. The skyglass wreck dungeon can use some of the scenes and dialog/art perhaps?"; then "This works. And we can design at least 1 more hunt with the assets remaining".
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §6.
+
+## RUL-2026-10-24-021 — The Captain's Watch; final map lines
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass content and rewards
+
+**Status:** ACTIVE.
+
+**Supersedes:** the map lines of RUL-2026-10-24-009 item 3 (Expedition and Vault charts, Beacon 6%).
+
+**Ruling:**
+1. **The Captain's Watch** is the third designed hunt: Chart Room, Deck, Helm and Command Observation Gallery, landing at the Cache Site; fights Wayfinder, First Blade, The Captain; the Oathkeeper as keeper of the wager. **Wager ladder:** before each fight the player may accept a term (start that fight with a debuff); no terms pays step IV, one or two step V, all three step VI. A lost fight is retried with the same terms.
+2. **Wreck clear map lines:** Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Skyglass Signal Beacon **3%**.
+
+**Evidence:** User, 2026-10-24: "This works. And we can design at least 1 more hunt with the assets remaining"; then, on the Watch proposal with Watch 3% / Beacon 6%: "Swap watch and beacon".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`; hunt designs in `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §6.
+
+## RUL-2026-10-24-022 — Skyglass Wreck map structure art
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass art direction
+
+**Status:** ACTIVE.
+
+**Ruling:** The Skyglass Wreck dungeon entrance uses the **Beached wreck** structure sprite (concept 1): the ghost ship heeled over on a sand-and-rock spit with the cracked Skyglass Core half-buried beside the hull.
+
+**Evidence:** User, 2026-10-24, after the three-concept review sheet (Beached, Hovering, Rising): "Beached".
+
+**Canonical destination:** `art/ghost_ship_skyglass/structure/` (README, raw, export, hashes).
+
+## RUL-2026-10-24-023 — Skyglass Wreck entrance placement
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass content
+
+**Status:** ACTIVE.
+
+**Supersedes:** the candidate sectors (221, 223, 294) in RUL-2026-10-24-008's placement note.
+
+**Ruling:** The Skyglass Wreck dungeon entrance is at **sector 210, longitude 15, latitude 6**, using the "Skyglass Wreck" structure artwork at entrance size multiplier **5**, battle background **default**, no expiration, unpublished until release. Name "Skyglass Wreck"; description is the short version supplied 2026-10-24.
+
+**Evidence:** User, 2026-10-24, screenshot of the dungeon editor (preview, name, artwork, multiplier 5, sector 210, longitude 15, latitude 6): "This is the information needed to set the ships spawn location, size, etc for the dungeon entrance when making the manifest you'll need this."
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §3 Placement.
+
+## RUL-2026-10-24-024 — Old Ghost Ship chests become relics
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE.
+
+**Ruling:** The Skyglass Reliquary and every other old Ghost Ship chest are relics: no new content drops or references them. They are not edited, hidden or deleted, so unopened copies in player inventories still work.
+
+**Evidence:** User, 2026-10-24: "The skyglass reliquary and all the other old chests will just be relics. We won't use them anymore. But we'll leave them be in case players have unopened ones."
+
+**Clarification (2026-10-24):** the Mystery Chest is one of these retired chests; its drop lines (including 10% Reliquary) are left untouched. User: "Mystery chest drops dont matter its a retired item alongside skyglass reliquary."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` open items (Reliquary closed).
+
+## RUL-2026-10-24-025 — Skyglass Wreck: five floors, more waves
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass content
+
+**Status:** ACTIVE.
+
+**Supersedes:** the two-tier, ten-floor, two-waves-per-floor shape of RUL-2026-10-24-008.
+
+**Ruling:** The Skyglass Wreck is one tier of five floors (floor 5 the boss), with three to five waves per floor. Each floor's elite or boss arrives in its last wave; Seal Charges and Core Canisters never spawn without a real enemy in the same wave; wave delays are 0 between add waves and 1 before an elite or boss wave.
+
+**Evidence:** User, 2026-10-24: "Make sure we decide how many rounds between reinforcements. Also, enemies will probably need more health or we need to spawn bosses in last or something."; "Seal Charges and Core Cannisters shouldn't appear on their own. They are extra enemies/hazards, not threats on their own."; "Make it 5 floors but increase the number of waves instead".
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §3.
+
+## RUL-2026-10-24-026 — The Charts are maps of the wreck itself
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass lore and art direction
+
+**Status:** ACTIVE.
+
+**Ruling:** The three hunt Charts are charts of the Skyglass wreck's own interior, not maps of outside places. The ship's layout is always shifting, but charts of parts of its interior sometimes turn up: the keel and lower decks (Drowned Foundry), a sealed chamber amidships (Quarantined Archive) and the upper command decks (Captain's Watch). Chart icons show a side-on plan of the ship with that section picked out in skyglass ink; item descriptions follow.
+
+**Evidence:** User, 2026-10-24: "Have decided to make the charts like maps of the wreck itself. The ships layout is always changing but sometimes charts mapping its interior can be found."
+
+**Canonical destination:** `docs/handoffs/SKYGLASS_EVENT_ITEM_ICONS_ART_REQUEST.md` §7-9; descriptions in push/254 (on hold).
+
+## RUL-2026-10-25-001 — Forge suggest mode may send new records (Lane A approved)
+
+**Date:** 2026-10-25
+
+**Domain:** Forge / content review
+
+**Status:** ACTIVE.
+
+**Ruling:** Forge's suggest mode is extended to send new records to the game's review desk as CREATE suggestions (the desk already accepts `entityId: null`). AI creates and quests stay refused, and a suggested create that another item in the same manifest references is refused. Built on `fable/forge-suggest-create` under Lane A with independent review. push/254 (the Skyglass event items) goes in as suggestions once this ships.
+
+**Evidence:** User, 2026-10-25, choosing between creating hidden then releasing by suggestion, or adding new-record suggestions to Forge: "2".
+
+**Canonical destination:** `state/prompt_forge_suggest_create.md`; implementation on `fable/forge-suggest-create`.
+
+## RUL-2026-10-25-002 — Headless Rider is level 110; quest maxLevel 110 stands
+
+**Date:** 2026-10-25
+
+**Domain:** Halloween / Headless Rider Horror! (`0lNDtE_VYJOCy8JZQI_sI`)
+
+**Status:** ACTIVE.
+
+**Ruling:** The Headless Rider boss is level 110, fought in a new `start_battle` before the quest's `win_quest`. Upstream raised the player level cap: `MAX_PLAYER_LEVEL = 110` and quest `maxLevel` is bounded by it (TheNinjaRPG `f381b7f`, `app/drizzle/constants.ts:203`, `app/src/validators/objectives.ts:905`), and only `ELITE JONIN` carries `LVL_CAP: MAX_PLAYER_LEVEL` with the max stat caps, so the rider is written at that rank. The live quest already holds `maxLevel: 110`. validate.py law 8 (cap 100) is stale against that source; push/256 runs under the recorded exception `state/headless_rider_battle_validate_exception.json` until the pinned contracts are re-extracted.
+
+**Evidence:** User, 2026-10-25: "Level 110. We'll need to make the rider, his rules and the battle node." Capture `harvests/inbox/tnr_results_1792954275867.json`.
+
+**Canonical destination:** `push/256_headless_rider_battle.json`.
+
+## RUL-2026-10-25-002 — Skyglass reward restructure: one home per item, a pick per hunt
+
+**Date:** 2026-10-25
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE (structure). Quantities, currency amounts, the badge and the jutsu are open.
+
+**Supersedes:** the shared hunt pick (Medic's Haul / Sage's Haul / Coffer) and the Armory Requisition of RUL-2026-10-24-014; the caches on the reward ladder (RUL-2026-10-24-017, the exp ladder itself stays); the Wreck's Inro, Strongbox, Coffer and Lion Token drop lines (RUL-2026-10-24-015/-021, map lines unchanged).
+
+**Ruling:**
+1. **One home per item.** A reward appears in more than one source only as the same container. Skyglass items come only from the Skyglass Coffer, which becomes pure Skyglass (its jewels, gold and unobtanium move to the Crew Footlocker). Pill Pack leaves the Strongbox; Chakra Disrupting Needles leave the Tool Pouches.
+2. **Wreck:** currency package, the four map lines, and the **Crew Footlocker at 3%**.
+3. **Crew Footlocker** (new, premium valuables: Rare Jewels / Imperial Gold / Unobtanium) drops at **3%** on the Wreck clear and on every hunt ending.
+4. **Each hunt is an isolated Battle Pyramid with its own completion pick:** Foundry - the five Tool Pouches; Archive - **Archive Chart Case** (new; one roll: Foundry 60 / Archive 25 / Watch 12 / Beacon 3), Sage's Strongbox, The Records (exp); Captain's Watch - Skyglass Coffer, Captain's Purse (ryo), Medicine Inro; Silent Bastion - Skyglass Coffer ×2, Bastion's Honor (village tokens), a **Bastion badge** and a **Bastion jutsu** (take-once picks, so two clears are needed for both).
+5. Hunt endings pay the exp ladder, currency and the Footlocker chance; no caches.
+6. **Shelved:** the Armory Requisition and its Special quest; the Lion Token.
+
+**Evidence:** User, 2026-10-25: "the wreck should have generic rewards and then the chance to drop the treasure maps ... each hunt is an isolated battle pyramid with the choose nodes"; "reward overlap ... a lot of Skyglass items outside the Skyglass Coffer"; "the footlocker ... a rare drop only on completion of the Wreck or any hunt. Lets say 3% chance"; "adding a chest that drops from the archives that can roll the charts ... move medicine inro to Bastion and drop the lions tokens"; "drop captains commendation for medicine inro"; "We'll keep your weights"; "Let's do both the badge and the jutsu ... repeat runs can net them skyglass coffers or the bastion honor node".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-25-003 — The premium valuables chest is the Sealed Treasury
+
+**Date:** 2026-10-25
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE.
+
+**Ruling:** The 3% premium chest of RUL-2026-10-25-002 (Rare Jewels / Imperial Gold / Unobtanium) is named **Sealed Treasury** (was "Crew Footlocker").
+
+**Evidence:** User, 2026-10-25: "Crew Footlocker is a pretty lackluster name for a rare drop with even rarer items"; then, from the proposed names: "Sealed Treasury".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-25-004 — Skyglass balance pass
+
+**Date:** 2026-10-25
+
+**Domain:** Ghost Ship / Skyglass rewards and hunts
+
+**Status:** ACTIVE.
+
+**Supersedes:** the Coffer's Legendary tier (Katana or Crystal, 1%) and the Treasury's flat 3% on hunt endings (RUL-2026-10-25-002 items 1 and 3); the Drowned Foundry's leave-early endings (hunt content draft).
+
+**Ruling:**
+1. **Drowned Foundry** is always fought to the Foundry Warden: the two leave-early endings are removed (they paid the same completion pick as a full clear). Ladder step V.
+2. **Skyglass Coffer Legendary tier is the Skyglass Katana alone at 2%** (Common drops to 69). The Skyglass Crystal leaves the Coffer and comes only from crafting 12 Filaments, which the director confirms is live.
+3. The Sealwright's doubled health (push/252) also makes the Quarantined Archive's solo final fight harder; **accepted**.
+4. **Sealed Treasury on hunt endings scales with the ladder: 1% per step** (I 1% … VI 6%), on every hunt's endings. The Wreck clear stays 3%.
+5. **Captain's Watch pick: Medicine Inro ×3.** Bastion's Honor's token amount must be large enough to compete with Coffer ×2 (director sets it).
+6. **Sealed Treasury contents:** **100,000 ryo** every opening (standard reward effect) plus one weighted roll: Rare Jewels ×10 (70) / Imperial Gold ×5 (24) / Unobtanium ×5 (6).
+
+**Open:** the `battlepyramid` lifetime attempt cap (at most 100 runs per player per hunt): accept, switch hunts to special quests, or ask the game owner.
+
+**Evidence:** User, 2026-10-25, on the final review: "1. Approved. 2. Approved. 3. Accept the harder archive 4. Approved. Do this for all scaling endings. 1% drop rate of the treasury per stage on completion. 5. Approved and noted. 6. Approved. Add 100,000 ryo to the chest as well. Filament crafting is live and works."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`; `docs/design/SKYGLASS_HUNTS_CONTENT.md` (Foundry).
+
+## RUL-2026-10-25-005 — The pinnacle hunt is Crownhold; its key is the Lastlight
+
+**Date:** 2026-10-25
+
+**Domain:** Ghost Ship / Skyglass lore and naming
+
+**Status:** ACTIVE.
+
+**Supersedes:** the names "Silent Bastion" (the hunt) and "Skyglass Signal Beacon" (its entry item) everywhere in the event; the item's icon is unchanged.
+
+**Ruling:** The pinnacle hunt is **Crownhold**: the fortress the Skyglass Project was commanded from, seat of the Crown, source of the last directive the ship still obeys; Supreme Commander Arakane holds it. Its entry item is the **Lastlight**: Crownhold's final signal caught in a skyglass lantern, still burning with that order; following it leads home to Crownhold. Story: Crownhold went dark, but its Lastlight kept burning, and the wreck's afterimages still obey it. Derived names: Crownhold's Honor (village-token pick), Crownhold badge, Crownhold jutsu.
+
+**Evidence:** User, 2026-10-25: "Need a better name for Silent Bastion"; "I want to be short, on theme and really pop"; "Crownhold and Lastlight are good... any way we can tie the theme of the entire thing into the name and the item that unlocks it?"; then "Perfect. Approved both renames".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`, `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md`; item name and draft description in push/254 (on hold).
+
+## RUL-2026-10-25-006 — Lastlight, the Crownhold jutsu
+
+**Date:** 2026-10-25
+
+**Domain:** Ghost Ship / Skyglass rewards; jutsu
+
+**Status:** ACTIVE (spec). Costs and art open.
+
+**Ruling:** Crownhold's take-once jutsu pick is **Lastlight**: an EVENT jutsu, **PvE only** (`battleUsageType: PVE`), no element, line attack (AOE_LINE_SHOOT), cooldown **8**. Effects scale **0.4 per level** and start 10 below their targets so they reach them at level 25: damage 40 (→50), wound 20 (→30%) for **2 rounds**, decreaseheal 30 (→40%) for **3 rounds**.
+
+**Evidence:** User, 2026-10-25: "I like it as Lastlight, a line nuke that does 50 damage, 30% wound and 40% heal cut. PvE only though. Dont wanna upset the balance of PvP"; then "Cooldown 8, wound 2 rounds, heal cut 3 rounds, element none, jutsu type event. Scaling will be .4 per level so we need to take 10 off every value so that it can scale to the proposed values at max level."
+
+**Canonical destination:** `docs/design/CROWNHOLD_LASTLIGHT_JUTSU.md`.

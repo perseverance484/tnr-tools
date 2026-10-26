@@ -22,6 +22,8 @@
 
 ## Tempest Cleave (`Ul83iTziN__Z0i_UOzZTK`)
 
+> **Superseded 2026-10-24** by the premium text in `docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md` (approved; ships with the new icon, RUL-2026-10-24-004).
+
 **Description:** A spinning storm of razor wind that carves through everything around the user, friend and foe alike. Its cuts keep singing long after it fades.  *(+ training warning)*
 
 **Battle line:** %user plants their feet and turns once, and the air itself becomes a blade. A storm of razor wind erupts outward in a howling ring, carving through everything within its reach, for the tempest knows no allegiance. Those caught in it are left with wounds that will not close, each cut still singing with the wind long after the gale has passed. In its wake, even the hardiest guard lies in ribbons.
@@ -85,6 +87,8 @@
 *Effects:* damage; user lifesteal 3 rounds; user takes more damage 2 rounds (cost).
 
 ## Ethereal Rebirth (FORBIDDEN) (`K0t6Z-Q4lau1jFt8Tkpot`)
+
+> **Superseded 2026-10-24** by the premium text in `docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md` (approved; ships with the new icon, RUL-2026-10-24-004).
 
 **Description:** A forbidden art that breaks the seal upon the user's soul and burns them anew in green flame, turning every wound into new life at the cost of their strength.  *(+ training warning)*
 

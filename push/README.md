@@ -613,10 +613,356 @@ Kellan Flint's AI profile before his rules. Everything else on each record is re
 Held for a director decision: the approved "Bukijutsu" preference. `preferredStat` no longer exists (stat rework); the
 nearest lever is `bukijutsuMastery`, an absolute number (all six sit at the floor, 10).
 
-## 224 Jutsu upgrade batch 1 capture: READY TO RUN
+## 224 Jutsu upgrade batch 1 capture: SUPERSEDED, archived unrun
+
+Batch 1 paused (icon revert; reworks restart one jutsu at a time). Its AI reads moved to push/228.
+
 
 Read-only: `jutsu.get` for the ten batch-1 jutsu (Chakra Overflow, Summoning: Titanoboa, Crimson Vein, Abyssal Wraith,
 Clone Technique, Faint Shadow, Body Flicker, Terra Shift, Crescent Strike, Rotting Bite) and `profile.getAi` for the 26
 live AIs no committed bundle has read, to finish the AI-equip check (laws 18, 60). 36 reads, zero writes. Batch plan:
 `docs/design/jutsu_overhaul/PRIORITY_TARGETS_2026-10-23.md`; text drafts `docs/design/jutsu_overhaul/BATCH1_TEXT_DRAFTS.md`;
 art request `docs/handoffs/JUTSU_BATCH1_ICONS_ART_REQUEST.md`.
+
+## 225 Chakra Overflow icon, animation and text: ON HOLD (icon revert, 2026-10-23)
+
+**Held:** the director reverted all new jutsu icons (push/227) and will restart the reworks one jutsu at a time. The built manifest
+was removed from `push/`; `push/225_chakra_overflow.gen.py` stays. As built before the hold:
+
+
+One suggestion for Chakra Overflow (`e2eC-x4UXc5m6QexNbx8w`, the most-used jutsu in the game), built by
+`push/225_chakra_overflow.gen.py harvests/inbox/tnr_results_1792774742796.json`:
+
+- **icon:** "the rising star", `art/jutsu_icons/chakra_overflow/exports/icon_jutsu_chakra_overflow_v1.webp` (image pack at `6e21f95`);
+- **animation:** the `visual` effect's `appearAnimation` → `D6edS-Ym0SNLWhULycuWb` (the asset push/226 created and now updates
+  with the crown strip), `disappearAnimation` cleared (nothing plays when the buff ends); the old stock violet animation
+  `QgsljoZSCOKhdQxCIGnTU` stays on the six other jutsu that share it. The live effects array is re-sent with only those two
+  fields changed (public re-read 2026-10-23 confirmed it unchanged since the morning read);
+- **text:** premium description and battle line from `docs/design/chakra_overflow/CHAKRA_OVERFLOW_TEXT.md`;
+- `injectableInBattle: true` re-sent (law 20).
+
+Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py --strict` 0 errors, 0 warnings. **Order:** push/226 (asset
+overwrite), then push/224 (read-only AI check for the 26 unread AIs; suggest mode allows no captures), then this.
+
+## 226 Chakra Overflow cast animation: first run done; update ON HOLD (icon revert, 2026-10-23)
+
+**Held** with push/225. The asset `D6edS-Ym0SNLWhULycuWb` exists (first run) but nothing points at it. The built update was
+removed from `push/`; the generator stays.
+
+
+**First run** (bundle `harvests/inbox/tnr_results_1792774742796.json`, 2026-10-23 16:59Z): created the `ANIMATION` asset
+"Chakra Overflow - Rising Star" as **`D6edS-Ym0SNLWhULycuWb`** with the earlier, centered strip (used for the director's
+battle recording). **Now** (director: overwrite it): `push/226_chakra_overflow_animation.json` is an edit of that same id that
+replaces its image with the crown-layout strip (wings framing the character, star on top of the head), uploaded under a fresh
+filename `anim_chakra_overflow_crown_v2.webp` (law 32). 48 frames at speed 54 (2.6 s), 344,630 bytes; frames and speed
+unchanged. Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py --strict` 0 errors, 0 warnings. Then push/225 is
+rebuilt from the first-run bundle (`python3 push/225_chakra_overflow.gen.py harvests/inbox/tnr_results_1792774742796.json`;
+the id does not change) and push/224 and push/225 run.
+
+## 227 Revert our new jutsu icons: RUN, archived
+
+Bundle `harvests/inbox/tnr_results_1792779000657.json` (Forge 0.8.1): DONE, 51/51 VERIFIED (postflight 51 match); the read-back
+shows every one of the 51 images equal to its recorded original. Manifest archived under `archive/spent-manifests/push-2026-10-22/`.
+As built:
+
+
+**Revised (director, 2026-10-23): "We dont revert Tenryuseigan or ethereal monarch"** — the 8 Ethereal Monarch jutsu (Celestial Bind,
+Dragon Eye Awakening, Heavenly Barrier, Skyfang Burst, Storm Dragons Halo, the two "Tenryūseigan:" copies, Void Gaze Rift) are
+excluded, so the manifest now edits **51** jutsu (the counts below describe the original 59-jutsu scan).
+
+Director (2026-10-23): "Lets revert all our new icons. Players dont like them. We'll have to start over and go slower. One
+icon at a time, a full premium rework for the entire jutsu." and "We're not unequipping and re adding. Just changing the
+updated and originals back." 59 jutsu get their **original image** back; each edit sends only `image` plus
+`injectableInBattle` at its live value (law 20). Direct edit. Built by `push/227_revert_jutsu_icons.gen.py` from
+`state/jutsu_icon_revert/revert_2026-10-23.json`:
+
+- **Which jutsu:** every jutsu whose live image (public read, 2026-10-23) is ours: 49 found as URLs Forge uploaded, 10 more found
+  by an exact match against our art files (Blue Blade Eyes: Arctic Frost, Blade Resonance, Blue Crimson, Glacial Volley, Ice
+  Shackles, Icebound Might, Quintessential Flake, Sapphire Command; and Skyfang Burst, Celestial Bind, uploaded by hand). Covers
+  the event 10, the starter icons that went live, Aerathiel, Bakuhatsu, Vaporia, BEE, Crystal Essence, Tenryūseigan / Ethereal
+  Monarch and Blue Blade Eyes.
+- **Original:** the earliest captured image that is not ours; all 59 URLs load (checked 2026-10-23).
+- **Not included:** jutsu whose new icon never went live (Sonic Slash, Water's Domain and the other overhaul jutsu), item icons
+  (the scrolls and the jewel), and changes made by other staff.
+- **AI links (law 18):** no unequip/re-equip, per the director. Editing Arctic Frost, Prism and Earthen Bastion severs the combat
+  link of ANBU Coordinator, Frost Warden, Frost Sovereign, Mermaid Jade, " Jade" and War Commander (2026-10-21 census); re-save
+  those AIs afterwards.
+
+Ends with a `jutsu.get` read-back of all 59. Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py --strict` 0 errors,
+0 warnings.
+
+## 228 AI link repair capture: RUN, archived
+
+Bundle `harvests/inbox/tnr_results_1792779130784.json`: 32/32 ok. Eight AIs hold a jutsu push/227 edited, all at level 1 with 0
+experience: the six from the census plus two no bundle had read (New AI - 4BtEg_Y_S6feRX2t0Hk5p: Replacement Technique; Stray
+Catcher: Scorch Break, Drowning Strike, Liquid Ember Shell, Surfing Strike, Azure Dragon Palm). Manifest archived under
+`archive/spent-manifests/push-2026-10-22/`. As built:
+
+
+Read-only `profile.getAi` (persist full) for 32 AIs: the 6 the 2026-10-21 census shows holding a jutsu push/227 edited (War
+Commander: Earthen Bastion; Mermaid Jade and " Jade": Prism; ANBU Coordinator, Frost Warden, Frost Sovereign: Arctic Frost) and the
+26 live AIs no bundle has read. Editing an equipped jutsu severed those links (law 18); the repair is unequip in one run, then
+re-equip in a later run (law 60), and both are built from this capture's kits so nothing else in a kit changes.
+
+## 229 AI link repair (unequip, then re-equip): READY TO RUN
+
+Director (2026-10-23): "Just do unequip and then reequip as one manifest. So long as they're done one after the other its fine."
+One manifest, 16 AI edits run in order: items 1-8 unequip the severed jutsu from each AI (law 60), items 9-16 put back each AI's
+**full original kit in its original order**, then a `profile.getAi` read-back of all 8. Built by
+`push/229_ai_link_repair.gen.py harvests/inbox/tnr_results_1792779130784.json` from push/228's kits, so nothing else in a kit
+changes; the generator refuses any cycled row not at level 1 / 0 experience (nothing is lost by re-adding).
+
+| AI | Jutsu cycled |
+|---|---|
+| War Commander | Earthen Bastion |
+| Mermaid Jade, " Jade" | Prism |
+| ANBU Coordinator, Frost Warden, Frost Sovereign | Arctic Frost |
+| New AI - 4BtEg_Y_S6feRX2t0Hk5p | Replacement Technique (kit is empty between the two steps) |
+| Stray Catcher | Scorch Break, Drowning Strike, Liquid Ember Shell, Surfing Strike, Azure Dragon Palm (kit is empty between the two steps) |
+
+Gates: `check_manifest.mjs` 0 pre-send problems. `validate.py --strict` reports 1 error, a known false positive: Replacement
+Technique's live id `clh4d6pok0002tb0hx1bxro6l` is a legacy 25-character id, and validate.py only accepts 21-character ids. The
+id is copied from the AI's live kit in push/228. Allowing legacy ids in validate.py is tooling work (Lane A), not done here.
+
+
+## 230 Ethereal Rebirth cast animation asset: RUN, archived
+
+Bundle `harvests/inbox/tnr_results_1792861563123.json`: success, 1/1 VERIFIED (9 fields match); asset id
+`HwkXTjErL_Laxs8WtqBiI` (created hidden; push/232 unhides it). Manifest archived under
+`archive/spent-manifests/push-2026-10-22/`. As built:
+
+
+Direct create of the ANIMATION asset "Ethereal Rebirth - Soul Ribbons" (created hidden as the gates require, then
+unhidden by push/232 so it plays in battle; folder `jutsuanimations`, 40 frames x 60
+ms = 2.4 s, 302,386 bytes): gold and blue soul-light ribbons pour out of the user's chest, wrap around their avatar, one
+lashes out, and they dissolve into flecks. Director: "Looks pretty good" (2026-10-24). Art and build:
+`docs/handoffs/ETHEREAL_REBIRTH_ANIMATION_ART_REQUEST.md`, `docs/design/ethereal_rebirth_animation/V1_NOTES.md`. Built by
+`push/230_ethereal_rebirth_animation.gen.py`; the strip is pinned by SHA-256 at the commit that built it. The jutsu is not
+touched; push/231 follows. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+Artpreflight ANIMATION flags `soft_edges` (72.6%), the known gap for glow effects (as on Chakra Overflow).
+
+## 232 Ethereal Rebirth animation unhide: SUPERSEDED by push/233, archived unrun
+
+Battles load only unhidden assets, so the push/230 animation must be unhidden before it can play (law 16c, corrected
+2026-10-24, RUL-2026-10-24-006). `python3 push/232_ethereal_rebirth_animation_unhide.gen.py <push/230 results bundle>`
+writes a direct edit of `HwkXTjErL_Laxs8WtqBiI` with `hidden: false` (the image is not re-sent; Forge merges the live
+record, so it stays). Built from the push/230 bundle. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems. **Run 232 first, then 231.**
+
+## 231 Ethereal Rebirth icon, text and animation (suggest mode): RUN (bundle tnr_results_1792862085762.json), suggestion CANCELLED by the director, archived; replaced by push/236
+
+`python3 push/231_ethereal_rebirth.gen.py <push/230 results bundle> [ICON]` builds one suggestion on Ethereal Rebirth: the
+new icon, the approved non-elemental text (`docs/design/icon_overhaul/ethereal_rebirth/TEXT_V2.md`, training warning
+kept), and the push/230 asset as the absorb effect's `appearAnimation` (plays on the caster; the damage effect keeps its
+hit animation). Re-sends the live effects array and `injectableInBattle` (false, law 20). Built from the push/230 bundle with the approved icon
+(`art/jutsu_icons/ethereal_rebirth/exports/icon_jutsu_ethereal_rebirth_v1.webp`, artpreflight clean). Effects as sent:
+damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
+(SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 249 Earth Scroll and Heaven Scroll icons (suggest mode): RUN (bundle tnr_results_1792889957451.json: both suggested), archived
+
+Director, 2026-10-25: "Here's Earth Scroll, add it's ticket to the manifest" / "And heaven scroll". New icons for the
+two Chunin Exams quest scrolls, colour + seal direction (`docs/design/chunin_exam_scrolls/PROJECT.md`): the live colours
+and gold caps kept, the painted character and yellow outline glow dropped, a red wax seal (mountains for Earth, a cloud
+for Heaven). One suggestion per item, `image` only, each with its own rationale. Exports 256 x 256 lossless,
+artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deliver objective keeps its own copy of the
+old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
+
+## 254 Skyglass event items (10 creates, hidden): ON HOLD - to go in as suggestions once Forge suggest-mode creates ship (RUL-2026-10-25-001); contents changed by RUL-2026-10-25-002 (pure-Skyglass Coffer, pouches lose Chakra Disrupting Needles; Footlocker and Chart Case to add); regenerate before running
+
+`254_skyglass_items_create.json`: Skyglass Coffer (weighted cache: Common 70 jewels/gold/unobtanium, Rare 24 Serum x5 /
+Filament x3, Epic 5 Crown Fragment, Legendary 1 Katana or Crystal); Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Tool
+Pouches (that element's kunai x10 every opening + one weighted roll: Common 70 / Rare 25 / Epic 5); Chart of the Drowned
+Foundry, Chart of the Quarantined Archive, Chart of the Captain's Watch (maps of the wreck's own interior,
+RUL-2026-10-24-026) and Skyglass Signal Beacon (OTHER, tradable, no effect; Battle Pyramid entry items later). All hidden.
+**Final icons** from `art/skyglass_event_icons/exports/`, image pack pinned at `c371a8c`. Rarities and descriptions are
+drafts. If the Skyglass Crystal (`Cmo3JU-D9Nl_-xUxrvEJN`, push/90 CONFIRMED not VERIFIED) is missing, the Coffer save is
+refused and reported; the rest still run. The Armory Requisition (icon ready) waits for its Special quest.
+Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 253 Skyglass caches convert (2 item edits, SUGGEST MODE): RUN (bundle tnr_results_1792971410207.json), archived
+
+The write-mode version of 253 had already run on 2026-10-25 04:58 UTC (bundle tnr_results_1792904287691.json, 2/2 VERIFIED), so both caches were live (hidden) before this run. The desk found nothing to change on the Medicine Inro (no ticket); the Strongbox ticket carries only the Pill Pack removal.
+
+`253_skyglass_caches_convert.json`: sent to the review desk as two suggestions (category NEW_CONTENT). Medicine Inro
+(`ixEKlJ0MmDrX7JoMNJVhi`) and Sage's Strongbox (`h-d58UCSuHN8EZKbLjT5R`) become weighted caches: one roll; Inro Common
+70 / Rare 22 / Epic 7 / Legendary 1 (Pill Pack x5, everything else x10); Strongbox Common 65 (x20) / Epic 26 (x10) /
+Legendary 8 (Solider Pill, Enemy Pill, Mona's Mermaid Song x5; Pill Pack removed per RUL-2026-10-25-002) / Forbidden 1
+(Nexus or Rebirth scroll x1). Both stay hidden. Descriptions are drafts. Works on the current Forge (edits).
+Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 252 Skyglass boss health (2 ai updates): RUN, verified (bundle tnr_results_1792904277241.json, 2/2 match), archived
+
+`252_skyglass_boss_health.json`: Sealwright `poolsMultiplier` 2.5 -> 5 (12,625 -> 25,250 HP, 2x). Crowned Captain 3.6 ->
+12 (18,180 -> 60,600 HP). The director asked for 10x; 12 is the most the game accepts at level 100 (HP/CP/SP columns cap at
+65,535; `maxPoolsMultiplier` = floor(65,535 / 5,050) = 12), so the Captain gets 3.33x. Only `poolsMultiplier` is asserted;
+kits and items are re-sent as live. Director (2026-10-24): "Give the Crowned Captain 10x as much health, and the
+sealwright 2x as much". Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 251 Skyglass crew rules + Oathkeeper attack (1 ai + 4 aiProfile updates): RUN, verified (bundle tnr_results_1792904268435.json, 5/5 match), archived
+
+`251_skyglass_crew_rules.json`: Deck Warden, Oathkeeper, First Blade and Wayfinder get rule sets that use only their
+equipped jutsu (their Quick Strike / Shuriken Storm rows are stored unequipped, so the rules that fire them did nothing).
+Pattern as push/250: round-1 buff, attacks at range+1, Stoneward with a player within 2, Springguard within 5, close in
+beyond 3, highest-power fallback. Oathkeeper first gains **Weakening Strike** (`YiRdVytsdxFzZtqkEDs5Q`, shared pool AI
+jutsu, not edited; range 5, damage 40 + 20% less damage dealt for 2 rounds) as a second attack: his whole kit is re-sent
+so Quick Strike and Shuriken Storm keep their unequipped rows, and the new row is stored equipped; his rules then use an
+Opening Strike -> Weakening Strike combo. Other kits untouched. Director (2026-10-24): "Yes give him another attack."
+Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 250 Skyglass Sentinel rules (aiProfile update): RUN, verified (bundle tnr_results_1792900236721.json), archived
+
+Read-back equals the sent rules except one server default: `use_highest_power_action` gains `"effect": "damage"` (validators/ai.ts prefault). Forge reports that as drift on `rules`; it is not a change. Later rule manifests send the field so they verify clean.
+
+`250_skyglass_sentinel_rules.json`: rewrites the Skyglass Sentinel's (`3V_gdHYaclMB1gTyOPAbV`) rules so it uses its whole
+kit as the Wreck's floor-3 boss: Springguard opener (round 1), Light Barrier below 50% health, Counter Stance with a player
+within 2, Rigging Snare -> Hollow Timber combo at 4, Stoneward with a player within 5, Twin Kunai at 6, close in beyond 3,
+then highest-power fallback. Replaces push/94's set (Twin Kunai on three rules; Counter Stance and Stoneward never cast;
+Springguard gated so it never fired). Kit untouched. **Check 249 first:** run only if the Sentinel still carries the seven
+jutsu named in the manifest note. Director (2026-10-24): "Yes". Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems.
+
+## 249 Skyglass Wreck roster capture (read-only): RUN (bundle tnr_results_1792900120886.json, 24/24 ok), archived
+
+Result: Sentinel kit intact with push/94's rules (QA_LIVE_2026-10-20 finding 8 was stale). Deck Warden, Oathkeeper, First Blade and Wayfinder fire Quick Strike / Shuriken Storm, which are UNEQUIPPED in their kits, so those rules are inert (push/251).
+
+`249_skyglass_wreck_roster_capture.json`: `profile.getAi` + `ai.getAiProfile` for the twelve AIs the Skyglass Wreck
+dungeon uses (24 reads, zero mutations). Why: the only rules capture predates push/94 by 21 minutes, so QA_LIVE_2026-10-20
+finding 8 (Sentinel rules point at unequipped jutsu) is probably stale; this confirms it and gives the dungeon manifest
+every live rule set against the kits re-equipped on 2026-10-21. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems.
+
+## 245–248 Item icon census (read-only): 245 RUN (bundle tnr_results_1792889303274.json: 132/132 reads ok; item.getAllNames = 852 rows, so ~86 items are newer than the seed and not covered), 246 RUN (bundle tnr_results_1792890285604.json: 132/132 ok), archived; 247–248 READY TO RUN (any order)
+
+Director, 2026-10-25: "Lets identify some dated items to work on. Pull up some sheets for me to pick from." Committed
+bundles hold only 100 item records, so these read every item the seed index marks visible (528) with `item.get`,
+persist full, so each icon lands in the bundle for review sheets. Part 1 also reads `item.getAllNames` (row count shows
+drift from the seed). 133/132/132/132 reads, zero writes. Built by `push/245_item_icon_census.gen.py`. Gates (each part):
+`validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 244 Celestial Dew animations v9: RUN, verified (bundle tnr_results_1792887344340.json: 3/3 match, v9 strips live), archived
+
+push/243 ran the v5 build, so the live strips are three versions behind. v9: exact portrait geometry from the game's own
+marker and mask images (PROJECT.md section 16), one layout for every screen (director, 2026-10-24: "Just assume the PR is
+done and build the version that fits all screens"), built for the upstream change that draws effects at 2.5 tile heights
+(PROJECT.md section 15), with the slow brightening and 6.4 s breath. **Until that change is live the game draws it at
+50 px, about 25% too large on the director's phone.** Direct edits of the three existing assets: appear
+`7PCuqwNbf0s8jOKEFwA_l` (92 x 46 ms), loop `wdir89CrMcvbQNR8OFymV` (64 x 100 ms), break `h7Yg7wmA0BBCjzvNvKTp5`
+(30 x 46 ms); new filenames (law 32), hidden false (law 16c). Assets only, so the open Celestial Dew suggestion (240)
+picks the new strips up with no change. Pack pinned at f8b9ad2. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems (hash `ed348ca0`).
+
+## 243 Celestial Dew animations: RUN (bundle tnr_results_1792883918081.json: all three updated with the v5 strips), archived; v9 ships in push/244
+
+## 242 Celestial Dew capture with the record kept: RUN (bundle tnr_results_1792883431355.json), archived. Checked against push/240: live icon is the original; heal effect identical; shield differs only by the three new animations; injectableInBattle false both. 240 stands as built.
+
+The same read as 241 with `persist: "full"`, so the record's body lands in the bundle (241's capture asked for no
+persistence, so its bundle confirmed the read but held no record). With its bundle, push/240 is checked against the live
+effects and rebuilt if anything differs. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0
+pre-send problems.
+
+## 241 Celestial Dew capture: RUN (bundle tnr_results_1792883140850.json; read ok, no record kept: no persist), archived
+
+Capture-only manifest (`jutsu.get` on `2vNeMhph6A9Ld--WXa35O`), changes nothing. Director (2026-10-24): "Only changed the
+icon but go ahead. Make a capture." push/240 as built (from the 2026-10-23 public read) is fine to run on that
+confirmation; with this bundle, `python3 push/240_celestial_dew.gen.py <238 bundle> <241 bundle>` rebuilds it from the
+live record if anything differs. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send
+problems.
+
+## 240 Celestial Dew suggestion: RUN (bundle tnr_results_1792883926090.json: suggestion sent), archived
+
+`python3 push/240_celestial_dew.gen.py <238 bundle>`: one suggestion setting the shield effect's appear, static and
+disappear animations to the push/238 assets, and brings back our reworked icon (`icon_jutsu_celestial_dew_v1.webp`;
+the reverted one is not live). The heal keeps `I9aYhT5wMB`; text unchanged; effects array and
+`injectableInBattle` re-sent from the public read (asserted: shield had no animations, heal appear as expected). No AI
+holds Celestial Dew in recent captures. Dry-run with stand-in ids: gates clean.
+
+## 239 Celestial Dew animations unhide: RUN, verified (bundle tnr_results_1792883134619.json: all three unhidden), archived
+
+`python3 push/239_celestial_dew_animations_unhide.gen.py <238 bundle>`: direct edits, `hidden: false` on the three assets
+(law 16c), image not re-sent. Director (2026-10-24): "Let's make the animation unhidden first then send in the suggestion
+ticket". Dry-run with stand-in ids: gates clean.
+
+## 238 Celestial Dew animations (3 creates): RUN, verified (bundle tnr_results_1792882731698.json: appear `7PCuqwNbf0s8jOKEFwA_l`, loop `wdir89CrMcvbQNR8OFymV`, break `h7Yg7wmA0BBCjzvNvKTp5`), archived
+
+Director (2026-10-24): the appear is the moon, the drop and the ripples; the loop is the ward glowing, fading in and
+out, timed so its first glow peaks when the ripples reach the rim; slower. Direct creates, hidden (law 16b gate), all for
+the shield effect: `cd_anim_appear` (appear: 74 frames x 46 ms = 3.4 s), `cd_anim_loop` (static: 64 x 72 ms = 4.6 s, one
+breath, peak at 2.30 s), `cd_anim_break` (disappear: 30 x 46 ms); 112 px. Preview:
+`docs/design/celestial_dew_animation/v3_over_avatar.gif`. Pack pinned at 1f1e4ec. Gates: `validate.py --strict` 0
+errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:** from its bundle, one direct manifest
+unhides the three (law 16c), then one suggestion on Celestial Dew sets them on the shield (the heal keeps its own appear
+`I9aYhT5wMB`; re-sending the live effects array).
+
+## 237 Ethereal Rebirth hit animation (create): RUN, verified (bundle tnr_results_1792874408622.json, id crcBkGqA7Dyx52I-wU3gc), archived
+
+Director (2026-10-24): "corkscrew from the top, timed to the lash". Direct create of asset `er_anim_soul_strike`
+("Ethereal Rebirth - Soul Strike", ANIMATION, `anim_ethereal_rebirth_hit1.webp`: the gold and blue ribbons wound into a
+corkscrew enter the enemy's square from the upper left the frame after the cast's spear leaves the caster, at the same
+speed, and strike at 1.74 s, then burst round it; 66 frames x 36 ms, 135,030 bytes), hidden (law 16b gate). For the damage effect's `appearAnimation` (replaces the generic
+`iDv3rjj81rRgD10shRqSn`). Preview with both tiles on one clock: `docs/design/ethereal_rebirth_animation/v7_attack_duel.gif`.
+Pack pinned at 06b0e05. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+**Final ticket** (director, 2026-10-24: "Let's make the final ticket. All approved"): 1. run 237; 2. from its bundle
+Claude Code builds 235 and 236 (`python3 push/235_ethereal_rebirth_loop_unhide.gen.py <230> <234> <237>` and
+`python3 push/236_ethereal_rebirth.gen.py <230> <234> <237>`); 3. run 235, then 236. Both generators were dry-run with a
+stand-in hit id: gates clean. The hit's id must be literal (Forge resolves `@` refs from its idmap at run time, but
+`check_manifest.mjs` plans without that idmap, so a ref would fail the gate; changing that is Lane A).
+
+## 236 Ethereal Rebirth final ticket (suggest mode): READY TO RUN (after 235)
+
+Built from the 230, 234 and 237 bundles (pack 77a1617): icon, text v3 (approved), absorb appear `HwkXTjErL_Laxs8WtqBiI` + static `jRU-uhYhX0maaWyaRJr14`, damage appear `crcBkGqA7Dyx52I-wU3gc` (the hit). Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+
+Replaces push/231, whose suggestion the director cancelled (2026-10-24: "lets make a new one that proposes all of this").
+`python3 push/236_ethereal_rebirth.gen.py <push/230 bundle> <push/234 bundle>` builds one suggestion on Ethereal Rebirth:
+the new icon, the approved non-elemental text (TEXT_V2.md, training warning kept), and on the absorb effect (SELF)
+**appearAnimation `HwkXTjErL_Laxs8WtqBiI`** (the cast animation, now the v5 strip after push/233) and **staticAnimation
+`jRU-uhYhX0maaWyaRJr14`** (the passive orbit loop from push/234; the game loops it while the absorb is active). Damage
+keeps `iDv3rjj81rRgD10shRqSn`; decreased damage given unchanged. Effects array re-sent from the public read with the
+asserts of 231 (absorb had no animations, damage still non-elemental); `injectableInBattle` re-sent (false, law 20).
+Pack pinned at adf2749. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 235 Ethereal Rebirth animations (cast v7, loop2) + unhide loop and hit: READY TO RUN (then 236)
+
+Built from the 230, 234 and 237 bundles (pack 77a1617): cast -> v7, loop -> loop2 + unhide, hit `crcBkGqA7Dyx52I-wU3gc` unhide. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+
+Director (2026-10-24): "polish the animations for appear and static so they are very smooth". Two direct asset edits:
+the cast animation `HwkXTjErL_Laxs8WtqBiI` -> `anim_ethereal_rebirth_v7.webp` (66 frames x 36 ms, 377,388 bytes; v7 adds the launch: a blue strand coils round the gold band into a spear, a release flash, and the spear climbs out of the top of the frame) and the
+passive loop `jRU-uhYhX0maaWyaRJr14` -> `anim_ethereal_rebirth_loop2.webp` (100 frames x 36 ms, 257,236 bytes) with
+`hidden: false` (law 16c). About 28 fps (were 17 and 12); bands fade round behind the face instead of being cut; the
+cast's blue band slows onto the loop's blue band, so the cast flows into the loop. Notes:
+`docs/design/ethereal_rebirth_animation/V1_NOTES.md` "v6 + loop2"; preview `v6_in_battle.gif`. Built from the push/230
+and push/234 bundles; pack pinned at 06b0e05. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs`
+0 pre-send problems. **Run 235, then 236** (director: "Just unhide then send ticket"; two manifests because Forge's suggest
+mode covers a whole manifest).
+
+## 234 Ethereal Rebirth passive loop (create): RUN, verified (bundle tnr_results_1792867695830.json, id jRU-uhYhX0maaWyaRJr14), archived
+
+Director (2026-10-24): "a subtler effect of the same ribbons ... passively orbiting and protecting the player so long as
+the absorb is active". Direct create of asset `er_anim_soul_orbit` ("Ethereal Rebirth - Soul Orbit", ANIMATION,
+`anim_ethereal_rebirth_loop1.webp`: one gold and one blue band orbiting the avatar, 48 frames x 80 ms = 3.84 s, seamless,
+179,956 bytes), hidden (law 16b gate). It becomes the absorb effect's `staticAnimation`, which the game loops while the
+absorb is active (theninjarpg `libs/threejs/combat.ts:667`). Preview with the cast animation on top:
+`docs/design/ethereal_rebirth_animation/loop1_in_battle.gif`. Image pack pinned at c014c39. Gates: `validate.py --strict`
+0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:** from its results bundle, push/231 is
+rebuilt to also set the absorb effect's `staticAnimation` (still one suggestion), and push/233 gains a literal-id unhide of
+the new asset (law 16c). So **hold 231 until 234 has run**.
+
+## 233 Ethereal Rebirth animation swap (v5): RUN, verified (bundle tnr_results_1792867658063.json; the starburst build, pack ae49da0), archived
+
+Re-pointed at v5 (director, 2026-10-24: "Hold 233, we'll ship v5 instead"). Direct edit of asset
+`HwkXTjErL_Laxs8WtqBiI` (same id, so push/231 is unchanged): image -> `anim_ethereal_rebirth_v5.webp` (the icon's
+six translucent twisting bands, three gold and three blue, and its sparkles, from the art director's v5 layers; v4
+motion on tilted orbits; 40 frames x 60 ms, 333,928 bytes, with the icon's starburst; new filename, law 32), `hidden: false` so it plays in battle (law 16c). Preview:
+`docs/design/ethereal_rebirth_animation/v5_over_avatar.gif`. Image pack pinned at ae49da0. Gates: `validate.py --strict`
+0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. 231 and 233 run in either order. Earlier build notes (v4):
+
+Director (2026-10-24): "Use v2, make the swap manifest". Direct edit of asset `HwkXTjErL_Laxs8WtqBiI` (same id, so
+push/231 is unchanged): image -> `anim_ethereal_rebirth_v4.webp` (v4: centred on the portrait; the ribbons start behind the avatar,
+orbit it and come round in front, the gold one lashes out; behind passes hidden by the portrait mask; burst on top;
+40 frames x 60 ms, 213,904 bytes; new filename, law 32), `hidden: false` so it plays in battle (law 16c corrected). It replaces push/232, which is
+archived unrun. Built by `push/233_ethereal_rebirth_animation_v2.gen.py`, strip pinned by SHA-256 at the commit that built
+it. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **Run 233, then 231.**
+

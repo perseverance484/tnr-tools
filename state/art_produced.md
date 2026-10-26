@@ -22,3 +22,11 @@ Byte ledger source for pack `imgSizes` at packaging time. Fresh filename (_b, _c
 | fsw_bg_drying_yard | SCENE_BACKGROUND 3:2 | bg_fsw_drying_yard.webp (as genned, 148.5 KB) OR bg_fsw_drying_yard_b.webp (gamma 1.32, 105.1 KB) | 1536x1024 | see files | aspect 1.5000; APPROVED by dauntless 2026-08-30 on composition. EXPOSURE FLAG: as genned runs median 35.7 / 12.3% under 20 - second brightest raw in the set, in the same range as the pass road (38.6) and waystation (33.8) raws that dauntless chose to darken. Band-matched variant prepared at gamma 1.32 -> median 19.1 / 54.6%, reserve LL 29.9 -> 15.1. sat 0.28, warm 4.76%, lap 10.03, reserve tex 3.43, all in family. Both preflight 0/0. RESOLVED 2026-08-30: dauntless approved the darkening pass. SHIPPING FILE = bg_fsw_drying_yard_b.webp (gamma 1.32, median 19.1 / 54.6%, 105.1 KB). As-genned held, do not pack |
 | fsw_bg_ghost_rooftop | SCENE_BACKGROUND 3:2 | bg_fsw_ghost_rooftop.webp | 1536x1024 | 122.0 | aspect 1.5000; APPROVED AS GENNED by dauntless 2026-08-30 - no pass needed, first plate to land in band on the first gen. median 20.9 / 47.0% under 20, inside the family band (13.1-21.6 / 45-79%); sat 0.28; lap 7.72; reserve LL median 24.0 tex 5.12; pure black 2.1%; preflight 0/0. NOTE: warm share 0.04%, below the family floor of 0.23% - the window lights are very small. Reads fine at 512 and it is the coldest plate in the set by design |
 | fsw_bg_canal_frontage | SCENE_BACKGROUND 3:2 | bg_fsw_canal_frontage_b.webp | 1536x1024 | 125.7 | aspect 1.5000; as genned ran median 25.0 / 35.3% under 20 - darkening pass gamma 1.15 APPROVED by dauntless 2026-08-30, ships at median 17.7 / 58.0% under 20, reserve LL 20.3; sat 0.40, warm 4.46%, lap 8.75, reserve tex 5.47, all in family; preflight 0/0. As-genned bg_fsw_canal_frontage.webp held, do not pack. WAVE GENERATION COMPLETE 8/8 |
+
+## Headless Rider Horror! backgrounds (2026-10-25, director-approved, push/258)
+| file | type | px | bytes |
+|---|---|---|---|
+| headless_rider_horror_01_background.webp | SCENE_BACKGROUND | 1536x1024 | 305918 |
+| headless_rider_horror_02_village_dawn.webp | SCENE_BACKGROUND | 1536x1024 | 312808 |
+| headless_rider_horror_03_ruined_village.webp | SCENE_BACKGROUND | 1536x1024 | 263972 |
+| headless_rider_horror_04_river.webp | SCENE_BACKGROUND | 1536x1024 | 306426 |
