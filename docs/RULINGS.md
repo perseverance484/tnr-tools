@@ -2985,3 +2985,19 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-25, choosing between a one-off exception (A) and the Lane A lint fix (B): "A now."
 
 **Canonical destination:** `state/validate_exceptions/261_lastlight_jutsu.json`; gate `scripts/validate_exception.py`.
+
+## RUL-2026-10-25-009 — validate.py exception for push/262 (Foundry Warden); stale-rule fix to Lane A
+
+**Date:** 2026-10-25
+
+**Domain:** validation; D-validate-always (`docs/DOCTRINE.md`); engine law 14
+
+**Status:** ACTIVE. The exception is manifest-specific; the fix is approved as a separate Lane A task.
+
+**Ruling:**
+1. push/262 (the Foundry Warden AI create) may run although `validate.py --strict` reports law 14 / L05 "AI create missing required field 'preferredStat'". Upstream migration 0056 dropped `preferredStat` (Forge's lints and `forge/test/post0056.test.mjs` already reflect this) and Forge refuses the key. The exception holds only while `python3 scripts/validate_exception.py state/validate_exceptions/262_foundry_warden.json` passes.
+2. The two stale rules behind RUL-2026-10-25-008 and this ruling (wound `statTypes` under L06; `preferredStat` under law 14 / L05) are to be corrected on a separate Lane A branch by a separate agent, independently reviewed; the law-14 text change goes through the law-reconciliation process (RUL-2026-09-08-004). Brief: `state/prompt_validate_stale_rules.md`.
+
+**Evidence:** User, 2026-10-25: "Approved on exception. Write request for a separate agent to do code branch for review".
+
+**Canonical destination:** `state/validate_exceptions/262_foundry_warden.json`; `state/prompt_validate_stale_rules.md`.
