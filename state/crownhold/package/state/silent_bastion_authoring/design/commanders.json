@@ -1,0 +1,1264 @@
+{
+ "schema": "tnr.silent_bastion_authoring.units.v1",
+ "status": "TRANSLATION OF EXISTING DESIGNS — kit membership and tactical priorities are the authored roster's (state/silent_bastion_commander_roster.md, state/silent_bastion_arakane_ai_profile.md); every number marked CANDIDATE is unapproved",
+ "dsl": {
+  "conditions": "[hp<,N] health_below | [round<,N] round_lower_than | [round>,N] round_greater_than | [round=,N] specific_round | [dist<=,N] distance_lower_than (inclusive) | [dist>=,N] distance_higher_than (inclusive) | [self,effect,threshold] has_effect | [target,effect,threshold] target_has_effect",
+  "actions": "[jutsu,CODE,TARGET] use_specific_jutsu | [item,KEY,TARGET] use_specific_item | [move] move_towards_opponent CLOSEST_OPPONENT | [end] end_turn",
+  "kit": "pool codes (skills/building-tnr-content/data/32b_DATA_pool.json); TC = Tempest Cleave (captured record); X:<key> = new candidate exclusive (see exclusives); SEED:<name> = upstream seed item"
+ },
+ "units": [
+  {
+   "key": "master_of_arms",
+   "slot": "D2.BOSS",
+   "name": "Master of Arms",
+   "division": "I Experimental Armory",
+   "kitStatus": "ACCEPTED (10 jutsu) — roster §2, design 'Master of Arms — accepted design notes'",
+   "aiStatus": "TRANSLATED from roster §2 'Intended rule priority'; CANDIDATE pending director acceptance",
+   "kit": [
+    "B33",
+    "B14",
+    "B28",
+    "TC",
+    "B37",
+    "S07",
+    "B08",
+    "B10",
+    "B16",
+    "B32"
+   ],
+   "items": [],
+   "innate": [
+    {
+     "type": "sealprevent",
+     "power": 100,
+     "rounds": 99,
+     "status": "APPROVED (all commanders)"
+    }
+   ],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3.0,
+    "poolsMultiplier": 2.5,
+    "regeneration": 60,
+    "element": "None",
+    "preferredStat": "Bukijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "bukijutsuOffence": 6,
+     "taijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "bukijutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 4,
+     "speed": 4,
+     "intelligence": 1,
+     "willpower": 2
+    },
+    "note": "Captain parity baseline (RUL Sealwright precedent: L100 JONIN 3.0x stats 2.5x pools regen 60); ACCEPTED launch value — RUL-2026-10-16-011"
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "hp<",
+       60
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B10",
+      "SELF"
+     ],
+     "src": "roster §2 #1 — Sovereign Ascendance below 60% HP"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "increasedamagegiven",
+       71
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B32",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §2 #2 — Nullifying Wave on IDG≥71 (ALL method: no distance gate, law 40)"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "shield",
+       1
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B33",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §2 #3 — Piercing Judgment vs shields"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B08",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §2 #4 — Tempo Fracture, combo with Fetters, not staggered"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B16",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §2 #4 — Sovereign Fetters"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "increasedamagetaken",
+       35
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B14",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §2 #5 — Cataclysm Detonation follows Tempest Cleave's IDT35"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "TC",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §2 #5 — Tempest Cleave setup (captured EVENT record: AOE_CIRCLE_SPAWN r4 CD7, friendlyFire ALL; gate A3 found no self-hit at path distance 2–5, so no extra floor)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B14",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §2 #5 — Cataclysm Detonation"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B28",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §2 #6 — Recoil Slam"
+    },
+    {
+     "if": [],
+     "do": [
+      "jutsu",
+      "B37",
+      "SELF"
+     ],
+     "src": "roster §2 #6 — Fighter's Poise (40 AP, pairs with a 60 AP attack)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S07",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §2 #6 — Rapid Fire"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "roster §2 #7 — chase — gated ≥3 so the final end_turn stays reachable (Arakane profile rule 19 pattern; validate.py dead-rule lint)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "roster §2 #7 — end safely (includeDefaultRules:false, law R52)"
+    }
+   ],
+   "protocol": {
+    "combat": "D2 player buff — see protocols.json",
+    "rosterLabel": "Weapons Calibration (roster labels it a boss buff; superseded: Combat Protocol is player-side, RUL-2026-10-15-001)"
+   }
+  },
+  {
+   "key": "replicant_zero",
+   "slot": "D3.BOSS",
+   "name": "Replicant Zero",
+   "division": "II Skyglass Research",
+   "kitStatus": "ACCEPTED (11 jutsu) — roster §3, design 'Replicant Zero — approved name and origin lore'",
+   "aiStatus": "TRANSLATED from roster §3 'Intended rule priority'; heal order (Bulwark <65% above Second Wind <40%) CONFIRMED — RUL-2026-10-16-011",
+   "kit": [
+    "B06",
+    "B07",
+    "B13",
+    "B15",
+    "B22",
+    "B23",
+    "B29",
+    "B34",
+    "B35",
+    "S35",
+    "S07"
+   ],
+   "items": [],
+   "innate": [
+    {
+     "type": "sealprevent",
+     "power": 100,
+     "rounds": 99,
+     "status": "APPROVED (all commanders)"
+    }
+   ],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3.0,
+    "poolsMultiplier": 3.0,
+    "regeneration": 60,
+    "element": "None",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 5,
+     "genjutsuOffence": 3,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 4
+    },
+    "note": "Endurance boss: pools above Master of Arms; ACCEPTED launch value — RUL-2026-10-16-011"
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "round<",
+       2
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B22",
+      "SELF"
+     ],
+     "src": "roster §3 #1 — opening Compression Barrier"
+    },
+    {
+     "if": [
+      [
+       "round<",
+       2
+      ],
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B13",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §3 #1 — opening Hexweave when in range"
+    },
+    {
+     "if": [
+      [
+       "round=",
+       2
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B06",
+      "EMPTY_GROUND_CLOSEST_TO_SELF"
+     ],
+     "src": "roster §3 #2 — Split Image once, round 2 only"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "increasedamagegiven",
+       71
+      ],
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B07",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §3 #3 — Stolen Form on IDG≥71"
+    },
+    {
+     "if": [
+      [
+       "hp<",
+       65
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B23",
+      "SELF"
+     ],
+     "src": "roster §3 #4 — Bulwark Charge below 65%"
+    },
+    {
+     "if": [
+      [
+       "hp<",
+       40
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S35",
+      "SELF"
+     ],
+     "src": "roster §3 #5 — Second Wind below 40%"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B13",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §3 #6 — Hexweave"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B15",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §3 #6 — Feast of Marrow"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B29",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §3 #6 — Devouring Wave"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B35",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §3 #6 — Reaping Strike"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B34",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §3 #7 — Mirror Edge"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S07",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §3 #8 — Rapid Fire"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "roster §3 #8 — approach — gated ≥3 so the final end_turn stays reachable (Arakane profile rule 19 pattern; validate.py dead-rule lint)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "roster §3 #8 — safe end-turn"
+    }
+   ],
+   "protocol": {
+    "combat": "D3 player buff — see protocols.json",
+    "rosterLabel": "Skyglass Barrier (roster boss-shield label superseded by player-side Combat Protocol)"
+   }
+  },
+  {
+   "key": "grand_marshal",
+   "slot": "D4.BOSS",
+   "name": "The Grand Marshal",
+   "division": "III High Command",
+   "kitStatus": "RATIFIED (12 jutsu) — RUL-2026-10-16-006",
+   "aiStatus": "RATIFIED — RUL-2026-10-16-006: roster §4 priorities as translated here (stacked suppression accepted as authored)",
+   "kit": [
+    "B03",
+    "B12",
+    "B11",
+    "B30",
+    "S31",
+    "B32",
+    "B17",
+    "B14",
+    "B33",
+    "B23",
+    "B22",
+    "S07"
+   ],
+   "items": [],
+   "innate": [
+    {
+     "type": "sealprevent",
+     "power": 100,
+     "rounds": 99,
+     "status": "APPROVED (all commanders)"
+    }
+   ],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3.25,
+    "poolsMultiplier": 3.0,
+    "regeneration": 60,
+    "element": "None",
+    "preferredStat": "Genjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "genjutsuOffence": 5,
+     "ninjutsuOffence": 3,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 4
+    },
+    "note": "ACCEPTED launch value — RUL-2026-10-16-011"
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B12",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §4 #1 — opening suppression Sovereign Ruin (CD10 keeps it from monopolising)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B11",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §4 #2 — Sovereign Malediction"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "increasedamagegiven",
+       71
+      ],
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S31",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §4 #3 — Unraveling Strike when close"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "increasedamagegiven",
+       71
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B32",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §4 #3 — Nullifying Wave if further (ALL method)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       4
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B03",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §4 #4 — Sovereign Undertow anti-kite inside reach"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "shield",
+       1
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B33",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §4 #5 — Piercing Judgment against shields"
+    },
+    {
+     "if": [],
+     "do": [
+      "jutsu",
+      "B30",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §4 #5 — Suppressing Roar (ALL method)"
+    },
+    {
+     "if": [],
+     "do": [
+      "jutsu",
+      "B17",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §4 #5 — Worldbreaker Chorus (ALL method)"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "stun",
+       1
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B14",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §4 #5 — execute a stunned target with Cataclysm Detonation"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B14",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §4 #5 — Cataclysm Detonation"
+    },
+    {
+     "if": [
+      [
+       "hp<",
+       55
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B23",
+      "SELF"
+     ],
+     "src": "roster §4 #6 — Martial Law: Bulwark Charge below 55%"
+    },
+    {
+     "if": [
+      [
+       "hp<",
+       55
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B22",
+      "SELF"
+     ],
+     "src": "roster §4 #6 — Compression Barrier sparingly (CD5)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S07",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "roster §4 #7 — Rapid Fire"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "roster §4 #7 — move — gated ≥3 so the final end_turn stays reachable (Arakane profile rule 19 pattern; validate.py dead-rule lint)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "roster §4 #7 — end turn; no healing"
+    }
+   ],
+   "protocol": {
+    "combat": "D4 player buff — see protocols.json",
+    "rosterLabel": "Countermeasure Protocol = Seal Prevent 2r on the PLAYER; release plan §4.3 corrects the roster's redundancy claim (boss innate protects the boss)"
+   }
+  },
+  {
+   "key": "arakane",
+   "slot": "D5.BOSS",
+   "name": "Supreme Commander Arakane",
+   "division": "IV Command Sanctum",
+   "kitStatus": "ACCEPTED membership (14) + signature effects + Countermand identity — roster §5, Arakane profile",
+   "aiStatus": "ORDERED 20-RULE CANDIDATE from state/silent_bastion_arakane_ai_profile.md mapped 1:1; only source-forced corrections, each flagged",
+   "kit": [
+    "B18",
+    "B07",
+    "S34",
+    "B09",
+    "EA04",
+    "B13",
+    "B17",
+    "X:EXTERMINATION_ORDER",
+    "B27",
+    "B05",
+    "B26",
+    "B20",
+    "S07",
+    "X:LAST_DIRECTIVE"
+   ],
+   "items": [
+    "X:COUNTERMAND",
+    "SEED:Solar Bow",
+    "SEED:Crossbow"
+   ],
+   "itemsStatus": "APPROVED loadout — Countermand (RUL-2026-10-16-011), Solar Bow in HAND_1 and Crossbow in HAND_2 (RUL-2026-10-16-013). Weapon IDs/values are historic upstream seed rows: FRESH CAPTURES REQUIRED before manifest construction; a mismatch goes to the director, never a silent substitution",
+   "innate": [
+    {
+     "type": "sealprevent",
+     "power": 100,
+     "rounds": 99,
+     "status": "APPROVED (all commanders)"
+    }
+   ],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3.5,
+    "poolsMultiplier": 3.5,
+    "regeneration": 60,
+    "element": "None",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Speed"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 5,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 2,
+     "bukijutsuOffence": 2,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "strength": 2,
+     "speed": 3,
+     "intelligence": 4,
+     "willpower": 3
+    },
+    "note": "Pools sized so The Last Directive gets a real chance to fire (design §Supreme Commander); ACCEPTED launch value — RUL-2026-10-16-011"
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "hp<",
+       30
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "X:LAST_DIRECTIVE",
+      "SELF"
+     ],
+     "src": "profile #01"
+    },
+    {
+     "if": [
+      [
+       "self",
+       "finalstand",
+       1
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "X:EXTERMINATION_ORDER",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #02 — only while Final Stand is active (gate A expiry tests)"
+    },
+    {
+     "if": [
+      [
+       "round<",
+       2
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B18",
+      "SELF"
+     ],
+     "src": "profile #03"
+    },
+    {
+     "if": [
+      [
+       "round<",
+       5
+      ],
+      [
+       "dist>=",
+       7
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B09",
+      "SELF"
+     ],
+     "src": "profile #04"
+    },
+    {
+     "if": [
+      [
+       "self",
+       "stealth",
+       1
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "item",
+      "X:COUNTERMAND",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #05"
+    },
+    {
+     "if": [
+      [
+       "self",
+       "afterburn",
+       1
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S34",
+      "SELF"
+     ],
+     "src": "profile #06"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "shield",
+       1
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EA04",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #07"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "increasedamagegiven",
+       71
+      ],
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B07",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #08"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "increasedamagegiven",
+       71
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "item",
+      "X:COUNTERMAND",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #09"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B13",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #10"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B17",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #11 (B17 is ALL method; the authored ≤6 gate is kept — safe, only narrows use)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B27",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #12"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B05",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #13"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B26",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #14"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S07",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #15"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       7
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B20",
+      "SELF"
+     ],
+     "src": "profile #16"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "item",
+      "SEED:Solar Bow",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #17"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "item",
+      "SEED:Crossbow",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "profile #18"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "profile #19"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "profile #20"
+    }
+   ],
+   "protocol": {
+    "combat": "D5 player buff — BLOCKED (clearprevent not in questBuffTypes); see protocols.json",
+    "rosterLabel": "unspecified"
+   },
+   "veilstep": "RUL-2026-10-16-007: use the live B09 Veilstep record as-is (captured: Stealth 1 round, cooldown 5); the profile's 2-round premise is superseded, rules unchanged"
+  }
+ ],
+ "exclusives": {
+  "X:LAST_DIRECTIVE": {
+   "status": "APPROVED effects/durations/trigger; 40 AP, cooldown 99, IDG 30 APPROVED — RUL-2026-10-16-011",
+   "record": {
+    "name": "The Last Directive",
+    "jutsuType": "AI",
+    "target": "SELF",
+    "method": "SINGLE",
+    "range": 0,
+    "actionCostPerc": 40,
+    "cooldown": 99,
+    "effects": [
+     {
+      "type": "finalstand",
+      "power": 100,
+      "rounds": 5
+     },
+     {
+      "type": "increasedamagegiven",
+      "power": 30,
+      "rounds": 5,
+      "calculation": "percentage",
+      "approval": "power 30 APPROVED — RUL-2026-10-16-011"
+     },
+     {
+      "type": "clearprevent",
+      "power": 100,
+      "rounds": 5
+     }
+    ]
+   }
+  },
+  "X:EXTERMINATION_ORDER": {
+   "status": "APPROVED 80 EP + Elemental Seal 2r + Cleanse Prevent 2r, only during active Final Stand; name APPROVED (RUL-2026-10-16-011); cooldown 4 APPROVED (RUL-2026-10-16-004); 60 AP, range 5, single target, 80 damage, Elemental Seal 100/2r, Cleanse Prevent 100/2r APPROVED (RUL-2026-10-16-013). Active-Final-Stand restriction retained (rule 2); the AR1 residual risk stands",
+   "record": {
+    "name": "Extermination Order",
+    "jutsuType": "AI",
+    "target": "OTHER_USER",
+    "method": "SINGLE",
+    "range": 5,
+    "actionCostPerc": 60,
+    "cooldown": 4,
+    "effects": [
+     {
+      "type": "damage",
+      "power": 80,
+      "rounds": 0,
+      "calculation": "formula",
+      "statTypes": [
+       "Highest"
+      ],
+      "generalTypes": [
+       "Highest"
+      ],
+      "elements": [
+       "None"
+      ]
+     },
+     {
+      "type": "elementalseal",
+      "power": 100,
+      "rounds": 2,
+      "approval": "power 100 APPROVED — RUL-2026-10-16-013"
+     },
+     {
+      "type": "cleanseprevent",
+      "power": 100,
+      "rounds": 2,
+      "approval": "power 100 APPROVED — RUL-2026-10-16-013"
+     }
+    ]
+   },
+   "cooldownNote": "APPROVED cooldown 4 — RUL-2026-10-16-004 (AR1 mitigation: with authored rule 2, cooldowns 2/3/5/6 can fire on an expired Final Stand; 4 kept every probed cast inside it). Residual risk only for unprobed sequences; no engine change requested."
+  },
+  "X:COUNTERMAND": {
+   "status": "APPROVED identity and fields (OTHER, 40 AP, range 5, cooldown 6, Clear 100, PVE, reusable, drop chance 0) — RUL-2026-10-16-011",
+   "record": {
+    "name": "Countermand",
+    "itemType": "OTHER",
+    "slot": "ITEM",
+    "target": "OTHER_USER",
+    "method": "SINGLE",
+    "range": 5,
+    "actionCostPerc": 40,
+    "cooldown": 6,
+    "destroyOnUse": false,
+    "rarity": "LEGENDARY",
+    "hidden": true,
+    "inShop": false,
+    "battleUsageType": "PVE",
+    "dropChancePerc": 0,
+    "effects": [
+     {
+      "type": "clear",
+      "power": 100,
+      "rounds": 0
+     }
+    ]
+   }
+  }
+ }
+}

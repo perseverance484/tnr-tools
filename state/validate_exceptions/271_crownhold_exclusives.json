@@ -1,0 +1,9 @@
+{
+ "manifest": "push/271_crownhold_exclusives.json",
+ "ruling": "PENDING director approval (proposed RUL-2026-10-25-013)",
+ "reason": "validate.py L18 excludes \"clear\" from item effects; the game's ItemValidatorRawSchema takes effects: z.array(AllTags), and AllTags includes ClearTag (validators/combat.ts at origin/main e27cbebe), so Countermand's approved Clear 100 (RUL-2026-10-16-011) is valid. Stale rule; the package recorded it as VAL1 on 2026-10-16.",
+ "sha256": "b80e5ab5a09271f3b8e58c8a1241e58f5626c2a72d21c77fe76debba5716ea47",
+ "accepted": [
+  "ERROR  lint Countermand: L18 item effect \"clear\" excluded from item union"
+ ]
+}

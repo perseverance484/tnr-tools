@@ -1,0 +1,121 @@
+{
+ "schema": "tnr.silent_bastion_authoring.protocols.v1",
+ "status": "Exact-target ledger. Mechanics (who receives what, when) are LOCKED by RUL-2026-10-14-001 / RUL-2026-10-15-001 / RUL-2026-10-16-002; every magnitude and duration is CANDIDATE unless marked APPROVED.",
+ "sourceAllowlist": "studie-tech/TheNinjaRPG@0651b039 app/src/validators/combat.ts questBuffTypes / questDebuffTypes; effects land on the PLAYER (routers/combat.ts applies quest starting effects to the initiating human only — re-proven by the C99 gates)",
+ "medical": {
+  "status": "APPROVED mechanic (RUL-2026-10-14-001)",
+  "target": "player",
+  "givePools": 100,
+  "appliesAt": "start of the Medical commander battle bN.n.boss.medical",
+  "note": "Sets HP/CP/SP to 100%; no other recovery anywhere in the run"
+ },
+ "recovery": {
+  "status": "APPROVED mechanic",
+  "target": "player",
+  "givePools": 50,
+  "appliesAt": "bN.recovery_first / bN.recovery_later (REG1 copy)"
+ },
+ "securityAlert": {
+  "status": "APPROVED mechanic (wrong puzzle answer still skips REG4, adds a player-side penalty); magnitude IDT 10 / 2r APPROVED — RUL-2026-10-16-011",
+  "target": "player",
+  "appliesAt": "bN.n.boss.alert, all four divisions",
+  "effect": {
+   "kind": "debuff",
+   "tag": {
+    "type": "increasedamagetaken",
+    "power": 10,
+    "rounds": 2,
+    "calculation": "percentage"
+   }
+  },
+  "rationale": "The earlier illustrative value (design §Pyramid structure: 10% increased damage taken for 2 rounds); small enough that a wrong answer stays a shortcut"
+ },
+ "combat": {
+  "D2": {
+   "division": "I Experimental Armory",
+   "status": "APPROVED — RUL-2026-10-16-011 (release plan §4.1 Discord list, Armory row)",
+   "target": "player",
+   "effect": {
+    "kind": "buff",
+    "tag": {
+     "type": "stunprevent",
+     "power": 100,
+     "rounds": 2
+    }
+   },
+   "rationale": "Counters Master of Arms' Sovereign Fetters (stun 2r) opening combo"
+  },
+  "D3": {
+   "division": "II Skyglass Research",
+   "status": "APPROVED — RUL-2026-10-16-011 (release plan §4.1 Discord list, Research row)",
+   "target": "player",
+   "effect": {
+    "kind": "buff",
+    "tag": {
+     "type": "increasedamagegiven",
+     "power": 25,
+     "rounds": 3,
+     "calculation": "percentage"
+    }
+   },
+   "rationale": "Burst through Compression Barrier/Bulwark before Replicant Zero's sustain cycle; note it can be copied by Stolen Form only at ≥71 total IDG"
+  },
+  "D4": {
+   "division": "III High Command",
+   "status": "APPROVED — RUL-2026-10-16-011 (release plan §4.1 Discord list, High Command row); roster's 'redundant' label is wrong — the boss innate protects the boss, this protects the player (release plan §4.3)",
+   "target": "player",
+   "effect": {
+    "kind": "buff",
+    "tag": {
+     "type": "sealprevent",
+     "power": 100,
+     "rounds": 2
+    }
+   },
+   "rationale": "Counters Sovereign Malediction (seal 2r)"
+  },
+  "D5": {
+   "division": "IV Command Sanctum",
+   "status": "APPROVED — RUL-2026-10-16-008: director delegated the pick; Fable selected option A (Debuff Prevent 100 / 3r) replacing the unsupported Clear Prevent",
+   "target": "player",
+   "effect": {
+    "kind": "buff",
+    "tag": {
+     "type": "debuffprevent",
+     "power": 100,
+     "rounds": 3
+    }
+   },
+   "options": [
+    {
+     "id": "A",
+     "tag": {
+      "type": "debuffprevent",
+      "power": 100,
+      "rounds": 3
+     },
+     "tradeoff": "Blocks Hexweave / Scorching Rend / Worldbreaker follow-ups early; does not protect player buffs from Countermand; native-proven stand-in"
+    },
+    {
+     "id": "B",
+     "tag": {
+      "type": "immunity",
+      "blocks": "cleanseprevent",
+      "rounds": 3
+     },
+     "tradeoff": "Narrow: answers Extermination Order's Cleanse Prevent, but Final Stand usually comes after round 3, so it rarely matters"
+    },
+    {
+     "id": "C",
+     "tag": {
+      "type": "decreasedamagetaken",
+      "power": 20,
+      "rounds": 3
+     },
+     "tradeoff": "Generic mitigation (the orphaned Outer Garrison value); always useful, least thematic"
+    }
+   ],
+   "rationale": "Closest supported intent to 'protect what you bring into the fight': for the opening three rounds Arakane's Hexweave (IDT/heal-/stat-), Scorching Rend afterburn/wound and similar debilitation cannot land; it does not stop Countermand's Clear (no supported quest buff does). Native-proven since the C99 stand-in."
+  }
+ }
+}
