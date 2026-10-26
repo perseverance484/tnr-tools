@@ -24,7 +24,7 @@ jdata.update({
     "jutsuWeapon": "NONE", "statClassification": "None", "elementClassification": "None",
     "battleUsageType": "BOTH", "bloodlineId": "", "villageId": "", "image": wail["image"],
     "hidden": True, "injectableInBattle": False,
-    "effects": [dmg, f.tag("recoil", power=40, rounds=3), f.tag("decreaseheal", power=60, rounds=3)],
+    "effects": [dmg, f.tag("recoil", power=60, rounds=3), f.tag("decreaseheal", power=60, rounds=3)],
 })
 jentry = f.entry("jutsu", "create", name="Hellfire Harvest", srcId="hellfire_harvest", data=jdata)
 T = "CLOSEST_OPPONENT"
@@ -45,7 +45,7 @@ rules = [
 ]
 if NEW is None:
     m = {"_note": "Creates Hellfire Harvest, the Headless Rider's new signature jutsu (director spec 2026-10-26), hidden: method ALL on every "
-                  "opponent, damage 70 (Fire, the rider's element), recoil 40% for 3 rounds, heal cut (decreaseheal) 60% for 3 rounds, "
+                  "opponent, damage 70 (Fire, the rider's element), recoil 60% for 3 rounds, heal cut (decreaseheal) 60% for 3 rounds, "
                   "60 AP. PLACEHOLDERS: cooldown 6, heal-cut duration 3 (matches recoil), icon reuses Wail of Despair's image until art "
                   "exists. Create only: equipping it on the rider (eaMN5CfciNlxfezSKemJ6) and the rules follow as a separate edit with "
                   "this jutsu's live id, because an @jutsu ref in an AI jutsus array is refused by validate (law 17).",
@@ -58,7 +58,7 @@ items = [
     {"entity": "aiProfile", "slot": "edit", "targetId": AID, "name": "Headless Rider: rules with Hellfire Harvest",
      "data": {"includeDefaultRules": False, "rules": rules}}]
 m = {"_note": "Headless Rider (eaMN5CfciNlxfezSKemJ6): new signature jutsu Hellfire Harvest, director spec 2026-10-26: "
-              "method ALL on every opponent, damage 70 (Fire, the rider's element), recoil 40% for 3 rounds, heal cut "
+              "method ALL on every opponent, damage 70 (Fire, the rider's element), recoil 60% for 3 rounds, heal cut "
               "(decreaseheal) 60% for 3 rounds; 60 AP. PLACEHOLDERS: cooldown 6, heal-cut duration 3 (matches recoil), "
               "icon reuses Wail of Despair's image until art exists. Created hidden, then equipped by re-sending the "
               "kit (7 as read by push/262, items [] unchanged) plus the new id; updateAi inserts it equipped. Rules are "
