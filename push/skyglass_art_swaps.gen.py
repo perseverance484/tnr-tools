@@ -24,6 +24,8 @@ SWAPS = [
      "art/skyglass_event_icons/exports/icon-archive-chart-case.webp"),
     (3, "item", "nbLC37UzBamthKXvZsgQB", "Chart of the Buried Cache", "image",
      "art/skyglass_event_icons/exports/icon-chart-buried-cache.webp"),
+    (4, "item", "KzITKJ5BUQRz5QuYWw-0B", "Unmarked Cargo", "image",
+     "art/skyglass_event_icons/exports/icon-unmarked-cargo.webp"),
 ]
 DONE = []
 
