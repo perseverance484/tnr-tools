@@ -1,0 +1,101 @@
+{
+ "_note": "STEP 2 of 2 (after 284). Hellfire Harvest (XVJb8MfFvIKe4GOgBaqXO) rebuilt as a ground field, director 2026-10-26: target GROUND + method ALL marks every tile and hits every enemy, the shape of Kinjutsu: Black Thorn Rose (qB550OM_X-Mh0w_KlNNji, read tnr_results_1792732003454): effects carry friendlyFire ENEMIES so the Rider is never caught, the lingering recoil and heal cut carry the Shadow field static mark (y1hrYiCnjmJM-wK5IIWHa), and every effect plays Black Thorn Rose's appear animation and sound as the placeholder until its own field animation exists. Numbers unchanged: damage 70 Fire, recoil 60%/3, heal cut 60%/3, cooldown 6, 60 AP. Equipped on the Rider, so law 18/60: unequip, edit, re-equip. This run edits the jutsu and re-equips it. Rules untouched: rule 2 already fires it ungated at CLOSEST_OPPONENT, whose tile is valid ground.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "name": "Hellfire Harvest: ground field",
+   "targetId": "XVJb8MfFvIKe4GOgBaqXO",
+   "data": {
+    "target": "GROUND",
+    "method": "ALL",
+    "range": 5,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "zRK4rRgCRjoWlyQj0gsNw",
+      "disappearAnimation": "",
+      "appearSfx": "4iG_WpgEmPGUzHn8z129r",
+      "disappearSfx": "",
+      "power": 70,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "formula",
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "statTypes": [
+       "None"
+      ],
+      "generalTypes": [
+       "Highest"
+      ],
+      "elements": [
+       "Fire"
+      ],
+      "friendlyFire": "ENEMIES"
+     },
+     {
+      "staticAssetPath": "y1hrYiCnjmJM-wK5IIWHa",
+      "staticAnimation": "",
+      "appearAnimation": "zRK4rRgCRjoWlyQj0gsNw",
+      "disappearAnimation": "",
+      "appearSfx": "4iG_WpgEmPGUzHn8z129r",
+      "disappearSfx": "",
+      "power": 60,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "recoil",
+      "description": "Recoil damage given back to self",
+      "rounds": 3,
+      "friendlyFire": "ENEMIES"
+     },
+     {
+      "staticAssetPath": "y1hrYiCnjmJM-wK5IIWHa",
+      "staticAnimation": "",
+      "appearAnimation": "zRK4rRgCRjoWlyQj0gsNw",
+      "disappearAnimation": "",
+      "appearSfx": "4iG_WpgEmPGUzHn8z129r",
+      "disappearSfx": "",
+      "power": 60,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "decreaseheal",
+      "description": "Decrease how much target can heal others",
+      "rounds": 3,
+      "friendlyFire": "ENEMIES"
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: re-equip Hellfire Harvest",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli",
+     "XVJb8MfFvIKe4GOgBaqXO"
+    ],
+    "items": []
+   }
+  }
+ ]
+}
