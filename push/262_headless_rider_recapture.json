@@ -1,8 +1,28 @@
 {
- "_note": "READ-ONLY recapture of the Headless Rider AI (eaMN5CfciNlxfezSKemJ6) after the director changed Horseman's Charge (its move effect). Zero mutations. Operator-run only. One profile.getAi point read with persist:\"full\": the equipped kit with each jutsu's current effects, range, targeting and cooldown, plus aiProfileId. The rules pushed by push/260 (VERIFIED, tnr_results_1792965486399) are re-derived against this read and re-sent as an aiProfile edit. Keep the full results bundle.",
+ "_note": "READ-ONLY recapture for Headless Rider Horror! (0lNDtE_VYJOCy8JZQI_sI) AI audit. Zero mutations. Operator-run only. Three profile.getAi point reads with persist:\"full\": (1) Headless Rider eaMN5CfciNlxfezSKemJ6 after the director changed Horseman's Charge (its move effect), to re-derive the push/260 rules (VERIFIED, tnr_results_1792965486399) against the current kit; (2) Zombie Villager nqL-uL-Z_7I0iuowlpBDx (director-supplied id), for a kit and rule-set audit and its avatar upgrade; (3) C2npKrdVww2J9EKsJpa1W, the AI the quest's three ruined-village fights (Vah2P, jjfV9, dKZp2) actually reference per the push/255 capture, to confirm whether it is the same zombie or a different record. Each read returns the equipped kit with effects, range, targeting and cooldown, the avatar URL and aiProfileId. Keep the full results bundle.",
  "capture": {
   "before": [
-   {"proc": "profile.getAi", "input": {"userId": "eaMN5CfciNlxfezSKemJ6"}, "persist": "full"}
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "eaMN5CfciNlxfezSKemJ6"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "nqL-uL-Z_7I0iuowlpBDx"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "C2npKrdVww2J9EKsJpa1W"
+    },
+    "persist": "full"
+   }
   ],
   "after": []
  },
