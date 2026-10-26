@@ -3001,3 +3001,20 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-25: "Approved on exception. Write request for a separate agent to do code branch for review".
 
 **Canonical destination:** `state/validate_exceptions/262_foundry_warden.json`; `state/prompt_validate_stale_rules.md`.
+
+## RUL-2026-10-25-010 — Treasure hunts: a lost fight fails the hunt; Captain's Purse 100,000 ryo
+
+**Date:** 2026-10-25
+
+**Domain:** quest structure (isolated Battle Pyramids); rewards
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. In every Skyglass treasure hunt (Drowned Foundry, Quarantined Archive, Captain's Watch, Crownhold), a lost, drawn or fled fight fails the hunt: each `start_battle` routes `failObjectiveId` to a `fail_quest` objective, which closes the isolated run. No retry or recovery path. The entry item is spent at start either way.
+2. Why: an isolated pyramid keeps a defeated player in the run at a minimum of 1 HP and freezes outside recovery (`libs/combat/database.ts`, `validators/objectives.ts` `isolated`), so a reset-and-retry starts the fight at 1 HP. This replaces Crownhold's 50%-pool recovery loop and reset bridges (RUL-2026-10-15-001 / -10-16-002 topology), which existed only to handle that case; Crownhold's node count is re-derived without them.
+3. The Captain's Watch "Captain's Purse" pick is **100,000 ryo** (was the 50,000 proposal).
+
+**Evidence:** User, 2026-10-25: "100,000 for ryo pick"; "The obvious solution is that failing a fight fails the quest. Otherwise we're figuring out how to deal with 1hp players. This would allow crownhold to shrink in size massively".
+
+**Canonical destination:** `push/skyglass_hunts.gen.py` (push/268); `docs/design/SKYGLASS_LOOT_TABLES.md` (purse amount); Crownhold build.

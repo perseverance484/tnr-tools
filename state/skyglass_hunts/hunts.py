@@ -41,7 +41,7 @@ ARCHIVE = {
 
 FOUNDRY = {
  "name": "The Drowned Foundry", "chart": "Chart of the Drowned Foundry", "ladder": "V (always fought to the Warden)",
- "premise": "Under the warship's keel are the works where the Core grows and pours the Skyglass that repairs the hull. The seawater got in when the ship fell, and the works kept running. The water rises the deeper you go, and the haul is at the bottom: there is no way out but through the crucible. A lost fight costs time, not the haul.",
+ "premise": "Under the warship's keel are the works where the Core grows and pours the Skyglass that repairs the hull. The seawater got in when the ship fell, and the works kept running. The water rises the deeper you go, and the haul is at the bottom: there is no way out but through the crucible. Lose a fight and the works throw you out, chart and all.",
  "scenes": ["exterior_keel_walk", "lower_hull", "hold"],
  "portraits": [],
  "new_ai": ["Foundry Warden (boss; avatar needed)"],
@@ -62,7 +62,7 @@ FOUNDRY = {
 
 WATCH = {
  "name": "The Captain's Watch", "chart": "Chart of the Captain's Watch", "ladder": "no terms IV · one or two V · all three VI",
- "premise": "The Captain's impression still keeps the night watch, and he never refuses a challenger. But the Oathkeeper sets terms: before each fight you may accept a handicap. Every term you take and survive raises the haul. A lost fight is retried with the same terms.",
+ "premise": "The Captain's impression still keeps the night watch, and he never refuses a challenger. But the Oathkeeper sets terms: before each fight you may accept a handicap. Every term you take and survive raises the haul. Lose any fight and the watch is over.",
  "scenes": ["cache_site", "chart_room", "deck_b", "helm", "command_observation_gallery"],
  "portraits": ["Oathkeeper", "The Captain"],
  "new_ai": [],
