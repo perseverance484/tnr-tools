@@ -1,0 +1,93 @@
+{
+ "_note": "Creates 'The Headless Rider' open raid (hidden) for the Headless Rider Horror! event. Boss: Headless Rider eaMN5CfciNlxfezSKemJ6 (push/263 rules), one objective open_raid at sector 999, the river sector where the quest ends (players must stand in the sector to join; raids do not enforce prerequisiteQuestId, so the prerequisite documents intent only). River background UEgFiNUL3EbYks0YlcXI-. PLACEHOLDERS for the director: boss HP 25,000,000, levels 10-110, rank C, maxAttempts 100. Rewards are not set here: raids pay through damage thresholds (raids.createDamageThreshold), which Forge cannot write; add them in the raid editor. Shape cloned from live raids (Kaeruun / Return of Veylan, tnr_results_1791233210169).",
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "create",
+   "name": "The Headless Rider",
+   "srcId": "hrh_raid",
+   "data": {
+    "name": "The Headless Rider",
+    "questType": "raid",
+    "hidden": true,
+    "image": "https://ui0arpl8sm.ufs.sh/f/7vsDRLuyNs2UCjtVSZqAy.webp",
+    "description": "The Headless Rider rides again along the river where his skull was lost. Gather your squad and break his charge.",
+    "successDescription": "The Headless Rider has been driven back into the mist.",
+    "questRank": "C",
+    "requiredLevel": 10,
+    "maxLevel": 110,
+    "maxAttempts": 100,
+    "maxCompletes": 1,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "consecutiveObjectives": true,
+    "prerequisiteQuestId": "0lNDtE_VYJOCy8JZQI_sI",
+    "raidBossMaxHealth": 25000000,
+    "raidBossCurrentHealth": 25000000,
+    "content": {
+     "objectives": [
+      {
+       "structureAssetId": "",
+       "locationName": "",
+       "locationDescription": "",
+       "structureScale": 1,
+       "description": "Moonlight on black water. The laugh comes first, then the hooves. The Headless Rider has returned to the river, scythe in hand, and every shinobi who answers the call strikes at the same cursed rider.",
+       "successDescription": "The rider's scythe falls into the river and his laugh breaks apart on the wind.",
+       "sceneBackground": "UEgFiNUL3EbYks0YlcXI-",
+       "sceneCharacters": [],
+       "completionOutcome": "Win",
+       "failDescription": "You failed to defeat the raid boss",
+       "fleeDescription": "You fled from the raid boss",
+       "drawDescription": "The battle ended in a draw",
+       "scaleGains": 1,
+       "image": "",
+       "opponentAIs": [
+        {
+         "ids": [
+          "eaMN5CfciNlxfezSKemJ6"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_hunter_items_ids": [],
+       "reward_gathering_items_ids": [],
+       "reward_seichi_silver": 0,
+       "reward_money": 0,
+       "reward_clanpoints": 0,
+       "reward_anbupoints": 0,
+       "reward_exp": 0,
+       "reward_tokens": 0,
+       "reward_prestige": 0,
+       "reward_reputation": 0,
+       "reward_skillpoints": 0,
+       "reward_rank": "NONE",
+       "reward_village_membership": "NONE",
+       "reward_items": [],
+       "reward_jutsus": [],
+       "reward_bloodlines": [],
+       "reward_sage_modes": [],
+       "reward_badges": [],
+       "reward_titles": [],
+       "reward_medical_experience": 0,
+       "reward_hunting_experience": 0,
+       "reward_crafting_experience": 0,
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0,
+       "reward_war_damage": 0,
+       "reward_war_healing": 0,
+       "task": "open_raid",
+       "id": "hrRd1",
+       "sector": 999,
+       "opponent_scaled_to_user": false,
+       "keepOriginalPools": false
+      }
+     ],
+     "reward": {},
+     "sceneBackground": "UEgFiNUL3EbYks0YlcXI-",
+     "sceneCharacters": []
+    }
+   }
+  }
+ ]
+}
