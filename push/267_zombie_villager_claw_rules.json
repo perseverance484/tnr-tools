@@ -1,0 +1,40 @@
+{
+ "_note": "Zombie Villager (nqL-uL-Z_7I0iuowlpBDx). A live fight (director screenshot, 2026-10-26) shows every zombie doing Basic Attack then End Turn and never using Zombie Claws. Cause: the AI has aiProfileId null (push/262 read), so battles give it the shared admin-locked Default profile (combat.ts initiateBattle: aiProfileId ?? 'Default'), whose rules do not call the claws. This gives it its own profile (the builder toggles one first): use Zombie Claws when adjacent (range 1, gate 2), otherwise move in. No new moves, no kit or stat change. Claws cost 60 AP; the remaining 40 AP ends the turn.",
+ "items": [
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "nqL-uL-Z_7I0iuowlpBDx",
+   "name": "Zombie Villager: claw rules",
+   "data": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_item",
+       "description": "Select specific item",
+       "itemId": "mMl6P4B7v6-_CyDo3HVG7",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "Move towards opponent",
+       "target": "CLOSEST_OPPONENT"
+      }
+     }
+    ]
+   }
+  }
+ ]
+}
