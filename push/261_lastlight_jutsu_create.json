@@ -1,0 +1,119 @@
+{
+ "_note": "Lastlight, the Crownhold jutsu (push/261), direct HIDDEN create (RUL-2026-10-25-006; director 2026-10-25: hidden push of everything). EVENT, PVE only, no element, AOE_LINE_SHOOT range 5, cooldown 8, Jonin. Effects scale 0.4/level to the targets at level 25: damage 40 (formula, Highest/Highest), wound 20 for 2 rounds, decreaseheal 30 for 3 rounds. Costs follow the live EVENT Jonin jutsu Drops of Renewal (500/500, -10 per level). PLACEHOLDERS: icon is the Lastlight Lantern item icon; the hit animation and sound reuse KGK: Black Fang Lance's line strike until Lastlight's own art exists. Description is a draft.",
+ "dedupNames": true,
+ "imgSizes": {
+  "icon-skyglass-signal-beacon.webp": 45678
+ },
+ "imagePack": {
+  "ref": "c371a8c1a8302ed23ba7287ed77cb780250dbb24",
+  "files": {
+   "icon-skyglass-signal-beacon.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp",
+    "sha256": "6b58863e0d526502ab16dc462d09ecbb434b0f68ed699b7a7004dcc71d226ff1",
+    "bytes": 45678
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "create",
+   "phase": 1,
+   "name": "Lastlight",
+   "srcId": "lastlight_jutsu",
+   "data": {
+    "name": "Lastlight",
+    "description": "Crownhold's final signal, turned into a weapon. The user raises a skyglass light that burns in a straight line through every enemy in its path, leaving wounds that keep bleeding and that heal poorly. Usable only against the world's enemies, never against other shinobi.",
+    "battleDescription": "%user raises the Lastlight. A skyglass beam burns through everything in its path.",
+    "effects": [
+     {
+      "target": "INHERIT",
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "appearAnimation": "BO5IsHYgogOhCmoRj5ydN",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "type": "damage",
+      "power": 40,
+      "powerPerLevel": 0.4,
+      "rounds": 0,
+      "calculation": "formula",
+      "statTypes": [
+       "Highest"
+      ],
+      "generalTypes": [
+       "Highest"
+      ],
+      "dmgModifier": 1,
+      "residualModifier": 0,
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "type": "wound",
+      "power": 20,
+      "powerPerLevel": 0.4,
+      "rounds": 2,
+      "calculation": "percentage",
+      "generalTypes": [
+       "Highest"
+      ]
+     },
+     {
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "type": "decreaseheal",
+      "power": 30,
+      "powerPerLevel": 0.4,
+      "rounds": 3,
+      "calculation": "percentage"
+     }
+    ],
+    "target": "OTHER_USER",
+    "method": "AOE_LINE_SHOOT",
+    "range": 5,
+    "cooldown": 8,
+    "requiredRank": "JONIN",
+    "requiredLevel": 1,
+    "jutsuType": "EVENT",
+    "jutsuRank": "A",
+    "jutsuWeapon": "NONE",
+    "statClassification": "None",
+    "elementClassification": "None",
+    "actionCostPerc": 60,
+    "chakraCost": 500,
+    "staminaCost": 500,
+    "chakraCostReducePerLvl": 10,
+    "staminaCostReducePerLvl": 10,
+    "healthCost": 0,
+    "healthCostReducePerLvl": 0,
+    "extraBaseCost": 0,
+    "bloodlineId": "",
+    "villageId": "",
+    "hidden": true,
+    "injectableInBattle": false,
+    "battleUsageType": "PVE",
+    "image": "@img:icon-skyglass-signal-beacon.webp"
+   }
+  }
+ ]
+}
