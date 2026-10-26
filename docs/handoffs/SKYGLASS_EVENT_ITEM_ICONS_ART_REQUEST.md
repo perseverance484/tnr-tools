@@ -21,7 +21,7 @@
 | 7 | Chart of the Drowned Foundry (map of the wreck: keel and lower decks) | `icon-chart-drowned-foundry.webp` | lime | Reliquary (style only) |
 | 8 | Chart of the Quarantined Archive (map of the wreck: sealed chamber amidships) | `icon-chart-quarantined-archive.webp` | lime | approved #7 (style) |
 | 9 | Chart of the Captain's Watch (map of the wreck: upper command decks) | `icon-chart-captains-watch.webp` | lime | approved #7 (style) |
-| 10 | Lastlight | `icon-skyglass-signal-beacon.webp` | lime | Reliquary (style only) |
+| 10 | Lastlight Lantern | `icon-skyglass-signal-beacon.webp` | lime | Reliquary (style only) |
 | 11 | Armory Requisition | `icon-armory-requisition.webp` | lime | Reliquary (style only) |
 
 Reference files: `art/ghost_ship_skyglass/icon_ghost_ship_skyglass_reliquary.webp`,
@@ -32,11 +32,11 @@ Reference files: `art/ghost_ship_skyglass/icon_ghost_ship_skyglass_reliquary.web
 
 1. **#1 Coffer, #2 Katon pouch, #7 Foundry chart** first; each locks its family. Director approves each before its family
    continues.
-2. Then the other pouches (with #2 attached), the other charts (with #7), the Lastlight and the Requisition.
+2. Then the other pouches (with #2 attached), the other charts (with #7), the Lastlight Lantern and the Requisition.
 
 ## Family rules
 
-- **Skyglass family (Coffer, Charts, Lastlight, Requisition):** near-black iron and dark wood or dark paper, blackened iron
+- **Skyglass family (Coffer, Charts, Lastlight Lantern, Requisition):** near-black iron and dark wood or dark paper, blackened iron
   banding with rivets, ONE accent of pale cyan faceted skyglass with a soft inner glow, a crisp dark outline, soft cool rim
   light, 3/4 view at eye level, no cast shadow. The Coffer must NOT look like the Reliquary (that is a flat-lidded box with
   a central vertical crystal clasp, now retired).
@@ -165,9 +165,9 @@ Negative: no text, no letters, no numbers, no labels or legends, no compass-rose
 Return the raw image named raw_icon_chart_captains_watch.png.
 ~~~
 
-### 10. Lastlight
+### 10. Lastlight Lantern
 ~~~text
-Draw ONE game item icon for The Ninja RPG: the Lastlight, a hand-held signal lamp still tuned to a hidden
+Draw ONE game item icon for The Ninja RPG: the Lastlight Lantern, a hand-held signal lamp still tuned to a hidden
 fortress. Generate exactly one image. Do not crop, key or process it.
 
 Reference attached: the Skyglass Reliquary icon. STYLE AND MATERIAL ONLY: match its rendering, palette, outline and

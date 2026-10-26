@@ -1,5 +1,5 @@
 {
- "_note": "Skyglass event items, step 1 (push/254): creates the Skyglass Coffer (weighted cache), the five elemental Tool Pouches (guaranteed kunai x10 + one weighted roll) and the four hunt maps (3 Charts + Lastlight; OTHER, tradable, no effect: they become Battle Pyramid entry items later). All HIDDEN. Icons are the final Skyglass event icons (art/skyglass_event_icons/exports, pack pinned at c371a8c; art request docs/handoffs/SKYGLASS_EVENT_ITEM_ICONS_ART_REQUEST.md). Charts are maps of the wreck's own interior (RUL-2026-10-24-026). Rarities and descriptions are drafts for the director. Contents per docs/design/SKYGLASS_LOOT_TABLES.md. Armory Requisition is not here: it needs its Special quest first.",
+ "_note": "Skyglass event items, step 1 (push/254): creates the Skyglass Coffer (weighted cache), the five elemental Tool Pouches (guaranteed kunai x10 + one weighted roll) and the four hunt maps (3 Charts + Lastlight Lantern; OTHER, tradable, no effect: they become Battle Pyramid entry items later). All HIDDEN. Icons are the final Skyglass event icons (art/skyglass_event_icons/exports, pack pinned at c371a8c; art request docs/handoffs/SKYGLASS_EVENT_ITEM_ICONS_ART_REQUEST.md). Charts are maps of the wreck's own interior (RUL-2026-10-24-026). Rarities and descriptions are drafts for the director. Contents per docs/design/SKYGLASS_LOOT_TABLES.md. Armory Requisition is not here: it needs its Special quest first.",
  "dedupNames": true,
  "items": [
   {
@@ -1818,10 +1818,10 @@
    "entity": "item",
    "slot": "create",
    "phase": 1,
-   "name": "Lastlight",
-   "srcId": "lastlight",
+   "name": "Lastlight Lantern",
+   "srcId": "lastlight_lantern",
    "data": {
-    "name": "Lastlight",
+    "name": "Lastlight Lantern",
     "description": "Crownhold's final signal, caught in a skyglass lantern. It still burns with the last directive the wreck's crew obeys. Bring it to the Battle Arena to follow the light home to Crownhold.",
     "effects": [],
     "itemType": "OTHER",
