@@ -48,7 +48,7 @@ CROWN_THREAD=("Continuity (Crownhold): a shinobi of the Skyglass Project's mount
  "cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and "
  "weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at "
  "the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no "
- "crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo "
+ "crown, no technology. Closed boots or wrapped tabi footwear, no bare toes. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo "
  "cloth, dull brass fittings, plus the one accent named in the subject.")
 SCENE_STYLE=("Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp "
  "hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly "
@@ -105,7 +105,7 @@ add(7,"Foundry Warden (AI avatar)","AI_AVATAR","magenta","avatar_skyglass_foundr
 
 AVATARS=[
  ("Master of Arms","Division I commander. A broad, bull-necked weapons master: a dented iron half-helm with a forge-orange lacquered face guard over the mouth and jaw, a bald or close-cropped head (no long hair, no topknot); heavy lacquered plates over dark indigo cloth, a war-axe and a heavy cleaver-blade in his hands, more blades and a spear slung across his back; calm and exacting. Accent: forge-orange.",True),
- ("Replicant Zero","Division II commander. A tall, gaunt medical-nin: a close grey cloth hood and a plain surgical face wrap leaving only one chakra-lit eye, the other eye bandaged; a long dark field coat with pouches of sealing tags; calmly rebuilding his own left hand out of his own pale violet healing chakra; the first successful recall; calm and curious. No mask plate, no sword. Accent: pale violet.",True),
+ ("Replicant Zero","Division II commander. A tall, composed medical-nin: a plain dark grey hood and a dark cloth face mask, both eyes lit pale violet; a long layered dark field coat with a high stiff collar, a medic's scroll case and a row of sealing-tag pouches across the chest; his left hand and forearm sheathed in a steady glow of pale violet healing chakra as he works on them (the hand whole and solid, glowing like a medic's hands mid-treatment); the first successful recall; calm and curious. No sword. Accent: pale violet.",True),
  ("The Grand Marshal","Division III commander, called 'The Second'. An older senior shinobi officer: a wide flat travelling hat with a muted-brass brim band shading a plain dark cloth mask, a short grey beard visible below it; a plain dark long coat over light plates, hands clasped behind his back, no drawn weapon; thoughtful and severe; the deputy who could question orders. Accent: muted brass.",True),
  ("Crownhold Proving Proctor","Division I. An armory proctor in a faded grey drill wrap and cloth headwrap, a wooden board of trial slips in one hand, two wooden practice blades at the hip, a whistle on a cord. Accent: drill-yellow.",False),
  ("Ordnance Quartermaster","Division I. A soot-stained apron over a field vest, bandoliers of glowing explosive tags, soot-dark gloves holding a tray of tags. Accent: tag-orange.",False),
@@ -130,7 +130,7 @@ for name,look,boss in AVATARS:
     ref=("PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text)","seal_charge") if boss else \
         ("PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text)","seal_charge")
     add(n,name+(" (commander)" if boss else ""),"AI_AVATAR","magenta",fname,[ref],
-        name+": "+look+(" Commanders are larger and heavier-built than regular officers, but wear no crown and no gold." if boss else ""),CROWN_THREAD+"\n"+AV_STYLE)
+        name+": "+look+(" Commander presence: clearly a commander, not a rank-and-file officer: larger and heavier-built, a heavier layered coat or cloak with a high collar, more fittings and wraps, a commanding stance. No crown, no gold." if boss else ""),CROWN_THREAD+"\n"+AV_STYLE)
     n+=1
 SCENES=[
  ("Crownhold gate","scene_bg_crownhold_gate.webp","A snow-drifted parade ground before an open gate cut into a mountain wall; the gate stands open and unguarded; no banners; deep, unbroken snow; faint cyan light deep inside. (Used by: the fail node, 'you wake outside the gate in the snow'.)"),
