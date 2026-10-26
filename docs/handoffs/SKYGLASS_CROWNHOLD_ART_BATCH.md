@@ -1,10 +1,10 @@
-# Art batch: Skyglass event and Crownhold (62 images)
+# Art batch: Skyglass event and Crownhold (79 images)
 
 - **Director, 2026-10-25:** "Draft up a design document for the art director to pull each prompt from and use references. Then a short compact hand off for each image in sequence and I hand you back the approved image."
 - **Style (director, 2026-10-25):** every image in this batch is PREMIUM PIXEL ART, the same rendering as the Crownhold/crew avatars. Painted references (the Coffer, the charts, the jutsu exemplar) supply subject, materials and colours only; Arakane's avatar supplies the pixel rendering.
 - **Protocol:** `docs/workflows/ISOLATED_ART_GENERATION.md`. One image per fresh session, at most two reference images (never a collage), one candidate at a time. The art director returns the RAW image; Claude Code keys, crops, exports and QCs it (`skills/producing-tnr-art`), then swaps the placeholder in game by manifest.
 - **Pixel redraws (#36 to #46):** the event icons already live were painted; each is redrawn as pixel art from its own approved image so the whole set matches (director, 2026-10-25).
-- **More pixel redraws (#47 to #62):** the six Skyglass item icons inside the Coffer and the ten Ghost Ship scene backgrounds the hunts use, also painted. Already pixel art and NOT redrawn: every crew avatar, the four scene portraits, the map structure. Left out: the retired Reliquary and old chests, and the retiring Ghost Ship quest icon.
+- **More pixel art (#47 onward):** the six Skyglass item icons inside the Coffer (redraws), then one scene per location the hunts actually depict (14; the wreck is now beached, and each Foundry room gets its own). Each scene lists the nodes that use it so the quests can be repointed when the art lands. Already pixel art and NOT redrawn: every crew avatar, the four scene portraits, the map structure. Left out: the retired Reliquary and old chests, and the retiring Ghost Ship quest icon.
 - **Not in this batch:** Arakane (done, `art/crownhold/avatar_crownhold_arakane.webp`); the Sealwright and Oathkeeper scene portraits (already exist). **Deferred:** the Lastlight hit animation (a vertical strip sprite sheet; its placeholder is KGK: Black Fang Lance's).
 - **How a session uses this file:** it is given the link to this file and an image number. It reads that image's section, downloads the reference images from the links there, attaches them in the order given, and runs the prompt exactly as written.
 - **Live-game requests/writes:** 0.
@@ -52,16 +52,16 @@ Every link is pinned to commit `2a79eb90a053c3aa56a70b5d3823e88069104c40`, so it
 | redraw_icon_ghost_ship_skyglass_filament.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp |
 | redraw_icon_ghost_ship_skyglass_katana.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_katana.webp |
 | redraw_icon_ghost_ship_skyglass_serum.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_serum.webp |
-| redraw_scene_bg_ghost_ship_cache_site.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp |
-| redraw_scene_bg_ghost_ship_chart_room.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_chart_room.webp |
-| redraw_scene_bg_ghost_ship_command_observation_gallery.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp |
-| redraw_scene_bg_ghost_ship_deck_b.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_deck_b.webp |
-| redraw_scene_bg_ghost_ship_exterior_keel_walk.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp |
-| redraw_scene_bg_ghost_ship_helm.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp |
-| redraw_scene_bg_ghost_ship_hold.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp |
-| redraw_scene_bg_ghost_ship_lower_hull.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp |
-| redraw_scene_bg_ghost_ship_quarantined_archive.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_quarantined_archive.webp |
-| redraw_scene_bg_ghost_ship_reconstruction_chamber.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_reconstruction_chamber.webp |
+| scene_helm | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp |
+| scene_exterior_keel_walk | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp |
+| scene_lower_hull | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp |
+| scene_hold | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp |
+| scene_reconstruction_chamber | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_reconstruction_chamber.webp |
+| scene_quarantined_archive | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_quarantined_archive.webp |
+| scene_cache_site | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp |
+| scene_chart_room | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_chart_room.webp |
+| scene_deck_b | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_deck_b.webp |
+| scene_command_observation_gallery | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp |
 
 ## Sequence
 
@@ -94,41 +94,58 @@ Every link is pinned to commit `2a79eb90a053c3aa56a70b5d3823e88069104c40`, so it
 | 25 | Last Watch Executor | AI_AVATAR | magenta | arakane | `avatar_crownhold_last_watch_executor.webp` |
 | 26 | Order-Bearer of the Sanctum | AI_AVATAR | magenta | arakane | `avatar_crownhold_order_bearer_of_the_sanctum.webp` |
 | 27 | Scene: Crownhold gate | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_gate.webp` |
-| 28 | Scene: Experimental Armory | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_armory.webp` |
-| 29 | Scene: Skyglass Research | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_research.webp` |
-| 30 | Scene: High Command | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_high_command.webp` |
-| 31 | Scene: Command Sanctum | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_sanctum.webp` |
-| 32 | Scene: Signal room (aftermath) | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_signal_room.webp` |
-| 33 | The Last Directive (jutsu icon) | JUTSU_ICON | none | bbe, arakane | `icon-jutsu-the-last-directive.webp` |
-| 34 | Extermination Order (jutsu icon) | JUTSU_ICON | none | bbe, arakane | `icon-jutsu-extermination-order.webp` |
-| 35 | Countermand (item icon) | ICON | lime | arakane | `icon-countermand.webp` |
-| 36 | Skyglass Coffer (pixel redraw) | ICON | lime | redraw_icon-skyglass-coffer.webp, arakane | `icon-skyglass-coffer-pixel.webp` |
-| 37 | Katon Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-katon.webp, arakane | `icon-tool-pouch-katon-pixel.webp` |
-| 38 | Wave Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-wave.webp, arakane | `icon-tool-pouch-wave-pixel.webp` |
-| 39 | Ikazuchi Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-ikazuchi.webp, arakane | `icon-tool-pouch-ikazuchi-pixel.webp` |
-| 40 | Stonefall Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-stonefall.webp, arakane | `icon-tool-pouch-stonefall-pixel.webp` |
-| 41 | Zephyrfang Tool Pouch (pixel redraw) | ICON | magenta | redraw_icon-tool-pouch-zephyrfang.webp, arakane | `icon-tool-pouch-zephyrfang-pixel.webp` |
-| 42 | Chart of the Drowned Foundry (pixel redraw) | ICON | lime | redraw_icon-chart-drowned-foundry.webp, arakane | `icon-chart-drowned-foundry-pixel.webp` |
-| 43 | Chart of the Quarantined Archive (pixel redraw) | ICON | lime | redraw_icon-chart-quarantined-archive.webp, arakane | `icon-chart-quarantined-archive-pixel.webp` |
-| 44 | Chart of the Captain's Watch (pixel redraw) | ICON | lime | redraw_icon-chart-captains-watch.webp, arakane | `icon-chart-captains-watch-pixel.webp` |
-| 45 | Lastlight Lantern (pixel redraw) | ICON | lime | redraw_icon-skyglass-signal-beacon.webp, arakane | `icon-skyglass-signal-beacon-pixel.webp` |
-| 46 | Armory Requisition (pixel redraw) | ICON | lime | redraw_icon-armory-requisition.webp, arakane | `icon-armory-requisition-pixel.webp` |
-| 47 | Skyglass Crown (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crown.webp, arakane | `icon_ghost_ship_skyglass_crown_pixel.webp` |
-| 48 | Skyglass Crown Fragment (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crown_fragment.webp, arakane | `icon_ghost_ship_skyglass_crown_fragment_pixel.webp` |
-| 49 | Skyglass Crystal (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crystal.webp, arakane | `icon_ghost_ship_skyglass_crystal_pixel.webp` |
-| 50 | Skyglass Filament (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_filament.webp, arakane | `icon_ghost_ship_skyglass_filament_pixel.webp` |
-| 51 | Skyglass Katana (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_katana.webp, arakane | `icon_ghost_ship_skyglass_katana_pixel.webp` |
-| 52 | Skyglass Serum (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_serum.webp, arakane | `icon_ghost_ship_skyglass_serum_pixel.webp` |
-| 53 | Scene: cache site (pixel redraw) | SCENE_BACKGROUND | none | redraw_scene_bg_ghost_ship_cache_site.webp, captain_portrait | `scene_bg_ghost_ship_cache_site_pixel.webp` |
-| 54 | Scene: chart room (pixel redraw) | SCENE_BACKGROUND | none | redraw_scene_bg_ghost_ship_chart_room.webp, captain_portrait | `scene_bg_ghost_ship_chart_room_pixel.webp` |
-| 55 | Scene: command observation gallery (pixel redraw) | SCENE_BACKGROUND | none | redraw_scene_bg_ghost_ship_command_observation_gallery.webp, captain_portrait | `scene_bg_ghost_ship_command_observation_gallery_pixel.webp` |
-| 56 | Scene: deck b (pixel redraw) | SCENE_BACKGROUND | none | redraw_scene_bg_ghost_ship_deck_b.webp, captain_portrait | `scene_bg_ghost_ship_deck_b_pixel.webp` |
-| 57 | Scene: exterior keel walk (pixel redraw) | SCENE_BACKGROUND | none | redraw_scene_bg_ghost_ship_exterior_keel_walk.webp, captain_portrait | `scene_bg_ghost_ship_exterior_keel_walk_pixel.webp` |
-| 58 | Scene: helm (pixel redraw) | SCENE_BACKGROUND | none | redraw_scene_bg_ghost_ship_helm.webp, captain_portrait | `scene_bg_ghost_ship_helm_pixel.webp` |
-| 59 | Scene: hold (pixel redraw) | SCENE_BACKGROUND | none | redraw_scene_bg_ghost_ship_hold.webp, captain_portrait | `scene_bg_ghost_ship_hold_pixel.webp` |
-| 60 | Scene: lower hull (pixel redraw) | SCENE_BACKGROUND | none | redraw_scene_bg_ghost_ship_lower_hull.webp, captain_portrait | `scene_bg_ghost_ship_lower_hull_pixel.webp` |
-| 61 | Scene: quarantined archive (pixel redraw) | SCENE_BACKGROUND | none | redraw_scene_bg_ghost_ship_quarantined_archive.webp, captain_portrait | `scene_bg_ghost_ship_quarantined_archive_pixel.webp` |
-| 62 | Scene: reconstruction chamber (pixel redraw) | SCENE_BACKGROUND | none | redraw_scene_bg_ghost_ship_reconstruction_chamber.webp, captain_portrait | `scene_bg_ghost_ship_reconstruction_chamber_pixel.webp` |
+| 28 | Scene: Armory proving hall | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_proving_hall.webp` |
+| 29 | Scene: Ordnance store | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_ordnance_store.webp` |
+| 30 | Scene: Test gallery | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_test_gallery.webp` |
+| 31 | Scene: Armory command terminal | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_armory_terminal.webp` |
+| 32 | Scene: Forge wall | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_forge_wall.webp` |
+| 33 | Scene: Archive of impressions | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_archive_of_impressions.webp` |
+| 34 | Scene: Vat halls | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_vat_halls.webp` |
+| 35 | Scene: Research command terminal | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_research_terminal.webp` |
+| 36 | Scene: Reconstruction theatre | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_reconstruction_theatre.webp` |
+| 37 | Scene: High Command signal room | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_signal_room.webp` |
+| 38 | Scene: Planning hall | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_planning_hall.webp` |
+| 39 | Scene: Honor guard corridor | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_honor_guard_corridor.webp` |
+| 40 | Scene: High Command terminal | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_high_command_terminal.webp` |
+| 41 | Scene: The Grand Marshal's office | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_marshals_office.webp` |
+| 42 | Scene: Sanctum gate | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_sanctum_gate.webp` |
+| 43 | Scene: Sanctum antechamber | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_antechamber.webp` |
+| 44 | Scene: Outer ring and terminal | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_outer_ring.webp` |
+| 45 | Scene: Throne room | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_throne_room.webp` |
+| 46 | The Last Directive (jutsu icon) | JUTSU_ICON | none | bbe, arakane | `icon-jutsu-the-last-directive.webp` |
+| 47 | Extermination Order (jutsu icon) | JUTSU_ICON | none | bbe, arakane | `icon-jutsu-extermination-order.webp` |
+| 48 | Countermand (item icon) | ICON | lime | arakane | `icon-countermand.webp` |
+| 49 | Skyglass Coffer (pixel redraw) | ICON | lime | redraw_icon-skyglass-coffer.webp, arakane | `icon-skyglass-coffer-pixel.webp` |
+| 50 | Katon Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-katon.webp, arakane | `icon-tool-pouch-katon-pixel.webp` |
+| 51 | Wave Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-wave.webp, arakane | `icon-tool-pouch-wave-pixel.webp` |
+| 52 | Ikazuchi Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-ikazuchi.webp, arakane | `icon-tool-pouch-ikazuchi-pixel.webp` |
+| 53 | Stonefall Tool Pouch (pixel redraw) | ICON | lime | redraw_icon-tool-pouch-stonefall.webp, arakane | `icon-tool-pouch-stonefall-pixel.webp` |
+| 54 | Zephyrfang Tool Pouch (pixel redraw) | ICON | magenta | redraw_icon-tool-pouch-zephyrfang.webp, arakane | `icon-tool-pouch-zephyrfang-pixel.webp` |
+| 55 | Chart of the Drowned Foundry (pixel redraw) | ICON | lime | redraw_icon-chart-drowned-foundry.webp, arakane | `icon-chart-drowned-foundry-pixel.webp` |
+| 56 | Chart of the Quarantined Archive (pixel redraw) | ICON | lime | redraw_icon-chart-quarantined-archive.webp, arakane | `icon-chart-quarantined-archive-pixel.webp` |
+| 57 | Chart of the Captain's Watch (pixel redraw) | ICON | lime | redraw_icon-chart-captains-watch.webp, arakane | `icon-chart-captains-watch-pixel.webp` |
+| 58 | Lastlight Lantern (pixel redraw) | ICON | lime | redraw_icon-skyglass-signal-beacon.webp, arakane | `icon-skyglass-signal-beacon-pixel.webp` |
+| 59 | Armory Requisition (pixel redraw) | ICON | lime | redraw_icon-armory-requisition.webp, arakane | `icon-armory-requisition-pixel.webp` |
+| 60 | Skyglass Crown (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crown.webp, arakane | `icon_ghost_ship_skyglass_crown_pixel.webp` |
+| 61 | Skyglass Crown Fragment (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crown_fragment.webp, arakane | `icon_ghost_ship_skyglass_crown_fragment_pixel.webp` |
+| 62 | Skyglass Crystal (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_crystal.webp, arakane | `icon_ghost_ship_skyglass_crystal_pixel.webp` |
+| 63 | Skyglass Filament (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_filament.webp, arakane | `icon_ghost_ship_skyglass_filament_pixel.webp` |
+| 64 | Skyglass Katana (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_katana.webp, arakane | `icon_ghost_ship_skyglass_katana_pixel.webp` |
+| 65 | Skyglass Serum (pixel redraw) | ICON | lime | redraw_icon_ghost_ship_skyglass_serum.webp, arakane | `icon_ghost_ship_skyglass_serum_pixel.webp` |
+| 66 | Scene: Wreck keel and hatch | SCENE_BACKGROUND | none | scene_exterior_keel_walk, captain_portrait | `scene_bg_skyglass_wreck_keel.webp` |
+| 67 | Scene: Flooded intake | SCENE_BACKGROUND | none | scene_lower_hull, captain_portrait | `scene_bg_skyglass_foundry_intake.webp` |
+| 68 | Scene: Cooling racks | SCENE_BACKGROUND | none | scene_hold, captain_portrait | `scene_bg_skyglass_foundry_racks.webp` |
+| 69 | Scene: Pour hall | SCENE_BACKGROUND | none | scene_lower_hull, captain_portrait | `scene_bg_skyglass_foundry_pour_hall.webp` |
+| 70 | Scene: Crucible chamber | SCENE_BACKGROUND | none | scene_hold, captain_portrait | `scene_bg_skyglass_foundry_crucible.webp` |
+| 71 | Scene: Rebuilding lower hull | SCENE_BACKGROUND | none | scene_lower_hull, captain_portrait | `scene_bg_skyglass_lower_hull.webp` |
+| 72 | Scene: Reconstruction chamber | SCENE_BACKGROUND | none | scene_reconstruction_chamber, captain_portrait | `scene_bg_skyglass_reconstruction_chamber.webp` |
+| 73 | Scene: Quarantined archive | SCENE_BACKGROUND | none | scene_quarantined_archive, captain_portrait | `scene_bg_skyglass_quarantined_archive.webp` |
+| 74 | Scene: Night cove landing | SCENE_BACKGROUND | none | scene_cache_site, captain_portrait | `scene_bg_skyglass_cove_landing.webp` |
+| 75 | Scene: Chart room | SCENE_BACKGROUND | none | scene_chart_room, captain_portrait | `scene_bg_skyglass_chart_room.webp` |
+| 76 | Scene: Open deck in a gale | SCENE_BACKGROUND | none | scene_deck_b, captain_portrait | `scene_bg_skyglass_deck.webp` |
+| 77 | Scene: Helm and command dais | SCENE_BACKGROUND | none | scene_helm, captain_portrait | `scene_bg_skyglass_helm.webp` |
+| 78 | Scene: Observation gallery | SCENE_BACKGROUND | none | scene_command_observation_gallery, captain_portrait | `scene_bg_skyglass_observation_gallery.webp` |
+| 79 | Scene: Three coves and the stone shrine | SCENE_BACKGROUND | none | scene_cache_site, captain_portrait | `scene_bg_skyglass_buried_cache_shore.webp` |
 
 ## Prompts
 
@@ -636,14 +653,14 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Scene: Crownhold gate. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A snow-drifted parade ground before an open gate cut into a mountain wall; the gate stands open and unguarded; no banners; deep, unbroken snow; dead silence; faint cyan light deep inside the gate.
+Subject: A snow-drifted parade ground before an open gate cut into a mountain wall; the gate stands open and unguarded; no banners; deep, unbroken snow; faint cyan light deep inside. (Used by: the fail node, 'you wake outside the gate in the snow'.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
 Return the raw image named raw_scene_bg_crownhold_gate.png.
 ~~~
 
-### 28. Scene: Experimental Armory
+### 28. Scene: Armory proving hall
 
 References (download and attach, in this order):
 
@@ -651,17 +668,17 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: Experimental Armory. Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: Armory proving hall. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Lit weapon racks behind tall glass panes, a live-fire trial range, a forge wall hung with every weapon type; cold stone, brass fittings, pale skyglass lamps.
+Subject: Inside the Experimental Armory: rows of weapon racks humming behind glass, a live-fire trial range with targets, a brass placard by the first rack, cold stone and military brass. (Used by: Division I opening, the Proving Proctor.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_crownhold_armory.png.
+Return the raw image named raw_scene_bg_crownhold_proving_hall.png.
 ~~~
 
-### 29. Scene: Skyglass Research
+### 29. Scene: Ordnance store
 
 References (download and attach, in this order):
 
@@ -669,17 +686,17 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: Skyglass Research. Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: Ordnance store. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Archive and vat halls: crystal-core shelving, a tall skyglass lamp column, rows of glowing specimen tanks, a reconstruction theatre in the background.
+Subject: An open ordnance store past the trial range: a counter with a ledger, shelves of sealed explosive tags glowing with heat, scorch marks on the stone. (Used by: the Ordnance Quartermaster.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_crownhold_research.png.
+Return the raw image named raw_scene_bg_crownhold_ordnance_store.png.
 ~~~
 
-### 30. Scene: High Command
+### 30. Scene: Test gallery
 
 References (download and attach, in this order):
 
@@ -687,17 +704,17 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: High Command. Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: Test gallery. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A map room with maps of borders that no longer exist, a chattering relay board, a long war-council table set for no one.
+Subject: A narrow test gallery: an empty heavy firing rig bolted to the floor with lightning-scorched clamps and capacitor cables, crackling yellow sparks. (Used by: the Prototype Lancer Unit.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_crownhold_high_command.png.
+Return the raw image named raw_scene_bg_crownhold_test_gallery.png.
 ~~~
 
-### 31. Scene: Command Sanctum
+### 31. Scene: Armory command terminal
 
 References (download and attach, in this order):
 
@@ -705,17 +722,17 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: Command Sanctum. Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: Armory command terminal. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: An obsidian throne room lit by ember light, a tall summit window looking out over a whole mountain range at night, an empty command seat.
+Subject: A glowing Military Command Terminal set into the armory wall beside a sealed door, a maintenance crawlway hatch behind live-fire racks with a three-switch lock. (Used by: Division I terminal, puzzle, protocols.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_crownhold_sanctum.png.
+Return the raw image named raw_scene_bg_crownhold_armory_terminal.png.
 ~~~
 
-### 32. Scene: Signal room (aftermath)
+### 32. Scene: Forge wall
 
 References (download and attach, in this order):
 
@@ -723,17 +740,251 @@ References (download and attach, in this order):
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: Signal room (aftermath). Generate exactly one candidate. Do not crop, key or process it.
+Draw ONE image for The Ninja RPG: Scene: Forge wall. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: A signal room far below the summit: a relay board printing a new order line by line onto a sheet of paper; the room is empty; whoever sent the order is NOT shown.
+Subject: The armory's heart: a towering forge wall hung with every weapon type ever tested, a glowing forge, an anvil, sealed door behind. (Used by: the Master of Arms.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_forge_wall.png.
+~~~
+
+### 33. Scene: Archive of impressions
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Archive of impressions. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: A library of glass: tall shelves of crystal cores, each holding a faint sleeping light, cold blue air, a reading desk with an open ledger. (Used by: Division II opening, the Archive Keeper.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_archive_of_impressions.png.
+~~~
+
+### 34. Scene: Vat halls
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Vat halls. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Halls of tall glowing specimen tanks lit by one tall Skyglass lamp column; chains of vat keys on hooks; one tank cracked and dark. (Used by: the Containment Warden, the Unstable Echo Subject.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_vat_halls.png.
+~~~
+
+### 35. Scene: Research command terminal
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Research command terminal. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: A command terminal beside the door of the reconstruction theatre, a plaque on the door, a locked maintenance stair behind the specimen tanks. (Used by: Division II terminal, puzzle, protocols.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_research_terminal.png.
+~~~
+
+### 36. Scene: Reconstruction theatre
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Reconstruction theatre. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: An operating theatre seen from behind observation glass: a central operating floor ringed by tiered seats, a reconstruction rig of light and crystal over an empty table. (Used by: Replicant Zero.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_reconstruction_theatre.png.
+~~~
+
+### 37. Scene: High Command signal room
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: High Command signal room. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: A signal room: a long relay board of brass switches and paper tape, a sheet of paper printing itself line by line, maps of borders that no longer exist on the walls; empty of people. (Used by: Division III opening, the Signal Adjutant, and the aftermath; whoever sends the order is NEVER shown.)
 
 Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
 Return the raw image named raw_scene_bg_crownhold_signal_room.png.
 ~~~
 
-### 33. The Last Directive (jutsu icon)
+### 38. Scene: Planning hall
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Planning hall. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: A planning hall set for a war council no one will attend: a long table with campaign maps, empty chairs, an inkwell of glowing chakra ink. (Used by: the Staff Tactician.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_planning_hall.png.
+~~~
+
+### 39. Scene: Honor guard corridor
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Honor guard corridor. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: A long corridor lined with suits of ceremonial stone-plated armour on stands, a tower shield with a plain circled-cross seal, leading to a closed office door. (Used by: the Honor Guard Commandant.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_honor_guard_corridor.png.
+~~~
+
+### 40. Scene: High Command terminal
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: High Command terminal. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: A command terminal outside a senior officer's office door, a narrow service corridor beside it, dispatch tubes on a rack. (Used by: Division III terminal, puzzle, protocols.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_high_command_terminal.png.
+~~~
+
+### 41. Scene: The Grand Marshal's office
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: The Grand Marshal's office. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: A severe, unadorned office: a folding map table, a single chair, a window onto snow, thirty years of annotated orders pinned to the wall. (Used by: the Grand Marshal.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_marshals_office.png.
+~~~
+
+### 42. Scene: Sanctum gate
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Sanctum gate. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: The summit: a gate of dark obsidian lit by ember light at the top of a long stair, ember braziers, the Supreme Command banner. (Used by: Division IV opening, the Sanctum Vanguard.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_sanctum_gate.png.
+~~~
+
+### 43. Scene: Sanctum antechamber
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Sanctum antechamber. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: An obsidian antechamber with a lectern for a herald's scroll, lightning-blue light on black stone, ember lamps. (Used by: the Directive Herald.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_antechamber.png.
+~~~
+
+### 44. Scene: Outer ring and terminal
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Outer ring and terminal. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: The curved night-watch corridor of the Sanctum's outer ring, the last Military Command Terminal glowing in the wall, a sealed door ahead, a maintenance channel grille in the floor. (Used by: the Last Watch Executor, Division IV terminal, puzzle, protocols.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_outer_ring.png.
+~~~
+
+### 45. Scene: Throne room
+
+References (download and attach, in this order):
+
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Throne room. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: An obsidian throne room lit by ember light, a tall summit window looking out over a whole mountain range at night, an empty command seat; faint cyan threads of light run from the floor up toward where the commander stands (he is not shown). (Used by: Supreme Commander Arakane.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_crownhold_throne_room.png.
+~~~
+
+### 46. The Last Directive (jutsu icon)
 
 References (download and attach, in this order):
 
@@ -752,7 +1003,7 @@ Negative: no text, no letters, no UI, no watermark, no character portrait, no se
 Return the raw image named raw_icon-jutsu-the-last-directive.png.
 ~~~
 
-### 34. Extermination Order (jutsu icon)
+### 47. Extermination Order (jutsu icon)
 
 References (download and attach, in this order):
 
@@ -771,7 +1022,7 @@ Negative: no text, no letters, no UI, no watermark, no character portrait, no se
 Return the raw image named raw_icon-jutsu-extermination-order.png.
 ~~~
 
-### 35. Countermand (item icon)
+### 48. Countermand (item icon)
 
 References (download and attach, in this order):
 
@@ -789,7 +1040,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-countermand.png.
 ~~~
 
-### 36. Skyglass Coffer (pixel redraw)
+### 49. Skyglass Coffer (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -808,7 +1059,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-skyglass-coffer-pixel.png.
 ~~~
 
-### 37. Katon Tool Pouch (pixel redraw)
+### 50. Katon Tool Pouch (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -827,7 +1078,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-tool-pouch-katon-pixel.png.
 ~~~
 
-### 38. Wave Tool Pouch (pixel redraw)
+### 51. Wave Tool Pouch (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -846,7 +1097,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-tool-pouch-wave-pixel.png.
 ~~~
 
-### 39. Ikazuchi Tool Pouch (pixel redraw)
+### 52. Ikazuchi Tool Pouch (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -865,7 +1116,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-tool-pouch-ikazuchi-pixel.png.
 ~~~
 
-### 40. Stonefall Tool Pouch (pixel redraw)
+### 53. Stonefall Tool Pouch (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -884,7 +1135,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-tool-pouch-stonefall-pixel.png.
 ~~~
 
-### 41. Zephyrfang Tool Pouch (pixel redraw)
+### 54. Zephyrfang Tool Pouch (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -903,7 +1154,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-tool-pouch-zephyrfang-pixel.png.
 ~~~
 
-### 42. Chart of the Drowned Foundry (pixel redraw)
+### 55. Chart of the Drowned Foundry (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -922,7 +1173,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-chart-drowned-foundry-pixel.png.
 ~~~
 
-### 43. Chart of the Quarantined Archive (pixel redraw)
+### 56. Chart of the Quarantined Archive (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -941,7 +1192,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-chart-quarantined-archive-pixel.png.
 ~~~
 
-### 44. Chart of the Captain's Watch (pixel redraw)
+### 57. Chart of the Captain's Watch (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -960,7 +1211,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-chart-captains-watch-pixel.png.
 ~~~
 
-### 45. Lastlight Lantern (pixel redraw)
+### 58. Lastlight Lantern (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -979,7 +1230,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-skyglass-signal-beacon-pixel.png.
 ~~~
 
-### 46. Armory Requisition (pixel redraw)
+### 59. Armory Requisition (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -998,7 +1249,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon-armory-requisition-pixel.png.
 ~~~
 
-### 47. Skyglass Crown (pixel redraw)
+### 60. Skyglass Crown (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -1017,7 +1268,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon_ghost_ship_skyglass_crown_pixel.png.
 ~~~
 
-### 48. Skyglass Crown Fragment (pixel redraw)
+### 61. Skyglass Crown Fragment (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -1036,7 +1287,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon_ghost_ship_skyglass_crown_fragment_pixel.png.
 ~~~
 
-### 49. Skyglass Crystal (pixel redraw)
+### 62. Skyglass Crystal (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -1055,7 +1306,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon_ghost_ship_skyglass_crystal_pixel.png.
 ~~~
 
-### 50. Skyglass Filament (pixel redraw)
+### 63. Skyglass Filament (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -1074,7 +1325,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon_ghost_ship_skyglass_filament_pixel.png.
 ~~~
 
-### 51. Skyglass Katana (pixel redraw)
+### 64. Skyglass Katana (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -1093,7 +1344,7 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon_ghost_ship_skyglass_katana_pixel.png.
 ~~~
 
-### 52. Skyglass Serum (pixel redraw)
+### 65. Skyglass Serum (pixel redraw)
 
 References (download and attach, in this order):
 
@@ -1112,183 +1363,255 @@ Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no tab
 Return the raw image named raw_icon_ghost_ship_skyglass_serum_pixel.png.
 ~~~
 
-### 53. Scene: cache site (pixel redraw)
+### 66. Scene: Wreck keel and hatch
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact scene: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: cache site (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact scene; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+Draw ONE image for The Ninja RPG: Scene: Wreck keel and hatch. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Redraw the SUBJECT scene almost exactly (same composition, camera, layout, objects, light sources and colours) as premium pixel art. Change nothing about the design; keep it empty of people.
+Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: Outside the beached Skyglass warship at night: its split keel lies on wet sand and dark rocks at the waterline, iron bands and timber looming overhead; glowing pale cyan seal channels run along the hull into a low hatch rimmed with cooled crystal, and seawater pours past the hatch into the dark below. (Used by: Drowned Foundry d_arrive; Quarantined Archive d_arrive.)
 
-Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting exactly as the SUBJECT.
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_ghost_ship_cache_site_pixel.png.
+Return the raw image named raw_scene_bg_skyglass_wreck_keel.png.
 ~~~
 
-### 54. Scene: chart room (pixel redraw)
+### 67. Scene: Flooded intake
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact scene: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_chart_room.webp
+1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: chart room (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact scene; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+Draw ONE image for The Ninja RPG: Scene: Flooded intake. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Redraw the SUBJECT scene almost exactly (same composition, camera, layout, objects, light sources and colours) as premium pixel art. Change nothing about the design; keep it empty of people.
+Subject: A new location: The foundry's intake hall inside the wreck, half flooded: dark water at knee height, empty seal canisters bobbing against the walls, iron pipes and valve wheels, pale cyan light glinting off the water. (Used by: Drowned Foundry d_intake, b_intake.)
 
-Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting exactly as the SUBJECT.
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_ghost_ship_chart_room_pixel.png.
+Return the raw image named raw_scene_bg_skyglass_foundry_intake.png.
 ~~~
 
-### 55. Scene: command observation gallery (pixel redraw)
+### 68. Scene: Cooling racks
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact scene: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: command observation gallery (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact scene; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+Draw ONE image for The Ninja RPG: Scene: Cooling racks. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Redraw the SUBJECT scene almost exactly (same composition, camera, layout, objects, light sources and colours) as premium pixel art. Change nothing about the design; keep it empty of people.
+Subject: A new location: A long hall of iron cooling racks stacked with freshly cast, glowing pale cyan Skyglass ingots that no one has collected; water at ankle height across the floor; a sealed hatch high on the far wall. (Used by: Drowned Foundry d_racks.)
 
-Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting exactly as the SUBJECT.
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_ghost_ship_command_observation_gallery_pixel.png.
+Return the raw image named raw_scene_bg_skyglass_foundry_racks.png.
 ~~~
 
-### 56. Scene: deck b (pixel redraw)
+### 69. Scene: Pour hall
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact scene: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_deck_b.webp
+1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: deck b (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact scene; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+Draw ONE image for The Ninja RPG: Scene: Pour hall. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Redraw the SUBJECT scene almost exactly (same composition, camera, layout, objects, light sources and colours) as premium pixel art. Change nothing about the design; keep it empty of people.
+Subject: A new location: The pour hall: rows of stone casting moulds wired together with seal charges, an inspector's ledger desk, knee-deep water, and an orange-white crucible glow coming up through iron floor grates from below. (Used by: Drowned Foundry d_hall, b_hall, d_gate.)
 
-Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting exactly as the SUBJECT.
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_ghost_ship_deck_b_pixel.png.
+Return the raw image named raw_scene_bg_skyglass_foundry_pour_hall.png.
 ~~~
 
-### 57. Scene: exterior keel walk (pixel redraw)
+### 70. Scene: Crucible chamber
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact scene: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp
+1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: exterior keel walk (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact scene; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+Draw ONE image for The Ninja RPG: Scene: Crucible chamber. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Redraw the SUBJECT scene almost exactly (same composition, camera, layout, objects, light sources and colours) as premium pixel art. Change nothing about the design; keep it empty of people.
+Subject: A new location: The crucible chamber, the only dry room in the works, kept dry by heat: a great tilting crucible of molten pale cyan Skyglass hung in heavy pouring gear, glowing moulds, steam rising where water seeps in at the edges. (Used by: Drowned Foundry d_crucible, b_warden, d_pour.)
 
-Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting exactly as the SUBJECT.
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_ghost_ship_exterior_keel_walk_pixel.png.
+Return the raw image named raw_scene_bg_skyglass_foundry_crucible.png.
 ~~~
 
-### 58. Scene: helm (pixel redraw)
+### 71. Scene: Rebuilding lower hull
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact scene: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: helm (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact scene; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+Draw ONE image for The Ninja RPG: Scene: Rebuilding lower hull. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Redraw the SUBJECT scene almost exactly (same composition, camera, layout, objects, light sources and colours) as premium pixel art. Change nothing about the design; keep it empty of people.
+Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: Below the waterline inside the wreck: the hull is rebuilding itself out of timber and cable that do not belong together, half-formed frames knitting in pale cyan seal light; a ladder down to a severed, pulsing conduit. (Used by: Quarantined Archive d_hull, b_horror, d_conduit.)
 
-Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting exactly as the SUBJECT.
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_ghost_ship_helm_pixel.png.
+Return the raw image named raw_scene_bg_skyglass_lower_hull.png.
 ~~~
 
-### 59. Scene: hold (pixel redraw)
+### 72. Scene: Reconstruction chamber
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact scene: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_reconstruction_chamber.webp
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: hold (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact scene; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+Draw ONE image for The Ninja RPG: Scene: Reconstruction chamber. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Redraw the SUBJECT scene almost exactly (same composition, camera, layout, objects, light sources and colours) as premium pixel art. Change nothing about the design; keep it empty of people.
+Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: Rows of empty upright frames, each holding a faint human impression in seal light; a three-way seal plate in the centre of the floor. (Used by: Quarantined Archive d_chamber, d_seal1, d_alarm1, b_alarm1.)
 
-Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting exactly as the SUBJECT.
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_ghost_ship_hold_pixel.png.
+Return the raw image named raw_scene_bg_skyglass_reconstruction_chamber.png.
 ~~~
 
-### 60. Scene: lower hull (pixel redraw)
+### 73. Scene: Quarantined archive
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact scene: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_quarantined_archive.webp
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: lower hull (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact scene; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+Draw ONE image for The Ninja RPG: Scene: Quarantined archive. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Redraw the SUBJECT scene almost exactly (same composition, camera, layout, objects, light sources and colours) as premium pixel art. Change nothing about the design; keep it empty of people.
+Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: A narrow sealed archive not on any ship plan: tall index shelves of command records and route sheets, a handle-less door crossed with pale script, containment seals on every cabinet. (Used by: Quarantined Archive d_seal2 onward, alarms 2-3, the Sealwright.)
 
-Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting exactly as the SUBJECT.
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_ghost_ship_lower_hull_pixel.png.
+Return the raw image named raw_scene_bg_skyglass_quarantined_archive.png.
 ~~~
 
-### 61. Scene: quarantined archive (pixel redraw)
+### 74. Scene: Night cove landing
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact scene: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_quarantined_archive.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: quarantined archive (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact scene; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+Draw ONE image for The Ninja RPG: Scene: Night cove landing. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Redraw the SUBJECT scene almost exactly (same composition, camera, layout, objects, light sources and colours) as premium pixel art. Change nothing about the design; keep it empty of people.
+Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: A quiet cove at night under a full moon: the Ghost Ship's longboat drawn up on the sand, oars shipped, a lantern on its bow; dark water and the silhouette of the wreck's masts beyond the headland. (Used by: Captain's Watch d_landing.)
 
-Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting exactly as the SUBJECT.
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_ghost_ship_quarantined_archive_pixel.png.
+Return the raw image named raw_scene_bg_skyglass_cove_landing.png.
 ~~~
 
-### 62. Scene: reconstruction chamber (pixel redraw)
+### 75. Scene: Chart room
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact scene: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_reconstruction_chamber.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_chart_room.webp
 2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
 
 ~~~text
-Draw ONE image for The Ninja RPG: Scene: reconstruction chamber (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. SUBJECT: redraw this exact scene; 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+Draw ONE image for The Ninja RPG: Scene: Chart room. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
 
-Subject: Redraw the SUBJECT scene almost exactly (same composition, camera, layout, objects, light sources and colours) as premium pixel art. Change nothing about the design; keep it empty of people.
+Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: The ship's chart room: a big table buried in charts layered with decades of corrections, route pins and dividers, glowing pale cyan route lines redrawn over older ink. (Used by: Captain's Watch fight 1 (Wayfinder).)
 
-Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting exactly as the SUBJECT.
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
 
-Return the raw image named raw_scene_bg_ghost_ship_reconstruction_chamber_pixel.png.
+Return the raw image named raw_scene_bg_skyglass_chart_room.png.
+~~~
+
+### 76. Scene: Open deck in a gale
+
+References (download and attach, in this order):
+
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_deck_b.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Open deck in a gale. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: The open upper deck in a rising gale: torn sails cracking, rigging lines singing, empty mess tables lashed down, pale cyan seal light along the rails. (Used by: Captain's Watch fight 2 (First Blade).)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_skyglass_deck.png.
+~~~
+
+### 77. Scene: Helm and command dais
+
+References (download and attach, in this order):
+
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Helm and command dais. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: The raised command dais at the helm: the great wheel, core-link seals glowing pale cyan in the floor, the ship's seal sigil on a banner, night sky beyond. (Used by: Captain's Watch fight 3 (the Captain).)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_skyglass_helm.png.
+~~~
+
+### 78. Scene: Observation gallery
+
+References (download and attach, in this order):
+
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Observation gallery. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: A viewing gallery above the command deck: tall windows showing the whole ship's glowing seal network repairing itself, storage chests along the walls. (Used by: Captain's Watch endings.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_skyglass_observation_gallery.png.
+~~~
+
+### 79. Scene: Three coves and the stone shrine
+
+References (download and attach, in this order):
+
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+
+~~~text
+Draw ONE image for The Ninja RPG: Scene: Three coves and the stone shrine. Generate exactly one candidate. Do not crop, key or process it.
+References attached: 1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering); 2. PIXEL STYLE: rendering only, not the character. Follow each reference only for its stated role.
+
+Subject: Use the first reference as the starting composition and colour, changed to match this brief exactly: A stretch of night shore with three small coves: a split cliff breaking the tide on the left, an open beach past a reef in the middle, and on the right a small stone shrine on the cliff above a cove, its shadow falling across the sand where the cache is buried. (Used by: The Buried Cache, every node.)
+
+Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the lower-left and lower-right thirds readable: dialog portraits stand there. Palette and lighting as the colour reference: night or dusk, deep blues, Skyglass cyan light.
+
+Return the raw image named raw_scene_bg_skyglass_buried_cache_shore.png.
 ~~~
 
