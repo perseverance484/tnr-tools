@@ -78,6 +78,12 @@ export class CachedReader {
       const r = await this.list(path, { fresh });
       return ids.map(id => r.ok ? { ok: true, data: r.data.find(row => row.id === id) } : r);
     }
+    // dungeon.getAll is the only dungeon read; a "get" is its row {id, content, updatedAt}, as is.
+    if (path === "dungeon.getAll") {
+      const r = await this.list(path, { fresh });
+      if (r.ok && !Array.isArray(r.data)) throw new Error("dungeon.getAll did not return an array");
+      return ids.map(id => r.ok ? { ok: true, data: r.data.find(row => row && row.id === id) } : r);
+    }
     const out = new Array(ids.length);
     const misses = [];
     for (let i = 0; i < ids.length; i++) {
@@ -128,7 +134,8 @@ export class CachedReader {
     if (procedure(path).kind !== "query") throw new Error("list is for queries: " + path);
     if (path === "skillTree.getAll" || path === "skillTree.getAllFolders") return this.skillInventory(path, { fresh, input });
     // getAll takes a required {limit, cursor} input (jutsu.ts:266-285); only the name lists take none
-    if (!/\.getAll(Ai)?Names$/.test(path)) throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
+    // dungeon.getAll takes no input and returns every definition (staff only), so it lists like a name list.
+    if (!/\.getAll(Ai)?Names$/.test(path) && path !== "dungeon.getAll") throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
     const sent = input === undefined ? listInput(path) : input;
     const cacheable = sameInput(sent, listInput(path));
     const hit = fresh || !cacheable ? null : await this.cache.get(path, "");

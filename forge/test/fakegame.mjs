@@ -10,6 +10,7 @@
 import { Session } from "../src/transport/session.mjs";
 import { TrpcClient } from "../src/transport/client.mjs";
 import { isProtected } from "../src/transport/procedures.mjs";
+import { NetworkError } from "../src/transport/client.mjs";
 
 let seq = 0;
 export const nanoidLike = () => ("fk" + String(++seq).padStart(19, "0")).slice(0, 21);
@@ -24,7 +25,7 @@ const PLACEHOLDER = {
   "quests.create": (id) => ({ id, name: `New Quest - ${id}`, hidden: true, content: { objectives: [], reward: {}, sceneBackground: "", sceneCharacters: [] }, createdAt: new Date(0), updatedAt: new Date(0) }),
   "profile.create": (id) => ({ userId: id, username: `New AI - ${id}`, isAi: true, level: 1, rank: "STUDENT", aiProfileId: null, jutsus: [], items: [], createdAt: new Date(0), updatedAt: new Date(0) }),
 };
-const TABLE = { jutsu: "jutsu", item: "item", bloodline: "bloodline", gameAsset: "asset", quests: "quest", profile: "ai", ai: "aiProfile" };
+const TABLE = { jutsu: "jutsu", item: "item", bloodline: "bloodline", gameAsset: "asset", quests: "quest", profile: "ai", ai: "aiProfile", dungeon: "dungeon" };
 const ID_KEY = { ai: "userId" };
 
 /**
@@ -41,10 +42,12 @@ export const rekey = (v) => (Array.isArray(v) ? v.map(rekey)
     : v);
 
 export class FakeGame {
-  constructor({ crashAt = Infinity, refuse = new Set(), limitPath = null, signedOut = false } = {}) {
-    this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map() };
+  constructor({ crashAt = Infinity, dropAt = Infinity, refuse = new Set(), limitPath = null, signedOut = false } = {}) {
+    this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map(), dungeon: new Map() };
     this.calls = [];
     this.crashAt = crashAt;
+    // the connection fails at this call BEFORE the server applies it: nothing is written
+    this.dropAt = dropAt;
     this.refuse = refuse;        // set of paths that answer success:false
     this.limitPath = limitPath;  // a path that answers TOO_MANY_REQUESTS
     // No Clerk session: every protectedProcedure answers UNAUTHORIZED before its resolver runs,
@@ -63,6 +66,7 @@ export class FakeGame {
   /** Handle one procedure call; returns a decoded element. */
   handle(path, input) {
     const n = this.calls.push({ path, input });
+    if (n === this.dropAt) throw new NetworkError("connection reset before the request was applied");
     const [router, proc] = path.split(".");
     const table = this.tables[TABLE[router]];
     const ok = (data) => ({ ok: true, data });
@@ -70,7 +74,8 @@ export class FakeGame {
     let result;
     if (this.limitPath === path) return err("TOO_MANY_REQUESTS", "You are moving too fast! Incident logged for review", 429);
     if (this.signedOut && isProtected(path)) return err("UNAUTHORIZED", `UNAUTHORIZED: Data: ${JSON.stringify(input ?? null)}`, 401);
-    if (PLACEHOLDER[path]) {
+    if (router === "dungeon") result = this.dungeon(proc, input, ok, err);
+    else if (PLACEHOLDER[path]) {
       if (this.refuse.has(path)) result = ok({ success: false, message: `Not allowed to create` });
       else { const id = nanoidLike(); const row = PLACEHOLDER[path](id, input); table.set(id, row); result = ok({ success: true, message: id }); }
     } else if (proc === "get" || proc === "getAi") {
@@ -119,6 +124,71 @@ export class FakeGame {
     return result;
   }
 }
+
+/**
+ * dungeon.getAll / dungeon.save as routers/dungeon.ts answers at the pin in src/dungeon/contract.json:
+ * getAll returns whole rows {id, content, updatedAt} (an empty list for non-staff); save without
+ * an id creates, with an id upserts the WHOLE content, and answers {success, message, id}.
+ *
+ * The save input is parsed the way saveDungeonSchema parses it, written out here independently of
+ * Forge's validator: unknown keys are STRIPPED at every level (zod objects are not strict), the
+ * name is trimmed, `.prefault()` defaults fill only undefined members (an explicit null is a
+ * BAD_REQUEST), and expiresAt is z.coerce.date(). Then the resolver: every package drop's sent
+ * payload is dropped and the CURRENT catalog row (`game.packages`) is copied in; a missing one is
+ * refused. The row is stored through JSON (the content column is json), so a Date reads back as
+ * its ISO string, in schema key order (rekey).
+ */
+const DUNGEON_KEYS = {
+  content: ["name", "description", "structureAssetId", "structureScale", "sector", "longitude", "latitude", "expiresAt", "hidden", "background", "tiers", "rewards"],
+  rewards: ["money", "experience", "tokens", "prestige", "drops"], drop: ["type", "id", "chance", "quantity", "package"],
+  floor: ["kind", "waves"], wave: ["aiIds", "delayRounds"],
+};
+class ZodIssue extends Error { constructor(path, message) { super(message); this.path = path; } }
+function parseDungeon(content) {
+  const pick = (o, keys, where) => {
+    if (!o || typeof o !== "object" || Array.isArray(o)) throw new ZodIssue(where, "Expected object");
+    return Object.fromEntries(keys.filter((k) => o[k] !== undefined).map((k) => [k, o[k]]));
+  };
+  const prefault = (o, k, v, where) => { if (o[k] === null) throw new ZodIssue([...where, k], "Expected value, received null"); if (o[k] === undefined) o[k] = v; };
+  const c = pick(content, DUNGEON_KEYS.content, ["content"]);
+  if (typeof c.name !== "string" || !c.name.trim()) throw new ZodIssue(["content", "name"], "Enter a dungeon name.");
+  c.name = c.name.trim();
+  for (const [k, v] of [["description", ""], ["structureAssetId", ""], ["structureScale", 1], ["hidden", true], ["background", "default"]]) prefault(c, k, v, ["content"]);
+  if (!("expiresAt" in c)) throw new ZodIssue(["content", "expiresAt"], "Required");
+  if (c.expiresAt !== null) { const d = new Date(c.expiresAt); if (Number.isNaN(d.getTime())) throw new ZodIssue(["content", "expiresAt"], "Invalid date"); c.expiresAt = d; }
+  c.tiers = (c.tiers ?? []).map((t, ti) => t.map((f, fi) => {
+    const floor = pick(f, DUNGEON_KEYS.floor, ["content", "tiers", ti, fi]);
+    floor.waves = floor.waves.map((w, wi) => { const wave = pick(w, DUNGEON_KEYS.wave, ["content", "tiers", ti, fi, "waves", wi]); prefault(wave, "delayRounds", 0, ["content", "tiers", ti, fi, "waves", wi]); return wave; });
+    return floor;
+  }));
+  c.rewards = pick(c.rewards, DUNGEON_KEYS.rewards, ["content", "rewards"]);
+  for (const k of ["money", "experience", "tokens", "prestige"]) prefault(c.rewards, k, 0, ["content", "rewards"]);
+  prefault(c.rewards, "drops", [], ["content", "rewards"]);
+  c.rewards.drops = c.rewards.drops.map((d, i) => { const drop = pick(d, DUNGEON_KEYS.drop, ["content", "rewards", "drops", i]); prefault(drop, "quantity", 1, ["content", "rewards", "drops", i]); return drop; });
+  return c;
+}
+
+FakeGame.prototype.dungeon = function (proc, input, ok, err) {
+  const table = this.tables.dungeon;
+  if (proc === "getAll") return ok(this.notStaff ? [] : [...table.values()].map((r) => structuredClone(r)));
+  if (proc !== "save") return err("NOT_FOUND", "unknown procedure dungeon." + proc, 404);
+  let c;
+  try { c = parseDungeon(input.content); } catch (e) {
+    if (!(e instanceof ZodIssue)) throw e;
+    return { ok: false, error: { code: "BAD_REQUEST", httpStatus: 400, message: e.message, path: "dungeon.save", zodError: [{ path: e.path, message: e.message }] } };
+  }
+  if (this.notStaff) return ok({ success: false, message: "You cannot edit dungeons." });
+  if (this.refuse.has("dungeon.save")) return ok({ success: false, message: "An enemy or reward no longer exists." });
+  const packages = this.packages ?? new Map();
+  if (c.rewards.drops.some((d) => d.type === "package" && !packages.has(d.id))) return ok({ success: false, message: "An enemy or reward no longer exists." });
+  c.rewards.drops = c.rewards.drops.map(({ package: _ignored, ...d }) => {
+    const src = d.type === "package" ? packages.get(d.id) : null;
+    return src ? { ...d, package: { name: src.name, description: src.description, rewards: structuredClone(src.rewards) } } : d;
+  });
+  const id = input.id ?? nanoidLike();
+  table.set(id, { id, content: rekey(JSON.parse(JSON.stringify(c))), updatedAt: new Date(1) });
+  return ok({ success: true, message: "Dungeon saved.", id });
+};
 
 /** A Session-less TrpcClient stand-in with the same batch()/call() surface, backed by FakeGame. */
 export class FakeClient {

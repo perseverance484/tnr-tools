@@ -469,3 +469,22 @@ test("QA: a write manifest whose plan fails is never offered as a read-only capt
   assert.doesNotMatch(main, /Read-only capture job|zero mutations|Run captures/);
   assert.match(main, /2 items/);
 });
+
+test("dungeon orphan: each candidate shows its comparison with the plan, and Adopt promises a read-back, not a save", () => {
+  const win = dom();
+  const { app, journal } = appWith();
+  journal.open({ jobId: "dun", manifestPath: "push/99_wreck.json", items: [{ entity: "dungeon", op: "create", name: "Skyglass Wreck", srcId: "wreck", payloadHash: "h" }] });
+  journal.transition("dun", 0, "SENT", { phase: "create" });
+  journal.transition("dun", 0, "ORPHANED", { error: "lost dungeon create", candidates: [
+    { id: "dun-a", name: "Skyglass Wreck", placeholderName: null, matches: true, differs: [] },
+    { id: "dun-b", name: "Other", placeholderName: null, matches: false, differs: ["name", "rewards"] },
+  ] });
+  app.mount(win.document.body, win.document);
+  const text = win.document.querySelector(".f-main").textContent;
+  assert.match(text, /matches the plan \(may still be someone else's\)/);
+  assert.match(text, /differs on name, rewards/);
+  const asked = [];
+  globalThis.confirm = (t) => { asked.push(t); return false; };
+  [...win.document.querySelectorAll("button")].find((b) => b.textContent === "Adopt").click();
+  assert.match(asked[0], /read back and verified, never re-saved/);
+});

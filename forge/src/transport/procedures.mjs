@@ -23,11 +23,14 @@
 
 import BLOODRIGHT from "../bloodright/contract.json" with { type: "json" };
 import REVIEW from "../review/contract.json" with { type: "json" };
+import DUNGEON from "../dungeon/contract.json" with { type: "json" };
 
 export const PROCEDURES = Object.freeze({
   ...BLOODRIGHT.procedures,
   // Content review (suggest mode): src/review/contract.json, pinned and cited per procedure.
   ...REVIEW.procedures,
+  // Dungeon definitions: src/dungeon/contract.json, derived from the pinned router by tools/derive_dungeon.mjs.
+  ...DUNGEON.procedures,
   "ai.createAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "ai.getAiProfile": { kind: "query", limited: false, mcp: true, auth: "protected" },
   "ai.toggleAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
@@ -86,6 +89,8 @@ export function procedure(path) {
  * server would have answered.
  */
 export function isProtected(path) { return procedure(path).auth === "protected"; }
+/** The server rate-limits this path (its own ratelimitMiddleware): every send spends a budget token. */
+export function isLimited(path) { return procedure(path).limited === true; }
 
 export const LIMITED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].limited));
 export const MUTATION_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].kind === "mutation"));
