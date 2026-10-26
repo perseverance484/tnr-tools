@@ -522,5 +522,34 @@ of those files.
 **Version:** this branch integrates first and keeps Forge 0.9.1. `fable/validate-stale-rules@271d1103`,
 which also stages 0.9.1, must rebase and take 0.9.2.
 
-The merged SHA, released version, bundle pin and final gate results are recorded below after the merge.
+The merged SHA, released version, bundle pin and final gate results are recorded below.
+
+## Integration record (2026-10-26)
+
+| Item | Value |
+|---|---|
+| PR | #114, merged with a merge commit at expected head `a70e59c6ea7d6ef3d39b04e8be93f4907f4df97a`; PR CI `gate` and `verify` both succeeded on that head |
+| Merged SHA | `b13425b348eafc7235dfd6dd7d819d17c9a26113` |
+| Released version | Forge **0.9.1** |
+| Loader promotion | `release_pin.yml` run 31 committed `860324a93ab68b392a49990b69332f4fe6e87af7`. `forge_loader_user.js` now has `@version 0.9.1`, no `@x-release-pending` line, and `@require https://raw.githubusercontent.com/perseverance484/tnr-tools/b13425b348eafc7235dfd6dd7d819d17c9a26113/forge_bundle.js` |
+| Bundle fidelity | `git diff --quiet 3feea971 b13425b3 -- forge_bundle.js forge` exits 0: the shipped bundle and Forge tree are the reviewed ones. The bundle's sha256 begins `65980fc75caa23a8` |
+
+Final gates on main @ `860324a9` (Node 24.22.1, complete clean checkout at the game pin, each run separately):
+
+| Command | Result |
+|---|---|
+| `TNR_GAME_CHECKOUT=<pin> npm test` | exit 0; 721 total, 721 pass, 0 fail, 0 skipped |
+| `node tools/derive_dungeon.mjs <pin> --check` | exit 0, contract current |
+| `npm run build` | exit 0 |
+| `git diff --quiet -- ../forge_bundle.js` | exit 0 |
+| `node tools/check_release_pin.mjs` | exit 0, "release pin ok" |
+| `node tools/check_bundle_budget.mjs` | exit 0; raw 435,145 / 436,000, gzip 105,126 / 105,500 |
+
+**Still open:**
+- The RUL-2026-10-26-002 follow-up: an AST-based check of the mount files before the next re-pin.
+- `fable/validate-stale-rules@271d1103` must rebase onto main and take Forge 0.9.2 before its own integration.
+- Live acceptance (user-operated, not authorized by this merge): installing 0.9.1, auth/BotID, the
+  corrected `coop.dungeon.getAll` / `coop.dungeon.save` requests and read-back. No agent re-ran push/263.
+
+Live-game requests: 0. Credentials or session material: none.
 
