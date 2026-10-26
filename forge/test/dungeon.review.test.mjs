@@ -535,6 +535,40 @@ test("review C2: imports keep symbol identity, comments are ignored, and post-co
   assert.throws(() => derive(dir), /dungeon\.ts: expected exactly one export const dungeonRouter .* no other dungeonRouter reference/, "dungeon.ts mutation");
 });
 
+test("review C3: dungeon.ts must export the complete router literal as its last statement, with no escaped or indirect reference", { skip: SKIP }, () => {
+  const DUNGEON_TS = "app/src/server/api/routers/dungeon.ts";
+  const pinned = readFileSync(join(GAME, DUNGEON_TS), "utf8");
+  assert.ok(pinned.endsWith("\n});\n"), "at the pin the router literal closes the file");
+  const withText = (text) => { const dir = sourceCopy(); writeFileSync(join(dir, DUNGEON_TS), text); return dir; };
+  const head = pinned.slice(0, -"});\n".length);
+  const cases = [
+    // the reviewer's reproduction 1: export a procedure of the router instead of the router
+    ["}).save; exports a procedure", head + "}).save;\n", /dungeon\.ts: the dungeonRouter initializer must be exactly createTRPCRouter\(\{ \.\.\. \}\); as the last statement, found "\.save;"/],
+    // the reviewer's reproduction 2: an escaped identifier resolving to dungeonRouter
+    ["escaped identifier mutation", pinned + 'delete dungeon\\u0052outer._def.record["save"];\n', /dungeon\.ts: \\u\/\\x escapes are not read/],
+    ["braced escape", pinned + 'delete dungeon\\u{52}outer._def.record["save"];\n', /dungeon\.ts: \\u\/\\x escapes are not read/],
+    ["trailing call", head + "}).lazy();\n", /initializer must be exactly createTRPCRouter/],
+    ["trailing cast", head + "}) as unknown as typeof otherRouter;\n", /initializer must be exactly createTRPCRouter/],
+    ["missing semicolon, statement after", head + "})\nconst after = 1;\n", /initializer must be exactly createTRPCRouter/],
+    ["statement after the router", pinned + "const after = 1;\n", /initializer must be exactly createTRPCRouter.*found ";\\nconst after = 1;"/],
+    ["named mutation after the router", pinned + 'delete dungeonRouter._def.record["save"];\n', /no other dungeonRouter reference/],
+    ["eval reference", pinned.replace("export const dungeonRouter", 'queueMicrotask(() => eval("dungeon" + "Router"));\nexport const dungeonRouter'), /dungeon\.ts: "(queueMicrotask|eval)" can reach or rebind the router indirectly/],
+    ["globalThis", pinned.replace("export const dungeonRouter", "globalThis.x = 1;\nexport const dungeonRouter"), /"globalThis" can reach or rebind/],
+    ["setTimeout", pinned.replace("export const dungeonRouter", "setTimeout(() => {}, 0);\nexport const dungeonRouter"), /"setTimeout" can reach or rebind/],
+    ["Function constructor", pinned.replace("export const dungeonRouter", 'const f = Function("return 1");\nexport const dungeonRouter'), /"Function" can reach or rebind/],
+    ["dynamic import", pinned.replace("export const dungeonRouter", 'void import("./dungeon");\nexport const dungeonRouter'), /"import\(" can reach or rebind/],
+    ["self-import", pinned.replace("export const dungeonRouter", 'import * as self from "@/server/api/routers/dungeon";\nexport const dungeonRouter'), /can reach or rebind the router indirectly/],
+    ["export list", pinned + "export { otherRouter };\n", /an export list, re-export or default export/],
+    ["second router construction", pinned.replace("export const dungeonRouter", "const otherRouter = createTRPCRouter({});\nexport const dungeonRouter"), /expected exactly one createTRPCRouter\( call/],
+  ];
+  for (const [label, text, expected] of cases) {
+    assert.notEqual(text, pinned, `${label}: the edit applies`);
+    assert.throws(() => derive(withText(text)), expected, label);
+  }
+  // comments after the literal are still fine
+  assert.deepEqual(Object.keys(derive(withText(pinned + "// end of router\n/* nothing here */\n")).procedures), ["coop.dungeon.getAll", "coop.dungeon.save"]);
+});
+
 test("N1: the CLI keeps its exact-pin and dirty-file guards", { skip: SKIP }, () => {
   const tool = fileURLToPath(new URL("../tools/derive_dungeon.mjs", import.meta.url));
   const dir = mkdtempSync(join(tmpdir(), "dungeon-pin-"));
