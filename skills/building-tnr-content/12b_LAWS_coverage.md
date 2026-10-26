@@ -33,7 +33,7 @@ paid for in the field, not re-derived this pass. `corrected` = the law changed i
 | 1 | knowledge | carried | Compose to update-strict standards; no mechanical check exists |
 | 2 | validate | verified | `check_member` per-tag strict union against `45c` |
 | 3 | validate(warn) | verified | `registry_lints` item_effect_full_keys vs 45h (T1, ruled 2026-08-30) |
-| 4 | validate | carried | `check_laws` FORMULA_TAGS statTypes+generalTypes |
+| 4 | validate | **corrected 2026-10-26** | `check_laws` + L06 via `formula_missing`: per-tag statTypes/generalTypes from 45c (wound: generalTypes only) |
 | 5 | validate | carried | `targetId` required on every convert/edit entry |
 | 6 | validate | **corrected** | power/apReduction/threshold caps in `45c`; condition `value` has NO max |
 | 7 | validate | verified | `DATE_RE` on startsAt/endsAt |
@@ -43,7 +43,7 @@ paid for in the field, not re-derived this pass. `corrected` = the law changed i
 | 11 | validate | validate.py --laws | Executable spec: pierce == raw base through the modifier pipe |
 | 12 | validate | validate.py --laws | Executable spec: k**n vs the falsified linear form |
 | 13 | knowledge | carried | Calibration PROTOCOL - procedural, deliberately not machine-asserted |
-| 14 | validate | **corrected 2026-08-28** | `check_ai_create`. Was claimed, absent, caught by builder lint L05 |
+| 14 | validate | **corrected 2026-10-26** | `check_ai_create`. Was claimed, absent, caught by builder lint L05 (2026-08-28); preferredStat dropped after migration 0056 (2026-10-26) |
 | 15 | knowledge | **corrected** | `scaleUserStats` re-read line by line; statMod precision added |
 | 16 | generated | **corrected** | `USER_CAPS` now in `45e`, including the previously unrecorded `LVL_CAP` |
 | 16b | validate | verified | `hidden:true` on every create; L13 |

@@ -18,15 +18,25 @@
 //     cap. The noncombatconsumereward half IS ported and was re-verified at the pin
 //     (app/src/validators/combat.ts:1151-1163: CONSUMABLE, target SELF, method SINGLE).
 
+import NESTED from "./nested.json" with { type: "json" };
+
 const DATE_RE = /^\d{4}-\d{1,2}-\d{1,2}$/;
 const DASH_RE = /[–—]/;
 const IMG_REF_RE = /@img:([A-Za-z0-9_.\-]+)/g;
 
-// preferredStat is NOT required: migration 0056 dropped the column (live rows have no such key), so
-// requiring it forced every AI create to send a key the server strips and Forge's read-back then
-// reports as drift. It stays an accepted key (pinned field set) for manifests that still send it.
+// preferredStat is NOT required: migration 0056 dropped the column
+// (app/drizzle/migrations/0056_unified_combat_stats_masteries.sql:254 at 85cecaeb), so requiring it
+// forced every AI create to send a key the server strips and Forge's read-back then reports as
+// drift. The pinned field set (fields.json at 85cecaeb) no longer has it, so validate.mjs refuses
+// the key as unknown (test/post0056.test.mjs).
 const AI_CREATE_REQUIRED = ["rank", "regeneration", "preferredGeneral1", "preferredGeneral2"];
 const FORMULA_TAGS = new Set(["damage", "pierce", "wound"]);            // L06
+// L06 per tag (RUL-2026-10-25-009): of statTypes/generalTypes, demand only the keys the tag's pinned
+// key set has (nested.json, same pin as fields.json). At 85cecaeb DamageTag and PierceTag spread
+// IncludeStats (app/src/validators/combat.ts:544-546, :584-586), which carries statTypes and
+// generalTypes; WoundTag spreads only IncludeGeneralsAndElements (:760-762, defined :151-154), so it
+// has generalTypes and no statTypes. A tag the table does not define keeps both, the old rule.
+const l06 = (t) => ["statTypes", "generalTypes"].filter((k) => NESTED.sets[NESTED.effects[t]]?.includes(k) ?? true);
 const PCT_TAGS = new Set(["increasedamagegiven", "decreasedamagetaken", "increasedamagetaken"]); // L08
 const DIRECTIONS = { redirection: ["push", "pull"], increasestat: ["offence", "defence", "both"], decreasestat: ["offence", "defence", "both"] };
 
@@ -93,9 +103,8 @@ export function lintManifest(manifest) {
     const pct = {};
     for (const f of Array.isArray(d.effects) ? d.effects : []) {
       if (!f || !f.type) continue;
-      if (FORMULA_TAGS.has(f.type) && (!Array.isArray(f.statTypes) || !f.statTypes.length || !Array.isArray(f.generalTypes) || !f.generalTypes.length)) {
-        W(it, `L06 ${f.type} missing statTypes/generalTypes (a generalTypes gap can explode damage)`);
-      }
+      const miss = FORMULA_TAGS.has(f.type) ? l06(f.type).filter((k) => !Array.isArray(f[k]) || !f[k].length) : [];
+      if (miss.length) W(it, `L06 ${f.type} missing ${miss.join("/")} (a generalTypes gap can explode damage)`);
       if ("direction" in f) {
         const ok = DIRECTIONS[f.type] ?? ["offence", "defence"];
         if (!ok.includes(f.direction)) E(it, `L07 ${f.type} direction "${f.direction}" (allowed: ${ok.join("/")})`);

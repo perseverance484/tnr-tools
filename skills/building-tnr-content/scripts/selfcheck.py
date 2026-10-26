@@ -105,7 +105,8 @@ _RULE = {
     "action": {"type": "use_specific_jutsu", "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
                "target": "RANDOM_OPPONENT"},
 }
-_AI_REQ = {"rank": "JONIN", "regeneration": 60, "preferredStat": "Bukijutsu",
+# No preferredStat: migration 0056 dropped it and Forge refuses the key (RUL-2026-10-25-009).
+_AI_REQ = {"rank": "JONIN", "regeneration": 60,
            "preferredGeneral1": "Strength", "preferredGeneral2": "Speed"}
 
 # Forge 0.4.1 refuses a standalone aiProfile create at parse time
@@ -155,6 +156,82 @@ def check_runner_contract(gdir, loaded, errors, notes):
                  "slot fixtures agree with Forge")
 
 
+# RUL-2026-10-25-009: law 4 / L06 and law 14 / L05 against the pinned schemas.
+# Each fixture is (label, manifest, diagnostic fragments that MUST appear, fragments that must NOT).
+# WoundTag has generalTypes and no statTypes at the pin; DamageTag and PierceTag have both; the AI
+# row has no preferredStat after migration 0056. Forge carries the same per-tag rule
+# (forge/test/l06_per_tag.test.mjs, forge/test/post0056.test.mjs).
+_G, _S = ["Highest"], ["Highest"]
+_DMG = {"type": "damage", "power": 40, "calculation": "formula", "statTypes": _S, "generalTypes": _G}
+
+
+def _jutsu(*effects):
+    return {"items": [{"entity": "jutsu", "slot": "create", "name": "Probe", "srcId": "probe",
+                       "data": {"name": "Probe", "hidden": True, "effects": list(effects)}}]}
+
+
+def _ai(**drop):
+    data = dict(_AI_REQ, username="Probe", hidden=True, level=100)
+    for k in drop:
+        data.pop(k)
+    return {"items": [{"entity": "ai", "slot": "create", "name": "Probe", "srcId": "probe", "data": data}]}
+
+
+STALE_RULE_FIXTURES = (
+    ("wound with generalTypes, no statTypes",
+     _jutsu(_DMG, {"type": "wound", "power": 20, "rounds": 2, "calculation": "percentage", "generalTypes": _G}),
+     (), ("L06", "law 4")),
+    ("wound with no calculation key, generalTypes only",
+     _jutsu(_DMG, {"type": "wound", "power": 20, "rounds": 2, "generalTypes": _G}),
+     (), ("L06", "law 4")),
+    ("wound without generalTypes",
+     _jutsu(_DMG, {"type": "wound", "power": 20, "rounds": 2, "calculation": "percentage"}),
+     ("L06 wound missing generalTypes (",), ("L06 wound missing statTypes",)),
+    ("damage without statTypes",
+     _jutsu({"type": "damage", "power": 40, "calculation": "formula", "generalTypes": _G}),
+     ("L06 damage missing statTypes (", "law 4: formula effect 'damage'"), ()),
+    ("pierce without statTypes",
+     _jutsu({"type": "pierce", "power": 40, "calculation": "formula", "generalTypes": _G}),
+     ("L06 pierce missing statTypes (", "law 4: formula effect 'pierce'"), ()),
+    ("pierce without generalTypes",
+     _jutsu({"type": "pierce", "power": 40, "calculation": "formula", "statTypes": _S}),
+     ("L06 pierce missing generalTypes (",), ()),
+    ("AI create without preferredStat", _ai(), (), ("preferredStat", "law 14")),
+    ("AI create without rank", _ai(rank=1), ("law 14: AI create missing required field 'rank'",), ()),
+    ("AI create without preferredGeneral2", _ai(preferredGeneral2=1),
+     ("law 14: AI create missing required field 'preferredGeneral2'",), ()),
+)
+
+
+def check_stale_rules(gdir, loaded, errors, notes):
+    """validate.py --strict must agree with the pinned schemas on law 4 / L06 and law 14."""
+    if not all(name in loaded for name in GENERATED):
+        return
+    import tempfile
+    tags = loaded["45c_DATA_constructors.json"]["unions"]["AllTags"]
+    if "statTypes" in tags["wound"]["fields"] or "statTypes" not in tags["damage"]["fields"]:
+        errors.append("stale rules: 45c no longer matches the pinned WoundTag/DamageTag key sets; "
+                      "re-read combat.ts before trusting these fixtures")
+    for label, manifest, must, must_not in STALE_RULE_FIXTURES:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "probe.json"
+            path.write_text(json.dumps(manifest))
+            result = subprocess.run(
+                [sys.executable, str(HERE / "validate.py"), "--strict", str(path)],
+                cwd=gdir, capture_output=True, text=True,
+            )
+        out = result.stdout + result.stderr
+        diags = "\n".join(l for l in out.splitlines() if l.startswith(("ERROR", "WARN")))
+        for frag in must:
+            if frag not in diags:
+                errors.append(f"stale rules: {label}: expected {frag!r}, got {diags or 'no diagnostics'}")
+        for frag in must_not:
+            if frag in diags:
+                errors.append(f"stale rules: {label}: unexpected {frag!r} in {diags}")
+    notes.append(f"stale rules: {len(STALE_RULE_FIXTURES)} law 4/L06 and law 14 fixtures agree "
+                 "with the pinned schemas")
+
+
 def check_cross_module_refs(loaded, errors):
     constructors = loaded.get("45c_DATA_constructors.json")
     if constructors is None:
@@ -182,6 +259,7 @@ def main():
     check_factory(gdir, loaded, errors, notes)
     check_validator(gdir, loaded, errors, notes)
     check_runner_contract(gdir, loaded, errors, notes)
+    check_stale_rules(gdir, loaded, errors, notes)
     check_cross_module_refs(loaded, errors)
 
     for error in errors:

@@ -28,6 +28,14 @@ ID_LEN = 21
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 CAP_100 = ("maxLevel", "maxAttempts", "maxCompletes")
 FORMULA_TAGS = ("damage", "pierce", "wound")
+# Of statTypes/generalTypes, the keys each formula tag's schema HAS (law 4 and lint L06,
+# RUL-2026-10-25-009). load_formula_keys() narrows this from the generated contract
+# (45c unions.AllTags); a tag the contract does not define keeps both, the old rule. At
+# studie-tech/TheNinjaRPG@85cecaeb, DamageTag and PierceTag spread IncludeStats
+# (app/src/validators/combat.ts:544-546, :584-586), WoundTag spreads only
+# IncludeGeneralsAndElements (:760-762, defined :151-154): wound has no statTypes, so the
+# server drops it and Forge refuses it. Forge's L06 reads the same pin (forge/src/runner/nested.json).
+FORMULA_KEYS = {t: ("statTypes", "generalTypes") for t in FORMULA_TAGS}
 POOL = {}          # code -> record, loaded from 32b
 POOL_BY_ID = {}
 ENTITIES = {}      # entity -> field -> rule, loaded from 45d
@@ -485,9 +493,10 @@ def load_entities(path):
         ENTITIES[ent] = spec.get("fields") or {}
 
 
-AI_CREATE_REQUIRED = ("rank", "regeneration", "preferredStat",
-                      "preferredGeneral1", "preferredGeneral2")
-STAT_TYPES = ("Highest", "Ninjutsu", "Genjutsu", "Taijutsu", "Bukijutsu")
+# preferredStat is not here: upstream migration 0056 dropped the column
+# (app/drizzle/migrations/0056_unified_combat_stats_masteries.sql:254 at 85cecaeb), and Forge
+# refuses the key as unknown (forge/test/post0056.test.mjs). RUL-2026-10-25-009.
+AI_CREATE_REQUIRED = ("rank", "regeneration", "preferredGeneral1", "preferredGeneral2")
 GENERAL_TYPES = ("Highest", "Strength", "Intelligence", "Willpower", "Speed")
 
 
@@ -696,8 +705,22 @@ def check_dialog_options(objs, where, rep):  # laws 85, 86
                         "quest complete")
 
 
+def load_formula_keys(ctors):
+    """Narrow FORMULA_KEYS to the keys each formula tag's generated schema carries (45c)."""
+    tags = (ctors.get("unions") or {}).get("AllTags") or {}
+    for t in FORMULA_TAGS:
+        fields = (tags.get(t) or {}).get("fields")
+        if fields:
+            FORMULA_KEYS[t] = tuple(k for k in ("statTypes", "generalTypes") if k in fields)
+
+
+def formula_missing(e):
+    """Law 4 / L06: the statTypes/generalTypes keys this formula effect's tag has but leaves empty."""
+    return [k for k in FORMULA_KEYS.get(e.get("type"), ()) if not e.get(k)]
+
+
 def check_ai_create(data, where, rep):  # law 14
-    """law 14: rank, regeneration, preferredStat and preferredGeneral1/2 are REQUIRED on
+    """law 14: rank, regeneration and preferredGeneral1/2 are REQUIRED on
     every AI create. The DB default is STUDENT with every stat 10, so a create missing them
     lands as a paper doll. 12b classes this law 'validate', but the check did not exist here
     and the builder's L05 lint caught it instead."""
@@ -705,8 +728,7 @@ def check_ai_create(data, where, rep):  # law 14
         if data.get(f) in (None, ""):
             rep.err(where, f"law 14: AI create missing required field '{f}' "
                            f"(builder lint L05 rejects this)")
-    for f, allowed in (("preferredStat", STAT_TYPES),
-                       ("preferredGeneral1", GENERAL_TYPES),
+    for f, allowed in (("preferredGeneral1", GENERAL_TYPES),
                        ("preferredGeneral2", GENERAL_TYPES)):
         v = data.get(f)
         if v is not None and v not in allowed:
@@ -780,9 +802,10 @@ def check_laws(entry, rep):
         if isinstance(e.get("power"), (int, float)) and e["power"] > 100:
             rep.err(where, f"law 6: effect '{t}' power {e['power']} exceeds the cap of 100 (rows are rounded down)")
         if t in FORMULA_TAGS and e.get("calculation", "formula") == "formula":
-            if not e.get("statTypes") or not e.get("generalTypes"):
-                rep.err(where, f"law 4: formula effect '{t}' requires BOTH statTypes AND generalTypes; "
-                               "an empty one silently zeroes the damage")
+            miss = formula_missing(e)
+            if miss:
+                rep.err(where, f"law 4: formula effect '{t}' requires {' AND '.join(FORMULA_KEYS[t])}; "
+                               f"missing or empty: {'/'.join(miss)}. An empty one silently zeroes the damage")
         if t in RUNTIME_ONLY_TAGS:
             rep.err(where, f"law 77: '{t}' is a RUNTIME-ONLY tag. The engine injects it in battle "
                            "and SuperRefineEffects rejects it on every authored record")
@@ -945,7 +968,6 @@ LCORE = {
     "debuffprevent": {"timeTracker"}, "copy": {"timeTracker"},
     "lifesteal": {"elements", "timeTracker"},
 }
-LFORM = {"damage", "pierce", "wound"}
 LPCT = {"increasedamagegiven", "decreasedamagetaken", "increasedamagetaken"}
 _DASH = re.compile("[\u2013\u2014]")
 _DATE = re.compile(r"^\d{4}-\d{1,2}-\d{1,2}$")
@@ -1032,8 +1054,9 @@ def lint_entries(items, rep, blob):
             if not isinstance(f, dict) or not f.get("type"):
                 continue
             t = f["type"]
-            if t in LFORM and (not f.get("statTypes") or not f.get("generalTypes")):
-                W("L06 " + t + " missing statTypes/generalTypes (generalTypes gap can explode damage)")
+            miss = formula_missing(f)
+            if miss:
+                W("L06 " + t + " missing " + "/".join(miss) + " (generalTypes gap can explode damage)")
             if "direction" in f:
                 ok = LDIR.get(t, ["offence", "defence"])
                 if f["direction"] not in ok:
@@ -1125,6 +1148,7 @@ def check_manifest(path, ctors_path, strict=False):
     rep = Report()
     man = json.load(open(path))
     ctors = json.load(open(ctors_path))
+    load_formula_keys(ctors)
     items = man.get("items") or []
     if man.get("bloodright"):
         rep.err("manifest", "Bloodright design package is not a compiled manifest; prepare its authenticated inventory preview in Forge")
