@@ -59,7 +59,10 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // 2026-10-19 (RUL-2026-10-19-002). Measured 389,230 raw / 92,996 gzip. Raw is unchanged.
 // Suggest mode (PR "Forge 0.8.0", 2026-10-19): raised to 420,000 raw / 100,000 gzip, accepted by
 // the director in advance ("Size limit raise approved", RUL-2026-10-19-006). Measured 407,434 / 97,814.
-export const BUDGET = { raw: 420_000, gzip: 100_000 };
+// Dungeon recipe (Forge 0.9.0, 2026-10-23): base 412,173 / 98,680, measured 425,490 / 102,323 with
+// the recipe. Raised to 435,000 / 105,000 by the director (RUL-2026-10-23-007); trimming and
+// whitespace minification were offered and declined.
+export const BUDGET = { raw: 435_000, gzip: 105_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

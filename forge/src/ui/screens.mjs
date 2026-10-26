@@ -106,9 +106,11 @@ function OrphanCard(app, job, it) {
     for (const c of cands) {
       const id = typeof c === "string" ? c : c.id;
       const name = typeof c === "string" ? "" : c.name;
+      // a dungeon candidate carries its comparison with the planned content; it is read back, never re-saved
+      const evidence = typeof c === "object" && c.matches !== undefined ? (c.matches ? "matches the plan (may still be someone else's)" : `differs on ${c.differs.join(", ")}`) : null;
       card.appendChild(h("div", { class: "f-row" },
-        h("div", { class: "f-grow" }, h("div", { class: "f-mono" }, id), name ? h("div", { class: "f-mute" }, name) : null),
-        h("button", { onClick: () => app.confirm(`Adopt ${id} as "${it.name}"? The job will continue with its update.`, () => app.adopt(job.jobId, it.idx, id)) }, "Adopt"),
+        h("div", { class: "f-grow" }, h("div", { class: "f-mono" }, id), name ? h("div", { class: "f-mute" }, name) : null, evidence ? h("div", { class: "f-mute" }, evidence) : null),
+        h("button", { onClick: () => app.confirm(`Adopt ${id} as "${it.name}"? ${evidence ? "It is read back and verified, never re-saved." : "The job will continue with its update."}`, () => app.adopt(job.jobId, it.idx, id)) }, "Adopt"),
       ));
     }
   } else if (it.op === "create" || !it.entityId) {

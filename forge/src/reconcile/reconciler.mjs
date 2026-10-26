@@ -11,6 +11,8 @@
 //     item, bloodline, quest and ai the placeholder name embeds the id, which is an
 //     independent cross-check; for gameAsset every orphan is named "Placeholder", so the
 //     diff is the ONLY signal, which is why the snapshot is mandatory.
+//   A dungeon create is never adopted here: dungeon.save has no idempotency key, so every lost
+//     one is ORPHANED with its candidates compared to the planned content (_dungeonCreate).
 //   phase update (entityId known): read the record; if every asserted key already matches,
 //     the update landed -> confirm with landed:true and the runner goes straight to verify.
 //     Otherwise -> ORPHANED ("live differs"), and the user decides; never re-sent by itself.
@@ -18,7 +20,8 @@
 //   phase rules: the profile's rules equal the asserted rules -> landed; else ORPHANED.
 // Nothing is ever deleted.
 
-import { recipe } from "../runner/recipes.mjs";
+import { recipe, recipeRows, rowName } from "../runner/recipes.mjs";
+import { contentDiffKeys } from "../dungeon/validate.mjs";
 import { classifyError } from "../transport/outcome.mjs";
 import { AuthRefused } from "../transport/auth.mjs";
 import { diffAsserted, deepEqualPayload, SERVER_OWNED } from "../runner/validate.mjs";
@@ -71,7 +74,7 @@ export class Reconciler {
     const rc = recipe(entity);
     const list = this._ensureSession(rc.names, await this.reader.list(rc.names, { fresh: true })); // a limited read: one token
     if (!list.ok || !Array.isArray(list.data)) throw new Error(`snapshot failed: ${rc.names} ${list.ok ? "returned no list" : list.error.code}`);
-    const ids = list.data.map((r) => r[rc.idKey]).filter(Boolean);
+    const ids = recipeRows(rc, list.data).map((r) => r[rc.idKey]).filter(Boolean);
     this.storage.setItem(key, JSON.stringify({ entity, at: new Date(this.clock()).toISOString(), path: rc.names, count: ids.length, ids }));
     return key;
   }
@@ -110,9 +113,10 @@ export class Reconciler {
     // would overwrite a row another job created; adversarial review L5)
     const owned = new Set(job.items.filter((it) => it.entity === item.entity && it.entityId && it.idx !== item.idx).map((it) => it.entityId));
     for (const id of this.journal.knownEntityIds(item.entity)) owned.add(id);
-    const rows = list.data.filter((r) => !before.has(r[rc.idKey]) && !owned.has(r[rc.idKey]));
+    const rows = recipeRows(rc, list.data).filter((r) => !before.has(r[rc.idKey]) && !owned.has(r[rc.idKey]));
     const pending = job.items.filter((it) => it.entity === item.entity && it.state === "SENT" && (it.phase === "create" || !it.entityId));
-    const candidates = rows.map((r) => ({ id: r[rc.idKey], name: r[rc.nameKey] ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
+    const candidates = rows.map((r) => ({ id: r[rc.idKey], name: rowName(rc, r) ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
+    if (item.entity === "dungeon") return this._dungeonCreate(rows, candidates, pending, ctx);
     if (candidates.length === 1 && pending.length === 1) {
       const c = candidates[0];
       if (item.entity === "skillTree" || item.entity === "skillTreeFolder") {
@@ -126,6 +130,32 @@ export class Reconciler {
       return { action: "confirm", entityId: c.id, phase: "update", note: `adopted the single new ${item.entity} ${c.id}` + (c.placeholderName === false ? " (name is not the placeholder pattern; check it)" : "") };
     }
     return { action: "orphan", candidates, note: `${candidates.length} new ${item.entity} row(s) since the snapshot, ${pending.length} create(s) pending: ambiguous` };
+  }
+
+  /**
+   * A lost dungeon create is never adopted automatically (review F2). dungeon.save carries no
+   * idempotency key, so a new row matching the planned content in every field may still be another
+   * operator's: matching content is evidence, not ownership. Every candidate is listed with how it
+   * compares to the FULL planned content (zod defaults applied to both, so an omitted quantity is
+   * the stored 1), and only the operator's adopt() binds one. An adopted row is read back and
+   * verified; nothing is ever saved again for it.
+   */
+  _dungeonCreate(rows, candidates, pending, ctx) {
+    let data = null, why = "";
+    if (!ctx.planned) why = "; no planned data to compare against";
+    else {
+      const r = resolveRefs(ctx.planned.data, ctx.lookup ?? (() => undefined));
+      if (r.unresolved.length) why = "; cannot compare: unresolved refs " + r.unresolved.map((u) => `@${u.pfx}:${u.key}`).join(", ");
+      else data = r.value;
+    }
+    const evidence = candidates.map((c, i) => {
+      if (!data) return c;
+      const differs = contentDiffKeys(data, rows[i].content);
+      return { ...c, matches: !differs.length, differs };
+    });
+    const n = evidence.filter((c) => c.matches).length;
+    return { action: "orphan", candidates: evidence,
+      note: `lost dungeon create: ${candidates.length} new row(s), ${n} matching the plan, ${pending.length} create(s) pending${why}. dungeon.save has no idempotency key: a matching row may be someone else's. Check it, then adopt (read back, never re-saved) or skip` };
   }
 
   async _resolveUpdate(item, rc, ctx) {

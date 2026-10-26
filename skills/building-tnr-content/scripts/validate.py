@@ -821,6 +821,12 @@ def check_entry(entry, ctors, rep, manifest):
         for problem in problems(entry):
             rep.err(where, problem)
         return
+    if entry.get("entity") == "dungeon":
+        # Forge's scoped dungeon contract owns every rule, including hidden:true on create.
+        from dungeon_bridge import problems
+        for problem in problems(entry):
+            rep.err(where, problem)
+        return
 
     if slot != "create" and not entry.get("targetId"):  # law 5
         rep.err(where, "non-create entry without top-level targetId")

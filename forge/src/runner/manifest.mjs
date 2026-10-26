@@ -16,8 +16,10 @@ import { lintManifest } from "./lints.mjs";
 import { normalizeImagePack } from "./imgpack.mjs";
 import REVIEW from "../review/contract.json" with { type: "json" };
 
-export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile", "skillTree", "skillTreeFolder"]);
+export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile", "skillTree", "skillTreeFolder", "dungeon"]);
 const SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
+// = floor(SERVER_LIMIT * DEFAULT_MARGIN) in src/budget/bucket.mjs: one budget allowance per manifest.
+export const MAX_DUNGEON_WRITES = 30;
 // Same production as lints.mjs IMG_REF_RE; a fresh instance because /g regexes carry lastIndex.
 const IMG_REF_SCAN = /@img:([A-Za-z0-9_.\-]+)/g;
 
@@ -86,6 +88,7 @@ export function parseManifest(source) {
     if (it.op === "update" && !it.targetId) problems.push(`item ${it.idx} (${it.name}): an edit needs targetId`);
     if (it.srcId) { if (srcIds.has(it.srcId)) problems.push(`duplicate srcId ${it.srcId}`); srcIds.add(it.srcId); }
     if (it.entity === "aiProfile" && it.op === "create") problems.push(`item ${it.idx}: aiProfile cannot be created directly; create an ai with rules`);
+    if ("refreshPackages" in it && (it.refreshPackages !== true || it.entity !== "dungeon" || it.op !== "update")) problems.push(`item ${it.idx} (${it.name}): refreshPackages is true or absent, and only on a dungeon edit`);
   }
   // Pool codes are resolved HERE, at parse time, which is before any create, image upload or
   // update can happen for any item (readiness brief 5a / TNR-01). A code that survives resolution
@@ -148,6 +151,12 @@ export function parseManifest(source) {
   // already had - including one carrying a non-default policy, whose open jobs therefore still
   // resume - and (b) re-spelling a pack (key order, whitespace) does not change identity.
   if (packed.pack) policy.imagePack = packed.pack;
+  // dungeon.save is the one MUTATION the server rate-limits (60 per minute per user, money and bank
+  // docked on a trip; src/dungeon/contract.json). The per-minute allowance is enforced at send time
+  // by the budget (Runner._send), across jobs and restarts; this cap only keeps one manifest's
+  // saves within a single allowance, so a large import is split rather than left waiting.
+  const dungeonWrites = items.filter(it => it.entity === "dungeon").length;
+  if (dungeonWrites > MAX_DUNGEON_WRITES) throw new ManifestError(`${dungeonWrites} dungeon writes: dungeon.save is rate-limited by the server, so a manifest carries at most ${MAX_DUNGEON_WRITES}; split it`);
   if (items.some(it => ["skillTree", "skillTreeFolder"].includes(it.entity)) && !m.bloodrightImport) throw new ManifestError("Bloodright writes require compiler provenance; prepare the design package in Forge");
   if (m.bloodrightImport) {
     const b = m.bloodrightImport;
@@ -272,6 +281,8 @@ function normalizeItem(it, idx) {
     ...(it.expected !== undefined ? { expected: it.expected } : {}),
     // A Bloodright edit the director approved to move a skill from another bloodline.
     ...(it.reassign === true ? { reassign: true } : {}),
+    // A dungeon edit that accepts the save re-copying its package snapshots from the catalog.
+    ...(it.refreshPackages !== undefined ? { refreshPackages: it.refreshPackages } : {}),
     // Suggest mode: this item's own title/category/rationale, over the manifest's.
     ...(it.suggestion && typeof it.suggestion === "object" ? { suggestion: it.suggestion } : {}),
   };

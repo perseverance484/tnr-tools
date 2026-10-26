@@ -100,7 +100,7 @@ test("the auth class of every audited procedure is transcribed from source, not 
   assert.equal(isProtected("quests.update"), true);      // routers/quests.ts:700
   assert.equal(isProtected("gameAsset.get"), false);     // routers/asset.ts:147, publicProcedure
   assert.equal(isProtected("jutsu.getAllNames"), false); // routers/jutsu.ts:257, publicProcedure
-  assert.equal(PROTECTED_PATHS.length, 34); // 31 audited + 3 content review (src/review/contract.json)
+  assert.equal(PROTECTED_PATHS.length, 36); // 31 audited + 3 content review (src/review/contract.json) + 2 dungeon (src/dungeon/contract.json)
   assert.throws(() => isProtected("jutsu.nope"), /unknown procedure/);
 });
 
@@ -120,7 +120,13 @@ test("the table's shape is an invariant: every mutation is protected, every publ
   // `limited` is a statement about the rate limiter, not about auth. They are exact complements
   // across today's 43 rows, and that coincidence is exactly why auth is transcribed separately:
   // if this ever stops holding, it must be a deliberate edit rather than a silent gate move.
-  for (const [path, p] of Object.entries(PROCEDURES)) assert.equal(p.limited, p.auth === "public", `${path}: limiter and auth class disagree`);
+  // The one deliberate exception: dungeon.save composes ratelimitMiddleware onto a protected
+  // procedure (routers/dungeon.ts at the pin in src/dungeon/contract.json). It stays protected.
+  const COMPOSED_LIMITER = new Set(["dungeon.save"]);
+  for (const [path, p] of Object.entries(PROCEDURES)) {
+    if (COMPOSED_LIMITER.has(path)) { assert.equal(p.limited, true, path); assert.equal(p.auth, "protected", path); continue; }
+    assert.equal(p.limited, p.auth === "public", `${path}: limiter and auth class disagree`);
+  }
 });
 
 test("FPA-3: the auth classification is identical at the task pin and at Forge's global pin", () => {
@@ -139,7 +145,7 @@ test("FPA-3: the auth classification is identical at the task pin and at Forge's
   ].join("\n"));
   assert.deepEqual(table, { getAllNames: "publicProcedure", update: "protectedProcedure" });
   // and the tool reads Forge's own table out of the shipped source, not a copy of it
-  assert.deepEqual(forgeTable(), Object.fromEntries(Object.entries(PROCEDURES).filter(([p]) => !p.startsWith("skillTree.") && !p.startsWith("contentReview.")).map(([p, v]) => [p, v.auth])));
+  assert.deepEqual(forgeTable(), Object.fromEntries(Object.entries(PROCEDURES).filter(([p]) => !p.startsWith("skillTree.") && !p.startsWith("contentReview.") && !p.startsWith("dungeon.")).map(([p, v]) => [p, v.auth])));
 });
 
 
