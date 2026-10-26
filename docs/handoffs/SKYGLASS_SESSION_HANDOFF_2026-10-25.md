@@ -26,6 +26,7 @@ hidden off").
 | The Captain's Watch (pyramid) | `liljq0yVXWTSna4X6dZE1` | purse 100,000 ryo |
 | The Buried Cache (pyramid) | `CgwAVCyZLgNQtEnqgLxxv` | |
 | Crownhold: The Last Directive, Extermination Order, Countermand | `GHFMU_DDKvBBp5BEuTeah`, `EqZsaqser8c2-KpVCaXk_`, `W3lOjQhhIPUYPkIZmiNum` | Arakane's exclusives |
+| Skyglass Wreck (dungeon) | `RHqzYdY4EAQA9HwsBKWDS` | push/263, Forge 0.9.1, 2026-10-26; hidden test pending |
 | Crownhold: 20 AIs | `state/crownhold/ids.json` | Arakane `7QofodAiUwIoM-voiA2p6` has his real avatar |
 
 All four hunts: isolated battlepyramid, entry = chart, **a lost/drawn/fled fight fails the hunt** (RUL-2026-10-25-010;
