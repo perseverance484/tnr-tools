@@ -3307,3 +3307,17 @@ closely"; targets chosen: "15-20 min", "Clearable, few wipes", "Level 100 Jonin,
 "Easy: entry tier only", "Easy 10-15, endgame 15-20".
 
 **Canonical destination:** the dungeon encounter design doc (to be written); the harness targets.
+
+## RUL-2026-10-26-008 — Editing an AI-held item severs it too (law 18 extends to items)
+
+**Date:** 2026-10-26
+
+**Domain:** Engine behaviour / AI items (Headless Rider Horror!, Zombie Villager)
+
+**Status:** ACTIVE (observation; law text reconciliation pending).
+
+**Ruling:** Law 18 (editing an equipped jutsu severs the AI's combat link) also holds for items. The push/264 edit of Zombie Claws (`mMl6P4B7v6-_CyDo3HVG7`) left the Zombie Villager (`nqL-uL-Z_7I0iuowlpBDx`) unable to use them: its push/268 rules fell through to End Turn every round. Treat an item an AI holds like an equipped jutsu: take it off the AI, edit the item, put it back. The numbered law text in `docs/ENGINE_LAWS.md` is updated through the law-reconciliation pass, not here.
+
+**Evidence:** User, 2026-10-26: "I figured it out. When we updated the claws it severed the link." Live fight log the same day (zombies adjacent to Carbon and Kitsu, End Turn each round, no claw or move).
+
+**Canonical destination:** `docs/ENGINE_LAWS.md` law 18 (pending reconciliation).
