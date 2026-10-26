@@ -292,6 +292,56 @@ function mountOf(mounts, source, local, where) {
   return keys[0];
 }
 
+/** Index of the bracket closing the one opened at `open` in comment-free `code`; strings skipped. */
+function closing(code, open) {
+  const pair = { "(": ")", "[": "]", "{": "}" }, stack = [];
+  for (let i = open; i < code.length; i++) {
+    const c = code[i];
+    if (c === '"' || c === "'" || c === "`") {
+      for (i++; i < code.length && code[i] !== c; i++) if (code[i] === "\\") i++;
+      if (i >= code.length) fail("dungeon.ts: unterminated string literal");
+    } else if (pair[c]) stack.push(pair[c]);
+    else if (c === ")" || c === "]" || c === "}") {
+      if (stack.pop() !== c) fail(`dungeon.ts: unbalanced ${c} at offset ${i}`);
+      if (!stack.length) return i;
+    }
+  }
+  fail("dungeon.ts: unclosed bracket");
+}
+
+/**
+ * dungeon.ts is too large for the whole-file grammar, so it is held to the shape it has at the pin
+ * (review C3, 2026-10-26):
+ *  - no \u or \x escape anywhere, so no identifier can be spelled other than literally;
+ *  - `dungeonRouter` appears exactly once in the raw text, as its definition;
+ *  - the export's COMPLETE initializer is `createTRPCRouter({ ... })` followed by `;` - bracket-
+ *    matched, so `}).save;` or any other trailing member, call or cast is refused - and it is the
+ *    file's LAST statement: nothing but whitespace and comments may follow it;
+ *  - no export list, re-export, default export, self-import, eval, Function, dynamic import(),
+ *    globalThis or timer: the ways code could reach the router other than by its name, or run
+ *    after the declaration without appearing after it.
+ * Procedures inside the literal are read separately by procedureFacts().
+ */
+function dungeonExport(dungeon) {
+  if (/\\[ux]/.test(dungeon)) fail("dungeon.ts: \\u/\\x escapes are not read (an escaped identifier can name the router without spelling it)");
+  const uses = dungeon.match(/\bdungeonRouter\b/g) ?? [];
+  if (uses.length !== 1 || !/^export const dungeonRouter = createTRPCRouter\(\{$/m.test(dungeon)) {
+    fail("dungeon.ts: expected exactly one export const dungeonRouter = createTRPCRouter({ and no other dungeonRouter reference");
+  }
+  const code = stripComments(dungeon);
+  if (code.split("createTRPCRouter(").length !== 2) fail("dungeon.ts: expected exactly one createTRPCRouter( call");
+  if (/\bexport\s*(\{|\*|default\b)/.test(code)) fail("dungeon.ts: an export list, re-export or default export can rebind the router");
+  const dynamic = code.match(/\b(eval|Function|globalThis|setTimeout|setInterval|setImmediate|queueMicrotask)\b|\bimport\s*\(|from\s*"(?:@\/server\/api\/routers\/dungeon|\.\/dungeon)"/);
+  if (dynamic) fail(`dungeon.ts: ${JSON.stringify(dynamic[0])} can reach or rebind the router indirectly`);
+  const start = code.indexOf("export const dungeonRouter = createTRPCRouter(");
+  const open = start + "export const dungeonRouter = createTRPCRouter".length;
+  const close = closing(code, open);
+  const tail = code.slice(close + 1);
+  if (code[close - 1] !== "}" || !/^\s*;\s*$/.test(tail)) {
+    fail(`dungeon.ts: the dungeonRouter initializer must be exactly createTRPCRouter({ ... }); as the last statement, found ${JSON.stringify(tail.trim().slice(0, 60))} after it`);
+  }
+}
+
 /**
  * root.ts -> coop.ts -> dungeon.ts, each link validated, as the dotted tRPC path prefix. Symbol
  * identity holds link by link: root imports the plain name coopRouter from routers/coop, whose whole
@@ -307,11 +357,7 @@ function mountChain(apiRoot, coop, dungeon) {
   }
   const inner = routerMounts(coop, "coopRouter", "app/src/server/api/routers", "coop.ts");
   const dungeonKey = mountOf(inner, "app/src/server/api/routers/dungeon", "dungeonRouter", "coop.ts");
-  const uses = dungeon.match(/\bdungeonRouter\b/g) ?? [];
-  if (uses.length !== 1 || dungeon.split("createTRPCRouter(").length !== 2 || !/^export const dungeonRouter = createTRPCRouter\(\{$/m.test(dungeon)) {
-    fail("dungeon.ts: expected exactly one export const dungeonRouter = createTRPCRouter({ and no other dungeonRouter reference");
-  }
-  if (/\bexport\s*(\{|\*|default\b)/.test(dungeon)) fail("dungeon.ts: an export list, re-export or default export can rebind the router");
+  dungeonExport(dungeon);
   return `${coopKey}.${dungeonKey}`;
 }
 
