@@ -185,6 +185,9 @@ PROSE = [  # longest first
     ("Directive Herald", "Herald"), ("Master of Arms", "Armsmaster"), ("The Grand Marshal", "The Second"),
     ("the Grand Marshal", "the Second"), ("Grand Marshal", "Second"), ("Order-Bearer", "Sealbearer"),
     ("Aide-de-Camp", "Runner"), ("Quartermaster", "Tagwright"),
+    # RUL-2026-10-26-004: Edo command shrines, not terminals (node ids such as d2.n.terminal are ids, not prose)
+    ("Military Command Terminal", "command shrine"), ("command terminal", "command shrine"),
+    ("The terminal", "The shrine"), ("the terminal", "the shrine"),
 ]
 FAIL_ID = "f_lost"
 

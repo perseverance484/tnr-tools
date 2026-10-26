@@ -3219,3 +3219,23 @@ five prompt changes and the "Crown" prefix: "Approved, Replicant Zero stays the 
 
 **Canonical destination:** `push/crownhold.gen.py` (USERNAME, PROSE; push/276 rename, push/273 text);
 `docs/design/ghost_ship_art_bible/` (ART_BIBLE.md v0.3, blocks.json 0.3); `state/skyglass_art/build_art_batch.py`.
+
+## RUL-2026-10-26-004 — Command shrines, not terminals; one shared Skyglass seal
+
+**Date:** 2026-10-26
+
+**Domain:** Crownhold quest text; art direction (Ghost Ship art bible)
+
+**Status:** ACTIVE
+
+**Ruling:**
+1. **Terminal renamed.** Crownhold's "Military Command Terminal" / "command terminal" / "the terminal" is a **command
+   shrine** in the quest text and the art. Quest node ids (`d2.n.terminal` ... `d5.n.terminal`) are ids and stay.
+2. **One shared seal.** The ship and the castle use one mark: the **Skyglass emblem**, a four-point star in a diamond or
+   circle. It replaces the "plain circled-cross seal" and the "one simple geometric seal" placeholders wherever a seal is
+   drawn (Countermand, the Sealbearer's tablet, banners, chests).
+
+**Evidence:** User, 2026-10-26, on the two open questions of the v0.4 review handoff: "Rename terminal, one shared seal."
+
+**Canonical destination:** `push/crownhold.gen.py` (`PROSE`; push/273 regenerated); art bible v0.4 on
+`fable/skyglass-art-bible-v04` (`roster.json`, `build_art_batch.py`, `ART_BIBLE.md`).
