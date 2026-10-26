@@ -1,0 +1,3562 @@
+{
+ "status": "OFFLINE PACKAGE — rules compile from design/*.json; launch values accepted (RUL-2026-10-16-011), calibration may tune",
+ "profiles": [
+  {
+   "slot": "D2.BOSS",
+   "ref": "@ai:D2.BOSS",
+   "key": "master_of_arms",
+   "name": "Master of Arms",
+   "status": "TRANSLATED from roster §2 'Intended rule priority'; CANDIDATE pending director acceptance",
+   "kitStatus": "ACCEPTED (10 jutsu) — roster §2, design 'Master of Arms — accepted design notes'",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3.0,
+    "poolsMultiplier": 2.5,
+    "regeneration": 60,
+    "element": "None",
+    "preferredStat": "Bukijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "bukijutsuOffence": 6,
+     "taijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "bukijutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 4,
+     "speed": 4,
+     "intelligence": 1,
+     "willpower": 2
+    },
+    "note": "Captain parity baseline (RUL Sealwright precedent: L100 JONIN 3.0x stats 2.5x pools regen 60); ACCEPTED launch value — RUL-2026-10-16-011",
+    "jutsus": [
+     "OyswJoalfNpmz7FsA8Hd8",
+     "o-4SCAhJ4LHdCwcBDgJrV",
+     "ElSK-RCrLjddEUm76FZrs",
+     "Ul83iTziN__Z0i_UOzZTK",
+     "P0GcazZ6yvULoH4kGuh4T",
+     "Nrxc8m9utE9qaD_gWpLgf",
+     "ecRoSDPCDjO7zH-VBaFyY",
+     "yDznlfsnPaOSFtdjfCyTZ",
+     "RPdeeWhFI5AIUUpJXwUlf",
+     "JWZYiHKPNwYziWEFjw4Fn"
+    ],
+    "items": [],
+    "effects": [
+     {
+      "type": "sealprevent",
+      "power": 100,
+      "rounds": 99
+     }
+    ]
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 60
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "yDznlfsnPaOSFtdjfCyTZ",
+       "target": "SELF"
+      },
+      "source": "roster §2 #1 — Sovereign Ascendance below 60% HP"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "increasedamagegiven",
+        "threshold": 71,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "JWZYiHKPNwYziWEFjw4Fn",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §2 #2 — Nullifying Wave on IDG≥71 (ALL method: no distance gate, law 40)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "shield",
+        "threshold": 1,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §2 #3 — Piercing Judgment vs shields"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "ecRoSDPCDjO7zH-VBaFyY",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §2 #4 — Tempo Fracture, combo with Fetters, not staggered"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "RPdeeWhFI5AIUUpJXwUlf",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §2 #4 — Sovereign Fetters"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "increasedamagetaken",
+        "threshold": 35,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §2 #5 — Cataclysm Detonation follows Tempest Cleave's IDT35"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Ul83iTziN__Z0i_UOzZTK",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §2 #5 — Tempest Cleave setup (captured EVENT record: AOE_CIRCLE_SPAWN r4 CD7, friendlyFire ALL; gate A3 found no self-hit at path distance 2–5, so no extra floor)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §2 #5 — Cataclysm Detonation"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "ElSK-RCrLjddEUm76FZrs",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §2 #6 — Recoil Slam"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "P0GcazZ6yvULoH4kGuh4T",
+       "target": "SELF"
+      },
+      "source": "roster §2 #6 — Fighter's Poise (40 AP, pairs with a 60 AP attack)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Nrxc8m9utE9qaD_gWpLgf",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §2 #6 — Rapid Fire"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §2 #7 — chase — gated ≥3 so the final end_turn stays reachable (Arakane profile rule 19 pattern; validate.py dead-rule lint)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "roster §2 #7 — end safely (includeDefaultRules:false, law R52)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D2.REG1",
+   "ref": "@ai:D2.REG1",
+   "key": "proving_proctor",
+   "name": "Bastion Proving Proctor",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.5,
+    "poolsMultiplier": 1.0,
+    "regeneration": 40,
+    "element": "None",
+    "preferredStat": "Bukijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "bukijutsuOffence": 6,
+     "taijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "bukijutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 3,
+     "speed": 4,
+     "intelligence": 1,
+     "willpower": 2
+    },
+    "jutsus": [
+     "Cw51Wm_Uy0GiIkiEjlQtn",
+     "3v9c1SHlD2GLPF2HW1_Sc",
+     "brzGw6WgHsrFPkL9JWGir",
+     "oQo27NtvRS29CABHGXP94",
+     "kkGDat1XWUxhOQ1_T5025"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "oQo27NtvRS29CABHGXP94",
+       "target": "SELF"
+      },
+      "source": "Minor Overflow before engaging"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Opening Strike (range 4, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "brzGw6WgHsrFPkL9JWGir",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Cleaving Line (range 4, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Twin Shot (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "kkGDat1XWUxhOQ1_T5025",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Measured Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D2.REG2",
+   "ref": "@ai:D2.REG2",
+   "key": "ordnance_quartermaster",
+   "name": "Ordnance Quartermaster",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.5,
+    "poolsMultiplier": 1.0,
+    "regeneration": 40,
+    "element": "Fire",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 6,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 3
+    },
+    "jutsus": [
+     "bLBu130QaqCaDlSIcEmUD",
+     "OWAm8o12bkZUMAAHLoGLz",
+     "Sic286tbCpCjwaic0EX5q",
+     "YiRdVytsdxFzZtqkEDs5Q",
+     "mOA1hXNf4CcuwOhnnN7ZK"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+       "target": "SELF"
+      },
+      "source": "Springguard brace before trading"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "bLBu130QaqCaDlSIcEmUD",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Emberwake (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "OWAm8o12bkZUMAAHLoGLz",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Searing Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Weakening Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Sic286tbCpCjwaic0EX5q",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Cinder Bolt (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D2.REG3",
+   "ref": "@ai:D2.REG3",
+   "key": "prototype_lancer",
+   "name": "Prototype Lancer Unit",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.5,
+    "poolsMultiplier": 1.0,
+    "regeneration": 40,
+    "element": "Lightning",
+    "preferredStat": "Bukijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "bukijutsuOffence": 6,
+     "taijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "bukijutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 3,
+     "speed": 4,
+     "intelligence": 1,
+     "willpower": 2
+    },
+    "jutsus": [
+     "xGVqWSX93hXZgfmlKZODp",
+     "Fkfa_oRbCPPOnBPPHlikF",
+     "m-ur3A8TS8r5jGb84L9x7",
+     "05rH3kZNXbtFq9a9iRl-W",
+     "Vo8N1luCT0p48y7JzKe84"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "05rH3kZNXbtFq9a9iRl-W",
+       "target": "SELF"
+      },
+      "source": "Light Barrier shield once hurt"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "shield",
+        "threshold": 1,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Ion Lance pierces player shields"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Numbing Shot (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Fkfa_oRbCPPOnBPPHlikF",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Arc Bolt (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Vo8N1luCT0p48y7JzKe84",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Heavy Cut (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Ion Lance (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D2.REG4",
+   "ref": "@ai:D2.REG4",
+   "key": "calibration_duelist",
+   "name": "Calibration Duelist",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.75,
+    "poolsMultiplier": 1.25,
+    "regeneration": 40,
+    "element": "Wind",
+    "preferredStat": "Taijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "taijutsuOffence": 6,
+     "bukijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 4,
+     "speed": 3,
+     "intelligence": 1,
+     "willpower": 2
+    },
+    "jutsus": [
+     "d00wewEL2x6V3Th5gS0dh",
+     "muGmYnLm8mWFrwoU4zsOE",
+     "mQ7-q8q46ry5njNVBFpGp",
+     "taxbZNdm1Q7YL5AxaRssW",
+     "STu1VHNcfgeC3x-UiQDgt"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 40
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+       "target": "SELF"
+      },
+      "source": "Second Wind emergency"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "target": "SELF"
+      },
+      "source": "Warrior's Poise when engaged"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "d00wewEL2x6V3Th5gS0dh",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Tempest Breaker (range 3, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "mQ7-q8q46ry5njNVBFpGp",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Marking Volley (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "muGmYnLm8mWFrwoU4zsOE",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Shattering Ring (range 3, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D3.BOSS",
+   "ref": "@ai:D3.BOSS",
+   "key": "replicant_zero",
+   "name": "Replicant Zero",
+   "status": "TRANSLATED from roster §3 'Intended rule priority'; heal order (Bulwark <65% above Second Wind <40%) CONFIRMED — RUL-2026-10-16-011",
+   "kitStatus": "ACCEPTED (11 jutsu) — roster §3, design 'Replicant Zero — approved name and origin lore'",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3.0,
+    "poolsMultiplier": 3.0,
+    "regeneration": 60,
+    "element": "None",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 5,
+     "genjutsuOffence": 3,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 4
+    },
+    "note": "Endurance boss: pools above Master of Arms; ACCEPTED launch value — RUL-2026-10-16-011",
+    "jutsus": [
+     "LQ26G2ANWkbTRL7Ry__F0",
+     "VuFuBtE7h5B1nnA2J1lFZ",
+     "_JRHgRL8pfUvt_-q1Xa3H",
+     "ubwtVj1o9q6VQ6VxOczxt",
+     "6UE5jC71Y6nRjobkJ-UTV",
+     "S_ix-gZcXi6RirSVpSLV0",
+     "-45phqE2baTGC--lNSEx9",
+     "AEeRf7i9215twJ_iEugZT",
+     "fuPRuLJ0vcBqSjrqdMi7o",
+     "STu1VHNcfgeC3x-UiQDgt",
+     "Nrxc8m9utE9qaD_gWpLgf"
+    ],
+    "items": [],
+    "effects": [
+     {
+      "type": "sealprevent",
+      "power": 100,
+      "rounds": 99
+     }
+    ]
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 2
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "target": "SELF"
+      },
+      "source": "roster §3 #1 — opening Compression Barrier"
+     },
+     {
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 2
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "_JRHgRL8pfUvt_-q1Xa3H",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §3 #1 — opening Hexweave when in range"
+     },
+     {
+      "conditions": [
+       {
+        "type": "specific_round",
+        "value": 2
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "LQ26G2ANWkbTRL7Ry__F0",
+       "target": "EMPTY_GROUND_CLOSEST_TO_SELF"
+      },
+      "source": "roster §3 #2 — Split Image once, round 2 only"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "increasedamagegiven",
+        "threshold": 71,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "VuFuBtE7h5B1nnA2J1lFZ",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §3 #3 — Stolen Form on IDG≥71"
+     },
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 65
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "S_ix-gZcXi6RirSVpSLV0",
+       "target": "SELF"
+      },
+      "source": "roster §3 #4 — Bulwark Charge below 65%"
+     },
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 40
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+       "target": "SELF"
+      },
+      "source": "roster §3 #5 — Second Wind below 40%"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "_JRHgRL8pfUvt_-q1Xa3H",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §3 #6 — Hexweave"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "ubwtVj1o9q6VQ6VxOczxt",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §3 #6 — Feast of Marrow"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "-45phqE2baTGC--lNSEx9",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §3 #6 — Devouring Wave"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "fuPRuLJ0vcBqSjrqdMi7o",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §3 #6 — Reaping Strike"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "AEeRf7i9215twJ_iEugZT",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §3 #7 — Mirror Edge"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Nrxc8m9utE9qaD_gWpLgf",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §3 #8 — Rapid Fire"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §3 #8 — approach — gated ≥3 so the final end_turn stays reachable (Arakane profile rule 19 pattern; validate.py dead-rule lint)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "roster §3 #8 — safe end-turn"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D3.REG1",
+   "ref": "@ai:D3.REG1",
+   "key": "archive_keeper",
+   "name": "Skyglass Archive Keeper",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.75,
+    "poolsMultiplier": 1.25,
+    "regeneration": 40,
+    "element": "Water",
+    "preferredStat": "Genjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "genjutsuOffence": 6,
+     "ninjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "genjutsuDefence": 3,
+     "ninjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 3,
+     "willpower": 4
+    },
+    "jutsus": [
+     "mpHuTrJX7EonpuW_jBunt",
+     "YD9GEwXU6LDuIC06TGzWG",
+     "UnQKfwq_JoRVu10aTX6Uv",
+     "hh-FMFv67CAL10DA35K2T",
+     "fKvCGRgzGNskgFWocQCAg"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 2
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "hh-FMFv67CAL10DA35K2T",
+       "target": "SELF"
+      },
+      "source": "Warding Stance opening ward"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "YD9GEwXU6LDuIC06TGzWG",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Lingering Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "mpHuTrJX7EonpuW_jBunt",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Enervating Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Tide Bolt (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Steady Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D3.REG2",
+   "ref": "@ai:D3.REG2",
+   "key": "containment_warden",
+   "name": "Impression Containment Warden",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.75,
+    "poolsMultiplier": 1.25,
+    "regeneration": 40,
+    "element": "Water",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 6,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 3
+    },
+    "jutsus": [
+     "UAgYZvo_7DUtmBsBAaAar",
+     "-kMekZ4rR64vjMF2Jc4pe",
+     "mOA1hXNf4CcuwOhnnN7ZK",
+     "LiVOnYq6qHzjB0XkIIA2e",
+     "UnQKfwq_JoRVu10aTX6Uv"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+       "target": "SELF"
+      },
+      "source": "Springguard brace"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "UAgYZvo_7DUtmBsBAaAar",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Deluge Breaker (range 3, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "-kMekZ4rR64vjMF2Jc4pe",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Withering Weave (range 4, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Venom Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Tide Bolt (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D3.REG3",
+   "ref": "@ai:D3.REG3",
+   "key": "unstable_echo",
+   "name": "Unstable Echo Subject",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.75,
+    "poolsMultiplier": 1.25,
+    "regeneration": 40,
+    "element": "Shadow",
+    "preferredStat": "Genjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "genjutsuOffence": 6,
+     "ninjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "genjutsuDefence": 3,
+     "ninjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 3,
+     "willpower": 4
+    },
+    "jutsus": [
+     "LiVOnYq6qHzjB0XkIIA2e",
+     "-kMekZ4rR64vjMF2Jc4pe",
+     "mQ7-q8q46ry5njNVBFpGp",
+     "cZrZDI-A4fL324nX1CGss",
+     "STu1VHNcfgeC3x-UiQDgt"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 40
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+       "target": "SELF"
+      },
+      "source": "Second Wind self-repair"
+     },
+     {
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 3
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "cZrZDI-A4fL324nX1CGss",
+       "target": "SELF"
+      },
+      "source": "Hushed Hours early absorb shell"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "-kMekZ4rR64vjMF2Jc4pe",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Withering Weave (range 4, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Venom Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "mQ7-q8q46ry5njNVBFpGp",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Marking Volley (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D3.REG4",
+   "ref": "@ai:D3.REG4",
+   "key": "failed_prototype",
+   "name": "Failed Reconstruction Prototype",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.0,
+    "poolsMultiplier": 1.5,
+    "regeneration": 40,
+    "element": "Earth",
+    "preferredStat": "Taijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "taijutsuOffence": 6,
+     "bukijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 4,
+     "speed": 3,
+     "intelligence": 1,
+     "willpower": 2
+    },
+    "jutsus": [
+     "jBRyl7F4UjTyxG5nnzLqj",
+     "LiVOnYq6qHzjB0XkIIA2e",
+     "-kMekZ4rR64vjMF2Jc4pe",
+     "yOgwN1WGkwNL9qMImc9aY",
+     "b7ZOgdZmhZiUbCVrmQiwH"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 35
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "yOgwN1WGkwNL9qMImc9aY",
+       "target": "SELF"
+      },
+      "source": "Veilstrike escape stealth on a health trigger (law 62)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "jBRyl7F4UjTyxG5nnzLqj",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Erupting Ground (range 3, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "-kMekZ4rR64vjMF2Jc4pe",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Withering Weave (range 4, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Venom Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "b7ZOgdZmhZiUbCVrmQiwH",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Sundering Blow (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D4.BOSS",
+   "ref": "@ai:D4.BOSS",
+   "key": "grand_marshal",
+   "name": "The Grand Marshal",
+   "status": "RATIFIED — RUL-2026-10-16-006: roster §4 priorities as translated here (stacked suppression accepted as authored)",
+   "kitStatus": "RATIFIED (12 jutsu) — RUL-2026-10-16-006",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3.25,
+    "poolsMultiplier": 3.0,
+    "regeneration": 60,
+    "element": "None",
+    "preferredStat": "Genjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "genjutsuOffence": 5,
+     "ninjutsuOffence": 3,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 4
+    },
+    "note": "ACCEPTED launch value — RUL-2026-10-16-011",
+    "jutsus": [
+     "nOYLPmN3TXj6wEe_oE6HQ",
+     "-M_BxzqB937XCdD1IMWW0",
+     "pJXJUSvq2kZU-tmgC12FL",
+     "vWaGTnYOwiTiaMQW10y6A",
+     "1OhP0StX4VTsosWtCxhsG",
+     "JWZYiHKPNwYziWEFjw4Fn",
+     "LisNuMJ2gncEByAxG6QPI",
+     "o-4SCAhJ4LHdCwcBDgJrV",
+     "OyswJoalfNpmz7FsA8Hd8",
+     "S_ix-gZcXi6RirSVpSLV0",
+     "6UE5jC71Y6nRjobkJ-UTV",
+     "Nrxc8m9utE9qaD_gWpLgf"
+    ],
+    "items": [],
+    "effects": [
+     {
+      "type": "sealprevent",
+      "power": 100,
+      "rounds": 99
+     }
+    ]
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "-M_BxzqB937XCdD1IMWW0",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #1 — opening suppression Sovereign Ruin (CD10 keeps it from monopolising)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "pJXJUSvq2kZU-tmgC12FL",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #2 — Sovereign Malediction"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "increasedamagegiven",
+        "threshold": 71,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "1OhP0StX4VTsosWtCxhsG",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #3 — Unraveling Strike when close"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "increasedamagegiven",
+        "threshold": 71,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "JWZYiHKPNwYziWEFjw4Fn",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #3 — Nullifying Wave if further (ALL method)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "nOYLPmN3TXj6wEe_oE6HQ",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #4 — Sovereign Undertow anti-kite inside reach"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "shield",
+        "threshold": 1,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #5 — Piercing Judgment against shields"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "vWaGTnYOwiTiaMQW10y6A",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #5 — Suppressing Roar (ALL method)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "LisNuMJ2gncEByAxG6QPI",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #5 — Worldbreaker Chorus (ALL method)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "stun",
+        "threshold": 1,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #5 — execute a stunned target with Cataclysm Detonation"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #5 — Cataclysm Detonation"
+     },
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 55
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "S_ix-gZcXi6RirSVpSLV0",
+       "target": "SELF"
+      },
+      "source": "roster §4 #6 — Martial Law: Bulwark Charge below 55%"
+     },
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 55
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "target": "SELF"
+      },
+      "source": "roster §4 #6 — Compression Barrier sparingly (CD5)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Nrxc8m9utE9qaD_gWpLgf",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #7 — Rapid Fire"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "roster §4 #7 — move — gated ≥3 so the final end_turn stays reachable (Arakane profile rule 19 pattern; validate.py dead-rule lint)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "roster §4 #7 — end turn; no healing"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D4.REG1",
+   "ref": "@ai:D4.REG1",
+   "key": "signal_adjutant",
+   "name": "Command Signal Adjutant",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.0,
+    "poolsMultiplier": 1.5,
+    "regeneration": 40,
+    "element": "Wind",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 6,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 3
+    },
+    "jutsus": [
+     "YiRdVytsdxFzZtqkEDs5Q",
+     "m-ur3A8TS8r5jGb84L9x7",
+     "SJwW0b5tO4PuBhNrLJIR2",
+     "_9k7kSYUgMtB-AEFgRly5",
+     "4TM6iS8P0qgNHsFpALFhg"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+       "target": "SELF"
+      },
+      "source": "Windlash Focus focus"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Weakening Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Numbing Shot (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "SJwW0b5tO4PuBhNrLJIR2",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Gale Bolt (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "4TM6iS8P0qgNHsFpALFhg",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Forceful Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D4.REG2",
+   "ref": "@ai:D4.REG2",
+   "key": "staff_tactician",
+   "name": "High Command Staff Tactician",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.0,
+    "poolsMultiplier": 1.5,
+    "regeneration": 40,
+    "element": "None",
+    "preferredStat": "Genjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "genjutsuOffence": 6,
+     "ninjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "genjutsuDefence": 3,
+     "ninjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 3,
+     "willpower": 4
+    },
+    "jutsus": [
+     "YD9GEwXU6LDuIC06TGzWG",
+     "mpHuTrJX7EonpuW_jBunt",
+     "YiRdVytsdxFzZtqkEDs5Q",
+     "hh-FMFv67CAL10DA35K2T",
+     "SJwW0b5tO4PuBhNrLJIR2"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 2
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "hh-FMFv67CAL10DA35K2T",
+       "target": "SELF"
+      },
+      "source": "Warding Stance ward"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "YD9GEwXU6LDuIC06TGzWG",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Lingering Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "mpHuTrJX7EonpuW_jBunt",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Enervating Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Weakening Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "SJwW0b5tO4PuBhNrLJIR2",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Gale Bolt (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D4.REG3",
+   "ref": "@ai:D4.REG3",
+   "key": "honor_guard_commandant",
+   "name": "Honor Guard Commandant",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.0,
+    "poolsMultiplier": 1.5,
+    "regeneration": 40,
+    "element": "Earth",
+    "preferredStat": "Taijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "taijutsuOffence": 6,
+     "bukijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 4,
+     "speed": 3,
+     "intelligence": 1,
+     "willpower": 2
+    },
+    "jutsus": [
+     "0qhjpBMtG9HSWoOWztAB1",
+     "qymEx2jhCwmSZPJOnPuRD",
+     "taxbZNdm1Q7YL5AxaRssW",
+     "V3WrfQ3pB-eCq2hojsxWe",
+     "b7ZOgdZmhZiUbCVrmQiwH"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "target": "SELF"
+      },
+      "source": "Warrior's Poise when engaged"
+     },
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 60
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "V3WrfQ3pB-eCq2hojsxWe",
+       "target": "SELF"
+      },
+      "source": "Stoneward stonewall"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "0qhjpBMtG9HSWoOWztAB1",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Bedrock Breaker (range 3, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "b7ZOgdZmhZiUbCVrmQiwH",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Sundering Blow (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "qymEx2jhCwmSZPJOnPuRD",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Shale Bolt (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D4.REG4",
+   "ref": "@ai:D4.REG4",
+   "key": "aide_de_camp",
+   "name": "Strategist's Aide-de-Camp",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.25,
+    "poolsMultiplier": 1.75,
+    "regeneration": 40,
+    "element": "Lightning",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 6,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 3
+    },
+    "jutsus": [
+     "mQ7-q8q46ry5njNVBFpGp",
+     "hxNWprk1AYwH0OVX0rxaR",
+     "xGVqWSX93hXZgfmlKZODp",
+     "cZrZDI-A4fL324nX1CGss",
+     "Vo8N1luCT0p48y7JzKe84"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 3
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "cZrZDI-A4fL324nX1CGss",
+       "target": "SELF"
+      },
+      "source": "Hushed Hours early absorb"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "shield",
+        "threshold": 1,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Ion Lance vs shields"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "mQ7-q8q46ry5njNVBFpGp",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Marking Volley (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "hxNWprk1AYwH0OVX0rxaR",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Storm Breaker Volt (range 3, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Vo8N1luCT0p48y7JzKe84",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Heavy Cut (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D5.BOSS",
+   "ref": "@ai:D5.BOSS",
+   "key": "arakane",
+   "name": "Supreme Commander Arakane",
+   "status": "ORDERED 20-RULE CANDIDATE from state/silent_bastion_arakane_ai_profile.md mapped 1:1; only source-forced corrections, each flagged",
+   "kitStatus": "ACCEPTED membership (14) + signature effects + Countermand identity — roster §5, Arakane profile",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3.5,
+    "poolsMultiplier": 3.5,
+    "regeneration": 60,
+    "element": "None",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Speed"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 5,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 2,
+     "bukijutsuOffence": 2,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "strength": 2,
+     "speed": 3,
+     "intelligence": 4,
+     "willpower": 3
+    },
+    "note": "Pools sized so The Last Directive gets a real chance to fire (design §Supreme Commander); ACCEPTED launch value — RUL-2026-10-16-011",
+    "jutsus": [
+     "w4F7-w5ubgKsqYPBPvRuV",
+     "VuFuBtE7h5B1nnA2J1lFZ",
+     "HcAs8gBtvopPZkjP8HCC2",
+     "IBjVpLutojh3m9PRnIce-",
+     "A5HrHSzx4J3WM4Fln8Lbf",
+     "_JRHgRL8pfUvt_-q1Xa3H",
+     "LisNuMJ2gncEByAxG6QPI",
+     "@jutsu:extermination_order",
+     "Uou0sCjZ1rwiMJZ-JWEI_",
+     "lft52q7DE_JjhR7PKXimB",
+     "WvLCyGsPCKSDYl6-e_D9o",
+     "AicYoMMpZmHAykb_5hYtY",
+     "Nrxc8m9utE9qaD_gWpLgf",
+     "@jutsu:last_directive"
+    ],
+    "items": [
+     {
+      "ids": [
+       "@item:countermand"
+      ],
+      "number": 0
+     },
+     {
+      "ids": [
+       "ALqXVSL58QMfJ4DgoJ5Il"
+      ],
+      "number": 0
+     },
+     {
+      "ids": [
+       "LbccOnzfsADLgTBPSHjKK"
+      ],
+      "number": 0
+     }
+    ],
+    "effects": [
+     {
+      "type": "sealprevent",
+      "power": 100,
+      "rounds": 99
+     }
+    ]
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 30
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "@jutsu:last_directive",
+       "target": "SELF"
+      },
+      "source": "profile #01"
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "effectType": "finalstand",
+        "threshold": 1
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "@jutsu:extermination_order",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #02 — only while Final Stand is active (gate A expiry tests)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 2
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "w4F7-w5ubgKsqYPBPvRuV",
+       "target": "SELF"
+      },
+      "source": "profile #03"
+     },
+     {
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 5
+       },
+       {
+        "type": "distance_higher_than",
+        "value": 7,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "IBjVpLutojh3m9PRnIce-",
+       "target": "SELF"
+      },
+      "source": "profile #04"
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "effectType": "stealth",
+        "threshold": 1
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_item",
+       "itemId": "@item:countermand",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #05"
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "effectType": "afterburn",
+        "threshold": 1
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "HcAs8gBtvopPZkjP8HCC2",
+       "target": "SELF"
+      },
+      "source": "profile #06"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "shield",
+        "threshold": 1,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "A5HrHSzx4J3WM4Fln8Lbf",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #07"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "increasedamagegiven",
+        "threshold": 71,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "VuFuBtE7h5B1nnA2J1lFZ",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #08"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "increasedamagegiven",
+        "threshold": 71,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_item",
+       "itemId": "@item:countermand",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #09"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "_JRHgRL8pfUvt_-q1Xa3H",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #10"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "LisNuMJ2gncEByAxG6QPI",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #11 (B17 is ALL method; the authored ≤6 gate is kept — safe, only narrows use)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Uou0sCjZ1rwiMJZ-JWEI_",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #12"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "lft52q7DE_JjhR7PKXimB",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #13"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "WvLCyGsPCKSDYl6-e_D9o",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #14"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Nrxc8m9utE9qaD_gWpLgf",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #15"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 7,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "AicYoMMpZmHAykb_5hYtY",
+       "target": "SELF"
+      },
+      "source": "profile #16"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_item",
+       "itemId": "ALqXVSL58QMfJ4DgoJ5Il",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #17"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_item",
+       "itemId": "LbccOnzfsADLgTBPSHjKK",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #18"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "profile #19"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "profile #20"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D5.REG1",
+   "ref": "@ai:D5.REG1",
+   "key": "sanctum_vanguard",
+   "name": "Sanctum Vanguard",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.25,
+    "poolsMultiplier": 1.75,
+    "regeneration": 40,
+    "element": "Fire",
+    "preferredStat": "Taijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "taijutsuOffence": 6,
+     "bukijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 4,
+     "speed": 3,
+     "intelligence": 1,
+     "willpower": 2
+    },
+    "jutsus": [
+     "EJOCWmrrUnECI2MikM8ho",
+     "I66lzvVHf8v4thxR6tEJn",
+     "Sic286tbCpCjwaic0EX5q",
+     "taxbZNdm1Q7YL5AxaRssW",
+     "STu1VHNcfgeC3x-UiQDgt"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 40
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+       "target": "SELF"
+      },
+      "source": "Second Wind steady"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "target": "SELF"
+      },
+      "source": "Warrior's Poise when engaged"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "I66lzvVHf8v4thxR6tEJn",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Cataclysm Fist (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "EJOCWmrrUnECI2MikM8ho",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Pyre Breaker (range 3, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Sic286tbCpCjwaic0EX5q",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Cinder Bolt (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D5.REG2",
+   "ref": "@ai:D5.REG2",
+   "key": "directive_herald",
+   "name": "Directive Herald",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.25,
+    "poolsMultiplier": 1.75,
+    "regeneration": 40,
+    "element": "Lightning",
+    "preferredStat": "Genjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "genjutsuOffence": 6,
+     "ninjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "genjutsuDefence": 3,
+     "ninjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 3,
+     "willpower": 4
+    },
+    "jutsus": [
+     "YD9GEwXU6LDuIC06TGzWG",
+     "mpHuTrJX7EonpuW_jBunt",
+     "3hMzYwiV8VOEx2XOm1CJe",
+     "oQo27NtvRS29CABHGXP94",
+     "b7ZOgdZmhZiUbCVrmQiwH"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "oQo27NtvRS29CABHGXP94",
+       "target": "SELF"
+      },
+      "source": "Minor Overflow before engaging"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "YD9GEwXU6LDuIC06TGzWG",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Lingering Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "3hMzYwiV8VOEx2XOm1CJe",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Static Jolt (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "mpHuTrJX7EonpuW_jBunt",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Enervating Strike (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "b7ZOgdZmhZiUbCVrmQiwH",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Sundering Blow (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D5.REG3",
+   "ref": "@ai:D5.REG3",
+   "key": "last_watch_executor",
+   "name": "Last Watch Executor",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.25,
+    "poolsMultiplier": 1.75,
+    "regeneration": 40,
+    "element": "Wind",
+    "preferredStat": "Bukijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "bukijutsuOffence": 6,
+     "taijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "bukijutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 3,
+     "speed": 4,
+     "intelligence": 1,
+     "willpower": 2
+    },
+    "jutsus": [
+     "ZvPl6uyJfwF5EjmLHouQR",
+     "d00wewEL2x6V3Th5gS0dh",
+     "mQ7-q8q46ry5njNVBFpGp",
+     "cZrZDI-A4fL324nX1CGss",
+     "Vo8N1luCT0p48y7JzKe84"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 3
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "cZrZDI-A4fL324nX1CGss",
+       "target": "SELF"
+      },
+      "source": "Hushed Hours early absorb"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "ZvPl6uyJfwF5EjmLHouQR",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Annihilating Wave (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "d00wewEL2x6V3Th5gS0dh",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Tempest Breaker (range 3, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "mQ7-q8q46ry5njNVBFpGp",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Marking Volley (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "Vo8N1luCT0p48y7JzKe84",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Heavy Cut (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  },
+  {
+   "slot": "D5.REG4",
+   "ref": "@ai:D5.REG4",
+   "key": "order_bearer",
+   "name": "Order-Bearer of the Sanctum",
+   "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending",
+   "kitStatus": "NEW CANDIDATE",
+   "record": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.5,
+    "poolsMultiplier": 2.0,
+    "regeneration": 40,
+    "element": "Water",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 6,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 3
+    },
+    "jutsus": [
+     "xGVqWSX93hXZgfmlKZODp",
+     "I66lzvVHf8v4thxR6tEJn",
+     "UAgYZvo_7DUtmBsBAaAar",
+     "taxbZNdm1Q7YL5AxaRssW",
+     "STu1VHNcfgeC3x-UiQDgt"
+    ],
+    "items": [],
+    "effects": []
+   },
+   "aiProfile": {
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 40
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+       "target": "SELF"
+      },
+      "source": "Second Wind steady"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "target": "SELF"
+      },
+      "source": "Warrior's Poise when engaged"
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "effectType": "shield",
+        "threshold": 1,
+        "target": "CLOSEST_OPPONENT"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Ion Lance vs shields"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "I66lzvVHf8v4thxR6tEJn",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Cataclysm Fist (range 5, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "UAgYZvo_7DUtmBsBAaAar",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "Deluge Breaker (range 3, gate +1)"
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT"
+      },
+      "source": "close distance (gated so end_turn stays reachable)"
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn"
+      },
+      "source": "safe end-turn (includeDefaultRules:false)"
+     }
+    ]
+   }
+  }
+ ]
+}
