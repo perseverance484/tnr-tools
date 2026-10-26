@@ -723,7 +723,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Sealbearer. Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. STYLE: the original crew's look (rendering, palette, outline weight, outfit language and proportions); this is a different person, whose head, gear and weapons are described by the text. Follow each reference only for its stated role.
 
-Subject: Sealbearer: Crownhold, Division IV (Sanctum). Head: a rigid box-shaped cowl with a rectangular brow tab. Weapon or prop: an upright rectangular blackwood command-seal tablet. Stance: holding the tablet forward, the other hand ready to seal. Keep: one simple geometric seal; no screen-like glow. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division IV, Sanctum: a severe enclosed silhouette, the darkest clothing, straight seal panels, almost no accessories. Division material: pale iron-ash (#86858A) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
+Subject: Sealbearer: Crownhold, Division IV (Sanctum). Head: a rigid box-shaped cowl with a rectangular brow tab. Weapon or prop: an upright rectangular blackwood command-seal tablet. Stance: holding the tablet forward, the other hand ready to seal. Keep: the tablet carries the Skyglass emblem, a four-point star in a diamond, as its only seal; no screen-like glow. Rank: a regular shinobi, lean and agile; the head, the weapon or tool and the action carry his identity. Division IV, Sanctum: a severe enclosed silhouette, the darkest clothing, straight seal panels, almost no accessories. Division material: pale iron-ash (#86858A) as a subdued, non-glowing cloth or lacquer shade on trim and panels; pale skyglass cyan stays the only luminous colour.
 
 Style: Edo-era Japanese fantasy ninja, premium pixel art matching the original Skyglass crew in density and darkness: fine, deliberate pixel clusters, hard dark outlines about one art pixel wide, flat cel shading in two or three value steps per material, limited palette; no chunky retro sprite, no smoothing, no bloom, no airbrush. Colour: night-ink and deep indigo cloth, storm-grey iron, weathered leather; pale skyglass cyan only where it is materially there (eyes, a skyglass part, a chakra-worked edge); rope only for functional lashings and containers. Full body, eye level, front three-quarter view, inside the frame with a clear margin; grounded adult anatomy, readable at 125 px; both arms within the silhouette.
 Costume (common crew language, not a uniform): Edo shinobi layered kimono, haori, hakama or fitted wraps; a cloth mask; a hood, headwrap or hat; an indigo waist sash; closed tabi with wrapped shins; practical arm protection; plain lacquered armour only where the subject asks for it, never ornate parade armour; torn hems and sash ends may show movement. The head described in the subject replaces these defaults. One dominant weapon or working tool. Solid gloved hands with five fingers.
@@ -809,8 +809,6 @@ Return the raw image named raw_scene_bg_crownhold_test_gallery.png.
 
 ### 31. Scene: Armory command shrine
 
-> The quest text still calls this place a terminal (renaming it is a content decision); the art draws an Edo command shrine.
-
 References (download and attach, in this order):
 
 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
@@ -882,8 +880,6 @@ Return the raw image named raw_scene_bg_crownhold_vat_halls.png.
 ~~~
 
 ### 35. Scene: Research command shrine
-
-> The quest text still calls this place a terminal (renaming it is a content decision); the art draws an Edo command shrine.
 
 References (download and attach, in this order):
 
@@ -975,8 +971,6 @@ Return the raw image named raw_scene_bg_crownhold_honor_guard_corridor.png.
 
 ### 40. Scene: High Command shrine
 
-> The quest text still calls this place a terminal (renaming it is a content decision); the art draws an Edo command shrine.
-
 References (download and attach, in this order):
 
 1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
@@ -1048,8 +1042,6 @@ Return the raw image named raw_scene_bg_crownhold_antechamber.png.
 ~~~
 
 ### 44. Scene: Outer ring and shrine
-
-> The quest text still calls this place a terminal (renaming it is a content decision); the art draws an Edo command shrine.
 
 References (download and attach, in this order):
 
@@ -1137,7 +1129,7 @@ References (download and attach, in this order):
 Draw ONE image for The Ninja RPG: Countermand (item icon). Generate exactly one candidate. Do not crop, key or process it.
 References attached: 1. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (an object of the same crew). Follow each reference only for its stated role.
 
-Subject: Countermand: Crownhold's command seal. A rectangular blackwood tablet framed in blackened iron, hanging on a short chain, its face carved with one simple geometric seal and set with a small faceted pale cyan seal stone. No gold.
+Subject: Countermand: Crownhold's command seal. A rectangular blackwood tablet framed in blackened iron, hanging on a short chain, its face carved with the Skyglass emblem, a four-point star in a diamond, and set with a small faceted pale cyan seal stone. No gold.
 
 Style: PREMIUM PIXEL ART game item icon, the same pixel rendering as the PIXEL STYLE reference: crisp hard-edged pixels, clean dark outlines, flat cel shading with a few deliberate highlight steps, limited palette, no anti-aliased blur, no painterly gradients. Colours as the subject: cool blue-black wood and blue-grey iron, silver-grey metal highlights, ONE accent of pale cyan faceted skyglass with a small glow, cool cyan rim light. Camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
 Negative: no text, no letters, no numbers, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no second object, no question mark, no painted or smooth illustration look, no blur.
