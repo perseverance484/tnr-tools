@@ -2,91 +2,32 @@
 
 - **Director, 2026-10-25:** "Crownbreaker. And now Arakane needs a cool Crown, and the badge is that Crown breaking. So he
   needs a better Crown than the captain. Its how they control the other afterimages" (RUL-2026-10-25-011).
-- **Protocol:** `docs/workflows/ISOLATED_ART_GENERATION.md`: one image per fresh session, at most two individual
-  reference images, one candidate at a time. Avatar first: it locks the crown's design; the badge then attaches it.
+- **2026-10-26:** the gold design below is **RETIRED**. The director moved Arakane's gold avatar to the redo queue
+  (RUL-2026-10-26-002); the control threads were dropped (RUL-2026-10-26-001: they read as antennae on the moving combat
+  sprite). The art director's v0.4 handoff locks a new crown.
 - **Live-game requests/writes:** 0.
 
-## The crown (design lock)
+## Current design (art bible v0.4, PROPOSED)
 
-The Crowned Captain's Skyglass Crown (`art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp`) is a jagged
-cyan-crystal half-crown on an iron band with a small seal disc. Arakane's must clearly outrank it and say "command":
+- **Crown lock and Arakane's design:** `docs/design/ghost_ship_art_bible/roster.json` (entry 20, `crown`), explained in
+  `ART_BIBLE.md` section 6.7. Blackened-iron closed ring, seven seal notches, one cyan seal stone, seven floating
+  skyglass blades; no gold, no threads, no halo.
+- **Prompts:** generated, never written here. Arakane is **brief A** in `docs/handoffs/SKYGLASS_CROWNHOLD_ART_BATCH.md`
+  (delivers `avatar_crownhold_arakane_v2.webp`; the old avatar is kept). The Crownbreaker badge is **#5** there, with #46,
+  #47 and #48.
+- **Order:** brief A first. #5 and #46-#48 are BLOCKED until A is approved and committed; rerunning
+  `state/skyglass_art/build_art_batch.py` then attaches the approved avatar to them as SUBJECT.
 
-- a closed circlet of **blackened gold** (not the Captain's iron), engraved with seal-script;
-- a **halo of seven Skyglass blades floating above the band**, evenly spaced, not touching it;
-- at the front a large faceted **Skyglass prism core** carrying the pale circled-cross seal, burning white at the centre;
-- **thin glowing threads** running from each floating blade down and away out of frame: the control lines to the
-  afterimages he commands;
-- palette: blackened gold, pale cyan Skyglass, white-hot core. One accent colour family, as the Skyglass sets use.
+## Retired (history only; do not use)
 
-## 1. Supreme Commander Arakane (AI avatar)
-
-~~~text
-You are the art director for The Ninja RPG (repository perseverance484/tnr-tools). This session draws ONE AI avatar:
-Supreme Commander Arakane, master of the Crownhold fortress. Generate exactly ONE candidate. Do not process, crop, key or
-upload anything.
-
-Attach two references, with these roles:
-1. STYLE (match rendering, outline, palette handling and pose energy; NOT the character): avatar_ghost_ship_crowned_captain_b.webp.
-2. THE LESSER CROWN (do NOT copy; Arakane's crown must clearly outrank it): icon_ghost_ship_skyglass_crown.webp.
-
-Concept: the commander who issued the last directive. Tall, composed, ruthlessly calm; a dignified older warlord in
-layered black-and-gold command armour and a long dark mantle, one gauntleted hand raised palm-down as if giving an order.
-He wears the COMMAND CROWN: a closed circlet of blackened gold engraved with seal-script; above it a halo of seven pale
-cyan Skyglass blades float evenly spaced, not touching the band; at the front a large faceted Skyglass prism core with a
-pale circled-cross seal burning white at its centre; thin glowing cyan threads run from each floating blade down and
-away past his shoulders and out of frame, like puppet strings. A command seal tablet (Countermand) hangs at his belt.
-
-Prompt:
-single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style
-reference, limited palette of black armour, blackened gold, pale cyan skyglass and one white-hot core accent, a
-commanding warlord with a floating halo crown of seven skyglass blades above a gold circlet and glowing control threads
-trailing from the blades, front three-quarter view, whole figure and crown inside the frame with a clear margin, on a
-true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard.
-Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no
-second character, no copy of the reference crown's shape, no realistic or painterly rendering, no blur, no gradient
-background, no sheet, no grid.
-
-Rules: square, 1024 x 1024. Fail fast and regenerate once if the background is not flat magenta, anything touches an
-edge, the crown is not clearly grander than the reference crown, the floating blades or the threads are missing, or the
-rendering drifts from the style reference.
-
-Return the raw image only, named raw_avatar_crownhold_arakane.png.
-~~~
-
-## 2. Crownbreaker (badge icon)
-
-Run after #1 is approved.
-
-~~~text
-You are the art director for The Ninja RPG (repository perseverance484/tnr-tools). This session draws ONE badge icon:
-Crownbreaker, earned by breaking Supreme Commander Arakane's Command Crown. Generate exactly ONE candidate. Do not
-process, crop, key or upload anything.
-
-Attach two references, with these roles:
-1. SUBJECT (keep the crown's design exactly): the approved Arakane avatar. Keep the blackened-gold circlet with
-   seal-script, the halo of seven floating skyglass blades, the faceted prism core with the circled-cross seal, and the
-   glowing control threads.
-2. STYLE (icon rendering and framing only): icon_ghost_ship_skyglass_crown.webp.
-
-Concept: the Command Crown at the moment it breaks. The circlet is split down the middle through the prism core, the two
-halves pushed apart; a white-hot crack of light bursts from the shattered core; the floating blades are scattered and
-tumbling outward; the control threads are snapped, their loose ends curling and fading. No hands, no figure.
-
-Prompt:
-single game badge icon, the shattered command crown alone, crisp pixel art with clean dark outlines and flat cel shading
-matching the style reference, limited palette of blackened gold, pale cyan skyglass and one white-hot burst of light at
-the broken core, centred and symmetrical with a clear margin on every side, readable at 64 pixels, on a true solid flat
-magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard.
-Negative: no text, no letters, no UI, no watermark, no frame or medal border, no ribbon, no character, no hands, no
-scenery, no shadow on the magenta, no magenta spill, no blur, no gradient background, no sheet, no grid.
-
-Rules: square, 1024 x 1024. Fail fast and regenerate once if the background is not flat magenta, anything touches an
-edge, the crown no longer matches the avatar's crown, or it does not read as broken at small size.
-
-Return the raw image only, named raw_badge_crownbreaker.png.
-~~~
+The 2026-10-25 lock asked for a closed circlet of **blackened gold** engraved with seal-script, a halo of seven floating
+skyglass blades, a large prism core with a pale circled-cross seal burning white, and **thin glowing control threads**
+running from each blade out of frame. Its two prompts attached the Crowned Captain as style and the Captain's crown as a
+"lesser crown". The resulting avatar (`art/crownhold/avatar_crownhold_arakane.webp`) is live and hidden, and is now
+off-model. Its prompts are in this file's git history (`git log -p -- docs/handoffs/CROWNHOLD_CROWN_ART_REQUEST.md`).
 
 ## Intake (Claude Code)
 
-Key magenta with `chroma.py`; avatar to the AI avatar target, badge to the ICON target (`25x_DATA_art_spec.json`);
-review sheet against the Crowned Captain and his crown.
+Key magenta with `chroma.py` (see the open chroma-key contract issue in `ART_BIBLE.md` section 13); avatar to the
+AI_AVATAR target, badge to the ICON target (`25x_DATA_art_spec.json`); review sheet against the anchor crew and the
+Crowned Captain's crown.
