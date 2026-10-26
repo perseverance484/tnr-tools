@@ -3124,3 +3124,24 @@ tradeable on the token or chest. Unmarked Cargo it is".
 **Evidence:** User, 2026-10-26, answering the independent review's required correction 3, choosing "Raise to 436,000 / 105,500 (Recommended)" over "Trim bundled contract" and "Raise more (437,000 / 106,000)".
 
 **Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).
+
+## RUL-2026-10-26-002 — Accept the residual dungeon-extractor guard gaps; integrate Forge 0.9.1
+
+**Date:** 2026-10-26
+
+**Domain:** Forge / dungeon contract extractor (`forge/tools/derive_dungeon.mjs`); Lane A integration
+
+**Status:** ACTIVE. The acceptance is limited to these two findings at the reviewed head; the follow-up below stays open.
+
+**Ruling:** The independent review of `fable/forge-dungeon-coop-path@3feea9715cc6c703c2f6406daa0ddfa6bac2125b` returned APPROVE WITH FIXES, with integration conditional on closing two extractor findings or on the director's explicit acceptance. The director accepts both residual risks and directs integration now:
+1. `dungeonExport()` accepts an initializer that substitutes an empty object for the router argument (for example `createTRPCRouter({ ... } && {});`) while still deriving `coop.dungeon.getAll` / `coop.dungeon.save`.
+2. The bracket scanner reads a regex literal containing a quote as a string, which can hide a trailing `.save` export and a following statement. The correction 3 handoff's statement that "a mis-scan ... fails closed" is false and is withdrawn.
+
+Neither finding is a runtime defect. Forge's runtime source, bundle and loader are unchanged by every correction round (byte-identical to c45fbb93), and the extractor runs only when the game pin is re-pinned. Between re-pins, the committed contract is protected by the CLI's exact-pin and dirty-source checks and by the `_meta.sources` hashes.
+
+**Follow-up (open, Lane A):** before the next re-pin of the dungeon contract, replace the extractor's text scanning of the three mount files (`root.ts`, `routers/coop.ts`, `routers/dungeon.ts`) with a syntax-aware check: a TypeScript AST with a pinned, explicitly declared dev dependency, reviewed as its own change. Until then, any re-pin's diff of those three files must be read by a person, not trusted to the extractor alone.
+
+**Evidence:** User, 2026-10-26, choosing "Accept risk, integrate (Recommended)" over "Real parser, then review" and "Patch both, then review".
+
+**Canonical destination:** `docs/handoffs/FORGE_DUNGEON_COOP_PATH_HANDOFF.md` (integration disposition); the follow-up is owned by Fable.
+

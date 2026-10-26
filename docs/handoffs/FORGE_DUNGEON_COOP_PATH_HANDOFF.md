@@ -447,8 +447,10 @@ Each command run separately; exit codes read directly with `$?`, nothing piped t
   Runtime source and architecture are unchanged.
 - **Residual boundary:** this is a shape check, not a JavaScript parser. The bracket matcher skips
   string and template literals whole, so a template whose `${...}` holds its own backtick, or a regex
-  literal containing a quote or bracket, can mis-scan. A mis-scan is unbalanced or leaves text after
-  the close, so it fails closed. Code inside the router literal (procedure bodies, which run at
+  literal containing a quote or bracket, can mis-scan. ~~A mis-scan is unbalanced or leaves text after
+  the close, so it fails closed.~~ **Withdrawn (re-review of 3feea971): false.** A regex literal with a
+  quote can hide a trailing `.save` export and a following statement; see "Integration disposition"
+  below. Code inside the router literal (procedure bodies, which run at
   request time) is not modelled. The procedure keys and kinds are still read by `procedureFacts()`.
   Mutations from modules outside the three mount files remain out of scope, as recorded in
   correction 2. The exact-pin and dirty-source CLI checks and `_meta.sources` hashes bind the
@@ -494,3 +496,31 @@ Reproduce, separately, recording every exit code (no masking pipes), with a comp
 REPORT: per finding severity (blocker / should-fix / note), file:line, reproduction, suggested fix; what
 you checked and found clean. Verdict: approve, approve with fixes, or reject.
 ~~~
+
+---
+
+# Integration disposition (re-review of 3feea971: APPROVE WITH FIXES)
+
+The review approved `3feea9715cc6c703c2f6406daa0ddfa6bac2125b` (code head `e28bb20d`), with integration
+conditional on two open extractor findings:
+1. `dungeonExport()` accepts an empty-object substitution for the router argument, e.g.
+   `createTRPCRouter({ ... } && {});`, and still derives coop.dungeon.*. Reproduced by Fable at the
+   reviewed head: accepted.
+2. Regex-literal mis-scanning can hide a trailing `.save` export and a following statement. The
+   "fails closed" claim above was false and is withdrawn.
+
+**Disposition:** the director accepted both residual risks and directed integration
+(**RUL-2026-10-26-002**). Neither is a runtime defect, and the extractor runs only at a re-pin. The
+open follow-up is to replace the text scanning of the three mount files with a syntax-aware (AST)
+check, reviewed as its own change, before the next re-pin. Until then, a person reads the re-pin diff
+of those files.
+
+**No code change after review.** The integration candidate is the reviewed head plus:
+- a merge of main at the integration boundary, which brings no Forge file;
+- this docs-only commit (`docs/RULINGS.md`, this handoff).
+
+**Version:** this branch integrates first and keeps Forge 0.9.1. `fable/validate-stale-rules@271d1103`,
+which also stages 0.9.1, must rebase and take 0.9.2.
+
+The merged SHA, released version, bundle pin and final gate results are recorded below after the merge.
+
