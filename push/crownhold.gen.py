@@ -127,7 +127,7 @@ def ai(p):
     r, boss = p["record"], p["slot"].endswith("BOSS")
     g1, g2 = r["generals"]
     data = {
-        "username": p["name"], "hidden": True, "level": r["level"], "rank": r["rank"],
+        "username": RENAME.get(p["name"], p["name"]), "hidden": True, "level": r["level"], "rank": r["rank"],
         "poolsMultiplier": r["poolsMultiplier"], "statsMultiplier": round(r["statsMultiplier"] * STAT_SCALE, 2),
         "regeneration": r["regeneration"], "gender": "Unknown", "preferredGeneral1": g1, "preferredGeneral2": g2,
         "primaryElement": None, "secondaryElement": None, "isSummon": False, "avatarFacing": "left",
@@ -141,8 +141,148 @@ def ai(p):
         "includeDefaultRules": p["aiProfile"]["includeDefaultRules"],
         "rules": [rule(x) for x in p["aiProfile"]["rules"]],
     }
-    return {"entity": "ai", "slot": "create", "phase": 1, "name": p["name"], "srcId": "crownhold_" + p["slot"].lower(),
+    return {"entity": "ai", "slot": "create", "phase": 1, "name": RENAME.get(p["name"], p["name"]), "srcId": "crownhold_" + p["slot"].lower(),
             "data": data}
+
+
+# ---------------------------------------------------------------- the quest (push/273)
+SCRIPT = load("design/script.json")
+PROTOCOLS = load("design/protocols.json")
+GRAPH = json.load(open(os.path.join(ROOT, "state/crownhold/package/harness/silent_bastion_condensed99/graphs/alt99_f4gate.json")))
+UFS = "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ"
+SCENE = {  # placeholders from the Skyglass set until Crownhold's six scenes are drawn (package art_shotlist.md)
+    2: UFS + "TdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",   # hold          -> Experimental Armory
+    3: UFS + "RiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",   # reconstruction -> Skyglass Research
+    4: UFS + "8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",   # gallery       -> High Command
+    5: UFS + "Ip0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",   # helm          -> Command Sanctum
+}
+ITEM = {"lantern": "jCJv4N3JSiihuqnK0jJ7t", "coffer": "THo7rfzP-S82_43aN8fs3", "treasury": "Ma8S90Nmbi0Xvm4u4FzJh"}
+LASTLIGHT_JUTSU = "0F-68bxOXW_LkJnXV0lwT"
+HONOR_TOKENS = 1000  # Crownhold's Honor: PROPOSAL, the director sets the amount (RUL-2026-10-25-002)
+RENAME = {"Bastion Proving Proctor": "Crownhold Proving Proctor"}
+FAIL_ID = "f_lost"
+
+QUEST_DESCRIPTION = (
+    "The Lastlight Lantern burns toward a mountain the maps call empty. Crownhold, the fortress that issued the Skyglass "
+    "Project's last directive, has not answered a call in a generation. Its gates stand open. Nothing guards them.\n\n"
+    "Starting the expedition spends one Lastlight Lantern. Lose any fight and the expedition ends; the Lantern is not "
+    "refunded.\n\nIf you still have a reward to choose from an earlier expedition, claim it before you set out: an "
+    "expedition cannot be completed while an earlier reward choice is waiting.")
+QUEST_SUCCESS = "Supreme Commander Arakane has fallen and his Command Crown lies broken. Choose your reward."
+CROWN = ("Above his brow the Command Crown turns slowly: seven blades of Skyglass hanging in the air around a gold "
+         "circlet, and from every blade a thread of light running down through the floor, out to every officer you "
+         "passed on the way up. You have been cutting those threads all the way up the mountain.")
+OVERRIDE = {
+    "d.aftermath": (
+        "Supreme Commander Arakane falls to one knee. The Command Crown cracks through its prism core, and the floating "
+        "blades drop and shatter on the stone. All through the mountain, the threads of light go slack. Then he is only "
+        "light, settling over the floor of the throne room like ash.\n\nFor a moment Crownhold is silent in a new way. "
+        "The relay lines stop. The lamps dim.\n\nThen, in the signal room far below, the relay board wakes. A new order "
+        "prints itself, line by line, onto the Supreme Commander's own paper. It is dated today. It bears no seal you have "
+        "seen anywhere in Crownhold. It is addressed to the Ghost Ship.\n\nThe crown is broken. Something else is still "
+        "giving orders."),
+}
+FAIL_TEXT = "You fall, and Crownhold does not let you up. You wake outside the gate in the snow, and the Lantern has gone dark."
+WIN_TEXT = "Crownhold falls silent behind you. Whatever still gives its orders, it no longer has a crown to give them through."
+
+
+def prose(t):
+    for a, b in (("the Silent Bastion", "Crownhold"), ("The Silent Bastion", "Crownhold"), ("Silent Bastion", "Crownhold"),
+                 ("the Bastion's", "Crownhold's"), ("The Bastion's", "Crownhold's"), ("the Bastion", "Crownhold"),
+                 ("The Bastion", "Crownhold"), ("Bastion", "Crownhold")):
+        t = t.replace(a, b)
+    for a, b in RENAME.items():
+        t = t.replace(a, b)
+    return t
+
+
+def qtag(t, kind):
+    calc = {"stunprevent": "percentage", "increasedamagegiven": "percentage", "increasedamagetaken": "percentage"}
+    return {"type": t["type"], "power": t["power"], "rounds": t["rounds"], "target": "INHERIT", "direction": "offence",
+            "calculation": t.get("calculation", calc.get(t["type"], "static")), "powerPerLevel": 0,
+            "description": {"buff": "Combat Protocol", "debuff": "Security Alert"}[kind], "appearSfx": "",
+            "disappearSfx": "", "appearAnimation": "", "staticAnimation": "", "staticAssetPath": "", "disappearAnimation": ""}
+
+
+def quest():
+    obj = SCRIPT["objectives"]
+    nodes = [n for n in GRAPH["nodes"] if n.get("lane") != "recovery" and n["kind"] != "reset"]
+    keep = {n["id"] for n in nodes}
+    div_of = lambda nid: int(nid[1]) if nid[1].isdigit() else 5
+    out = []
+
+    def scene(nid):
+        return SCENE[div_of(nid)] if nid[1].isdigit() else SCENE[5]
+
+    def text(nid):
+        if nid in OVERRIDE: return OVERRIDE[nid]
+        t = prose(obj[nid]["text"])
+        if nid in ("d5.n.boss.clean", "d5.n.boss.alert"):
+            t = t.replace(" He turns.", " " + CROWN + "\n\nHe turns.").replace(" He turns from the window.", " " + CROWN + "\n\nHe turns from the window.")
+        return t
+
+    for n in nodes:
+        nid = n["id"]
+        if n["kind"] == "dialog":
+            o = obj[nid]
+            if "choices" in n:
+                opts = o.get("options", {})
+                choices, seen = [], {}
+                for c in n["choices"]:
+                    seen[c["to"]] = seen.get(c["to"], 0) + 1
+                k = 0
+                for c in n["choices"]:
+                    label = opts.get(c["label"]) or opts.get(c["to"]) or c["label"]
+                    if seen[c["to"]] > 1:  # a menu may not send two options to one node: each wrong answer gets a beat
+                        k += 1
+                        beat = f"{nid}.wrong{k}"
+                        out.append({"id": beat, "task": "dialog", "description": f"You choose: {label}. Somewhere in the walls a ward wakes and turns toward you.",
+                                    "sceneBackground": scene(nid), "sceneCharacters": [], "nextObjectiveId": [{"text": "Go on", "nextObjectiveId": c["to"]}]})
+                        choices.append({"text": label, "nextObjectiveId": beat})
+                    else:
+                        choices.append({"text": label, "nextObjectiveId": c["to"]})
+            else:
+                nxt = n["next"]
+                label = "Fight" if nxt.startswith("b") else ("Leave Crownhold" if nxt.startswith("w") else "Continue")
+                choices = [{"text": label, "nextObjectiveId": nxt}]
+            out.append({"id": nid, "task": "dialog", "description": text(nid).replace("\n\n", "<br><br>").replace("\n", "<br>"), "sceneBackground": scene(nid),
+                        "sceneCharacters": [], "nextObjectiveId": choices})
+        elif n["kind"] == "battle":
+            slot = n["encounterSlot"]
+            ref = IDS.get("@ai:" + slot, "@ai:crownhold_" + slot.lower())
+            lose = "f.arakane" if n["onLoss"] == "f.arakane" else FAIL_ID
+            b = {"id": nid, "task": "start_battle", "description": prose(obj[nid]["text"]), "sceneBackground": scene(nid),
+                 "sceneCharacters": [], "opponentAIs": [{"ids": [ref], "number": 1, "quantity": 1}],
+                 "completionOutcome": "Win", "scaleGains": 1, "keepOriginalPools": False, "opponent_scaled_to_user": False,
+                 "nextObjectiveId": n["onWin"], "failObjectiveId": lose, "failDescription": "You are defeated.",
+                 "drawDescription": "The fight stalls and the moment is lost.",
+                 "fleeDescription": "You break away, and Crownhold closes behind you."}
+            if n.get("startPoolsPercent") == 100: b["givePools"] = 100
+            eff = n.get("startEffect", "")
+            if eff.startswith("SECURITY_ALERT"):
+                b["applyDebuffs"] = [qtag(PROTOCOLS["securityAlert"]["effect"]["tag"], "debuff")]
+            elif eff.startswith("COMBAT_PROTOCOL"):
+                d = eff.split("_")[2]
+                b["applyBuffs"] = [qtag(PROTOCOLS["combat"][d]["effect"]["tag"], "buff")]
+            out.append(b)
+        elif n["kind"] == "win":
+            out.append({"id": nid, "task": "win_quest", "description": WIN_TEXT, "sceneBackground": SCENE[5], "sceneCharacters": [],
+                        "reward_exp": 5000, "reward_items": [{"ids": [ITEM["treasury"]], "number": 6, "quantity": 1}]})
+        elif n["kind"] == "fail":
+            out.append({"id": nid, "task": "fail_quest", "description": prose(obj[nid]["text"]), "sceneBackground": SCENE[5], "sceneCharacters": []})
+    out.append({"id": FAIL_ID, "task": "fail_quest", "description": FAIL_TEXT, "sceneBackground": SCENE[2], "sceneCharacters": []})
+    reward = {"reward_items": [{"ids": [ITEM["coffer"]], "number": 100, "quantity": 2}], "reward_tokens": HONOR_TOKENS,
+              "reward_jutsus": [LASTLIGHT_JUTSU]}
+    if "badge:crownbreaker" in IDS: reward["reward_badges"] = [IDS["badge:crownbreaker"]]
+    return {"entity": "quest", "slot": "create", "srcId": "crownhold", "name": "Crownhold", "data": {
+        "name": "Crownhold", "description": QUEST_DESCRIPTION, "image": "@img:avatar_crownhold_arakane.webp",
+        "questType": "battlepyramid", "questRank": "S", "successDescription": QUEST_SUCCESS, "retryDelay": "none",
+        "attemptDelay": "none", "consecutiveObjectives": True, "hidden": True, "requiredLevel": 1, "maxLevel": 100,
+        "maxAttempts": 100, "maxCompletes": 100, "prerequisiteQuestId": None, "tierLevel": None, "requiredVillage": None,
+        "requiredBloodlineId": None, "startsAt": None, "endsAt": None,
+        "content": {"objectives": out, "sceneBackground": "", "sceneCharacters": [],
+                    "entryItems": [{"ids": [ITEM["lantern"]], "number": 1}], "isolated": True,
+                    "rewardMode": "choose", "rewardPickCount": 1, "reward": reward}}}
 
 
 def write(num, slug, note, items):
@@ -189,6 +329,10 @@ def main():
             [ai(p) for p in PROFILES])
     else:
         print("272 waits for push/271's ids in state/crownhold/ids.json")
+    q = quest()
+    out = os.path.join(ROOT, "state/crownhold/quest.preview.json")
+    json.dump(q, open(out, "w"), indent=1)
+    print("quest preview:", len(q["data"]["content"]["objectives"]), "objectives ->", os.path.relpath(out, ROOT))
 
 
 if __name__ == "__main__":
