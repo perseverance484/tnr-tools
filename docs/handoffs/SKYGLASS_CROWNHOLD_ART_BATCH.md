@@ -41,6 +41,7 @@ Every link is pinned to commit `60b792ac19ba710d724a247127eb0482d967eeaf`, so it
 | arsenal | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp | 191438 | 1241 x 1241 | `1caf87b04c7ecd4cd2d3dd4569a93036d61fbef858acd0dc16c4a92370ac2858` |
 | deck_warden | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp | 123206 | 1221 x 1221 | `805c1e99bcb1e7b337b20374add6a581228871da2d6b90a89ce57e154b91bdd0` |
 | captain | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp | 203140 | 1235 x 1235 | `ce93b9dc6cd70e79aa2454662ad1e1881d78c4e0fb260fdfda7898017510ff6b` |
+| seal_charge | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp | 153182 | 1174 x 1174 | `6f56d9c84465f970e1204cd75f9d478d71d37abc3d66430febad8f548f8bd01b` |
 | bbe | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp | 61270 | 256 x 256 | `410b8c5a20af40b27aaf728d5d8c7b2260adc500c7dd64187b08c0953e6531c5` |
 | gallery | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp | 250006 | 1536 x 1024 | `babd22ccf728fb67c8208f1f68af8c5eb3286c3a76bdcbe0e1b2b0bdf227026c` |
 | helm | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp | 329520 | 1536 x 1024 | `d72d0506b07b59a917017371ff2c1b4c7d84532d0625d661523109de78eef9ce` |
@@ -79,9 +80,9 @@ Every link is pinned to commit `60b792ac19ba710d724a247127eb0482d967eeaf`, so it
 | 5 | Crownbreaker (badge) | ICON | magenta | arakane, crown | `icon-badge-crownbreaker.webp` |
 | 6 | Lastlight (jutsu icon) | JUTSU_ICON | none | bbe, lantern | `icon-jutsu-lastlight.webp` |
 | 7 | Foundry Warden (AI avatar) | AI_AVATAR | magenta | arsenal | `avatar_skyglass_foundry_warden.webp` |
-| 8 | Master of Arms (commander) | AI_AVATAR | magenta | captain | `avatar_crownhold_master_of_arms.webp` |
-| 9 | Replicant Zero (commander) | AI_AVATAR | magenta | captain | `avatar_crownhold_replicant_zero.webp` |
-| 10 | The Grand Marshal (commander) | AI_AVATAR | magenta | captain | `avatar_crownhold_the_grand_marshal.webp` |
+| 8 | Master of Arms (commander) | AI_AVATAR | magenta | seal_charge | `avatar_crownhold_master_of_arms.webp` |
+| 9 | Replicant Zero (commander) | AI_AVATAR | magenta | seal_charge | `avatar_crownhold_replicant_zero.webp` |
+| 10 | The Grand Marshal (commander) | AI_AVATAR | magenta | seal_charge | `avatar_crownhold_the_grand_marshal.webp` |
 | 11 | Crownhold Proving Proctor | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_proving_proctor.webp` |
 | 12 | Ordnance Quartermaster | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_ordnance_quartermaster.webp` |
 | 13 | Prototype Lancer Unit | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_prototype_lancer_unit.webp` |
@@ -290,11 +291,11 @@ Return the raw image named raw_avatar_skyglass_foundry_warden.png.
 
 References (download and attach, in this order):
 
-1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
+1. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Master of Arms (commander). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons. Follow each reference only for its stated role.
+References attached: 1. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text). Follow each reference only for its stated role.
 
 Subject: Master of Arms: Division I commander. A broad, bull-necked weapons master: a dented iron half-helm with a forge-orange lacquered face guard over the mouth and jaw, a bald or close-cropped head (no long hair, no topknot); heavy lacquered plates over dark indigo cloth, a war-axe and a heavy cleaver-blade in his hands, more blades and a spear slung across his back; calm and exacting. Accent: forge-orange. Commanders are larger and heavier-built than regular officers, but wear no crown and no gold.
 
@@ -309,11 +310,11 @@ Return the raw image named raw_avatar_crownhold_master_of_arms.png.
 
 References (download and attach, in this order):
 
-1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
+1. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Replicant Zero (commander). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons. Follow each reference only for its stated role.
+References attached: 1. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text). Follow each reference only for its stated role.
 
 Subject: Replicant Zero: Division II commander. A tall, gaunt medical-nin: a close grey cloth hood and a plain surgical face wrap leaving only one chakra-lit eye, the other eye bandaged; a long dark field coat with pouches of sealing tags; calmly rebuilding his own left hand out of his own pale violet healing chakra; the first successful recall; calm and curious. No mask plate, no sword. Accent: pale violet. Commanders are larger and heavier-built than regular officers, but wear no crown and no gold.
 
@@ -328,11 +329,11 @@ Return the raw image named raw_avatar_crownhold_replicant_zero.png.
 
 References (download and attach, in this order):
 
-1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
+1. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp  (153182 bytes, 1174 x 1174, sha256 `6f56d9c84465f970…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: The Grand Marshal (commander). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons. Follow each reference only for its stated role.
+References attached: 1. PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text). Follow each reference only for its stated role.
 
 Subject: The Grand Marshal: Division III commander, called 'The Second'. An older senior shinobi officer: a wide flat travelling hat with a muted-brass brim band shading a plain dark cloth mask, a short grey beard visible below it; a plain dark long coat over light plates, hands clasped behind his back, no drawn weapon; thoughtful and severe; the deputy who could question orders. Accent: muted brass. Commanders are larger and heavier-built than regular officers, but wear no crown and no gold.
 

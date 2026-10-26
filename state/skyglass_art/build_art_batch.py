@@ -18,6 +18,7 @@ REF={
  "arsenal":"art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp",
  "deck_warden":"art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp",
  "captain":"art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp",
+ "seal_charge":"art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp",
  "bbe":"art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp",
  "gallery":"art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp",
  "helm":"art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp",
@@ -40,7 +41,8 @@ AV_STYLE=("Style: single full-body character avatar, crisp pixel art with clean 
  "character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no "
  "gradient background, no sheet, no grid.")
 # Director 2026-10-26 (RUL-2026-10-26-001): Crownhold officers are chakra-impression NINJAS in the Ghost Ship crew's
-# look, not blue energy ghosts; style reference is a crew avatar (Deck Warden / the Captain), never Arakane.
+# look, not blue energy ghosts; style reference is a crew avatar (Deck Warden) for regulars; commanders use a crew OBJECT
+# (Seal Charge) because the Captain reference was copied wholesale (mask, hair, swords) twice. Never Arakane.
 CROWN_THREAD=("Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. "
  "Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey "
  "cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and "
@@ -125,7 +127,7 @@ AVATARS=[
 n=8
 for name,look,boss in AVATARS:
     fname="avatar_crownhold_"+name.lower().removeprefix("crownhold ").replace("'","").replace(" ","_").replace("-","_")+".webp"
-    ref=("STYLE: a commander of the same crew. Rendering, outfit language and commander scale ONLY. Do NOT copy his white mask, his face, his hair or topknot, his cloak shape or his swords: the subject describes this commander's own head and weapons","captain") if boss else \
+    ref=("PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text)","seal_charge") if boss else \
         ("STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear","deck_warden")
     add(n,name+(" (commander)" if boss else ""),"AI_AVATAR","magenta",fname,[ref],
         name+": "+look+(" Commanders are larger and heavier-built than regular officers, but wear no crown and no gold." if boss else ""),CROWN_THREAD+"\n"+AV_STYLE)
