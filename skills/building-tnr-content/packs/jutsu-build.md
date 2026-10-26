@@ -1,9 +1,9 @@
-<!-- RENDERED pack 'jutsu-build' from jutsu.md@f9fa8cc + pipeline.md@8f2ef7d via build_packs.py - edit the sources, never this file -->
+<!-- RENDERED pack 'jutsu-build' from jutsu.md@8be5af0 + pipeline.md@e6a7375 via build_packs.py - edit the sources, never this file -->
 # Pack: jutsu-build
 
 Minimal set for a jutsu create/edit that ends in a push. Read the SKILL doctrine block first, this pack second, data files as needed. Curation of ai/quest/item/art packs is follow-up work; this pack is the proven exemplar.
 
-<!-- pack-trace: jutsu.md @f9fa8cc '1. Jutsu tRPC contract' -->
+<!-- pack-trace: jutsu.md @8be5af0 '1. Jutsu tRPC contract' -->
 ## 1. Jutsu tRPC contract
 
 Envelope rules are in `10_TECH_pipeline.md`. Jutsu-specific:
@@ -22,7 +22,7 @@ The builder pattern is create-then-fill: POST a blank `jutsu.create`, read the i
 
 ---
 
-<!-- pack-trace: jutsu.md @f9fa8cc '2. Jutsu field schema (complete)' -->
+<!-- pack-trace: jutsu.md @8be5af0 '2. Jutsu field schema (complete)' -->
 ## 2. Jutsu field schema (complete)
 
 The complete set of fields written on `jutsu.update`, captured from a live AI jutsu record and now verified against the server's own write validator (JutsuValidator, extracted from the TNR source). The machine-readable schema with every type, range, default, and enum is `45_DATA_field_schemas.json`. Defaults shown are safe values for an AI-kit jutsu; player jutsu differ where noted (not hidden, real rank, real pool costs, a player `jutsuType`). Do not omit a required field on a `create`.
@@ -88,7 +88,7 @@ The complete set of fields written on `jutsu.update`, captured from a live AI ju
 
 ---
 
-<!-- pack-trace: jutsu.md @f9fa8cc '3. Effects and tags (shared schema)' -->
+<!-- pack-trace: jutsu.md @8be5af0 '3. Effects and tags (shared schema)' -->
 ## 3. Effects and tags (shared schema)
 
 The `effects[]` object schema is identical to the AI jutsu schema. Use the **verified effect-object schema in `21_GUIDE_ai_enemy.md` section 7.4** (keys: `type`, `power`, `powerPerLevel`, `rounds`, `calculation`, `direction`, `target`, `statTypes`, `generalTypes`, optional `elements` on damage/pierce, cosmetic keys optional). The complete lowercase `type` enum and the per-type direction and calculation rules are in that same section.
@@ -99,7 +99,7 @@ The **tag vocabulary in guide 21 section 4** also applies, with one difference: 
 
 ---
 
-<!-- pack-trace: jutsu.md @f9fa8cc '6. Mass-edit, sweep, and re-equip patterns' -->
+<!-- pack-trace: jutsu.md @8be5af0 '6. Mass-edit, sweep, and re-equip patterns' -->
 ## 6. Mass-edit, sweep, and re-equip patterns
 
 The builder's `convert` slot (entity `jutsu`) is the bulk-edit path. As of builder v4.6 it **fetch-merges**: on the first convert of a run it loads the full live jutsu catalog once (`jutsu.getAll`, two passes so **hidden AI jutsu are included**, mapped by id), then for each entry it merges your `data` over the live record, strips the read-only `bloodline` join, preserves the original `createdAt`, and sends `jutsu.update`. It throttles about 2 seconds apart with backoff and is idempotent.
@@ -116,7 +116,7 @@ Two known candidate sweeps over the live catalog (run with the bloodline-ownersh
 
 ---
 
-<!-- pack-trace: jutsu.md @f9fa8cc '8. QA checklist (before any jutsu push)' -->
+<!-- pack-trace: jutsu.md @8be5af0 '8. QA checklist (before any jutsu push)' -->
 ## 8. QA checklist (before any jutsu push)
 
 - [ ] `create` payloads preferably carry the COMPLETE field set (section 2), including the three `*ReducePerLvl` numbers and `bloodlineId`/`villageId` as `""` (v4.12 merges defaults under partial creates, but placeholders are not content); `convert` payloads carry only the change (2.3).
@@ -133,7 +133,7 @@ Two known candidate sweeps over the live catalog (run with the bloodline-ownersh
 
 ---
 
-<!-- pack-trace: jutsu.md @f9fa8cc 'Relocated engine laws (2026-08-28)' -->
+<!-- pack-trace: jutsu.md @8be5af0 'Relocated engine laws (2026-08-28)' -->
 ## Relocated engine laws (2026-08-28)
 
 Verbatim law text moved out of project knowledge. Stage 3 splices these into the
@@ -151,12 +151,12 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '2. Verified tRPC contracts' -->
+<!-- pack-trace: pipeline.md @e6a7375 '2. Verified tRPC contracts' -->
 ## 2. Verified tRPC contracts
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '2.1 Request envelope and conventions' -->
+<!-- pack-trace: pipeline.md @e6a7375 '2.1 Request envelope and conventions' -->
 ### 2.1 Request envelope and conventions
 
 - TNR uses tRPC batch links. **Every POST body is a batch envelope:** `{"0": { "json": <payload>, "meta": <meta> }}`.
@@ -167,7 +167,7 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '2.2 Jutsu' -->
+<!-- pack-trace: pipeline.md @e6a7375 '2.2 Jutsu' -->
 ### 2.2 Jutsu
 
 | Op | Method | Shape |
@@ -178,14 +178,14 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '3. Rate limit' -->
+<!-- pack-trace: pipeline.md @e6a7375 '3. Rate limit' -->
 ## 3. Rate limit
 
 The limiter is a **rolling cumulative request-count budget**, not per-burst. It drains across repeated sessions and refills over time. Use fewer, larger requests with exponential backoff (the builder does this), and let it refill rather than hammering.
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '4. id-fetch and capture-first discipline' -->
+<!-- pack-trace: pipeline.md @e6a7375 '4. id-fetch and capture-first discipline' -->
 ## 4. id-fetch and capture-first discipline
 
 - Pull live ids from edit URLs (`/manual/ai/edit/[id]`, `/manual/asset/edit/[id]`, the item editor) or from catalog dumps.
@@ -195,7 +195,7 @@ The limiter is a **rolling cumulative request-count budget**, not per-burst. It 
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '5. Universal gotcha checklist' -->
+<!-- pack-trace: pipeline.md @e6a7375 '5. Universal gotcha checklist' -->
 ## 5. Universal gotcha checklist
 
 Run before any push:

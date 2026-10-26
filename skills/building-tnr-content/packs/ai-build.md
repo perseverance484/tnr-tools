@@ -1,9 +1,9 @@
-<!-- RENDERED pack 'ai-build' from ai.md@dffeb23 + pipeline.md@8f2ef7d via build_packs.py - edit the sources, never this file -->
+<!-- RENDERED pack 'ai-build' from ai.md@86e26d4 + pipeline.md@e6a7375 via build_packs.py - edit the sources, never this file -->
 # Pack: ai-build
 
 Minimal set for an AI enemy create/edit that ends in a push. SKILL doctrine block first, this pack second; factory.py/enemy.py construct, 45c/45d/46b own shapes and vocab. Depth on demand via references/_toc/ai.json slices: infographic workflows, blank template, effect vocabulary 4.2-4.6, targets list, ai_v2 addendum. Pipeline relocated laws enforced by validate --parity + harvest verify.
 
-<!-- pack-trace: ai.md @dffeb23 '1. AI Enemy Spec, full field schema' -->
+<!-- pack-trace: ai.md @86e26d4 '1. AI Enemy Spec, full field schema' -->
 ## 1. AI Enemy Spec, full field schema
 
 The Spec mirrors the infographic blocks so Workflow B is a 1:1 pull. Fields are grouped Identity → Profile → Passives → Role → Pattern → Kit → Tactical Read.
@@ -12,7 +12,7 @@ The Spec mirrors the infographic blocks so Workflow B is a 1:1 pull. Fields are 
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '1.1 Identity / Header' -->
+<!-- pack-trace: ai.md @86e26d4 '1.1 Identity / Header' -->
 ### 1.1 Identity / Header
 | Field | Tag | Allowed / format | Notes |
 |---|---|---|---|
@@ -24,7 +24,7 @@ The Spec mirrors the infographic blocks so Workflow B is a 1:1 pull. Fields are 
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '1.2 Profile / Stat block' -->
+<!-- pack-trace: ai.md @86e26d4 '1.2 Profile / Stat block' -->
 ### 1.2 Profile / Stat block
 | Field | Tag | Allowed / default | Notes |
 |---|---|---|---|
@@ -61,7 +61,7 @@ Server write caps (insertAiSchema, source-confirmed): `level` 1 to 200, `statsMu
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '1.3 Passive AI Tags (0-N; bosses/elites)' -->
+<!-- pack-trace: ai.md @86e26d4 '1.3 Passive AI Tags (0-N; bosses/elites)' -->
 ### 1.3 Passive AI Tags (0-N; bosses/elites)
 Time-limited "steroids", **start strong, then fall off** as their duration expires. Each:
 | Field | Tag | Format |
@@ -74,7 +74,7 @@ Standard enemies normally have **none** (`ai_tags_summary: None`).
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '1.4 Combat Role' -->
+<!-- pack-trace: ai.md @86e26d4 '1.4 Combat Role' -->
 ### 1.4 Combat Role
 | Field | Tag | Format |
 |---|---|---|
@@ -82,7 +82,7 @@ Standard enemies normally have **none** (`ai_tags_summary: None`).
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '1.5 AI Pattern (behavior)' -->
+<!-- pack-trace: ai.md @86e26d4 '1.5 AI Pattern (behavior)' -->
 ### 1.5 AI Pattern (behavior)
 `ai_pattern` [req] = an **ordered, numbered list** (5-7 steps). This is the established infographic format: a priority list with light range conditionals + a fallback. Drives both the infographic "AI Pattern" panel and the script's pattern field.
 
@@ -106,7 +106,7 @@ Standard enemies normally have **none** (`ai_tags_summary: None`).
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '1.6 Jutsu Kit (AI jutsu sub-schema)' -->
+<!-- pack-trace: ai.md @86e26d4 '1.6 Jutsu Kit (AI jutsu sub-schema)' -->
 ### 1.6 Jutsu Kit (AI jutsu sub-schema)
 `jutsu_kit` [req] = ordered list. Each jutsu:
 | Field | Tag | Allowed / format | Notes |
@@ -131,13 +131,13 @@ Standard enemies normally have **none** (`ai_tags_summary: None`).
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '1.6.1 Damage tuning' -->
+<!-- pack-trace: ai.md @86e26d4 '1.6.1 Damage tuning' -->
 ### 1.6.1 Damage tuning
 Superseded: kits come from 32_REGISTRY (EP doctrine); per-hit tuning is multiplicative row products against a declared anchor (30_DOCTRINE protocol, 12_TECH laws 9/13).
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '1.8 Role defaults (quick reference)' -->
+<!-- pack-trace: ai.md @86e26d4 '1.8 Role defaults (quick reference)' -->
 ### 1.8 Role defaults (quick reference)
 | | Standard | Elite | Boss |
 |---|---|---|---|
@@ -151,7 +151,7 @@ Superseded: kits come from 32_REGISTRY (EP doctrine); per-hit tuning is multipli
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '1.9 Reserved / `NOT RECORDED` registry' -->
+<!-- pack-trace: ai.md @86e26d4 '1.9 Reserved / `NOT RECORDED` registry' -->
 ### 1.9 Reserved / `NOT RECORDED` registry
 Never invent these, leave `NR` for you/the engine:
 `exact base stat numbers if not provided` · `exact armor DR%` · `loot table / drop rates` · `encounter gating (required rank/level to fight)` · `spawn context` · `art/icon image files` · `element-wheel counter relationship` · `ViolentMonkey record IDs / form selectors / endpoint`.
@@ -160,7 +160,7 @@ Never invent these, leave `NR` for you/the engine:
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '4.1 AI restrictions (read first)' -->
+<!-- pack-trace: ai.md @86e26d4 '4.1 AI restrictions (read first)' -->
 ### 4.1 AI restrictions (read first)
 - **AI enemies must NOT use `Lifesteal` (LS) or `Vamp` (VMP).** For AI sustain, use `Heal` or `Absorb` instead (e.g., War Commander's `40% Absorb`).
 - **No `Movement` (MV) self-reposition jutsu on AI** (the generic "move to close" basic action is fine; `Movement Prevent` *on the target* is allowed).
@@ -168,7 +168,7 @@ Never invent these, leave `NR` for you/the engine:
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '8. Master QA checklist (before delivering any AI enemy)' -->
+<!-- pack-trace: ai.md @86e26d4 '8. Master QA checklist (before delivering any AI enemy)' -->
 ## 8. Master QA checklist (before delivering any AI enemy)
 - [ ] Identity complete (name, event_theme, role, tagline).
 - [ ] Profile complete; `regeneration=60`; stat cap noted; multipliers set per role.
@@ -180,14 +180,14 @@ Never invent these, leave `NR` for you/the engine:
 - [ ] Reserved fields marked `NR` (base stats, armor DR, loot, gating, art, element counter).
 - [ ] Both outputs emitted: human field dump + consolidated JSON.
 - [ ] Infographic (if requested): layout contract followed, style rules met, damage shown once, no Naruto marks, no legend strip.
-- [ ] Batch payload (if requested): `{ ai, jutsus }` (or flat AI for the AI maker) with script keys (`username`, `poolsMultiplier`, `statsMultiplier`, `actionCostPerc`, `jutsuType:"AI"`, UPPERCASE enums); **every jutsu has `description` + `battleDescription`**; **AI block has `gender`, `regeneration`, `preferredStat`, generals, `primaryElement`/`secondaryElement`, and all 12 stat numbers**; effect objects use the verified lean shape (§7.4); live-DB safety noted.
+- [ ] Batch payload (if requested): `{ ai, jutsus }` (or flat AI for the AI maker) with script keys (`username`, `poolsMultiplier`, `statsMultiplier`, `actionCostPerc`, `jutsuType:"AI"`, UPPERCASE enums); **every jutsu has `description` + `battleDescription`**; **AI block has `gender`, `regeneration`, generals (no `preferredStat`: law 14), `primaryElement`/`secondaryElement`, and all 12 stat numbers**; effect objects use the verified lean shape (§7.4); live-DB safety noted.
 - [ ] Reusing existing jutsu → use the **AI maker** (`jutsus: [ids]`), not the batch enemy script (which re-creates jutsu).
 
 ---
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 'Addendum: effect and edit rules (live-verified)' -->
+<!-- pack-trace: ai.md @86e26d4 'Addendum: effect and edit rules (live-verified)' -->
 ## Addendum: effect and edit rules (live-verified)
 
 - **Direction is per-tag literal**: `"defence"` is accepted ONLY by absorb, barrier, increasepoolcost, decreasepoolcost; every other tag (including decreasedamagetaken) requires `"offence"`. Mixed setups split accordingly.
@@ -198,14 +198,14 @@ Never invent these, leave `NR` for you/the engine:
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 'Rules live on the AI entry (added 2026-07-27)' -->
+<!-- pack-trace: ai.md @86e26d4 'Rules live on the AI entry (added 2026-07-27)' -->
 ## Rules live on the AI entry (added 2026-07-27)
 
 Behavior rule sets are a field on the AI record, not a separate entity: the builder pushes the AI, toggles the profile, and updates it. An audit that counts `aiProfile` entries in a manifest and finds zero has found nothing. Author rules per the vocabulary and range laws in `24_GUIDE_ai_behavior.md` (laws 39 to 41), and remember that `data.name` must be set on the create itself (law 36).
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '1. Contract (verified)' -->
+<!-- pack-trace: ai.md @86e26d4 '1. Contract (verified)' -->
 ## 1. Contract (verified)
 
 The AiProfile is a separate row from the AI user record, joined by id.
@@ -224,7 +224,7 @@ The AiProfile is a separate row from the AI user record, joined by id.
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 'Pipeline to set behavior on a fresh enemy' -->
+<!-- pack-trace: ai.md @86e26d4 'Pipeline to set behavior on a fresh enemy' -->
 ### Pipeline to set behavior on a fresh enemy
 1. `profile.create` -> AI userId.
 2. `profile.updateAi(userId, stats + jutsus:[ids])` -> stats and equipped jutsu.
@@ -238,7 +238,7 @@ The universal builder (v4.7+) does steps 3 to 5 automatically when an AI manifes
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '2. Rule object' -->
+<!-- pack-trace: ai.md @86e26d4 '2. Rule object' -->
 ## 2. Rule object
 
 ```
@@ -259,7 +259,7 @@ The universal builder (v4.7+) does steps 3 to 5 automatically when an AI manifes
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '3. Conditions (9 total)' -->
+<!-- pack-trace: ai.md @86e26d4 '3. Conditions (9 total)' -->
 ## 3. Conditions (9 total)
 
 | type | fields | meaning | shape |
@@ -292,7 +292,7 @@ Confirmed condition object example (from a real save):
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '4. Actions (10 total)' -->
+<!-- pack-trace: ai.md @86e26d4 '4. Actions (10 total)' -->
 ## 4. Actions (10 total)
 
 Every action carries a `target` except `end_turn`. Some carry an extra selector.
@@ -328,7 +328,7 @@ Confirmed action object examples (from real saves):
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 '7. Gotchas' -->
+<!-- pack-trace: ai.md @86e26d4 '7. Gotchas' -->
 ## 7. Gotchas
 
 - **Range gating (CRITICAL).** An AI must be in range to use any target-requiring action; the tile it stands on counts as 1, max range is 5. Calling a jutsu while the target is out of range triggers a targeting bug that leaves the human stuck in combat indefinitely, so every attack / debuff / absorb rule MUST carry a `distance_lower_than` gate that guarantees whatever fires is in range, plus a `move_towards_opponent` fallback. For `use_specific_jutsu` the EXACT gate is **that jutsu's range + 1** (source law R49, 2026-08-01: rule distance is A* path length including both endpoints, so an adjacent enemy reads 2). `distance_lower_than: range` is safe but forfeits the outermost range band; `distance_lower_than: 1` on a melee jutsu can NEVER fire. A range-5 jutsu takes `distance_lower_than 6`. For `use_highest_power_action` / `_jutsu` / `_item` the engine may pick ANY equipped action of that effect, so the gate must be the MINIMUM range across all equipped jutsu of that effect; an r4 absorb jutsu that also deals damage drags the damage pool's min range down to 4. When ranges are mixed, prefer `use_specific_jutsu` with the exact range so there is no ambiguity. SELF buffs and heals have no range requirement and need no distance gate; they can fire round 1 or while the target is still closing.
@@ -346,7 +346,7 @@ Confirmed action object examples (from real saves):
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 'The confirmed rule vocabulary and the range law (added 2026-07-27)' -->
+<!-- pack-trace: ai.md @86e26d4 'The confirmed rule vocabulary and the range law (added 2026-07-27)' -->
 ## The confirmed rule vocabulary and the range law (added 2026-07-27)
 
 Rules ride on the AI entry itself; the builder toggles the profile and pushes them. There is no separate profile entity to author, so an AI manifest with no `aiProfile` records is not missing anything.
@@ -369,13 +369,13 @@ Rules ride on the AI entry itself; the builder toggles the profile and pushes th
 
 ---
 
-<!-- pack-trace: ai.md @dffeb23 'Relocated engine laws (2026-08-28)' -->
+<!-- pack-trace: ai.md @86e26d4 'Relocated engine laws (2026-08-28)' -->
 ## Relocated engine laws (2026-08-28)
 
 Verbatim law text moved out of project knowledge. Stage 3 splices these into the
 owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
-14. **`rank`, `regeneration`, `preferredStat`, `preferredGeneral1/2` are REQUIRED on every AI create.** DB default is `STUDENT` with every stat 10; a rank-less create produces a level-100 paper doll.
+14. **[CORRECTED 2026-10-26, source-verified] `rank`, `regeneration`, `preferredGeneral1/2` are REQUIRED on every AI create.** DB default is `STUDENT` with every stat 10; a rank-less create produces a level-100 paper doll. `preferredStat` is no longer a field: upstream migration `app/drizzle/migrations/0056_unified_combat_stats_masteries.sql:254` drops the column (`studie-tech/TheNinjaRPG@85cecaeb`), the server strips the key, and Forge refuses it as unknown. *(Superseded text: "`rank`, `regeneration`, `preferredStat`, `preferredGeneral1/2` are REQUIRED on every AI create." RUL-2026-10-25-009.)*
 
 15. **[CORRECTED 2026-08-26, source-verified] LEVEL is the stat budget, not rank.** `scaleUserStats` (`app/src/libs/profile.ts`) runs on every `profile.updateAi` and reads `user.level` only; `rank` never enters it. The supplied stat numbers act as **RATIO WEIGHTS**, not absolutes: each stat becomes `10 + (stat / sum_of_all_12) * exp`, where `exp = calcLevelRequirements(level) - 500`. Pools are overwritten outright with `calcHP(level) * poolsMultiplier`, i.e. `(100 + 50*(level-1)) * poolsMultiplier` (HP, SP and CP share the per-level constant of 50). Consequences: absolute stat values are UNREACHABLE, a second edit re-normalises so **two-phase pinning is impossible**, and sending `maxHealth` is noise. The only levers are level, the ratio between stats, `statsMultiplier` and `poolsMultiplier`. PRECISION (2026-08-26): `statsMultiplier` multiplies the WHOLE result including the flat +10 floor (`calcStat(x) * statMod`), and the per-stat value is floored to two decimals before the multiplier. Verified line by line against `scaleUserStats` in this drop. The prior reading ("writing rank triggers regeneration") came from a JONIN write that changed rank and level together and never separated them.
 
@@ -409,7 +409,7 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '1.4 Image upload (the builder resolves `@img` refs)' -->
+<!-- pack-trace: pipeline.md @e6a7375 '1.4 Image upload (the builder resolves `@img` refs)' -->
 ### 1.4 Image upload (the builder resolves `@img` refs)
 
 A manifest field value `@img:<filename>` is uploaded by the builder and replaced with the stored URL, so image assets never have to be uploaded by hand. Upload flow (uploadthing, captured):
@@ -422,7 +422,7 @@ A manifest field value `@img:<filename>` is uploaded by the builder and replaced
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '2.1 Request envelope and conventions' -->
+<!-- pack-trace: pipeline.md @e6a7375 '2.1 Request envelope and conventions' -->
 ### 2.1 Request envelope and conventions
 
 - TNR uses tRPC batch links. **Every POST body is a batch envelope:** `{"0": { "json": <payload>, "meta": <meta> }}`.
@@ -433,7 +433,7 @@ A manifest field value `@img:<filename>` is uploaded by the builder and replaced
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '2.4 AI enemy (profile)' -->
+<!-- pack-trace: pipeline.md @e6a7375 '2.4 AI enemy (profile)' -->
 ### 2.4 AI enemy (profile)
 
 | Op | Method | Shape |
@@ -445,14 +445,14 @@ Edit URL for the in-console editor: `/manual/ai/edit/[id]`. Armor is set in the 
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '3. Rate limit' -->
+<!-- pack-trace: pipeline.md @e6a7375 '3. Rate limit' -->
 ## 3. Rate limit
 
 The limiter is a **rolling cumulative request-count budget**, not per-burst. It drains across repeated sessions and refills over time. Use fewer, larger requests with exponential backoff (the builder does this), and let it refill rather than hammering.
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '4. id-fetch and capture-first discipline' -->
+<!-- pack-trace: pipeline.md @e6a7375 '4. id-fetch and capture-first discipline' -->
 ## 4. id-fetch and capture-first discipline
 
 - Pull live ids from edit URLs (`/manual/ai/edit/[id]`, `/manual/asset/edit/[id]`, the item editor) or from catalog dumps.
@@ -462,7 +462,7 @@ The limiter is a **rolling cumulative request-count budget**, not per-burst. It 
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d '5. Universal gotcha checklist' -->
+<!-- pack-trace: pipeline.md @e6a7375 '5. Universal gotcha checklist' -->
 ## 5. Universal gotcha checklist
 
 Run before any push:
@@ -482,7 +482,7 @@ Run before any push:
 
 ---
 
-<!-- pack-trace: pipeline.md @8f2ef7d 'Addendum: push-path rules learned in the field (Tower / Howling builds)' -->
+<!-- pack-trace: pipeline.md @e6a7375 'Addendum: push-path rules learned in the field (Tower / Howling builds)' -->
 ## Addendum: push-path rules learned in the field (Tower / Howling builds)
 
 - **AI edits never rely on fetch-merge for `jutsus` or `items`.** The builder passes live rows through raw (jutsu objects, UserItem rows with `dropChancePerc`), which the server rejects. Every AI edit sends `jutsus` as string id refs AND `items` as ids-with-number explicitly, even when only touching other fields. Bundle fix (row normalization in the edit merge) queued for the next builder rev.

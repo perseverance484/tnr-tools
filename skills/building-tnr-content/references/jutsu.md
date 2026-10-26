@@ -143,7 +143,7 @@ An AI-kit jutsu with a single damage effect. Every required field is present; dr
 
 ### 2.1b Formula effects: statTypes AND generalTypes are load-bearing (2026-07-18)
 
-Every formula-calculation effect (`damage`, `pierce`, `wound`) MUST carry BOTH `statTypes` and `generalTypes` (default `["Highest"]` for each, exactly as the 2.1 payload shows). An absent or empty `generalTypes` does not error at create: it detonates the damage formula at runtime into astronomical values (trillions, observed live). This is the single most expensive omission in the stack's history. Generation helpers must be seeded from the 2.1 template verbatim (12_TECH law 31), never freehanded.
+Every `damage` and `pierce` effect MUST carry BOTH `statTypes` and `generalTypes`, and every `wound` MUST carry `generalTypes` (default `["Highest"]` for each, exactly as the 2.1 payload shows). `wound` has no `statTypes` field: the server drops it and Forge refuses it (law 4, corrected 2026-10-26). An absent or empty `generalTypes` does not error at create: it detonates the damage formula at runtime into astronomical values (trillions, observed live). This is the single most expensive omission in the stack's history. Generation helpers must be seeded from the 2.1 template verbatim (12_TECH law 31), never freehanded.
 
 ### 2.1c Strict unions and live-exemplar composition
 
