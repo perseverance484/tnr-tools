@@ -1,0 +1,95 @@
+{
+ "_note": "STEP 2 of 2 (after 281). Hellfire Harvest (XVJb8MfFvIKe4GOgBaqXO) gets the existing 'Shadow field' static asset (y1hrYiCnjmJM-wK5IIWHa, folder Fields; the field Dragon's Fang uses live) on its recoil and heal-cut effects (3 rounds) as a placeholder until its own animation exists. It is equipped on the Headless Rider (push/280), so law 18/60 order applies: unequip, edit, re-equip. Split in two runs because the manifest build order puts jutsu before ai. This run edits the effects (damage 70, recoil 60/3, heal cut 60/3 unchanged; only staticAssetPath added) and re-equips it with the seven. Rules untouched.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "name": "Hellfire Harvest: shadow field",
+   "targetId": "XVJb8MfFvIKe4GOgBaqXO",
+   "data": {
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 70,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "formula",
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "statTypes": [
+       "None"
+      ],
+      "generalTypes": [
+       "Highest"
+      ],
+      "elements": [
+       "Fire"
+      ]
+     },
+     {
+      "staticAssetPath": "y1hrYiCnjmJM-wK5IIWHa",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 60,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "recoil",
+      "description": "Recoil damage given back to self",
+      "rounds": 3
+     },
+     {
+      "staticAssetPath": "y1hrYiCnjmJM-wK5IIWHa",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 60,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "decreaseheal",
+      "description": "Decrease how much target can heal others",
+      "rounds": 3
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: re-equip Hellfire Harvest",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli",
+     "XVJb8MfFvIKe4GOgBaqXO"
+    ],
+    "items": []
+   }
+  }
+ ]
+}
