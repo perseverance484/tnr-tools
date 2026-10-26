@@ -129,8 +129,10 @@ icons plus #1-#4 of this batch).
 
 ## 9. References
 
-- **New character:** attach `avatar_ghost_ship_seal_charge.webp` only (`blocks.json` `reference_character`). Character
-  references get copied (the Captain twice; Arakane's gold into every officer).
+- **New character:** attach `avatar_ghost_ship_deck_warden.webp` only (director, 2026-10-26), with the role in
+  `blocks.json` `reference_character`: the crew's look, a different person. A strongly unique reference gets copied (the
+  Captain twice; Arakane's gold into every officer), so never use the Captain or Arakane. If the Deck Warden's hood and
+  spear start repeating, fall back to the Seal Charge (an object, nothing to copy).
 - **Redraw of an existing item:** that item as subject, plus the Seal Charge for rendering.
 - **Scene:** one anchor scene for light and palette.
 - No sheets or collages. Never list features "not to copy". One image per **fresh** session.
