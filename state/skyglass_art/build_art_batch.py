@@ -5,6 +5,9 @@ def meta(path):
     b=open(REPO+path,"rb").read(); w,h=Image.open(REPO+path).size
     return len(b), w, h, hashlib.sha256(b).hexdigest()
 SHA="60b792ac19ba710d724a247127eb0482d967eeaf"
+# Ghost Ship art bible blocks (docs/design/ghost_ship_art_bible/blocks.json, RUL-2026-10-26-002): pasted verbatim.
+BLK=json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),"docs/design/ghost_ship_art_bible/blocks.json")))
+CHAR_STYLE="\n".join([BLK["style_character"],BLK["costume_character"],BLK["impression"],BLK["chakra"],BLK["key_avatar"],BLK["negative_character"]])
 RAW="https://raw.githubusercontent.com/perseverance484/tnr-tools/"+SHA+"/"
 import os
 ROOT=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -40,16 +43,7 @@ AV_STYLE=("Style: single full-body character avatar, crisp pixel art with clean 
  "Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second "
  "character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no "
  "gradient background, no sheet, no grid.")
-# Director 2026-10-26 (RUL-2026-10-26-001): Crownhold officers are chakra-impression NINJAS in the Ghost Ship crew's
-# look, not blue energy ghosts; style reference is a crew OBJECT (Seal Charge) for every officer:
-# the Captain reference was copied wholesale (mask, hair, swords) twice; the object worked first try (#8). Never Arakane.
-CROWN_THREAD=("Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. "
- "Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey "
- "cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and "
- "weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at "
- "the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no "
- "crown, no technology. Closed boots or wrapped tabi footwear, no bare toes. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo "
- "cloth, dull brass fittings, plus the one accent named in the subject.")
+# Officer and Foundry Warden prompts come from the art bible blocks (BLK / CHAR_STYLE above), RUL-2026-10-26-002.
 SCENE_STYLE=("Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp "
  "hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly "
  "blur), wide 3:2 landscape (1536 x 1024), no characters, no people, no text, no UI, no watermark, no frame. Leave the "
@@ -97,40 +91,38 @@ add(6,"Lastlight (jutsu icon)","JUTSU_ICON","none","icon-jutsu-lastlight.webp",[
  "Lastlight: Crownhold's final signal turned into a weapon. One straight beam of pale cyan-white skyglass light fired "
  "from a small lantern-shaped flare at the lower left, burning diagonally through the frame; faint ember-red wounds "
  "where the beam has cut, fading at the edges.",JUTSU_STYLE)
-add(7,"Foundry Warden (AI avatar)","AI_AVATAR","magenta","avatar_skyglass_foundry_warden.webp",[("STYLE","arsenal")],
- "The Foundry Warden: keeper of the drowned skyglass foundry under the wreck's keel. A broad, heavy crewman in a "
- "scorched leather smith's apron over Skyglass Project armour, soaked to the knees, seawater dripping; one hand grips a "
- "long crucible-tongs polearm, the other a dripping ladle of glowing pale cyan molten skyglass. Crystal slag crusted on "
- "his gauntlets. Accent: molten cyan.",AV_STYLE)
+add(7,"Foundry Warden (AI avatar)","AI_AVATAR","magenta","avatar_skyglass_foundry_warden.webp",[(BLK["reference_character"],"seal_charge")],
+ "The Foundry Warden: keeper of the drowned skyglass foundry under the wreck's keel. A broad shipwright-smith shinobi: a "
+ "dark tenugui headwrap and a cloth mask, a scorched dark leather apron over an indigo kimono, sleeves tied back with a "
+ "rope tasuki cord, soaked to the knees; long iron crucible tongs in one hand, a small iron ladle of glowing pale cyan "
+ "molten skyglass in the other. Accent: molten skyglass cyan.",CHAR_STYLE)
 
 AVATARS=[
- ("Master of Arms","Division I commander. A broad, bull-necked weapons master: a dented iron half-helm with a forge-orange lacquered face guard over the mouth and jaw, a bald or close-cropped head (no long hair, no topknot); heavy lacquered plates over dark indigo cloth, a war-axe and a heavy cleaver-blade in his hands, more blades and a spear slung across his back; calm and exacting. Accent: forge-orange.",True),
- ("Replicant Zero","Division II commander. A tall, composed medical-nin: a plain dark grey hood and a dark cloth face mask, both eyes lit pale violet; a long layered dark field coat with a high stiff collar, a medic's scroll case and a row of sealing-tag pouches across the chest; his left hand and forearm sheathed in a steady glow of pale violet healing chakra as he works on them (the hand whole and solid, glowing like a medic's hands mid-treatment); the first successful recall; calm and curious. No sword. Accent: pale violet.",True),
- ("The Grand Marshal","Division III commander, called 'The Second'. An older senior shinobi officer: a wide flat travelling hat with a muted-brass brim band shading a plain dark cloth mask, a short grey beard visible below it; a plain dark long coat over light plates, hands clasped behind his back, no drawn weapon; thoughtful and severe; the deputy who could question orders. Accent: muted brass.",True),
- ("Crownhold Proving Proctor","Division I. An armory proctor in a faded grey drill wrap and cloth headwrap, a wooden board of trial slips in one hand, two wooden practice blades at the hip, a whistle on a cord. Accent: drill-yellow.",False),
- ("Ordnance Quartermaster","Division I. A soot-stained apron over a field vest, bandoliers of glowing explosive tags, soot-dark gloves holding a tray of tags. Accent: tag-orange.",False),
- ("Prototype Lancer Unit","Division I. A spear specialist in light plates, a long cross-bladed spear crackling with lightning chakra, chakra-burn scars wrapped on both forearms. Accent: electric yellow.",False),
- ("Calibration Duelist","Division I. A young duelist in sparring wraps, a practice sword wrapped in wind chakra, an apprentice cord on the shoulder. Accent: wind-green.",False),
- ("Skyglass Archive Keeper","Division II. An archivist-nin with a satchel of scrolls and a bound ledger, ink-stained fingers, a small skyglass reading lens on a cord. Accent: archive blue.",False),
- ("Impression Containment Warden","Division II. A sealing specialist in a hooded wrap, a heavy ring of seal keys and tag-wrapped scroll cases on chains, a water-filled seal jar at the hip. Accent: water teal.",False),
- ("Unstable Echo Subject","Division II. A ninja caught mid-step splitting into an imperfect shadow clone: the clone a half-step behind and out of line, shadow chakra trailing between them. Accent: shadow violet.",False),
- ("Failed Reconstruction Prototype","Division II. A hulking earth-style ninja half-encased in his own stone armour technique, rock plating cracked over one arm and shoulder, rope-bound. Accent: stone ochre.",False),
- ("Command Signal Adjutant","Division III. A signals ninja with a semaphore flag in each hand, a message-scroll tube across the back, a rank cord. Accent: signal green.",False),
- ("High Command Staff Tactician","Division III. A tactician with a campaign map case under one arm and a brush wet with glowing chakra ink, the Grand Marshal's aide's cord on the shoulder. Accent: ink blue.",False),
- ("Honor Guard Commandant","Division III. Ceremonial stone-grey lacquered plates and a tall tower shield bearing a plain circled-cross seal. Accent: polished brass.",False),
- ("Strategist's Aide-de-Camp","Division III. Sealed dispatch tubes on the back crackling with lightning chakra, light lacquered armour, an aide's sash. Accent: lightning white.",False),
- ("Sanctum Vanguard","Division IV. Obsidian-black lacquered plates, fire-chakra gauntlets ablaze, a short banner pole on the back. Accent: ember red.",False),
- ("Directive Herald","Division IV. Long dark ceremonial robes, an unrolled scroll of orders in one hand marked with glowing unreadable marks, lightning-lit eyes. Accent: lightning gold.",False),
- ("Last Watch Executor","Division IV. A tattered night-watch cloak, twin wind glaives, a blank mask stamped with an unreadable seal. Accent: night blue.",False),
- ("Order-Bearer of the Sanctum","Division IV. Deep-blue Sanctum wraps, a sealed scroll case, a blank command seal tablet held up. Accent: deep-sea blue.",False),
+ ("Master of Arms","Division I commander. A broad weapons-master shinobi: a plain dark iron jingasa over a hood, a cloth mask with thin forge-orange trim; a heavy dark haori over laced lacquered plates; a yari in one hand and a short ono axe in the other, katana and bundles of kunai strapped across his back; calm and exacting. Accent: forge-orange.",True),
+ ("Replicant Zero","Division II commander. A tall, composed medical-nin: a plain dark grey hood and a dark cloth mask, both eyes lit pale violet; a long layered dark haori with a high stiff collar, a medic's scroll case and a row of sealing-tag pouches across the chest; a small ball of pale violet healing chakra held above his open left palm, the hand drawn normally; the first successful recall; calm and curious. No sword. Accent: pale violet.",True),
+ ("The Grand Marshal","Division III commander, called 'The Second'. An older senior shinobi officer: a wide flat kasa hat shading a plain dark cloth mask, a short grey beard visible below it; a plain dark long haori over light laced plates, hands clasped behind his back, a sheathed katana at the hip; thoughtful and severe; the deputy who could question orders. Accent: muted brass, only as the hat cord and sword fittings.",True),
+ ("Crownhold Proving Proctor","Division I. An armoury proctor: a grey tenugui headwrap and cloth mask, a faded grey drill kimono with tied-back sleeves, a wooden board of trial slips in one hand, two bokken at the obi, a small signal bell on a cord. Accent: drill-yellow.",False),
+ ("Ordnance Quartermaster","Division I. A soot-stained short work haori, bandoliers of paper explosive tags glowing faintly at their edges, soot-dark gloves holding a lacquered tray of tags. Accent: tag-orange.",False),
+ ("Prototype Lancer Unit","Division I. A lean spear specialist in light laced plates and a hood, a long cross-bladed yari with lightning chakra running along its blade, burn-scarred forearms wrapped in cloth. Accent: electric yellow.",False),
+ ("Calibration Duelist","Division I. A young duelist in sparring wraps and a tenugui headwrap, a bokken with wind chakra curling along its edge, an apprentice cord on the shoulder. Accent: wind-green.",False),
+ ("Skyglass Archive Keeper","Division II. An archivist-nin with a satchel of scrolls and a bound ledger, ink-stained gloves, a writing brush behind the ear of the hood, a small skyglass reading lens on a cord. Accent: archive blue.",False),
+ ("Impression Containment Warden","Division II. A sealing specialist in a deep hood, a heavy iron ring of seal keys and tag-wrapped scroll cases on chains, a corked ceramic seal jar of glowing water at the hip. Accent: water teal.",False),
+ ("Unstable Echo Subject","Division II. A shinobi caught mid-step splitting into an imperfect shadow clone: the clone a half-step behind and out of line, shadow chakra trailing between them, both figures solid. Accent: shadow violet.",False),
+ ("Failed Reconstruction Prototype","Division II. A hulking earth-style shinobi half-encased in his own stone armour technique, rock plating cracked over one arm and shoulder, rope-bound, a tetsubo in hand. Accent: stone ochre.",False),
+ ("Command Signal Adjutant","Division III. A signals shinobi: a war fan (gunbai) raised in one hand and a small nobori signal flag in the other, a message-scroll tube across the back, a rank cord. Accent: signal green.",False),
+ ("High Command Staff Tactician","Division III. A tactician in a kasa hat with a campaign map case under one arm and a brush wet with glowing chakra ink, the Grand Marshal's aide's cord on the shoulder. Accent: ink blue.",False),
+ ("Honor Guard Commandant","Division III. A tall guard in ceremonial stone-grey laced armour and a plain jingasa, holding a naginata upright beside him. Accent: polished iron.",False),
+ ("Strategist's Aide-de-Camp","Division III. A swift courier-shinobi with sealed scroll dispatch tubes on the back crackling with lightning chakra, light lacquered plates, an aide's sash. Accent: lightning white.",False),
+ ("Sanctum Vanguard","Division IV. A front-line shinobi in obsidian-black laced plates and a kabuto with a menpo, fire chakra running along the edge of his katana, a short banner pole on the back. Accent: ember red.",False),
+ ("Directive Herald","Division IV. Long dark ceremonial kimono and a hood, an unrolled scroll of orders in one hand marked with glowing unreadable brush marks, lightning-lit eyes. Accent: lightning gold.",False),
+ ("Last Watch Executor","Division IV. A tattered night-watch cloak and hood, twin kusarigama with wind chakra along the blades, a blank mask stamped with an unreadable seal. Accent: night blue.",False),
+ ("Order-Bearer of the Sanctum","Division IV. Deep-blue Sanctum wraps and a hood, a sealed scroll case on the back, a blank command seal tablet held up in one hand. Accent: deep-sea blue.",False),
 ]
 n=8
 for name,look,boss in AVATARS:
     fname="avatar_crownhold_"+name.lower().removeprefix("crownhold ").replace("'","").replace(" ","_").replace("-","_")+".webp"
-    ref=("PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text)","seal_charge") if boss else \
-        ("PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text)","seal_charge")
-    add(n,name+(" (commander)" if boss else ""),"AI_AVATAR","magenta",fname,[ref],
-        name+": "+look+(" Commander presence: clearly a commander, not a rank-and-file officer: larger and heavier-built, a heavier layered coat or cloak with a high collar, more fittings and wraps, a commanding stance. No crown, no gold." if boss else ""),CROWN_THREAD+"\n"+AV_STYLE)
+    add(n,name+(" (commander)" if boss else ""),"AI_AVATAR","magenta",fname,[(BLK["reference_character"],"seal_charge")],
+        name+": "+look+((" "+BLK["commander"]) if boss else ""),CHAR_STYLE)
     n+=1
 SCENES=[
  ("Crownhold gate","scene_bg_crownhold_gate.webp","A snow-drifted parade ground before an open gate cut into a mountain wall; the gate stands open and unguarded; no banners; deep, unbroken snow; faint cyan light deep inside. (Used by: the fail node, 'you wake outside the gate in the snow'.)"),
