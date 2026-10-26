@@ -67,7 +67,11 @@ export class FakeGame {
   handle(path, input) {
     const n = this.calls.push({ path, input });
     if (n === this.dropAt) throw new NetworkError("connection reset before the request was applied");
-    const [router, proc] = path.split(".");
+    // Nested routers: root.ts mounts coopRouter at `coop`, and coop.ts mounts dungeonRouter at
+    // `dungeon`. A bare "dungeon.*" path does not exist on the server (NOT_FOUND, as live on 2026-10-25).
+    const nested = path.startsWith("coop.dungeon.");
+    const [router, proc] = nested ? ["dungeon", path.slice("coop.dungeon.".length)] : path.split(".");
+    if (!nested && router === "dungeon") return { ok: false, error: { code: "NOT_FOUND", httpStatus: 404, message: `No procedure found on path "${path}"`, path, zodError: null } };
     const table = this.tables[TABLE[router]];
     const ok = (data) => ({ ok: true, data });
     const err = (code, message, httpStatus) => ({ ok: false, error: { code, httpStatus, message, path, zodError: null } });
@@ -126,7 +130,7 @@ export class FakeGame {
 }
 
 /**
- * dungeon.getAll / dungeon.save as routers/dungeon.ts answers at the pin in src/dungeon/contract.json:
+ * coop.dungeon.getAll / coop.dungeon.save as routers/dungeon.ts answers at the pin in src/dungeon/contract.json:
  * getAll returns whole rows {id, content, updatedAt} (an empty list for non-staff); save without
  * an id creates, with an id upserts the WHOLE content, and answers {success, message, id}.
  *
@@ -175,10 +179,10 @@ FakeGame.prototype.dungeon = function (proc, input, ok, err) {
   let c;
   try { c = parseDungeon(input.content); } catch (e) {
     if (!(e instanceof ZodIssue)) throw e;
-    return { ok: false, error: { code: "BAD_REQUEST", httpStatus: 400, message: e.message, path: "dungeon.save", zodError: [{ path: e.path, message: e.message }] } };
+    return { ok: false, error: { code: "BAD_REQUEST", httpStatus: 400, message: e.message, path: "coop.dungeon.save", zodError: [{ path: e.path, message: e.message }] } };
   }
   if (this.notStaff) return ok({ success: false, message: "You cannot edit dungeons." });
-  if (this.refuse.has("dungeon.save")) return ok({ success: false, message: "An enemy or reward no longer exists." });
+  if (this.refuse.has("coop.dungeon.save")) return ok({ success: false, message: "An enemy or reward no longer exists." });
   const packages = this.packages ?? new Map();
   if (c.rewards.drops.some((d) => d.type === "package" && !packages.has(d.id))) return ok({ success: false, message: "An enemy or reward no longer exists." });
   c.rewards.drops = c.rewards.drops.map(({ package: _ignored, ...d }) => {

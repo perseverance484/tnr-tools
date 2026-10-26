@@ -54,13 +54,13 @@ export const RECIPES = Object.freeze({
   },
   dungeon: {
     // One procedure writes both ways (routers/dungeon.ts save, pin in src/dungeon/contract.json):
-    // dungeon.save {content} creates and answers {success, message: "Dungeon saved.", id};
+    // coop.dungeon.save {content} creates and answers {success, message: "Dungeon saved.", id};
     // {id, content} replaces that definition's whole content. There is no per-id read: get and
-    // names both go through dungeon.getAll, whose rows {id, content, updatedAt} are used as they
+    // names both go through coop.dungeon.getAll, whose rows {id, content, updatedAt} are used as they
     // come, so the row's own id and timestamp never mix with content keys (review F3).
-    create: { path: "dungeon.save", input: (d) => ({ content: d }) }, oneStep: true,
+    create: { path: "coop.dungeon.save", input: (d) => ({ content: d }) }, oneStep: true,
     createdId: (data) => data && data.id,
-    get: "dungeon.getAll", update: "dungeon.save", names: "dungeon.getAll",
+    get: "coop.dungeon.getAll", update: "coop.dungeon.save", names: "coop.dungeon.getAll",
     updateInput: (id, payload) => ({ id, content: payload }),
     idKey: "id", nameKey: "name", nameOf: dungeonName, cacheEntity: "dungeon",
   },

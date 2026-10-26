@@ -178,8 +178,8 @@ test("create: snapshot, save {content}, read-back through getAll; VERIFIED, exac
   const s = await h.runner.run("d1");
   assert.equal(s.state, "DONE", JSON.stringify(s)); assert.deepEqual(s.counts, { VERIFIED: 1 });
   assert.equal(h.game.count("dungeon"), 1);
-  assert.deepEqual(h.game.calls.map((c) => c.path), ["dungeon.getAll", "dungeon.save", "dungeon.getAll"]);
-  const save = h.game.calls.find((c) => c.path === "dungeon.save");
+  assert.deepEqual(h.game.calls.map((c) => c.path), ["coop.dungeon.getAll", "coop.dungeon.save", "coop.dungeon.getAll"]);
+  const save = h.game.calls.find((c) => c.path === "coop.dungeon.save");
   assert.ok(!("id" in save.input), "a create sends no id");
   const row = h.game.rows("dungeon")[0];
   assert.equal(row.content.name, "Skyglass Wreck");
@@ -192,7 +192,7 @@ test("edit: getAll -> merge -> save {id, content} carrying the whole content -> 
   h.runner.plan({ items: [{ entity: "dungeon", slot: "edit", name: "W", targetId: "dun-1", data: { name: "Skyglass Wreck: Low Tide", background: "ground" } }] }, { jobId: "e1" });
   const s = await h.runner.run("e1");
   assert.equal(s.counts.VERIFIED, 1, JSON.stringify(s));
-  const save = h.game.calls.find((c) => c.path === "dungeon.save");
+  const save = h.game.calls.find((c) => c.path === "coop.dungeon.save");
   assert.equal(save.input.id, "dun-1");
   assert.equal(save.input.content.name, "Skyglass Wreck: Low Tide");
   assert.equal(save.input.content.tiers.length, 2, "untouched content travels with the edit");
@@ -201,12 +201,12 @@ test("edit: getAll -> merge -> save {id, content} carrying the whole content -> 
 });
 
 test("refused save (success:false) is FAILED and nothing is retried", async () => {
-  const game = new FakeGame({ refuse: new Set(["dungeon.save"]) });
+  const game = new FakeGame({ refuse: new Set(["coop.dungeon.save"]) });
   const h = harness({ game });
   h.runner.plan(create(), { jobId: "r1" });
   const s = await h.runner.run("r1");
   assert.equal(s.counts.FAILED, 1);
-  assert.equal(game.calls.filter((c) => c.path === "dungeon.save").length, 1);
+  assert.equal(game.calls.filter((c) => c.path === "coop.dungeon.save").length, 1);
 });
 
 test("pre-send validation fails locally before any save", async () => {
@@ -215,7 +215,7 @@ test("pre-send validation fails locally before any save", async () => {
   h.runner.plan(create(bad), { jobId: "v1" });
   const s = await h.runner.run("v1");
   assert.equal(s.counts.FAILED, 1);
-  assert.equal(h.game.calls.filter((c) => c.path === "dungeon.save").length, 0);
+  assert.equal(h.game.calls.filter((c) => c.path === "coop.dungeon.save").length, 0);
 });
 
 test("a success without a well-formed id is a contract break, not a success", async () => {
@@ -235,7 +235,7 @@ test("dedupNames: a live dungeon of the same name fails the create before it is 
   const s = await h.runner.run("n1");
   assert.equal(s.counts.FAILED, 1);
   assert.match(h.journal.get("n1").items[0].error, /LIVE NAME COLLISION/);
-  assert.equal(h.game.calls.filter((c) => c.path === "dungeon.save").length, 0);
+  assert.equal(h.game.calls.filter((c) => c.path === "coop.dungeon.save").length, 0);
 });
 
 test("CRASH after save sent, before response: the one matching row is a candidate the operator binds; never re-saved", async () => {
@@ -256,7 +256,7 @@ test("CRASH after save sent, before response: the one matching row is a candidat
   const s = await h2.runner.run("c1");
   assert.equal(s.counts.VERIFIED, 1, JSON.stringify(s));
   assert.equal(game.count("dungeon"), 1, "NEVER double-created");
-  assert.equal(game.calls.filter((c) => c.path === "dungeon.save").length, 1, "the adopted row is not saved again");
+  assert.equal(game.calls.filter((c) => c.path === "coop.dungeon.save").length, 1, "the adopted row is not saved again");
 });
 
 test("CRASH after save: a new row that does not match the plan is ORPHANED, never adopted", async () => {
@@ -270,16 +270,16 @@ test("CRASH after save: a new row that does not match the plan is ORPHANED, neve
   h2.runner.attach("c2", create());
   const s = await h2.runner.resume("c2");
   assert.equal(h2.journal.get("c2").items[0].state, "ORPHANED", JSON.stringify(s));
-  assert.equal(game.calls.filter((c) => c.path === "dungeon.save").length, 1);
+  assert.equal(game.calls.filter((c) => c.path === "coop.dungeon.save").length, 1);
 });
 
-test("a read-only capture of dungeon.getAll needs no write path", async () => {
+test("a read-only capture of coop.dungeon.getAll needs no write path", async () => {
   const h = harness();
   h.game.seed("dungeon", { id: "dun-1", content: content(), updatedAt: new Date(0) });
-  h.runner.plan({ capture: { before: [{ proc: "dungeon.getAll" }] } }, { jobId: "cap" });
+  h.runner.plan({ capture: { before: [{ proc: "coop.dungeon.getAll" }] } }, { jobId: "cap" });
   const s = await h.runner.run("cap");
   assert.equal(s.state, "DONE", JSON.stringify(s));
-  assert.ok(h.game.calls.every((c) => c.path === "dungeon.getAll"));
+  assert.ok(h.game.calls.every((c) => c.path === "coop.dungeon.getAll"));
 });
 
 // ------------------------------------------------------------------ offline gates

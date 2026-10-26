@@ -22,7 +22,7 @@ const content = (over = {}) => ({
   rewards: { money: 5000, experience: 2000, drops: [{ type: "item", id: "chest-1", chance: 100, quantity: 1 }] },
   ...over,
 });
-const saves = (game) => game.calls.filter((c) => c.path === "dungeon.save").length;
+const saves = (game) => game.calls.filter((c) => c.path === "coop.dungeon.save").length;
 
 function twoTabs(game) {
   const clock = fakeClock(), storage = new MemoryStorage(), idb = new IDBFactory();
