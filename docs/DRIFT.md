@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-25)
+# DRIFT.md - upstream contract drift (2026-10-26)
 
-Upstream: studie-tech/TheNinjaRPG@1be1c081f68bef168567105322e80a54d9eae340
+Upstream: studie-tech/TheNinjaRPG@dd2de3bb7f3430fe86640a90471c86bae48ea688
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -78,17 +78,25 @@ REMOVALS
   const-member  ACTIVE_VOTING_SITES  bbogd
 ADDITIONS
   const-member  AvailableEffectTypes  siphon
+  const-member  BattleTypes  TERRITORY_WAR
   const-member  CombatActivityTasks  overworld_ai_fought
   const-member  CombatActivityTasks  pvp_participated
   const-member  CombatActivityTasks  ranked_participated
   const-member  CombatActivityTasks  ranked_wins
   const-member  CombatActivityTasks  spars_participated
+  const-member  DiscordTokenSources  CLERK
+  const-member  DiscordTokenSources  OAUTH
+  const-member  DiscordUnlinkReasons  ACCOUNT_DELETED
+  const-member  DiscordUnlinkReasons  STAFF
+  const-member  DiscordUnlinkReasons  USER
   const-member  LOG_TYPES  village
+  const-member  MPVP_BATTLE_TYPES  TERRITORY_WAR
   const-member  OBJECTIVE_TAG_TYPES  siphon
   const-member  POST_DAMAGE_MODIFIER_TYPES  siphon
   const-member  PetArtProviders  GPT
   const-member  PetArtProviders  NANO_BANANA
   const-member  PotencyTagTypes  siphon
+  const-member  PveBattleTypes  TERRITORY_WAR
   const-member  SHARED_COOLDOWN_TAGS  siphon
   const-member  SimpleTasks  overworld_ai_fought
   const-member  SimpleTasks  pvp_participated
