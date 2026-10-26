@@ -11,8 +11,8 @@
 
 ## Session contract (every image, no exceptions)
 
-1. **Download each reference from its raw URL below** with a direct HTTP download (a browser or fetch tool that returns bytes). Do not use a text-only repository connector: it cannot return images.
-2. **Verify each download** against the table: byte size and SHA-256 must match, and the file must open as an image of the listed width x height.
+1. **The operator attaches the reference files to the session** (art sessions have no network access; every handoff ships with its files). The raw URLs below are the canonical source if a session ever can download bytes directly. Never use a text-only repository connector: it cannot return images.
+2. **Verify each attached file** against the table: byte size and SHA-256 must match, and the file must open as an image of the listed width x height.
 3. **Show each reference back** (display it) and confirm it is attached to the generation request, in the listed order, with its listed role.
 4. **Abort if any reference is missing, fails verification or cannot be attached.** Report which one and stop. Never generate without all references.
 5. **Copy the fenced prompt verbatim.** Do not shorten, summarise or rewrite it.
