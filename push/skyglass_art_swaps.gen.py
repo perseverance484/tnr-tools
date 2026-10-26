@@ -16,7 +16,8 @@ import hashlib, json, os, subprocess, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "push", "275_skyglass_art_swaps.json")
 
-# (batch #, entity, live id, record name, field, export path)  - ids from the session handoff section 1
+# (batch #, entity, live id, record name, field, export path)  - ids from the session handoff section 1 and
+# state/crownhold/ids.json (names matched through the push/272 manifest)
 SWAPS = [
     (1, "item", "Ma8S90Nmbi0Xvm4u4FzJh", "Sealed Treasury", "image",
      "art/skyglass_event_icons/exports/icon-sealed-treasury.webp"),
@@ -26,6 +27,16 @@ SWAPS = [
      "art/skyglass_event_icons/exports/icon-chart-buried-cache.webp"),
     (4, "item", "KzITKJ5BUQRz5QuYWw-0B", "Unmarked Cargo", "image",
      "art/skyglass_event_icons/exports/icon-unmarked-cargo.webp"),
+    (7, "ai", "81lnIP-q97gItQYWl5vWD", "Foundry Warden", "avatar",
+     "art/skyglass_event_icons/avatars/avatar_skyglass_foundry_warden.webp"),
+    (8, "ai", "-GKFYAZUg1eF-3VnZhDjx", "Master of Arms", "avatar",
+     "art/crownhold/avatar_crownhold_master_of_arms.webp"),
+    (9, "ai", "vjEFUJ9mb1zNTuQf4lfXv", "Replicant Zero", "avatar",
+     "art/crownhold/avatar_crownhold_replicant_zero.webp"),
+    (10, "ai", "ZsfRoyJ55Zsay5bHNLMPv", "The Grand Marshal", "avatar",
+     "art/crownhold/avatar_crownhold_the_grand_marshal.webp"),
+    (11, "ai", "1iJF8VBietrfvxJd_ZhFS", "Crownhold Proving Proctor", "avatar",
+     "art/crownhold/avatar_crownhold_proving_proctor.webp"),
 ]
 DONE = []
 

@@ -11,3 +11,8 @@
   1208 -> 256 px lossless webp (90390 bytes); artpreflight --type ICON 0/0. Director-approved 2026-10-25. Departs from the
   bible prompt by the director's acceptance: a round gold medallion frame with a dark backdrop (prompt said no frame) and
   a smoother rendering than the pixel set. The director uploads this when creating the badge by hand; no SWAPS row.
+- `avatar_crownhold_master_of_arms.webp`, `avatar_crownhold_replicant_zero.webp`, `avatar_crownhold_the_grand_marshal.webp`,
+  `avatar_crownhold_proving_proctor.webp`: art batch #8-#11, keyed from `raw/` with `chroma.py --target AI_AVATAR --key
+  magenta` (rawqc ACCEPT each), native size lossless webp, then the control thread erased with
+  `state/skyglass_art/dethread.py` (director 2026-10-26: the thread cut off at the frame edge reads as an antenna on the
+  moving combat sprite). artpreflight --type AI_AVATAR 0/0.

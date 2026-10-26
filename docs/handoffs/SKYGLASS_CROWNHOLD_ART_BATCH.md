@@ -296,7 +296,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Master of Arms: Division I commander. A forge-wall weapons master in heavy Skyglass armour, two drawn blades, more weapons slung across his back; calm and exacting. Accent: forge-orange. Commanders are larger and more ornate than regular officers but wear no crown.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -315,7 +315,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Replicant Zero: Division II commander. A scientist in a long lab coat rebuilding his own left hand out of light; the first successful reconstruction; calm and curious. Accent: pale violet. Commanders are larger and more ornate than regular officers but wear no crown.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -334,7 +334,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: The Grand Marshal: Division III commander, called 'The Second'. A senior officer in an unadorned dark greatcoat, hands behind his back; thoughtful and severe; the deputy who could question orders. Accent: muted brass. Commanders are larger and more ornate than regular officers but wear no crown.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -353,7 +353,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Crownhold Proving Proctor: Division I. An armory proctor in a faded grey drill uniform, a clipboard of stamped trial sheets in one hand, two practice blades at the hip, a whistle on a cord. Accent: drill-yellow.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -372,7 +372,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Ordnance Quartermaster: Division I. A scorched apron over an officer coat, satchels of glowing sealed explosive tags, soot-dark gloves holding a tray of tags. Accent: tag-orange.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -391,7 +391,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Prototype Lancer Unit: Division I. A half-built lightning-lance automaton fused with its test pilot, exposed capacitor coils, a serial plate reading only a stamped number shape (no legible text). Accent: electric yellow.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -410,7 +410,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Calibration Duelist: Division I. A duelist in a calibration harness with chakra-measuring rings on both arms and a wind-swept practice sword, apprentice insignia. Accent: wind-green.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -429,7 +429,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Skyglass Archive Keeper: Division II. An archivist rendered in pale blue chakra light, holding a crystal-core ledger, translucent where the reconstruction is incomplete. Accent: archive blue.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -448,7 +448,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Impression Containment Warden: Division II. A sealed containment suit with a water-filled observation visor and a heavy chain of vat keys. Accent: water teal.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -467,7 +467,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Unstable Echo Subject: Division II. A failed reconstruction glitching between two overlapping silhouettes, shadow chakra leaking from the seams. Accent: shadow violet.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -486,7 +486,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Failed Reconstruction Prototype: Division II. A hulking earth-bound prototype, crystal growths over a half-formed body, a reconstruction rig bolted to its back. Accent: stone ochre.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -505,7 +505,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Command Signal Adjutant: Division III. A relay headset, wind-banner semaphore flags in both hands, High Command rank stripes. Accent: signal green.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -524,7 +524,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: High Command Staff Tactician: Division III. A campaign map case and a quill of glowing chakra ink, the Grand Marshal's aide's cord on the shoulder. Accent: ink blue.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -543,7 +543,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Honor Guard Commandant: Division III. Ceremonial stone-plated armour and a tower shield bearing a plain circled-cross seal. Accent: polished brass.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -562,7 +562,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Strategist's Aide-de-Camp: Division III. Sealed dispatch tubes crackling with lightning, reflective lacquered armour, an aide's sash. Accent: lightning white.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -581,7 +581,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Sanctum Vanguard: Division IV. Obsidian-and-ember Sanctum armour, fire-chakra gauntlets ablaze, a short banner pole on the back. Accent: ember red.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -600,7 +600,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Directive Herald: Division IV. Long ceremonial robes, a glowing directive scroll that is rewriting itself, lightning-lit eyes. Accent: lightning gold.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -619,7 +619,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Last Watch Executor: Division IV. A tattered night-watch cloak, twin wind glaives, a blank mask stamped with an unreadable seal. Accent: night blue.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -638,7 +638,7 @@ References attached: 1. STYLE: Crownhold set (rendering, outline, palette handli
 
 Subject: Order-Bearer of the Sanctum: Division IV. Deep-water Sanctum regalia, a sealed scroll case, a blank unsigned command seal held up. Accent: deep-sea blue.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 

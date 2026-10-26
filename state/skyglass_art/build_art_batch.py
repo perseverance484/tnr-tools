@@ -38,8 +38,8 @@ AV_STYLE=("Style: single full-body character avatar, crisp pixel art with clean 
  "character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no "
  "gradient background, no sheet, no grid.")
 CROWN_THREAD=("Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain "
- "fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. One thin glowing "
- "cyan thread rises from the back of the neck up and out of frame: the Command Crown's control line. Palette: mountain-stone "
+ "fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire "
+ "or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone "
  "greys, military brass, Skyglass blue-white, plus the one accent named below.")
 SCENE_STYLE=("Style: PREMIUM PIXEL ART game scene background, the same pixel rendering as the PIXEL STYLE reference (crisp "
  "hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly "
