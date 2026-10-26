@@ -39,6 +39,8 @@ Every link is pinned to commit `60b792ac19ba710d724a247127eb0482d967eeaf`, so it
 | crown | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp | 116290 | 480 x 480 | `02cde28f5fedfaf370fc1988fd13457d370731bdbe1572e0f3638d767f68a876` |
 | arakane | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp | 289646 | 1239 x 1239 | `0383691812dc34673b01fd71023a6191b36fbcbab55634d18cf11d62947436b8` |
 | arsenal | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp | 191438 | 1241 x 1241 | `1caf87b04c7ecd4cd2d3dd4569a93036d61fbef858acd0dc16c4a92370ac2858` |
+| deck_warden | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp | 123206 | 1221 x 1221 | `805c1e99bcb1e7b337b20374add6a581228871da2d6b90a89ce57e154b91bdd0` |
+| captain | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp | 203140 | 1235 x 1235 | `ce93b9dc6cd70e79aa2454662ad1e1881d78c4e0fb260fdfda7898017510ff6b` |
 | bbe | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp | 61270 | 256 x 256 | `410b8c5a20af40b27aaf728d5d8c7b2260adc500c7dd64187b08c0953e6531c5` |
 | gallery | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp | 250006 | 1536 x 1024 | `babd22ccf728fb67c8208f1f68af8c5eb3286c3a76bdcbe0e1b2b0bdf227026c` |
 | helm | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp | 329520 | 1536 x 1024 | `d72d0506b07b59a917017371ff2c1b4c7d84532d0625d661523109de78eef9ce` |
@@ -77,25 +79,25 @@ Every link is pinned to commit `60b792ac19ba710d724a247127eb0482d967eeaf`, so it
 | 5 | Crownbreaker (badge) | ICON | magenta | arakane, crown | `icon-badge-crownbreaker.webp` |
 | 6 | Lastlight (jutsu icon) | JUTSU_ICON | none | bbe, lantern | `icon-jutsu-lastlight.webp` |
 | 7 | Foundry Warden (AI avatar) | AI_AVATAR | magenta | arsenal | `avatar_skyglass_foundry_warden.webp` |
-| 8 | Master of Arms (commander) | AI_AVATAR | magenta | arakane | `avatar_crownhold_master_of_arms.webp` |
-| 9 | Replicant Zero (commander) | AI_AVATAR | magenta | arakane | `avatar_crownhold_replicant_zero.webp` |
-| 10 | The Grand Marshal (commander) | AI_AVATAR | magenta | arakane | `avatar_crownhold_the_grand_marshal.webp` |
-| 11 | Crownhold Proving Proctor | AI_AVATAR | magenta | arakane | `avatar_crownhold_proving_proctor.webp` |
-| 12 | Ordnance Quartermaster | AI_AVATAR | magenta | arakane | `avatar_crownhold_ordnance_quartermaster.webp` |
-| 13 | Prototype Lancer Unit | AI_AVATAR | magenta | arakane | `avatar_crownhold_prototype_lancer_unit.webp` |
-| 14 | Calibration Duelist | AI_AVATAR | magenta | arakane | `avatar_crownhold_calibration_duelist.webp` |
-| 15 | Skyglass Archive Keeper | AI_AVATAR | magenta | arakane | `avatar_crownhold_skyglass_archive_keeper.webp` |
-| 16 | Impression Containment Warden | AI_AVATAR | magenta | arakane | `avatar_crownhold_impression_containment_warden.webp` |
-| 17 | Unstable Echo Subject | AI_AVATAR | magenta | arakane | `avatar_crownhold_unstable_echo_subject.webp` |
-| 18 | Failed Reconstruction Prototype | AI_AVATAR | magenta | arakane | `avatar_crownhold_failed_reconstruction_prototype.webp` |
-| 19 | Command Signal Adjutant | AI_AVATAR | magenta | arakane | `avatar_crownhold_command_signal_adjutant.webp` |
-| 20 | High Command Staff Tactician | AI_AVATAR | magenta | arakane | `avatar_crownhold_high_command_staff_tactician.webp` |
-| 21 | Honor Guard Commandant | AI_AVATAR | magenta | arakane | `avatar_crownhold_honor_guard_commandant.webp` |
-| 22 | Strategist's Aide-de-Camp | AI_AVATAR | magenta | arakane | `avatar_crownhold_strategists_aide_de_camp.webp` |
-| 23 | Sanctum Vanguard | AI_AVATAR | magenta | arakane | `avatar_crownhold_sanctum_vanguard.webp` |
-| 24 | Directive Herald | AI_AVATAR | magenta | arakane | `avatar_crownhold_directive_herald.webp` |
-| 25 | Last Watch Executor | AI_AVATAR | magenta | arakane | `avatar_crownhold_last_watch_executor.webp` |
-| 26 | Order-Bearer of the Sanctum | AI_AVATAR | magenta | arakane | `avatar_crownhold_order_bearer_of_the_sanctum.webp` |
+| 8 | Master of Arms (commander) | AI_AVATAR | magenta | captain | `avatar_crownhold_master_of_arms.webp` |
+| 9 | Replicant Zero (commander) | AI_AVATAR | magenta | captain | `avatar_crownhold_replicant_zero.webp` |
+| 10 | The Grand Marshal (commander) | AI_AVATAR | magenta | captain | `avatar_crownhold_the_grand_marshal.webp` |
+| 11 | Crownhold Proving Proctor | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_proving_proctor.webp` |
+| 12 | Ordnance Quartermaster | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_ordnance_quartermaster.webp` |
+| 13 | Prototype Lancer Unit | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_prototype_lancer_unit.webp` |
+| 14 | Calibration Duelist | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_calibration_duelist.webp` |
+| 15 | Skyglass Archive Keeper | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_skyglass_archive_keeper.webp` |
+| 16 | Impression Containment Warden | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_impression_containment_warden.webp` |
+| 17 | Unstable Echo Subject | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_unstable_echo_subject.webp` |
+| 18 | Failed Reconstruction Prototype | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_failed_reconstruction_prototype.webp` |
+| 19 | Command Signal Adjutant | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_command_signal_adjutant.webp` |
+| 20 | High Command Staff Tactician | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_high_command_staff_tactician.webp` |
+| 21 | Honor Guard Commandant | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_honor_guard_commandant.webp` |
+| 22 | Strategist's Aide-de-Camp | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_strategists_aide_de_camp.webp` |
+| 23 | Sanctum Vanguard | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_sanctum_vanguard.webp` |
+| 24 | Directive Herald | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_directive_herald.webp` |
+| 25 | Last Watch Executor | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_last_watch_executor.webp` |
+| 26 | Order-Bearer of the Sanctum | AI_AVATAR | magenta | deck_warden | `avatar_crownhold_order_bearer_of_the_sanctum.webp` |
 | 27 | Scene: Crownhold gate | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_gate.webp` |
 | 28 | Scene: Armory proving hall | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_proving_hall.webp` |
 | 29 | Scene: Ordnance store | SCENE_BACKGROUND | none | gallery, captain_portrait | `scene_bg_crownhold_ordnance_store.webp` |
@@ -288,15 +290,15 @@ Return the raw image named raw_avatar_skyglass_foundry_warden.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Master of Arms (commander). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Master of Arms: Division I commander. A forge-wall weapons master in heavy Skyglass armour, two drawn blades, more weapons slung across his back; calm and exacting. Accent: forge-orange. Commanders are larger and more ornate than regular officers but wear no crown.
+Subject: Master of Arms: Division I commander. A broad weapons master in heavy lacquered plates over dark indigo cloth, two drawn blades, more blades and a spear slung across his back; calm and exacting. Accent: forge-orange. Commanders are larger, with a heavier cloak and a distinct mask, but wear no crown and no gold.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -307,15 +309,15 @@ Return the raw image named raw_avatar_crownhold_master_of_arms.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Replicant Zero (commander). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Replicant Zero: Division II commander. A scientist in a long lab coat rebuilding his own left hand out of light; the first successful reconstruction; calm and curious. Accent: pale violet. Commanders are larger and more ornate than regular officers but wear no crown.
+Subject: Replicant Zero: Division II commander. A gaunt medical-nin in a long dark field coat with pouches of sealing tags, calmly rebuilding his own left hand out of his own healing chakra; the first successful recall; calm and curious. Accent: pale violet. Commanders are larger, with a heavier cloak and a distinct mask, but wear no crown and no gold.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -326,15 +328,15 @@ Return the raw image named raw_avatar_crownhold_replicant_zero.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp  (203140 bytes, 1235 x 1235, sha256 `ce93b9dc6cd70e79…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: The Grand Marshal (commander). Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: a commander of the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: The Grand Marshal: Division III commander, called 'The Second'. A senior officer in an unadorned dark greatcoat, hands behind his back; thoughtful and severe; the deputy who could question orders. Accent: muted brass. Commanders are larger and more ornate than regular officers but wear no crown.
+Subject: The Grand Marshal: Division III commander, called 'The Second'. A senior shinobi officer in a plain dark long coat over light plates, face masked, hands behind his back; thoughtful and severe; the deputy who could question orders. Accent: muted brass. Commanders are larger, with a heavier cloak and a distinct mask, but wear no crown and no gold.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -345,15 +347,15 @@ Return the raw image named raw_avatar_crownhold_the_grand_marshal.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Crownhold Proving Proctor. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Crownhold Proving Proctor: Division I. An armory proctor in a faded grey drill uniform, a clipboard of stamped trial sheets in one hand, two practice blades at the hip, a whistle on a cord. Accent: drill-yellow.
+Subject: Crownhold Proving Proctor: Division I. An armory proctor in a faded grey drill wrap and cloth headwrap, a wooden board of trial slips in one hand, two wooden practice blades at the hip, a whistle on a cord. Accent: drill-yellow.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -364,15 +366,15 @@ Return the raw image named raw_avatar_crownhold_proving_proctor.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Ordnance Quartermaster. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Ordnance Quartermaster: Division I. A scorched apron over an officer coat, satchels of glowing sealed explosive tags, soot-dark gloves holding a tray of tags. Accent: tag-orange.
+Subject: Ordnance Quartermaster: Division I. A soot-stained apron over a field vest, bandoliers of glowing explosive tags, soot-dark gloves holding a tray of tags. Accent: tag-orange.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -383,15 +385,15 @@ Return the raw image named raw_avatar_crownhold_ordnance_quartermaster.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Prototype Lancer Unit. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Prototype Lancer Unit: Division I. A half-built lightning-lance automaton fused with its test pilot, exposed capacitor coils, a serial plate reading only a stamped number shape (no legible text). Accent: electric yellow.
+Subject: Prototype Lancer Unit: Division I. A spear specialist in light plates, a long cross-bladed spear crackling with lightning chakra, chakra-burn scars wrapped on both forearms. Accent: electric yellow.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -402,15 +404,15 @@ Return the raw image named raw_avatar_crownhold_prototype_lancer_unit.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Calibration Duelist. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Calibration Duelist: Division I. A duelist in a calibration harness with chakra-measuring rings on both arms and a wind-swept practice sword, apprentice insignia. Accent: wind-green.
+Subject: Calibration Duelist: Division I. A young duelist in sparring wraps, a practice sword wrapped in wind chakra, an apprentice cord on the shoulder. Accent: wind-green.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -421,15 +423,15 @@ Return the raw image named raw_avatar_crownhold_calibration_duelist.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Archive Keeper. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Skyglass Archive Keeper: Division II. An archivist rendered in pale blue chakra light, holding a crystal-core ledger, translucent where the reconstruction is incomplete. Accent: archive blue.
+Subject: Skyglass Archive Keeper: Division II. An archivist-nin with a satchel of scrolls and a bound ledger, ink-stained fingers, a small skyglass reading lens on a cord. Accent: archive blue.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -440,15 +442,15 @@ Return the raw image named raw_avatar_crownhold_skyglass_archive_keeper.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Impression Containment Warden. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Impression Containment Warden: Division II. A sealed containment suit with a water-filled observation visor and a heavy chain of vat keys. Accent: water teal.
+Subject: Impression Containment Warden: Division II. A sealing specialist in a hooded wrap, a heavy ring of seal keys and tag-wrapped scroll cases on chains, a water-filled seal jar at the hip. Accent: water teal.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -459,15 +461,15 @@ Return the raw image named raw_avatar_crownhold_impression_containment_warden.pn
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Unstable Echo Subject. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Unstable Echo Subject: Division II. A failed reconstruction glitching between two overlapping silhouettes, shadow chakra leaking from the seams. Accent: shadow violet.
+Subject: Unstable Echo Subject: Division II. A ninja caught mid-step splitting into an imperfect shadow clone: the clone a half-step behind and out of line, shadow chakra trailing between them. Accent: shadow violet.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -478,15 +480,15 @@ Return the raw image named raw_avatar_crownhold_unstable_echo_subject.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Failed Reconstruction Prototype. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Failed Reconstruction Prototype: Division II. A hulking earth-bound prototype, crystal growths over a half-formed body, a reconstruction rig bolted to its back. Accent: stone ochre.
+Subject: Failed Reconstruction Prototype: Division II. A hulking earth-style ninja half-encased in his own stone armour technique, rock plating cracked over one arm and shoulder, rope-bound. Accent: stone ochre.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -497,15 +499,15 @@ Return the raw image named raw_avatar_crownhold_failed_reconstruction_prototype.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Command Signal Adjutant. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Command Signal Adjutant: Division III. A relay headset, wind-banner semaphore flags in both hands, High Command rank stripes. Accent: signal green.
+Subject: Command Signal Adjutant: Division III. A signals ninja with a semaphore flag in each hand, a message-scroll tube across the back, a rank cord. Accent: signal green.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -516,15 +518,15 @@ Return the raw image named raw_avatar_crownhold_command_signal_adjutant.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: High Command Staff Tactician. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: High Command Staff Tactician: Division III. A campaign map case and a quill of glowing chakra ink, the Grand Marshal's aide's cord on the shoulder. Accent: ink blue.
+Subject: High Command Staff Tactician: Division III. A tactician with a campaign map case under one arm and a brush wet with glowing chakra ink, the Grand Marshal's aide's cord on the shoulder. Accent: ink blue.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -535,15 +537,15 @@ Return the raw image named raw_avatar_crownhold_high_command_staff_tactician.png
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Honor Guard Commandant. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Honor Guard Commandant: Division III. Ceremonial stone-plated armour and a tower shield bearing a plain circled-cross seal. Accent: polished brass.
+Subject: Honor Guard Commandant: Division III. Ceremonial stone-grey lacquered plates and a tall tower shield bearing a plain circled-cross seal. Accent: polished brass.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -554,15 +556,15 @@ Return the raw image named raw_avatar_crownhold_honor_guard_commandant.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Strategist's Aide-de-Camp. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Strategist's Aide-de-Camp: Division III. Sealed dispatch tubes crackling with lightning, reflective lacquered armour, an aide's sash. Accent: lightning white.
+Subject: Strategist's Aide-de-Camp: Division III. Sealed dispatch tubes on the back crackling with lightning chakra, light lacquered armour, an aide's sash. Accent: lightning white.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -573,15 +575,15 @@ Return the raw image named raw_avatar_crownhold_strategists_aide_de_camp.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Sanctum Vanguard. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Sanctum Vanguard: Division IV. Obsidian-and-ember Sanctum armour, fire-chakra gauntlets ablaze, a short banner pole on the back. Accent: ember red.
+Subject: Sanctum Vanguard: Division IV. Obsidian-black lacquered plates, fire-chakra gauntlets ablaze, a short banner pole on the back. Accent: ember red.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -592,15 +594,15 @@ Return the raw image named raw_avatar_crownhold_sanctum_vanguard.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Directive Herald. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Directive Herald: Division IV. Long ceremonial robes, a glowing directive scroll that is rewriting itself, lightning-lit eyes. Accent: lightning gold.
+Subject: Directive Herald: Division IV. Long dark ceremonial robes, an unrolled scroll of orders in one hand marked with glowing unreadable marks, lightning-lit eyes. Accent: lightning gold.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -611,15 +613,15 @@ Return the raw image named raw_avatar_crownhold_directive_herald.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Last Watch Executor. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
 Subject: Last Watch Executor: Division IV. A tattered night-watch cloak, twin wind glaives, a blank mask stamped with an unreadable seal. Accent: night blue.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
@@ -630,15 +632,15 @@ Return the raw image named raw_avatar_crownhold_last_watch_executor.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp  (123206 bytes, 1221 x 1221, sha256 `805c1e99bcb1e7b3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Order-Bearer of the Sanctum. Generate exactly one candidate. Do not crop, key or process it.
-References attached: 1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown). Follow each reference only for its stated role.
+References attached: 1. STYLE: the same crew (rendering, outfit language, proportions; NOT this character's face, mask or weapon). Follow each reference only for its stated role.
 
-Subject: Order-Bearer of the Sanctum: Division IV. Deep-water Sanctum regalia, a sealed scroll case, a blank unsigned command seal held up. Accent: deep-sea blue.
+Subject: Order-Bearer of the Sanctum: Division IV. Deep-blue Sanctum wraps, a sealed scroll case, a blank command seal tablet held up. Accent: deep-sea blue.
 
-Continuity (Crownhold): this officer is a reconstructed chakra impression of the Skyglass Project's mountain fortress, not a ghost: luminous cyan seams at the joints and edges, slight translucency, a faint flicker. No thread, wire or line rising from the head or neck (it reads as an antenna on the moving combat sprite). Palette: mountain-stone greys, military brass, Skyglass blue-white, plus the one accent named below.
+Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and weathered, solid and grounded. The only sign he is an impression: eyes lit with pale chakra and a faint chakra haze at the cloth's ragged edges. No glowing seams or veins, no translucent or crystal body, no gold filigree, no tassels, no crown, no technology. No thread, wire or line rising from the head or neck. Palette: mountain-stone greys, dark indigo cloth, dull brass fittings, plus the one accent named in the subject.
 Style: single full-body character avatar, crisp pixel art with clean dark outlines and flat cel shading matching the style reference, front three-quarter view, whole figure inside the frame with a clear margin, on a true solid flat magenta chroma key background (#FF00FF) covering the entire canvas, not transparent, not checkerboard. Square 1024 x 1024.
 Negative: no text, no UI, no watermark, no scenery, no floor, no cast shadow on the magenta, no magenta spill, no second character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no gradient background, no sheet, no grid.
 
