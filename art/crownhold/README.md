@@ -16,3 +16,7 @@
   magenta` (rawqc ACCEPT each), native size lossless webp, then the control thread erased with
   `state/skyglass_art/dethread.py` (director 2026-10-26: the thread cut off at the frame edge reads as an antenna on the
   moving combat sprite). artpreflight --type AI_AVATAR 0/0.
+- Art batch #14-#20 (Calibration Duelist, Skyglass Archive Keeper, Impression Containment Warden, Unstable Echo Subject,
+  Failed Reconstruction Prototype, Command Signal Adjutant, High Command Staff Tactician): `avatar_crownhold_<name>.webp`,
+  keyed from `raw/` with `chroma.py --target AI_AVATAR --key magenta` (rawqc ACCEPT each), native size lossless webp, no
+  thread to erase; artpreflight --type AI_AVATAR 0/0.
