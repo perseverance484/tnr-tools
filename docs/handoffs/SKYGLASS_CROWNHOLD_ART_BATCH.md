@@ -9,6 +9,15 @@
 - **How a session uses this file:** it is given the link to this file and an image number. It reads that image's section, downloads the reference images from the links there, attaches them in the order given, and runs the prompt exactly as written.
 - **Live-game requests/writes:** 0.
 
+## Session contract (every image, no exceptions)
+
+1. **Download each reference from its raw URL below** with a direct HTTP download (a browser or fetch tool that returns bytes). Do not use a text-only repository connector: it cannot return images.
+2. **Verify each download** against the table: byte size and SHA-256 must match, and the file must open as an image of the listed width x height.
+3. **Show each reference back** (display it) and confirm it is attached to the generation request, in the listed order, with its listed role.
+4. **Abort if any reference is missing, fails verification or cannot be attached.** Report which one and stop. Never generate without all references.
+5. **Copy the fenced prompt verbatim.** Do not shorten, summarise or rewrite it.
+6. Generate exactly one candidate. Do not crop, key, resize or otherwise process it. Return the raw image under the name the prompt gives.
+
 ## Targets (from `25x_DATA_art_spec.json`)
 
 | Target | Canvas to generate | Key | Delivered |
@@ -20,48 +29,42 @@
 
 ## Reference files
 
-Every link is pinned to commit `2a79eb90a053c3aa56a70b5d3823e88069104c40`, so it never changes. A fresh session downloads the images named in its section and attaches them.
+Every link is pinned to commit `60b792ac19ba710d724a247127eb0482d967eeaf`, so it never changes. A fresh session downloads the images named in its section and attaches them.
 
-| Key | Image link |
-|---|---|
-| coffer | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp |
-| foundry_chart | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp |
-| lantern | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp |
-| crown | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp |
-| arakane | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp |
-| arsenal | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp |
-| bbe | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp |
-| gallery | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp |
-| helm | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp |
-| captain_portrait | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp |
-| treasury_subject | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/raw/subject_sealed_treasury_painted_v1.png |
-| redraw_icon-skyglass-coffer.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp |
-| redraw_icon-tool-pouch-katon.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-katon.webp |
-| redraw_icon-tool-pouch-wave.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-wave.webp |
-| redraw_icon-tool-pouch-ikazuchi.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-ikazuchi.webp |
-| redraw_icon-tool-pouch-stonefall.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-stonefall.webp |
-| redraw_icon-tool-pouch-zephyrfang.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-zephyrfang.webp |
-| redraw_icon-chart-drowned-foundry.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp |
-| redraw_icon-chart-quarantined-archive.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-quarantined-archive.webp |
-| redraw_icon-chart-captains-watch.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-captains-watch.webp |
-| redraw_icon-skyglass-signal-beacon.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp |
-| redraw_icon-armory-requisition.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-armory-requisition.webp |
-| redraw_icon_ghost_ship_skyglass_crown.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp |
-| redraw_icon_ghost_ship_skyglass_crown_fragment.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown_fragment.webp |
-| redraw_icon_ghost_ship_skyglass_crystal.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp |
-| redraw_icon_ghost_ship_skyglass_filament.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp |
-| redraw_icon_ghost_ship_skyglass_katana.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_katana.webp |
-| redraw_icon_ghost_ship_skyglass_serum.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_serum.webp |
-| scene_helm | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp |
-| scene_exterior_keel_walk | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp |
-| scene_lower_hull | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp |
-| scene_hold | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp |
-| scene_reconstruction_chamber | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_reconstruction_chamber.webp |
-| scene_quarantined_archive | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_quarantined_archive.webp |
-| scene_cache_site | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp |
-| scene_chart_room | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_chart_room.webp |
-| scene_deck_b | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_deck_b.webp |
-| scene_command_observation_gallery | https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp |
+| Key | Image link | Bytes | W x H | SHA-256 |
+|---|---|---|---|---|
+| coffer | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp | 70574 | 256 x 256 | `a7bbfe7e60570aef4e25d2c4492d4eb31d32318b800164545c71883f7e0113d3` |
+| foundry_chart | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp | 60940 | 256 x 256 | `0b00806939bd375a74086f095956a2b0f924d87e12aedb83cfa1d1ee9058182b` |
+| lantern | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp | 45678 | 256 x 256 | `6b58863e0d526502ab16dc462d09ecbb434b0f68ed699b7a7004dcc71d226ff1` |
+| crown | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp | 116290 | 480 x 480 | `02cde28f5fedfaf370fc1988fd13457d370731bdbe1572e0f3638d767f68a876` |
+| arakane | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp | 289646 | 1239 x 1239 | `0383691812dc34673b01fd71023a6191b36fbcbab55634d18cf11d62947436b8` |
+| arsenal | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp | 191438 | 1241 x 1241 | `1caf87b04c7ecd4cd2d3dd4569a93036d61fbef858acd0dc16c4a92370ac2858` |
+| bbe | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp | 61270 | 256 x 256 | `410b8c5a20af40b27aaf728d5d8c7b2260adc500c7dd64187b08c0953e6531c5` |
+| gallery | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp | 250006 | 1536 x 1024 | `babd22ccf728fb67c8208f1f68af8c5eb3286c3a76bdcbe0e1b2b0bdf227026c` |
+| helm | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp | 329520 | 1536 x 1024 | `d72d0506b07b59a917017371ff2c1b4c7d84532d0625d661523109de78eef9ce` |
+| captain_portrait | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp | 85260 | 728 x 728 | `60087ce9e1d640199a7a61aceb154fc783beb1408fa89de5d869dfe7854462a5` |
+| treasury_subject | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/raw/subject_sealed_treasury_painted_v1.webp | 260686 | 1254 x 1254 | `ba32444763970bb65ab81a0fbca4821384b2ebd92a5d94e43f07faad52921ad2` |
+| redraw_icon-tool-pouch-katon.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-katon.webp | 67920 | 256 x 256 | `b1fa26ced2204d1e3206dbdf418b34f5949bffc2054d0d7cfcc2404334808d6b` |
+| redraw_icon-tool-pouch-wave.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-wave.webp | 67620 | 256 x 256 | `44fa5437a835a3e004d4788127518af760718445f3e3b1ef8888600cd7eeeba8` |
+| redraw_icon-tool-pouch-ikazuchi.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-ikazuchi.webp | 68698 | 256 x 256 | `c644532a96cbf44eba6c1e4d082c08144ee51a577143ba357c2b93add10fc515` |
+| redraw_icon-tool-pouch-stonefall.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-stonefall.webp | 68232 | 256 x 256 | `029a560a5bcbc202da9e41421e251cf73fca938dc7cfa21593b9fe43aecba07c` |
+| redraw_icon-tool-pouch-zephyrfang.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-zephyrfang.webp | 66358 | 256 x 256 | `ca3d144715e8385bc0db61c65fdc62a01afea7db0cc7470017ea0daa591a4d4d` |
+| redraw_icon-chart-quarantined-archive.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-chart-quarantined-archive.webp | 65754 | 256 x 256 | `80df641bad0135e78b52bc508440dbe9c160d477d50d98f16ccef3da23dc2432` |
+| redraw_icon-chart-captains-watch.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-chart-captains-watch.webp | 68722 | 256 x 256 | `e576a50a3f066e972fc09974592a83d8cf6cae5c18e10200776bd503d3f77b8e` |
+| redraw_icon-armory-requisition.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-armory-requisition.webp | 47944 | 256 x 256 | `869b66de517273adfa5432d08d1cd2d0a95db825ac47b6e527ceb702cfc96c83` |
+| redraw_icon_ghost_ship_skyglass_crown_fragment.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown_fragment.webp | 107374 | 480 x 480 | `434872cd478550ca3ec2791e382c8c444c5e020664ea3c6057dcc9089be07e30` |
+| redraw_icon_ghost_ship_skyglass_crystal.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp | 103342 | 480 x 480 | `896543c69115e830b1016b966fbfbcdab3ebf676d10e05ac24cb3b9e7d604dfc` |
+| redraw_icon_ghost_ship_skyglass_filament.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp | 129168 | 480 x 480 | `b165dba7e5849bcd25ca40bb90532b7787bc125973589b52864669e69ee6328d` |
+| redraw_icon_ghost_ship_skyglass_katana.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_katana.webp | 56510 | 480 x 480 | `f7a336ca9fc0067a57ec2a69a0d3120a8790531ad83c5236306cdd8be92af8cc` |
+| redraw_icon_ghost_ship_skyglass_serum.webp | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_serum.webp | 277032 | 768 x 768 | `6d83e870aa4bdbd8c918256c5dc3e9c4f338ed59aa11a1ec033b8e5e27a343c5` |
+| scene_exterior_keel_walk | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp | 224364 | 1536 x 1024 | `f665ca4bb8bc4da031241d4b7275359409e6a6a7a711dce0874bd1d1cebfd70a` |
+| scene_lower_hull | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp | 443164 | 1536 x 1024 | `5906fa63576bb8789078f3c2e0adad09da543963cce94a42956f795c682dcd07` |
+| scene_hold | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp | 311832 | 1536 x 1024 | `6743482693564c430c8e95426ea6595af0a2b20ad1768b10140f7d8a95da2fd5` |
+| scene_reconstruction_chamber | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_reconstruction_chamber.webp | 446336 | 1470 x 980 | `d0b0c3297409638c2c02b6314dbd817d7c71875e455d70a966238471d6d4552e` |
+| scene_quarantined_archive | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_quarantined_archive.webp | 344950 | 1536 x 1024 | `25682147baa0fd69bf8790db174eb64665c11bd51c2a42400b945c9ba66c3f8f` |
+| scene_cache_site | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp | 156820 | 1536 x 1024 | `4ad71d71d9794353d28faf0f691a9772f7e6c0ea10df71927751a49bf11e7ead` |
+| scene_chart_room | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_chart_room.webp | 378286 | 1536 x 1024 | `ed6ae32d26e8b586ef3749f1d3e45dea86af84c4a05e4576351457f627b0f426` |
+| scene_deck_b | https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_deck_b.webp | 355890 | 1536 x 1024 | `e6004e0ab8749afc2c40776ee7fc6b3b4532226997068f0bdccae6078971dad0` |
 
 ## Sequence
 
@@ -153,8 +156,8 @@ Every link is pinned to commit `2a79eb90a053c3aa56a70b5d3823e88069104c40`, so it
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact chest: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/raw/subject_sealed_treasury_painted_v1.png
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact chest: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/raw/subject_sealed_treasury_painted_v1.webp  (260686 bytes, 1254 x 1254, sha256 `ba32444763970bb6…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Sealed Treasury. Generate exactly one candidate. Do not crop, key or process it.
@@ -172,8 +175,8 @@ Return the raw image named raw_icon-sealed-treasury.png.
 
 References (download and attach, in this order):
 
-1. CHART FAMILY: shape and materials (painted: redraw as pixel art): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. CHART FAMILY: shape and materials (painted: redraw as pixel art): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp  (60940 bytes, 256 x 256, sha256 `0b00806939bd375a…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Archive Chart Case. Generate exactly one candidate. Do not crop, key or process it.
@@ -191,8 +194,8 @@ Return the raw image named raw_icon-archive-chart-case.png.
 
 References (download and attach, in this order):
 
-1. SHAPE AND LAYOUT (painted: redraw as pixel art): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SHAPE AND LAYOUT (painted: redraw as pixel art): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp  (60940 bytes, 256 x 256, sha256 `0b00806939bd375a…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Chart of the Buried Cache. Generate exactly one candidate. Do not crop, key or process it.
@@ -210,8 +213,8 @@ Return the raw image named raw_icon-chart-buried-cache.png.
 
 References (download and attach, in this order):
 
-1. MATERIAL AND COLOURS (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. MATERIAL AND COLOURS (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp  (70574 bytes, 256 x 256, sha256 `a7bbfe7e60570aef…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Unmarked Cargo. Generate exactly one candidate. Do not crop, key or process it.
@@ -229,8 +232,8 @@ Return the raw image named raw_icon-unmarked-cargo.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: keep the crown exactly: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
-2. STYLE: icon rendering only: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp
+1. SUBJECT: keep the crown exactly: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
+2. STYLE: icon rendering only: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp  (116290 bytes, 480 x 480, sha256 `02cde28f5fedfaf3…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Crownbreaker (badge). Generate exactly one candidate. Do not crop, key or process it.
@@ -248,8 +251,8 @@ Return the raw image named raw_icon-badge-crownbreaker.png.
 
 References (download and attach, in this order):
 
-1. STYLE: jutsu icon register: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp
-2. MOTIF: the lantern's light: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp
+1. STYLE: jutsu icon register: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp  (61270 bytes, 256 x 256, sha256 `410b8c5a20af40b2…`)
+2. MOTIF: the lantern's light: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp  (45678 bytes, 256 x 256, sha256 `6b58863e0d526502…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Lastlight (jutsu icon). Generate exactly one candidate. Do not crop, key or process it.
@@ -267,7 +270,7 @@ Return the raw image named raw_icon-jutsu-lastlight.png.
 
 References (download and attach, in this order):
 
-1. STYLE: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp
+1. STYLE: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp  (191438 bytes, 1241 x 1241, sha256 `1caf87b04c7ecd4c…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Foundry Warden (AI avatar). Generate exactly one candidate. Do not crop, key or process it.
@@ -285,7 +288,7 @@ Return the raw image named raw_avatar_skyglass_foundry_warden.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Master of Arms (commander). Generate exactly one candidate. Do not crop, key or process it.
@@ -304,7 +307,7 @@ Return the raw image named raw_avatar_crownhold_master_of_arms.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Replicant Zero (commander). Generate exactly one candidate. Do not crop, key or process it.
@@ -323,7 +326,7 @@ Return the raw image named raw_avatar_crownhold_replicant_zero.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: The Grand Marshal (commander). Generate exactly one candidate. Do not crop, key or process it.
@@ -342,7 +345,7 @@ Return the raw image named raw_avatar_crownhold_the_grand_marshal.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Crownhold Proving Proctor. Generate exactly one candidate. Do not crop, key or process it.
@@ -361,7 +364,7 @@ Return the raw image named raw_avatar_crownhold_proving_proctor.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Ordnance Quartermaster. Generate exactly one candidate. Do not crop, key or process it.
@@ -380,7 +383,7 @@ Return the raw image named raw_avatar_crownhold_ordnance_quartermaster.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Prototype Lancer Unit. Generate exactly one candidate. Do not crop, key or process it.
@@ -399,7 +402,7 @@ Return the raw image named raw_avatar_crownhold_prototype_lancer_unit.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Calibration Duelist. Generate exactly one candidate. Do not crop, key or process it.
@@ -418,7 +421,7 @@ Return the raw image named raw_avatar_crownhold_calibration_duelist.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Archive Keeper. Generate exactly one candidate. Do not crop, key or process it.
@@ -437,7 +440,7 @@ Return the raw image named raw_avatar_crownhold_skyglass_archive_keeper.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Impression Containment Warden. Generate exactly one candidate. Do not crop, key or process it.
@@ -456,7 +459,7 @@ Return the raw image named raw_avatar_crownhold_impression_containment_warden.pn
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Unstable Echo Subject. Generate exactly one candidate. Do not crop, key or process it.
@@ -475,7 +478,7 @@ Return the raw image named raw_avatar_crownhold_unstable_echo_subject.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Failed Reconstruction Prototype. Generate exactly one candidate. Do not crop, key or process it.
@@ -494,7 +497,7 @@ Return the raw image named raw_avatar_crownhold_failed_reconstruction_prototype.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Command Signal Adjutant. Generate exactly one candidate. Do not crop, key or process it.
@@ -513,7 +516,7 @@ Return the raw image named raw_avatar_crownhold_command_signal_adjutant.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: High Command Staff Tactician. Generate exactly one candidate. Do not crop, key or process it.
@@ -532,7 +535,7 @@ Return the raw image named raw_avatar_crownhold_high_command_staff_tactician.png
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Honor Guard Commandant. Generate exactly one candidate. Do not crop, key or process it.
@@ -551,7 +554,7 @@ Return the raw image named raw_avatar_crownhold_honor_guard_commandant.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Strategist's Aide-de-Camp. Generate exactly one candidate. Do not crop, key or process it.
@@ -570,7 +573,7 @@ Return the raw image named raw_avatar_crownhold_strategists_aide_de_camp.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Sanctum Vanguard. Generate exactly one candidate. Do not crop, key or process it.
@@ -589,7 +592,7 @@ Return the raw image named raw_avatar_crownhold_sanctum_vanguard.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Directive Herald. Generate exactly one candidate. Do not crop, key or process it.
@@ -608,7 +611,7 @@ Return the raw image named raw_avatar_crownhold_directive_herald.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Last Watch Executor. Generate exactly one candidate. Do not crop, key or process it.
@@ -627,7 +630,7 @@ Return the raw image named raw_avatar_crownhold_last_watch_executor.png.
 
 References (download and attach, in this order):
 
-1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: Crownhold set (rendering, outline, palette handling; NOT the character or his crown): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Order-Bearer of the Sanctum. Generate exactly one candidate. Do not crop, key or process it.
@@ -646,8 +649,8 @@ Return the raw image named raw_avatar_crownhold_order_bearer_of_the_sanctum.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Crownhold gate. Generate exactly one candidate. Do not crop, key or process it.
@@ -664,8 +667,8 @@ Return the raw image named raw_scene_bg_crownhold_gate.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Armory proving hall. Generate exactly one candidate. Do not crop, key or process it.
@@ -682,8 +685,8 @@ Return the raw image named raw_scene_bg_crownhold_proving_hall.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Ordnance store. Generate exactly one candidate. Do not crop, key or process it.
@@ -700,8 +703,8 @@ Return the raw image named raw_scene_bg_crownhold_ordnance_store.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Test gallery. Generate exactly one candidate. Do not crop, key or process it.
@@ -718,8 +721,8 @@ Return the raw image named raw_scene_bg_crownhold_test_gallery.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Armory command terminal. Generate exactly one candidate. Do not crop, key or process it.
@@ -736,8 +739,8 @@ Return the raw image named raw_scene_bg_crownhold_armory_terminal.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Forge wall. Generate exactly one candidate. Do not crop, key or process it.
@@ -754,8 +757,8 @@ Return the raw image named raw_scene_bg_crownhold_forge_wall.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Archive of impressions. Generate exactly one candidate. Do not crop, key or process it.
@@ -772,8 +775,8 @@ Return the raw image named raw_scene_bg_crownhold_archive_of_impressions.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Vat halls. Generate exactly one candidate. Do not crop, key or process it.
@@ -790,8 +793,8 @@ Return the raw image named raw_scene_bg_crownhold_vat_halls.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Research command terminal. Generate exactly one candidate. Do not crop, key or process it.
@@ -808,8 +811,8 @@ Return the raw image named raw_scene_bg_crownhold_research_terminal.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Reconstruction theatre. Generate exactly one candidate. Do not crop, key or process it.
@@ -826,8 +829,8 @@ Return the raw image named raw_scene_bg_crownhold_reconstruction_theatre.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: High Command signal room. Generate exactly one candidate. Do not crop, key or process it.
@@ -844,8 +847,8 @@ Return the raw image named raw_scene_bg_crownhold_signal_room.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Planning hall. Generate exactly one candidate. Do not crop, key or process it.
@@ -862,8 +865,8 @@ Return the raw image named raw_scene_bg_crownhold_planning_hall.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Honor guard corridor. Generate exactly one candidate. Do not crop, key or process it.
@@ -880,8 +883,8 @@ Return the raw image named raw_scene_bg_crownhold_honor_guard_corridor.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: High Command terminal. Generate exactly one candidate. Do not crop, key or process it.
@@ -898,8 +901,8 @@ Return the raw image named raw_scene_bg_crownhold_high_command_terminal.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: The Grand Marshal's office. Generate exactly one candidate. Do not crop, key or process it.
@@ -916,8 +919,8 @@ Return the raw image named raw_scene_bg_crownhold_marshals_office.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Sanctum gate. Generate exactly one candidate. Do not crop, key or process it.
@@ -934,8 +937,8 @@ Return the raw image named raw_scene_bg_crownhold_sanctum_gate.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Sanctum antechamber. Generate exactly one candidate. Do not crop, key or process it.
@@ -952,8 +955,8 @@ Return the raw image named raw_scene_bg_crownhold_antechamber.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Outer ring and terminal. Generate exactly one candidate. Do not crop, key or process it.
@@ -970,8 +973,8 @@ Return the raw image named raw_scene_bg_crownhold_outer_ring.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (it is painted: do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Throne room. Generate exactly one candidate. Do not crop, key or process it.
@@ -988,8 +991,8 @@ Return the raw image named raw_scene_bg_crownhold_throne_room.png.
 
 References (download and attach, in this order):
 
-1. STYLE: jutsu icon register: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp
-2. MOTIF: the Command Crown: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: jutsu icon register: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp  (61270 bytes, 256 x 256, sha256 `410b8c5a20af40b2…`)
+2. MOTIF: the Command Crown: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: The Last Directive (jutsu icon). Generate exactly one candidate. Do not crop, key or process it.
@@ -1007,8 +1010,8 @@ Return the raw image named raw_icon-jutsu-the-last-directive.png.
 
 References (download and attach, in this order):
 
-1. STYLE: jutsu icon register: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp
-2. MOTIF: the Command Crown: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. STYLE: jutsu icon register: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp  (61270 bytes, 256 x 256, sha256 `410b8c5a20af40b2…`)
+2. MOTIF: the Command Crown: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Extermination Order (jutsu icon). Generate exactly one candidate. Do not crop, key or process it.
@@ -1026,7 +1029,7 @@ Return the raw image named raw_icon-jutsu-extermination-order.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT AND PIXEL STYLE: the seal tablet at Arakane's belt: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT AND PIXEL STYLE: the seal tablet at Arakane's belt: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Countermand (item icon). Generate exactly one candidate. Do not crop, key or process it.
@@ -1044,8 +1047,8 @@ Return the raw image named raw_icon-countermand.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-skyglass-coffer.webp  (70574 bytes, 256 x 256, sha256 `a7bbfe7e60570aef…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Coffer (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1063,8 +1066,8 @@ Return the raw image named raw_icon-skyglass-coffer-pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-katon.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-katon.webp  (67920 bytes, 256 x 256, sha256 `b1fa26ced2204d1e…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Katon Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1082,8 +1085,8 @@ Return the raw image named raw_icon-tool-pouch-katon-pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-wave.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-wave.webp  (67620 bytes, 256 x 256, sha256 `44fa5437a835a3e0…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Wave Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1101,8 +1104,8 @@ Return the raw image named raw_icon-tool-pouch-wave-pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-ikazuchi.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-ikazuchi.webp  (68698 bytes, 256 x 256, sha256 `c644532a96cbf44e…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Ikazuchi Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1120,8 +1123,8 @@ Return the raw image named raw_icon-tool-pouch-ikazuchi-pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-stonefall.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-stonefall.webp  (68232 bytes, 256 x 256, sha256 `029a560a5bcbc202…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Stonefall Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1139,8 +1142,8 @@ Return the raw image named raw_icon-tool-pouch-stonefall-pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-tool-pouch-zephyrfang.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-tool-pouch-zephyrfang.webp  (66358 bytes, 256 x 256, sha256 `ca3d144715e8385b…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Zephyrfang Tool Pouch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1158,8 +1161,8 @@ Return the raw image named raw_icon-tool-pouch-zephyrfang-pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp  (60940 bytes, 256 x 256, sha256 `0b00806939bd375a…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Chart of the Drowned Foundry (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1177,8 +1180,8 @@ Return the raw image named raw_icon-chart-drowned-foundry-pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-quarantined-archive.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-chart-quarantined-archive.webp  (65754 bytes, 256 x 256, sha256 `80df641bad0135e7…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Chart of the Quarantined Archive (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1196,8 +1199,8 @@ Return the raw image named raw_icon-chart-quarantined-archive-pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-chart-captains-watch.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-chart-captains-watch.webp  (68722 bytes, 256 x 256, sha256 `e576a50a3f066e97…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Chart of the Captain's Watch (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1215,8 +1218,8 @@ Return the raw image named raw_icon-chart-captains-watch-pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp  (45678 bytes, 256 x 256, sha256 `6b58863e0d526502…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Lastlight Lantern (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1234,8 +1237,8 @@ Return the raw image named raw_icon-skyglass-signal-beacon-pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/skyglass_event_icons/exports/icon-armory-requisition.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/skyglass_event_icons/exports/icon-armory-requisition.webp  (47944 bytes, 256 x 256, sha256 `869b66de517273ad…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Armory Requisition (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1253,8 +1256,8 @@ Return the raw image named raw_icon-armory-requisition-pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp  (116290 bytes, 480 x 480, sha256 `02cde28f5fedfaf3…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Crown (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1272,8 +1275,8 @@ Return the raw image named raw_icon_ghost_ship_skyglass_crown_pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown_fragment.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown_fragment.webp  (107374 bytes, 480 x 480, sha256 `434872cd478550ca…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Crown Fragment (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1291,8 +1294,8 @@ Return the raw image named raw_icon_ghost_ship_skyglass_crown_fragment_pixel.png
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp  (103342 bytes, 480 x 480, sha256 `896543c69115e830…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Crystal (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1310,8 +1313,8 @@ Return the raw image named raw_icon_ghost_ship_skyglass_crystal_pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp  (129168 bytes, 480 x 480, sha256 `b165dba7e5849bcd…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Filament (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1329,8 +1332,8 @@ Return the raw image named raw_icon_ghost_ship_skyglass_filament_pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_katana.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_katana.webp  (56510 bytes, 480 x 480, sha256 `f7a336ca9fc0067a…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Katana (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1348,8 +1351,8 @@ Return the raw image named raw_icon_ghost_ship_skyglass_katana_pixel.png.
 
 References (download and attach, in this order):
 
-1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_serum.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/crownhold/avatar_crownhold_arakane.webp
+1. SUBJECT: redraw this exact icon: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/icon_ghost_ship_skyglass_serum.webp  (277032 bytes, 768 x 768, sha256 `6d83e870aa4bdbd8…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/crownhold/avatar_crownhold_arakane.webp  (289646 bytes, 1239 x 1239, sha256 `0383691812dc3467…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Skyglass Serum (pixel redraw). Generate exactly one candidate. Do not crop, key or process it.
@@ -1367,8 +1370,8 @@ Return the raw image named raw_icon_ghost_ship_skyglass_serum_pixel.png.
 
 References (download and attach, in this order):
 
-1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp  (224364 bytes, 1536 x 1024, sha256 `f665ca4bb8bc4da0…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Wreck keel and hatch. Generate exactly one candidate. Do not crop, key or process it.
@@ -1385,8 +1388,8 @@ Return the raw image named raw_scene_bg_skyglass_wreck_keel.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp  (443164 bytes, 1536 x 1024, sha256 `5906fa63576bb878…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Flooded intake. Generate exactly one candidate. Do not crop, key or process it.
@@ -1403,8 +1406,8 @@ Return the raw image named raw_scene_bg_skyglass_foundry_intake.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp  (311832 bytes, 1536 x 1024, sha256 `6743482693564c43…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Cooling racks. Generate exactly one candidate. Do not crop, key or process it.
@@ -1421,8 +1424,8 @@ Return the raw image named raw_scene_bg_skyglass_foundry_racks.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp  (443164 bytes, 1536 x 1024, sha256 `5906fa63576bb878…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Pour hall. Generate exactly one candidate. Do not crop, key or process it.
@@ -1439,8 +1442,8 @@ Return the raw image named raw_scene_bg_skyglass_foundry_pour_hall.png.
 
 References (download and attach, in this order):
 
-1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COLOUR AND LIGHTING only (painted: do not copy its rendering or layout): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp  (311832 bytes, 1536 x 1024, sha256 `6743482693564c43…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Crucible chamber. Generate exactly one candidate. Do not crop, key or process it.
@@ -1457,8 +1460,8 @@ Return the raw image named raw_scene_bg_skyglass_foundry_crucible.png.
 
 References (download and attach, in this order):
 
-1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp  (443164 bytes, 1536 x 1024, sha256 `5906fa63576bb878…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Rebuilding lower hull. Generate exactly one candidate. Do not crop, key or process it.
@@ -1475,8 +1478,8 @@ Return the raw image named raw_scene_bg_skyglass_lower_hull.png.
 
 References (download and attach, in this order):
 
-1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_reconstruction_chamber.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_reconstruction_chamber.webp  (446336 bytes, 1470 x 980, sha256 `d0b0c3297409638c…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Reconstruction chamber. Generate exactly one candidate. Do not crop, key or process it.
@@ -1493,8 +1496,8 @@ Return the raw image named raw_scene_bg_skyglass_reconstruction_chamber.png.
 
 References (download and attach, in this order):
 
-1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_quarantined_archive.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_quarantined_archive.webp  (344950 bytes, 1536 x 1024, sha256 `25682147baa0fd69…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Quarantined archive. Generate exactly one candidate. Do not crop, key or process it.
@@ -1511,8 +1514,8 @@ Return the raw image named raw_scene_bg_skyglass_quarantined_archive.png.
 
 References (download and attach, in this order):
 
-1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp  (156820 bytes, 1536 x 1024, sha256 `4ad71d71d9794353…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Night cove landing. Generate exactly one candidate. Do not crop, key or process it.
@@ -1529,8 +1532,8 @@ Return the raw image named raw_scene_bg_skyglass_cove_landing.png.
 
 References (download and attach, in this order):
 
-1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_chart_room.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_chart_room.webp  (378286 bytes, 1536 x 1024, sha256 `ed6ae32d26e8b586…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Chart room. Generate exactly one candidate. Do not crop, key or process it.
@@ -1547,8 +1550,8 @@ Return the raw image named raw_scene_bg_skyglass_chart_room.png.
 
 References (download and attach, in this order):
 
-1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_deck_b.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_deck_b.webp  (355890 bytes, 1536 x 1024, sha256 `e6004e0ab8749afc…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Open deck in a gale. Generate exactly one candidate. Do not crop, key or process it.
@@ -1565,8 +1568,8 @@ Return the raw image named raw_scene_bg_skyglass_deck.png.
 
 References (download and attach, in this order):
 
-1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp  (329520 bytes, 1536 x 1024, sha256 `d72d0506b07b59a9…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Helm and command dais. Generate exactly one candidate. Do not crop, key or process it.
@@ -1583,8 +1586,8 @@ Return the raw image named raw_scene_bg_skyglass_helm.png.
 
 References (download and attach, in this order):
 
-1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp  (250006 bytes, 1536 x 1024, sha256 `babd22ccf728fb67…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Observation gallery. Generate exactly one candidate. Do not crop, key or process it.
@@ -1601,8 +1604,8 @@ Return the raw image named raw_scene_bg_skyglass_observation_gallery.png.
 
 References (download and attach, in this order):
 
-1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp
-2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/2a79eb90a053c3aa56a70b5d3823e88069104c40/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp
+1. COMPOSITION AND COLOUR base (painted: redraw, do not copy its rendering): https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp  (156820 bytes, 1536 x 1024, sha256 `4ad71d71d9794353…`)
+2. PIXEL STYLE: rendering only, not the character: https://raw.githubusercontent.com/perseverance484/tnr-tools/60b792ac19ba710d724a247127eb0482d967eeaf/art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp  (85260 bytes, 728 x 728, sha256 `60087ce9e1d64019…`)
 
 ~~~text
 Draw ONE image for The Ninja RPG: Scene: Three coves and the stone shrine. Generate exactly one candidate. Do not crop, key or process it.
