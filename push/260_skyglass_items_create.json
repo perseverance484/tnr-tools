@@ -1,0 +1,2269 @@
+{
+ "_note": "Skyglass event items (push/260), direct HIDDEN creates (director 2026-10-25: hidden push of everything; unhide after approval). Skyglass Coffer (pure Skyglass, RUL-2026-10-25-002/-004: Filament x2 69 / Serum x3 24 / Crown Fragment 5 / Katana 2); Katon, Wave, Ikazuchi, Stonefall, Zephyrfang Tool Pouches (element kunai x10 every opening + one roll; Chakra Disrupting Needles removed); Chart of the Drowned Foundry / Quarantined Archive / Captain's Watch and Lastlight Lantern (OTHER, tradable, no effect; pyramid entry items later); Sealed Treasury (100,000 ryo every opening + Rare Jewels x10 70 / Imperial Gold x5 24 / Unobtanium x5 6); Archive Chart Case (one chart: Foundry 60 / Archive 25 / Watch 12 / Lantern 3; phase 2 so the charts exist first). Icons: final art pack pinned at c371a8c; Sealed Treasury and Archive Chart Case use PLACEHOLDER images (Ornate Chest, 2nd Map piece) until their art exists. Rarities and descriptions are drafts. Supersedes push/254 (suggest route shelved).",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 1,
+   "name": "Skyglass Coffer",
+   "srcId": "skyglass_coffer",
+   "data": {
+    "name": "Skyglass Coffer",
+    "description": "A seal-locked coffer from the Skyglass Project's stores, the only place its salvage is still kept. The seal-light inside still answers to the ship.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Skyglass Coffer: one roll of Skyglass salvage",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Skyglass Coffer",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 6900,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "CTZ1mwhHrICLtiCaZATY6",
+             "quantity": 2
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2400,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "XhilCv1Hq4eNt-Wddok-m",
+             "quantity": 3
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "ayiRmSjWs05lMPyL3G-1d",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 200,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "ZSUdrzzgorepP4CQrBfEk",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "LEGENDARY",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "@img:icon-skyglass-coffer.webp",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 1,
+   "name": "Katon Tool Pouch",
+   "srcId": "tool_pouch_katon",
+   "data": {
+    "name": "Katon Tool Pouch",
+    "description": "A buckled armory pouch packed for a Katon specialist: Katon kunai and the tools that go with them.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Katon Kunai x10, every opening",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "sXaqXBYXGHvK75D7Bpo1h"
+        ],
+        "number": 100,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     },
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Katon Tool Pouch: one roll of tools",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Katon Tool Pouch",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 7000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "sXaqXBYXGHvK75D7Bpo1h",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "jyOXmqLJniYjpA2xx6dBq",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "yGCFQ5-w8DbLANl5gYMeB",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "_5152PR1inHUEZUBjiaHJ",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "sXaqXBYXGHvK75D7Bpo1h",
+             "quantity": 20
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "TtYPd-LcXKeK3sMuhq1TP",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "mlCQd6nbegRsYiO28cTPp",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "sXaqXBYXGHvK75D7Bpo1h",
+             "quantity": 30
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "R_xTf5Fy8EDcrJrRCwAcf",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "Tok8MLoFVcLmJ1ITw4mZ0",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "@img:icon-tool-pouch-katon.webp",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 1,
+   "name": "Wave Tool Pouch",
+   "srcId": "tool_pouch_wave",
+   "data": {
+    "name": "Wave Tool Pouch",
+    "description": "A buckled armory pouch packed for a Wave specialist: Wave kunai and the tools that go with them.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Wave Kunai x10, every opening",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "tFH-9RLeCUcVByQbqd2ic"
+        ],
+        "number": 100,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     },
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Wave Tool Pouch: one roll of tools",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Wave Tool Pouch",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 7000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "tFH-9RLeCUcVByQbqd2ic",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "jyOXmqLJniYjpA2xx6dBq",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "yGCFQ5-w8DbLANl5gYMeB",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "_5152PR1inHUEZUBjiaHJ",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "tFH-9RLeCUcVByQbqd2ic",
+             "quantity": 20
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "TtYPd-LcXKeK3sMuhq1TP",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "mlCQd6nbegRsYiO28cTPp",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "tFH-9RLeCUcVByQbqd2ic",
+             "quantity": 30
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "R_xTf5Fy8EDcrJrRCwAcf",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "Tok8MLoFVcLmJ1ITw4mZ0",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "@img:icon-tool-pouch-wave.webp",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 1,
+   "name": "Ikazuchi Tool Pouch",
+   "srcId": "tool_pouch_ikazuchi",
+   "data": {
+    "name": "Ikazuchi Tool Pouch",
+    "description": "A buckled armory pouch packed for a Ikazuchi specialist: Ikazuchi kunai and the tools that go with them.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Ikazuchi Kunai x10, every opening",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "GMF1JZ0MChUHc7AtnKABw"
+        ],
+        "number": 100,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     },
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Ikazuchi Tool Pouch: one roll of tools",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Ikazuchi Tool Pouch",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 7000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "GMF1JZ0MChUHc7AtnKABw",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "jyOXmqLJniYjpA2xx6dBq",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "yGCFQ5-w8DbLANl5gYMeB",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "_5152PR1inHUEZUBjiaHJ",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "GMF1JZ0MChUHc7AtnKABw",
+             "quantity": 20
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "TtYPd-LcXKeK3sMuhq1TP",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "mlCQd6nbegRsYiO28cTPp",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "GMF1JZ0MChUHc7AtnKABw",
+             "quantity": 30
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "R_xTf5Fy8EDcrJrRCwAcf",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "Tok8MLoFVcLmJ1ITw4mZ0",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "@img:icon-tool-pouch-ikazuchi.webp",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 1,
+   "name": "Stonefall Tool Pouch",
+   "srcId": "tool_pouch_stonefall",
+   "data": {
+    "name": "Stonefall Tool Pouch",
+    "description": "A buckled armory pouch packed for a Stonefall specialist: Stonefall kunai and the tools that go with them.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Stonefall Kunai x10, every opening",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "4ILs8HFIRQG56ygG-uGrW"
+        ],
+        "number": 100,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     },
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Stonefall Tool Pouch: one roll of tools",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Stonefall Tool Pouch",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 7000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "4ILs8HFIRQG56ygG-uGrW",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "jyOXmqLJniYjpA2xx6dBq",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "yGCFQ5-w8DbLANl5gYMeB",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "_5152PR1inHUEZUBjiaHJ",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "4ILs8HFIRQG56ygG-uGrW",
+             "quantity": 20
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "TtYPd-LcXKeK3sMuhq1TP",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "mlCQd6nbegRsYiO28cTPp",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "4ILs8HFIRQG56ygG-uGrW",
+             "quantity": 30
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "R_xTf5Fy8EDcrJrRCwAcf",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "Tok8MLoFVcLmJ1ITw4mZ0",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "@img:icon-tool-pouch-stonefall.webp",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 1,
+   "name": "Zephyrfang Tool Pouch",
+   "srcId": "tool_pouch_zephyrfang",
+   "data": {
+    "name": "Zephyrfang Tool Pouch",
+    "description": "A buckled armory pouch packed for a Zephyrfang specialist: Zephyrfang kunai and the tools that go with them.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Zephyrfang Kunai x10, every opening",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "RIK6tVrKHPEJHz8B_y9dK"
+        ],
+        "number": 100,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     },
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Zephyrfang Tool Pouch: one roll of tools",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Zephyrfang Tool Pouch",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 7000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "RIK6tVrKHPEJHz8B_y9dK",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "jyOXmqLJniYjpA2xx6dBq",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "yGCFQ5-w8DbLANl5gYMeB",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "_5152PR1inHUEZUBjiaHJ",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "RIK6tVrKHPEJHz8B_y9dK",
+             "quantity": 20
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "TtYPd-LcXKeK3sMuhq1TP",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "mlCQd6nbegRsYiO28cTPp",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "RIK6tVrKHPEJHz8B_y9dK",
+             "quantity": 30
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "R_xTf5Fy8EDcrJrRCwAcf",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "Tok8MLoFVcLmJ1ITw4mZ0",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "@img:icon-tool-pouch-zephyrfang.webp",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 1,
+   "name": "Chart of the Drowned Foundry",
+   "srcId": "chart_foundry",
+   "data": {
+    "name": "Chart of the Drowned Foundry",
+    "description": "A waterlogged chart of the Skyglass wreck's keel and lower decks, where the drowned foundry lies. The ship never keeps its shape for long. Bring it to the Battle Arena to follow it while it still holds.",
+    "effects": [],
+    "itemType": "OTHER",
+    "rarity": "RARE",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "@img:icon-chart-drowned-foundry.webp",
+    "destroyOnUse": false,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": true,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 1,
+   "name": "Chart of the Quarantined Archive",
+   "srcId": "chart_archive",
+   "data": {
+    "name": "Chart of the Quarantined Archive",
+    "description": "A chart of the Skyglass wreck that shows a sealed chamber missing from every other plan. The ship never keeps its shape for long. Bring it to the Battle Arena to follow it while it still holds.",
+    "effects": [],
+    "itemType": "OTHER",
+    "rarity": "EPIC",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "@img:icon-chart-quarantined-archive.webp",
+    "destroyOnUse": false,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": true,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 1,
+   "name": "Chart of the Captain's Watch",
+   "srcId": "chart_watch",
+   "data": {
+    "name": "Chart of the Captain's Watch",
+    "description": "The Captain's own chart of the Skyglass wreck's command decks. The ship never keeps its shape for long. Bring it to the Battle Arena to follow it while it still holds.",
+    "effects": [],
+    "itemType": "OTHER",
+    "rarity": "EPIC",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "@img:icon-chart-captains-watch.webp",
+    "destroyOnUse": false,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": true,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 1,
+   "name": "Lastlight Lantern",
+   "srcId": "lastlight_lantern",
+   "data": {
+    "name": "Lastlight Lantern",
+    "description": "Crownhold's final signal, caught in a skyglass lantern. It still burns with the last directive the wreck's crew obeys. Bring it to the Battle Arena to follow the light home to Crownhold.",
+    "effects": [],
+    "itemType": "OTHER",
+    "rarity": "EPIC",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "@img:icon-skyglass-signal-beacon.webp",
+    "destroyOnUse": false,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": true,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 1,
+   "name": "Sealed Treasury",
+   "srcId": "sealed_treasury",
+   "data": {
+    "name": "Sealed Treasury",
+    "description": "The payroll vault of the Skyglass warship, still locked under the ship's seals. Gold, jewels and the Project's own unobtanium wait inside.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Sealed Treasury: 100,000 ryo every opening",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 100000,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     },
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Sealed Treasury: one roll of valuables",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Sealed Treasury",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 7000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "05hx4hI0I4L2vAME8CcZu",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2400,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "FEaV0h7on2ZHy_ST5fSOs",
+             "quantity": 5
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 600,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "kIMZ4G6oLjytXXj0tBD7f",
+             "quantity": 5
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "LEGENDARY",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJWLNYJ7Svszvj71yaSYC0MDOmbko5q9JAGuLH",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "create",
+   "phase": 2,
+   "name": "Archive Chart Case",
+   "srcId": "archive_chart_case",
+   "data": {
+    "name": "Archive Chart Case",
+    "description": "A sealed chart case from the Quarantined Archive. Each holds one chart of the wreck's shifting interior, and now and then the Lastlight Lantern.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Archive Chart Case: one chart",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Archive Chart Case",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 6000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "@item:chart_foundry",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "@item:chart_archive",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 1200,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "@item:chart_watch",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 300,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "@item:lastlight_lantern",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "EPIC",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://utfs.io/f/Hzww9EQvYURJC0gnIF26OYrIJuNP1pvSyz29edFtKbngjRcA",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": true,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  }
+ ],
+ "imgSizes": {
+  "icon-skyglass-coffer.webp": 70574,
+  "icon-tool-pouch-katon.webp": 67920,
+  "icon-tool-pouch-wave.webp": 67620,
+  "icon-tool-pouch-ikazuchi.webp": 68698,
+  "icon-tool-pouch-stonefall.webp": 68232,
+  "icon-tool-pouch-zephyrfang.webp": 66358,
+  "icon-chart-drowned-foundry.webp": 60940,
+  "icon-chart-quarantined-archive.webp": 65754,
+  "icon-chart-captains-watch.webp": 68722,
+  "icon-skyglass-signal-beacon.webp": 45678
+ },
+ "imagePack": {
+  "ref": "c371a8c1a8302ed23ba7287ed77cb780250dbb24",
+  "files": {
+   "icon-skyglass-coffer.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-skyglass-coffer.webp",
+    "sha256": "a7bbfe7e60570aef4e25d2c4492d4eb31d32318b800164545c71883f7e0113d3",
+    "bytes": 70574
+   },
+   "icon-tool-pouch-katon.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-tool-pouch-katon.webp",
+    "sha256": "b1fa26ced2204d1e3206dbdf418b34f5949bffc2054d0d7cfcc2404334808d6b",
+    "bytes": 67920
+   },
+   "icon-tool-pouch-wave.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-tool-pouch-wave.webp",
+    "sha256": "44fa5437a835a3e004d4788127518af760718445f3e3b1ef8888600cd7eeeba8",
+    "bytes": 67620
+   },
+   "icon-tool-pouch-ikazuchi.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-tool-pouch-ikazuchi.webp",
+    "sha256": "c644532a96cbf44eba6c1e4d082c08144ee51a577143ba357c2b93add10fc515",
+    "bytes": 68698
+   },
+   "icon-tool-pouch-stonefall.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-tool-pouch-stonefall.webp",
+    "sha256": "029a560a5bcbc202da9e41421e251cf73fca938dc7cfa21593b9fe43aecba07c",
+    "bytes": 68232
+   },
+   "icon-tool-pouch-zephyrfang.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-tool-pouch-zephyrfang.webp",
+    "sha256": "ca3d144715e8385bc0db61c65fdc62a01afea7db0cc7470017ea0daa591a4d4d",
+    "bytes": 66358
+   },
+   "icon-chart-drowned-foundry.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-chart-drowned-foundry.webp",
+    "sha256": "0b00806939bd375a74086f095956a2b0f924d87e12aedb83cfa1d1ee9058182b",
+    "bytes": 60940
+   },
+   "icon-chart-quarantined-archive.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-chart-quarantined-archive.webp",
+    "sha256": "80df641bad0135e78b52bc508440dbe9c160d477d50d98f16ccef3da23dc2432",
+    "bytes": 65754
+   },
+   "icon-chart-captains-watch.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-chart-captains-watch.webp",
+    "sha256": "e576a50a3f066e972fc09974592a83d8cf6cae5c18e10200776bd503d3f77b8e",
+    "bytes": 68722
+   },
+   "icon-skyglass-signal-beacon.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-skyglass-signal-beacon.webp",
+    "sha256": "6b58863e0d526502ab16dc462d09ecbb434b0f68ed699b7a7004dcc71d226ff1",
+    "bytes": 45678
+   }
+  }
+ }
+}
