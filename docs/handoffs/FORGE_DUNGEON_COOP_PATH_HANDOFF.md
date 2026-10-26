@@ -202,6 +202,8 @@ you checked and found clean. Verdict: approve, approve with fixes, or reject.
 
 # Correction 2 handoff (re-review of 59ae551c: APPROVE WITH FIXES)
 
+**Superseded by correction 3 below.** Its tip 3f8e9fcb is unchanged history on this branch (no rebase this round).
+
 ```text
 Repository: perseverance484/tnr-tools
 Branch: fable/forge-dungeon-coop-path
@@ -348,6 +350,138 @@ CHECK (narrow: extractor binding/statement validation, regression tests, handoff
    present once at the pin) and fail for the stated reason.
 3. Runtime fidelity: forge/src, forge_bundle.js and forge_loader_user.js byte-identical to c45fbb93;
    contract current at the pin; RULINGS.md rebase resolution keeps every ruling.
+Reproduce, separately, recording every exit code (no masking pipes), with a complete checkout at the pin:
+  cd forge
+  TNR_GAME_CHECKOUT=/path/to/pinned-checkout npm test
+  node tools/derive_dungeon.mjs /path/to/pinned-checkout --check
+  npm run build
+  git diff --quiet -- ../forge_bundle.js
+  node tools/check_release_pin.mjs
+  node tools/check_bundle_budget.mjs
+
+REPORT: per finding severity (blocker / should-fix / note), file:line, reproduction, suggested fix; what
+you checked and found clean. Verdict: approve, approve with fixes, or reject.
+~~~
+
+---
+
+# Correction 3 handoff (re-review of 3f8e9fcb: APPROVE WITH FIXES)
+
+```text
+Repository: perseverance484/tnr-tools
+Branch: fable/forge-dungeon-coop-path
+Base: main @ a6bba6176e60a35c38ab84b0f21555db94470106 (unchanged; not rebased this round)
+Code head: e28bb20d288e0df6fa348cf023f26ea7411828e1
+Head: the tip of this branch = the commit that updates this file; its only parent is the code
+      head and it changes only this file. FROZEN until re-review returns.
+Previous target: 3f8e9fcbbee19e9db12ebbc5a6ad4e46e5e7e8e5 (its ancestor; history not rewritten)
+Integration target: main @ 7fd8c6e825f13cd0e54e418aa620a676afca621c, checked at handoff:
+      git merge-tree exits 0 and main touches no Forge file since a6bba617
+Game pin: studie-tech/theninjarpg@107d7a86894f806a4c9cec89effef5992118a0ed (read only, never run)
+```
+
+`git diff --name-only 3f8e9fcb <code head>` lists only `forge/tools/derive_dungeon.mjs` and
+`forge/test/dungeon.review.test.mjs`.
+
+## Finding
+
+| # | Finding | Outcome |
+|---|---|---|
+| 1 | dungeon.ts was checked textually: `}).save;` exported a procedure instead of the router, and `delete dungeonRouter._def.record["save"];` named the router through an escaped identifier the word count missed | **Fixed** |
+
+`dungeonExport()` in `forge/tools/derive_dungeon.mjs` is called from `mountChain()`. dungeon.ts is
+too large for the whole-file grammar, so it is held to the shape it has at the pin:
+- **Complete initializer, last statement.** On comment-free code, the bracket opened by
+  `createTRPCRouter(` is matched, skipping string literals. The closing must be `})`, then `;`, then
+  only whitespace or comments to the end of the file. This refuses `}).save;`, a trailing call or
+  cast, and any statement after the declaration. At the pin the literal does close the file
+  (`...\n});\n`).
+- **No escapes.** Any `\u` or `\x` in the raw text is refused, so no identifier can be spelled other
+  than literally. The pin has none. The raw count of `dungeonRouter` (exactly one, its definition)
+  is kept, so a named reference after the declaration fails as well.
+- **No indirect reach.** These are refused on comment-free code: `eval`, `Function`, `globalThis`,
+  `setTimeout` / `setInterval` / `setImmediate` / `queueMicrotask`, dynamic `import(`, a self-import,
+  export lists, re-exports, default exports, and a second `createTRPCRouter(`. The pin uses none of
+  them. A timer or microtask is the way code written before the declaration could run after it.
+
+## Regression evidence
+
+The reviewer's two reproductions, applied to scratch copies of the pinned sources:
+
+| Reproduction | 9ff2322e extractor | Corrected extractor |
+|---|---|---|
+| final `});` -> `}).save;` | accepted, emits coop.dungeon.* | refused: `the dungeonRouter initializer must be exactly createTRPCRouter({ ... }); as the last statement, found ".save;"` |
+| append `delete dungeonRouter._def.record["save"];` | accepted, emits coop.dungeon.* | refused: `\u/\x escapes are not read` |
+
+`forge/test/dungeon.review.test.mjs` gains the test "review C3: dungeon.ts must export the complete
+router literal as its last statement, with no escaped or indirect reference". It has 16 negative cases:
+- both reproductions, plus a braced `\u{52}` escape;
+- a trailing `.lazy()` call, a trailing cast, a missing semicolon followed by a statement, a
+  statement after the router, and a named mutation after the router;
+- `eval` via `queueMicrotask`, `globalThis`, `setTimeout`, `Function`, dynamic `import(`, a
+  self-import, an export list, and a second router construction.
+
+It also has one positive case: comments after the literal still derive coop.dungeon.*.
+
+## Verification (Node v24.22.1; full history; `TNR_GAME_CHECKOUT` = complete checkout of 107d7a86, `git status --porcelain` empty)
+
+Each command run separately; exit codes read directly with `$?`, nothing piped through a gate.
+
+| Command | Result |
+|---|---|
+| `TNR_GAME_CHECKOUT=<pin checkout> npm test` | **exit 0; 721 total, 721 pass, 0 fail, 0 skipped** |
+| `npm test` (no checkout, for reference) | exit 0; 721 total, 712 pass, 0 fail, 9 skipped (the pin-checkout tests) |
+| `node tools/derive_dungeon.mjs <pin checkout> --check` | exit 0, "dungeon contract current" |
+| `npm run build` | exit 0 |
+| `git diff --quiet -- ../forge_bundle.js` | exit 0 |
+| `node tools/check_release_pin.mjs` | exit 0, "release pin ok" |
+| `node tools/check_bundle_budget.mjs` | exit 0; raw 435,145 / 436,000, gzip 105,126 / 105,500 |
+| `npm run fixtures` + `git diff --exit-code -- test/fixtures/envelope test/fixtures/screens` | exit 0 / exit 0 |
+| `node tools/check_imports.mjs`, `node tools/check_boundaries.mjs` | 0 violations each |
+| `npm audit --omit=dev --audit-level=high` | exit 0 |
+| `git diff --quiet c45fbb93 HEAD -- forge/src forge_bundle.js forge_loader_user.js docs/BUILDER_APP_NOTES.md` | exit 0 (runtime byte-identical to the first review target) |
+
+## Scope, residual boundary and risk
+
+- The scope is dungeon.ts export and reference validation, its regression tests and this handoff.
+  Runtime source and architecture are unchanged.
+- **Residual boundary:** this is a shape check, not a JavaScript parser. The bracket matcher skips
+  string and template literals whole, so a template whose `${...}` holds its own backtick, or a regex
+  literal containing a quote or bracket, can mis-scan. A mis-scan is unbalanced or leaves text after
+  the close, so it fails closed. Code inside the router literal (procedure bodies, which run at
+  request time) is not modelled. The procedure keys and kinds are still read by `procedureFacts()`.
+  Mutations from modules outside the three mount files remain out of scope, as recorded in
+  correction 2. The exact-pin and dirty-source CLI checks and `_meta.sources` hashes bind the
+  artifact to the pin.
+- Integration: the Forge 0.9.1 version collision with `fable/validate-stale-rules@271d1103` stands.
+  Whichever branch integrates second takes 0.9.2.
+- Not performed: browser, live or session checks.
+- Live-game requests: 0. Game writes: 0. Credentials or session material: none. The game source was
+  read only, and nothing in it was executed.
+
+## Copy-ready re-review prompt
+
+~~~text
+You are the independent reviewer for a Lane A correction in perseverance484/tnr-tools. Review only; do not
+patch the Fable branch. Follow docs/workflows/FABLE_REVIEW.md.
+
+TARGET
+- Branch: fable/forge-dungeon-coop-path, tip = the commit that adds the "Correction 3 handoff" section to
+  docs/handoffs/FORGE_DUNGEON_COOP_PATH_HANDOFF.md; its parent is the code head
+  e28bb20d288e0df6fa348cf023f26ea7411828e1. If the branch moved, stop and report.
+- Previous review target: 3f8e9fcbbee19e9db12ebbc5a6ad4e46e5e7e8e5 (APPROVE WITH FIXES), an ancestor.
+- Base: main @ a6bba6176e60a35c38ab84b0f21555db94470106.
+- Game pin: studie-tech/theninjarpg@107d7a86894f806a4c9cec89effef5992118a0ed (read only, never run).
+SAFETY: zero live-game requests, no credentials or session material.
+
+CHECK (narrow: dungeon.ts export/reference validation, regression tests, handoff evidence)
+1. forge/tools/derive_dungeon.mjs dungeonExport() and closing(): can dungeon.ts still export something
+   other than the complete createTRPCRouter({ ... }) value, or reach/mutate the router after construction
+   (by name, escape, or indirection), and still derive coop.dungeon.*?
+2. Your two reproductions are refused; the "review C3" cases apply to the pinned text and fail for the
+   stated reason; the comments-after case derives.
+3. Runtime fidelity: forge/src, forge_bundle.js, forge_loader_user.js byte-identical to c45fbb93; the
+   contract is current at the pin.
 Reproduce, separately, recording every exit code (no masking pipes), with a complete checkout at the pin:
   cd forge
   TNR_GAME_CHECKOUT=/path/to/pinned-checkout npm test
