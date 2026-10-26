@@ -41,8 +41,8 @@ AV_STYLE=("Style: single full-body character avatar, crisp pixel art with clean 
  "character, no undead imagery (no rot, bones, skulls or grave motifs), no realistic or painterly rendering, no blur, no "
  "gradient background, no sheet, no grid.")
 # Director 2026-10-26 (RUL-2026-10-26-001): Crownhold officers are chakra-impression NINJAS in the Ghost Ship crew's
-# look, not blue energy ghosts; style reference is a crew avatar (Deck Warden) for regulars; commanders use a crew OBJECT
-# (Seal Charge) because the Captain reference was copied wholesale (mask, hair, swords) twice. Never Arakane.
+# look, not blue energy ghosts; style reference is a crew OBJECT (Seal Charge) for every officer:
+# the Captain reference was copied wholesale (mask, hair, swords) twice; the object worked first try (#8). Never Arakane.
 CROWN_THREAD=("Continuity (Crownhold): a shinobi of the Skyglass Project's mountain fortress, recalled as a chakra impression. "
  "Dress him in the same outfit language as the style reference's crew: practical ninja gear (dark indigo and stone-grey "
  "cloth, rope and leather wraps, plain lacquered plates and bracers, a cloth mask or headwrap over the face), worn and "
@@ -128,7 +128,7 @@ n=8
 for name,look,boss in AVATARS:
     fname="avatar_crownhold_"+name.lower().removeprefix("crownhold ").replace("'","").replace(" ","_").replace("-","_")+".webp"
     ref=("PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text)","seal_charge") if boss else \
-        ("STYLE: the same crew. Rendering, outfit language and proportions ONLY. Do NOT copy his hood, his face mask, his blue sash or his spear: the subject describes this officer's own gear","deck_warden")
+        ("PIXEL STYLE: rendering, outline weight, shading and the rope, wood and lacquered-metal materials only (it is an object, not a character; the figure is described entirely by the text)","seal_charge")
     add(n,name+(" (commander)" if boss else ""),"AI_AVATAR","magenta",fname,[ref],
         name+": "+look+(" Commanders are larger and heavier-built than regular officers, but wear no crown and no gold." if boss else ""),CROWN_THREAD+"\n"+AV_STYLE)
     n+=1
