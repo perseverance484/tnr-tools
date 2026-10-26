@@ -3061,3 +3061,27 @@ inro to 2 rolls".
 
 **Canonical destination:** `push/skyglass_hunts.gen.py` (push/270); `docs/design/SKYGLASS_LOOT_TABLES.md`; push/263 drop
 table once the chart's id exists.
+
+## RUL-2026-10-25-013 — Crownhold build: validate exceptions (push/271, push/272); enemy stat ladder ×5/3
+
+**Date:** 2026-10-25
+
+**Domain:** validation (D-validate-always); balance (Crownhold enemies)
+
+**Status:** ACTIVE. Exceptions are manifest-specific; the stat scale is a launch value the hidden calibration fight tunes.
+
+**Ruling:**
+1. push/271 may run with the one `validate.py --strict` error L18 "item effect clear excluded from item union": the game's
+   item schema takes `z.array(AllTags)`, which includes `ClearTag`. Gate:
+   `scripts/validate_exception.py state/validate_exceptions/271_crownhold_exclusives.json`.
+2. push/272 (the 20 Crownhold AIs) may run with exactly the 20 law 14 / L05 "missing preferredStat" errors (field removed
+   by migration 0056; RUL-2026-10-25-009). Gate: `state/validate_exceptions/272_crownhold_ais.json`, written when the
+   manifest is generated.
+3. The package's enemy stat ladder (RUL-2026-10-16-011) is multiplied by **5/3** to keep its place against the crew after
+   the 2026-10-21 pool pass moved the crew from statsMultiplier 3 to 5: regulars 2.5 to 4.17, commanders 5.0 to 5.83. Pools
+   stay as approved.
+4. L18 `clear` joins the stale rules for the Lane A validator fix (`fable/validate-stale-rules`, in review) as a follow-up.
+
+**Evidence:** User, 2026-10-25, on the three-point request (exceptions, ×5/3 ladder, hand-made badge): "Proceed."
+
+**Canonical destination:** the two ledgers above; `push/crownhold.gen.py` (`STAT_SCALE`).
