@@ -91,7 +91,7 @@ add(6,"Lastlight (jutsu icon)","JUTSU_ICON","none","icon-jutsu-lastlight.webp",[
  "Lastlight: Crownhold's final signal turned into a weapon. One straight beam of pale cyan-white skyglass light fired "
  "from a small lantern-shaped flare at the lower left, burning diagonally through the frame; faint ember-red wounds "
  "where the beam has cut, fading at the edges.",JUTSU_STYLE)
-add(7,"Foundry Warden (AI avatar)","AI_AVATAR","magenta","avatar_skyglass_foundry_warden.webp",[(BLK["reference_character"],"seal_charge")],
+add(7,"Foundry Warden (AI avatar)","AI_AVATAR","magenta","avatar_skyglass_foundry_warden.webp",[(BLK["reference_character"],"deck_warden")],
  "The Foundry Warden: keeper of the drowned skyglass foundry under the wreck's keel. A broad shipwright-smith shinobi: a "
  "dark tenugui headwrap and a cloth mask, a scorched dark leather apron over an indigo kimono, sleeves tied back with a "
  "rope tasuki cord, soaked to the knees; long iron crucible tongs in one hand, a small iron ladle of glowing pale cyan "
@@ -121,7 +121,7 @@ AVATARS=[
 n=8
 for name,look,boss in AVATARS:
     fname="avatar_crownhold_"+name.lower().removeprefix("crownhold ").replace("'","").replace(" ","_").replace("-","_")+".webp"
-    add(n,name+(" (commander)" if boss else ""),"AI_AVATAR","magenta",fname,[(BLK["reference_character"],"seal_charge")],
+    add(n,name+(" (commander)" if boss else ""),"AI_AVATAR","magenta",fname,[(BLK["reference_character"],"deck_warden")],
         name+": "+look+((" "+BLK["commander"]) if boss else ""),CHAR_STYLE)
     n+=1
 SCENES=[
