@@ -1,5 +1,5 @@
 {
- "_note": "Creates Hellfire Harvest, the Headless Rider's new signature jutsu (director spec 2026-10-26), hidden: method ALL on every opponent, damage 70 (Fire, the rider's element), recoil 40% for 3 rounds, heal cut (decreaseheal) 60% for 3 rounds, 60 AP. PLACEHOLDERS: cooldown 6, heal-cut duration 3 (matches recoil), icon reuses Wail of Despair's image until art exists. Create only: equipping it on the rider (eaMN5CfciNlxfezSKemJ6) and the rules follow as a separate edit with this jutsu's live id, because an @jutsu ref in an AI jutsus array is refused by validate (law 17).",
+ "_note": "Creates Hellfire Harvest, the Headless Rider's new signature jutsu (director spec 2026-10-26), hidden: method ALL on every opponent, damage 70 (Fire, the rider's element), recoil 60% for 3 rounds, heal cut (decreaseheal) 60% for 3 rounds, 60 AP. PLACEHOLDERS: cooldown 6, heal-cut duration 3 (matches recoil), icon reuses Wail of Despair's image until art exists. Create only: equipping it on the rider (eaMN5CfciNlxfezSKemJ6) and the rules follow as a separate edit with this jutsu's live id, because an @jutsu ref in an AI jutsus array is refused by validate (law 17).",
  "items": [
   {
    "entity": "jutsu",
@@ -89,7 +89,7 @@
       "disappearAnimation": "",
       "appearSfx": "",
       "disappearSfx": "",
-      "power": 40,
+      "power": 60,
       "powerPerLevel": 0,
       "direction": "offence",
       "target": "INHERIT",
