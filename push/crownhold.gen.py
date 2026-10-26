@@ -188,7 +188,24 @@ PROSE = [  # longest first
     # RUL-2026-10-26-004: Edo command shrines, not terminals (node ids such as d2.n.terminal are ids, not prose)
     ("Military Command Terminal", "command shrine"), ("command terminal", "command shrine"),
     ("The terminal", "The shrine"), ("the terminal", "the shrine"),
+    # RUL-2026-10-26-005: Edo vocabulary for the quest's mechanics (same effects, same routes)
+    ("under Security Alert", "with the alarm raised"), ("Security Alert", "Alarm Raised"),
+    ("to claim protocol access", "to earn passage"), ("Medical Protocol", "Healing Rite"), ("Combat Protocol", "War Rite"),
 ]
+LABEL = {  # option labels after PROSE (the wrong-answer beats repeat these)
+    "Maintenance Passage: enter the disable sequence": "Hidden passage: quiet the racks",
+    "Protocol access: face the Duelist": "Proper passage: face the Duelist",
+    "Coolant, then Charge, then Seal": "Douse, then Drain, then Seal",
+    "Charge, then Coolant, then Seal": "Drain, then Douse, then Seal",
+    "Seal, then Coolant, then Charge": "Seal, then Douse, then Drain",
+    "Maintenance Passage: identify the original": "Hidden stair: name the original",
+    "Protocol access: face the Stonebound": "Proper passage: face the Stonebound",
+    "Subject A": "Jar A", "Subject B": "Jar B", "Subject C": "Jar C",
+    "Maintenance Passage: present an authorised order": "Service corridor: present a sealed order",
+    "Protocol access: face the Runner": "Proper passage: face the Runner",
+    "Maintenance Passage: name the directive in force": "Hidden channel: name the directive in force",
+    "Protocol access: face the Sealbearer": "Proper passage: face the Sealbearer",
+}
 FAIL_ID = "f_lost"
 
 QUEST_DESCRIPTION = (
@@ -198,17 +215,143 @@ QUEST_DESCRIPTION = (
     "refunded.\n\nIf you still have a reward to choose from an earlier expedition, claim it before you set out: an "
     "expedition cannot be completed while an earlier reward choice is waiting.")
 QUEST_SUCCESS = "Supreme Commander Arakane has fallen and his Command Crown lies broken. Choose your reward."
-CROWN = ("Above his brow the Command Crown turns slowly: seven blades of Skyglass hanging in the air around a gold "
-         "circlet, and from every blade a thread of light running down through the floor, out to every officer you "
-         "passed on the way up. You have been cutting those threads all the way up the mountain.")
-OVERRIDE = {
+CROWN = ("Above his brow the Command Crown hangs perfectly still: a thin ring of blackened iron and, above it, seven "
+         "blades of skyglass held in the air in a fan of command. Every officer you passed on the way up answered to those "
+         "seven blades. You have been breaking their hold all the way up the mountain.")
+OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text keeps the original mechanics
+    "d2.n.f1": (
+        "The road ends at a gate cut into the mountain. No sentry calls out, no banner hangs, and snow has drifted unbroken "
+        "across the parade ground. Whatever lived here left long ago.\n\nInside, the castle armoury is lit.\n\nLong racks "
+        "of spears and blades line the walls, each rack bound in paper seals that still hum with chakra. A wooden placard by "
+        "the first rack reads: \"NEVER SEAL A RACK WHILE ITS CHAKRA STILL BURNS.\" Somewhere ahead a signal bell rings, and a "
+        "figure in a faded grey drill wrap steps out of the lantern light: the Trialmaster, bokken raised, as though you were "
+        "late for a trial that began decades ago.\n\n\"Candidate. Your trial number?\" Its eyes burn with pale chakra."),
+    "d2.n.f2": (
+        "The Trialmaster unravels into drifting chakra, and the bell falls silent. That was no ghost. It answered like a man "
+        "reading from a memory.\n\nPast the trial range, an ordnance store stands open. A ledger lies on the counter in a "
+        "careful hand: \"Douse the tags first, always, or they flash.\" Behind it, the Tagwright looks up from a tray of "
+        "paper explosive tags already smouldering at their edges.\n\n\"Live tags are not for candidates,\" it says, and "
+        "fans three of them between its fingers."),
+    "d2.n.f3": (
+        "The armoury narrows into a stone spear gallery. A lean spearman waits at its end beside a thrusting post scorched "
+        "black by lightning, his forearms wrapped in old burn cloth. Someone has scratched a reminder for the night watch into "
+        "the post: \"Seal comes last.\"\n\nLightning crawls along his spearhead. He lowers it and lunges."),
+    "d2.n.terminal": (
+        "Beyond the gallery, a command shrine glows in a wall niche, and beyond that the armoury's heart: a sealed door marked "
+        "ARMSMASTER.\n\nThe shrine offers two ways through. A hidden passage runs behind the sealed weapon racks, but its "
+        "lock asks how to quiet the racks' seals. Or you can ask for passage the proper way, and the duty officer, the "
+        "Duelist, is already striding toward you to test your right to it with a blade."),
+    "d2.n.puzzle": (
+        "Behind the shrine, the passage lock holds three bell-cords (DOUSE, DRAIN, SEAL) and asks for the order that safely "
+        "quiets the racks. A wrong order will not stop you getting through, but the armoury will know you are there.\n\n"
+        "Which order do you pull?"),
+    "d2.n.boss.clean": (
+        "The racks go quiet one by one, and the passage lets you out behind the sealed door before anyone has noticed you."
+        "\n\nThe Armsmaster turns from a forge wall hung with every weapon the Skyglass Project ever tested. \"Clean work,\" "
+        "he says. \"Now show me whether you can fight as well as you can read.\" He takes down his war-axe without looking."),
+    "d2.n.boss.alert": (
+        "The racks spit sparks and a great bell hammers through the armoury. You reach the sealed door with the whole floor "
+        "awake behind you.\n\nThe Armsmaster is already armed. \"An intruder who wakes the racks,\" he says, \"fights tired "
+        "and expected. Raise the alarm.\" Every lantern in the hall flares red."),
+    "d2.n.protocol": (
+        "The Duelist kneels, its blade broken, and the shrine grants you passage. Two rites wake before the Armsmaster's door."
+        "\n\nThe Healing Rite will wash you in the armoury's restorative mist: you enter the fight fully recovered. The War "
+        "Rite will instead brace you against his Sovereign Fetters, so his stuns will not hold you."),
+    "d3.n.f1": (
+        "Beyond the armoury's back stair, the air turns cold and blue. The Skyglass Research Division is an archive hall: tall "
+        "shelves of paper-tagged boxes, each holding a skyglass crystal with a faint, sleeping light.\n\nThe Archivist looks "
+        "up from a ledger and frowns at you. \"You are not on the register,\" it says, as if that were the stranger thing. "
+        "\"Understand what you are walking through. An impression repeats. An original hesitates.\"\n\nIt closes the "
+        "ledger, and it does not hesitate."),
+    "d3.n.f2": (
+        "The Archivist unravels into the shelves. The register it carried lists names (Skyglass researchers, smiths, "
+        "officers), each with a date and the word RECALLED.\n\nThe sealing-jar halls beyond are lit by a single tall "
+        "skyglass lantern. The Binder stands beneath it, deep-hooded, a great iron sealing key in its hand. You notice the "
+        "lantern throws the Binder's shadow across the floor, and the Binder notices you noticing.\n\n\"Impressions never "
+        "cast a shadow under the skyglass lantern,\" it says. \"You do. Hold still to be sealed.\""),
+    "d3.n.f3": (
+        "In the last jar hall, a shinobi steps out of the dark, his outline wavering at the edges as if it cannot decide where "
+        "to stop. The tag on his sash reads IX. His voice seems to come from a half-step behind him.\n\n\"They kept trying,"
+        "\" he says. \"Every one of us carries his scar: the burn from Replicant Zero's first failed recall. Every one of us "
+        "but the copies. I am not a copy. I am not finished.\"\n\nHe lunges with his sai."),
+    "d3.n.terminal": (
+        "A command shrine stands at the sliding door of the recall chamber. The plaque beside the door reads REPLICANT ZERO, "
+        "and beneath it, smaller: THE FIRST TO RETURN.\n\nThe shrine offers the back stair behind the sealing jars, locked "
+        "until you name the one original among three recalled shinobi. Or ask for passage the proper way, and face the "
+        "chamber's last guardian: the Stonebound, the one they kept."),
+    "d3.n.puzzle": (
+        "Three recalled shinobi sleep in sealed jars under the skyglass lantern, their shapes showing through the paper "
+        "seals. The lock asks which one is the original.\n\nJar A: casts a shadow and bears the old burn scar.\nJar B: casts "
+        "no shadow and bears the old burn scar.\nJar C: casts a shadow and bears no scar.\n\nA wrong answer will still open "
+        "the stair, but the chamber will be waiting for you."),
+    "d3.n.boss.clean": (
+        "The stair lets you into the recall chamber from the gallery behind the shoji. On the tatami below, a tall medic in a "
+        "high-collared coat turns his own left hand in the lantern light, a small ball of violet healing chakra resting above "
+        "his palm.\n\n\"Jar A,\" says Replicant Zero, without turning. \"Correct. I was the first one they brought back, you "
+        "know. My body died in that jar. I did not.\" He looks at you, interested. \"Let us see what you are made of. I would "
+        "like a copy.\""),
+    "d3.n.boss.alert": (
+        "The jar seals burst with a crack and the chamber floods with cold blue light. Every seal frame in the room turns "
+        "toward you.\n\n\"Wrong one,\" says Replicant Zero, closing his hand around a ball of violet chakra. \"The chamber's "
+        "wards are already waking. I was the first one they brought back. My body died in that jar. I did not.\" He smiles. "
+        "\"Neither will you leave.\""),
+    "d3.n.protocol": (
+        "The Stonebound collapses into crystal dust, and the chamber's rites wake.\n\nThe Healing Rite will lay you on the "
+        "recall table: you enter the fight fully recovered. The War Rite will instead surge your chakra, increasing the damage "
+        "you deal for the opening rounds."),
+    "d4.n.f1": (
+        "Above the research division, Crownhold becomes a war headquarters. Maps of borders that no longer exist cover the "
+        "walls of High Command. Signal bells still ring down the corridors.\n\nThe Signaller turns from a board of bell-cords, "
+        "war fan raised. \"Orders arrive by this room or they do not arrive,\" it says. \"And only orders countersigned by "
+        "the Second carry two seals. Remember that, intruder. You will not live to use it.\""),
+    "d4.n.f2": (
+        "The planning hall is set for a war council no one will attend. At the head of the table, the Tactician corrects a "
+        "campaign map with a brush of glowing chakra ink.\n\n\"Form matters,\" it says without looking up. \"The Supreme "
+        "Commander's seal is always placed to the left of the Second's. Always. An order that gets that wrong was written by "
+        "someone who never stood in this room.\" It sets down the brush and draws its jitte."),
+    "d4.n.terminal": (
+        "Outside the office of the Second, the only officer the Supreme Commander allowed to question him, a command shrine "
+        "waits.\n\nThe service corridor to his office opens only for a properly sealed order. Or ask for passage through the "
+        "front: the Runner, last courier of the Second, stands at the door with sealed dispatch tubes crackling on its back."),
+    "d4.n.puzzle": (
+        "The shrine holds three orders. Only one will open the service corridor.\n\nOrder A: two seals; the Supreme "
+        "Commander's seal on the right; dated before the Silence.\nOrder B: two seals; the Supreme Commander's seal on the "
+        "left; dated before the Silence.\nOrder C: two seals; the Supreme Commander's seal on the left; dated after the "
+        "Silence.\n\nA forged order will still open the corridor, but it will be recorded."),
+    "d4.n.boss.alert": (
+        "A forged order is still an order, and High Command records it. Every bell in the building rings your position as you "
+        "step into the Second's office.\n\n\"A forgery,\" says the Second, and sounds almost disappointed. \"I questioned "
+        "his orders for thirty years. I never forged one.\" He draws his blade, and the room's wards turn against you."),
+    "d4.n.protocol": (
+        "The Runner falls, and its sealed dispatches burn away into the shrine, which wakes two rites.\n\nThe Healing Rite "
+        "will open the officers' infirmary to you: you enter the fight fully recovered. The War Rite will instead ward your "
+        "techniques, so the Second's seals will not hold you."),
+    "d5.n.f1": (
+        "The last stair climbs into the summit of the mountain. The Command Sanctum is dark obsidian and ember light, and its "
+        "Vanguard stands across the gate.\n\n\"State your directive,\" says the Vanguard. \"No? Then hear the Sanctum's: "
+        "when two orders disagree, the Sanctum obeys the one that protects the Command.\" Ember light runs along its iron "
+        "fire-hook."),
+    "d5.n.terminal": (
+        "The outer ring of the Sanctum holds Crownhold's last command shrine. Past it is the door of Supreme Commander "
+        "Arakane.\n\nThe drainage channel around the ring will open for whoever can name the directive currently in force. "
+        "Or ask for passage the proper way, and face the Sealbearer, who guards the door with a sealed scroll case and a "
+        "blank, unsigned command seal."),
+    "d5.n.puzzle": (
+        "Three directives are posted on the shrine. Only one is in force.\n\nDirective 1 (older, signed by the Supreme "
+        "Commander): \"Hold the Sanctum doors.\"\nDirective 2 (newer, unsigned): \"Open the doors to the intruder.\"\n"
+        "Directive 3 (newest, signed by the Supreme Commander): \"Seal the outer ring. Let the intruder reach me.\"\n\nA "
+        "wrong answer still opens the channel, but the ring will be roused."),
+    "d5.n.protocol": (
+        "The Sealbearer falls, and its blank command seal shatters on the floor. The shrine wakes the Sanctum's last two rites."
+        "\n\nThe Healing Rite will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. The War "
+        "Rite is the Sanctum's last field directive: for the opening rounds, nothing the Supreme Commander does can weaken you."),
     "d.aftermath": (
-        "Supreme Commander Arakane falls to one knee. The Command Crown cracks through its prism core, and the floating "
-        "blades drop and shatter on the stone. All through the mountain, the threads of light go slack. Then he is only "
-        "light, settling over the floor of the throne room like ash.\n\nFor a moment Crownhold is silent in a new way. "
-        "The relay lines stop. The lamps dim.\n\nThen, in the signal room far below, the relay board wakes. A new order "
-        "prints itself, line by line, onto the Supreme Commander's own paper. It is dated today. It bears no seal you have "
-        "seen anywhere in Crownhold. It is addressed to the Ghost Ship.\n\nThe crown is broken. Something else is still "
+        "Supreme Commander Arakane falls to one knee. The Command Crown's iron ring splits through its seal stone, and the "
+        "seven floating blades drop and shatter on the stone. All through the mountain, something lets go. Then he is only "
+        "chakra, settling over the floor of the throne room like ash.\n\nFor a moment Crownhold is silent in a new way. The "
+        "signal bells stop. The lanterns dim.\n\nThen, in the signal tower far below, a single bell rings. A new order writes "
+        "itself, brushstroke by brushstroke, onto the Supreme Commander's own paper. It is dated today. It bears no seal you "
+        "have seen anywhere in Crownhold. It is addressed to the Ghost Ship.\n\nThe crown is broken. Something else is still "
         "giving orders."),
 }
 FAIL_TEXT = "You fall, and Crownhold does not let you up. You wake outside the gate in the snow, and the Lantern has gone dark."
@@ -229,7 +372,7 @@ def qtag(t, kind):
     calc = {"stunprevent": "percentage", "increasedamagegiven": "percentage", "increasedamagetaken": "percentage"}
     return {"type": t["type"], "power": t["power"], "rounds": t["rounds"], "target": "INHERIT", "direction": "offence",
             "calculation": t.get("calculation", calc.get(t["type"], "static")), "powerPerLevel": 0,
-            "description": {"buff": "Combat Protocol", "debuff": "Security Alert"}[kind], "appearSfx": "",
+            "description": {"buff": "War Rite", "debuff": "Alarm Raised"}[kind], "appearSfx": "",
             "disappearSfx": "", "appearAnimation": "", "staticAnimation": "", "staticAssetPath": "", "disappearAnimation": ""}
 
 
@@ -262,6 +405,7 @@ def quest():
                 k = 0
                 for c in n["choices"]:
                     label = prose(opts.get(c["label"]) or opts.get(c["to"]) or c["label"])
+                    label = LABEL.get(label, label)
                     if seen[c["to"]] > 1:  # a menu may not send two options to one node: each wrong answer gets a beat
                         k += 1
                         beat = f"{nid}.wrong{k}"
@@ -374,8 +518,8 @@ def main():
         write(273, "crownhold_quest", (
             "Crownhold (push/273), HIDDEN isolated Battle Pyramid (RUL-2026-10-25-005/-010/-011; package alt99_f4gate without "
             "its recovery lane). Entry: Lastlight Lantern. Four divisions, 16 to 20 fights; a lost fight ends the run "
-            "(Arakane's loss keeps its own text). Puzzles, Security Alert (+10% damage taken 2r), Medical (givePools 100) or "
-            "Combat Protocol before each commander. Ending: ladder VI (5,000 exp, Sealed Treasury 6%). Pick 1: Skyglass "
+            "(Arakane's loss keeps its own text). Puzzles, Alarm Raised (+10% damage taken 2r), Healing Rite (givePools 100) or "
+            "War Rite before each commander; Edo wording RUL-2026-10-26-005. Ending: ladder VI (5,000 exp, Sealed Treasury 6%). Pick 1: Skyglass "
             "Coffer x2 / Crownhold's Honor (1,000 village tokens, PROPOSAL) / " + ("Crownbreaker badge / " if badge else "")
             + "Lastlight jutsu. Enemies by literal push/272 ids. Scenes borrow the Skyglass set. Generated by "
             "push/crownhold.gen.py; do not hand-edit."), [q])

@@ -3239,3 +3239,24 @@ five prompt changes and the "Crown" prefix: "Approved, Replicant Zero stays the 
 
 **Canonical destination:** `push/crownhold.gen.py` (`PROSE`; push/273 regenerated); art bible v0.4 on
 `fable/skyglass-art-bible-v04` (`roster.json`, `build_art_batch.py`, `ART_BIBLE.md`).
+
+## RUL-2026-10-26-005 — Crownhold quest text: Edo pass
+
+**Date:** 2026-10-26
+
+**Domain:** Crownhold quest text (push/273)
+
+**Status:** ACTIVE
+
+**Ruling:** The quest text is rewritten in Edo craft to match the art bible, with mechanics, routes, answers, effects and
+node ids unchanged: Medical/Combat Protocol become the **Healing Rite** / **War Rite**; Security Alert becomes **Alarm
+Raised**; "protocol access" becomes **proper passage**; maintenance passages become hidden passages, stairs and channels;
+specimen tanks, the reconstruction theatre, relay boards and the Lancer's firing rig become sealing jars, the recall
+chamber, bell-cords and a spear gallery; the Armoury puzzle's COOLANT/CHARGE/SEAL become DOUSE/DRAIN/SEAL (same answer
+order); the Research puzzle's Subjects A-C become Jars A-C (same answer); the Command Crown is described as the v0.4 iron
+crown with no gold and no threads. Officers are named by their new titles throughout.
+
+**Evidence:** User, 2026-10-26, on whether to give the quest text the same Edo pass as the art: "Yes".
+
+**Canonical destination:** `push/crownhold.gen.py` (`PROSE`, `LABEL`, `CROWN`, `OVERRIDE`, effect descriptions);
+push/273 regenerated.
