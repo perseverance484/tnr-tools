@@ -1,0 +1,223 @@
+{
+ "_note": "Skyglass Wreck dungeon (push/263), direct HIDDEN create (RUL-2026-10-25-002/-004/-005; placement RUL-2026-10-24-023; encounters RUL-2026-10-24-025 + director revisions 2026-10-24). One tier of five floors, 16 waves, every delayRounds 0, elite or boss in each floor's last wave. Completion drops, each member rolls each line: Chart of the Drowned Foundry 12, Chart of the Quarantined Archive 6, Chart of the Captain's Watch 6, Lastlight Lantern 3, Sealed Treasury 3 (push/260 ids). Clear currency left at 0: the director sets it in game (RUL-2026-10-24-019). Entrance: the 'Skyglass Wreck' structure at size 5, sector 210 (15, 6). Run the hidden test before unhiding (does 16 waves fit in an hour).",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "dungeon",
+   "slot": "create",
+   "name": "Skyglass Wreck",
+   "srcId": "skyglass_wreck",
+   "data": {
+    "name": "Skyglass Wreck",
+    "description": "A shinobi sky-warship lies broken on the sand, its Skyglass Core cracked and still burning. The crew's afterimages stand watch on its decks. Their mission never ended. Enter as three, and you may leave with their charts.",
+    "structureAssetId": "gAsRCVBGRplS31wOYckh7",
+    "structureScale": 5,
+    "sector": 210,
+    "longitude": 15,
+    "latitude": 6,
+    "expiresAt": null,
+    "hidden": true,
+    "background": "default",
+    "tiers": [
+     [
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "texZaFi42S3EvJZBwQ8cd",
+          "texZaFi42S3EvJZBwQ8cd",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        },
+        {
+         "aiIds": [
+          "AQi-bHJ-5tHXtxrnc0P9E",
+          "texZaFi42S3EvJZBwQ8cd",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        },
+        {
+         "aiIds": [
+          "v7T9_XdGMfP46em0dPuBc",
+          "texZaFi42S3EvJZBwQ8cd",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "0PZU_FvlbM3ErYGlD5r56",
+          "texZaFi42S3EvJZBwQ8cd",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        },
+        {
+         "aiIds": [
+          "AQi-bHJ-5tHXtxrnc0P9E",
+          "v7T9_XdGMfP46em0dPuBc",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        },
+        {
+         "aiIds": [
+          "2OXJEXoktxJcjqMkE851g",
+          "texZaFi42S3EvJZBwQ8cd",
+          "texZaFi42S3EvJZBwQ8cd",
+          "wTgO-Q32caSSd0is1QIS7"
+         ],
+         "delayRounds": 0
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "2OXJEXoktxJcjqMkE851g",
+          "texZaFi42S3EvJZBwQ8cd",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        },
+        {
+         "aiIds": [
+          "d6g0mOM7RBSsYI1hrUVT9",
+          "v7T9_XdGMfP46em0dPuBc",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        },
+        {
+         "aiIds": [
+          "3V_gdHYaclMB1gTyOPAbV",
+          "texZaFi42S3EvJZBwQ8cd",
+          "texZaFi42S3EvJZBwQ8cd",
+          "frc9LTxqQlM7mncG4VZGK"
+         ],
+         "delayRounds": 0
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "0PZU_FvlbM3ErYGlD5r56",
+          "v7T9_XdGMfP46em0dPuBc",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        },
+        {
+         "aiIds": [
+          "d6g0mOM7RBSsYI1hrUVT9",
+          "2OXJEXoktxJcjqMkE851g",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        },
+        {
+         "aiIds": [
+          "QY69h271Nx9uHrBeR6jwW",
+          "d6g0mOM7RBSsYI1hrUVT9",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        }
+       ]
+      },
+      {
+       "kind": "boss",
+       "waves": [
+        {
+         "aiIds": [
+          "AQi-bHJ-5tHXtxrnc0P9E",
+          "2OXJEXoktxJcjqMkE851g",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        },
+        {
+         "aiIds": [
+          "RBW5KsIXmTGR710D2y2Y7",
+          "0PZU_FvlbM3ErYGlD5r56",
+          "texZaFi42S3EvJZBwQ8cd"
+         ],
+         "delayRounds": 0
+        },
+        {
+         "aiIds": [
+          "d6g0mOM7RBSsYI1hrUVT9",
+          "v7T9_XdGMfP46em0dPuBc",
+          "3V_gdHYaclMB1gTyOPAbV"
+         ],
+         "delayRounds": 0
+        },
+        {
+         "aiIds": [
+          "fDU9jCPZtH7YHbdQPO9RF",
+          "texZaFi42S3EvJZBwQ8cd",
+          "texZaFi42S3EvJZBwQ8cd",
+          "frc9LTxqQlM7mncG4VZGK",
+          "frc9LTxqQlM7mncG4VZGK"
+         ],
+         "delayRounds": 0
+        }
+       ]
+      }
+     ]
+    ],
+    "rewards": {
+     "money": 0,
+     "experience": 0,
+     "tokens": 0,
+     "prestige": 0,
+     "drops": [
+      {
+       "type": "item",
+       "id": "pY-0O5Gs2n89pf0kYb5J2",
+       "chance": 12,
+       "quantity": 1
+      },
+      {
+       "type": "item",
+       "id": "cRZT41zm5vhPTQwwn8vtv",
+       "chance": 6,
+       "quantity": 1
+      },
+      {
+       "type": "item",
+       "id": "aHFNuo5RkKpDcaOBLIKiu",
+       "chance": 6,
+       "quantity": 1
+      },
+      {
+       "type": "item",
+       "id": "jCJv4N3JSiihuqnK0jJ7t",
+       "chance": 3,
+       "quantity": 1
+      },
+      {
+       "type": "item",
+       "id": "Ma8S90Nmbi0Xvm4u4FzJh",
+       "chance": 3,
+       "quantity": 1
+      }
+     ]
+    }
+   }
+  }
+ ]
+}
