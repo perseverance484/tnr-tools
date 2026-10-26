@@ -769,7 +769,17 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
-## 261 Lastlight jutsu (1 create, HIDDEN): BLOCKED on a validate.py lint (see below)
+## 262 Foundry Warden (1 AI create, HIDDEN): needs a validate exception (director)
+
+`262_foundry_warden_create.json`: the Drowned Foundry's boss, kit approved by the director 2026-10-25. Level 100 Jonin on
+the Arsenal Keeper's stat chassis (15,150 HP, stats x5, +200% damage given as two +100% effects); kit Quick Strike, Heavy
+Strike, Rigging Snare, Stoneward, Springguard, Windlash Focus (existing pool AI jutsu, none edited); rules on that kit
+only. Placeholder avatar: the Arsenal Keeper's sprite. `check_manifest.mjs` 0 pre-send problems. **`validate.py --strict`
+fails on law 14 / L05 "missing preferredStat"**: the game's AI schema no longer has `preferredStat` and Forge refuses the
+key as unknown, so the rule is stale. Ledger ready at `state/validate_exceptions/262_foundry_warden.json` (ruling
+pending).
+
+## 261 Lastlight jutsu (1 create, HIDDEN): READY TO RUN under validate exception RUL-2026-10-25-008
 
 `261_lastlight_jutsu_create.json`: the Crownhold jutsu, hidden (RUL-2026-10-25-006). EVENT, PVE only, no element,
 AOE_LINE_SHOOT range 5, cooldown 8, Jonin; damage 40 (formula) / wound 20 for 2 rounds / decreaseheal 30 for 3 rounds,
@@ -777,7 +787,7 @@ all +0.4 per level. Costs as the live EVENT Jonin jutsu Drops of Renewal (500/50
 Lastlight Lantern icon, and KGK: Black Fang Lance's line-strike animation and sound. `check_manifest.mjs` 0 pre-send
 problems. **`validate.py --strict` fails on one stale lint:** L06 demands `statTypes` on `wound`, but the game's
 `WoundTag` (validators/combat.ts) has no `statTypes` and the server drops it; with `statTypes` the Forge pre-send check
-refuses the manifest instead. Needs either a director exception for this manifest or the Lane A lint fix.
+refuses the manifest instead. Director exception RUL-2026-10-25-008: gate `python3 scripts/validate_exception.py state/validate_exceptions/261_lastlight_jutsu.json` (exit 0).
 
 ## 260 Skyglass event items (12 creates, HIDDEN): READY TO RUN
 

@@ -1,0 +1,9 @@
+{
+ "manifest": "push/262_foundry_warden_create.json",
+ "ruling": "PENDING director approval",
+ "reason": "validate.py law 14 / L05 demands preferredStat on an AI create; the game's AI schema no longer has preferredStat (removed upstream) and Forge refuses the key as unknown",
+ "sha256": "49bdb1c05c39856c765ebae373c18e6f48b76c800c2e684538f318b39a414e22",
+ "accepted": [
+  "ERROR  [ai:Foundry Warden]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)"
+ ]
+}
