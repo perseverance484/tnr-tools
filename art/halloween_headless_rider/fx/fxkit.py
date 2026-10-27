@@ -175,7 +175,7 @@ def place(layer, img, cx, cy, width, alpha=1.0, rot=0.0, squash=1.0, additive=Fa
         return layer
     w = max(1, int(width * S))
     h = max(1, int(img.height * w / img.width * squash))
-    im = img.resize((w, h), Image.LANCZOS)
+    im = img.convert('RGBa').resize((w, h), Image.LANCZOS).convert('RGBA')
     if rot:
         im = im.rotate(rot, resample=Image.BICUBIC, expand=True)
     if alpha < 1:
@@ -227,7 +227,7 @@ def seg(t, a, b):
 
 def to_export(fr):
     """S -> FRAME. Box filter keeps pixel-art clusters solid instead of ringing; then drop near-zero alpha."""
-    out = fr.resize((FRAME, FRAME), Image.BOX)
+    out = fr.convert('RGBa').resize((FRAME, FRAME), Image.BOX).convert('RGBA')   # premultiplied: no colour fringes
     out.putalpha(out.getchannel('A').point(lambda v: 0 if v < 6 else v))
     return out
 
