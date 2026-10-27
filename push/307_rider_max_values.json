@@ -1,5 +1,5 @@
 {
- "_note": "STEP 2 of 2 (after 306). AI jutsu do not level, so every effect that carried powerPerLevel 0.4 is set to its max-level value (power + 25 x 0.4, percentage capped at 100) with powerPerLevel 0: Unholy Pumpkin Patch: increasedamagegiven 25->35, damage 30->40, clearprevent 90->100; Candle Lit Aura: increasedamagegiven 25->35, decreasedamagetaken 25->35; Scything Rend: damage 30->40, decreasedamagegiven 20->30, debuffprevent 90->100; Essence Eater: damage 30->40, copy 90->100; Horseman's Charge: damage 30->40. Effects re-sent whole from the live record (push/305 readback for the first three, push/262 capture for Candle Lit Aura and Horseman's Charge); nothing else changes. Note: push/305's statTypes change did not persist (the server keeps Bukijutsu + Speed/Strength on Bukijutsu-classified jutsu), so those stay as live. Then re-equips the full kit of eight; items []. Rules untouched.",
+ "_note": "STEP 2 of 2 (after 306). AI jutsu do not level, so every effect that carried powerPerLevel 0.4 is set to its max-level value (power + 25 x 0.4, percentage capped at 100) with powerPerLevel 0: Unholy Pumpkin Patch: increasedamagegiven 25->35, damage 30->40, clearprevent 90->100; Candle Lit Aura: increasedamagegiven 25->35, decreasedamagetaken 25->35; Scything Rend: damage 30->40, decreasedamagegiven 20->30, debuffprevent 90->100; Essence Eater: damage 30->40, copy 90->100; Horseman's Charge: damage 30->40. Effects re-sent whole from the live record (push/305 readback for the first three, push/262 capture for Candle Lit Aura and Horseman's Charge); nothing else changes. Note: push/305's statTypes change did not persist (the server keeps Bukijutsu + Speed/Strength on Bukijutsu-classified jutsu), so those stay as live. Wail of Despair (director 2026-10-26): its damage effect gets dmgModifier 1.4 (schema range 0-2; multiplies the damage always), every other effect and field unchanged. Then re-equips the full kit of eight; items []. Rules untouched.",
  "items": [
   {
    "entity": "jutsu",
@@ -342,6 +342,78 @@
       "description": "placeholder",
       "disappearSfx": "",
       "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "IWQNQNs0P_pXS_lmiQiEC",
+   "name": "Wail of Despair: 1.4x damage multiplier",
+   "data": {
+    "effects": [
+     {
+      "type": "damage",
+      "power": 40,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Shadow"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "None"
+      ],
+      "calculation": "formula",
+      "description": "placeholder",
+      "dmgModifier": 1.4,
+      "disappearSfx": "",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "yh209VmcfMuUeCLfyxvoX",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "increasedamagetaken",
+      "power": 35,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "wound",
+      "power": 30,
+      "rounds": 3,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
       "powerPerLevel": 0,
       "appearAnimation": "",
       "staticAnimation": "",
