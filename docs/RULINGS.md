@@ -3321,3 +3321,21 @@ closely"; targets chosen: "15-20 min", "Clearable, few wipes", "Level 100 Jonin,
 **Evidence:** User, 2026-10-26: "I figured it out. When we updated the claws it severed the link." Live fight log the same day (zombies adjacent to Carbon and Kitsu, End Turn each round, no claw or move).
 
 **Canonical destination:** `docs/ENGINE_LAWS.md` law 18 (pending reconciliation).
+
+## RUL-2026-10-26-009 — Hellfire Harvest: field animation art direction approved; Smoulder deferred
+
+**Date:** 2026-10-26
+
+**Domain:** Art direction / Headless Rider Horror / Hellfire Harvest field effects
+
+**Status:** ACTIVE (direction approved; individual generated art and production outputs not yet accepted)
+
+**Ruling:**
+1. Approve the Harvest Scorch static tile and five-stage Harvest Swing as proposed: dark cracked ground with ember fissures, a sweeping fiery scythe, slash arc, flame burst, the Rider's grin, then embers.
+2. Approve the specified near-black, ember-brown, red, orange, gold and ash palette, and the two-frame jack-o'-lantern grin in smoke as the Rider's signature mark.
+3. Defer the six-frame Smoulder loop to Phase 2, after the first combat preview. Current raw scope is T1, B1, C1, F1, G1 and E1 only.
+4. Each layer uses its own fresh isolated-generation conversation, the real Rider avatar attached once as STYLE ONLY, and one candidate shown for the director's separate visual acceptance before proceeding. No live-game requests or writes are authorized.
+
+**Evidence:** User, 2026-10-26: "Approve scorch tile and harvest swing as proposed"; "Approve palette and Rider grin as proposed"; "Defer the smoulder loop to Phase 2"; and "Do not generate until all pending revisions are resolved." All three section-6 choices are now resolved.
+
+**Canonical destination:** `docs/handoffs/HELLFIRE_HARVEST_ANIMATION_ART_REQUEST.md` (approved sections 3 and 6); production protocol `docs/workflows/ISOLATED_ART_GENERATION.md`; art targets `skills/producing-tnr-art/data/25x_DATA_art_spec.json`. This ruling does not approve raw assets, a manifest, publication, or live actions.
