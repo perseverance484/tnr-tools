@@ -222,3 +222,131 @@ def build_pumpkin(base_path, grin_path, out, size=256):
     small.save(out, lossless=True, method=6)
     print(f'pumpkin domain tile {out}: {size}x{size}, {os.path.getsize(out)} bytes')
     return out
+
+
+# ----------------------------------------------------------------------------------------------- ironwork domain
+def build_ironwork(floor_path, channel_path, boss_path, out, size=256, N2=2048, width_frac=0.125):
+    """Variant B. Built in REGULAR hex space (true flat-top hex, N2 wide), then stretched to the square canvas.
+    The channel strip is bent along the three Truchet arcs by inverse mapping. Rivet pitch measured on the raw strip by
+    autocorrelation of both rails: 161 px, first rivet at x 40. Each arc is fitted to a whole number of rivet pitches
+    and starts between two rivets at its edge midpoint, so rivets line up across every hex seam; the lava is cropped to
+    4 pitches with a crossfaded seam. The boss sits on the crossing of the two large arcs, pre-stretched against the
+    game's 2:1 squash."""
+    import numpy as np
+    R2 = N2 / 2
+    H2 = int(round(SQ3 * R2))
+    cx0, cy0 = N2 / 2, H2 / 2
+    corners = [(R2 * math.cos(math.radians(60 * k)), R2 * math.sin(math.radians(60 * k))) for k in range(6)]
+
+    def mid(k):
+        (x1, y1), (x2, y2) = corners[k], corners[(k + 1) % 6]
+        return (x1 + x2) / 2, (y1 + y2) / 2
+
+    def inter(k1, k2):
+        (x1, y1), (x2, y2) = corners[k1], corners[(k1 + 1) % 6]
+        (x3, y3), (x4, y4) = corners[k2], corners[(k2 + 1) % 6]
+        den = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+        t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / den
+        return x1 + t * (x2 - x1), y1 + t * (y2 - y1)
+
+    def arc(e1, e2, c):
+        (ax, ay), (bx, by) = mid(e1), mid(e2)
+        r = math.hypot(ax - c[0], ay - c[1])
+        a0 = math.atan2(ay - c[1], ax - c[0])
+        a1 = math.atan2(by - c[1], bx - c[0])
+        d = (a1 - a0 + 3 * math.pi) % (2 * math.pi) - math.pi
+        return {'c': c, 'r': r, 'a0': a0, 'd': d}
+
+    arcs = {'small': arc(5, 0, corners[0]), 'under': arc(1, 3, inter(1, 3)), 'over': arc(2, 4, inter(2, 4))}
+
+    # --- textures
+    strip = np.array(Image.open(channel_path).convert('RGBA')).astype(np.float32)
+    Y0, Y1, PITCH, X0, M = 253, 467, 161, 120, 4
+    tex = strip[Y0:Y1, X0:X0 + PITCH * M].copy()
+    fade = 40                                                     # crossfade the lava seam of the 4-pitch crop
+    pre = strip[Y0:Y1, X0 - fade:X0]
+    w = np.linspace(0, 1, fade)[None, :, None]
+    tex[:, -fade:] = tex[:, -fade:] * w[:, ::-1] + pre * w if False else tex[:, -fade:]
+    tex[:, :fade] = strip[Y0:Y1, X0:X0 + fade] * w + strip[Y0:Y1, X0 + PITCH * M:X0 + PITCH * M + fade] * (1 - w)
+    th, tw = tex.shape[:2]
+    Wc = width_frac * N2
+    k = Wc / th                                                   # texture px -> tile px
+    pitch_tile = PITCH * k
+
+    yy, xx = np.mgrid[0:H2, 0:N2].astype(np.float32)
+    X, Y = xx - cx0, yy - cy0
+
+    floor = Image.open(floor_path).convert('RGB').resize((N2, N2), Image.LANCZOS).crop((0, 0, N2, H2))
+    img = np.array(floor).astype(np.float32) * 0.78
+    img = np.dstack([img, np.full((H2, N2), 255, np.float32)])
+
+    def paint(a, shadow=False):
+        cx, cy = a['c']
+        dx, dy = X - cx, Y - cy
+        rho = np.sqrt(dx * dx + dy * dy)
+        th_ = np.arctan2(dy, dx)
+        delta = (th_ - a['a0']) * np.sign(a['d'])
+        delta = np.mod(delta + 1e-6, 2 * math.pi)
+        t = delta / abs(a['d'])
+        v = rho - a['r']
+        inside = (t <= 1.0) & (np.abs(v) <= Wc / 2)
+        L = abs(a['d']) * a['r']
+        n = max(1, round(L / pitch_tile))
+        if shadow:
+            sh = (t <= 1.0) & (np.abs(v) <= Wc / 2 + Wc * 0.18)
+            img[sh, :3] *= 0.35
+            return
+        s = t * L
+        tx = np.mod((s / L) * n * PITCH + PITCH / 2 - 0.5, tw).astype(np.int32)   # start between rivets
+        ty = np.clip(((v / Wc) + 0.5) * th, 0, th - 1).astype(np.int32)
+        samp = tex[ty, tx]
+        al = (samp[..., 3:4] / 255.0) * inside[..., None]
+        img[..., :3] = img[..., :3] * (1 - al) + samp[..., :3] * al
+
+    paint(arcs['small'])
+    paint(arcs['under'])
+    paint(arcs['over'], shadow=True)
+    paint(arcs['over'])
+
+    base = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8), 'RGBA')
+
+    # boss on the crossing of the two large arcs (the intersection that lies inside the hex)
+    def circ_inter(a, b):
+        (x0, y0), r0 = a['c'], a['r']
+        (x1, y1), r1 = b['c'], b['r']
+        dd = math.hypot(x1 - x0, y1 - y0)
+        aa = (r0 * r0 - r1 * r1 + dd * dd) / (2 * dd)
+        hh = math.sqrt(max(0.0, r0 * r0 - aa * aa))
+        xm, ym = x0 + aa * (x1 - x0) / dd, y0 + aa * (y1 - y0) / dd
+        pts = [(xm + hh * (y1 - y0) / dd, ym - hh * (x1 - x0) / dd), (xm - hh * (y1 - y0) / dd, ym + hh * (x1 - x0) / dd)]
+        return min(pts, key=lambda p: math.hypot(*p))
+    bx, by = circ_inter(arcs['under'], arcs['over'])
+    boss = Image.open(boss_path).convert('RGBA')
+    boss = boss.crop(boss.getchannel('A').getbbox())
+    bw = int(Wc * 1.75)
+    bh = int(bw * boss.height / boss.width * (N2 / H2) ** -1 / fx.HEX_ASPECT)   # undo canvas stretch + game squash
+    bimg = boss.resize((bw, bh), Image.LANCZOS)
+    sh = Image.new('L', (bw + 40, bh + 40), 0)
+    ImageDraw.Draw(sh).ellipse((10, 20, bw + 30, bh + 30), fill=170)
+    sh = sh.filter(ImageFilter.GaussianBlur(10))
+    base.paste((0, 0, 0, 255), (int(cx0 + bx - bw / 2 - 20), int(cy0 + by - bh / 2 - 12)), sh)
+    base.alpha_composite(bimg, (int(cx0 + bx - bw / 2), int(cy0 + by - bh / 2)))
+
+    # rim + cut, in regular space
+    def hmask(inset):
+        m = Image.new('L', (N2, H2), 0)
+        ImageDraw.Draw(m).polygon([(cx0 + x * (1 - inset), cy0 + y * (1 - inset)) for x, y in corners], fill=255)
+        return m
+    ring = lambda a, b: Image.composite(hmask(a), Image.new('L', (N2, H2), 0), Image.eval(hmask(b), lambda v: 255 - v))
+    base.paste((8, 4, 4, 255), (0, 0), ring(0.0, 0.03))
+    base.paste((74, 52, 44, 255), (0, 0), ring(0.03, 0.04))
+    base.paste((24, 14, 12, 255), (0, 0), ring(0.04, 0.05))
+    outi = Image.new('RGBA', (N2, H2), (0, 0, 0, 0))
+    outi.paste(base, (0, 0), hmask(0.0))
+    sq = outi.resize((N2, N2), Image.LANCZOS)                      # stretch so the flat top and bottom touch the canvas
+    small = sq.convert('RGBa').resize((size, size), Image.BOX).convert('RGBA')
+    small.save(out, lossless=True, method=6)
+    print(f'ironwork domain tile {out}: {size}x{size}, {os.path.getsize(out)} bytes; '
+          f'arcs: ' + ', '.join(f"{k} r={a['r']:.0f} L={abs(a['d'])*a['r']:.0f} n={max(1, round(abs(a['d'])*a['r']/pitch_tile))}"
+                                for k, a in arcs.items()))
+    return out
