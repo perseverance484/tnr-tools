@@ -1,0 +1,34 @@
+{
+ "_note": "STEP 2 of 2 (after 300). Wail of Despair battleDescription -> director's line (2026-10-26). Nothing else on the jutsu changes; injectableInBattle re-sent as live (false). Then re-equips the full kit of eight; items []. Rules untouched.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "IWQNQNs0P_pXS_lmiQiEC",
+   "name": "Wail of Despair: battle line",
+   "data": {
+    "battleDescription": "A bone chilling wail emanates from %user, bringing %target to their knees.",
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: re-equip Wail of Despair",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli",
+     "XVJb8MfFvIKe4GOgBaqXO"
+    ],
+    "items": []
+   }
+  }
+ ]
+}
