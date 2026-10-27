@@ -53,3 +53,50 @@ Return each image as soon as it is made, labelled S1_CURSED_SOIL, V1_VINE, P1_JA
 3. Board simulation (12 x 10, units on top, the Aura of Despair mist over it) for director acceptance before upload.
 4. Upload as a hidden STATIC gameAsset in `HeadlessRiderHorror`; set as Hellfire Harvest's still in the jutsu edit that
    carries the other animation slot fixes.
+
+---
+
+# Variant B: "Hellfire Ironwork" (no pumpkins)
+
+- **Director, 2026-10-26:** an alternative domain that is just an attractive design in the event's colours.
+- **Look:** a floor of fire-blackened obsidian flagstones with molten seams, crossed by braided channels of wrought
+  iron carrying hellfire, riveted, with a forged boss where two channels cross. The Rider's iron, chains and fire,
+  no figures. Same Truchet geometry as the pumpkin variant (the braid prototype:
+  `fx/previews/braid_domain_board.png`), so the channels weave into a continuous chain-link lattice across the board.
+- **Components, assembled by `domain_tile.py`:** S2 floor, B2 channel (bent along the curves), K2 boss (placed on the
+  crossing, pre-stretched against the 2:1 squash).
+
+~~~text
+3 separate images for The Ninja RPG's Halloween event (the Headless Rider's domain floor, ornamental version). One asset
+per image, never a sheet. Attach the Headless Rider avatar as STYLE ONLY.
+
+SHARED STYLE
+High-quality pixel-art game asset. Crisp hard-edged pixels at about 4 screen pixels per art pixel, clean dark 1-pixel
+outlines, flat cel shading in 3-4 steps per colour, limited palette, deliberate highlight pixels, dithering only at soft
+edges. Ornate, premium, readable at small size. No text, letters, runes, symbols, logos, skulls, faces, UI, borders or
+characters.
+Palette: obsidian #0a0607 #1a0f0e #2e1c19, cooled iron #2b2422 #4a3c36 #6e5a4e, rivet highlight #9a8070,
+hellfire #6e0806 #c3141b #f05a14 #ffb347, white-hot core #fff0c8 (sparingly).
+
+1. S2_OBSIDIAN_FLOOR — 1024 x 1024, FULL BLEED (no transparency, fills the canvas to every edge), seamless when tiled in
+   both directions. Seen from directly above: irregular fire-blackened obsidian flagstones, slightly glossy edges with a
+   single highlight pixel line, narrow mortar gaps with a faint molten-red glow deep inside, a few hairline cracks and
+   ash specks. Dark and quiet so the channels lead.
+
+2. B2_HELLFIRE_CHANNEL — 2048 x 320, transparent background. ONE ornamental channel running perfectly straight and
+   horizontal, edge to edge, centred vertically, seamless left-to-right. Two parallel rails of blackened wrought iron
+   with a bevelled top highlight and evenly spaced square rivets, and between them a recessed groove of flowing
+   hellfire: dark red at the walls, orange, then a thin white-hot core line, with small pixel flame licks and flow
+   streaks. Seen from directly above. Nothing touches the top or bottom edge.
+
+3. K2_FORGED_BOSS — 1024 x 1024, transparent background. One forged iron boss seen from directly above: a round
+   riveted iron rosette with eight short petals, a bevelled rim, and a single faceted ember-red gem glowing at its centre
+   (glow inside the gem and as rim light only). Centred with a clear margin. No halo, no glow disc, no shadow.
+
+Return each image as soon as it is made, labelled S2_OBSIDIAN_FLOOR, B2_HELLFIRE_CHANNEL, K2_FORGED_BOSS. Do not process
+or upload.
+~~~
+
+**Intake** as the pumpkin variant: QC, assembly at 1024 (S2 floor; B2 warped along the three curves with the weave;
+K2 on the crossing of the two large arcs, pre-stretched 2x tall; hex rim; cut; 256 lossless), board simulation, then the
+director picks pumpkin or ironwork.
