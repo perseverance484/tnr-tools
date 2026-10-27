@@ -1,0 +1,101 @@
+{
+ "_note": "Unhides the six Headless Rider FX assets created by push/288 (the pumpkin domain, despair mist, Hellfire Harvest appear, Aura of Despair appear/loop/disappear): battles load only unhidden assets, so hidden ones never play (push/232 precedent; director 2026-10-26: 'Hellfire Harvest isn't playing anything, all animations need to be unhidden'). Name, type, folder, frames, speed and license re-sent unchanged; image untouched. Asset edits do not touch the jutsu or the Rider's kit.",
+ "items": [
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "tQB1xg5NGeMg4vX7Nm2C1",
+   "name": "Headless Rider - Pumpkin Domain (Hellfire Harvest)",
+   "data": {
+    "name": "Headless Rider - Pumpkin Domain (Hellfire Harvest)",
+    "type": "STATIC",
+    "folder": "HeadlessRiderHorror",
+    "frames": 1,
+    "speed": 1,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "tfHSXwZNXBBH6mrNa8wBL",
+   "name": "Headless Rider - Despair Mist",
+   "data": {
+    "name": "Headless Rider - Despair Mist",
+    "type": "STATIC",
+    "folder": "HeadlessRiderHorror",
+    "frames": 1,
+    "speed": 1,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "23zSn_fi657wJNy7voApG",
+   "name": "Headless Rider - Hellfire Harvest Appear",
+   "data": {
+    "name": "Headless Rider - Hellfire Harvest Appear",
+    "type": "ANIMATION",
+    "folder": "HeadlessRiderHorror",
+    "frames": 18,
+    "speed": 40,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "kKMYOFKUXGl3M5hsQPR0K",
+   "name": "Headless Rider - Aura of Despair Appear",
+   "data": {
+    "name": "Headless Rider - Aura of Despair Appear",
+    "type": "ANIMATION",
+    "folder": "HeadlessRiderHorror",
+    "frames": 14,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "qwQ33B84PpHtXzy5SUBGo",
+   "name": "Headless Rider - Aura of Despair Loop",
+   "data": {
+    "name": "Headless Rider - Aura of Despair Loop",
+    "type": "ANIMATION",
+    "folder": "HeadlessRiderHorror",
+    "frames": 40,
+    "speed": 70,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "0ZjXGP73rSLa404dKSmcO",
+   "name": "Headless Rider - Aura of Despair Disappear",
+   "data": {
+    "name": "Headless Rider - Aura of Despair Disappear",
+    "type": "ANIMATION",
+    "folder": "HeadlessRiderHorror",
+    "frames": 12,
+    "speed": 60,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  }
+ ]
+}
