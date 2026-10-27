@@ -39,7 +39,7 @@ OUT = fx.EXPORTS
 PREV = os.path.join(fx.HERE, 'previews')
 
 HELL_TILE = 'tile_rider_domain_ironwork.webp'   # the Ironwork domain floor (domain_tile.build_ironwork)
-MS = {'hellfire_appear': 40, 'aura_appear': 50, 'aura_loop': 70, 'aura_disappear': 60}
+MS = {'hellfire_appear': 40, 'hellfire_loop': 80, 'aura_appear': 50, 'aura_loop': 70, 'aura_disappear': 60}
 OPACITY = {'scorch': 0.62, 'mist': 0.50}
 
 
@@ -117,6 +117,48 @@ def hellfire_appear():
                 x = 0.5 + dx * fx.ease_out(et)
                 y = GROUND - 0.02 + dy * math.sin(math.pi * min(1, et * 1.1))
                 fx.place(fr, img, x, y, w, 1 - fx.seg(et, 0.5, 1.0), rot=rot * et)
+        frames.append(fr)
+    return frames
+
+
+# ----------------------------------------------------------------------------------------------- Hellfire Harvest loop
+PUMPKIN_FACE = (0.502, 0.507)   # frame fractions: the tile's carved face, measured on the domain tile, mapped by HEX_W/HEX_H
+
+
+def _candle_glow(size=160):
+    """Stepped (4-band) warm glow, no smooth airbrush: lights the carved face from inside."""
+    g = Image.new('RGBA', (size, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(g)
+    for k, (col, a) in enumerate([((150, 40, 8), 70), ((220, 90, 20), 110), ((255, 160, 50), 150), ((255, 220, 140), 190)]):
+        r = size / 2 * (1 - k * 0.22)
+        d.ellipse((size / 2 - r, size / 2 - r, size / 2 + r, size / 2 + r), fill=col + (a,))
+    return g
+
+
+def hellfire_loop():
+    """1.92 s seamless, on every tile for the 3 rounds (staticAnimation on the recoil effect, over the units).
+    The domain breathes: every jack-o-lantern's candle gutters and flares on an irregular flicker, and a few small embers
+    lift off the patch on a shared wind and burn out before they leave the tile. Kept small and low so 120 synced copies
+    read as one living field, not a wall."""
+    glow = _candle_glow()
+    embers = [W(e) for e in EMBERS[3:9]]
+    flick = [0.55, 0.7, 0.62, 0.85, 0.78, 0.6, 0.5, 0.66, 0.9, 1.0, 0.82, 0.7,
+             0.58, 0.64, 0.8, 0.72, 0.55, 0.48, 0.6, 0.75, 0.88, 0.76, 0.62, 0.56]
+    starts = [(0.45, 0.45), (0.56, 0.44), (0.33, 0.57), (0.67, 0.56), (0.40, 0.62), (0.61, 0.63)]
+    n = len(flick)
+    frames = []
+    for i in range(n):
+        ph = i / n
+        fr = fx.frame()
+        # candlelight spilling out of the carved face onto the soil round the pumpkin, then the face itself flaring
+        fx.place(fr, glow, 0.5, 0.575, 0.40 + 0.04 * flick[i], 0.30 * flick[i], squash=0.32)
+        fx.place(fr, glow, PUMPKIN_FACE[0], PUMPKIN_FACE[1], 0.15 + 0.03 * flick[i], 0.42 * flick[i], squash=0.6)
+        for k, (img, (x0, y0)) in enumerate(zip(embers, starts)):
+            p = (ph + k / len(embers)) % 1.0
+            x = x0 + 0.08 * p + 0.014 * math.sin(2 * math.pi * (p * 2 + k * 0.3))
+            y = y0 - 0.24 * fx.ease_out(p)
+            a = math.sin(math.pi * p) ** 1.2
+            fx.place(fr, img, x, y, 0.05 * (1 - 0.45 * p), a, rot=120 * p)
         frames.append(fr)
     return frames
 
@@ -201,6 +243,7 @@ def assets():
     fx.static_tile(os.path.join(fx.WORK, 'T1.png'), os.path.join(OUT, 'tile_hellfire_scorch.webp'), OPACITY['scorch'])
     fx.static_tile(os.path.join(fx.WORK, 'M1.png'), os.path.join(OUT, 'tile_aura_mist.webp'), OPACITY['mist'])
     fx.save_strip(hellfire_appear(), 'anim_hellfire_appear', MS['hellfire_appear'])
+    fx.save_strip(hellfire_loop(), 'anim_hellfire_loop', MS['hellfire_loop'])
     fx.save_strip(aura_appear(), 'anim_aura_appear', MS['aura_appear'])
     fx.save_strip(aura_loop(), 'anim_aura_loop', MS['aura_loop'])
     fx.save_strip(aura_disappear(), 'anim_aura_disappear', MS['aura_disappear'])
