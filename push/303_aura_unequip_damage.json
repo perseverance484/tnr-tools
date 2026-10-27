@@ -1,6 +1,82 @@
 {
- "_note": "STEP 1 of 2 (director 2026-10-26: add 10 damage for 4 rounds to Aura of Despair). Aura is equipped, so law 18/60: unequip it (kit = the eight minus Aura, items []). Run 304 next.",
+ "_note": "STEP 1 of 2 (director 2026-10-26: do the animations and the damage tag together). (a) Aura of Despair animations v2, swapped in place on the same three asset ids (from push/302, now folded in here): appear without the flash and ending exactly on the loop's first frame, the loop's ghost face fading in and out over 12 frames, a smooth sink-and-fade disappear; frames/speeds unchanged, hidden false, fresh filenames (law 32). (b) Unequips Aura of Despair (law 18/60) for the damage-tag edit; kit = the eight minus Aura, items []. Run 304 next. Note: validate warns 'build order: ai appears after a later phase' - a known false positive (it renames asset to gameAsset before its order check); asset -> ai is the factory order.",
+ "imgSizes": {
+  "anim_hrh_aura_despair_appear_v2.webp": 58838,
+  "anim_hrh_aura_despair_loop_v2.webp": 103496,
+  "anim_hrh_aura_despair_disappear_v2.webp": 17692
+ },
+ "imagePack": {
+  "ref": "06e175a2112c3776e92e8c2d5e54fa3c0fbcac1d",
+  "files": {
+   "anim_hrh_aura_despair_appear_v2.webp": {
+    "path": "art/halloween_headless_rider/release/anim_hrh_aura_despair_appear_v2.webp",
+    "sha256": "e526ca611330c0eb376463c630a3b9c82472e3db233924405f0942b7095d724b",
+    "bytes": 58838
+   },
+   "anim_hrh_aura_despair_disappear_v2.webp": {
+    "path": "art/halloween_headless_rider/release/anim_hrh_aura_despair_disappear_v2.webp",
+    "sha256": "29729bc64e08cd317e399bd36adcf059772354f75b4e18cec2a0b19949b3a2e3",
+    "bytes": 17692
+   },
+   "anim_hrh_aura_despair_loop_v2.webp": {
+    "path": "art/halloween_headless_rider/release/anim_hrh_aura_despair_loop_v2.webp",
+    "sha256": "49585b2f70cd7c7b9079ee7d1e0059a0f375be87e0670eabd5d6c73236a44aa4",
+    "bytes": 103496
+   }
+  }
+ },
  "items": [
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "kKMYOFKUXGl3M5hsQPR0K",
+   "name": "Headless Rider - Aura of Despair Appear: v2 (smooth)",
+   "data": {
+    "name": "Headless Rider - Aura of Despair Appear",
+    "type": "ANIMATION",
+    "image": "@img:anim_hrh_aura_despair_appear_v2.webp",
+    "folder": "HeadlessRiderHorror",
+    "frames": 14,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "qwQ33B84PpHtXzy5SUBGo",
+   "name": "Headless Rider - Aura of Despair Loop: v2 (smooth)",
+   "data": {
+    "name": "Headless Rider - Aura of Despair Loop",
+    "type": "ANIMATION",
+    "image": "@img:anim_hrh_aura_despair_loop_v2.webp",
+    "folder": "HeadlessRiderHorror",
+    "frames": 40,
+    "speed": 70,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "0ZjXGP73rSLa404dKSmcO",
+   "name": "Headless Rider - Aura of Despair Disappear: v2 (smooth)",
+   "data": {
+    "name": "Headless Rider - Aura of Despair Disappear",
+    "type": "ANIMATION",
+    "image": "@img:anim_hrh_aura_despair_disappear_v2.webp",
+    "folder": "HeadlessRiderHorror",
+    "frames": 12,
+    "speed": 60,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
   {
    "entity": "ai",
    "slot": "edit",
