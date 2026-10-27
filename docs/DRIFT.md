@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-26)
+# DRIFT.md - upstream contract drift (2026-10-27)
 
-Upstream: studie-tech/TheNinjaRPG@dd2de3bb7f3430fe86640a90471c86bae48ea688
+Upstream: studie-tech/TheNinjaRPG@3a1acf4ec8a6ef1abfa9f83582ecacdc43f804f3
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -26,6 +26,13 @@ ADDITIONS
   enum-member  allObjectiveSchema.SimpleObjective.task  ranked_wins
   enum-member  allObjectiveSchema.SimpleObjective.task  spars_participated
   enum-member  allObjectiveSchema.tag_usage_win.tagType  siphon
+  union-variant  AllTags  decreasecookingtime
+  union-variant  AllTags  decreasecraftingtime
+  union-variant  AllTags  decreasefarmingtime
+  union-variant  AllTags  decreasegatheringtime
+  union-variant  AllTags  increasegatheringyield
+  union-variant  AllTags  increasehuntingyield
+  union-variant  AllTags  increasejutsuslots
   union-variant  AllTags  siphon
   variant-field  AllObjectives.InstantWinLoseObjective  reward_level
   variant-field  AllObjectives.InstantWinLoseObjective  reward_pet_experience
@@ -60,16 +67,9 @@ ADDITIONS
   variant-field  AllObjectives.deliver_item  reward_level
   variant-field  AllObjectives.deliver_item  reward_pet_experience
   variant-field  AllObjectives.deliver_item  reward_stats
-  variant-field  AllObjectives.dialog  reward_level
-  variant-field  AllObjectives.dialog  reward_pet_experience
-  variant-field  AllObjectives.dialog  reward_stats
-  variant-field  AllObjectives.move_to_location  reward_level
-  variant-field  AllObjectives.move_to_location  reward_pet_experience
-  variant-field  AllObjectives.move_to_location  reward_stats
-  variant-field  AllObjectives.new_quest  reward_level
-  ... 84 more
+  ... 210 more
 
-no breaking changes: 144 addition(s), safe to adopt (exit 0)
+no breaking changes: 270 addition(s), safe to adopt (exit 0)
 == 45d_DATA_entity_schemas ==
 
 no breaking changes: 0 addition(s), safe to adopt (exit 0)
@@ -77,6 +77,12 @@ no breaking changes: 0 addition(s), safe to adopt (exit 0)
 REMOVALS
   const-member  ACTIVE_VOTING_SITES  bbogd
 ADDITIONS
+  const-member  AvailableEffectTypes  decreasecookingtime
+  const-member  AvailableEffectTypes  decreasecraftingtime
+  const-member  AvailableEffectTypes  decreasefarmingtime
+  const-member  AvailableEffectTypes  decreasegatheringtime
+  const-member  AvailableEffectTypes  increasegatheringyield
+  const-member  AvailableEffectTypes  increasehuntingyield
   const-member  AvailableEffectTypes  siphon
   const-member  BattleTypes  TERRITORY_WAR
   const-member  CombatActivityTasks  overworld_ai_fought
@@ -95,6 +101,8 @@ ADDITIONS
   const-member  POST_DAMAGE_MODIFIER_TYPES  siphon
   const-member  PetArtProviders  GPT
   const-member  PetArtProviders  NANO_BANANA
+  const-member  PetGenders  FEMALE
+  const-member  PetGenders  MALE
   const-member  PotencyTagTypes  siphon
   const-member  PveBattleTypes  TERRITORY_WAR
   const-member  SHARED_COOLDOWN_TAGS  siphon
@@ -108,6 +116,12 @@ ADDITIONS
   const-member  WEB_REP_PRESETS  250
   const-member  WEB_REP_PRESETS  50
   const-member  WEB_REP_PRESETS  500
+  const-member  activityBonusTypes  decreasecookingtime
+  const-member  activityBonusTypes  decreasecraftingtime
+  const-member  activityBonusTypes  decreasefarmingtime
+  const-member  activityBonusTypes  decreasegatheringtime
+  const-member  activityBonusTypes  increasegatheringyield
+  const-member  activityBonusTypes  increasehuntingyield
   const-member  allObjectiveTasks  overworld_ai_fought
   const-member  allObjectiveTasks  pvp_participated
   const-member  allObjectiveTasks  ranked_participated
@@ -115,6 +129,13 @@ ADDITIONS
   const-member  allObjectiveTasks  spars_participated
   const-member  allState  isMasked
   const-member  publicState  isMasked
+  const-member  tagTypes  decreasecookingtime
+  const-member  tagTypes  decreasecraftingtime
+  const-member  tagTypes  decreasefarmingtime
+  const-member  tagTypes  decreasegatheringtime
+  const-member  tagTypes  increasegatheringyield
+  const-member  tagTypes  increasehuntingyield
+  const-member  tagTypes  increasejutsuslots
   const-member  tagTypes  siphon
 
 BREAKING: 1 change(s) - DO NOT ADOPT (exit 1)
