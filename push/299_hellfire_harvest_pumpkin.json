@@ -1,0 +1,101 @@
+{
+ "_note": "STEP 2 of 2 (after 298). Hellfire Harvest: the recoil effect's ground still goes back to the pumpkin domain (tQB1xg5NGeMg4vX7Nm2C1); everything else exactly as push/297. Then re-equips the full kit of eight; items []. Rules untouched. The Ironwork asset stays uploaded and unhidden, unused.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "XVJb8MfFvIKe4GOgBaqXO",
+   "name": "Hellfire Harvest: pumpkin domain",
+   "data": {
+    "target": "GROUND",
+    "method": "ALL",
+    "range": 5,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "23zSn_fi657wJNy7voApG",
+      "disappearAnimation": "",
+      "appearSfx": "9-b8hbTXA019dgn8yyr3j",
+      "disappearSfx": "",
+      "power": 25,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "formula",
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "statTypes": [
+       "None"
+      ],
+      "generalTypes": [
+       "Highest"
+      ],
+      "elements": [
+       "Fire"
+      ],
+      "friendlyFire": "ENEMIES"
+     },
+     {
+      "staticAssetPath": "tQB1xg5NGeMg4vX7Nm2C1",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 60,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "recoil",
+      "description": "Recoil damage given back to self",
+      "rounds": 3,
+      "friendlyFire": "ENEMIES"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 60,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "decreaseheal",
+      "description": "Decrease how much target can heal others",
+      "rounds": 3,
+      "friendlyFire": "ENEMIES"
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: re-equip Hellfire Harvest",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli",
+     "XVJb8MfFvIKe4GOgBaqXO"
+    ],
+    "items": []
+   }
+  }
+ ]
+}
