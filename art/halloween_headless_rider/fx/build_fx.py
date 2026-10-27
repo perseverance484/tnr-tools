@@ -164,22 +164,27 @@ def hellfire_loop():
 
 
 # ----------------------------------------------------------------------------------------------- Aura of Despair
+def _fade(img, a):
+    out = img.copy()
+    out.putalpha(out.getchannel('A').point(lambda v: int(v * max(0.0, min(1.0, a)))))
+    return out
+
+
 def aura_appear():
-    """0.70 s: the lantern flare pulses on the ground and a ring of black-red mist rolls outward and settles."""
-    flare, ring, gutter = W('L1'), W('R1'), W('D1')
+    """0.70 s, v2 (director 2026-10-26: the flash looked out of place, wanted it to flow). No lantern-flare burst: the
+    dull-red underlight swells up out of the ground, a faint ring of mist rolls outward and thins away, and the loop's
+    own first frame fades in underneath, so the last appear frame IS the first loop frame."""
+    ring = W('R1')
+    first = aura_loop()[0]
     frames = []
     n = 14
     for i in range(n):
         t = i / (n - 1)
         fr = fx.frame()
-        ga = 0.55 * fx.seg(t, 0.25, 0.8)
-        fx.place(fr, gutter, 0.5, GROUND + 0.03, HEX_W * 0.85, ga, squash=fx.HEX_ASPECT)
-        rt = fx.ease_out(fx.seg(t, 0.12, 1.0))
-        fx.place(fr, ring, 0.5, GROUND, 0.3 + 0.62 * rt, fx.seg(t, 0.1, 0.25) * (1 - 0.55 * fx.seg(t, 0.7, 1.0)),
-                 squash=fx.HEX_ASPECT)
-        fa = fx.seg(t, 0.0, 0.14) * (1 - fx.seg(t, 0.3, 0.55))
-        fx.place(fr, flare, 0.5, GROUND - 0.01, 0.35 + 0.5 * fx.ease_out(fx.seg(t, 0.0, 0.5)), fa,
-                 squash=fx.HEX_ASPECT)
+        rt = fx.ease_out(fx.seg(t, 0.0, 1.0))
+        ra = 0.38 * math.sin(math.pi * min(1.0, t * 1.05)) ** 1.2
+        fx.place(fr, ring, 0.5, GROUND, 0.35 + 0.55 * rt, ra, squash=fx.HEX_ASPECT)
+        fr.alpha_composite(_fade(first, fx.ease_in(fx.seg(t, 0.0, 1.0)) ** 0.5 if t > 0 else 0))
         frames.append(fr)
     return frames
 
@@ -210,31 +215,29 @@ def aura_loop():
             x, y = path(p, k)
             a = 0.5 * math.sin(math.pi * p) ** 1.3
             fx.place(fr, img, x, y, 0.16, a, rot=-62 + 8 * math.sin(2 * math.pi * p), squash=0.55)
-        if i in (22, 23):
+        fa = 0.32 * max(0.0, math.sin(math.pi * (i - 18) / 12)) if 18 <= i <= 30 else 0.0
+        if fa > 0:                                   # the face rises out of the first trail and dissolves, no pop
             x, y = path((ph + 0.0) % 1.0, 0)
-            fx.place(fr, face, x, y - 0.06, 0.16, 0.55 if i == 22 else 0.3)
+            fx.place(fr, face, x, y - 0.06, 0.16, fa)
         frames.append(fr)
     return frames
 
 
 def aura_disappear():
-    """0.72 s: the light gutters out and the mist sinks into the ground."""
-    gutter, ring = W('D1'), W('R1')
-    wisps = [W(w) for w in PLAIN_WISPS[3:5]]
+    """0.72 s, v2: no flicker and no ring popping back. The loop's first frame thins out while the mist sinks: it
+    flattens toward the ground and the underlight dims, a smooth ease to nothing."""
+    first = aura_loop()[0]
     frames = []
     n = 12
     for i in range(n):
         t = i / (n - 1)
         fr = fx.frame()
-        flick = 1 - t if i % 3 else (1 - t) * 0.6
-        fx.place(fr, gutter, 0.5, GROUND + 0.03, HEX_W * 0.85, 0.55 * flick, squash=fx.HEX_ASPECT)
-        fx.place(fr, ring, 0.5, GROUND + 0.02 * t, 0.9 - 0.35 * fx.ease_in(t), 0.5 * (1 - t),
-                 squash=fx.HEX_ASPECT * (1 - 0.4 * t))
-        for k, img in enumerate(wisps):
-            fx.place(fr, img, 0.38 + 0.24 * k, GROUND - 0.18 + 0.12 * t, 0.12, 0.5 * (1 - t), squash=1 - 0.5 * t)
+        sunk = first.resize((first.width, max(1, int(first.height * (1 - 0.35 * fx.ease_in(t))))), Image.LANCZOS)
+        layer = fx.frame()
+        layer.alpha_composite(sunk, (0, int(GROUND * first.height * (1 - sunk.height / first.height))))   # squash about the ground line
+        fr.alpha_composite(_fade(layer, (1 - t) ** 1.6))
         frames.append(fr)
     return frames
-
 
 # ----------------------------------------------------------------------------------------------- exports
 def assets():

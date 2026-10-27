@@ -1,0 +1,61 @@
+{
+ "_note": "Aura of Despair animations v2 (director 2026-10-26: 'the flash is out of place, flow more smoothly'). Swaps the image on the three Aura animation assets in place (same ids, so the jutsu and the Rider are untouched, no unequip needed; push/233 precedent). Appear: the lantern-flare burst is gone; a faint mist ring rolls out while the loop's first frame fades in, so appear ends exactly on the loop. Loop: the ghost face drifts in and out over 12 frames instead of popping for 2. Disappear: starts from the loop's first frame and sinks and fades smoothly, no flicker and no ring reappearing. Frames and speeds unchanged. Fresh filenames (law 32); hidden false.",
+ "items": [
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "kKMYOFKUXGl3M5hsQPR0K",
+   "name": "Headless Rider - Aura of Despair Appear: v2 (smooth)",
+   "data": {
+    "name": "Headless Rider - Aura of Despair Appear",
+    "type": "ANIMATION",
+    "image": "@img:anim_hrh_aura_despair_appear_v2.webp",
+    "folder": "HeadlessRiderHorror",
+    "frames": 14,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "qwQ33B84PpHtXzy5SUBGo",
+   "name": "Headless Rider - Aura of Despair Loop: v2 (smooth)",
+   "data": {
+    "name": "Headless Rider - Aura of Despair Loop",
+    "type": "ANIMATION",
+    "image": "@img:anim_hrh_aura_despair_loop_v2.webp",
+    "folder": "HeadlessRiderHorror",
+    "frames": 40,
+    "speed": 70,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "0ZjXGP73rSLa404dKSmcO",
+   "name": "Headless Rider - Aura of Despair Disappear: v2 (smooth)",
+   "data": {
+    "name": "Headless Rider - Aura of Despair Disappear",
+    "type": "ANIMATION",
+    "image": "@img:anim_hrh_aura_despair_disappear_v2.webp",
+    "folder": "HeadlessRiderHorror",
+    "frames": 12,
+    "speed": 60,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  }
+ ],
+ "imgSizes": {
+  "anim_hrh_aura_despair_appear_v2.webp": 58838,
+  "anim_hrh_aura_despair_loop_v2.webp": 103496,
+  "anim_hrh_aura_despair_disappear_v2.webp": 17692
+ }
+}
