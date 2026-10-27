@@ -24,7 +24,7 @@ for e in eff[1:]:                     # legacy key, absent from the current sche
     assert e["type"] in ("decreasedamagetaken", "increasedamagetaken")
     e.pop("statTypes", None)
 eff[0].update(appearAnimation=A["hrh_ad_appear"], staticAnimation=A["hrh_ad_loop"],
-              disappearAnimation=A["hrh_ad_disappear"], staticAssetPath=A["hrh_mist"], appearSfx="")
+              disappearAnimation=A["hrh_ad_disappear"], staticAssetPath=A["hrh_mist"], appearSfx="mOSkDnYv4hchkPbhdpTDd")   # server: one effect needs appearAnimation AND appearSfx (push/289 refusal)
 items = [
     {"entity": "jutsu", "slot": "convert", "targetId": "XVJb8MfFvIKe4GOgBaqXO", "name": "Hellfire Harvest: FX",
      "data": hhd},

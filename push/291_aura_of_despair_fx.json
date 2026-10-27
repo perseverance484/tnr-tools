@@ -1,0 +1,93 @@
+{
+ "_note": "STEP 2 of 2 (after 290). Aura of Despair: the increasepoolcost effect gets the push/288 appear / loop / disappear animations and the despair mist still; its appear sound stays the original Clear SFX (mOSkDnYv4hchkPbhdpTDd), because the server requires at least one effect with both appearAnimation and appearSfx. Approved description and battle line (RUL-2026-10-26-009). Numbers, targeting and other effects unchanged (legacy statTypes key dropped, not in the current schema). Then re-equips the full kit (eight). Rules untouched.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "N8V10pCnF7sEdrRs-mIdG",
+   "name": "Aura of Despair: FX + text (retry, appear sound kept)",
+   "data": {
+    "description": "The Rider raises his lantern and its dead light spills across the ground. Those it touches feel their strength drain away, and every blow lands harder.",
+    "battleDescription": "%user raises a guttering lantern and dead light spills across the ground around %target.",
+    "effects": [
+     {
+      "type": "increasepoolcost",
+      "power": 100,
+      "rounds": 4,
+      "target": "INHERIT",
+      "appearSfx": "mOSkDnYv4hchkPbhdpTDd",
+      "direction": "defence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "poolsAffected": [
+       "Chakra",
+       "Health",
+       "Stamina"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "kKMYOFKUXGl3M5hsQPR0K",
+      "staticAnimation": "qwQ33B84PpHtXzy5SUBGo",
+      "staticAssetPath": "tfHSXwZNXBBH6mrNa8wBL",
+      "disappearAnimation": "0ZjXGP73rSLa404dKSmcO"
+     },
+     {
+      "type": "decreasedamagetaken",
+      "power": 40,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ALL",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagetaken",
+      "power": 30,
+      "rounds": 4,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: re-equip Aura of Despair",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli",
+     "XVJb8MfFvIKe4GOgBaqXO"
+    ],
+    "items": []
+   }
+  }
+ ]
+}
