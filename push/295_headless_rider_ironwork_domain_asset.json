@@ -1,5 +1,5 @@
 {
- "_note": "Uploads the alternate Hellfire Harvest domain tile, Hellfire Ironwork (obsidian floor, riveted hellfire channels woven across the board, forged boss on the crossing), as a STATIC gameAsset in HeadlessRiderHorror, UNHIDDEN (battles load only unhidden assets). 256 px, hex drawn corner to corner so it fills each tile and the channels join across tiles. Create only: no jutsu points at it yet (Hellfire Harvest's recoil effect uses the pumpkin domain tQB1xg5NGeMg4vX7Nm2C1).",
+ "_note": "Uploads the alternate Hellfire Harvest domain tile, Hellfire Ironwork (obsidian floor, riveted hellfire channels woven across the board, forged boss on the crossing), as a STATIC gameAsset in HeadlessRiderHorror, created hidden (repo rule: every create ships hidden; battles load only unhidden assets, so push/296 unhides it from this run's id). 256 px, hex drawn corner to corner so it fills each tile and the channels join across tiles. Create only: no jutsu points at it yet (Hellfire Harvest's recoil effect uses the pumpkin domain tQB1xg5NGeMg4vX7Nm2C1).",
  "items": [
   {
    "entity": "asset",
@@ -13,7 +13,7 @@
     "folder": "HeadlessRiderHorror",
     "frames": 1,
     "speed": 1,
-    "hidden": false,
+    "hidden": true,
     "onInitialBattleField": false,
     "licenseDetails": "TNR"
    }
