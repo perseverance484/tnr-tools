@@ -1,5 +1,5 @@
 {
- "_note": "STEP 2 of 2 (after 303). Aura of Despair gets a 4th effect: damage, power 10 (formula power, not flat HP), 4 rounds, on the same ground as its other INHERIT effects, ENEMIES only, no element, no visuals of its own. Shape copied from Hellfire Harvest's live damage effect (law 3). Existing three effects, visuals, text unchanged (as push/291). Then re-equips the full kit of eight; items []. Rules untouched.",
+ "_note": "STEP 2 of 3 (after 303, which swapped the Aura animations and unequipped Aura). Aura of Despair gets a 4th effect: damage, power 10 (formula power, not flat HP), 4 rounds, ENEMIES, no element, no visuals; shape from Hellfire Harvest's live damage effect (law 3); everything else as push/291. Aura stays unequipped here: this run also unequips Unholy Pumpkin Patch, Scything Rend and Essence Eater (law 18/60) for the scaling fix in 305, which re-equips the full kit. Kit now = Wail, Candle Lit Aura, Horseman's Charge, Hellfire Harvest; items [].",
  "items": [
   {
    "entity": "jutsu",
@@ -101,15 +101,11 @@
    "entity": "ai",
    "slot": "edit",
    "targetId": "eaMN5CfciNlxfezSKemJ6",
-   "name": "Headless Rider: re-equip Aura of Despair",
+   "name": "Headless Rider: unequip Unholy Pumpkin Patch, Scything Rend, Essence Eater (scaling fix)",
    "data": {
     "jutsus": [
-     "0RrDykUh_IffgNMfIqZKO",
      "IWQNQNs0P_pXS_lmiQiEC",
-     "N8V10pCnF7sEdrRs-mIdG",
      "NWsB1wY_rAqPCD_RXl0Dh",
-     "nWYURXb6gVLvjnVRHsj2_",
-     "tkCD_En4j-IMOMxWz-F4h",
      "YoIR7p6urskFzfv8NoLli",
      "XVJb8MfFvIKe4GOgBaqXO"
     ],

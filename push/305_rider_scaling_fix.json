@@ -1,0 +1,233 @@
+{
+ "_note": "STEP 3 of 3 (after 304; director 2026-10-26: 'some of his abilities aren't properly scaled, like Unholy Pumpkin Patch'). Unholy Pumpkin Patch, Scything Rend and Essence Eater: the damage effect's scaling moves from Bukijutsu offence + Speed/Strength generals to the house standard statTypes ['None'] (the canonical form of Highest) + generalTypes ['Highest'], matching Hellfire Harvest, Wail of Despair and Horseman's Charge (docs/reviews/STORMRENDER_HIGHEST_SCALING_MANIFEST_GATE_20261020.md). Power, element, every other effect and field unchanged (effects re-sent whole from the push/262 capture). Then re-equips the full kit of eight; items []. Rules untouched.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "0RrDykUh_IffgNMfIqZKO",
+   "name": "Unholy Pumpkin Patch: damage scaling -> Highest",
+   "data": {
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 25,
+      "rounds": 2,
+      "target": "SELF",
+      "elements": [
+       "Fire",
+       "Lightning",
+       "None",
+       "Shadow"
+      ],
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "damage",
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Shadow"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "None"
+      ],
+      "calculation": "formula",
+      "description": "<p>placeholder</p>",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "-_fu0Q9RRYpptqacazz5p",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "clearprevent",
+      "power": 90,
+      "rounds": 1,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "nWYURXb6gVLvjnVRHsj2_",
+   "name": "Scything Rend: damage scaling -> Highest",
+   "data": {
+    "effects": [
+     {
+      "type": "damage",
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Shadow"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "None"
+      ],
+      "calculation": "formula",
+      "description": "<p>placeholder</p>",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "MB-Z1KBtKWbAHqFzyxWh8",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "decreasedamagegiven",
+      "power": 20,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "debuffprevent",
+      "power": 90,
+      "rounds": 1,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "tkCD_En4j-IMOMxWz-F4h",
+   "name": "Essence Eater: damage scaling -> Highest",
+   "data": {
+    "effects": [
+     {
+      "type": "damage",
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Shadow"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "None"
+      ],
+      "calculation": "formula",
+      "description": "<p>Deal Damage to Target</p>",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "pZ_p6ko5J8qc4h9x3lUGf",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "copy",
+      "power": 90,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: re-equip the full kit",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli",
+     "XVJb8MfFvIKe4GOgBaqXO"
+    ],
+    "items": []
+   }
+  }
+ ]
+}
