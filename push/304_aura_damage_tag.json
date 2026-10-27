@@ -1,0 +1,120 @@
+{
+ "_note": "STEP 2 of 2 (after 303). Aura of Despair gets a 4th effect: damage, power 10 (formula power, not flat HP), 4 rounds, on the same ground as its other INHERIT effects, ENEMIES only, no element, no visuals of its own. Shape copied from Hellfire Harvest's live damage effect (law 3). Existing three effects, visuals, text unchanged (as push/291). Then re-equips the full kit of eight; items []. Rules untouched.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "N8V10pCnF7sEdrRs-mIdG",
+   "name": "Aura of Despair: + damage 10 x 4 rounds",
+   "data": {
+    "description": "The Rider raises his lantern and its dead light spills across the ground. Those it touches feel their strength drain away, and every blow lands harder.",
+    "battleDescription": "%user raises a guttering lantern and dead light spills across the ground around %target.",
+    "effects": [
+     {
+      "type": "increasepoolcost",
+      "power": 100,
+      "rounds": 4,
+      "target": "INHERIT",
+      "appearSfx": "mOSkDnYv4hchkPbhdpTDd",
+      "direction": "defence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "poolsAffected": [
+       "Chakra",
+       "Health",
+       "Stamina"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "kKMYOFKUXGl3M5hsQPR0K",
+      "staticAnimation": "qwQ33B84PpHtXzy5SUBGo",
+      "staticAssetPath": "tfHSXwZNXBBH6mrNa8wBL",
+      "disappearAnimation": "0ZjXGP73rSLa404dKSmcO"
+     },
+     {
+      "type": "decreasedamagetaken",
+      "power": 40,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ALL",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagetaken",
+      "power": 30,
+      "rounds": 4,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 10,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "formula",
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "statTypes": [
+       "None"
+      ],
+      "generalTypes": [
+       "Highest"
+      ],
+      "friendlyFire": "ENEMIES",
+      "rounds": 4
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: re-equip Aura of Despair",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli",
+     "XVJb8MfFvIKe4GOgBaqXO"
+    ],
+    "items": []
+   }
+  }
+ ]
+}
