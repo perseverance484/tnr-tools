@@ -1,0 +1,170 @@
+{
+ "_note": "STEP 2 of 2 (after 288). Hellfire Harvest: damage effect gets the new appear animation (the low hellfire slash) + FireSFX; recoil effect carries the pumpkin domain as its 3-round ground still; heal cut has no visuals (Shadow field and Black Thorn Rose removed). Aura of Despair: the increasepoolcost effect gets the new appear / loop / disappear animations and the despair mist still, Clear SFX removed; approved description and battle line (RUL-2026-10-26-009). Numbers, targeting and the other effects unchanged (their legacy statTypes key is dropped: not in the current schema for decrease/increasedamagetaken, so the server strips it anyway). Then re-equips the full kit: push/262's seven (Aura included) + Hellfire Harvest, items []. Rules untouched. Asset ids from the push/288 results.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "XVJb8MfFvIKe4GOgBaqXO",
+   "name": "Hellfire Harvest: FX",
+   "data": {
+    "target": "GROUND",
+    "method": "ALL",
+    "range": 5,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "23zSn_fi657wJNy7voApG",
+      "disappearAnimation": "",
+      "appearSfx": "9-b8hbTXA019dgn8yyr3j",
+      "disappearSfx": "",
+      "power": 25,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "formula",
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "statTypes": [
+       "None"
+      ],
+      "generalTypes": [
+       "Highest"
+      ],
+      "elements": [
+       "Fire"
+      ],
+      "friendlyFire": "ENEMIES"
+     },
+     {
+      "staticAssetPath": "tQB1xg5NGeMg4vX7Nm2C1",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 60,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "recoil",
+      "description": "Recoil damage given back to self",
+      "rounds": 3,
+      "friendlyFire": "ENEMIES"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 60,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "decreaseheal",
+      "description": "Decrease how much target can heal others",
+      "rounds": 3,
+      "friendlyFire": "ENEMIES"
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "N8V10pCnF7sEdrRs-mIdG",
+   "name": "Aura of Despair: FX + text",
+   "data": {
+    "description": "The Rider raises his lantern and its dead light spills across the ground. Those it touches feel their strength drain away, and every blow lands harder.",
+    "battleDescription": "%user raises a guttering lantern and dead light spills across the ground around %target.",
+    "effects": [
+     {
+      "type": "increasepoolcost",
+      "power": 100,
+      "rounds": 4,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "defence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "poolsAffected": [
+       "Chakra",
+       "Health",
+       "Stamina"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "kKMYOFKUXGl3M5hsQPR0K",
+      "staticAnimation": "qwQ33B84PpHtXzy5SUBGo",
+      "staticAssetPath": "tfHSXwZNXBBH6mrNa8wBL",
+      "disappearAnimation": "0ZjXGP73rSLa404dKSmcO"
+     },
+     {
+      "type": "decreasedamagetaken",
+      "power": 40,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ALL",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagetaken",
+      "power": 30,
+      "rounds": 4,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: re-equip Hellfire Harvest + Aura of Despair",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli",
+     "XVJb8MfFvIKe4GOgBaqXO"
+    ],
+    "items": []
+   }
+  }
+ ]
+}
