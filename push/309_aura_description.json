@@ -1,0 +1,34 @@
+{
+ "_note": "STEP 2 of 2 (after 308). Aura of Despair description, director's wording 2026-10-26 (supersedes the RUL-2026-10-26-009 description; the battle line is unchanged). Nothing else on the jutsu changes; injectableInBattle re-sent false. Then re-equips the full kit of eight; items []. Rules untouched.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "N8V10pCnF7sEdrRs-mIdG",
+   "name": "Aura of Despair: description (lit gourd)",
+   "data": {
+    "description": "The Rider raises the lit gourd and its dead light spills across the ground. Those it touches feel their strength drain away, and every blow lands harder.",
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: re-equip Aura of Despair",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli",
+     "XVJb8MfFvIKe4GOgBaqXO"
+    ],
+    "items": []
+   }
+  }
+ ]
+}
