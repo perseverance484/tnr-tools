@@ -38,7 +38,7 @@ AD = os.path.join(fx.ART, 'aura_of_despair', 'raws')
 OUT = fx.EXPORTS
 PREV = os.path.join(fx.HERE, 'previews')
 
-HELL_TILE = 'tile_rider_domain.webp'   # the domain floor (domain_tile.py); 'tile_hellfire_scorch.webp' was v2
+HELL_TILE = 'tile_rider_domain_ironwork.webp'   # the Ironwork domain floor (domain_tile.build_ironwork)
 MS = {'hellfire_appear': 40, 'aura_appear': 50, 'aura_loop': 70, 'aura_disappear': 60}
 OPACITY = {'scorch': 0.62, 'mist': 0.50}
 
