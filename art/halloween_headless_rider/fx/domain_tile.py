@@ -352,3 +352,88 @@ def build_ironwork(floor_path, channel_path, boss_path, out, size=256, N2=2048, 
           f'arcs: ' + ', '.join(f"{k} r={a['r']:.0f} L={abs(a['d'])*a['r']:.0f} n={max(1, round(abs(a['d'])*a['r']/pitch_tile))}"
                                 for k, a in arcs.items()))
     return out
+
+
+# ------------------------------------------------------------------------------------- pumpkin-patch domain (rings)
+def build_pumpkin_rings(floor_path, vine_path, pumpkin_path, out, size=256, N2=2048, band=0.30, pumpkin_w=0.62,
+                        floor_gain=0.60):
+    """Pumpkin variant, calm layout (director 2026-10-26: "pumpkins, less busy").
+    One jack-o-lantern per hex, and vines on three arcs of radius R/2 round alternate corners (0, 2, 4). Every hex
+    corner of that class is shared by three hexes, each holding one 120-degree arc of the same circle, so the board
+    shows closed vine rings round half the vertices and nothing crosses. Each arc meets its edge midpoint square to the
+    edge, and the vine is parameterised by angle about its ring centre in one rotational direction, so the end of one
+    hex's arc is the start of the next: one texture period per arc, seams continuous. The vine strip is cropped to its
+    measured period (x 8..1512, column match 2.6/255) with a short crossfade. Built in regular hex space, stretched to
+    the square canvas; the pumpkin is pre-stretched against the game's 2:1 squash."""
+    import numpy as np
+    R2 = N2 / 2
+    H2 = int(round(SQ3 * R2))
+    cx0, cy0 = N2 / 2, H2 / 2
+    corners = [(R2 * math.cos(math.radians(60 * k)), R2 * math.sin(math.radians(60 * k))) for k in range(6)]
+
+    strip = np.array(Image.open(vine_path).convert('RGBA')).astype(np.float32)
+    Y0, Y1, XA, XB = 192, 573, 8, 1512
+    tex = strip[Y0:Y1, XA:XB].copy()
+    fade = 24
+    w = np.linspace(0, 1, fade)[None, :, None]
+    tex[:, :fade] = strip[Y0:Y1, XA:XA + fade] * w + strip[Y0:Y1, XB:XB + fade] * (1 - w)
+    th, tw = tex.shape[:2]
+    Wc = band * R2
+
+    yy, xx = np.mgrid[0:H2, 0:N2].astype(np.float32)
+    X, Y = xx - cx0, yy - cy0
+    floor = Image.open(floor_path).convert('RGB').resize((N2, N2), Image.LANCZOS).crop((0, (N2 - H2) // 2, N2, (N2 - H2) // 2 + H2))
+    f = np.array(floor).astype(np.float32)
+    lum = f.mean(2, keepdims=True)
+    img = (f * 0.8 + lum * 0.2) * floor_gain                     # darker, slightly desaturated: the soil stays quiet
+    r = R2 / 2
+    # soft drop shadow under the vines first, then the vines
+    for shadow in (True, False):
+        for k in (0, 2, 4):
+            cx, cy = corners[k]
+            dx, dy = X - cx, Y - cy
+            rho = np.sqrt(dx * dx + dy * dy)
+            v = rho - r
+            if shadow:
+                m = np.clip(1 - np.abs(v + Wc * 0.06) / (Wc * 0.62), 0, 1) * 0.45
+                img *= (1 - m[..., None])
+                continue
+            a0 = math.radians(60 * k + 120)                         # ccw about the corner, starting at edge k+1's midpoint side
+            ang = np.mod(np.arctan2(dy, dx) - a0, 2 * math.pi)
+            t = ang / math.radians(120)
+            tx = np.mod(t * tw, tw).astype(np.int32)
+            ty = np.clip((v / Wc + 0.5) * th, 0, th - 1).astype(np.int32)
+            inside = np.abs(v) <= Wc / 2
+            samp = tex[ty, tx]
+            al = (samp[..., 3:4] / 255.0) * inside[..., None]
+            img = img * (1 - al) + samp[..., :3] * al
+
+    base = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8), 'RGB').convert('RGBA')
+
+    pk = Image.open(pumpkin_path).convert('RGBA')
+    pk = pk.crop(pk.getchannel('A').getbbox())
+    pw = int(pumpkin_w * R2)
+    ph = int(pw * pk.height / pk.width * (H2 / N2) / fx.HEX_ASPECT)   # undo canvas stretch + game squash
+    pimg = pk.convert('RGBa').resize((pw, ph), Image.LANCZOS).convert('RGBA')
+    px, py = int(cx0 - pw / 2), int(cy0 - ph * 0.58)                 # base of the pumpkin just below the hex centre
+    sh = Image.new('L', (int(pw * 1.2), int(ph * 0.42)), 0)
+    ImageDraw.Draw(sh).ellipse((0, 0, sh.width - 1, sh.height - 1), fill=190)
+    sh = sh.filter(ImageFilter.GaussianBlur(pw * 0.04))
+    base.paste((0, 0, 0, 255), (int(cx0 - sh.width / 2), int(py + ph * 0.80)), sh)
+    base.alpha_composite(pimg, (px, py))
+
+    def hmask(inset):
+        m = Image.new('L', (N2, H2), 0)
+        ImageDraw.Draw(m).polygon([(cx0 + x * (1 - inset), cy0 + y * (1 - inset)) for x, y in corners], fill=255)
+        return m
+    ring = lambda a, b: Image.composite(hmask(a), Image.new('L', (N2, H2), 0), Image.eval(hmask(b), lambda v: 255 - v))
+    base.paste((10, 5, 4, 255), (0, 0), ring(0.0, 0.022))           # one thin dark rim: separates hexes, nothing more
+    outi = Image.new('RGBA', (N2, H2), (0, 0, 0, 0))
+    outi.paste(base, (0, 0), hmask(0.0))
+    sq = outi.resize((N2, N2), Image.LANCZOS)
+    small = sq.convert('RGBa').resize((size, size), Image.BOX).convert('RGBA')
+    small.putalpha(small.getchannel('A').point(lambda v: 255 if v >= 96 else 0))
+    small.save(out, lossless=True, method=6)
+    print(f'pumpkin rings domain tile {out}: {size}x{size}, {os.path.getsize(out)} bytes; ring r={r:.0f} '
+          f'arc L={math.radians(120) * r:.0f} vine period {tw}px -> {tw * Wc / th:.0f} (scale {Wc / th:.2f})')
+    return out
