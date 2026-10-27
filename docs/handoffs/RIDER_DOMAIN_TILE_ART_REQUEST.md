@@ -1,0 +1,55 @@
+# Art request: The Headless Rider's domain tile (pumpkin patch)
+
+- **Director, 2026-10-26:** a "domain" tile that fills the hex, repeats across the whole battlefield with a visually
+  attractive hex pattern, themed for the event ("Make it pumpkins"). Reference for finish and framing: the Subaku domain
+  tile (a dark stone floor crossed by bands that join from hex to hex).
+- **Replaces:** Hellfire Harvest's static tile (`staticAssetPath` on the recoil effect). Every tile of the board shows it
+  for 3 rounds, under the units.
+- **Prototype:** `art/halloween_headless_rider/fx/previews/pumpkin_domain_board.png` (programmatic placeholder art; the
+  geometry is final, the drawing is not).
+- **Why components, not one finished tile:** the pattern only joins if every vine meets the hex edge at its exact
+  midpoint, square to the edge, and the hex is stretched corner to corner in the square canvas. A generator cannot hit
+  those coordinates. So the art director paints three high-quality pieces; `fx/domain_tile.py` bends the vine along the
+  exact curves, lays the floor, plants the pumpkin and cuts the hex, so the seams are perfect.
+- **Live-game requests/writes:** 0.
+
+~~~text
+3 separate images for The Ninja RPG's Halloween event (the Headless Rider's pumpkin-patch domain). One asset per image,
+never a sheet. Attach the Headless Rider avatar as STYLE ONLY.
+
+SHARED STYLE
+High-quality pixel-art game asset. Crisp hard-edged pixels at about 4 screen pixels per art pixel, clean dark 1-pixel
+outlines, flat cel shading in 3-4 steps per colour, limited palette, deliberate highlight pixels, dithering only at soft
+edges. Rich, readable, premium. No text, letters, symbols, logos, UI, borders, frames or characters.
+Palette: soil black #0e0806 and #2a1611, ember red #a50c0b, pumpkin #b8460c #ee8020 #ffba50, candle core #ffe9a8,
+vine #142a10 #26461a #42702a, leaf highlight #6a9c38.
+
+1. S1_CURSED_SOIL — 1024 x 1024, FULL BLEED (no transparency, fills the canvas to every edge), seamless when tiled in
+   both directions. Seen from directly above: dark cursed farm soil, clods and cracked earth with thin glowing
+   ember-red seams in the cracks, a few scattered dead leaves and tiny pumpkin seeds. Low contrast and dark overall so
+   things placed on it stand out. No objects larger than a clod, no plants, no pumpkins.
+
+2. V1_VINE — 2048 x 384, transparent background. ONE pumpkin vine running perfectly straight and horizontal, edge to edge,
+   centred vertically, seamless left-to-right (the left end continues the right end). Thick twisted dark-green stem with
+   a darker outline and a lighter top highlight, small thorny bumps, broad pumpkin leaves alternating above and below the
+   stem every ~400 px, and a few curling tendrils. Seen from above. Nothing touches the top or bottom edge.
+
+3. P1_JACK_O_LANTERN — 1254 x 1254, transparent background. One carved jack-o-lantern pumpkin, seen from the front and
+   slightly above, sitting upright, centred with a clear margin. Deep ribbed orange body with strong cel-shaded lobes, a
+   short curled dark-green stem with one small leaf, a menacing carved face (angled triangle eyes, jagged grin) glowing
+   from inside with candle-gold light, a few singed scorch marks on the skin. Glow stays inside the carved cuts and as rim
+   light on the edges; no halo, no glow disc, no light on the ground, no shadow, nothing under it.
+
+Return each image as soon as it is made, labelled S1_CURSED_SOIL, V1_VINE, P1_JACK_O_LANTERN. Do not process or upload.
+~~~
+
+## Intake (Claude Code)
+
+1. Raw QC (S1 full bleed and seamless; V1 and P1 real alpha, nothing touching the edges).
+2. `domain_tile.py` assembles the tile at 1024: S1 as the floor; V1 warped along the three Truchet curves (the small arc
+   round corner 0 and the two large crossing arcs on edges 1-3 and 2-4), the over/under weave preserved; P1 planted at
+   the centre and pre-stretched 2x tall against the game's 2:1 squash; the dark bevelled hex rim; cut to the hex corner
+   to corner; box-reduced to 256 lossless WebP.
+3. Board simulation (12 x 10, units on top, the Aura of Despair mist over it) for director acceptance before upload.
+4. Upload as a hidden STATIC gameAsset in `HeadlessRiderHorror`; set as Hellfire Harvest's still in the jutsu edit that
+   carries the other animation slot fixes.
