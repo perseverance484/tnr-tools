@@ -1,0 +1,132 @@
+{
+  "_note": "STEP 1 of 2: Headless Rider FX (director-approved 2026-10-26). Creates six hidden gameAssets in folder HeadlessRiderHorror: two STATIC ground tiles (the pumpkin-patch domain, 256 px, hex drawn corner to corner so the game's w x h stretch fills each tile; one jack-o-lantern per hex and vine arcs round alternate corners that close into rings across the board; the despair mist) and four ANIMATION strips (vertical, square 112 px frames, frames/speed as the strip; speed = ms per frame, SpriteMixer tileDisplayDuration). Then unequips Hellfire Harvest and Aura of Despair from the Rider (law 18/60) so step 2 can edit both jutsu and re-equip. Kit re-sent: the push/262 seven minus Aura; items []. Rules untouched. Images bound by repo pack. Step 2 (push/289) is built from this run's asset ids.",
+  "items": [
+    {
+      "entity": "asset",
+      "slot": "create",
+      "name": "Headless Rider - Pumpkin Domain (Hellfire Harvest)",
+      "srcId": "hrh_domain",
+      "data": {
+        "name": "Headless Rider - Pumpkin Domain (Hellfire Harvest)",
+        "type": "STATIC",
+        "image": "@img:tile_hrh_rider_domain_pumpkin.webp",
+        "folder": "HeadlessRiderHorror",
+        "frames": 1,
+        "speed": 1,
+        "hidden": true,
+        "onInitialBattleField": false,
+        "licenseDetails": "TNR"
+      }
+    },
+    {
+      "entity": "asset",
+      "slot": "create",
+      "name": "Headless Rider - Despair Mist",
+      "srcId": "hrh_mist",
+      "data": {
+        "name": "Headless Rider - Despair Mist",
+        "type": "STATIC",
+        "image": "@img:tile_hrh_aura_mist.webp",
+        "folder": "HeadlessRiderHorror",
+        "frames": 1,
+        "speed": 1,
+        "hidden": true,
+        "onInitialBattleField": false,
+        "licenseDetails": "TNR"
+      }
+    },
+    {
+      "entity": "asset",
+      "slot": "create",
+      "name": "Headless Rider - Hellfire Harvest Appear",
+      "srcId": "hrh_hh_appear",
+      "data": {
+        "name": "Headless Rider - Hellfire Harvest Appear",
+        "type": "ANIMATION",
+        "image": "@img:anim_hrh_hellfire_harvest_appear.webp",
+        "folder": "HeadlessRiderHorror",
+        "frames": 18,
+        "speed": 40,
+        "hidden": true,
+        "onInitialBattleField": false,
+        "licenseDetails": "TNR"
+      }
+    },
+    {
+      "entity": "asset",
+      "slot": "create",
+      "name": "Headless Rider - Aura of Despair Appear",
+      "srcId": "hrh_ad_appear",
+      "data": {
+        "name": "Headless Rider - Aura of Despair Appear",
+        "type": "ANIMATION",
+        "image": "@img:anim_hrh_aura_despair_appear.webp",
+        "folder": "HeadlessRiderHorror",
+        "frames": 14,
+        "speed": 50,
+        "hidden": true,
+        "onInitialBattleField": false,
+        "licenseDetails": "TNR"
+      }
+    },
+    {
+      "entity": "asset",
+      "slot": "create",
+      "name": "Headless Rider - Aura of Despair Loop",
+      "srcId": "hrh_ad_loop",
+      "data": {
+        "name": "Headless Rider - Aura of Despair Loop",
+        "type": "ANIMATION",
+        "image": "@img:anim_hrh_aura_despair_loop.webp",
+        "folder": "HeadlessRiderHorror",
+        "frames": 40,
+        "speed": 70,
+        "hidden": true,
+        "onInitialBattleField": false,
+        "licenseDetails": "TNR"
+      }
+    },
+    {
+      "entity": "asset",
+      "slot": "create",
+      "name": "Headless Rider - Aura of Despair Disappear",
+      "srcId": "hrh_ad_disappear",
+      "data": {
+        "name": "Headless Rider - Aura of Despair Disappear",
+        "type": "ANIMATION",
+        "image": "@img:anim_hrh_aura_despair_disappear.webp",
+        "folder": "HeadlessRiderHorror",
+        "frames": 12,
+        "speed": 60,
+        "hidden": true,
+        "onInitialBattleField": false,
+        "licenseDetails": "TNR"
+      }
+    },
+    {
+      "entity": "ai",
+      "slot": "edit",
+      "targetId": "eaMN5CfciNlxfezSKemJ6",
+      "name": "Headless Rider: unequip Hellfire Harvest + Aura of Despair (step 1 of the FX edit)",
+      "data": {
+        "jutsus": [
+          "0RrDykUh_IffgNMfIqZKO",
+          "IWQNQNs0P_pXS_lmiQiEC",
+          "NWsB1wY_rAqPCD_RXl0Dh",
+          "nWYURXb6gVLvjnVRHsj2_",
+          "tkCD_En4j-IMOMxWz-F4h",
+          "YoIR7p6urskFzfv8NoLli"
+        ],
+        "items": []
+      }
+    }
+  ],
+  "imgSizes": {
+    "anim_hrh_aura_despair_appear.webp": 68608,
+    "anim_hrh_aura_despair_disappear.webp": 57310,
+    "anim_hrh_aura_despair_loop.webp": 99248,
+    "anim_hrh_hellfire_harvest_appear.webp": 120628,
+    "tile_hrh_aura_mist.webp": 50510,
+    "tile_hrh_rider_domain_pumpkin.webp": 77152
+  }
+}

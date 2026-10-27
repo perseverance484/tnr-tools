@@ -100,3 +100,14 @@ or upload.
 **Intake** as the pumpkin variant: QC, assembly at 1024 (S2 floor; B2 warped along the three curves with the weave;
 K2 on the crossing of the two large arcs, pre-stretched 2x tall; hex rim; cut; 256 lossless), board simulation, then the
 director picks pumpkin or ironwork.
+
+## Outcome (2026-10-26)
+
+- Ironwork assembled first (`domain_tile.build_ironwork`); the director then asked for "pumpkins, less busy".
+- S1/V1/P1 delivered; assembled by `domain_tile.build_pumpkin_rings`: the crossing Truchet arcs were dropped for three
+  non-crossing vine arcs of radius R/2 round alternate corners (0, 2, 4), which close into vine rings round half the
+  board's vertices; one jack-o-lantern per hex; floor darkened to 0.60; one thin rim. V1 cropped to its measured
+  period (x 8..1512) so the vine runs continuously across every seam.
+- Release: `release/tile_hrh_rider_domain_pumpkin.webp` (256 px, artpreflight STATIC 0 errors), uploaded by push/288.
+  Previews: `fx/previews/pumpkin_rings_board.png`, `pumpkin_combined_still.png`. The ironwork tile stays in
+  `fx/exports/` as the alternate.
