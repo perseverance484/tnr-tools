@@ -2,7 +2,7 @@
 
 - **For:** the art director (Art Director role, then Image Production)
 - **From:** Fable / Claude, at dauntless's request (2026-10-26)
-- **Status:** PROPOSAL. Direction (sections 2 and 3) awaits director approval before any generation.
+- **Status:** DIRECTOR-APPROVED (2026-10-26). Section 6 choices are settled; each layer still requires individual visual acceptance. Phase 2 smoulder is deferred.
 - **Jutsu:** Hellfire Harvest `XVJb8MfFvIKe4GOgBaqXO`, the Headless Rider's (`eaMN5CfciNlxfezSKemJ6`) signature: target
   GROUND, method ALL, every tile of the field; damage 25 Fire, recoil 60% and heal cut 60% for 3 rounds, enemies only
   (push/285, push/287).
@@ -34,7 +34,7 @@ only, static tile on the **recoil** effect only, sound swapped to **FireSFX** `9
 - **Optional looping static (`staticAnimation`):** a strip that loops on every tile for the 3 rounds, layered over the
   still. Proposed as phase 2.
 
-## 3. Direction (director to approve)
+## 3. Direction (director-approved 2026-10-26)
 
 **Palette:** char black `#0d0908`, ember brown `#3a1a10`, hellfire red `#c3141b`, pumpkin orange `#ff6a1a`, flame gold
 `#ffb347`, ash grey `#6d6158`. One accent family (orange to gold); no blue, green or purple.
@@ -82,8 +82,10 @@ key (no green in this palette).
    `HeadlessRiderHorror`, then the Rider unequip, the jutsu edit (appear + FireSFX on damage, static on recoil) and the
    re-equip (law 18/60, two runs).
 
-## 6. Director decisions
+## 6. Director decisions — APPROVED (2026-10-26)
 
-1. The scorch tile and the swing as described (section 3).
-2. Palette and the grin as the Rider's mark.
-3. Phase 2 smoulder loop now or later.
+1. **APPROVED:** Harvest Scorch tile and the five-stage Harvest Swing exactly as described in section 3.
+2. **APPROVED:** The listed char/ember/hellfire palette and the two-frame jack-o'-lantern grin as the Rider's signature mark.
+3. **DEFERRED TO PHASE 2:** The six-frame Smoulder loop. Do not include it in the current six-layer production pass; revisit after the first combat preview.
+
+**Production gate:** No remaining section-6 art-direction revisions. Produce one raw candidate at a time in a **fresh isolated conversation for each of T1, B1, C1, F1, G1 and E1**, attaching the actual Rider avatar image once per conversation as **STYLE ONLY**. Show each candidate for separate director visual acceptance before the next layer. Preserve approved originals; leave compositing, QC, manifests and all live-game action outside the generation sessions. Approval here is not raw-asset approval or permission for live-game requests/writes.
