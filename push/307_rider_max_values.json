@@ -1,0 +1,375 @@
+{
+ "_note": "STEP 2 of 2 (after 306). AI jutsu do not level, so every effect that carried powerPerLevel 0.4 is set to its max-level value (power + 25 x 0.4, percentage capped at 100) with powerPerLevel 0: Unholy Pumpkin Patch: increasedamagegiven 25->35, damage 30->40, clearprevent 90->100; Candle Lit Aura: increasedamagegiven 25->35, decreasedamagetaken 25->35; Scything Rend: damage 30->40, decreasedamagegiven 20->30, debuffprevent 90->100; Essence Eater: damage 30->40, copy 90->100; Horseman's Charge: damage 30->40. Effects re-sent whole from the live record (push/305 readback for the first three, push/262 capture for Candle Lit Aura and Horseman's Charge); nothing else changes. Note: push/305's statTypes change did not persist (the server keeps Bukijutsu + Speed/Strength on Bukijutsu-classified jutsu), so those stay as live. Then re-equips the full kit of eight; items []. Rules untouched.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "0RrDykUh_IffgNMfIqZKO",
+   "name": "Unholy Pumpkin Patch: max-level values, no level scaling",
+   "data": {
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 35,
+      "rounds": 2,
+      "target": "SELF",
+      "elements": [
+       "Fire",
+       "Lightning",
+       "None",
+       "Shadow"
+      ],
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "damage",
+      "power": 40,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Shadow"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu"
+      ],
+      "calculation": "formula",
+      "description": "<p>placeholder</p>",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "generalTypes": [
+       "Speed",
+       "Strength"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "-_fu0Q9RRYpptqacazz5p",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "clearprevent",
+      "power": 100,
+      "rounds": 1,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "NWsB1wY_rAqPCD_RXl0Dh",
+   "name": "Candle Lit Aura: max-level values, no level scaling",
+   "data": {
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 35,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "<p>placeholder</p>",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "decreasedamagetaken",
+      "power": 35,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "visual",
+      "power": 1,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "16vlpusdcPY8Ki3zE4qOs",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "50EXzNt3dUdcTzSnsr_QZ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "nWYURXb6gVLvjnVRHsj2_",
+   "name": "Scything Rend: max-level values, no level scaling",
+   "data": {
+    "effects": [
+     {
+      "type": "damage",
+      "power": 40,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Shadow"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu"
+      ],
+      "calculation": "formula",
+      "description": "<p>placeholder</p>",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "generalTypes": [
+       "Speed",
+       "Strength"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "MB-Z1KBtKWbAHqFzyxWh8",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "decreasedamagegiven",
+      "power": 30,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "debuffprevent",
+      "power": 100,
+      "rounds": 1,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "tkCD_En4j-IMOMxWz-F4h",
+   "name": "Essence Eater: max-level values, no level scaling",
+   "data": {
+    "effects": [
+     {
+      "type": "damage",
+      "power": 40,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Shadow"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu"
+      ],
+      "calculation": "formula",
+      "description": "<p>Deal Damage to Target</p>",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "generalTypes": [
+       "Speed",
+       "Strength"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "pZ_p6ko5J8qc4h9x3lUGf",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "copy",
+      "power": 100,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "convert",
+   "targetId": "YoIR7p6urskFzfv8NoLli",
+   "name": "Horseman's Charge: max-level values, no level scaling",
+   "data": {
+    "effects": [
+     {
+      "type": "damage",
+      "power": 40,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Shadow"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "None"
+      ],
+      "calculation": "formula",
+      "description": "placeholder",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "yDgSlG29PiqnBr5QV6QxB",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "stun",
+      "power": 100,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "apReduction": 20,
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "timecompression",
+      "power": 100,
+      "rounds": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "eaMN5CfciNlxfezSKemJ6",
+   "name": "Headless Rider: re-equip the full kit",
+   "data": {
+    "jutsus": [
+     "0RrDykUh_IffgNMfIqZKO",
+     "IWQNQNs0P_pXS_lmiQiEC",
+     "N8V10pCnF7sEdrRs-mIdG",
+     "NWsB1wY_rAqPCD_RXl0Dh",
+     "nWYURXb6gVLvjnVRHsj2_",
+     "tkCD_En4j-IMOMxWz-F4h",
+     "YoIR7p6urskFzfv8NoLli",
+     "XVJb8MfFvIKe4GOgBaqXO"
+    ],
+    "items": []
+   }
+  }
+ ]
+}
