@@ -345,6 +345,8 @@ def build_ironwork(floor_path, channel_path, boss_path, out, size=256, N2=2048, 
     outi.paste(base, (0, 0), hmask(0.0))
     sq = outi.resize((N2, N2), Image.LANCZOS)                      # stretch so the flat top and bottom touch the canvas
     small = sq.convert('RGBa').resize((size, size), Image.BOX).convert('RGBA')
+    # hard hex edge: every pixel the hex touches is fully opaque, so neighbouring tiles meet with no see-through seam
+    small.putalpha(small.getchannel('A').point(lambda v: 255 if v >= 96 else 0))
     small.save(out, lossless=True, method=6)
     print(f'ironwork domain tile {out}: {size}x{size}, {os.path.getsize(out)} bytes; '
           f'arcs: ' + ', '.join(f"{k} r={a['r']:.0f} L={abs(a['d'])*a['r']:.0f} n={max(1, round(abs(a['d'])*a['r']/pitch_tile))}"
