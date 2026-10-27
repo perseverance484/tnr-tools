@@ -38,6 +38,7 @@ AD = os.path.join(fx.ART, 'aura_of_despair', 'raws')
 OUT = fx.EXPORTS
 PREV = os.path.join(fx.HERE, 'previews')
 
+HELL_TILE = 'tile_rider_domain.webp'   # the domain floor (domain_tile.py); 'tile_hellfire_scorch.webp' was v2
 MS = {'hellfire_appear': 40, 'aura_appear': 50, 'aura_loop': 70, 'aura_disappear': 60}
 OPACITY = {'scorch': 0.62, 'mist': 0.50}
 
@@ -357,7 +358,7 @@ def previews():
     every = list(tiles)
     spiral = [t for t in tiles if t != rider and hexdist(t, rider) <= 5]
     E = lambda n: os.path.join(OUT, n)
-    hell = lambda start, end=None: Cast('hellfire', start, every, E('tile_hellfire_scorch.webp'),
+    hell = lambda start, end=None: Cast('hellfire', start, every, E(HELL_TILE),
                                         E('anim_hellfire_appear.webp'), MS['hellfire_appear'], end_ms=end)
     aura = lambda start, end=None: Cast('aura', start, spiral, E('tile_aura_mist.webp'), E('anim_aura_appear.webp'),
                                         MS['aura_appear'], E('anim_aura_loop.webp'), MS['aura_loop'],
@@ -373,7 +374,7 @@ def previews():
 def close(units):
     """One tile, large: scorch still, mist still, then the loops, as they stack in the combined state."""
     E = lambda n: os.path.join(OUT, n)
-    scorch, mist = L(E('tile_hellfire_scorch.webp')), L(E('tile_aura_mist.webp'))
+    scorch, mist = L(E(HELL_TILE)), L(E('tile_aura_mist.webp'))
     happ, aapp, aloop = (fx.strip_frames(E(n)) for n in ('anim_hellfire_appear.webp', 'anim_aura_appear.webp',
                                                          'anim_aura_loop.webp'))
     Z = 8
