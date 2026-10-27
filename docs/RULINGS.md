@@ -3321,3 +3321,29 @@ closely"; targets chosen: "15-20 min", "Clearable, few wipes", "Level 100 Jonin,
 **Evidence:** User, 2026-10-26: "I figured it out. When we updated the claws it severed the link." Live fight log the same day (zombies adjacent to Carbon and Kitsu, End Turn each round, no claw or move).
 
 **Canonical destination:** `docs/ENGINE_LAWS.md` law 18 (pending reconciliation).
+
+## RUL-2026-10-26-009 — Aura of Despair: restrained lantern-mist field art
+
+**Date:** 2026-10-26
+
+**Domain:** Headless Rider Horror! / Aura of Despair animation art direction
+
+**Status:** ACTIVE — art direction approved; raw-generation and production acceptance pending.
+
+**Ruling:**
+1. Approve **lantern/despair**, a slow, low, cold ground-mist curse with a **restrained dull-red accent**. It must remain a
+   separately recognisable move from Hellfire Harvest's bright, fast orange scythe-and-flame ignition.
+2. Approve **subtle, fleeting hollow wailing faces** in Aura's loop. They belong only to the wisps, not the static tile
+   or other layers; they must not persist or obscure units.
+3. Approve the proposed **description and battle line verbatim**, as printed in section 6 of the owning art request.
+   This is a text/direction acceptance, not authorization to alter mechanics or publish.
+4. Five transparent source layers (M1, L1, R1, W1, D1) remain individually subject to the isolated
+   one-candidate-at-a-time generation and director visual-acceptance gates. No artwork was generated with this ruling.
+
+**Evidence:** User, 2026-10-26: "Approve lantern/despair direction, restrained dull red"; "Approve subtle fleeting
+wailing faces"; "Approve proposed description and battle line verbatim. Please finalize the art direction before any
+image generation."
+
+**Canonical destination:** `docs/handoffs/AURA_OF_DESPAIR_ANIMATION_ART_REQUEST.md` (approved direction and exact text).
+The companion Hellfire Harvest request stays a separate visual contract. Sound selection remains open; no live-game
+requests/writes are authorized.
