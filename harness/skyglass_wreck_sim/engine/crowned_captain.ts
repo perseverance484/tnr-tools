@@ -44,18 +44,18 @@ const dmg = loadDmgConfig(H, opt("dmg-config", "live"));
 
 /* ------------------------------------------------------------------ parameters */
 export const DEFAULTS = {
-  name: "tuned",
+  name: "tuned_hp2x",
   // Record. HP = 5050 x poolsMultiplier. statsMultiplier: push/272 value; every JONIN-rank stat is capped
   // in battle (capUserStats: offence/defence 1.3M, generals 400k), so it changes nothing above ~4.7.
-  poolsMultiplier: 2.5,
+  poolsMultiplier: 5, // director 2026-10-28: HP doubled (25,250) so the duel phase lasts
   statsMultiplier: 5.83,
-  idgRows: 1.75, // innate increasedamagegiven rows: 1.75 = one +100% row and one +75% row (rows multiply: x3.5)
+  idgRows: 0.5, // innate increasedamagegiven rows: 0.5 = one +50% row (x1.5); rows cap at +100 and multiply
   // Arena (12 x 10, FLAT, odd columns offset)
   throne: [9, 4] as [number, number],
   safeStars: [[7, 1], [5, 4], [8, 8]] as [number, number][], // each 4 hexes from the throne: in jutsu range
   // Set pieces
-  crownfallPower: 180, crownfallCd: 4,
-  commandPower: 130, commandStunAp: 60, commandStunRounds: 2, commandSealRounds: 2, commandCd: 8,
+  crownfallPower: 180, crownfallCd: 3,
+  commandPower: 130, commandStunAp: 60, commandStunRounds: 2, commandSealRounds: 2, commandCd: 6,
   shardPower: 180,
   // Recall (echo: Sanctum Vanguard)
   echoHp: 2500, echoPower: 70, echoRounds: 3, recallCd: 8,

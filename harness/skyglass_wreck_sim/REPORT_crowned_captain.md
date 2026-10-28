@@ -7,13 +7,89 @@ average endgame player and exports a build spec.
 - **Requests:** zero live requests and no credentials.
 - **Spec:** `crowned_captain_spec.json`.
 - **Raw results:** `results/crowned_captain_tuned.json` (60 seeds with dodging, 60 without).
-- **Sample traces:** `results/crowned_captain_trace_seed3.txt` (fast branch) and `..._seed5.txt` (slow branch).
+- **Sample traces:** `results/crowned_captain_trace_seed3.txt` and `..._seed5.txt`.
 - **Script:** `engine/crowned_captain.ts`.
 - **Inputs:** `data/crowned_captain_inputs.json`, built by `tools/build_crowned_captain_inputs.py`.
 
 Nothing here is pushed or authorised for the live game. The spec carries placeholder ids `cc-*` for the 10 new jutsu.
 
-## Headline (tuned values, 60 seeds per mode)
+## Current tuning: HP doubled (director, 2026-10-28)
+
+The director doubled his HP (pools 2.5 to 5, 25,250 HP) so that phase 1 lasts. The Recall echo is unchanged.
+
+**What was retuned, and why:**
+- **Unavoidable damage down:** damage rows go from +100% and +75% to a single **+50%** row.
+- **Set pieces more often:** Crownfall's cooldown goes from 4 to **3** and Command Absolute's from 8 to **6**. Each set
+  piece is a full boss turn that a dodger takes no damage from. A player who ignores the marks gets hit more often.
+- **Set-piece damage is unchanged:** Crownfall 180, Command Absolute 130 plus stun and seal, Shardstorm 180.
+- The rules and the rest of the kit are unchanged.
+
+| 60 seeds per mode | Dodging on | Dodging off (marks ignored) |
+|---|---:|---:|
+| Win rate | **93.3%** (56/60) | **5%** (3/60) |
+| Rounds to win, median [p10-p90] | **23 [23-23]** (range 21-25) | 22 |
+| Player HP left at a win, median / p10 | **22.8% / 8%** (2 wins at almost 0%) | ~0% |
+| Losses by phase (1 / 2 / 3) | 0 / 3 / 1 | 2 / 47 / 8 |
+| **Phase lengths**, median: phase 1 (100-60%) / phase 2 (60-30%) / phase 3 to the kill | **7 / 10 / 6 rounds** (phase 2 starts r7, phase 3 r17) | 7 / 10 / - (most die in phase 2) |
+| The Last Directive cast | 95% | 18% |
+| Idle turns: boss / player | 3.8% / 0% | 0% / 0% |
+| Dodge moves per fight; moves refused onto a mark | 4.6; 2.0 | - |
+| Set pieces that landed with no mark the turn before | 0 | 0 |
+
+The fight now has one mode: 48 of 56 wins take exactly 23 rounds. The two-mode split of the first tuning is gone.
+
+**Set pieces per fight** (marked / landed / hit; damage per hit is HP actually lost):
+
+| Set piece | Dodging on | Dodging off |
+|---|---|---|
+| Crownfall | 2.1 / 2.1 / 0 | 2.1 / 2.1 / 1.2 (59%), 1,612 per hit |
+| Command Absolute | 1.9 / 1.0 / 0 | 1.3 / 1.3 / 1.3 (100%), 1,077 per hit, plus stun and seal |
+| Shardstorm | 0.9 opener / 3.0 volleys / 0 | 0.2 / 0.5 / 0.1 (few reach phase 3) |
+| Recall | 1.1 casts | 1.2 casts |
+
+**Damage to the player by source:**
+
+| Dodging on | | Dodging off | |
+|---|---:|---|---:|
+| Extermination Order | 35.1% | Crownfall | 33.3% |
+| echo | 19.7% | Command Absolute | 22.6% |
+| Devouring Grasp | 17.6% | Extermination Order | 15.4% |
+| Scorching Rend | 13.4% | echo | 9.6% |
+| Cursed Thread Weave | 6.5% | Scorching Rend | 6.6% |
+| Final Command | 4.5% | Devouring Grasp, Cursed Thread Weave, Final Command, Keelbind, Solar Bow, Ruin Refrain, Shardstorm | 12.5% together |
+| Keelbind, Solar Bow, Ruin Refrain | 3.1% together | | |
+
+**Retune path at pools 5** (40 seeds per mode; on = win %, rounds, HP left; off = win %):
+
+| Damage rows | CF cd | CA cd | Set pieces CF / CA / SS | On | Off |
+|---:|---:|---:|---|---|---:|
+| 1.75 (old) | 4 | 8 | 180 / 130 / 180 | 0% (dies in phase 2) | 0% |
+| 1 | 4 | 8 | same | 0% | 0% |
+| 0.5 | 4 | 8 | same | 45%, 25, 0% | 5% |
+| 0 | 4 | 8 | same | 55%, 25, 12% | 5% |
+| 0 | 4 | 5 | same | 32.5%, 25, 11% | 5% |
+| 0 | 3 | 5 | same | 100%, 23, 38% | 5% |
+| 0.25 | 3 | 5 | same | 100%, 23, 30% | 5% |
+| 0.5 | 3 | 5 | same | 90%, 23, 23% | 0% |
+| **0.5** | **3** | **6** | **same** | **92.5%, 23, 23% (tuned; 60 seeds: 93.3%)** | **5%** |
+
+**What is still not as designed:**
+- **The fight is 23 rounds, not 12-15.** The director accepted a longer fight with this change.
+- **Phase 2 is the longest, at 10 rounds.** In it, Extermination Order and the echo deal most of the damage a dodger
+  takes, and all 3 phase-2 losses happen there.
+- **Phase 1 now lasts 7 rounds.** Crownfall fires about twice, but Final Command, Keelbind and Ruin Refrain still deal
+  under 7% of the damage. They sit below Crownfall and Cursed Thread Weave in the rule order, and Crownfall now holds
+  every third turn.
+- **His damage still sits above the ladder,** at x1.5 rows x1.6 from The Crown's Will (x2.4), plus the Directive.
+
+Everything below this section is the first tuning (pools 2.5), kept for the record. Its engine facts, probe answers and
+open decisions still stand.
+
+---
+
+## First tuning (pools 2.5, superseded)
+
+### Headline (first tuning, 60 seeds per mode)
 
 | | Dodging on | Dodging off (marks ignored) |
 |---|---:|---:|
@@ -83,7 +159,7 @@ actions:
    If rooted, they use the basic Cleanse first. In 60 runs that never came up.
 2. They never end a move on a marked hex. An auto-combat move onto one is replaced by ending the turn.
 
-## The tuned boss (all storable)
+## The boss record (first-tuning values; the current values are in the section above and in the spec)
 
 | Field | Value | Note |
 |---|---|---|
