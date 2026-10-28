@@ -1163,3 +1163,16 @@ edits and the easy dungeon (harness tuning in progress) join this manifest. Gate
 problems; `validate.py --strict` 1 error + 8 warnings, all held under `state/validate_exceptions/319_skyglass_update.json`
 (RUL-2026-10-28-002: the law-6 power cap, and the build-order lint, which ignores phases). Regenerate and re-write the
 ledger whenever the manifest changes.
+
+## 320 Skyglass danger-language assets (10 asset creates, HIDDEN): READY TO RUN (test of tiles under characters)
+
+Director 2026-10-28: marks play under the characters; "We'll double check with a push". Built by
+`push/skyglass_fx_assets.gen.py` from `art/skyglass_boss_fx/exports` (`animate.py`; key art = the director's six art
+sessions, `art/skyglass_boss_fx/raw/`). Creates, hidden:
+- four STATIC mark tiles (heavy, binding, lingering pool, safe), drawn under the characters as an effect's
+  `staticAssetPath` (theninjarpg `libs/threejs/combat.ts` ~632: depthTest on, behind USER_LAYER);
+- four glint ANIMATIONs over them (the safe one carries the floating emblem);
+- two detonation ANIMATIONs (eruption, crystal shard).
+Preview: `docs/design/skyglass_boss_fx/v3_battle.mp4`. Image pack pinned at bdc665c. Gates: `validate.py --strict`
+0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:** from its results bundle, push/321
+unhides the ten (law 16c) and creates a hidden test jutsu that lays the tiles.
