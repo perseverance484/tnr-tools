@@ -308,5 +308,112 @@ def export(anims):
     return out
 
 
+# ------------------------------------------------------------------------------------------------ v3: tiles under, glints over
+# Director 2026-10-28: marks play under the characters. An effect's staticAssetPath is a plain Sprite with depthTest on,
+# placed on EFFECTS_LAYER (-6) behind the users (USER_LAYER -4, whose avatar sprites write depth), and stretched to the
+# hex box (libs/threejs/combat.ts ~632-641): so a STILL tile draws under the characters and fills the hex. Animations
+# (ActionSprite, depthTest false, drawn after the users) always draw over them. Precedent: Hellfire Harvest's domain
+# tile (art/halloween_headless_rider/release/tile_hrh_rider_domain_pumpkin.webp, a square stretched to the hex).
+# So each mark = a STILL tile of the director's full art (under) + a light glint animation that only touches the
+# tile's rim and empty space (over). The tile is a 50 px square (the delivered width); the game squashes it to the
+# 2:1 hex, so the art is drawn round in the square.
+TILE = 50
+RX, RY = 17, 8.5     # the ring's rim in frame px, as the hex shows it (36 x 18 hex, art filling about 94%)
+
+
+def tile(img, colors=16, fill=0.94):
+    w = int(TILE * fill)
+    t = reduce(img, w, w, colors=colors)
+    f = Image.new('RGBA', (TILE, TILE), (0, 0, 0, 0))
+    f.alpha_composite(t, ((TILE - w) // 2, (TILE - w) // 2))
+    return f
+
+
+def rim(f, i, period, rgb, n=3, phase=0.0, rx=RX, ry=RY, cy=25):
+    for k in range(n):
+        ang = 2 * math.pi * (i / period + k / n + phase)
+        x, y = 25 + math.cos(ang) * rx, cy + math.sin(ang) * ry
+        px(f, x, y, rgb)
+        px(f, x - math.sin(ang) * 1.2, y + math.cos(ang) * 0.6, rgb, 130)
+
+
+def build_v3():
+    star = keyed('raw_fx_safe_star.png')
+    tiles = {'heavy': tile(keyed('raw_fx_heavy_ring.png')),
+             'control': tile(keyed('raw_fx_binding_seal.png', dist=70)),
+             'linger': tile(tint(keyed('raw_fx_bile_seep.png', dist=70), (1.0, 0.92, 0.65)), fill=0.9),
+             'safe': tile(star, fill=0.9)}
+    glints = {}
+    fr = []  # heavy: three embers race round the rim; a hot flash of the rim on the beat
+    for i in range(BEAT):
+        f = frame()
+        rim(f, i, BEAT, (255, 220, 120))
+        if i < 2:
+            for k in range(40):
+                ang = 2 * math.pi * k / 40
+                px(f, 25 + math.cos(ang) * RX, 25 + math.sin(ang) * RY, (255, 170, 60), 255 if i == 0 else 130)
+        fr.append(f)
+    glints['heavy'] = fr
+    fr = []  # control: a lilac spark runs the chain; the lock (top of the rim) glints on the beat
+    for i in range(BEAT):
+        f = frame()
+        rim(f, i, BEAT, (225, 200, 255), n=2, phase=0.25)
+        if i in (0, 1):
+            px(f, 25, 25 - RY, (255, 255, 255)); px(f, 26, 25 - RY - 1, (240, 230, 255)); px(f, 24, 25 - RY + 1, (240, 230, 255), 130)
+        fr.append(f)
+    glints['control'] = fr
+    period = BEAT * 3 // 2  # linger: bubbles rise and pop at the pool's rim
+    bubbles = [(13, 23, 0), (36, 24, 8), (25, 31, 15), (29, 19, 20)]
+    fr = []
+    for i in range(period):
+        f = frame()
+        for bx, by, t0 in bubbles:
+            k = (i - t0) % period
+            if k < 6:
+                r = 1 + k // 2
+                col = (200, 230, 70) if k < 5 else (245, 255, 160)
+                for dx in range(-r, r + 1):
+                    for dy in range(-r, r + 1):
+                        if abs(math.hypot(dx, dy * 1.6) - r) < 0.7:
+                            px(f, bx + dx, by + dy, col)
+                if k == 5:
+                    for dx, dy in ((-2, -1), (2, -1), (0, -2)):
+                        px(f, bx + dx, by + dy, (245, 255, 160))
+        fr.append(f)
+    glints['linger'] = fr
+    emblem = reduce(star, 22, 22)  # safe: the floating emblem (over, by design) bobs; motes rise from the tile
+    period = BEAT * 2
+    motes = [(14, 0), (36, 9), (22, 17), (30, 25)]
+    fr = []
+    for i in range(period):
+        p = pulse(i, period)
+        f = frame()
+        bob = round(1.5 * math.sin(2 * math.pi * i / period))
+        put(f, bright(emblem, 0.95 + 0.2 * p), 14, 2 + bob)
+        for mx, t0 in motes:
+            k = (i - t0) % period
+            if k < 14:
+                px(f, mx + (1 if k % 6 > 3 else 0), 30 - k * 1.6, (200, 245, 255) if k < 10 else (120, 200, 240),
+                   255 if k < 10 else 130)
+        fr.append(f)
+    glints['safe'] = fr
+    return tiles, glints
+
+
+def export_v3():
+    tiles, glints = build_v3()
+    for name, t in tiles.items():
+        p = os.path.join(EXPORTS, f'tile_{name}_v3.webp')
+        t.save(p, lossless=True, quality=100, method=6)
+        print(f'tile_{name}: {os.path.getsize(p)} bytes')
+    for name, frames in glints.items():
+        p = os.path.join(EXPORTS, f'anim_{name}_glint_v3.webp')
+        finish(frames).save(p, lossless=True, quality=100, method=6)
+        assert os.path.getsize(p) < MAX_BYTES
+        print(f'anim_{name}_glint: {len(frames)} frames, {os.path.getsize(p)} bytes')
+    return tiles, glints
+
+
 if __name__ == '__main__':
     export(build())
+    export_v3()
