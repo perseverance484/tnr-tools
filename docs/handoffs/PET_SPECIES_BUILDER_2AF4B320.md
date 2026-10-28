@@ -27,10 +27,10 @@
 
 ## Gates (exact)
 
-- `node --test` via `npm test` (forge/): 734 tests, 723 pass, **1 fail**, 10 skipped. The failure is the bundle budget (below). Base `34a2ae8f`: 721 / 712 / 0 / 9. `test/pets.test.mjs` 13/13; its source-comparison test runs with `TNR_GAME_CHECKOUT=<2af4b320 checkout>` (passed) and is skipped otherwise.
+- `node --test` via `npm test` (forge/): 734 tests, 724 pass, 0 fail, 10 skipped (after the budget raise below). Base `34a2ae8f`: 721 / 712 / 0 / 9. `test/pets.test.mjs` 13/13; its source-comparison test runs with `TNR_GAME_CHECKOUT=<2af4b320 checkout>` (passed) and is skipped otherwise.
 - `npm run build` twice: byte-identical. `npm run fixtures` then `git diff --exit-code`: clean.
 - `check_boundaries` 0 violations (pin 2af4b320), `check_imports` 0, `check_release_pin` ok.
-- **`check_bundle_budget` exit 1: raw 444,780 / 436,000, gzip 107,068 / 105,500** (base 435,145 / 105,126). Not raised here: a budget raise is the director's decision.
+- `check_bundle_budget` exit 0: raw 444,780 / 446,000, gzip 107,068 / 108,000 (base 435,145 / 105,126). Raised from 436,000 / 105,500 by the director (RUL-2026-10-28-014).
 - `node tools/check_manifest.mjs` on every `push/*.json`: identical per-file results to base (6 refuse at both). Fixtures: 4 good pass, 4 bad refused.
 - `validate.py` (cwd skill data/) on every `push/*.json`: identical exit codes and error/warning counts to base (116/121 pass; 229, 319, 90, 93, 94 fail at both). `validate.py --strict` on the fixtures: 4 good exit 0, 4 bad exit 1.
 - `schema_extract.py <2af4b320> --ctors/--entities/--constants/--procedures/--checks`: byte-identical to the adopted files. Run at 85cecae, the patched extractor changes nothing in the committed files except: the new petSpecies entity and its 45g entries (only additions; `null_strip_exempt` gains `artDirection`, `preferredDamageElement`), PET_AI_* in 45e, `aiRule.superRefine` `[]` -> `["<inline>"]`, and the `item.craftingRequirements` bound/flag correction.
@@ -43,7 +43,7 @@
 
 ## Known debt, deviations, open decisions
 
-1. **Director decision: bundle budget.** Forge is over by 8,780 raw / 1,568 gzip.
+1. **Bundle budget: resolved.** The director raised it to 446,000 / 108,000 (RUL-2026-10-28-014).
 2. **Interpretation to confirm:** species have no `hidden` column; this branch treats `isActive:false` on create as the species' hidden-on-create and refuses `isActive:true` on create. Activation stays a publishing act.
 3. **Build order needs a publish between steps 2 and 3.** The server refuses hidden defaults, and every jutsu create ships hidden, so the species-defaults edit can only run after the director publishes the signature jutsu. Both gates refuse the one-manifest form.
 4. **Law reconciliation flagged, not done:** law 8's cap of 100 on `maxLevel` (validate.py `CAP_100`) is stale at source (`MAX_PLAYER_LEVEL` 110); `requiredLevel` likewise. validate.py still applies the law text.
