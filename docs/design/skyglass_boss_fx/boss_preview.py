@@ -31,9 +31,9 @@ ALL = [(q, r) for q in range(-3, 4) for r in range(-4, 3)]
 ROWS = [(q, 0) for q in range(-3, 4)] + [(q, 1) for q in range(-3, 4)]
 FAN = [(-1, -1), (-2, -1), (-3, -2), (-1, 1), (-2, 2)]
 SEQ = [('crimson_strike', [(0, 0)], 'Final Command'), ('chain_wrap', [(-2, 0)], 'Keelbind'), ('rot_claw', [(0, 0)], 'Splintered Grasp'),
-       ('ships_bell', [BOSS], "Ship's Bell"), ('broadside', ROWS, 'Broadside'), ('maw', [c for c in ALL if c not in ((1, -1), (-2, 1), (2, 1))], 'Maw of the Deep'),
+       ('ships_bell', [BOSS], "Ship's Bell"), ('broadside_field', ROWS, 'Broadside'), ('maw_field', [c for c in ALL if c not in ((1, -1), (-2, 1), (2, 1))], 'Maw of the Deep'),
        ('exposed', [BOSS], 'Exposed Seam'), ('quench', RING, 'Quench'), ('recall', [(1, -2)], 'Recall'),
-       ('command_absolute', [c for c in ALL if c not in ((1, -1), (-2, 1), (2, 1))], 'Command Absolute'), ('crownfall', FAN, 'Crownfall')]
+       ('command_absolute_field', [c for c in ALL if c not in ((1, -1), (-2, 1), (2, 1))], 'Command Absolute'), ('crownfall', FAN, 'Crownfall')]
 F = {n: strip(n) for n, _, _ in SEQ}
 AURA = strip('crown_aura')
 font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 18)

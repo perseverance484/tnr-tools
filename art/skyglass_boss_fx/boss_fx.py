@@ -255,6 +255,55 @@ def build():
     return out
 
 
+def field_variants():
+    """Director 2026-10-28: the arena-wide signatures play smaller on each hex (about two-thirds), so a marked field
+    reads as many separate eruptions with gaps between them instead of one repeating wallpaper. Single-target and
+    small-pattern uses keep the full-size strips."""
+    out = {}
+    maw = art('maw', 21, gain=1.25)
+    fr = []
+    for i in range(12):
+        f = A.frame()
+        if i <= 3:
+            place(f, reveal(maw, (i + 1) / 4, 'up'), 25, 28 + (3 - i) * 2)
+        elif i <= 6:
+            place(f, maw, 25, 28, bright=1.15 if i == 4 else 1.0)
+        elif i <= 9:
+            place(f, reveal(maw, 1 - (i - 6) / 4, 'down'), 25, 28 + (i - 6) * 2, alpha=255 if i < 9 else 130)
+        if i >= 5:
+            particles(f, 3, 6, 25, 31, i - 4, (150, 220, 210), spread=1.6, lift=2.0)
+        fr.append(f)
+    out['maw_field'] = fr
+    ca = art('command_absolute', 21)
+    fr = []
+    for i in range(12):
+        f = A.frame()
+        if i <= 2:
+            place(f, ca, 25, 28 - (2 - i) * 3, scale=1.3 - 0.1 * i, alpha=130 if i == 0 else 255)
+        elif i == 3:
+            place(f, ca, 25, 28, bright=1.5)
+            ring(f, 25, 31, 9, (230, 210, 255))
+        elif i <= 9:
+            place(f, ca, 25, 28, bright=0.95 + 0.1 * math.cos(i))
+        else:
+            place(f, ca, 25, 28, alpha=130)
+        fr.append(f)
+    out['command_absolute_field'] = fr
+    bs = art('broadside', 22)
+    fr = []
+    for i in range(10):
+        f = A.frame()
+        if i <= 2:
+            place(f, bs, 25, 27, scale=0.45 + 0.27 * i, bright=1.3)
+        elif i <= 5:
+            place(f, bs, 25, 27, bright=1.0 if i > 3 else 1.15)
+        else:
+            place(f, A.tint(bs, (0.55, 0.5, 0.5)), 25, 27 - (i - 5) * 2, scale=1.0 + 0.05 * (i - 5), alpha=130)
+        fr.append(f)
+    out['broadside_field'] = fr
+    return out
+
+
 def export(out):
     rows = []
     for name, frames in out.items():
@@ -276,4 +325,6 @@ def export(out):
 
 
 if __name__ == '__main__':
-    export(build())
+    out = build()
+    out.update(field_variants())
+    export(out)
