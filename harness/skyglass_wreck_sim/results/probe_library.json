@@ -47,7 +47,7 @@
      "bossEffects": [
       "increasecooldown:1:r1"
      ],
-     "playersHit": 2,
+     "playersHit": 3,
      "newEffects": []
     },
     {
@@ -94,9 +94,11 @@
      "bossEffects": [
       "decreasecooldown:1:r1"
      ],
-     "playersHit": 2,
+     "playersHit": 3,
      "newEffects": [
-      "stun"
+      "elementalseal",
+      "timecompression",
+      "increasecooldown"
      ]
     },
     {
@@ -237,7 +239,7 @@
      "bossEffects": [
       "robprevent:100:r1"
      ],
-     "playersHit": 0,
+     "playersHit": 4,
      "newEffects": []
     },
     {
@@ -331,7 +333,7 @@
      "bossEffects": [
       "disarm:100:r1"
      ],
-     "playersHit": 2,
+     "playersHit": 3,
      "newEffects": []
     },
     {
@@ -378,10 +380,11 @@
      "bossEffects": [
       "elementalseal:100:r1"
      ],
-     "playersHit": 2,
+     "playersHit": 1,
      "newEffects": [
       "elementalseal",
-      "seal"
+      "timecompression",
+      "increasecooldown"
      ]
     },
     {
@@ -428,7 +431,7 @@
      "bossEffects": [
       "summonprevent:100:r1"
      ],
-     "playersHit": 3,
+     "playersHit": 5,
      "newEffects": [
       "weakness",
       "stun"
@@ -480,10 +483,11 @@
      "bossEffects": [
       "sealprevent:100:r1"
      ],
-     "playersHit": 3,
+     "playersHit": 5,
      "newEffects": [
-      "seal",
-      "stun"
+      "elementalseal",
+      "timecompression",
+      "increasecooldown"
      ]
     },
     {
@@ -539,7 +543,7 @@
     "increasecooldown:1:r1",
     "robprevent:100:r1"
    ],
-   "playersHit": 0,
+   "playersHit": 4,
    "newEffects": []
   },
   {
