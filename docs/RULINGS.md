@@ -3727,3 +3727,25 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "Yes, add 1-3. Add all that. No core rot on easy wrecks. All our items should explain themselves in their description. This includes our chests. They should explain what they drop and how common".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §0, §5c; `docs/design/SKYGLASS_BOSS_FIGHTS.md` §8.
+
+## RUL-2026-10-28-021 — Fight choices with a light touch; Buried Cache a little tougher; Erupting Ground friendly fire fixed
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass encounters
+
+**Status:** ACTIVE. The harness re-runs are pending.
+
+**Ruling:**
+1. **Fight choices beyond dodging, kept light.**
+   - The harness measures each counter (cleanse, clear, burst-window timing, consumables) per boss.
+   - Ward of Command stays clearprevent, so the kill-order puzzle holds.
+   - A few existing buffs are clearable: the Captain's command banner and the Foundry Warden's quench buff.
+   - One existing crew effect per Wreck floor can be cleansed or cleared. No new jutsu.
+   - **Item hints stay subtle.** Item and battle text may suggest a counter in story voice, never as an explicit instruction. Director: "Dont be too deliberate and over the top with this."
+2. **The Buried Cache gets a little tougher.** The live Sentinel, shared with the Sealed Reliquary, gets a modest raise. With a pet, the boss should cost about 20% HP while dodging still wins nearly every run.
+3. **Crown Stonebound's live Erupting Ground hits enemies only.** It currently also damages the Sealwright. This is a live jutsu edit inside push/319: unequip it from every holder, edit it, then re-equip (law 18).
+
+**Evidence:** Director, 2026-10-28: "3. Dont be too deliberate and over the top with this. Buried Cache can be a little tougher. Lets fix the friendly fire jutsu."
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md`; harness `fable/skyglass-hunts-sim`.
