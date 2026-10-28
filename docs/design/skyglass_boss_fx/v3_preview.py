@@ -31,7 +31,9 @@ def strip(name):
 TILE = {n: Image.open(os.path.join(E, f'tile_{n}_v3.webp')).convert('RGBA').resize((HW, HH), Image.BILINEAR)
         for n in ('heavy', 'control', 'linger', 'safe')}
 GL = {n: strip(f'anim_{n}_glint_v3.webp') for n in ('heavy', 'control', 'linger', 'safe')}
-DT = {n: strip(f'anim_dt_{n}_v2.webp') for n in ('heavy', 'shard')}
+import sys
+DT = {'heavy': strip(sys.argv[1] if len(sys.argv) > 1 else 'anim_dt_heavy_v3.webp'), 'shard': strip('anim_dt_shard_v2.webp')}
+TAG = sys.argv[2] if len(sys.argv) > 2 else 'v3'
 bg = Image.open(STILL).convert('RGBA')
 m = Image.new('L', bg.size, 0); d = ImageDraw.Draw(m)
 d.ellipse([278, 158.7, 344, 224.7], fill=255); d.rectangle([277, 144, 344, 162], fill=255); d.ellipse([300, 223.3, 322, 243.3], fill=255)
@@ -77,10 +79,10 @@ keys = [0, 8, 50, 52, 70, 80, 116, 130, 133]
 sheet = Image.new('RGB', (bg.width * 3, bg.height * 3))
 for i, k in enumerate(keys):
     sheet.paste(frames[k], ((i % 3) * bg.width, (i // 3) * bg.height))
-sheet.save(os.path.join(OUT, 'v3_battle_keys.png'))
+sheet.save(os.path.join(OUT, f'{TAG}_battle_keys.png'))
 with tempfile.TemporaryDirectory() as t:
     for i, f in enumerate(frames):
         f.resize((f.width * 2, f.height * 2), Image.NEAREST).save(os.path.join(t, f'{i:04d}.png'))
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-framerate', '20', '-i', os.path.join(t, '%04d.png'), '-c:v', 'libx264',
-                    '-pix_fmt', 'yuv420p', '-crf', '18', '-movflags', '+faststart', os.path.join(OUT, 'v3_battle.mp4')], check=True)
+                    '-pix_fmt', 'yuv420p', '-crf', '18', '-movflags', '+faststart', os.path.join(OUT, f'{TAG}_battle.mp4')], check=True)
 print('ok')
