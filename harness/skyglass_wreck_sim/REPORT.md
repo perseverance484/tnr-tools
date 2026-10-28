@@ -544,3 +544,90 @@ battle-log lines) and animation placeholder ids (tg_heavy, tg_control, tg_linger
 ch_rupture, ch_maw, ch_bile_spit, ch_claw, ch_enrage, ch_undertow, ch_exposed, cp_bell_toll, cp_command, cp_broadside,
 cp_gunwale, plus mark-sigil, chain-hook-hit and skyglass-pane for crew moves with no id in the animation spec). All 60
 pass `JutsuValidator`. Images are placeholders copied from the shape donors.
+
+# Report 3, part B (2026-10-28): the level 40-60 version
+
+Same arcs as the endgame, with level-50 copies (ids `dg-*-l50`) and lighter kits. Built by the same code:
+`build_kits.ts --version lvl50 --params overrides/kits_lvl50.params.json` writes `overrides/kits_lvl50.json` and the
+`lvl50` section of `build_spec.json`. Results: `results/kits_lvl50.json` (60 runs), `kits_lvl50_nododge.json` (30),
+`kits_lvl50_bounds.json` (level-40 and level-60 parties, 30 each).
+
+## Player model (level 50) and its assumptions
+
+The committed harvests hold no player at levels 35-65 (I searched every capture), so the model comes from the engine's
+own formulas rather than a recorded player:
+- CHUNIN, level 50.
+- Stats: the level-50 budget from `scaleUserStats(..., "player")`, spread evenly: 106,177 offence, defence and each
+  general.
+- Pools: `calcHP/CP/SP(50)` = 2,550 each.
+- Kit: 8 CHUNIN PvE-usable jutsu at jutsu level 15 (Harden Fist, Aqua Barrier, Rejuvenating Chakra, Stunning Jab,
+  Shattering Strike, Chakra Palm, Resounding Crescendo, Iron Fist).
+- No gear, no elements, no bloodline.
+- The same dodge rule as the endgame party.
+- Bounds: level 40 (jutsu level 12) and level 60 (jutsu level 18) use the same model.
+
+The model is the weak point of this version. A real level-50 player who trains stats past the level budget, or wears
+gear, is much stronger. One real level-50 capture would make this tuning trustworthy.
+
+## Layout and kits
+
+| Floor | Wave 1 | Wave 2 |
+|---|---|---|
+| 1 | Deck Warden + Seal Charge | none |
+| 2 | Skyglass Sentinel + First Blade | none |
+| 3 | Oathkeeper + Wayfinder | none |
+| 4 (stage boss) | Core Horror, solo | none |
+| 5 (boss) | Deck Warden x2 | The Captain (no Sealwright) |
+
+Lighter kits (rules dropped from the endgame copies):
+- Deck Warden: no Quick Strike.
+- Sentinel: no Counter Stance, no Rigging Snare.
+- First Blade: no stealth, no Shuriken Storm, no Numbing Senbon.
+- Oathkeeper: no Opening Strike.
+- Wayfinder: no Keelbind, no decoy. Chart Mark also falls back to the closest player, because the crew live about
+  2 rounds.
+- Core Horror: one phase of set pieces. No Undertow, no phase-2 cycle, no pools, no second Maw. The Core Rebuilds stays,
+  and the Maw opens the fight so the short fight shows it.
+- The Captain keeps two phases (Last Stand, faster Bell, three-row Broadside), with Broadside ahead of the Bell. He has
+  no Gunwale (no Sealwright to protect) and keeps only Final Command, Keelbind and Second Wind from the duel kit.
+
+The new jutsu are the endgame records (same `dg-*` ids, listed again in the `lvl50` section).
+
+## Tuned figures (`overrides/kits_lvl50.params.json`)
+
+| Copy | Level | statsMultiplier | Pools | HP | Rows |
+|---|---:|---:|---:|---:|---|
+| Crew | 50 | 1 | x1 | 2,550 | +100% damage x1; +100% damage taken x2 |
+| Seal Charge | 50 | 1 | as live | 2,550 | none |
+| Core Horror | 50 | 1 | x5 | 12,750 | +100% damage x2; +100% damage taken x1 |
+| The Captain | 50 | 1 | x3 | 7,650 | +100% damage x3; +100% damage taken x1 |
+
+**Why there are damage-taken rows.** `insertAiSchema` holds `statsMultiplier` and `poolsMultiplier` at 1 or more. So a
+level-50 copy has at least 2,550 HP and 53,093 in every stat. That is still more than this level-50 party clears in the
+target time: without the rows, crew floors take 3-8 rounds and the run takes about 35 rounds. Innate `increasedamagetaken`
+rows (100% each, capped per row, rows multiply) are the remaining storable lever. The alternatives are lower-level copies
+(level 40 gives 2,050 HP) or a stronger player model, and both are the director's call.
+
+## Result (level-50 party, 60 runs, dodging on)
+
+| Runs | Cleared | Runs with a wipe | Rounds median [p10-p90] | Min @10 s | Min @15 s | Min @20 s | @15 s + AI 1.5 s |
+|---:|---:|---:|---|---:|---:|---:|---:|
+| 60 | 60 | 0% | 18 [16-20] | 10.5 | 14.5 | 18.5 | 15.0 |
+
+| Wave | Rounds median [min-max] | Party HP lost |
+|---|---|---:|
+| F1 Deck Warden + Seal Charge | 2.5 [1-4] | 24% |
+| F2 Sentinel + First Blade | 2 [2-3] | 8% |
+| F3 Oathkeeper + Wayfinder | 2 [2-3] | 7% |
+| F4 Core Horror | 5 [3-10] | 16% |
+| F5 W1 Deck Warden x2 | 2 [2-3] | 7% |
+| F5 W2 The Captain | 5 [4-10] | 33% |
+
+- Signature rules fire in 78-100% of appearances. Idle turns after round 2 are 0% for every enemy except the Seal
+  Charge, which rarely lives into round 3.
+- Dodging: 78% of the 363 threatened turns reached safety. The level-50 party has less AP to spare.
+- **Dodging off:** 25/30 runs clear and 57% of runs wipe. The Core Horror wipes 41 of 66 attempts.
+- **Bounds.** A level-60 party takes 13 rounds and 10.8 min, with no wipes; the Captain dies in about 2 rounds, before
+  his set pieces. A level-40 party clears 3 of 30 runs: the Core Horror wipes 91 of 114 attempts and the Captain 20 of
+  23. With this player model the version cannot serve both ends of 40-60. Gating it at about 45+, or a softer
+  Core Horror and Captain for the low end, is a director decision.
