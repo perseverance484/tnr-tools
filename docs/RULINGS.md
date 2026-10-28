@@ -3531,3 +3531,20 @@ sides of the jutsu and item edits).
 - On the roster and placement: "Yes, approved".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5b; `docs/design/SKYGLASS_PETS.md`.
+
+## RUL-2026-10-28-012 — Sealed Treasury rework; pets get builder support
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / rewards; builder (Lane A)
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **The Sealed Treasury pays more gold.** 150,000 ryo, then 3 rolls (60%), 4 rolls (30%) or 6 rolls (10%), weighted toward Imperial Gold. Table in loot tables §3.
+2. **The five pet kits are approved as proposed** in `SKYGLASS_PETS.md`, with numbers provisional until the live pet catalogue is captured.
+3. **Pet species are built through the builder.** Pet-species support and the PETS jutsu `requiredPetSpeciesId` field are added on a `fable/*` branch under Lane A, followed by independent review. The species are not hand-entered.
+
+**Evidence:** Director, 2026-10-28: "Approved. Builder route ok."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3, `docs/design/SKYGLASS_PETS.md`.
