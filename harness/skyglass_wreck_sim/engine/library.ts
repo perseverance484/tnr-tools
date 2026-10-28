@@ -11,16 +11,12 @@
  * SHARED_COOLDOWN_TAGS and with no gameplay effect on an AI boss, so any two marks coexist on one boss. Blasts that
  * stun, seal or push target CHARACTER (GROUND lands only damage); the scatter blasts stay GROUND so they leave a pool.
  */
-import { Grid, rectangle } from "honeycomb-grid";
 import { getDefaultBattleSizes } from "@/libs/combat/util";
-import { TerrainHex } from "@/libs/hexgrid";
 import { anim, jutsu, T, tag } from "./kitlib";
 
 const size = getDefaultBattleSizes("QUEST" as never, 100)!; // 12 x 10 at level >= 50
 const W = size.width;
 const H = size.height;
-const grid = new Grid(TerrainHex, rectangle({ width: W, height: H }));
-const hexAt = (c: number, r: number) => grid.getHex({ col: c, row: r })!;
 type XY = { longitude: number; latitude: number };
 const cells = (pred: (c: number, r: number) => boolean) => {
   const out: XY[] = [];
@@ -30,51 +26,57 @@ const cells = (pred: (c: number, r: number) => boolean) => {
 const field = (selection: "ALL" | "EXCLUDE", coordinates: XY[], origin = "BATTLEFIELD") => ({ origin, selection, coordinates, randomCount: 1 });
 
 /**
- * Caster-relative ray offsets, valid for a caster on either column parity: COORDINATES offsets are column/row, and a
- * diagonal hex ray changes row on alternate columns, so the ray from an even and from an odd column differ. The pattern
- * is the union of both (diagonals are two hexes wide at some steps); straight column and row rays are parity-free.
+ * The grid is POINTY-topped with odd rows shifted right (engine grid, checked in the harness): W/E neighbours are
+ * (-1,0)/(+1,0) on every row, but the diagonal neighbours depend on ROW parity:
+ *   even row: NW (-1,-1) NE (0,-1) SW (-1,+1) SE (0,+1);  odd row: NW (0,-1) NE (+1,-1) SW (0,+1) SE (+1,+1).
+ * COORDINATES offsets are column/row, so a diagonal ray from a caster on an even row differs from one on an odd row.
+ * `rayFrom` gives the exact ray for one starting row parity; the library records use the union of both parities, so a
+ * boss on any row is covered (the diagonals are then two hexes wide on alternate steps). The exact per-parity sets are
+ * exported too, for a boss that stands on a known row (a throne).
  */
-const ray = (dir: "W" | "E" | "N" | "S" | "NW" | "SW", len: number) => {
-  const out = new Map<string, XY>();
-  for (const c0 of [6, 7]) {
-    const r0 = 5;
-    let h = hexAt(c0, r0);
-    for (let k = 1; k <= len; k++) {
-      if (dir === "N" || dir === "S") {
-        const n = grid.getHex({ col: c0, row: r0 + (dir === "N" ? -k : k) });
-        if (n) out.set(`${n.col - c0},${n.row - r0}`, { longitude: n.col - c0, latitude: n.row - r0 });
-        continue;
-      }
-      if (dir === "W" || dir === "E") {
-        const dc = dir === "W" ? -k : k;
-        out.set(`${dc},0`, { longitude: dc, latitude: 0 });
-        continue;
-      }
-      // NW / SW: the neighbour one column to the west, the upper (NW) or lower (SW) of the two.
-      const nbrs = grid.toArray().filter((x) => grid.distance(x, h) === 1 && x.col === h.col - 1);
-      nbrs.sort((a, b) => a.row - b.row);
-      const n = dir === "NW" ? nbrs[0] : nbrs[nbrs.length - 1];
-      if (!n) break;
-      h = n;
-      out.set(`${n.col - c0},${n.row - r0}`, { longitude: n.col - c0, latitude: n.row - r0 });
-    }
-  }
-  return [...out.values()];
+type Dir = "W" | "E" | "NW" | "NE" | "SW" | "SE";
+const STEP: Record<Dir, [[number, number], [number, number]]> = {
+  // [even-row step, odd-row step]
+  W: [[-1, 0], [-1, 0]], E: [[1, 0], [1, 0]],
+  NW: [[-1, -1], [0, -1]], NE: [[0, -1], [1, -1]],
+  SW: [[-1, 1], [0, 1]], SE: [[0, 1], [1, 1]],
 };
-
+const rayFrom = (dir: Dir, len: number, startRowParity: 0 | 1) => {
+  const out: XY[] = [];
+  let dc = 0;
+  let dr = 0;
+  for (let k = 1; k <= len; k++) {
+    const rowParity = (startRowParity + Math.abs(dr)) % 2;
+    const [sc, sr] = STEP[dir][rowParity]!;
+    dc += sc;
+    dr += sr;
+    out.push({ longitude: dc, latitude: dr });
+  }
+  return out;
+};
+const rays = (dirs: Dir[], len: number, parity: 0 | 1) => dirs.flatMap((d) => rayFrom(d, len, parity));
 const uniq = (xs: XY[]) => [...new Map(xs.map((x) => [`${x.longitude},${x.latitude}`, x])).values()];
+
 /** Patterns (all parity-safe). */
+const STARS: XY[] = [{ longitude: 6, latitude: 2 }, { longitude: 5, latitude: 5 }, { longitude: 6, latitude: 8 }];
+const isStar = (c: number, r: number) => STARS.some((x) => x.longitude === c && x.latitude === r);
+const FAN: Dir[] = ["W", "NW", "SW"];
+const CROSS: Dir[] = ["NW", "NE", "SW", "SE"];
 export const PATTERNS = {
   rowsA: cells((_c, r) => r === 2 || r === 5),
   rowsB: cells((_c, r) => r === 3 || r === 6),
-  scatterA: cells((c, r) => ((c >> 1) + r) % 3 === 0),
-  scatterB: cells((c, r) => ((c >> 1) + r) % 3 === 1),
-  /** Fan of three rays west from the caster (bosses stand on the east side, facing the party). */
-  lines: uniq([...ray("W", 5), ...ray("NW", 5), ...ray("SW", 5)]),
-  /** Cross of four rays from the caster. */
-  sealLines: uniq([...ray("N", 5), ...ray("S", 5), ...ray("W", 5), ...ray("E", 5)]),
+  /** Complementary halves: A and B together cover every hex except the three safe stars; every hex has a neighbour in the other half. */
+  scatterA: cells((c, r) => ((c >> 1) + r) % 2 === 0 && !isStar(c, r)),
+  scatterB: cells((c, r) => ((c >> 1) + r) % 2 === 1 && !isStar(c, r)),
+  /** Fan of three rays west from the caster (W, NW, SW; length 5), union of both row parities. */
+  lines: uniq([...rays(FAN, 5, 0), ...rays(FAN, 5, 1)]),
+  /** Diagonal cross (NW, NE, SW, SE; length 5), union of both row parities. */
+  sealLines: uniq([...rays(CROSS, 5, 0), ...rays(CROSS, 5, 1)]),
+  /** Exact single-parity offset sets, for a boss on a known row. */
+  linesByRowParity: { even: rays(FAN, 5, 0), odd: rays(FAN, 5, 1) },
+  sealLinesByRowParity: { even: rays(CROSS, 5, 0), odd: rays(CROSS, 5, 1) },
   /** The three safe tiles of the arena-wide marks (columns <= 6, never under an east-side spawn). */
-  stars: [{ longitude: 6, latitude: 2 }, { longitude: 5, latitude: 5 }, { longitude: 6, latitude: 8 }],
+  stars: STARS,
 };
 
 /**
@@ -146,6 +148,19 @@ const ALL_GENERALS = ["Highest", "Strength", "Intelligence", "Willpower", "Speed
 const weakness = (animation: string) =>
   tag("weakness", { target: "SELF", rounds: 1, dmgModifier: 3, statTypes: ALL_STATS, generalTypes: ALL_GENERALS, power: 100, staticAnimation: animation });
 
+/**
+ * The control payload for the violet blasts (Ship's Bell, Command Absolute, Seal Lines). It uses only types outside
+ * SHARED_COOLDOWN_TAGS, so a boss's own stun, seal or root moves (Final Command, Ruin Refrain, Sovereign Fetters,
+ * Keelbind) never lock the blast it marked for. Stun and seal are in the shared list: a blast carrying them could not
+ * fire within 3 rounds of the boss's other stun or seal move, and its mark would go off with nothing after it.
+ * Enemies only, so a boss's allies on the pattern are spared.
+ */
+const LOCK = (rounds: number) => [
+  tag("elementalseal", { power: 100, rounds, friendlyFire: "ENEMIES" }),
+  tag("timecompression", { power: 100, rounds, friendlyFire: "ENEMIES" }),
+  tag("increasecooldown", { power: 2, rounds, friendlyFire: "ENEMIES", actionsAffected: ["move", "replacementTechnique"] }),
+];
+
 export const buildLibrary = () => {
   const J: Record<string, any> = {};
   const add = (j: any) => {
@@ -174,7 +189,7 @@ export const buildLibrary = () => {
   mark("lastLightBinding", "Omen: Last Light, Binding", "COORDINATES", 0, [violet(), safe()], field("EXCLUDE", PATTERNS.stars), 6, "Violet script covers the field. Three points of skyglass light remain.");
   /* ---- shared blasts ---- */
   const blast = (id: string, name: string, target: string, method: string, range: number, ct: any, effects: any[], line = "The marked ground erupts.") =>
-    add(jutsu(id, { name, description: `Shared blast: fires on the hexes its Omen marked.`, battleDescription: line, target, method, range, cooldown: 1, actionCostPerc: 100, coordinateTargeting: ct, effects }));
+    add(jutsu(id, { name, description: `Shared blast: fires on the hexes its Omen marked.`, battleDescription: line, target, method, range, cooldown: 2, actionCostPerc: 100, coordinateTargeting: ct, effects }));
   const heavy = (power: number) => T.damage(power, { appearAnimation: anim("dt_heavy") });
   blast(LIB.blast.ring, "Eruption: Ring", "CHARACTER", "AOE_SPIRAL_SHOOT", 2, undefined, [heavy(p.blastRing)]);
   blast(LIB.blast.rowsA, "Eruption: Rows", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.rowsA), [heavy(p.blastRows)]);
@@ -183,16 +198,16 @@ export const buildLibrary = () => {
     blast(id, "Eruption: Scatter", "GROUND", "COORDINATES", 0, field("ALL", pat), [T.damage(p.blastScatter, { appearAnimation: anim("dt_linger") }), T.pool(p.scatterPool, 2), T.visual(anim("tg_linger"), 2)]);
   blast(LIB.blast.lines, "Eruption: Lines", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.lines, "CASTER"), [heavy(p.blastLines)]);
   blast(LIB.blast.sealLines, "Binding: Seal Lines", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.sealLines, "CASTER"),
-    [T.damage(p.sealLinesDamage, { appearAnimation: anim("dt_control") }), T.seal(2), tag("elementalseal", { power: 100, rounds: 2 })], "The marked lines close.");
+    [T.damage(p.sealLinesDamage, { appearAnimation: anim("dt_control") }), ...LOCK(2)], "The marked lines close.");
   /* ---- bespoke signatures ---- */
   const sig = (id: string, f: { name: string; description: string; line: string; target: string; method: string; range: number; ct?: any; effects: any[] }) =>
-    add(jutsu(id, { name: f.name, description: f.description, battleDescription: f.line, target: f.target, method: f.method, range: f.range, cooldown: 1, actionCostPerc: 100, coordinateTargeting: f.ct, effects: f.effects }));
-  sig(LIB.sig.maw, { name: "Maw of the Deep", description: "Core Horror signature (Omen: Last Light): black water and teeth everywhere but the stars; Exposed Seam, x3 damage taken for 1 round.", line: "Black water and teeth rise from every plank. The mass splits open along a glowing seam.", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("EXCLUDE", PATTERNS.stars), effects: [T.damage(p.maw, { appearAnimation: anim("ch_maw") }), T.stun(1), weakness(anim("ch_exposed"))] });
+    add(jutsu(id, { name: f.name, description: f.description, battleDescription: f.line, target: f.target, method: f.method, range: f.range, cooldown: 2, actionCostPerc: 100, coordinateTargeting: f.ct, effects: f.effects }));
+  sig(LIB.sig.maw, { name: "Maw of the Deep", description: "Core Horror signature (Omen: Last Light): black water and teeth everywhere but the stars; Exposed Seam, x3 damage taken for 1 round.", line: "Black water and teeth rise from every plank. The mass splits open along a glowing seam.", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("EXCLUDE", PATTERNS.stars), effects: [T.damage(p.maw, { appearAnimation: anim("ch_maw") }), T.stun(1, { friendlyFire: "ENEMIES" }), weakness(anim("ch_exposed"))] });
   sig(LIB.sig.quench, { name: "Quench", description: "Foundry Warden signature (Omen: Last Light): steam everywhere but the cooled tiles; Cooling Shell, x3 damage taken for 1 round.", line: "%user tips seawater onto the melt. The room explodes in steam.", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("EXCLUDE", PATTERNS.stars), effects: [T.damage(p.quench, { appearAnimation: anim("fw_quench") }), weakness(anim("fw_cracked"))] });
-  sig(LIB.sig.commandAbsolute, { name: "Command Absolute", description: "Crowned Captain signature (Omen: Last Light, Binding): stun and seal everywhere but the stars.", line: "\"Kneel.\"", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("EXCLUDE", PATTERNS.stars), effects: [T.damage(p.commandAbsolute, { appearAnimation: anim("cc_command_absolute") }), T.stun(1), T.seal(2)] });
+  sig(LIB.sig.commandAbsolute, { name: "Command Absolute", description: "Crowned Captain signature (Omen: Last Light, Binding): everywhere but the stars, a 2-round lock: elemental jutsu sealed, +10 AP per action, Move and Replacement Technique +2 cooldown.", line: "\"Kneel.\"", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("EXCLUDE", PATTERNS.stars), effects: [T.damage(p.commandAbsolute, { appearAnimation: anim("cc_command_absolute") }), ...LOCK(2)] });
   sig(LIB.sig.crownfall, { name: "Crownfall", description: "Crowned Captain signature (Omen: Lines): crown shards fall along the fan.", line: "Shards of the crown fall like blades.", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("ALL", PATTERNS.lines, "CASTER"), effects: [T.damage(p.crownfall, { appearAnimation: anim("cc_crownfall") })] });
   sig(LIB.sig.broadside, { name: "Broadside", description: "The Captain's signature (Omen: Rows, set A): the ship's guns fire down the marked rows.", line: "\"Fire.\"", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("ALL", PATTERNS.rowsA), effects: [T.damage(p.broadside, { appearAnimation: anim("cp_broadside") })] });
-  sig(LIB.sig.shipsBell, { name: "Ship's Bell", description: "The Captain's signature (Omen: Binding Ring): the bell tolls; push 3 and a 1-round stun inside the ring.", line: "\"All hands.\" The great bell answers.", target: "CHARACTER", method: "AOE_SPIRAL_SHOOT", range: 2, effects: [T.damage(p.shipsBell, { appearAnimation: anim("cp_bell_toll") }), T.push(3), T.stun(1)] });
+  sig(LIB.sig.shipsBell, { name: "Ship's Bell", description: "The Captain's signature (Omen: Binding Ring): the bell tolls; push 3 and a 1-round lock inside the ring.", line: "\"All hands.\" The great bell answers.", target: "CHARACTER", method: "AOE_SPIRAL_SHOOT", range: 2, effects: [T.damage(p.shipsBell, { appearAnimation: anim("cp_bell_toll") }), T.push(3, { friendlyFire: "ENEMIES" }), ...LOCK(1)] });
   /* ---- lowered guard ---- */
   add(jutsu(LIB.loweredGuard, { name: "Lowered Guard", description: "Shared window: the caster takes x3 damage for 1 round.", battleDescription: "%user lowers their guard for one breath.", target: "SELF", method: "SINGLE", range: 0, cooldown: 99, actionCostPerc: 40, effects: [weakness(anim("lg_lowered"))] }));
   /* ---- crew additions ---- */

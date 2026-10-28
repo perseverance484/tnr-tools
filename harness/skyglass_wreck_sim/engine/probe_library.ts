@@ -43,10 +43,10 @@ const run = async (key: string, rules: any[], kit: string[], boss: [number, numb
 };
 
 const out: any = { generatedBy: "engine/probe_library.ts", markerTypes: MARKER_TYPES, probes: [] as any[] };
-// Players placed so every pattern holds one: ring (distance 1-2), rows 3/5, scatter cells, the west fan, the cross.
+// Players placed so every pattern holds one: ring (distance 1-2), rows 3/5, both scatter halves, the west fan, the diagonal cross.
 // A CHARACTER blast with nobody on its hexes is not a valid cast (the marker then simply expires).
 const boss: [number, number] = [8, 5];
-const players: [number, number][] = [[7, 5], [6, 5], [3, 3]];
+const players: [number, number][] = [[7, 5], [6, 5], [3, 3], [8, 4], [5, 7]];
 for (const k of Object.keys(MARKER_TYPES) as MarkKey[]) {
   const markId = LIB.mark[k];
   const blastId = blastFor(k);
