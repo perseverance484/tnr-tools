@@ -211,8 +211,9 @@ LABEL = {  # option labels after PROSE (the wrong-answer beats repeat these)
 FAIL_ID = "f_lost"
 
 QUEST_DESCRIPTION = (
-    "The Lastlight Lantern burns toward a mountain the maps call empty. Crownhold, the fortress that issued the Skyglass "
-    "Project's last directive, has not answered a call in a generation. Its gates stand open. Nothing guards them.\n\n"
+    "Carried out of the wreck, the Lastlight Lantern burns toward a mountain the maps call empty. Crownhold, the fortress "
+    "that built the Skyglass Project and gave its crew their last order, has not answered a call in a generation. Its "
+    "gates stand open. Nothing guards them.\n\n"
     "Starting the expedition spends one Lastlight Lantern. Lose any fight and the expedition ends; the Lantern is not "
     "refunded.\n\nIf you still have a reward to choose from an earlier expedition, claim it before you set out: an "
     "expedition cannot be completed while an earlier reward choice is waiting.")
