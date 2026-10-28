@@ -101,32 +101,34 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 **Chart ladder** (each run can drop the next chart up)
 | Source | Drops |
 |---|---|
-| Easy Wreck clear | Tide 25% · Roster 15% · Buried Cache 5% |
+| Easy Wreck clear | Tide 25% · Roster 15% · Buried Cache 5% (the Buried Cache scales to the player, RUL-2026-10-28-010) |
 | Endgame Wreck clear | Tide 15% · Roster 10% · the §2 table unchanged |
 | Low Tide / Night Watch ending | Buried Cache chart 10% |
 | Buried Cache ending | Foundry chart 15% |
 | Foundry ending | Archive chart 10% |
-| Archive ending | Reliquary Seal 8% |
-| Watch ending | The Last Heading 8% |
+| Archive ending | Reliquary Seal 25%, +20% from its press-on room (RUL-2026-10-28-010) |
+| Watch ending | The Last Heading 25%, +20% from its press-on room |
+| Crownhold ending | one of the two rare charts 50% |
 | Sealed Reliquary / The Fall ending | Lastlight Lantern 15% |
 
-**Tainted rares** (rares only). Harder upgrades of their counterpart. Each pays an extra reward roll and twice the trophy rate.
+**Tainted rares** (rares only). Harder upgrades of their counterpart; target clear rate about 55%, against about 80% for the base rare. Each pays its rare's pick at ×2 quantity, a guaranteed Sealed Treasury, Lantern 30%, Core Rot 40% and twice the trophy rate (RUL-2026-10-28-010).
 - **The Rotted Reliquary** (tainted Reliquary Seal)
   - The echoes fight in pairs: Foundry Warden + Sealwright, then Sentinel + the last echo.
   - Entry at 70% pools (`givePools`).
   - Elemental seal on the player for the first 2 rounds of every fight (`applyDebuffs`).
-  - Final room: the Core Horror curled inside the reliquary.
+  - Press-on room: the Core Horror curled inside the reliquary. It is optional and paid extra (RUL-2026-10-28-010).
 - **The Burning Heading** (tainted Last Heading)
-  - Runs backwards: it starts at the Core Horror as the ship breaks, then fights out through the decks with no refill.
+  - Runs backwards: it starts at the Core Horror as the ship breaks, entered at 70% pools, then fights out through the decks with no refill.
   - Afterburn on the player at the start of every fight.
-  - The Captain fights beside the player (`allyAIs`).
+  - The Captain fights beside the player (`allyAIs`) only after the Core Horror falls.
   - The Wayfinder duels at the gangway.
 
 **Getting a tainted chart**
 - **Steeping** (the signature gamble): a short quest at the Core.
   - Entry: a rare chart plus Core Rot ×3, both spent.
   - One fight against a Core Horror scaled to the player.
-  - Win: the tainted chart. Lose: both are gone.
+  - Win: the tainted chart. Lose: a "the rot spits it out" step (`failObjectiveId`) hands the chart back, and the 3 Core Rot are spent.
+  - Two versions, one per rare chart. The scaled Core Horror is tuned in the harness to about a 75% solo win rate.
 - **Breaking the seal:** an Archive dialogue choice adds an echo fight and guarantees Core Rot ×2.
 - **Pressing on:** the rare runs' final room drops the tainted chart 5%.
 - **Natural:** the Archive and Watch endings drop the tainted chart directly at 1%.
@@ -134,6 +136,15 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 **Core Rot:** a stackable reagent with one job, steeping.
 - 15% from the Core Horror in the Wreck.
 - More common in his runs: 40% in The Fall, the Rotted Reliquary and the Burning Heading.
+
+**Completion picks for the new runs** (pick 1; RUL-2026-10-28-010)
+| Run | Ladder | Pick 1 of |
+|---|---|---|
+| Low Tide Run | I | Elemental Tool Pouch / Medicine Inro / 25,000 ryo |
+| Night Watch | II (III if pressed) | Medicine Inro / Sage's Strongbox / 3,000 exp |
+| Sealed Reliquary | VI | Skyglass Coffer / Sealed Treasury / Archive Chart Case ×2 |
+| The Fall | VI | Skyglass Coffer / Sealed Treasury / Captain's Purse |
+| Tainted runs | VI | their rare's pick at ×2, plus the tainted extras |
 
 **Titles** (one each, on the run's ending)
 | Title | Run |

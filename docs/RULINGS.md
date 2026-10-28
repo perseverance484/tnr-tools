@@ -3478,3 +3478,34 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "1. Yes, rares only. Add a few more twists that make these charts unique harder upgrades of their counterpart. Propose methods to obtain, prefer creativity here 2. Approved. 3. Draft them". Then: "Cut the trophies, inventing that many items will be difficult. Perhaps 1-2 well designed ones. Cut number of titles in half. Core Rot as a reagent that drops rarely from Core Horror in the wreck(15%) and more commonly in his hunts".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5.
+
+## RUL-2026-10-28-010 — Skyglass reward review: rare chart rates, tainted balance, steeping, new-run picks
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Rare chart rates:**
+   - 25% from the Archive and Watch endings, +20% from their press-on rooms.
+   - Crownhold's ending drops one of the two rares at 50%.
+   - Target: one rare chart per 30-40 Wreck clears. The 8% rate would have taken about 211-257 clears.
+2. **Burning Heading:** entry at 70% pools. The Captain ally joins only after the Core Horror falls.
+3. **Rotted Reliquary:** its Core Horror room becomes the press-on room.
+4. **Tainted rewards:**
+   - The rare's pick at ×2, a guaranteed Sealed Treasury, Lantern 30% and Core Rot 40%.
+   - Target clear rate about 55%, against about 80% for the base rare.
+5. **Steeping:**
+   - A loss spends only the Core Rot; the chart is returned through a fail step.
+   - The fight is tuned to about a 75% solo win rate.
+6. **Completion picks for the four new runs**, as listed in the loot tables §5.
+7. **The Buried Cache scales to the player**, so the easy Wreck's Cache chart is usable.
+8. **The Cache/Foundry ryo parity is to be fixed.**
+9. **The Crownhold Crown Fragment pick is recorded as an explicit exception** to "Skyglass items come only from the Coffer". This is the director's own guaranteed-fragment ruling.
+10. **Stale doc sections are corrected.**
+
+**Evidence:** Director, 2026-10-28, after the reward review and the steeping explanation: "Yeah, the version above is approved. All approved..."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5.
