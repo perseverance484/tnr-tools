@@ -28,6 +28,11 @@ def load(name):
 
 CR, EP, CH = load("core_rupture.gen.py"), load("elemental_pouch.gen.py"), load("crownhold.gen.py")
 BOSS_ID = CH.IDS["@ai:D5.BOSS"]
+# The Wreck's description (story bible); sent with the dungeon edits once the harness tuning lands.
+WRECK_DESCRIPTION = ("The Ghost Ship has finally come down. The war-ship that hung over this coast for decades lies broken on "
+                     "the sand, its Skyglass Core cracked and still burning, and its crew stand their watch on the slanting "
+                     "decks as if nothing has changed. No one has relieved them. Enter as three, and you may leave with "
+                     "their charts.")
 EXCLUSIVE_JUTSU = {CH.IDS["@jutsu:last_directive"], CH.IDS["@jutsu:extermination_order"]}
 COUNTERMAND = CH.IDS["@item:countermand"]
 

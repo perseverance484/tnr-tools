@@ -358,7 +358,9 @@ OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text
         "chakra, settling over the floor of the throne room like ash.\n\nThe signal bells stop. Down every stair you "
         "climbed, the officers who still stood lower their blades and fade, released at last. Far away on the shore, the "
         "Skyglass wreck goes quiet: its crew were his echoes too.\n\nShards of the broken crown lie scattered across "
-        "the throne room floor, still faintly cold with skyglass light."),
+        "the throne room floor, still faintly cold with skyglass light. On the wall behind the throne, his last directive is "
+        "carved in his own hand: PRESERVE COMMAND. PRESERVE THE CREW. HOLD UNTIL THE MISSION IS DONE. Beneath it, where the "
+        "mission should be written, the stone is blank."),
 }
 # RUL-2026-10-28-005: the Crowned Captain never sailed. He commands the afterimages from afar; the one players beat
 # aboard the Ghost Ship was one of his echoes, which is why they look alike.
@@ -410,6 +412,9 @@ def quest():
     def text(nid):
         if nid in OVERRIDE: return prose(OVERRIDE[nid])
         t = prose(obj[nid]["text"])
+        if nid == "d5.n.boss.clean":  # the Ghost Ship's last order was his (story bible, Ghost Ship lore carried forward)
+            t = t.replace("I gave them that.", "I gave them that, and I gave my ship the same order: preserve command, preserve "
+                          "the crew, hold until the mission is done.")
         if nid in ("d5.n.boss.clean", "d5.n.boss.alert"):
             t = t.replace(" He turns.", " " + CROWN + "\n\nHe turns.").replace(" He turns from the window.", " " + CROWN + "\n\nHe turns from the window.")
         return t
