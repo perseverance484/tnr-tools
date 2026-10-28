@@ -3509,3 +3509,25 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28, after the reward review and the steeping explanation: "Yeah, the version above is approved. All approved..."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5.
+
+## RUL-2026-10-28-011 — Skyglass pets: Galley Stores and the Echo Jar
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE. Pet kits are pending approval.
+
+**Ruling:**
+1. **No materials or crystals as event rewards.** The hunts are open to all players, and these would undercut the profession markets and crafting effort.
+2. **The Treasury change is pending:** more rolls, weighted to Imperial Gold. The Footlocker and the Shore Leave Purse are not adopted.
+3. **Two pet chests:**
+   - Galley Stores: pet experience, with no meals.
+   - The Echo Jar: rolls one of five jar items, each granting a reward-only (inactive) ghost-ship species. The roster and placement are as in loot tables §5b.
+
+**Evidence:** Director, 2026-10-28:
+- "No materials and no crystals. Ruins the profession market for both..."
+- "Your 2 new chest ideas are kinda dull but you did stumble upon a gold mine... pets... Perhaps 1 for pet progression and 1 for rolling from a pool of ghost ship exclusive pets?"
+- On the roster and placement: "Yes, approved".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5b; `docs/design/SKYGLASS_PETS.md`.

@@ -164,6 +164,42 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 - 2 tainted chart recolours.
 - 1 Core Rot icon.
 
+## 5b. Pets: Galley Stores and the Echo Jar (RUL-2026-10-28-011)
+
+Engine facts (theninjarpg source):
+- **Reward-only species.** An inactive species is never offered in the sanctuary's daily picks, but an item can still grant it (`item.ts`: "Authored rewards may grant species excluded from daily sanctuary offers").
+- **Pet grants need standard mode.** A pet can only come from a standard `reward_pets` grant, one species per item; a weighted cache cannot grant a pet. So the Echo Jar rolls jar items, and each jar grants its pet.
+- **Full collections block the jar.** A jar won't open while the collection is full, and stays in the inventory.
+- **Art is generated per owner** from the species' `artDirection` and `rankConcepts` (10 ranks). No hand-drawn art per pet.
+- **Pets fight in quest PvE battles**, which includes the hunts, the pyramid and dungeons (`combat/pets.ts`). The tuning harness must add a pet.
+- **Pet exp lands only for an eligible active pet** (battle-enabled, art ready, not on a task); otherwise it is lost (`pets/experience.ts`). The Galley Stores description must say so.
+- **Signature jutsu.** Pet jutsu are `jutsuType PETS`. A jutsu with `requiredPetSpeciesId` can be equipped only by that species.
+
+**Galley Stores** (pet progression)
+- A standard reward of pet experience: a lump of roughly 5-7 meals' worth, with no feeding cooldown. The amount is set by the director.
+- No meal items, because meals are crafted.
+
+**Echo Jar** (weighted, 1 roll; each jar is its own tradeable item granting one inactive species)
+| Weight | Jar → pet | Rarity / role |
+|---|---|---|
+| 50 | Deck Gull | Common / Support |
+| 30 | Bilge Rat | Uncommon / Assault |
+| 13 | Lantern Moth | Rare / Healer |
+| 5 | The Ship's Cat | Epic / Support |
+| 2 | Little Horror | Legendary / Assault |
+
+**Placement** (these supersede the Footlocker / Shore Leave proposals, which were not adopted)
+- **Galley Stores:** a pick option in the common runs, the Buried Cache and the Foundry.
+- **Echo Jar:**
+  - a pick option in the Archive, the Watch and the rare runs;
+  - Echo Jar ×2 as a Crownhold pick option;
+  - guaranteed on the tainted runs, on top of their pick;
+  - added to the chest of chests' Legendary tier.
+
+**New art:** 2 chest icons, plus 1 jar icon recoloured per pet.
+
+**Kits:** `SKYGLASS_PETS.md`.
+
 ## 6. To check before the manifests
 
 - Shop items sit in a cache's Common tier; Dr. Kim's Miracle Potion is the one exception, in Rare. Pill Pack, Small Health Pill, Stamina Pill II, Paper Bombs, Saki, Senbon Needles, Smoke Pellet, Venom Cask, Whetstone Oil, Solider Pill and Mona's Mermaid Song have no capture with a shop flag yet; confirm each before the manifest.
