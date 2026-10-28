@@ -1,0 +1,5931 @@
+{
+ "generatedBy": "engine/crowned_captain.ts",
+ "params": {
+  "name": "tuned",
+  "poolsMultiplier": 2.5,
+  "statsMultiplier": 5.83,
+  "idgRows": 1.75,
+  "throne": [
+   9,
+   4
+  ],
+  "safeStars": [
+   [
+    7,
+    1
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    8,
+    8
+   ]
+  ],
+  "crownfallPower": 180,
+  "crownfallCd": 4,
+  "commandPower": 130,
+  "commandStunAp": 60,
+  "commandStunRounds": 2,
+  "commandSealRounds": 2,
+  "commandCd": 8,
+  "shardPower": 180,
+  "echoHp": 2500,
+  "echoPower": 70,
+  "echoRounds": 3,
+  "recallCd": 8,
+  "recallTarget": "EMPTY_GROUND_CLOSEST_TO_SELF",
+  "cooldowns": {}
+ },
+ "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+ "grid": {
+  "width": 12,
+  "height": 10
+ },
+ "seeds": 60,
+ "seed0": 1,
+ "modes": {
+  "dodge_on": {
+   "summary": {
+    "fights": 60,
+    "wins": 56,
+    "winPct": 93.3,
+    "roundsWinMedian": 15,
+    "roundsWinP10": 13,
+    "roundsWinP90": 16,
+    "roundsAllMedian": 14,
+    "hpLeftWinMedian": 39.3,
+    "hpLeftWinP10": 30.8,
+    "bossHpLeftLossMedian": 52.6,
+    "lossPhase": {
+     "p1": 0,
+     "p2": 4,
+     "p3": 0
+    },
+    "phase2RoundMedian": 4,
+    "phase3RoundMedian": 9,
+    "ldCastPct": 93.3,
+    "throneReachedPct": 100,
+    "setPieces": {
+     "crownfall": {
+      "marksPerFight": 1,
+      "landsPerFight": 1,
+      "hitsPerFight": 0,
+      "hitRatePct": 0,
+      "dmgPerHit": null,
+      "fightsWithLand": 60
+     },
+     "command": {
+      "marksPerFight": 1,
+      "landsPerFight": 0.9,
+      "hitsPerFight": 0,
+      "hitRatePct": 0,
+      "dmgPerHit": null,
+      "fightsWithLand": 54
+     },
+     "shardstorm": {
+      "marksPerFight": 0.9,
+      "landsPerFight": 4.6,
+      "hitsPerFight": 0,
+      "hitRatePct": 0,
+      "dmgPerHit": null,
+      "fightsWithLand": 56
+     }
+    },
+    "untelegraphedLands": 0,
+    "recallsPerFight": 1,
+    "bossIdleTurnPct": 0,
+    "playerIdleTurnPct": 0,
+    "dodgeMovesPerFight": 4.9,
+    "cleansesPerFight": 0,
+    "blockedMovesPerFight": 1,
+    "damageShareToPlayerPct": {
+     "Extermination Order": 34,
+     "Scorching Rend": 27.1,
+     "echo": 24.9,
+     "Final Command": 5,
+     "Devouring Grasp": 2.5,
+     "Ruin Refrain": 2.1,
+     "Cursed Thread Weave": 2,
+     "Solar Bow": 1.5,
+     "Keelbind": 0.9
+    }
+   },
+   "fights": [
+    {
+     "seed": 1,
+     "dodge": true,
+     "outcome": "lost",
+     "rounds": 11,
+     "playerHpPct": 0,
+     "bossHpPct": 46,
+     "phase2Round": 5,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 11,
+     "playerIdleTurns": 0,
+     "playerTurns": 11,
+     "dodgeMoves": 2,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "Cursed Thread Weave": 553.6716290923514,
+      "Final Command": 2012.037999999999,
+      "echo": 682.4831306090862,
+      "Extermination Order": 1583.343258184702,
+      "Scorching Rend": 1088.5484900019828,
+      "Devouring Grasp": 16.88653847533493
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 2,
+     "dodge": true,
+     "outcome": "lost",
+     "rounds": 11,
+     "playerHpPct": 0,
+     "bossHpPct": 48.3,
+     "phase2Round": 6,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 11,
+     "playerIdleTurns": 0,
+     "playerTurns": 11,
+     "dodgeMoves": 2,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "Cursed Thread Weave": 553.6716290923514,
+      "Final Command": 2012.037999999999,
+      "echo": 682.4831306090862,
+      "Extermination Order": 1583.343258184702,
+      "Scorching Rend": 1088.5484900019828,
+      "Devouring Grasp": 16.88653847533493
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 3,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 14,
+     "playerHpPct": 57.8,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 8,
+     "ldRound": 8,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 4,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 13,
+     "playerIdleTurns": 0,
+     "playerTurns": 14,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 4,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 5,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 6,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 7,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 8,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 30.8,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 9,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 14,
+     "playerHpPct": 57.8,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 8,
+     "ldRound": 8,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 4,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 13,
+     "playerIdleTurns": 0,
+     "playerTurns": 14,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 10,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 87.9,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 11,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 4.2,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 4,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 612.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 3,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "echo": 612.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1088.5484900019828,
+      "Devouring Grasp": 2003.1350489120114
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 12,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 30.8,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 13,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 14,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 30.8,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 15,
+     "dodge": true,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 59.1,
+     "phase2Round": 7,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 231.3502137657919,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 2,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "Final Command": 2012.037999999999,
+      "Keelbind": 692.589536365439,
+      "Solar Bow": 137.91790727308762,
+      "Ruin Refrain": 1679.8319999999999,
+      "echo": 231.3502137657919,
+      "Extermination Order": 190.1565280495066
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 16,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 17,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 18,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 6,
+     "blockedMoves": 2,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 19,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 87.9,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 20,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 21,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 14,
+     "playerHpPct": 62.5,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 8,
+     "ldRound": 8,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 4,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 13,
+     "playerIdleTurns": 0,
+     "playerTurns": 14,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 22,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 23,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 24,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 25,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 26,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 37.5,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 9,
+     "ldRound": 9,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 552.9930756407389,
+     "bossIdleTurns": 0,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "echo": 552.9930756407389,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1088.5484900019828
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 27,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 28,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 29,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 30,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 30.8,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 31,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 32,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 33,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 87.9,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 34,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 35,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 6,
+     "blockedMoves": 2,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 36,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 37,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 30.8,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 38,
+     "dodge": true,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 56.8,
+     "phase2Round": 7,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 231.3502137657919,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 2,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "Final Command": 2012.037999999999,
+      "Keelbind": 692.589536365439,
+      "Solar Bow": 137.91790727308762,
+      "Ruin Refrain": 1679.8319999999999,
+      "echo": 231.3502137657919,
+      "Extermination Order": 190.1565280495066
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 39,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 40,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 41,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 4.2,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 4,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 612.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 3,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "echo": 612.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1088.5484900019828,
+      "Devouring Grasp": 2003.1350489120114
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 42,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 30.8,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 43,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 44,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 45,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 87.9,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 46,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 47,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 48,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 87.9,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 49,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 50,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 51,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 30.8,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 52,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 53,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 54,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 86.7,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 55,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 56,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 87.9,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 57,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 87.9,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 6,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 58,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 41.1,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 9,
+     "ldRound": 9,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 552.9930756407389,
+     "bossIdleTurns": 0,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 552.9930756407389,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1088.5484900019828
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 59,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 32,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 60,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 30.8,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.483130609086,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "echo": 682.483130609086,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    }
+   ]
+  },
+  "dodge_off": {
+   "summary": {
+    "fights": 60,
+    "wins": 1,
+    "winPct": 1.7,
+    "roundsWinMedian": 16,
+    "roundsWinP10": 16,
+    "roundsWinP90": 16,
+    "roundsAllMedian": 10,
+    "hpLeftWinMedian": 2,
+    "hpLeftWinP10": 2,
+    "bossHpLeftLossMedian": 0,
+    "lossPhase": {
+     "p1": 3,
+     "p2": 9,
+     "p3": 47
+    },
+    "phase2RoundMedian": 4,
+    "phase3RoundMedian": 8.5,
+    "ldCastPct": 80,
+    "throneReachedPct": 93.3,
+    "setPieces": {
+     "crownfall": {
+      "marksPerFight": 1,
+      "landsPerFight": 1,
+      "hitsPerFight": 0.6,
+      "hitRatePct": 60,
+      "dmgPerHit": 2750,
+      "fightsWithLand": 60
+     },
+     "command": {
+      "marksPerFight": 0.9,
+      "landsPerFight": 0.9,
+      "hitsPerFight": 0.9,
+      "hitRatePct": 100,
+      "dmgPerHit": 1787,
+      "fightsWithLand": 56
+     },
+     "shardstorm": {
+      "marksPerFight": 0.8,
+      "landsPerFight": 1.7,
+      "hitsPerFight": 0.7,
+      "hitRatePct": 42.3,
+      "dmgPerHit": 709,
+      "fightsWithLand": 45
+     }
+    },
+    "untelegraphedLands": 0,
+    "recallsPerFight": 0.9,
+    "bossIdleTurnPct": 0,
+    "playerIdleTurnPct": 0,
+    "dodgeMovesPerFight": 0,
+    "cleansesPerFight": 0,
+    "blockedMovesPerFight": 0,
+    "damageShareToPlayerPct": {
+     "command": 27.7,
+     "crownfall": 27.4,
+     "Extermination Order": 13.2,
+     "Scorching Rend": 9.8,
+     "echo": 9.6,
+     "shardstorm": 8.6,
+     "Final Command": 2.2,
+     "Cursed Thread Weave": 0.9,
+     "Solar Bow": 0.6
+    }
+   },
+   "fights": [
+    {
+     "seed": 1,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 58.4,
+     "phase2Round": 5,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3610.261417271106
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 0,
+     "echoDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "Cursed Thread Weave": 553.6716290923514,
+      "Final Command": 2012.037999999999,
+      "crownfall": 3610.261417271106
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 2,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 60.7,
+     "phase2Round": null,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3610.261417271106
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 0,
+     "echoDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "Cursed Thread Weave": 553.6716290923514,
+      "Final Command": 2012.037999999999,
+      "crownfall": 3610.261417271106
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 3,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 40.6,
+     "phase2Round": 4,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 4548.493782134992
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1405.3904033188323
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 0,
+     "echoDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "crownfall": 4548.493782134992,
+      "command": 1405.3904033188323
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 4,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 16.4,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 5,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 6,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 7,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 8,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 123.67140151685089
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 123.67140151685089
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 9,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 38.3,
+     "phase2Round": 4,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 4548.493782134992
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1405.3904033188323
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 0,
+     "echoDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "crownfall": 4548.493782134992,
+      "command": 1405.3904033188323
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 10,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 16.4,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1197.0617439251926
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1197.0617439251926
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 11,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 11,
+     "playerHpPct": 0,
+     "bossHpPct": 13,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": false,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 11,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "Extermination Order": 1583.3432581847023,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 12,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 7,
+     "playerHpPct": 0,
+     "bossHpPct": 32.7,
+     "phase2Round": 4,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 298.1726627130331,
+     "bossIdleTurns": 0,
+     "bossTurns": 7,
+     "playerIdleTurns": 0,
+     "playerTurns": 7,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 298.1726627130331,
+      "Extermination Order": 1583.343258184702
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 13,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 14,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 7,
+     "playerHpPct": 0,
+     "bossHpPct": 30.4,
+     "phase2Round": 4,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 298.1726627130331,
+     "bossIdleTurns": 0,
+     "bossTurns": 7,
+     "playerIdleTurns": 0,
+     "playerTurns": 7,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 298.1726627130331,
+      "Extermination Order": 1583.343258184702
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 15,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 4,
+     "playerHpPct": 0,
+     "bossHpPct": 78.5,
+     "phase2Round": null,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3941.846185453825
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 0,
+     "echoDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 4,
+     "playerIdleTurns": 0,
+     "playerTurns": 4,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "Final Command": 2012.037999999999,
+      "crownfall": 3941.846185453825
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 16,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 10,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 3,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 10,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 17,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 18,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 18.7,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 19,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 18.7,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1197.0617439251926
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1197.0617439251926
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 20,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 16.4,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 21,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 7,
+     "playerHpPct": 0,
+     "bossHpPct": 31.5,
+     "phase2Round": 4,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 372.2016163495766,
+     "bossIdleTurns": 0,
+     "bossTurns": 7,
+     "playerIdleTurns": 0,
+     "playerTurns": 7,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 372.2016163495766,
+      "Extermination Order": 1583.343258184702
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 22,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 16.4,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 23,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 16.4,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 24,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 25,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 10,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 3,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 10,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 26,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 11,
+     "playerHpPct": 0,
+     "bossHpPct": 13,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": false,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 11,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "Extermination Order": 1583.3432581847023,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 27,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 18.7,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 28,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 10,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 3,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 10,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 29,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 16.4,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 30,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 7,
+     "playerHpPct": 0,
+     "bossHpPct": 30.4,
+     "phase2Round": 4,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 298.1726627130331,
+     "bossIdleTurns": 0,
+     "bossTurns": 7,
+     "playerIdleTurns": 0,
+     "playerTurns": 7,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 298.1726627130331,
+      "Extermination Order": 1583.343258184702
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 31,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 10,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 3,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 10,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 32,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 33,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 10,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 3,
+       "hit": 1,
+       "dmg": 1197.0617439251926
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 10,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1197.0617439251926
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 34,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 35,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 10,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 3,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 10,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 36,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 10,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 3,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 10,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 37,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 7,
+     "playerHpPct": 0,
+     "bossHpPct": 30.4,
+     "phase2Round": 4,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 298.1726627130331,
+     "bossIdleTurns": 0,
+     "bossTurns": 7,
+     "playerIdleTurns": 0,
+     "playerTurns": 7,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 298.1726627130331,
+      "Extermination Order": 1583.343258184702
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 38,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 4,
+     "playerHpPct": 0,
+     "bossHpPct": 76.2,
+     "phase2Round": null,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3941.846185453825
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 0,
+     "echoDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 4,
+     "playerIdleTurns": 0,
+     "playerTurns": 4,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "Final Command": 2012.037999999999,
+      "crownfall": 3941.846185453825
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 39,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 10,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 3,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 10,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 40,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 16.4,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 41,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 11,
+     "playerHpPct": 0,
+     "bossHpPct": 13,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": false,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 11,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Cursed Thread Weave": 296.1158145461759,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "Extermination Order": 1583.3432581847023,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 42,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 7,
+     "playerHpPct": 0,
+     "bossHpPct": 30.4,
+     "phase2Round": 4,
+     "phase3Round": null,
+     "ldRound": null,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 298.1726627130331,
+     "bossIdleTurns": 0,
+     "bossTurns": 7,
+     "playerIdleTurns": 0,
+     "playerTurns": 7,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 298.1726627130331,
+      "Extermination Order": 1583.343258184702
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 43,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 44,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 45,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 10,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 3,
+       "hit": 1,
+       "dmg": 1197.0617439251926
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 10,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1197.0617439251926
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 46,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 16.4,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 47,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 48,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 10,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 3,
+       "hit": 1,
+       "dmg": 1197.0617439251926
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 10,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1197.0617439251926
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 49,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 50,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 51,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 123.67140151685089
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 123.67140151685089
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 52,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 53,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 54,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 10,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 3,
+       "hit": 1,
+       "dmg": 1123.032790288649
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 10,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1123.032790288649
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 55,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 56,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 16.4,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1197.0617439251926
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1197.0617439251926
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 57,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 18.7,
+     "phase2Round": 4,
+     "phase3Round": 7,
+     "ldRound": 7,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2493.5223309155804
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 1197.0617439251926
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090862,
+     "bossIdleTurns": 0,
+     "bossTurns": 9,
+     "playerIdleTurns": 0,
+     "playerTurns": 9,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "crownfall": 2493.5223309155804,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090862,
+      "shardstorm": 1197.0617439251926
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 58,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 2,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": false,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "playerIdleTurns": 0,
+     "playerTurns": 16,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 59,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 197.7003551533944
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 197.7003551533944
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    },
+    {
+     "seed": 60,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 12,
+     "playerHpPct": 0,
+     "bossHpPct": 0,
+     "phase2Round": 4,
+     "phase3Round": 10,
+     "ldRound": 10,
+     "throneReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1800.932794550141
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 2,
+       "hit": 1,
+       "dmg": 123.67140151685089
+      }
+     },
+     "recalls": 1,
+     "echoDamage": 682.4831306090855,
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 12,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "dmgBySource": {
+      "Solar Bow": 74.02895363654352,
+      "command": 1800.932794550141,
+      "echo": 682.4831306090855,
+      "Extermination Order": 1583.3432581847019,
+      "Scorching Rend": 1469.5404615026773,
+      "shardstorm": 123.67140151685089
+     },
+     "untelegraphedLands": 0,
+     "cleanses": 0
+    }
+   ]
+  }
+ }
+}

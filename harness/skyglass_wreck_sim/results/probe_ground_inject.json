@@ -1,0 +1,65 @@
+{
+ "generatedBy": "engine/crowned_captain.ts --probe-inject",
+ "log": {
+  "inject": [
+   "r1 player wait | player at 5,4 effects [] granted available: false ground: -",
+   "r1 boss Probe: grant tile | player at 5,4 effects [] granted available: false ground: 6,4:r3",
+   "r2 player MOVES onto the grant tile 6,4: effects [], granted jutsu available: false",
+   "r2 player wait | player at 6,4 effects [] granted available: false ground: 6,4:r3",
+   "r2 boss wait | player at 6,4 effects [] granted available: false ground: 6,4:r2",
+   "r3 player wait | player at 6,4 effects [] granted available: false ground: 6,4:r2",
+   "r3 boss wait | player at 6,4 effects [] granted available: false ground: 6,4:r1",
+   "r4 player wait | player at 6,4 effects [] granted available: false ground: 6,4:r1",
+   "r4 boss wait | player at 6,4 effects [] granted available: false ground: -",
+   "r5 player wait | player at 6,4 effects [] granted available: false ground: -",
+   "r5 boss wait | player at 6,4 effects [] granted available: false ground: -",
+   "r6 player wait | player at 6,4 effects [] granted available: false ground: -",
+   "r6 boss wait | player at 6,4 effects [] granted available: false ground: -"
+  ],
+  "inject_all": [
+   "r1 player wait | player at 5,4 effects [] granted available: false ground: -",
+   "r1 boss Probe: grant tile | player at 5,4 effects [] granted available: false ground: 6,4:r3",
+   "r2 player MOVES onto the grant tile 6,4: effects [], granted jutsu available: false",
+   "r2 player wait | player at 6,4 effects [] granted available: false ground: 6,4:r3",
+   "r2 boss wait | player at 6,4 effects [] granted available: false ground: 6,4:r2",
+   "r3 player wait | player at 6,4 effects [] granted available: false ground: 6,4:r2",
+   "r3 boss wait | player at 6,4 effects [] granted available: false ground: 6,4:r1",
+   "r4 player wait | player at 6,4 effects [] granted available: false ground: 6,4:r1",
+   "r4 boss wait | player at 6,4 effects [] granted available: false ground: -",
+   "r5 player wait | player at 6,4 effects [] granted available: false ground: -",
+   "r5 boss wait | player at 6,4 effects [] granted available: false ground: -",
+   "r6 player wait | player at 6,4 effects [] granted available: false ground: -",
+   "r6 boss wait | player at 6,4 effects [] granted available: false ground: -"
+  ],
+  "damage_taken_tile": [
+   "r1 player wait | player at 5,4 effects [] granted available: false ground: -",
+   "r1 boss Probe: grant tile | player at 5,4 effects [] granted available: false ground: 6,4:r3",
+   "r2 player MOVES onto the grant tile 6,4: effects [], granted jutsu available: false",
+   "r2 player wait | player at 6,4 effects [] granted available: false ground: 6,4:r3",
+   "r2 boss wait | player at 6,4 effects [] granted available: false ground: 6,4:r2",
+   "r3 player wait | player at 6,4 effects [] granted available: false ground: 6,4:r2",
+   "r3 boss wait | player at 6,4 effects [] granted available: false ground: 6,4:r1",
+   "r4 player wait | player at 6,4 effects [] granted available: false ground: 6,4:r1",
+   "r4 boss wait | player at 6,4 effects [] granted available: false ground: -",
+   "r5 player wait | player at 6,4 effects [] granted available: false ground: -",
+   "r5 boss wait | player at 6,4 effects [] granted available: false ground: -",
+   "r6 player wait | player at 6,4 effects [] granted available: false ground: -",
+   "r6 boss wait | player at 6,4 effects [] granted available: false ground: -"
+  ],
+  "inject_direct": [
+   "r1 player wait | player at 5,4 effects [] granted available: false ground: -",
+   "r1 boss Probe: grant on the player | player at 5,4 effects [\"injectjutsus r3\"] granted available: true ground: -",
+   "r2 player GRANTED JUTSU | player at 5,4 effects [\"injectjutsus r3\"] granted available: false ground: -",
+   "r2 player wait | player at 5,4 effects [\"injectjutsus r3\"] granted available: false ground: -",
+   "r2 boss wait | player at 5,4 effects [\"injectjutsus r2\"] granted available: false ground: -",
+   "r3 player wait | player at 5,4 effects [\"injectjutsus r2\"] granted available: false ground: -",
+   "r3 boss wait | player at 5,4 effects [\"injectjutsus r1\"] granted available: false ground: -",
+   "r4 player wait | player at 5,4 effects [\"injectjutsus r1\"] granted available: false ground: -",
+   "r4 boss wait | player at 5,4 effects [\"injectjutsus r0\"] granted available: false ground: -",
+   "r5 player wait | player at 5,4 effects [] granted available: false ground: -",
+   "r5 boss wait | player at 5,4 effects [] granted available: false ground: -",
+   "r6 player wait | player at 5,4 effects [] granted available: false ground: -",
+   "r6 boss wait | player at 5,4 effects [] granted available: false ground: -"
+  ]
+ }
+}

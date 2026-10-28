@@ -50,6 +50,7 @@ fi
 # Observation-only rule probe (see tools/apply_probe.py); export copy only.
 python3 "$HERE/tools/apply_probe.py" "$APP"
 python3 "$HERE/tools/build_baseline.py" --check
+python3 "$HERE/tools/build_crowned_captain_inputs.py" --check
 # Per-invocation copy so concurrent runs never read each other's half-copied files.
 RUNDIR="tnr_skyglass_wreck_sim_$$"
 mkdir -p "$APP/$RUNDIR"
