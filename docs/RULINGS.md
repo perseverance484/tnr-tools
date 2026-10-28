@@ -3807,3 +3807,28 @@ sides of the jutsu and item edits).
 - "Approve and build the audit"
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4b.
+
+## RUL-2026-10-28-024 — Minor marks: crew enemies teach the mark-then-blast language
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass encounters / shared set-piece library
+
+**Status:** ACTIVE. The library build and harness checks are pending.
+
+**Ruling:**
+1. **Regular enemies get small marked attacks.** A mark lands under or around a player, and the tile is hit next turn. It never covers the floor and never spawns safe tiles. It introduces the language before the bosses' full set pieces, and stands as a mechanic in its own right.
+2. **Library additions: two shared "minor mark" pairs** (mark + blast), using the same recipe as the boss set pieces. The mark costs 40 AP with a unique 1-round marker on the caster; the 100 AP blast is gated on that marker.
+   - **Splash:** the target's hex plus its six neighbours.
+   - **Short line:** three hexes from the caster toward the target.
+3. **Damage is modest:** a step off the mark avoids it, and standing in it hurts but doesn't kill.
+4. **Visuals reuse the existing mark and blast tiles.** The same visual language means players learn it once.
+5. **Placement:**
+   - Wreck floors 1-3 crew (e.g. Deck Warden Splash, Wayfinder Short line).
+   - The common runs.
+   - The opening fights of the hunts.
+   - Bosses keep their full-arena set pieces.
+
+**Evidence:** Director, 2026-10-28: "I think it would be cool if enemies had attacks that spawned the markers and then damaged the tile next turn without covering the entire floor or spawning the safe tiles, as more of an intro to the effect. Then when the bosses use the more powerful form later its a mechanic theyre accustomed to. Also just serves as a good mechanic in general".
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §5a; harness `fable/skyglass-wreck-sim` (`library_spec.json`).

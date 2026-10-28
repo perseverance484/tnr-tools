@@ -319,3 +319,17 @@ Each rare run gets one signature twist, so it doesn't replay the hunt bosses in 
   - Candidate engine route: per-fight hazard records holding the previous boss's library mark-and-blast pair.
 
 Tainted versions keep the same twist and add their own (loot tables §5).
+
+
+## 9. Minor marks for regular enemies (RUL-2026-10-28-024)
+
+Two shared library pairs teach the mark-then-blast language before the bosses use it at full scale:
+- **Splash:** the target's hex and its six neighbours.
+- **Short line:** three hexes from the caster toward the target.
+
+Same recipe as the boss set pieces: a 40 AP mark with a unique 1-round marker on the caster, then a 100 AP blast next turn gated on the marker.
+- Damage is modest; a step off the mark avoids it.
+- No floor coverage and no safe tiles.
+- The visuals reuse the existing mark and blast tiles.
+
+Used by Wreck floors 1-3 crew, the common runs and the opening fights of the hunts. The library adds 4 jutsu for these.
