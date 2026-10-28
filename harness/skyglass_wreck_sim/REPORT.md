@@ -235,3 +235,164 @@ Jutsu: Clone Technique (range 2, rounds 2).
 - The old reference tiers' gear knobs go through one synthetic ARMOR row. The engine realises percentage damage-given
   above 100 on that row as 100, so `strong`/`elite` damage given is effectively +100. Reference only.
 - Per-wave rounds count the spawn round, so neighbouring waves overlap by one round. Floor totals are exact.
+
+---
+
+# Addendum (2026-10-28, later): the 6-wave cut, the engine's damage-row cap, telegraph probes
+
+## A finding that changes how "bonus damage" is set
+
+**The engine caps every percentage effect row at 100.** `app/src/libs/combat/power.ts:4-7` (`getEffectPower`) returns
+100 for any `calculation: "percentage"` effect above 100.
+
+- A single innate `increasedamagegiven` row above +100% gives exactly the same damage as +100%. A Deck Warden's Tide
+  Bolt hit for 95 / 191 / 191 with a row of 0 / +150% / +1000%. Whole runs with +150%, +250% and +350% rows were
+  identical to the decimal.
+- Several rows multiply, because each applies as `damage *= 1 + p/100` (`process.ts` damage packet, in-battle increases).
+- The captured crew's "+350-450%" was really 4-5 stacked rows: ×2 ×2 ×2 ×1.5 ≈ ×12.
+- The "single +150%" trims used above (target20_soft, dense_a/b, dense_b_v2) were therefore effectively one +100% row.
+- Design rule: **express bonus damage as a number of +100% rows** (×2 each), or a final partial row.
+
+## director_6wave (final layout; live damage settings; average party)
+
+Layout: F1 Deck Warden x3 + Seal Charge; F2 Skyglass Sentinel + First Blade + Deck Warden; F3 Oathkeeper + Wayfinder +
+Deck Warden; F4 Core Horror solo (stage boss, mini-boss room); F5 wave 1 Deck Warden x3, wave 2 The Captain + Sealwright.
+Core Rupture v2 (AOE_CIRCLE_SPAWN, range 5, pierce 180; self-destruct and 2-round stun kept).
+
+| Run | Clears | Runs with a wipe | Rounds median [range] | Min @10 / 15 / 20 s (+30 s per floor) |
+|---|---:|---:|---|---|
+| 1. dense_b_v2 trims as they are; Core Horror pools 3 (`overrides/director_6wave.json`) | 30/30 | 0% | 29 [27-31] | 16.0 / 22.8 / 29.5 |
+| **2. tuned (`overrides/director_6wave_tuned.json`, 40 runs)** | **40/40** | **15%** (every wipe on F5W2) | **26 [23-51]**, 25 when no wipe | **13.9 / 19.6 / 25.3** |
+
+**Rounds per wave:**
+
+| Wave | Run 1 | Run 2 | Run 2 party HP lost % |
+|---|---:|---:|---:|
+| F1 | 6 | 4 | 21 |
+| F2 | 5 | 4 | 35 |
+| F3 | 5 | 4 | 28 |
+| F4 Core Horror | 4 | 5 [5-6] | 24 |
+| F5W1 | 4.5 | 4 | 18 |
+| F5W2 Captain + Sealwright | 6 | 6 [3-8] | **87** |
+
+In run 2 the boss wave is the hardest by far and holds all 7 wipes in 47 attempts.
+
+The superseded first 6-wave layout (F2 Deck Warden x2 + Seal Charge x2; F4 Oathkeeper + Wayfinder + Core Horror) is in
+`overrides/director_6wave_layout1.json` / `results/live_director_6wave_layout1.json`. It ran with the dense_b_v2 trims:
+30 rounds, 23.1 min at 15 s, no wipes.
+
+**Settled figures (run 2; all storable, applied through `scaleEditedAi`):**
+
+| Enemy | poolsMultiplier | HP | Bonus damage (innate increasedamagegiven rows) |
+|---|---:|---:|---|
+| Deck Warden, Skyglass Sentinel, First Blade, Oathkeeper, Wayfinder | 1.0 | 5,050 | 2 rows of +100% (×4) |
+| Core Horror (stage boss) | 5 | 25,250 | 2 rows of +100% (×4) |
+| The Captain | 2.5 | 12,625 | 3 rows of +100% (×8) |
+| Sealwright | 2.5 | 12,625 | 3 rows of +100% (×8) |
+| Seal Charge | as captured (level 70) | 3,550 | none; Core Rupture v2 |
+
+Stats and kits are as captured.
+
+**Tuning path** (scratch runs, 30-40 each; minutes at 15 s):
+
+| Crew pools | Crew rows | Boss wave rows | Wipe rate | Rounds | Min @15 s |
+|---:|---:|---:|---:|---:|---:|
+| 1.0-1.25 | 1-2 | 2 | 0% | 24-26 | 19-20.5 |
+| 1.0 | 2 | 2 + 0.5 | 5% | - | - |
+| 1.0 | 2 | **3** | **15%** | - | - |
+| 1.0 | 2 | 4 | 33% | - | - |
+| 1.0 | 3 | 3 | 43% | - | - |
+| 1.0 | 3 | 3, boss pools 3 | 70% | - | - |
+
+Core Horror at pools 3 fell in 4 rounds; pools 5 gives the asked-for 5-6.
+
+## Telegraph probes (`engine/probe_telegraph.ts`, `results/probe_telegraph.json`)
+
+Setup: a stationary probe boss (Deck Warden row, includeDefaultRules false, rules end in end_turn) and one player who
+only ends turns. Positions are set after assembly.
+- The synthetic jutsu use the captured Drowning Mire record as the shape donor, changing only target, method, range,
+  cooldown, AP and effects.
+- Damage tags carry `friendlyFire: "ENEMIES"`.
+
+### 1. Ground-only telegraph
+
+**Visual-only.** A GROUND / AOE_CIRCLE_SPAWN jutsu with only a `visual` tag (rounds 2):
+- It lays a persistent ground effect on all 7 cells, with its `staticAnimation` kept, counting down 2 → 1 → gone.
+- It creates no user effect on the player standing in it, and causes no HP change to the player or the caster.
+
+**Zero-impact tag.** `increasepoolcost` at power 1, or 0, behaves the same: a 2-round ground effect, no HP change, no
+persistent user effect.
+
+So a pure `visual` telegraph works.
+
+### 2. Two-step sequencing
+
+**The marker type matters.** `decreasepoolcost` is stored with a negative power (−1 in battle). `has_effect` sums power
+and needs `>= threshold` (`ai_v2.ts`, `has_effect` branch), so a decreasepoolcost marker **never** matches; the
+detonation never fired. A positive marker works: `increasepoolcost` 1 on SELF.
+
+**Timing.**
+- **If the telegraph leaves AP:** the marker is present immediately, so the detonation fired **in the same turn**. That
+  is not a telegraph.
+- **If the telegraph and the detonation each cost 100 AP:**
+  - Round N: telegraph and marker.
+  - Round N+1, on the boss's turn: the marker is still present (`increasepoolcost:1:r1`) and the detonation fires.
+  - This holds for marker rounds 1 and 2.
+- **Why a 1-round marker survives:** it is applied `castThisRound`, so the first round transition does not count it down
+  (`util.ts` `alignBattle`, the round-progress block).
+- **A 2-round marker** stays one more round; the boss would detonate again unless the detonation's cooldown is ≥ 2.
+- **Ground mark:** the 2-round visual is still on the ground when the detonation lands.
+
+### 3. COORDINATES patterns
+
+**CASTER origin, ALL selection, radius-2 ring:**
+- The AI cast both the telegraph and the detonation with rule target **SELF or CLOSEST_OPPONENT, and jutsu range 0 or 5**.
+  All four combinations fired; a CASTER-origin pattern ignores the clicked tile.
+- Telegraph and detonation hit the **identical 12 cells** when the caster has not moved.
+- **The caster's own hex is not hit:** it is not in the offsets.
+
+**Offsets are column/row, not hex** (`targeting.ts` getTargetTiles, COORDINATES branch: `coordinate + origin.col/row`).
+- A ring computed for a caster on row 5 stays a true ring on any column of an odd row, i.e. at (7,5) as well.
+- On an even row (6,4) the same offsets give hex distances 1 and 3 for 4 of the 12 cells.
+- Store one offset set per row parity, or keep the boss on rows of one parity.
+
+**BATTLEFIELD origin, EXCLUDE 3 safe tiles:**
+- It hit all 117 other tiles.
+- A player on a safe tile (2,2) took nothing; a player on an unsafe tile was hit.
+- The caster's tile **is** in the pattern, but the caster took no damage (`friendlyFire: ENEMIES`).
+
+### 4. Grid and spawns
+
+**Grid:** a dungeon floor battle (`QUEST`) at level ≥ 50 is **12 × 10** (`util.ts` `getDefaultBattleSizes`).
+
+**Spawn cells** (`participants.ts` `getBattleSpawnLocations`):
+
+| Side | Cells | Count |
+|---|---|---:|
+| Players | columns 3-4, rows 1-7 | 14 |
+| Enemies | columns 8-9, rows 1-7 | 14 |
+
+**Placement:**
+- The opening placement is random among those cells (`routers/combat.ts` processUsersForBattle, `secureRandomInt`).
+- Later waves take the **free enemy spawn cells in list order**: column 8 rows 1 → 7, then column 9. If those are full
+  they use any free cell (`encounters.ts` `advanceEncounterWave`).
+
+### 5. Summoning an existing AI record
+
+Test unit: the Crownhold Proving Proctor (`1iJF8VBietrfvxJd_ZhFS`). It is built from the push/272 manifest data, with
+its combat stats from the live readback in `tnr_results_1792984876132.json` (695,650 each) and jutsu records from the
+captures.
+
+**It works:**
+- The summon appears with **HP = the effect's `aiHp`** (6,000 in the probe).
+- It lasts the effect's `rounds` (3), then leaves.
+- It acts on **its own rule list**: rule 0 Minor Overflow, then rules 1, 2, 3 in order, hitting the player.
+- Its stats are its record's, rescaled to the caster's level and multiplied by the summon power %
+  (`tags.ts` `summon`: `scaleUserStats(newAi, "ai")`, then `* perc`).
+
+**Only one at a time:**
+- **Two summon tags in one cast still give one summon.**
+- **Recasting while it lives gives nothing;** a new one appeared only after the first expired.
+- Cause: the one-live-summon-per-controller cap in `summon()` (`hasLiveSummon`).
+- So the Crowned Captain's Recall can field one summoned regular at a time. Two at once need two casters, or a wave
+  spawn.
