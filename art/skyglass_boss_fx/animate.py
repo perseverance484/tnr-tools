@@ -298,6 +298,8 @@ def export(anims):
     os.makedirs(EXPORTS, exist_ok=True)
     out = {}
     for aid, frames in anims.items():
+        if aid.startswith('dt_'):
+            frames = mind_portrait(frames, 'veil')
         strip = finish(frames)
         p = os.path.join(EXPORTS, f'anim_{aid}_{VERSION}.webp')
         strip.save(p, lossless=True, quality=100, method=6)
@@ -381,20 +383,25 @@ def build_v3():
                         px(f, bx + dx, by + dy, (245, 255, 160))
         fr.append(f)
     glints['linger'] = fr
-    emblem = reduce(star, 22, 22)  # safe: the floating emblem (over, by design) bobs; motes rise from the tile
+    # safe: two beacon pillars of skyglass light rise at the hex's left and right corners, framing whoever stands there
+    # (the emblem itself is the floor tile; nothing crosses the portrait).
     period = BEAT * 2
-    motes = [(14, 0), (36, 9), (22, 17), (30, 25)]
     fr = []
     for i in range(period):
         p = pulse(i, period)
         f = frame()
-        bob = round(1.5 * math.sin(2 * math.pi * i / period))
-        put(f, bright(emblem, 0.95 + 0.2 * p), 14, 2 + bob)
-        for mx, t0 in motes:
-            k = (i - t0) % period
-            if k < 14:
-                px(f, mx + (1 if k % 6 > 3 else 0), 30 - k * 1.6, (200, 245, 255) if k < 10 else (120, 200, 240),
-                   255 if k < 10 else 130)
+        for x0 in (10, 40):
+            top = int(6 + 4 * (1 - p))
+            for y in range(top, 27):
+                k = (y - top) / max(1, 26 - top)
+                col = (235, 252, 255) if k < 0.25 else (150, 225, 255) if k < 0.7 else (80, 170, 235)
+                px(f, x0, y, col, 255 if k > 0.15 else 130)
+                if k > 0.5:
+                    px(f, x0 + (1 if x0 < 25 else -1), y, (80, 170, 235), 130)
+            for t0 in (0, 11, 21):  # motes climbing the pillar
+                kk = (i - t0) % period
+                if kk < 12:
+                    px(f, x0 + (1 if x0 < 25 else -1) * (1 + (kk // 3) % 2), 26 - kk * 1.7, (220, 250, 255))
         fr.append(f)
     glints['safe'] = fr
     return tiles, glints
@@ -406,12 +413,90 @@ def export_v3():
         p = os.path.join(EXPORTS, f'tile_{name}_v3.webp')
         t.save(p, lossless=True, quality=100, method=6)
         print(f'tile_{name}: {os.path.getsize(p)} bytes')
+    glints['dt_heavy'] = build_dt_heavy_v3()
     for name, frames in glints.items():
-        p = os.path.join(EXPORTS, f'anim_{name}_glint_v3.webp')
+        frames = mind_portrait(frames, 'clear')
+        p = os.path.join(EXPORTS, f'anim_{name}_v3.webp' if name.startswith('dt_') else f'anim_{name}_glint_v3.webp')
         finish(frames).save(p, lossless=True, quality=100, method=6)
         assert os.path.getsize(p) < MAX_BYTES
         print(f'anim_{name}_glint: {len(frames)} frames, {os.path.getsize(p)} bytes')
     return tiles, glints
+
+
+def build_dt_heavy_v3():
+    """The heavy blast, portrait-mindful: three smaller eruptions burst from the ring's rim (left, right and front)
+    instead of one column through the middle; chunks fly outward, the rim flashes and the cracks glow."""
+    erupt = keyed('raw_fx_ember_eruption.png', dist=80)
+    small = reduce(erupt, 9, int(round(9 * erupt.height / erupt.width)), colors=10)
+    sw, sh = small.size
+    spots = [(11, 29), (39, 29)]   # rim left and right (base points): the only room clear of every portrait
+    rng = np.random.RandomState(7)
+    chunks = [(sx + rng.randint(-2, 3), sy - 6, (sx - 25) / 10 + rng.uniform(-0.8, 0.8), rng.uniform(-2.8, -1.4))
+              for sx, sy in spots for _ in range(3)]
+    fr = []
+    for i in range(12):
+        f = frame()
+        if i <= 1:
+            for k in range(40):
+                ang = 2 * math.pi * k / 40
+                px(f, 25 + math.cos(ang) * RX, 25 + math.sin(ang) * RY, (255, 230, 150))
+        for sx, sy in spots:
+            if 1 <= i <= 3:
+                vis = int(sh * i / 3)
+                part = small.crop((0, sh - vis, sw, sh))
+                put(f, part if i < 3 else bright(part, 1.25), sx - sw // 2, sy - vis)
+            elif i == 4:
+                put(f, bright(small, 1.3), sx - sw // 2, sy - sh)
+            elif 5 <= i <= 7:
+                cut = int(sh * (i - 4) / 4)
+                put(f, with_alpha(small.crop((0, cut, sw, sh)), 255 if i < 7 else 130), sx - sw // 2, sy - sh + cut)
+        if i >= 4:
+            t = i - 4
+            for cx, cy, vx, vy in chunks:
+                col = (60, 30, 24) if t > 4 else (255, 170, 60)
+                px(f, cx + vx * t, cy + vy * t + 0.45 * t * t, col)
+        if i >= 3:  # rim embers glow and fade
+            for k in range(0, 40, 2):
+                ang = 2 * math.pi * k / 40
+                px(f, 25 + math.cos(ang) * RX, 25 + math.sin(ang) * RY, (255, 140, 50) if i < 9 else (140, 60, 30), 255 if i < 9 else 130)
+        fr.append(f)
+    return fr
+
+
+# ------------------------------------------------------------------------------------------------ portrait safety
+# Director 2026-10-28: "The animations should be mindful of player portraits". Over-layer animations draw on top of the
+# character token, so they keep clear of it. Measured on the battle still (hex centre (311, 225.5), 184.1 still px per
+# 50 frame px): the portrait disc is centred 9.2 px above the hex centre with radius 9 frame px, and the health bars sit
+# 17-22 px above it. In frame px: disc (25, 15.8) r 9.5, bars x 16-34, y 2-9.
+PORTRAIT_C, PORTRAIT_R = (25.0, 15.8), 9.5
+
+
+def portrait_mask():
+    """Every portrait this sprite can overlap: its own hex's and the six neighbours'. Portraits rise above their hex, so
+    the hex below's portrait sits on this hex's lower half. In frame px: column step 27, row step 18, odd columns half a
+    row offset; each portrait a disc of radius 9.5 centred 9.2 px above its hex centre, health bars above that."""
+    yy, xx = np.mgrid[0:N, 0:N]
+    m = np.zeros((N, N), bool)
+    for dx, dy in ((0, 0), (0, -18), (0, 18), (-27, -9), (-27, 9), (27, -9), (27, 9)):
+        cx, cy = PORTRAIT_C[0] + dx, PORTRAIT_C[1] + dy
+        m |= np.hypot(xx - cx, yy - cy) <= PORTRAIT_R
+        m |= (xx >= cx - 10) & (xx <= cx + 10) & (yy >= cy - 15) & (yy <= cy - 7)
+    return m
+
+
+def mind_portrait(frames, mode):
+    """mode 'clear': drop every pixel over the portrait (glints); 'veil': hold them at the 130 step (emblem, blasts) so
+    the face still shows through."""
+    m = portrait_mask()
+    out = []
+    for f in frames:
+        a = np.array(f).copy()
+        if mode == 'clear':
+            a[..., 3] = np.where(m, 0, a[..., 3])
+        else:
+            a[..., 3] = np.where(m & (a[..., 3] > 130), 130, a[..., 3])
+        out.append(Image.fromarray(a))
+    return out
 
 
 if __name__ == '__main__':
