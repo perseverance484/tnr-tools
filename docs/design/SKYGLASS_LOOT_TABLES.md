@@ -33,13 +33,18 @@ Currency package (director, in game). Independent drops: the chest of chests **1
 
 The Skyglass Crystal is not in the Coffer: it comes only from crafting 12 Skyglass Filaments (live), about nine Coffers' worth (RUL-2026-10-25-004).
 
-**Sealed Treasury** (new; premium, the Ornate Chest's old role). Two effects on one item: a standard reward of **100,000 ryo** every opening (weighted caches cannot hold ryo) plus one weighted roll (ruled):
+**Sealed Treasury** (premium; reworked by RUL-2026-10-28-012). Two effects on one item:
+- a standard reward of **150,000 ryo** on every opening;
+- a weighted cache with a random roll count: **3 rolls 60 / 4 rolls 30 / 6 rolls 10**.
 
 | Tier | Weight | Gives |
 |---|---|---|
-| Common | 70 | Rare Jewels ×10 |
-| Rare | 24 | Imperial Gold ×5 |
-| Epic | 6 | Unobtanium ×5 |
+| Common | 45 | Imperial Gold ×5 |
+| Rare | 35 | Rare Jewels ×10 |
+| Epic | 15 | Imperial Gold ×15 |
+| Legendary | 5 | Unobtanium ×5 |
+
+That averages about 13 Imperial Gold per opening, against about 1.2 before.
 
 **Archive Chart Case** (new; weights ruled)
 
