@@ -5,7 +5,7 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
-import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, PLAYER_VARIANTS, playerQueryUser } from "./model";
+import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, petFor, PLAYER_VARIANTS, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32, runFloor } from "./sim";
 import { cast, cond, endTurn } from "./kitlib";
 import { ANSWERS, buildLibrary, LIB, MARKER_TYPES, type MarkKey } from "./library";
@@ -18,7 +18,7 @@ const dmg = loadDmgConfig(H, "live");
 const J = buildLibrary();
 const blastFor = (k: MarkKey) => Object.keys(ANSWERS).find((id) => ANSWERS[id] === k)!;
 
-const run = async (key: string, rules: any[], kit: string[], boss: [number, number], players: [number, number][], rounds: number, dodge = false) => {
+const run = async (key: string, rules: any[], kit: string[], boss: [number, number], players: [number, number][], rounds: number, dodge = false, petCells?: [number, number][]) => {
   const ov: any = { jutsu: J, newEnemies: { boss: { base: "Deck Warden", username: `Boss ${key}`, jutsuIds: kit, rules, includeDefaultRules: false, effects: [] } } };
   const t = buildTemplates(baseline, ov);
   const rows = Object.fromEntries(Object.entries(t.enemies).map(([id, e]) => [id, enemyQueryUser(e)]));
@@ -26,7 +26,25 @@ const run = async (key: string, rules: any[], kit: string[], boss: [number, numb
   Math.random = rand;
   const v = { ...PLAYER_VARIANTS.average!, rules: [endTurn()] };
   const ps = players.map((_, i) => playerQueryUser(i, v as never, t.enemies["texZaFi42S3EvJZBwQ8cd"]!.row, t.jutsu));
-  const b = await assembleFloor({ players: ps, enemyRows: rows, floor: { kind: "floor", waves: [{ aiIds: ["boss"], delayRounds: 0 }] }, rand, initialBarriers: false, dmgConfig: dmg.config, mode: "quest" });
+  const pets = petCells ? ps.map((p) => petFor(p)) : undefined;
+  if (pets) ps.forEach((p, i) => (p.activePetId = pets[i]!.id));
+  const b = await assembleFloor({ players: ps, enemyRows: rows, floor: { kind: "floor", waves: [{ aiIds: ["boss"], delayRounds: 0 }] }, rand, initialBarriers: false, dmgConfig: dmg.config, mode: "quest", pets });
+  if (pets) {
+    // Pets stand still (end turn) on the given cells.
+    for (const pet of b.usersState.filter((u: any) => u.petId)) {
+      const i = ps.findIndex((p) => p.userId === pet.controllerId);
+      [pet.longitude, pet.latitude] = petCells![i]!;
+      const prof = (b.extraState.aiProfiles as any)[pet.aiProfileId];
+      if (prof) {
+        prof.rules = [endTurn()];
+        prof.includeDefaultRules = false;
+      }
+    }
+  }
+  const unitName = (uid: string) => {
+    const u: any = b.usersState.find((x) => x.userId === uid);
+    return u ? (u.petId ? `pet@${u.longitude},${u.latitude}` : u.userId === bu.userId ? "boss" : `player@${u.longitude},${u.latitude}`) : uid;
+  };
   const bu = b.usersState.find((u) => u.controllerId === "boss")!;
   [bu.longitude, bu.latitude] = boss;
   ps.forEach((p, i) => {
@@ -39,6 +57,8 @@ const run = async (key: string, rules: any[], kit: string[], boss: [number, numb
     round: s.round, action: J[s.actionId ?? ""]?.name ?? s.actionId, rule: s.ruleIndex,
     bossEffects: (s.actorEffects ?? []).map((e) => `${e.type}:${e.power}:r${e.rounds}`),
     playersHit: Object.entries(s.hp).filter(([k, d]) => k !== bu.userId && d < 0).length,
+    damage: Object.fromEntries(Object.entries(s.hp).filter(([k, d]) => k !== bu.userId && d < 0).map(([k, d]) => [unitName(k), Math.round(d)])),
+    groundHexes: s.ground.length,
     newEffects: [...new Set(s.effects.map((e) => e.type))],
   }));
 };
@@ -66,21 +86,32 @@ for (const k of (Object.keys(MARKER_TYPES) as MarkKey[]).filter((x) => !MINOR.in
   out.coexistence = steps;
   console.log(`coexist: ${steps.map((s) => `r${s.round}:${s.action} [${s.bossEffects.filter((e) => /cooldown|robprevent/.test(e)).join(",")}]`).join(" | ")}`);
 }
-// Minor marks (caster-anchored): one player on the pattern two hexes west of the caster; standing still vs the harness
-// dodge (one-hex steps off the marked hexes). A target-anchored build (AOE_CIRCLE_SPAWN / AOE_LINE_SHOOT on the target)
-// hit the dodging player too: the blast re-aims at the target's current hex.
+// Minor marks (caster-anchored, GROUND blasts): one player (and their modelled pet) two hexes west of a crew caster.
+// "stays": both stand on the pattern (damage per hit). "steps off": the player dodges (harness one-hex steps off the
+// marked hexes) and the pet stands off the pattern; the blast must still erupt on the empty tiles and hit nobody.
+// A target-anchored build (AOE_CIRCLE_SPAWN / AOE_LINE_SHOOT on the target) hit the dodging player too: the blast
+// re-aims at the target's current hex. A CHARACTER blast was not cast at all once everyone stepped off.
 out.minor = [];
 for (const k of MINOR) {
   const markId = LIB.mark[k];
   const blastId = blastFor(k);
-  const rules = [cast("blast", blastId, "SELF", [cond.marker(1, MARKER_TYPES[k])]), endTurn("hold", [cond.marker(1, MARKER_TYPES[k])]), cast("mark", markId, "SELF", [cond.near(3)]), endTurn()];
-  for (const [label, pos, dodge] of [["stays, 2 hexes west", [6, 5], false], ["dodges, 2 hexes west", [6, 5], true], ["stays, off the pattern", [6, 2], false]] as const) {
-    const steps = await run(`${k} ${label}`, rules, [markId, blastId], boss, [pos as [number, number]], 3, dodge);
-    const blastStep = steps.find((s: any) => !s.player && s.action === J[blastId].name);
-    const hit = steps.some((s: any) => !s.player && s.action === J[blastId].name && s.playersHit > 0);
-    out.minor.push({ mark: J[markId].name, blast: J[blastId].name, markerType: MARKER_TYPES[k], scenario: label, blastCast: !!blastStep, playerHit: hit, steps });
-    console.log(`${k.padEnd(10)} ${label.padEnd(20)} blast ${blastStep ? "cast" : "not cast"}, player ${hit ? "HIT" : "not hit"}: ${steps.map((s: any) => (s.player ? `r${s.round}:dodge->${JSON.stringify(s.to)}` : `r${s.round}:${s.action}${s.playersHit ? `(hit ${s.playersHit})` : ""}`)).join(" ")}`);
+  const rules = [cast("blast", blastId, "SELF", [cond.marker(1, MARKER_TYPES[k])]), endTurn("hold", [cond.marker(1, MARKER_TYPES[k])]), cast("mark", markId, "SELF", [cond.within(1, 3)]), endTurn()];
+  for (const [label, dodge, pet] of [["stays (player and pet on the pattern)", false, [5, 5]], ["steps off (pet off the pattern)", true, [6, 1]]] as const) {
+    const steps = await run(`${k} ${label}`, rules, [markId, blastId], boss, [[6, 5]], 3, dodge, [pet as [number, number]]);
+    const blastStep: any = steps.find((s: any) => !s.player && s.action === J[blastId].name);
+    out.minor.push({ mark: J[markId].name, blast: J[blastId].name, markerType: MARKER_TYPES[k], scenario: label, blastCast: !!blastStep, groundHexes: blastStep?.groundHexes ?? 0, damage: blastStep?.damage ?? {}, steps });
+    console.log(`${k.padEnd(10)} ${label.padEnd(38)} blast ${blastStep ? `cast (${blastStep.groundHexes} ground hexes)` : "NOT cast"}, damage ${JSON.stringify(blastStep?.damage ?? {})}: ${steps.map((s: any) => (s.player ? `r${s.round}:dodge->${JSON.stringify(s.to)}` : `r${s.round}:${s.action}`)).join(" ")}`);
   }
+}
+// Boss pairs with the harness dodge on: once marked, does each blast still go off when players step off?
+out.dodged = [];
+for (const k of (Object.keys(MARKER_TYPES) as MarkKey[]).filter((x) => !MINOR.includes(x))) {
+  const markId = LIB.mark[k];
+  const blastId = blastFor(k);
+  const steps = await run(`${k} dodged`, [cast("blast", blastId, "SELF", [cond.marker(1, MARKER_TYPES[k])]), cast("mark", markId, "SELF"), endTurn()], [markId, blastId], boss, players, 3, true);
+  const blastStep: any = steps.find((s: any) => !s.player && s.action === J[blastId].name);
+  out.dodged.push({ key: k, blast: J[blastId].name, blastCast: !!blastStep, playersHit: blastStep?.playersHit ?? 0, dodgeSteps: steps.filter((s: any) => s.player).length });
+  console.log(`dodged ${k.padEnd(17)} blast ${blastStep ? `cast, hit ${blastStep.playersHit}` : "NOT cast"} after ${steps.filter((s: any) => s.player).length} dodge steps`);
 }
 if (outPath) {
   mkdirSync(dirname(resolve(outPath)), { recursive: true });

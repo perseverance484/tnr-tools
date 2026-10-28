@@ -151,7 +151,7 @@
     }
    ],
    "target": "GROUND",
-   "range": 2,
+   "range": 0,
    "cooldown": 4,
    "bloodlineId": "",
    "requiredLevel": 1,
@@ -172,8 +172,94 @@
    "healthCost": 0,
    "villageId": "",
    "requiredPetSpeciesId": null,
-   "method": "AOE_SPIRAL_SHOOT",
-   "coordinateTargeting": null,
+   "method": "COORDINATES",
+   "coordinateTargeting": {
+    "origin": "CASTER",
+    "selection": "ALL",
+    "coordinates": [
+     {
+      "longitude": -1,
+      "latitude": -2
+     },
+     {
+      "longitude": 0,
+      "latitude": -2
+     },
+     {
+      "longitude": 1,
+      "latitude": -2
+     },
+     {
+      "longitude": -2,
+      "latitude": -1
+     },
+     {
+      "longitude": -1,
+      "latitude": -1
+     },
+     {
+      "longitude": 0,
+      "latitude": -1
+     },
+     {
+      "longitude": 1,
+      "latitude": -1
+     },
+     {
+      "longitude": -2,
+      "latitude": 0
+     },
+     {
+      "longitude": -1,
+      "latitude": 0
+     },
+     {
+      "longitude": 1,
+      "latitude": 0
+     },
+     {
+      "longitude": 2,
+      "latitude": 0
+     },
+     {
+      "longitude": -2,
+      "latitude": 1
+     },
+     {
+      "longitude": -1,
+      "latitude": 1
+     },
+     {
+      "longitude": 0,
+      "latitude": 1
+     },
+     {
+      "longitude": 1,
+      "latitude": 1
+     },
+     {
+      "longitude": -1,
+      "latitude": 2
+     },
+     {
+      "longitude": 0,
+      "latitude": 2
+     },
+     {
+      "longitude": 1,
+      "latitude": 2
+     },
+     {
+      "longitude": 2,
+      "latitude": -1
+     },
+     {
+      "longitude": 2,
+      "latitude": 1
+     }
+    ],
+    "randomCount": 1
+   },
    "methodSize": null,
    "hidden": true,
    "injectableInBattle": false,
@@ -2144,7 +2230,7 @@
      "allowBloodlineDamageDecrease": true
     }
    ],
-   "target": "CHARACTER",
+   "target": "GROUND",
    "range": 2,
    "cooldown": 2,
    "bloodlineId": "",
@@ -2221,7 +2307,7 @@
      "allowBloodlineDamageDecrease": true
     }
    ],
-   "target": "CHARACTER",
+   "target": "GROUND",
    "range": 0,
    "cooldown": 2,
    "bloodlineId": "",
@@ -2400,7 +2486,7 @@
      "allowBloodlineDamageDecrease": true
     }
    ],
-   "target": "CHARACTER",
+   "target": "GROUND",
    "range": 0,
    "cooldown": 2,
    "bloodlineId": "",
@@ -3293,7 +3379,7 @@
      "allowBloodlineDamageDecrease": true
     }
    ],
-   "target": "CHARACTER",
+   "target": "GROUND",
    "range": 0,
    "cooldown": 2,
    "bloodlineId": "",
@@ -3543,6 +3629,10 @@
     "selection": "ALL",
     "coordinates": [
      {
+      "longitude": 0,
+      "latitude": 0
+     },
+     {
       "longitude": -1,
       "latitude": -1
      },
@@ -3701,7 +3791,7 @@
      "appearSfx": "",
      "disappearSfx": "",
      "rounds": 0,
-     "power": 80,
+     "power": 58,
      "powerPerLevel": 0,
      "direction": "offence",
      "target": "INHERIT",
@@ -3718,7 +3808,7 @@
      "allowBloodlineDamageDecrease": true
     }
    ],
-   "target": "CHARACTER",
+   "target": "GROUND",
    "range": 0,
    "cooldown": 2,
    "bloodlineId": "",
@@ -3820,7 +3910,7 @@
      "appearSfx": "",
      "disappearSfx": "",
      "rounds": 0,
-     "power": 90,
+     "power": 65,
      "powerPerLevel": 0,
      "direction": "offence",
      "target": "INHERIT",
@@ -3837,7 +3927,7 @@
      "allowBloodlineDamageDecrease": true
     }
    ],
-   "target": "CHARACTER",
+   "target": "GROUND",
    "range": 0,
    "cooldown": 2,
    "bloodlineId": "",
@@ -4358,7 +4448,7 @@
      "allowBloodlineDamageDecrease": true
     }
    ],
-   "target": "CHARACTER",
+   "target": "GROUND",
    "range": 0,
    "cooldown": 2,
    "bloodlineId": "",
@@ -4525,7 +4615,7 @@
      "allowBloodlineDamageDecrease": true
     }
    ],
-   "target": "CHARACTER",
+   "target": "GROUND",
    "range": 0,
    "cooldown": 2,
    "bloodlineId": "",
@@ -4777,7 +4867,7 @@
     }
    ],
    "target": "CHARACTER",
-   "range": 2,
+   "range": 0,
    "cooldown": 2,
    "bloodlineId": "",
    "requiredLevel": 1,
@@ -4798,8 +4888,98 @@
    "healthCost": 0,
    "villageId": "",
    "requiredPetSpeciesId": null,
-   "method": "AOE_SPIRAL_SHOOT",
-   "coordinateTargeting": null,
+   "method": "COORDINATES",
+   "coordinateTargeting": {
+    "origin": "CASTER",
+    "selection": "ALL",
+    "coordinates": [
+     {
+      "longitude": 0,
+      "latitude": 0
+     },
+     {
+      "longitude": -1,
+      "latitude": -2
+     },
+     {
+      "longitude": 0,
+      "latitude": -2
+     },
+     {
+      "longitude": 1,
+      "latitude": -2
+     },
+     {
+      "longitude": -2,
+      "latitude": -1
+     },
+     {
+      "longitude": -1,
+      "latitude": -1
+     },
+     {
+      "longitude": 0,
+      "latitude": -1
+     },
+     {
+      "longitude": 1,
+      "latitude": -1
+     },
+     {
+      "longitude": -2,
+      "latitude": 0
+     },
+     {
+      "longitude": -1,
+      "latitude": 0
+     },
+     {
+      "longitude": 1,
+      "latitude": 0
+     },
+     {
+      "longitude": 2,
+      "latitude": 0
+     },
+     {
+      "longitude": -2,
+      "latitude": 1
+     },
+     {
+      "longitude": -1,
+      "latitude": 1
+     },
+     {
+      "longitude": 0,
+      "latitude": 1
+     },
+     {
+      "longitude": 1,
+      "latitude": 1
+     },
+     {
+      "longitude": -1,
+      "latitude": 2
+     },
+     {
+      "longitude": 0,
+      "latitude": 2
+     },
+     {
+      "longitude": 1,
+      "latitude": 2
+     },
+     {
+      "longitude": 2,
+      "latitude": -1
+     },
+     {
+      "longitude": 2,
+      "latitude": 1
+     }
+    ],
+    "randomCount": 1
+   },
    "methodSize": null,
    "hidden": true,
    "injectableInBattle": false,

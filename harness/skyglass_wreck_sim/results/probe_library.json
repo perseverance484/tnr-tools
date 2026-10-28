@@ -28,6 +28,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 18,
      "newEffects": [
       "increasecooldown"
      ]
@@ -40,6 +42,8 @@
       "increasecooldown:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -50,6 +54,12 @@
       "increasecooldown:1:r1"
      ],
      "playersHit": 3,
+     "damage": {
+      "player@8,4": -396,
+      "player@7,5": -396,
+      "player@6,5": -396
+     },
+     "groundHexes": 21,
      "newEffects": []
     },
     {
@@ -58,6 +68,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -75,6 +87,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 20,
      "newEffects": [
       "decreasecooldown"
      ]
@@ -87,6 +101,8 @@
       "decreasecooldown:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -97,6 +113,12 @@
       "decreasecooldown:1:r1"
      ],
      "playersHit": 3,
+     "damage": {
+      "player@8,4": -123,
+      "player@7,5": -123,
+      "player@6,5": -123
+     },
+     "groundHexes": 6,
      "newEffects": [
       "elementalseal",
       "timecompression",
@@ -109,6 +131,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -126,6 +150,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 24,
      "newEffects": [
       "increaserange"
      ]
@@ -138,6 +164,8 @@
       "increaserange:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -148,6 +176,11 @@
       "increaserange:1:r1"
      ],
      "playersHit": 2,
+     "damage": {
+      "player@7,5": -346,
+      "player@6,5": -346
+     },
+     "groundHexes": 26,
      "newEffects": []
     },
     {
@@ -156,6 +189,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -173,6 +208,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 24,
      "newEffects": [
       "fleeprevent"
      ]
@@ -185,6 +222,8 @@
       "fleeprevent:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -195,6 +234,10 @@
       "fleeprevent:100:r1"
      ],
      "playersHit": 1,
+     "damage": {
+      "player@3,3": -346
+     },
+     "groundHexes": 25,
      "newEffects": []
     },
     {
@@ -203,6 +246,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -220,6 +265,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 60,
      "newEffects": [
       "robprevent"
      ]
@@ -232,6 +279,8 @@
       "robprevent:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -242,6 +291,13 @@
       "robprevent:100:r1"
      ],
      "playersHit": 4,
+     "damage": {
+      "player@8,4": -420,
+      "player@7,5": -420,
+      "player@3,3": -420,
+      "player@6,5": -420
+     },
+     "groundHexes": 184,
      "newEffects": []
     },
     {
@@ -250,6 +306,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -267,6 +325,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 57,
      "newEffects": [
       "onehitkillprevent"
      ]
@@ -279,6 +339,8 @@
       "onehitkillprevent:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -289,6 +351,10 @@
       "onehitkillprevent:100:r1"
      ],
      "playersHit": 1,
+     "damage": {
+      "player@5,7": -420
+     },
+     "groundHexes": 172,
      "newEffects": []
     },
     {
@@ -297,6 +363,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -314,6 +382,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 19,
      "newEffects": [
       "disarm"
      ]
@@ -326,6 +396,8 @@
       "disarm:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -336,6 +408,12 @@
       "disarm:100:r1"
      ],
      "playersHit": 3,
+     "damage": {
+      "player@8,4": -370,
+      "player@7,5": -370,
+      "player@6,5": -370
+     },
+     "groundHexes": 22,
      "newEffects": []
     },
     {
@@ -344,6 +422,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -361,6 +441,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 26,
      "newEffects": [
       "elementalseal"
      ]
@@ -373,6 +455,8 @@
       "elementalseal:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -383,6 +467,10 @@
       "elementalseal:100:r1"
      ],
      "playersHit": 1,
+     "damage": {
+      "player@8,4": -148
+     },
+     "groundHexes": 1,
      "newEffects": [
       "elementalseal",
       "timecompression",
@@ -395,6 +483,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -412,6 +502,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 120,
      "newEffects": [
       "summonprevent"
      ]
@@ -424,6 +516,8 @@
       "summonprevent:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -434,6 +528,14 @@
       "summonprevent:100:r1"
      ],
      "playersHit": 5,
+     "damage": {
+      "player@8,4": -494,
+      "player@5,7": -494,
+      "player@7,5": -494,
+      "player@3,3": -494,
+      "player@6,5": -494
+     },
+     "groundHexes": 5,
      "newEffects": [
       "weakness",
       "stun"
@@ -447,6 +549,8 @@
       "weakness:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -464,6 +568,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 120,
      "newEffects": [
       "sealprevent"
      ]
@@ -476,6 +582,8 @@
       "sealprevent:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -486,6 +594,14 @@
       "sealprevent:100:r1"
      ],
      "playersHit": 5,
+     "damage": {
+      "player@8,4": -198,
+      "player@5,7": -198,
+      "player@7,5": -198,
+      "player@3,3": -198,
+      "player@6,5": -198
+     },
+     "groundHexes": 5,
      "newEffects": [
       "elementalseal",
       "timecompression",
@@ -498,6 +614,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -510,6 +628,8 @@
    "rule": 2,
    "bossEffects": [],
    "playersHit": 0,
+   "damage": {},
+   "groundHexes": 18,
    "newEffects": [
     "increasecooldown"
    ]
@@ -522,6 +642,8 @@
     "increasecooldown:1:r1"
    ],
    "playersHit": 0,
+   "damage": {},
+   "groundHexes": 60,
    "newEffects": [
     "robprevent"
    ]
@@ -535,6 +657,8 @@
     "robprevent:100:r1"
    ],
    "playersHit": 0,
+   "damage": {},
+   "groundHexes": 0,
    "newEffects": []
   },
   {
@@ -546,6 +670,13 @@
     "robprevent:100:r1"
    ],
    "playersHit": 4,
+   "damage": {
+    "player@8,4": -420,
+    "player@7,5": -420,
+    "player@3,3": -420,
+    "player@6,5": -420
+   },
+   "groundHexes": 184,
    "newEffects": []
   },
   {
@@ -554,6 +685,8 @@
    "rule": 4,
    "bossEffects": [],
    "playersHit": 0,
+   "damage": {},
+   "groundHexes": 0,
    "newEffects": []
   }
  ],
@@ -562,9 +695,13 @@
    "mark": "Omen: Splash",
    "blast": "Eruption: Splash",
    "markerType": "increaseheal",
-   "scenario": "stays, 2 hexes west",
+   "scenario": "stays (player and pet on the pattern)",
    "blastCast": true,
-   "playerHit": true,
+   "groundHexes": 11,
+   "damage": {
+    "player@6,5": -143,
+    "pet@5,5": -1025
+   },
    "steps": [
     {
      "round": 1,
@@ -572,6 +709,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 9,
      "newEffects": [
       "increaseheal"
      ]
@@ -584,6 +723,8 @@
       "increaseheal:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -593,7 +734,12 @@
      "bossEffects": [
       "increaseheal:1:r1"
      ],
-     "playersHit": 1,
+     "playersHit": 2,
+     "damage": {
+      "player@6,5": -143,
+      "pet@5,5": -1025
+     },
+     "groundHexes": 11,
      "newEffects": []
     },
     {
@@ -602,6 +748,8 @@
      "rule": 3,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -610,9 +758,10 @@
    "mark": "Omen: Splash",
    "blast": "Eruption: Splash",
    "markerType": "increaseheal",
-   "scenario": "dodges, 2 hexes west",
-   "blastCast": false,
-   "playerHit": false,
+   "scenario": "steps off (pet off the pattern)",
+   "blastCast": true,
+   "groundHexes": 9,
+   "damage": {},
    "steps": [
     {
      "round": 1,
@@ -620,6 +769,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 9,
      "newEffects": [
       "increaseheal"
      ]
@@ -632,6 +783,8 @@
       "increaseheal:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -654,6 +807,8 @@
       "absorb:30:r4"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -676,16 +831,20 @@
       "absorb:30:r4"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
      "round": 2,
-     "action": "wait",
-     "rule": 1,
+     "action": "Eruption: Splash",
+     "rule": 0,
      "bossEffects": [
       "increaseheal:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 9,
      "newEffects": []
     },
     {
@@ -694,40 +853,8 @@
      "rule": 3,
      "bossEffects": [],
      "playersHit": 0,
-     "newEffects": []
-    }
-   ]
-  },
-  {
-   "mark": "Omen: Splash",
-   "blast": "Eruption: Splash",
-   "markerType": "increaseheal",
-   "scenario": "stays, off the pattern",
-   "blastCast": false,
-   "playerHit": false,
-   "steps": [
-    {
-     "round": 1,
-     "action": "wait",
-     "rule": 3,
-     "bossEffects": [],
-     "playersHit": 0,
-     "newEffects": []
-    },
-    {
-     "round": 2,
-     "action": "wait",
-     "rule": 3,
-     "bossEffects": [],
-     "playersHit": 0,
-     "newEffects": []
-    },
-    {
-     "round": 3,
-     "action": "wait",
-     "rule": 3,
-     "bossEffects": [],
-     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -736,9 +863,13 @@
    "mark": "Omen: Short Line",
    "blast": "Eruption: Short Line",
    "markerType": "lifesteal",
-   "scenario": "stays, 2 hexes west",
+   "scenario": "stays (player and pet on the pattern)",
    "blastCast": true,
-   "playerHit": true,
+   "groundHexes": 5,
+   "damage": {
+    "player@6,5": -161,
+    "pet@5,5": -1149
+   },
    "steps": [
     {
      "round": 1,
@@ -746,6 +877,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 3,
      "newEffects": [
       "lifesteal"
      ]
@@ -758,6 +891,8 @@
       "lifesteal:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -767,7 +902,12 @@
      "bossEffects": [
       "lifesteal:1:r1"
      ],
-     "playersHit": 1,
+     "playersHit": 2,
+     "damage": {
+      "player@6,5": -161,
+      "pet@5,5": -1149
+     },
+     "groundHexes": 5,
      "newEffects": []
     },
     {
@@ -776,6 +916,8 @@
      "rule": 3,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -784,9 +926,10 @@
    "mark": "Omen: Short Line",
    "blast": "Eruption: Short Line",
    "markerType": "lifesteal",
-   "scenario": "dodges, 2 hexes west",
-   "blastCast": false,
-   "playerHit": false,
+   "scenario": "steps off (pet off the pattern)",
+   "blastCast": true,
+   "groundHexes": 3,
+   "damage": {},
    "steps": [
     {
      "round": 1,
@@ -794,6 +937,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 3,
      "newEffects": [
       "lifesteal"
      ]
@@ -806,6 +951,8 @@
       "lifesteal:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -828,16 +975,20 @@
       "absorb:30:r4"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
      "round": 2,
-     "action": "wait",
-     "rule": 1,
+     "action": "Eruption: Short Line",
+     "rule": 0,
      "bossEffects": [
       "lifesteal:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 3,
      "newEffects": []
     },
     {
@@ -846,43 +997,83 @@
      "rule": 3,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
+  }
+ ],
+ "dodged": [
+  {
+   "key": "ring",
+   "blast": "Eruption: Ring",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 5
   },
   {
-   "mark": "Omen: Short Line",
-   "blast": "Eruption: Short Line",
-   "markerType": "lifesteal",
-   "scenario": "stays, off the pattern",
-   "blastCast": false,
-   "playerHit": false,
-   "steps": [
-    {
-     "round": 1,
-     "action": "wait",
-     "rule": 3,
-     "bossEffects": [],
-     "playersHit": 0,
-     "newEffects": []
-    },
-    {
-     "round": 2,
-     "action": "wait",
-     "rule": 3,
-     "bossEffects": [],
-     "playersHit": 0,
-     "newEffects": []
-    },
-    {
-     "round": 3,
-     "action": "wait",
-     "rule": 3,
-     "bossEffects": [],
-     "playersHit": 0,
-     "newEffects": []
-    }
-   ]
+   "key": "bindingRing",
+   "blast": "Ship's Bell",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 5
+  },
+  {
+   "key": "rowsA",
+   "blast": "Eruption: Rows",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 2
+  },
+  {
+   "key": "rowsB",
+   "blast": "Eruption: Rows",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 1
+  },
+  {
+   "key": "scatterA",
+   "blast": "Eruption: Scatter",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 4
+  },
+  {
+   "key": "scatterB",
+   "blast": "Eruption: Scatter",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 1
+  },
+  {
+   "key": "lines",
+   "blast": "Eruption: Lines",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 3
+  },
+  {
+   "key": "sealLines",
+   "blast": "Binding: Seal Lines",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 1
+  },
+  {
+   "key": "lastLight",
+   "blast": "Maw of the Deep",
+   "blastCast": true,
+   "playersHit": 2,
+   "dodgeSteps": 5
+  },
+  {
+   "key": "lastLightBinding",
+   "blast": "Command Absolute",
+   "blastCast": true,
+   "playersHit": 2,
+   "dodgeSteps": 5
   }
  ]
 }
