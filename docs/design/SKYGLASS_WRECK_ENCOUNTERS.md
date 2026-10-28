@@ -207,7 +207,7 @@ the Core Horror is floor 4's solo stage boss.
 **Set-piece mechanics confirmed:**
 - **Ground marks:** a visual-only ground effect touches no one, the caster included.
 - **Primed marker:** `increasepoolcost` 1 on self, 1 round. It must not be `decreasepoolcost`, which is stored as negative.
-- **AP cost:** the telegraph and the detonation must each cost 100 AP, or the boss detonates in the same turn.
+- **AP cost:** superseded by the library recipe (Boss Fights §6). The mark costs 40 AP plus a 1-round marker; the 100 AP blast is gated on that marker, so it can't land in the same turn.
 - **Patterns:**
   - Ring patterns cast at SELF hit identical cells on both steps and spare the caster.
   - Offsets are column/row, so each pattern needs one offset set per row parity.

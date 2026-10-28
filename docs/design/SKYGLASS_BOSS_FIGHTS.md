@@ -13,7 +13,7 @@ crew records are upgraded in place. AI records differ only in stats. The canonic
 
 | Tool | Engine | Use |
 |---|---|---|
-| Marked set piece | visual ground mark, then a 100 AP detonation next turn (harness-confirmed) | the core of every boss |
+| Marked set piece | visual ground mark (40 AP, puts a 1-round marker on the boss), then a 100 AP detonation next turn gated on that marker (library_spec.json 5f6c3edb) | the core of every boss |
 | Fixed patterns | COORDINATES: caster rings and lines, arena-wide EXCLUDE with safe hexes; one offset set per row parity | readable shapes |
 | Two-marker chains | marker A sets up a 40 AP follow-up that applies marker B; B detonates next turn | PROBE: combos such as "mark, then drag into it" |
 | Pull / push | `redirection` pull or push N hexes (blocked by a root) | Undertow, Bell Toll |
@@ -281,7 +281,7 @@ targets: pending harness rerun.
 
 - **Marks:** a mark is a visual ground jutsu with a 1-round life.
 - **Marker for the next turn:** each set piece puts its own marker type on the boss. Use a type outside the shared 3-round cooldown list: increasecooldown with no actions, or increaserange.
-- **Turn cost:** the mark and the blast both cost 100 AP. A two-marker chain (a 60 AP mark plus a 40 AP follow-up) works.
+- **Turn cost (library, 5f6c3edb):** the mark costs 40 AP and puts a unique 1-round marker on the boss. The blast costs 100 AP; its rule (`has_effect <marker>`) sits at the top of the list, so it fires on the next turn. After marking, the boss's rule `has_effect <marker>` → plain attack, then end turn, spends the remaining 60 AP. That 60 AP also allows a two-marker chain. Earlier harness builds used 100 AP for both; superseded.
 - **Ground jutsu land only damage.** A blast that stuns or pushes targets CHARACTER, with the rule targeting SELF; that spares the boss and the safe tiles.
 - **Patterns:** rings use the spiral method; arena patterns use battlefield coordinates. The boss stays put so his patterns line up.
 - **Range** caps at 5.
