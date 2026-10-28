@@ -29,10 +29,12 @@ Follow their charts, and the last light out of Crownhold leads you to the man wh
 - **The war-ship** is Crownhold's. It was built around a skyglass heart (**the Core**) that lifts it over mountains, walls and coastlines.
   - Its crew were recalled to man it, and the Core rebuilds them, and the hull, every time they break.
   - Nothing ever finishes, so nothing ever stops.
-- **The Captain** is the ship's own captain. He fell with her in her first loss and was recalled with the crew.
-  - He holds the watch because he was ordered to, not because he believes in it.
-  - Of all of them, he is the one who knows the cost: "They built this ship to cross any wall and outlast any siege. No one asked what outlasting everything would cost."
-- **The Crowned Captain aboard the Ghost Ship** was an echo: a voice the Crowned Captain lent the ship through the crown, so it was never out of his reach. Players who beat him at the helm in the old Ghost Ship beat that voice, not the man. This is why the two look alike.
+- **The Captain** is the ship's captain, and the Crowned Captain's own echo: his face and voice, lent to the ship so it was never out of reach.
+  - The crown kept for itself; the Captain was given the watch.
+  - Decades at the helm have worn him into his own man: tired, honest, still dutiful.
+  - "They built this ship to cross any wall and outlast any siege. No one asked what outlasting everything would cost."
+  - This is why the two look alike. Players beat the Captain at the wreck, then meet the face again at Crownhold: "I defeated you once!" / "I control... many echoes."
+  - No line refers to the old Ghost Ship quests, which are being retired. The hints are subtle: he touches his bare brow; "I wear his face."
 - **The Silence.** A generation ago Crownhold stopped answering. Its living people are gone. Its last directive is not: *hold your posts; none is relieved until the mission is done*. No one living remembers what the mission was.
 - **The Ghost Ship.** For decades the war-ship crossed the sky on routes that no longer exist, appearing where no ship belonged, the Wayfinder correcting its charts against a world that kept changing.
 - **The Wreck (now).**
@@ -51,7 +53,7 @@ Follow their charts, and the last light out of Crownhold leads you to the man wh
 | Chart of the Buried Cache | the crew were people: what they buried before the fall | a seal still keeping old supplies fresh |
 | The Drowned Foundry | the ship mends itself forever; routine without need | the works stop, for the first time |
 | The Quarantined Archive | the Sealwright's buried reports: the impressions are fraying, and the orders to continue come from Crownhold | the first name of Crownhold, and the crown |
-| The Captain's Watch | the Captain's humanity; the voice at the helm was never theirs | "Find the one who wears it." |
+| The Captain's Watch | the Captain's humanity, and a hint that he is someone else's echo | "I wear his face." |
 | Crownhold | the source: the Crowned Captain and his crown | the crown breaks; every echo lets go |
 
 ## Voice
