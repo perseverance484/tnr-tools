@@ -3350,3 +3350,21 @@ closely"; targets chosen: "15-20 min", "Clearable, few wipes", "Level 100 Jonin,
 **Ruling (proposed):** push/317 may run although `validate.py --strict` reports law 6 "pierce power 180 exceeds the cap of 100". The game's `PierceTag` power has no maximum (`validators/combat.ts` `PowerAttributes`: `min(0)`), and the live Core Rupture already carries 120. Law 6's flat cap is already listed for law reconciliation (RUL-2026-10-20-001, Boundary). The exception holds only while `python3 scripts/validate_exception.py state/validate_exceptions/317_core_rupture_blast.json` passes.
 
 **Canonical destination:** `state/validate_exceptions/317_core_rupture_blast.json`.
+
+## RUL-2026-10-28-003 — Crowned Captain to Crownhold; the Captain is the Wreck's boss; one elemental kunai pouch
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass Wreck / Crownhold story, encounters and rewards
+
+**Status:** ACTIVE. The Crownhold story rewrite is drafted for approval separately.
+
+**Ruling:**
+1. **Crownhold's final boss is the Crowned Captain.** Arakane's AI record (D5.BOSS, `7QofodAiUwIoM-voiA2p6`) is converted: it keeps his Crownhold stats, kit and Countermand, takes the Crowned Captain's name and the original crew portrait. Arakane is retired from the story (his art redo is cancelled).
+2. **The Captain is the Skyglass Wreck's final boss.** Endgame floor 5 wave 2: The Captain + Sealwright. Floor 4 wave 2: Wayfinder + Core Horror, the Core Horror reworked as a gimmick minion whose attacks are broadcast a round ahead.
+3. **Crownhold's completion pick gains one Fragment of the Skyglass Crown** (`ayiRmSjWs05lMPyL3G-1d`), a guaranteed route for players farming it. Coffers still drop fragments.
+4. **One elemental kunai pouch.** The five elemental kunai are down to Elemental Kunai, so the five Tool Pouches become one, the Elemental Tool Pouch (the Katon pouch record, re-pointed). The Armory Requisition and the Drowned Foundry pick 1 of: Elemental Tool Pouch / Medicine Inro / 50,000 ryo.
+
+**Evidence:** Director, 2026-10-28: "For Crownhold and the character we put the Crowned Captain. Then the regular captain is the boss of the skyglass wreck. Then one of the rewards for beating crowhold is a guaranteed crown fragment … this simplifies the story a lot"; "adjust the armory to only drop one kind of elemental kunai pouch now since we're down to 1 … needs 2 more rewards now, perhaps medicine inro for one". Answers: "Convert Arakane"; floor 4: "Work in Core Horror. Make him a gimmicky minions, lots of broadcasted attacks"; pouch: "Elemental Kunai"; picks: "Inro + 50,000 ryo".
+
+**Canonical destination:** `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`; `docs/design/SKYGLASS_LOOT_TABLES.md`; `push/elemental_pouch.gen.py` (push/318); `push/crownhold.gen.py`.

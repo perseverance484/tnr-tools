@@ -33,15 +33,15 @@ Not available: "an ally is below X% health" and "I do not have effect X"; design
 | Deck Warden | Line holder | Closes in and pins the closest player (root/snare), then grinds. Easy to kill; punishes standing still. |
 | Seal Charge | Fuse | Walks at the nearest player and detonates on a fixed round of the floor. Kill it or step away. |
 | Core Canister | Area denial | Plants itself; erupts around itself on a fixed rhythm. Fight away from it. |
-| Core Horror | Bruiser | Slow; huge hits on whoever is closest; hits harder under 50% health. Kite it. |
+| Core Horror | Gimmick minion | Every attack is broadcast a round ahead: it marks ground first (a visible glyph), then the marked hexes erupt. Slow, big health; punishes a party that stops watching the floor. |
 | Wayfinder | Controller | Keeps distance, displaces and slows players, marks a target that the rest focus. |
 | Arsenal Keeper | Artillery | Stays back; long-range volleys; arms Seal Charges (wave pairing). Reach him first. |
 | Skyglass Sentinel | Guardian | Shields or buffs the closest ally every few rounds; taunts. Kill order matters. |
 | First Blade | Assassin | Ignores the front line and hunts the LOWEST_HEALTH_OPPONENT; burst on low targets. Protect the weak. |
 | Oathkeeper | Duelist | Debuffs (seal/disarm-style) whoever has the highest enmity; punishes the party's main damage dealer. |
-| The Captain | Mini-boss | Command buffs on allies, a heavy combo at range 5; mid-fight surge at 50%. |
+| The Captain | Final boss (RUL-2026-10-28-003) | Command buffs on allies, a heavy combo at range 5; two phases: a duelist with the Sealwright covering him, then a surge under 50% (Battle Trance once, Great Bell Toll on cooldown). |
 | Sealwright | Support | Seals and slows players, cleanses/heals allies (via ally targets); kill first or the fight drags. |
-| Crowned Captain | Final boss | Three phases by health (100-60 / 60-30 / under 30): duelist, then calls hazards, then a desperate burst with Final-Stand-style protection. |
+| Crowned Captain | not in the Wreck | Moved to Crownhold as its final boss (RUL-2026-10-28-003). |
 
 ## Mechanics toolkit (engine-supported; each verified in the harness before use)
 
@@ -78,6 +78,8 @@ them); anything changed or new is a **dungeon-only jutsu** (NEW below). All numb
 | Chart Mark | range 7, single, cd 4, AP 40 | PROPOSED, not approved: increasedamagetaken 40 / 2r, plus a marker row increasepoolcost 5 / 2r; mark sigil animation. The crew key their focus on the marker, not on damage-taken (below) | Wayfinder |
 | Skyglass Aegis | range 4, single ALLY, cd 4, AP 40 | shield, absorb on the ally / 2r | Sentinel |
 | Mending Seal | range 5, single ALLY, cd 4, AP 40 | heal 20, cleanse | Sealwright |
+| Rot Glyph | range 6, AOE circle spawn on a player, cd 2 | a visible warning zone this round (glyph animation, no damage); the eruption lands on those hexes next round. Mechanism (delayed ground damage vs a two-step rule) is a harness probe | Core Horror |
+| Horror Wail | range 0, AOE spiral around self (radius 2), fixed rhythm (every 3rd round), broadcast by a Wail Glyph the round before | heavy damage + 1-round stun to anyone still inside | Core Horror |
 | Core Rupture (live record, edited by push/316-317) | range 5, AOE circle spawn (the target hex and the six around it), cd 3 | pierce 180 (was 120 on every player via method ALL), stun 100 / 2r, and the hazard's own self-destruct (onehitkill on SELF) | Seal Charge, Core Canister |
 
 Core Rupture's `onehitkill` targets SELF: it is the hazard destroying itself, not a kill on a player, and it stays. The
@@ -97,9 +99,10 @@ the hunts and the dungeon. Dungeon copies may also detonate when a player is adj
 | First Blade | 1 stealth opener · 2 Raijin's Spear / Shuriken Storm on LOWEST_HEALTH_OPPONENT · 3 Opening Strike on LOWEST_ENMITY_OPPONENT · 4 move towards LOWEST_HEALTH_OPPONENT |
 | Oathkeeper | 1 Oath of Stillness on HIGHEST_ENMITY_OPPONENT · 2 Weakening Strike on HIGHEST_ENMITY_OPPONENT · 3 Opening Strike · 4 move towards |
 | Wayfinder | 1 Chart Mark on HIGHEST_ENMITY_OPPONENT (allies then focus targets with the mark) · 2 Keelbind root at range · 3 decoy clone when a player is within 2 · 4 keep range |
-| The Captain | 1 Unbroken Command opener (once) · 2 Great Bell Toll when 2+ players are in range · 3 Keelbind on HIGHEST_ENMITY_OPPONENT · 4 Explosive Tag Cataclysm · 5 move towards |
+| The Captain | 1 Unbroken Command opener (once) · 2 under 50%: Battle Trance once · 3 Great Bell Toll when 2+ players are in range · 4 Keelbind on HIGHEST_ENMITY_OPPONENT · 5 Explosive Tag Cataclysm · 6 move towards |
+| Core Horror | 1 Rot Glyph (NEW) on a player: marks their hex and the ring around it · 2 Horror Wail (NEW) on its fixed rhythm, broadcast by Wail Glyph the round before · 3 move towards (slow: one hex) · never a plain hit |
 | Sealwright | 1 Mending Seal on LOWEST_MAX_HEALTH_ALLY · 2 Sovereign Fetters on HIGHEST_ENMITY_OPPONENT · 3 Dispelling Wave · 4 Weakening Strike · 5 keep range |
-| Crowned Captain | Phase 1 (100-60%): duelist on HIGHEST_ENMITY_OPPONENT (Final Command, Keelbind, Ruin Refrain). Phase 2 (under 60%): crown-aura buff once, then afterimage clones or Seal-Charge drops (whichever the harness confirms), Suppression Writ. Phase 3 (under 30%): Final-Stand-style protection once, then everything on LOWEST_HEALTH_OPPONENT |
+| Crowned Captain | Moved to Crownhold (RUL-2026-10-28-003); his phase plan goes with him: duelist, then afterimages, then Final-Stand-style protection |
 
 Allies' "focus the mark" rules use `target_has_effect` ahead of their usual damage rule. That condition matches by effect
 type and summed power (`ai_v2.ts` ~404), so keying on `increasedamagetaken` would also fire on Opening Strike, Piercing
@@ -113,8 +116,8 @@ the director's call on the mark is still open (2026-10-28: 20% too low; must not
 | 1 | Deck Warden x3 + Seal Charge | none |
 | 2 | Deck Warden + Seal Charge x2 | Deck Warden x3 |
 | 3 | Skyglass Sentinel + First Blade + Deck Warden | none |
-| 4 (mini-boss) | Deck Warden x2 + Oathkeeper | The Captain + Wayfinder |
-| 5 (boss) | Deck Warden x2 + First Blade + Core Canister x2 | Crowned Captain + Sealwright |
+| 4 (mini-boss) | Deck Warden x2 + Oathkeeper | Wayfinder + Core Horror |
+| 5 (boss) | Deck Warden x2 + First Blade + Core Canister x2 | The Captain + Sealwright |
 
 **Hazards are never reinforcements** (director): Seal Charges and Core Canisters do not move, so a hazard in a later wave
 just sits on the far side and detonates harmlessly. They appear only in a floor's first wave.
@@ -129,7 +132,7 @@ theirs). The harness checks every opener fires once per fight.
 ## Level 40-60 version (10-15 min)
 
 Same arcs with level-50 copies and lighter kits: floors 1-4 at two enemies, the boss floor without Sealwright; the
-Crowned Captain keeps two phases. Target ~18-20 rounds. Loot: entry tier only (RUL-2026-10-26-007).
+Captain keeps two phases. Target ~18-20 rounds. Loot: entry tier only (RUL-2026-10-26-007).
 
 ## Harness acceptance checks (per version)
 
