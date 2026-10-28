@@ -52,7 +52,7 @@ for tick in range(140):
                 x, y = centre(*c)
                 im.alpha_composite(fr[k], (int(x - K / 2), int(y - K / 2)))
     out.append(im.convert('RGB'))
-for scale, name in ((1, 'v2_battle_1x.gif'), (2, 'v2_battle_2x.gif')):
+for scale, name in ((1, 'v2_battle_1x.gif'),):  # converted to v2_battle.mp4 (2x) with ffmpeg; the GIF is not committed
     fs = [f.resize((f.width * scale, f.height * scale), Image.NEAREST) for f in out]
     fs[0].save(os.path.join(OUT, name), save_all=True, append_images=fs[1:], duration=TICK, loop=0, optimize=True)
 keys = [0, 8, 50, 52, 56, 70, 116, 130, 133]
