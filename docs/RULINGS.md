@@ -3622,3 +3622,28 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "Approved." This answers the lock-swap question.
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §5a; harness `fable/skyglass-wreck-sim` 5f6c3edb (`library_spec.json`).
+
+## RUL-2026-10-28-016 — Picks: 1 per run, 2 on tainted; Requisition retired; dead options cut
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Every completion pick is pick 1. Tainted runs are pick 2.** This supersedes the pick-2 Crownhold and tainted lines of RUL-2026-10-28-013. Difficulty scales through option quantity and quality: the rare runs offer Coffer ×2 and Echo Jar ×2.
+2. **Dead options are cut:**
+   - the Archive's Records exp;
+   - the Watch's Inro ×3;
+   - The Fall's Captain's Purse;
+   - the commons' exp cards.
+
+   Galley Stores and the Echo Jar fill the gaps. Final table: loot tables §4a.
+3. **The Armory Requisition is removed entirely**, out of the chest of chests. Its live record is hidden in push/319.
+4. **The chest of chests is reweighted:** 40 Inro/Pouch, 35 Strongbox/Galley, 18 Coffer/Chart Case, 7 Treasury/Echo Jar.
+5. **The Archive alarm route's ladder is left as is.**
+
+**Evidence:** Director, 2026-10-28: "Why don't we keep choices to 1 per run and tainted versions can have 2. We can get rid of requisition entirely. Leave the archive".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §2, §4a.
