@@ -3438,3 +3438,21 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28, on the tuned numbers and the telegraph findings: "Perfect. Approved, one minor edit. I dont want to regenerate pre-existing art so let's update our story around that".
 
 **Canonical destination:** `docs/design/SKYGLASS_STORY_BIBLE.md`; `push/crownhold.gen.py`; `state/skyglass_hunts/hunts.py`.
+
+## RUL-2026-10-28-008 — Kit tuning decisions: Core Horror teeth, First Blade buff, Crowned Captain HP doubled
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass Wreck / Crownhold balance
+
+**Status:** ACTIVE. The harness retunes are in progress.
+
+**Ruling:**
+1. **Core Horror:** stronger normal attacks, a set piece every other turn, and an earlier phase 2 so his pools appear. He must cost a dodging party real HP.
+2. **First Blade:** buffed so it survives past round 2 and gets its signature turns.
+3. **Level 40-60 version:** left as tuned. A real level-50 player capture to retune against may come later.
+4. **Crowned Captain:** HP doubled (pools 2.5 to 5, about 25,250) for a longer phase 1 and a longer fight; the Recall echo is kept as is.
+
+**Evidence:** Director, 2026-10-28: "Problems: 1. Approved 2. Buff him / Decisions: 1. Leave as is 2. OK, maybe in a bit 3. Yeah give him more HP, double it. 4. Yes, approved." Read against the open lists: problem 1 is the Core Horror fix; "Buff him" is read as the First Blade (problem 3, which dies in round 2), since problem 2 was the Captain's jutsu count. Decision 1 is the level range; decision 2 is the level-50 capture; decision 3 is the Crowned Captain; decision 4 is the Core Horror.
+
+**Canonical destination:** `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`, `docs/design/SKYGLASS_BOSS_FIGHTS.md`; harness `fable/skyglass-wreck-sim`, `fable/crowned-captain-sim`.
