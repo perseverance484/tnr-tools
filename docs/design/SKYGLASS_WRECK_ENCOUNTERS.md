@@ -109,15 +109,22 @@ type and summed power (`ai_v2.ts` ~404), so keying on `increasedamagetaken` woul
 Judgment, Suppression Writ and Void Pulse Barrage. The proposed marker is `increasepoolcost`, which no crew jutsu applies;
 approved 2026-10-28 (RUL-2026-10-28-001).
 
-## Endgame floor layout (director, 2026-10-28)
+## Endgame floor layout (director, 2026-10-28: 6 waves)
+
+The harness (report 2) put the 8-wave layout at ~38 rounds, ~30 min at 15 s a turn, even with trimmed crew stats; the
+15-20 min target is ~20-27 rounds. Director: "Cut to 6 waves, 1 wave each on the first four, boss floor gets a bonus wave
+first to soften the players up. 3x deck warden then boss". Floors 2 and 4 merge their two waves (Claude's pick; tunable):
 
 | Floor | Wave 1 | Wave 2 |
 |---|---|---|
 | 1 | Deck Warden x3 + Seal Charge | none |
-| 2 | Deck Warden + Seal Charge x2 | Deck Warden x3 |
+| 2 | Deck Warden x2 + Seal Charge x2 | none |
 | 3 | Skyglass Sentinel + First Blade + Deck Warden | none |
-| 4 (mini-boss) | Deck Warden x2 + Oathkeeper | Wayfinder + Core Horror |
-| 5 (boss) | Deck Warden x2 + First Blade + Core Canister x2 | The Captain + Sealwright |
+| 4 (mini-boss) | Oathkeeper + Wayfinder + Core Horror | none |
+| 5 (boss) | Deck Warden x3 | The Captain + Sealwright |
+
+Crew stats for the dungeon copies are trimmed from the live crew (live crew wipe the party on floor 3); the harness sets
+the final health and bonus-damage figures.
 
 **Hazards are never reinforcements** (director): Seal Charges and Core Canisters do not move, so a hazard in a later wave
 just sits on the far side and detonates harmlessly. They appear only in a floor's first wave.
