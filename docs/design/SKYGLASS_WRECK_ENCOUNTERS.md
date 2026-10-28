@@ -33,7 +33,7 @@ Not available: "an ally is below X% health" and "I do not have effect X"; design
 | Deck Warden | Line holder | Closes in and pins the closest player (root/snare), then grinds. Easy to kill; punishes standing still. |
 | Seal Charge | Fuse | Walks at the nearest player and detonates on a fixed round of the floor. Kill it or step away. |
 | Core Canister | Area denial | Plants itself; erupts around itself on a fixed rhythm. Fight away from it. |
-| Core Horror | Gimmick minion | Every attack is broadcast a round ahead: it marks ground first (a visible glyph), then the marked hexes erupt. Slow, big health; punishes a party that stops watching the floor. |
+| Core Horror | Stage boss (floor 4, solo) | Showy, in the style of Path of Exile's Delve and Abyss bosses: plain heavy attacks most turns, broken up by marked set pieces (below). |
 | Wayfinder | Controller | Keeps distance, displaces and slows players, marks a target that the rest focus. |
 | Arsenal Keeper | Artillery | Stays back; long-range volleys; arms Seal Charges (wave pairing). Reach him first. |
 | Skyglass Sentinel | Guardian | Shields or buffs the closest ally every few rounds; taunts. Kill order matters. |
@@ -42,6 +42,39 @@ Not available: "an ally is below X% health" and "I do not have effect X"; design
 | The Captain | Final boss (RUL-2026-10-28-003) | Command buffs on allies, a heavy combo at range 5; two phases: a duelist with the Sealwright covering him, then a surge under 50% (Battle Trance once, Great Bell Toll on cooldown). |
 | Sealwright | Support | Seals and slows players, cleanses/heals allies (via ally targets); kill first or the fight drags. |
 | Crowned Captain | not in the Wreck | Moved to Crownhold as its final boss (RUL-2026-10-28-003). |
+
+## Showcase bosses: marked set pieces (director, 2026-10-28)
+
+The model is Path of Exile's Delve and Abyss bosses: they mark areas to avoid, and the mark's icon says what is coming.
+Not every attack is a set piece; the boss still fights normally between them.
+
+**Icon language** (custom ground animations, one per threat type, shared by every boss so players learn it once):
+| Icon | Means | Counterplay |
+|---|---|---|
+| Red cracked ring | heavy damage next round | leave the marked hexes |
+| Violet chains | root or stun next round | leave, or a cleanse ready |
+| Green drip | a pool that lingers and ticks | do not end a turn in it |
+| Cyan star (the Skyglass emblem) | a safe hex during an arena-wide attack | get to one |
+
+**How (pending harness probes):**
+- A telegraph jutsu lays a no-impact ground effect carrying the icon on the pattern's hexes.
+- It also puts a unique "primed" marker on the boss.
+- The boss's top rule is `has_effect` on that marker, and it detonates the same pattern next turn.
+- Patterns use the COORDINATES method:
+  - caster-relative rings and lines while the boss stands still;
+  - arena-wide EXCLUDE patterns with marked safe hexes.
+- Ground damage also hits its caster, so patterns leave the boss's own hex out.
+- Random patterns cannot be used, because the mark and the blast would roll different hexes. Several fixed patterns, rotated by round, give the same look.
+
+**Core Horror kit (proposal):**
+- **Plain:** Rending Claw (heavy melee), Bile Spit (range 4, light damage-over-time).
+- **Set piece 1, Collapse:** red ring, radius 2 around him. Punishes melee hugging.
+- **Set piece 2, Rupture Field:** red, one of three fixed scatter patterns over the arena. Move to an unmarked hex.
+- **Set piece 3, Maw of the Deep:** red over the whole arena except three cyan-star safe hexes; heavy damage and a stun everywhere else. Once per phase, his signature.
+- **Under 50%:** green drip pools linger where Rupture Field lands, and set pieces come one round sooner.
+- **Movement:** stationary, like most Delve bosses; this keeps his patterns lined up.
+
+The same toolkit is meant to make the Captain and the Crowned Captain interactive as well.
 
 ## Mechanics toolkit (engine-supported; each verified in the harness before use)
 
@@ -112,15 +145,16 @@ approved 2026-10-28 (RUL-2026-10-28-001).
 ## Endgame floor layout (director, 2026-10-28: 6 waves)
 
 The harness (report 2) put the 8-wave layout at ~38 rounds, ~30 min at 15 s a turn, even with trimmed crew stats; the
-15-20 min target is ~20-27 rounds. Director: "Cut to 6 waves, 1 wave each on the first four, boss floor gets a bonus wave
-first to soften the players up. 3x deck warden then boss". Floors 2 and 4 merge their two waves (Claude's pick; tunable):
+15-20 min target is ~20-27 rounds. Director (2026-10-28): six waves, one per floor on floors 1-4, and the boss floor
+gets a softening wave first ("3x deck warden then boss"); then floor 2 takes the Sentinel trio, floor 3 the Oathkeeper,
+Wayfinder and a Deck Warden, and the Core Horror fights alone on floor 4 as a stage boss.
 
 | Floor | Wave 1 | Wave 2 |
 |---|---|---|
 | 1 | Deck Warden x3 + Seal Charge | none |
-| 2 | Deck Warden x2 + Seal Charge x2 | none |
-| 3 | Skyglass Sentinel + First Blade + Deck Warden | none |
-| 4 (mini-boss) | Oathkeeper + Wayfinder + Core Horror | none |
+| 2 | Skyglass Sentinel + First Blade + Deck Warden | none |
+| 3 | Oathkeeper + Wayfinder + Deck Warden | none |
+| 4 (stage boss) | Core Horror, solo | none |
 | 5 (boss) | Deck Warden x3 | The Captain + Sealwright |
 
 Crew stats for the dungeon copies are trimmed from the live crew (live crew wipe the party on floor 3); the harness sets
