@@ -1142,7 +1142,7 @@ archived unrun. Built by `push/233_ethereal_rebirth_animation_v2.gen.py`, strip 
 it. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **Run 233, then 231.**
 
 
-## 319 Skyglass / Crownhold update (31 items, HIDDEN): HOLD, being assembled (one large update, director 2026-10-28)
+## 319 Skyglass / Crownhold update (35 items, HIDDEN): HOLD, being assembled (one large update, director 2026-10-28)
 
 Built by `push/skyglass_update.gen.py`. Supersedes 273, 276, 316, 317 and 318 (none run; archived under
 `archive/spent-manifests/push-2026-10-28/`). Forge runs it by phase (law 18: kits come off before their jutsu/items are
@@ -1152,12 +1152,14 @@ edited and go back on after):
   usernames (RUL-2026-10-26-003). The Katon Tool Pouch becomes the **Elemental Tool Pouch** (Elemental Kunai).
 - **Phase 2:** Core Rupture: AOE circle spawn, range 5, pierce 180 (self-destruct and 2-round stun kept). The Last
   Directive's and Countermand's text name the Crowned Captain. The Armory Requisition and the Drowned Foundry pick 1 of:
-  Elemental Tool Pouch / Medicine Inro / 50,000 ryo.
+  Elemental Tool Pouch / Medicine Inro / 50,000 ryo. The Quarantined Archive, the Captain's Watch and the Buried Cache
+  are re-sent whole with the story-bible text (`docs/design/SKYGLASS_STORY_BIBLE.md`; only text changes, checked against
+  push/268 and push/270), and the Armory Requisition's description is updated.
 - **Phase 3:** kits back on; **Crownhold** created with the Crowned Captain story (RUL-2026-10-28-004) and a Crown
   fragment in its pick.
 
 **Before it runs:** the Crownbreaker badge id (`state/crownhold/ids.json`), then the Wreck dungeon's AI copies and dungeon
 edits and the easy dungeon (harness tuning in progress) join this manifest. Gates: `check_manifest.mjs` 0 pre-send
-problems; `validate.py --strict` 1 error + 7 warnings, all held under `state/validate_exceptions/319_skyglass_update.json`
+problems; `validate.py --strict` 1 error + 8 warnings, all held under `state/validate_exceptions/319_skyglass_update.json`
 (RUL-2026-10-28-002: the law-6 power cap, and the build-order lint, which ignores phases). Regenerate and re-write the
 ledger whenever the manifest changes.

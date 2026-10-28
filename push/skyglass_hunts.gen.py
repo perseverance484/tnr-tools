@@ -140,7 +140,7 @@ def watch():
     T1 = H.WATCH["nodes"][1][4]
     T2 = "On deck the First Blade waits in the uniform of a dead era, twin cleavers forming from the gale. 'Finally. Something new.' The Oathkeeper speaks from the rail: 'Meet him with empty hands.'"
     T3 = H.WATCH["nodes"][6][4]
-    fights = {1: ("chart_room", "Wayfinder", "The Wayfinder redraws the room around you.", "Your seal-work goes quiet. The Wayfinder waits."),
+    fights = {1: ("chart_room", "Wayfinder", "The Wayfinder redraws the room around you.", "Your elements go quiet. The Wayfinder waits."),
               2: ("deck_b", "First Blade", "The First Blade steps forward.", "You set your weapons down. The First Blade grins."),
               3: ("helm", "The Captain", "The Captain steps down from the command dais.", "The Oathkeeper seals the helm against healing. The Captain draws.")}
     intro = {1: (T1, "Oathkeeper"), 2: (T2, "Oathkeeper"), 3: (T3, "The Captain")}
@@ -173,15 +173,15 @@ def watch():
 
 # ---- The Buried Cache (RUL-2026-10-25-012): the original Ghost Ship's w_A ending as a short hunt. Riddle and dig prose
 # from the 2026-10-13 capture (harvests/inbox/tnr_results_1791903144042.json, d_map..w_A), adapted to the chart.
-CACHE_PREMISE = ("Before the Skyglass warship vanished, its crew buried a field cache on the shore. The Wayfinder corrected "
-                 "the route to it again and again as the coast changed. This chart carries his last correction. Lose a "
+CACHE_PREMISE = ("Before the Skyglass war-ship vanished into the sky, its crew buried a field cache on this shore. The "
+                 "Wayfinder corrected the route to it again and again as the coast changed. This chart carries his last correction. Lose a "
                  "fight and the tide takes the dig, chart and all.")
 
 
 def cache():
     o = []
-    o.append(dialog("d_landing", "cache_site", "The chart's route ends on a quiet stretch of coast. Among the ship's "
-        "impossible routes it marks an old field cache, buried before the ship vanished. The ink is decades old. The "
+    o.append(dialog("d_landing", "cache_site", "The chart's route ends on a quiet stretch of coast, within sight of the "
+        "wreck. Among the ship's impossible routes it marks an old field cache, buried before the ship vanished. The ink is decades old. The "
         "Wayfinder's newest corrections are not.", [("Follow the corrected route", "d_riddle"),
         ("Compare the old and new routes", "d_overlay")]))
     o.append(dialog("d_overlay", "cache_site", "Under the first route lies a map of places that did not yet exist when "
@@ -212,11 +212,11 @@ def cache():
     o += battle("b_guardian", "cache_site", "The Sentinel rises between you and the cache.", ["Skyglass Sentinel"], "d_claim")
     o += battle("b_guardian_late", "cache_site", "The Sentinel rises between you and the cache.", ["Skyglass Sentinel"], "d_claim_late")
     claim = ("The Sentinel breaks apart into sand and fading script. Beneath it sits a sealed field cache stamped with the "
-             "same Skyglass project mark etched into the ship's keel.")
+             "Skyglass emblem, the same four-pointed star etched into the wreck's keel.")
     o.append(dialog("d_claim", "cache_site", claim, [("Open the cache", "w_clean")]))
     o.append(dialog("d_claim_late", "cache_site", claim, [("Open the cache", "w_late")]))
-    done = ("You recover a field cache left before the Ghost Ship vanished. Its supplies are old. The seal keeping them "
-            "preserved is still active.")
+    done = ("You recover a field cache buried before the ship vanished. Its supplies are old, kept fresh by a seal that "
+            "never broke. Tucked under the lid is a note in a careful hand: 'For when we are relieved.'")
     o.append(win("w_clean", "cache_site", done, "II"))
     o.append(win("w_late", "cache_site", done, "I"))
     o.append(failed("cache_site", "The tide comes in over the dig. When it goes out, the cache is buried again and the chart has washed away."))
