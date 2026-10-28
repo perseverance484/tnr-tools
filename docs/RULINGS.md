@@ -3391,3 +3391,17 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28, on the outline, the name and the two open items: "Both approved. Dont bother creating a lot of small separate pushes, we'll do this as one large update."
 
 **Canonical destination:** `push/crownhold.gen.py` (`BOSS_PROSE`, `OVERRIDE["d.aftermath"]`, `CROWN`, `WIN_TEXT`); `push/skyglass_update.gen.py`.
+
+## RUL-2026-10-28-005 — The Crowned Captain commands his echoes from afar
+
+**Date:** 2026-10-28
+
+**Domain:** Crownhold story and boss presentation
+
+**Status:** ACTIVE
+
+**Ruling:** The Crowned Captain uses the original crew avatar unchanged. He never sailed: he controls the afterimages from afar, and the Crowned Captain players beat aboard the Ghost Ship was one of his echoes, which explains the likeness. On every route to the final fight, the player says "I defeated you once!" and he answers "I control... many echoes." before the fight starts. The rite route gains an intro beat so it meets him too.
+
+**Evidence:** Director, 2026-10-28: "The Crowned Captain will use the same avatar and everything. We'll update the lore to be that he controls the afterimages from afar, the player can even exclaim at him 'I defeated you once!', to which he could reply 'I control... many echoes' and then the fight starts. That would explain the similar appearance, ties into the afterimpression plot and deepens it".
+
+**Canonical destination:** `push/crownhold.gen.py` (`ECHO_LINE`, `ECHO_BEAT`, `PROTOCOL_INTRO`); push/319.

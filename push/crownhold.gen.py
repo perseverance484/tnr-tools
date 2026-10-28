@@ -356,9 +356,24 @@ OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text
         "floating blades drop and shatter on the stone. All through the mountain, something lets go. Then he is only "
         "chakra, settling over the floor of the throne room like ash.\n\nThe signal bells stop. Down every stair you "
         "climbed, the officers who still stood lower their blades and fade, released at last. Far away on the shore, the "
-        "Skyglass wreck goes quiet: its crew served the same crown.\n\nShards of the broken crown lie scattered across "
+        "Skyglass wreck goes quiet: its crew were his echoes too.\n\nShards of the broken crown lie scattered across "
         "the throne room floor, still faintly cold with skyglass light."),
 }
+# RUL-2026-10-28-005: the Crowned Captain never sailed. He commands the afterimages from afar; the one players beat
+# aboard the Ghost Ship was one of his echoes, which is why they look alike.
+ECHO_LINE = '"I defeated you once!"'
+ECHO_BEAT = {
+    "d5.n.boss.clean": ("The Crowned Captain tilts his head, and the seven blades above his brow turn with it.<br><br>"
+                        "\"You defeated a voice I lent to a ship,\" he says. \"I control... many echoes.\"<br><br>"
+                        "He draws his blade."),
+    "d5.n.boss.alert": ("The Crowned Captain almost smiles. The seven blades above his brow turn toward you as one.<br><br>"
+                        "\"You defeated a voice I lent to a ship,\" he says. \"I control... many echoes.\"<br><br>"
+                        "Every ward in the Sanctum flares."),
+}
+PROTOCOL_INTRO = ("The rite takes hold, and the Sanctum door opens on the throne room. The Crowned Captain waits beneath "
+                  "his Command Crown: a thin ring of blackened iron and seven blades of skyglass held in a fan of command. "
+                  "Every officer you passed on the way up, and every hand aboard the Skyglass ship, answered to those seven "
+                  "blades.<br><br>You know that face. You have fought it before.")
 FAIL_TEXT = "You fall, and Crownhold does not let you up. You wake outside the gate in the snow, and the Lantern has gone dark."
 WIN_TEXT = "Crownhold falls silent behind you. The crown that held its officers and the Skyglass crew is broken."
 
@@ -417,12 +432,24 @@ def quest():
                         out.append({"id": beat, "task": "dialog", "description": f"You choose: {label}. Somewhere in the walls a ward wakes and turns toward you.",
                                     "sceneBackground": scene(nid), "sceneCharacters": [], "nextObjectiveId": [{"text": "Go on", "nextObjectiveId": c["to"]}]})
                         choices.append({"text": label, "nextObjectiveId": beat})
+                    elif nid == "d5.n.protocol":  # the rite route meets him too: intro, the line, his answer, then the fight
+                        intro, reply = f"{nid}.{c['to']}.intro", f"{nid}.{c['to']}.echoes"
+                        out.append({"id": intro, "task": "dialog", "description": PROTOCOL_INTRO, "sceneBackground": scene(nid),
+                                    "sceneCharacters": [], "nextObjectiveId": [{"text": ECHO_LINE, "nextObjectiveId": reply}]})
+                        out.append({"id": reply, "task": "dialog", "description": ECHO_BEAT["d5.n.boss.clean"], "sceneBackground": scene(nid),
+                                    "sceneCharacters": [], "nextObjectiveId": [{"text": "Fight", "nextObjectiveId": c["to"]}]})
+                        choices.append({"text": label, "nextObjectiveId": intro})
                     else:
                         choices.append({"text": label, "nextObjectiveId": c["to"]})
             else:
                 nxt = n["next"]
                 label = "Fight" if nxt.startswith("b") else ("Leave Crownhold" if nxt.startswith("w") else "Continue")
                 choices = [{"text": label, "nextObjectiveId": nxt}]
+                if nid in ECHO_BEAT:  # RUL-2026-10-28-005: the player recognises him; he answers, then the fight
+                    beat = nid + ".echoes"
+                    out.append({"id": beat, "task": "dialog", "description": ECHO_BEAT[nid], "sceneBackground": scene(nid),
+                                "sceneCharacters": [], "nextObjectiveId": [{"text": "Fight", "nextObjectiveId": nxt}]})
+                    choices = [{"text": ECHO_LINE, "nextObjectiveId": beat}]
             out.append({"id": nid, "task": "dialog", "description": text(nid).replace("\n\n", "<br><br>").replace("\n", "<br>"), "sceneBackground": scene(nid),
                         "sceneCharacters": [], "nextObjectiveId": choices})
         elif n["kind"] == "battle":
