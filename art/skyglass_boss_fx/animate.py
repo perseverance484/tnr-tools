@@ -298,8 +298,6 @@ def export(anims):
     os.makedirs(EXPORTS, exist_ok=True)
     out = {}
     for aid, frames in anims.items():
-        if aid.startswith('dt_'):
-            frames = mind_portrait(frames, 'veil')
         strip = finish(frames)
         p = os.path.join(EXPORTS, f'anim_{aid}_{VERSION}.webp')
         strip.save(p, lossless=True, quality=100, method=6)
@@ -413,7 +411,6 @@ def export_v3():
         p = os.path.join(EXPORTS, f'tile_{name}_v3.webp')
         t.save(p, lossless=True, quality=100, method=6)
         print(f'tile_{name}: {os.path.getsize(p)} bytes')
-    glints['dt_heavy'] = build_dt_heavy_v3()
     for name, frames in glints.items():
         frames = mind_portrait(frames, 'clear')
         p = os.path.join(EXPORTS, f'anim_{name}_v3.webp' if name.startswith('dt_') else f'anim_{name}_glint_v3.webp')
@@ -464,8 +461,9 @@ def build_dt_heavy_v3():
 
 
 # ------------------------------------------------------------------------------------------------ portrait safety
-# Director 2026-10-28: "The animations should be mindful of player portraits". Over-layer animations draw on top of the
-# character token, so they keep clear of it. Measured on the battle still (hex centre (311, 225.5), 184.1 still px per
+# Director 2026-10-28: "The animations should be mindful of player portraits" ... "Explosions and other temporary effects
+# can do whatever, I meant the tile effects that are always playing." So the looping glints over the mark tiles keep clear
+# of every portrait; the one-shot blasts (dt_heavy, dt_shard) are unrestricted. Measured on the battle still (hex centre (311, 225.5), 184.1 still px per
 # 50 frame px): the portrait disc is centred 9.2 px above the hex centre with radius 9 frame px, and the health bars sit
 # 17-22 px above it. In frame px: disc (25, 15.8) r 9.5, bars x 16-34, y 2-9.
 PORTRAIT_C, PORTRAIT_R = (25.0, 15.8), 9.5
