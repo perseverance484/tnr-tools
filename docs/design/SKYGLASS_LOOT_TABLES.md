@@ -18,7 +18,7 @@
 
 ## 2. Wreck clear (each member)
 
-Currency package (director, in game). Independent drops: the chest of chests **10%** (RUL-2026-10-25-014; one roll: Common 50 Medicine Inro / Rare 30 Sage's Strongbox or Armory Requisition / Epic 15 Skyglass Coffer or Archive Chart Case / Legendary 5 Sealed Treasury; **Unmarked Cargo**, untradeable), Chart of the Buried Cache **20%** (RUL-2026-10-25-012), Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Lastlight Lantern **3%**, Sealed Treasury **3%** (ruled).
+Currency package (director, in game). Independent drops: the chest of chests **10%** (RUL-2026-10-25-014; one roll (RUL-2026-10-28-016): Common 40 Medicine Inro or Elemental Tool Pouch / Rare 35 Sage's Strongbox or Galley Stores / Epic 18 Skyglass Coffer or Archive Chart Case / Legendary 7 Sealed Treasury or Echo Jar; **Unmarked Cargo**, untradeable), Chart of the Buried Cache **20%** (RUL-2026-10-25-012), Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Lastlight Lantern **3%**, Sealed Treasury **3%** (ruled).
 
 ## 3. Caches (weighted, one roll each)
 
@@ -79,7 +79,25 @@ Ladder per ending: Foundry V (always fought to the Warden; the leave-early endin
 
 The Sealwright's doubled health (push/252) applies to the Archive's final fight too, solo; accepted (RUL-2026-10-25-004).
 
-**Shelved:** Armory Requisition and its Special quest (icon kept in `art/skyglass_event_icons/` unused); Lion Token as a Wreck drop.
+**Retired (RUL-2026-10-28-016):** the Armory Requisition is removed entirely: out of the chest of chests, and its live record hidden. **Shelved:** its Special quest (icon kept in `art/skyglass_event_icons/` unused); Lion Token as a Wreck drop.
+
+## 4a. Completion picks: final (RUL-2026-10-28-016; supersedes the pick tables in §4, §5 and §5b)
+
+**Pick 1 on every run; tainted runs pick 2.** Difficulty scales through option quality and quantity, not pick count.
+
+| Run | Options (pick 1) |
+|---|---|
+| Low Tide Run / Night Watch | Pouch + 10,000 ryo (one package card) / Inro + 10,000 ryo (one package card) / Galley Stores |
+| Buried Cache | 25,000 ryo / Medicine Inro / Galley Stores |
+| Drowned Foundry | Elemental Tool Pouch / 50,000 ryo / Galley Stores |
+| Quarantined Archive | Archive Chart Case / Sage's Strongbox / Echo Jar *(Records exp cut; the alarm/clean ladder is left as is)* |
+| Captain's Watch | Skyglass Coffer / Captain's Purse / Echo Jar *(Inro ×3 cut)* |
+| Sealed Reliquary | Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Archive Chart Case ×2 |
+| The Fall | Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Galley Stores ×3 *(Captain's Purse cut)* |
+| Tainted runs | **pick 2** from their rare's options, plus a guaranteed Sealed Treasury and Echo Jar, Lantern 30% and Core Rot 40% |
+| Crownhold | Crown's Hoard / Skyglass Coffer ×2 / Crownhold's Honor / Crownhold badge / Crownhold jutsu / Echo Jar ×2 / Crown Fragment |
+
+The rares double the Watch's Coffer and Jar, so each rung pays more than the one below it.
 
 ## 5. Charts: the map system (RUL-2026-10-28-009)
 
