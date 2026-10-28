@@ -222,9 +222,10 @@ BOSS_NAME = "The Crowned Captain"  # username: the legacy Ghost Ship boss keeps 
 # RUL-2026-10-28-004: the Supreme Commander is the Crowned Captain (applied after PROSE; sentence starts capitalised)
 BOSS_PROSE = [("Supreme Commander Arakane", "the Crowned Captain"), ("the Supreme Commander", "the Crowned Captain"),
               ("The Supreme Commander", "The Crowned Captain")]
-CROWN = ("Above his brow the Command Crown hangs perfectly still: a thin ring of blackened iron and, above it, seven "
-         "blades of skyglass held in the air in a fan of command. Every officer you passed on the way up, and every hand "
-         "aboard the Skyglass ship, answered to those seven blades. You have been breaking their hold all the way up the mountain.")
+CROWN = ("Above his white mask the Command Crown sits like frost: pale skyglass grown in jagged points around one tall "
+         "central blade, the same crystal that splinters from his armour. Every officer you passed on the way up, and "
+         "every hand aboard the Skyglass ship, answered to that crown. You have been breaking its hold all the way up "
+         "the mountain.")
 OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text keeps the original mechanics
     "d2.n.f1": (
         "The road ends at a gate cut into the mountain. No sentry calls out, no banner hangs, and snow has drifted unbroken "
@@ -353,8 +354,8 @@ OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text
         "\n\nThe Healing Rite will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. The War "
         "Rite is the Sanctum's last field directive: for the opening rounds, nothing the Crowned Captain does can weaken you."),
     "d.aftermath": (  # RUL-2026-10-28-004: the crown is the root; breaking it frees every afterimage, ship and castle
-        "The Crowned Captain falls to one knee. The Command Crown's iron ring splits through its seal stone, and the seven "
-        "floating blades drop and shatter on the stone. All through the mountain, something lets go. Then he is only "
+        "The Crowned Captain falls to one knee. The Command Crown cracks through its central blade, and its points "
+        "break away and shatter on the stone. All through the mountain, something lets go. Then he is only "
         "chakra, settling over the floor of the throne room like ash.\n\nThe signal bells stop. Down every stair you "
         "climbed, the officers who still stood lower their blades and fade, released at last. Far away on the shore, the "
         "Skyglass wreck goes quiet: its crew were his echoes too.\n\nShards of the broken crown lie scattered across "
@@ -366,17 +367,17 @@ OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text
 # aboard the Ghost Ship was one of his echoes, which is why they look alike.
 ECHO_LINE = '"I defeated you once!"'
 ECHO_BEAT = {
-    "d5.n.boss.clean": ("The Crowned Captain tilts his head, and the seven blades above his brow turn with it.<br><br>"
+    "d5.n.boss.clean": ("The Crowned Captain tilts his head. The points of his crown catch the light like frost.<br><br>"
                         "\"You defeated a voice I lent to a ship,\" he says. \"I control... many echoes.\"<br><br>"
                         "He draws his blade."),
-    "d5.n.boss.alert": ("The Crowned Captain almost smiles. The seven blades above his brow turn toward you as one.<br><br>"
+    "d5.n.boss.alert": ("Behind the white mask, something like a smile. Every crystal on his armour flares at once.<br><br>"
                         "\"You defeated a voice I lent to a ship,\" he says. \"I control... many echoes.\"<br><br>"
                         "Every ward in the Sanctum flares."),
 }
-PROTOCOL_INTRO = ("The rite takes hold, and the Sanctum door opens on the throne room. The Crowned Captain waits beneath "
-                  "his Command Crown: a thin ring of blackened iron and seven blades of skyglass held in a fan of command. "
-                  "Every officer you passed on the way up, and every hand aboard the Skyglass ship, answered to those seven "
-                  "blades.<br><br>You know that face. You have fought it before.")
+PROTOCOL_INTRO = ("The rite takes hold, and the Sanctum door opens on the throne room. The Crowned Captain waits there, "
+                  "masked in white, skyglass splintering from his armour, his Command Crown grown in pale jagged points "
+                  "around one tall blade. Every officer you passed on the way up, and every hand aboard the Skyglass ship, "
+                  "answered to that crown.<br><br>You know that mask. You have fought it before.")
 FAIL_TEXT = "You fall, and Crownhold does not let you up. You wake outside the gate in the snow, and the Lantern has gone dark."
 WIN_TEXT = "Crownhold falls silent behind you. The crown that held its officers and the Skyglass crew is broken."
 

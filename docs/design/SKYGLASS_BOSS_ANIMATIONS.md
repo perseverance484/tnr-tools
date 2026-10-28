@@ -59,12 +59,12 @@ icon language). Style: Edo-era Japanese fantasy ninja pixel art (`ghost_ship_art
 ### The Crowned Captain (showcase boss)
 | Id | Kind | Look |
 |---|---|---|
-| cc_seven_blades | detonation | a skyglass blade falls point-first and shatters; the mark under it is a thin blade shadow (tg_heavy variant) |
+| cc_crownfall | detonation | a frost-pointed skyglass shard falls point-first and shatters; the mark under it is a thin blade shadow (tg_heavy variant) |
 | cc_command_absolute | detonation | the crown's sigil stamps down and chains lock every unsafe hex (tg_control / dt_control at boss scale) |
 | cc_shardstorm | detonation | a hail of small skyglass shards; rotating patterns |
 | cc_recall | summon flourish | an echo pulled out of chakra haze, eyes lighting first |
-| cc_crown_aura | aura | seven blades turning slowly above him (phase 1-2) |
-| cc_last_directive | aura | the crown blazes white-cyan, blades locked in a full ring (phase 3) |
+| cc_crown_aura | aura | his crown's frost points and the crystal on his armour glinting in slow pulses (phase 1-2; must sit on the existing avatar, no redraw) |
+| cc_last_directive | aura | the crown and every armour crystal blaze white-cyan (phase 3) |
 | cc_phase_shift | cast flourish | crown flare and shockwave at 60% and 30% |
 
 ### The Captain (Wreck boss)

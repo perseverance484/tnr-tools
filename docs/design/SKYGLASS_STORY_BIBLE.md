@@ -21,7 +21,7 @@ Follow their charts, and the last light out of Crownhold leads you to the man wh
   - Most never fully understand what happened. The strongest know exactly how long it has been.
   - They are **never relieved**.
 - **Replicant Zero** was the first one Crownhold brought back: a medic, recalled in a sealing jar, "the first to return".
-- **The Command Crown** is a ring of blackened iron with seven skyglass blades held in the air above it, in a fan of command. Its wearer commands every afterimage, near or far: the castle's officers and the ship's crew alike.
+- **The Command Crown** is pale skyglass grown in jagged frost points around one tall central blade. Its wearer commands every afterimage, near or far: the castle's officers and the ship's crew alike.
 - **The Crowned Captain** is Crownhold's commander and the crown's wearer.
   - He built the command "so it would outlast us," and it has.
   - He never sailed. He speaks through his echoes: "I control... many echoes."
@@ -29,12 +29,12 @@ Follow their charts, and the last light out of Crownhold leads you to the man wh
 - **The war-ship** is Crownhold's. It was built around a skyglass heart (**the Core**) that lifts it over mountains, walls and coastlines.
   - Its crew were recalled to man it, and the Core rebuilds them, and the hull, every time they break.
   - Nothing ever finishes, so nothing ever stops.
-- **The Captain** is the ship's captain, and the Crowned Captain's own echo: his face and voice, lent to the ship so it was never out of reach.
+- **The Captain** is the ship's captain, and the Crowned Captain's own echo: his mask and voice, lent to the ship so it was never out of reach.
   - The crown kept for itself; the Captain was given the watch.
   - Decades at the helm have worn him into his own man: tired, honest, still dutiful.
   - "They built this ship to cross any wall and outlast any siege. No one asked what outlasting everything would cost."
-  - This is why the two look alike. Players beat the Captain at the wreck, then meet the face again at Crownhold: "I defeated you once!" / "I control... many echoes."
-  - No line refers to the old Ghost Ship quests, which are being retired. The hints are subtle: he touches his bare brow; "I wear his face."
+  - This is why the two look alike. Players beat the Captain at the wreck, then meet the same mask again at Crownhold: "I defeated you once!" / "I control... many echoes."
+  - No line refers to the old Ghost Ship quests, which are being retired. The hints are subtle: he touches his bare head above the mask; "I wear his mask."
 - **The Silence.** A generation ago Crownhold stopped answering. Its living people are gone. Its last directive is not: *preserve command, preserve the crew, hold until the mission is done*. None is relieved. No one living remembers what the mission was.
 - **The Ghost Ship.** For decades the war-ship crossed the sky on routes that no longer exist, appearing where no ship belonged, the Wayfinder correcting its charts against a world that kept changing.
 - **The Wreck (now).**
@@ -44,6 +44,19 @@ Follow their charts, and the last light out of Crownhold leads you to the man wh
 - **The Lastlight Lantern** holds Crownhold's last signal, caught in skyglass. The crew still obey the order it carries. Its light points home to Crownhold.
 - **The end.** Breaking the Command Crown frees every echo it holds: the officers on the mountain, and the crew on the shore. Its blades scatter as the **Fragments of the Skyglass Crown**.
   - The event stays repeatable. Each player's story is their own, and the wreck keeps mending until someone breaks the crown again.
+
+## Locked to the existing art (director, 2026-10-28: no redraws of existing art)
+
+The story bends to the art already made, never the reverse.
+- **The Captain and the Crowned Captain:**
+  - Both wear the same white mask, long black hair, black armour with skyglass splintering from it, and a skyglass blade. The likeness is the mask: "I wear his mask."
+  - The Captain is bareheaded.
+  - The Crowned Captain's crown is pale skyglass grown in jagged frost points around one tall central blade. It is not an iron ring, and nothing about it floats.
+- **Deck Warden and Oathkeeper:** hooded and cloth-masked, so their eyes show and their faces do not.
+- **The ship scenes** show an intact ship at night. From outside the ship is a wreck on the sand; inside, the Core holds every deck the way it was. The Wreck's own beached sprite is the outside view.
+- **The helm:** a great glowing skyglass ring behind the dais, with the Skyglass emblem at its heart.
+- **Banners and marks:** the four-point Skyglass star in a diamond or circle.
+- **Crownhold:** the Crowned Captain uses the crew avatar unchanged. Arakane's finished avatar is retired from the story, not redrawn. The Crownbreaker badge stays as drawn.
 
 ## The Ghost Ship's lore, carried forward
 
@@ -59,7 +72,7 @@ echoes, which reward veterans without excluding anyone.
 | Wayfinder: "Still no home port." | The Watch chart room. The home port is Crownhold, which the Lantern points to |
 | Arsenal Keeper: shore leave crossed out, "crew not relieved" | Foundry ledger; the shared refrain "None is relieved" |
 | First Blade: "Finally. Something new." / "That was new." | The Watch deck |
-| The Captain: empty ring of white crystal above him; "The ship died once. Skyglass disagreed." | The Watch helm: the empty ring, "The crown disagreed." |
+| The Captain: empty ring of white crystal above him; "The ship died once. Skyglass disagreed." | The Watch helm: the great skyglass ring behind the dais, its heart empty; "The crown disagreed." |
 | The Crown completes itself around the Captain: the Crowned Captain | The Crowned Captain reaching through his echo. "I defeated you once!" lands for veterans and for new players who beat the Captain |
 | The order: "preserve command, preserve crew, keep the vessel airborne until the mission ended. The mission never ended." | Crownhold: he gave the order; it is carved behind his throne, and the mission line is blank stone |
 | The Sealwright's suppressed reports; the Skyglass Reliquary | The Archive: replies sealed with the crown from Crownhold; the reliquary chained behind him |
@@ -72,7 +85,7 @@ echoes, which reward veterans without excluding anyone.
 | Chart of the Buried Cache | the crew were people: what they buried before the fall | a seal still keeping old supplies fresh |
 | The Drowned Foundry | the ship mends itself forever; routine without need | the works stop, for the first time |
 | The Quarantined Archive | the Sealwright's buried reports: the impressions are fraying, and the orders to continue come from Crownhold | the first name of Crownhold, and the crown |
-| The Captain's Watch | the Captain's humanity, and a hint that he is someone else's echo | "I wear his face." |
+| The Captain's Watch | the Captain's humanity, and a hint that he is someone else's echo | "I wear his mask." |
 | Crownhold | the source: the Crowned Captain and his crown | the crown breaks; every echo lets go |
 
 ## Voice
