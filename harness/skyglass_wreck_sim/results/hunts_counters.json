@@ -1,0 +1,3122 @@
+[
+ {
+  "case": "all answers",
+  "answers": [
+   "cleanse",
+   "clear",
+   "window",
+   "potion"
+  ],
+  "path": "foundry",
+  "hunt": "Drowned Foundry",
+  "runs": 40,
+  "wins": 20,
+  "winPct": 50,
+  "endHpPctMedian": 32.4,
+  "endHpPctP10": 12.8,
+  "totalRoundsMedian": 18.5,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 20
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "intake: Deck Warden + Core Canister",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 1,
+    "roundsP90": 8,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 80.3,
+    "hpEndPctP10": 72.5,
+    "hpLostPctMedian": 19.7,
+    "cpEndPctMedian": 96.5,
+    "spEndPctMedian": 95.3,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 6285,
+    "playerIdleTurnsPct": 2.4,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Deck Warden": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 55,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1105
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 66.7,
+      "dealtPerFight": 1567
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "pour hall: Arsenal Keeper + Seal Charge x2",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 2,
+    "roundsP90": 9,
+    "hpStartPctMedian": 80.3,
+    "hpEndPctMedian": 62.6,
+    "hpEndPctP10": 41.8,
+    "hpLostPctMedian": 22.3,
+    "cpEndPctMedian": 91.1,
+    "spEndPctMedian": 88.9,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 9035.5,
+    "playerIdleTurnsPct": 0.8,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Arsenal Keeper": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1157
+     },
+     "Seal Charge": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 90,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1694
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "crucible: Foundry Warden + Core Canister",
+    "boss": true,
+    "reached": 40,
+    "won": 20,
+    "lost": 20,
+    "winPctOfReached": 50,
+    "roundsMedian": 7.5,
+    "roundsP10": 1,
+    "roundsP90": 10,
+    "hpStartPctMedian": 62.6,
+    "hpEndPctMedian": 32.4,
+    "hpEndPctP10": 12.8,
+    "hpLostPctMedian": 48.5,
+    "cpEndPctMedian": 85.4,
+    "spEndPctMedian": 82.8,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 9684,
+    "playerIdleTurnsPct": 11.9,
+    "dodge": {
+     "threatened": 89,
+     "dodged": 57,
+     "failedRooted": 20,
+     "failedNoPath": 12,
+     "failedOther": 0,
+     "stepsTaken": 103
+    },
+    "enemies": {
+     "Foundry Warden": {
+      "appearances": 40,
+      "markFiredPct": 90,
+      "marksPerFight": 2.5,
+      "blastsPerFight": 2.1,
+      "blastHitPct": 39.3,
+      "windowsPerFight": 0.9,
+      "signatureFiredPct": 90,
+      "idleTurnsAfterR2Pct": 1.6,
+      "dealtPerFight": 3055
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 95,
+      "idleTurnsAfterR2Pct": 66.7,
+      "dealtPerFight": 1447
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "all answers",
+  "answers": [
+   "cleanse",
+   "clear",
+   "window",
+   "potion"
+  ],
+  "path": "archive_clean",
+  "hunt": "Quarantined Archive",
+  "runs": 40,
+  "wins": 14,
+  "winPct": 35,
+  "endHpPctMedian": 34.8,
+  "endHpPctP10": 17.2,
+  "totalRoundsMedian": 26,
+  "lossesAt": {
+   "1": 0,
+   "2": 26
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "descent: Core Horror",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 9,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 110,
+    "hpEndPctP10": 110,
+    "hpLostPctMedian": -10,
+    "cpEndPctMedian": 91.6,
+    "spEndPctMedian": 90.6,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 11781,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 117,
+     "dodged": 110,
+     "failedRooted": 0,
+     "failedNoPath": 7,
+     "failedOther": 0,
+     "stepsTaken": 217
+    },
+    "enemies": {
+     "Core Horror": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3,
+      "blastsPerFight": 2.7,
+      "blastHitPct": 2.8,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1202
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "archive: Sealwright",
+    "boss": true,
+    "reached": 40,
+    "won": 14,
+    "lost": 26,
+    "winPctOfReached": 35,
+    "roundsMedian": 18,
+    "roundsP10": 14,
+    "roundsP90": 19,
+    "hpStartPctMedian": 110,
+    "hpEndPctMedian": 34.8,
+    "hpEndPctP10": 17.2,
+    "hpLostPctMedian": 110,
+    "cpEndPctMedian": 71.3,
+    "spEndPctMedian": 68,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10986,
+    "playerIdleTurnsPct": 0.7,
+    "dodge": {
+     "threatened": 156,
+     "dodged": 146,
+     "failedRooted": 0,
+     "failedNoPath": 10,
+     "failedOther": 0,
+     "stepsTaken": 234
+    },
+    "enemies": {
+     "Sealwright": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 6.4,
+      "blastsPerFight": 5.4,
+      "blastHitPct": 5.1,
+      "windowsPerFight": 0.8,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 3.4,
+      "dealtPerFight": 3400
+     },
+     "(clone or summon)": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "all answers",
+  "answers": [
+   "cleanse",
+   "clear",
+   "window",
+   "potion"
+  ],
+  "path": "watch_000",
+  "hunt": "Captain's Watch",
+  "runs": 40,
+  "wins": 35,
+  "winPct": 87.5,
+  "endHpPctMedian": 68.9,
+  "endHpPctP10": 28.5,
+  "totalRoundsMedian": 25,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 5
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "chart room: Wayfinder",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 6,
+    "roundsP90": 9,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 88.7,
+    "hpEndPctP10": 74.6,
+    "hpLostPctMedian": 11.3,
+    "cpEndPctMedian": 92.6,
+    "spEndPctMedian": 91.9,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 6845,
+    "playerIdleTurnsPct": 1,
+    "dodge": {
+     "threatened": 86,
+     "dodged": 79,
+     "failedRooted": 5,
+     "failedNoPath": 2,
+     "failedOther": 0,
+     "stepsTaken": 126
+    },
+    "enemies": {
+     "Wayfinder": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2.6,
+      "blastsPerFight": 2.2,
+      "blastHitPct": 28.1,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1549
+     },
+     "(clone or summon)": {
+      "appearances": 34,
+      "markFiredPct": 91.2,
+      "marksPerFight": 1,
+      "blastsPerFight": 1,
+      "blastHitPct": 26.5,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 9.6,
+      "dealtPerFight": 0
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "deck: First Blade",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 8,
+    "hpStartPctMedian": 88.7,
+    "hpEndPctMedian": 82.5,
+    "hpEndPctP10": 52.3,
+    "hpLostPctMedian": 17.3,
+    "cpEndPctMedian": 83.7,
+    "spEndPctMedian": 82.2,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10851,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 80,
+     "dodged": 80,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 155
+    },
+    "enemies": {
+     "First Blade": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2,
+      "blastsPerFight": 1,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 39.3,
+      "dealtPerFight": 1823
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "helm: The Captain",
+    "boss": true,
+    "reached": 40,
+    "won": 35,
+    "lost": 5,
+    "winPctOfReached": 87.5,
+    "roundsMedian": 11,
+    "roundsP10": 8,
+    "roundsP90": 11,
+    "hpStartPctMedian": 82.5,
+    "hpEndPctMedian": 68.9,
+    "hpEndPctP10": 28.5,
+    "hpLostPctMedian": 31.1,
+    "cpEndPctMedian": 74.3,
+    "spEndPctMedian": 71.5,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10558,
+    "playerIdleTurnsPct": 9,
+    "dodge": {
+     "threatened": 89,
+     "dodged": 89,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 145
+    },
+    "enemies": {
+     "The Captain": {
+      "appearances": 40,
+      "markFiredPct": 90,
+      "marksPerFight": 4,
+      "blastsPerFight": 2.1,
+      "blastHitPct": 2.4,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 90,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 2673
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "all answers",
+  "answers": [
+   "cleanse",
+   "clear",
+   "window",
+   "potion"
+  ],
+  "path": "cache_right",
+  "hunt": "Buried Cache",
+  "runs": 40,
+  "wins": 40,
+  "winPct": 100,
+  "endHpPctMedian": 87.2,
+  "endHpPctP10": 75.9,
+  "totalRoundsMedian": 8,
+  "lossesAt": {
+   "1": 0
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "dig: Skyglass Sentinel",
+    "boss": true,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 9,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 87.2,
+    "hpEndPctP10": 75.9,
+    "hpLostPctMedian": 12.8,
+    "cpEndPctMedian": 89.1,
+    "spEndPctMedian": 87.7,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 15420.5,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 49,
+     "dodged": 49,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 53
+    },
+    "enemies": {
+     "Skyglass Sentinel": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3.2,
+      "blastsPerFight": 2.4,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0.5,
+      "dealtPerFight": 2127
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no cleanse",
+  "answers": [
+   "clear",
+   "window",
+   "potion"
+  ],
+  "path": "foundry",
+  "hunt": "Drowned Foundry",
+  "runs": 40,
+  "wins": 25,
+  "winPct": 62.5,
+  "endHpPctMedian": 29.2,
+  "endHpPctP10": 4,
+  "totalRoundsMedian": 19,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 15
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "intake: Deck Warden + Core Canister",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 1,
+    "roundsP90": 7,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 86.5,
+    "hpEndPctP10": 78.2,
+    "hpLostPctMedian": 13.5,
+    "cpEndPctMedian": 96.5,
+    "spEndPctMedian": 95.5,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 6003,
+    "playerIdleTurnsPct": 2.6,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Deck Warden": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 55,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 955
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 62.5,
+      "dealtPerFight": 1567
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "pour hall: Arsenal Keeper + Seal Charge x2",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 2,
+    "roundsP90": 9,
+    "hpStartPctMedian": 86.5,
+    "hpEndPctMedian": 64.8,
+    "hpEndPctP10": 49.1,
+    "hpLostPctMedian": 22.9,
+    "cpEndPctMedian": 92.8,
+    "spEndPctMedian": 90.8,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 7538,
+    "playerIdleTurnsPct": 0.8,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Arsenal Keeper": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1150
+     },
+     "Seal Charge": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 92.5,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1723
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "crucible: Foundry Warden + Core Canister",
+    "boss": true,
+    "reached": 40,
+    "won": 25,
+    "lost": 15,
+    "winPctOfReached": 62.5,
+    "roundsMedian": 9,
+    "roundsP10": 1,
+    "roundsP90": 9,
+    "hpStartPctMedian": 64.8,
+    "hpEndPctMedian": 29.2,
+    "hpEndPctP10": 4,
+    "hpLostPctMedian": 51.4,
+    "cpEndPctMedian": 85.1,
+    "spEndPctMedian": 82.6,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10811.5,
+    "playerIdleTurnsPct": 10.4,
+    "dodge": {
+     "threatened": 98,
+     "dodged": 64,
+     "failedRooted": 24,
+     "failedNoPath": 10,
+     "failedOther": 0,
+     "stepsTaken": 125
+    },
+    "enemies": {
+     "Foundry Warden": {
+      "appearances": 40,
+      "markFiredPct": 92.5,
+      "marksPerFight": 2.6,
+      "blastsPerFight": 2.2,
+      "blastHitPct": 38.2,
+      "windowsPerFight": 0.9,
+      "signatureFiredPct": 92.5,
+      "idleTurnsAfterR2Pct": 2.1,
+      "dealtPerFight": 3157
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 97.5,
+      "idleTurnsAfterR2Pct": 100,
+      "dealtPerFight": 1366
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no cleanse",
+  "answers": [
+   "clear",
+   "window",
+   "potion"
+  ],
+  "path": "archive_clean",
+  "hunt": "Quarantined Archive",
+  "runs": 40,
+  "wins": 10,
+  "winPct": 25,
+  "endHpPctMedian": 47.1,
+  "endHpPctP10": 32.1,
+  "totalRoundsMedian": 23,
+  "lossesAt": {
+   "1": 0,
+   "2": 30
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "descent: Core Horror",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 9,
+    "roundsP10": 8,
+    "roundsP90": 9,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 10.8,
+    "hpEndPctP10": 10.8,
+    "hpLostPctMedian": 89.2,
+    "cpEndPctMedian": 86.1,
+    "spEndPctMedian": 85.3,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 12284,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 117,
+     "dodged": 110,
+     "failedRooted": 0,
+     "failedNoPath": 7,
+     "failedOther": 0,
+     "stepsTaken": 214
+    },
+    "enemies": {
+     "Core Horror": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3,
+      "blastsPerFight": 2,
+      "blastHitPct": 36.3,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 4527
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "archive: Sealwright",
+    "boss": true,
+    "reached": 40,
+    "won": 10,
+    "lost": 30,
+    "winPctOfReached": 25,
+    "roundsMedian": 15,
+    "roundsP10": 11,
+    "roundsP90": 19,
+    "hpStartPctMedian": 10.8,
+    "hpEndPctMedian": 47.1,
+    "hpEndPctP10": 32.1,
+    "hpLostPctMedian": 10.8,
+    "cpEndPctMedian": 70.3,
+    "spEndPctMedian": 67.5,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 5554.5,
+    "playerIdleTurnsPct": 0.7,
+    "dodge": {
+     "threatened": 88,
+     "dodged": 80,
+     "failedRooted": 0,
+     "failedNoPath": 7,
+     "failedOther": 1,
+     "stepsTaken": 112
+    },
+    "enemies": {
+     "Sealwright": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3.5,
+      "blastsPerFight": 3.3,
+      "blastHitPct": 7.6,
+      "windowsPerFight": 0.3,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0.6,
+      "dealtPerFight": 2011
+     },
+     "(clone or summon)": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no cleanse",
+  "answers": [
+   "clear",
+   "window",
+   "potion"
+  ],
+  "path": "watch_000",
+  "hunt": "Captain's Watch",
+  "runs": 40,
+  "wins": 34,
+  "winPct": 85,
+  "endHpPctMedian": 68.9,
+  "endHpPctP10": 42.1,
+  "totalRoundsMedian": 23,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 6
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "chart room: Wayfinder",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 5.5,
+    "roundsP10": 5,
+    "roundsP90": 6,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 89.9,
+    "hpEndPctP10": 67.2,
+    "hpLostPctMedian": 10.1,
+    "cpEndPctMedian": 76.5,
+    "spEndPctMedian": 75.7,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 6427,
+    "playerIdleTurnsPct": 0.9,
+    "dodge": {
+     "threatened": 76,
+     "dodged": 54,
+     "failedRooted": 19,
+     "failedNoPath": 3,
+     "failedOther": 0,
+     "stepsTaken": 108
+    },
+    "enemies": {
+     "Wayfinder": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2.1,
+      "blastsPerFight": 1.5,
+      "blastHitPct": 28.8,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1203
+     },
+     "(clone or summon)": {
+      "appearances": 8,
+      "markFiredPct": 100,
+      "marksPerFight": 1.4,
+      "blastsPerFight": 1,
+      "blastHitPct": 0,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "deck: First Blade",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 8,
+    "hpStartPctMedian": 89.9,
+    "hpEndPctMedian": 74.8,
+    "hpEndPctP10": 53.1,
+    "hpLostPctMedian": 17.3,
+    "cpEndPctMedian": 67.6,
+    "spEndPctMedian": 65.8,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10601,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 80,
+     "dodged": 80,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 158
+    },
+    "enemies": {
+     "First Blade": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2,
+      "blastsPerFight": 1,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 39.8,
+      "dealtPerFight": 1760
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "helm: The Captain",
+    "boss": true,
+    "reached": 40,
+    "won": 34,
+    "lost": 6,
+    "winPctOfReached": 85,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 11,
+    "hpStartPctMedian": 74.8,
+    "hpEndPctMedian": 68.9,
+    "hpEndPctP10": 42.1,
+    "hpLostPctMedian": 31.1,
+    "cpEndPctMedian": 56.7,
+    "spEndPctMedian": 54.1,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10567,
+    "playerIdleTurnsPct": 8,
+    "dodge": {
+     "threatened": 88,
+     "dodged": 88,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 142
+    },
+    "enemies": {
+     "The Captain": {
+      "appearances": 40,
+      "markFiredPct": 97.5,
+      "marksPerFight": 3.9,
+      "blastsPerFight": 2.2,
+      "blastHitPct": 5.8,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 97.5,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 2825
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no cleanse",
+  "answers": [
+   "clear",
+   "window",
+   "potion"
+  ],
+  "path": "cache_right",
+  "hunt": "Buried Cache",
+  "runs": 40,
+  "wins": 40,
+  "winPct": 100,
+  "endHpPctMedian": 87.2,
+  "endHpPctP10": 75.9,
+  "totalRoundsMedian": 8,
+  "lossesAt": {
+   "1": 0
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "dig: Skyglass Sentinel",
+    "boss": true,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 9,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 87.2,
+    "hpEndPctP10": 75.9,
+    "hpLostPctMedian": 12.8,
+    "cpEndPctMedian": 89.1,
+    "spEndPctMedian": 87.7,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 15420.5,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 49,
+     "dodged": 49,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 53
+    },
+    "enemies": {
+     "Skyglass Sentinel": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3.2,
+      "blastsPerFight": 2.4,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0.5,
+      "dealtPerFight": 2127
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no clear",
+  "answers": [
+   "cleanse",
+   "window",
+   "potion"
+  ],
+  "path": "foundry",
+  "hunt": "Drowned Foundry",
+  "runs": 40,
+  "wins": 33,
+  "winPct": 82.5,
+  "endHpPctMedian": 48.9,
+  "endHpPctP10": 12.2,
+  "totalRoundsMedian": 18,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 7
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "intake: Deck Warden + Core Canister",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 6,
+    "roundsP10": 1,
+    "roundsP90": 7,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 88.7,
+    "hpEndPctP10": 76.3,
+    "hpLostPctMedian": 11.3,
+    "cpEndPctMedian": 96.5,
+    "spEndPctMedian": 95.6,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 5714,
+    "playerIdleTurnsPct": 3,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Deck Warden": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 42.5,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 927
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 92.5,
+      "idleTurnsAfterR2Pct": 50,
+      "dealtPerFight": 1447
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "pour hall: Arsenal Keeper + Seal Charge x2",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 6,
+    "roundsP10": 3,
+    "roundsP90": 7,
+    "hpStartPctMedian": 88.7,
+    "hpEndPctMedian": 71.9,
+    "hpEndPctP10": 50.4,
+    "hpLostPctMedian": 8.7,
+    "cpEndPctMedian": 93.1,
+    "spEndPctMedian": 91.3,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 8897.5,
+    "playerIdleTurnsPct": 2.2,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Arsenal Keeper": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 950
+     },
+     "Seal Charge": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 87.5,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1489
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "crucible: Foundry Warden + Core Canister",
+    "boss": true,
+    "reached": 40,
+    "won": 33,
+    "lost": 7,
+    "winPctOfReached": 82.5,
+    "roundsMedian": 7,
+    "roundsP10": 6,
+    "roundsP90": 9,
+    "hpStartPctMedian": 71.9,
+    "hpEndPctMedian": 48.9,
+    "hpEndPctP10": 12.2,
+    "hpLostPctMedian": 32.8,
+    "cpEndPctMedian": 86.6,
+    "spEndPctMedian": 83.7,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 13037.5,
+    "playerIdleTurnsPct": 12.9,
+    "dodge": {
+     "threatened": 95,
+     "dodged": 62,
+     "failedRooted": 18,
+     "failedNoPath": 15,
+     "failedOther": 0,
+     "stepsTaken": 107
+    },
+    "enemies": {
+     "Foundry Warden": {
+      "appearances": 40,
+      "markFiredPct": 95,
+      "marksPerFight": 2.6,
+      "blastsPerFight": 1.9,
+      "blastHitPct": 35.5,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 95,
+      "idleTurnsAfterR2Pct": 5.4,
+      "dealtPerFight": 2601
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 97.5,
+      "idleTurnsAfterR2Pct": null,
+      "dealtPerFight": 1406
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no clear",
+  "answers": [
+   "cleanse",
+   "window",
+   "potion"
+  ],
+  "path": "archive_clean",
+  "hunt": "Quarantined Archive",
+  "runs": 40,
+  "wins": 31,
+  "winPct": 77.5,
+  "endHpPctMedian": 39.6,
+  "endHpPctP10": 28,
+  "totalRoundsMedian": 24,
+  "lossesAt": {
+   "1": 4,
+   "2": 5
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "descent: Core Horror",
+    "boss": false,
+    "reached": 40,
+    "won": 36,
+    "lost": 4,
+    "winPctOfReached": 90,
+    "roundsMedian": 7,
+    "roundsP10": 7,
+    "roundsP90": 7,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 110,
+    "hpEndPctP10": 110,
+    "hpLostPctMedian": -10,
+    "cpEndPctMedian": 91.6,
+    "spEndPctMedian": 90.9,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 12812,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 77,
+     "dodged": 73,
+     "failedRooted": 0,
+     "failedNoPath": 4,
+     "failedOther": 0,
+     "stepsTaken": 146
+    },
+    "enemies": {
+     "Core Horror": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2,
+      "blastsPerFight": 2,
+      "blastHitPct": 5,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1562
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "archive: Sealwright",
+    "boss": true,
+    "reached": 36,
+    "won": 31,
+    "lost": 5,
+    "winPctOfReached": 86.1,
+    "roundsMedian": 17,
+    "roundsP10": 16,
+    "roundsP90": 17,
+    "hpStartPctMedian": 110,
+    "hpEndPctMedian": 39.6,
+    "hpEndPctP10": 28,
+    "hpLostPctMedian": 70.5,
+    "cpEndPctMedian": 68.8,
+    "spEndPctMedian": 66,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 12201.5,
+    "playerIdleTurnsPct": 1.1,
+    "dodge": {
+     "threatened": 145,
+     "dodged": 131,
+     "failedRooted": 0,
+     "failedNoPath": 11,
+     "failedOther": 3,
+     "stepsTaken": 199
+    },
+    "enemies": {
+     "Sealwright": {
+      "appearances": 36,
+      "markFiredPct": 100,
+      "marksPerFight": 5.8,
+      "blastsPerFight": 4.4,
+      "blastHitPct": 6.4,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 6.1,
+      "dealtPerFight": 2995
+     },
+     "(clone or summon)": {
+      "appearances": 36,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no clear",
+  "answers": [
+   "cleanse",
+   "window",
+   "potion"
+  ],
+  "path": "watch_000",
+  "hunt": "Captain's Watch",
+  "runs": 40,
+  "wins": 38,
+  "winPct": 95,
+  "endHpPctMedian": 68.9,
+  "endHpPctP10": 68.9,
+  "totalRoundsMedian": 19,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 2
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "chart room: Wayfinder",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 5,
+    "roundsP10": 4,
+    "roundsP90": 6,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 116.6,
+    "hpEndPctP10": 111.5,
+    "hpLostPctMedian": -16.6,
+    "cpEndPctMedian": 96.5,
+    "spEndPctMedian": 95.7,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 6427,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 53,
+     "dodged": 50,
+     "failedRooted": 0,
+     "failedNoPath": 3,
+     "failedOther": 0,
+     "stepsTaken": 83
+    },
+    "enemies": {
+     "Wayfinder": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 1.9,
+      "blastsPerFight": 1.3,
+      "blastHitPct": 0,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 406
+     },
+     "(clone or summon)": {
+      "appearances": 8,
+      "markFiredPct": 100,
+      "marksPerFight": 1.4,
+      "blastsPerFight": 1,
+      "blastHitPct": 0,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "deck: First Blade",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 6,
+    "roundsP10": 6,
+    "roundsP90": 7,
+    "hpStartPctMedian": 116.6,
+    "hpEndPctMedian": 113.3,
+    "hpEndPctP10": 105.4,
+    "hpLostPctMedian": 3.6,
+    "cpEndPctMedian": 87.6,
+    "spEndPctMedian": 86.2,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 9396,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 78,
+     "dodged": 78,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 151
+    },
+    "enemies": {
+     "First Blade": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2,
+      "blastsPerFight": 1,
+      "blastHitPct": 0,
+      "windowsPerFight": 0.6,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 39.8,
+      "dealtPerFight": 923
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "helm: The Captain",
+    "boss": true,
+    "reached": 40,
+    "won": 38,
+    "lost": 2,
+    "winPctOfReached": 95,
+    "roundsMedian": 9,
+    "roundsP10": 6,
+    "roundsP90": 10,
+    "hpStartPctMedian": 113.3,
+    "hpEndPctMedian": 68.9,
+    "hpEndPctP10": 68.9,
+    "hpLostPctMedian": 36.6,
+    "cpEndPctMedian": 77.5,
+    "spEndPctMedian": 75.1,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10322,
+    "playerIdleTurnsPct": 9.2,
+    "dodge": {
+     "threatened": 92,
+     "dodged": 92,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 151
+    },
+    "enemies": {
+     "The Captain": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3.3,
+      "blastsPerFight": 1.4,
+      "blastHitPct": 3.5,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 2852
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no clear",
+  "answers": [
+   "cleanse",
+   "window",
+   "potion"
+  ],
+  "path": "cache_right",
+  "hunt": "Buried Cache",
+  "runs": 40,
+  "wins": 40,
+  "winPct": 100,
+  "endHpPctMedian": 101.1,
+  "endHpPctP10": 51.1,
+  "totalRoundsMedian": 7,
+  "lossesAt": {
+   "1": 0
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "dig: Skyglass Sentinel",
+    "boss": true,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 7,
+    "roundsP90": 10,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 101.1,
+    "hpEndPctP10": 51.1,
+    "hpLostPctMedian": -1.1,
+    "cpEndPctMedian": 91.1,
+    "spEndPctMedian": 89.7,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 15555,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 48,
+     "dodged": 48,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 51
+    },
+    "enemies": {
+     "Skyglass Sentinel": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3.1,
+      "blastsPerFight": 2.1,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 2035
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no window timing",
+  "answers": [
+   "cleanse",
+   "clear",
+   "potion"
+  ],
+  "path": "foundry",
+  "hunt": "Drowned Foundry",
+  "runs": 40,
+  "wins": 14,
+  "winPct": 35,
+  "endHpPctMedian": 22.8,
+  "endHpPctP10": 11.2,
+  "totalRoundsMedian": 19.5,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 26
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "intake: Deck Warden + Core Canister",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 1,
+    "roundsP90": 8,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 80.3,
+    "hpEndPctP10": 72.5,
+    "hpLostPctMedian": 19.7,
+    "cpEndPctMedian": 96.5,
+    "spEndPctMedian": 95.3,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 6285,
+    "playerIdleTurnsPct": 2.4,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Deck Warden": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 55,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1105
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 66.7,
+      "dealtPerFight": 1567
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "pour hall: Arsenal Keeper + Seal Charge x2",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 2,
+    "roundsP90": 9,
+    "hpStartPctMedian": 80.3,
+    "hpEndPctMedian": 60.5,
+    "hpEndPctP10": 41.6,
+    "hpLostPctMedian": 24.1,
+    "cpEndPctMedian": 91.1,
+    "spEndPctMedian": 88.9,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 9675,
+    "playerIdleTurnsPct": 0.8,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Arsenal Keeper": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1204
+     },
+     "Seal Charge": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 90,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1723
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "crucible: Foundry Warden + Core Canister",
+    "boss": true,
+    "reached": 40,
+    "won": 14,
+    "lost": 26,
+    "winPctOfReached": 35,
+    "roundsMedian": 10,
+    "roundsP10": 1,
+    "roundsP90": 11,
+    "hpStartPctMedian": 60.5,
+    "hpEndPctMedian": 22.8,
+    "hpEndPctP10": 11.2,
+    "hpLostPctMedian": 53.5,
+    "cpEndPctMedian": 82.2,
+    "spEndPctMedian": 79.4,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 9278,
+    "playerIdleTurnsPct": 11,
+    "dodge": {
+     "threatened": 105,
+     "dodged": 68,
+     "failedRooted": 23,
+     "failedNoPath": 14,
+     "failedOther": 0,
+     "stepsTaken": 118
+    },
+    "enemies": {
+     "Foundry Warden": {
+      "appearances": 40,
+      "markFiredPct": 92.5,
+      "marksPerFight": 2.9,
+      "blastsPerFight": 2.2,
+      "blastHitPct": 42,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 92.5,
+      "idleTurnsAfterR2Pct": 1.8,
+      "dealtPerFight": 3435
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 95,
+      "idleTurnsAfterR2Pct": 71.4,
+      "dealtPerFight": 1447
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no window timing",
+  "answers": [
+   "cleanse",
+   "clear",
+   "potion"
+  ],
+  "path": "archive_clean",
+  "hunt": "Quarantined Archive",
+  "runs": 40,
+  "wins": 13,
+  "winPct": 32.5,
+  "endHpPctMedian": 25.6,
+  "endHpPctP10": 16.5,
+  "totalRoundsMedian": 28,
+  "lossesAt": {
+   "1": 0,
+   "2": 27
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "descent: Core Horror",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 9,
+    "roundsP10": 9,
+    "roundsP90": 9,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 110,
+    "hpEndPctP10": 70.9,
+    "hpLostPctMedian": -10,
+    "cpEndPctMedian": 89.6,
+    "spEndPctMedian": 88.6,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 17100,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 120,
+     "dodged": 113,
+     "failedRooted": 0,
+     "failedNoPath": 7,
+     "failedOther": 0,
+     "stepsTaken": 223
+    },
+    "enemies": {
+     "Core Horror": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3.1,
+      "blastsPerFight": 2.9,
+      "blastHitPct": 5.2,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1520
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "archive: Sealwright",
+    "boss": true,
+    "reached": 40,
+    "won": 13,
+    "lost": 27,
+    "winPctOfReached": 32.5,
+    "roundsMedian": 19,
+    "roundsP10": 14,
+    "roundsP90": 19,
+    "hpStartPctMedian": 110,
+    "hpEndPctMedian": 25.6,
+    "hpEndPctP10": 16.5,
+    "hpLostPctMedian": 110,
+    "cpEndPctMedian": 69.3,
+    "spEndPctMedian": 66.7,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10728.5,
+    "playerIdleTurnsPct": 2.2,
+    "dodge": {
+     "threatened": 159,
+     "dodged": 140,
+     "failedRooted": 0,
+     "failedNoPath": 17,
+     "failedOther": 2,
+     "stepsTaken": 247
+    },
+    "enemies": {
+     "Sealwright": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 6.2,
+      "blastsPerFight": 5.1,
+      "blastHitPct": 9.3,
+      "windowsPerFight": 0.8,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 4.5,
+      "dealtPerFight": 3471
+     },
+     "(clone or summon)": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no window timing",
+  "answers": [
+   "cleanse",
+   "clear",
+   "potion"
+  ],
+  "path": "watch_000",
+  "hunt": "Captain's Watch",
+  "runs": 40,
+  "wins": 36,
+  "winPct": 90,
+  "endHpPctMedian": 68.7,
+  "endHpPctP10": 39.3,
+  "totalRoundsMedian": 25,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 4
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "chart room: Wayfinder",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 6,
+    "roundsP90": 9,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 88.7,
+    "hpEndPctP10": 74.6,
+    "hpLostPctMedian": 11.3,
+    "cpEndPctMedian": 92.6,
+    "spEndPctMedian": 91.9,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 6845,
+    "playerIdleTurnsPct": 1,
+    "dodge": {
+     "threatened": 86,
+     "dodged": 79,
+     "failedRooted": 5,
+     "failedNoPath": 2,
+     "failedOther": 0,
+     "stepsTaken": 126
+    },
+    "enemies": {
+     "Wayfinder": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2.6,
+      "blastsPerFight": 2.2,
+      "blastHitPct": 28.1,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1549
+     },
+     "(clone or summon)": {
+      "appearances": 34,
+      "markFiredPct": 91.2,
+      "marksPerFight": 1,
+      "blastsPerFight": 1,
+      "blastHitPct": 26.5,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 9.6,
+      "dealtPerFight": 0
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "deck: First Blade",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 8,
+    "hpStartPctMedian": 88.7,
+    "hpEndPctMedian": 82.5,
+    "hpEndPctP10": 52.3,
+    "hpLostPctMedian": 17.3,
+    "cpEndPctMedian": 81.7,
+    "spEndPctMedian": 80.2,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10851,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 80,
+     "dodged": 80,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 155
+    },
+    "enemies": {
+     "First Blade": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2,
+      "blastsPerFight": 1,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 39.3,
+      "dealtPerFight": 1823
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "helm: The Captain",
+    "boss": true,
+    "reached": 40,
+    "won": 36,
+    "lost": 4,
+    "winPctOfReached": 90,
+    "roundsMedian": 11,
+    "roundsP10": 8,
+    "roundsP90": 11,
+    "hpStartPctMedian": 82.5,
+    "hpEndPctMedian": 68.7,
+    "hpEndPctP10": 39.3,
+    "hpLostPctMedian": 31.1,
+    "cpEndPctMedian": 72.3,
+    "spEndPctMedian": 69.4,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10315.5,
+    "playerIdleTurnsPct": 10.8,
+    "dodge": {
+     "threatened": 92,
+     "dodged": 92,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 154
+    },
+    "enemies": {
+     "The Captain": {
+      "appearances": 40,
+      "markFiredPct": 95,
+      "marksPerFight": 4.2,
+      "blastsPerFight": 2.3,
+      "blastHitPct": 4.4,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 95,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 3219
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no window timing",
+  "answers": [
+   "cleanse",
+   "clear",
+   "potion"
+  ],
+  "path": "cache_right",
+  "hunt": "Buried Cache",
+  "runs": 40,
+  "wins": 40,
+  "winPct": 100,
+  "endHpPctMedian": 80.9,
+  "endHpPctP10": 31.9,
+  "totalRoundsMedian": 8,
+  "lossesAt": {
+   "1": 0
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "dig: Skyglass Sentinel",
+    "boss": true,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 10,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 80.9,
+    "hpEndPctP10": 31.9,
+    "hpLostPctMedian": 19.1,
+    "cpEndPctMedian": 89.1,
+    "spEndPctMedian": 87.7,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 15720,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 49,
+     "dodged": 49,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 53
+    },
+    "enemies": {
+     "Skyglass Sentinel": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3.1,
+      "blastsPerFight": 2.4,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0.9,
+      "dealtPerFight": 2749
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no consumables",
+  "answers": [
+   "cleanse",
+   "clear",
+   "window"
+  ],
+  "path": "foundry",
+  "hunt": "Drowned Foundry",
+  "runs": 40,
+  "wins": 21,
+  "winPct": 52.5,
+  "endHpPctMedian": 27.3,
+  "endHpPctP10": 12.8,
+  "totalRoundsMedian": 19,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 19
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "intake: Deck Warden + Core Canister",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 1,
+    "roundsP90": 8,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 80.3,
+    "hpEndPctP10": 72.5,
+    "hpLostPctMedian": 19.7,
+    "cpEndPctMedian": 96.5,
+    "spEndPctMedian": 95.3,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 6285,
+    "playerIdleTurnsPct": 2.4,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Deck Warden": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 55,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1105
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 66.7,
+      "dealtPerFight": 1567
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "pour hall: Arsenal Keeper + Seal Charge x2",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 2,
+    "roundsP90": 9,
+    "hpStartPctMedian": 80.3,
+    "hpEndPctMedian": 62.6,
+    "hpEndPctP10": 41.8,
+    "hpLostPctMedian": 24,
+    "cpEndPctMedian": 91.1,
+    "spEndPctMedian": 88.9,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 9035.5,
+    "playerIdleTurnsPct": 0.8,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Arsenal Keeper": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1143
+     },
+     "Seal Charge": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 90,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1723
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "crucible: Foundry Warden + Core Canister",
+    "boss": true,
+    "reached": 40,
+    "won": 21,
+    "lost": 19,
+    "winPctOfReached": 52.5,
+    "roundsMedian": 7,
+    "roundsP10": 1,
+    "roundsP90": 10,
+    "hpStartPctMedian": 62.6,
+    "hpEndPctMedian": 27.3,
+    "hpEndPctP10": 12.8,
+    "hpLostPctMedian": 47,
+    "cpEndPctMedian": 84.7,
+    "spEndPctMedian": 82.2,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 9684,
+    "playerIdleTurnsPct": 11.8,
+    "dodge": {
+     "threatened": 90,
+     "dodged": 58,
+     "failedRooted": 20,
+     "failedNoPath": 12,
+     "failedOther": 0,
+     "stepsTaken": 104
+    },
+    "enemies": {
+     "Foundry Warden": {
+      "appearances": 40,
+      "markFiredPct": 90,
+      "marksPerFight": 2.5,
+      "blastsPerFight": 2.1,
+      "blastHitPct": 38.6,
+      "windowsPerFight": 0.9,
+      "signatureFiredPct": 90,
+      "idleTurnsAfterR2Pct": 1.6,
+      "dealtPerFight": 3039
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 95,
+      "idleTurnsAfterR2Pct": 80,
+      "dealtPerFight": 1406
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no consumables",
+  "answers": [
+   "cleanse",
+   "clear",
+   "window"
+  ],
+  "path": "archive_clean",
+  "hunt": "Quarantined Archive",
+  "runs": 40,
+  "wins": 14,
+  "winPct": 35,
+  "endHpPctMedian": 34.8,
+  "endHpPctP10": 17.2,
+  "totalRoundsMedian": 26,
+  "lossesAt": {
+   "1": 0,
+   "2": 26
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "descent: Core Horror",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 9,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 110,
+    "hpEndPctP10": 110,
+    "hpLostPctMedian": -10,
+    "cpEndPctMedian": 91.6,
+    "spEndPctMedian": 90.6,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 11781,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 117,
+     "dodged": 110,
+     "failedRooted": 0,
+     "failedNoPath": 7,
+     "failedOther": 0,
+     "stepsTaken": 217
+    },
+    "enemies": {
+     "Core Horror": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3,
+      "blastsPerFight": 2.7,
+      "blastHitPct": 2.8,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1202
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "archive: Sealwright",
+    "boss": true,
+    "reached": 40,
+    "won": 14,
+    "lost": 26,
+    "winPctOfReached": 35,
+    "roundsMedian": 18,
+    "roundsP10": 14,
+    "roundsP90": 19,
+    "hpStartPctMedian": 110,
+    "hpEndPctMedian": 34.8,
+    "hpEndPctP10": 17.2,
+    "hpLostPctMedian": 110,
+    "cpEndPctMedian": 71.3,
+    "spEndPctMedian": 68,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10986,
+    "playerIdleTurnsPct": 0.7,
+    "dodge": {
+     "threatened": 156,
+     "dodged": 146,
+     "failedRooted": 0,
+     "failedNoPath": 10,
+     "failedOther": 0,
+     "stepsTaken": 234
+    },
+    "enemies": {
+     "Sealwright": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 6.4,
+      "blastsPerFight": 5.4,
+      "blastHitPct": 5.1,
+      "windowsPerFight": 0.8,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 3.4,
+      "dealtPerFight": 3400
+     },
+     "(clone or summon)": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no consumables",
+  "answers": [
+   "cleanse",
+   "clear",
+   "window"
+  ],
+  "path": "watch_000",
+  "hunt": "Captain's Watch",
+  "runs": 40,
+  "wins": 35,
+  "winPct": 87.5,
+  "endHpPctMedian": 68.9,
+  "endHpPctP10": 28.5,
+  "totalRoundsMedian": 25,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 5
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "chart room: Wayfinder",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 6,
+    "roundsP90": 9,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 88.7,
+    "hpEndPctP10": 74.6,
+    "hpLostPctMedian": 11.3,
+    "cpEndPctMedian": 92.6,
+    "spEndPctMedian": 91.9,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 6845,
+    "playerIdleTurnsPct": 1,
+    "dodge": {
+     "threatened": 86,
+     "dodged": 79,
+     "failedRooted": 5,
+     "failedNoPath": 2,
+     "failedOther": 0,
+     "stepsTaken": 126
+    },
+    "enemies": {
+     "Wayfinder": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2.6,
+      "blastsPerFight": 2.2,
+      "blastHitPct": 28.1,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1549
+     },
+     "(clone or summon)": {
+      "appearances": 34,
+      "markFiredPct": 91.2,
+      "marksPerFight": 1,
+      "blastsPerFight": 1,
+      "blastHitPct": 26.5,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 9.6,
+      "dealtPerFight": 0
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "deck: First Blade",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 8,
+    "hpStartPctMedian": 88.7,
+    "hpEndPctMedian": 82.5,
+    "hpEndPctP10": 52.3,
+    "hpLostPctMedian": 17.3,
+    "cpEndPctMedian": 83.7,
+    "spEndPctMedian": 82.2,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10851,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 80,
+     "dodged": 80,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 155
+    },
+    "enemies": {
+     "First Blade": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2,
+      "blastsPerFight": 1,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 39.3,
+      "dealtPerFight": 1823
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "helm: The Captain",
+    "boss": true,
+    "reached": 40,
+    "won": 35,
+    "lost": 5,
+    "winPctOfReached": 87.5,
+    "roundsMedian": 11,
+    "roundsP10": 8,
+    "roundsP90": 11,
+    "hpStartPctMedian": 82.5,
+    "hpEndPctMedian": 68.9,
+    "hpEndPctP10": 28.5,
+    "hpLostPctMedian": 31.1,
+    "cpEndPctMedian": 74.3,
+    "spEndPctMedian": 71.5,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10558,
+    "playerIdleTurnsPct": 9,
+    "dodge": {
+     "threatened": 89,
+     "dodged": 89,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 145
+    },
+    "enemies": {
+     "The Captain": {
+      "appearances": 40,
+      "markFiredPct": 90,
+      "marksPerFight": 4,
+      "blastsPerFight": 2.1,
+      "blastHitPct": 2.4,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 90,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 2673
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no consumables",
+  "answers": [
+   "cleanse",
+   "clear",
+   "window"
+  ],
+  "path": "cache_right",
+  "hunt": "Buried Cache",
+  "runs": 40,
+  "wins": 40,
+  "winPct": 100,
+  "endHpPctMedian": 87.2,
+  "endHpPctP10": 75.9,
+  "totalRoundsMedian": 8,
+  "lossesAt": {
+   "1": 0
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "dig: Skyglass Sentinel",
+    "boss": true,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 9,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 87.2,
+    "hpEndPctP10": 75.9,
+    "hpLostPctMedian": 12.8,
+    "cpEndPctMedian": 89.1,
+    "spEndPctMedian": 87.7,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 15420.5,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 49,
+     "dodged": 49,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 53
+    },
+    "enemies": {
+     "Skyglass Sentinel": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3.2,
+      "blastsPerFight": 2.4,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0.5,
+      "dealtPerFight": 2127
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no answers (main runs)",
+  "answers": [],
+  "path": "foundry",
+  "hunt": "Drowned Foundry",
+  "runs": 40,
+  "wins": 32,
+  "winPct": 80,
+  "endHpPctMedian": 51.9,
+  "endHpPctP10": 7.7,
+  "totalRoundsMedian": 16.5,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 8
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "intake: Deck Warden + Core Canister",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 6,
+    "roundsP10": 1,
+    "roundsP90": 6,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 88.9,
+    "hpEndPctP10": 81,
+    "hpLostPctMedian": 11.1,
+    "cpEndPctMedian": 96.5,
+    "spEndPctMedian": 95.7,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 5714,
+    "playerIdleTurnsPct": 3.3,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Deck Warden": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 42.5,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 816
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 90,
+      "idleTurnsAfterR2Pct": 44.4,
+      "dealtPerFight": 1406
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "pour hall: Arsenal Keeper + Seal Charge x2",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 6,
+    "roundsP10": 3,
+    "roundsP90": 7,
+    "hpStartPctMedian": 88.9,
+    "hpEndPctMedian": 81.2,
+    "hpEndPctP10": 55.1,
+    "hpLostPctMedian": 11.4,
+    "cpEndPctMedian": 93.1,
+    "spEndPctMedian": 91.6,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 6988,
+    "playerIdleTurnsPct": 2.3,
+    "dodge": {
+     "threatened": 0,
+     "dodged": 0,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 0
+    },
+    "enemies": {
+     "Arsenal Keeper": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 891
+     },
+     "Seal Charge": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 85,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1489
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "crucible: Foundry Warden + Core Canister",
+    "boss": true,
+    "reached": 40,
+    "won": 32,
+    "lost": 8,
+    "winPctOfReached": 80,
+    "roundsMedian": 7,
+    "roundsP10": 6,
+    "roundsP90": 9,
+    "hpStartPctMedian": 81.2,
+    "hpEndPctMedian": 51.9,
+    "hpEndPctP10": 7.7,
+    "hpLostPctMedian": 40.2,
+    "cpEndPctMedian": 84.7,
+    "spEndPctMedian": 82.5,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 13069,
+    "playerIdleTurnsPct": 13,
+    "dodge": {
+     "threatened": 102,
+     "dodged": 68,
+     "failedRooted": 21,
+     "failedNoPath": 13,
+     "failedOther": 0,
+     "stepsTaken": 123
+    },
+    "enemies": {
+     "Foundry Warden": {
+      "appearances": 40,
+      "markFiredPct": 97.5,
+      "marksPerFight": 2.7,
+      "blastsPerFight": 2.1,
+      "blastHitPct": 34.9,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 97.5,
+      "idleTurnsAfterR2Pct": 4.5,
+      "dealtPerFight": 2864
+     },
+     "Core Canister": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": null,
+      "dealtPerFight": 1326
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no answers (main runs)",
+  "answers": [],
+  "path": "archive_clean",
+  "hunt": "Quarantined Archive",
+  "runs": 40,
+  "wins": 28,
+  "winPct": 70,
+  "endHpPctMedian": 44.5,
+  "endHpPctP10": 34.8,
+  "totalRoundsMedian": 22,
+  "lossesAt": {
+   "1": 0,
+   "2": 12
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "descent: Core Horror",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 7,
+    "roundsP10": 7,
+    "roundsP90": 7,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 109,
+    "hpEndPctP10": 109,
+    "hpLostPctMedian": -9,
+    "cpEndPctMedian": 91.1,
+    "spEndPctMedian": 90.3,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 14052,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 76,
+     "dodged": 72,
+     "failedRooted": 0,
+     "failedNoPath": 4,
+     "failedOther": 0,
+     "stepsTaken": 131
+    },
+    "enemies": {
+     "Core Horror": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2.1,
+      "blastsPerFight": 2,
+      "blastHitPct": 5,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1414
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "archive: Sealwright",
+    "boss": true,
+    "reached": 40,
+    "won": 28,
+    "lost": 12,
+    "winPctOfReached": 70,
+    "roundsMedian": 15,
+    "roundsP10": 10,
+    "roundsP90": 16,
+    "hpStartPctMedian": 109,
+    "hpEndPctMedian": 44.5,
+    "hpEndPctP10": 34.8,
+    "hpLostPctMedian": 70.3,
+    "cpEndPctMedian": 65.3,
+    "spEndPctMedian": 62.8,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 11703,
+    "playerIdleTurnsPct": 0.4,
+    "dodge": {
+     "threatened": 125,
+     "dodged": 104,
+     "failedRooted": 0,
+     "failedNoPath": 20,
+     "failedOther": 1,
+     "stepsTaken": 153
+    },
+    "enemies": {
+     "Sealwright": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 4.9,
+      "blastsPerFight": 3.9,
+      "blastHitPct": 12.3,
+      "windowsPerFight": 0.7,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 4.9,
+      "dealtPerFight": 3040
+     },
+     "(clone or summon)": {
+      "appearances": 40,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no answers (main runs)",
+  "answers": [],
+  "path": "watch_000",
+  "hunt": "Captain's Watch",
+  "runs": 40,
+  "wins": 37,
+  "winPct": 92.5,
+  "endHpPctMedian": 68.9,
+  "endHpPctP10": 55.5,
+  "totalRoundsMedian": 19,
+  "lossesAt": {
+   "1": 0,
+   "2": 0,
+   "3": 3
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "chart room: Wayfinder",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 4,
+    "roundsP10": 4,
+    "roundsP90": 5,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 99.6,
+    "hpEndPctP10": 67.2,
+    "hpLostPctMedian": 0.4,
+    "cpEndPctMedian": 76.5,
+    "spEndPctMedian": 75.9,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 7232,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 40,
+     "dodged": 26,
+     "failedRooted": 13,
+     "failedNoPath": 1,
+     "failedOther": 0,
+     "stepsTaken": 48
+    },
+    "enemies": {
+     "Wayfinder": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 1.3,
+      "blastsPerFight": 1.2,
+      "blastHitPct": 28.3,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 982
+     },
+     "(clone or summon)": {
+      "appearances": 8,
+      "markFiredPct": 100,
+      "marksPerFight": 1.4,
+      "blastsPerFight": 1,
+      "blastHitPct": 0,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "deck: First Blade",
+    "boss": false,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 6,
+    "roundsP10": 6,
+    "roundsP90": 7,
+    "hpStartPctMedian": 99.6,
+    "hpEndPctMedian": 105.2,
+    "hpEndPctP10": 83.1,
+    "hpLostPctMedian": -5.4,
+    "cpEndPctMedian": 68.1,
+    "spEndPctMedian": 66.7,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 9396,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 78,
+     "dodged": 78,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 150
+    },
+    "enemies": {
+     "First Blade": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2,
+      "blastsPerFight": 1,
+      "blastHitPct": 0,
+      "windowsPerFight": 0.7,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 38,
+      "dealtPerFight": 844
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "helm: The Captain",
+    "boss": true,
+    "reached": 40,
+    "won": 37,
+    "lost": 3,
+    "winPctOfReached": 92.5,
+    "roundsMedian": 9,
+    "roundsP10": 6,
+    "roundsP90": 10,
+    "hpStartPctMedian": 105.2,
+    "hpEndPctMedian": 68.9,
+    "hpEndPctP10": 55.5,
+    "hpLostPctMedian": 31.1,
+    "cpEndPctMedian": 59.2,
+    "spEndPctMedian": 57.2,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 10322,
+    "playerIdleTurnsPct": 11.3,
+    "dodge": {
+     "threatened": 88,
+     "dodged": 88,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 149
+    },
+    "enemies": {
+     "The Captain": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3.5,
+      "blastsPerFight": 1.6,
+      "blastHitPct": 4.6,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 3231
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "no answers (main runs)",
+  "answers": [],
+  "path": "cache_right",
+  "hunt": "Buried Cache",
+  "runs": 40,
+  "wins": 40,
+  "winPct": 100,
+  "endHpPctMedian": 80.9,
+  "endHpPctP10": 38.5,
+  "totalRoundsMedian": 8,
+  "lossesAt": {
+   "1": 0
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "dig: Skyglass Sentinel",
+    "boss": true,
+    "reached": 40,
+    "won": 40,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 9,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 80.9,
+    "hpEndPctP10": 38.5,
+    "hpLostPctMedian": 19.1,
+    "cpEndPctMedian": 86.1,
+    "spEndPctMedian": 85,
+    "petDealtMedian": 0,
+    "playerDealtMedian": 15740,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 46,
+     "dodged": 46,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 49
+    },
+    "enemies": {
+     "Skyglass Sentinel": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 3.8,
+      "blastsPerFight": 2.4,
+      "blastHitPct": 2.1,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0.4,
+      "dealtPerFight": 2640
+     }
+    }
+   }
+  ]
+ }
+]
