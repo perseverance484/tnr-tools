@@ -48,6 +48,10 @@ def main():
                         "injectableInBattle": False}}
     reequip = [{"entity": "ai", "slot": "edit", "targetId": uid, "name": f"{n}: re-equip Core Rupture",
                 "data": {"jutsus": [JID], "items": [ARMOR]}} for uid, n in AIS.items()]
+    return unequip, convert, reequip
+
+
+def write_standalone(unequip, convert, reequip):
     out = {
         "316_core_rupture_unequip.json": {
             "_note": "STEP 1 of 2 (director 2026-10-28, RUL-2026-10-28-001). Unequips Core Rupture from Seal Charge and "
@@ -66,4 +70,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    write_standalone(*main())
