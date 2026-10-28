@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build (or check) the reviewed-removal ledger for one 45c/45d/45e/45f/45g adoption.
 
-    python3 scripts/schema_adoption_ledger.py OLD_SRC NEW_SRC OLD_DIR NEW_DIR --write state/LEDGER.json
-    python3 scripts/schema_adoption_ledger.py OLD_SRC NEW_SRC OLD_DIR NEW_DIR --check state/LEDGER.json
+    python3 scripts/schema_adoption_ledger.py OLD_SRC NEW_SRC OLD_DIR NEW_DIR --write state/LEDGER.json [--ruling RUL-...]
+    python3 scripts/schema_adoption_ledger.py OLD_SRC NEW_SRC OLD_DIR NEW_DIR --check state/LEDGER.json [--ruling RUL-...]
 
 OLD_SRC / NEW_SRC  read-only TheNinjaRPG checkouts the committed and the regenerated files were
                    extracted from (pins are read from each checkout's git HEAD).
@@ -87,6 +87,12 @@ CLASSES = {
     "extractor_type_fragment": (
         "The old line-based parser read `z.coerce` at the end of a line as the type \"coerce\"; "
         "the field's declaration at both pins is z.coerce.number()."),
+    "upstream_bound_changed": (
+        "A 45g cap_100 entry for a field the validator still declares, whose upper bound is no "
+        "longer 100 at the new pin (requiredLevel/maxLevel: .max(100) became "
+        ".max(MAX_PLAYER_LEVEL) = 110 at 2af4b320). Verified from the entity schema's own field "
+        "declaration at both pins (spreads followed) and, for a named bound, the constant's "
+        "declaration at the new pin."),
     "extractor_ref_resolution": (
         "A field typed by a named schema was recorded as an opaque object; the fixed extractor "
         "resolves the name (aiRule.action: ZodAllAiActions is a z.union)."),
@@ -222,6 +228,18 @@ def _has_default(expr):
     return expr is not None and re.search(r"\.(?:prefault|default)\(", expr) is not None
 
 
+def upper_bound(src, expr):
+    """The numeric `.max(...)` of a field expression, a named constant resolved at `src`."""
+    m = re.search(r"\.max\(\s*([A-Za-z_]\w*|[\d_]+)\s*\)", expr or "")
+    if not m:
+        return None
+    tok = m.group(1)
+    if re.fullmatch(r"[\d_]+", tok):
+        return int(tok.replace("_", ""))
+    lit = re.match(r"\s*([\d_]+)\s*;", _decl(src, tok) or "")
+    return int(lit.group(1).replace("_", "")) if lit else None
+
+
 def has_procedure(src, router, proc):
     p = os.path.join(src, "app/src/server/api/routers", router + ".ts")
     return os.path.exists(p) and re.search(r"^\s+%s\s*:" % re.escape(proc), _strip(open(p).read()), re.M) is not None
@@ -317,7 +335,16 @@ def classify_late(name, atom, ctx):
             return "consequence_of_removal"
         return None
     if block in ("nullable", "required_on_create", "cap_100", "booleans", "date_fields"):
-        return "consequence_of_removal" if (parts[2], val) in ctx["field_removed"] else None
+        if (parts[2], val) in ctx["field_removed"]:
+            return "consequence_of_removal"
+        if block == "cap_100":
+            so = ents_old.get(parts[2], {}).get("schema")
+            sn = ents_new.get(parts[2], {}).get("schema")
+            bo = upper_bound(ctx["old"], field_expr(ctx["old"], so, val)) if so else None
+            bn = upper_bound(ctx["new"], field_expr(ctx["new"], sn, val)) if sn else None
+            if bo == 100 and bn is not None and bn != 100:
+                return "upstream_bound_changed"
+        return None
     if block == "null_strip_exempt":
         return "consequence_of_removal" if any(f == val for _e, f in ctx["field_removed"]) else None
     if block == "tag_power_max":
@@ -365,6 +392,9 @@ def _head(src):
 
 def main():
     a = sys.argv[1:]
+    ruling = "RUL-2026-10-20-001"
+    if len(a) == 8 and a[6] == "--ruling":
+        ruling, a = a[7], a[:6]
     if len(a) != 6 or a[4] not in ("--write", "--check"):
         print(__doc__)
         return 2
@@ -376,13 +406,14 @@ def main():
     counts = Counter(r["class"] for f in files for r in f["accepted"])
     doc = {
         "schema": "tnr.schema_adoption_ledger",
-        "ruling": "RUL-2026-10-20-001",
+        "ruling": ruling,
         "scope": "One adoption of the generated 45c/45d/45e/45f/45g contracts; each entry is bound "
                  "to the exact OLD and NEW file hashes. Not a waiver: any other file, or any "
                  "other breaking atom, fails schema_diff.py exactly as before.",
         "source": {"old": "studie-tech/TheNinjaRPG@" + _head(old_src), "new": "studie-tech/TheNinjaRPG@" + _head(new_src)},
         "regenerate": "python3 scripts/schema_adoption_ledger.py <OLD checkout> <NEW checkout> "
-                      "<pre-adoption 45x dir> <adopted 45x dir> --write state/" + os.path.basename(ledger),
+                      "<pre-adoption 45x dir> <adopted 45x dir> --write state/" + os.path.basename(ledger)
+                      + ("" if ruling == "RUL-2026-10-20-001" else " --ruling " + ruling),
         "classes": {k: {"evidence": v, "count": counts.get(k, 0)} for k, v in CLASSES.items()},
         "files": files,
     }

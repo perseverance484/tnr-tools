@@ -1,0 +1,43 @@
+{
+ "_note": "Pet builder fixture (forge/test/fixtures/pets). Not content: never pushed. Step 2: the species-locked jutsu, its species id copied from step 1's results bundle.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "create",
+   "name": "Fixture Glow",
+   "srcId": "fx_glow",
+   "data": {
+    "name": "Fixture Glow",
+    "description": "Test pet jutsu.",
+    "battleDescription": "%user glows.",
+    "jutsuType": "PETS",
+    "requiredPetSpeciesId": "fxPetSpecies000000001",
+    "jutsuRank": "C",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "method": "SINGLE",
+    "target": "SELF",
+    "jutsuWeapon": "NONE",
+    "elementClassification": "None",
+    "range": 0,
+    "cooldown": 3,
+    "actionCostPerc": 60,
+    "healthCost": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "injectableInBattle": false,
+    "hidden": true,
+    "effects": [
+     {
+      "type": "heal",
+      "power": 10,
+      "calculation": "percentage",
+      "rounds": 0,
+      "target": "SELF",
+      "powerPerLevel": 0
+     }
+    ]
+   }
+  }
+ ]
+}

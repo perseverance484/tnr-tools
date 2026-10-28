@@ -10,7 +10,7 @@ import { join } from "node:path";
 
 const root = process.argv[2];
 if (!root || !existsSync(join(root, "app/src/validators/combat.ts")) || !existsSync(join(root, "app/drizzle/schema.ts"))) { console.error("usage: derive_fields.mjs <TheNinjaRPG checkout>"); process.exit(2); }
-const PIN = process.argv[3] || "85cecaebf4ada2e265a18a1405f63c9637443275";
+const PIN = process.argv[3] || "2af4b32066c39e2868efae5dba6b339278701dca";
 
 const TARGETS = {
   jutsu:     { file: "app/src/validators/combat.ts",     name: "JutsuValidatorRawSchema" },
@@ -18,6 +18,7 @@ const TARGETS = {
   bloodline: { file: "app/src/validators/combat.ts",     name: "BloodlineValidator" },
   quest:     { file: "app/src/validators/objectives.ts", name: "QuestValidatorRawSchema" },
   gameAsset: { file: "app/src/validators/asset.ts",      name: "gameAssetValidator" },
+  petSpecies: { file: "app/src/validators/petSpecies.ts", name: "PetSpeciesValidator" },
 };
 
 /** Text between a brace opened just before `from`, and its match. */
@@ -46,17 +47,18 @@ function objectBody(src, name) {
 
 /**
  * The AI record has no content validator: profile.updateAi takes insertAiSchema, which is
- * createInsertSchema(userData).omit({...}).extend(z.object({...})) at drizzle/schema.ts:2577.
+ * createInsertSchema(userData).omit({...}).extend(z.object({...})). It lived in drizzle/schema.ts
+ * until upstream 8d14dbef moved it, unchanged, to validators/aiInput.ts; userData stays in schema.ts.
  * Derive its effective top-level key set from the table columns so an AI create can be validated
  * BEFORE the placeholder is minted; waiting for a live row means a typo costs a live row.
  */
-function insertAiSchemaFields(schemaSrc) {
+function insertAiSchemaFields(schemaSrc, aiSrc, aiRel) {
   const t = /export const userData = mysqlTable\(\s*"[^"]*"\s*,\s*\{/.exec(schemaSrc);
   if (!t) throw new Error("not found: userData mysqlTable");
   const columns = topLevelKeys(balancedFrom(schemaSrc, t.index + t[0].length)).keys;
-  const a = /export const insertAiSchema\s*=\s*createInsertSchema\(\s*userData\s*\)/.exec(schemaSrc);
+  const a = /export const insertAiSchema\s*=\s*createInsertSchema\(\s*userData\s*\)/.exec(aiSrc);
   if (!a) throw new Error("not found: insertAiSchema");
-  const tail = schemaSrc.slice(a.index);
+  const tail = aiSrc.slice(a.index);
   const om = /\.omit\(\s*\{/.exec(tail);
   const omit = om ? topLevelKeys(balancedFrom(tail, om.index + om[0].length)).keys : [];
   const ex = /\.extend\(\s*(?:z\s*\.object\(\s*)?\{/.exec(tail);
@@ -65,7 +67,7 @@ function insertAiSchemaFields(schemaSrc) {
   const set = new Set(columns.filter((k) => !omit.includes(k)));
   for (const k of extend) set.add(k);
   const fields = {}; for (const k of [...set].sort()) fields[k] = true;
-  return { source: "app/drizzle/schema.ts:" + schemaSrc.slice(0, a.index).split("\n").length, validator: "insertAiSchema",
+  return { source: aiRel + ":" + aiSrc.slice(0, a.index).split("\n").length, validator: "insertAiSchema",
            spreads: [], columns: columns.length, omitted: omit.sort(), extended: extend.sort(), fields };
 }
 
@@ -124,5 +126,14 @@ for (const [entity, t] of Object.entries(TARGETS)) {
   const fields = {}; for (const k of [...keys, ...spreads.flatMap((sp) => spreadKeys(sp))]) fields[k] = true;
   out.entities[entity] = { source: `${t.file}:${line}`, validator: t.name, spreads, fields };
 }
-out.entities.ai = insertAiSchemaFields(readFileSync(join(root, "app/drizzle/schema.ts"), "utf8"));
+// insertAiSchema: schema.ts at older pins, else exactly one validator file declares it.
+const schemaSrc = readFileSync(join(root, "app/drizzle/schema.ts"), "utf8");
+const AI_DECL = /export const insertAiSchema\s*=/;
+let aiRel = "app/drizzle/schema.ts";
+if (!AI_DECL.test(schemaSrc)) {
+  const hits = readdirSync(VALIDATOR_DIR).filter((f) => f.endsWith(".ts") && AI_DECL.test(readFileSync(join(VALIDATOR_DIR, f), "utf8")));
+  if (hits.length !== 1) throw new Error(`insertAiSchema is declared in ${hits.length} validator files; cannot tell which one profile.updateAi uses`);
+  aiRel = "app/src/validators/" + hits[0];
+}
+out.entities.ai = insertAiSchemaFields(schemaSrc, aiRel === "app/drizzle/schema.ts" ? schemaSrc : readFileSync(join(root, aiRel), "utf8"), aiRel);
 process.stdout.write(JSON.stringify(out, null, 1) + "\n");

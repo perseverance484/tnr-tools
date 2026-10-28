@@ -33,6 +33,7 @@ POOL_BY_ID = {}
 ENTITIES = {}      # entity -> field -> rule, loaded from 45d
 CHECKS = {}        # the shared check config, loaded from 45g
 LINTS = {}         # the shared lint registry, loaded from 45h (T1, ruled 2026-08-30)
+CONSTS = None      # 45e constants (PET_*), loaded only for the pet checks; None = not found
 RANK_NONE = ("huntingRank", "gatheringRank", "medicalRank")
 # Fallbacks used only when 45g is absent. 45g is the source of truth and the
 # builder preflight reads the same file; anything hardcoded here is a parity
@@ -55,6 +56,19 @@ def load_checks(path):
         return False
     RUNTIME_ONLY_TAGS = tuple(CHECKS["runtime_only_tags"]["values"])
     NEEDS_DAMAGE = tuple(CHECKS["companion_required"]["values"])
+    return True
+
+
+def load_constants(path):
+    """45e_DATA_constants.json: the PET_* constants the pet species checks read (pet_checks.py).
+    Missing file is not an error until a petSpecies entry needs it."""
+    global CONSTS
+    if not os.path.exists(path):
+        return False
+    try:
+        CONSTS = json.load(open(path)).get("constants") or {}
+    except Exception:
+        return False
     return True
 
 
@@ -853,6 +867,17 @@ def check_entry(entry, ctors, rep, manifest):
             rep.warn(where, f"debug key '{k}' left in payload")
 
     check_entry_laws(entry, ctors, where, rep)
+    import pet_checks  # RUL-2026-10-28-012: species, PETS jutsu, pet rewards
+    if entry.get("entity") == "petSpecies":
+        pet_checks.check_species(entry, manifest.get("items") or [], ENTITIES.get("petSpecies"),
+                                 CHECKS, CONSTS, rep, where)
+        if "aiRules" in data:
+            check_rules(data["aiRules"], ctors, where + ".aiRules", rep,
+                        include_default_rules=data.get("includeDefaultRules", True) is not False)
+    if entry.get("entity") == "jutsu":
+        pet_checks.check_jutsu(entry, rep, where)
+    if entry.get("entity") in ("item", "quest"):
+        pet_checks.check_rewards(entry, CONSTS, rep, where)
     if entry.get("entity") == "quest":
         # A quest edit/convert fetch-merges over the live record, so an entry that
         # carries no `content` is a field patch, not a flow rewrite: the live flow
@@ -886,7 +911,7 @@ def check_entry(entry, ctors, rep, manifest):
     check_laws(entry, rep)
 
     blob = json.dumps(data)
-    for m in re.findall(r"@(?:jutsu|ai|scene|item|quest|img|bloodline):[^\"]{1,60}", blob):
+    for m in re.findall(r"@(?:jutsu|ai|scene|item|quest|img|bloodline|petSpecies):[^\"]{1,60}", blob):
         if "@@" in m or m.count(":") > 1:
             rep.err(where, f"malformed ref {m} (doubled prefix survives naive sweeps, law 45)")
 
@@ -1160,13 +1185,17 @@ def check_manifest(path, ctors_path, strict=False):
     seen = -1
     for e in items:
         o = order.get(e.get("entity"), 9)
+        if e.get("entity") == "petSpecies":
+            # a species exists before the jutsu locked to it; its defaults edit comes after them
+            # (RUL-2026-10-28-012, routers/jutsu.ts and routers/petSpecies.ts at 2af4b320)
+            o = -1 if e.get("slot") == "create" else 0.5
         if o < seen:
             rep.warn("manifest", f"build order: {e.get('entity')} appears after a later phase")
         seen = max(seen, o)
 
     srcs = {e.get("srcId") for e in items if e.get("srcId")}
     blob = json.dumps(man)
-    for ref in set(re.findall(r"@(?:jutsu|ai|scene|item|quest|bloodline):([A-Za-z0-9_\-]+)", blob)):
+    for ref in set(re.findall(r"@(?:jutsu|ai|scene|item|quest|bloodline|petSpecies):([A-Za-z0-9_\-]+)", blob)):
         if ref not in srcs:
             rep.warn("manifest", f"@ref '{ref}' has no srcId in this manifest; it must already be in the idmap")
 
@@ -1213,6 +1242,10 @@ if __name__ == "__main__":
     checks = "45g_DATA_checks.json"
     if "--checks" in sys.argv:
         checks = sys.argv[sys.argv.index("--checks") + 1]
+    consts = "45e_DATA_constants.json"
+    if "--constants" in sys.argv:
+        consts = sys.argv[sys.argv.index("--constants") + 1]
+    load_constants(consts)
     lints = "45h_DATA_lints.json"
     if "--lints" in sys.argv:
         lints = sys.argv[sys.argv.index("--lints") + 1]
