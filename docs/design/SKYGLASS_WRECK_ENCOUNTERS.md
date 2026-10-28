@@ -61,6 +61,46 @@ To verify in the harness: zone timing (damage on landing, or from the next round
 control, movement jutsu and summons with ground targets (director doubts AI movement jutsu work). Animations join the art
 batch as ANIMATION assets (vertical strips) once the mechanics are confirmed.
 
+## Kits and rules: endgame dungeon copies (director-approved approach, 2026-10-28)
+
+Kit principles: one identity per enemy; at most one self-buff, used once as an opener or at a health threshold; every
+unit has a useful action at range 5+. Players kite with Replacement Technique, and a root stops it: movement jutsu run
+through the `move` effect, which checks `moveprevent` (`tags.ts` ~2417). Shared crew jutsu stay untouched (the hunts use
+them); anything changed or new is a **dungeon-only jutsu** (NEW below). All numbers are starting points the harness tunes.
+
+### New dungeon-only jutsu
+
+| Jutsu | Shape | Effects (starting values) | Used by |
+|---|---|---|---|
+| Chain Hook | range 6, single, cd 3, AP 60 | damage 45, moveprevent 100 / 1r | Deck Warden |
+| Long Barrage | range 8, AOE circle shoot (radius 1), cd 3, AP 60 | damage 55 + ground zone damage 20 / 2r | Arsenal Keeper |
+| Oath of Stillness | range 6, single, cd 4, AP 60 | damage 35, increasecooldown 2 / 2r | Oathkeeper |
+| Chart Mark | range 7, single, cd 3, AP 40 | increasedamagetaken 20 / 2r (mark sigil animation) | Wayfinder |
+| Skyglass Aegis | range 4, single ALLY, cd 4, AP 40 | shield, absorb on the ally / 2r | Sentinel |
+| Mending Seal | range 5, single ALLY, cd 4, AP 40 | heal 20, cleanse | Sealwright |
+| Seal Burst | range 0, AOE circle spawn around self (radius 1-2), cd 99, AP 100 | damage 150 (no onehitkill) | Seal Charge, Core Canister |
+
+Hazards no longer carry Core Rupture's `onehitkill 100` (director, 2026-10-28: "smaller AoE blasts that do large amounts of
+damage instead"). They also detonate when a player is adjacent, not only on their round.
+
+### Rules by enemy (priority order; first matching rule acts)
+
+| Enemy | Rules |
+|---|---|
+| Deck Warden | 1 opener buff (unconditional, long cooldown) · 2 Chain Hook on HIGHEST_ENMITY_OPPONENT if more than 3 hexes away · 3 Quick Strike / Tide Bolt on HIGHEST_ENMITY_OPPONENT in range · 4 move towards · 5 highest-power damage |
+| Seal Charge | 1 Seal Burst if a player is within 1 · 2 Seal Burst from its fuse round · 3 move towards CLOSEST_OPPONENT (it walks only if movable; otherwise end turn) |
+| Core Canister | 1 Seal Burst if a player is within 2 · 2 Seal Burst on its fuse round · 3 end turn (stationary) |
+| Arsenal Keeper | 1 Long Barrage on the farthest/most-distant target (distance_higher_than 5) · 2 Numbing Senbon stun in range · 3 Revocation Strike seal at range 4 · 4 keep range (no forward move unless nothing is in range 8) |
+| Skyglass Sentinel | 1 Skyglass Aegis on LOWEST_MAX_HEALTH_ALLY · 2 Counter Stance (mirror ward) when under 60% · 3 Rigging Snare on CLOSEST_OPPONENT · 4 Twin Kunai · 5 move towards |
+| First Blade | 1 stealth opener · 2 Raijin's Spear / Shuriken Storm on LOWEST_HEALTH_OPPONENT · 3 Opening Strike on LOWEST_ENMITY_OPPONENT · 4 move towards LOWEST_HEALTH_OPPONENT |
+| Oathkeeper | 1 Oath of Stillness on HIGHEST_ENMITY_OPPONENT · 2 Weakening Strike on HIGHEST_ENMITY_OPPONENT · 3 Opening Strike · 4 move towards |
+| Wayfinder | 1 Chart Mark on HIGHEST_ENMITY_OPPONENT (allies then focus targets with the mark) · 2 Keelbind root at range · 3 decoy clone when a player is within 2 · 4 keep range |
+| The Captain | 1 Unbroken Command opener (once) · 2 Great Bell Toll when 2+ players are in range · 3 Keelbind on HIGHEST_ENMITY_OPPONENT · 4 Explosive Tag Cataclysm · 5 move towards |
+| Sealwright | 1 Mending Seal on LOWEST_MAX_HEALTH_ALLY · 2 Sovereign Fetters on HIGHEST_ENMITY_OPPONENT · 3 Dispelling Wave · 4 Weakening Strike · 5 keep range |
+| Crowned Captain | Phase 1 (100-60%): duelist on HIGHEST_ENMITY_OPPONENT (Final Command, Keelbind, Ruin Refrain). Phase 2 (under 60%): crown-aura buff once, then afterimage clones or Seal-Charge drops (whichever the harness confirms), Suppression Writ. Phase 3 (under 30%): Final-Stand-style protection once, then everything on LOWEST_HEALTH_OPPONENT |
+
+Allies' "focus the mark" rules use `target_has_effect` on the mark's effect, ahead of their usual damage rule.
+
 ## Endgame floor layout (director, 2026-10-28)
 
 | Floor | Wave 1 | Wave 2 |
