@@ -14,7 +14,15 @@
  * - Every jutsu passes the live JutsuValidator (kitlib.jutsu) and every rule the live AiRule (kitlib.rule).
  */
 import { anim, capturedJutsu, cast, cond, endTurn, jutsu, moveTo, tag } from "./kitlib";
-import { buildEndgame, DEFAULT_PARAMS, IDS, type KitParams } from "./kits";
+import { buildKits, IDS, type KitParams } from "./kits";
+
+/**
+ * Merge note (fable/skyglass-charts-sim, ad379117): the Wreck owner consolidated kits.ts on the library; buildEndgame and
+ * DEFAULT_PARAMS are gone. The hunts take only the shared kits and rule lists from buildKits (rules depend only on
+ * horrorPhase2); the stats below are placeholders that the hunts never read (their stats come from HuntParams).
+ */
+export const DEFAULT_PARAMS: KitParams = { crewPools: 1, crewRows: 0, horrorPools: 1, horrorRows: 0, captainPools: 1, captainRows: 0, sealPools: 1, sealRows: 0 };
+export const buildEndgame = (P: Partial<KitParams>, version: "endgame" | "lvl50" = "endgame") => buildKits({ ...DEFAULT_PARAMS, ...P } as KitParams, version);
 import { readFileSync } from "node:fs";
 import { JutsuValidator } from "@/validators/combat";
 import { join } from "node:path";

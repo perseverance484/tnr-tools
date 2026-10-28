@@ -152,6 +152,12 @@ export type StepRec = {
  */
 export const DANGER_ANIMS = new Set(["tg_heavy", "tg_control", "tg_linger"]);
 export const SAFE_ANIM = "tg_safe";
+/**
+ * Persistent hazard ground (The Fall's ember tiles: `drain` ground with a tg_ember visual). Not a one-turn mark: the
+ * auto-player steps off an ember only when a clear hex within DODGE_STEPS still keeps the closest enemy within its
+ * attack reach (else it fights on the embers), and its close-in step avoids embers when another step exists.
+ */
+export const EMBER_ANIM = "tg_ember";
 export const DODGE_STEPS = 3;
 export type DodgeStats = { threatened: number; dodged: number; failedRooted: number; failedNoPath: number; failedOther: number; stepsTaken: number };
 
@@ -191,13 +197,19 @@ export const assembleFloor = async (opts: {
   mode?: "dungeon" | "quest";
   /** Companion pets (UserPet rows with their species), one per owner; owners carry activePetId. */
   pets?: any[];
+  /**
+   * Quest NPC allies (objective `allyAIs` -> initiateBattle `allyAiIds`): AI ids placed after the players and before
+   * the targets, all on the left side (leftSideUserCount = players + allies), exactly as initiateBattle orders them.
+   */
+  allyIds?: string[];
 }): Promise<CompleteBattle> => {
   const quest = opts.mode === "quest";
   const battleType = "QUEST" as never;
   const playerIds = opts.players.map((p) => p.userId);
   const targetIds = opts.floor.waves.flatMap((w) => w.aiIds);
-  // initiateBattle: users = [...userIds, ...targetIds] each structuredCloned; then per-user loop caps stats.
-  const users = [...opts.players, ...targetIds.map((id) => opts.enemyRows[id])].map((u) => structuredClone(u));
+  const allyIds = opts.allyIds ?? [];
+  // initiateBattle: users = [...userIds, ...allyAiIds, ...targetIds] each structuredCloned; then per-user loop caps stats.
+  const users = [...opts.players, ...allyIds.map((id) => opts.enemyRows[id]), ...targetIds.map((id) => opts.enemyRows[id])].map((u) => structuredClone(u));
   for (const u of users) capUserStats(u, u.rank);
   // Summon templates: initiateBattle reads them from the DB into a shared summonTemplateCache.
   // Pre-seed that same cache with the captured AI rows (keyed by AI id), so the engine's own
@@ -218,7 +230,7 @@ export const assembleFloor = async (opts: {
     settings: [], relations: [], wars: [], villages: [], defaultProfile: defaultProfile as never,
     battleType, width, height, hide: false, isSummon: false, summonTemplateCache,
   };
-  const firstCount = quest ? users.length : playerIds.length + (opts.floor.waves[0]?.aiIds.length ?? 0);
+  const firstCount = quest ? users.length : playerIds.length + allyIds.length + (opts.floor.waves[0]?.aiIds.length ?? 0);
   const petPreload = opts.pets?.length
     ? {
         pets: structuredClone(opts.pets),
@@ -230,7 +242,7 @@ export const assembleFloor = async (opts: {
     ...common,
     users: users.slice(0, firstCount),
     leftSideUserIds: playerIds,
-    leftSideUserCount: playerIds.length,
+    leftSideUserCount: playerIds.length + allyIds.length,
     ...(petPreload ? { petPreload } : {}),
   } as never);
   const { userEffects, usersState, extraState } = processed;
@@ -250,7 +262,14 @@ export const assembleFloor = async (opts: {
   }
   // Pets spawned beside their owner's engine-drawn cell; re-seat each beside the owner's redrawn cell
   // (the nearest free hex, the engine's own getPetSpawnLocation rule restated: owner's half, grid order on ties).
-  for (const pet of usersState.filter((u: any) => u.petId)) {
+  // Clear every pet's engine-drawn cell first: those derive from the unseeded engine spawn draw, and a pet not yet
+  // re-seated would otherwise block a cell for the others (same seed, different placement). (fable/skyglass-wreck-sim c301632b)
+  const petsInBattle = usersState.filter((u: any) => u.petId);
+  for (const pet of petsInBattle) {
+    pet.longitude = -1;
+    pet.latitude = -1;
+  }
+  for (const pet of petsInBattle) {
     const owner = usersState.find((u) => u.userId === pet.controllerId)!;
     const half = Math.floor(width / 2);
     const cells: { x: number; y: number; d: number }[] = [];
@@ -360,7 +379,9 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
   const outcomeOf = () => {
     if (b.extraState.dungeon) return dungeonBattleOutcome(b);
     const side = (dir: string) => b.usersState.some((u) => u.direction === dir && !u.isSummon && stillInBattle(u, b.usersEffects));
-    if (!side("left")) return "wipe" as const;
+    // A player's battle ends when the player is out (calcBattleResult: !stillInBattle(user)), even while a quest NPC
+    // ally fights on; pets are summons. Without allies this is the same test as side("left").
+    if (!humans().some((u) => stillInBattle(u, b.usersEffects))) return "wipe" as const;
     if (!side("right")) return "won" as const;
     return null;
   };
@@ -408,14 +429,18 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
   const marks = () => {
     const danger = new Set<string>();
     const safe = new Set<string>();
+    const embers = new Set<string>();
+    // Marks laid by the players' own side (players, pets, quest NPC allies) are not threats to them.
+    const friendly = new Set(b.usersState.filter((u) => u.direction === "left").map((u) => u.userId));
     for (const e of b.groundEffects as any[]) {
-      if (e.creatorId === "ground" || playerSet.has(e.creatorId)) continue;
+      if (e.creatorId === "ground" || playerSet.has(e.creatorId) || friendly.has(e.creatorId)) continue;
       if ((e.rounds ?? 0) <= 0 && !e.castThisRound) continue;
       const k = `${e.longitude},${e.latitude}`;
       if (DANGER_ANIMS.has(e.staticAnimation)) danger.add(k);
       if (e.staticAnimation === SAFE_ANIM) safe.add(k);
+      if (e.staticAnimation === EMBER_ANIM) embers.add(k);
     }
-    return { danger, safe };
+    return { danger, safe, embers };
   };
   /** One free, unmarked neighbouring hex that brings the player closer to the closest enemy. */
   const safeStep = (actor: any, danger: Set<string>): { x: number; y: number } | null => {
@@ -435,11 +460,15 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
   };
   /** Dodge state of the current human turn. */
   let dodgeTurn: { key: string; counted: boolean; steps: number; done: boolean; lastPos: string } | null = null;
+  /** Longest range among the player's offensive jutsu (ember rule: stay within reach of the closest enemy). */
+  const reachOf = (actor: any) =>
+    Math.max(1, ...((actor.jutsus ?? []) as any[]).filter((uj) => uj.jutsu?.target !== "SELF").map((uj) => uj.jutsu?.range ?? 1));
   const planDodge = (actor: any): { x: number; y: number } | null | "ok" => {
-    const { danger, safe } = marks();
+    const { danger, safe, embers } = marks();
     const here = `${actor.longitude},${actor.latitude}`;
     const arena = safe.size > 0;
-    const ok = (k: string) => (arena ? safe.has(k) : !danger.has(k));
+    const emberOnly = !danger.size && !arena;
+    const ok = (k: string) => (arena ? safe.has(k) : !danger.has(k) && !(emberOnly && embers.has(k)));
     if (ok(here)) return "ok";
     const blocked = new Set<string>();
     for (const u of b.usersState) if (u.userId !== actor.userId && stillInBattle(u, b.usersEffects)) blocked.add(`${u.longitude},${u.latitude}`);
@@ -462,12 +491,20 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
         queue.push(n);
       }
     }
+    const enemies = b.usersState.filter((u) => u.direction !== actor.direction && stillInBattle(u, b.usersEffects));
+    const ed = (h: any) => Math.min(99, ...enemies.map((u) => grid.distance(h, hexes.find((x: any) => x.col === u.longitude && x.row === u.latitude)!)));
+    if (emberOnly) {
+      // Embers: leave only for a clear hex that keeps an enemy within reach; otherwise fight where you stand.
+      const reach = reachOf(actor);
+      const inReach = found.filter((h) => ed(h) <= reach);
+      if (!inReach.length) return "ok";
+      found.length = 0;
+      found.push(...inReach);
+    }
     if (!found.length) return null;
     const minD = Math.min(...found.map((h) => dist.get(h)!));
     const best = found.filter((h) => dist.get(h) === minD);
     // Tie-break: stay closest to the nearest enemy (keep fighting), then by position.
-    const enemies = b.usersState.filter((u) => u.direction !== actor.direction && stillInBattle(u, b.usersEffects));
-    const ed = (h: any) => Math.min(99, ...enemies.map((u) => grid.distance(h, hexes.find((x: any) => x.col === u.longitude && x.row === u.latitude)!)));
     best.sort((p, q) => ed(p) - ed(q) || p.col - q.col || p.row - q.row);
     return { x: best[0].col, y: best[0].row };
   };
@@ -511,20 +548,23 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
       const tk = `${b.round}:${actor.userId}`;
       if (!dodgeTurn || dodgeTurn.key !== tk) dodgeTurn = { key: tk, counted: false, steps: 0, done: false, lastPos: "" };
       const profile = (b.extraState.aiProfiles as any)?.[actor.aiProfileId];
-      const { danger, safe } = marks();
-      if (profile && (danger.size || safe.size)) {
+      const { danger, safe, embers } = marks();
+      if (profile && (danger.size || safe.size || embers.size)) {
         const saved = profile.rules;
+        const emberOnly = !danger.size && !safe.size;
         // While marks are up the player's own "close in" moves become one-hex steps that never enter a
         // marked hex (and never leave a safe star); an explicit end of turn keeps the engine's appended
         // backup rules (move towards a random opponent) from walking them into the marks.
-        const step = safe.size ? null : safeStep(actor, danger);
+        const step = safe.size ? null : safeStep(actor, emberOnly ? new Set([...danger, ...embers]) : danger);
         let rules = [
           ...saved.flatMap((r: any) =>
             r.action.type !== "move_towards_opponent"
               ? [r]
               : step
                 ? [{ ...r, action: { type: "move_towards_opponent", target: "COORDINATE", coordinates: { longitude: step.x, latitude: step.y }, description: "harness: safe step" } }]
-                : [],
+                : emberOnly
+                  ? [r] // no clear step: walk in over the embers
+                  : [],
           ),
           { conditions: [], action: { type: "end_turn", description: "harness: hold while marked" } },
         ];
