@@ -373,10 +373,21 @@ if (flag("probe-check")) {
     const b = await runDungeon(v, s, false);
     delete g.__TNR_RULE_PROBE__;
     g.__TNR_RULE_PROBE__ = saved;
-    const sig = (r: typeof a) => JSON.stringify(r.attempts.map((x) => [x.floor, x.res.outcome, x.res.rounds, x.res.steps.map((st) => [st.actor, st.actionId, st.ruleIndex === null ? 0 : 1, Object.values(st.hp).map((h) => Math.round(h)).sort((p, q) => p - q)])]));
-    if (sig(a) !== sig(a2)) throw new Error(`determinism FAILED for seed ${s}: same seed, different outcome`);
+    const sig = (r: typeof a) => JSON.stringify(r.attempts.map((x) => [x.floor, x.res.outcome, x.res.rounds, x.res.steps.map((st) => [st.actor, st.actionId, st.ruleIndex === null ? 0 : 1, Object.values(st.hp).map((h) => Math.round(h)).sort((p, q) => p - q), st.actorFrom, st.actorTo])]));
+    const firstDiff = (x: string, y: string) => {
+      const A = JSON.parse(x), B = JSON.parse(y);
+      const i = A.findIndex((q: any, k: number) => JSON.stringify(q) !== JSON.stringify(B[k]));
+      const sa = A[i]?.[3] ?? [], sb = B[i]?.[3] ?? [];
+      const j = sa.findIndex((q: any, k: number) => JSON.stringify(q) !== JSON.stringify(sb[k]));
+      console.error(`first difference: attempt ${i} (floor ${A[i]?.[0]}), step ${j}:`, JSON.stringify(sa.slice(Math.max(0, j - 3), j + 1)), "vs", JSON.stringify(sb.slice(Math.max(0, j - 3), j + 1)));
+    };
+    if (sig(a) !== sig(a2)) {
+      firstDiff(sig(a), sig(a2));
+      throw new Error(`determinism FAILED for seed ${s}: same seed, different outcome`);
+    }
     // With the hook removed ruleIndex is null everywhere; compare everything else.
     const sigNoRule = (r: typeof a) => sig(r).replace(/,[01],\[/g, ",[");
+    if (sigNoRule(a) !== sigNoRule(b)) firstDiff(sigNoRule(a), sigNoRule(b));
     if (sigNoRule(a) !== sigNoRule(b)) throw new Error(`probe-check FAILED for seed ${s}`);
     console.log(`probe-check seed ${s}: identical (${a.attempts.length} floor battles)`);
   }

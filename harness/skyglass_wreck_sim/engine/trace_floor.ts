@@ -37,5 +37,5 @@ for (const s of r.steps) {
   }
   const hp = Object.entries(s.hp).map(([k, d]) => `${names.get(k) ?? k}:${Math.round(d)}`).join(" ");
   const marks = (s.groundAfter ?? []).filter((g: any) => g.staticAnimation && (g.rounds ?? 0) > 0).length;
-  console.log(`  ${(names.get(s.actorUid) ?? s.actor).padEnd(17)} ${jname(s.actionId).slice(0, 26).padEnd(26)} rule ${s.ruleIndex ?? "-"}/${s.authoredRules}${s.dodge ? " DODGE" : ""} ${JSON.stringify(s.actorFrom)}->${JSON.stringify(s.actorTo)} ${hp} ${s.effects.map((e) => e.type).join(",")}${marks ? ` marks:${marks}` : ""}`);
+  console.log(`  ${(names.get(s.actorUid) ?? s.actor).padEnd(17)} ${jname(s.actionId).slice(0, 26).padEnd(26)} rule ${s.ruleIndex ?? "-"}/${s.authoredRules}${s.dodge ? " DODGE" : ""} ${JSON.stringify(s.actorFrom)}->${JSON.stringify(s.actorTo)} ${hp} ${s.effects.map((e) => (e.target && e.target !== s.actorUid ? `${e.type}@${names.get(e.target) ?? "ground"}` : e.type)).join(",")}${marks ? ` marks:${marks}` : ""}`);
 }
