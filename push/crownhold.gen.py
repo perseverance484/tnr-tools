@@ -223,7 +223,7 @@ BOSS_NAME = "The Crowned Captain"  # username: the legacy Ghost Ship boss keeps 
 BOSS_PROSE = [("Supreme Commander Arakane", "the Crowned Captain"), ("the Supreme Commander", "the Crowned Captain"),
               ("The Supreme Commander", "The Crowned Captain")]
 CROWN = ("Above his white mask the Command Crown sits like frost: pale skyglass grown in jagged points around one tall "
-         "central blade, the same crystal that splinters from his armour. Every officer you passed on the way up, and "
+         "central blade threaded through a small ring of light, the same crystal that splinters from his armour. Every officer you passed on the way up, and "
          "every hand aboard the Skyglass ship, answered to that crown. You have been breaking its hold all the way up "
          "the mountain.")
 OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text keeps the original mechanics
