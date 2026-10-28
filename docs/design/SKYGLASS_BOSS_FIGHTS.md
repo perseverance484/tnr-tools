@@ -190,7 +190,74 @@ cove. It holds the dig site.
   - the level-50 copies carry the lower stats.
 - **No copies to rename.** Live jutsu are used as they are wherever only the name or battle text would change; the Captain uses the old Crowned Captain's live kit.
 - **Fewer patterns.** At most two per set piece, with lingering pools built into the base blast.
-- **Budget:** about 35 new jutsu for the Wreck crew and bosses, 10 for the Crowned Captain, and about 15 for the hunt bosses.
+- **Budget:** superseded by the set-piece library (5a): about 32 new jutsu in total.
+
+### 5a. The set-piece library (director, 2026-10-28: "a pass of our setup to see how we can minimize new jutsu")
+
+Every set piece is two jutsu, a mark and a blast. Most of the jutsu count is bosses each owning their own pair. The fix
+is a small **shared library**: each pattern is built once and used by every boss that needs it. Bosses keep their
+identity through their own kit, the battle-log line on their own moves, and one bespoke signature each.
+
+**Shared marks.** A mark is pure warning, the same danger language everywhere, so marks are always shared. There is one
+jutsu per pattern and icon. Each mark carries its own primed-marker type, so any two different marks can sit in one boss.
+
+| Mark | Pattern | Icon | Used by |
+|---|---|---|---|
+| Omen: Ring | radius-2 ring around the caster | red | Collapse, First Blade's ring, Armsmaster |
+| Omen: Binding Ring | radius-2 ring around the caster | violet | Ship's Bell |
+| Omen: Rows A / B | two fixed row pairs | red | Broadside, Tide Line, the Second |
+| Omen: Scatter A / B | two fixed scatters (a third of the arena) | red | Rupture Field, the Wayfinder's coastline, Shardstorm, Armsmaster |
+| Omen: Lines | fan of lines from the caster | red | Crownfall, Pour Line |
+| Omen: Seal Lines | cross of lines from the caster | violet | Script Lines, Replicant Zero |
+| Omen: Last Light | whole arena except three safe tiles | red field and cyan stars | Maw of the Deep, Quench |
+| Omen: Last Light, Binding | whole arena except three safe tiles | violet field and cyan stars | Command Absolute, Archive Lock |
+
+That is 10 marks. Mark names show in the battle log ("The Core Horror uses Omen: Ring"), and they double as a reading
+lesson.
+
+**Shared blasts.** A blast with no special effect is shared: one heavy blast per pattern, about 6 jutsu. It carries a
+neutral battle-log line ("The marked ground erupts.") and the matching shared animation.
+
+**Bespoke blasts, one signature per boss**, where the name, voice and animation are the payoff:
+- Maw of the Deep (with Exposed Seam);
+- Quench (with Cooling Shell);
+- Command Absolute ("Kneel.");
+- Crownfall;
+- Broadside ("Fire.");
+- Ship's Bell (push and stun).
+
+**Windows.** A boss's 1-round x3 window rides on its signature blast, or on one shared "lowered guard" self-jutsu with
+a neutral line, used by the Sealwright, the First Blade and the Second.
+
+**What is never new:** phase buffs, heals, roots, duel moves. These come from live jutsu used as they are.
+
+**Budget, everything** (Wreck, hunts, Crownhold):
+
+| Group | New jutsu |
+|---|---|
+| Shared marks | 10 |
+| Shared blasts | 6 |
+| Bespoke signatures | 6 |
+| Lowered guard | 1 |
+| Crew additions (Chain Hook, Oath of Stillness, Chart Mark, Aegis, Mending Seal, Ward of Command) | 6 |
+| Summons (Recall, Called to the Archive) | 2 |
+| The Crown's Will | 1 |
+| Barrier (or reuse a live barrier) | 0-1 |
+| **Total** | **about 32-33**, against 108 in the first build |
+
+## 7. Crownhold's commanders (director, 2026-10-28)
+
+The three division bosses keep the kits Crownhold built for them. Each gains **one library set piece and one window**, so
+they add no new jutsu of their own.
+
+| Commander | Library set piece | Window | Flavour |
+|---|---|---|---|
+| **The Armsmaster** (armoury, war-axe) | **Racks Fall:** Omen: Scatter, then the shared scatter blast, as the weapon racks come down. Later, **Whirlwind:** Omen: Ring, then the shared ring blast | none; he is the straight fight that teaches the marks | "\"Every weapon the Project ever tested. Mind your footing.\"" |
+| **Replicant Zero** (the first returned; clones, copies) | **Jar Seals:** Omen: Seal Lines, then a shared violet blast. Split Image clones stand on the lines with him | none; his trick is the clone: hit the one that casts a shadow | "\"I would like a copy.\"" |
+| **The Second** (the only officer allowed to question the crown) | **Order of Battle:** Omen: Rows, then Sovereign Undertow (his live pull) drags the player into the rows before they fire (a two-marker chain) | **He questions the order**, under 30%, once: the shared lowered guard for 1 round. "\"I questioned his orders for thirty years.\"" | the line is the payoff |
+
+Their numbers are tuned in the harness against one solo endgame player, as a ramp: Armsmaster, then Replicant Zero, then
+the Second, then the Crowned Captain.
 
 ## 6. Engine recipe (harness-confirmed)
 
