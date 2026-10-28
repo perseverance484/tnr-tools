@@ -72,6 +72,13 @@ export const PATTERNS = {
   lines: uniq([...rays(FAN, 5, 0), ...rays(FAN, 5, 1)]),
   /** Diagonal cross (NW, NE, SW, SE; length 5), union of both row parities. */
   sealLines: uniq([...rays(CROSS, 5, 0), ...rays(CROSS, 5, 1)]),
+  /** Minor marks (caster-anchored, so the marked hexes stay put until the blast): Splash = the hex two west of the
+   * caster and its neighbours (union of both row parities: a 3 x 3 block); Short line = the W ray, 3 hexes. */
+  splash: uniq([{ longitude: -2, latitude: 0 }, ...[0, 1].flatMap((par) => (["W", "E", "NW", "NE", "SW", "SE"] as Dir[]).map((d) => {
+    const [dc, dr] = STEP[d][par]!;
+    return { longitude: -2 + dc, latitude: dr };
+  }))]),
+  shortLine: rayFrom("W", 3, 0),
   /** Exact single-parity offset sets, for a boss on a known row. */
   linesByRowParity: { even: rays(FAN, 5, 0), odd: rays(FAN, 5, 1) },
   sealLinesByRowParity: { even: rays(CROSS, 5, 0), odd: rays(CROSS, 5, 1) },
@@ -98,15 +105,21 @@ export const MARKER_TYPES = {
   sealLines: "elementalseal",
   lastLight: "summonprevent",
   lastLightBinding: "sealprevent",
+  /** Minor marks for regular crew (RUL-2026-10-28-024). +1% heal given / 1% lifesteal on the caster for one round: no
+   * library or Wreck crew record carries either type, and neither is a shared-cooldown or prevent type. */
+  splash: "increaseheal",
+  shortLine: "lifesteal",
 } as const;
 export type MarkKey = keyof typeof MARKER_TYPES;
 
 // Prevent-style tags apply with probability power/100, so those markers carry power 100.
 const markerTag = (type: string) =>
-  tag(type, {
-    power: ["increasecooldown", "decreasecooldown", "increaserange"].includes(type) ? 1 : 100, rounds: 1, target: "SELF",
-    ...(["increasecooldown", "decreasecooldown", "increaserange"].includes(type) ? { actionsAffected: [], calculation: "static" } : {}),
-  });
+  ["increaseheal", "lifesteal"].includes(type)
+    ? tag(type, { power: 1, rounds: 1, target: "SELF", calculation: "percentage" })
+    : tag(type, {
+        power: ["increasecooldown", "decreasecooldown", "increaserange"].includes(type) ? 1 : 100, rounds: 1, target: "SELF",
+        ...(["increasecooldown", "decreasecooldown", "increaserange"].includes(type) ? { actionsAffected: [], calculation: "static" } : {}),
+      });
 
 /** Library ids (placeholders until the builder mints real ids). */
 export const LIB = {
@@ -114,10 +127,12 @@ export const LIB = {
     ring: "lib-omen-ring", bindingRing: "lib-omen-binding-ring", rowsA: "lib-omen-rows-a", rowsB: "lib-omen-rows-b",
     scatterA: "lib-omen-scatter-a", scatterB: "lib-omen-scatter-b", lines: "lib-omen-lines", sealLines: "lib-omen-seal-lines",
     lastLight: "lib-omen-last-light", lastLightBinding: "lib-omen-last-light-binding",
+    splash: "lib-omen-splash", shortLine: "lib-omen-short-line",
   } as Record<MarkKey, string>,
   blast: {
     ring: "lib-blast-ring", rowsA: "lib-blast-rows-a", rowsB: "lib-blast-rows-b", scatterA: "lib-blast-scatter-a",
     scatterB: "lib-blast-scatter-b", lines: "lib-blast-lines", sealLines: "lib-blast-seal-lines",
+    splash: "lib-blast-splash", shortLine: "lib-blast-short-line",
   },
   sig: {
     maw: "lib-maw-of-the-deep", quench: "lib-quench", commandAbsolute: "lib-command-absolute", crownfall: "lib-crownfall",
@@ -133,6 +148,7 @@ export const LIB = {
 export const ANSWERS: Record<string, MarkKey> = {
   [LIB.blast.ring]: "ring", [LIB.blast.rowsA]: "rowsA", [LIB.blast.rowsB]: "rowsB", [LIB.blast.scatterA]: "scatterA",
   [LIB.blast.scatterB]: "scatterB", [LIB.blast.lines]: "lines", [LIB.blast.sealLines]: "sealLines",
+  [LIB.blast.splash]: "splash", [LIB.blast.shortLine]: "shortLine",
   [LIB.sig.maw]: "lastLight", [LIB.sig.quench]: "lastLight", [LIB.sig.commandAbsolute]: "lastLightBinding",
   [LIB.sig.crownfall]: "lines", [LIB.sig.broadside]: "rowsA", [LIB.sig.shipsBell]: "bindingRing",
 };
@@ -140,6 +156,7 @@ export const ANSWERS: Record<string, MarkKey> = {
 export const LIB_POWERS = {
   blastRing: 160, blastRows: 140, blastScatter: 140, scatterPool: 30, blastLines: 150, sealLinesDamage: 60,
   maw: 200, quench: 220, commandAbsolute: 80, crownfall: 180, broadside: 140, shipsBell: 50,
+  splash: 80, shortLine: 90,
   chainHook: 45, oath: 35, aegisShield: 1500, mending: 20, wardDR: 80,
 };
 
@@ -187,6 +204,18 @@ export const buildLibrary = () => {
   mark("sealLines", "Omen: Seal Lines", "COORDINATES", 0, [violet()], field("ALL", PATTERNS.sealLines, "CASTER"), 4, "Seal script runs out from %user in four lines.");
   mark("lastLight", "Omen: Last Light", "COORDINATES", 0, [red(), safe()], field("EXCLUDE", PATTERNS.stars), 6, "The whole field darkens. Three points of skyglass light remain.");
   mark("lastLightBinding", "Omen: Last Light, Binding", "COORDINATES", 0, [violet(), safe()], field("EXCLUDE", PATTERNS.stars), 6, "Violet script covers the field. Three points of skyglass light remain.");
+  /* ---- minor marks (regular crew; RUL-2026-10-28-024) ----
+   * Caster-anchored COORDINATES patterns, cast with rule target SELF. A target-anchored blast (origin TARGET,
+   * AOE_CIRCLE_SPAWN or AOE_LINE_SHOOT) is re-aimed at the target's current hex on the next turn, so stepping off the
+   * marked hexes did not avoid it (probe_library); a caster-anchored pattern stays where it was marked. No floor
+   * coverage, no safe tiles. */
+  const minorMark = (key: "splash" | "shortLine", name: string, line: string) =>
+    add(jutsu(LIB.mark[key], {
+      name, description: `A minor warning mark (${name}). Its blast follows on the caster's next turn.`, battleDescription: line,
+      target: "GROUND", method: "COORDINATES", range: 0, cooldown: 3, actionCostPerc: 40, coordinateTargeting: field("ALL", PATTERNS[key], "CASTER"), effects: [red(), markerTag(MARKER_TYPES[key])],
+    }));
+  minorMark("splash", "Omen: Splash", "%user marks a patch of deck in front of them.");
+  minorMark("shortLine", "Omen: Short Line", "%user sights down a short line.");
   /* ---- shared blasts ---- */
   const blast = (id: string, name: string, target: string, method: string, range: number, ct: any, effects: any[], line = "The marked ground erupts.") =>
     add(jutsu(id, { name, description: `Shared blast: fires on the hexes its Omen marked.`, battleDescription: line, target, method, range, cooldown: 2, actionCostPerc: 100, coordinateTargeting: ct, effects }));
@@ -199,6 +228,8 @@ export const buildLibrary = () => {
   blast(LIB.blast.lines, "Eruption: Lines", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.lines, "CASTER"), [heavy(p.blastLines)]);
   blast(LIB.blast.sealLines, "Binding: Seal Lines", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.sealLines, "CASTER"),
     [T.damage(p.sealLinesDamage, { appearAnimation: anim("dt_control") }), ...LOCK(2)], "The marked lines close.");
+  blast(LIB.blast.splash, "Eruption: Splash", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.splash, "CASTER"), [T.damage(p.splash, { appearAnimation: anim("dt_heavy"), friendlyFire: "ENEMIES" })], "The marked planks burst.");
+  blast(LIB.blast.shortLine, "Eruption: Short Line", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.shortLine, "CASTER"), [T.damage(p.shortLine, { appearAnimation: anim("dt_heavy"), friendlyFire: "ENEMIES" })], "A short line of force cuts across the deck.");
   /* ---- bespoke signatures ---- */
   const sig = (id: string, f: { name: string; description: string; line: string; target: string; method: string; range: number; ct?: any; effects: any[] }) =>
     add(jutsu(id, { name: f.name, description: f.description, battleDescription: f.line, target: f.target, method: f.method, range: f.range, cooldown: 2, actionCostPerc: 100, coordinateTargeting: f.ct, effects: f.effects }));

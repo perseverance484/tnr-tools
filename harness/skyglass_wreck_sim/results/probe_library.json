@@ -10,7 +10,9 @@
   "lines": "disarm",
   "sealLines": "elementalseal",
   "lastLight": "summonprevent",
-  "lastLightBinding": "sealprevent"
+  "lastLightBinding": "sealprevent",
+  "splash": "increaseheal",
+  "shortLine": "lifesteal"
  },
  "probes": [
   {
@@ -553,6 +555,334 @@
    "bossEffects": [],
    "playersHit": 0,
    "newEffects": []
+  }
+ ],
+ "minor": [
+  {
+   "mark": "Omen: Splash",
+   "blast": "Eruption: Splash",
+   "markerType": "increaseheal",
+   "scenario": "stays, 2 hexes west",
+   "blastCast": true,
+   "playerHit": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Splash",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "increaseheal"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 1,
+     "bossEffects": [
+      "increaseheal:1:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Splash",
+     "rule": 0,
+     "bossEffects": [
+      "increaseheal:1:r1"
+     ],
+     "playersHit": 1,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Splash",
+   "blast": "Eruption: Splash",
+   "markerType": "increaseheal",
+   "scenario": "dodges, 2 hexes west",
+   "blastCast": false,
+   "playerHit": false,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Splash",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "increaseheal"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 1,
+     "bossEffects": [
+      "increaseheal:1:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "player": true,
+     "to": [
+      7,
+      4
+     ],
+     "round": 2,
+     "action": "move",
+     "rule": null,
+     "bossEffects": [
+      "increasemaxpools:500:r19",
+      "increasemaxpools:500:r19",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasemaxpools:200:r19",
+      "increasestat:20:r99",
+      "absorb:30:r4"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "player": true,
+     "to": [
+      8,
+      4
+     ],
+     "round": 2,
+     "action": "move",
+     "rule": null,
+     "bossEffects": [
+      "increasemaxpools:500:r19",
+      "increasemaxpools:500:r19",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasemaxpools:200:r19",
+      "increasestat:20:r99",
+      "absorb:30:r4"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "wait",
+     "rule": 1,
+     "bossEffects": [
+      "increaseheal:1:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Splash",
+   "blast": "Eruption: Splash",
+   "markerType": "increaseheal",
+   "scenario": "stays, off the pattern",
+   "blastCast": false,
+   "playerHit": false,
+   "steps": [
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Short Line",
+   "blast": "Eruption: Short Line",
+   "markerType": "lifesteal",
+   "scenario": "stays, 2 hexes west",
+   "blastCast": true,
+   "playerHit": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Short Line",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "lifesteal"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 1,
+     "bossEffects": [
+      "lifesteal:1:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Short Line",
+     "rule": 0,
+     "bossEffects": [
+      "lifesteal:1:r1"
+     ],
+     "playersHit": 1,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Short Line",
+   "blast": "Eruption: Short Line",
+   "markerType": "lifesteal",
+   "scenario": "dodges, 2 hexes west",
+   "blastCast": false,
+   "playerHit": false,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Short Line",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "lifesteal"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 1,
+     "bossEffects": [
+      "lifesteal:1:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "player": true,
+     "to": [
+      7,
+      4
+     ],
+     "round": 2,
+     "action": "move",
+     "rule": null,
+     "bossEffects": [
+      "increasemaxpools:500:r19",
+      "increasemaxpools:500:r19",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasemaxpools:200:r19",
+      "increasestat:20:r99",
+      "absorb:30:r4"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "wait",
+     "rule": 1,
+     "bossEffects": [
+      "lifesteal:1:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Short Line",
+   "blast": "Eruption: Short Line",
+   "markerType": "lifesteal",
+   "scenario": "stays, off the pattern",
+   "blastCast": false,
+   "playerHit": false,
+   "steps": [
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
   }
  ]
 }

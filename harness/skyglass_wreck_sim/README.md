@@ -42,6 +42,12 @@ TNR_SCRIPT=probe_telegraph.ts harness/skyglass_wreck_sim/run.sh --out harness/sk
 # Boss-fight mechanic probes (two-marker chain, weakness window, ring/bell, Chain Hook, barriers):
 TNR_SCRIPT=probe_boss.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_boss.json
 
+# Shared set-piece library (engine/library.ts) -> library_spec.json, and its marker / minor-mark probes:
+TNR_SCRIPT=build_library.ts harness/skyglass_wreck_sim/run.sh
+TNR_SCRIPT=probe_library.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_library.json
+# Delayed GROUND damage probe (elementaldamage, damage over rounds, poison/wound/afterburn/drain):
+TNR_SCRIPT=probe_ground.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_ground.json
+
 # Build the designed dungeon-copy kits (engine/kits.ts) into an override + build_spec.json section:
 TNR_SCRIPT=build_kits.ts harness/skyglass_wreck_sim/run.sh \
     --params harness/skyglass_wreck_sim/overrides/kits_endgame.params.json
@@ -62,7 +68,13 @@ Options: `--variants a,b` (player tiers, below), `--runs N`, `--seed S` (first s
 (retries before a run is abandoned; default 3), `--max-rounds N` per floor battle (default 150),
 `--floors i,j`, `--no-barriers`, `--override file.json`, `--out file.json`,
 `--dmg-config live|default|file.json` (default `live`, see below).
-`--no-dodge` turns off the harness dodge (below).
+`--no-dodge` turns off the harness dodge (below). `--pets` gives each player one modelled companion (below).
+
+**Pets (`--pets`, `model.ts petFor`).** No pet record exists in the committed captures, so each player brings a
+modelled mid-rank companion: pet rank = half the owner's maximum (JONIN owner: rank 5, level 30; CHUNIN owner: rank 3,
+level 15), stats at half the caps of the matching character rank, species COMMON / ASSAULT, no jutsu, the engine's
+default pet rules. They enter through the engine's own pet path (`processUsersForBattle` `petPreload`), and the
+harness re-seats each beside its owner's redrawn spawn cell.
 
 **Dodging (harness auto-player, not engine behaviour).** At a player's turn, if they stand on a hex an
 enemy marked `tg_heavy` / `tg_control`, or in a `tg_linger` pool, or an arena-wide mark is up (`tg_safe`
@@ -74,7 +86,10 @@ are in each variant's `dodge` block.
 
 **Determinism.** Each run seeds Math.random (combat rolls, spawn redraw) and, separately, the id entropy the engine
 draws from crypto.getRandomValues through nanoid (`seedEntropy`), so a seed reproduces a run even with clones or
-summons on the field. `--probe-check` verifies it.
+summons on the field. The wall clock is virtual (`seedClock` / `tickClock`: a fixed epoch per run, +1 s per action),
+because the engine's 60 s round timer otherwise made outcomes depend on machine load. Pets' engine-drawn cells are
+cleared before they are re-seated (the engine draws spawn cells with unseeded node:crypto). `--probe-check` runs each
+seed twice plus once with the rule probe removed and compares actions, HP changes and positions.
 
 **Kits (`engine/kits.ts`, `engine/kitlib.ts`, `engine/build_kits.ts`).** The dungeon copies (ids `dg-*`,
 placeholders), their dungeon-only jutsu and priority rules are built in code from captured shape donors

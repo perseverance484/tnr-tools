@@ -18,7 +18,7 @@ const dmg = loadDmgConfig(H, "live");
 const J = buildLibrary();
 const blastFor = (k: MarkKey) => Object.keys(ANSWERS).find((id) => ANSWERS[id] === k)!;
 
-const run = async (key: string, rules: any[], kit: string[], boss: [number, number], players: [number, number][], rounds: number) => {
+const run = async (key: string, rules: any[], kit: string[], boss: [number, number], players: [number, number][], rounds: number, dodge = false) => {
   const ov: any = { jutsu: J, newEnemies: { boss: { base: "Deck Warden", username: `Boss ${key}`, jutsuIds: kit, rules, includeDefaultRules: false, effects: [] } } };
   const t = buildTemplates(baseline, ov);
   const rows = Object.fromEntries(Object.entries(t.enemies).map(([id, e]) => [id, enemyQueryUser(e)]));
@@ -33,8 +33,9 @@ const run = async (key: string, rules: any[], kit: string[], boss: [number, numb
     const u = b.usersState.find((x) => x.userId === p.userId)!;
     [u.longitude, u.latitude] = players[i]!;
   });
-  const res = runFloor(b, { playerIds: ps.map((p) => p.userId), maxRounds: rounds, detail: true });
-  return res.steps.filter((s) => s.actorUid === bu.userId).map((s) => ({
+  const res = runFloor(b, { playerIds: ps.map((p) => p.userId), maxRounds: rounds, detail: true, dodge });
+  return res.steps.filter((s) => s.actorUid === bu.userId || (dodge && s.dodge)).map((s) => ({
+    ...(s.actorUid !== bu.userId ? { player: true, to: s.actorTo } : {}),
     round: s.round, action: J[s.actionId ?? ""]?.name ?? s.actionId, rule: s.ruleIndex,
     bossEffects: (s.actorEffects ?? []).map((e) => `${e.type}:${e.power}:r${e.rounds}`),
     playersHit: Object.entries(s.hp).filter(([k, d]) => k !== bu.userId && d < 0).length,
@@ -47,7 +48,8 @@ const out: any = { generatedBy: "engine/probe_library.ts", markerTypes: MARKER_T
 // A CHARACTER blast with nobody on its hexes is not a valid cast (the marker then simply expires).
 const boss: [number, number] = [8, 5];
 const players: [number, number][] = [[7, 5], [6, 5], [3, 3], [8, 4], [5, 7]];
-for (const k of Object.keys(MARKER_TYPES) as MarkKey[]) {
+const MINOR: MarkKey[] = ["splash", "shortLine"];
+for (const k of (Object.keys(MARKER_TYPES) as MarkKey[]).filter((x) => !MINOR.includes(x))) {
   const markId = LIB.mark[k];
   const blastId = blastFor(k);
   const steps = await run(k, [cast("blast", blastId, "SELF", [cond.marker(1, MARKER_TYPES[k])]), cast("mark", markId, "SELF"), endTurn()], [markId, blastId], boss, players, 3);
@@ -63,6 +65,22 @@ for (const k of Object.keys(MARKER_TYPES) as MarkKey[]) {
   const steps = await run("coexist", rules, [LIB.mark[a], LIB.mark[c], blastFor(a), blastFor(c)], boss, players, 3);
   out.coexistence = steps;
   console.log(`coexist: ${steps.map((s) => `r${s.round}:${s.action} [${s.bossEffects.filter((e) => /cooldown|robprevent/.test(e)).join(",")}]`).join(" | ")}`);
+}
+// Minor marks (caster-anchored): one player on the pattern two hexes west of the caster; standing still vs the harness
+// dodge (one-hex steps off the marked hexes). A target-anchored build (AOE_CIRCLE_SPAWN / AOE_LINE_SHOOT on the target)
+// hit the dodging player too: the blast re-aims at the target's current hex.
+out.minor = [];
+for (const k of MINOR) {
+  const markId = LIB.mark[k];
+  const blastId = blastFor(k);
+  const rules = [cast("blast", blastId, "SELF", [cond.marker(1, MARKER_TYPES[k])]), endTurn("hold", [cond.marker(1, MARKER_TYPES[k])]), cast("mark", markId, "SELF", [cond.near(3)]), endTurn()];
+  for (const [label, pos, dodge] of [["stays, 2 hexes west", [6, 5], false], ["dodges, 2 hexes west", [6, 5], true], ["stays, off the pattern", [6, 2], false]] as const) {
+    const steps = await run(`${k} ${label}`, rules, [markId, blastId], boss, [pos as [number, number]], 3, dodge);
+    const blastStep = steps.find((s: any) => !s.player && s.action === J[blastId].name);
+    const hit = steps.some((s: any) => !s.player && s.action === J[blastId].name && s.playersHit > 0);
+    out.minor.push({ mark: J[markId].name, blast: J[blastId].name, markerType: MARKER_TYPES[k], scenario: label, blastCast: !!blastStep, playerHit: hit, steps });
+    console.log(`${k.padEnd(10)} ${label.padEnd(20)} blast ${blastStep ? "cast" : "not cast"}, player ${hit ? "HIT" : "not hit"}: ${steps.map((s: any) => (s.player ? `r${s.round}:dodge->${JSON.stringify(s.to)}` : `r${s.round}:${s.action}${s.playersHit ? `(hit ${s.playersHit})` : ""}`)).join(" ")}`);
+  }
 }
 if (outPath) {
   mkdirSync(dirname(resolve(outPath)), { recursive: true });

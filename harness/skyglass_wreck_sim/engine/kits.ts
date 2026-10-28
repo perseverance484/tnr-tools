@@ -142,13 +142,25 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2">) => {
     moveTo("keep range: close only when out of reach", "CLOSEST_OPPONENT", [cond.far(6)]),
     highest("highest-power damage", "CLOSEST_OPPONENT"),
   ];
+  // Minor marks (RUL-2026-10-28-024): blast first when primed; mark when a player is within 3 (cooldown 3, so not every
+  // turn); while primed the caster holds its hex (the patterns are caster-anchored), attacking but not moving.
+  const minor = (k: "splash" | "shortLine") => ({
+    blast: cast(`Eruption: ${k === "splash" ? "Splash" : "Short Line"} (primed)`, LIB.blast[k], "SELF", [cond.marker(1, MARKER_TYPES[k])]),
+    mark: cast(`Omen: ${k === "splash" ? "Splash" : "Short Line"} (a player within 3)`, LIB.mark[k], "SELF", [cond.within(1, 3)]),
+    hold: endTurn("hold position while the minor mark is up", [cond.marker(1, MARKER_TYPES[k])]),
+  });
+  const mS = minor("splash");
+  const mL = minor("shortLine");
   const warden = [
+    mS.blast,
     cast("Warden's Resolve (live Windlash Focus, opener)", LIVE.windlash, "SELF"),
     cast("Chain Hook (top threat 3+ hexes away)", LIB.crew.chainHook, "HIGHEST_ENMITY_OPPONENT", [cond.far(3, "HIGHEST_ENMITY_OPPONENT")]),
+    mS.mark,
     ...focus(LIVE.tideBolt),
     cast("Quick Strike", LIVE.quickStrike, "HIGHEST_ENMITY_OPPONENT", [cond.near(3, "HIGHEST_ENMITY_OPPONENT")]),
     cast("Tide Bolt", LIVE.tideBolt, "HIGHEST_ENMITY_OPPONENT", [cond.near(5, "HIGHEST_ENMITY_OPPONENT")]),
     cast("Tide Bolt (closest, top threat out of reach)", LIVE.tideBolt, "CLOSEST_OPPONENT", [cond.near(5)]),
+    mS.hold,
     moveTo("move towards the top threat", "HIGHEST_ENMITY_OPPONENT", [cond.far(2, "HIGHEST_ENMITY_OPPONENT")]),
     highest("highest-power damage", "CLOSEST_OPPONENT"),
   ];
@@ -159,10 +171,13 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2">) => {
     endTurn(),
   ];
   const sentinel = [
+    mL.blast,
     cast("Skyglass Aegis on an ally", LIB.crew.aegis, "LOWEST_MAX_HEALTH_ALLY"),
+    mL.mark,
     cast("Counter Stance (under 60%)", LIVE.counter, "SELF", [cond.hp(60)]),
     cast("Rigging Snare", LIVE.riggingSnare, "CLOSEST_OPPONENT", [cond.near(4)]),
     cast("Twin Kunai", LIVE.twinKunai, "CLOSEST_OPPONENT", [cond.near(5)]),
+    mL.hold,
     moveTo("move towards", "CLOSEST_OPPONENT", [cond.far(2)]),
     highest("highest-power damage", "CLOSEST_OPPONENT"),
   ];
@@ -190,12 +205,15 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2">) => {
     highest("highest-power damage", "CLOSEST_OPPONENT"),
   ];
   const wayfinder = [
+    mL.blast,
     cast("Chart Mark on the top threat", LIB.crew.chartMark, "HIGHEST_ENMITY_OPPONENT", [cond.near(5, "HIGHEST_ENMITY_OPPONENT")]),
     cast("Chart Mark on the closest (top threat out of reach)", LIB.crew.chartMark, "CLOSEST_OPPONENT", [cond.near(5)]),
+    mL.mark,
     cast("Keelbind at range", LIVE.keelbind, "HIGHEST_ENMITY_OPPONENT", [cond.near(5, "HIGHEST_ENMITY_OPPONENT")]),
     cast("Afterimage Decoy (live Split Image, a player within 2)", LIVE.splitImage, "EMPTY_GROUND_CLOSEST_TO_SELF", [cond.within(0, 2)]),
     ...focus(LIVE.twinKunai),
     cast("Twin Kunai", LIVE.twinKunai, "CLOSEST_OPPONENT", [cond.near(5)]),
+    mL.hold,
     moveTo("keep range: close only when out of reach", "CLOSEST_OPPONENT", [cond.far(6)]),
     highest("highest-power damage", "CLOSEST_OPPONENT"),
   ];
