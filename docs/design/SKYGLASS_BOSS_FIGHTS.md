@@ -305,3 +305,17 @@ targets: pending harness rerun.
 3. Can a ground effect grant `injectjutsus` to whoever ends a move on it? Is the injected jutsu preloaded into the battle? Does it disappear after one use? (Crown Shard is cut; director, 2026-10-28: "maybe for another fight. Or in another manner. Like standing on a tile to gain access to a heal or a teamwide buff". Kept as a toolkit question for later fights.)
 4. Settled by the director: Last Directive keeps clearprevent, so no clear is needed.
 5. Will players attack a barrier when it blocks their path?
+
+
+## 8. Rare-run twists (RUL-2026-10-28-020; mechanics to be proven in the harness)
+
+Each rare run gets one signature twist, so it doesn't replay the hunt bosses in the same way.
+- **The Fall: spreading fire.**
+  - Each round, the burning decks lay ember tiles on more hexes. Ground damage is instant and ground afterburn does nothing, so the embers are `drain` tiles: standing on one burns you on your next action.
+  - Candidate engine route: an immobile hazard AI (Seal Charge pattern) that casts a growing ember pattern each round.
+  - The safe ground shrinks toward the gangway.
+- **The Sealed Reliquary: the reliquary remembers.**
+  - Each echo that falls leaves its signature set piece behind. A static hazard echo keeps casting it during the next fight, so the gauntlet layers up: the Warden's pour lines under the Sealwright, then both under the Sentinel.
+  - Candidate engine route: per-fight hazard records holding the previous boss's library mark-and-blast pair.
+
+Tainted versions keep the same twist and add their own (loot tables §5).
