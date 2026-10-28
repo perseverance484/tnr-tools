@@ -2,7 +2,7 @@
  "manifest": "push/319_skyglass_update.json",
  "ruling": "RUL-2026-10-28-002",
  "reason": "law 6 caps pierce power at 100 but PierceTag power has no maximum (live Core Rupture is 120). The build-order lint orders by entity type and ignores explicit phases; law 18 needs AI edits (kit off) before the jutsu/item edits and after them (kit back on), which Forge runs by phase.",
- "sha256": "bb71f94f2ba35292efaf41664256c87ebb519072a6504ece1ec9be0e4e8ae970",
+ "sha256": "c4c128221d44d4e60e5485cd1f1d72df4cc6979f5da1c2c50d3cfec858b689ad",
  "accepted": [
   "ERROR  [jutsu:Core Rupture: small heavy blast]: law 6: effect 'pierce' power 180 exceeds the cap of 100 (rows are rounded down)",
   "ERROR  manifest: build order: ai appears after a later phase",
