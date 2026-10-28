@@ -35,7 +35,7 @@ Follow their charts, and the last light out of Crownhold leads you to the man wh
   - "They built this ship to cross any wall and outlast any siege. No one asked what outlasting everything would cost."
   - This is why the two look alike. Players beat the Captain at the wreck, then meet the face again at Crownhold: "I defeated you once!" / "I control... many echoes."
   - No line refers to the old Ghost Ship quests, which are being retired. The hints are subtle: he touches his bare brow; "I wear his face."
-- **The Silence.** A generation ago Crownhold stopped answering. Its living people are gone. Its last directive is not: *hold your posts; none is relieved until the mission is done*. No one living remembers what the mission was.
+- **The Silence.** A generation ago Crownhold stopped answering. Its living people are gone. Its last directive is not: *preserve command, preserve the crew, hold until the mission is done*. None is relieved. No one living remembers what the mission was.
 - **The Ghost Ship.** For decades the war-ship crossed the sky on routes that no longer exist, appearing where no ship belonged, the Wayfinder correcting its charts against a world that kept changing.
 - **The Wreck (now).**
   - The ship has come down on the shore with its Core cracked.
@@ -44,6 +44,25 @@ Follow their charts, and the last light out of Crownhold leads you to the man wh
 - **The Lastlight Lantern** holds Crownhold's last signal, caught in skyglass. The crew still obey the order it carries. Its light points home to Crownhold.
 - **The end.** Breaking the Command Crown frees every echo it holds: the officers on the mountain, and the crew on the shore. Its blades scatter as the **Fragments of the Skyglass Crown**.
   - The event stays repeatable. Each player's story is their own, and the wreck keeps mending until someone breaks the crown again.
+
+## The Ghost Ship's lore, carried forward
+
+The Ghost Ship quests are retiring, so no line may depend on players having seen them. Their best beats live on as
+echoes, which reward veterans without excluding anyone.
+
+| Old beat | Where it lives now |
+|---|---|
+| The ship appears without approach, a black hull under the moon, "destroyed decades ago" | The Wreck: "The Ghost Ship has finally come down" |
+| Deck Warden: young face, uniform generations out of date; the ship restarts him | Foundry intake; the Wreck's endless Wardens |
+| Core Horror: the ship remembers a crew member badly | Archive descent |
+| Oathkeeper: "Time. We had plenty of that." / "I know that I died, but not how to finish this watch." | The Watch landing: "We have always had time." |
+| Wayfinder: "Still no home port." | The Watch chart room. The home port is Crownhold, which the Lantern points to |
+| Arsenal Keeper: shore leave crossed out, "crew not relieved" | Foundry ledger; the shared refrain "None is relieved" |
+| First Blade: "Finally. Something new." / "That was new." | The Watch deck |
+| The Captain: empty ring of white crystal above him; "The ship died once. Skyglass disagreed." | The Watch helm: the empty ring, "The crown disagreed." |
+| The Crown completes itself around the Captain: the Crowned Captain | The Crowned Captain reaching through his echo. "I defeated you once!" lands for veterans and for new players who beat the Captain |
+| The order: "preserve command, preserve crew, keep the vessel airborne until the mission ended. The mission never ended." | Crownhold: he gave the order; it is carved behind his throne, and the mission line is blank stone |
+| The Sealwright's suppressed reports; the Skyglass Reliquary | The Archive: replies sealed with the crown from Crownhold; the reliquary chained behind him |
 
 ## What each surface reveals (in play order)
 
