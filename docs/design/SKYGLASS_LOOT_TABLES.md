@@ -13,7 +13,7 @@
 | Archive Chart Case | the four hunt maps | Quarantined Archive pick |
 | Sage's Strongbox | battle reagents, elite pills, forbidden scrolls | Quarantined Archive pick |
 | Medicine Inro | all pills and potions, Pill Pack included | Captain's Watch pick |
-| Tool Pouches ×5 | element kunai, smoke, oil, venom, bombs, senbon, saki | Drowned Foundry pick |
+| Elemental Tool Pouch | Elemental Kunai, smoke, oil, venom, bombs, senbon, saki | Drowned Foundry and Armory Requisition pick |
 | Charts / Lastlight Lantern | hunt access | Wreck clear drops, Archive Chart Case |
 
 ## 2. Wreck clear (each member)
@@ -54,7 +54,7 @@ The Skyglass Crystal is not in the Coffer: it comes only from crafting 12 Skygla
 
 **Sage's Strongbox** — Common 65 (Dr. Kim Disaster Potion ×20 / Chakra Disrupting Needles ×20); Epic 26 (Infernum ×10 / Bashōsen ×10 / Dr. Kim's Poison Potion ×10); Legendary 8 (Solider Pill ×5 / Enemy Pill ×5 / Mona's Mermaid Song ×5; Pill Pack removed, the Inro owns it); Forbidden 1 (Forbidden Jutsu Scroll: Nexus ×1 / Rebirth ×1).
 
-**Tool Pouches** (Katon, Wave, Ikazuchi, Stonefall, Zephyrfang) — that element's kunai ×10 every opening, plus one roll: Common 70 (kunai ×10 / Smoke Pellet ×10 / Whetstone Oil ×10 / Venom Cask ×10; Chakra Disrupting Needles removed, the Strongbox owns them); Rare 25 (kunai ×20 / Elite Smoke Bomb ×10 / Paper Bombs ×10); Epic 5 (kunai ×30 / Senbon Needles ×10 / Saki ×10).
+**Elemental Tool Pouch** (RUL-2026-10-28-003; was five element pouches, now one: the Katon pouch record, re-pointed) — Elemental Kunai ×10 every opening, plus one roll: Common 70 (kunai ×10 / Smoke Pellet ×10 / Whetstone Oil ×10 / Venom Cask ×10; Chakra Disrupting Needles removed, the Strongbox owns them); Rare 25 (kunai ×20 / Elite Smoke Bomb ×10 / Paper Bombs ×10); Epic 5 (kunai ×30 / Senbon Needles ×10 / Saki ×10).
 
 ## 4. Treasure hunts
 
@@ -62,7 +62,7 @@ Every hunt is an isolated Battle Pyramid. **Ending rewards** (always paid, every
 
 | Hunt | Pick 1 of |
 |---|---|
-| Drowned Foundry | Katon / Wave / Ikazuchi / Stonefall / Zephyrfang Tool Pouch |
+| Drowned Foundry | Elemental Tool Pouch / Medicine Inro / 50,000 ryo |
 | Quarantined Archive | Archive Chart Case · Sage's Strongbox · The Records (exp lump) |
 | Buried Cache | 50,000 ryo · 5,000 exp · Medicine Inro ×1 (RUL-2026-10-25-012) |
 | Captain's Watch | Skyglass Coffer · Captain's Purse (ryo lump) · Medicine Inro ×3 |
@@ -83,4 +83,4 @@ The Sealwright's doubled health (push/252) applies to the Archive's final fight 
 - Reward packages are built in the game's catalog editor until Forge has a package recipe.
 - Closed (RUL-2026-10-24-024): the Skyglass Reliquary, the Mystery Chest and the other old Ghost Ship chests are retired relics; their contents, including the Mystery Chest's Reliquary line, are left as they are.
 
-**Armory Requisition** (RUL-2026-10-25-014): untradeable token; using it starts a one-node Special quest whose pick is 1 of the five Tool Pouches. Source: the Wreck's chest of chests (Rare tier).
+**Armory Requisition** (RUL-2026-10-25-014): untradeable token; using it starts a one-node Special quest whose pick is 1 of: Elemental Tool Pouch / Medicine Inro / 50,000 ryo (RUL-2026-10-28-003). Source: the Wreck's chest of chests (Rare tier).

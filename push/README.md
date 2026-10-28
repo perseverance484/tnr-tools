@@ -1150,3 +1150,15 @@ stays. **317** converts it (method ALL -> AOE circle spawn, range 5, pierce 120 
 unchanged), then re-equips it on both. Rules untouched. Gates: 316 `validate.py --strict` 0 errors, 0 warnings; 317 one
 diagnostic (law 6, power cap; the source has no cap), held under `state/validate_exceptions/317_core_rupture_blast.json`;
 `check_manifest.mjs` 0 pre-send problems on both. **Run 316 then 317, back to back** (between them both hazards are unarmed).
+
+## 318 Elemental Tool Pouch; Armory Requisition and Drowned Foundry pick 1 of 3 (1 item edit, 2 quest edits, HIDDEN): READY TO RUN
+
+RUL-2026-10-28-003. Built by `push/elemental_pouch.gen.py`. Phase 1: the Katon Tool Pouch (`D0gtI5dOgj2dFO4VexsLJ`)
+becomes the Elemental Tool Pouch: Elemental Kunai (`dY00WA51Mr7-uS6zbcS3r`) x10 every opening, and the roll's kunai lines
+x10/x20/x30 are Elemental Kunai; tools unchanged; Katon icon kept for now. Phase 2: the Armory Requisition quest
+(`3BYr-HMkOepywS77vJvJh`) and the Drowned Foundry (`UGHSuhi83C3wRtH3FD4Eu`, whole record as push/268, only the reward
+differs) pick 1 of: Elemental Tool Pouch / Medicine Inro / 50,000 ryo. The other four pouches stay hidden, unused.
+Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+**273 update:** Crownhold's pick now includes one Fragment of the Skyglass Crown (regenerated). Still HOLD: the badge id,
+and the Crowned Captain story rewrite (RUL-2026-10-28-003) to follow.
