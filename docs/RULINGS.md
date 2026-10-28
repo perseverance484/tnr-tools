@@ -3595,3 +3595,30 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28, answering decision 1 (the bundle budget) of the pet-species builder handoff: "1".
 
 **Canonical destination:** `forge/tools/check_bundle_budget.mjs`.
+
+## RUL-2026-10-28-015 — Set-piece lock: an AP / element / movement lock replaces the literal stun and seal
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass boss fights / shared set-piece library
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. Three set pieces now lock with non-shared effect types instead of stun and seal: Ship's Bell (1 round), Command Absolute and the Seal Lines blast (2 rounds each). The lock is:
+   - `elementalseal`;
+   - `timecompression`, +10 AP on every jutsu;
+   - `increasecooldown` +2 on Move and Replacement Technique.
+
+   The bosses' own stun and seal moves (Final Command, Ruin Refrain, Sovereign Fetters, Keelbind) share a 3-round lock with stun and seal, so they can no longer block these set pieces.
+2. Maw of the Deep keeps its true stun, because the Core Horror has no other stun move.
+3. The library fixes are adopted:
+   - Lines becomes a 3-ray fan, using the union of both row parities. The grid is pointy-topped with odd rows shifted.
+   - Seal Lines becomes a diagonal cross.
+   - Scatter A/B are complementary halves.
+   - Every blast and signature move has cooldown 2.
+   - Offensive non-damage rows hit enemies only.
+
+**Evidence:** Director, 2026-10-28: "Approved." This answers the lock-swap question.
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §5a; harness `fable/skyglass-wreck-sim` 5f6c3edb (`library_spec.json`).
