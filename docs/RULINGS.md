@@ -3405,3 +3405,20 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "The Crowned Captain will use the same avatar and everything. We'll update the lore to be that he controls the afterimages from afar, the player can even exclaim at him 'I defeated you once!', to which he could reply 'I control... many echoes' and then the fight starts. That would explain the similar appearance, ties into the afterimpression plot and deepens it".
 
 **Canonical destination:** `push/crownhold.gen.py` (`ECHO_LINE`, `ECHO_BEAT`, `PROTOCOL_INTRO`); push/319.
+
+## RUL-2026-10-28-006 — Boss kits: the old Crowned Captain's kit to the Captain; the Crowned Captain as the showcase boss
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass Wreck / Crownhold boss design
+
+**Status:** ACTIVE. Set-piece mechanics and numbers pending harness probes and tuning.
+
+**Ruling:**
+1. The Captain's dungeon copy takes the old Crowned Captain's full kit.
+2. The Crowned Captain (Crownhold) keeps Arakane's kit minus three fillers. He gains Final Command, Keelbind and Ruin Refrain, and fights in three phases.
+3. He gets "a little more juice": he is the event's hardest fight and the showcase for the PoE-style marked set pieces (Seven Blades, Recall, Command Absolute, Shardstorm), in `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`.
+
+**Evidence:** Director, 2026-10-28, on the kit split and three phases: "Approved but give the Crowned Captain a little more juice. Hes the shaper of our experience".
+
+**Canonical destination:** `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`.
