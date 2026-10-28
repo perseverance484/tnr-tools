@@ -4,6 +4,19 @@
 
 **Rule: every item has one home.** A reward appears in more than one source only as the same container, never as loose contents. Skyglass items come only from the Skyglass Coffer, with one exception: Crownhold's pick offers one Fragment of the Skyglass Crown directly (RUL-2026-10-28-003, recorded as an exception by RUL-2026-10-28-010).
 
+## 0. Every item explains itself (RUL-2026-10-28-020)
+
+Each Skyglass item's description tells the player what the item is for, in plain words, after one line of story voice.
+- **Charts and the Lantern:** which run it opens; that the chart is spent at entry; that a lost fight ends the run; that health and chakra carry between fights; the press-on choice; for rares, that steeping can twist them.
+- **Core Rot:** what steeping is, where it happens, the cost (a rare chart plus 3 Rot), and the outcome on a win (tainted chart) and on a loss (the chart comes back, the Rot is spent).
+- **Tainted charts:** the twists, and that the run pays pick 2.
+- **Chests, every one:** what can drop and how common each tier is, with the real weights (e.g. "Common 69% · Rare 24% · Epic 5% · Legendary 2%"), the roll count, and any fixed reward (e.g. the Treasury's 150,000 ryo).
+- **Echo Jars:** which pet; that a full collection blocks opening.
+- **Galley Stores:** the pet exp goes to the active pet only, so the pet must be battle-ready and not on a task.
+- **The Wreck's text:** it tells players the wreck drops charts, which lead to treasure hunts.
+
+Descriptions are generated from the same tables the caches are built from, so the stated rates always match the live weights.
+
 ## 1. Who owns what
 
 | Container / item | Owns | Found in |
@@ -248,13 +261,19 @@ Engine facts (theninjarpg source):
 
 **Kits:** `SKYGLASS_PETS.md`.
 
+## 5c. Completion achievement (RUL-2026-10-28-020)
+
+**Walked Every Deck** is a one-time achievement quest. It completes when a player has cleared every chart run: Low Tide Run, Night Watch, Buried Cache, Drowned Foundry, Quarantined Archive, Captain's Watch, Sealed Reliquary, The Fall, both tainted runs, and Crownhold. It uses `complete_specific_quest` objectives.
+- **Reward:** the title **Walked Every Deck**. Its bonus is set with the other title values.
+- **Purpose:** an endgame goal past Crownhold.
+
 ## 6. To check before the manifests
 
 Open:
 - **Crown's Hoard contents:** how many of each cache (Coffer, Treasury, Echo Jar) one Hoard opens.
 - **Galley Stores amount:** the pet-experience lump (director).
 - **Title values:** the small mastery/regeneration bonuses are proposed, not ruled.
-- **Core Rot in the easy Wreck:** RUL-2026-10-28-009 places the 15% on "the Core Horror in the Wreck"; the easy Wreck's ruled drop list (§2) does not name it. Confirm before the easy Wreck's rewards are built.
+- **Core Rot in the easy Wreck:** none (RUL-2026-10-28-020). Only the endgame Wreck drops it.
 - **Consumable-cache weights and quantities** (§3a), set from the push/323 capture. That capture also settles the shop flags still unconfirmed for Pill Pack, Small Health Pill, Stamina Pill II, Paper Bombs, Saki, Senbon Needles, Smoke Pellet, Venom Cask, Whetstone Oil, Solider Pill and Mona's Mermaid Song.
 - **Profession material id lists** per hunt (§4b), from the push/323 capture.
 - Reward packages are built in the game's catalog editor until Forge has a package recipe.

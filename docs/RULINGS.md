@@ -3709,3 +3709,21 @@ sides of the jutsu and item edits).
 - "Profession fix is approved, drops need to be tuned to be less than regular hunting/gathering but still rewarding and themed to each area."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4a, §4b.
+
+## RUL-2026-10-28-020 — Self-explaining items, rare-run twists, completion achievement; no Rot on the easy Wreck
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / player-facing text, encounters and rewards
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Every Skyglass item explains itself in its description.** Chests list what they drop and how common each tier is, using the live weights, so descriptions are generated from the cache tables. Charts, Core Rot, tainted charts, jars and Galley Stores explain their rules. The Wreck's text points players to charts. Loot tables §0.
+2. **Each rare run gets one signature twist.** The Fall has spreading ember tiles. In the Sealed Reliquary, each fallen echo's set piece lingers into the next fight. Boss Fights §8; the mechanics are proven in the harness first.
+3. **A completion achievement, "Walked Every Deck"**, with a title for clearing every chart run, both tainted runs and Crownhold. Loot tables §5c.
+4. **The easy Wreck drops no Core Rot.**
+
+**Evidence:** Director, 2026-10-28: "Yes, add 1-3. Add all that. No core rot on easy wrecks. All our items should explain themselves in their description. This includes our chests. They should explain what they drop and how common".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §0, §5c; `docs/design/SKYGLASS_BOSS_FIGHTS.md` §8.
