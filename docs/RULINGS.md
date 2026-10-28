@@ -3422,3 +3422,19 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28, on the kit split and three phases: "Approved but give the Crowned Captain a little more juice. Hes the shaper of our experience".
 
 **Canonical destination:** `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`.
+
+## RUL-2026-10-28-007 — Tuned 6-wave numbers approved; the story fits the existing art
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass Wreck balance; Skyglass story and art direction
+
+**Status:** ACTIVE
+
+**Ruling:**
+1. The tuned 6-wave dungeon numbers are approved as the dungeon copies' starting values (harness `fable/skyglass-wreck-sim` 0d3534c2; `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`). The figures: regulars 5,050 HP with two +100% rows; Core Horror 25,250 HP with two rows; Captain and Sealwright 12,625 HP with three rows.
+2. No existing art is redrawn; the story bends to it (story bible, "Locked to the existing art"). The Captain and the Crowned Captain share the white mask ("I wear his mask"). The Command Crown is the frost-pointed skyglass crown of the existing avatar. The Deck Warden's young eyes show above his cloth mask. The ship scenes are the Core holding the wreck's interior as it was. Arakane's avatar is retired, and the Crownbreaker badge stays as drawn. The "Seven Blades" set piece becomes **Crownfall**.
+
+**Evidence:** Director, 2026-10-28, on the tuned numbers and the telegraph findings: "Perfect. Approved, one minor edit. I dont want to regenerate pre-existing art so let's update our story around that".
+
+**Canonical destination:** `docs/design/SKYGLASS_STORY_BIBLE.md`; `push/crownhold.gen.py`; `state/skyglass_hunts/hunts.py`.

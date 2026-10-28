@@ -90,7 +90,7 @@ set pieces. He stands on his throne, which keeps his patterns lined up, and comm
 - **Kit:** Arakane's kit, minus Rapid Fire, Braced Strike and Surging Overflow. Plus Final Command, Keelbind and Ruin Refrain, with Ruin Refrain replacing Worldbreaker Chorus. Plus his set pieces.
 - **Phase 1 (100-60%), the duelist:**
   - Final Command, Keelbind and Ruin Refrain on cooldown, with Hexweave setting up targets.
-  - Set piece **Seven Blades:** red fan of seven lines from the throne; the crown's blades fall along them next round.
+  - Set piece **Crownfall:** a red fan of lines from the throne. Next round, skyglass points like his crown's fall along them.
 - **Phase 2 (60-30%), "I control... many echoes":**
   - **Recall:** summons one echo of a Crownhold officer the player already beat, and recasts it when it falls. The engine allows one live summon per caster.
   - Set piece **Command Absolute:** violet over the whole arena except three cyan stars. Stun and seal everywhere else.
