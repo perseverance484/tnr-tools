@@ -65,7 +65,9 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // Dungeon mount path (Forge 0.9.1, 2026-10-26): measured 435,145 / 105,126, over by 145 / 126, mostly
 // the two new source hashes in the bundled dungeon contract. Raised to 436,000 / 105,500 by the
 // director (RUL-2026-10-26-001); trimming the contract's _meta.sources was offered and declined.
-export const BUDGET = { raw: 436_000, gzip: 105_500 };
+// Pet species (Forge 0.10.0, 2026-10-28): measured 444,780 / 107,068 with the petSpecies entity and the
+// re-pinned contracts. Raised to 446,000 / 108,000 by the director (RUL-2026-10-28-014).
+export const BUDGET = { raw: 446_000, gzip: 108_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;
