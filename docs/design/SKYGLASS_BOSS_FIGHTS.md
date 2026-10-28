@@ -1,0 +1,152 @@
+# Skyglass boss fights: The Captain, the Core Horror, the Crowned Captain
+
+A full design pass to make these three fights memorable. Director, 2026-10-28: "named jutsu, animations, mechanics, anything
+and everything we've got". This file owns the fight design. Inputs:
+- the approved structure, numbers and toolkit: `SKYGLASS_WRECK_ENCOUNTERS.md`;
+- names and voice: `SKYGLASS_STORY_BIBLE.md`;
+- animation ids and readability rules: `SKYGLASS_BOSS_ANIMATIONS.md`.
+
+Every boss move is a **dungeon- or Crownhold-only copy**, with its own name, battle text and animations. Shared crew
+records stay untouched.
+
+## The tools we have (engine-checked unless marked PROBE)
+
+| Tool | Engine | Use |
+|---|---|---|
+| Marked set piece | visual ground mark, then a 100 AP detonation next turn (harness-confirmed) | the core of every boss |
+| Fixed patterns | COORDINATES: caster rings and lines, arena-wide EXCLUDE with safe hexes; one offset set per row parity | readable shapes |
+| Two-marker chains | marker A sets up a 40 AP follow-up that applies marker B; B detonates next turn | PROBE: combos such as "mark, then drag into it" |
+| Pull / push | `redirection` pull or push N hexes (blocked by a root) | Undertow, Bell Toll |
+| Exposed window | `weakness` on SELF: x2-x50 damage taken from chosen generals, elements, jutsu or items | PROBE (self-target): "hit him now" windows after big attacks |
+| Player-granted action | `injectjutsus` adds jutsu to a unit's action list while it lasts | PROBE: a ground effect granting it to whoever stands there |
+| Barrier | `barrier` tag: a wall with its own HP bar, absorb % and sprite | the Captain's gunwale |
+| Summon | one live summon per caster; any AI record | Recall, All Hands |
+| Clone | `clone`: a full-HP copy for 2+ rounds (hits weakly, cause untraced) | decoys |
+| Cooldown pressure | `increasecooldown`, `timecompression` (+10 AP per action) | tempo attacks |
+| Stealth, reflect, mirror, copy | as live | the duelist's tricks |
+| Voice | every jutsu's `battleDescription` prints in the battle log | the bosses talk mid-fight |
+| Phase gates | `health_below`; `has_effect` on a phase marker | clean three-act fights |
+
+Readability rules come from the animation spec. Every set piece has a mark (tg_*) and a payoff (dt_* or the boss's own
+animation). Every boss line is short.
+
+---
+
+## 1. The Captain: "The Echo at the Helm"
+
+*Skyglass Wreck, floor 5, wave 2, with the Sealwright. Harness: 12,625 HP, three +100% rows.*
+
+**Fantasy.** A naval commander still running the ship's last battle: bells, broadsides, banners, discipline. He wears his
+master's mask and fights like a man who has done this ten thousand times. **Theme of the fight:** command. He makes the
+deck itself attack you, and the Sealwright keeps him standing.
+
+**Arena:** the deck. The Captain holds a short patrol line and stays near his Sealwright.
+
+**The kill-order puzzle:** the Sealwright's **Ward of Command** on the Captain. While the Sealwright lives, the Captain carries a
+visible command banner (cp_command aura) and takes heavily reduced damage. Kill the Sealwright first, or fight through the
+ward. The Sealwright's **Mending Seal** keeps the Captain topped up.
+
+| Move | Kind | What it does | Mark / animation | Counterplay |
+|---|---|---|---|---|
+| **Hold the Line** | opener, self | Unbroken Command: +damage and stats for the fight; once | cp_command flourish | none; it marks the fight's start |
+| **Broadside** | set piece | Marks two full rows of the arena red; next turn the ship's guns fire down them. Heavy damage | tg_heavy rows, then dt_heavy plus a cannon-flash variant | step to an unmarked row |
+| **Ship's Bell** | set piece | Violet ring (radius 2) around him; next turn the bell tolls: push 3 and a 1-round stun | tg_control, then cp_bell_toll shockwave | leave the ring, or be thrown and stunned |
+| **Keelbind** | duel | Range-5 root and drain on the player with the most aggro; stops Replacement Technique | chain-wrap hit | cleanse, or stay close |
+| **Final Command** | duel | Damage, a 3-round stun and a seal; his finisher | crimson strike | do not stand stunned next to him |
+| **Raise the Gunwale** | utility | A barrier line between the players and the Sealwright; the barrier has its own health | timber-and-seal wall sprite | break it, or go around |
+| **Last Stand at the Helm** | phase, under 50% | Battle Trance once, Broadside marks three rows, Ship's Bell comes faster | cc_phase_shift flash, recoloured | the fight speeds up |
+
+**Battle log (his voice):**
+- Hold the Line: "%user plants his blade on the deck. \"Hold the line.\""
+- Broadside: "%user raises a hand. \"Run out the guns.\"" / "\"Fire.\""
+- Ship's Bell: "\"All hands.\" The great bell answers."
+- Final Command: "\"Stand down.\""
+- Under 50%: "\"I have held this deck through worse than you.\""
+
+---
+
+## 2. The Core Horror: "What the Core Remembers Wrong"
+
+*Skyglass Wreck, floor 4, alone. Harness: 25,250 HP, two +100% rows, about 5 rounds.*
+
+**Fantasy.** A crew member the Core could not rebuild properly, now a mass of timber, rope, seawater and skyglass with a
+half-remembered man somewhere inside. It never speaks. **Theme of the fight:** the ship itself is the boss. Every attack
+comes out of the floor.
+
+**Arena:** the flooded hold. He is rooted in the middle of it and never moves.
+
+| Move | Kind | What it does | Mark / animation | Counterplay |
+|---|---|---|---|---|
+| **Splintered Grasp** | plain | Heavy melee and a wound (bleed) | ch_claw | do not stand next to him unprepared |
+| **Bilge Spit** | plain | Range 4: damage and a poison (punishes chakra/stamina spent) | ch_bile_spit | spread out; cleanse |
+| **Collapse** | set piece | Red ring (radius 2) around him; next turn the deck caves in | tg_heavy, then ch_collapse | step out of the ring |
+| **Undertow** | set-piece add-on | During a Collapse mark: the farthest player is pulled 3 hexes toward him, into the ring | water-drag streak | PROBE two-marker chain; a root or a cleanse-ready ally saves you |
+| **Rupture Field** | set piece | One of three fixed scatter patterns, rotating; next turn the rot erupts | tg_heavy, then ch_rupture | read the field and stand clear |
+| **Maw of the Deep** | set piece, signature | Whole arena red except three cyan stars; next turn black water and teeth rise everywhere else. Once per phase | tg_heavy field, tg_safe stars, then ch_maw | reach a star |
+| **Exposed Seam** | window | After the Maw resolves he splits open: for 1 round he takes x3 damage | ch_exposed glowing seam | burst him now (PROBE: weakness on SELF) |
+| **The Core Rebuilds** | phase, under 50% | Heals once (a modest amount) and enrages. Rupture Field leaves lingering pools; set pieces come one round sooner | ch_enrage aura | pools punish standing still |
+
+**The fight's rhythm:** plain hits, a mark, the dodge, a punish window after the Maw. He is the floor where players learn
+the marks before the final bosses.
+
+---
+
+## 3. The Crowned Captain: "I control... many echoes"
+
+*Crownhold, the last fight, solo. Tuning in progress: a hard win in 12-15 rounds that fails if the marks are ignored.*
+
+**Fantasy.** The source of every echo. He has never left his throne room and never needed to. Calm, certain, faintly
+amused. He believes he gave his people a gift. **Theme of the fight:** command over everything. Phase 1 he duels you
+himself; phase 2 his echoes fight for him; phase 3 his crown fights for him. The answer to the crown is the crown itself.
+
+**Arena:** the throne room. He stands at the throne, which keeps his patterns aligned.
+
+| Move | Kind | What it does | Mark / animation | Counterplay |
+|---|---|---|---|---|
+| **The Crown's Will** | aura | Frost points and armour crystals glinting (phase 1-2) | cc_crown_aura | none; it tells you which phase you are in |
+| **Final Command** | duel | Damage, a 3-round stun and a seal | crimson strike | do not stand stunned in his reach |
+| **Keelbind** | duel | Range-5 root and drain | chain-wrap hit | stops kiting; cleanse |
+| **Ruin Refrain** | duel | Hits every player, with a 2-round stun | cc_phase_shift-style pulse | stun immunity, or accept it |
+| **Hexweave** | setup | +damage taken and -heal on the player | violet sigil | cleanse it before Final Command |
+| **Crownfall** | set piece | A red fan of lines from the throne; next turn crown shards fall along them | tg_heavy lines, then cc_crownfall | step between the lines |
+| **Recall** | phase 2 | One echo of a Crownhold officer you already beat rises; recast when it falls | cc_recall | kill it fast, or tank it and focus him |
+| **Command Absolute** | set piece, phase 2 | Violet over the whole arena except three stars; next turn every unsafe hex is stunned and sealed | tg_control field, tg_safe, then cc_command_absolute | reach a star |
+| **Stolen Form** | phase 2 | Copies your buffs | mirror flicker | buff after it, not before |
+| **Extermination Order** | phase 2-3 | Damage, an elemental seal and a cleanse-prevent | crimson sigil | expect it once he has the Last Directive |
+| **The Last Directive** | phase 3, under 30% | He cannot fall for 5 rounds; damage up | cc_last_directive blaze | survive, and see Crown Shards below |
+| **Shardstorm** | set piece, phase 3 | Every round, one of three rotating scatter patterns rains crown shards; the safe hexes move each turn | tg_heavy field, then cc_shardstorm | keep moving to the clear hexes |
+
+**The interactive answer: Crown Shards** (PROBE). Shardstorm's safe hexes are not empty: each carries a fallen crown
+shard (a tg_safe variant). A player who ends a move on one gains, through a ground `injectjutsus`, a one-use jutsu,
+**Crown Shard**: "%user drives a shard of his own crown back at him." The Crowned Captain has a `weakness` to that jutsu
+(x5).
+- **Fallback if Last Directive's clearprevent stays:** if the engine allows it, Crown Shard also carries a `clear` that
+  strips the Last Directive's "cannot fall". If it does not, Crown Shard is simply the biggest damage in the fight, and the
+  Last Directive's 5 rounds are a dodge test.
+- **The beat:** in the last act, the player breaks the crown with its own pieces.
+
+**Battle log (his voice):**
+- Opening: "%user does not rise. \"Another echo come home.\""
+- Recall: "\"Stand, soldier.\" An echo rises at his word."
+- Command Absolute: "\"Kneel.\""
+- The Last Directive: "\"Preserve command.\" The crown blazes."
+- Crown Shard (the player): "%user drives a shard of his own crown back at him."
+- Defeat text: the aftermath dialog takes over (Crownhold d.aftermath).
+
+---
+
+## Animations this adds (to `SKYGLASS_BOSS_ANIMATIONS.md`)
+
+| Boss | New ids |
+|---|---|
+| The Captain | cp_broadside (row cannon fire), cp_gunwale (barrier sprite), cp_final_command (crimson strike) |
+| The Core Horror | ch_claw, ch_undertow (drag streak), ch_exposed (open seam) |
+| The Crowned Captain | cc_crown_shard (shard pickup on a safe hex), cc_shard_strike (the player's Crown Shard hit), cc_hexweave |
+
+## Open questions for the harness (PROBE)
+
+1. Does a two-marker chain (mark plus 40 AP follow-up, detonate next turn) fire in order?
+2. Does `weakness` on SELF expose the caster as designed, for 1 round?
+3. Can a ground effect grant `injectjutsus` to whoever ends a move on it? Is the injected jutsu preloaded into the battle? Does it disappear after one use?
+4. Can a `clear` remove `finalstand` through `clearprevent`?
+5. Will players attack a barrier when it blocks their path?
