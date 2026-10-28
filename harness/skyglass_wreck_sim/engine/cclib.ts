@@ -119,100 +119,19 @@ export const jutsuRecord = (id: string, over: Record<string, unknown>) => ({
   ...over,
 });
 
-/* ------------------------------------------------------------------ the set-piece library (SKYGLASS_BOSS_FIGHTS.md 5a) */
+/* ------------------------------------------------------------------ the set-piece library */
 /**
- * Shapes built here under the library names until the library owner's harness/skyglass_wreck_sim/library_spec.json
- * lands. Marks: 100 AP (the blast always lands next turn), 1-round visuals, one 1-round marker type each (none on
- * the shared-cooldown list). Shared blasts: damage only (ground jutsu land only damage), 40 AP, so the blast turn
- * leaves 60 AP for a move; a 40 AP blast can never follow its own 100 AP mark in the same turn.
+ * The shared library is engine/library.ts (library_spec.json, fable/skyglass-wreck-sim 4bd5356a); its records are
+ * used as they are, never copied. Usage rules (coordinator, 2026-10-28): marks cost 40 AP, blasts 100 AP; the blast
+ * rule `has_effect <marker> >= 1` goes above everything else; after a mark, `has_effect <that marker>` -> plain
+ * attack -> end turn, ahead of other marks; a CHARACTER blast with nobody in its pattern is not cast.
  */
-export const STARS: Cell[] = [[7, 1], [5, 4], [8, 8]]; // Last Light safe tiles: 4 hexes from (9,4)
-const LINES_ORIGIN: Cell = [9, 4]; // odd column; the fan is authored for a caster on an odd column, facing west
-export const PATTERN = {
-  /** Fan of five rays west from the caster (CASTER offsets). */
-  lines: uniq([[0, 0], [0, 2], [0, 4], [0, 7], [0, 9]].flatMap((t) => lineCells(LINES_ORIGIN, t as Cell)))
-    .filter((c) => key(c) !== key(LINES_ORIGIN)).map((c) => [c[0] - LINES_ORIGIN[0], c[1] - LINES_ORIGIN[1]] as Cell),
-  /** Cross from the caster: its column (a straight hex line on a FLAT grid) and its row (CASTER offsets; parity-free). */
-  sealLines: [
-    ...Array.from({ length: 19 }, (_, i) => [0, i - 9] as Cell),
-    ...Array.from({ length: 23 }, (_, i) => [i - 11, 0] as Cell),
-  ].filter((c) => !(c[0] === 0 && c[1] === 0)),
-  scatterA: ALL.filter((c) => color(c) === 0),
-  scatterB: ALL.filter((c) => color(c) === 1),
-  rowsA: ALL.filter((c) => [1, 2, 5, 6].includes(c[1])),
-  rowsB: ALL.filter((c) => [3, 4, 7, 8].includes(c[1])),
-};
-export const MARKER = {
-  lines: "fleeprevent", lastLightBinding: "robprevent", scatterA: "onehitkillprevent", scatterB: "increaseaggro",
-  ring: "decreaseaggro", sealLines: "increasecooldown", rowsA: "decreasecooldown", rowsB: "increaserange",
-} as const;
-export const LIB = {
-  omenLines: "lib-omen-lines", omenLastLightBinding: "lib-omen-last-light-binding", omenScatterA: "lib-omen-scatter-a",
-  omenScatterB: "lib-omen-scatter-b", omenRing: "lib-omen-ring", omenSealLines: "lib-omen-seal-lines",
-  omenRowsA: "lib-omen-rows-a", omenRowsB: "lib-omen-rows-b",
-  blastScatterA: "lib-blast-scatter-a", blastScatterB: "lib-blast-scatter-b", blastRing: "lib-blast-ring",
-  blastSealLines: "lib-blast-seal-lines", blastRowsA: "lib-blast-rows-a", blastRowsB: "lib-blast-rows-b",
-  loweredGuard: "lib-lowered-guard",
-};
-export type LibParams = {
-  blastPower: number; ringPower: number; sealLinesPower: number; sealStunAp: number; guardMult: number;
-  /** Mark cooldowns: the set piece's cadence floor (a mark never fires without its blast following). */
-  omenCd: number; lastLightCd: number;
-};
-export const LIB_DEFAULTS: LibParams = { blastPower: 180, ringPower: 180, sealLinesPower: 110, sealStunAp: 60, guardMult: 3, omenCd: 3, lastLightCd: 6 };
-const SHARED_BLAST_LINE = "The marked ground erupts.";
-let OMEN_CD = LIB_DEFAULTS.omenCd;
-const omen = (id: string, name: string, method: string, ct: ReturnType<typeof coords> | null, range: number, effects: any[], description: string, cd = OMEN_CD) =>
-  jutsuRecord(id, {
-    name, description, battleDescription: `%user uses ${name}.`, target: "GROUND", method, coordinateTargeting: ct, range,
-    cooldown: cd, actionCostPerc: 100, effects,
-  });
-const blast = (id: string, name: string, method: string, ct: ReturnType<typeof coords> | null, range: number, effects: any[], target = "GROUND") =>
-  jutsuRecord(id, {
-    name, description: "The ground a warning marked gives way.", battleDescription: SHARED_BLAST_LINE, target, method, coordinateTargeting: ct,
-    range, cooldown: 1, actionCostPerc: 40, effects,
-  });
-export const buildLibrary = (lp: LibParams = LIB_DEFAULTS) => {
-  OMEN_CD = lp.omenCd;
-  const red = (m: string) => [fx.visual("tg_heavy", 1), fx.marker(m)];
-  return {
-    [LIB.omenLines]: omen(LIB.omenLines, "Omen: Lines", "COORDINATES", coords(PATTERN.lines, "ALL", "CASTER"), 0, red(MARKER.lines),
-      "Red lines fan out from the caster along the floor."),
-    [LIB.omenLastLightBinding]: omen(LIB.omenLastLightBinding, "Omen: Last Light, Binding", "COORDINATES", coords(STARS, "EXCLUDE"), 0,
-      [fx.visual("tg_control", 1), fx.visual("tg_safe", 1, coords(STARS)), fx.marker(MARKER.lastLightBinding)],
-      "Violet chains coil across the whole floor. Three stars of skyglass stay clear.", lp.lastLightCd),
-    [LIB.omenScatterA]: omen(LIB.omenScatterA, "Omen: Scatter A", "COORDINATES", coords(PATTERN.scatterA), 0, red(MARKER.scatterA),
-      "A third of the floor glows red in a scatter."),
-    [LIB.omenScatterB]: omen(LIB.omenScatterB, "Omen: Scatter B", "COORDINATES", coords(PATTERN.scatterB), 0, red(MARKER.scatterB),
-      "A third of the floor glows red in a scatter."),
-    [LIB.omenRing]: omen(LIB.omenRing, "Omen: Ring", "AOE_CIRCLE_SHOOT", null, 2, red(MARKER.ring),
-      "A red ring cracks the floor two steps around the caster."),
-    [LIB.omenSealLines]: omen(LIB.omenSealLines, "Omen: Seal Lines", "COORDINATES", coords(PATTERN.sealLines, "ALL", "CASTER"), 0,
-      [fx.visual("tg_control", 1), fx.marker(MARKER.sealLines)], "Violet seal script runs out from the caster in a cross."),
-    [LIB.omenRowsA]: omen(LIB.omenRowsA, "Omen: Rows A", "COORDINATES", coords(PATTERN.rowsA), 0, red(MARKER.rowsA),
-      "Two pairs of rows glow red across the floor."),
-    [LIB.omenRowsB]: omen(LIB.omenRowsB, "Omen: Rows B", "COORDINATES", coords(PATTERN.rowsB), 0, red(MARKER.rowsB),
-      "Two pairs of rows glow red across the floor."),
-    [LIB.blastScatterA]: blast(LIB.blastScatterA, "Eruption: Scatter A", "COORDINATES", coords(PATTERN.scatterA), 0, [fx.damage(lp.blastPower, "dt_heavy")]),
-    [LIB.blastScatterB]: blast(LIB.blastScatterB, "Eruption: Scatter B", "COORDINATES", coords(PATTERN.scatterB), 0, [fx.damage(lp.blastPower, "dt_heavy")]),
-    [LIB.blastRing]: blast(LIB.blastRing, "Eruption: Ring", "AOE_CIRCLE_SHOOT", null, 2, [fx.damage(lp.ringPower, "dt_heavy")]),
-    [LIB.blastRowsA]: blast(LIB.blastRowsA, "Eruption: Rows A", "COORDINATES", coords(PATTERN.rowsA), 0, [fx.damage(lp.blastPower, "dt_heavy")]),
-    [LIB.blastRowsB]: blast(LIB.blastRowsB, "Eruption: Rows B", "COORDINATES", coords(PATTERN.rowsB), 0, [fx.damage(lp.blastPower, "dt_heavy")]),
-    // The violet blast stuns and seals, so it targets units (OTHER_USER over the pattern), not ground.
-    [LIB.blastSealLines]: blast(LIB.blastSealLines, "Eruption: Seal Lines", "COORDINATES", coords(PATTERN.sealLines, "ALL", "CASTER"), 0,
-      [{ ...fx.damage(lp.sealLinesPower, "dt_control") }, fx.stun(lp.sealStunAp, 1), fx.seal(2)], "OTHER_USER"),
-    [LIB.loweredGuard]: jutsuRecord(LIB.loweredGuard, {
-      name: "Lowered Guard", description: "For one breath the guard drops.", battleDescription: "%user lowers their guard.",
-      target: "SELF", method: "SINGLE", range: 0, cooldown: 99, actionCostPerc: 40, effects: [fx.weakness(lp.guardMult)],
-    }),
-  } as Record<string, any>;
-};
-/** Library ids by role (mark -> blast) for telemetry. */
-export const LIB_PAIRS: [string, string, string][] = [
-  // [set name, mark id, blast id]
-  ["scatter", LIB.omenScatterA, LIB.blastScatterA], ["scatter", LIB.omenScatterB, LIB.blastScatterB],
-  ["ring", LIB.omenRing, LIB.blastRing], ["sealLines", LIB.omenSealLines, LIB.blastSealLines],
-  ["rows", LIB.omenRowsA, LIB.blastRowsA], ["rows", LIB.omenRowsB, LIB.blastRowsB],
+export { buildLibrary as buildLibraryRecords, LIB, LIB_POWERS, MARKER_TYPES, PATTERNS } from "./library";
+import { MARKER_TYPES as MT } from "./library";
+/** After a mark: the rest of the turn is a plain attack, then end turn (the marker blocks a second mark). */
+export const afterMark = (markKey: keyof typeof MT, attacks: any[]) => [
+  ...attacks.map((a) => ({ ...a, conditions: [{ type: "has_effect", effectType: MT[markKey], threshold: 1, description: "Has effect" }, ...a.conditions] })),
+  { conditions: [{ type: "has_effect", effectType: MT[markKey], threshold: 1, description: "Has effect" }], action: { type: "end_turn", description: "End turn" } },
 ];
 
 /* ------------------------------------------------------------------ rules */

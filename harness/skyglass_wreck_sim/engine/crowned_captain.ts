@@ -1,9 +1,10 @@
 /**
  * The Crowned Captain (Crownhold D5.BOSS, live id 7QofodAiUwIoM-voiA2p6): solo boss fight, offline.
- * Set pieces from the shared library (SKYGLASS_BOSS_FIGHTS.md 5a; engine/cclib.ts) plus his bespoke blasts:
- *   Crownfall        = Omen: Lines + Crownfall (bespoke)
- *   Command Absolute = Omen: Last Light, Binding + Command Absolute "Kneel." (bespoke)
- *   Shardstorm       = Omen: Scatter A / B + the shared scatter blasts (his line rides on the Last Directive)
+ * Set pieces from the shared library (engine/library.ts, library_spec.json; SKYGLASS_BOSS_FIGHTS.md 5a):
+ *   Crownfall        = Omen: Lines + Crownfall (library signature)
+ *   Command Absolute = Omen: Last Light, Binding + Command Absolute "Kneel." (library signature)
+ *   Shardstorm       = Omen: Scatter A / B + the shared scatter blast (his line rides on the Last Directive)
+ * His own new records: The Crown's Will and Recall only.
  *
  *   TNR_SCRIPT=crowned_captain.ts run.sh [--params /abs/p.json] [--seeds 60] [--seed 1] [--dodge both|on|off]
  *        [--start full|0.7] [--out results.json] [--write-spec /abs/spec.json] [--trace SEED] [--debugfx]
@@ -17,27 +18,35 @@ import { alignBattle, getBattleGrid } from "@/libs/combat/util";
 import { PLAYER_VARIANTS, loadJson, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32 } from "./sim";
 import {
-  args, C, type Cell, coords, DONOR_SUMMON, dmg, fx, IMG, IN, idgRowTags, J, jutsuRecord, LIB, LIB_DEFAULTS, type LibParams, MARKER,
-  opt, PATTERN, R, runFight, SIZE, STARS, STAT_PER_MULT, STATS, summarise, t0, tagBase, userJutsu, validator, aiRow, buildLibrary,
-  allCapturedRecords, type FightConfig, type PlayerStart,
+  args, C, type Cell, coords, DONOR_SUMMON, dmg, IMG, IN, idgRowTags, J, jutsuRecord, LIB, LIB_POWERS, MARKER_TYPES, PATTERNS,
+  opt, R, runFight, SIZE, STAT_PER_MULT, STATS, summarise, t0, tagBase, userJutsu, validator, aiRow, buildLibraryRecords, uniq, lineCells, key,
+  allCapturedRecords, afterMark, type FightConfig, type PlayerStart,
 } from "./cclib";
 
 /* ------------------------------------------------------------------ parameters */
 export const CC_DEFAULTS = {
-  name: "library_hp2x",
+  name: "library_hp2x_tuned",
   poolsMultiplier: 5, // director 2026-10-28: HP doubled (25,250)
   statsMultiplier: 5.83, // inert in battle (JONIN stat cap)
-  idgRows: 0.5,
+  idgRows: 0.25, // library tuning (report 3): one +25% row
   throne: [9, 4] as [number, number],
-  crownfallPower: 180,
-  commandPower: 130, commandStunAp: 60, commandStunRounds: 2, commandSealRounds: 2,
   echoHp: 2500, echoPower: 70, echoRounds: 3, recallCd: 8,
   recallTarget: "EMPTY_GROUND_CLOSEST_TO_SELF" as string,
-X
-  lib: { ...LIB_DEFAULTS } as LibParams, // shared blast power 180, Omen cd 3, Last Light cd 6
+  phase3Extermination: false, // true: Extermination Order in phase 3 as well (report 2: 80% wins, 8.7% HP)
+  // The innate sealprevent row collides with the library's Last Light, Binding marker (sealprevent): has_effect would
+  // always be true and Command Absolute would fire every turn. The boss has no bloodline, so the row does nothing.
+  dropInnateSealprevent: true,
+  /** The plain attack after a mark (and after a refused CHARACTER blast): "basic" = basic attack (adjacent only),
+   * "kit" = Devouring Grasp / Scorching Rend. */
+  afterMarkAttack: "basic" as "basic" | "kit",
+  /** Analysis only: override library powers (LIB_POWERS keys) to measure what the library owner would need to
+   * change. Empty in the shipped tuning; the spec never carries copies of library records. */
+  libPowers: {} as Record<string, number>,
+  /** Analysis only: replace the library's Lines pattern (one 5-hex ray west, see the report) by a five-ray fan. */
+  libLinesFan: false,
 };
 export type CCParams = typeof CC_DEFAULTS;
-export const ccParams = (over: any = {}): CCParams => ({ ...CC_DEFAULTS, ...over, lib: { ...CC_DEFAULTS.lib, ...(over.lib ?? {}) } });
+export const ccParams = (over: any = {}): CCParams => ({ ...CC_DEFAULTS, ...over });
 
 export const ID = {
   oniHunger: "w4F7-w5ubgKsqYPBPvRuV", stolenForm: "VuFuBtE7h5B1nnA2J1lFZ", purging: "HcAs8gBtvopPZkjP8HCC2",
@@ -46,10 +55,18 @@ export const ID = {
   lastDirective: "GHFMU_DDKvBBp5BEuTeah", finalCommand: "X2P22h8ApDmTZHjWpNO87", keelbind: "PdD44PGaNv4MN5fOALhAF",
   ruinRefrain: "EQ93LX8wvuIAd5u75q_i1",
   countermand: "W3lOjQhhIPUYPkIZmiNum", solarBow: "ALqXVSL58QMfJ4DgoJ5Il",
-  // Bespoke Crownhold-only records (placeholder ids until created)
-  crownsWill: "cc-crowns-will", crownfall: "cc-crownfall", command: "cc-command-absolute", recall: "cc-recall",
+  // His own new records (placeholder ids until created); Crownfall and Command Absolute are library signatures
+  crownsWill: "cc-crowns-will", recall: "cc-recall", crownfall: LIB.sig.crownfall, command: LIB.sig.commandAbsolute,
 };
 export const BOSS_ID = IN.boss.id as string;
+const LIB_POWERS_SHIPPED = { ...LIB_POWERS };
+const LINES_SHIPPED = PATTERNS.lines;
+/** Five true hex rays west from an odd-column caster on the FLAT battle grid (report 1's Crownfall fan), as offsets. */
+const FAN = (() => {
+  const o: Cell = [9, 4];
+  const cells = uniq([[0, 0], [0, 2], [0, 4], [0, 7], [0, 9]].flatMap((t) => lineCells(o, t as Cell))).filter((c) => key(c) !== key(o));
+  return cells.map((c) => ({ longitude: c[0] - o[0], latitude: c[1] - o[1] }));
+})();
 export const ECHO_ID = IN.echo.id as string;
 
 export const buildBespoke = (P: CCParams) => {
@@ -60,21 +77,6 @@ export const buildBespoke = (P: CCParams) => {
       description: "The Command Crown answers its wearer. Its frost points glint, and every echo in the hall stands straighter.",
       battleDescription: "%user does not rise. \"Another echo come home.\"",
       effects: oni.effects.map((e: any, i: number) => ({ ...e, ...(i === 0 ? { staticAnimation: "cc_crown_aura" } : {}) })),
-    }),
-    // Lands on Omen: Lines (same CASTER offsets, cast from the same throne hex).
-    jutsuRecord(ID.crownfall, {
-      name: "Crownfall", target: "GROUND", method: "COORDINATES", coordinateTargeting: coords(PATTERN.lines, "ALL", "CASTER"),
-      range: 0, cooldown: 1, actionCostPerc: 100, effects: [fx.damage(P.crownfallPower, "cc_crownfall")],
-      description: "Frost-pointed shards of the crown fall point-first along the marked lines.",
-      battleDescription: "Shards of the crown fall point-first along the red lines.",
-    }),
-    // Lands on Omen: Last Light, Binding. Stun and seal must be user effects, so it targets units over the pattern.
-    jutsuRecord(ID.command, {
-      name: "Command Absolute", target: "OTHER_USER", method: "COORDINATES", coordinateTargeting: coords(STARS, "EXCLUDE"),
-      range: 0, cooldown: 1, actionCostPerc: 100,
-      effects: [fx.damage(P.commandPower, "cc_command_absolute"), { ...fx.stun(P.commandStunAp, P.commandStunRounds), appearAnimation: "dt_control" }, fx.seal(P.commandSealRounds)],
-      description: "The crown's sigil stamps down. Every chain locks around whoever stands outside the stars.",
-      battleDescription: "\"Kneel.\"",
     }),
     jutsuRecord(ID.recall, {
       ...structuredClone(DONOR_SUMMON), id: ID.recall, name: "Recall", image: IMG, jutsuType: "AI", jutsuRank: "S",
@@ -97,33 +99,41 @@ export const editedLastDirective = () => {
   return ld;
 };
 export const ccRecords = (P: CCParams) => {
+  Object.assign(LIB_POWERS, LIB_POWERS_SHIPPED, P.libPowers ?? {});
+  PATTERNS.lines = P.libLinesFan ? FAN : LINES_SHIPPED;
   const recs: Record<string, any> = { ...allCapturedRecords() };
   recs[ID.extermination] = { ...jutsuRecord(ID.extermination, {}), ...J(ID.extermination), id: ID.extermination };
   recs[ID.lastDirective] = editedLastDirective();
   for (const r of buildBespoke(P)) recs[r.id] = r;
-  Object.assign(recs, buildLibrary(P.lib));
+  Object.assign(recs, buildLibraryRecords());
   return recs;
 };
 
 const PLAYER = "CLOSEST_OPPONENT";
+const M = MARKER_TYPES;
 export const ccRules = (P: CCParams) => [
+  // Blasts first: the marker left by last turn's mark.
+  R.jutsu(LIB.blast.scatterB, "SELF", [C.has(M.scatterB)]),
+  R.jutsu(LIB.blast.scatterA, "SELF", [C.has(M.scatterA)]),
+  R.jutsu(ID.command, "SELF", [C.has(M.lastLightBinding)]),
+  R.jutsu(ID.crownfall, "SELF", [C.has(M.lines)]),
+  // The throne (a no-op once there; before any mark, so Lines are laid from it).
   R.moveTo(P.throne),
-  // Blasts: the marker left by last turn's mark.
-  R.jutsu(LIB.blastScatterB, "SELF", [C.has(MARKER.scatterB)]),
-  R.jutsu(LIB.blastScatterA, "SELF", [C.has(MARKER.scatterA)]),
-  R.jutsu(ID.command, "SELF", [C.has(MARKER.lastLightBinding)]),
-  R.jutsu(ID.crownfall, "SELF", [C.has(MARKER.lines)]),
-  // Phase 3 (under 30%): the Last Directive; Purging Stance (Final Stand does not floor DoT ticks); Shardstorm
-  // marks (A then B by their cooldown); Extermination Order on the blast turns' 60 AP.
+  // After a mark: one plain attack with the 60 AP left, then end turn (never two marks in a turn).
+  ...(["scatterA", "scatterB", "lastLightBinding", "lines"] as const).flatMap((k) => afterMark(k, P.afterMarkAttack === "kit"
+    ? [R.jutsu(ID.devouringGrasp, PLAYER, [C.near(5)]), R.jutsu(ID.scorchingRend, PLAYER, [C.near(5)])]
+    : [R.jutsu("basicAttack", PLAYER, [C.near(1)])])),
+  // Phase 3 (under 30%): the Last Directive; Purging Stance (Final Stand does not floor DoT ticks); Shardstorm marks
+  // (A, then B while A cools down).
   R.jutsu(ID.lastDirective, "SELF", [C.hb(30)]),
   R.jutsu(ID.purging, "SELF", [C.hb(30), C.has("afterburn")]),
   R.jutsu(ID.purging, "SELF", [C.hb(30), C.has("poison")]),
-  R.jutsu(LIB.omenScatterA, "SELF", [C.hb(30)]),
-  R.jutsu(LIB.omenScatterB, "SELF", [C.hb(30)]),
+  R.jutsu(LIB.mark.scatterA, "SELF", [C.hb(30)]),
+  R.jutsu(LIB.mark.scatterB, "SELF", [C.hb(30)]),
   ...(P.phase3Extermination ? [R.jutsu(ID.extermination, PLAYER, [C.hb(30), C.near(5)])] : []),
   R.end([C.hb(30)]),
   // Phase 2 (60-30%)
-  R.jutsu(LIB.omenLastLightBinding, "SELF", [C.hb(60)]),
+  R.jutsu(LIB.mark.lastLightBinding, "SELF", [C.hb(60)]),
   R.jutsu(ID.recall, P.recallTarget, [C.hb(60), C.noSummon()]),
   R.jutsu(ID.stolenForm, PLAYER, [C.hb(60), C.tHas("increasedamagegiven", 50), C.near(4)]),
   R.jutsu(ID.extermination, PLAYER, [C.hb(60), C.near(5)]),
@@ -137,7 +147,7 @@ export const ccRules = (P: CCParams) => [
   R.item(ID.countermand, PLAYER, [C.has("stealth"), C.near(5)]),
   R.jutsu(ID.purging, "SELF", [C.has("afterburn")]),
   R.jutsu(ID.windSpear, PLAYER, [C.tHas("shield", 1), C.near(5)]),
-  R.jutsu(LIB.omenLines, "SELF", []),
+  R.jutsu(LIB.mark.lines, "SELF", []),
   R.jutsu(ID.hexweave, PLAYER, [C.near(4)]),
   R.jutsu(ID.finalCommand, PLAYER, [C.near(4)]),
   R.jutsu(ID.keelbind, PLAYER, [C.near(5)]),
@@ -147,22 +157,23 @@ export const ccRules = (P: CCParams) => [
   R.item(ID.solarBow, PLAYER, [C.near(5)]),
   R.end(),
 ];
-export const CC_LIBRARY_USED = [LIB.omenLines, LIB.omenLastLightBinding, LIB.omenScatterA, LIB.omenScatterB, LIB.blastScatterA, LIB.blastScatterB];
+export const CC_LIBRARY_USED = [LIB.mark.lines, LIB.sig.crownfall, LIB.mark.lastLightBinding, LIB.sig.commandAbsolute, LIB.mark.scatterA, LIB.mark.scatterB, LIB.blast.scatterA, LIB.blast.scatterB];
 export const ccKit = () => [
   ID.crownsWill, ID.stolenForm, ID.purging, ID.veilstep, ID.windSpear, ID.hexweave, ID.extermination, ID.scorchingRend,
-  ID.devouringGrasp, ID.lastDirective, ID.finalCommand, ID.keelbind, ID.ruinRefrain, ID.crownfall, ID.command, ID.recall,
+  ID.devouringGrasp, ID.lastDirective, ID.finalCommand, ID.keelbind, ID.ruinRefrain, ID.recall,
   ...CC_LIBRARY_USED,
 ];
 export const ccAiRecord = (P: CCParams) => ({
   ...IN.boss.data, username: "The Crowned Captain", poolsMultiplier: P.poolsMultiplier, statsMultiplier: P.statsMultiplier,
   ...Object.fromEntries(STATS.map((s) => [s, Math.round(STAT_PER_MULT * P.statsMultiplier * 100) / 100])),
-  jutsus: ccKit(), effects: [...IN.boss.data.effects, ...idgRowTags(P.idgRows)], includeDefaultRules: false, rules: ccRules(P),
+  jutsus: ccKit(), effects: [...IN.boss.data.effects.filter((e: any) => !(P.dropInnateSealprevent && e.type === "sealprevent")), ...idgRowTags(P.idgRows)],
+  includeDefaultRules: false, rules: ccRules(P),
 });
 export const CC_SETS = {
-  [LIB.omenLines]: ["crownfall", "mark"], [ID.crownfall]: ["crownfall", "land"],
-  [LIB.omenLastLightBinding]: ["command", "mark"], [ID.command]: ["command", "land"],
-  [LIB.omenScatterA]: ["shardstorm", "mark"], [LIB.omenScatterB]: ["shardstorm", "mark"],
-  [LIB.blastScatterA]: ["shardstorm", "land"], [LIB.blastScatterB]: ["shardstorm", "land"],
+  [LIB.mark.lines]: ["crownfall", "mark"], [ID.crownfall]: ["crownfall", "land"],
+  [LIB.mark.lastLightBinding]: ["command", "mark"], [ID.command]: ["command", "land"],
+  [LIB.mark.scatterA]: ["shardstorm", "mark"], [LIB.mark.scatterB]: ["shardstorm", "mark"],
+  [LIB.blast.scatterA]: ["shardstorm", "land"], [LIB.blast.scatterB]: ["shardstorm", "land"],
 } as FightConfig["sets"];
 export const ccFightConfig = (P: CCParams): FightConfig => {
   const recs = ccRecords(P);
@@ -178,7 +189,7 @@ export const ccFightConfig = (P: CCParams): FightConfig => {
 export const ccValidate = (P: CCParams) => {
   const v = validator();
   for (const j of buildBespoke(P)) v.jutsu(j);
-  const lib = buildLibrary(P.lib);
+  const lib = buildLibraryRecords();
   for (const id of CC_LIBRARY_USED) v.jutsu(lib[id]);
   v.jutsu(editedLastDirective());
   for (const r of ccRules(P)) v.rule(r);
@@ -186,34 +197,26 @@ export const ccValidate = (P: CCParams) => {
   v.ai(BOSS_ID, { ...rec, items: IN.boss.data.items });
   return v.issues;
 };
-export const ccSpec = (P: CCParams, issues: string[]) => {
-  const lib = buildLibrary(P.lib);
-  return {
-    _note: "The Crowned Captain build spec (Crownhold D5.BOSS). Generated by harness/skyglass_wreck_sim/engine/crowned_captain.ts --write-spec; offline engine-tested, not pushed. Placeholder ids: cc-* (his bespoke records) and lib-* (the shared set-piece library, SKYGLASS_BOSS_FIGHTS.md 5a; built here under the library names until harness/skyglass_wreck_sim/library_spec.json lands, then replace by its records/ids). Law 17: literal ids in the AI's jutsus and rules.",
-    params: P,
-    ai: { id: BOSS_ID, srcId: IN.boss.srcId, record: ccAiRecord(P) },
-    bespokeJutsu: buildBespoke(P),
-    libraryJutsu: CC_LIBRARY_USED.map((id) => lib[id]),
-    editedJutsu: { [ID.lastDirective]: { note: "existing push/271 record: cosmetic edit only (battleDescription carries the design's line and Shardstorm's image; finalstand row animations)", battleDescription: editedLastDirective().battleDescription, effects: editedLastDirective().effects } },
-    setPieces: {
-      Crownfall: { mark: LIB.omenLines, blast: ID.crownfall, note: "CASTER offsets authored for an odd column (the throne is (9,4))" },
-      "Command Absolute": { mark: LIB.omenLastLightBinding, blast: ID.command, note: "stars (7,1) (5,4) (8,8)" },
-      Shardstorm: { marks: [LIB.omenScatterA, LIB.omenScatterB], blasts: [LIB.blastScatterA, LIB.blastScatterB], note: "two patterns, a third of the hall each (hex 3-colour classes 0 and 1); colour-2 hexes are never hit by Scatter" },
-    },
-    kitRemoved: { Braced_Strike: "WvLCyGsPCKSDYl6-e_D9o", Surging_Overflow: "AicYoMMpZmHAykb_5hYtY", Rapid_Fire_live_Shuriken_Storm: "Nrxc8m9utE9qaD_gWpLgf", Worldbreaker_Chorus_live_Great_Bell_Toll: "LisNuMJ2gncEByAxG6QPI", Apex_Hunger_live_Onis_Hunger: `${ID.oniHunger} (replaced by its Crownhold-only copy The Crown's Will)` },
-    kitAdded: { "Final Command": ID.finalCommand, Keelbind: ID.keelbind, "Ruin Refrain": ID.ruinRefrain },
-    recallEcho: { id: ECHO_ID, name: IN.echo.data.username, source: IN.echo.source },
-    arena: { grid: SIZE, orientation: "FLAT, odd columns offset (getBattleGrid)", throne: P.throne, stars: STARS },
-    animations: {
-      cc_crownfall: ID.crownfall, cc_command_absolute: ID.command, cc_recall: ID.recall, cc_crown_aura: ID.crownsWill,
-      cc_last_directive: ID.lastDirective, cc_phase_shift: `${ID.lastDirective} (30%); the 60% flourish rode on his own Command Absolute mark, which is now the shared Omen: Last Light, Binding`,
-      tg_heavy: [LIB.omenLines, LIB.omenScatterA, LIB.omenScatterB], tg_control: LIB.omenLastLightBinding, tg_safe: LIB.omenLastLightBinding,
-      dt_heavy: [LIB.blastScatterA, LIB.blastScatterB], dt_control: `${ID.command} (stun row)`,
-      cc_shardstorm: "unused: Shardstorm now lands through the shared scatter blast (dt_heavy)",
-    },
-    validation: issues.length ? issues : "valid",
-  };
-};
+export const ccSpec = (P: CCParams, issues: string[]) => ({
+  _note: "The Crowned Captain build spec (Crownhold D5.BOSS). Generated by harness/skyglass_wreck_sim/engine/crowned_captain.ts --write-spec; offline engine-tested, not pushed. His set pieces are library records (library_spec.json, ids lib-*), referenced by id and not copied here; his own new records are cc-* (The Crown's Will, Recall). All are placeholder ids to replace with created ids (law 17: literal ids in the AI's jutsus and rules).",
+  params: P,
+  ai: { id: BOSS_ID, srcId: IN.boss.srcId, record: ccAiRecord(P) },
+  newJutsu: buildBespoke(P),
+  libraryUsed: { ids: CC_LIBRARY_USED, source: "library_spec.json (fable/skyglass-wreck-sim 4bd5356a)", powers: { crownfall: LIB_POWERS.crownfall, commandAbsolute: LIB_POWERS.commandAbsolute, blastScatter: LIB_POWERS.blastScatter, scatterPool: LIB_POWERS.scatterPool } },
+  editedJutsu: { [ID.lastDirective]: { note: "existing push/271 record: cosmetic edit only (battleDescription carries the design's line and Shardstorm's image; finalstand row animations)", battleDescription: editedLastDirective().battleDescription, effects: editedLastDirective().effects } },
+  editedRecord: { innateSealprevent: P.dropInnateSealprevent ? "removed: it collides with the Last Light, Binding marker (sealprevent); the boss has no bloodline, so the row did nothing" : "kept" },
+  setPieces: {
+    Crownfall: { mark: LIB.mark.lines, blast: ID.crownfall },
+    "Command Absolute": { mark: LIB.mark.lastLightBinding, blast: ID.command, stars: PATTERNS.stars },
+    Shardstorm: { marks: [LIB.mark.scatterA, LIB.mark.scatterB], blasts: [LIB.blast.scatterA, LIB.blast.scatterB] },
+  },
+  kitRemoved: { Braced_Strike: "WvLCyGsPCKSDYl6-e_D9o", Surging_Overflow: "AicYoMMpZmHAykb_5hYtY", Rapid_Fire_live_Shuriken_Storm: "Nrxc8m9utE9qaD_gWpLgf", Worldbreaker_Chorus_live_Great_Bell_Toll: "LisNuMJ2gncEByAxG6QPI", Apex_Hunger_live_Onis_Hunger: `${ID.oniHunger} (replaced by its Crownhold-only copy The Crown's Will)` },
+  kitAdded: { "Final Command": ID.finalCommand, Keelbind: ID.keelbind, "Ruin Refrain": ID.ruinRefrain },
+  recallEcho: { id: ECHO_ID, name: IN.echo.data.username, source: IN.echo.source, note: "he never uses Omen: Last Light (red), whose summonprevent marker would block Recall" },
+  arena: { grid: SIZE, orientation: "FLAT, odd columns offset (getBattleGrid)", throne: P.throne },
+  animations: { cc_recall: ID.recall, cc_crown_aura: ID.crownsWill, cc_last_directive: ID.lastDirective, cc_phase_shift: `${ID.lastDirective} (30%)`, library: "the library records carry tg_*, dt_*, cc_crownfall and cc_command_absolute" },
+  validation: issues.length ? issues : "valid",
+});
 
 /* ------------------------------------------------------------------ main */
 const main = async () => {

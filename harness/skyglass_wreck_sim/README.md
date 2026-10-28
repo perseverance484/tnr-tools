@@ -39,10 +39,17 @@ python3 harness/skyglass_wreck_sim/tools/probe_summary.py harness/skyglass_wreck
 # Telegraphed-boss probes (ground marks, self markers, COORDINATES patterns, grid/spawns, summoning an AI record):
 TNR_SCRIPT=probe_telegraph.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_telegraph.json
 
-# Crowned Captain solo fight (Crownhold D5.BOSS): set-piece boss, dodge on/off, writes the build spec:
+# Crownhold bosses on the shared set-piece library (engine/cclib.ts, engine/library.ts; REPORT_crowned_captain.md).
+# The Crowned Captain solo, dodge on/off, writes his build spec:
 TNR_SCRIPT=crowned_captain.ts harness/skyglass_wreck_sim/run.sh --seeds 60 \
     --out $PWD/harness/skyglass_wreck_sim/results/crowned_captain_tuned.json \
-    --write-spec $PWD/harness/skyglass_wreck_sim/crowned_captain_spec.json   # see REPORT_crowned_captain.md
+    --write-spec $PWD/harness/skyglass_wreck_sim/crowned_captain_spec.json
+# The three division commanders solo, and the whole isolated pyramid with pools carried (route policies):
+TNR_SCRIPT=crownhold.ts harness/skyglass_wreck_sim/run.sh --solo 60 \
+    --out $PWD/harness/skyglass_wreck_sim/results/crownhold_commanders_solo.json \
+    --write-spec $PWD/harness/skyglass_wreck_sim/crownhold_spec.json
+TNR_SCRIPT=crownhold.ts harness/skyglass_wreck_sim/run.sh --chain 20 --policies clean,alert,healing,war \
+    --out $PWD/harness/skyglass_wreck_sim/results/crownhold_chain.json
 
 # Boss-fight mechanic probes (two-marker chain, weakness window, ring/bell, Chain Hook, barriers):
 TNR_SCRIPT=probe_boss.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_boss.json

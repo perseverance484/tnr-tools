@@ -5,15 +5,259 @@ average endgame player and exports a build spec.
 
 - **Engine:** the game's combat engine at `c86f43f4`, in memory, with the live damage settings.
 - **Requests:** zero live requests and no credentials.
-- **Spec:** `crowned_captain_spec.json`.
-- **Raw results:** `results/crowned_captain_tuned.json` (60 seeds with dodging, 60 without).
-- **Sample traces:** `results/crowned_captain_trace_seed3.txt` and `..._seed5.txt`.
-- **Script:** `engine/crowned_captain.ts`.
-- **Inputs:** `data/crowned_captain_inputs.json`, built by `tools/build_crowned_captain_inputs.py`.
+- **Specs:** `crowned_captain_spec.json` and `crownhold_spec.json` (the three division commanders).
+- **Raw results:** `results/crowned_captain_tuned.json` (60 seeds with dodging, 60 without),
+  `results/crownhold_commanders_solo.json` and `results/crownhold_chain.json`.
+- **Sample traces:** `results/crowned_captain_trace_seed3.txt` and `..._seed5.txt` (regenerated on the library version).
+- **Scripts:** `engine/crowned_captain.ts`, `engine/crownhold.ts`, shared code in `engine/cclib.ts`.
+- **Inputs:** `data/crownhold_inputs.json`, built by `tools/build_crownhold_inputs.py`.
 
-Nothing here is pushed or authorised for the live game. The spec carries placeholder ids `cc-*` for the 10 new jutsu.
+Nothing here is pushed or authorised for the live game. Report 3 (below) is current. Reports 2 and 1 follow it and are
+superseded where report 3 differs; their `cc-*` placeholder set pieces are replaced by library records.
 
-## Current tuning: HP doubled (director, 2026-10-28)
+## Report 3 (current): the shared library, the three commanders, the pyramid chain
+
+This report covers three things:
+- the Crowned Captain switched to the shared set-piece library;
+- the three division commanders tuned as a ramp;
+- the whole isolated pyramid run with pools carried between fights.
+
+**Sources and outputs:**
+- The library is `library_spec.json` / `engine/library.ts`, merged from `fable/skyglass-wreck-sim` 4bd5356a. Its records
+  are used by id and never copied.
+- Shared harness code: `engine/cclib.ts`.
+- Scripts: `engine/crowned_captain.ts` and `engine/crownhold.ts`.
+- Specs: `crowned_captain_spec.json` and `crownhold_spec.json`.
+- Results: `results/crowned_captain_tuned.json`, `results/crownhold_commanders_solo.json` and
+  `results/crownhold_chain.json`.
+- Inputs: `data/crownhold_inputs.json`, all 20 Crownhold AIs, built by `tools/build_crownhold_inputs.py`.
+
+### The ramp (solo, full pools, average endgame player, 60 seeds per mode)
+
+| Boss | Pools (HP) | Damage rows | Dodging on: win / rounds / HP left (median, p10) | Dodging off: win / HP left | Phase starts (60% / 30%) |
+|---|---|---|---|---|---|
+| Crown Armsmaster (D2) | 2 (10,100) | none | 100% / 8 / 84%, 61% | 100% / 67% | r3 / r6 |
+| Replicant Zero (D3) | 3 (15,150) | +25% | 100% / 14 / 52%, 46% | 100% / 4% | r8 / r10.5 |
+| The Second (D4) | 4 (20,200) | 3 x +100% | **90%** / 12 / 48%, 48% | **32%** / 48% | r8 / r10 |
+| The Crowned Captain (D5) | 5 (25,250) | +25% | **70%** / 25 [21-25] / 0% (1 HP), 0% | **33%** / 20% | r9 / r19 |
+
+- **The ramp holds.**
+  - Win rates fall: 100, 100, 90, 70.
+  - HP left at a win falls: 84%, 52%, 48%, and the Captain's wins end at 1 HP (fact 11).
+  - The Crowned Captain is the hardest.
+- **Where the marks decide the fight:**
+  - The Second and the Crowned Captain: ignoring the marks costs most fights.
+  - Replicant Zero: it costs nearly all the HP (4% left).
+  - The Armsmaster: it costs a sixth of the HP. He is "the straight fight that teaches the marks".
+- **The Crowned Captain's phases** (dodging on) run 9 / 10 / 6 rounds. With HP doubled, the duel phase lasts 9 rounds and
+  holds about 2 Crownfalls.
+
+### The Crowned Captain on the library
+
+| | Dodging on | Dodging off |
+|---|---:|---:|
+| Win rate | **70%** (42/60) | **33.3%** (20/60) |
+| Rounds to win, median [p10-p90] | 25 [21-25] | 20 [18-23] |
+| HP left at a win | 35 of 42 wins end at 1 HP (fact 11) | median 20% |
+| Losses by phase (1 / 2 / 3) | 0 / 18 / 0 | 0 / 5 / 35 |
+| Phase lengths (rounds) | 9 / 10 / 6 | 9 / 7 / - |
+| Idle boss turns | 12.8% | 11.6% |
+| Set pieces that landed with no mark the turn before | 0 | 0 |
+
+**Set pieces per fight** (marks / blasts cast / hits; damage per hit):
+
+| Set piece | Dodging on | Dodging off |
+|---|---|---|
+| Crownfall | 2.1 / 0.3 / 0 | 2.0 / 0.5 / 0.2, 1,487 |
+| Command Absolute | 2.2 / 1.4 / 0 | 1.5 / 1.0 / 1.0, 667 plus stun and seal |
+| Shardstorm | 2.1 / 0.8 / 0 | 2.1 / 1.8 / 0.6, 733 |
+| Recall | 1.3 casts; the echo deals 17% of the damage taken | 1.0 |
+| Extermination Order | 1.9 casts; the largest share of damage, 26.5% | - |
+
+**What changed from report 2:**
+- His set pieces are library records:
+  - Omen: Lines + Crownfall;
+  - Omen: Last Light, Binding + Command Absolute;
+  - Omen: Scatter A/B + Eruption: Scatter.
+- His own new records are The Crown's Will and Recall only.
+- Marks cost 40 AP and blasts 100 AP.
+- Every blast rule sits at the top. After a mark comes `has_effect <marker>` -> basic attack (adjacent) -> end turn.
+- The innate sealprevent row is removed (fact L2).
+- His Shardstorm battle line now rides on the Last Directive: "\"Preserve command.\" The crown blazes, and its points
+  crack loose above him."
+- Extermination Order is off in phase 3. With it on, the 60 AP after each Scatter mark carried it, and dodging won 80%
+  at 8.7% HP.
+- The rows retune: +50% became **+25%**.
+  - With the library's mark-turn attacks and weaker blasts, +50% gave 0-27% wins with dodging.
+  - At 0 rows, ignoring the marks won 67%.
+- Pools stay **5**, as the director set.
+
+**Tuning path on the library** (40 seeds per mode):
+
+| Damage rows | Beat after a mark | Library change (analysis only) | On: win / rounds / HP | Off: win |
+|---:|---|---|---|---:|
+| 0.5 | kit attack (60 AP) | - | 0% | 0% |
+| 0.25 | kit attack | - | 0% | 10% |
+| 0 | kit attack | - | 2.5% | 12.5% |
+| 0.5 | basic attack | - | 27.5% / 23 / 0% | 25% |
+| 1 | basic attack | - | 12.5% / 21 / 0% | 22.5% |
+| 0 | basic attack | - | 85% / 25 / 0% | 67.5% |
+| **0.25** | **basic attack** | **-** | **85% / 25 / 0%** (60 seeds: 70%) | **37.5%** (60 seeds: 33%) |
+| 0.25 | basic attack | **Lines as a five-ray fan** | 65% / 25 / 0% | **5%** |
+| 0 | basic attack | fan; Command Absolute 200 | 65% / 25 / 12% | 27.5% |
+
+**Separation needs a fixed Lines pattern.** With the library's Lines as landed (one 5-hex ray), Crownfall almost never
+reaches a player, and marks barely separate dodgers from non-dodgers. Making Lines a real fan (fact L1) takes ignoring the
+marks from 37.5% wins to 5%.
+
+### The commanders
+
+Each keeps its push/272 kit and rules, adds library records and rules, and gains no jutsu of its own. Records and rules
+are in `crownhold_spec.json`.
+
+**Crown Armsmaster** (D2, `-GKFYAZUg1eF-3VnZhDjx`)
+- **Racks Fall:** Omen: Scatter A/B + Eruption: Scatter, after his set-up moves.
+- **Whirlwind:** Omen: Ring + Eruption: Ring, under 50% when the player is within 2.
+- After a mark: Backlash Palm or Shuriken Storm, then end turn.
+- Pools 2.5 to **2**.
+- Per fight: 2.0 Racks Fall and 2.0 Whirlwind marks.
+  - Dodging on: none hit.
+  - Dodging off: Racks Fall hits 0.6 times (510 each) and Whirlwind hits every time it is cast (1,013 each).
+
+**Replicant Zero** (D3, `vjEFUJ9mb1zNTuQf4lfXv`)
+- **Jar Seals:** Omen: Seal Lines + Binding: Seal Lines, from round 6 (fact L5).
+- After a mark: Devouring Wave or Mirror Edge, then end turn.
+- He keeps his live round-2 Split Image. The design's "clones stand on the lines with him" does not work with the library
+  as landed (fact L5).
+- Rows: **+25%**.
+- Per fight:
+  - Dodging on: 2.5 marks, 0.6 blasts cast, no hits.
+  - Dodging off: 2.3 hits of 329, plus seal and elemental seal. 57 second blasts landed without a mark (fact L3).
+
+**The Second** (D4, `ZsfRoyJ55Zsay5bHNLMPv`)
+- **Order of Battle:** Omen: Rows A/B, then his live Sovereign Undertow (60 AP) pulls in the mark turn, then Eruption:
+  Rows next turn.
+- After a mark: Undertow, Piercing Judgment, Explosive Tag, then end turn.
+- **Window:** Lowered Guard under 30%, once. It fired in 0.9 of fights, in round 11. Its line is the library's neutral
+  one; "I questioned his orders for thirty years." has no record to ride on.
+- Pools 3 to **4**; rows: **3 x +100%**.
+- Per fight: 5.1 marks and 1.2 Undertows.
+  - Dodging on: no hits.
+  - Dodging off: 1 hit of about 4,000 (a near one-shot), and 41 of 60 fights lost in phase 1.
+
+### The isolated pyramid, pools carried (20 seeded runs per route policy, dodging on, all regulars at their live push/272 stats)
+
+| Policy | Clears | Where runs end | D2 boss: enter HP / win | D3 boss: enter / win | D4 boss: reached / enter / win | Crowned Captain: reached / win |
+|---|---:|---|---|---|---|---|
+| clean | **0%** | D3 boss 9, D4 regulars 10, D4 boss 1 | 92% / 100% | 44% / 55% | 5% / 11% / 0% | 0% |
+| alert | **0%** | the same as clean | 92% / 100% | 44% / 55% | 5% / 11% / 0% | 0% |
+| healing | **45%** | D4 boss 1, Crowned Captain 10 | 100% / 100% | 100% / 100% | 100% / 100% / 95% | 95% / 47% (median 21 rounds, ends at 0-1 HP) |
+| war | **0%** | D3 boss 14, D4 regulars 6 | 88% / 100% | 47% / 30% | 0% | 0% |
+
+**Reading the chain:**
+- **Without regeneration between fights, only the Healing Rite route can clear.**
+  - The Healing Rite resets pools before each boss, so every boss is met at full HP. Its results match the solo ramp.
+  - Clean and war arrive at Replicant Zero with under half HP (44-47%) and lose there about half the time or more. The
+    survivors reach the Second at about 11% HP, or die to D4's regulars first.
+- **Alarm Raised changes almost nothing.** It is +10% damage taken for 2 rounds. Clean and alert end the same way on the
+  same seeds; HP left after Replicant Zero is 14.2% vs 14%.
+- **The War Rite does not pay for the fourth regular without a heal.**
+  - Its D2 stun immunity is spent on a fight already won 100%.
+  - Its D3 +25% damage for 3 rounds does not make up for entering at 47%. It wins 30% there vs clean's 55%. Seed noise
+    is about 11 points at 20 chains.
+- **Open decision for the director:**
+  - Either the pyramid regenerates or heals between fights, or the commanders are tuned for carried pools.
+  - Retuning for carried pools would mean D3 and D4 rows of about 0 and +100%, a sim re-run, and the ramp flattening
+    when they are fought solo.
+  - Not settled here. The solo numbers above assume full pools, as the Healing Rite route gives.
+
+
+**Assumptions:**
+- The run starts at full pools.
+- After each won fight the player carries the end-of-fight fraction of HP, chakra and stamina into the next fight.
+- There is no regeneration between pyramid fights. An isolated pyramid keeps the player in BATTLE status. Whether time
+  regeneration runs between fights is not modelled. If it does, these chains are pessimistic.
+- A loss ends the run.
+
+**The four route policies** apply the same choice in every division (push/273):
+
+| Policy | Route per division |
+|---|---|
+| clean | 3 regulars, the puzzle solved, then the boss |
+| alert | the puzzle failed: the boss with Alarm Raised (+10% damage taken, 2 rounds) |
+| healing | 4 regulars, then the Healing Rite: the boss at full pools |
+| war | 4 regulars, then the War Rite: D2 stun immunity 2r, D3 +25% damage 3r, D4 seal immunity 2r, D5 debuff immunity 3r |
+
+### Library findings (for the library owner; each from source and/or a harness run)
+
+**L1. Omen: Lines is one 5-hex ray west, not a fan.**
+- `library_spec.json` `patterns.lines` holds 5 offsets, all latitude 0. The NW and SW rays come out empty.
+- Cause: `library.ts` builds its geometry on `new Grid(TerrainHex, rectangle(...))`, the default POINTY honeycomb grid.
+  The battle grid is FLAT, with odd columns offset (`getBattleGrid`). That is the same mistake as `probe_telegraph.ts` in
+  report 1.
+- Consequence: Crownfall reaches a player 0.2 times per fight even when they ignore it.
+- A five-ray fan computed on the battle grid (`--params {"libLinesFan": true}`, analysis only) makes ignoring the marks
+  lose 95% of fights.
+
+**L2. Last Light, Binding's marker (sealprevent) collides with every Crownhold boss's innate sealprevent 100.**
+- `has_effect sealprevent >= 1` is always true, so Command Absolute would fire every turn.
+- Fixed on the Crowned Captain by removing his innate row. The boss has no bloodline, so the row did nothing.
+- Any other boss with innate sealprevent cannot use that mark.
+
+**L3. A 1-round marker can be seen on two boss turns.**
+- `has_effect` counts the boss's effects without checking that they are still active (`ai_v2.ts` has_effect branch).
+- When the boss acts before the player in a round, last round's marker is still listed at rounds 0.
+- The blast (cooldown 1) then fires a second time, with no mark.
+- Seen on Replicant Zero: 57 such second blasts over 60 fights where the marks were ignored.
+- **Fix:** blast cooldown of 2 or more. The marks' cooldown 4 already spaces them.
+
+**L4. Stun and seal blasts share a 3-round lock (`SHARED_COOLDOWN_TAGS`, `SHARED_COOLDOWN_ROUNDS` 3).**
+- A boss's own stun or seal moves lock its stun or seal blast. Then the mark fires and its blast cannot.
+- Seen: the Crowned Captain's Final Command and Ruin Refrain lock Command Absolute for 3 rounds. His first Command
+  Absolute at the phase-2 turn is often a mark with no blast.
+- Command Absolute, Maw of the Deep, Ship's Bell and Binding: Seal Lines are all exposed.
+
+**L5. Binding: Seal Lines applies elementalseal with no friendlyFire, and elementalseal is also the Seal Lines marker
+type.**
+- A Split Image clone runs Replicant Zero's rules, so it lays and fires its own Seal Lines.
+- Its blast lands the marker type on him, and he then fires the blast every turn without a mark.
+- Workaround: his mark only from round 6, after his live round-2 clone is gone, and no clone after a mark.
+- **Fix:** friendlyFire ENEMIES on the blast's seal rows, or another marker type.
+
+**L6. Scatter A and B (`((c >> 1) + r) % 3`) are a third of the arena each, and the third class is never hit.** A player
+who ignores marks but stands on it is safe forever. Shardstorm's "safe hexes move" holds only between A and B.
+
+**L7. Other notes:**
+- The Lines marker is `disarm`. It hides the Crowned Captain's Solar Bow and Crossbow for that round; harmless.
+- He never uses Omen: Last Light (red), whose summonprevent marker would block Recall.
+
+### Engine facts added in report 3
+
+- **Fact 11. The Kitsune set's max-HP bonus expires after 20 rounds.**
+  - The increasemaxpools rows run 20 rounds.
+  - When they lapse, current HP drops with the maximum, floored at 1.
+  - In the 25-round Crowned Captain fight, 35 of 42 winning players finish at 1 HP. They survive because, once the Last
+    Directive is up, a dodging player takes no further damage: his only actions are Shardstorm and a basic attack.
+  - Any fight over 20 rounds costs the Kitsune set's bonus.
+- **Fact 12. Phase 3 for a dodger is now a pure survival test.**
+  - Every Shardstorm blast is a 100 AP turn, and the mark turn carries only a basic attack.
+  - So the Last Directive's 5 rounds hurt only players who ignore the marks: 35 of their 40 losses happen there.
+
+### What does not work as designed (report 3)
+
+- **Ignoring the marks against the Crowned Captain wins a third of fights.** With the library as landed, his marks
+  separate players less than in report 2 (5%). The cause is library-side (L1, L4). The fan fix alone gets back to 5%.
+- **Fights are long.** The Crowned Captain's win is razor-thin: 1 HP after the Kitsune bonus lapses at round 21. HP
+  doubled plus the 5-round Directive gives 25 rounds.
+- **Replicant Zero's clones cannot stand on the lines** (L5). Second blasts with no mark happen whenever he acts first
+  (L3).
+- **The Second's window line** has no record of his to carry it. The shared Lowered Guard is neutral.
+- **The pyramid cannot be cleared on carried pools except by the Healing Rite route.** That route clears 45%. Clean,
+  alert and war clear 0%, and most of those runs end at Replicant Zero or D4's regulars. The commanders were tuned solo at
+  full pools. Whether there is regeneration between fights is a director decision; see the chain section.
+
+
+## Report 2: HP doubled (director, 2026-10-28; superseded by report 3)
 
 The director doubled his HP (pools 2.5 to 5, 25,250 HP) so that phase 1 lasts. The Recall echo is unchanged.
 
@@ -359,7 +603,7 @@ The source answer to (4), found before the drop: no.
 ## Reproduce
 
 ```bash
-python3 harness/skyglass_wreck_sim/tools/build_crowned_captain_inputs.py --check
+python3 harness/skyglass_wreck_sim/tools/build_crownhold_inputs.py --check
 H=$PWD/harness/skyglass_wreck_sim
 TNR_SCRIPT=crowned_captain.ts harness/skyglass_wreck_sim/run.sh --seeds 60 \
   --out $H/results/crowned_captain_tuned.json --write-spec $H/crowned_captain_spec.json \
@@ -368,6 +612,11 @@ TNR_SCRIPT=crowned_captain.ts harness/skyglass_wreck_sim/run.sh --seeds 60 \
 TNR_SCRIPT=crowned_captain.ts harness/skyglass_wreck_sim/run.sh --trace 5 --seeds 0
 # a tuning variant (absolute path; any DEFAULTS key):
 TNR_SCRIPT=crowned_captain.ts harness/skyglass_wreck_sim/run.sh --params /abs/variant.json --seeds 40
+# the commanders solo, and the pyramid chain per route policy:
+TNR_SCRIPT=crownhold.ts harness/skyglass_wreck_sim/run.sh --solo 60 \
+  --out $H/results/crownhold_commanders_solo.json --write-spec $H/crownhold_spec.json
+TNR_SCRIPT=crownhold.ts harness/skyglass_wreck_sim/run.sh --chain 20 --policies clean,alert,healing,war \
+  --out $H/results/crownhold_chain.json
 ```
 
 - 60 seeds per mode take about 1 minute.
