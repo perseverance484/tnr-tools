@@ -3581,3 +3581,17 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "Approve fixes. If we refill their HP what's the point of the separate nodes and all the extra work we put in on the shortcut vs buff vs heal? Archive alarm guard can have a separate record. We have a bunch of ghost ship AI, can use a Crownhold one if needed. Keep the Sealwright's ward and give him a lighter bruiser than the Crowned Captain to work with".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`, `docs/design/SKYGLASS_BOSS_FIGHTS.md`; harness `fable/skyglass-wreck-sim`, `fable/crowned-captain-sim`, `fable/skyglass-hunts-sim`.
+
+## RUL-2026-10-28-014 — Forge bundle budget raised for pet species
+
+**Date:** 2026-10-28
+
+**Domain:** Forge tooling (Lane A)
+
+**Status:** ACTIVE.
+
+**Ruling:** The Forge bundle budget is raised from 436,000 / 105,500 to **446,000 / 108,000** (raw / gzip). This makes room for the `petSpecies` entity and the contracts re-pinned to TheNinjaRPG@2af4b320; measured at 444,780 / 107,068. The change is on `fable/pet-species-builder`.
+
+**Evidence:** Director, 2026-10-28, answering decision 1 (the bundle budget) of the pet-species builder handoff: "1".
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs`.
