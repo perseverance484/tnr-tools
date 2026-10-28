@@ -3647,3 +3647,17 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "Why don't we keep choices to 1 per run and tainted versions can have 2. We can get rid of requisition entirely. Leave the archive".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §2, §4a.
+
+## RUL-2026-10-28-017 — Crownhold pick: Honor and Echo Jar removed
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE.
+
+**Ruling:** Crownhold's pick-1 options are now Crown's Hoard, Skyglass Coffer ×2, the Crownhold badge, the Crownhold jutsu and the Crown Fragment. Crownhold's Honor (village tokens) and Echo Jar ×2 are removed. Echo Jars still come from the Crown's Hoard.
+
+**Evidence:** Director, 2026-10-28: "Get rid of honor and echo jar from crownhold choices."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4a; `push/crownhold.gen.py`.
