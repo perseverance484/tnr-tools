@@ -1186,3 +1186,17 @@ and effects land in the bundle. The records feed the consumable-cache split and 
 the row count, which shows how many items are newer than the seed. Those newer items need a follow-up read by id.
 129/128/128/128/128/126 reads, zero writes. Built by `push/323_item_catalog_capture.gen.py`. Gates (each part):
 `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 324 Quest catalog capture (read-only, 4 parts): READY TO RUN (any order)
+
+Director, 2026-10-28: "Approve and build the audit" (RUL-2026-10-28-023). The Hunter's and Gatherer's Chests are about to
+be flagged `canBeHunted` / `canBeGathered`. Any quest whose reward sets `reward_hunter_items` or `reward_gathering_items`
+with no id list draws from every flagged item (theninjarpg `routers/quests.ts` ~2218), so it would start dropping the
+chests. These parts point-read every quest in the seed index (389, hidden included) with `quests.get`, persist full, so
+the rewards can be audited before the flags change.
+- Part 1 also reads `quests.getAllNames`, row count only. A count above 389 means newer quests that need a read by id.
+- Item rewards that set the same flags are covered by the push/323 item capture.
+- 98/97/97/94 reads, zero writes.
+
+Built by `push/324_quest_catalog_capture.gen.py`. Gates (each part): `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems.
