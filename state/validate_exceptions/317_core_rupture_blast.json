@@ -1,0 +1,9 @@
+{
+ "manifest": "push/317_core_rupture_blast.json",
+ "ruling": "RUL-2026-10-28-002",
+ "reason": "validate.py law 6 caps pierce power at 100; the game's PierceTag power has no maximum (validators/combat.ts PowerAttributes: min 0), and the live Core Rupture already carries 120. Law 6's flat cap is already listed for law reconciliation (RUL-2026-10-20-001 boundary).",
+ "sha256": "8c2adade25763930f127310e1af9ada6c9058e5766c7db5dd2c2fc15ef79babf",
+ "accepted": [
+  "ERROR  [jutsu:Core Rupture: small heavy blast]: law 6: effect 'pierce' power 180 exceeds the cap of 100 (rows are rounded down)"
+ ]
+}
