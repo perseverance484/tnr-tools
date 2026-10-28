@@ -6,8 +6,8 @@ and everything we've got". This file owns the fight design. Inputs:
 - names and voice: `SKYGLASS_STORY_BIBLE.md`;
 - animation ids and readability rules: `SKYGLASS_BOSS_ANIMATIONS.md`.
 
-Every boss move is a **dungeon- or Crownhold-only copy**, with its own name, battle text and animations. Shared crew
-records stay untouched.
+Jutsu are **one shared set**: the hunts, both Wreck versions and Crownhold use the same jutsu and rules, and the live
+crew records are upgraded in place. AI records differ only in stats. The canonical statement is §5.
 
 ## The tools we have (engine-checked unless marked PROBE)
 
@@ -50,7 +50,7 @@ ward. The Sealwright's **Mending Seal** keeps the Captain topped up.
 |---|---|---|---|---|
 | **Hold the Line** | opener, self | Unbroken Command: +damage and stats for the fight; once | cp_command flourish | none; it marks the fight's start |
 | **Broadside** | set piece | Marks two full rows of the arena red; next turn the ship's guns fire down them. Heavy damage | tg_heavy rows, then dt_heavy plus a cannon-flash variant | step to an unmarked row |
-| **Ship's Bell** | set piece | Violet ring (radius 2) around him; next turn the bell tolls: push 3 and a 1-round stun | tg_control, then cp_bell_toll shockwave | leave the ring, or be thrown and stunned |
+| **Ship's Bell** | set piece | Violet ring (radius 2) around him; next turn the bell tolls: push 3 and the set-piece lock (RUL-2026-10-28-015: `elementalseal`, `timecompression` +10 AP on every jutsu, `increasecooldown` +2 on Move and Replacement Technique) for 1 round | tg_control, then cp_bell_toll shockwave | leave the ring, or be thrown and locked |
 | **Keelbind** | duel | Range-5 root and drain on the player with the most aggro; stops Replacement Technique | chain-wrap hit | cleanse, or stay close |
 | **Final Command** | duel | Damage, a 3-round stun and a seal; his finisher | crimson strike | do not stand stunned next to him |
 | **Raise the Gunwale** | utility | A barrier line between the players and the Sealwright; the barrier has its own health | timber-and-seal wall sprite | break it, or go around |
@@ -67,7 +67,11 @@ ward. The Sealwright's **Mending Seal** keeps the Captain topped up.
 
 ## 2. The Core Horror: "What the Core Remembers Wrong"
 
-*Skyglass Wreck, floor 4, alone. Harness: 25,250 HP, two +100% rows, about 5 rounds.*
+*Skyglass Wreck, floor 4, alone. Harness: 25,250 HP, two +100% rows. Round target: pending harness rerun (retuned by
+RUL-2026-10-28-008).*
+
+This is the one canonical Core Horror kit. The two kit descriptions in `SKYGLASS_WRECK_ENCOUNTERS.md` (Rending Claw /
+Bile Spit, and Rot Glyph / Horror Wail) are superseded.
 
 **Fantasy.** A crew member the Core could not rebuild properly, now a mass of timber, rope, seawater and skyglass with a
 half-remembered man somewhere inside. It never speaks. **Theme of the fight:** the ship itself is the boss. Every attack
@@ -93,7 +97,9 @@ the marks before the final bosses.
 
 ## 3. The Crowned Captain: "I control... many echoes"
 
-*Crownhold, the last fight, solo. Tuning in progress: a hard win in 12-15 rounds that fails if the marks are ignored.*
+*Crownhold, the last fight, solo. A hard win that fails if the marks are ignored. Crownhold carries HP between fights, so
+he is tuned as the end of the chain (RUL-2026-10-28-013); HP doubled (RUL-2026-10-28-008). Round target: pending harness
+rerun.*
 
 **Fantasy.** The source of every echo. He has never left his throne room and never needed to. Calm, certain, faintly
 amused. He believes he gave his people a gift. **Theme of the fight:** command over everything. Phase 1 he duels you
@@ -110,7 +116,7 @@ himself; phase 2 his echoes fight for him; phase 3 his crown fights for him.
 | **Hexweave** | setup | +damage taken and -heal on the player | violet sigil | cleanse it before Final Command |
 | **Crownfall** | set piece | A red fan of lines from the throne; next turn crown shards fall along them | tg_heavy lines, then cc_crownfall | step between the lines |
 | **Recall** | phase 2 | One echo of a Crownhold officer you already beat rises; recast when it falls | cc_recall | kill it fast, or tank it and focus him |
-| **Command Absolute** | set piece, phase 2 | Violet over the whole arena except three stars; next turn every unsafe hex is stunned and sealed | tg_control field, tg_safe, then cc_command_absolute | reach a star |
+| **Command Absolute** | set piece, phase 2 | Violet over the whole arena except three stars; next turn every unsafe hex takes the set-piece lock (RUL-2026-10-28-015: `elementalseal`, `timecompression` +10 AP on every jutsu, `increasecooldown` +2 on Move and Replacement Technique) for 2 rounds | tg_control field, tg_safe, then cc_command_absolute | reach a star |
 | **Stolen Form** | phase 2 | Copies your buffs | mirror flicker | buff after it, not before |
 | **Extermination Order** | phase 2-3 | Damage, an elemental seal and a cleanse-prevent | crimson sigil | expect it once he has the Last Directive |
 | **The Last Directive** | phase 3, under 30% | He cannot fall for 5 rounds; damage up | cc_last_directive blaze | survive it |
@@ -153,11 +159,14 @@ you, reluctantly. **Arena:** the archive. He stands before the chained reliquary
 
 | Move | Kind | What it does | Mark / animation | Counterplay |
 |---|---|---|---|---|
-| **Script Lines** | set piece | Marks a cross of four seal lines from the reliquary; next turn they close: seal, plus an elemental seal on anyone standing in them | tg_control lines, then sw_script | step off the lines |
-| **Archive Lock** | set piece, signature | Violet over the whole archive except three tiles in the reliquary's light; next turn a 2-round stun and seal everywhere else | tg_control field, tg_safe, then sw_lock | get into the light |
-| **Called to the Archive** | summon | One Skyglass Sentinel echo steps out of a frame (one at a time) | cc_recall reused | kill it, or ignore it and pressure him |
+| **Script Lines** | set piece | Omen: Seal Lines, a diagonal cross from the reliquary; next turn they close: the set-piece lock (RUL-2026-10-28-015: `elementalseal`, `timecompression` +10 AP on every jutsu, `increasecooldown` +2 on Move and Replacement Technique) for 2 rounds on anyone standing in them | tg_control lines, then sw_script | step off the lines |
+| **Archive Lock** | set piece, signature | Violet over the whole archive except three tiles in the reliquary's light; next turn the set-piece lock (RUL-2026-10-28-015: `elementalseal`, `timecompression` +10 AP on every jutsu, `increasecooldown` +2 on Move and Replacement Technique) for 2 rounds everywhere else | tg_control field, tg_safe, then sw_lock | get into the light |
+| **Called to the Archive** | summon | One Crown Stonebound, a lighter bruiser than the Crowned Captain, steps out of a frame (one at a time). His Ward of Command lands on it as the highest-health ally (RUL-2026-10-28-013) | cc_recall reused | kill it, or ignore it and pressure him |
 | **Mending Seal** | sustain | Heals and cleanses himself | soft seal glow | interrupt with burst |
 | **He Lowers His Seals** | window, under 30% | Once: for 1 round he takes x3 damage. "He lowers his seals for one breath, as if hoping you will end it." | sw_lowered | end it |
+
+The Sealwright keeps **Ward of Command** (RUL-2026-10-28-013). The Archive's alarm guard is its own record, **Crown
+Archivist** (the Skyglass Archive Keeper), not the Skyglass Sentinel; the Cache Sentinel is unchanged (RUL-2026-10-28-013).
 
 ### 4c. The Skyglass Sentinel: "Tidewatch" (Buried Cache, solo)
 
@@ -183,11 +192,15 @@ cove. It holds the dig site.
 
 ## 5. Sharing (director, 2026-10-28)
 
-- **Jutsu are shared.** One set of jutsu and rules per enemy, used by the hunts, the endgame dungeon and the level 40-60
-  dungeon. Only AI records differ, and only for stats:
+- **Jutsu are shared (canonical).** Boss and library jutsu are one set, used by the hunts, the endgame dungeon, the
+  level 40-60 dungeon and Crownhold. There are no dungeon-only jutsu copies; this supersedes the dungeon-only copies in
+  `SKYGLASS_WRECK_ENCOUNTERS.md`. Only AI records differ, and only for stats:
   - the live crew records, used by the hunts, are upgraded in place with solo-tuned stats;
   - the dungeon copies carry the party-tuned stats;
   - the level-50 copies carry the lower stats.
+- **Upgrading in place means editing equipped jutsu.** push/319 must unequip every holder of a shared jutsu (live crew and
+  any copy already equipped) before editing it, then re-equip, in that order (`docs/ENGINE_LAWS.md` laws 18 and 60; the
+  build-order warnings are recorded in `state/validate_exceptions/319_skyglass_update.json`, RUL-2026-10-28-002).
 - **No copies to rename.** Live jutsu are used as they are wherever only the name or battle text would change; the Captain uses the old Crowned Captain's live kit.
 - **Fewer patterns.** At most two per set piece, with lingering pools built into the base blast.
 - **Budget:** superseded by the set-piece library (5a): about 32 new jutsu in total.
@@ -206,11 +219,14 @@ jutsu per pattern and icon. Each mark carries its own primed-marker type, so any
 | Omen: Ring | radius-2 ring around the caster | red | Collapse, First Blade's ring, Armsmaster |
 | Omen: Binding Ring | radius-2 ring around the caster | violet | Ship's Bell |
 | Omen: Rows A / B | two fixed row pairs | red | Broadside, Tide Line, the Second |
-| Omen: Scatter A / B | two fixed scatters (a third of the arena) | red | Rupture Field, the Wayfinder's coastline, Shardstorm, Armsmaster |
-| Omen: Lines | fan of lines from the caster | red | Crownfall, Pour Line |
-| Omen: Seal Lines | cross of lines from the caster | violet | Script Lines, Replicant Zero |
+| Omen: Scatter A / B | two complementary halves: together they cover the arena | red | Rupture Field, the Wayfinder's coastline, Shardstorm, Armsmaster |
+| Omen: Lines | a 3-ray fan from the caster, using the union of both row parities (the grid is pointy-topped with odd rows shifted) | red | Crownfall, Pour Line |
+| Omen: Seal Lines | a diagonal cross from the caster | violet | Script Lines, Replicant Zero |
 | Omen: Last Light | whole arena except three safe tiles | red field and cyan stars | Maw of the Deep, Quench |
 | Omen: Last Light, Binding | whole arena except three safe tiles | violet field and cyan stars | Command Absolute, Archive Lock |
+
+Library rules (RUL-2026-10-28-015; harness `fable/skyglass-wreck-sim` 5f6c3edb, `library_spec.json`): every blast and
+signature move has cooldown 2, and offensive non-damage rows hit enemies only.
 
 That is 10 marks. Mark names show in the battle log ("The Core Horror uses Omen: Ring"), and they double as a reading
 lesson.
@@ -224,7 +240,7 @@ neutral battle-log line ("The marked ground erupts.") and the matching shared an
 - Command Absolute ("Kneel.");
 - Crownfall;
 - Broadside ("Fire.");
-- Ship's Bell (push and stun).
+- Ship's Bell (push and the set-piece lock; RUL-2026-10-28-015).
 
 **Windows.** A boss's 1-round x3 window rides on its signature blast, or on one shared "lowered guard" self-jutsu with
 a neutral line, used by the Sealwright, the First Blade and the Second.
@@ -256,8 +272,10 @@ they add no new jutsu of their own.
 | **Replicant Zero** (the first returned; clones, copies) | **Jar Seals:** Omen: Seal Lines, then a shared violet blast. Split Image clones stand on the lines with him | none; his trick is the clone: hit the one that casts a shadow | "\"I would like a copy.\"" |
 | **The Second** (the only officer allowed to question the crown) | **Order of Battle:** Omen: Rows, then Sovereign Undertow (his live pull) drags the player into the rows before they fire (a two-marker chain) | **He questions the order**, under 30%, once: the shared lowered guard for 1 round. "\"I questioned his orders for thirty years.\"" | the line is the payoff |
 
-Their numbers are tuned in the harness against one solo endgame player, as a ramp: Armsmaster, then Replicant Zero, then
-the Second, then the Crowned Captain.
+Crownhold carries HP between fights, and the commanders are never fought alone, so their numbers are tuned for the chain
+(RUL-2026-10-28-013): Armsmaster, then Replicant Zero, then the Second, then the Crowned Captain. Targets: every route
+(shortcut, War Rite buff, Healing Rite) clears; the Healing Rite route clears highest and the alarm route lowest. Round
+targets: pending harness rerun.
 
 ## 6. Engine recipe (harness-confirmed)
 
@@ -267,7 +285,7 @@ the Second, then the Crowned Captain.
 - **Ground jutsu land only damage.** A blast that stuns or pushes targets CHARACTER, with the rule targeting SELF; that spares the boss and the safe tiles.
 - **Patterns:** rings use the spiral method; arena patterns use battlefield coordinates. The boss stays put so his patterns line up.
 - **Range** caps at 5.
-- **Shared cooldowns:** stun moves (and other shared types) lock each other.
+- **Shared cooldowns:** stun moves (and other shared types) lock each other. The set-piece lock uses non-shared types, so the bosses' own stun and seal moves (Final Command, Ruin Refrain, Sovereign Fetters, Keelbind) cannot block Ship's Bell, Command Absolute or the Seal Lines blast; Maw of the Deep keeps its true stun (RUL-2026-10-28-015).
 - **Windows:** weakness on SELF gives a working 1-round x3 window. A cleanse in the same jutsu strips it.
 - **Summons:** one live summon per caster.
 - **Tiles do not grant jutsu.** A heal or buff tile has to be an ordinary ground effect, applied while an action resolves.

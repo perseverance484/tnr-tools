@@ -3,7 +3,7 @@
 Five reward-only companions from the Echo Jar (RUL-2026-10-28-011; loot tables §5b). Story: the Skyglass Project
 tested recall on the ship's animals first; their impressions were sealed in jars like Replicant Zero's.
 
-**Status:** kits proposed. The numbers are provisional until the live species and PETS jutsu catalogue is captured; nothing in this repo describes existing species yet.
+**Status:** kits approved as proposed (RUL-2026-10-28-012). The numbers are provisional until the live species and PETS jutsu catalogue is captured; nothing in this repo describes existing species yet.
 
 ## Rules every kit follows (engine)
 - **Species record:**
@@ -63,9 +63,10 @@ Legendary · Assault.
 - Rank arc: oddly loyal blob with one tooth too many → towering skyglass rot-beast, still loyal.
 - Story: the Core tried to remember the ship's mascot; this is what came back.
 
-## Pipeline gap (Lane A)
-The builder has no pet-species entity and no `requiredPetSpeciesId` jutsu field. `reward_pets` is in the constructors; `reward_pet_experience` (Galley Stores) is not, and must be confirmed against the pinned source.
-- **Route 1:** the director enters the five species in the game's Manual from this sheet.
-- **Route 2:** builder support is added on a `fable/*` branch, with source-pinned contract regeneration, then independent review.
+## Pipeline (Lane A)
+Pet species are built through the builder, not hand-entered (RUL-2026-10-28-012). Builder support for the pet-species
+entity and the PETS jutsu `requiredPetSpeciesId` field is on `fable/pet-species-builder`, under independent review; the
+Forge bundle budget was raised for it (RUL-2026-10-28-014). Galley Stores uses `reward_pet_experience`, which the pinned
+source has (theninjarpg@2af4b320 `validators/rewards.ts`:54).
 
 The jars and chests can't be built until the species ids exist.

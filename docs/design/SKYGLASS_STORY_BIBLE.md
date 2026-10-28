@@ -1,7 +1,8 @@
 # The Skyglass Project: story bible
 
-Canon for every player-facing line in the Skyglass event: the Wreck dungeon, the five charts and hunts, Crownhold, and
-the items. Drafted 2026-10-28 from the director's narrative changes (RUL-2026-10-28-003/-004/-005). Where a surface
+Canon for every player-facing line in the Skyglass event: the Wreck dungeon, the charts and their runs (two common, four hunt and two rare charts, the tainted rares, and the
+Lantern to Crownhold), Crownhold, the items and the pets. Drafted 2026-10-28 from the director's narrative changes
+(RUL-2026-10-28-003/-004/-005); the charts, Core Rot and pets from RUL-2026-10-28-009 … -019. Where a surface
 disagrees with this file, the surface is rewritten.
 
 ## The story in one breath
@@ -44,6 +45,23 @@ Follow their charts, and the last light out of Crownhold leads you to the man wh
 - **The Lastlight Lantern** holds Crownhold's last signal, caught in skyglass. The crew still obey the order it carries. Its light points home to Crownhold.
 - **The end.** Breaking the Command Crown frees every echo it holds: the officers on the mountain, and the crew on the shore. Its blades scatter as the **Fragments of the Skyglass Crown**.
   - The event stays repeatable. Each player's story is their own, and the wreck keeps mending until someone breaks the crown again.
+
+## The charts, the rot and the ship's echoes
+
+- **Charts** are the crew's own route charts, kept by the Wayfinder. Each one records a way through the ship as it stood when he last corrected it. Follow one and it is spent: the ship moves on behind you.
+- **The common charts.**
+  - The **Tide Chart** marks where the low tide opens the lower hull.
+  - The **Watch Roster** is the duty roster with a new name on it: yours. Taking the post means standing the Deck Warden's watch in his place.
+- **The rare charts.**
+  - The **Reliquary Seal** opens the reliquary chained behind the Sealwright, where the echoes the Core could not hold were sealed away.
+  - **The Last Heading** is the Wayfinder's final course: the night the ship came down, as the Core still replays it.
+- **Core Rot** is what the Core leaves behind when it rebuilds an impression badly: dark, wet timber and rope, and skyglass gone cloudy. Where the Core Horror stands, the rot gathers.
+- **Steeping** is soaking a chart in the Core's rot until the run it leads to is twisted. The rot either takes the chart or spits it out.
+- **Tainted runs** are the rare runs as the rot remembers them: the **Rotted Reliquary** and the **Burning Heading**. The same rooms, harder, and wrong in ways the crew can feel.
+- **Galley Stores.** The galley still stocks a larder for a crew that does not eat. A companion that does eat grows strong on it.
+- **The Echo Jars.** The Project's first recalls were not people but the ship's animals, their impressions sealed in jars like Replicant Zero's. Opening a jar binds its echo to the one who opens it.
+  - The pets are echoes bound to a living master instead of to the crown. **Breaking the crown does not release them.**
+- **The Crown's Hoard** is what the crown kept for itself: Crownhold's own coffers, treasury and jars, gathered beneath the throne.
 
 ## Locked to the existing art (director, 2026-10-28: no redraws of existing art)
 
@@ -91,6 +109,7 @@ echoes, which reward veterans without excluding anyone.
 ## Voice
 
 - **Tone:** Edo-era Japanese fantasy, quiet and melancholy, with dry humour from the afterimages. Short sentences at the moments that matter.
+- **"Relieved" carries the story's weight.** It belongs to the refrain ("None is relieved", "No one is relieved"). Its only other use is the two titles that answer it: Relief of the Watch and Who Relieved the Captain.
 - **Never use:** technology words such as system, network, lattice, interface, protocol, terminal, personnel, maintenance, conduit, lift, reactor, data, scan, unit.
 - **Use instead:** seal-work, seal channels, the Core, recall, impression, afterimage, echo, watch, post, order, directive, rite, shrine.
 - **Characters:**
