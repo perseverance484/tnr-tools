@@ -3832,3 +3832,17 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "I think it would be cool if enemies had attacks that spawned the markers and then damaged the tile next turn without covering the entire floor or spawning the safe tiles, as more of an intro to the effect. Then when the bosses use the more powerful form later its a mechanic theyre accustomed to. Also just serves as a good mechanic in general".
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §5a; harness `fable/skyglass-wreck-sim` (`library_spec.json`).
+
+## RUL-2026-10-28-025 — Minor marks at full damage; pets are collateral
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass encounters / shared library
+
+**Status:** ACTIVE.
+
+**Ruling:** The minor marks go back to their original power: Splash 80, Short Line 90. Pets that stand in them die, and that is accepted as collateral. This reverses the pet-safe reduction to 58/65 (library 422c0508).
+
+**Evidence:** Director, 2026-10-28: "Damage is too low for the smaller mark skills. Put them back to normal and accept pet deaths as collateral."
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §9; harness `fable/skyglass-wreck-sim` `library_spec.json`.
