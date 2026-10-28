@@ -1,0 +1,7765 @@
+{
+ "generatedBy": "harness/skyglass_wreck_sim/engine/charts_main.ts",
+ "settings": {
+  "dodge": true,
+  "twist": true,
+  "maxRounds": 60,
+  "seeds": 40,
+  "seed0": 1,
+  "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+  "params": {
+   "stats": {
+    "texZaFi42S3EvJZBwQ8cd": {
+     "pools": 1,
+     "rows": 0
+    },
+    "wTgO-Q32caSSd0is1QIS7": {
+     "pools": 1,
+     "rows": 0,
+     "stats": 1
+    },
+    "frc9LTxqQlM7mncG4VZGK": {
+     "pools": 1,
+     "rows": 0,
+     "stats": 5
+    },
+    "2OXJEXoktxJcjqMkE851g": {
+     "pools": 1,
+     "rows": 0
+    },
+    "3V_gdHYaclMB1gTyOPAbV": {
+     "pools": 3.26,
+     "rows": 2
+    },
+    "AQi-bHJ-5tHXtxrnc0P9E": {
+     "pools": 2,
+     "rows": 2
+    },
+    "RBW5KsIXmTGR710D2y2Y7": {
+     "pools": 2.5,
+     "rows": 2
+    },
+    "v7T9_XdGMfP46em0dPuBc": {
+     "pools": 1.26,
+     "rows": 1
+    },
+    "d6g0mOM7RBSsYI1hrUVT9": {
+     "pools": 1.5,
+     "rows": 2
+    },
+    "QY69h271Nx9uHrBeR6jwW": {
+     "pools": 2,
+     "rows": 4
+    },
+    "81lnIP-q97gItQYWl5vWD": {
+     "pools": 2.5,
+     "rows": 1
+    },
+    "LZiunyinw9ScK3mh9HiR2": {
+     "pools": 2,
+     "rows": 2
+    },
+    "vjEFUJ9mb1zNTuQf4lfXv": {
+     "pools": 1,
+     "rows": 0
+    }
+   },
+   "echoHp": 15000,
+   "echoPower": 60,
+   "_about": "Skyglass charts (engine/charts.ts) tuned values on top of overrides/hunts.params.json. Keys are live AI ids. commons = the common-chart crew copies (scaled to the player: statsMultiplier `stats`, per id pools/rows); rares = rare-chart stat copies chart-r-*; taintedCopies = tainted pair-fight copies chart-t-*; stats.<Replicant Zero> = its solo edit; echo = Lingering Echo hazard; ember = Burning Deck; steep = Steeping Horror; tainted = tainted twists. Schema floor (insertAiSchema): statsMultiplier >= 1 and poolsMultiplier >= 1; the commons soften through innate rows instead (taken: +damage-taken % rows; givenDown: -damage-given %).",
+   "_names": {
+    "texZaFi42S3EvJZBwQ8cd": "Deck Warden",
+    "wTgO-Q32caSSd0is1QIS7": "Seal Charge",
+    "frc9LTxqQlM7mncG4VZGK": "Core Canister",
+    "2OXJEXoktxJcjqMkE851g": "Arsenal Keeper",
+    "3V_gdHYaclMB1gTyOPAbV": "Skyglass Sentinel",
+    "AQi-bHJ-5tHXtxrnc0P9E": "Core Horror",
+    "RBW5KsIXmTGR710D2y2Y7": "Sealwright",
+    "v7T9_XdGMfP46em0dPuBc": "Wayfinder",
+    "d6g0mOM7RBSsYI1hrUVT9": "First Blade",
+    "QY69h271Nx9uHrBeR6jwW": "The Captain",
+    "81lnIP-q97gItQYWl5vWD": "Foundry Warden",
+    "LZiunyinw9ScK3mh9HiR2": "Crown Archivist",
+    "0PZU_FvlbM3ErYGlD5r56": "Oathkeeper",
+    "vjEFUJ9mb1zNTuQf4lfXv": "Replicant Zero"
+   },
+   "echo": {
+    "pools": 2,
+    "rows": 1,
+    "fade": 10
+   },
+   "ember": {
+    "power": 5,
+    "rounds": [
+     1,
+     4,
+     7
+    ],
+    "pools": 3
+   },
+   "steep": {
+    "pools": 3.5,
+    "rows": 3
+   },
+   "tainted": {
+    "givePools": 70,
+    "sealRounds": 2,
+    "afterburn": 50,
+    "afterburnRounds": 3,
+    "echo": "echo2"
+   },
+   "commons": {
+    "stats": 1,
+    "byId": {
+     "3V_gdHYaclMB1gTyOPAbV": {
+      "pools": 1.5,
+      "rows": 1
+     },
+     "wTgO-Q32caSSd0is1QIS7": {
+      "pools": 1,
+      "rows": 0,
+      "stats": 1
+     },
+     "v7T9_XdGMfP46em0dPuBc": {
+      "pools": 1,
+      "rows": 0
+     },
+     "d6g0mOM7RBSsYI1hrUVT9": {
+      "pools": 1.5,
+      "rows": 1
+     }
+    },
+    "taken": [
+     100
+    ],
+    "givenDown": 50
+   },
+   "rares": {
+    "byId": {
+     "81lnIP-q97gItQYWl5vWD": {
+      "pools": 1.2,
+      "rows": 1
+     },
+     "RBW5KsIXmTGR710D2y2Y7": {
+      "pools": 1,
+      "rows": 1
+     },
+     "3V_gdHYaclMB1gTyOPAbV": {
+      "pools": 2,
+      "rows": 1
+     },
+     "d6g0mOM7RBSsYI1hrUVT9": {
+      "pools": 1.2,
+      "rows": 1
+     },
+     "AQi-bHJ-5tHXtxrnc0P9E": {
+      "pools": 1.8,
+      "rows": 2
+     },
+     "QY69h271Nx9uHrBeR6jwW": {
+      "pools": 2,
+      "rows": 2
+     },
+     "0PZU_FvlbM3ErYGlD5r56": {
+      "pools": 2,
+      "rows": 2
+     }
+    }
+   },
+   "taintedCopies": {
+    "byId": {
+     "81lnIP-q97gItQYWl5vWD": {
+      "pools": 1,
+      "rows": 0
+     },
+     "RBW5KsIXmTGR710D2y2Y7": {
+      "pools": 1,
+      "rows": 0
+     },
+     "3V_gdHYaclMB1gTyOPAbV": {
+      "pools": 1,
+      "rows": 0
+     },
+     "d6g0mOM7RBSsYI1hrUVT9": {
+      "pools": 1,
+      "rows": 0
+     }
+    }
+   }
+  },
+  "secondsPerTurn": 15,
+  "variants": {
+   "L50": "easier-version average: level-50 CHUNIN, level-50 stat budget (scaleUserStats 'player') spread evenly, calcHP/CP/SP(50) = 2,550 pools, Chunin kit at jutsu level 15, no gear",
+   "L50kit": "lvl50 + the full Kitsune set (requiredLevel 1)",
+   "L100": "director's endgame party member (2026-10-28): level-100 JONIN, stats at the JONIN caps, full Kitsune armour set (6 captured pieces, worn through the engine's item path), 9 PvE jutsu at the level cap 25, Fire/Wind elements",
+   "L100noarmor": "reference: the average build without the Kitsune set"
+  }
+ },
+ "newRecords": {
+  "chart-c-deck-warden": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Deck Warden: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user"
+  },
+  "chart-c-seal-charge": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Seal Charge: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user"
+  },
+  "chart-c-arsenal-keeper": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Arsenal Keeper: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user"
+  },
+  "chart-c-skyglass-sentinel": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Skyglass Sentinel: same kit and rules, statsMultiplier 1, pools 1.5; opponent_scaled_to_user"
+  },
+  "chart-c-wayfinder": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Wayfinder: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user"
+  },
+  "chart-c-first-blade": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of First Blade: same kit and rules, statsMultiplier 1, pools 1.5; opponent_scaled_to_user"
+  },
+  "chart-c-oathkeeper": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Oathkeeper: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user"
+  },
+  "chart-r-foundry-warden": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Foundry Warden: same kit and rules, pools 1.2, 1 damage rows (unscaled)"
+  },
+  "chart-r-sealwright": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Sealwright: same kit and rules, pools 1, 1 damage rows (unscaled)"
+  },
+  "chart-r-skyglass-sentinel": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Skyglass Sentinel: same kit and rules, pools 2, 1 damage rows (unscaled)"
+  },
+  "chart-r-first-blade": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of First Blade: same kit and rules, pools 1.2, 1 damage rows (unscaled)"
+  },
+  "chart-r-core-horror": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Core Horror: same kit and rules, pools 1.8, 2 damage rows (unscaled)"
+  },
+  "chart-r-the-captain": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of The Captain: same kit and rules, pools 2, 2 damage rows (unscaled)"
+  },
+  "chart-r-oathkeeper": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Oathkeeper: same kit and rules, pools 2, 2 damage rows (unscaled)"
+  },
+  "chart-t-foundry-warden": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of Foundry Warden: same kit and rules, pools 1, 0 damage rows (unscaled)"
+  },
+  "chart-t-sealwright": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of Sealwright: same kit and rules, pools 1, 0 damage rows (unscaled)"
+  },
+  "chart-t-skyglass-sentinel": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of Skyglass Sentinel: same kit and rules, pools 1, 0 damage rows (unscaled)"
+  },
+  "chart-t-first-blade": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of First Blade: same kit and rules, pools 1, 0 damage rows (unscaled)"
+  },
+  "chart-lingering-echo-2": {
+   "kind": "AI (hazard)",
+   "note": "Sealed Reliquary twist: immobile, casts lines (library pairs), fades at round 10",
+   "rules": [
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's blast",
+      "jutsuId": "lib-blast-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "lines: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 1)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 5
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 5)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 9
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 9)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "linger (until it fades)"
+     }
+    }
+   ]
+  },
+  "chart-lingering-echo-3": {
+   "kind": "AI (hazard)",
+   "note": "Sealed Reliquary twist: immobile, casts lines + sealLines (library pairs), fades at round 10",
+   "rules": [
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's blast",
+      "jutsuId": "lib-blast-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's blast",
+      "jutsuId": "lib-blast-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "lines: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "sealLines: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 1)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 5
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 5)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 9
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 9)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 3
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's mark (round 3)",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 7
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's mark (round 7)",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "linger (until it fades)"
+     }
+    }
+   ]
+  },
+  "chart-lingering-echo-4": {
+   "kind": "AI (hazard)",
+   "note": "Sealed Reliquary twist: immobile, casts lines + sealLines + rowsA (library pairs), fades at round 10",
+   "rules": [
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's blast",
+      "jutsuId": "lib-blast-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's blast",
+      "jutsuId": "lib-blast-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "rowsA: the echo's blast",
+      "jutsuId": "lib-blast-rows-a",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "lines: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "sealLines: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "rowsA: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 1)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 7
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 7)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 3
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's mark (round 3)",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 9
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's mark (round 9)",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 5
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "rowsA: the echo's mark (round 5)",
+      "jutsuId": "lib-omen-rows-a",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "linger (until it fades)"
+     }
+    }
+   ]
+  },
+  "chart-embers-1": {
+   "kind": "jutsu",
+   "note": "ember band rows 0,1,2: drain 5% max HP per action, 10 rounds (the tag maximum)"
+  },
+  "chart-embers-2": {
+   "kind": "jutsu",
+   "note": "ember band rows 3,4: drain 5% max HP per action, 10 rounds (the tag maximum)"
+  },
+  "chart-embers-3": {
+   "kind": "jutsu",
+   "note": "ember band rows 5,6: drain 5% max HP per action, 10 rounds (the tag maximum)"
+  },
+  "chart-burning-deck": {
+   "kind": "AI (hazard)",
+   "note": "The Fall twist: immobile, lays ember bands at rounds 1,4,7, burns out after the last",
+   "rules": [
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Embers 1",
+      "jutsuId": "chart-embers-1",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 4
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Embers 2",
+      "jutsuId": "chart-embers-2",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 7
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Embers 3",
+      "jutsuId": "chart-embers-3",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 8
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "the deck burns"
+     }
+    }
+   ]
+  },
+  "chart-steeping-horror": {
+   "kind": "AI (copy)",
+   "note": "Core Horror copy for steeping: same shared kit and rules, no AI drop; opponent_scaled_to_user"
+  }
+ },
+ "results": [
+  {
+   "run": "lowtide",
+   "chart": "Tide Chart: The Low Tide Run",
+   "variant": "L50",
+   "dodge": true,
+   "twist": true,
+   "runs": 40,
+   "baseClear": 39,
+   "baseClearPct": 97.5,
+   "pressOnWon": 26,
+   "pressOnReached": 39,
+   "pressOnPctOfReached": 66.7,
+   "pressOnPctOfAll": 65,
+   "baseRoundsMedian": 13,
+   "baseMinutesMedian": 3.3,
+   "lossesAt": {
+    "1": 0,
+    "2": 0,
+    "3": 1,
+    "4": 13
+   },
+   "fights": [
+    {
+     "fight": 1,
+     "label": "breach: Deck Warden + Seal Charge",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 5,
+     "roundsP90": 7,
+     "hpStartMedian": 100,
+     "hpEndMedian": 47.2,
+     "hpEndP10": 40.5,
+     "hpCostMedian": 52.8,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 230,
+       "diedMedianRound": 5
+      },
+      "Seal Charge": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 1055,
+       "diedMedianRound": 3
+      }
+     }
+    },
+    {
+     "fight": 2,
+     "label": "flooded hold: Arsenal Keeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 4,
+     "roundsP90": 4,
+     "hpStartMedian": 47.3,
+     "hpEndMedian": 57.6,
+     "hpEndP10": 50.9,
+     "hpCostMedian": -9.5,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Arsenal Keeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 116,
+       "diedMedianRound": 4
+      }
+     }
+    },
+    {
+     "fight": 3,
+     "label": "tide line: Skyglass Sentinel",
+     "pressOn": false,
+     "reached": 40,
+     "won": 39,
+     "roundsMedian": 5,
+     "roundsP90": 8,
+     "hpStartMedian": 57.6,
+     "hpEndMedian": 57.8,
+     "hpEndP10": 50.1,
+     "hpCostMedian": 0,
+     "playerIdlePct": 1.2,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 39,
+      "wipe": 1
+     },
+     "dodge": {
+      "threatened": 28,
+      "dodged": 28,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 28
+     },
+     "enemies": {
+      "Skyglass Sentinel": {
+       "marksPerFight": 2,
+       "blastsPerFight": 0.6,
+       "blastHitPct": 0,
+       "dealtPerFight": 183,
+       "diedMedianRound": 5
+      }
+     }
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): chart room, Wayfinder",
+     "pressOn": true,
+     "reached": 39,
+     "won": 26,
+     "roundsMedian": 7,
+     "roundsP90": 11,
+     "hpStartMedian": 57.8,
+     "hpEndMedian": 38.2,
+     "hpEndP10": 7,
+     "hpCostMedian": 31.2,
+     "playerIdlePct": 31.7,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "wipe": 13,
+      "won": 26
+     },
+     "dodge": {
+      "threatened": 56,
+      "dodged": 39,
+      "failedRooted": 13,
+      "failedNoPath": 4,
+      "failedOther": 0,
+      "stepsTaken": 65
+     },
+     "enemies": {
+      "Wayfinder": {
+       "marksPerFight": 2.3,
+       "blastsPerFight": 1.3,
+       "blastHitPct": 18,
+       "dealtPerFight": 198,
+       "diedMedianRound": 7
+      },
+      "(summon/clone)": {
+       "marksPerFight": 0.9,
+       "blastsPerFight": 0.6,
+       "blastHitPct": 0,
+       "dealtPerFight": 0,
+       "diedMedianRound": null
+      }
+     }
+    }
+   ],
+   "perSeed": [
+    {
+     "seed": 1,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      44,
+      59,
+      52,
+      0
+     ],
+     "rounds": [
+      8,
+      4,
+      12,
+      10
+     ]
+    },
+    {
+     "seed": 2,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      96,
+      91,
+      79,
+      0
+     ],
+     "rounds": [
+      6,
+      4,
+      6,
+      11
+     ]
+    },
+    {
+     "seed": 3,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      55,
+      52,
+      52,
+      0
+     ],
+     "rounds": [
+      7,
+      3,
+      3,
+      6
+     ]
+    },
+    {
+     "seed": 4,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      57,
+      57,
+      55
+     ],
+     "rounds": [
+      1,
+      4,
+      4,
+      4
+     ]
+    },
+    {
+     "seed": 5,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      52,
+      62,
+      62,
+      0
+     ],
+     "rounds": [
+      7,
+      4,
+      6,
+      6
+     ]
+    },
+    {
+     "seed": 6,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      94,
+      94,
+      94,
+      31
+     ],
+     "rounds": [
+      5,
+      3,
+      4,
+      11
+     ]
+    },
+    {
+     "seed": 7,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      51,
+      59,
+      59,
+      62
+     ],
+     "rounds": [
+      5,
+      4,
+      4,
+      7
+     ]
+    },
+    {
+     "seed": 8,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      43,
+      53,
+      43,
+      0
+     ],
+     "rounds": [
+      8,
+      5,
+      18,
+      3
+     ]
+    },
+    {
+     "seed": 9,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      44,
+      54,
+      51,
+      7
+     ],
+     "rounds": [
+      7,
+      4,
+      4,
+      7
+     ]
+    },
+    {
+     "seed": 10,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      48,
+      66,
+      71
+     ],
+     "rounds": [
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    {
+     "seed": 11,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      40,
+      57,
+      43,
+      0
+     ],
+     "rounds": [
+      5,
+      4,
+      9,
+      5
+     ]
+    },
+    {
+     "seed": 12,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      40,
+      49,
+      67,
+      0
+     ],
+     "rounds": [
+      3,
+      5,
+      5,
+      10
+     ]
+    },
+    {
+     "seed": 13,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      47,
+      62,
+      58,
+      0
+     ],
+     "rounds": [
+      7,
+      3,
+      8,
+      5
+     ]
+    },
+    {
+     "seed": 14,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      95,
+      90,
+      78,
+      75
+     ],
+     "rounds": [
+      3,
+      3,
+      5,
+      4
+     ]
+    },
+    {
+     "seed": 15,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      91,
+      89,
+      90,
+      0
+     ],
+     "rounds": [
+      6,
+      4,
+      7,
+      10
+     ]
+    },
+    {
+     "seed": 16,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      56,
+      46,
+      3
+     ],
+     "rounds": [
+      5,
+      4,
+      12,
+      10
+     ]
+    },
+    {
+     "seed": 17,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      91,
+      88,
+      85,
+      55
+     ],
+     "rounds": [
+      5,
+      3,
+      4,
+      11
+     ]
+    },
+    {
+     "seed": 18,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      90,
+      86,
+      85,
+      57
+     ],
+     "rounds": [
+      5,
+      4,
+      3,
+      10
+     ]
+    },
+    {
+     "seed": 19,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      58,
+      58,
+      16
+     ],
+     "rounds": [
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    {
+     "seed": 20,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      41,
+      51,
+      51,
+      54
+     ],
+     "rounds": [
+      3,
+      4,
+      5,
+      7
+     ]
+    },
+    {
+     "seed": 21,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      95,
+      91,
+      88,
+      87
+     ],
+     "rounds": [
+      3,
+      3,
+      5,
+      4
+     ]
+    },
+    {
+     "seed": 22,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      54,
+      54,
+      54
+     ],
+     "rounds": [
+      1,
+      3,
+      5,
+      4
+     ]
+    },
+    {
+     "seed": 23,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      92,
+      91,
+      91,
+      39
+     ],
+     "rounds": [
+      5,
+      3,
+      5,
+      11
+     ]
+    },
+    {
+     "seed": 24,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      52,
+      46,
+      49,
+      1
+     ],
+     "rounds": [
+      7,
+      4,
+      4,
+      7
+     ]
+    },
+    {
+     "seed": 25,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      47,
+      63,
+      56,
+      13
+     ],
+     "rounds": [
+      7,
+      4,
+      6,
+      8
+     ]
+    },
+    {
+     "seed": 26,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      54,
+      54,
+      56,
+      0
+     ],
+     "rounds": [
+      7,
+      3,
+      6,
+      7
+     ]
+    },
+    {
+     "seed": 27,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      53,
+      51,
+      51,
+      0
+     ],
+     "rounds": [
+      7,
+      4,
+      6,
+      3
+     ]
+    },
+    {
+     "seed": 28,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      43,
+      57,
+      57,
+      0
+     ],
+     "rounds": [
+      7,
+      4,
+      3,
+      5
+     ]
+    },
+    {
+     "seed": 29,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      43,
+      58,
+      58,
+      56
+     ],
+     "rounds": [
+      3,
+      4,
+      4,
+      4
+     ]
+    },
+    {
+     "seed": 30,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      44,
+      56,
+      56,
+      0
+     ],
+     "rounds": [
+      7,
+      4,
+      4,
+      9
+     ]
+    },
+    {
+     "seed": 31,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      41,
+      56,
+      50,
+      18
+     ],
+     "rounds": [
+      3,
+      3,
+      4,
+      12
+     ]
+    },
+    {
+     "seed": 32,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      49,
+      65,
+      65,
+      20
+     ],
+     "rounds": [
+      7,
+      4,
+      3,
+      9
+     ]
+    },
+    {
+     "seed": 33,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      95,
+      91,
+      91,
+      88
+     ],
+     "rounds": [
+      3,
+      3,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 34,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      51,
+      68,
+      13
+     ],
+     "rounds": [
+      5,
+      4,
+      4,
+      10
+     ]
+    },
+    {
+     "seed": 35,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      43,
+      55,
+      55,
+      25
+     ],
+     "rounds": [
+      3,
+      4,
+      6,
+      10
+     ]
+    },
+    {
+     "seed": 36,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      91,
+      91,
+      85,
+      38
+     ],
+     "rounds": [
+      5,
+      4,
+      4,
+      7
+     ]
+    },
+    {
+     "seed": 37,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      47,
+      65,
+      65,
+      19
+     ],
+     "rounds": [
+      7,
+      3,
+      6,
+      8
+     ]
+    },
+    {
+     "seed": 38,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      50,
+      64,
+      51,
+      6
+     ],
+     "rounds": [
+      7,
+      4,
+      4,
+      8
+     ]
+    },
+    {
+     "seed": 39,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      43,
+      48,
+      66,
+      72
+     ],
+     "rounds": [
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    {
+     "seed": 40,
+     "base": false,
+     "pressOn": null,
+     "hp": [
+      47,
+      57,
+      0
+     ],
+     "rounds": [
+      7,
+      5,
+      26
+     ]
+    }
+   ]
+  },
+  {
+   "run": "nightwatch",
+   "chart": "Watch Roster: The Night Watch",
+   "variant": "L50",
+   "dodge": true,
+   "twist": true,
+   "runs": 40,
+   "baseClear": 39,
+   "baseClearPct": 97.5,
+   "pressOnWon": 30,
+   "pressOnReached": 39,
+   "pressOnPctOfReached": 76.9,
+   "pressOnPctOfAll": 75,
+   "baseRoundsMedian": 17,
+   "baseMinutesMedian": 4.3,
+   "lossesAt": {
+    "1": 0,
+    "2": 0,
+    "3": 1,
+    "4": 9
+   },
+   "fights": [
+    {
+     "fight": 1,
+     "label": "first watch: Deck Warden + Seal Charge",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 5,
+     "roundsP90": 7,
+     "hpStartMedian": 100,
+     "hpEndMedian": 47.2,
+     "hpEndP10": 40.5,
+     "hpCostMedian": 52.8,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 230,
+       "diedMedianRound": 5
+      },
+      "Seal Charge": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 1055,
+       "diedMedianRound": 3
+      }
+     }
+    },
+    {
+     "fight": 2,
+     "label": "middle watch: Oathkeeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 4,
+     "roundsP90": 5,
+     "hpStartMedian": 47.3,
+     "hpEndMedian": 59.3,
+     "hpEndP10": 53.7,
+     "hpCostMedian": -14,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Oathkeeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 75,
+       "diedMedianRound": 4
+      }
+     }
+    },
+    {
+     "fight": 3,
+     "label": "relief: Deck Warden + Oathkeeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 39,
+     "roundsMedian": 8,
+     "roundsP90": 12,
+     "hpStartMedian": 59.2,
+     "hpEndMedian": 53.1,
+     "hpEndP10": 38.7,
+     "hpCostMedian": 8.8,
+     "playerIdlePct": 5.9,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 39,
+      "wipe": 1
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 304,
+       "diedMedianRound": 7
+      },
+      "Oathkeeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 215,
+       "diedMedianRound": 5
+      }
+     }
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON: Second Watch, First Blade",
+     "pressOn": true,
+     "reached": 39,
+     "won": 30,
+     "roundsMedian": 10.5,
+     "roundsP90": 11,
+     "hpStartMedian": 53.1,
+     "hpEndMedian": 35,
+     "hpEndP10": 10.1,
+     "hpCostMedian": 28.7,
+     "playerIdlePct": 6.2,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 30,
+      "wipe": 9
+     },
+     "dodge": {
+      "threatened": 103,
+      "dodged": 101,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 202
+     },
+     "enemies": {
+      "First Blade": {
+       "marksPerFight": 2.7,
+       "blastsPerFight": 1,
+       "blastHitPct": 0,
+       "dealtPerFight": 852,
+       "diedMedianRound": 11
+      }
+     }
+    }
+   ],
+   "perSeed": [
+    {
+     "seed": 1,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      44,
+      58,
+      61,
+      38
+     ],
+     "rounds": [
+      8,
+      4,
+      8,
+      9
+     ]
+    },
+    {
+     "seed": 2,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      96,
+      92,
+      82,
+      46
+     ],
+     "rounds": [
+      6,
+      3,
+      8,
+      11
+     ]
+    },
+    {
+     "seed": 3,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      55,
+      53,
+      38,
+      2
+     ],
+     "rounds": [
+      7,
+      3,
+      12,
+      11
+     ]
+    },
+    {
+     "seed": 4,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      56,
+      66,
+      42
+     ],
+     "rounds": [
+      1,
+      4,
+      7,
+      9
+     ]
+    },
+    {
+     "seed": 5,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      52,
+      49,
+      38,
+      0
+     ],
+     "rounds": [
+      7,
+      3,
+      14,
+      15
+     ]
+    },
+    {
+     "seed": 6,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      94,
+      90,
+      78,
+      55
+     ],
+     "rounds": [
+      5,
+      3,
+      7,
+      9
+     ]
+    },
+    {
+     "seed": 7,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      51,
+      65,
+      53,
+      18
+     ],
+     "rounds": [
+      5,
+      3,
+      6,
+      11
+     ]
+    },
+    {
+     "seed": 8,
+     "base": false,
+     "pressOn": null,
+     "hp": [
+      43,
+      58,
+      0
+     ],
+     "rounds": [
+      8,
+      4,
+      18
+     ]
+    },
+    {
+     "seed": 9,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      44,
+      58,
+      40,
+      0
+     ],
+     "rounds": [
+      7,
+      3,
+      15,
+      13
+     ]
+    },
+    {
+     "seed": 10,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      54,
+      66,
+      40
+     ],
+     "rounds": [
+      3,
+      3,
+      8,
+      9
+     ]
+    },
+    {
+     "seed": 11,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      54,
+      52,
+      19
+     ],
+     "rounds": [
+      5,
+      3,
+      12,
+      14
+     ]
+    },
+    {
+     "seed": 12,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      54,
+      63,
+      19
+     ],
+     "rounds": [
+      3,
+      3,
+      8,
+      11
+     ]
+    },
+    {
+     "seed": 13,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      47,
+      61,
+      39,
+      0
+     ],
+     "rounds": [
+      7,
+      3,
+      12,
+      9
+     ]
+    },
+    {
+     "seed": 14,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      95,
+      94,
+      81,
+      68
+     ],
+     "rounds": [
+      3,
+      3,
+      6,
+      6
+     ]
+    },
+    {
+     "seed": 15,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      91,
+      88,
+      81,
+      46
+     ],
+     "rounds": [
+      6,
+      4,
+      7,
+      11
+     ]
+    },
+    {
+     "seed": 16,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      55,
+      43,
+      2
+     ],
+     "rounds": [
+      5,
+      4,
+      12,
+      16
+     ]
+    },
+    {
+     "seed": 17,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      91,
+      89,
+      93,
+      64
+     ],
+     "rounds": [
+      5,
+      4,
+      8,
+      11
+     ]
+    },
+    {
+     "seed": 18,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      90,
+      87,
+      79,
+      52
+     ],
+     "rounds": [
+      5,
+      3,
+      7,
+      9
+     ]
+    },
+    {
+     "seed": 19,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      59,
+      51,
+      23
+     ],
+     "rounds": [
+      3,
+      5,
+      7,
+      11
+     ]
+    },
+    {
+     "seed": 20,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      41,
+      57,
+      51,
+      25
+     ],
+     "rounds": [
+      3,
+      5,
+      7,
+      9
+     ]
+    },
+    {
+     "seed": 21,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      95,
+      94,
+      85,
+      70
+     ],
+     "rounds": [
+      3,
+      3,
+      7,
+      8
+     ]
+    },
+    {
+     "seed": 22,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      59,
+      67,
+      32
+     ],
+     "rounds": [
+      1,
+      4,
+      7,
+      10
+     ]
+    },
+    {
+     "seed": 23,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      92,
+      89,
+      77,
+      39
+     ],
+     "rounds": [
+      5,
+      4,
+      8,
+      11
+     ]
+    },
+    {
+     "seed": 24,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      52,
+      67,
+      42,
+      0
+     ],
+     "rounds": [
+      7,
+      4,
+      11,
+      10
+     ]
+    },
+    {
+     "seed": 25,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      47,
+      62,
+      52,
+      26
+     ],
+     "rounds": [
+      7,
+      4,
+      7,
+      9
+     ]
+    },
+    {
+     "seed": 26,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      54,
+      50,
+      45,
+      10
+     ],
+     "rounds": [
+      7,
+      3,
+      11,
+      11
+     ]
+    },
+    {
+     "seed": 27,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      53,
+      49,
+      39,
+      0
+     ],
+     "rounds": [
+      7,
+      3,
+      12,
+      10
+     ]
+    },
+    {
+     "seed": 28,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      43,
+      58,
+      40,
+      0
+     ],
+     "rounds": [
+      7,
+      5,
+      12,
+      13
+     ]
+    },
+    {
+     "seed": 29,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      43,
+      60,
+      50,
+      23
+     ],
+     "rounds": [
+      3,
+      5,
+      7,
+      9
+     ]
+    },
+    {
+     "seed": 30,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      44,
+      61,
+      35,
+      0
+     ],
+     "rounds": [
+      7,
+      5,
+      10,
+      10
+     ]
+    },
+    {
+     "seed": 31,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      41,
+      54,
+      55,
+      28
+     ],
+     "rounds": [
+      3,
+      4,
+      9,
+      9
+     ]
+    },
+    {
+     "seed": 32,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      49,
+      63,
+      40,
+      0
+     ],
+     "rounds": [
+      7,
+      3,
+      12,
+      9
+     ]
+    },
+    {
+     "seed": 33,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      95,
+      91,
+      84,
+      47
+     ],
+     "rounds": [
+      3,
+      3,
+      7,
+      11
+     ]
+    },
+    {
+     "seed": 34,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      55,
+      50,
+      6
+     ],
+     "rounds": [
+      5,
+      4,
+      9,
+      12
+     ]
+    },
+    {
+     "seed": 35,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      43,
+      57,
+      67,
+      44
+     ],
+     "rounds": [
+      3,
+      4,
+      7,
+      9
+     ]
+    },
+    {
+     "seed": 36,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      91,
+      88,
+      88,
+      62
+     ],
+     "rounds": [
+      5,
+      4,
+      7,
+      9
+     ]
+    },
+    {
+     "seed": 37,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      47,
+      64,
+      49,
+      14
+     ],
+     "rounds": [
+      7,
+      4,
+      10,
+      11
+     ]
+    },
+    {
+     "seed": 38,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      50,
+      66,
+      28,
+      0
+     ],
+     "rounds": [
+      7,
+      5,
+      12,
+      6
+     ]
+    },
+    {
+     "seed": 39,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      43,
+      57,
+      64,
+      41
+     ],
+     "rounds": [
+      3,
+      4,
+      8,
+      9
+     ]
+    },
+    {
+     "seed": 40,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      47,
+      65,
+      65,
+      23
+     ],
+     "rounds": [
+      7,
+      4,
+      8,
+      11
+     ]
+    }
+   ]
+  },
+  {
+   "run": "lowtide",
+   "chart": "Tide Chart: The Low Tide Run",
+   "variant": "L50kit",
+   "dodge": true,
+   "twist": true,
+   "runs": 40,
+   "baseClear": 40,
+   "baseClearPct": 100,
+   "pressOnWon": 40,
+   "pressOnReached": 40,
+   "pressOnPctOfReached": 100,
+   "pressOnPctOfAll": 100,
+   "baseRoundsMedian": 8,
+   "baseMinutesMedian": 2,
+   "lossesAt": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0
+   },
+   "fights": [
+    {
+     "fight": 1,
+     "label": "breach: Deck Warden + Seal Charge",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 147.1,
+     "hpEndMedian": 146.4,
+     "hpEndP10": 107.9,
+     "hpCostMedian": 0.7,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 22,
+       "diedMedianRound": 3
+      },
+      "Seal Charge": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 316,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 2,
+     "label": "flooded hold: Arsenal Keeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 2,
+     "roundsP90": 2,
+     "hpStartMedian": 147.1,
+     "hpEndMedian": 146.5,
+     "hpEndP10": 146.5,
+     "hpCostMedian": 0.6,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Arsenal Keeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 12,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 3,
+     "label": "tide line: Skyglass Sentinel",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 147.1,
+     "hpEndMedian": 147.1,
+     "hpEndP10": 145.7,
+     "hpCostMedian": 0,
+     "playerIdlePct": 1.7,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 19,
+      "dodged": 19,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 19
+     },
+     "enemies": {
+      "Skyglass Sentinel": {
+       "marksPerFight": 1,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 22,
+       "diedMedianRound": 3
+      }
+     }
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): chart room, Wayfinder",
+     "pressOn": true,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 2,
+     "roundsP90": 2,
+     "hpStartMedian": 147.1,
+     "hpEndMedian": 147.1,
+     "hpEndP10": 146,
+     "hpCostMedian": 0,
+     "playerIdlePct": 5.5,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 3,
+      "dodged": 3,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 5
+     },
+     "enemies": {
+      "Wayfinder": {
+       "marksPerFight": 0.1,
+       "blastsPerFight": 0.1,
+       "blastHitPct": 0,
+       "dealtPerFight": 7,
+       "diedMedianRound": 2
+      },
+      "(summon/clone)": {
+       "marksPerFight": 0.5,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 0,
+       "diedMedianRound": null
+      }
+     }
+    }
+   ],
+   "perSeed": [
+    {
+     "seed": 1,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 2,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 3,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 4,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      147,
+      147,
+      146
+     ],
+     "rounds": [
+      1,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 5,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      147,
+      127
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 6,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 7,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      147,
+      147,
+      146
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 8,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 9,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      144,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 10,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 11,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 12,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      147,
+      146,
+      147
+     ],
+     "rounds": [
+      2,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 13,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      147,
+      146
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 14,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 15,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      144,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 16,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 17,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 18,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 19,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 20,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 21,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      147,
+      146
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      13
+     ]
+    },
+    {
+     "seed": 22,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      146,
+      147,
+      146
+     ],
+     "rounds": [
+      1,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 23,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      147,
+      127
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 24,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      147,
+      146
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 25,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 26,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      147,
+      127
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 27,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 28,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 29,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 30,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 31,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      144,
+      146
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 32,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 33,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 34,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      147,
+      146
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 35,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      146,
+      147,
+      127
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 36,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 37,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 38,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 39,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 40,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "run": "nightwatch",
+   "chart": "Watch Roster: The Night Watch",
+   "variant": "L50kit",
+   "dodge": true,
+   "twist": true,
+   "runs": 40,
+   "baseClear": 40,
+   "baseClearPct": 100,
+   "pressOnWon": 40,
+   "pressOnReached": 40,
+   "pressOnPctOfReached": 100,
+   "pressOnPctOfAll": 100,
+   "baseRoundsMedian": 8,
+   "baseMinutesMedian": 2,
+   "lossesAt": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0
+   },
+   "fights": [
+    {
+     "fight": 1,
+     "label": "first watch: Deck Warden + Seal Charge",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 147.1,
+     "hpEndMedian": 146.4,
+     "hpEndP10": 107.9,
+     "hpCostMedian": 0.7,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 22,
+       "diedMedianRound": 3
+      },
+      "Seal Charge": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 316,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 2,
+     "label": "middle watch: Oathkeeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 2,
+     "roundsP90": 2,
+     "hpStartMedian": 147.1,
+     "hpEndMedian": 146.5,
+     "hpEndP10": 146.4,
+     "hpCostMedian": 0.6,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Oathkeeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 13,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 3,
+     "label": "relief: Deck Warden + Oathkeeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 4,
+     "hpStartMedian": 147.1,
+     "hpEndMedian": 146.1,
+     "hpEndP10": 145.4,
+     "hpCostMedian": 1,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 23,
+       "diedMedianRound": 3
+      },
+      "Oathkeeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 14,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON: Second Watch, First Blade",
+     "pressOn": true,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 147.1,
+     "hpEndMedian": 147.1,
+     "hpEndP10": 146.9,
+     "hpCostMedian": 0,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 39,
+      "dodged": 39,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 62
+     },
+     "enemies": {
+      "First Blade": {
+       "marksPerFight": 1,
+       "blastsPerFight": 0.4,
+       "blastHitPct": 0,
+       "dealtPerFight": 5,
+       "diedMedianRound": 3
+      }
+     }
+    }
+   ],
+   "perSeed": [
+    {
+     "seed": 1,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 2,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 3,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 4,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      1,
+      2,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 5,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 6,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 7,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 8,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 9,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      145,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 10,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      147,
+      146,
+      147
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 11,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 12,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      147,
+      146,
+      147
+     ],
+     "rounds": [
+      2,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 13,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 14,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 15,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 16,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 17,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 18,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 19,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      146,
+      145,
+      146
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 20,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 21,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 22,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      147,
+      146,
+      146
+     ],
+     "rounds": [
+      1,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 23,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      145,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 24,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 25,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 26,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 27,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 28,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      145,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 29,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      147,
+      145,
+      146
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 30,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      147,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 31,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      145,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 32,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      145,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 33,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      145,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 34,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 35,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      108,
+      146,
+      146,
+      147
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 36,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      146,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 37,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      147,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 38,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      147,
+      146
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 39,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      146,
+      145,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 40,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      147,
+      147,
+      145,
+      147
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "run": "lowtide",
+   "chart": "Tide Chart: The Low Tide Run",
+   "variant": "L100",
+   "dodge": true,
+   "twist": true,
+   "runs": 40,
+   "baseClear": 40,
+   "baseClearPct": 100,
+   "pressOnWon": 40,
+   "pressOnReached": 40,
+   "pressOnPctOfReached": 100,
+   "pressOnPctOfAll": 100,
+   "baseRoundsMedian": 8,
+   "baseMinutesMedian": 2,
+   "lossesAt": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0
+   },
+   "fights": [
+    {
+     "fight": 1,
+     "label": "breach: Deck Warden + Seal Charge",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 4,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 87,
+     "hpEndP10": 84.9,
+     "hpCostMedian": 36.8,
+     "playerIdlePct": 6.1,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 106,
+       "diedMedianRound": 3
+      },
+      "Seal Charge": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 1828,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 2,
+     "label": "flooded hold: Arsenal Keeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 2,
+     "roundsP90": 2,
+     "hpStartMedian": 110.8,
+     "hpEndMedian": 110.7,
+     "hpEndP10": 108.1,
+     "hpCostMedian": 0.5,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Arsenal Keeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 25,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 3,
+     "label": "tide line: Skyglass Sentinel",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 123.4,
+     "hpEndP10": 123.4,
+     "hpCostMedian": 0.4,
+     "playerIdlePct": 1.7,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 15,
+      "dodged": 14,
+      "failedRooted": 0,
+      "failedNoPath": 1,
+      "failedOther": 0,
+      "stepsTaken": 17
+     },
+     "enemies": {
+      "Skyglass Sentinel": {
+       "marksPerFight": 1,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 19,
+       "diedMedianRound": 3
+      }
+     }
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): chart room, Wayfinder",
+     "pressOn": true,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 2,
+     "roundsP90": 2,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 113.1,
+     "hpEndP10": 113.1,
+     "hpCostMedian": 10.6,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 2,
+      "dodged": 2,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 2
+     },
+     "enemies": {
+      "Wayfinder": {
+       "marksPerFight": 0.1,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 31,
+       "diedMedianRound": 2
+      },
+      "(summon/clone)": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 0,
+       "diedMedianRound": null
+      }
+     }
+    }
+   ],
+   "perSeed": [
+    {
+     "seed": 1,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      124,
+      123,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 2,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      124,
+      124,
+      124
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 3,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      122,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 4,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      123,
+      124
+     ],
+     "rounds": [
+      1,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 5,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      108,
+      123,
+      113
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 6,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      124,
+      124,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 7,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      108,
+      124,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 8,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      108,
+      123,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 9,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      109,
+      124,
+      113
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 10,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      123,
+      123
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 11,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      108,
+      124,
+      113
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 12,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      123,
+      123
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 13,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      123,
+      113
+     ],
+     "rounds": [
+      1,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 14,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      110,
+      124,
+      113
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 15,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      122,
+      123,
+      124,
+      113
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 16,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      88,
+      111,
+      124,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 17,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      108,
+      123,
+      123
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 18,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      123,
+      124,
+      124
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 19,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      123,
+      113
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 20,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      86,
+      109,
+      124,
+      113
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 21,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      123,
+      123,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 22,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      110,
+      123,
+      113
+     ],
+     "rounds": [
+      1,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 23,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      124,
+      123,
+      123
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 24,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      122,
+      123,
+      124,
+      113
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 25,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      84,
+      108,
+      124,
+      113
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 26,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      110,
+      123,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 27,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      84,
+      107,
+      124,
+      113
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 28,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      121,
+      123,
+      124,
+      113
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 29,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      86,
+      109,
+      123,
+      124
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 30,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      110,
+      123,
+      113
+     ],
+     "rounds": [
+      1,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 31,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      124,
+      113
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 32,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      86,
+      109,
+      123,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 33,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      122,
+      123,
+      123,
+      113
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 34,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      84,
+      107,
+      123,
+      113
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 35,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      123,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 36,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      123,
+      123,
+      113
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 37,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      108,
+      123,
+      113
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 38,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      109,
+      124,
+      113
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 39,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      83,
+      107,
+      123,
+      113
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 40,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      123,
+      124,
+      113
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "run": "nightwatch",
+   "chart": "Watch Roster: The Night Watch",
+   "variant": "L100",
+   "dodge": true,
+   "twist": true,
+   "runs": 40,
+   "baseClear": 40,
+   "baseClearPct": 100,
+   "pressOnWon": 40,
+   "pressOnReached": 40,
+   "pressOnPctOfReached": 100,
+   "pressOnPctOfAll": 100,
+   "baseRoundsMedian": 8,
+   "baseMinutesMedian": 2,
+   "lossesAt": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0
+   },
+   "fights": [
+    {
+     "fight": 1,
+     "label": "first watch: Deck Warden + Seal Charge",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 4,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 87,
+     "hpEndP10": 84.9,
+     "hpCostMedian": 36.8,
+     "playerIdlePct": 6.1,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 106,
+       "diedMedianRound": 3
+      },
+      "Seal Charge": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 1828,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 2,
+     "label": "middle watch: Oathkeeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 2,
+     "roundsP90": 2,
+     "hpStartMedian": 110.8,
+     "hpEndMedian": 110.3,
+     "hpEndP10": 108.1,
+     "hpCostMedian": 0.4,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Oathkeeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 24,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 3,
+     "label": "relief: Deck Warden + Oathkeeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 122.4,
+     "hpEndP10": 121.8,
+     "hpCostMedian": 1.3,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 59,
+       "diedMedianRound": 2
+      },
+      "Oathkeeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 45,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON: Second Watch, First Blade",
+     "pressOn": true,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 123.8,
+     "hpEndP10": 123.8,
+     "hpCostMedian": 0,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 40,
+      "dodged": 40,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 77
+     },
+     "enemies": {
+      "First Blade": {
+       "marksPerFight": 1,
+       "blastsPerFight": 0.5,
+       "blastHitPct": 0,
+       "dealtPerFight": 0,
+       "diedMedianRound": 3
+      }
+     }
+    }
+   ],
+   "perSeed": [
+    {
+     "seed": 1,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      124,
+      122,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 2,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      123,
+      122,
+      124
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 3,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      110,
+      123,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "seed": 4,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      123,
+      124
+     ],
+     "rounds": [
+      1,
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "seed": 5,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      108,
+      121,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 6,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      123,
+      123,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 7,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      108,
+      122,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 8,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      108,
+      122,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 9,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      108,
+      123,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 10,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      110,
+      123,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "seed": 11,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      109,
+      123,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "seed": 12,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      110,
+      122,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 13,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      110,
+      123,
+      124
+     ],
+     "rounds": [
+      1,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "seed": 14,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      122,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 15,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      122,
+      123,
+      123,
+      124
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 16,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      88,
+      111,
+      123,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 17,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      108,
+      123,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "seed": 18,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      123,
+      122,
+      124
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 19,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      122,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 20,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      86,
+      109,
+      123,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "seed": 21,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      123,
+      123,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "seed": 22,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      122,
+      124
+     ],
+     "rounds": [
+      1,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 23,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      124,
+      122,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 24,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      122,
+      123,
+      122,
+      124
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 25,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      84,
+      108,
+      122,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 26,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      110,
+      122,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 27,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      84,
+      107,
+      121,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 28,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      121,
+      123,
+      123,
+      124
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 29,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      86,
+      109,
+      122,
+      124
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 30,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      110,
+      123,
+      124
+     ],
+     "rounds": [
+      1,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "seed": 31,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      111,
+      123,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 32,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      86,
+      110,
+      123,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "seed": 33,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      122,
+      124,
+      123,
+      124
+     ],
+     "rounds": [
+      3,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "seed": 34,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      84,
+      107,
+      122,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 35,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      87,
+      110,
+      123,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "seed": 36,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      124,
+      123,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "seed": 37,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      109,
+      122,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 38,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      85,
+      109,
+      122,
+      124
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 39,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      83,
+      107,
+      123,
+      124
+     ],
+     "rounds": [
+      4,
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "seed": 40,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      123,
+      123,
+      122,
+      124
+     ],
+     "rounds": [
+      2,
+      2,
+      3,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "run": "lowtide",
+   "chart": "Tide Chart: The Low Tide Run",
+   "variant": "L100noarmor",
+   "dodge": true,
+   "twist": true,
+   "runs": 40,
+   "baseClear": 40,
+   "baseClearPct": 100,
+   "pressOnWon": 38,
+   "pressOnReached": 40,
+   "pressOnPctOfReached": 95,
+   "pressOnPctOfAll": 95,
+   "baseRoundsMedian": 9,
+   "baseMinutesMedian": 2.3,
+   "lossesAt": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 2
+   },
+   "fights": [
+    {
+     "fight": 1,
+     "label": "breach: Deck Warden + Seal Charge",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 4,
+     "roundsP90": 5,
+     "hpStartMedian": 100,
+     "hpEndMedian": 38.2,
+     "hpEndP10": 29.9,
+     "hpCostMedian": 61.8,
+     "playerIdlePct": 4.5,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 548,
+       "diedMedianRound": 4
+      },
+      "Seal Charge": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 2416,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 2,
+     "label": "flooded hold: Arsenal Keeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 38.2,
+     "hpEndMedian": 35.2,
+     "hpEndP10": 27.1,
+     "hpCostMedian": 3,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Arsenal Keeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 143,
+       "diedMedianRound": 3
+      }
+     }
+    },
+    {
+     "fight": 3,
+     "label": "tide line: Skyglass Sentinel",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 35.2,
+     "hpEndMedian": 34.7,
+     "hpEndP10": 25.4,
+     "hpCostMedian": 1.7,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 10,
+      "dodged": 10,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 12
+     },
+     "enemies": {
+      "Skyglass Sentinel": {
+       "marksPerFight": 1,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 65,
+       "diedMedianRound": 3
+      }
+     }
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): chart room, Wayfinder",
+     "pressOn": true,
+     "reached": 40,
+     "won": 38,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 34.7,
+     "hpEndMedian": 25.7,
+     "hpEndP10": 13.2,
+     "hpCostMedian": 12.9,
+     "playerIdlePct": 2.9,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 38,
+      "wipe": 2
+     },
+     "dodge": {
+      "threatened": 10,
+      "dodged": 5,
+      "failedRooted": 3,
+      "failedNoPath": 2,
+      "failedOther": 0,
+      "stepsTaken": 12
+     },
+     "enemies": {
+      "Wayfinder": {
+       "marksPerFight": 0.6,
+       "blastsPerFight": 0.2,
+       "blastHitPct": 16.7,
+       "dealtPerFight": 136,
+       "diedMedianRound": 3
+      },
+      "(summon/clone)": {
+       "marksPerFight": 1,
+       "blastsPerFight": 0.1,
+       "blastHitPct": 0,
+       "dealtPerFight": 0,
+       "diedMedianRound": null
+      }
+     }
+    }
+   ],
+   "perSeed": [
+    {
+     "seed": 1,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      42,
+      40,
+      27
+     ],
+     "rounds": [
+      2,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 2,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      42,
+      41,
+      38
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 3,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      38,
+      36,
+      36,
+      23
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 4,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      46,
+      45,
+      32
+     ],
+     "rounds": [
+      1,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 5,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      38,
+      34,
+      32,
+      29
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 6,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      90,
+      87,
+      86,
+      73
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 7,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      33,
+      29,
+      29,
+      6
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 8,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      34,
+      29,
+      27,
+      14
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 9,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      33,
+      31,
+      29,
+      27
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 10,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      32,
+      28,
+      27,
+      25
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 11,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      33,
+      31,
+      29,
+      21
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      5
+     ]
+    },
+    {
+     "seed": 12,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      37,
+      37,
+      25
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 13,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      46,
+      45,
+      32
+     ],
+     "rounds": [
+      1,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 14,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      39,
+      37,
+      35
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 15,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      23,
+      18,
+      16,
+      14
+     ],
+     "rounds": [
+      6,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 16,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      48,
+      44,
+      44,
+      31
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 17,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      38,
+      34,
+      34,
+      11
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 18,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      39,
+      38,
+      25
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 19,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      97,
+      94,
+      93,
+      80
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 20,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      37,
+      37,
+      35
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 21,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      90,
+      84,
+      83,
+      70
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 22,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      42,
+      40,
+      38
+     ],
+     "rounds": [
+      1,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 23,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      39,
+      37,
+      24
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 24,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      31,
+      28,
+      28,
+      15
+     ],
+     "rounds": [
+      5,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 25,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      30,
+      30,
+      28,
+      15
+     ],
+     "rounds": [
+      5,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 26,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      44,
+      41,
+      40,
+      37
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 27,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      31,
+      28,
+      26,
+      26
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 28,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      27,
+      27,
+      25,
+      0
+     ],
+     "rounds": [
+      5,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 29,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      38,
+      38,
+      25
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 30,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      43,
+      42,
+      34
+     ],
+     "rounds": [
+      1,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 31,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      43,
+      41,
+      18
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 32,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      35,
+      35,
+      33,
+      10
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 33,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      25,
+      21,
+      21,
+      0
+     ],
+     "rounds": [
+      6,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 34,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      31,
+      25,
+      24,
+      11
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 35,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      38,
+      34,
+      32,
+      32
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 36,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      36,
+      36,
+      36
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 37,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      33,
+      28,
+      26,
+      13
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      2
+     ]
+    },
+    {
+     "seed": 38,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      32,
+      32,
+      31,
+      28
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 39,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      27,
+      27,
+      25,
+      25
+     ],
+     "rounds": [
+      5,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 40,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      36,
+      33,
+      31,
+      19
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "run": "nightwatch",
+   "chart": "Watch Roster: The Night Watch",
+   "variant": "L100noarmor",
+   "dodge": true,
+   "twist": true,
+   "runs": 40,
+   "baseClear": 40,
+   "baseClearPct": 100,
+   "pressOnWon": 37,
+   "pressOnReached": 40,
+   "pressOnPctOfReached": 92.5,
+   "pressOnPctOfAll": 92.5,
+   "baseRoundsMedian": 10,
+   "baseMinutesMedian": 2.5,
+   "lossesAt": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 3
+   },
+   "fights": [
+    {
+     "fight": 1,
+     "label": "first watch: Deck Warden + Seal Charge",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 4,
+     "roundsP90": 5,
+     "hpStartMedian": 100,
+     "hpEndMedian": 38.2,
+     "hpEndP10": 29.9,
+     "hpCostMedian": 61.8,
+     "playerIdlePct": 4.5,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 548,
+       "diedMedianRound": 4
+      },
+      "Seal Charge": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 2416,
+       "diedMedianRound": 2
+      }
+     }
+    },
+    {
+     "fight": 2,
+     "label": "middle watch: Oathkeeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 2.5,
+     "roundsP90": 3,
+     "hpStartMedian": 38.2,
+     "hpEndMedian": 35.7,
+     "hpEndP10": 26.7,
+     "hpCostMedian": 2.3,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Oathkeeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 136,
+       "diedMedianRound": 2.5
+      }
+     }
+    },
+    {
+     "fight": 3,
+     "label": "relief: Deck Warden + Oathkeeper",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 4,
+     "roundsP90": 5,
+     "hpStartMedian": 35.7,
+     "hpEndMedian": 20.5,
+     "hpEndP10": 11.2,
+     "hpCostMedian": 15,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Deck Warden": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 430,
+       "diedMedianRound": 3
+      },
+      "Oathkeeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 307,
+       "diedMedianRound": 3
+      }
+     }
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON: Second Watch, First Blade",
+     "pressOn": true,
+     "reached": 40,
+     "won": 37,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 20.5,
+     "hpEndMedian": 12,
+     "hpEndP10": 3.7,
+     "hpCostMedian": 8.6,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 37,
+      "wipe": 3
+     },
+     "dodge": {
+      "threatened": 37,
+      "dodged": 37,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 70
+     },
+     "enemies": {
+      "First Blade": {
+       "marksPerFight": 1,
+       "blastsPerFight": 0.9,
+       "blastHitPct": 0,
+       "dealtPerFight": 363,
+       "diedMedianRound": 3
+      }
+     }
+    }
+   ],
+   "perSeed": [
+    {
+     "seed": 1,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      41,
+      33,
+      33
+     ],
+     "rounds": [
+      2,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 2,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      41,
+      25,
+      16
+     ],
+     "rounds": [
+      3,
+      2,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 3,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      38,
+      36,
+      19,
+      11
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 4,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      42,
+      32,
+      32
+     ],
+     "rounds": [
+      1,
+      3,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 5,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      38,
+      33,
+      20,
+      11
+     ],
+     "rounds": [
+      5,
+      3,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 6,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      90,
+      88,
+      69,
+      69
+     ],
+     "rounds": [
+      3,
+      2,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 7,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      33,
+      31,
+      12,
+      4
+     ],
+     "rounds": [
+      5,
+      2,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 8,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      34,
+      32,
+      24,
+      15
+     ],
+     "rounds": [
+      5,
+      3,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 9,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      33,
+      31,
+      7,
+      0
+     ],
+     "rounds": [
+      5,
+      2,
+      5,
+      1
+     ]
+    },
+    {
+     "seed": 10,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      32,
+      30,
+      14,
+      5
+     ],
+     "rounds": [
+      3,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 11,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      33,
+      29,
+      18,
+      9
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 12,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      37,
+      21,
+      12
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 13,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      44,
+      30,
+      21
+     ],
+     "rounds": [
+      1,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 14,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      38,
+      27,
+      18
+     ],
+     "rounds": [
+      3,
+      3,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 15,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      23,
+      19,
+      7,
+      0
+     ],
+     "rounds": [
+      6,
+      3,
+      4,
+      1
+     ]
+    },
+    {
+     "seed": 16,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      48,
+      44,
+      22,
+      10
+     ],
+     "rounds": [
+      5,
+      3,
+      4,
+      4
+     ]
+    },
+    {
+     "seed": 17,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      38,
+      33,
+      18,
+      9
+     ],
+     "rounds": [
+      5,
+      3,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 18,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      40,
+      27,
+      19
+     ],
+     "rounds": [
+      3,
+      2,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 19,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      97,
+      94,
+      71,
+      71
+     ],
+     "rounds": [
+      3,
+      3,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 20,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      38,
+      20,
+      11
+     ],
+     "rounds": [
+      5,
+      3,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 21,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      90,
+      88,
+      67,
+      67
+     ],
+     "rounds": [
+      3,
+      3,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 22,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      44,
+      24,
+      16
+     ],
+     "rounds": [
+      1,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 23,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      42,
+      39,
+      21,
+      12
+     ],
+     "rounds": [
+      3,
+      2,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 24,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      31,
+      28,
+      21,
+      13
+     ],
+     "rounds": [
+      5,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 25,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      30,
+      28,
+      12,
+      4
+     ],
+     "rounds": [
+      5,
+      2,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 26,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      44,
+      42,
+      28,
+      19
+     ],
+     "rounds": [
+      5,
+      3,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 27,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      31,
+      28,
+      17,
+      8
+     ],
+     "rounds": [
+      5,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 28,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      27,
+      26,
+      11,
+      3
+     ],
+     "rounds": [
+      5,
+      2,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 29,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      39,
+      26,
+      18
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 30,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      43,
+      35,
+      35
+     ],
+     "rounds": [
+      1,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 31,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      46,
+      43,
+      38,
+      38
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 32,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      35,
+      32,
+      19,
+      10
+     ],
+     "rounds": [
+      5,
+      2,
+      4,
+      3
+     ]
+    },
+    {
+     "seed": 33,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      25,
+      23,
+      7,
+      0
+     ],
+     "rounds": [
+      6,
+      3,
+      3,
+      1
+     ]
+    },
+    {
+     "seed": 34,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      31,
+      27,
+      20,
+      12
+     ],
+     "rounds": [
+      5,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 35,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      38,
+      36,
+      19,
+      11
+     ],
+     "rounds": [
+      3,
+      2,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 36,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      40,
+      35,
+      19,
+      10
+     ],
+     "rounds": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 37,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      33,
+      31,
+      11,
+      3
+     ],
+     "rounds": [
+      5,
+      3,
+      5,
+      3
+     ]
+    },
+    {
+     "seed": 38,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      32,
+      31,
+      20,
+      12
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 39,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      27,
+      26,
+      9,
+      1
+     ],
+     "rounds": [
+      5,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "seed": 40,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      36,
+      33,
+      21,
+      12
+     ],
+     "rounds": [
+      4,
+      2,
+      3,
+      3
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -53,18 +53,25 @@ export type ChartParams = HuntParams & {
   /** Steeping Horror (scaled to the player): pools and rows. */
   steep: { pools: number; rows: number };
   /** Tainted twists: entry pools %, elementalseal rounds, afterburn % and rounds. */
-  tainted: { givePools: number; sealRounds: number; afterburn: number; afterburnRounds: number };
+  tainted: { givePools: number; sealRounds: number; afterburn: number; afterburnRounds: number; echo?: "echo2" | "echo3" };
   /**
    * Common-chart crew copies (scaled to the player): statsMultiplier for all, and per live id pools / +100% rows.
    * The live crew records cannot serve: their statsMultiplier 5 gives a scaled copy 5 x half the level budget per stat
    * (2.5x a level-50 player's), and changing it on the live record rescales the hunts' stored stats (scaleEditedAi).
    */
-  commons: { stats: number; rowsAdd?: number; poolsScale?: number; byId: Record<string, { pools: number; rows: number; stats?: number }> };
+  commons: {
+    stats: number; rowsAdd?: number; poolsScale?: number;
+    /** Softening rows (schema floor: statsMultiplier and poolsMultiplier >= 1): innate +damage-taken % rows and a -damage-given %. */
+    taken?: number[]; givenDown?: number;
+    byId: Record<string, { pools: number; rows: number; stats?: number; taken?: number[]; givenDown?: number }>;
+  };
   /**
    * Rare-chart stat copies (unscaled, endgame), opt-in per live id: { pools, rows }. The hunt records are tuned as one
    * boss from full HP; a carried-HP gauntlet of four needs lighter copies. Ids not listed fight as the live record.
    */
   rares: { byId: Record<string, { pools: number; rows: number }> };
+  /** Tainted-run stat copies (chart-t-*), opt-in per live id, for the pair fights; ids not listed use the rare copy / live. */
+  taintedCopies: { byId: Record<string, { pools: number; rows: number }> };
 };
 export const DEFAULT_CHART_EXTRA = {
   echo: { pools: 2, rows: 1, fade: 10 },
@@ -73,6 +80,7 @@ export const DEFAULT_CHART_EXTRA = {
   tainted: { givePools: 70, sealRounds: 2, afterburn: 30, afterburnRounds: 3 },
   commons: { stats: 2, byId: {} as Record<string, { pools: number; rows: number; stats?: number }> },
   rares: { byId: {} as Record<string, { pools: number; rows: number }> },
+  taintedCopies: { byId: {} as Record<string, { pools: number; rows: number }> },
 };
 /** Rare-chart copy ids (placeholders), keyed by the live record they copy. */
 export const COPY_R: Record<string, string> = {};
@@ -149,17 +157,22 @@ export const buildCharts = (P: ChartParams, kitParams: any) => {
     ov.newEnemies[COPY[id]!] = {
       base: NAME[id], username: NAME[id],
       aiEdit: { poolsMultiplier: id === LIVE.charge ? cs.pools : Math.round(cs.pools * (P.commons.poolsScale ?? 1) * 100) / 100, statsMultiplier: stats },
-      effects: idgRows(id === LIVE.charge ? cs.rows : cs.rows + (P.commons.rowsAdd ?? 0)),
+      effects: [
+        ...idgRows(id === LIVE.charge ? cs.rows : cs.rows + (P.commons.rowsAdd ?? 0)),
+        ...((cs as any).taken ?? P.commons.taken ?? []).map((pct: number) => tag("increasedamagetaken", { power: pct, rounds: 99, calculation: "percentage", description: "Increased damage taken" })),
+        ...(((cs as any).givenDown ?? P.commons.givenDown) ? [tag("decreasedamagegiven", { power: (cs as any).givenDown ?? P.commons.givenDown, rounds: 99, calculation: "percentage", description: "Decreased damage given" })] : []),
+      ],
       ...(src.jutsuIds ? { jutsuIds: src.jutsuIds, rules: src.rules, includeDefaultRules: false } : {}),
     };
     ov.signatures[COPY[id]!] = ov.signatures[id] ?? [];
-    newRecords[COPY[id]!] = { kind: "AI (copy)", note: `common-chart copy of ${NAME[id]}: same kit and rules, statsMultiplier ${stats}, pools ${cs.pools}, ${cs.rows} damage rows; opponent_scaled_to_user` };
+    newRecords[COPY[id]!] = { kind: "AI (copy)", note: `common-chart copy of ${NAME[id]}: same kit and rules, statsMultiplier ${stats}, pools ${cs.pools}; opponent_scaled_to_user` };
   }
 
-  // Rare-chart stat copies (opt-in): same kit and rules as the live record, their own pools and damage rows.
-  for (const [id, cs] of Object.entries(P.rares.byId ?? {})) {
-    if (!NAME[id]) throw new Error(`rares.byId: unknown id ${id}`);
-    const cid = `chart-r-${NAME[id]!.toLowerCase().replaceAll(" ", "-")}`;
+  // Rare-chart and tainted-run stat copies (opt-in): same kit and rules as the live record, their own pools and rows.
+  for (const [prefix, byId] of [["chart-r-", P.rares.byId ?? {}], ["chart-t-", P.taintedCopies?.byId ?? {}]] as const)
+  for (const [id, cs] of Object.entries(byId)) {
+    if (!NAME[id]) throw new Error(`copies: unknown id ${id}`);
+    const cid = `${prefix}${NAME[id]!.toLowerCase().replaceAll(" ", "-")}`;
     COPY_R[id] = cid;
     NAME[cid] = NAME[id]!;
     const src = ov.newEnemies[id] ?? ov.enemies[id];
@@ -170,7 +183,7 @@ export const buildCharts = (P: ChartParams, kitParams: any) => {
       ...(src.jutsuIds ? { jutsuIds: src.jutsuIds, rules: src.rules, includeDefaultRules: false } : {}),
     };
     ov.signatures[cid] = ov.signatures[id] ?? [];
-    newRecords[cid] = { kind: "AI (copy)", note: `rare-chart copy of ${NAME[id]}: same kit and rules, pools ${cs.pools}, ${cs.rows} damage rows (unscaled)` };
+    newRecords[cid] = { kind: "AI (copy)", note: `${prefix === "chart-r-" ? "rare-chart" : "tainted-run"} copy of ${NAME[id]}: same kit and rules, pools ${cs.pools}, ${cs.rows} damage rows (unscaled)` };
   }
 
   // Lingering Echoes (no new jutsu: library pairs only). Deck Warden statline (level 100, statsMultiplier 5).
@@ -241,6 +254,7 @@ export const buildRuns = (P: ChartParams, twist = true): Record<string, Run> => 
   const f = (label: string, ids: string[], o: Partial<Fight> = {}): Fight => ({ label, ids, ...o });
   const tw = (ids: string[], hz: string[]) => (twist ? [...ids, ...hz] : ids);
   const r = (id: string) => (P.rares.byId?.[id] ? `chart-r-${NAME[id]!.toLowerCase().replaceAll(" ", "-")}` : id);
+  const t = (id: string) => (P.taintedCopies?.byId?.[id] ? `chart-t-${NAME[id]!.toLowerCase().replaceAll(" ", "-")}` : r(id));
   /* Common charts: opponent_scaled_to_user, any level. */
   R.lowtide = {
     chart: "Tide Chart: The Low Tide Run",
@@ -275,7 +289,7 @@ export const buildRuns = (P: ChartParams, twist = true): Record<string, Run> => 
     chart: "The Last Heading: The Fall",
     fights: [
       f(`burning deck: Deck Warden + Seal Charge${twist ? " + embers" : ""}`, tw([r(LIVE.warden), r(LIVE.charge)], [C.deck])),
-      f(`gun deck: Arsenal Keeper + Wayfinder${twist ? " + embers" : ""}`, tw([r(LIVE.keeper), r(LIVE.wayfinder)], [C.deck])),
+      f(`gun deck: Arsenal Keeper + Deck Warden${twist ? " + embers" : ""}`, tw([r(LIVE.keeper), r(LIVE.warden)], [C.deck])),
       f(`the break: Core Horror${twist ? " + embers" : ""}`, tw([r(LIVE.horror)], [C.deck]), { boss: true }),
       f("PRESS ON (proposed): The Captain at the helm", [r(LIVE.captain)], { pressOn: true, boss: true }),
     ],
@@ -286,18 +300,18 @@ export const buildRuns = (P: ChartParams, twist = true): Record<string, Run> => 
   R.rotted = {
     chart: "Rotted Reliquary (tainted)",
     fights: [
-      f("echoes rise in pairs: Foundry Warden + Sealwright", [r(LIVE.foundry), r(LIVE.sealwright)], { givePools: P.tainted.givePools, debuffs: seal, boss: true }),
-      f(`last pair: Skyglass Sentinel + First Blade${twist ? " + Lingering Echo (Pour + Script)" : ""}`, tw([r(LIVE.sentinel), r(LIVE.blade)], [C.echo3]), { debuffs: seal, boss: true }),
-      f("PRESS ON: Replicant Zero", [r(C.replicant)], { debuffs: seal, pressOn: true, boss: true }),
+      f("echoes rise in pairs: Foundry Warden + Sealwright", [t(LIVE.foundry), t(LIVE.sealwright)], { givePools: P.tainted.givePools, debuffs: seal, boss: true }),
+      f(`last pair: Skyglass Sentinel + First Blade${twist ? ` + Lingering Echo (${P.tainted.echo === "echo3" ? "Pour + Script" : "Pour"})` : ""}`, tw([t(LIVE.sentinel), t(LIVE.blade)], [P.tainted.echo === "echo3" ? C.echo3 : C.echo2]), { debuffs: seal, boss: true }),
+      f("PRESS ON: Replicant Zero", [t(C.replicant)], { debuffs: seal, pressOn: true, boss: true }),
     ],
   };
   R.burning = {
     chart: "Burning Heading (tainted)",
     fights: [
-      f(`the break: Core Horror${twist ? " + embers" : ""}`, tw([r(LIVE.horror)], [C.deck]), { givePools: P.tainted.givePools, debuffs: burn, boss: true }),
-      f(`gun deck with the Captain: Arsenal Keeper + Deck Warden${twist ? " + embers" : ""}`, tw([r(LIVE.keeper), r(LIVE.warden)], [C.deck]), { allies: [LIVE.captain], debuffs: burn }),
-      f("gangway duel (Captain beside you): Wayfinder", [r(LIVE.wayfinder)], { allies: [LIVE.captain], debuffs: burn, boss: true }),
-      f(`PRESS ON (proposed): First Blade on the burning deck${twist ? " + embers" : ""}`, tw([r(LIVE.blade)], [C.deck]), { allies: [LIVE.captain], debuffs: burn, pressOn: true, boss: true }),
+      f(`the break: Core Horror${twist ? " + embers" : ""}`, tw([(LIVE.horror)], [C.deck]), { givePools: P.tainted.givePools, debuffs: burn, boss: true }),
+      f(`gun deck with the Captain: Arsenal Keeper + Deck Warden${twist ? " + embers" : ""}`, tw([(LIVE.keeper), (LIVE.warden)], [C.deck]), { allies: [LIVE.captain], debuffs: burn }),
+      f("gangway duel (Captain beside you): Wayfinder", [(LIVE.wayfinder)], { allies: [LIVE.captain], debuffs: burn, boss: true }),
+      f(`PRESS ON (proposed): First Blade on the burning deck${twist ? " + embers" : ""}`, tw([(LIVE.blade)], [C.deck]), { allies: [LIVE.captain], debuffs: burn, pressOn: true, boss: true }),
     ],
   };
   R.steeping = { chart: "Steeping (the Core)", fights: [f("steeping: Steeping Horror (scaled)", [C.steep], { scaled: true, boss: true })] };

@@ -17,6 +17,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { addQuestStartingEffects } from "@/libs/combat/questEffects";
 import { getEffectiveMaxPool } from "@/libs/combat/util";
+import { insertAiSchema } from "@/validators/aiInput";
 import { buildTemplates, enemyQueryUser, KITSUNE_SET, loadDmgConfig, loadJson, PLAYER_VARIANTS, petFor, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32, runFloor, seedEntropy } from "./sim";
 import { crownTemplates, DEFAULT_HUNT_PARAMS, DEFAULT_PARAMS, LIVE, NAME } from "./hunts";
@@ -73,6 +74,15 @@ const setup = (params: ChartParams, twist: boolean) => {
       if (uj.jutsu?.name === "Erupting Ground") uj.jutsu.effects = uj.jutsu.effects.map((e: any) => (["damage", "pierce"].includes(e.type) ? { ...e, friendlyFire: "ENEMIES" } : e));
   donor = T.enemies[LIVE.warden]!.row;
   RUNS = buildRuns(P, twist);
+  // Every CHART-NEW AI row must be storable (insertAiSchema: e.g. statsMultiplier and poolsMultiplier >= 1).
+  const RELS = new Set(["jutsus", "items", "aiProfile", "titles", "raidBuffs", "cookingJobs", "village", "bloodline", "sageMode", "anbuSquad", "clan", "loadout", "userSkills", "userQuests", "completedQuests", "bounties", "bountySignups", "queue"]);
+  for (const id of Object.keys(built.newRecords)) {
+    const row = T.enemies[id]?.row;
+    if (!row) continue;
+    // Date columns are skipped: the harness virtual clock (sim.ts seedClock) replaces global Date, which zod's date check rejects.
+    const c = insertAiSchema.safeParse({ ...Object.fromEntries(Object.entries(row).filter(([k, v]) => !RELS.has(k) && !(v && typeof (v as any).getTime === "function"))), jutsus: row.jutsus.map((uj: any) => uj.jutsuId) });
+    if (!c.success && c.error.issues.some((i: any) => !/date/i.test(i.message))) throw new Error(`HARNESS: ${id} is not storable: ${c.error.issues.slice(0, 3).map((i: any) => `${i.path.join(".")}: ${i.message}`).join("; ")}`);
+  }
 };
 const twistOn = !flag("no-twist");
 setup(P, twistOn);
@@ -308,6 +318,47 @@ if (flag("probe-embers")) {
   }
   const o = opt("out");
   if (o) writeFileSync(resolve(o), `${JSON.stringify({ generatedBy: "charts_main.ts --probe-embers", ember: P.ember, probes }, null, 1)}\n`);
+  process.exit(0);
+}
+
+/** --spec-out: the chart build spec (new records, tuned stats, run sequences, routing). */
+const specOut = opt("spec-out");
+if (specOut) {
+  const { insertAiSchema } = await import("@/validators/aiInput");
+  const { JutsuValidator } = await import("@/validators/combat");
+  const RELATIONS = new Set(["jutsus", "items", "aiProfile", "titles", "raidBuffs", "cookingJobs", "village", "bloodline", "sageMode", "anbuSquad", "clan", "loadout", "userSkills", "userQuests", "completedQuests", "bounties", "bountySignups", "queue"]);
+  const ais: any = {};
+  for (const id of Object.keys(built.newRecords)) {
+    const e = T.enemies[id];
+    if (!e) continue;
+    const row = e.row;
+    const check = insertAiSchema.safeParse({ ...Object.fromEntries(Object.entries(row).filter(([k]) => !RELATIONS.has(k))), jutsus: row.jutsus.map((uj: any) => uj.jutsuId) });
+    ais[id] = {
+      ...built.newRecords[id], username: row.username, level: row.level, rank: row.rank, poolsMultiplier: row.poolsMultiplier, statsMultiplier: row.statsMultiplier,
+      maxHealth: row.maxHealth, stats: { offence: row.offence, defence: row.defence, strength: row.strength, intelligence: row.intelligence, willpower: row.willpower, speed: row.speed },
+      effects: row.effects.map((x: any) => `${x.type} ${x.power}${x.calculation === "percentage" ? "%" : ""}`),
+      jutsu: row.jutsus.map((uj: any) => ({ id: uj.jutsuId, name: uj.jutsu.name })), rules: e.profile.rules.map((r: any) => ({ when: r.conditions, do: { type: r.action.type, jutsuId: r.action.jutsuId, target: r.action.target }, note: r.action.description })),
+      insertAiSchema: check.success ? "pass" : check.error.issues.slice(0, 3).map((i: any) => `${i.path.join(".")}: ${i.message}`),
+    };
+  }
+  const jutsu: any = {};
+  for (const [id, j] of Object.entries<any>(built.override.jutsu)) if (id.startsWith("chart-")) jutsu[id] = { record: j, JutsuValidator: JutsuValidator.safeParse(j).success ? "pass" : "FAIL" };
+  const runs = Object.fromEntries(Object.entries(buildRuns(P, true)).map(([k, r]) => [k, { chart: r.chart, fights: r.fights.map((f) => ({ ...f, ids: f.ids.map((i) => ({ id: i, name: NAME[i] })), allies: f.allies?.map((i) => ({ id: i, name: NAME[i] })) })) }]));
+  const spec = {
+    generatedBy: "harness/skyglass_wreck_sim/engine/charts_main.ts --spec-out", engineRun: "c86f43f4 (harness pin); source checks cite 2af4b320",
+    note: "Placeholder ids (chart-*); the builder mints real ids. Live ids are the hunts' live records upgraded in place with hunts.params.json stats (unchanged here).",
+    params: P, newAIs: ais, newJutsu: jutsu, runs,
+    objectiveShape: {
+      "RUL-2026-10-28-022": "Battles carry no Skyglass rewards. Every run: start_battle objectives in order (consecutiveObjectives); each base fight's failObjectiveId -> fail ending (the run's consolation, e.g. 1 Core Rot on a failed rare). After the last base fight: dialog 'leave' -> win_quest ending at step N, or 'press on' -> press-on start_battle: win -> win_quest ending at step N+1; lose -> failObjectiveId -> the same win_quest ending at step N. Completion pick = quest content.reward with rewardMode choose (rewardPickCount 1; 2 on tainted).",
+      givePools: "Only on the FIRST fight objective of the tainted runs (entry at 70%). On a later objective givePools REPLACES the carried pools (initiateBattle sets cur := % of effective max), which would refill or drain the player.",
+      applyDebuffs: "Tainted twists on every fight objective: Rotted elementalseal for tainted.sealRounds; Burning afterburn tainted.afterburn % for tainted.afterburnRounds.",
+      allyAIs: "Burning Heading fights 2+ carry allyAIs [The Captain]; the player's battle ends (lost) when the player is out even if the Captain fights on.",
+      scaled: "Common charts and steeping: opponent_scaled_to_user true.",
+    },
+  };
+  mkdirSync(dirname(resolve(specOut)), { recursive: true });
+  writeFileSync(resolve(specOut), `${JSON.stringify(spec, null, 1)}\n`);
+  console.log(`wrote ${specOut}: ${Object.keys(ais).length} AI records, ${Object.keys(jutsu).length} jutsu; schema failures: ${Object.entries<any>(ais).filter(([, a]) => a.insertAiSchema !== "pass").map(([k]) => k).join(",") || "none"}`);
   process.exit(0);
 }
 
