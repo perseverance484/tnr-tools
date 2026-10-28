@@ -39,6 +39,11 @@ python3 harness/skyglass_wreck_sim/tools/probe_summary.py harness/skyglass_wreck
 # Telegraphed-boss probes (ground marks, self markers, COORDINATES patterns, grid/spawns, summoning an AI record):
 TNR_SCRIPT=probe_telegraph.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_telegraph.json
 
+# Crowned Captain solo fight (Crownhold D5.BOSS): set-piece boss, dodge on/off, writes the build spec:
+TNR_SCRIPT=crowned_captain.ts harness/skyglass_wreck_sim/run.sh --seeds 60 \
+    --out $PWD/harness/skyglass_wreck_sim/results/crowned_captain_tuned.json \
+    --write-spec $PWD/harness/skyglass_wreck_sim/crowned_captain_spec.json   # see REPORT_crowned_captain.md
+
 # Trace one floor action by action (absolute override path):
 TNR_SCRIPT=trace_floor.ts harness/skyglass_wreck_sim/run.sh 1 "$PWD/harness/skyglass_wreck_sim/overrides/director_layout.json" average 1
 ```
