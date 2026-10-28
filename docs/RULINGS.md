@@ -3774,3 +3774,36 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "Im curious what loot players receive for winning individual battles. I had originally set it up so winning was required to get the reward", then "Thats confirmed".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4b, §5.
+
+## RUL-2026-10-28-023 — Profession chests become hunt drops, rank-gated by rarity, on every battle win
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / rewards; live item edits
+
+**Status:** ACTIVE. The flags change only after the push/324 quest audit is clean.
+
+**Ruling:**
+1. **The eight profession chests become the profession drops.**
+   - The four Hunter's Chests are flagged `canBeHunted` and the four Gatherer's Chests `canBeGathered`.
+   - The Rare, Epic and Legendary chests have their rarity set to match their contents; the Common ones stay Common. The engine then rolls each chest at the player's rank chance for that rarity (`HUNTING_ITEM_DROP_CHANCES` / `GATHERING_ITEM_DROP_CHANCES`).
+   - D rank therefore can never roll Epic or Legendary chests.
+2. **Every battle win in a hunt carries `reward_hunter_items` and `reward_gathering_items`, limited to the area's tier.**
+   - The engine pays them only to players with that occupation (`routers/quests.ts` ~2218).
+   - Tiers by area:
+     - Buried Cache and the common runs: Common.
+     - Drowned Foundry: Rare.
+     - Archive and Watch: Epic.
+     - The rare runs and Crownhold: Epic and Legendary.
+   - Target: about 50-100% of the old Ghost Ship profession quests at A and S rank, measured as roughly 1-1.5 chests (about 120 materials each) per clear.
+   - This is the one per-battle exception to RUL-2026-10-28-022. It is paid only on winning.
+3. **Audit first.**
+   - push/324 captures every quest, and push/323 every item, to confirm nothing uses these flags without an id list.
+   - Only after that do the item edits (rarity and flags) go into push/319.
+
+**Evidence:** Director, 2026-10-28:
+- "couldn't we just make the old chests hunter/gatherer items and then have them be the drops?"
+- "I don't want D rank hunters to be able to obtain S rank materials ... We should adjust each chests rarity to match its contents"
+- "Approve and build the audit"
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4b.

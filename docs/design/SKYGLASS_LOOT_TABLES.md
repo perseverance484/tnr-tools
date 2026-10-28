@@ -134,15 +134,32 @@ The rares double the Watch's Coffer and Jar, so each rung pays more than the one
 
 Cut and not to be rebuilt: the Archive's Records exp, the Watch's Inro ×3, The Fall's Captain's Purse, the commons' exp cards (RUL-2026-10-28-016); Crownhold's Honor and Crownhold's Echo Jar ×2 (RUL-2026-10-28-017); the tainted runs' guaranteed Sealed Treasury and Echo Jar (RUL-2026-10-28-019).
 
-## 4b. Profession materials in the hunts (RUL-2026-10-28-019)
+## 4b. Profession chests (RUL-2026-10-28-023; supersedes the per-item rolls of RUL-2026-10-28-019)
 
-- **What:** hunt fights and endings carry `reward_hunter_items` and `reward_gathering_items` (theninjarpg `routers/quests.ts` ~2218, `libs/hunting.ts` `getHuntingItemDrops`).
-- **Who gets them:** only a HUNTER-occupation player receives hunter materials, and only a GATHERING player receives gathering materials. Each drop is rolled from the player's own rank chances. Everyone else gets nothing, so materials still enter the market only through the professions.
-- **Themed per area:** each hunt restricts the drop to a short id list (`reward_*_items_ids`), for example ores and metals at the Foundry, roots and herbs at the Buried Cache. The lists are drawn from the push/323 capture.
-- **Tuned below regular hunting/gathering but still rewarding:**
-  - yield per minute stays under the live profession quests (baseline: the profession-gated Ghost Ship Gather 6Ri-W5TtUrEMWpyYlnf_F and Hunt HckXVOf-qk6ESU9t5rxLh);
-  - levers are which fights carry a roll and how long the themed list is.
-- **Not in the Wreck:** dungeon rewards don't support these fields. Hunting and gathering exp go on hunt endings.
+- **Which chests:** the eight live profession chests. The Hunter's Chests are flagged `canBeHunted` and the Gatherer's Chests `canBeGathered`.
+- **Rarity:** the Rare, Epic and Legendary chests have their rarity set to match their contents; the Common ones stay Common. The engine rolls each chest at the player's rank chance for its rarity, so D rank never rolls Epic or Legendary.
+
+  | Rank | Common | Rare | Epic | Legendary |
+  |---|---|---|---|---|
+  | D | 15% | 10% | 0% | 0% |
+  | C | 20% | 15% | 5% | 1% |
+  | B | 25% | 20% | 10% | 2% |
+  | A | 30% | 25% | 15% | 5% |
+  | S | 40% | 30% | 20% | 10% |
+
+- **When they roll:** every battle win in a hunt carries `reward_hunter_items` and `reward_gathering_items`, limited to the area's chest tier. Only that occupation receives them (`routers/quests.ts` ~2218), and each success is one chest.
+- **Tiers and yield:**
+
+  | Area | Chest tier | Chests per run at D / C / B / A / S |
+  |---|---|---|---|
+  | Buried Cache and the common runs | Common | 0.4 / 0.6 / 0.8 / 0.9 / 1.2 |
+  | Drowned Foundry | Rare | 0.4 / 0.6 / 0.8 / 1.0 / 1.2 |
+  | Quarantined Archive and Captain's Watch | Epic | 0 / 0.2 / 0.4 / 0.6 / 0.8 |
+  | The rare runs and Crownhold | Epic + Legendary | 0 / 0.3 / 0.6 / 1.0 / 1.5 |
+
+  A chest averages about 120 materials. The old Ghost Ship profession quests paid about 1-1.5 chests per clear, so A and S rank land at about 50-100% of that.
+- **Not in the Wreck:** dungeon rewards don't support these flags.
+- **Before the flags change:** the push/324 quest audit and the push/323 item capture must show no `reward_hunter_items` or `reward_gathering_items` reward with an empty id list.
 
 ## 5. Charts: the map system (RUL-2026-10-28-009)
 
