@@ -16,7 +16,8 @@ import { AiRule } from "@/validators/ai";
 import { insertAiSchema } from "@/validators/aiInput";
 import { JutsuValidator } from "@/validators/combat";
 import { ALARM, buildHunts, buildPaths, CREW_TO_LIB, crownTemplates, DEFAULT_HUNT_PARAMS, LIVE, NAME, petFor, TERM } from "./hunts";
-import { buildEndgame, DEFAULT_PARAMS, IDS } from "./kits";
+import { IDS } from "./kits";
+import { buildEndgame, DEFAULT_PARAMS } from "./hunts";
 import { LIB } from "./library";
 import { buildTemplates, loadJson } from "./model";
 
@@ -31,7 +32,7 @@ const pp = opt("params");
 const p = pp ? loadJson(resolve(pp)) : {};
 const HP = { ...DEFAULT_HUNT_PARAMS, ...p, stats: { ...DEFAULT_HUNT_PARAMS.stats, ...(p.stats ?? {}) } };
 const kpf = loadJson(join(H, "overrides/kits_endgame.params.json"));
-const kitParams = { ...DEFAULT_PARAMS, ...kpf, pow: { ...DEFAULT_PARAMS.pow, ...(kpf.pow ?? {}) } };
+const kitParams = { ...DEFAULT_PARAMS, ...kpf, } as any;
 const built = buildHunts(HP, kitParams);
 const coreRupture = loadJson(join(H, "overrides/director_6wave_tuned.json")).jutsu["nCQETf-HNnbRec1OSY2-R"];
 built.override.jutsu["nCQETf-HNnbRec1OSY2-R"] = coreRupture;

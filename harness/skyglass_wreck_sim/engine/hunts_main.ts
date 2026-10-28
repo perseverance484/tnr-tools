@@ -17,7 +17,7 @@ import { addQuestStartingEffects } from "@/libs/combat/questEffects";
 import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, PLAYER_VARIANTS, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32, runFloor, seedEntropy } from "./sim";
 import { buildHunts, buildPaths, crownTemplates, DEFAULT_HUNT_PARAMS, type HuntParams, LIVE, NAME, type Path, petFor } from "./hunts";
-import { DEFAULT_PARAMS } from "./kits";
+import { DEFAULT_PARAMS } from "./hunts";
 import { LIB } from "./library";
 
 const args = process.argv.slice(2);
@@ -33,7 +33,7 @@ const dmg = loadDmgConfig(HARNESS, "live");
 const mergeParams = (base: HuntParams, p: any): HuntParams => ({ ...base, ...p, stats: { ...base.stats, ...(p.stats ?? {}) }, pow: { ...base.pow, ...(p.pow ?? {}) } });
 export const loadParams = (path?: string): HuntParams => (path ? mergeParams(DEFAULT_HUNT_PARAMS, loadJson(resolve(path))) : DEFAULT_HUNT_PARAMS);
 const kitParamsFile = loadJson(join(HARNESS, "overrides/kits_endgame.params.json"));
-const kitParams = { ...DEFAULT_PARAMS, ...kitParamsFile, pow: { ...DEFAULT_PARAMS.pow, ...(kitParamsFile.pow ?? {}) } };
+const kitParams = { ...DEFAULT_PARAMS, ...kitParamsFile, } as any;
 let HP = loadParams(opt("params"));
 const coreRuptureV2 = loadJson(join(HARNESS, "overrides/director_6wave_tuned.json")).jutsu["nCQETf-HNnbRec1OSY2-R"];
 let built: ReturnType<typeof buildHunts>;
