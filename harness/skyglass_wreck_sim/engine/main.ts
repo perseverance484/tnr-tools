@@ -24,7 +24,7 @@ import {
   playerQueryUser,
   type Templates,
 } from "./model";
-import { assembleFloor, type FloorResult, mulberry32, runFloor } from "./sim";
+import { assembleFloor, type FloorResult, mulberry32, runFloor, seedEntropy } from "./sim";
 
 const args = process.argv.slice(2);
 const opt = (k: string, d?: string) => {
@@ -41,6 +41,8 @@ const seed0 = Number(opt("seed", "1"));
 const maxWipes = Number(opt("max-wipes", "3"));
 const maxRounds = Number(opt("max-rounds", "150"));
 const barriers = !flag("no-barriers");
+/** Harness auto-player dodge of marked hexes (sim.ts DANGER_ANIMS); on unless --no-dodge. */
+const dodgeOn = !flag("no-dodge");
 const dmg = loadDmgConfig(HARNESS, opt("dmg-config", "live"));
 const onlyFloors = opt("floors")?.split(",").map(Number);
 const PACES = [10, 15, 20];
@@ -71,6 +73,7 @@ const IDLE = new Set(["move", "wait", null as unknown as string]);
 type Attempt = { floor: number; res: FloorResult; seed: number };
 const runDungeon = async (v: PlayerVariant, seed: number, probeOn = true) => {
   const rand = mulberry32(seed);
+  seedEntropy(seed);
   const origRandom = Math.random;
   Math.random = rand;
   const g = globalThis as any;
@@ -82,7 +85,7 @@ const runDungeon = async (v: PlayerVariant, seed: number, probeOn = true) => {
     let status: "cleared" | "max-wipes" | "ended" | "stalled" = "stalled";
     while (f < floors.length) {
       const battle = await assembleFloor({ players, enemyRows, floor: floors[f]!, rand, initialBarriers: barriers, dmgConfig: dmg.config });
-      const res = runFloor(battle, { playerIds: players.map((p) => p.userId), maxRounds });
+      const res = runFloor(battle, { playerIds: players.map((p) => p.userId), maxRounds, dodge: dodgeOn });
       if (!probeOn) g.__TNR_RULE_PROBE__ = undefined;
       attempts.push({ floor: f, res, seed });
       if (res.outcome === "won") f++;
@@ -129,7 +132,12 @@ type EnemyAgg = {
   turns: number; actions: Record<string, number>; ruleFires: Record<string, number>;
   authoredRules: number; dealt: number; taken: number; healed: number;
   effectsApplied: Record<string, number>; idleActions: number; totalActions: number;
+  /** Turns from the enemy's 3rd round in its wave on, and those with only move / end turn (acceptance: <= 25%). */
+  idleAfterR2: number; actionsAfterR2: number;
+  /** Appearances in which at least one signature rule fired (override.signatures). */
+  signatureFired: number;
 };
+const signatures: Record<string, number[]> = (override as any).signatures ?? {};
 
 const summarise = (v: PlayerVariant, results: Awaited<ReturnType<typeof runDungeon>>[]) => {
   const waveKey = (f: number, w: number) => `F${floorLabel(f) + 1}W${w}`;
@@ -169,7 +177,7 @@ const summarise = (v: PlayerVariant, results: Awaited<ReturnType<typeof runDunge
         for (const e of w.enemies) {
           uidToWave.set(e.uid, w.wave);
           for (const bucket of [((enemies[k] ??= {})), enemyAll]) {
-            const ea = (bucket[e.aiId] ??= { aiId: e.aiId, name: e.name, appearances: 0, deaths: 0, diedAfterRounds: [], turns: 0, actions: {}, ruleFires: {}, authoredRules: 0, dealt: 0, taken: 0, healed: 0, effectsApplied: {}, idleActions: 0, totalActions: 0 });
+            const ea = (bucket[e.aiId] ??= { aiId: e.aiId, name: e.name, appearances: 0, deaths: 0, diedAfterRounds: [], turns: 0, actions: {}, ruleFires: {}, authoredRules: 0, dealt: 0, taken: 0, healed: 0, effectsApplied: {}, idleActions: 0, totalActions: 0, idleAfterR2: 0, actionsAfterR2: 0, signatureFired: 0 });
             ea.appearances++;
             if (e.diedRound !== null) {
               ea.deaths++;
@@ -180,6 +188,8 @@ const summarise = (v: PlayerVariant, results: Awaited<ReturnType<typeof runDunge
       }
       // steps
       const seenTurn = new Set<string>();
+      const waveStart = new Map(res.waves.map((w) => [w.wave, w.startRound]));
+      const turnIdle: Record<string, { bucketKeys: string[]; idle: boolean; eas?: Set<EnemyAgg> }> = {};
       for (const s of res.steps) {
         const wk = waveKey(at.floor, s.wave);
         if (s.human) {
@@ -197,6 +207,16 @@ const summarise = (v: PlayerVariant, results: Awaited<ReturnType<typeof runDunge
             ea.authoredRules = Math.max(ea.authoredRules, s.authoredRules);
             inc(ea.actions, actionName(s.actionId));
             if (IDLE.has(s.actionId as string)) ea.idleActions++;
+            if (s.round - (waveStart.get(s.wave) ?? 1) >= 2) {
+              // Per turn: a turn is idle when none of its actions is anything but move / end turn.
+              const st = (turnIdle[tk] ??= { bucketKeys: [], idle: true });
+              if (!IDLE.has(s.actionId as string)) st.idle = false;
+              if (!st.bucketKeys.includes(bucket === enemyAll ? "all" : wk)) {
+                st.bucketKeys.push(bucket === enemyAll ? "all" : wk);
+                ea.actionsAfterR2++;
+              }
+              (st.eas ??= new Set()).add(ea);
+            }
             const rk = s.ruleIndex === null ? "none" : s.ruleIndex < s.authoredRules ? String(s.ruleIndex) : "engine-fallback";
             inc(ea.ruleFires, rk);
             ea.dealt += s.dealt;
@@ -224,6 +244,7 @@ const summarise = (v: PlayerVariant, results: Awaited<ReturnType<typeof runDunge
           }
         }
       }
+      for (const st of Object.values(turnIdle)) if (st.idle) for (const ea of st.eas ?? []) ea.idleAfterR2++;
       // Per-appearance rule fire distribution (authored rules only).
       const firesByUid: Record<string, Record<string, number>> = {};
       let authoredOf: Record<string, number> = {};
@@ -239,6 +260,7 @@ const summarise = (v: PlayerVariant, results: Awaited<ReturnType<typeof runDunge
             const ea = bucket[e.aiId];
             if (!ea) continue;
             ea.ruleFireDist ??= {};
+            if ((signatures[e.aiId] ?? []).some((i) => (firesByUid[e.uid]?.[String(i)] ?? 0) > 0)) ea.signatureFired++;
             for (let i = 0; i < n; i++) {
               const c = firesByUid[e.uid]?.[String(i)] ?? 0;
               const d = (ea.ruleFireDist[String(i)] ??= { never: 0, once: 0, more: 0 });
@@ -264,6 +286,9 @@ const summarise = (v: PlayerVariant, results: Awaited<ReturnType<typeof runDunge
       dealtPerAppearance: Math.round(e.dealt / e.appearances), takenPerAppearance: Math.round(e.taken / e.appearances),
       healedPerAppearance: Math.round(e.healed / e.appearances),
       idleOrMovePct: r1((100 * e.idleActions) / Math.max(1, e.totalActions)),
+      idleTurnsAfterRound2Pct: r1((100 * e.idleAfterR2) / Math.max(1, e.actionsAfterR2)),
+      signatureRules: signatures[e.aiId] ?? null,
+      signatureFiredPct: signatures[e.aiId] ? r1((100 * e.signatureFired) / e.appearances) : null,
       actions: Object.fromEntries(Object.entries(e.actions).sort((a, b) => b[1] - a[1])),
       ruleFires: e.ruleFires, rulesNeverFired: authored.filter((i) => !e.ruleFires[i]), ruleFireDist: e.ruleFireDist ?? {},
       effectsApplied: e.effectsApplied,
@@ -307,6 +332,9 @@ const summarise = (v: PlayerVariant, results: Awaited<ReturnType<typeof runDunge
       };
     }
   const totalRounds = results.map((r) => r.attempts.reduce((s, a) => s + a.res.rounds, 0));
+  const dodge = { threatened: 0, dodged: 0, failedRooted: 0, failedNoPath: 0, failedOther: 0, stepsTaken: 0 } as Record<string, number>;
+  for (const r of results) for (const a of r.attempts) for (const [k, n] of Object.entries(a.res.dodge ?? {})) dodge[k] = (dodge[k] ?? 0) + (n as number);
+  const dodgeView = { enabled: dodgeOn, ...dodge, dodgedPct: dodge.threatened ? r1((100 * dodge.dodged!) / dodge.threatened) : null };
   const cleanRuns = results.filter((r) => r.status === "cleared" && r.wipes === 0);
   return {
     variant: v.name, note: v.note, player: describePlayer(playerQueryUser(0, v, donor, T.jutsu)),
@@ -317,6 +345,7 @@ const summarise = (v: PlayerVariant, results: Awaited<ReturnType<typeof runDunge
     totalRoundsMedian: median(totalRounds), totalRoundsP10: pct(totalRounds, 0.1), totalRoundsP90: pct(totalRounds, 0.9),
     totalRoundsCleanClearMedian: median(cleanRuns.map((r) => r.attempts.reduce((s, a) => s + a.res.rounds, 0))),
     time,
+    dodge: dodgeView,
     floors: Object.fromEntries(Object.entries(floorsAgg).map(([k, f]) => [k, { attempts: f.attempts, won: f.won, wipes: f.wipes, roundsMedian: median(f.rounds), humanTurnsMedian: median(f.humanTurns), aiTurnsMedian: median(f.aiTurns) }])),
     waves: waveTable2,
     enemiesOverall: Object.values(enemyAll).map(enemyView),
@@ -352,7 +381,7 @@ if (flag("probe-check")) {
 const out: any = {
   generatedBy: "harness/skyglass_wreck_sim/engine/main.ts",
   override: ovPath ? { path: ovPath, name: override.name, note: override.note } : null,
-  settings: { dmgConfig: dmg.name, dmgConfigValues: dmg.config ?? null, runs, seed0, maxWipes, maxRounds, initialBarriers: barriers, paces: PACES, aiSecondsPerTurn: AI_SECONDS, transitionSecondsPerFloorBattle: TRANSITION_SECONDS, limitSeconds: LIMIT },
+  settings: { dodge: dodgeOn, dmgConfig: dmg.name, dmgConfigValues: dmg.config ?? null, runs, seed0, maxWipes, maxRounds, initialBarriers: barriers, paces: PACES, aiSecondsPerTurn: AI_SECONDS, transitionSecondsPerFloorBattle: TRANSITION_SECONDS, limitSeconds: LIMIT },
   enemyNotes: Object.fromEntries(Object.entries(T.enemies).filter(([, e]) => e.notes.length).map(([id, e]) => [e.row.username ?? id, e.notes])),
   layout: floors.map((f, i) => ({ floor: floorLabel(i) + 1, kind: f.kind, waves: f.waves.map((w) => w.aiIds.map((id) => T.enemies[id]!.row.username)) })),
   variants: [] as any[],
@@ -367,6 +396,9 @@ for (const v of variants) {
   for (const w of s.waves)
     console.log(`${w.wave.padEnd(6)} ${String(w.roundsMedian).padStart(5)} [${w.roundsMin}-${w.roundsMax}] clr ${w.cleared}/${w.attempts} wipe ${w.wipedHere} hpLost ${w.partyHpLostPctMedian}% left hp ${w.poolsLeftMedianPct.hp}% | ${w.enemies}`);
   console.log("time:", JSON.stringify(s.time));
+  console.log("dodge:", JSON.stringify(s.dodge));
+  for (const e of s.enemiesOverall)
+    console.log(`  ${e.name.padEnd(18)} app ${String(e.appearances).padStart(3)} sig ${String(e.signatureFiredPct).padStart(5)}% idle>r2 ${String(e.idleTurnsAfterRound2Pct).padStart(5)}% dealt ${e.dealtPerAppearance} never ${e.rulesNeverFired.join(",")}`);
 }
 const outPath = opt("out");
 if (outPath) {

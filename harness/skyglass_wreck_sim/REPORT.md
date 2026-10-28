@@ -396,3 +396,151 @@ captures.
 - Cause: the one-live-summon-per-controller cap in `summon()` (`hasLiveSummon`).
 - So the Crowned Captain's Recall can field one summoned regular at a time. Two at once need two casters, or a wave
   spawn.
+
+# Report 3, part A (2026-10-28): the real endgame kits, tuned
+
+Scope: every endgame dungeon copy built with the kit and priority rules from `SKYGLASS_WRECK_ENCOUNTERS.md` and
+`SKYGLASS_BOSS_FIGHTS.md` sections 1-2 (The Captain, the Core Horror), the new dungeon-only jutsu, a dodging auto-player,
+and tuning to the director's targets. Part C (Crowned Captain) moved to a separate agent; nothing Crownhold-related was
+edited. Offline only, zero live requests; engine pin c86f43f4.
+
+Files: `engine/kitlib.ts` (builders; every jutsu through the live `JutsuValidator`, every rule through `AiRule`),
+`engine/kits.ts` (the kits), `engine/build_kits.ts` (writes `overrides/kits_endgame.json` and `build_spec.json`),
+`overrides/kits_endgame.params.json` (the tuned knobs), `engine/probe_boss.ts` + `results/probe_boss.json` (new probes),
+`results/kits_endgame.json` (60 runs, dodging on), `results/kits_endgame_nododge.json` (30 runs, dodging off).
+
+## Result (average party, live damage settings, 60 seeded runs, dodging on)
+
+| Runs | Cleared | Runs with a wipe | Wipes | Rounds median [p10-p90] | Clean clear | Min @10 s | Min @15 s | Min @20 s | @15 s + AI 1.5 s |
+|---:|---:|---:|---:|---|---:|---:|---:|---:|---:|
+| 60 | 60 | 21.7% (13 runs) | 17: 16 on the boss wave, 1 on floor 1 | 26 [23-53] | 25 | 14.2 | 20.0 | 25.8 | 21.3 |
+
+| Wave | Enemies | Rounds median [min-max] | Wiped here / reached | Party HP lost | HP left at the end |
+|---|---|---|---:|---:|---:|
+| F1 | Deck Warden x3 + Seal Charge | 3 [1-5] | 1/77 | 45% | 79% |
+| F2 | Skyglass Sentinel + First Blade + Deck Warden | 3 [2-5] | 0/76 | 26% | 98% |
+| F3 | Oathkeeper + Wayfinder + Deck Warden | 3 [2-6] | 0/76 | 30% | 94% |
+| F4 | Core Horror (stage boss) | 5 [4-5] | 0/76 | 5% | 119% (Kitsune pools) |
+| F5 W1 | Deck Warden x3 | 3 [2-4] | 0/76 | 26% | 98% |
+| F5 W2 | The Captain + Sealwright | 7.5 [5-17] | 16/76 | 43% | 56% |
+
+**Dodging off** (same records, 30 runs): 2 of 30 runs clear within 3 wipes; the boss wave wipes the party in 115 of 117
+attempts (party HP lost 97%), and the Core Horror takes 31% of the party's HP instead of 5%. The marks are the fight.
+
+**Dodging** (harness auto-player): 579 turns started on a marked hex (or off a star during the Maw); 526 (91%) reached
+safety with at most 3 one-hex moves; 50 had no free safe hex within 3 steps (mostly the Maw's three stars); 3 were rooted
+or stunned.
+
+## Tuned figures (`overrides/kits_endgame.params.json`)
+
+| Dungeon copy | Pools | HP | +100% damage rows | Notes |
+|---|---:|---:|---:|---|
+| Deck Warden, Skyglass Sentinel, First Blade, Oathkeeper, Wayfinder | x1.0 | 5,050 | 2 | unchanged from the 6-wave tuning |
+| Seal Charge | as live | 3,550 | none | Core Rupture v2 (live record) |
+| Core Horror | x4 | 20,200 | 2 | was x5: about 5 rounds, as the fight doc says |
+| The Captain | x2.5 | 12,625 | 4 | was 3 rows |
+| Sealwright | x2.4 | 12,120 | 3 | below the Captain, so ally targeting picks him (below) |
+
+Move powers: Collapse 160, Rupture Field 140 (+30 pool), Maw of the Deep 200 + 1-round stun, Splintered Grasp 100 + wound,
+Bilge Spit 70 + poison, Broadside 110, Ship's Bell 50 + push 3 + 1-round stun, Ward of Command 80% damage reduction
+(2 rounds, recast every 2), Chain Hook 45, Oath of Stillness 35, Skyglass Aegis 1,500-HP shield + 20% absorb, Mending Seal
+heal 20% + cleanse, The Core Rebuilds heal 20% + 50% damage, once. Wipe lever: Ward of Command's reduction (70% gave
+12% of runs wiping, 80% gave 22%).
+
+## Acceptance checks
+
+| Enemy | Signature rule(s) | Fired in % of appearances | Idle turns after round 2 |
+|---|---|---:|---:|
+| Deck Warden | Chain Hook | 76 | 0% |
+| Seal Charge | Core Rupture (either rule) | 88 | 0% |
+| Skyglass Sentinel | Skyglass Aegis | 92 | 0% |
+| First Blade | Raijin's Spear / Shuriken Storm / Numbing Senbon on the lowest-health player | 85 | **96%** |
+| Oathkeeper | Oath of Stillness | 96 | 0% |
+| Wayfinder | Chart Mark | 90 | 0% |
+| Core Horror | Maw of the Deep (mark or detonation) | 82 | 0% |
+| The Captain | Broadside (any) | 97 | 0% |
+| Sealwright | Ward of Command | 100 | 1% |
+
+Idle turn = a turn with nothing but moves or an end of turn, from the enemy's third round in its wave. First Blade fails
+by the letter: it usually dies in round 2, and the few turns it reaches round 3 with are spent walking to the
+lowest-health player across the deck. Openers fire once per appearance (cooldown 99, unconditional first rule).
+The doc's "no floor wipes the party more than 1 run in 10" conflicts with the director's "about 1 run in 5 wipes, on
+the boss wave": the boss wave wipes 16 of 76 attempts (21%). Each wipe also sends the party back to floor 1, so the p90
+time is 39 min.
+
+## Answers to the fight-design probes (`results/probe_boss.json`)
+
+1. **Two-marker chain: yes, in order**, once the markers are a type outside the shared cooldown (below). Round N: a 60 AP
+   mark (marker A), then in the same turn the 40 AP follow-up on `has_effect A` (pull 3, marker B); round N+1 the 100 AP
+   detonation on `has_effect A+B`; round N+2 a plain beat on the detonation's beat marker. Used for Undertow.
+2. **Weakness on SELF: yes, a 1-round window.** `weakness` x3 on every stat and general type, 1 round, cast by the boss:
+   the player's next hit did 8,809 against 2,457 for the same jutsu outside the window (x3 on top of the increased
+   damage taken); the window covers each player's next turn only. A `cleanse` on SELF in the same jutsu strips it, so
+   Exposed Seam's detonation carries no cleanse. Used: Maw of the Deep applies it (ch_exposed).
+5. **Barriers: only when fully blocked.** With a gap in the wall, the auto-player walks around. With the path fully
+   blocked, the engine's appended backup rule (highest-damage action on `BARRIER_BLOCKING_CLOSEST_OPPONENT`) basic-attacks
+   the wall (3,000 HP fell to 1,340 in 5 rounds), while ranged jutsu still reach the boss through it at 50% absorb. Live
+   players will do better; in the harness Raise the Gunwale is a speed bump.
+
+Also probed: **Chain Hook's same-cast root does not cancel the pull** (pulled 3 hexes and rooted, in either row order),
+so it stays one jutsu.
+
+## Engine findings that change the recipes
+
+- **Shared cooldown (GCD).** A jutsu whose effects include a `SHARED_COOLDOWN_TAGS` type (barrier, buffprevent, cleanse,
+  cleanseprevent, clear, clearprevent, consume, siphon, debuffprevent, drain, increasepoolcost, moveprevent, pierce, poison,
+  seal, stun, summon, vamp) locks every other jutsu of the caster sharing that type for 3 rounds (`applyActionCooldowns`,
+  `SHARED_COOLDOWN_ROUNDS = 3`). So:
+  - the approved `increasepoolcost` self marker works for **one** marker jutsu per boss; a second marked set piece is then
+    locked. The kits use `increasecooldown` with no `actionsAffected` (no effect on play; not a GCD type; storable at
+    1 round, which `increasepoolcost` is not: its schema minimum is 2 rounds). A 1-round marker is present on the
+    boss's next turn only, so no stale marker re-fires a detonation;
+  - the beat after a phase-1 detonation uses a second marker family (`increaserange`, no actions affected);
+  - stun moves lock each other: Ship's Bell, Final Command, Ruin Refrain, Sovereign Fetters; pierce moves too: Raijin's
+    Spear and Shuriken Storm (First Blade got Numbing Senbon as a third option).
+- **GROUND jutsu land only their damage.** A stun or push row on a GROUND AoE does nothing; on target `CHARACTER`
+  (rule target SELF) the same pattern stuns and pushes players, spares the caster and the safe hexes. Detonations that
+  stun or push are `CHARACTER`; Rupture Field's phase-2 eruption stays GROUND so it can leave a lingering pool.
+- **Rings are `AOE_SPIRAL_SHOOT`** (disc of radius `range` minus the caster) and arena patterns are BATTLEFIELD
+  coordinates, so **no pattern depends on row parity**.
+- **Visual marks last 1 round:** cast in the boss's turn, shown through every player's turn, gone as he detonates. A
+  2-round mark outlives its detonation and misleads. Visual ground effects at 0 rounds stay in the battle state
+  (harmless to play; worth checking how the client draws them).
+- **Range is capped at 5** by the validator: Chain Hook (doc 6) and Chart Mark (doc 7) are range 5.
+- **`increasecooldown` only touches basic actions.** Oath of Stillness is +2 cooldown on Move and Replacement Technique
+  for 2 rounds; it cannot slow jutsu.
+- **Mid-battle ids were unseeded.** Clones, summons and effects get nanoid ids (crypto.getRandomValues), and with a clone
+  on the field (Afterimage Decoy) the battle's course depended on them: the same seed gave different outcomes, and
+  `--probe-check` failed. The harness now seeds that entropy per run (`seedEntropy` in `sim.ts`: its own generator, not
+  Math.random, and a fresh nanoid pool), and `--probe-check` passes on `kits_endgame.json` (both seeds identical, with
+  the rule probe on and off). Results committed before this point were produced without it (their layouts had no
+  clone; their probe-checks passed).
+- **Ally targets tie-break on turn order.** `HIGHEST_MAX_HEALTH_ALLY` takes the first unit on a tie, so Ward of Command
+  and Mending Seal reach the Captain only while his maximum HP is above the Sealwright's (hence x2.4).
+
+## Doesn't work as designed / deviations
+
+- **The Captain:** Battle Trance and Great Bell Toll are not in the 11-jutsu kit. Last Stand at the Helm is a dungeon
+  copy of Battle Trance; Ship's Bell (the doc's newer move) takes Great Bell Toll's place. His kit is 27 jutsu (the 11
+  plus copies with his battle lines and the set pieces); whether the Forge caps an AI's equipped jutsu is untested.
+  In a 7-round fight his lower duel rules (Stolen Form, Suppression Writ, Second Wind, Counter Stance, Ruin Refrain,
+  Unraveling Strike, Explosive Tag Cataclysm, Windlash Focus) almost never fire.
+- **Core Horror:** with dodging he is the safest floor (5% party HP), and 5 rounds show 2-3 set pieces: Collapse (and
+  Undertow) whenever players hug him, Maw of the Deep from round 3, then The Core Rebuilds. Rupture Field, its
+  phase-2 pools and Maw II rarely appear before he dies. He stays where he spawns (columns 8-9), not mid-hold. Bilge
+  Spit is range 5 (doc 4) so he always has a reply.
+- **Undertow** pulls a random player at least 4 hexes away (there is no "farthest" target).
+- **Mending Seal** is cast on cooldown even at full health (no ally-health condition exists).
+- **Seal Charge walks** (doc rule 3), although the floor note says hazards do not move.
+- **Captured ids:** Core Rupture v2 is referenced as the live record (`nCQETf-HNnbRec1OSY2-R`); every other changed or new
+  move is a `dg-*` dungeon copy. The `dg-*` ids are placeholders; `build_spec.json` says to remap rule `jutsuId`s.
+
+## build_spec.json (endgame section)
+
+9 AIs (stats, pools, level, multipliers, effect rows, jutsu list, ordered rules with notes, signature rules,
+`insertAiSchema` check: all ok) and 60 jutsu records (59 new or copied, plus Core Rupture v2 referenced), each with
+target, method, coordinateTargeting, range, cooldown, actionCostPerc, effects, battleDescription (the fight doc's
+battle-log lines) and animation placeholder ids (tg_heavy, tg_control, tg_linger, tg_safe, dt_linger, ch_collapse,
+ch_rupture, ch_maw, ch_bile_spit, ch_claw, ch_enrage, ch_undertow, ch_exposed, cp_bell_toll, cp_command, cp_broadside,
+cp_gunwale, plus mark-sigil, chain-hook-hit and skyglass-pane for crew moves with no id in the animation spec). All 60
+pass `JutsuValidator`. Images are placeholders copied from the shape donors.
