@@ -158,5 +158,57 @@ class Validate(unittest.TestCase):
         self.assertIn("build order: jutsu appears after a later phase", r.stdout)
 
 
+def validate_doc(doc, strict=True):
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
+        json.dump(doc, fh)
+    try:
+        args = [sys.executable, "../scripts/validate.py"] + (["--strict"] if strict else []) + [fh.name]
+        r = subprocess.run(args, cwd=DATA, capture_output=True, text=True)
+    finally:
+        os.unlink(fh.name)
+    return r.returncode, r.stdout + r.stderr
+
+
+def species_with(**over):
+    m = json.loads((FIX / "species_create.json").read_text())
+    m["items"][0]["data"].update(over)
+    return m
+
+
+class ReviewFixes(unittest.TestCase):
+    """Independent review of 45b02007, findings 3 and 4 (Python side)."""
+
+    def test_f3_explicitly_empty_effects_on_a_pets_edit_refused(self):
+        edit = {"entity": "jutsu", "slot": "edit", "name": "Fixture Glow", "targetId": "fxPetJutsu00000000001",
+                "data": {"jutsuType": "PETS", "injectableInBattle": False, "effects": []}}
+        code, out = validate_doc({"items": [edit]})
+        self.assertNotEqual(code, 0)
+        self.assertIn("its effects are explicitly empty", out)
+        del edit["data"]["effects"]  # a partial edit may leave them to the live record
+        code, out = validate_doc({"items": [edit]})
+        self.assertEqual(code, 0, out)
+        create = json.loads((FIX / "pet_jutsu_create.json").read_text())
+        del create["items"][0]["data"]["effects"]
+        code, out = validate_doc(create)
+        self.assertIn("it has no effects", out)
+
+    def test_f4_sparse_and_trimmed_rank_concepts(self):
+        self.assertEqual(validate_doc(species_with(rankConcepts=["first rank", None, "third rank"]))[0], 0)
+        self.assertEqual(validate_doc(species_with(rankConcepts=["  " + "x" * 1000 + "  "]))[0], 0, "1000 after trimming")
+        for bad, why in ((["x" * 1001], "at most 1000"), ([1, "a"], "list of strings"), ("a", "list of strings"),
+                         (["r"] * 11, "there are 10 pet ranks")):
+            code, out = validate_doc(species_with(rankConcepts=bad))
+            self.assertNotEqual(code, 0, bad)
+            self.assertIn(why, out)
+
+    def test_f2_cap_counts_every_effect(self):
+        m = json.loads((FIX / "pet_rewards.json").read_text())
+        m["items"] = m["items"][:1]
+        self.assertEqual(validate_doc(m)[0], 0)
+        m["items"][0]["data"]["effects"].append(dict(m["items"][0]["data"]["effects"][0]))
+        code, out = validate_doc(m)
+        self.assertIn("at most 1 companion (2 in reward_pets)", out)
+
+
 if __name__ == "__main__":
     unittest.main()

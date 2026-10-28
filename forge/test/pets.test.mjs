@@ -261,3 +261,49 @@ test("check_manifest.mjs and validate.py agree on every pet fixture", () => {
   assert.match(py(join(FIX, "pet_rewards_bad.json")).out, /reward_pets is not a quest reward/);
   assert.ok(existsSync(join(data, "45e_DATA_constants.json")));
 });
+
+// ------------------------------------------------------------------ review fixes (45b02007)
+const NORMALIZABLE = () => ({ ...SPECIES(), name: " Fixture Moth ", description: " A test companion species used by the pet builder fixtures. ",
+  artDirection: "   ", rankConcepts: [" first rank ", null, "", ""] });
+
+test("review F1: a species the server normalises verifies; real drift is still drift", async () => {
+  const data = NORMALIZABLE();
+  assert.deepEqual(diffAsserted("petSpecies", data, { ...data, name: "Fixture Moth", description: data.description.trim(), artDirection: null, rankConcepts: ["first rank"] }), []);
+  assert.deepEqual(diffAsserted("petSpecies", { rankConcepts: ["a", null, "c"] }, { rankConcepts: ["a", "", "c"] }), []);
+  assert.equal(diffAsserted("petSpecies", { rankConcepts: ["first rank", "x"] }, { rankConcepts: ["first rank"] }).length, 1);
+  assert.equal(diffAsserted("petSpecies", { artDirection: "grey" }, { artDirection: null }).length, 1);
+  assert.equal(diffAsserted("petSpecies", { name: "Moth" }, { name: "Moth II" }).length, 1);
+  const h = harness();
+  h.runner.plan({ items: [{ entity: "petSpecies", slot: "create", name: "Fixture Moth", srcId: "fx_moth", data }] }, { jobId: "nz" });
+  const s = await h.runner.run("nz");
+  assert.deepEqual(s.counts, { VERIFIED: 1 }, JSON.stringify(s));
+  assert.deepEqual(h.game.rows("petSpecies")[0].rankConcepts, ["first rank"], "the fake stores what upstream stores");
+});
+
+test("review F1: a lost normalised create is a matching candidate, still adopted only by the operator, never re-sent", async () => {
+  const game = new FakeGame({ crashAt: 2 });
+  const m = { items: [{ entity: "petSpecies", slot: "create", name: "Fixture Moth", srcId: "fx_moth", data: NORMALIZABLE() }] };
+  const h = harness({ game });
+  h.runner.plan(m, { jobId: "lc" });
+  assert.equal((await h.runner.run("lc")).state, "PAUSED");
+  const h2 = harness({ game, storage: h.storage.crash(), idb: h.idb });
+  h2.runner.attach("lc", m);
+  await h2.runner.resume("lc");
+  const it = h2.journal.get("lc").items[0];
+  assert.equal(it.state, "ORPHANED", "never adopted automatically");
+  assert.deepEqual(it.candidates.map((c) => c.matches), [true]);
+  game.rows("petSpecies")[0].rankConcepts = ["someone else's rank"];
+  h2.runner.adopt("lc", 0, it.candidates[0].id);
+  const s = await h2.runner.run("lc");
+  assert.equal(s.verify.drift, 1, "a real difference after adoption is drift: " + JSON.stringify(s));
+  assert.equal(game.calls.filter((c) => c.path === "petSpecies.create").length, 1);
+});
+
+test("review F2: the companion cap counts reward_pets across every effect of the item", () => {
+  const one = fixture("pet_rewards.json"); one.items = [one.items[0]];
+  assert.doesNotThrow(() => parseManifest(one));
+  const two = structuredClone(one); two.items[0].data.effects.push(structuredClone(two.items[0].data.effects[0]));
+  assert.throws(() => parseManifest(two), /at most 1 companion \(2 across its effects\)/);
+  const noPets = structuredClone(two); noPets.items[0].data.effects[1].reward_pets = [];
+  assert.doesNotThrow(() => parseManifest(noPets), "a second reward effect without a pet is fine");
+});

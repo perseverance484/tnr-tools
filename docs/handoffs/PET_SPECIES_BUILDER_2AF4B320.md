@@ -52,6 +52,26 @@
 7. The 85cecae ledger is kept as history; its `--check` no longer reproduces under the updated tool (new class list).
 8. `isPetJutsuAllowed`'s effect list and link/mastery keys are hand-held in `pets.mjs` and `pet_checks.py` (they live in `libs/`, not a validator); the checkout-gated Forge test compares them with source.
 
+## Review fixes (independent review of `45b02007`, four P2 findings)
+
+All four accepted; generated contracts, ledger, fields/nested maps and the Forge version/loader pin are unchanged. The approved 446,000 / 108,000 budget is kept.
+
+1. **Species values are compared as stored.** `pets.mjs normalizeSpecies` mirrors `validators/petSpecies.ts:22-48` (name/description trimmed; artDirection trimmed, blank or null -> null; rank concepts trimmed, null -> "", trailing blanks dropped) and `diffAsserted` applies it to both sides for `petSpecies`. Read-back and the reconciler's lost-create `matches` share it. A real difference (an extra rank concept, a different name, artDirection text vs null) is still drift; lost creates still need the operator's adopt and are never re-sent. FakeGame now stores species through the same transforms (written independently).
+2. **The companion cap counts every effect.** `lints.mjs` sums `reward_pets` over all of an item's `noncombatconsumereward` effects (`combat.ts:1547-1559`); the standard-mode check stays per effect, `preventBattleUsage` once per item.
+3. **Python refuses explicitly empty effects on a PETS jutsu edit** (`pet_checks.py`); omitting `effects` on a partial edit is allowed; creates still need effects.
+4. **Python accepts sparse rank concepts:** null entries are accepted (stored as ""), the 1000-character limit applies after trimming, non-strings and arrays longer than the 10 pet ranks are refused.
+
+Tests added: `forge/test/pets.test.mjs` +3 (normalised species verifies, real drift detected; normalised lost create matches, ORPHANED until adopted, created once, drift after adoption detected; two effects x one pet refused, one grant accepted). `scripts/test_pet_species.py` +3 (F2, F3 both ways, F4 accept/trim/refuse). Mutation check: removing the normalisation fails both F1 tests.
+
+Gates after the fixes:
+- `npm test`: 737 tests, 727 pass, 0 fail, 10 skipped; `pets.test.mjs` with `TNR_GAME_CHECKOUT` 16/16.
+- `npm run build` twice byte-identical; `npm run fixtures` + `git diff` clean; `check_boundaries` 0, `check_imports` 0, `check_release_pin` ok.
+- `check_bundle_budget` exit 0: raw 445,751 / 446,000 (99.9%), gzip 107,306 / 108,000 (99.4%).
+- `validate.py` and `check_manifest.mjs` over all `push/*.json`: identical to the pre-fix head. Fixtures: 4 good pass both, 4 bad refused by both.
+- `test_pet_species.py` 10/10, `test_schema_diff.py` 9/9, `selfcheck.py` 0 errors, `factory.py --selftest` 20/20, ledger `--check` matches, `doctrinemap` 0/0, `render_doctrine --check` and `build_packs --check` current, `lawmap` 0 errors / 5 pre-existing warnings.
+
+Remaining limitation: the bundle sits at 99.9% of the raw budget, so the next Forge change will need headroom.
+
 ## Not done / not begun
 
 - No browser, live or session checks; the old builder (`builder_bundle.js`) was not extended or run; no Forge release.

@@ -220,7 +220,11 @@ FakeGame.prototype.petSpecies = function (proc, input, ok, err) {
     else if (dflt !== undefined) d[k] = structuredClone(dflt);
     else return { ok: false, error: { code: "BAD_REQUEST", httpStatus: 400, message: "Required", path: "petSpecies." + proc, zodError: [{ path: [k], message: "Required" }] } };
   }
-  if (!d.artDirection) d.artDirection = null;
+  // the validator's transforms (validators/petSpecies.ts:22-48), as the stored row carries them
+  for (const k of ["name", "description"]) d[k] = String(d[k]).trim();
+  d.artDirection = typeof d.artDirection === "string" && d.artDirection.trim() ? d.artDirection.trim() : null;
+  d.rankConcepts = d.rankConcepts.map((c) => (c == null ? "" : String(c).trim()));
+  while (d.rankConcepts.length && !d.rankConcepts.at(-1)) d.rankConcepts.pop();
   if (new Set(d.defaultJutsuIds).size !== d.defaultJutsuIds.length || d.defaultJutsuIds.length > PET_SLOTS_AT_SOURCE[d.rarity]) {
     return { ok: false, error: { code: "BAD_REQUEST", httpStatus: 400, message: "defaults", path: "petSpecies." + proc, zodError: [{ path: ["defaultJutsuIds"], message: "defaults" }] } };
   }

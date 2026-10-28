@@ -1,7 +1,7 @@
 import PINNED_FIELDS from "./fields.json" with { type: "json" };
 import { isBloodrightEntity, bloodrightFields, bloodrightProblems } from "../bloodright/validate.mjs";
 import { isDungeonEntity, dungeonFields, dungeonProblems, dungeonDiffs } from "../dungeon/validate.mjs";
-import { PET_STRIPPED_OK, petSpeciesProblems, petJutsuProblems } from "./pets.mjs";
+import { PET_STRIPPED_OK, petSpeciesProblems, petJutsuProblems, normalizeSpecies } from "./pets.mjs";
 // Pre-send validation (spec section 9, R3). Every content validator on the server is
 // non-strict: an unknown or misspelled key is dropped at .input() parse time with no error
 // and the mutation reports success. The only place that error can surface is here.
@@ -338,6 +338,8 @@ export function diffAsserted(entity, asserted, live) {
   // A dungeon is the getAll row {id, content, updatedAt}; its content is compared by the dungeon's
   // own normalisation (defaults, trimmed name, expiry instants), not eqLoose (review F5).
   if (isDungeonEntity(entity)) return dungeonDiffs(asserted, live ? live.content : undefined);
+  // the server stores a species through PetSpeciesValidator's transforms; compare what it stores
+  if (entity === "petSpecies") { asserted = normalizeSpecies(asserted); live = live && normalizeSpecies(live); }
   const diffs = [];
   for (const k of Object.keys(asserted)) {
     if (SERVER_OWNED.includes(k)) continue;
