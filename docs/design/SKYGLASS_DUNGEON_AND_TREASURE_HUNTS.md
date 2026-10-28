@@ -1,3 +1,5 @@
+> **Superseded by** `SKYGLASS_LOOT_TABLES.md` (rewards, charts, picks), `SKYGLASS_WRECK_ENCOUNTERS.md` and `SKYGLASS_BOSS_FIGHTS.md` (encounters and bosses), and `SKYGLASS_STORY_BIBLE.md` (story), under RUL-2026-10-28-001 … -019. Kept for history; where it disagrees with those files, they win.
+
 # Skyglass Wreck dungeon and treasure hunts — design
 
 **Status:** DESIGN DIRECTION APPROVED (RUL-2026-10-23-003, -004, -005). Values, names, prose and art are open. Nothing here is a manifest or a live-write authorization.

@@ -1,3 +1,5 @@
+> **Superseded by** `state/skyglass_hunts/hunts.py` (hunt text, rewritten to the story bible), `SKYGLASS_STORY_BIBLE.md`, `SKYGLASS_LOOT_TABLES.md` and `SKYGLASS_BOSS_FIGHTS.md`, under RUL-2026-10-28-001 … -019. Kept for history; where it disagrees with those files, they win.
+
 # Skyglass treasure hunts — content draft
 
 **Status:** DRAFT for the director (RUL-2026-10-24-020/-021). Borrowed text (B) comes from the live Ghost Ship quest (push/98 capture) or the approved Skyglass graph patch; new text (N) is a first draft. Final prose, debuff strengths and the Foundry Warden are the director's. Generated with the review page from one source.

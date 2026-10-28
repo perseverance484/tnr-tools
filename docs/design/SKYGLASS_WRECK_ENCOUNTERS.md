@@ -13,8 +13,10 @@ defaults) and the solo anchor "good level-100 players beat The Captain solo in 8
    capped stats, a full Kitsune set and level-capped PvE jutsu; three of them make two-enemy waves light work). Costs to
    budget: pools refill only between floors, a wave spawns on the far side (1-2 rounds of walking), and a floor battle's
    round counter runs across its waves, so a later wave's openers gate on distance or health, not `round_lower_than`.
-4. **Dungeon-only copies.** The live crew also fight in the hunts and quests; the dungeon gets its own records (an
-   endgame set and a level-50 set), so tuning here never moves the hunts.
+4. **Dungeon copies differ in stats only.** The dungeon has its own AI records (an endgame set and a level-50 set) so
+   party tuning never moves the hunts' stats. Jutsu are one shared set, used by the hunts, both dungeons and Crownhold;
+   the live crew are upgraded in place. The canonical statement, including the law-18 unequip rule for push/319, is
+   `SKYGLASS_BOSS_FIGHTS.md` §5.
 5. **Threat from mechanics, not stacked damage.** The live crew carry +350-470% damage given; the copies trade most of
    that for behaviour (focus fire, protection, telegraphed bursts).
 
@@ -52,7 +54,7 @@ Not every attack is a set piece; the boss still fights normally between them.
 | Icon | Means | Counterplay |
 |---|---|---|
 | Red cracked ring | heavy damage next round | leave the marked hexes |
-| Violet chains | root or stun next round | leave, or a cleanse ready |
+| Violet chains | control: a lock or a root next round (the set-piece lock is RUL-2026-10-28-015: `elementalseal`, `timecompression` +10 AP, `increasecooldown` +2 on Move and Replacement) | leave, or a cleanse ready |
 | Green drip | a pool that lingers and ticks | do not end a turn in it |
 | Cyan star (the Skyglass emblem) | a safe hex during an arena-wide attack | get to one |
 
@@ -66,7 +68,8 @@ Not every attack is a set piece; the boss still fights normally between them.
 - Ground damage also hits its caster, so patterns leave the boss's own hex out.
 - Random patterns cannot be used, because the mark and the blast would roll different hexes. Several fixed patterns, rotated by round, give the same look.
 
-**Core Horror kit (proposal):**
+**Core Horror kit (superseded):** the kit below and the Rot Glyph / Horror Wail kit further down are both superseded by
+`SKYGLASS_BOSS_FIGHTS.md` §2, the one canonical Core Horror kit. Kept for history:
 - **Plain:** Rending Claw (heavy melee), Bile Spit (range 4, light damage-over-time).
 - **Set piece 1, Collapse:** red ring, radius 2 around him. Punishes melee hugging.
 - **Set piece 2, Rupture Field:** red, one of three fixed scatter patterns over the arena. Move to an unmarked hex.
@@ -93,13 +96,13 @@ set pieces. He stands on his throne, which keeps his patterns lined up, and comm
   - Set piece **Crownfall:** a red fan of lines from the throne. Next round, skyglass points like his crown's fall along them.
 - **Phase 2 (60-30%), "I control... many echoes":**
   - **Recall:** summons one echo of a Crownhold officer the player already beat, and recasts it when it falls. The engine allows one live summon per caster.
-  - Set piece **Command Absolute:** violet over the whole arena except three cyan stars. Stun and seal everywhere else.
+  - Set piece **Command Absolute:** violet over the whole arena except three cyan stars. The set-piece lock for 2 rounds everywhere else (RUL-2026-10-28-015).
   - Stolen Form; Extermination Order.
 - **Phase 3 (under 30%), the Last Directive:**
   - Last Directive (he cannot fall for 5 rounds).
   - Then **Shardstorm** every round: one of three red scatter patterns, rotating, so the safe hexes move each turn (the "bullet hell" beat).
   - Everything else goes on the player.
-- **Juice:** he is the hardest single fight in the event. His health and damage sit above the Crownhold ladder. The harness sets them against a solo endgame player: a win in about 12-15 rounds that needs the set pieces read correctly.
+- **Juice:** he is the hardest single fight in the event. His health and damage sit above the Crownhold ladder, and his HP is doubled (RUL-2026-10-28-008). Crownhold carries HP between fights, so he is tuned as the end of the chain, not alone (RUL-2026-10-28-013). Round target: pending harness rerun.
 
 ## Mechanics toolkit (engine-supported; each verified in the harness before use)
 
@@ -123,10 +126,12 @@ batch as ANIMATION assets (vertical strips) once the mechanics are confirmed.
 
 Kit principles: one identity per enemy; at most one self-buff, used once as an opener or at a health threshold; every
 unit has a useful action at range 5+. Players kite with Replacement Technique, and a root stops it: movement jutsu run
-through the `move` effect, which checks `moveprevent` (`tags.ts` ~2417). Shared crew jutsu stay untouched (the hunts use
-them); anything changed or new is a **dungeon-only jutsu** (NEW below). All numbers are starting points the harness tunes.
+through the `move` effect, which checks `moveprevent` (`tags.ts` ~2417). All numbers are starting points the harness tunes.
 
-### New dungeon-only jutsu
+*Superseded:* this section first made every changed or new jutsu a dungeon-only copy. Jutsu are now one shared set, with
+the live crew upgraded in place (`SKYGLASS_BOSS_FIGHTS.md` §5); the jutsu below are crew additions in that shared set.
+
+### New crew jutsu (shared set)
 
 | Jutsu | Shape | Effects (starting values) | Used by |
 |---|---|---|---|
@@ -136,8 +141,8 @@ them); anything changed or new is a **dungeon-only jutsu** (NEW below). All numb
 | Chart Mark | range 7, single, cd 4, AP 40 | increasedamagetaken 40 / 2r, plus a marker row increasepoolcost 5 / 2r; mark sigil animation; cleansable. The crew key their focus on the marker, not on damage-taken (below) | Wayfinder |
 | Skyglass Aegis | range 4, single ALLY, cd 4, AP 40 | shield, absorb on the ally / 2r | Sentinel |
 | Mending Seal | range 5, single ALLY, cd 4, AP 40 | heal 20, cleanse | Sealwright |
-| Rot Glyph | range 6, AOE circle spawn on a player, cd 2 | a visible warning zone this round (glyph animation, no damage); the eruption lands on those hexes next round. Mechanism (delayed ground damage vs a two-step rule) is a harness probe | Core Horror |
-| Horror Wail | range 0, AOE spiral around self (radius 2), fixed rhythm (every 3rd round), broadcast by a Wail Glyph the round before | heavy damage + 1-round stun to anyone still inside | Core Horror |
+| ~~Rot Glyph~~ (superseded by Boss Fights §2) | range 6, AOE circle spawn on a player, cd 2 | a visible warning zone this round (glyph animation, no damage); the eruption lands on those hexes next round. Mechanism (delayed ground damage vs a two-step rule) is a harness probe | Core Horror |
+| ~~Horror Wail~~ (superseded by Boss Fights §2) | range 0, AOE spiral around self (radius 2), fixed rhythm (every 3rd round), broadcast by a Wail Glyph the round before | heavy damage + 1-round stun to anyone still inside | Core Horror |
 | Core Rupture (live record, edited by push/316-317) | range 5, AOE circle spawn (the target hex and the six around it), cd 3 | pierce 180 (was 120 on every player via method ALL), stun 100 / 2r, and the hazard's own self-destruct (onehitkill on SELF) | Seal Charge, Core Canister |
 
 Core Rupture's `onehitkill` targets SELF: it is the hazard destroying itself, not a kill on a player, and it stays. The
@@ -158,7 +163,7 @@ the hunts and the dungeon. Dungeon copies may also detonate when a player is adj
 | Oathkeeper | 1 Oath of Stillness on HIGHEST_ENMITY_OPPONENT · 2 Weakening Strike on HIGHEST_ENMITY_OPPONENT · 3 Opening Strike · 4 move towards |
 | Wayfinder | 1 Chart Mark on HIGHEST_ENMITY_OPPONENT (allies then focus targets with the mark) · 2 Keelbind root at range · 3 decoy clone when a player is within 2 · 4 keep range |
 | The Captain | 1 Unbroken Command opener (once) · 2 under 50%: Battle Trance once · 3 Great Bell Toll when 2+ players are in range · 4 Keelbind on HIGHEST_ENMITY_OPPONENT · 5 Explosive Tag Cataclysm · 6 move towards |
-| Core Horror | 1 Rot Glyph (NEW) on a player: marks their hex and the ring around it · 2 Horror Wail (NEW) on its fixed rhythm, broadcast by Wail Glyph the round before · 3 move towards (slow: one hex) · never a plain hit |
+| Core Horror | Superseded: his kit and rules are `SKYGLASS_BOSS_FIGHTS.md` §2 (stationary; plain hits between marked set pieces) |
 | Sealwright | 1 Mending Seal on LOWEST_MAX_HEALTH_ALLY · 2 Sovereign Fetters on HIGHEST_ENMITY_OPPONENT · 3 Dispelling Wave · 4 Weakening Strike · 5 keep range |
 | Crowned Captain | Moved to Crownhold (RUL-2026-10-28-003); his phase plan goes with him: duelist, then afterimages, then Final-Stand-style protection |
 
@@ -181,6 +186,9 @@ Wayfinder and a Deck Warden, and the Core Horror fights alone on floor 4 as a st
 | 3 | Oathkeeper + Wayfinder + Deck Warden | none |
 | 4 (stage boss) | Core Horror, solo | none |
 | 5 (boss) | Deck Warden x3 | The Captain + Sealwright |
+
+This layout supersedes RUL-2026-10-28-003's floor-4 placement (Wayfinder + Core Horror as a gimmick minion in wave 2):
+the Core Horror is floor 4's solo stage boss.
 
 **Tuned (harness report 2 addendum, fable/skyglass-wreck-sim 0d3534c2; 40 runs, live damage settings, real-gear party):**
 - 40/40 clears, 15% of runs wipe once (all on the boss wave), about 26 rounds, about 19.6 min at 15 s a turn.
@@ -215,14 +223,16 @@ just sits on the far side and detonates harmlessly. They appear only in a floor'
 **Openers in later waves.** A floor battle's round counter runs across its waves, so `round_lower_than 2` never fires for
 a wave-2 enemy. Two fixes inside the current rules: (1) put the opener first with no condition and let the jutsu's
 cooldown stop it repeating (a new enemy always starts with its cooldowns ready); (2) gate it on distance ("every player is
-more than 5 hexes away"), which is true on a later wave's first turn because it spawns on the far side. Where an opener
-needs a longer cooldown than its shared jutsu record has, the dungeon copy gets its own copy of that jutsu (the hunts keep
-theirs). The harness checks every opener fires once per fight.
+more than 5 hexes away"), which is true on a later wave's first turn because it spawns on the far side. Jutsu are one
+shared set (`SKYGLASS_BOSS_FIGHTS.md` §5), so a dungeon copy never gets its own copy of a jutsu; where the shared cooldown
+is too short for an opener, use fix (2). The harness checks every opener fires once per fight.
 
 ## Level 40-60 version (10-15 min)
 
 Same arcs with level-50 copies and lighter kits: floors 1-4 at two enemies, the boss floor without Sealwright; the
-Captain keeps two phases. Target ~18-20 rounds. Loot: entry tier only (RUL-2026-10-26-007).
+Captain keeps two phases. Target ~18-20 rounds. Loot (replaces "entry tier only" of RUL-2026-10-26-007): Tide Chart
+25%, Watch Roster 15%, Chart of the Buried Cache 5%, Galley Stores 10% (RUL-2026-10-28-010/-013/-019;
+`SKYGLASS_LOOT_TABLES.md` §2).
 
 ## Harness acceptance checks (per version)
 

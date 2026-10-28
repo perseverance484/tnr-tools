@@ -29,7 +29,7 @@ icon language). Style: Edo-era Japanese fantasy ninja pixel art (`ghost_ship_art
 4. **The safe hex must be the most inviting thing on the board** during an arena-wide mark: bright, calm, upward-pointing.
 5. **One palette family per threat, shared across every boss**, so the language is learned once:
    - heavy damage: ember red into white-hot;
-   - control: violet into ink;
+   - control/lock: violet into ink. Violet means control or lock, not stun: the violet set pieces apply the set-piece lock (RUL-2026-10-28-015: elemental seal, +10 AP on every jutsu, +2 cooldown on Move and Replacement Technique) or a root;
    - lingering: bile green;
    - safe: Skyglass cyan.
 6. **Clear test:** at the delivered size, on a real battle background, with three characters standing in the field, someone who has never seen the fight can say "get out" or "get here" within a second.
@@ -40,7 +40,7 @@ icon language). Style: Edo-era Japanese fantasy ninja pixel art (`ghost_ship_art
 | Id | Kind | Look | Loop / length |
 |---|---|---|---|
 | tg_heavy | telegraph | cracked ember ring on scorched stone; the cracks glow and pulse inward | loop ~0.8 s |
-| tg_control | telegraph | violet ink chain links coiled flat on the ground, slowly tightening | loop ~0.8 s |
+| tg_control | telegraph (control/lock) | violet ink chain links coiled flat on the ground, slowly tightening | loop ~0.8 s |
 | tg_linger | telegraph | bile-green seep bubbling up through floorboards or stone | loop ~1.2 s |
 | tg_safe | telegraph | Skyglass emblem (four-point star in a diamond) rising light, calm | loop ~1.6 s |
 | dt_heavy | detonation | the ring bursts: ember column, debris, white flash frame | one-shot ~0.6 s |
