@@ -60,6 +60,13 @@ export const PROCEDURES = Object.freeze({
   "jutsu.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
   "jutsu.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
   "jutsu.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+  // Pet species (RUL-2026-10-28-012), read at TheNinjaRPG@2af4b320 routers/petSpecies.ts: getAll :24 and
+  // get :29 are publicProcedure (ratelimitMiddleware, trpc.ts:255-258), create :38 and update :92
+  // protectedProcedure. The router declares no mcp meta.
+  "petSpecies.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+  "petSpecies.get": { kind: "query", limited: true, mcp: false, auth: "public" },
+  "petSpecies.getAll": { kind: "query", limited: true, mcp: false, auth: "public" },
+  "petSpecies.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "profile.cloneAi": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "profile.create": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
   "profile.delete": { kind: "mutation", limited: false, mcp: true, auth: "protected" },

@@ -100,7 +100,9 @@ test("the auth class of every audited procedure is transcribed from source, not 
   assert.equal(isProtected("quests.update"), true);      // routers/quests.ts:700
   assert.equal(isProtected("gameAsset.get"), false);     // routers/asset.ts:147, publicProcedure
   assert.equal(isProtected("jutsu.getAllNames"), false); // routers/jutsu.ts:257, publicProcedure
-  assert.equal(PROTECTED_PATHS.length, 36); // 31 audited + 3 content review (src/review/contract.json) + 2 dungeon (src/dungeon/contract.json)
+  assert.equal(isProtected("petSpecies.create"), true);  // routers/petSpecies.ts:38 at 2af4b320
+  assert.equal(isProtected("petSpecies.getAll"), false); // routers/petSpecies.ts:24, publicProcedure
+  assert.equal(PROTECTED_PATHS.length, 38); // 31 audited + 3 content review (src/review/contract.json) + 2 dungeon (src/dungeon/contract.json) + 2 petSpecies
   assert.throws(() => isProtected("jutsu.nope"), /unknown procedure/);
 });
 

@@ -567,7 +567,7 @@ test("validate: the pinned ItemValidator's farm* keys and quest.requiredFarmingL
   const payload = mergeForUpdate("item", live, { name: "New" }, v.knownFields("item"));
   assert.equal(payload.farmYieldItemId, "y", "ItemValidator requires farmYieldItemId; stripping it would fail every item update");
   assert.equal(payload.farmGrowTimeSeconds, 120); assert.equal(payload.name, "New");
-  assert.equal(SCHEMAS._provenance.pin, "85cecaebf4ada2e265a18a1405f63c9637443275");
+  assert.equal(SCHEMAS._provenance.pin, "2af4b32066c39e2868efae5dba6b339278701dca");
 });
 
 test("re-pin 94f9d84: fetch-merge keeps every post-345d18ac jutsu and item column instead of resetting it", () => {

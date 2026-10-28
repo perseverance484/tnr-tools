@@ -1,14 +1,15 @@
 {
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-10-20",
-  "source_drop": "git:studie-tech/TheNinjaRPG@85cecaeb (2026-10-20)",
+  "extracted": "2026-10-28",
+  "source_drop": "git:studie-tech/TheNinjaRPG@2af4b320 (2026-10-28)",
   "source_sha256_16": {
-   "app/drizzle/constants.ts": "93272fe38b94ee7f",
+   "app/drizzle/constants.ts": "20c99bed58d1dd52",
    "app/src/validators/ai.ts": "889a5bcdae666e2d",
    "app/src/validators/asset.ts": "b4a1cb632651922e",
-   "app/src/validators/combat.ts": "830100d31626d245",
-   "app/src/validators/objectives.ts": "3c3aa15270fa0fb4"
+   "app/src/validators/combat.ts": "e050191dc5b1998c",
+   "app/src/validators/objectives.ts": "fc25e25c75ca6f09",
+   "app/src/validators/petSpecies.ts": "22a7eb10b9e92c91"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
  },
@@ -105,13 +106,14 @@
      "enum_ref": "UserRanks"
     },
     "requiredLevel": {
-     "raw": "z.coerce.number().min(1).max(100)",
+     "raw": "z.coerce.number().min(1).max(MAX_PLAYER_LEVEL)",
      "type": "number",
      "coerce": true,
      "optional": false,
      "nullable": false,
      "min": 1,
-     "max": 100
+     "max_ref": "MAX_PLAYER_LEVEL",
+     "max": 110
     },
     "method": {
      "raw": "z.enum(AttackMethods)",
@@ -785,7 +787,7 @@
      "enum_ref": "ItemSlotTypes"
     },
     "requiredLevel": {
-     "raw": "z.coerce.number().int().min(1).max(100).prefault(1)",
+     "raw": "z.coerce.number().int().min(1).max(MAX_PLAYER_LEVEL).prefault(1)",
      "type": "number",
      "coerce": true,
      "optional": false,
@@ -793,7 +795,8 @@
      "default": 1,
      "int": true,
      "min": 1,
-     "max": 100
+     "max_ref": "MAX_PLAYER_LEVEL",
+     "max": 110
     },
     "xpToLevel": {
      "raw": "z.coerce.number().int().min(1).max(100000).prefault(ITEM_XP_TO_LEVEL)",
@@ -1185,14 +1188,10 @@
     "craftingRequirements": {
      "raw": "z.array( z.object({ ids: z.array(z.string()), number: z.coerce.number().int().min(1).max(MAX_ITEM_CRAFTING_REQUIREMENT_QUANTITY), }), ).prefault([]).optional().nullish()",
      "type": "array",
-     "coerce": true,
+     "coerce": false,
      "optional": true,
      "nullable": true,
-     "default": [],
-     "int": true,
-     "min": 1,
-     "max_ref": "MAX_ITEM_CRAFTING_REQUIREMENT_QUANTITY",
-     "max": 9999
+     "default": []
     }
    }
   },
@@ -1442,13 +1441,15 @@
      "schema_ref": "petTaskMinutesSchema"
     },
     "requiredLevel": {
-     "raw": "z.coerce.number().min(0).max(100).optional()",
+     "raw": "z.coerce.number().int().min(0).max(MAX_PLAYER_LEVEL).optional()",
      "type": "number",
      "coerce": true,
      "optional": true,
      "nullable": false,
+     "int": true,
      "min": 0,
-     "max": 100
+     "max_ref": "MAX_PLAYER_LEVEL",
+     "max": 110
     },
     "requiredFarmingLevel": {
      "raw": "z.coerce.number().min(0).max(FARMING_MAX_LEVEL).optional()",
@@ -1461,13 +1462,15 @@
      "max": 100
     },
     "maxLevel": {
-     "raw": "z.coerce.number().min(0).max(100).optional()",
+     "raw": "z.coerce.number().int().min(0).max(MAX_PLAYER_LEVEL).optional()",
      "type": "number",
      "coerce": true,
      "optional": true,
      "nullable": false,
+     "int": true,
      "min": 0,
-     "max": 100
+     "max_ref": "MAX_PLAYER_LEVEL",
+     "max": 110
     },
     "maxAttempts": {
      "raw": "z.coerce.number().min(0).max(100).prefault(1)",
@@ -1731,7 +1734,9 @@
   "aiRule": {
    "source": "app/src/validators/ai.ts",
    "schema": "AiRule",
-   "superRefine": [],
+   "superRefine": [
+    "<inline>"
+   ],
    "fields": {
     "id": {
      "raw": "z.string().optional()",
@@ -1765,6 +1770,137 @@
      "optional": false,
      "nullable": false,
      "schema_ref": "ZodAllAiActions"
+    }
+   }
+  },
+  "petSpecies": {
+   "source": "app/src/validators/petSpecies.ts",
+   "schema": "PetSpeciesValidator",
+   "superRefine": [
+    "<inline>"
+   ],
+   "fields": {
+    "name": {
+     "raw": "z.string().trim().min(1).max(191)",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "min": 1,
+     "max": 191
+    },
+    "description": {
+     "raw": "z.string().trim().min(1).max(1000)",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "min": 1,
+     "max": 1000
+    },
+    "artDirection": {
+     "raw": "z.string().trim().max(1000).nullable().default(null).transform((value) => value || null)",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true,
+     "default": null,
+     "max": 1000,
+     "_transform": true
+    },
+    "rankConcepts": {
+     "raw": "z.array( z.string().trim().max(1000).nullish().transform((concept) => concept ?? \"\"), ).max(PET_RANKS.length).transform((concepts) => { const kept = [...concepts]; while (kept.length && !kept[kept.length - 1]) kept.pop(); return kept; }).de",
+     "type": "array",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": [],
+     "_transform": true,
+     "doc": "Sparse form arrays send unfilled ranks as undefined/null; treat them as blank.\n      .array(\n        z\n          .string()\n          .trim()\n          .max(1000)\n          .nullish()\n          .transform((concept) => concept ?? \"\"),\n      )\n      .max(PET_RANKS.length)\n      // Trailing blank ranks "
+    },
+    "rarity": {
+     "raw": "z.enum(PetRarities)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "PetRarities"
+    },
+    "role": {
+     "raw": "z.enum(PetRoles).default(\"ASSAULT\")",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": "ASSAULT",
+     "enum_ref": "PetRoles"
+    },
+    "preferredDamageElement": {
+     "raw": "z.enum(BasicElementName).nullable().default(null)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": true,
+     "default": null,
+     "enum_ref": "BasicElementName"
+    },
+    "isActive": {
+     "raw": "z.boolean()",
+     "type": "boolean",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "defaultJutsuIds": {
+     "raw": "z.array(z.string().min(1).max(191)).max(PET_MAX_ABILITY_SLOTS).default([])",
+     "type": "array",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": [],
+     "max_ref": "PET_MAX_ABILITY_SLOTS",
+     "max": 6
+    },
+    "aiRules": {
+     "raw": "z.array(AiRule).max(AI_PROFILE_MAX_RULES).superRefine((rules, ctx) => { rules.forEach((rule, index) => { const action = rule.action; if (!PET_AI_ACTION_TYPES.some((type) => type === action.type)) { ctx.addIssue({ code: \"custom\", path: [inde",
+     "type": "array",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": [],
+     "items_ref": "AiRule",
+     "max_ref": "AI_PROFILE_MAX_RULES",
+     "max": 20,
+     "shape_ref": "petAiProfileSchema.shape.rules"
+    },
+    "includeDefaultRules": {
+     "raw": "z.boolean().default(true)",
+     "type": "boolean",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": true,
+     "shape_ref": "petAiProfileSchema.shape.includeDefaultRules"
+    },
+    "effects": {
+     "raw": "z.array(AllTags).superRefine(SuperRefineEffects).superRefine(SuperRefinePassiveEffects).superRefine((effects, ctx) => { effects.forEach((effect, index) => { if (effect.type === \"barrier\" || effect.type === \"move\") { ctx.addIssue({ code: \"cu",
+     "type": "array",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": [],
+     "items_ref": "AllTags",
+     "_superRefine": "SuperRefineEffects",
+     "doc": "Innate skills have no selected empty-ground destination.\n        effects.forEach((effect, index) => {\n          if (effect.type === \"barrier\" || effect.type === \"move\") {\n            ctx.addIssue({\n              code: \"custom\",\n              path: [index, \"type\"],\n              message: `${effect.ty"
+    },
+    "skillTarget": {
+     "raw": "z.enum(PetSkillTargets).default(\"SELF\")",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": "SELF",
+     "enum_ref": "PetSkillTargets"
     }
    }
   }

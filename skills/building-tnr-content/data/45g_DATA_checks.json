@@ -1,12 +1,12 @@
 {
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-10-20",
-  "source_drop": "git:studie-tech/TheNinjaRPG@85cecaeb (2026-10-20)",
+  "extracted": "2026-10-28",
+  "source_drop": "git:studie-tech/TheNinjaRPG@2af4b320 (2026-10-28)",
   "source_sha256_16": {
-   "app/drizzle/constants.ts": "93272fe38b94ee7f",
-   "app/src/validators/combat.ts": "830100d31626d245",
-   "app/src/validators/objectives.ts": "3c3aa15270fa0fb4",
+   "app/drizzle/constants.ts": "20c99bed58d1dd52",
+   "app/src/validators/combat.ts": "e050191dc5b1998c",
+   "app/src/validators/objectives.ts": "fc25e25c75ca6f09",
    "app/src/validators/ai.ts": "889a5bcdae666e2d"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
@@ -101,7 +101,11 @@
     "tierLevel"
    ],
    "gameAsset": [],
-   "aiRule": []
+   "aiRule": [],
+   "petSpecies": [
+    "artDirection",
+    "preferredDamageElement"
+   ]
   }
  },
  "cap_100": {
@@ -109,16 +113,14 @@
   "_note": "law 8",
   "fields": {
    "jutsu": [
-    "actionCostPerc",
-    "requiredLevel"
+    "actionCostPerc"
    ],
    "item": [
     "actionCostPerc",
     "cookingMinLevel",
     "cookingOutputQuantity",
     "farmMinLevel",
-    "maxDurability",
-    "requiredLevel"
+    "maxDurability"
    ],
    "bloodline": [
     "regenIncrease"
@@ -126,16 +128,15 @@
    "quest": [
     "maxAttempts",
     "maxCompletes",
-    "maxLevel",
     "requiredFarmingLevel",
-    "requiredLevel",
     "tierLevel"
    ],
    "gameAsset": [
     "frames",
     "speed"
    ],
-   "aiRule": []
+   "aiRule": [],
+   "petSpecies": []
   }
  },
  "null_strip_exempt": {
@@ -153,11 +154,13 @@
     "jutsu": false,
     "item": false,
     "bloodline": false,
-    "quest": true
+    "quest": true,
+    "petSpecies": false
    }
   },
   "_splits_note": "Nullable on some entities and required on others. NEVER exempt these by name; they need entity context.",
   "values": [
+   "artDirection",
    "auctionMaxPrice",
    "auctionMinPrice",
    "bloodlineId",
@@ -179,6 +182,7 @@
    "parentItemId",
    "parentJutsuId",
    "petTaskMinutes",
+   "preferredDamageElement",
    "prerequisiteQuestId",
    "purchaseLimit",
    "raidBossCurrentHealth",
@@ -338,6 +342,12 @@
    "aiRule": [
     "action",
     "conditions"
+   ],
+   "petSpecies": [
+    "description",
+    "isActive",
+    "name",
+    "rarity"
    ]
   }
  },
@@ -647,7 +657,32 @@
      "MUSIC"
     ]
    },
-   "aiRule": {}
+   "aiRule": {},
+   "petSpecies": {
+    "rarity": [
+     "COMMON",
+     "UNCOMMON",
+     "RARE",
+     "EPIC",
+     "LEGENDARY"
+    ],
+    "role": [
+     "SUPPORT",
+     "HEALER",
+     "ASSAULT"
+    ],
+    "preferredDamageElement": [
+     "Fire",
+     "Water",
+     "Wind",
+     "Earth",
+     "Lightning"
+    ],
+    "skillTarget": [
+     "SELF",
+     "ENEMIES"
+    ]
+   }
   }
  },
  "booleans": {
@@ -686,7 +721,11 @@
     "hidden",
     "onInitialBattleField"
    ],
-   "aiRule": []
+   "aiRule": [],
+   "petSpecies": [
+    "includeDefaultRules",
+    "isActive"
+   ]
   }
  },
  "date_fields": {
@@ -703,7 +742,8 @@
     "startsAt"
    ],
    "gameAsset": [],
-   "aiRule": []
+   "aiRule": [],
+   "petSpecies": []
   }
  },
  "tag_power_max": {

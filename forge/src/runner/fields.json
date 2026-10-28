@@ -1,12 +1,12 @@
 {
  "_provenance": {
   "generator": "forge/tools/derive_fields.mjs",
-  "pin": "85cecaebf4ada2e265a18a1405f63c9637443275",
+  "pin": "2af4b32066c39e2868efae5dba6b339278701dca",
   "note": "top-level keys of each entity validator at the pinned commit; spreads are resolved into fields"
  },
  "entities": {
   "jutsu": {
-   "source": "app/src/validators/combat.ts:1778",
+   "source": "app/src/validators/combat.ts:1791",
    "validator": "JutsuValidatorRawSchema",
    "spreads": [],
    "fields": {
@@ -60,7 +60,7 @@
    }
   },
   "item": {
-   "source": "app/src/validators/combat.ts:1979",
+   "source": "app/src/validators/combat.ts:1992",
    "validator": "ItemValidatorRawSchema",
    "spreads": [
     "itemEconomySchema.shape",
@@ -152,7 +152,7 @@
    }
   },
   "bloodline": {
-   "source": "app/src/validators/combat.ts:1868",
+   "source": "app/src/validators/combat.ts:1881",
    "validator": "BloodlineValidator",
    "spreads": [],
    "fields": {
@@ -170,7 +170,7 @@
    }
   },
   "quest": {
-   "source": "app/src/validators/objectives.ts:810",
+   "source": "app/src/validators/objectives.ts:892",
    "validator": "QuestValidatorRawSchema",
    "spreads": [
     "masteryRequirementFields"
@@ -233,8 +233,28 @@
     "folder": true
    }
   },
+  "petSpecies": {
+   "source": "app/src/validators/petSpecies.ts:20",
+   "validator": "PetSpeciesValidator",
+   "spreads": [],
+   "fields": {
+    "name": true,
+    "description": true,
+    "artDirection": true,
+    "rankConcepts": true,
+    "rarity": true,
+    "role": true,
+    "preferredDamageElement": true,
+    "isActive": true,
+    "defaultJutsuIds": true,
+    "aiRules": true,
+    "includeDefaultRules": true,
+    "effects": true,
+    "skillTarget": true
+   }
+  },
   "ai": {
-   "source": "app/drizzle/schema.ts:2875",
+   "source": "app/src/validators/aiInput.ts:12",
    "validator": "insertAiSchema",
    "spreads": [],
    "columns": 205,
