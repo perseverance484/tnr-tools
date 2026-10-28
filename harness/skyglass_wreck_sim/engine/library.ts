@@ -26,28 +26,32 @@ const cells = (pred: (c: number, r: number) => boolean) => {
 const field = (selection: "ALL" | "EXCLUDE", coordinates: XY[], origin = "BATTLEFIELD") => ({ origin, selection, coordinates, randomCount: 1 });
 
 /**
- * The grid is POINTY-topped with odd rows shifted right (engine grid, checked in the harness): W/E neighbours are
- * (-1,0)/(+1,0) on every row, but the diagonal neighbours depend on ROW parity:
- *   even row: NW (-1,-1) NE (0,-1) SW (-1,+1) SE (0,+1);  odd row: NW (0,-1) NE (+1,-1) SW (0,+1) SE (+1,+1).
- * COORDINATES offsets are column/row, so a diagonal ray from a caster on an even row differs from one on an odd row.
- * `rayFrom` gives the exact ray for one starting row parity; the library records use the union of both parities, so a
- * boss on any row is covered (the diagonals are then two hexes wide on alternate steps). The exact per-parity sets are
- * exported too, for a boss that stands on a known row (a throne).
+ * Engine grid (getBattleGrid: honeycomb-grid, Orientation.FLAT, checked with the engine's own grid.distance): FLAT-topped
+ * hexes, odd columns shifted down. N/S neighbours are (0,-1)/(0,+1) in every column; the diagonal neighbours depend on
+ * COLUMN parity:
+ *   even column: NW (-1,-1) NE (+1,-1) SW (-1,0) SE (+1,0);  odd column: NW (-1,0) NE (+1,0) SW (-1,+1) SE (+1,+1).
+ * There is no straight west direction; the hexes of one row, (-1,0), (-2,0), ..., form a zigzag line in which every hex
+ * touches the next (W below). COORDINATES offsets are column/row, so a diagonal ray from a caster in an even column
+ * differs from one in an odd column. `rayFrom` gives the exact ray for one starting column parity; the library records
+ * use the union of both parities, so a boss in any column is covered (the diagonals are then two hexes wide on alternate
+ * steps). The exact per-parity sets are exported too, for a boss that stands in a known column (a throne).
+ * (Report 3 and library 5f6c3edb wrongly assumed pointy-topped rows; Lines and Seal Lines then ran near-vertical.)
  */
-type Dir = "W" | "E" | "NW" | "NE" | "SW" | "SE";
+type Dir = "W" | "E" | "N" | "S" | "NW" | "NE" | "SW" | "SE";
 const STEP: Record<Dir, [[number, number], [number, number]]> = {
-  // [even-row step, odd-row step]
+  // [even-column step, odd-column step]
   W: [[-1, 0], [-1, 0]], E: [[1, 0], [1, 0]],
-  NW: [[-1, -1], [0, -1]], NE: [[0, -1], [1, -1]],
-  SW: [[-1, 1], [0, 1]], SE: [[0, 1], [1, 1]],
+  N: [[0, -1], [0, -1]], S: [[0, 1], [0, 1]],
+  NW: [[-1, -1], [-1, 0]], NE: [[1, -1], [1, 0]],
+  SW: [[-1, 0], [-1, 1]], SE: [[1, 0], [1, 1]],
 };
-const rayFrom = (dir: Dir, len: number, startRowParity: 0 | 1) => {
+const rayFrom = (dir: Dir, len: number, startColParity: 0 | 1) => {
   const out: XY[] = [];
   let dc = 0;
   let dr = 0;
   for (let k = 1; k <= len; k++) {
-    const rowParity = (startRowParity + Math.abs(dr)) % 2;
-    const [sc, sr] = STEP[dir][rowParity]!;
+    const colParity = (((startColParity + dc) % 2) + 2) % 2;
+    const [sc, sr] = STEP[dir][colParity]!;
     dc += sc;
     dr += sr;
     out.push({ longitude: dc, latitude: dr });
@@ -55,21 +59,22 @@ const rayFrom = (dir: Dir, len: number, startRowParity: 0 | 1) => {
   return out;
 };
 const rays = (dirs: Dir[], len: number, parity: 0 | 1) => dirs.flatMap((d) => rayFrom(d, len, parity));
-/** Offsets of every hex within `radius` of a caster on a row of the given parity (odd rows shifted right). */
+/** Offsets of every hex within `radius` of a caster in a column of the given parity (odd columns shifted down). */
 const discFrom = (radius: number, parity: 0 | 1) => {
   const cube = (c: number, r: number) => {
-    const x = c - (r - (r & 1)) / 2;
-    return [x, r, -x - r];
+    const z = r - (c - (c & 1)) / 2;
+    return [c, z, -c - z];
   };
-  const [ox, oy, oz] = cube(0, parity);
+  const [ox, oy, oz] = cube(parity, 0);
   const out: XY[] = [];
-  for (let dr = -radius; dr <= radius; dr++)
-    for (let dc = -radius - 1; dc <= radius + 1; dc++) {
-      const [x, y, z] = cube(dc, parity + dr);
+  for (let dc = -radius; dc <= radius; dc++)
+    for (let dr = -radius - 1; dr <= radius + 1; dr++) {
+      const [x, y, z] = cube(parity + dc, dr);
       if (Math.max(Math.abs(x - ox), Math.abs(y - oy), Math.abs(z - oz)) <= radius) out.push({ longitude: dc, latitude: dr });
     }
   return out;
 };
+const NEIGHBOURS: Dir[] = ["N", "S", "NW", "NE", "SW", "SE"];
 const ORIGIN: XY = { longitude: 0, latitude: 0 };
 const notOrigin = (xs: XY[]) => xs.filter((x) => x.longitude !== 0 || x.latitude !== 0);
 const uniq = (xs: XY[]) => [...new Map(xs.map((x) => [`${x.longitude},${x.latitude}`, x])).values()];
@@ -85,24 +90,24 @@ export const PATTERNS = {
   /** Complementary halves: A and B together cover every hex except the three safe stars; every hex has a neighbour in the other half. */
   scatterA: cells((c, r) => ((c >> 1) + r) % 2 === 0 && !isStar(c, r)),
   scatterB: cells((c, r) => ((c >> 1) + r) % 2 === 1 && !isStar(c, r)),
-  /** Fan of three rays west from the caster (W, NW, SW; length 5), union of both row parities. */
+  /** Fan of three rays west from the caster (W row zigzag, NW, SW; length 5), union of both column parities. */
   lines: uniq([...rays(FAN, 5, 0), ...rays(FAN, 5, 1)]),
-  /** Diagonal cross (NW, NE, SW, SE; length 5), union of both row parities. */
+  /** Diagonal cross (NW, NE, SW, SE; length 5), union of both column parities. */
   sealLines: uniq([...rays(CROSS, 5, 0), ...rays(CROSS, 5, 1)]),
   /** Minor marks (caster-anchored, so the marked hexes stay put until the blast): Splash = the hex two west of the
-   * caster and its neighbours (union of both row parities: a 3 x 3 block); Short line = the W ray, 3 hexes. */
-  splash: uniq([{ longitude: -2, latitude: 0 }, ...[0, 1].flatMap((par) => (["W", "E", "NW", "NE", "SW", "SE"] as Dir[]).map((d) => {
+   * caster and its six neighbours (union of both column parities: a 3 x 3 block); Short line = the W row, 3 hexes. */
+  splash: uniq([{ longitude: -2, latitude: 0 }, ...([0, 1] as const).flatMap((par) => NEIGHBOURS.map((d) => {
     const [dc, dr] = STEP[d][par]!;
     return { longitude: -2 + dc, latitude: dr };
   }))]),
   shortLine: rayFrom("W", 3, 0),
-  /** Binding Ring / Ship's Bell: every hex within 2 of the caster on either row parity (caster excluded). The Bell's
+  /** Binding Ring / Ship's Bell: every hex within 2 of the caster in either column parity (caster excluded). The Bell's
    * blast adds the caster's own hex so the cast is valid even when everyone stepped off (it stays a CHARACTER jutsu for
    * its push and lock rows; its rows are enemies only, so the caster is untouched). */
   bindingRing: notOrigin(uniq([...discFrom(2, 0), ...discFrom(2, 1)])),
   /** Exact single-parity offset sets, for a boss on a known row. */
-  linesByRowParity: { even: rays(FAN, 5, 0), odd: rays(FAN, 5, 1) },
-  sealLinesByRowParity: { even: rays(CROSS, 5, 0), odd: rays(CROSS, 5, 1) },
+  linesByColumnParity: { even: rays(FAN, 5, 0), odd: rays(FAN, 5, 1) },
+  sealLinesByColumnParity: { even: rays(CROSS, 5, 0), odd: rays(CROSS, 5, 1) },
   /** The three safe tiles of the arena-wide marks (columns <= 6, never under an east-side spawn). */
   stars: STARS,
 };

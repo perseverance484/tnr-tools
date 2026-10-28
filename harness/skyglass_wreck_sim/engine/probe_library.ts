@@ -8,7 +8,9 @@ import { dirname, join, resolve } from "node:path";
 import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, petFor, PLAYER_VARIANTS, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32, runFloor } from "./sim";
 import { cast, cond, endTurn } from "./kitlib";
-import { ANSWERS, buildLibrary, LIB, MARKER_TYPES, type MarkKey } from "./library";
+import { ANSWERS, buildLibrary, LIB, MARKER_TYPES, type MarkKey, PATTERNS } from "./library";
+import { getBattleGrid } from "@/libs/combat/util";
+import { getTargetTiles } from "@/libs/combat/targeting";
 
 const args = process.argv.slice(2);
 const outPath = args.includes("--out") ? args[args.indexOf("--out") + 1] : undefined;
@@ -112,6 +114,35 @@ for (const k of (Object.keys(MARKER_TYPES) as MarkKey[]).filter((x) => !MINOR.in
   const blastStep: any = steps.find((s: any) => !s.player && s.action === J[blastId].name);
   out.dodged.push({ key: k, blast: J[blastId].name, blastCast: !!blastStep, playersHit: blastStep?.playersHit ?? 0, dodgeSteps: steps.filter((s: any) => s.player).length });
   console.log(`dodged ${k.padEnd(17)} blast ${blastStep ? `cast, hit ${blastStep.playersHit}` : "NOT cast"} after ${steps.filter((s: any) => s.player).length} dodge steps`);
+}
+// Geometry, from the engine's own grid and targeting (getBattleGrid + getTargetTiles, not the harness's offsets): the
+// exact hexes each caster-anchored pattern covers from a throne in an even and in an odd column (rows 4 and 5), and a
+// check that every ray is a chain of engine neighbours (grid.distance 1 from the previous hex, starting next to the caster).
+{
+  const grid = getBattleGrid(1, { width: 12, height: 10 } as never);
+  const hexes = grid.toArray();
+  const at = (c: number, r: number) => hexes.find((h: any) => h.col === c && h.row === r)!;
+  const ids: [string, string][] = [["Eruption: Lines / Crownfall (Omen: Lines)", LIB.blast.lines], ["Binding: Seal Lines", LIB.blast.sealLines], ["Ship's Bell (Omen: Binding Ring)", LIB.sig.shipsBell], ["Eruption: Ring", LIB.blast.ring], ["Eruption: Splash", LIB.blast.splash], ["Eruption: Short Line", LIB.blast.shortLine]];
+  out.geometry = [];
+  for (const [c, r] of [[8, 4], [8, 5], [9, 4], [9, 5]] as const) {
+    const a = at(c, r);
+    for (const [label, id] of ids) {
+      const tiles = getTargetTiles({ a, b: a, action: J[id], grid } as never).map((h: any) => [h.col, h.row]).sort((p: any, q: any) => p[0] - q[0] || p[1] - q[1]);
+      out.geometry.push({ throne: [c, r], columnParity: c % 2 ? "odd" : "even", pattern: label, hexes: tiles });
+      console.log(`geometry (${c},${r}) ${c % 2 ? "odd " : "even"} col  ${label.padEnd(42)} ${tiles.length} hexes: ${tiles.map((t: any) => `${t[0]},${t[1]}`).join(" ")}`);
+    }
+    // Ray chains for the exact single-parity fan and cross.
+    const par = (c % 2 ? "odd" : "even") as "even" | "odd";
+    for (const [name, offs, len] of [["fan W/NW/SW", PATTERNS.linesByColumnParity[par], 5], ["cross NW/NE/SW/SE", PATTERNS.sealLinesByColumnParity[par], 5]] as const) {
+      const ok = [];
+      for (let k = 0; k < offs.length; k += len) {
+        const ray = offs.slice(k, k + len).map((o) => at(c + o.longitude, r + o.latitude)).filter(Boolean);
+        ok.push(ray.every((h, i) => grid.distance(i === 0 ? a : ray[i - 1]!, h) === 1));
+      }
+      out.geometry.push({ throne: [c, r], rays: name, everyStepAdjacent: ok });
+      console.log(`rays (${c},${r}) ${name}: every step an engine neighbour: ${ok.join(",")}`);
+    }
+  }
 }
 if (outPath) {
   mkdirSync(dirname(resolve(outPath)), { recursive: true });
