@@ -76,6 +76,31 @@ Not every attack is a set piece; the boss still fights normally between them.
 
 The same toolkit is meant to make the Captain and the Crowned Captain interactive as well.
 
+## The Captain and the Crowned Captain (approved 2026-10-28, RUL-2026-10-28-006)
+
+**The Captain (Wreck boss, dungeon copy):** takes the old Crowned Captain's full 11-jutsu kit:
+- Windlash Focus, Unbroken Command, Unraveling Strike, Suppression Writ, Ruin Refrain, Explosive Tag Cataclysm;
+- Keelbind, Second Wind, Counter Stance, Stolen Form, Final Command.
+
+His rules are tuned in the harness.
+
+**The Crowned Captain (Crownhold, solo):** "the shaper of our experience" (director). He is the showcase for the marked
+set pieces. He stands on his throne, which keeps his patterns lined up, and commands from afar.
+
+- **Kit:** Arakane's kit, minus Rapid Fire, Braced Strike and Surging Overflow. Plus Final Command, Keelbind and Ruin Refrain, with Ruin Refrain replacing Worldbreaker Chorus. Plus his set pieces.
+- **Phase 1 (100-60%), the duelist:**
+  - Final Command, Keelbind and Ruin Refrain on cooldown, with Hexweave setting up targets.
+  - Set piece **Seven Blades:** red fan of seven lines from the throne; the crown's blades fall along them next round.
+- **Phase 2 (60-30%), "I control... many echoes":**
+  - Once: **Recall**, which summons two echoes of Crownhold officers the player already beat (summons are harness-confirmed).
+  - Set piece **Command Absolute:** violet over the whole arena except three cyan stars. Stun and seal everywhere else.
+  - Stolen Form; Extermination Order.
+- **Phase 3 (under 30%), the Last Directive:**
+  - Last Directive (he cannot fall for 5 rounds).
+  - Then **Shardstorm** every round: one of three red scatter patterns, rotating, so the safe hexes move each turn (the "bullet hell" beat).
+  - Everything else goes on the player.
+- **Juice:** he is the hardest single fight in the event. His health and damage sit above the Crownhold ladder. The harness sets them against a solo endgame player: a win in about 12-15 rounds that needs the set pieces read correctly.
+
 ## Mechanics toolkit (engine-supported; each verified in the harness before use)
 
 | Mechanic | Engine basis | Use | Animation |
