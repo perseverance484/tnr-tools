@@ -18,6 +18,7 @@ import {
   describePlayer,
   enemyQueryUser,
   loadJson,
+  petFor,
   type Override,
   PLAYER_VARIANTS,
   type PlayerVariant,
@@ -43,6 +44,8 @@ const maxRounds = Number(opt("max-rounds", "150"));
 const barriers = !flag("no-barriers");
 /** Harness auto-player dodge of marked hexes (sim.ts DANGER_ANIMS); on unless --no-dodge. */
 const dodgeOn = !flag("no-dodge");
+/** Each player brings a modelled mid-rank companion pet (model.ts petFor). */
+const petsOn = flag("pets");
 const dmg = loadDmgConfig(HARNESS, opt("dmg-config", "live"));
 const onlyFloors = opt("floors")?.split(",").map(Number);
 const PACES = [10, 15, 20];
@@ -79,12 +82,14 @@ const runDungeon = async (v: PlayerVariant, seed: number, probeOn = true) => {
   const g = globalThis as any;
   try {
     const players = [0, 1, 2].map((i) => playerQueryUser(i, v, donor, T.jutsu));
+    const pets = petsOn ? players.map((p) => petFor(p)) : undefined;
+    if (pets) players.forEach((p, i) => (p.activePetId = pets[i]!.id));
     const attempts: Attempt[] = [];
     let f = 0;
     let wipes = 0;
     let status: "cleared" | "max-wipes" | "ended" | "stalled" = "stalled";
     while (f < floors.length) {
-      const battle = await assembleFloor({ players, enemyRows, floor: floors[f]!, rand, initialBarriers: barriers, dmgConfig: dmg.config });
+      const battle = await assembleFloor({ players, enemyRows, floor: floors[f]!, rand, initialBarriers: barriers, dmgConfig: dmg.config, pets });
       const res = runFloor(battle, { playerIds: players.map((p) => p.userId), maxRounds, dodge: dodgeOn });
       if (!probeOn) g.__TNR_RULE_PROBE__ = undefined;
       attempts.push({ floor: f, res, seed });
@@ -381,18 +386,18 @@ if (flag("probe-check")) {
 const out: any = {
   generatedBy: "harness/skyglass_wreck_sim/engine/main.ts",
   override: ovPath ? { path: ovPath, name: override.name, note: override.note } : null,
-  settings: { dodge: dodgeOn, dmgConfig: dmg.name, dmgConfigValues: dmg.config ?? null, runs, seed0, maxWipes, maxRounds, initialBarriers: barriers, paces: PACES, aiSecondsPerTurn: AI_SECONDS, transitionSecondsPerFloorBattle: TRANSITION_SECONDS, limitSeconds: LIMIT },
+  settings: { pets: petsOn ? "one modelled mid-rank companion per player (model.ts petFor)" : false, dodge: dodgeOn, dmgConfig: dmg.name, dmgConfigValues: dmg.config ?? null, runs, seed0, maxWipes, maxRounds, initialBarriers: barriers, paces: PACES, aiSecondsPerTurn: AI_SECONDS, transitionSecondsPerFloorBattle: TRANSITION_SECONDS, limitSeconds: LIMIT },
   enemyNotes: Object.fromEntries(Object.entries(T.enemies).filter(([, e]) => e.notes.length).map(([id, e]) => [e.row.username ?? id, e.notes])),
   layout: floors.map((f, i) => ({ floor: floorLabel(i) + 1, kind: f.kind, waves: f.waves.map((w) => w.aiIds.map((id) => T.enemies[id]!.row.username)) })),
   variants: [] as any[],
 };
-const t0 = Date.now();
+const t0 = performance.now();
 for (const v of variants) {
   const results = [];
   for (let i = 0; i < runs; i++) results.push(await runDungeon(v, seed0 + i));
   const s = summarise(v, results);
   out.variants.push(s);
-  console.log(`\n=== ${v.name}: ${JSON.stringify(s.outcomes)} wipesRun%=${s.runsWithAWipePct} totalRounds med=${s.totalRoundsMedian} [${s.totalRoundsP10}-${s.totalRoundsP90}] (${((Date.now() - t0) / 1000).toFixed(0)}s)`);
+  console.log(`\n=== ${v.name}: ${JSON.stringify(s.outcomes)} wipesRun%=${s.runsWithAWipePct} totalRounds med=${s.totalRoundsMedian} [${s.totalRoundsP10}-${s.totalRoundsP90}] (${((performance.now() - t0) / 1000).toFixed(0)}s)`);
   for (const w of s.waves)
     console.log(`${w.wave.padEnd(6)} ${String(w.roundsMedian).padStart(5)} [${w.roundsMin}-${w.roundsMax}] clr ${w.cleared}/${w.attempts} wipe ${w.wipedHere} hpLost ${w.partyHpLostPctMedian}% left hp ${w.poolsLeftMedianPct.hp}% | ${w.enemies}`);
   console.log("time:", JSON.stringify(s.time));
