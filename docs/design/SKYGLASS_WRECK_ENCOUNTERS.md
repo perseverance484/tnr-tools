@@ -75,7 +75,7 @@ them); anything changed or new is a **dungeon-only jutsu** (NEW below). All numb
 | Chain Hook | range 6, single, cd 3, AP 60 | damage 45, redirection pull 3 (instant), then moveprevent 100 / 1r. Probe: `redirection` checks `moveprevent`, so the pull row goes first; the harness confirms a same-cast root doesn't cancel the pull | Deck Warden |
 | Long Barrage | range 8, AOE circle shoot (radius 1), cd 3, AP 60 | damage 55 + ground zone damage 20 / 2r | Arsenal Keeper |
 | Oath of Stillness | range 6, single, cd 4, AP 60 | damage 35, increasecooldown 2 / 2r | Oathkeeper |
-| Chart Mark | range 7, single, cd 4, AP 40 | PROPOSED, not approved: increasedamagetaken 40 / 2r, plus a marker row increasepoolcost 5 / 2r; mark sigil animation. The crew key their focus on the marker, not on damage-taken (below) | Wayfinder |
+| Chart Mark | range 7, single, cd 4, AP 40 | increasedamagetaken 40 / 2r, plus a marker row increasepoolcost 5 / 2r; mark sigil animation; cleansable. The crew key their focus on the marker, not on damage-taken (below) | Wayfinder |
 | Skyglass Aegis | range 4, single ALLY, cd 4, AP 40 | shield, absorb on the ally / 2r | Sentinel |
 | Mending Seal | range 5, single ALLY, cd 4, AP 40 | heal 20, cleanse | Sealwright |
 | Rot Glyph | range 6, AOE circle spawn on a player, cd 2 | a visible warning zone this round (glyph animation, no damage); the eruption lands on those hexes next round. Mechanism (delayed ground damage vs a two-step rule) is a harness probe | Core Horror |
@@ -107,7 +107,7 @@ the hunts and the dungeon. Dungeon copies may also detonate when a player is adj
 Allies' "focus the mark" rules use `target_has_effect` ahead of their usual damage rule. That condition matches by effect
 type and summed power (`ai_v2.ts` ~404), so keying on `increasedamagetaken` would also fire on Opening Strike, Piercing
 Judgment, Suppression Writ and Void Pulse Barrage. The proposed marker is `increasepoolcost`, which no crew jutsu applies;
-the director's call on the mark is still open (2026-10-28: 20% too low; must not set the crew off on any damage-taken debuff).
+approved 2026-10-28 (RUL-2026-10-28-001).
 
 ## Endgame floor layout (director, 2026-10-28)
 

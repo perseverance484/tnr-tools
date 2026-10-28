@@ -9,7 +9,7 @@ RUL-2026-10-16-*), with the fresh reads of push/269 (state/crownhold/source_chec
 push/271 = the records: The Last Directive and Extermination Order (AI jutsu), Countermand (Arakane's item), then the
 20 Crownhold AIs. All HIDDEN. The quest follows as push/272 once these ids exist. Do not hand-edit the output.
 """
-import hashlib, json, os
+import hashlib, json, os, re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PKG = os.path.join(ROOT, "state/crownhold/package/state/silent_bastion_authoring")
@@ -24,7 +24,8 @@ SPRITE = {  # live crew sprites (push/249 capture), placeholders until each Crow
     "D2.BOSS": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-2OXJEXoktxJcjqMkE851g-main-e5ee91c495de.webp",     # Arsenal Keeper
     "D3.BOSS": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-RBW5KsIXmTGR710D2y2Y7-main-5cda5e3df1ac.webp",     # Sealwright
     "D4.BOSS": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-QY69h271Nx9uHrBeR6jwW-main-b2d624ff6f62.webp",     # The Captain
-    "D5.BOSS": "@img:avatar_crownhold_arakane.webp",                                                            # drawn 2026-10-25
+    # RUL-2026-10-28-003/-004: the D5 boss is the Crowned Captain (Arakane retired); the original crew sprite
+    "D5.BOSS": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-fDU9jCPZtH7YHbdQPO9RF-main-25d24b15223f.webp",
 }
 IMAGES = {"avatar_crownhold_arakane.webp": "art/crownhold/avatar_crownhold_arakane.webp"}
 PACK_REF = "123a1b53fbf6ddebe2e624ca0ec766f9d8d4b3c0"  # the commit that carries art/crownhold
@@ -76,7 +77,7 @@ def countermand():
     data = dict(next(it for it in base["items"] if it["srcId"] == "chart_foundry")["data"])
     data.update({
         "name": "Countermand", "itemType": "OTHER", "slot": "ITEM", "rarity": "LEGENDARY",
-        "description": ("The command seal of Crownhold. Supreme Commander Arakane presses it against an afterimage's "
+        "description": ("The command seal of Crownhold. The Crowned Captain presses it against an afterimage's "
                         "pattern to strip away anything it was not ordered to carry."),
         "battleDescription": "%user raises the Countermand. Every borrowed strength on %target is revoked.",
         "effects": [tag(e) for e in r["effects"]], "target": r["target"], "method": r["method"], "range": r["range"],
@@ -215,10 +216,14 @@ QUEST_DESCRIPTION = (
     "Starting the expedition spends one Lastlight Lantern. Lose any fight and the expedition ends; the Lantern is not "
     "refunded.\n\nIf you still have a reward to choose from an earlier expedition, claim it before you set out: an "
     "expedition cannot be completed while an earlier reward choice is waiting.")
-QUEST_SUCCESS = "Supreme Commander Arakane has fallen and his Command Crown lies broken. Choose your reward."
+QUEST_SUCCESS = "The Crowned Captain has fallen and his Command Crown lies broken. Choose your reward."
+BOSS_NAME = "The Crowned Captain"  # username: the legacy Ghost Ship boss keeps "Crowned Captain" (law 66)
+# RUL-2026-10-28-004: the Supreme Commander is the Crowned Captain (applied after PROSE; sentence starts capitalised)
+BOSS_PROSE = [("Supreme Commander Arakane", "the Crowned Captain"), ("the Supreme Commander", "the Crowned Captain"),
+              ("The Supreme Commander", "The Crowned Captain")]
 CROWN = ("Above his brow the Command Crown hangs perfectly still: a thin ring of blackened iron and, above it, seven "
-         "blades of skyglass held in the air in a fan of command. Every officer you passed on the way up answered to those "
-         "seven blades. You have been breaking their hold all the way up the mountain.")
+         "blades of skyglass held in the air in a fan of command. Every officer you passed on the way up, and every hand "
+         "aboard the Skyglass ship, answered to those seven blades. You have been breaking their hold all the way up the mountain.")
 OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text keeps the original mechanics
     "d2.n.f1": (
         "The road ends at a gate cut into the mountain. No sentry calls out, no banner hangs, and snow has drifted unbroken "
@@ -333,8 +338,8 @@ OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text
         "when two orders disagree, the Sanctum obeys the one that protects the Command.\" Ember light runs along its iron "
         "fire-hook."),
     "d5.n.terminal": (
-        "The outer ring of the Sanctum holds Crownhold's last command shrine. Past it is the door of Supreme Commander "
-        "Arakane.\n\nThe drainage channel around the ring will open for whoever can name the directive currently in force. "
+        "The outer ring of the Sanctum holds Crownhold's last command shrine. Past it is the door of the Crowned "
+        "Captain.\n\nThe drainage channel around the ring will open for whoever can name the directive currently in force. "
         "Or ask for passage the proper way, and face the Sealbearer, who guards the door with a sealed scroll case and a "
         "blank, unsigned command seal."),
     "d5.n.puzzle": (
@@ -345,18 +350,17 @@ OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text
     "d5.n.protocol": (
         "The Sealbearer falls, and its blank command seal shatters on the floor. The shrine wakes the Sanctum's last two rites."
         "\n\nThe Healing Rite will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. The War "
-        "Rite is the Sanctum's last field directive: for the opening rounds, nothing the Supreme Commander does can weaken you."),
-    "d.aftermath": (
-        "Supreme Commander Arakane falls to one knee. The Command Crown's iron ring splits through its seal stone, and the "
-        "seven floating blades drop and shatter on the stone. All through the mountain, something lets go. Then he is only "
-        "chakra, settling over the floor of the throne room like ash.\n\nFor a moment Crownhold is silent in a new way. The "
-        "signal bells stop. The lanterns dim.\n\nThen, in the signal tower far below, a single bell rings. A new order writes "
-        "itself, brushstroke by brushstroke, onto the Supreme Commander's own paper. It is dated today. It bears no seal you "
-        "have seen anywhere in Crownhold. It is addressed to the Ghost Ship.\n\nThe crown is broken. Something else is still "
-        "giving orders."),
+        "Rite is the Sanctum's last field directive: for the opening rounds, nothing the Crowned Captain does can weaken you."),
+    "d.aftermath": (  # RUL-2026-10-28-004: the crown is the root; breaking it frees every afterimage, ship and castle
+        "The Crowned Captain falls to one knee. The Command Crown's iron ring splits through its seal stone, and the seven "
+        "floating blades drop and shatter on the stone. All through the mountain, something lets go. Then he is only "
+        "chakra, settling over the floor of the throne room like ash.\n\nThe signal bells stop. Down every stair you "
+        "climbed, the officers who still stood lower their blades and fade, released at last. Far away on the shore, the "
+        "Skyglass wreck goes quiet: its crew served the same crown.\n\nShards of the broken crown lie scattered across "
+        "the throne room floor, still faintly cold with skyglass light."),
 }
 FAIL_TEXT = "You fall, and Crownhold does not let you up. You wake outside the gate in the snow, and the Lantern has gone dark."
-WIN_TEXT = "Crownhold falls silent behind you. Whatever still gives its orders, it no longer has a crown to give them through."
+WIN_TEXT = "Crownhold falls silent behind you. The crown that held its officers and the Skyglass crew is broken."
 
 
 def prose(t):
@@ -364,9 +368,9 @@ def prose(t):
                  ("the Bastion's", "Crownhold's"), ("The Bastion's", "Crownhold's"), ("the Bastion", "Crownhold"),
                  ("The Bastion", "Crownhold"), ("Bastion", "Crownhold")):
         t = t.replace(a, b)
-    for a, b in PROSE:
+    for a, b in PROSE + BOSS_PROSE:
         t = t.replace(a, b)
-    return t
+    return re.sub(r'(^|[.!?]"? |\n)the Crowned Captain', lambda m: m.group(1) + "The Crowned Captain", t)
 
 
 def qtag(t, kind):
@@ -388,7 +392,7 @@ def quest():
         return SCENE[div_of(nid)] if nid[1].isdigit() else SCENE[5]
 
     def text(nid):
-        if nid in OVERRIDE: return OVERRIDE[nid]
+        if nid in OVERRIDE: return prose(OVERRIDE[nid])
         t = prose(obj[nid]["text"])
         if nid in ("d5.n.boss.clean", "d5.n.boss.alert"):
             t = t.replace(" He turns.", " " + CROWN + "\n\nHe turns.").replace(" He turns from the window.", " " + CROWN + "\n\nHe turns from the window.")
@@ -451,7 +455,7 @@ def quest():
               "reward_jutsus": [LASTLIGHT_JUTSU]}
     if "badge:crownbreaker" in IDS: reward["reward_badges"] = [IDS["badge:crownbreaker"]]
     return {"entity": "quest", "slot": "create", "srcId": "crownhold", "name": "Crownhold", "data": {
-        "name": "Crownhold", "description": QUEST_DESCRIPTION, "image": "@img:avatar_crownhold_arakane.webp",
+        "name": "Crownhold", "description": QUEST_DESCRIPTION, "image": SPRITE["D5.BOSS"],
         "questType": "battlepyramid", "questRank": "S", "successDescription": QUEST_SUCCESS, "retryDelay": "none",
         "attemptDelay": "none", "consecutiveObjectives": True, "hidden": True, "requiredLevel": 1, "maxLevel": 100,
         "maxAttempts": 100, "maxCompletes": 100, "prerequisiteQuestId": None, "tierLevel": None, "requiredVillage": None,
@@ -485,7 +489,7 @@ def main():
         "before the 20 Crownhold AIs (push/272), which equip them by literal id (law 17). Placeholder icons. Generated by "
         "push/crownhold.gen.py; do not hand-edit."), [
         ai_jutsu("X:LAST_DIRECTIVE", "last_directive",
-                 ("Arakane's final order to himself. For five rounds he cannot fall, strikes harder, and nothing he "
+                 ("The Crowned Captain's final order to himself. For five rounds he cannot fall, strikes harder, and nothing he "
                   "carries can be stripped away."),
                  "%user speaks the Last Directive. The Command Crown blazes and refuses to let him fall."),
         ai_jutsu("X:EXTERMINATION_ORDER", "extermination_order",
@@ -504,7 +508,7 @@ def main():
             "new strength (director 2026-10-25: 'Let them use it'). Avatars: Arakane's own; the other 19 borrow crew "
             "sprites until drawn. Generated by push/crownhold.gen.py; do not hand-edit."),
             [ai(p) for p in PROFILES])
-    write(276, "crownhold_ai_rename", (
+    if os.environ.get("REGEN_276"): write(276, "crownhold_ai_rename", (
         "Crownhold AI renames (push/276), RUL-2026-10-26-003: username-only direct edits on the 18 hidden Crownhold AIs "
         "(Replicant Zero and Supreme Commander Arakane keep their names). Forge fetch-merges and re-sends each AI's live "
         "kit (jutsus, items), so nothing else changes; updateAi rescales stats on every write (law 71, expected). If a "
@@ -512,11 +516,12 @@ def main():
         "push/crownhold.gen.py; do not hand-edit."),
         [{"entity": "ai", "slot": "edit", "name": USERNAME[p["name"]], "targetId": IDS["@ai:" + p["slot"]],
           "data": {"username": USERNAME[p["name"]]}} for p in PROFILES if p["name"] in USERNAME])
+    # Director 2026-10-28: one large update. 273 and 276 are assembled into push/319 by push/skyglass_update.gen.py.
     q = quest()
     out = os.path.join(ROOT, "state/crownhold/quest.preview.json")
     json.dump(q, open(out, "w"), indent=1)
     print("quest preview:", len(q["data"]["content"]["objectives"]), "objectives ->", os.path.relpath(out, ROOT))
-    if all("@ai:" + p["slot"] in IDS for p in PROFILES):
+    if os.environ.get("REGEN_273") and all("@ai:" + p["slot"] in IDS for p in PROFILES):
         badge = "badge:crownbreaker" in IDS
         write(273, "crownhold_quest", (
             "Crownhold (push/273), HIDDEN isolated Battle Pyramid (RUL-2026-10-25-005/-010/-011; package alt99_f4gate without "

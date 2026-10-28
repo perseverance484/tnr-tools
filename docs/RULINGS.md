@@ -3328,12 +3328,12 @@ closely"; targets chosen: "15-20 min", "Clearable, few wipes", "Level 100 Jonin,
 
 **Domain:** TNR content balance / Skyglass Wreck dungeon and treasure hunts
 
-**Status:** ACTIVE. Chart Mark is not settled.
+**Status:** ACTIVE.
 
 **Ruling:**
 1. Core Rupture (`nCQETf-HNnbRec1OSY2-R`, held only by Seal Charge and Core Canister) stops hitting every player on the board (`method: ALL`). It now hits a small area (AOE circle spawn: the target hex and the six around it, range 5) for more damage (pierce 120 -> 180, a reversible starting value). The hazard's self-destruct (`onehitkill` on SELF) and the 2-round stun stay. The change is made to the live record, so it applies to the hunts and the dungeon alike (push/316-317).
 2. Dungeon-only jutsu approved as designed in `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`: Chain Hook (now a pull, then a 1-round root), Long Barrage, Oath of Stillness, Skyglass Aegis, Mending Seal, and the per-enemy rules and Crowned Captain phases. Numbers are starting values for the harness to tune.
-3. Chart Mark is open: 20% damage taken is too low, and the crew's focus rule must not fire on every damage-taken debuff.
+3. Chart Mark (settled 2026-10-28, "Both approved"): increasedamagetaken 40 / 2 rounds, cooldown 4, plus a marker row of increasepoolcost 5 / 2 rounds that no crew jutsu applies; the crew's focus rules key on the marker, not on damage taken. Cleansable. Mark sigil animation.
 
 **Evidence:** Director, 2026-10-28: "We can make them smaller AoE blasts that do large amounts of damage instead I suppose. Rest looks pretty good"; "Chain Hook … sounds more like a move for a pull which would also be approved. Long barrage approved. Oath of stillness approved. Chart mark could be better executed. 20% is low … it will make any increased damage taken set the crew off. Needs more thought. Rest is approved. Yes change the hunts too."
 
@@ -3345,11 +3345,16 @@ closely"; targets chosen: "15-20 min", "Clearable, few wipes", "Level 100 Jonin,
 
 **Domain:** validation; D-validate-always (`docs/DOCTRINE.md`); engine law 6
 
-**Status:** PENDING director approval. push/317 holds until approved.
+**Status:** ACTIVE (approved 2026-10-28). Moved with the change into push/319: the ledger is
+`state/validate_exceptions/319_skyglass_update.json`, which also lists push/319's seven build-order warnings (the lint
+orders entities by type and ignores explicit phases; law 18's kit-off / edit / kit-on sequence needs AI edits on both
+sides of the jutsu and item edits).
 
-**Ruling (proposed):** push/317 may run although `validate.py --strict` reports law 6 "pierce power 180 exceeds the cap of 100". The game's `PierceTag` power has no maximum (`validators/combat.ts` `PowerAttributes`: `min(0)`), and the live Core Rupture already carries 120. Law 6's flat cap is already listed for law reconciliation (RUL-2026-10-20-001, Boundary). The exception holds only while `python3 scripts/validate_exception.py state/validate_exceptions/317_core_rupture_blast.json` passes.
+**Evidence:** Director, 2026-10-28: "Both approved. Dont bother creating a lot of small separate pushes, we'll do this as one large update."
 
-**Canonical destination:** `state/validate_exceptions/317_core_rupture_blast.json`.
+**Ruling:** push/317 (now push/319) may run although `validate.py --strict` reports law 6 "pierce power 180 exceeds the cap of 100". The game's `PierceTag` power has no maximum (`validators/combat.ts` `PowerAttributes`: `min(0)`), and the live Core Rupture already carries 120. Law 6's flat cap is already listed for law reconciliation (RUL-2026-10-20-001, Boundary). The exception holds only while `python3 scripts/validate_exception.py state/validate_exceptions/317_core_rupture_blast.json` passes.
+
+**Canonical destination:** `state/validate_exceptions/319_skyglass_update.json`.
 
 ## RUL-2026-10-28-003 — Crowned Captain to Crownhold; the Captain is the Wreck's boss; one elemental kunai pouch
 
@@ -3368,3 +3373,21 @@ closely"; targets chosen: "15-20 min", "Clearable, few wipes", "Level 100 Jonin,
 **Evidence:** Director, 2026-10-28: "For Crownhold and the character we put the Crowned Captain. Then the regular captain is the boss of the skyglass wreck. Then one of the rewards for beating crowhold is a guaranteed crown fragment … this simplifies the story a lot"; "adjust the armory to only drop one kind of elemental kunai pouch now since we're down to 1 … needs 2 more rewards now, perhaps medicine inro for one". Answers: "Convert Arakane"; floor 4: "Work in Core Horror. Make him a gimmicky minions, lots of broadcasted attacks"; pouch: "Elemental Kunai"; picks: "Inro + 50,000 ryo".
 
 **Canonical destination:** `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`; `docs/design/SKYGLASS_LOOT_TABLES.md`; `push/elemental_pouch.gen.py` (push/318); `push/crownhold.gen.py`.
+
+## RUL-2026-10-28-004 — Crownhold story: the Crowned Captain's crown holds every afterimage; one large update
+
+**Date:** 2026-10-28
+
+**Domain:** Crownhold quest text and records; push staging
+
+**Status:** ACTIVE
+
+**Ruling:**
+1. The Captain commands the Skyglass ship; the Wreck is his last stand. The Crowned Captain rules Crownhold; his Command Crown holds every afterimage in his service, the ship's crew and the castle's officers alike. The Lastlight Lantern leads to him.
+2. Ending: the crown breaks; across the mountain and out on the wreck every afterimage lets go; the blades lie scattered as the Fragments of the Skyglass Crown. The "something else is still giving orders" hook is dropped.
+3. Every "Supreme Commander Arakane" / "the Supreme Commander" in the quest text becomes the Crowned Captain (puzzle answers unchanged). The boss's username is **The Crowned Captain**, since the legacy Ghost Ship boss holds "Crowned Captain" (law 66).
+4. The Skyglass / Crownhold changes ship as one manifest (push/319), not a series of small pushes.
+
+**Evidence:** Director, 2026-10-28, on the outline, the name and the two open items: "Both approved. Dont bother creating a lot of small separate pushes, we'll do this as one large update."
+
+**Canonical destination:** `push/crownhold.gen.py` (`BOSS_PROSE`, `OVERRIDE["d.aftermath"]`, `CROWN`, `WIN_TEXT`); `push/skyglass_update.gen.py`.
