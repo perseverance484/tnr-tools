@@ -2,16 +2,17 @@
 
 Status: DRAFT (roles, behaviour and floor arcs). Every number is set and checked in the offline harness
 (`harness/skyglass_wreck_sim/`, branch `fable/skyglass-wreck-sim`) against RUL-2026-10-26-006 / -007 before any live edit.
-Calibration: live damage settings (director, 2026-10-28: curve 2, gen_weight 1, advantage_min 0; the rest match code
+Player model: level-100 Jonin, capped stats, full Kitsune set, level-capped PvE jutsu (director, 2026-10-28). Calibration: live damage settings (director, 2026-10-28: curve 2, gen_weight 1, advantage_min 0; the rest match code
 defaults) and the solo anchor "good level-100 players beat The Captain solo in 8-10 rounds; a tough fight".
 
 ## Principles
 
 1. **Every enemy has one job players can read and answer.** No enemy is just a health pool with a big hit.
 2. **Each floor teaches one idea; the boss floor combines them.**
-3. **One wave per floor, two at most.** Pools refill only between floors, a wave spawns on the far side (1-2 rounds of
-   walking), and a floor battle's round counter is shared by its waves: one-wave floors keep openers (`round_lower_than`)
-   working and keep each floor to about 4-5 rounds.
+3. **1-2 waves per floor, 3-4 enemies a wave.** The baseline party is strong (director, 2026-10-28: level-100 Jonin with
+   capped stats, a full Kitsune set and level-capped PvE jutsu; three of them make two-enemy waves light work). Costs to
+   budget: pools refill only between floors, a wave spawns on the far side (1-2 rounds of walking), and a floor battle's
+   round counter runs across its waves, so a later wave's openers gate on distance or health, not `round_lower_than`.
 4. **Dungeon-only copies.** The live crew also fight in the hunts and quests; the dungeon gets its own records (an
    endgame set and a level-50 set), so tuning here never moves the hunts.
 5. **Threat from mechanics, not stacked damage.** The live crew carry +350-470% damage given; the copies trade most of
@@ -46,13 +47,13 @@ Not available: "an ally is below X% health" and "I do not have effect X"; design
 
 | Floor | Idea | Wave (single wave unless noted) |
 |---|---|---|
-| 1 | Movement matters | Deck Warden x2 + Seal Charge |
-| 2 | Reach the back line | Arsenal Keeper + Deck Warden + Seal Charge |
-| 3 | Kill order | Skyglass Sentinel + First Blade |
-| 4 (mini-boss) | Protect your damage dealer | The Captain + Oathkeeper |
+| 1 | Movement matters | Deck Warden x3 + Seal Charge |
+| 2 | Reach the back line | Arsenal Keeper + Deck Warden x2 + Seal Charge |
+| 3 | Kill order | Skyglass Sentinel + First Blade + Deck Warden; second wave candidate: Core Horror + Wayfinder |
+| 4 (mini-boss) | Protect your damage dealer | The Captain + Oathkeeper + Wayfinder |
 | 5 (boss) | Everything at once | Crowned Captain + Sealwright + 2 Core Canisters, the Canisters dormant until a fixed round (a later wave cannot join mid-fight: waves spawn only after the previous one is dead) |
 
-Floors 1-4 aim for ~4 rounds each, the boss floor ~8-9: about 25 rounds, ~19 minutes at 15 s per player turn.
+Wave sizes and second waves are set by the harness against the 15-20 minute target for the real-gear party (single-wave layout shown; floors earn a second wave if time allows).
 
 ## Level 40-60 version (10-15 min)
 
