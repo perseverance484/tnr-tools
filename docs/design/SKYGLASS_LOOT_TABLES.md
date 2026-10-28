@@ -95,7 +95,7 @@ The Sealwright's doubled health (push/252) applies to the Archive's final fight 
 | Sealed Reliquary | Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Archive Chart Case ×2 |
 | The Fall | Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Galley Stores ×3 *(Captain's Purse cut)* |
 | Tainted runs | **pick 2** from their rare's options, plus a guaranteed Sealed Treasury and Echo Jar, Lantern 30% and Core Rot 40% |
-| Crownhold | Crown's Hoard / Skyglass Coffer ×2 / Crownhold's Honor / Crownhold badge / Crownhold jutsu / Echo Jar ×2 / Crown Fragment |
+| Crownhold | Crown's Hoard / Skyglass Coffer ×2 / Crownhold badge / Crownhold jutsu / Crown Fragment *(Crownhold's Honor and Echo Jar ×2 cut, RUL-2026-10-28-017)* |
 
 The rares double the Watch's Coffer and Jar, so each rung pays more than the one below it.
 
@@ -215,7 +215,6 @@ Engine facts (theninjarpg source):
 - **Galley Stores:** a pick option in the common runs, the Buried Cache and the Foundry.
 - **Echo Jar:**
   - a pick option in the Archive, the Watch and the rare runs;
-  - Echo Jar ×2 as a Crownhold pick option;
   - guaranteed on the tainted runs, on top of their pick;
   - added to the chest of chests' Legendary tier.
 
