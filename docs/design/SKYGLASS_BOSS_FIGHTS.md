@@ -97,7 +97,7 @@ the marks before the final bosses.
 
 **Fantasy.** The source of every echo. He has never left his throne room and never needed to. Calm, certain, faintly
 amused. He believes he gave his people a gift. **Theme of the fight:** command over everything. Phase 1 he duels you
-himself; phase 2 his echoes fight for him; phase 3 his crown fights for him. The answer to the crown is the crown itself.
+himself; phase 2 his echoes fight for him; phase 3 his crown fights for him.
 
 **Arena:** the throne room. He stands at the throne, which keeps his patterns aligned.
 
@@ -113,23 +113,17 @@ himself; phase 2 his echoes fight for him; phase 3 his crown fights for him. The
 | **Command Absolute** | set piece, phase 2 | Violet over the whole arena except three stars; next turn every unsafe hex is stunned and sealed | tg_control field, tg_safe, then cc_command_absolute | reach a star |
 | **Stolen Form** | phase 2 | Copies your buffs | mirror flicker | buff after it, not before |
 | **Extermination Order** | phase 2-3 | Damage, an elemental seal and a cleanse-prevent | crimson sigil | expect it once he has the Last Directive |
-| **The Last Directive** | phase 3, under 30% | He cannot fall for 5 rounds; damage up | cc_last_directive blaze | survive, and see Crown Shards below |
+| **The Last Directive** | phase 3, under 30% | He cannot fall for 5 rounds; damage up | cc_last_directive blaze | survive it |
 | **Shardstorm** | set piece, phase 3 | Every round, one of three rotating scatter patterns rains crown shards; the safe hexes move each turn | tg_heavy field, then cc_shardstorm | keep moving to the clear hexes |
 
-**The interactive answer: Crown Shards** (PROBE). Shardstorm's safe hexes are not empty: each carries a fallen crown
-shard (a tg_safe variant). A player who ends a move on one gains, through a ground `injectjutsus`, a one-use jutsu,
-**Crown Shard**: "%user drives a shard of his own crown back at him." The Crowned Captain has a `weakness` to that jutsu
-(x5).
-- **Last Directive keeps its clearprevent** (director, 2026-10-28). Nothing removes it: its five rounds are a survival test.
-  Crown Shard is the fight's biggest damage, so the player is ready to finish him the moment it ends.
-- **The beat:** in the last act, the player breaks the crown with its own pieces.
+**Last Directive** keeps its clearprevent (director, 2026-10-28). Its five rounds are a pure survival test through
+Shardstorm; he falls when it ends.
 
 **Battle log (his voice):**
 - Opening: "%user does not rise. \"Another echo come home.\""
 - Recall: "\"Stand, soldier.\" An echo rises at his word."
 - Command Absolute: "\"Kneel.\""
 - The Last Directive: "\"Preserve command.\" The crown blazes."
-- Crown Shard (the player): "%user drives a shard of his own crown back at him."
 - Defeat text: the aftermath dialog takes over (Crownhold d.aftermath).
 
 ---
@@ -140,12 +134,12 @@ shard (a tg_safe variant). A player who ends a move on one gains, through a grou
 |---|---|
 | The Captain | cp_broadside (row cannon fire), cp_gunwale (barrier sprite), cp_final_command (crimson strike) |
 | The Core Horror | ch_claw, ch_undertow (drag streak), ch_exposed (open seam) |
-| The Crowned Captain | cc_crown_shard (shard pickup on a safe hex), cc_shard_strike (the player's Crown Shard hit), cc_hexweave |
+| The Crowned Captain | cc_hexweave |
 
 ## Open questions for the harness (PROBE)
 
 1. Does a two-marker chain (mark plus 40 AP follow-up, detonate next turn) fire in order?
 2. Does `weakness` on SELF expose the caster as designed, for 1 round?
-3. Can a ground effect grant `injectjutsus` to whoever ends a move on it? Is the injected jutsu preloaded into the battle? Does it disappear after one use?
+3. Can a ground effect grant `injectjutsus` to whoever ends a move on it? Is the injected jutsu preloaded into the battle? Does it disappear after one use? (Crown Shard is cut; director, 2026-10-28: "maybe for another fight. Or in another manner. Like standing on a tile to gain access to a heal or a teamwide buff". Kept as a toolkit question for later fights.)
 4. Settled by the director: Last Directive keeps clearprevent, so no clear is needed.
 5. Will players attack a barrier when it blocks their path?
