@@ -60,7 +60,7 @@ cp "$HERE"/engine/*.ts "$APP/$RUNDIR/"
 ARGS=()
 prev=""
 for a in "$@"; do
-  if [[ "$prev" == "--override" || "$prev" == "--out" || ( "$prev" == "--dmg-config" && "$a" != "live" && "$a" != "default" ) || "$prev" == "--ladder" ]]; then a="$(realpath -m "$a")"; fi
+  if [[ "$prev" == "--override" || "$prev" == "--out" || ( "$prev" == "--dmg-config" && "$a" != "live" && "$a" != "default" ) || "$prev" == "--ladder" || "$prev" == "--params" || "$prev" == "--override-out" || "$prev" == "--spec-out" ]]; then a="$(realpath -m "$a")"; fi
   ARGS+=("$a"); prev="$a"
 done
 
