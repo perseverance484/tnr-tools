@@ -43,6 +43,24 @@ Not available: "an ally is below X% health" and "I do not have effect X"; design
 | Sealwright | Support | Seals and slows players, cleanses/heals allies (via ally targets); kill first or the fight drags. |
 | Crowned Captain | Final boss | Three phases by health (100-60 / 60-30 / under 30): duelist, then calls hazards, then a desperate burst with Final-Stand-style protection. |
 
+## Mechanics toolkit (engine-supported; each verified in the harness before use)
+
+| Mechanic | Engine basis | Use | Animation |
+|---|---|---|---|
+| Telegraphed danger zones | ground effects become user effects on whoever stands on the tile at round processing (`process.ts`) | Arsenal Keeper shells marked hexes; Core Canister shards; boss phase 2 | zone sigil |
+| Skyglass barriers | `barrier` tag (HP, absorb %, sprite); targets `BARRIER_BETWEEN`, `BARRIER_BLOCKING_CLOSEST_OPPONENT` | Sentinel walls off allies; enemies break player walls | barrier sprite (still) |
+| Afterimage clones | `clone` tag (2+ rounds) | Wayfinder decoys; Crowned Captain splits in phase 2 (mid-fight bodies without summons) | clone shimmer |
+| Marks and focus fire | debuff + `target_has_effect` conditions | Wayfinder marks a player; allies focus the mark | mark sigil |
+| Defensive windows | `reflect` / `mirror`, `stealth` | Sentinel's mirror ward; First Blade vanishes, then hits the lowest-health player | reflect shimmer |
+| Visible fuses | `visual` tag | Seal Charge arming glow until it detonates | arming glow |
+| Boss phase moments | self buffs on `health_below` | crown aura at phase 2; Final Stand crown shatter | crown aura, crown shatter |
+| Threat roles | enmity, `increaseaggro`/`decreaseaggro`, `HIGHEST/LOWEST_ENMITY_OPPONENT`, aggro halos (2026-10-11) | Wardens and Captain take the top threat; First Blade the lowest; Oathkeeper punishes the top threat | (UI halos) |
+| Support | `CLOSEST_ALLY`, `LOWEST_MAX_HEALTH_ALLY` targets | Sealwright heals and cleanses; Sentinel shields | none |
+
+To verify in the harness: zone timing (damage on landing, or from the next round), clone and barrier behaviour under AI
+control, movement jutsu and summons with ground targets (director doubts AI movement jutsu work). Animations join the art
+batch as ANIMATION assets (vertical strips) once the mechanics are confirmed.
+
 ## Endgame floor layout (director, 2026-10-28)
 
 | Floor | Wave 1 | Wave 2 |
