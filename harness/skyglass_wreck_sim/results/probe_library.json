@@ -1,0 +1,554 @@
+{
+ "generatedBy": "engine/probe_library.ts",
+ "markerTypes": {
+  "ring": "increasecooldown",
+  "bindingRing": "decreasecooldown",
+  "rowsA": "increaserange",
+  "rowsB": "fleeprevent",
+  "scatterA": "robprevent",
+  "scatterB": "onehitkillprevent",
+  "lines": "disarm",
+  "sealLines": "elementalseal",
+  "lastLight": "summonprevent",
+  "lastLightBinding": "sealprevent"
+ },
+ "probes": [
+  {
+   "mark": "Omen: Ring",
+   "key": "ring",
+   "markerType": "increasecooldown",
+   "blast": "Eruption: Ring",
+   "firedInOrder": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Ring",
+     "rule": 1,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "increasecooldown"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [
+      "increasecooldown:1:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Ring",
+     "rule": 0,
+     "bossEffects": [
+      "increasecooldown:1:r1"
+     ],
+     "playersHit": 2,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Binding Ring",
+   "key": "bindingRing",
+   "markerType": "decreasecooldown",
+   "blast": "Ship's Bell",
+   "firedInOrder": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Binding Ring",
+     "rule": 1,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "decreasecooldown"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [
+      "decreasecooldown:1:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Ship's Bell",
+     "rule": 0,
+     "bossEffects": [
+      "decreasecooldown:1:r1"
+     ],
+     "playersHit": 2,
+     "newEffects": [
+      "stun"
+     ]
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Rows",
+   "key": "rowsA",
+   "markerType": "increaserange",
+   "blast": "Eruption: Rows",
+   "firedInOrder": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Rows",
+     "rule": 1,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "increaserange"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [
+      "increaserange:1:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Rows",
+     "rule": 0,
+     "bossEffects": [
+      "increaserange:1:r1"
+     ],
+     "playersHit": 2,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Rows",
+   "key": "rowsB",
+   "markerType": "fleeprevent",
+   "blast": "Eruption: Rows",
+   "firedInOrder": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Rows",
+     "rule": 1,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "fleeprevent"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [
+      "fleeprevent:100:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Rows",
+     "rule": 0,
+     "bossEffects": [
+      "fleeprevent:100:r1"
+     ],
+     "playersHit": 1,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Scatter",
+   "key": "scatterA",
+   "markerType": "robprevent",
+   "blast": "Eruption: Scatter",
+   "firedInOrder": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Scatter",
+     "rule": 1,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "robprevent"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [
+      "robprevent:100:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Scatter",
+     "rule": 0,
+     "bossEffects": [
+      "robprevent:100:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Scatter",
+   "key": "scatterB",
+   "markerType": "onehitkillprevent",
+   "blast": "Eruption: Scatter",
+   "firedInOrder": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Scatter",
+     "rule": 1,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "onehitkillprevent"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [
+      "onehitkillprevent:100:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Scatter",
+     "rule": 0,
+     "bossEffects": [
+      "onehitkillprevent:100:r1"
+     ],
+     "playersHit": 1,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Lines",
+   "key": "lines",
+   "markerType": "disarm",
+   "blast": "Eruption: Lines",
+   "firedInOrder": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Lines",
+     "rule": 1,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "disarm"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [
+      "disarm:100:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Lines",
+     "rule": 0,
+     "bossEffects": [
+      "disarm:100:r1"
+     ],
+     "playersHit": 2,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Seal Lines",
+   "key": "sealLines",
+   "markerType": "elementalseal",
+   "blast": "Binding: Seal Lines",
+   "firedInOrder": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Seal Lines",
+     "rule": 1,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "elementalseal"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [
+      "elementalseal:100:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Binding: Seal Lines",
+     "rule": 0,
+     "bossEffects": [
+      "elementalseal:100:r1"
+     ],
+     "playersHit": 2,
+     "newEffects": [
+      "elementalseal",
+      "seal"
+     ]
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Last Light",
+   "key": "lastLight",
+   "markerType": "summonprevent",
+   "blast": "Maw of the Deep",
+   "firedInOrder": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Last Light",
+     "rule": 1,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "summonprevent"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [
+      "summonprevent:100:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Maw of the Deep",
+     "rule": 0,
+     "bossEffects": [
+      "summonprevent:100:r1"
+     ],
+     "playersHit": 3,
+     "newEffects": [
+      "weakness",
+      "stun"
+     ]
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [
+      "weakness:100:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Last Light, Binding",
+   "key": "lastLightBinding",
+   "markerType": "sealprevent",
+   "blast": "Command Absolute",
+   "firedInOrder": true,
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Last Light, Binding",
+     "rule": 1,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": [
+      "sealprevent"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [
+      "sealprevent:100:r1"
+     ],
+     "playersHit": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Command Absolute",
+     "rule": 0,
+     "bossEffects": [
+      "sealprevent:100:r1"
+     ],
+     "playersHit": 3,
+     "newEffects": [
+      "seal",
+      "stun"
+     ]
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "newEffects": []
+    }
+   ]
+  }
+ ],
+ "coexistence": [
+  {
+   "round": 1,
+   "action": "Omen: Ring",
+   "rule": 2,
+   "bossEffects": [],
+   "playersHit": 0,
+   "newEffects": [
+    "increasecooldown"
+   ]
+  },
+  {
+   "round": 1,
+   "action": "Omen: Scatter",
+   "rule": 3,
+   "bossEffects": [
+    "increasecooldown:1:r1"
+   ],
+   "playersHit": 0,
+   "newEffects": [
+    "robprevent"
+   ]
+  },
+  {
+   "round": 1,
+   "action": "wait",
+   "rule": 4,
+   "bossEffects": [
+    "increasecooldown:1:r1",
+    "robprevent:100:r1"
+   ],
+   "playersHit": 0,
+   "newEffects": []
+  },
+  {
+   "round": 2,
+   "action": "Eruption: Scatter",
+   "rule": 0,
+   "bossEffects": [
+    "increasecooldown:1:r1",
+    "robprevent:100:r1"
+   ],
+   "playersHit": 0,
+   "newEffects": []
+  },
+  {
+   "round": 3,
+   "action": "wait",
+   "rule": 4,
+   "bossEffects": [],
+   "playersHit": 0,
+   "newEffects": []
+  }
+ ]
+}
