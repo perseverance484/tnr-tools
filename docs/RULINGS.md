@@ -3749,3 +3749,28 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "3. Dont be too deliberate and over the top with this. Buried Cache can be a little tougher. Lets fix the friendly fire jutsu."
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md`; harness `fable/skyglass-hunts-sim`.
+
+## RUL-2026-10-28-022 — Rewards only for winning: everything pays at the ending; press-on falls back
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE. Supersedes "rewards bank at each fight" (RUL-2026-10-28-009) and the per-fight profession rolls (RUL-2026-10-28-019).
+
+**Ruling:**
+1. **Individual battles pay only the engine's normal battle gains.** Every Skyglass reward pays at a win ending: the ladder exp, the Treasury chance, the profession drops and the completion pick. Losing any fight pays nothing. This is the director's original design.
+2. **Press-on.**
+   - Leaving takes the ending at the current ladder step.
+   - Pressing on and winning takes the ending one step higher.
+   - Pressing on and losing routes (`failObjectiveId`) to the ending at the current step, so only the bonus is lost.
+3. **Profession drops roll once, at the ending.**
+   - `reward_hunter_items` / `reward_gathering_items` go on the win ending, with a themed id list per area.
+   - Harder endings carry a longer list.
+4. **Exceptions:**
+   - Core Rot carried by the hunt Core Horrors (an AI drop only paid on winning that fight).
+   - The 1 Core Rot consolation on a failed rare run (RUL-2026-10-28-019) stays.
+
+**Evidence:** Director, 2026-10-28: "Im curious what loot players receive for winning individual battles. I had originally set it up so winning was required to get the reward", then "Thats confirmed".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4b, §5.
