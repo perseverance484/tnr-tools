@@ -92,7 +92,7 @@ set pieces. He stands on his throne, which keeps his patterns lined up, and comm
   - Final Command, Keelbind and Ruin Refrain on cooldown, with Hexweave setting up targets.
   - Set piece **Seven Blades:** red fan of seven lines from the throne; the crown's blades fall along them next round.
 - **Phase 2 (60-30%), "I control... many echoes":**
-  - Once: **Recall**, which summons two echoes of Crownhold officers the player already beat (summons are harness-confirmed).
+  - **Recall:** summons one echo of a Crownhold officer the player already beat, and recasts it when it falls. The engine allows one live summon per caster.
   - Set piece **Command Absolute:** violet over the whole arena except three cyan stars. Stun and seal everywhere else.
   - Stolen Form; Extermination Order.
 - **Phase 3 (under 30%), the Last Directive:**
@@ -181,6 +181,30 @@ Wayfinder and a Deck Warden, and the Core Horror fights alone on floor 4 as a st
 | 3 | Oathkeeper + Wayfinder + Deck Warden | none |
 | 4 (stage boss) | Core Horror, solo | none |
 | 5 (boss) | Deck Warden x3 | The Captain + Sealwright |
+
+**Tuned (harness report 2 addendum, fable/skyglass-wreck-sim 0d3534c2; 40 runs, live damage settings, real-gear party):**
+- 40/40 clears, 15% of runs wipe once (all on the boss wave), about 26 rounds, about 19.6 min at 15 s a turn.
+- Rounds per wave: 4 / 4 / 4 / 5 / 4 / 6.
+
+| Enemy (dungeon copy) | Pools | HP | Bonus damage |
+|---|---|---|---|
+| Deck Warden, Sentinel, First Blade, Oathkeeper, Wayfinder | x1.0 | 5,050 | 2 rows of +100% (x4) |
+| Core Horror | x5 | 25,250 | 2 rows (x4) |
+| The Captain, Sealwright | x2.5 | 12,625 | 3 rows (x8) |
+| Seal Charge | as live | 3,550 | none |
+
+- **Percentage cap:** each percentage effect row caps at +100% (`power.ts:4-7`), and rows multiply. So bonus damage is set as a count of +100% rows: +150% on one row does what +100% does.
+- **Wipe-rate lever:** the boss wave's row count. Two rows gave 0% wipes, three 15%, four 33%.
+
+**Set-piece mechanics confirmed:**
+- **Ground marks:** a visual-only ground effect touches no one, the caster included.
+- **Primed marker:** `increasepoolcost` 1 on self, 1 round. It must not be `decreasepoolcost`, which is stored as negative.
+- **AP cost:** the telegraph and the detonation must each cost 100 AP, or the boss detonates in the same turn.
+- **Patterns:**
+  - Ring patterns cast at SELF hit identical cells on both steps and spare the caster.
+  - Offsets are column/row, so each pattern needs one offset set per row parity.
+- **Grid:** 12 x 10.
+- **Summons:** an existing AI record can be summoned, but only one live summon per caster. Recall summons one echo at a time, recast when it falls.
 
 Crew stats for the dungeon copies are trimmed from the live crew (live crew wipe the party on floor 3); the harness sets
 the final health and bonus-damage figures.
