@@ -14,7 +14,9 @@
 #   TNR_DEPENDENCIES_APP  optional existing install whose bun.lock/package.json match byte for byte;
 #                    otherwise `bun install --frozen-lockfile --ignore-scripts` runs once (npm registry only)
 #   TNR_NETWORK_ISOLATION  unshare (default) | seccomp
-#   TNR_SCRIPT       engine script to run (default main.ts; trace_floor.ts traces one floor)
+#   TNR_SCRIPT       engine script to run (default main.ts; trace_floor.ts traces one floor;
+#                    calibrate.ts runs the solo-Captain player-strength calibration)
+#   TNR_DMG_CONFIG   damage settings for trace_floor.ts (live | default | file)
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../.." && pwd)"
@@ -57,7 +59,7 @@ cp "$HERE"/engine/*.ts "$APP/$RUNDIR/"
 ARGS=()
 prev=""
 for a in "$@"; do
-  if [[ "$prev" == "--override" || "$prev" == "--out" ]]; then a="$(realpath -m "$a")"; fi
+  if [[ "$prev" == "--override" || "$prev" == "--out" || ( "$prev" == "--dmg-config" && "$a" != "live" && "$a" != "default" ) || "$prev" == "--ladder" ]]; then a="$(realpath -m "$a")"; fi
   ARGS+=("$a"); prev="$a"
 done
 
@@ -69,6 +71,6 @@ env -i PATH="$PATH" NODE_ENV=test \
   PUSHER_APP_ID=test-app PUSHER_APP_SECRET=test-secret \
   DATABASE_URL=http://127.0.0.1:1 OPENAI_API_KEY=test-placeholder-not-a-real-key \
   UPSTASH_REDIS_REST_URL=http://127.0.0.1:1 UPSTASH_REDIS_REST_TOKEN=offline \
-  TNR_HARNESS="$HERE" TNR_REPO="$REPO" \
+  TNR_HARNESS="$HERE" TNR_REPO="$REPO" TNR_DMG_CONFIG="${TNR_DMG_CONFIG:-live}" \
   TNR_NETWORK_ISOLATION="${TNR_NETWORK_ISOLATION:-unshare}" \
   python3 "$OFFLINE" "$BUN" run "$RUNDIR/${TNR_SCRIPT:-main.ts}" "${ARGS[@]}"

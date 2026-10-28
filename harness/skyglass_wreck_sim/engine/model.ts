@@ -50,10 +50,23 @@ export type PlayerVariant = {
   stats?: { offence: number; defence: number; generals: number };
   /** Pools multiplier on calcHP/CP/SP(level). */
   poolsMultiplier: number;
-  /** Innate increasedamagegiven % (gear stand-in); 0 = none. */
+  /** Gear stand-in damage given %: one equipped ARMOR item (see gearMode); 0 = none. */
   damageGivenPct: number;
-  /** Innate decreasedamagetaken % (gear stand-in); 0 = none. */
+  /** Gear stand-in damage taken reduction %; 0 = none. */
   damageTakenReductionPct: number;
+  /**
+   * How the two gear knobs enter the battle. "armor" (default): one equipped ARMOR item with
+   * percentage increasedamagegiven/decreasedamagetaken, which processUsersForBattle folds into the
+   * engine's pre-battle gear pools (on top of the 60-point base increase / 50-point base reduction),
+   * exactly as worn armour/accessories are. "innate": user `effects` rows (realised as fromType
+   * "bloodline", like the AIs' innate effects; the engine skips them for damage effects that
+   * disallow bloodline modifiers). First calibration (2026-10-26) used "innate".
+   */
+  gearMode?: "armor" | "innate";
+  /** Real captured items to wear (ids from data/baseline.json playerGear), equipped in their slot. */
+  gearItemIds?: string[];
+  /** primaryElement / secondaryElement (the engine gates elemental jutsu on them). */
+  elements?: [string, string?];
   jutsuIds: string[];
   jutsuLevel: number;
   /** Auto-combat profile rules (player side); undefined = default kit profile. */
@@ -71,6 +84,18 @@ export type Override = {
 };
 
 export const loadJson = (p: string) => JSON.parse(readFileSync(p, "utf8"));
+
+/**
+ * Damage settings for battle.extraState.dmgConfig. "live" (default): data/dmg_config_live.json
+ * (misc.getDmgConfig, read by the director). "default": undefined, so the engine uses its code
+ * defaults. Anything else: a JSON file with a `dmgConfig` object (or the object itself).
+ */
+export const loadDmgConfig = (harness: string, spec = "live"): { name: string; config?: Record<string, number> } => {
+  if (spec === "default") return { name: "code defaults" };
+  const path = spec === "live" ? `${harness}/data/dmg_config_live.json` : spec;
+  const doc = loadJson(path);
+  return { name: spec === "live" ? "live (misc.getDmgConfig, 2026-10-28)" : path, config: doc.dmgConfig ?? doc };
+};
 
 const DATE_KEY = /(At|Until)$/;
 const ISO = /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?Z$/;
@@ -128,6 +153,7 @@ export type Templates = {
   floors: FloorDef[];
   jutsu: Record<string, any>;
   playerJutsu: Record<string, { label: string; record: any; source: string }>;
+  playerGear: Record<string, { slot: string; record: any; source: string }>;
 };
 
 /** Resolve enemy templates (captured baseline + push/252 replay + overrides). */
@@ -202,6 +228,13 @@ export const buildTemplates = (baseline: any, ov: Override): Templates => {
     if (!id) throw new Error(`override enemies.${k}: unknown AI`);
     apply(id, o);
   }
+  for (const e of Object.values(enemies)) {
+    const armor = (e.row.items ?? []).find((ui: any) => ui.item?.itemType === "ARMOR");
+    if (armor) {
+      setArmorDonor(armor);
+      break;
+    }
+  }
   const floors = structuredClone(ov.floors ?? baseline.dungeon.floors) as FloorDef[];
   for (const f of floors)
     for (const w of f.waves)
@@ -210,7 +243,8 @@ export const buildTemplates = (baseline: any, ov: Override): Templates => {
         if (!id) throw new Error(`floor wave references unknown AI ${k}`);
         return id;
       });
-  return { enemies, floors, jutsu, playerJutsu: baseline.playerJutsu };
+  playerGearCatalog = baseline.playerGear ?? {};
+  return { enemies, floors, jutsu, playerJutsu: baseline.playerJutsu, playerGear: baseline.playerGear ?? {} };
 };
 
 /** The battle query only loads equipped jutsu and equipped, in-stock items. */
@@ -271,7 +305,39 @@ const CAPS = { offence: 1_300_000, defence: 1_300_000, generals: 400_000 }; // g
  * innate battle tags (increasedamagegiven / decreasedamagetaken, as AI innate effects are)
  * plus a pools multiplier. Which tier is "average" is the director's call.
  */
+/** Endgame kit: Chakra Overflow + Stunning Jab + seven Fire/Wind PvE jutsu (JONIN equip limit 9). */
+export const ENDGAME_PLAYER_KIT = [
+  "e2eC-x4UXc5m6QexNbx8w", // Chakra Overflow: self IDG 25+25
+  "PQdSt0IDdYFoR44tC3Hvo", // Typhon Burst: AOE damage 35 + IDG 30 (Wind)
+  "uf5dAzEg_Blu4MBePzx_m", // Tempestual Fury: AOE damage 35 + afterburn (Wind)
+  "mYCbcdDwDzJBul52HiwhC", // Burning Coil: damage 40 + IDT 30 (Fire)
+  "rBcwIiHjKOF07Yoq4wVqU", // Gale Force Blast: pierce 56 + IDT 30 (Wind)
+  "nS-iidYFYqWE9Z-UkC84y", // Scorching Sun Strike: damage 40 + wound (Fire)
+  "fCWC_ICdWT1bJDkDVq22e", // Wind Style: Sky Dragon: damage 40 + wound (Wind)
+  "V_VY284CMTuqYqOOX5sa7", // Phoenix Flame Strike: damage 35 + IDG 30 (Fire)
+  "VT7oxj_fObWuQa3Rq_BbI", // Stunning Jab: damage 35 + stun (None)
+];
+/** Full Kitsune armour set, one piece per armour slot (push/204 capture). */
+export const KITSUNE_SET = [
+  "X0-snQ-GNGpqn4w5Ir2M0", "WgjbuICAqrLq1y6wmNHTd", "kNshju2IjLN8h0FvpNKgg",
+  "tOSetjSOXPFOlfKH8ogkR", "CIT8c_SvjTP59tmNz1ghy", "hDvjJp4aQlMW_jeYA8U_L",
+];
+
 export const PLAYER_VARIANTS: Record<string, PlayerVariant> = {
+  average: {
+    name: "average",
+    note: "director's endgame party member (2026-10-28): level-100 JONIN, stats at the JONIN caps, full Kitsune armour set (6 captured pieces, worn through the engine's item path), 9 PvE jutsu at the level cap 25, Fire/Wind elements",
+    statBudget: 1, stats: { offence: 1_300_000, defence: 1_300_000, generals: 400_000 }, poolsMultiplier: 1,
+    damageGivenPct: 0, damageTakenReductionPct: 0, gearItemIds: KITSUNE_SET, elements: ["Fire", "Wind"],
+    jutsuIds: ENDGAME_PLAYER_KIT, jutsuLevel: 25,
+  },
+  noarmor: {
+    name: "noarmor",
+    note: "reference: the average build without the Kitsune set",
+    statBudget: 1, stats: { offence: 1_300_000, defence: 1_300_000, generals: 400_000 }, poolsMultiplier: 1,
+    damageGivenPct: 0, damageTakenReductionPct: 0, elements: ["Fire", "Wind"],
+    jutsuIds: ENDGAME_PLAYER_KIT, jutsuLevel: 25,
+  },
   baseline: {
     name: "baseline",
     note: "brief's suggested baseline: level-100 stat budget (scaleUserStats 'player') spread evenly (offence/defence 556,510; generals capped 400,000), calcHP/CP/SP(100) = 5,050 pools, no gear",
@@ -320,6 +386,46 @@ export const PLAYER_VARIANTS: Record<string, PlayerVariant> = {
     statBudget: 1, stats: CAPS, poolsMultiplier: 6, damageGivenPct: 400, damageTakenReductionPct: 75,
     jutsuIds: DEFAULT_PLAYER_KIT, jutsuLevel: 25,
   },
+};
+
+let playerGearCatalog: Record<string, { slot: string; record: any; source: string }> = {};
+
+/** A real captured item worn in its own slot (UserItem row shaped like the captured AI rows). */
+const wornItem = (userId: string, itemId: string) => {
+  const g = playerGearCatalog[itemId];
+  if (!g) throw new Error(`player gear ${itemId} not in data/baseline.json playerGear`);
+  if (!armorDonor) throw new Error("no ARMOR donor row captured");
+  return {
+    ...structuredClone(armorDonor), id: `worn-${userId}-${itemId}`, userId, itemId, equipped: g.slot,
+    quantity: 1, isInAuction: false, level: 1, imbuements: [], item: structuredClone(g.record),
+  };
+};
+
+/** Field-set donor for the synthetic gear row: a captured AI ARMOR item (set by buildTemplates). */
+let armorDonor: any = null;
+export const setArmorDonor = (ui: any) => {
+  armorDonor = ui;
+};
+
+/** One equipped ARMOR row carrying the gear stand-in percentages (real item path, fromType armor). */
+const gearArmor = (userId: string, givenPct: number, takenPct: number) => {
+  if (!armorDonor) throw new Error("no ARMOR donor row captured");
+  const fx = (type: string, power: number) => ({
+    ...structuredClone(armorDonor.item.effects[0]), type, power, powerPerLevel: 0, rounds: 100,
+    calculation: "percentage", direction: type === "increasedamagegiven" ? "offence" : "defence",
+    description: `harness gear stand-in ${type} ${power}%`,
+  });
+  return {
+    ...structuredClone(armorDonor), id: `gear-${userId}`, userId, equipped: "CHEST", quantity: 1, isInAuction: false,
+    imbuements: [],
+    item: {
+      ...structuredClone(armorDonor.item), id: `harness-gear-armor`, name: "Harness gear stand-in",
+      effects: [
+        ...(givenPct ? [fx("increasedamagegiven", givenPct)] : []),
+        ...(takenPct ? [fx("decreasedamagetaken", takenPct)] : []),
+      ],
+    },
+  };
 };
 
 const tag = (type: string, power: number) => ({
@@ -390,9 +496,18 @@ export const playerQueryUser = (idx: number, v: PlayerVariant, donor: any, jutsu
   const m = TOTAL_MASTERY_CAP / 4; // masteries only gate jutsu use; even split of the shared cap
   const rules = v.rules ?? playerRules(kit, jutsu);
   const profile = { id: `profile-${userId}-${v.name}`, userId, name: v.name, includeDefaultRules: false, rules };
-  const effects = [
-    ...(v.damageGivenPct ? [tag("increasedamagegiven", v.damageGivenPct)] : []),
-    ...(v.damageTakenReductionPct ? [tag("decreasedamagetaken", v.damageTakenReductionPct)] : []),
+  const innate = v.gearMode === "innate";
+  const effects = innate
+    ? [
+        ...(v.damageGivenPct ? [tag("increasedamagegiven", v.damageGivenPct)] : []),
+        ...(v.damageTakenReductionPct ? [tag("decreasedamagetaken", v.damageTakenReductionPct)] : []),
+      ]
+    : [];
+  const items = [
+    ...(v.gearItemIds ?? []).map((id) => wornItem(userId, id)),
+    ...(!innate && (v.damageGivenPct || v.damageTakenReductionPct)
+      ? [gearArmor(userId, v.damageGivenPct, v.damageTakenReductionPct)]
+      : []),
   ];
   const u: any = {
     ...structuredClone(donor),
@@ -405,8 +520,8 @@ export const playerQueryUser = (idx: number, v: PlayerVariant, donor: any, jutsu
     willpower: s.willpower, speed: s.speed,
     ninjutsuMastery: m, genjutsuMastery: m, taijutsuMastery: m, bukijutsuMastery: m,
     bloodlineMastery: 10, sageMastery: 10,
-    primaryElement: null, secondaryElement: null, bloodlineId: null, sageModeId: null,
-    effects, items: [], pvpStreak: 0, isBanned: false, status: "AWAKE", defaultAutoCombat: false,
+    primaryElement: v.elements?.[0] ?? null, secondaryElement: v.elements?.[1] ?? null, bloodlineId: null, sageModeId: null,
+    effects, items, pvpStreak: 0, isBanned: false, status: "AWAKE", defaultAutoCombat: false,
     jutsus: kit.map((jid, i) => {
       if (!jutsu[jid]) throw new Error(`player jutsu ${jid} not in catalog`);
       return userJutsu(userId, structuredClone(jutsu[jid]), v.jutsuLevel, i);
@@ -420,5 +535,6 @@ export const describePlayer = (u: any) => ({
   userId: u.userId, level: u.level, rank: u.rank, offence: u.offence, defence: u.defence, generals: u.strength,
   hp: u.maxHealth, cp: u.maxChakra, sp: u.maxStamina, jutsu: u.jutsus.map((j: any) => `${j.jutsu.name}@${j.level}`),
   innateEffects: u.effects.map((e: any) => `${e.type} ${e.power}%`),
+  gear: u.items.flatMap((ui: any) => ui.item.effects.map((e: any) => `${ui.item.itemType} ${e.type} ${e.power}%`)),
   rankCaps: getUserCaps(u.rank),
 });

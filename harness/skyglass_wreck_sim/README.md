@@ -25,18 +25,40 @@ harness/skyglass_wreck_sim/run.sh --override harness/skyglass_wreck_sim/override
 harness/skyglass_wreck_sim/run.sh --floors 4 --variants strong --runs 5 --max-wipes 0
 
 # Prove the rule probe changes nothing and runs are seed-deterministic:
-harness/skyglass_wreck_sim/run.sh --probe-check --variants geared
+harness/skyglass_wreck_sim/run.sh --probe-check --variants average
+
+# Player-strength check: one player vs The Captain, solo, plain QUEST battle (60 seeds):
+TNR_SCRIPT=calibrate.ts harness/skyglass_wreck_sim/run.sh --seeds 60 \
+    --out harness/skyglass_wreck_sim/results/calibration_solo_captain.json
+
+# Mechanics probes (movement / summon / ground AOE / barrier / clone jutsu on an AI enemy):
+TNR_SCRIPT=probe_mechanics.ts harness/skyglass_wreck_sim/run.sh --seeds 3 --rounds 6 \
+    --out harness/skyglass_wreck_sim/results/probe_mechanics.json
+python3 harness/skyglass_wreck_sim/tools/probe_summary.py harness/skyglass_wreck_sim/results/probe_mechanics.json
+
+# Trace one floor action by action (absolute override path):
+TNR_SCRIPT=trace_floor.ts harness/skyglass_wreck_sim/run.sh 1 "$PWD/harness/skyglass_wreck_sim/overrides/director_layout.json" average 1
 ```
 
 Options: `--variants a,b` (player tiers, below), `--runs N`, `--seed S` (first seed), `--max-wipes N`
 (retries before a run is abandoned; default 3), `--max-rounds N` per floor battle (default 150),
-`--floors i,j`, `--no-barriers`, `--override file.json`, `--out file.json`.
+`--floors i,j`, `--no-barriers`, `--override file.json`, `--out file.json`,
+`--dmg-config live|default|file.json` (default `live`, see below).
+
+**Damage settings.** Every simulated battle carries `battle.extraState.dmgConfig`, which
+`process.ts` reads before its code defaults. The harness default is the LIVE config in
+`data/dmg_config_live.json` (`misc.getDmgConfig`, read in game by the director on 2026-10-28:
+`curve 2, gen_weight 1, advantage_min 0`; code defaults are `1.6, 2, 0.01`). `--dmg-config default`
+reproduces the first (2026-10-26) report, which ran on code defaults.
 
 Env: `TNR_ENGINE_SRC` (default `/home/claude/studie-tech/theninjarpg`, never modified),
 `TNR_ENGINE_PIN` (default `c86f43f4e7ad468bc3673018423edca9fc48a1b1`, origin/main on 2026-10-26),
 `TNR_ENGINE_WORK` (export dir, default `$TMPDIR/tnr_skyglass_wreck_sim`, outside the repo),
 `TNR_DEPENDENCIES_APP` (reuse an install with byte-identical `bun.lock`/`package.json`; otherwise
 `bun install --frozen-lockfile --ignore-scripts` runs once against the npm registry).
+
+Outputs also give, per enemy, `ruleFireDist`: for each authored rule, how many appearances fired it never /
+exactly once / more than once.
 
 Speed: about 5-10 s of CPU per floor battle for tiers that survive; a 30-run baseline of a strong
 tier takes 30-60 min on 2 cores. Candidate designs with 1-2 waves per floor are several times faster.
@@ -55,6 +77,12 @@ tier takes 30-60 min on 2 cores. Candidate designs with 1-2 waves per floor are 
   uses the record captured on Sealwright
 - push/252 boss pools (verified match): replayed in-engine through the server's `scaleEditedAi`
 - player jutsu: newest captured copy across `harvests/` and `answers/`
+- player gear: the Kitsune armour set from the push/204 capture `harvests/inbox/tnr_results_1792629744565.json`
+  (Mask HEAD, Armor CHEST, Gauntlets HAND, Belt WAIST, Pants LEGS, Tabi-Shoes FEET; Pants-F is an identical
+  alternate LEGS piece). Worn as real equipped item rows, so `processUsersForBattle` realises their effects
+  (fromType `armor`) and folds the percentage damage modifiers into the engine's pre-battle gear pools.
+- summon templates: any summon effect's `aiId` must be a captured AI; the harness pre-seeds the engine's own
+  `summonTemplateCache` with those rows, so summons run without a database.
 
 `engine/` (copied into the export and run with Bun):
 
@@ -119,8 +147,22 @@ to ship it, it must be expressible as a real record). Floors: the engine fixes f
 
 ## Player tiers
 
-Defined in `engine/model.ts` (`PLAYER_VARIANTS`); all level-100 JONIN, same eight-jutsu kit at
-level 25, driven by the engine's auto-combat with a declared rotation profile (`playerRules`):
-`baseline` (the brief's even-spread level budget, no gear), `cap` (JONIN caps, no gear), `geared`,
-`strong`, `elite` (gear stand-ins as innate battle tags plus a pools multiplier). Which tier is the
-"average party" is a director decision; see `REPORT.md`.
+Defined in `engine/model.ts` (`PLAYER_VARIANTS`), driven by the engine's auto-combat with a declared
+rotation profile (`playerRules`: self-buffs when ready, each attack jutsu when off cooldown and in range,
+close in, basic attack). Ids contain `user_`, so `ai_v2` treats them as players.
+
+- **`average`** (director 2026-10-28, the endgame party member): level-100 JONIN, stats at the JONIN caps
+  (offence/defence 1.3M, generals 400k; masteries an even split of the 4.2M total, they only gate jutsu),
+  the full Kitsune armour set, Fire/Wind elements, 9 PvE-usable jutsu at the Jonin level cap 25
+  (`ENDGAME_PLAYER_KIT`: Chakra Overflow, Typhon Burst, Tempestual Fury, Burning Coil, Gale Force Blast,
+  Scorching Sun Strike, Wind Style: Sky Dragon, Phoenix Flame Strike, Stunning Jab). Elite Jonin's
+  level 30 cap applies only to ELITE JONIN-rank jutsu, so it does not apply.
+- **`noarmor`**: `average` without the Kitsune set (reference).
+- Earlier ladder kept for reference (8-jutsu non-elemental kit): `baseline`, `cap`, and `geared`/`strong`/`elite`,
+  whose gear knobs now enter as one synthetic ARMOR row (`gearMode: "armor"`, the engine's gear pools;
+  `"innate"` reproduces the first report's bloodline-type tags, which the engine skips for damage effects
+  that disallow bloodline modifiers).
+- Level 40-60 version: `lvl40`, `lvl50`, `lvl60` (CHUNIN, level budget, Chunin kit); enemy `level` overrides.
+
+Variant fields (override `players`): `level`, `rank`, `statBudget`, `stats`, `poolsMultiplier`,
+`damageGivenPct`, `damageTakenReductionPct`, `gearMode`, `gearItemIds`, `elements`, `jutsuIds`, `jutsuLevel`, `rules`.

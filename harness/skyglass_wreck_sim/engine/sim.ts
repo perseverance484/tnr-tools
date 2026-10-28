@@ -76,6 +76,13 @@ export type StepRec = {
   dealtBy: Record<string, number>; // damageDealt delta per userId over the step
   effects: { type: string; target: string; creator: string }[]; // new user effects this step
   ground: { type: string; creator: string }[];
+  /** Positions (debug/probe use): actor before and after the step. */
+  actorFrom?: [number, number];
+  actorTo?: [number, number];
+  /** Units that entered usersState during the step (summons, clones, waves). */
+  newUnits?: { uid: string; name: string; controllerId: string; isSummon: boolean; x: number; y: number; hp: number }[];
+  /** Ground effects on the field after the step. */
+  groundAfter?: { type: string; creator: string; x: number; y: number; rounds?: number; power?: number }[];
 };
 
 export type FloorResult = {
@@ -107,24 +114,38 @@ export const assembleFloor = async (opts: {
   floor: FloorDef;
   rand: () => number;
   initialBarriers: boolean;
+  /** Damage formula settings; the engine reads battle.extraState.dmgConfig ?? code defaults. */
+  dmgConfig?: Record<string, number>;
+  /** "dungeon" (default): coop dungeon floor. "quest": a plain QUEST battle (no waves/dungeon state). */
+  mode?: "dungeon" | "quest";
 }): Promise<CompleteBattle> => {
+  const quest = opts.mode === "quest";
   const battleType = "QUEST" as never;
   const playerIds = opts.players.map((p) => p.userId);
   const targetIds = opts.floor.waves.flatMap((w) => w.aiIds);
   // initiateBattle: users = [...userIds, ...targetIds] each structuredCloned; then per-user loop caps stats.
   const users = [...opts.players, ...targetIds.map((id) => opts.enemyRows[id])].map((u) => structuredClone(u));
   for (const u of users) capUserStats(u, u.rank);
-  for (const u of users) {
-    const summon = (u.jutsus ?? []).some((j: any) => j.jutsu.effects.some((e: any) => e.type === "summon"));
-    if (summon) throw new Error(`HARNESS: ${u.username} carries a summon effect (needs DB summon templates)`);
+  // Summon templates: initiateBattle reads them from the DB into a shared summonTemplateCache.
+  // Pre-seed that same cache with the captured AI rows (keyed by AI id), so the engine's own
+  // summon preparation runs without a database; a summon of an uncaptured AI fails loudly.
+  const summonIds = new Set<string>();
+  for (const u of users)
+    for (const uj of u.jutsus ?? [])
+      for (const e of uj.jutsu.effects) if (e.type === "summon" && e.aiId) summonIds.add(e.aiId);
+  const summonTemplateCache = new Map<string, Promise<any[]>>();
+  for (const id of summonIds) {
+    const row = opts.enemyRows[id];
+    if (!row) throw new Error(`HARNESS: summon template ${id} is not a captured AI`);
+    summonTemplateCache.set(id, Promise.resolve([structuredClone(row)]));
   }
   const size = getDefaultBattleSizes(battleType, users[0]?.level ?? 0)!;
   const { width, height } = size;
   const common = {
     settings: [], relations: [], wars: [], villages: [], defaultProfile: defaultProfile as never,
-    battleType, width, height, hide: false, isSummon: false,
+    battleType, width, height, hide: false, isSummon: false, summonTemplateCache,
   };
-  const firstCount = playerIds.length + (opts.floor.waves[0]?.aiIds.length ?? 0);
+  const firstCount = quest ? users.length : playerIds.length + (opts.floor.waves[0]?.aiIds.length ?? 0);
   const processed = await processUsersForBattle(noDbClient, {
     ...common,
     users: users.slice(0, firstCount),
@@ -147,6 +168,7 @@ export const assembleFloor = async (opts: {
     u.latitude = loc.y;
   }
   let offset = firstCount;
+  if (!quest) {
   const encounter = await prepareEncounterWaves(
     opts.floor.waves as never,
     { usersState, userEffects, extraState },
@@ -170,6 +192,7 @@ export const assembleFloor = async (opts: {
     expiresAt: Date.now() + 1e12, // wall-clock deadline is modelled outside the battle
     lastActionRound: Object.fromEntries(playerIds.map((id) => [id, 0])),
   };
+  }
   // Players drive their own turns live; here the engine's auto-combat path stands in.
   for (const u of usersState) if (!u.isAi && !u.isSummon) u.isAutoCombat = true;
   for (const u of usersState) {
@@ -209,20 +232,21 @@ export const assembleFloor = async (opts: {
       ...extraState,
       jutsus: { ...extraState.jutsus, [SAGE_MODE_ACTIVATION_JUTSU_ID]: SAGE_MODE_ACTIVATION_JUTSU },
       settings: [],
+      ...(opts.dmgConfig ? { dmgConfig: opts.dmgConfig } : {}),
     },
     rewardScaling: 1,
     createdAt: now,
     updatedAt: now,
     roundStartAt: now,
     activeUserId: playerIds[0],
-    forceKeepPools: true,
+    forceKeepPools: !quest,
     round: 1,
     version: 1,
   } as unknown as CompleteBattle;
 };
 
 /** Run one floor battle to its dungeon outcome. */
-export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; maxRounds: number }): FloorResult => {
+export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; maxRounds: number; detail?: boolean }): FloorResult => {
   let b = battle;
   const suid = opts.playerIds[0]!;
   const grid = getBattleGrid(1, b);
@@ -233,7 +257,15 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
   g.__TNR_RULE_PROBE__ = (p) => {
     probe = p;
   };
-  const enc = () => b.extraState.encounter!;
+  const enc = () => b.extraState.encounter ?? { wave: 1 };
+  /** Dungeon outcome, or for a plain battle: one side has nobody left standing. */
+  const outcomeOf = () => {
+    if (b.extraState.dungeon) return dungeonBattleOutcome(b);
+    const side = (dir: string) => b.usersState.some((u) => u.direction === dir && !u.isSummon && stillInBattle(u, b.usersEffects));
+    if (!side("left")) return "wipe" as const;
+    if (!side("right")) return "won" as const;
+    return null;
+  };
   const humans = () => b.usersState.filter((u) => !u.isAi && !u.isSummon);
   const authoredCount = (u: any) => {
     const p = (b.extraState.aiProfiles as any)?.[u.aiProfileId];
@@ -273,7 +305,7 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
   let aiTurns = 0;
   const turnKey = new Set<string>();
   let outcome: FloorResult["outcome"] = "stalled";
-  advanceEncounterWave(b, !!dungeonBattleOutcome(b));
+  advanceEncounterWave(b, !!outcomeOf());
   registerWave();
   const maxSteps = opts.maxRounds * 40;
   for (let step = 0; step < maxSteps; step++) {
@@ -298,6 +330,8 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
     const ddBefore = new Map(b.usersState.map((u) => [u.userId, u.damageDealt ?? 0]));
     const effBefore = new Set(b.usersEffects.map((e) => e.id));
     const gBefore = new Set(b.groundEffects.map((e) => e.id));
+    const uBefore = new Set(b.usersState.map((u) => u.userId));
+    const actorFrom: [number, number] = [actor.longitude, actor.latitude];
     const waveAtStep = curWave().wave;
     probe = null;
     const res = performAIaction(b, grid, actor.userId);
@@ -336,10 +370,18 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
       hp, dealt: dealtBy[actor.userId] ?? 0, dealtBy,
       effects: b.usersEffects.filter((e) => !effBefore.has(e.id)).map((e) => ({ type: e.type, target: e.targetId, creator: e.creatorId })),
       ground: b.groundEffects.filter((e) => !gBefore.has(e.id)).map((e) => ({ type: e.type, creator: e.creatorId })),
+      ...(opts.detail
+        ? {
+            actorFrom,
+            actorTo: ((u) => (u ? [u.longitude, u.latitude] : actorFrom))(b.usersState.find((u) => u.userId === actor.userId)) as [number, number],
+            newUnits: b.usersState.filter((u) => !uBefore.has(u.userId)).map((u) => ({ uid: u.userId, name: u.username, controllerId: u.controllerId, isSummon: !!u.isSummon, x: u.longitude, y: u.latitude, hp: u.curHealth })),
+            groundAfter: b.groundEffects.filter((e) => e.creatorId !== "ground").map((e: any) => ({ type: e.type, creator: e.creatorId, x: e.longitude, y: e.latitude, rounds: e.rounds, power: e.power })),
+          }
+        : {}),
     });
     closeWaveIfCleared();
-    if (advanceEncounterWave(b, !!dungeonBattleOutcome(b))) registerWave();
-    const out = dungeonBattleOutcome(b);
+    if (advanceEncounterWave(b, !!outcomeOf())) registerWave();
+    const out = outcomeOf();
     if (out) {
       outcome = out;
       closeWaveIfCleared();
