@@ -31,7 +31,7 @@
     "rows": 2
    },
    "RBW5KsIXmTGR710D2y2Y7": {
-    "pools": 2,
+    "pools": 2.5,
     "rows": 2
    },
    "v7T9_XdGMfP46em0dPuBc": {
@@ -47,13 +47,17 @@
     "rows": 4
    },
    "81lnIP-q97gItQYWl5vWD": {
-    "pools": 1.5,
+    "pools": 2.5,
+    "rows": 1
+   },
+   "LZiunyinw9ScK3mh9HiR2": {
+    "pools": 2,
     "rows": 2
    }
   },
-  "echoHp": 3000,
+  "echoHp": 15000,
   "echoPower": 60,
-  "_about": "Solo-tuned AI stats for the Skyglass treasure hunts (engine/hunts.ts). Keys are live AI ids; pools = poolsMultiplier, rows = innate +100% damage-given rows (each capped at 100 by the engine, rows multiply), stats = statsMultiplier where changed from live.",
+  "_about": "Solo-tuned AI stats for the Skyglass treasure hunts (engine/hunts.ts). Keys are live AI ids; pools = poolsMultiplier, rows = innate +100% damage-given rows (each capped at 100 by the engine, rows multiply), stats = statsMultiplier where changed from live. Crown Archivist (Archive alarm guard) and the Called to the Archive summon (Crown Stonebound: echoHp, echoPower) per RUL-2026-10-28-013.",
   "_names": {
    "texZaFi42S3EvJZBwQ8cd": "Deck Warden",
    "wTgO-Q32caSSd0is1QIS7": "Seal Charge",
@@ -65,7 +69,8 @@
    "v7T9_XdGMfP46em0dPuBc": "Wayfinder",
    "d6g0mOM7RBSsYI1hrUVT9": "First Blade",
    "QY69h271Nx9uHrBeR6jwW": "The Captain",
-   "81lnIP-q97gItQYWl5vWD": "Foundry Warden"
+   "81lnIP-q97gItQYWl5vWD": "Foundry Warden",
+   "LZiunyinw9ScK3mh9HiR2": "Crown Archivist"
   }
  },
  "jutsuCount": {
@@ -116,6 +121,61 @@
    "pUrUJX8Jml7fUIBXKsPwv (Heavy Strike)",
    "xGVqWSX93hXZgfmlKZODp (Raijin's Spear)"
   ]
+ },
+ "sharedKitFixes": [
+  {
+   "record": "dg-first-blade (shared First Blade kit)",
+   "fix": "append rule: end turn, no conditions ('hold while veiled (no valid action)')",
+   "why": "while Glassveil Step's stealth lasts no rule matches and the engine's give-up path sets his HP to 0 (ai_v2.ts)"
+  },
+  {
+   "record": "lib-ward-of-command (Ward of Command, library crew addition)",
+   "fix": "decreasedamagetaken row: target SELF -> INHERIT",
+   "why": "the SELF target (inherited from the Folding Screen Guard shape donor) makes the ward land on the caster, never on the ally the rule picks; the hunts use the fixed row"
+  }
+ ],
+ "playerPet": {
+  "model": "one modelled mid-rank companion per player, in every hunt fight (engine/hunts.ts petFor)",
+  "example": {
+   "id": "pet-player",
+   "userId": "player",
+   "name": "Player's companion",
+   "speciesId": "harness-species",
+   "paletteIndex": 0,
+   "characteristicIndex": 0,
+   "auraIndex": 0,
+   "gender": null,
+   "rank": 5,
+   "experience": 232500,
+   "storedExperience": 0,
+   "lastFedAt": null,
+   "jutsuIds": [],
+   "skillIds": [],
+   "offence": 650000,
+   "defence": 650000,
+   "strength": 200000,
+   "speed": 200000,
+   "intelligence": 200000,
+   "willpower": 200000,
+   "avatar": "harness-pet-avatar",
+   "avatarFacing": "left",
+   "battleEnabled": true,
+   "spawnPosition": "BEHIND",
+   "aiRules": [],
+   "includeDefaultRules": true,
+   "generationStatus": "READY",
+   "generationToken": null,
+   "generationStartedAt": null,
+   "generationAttempts": 0,
+   "artRank": 5,
+   "revision": 0,
+   "createdAt": "1970-01-01T00:00:00.000Z",
+   "updatedAt": "1970-01-01T00:00:00.000Z",
+   "species": {
+    "rarity": "COMMON",
+    "role": "ASSAULT"
+   }
+  }
  },
  "questDebuffs": {
   "ALARM": [
@@ -261,9 +321,9 @@
      "boss": false
     },
     {
-     "label": "alarm 1: Skyglass Sentinel + Seal Charge (alarm debuff)",
+     "label": "alarm 1: Crown Archivist + Seal Charge (alarm debuff)",
      "opponents": [
-      "Skyglass Sentinel",
+      "Crown Archivist",
       "Seal Charge"
      ],
      "debuffs": [
@@ -293,9 +353,9 @@
      "boss": false
     },
     {
-     "label": "alarm 1: Skyglass Sentinel + Seal Charge (alarm debuff)",
+     "label": "alarm 1: Crown Archivist + Seal Charge (alarm debuff)",
      "opponents": [
-      "Skyglass Sentinel",
+      "Crown Archivist",
       "Seal Charge"
      ],
      "debuffs": [
@@ -304,9 +364,9 @@
      "boss": false
     },
     {
-     "label": "alarm 2: Skyglass Sentinel + Seal Charge (alarm debuff)",
+     "label": "alarm 2: Crown Archivist + Seal Charge (alarm debuff)",
      "opponents": [
-      "Skyglass Sentinel",
+      "Crown Archivist",
       "Seal Charge"
      ],
      "debuffs": [
@@ -315,9 +375,9 @@
      "boss": false
     },
     {
-     "label": "alarm 3: Skyglass Sentinel + Seal Charge (alarm debuff)",
+     "label": "alarm 3: Crown Archivist + Seal Charge (alarm debuff)",
      "opponents": [
-      "Skyglass Sentinel",
+      "Crown Archivist",
       "Seal Charge"
      ],
      "debuffs": [
@@ -1370,17 +1430,17 @@
    "username": "Foundry Warden",
    "record": "live record created by push/262 (Foundry Warden), upgraded in place",
    "soloTuning": {
-    "pools": 1.5,
-    "rows": 2
+    "pools": 2.5,
+    "rows": 1
    },
    "level": 100,
    "rank": "JONIN",
    "statsMultiplier": 5,
-   "poolsMultiplier": 1.5,
+   "poolsMultiplier": 2.5,
    "pools": {
-    "maxHealth": 7575,
-    "maxChakra": 7575,
-    "maxStamina": 7575
+    "maxHealth": 12625,
+    "maxChakra": 12625,
+    "maxStamina": 12625
    },
    "stats": {
     "offence": 1391299.95,
@@ -1391,22 +1451,6 @@
     "speed": 1391299.95
    },
    "effects": [
-    {
-     "type": "increasedamagegiven",
-     "power": 100,
-     "rounds": 99,
-     "target": "INHERIT",
-     "appearSfx": "",
-     "direction": "offence",
-     "calculation": "percentage",
-     "description": "Increased damage given",
-     "disappearSfx": "",
-     "powerPerLevel": 0,
-     "appearAnimation": "",
-     "staticAnimation": "",
-     "staticAssetPath": "",
-     "disappearAnimation": ""
-    },
     {
      "type": "increasedamagegiven",
      "power": 100,
@@ -1943,7 +1987,7 @@
    ],
    "scaleEditedAiNotes": [
     "new enemy cloned from Arsenal Keeper",
-    "override aiEdit {\"poolsMultiplier\":1.5} via scaleEditedAi",
+    "override aiEdit {\"poolsMultiplier\":2.5} via scaleEditedAi",
     "kit -> 11 jutsu"
    ],
    "insertAiSchemaCheck": "ok"
@@ -3156,21 +3200,257 @@
    "insertAiSchemaCheck": "ok"
   },
   {
-   "liveId": "RBW5KsIXmTGR710D2y2Y7",
-   "username": "Sealwright",
-   "record": "live record RBW5KsIXmTGR710D2y2Y7, upgraded in place",
+   "liveId": "LZiunyinw9ScK3mh9HiR2",
+   "username": "Crown Archivist",
+   "record": "Crownhold live record (push/272 D3.REG1, live readback stats), upgraded in place as the Archive alarm guard (RUL-2026-10-28-013); NOTE: the same record is a Crownhold D3 regular, so these stats also apply there",
    "soloTuning": {
     "pools": 2,
     "rows": 2
    },
    "level": 100,
    "rank": "JONIN",
-   "statsMultiplier": 5,
+   "statsMultiplier": 2.92,
    "poolsMultiplier": 2,
    "pools": {
     "maxHealth": 10100,
     "maxChakra": 10100,
     "maxStamina": 10100
+   },
+   "stats": {
+    "offence": 812519.2,
+    "defence": 812519.2,
+    "strength": 812519.2,
+    "intelligence": 812519.2,
+    "willpower": 812519.2,
+    "speed": 812519.2
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ],
+   "kit": "live kit and live rules (no shared endgame kit exists)",
+   "jutsu": [
+    {
+     "id": "mpHuTrJX7EonpuW_jBunt",
+     "name": "Enervating Strike",
+     "status": "LIVE",
+     "source": "live record mpHuTrJX7EonpuW_jBunt",
+     "liveId": "mpHuTrJX7EonpuW_jBunt"
+    },
+    {
+     "id": "YD9GEwXU6LDuIC06TGzWG",
+     "name": "Lingering Strike",
+     "status": "LIVE",
+     "source": "live record YD9GEwXU6LDuIC06TGzWG",
+     "liveId": "YD9GEwXU6LDuIC06TGzWG"
+    },
+    {
+     "id": "UnQKfwq_JoRVu10aTX6Uv",
+     "name": "Tide Bolt",
+     "status": "LIVE",
+     "source": "live record UnQKfwq_JoRVu10aTX6Uv",
+     "liveId": "UnQKfwq_JoRVu10aTX6Uv"
+    },
+    {
+     "id": "hh-FMFv67CAL10DA35K2T",
+     "name": "Warding Stance",
+     "status": "LIVE",
+     "source": "live record hh-FMFv67CAL10DA35K2T",
+     "liveId": "hh-FMFv67CAL10DA35K2T"
+    },
+    {
+     "id": "fKvCGRgzGNskgFWocQCAg",
+     "name": "Steady Strike",
+     "status": "LIVE",
+     "source": "live record fKvCGRgzGNskgFWocQCAg",
+     "liveId": "fKvCGRgzGNskgFWocQCAg"
+    }
+   ],
+   "includeDefaultRules": false,
+   "rules": [
+    {
+     "index": 0,
+     "from": "live rule",
+     "note": "Select specific jutsu",
+     "conditions": [
+      {
+       "type": "round_lower_than",
+       "value": 2,
+       "description": "Current round is lower than specified value"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "hh-FMFv67CAL10DA35K2T",
+      "target": "SELF",
+      "description": "Select specific jutsu"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 1,
+     "from": "live rule",
+     "note": "Select specific jutsu",
+     "conditions": [
+      {
+       "type": "distance_lower_than",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance lower than or equal given value"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YD9GEwXU6LDuIC06TGzWG",
+      "target": "CLOSEST_OPPONENT",
+      "description": "Select specific jutsu"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 2,
+     "from": "live rule",
+     "note": "Select specific jutsu",
+     "conditions": [
+      {
+       "type": "distance_lower_than",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance lower than or equal given value"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "mpHuTrJX7EonpuW_jBunt",
+      "target": "CLOSEST_OPPONENT",
+      "description": "Select specific jutsu"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 3,
+     "from": "live rule",
+     "note": "Select specific jutsu",
+     "conditions": [
+      {
+       "type": "distance_lower_than",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance lower than or equal given value"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+      "target": "CLOSEST_OPPONENT",
+      "description": "Select specific jutsu"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 4,
+     "from": "live rule",
+     "note": "Select specific jutsu",
+     "conditions": [
+      {
+       "type": "distance_lower_than",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance lower than or equal given value"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+      "target": "CLOSEST_OPPONENT",
+      "description": "Select specific jutsu"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 5,
+     "from": "live rule",
+     "note": "Move towards opponent",
+     "conditions": [
+      {
+       "type": "distance_higher_than",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance higher than or equal given value"
+      }
+     ],
+     "action": {
+      "type": "move_towards_opponent",
+      "target": "CLOSEST_OPPONENT",
+      "description": "Move towards opponent"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 6,
+     "from": "live rule",
+     "note": "End turn",
+     "conditions": [],
+     "action": {
+      "type": "end_turn",
+      "description": "End turn"
+     },
+     "aiRule": "ok"
+    }
+   ],
+   "signatureRules": null,
+   "scaleEditedAiNotes": [
+    "push/272 crownhold_d3.reg1 with live readback stats (6 fields)",
+    "solo edit poolsMultiplier 2, 2 damage rows via scaleEditedAi -> maxHealth 10100"
+   ],
+   "insertAiSchemaCheck": "ok"
+  },
+  {
+   "liveId": "RBW5KsIXmTGR710D2y2Y7",
+   "username": "Sealwright",
+   "record": "live record RBW5KsIXmTGR710D2y2Y7, upgraded in place",
+   "soloTuning": {
+    "pools": 2.5,
+    "rows": 2
+   },
+   "level": 100,
+   "rank": "JONIN",
+   "statsMultiplier": 5,
+   "poolsMultiplier": 2.5,
+   "pools": {
+    "maxHealth": 12625,
+    "maxChakra": 12625,
+    "maxStamina": 12625
    },
    "stats": {
     "offence": 1391300,
@@ -3439,7 +3719,7 @@
     {
      "index": 7,
      "from": "hunt",
-     "note": "Called to the Archive (one echo at a time)",
+     "note": "Called to the Archive (one Stonebound at a time)",
      "conditions": [
       {
        "type": "round_greater_than",
@@ -3453,7 +3733,7 @@
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Called to the Archive (one echo at a time)",
+      "description": "Called to the Archive (one Stonebound at a time)",
       "jutsuId": "hunt-called-to-the-archive",
       "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
      },
@@ -3631,8 +3911,206 @@
    ],
    "scaleEditedAiNotes": [
     "scaleEditedAi({\"poolsMultiplier\":5}) -> maxHealth 25250",
-    "override aiEdit {\"poolsMultiplier\":2} via scaleEditedAi",
+    "override aiEdit {\"poolsMultiplier\":2.5} via scaleEditedAi",
     "kit -> 11 jutsu"
+   ],
+   "insertAiSchemaCheck": "ok"
+  },
+  {
+   "liveId": "jqxu13kNHhfNY-NF68Ftb",
+   "username": "Crown Stonebound",
+   "record": "Crownhold live record (push/272 D3.REG4), used as stored: only summoned by Called to the Archive (HP and power % set by the summon)",
+   "level": 100,
+   "rank": "JONIN",
+   "statsMultiplier": 3.33,
+   "poolsMultiplier": 1.5,
+   "pools": {
+    "maxHealth": 7575,
+    "maxChakra": 7575,
+    "maxStamina": 7575
+   },
+   "stats": {
+    "offence": 926605.8,
+    "defence": 926605.8,
+    "strength": 926605.8,
+    "intelligence": 926605.8,
+    "willpower": 926605.8,
+    "speed": 926605.8
+   },
+   "effects": [],
+   "kit": "live kit and live rules (no shared endgame kit exists)",
+   "jutsu": [
+    {
+     "id": "jBRyl7F4UjTyxG5nnzLqj",
+     "name": "Erupting Ground",
+     "status": "LIVE",
+     "source": "live record jBRyl7F4UjTyxG5nnzLqj",
+     "liveId": "jBRyl7F4UjTyxG5nnzLqj"
+    },
+    {
+     "id": "LiVOnYq6qHzjB0XkIIA2e",
+     "name": "Venom Strike",
+     "status": "LIVE",
+     "source": "live record LiVOnYq6qHzjB0XkIIA2e",
+     "liveId": "LiVOnYq6qHzjB0XkIIA2e"
+    },
+    {
+     "id": "-kMekZ4rR64vjMF2Jc4pe",
+     "name": "Withering Weave",
+     "status": "LIVE",
+     "source": "live record -kMekZ4rR64vjMF2Jc4pe",
+     "liveId": "-kMekZ4rR64vjMF2Jc4pe"
+    },
+    {
+     "id": "yOgwN1WGkwNL9qMImc9aY",
+     "name": "Veilstrike",
+     "status": "LIVE",
+     "source": "live record yOgwN1WGkwNL9qMImc9aY",
+     "liveId": "yOgwN1WGkwNL9qMImc9aY"
+    },
+    {
+     "id": "b7ZOgdZmhZiUbCVrmQiwH",
+     "name": "Sundering Blow",
+     "status": "LIVE",
+     "source": "live record b7ZOgdZmhZiUbCVrmQiwH",
+     "liveId": "b7ZOgdZmhZiUbCVrmQiwH"
+    }
+   ],
+   "includeDefaultRules": false,
+   "rules": [
+    {
+     "index": 0,
+     "from": "live rule",
+     "note": "Select specific jutsu",
+     "conditions": [
+      {
+       "type": "health_below",
+       "value": 35,
+       "description": "Health below given percentage"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "yOgwN1WGkwNL9qMImc9aY",
+      "target": "SELF",
+      "description": "Select specific jutsu"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 1,
+     "from": "live rule",
+     "note": "Select specific jutsu",
+     "conditions": [
+      {
+       "type": "distance_lower_than",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance lower than or equal given value"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "jBRyl7F4UjTyxG5nnzLqj",
+      "target": "CLOSEST_OPPONENT",
+      "description": "Select specific jutsu"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 2,
+     "from": "live rule",
+     "note": "Select specific jutsu",
+     "conditions": [
+      {
+       "type": "distance_lower_than",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance lower than or equal given value"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "-kMekZ4rR64vjMF2Jc4pe",
+      "target": "CLOSEST_OPPONENT",
+      "description": "Select specific jutsu"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 3,
+     "from": "live rule",
+     "note": "Select specific jutsu",
+     "conditions": [
+      {
+       "type": "distance_lower_than",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance lower than or equal given value"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT",
+      "description": "Select specific jutsu"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 4,
+     "from": "live rule",
+     "note": "Select specific jutsu",
+     "conditions": [
+      {
+       "type": "distance_lower_than",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance lower than or equal given value"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "b7ZOgdZmhZiUbCVrmQiwH",
+      "target": "CLOSEST_OPPONENT",
+      "description": "Select specific jutsu"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 5,
+     "from": "live rule",
+     "note": "Move towards opponent",
+     "conditions": [
+      {
+       "type": "distance_higher_than",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance higher than or equal given value"
+      }
+     ],
+     "action": {
+      "type": "move_towards_opponent",
+      "target": "CLOSEST_OPPONENT",
+      "description": "Move towards opponent"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 6,
+     "from": "live rule",
+     "note": "End turn",
+     "conditions": [],
+     "action": {
+      "type": "end_turn",
+      "description": "End turn"
+     },
+     "aiRule": "ok"
+    }
+   ],
+   "signatureRules": null,
+   "scaleEditedAiNotes": [
+    "push/272 crownhold_d3.reg4 with live readback stats (6 fields)"
    ],
    "insertAiSchemaCheck": "ok"
   },
@@ -4549,7 +5027,7 @@
     },
     {
      "index": 14,
-     "from": "hunt",
+     "from": "SHARED KIT FIX for dg-first-blade: append as its last rule (stealth give-up death)",
      "note": "hold while veiled (no valid action)",
      "conditions": [],
      "action": {
@@ -5439,6 +5917,18 @@
  ],
  "jutsu": [
   {
+   "id": "-kMekZ4rR64vjMF2Jc4pe",
+   "status": "LIVE",
+   "source": "live record -kMekZ4rR64vjMF2Jc4pe",
+   "liveId": "-kMekZ4rR64vjMF2Jc4pe",
+   "usedBy": [
+    "Crown Stonebound"
+   ],
+   "huntBossSetPiece": false,
+   "animationPlaceholders": [],
+   "validator": "JutsuValidator: ok"
+  },
+  {
    "id": "1jXfTgrtGUaSfqTPSSa83",
    "status": "LIVE",
    "source": "live record 1jXfTgrtGUaSfqTPSSa83",
@@ -5833,6 +6323,18 @@
    "validator": "JutsuValidator: ok"
   },
   {
+   "id": "LiVOnYq6qHzjB0XkIIA2e",
+   "status": "LIVE",
+   "source": "live record LiVOnYq6qHzjB0XkIIA2e",
+   "liveId": "LiVOnYq6qHzjB0XkIIA2e",
+   "usedBy": [
+    "Crown Stonebound"
+   ],
+   "huntBossSetPiece": false,
+   "animationPlaceholders": [],
+   "validator": "JutsuValidator: ok"
+  },
+  {
    "id": "Nrxc8m9utE9qaD_gWpLgf",
    "status": "LIVE",
    "source": "live record Nrxc8m9utE9qaD_gWpLgf",
@@ -6089,7 +6591,8 @@
    "source": "live record UnQKfwq_JoRVu10aTX6Uv",
    "liveId": "UnQKfwq_JoRVu10aTX6Uv",
    "usedBy": [
-    "Deck Warden"
+    "Deck Warden",
+    "Crown Archivist"
    ],
    "huntBossSetPiece": false,
    "animationPlaceholders": [],
@@ -6152,6 +6655,18 @@
      }
     ]
    },
+   "animationPlaceholders": [],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "YD9GEwXU6LDuIC06TGzWG",
+   "status": "LIVE",
+   "source": "live record YD9GEwXU6LDuIC06TGzWG",
+   "liveId": "YD9GEwXU6LDuIC06TGzWG",
+   "usedBy": [
+    "Crown Archivist"
+   ],
+   "huntBossSetPiece": false,
    "animationPlaceholders": [],
    "validator": "JutsuValidator: ok"
   },
@@ -6298,6 +6813,18 @@
      }
     ]
    },
+   "animationPlaceholders": [],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "b7ZOgdZmhZiUbCVrmQiwH",
+   "status": "LIVE",
+   "source": "live record b7ZOgdZmhZiUbCVrmQiwH",
+   "liveId": "b7ZOgdZmhZiUbCVrmQiwH",
+   "usedBy": [
+    "Crown Stonebound"
+   ],
+   "huntBossSetPiece": false,
    "animationPlaceholders": [],
    "validator": "JutsuValidator: ok"
   },
@@ -14244,6 +14771,30 @@
    "validator": "JutsuValidator: ok"
   },
   {
+   "id": "fKvCGRgzGNskgFWocQCAg",
+   "status": "LIVE",
+   "source": "live record fKvCGRgzGNskgFWocQCAg",
+   "liveId": "fKvCGRgzGNskgFWocQCAg",
+   "usedBy": [
+    "Crown Archivist"
+   ],
+   "huntBossSetPiece": false,
+   "animationPlaceholders": [],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "hh-FMFv67CAL10DA35K2T",
+   "status": "LIVE",
+   "source": "live record hh-FMFv67CAL10DA35K2T",
+   "liveId": "hh-FMFv67CAL10DA35K2T",
+   "usedBy": [
+    "Crown Archivist"
+   ],
+   "huntBossSetPiece": false,
+   "animationPlaceholders": [],
+   "validator": "JutsuValidator: ok"
+  },
+  {
    "id": "hunt-called-to-the-archive",
    "status": "NEW",
    "source": "hunt-only (this spec; hunt-* id is a placeholder)",
@@ -14253,8 +14804,8 @@
    "huntBossSetPiece": true,
    "record": {
     "name": "Called to the Archive",
-    "description": "One Skyglass Sentinel echo steps out of a frame (one at a time).",
-    "battleDescription": "%user touches an empty frame. A Sentinel's echo steps out of it.",
+    "description": "The Stonebound, the one they kept, steps out of a frame (one at a time).",
+    "battleDescription": "%user touches an empty frame. The Stonebound steps out of it.",
     "jutsuType": "AI",
     "jutsuRank": "A",
     "requiredRank": "STUDENT",
@@ -14295,8 +14846,8 @@
       "calculation": "percentage",
       "type": "summon",
       "description": "placeholder",
-      "aiId": "3V_gdHYaclMB1gTyOPAbV",
-      "aiHp": 3000,
+      "aiId": "jqxu13kNHhfNY-NF68Ftb",
+      "aiHp": 15000,
       "playerControlled": false
      }
     ]
@@ -14391,6 +14942,18 @@
    "validator": "JutsuValidator: ok"
   },
   {
+   "id": "jBRyl7F4UjTyxG5nnzLqj",
+   "status": "LIVE",
+   "source": "live record jBRyl7F4UjTyxG5nnzLqj",
+   "liveId": "jBRyl7F4UjTyxG5nnzLqj",
+   "usedBy": [
+    "Crown Stonebound"
+   ],
+   "huntBossSetPiece": false,
+   "animationPlaceholders": [],
+   "validator": "JutsuValidator: ok"
+  },
+  {
    "id": "lib-blast-lines",
    "status": "NEW",
    "source": "shared set-piece library (engine/library.ts, library_spec.json; lib-* id is a placeholder)",
@@ -14433,12 +14996,76 @@
       {
        "longitude": -5,
        "latitude": 0
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": -2
+      },
+      {
+       "longitude": -2,
+       "latitude": -3
+      },
+      {
+       "longitude": -2,
+       "latitude": -4
+      },
+      {
+       "longitude": -3,
+       "latitude": -5
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 2
+      },
+      {
+       "longitude": -2,
+       "latitude": 3
+      },
+      {
+       "longitude": -2,
+       "latitude": 4
+      },
+      {
+       "longitude": -3,
+       "latitude": 5
+      },
+      {
+       "longitude": 0,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": -3
+      },
+      {
+       "longitude": -2,
+       "latitude": -5
+      },
+      {
+       "longitude": 0,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 3
+      },
+      {
+       "longitude": -2,
+       "latitude": 5
       }
      ],
      "randomCount": 1
     },
     "methodSize": null,
-    "cooldown": 1,
+    "cooldown": 2,
     "actionCostPerc": 100,
     "healthCost": 0,
     "chakraCost": 0.05,
@@ -14506,7 +15133,7 @@
     "range": 2,
     "coordinateTargeting": null,
     "methodSize": null,
-    "cooldown": 1,
+    "cooldown": 2,
     "actionCostPerc": 100,
     "healthCost": 0,
     "chakraCost": 0.05,
@@ -14676,7 +15303,7 @@
      "randomCount": 1
     },
     "methodSize": null,
-    "cooldown": 1,
+    "cooldown": 2,
     "actionCostPerc": 100,
     "healthCost": 0,
     "chakraCost": 0.05,
@@ -14846,7 +15473,7 @@
      "randomCount": 1
     },
     "methodSize": null,
-    "cooldown": 1,
+    "cooldown": 2,
     "actionCostPerc": 100,
     "healthCost": 0,
     "chakraCost": 0.05,
@@ -14922,7 +15549,11 @@
       },
       {
        "longitude": 0,
-       "latitude": 3
+       "latitude": 2
+      },
+      {
+       "longitude": 0,
+       "latitude": 4
       },
       {
        "longitude": 0,
@@ -14930,7 +15561,7 @@
       },
       {
        "longitude": 0,
-       "latitude": 9
+       "latitude": 8
       },
       {
        "longitude": 1,
@@ -14938,7 +15569,11 @@
       },
       {
        "longitude": 1,
-       "latitude": 3
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": 4
       },
       {
        "longitude": 1,
@@ -14946,23 +15581,35 @@
       },
       {
        "longitude": 1,
+       "latitude": 8
+      },
+      {
+       "longitude": 2,
+       "latitude": 1
+      },
+      {
+       "longitude": 2,
+       "latitude": 3
+      },
+      {
+       "longitude": 2,
+       "latitude": 5
+      },
+      {
+       "longitude": 2,
+       "latitude": 7
+      },
+      {
+       "longitude": 2,
        "latitude": 9
       },
       {
-       "longitude": 2,
-       "latitude": 2
-      },
-      {
-       "longitude": 2,
-       "latitude": 5
-      },
-      {
-       "longitude": 2,
-       "latitude": 8
+       "longitude": 3,
+       "latitude": 1
       },
       {
        "longitude": 3,
-       "latitude": 2
+       "latitude": 3
       },
       {
        "longitude": 3,
@@ -14970,11 +15617,19 @@
       },
       {
        "longitude": 3,
-       "latitude": 8
+       "latitude": 7
+      },
+      {
+       "longitude": 3,
+       "latitude": 9
       },
       {
        "longitude": 4,
-       "latitude": 1
+       "latitude": 0
+      },
+      {
+       "longitude": 4,
+       "latitude": 2
       },
       {
        "longitude": 4,
@@ -14982,11 +15637,19 @@
       },
       {
        "longitude": 4,
-       "latitude": 7
+       "latitude": 6
+      },
+      {
+       "longitude": 4,
+       "latitude": 8
       },
       {
        "longitude": 5,
-       "latitude": 1
+       "latitude": 0
+      },
+      {
+       "longitude": 5,
+       "latitude": 2
       },
       {
        "longitude": 5,
@@ -14994,27 +15657,35 @@
       },
       {
        "longitude": 5,
+       "latitude": 6
+      },
+      {
+       "longitude": 5,
+       "latitude": 8
+      },
+      {
+       "longitude": 6,
+       "latitude": 1
+      },
+      {
+       "longitude": 6,
+       "latitude": 3
+      },
+      {
+       "longitude": 6,
+       "latitude": 5
+      },
+      {
+       "longitude": 6,
        "latitude": 7
       },
       {
        "longitude": 6,
-       "latitude": 0
-      },
-      {
-       "longitude": 6,
-       "latitude": 3
-      },
-      {
-       "longitude": 6,
-       "latitude": 6
-      },
-      {
-       "longitude": 6,
        "latitude": 9
       },
       {
        "longitude": 7,
-       "latitude": 0
+       "latitude": 1
       },
       {
        "longitude": 7,
@@ -15022,11 +15693,19 @@
       },
       {
        "longitude": 7,
-       "latitude": 6
+       "latitude": 5
+      },
+      {
+       "longitude": 7,
+       "latitude": 7
       },
       {
        "longitude": 7,
        "latitude": 9
+      },
+      {
+       "longitude": 8,
+       "latitude": 0
       },
       {
        "longitude": 8,
@@ -15034,7 +15713,11 @@
       },
       {
        "longitude": 8,
-       "latitude": 5
+       "latitude": 4
+      },
+      {
+       "longitude": 8,
+       "latitude": 6
       },
       {
        "longitude": 8,
@@ -15042,11 +15725,19 @@
       },
       {
        "longitude": 9,
+       "latitude": 0
+      },
+      {
+       "longitude": 9,
        "latitude": 2
       },
       {
        "longitude": 9,
-       "latitude": 5
+       "latitude": 4
+      },
+      {
+       "longitude": 9,
+       "latitude": 6
       },
       {
        "longitude": 9,
@@ -15058,11 +15749,19 @@
       },
       {
        "longitude": 10,
-       "latitude": 4
+       "latitude": 3
+      },
+      {
+       "longitude": 10,
+       "latitude": 5
       },
       {
        "longitude": 10,
        "latitude": 7
+      },
+      {
+       "longitude": 10,
+       "latitude": 9
       },
       {
        "longitude": 11,
@@ -15070,17 +15769,25 @@
       },
       {
        "longitude": 11,
-       "latitude": 4
+       "latitude": 3
+      },
+      {
+       "longitude": 11,
+       "latitude": 5
       },
       {
        "longitude": 11,
        "latitude": 7
+      },
+      {
+       "longitude": 11,
+       "latitude": 9
       }
      ],
      "randomCount": 1
     },
     "methodSize": null,
-    "cooldown": 1,
+    "cooldown": 2,
     "actionCostPerc": 100,
     "healthCost": 0,
     "chakraCost": 0.05,
@@ -15197,31 +15904,51 @@
       },
       {
        "longitude": 0,
-       "latitude": 4
+       "latitude": 3
+      },
+      {
+       "longitude": 0,
+       "latitude": 5
       },
       {
        "longitude": 0,
        "latitude": 7
       },
       {
+       "longitude": 0,
+       "latitude": 9
+      },
+      {
        "longitude": 1,
        "latitude": 1
       },
       {
        "longitude": 1,
-       "latitude": 4
+       "latitude": 3
+      },
+      {
+       "longitude": 1,
+       "latitude": 5
       },
       {
        "longitude": 1,
        "latitude": 7
       },
       {
+       "longitude": 1,
+       "latitude": 9
+      },
+      {
        "longitude": 2,
        "latitude": 0
       },
       {
        "longitude": 2,
-       "latitude": 3
+       "latitude": 2
+      },
+      {
+       "longitude": 2,
+       "latitude": 4
       },
       {
        "longitude": 2,
@@ -15229,7 +15956,7 @@
       },
       {
        "longitude": 2,
-       "latitude": 9
+       "latitude": 8
       },
       {
        "longitude": 3,
@@ -15237,7 +15964,11 @@
       },
       {
        "longitude": 3,
-       "latitude": 3
+       "latitude": 2
+      },
+      {
+       "longitude": 3,
+       "latitude": 4
       },
       {
        "longitude": 3,
@@ -15245,11 +15976,15 @@
       },
       {
        "longitude": 3,
-       "latitude": 9
+       "latitude": 8
       },
       {
        "longitude": 4,
-       "latitude": 2
+       "latitude": 1
+      },
+      {
+       "longitude": 4,
+       "latitude": 3
       },
       {
        "longitude": 4,
@@ -15257,47 +15992,63 @@
       },
       {
        "longitude": 4,
-       "latitude": 8
+       "latitude": 7
+      },
+      {
+       "longitude": 4,
+       "latitude": 9
       },
       {
        "longitude": 5,
+       "latitude": 1
+      },
+      {
+       "longitude": 5,
+       "latitude": 3
+      },
+      {
+       "longitude": 5,
+       "latitude": 7
+      },
+      {
+       "longitude": 5,
+       "latitude": 9
+      },
+      {
+       "longitude": 6,
+       "latitude": 0
+      },
+      {
+       "longitude": 6,
+       "latitude": 4
+      },
+      {
+       "longitude": 6,
+       "latitude": 6
+      },
+      {
+       "longitude": 7,
+       "latitude": 0
+      },
+      {
+       "longitude": 7,
        "latitude": 2
       },
       {
-       "longitude": 5,
-       "latitude": 5
+       "longitude": 7,
+       "latitude": 4
       },
       {
-       "longitude": 5,
+       "longitude": 7,
+       "latitude": 6
+      },
+      {
+       "longitude": 7,
        "latitude": 8
       },
       {
-       "longitude": 6,
-       "latitude": 1
-      },
-      {
-       "longitude": 6,
-       "latitude": 4
-      },
-      {
-       "longitude": 6,
-       "latitude": 7
-      },
-      {
-       "longitude": 7,
-       "latitude": 1
-      },
-      {
-       "longitude": 7,
-       "latitude": 4
-      },
-      {
-       "longitude": 7,
-       "latitude": 7
-      },
-      {
        "longitude": 8,
-       "latitude": 0
+       "latitude": 1
       },
       {
        "longitude": 8,
@@ -15305,7 +16056,11 @@
       },
       {
        "longitude": 8,
-       "latitude": 6
+       "latitude": 5
+      },
+      {
+       "longitude": 8,
+       "latitude": 7
       },
       {
        "longitude": 8,
@@ -15313,7 +16068,7 @@
       },
       {
        "longitude": 9,
-       "latitude": 0
+       "latitude": 1
       },
       {
        "longitude": 9,
@@ -15321,7 +16076,11 @@
       },
       {
        "longitude": 9,
-       "latitude": 6
+       "latitude": 5
+      },
+      {
+       "longitude": 9,
+       "latitude": 7
       },
       {
        "longitude": 9,
@@ -15329,11 +16088,19 @@
       },
       {
        "longitude": 10,
+       "latitude": 0
+      },
+      {
+       "longitude": 10,
        "latitude": 2
       },
       {
        "longitude": 10,
-       "latitude": 5
+       "latitude": 4
+      },
+      {
+       "longitude": 10,
+       "latitude": 6
       },
       {
        "longitude": 10,
@@ -15341,11 +16108,19 @@
       },
       {
        "longitude": 11,
+       "latitude": 0
+      },
+      {
+       "longitude": 11,
        "latitude": 2
       },
       {
        "longitude": 11,
-       "latitude": 5
+       "latitude": 4
+      },
+      {
+       "longitude": 11,
+       "latitude": 6
       },
       {
        "longitude": 11,
@@ -15355,7 +16130,7 @@
      "randomCount": 1
     },
     "methodSize": null,
-    "cooldown": 1,
+    "cooldown": 2,
     "actionCostPerc": 100,
     "healthCost": 0,
     "chakraCost": 0.05,
@@ -15467,86 +16242,130 @@
      "selection": "ALL",
      "coordinates": [
       {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": -2
+      },
+      {
+       "longitude": -2,
+       "latitude": -3
+      },
+      {
+       "longitude": -2,
+       "latitude": -4
+      },
+      {
+       "longitude": -3,
+       "latitude": -5
+      },
+      {
        "longitude": 0,
        "latitude": -1
       },
       {
-       "longitude": 0,
+       "longitude": 1,
        "latitude": -2
       },
       {
-       "longitude": 0,
+       "longitude": 1,
        "latitude": -3
       },
       {
-       "longitude": 0,
+       "longitude": 2,
        "latitude": -4
       },
       {
-       "longitude": 0,
+       "longitude": 2,
        "latitude": -5
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 2
+      },
+      {
+       "longitude": -2,
+       "latitude": 3
+      },
+      {
+       "longitude": -2,
+       "latitude": 4
+      },
+      {
+       "longitude": -3,
+       "latitude": 5
       },
       {
        "longitude": 0,
        "latitude": 1
       },
       {
-       "longitude": 0,
+       "longitude": 1,
        "latitude": 2
       },
       {
-       "longitude": 0,
+       "longitude": 1,
        "latitude": 3
       },
       {
-       "longitude": 0,
+       "longitude": 2,
        "latitude": 4
       },
       {
+       "longitude": 2,
+       "latitude": 5
+      },
+      {
        "longitude": -1,
-       "latitude": 0
+       "latitude": -3
       },
       {
        "longitude": -2,
-       "latitude": 0
-      },
-      {
-       "longitude": -3,
-       "latitude": 0
-      },
-      {
-       "longitude": -4,
-       "latitude": 0
-      },
-      {
-       "longitude": -5,
-       "latitude": 0
+       "latitude": -5
       },
       {
        "longitude": 1,
-       "latitude": 0
+       "latitude": -1
       },
       {
        "longitude": 2,
-       "latitude": 0
+       "latitude": -3
       },
       {
        "longitude": 3,
-       "latitude": 0
+       "latitude": -5
       },
       {
-       "longitude": 4,
-       "latitude": 0
+       "longitude": -1,
+       "latitude": 3
       },
       {
-       "longitude": 5,
-       "latitude": 0
+       "longitude": -2,
+       "latitude": 5
+      },
+      {
+       "longitude": 1,
+       "latitude": 1
+      },
+      {
+       "longitude": 2,
+       "latitude": 3
+      },
+      {
+       "longitude": 3,
+       "latitude": 5
       }
      ],
      "randomCount": 1
     },
     "methodSize": null,
-    "cooldown": 1,
+    "cooldown": 2,
     "actionCostPerc": 100,
     "healthCost": 0,
     "chakraCost": 0.05,
@@ -15588,17 +16407,18 @@
      {
       "staticAssetPath": "",
       "staticAnimation": "",
-      "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+      "appearAnimation": "",
       "disappearAnimation": "",
-      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "appearSfx": "",
       "disappearSfx": "",
       "rounds": 2,
       "power": 100,
       "powerPerLevel": 0,
       "direction": "offence",
       "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
       "calculation": "static",
-      "type": "seal",
+      "type": "elementalseal",
       "description": "placeholder"
      },
      {
@@ -15613,9 +16433,31 @@
       "powerPerLevel": 0,
       "direction": "offence",
       "target": "INHERIT",
-      "calculation": "static",
-      "type": "elementalseal",
+      "friendlyFire": "ENEMIES",
+      "calculation": "percentage",
+      "type": "timecompression",
       "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 2,
+      "power": 2,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "static",
+      "type": "increasecooldown",
+      "description": "Increase cooldown of basic actions",
+      "actionsAffected": [
+       "move",
+       "replacementTechnique"
+      ]
      }
     ]
    },
@@ -15812,7 +16654,7 @@
    "huntBossSetPiece": true,
    "record": {
     "name": "Command Absolute",
-    "description": "Crowned Captain signature (Omen: Last Light, Binding): stun and seal everywhere but the stars.",
+    "description": "Crowned Captain signature (Omen: Last Light, Binding): everywhere but the stars, a 2-round lock: elemental jutsu sealed, +10 AP per action, Move and Replacement Technique +2 cooldown.",
     "battleDescription": "\"Kneel.\"",
     "jutsuType": "AI",
     "jutsuRank": "D",
@@ -15842,7 +16684,7 @@
      "randomCount": 1
     },
     "methodSize": null,
-    "cooldown": 1,
+    "cooldown": 2,
     "actionCostPerc": 100,
     "healthCost": 0,
     "chakraCost": 0.05,
@@ -15888,32 +16730,53 @@
       "disappearAnimation": "",
       "appearSfx": "",
       "disappearSfx": "",
-      "rounds": 1,
+      "rounds": 2,
       "power": 100,
       "powerPerLevel": 0,
       "direction": "offence",
       "target": "INHERIT",
       "friendlyFire": "ENEMIES",
       "calculation": "static",
-      "type": "stun",
-      "description": "placeholder",
-      "apReduction": 60
+      "type": "elementalseal",
+      "description": "placeholder"
      },
      {
       "staticAssetPath": "",
       "staticAnimation": "",
-      "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+      "appearAnimation": "",
       "disappearAnimation": "",
-      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "appearSfx": "",
       "disappearSfx": "",
       "rounds": 2,
       "power": 100,
       "powerPerLevel": 0,
       "direction": "offence",
       "target": "INHERIT",
-      "calculation": "static",
-      "type": "seal",
+      "friendlyFire": "ENEMIES",
+      "calculation": "percentage",
+      "type": "timecompression",
       "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 2,
+      "power": 2,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "static",
+      "type": "increasecooldown",
+      "description": "Increase cooldown of basic actions",
+      "actionsAffected": [
+       "move",
+       "replacementTechnique"
+      ]
      }
     ]
    },
@@ -16384,6 +17247,70 @@
       {
        "longitude": -5,
        "latitude": 0
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": -2
+      },
+      {
+       "longitude": -2,
+       "latitude": -3
+      },
+      {
+       "longitude": -2,
+       "latitude": -4
+      },
+      {
+       "longitude": -3,
+       "latitude": -5
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 2
+      },
+      {
+       "longitude": -2,
+       "latitude": 3
+      },
+      {
+       "longitude": -2,
+       "latitude": 4
+      },
+      {
+       "longitude": -3,
+       "latitude": 5
+      },
+      {
+       "longitude": 0,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": -3
+      },
+      {
+       "longitude": -2,
+       "latitude": -5
+      },
+      {
+       "longitude": 0,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 3
+      },
+      {
+       "longitude": -2,
+       "latitude": 5
       }
      ],
      "randomCount": 1
@@ -16907,7 +17834,11 @@
       },
       {
        "longitude": 0,
-       "latitude": 3
+       "latitude": 2
+      },
+      {
+       "longitude": 0,
+       "latitude": 4
       },
       {
        "longitude": 0,
@@ -16915,7 +17846,7 @@
       },
       {
        "longitude": 0,
-       "latitude": 9
+       "latitude": 8
       },
       {
        "longitude": 1,
@@ -16923,7 +17854,11 @@
       },
       {
        "longitude": 1,
-       "latitude": 3
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": 4
       },
       {
        "longitude": 1,
@@ -16931,23 +17866,35 @@
       },
       {
        "longitude": 1,
+       "latitude": 8
+      },
+      {
+       "longitude": 2,
+       "latitude": 1
+      },
+      {
+       "longitude": 2,
+       "latitude": 3
+      },
+      {
+       "longitude": 2,
+       "latitude": 5
+      },
+      {
+       "longitude": 2,
+       "latitude": 7
+      },
+      {
+       "longitude": 2,
        "latitude": 9
       },
       {
-       "longitude": 2,
-       "latitude": 2
-      },
-      {
-       "longitude": 2,
-       "latitude": 5
-      },
-      {
-       "longitude": 2,
-       "latitude": 8
+       "longitude": 3,
+       "latitude": 1
       },
       {
        "longitude": 3,
-       "latitude": 2
+       "latitude": 3
       },
       {
        "longitude": 3,
@@ -16955,11 +17902,19 @@
       },
       {
        "longitude": 3,
-       "latitude": 8
+       "latitude": 7
+      },
+      {
+       "longitude": 3,
+       "latitude": 9
       },
       {
        "longitude": 4,
-       "latitude": 1
+       "latitude": 0
+      },
+      {
+       "longitude": 4,
+       "latitude": 2
       },
       {
        "longitude": 4,
@@ -16967,11 +17922,19 @@
       },
       {
        "longitude": 4,
-       "latitude": 7
+       "latitude": 6
+      },
+      {
+       "longitude": 4,
+       "latitude": 8
       },
       {
        "longitude": 5,
-       "latitude": 1
+       "latitude": 0
+      },
+      {
+       "longitude": 5,
+       "latitude": 2
       },
       {
        "longitude": 5,
@@ -16979,27 +17942,35 @@
       },
       {
        "longitude": 5,
+       "latitude": 6
+      },
+      {
+       "longitude": 5,
+       "latitude": 8
+      },
+      {
+       "longitude": 6,
+       "latitude": 1
+      },
+      {
+       "longitude": 6,
+       "latitude": 3
+      },
+      {
+       "longitude": 6,
+       "latitude": 5
+      },
+      {
+       "longitude": 6,
        "latitude": 7
       },
       {
        "longitude": 6,
-       "latitude": 0
-      },
-      {
-       "longitude": 6,
-       "latitude": 3
-      },
-      {
-       "longitude": 6,
-       "latitude": 6
-      },
-      {
-       "longitude": 6,
        "latitude": 9
       },
       {
        "longitude": 7,
-       "latitude": 0
+       "latitude": 1
       },
       {
        "longitude": 7,
@@ -17007,11 +17978,19 @@
       },
       {
        "longitude": 7,
-       "latitude": 6
+       "latitude": 5
+      },
+      {
+       "longitude": 7,
+       "latitude": 7
       },
       {
        "longitude": 7,
        "latitude": 9
+      },
+      {
+       "longitude": 8,
+       "latitude": 0
       },
       {
        "longitude": 8,
@@ -17019,7 +17998,11 @@
       },
       {
        "longitude": 8,
-       "latitude": 5
+       "latitude": 4
+      },
+      {
+       "longitude": 8,
+       "latitude": 6
       },
       {
        "longitude": 8,
@@ -17027,11 +18010,19 @@
       },
       {
        "longitude": 9,
+       "latitude": 0
+      },
+      {
+       "longitude": 9,
        "latitude": 2
       },
       {
        "longitude": 9,
-       "latitude": 5
+       "latitude": 4
+      },
+      {
+       "longitude": 9,
+       "latitude": 6
       },
       {
        "longitude": 9,
@@ -17043,11 +18034,19 @@
       },
       {
        "longitude": 10,
-       "latitude": 4
+       "latitude": 3
+      },
+      {
+       "longitude": 10,
+       "latitude": 5
       },
       {
        "longitude": 10,
        "latitude": 7
+      },
+      {
+       "longitude": 10,
+       "latitude": 9
       },
       {
        "longitude": 11,
@@ -17055,11 +18054,19 @@
       },
       {
        "longitude": 11,
-       "latitude": 4
+       "latitude": 3
+      },
+      {
+       "longitude": 11,
+       "latitude": 5
       },
       {
        "longitude": 11,
        "latitude": 7
+      },
+      {
+       "longitude": 11,
+       "latitude": 9
       }
      ],
      "randomCount": 1
@@ -17149,31 +18156,51 @@
       },
       {
        "longitude": 0,
-       "latitude": 4
+       "latitude": 3
+      },
+      {
+       "longitude": 0,
+       "latitude": 5
       },
       {
        "longitude": 0,
        "latitude": 7
       },
       {
+       "longitude": 0,
+       "latitude": 9
+      },
+      {
        "longitude": 1,
        "latitude": 1
       },
       {
        "longitude": 1,
-       "latitude": 4
+       "latitude": 3
+      },
+      {
+       "longitude": 1,
+       "latitude": 5
       },
       {
        "longitude": 1,
        "latitude": 7
       },
       {
+       "longitude": 1,
+       "latitude": 9
+      },
+      {
        "longitude": 2,
        "latitude": 0
       },
       {
        "longitude": 2,
-       "latitude": 3
+       "latitude": 2
+      },
+      {
+       "longitude": 2,
+       "latitude": 4
       },
       {
        "longitude": 2,
@@ -17181,7 +18208,7 @@
       },
       {
        "longitude": 2,
-       "latitude": 9
+       "latitude": 8
       },
       {
        "longitude": 3,
@@ -17189,7 +18216,11 @@
       },
       {
        "longitude": 3,
-       "latitude": 3
+       "latitude": 2
+      },
+      {
+       "longitude": 3,
+       "latitude": 4
       },
       {
        "longitude": 3,
@@ -17197,11 +18228,15 @@
       },
       {
        "longitude": 3,
-       "latitude": 9
+       "latitude": 8
       },
       {
        "longitude": 4,
-       "latitude": 2
+       "latitude": 1
+      },
+      {
+       "longitude": 4,
+       "latitude": 3
       },
       {
        "longitude": 4,
@@ -17209,47 +18244,63 @@
       },
       {
        "longitude": 4,
-       "latitude": 8
+       "latitude": 7
+      },
+      {
+       "longitude": 4,
+       "latitude": 9
       },
       {
        "longitude": 5,
+       "latitude": 1
+      },
+      {
+       "longitude": 5,
+       "latitude": 3
+      },
+      {
+       "longitude": 5,
+       "latitude": 7
+      },
+      {
+       "longitude": 5,
+       "latitude": 9
+      },
+      {
+       "longitude": 6,
+       "latitude": 0
+      },
+      {
+       "longitude": 6,
+       "latitude": 4
+      },
+      {
+       "longitude": 6,
+       "latitude": 6
+      },
+      {
+       "longitude": 7,
+       "latitude": 0
+      },
+      {
+       "longitude": 7,
        "latitude": 2
       },
       {
-       "longitude": 5,
-       "latitude": 5
+       "longitude": 7,
+       "latitude": 4
       },
       {
-       "longitude": 5,
+       "longitude": 7,
+       "latitude": 6
+      },
+      {
+       "longitude": 7,
        "latitude": 8
       },
       {
-       "longitude": 6,
-       "latitude": 1
-      },
-      {
-       "longitude": 6,
-       "latitude": 4
-      },
-      {
-       "longitude": 6,
-       "latitude": 7
-      },
-      {
-       "longitude": 7,
-       "latitude": 1
-      },
-      {
-       "longitude": 7,
-       "latitude": 4
-      },
-      {
-       "longitude": 7,
-       "latitude": 7
-      },
-      {
        "longitude": 8,
-       "latitude": 0
+       "latitude": 1
       },
       {
        "longitude": 8,
@@ -17257,7 +18308,11 @@
       },
       {
        "longitude": 8,
-       "latitude": 6
+       "latitude": 5
+      },
+      {
+       "longitude": 8,
+       "latitude": 7
       },
       {
        "longitude": 8,
@@ -17265,7 +18320,7 @@
       },
       {
        "longitude": 9,
-       "latitude": 0
+       "latitude": 1
       },
       {
        "longitude": 9,
@@ -17273,7 +18328,11 @@
       },
       {
        "longitude": 9,
-       "latitude": 6
+       "latitude": 5
+      },
+      {
+       "longitude": 9,
+       "latitude": 7
       },
       {
        "longitude": 9,
@@ -17281,11 +18340,19 @@
       },
       {
        "longitude": 10,
+       "latitude": 0
+      },
+      {
+       "longitude": 10,
        "latitude": 2
       },
       {
        "longitude": 10,
-       "latitude": 5
+       "latitude": 4
+      },
+      {
+       "longitude": 10,
+       "latitude": 6
       },
       {
        "longitude": 10,
@@ -17293,11 +18360,19 @@
       },
       {
        "longitude": 11,
+       "latitude": 0
+      },
+      {
+       "longitude": 11,
        "latitude": 2
       },
       {
        "longitude": 11,
-       "latitude": 5
+       "latitude": 4
+      },
+      {
+       "longitude": 11,
+       "latitude": 6
       },
       {
        "longitude": 11,
@@ -17386,80 +18461,124 @@
      "selection": "ALL",
      "coordinates": [
       {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": -2
+      },
+      {
+       "longitude": -2,
+       "latitude": -3
+      },
+      {
+       "longitude": -2,
+       "latitude": -4
+      },
+      {
+       "longitude": -3,
+       "latitude": -5
+      },
+      {
        "longitude": 0,
        "latitude": -1
       },
       {
-       "longitude": 0,
+       "longitude": 1,
        "latitude": -2
       },
       {
-       "longitude": 0,
+       "longitude": 1,
        "latitude": -3
       },
       {
-       "longitude": 0,
+       "longitude": 2,
        "latitude": -4
       },
       {
-       "longitude": 0,
+       "longitude": 2,
        "latitude": -5
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 2
+      },
+      {
+       "longitude": -2,
+       "latitude": 3
+      },
+      {
+       "longitude": -2,
+       "latitude": 4
+      },
+      {
+       "longitude": -3,
+       "latitude": 5
       },
       {
        "longitude": 0,
        "latitude": 1
       },
       {
-       "longitude": 0,
+       "longitude": 1,
        "latitude": 2
       },
       {
-       "longitude": 0,
+       "longitude": 1,
        "latitude": 3
       },
       {
-       "longitude": 0,
+       "longitude": 2,
        "latitude": 4
       },
       {
+       "longitude": 2,
+       "latitude": 5
+      },
+      {
        "longitude": -1,
-       "latitude": 0
+       "latitude": -3
       },
       {
        "longitude": -2,
-       "latitude": 0
-      },
-      {
-       "longitude": -3,
-       "latitude": 0
-      },
-      {
-       "longitude": -4,
-       "latitude": 0
-      },
-      {
-       "longitude": -5,
-       "latitude": 0
+       "latitude": -5
       },
       {
        "longitude": 1,
-       "latitude": 0
+       "latitude": -1
       },
       {
        "longitude": 2,
-       "latitude": 0
+       "latitude": -3
       },
       {
        "longitude": 3,
-       "latitude": 0
+       "latitude": -5
       },
       {
-       "longitude": 4,
-       "latitude": 0
+       "longitude": -1,
+       "latitude": 3
       },
       {
-       "longitude": 5,
-       "latitude": 0
+       "longitude": -2,
+       "latitude": 5
+      },
+      {
+       "longitude": 1,
+       "latitude": 1
+      },
+      {
+       "longitude": 2,
+       "latitude": 3
+      },
+      {
+       "longitude": 3,
+       "latitude": 5
       }
      ],
      "randomCount": 1
@@ -17559,7 +18678,7 @@
      "randomCount": 1
     },
     "methodSize": null,
-    "cooldown": 1,
+    "cooldown": 2,
     "actionCostPerc": 100,
     "healthCost": 0,
     "chakraCost": 0.05,
@@ -17770,7 +18889,7 @@
       "power": 80,
       "powerPerLevel": 0,
       "direction": "offence",
-      "target": "SELF",
+      "target": "INHERIT",
       "friendlyFire": "FRIENDLY",
       "calculation": "percentage",
       "elements": [],
@@ -17928,6 +19047,18 @@
      }
     ]
    },
+   "animationPlaceholders": [],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "mpHuTrJX7EonpuW_jBunt",
+   "status": "LIVE",
+   "source": "live record mpHuTrJX7EonpuW_jBunt",
+   "liveId": "mpHuTrJX7EonpuW_jBunt",
+   "usedBy": [
+    "Crown Archivist"
+   ],
+   "huntBossSetPiece": false,
    "animationPlaceholders": [],
    "validator": "JutsuValidator: ok"
   },
@@ -18092,6 +19223,18 @@
      }
     ]
    },
+   "animationPlaceholders": [],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "yOgwN1WGkwNL9qMImc9aY",
+   "status": "LIVE",
+   "source": "live record yOgwN1WGkwNL9qMImc9aY",
+   "liveId": "yOgwN1WGkwNL9qMImc9aY",
+   "usedBy": [
+    "Crown Stonebound"
+   ],
+   "huntBossSetPiece": false,
    "animationPlaceholders": [],
    "validator": "JutsuValidator: ok"
   }

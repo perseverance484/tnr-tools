@@ -16,7 +16,7 @@ import { dirname, join, resolve } from "node:path";
 import { addQuestStartingEffects } from "@/libs/combat/questEffects";
 import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, PLAYER_VARIANTS, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32, runFloor, seedEntropy } from "./sim";
-import { buildHunts, buildPaths, DEFAULT_HUNT_PARAMS, type HuntParams, LIVE, NAME, type Path } from "./hunts";
+import { buildHunts, buildPaths, crownTemplates, DEFAULT_HUNT_PARAMS, type HuntParams, LIVE, NAME, type Path, petFor } from "./hunts";
 import { DEFAULT_PARAMS } from "./kits";
 import { LIB } from "./library";
 
@@ -50,6 +50,8 @@ const setup = (params: HuntParams) => {
   // Core Rupture v2: the live record as edited by push/316-317 (as build_kits.ts does).
   built.override.jutsu["nCQETf-HNnbRec1OSY2-R"] = coreRuptureV2;
   T = buildTemplates(baseline, built.override as never);
+  // Crownhold records (Crown Archivist, Crown Stonebound) are not in the Wreck baseline: built from push/272 + readback.
+  Object.assign(T.enemies, crownTemplates(T.enemies[LIVE.warden]!.row, T.jutsu, HP));
   enemyRows = Object.fromEntries(Object.entries(T.enemies).map(([id, e]) => [id, enemyQueryUser(e)]));
   donor = T.enemies[LIVE.warden]!.row;
   MARKS.clear();
@@ -67,6 +69,8 @@ const setup = (params: HuntParams) => {
 setup(HP);
 const variant = PLAYER_VARIANTS[opt("variant", "average")!]!;
 const dodge = !flag("no-dodge");
+/** One modelled mid-rank companion pet joins the player in every fight (hunts.ts petFor); --no-pets to leave it out. */
+const petsOn = !flag("no-pets");
 const maxRounds = Number(opt("max-rounds", "60"));
 const seeds = Number(opt("seeds", "40"));
 const seed0 = Number(opt("seed", "1"));
@@ -80,7 +84,7 @@ const jname = (id: string | null) => (id === null ? "(none)" : (T.jutsu[id]?.nam
 type FightRec = {
   label: string; boss: boolean; outcome: string; rounds: number; hpStart: number; hpEnd: number; maxHp: number; cpEnd: number; spEnd: number;
   enemies: Record<string, { marks: number; blasts: number; blastHits: number; windows: number; turnsAfterR2: number; idleAfterR2: number; sig: boolean; dealt: number }>;
-  playerTurns: number; playerIdleTurns: number; dodge: Record<string, number>; playerDealt: number;
+  playerTurns: number; playerIdleTurns: number; dodge: Record<string, number>; playerDealt: number; petDealt: number;
 };
 
 /** A path key "fight:Name+Name" is one ad-hoc fight at full pools (debugging). */
@@ -97,12 +101,14 @@ const runPath = async (pathKey: string, seed: number, trace?: number) => {
   Math.random = rand;
   try {
     const player = playerQueryUser(0, variant, donor, T.jutsu);
+    const pets = petsOn ? [petFor(player)] : undefined;
+    if (pets) player.activePetId = pets[0]!.id;
     const fights: FightRec[] = [];
     let status = "won";
     for (let fi = 0; fi < path.fights.length; fi++) {
       const f = path.fights[fi]!;
       const hpStart = player.curHealth;
-      const battle = await assembleFloor({ players: [player], enemyRows, floor: { kind: "floor", waves: [{ aiIds: f.ids, delayRounds: 0 }] }, rand, initialBarriers: true, dmgConfig: dmg.config, mode: "quest" });
+      const battle = await assembleFloor({ players: [player], enemyRows, floor: { kind: "floor", waves: [{ aiIds: f.ids, delayRounds: 0 }] }, rand, initialBarriers: true, dmgConfig: dmg.config, mode: "quest", pets });
       const pu = battle.usersState.find((u) => u.userId === player.userId)!;
       if (f.debuffs?.length) addQuestStartingEffects(pu, battle.usersEffects, f.debuffs as never, `quest-${pathKey}`);
       const res = runFloor(battle, { playerIds: [player.userId], maxRounds, dodge, detail: trace === fi });
@@ -117,7 +123,13 @@ const runPath = async (pathKey: string, seed: number, trace?: number) => {
       let playerIdle = 0;
       const pTurn = new Map<number, boolean>();
       let playerDealt = 0;
+      let petDealt = 0;
       for (const s of res.steps) {
+        // The companion pet is an AI actor controlled by the player (controllerId = the player's id).
+        if (!s.human && s.actor === player.userId) {
+          petDealt += s.dealt;
+          continue;
+        }
         if (s.human) {
           playerDealt += s.dealt;
           if (!pTurn.has(s.round)) pTurn.set(s.round, true);
@@ -150,7 +162,7 @@ const runPath = async (pathKey: string, seed: number, trace?: number) => {
         playerTurns++;
         if (v) playerIdle++;
       }
-      fights.push({ label: f.label, boss: !!f.boss, outcome: res.outcome, rounds: res.rounds, hpStart, hpEnd: Math.max(0, fin.hp), maxHp: fin.maxHp, cpEnd: fin.cp, spEnd: fin.sp, enemies, playerTurns, playerIdleTurns: playerIdle, dodge: res.dodge as any, playerDealt });
+      fights.push({ label: f.label, boss: !!f.boss, outcome: res.outcome, rounds: res.rounds, hpStart, hpEnd: Math.max(0, fin.hp), maxHp: fin.maxHp, cpEnd: fin.cp, spEnd: fin.sp, enemies, playerTurns, playerIdleTurns: playerIdle, dodge: res.dodge as any, playerDealt, petDealt });
       if (res.outcome !== "won") {
         status = `lost at fight ${fi + 1} (${res.outcome})`;
         break;
@@ -172,7 +184,7 @@ const runPath = async (pathKey: string, seed: number, trace?: number) => {
 const printTrace = (res: any, battle: any, pid: string) => {
   console.log(`--- trace: ${res.outcome} in ${res.rounds} rounds`);
   for (const s of res.steps) {
-    const who = s.human ? "PLAYER" : (NAME[s.actor] ?? s.actor);
+    const who = s.human ? "PLAYER" : s.actor === pid ? "PET" : (NAME[s.actor] ?? s.actor);
     const hp = Object.entries(s.hp).map(([u, d]: any) => `${u === pid ? "P" : u.slice(0, 6)}${d > 0 ? "+" : ""}${Math.round(d)}`).join(" ");
     const g = (s.groundAfter ?? []).filter((x: any) => x.staticAnimation && ((x.rounds ?? 0) > 0)).map((x: any) => `${x.staticAnimation}@${x.x},${x.y}`);
     console.log(`r${s.round} ${who.padEnd(17)} ${jname(s.actionId).padEnd(26)} rule ${String(s.ruleIndex ?? (s.dodge ? "dodge" : "-")).padEnd(5)} ${s.actorFrom?.join(",")}->${s.actorTo?.join(",")} | ${hp} | fx ${s.effects.map((e: any) => `${e.type}>${e.target === pid ? "P" : e.target.slice(0, 6)}`).join(",")} | ground ${g.length} ${g.slice(0, 6).join(" ")}${(s.newUnits ?? []).length ? ` | new ${JSON.stringify(s.newUnits)}` : ""}`);
@@ -224,6 +236,7 @@ const summarise = (key: string, runs: Awaited<ReturnType<typeof runPath>>[]) => 
       hpEndPctMedian: r1(median(won.map((x) => (100 * x.hpEnd) / BASE_HP))), hpEndPctP10: r1(pctl(won.map((x) => (100 * x.hpEnd) / BASE_HP), 0.1)),
       hpLostPctMedian: r1(median(recs.map((x) => (100 * (x.hpStart - x.hpEnd)) / BASE_HP))),
       cpEndPctMedian: r1(median(won.map((x) => (100 * x.cpEnd) / BASE_HP))), spEndPctMedian: r1(median(won.map((x) => (100 * x.spEnd) / BASE_HP))),
+      petDealtMedian: median(recs.map((x) => Math.round(x.petDealt ?? 0))), playerDealtMedian: median(recs.map((x) => Math.round(x.playerDealt))),
       playerIdleTurnsPct: r1((100 * recs.reduce((s, x) => s + x.playerIdleTurns, 0)) / Math.max(1, recs.reduce((s, x) => s + x.playerTurns, 0))),
       dodge: dodgeSum, enemies,
     };
@@ -271,7 +284,7 @@ if (sweepArg) {
   process.exit(0);
 }
 
-const out: any = { generatedBy: "harness/skyglass_wreck_sim/engine/hunts_main.ts", settings: { dodge, maxRounds, seeds, seed0, variant: variant.name, dmgConfig: dmg.name, params: HP }, results: [] as any[] };
+const out: any = { generatedBy: "harness/skyglass_wreck_sim/engine/hunts_main.ts", settings: { dodge, pets: petsOn ? "one modelled mid-rank companion (hunts.ts petFor: rank 5 Hunter, level 30, half CHUNIN caps, default AI)" : false, maxRounds, seeds, seed0, variant: variant.name, dmgConfig: dmg.name, params: HP }, results: [] as any[] };
 const t0 = Date.now();
 for (const key of paths) {
   const runs = [];
