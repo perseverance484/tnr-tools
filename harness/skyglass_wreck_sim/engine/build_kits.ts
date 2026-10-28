@@ -1,19 +1,20 @@
 /**
- * Build the dungeon-copy kits and export them.
+ * Build the Wreck dungeon copies on the shared set-piece library and export them.
  *
- *   TNR_SCRIPT=build_kits.ts run.sh [--params params.json] [--override-out overrides/kits_endgame.json]
- *       [--spec-out build_spec.json]
+ *   TNR_SCRIPT=build_kits.ts run.sh --version endgame|lvl50 --params overrides/kits_<version>.params.json
+ *       [--override-out file] [--spec-out file]
  *
- * Writes the harness override (fought by main.ts) and the build spec section for the endgame
- * version: per AI the resolved stats, pools, level, multipliers, effect rows, jutsu list and ordered
- * rules; per new jutsu the full record with animation placeholder ids. Every new jutsu passed the
- * live JutsuValidator and every rule the live AiRule schema while being built (kitlib.ts).
+ * Writes the harness override (fought by main.ts) and the version's section of build_spec.json. Every jutsu is marked
+ * LIBRARY (a NEW record in library_spec.json), WRECK-NEW (full record here) or LIVE (live id, unchanged). The spec also
+ * carries `sharedKits`: per enemy, the one kit and ordered rule list both versions (and the hunts' live records) use,
+ * independent of stats. Every rule passed the live AiRule schema while built; AI rows are checked by insertAiSchema.
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { insertAiSchema } from "@/validators/aiInput";
 import { JutsuValidator } from "@/validators/combat";
-import { buildEndgame, DEFAULT_PARAMS, type KitParams } from "./kits";
+import { BASE, buildKits, type KitParams, LIVE, WRECK_NEW } from "./kits";
+import { LIB } from "./library";
 import { buildTemplates, loadJson } from "./model";
 
 const args = process.argv.slice(2);
@@ -23,67 +24,38 @@ const opt = (k: string) => {
 };
 const H = process.env.TNR_HARNESS!;
 const baseline = loadJson(join(H, "data/baseline.json"));
-const paramsPath = opt("params");
-const params: KitParams = paramsPath ? { ...DEFAULT_PARAMS, ...loadJson(resolve(paramsPath)), pow: { ...DEFAULT_PARAMS.pow, ...(loadJson(resolve(paramsPath)).pow ?? {}) } } : DEFAULT_PARAMS;
-const version = opt("version") ?? "endgame";
+const version = (opt("version") ?? "endgame") as "endgame" | "lvl50";
+const params: KitParams = loadJson(resolve(opt("params") ?? join(H, `overrides/kits_${version}.params.json`)));
 
-const { override } = buildEndgame(params, version as "endgame" | "lvl50");
-// Core Rupture v2 (live record as edited by push/316-317; RUL-2026-10-28-001) from the tuned override.
+const { override, shared } = buildKits(params, version);
+// Core Rupture as edited by push/316-317 (RUL-2026-10-28-001); the captured catalog predates the edit.
 const tuned = loadJson(join(H, "overrides/director_6wave_tuned.json"));
-(override.jutsu as any)["nCQETf-HNnbRec1OSY2-R"] = tuned.jutsu["nCQETf-HNnbRec1OSY2-R"];
-override.name = `kits_${version}`;
+(override.jutsu as any)[LIVE.coreRupture] = tuned.jutsu[LIVE.coreRupture];
 
 const ovOut = resolve(opt("override-out") ?? join(H, `overrides/kits_${version}.json`));
 writeFileSync(ovOut, `${JSON.stringify(override, null, 1)}\n`);
 console.log(`wrote ${ovOut}`);
 
-/* ---------------- build spec ---------------- */
 const t = buildTemplates(baseline, override as never);
-const ANIM_IDS = /^(tg|dt|ch|cp|cc)_[a-z_]+$|^(mark-sigil|chain-hook-hit|skyglass-pane)$/;
-const anims = (rec: any) => {
-  const out = new Set<string>();
-  for (const e of rec.effects) for (const k of ["appearAnimation", "staticAnimation", "disappearAnimation"]) if (typeof e[k] === "string" && ANIM_IDS.test(e[k])) out.add(e[k]);
-  return [...out];
-};
-const RECORD_FIELDS = [
-  "name", "description", "battleDescription", "jutsuType", "jutsuRank", "requiredRank", "requiredLevel", "jutsuWeapon",
-  "target", "method", "range", "coordinateTargeting", "methodSize", "cooldown", "actionCostPerc", "healthCost", "chakraCost",
-  "staminaCost", "healthCostReducePerLvl", "chakraCostReducePerLvl", "staminaCostReducePerLvl", "battleUsageType",
-  "elementClassification", "statClassification", "hidden", "extraBaseCost", "image", "effects",
-];
-const used = new Set(Object.values<any>(override.newEnemies).flatMap((o) => o.jutsuIds));
-const newJutsu = Object.entries<any>(override.jutsu).filter(([id]) => used.has(id)).map(([id, rec]) => {
-  const parsed = JutsuValidator.safeParse(rec);
-  const copyOf = id.startsWith("dg-") ? null : id;
-  return {
-    harnessId: id,
-    liveRecord: copyOf ? `existing live record ${id} (referenced as-is; already edited by push/316-317)` : null,
-    record: Object.fromEntries(RECORD_FIELDS.map((k) => [k, rec[k]])),
-    animationPlaceholders: anims(rec),
-    image: "placeholder: copied from the shape donor; art pass to replace",
-    validator: parsed.success ? "JutsuValidator: ok" : `JutsuValidator: ${parsed.error.issues.map((i) => i.message).join("; ")}`,
-  };
-});
-const capturedName = (id: string) => t.jutsu[id]?.name ?? id;
+const libIds = new Set<string>([...Object.values(LIB.mark), ...Object.values(LIB.blast), ...Object.values(LIB.sig), LIB.loweredGuard, ...Object.values(LIB.crew)]);
+const wreckNew = new Set<string>(Object.values(WRECK_NEW));
+const status = (id: string) => (libIds.has(id) ? "LIBRARY (NEW, library_spec.json)" : wreckNew.has(id) ? "WRECK-NEW" : id === LIVE.coreRupture ? "LIVE (as edited by push/316-317)" : "LIVE (unchanged)");
+const jname = (id: string) => t.jutsu[id]?.name ?? id;
+const kitEntry = (id: string) => ({ id, name: jname(id), status: status(id) });
+const RELATIONS = new Set(["jutsus", "items", "aiProfile", "titles", "raidBuffs", "cookingJobs", "village", "bloodline", "sageMode", "anbuSquad", "clan", "loadout", "userSkills", "userQuests", "completedQuests", "bounties", "bountySignups", "queue"]);
+const liveIdOf = (name: string) => Object.keys(baseline.enemies).find((k) => baseline.enemies[k].user.username === name);
+
 const ais = Object.entries<any>(override.newEnemies).map(([id, o]) => {
   const e = t.enemies[id]!;
   const row = e.row;
-  const rules = e.profile.rules;
-  // The Forge's AI insert/update schema: the captured row's own columns (relations dropped), jutsu as ids.
-  const RELATIONS = new Set(["jutsus", "items", "aiProfile", "titles", "raidBuffs", "cookingJobs", "village", "bloodline", "sageMode", "anbuSquad", "clan", "loadout", "userSkills", "userQuests", "completedQuests", "bounties", "bountySignups", "queue"]);
-  const aiInput = { ...Object.fromEntries(Object.entries(row).filter(([k]) => !RELATIONS.has(k))), jutsus: row.jutsus.map((uj: any) => uj.jutsuId) };
-  const check = insertAiSchema.safeParse(aiInput);
+  const check = insertAiSchema.safeParse({ ...Object.fromEntries(Object.entries(row).filter(([k]) => !RELATIONS.has(k))), jutsus: row.jutsus.map((uj: any) => uj.jutsuId) });
   return {
-    harnessId: id,
-    copyOf: { liveAi: o.base, liveAiId: Object.keys(baseline.enemies).find((k) => baseline.enemies[k].user.username === o.base) },
-    username: row.username, level: row.level, rank: row.rank,
-    statsMultiplier: row.statsMultiplier, poolsMultiplier: row.poolsMultiplier,
+    harnessId: id, copyOf: { liveAi: o.base, liveAiId: liveIdOf(o.base) },
+    username: row.username, level: row.level, rank: row.rank, statsMultiplier: row.statsMultiplier, poolsMultiplier: row.poolsMultiplier,
     pools: { maxHealth: row.maxHealth, maxChakra: row.maxChakra, maxStamina: row.maxStamina },
     stats: { offence: row.offence, defence: row.defence, strength: row.strength, intelligence: row.intelligence, willpower: row.willpower, speed: row.speed },
     effects: row.effects,
-    jutsu: row.jutsus.map((uj: any) => ({ id: uj.jutsuId, name: capturedName(uj.jutsuId), new: uj.jutsuId.startsWith("dg-") })),
-    includeDefaultRules: e.profile.includeDefaultRules,
-    rules: rules.map((r: any, i: number) => ({ index: i, note: r.action.description, conditions: r.conditions, action: r.action })),
+    sharedKit: `sharedKits["${o.base}"]`,
     signatureRules: (override as any).signatures[id],
     scaleEditedAiNotes: e.notes,
     insertAiSchemaCheck: check.success ? "ok" : check.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).slice(0, 6),
@@ -91,11 +63,32 @@ const ais = Object.entries<any>(override.newEnemies).map(([id, o]) => {
 });
 
 const specPath = resolve(opt("spec-out") ?? join(H, "build_spec.json"));
-const spec = existsSync(specPath) ? JSON.parse(readFileSync(specPath, "utf8")) : {};
-spec._about = "Skyglass Wreck build spec (harness output; not pushed). Per version: AI dungeon copies (stats, pools, level, multipliers, effect rows, jutsu, ordered rules) and the new dungeon-only jutsu (full records, animation placeholder ids from docs/design/SKYGLASS_BOSS_ANIMATIONS.md and SKYGLASS_BOSS_FIGHTS.md). Harness ids (dg-*) are placeholders: the builder mints real ids, and rule jutsuId references must be remapped to them. Generated by harness/skyglass_wreck_sim/engine/build_kits.ts.";
-spec.schemas = "validated against the live validators at engine pin c86f43f4 (validators/combat.ts JutsuValidator, validators/ai.ts AiRule, validators/coordinateTargeting.ts via JutsuValidator)";
-spec[version] = { params, floors: (override as any).floors, ais, newJutsu };
+const old = existsSync(specPath) ? JSON.parse(readFileSync(specPath, "utf8")) : {};
+const spec: any = {
+  _about: "Skyglass Wreck build spec (harness output; not pushed). Jutsu: LIBRARY = NEW records in library_spec.json (lib-* ids); WRECK-NEW = full record under wreckNewJutsu (dg-* id); LIVE = the live id, used unchanged. sharedKits: per enemy, the one kit and ordered rule list used by both Wreck versions and meant for the hunts' live records (stats are per version under endgame / lvl50). Harness ids are placeholders the builder replaces; every rule jutsuId must be remapped. Generated by harness/skyglass_wreck_sim/engine/build_kits.ts.",
+  schemas: "validated against the live validators at engine pin c86f43f4 (JutsuValidator, AiRule, insertAiSchema)",
+  library: "library_spec.json",
+  ...(old.endgame?.ais?.[0]?.sharedKit ? { endgame: old.endgame } : {}),
+  ...(old.lvl50?.ais?.[0]?.sharedKit ? { lvl50: old.lvl50 } : {}),
+};
+spec.sharedKits = Object.fromEntries(Object.entries(shared).map(([id, s]) => {
+  const kit = [...new Set(s.rules.map((r: any) => r.action.jutsuId).filter(Boolean))] as string[];
+  return [BASE[id]!, {
+    liveAiId: liveIdOf(BASE[id]!),
+    jutsu: kit.map(kitEntry),
+    rules: s.rules.map((r: any, i: number) => ({ index: i, note: r.action.description, conditions: r.conditions, action: r.action })),
+    signatureRules: s.rules.map((r: any, i: number) => (s.signature.some((p) => r.action.description.startsWith(p)) ? i : -1)).filter((i: number) => i >= 0),
+  }];
+}));
+const gun = override.jutsu[WRECK_NEW.gunwale];
+const v = JutsuValidator.safeParse(gun);
+spec.wreckNewJutsu = [{ id: WRECK_NEW.gunwale, status: "WRECK-NEW", record: gun, animationPlaceholders: ["cp_gunwale"], validator: v.success ? "JutsuValidator: ok" : v.error.message }];
+spec.counts = {
+  libraryRecordsUsedByTheWreck: [...new Set(Object.values(shared).flatMap((s) => s.rules.map((r: any) => r.action.jutsuId)).filter((id) => id && libIds.has(id)))].length,
+  wreckNew: 1,
+  liveUsed: [...new Set(Object.values(shared).flatMap((s) => s.rules.map((r: any) => r.action.jutsuId)).filter((id) => id && !libIds.has(id) && !wreckNew.has(id)))].length,
+};
+spec[version] = { params, floors: (override as any).floors, ais };
 writeFileSync(specPath, `${JSON.stringify(spec, null, 1)}\n`);
-console.log(`wrote ${specPath} [${version}]: ${ais.length} AIs, ${newJutsu.length} jutsu records`);
-for (const a of ais) console.log(`  ${a.username.padEnd(18)} L${a.level} HP ${a.pools.maxHealth} rules ${a.rules.length} jutsu ${a.jutsu.length} insertAi ${JSON.stringify(a.insertAiSchemaCheck).slice(0, 80)}`);
-for (const j of newJutsu) if (!j.validator.endsWith("ok")) console.log(`  ! ${j.record.name}: ${j.validator}`);
+console.log(`wrote ${specPath} [${version}]: ${ais.length} AIs; counts ${JSON.stringify(spec.counts)}`);
+for (const a of ais) console.log(`  ${a.username.padEnd(18)} L${a.level} HP ${a.pools.maxHealth} insertAi ${JSON.stringify(a.insertAiSchemaCheck).slice(0, 80)}`);

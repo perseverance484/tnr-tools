@@ -531,6 +531,40 @@ export const playerQueryUser = (idx: number, v: PlayerVariant, donor: any, jutsu
   return u;
 };
 
+/**
+ * A companion pet for a party member (pets join QUEST battles, dungeons included; one active pet per owner).
+ * No pet record is captured, so this is a modelled mid-rank companion (assumption, stated in REPORT.md):
+ * - rank: the middle of what the owner's rank allows (JONIN max 7 -> rank 5 "Hunter", level 30; CHUNIN max 5 ->
+ *   rank 3 "Tracker", level 15), at that rank's level cap;
+ * - stats: half the stat caps of the pet rank's character rank (getPetStatCaps), evenly;
+ * - species: COMMON, ASSAULT, no passives, no PETS-type jutsu (none captured), the engine's default AI rules
+ *   (move in, highest-power damage: its basic attack).
+ */
+export const petFor = (owner: any, statFraction = 0.5) => {
+  const maxRank: Record<string, number> = { CHUNIN: 5, JONIN: 7, "ELITE JONIN": 10, GENIN: 3 };
+  const rank = Math.ceil((maxRank[owner.rank] ?? 5) / 2) + (owner.rank === "JONIN" ? 1 : 0); // JONIN 5, CHUNIN 3
+  const levelCap = [5, 10, 15, 20, 30, 40, 50, 60, 80, 100][rank - 1]!;
+  const caps = getUserCaps(rank >= 6 ? "JONIN" : rank >= 4 ? "CHUNIN" : "GENIN");
+  const id = `pet-${owner.userId}`;
+  const species = {
+    id: "harness-species", name: "Harness Companion", description: "modelled mid-rank companion", artDirection: null, rankConcepts: [],
+    rarity: "COMMON", role: "ASSAULT", preferredDamageElement: null, defaultJutsuIds: [], aiRules: [], includeDefaultRules: true,
+    effects: [], skillTarget: "SELF", isActive: true, createdAt: new Date(0), updatedAt: new Date(0),
+  };
+  let experience = calcLevelRequirements(levelCap - 1);
+  while (calcLevel(experience) < levelCap) experience += 1000;
+  return {
+    id, userId: owner.userId, name: `${owner.username}'s companion`, speciesId: species.id, paletteIndex: 0, characteristicIndex: 0,
+    auraIndex: 0, gender: null, rank, experience, storedExperience: 0, lastFedAt: null, jutsuIds: [], skillIds: [],
+    offence: caps.stats_cap * statFraction, defence: caps.stats_cap * statFraction,
+    strength: caps.gens_cap * statFraction, speed: caps.gens_cap * statFraction,
+    intelligence: caps.gens_cap * statFraction, willpower: caps.gens_cap * statFraction,
+    avatar: "harness-pet-avatar", avatarFacing: "left", battleEnabled: true, spawnPosition: "BEHIND", aiRules: [],
+    includeDefaultRules: true, generationStatus: "READY", generationToken: null, generationStartedAt: null, generationAttempts: 0,
+    artRank: rank, revision: 0, createdAt: new Date(0), updatedAt: new Date(0), species,
+  };
+};
+
 export const describePlayer = (u: any) => ({
   userId: u.userId, level: u.level, rank: u.rank, offence: u.offence, defence: u.defence, generals: u.strength,
   hp: u.maxHealth, cp: u.maxChakra, sp: u.maxStamina, jutsu: u.jutsus.map((j: any) => `${j.jutsu.name}@${j.level}`),
