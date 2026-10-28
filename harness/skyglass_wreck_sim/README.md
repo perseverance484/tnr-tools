@@ -36,6 +36,9 @@ TNR_SCRIPT=probe_mechanics.ts harness/skyglass_wreck_sim/run.sh --seeds 3 --roun
     --out harness/skyglass_wreck_sim/results/probe_mechanics.json
 python3 harness/skyglass_wreck_sim/tools/probe_summary.py harness/skyglass_wreck_sim/results/probe_mechanics.json
 
+# Telegraphed-boss probes (ground marks, self markers, COORDINATES patterns, grid/spawns, summoning an AI record):
+TNR_SCRIPT=probe_telegraph.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_telegraph.json
+
 # Trace one floor action by action (absolute override path):
 TNR_SCRIPT=trace_floor.ts harness/skyglass_wreck_sim/run.sh 1 "$PWD/harness/skyglass_wreck_sim/overrides/director_layout.json" average 1
 ```

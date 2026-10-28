@@ -1,0 +1,589 @@
+{
+ "name": "director_6wave_tuned",
+ "jutsu": {
+  "nCQETf-HNnbRec1OSY2-R": {
+   "actionCostPerc": 100,
+   "battleDescription": "%user's containment seal splits, consuming the device in a piercing chakra blast that tears through the surrounding battlefield.",
+   "battleUsageType": "BOTH",
+   "bloodlineId": "",
+   "bloodlineReskinId": null,
+   "chakraCost": 0.05,
+   "chakraCostReducePerLvl": 0,
+   "cooldown": 3,
+   "coordinateTargeting": null,
+   "createdAt": "2026-04-30T08:42:14.461Z",
+   "description": "A containment seal ruptures, destroying the casting device in a piercing chakra blast that staggers nearby enemies.",
+   "effects": [
+    {
+     "allowBloodlineDamageDecrease": true,
+     "allowBloodlineDamageIncrease": true,
+     "appearAnimation": "dBatQkc1Ts2ask5ZN-A3p",
+     "appearSfx": "",
+     "calculation": "formula",
+     "description": "placeholder",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "dmgModifier": 2,
+     "friendlyFire": "ENEMIES",
+     "generalTypes": [
+      "Highest"
+     ],
+     "power": 180,
+     "powerPerLevel": 0,
+     "residualModifier": 0,
+     "rounds": 0,
+     "statTypes": [
+      "None"
+     ],
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "INHERIT",
+     "type": "pierce"
+    },
+    {
+     "appearAnimation": "",
+     "appearSfx": "",
+     "calculation": "static",
+     "description": "placeholder",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "friendlyFire": "FRIENDLY",
+     "power": 100,
+     "powerPerLevel": 0,
+     "rounds": 0,
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "SELF",
+     "type": "onehitkill"
+    },
+    {
+     "apReduction": 60,
+     "appearAnimation": "",
+     "appearSfx": "",
+     "calculation": "static",
+     "description": "placeholder",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "friendlyFire": "ENEMIES",
+     "power": 100,
+     "powerPerLevel": 0,
+     "rounds": 2,
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "INHERIT",
+     "type": "stun"
+    }
+   ],
+   "elementClassification": "None",
+   "extraBaseCost": 0,
+   "healthCost": 0,
+   "healthCostReducePerLvl": 0,
+   "hidden": true,
+   "id": "nCQETf-HNnbRec1OSY2-R",
+   "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJpNJEpDbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D",
+   "injectableInBattle": false,
+   "jutsuRank": "D",
+   "jutsuType": "AI",
+   "jutsuWeapon": "NONE",
+   "method": "AOE_CIRCLE_SPAWN",
+   "methodSize": null,
+   "name": "Core Rupture",
+   "parentJutsuId": null,
+   "range": 5,
+   "requiredBloodlineItemId": null,
+   "requiredBloodlineMastery": null,
+   "requiredBukijutsuMastery": null,
+   "requiredGenjutsuMastery": null,
+   "requiredIntelligence": null,
+   "requiredLevel": 1,
+   "requiredNinjutsuMastery": null,
+   "requiredPetSpeciesId": null,
+   "requiredRank": "STUDENT",
+   "requiredSageMastery": null,
+   "requiredSkillId": null,
+   "requiredSpeed": null,
+   "requiredStrength": null,
+   "requiredTaijutsuMastery": null,
+   "requiredWillpower": null,
+   "reskinParentJutsuId": null,
+   "staminaCost": 0.05,
+   "staminaCostReducePerLvl": 0,
+   "statClassification": "None",
+   "target": "OTHER_USER",
+   "updatedAt": "2026-10-12T04:32:36.201Z",
+   "villageId": ""
+  }
+ },
+ "enemies": {
+  "Seal Charge": {
+   "jutsuIds": [
+    "nCQETf-HNnbRec1OSY2-R"
+   ]
+  },
+  "Core Canister": {
+   "jutsuIds": [
+    "nCQETf-HNnbRec1OSY2-R"
+   ]
+  },
+  "Deck Warden": {
+   "aiEdit": {
+    "poolsMultiplier": 1.0
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Wayfinder": {
+   "aiEdit": {
+    "poolsMultiplier": 1.0
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Arsenal Keeper": {
+   "aiEdit": {
+    "poolsMultiplier": 1.0
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Skyglass Sentinel": {
+   "aiEdit": {
+    "poolsMultiplier": 1.0
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "First Blade": {
+   "aiEdit": {
+    "poolsMultiplier": 1.0
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Oathkeeper": {
+   "aiEdit": {
+    "poolsMultiplier": 1.0
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Core Horror": {
+   "aiEdit": {
+    "poolsMultiplier": 5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "The Captain": {
+   "aiEdit": {
+    "poolsMultiplier": 2.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Sealwright": {
+   "aiEdit": {
+    "poolsMultiplier": 2.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  }
+ },
+ "floors": [
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Deck Warden",
+      "Deck Warden",
+      "Seal Charge"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Skyglass Sentinel",
+      "First Blade",
+      "Deck Warden"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Oathkeeper",
+      "Wayfinder",
+      "Deck Warden"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "mini-boss",
+   "waves": [
+    {
+     "aiIds": [
+      "Core Horror"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "boss",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Deck Warden",
+      "Deck Warden"
+     ],
+     "delayRounds": 0
+    },
+    {
+     "aiIds": [
+      "The Captain",
+      "Sealwright"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  }
+ ],
+ "note": "Director's final 6-wave layout tuned for the average party (15-20 min at 15 s/turn, ~1 run in 5 wiping once; Captain + Sealwright the hardest wave). Per-enemy: crew (Deck Warden, Skyglass Sentinel, First Blade, Oathkeeper, Wayfinder) poolsMultiplier 1.0 = 5,050 HP, innate damage given = two rows of +100% (engine caps a percentage row at 100; rows multiply, x4); Core Horror (stage boss) poolsMultiplier 5 = 25,250 HP, two +100% rows; The Captain and Sealwright poolsMultiplier 2.5 = 12,625 HP, three +100% rows (x8); Seal Charge as captured (level 70, 3,550 HP) with Core Rupture v2. All values storable; set via scaleEditedAi."
+}

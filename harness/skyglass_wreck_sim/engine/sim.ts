@@ -75,12 +75,14 @@ export type StepRec = {
   dealt: number; // engine damageDealt delta of the actor
   dealtBy: Record<string, number>; // damageDealt delta per userId over the step
   effects: { type: string; target: string; creator: string }[]; // new user effects this step
-  ground: { type: string; creator: string }[];
+  ground: { type: string; creator: string; x?: number; y?: number; rounds?: number }[];
   /** Positions (debug/probe use): actor before and after the step. */
   actorFrom?: [number, number];
   actorTo?: [number, number];
   /** Units that entered usersState during the step (summons, clones, waves). */
   newUnits?: { uid: string; name: string; controllerId: string; isSummon: boolean; x: number; y: number; hp: number }[];
+  /** Effects on the actor when its step began (probe use). */
+  actorEffects?: { type: string; power?: number; rounds?: number; creator: string }[];
   /** Ground effects on the field after the step. */
   groundAfter?: { type: string; creator: string; x: number; y: number; rounds?: number; power?: number }[];
 };
@@ -332,6 +334,9 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
     const gBefore = new Set(b.groundEffects.map((e) => e.id));
     const uBefore = new Set(b.usersState.map((u) => u.userId));
     const actorFrom: [number, number] = [actor.longitude, actor.latitude];
+    const actorEffects = opts.detail
+      ? b.usersEffects.filter((e) => e.targetId === actor.userId).map((e: any) => ({ type: e.type, power: e.power, rounds: e.rounds, creator: e.creatorId }))
+      : undefined;
     const waveAtStep = curWave().wave;
     probe = null;
     const res = performAIaction(b, grid, actor.userId);
@@ -369,13 +374,14 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
       authoredRules: authoredCount(actor),
       hp, dealt: dealtBy[actor.userId] ?? 0, dealtBy,
       effects: b.usersEffects.filter((e) => !effBefore.has(e.id)).map((e) => ({ type: e.type, target: e.targetId, creator: e.creatorId })),
-      ground: b.groundEffects.filter((e) => !gBefore.has(e.id)).map((e) => ({ type: e.type, creator: e.creatorId })),
+      ground: b.groundEffects.filter((e) => !gBefore.has(e.id)).map((e) => ({ type: e.type, creator: e.creatorId, ...(opts.detail ? { x: e.longitude, y: e.latitude, rounds: e.rounds } : {}) })),
       ...(opts.detail
         ? {
             actorFrom,
+            actorEffects,
             actorTo: ((u) => (u ? [u.longitude, u.latitude] : actorFrom))(b.usersState.find((u) => u.userId === actor.userId)) as [number, number],
             newUnits: b.usersState.filter((u) => !uBefore.has(u.userId)).map((u) => ({ uid: u.userId, name: u.username, controllerId: u.controllerId, isSummon: !!u.isSummon, x: u.longitude, y: u.latitude, hp: u.curHealth })),
-            groundAfter: b.groundEffects.filter((e) => e.creatorId !== "ground").map((e: any) => ({ type: e.type, creator: e.creatorId, x: e.longitude, y: e.latitude, rounds: e.rounds, power: e.power })),
+            groundAfter: b.groundEffects.filter((e) => e.creatorId !== "ground").map((e: any) => ({ type: e.type, creator: e.creatorId, x: e.longitude, y: e.latitude, rounds: e.rounds, power: e.power, staticAnimation: e.staticAnimation || undefined })),
           }
         : {}),
     });
