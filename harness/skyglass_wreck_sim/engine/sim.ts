@@ -13,6 +13,7 @@
  *   dungeonBattleOutcome.
  * Players are driven by the engine's auto-combat path (isAutoCombat + their AI profile).
  */
+import { nanoid } from "nanoid";
 import { performAIaction } from "@/libs/combat/ai_v2";
 import { stillInBattle } from "@/libs/combat/actions";
 import { advanceEncounterWave, prepareEncounterWaves } from "@/libs/combat/encounters";
@@ -45,6 +46,30 @@ export const mulberry32 = (seed: number) => {
     t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
+};
+
+/**
+ * Seed the engine's id entropy. Unit ids minted mid-battle (clones, summons, effects) come from
+ * nanoid, i.e. crypto.getRandomValues, which is unseeded; with a clone on the field the battle's
+ * course can depend on those ids, so identical seeds diverged. This routes getRandomValues through
+ * its own seeded generator (separate from Math.random, so the combat roll stream is unchanged) and
+ * restarts nanoid's id pool.
+ */
+export const seedEntropy = (seed: number) => {
+  const next = mulberry32((seed ^ 0x5eed1d) >>> 0);
+  Object.defineProperty(globalThis.crypto, "getRandomValues", {
+    configurable: true,
+    writable: true,
+    value: <T extends ArrayBufferView | null>(arr: T): T => {
+      if (!arr) return arr;
+      const bytes = new Uint8Array(arr.buffer, arr.byteOffset, arr.byteLength);
+      for (let i = 0; i < bytes.length; i++) bytes[i] = Math.floor(next() * 256);
+      return arr;
+    },
+  });
+  // nanoid keeps a pool of up to 32,768 pre-drawn characters; one oversized draw empties it, so the
+  // next id starts a fresh pool from the seeded source.
+  nanoid(32_769);
 };
 
 /** Read-only client: any property access means assembly needed the DB (it must not). */
@@ -84,8 +109,23 @@ export type StepRec = {
   /** Effects on the actor when its step began (probe use). */
   actorEffects?: { type: string; power?: number; rounds?: number; creator: string }[];
   /** Ground effects on the field after the step. */
-  groundAfter?: { type: string; creator: string; x: number; y: number; rounds?: number; power?: number }[];
+  groundAfter?: { type: string; creator: string; x: number; y: number; rounds?: number; power?: number; curHealth?: number }[];
+  /** Harness dodge pre-step (players only): this step was a dodge move. */
+  dodge?: boolean;
 };
+
+/**
+ * Harness auto-player dodge (a stand-in for a person reading the marks; not engine behaviour).
+ * At a player's turn, if they stand on a hex marked by an enemy telegraph (tg_heavy / tg_control)
+ * or a lingering pool (tg_linger), or an arena-wide mark is up (tg_safe stars exist) and they are
+ * not on a star, they walk (engine basic Move, one hex per action) to the nearest acceptable free
+ * hex within DODGE_STEPS. While any mark is up they also skip their "close the distance" move rule
+ * for that turn, so they do not walk back in.
+ */
+export const DANGER_ANIMS = new Set(["tg_heavy", "tg_control", "tg_linger"]);
+export const SAFE_ANIM = "tg_safe";
+export const DODGE_STEPS = 3;
+export type DodgeStats = { threatened: number; dodged: number; failedRooted: number; failedNoPath: number; failedOther: number; stepsTaken: number };
 
 export type FloorResult = {
   outcome: "won" | "wipe" | "ended" | "stalled";
@@ -107,6 +147,7 @@ export type FloorResult = {
   final: Record<string, { hp: number; maxHp: number; cp: number; maxCp: number; sp: number; maxSp: number }>;
   humanTurns: number;
   aiTurns: number;
+  dodge: DodgeStats;
 };
 
 /** Assemble one dungeon floor exactly as initiateBattle does (minus I/O). */
@@ -248,7 +289,7 @@ export const assembleFloor = async (opts: {
 };
 
 /** Run one floor battle to its dungeon outcome. */
-export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; maxRounds: number; detail?: boolean }): FloorResult => {
+export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; maxRounds: number; detail?: boolean; dodge?: boolean }): FloorResult => {
   let b = battle;
   const suid = opts.playerIds[0]!;
   const grid = getBattleGrid(1, b);
@@ -306,6 +347,75 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
   let humanTurns = 0;
   let aiTurns = 0;
   const turnKey = new Set<string>();
+  const dodge: DodgeStats = { threatened: 0, dodged: 0, failedRooted: 0, failedNoPath: 0, failedOther: 0, stepsTaken: 0 };
+  const playerSet = new Set(opts.playerIds);
+  /** Marked hexes from enemy ground effects that are still live. */
+  const marks = () => {
+    const danger = new Set<string>();
+    const safe = new Set<string>();
+    for (const e of b.groundEffects as any[]) {
+      if (e.creatorId === "ground" || playerSet.has(e.creatorId)) continue;
+      if ((e.rounds ?? 0) <= 0 && !e.castThisRound) continue;
+      const k = `${e.longitude},${e.latitude}`;
+      if (DANGER_ANIMS.has(e.staticAnimation)) danger.add(k);
+      if (e.staticAnimation === SAFE_ANIM) safe.add(k);
+    }
+    return { danger, safe };
+  };
+  /** One free, unmarked neighbouring hex that brings the player closer to the closest enemy. */
+  const safeStep = (actor: any, danger: Set<string>): { x: number; y: number } | null => {
+    const hexes = grid.toArray();
+    const here = hexes.find((h: any) => h.col === actor.longitude && h.row === actor.latitude);
+    if (!here) return null;
+    const occupied = new Set<string>();
+    for (const u of b.usersState) if (u.userId !== actor.userId && stillInBattle(u, b.usersEffects)) occupied.add(`${u.longitude},${u.latitude}`);
+    for (const e of b.groundEffects as any[]) if (e.type === "barrier") occupied.add(`${e.longitude},${e.latitude}`);
+    const foes = b.usersState.filter((u) => u.direction !== actor.direction && stillInBattle(u, b.usersEffects)).map((u) => hexes.find((x: any) => x.col === u.longitude && x.row === u.latitude)!).filter(Boolean);
+    if (!foes.length) return null;
+    const dFoe = (h: any) => Math.min(...foes.map((f: any) => grid.distance(h, f)));
+    const cur = dFoe(here);
+    const options = hexes.filter((n: any) => grid.distance(here, n) === 1 && !occupied.has(`${n.col},${n.row}`) && !danger.has(`${n.col},${n.row}`) && dFoe(n) < cur);
+    options.sort((p: any, q: any) => dFoe(p) - dFoe(q) || p.col - q.col || p.row - q.row);
+    return options[0] ? { x: options[0].col, y: options[0].row } : null;
+  };
+  /** Dodge state of the current human turn. */
+  let dodgeTurn: { key: string; counted: boolean; steps: number; done: boolean; lastPos: string } | null = null;
+  const planDodge = (actor: any): { x: number; y: number } | null | "ok" => {
+    const { danger, safe } = marks();
+    const here = `${actor.longitude},${actor.latitude}`;
+    const arena = safe.size > 0;
+    const ok = (k: string) => (arena ? safe.has(k) : !danger.has(k));
+    if (ok(here)) return "ok";
+    const blocked = new Set<string>();
+    for (const u of b.usersState) if (u.userId !== actor.userId && stillInBattle(u, b.usersEffects)) blocked.add(`${u.longitude},${u.latitude}`);
+    for (const e of b.groundEffects as any[]) if (e.type === "barrier") blocked.add(`${e.longitude},${e.latitude}`);
+    // BFS over the hex grid (honeycomb distance 1 neighbours).
+    const hexes = grid.toArray();
+    const start = hexes.find((h: any) => h.col === actor.longitude && h.row === actor.latitude);
+    if (!start) return null;
+    const dist = new Map<any, number>([[start, 0]]);
+    const queue: any[] = [start];
+    const found: any[] = [];
+    while (queue.length) {
+      const h = queue.shift();
+      const d = dist.get(h)!;
+      if (d > 0 && ok(`${h.col},${h.row}`)) found.push(h);
+      if (d >= DODGE_STEPS) continue;
+      for (const n of hexes) {
+        if (dist.has(n) || grid.distance(h, n) !== 1 || blocked.has(`${n.col},${n.row}`)) continue;
+        dist.set(n, d + 1);
+        queue.push(n);
+      }
+    }
+    if (!found.length) return null;
+    const minD = Math.min(...found.map((h) => dist.get(h)!));
+    const best = found.filter((h) => dist.get(h) === minD);
+    // Tie-break: stay closest to the nearest enemy (keep fighting), then by position.
+    const enemies = b.usersState.filter((u) => u.direction !== actor.direction && stillInBattle(u, b.usersEffects));
+    const ed = (h: any) => Math.min(99, ...enemies.map((u) => grid.distance(h, hexes.find((x: any) => x.col === u.longitude && x.row === u.latitude)!)));
+    best.sort((p, q) => ed(p) - ed(q) || p.col - q.col || p.row - q.row);
+    return { x: best[0].col, y: best[0].row };
+  };
   let outcome: FloorResult["outcome"] = "stalled";
   advanceEncounterWave(b, !!outcomeOf());
   registerWave();
@@ -339,8 +449,82 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
       : undefined;
     const waveAtStep = curWave().wave;
     probe = null;
+    // Harness dodge pre-step (see DANGER_ANIMS).
+    let restoreRules: (() => void) | null = null;
+    let dodgeStep = false;
+    if (isHuman && opts.dodge) {
+      const tk = `${b.round}:${actor.userId}`;
+      if (!dodgeTurn || dodgeTurn.key !== tk) dodgeTurn = { key: tk, counted: false, steps: 0, done: false, lastPos: "" };
+      const profile = (b.extraState.aiProfiles as any)?.[actor.aiProfileId];
+      const { danger, safe } = marks();
+      if (profile && (danger.size || safe.size)) {
+        const saved = profile.rules;
+        // While marks are up the player's own "close in" moves become one-hex steps that never enter a
+        // marked hex (and never leave a safe star); an explicit end of turn keeps the engine's appended
+        // backup rules (move towards a random opponent) from walking them into the marks.
+        const step = safe.size ? null : safeStep(actor, danger);
+        let rules = [
+          ...saved.flatMap((r: any) =>
+            r.action.type !== "move_towards_opponent"
+              ? [r]
+              : step
+                ? [{ ...r, action: { type: "move_towards_opponent", target: "COORDINATE", coordinates: { longitude: step.x, latitude: step.y }, description: "harness: safe step" } }]
+                : [],
+          ),
+          { conditions: [], action: { type: "end_turn", description: "harness: hold while marked" } },
+        ];
+        if (!dodgeTurn.done) {
+          const plan = planDodge(actor);
+          if (plan === "ok") dodgeTurn.done = true;
+          else {
+            if (!dodgeTurn.counted) {
+              dodgeTurn.counted = true;
+              dodge.threatened++;
+            }
+            const pos = `${actor.longitude},${actor.latitude}`;
+            const rooted = b.usersEffects.some((e: any) => e.targetId === actor.userId && (e.type === "moveprevent" || e.type === "stun") && isEffectActive(e));
+            if (plan === null) {
+              dodge.failedNoPath++;
+              dodgeTurn.done = true;
+            } else if (dodgeTurn.steps >= DODGE_STEPS || (dodgeTurn.steps > 0 && pos === dodgeTurn.lastPos)) {
+              if (rooted) dodge.failedRooted++;
+              else dodge.failedOther++;
+              dodgeTurn.done = true;
+            } else {
+              dodgeTurn.steps++;
+              dodgeTurn.lastPos = pos;
+              dodgeStep = true;
+              rules = [{ conditions: [], action: { type: "move_towards_opponent", target: "COORDINATE", coordinates: { longitude: plan.x, latitude: plan.y }, description: "harness dodge" } }];
+            }
+          }
+        }
+        profile.rules = rules;
+        const pid = actor.aiProfileId;
+        restoreRules = () => {
+          // performAIaction may return a cloned battle: restore on both.
+          profile.rules = saved;
+          const np = (b.extraState.aiProfiles as any)?.[pid];
+          if (np) np.rules = saved;
+        };
+      }
+    }
     const res = performAIaction(b, grid, actor.userId);
     b = res.nextBattle;
+    restoreRules?.();
+    if (dodgeStep) {
+      dodge.stepsTaken++;
+      const me = b.usersState.find((u) => u.userId === actor.userId);
+      const plan = me ? planDodge(me) : null;
+      if (plan === "ok" && dodgeTurn) {
+        dodge.dodged++;
+        dodgeTurn.done = true;
+      } else if (me && dodgeTurn && `${me.longitude},${me.latitude}` === dodgeTurn.lastPos) {
+        const rooted = b.usersEffects.some((e: any) => e.targetId === actor.userId && (e.type === "moveprevent" || e.type === "stun") && isEffectActive(e));
+        if (rooted) dodge.failedRooted++;
+        else dodge.failedOther++;
+        dodgeTurn.done = true;
+      }
+    }
     const fired = probe as Probe | null;
     // performAction: an explicit player action stamps the dungeon inactivity tracker.
     if (res.nextActionId && b.extraState.dungeon && isHuman)
@@ -370,7 +554,8 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
     steps.push({
       round: pre.actionRound, wave: waveAtStep, actor: actor.controllerId, actorUid: actor.userId, human: isHuman,
       actionId: res.nextActionId ?? null,
-      ruleIndex: fired && fired.userId === actor.userId ? fired.ruleIndex : null,
+      ruleIndex: dodgeStep ? null : fired && fired.userId === actor.userId ? fired.ruleIndex : null,
+      ...(dodgeStep ? { dodge: true } : {}),
       authoredRules: authoredCount(actor),
       hp, dealt: dealtBy[actor.userId] ?? 0, dealtBy,
       effects: b.usersEffects.filter((e) => !effBefore.has(e.id)).map((e) => ({ type: e.type, target: e.targetId, creator: e.creatorId })),
@@ -381,7 +566,7 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
             actorEffects,
             actorTo: ((u) => (u ? [u.longitude, u.latitude] : actorFrom))(b.usersState.find((u) => u.userId === actor.userId)) as [number, number],
             newUnits: b.usersState.filter((u) => !uBefore.has(u.userId)).map((u) => ({ uid: u.userId, name: u.username, controllerId: u.controllerId, isSummon: !!u.isSummon, x: u.longitude, y: u.latitude, hp: u.curHealth })),
-            groundAfter: b.groundEffects.filter((e) => e.creatorId !== "ground").map((e: any) => ({ type: e.type, creator: e.creatorId, x: e.longitude, y: e.latitude, rounds: e.rounds, power: e.power, staticAnimation: e.staticAnimation || undefined })),
+            groundAfter: b.groundEffects.filter((e) => e.creatorId !== "ground").map((e: any) => ({ type: e.type, creator: e.creatorId, x: e.longitude, y: e.latitude, rounds: e.rounds, power: e.power, staticAnimation: e.staticAnimation || undefined, curHealth: e.type === "barrier" ? e.curHealth : undefined })),
           }
         : {}),
     });
@@ -400,6 +585,6 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
     if (!u.isSummon) final[u.userId] = { hp: u.curHealth, maxHp: u.maxHealth, cp: u.curChakra, maxCp: u.maxChakra, sp: u.curStamina, maxSp: u.maxStamina };
   return {
     outcome, failedReason: b.extraState.dungeon?.failedReason, rounds: b.round,
-    waves, steps, players, final, humanTurns, aiTurns,
+    waves, steps, players, final, humanTurns, aiTurns, dodge,
   };
 };
