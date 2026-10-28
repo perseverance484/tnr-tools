@@ -70,6 +70,34 @@ export const seedEntropy = (seed: number) => {
   // nanoid keeps a pool of up to 32,768 pre-drawn characters; one oversized draw empties it, so the
   // next id starts a fresh pool from the seeded source.
   nanoid(32_769);
+  seedClock();
+};
+
+/**
+ * Virtual clock. The engine reads the wall clock in a few places (the 60 s round timer in calcActiveUser,
+ * roundStartAt, updatedAt stamps), so a slow or busy machine could change a battle's course. Each run gets a
+ * fixed epoch, and the clock advances a fixed step per engine call (runFloor ticks it once per action), so
+ * time-dependent paths see the same values on every machine.
+ */
+const RealDate = Date;
+let virtualNow = 0;
+export const tickClock = (ms: number) => {
+  virtualNow += ms;
+};
+export const seedClock = () => {
+  virtualNow = RealDate.UTC(2026, 9, 28, 0, 0, 0);
+  if ((globalThis.Date as any).__harnessVirtual) return;
+  class VirtualDate extends RealDate {
+    constructor(...args: any[]) {
+      if (args.length === 0) super(virtualNow);
+      else super(...(args as [any]));
+    }
+    static now() {
+      return virtualNow;
+    }
+  }
+  (VirtualDate as any).__harnessVirtual = true;
+  globalThis.Date = VirtualDate as unknown as DateConstructor;
 };
 
 /** Read-only client: any property access means assembly needed the DB (it must not). */
@@ -161,6 +189,8 @@ export const assembleFloor = async (opts: {
   dmgConfig?: Record<string, number>;
   /** "dungeon" (default): coop dungeon floor. "quest": a plain QUEST battle (no waves/dungeon state). */
   mode?: "dungeon" | "quest";
+  /** Companion pets (UserPet rows with their species), one per owner; owners carry activePetId. */
+  pets?: any[];
 }): Promise<CompleteBattle> => {
   const quest = opts.mode === "quest";
   const battleType = "QUEST" as never;
@@ -189,11 +219,19 @@ export const assembleFloor = async (opts: {
     battleType, width, height, hide: false, isSummon: false, summonTemplateCache,
   };
   const firstCount = quest ? users.length : playerIds.length + (opts.floor.waves[0]?.aiIds.length ?? 0);
+  const petPreload = opts.pets?.length
+    ? {
+        pets: structuredClone(opts.pets),
+        ownerRanks: Object.fromEntries(opts.players.map((p) => [p.userId, p.rank])),
+        abilitiesByOwner: Object.fromEntries(opts.players.map((p) => [p.userId, { jutsus: [], skills: [] }])),
+      }
+    : undefined;
   const processed = await processUsersForBattle(noDbClient, {
     ...common,
     users: users.slice(0, firstCount),
     leftSideUserIds: playerIds,
     leftSideUserCount: playerIds.length,
+    ...(petPreload ? { petPreload } : {}),
   } as never);
   const { userEffects, usersState, extraState } = processed;
   const groundEffects = [...(processed.groundEffects ?? [])];
@@ -209,6 +247,30 @@ export const assembleFloor = async (opts: {
     taken.push(loc);
     u.longitude = loc.x;
     u.latitude = loc.y;
+  }
+  // Pets spawned beside their owner's engine-drawn cell; re-seat each beside the owner's redrawn cell
+  // (the nearest free hex, the engine's own getPetSpawnLocation rule restated: owner's half, grid order on ties).
+  // Clear every pet's engine-drawn cell first: those derive from the unseeded engine spawn draw, and a pet not yet
+  // re-seated would otherwise block a cell for the others (same seed, different placement).
+  const petsInBattle = usersState.filter((u: any) => u.petId);
+  for (const pet of petsInBattle) {
+    pet.longitude = -1;
+    pet.latitude = -1;
+  }
+  for (const pet of petsInBattle) {
+    const owner = usersState.find((u) => u.userId === pet.controllerId)!;
+    const half = Math.floor(width / 2);
+    const cells: { x: number; y: number; d: number }[] = [];
+    for (let x = 0; x <= half; x++)
+      for (let y = 0; y < height; y++) {
+        if (usersState.some((u) => u !== pet && u.longitude === x && u.latitude === y)) continue;
+        cells.push({ x, y, d: Math.abs(x - (owner.longitude - 1)) + Math.abs(y - owner.latitude) });
+      }
+    cells.sort((a, b) => a.d - b.d);
+    if (cells[0]) {
+      pet.longitude = cells[0].x;
+      pet.latitude = cells[0].y;
+    }
   }
   let offset = firstCount;
   if (!quest) {
@@ -508,6 +570,7 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
         };
       }
     }
+    tickClock(1000);
     const res = performAIaction(b, grid, actor.userId);
     b = res.nextBattle;
     restoreRules?.();

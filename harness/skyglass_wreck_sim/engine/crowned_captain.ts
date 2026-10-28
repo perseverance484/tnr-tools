@@ -25,10 +25,10 @@ import {
 
 /* ------------------------------------------------------------------ parameters */
 export const CC_DEFAULTS = {
-  name: "library_hp2x_tuned",
-  poolsMultiplier: 5, // director 2026-10-28: HP doubled (25,250)
+  name: "chain_tuned", // RUL-2026-10-28-013: tuned for the Crownhold chain (pools carried), report 4
+  poolsMultiplier: 3, // report 2: 5 (director's doubled HP); 3 keeps the fight inside 20 rounds (Kitsune bonus)
   statsMultiplier: 5.83, // inert in battle (JONIN stat cap)
-  idgRows: 0.25, // library tuning (report 3): one +25% row
+  idgRows: 0.25, // one +25% row
   throne: [9, 4] as [number, number],
   echoHp: 2500, echoPower: 70, echoRounds: 3, recallCd: 8,
   recallTarget: "EMPTY_GROUND_CLOSEST_TO_SELF" as string,
@@ -42,8 +42,21 @@ export const CC_DEFAULTS = {
   /** Analysis only: override library powers (LIB_POWERS keys) to measure what the library owner would need to
    * change. Empty in the shipped tuning; the spec never carries copies of library records. */
   libPowers: {} as Record<string, number>,
-  /** Analysis only: replace the library's Lines pattern (one 5-hex ray west, see the report) by a five-ray fan. */
+  /** Analysis only (report 3, pre-5f6c3edb): replace the library's Lines pattern by report 1's five-ray fan. */
   libLinesFan: false,
+  /** A kit jutsu cast first while the player carries Alarm Raised (rounds 1-2): Crownhold's alert route. */
+  alarmStrike: null as string | null,
+  /** The Crown's Will (his own record, a copy of Oni's Hunger): damage-given power and rounds. Live Oni's Hunger is
+   * +60% for 99 rounds; a short, stronger Will makes phase 1 (the duel) the dangerous stretch. */
+  crownsWillPower: 50,
+  crownsWillRounds: 7,
+  /** Extra +100% damage-given rows on The Crown's Will (each multiplies; the engine caps one row at +100%). */
+  crownsWillExtraRows: 2,
+  /** Phase 2 fillers: Scorching Rend / Devouring Grasp between the design's phase-2 moves (Recall, Command
+   * Absolute, Stolen Form, Extermination Order). false = the design's list only. */
+  phase2Fillers: false,
+  /** Phase 2 also lays Omen: Lines (Crownfall) after Recall, ahead of Stolen Form and Extermination Order. */
+  phase2Lines: true,
 };
 export type CCParams = typeof CC_DEFAULTS;
 export const ccParams = (over: any = {}): CCParams => ({ ...CC_DEFAULTS, ...over });
@@ -76,7 +89,15 @@ export const buildBespoke = (P: CCParams) => {
       name: "The Crown's Will", target: "SELF", method: "SINGLE", range: 0, cooldown: oni.cooldown, actionCostPerc: oni.actionCostPerc,
       description: "The Command Crown answers its wearer. Its frost points glint, and every echo in the hall stands straighter.",
       battleDescription: "%user does not rise. \"Another echo come home.\"",
-      effects: oni.effects.map((e: any, i: number) => ({ ...e, ...(i === 0 ? { staticAnimation: "cc_crown_aura" } : {}) })),
+      effects: [
+        ...oni.effects.map((e: any, i: number) => ({
+          ...e, rounds: P.crownsWillRounds, ...(e.type === "increasedamagegiven" ? { power: P.crownsWillPower } : {}),
+          ...(i === 0 ? { staticAnimation: "cc_crown_aura" } : {}),
+        })),
+        ...Array.from({ length: P.crownsWillExtraRows }, () => ({
+          ...oni.effects.find((e: any) => e.type === "increasedamagegiven"), power: 100, rounds: P.crownsWillRounds,
+        })),
+      ],
     }),
     jutsuRecord(ID.recall, {
       ...structuredClone(DONOR_SUMMON), id: ID.recall, name: "Recall", image: IMG, jutsuType: "AI", jutsuRank: "S",
@@ -117,6 +138,7 @@ export const ccRules = (P: CCParams) => [
   R.jutsu(LIB.blast.scatterA, "SELF", [C.has(M.scatterA)]),
   R.jutsu(ID.command, "SELF", [C.has(M.lastLightBinding)]),
   R.jutsu(ID.crownfall, "SELF", [C.has(M.lines)]),
+  ...(P.alarmStrike ? [R.jutsu(P.alarmStrike, PLAYER, [C.tHas("increasedamagetaken", 10), C.round(3), C.near(5)])] : []),
   // The throne (a no-op once there; before any mark, so Lines are laid from it).
   R.moveTo(P.throne),
   // After a mark: one plain attack with the 60 AP left, then end turn (never two marks in a turn).
@@ -135,10 +157,10 @@ export const ccRules = (P: CCParams) => [
   // Phase 2 (60-30%)
   R.jutsu(LIB.mark.lastLightBinding, "SELF", [C.hb(60)]),
   R.jutsu(ID.recall, P.recallTarget, [C.hb(60), C.noSummon()]),
+  ...(P.phase2Lines ? [R.jutsu(LIB.mark.lines, "SELF", [C.hb(60)])] : []),
   R.jutsu(ID.stolenForm, PLAYER, [C.hb(60), C.tHas("increasedamagegiven", 50), C.near(4)]),
   R.jutsu(ID.extermination, PLAYER, [C.hb(60), C.near(5)]),
-  R.jutsu(ID.scorchingRend, PLAYER, [C.hb(60), C.near(5)]),
-  R.jutsu(ID.devouringGrasp, PLAYER, [C.hb(60), C.near(5)]),
+  ...(P.phase2Fillers ? [R.jutsu(ID.scorchingRend, PLAYER, [C.hb(60), C.near(5)]), R.jutsu(ID.devouringGrasp, PLAYER, [C.hb(60), C.near(5)])] : []),
   R.item(ID.countermand, PLAYER, [C.hb(60), C.near(5)]),
   R.end([C.hb(60)]),
   // Phase 1 (100-60%): the duelist.
@@ -202,7 +224,7 @@ export const ccSpec = (P: CCParams, issues: string[]) => ({
   params: P,
   ai: { id: BOSS_ID, srcId: IN.boss.srcId, record: ccAiRecord(P) },
   newJutsu: buildBespoke(P),
-  libraryUsed: { ids: CC_LIBRARY_USED, source: "library_spec.json (fable/skyglass-wreck-sim 4bd5356a)", powers: { crownfall: LIB_POWERS.crownfall, commandAbsolute: LIB_POWERS.commandAbsolute, blastScatter: LIB_POWERS.blastScatter, scatterPool: LIB_POWERS.scatterPool } },
+  libraryUsed: { ids: CC_LIBRARY_USED, source: "library_spec.json (fable/skyglass-wreck-sim 5f6c3edb)", powers: { crownfall: LIB_POWERS.crownfall, commandAbsolute: LIB_POWERS.commandAbsolute, blastScatter: LIB_POWERS.blastScatter, scatterPool: LIB_POWERS.scatterPool } },
   editedJutsu: { [ID.lastDirective]: { note: "existing push/271 record: cosmetic edit only (battleDescription carries the design's line and Shardstorm's image; finalstand row animations)", battleDescription: editedLastDirective().battleDescription, effects: editedLastDirective().effects } },
   editedRecord: { innateSealprevent: P.dropInnateSealprevent ? "removed: it collides with the Last Light, Binding marker (sealprevent); the boss has no bloodline, so the row did nothing" : "kept" },
   setPieces: {

@@ -12,10 +12,210 @@ average endgame player and exports a build spec.
 - **Scripts:** `engine/crowned_captain.ts`, `engine/crownhold.ts`, shared code in `engine/cclib.ts`.
 - **Inputs:** `data/crownhold_inputs.json`, built by `tools/build_crownhold_inputs.py`.
 
-Nothing here is pushed or authorised for the live game. Report 3 (below) is current. Reports 2 and 1 follow it and are
+Nothing here is pushed or authorised for the live game. Report 4 (below) is current. Reports 3, 2 and 1 follow it and are
 superseded where report 3 differs; their `cc-*` placeholder set pieces are replaced by library records.
 
-## Report 3 (current): the shared library, the three commanders, the pyramid chain
+## Report 4 (current): Crownhold tuned for the chain (RUL-2026-10-28-013)
+
+The director's ruling sets three rules:
+- Crownhold carries HP between fights with no refill.
+- The Crowned Captain and the three commanders are never fought alone.
+- They are tuned for the whole run.
+
+The targets:
+- Every route clears.
+- Healing Rite is highest (about 55-60%).
+- War Rite and clean are in between (about 40-50%), each with its own trade-off.
+- The alarm route is lowest (about 30-35%).
+- The Crowned Captain stays the hardest fight, and his fight lasts 20 rounds or less.
+
+**Headline: the Healing Rite route clears (60-80%) and the Crowned Captain targets are met: hardest fight, at most 19
+rounds. Clean (12.5%), alarm (0%) and War Rite (0%) miss their targets and cannot reach them by tuning the four bosses
+alone.**
+- The regular fights are fixed input. They cost about 45% of the player's HP before the Crowned Captain on the clean
+  route, and nearly all of it on the War Rite route.
+- With the bosses at any setting, those routes reach the Crowned Captain with 1-15% HP.
+- The quest and regular changes that would meet the targets are below, as proposals for the director. They are not
+  built into the specs.
+
+### What changed before tuning
+
+- **Shared library.**
+  - Merged `5f6c3edb`: Lines as a fan, Scatter covering both halves, blast cooldown 2, enemies-only rows, a lock that is
+    not shared.
+  - Replicant Zero's Seal Lines blast gets cooldown 2 from the library, so he needs no change of his own.
+- **Virtual clock** (`seedClock`/`tickClock`) from the Wreck agent's `sim.ts`, plus seeded id entropy in every fight.
+  Same-seed fights are identical on a busy machine.
+- **Pet support** (`assembleFloor({ pets })`, `model.ts` `petFor`) from the same source, plus the Wreck agent's pet
+  placement fix from `c301632b` (only its `sim.ts` part: every pet is cleared to -1 before being placed again).
+  - Checked: the same seed run twice gives the same trace, pet positions included.
+  - With one pet per fight the fix changes no result: the trace matches the run from before the fix.
+- **Fixed input: Crown Archivist** (D3.REG1, `LZiunyinw9ScK3mh9HiR2`).
+  - It runs at the hunts harness tuning: pools 2, 2 damage rows (`params.regs`). Crownhold does not retune it.
+  - It now costs a median 13.6% HP. At live stats it cost 1.2%.
+  - If Crownhold should not carry the hunts tuning, it needs its own copy of the record.
+- **Ward of Command** (`lib-ward-of-command`) is not used by any Crownhold fight, so the hunts INHERIT fix does not
+  apply here.
+
+### Player model (stated assumptions)
+
+- **The same average endgame player as before.**
+- **One pet.** It is a modelled mid-rank companion (`model.ts petFor`, shared with the Wreck harness):
+  - for a JONIN owner, pet rank 5 at level 30;
+  - half that rank's stat caps;
+  - COMMON ASSAULT species, no passives, no pet jutsu, the engine's default AI.
+  - Pets join QUEST battles. Each fight's pet starts fresh.
+  - What it does: it deals 0.2-0.8% of a boss's damage, but it draws the regulars' attacks. A D2 regular costs about
+    1% HP with it, 3% without.
+- **The player reads each new telegraph with probability 0.85** (`--read 0.85`; one roll per new marked set, from its
+  own seeded stream, so the combat sequence is unchanged).
+  - A player who reads every mark takes no set-piece damage, and the only way to lose is running out of HP.
+  - Then the Healing Rite route (full HP at every boss) clears about 100% and every other route far less, and no
+    tuning puts Healing at 55-60% with clean at 40-50%.
+  - Misreads give the set pieces a risk that does not depend on HP carried, which the targets need.
+- **The chain:** a loss ends the run, and nothing regenerates between fights. Chakra and stamina carry too.
+
+### Changed stats (shipped in `crownhold_spec.json` / `crowned_captain_spec.json`)
+
+| Boss | Pools (before → now) | Damage rows (now) | Other changes |
+|---|---|---|---|
+| Crown Armsmaster (D2) | push/272 2.5 → **1.25** | **−50%** (one decreasedamagegiven row) | Opening: in round 1 he casts Sovereign Fetters (stun, seal), then the Racks Fall (Scatter A) mark, so the stunned player cannot step out. The War Rite's stun immunity is the answer to this opening. |
+| Replicant Zero (D3) | 3 → **1.25** | **−90%** | none; the library gives his blast cooldown 2 |
+| The Second (D4) | 3 → **2** | **−15%** | none |
+| The Crowned Captain (D5) | report 2: 5 → **3** | +25% (unchanged) | See the list below. |
+
+**The Crowned Captain's other changes:**
+- **The Crown's Will** (his own record):
+  - It now lasts 7 rounds, not 99.
+  - It now has +50% damage plus two +100% damage rows (×6 in all) and keeps its +25% stats.
+  - The duel phase is now the lethal stretch: a misread Crownfall or a landed Final Command kills.
+- **Phase 2:**
+  - It now uses only the design's moves: Recall, Command Absolute, Stolen Form, Extermination Order, Countermand.
+  - The Scorching Rend / Devouring Grasp fillers are dropped.
+  - Omen: Lines (Crownfall) is laid after Recall. Extermination Order now comes about once per phase, not twice.
+
+**Per-fight tables at full HP** (20 seeds, telegraphs read with probability 0.85):
+- **The Crowned Captain:**
+  - wins 60%;
+  - a win costs a median 24% HP;
+  - every fight ends by round 19 (median 18; losses come early, rounds 7-16), inside the Kitsune limit of 20.
+  - Every loss is a caught set piece: a Crownfall in the Crown's Will window, or a Shardstorm after a Command Absolute
+    lock.
+- **The commanders** cost a median 4% (D2), 13% (D3) and 16% (D4) HP and never lose at full HP.
+- The ramp by HP cost and risk is D2 < D3 < D4 < Crowned Captain.
+
+### The chain, real runs (`results/crownhold_chain.json`: pet, reads 0.85, pools carried)
+
+Each boss cell: reached / HP at entry (median) / win% of those reached / HP left after a win / rounds.
+
+| Route | Runs | Clears | Armsmaster | Replicant Zero | The Second | The Crowned Captain | Where runs end |
+|---|---:|---:|---|---|---|---|---|
+| clean | 16 | **12.5%** | 100% / 95 / 100% / 90 / 5.5 | 100% / 68.5 / 100% / 53 / 8 | 100% / 42.5 / 100% / 32 / 6 | 100% / **14.5** / 12.5% / 14 / 4 | Crowned Captain 14 |
+| alert | 10 | **0%** | 100% / 96 / 100% / 90 / 5 | 100% / 68 / 100% / 51 / 8 | 100% / 41.5 / 100% / 29 / 9 | 100% / **13.5** / 0% / - / 3.5 | Crowned Captain 10 |
+| healing | 10 | **80%** | 100% / 100 / 100% / 96 / 5 | 100% / 100 / 100% / 86 / 8 | 100% / 100 / 100% / 98 / 6 | 100% / 100 / 80% / 52 / **18** | Crowned Captain 2 |
+| war | 10 | **0%** | 100% / 93 / 100% / 88 / 5 | 100% / 57.5 / 100% / 44 / 7.5 | 90% / **15** / 78% / 15 / 6 | 10% / 1 / 0% | D5 regulars 6, The Second 2, Crown Runner 1, Crowned Captain 1 |
+
+**Notes on the table:**
+- The clean summary comes from the run log. That run was killed by the shared machine's memory limit before it saved
+  its per-chain detail. The other routes save after every chain.
+- Healing clears 80% over 10 runs. The 20-seed full-HP table gives 60%, so the pooled rate is about 67%, a little above
+  the target. I left it there; see the decision below.
+- Ten runs give a ±15-point spread.
+
+### Why clean, alarm and War Rite cannot reach their targets with the bosses alone
+
+HP cost per fight at full HP, median (`--table`):
+
+| Division | Regulars 1-3 | Regular 4 (rite routes only) | Commander / Crowned Captain |
+|---|---|---|---|
+| D2 | 1.0 + 1.1 + 1.0 | 3.7 (Duelist) | 4.3 |
+| D3 | **13.6 (Archivist, fixed)** + 1.8 + 3.2 | 8.0 (Stonebound) | 13.4 |
+| D4 | 1.2 + 1.2 + 1.8 | **20.0 (Crown Runner)** | 15.5 |
+| D5 | 4.3 + 2.8 + 6.2 | 3.7 (Sealbearer) | 24 when he is beaten (60% at full HP) |
+
+**Clean:**
+- The regulars take about 38% at full-HP rates, and more in the chain as chakra and stamina run down.
+- The commanders' 33% leaves the player 14.5% HP at the Crowned Captain.
+- He is beaten from there only on a run with no misread.
+
+**Alarm:**
+- Alarm Raised (+10% damage taken for 2 rounds, push/273) changes almost nothing for a player who is dodging.
+- I tried an "expected" opening strike or guard buff for each boss while the alarm is up. It made the alarm route
+  cheaper, because it delays each boss's real threat. It is not shipped (`alarmStrike` stays null).
+
+**War Rite:**
+- The fourth regulars cost a further 35% (the Crown Runner alone 20%).
+- The War Rite effects last 2-3 rounds.
+- The player reaches the Second with about 15% HP.
+
+### Proposals that would meet the targets (director's decision; not in the specs)
+
+The offline estimate (`tools/compose_chain.py`) is built from the per-fight tables. It is a tuning surrogate: it
+assumes a fight's cost does not depend on the HP carried, and its clean figure (18%) ran above the real chains
+(12.5%).
+
+| Change on top of the shipped bosses | Clean | Alarm | Healing | War Rite |
+|---|---:|---:|---:|---:|
+| none (push/273 quest data) | 18% | 24% | 59% | 0% |
+| Alarm Raised +25% damage taken for the whole fight; War Rite effects for the whole fight, plus 30% damage reduction | 24% | 14% | 59% | 0% |
+| plus regulars at half damage, Archivist kept at the hunts stats | 38% | 33% | 59% | 33% |
+| plus regulars at half damage, Archivist included (a Crownhold copy) | 40% | 37% | 59% | 40% |
+
+The rite routes could also restore some HP: a War Rite restoring 15-20% HP is estimated at 39-46% clears. This cannot
+be expressed today: `givePools` sets HP to a percentage, it does not add to it.
+
+**The real chain does not confirm the estimate** (`results/crownhold_chain_proposal.json`).
+- With regulars at half damage and the quest proposals, real clean chains cleared **10%** (10 runs), not 38%.
+  - The player reached the Crowned Captain with 30-40% HP (median 35%).
+  - Nine runs in ten were lost to him there.
+  - I stopped the remaining proposal routes: they cannot beat clean.
+- **Why the estimate fails:** the Crowned Captain's risk is not independent of the HP carried. His caught set pieces cost
+  40-100% at full HP rather than always killing.
+- **Carried HP, chakra and stamina together** (12 seeds each), the Crowned Captain wins:
+  - **60%** of fights started at 100%;
+  - **25%** of fights started at 60%, and also at 35%.
+  - Most losses come by round 4: a Crownfall in the Crown's Will window kills from 60%.
+- **The next step if the director wants these targets:**
+  - make the Crown's Will window a true one-shot (×12) while a clean read stays cheap;
+  - then re-validate with real chains, together with the regular and quest changes above.
+  - Even then, clean can only match Healing if the Crowned Captain's risk stops depending on HP, and that removes the
+    Healing Rite's advantage at the last fight.
+- The targets as written pull against each other here. That needs a design decision, not more tuning.
+
+**What the targets need beyond the four bosses** (quest or regular data, owned by the director, not settled here; the estimate above did not hold in real chains):
+1. **Regulars:** Crownhold's regulars at about half damage. The Crown Runner (20%) and the Archivist (13.6%) are the
+   outliers; the Archivist would need a Crownhold copy.
+2. **Alarm Raised:** a stronger effect that lasts the whole fight.
+3. **War Rite:** effects that last the whole fight and add damage reduction.
+
+### Other answers
+
+- **The Second's line.**
+  - "I questioned his orders for thirty years." has no shared-library cast to ride on. Every library record is shared
+    (Rows A is also the Captain's Broadside mark), and the only window cast, Lowered Guard, carries the library's neutral
+    line.
+  - The line already appears in push/273's alarm text for him (`d4.n.boss.alert`: "I questioned his orders for thirty
+    years. I never forged one.").
+- **Replicant Zero's blast cooldown 2:** it comes from the library (every blast is cooldown 2 since `5f6c3edb`).
+- **Library geometry: a new finding for the library owner.**
+  - `5f6c3edb` builds Lines and Seal Lines on a "POINTY, odd rows shifted" grid.
+  - The engine's `getBattleGrid` uses `Orientation.FLAT` (`libs/hexgrid.ts`).
+  - On the battle grid the fan's diagonals become near-vertical lines down columns 7-8, not 60° rays.
+  - From the throne [9,4], Lines covers 21 hexes:
+    - a row west to (4,4);
+    - columns 7-8 from row -1 to row 9.
+  - Crownfall now reaches players, but the shape is not the drawn fan. The harness checks hits with the engine's own
+    targeting, so the numbers here hold for the record as it is.
+- **The Kitsune bonus:** every Crowned Captain fight now ends by round 19, so the Kitsune set's max-HP bonus
+  (20 rounds) no longer lapses mid-fight. Report 3's "fact 11" no longer applies at these settings.
+- **Machine note.** Two long chain runs were killed by the shared memory cgroup (OOM, with other agents' sims
+  running). Chain runs now save after every chain.
+- **Stale result files:** `results/crownhold_commanders_solo.json` and `results/crowned_captain_tuned.json` are from report
+  3's solo tuning. The bosses are now tuned for the chain only (the ruling: they are never fought alone).
+- **Per-fight tables:** `results/crownhold_tables.json` holds the tables the estimates were built from. The D4 entries
+  under `final_bosses_read085` are from an earlier D4 setting; the shipped D4 is in `final_d4_read085`.
+
+## Report 3 (superseded by report 4): the shared library, the three commanders, the pyramid chain
 
 This report covers three things:
 - the Crowned Captain switched to the shared set-piece library;

@@ -1,24 +1,73 @@
 {
  "generatedBy": "engine/crownhold.ts",
  "params": {
-  "name": "ramp",
+  "name": "chain_tuned",
   "D2": {
-   "poolsMultiplier": 2,
-   "idgRows": 0
+   "poolsMultiplier": 1.25,
+   "idgRows": -0.5,
+   "alarmStrike": null,
+   "alarmTarget": "CLOSEST_OPPONENT",
+   "opening": true
   },
   "D3": {
-   "poolsMultiplier": 3,
-   "idgRows": 0.25
+   "poolsMultiplier": 1.25,
+   "idgRows": -0.9,
+   "alarmStrike": null,
+   "alarmTarget": "CLOSEST_OPPONENT",
+   "opening": false
   },
   "D4": {
-   "poolsMultiplier": 4,
-   "idgRows": 3
+   "poolsMultiplier": 2,
+   "idgRows": -0.15,
+   "alarmStrike": null,
+   "alarmTarget": "CLOSEST_OPPONENT",
+   "opening": false
   },
-  "cc": {}
+  "cc": {},
+  "regs": {
+   "D3.REG1": {
+    "poolsMultiplier": 2,
+    "idgRows": 2
+   }
+  },
+  "quest": {
+   "alarm": {
+    "type": "increasedamagetaken",
+    "power": 10,
+    "rounds": 2
+   },
+   "warExtra": [],
+   "war": {
+    "D2": {
+     "type": "stunprevent",
+     "power": 100,
+     "rounds": 2,
+     "calculation": "percentage"
+    },
+    "D3": {
+     "type": "increasedamagegiven",
+     "power": 25,
+     "rounds": 3,
+     "calculation": "percentage"
+    },
+    "D4": {
+     "type": "sealprevent",
+     "power": 100,
+     "rounds": 2,
+     "calculation": "static"
+    },
+    "D5": {
+     "type": "debuffprevent",
+     "power": 100,
+     "rounds": 3,
+     "calculation": "static"
+    }
+   }
+  }
  },
  "ccParams": {
-  "name": "library_hp2x_tuned",
-  "poolsMultiplier": 5,
+  "name": "chain_tuned",
+  "poolsMultiplier": 3,
   "statsMultiplier": 5.83,
   "idgRows": 0.25,
   "throne": [
@@ -34,1582 +83,101 @@
   "dropInnateSealprevent": true,
   "afterMarkAttack": "basic",
   "libPowers": {},
-  "libLinesFan": false
+  "libLinesFan": false,
+  "alarmStrike": null,
+  "crownsWillPower": 50,
+  "crownsWillRounds": 7,
+  "crownsWillExtraRows": 2,
+  "phase2Fillers": false,
+  "phase2Lines": true
  },
  "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
  "grid": {
   "width": 12,
   "height": 10
  },
- "solo": null,
+ "player": {
+  "telegraphReadP": 0.85,
+  "pet": "one modelled mid-rank companion (model.ts petFor)"
+ },
+ "solo": {},
  "chain": {
   "clean": {
    "summary": {
-    "chains": 20,
-    "clearPct": 0,
+    "chains": 16,
+    "clearPct": 12.5,
     "lossesAt": {
-     "D3.BOSS": 9,
-     "D4.BOSS": 1,
-     "D4.REG3": 6,
-     "D4.REG1": 1,
-     "D4.REG2": 3
+     "D5.BOSS": 14
     },
     "bosses": {
      "D2.BOSS": {
       "reachedPct": 100,
       "winPctOfReached": 100,
-      "startHpMedian": 92,
-      "endHpWinMedian": 57.5,
-      "roundsMedian": 8
+      "startHpMedian": 95,
+      "endHpWinMedian": 90.15,
+      "roundsMedian": 5.5
      },
      "D3.BOSS": {
       "reachedPct": 100,
-      "winPctOfReached": 55,
-      "startHpMedian": 44,
-      "endHpWinMedian": 14.2,
-      "roundsMedian": 12
+      "winPctOfReached": 100,
+      "startHpMedian": 68.5,
+      "endHpWinMedian": 53.05,
+      "roundsMedian": 8
      },
      "D4.BOSS": {
-      "reachedPct": 5,
-      "winPctOfReached": 0,
-      "startHpMedian": 11,
-      "endHpWinMedian": null,
-      "roundsMedian": 7
+      "reachedPct": 100,
+      "winPctOfReached": 100,
+      "startHpMedian": 42.5,
+      "endHpWinMedian": 32.45,
+      "roundsMedian": 6
      },
      "D5.BOSS": {
-      "reachedPct": 0,
-      "winPctOfReached": null,
-      "startHpMedian": null,
-      "endHpWinMedian": null,
-      "roundsMedian": null
+      "reachedPct": 100,
+      "winPctOfReached": 12.5,
+      "startHpMedian": 14.5,
+      "endHpWinMedian": 14.450000000000001,
+      "roundsMedian": 4
      }
     }
    },
-   "chains": [
-    {
-     "seed": 1,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 92,
-       "endHp": 34.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 35,
-       "endHp": 31.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 31,
-       "endHp": 26.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 27,
-       "endHp": 21.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 6,
-       "startHp": 21,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 2,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 11,
-       "startHp": 62,
-       "endHp": 25
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 25,
-       "endHp": 20.6
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 21,
-       "endHp": 16.9
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 17,
-       "endHp": 11.3
-      },
-      {
-       "fight": "D4.BOSS",
-       "outcome": "lost",
-       "rounds": 7,
-       "startHp": 11,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.BOSS"
-    },
-    {
-     "seed": 3,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 53.3
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.9
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 12,
-       "startHp": 40,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 4,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.4
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 62,
-       "endHp": 14.2
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 14,
-       "endHp": 8.6
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 9,
-       "endHp": 4.9
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 5,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
-    },
-    {
-     "seed": 5,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 62,
-       "endHp": 14.2
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 14,
-       "endHp": 9.8
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 10,
-       "endHp": 6.1
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 6,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
-    },
-    {
-     "seed": 6,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 53.3
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.8
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 12,
-       "startHp": 40,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 7,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 53.3
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.9
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 11,
-       "startHp": 40,
-       "endHp": 2.4
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "lost",
-       "rounds": 2,
-       "startHp": 2,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG1"
-    },
-    {
-     "seed": 8,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 53.3
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.8
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 11,
-       "startHp": 40,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 9,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.4
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 13,
-       "startHp": 62,
-       "endHp": 8.8
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 9,
-       "endHp": 3.2
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 3,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG2"
-    },
-    {
-     "seed": 10,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 62,
-       "endHp": 14.2
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 14,
-       "endHp": 8.6
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 9,
-       "endHp": 4.9
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 5,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
-    },
-    {
-     "seed": 11,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 53.3
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.8
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 12,
-       "startHp": 40,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 12,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 92,
-       "endHp": 57.5
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 58,
-       "endHp": 53.8
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 54,
-       "endHp": 49.5
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 49,
-       "endHp": 44.1
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 11,
-       "startHp": 44,
-       "endHp": 6.6
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 7,
-       "endHp": 2.2
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "lost",
-       "rounds": 2,
-       "startHp": 2,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG2"
-    },
-    {
-     "seed": 13,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 92,
-       "endHp": 57.5
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 58,
-       "endHp": 53.8
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 54,
-       "endHp": 49.5
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 49,
-       "endHp": 44.1
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 13,
-       "startHp": 44,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 14,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 62,
-       "endHp": 14.2
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 14,
-       "endHp": 9.8
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 10,
-       "endHp": 6.1
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 6,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
-    },
-    {
-     "seed": 15,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 53.3
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.8
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 12,
-       "startHp": 40,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 16,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 13,
-       "startHp": 62,
-       "endHp": 8.9
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 9,
-       "endHp": 3.3
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 3,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG2"
-    },
-    {
-     "seed": 17,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 92,
-       "endHp": 34.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 35,
-       "endHp": 31.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 31,
-       "endHp": 26.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 27,
-       "endHp": 21.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 6,
-       "startHp": 22,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 18,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.4
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 62,
-       "endHp": 14.2
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 14,
-       "endHp": 8.6
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 9,
-       "endHp": 4.9
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 5,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
-    },
-    {
-     "seed": 19,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 92,
-       "endHp": 54.5
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 54,
-       "endHp": 50.8
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 51,
-       "endHp": 46.5
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 46,
-       "endHp": 41
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 8,
-       "startHp": 41,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 20,
-     "policy": "clean",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 13,
-       "startHp": 62,
-       "endHp": 8.9
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 9,
-       "endHp": 4.5
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 4,
-       "endHp": 0.8
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "lost",
-       "rounds": 1,
-       "startHp": 1,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
-    }
-   ]
+   "chains": null,
+   "note": "16 chains; summary from the run log only: the process was OOM-killed (shared machine) before it wrote per-chain detail"
   },
   "alert": {
    "summary": {
-    "chains": 20,
+    "chains": 10,
     "clearPct": 0,
     "lossesAt": {
-     "D3.BOSS": 9,
-     "D4.BOSS": 1,
-     "D4.REG3": 6,
-     "D4.REG1": 1,
-     "D4.REG2": 3
+     "D5.BOSS": 10
     },
     "bosses": {
      "D2.BOSS": {
       "reachedPct": 100,
       "winPctOfReached": 100,
-      "startHpMedian": 92,
-      "endHpWinMedian": 57.5,
-      "roundsMedian": 8
+      "startHpMedian": 96,
+      "endHpWinMedian": 90.25,
+      "roundsMedian": 5
      },
      "D3.BOSS": {
       "reachedPct": 100,
-      "winPctOfReached": 55,
-      "startHpMedian": 44,
-      "endHpWinMedian": 14,
-      "roundsMedian": 12
+      "winPctOfReached": 100,
+      "startHpMedian": 68,
+      "endHpWinMedian": 50.650000000000006,
+      "roundsMedian": 8
      },
      "D4.BOSS": {
-      "reachedPct": 5,
-      "winPctOfReached": 0,
-      "startHpMedian": 11,
-      "endHpWinMedian": null,
-      "roundsMedian": 7
+      "reachedPct": 100,
+      "winPctOfReached": 100,
+      "startHpMedian": 41.5,
+      "endHpWinMedian": 28.55,
+      "roundsMedian": 9
      },
      "D5.BOSS": {
-      "reachedPct": 0,
-      "winPctOfReached": null,
-      "startHpMedian": null,
+      "reachedPct": 100,
+      "winPctOfReached": 0,
+      "startHpMedian": 13.5,
       "endHpWinMedian": null,
-      "roundsMedian": null
+      "roundsMedian": 3.5
      }
     }
    },
@@ -1642,41 +210,97 @@
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 9,
+       "rounds": 5,
        "startHp": 92,
-       "endHp": 34.9
+       "endHp": 86.2
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 35,
-       "endHp": 31.2
+       "rounds": 5,
+       "startHp": 86,
+       "endHp": 72.6
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 31,
-       "endHp": 26.9
+       "startHp": 73,
+       "endHp": 68.3
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 27,
-       "endHp": 21.5
+       "startHp": 68,
+       "endHp": 66.5
       },
       {
        "fight": "D3.BOSS",
-       "outcome": "lost",
+       "outcome": "won",
+       "rounds": 8,
+       "startHp": 66,
+       "endHp": 50.6
+      },
+      {
+       "fight": "D4.REG1",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 51,
+       "endHp": 45
+      },
+      {
+       "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 45,
+       "endHp": 43.8
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
        "rounds": 6,
-       "startHp": 21,
+       "startHp": 44,
+       "endHp": 38.2
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 9,
+       "startHp": 38,
+       "endHp": 22.7
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 23,
+       "endHp": 18.8
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 19,
+       "endHp": 15.9
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 16,
+       "endHp": 7.3
+      },
+      {
+       "fight": "D5.BOSS",
+       "outcome": "lost",
+       "rounds": 3,
+       "startHp": 7,
        "endHp": 0
       }
      ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
+     "reached": "D5",
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 2,
@@ -1694,81 +318,109 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 97,
-       "endHp": 94.4
+       "endHp": 95.8
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 96,
+       "endHp": 93.5
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
+       "rounds": 5,
+       "startHp": 93,
+       "endHp": 90.2
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
+       "rounds": 5,
+       "startHp": 90,
+       "endHp": 76.6
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
+       "startHp": 77,
+       "endHp": 72.3
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
+       "startHp": 72,
+       "endHp": 66.9
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 11,
-       "startHp": 62,
-       "endHp": 24.8
+       "rounds": 9,
+       "startHp": 67,
+       "endHp": 50.5
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 25,
-       "endHp": 20.4
+       "startHp": 50,
+       "endHp": 46.1
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 20,
-       "endHp": 16.8
+       "startHp": 46,
+       "endHp": 42.4
       },
       {
        "fight": "D4.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 17,
-       "endHp": 11.1
+       "startHp": 42,
+       "endHp": 40.6
       },
       {
        "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 9,
+       "startHp": 41,
+       "endHp": 25.1
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 25,
+       "endHp": 21.2
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 21,
+       "endHp": 15.2
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 15,
+       "endHp": 6.6
+      },
+      {
+       "fight": "D5.BOSS",
        "outcome": "lost",
        "rounds": 7,
-       "startHp": 11,
+       "startHp": 7,
        "endHp": 0
       }
      ],
-     "reached": "D4",
-     "outcome": "lost D4.BOSS"
+     "reached": "D5",
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 3,
@@ -1779,60 +431,116 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 100,
+       "endHp": 97.4
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 97.4
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 53.3
+       "rounds": 6,
+       "startHp": 97,
+       "endHp": 94.8
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
+       "rounds": 5,
+       "startHp": 95,
+       "endHp": 76.4
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
+       "startHp": 76,
+       "endHp": 74.7
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.9
+       "startHp": 75,
+       "endHp": 72.8
       },
       {
        "fight": "D3.BOSS",
+       "outcome": "won",
+       "rounds": 9,
+       "startHp": 73,
+       "endHp": 50.7
+      },
+      {
+       "fight": "D4.REG1",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 51,
+       "endHp": 49.4
+      },
+      {
+       "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 49,
+       "endHp": 45.8
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 46,
+       "endHp": 44
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 44,
+       "endHp": 44
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 44,
+       "endHp": 34.4
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 34,
+       "endHp": 28.4
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 28,
+       "endHp": 19.8
+      },
+      {
+       "fight": "D5.BOSS",
        "outcome": "lost",
-       "rounds": 12,
-       "startHp": 40,
+       "rounds": 7,
+       "startHp": 20,
        "endHp": 0
       }
      ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
+     "reached": "D5",
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 4,
@@ -1843,81 +551,116 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 99
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 99,
+       "endHp": 96.4
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 96,
+       "endHp": 96.4
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
+       "rounds": 5,
+       "startHp": 96,
+       "endHp": 93.1
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
+       "rounds": 5,
+       "startHp": 93,
+       "endHp": 79.5
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
+       "startHp": 80,
+       "endHp": 79.5
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.4
+       "startHp": 80,
+       "endHp": 74.1
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 14,
-       "startHp": 62,
-       "endHp": 14
+       "rounds": 8,
+       "startHp": 74,
+       "endHp": 60.6
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 14,
-       "endHp": 8.4
+       "startHp": 61,
+       "endHp": 59.4
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 8,
-       "endHp": 4.7
+       "startHp": 59,
+       "endHp": 55.7
       },
       {
        "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 56,
+       "endHp": 53.9
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 54,
+       "endHp": 49.2
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 49,
+       "endHp": 39.6
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 40,
+       "endHp": 38
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 38,
+       "endHp": 31.8
+      },
+      {
+       "fight": "D5.BOSS",
        "outcome": "lost",
-       "rounds": 3,
-       "startHp": 5,
+       "rounds": 4,
+       "startHp": 32,
        "endHp": 0
       }
      ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
+     "reached": "D5",
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 5,
@@ -1935,74 +678,109 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 97,
-       "endHp": 94.4
+       "endHp": 96.9
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 96.9
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
+       "rounds": 5,
+       "startHp": 97,
+       "endHp": 92.6
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
+       "rounds": 5,
+       "startHp": 93,
+       "endHp": 79
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
+       "startHp": 79,
+       "endHp": 74.6
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
+       "startHp": 75,
+       "endHp": 69.2
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 14,
-       "startHp": 62,
-       "endHp": 14
+       "rounds": 9,
+       "startHp": 69,
+       "endHp": 55.3
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 14,
-       "endHp": 9.6
+       "rounds": 5,
+       "startHp": 55,
+       "endHp": 49.7
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 10,
-       "endHp": 5.9
+       "startHp": 50,
+       "endHp": 46
       },
       {
        "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 46,
+       "endHp": 42.3
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 9,
+       "startHp": 42,
+       "endHp": 26.8
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 27,
+       "endHp": 22.5
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 23,
+       "endHp": 19.7
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 20,
+       "endHp": 13.5
+      },
+      {
+       "fight": "D5.BOSS",
        "outcome": "lost",
-       "rounds": 3,
-       "startHp": 6,
+       "rounds": 2,
+       "startHp": 13,
        "endHp": 0
       }
      ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
+     "reached": "D5",
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 6,
@@ -2013,60 +791,116 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 100,
+       "endHp": 100
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 100,
+       "endHp": 97.7
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 53.3
+       "rounds": 5,
+       "startHp": 98,
+       "endHp": 93.3
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
+       "rounds": 5,
+       "startHp": 93,
+       "endHp": 75
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
+       "startHp": 75,
+       "endHp": 70.6
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.8
+       "startHp": 71,
+       "endHp": 68.8
       },
       {
        "fight": "D3.BOSS",
+       "outcome": "won",
+       "rounds": 8,
+       "startHp": 69,
+       "endHp": 57.1
+      },
+      {
+       "fight": "D4.REG1",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 57,
+       "endHp": 57.1
+      },
+      {
+       "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 57,
+       "endHp": 53.4
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 53,
+       "endHp": 47.8
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 48,
+       "endHp": 47.8
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 48,
+       "endHp": 38.2
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 38,
+       "endHp": 36.6
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 37,
+       "endHp": 30.4
+      },
+      {
+       "fight": "D5.BOSS",
        "outcome": "lost",
-       "rounds": 12,
-       "startHp": 40,
+       "rounds": 4,
+       "startHp": 30,
        "endHp": 0
       }
      ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
+     "reached": "D5",
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 7,
@@ -2096,48 +930,97 @@
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
+       "rounds": 6,
        "startHp": 92,
-       "endHp": 53.3
+       "endHp": 76
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
+       "rounds": 5,
+       "startHp": 76,
+       "endHp": 57.6
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
+       "startHp": 58,
+       "endHp": 57.6
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.9
+       "startHp": 58,
+       "endHp": 52.3
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 11,
-       "startHp": 40,
-       "endHp": 2.2
+       "rounds": 8,
+       "startHp": 52,
+       "endHp": 41.3
       },
       {
        "fight": "D4.REG1",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 41,
+       "endHp": 36.9
+      },
+      {
+       "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 37,
+       "endHp": 33.2
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 33,
+       "endHp": 31.4
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 9,
+       "startHp": 31,
+       "endHp": 15.9
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 16,
+       "endHp": 12
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 12,
+       "endHp": 10.5
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 10,
+       "endHp": 4.2
+      },
+      {
+       "fight": "D5.BOSS",
        "outcome": "lost",
-       "rounds": 2,
-       "startHp": 2,
+       "rounds": 3,
+       "startHp": 4,
        "endHp": 0
       }
      ],
-     "reached": "D4",
-     "outcome": "lost D4.REG1"
+     "reached": "D5",
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 8,
@@ -2155,53 +1038,109 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 97,
-       "endHp": 94.4
+       "endHp": 96.9
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 94.6
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 53.3
+       "rounds": 5,
+       "startHp": 95,
+       "endHp": 90.3
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
+       "rounds": 5,
+       "startHp": 90,
+       "endHp": 76.7
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
+       "startHp": 77,
+       "endHp": 74.9
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.8
+       "startHp": 75,
+       "endHp": 69.5
       },
       {
        "fight": "D3.BOSS",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 69,
+       "endHp": 57.4
+      },
+      {
+       "fight": "D4.REG1",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 57,
+       "endHp": 51.8
+      },
+      {
+       "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 52,
+       "endHp": 51.8
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 52,
+       "endHp": 49.9
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 9,
+       "startHp": 50,
+       "endHp": 26
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 26,
+       "endHp": 21.8
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 22,
+       "endHp": 15.8
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 16,
+       "endHp": 9.6
+      },
+      {
+       "fight": "D5.BOSS",
        "outcome": "lost",
-       "rounds": 11,
-       "startHp": 40,
+       "rounds": 3,
+       "startHp": 10,
        "endHp": 0
       }
      ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
+     "reached": "D5",
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 9,
@@ -2212,74 +1151,116 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 100,
+       "endHp": 97.4
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 96.4
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
+       "rounds": 6,
+       "startHp": 96,
+       "endHp": 79.8
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
+       "rounds": 5,
+       "startHp": 80,
+       "endHp": 66.2
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
+       "startHp": 66,
+       "endHp": 61.9
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.4
+       "startHp": 62,
+       "endHp": 60
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 13,
-       "startHp": 62,
-       "endHp": 8.7
+       "rounds": 9,
+       "startHp": 60,
+       "endHp": 40.6
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
-       "rounds": 5,
-       "startHp": 9,
-       "endHp": 3.1
+       "rounds": 4,
+       "startHp": 41,
+       "endHp": 39.4
       },
       {
        "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 39,
+       "endHp": 39.4
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 39,
+       "endHp": 33.8
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 9,
+       "startHp": 34,
+       "endHp": 30.3
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 30,
+       "endHp": 26.4
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 26,
+       "endHp": 24.8
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 25,
+       "endHp": 18.6
+      },
+      {
+       "fight": "D5.BOSS",
        "outcome": "lost",
-       "rounds": 3,
-       "startHp": 3,
+       "rounds": 9,
+       "startHp": 19,
        "endHp": 0
       }
      ],
-     "reached": "D4",
-     "outcome": "lost D4.REG2"
+     "reached": "D5",
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 10,
@@ -2290,851 +1271,154 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 62,
-       "endHp": 14
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 14,
-       "endHp": 8.4
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 8,
-       "endHp": 4.7
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 5,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
-    },
-    {
-     "seed": 11,
-     "policy": "alert",
-     "fights": [
-      {
-       "fight": "D2.REG1",
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "endHp": 100
       },
       {
        "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 53.3
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.8
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 12,
-       "startHp": 40,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 12,
-     "policy": "alert",
-     "fights": [
-      {
-       "fight": "D2.REG1",
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "endHp": 100
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 9,
-       "startHp": 92,
-       "endHp": 57.5
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 58,
-       "endHp": 53.8
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 54,
-       "endHp": 49.5
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 49,
-       "endHp": 44.1
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 11,
-       "startHp": 44,
-       "endHp": 6.4
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 6,
-       "endHp": 2
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "lost",
-       "rounds": 2,
-       "startHp": 2,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG2"
-    },
-    {
-     "seed": 13,
-     "policy": "alert",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 92,
-       "endHp": 57.5
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 58,
-       "endHp": 53.8
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 54,
-       "endHp": 49.5
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 49,
-       "endHp": 44.1
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 12,
-       "startHp": 44,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 14,
-     "policy": "alert",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 62,
-       "endHp": 14
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 14,
-       "endHp": 9.6
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 10,
-       "endHp": 5.9
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 6,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
-    },
-    {
-     "seed": 15,
-     "policy": "alert",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 53.3
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 49.6
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.3
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 45,
-       "endHp": 39.8
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 12,
-       "startHp": 40,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 16,
-     "policy": "alert",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 13,
-       "startHp": 62,
-       "endHp": 8.7
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 9,
-       "endHp": 3.1
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 3,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG2"
-    },
-    {
-     "seed": 17,
-     "policy": "alert",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 92,
-       "endHp": 34.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 35,
-       "endHp": 31.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 31,
-       "endHp": 26.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 27,
-       "endHp": 21.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
        "rounds": 6,
-       "startHp": 22,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 18,
-     "policy": "alert",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
+       "endHp": 88.2
       },
       {
        "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.4
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 62,
-       "endHp": 14
-      },
-      {
-       "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 14,
-       "endHp": 8.4
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 8,
-       "endHp": 4.7
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 5,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
-    },
-    {
-     "seed": 19,
-     "policy": "alert",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 92,
-       "endHp": 54.5
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 54,
-       "endHp": 50.8
+       "startHp": 88,
+       "endHp": 69.8
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 51,
-       "endHp": 46.5
+       "startHp": 70,
+       "endHp": 65.5
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 46,
-       "endHp": 41
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 8,
-       "startHp": 41,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 20,
-     "policy": "alert",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 92,
-       "endHp": 75.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 67.9
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 68,
-       "endHp": 62.5
+       "startHp": 65,
+       "endHp": 60.1
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 13,
-       "startHp": 62,
-       "endHp": 8.7
+       "rounds": 8,
+       "startHp": 60,
+       "endHp": 46.6
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 9,
-       "endHp": 4.3
+       "startHp": 47,
+       "endHp": 45.4
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 4,
-       "endHp": 0.6
+       "startHp": 45,
+       "endHp": 44.2
       },
       {
        "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 44,
+       "endHp": 38.6
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 39,
+       "endHp": 38.6
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 39,
+       "endHp": 28.9
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 29,
+       "endHp": 23
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 23,
+       "endHp": 14.4
+      },
+      {
+       "fight": "D5.BOSS",
        "outcome": "lost",
-       "rounds": 1,
-       "startHp": 1,
+       "rounds": 3,
+       "startHp": 14,
        "endHp": 0
       }
      ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
+     "reached": "D5",
+     "outcome": "lost D5.BOSS"
     }
    ]
   },
   "healing": {
    "summary": {
-    "chains": 20,
-    "clearPct": 45,
+    "chains": 10,
+    "clearPct": 80,
     "lossesAt": {
-     "D5.BOSS": 10,
-     "D4.BOSS": 1
+     "D5.BOSS": 2
     },
     "bosses": {
      "D2.BOSS": {
       "reachedPct": 100,
       "winPctOfReached": 100,
       "startHpMedian": 100,
-      "endHpWinMedian": 83.9,
-      "roundsMedian": 8
+      "endHpWinMedian": 95.7,
+      "roundsMedian": 5
      },
      "D3.BOSS": {
       "reachedPct": 100,
       "winPctOfReached": 100,
       "startHpMedian": 100,
-      "endHpWinMedian": 51.7,
-      "roundsMedian": 14
+      "endHpWinMedian": 85.94999999999999,
+      "roundsMedian": 8
      },
      "D4.BOSS": {
       "reachedPct": 100,
-      "winPctOfReached": 95,
+      "winPctOfReached": 100,
       "startHpMedian": 100,
-      "endHpWinMedian": 47.7,
-      "roundsMedian": 12
+      "endHpWinMedian": 97.65,
+      "roundsMedian": 6
      },
      "D5.BOSS": {
-      "reachedPct": 95,
-      "winPctOfReached": 47.4,
+      "reachedPct": 100,
+      "winPctOfReached": 80,
       "startHpMedian": 100,
-      "endHpWinMedian": 0,
-      "roundsMedian": 21
+      "endHpWinMedian": 52.050000000000004,
+      "roundsMedian": 18
      }
     }
    },
@@ -3169,123 +1453,123 @@
        "outcome": "won",
        "rounds": 5,
        "startHp": 92,
-       "endHp": 88.3
+       "endHp": 90.1
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
+       "rounds": 6,
        "startHp": 100,
-       "endHp": 61.3
+       "endHp": 97.5
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 61,
-       "endHp": 57.6
+       "rounds": 5,
+       "startHp": 97,
+       "endHp": 79.1
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 58,
-       "endHp": 53.2
+       "startHp": 79,
+       "endHp": 79.1
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 53,
-       "endHp": 47.8
+       "startHp": 79,
+       "endHp": 77.3
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 36.5
+       "startHp": 77,
+       "endHp": 66
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 14,
+       "rounds": 8,
        "startHp": 100,
-       "endHp": 51.7
+       "endHp": 86.6
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 52,
-       "endHp": 47.3
+       "startHp": 87,
+       "endHp": 82.2
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 47,
-       "endHp": 43.6
+       "startHp": 82,
+       "endHp": 81
       },
       {
        "fight": "D4.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 44,
-       "endHp": 38
+       "startHp": 81,
+       "endHp": 79.2
       },
       {
        "fight": "D4.REG4",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 38,
-       "endHp": 15.3
+       "startHp": 79,
+       "endHp": 59.2
       },
       {
        "fight": "D4.BOSS",
        "outcome": "won",
-       "rounds": 12,
+       "rounds": 9,
        "startHp": 100,
-       "endHp": 47.7
+       "endHp": 84.5
       },
       {
        "fight": "D5.REG1",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
+       "startHp": 85,
+       "endHp": 74.9
       },
       {
        "fight": "D5.REG2",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
+       "startHp": 75,
+       "endHp": 72
       },
       {
        "fight": "D5.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
+       "startHp": 72,
+       "endHp": 63.4
       },
       {
        "fight": "D5.REG4",
        "outcome": "won",
        "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
+       "startHp": 63,
+       "endHp": 59.8
       },
       {
        "fight": "D5.BOSS",
-       "outcome": "won",
-       "rounds": 25,
+       "outcome": "lost",
+       "rounds": 8,
        "startHp": 100,
        "endHp": 0
       }
      ],
      "reached": "D5",
-     "outcome": "won"
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 2,
@@ -3303,133 +1587,133 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 97,
-       "endHp": 94.4
+       "endHp": 95.8
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 96,
+       "endHp": 93.5
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 93,
+       "endHp": 91.6
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
+       "rounds": 4,
        "startHp": 100,
-       "endHp": 83.9
+       "endHp": 93.5
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
+       "rounds": 5,
+       "startHp": 94,
+       "endHp": 75.2
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
+       "startHp": 75,
+       "endHp": 70.9
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 76,
-       "endHp": 70.4
+       "startHp": 71,
+       "endHp": 65.5
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 70,
-       "endHp": 59.1
+       "startHp": 65,
+       "endHp": 54.2
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 11,
+       "rounds": 9,
        "startHp": 100,
-       "endHp": 62.5
+       "endHp": 77.9
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 63,
-       "endHp": 56.9
+       "startHp": 78,
+       "endHp": 76.7
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 57,
-       "endHp": 53.2
+       "startHp": 77,
+       "endHp": 73
       },
       {
        "fight": "D4.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 53,
-       "endHp": 47.6
+       "startHp": 73,
+       "endHp": 71.2
       },
       {
        "fight": "D4.REG4",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 48,
-       "endHp": 24.9
+       "startHp": 71,
+       "endHp": 48.5
       },
       {
        "fight": "D4.BOSS",
        "outcome": "won",
-       "rounds": 12,
+       "rounds": 6,
        "startHp": 100,
-       "endHp": 47.7
+       "endHp": 100
       },
       {
        "fight": "D5.REG1",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
+       "startHp": 100,
+       "endHp": 90.4
       },
       {
        "fight": "D5.REG2",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
+       "startHp": 90,
+       "endHp": 84.4
       },
       {
        "fight": "D5.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
+       "startHp": 84,
+       "endHp": 75.8
       },
       {
        "fight": "D5.REG4",
        "outcome": "won",
        "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
+       "startHp": 76,
+       "endHp": 67.3
       },
       {
        "fight": "D5.BOSS",
        "outcome": "won",
-       "rounds": 25,
+       "rounds": 19,
        "startHp": 100,
-       "endHp": 0
+       "endHp": 2.9
       }
      ],
      "reached": "D5",
@@ -3444,144 +1728,144 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 100,
+       "endHp": 97.4
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 97.4
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 97,
+       "endHp": 93.7
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
+       "rounds": 5,
        "startHp": 100,
-       "endHp": 83.9
+       "endHp": 95.7
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
+       "rounds": 5,
+       "startHp": 96,
+       "endHp": 82.1
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
+       "startHp": 82,
+       "endHp": 82.1
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 76,
-       "endHp": 70.4
+       "startHp": 82,
+       "endHp": 76.7
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 70,
-       "endHp": 59.1
+       "startHp": 77,
+       "endHp": 71.2
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 13,
+       "rounds": 8,
        "startHp": 100,
-       "endHp": 46.4
+       "endHp": 89.1
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 46,
-       "endHp": 42
+       "startHp": 89,
+       "endHp": 89.1
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 42,
-       "endHp": 38.3
+       "startHp": 89,
+       "endHp": 89.1
       },
       {
        "fight": "D4.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 38,
-       "endHp": 32.7
+       "startHp": 89,
+       "endHp": 83.5
       },
       {
        "fight": "D4.REG4",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 33,
-       "endHp": 10
+       "startHp": 83,
+       "endHp": 60.8
       },
       {
        "fight": "D4.BOSS",
        "outcome": "won",
-       "rounds": 16,
+       "rounds": 9,
        "startHp": 100,
-       "endHp": 36.6
+       "endHp": 84.5
       },
       {
        "fight": "D5.REG1",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 37,
-       "endHp": 26.9
+       "startHp": 85,
+       "endHp": 80.3
       },
       {
        "fight": "D5.REG2",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 27,
-       "endHp": 21
+       "startHp": 80,
+       "endHp": 78.7
       },
       {
        "fight": "D5.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 21,
-       "endHp": 12.4
+       "startHp": 79,
+       "endHp": 70.1
       },
       {
        "fight": "D5.REG4",
        "outcome": "won",
        "rounds": 9,
-       "startHp": 12,
-       "endHp": 3.9
+       "startHp": 70,
+       "endHp": 61.6
       },
       {
        "fight": "D5.BOSS",
-       "outcome": "lost",
-       "rounds": 20,
+       "outcome": "won",
+       "rounds": 19,
        "startHp": 100,
-       "endHp": 0
+       "endHp": 20.7
       }
      ],
      "reached": "D5",
-     "outcome": "lost D5.BOSS"
+     "outcome": "won"
     },
     {
      "seed": 4,
@@ -3592,144 +1876,144 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 99
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 99,
+       "endHp": 96.4
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 96,
+       "endHp": 96.4
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 96,
+       "endHp": 94.4
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
+       "rounds": 6,
        "startHp": 100,
-       "endHp": 83.9
+       "endHp": 98.5
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
+       "rounds": 5,
+       "startHp": 98,
+       "endHp": 84.9
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
+       "startHp": 85,
+       "endHp": 80.6
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 76,
-       "endHp": 70.4
+       "startHp": 81,
+       "endHp": 77.4
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 70,
-       "endHp": 59.1
+       "startHp": 77,
+       "endHp": 71.8
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 14,
+       "rounds": 9,
        "startHp": 100,
-       "endHp": 51.7
+       "endHp": 79
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 52,
-       "endHp": 46.1
+       "startHp": 79,
+       "endHp": 77.7
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 46,
-       "endHp": 42.4
+       "startHp": 78,
+       "endHp": 77.7
       },
       {
        "fight": "D4.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 42,
-       "endHp": 36.8
+       "startHp": 78,
+       "endHp": 72.1
       },
       {
        "fight": "D4.REG4",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 37,
-       "endHp": 14.1
+       "startHp": 72,
+       "endHp": 52.2
       },
       {
        "fight": "D4.BOSS",
        "outcome": "won",
-       "rounds": 15,
+       "rounds": 6,
        "startHp": 100,
-       "endHp": 47.7
+       "endHp": 95.3
       },
       {
        "fight": "D5.REG1",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
+       "startHp": 95,
+       "endHp": 91
       },
       {
        "fight": "D5.REG2",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
+       "startHp": 91,
+       "endHp": 85.1
       },
       {
        "fight": "D5.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
+       "startHp": 85,
+       "endHp": 76.5
       },
       {
        "fight": "D5.REG4",
        "outcome": "won",
        "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
+       "startHp": 76,
+       "endHp": 72.8
       },
       {
        "fight": "D5.BOSS",
-       "outcome": "lost",
-       "rounds": 21,
+       "outcome": "won",
+       "rounds": 18,
        "startHp": 100,
-       "endHp": 0
+       "endHp": 81.3
       }
      ],
      "reached": "D5",
-     "outcome": "lost D5.BOSS"
+     "outcome": "won"
     },
     {
      "seed": 5,
@@ -3747,137 +2031,137 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 97,
-       "endHp": 94.4
+       "endHp": 96.9
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 96.9
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 97,
+       "endHp": 93.2
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
+       "rounds": 6,
        "startHp": 100,
-       "endHp": 83.9
+       "endHp": 89.4
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
+       "rounds": 5,
+       "startHp": 89,
+       "endHp": 71
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
+       "startHp": 71,
+       "endHp": 66.7
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 76,
-       "endHp": 70.4
+       "startHp": 67,
+       "endHp": 63.5
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 70,
-       "endHp": 59.1
+       "startHp": 64,
+       "endHp": 52.2
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 13,
+       "rounds": 8,
        "startHp": 100,
-       "endHp": 46.4
+       "endHp": 89.1
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
-       "rounds": 5,
-       "startHp": 46,
-       "endHp": 40.8
+       "rounds": 4,
+       "startHp": 89,
+       "endHp": 85.9
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 41,
-       "endHp": 37.1
+       "startHp": 86,
+       "endHp": 82.2
       },
       {
        "fight": "D4.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 37,
-       "endHp": 31.5
+       "startHp": 82,
+       "endHp": 80.4
       },
       {
        "fight": "D4.REG4",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 32,
-       "endHp": 8.8
+       "startHp": 80,
+       "endHp": 60.4
       },
       {
        "fight": "D4.BOSS",
        "outcome": "won",
-       "rounds": 12,
+       "rounds": 6,
        "startHp": 100,
-       "endHp": 47.7
+       "endHp": 95.3
       },
       {
        "fight": "D5.REG1",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
+       "startHp": 95,
+       "endHp": 85.7
       },
       {
        "fight": "D5.REG2",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
+       "startHp": 86,
+       "endHp": 84.1
       },
       {
        "fight": "D5.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
+       "startHp": 84,
+       "endHp": 77.9
       },
       {
        "fight": "D5.REG4",
        "outcome": "won",
        "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
+       "startHp": 78,
+       "endHp": 69.4
       },
       {
        "fight": "D5.BOSS",
-       "outcome": "won",
-       "rounds": 25,
+       "outcome": "lost",
+       "rounds": 8,
        "startHp": 100,
        "endHp": 0
       }
      ],
      "reached": "D5",
-     "outcome": "won"
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 6,
@@ -3888,140 +2172,140 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 100,
+       "endHp": 100
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 100,
+       "endHp": 97.7
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 98,
+       "endHp": 94
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
+       "rounds": 5,
        "startHp": 100,
-       "endHp": 61.3
+       "endHp": 95.7
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 61,
-       "endHp": 57.6
+       "rounds": 5,
+       "startHp": 96,
+       "endHp": 77.4
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 58,
-       "endHp": 53.2
+       "startHp": 77,
+       "endHp": 77.4
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 53,
-       "endHp": 47.8
+       "startHp": 77,
+       "endHp": 75.6
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 36.5
+       "startHp": 76,
+       "endHp": 67.6
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 11,
+       "rounds": 8,
        "startHp": 100,
-       "endHp": 62.5
+       "endHp": 89.1
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 63,
-       "endHp": 58.1
+       "rounds": 5,
+       "startHp": 89,
+       "endHp": 83.5
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 58,
-       "endHp": 54.4
+       "startHp": 83,
+       "endHp": 83.5
       },
       {
        "fight": "D4.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 54,
-       "endHp": 48.8
+       "startHp": 83,
+       "endHp": 77.9
       },
       {
        "fight": "D4.REG4",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 49,
-       "endHp": 26.1
+       "startHp": 78,
+       "endHp": 57.9
       },
       {
        "fight": "D4.BOSS",
        "outcome": "won",
-       "rounds": 12,
+       "rounds": 6,
        "startHp": 100,
-       "endHp": 47.7
+       "endHp": 100
       },
       {
        "fight": "D5.REG1",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
+       "startHp": 100,
+       "endHp": 96.1
       },
       {
        "fight": "D5.REG2",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
+       "startHp": 96,
+       "endHp": 93.3
       },
       {
        "fight": "D5.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
+       "startHp": 93,
+       "endHp": 84.7
       },
       {
        "fight": "D5.REG4",
        "outcome": "won",
        "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
+       "startHp": 85,
+       "endHp": 76.2
       },
       {
        "fight": "D5.BOSS",
        "outcome": "won",
-       "rounds": 25,
+       "rounds": 16,
        "startHp": 100,
-       "endHp": 0
+       "endHp": 81.3
       }
      ],
      "reached": "D5",
@@ -4062,118 +2346,118 @@
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
+       "rounds": 5,
        "startHp": 100,
-       "endHp": 61.3
+       "endHp": 95.7
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 61,
-       "endHp": 57.6
+       "rounds": 5,
+       "startHp": 96,
+       "endHp": 82.1
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 58,
-       "endHp": 53.2
+       "startHp": 82,
+       "endHp": 77.8
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 53,
-       "endHp": 47.8
+       "startHp": 78,
+       "endHp": 72.4
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 36.5
+       "startHp": 72,
+       "endHp": 61.1
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 14,
+       "rounds": 8,
        "startHp": 100,
-       "endHp": 51.7
+       "endHp": 84.6
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
-       "rounds": 5,
-       "startHp": 52,
-       "endHp": 46.1
+       "rounds": 4,
+       "startHp": 85,
+       "endHp": 84.6
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 46,
-       "endHp": 42.4
+       "startHp": 85,
+       "endHp": 83.4
       },
       {
        "fight": "D4.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 42,
-       "endHp": 36.8
+       "startHp": 83,
+       "endHp": 81.6
       },
       {
        "fight": "D4.REG4",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 37,
-       "endHp": 14.1
+       "startHp": 82,
+       "endHp": 61.6
       },
       {
        "fight": "D4.BOSS",
        "outcome": "won",
-       "rounds": 12,
+       "rounds": 6,
        "startHp": 100,
-       "endHp": 47.7
+       "endHp": 100
       },
       {
        "fight": "D5.REG1",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
+       "startHp": 100,
+       "endHp": 90.4
       },
       {
        "fight": "D5.REG2",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
+       "startHp": 90,
+       "endHp": 84.4
       },
       {
        "fight": "D5.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
+       "startHp": 84,
+       "endHp": 78.2
       },
       {
        "fight": "D5.REG4",
        "outcome": "won",
        "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
+       "startHp": 78,
+       "endHp": 69.7
       },
       {
        "fight": "D5.BOSS",
-       "outcome": "lost",
-       "rounds": 20,
+       "outcome": "won",
+       "rounds": 18,
        "startHp": 100,
-       "endHp": 0
+       "endHp": 25.7
       }
      ],
      "reached": "D5",
-     "outcome": "lost D5.BOSS"
+     "outcome": "won"
     },
     {
      "seed": 8,
@@ -4191,137 +2475,137 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 97,
-       "endHp": 94.4
+       "endHp": 96.9
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 94.6
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 95,
+       "endHp": 90.9
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
+       "rounds": 5,
        "startHp": 100,
-       "endHp": 61.3
+       "endHp": 95.7
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 61,
-       "endHp": 57.6
+       "rounds": 5,
+       "startHp": 96,
+       "endHp": 82.1
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 58,
-       "endHp": 53.2
+       "startHp": 82,
+       "endHp": 77.8
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 53,
-       "endHp": 47.8
+       "startHp": 78,
+       "endHp": 72.4
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 36.5
+       "startHp": 72,
+       "endHp": 61.1
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 14,
+       "rounds": 8,
        "startHp": 100,
-       "endHp": 51.7
+       "endHp": 84.1
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
-       "rounds": 5,
-       "startHp": 52,
-       "endHp": 46.1
+       "rounds": 4,
+       "startHp": 84,
+       "endHp": 82.9
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 46,
-       "endHp": 42.4
+       "startHp": 83,
+       "endHp": 79.2
       },
       {
        "fight": "D4.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 42,
-       "endHp": 36.8
+       "startHp": 79,
+       "endHp": 77.4
       },
       {
        "fight": "D4.REG4",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 37,
-       "endHp": 14.1
+       "startHp": 77,
+       "endHp": 54.7
       },
       {
        "fight": "D4.BOSS",
        "outcome": "won",
-       "rounds": 12,
+       "rounds": 6,
        "startHp": 100,
-       "endHp": 47.7
+       "endHp": 100
       },
       {
        "fight": "D5.REG1",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
+       "startHp": 100,
+       "endHp": 90.4
       },
       {
        "fight": "D5.REG2",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
+       "startHp": 90,
+       "endHp": 84.4
       },
       {
        "fight": "D5.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
+       "startHp": 84,
+       "endHp": 78.2
       },
       {
        "fight": "D5.REG4",
        "outcome": "won",
        "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
+       "startHp": 78,
+       "endHp": 69.7
       },
       {
        "fight": "D5.BOSS",
-       "outcome": "lost",
-       "rounds": 20,
+       "outcome": "won",
+       "rounds": 19,
        "startHp": 100,
-       "endHp": 0
+       "endHp": 20.7
       }
      ],
      "reached": "D5",
-     "outcome": "lost D5.BOSS"
+     "outcome": "won"
     },
     {
      "seed": 9,
@@ -4332,144 +2616,144 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 100,
+       "endHp": 97.4
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 96.4
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 96,
+       "endHp": 92.7
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
+       "rounds": 5,
        "startHp": 100,
-       "endHp": 83.9
+       "endHp": 95.7
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
+       "rounds": 5,
+       "startHp": 96,
+       "endHp": 77.4
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
+       "startHp": 77,
+       "endHp": 77.4
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 76,
-       "endHp": 70.4
+       "startHp": 77,
+       "endHp": 73.7
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 70,
-       "endHp": 59.1
+       "startHp": 74,
+       "endHp": 68.2
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 13,
+       "rounds": 9,
        "startHp": 100,
-       "endHp": 46.4
+       "endHp": 85.3
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 46,
-       "endHp": 40.8
+       "startHp": 85,
+       "endHp": 79.7
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 41,
-       "endHp": 37.1
+       "startHp": 80,
+       "endHp": 76
       },
       {
        "fight": "D4.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 37,
-       "endHp": 31.5
+       "startHp": 76,
+       "endHp": 74.3
       },
       {
        "fight": "D4.REG4",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 32,
-       "endHp": 8.8
+       "startHp": 74,
+       "endHp": 54.3
       },
       {
        "fight": "D4.BOSS",
        "outcome": "won",
-       "rounds": 12,
+       "rounds": 9,
        "startHp": 100,
-       "endHp": 47.7
+       "endHp": 100
       },
       {
        "fight": "D5.REG1",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
+       "startHp": 100,
+       "endHp": 95.7
       },
       {
        "fight": "D5.REG2",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
+       "startHp": 96,
+       "endHp": 92.9
       },
       {
        "fight": "D5.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
+       "startHp": 93,
+       "endHp": 84.3
       },
       {
        "fight": "D5.REG4",
        "outcome": "won",
        "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
+       "startHp": 84,
+       "endHp": 82
       },
       {
        "fight": "D5.BOSS",
-       "outcome": "lost",
-       "rounds": 21,
+       "outcome": "won",
+       "rounds": 20,
        "startHp": 100,
-       "endHp": 0
+       "endHp": 78.4
       }
      ],
      "reached": "D5",
-     "outcome": "lost D5.BOSS"
+     "outcome": "won"
     },
     {
      "seed": 10,
@@ -4480,1585 +2764,140 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 100,
+       "endHp": 100
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 100,
+       "endHp": 100
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 100,
+       "endHp": 96.3
       },
       {
        "fight": "D2.BOSS",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 100,
+       "endHp": 92.1
+      },
+      {
+       "fight": "D3.REG1",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 92,
+       "endHp": 73.7
+      },
+      {
+       "fight": "D3.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 74,
+       "endHp": 69.4
+      },
+      {
+       "fight": "D3.REG3",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 69,
+       "endHp": 66.2
+      },
+      {
+       "fight": "D3.REG4",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 66,
+       "endHp": 60.7
+      },
+      {
+       "fight": "D3.BOSS",
        "outcome": "won",
        "rounds": 8,
        "startHp": 100,
-       "endHp": 83.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 70.4
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 70,
-       "endHp": 59.1
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 100,
-       "endHp": 51.7
+       "endHp": 86.6
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 52,
-       "endHp": 47.3
+       "startHp": 87,
+       "endHp": 82.2
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 47,
-       "endHp": 43.6
+       "startHp": 82,
+       "endHp": 82.2
       },
       {
        "fight": "D4.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 44,
-       "endHp": 38
+       "startHp": 82,
+       "endHp": 76.6
       },
       {
        "fight": "D4.REG4",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 38,
-       "endHp": 15.3
+       "startHp": 77,
+       "endHp": 53.9
       },
       {
        "fight": "D4.BOSS",
        "outcome": "won",
-       "rounds": 15,
+       "rounds": 9,
        "startHp": 100,
-       "endHp": 47.7
+       "endHp": 67.3
       },
       {
        "fight": "D5.REG1",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
+       "startHp": 67,
+       "endHp": 57.7
       },
       {
        "fight": "D5.REG2",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
-      },
-      {
-       "fight": "D5.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
-      },
-      {
-       "fight": "D5.REG4",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
-      },
-      {
-       "fight": "D5.BOSS",
-       "outcome": "lost",
-       "rounds": 21,
-       "startHp": 100,
-       "endHp": 0
-      }
-     ],
-     "reached": "D5",
-     "outcome": "lost D5.BOSS"
-    },
-    {
-     "seed": 11,
-     "policy": "healing",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 100,
-       "endHp": 83.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 70.4
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 70,
-       "endHp": 59.1
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 11,
-       "startHp": 100,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 63,
-       "endHp": 56.9
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 57,
-       "endHp": 53.2
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 53,
-       "endHp": 47.6
-      },
-      {
-       "fight": "D4.REG4",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 48,
-       "endHp": 24.9
-      },
-      {
-       "fight": "D4.BOSS",
-       "outcome": "won",
-       "rounds": 12,
-       "startHp": 100,
-       "endHp": 47.7
-      },
-      {
-       "fight": "D5.REG1",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
-      },
-      {
-       "fight": "D5.REG2",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
-      },
-      {
-       "fight": "D5.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
-      },
-      {
-       "fight": "D5.REG4",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
-      },
-      {
-       "fight": "D5.BOSS",
-       "outcome": "lost",
-       "rounds": 14,
-       "startHp": 100,
-       "endHp": 0
-      }
-     ],
-     "reached": "D5",
-     "outcome": "lost D5.BOSS"
-    },
-    {
-     "seed": 12,
-     "policy": "healing",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 100,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 62,
-       "endHp": 58.8
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 59,
-       "endHp": 54.4
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 54,
-       "endHp": 49
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 49,
-       "endHp": 37.7
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 100,
-       "endHp": 51.7
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 52,
-       "endHp": 46.1
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 46,
-       "endHp": 42.4
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 42,
-       "endHp": 36.8
-      },
-      {
-       "fight": "D4.REG4",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 37,
-       "endHp": 14.1
-      },
-      {
-       "fight": "D4.BOSS",
-       "outcome": "won",
-       "rounds": 12,
-       "startHp": 100,
-       "endHp": 47.7
-      },
-      {
-       "fight": "D5.REG1",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
-      },
-      {
-       "fight": "D5.REG2",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
-      },
-      {
-       "fight": "D5.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
-      },
-      {
-       "fight": "D5.REG4",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
-      },
-      {
-       "fight": "D5.BOSS",
-       "outcome": "lost",
-       "rounds": 21,
-       "startHp": 100,
-       "endHp": 0
-      }
-     ],
-     "reached": "D5",
-     "outcome": "lost D5.BOSS"
-    },
-    {
-     "seed": 13,
-     "policy": "healing",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 100,
-       "endHp": 83.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 70.4
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 70,
-       "endHp": 59.1
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 100,
-       "endHp": 51.7
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 52,
-       "endHp": 46.1
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 46,
-       "endHp": 42.4
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 42,
-       "endHp": 36.8
-      },
-      {
-       "fight": "D4.REG4",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 37,
-       "endHp": 14.1
-      },
-      {
-       "fight": "D4.BOSS",
-       "outcome": "won",
-       "rounds": 12,
-       "startHp": 100,
-       "endHp": 47.7
-      },
-      {
-       "fight": "D5.REG1",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
-      },
-      {
-       "fight": "D5.REG2",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
-      },
-      {
-       "fight": "D5.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
-      },
-      {
-       "fight": "D5.REG4",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
-      },
-      {
-       "fight": "D5.BOSS",
-       "outcome": "lost",
-       "rounds": 20,
-       "startHp": 100,
-       "endHp": 0
-      }
-     ],
-     "reached": "D5",
-     "outcome": "lost D5.BOSS"
-    },
-    {
-     "seed": 14,
-     "policy": "healing",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 100,
-       "endHp": 62.5
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 62,
-       "endHp": 58.8
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 59,
-       "endHp": 54.4
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 54,
-       "endHp": 49
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 49,
-       "endHp": 37.7
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 100,
-       "endHp": 51.7
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 52,
-       "endHp": 46.1
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 46,
-       "endHp": 42.4
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 42,
-       "endHp": 36.8
-      },
-      {
-       "fight": "D4.REG4",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 37,
-       "endHp": 14.1
-      },
-      {
-       "fight": "D4.BOSS",
-       "outcome": "won",
-       "rounds": 12,
-       "startHp": 100,
-       "endHp": 47.7
-      },
-      {
-       "fight": "D5.REG1",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
-      },
-      {
-       "fight": "D5.REG2",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
-      },
-      {
-       "fight": "D5.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
-      },
-      {
-       "fight": "D5.REG4",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
-      },
-      {
-       "fight": "D5.BOSS",
-       "outcome": "won",
-       "rounds": 25,
-       "startHp": 100,
-       "endHp": 0
-      }
-     ],
-     "reached": "D5",
-     "outcome": "won"
-    },
-    {
-     "seed": 15,
-     "policy": "healing",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 100,
-       "endHp": 61.3
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 61,
-       "endHp": 57.6
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
        "startHp": 58,
-       "endHp": 53.2
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 47.8
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 48,
-       "endHp": 36.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 100,
-       "endHp": 51.7
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 52,
-       "endHp": 46.1
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 46,
-       "endHp": 42.4
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 42,
-       "endHp": 36.8
-      },
-      {
-       "fight": "D4.REG4",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 37,
-       "endHp": 14.1
-      },
-      {
-       "fight": "D4.BOSS",
-       "outcome": "lost",
-       "rounds": 6,
-       "startHp": 100,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.BOSS"
-    },
-    {
-     "seed": 16,
-     "policy": "healing",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 100,
-       "endHp": 83.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 70.4
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 70,
-       "endHp": 59.1
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 100,
-       "endHp": 51.7
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 52,
-       "endHp": 47.3
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 47,
-       "endHp": 43.6
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 44,
-       "endHp": 38
-      },
-      {
-       "fight": "D4.REG4",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 38,
-       "endHp": 15.3
-      },
-      {
-       "fight": "D4.BOSS",
-       "outcome": "won",
-       "rounds": 12,
-       "startHp": 100,
-       "endHp": 47.7
-      },
-      {
-       "fight": "D5.REG1",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
-      },
-      {
-       "fight": "D5.REG2",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
+       "endHp": 54.8
       },
       {
        "fight": "D5.REG3",
        "outcome": "won",
        "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
+       "startHp": 55,
+       "endHp": 48.6
       },
       {
        "fight": "D5.REG4",
        "outcome": "won",
        "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
-      },
-      {
-       "fight": "D5.BOSS",
-       "outcome": "lost",
-       "rounds": 20,
-       "startHp": 100,
-       "endHp": 0
-      }
-     ],
-     "reached": "D5",
-     "outcome": "lost D5.BOSS"
-    },
-    {
-     "seed": 17,
-     "policy": "healing",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 100,
-       "endHp": 61.3
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 61,
-       "endHp": 57.6
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 58,
-       "endHp": 53.2
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 53,
-       "endHp": 47.8
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 48,
-       "endHp": 36.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 100,
-       "endHp": 39.7
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 40,
-       "endHp": 35.3
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 35,
-       "endHp": 31.6
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 32,
-       "endHp": 26
-      },
-      {
-       "fight": "D4.REG4",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 26,
-       "endHp": 3.3
-      },
-      {
-       "fight": "D4.BOSS",
-       "outcome": "won",
-       "rounds": 12,
-       "startHp": 100,
-       "endHp": 47.7
-      },
-      {
-       "fight": "D5.REG1",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
-      },
-      {
-       "fight": "D5.REG2",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
-      },
-      {
-       "fight": "D5.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
-      },
-      {
-       "fight": "D5.REG4",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
+       "startHp": 49,
+       "endHp": 45
       },
       {
        "fight": "D5.BOSS",
        "outcome": "won",
-       "rounds": 25,
+       "rounds": 18,
        "startHp": 100,
-       "endHp": 0
-      }
-     ],
-     "reached": "D5",
-     "outcome": "won"
-    },
-    {
-     "seed": 18,
-     "policy": "healing",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 100,
-       "endHp": 83.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 70.4
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 70,
-       "endHp": 59.1
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 100,
-       "endHp": 51.7
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 52,
-       "endHp": 47.3
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 47,
-       "endHp": 43.6
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 44,
-       "endHp": 38
-      },
-      {
-       "fight": "D4.REG4",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 38,
-       "endHp": 15.3
-      },
-      {
-       "fight": "D4.BOSS",
-       "outcome": "won",
-       "rounds": 12,
-       "startHp": 100,
-       "endHp": 47.7
-      },
-      {
-       "fight": "D5.REG1",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
-      },
-      {
-       "fight": "D5.REG2",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
-      },
-      {
-       "fight": "D5.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
-      },
-      {
-       "fight": "D5.REG4",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
-      },
-      {
-       "fight": "D5.BOSS",
-       "outcome": "won",
-       "rounds": 25,
-       "startHp": 100,
-       "endHp": 0
-      }
-     ],
-     "reached": "D5",
-     "outcome": "won"
-    },
-    {
-     "seed": 19,
-     "policy": "healing",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 100,
-       "endHp": 83.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 76,
-       "endHp": 70.9
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 71,
-       "endHp": 59.6
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 13,
-       "startHp": 100,
-       "endHp": 46.4
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 46,
-       "endHp": 42
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 42,
-       "endHp": 38.3
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 38,
-       "endHp": 32.7
-      },
-      {
-       "fight": "D4.REG4",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 33,
-       "endHp": 10
-      },
-      {
-       "fight": "D4.BOSS",
-       "outcome": "won",
-       "rounds": 12,
-       "startHp": 100,
-       "endHp": 47.7
-      },
-      {
-       "fight": "D5.REG1",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
-      },
-      {
-       "fight": "D5.REG2",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
-      },
-      {
-       "fight": "D5.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
-      },
-      {
-       "fight": "D5.REG4",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
-      },
-      {
-       "fight": "D5.BOSS",
-       "outcome": "won",
-       "rounds": 23,
-       "startHp": 100,
-       "endHp": 0.1
-      }
-     ],
-     "reached": "D5",
-     "outcome": "won"
-    },
-    {
-     "seed": 20,
-     "policy": "healing",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 100,
-       "endHp": 83.9
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 84,
-       "endHp": 80.2
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 80,
-       "endHp": 75.8
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 76,
-       "endHp": 70.4
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 70,
-       "endHp": 59.1
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 14,
-       "startHp": 100,
-       "endHp": 51.7
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 52,
-       "endHp": 47.3
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 47,
-       "endHp": 43.6
-      },
-      {
-       "fight": "D4.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 44,
-       "endHp": 38
-      },
-      {
-       "fight": "D4.REG4",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 38,
-       "endHp": 15.3
-      },
-      {
-       "fight": "D4.BOSS",
-       "outcome": "won",
-       "rounds": 12,
-       "startHp": 100,
-       "endHp": 47.7
-      },
-      {
-       "fight": "D5.REG1",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 48,
-       "endHp": 38.1
-      },
-      {
-       "fight": "D5.REG2",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 38,
-       "endHp": 32.1
-      },
-      {
-       "fight": "D5.REG3",
-       "outcome": "won",
-       "rounds": 6,
-       "startHp": 32,
-       "endHp": 23.5
-      },
-      {
-       "fight": "D5.REG4",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 24,
-       "endHp": 15
-      },
-      {
-       "fight": "D5.BOSS",
-       "outcome": "won",
-       "rounds": 21,
-       "startHp": 100,
-       "endHp": 11
+       "endHp": 81.3
       }
      ],
      "reached": "D5",
@@ -6068,41 +2907,45 @@
   },
   "war": {
    "summary": {
-    "chains": 20,
+    "chains": 10,
     "clearPct": 0,
     "lossesAt": {
-     "D3.BOSS": 14,
-     "D4.REG2": 4,
-     "D4.REG3": 2
+     "D4.BOSS": 2,
+     "D4.REG4": 1,
+     "D5.REG4": 1,
+     "D5.REG3": 2,
+     "D5.REG1": 1,
+     "D5.BOSS": 1,
+     "D5.REG2": 2
     },
     "bosses": {
      "D2.BOSS": {
       "reachedPct": 100,
       "winPctOfReached": 100,
-      "startHpMedian": 88,
-      "endHpWinMedian": 72.2,
-      "roundsMedian": 8
+      "startHpMedian": 93,
+      "endHpWinMedian": 88,
+      "roundsMedian": 5
      },
      "D3.BOSS": {
       "reachedPct": 100,
-      "winPctOfReached": 30,
-      "startHpMedian": 47,
-      "endHpWinMedian": 9.3,
-      "roundsMedian": 11
+      "winPctOfReached": 100,
+      "startHpMedian": 57.5,
+      "endHpWinMedian": 43.75,
+      "roundsMedian": 7.5
      },
      "D4.BOSS": {
-      "reachedPct": 0,
-      "winPctOfReached": null,
-      "startHpMedian": null,
-      "endHpWinMedian": null,
-      "roundsMedian": null
+      "reachedPct": 90,
+      "winPctOfReached": 77.8,
+      "startHpMedian": 15,
+      "endHpWinMedian": 14.8,
+      "roundsMedian": 6
      },
      "D5.BOSS": {
-      "reachedPct": 0,
-      "winPctOfReached": null,
-      "startHpMedian": null,
+      "reachedPct": 10,
+      "winPctOfReached": 0,
+      "startHpMedian": 1,
       "endHpWinMedian": null,
-      "roundsMedian": null
+      "roundsMedian": 7
      }
     }
    },
@@ -6137,53 +2980,88 @@
        "outcome": "won",
        "rounds": 5,
        "startHp": 92,
-       "endHp": 88.3
+       "endHp": 90.1
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 49.6
+       "rounds": 6,
+       "startHp": 90,
+       "endHp": 87.6
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.9
+       "rounds": 5,
+       "startHp": 88,
+       "endHp": 69.2
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 46,
-       "endHp": 41.6
+       "startHp": 69,
+       "endHp": 69.2
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 42,
-       "endHp": 36.2
+       "startHp": 69,
+       "endHp": 67.4
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 36,
-       "endHp": 24.9
+       "startHp": 67,
+       "endHp": 56.1
       },
       {
        "fight": "D3.BOSS",
+       "outcome": "won",
+       "rounds": 8,
+       "startHp": 56,
+       "endHp": 42.2
+      },
+      {
+       "fight": "D4.REG1",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 42,
+       "endHp": 37.8
+      },
+      {
+       "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 38,
+       "endHp": 36.5
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 37,
+       "endHp": 34.8
+      },
+      {
+       "fight": "D4.REG4",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 35,
+       "endHp": 14.8
+      },
+      {
+       "fight": "D4.BOSS",
        "outcome": "lost",
        "rounds": 7,
-       "startHp": 25,
+       "startHp": 15,
        "endHp": 0
       }
      ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
+     "reached": "D4",
+     "outcome": "lost D4.BOSS"
     },
     {
      "seed": 2,
@@ -6201,81 +3079,95 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 97,
-       "endHp": 94.4
+       "endHp": 95.8
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 96,
+       "endHp": 93.5
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 93,
+       "endHp": 91.6
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 72.2
+       "rounds": 4,
+       "startHp": 92,
+       "endHp": 85.1
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 68.5
+       "rounds": 5,
+       "startHp": 85,
+       "endHp": 66.8
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
+       "startHp": 67,
+       "endHp": 62.4
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 64,
-       "endHp": 58.8
+       "startHp": 62,
+       "endHp": 57
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 59,
-       "endHp": 47.5
+       "startHp": 57,
+       "endHp": 45.7
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 11,
-       "startHp": 47,
-       "endHp": 9.3
+       "rounds": 9,
+       "startHp": 46,
+       "endHp": 23.7
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 9,
-       "endHp": 3.7
+       "startHp": 24,
+       "endHp": 22.4
       },
       {
        "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 22,
+       "endHp": 18.8
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 19,
+       "endHp": 17
+      },
+      {
+       "fight": "D4.REG4",
        "outcome": "lost",
        "rounds": 3,
-       "startHp": 4,
+       "startHp": 17,
        "endHp": 0
       }
      ],
      "reached": "D4",
-     "outcome": "lost D4.REG2"
+     "outcome": "lost D4.REG4"
     },
     {
      "seed": 3,
@@ -6286,95 +3178,137 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 100,
+       "endHp": 97.4
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 97.4
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 97,
+       "endHp": 93.7
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 72.2
+       "rounds": 5,
+       "startHp": 94,
+       "endHp": 89.5
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 68.5
+       "rounds": 5,
+       "startHp": 89,
+       "endHp": 75.9
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
+       "startHp": 76,
+       "endHp": 75.9
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 64,
-       "endHp": 58.8
+       "startHp": 76,
+       "endHp": 70.4
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 59,
-       "endHp": 47.4
+       "startHp": 70,
+       "endHp": 64.9
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 11,
-       "startHp": 47,
-       "endHp": 9.3
+       "rounds": 7,
+       "startHp": 65,
+       "endHp": 60.5
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 9,
-       "endHp": 4.9
+       "startHp": 61,
+       "endHp": 60.5
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 5,
-       "endHp": 1.2
+       "startHp": 61,
+       "endHp": 60.5
       },
       {
        "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 61,
+       "endHp": 54.9
+      },
+      {
+       "fight": "D4.REG4",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 55,
+       "endHp": 32.2
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 9,
+       "startHp": 32,
+       "endHp": 16.8
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 17,
+       "endHp": 12.5
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 12,
+       "endHp": 10.9
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 11,
+       "endHp": 2.3
+      },
+      {
+       "fight": "D5.REG4",
        "outcome": "lost",
        "rounds": 1,
-       "startHp": 1,
+       "startHp": 2,
        "endHp": 0
       }
      ],
-     "reached": "D4",
-     "outcome": "lost D4.REG3"
+     "reached": "D5",
+     "outcome": "lost D5.REG4"
     },
     {
      "seed": 4,
@@ -6385,74 +3319,130 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 99
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 99,
+       "endHp": 96.4
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 96,
+       "endHp": 96.4
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 96,
+       "endHp": 94.4
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 72.2
+       "rounds": 6,
+       "startHp": 94,
+       "endHp": 92.9
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 68.5
+       "rounds": 5,
+       "startHp": 93,
+       "endHp": 79.3
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
+       "startHp": 79,
+       "endHp": 75
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 64,
-       "endHp": 58.8
+       "startHp": 75,
+       "endHp": 71.8
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 59,
-       "endHp": 47.5
+       "startHp": 72,
+       "endHp": 66.3
       },
       {
        "fight": "D3.BOSS",
+       "outcome": "won",
+       "rounds": 8,
+       "startHp": 66,
+       "endHp": 45.9
+      },
+      {
+       "fight": "D4.REG1",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 46,
+       "endHp": 44.6
+      },
+      {
+       "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 45,
+       "endHp": 44.6
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 45,
+       "endHp": 39
+      },
+      {
+       "fight": "D4.REG4",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 39,
+       "endHp": 19.1
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 19,
+       "endHp": 14.4
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 14,
+       "endHp": 10.1
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 10,
+       "endHp": 4.1
+      },
+      {
+       "fight": "D5.REG3",
        "outcome": "lost",
-       "rounds": 13,
-       "startHp": 47,
+       "rounds": 2,
+       "startHp": 4,
        "endHp": 0
       }
      ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
+     "reached": "D5",
+     "outcome": "lost D5.REG3"
     },
     {
      "seed": 5,
@@ -6470,81 +3460,109 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 97,
-       "endHp": 94.4
+       "endHp": 96.9
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 96.9
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 97,
+       "endHp": 93.2
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 72.2
+       "rounds": 5,
+       "startHp": 93,
+       "endHp": 82.6
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 68.5
+       "rounds": 5,
+       "startHp": 83,
+       "endHp": 64.3
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
+       "startHp": 64,
+       "endHp": 60
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 64,
-       "endHp": 58.8
+       "startHp": 60,
+       "endHp": 56.8
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 59,
-       "endHp": 47.5
+       "startHp": 57,
+       "endHp": 45.5
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 11,
-       "startHp": 47,
-       "endHp": 9.3
+       "rounds": 7,
+       "startHp": 45,
+       "endHp": 41.1
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
-       "rounds": 5,
-       "startHp": 9,
-       "endHp": 3.7
+       "rounds": 4,
+       "startHp": 41,
+       "endHp": 38
       },
       {
        "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 38,
+       "endHp": 34.3
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 34,
+       "endHp": 32.4
+      },
+      {
+       "fight": "D4.REG4",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 32,
+       "endHp": 12.5
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 12,
+       "endHp": 7.8
+      },
+      {
+       "fight": "D5.REG1",
        "outcome": "lost",
        "rounds": 3,
-       "startHp": 4,
+       "startHp": 8,
        "endHp": 0
       }
      ],
-     "reached": "D4",
-     "outcome": "lost D4.REG2"
+     "reached": "D5",
+     "outcome": "lost D5.REG1"
     },
     {
      "seed": 6,
@@ -6555,74 +3573,144 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 100,
+       "endHp": 100
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 100,
+       "endHp": 97.7
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 98,
+       "endHp": 94
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 49.6
+       "rounds": 5,
+       "startHp": 94,
+       "endHp": 89.7
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.9
+       "rounds": 5,
+       "startHp": 90,
+       "endHp": 71.4
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 46,
-       "endHp": 41.6
+       "startHp": 71,
+       "endHp": 71.4
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 42,
-       "endHp": 36.1
+       "startHp": 71,
+       "endHp": 69.5
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 36,
-       "endHp": 24.8
+       "startHp": 70,
+       "endHp": 61.5
       },
       {
        "fight": "D3.BOSS",
-       "outcome": "lost",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 62,
+       "endHp": 56.4
+      },
+      {
+       "fight": "D4.REG1",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 56,
+       "endHp": 50.8
+      },
+      {
+       "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 51,
+       "endHp": 50.8
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 51,
+       "endHp": 45.2
+      },
+      {
+       "fight": "D4.REG4",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 45,
+       "endHp": 25.3
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 25,
+       "endHp": 25.3
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
        "rounds": 7,
        "startHp": 25,
+       "endHp": 21.4
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 21,
+       "endHp": 18.5
+      },
+      {
+       "fight": "D5.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 19,
+       "endHp": 9.9
+      },
+      {
+       "fight": "D5.REG4",
+       "outcome": "won",
+       "rounds": 9,
+       "startHp": 10,
+       "endHp": 1.5
+      },
+      {
+       "fight": "D5.BOSS",
+       "outcome": "lost",
+       "rounds": 7,
+       "startHp": 1,
        "endHp": 0
       }
      ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
+     "reached": "D5",
+     "outcome": "lost D5.BOSS"
     },
     {
      "seed": 7,
@@ -6659,48 +3747,97 @@
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
+       "rounds": 5,
        "startHp": 88,
-       "endHp": 49.6
+       "endHp": 84.1
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.9
+       "rounds": 5,
+       "startHp": 84,
+       "endHp": 70.5
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 46,
-       "endHp": 41.6
+       "startHp": 70,
+       "endHp": 66.2
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 42,
-       "endHp": 36.2
+       "startHp": 66,
+       "endHp": 60.8
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 36,
-       "endHp": 24.9
+       "startHp": 61,
+       "endHp": 49.4
       },
       {
        "fight": "D3.BOSS",
-       "outcome": "lost",
+       "outcome": "won",
        "rounds": 7,
-       "startHp": 25,
+       "startHp": 49,
+       "endHp": 37.8
+      },
+      {
+       "fight": "D4.REG1",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 38,
+       "endHp": 37.8
+      },
+      {
+       "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 38,
+       "endHp": 36.6
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 37,
+       "endHp": 34.8
+      },
+      {
+       "fight": "D4.REG4",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 35,
+       "endHp": 14.8
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 15,
+       "endHp": 14.8
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 15,
+       "endHp": 5.2
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "lost",
+       "rounds": 4,
+       "startHp": 5,
        "endHp": 0
       }
      ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
+     "reached": "D5",
+     "outcome": "lost D5.REG2"
     },
     {
      "seed": 8,
@@ -6718,67 +3855,116 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 97,
-       "endHp": 94.4
+       "endHp": 96.9
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 94.6
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 95,
+       "endHp": 90.9
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 49.6
+       "rounds": 5,
+       "startHp": 91,
+       "endHp": 86.7
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.9
+       "rounds": 5,
+       "startHp": 87,
+       "endHp": 73.1
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 46,
-       "endHp": 41.6
+       "startHp": 73,
+       "endHp": 68.7
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 42,
-       "endHp": 36.1
+       "startHp": 69,
+       "endHp": 63.3
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 36,
-       "endHp": 24.8
+       "startHp": 63,
+       "endHp": 52
       },
       {
        "fight": "D3.BOSS",
-       "outcome": "lost",
+       "outcome": "won",
        "rounds": 7,
-       "startHp": 25,
+       "startHp": 52,
+       "endHp": 40.3
+      },
+      {
+       "fight": "D4.REG1",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 40,
+       "endHp": 39
+      },
+      {
+       "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 39,
+       "endHp": 35.4
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 35,
+       "endHp": 33.5
+      },
+      {
+       "fight": "D4.REG4",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 34,
+       "endHp": 10.8
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 11,
+       "endHp": 10.8
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 11,
+       "endHp": 1.2
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "lost",
+       "rounds": 1,
+       "startHp": 1,
        "endHp": 0
       }
      ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
+     "reached": "D5",
+     "outcome": "lost D5.REG2"
     },
     {
      "seed": 9,
@@ -6789,88 +3975,130 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 100,
+       "endHp": 97.4
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 97,
+       "endHp": 96.4
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 96,
+       "endHp": 92.7
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 72.2
+       "rounds": 5,
+       "startHp": 93,
+       "endHp": 88.4
       },
       {
        "fight": "D3.REG1",
        "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 68.5
+       "rounds": 5,
+       "startHp": 88,
+       "endHp": 70.1
       },
       {
        "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
+       "startHp": 70,
+       "endHp": 70.1
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 64,
-       "endHp": 58.8
+       "startHp": 70,
+       "endHp": 66.4
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
-       "startHp": 59,
-       "endHp": 47.4
+       "startHp": 66,
+       "endHp": 60.8
       },
       {
        "fight": "D3.BOSS",
        "outcome": "won",
-       "rounds": 11,
-       "startHp": 47,
-       "endHp": 9.3
+       "rounds": 9,
+       "startHp": 61,
+       "endHp": 46.2
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 9,
-       "endHp": 3.7
+       "startHp": 46,
+       "endHp": 40.6
       },
       {
        "fight": "D4.REG2",
+       "outcome": "won",
+       "rounds": 4,
+       "startHp": 41,
+       "endHp": 36.9
+      },
+      {
+       "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 37,
+       "endHp": 35.1
+      },
+      {
+       "fight": "D4.REG4",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 35,
+       "endHp": 15.1
+      },
+      {
+       "fight": "D4.BOSS",
+       "outcome": "won",
+       "rounds": 9,
+       "startHp": 15,
+       "endHp": 15.1
+      },
+      {
+       "fight": "D5.REG1",
+       "outcome": "won",
+       "rounds": 7,
+       "startHp": 15,
+       "endHp": 10.9
+      },
+      {
+       "fight": "D5.REG2",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 11,
+       "endHp": 8
+      },
+      {
+       "fight": "D5.REG3",
        "outcome": "lost",
-       "rounds": 3,
-       "startHp": 4,
+       "rounds": 4,
+       "startHp": 8,
        "endHp": 0
       }
      ],
-     "reached": "D4",
-     "outcome": "lost D4.REG2"
+     "reached": "D5",
+     "outcome": "lost D5.REG3"
     },
     {
      "seed": 10,
@@ -6881,889 +4109,109 @@
        "outcome": "won",
        "rounds": 3,
        "startHp": 100,
-       "endHp": 96.9
+       "endHp": 100
       },
       {
        "fight": "D2.REG2",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
+       "startHp": 100,
+       "endHp": 100
       },
       {
        "fight": "D2.REG3",
        "outcome": "won",
        "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
+       "startHp": 100,
+       "endHp": 100
       },
       {
        "fight": "D2.REG4",
        "outcome": "won",
        "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
+       "startHp": 100,
+       "endHp": 96.3
       },
       {
        "fight": "D2.BOSS",
        "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
+       "rounds": 5,
+       "startHp": 96,
+       "endHp": 90.5
+      },
+      {
+       "fight": "D3.REG1",
+       "outcome": "won",
+       "rounds": 5,
+       "startHp": 91,
        "endHp": 72.2
       },
       {
-       "fight": "D3.REG1",
+       "fight": "D3.REG2",
        "outcome": "won",
        "rounds": 4,
        "startHp": 72,
-       "endHp": 68.5
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
+       "endHp": 67.9
       },
       {
        "fight": "D3.REG3",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 64,
-       "endHp": 58.8
+       "startHp": 68,
+       "endHp": 64.7
       },
       {
        "fight": "D3.REG4",
        "outcome": "won",
        "rounds": 7,
+       "startHp": 65,
+       "endHp": 59.1
+      },
+      {
+       "fight": "D3.BOSS",
+       "outcome": "won",
+       "rounds": 8,
        "startHp": 59,
-       "endHp": 47.4
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 13,
-       "startHp": 47,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 11,
-     "policy": "war",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 68.5
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 64,
-       "endHp": 58.8
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 59,
-       "endHp": 47.4
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 11,
-       "startHp": 47,
-       "endHp": 9.3
-      },
-      {
-       "fight": "D4.REG1",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 9,
-       "endHp": 3.7
-      },
-      {
-       "fight": "D4.REG2",
-       "outcome": "lost",
-       "rounds": 3,
-       "startHp": 4,
-       "endHp": 0
-      }
-     ],
-     "reached": "D4",
-     "outcome": "lost D4.REG2"
-    },
-    {
-     "seed": 12,
-     "policy": "war",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 88,
-       "endHp": 50.8
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 51,
-       "endHp": 47.1
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 47,
-       "endHp": 42.8
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 43,
-       "endHp": 37.4
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 37,
-       "endHp": 26.1
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 7,
-       "startHp": 26,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 13,
-     "policy": "war",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 68.5
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 64,
-       "endHp": 58.8
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 59,
-       "endHp": 47.4
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 13,
-       "startHp": 47,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 14,
-     "policy": "war",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 9,
-       "startHp": 88,
-       "endHp": 50.8
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 51,
-       "endHp": 47.1
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 47,
-       "endHp": 42.8
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 43,
-       "endHp": 37.3
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 37,
-       "endHp": 26
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 7,
-       "startHp": 26,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 15,
-     "policy": "war",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 49.6
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.9
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 46,
-       "endHp": 41.6
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 42,
-       "endHp": 36.1
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 36,
-       "endHp": 24.8
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 7,
-       "startHp": 25,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 16,
-     "policy": "war",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 68.5
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 64,
-       "endHp": 58.8
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 59,
-       "endHp": 47.4
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 13,
-       "startHp": 47,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 17,
-     "policy": "war",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 49.6
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 50,
-       "endHp": 45.9
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 46,
-       "endHp": 41.6
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 42,
-       "endHp": 36.1
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 36,
-       "endHp": 24.8
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 7,
-       "startHp": 25,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 18,
-     "policy": "war",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 68.5
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 64,
-       "endHp": 58.8
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 59,
-       "endHp": 47.5
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 13,
-       "startHp": 47,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
-    },
-    {
-     "seed": 19,
-     "policy": "war",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 68.5
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 64,
-       "endHp": 59.2
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 59,
-       "endHp": 47.9
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "won",
-       "rounds": 11,
-       "startHp": 48,
-       "endHp": 9.8
+       "endHp": 45.3
       },
       {
        "fight": "D4.REG1",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 10,
-       "endHp": 5.4
+       "startHp": 45,
+       "endHp": 40.9
       },
       {
        "fight": "D4.REG2",
        "outcome": "won",
        "rounds": 4,
-       "startHp": 5,
-       "endHp": 1.7
+       "startHp": 41,
+       "endHp": 40.9
       },
       {
        "fight": "D4.REG3",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 41,
+       "endHp": 35.3
+      },
+      {
+       "fight": "D4.REG4",
+       "outcome": "won",
+       "rounds": 6,
+       "startHp": 35,
+       "endHp": 12.6
+      },
+      {
+       "fight": "D4.BOSS",
        "outcome": "lost",
-       "rounds": 1,
-       "startHp": 2,
+       "rounds": 6,
+       "startHp": 13,
        "endHp": 0
       }
      ],
      "reached": "D4",
-     "outcome": "lost D4.REG3"
-    },
-    {
-     "seed": 20,
-     "policy": "war",
-     "fights": [
-      {
-       "fight": "D2.REG1",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 100,
-       "endHp": 96.9
-      },
-      {
-       "fight": "D2.REG2",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 97,
-       "endHp": 94.4
-      },
-      {
-       "fight": "D2.REG3",
-       "outcome": "won",
-       "rounds": 3,
-       "startHp": 94,
-       "endHp": 92
-      },
-      {
-       "fight": "D2.REG4",
-       "outcome": "won",
-       "rounds": 5,
-       "startHp": 92,
-       "endHp": 88.3
-      },
-      {
-       "fight": "D2.BOSS",
-       "outcome": "won",
-       "rounds": 8,
-       "startHp": 88,
-       "endHp": 72.2
-      },
-      {
-       "fight": "D3.REG1",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 72,
-       "endHp": 68.5
-      },
-      {
-       "fight": "D3.REG2",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 69,
-       "endHp": 64.2
-      },
-      {
-       "fight": "D3.REG3",
-       "outcome": "won",
-       "rounds": 4,
-       "startHp": 64,
-       "endHp": 58.8
-      },
-      {
-       "fight": "D3.REG4",
-       "outcome": "won",
-       "rounds": 7,
-       "startHp": 59,
-       "endHp": 47.4
-      },
-      {
-       "fight": "D3.BOSS",
-       "outcome": "lost",
-       "rounds": 13,
-       "startHp": 47,
-       "endHp": 0
-      }
-     ],
-     "reached": "D3",
-     "outcome": "lost D3.BOSS"
+     "outcome": "lost D4.BOSS"
     }
    ]
   }

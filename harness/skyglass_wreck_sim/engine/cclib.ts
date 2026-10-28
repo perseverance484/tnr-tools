@@ -21,8 +21,8 @@ import { StatTypes } from "@/drizzle/constants";
 import { AiRule } from "@/validators/ai";
 import { insertAiSchema } from "@/validators/aiInput";
 import { JutsuValidator } from "@/validators/combat";
-import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, PLAYER_VARIANTS, playerQueryUser, playerRules, queryShell } from "./model";
-import { assembleFloor, mulberry32 } from "./sim";
+import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, petFor, PLAYER_VARIANTS, playerQueryUser, playerRules, queryShell } from "./model";
+import { assembleFloor, mulberry32, seedEntropy, tickClock } from "./sim";
 
 export const args = process.argv.slice(2);
 export const opt = (k: string, d?: string) => {
@@ -156,7 +156,10 @@ export const C = {
 /* ------------------------------------------------------------------ AI rows */
 export const STAT_PER_MULT = 1622255.8 / 5.83; // push/272 readback: the server computes stats from statsMultiplier
 export const STATS = ["offence", "defence", "strength", "intelligence", "willpower", "speed"] as const;
-export const idgRowTags = (rows: number) => [
+export const idgRowTags = (rows: number) => rows < 0 ? [
+  // A negative value is one decreasedamagegiven row of that size (e.g. -0.3 = 30% less damage dealt).
+  tagBase("decreasedamagegiven", { power: Math.round(-rows * 100), rounds: 99, calculation: "percentage", description: "Decreased damage given" }),
+] : [
   ...Array.from({ length: Math.floor(rows) }, () => tagBase("increasedamagegiven", { power: 100, rounds: 99, calculation: "percentage", description: "Increased damage given" })),
   ...(rows % 1 ? [tagBase("increasedamagegiven", { power: Math.round((rows % 1) * 100), rounds: 99, calculation: "percentage", description: "Increased damage given" })] : []),
 ];
@@ -223,6 +226,12 @@ export const validator = () => {
 /* ------------------------------------------------------------------ the fight */
 export type SetMap = Record<string, [string, "mark" | "land"]>; // action id -> [set piece, role]
 export type PlayerStart = { hpFrac?: number; cpFrac?: number; spFrac?: number; startingEffects?: any[] };
+/**
+ * The player brings one modelled mid-rank companion pet (model.ts petFor: JONIN owner -> pet rank 5, level 30, half
+ * that rank's stat caps, COMMON ASSAULT species, no passives, engine default AI). Pets join QUEST battles
+ * (petsAllowedInBattle). No pet state is carried between fights: each fight's pet starts fresh. --no-pet turns it off.
+ */
+export const PET_ON = !process.argv.includes("--no-pet");
 export type FightConfig = {
   bossId: string;
   rows: Record<string, any>; // boss + any summon templates, keyed by AI id
@@ -235,13 +244,14 @@ export type FightConfig = {
   maxRounds?: number;
 };
 export type Fight = {
-  seed: number; dodge: boolean; outcome: string; rounds: number; playerHpPct: number; bossHpPct: number;
+  seed: number; dodge: boolean | number; outcome: string; rounds: number; playerHpPct: number; bossHpPct: number;
   endHpFrac: number; endCpFrac: number; endSpFrac: number;
   phaseRounds: (number | null)[]; anchorReached: boolean;
   sets: Record<string, { mark: number; land: number; hit: number; dmg: number }>;
   special: Record<string, number>; specialFirstRound: Record<string, number | null>;
   summonDamage: number; bossIdleTurns: number; bossTurns: number; playerIdleTurns: number; playerTurns: number;
-  dodgeMoves: number; blockedMoves: number; cleanses: number; dmgBySource: Record<string, number>; untelegraphedLands: number;
+  dodgeMoves: number; blockedMoves: number; cleanses: number; misreads: number; dmgBySource: Record<string, number>; untelegraphedLands: number;
+  petBossDmg: number; bossDmgTotal: number; petEndHpPct: number | null;
   trace?: string[];
 };
 const DANGER_ANIMS = new Set(["tg_heavy", "tg_control"]);
@@ -252,17 +262,26 @@ const patternCells = (grid: any, rec: any, from: Cell) => {
   return new Set(getTargetTiles({ a, b: a, action: rec, grid }).map((h: any) => `${h.col},${h.row}`));
 };
 
-export const runFight = async (cfg: FightConfig, seed: number, dodge: boolean, start: PlayerStart = {}, trace = false, debugfx = false): Promise<Fight> => {
+/**
+ * dodge: true = reads every telegraph, false = ignores them all, a number p = reads each new telegraph with
+ * probability p (the "average player" misreads 1 - p of them). The read/misread roll uses its own seeded stream, so the
+ * combat's Math.random sequence is unchanged.
+ */
+export const runFight = async (cfg: FightConfig, seed: number, dodge: boolean | number, start: PlayerStart = {}, trace = false, debugfx = false): Promise<Fight> => {
   const rand = mulberry32(seed);
   const orig = Math.random;
   Math.random = rand;
+  // Seeded id entropy and the virtual clock (sim.ts), so a fight is identical however busy the machine is.
+  seedEntropy(seed);
   try {
     const kit = PLAYER_VARIANTS.average!.jutsuIds;
     const v = { ...PLAYER_VARIANTS.average!, rules: playerRules(kit, t0.jutsu) };
     const player = playerQueryUser(0, v as never, t0.enemies["texZaFi42S3EvJZBwQ8cd"]!.row, t0.jutsu);
+    const pets = PET_ON ? [petFor(player)] : undefined;
+    if (pets) (player as any).activePetId = pets[0]!.id;
     let b = await assembleFloor({
       players: [player], enemyRows: cfg.rows, floor: { kind: "boss", waves: [{ aiIds: [cfg.bossId], delayRounds: 0 }] },
-      rand, initialBarriers: true, dmgConfig: dmg.config, mode: "quest",
+      rand, initialBarriers: true, dmgConfig: dmg.config, mode: "quest", ...(pets ? { pets } : {}),
     });
     for (const [id, r] of Object.entries(cfg.recs)) if (!(b.extraState.jutsus as any)[id]) (b.extraState.jutsus as any)[id] = r;
     const grid = getBattleGrid(1, b);
@@ -286,8 +305,8 @@ export const runFight = async (cfg: FightConfig, seed: number, dodge: boolean, s
       sets: Object.fromEntries(cfg.setNames.map((k) => [k, { mark: 0, land: 0, hit: 0, dmg: 0 }])),
       special: Object.fromEntries(Object.keys(cfg.special ?? {}).map((k) => [k, 0])),
       specialFirstRound: Object.fromEntries(Object.keys(cfg.special ?? {}).map((k) => [k, null])),
-      summonDamage: 0, bossIdleTurns: 0, bossTurns: 0, playerIdleTurns: 0, playerTurns: 0, dodgeMoves: 0, blockedMoves: 0, cleanses: 0,
-      dmgBySource: {}, untelegraphedLands: 0, ...(trace ? { trace: [] } : {}),
+      summonDamage: 0, bossIdleTurns: 0, bossTurns: 0, playerIdleTurns: 0, playerTurns: 0, dodgeMoves: 0, blockedMoves: 0, cleanses: 0, misreads: 0,
+      dmgBySource: {}, untelegraphedLands: 0, petBossDmg: 0, bossDmgTotal: 0, petEndHpPct: null, ...(trace ? { trace: [] } : {}),
     };
     const actionRounds: number[] = [];
     const turnActs = new Map<string, string[]>();
@@ -313,6 +332,22 @@ export const runFight = async (cfg: FightConfig, seed: number, dodge: boolean, s
       } catch {
         return false;
       }
+    };
+    const readP = dodge === true ? 1 : dodge === false ? 0 : dodge;
+    const readRand = mulberry32((seed ^ 0x2ead1) >>> 0);
+    let lastSig = "";
+    let reading = readP >= 1;
+    /** Whether the player reads the telegraph currently on the ground (one roll per new marked set). */
+    const reads = (bb: typeof b) => {
+      const m = marked(bb);
+      if (!m.size) return readP > 0;
+      const sig = [...m].sort().join(";");
+      if (sig !== lastSig) {
+        lastSig = sig;
+        reading = readP >= 1 ? true : readP <= 0 ? false : readRand() < readP;
+        if (!reading) f.misreads++;
+      }
+      return reading;
     };
     const dodgeStep = () => {
       const pu = b.usersState.find((u) => u.userId === puid)!;
@@ -356,6 +391,7 @@ export const runFight = async (cfg: FightConfig, seed: number, dodge: boolean, s
       if (b.round > maxRounds) break;
       const actor = pre.actor;
       const human = actor.userId === puid;
+      tickClock(1000);
       const tk = `${b.round}:${actor.userId}`;
       if (!turnActs.has(tk)) turnActs.set(tk, []);
       const hpBefore = new Map(b.usersState.map((u) => [u.userId, u.curHealth]));
@@ -365,13 +401,13 @@ export const runFight = async (cfg: FightConfig, seed: number, dodge: boolean, s
       const markedBefore = trace ? marked(b).size : 0;
       if (debugfx) console.log(`FX r${b.round} ${actor.username}: boss ${b.usersEffects.filter((e: any) => e.targetId === bossUid).map((e: any) => `${e.type}:${e.power}:r${e.rounds}`).join(" ")} | player ${b.usersEffects.filter((e: any) => e.targetId === puid).map((e: any) => `${e.type}:${e.power}:r${e.rounds}`).join(" ")}`);
       let actionId: string | undefined;
-      if (human && dodge && dodgeStep()) {
+      if (human && readP > 0 && reads(b) && dodgeStep()) {
         actionId = "dodge";
         f.dodgeMoves++;
       } else {
         const res = performAIaction(b, grid, actor.userId);
         actionId = res.nextActionId;
-        if (human && dodge && (actionId === "move" || actionId === "replacementTechnique")) {
+        if (human && readP > 0 && reads(b) && (actionId === "move" || actionId === "replacementTechnique")) {
           const after = res.nextBattle.usersState.find((u) => u.userId === puid)!;
           if (marked(res.nextBattle).has(`${after.longitude},${after.latitude}`)) {
             f.blockedMoves++;
@@ -386,9 +422,14 @@ export const runFight = async (cfg: FightConfig, seed: number, dodge: boolean, s
       if (!actionId && actor.isAutoCombat) b.roundStartAt = new Date(Date.now() - 61_000);
       turnActs.get(tk)!.push(actionId ?? "none");
       const pAfter = b.usersState.find((u) => u.userId === puid)!;
+      {
+        const bl = Math.max(0, (hpBefore.get(bossUid) ?? 0) - bossU().curHealth);
+        f.bossDmgTotal += bl;
+        if ((actor as any).petId) f.petBossDmg += bl;
+      }
       const pLoss = Math.max(0, (hpBefore.get(puid) ?? 0) - pAfter.curHealth);
       const isBoss = actor.userId === bossUid;
-      const actorName = human ? "player" : isBoss ? "boss" : actor.isSummon ? "summon" : actor.username;
+      const actorName = human ? "player" : isBoss ? "boss" : (actor as any).petId ? "pet" : actor.isSummon ? "summon" : actor.username;
       if (!human && pLoss > 0) {
         const src = actor.isSummon ? "summon" : (cfg.sets[actionId ?? ""]?.[0] ?? (b.extraState.jutsus as any)[actionId ?? ""]?.name ?? (b.extraState.items as any)?.[actionId ?? ""]?.name ?? actionId ?? "tick");
         f.dmgBySource[src] = (f.dmgBySource[src] ?? 0) + pLoss;
@@ -414,7 +455,8 @@ export const runFight = async (cfg: FightConfig, seed: number, dodge: boolean, s
       if (cfg.anchor && bu.longitude === cfg.anchor[0] && bu.latitude === cfg.anchor[1]) f.anchorReached = true;
       if (trace) {
         const nm = actionId === "dodge" ? "DODGE" : (b.extraState.jutsus as any)[actionId ?? ""]?.name ?? (b.extraState.items as any)?.[actionId ?? ""]?.name ?? actionId;
-        f.trace!.push(`r${pre.actionRound} ${actorName.padEnd(7)} ${String(nm).padEnd(30)} p@${pPos} pHP ${Math.round(pAfter.curHealth)} (-${Math.round(pLoss)}) boss ${bhp.toFixed(1)}% marks ${markedBefore}`);
+        const petU = b.usersState.find((u: any) => u.petId);
+        f.trace!.push(`r${pre.actionRound} ${actorName.padEnd(7)} ${String(nm).padEnd(30)} p@${pPos} pHP ${Math.round(pAfter.curHealth)} (-${Math.round(pLoss)}) boss ${bhp.toFixed(1)}% marks ${markedBefore}${petU ? ` pet@${petU.longitude},${petU.latitude}` : ""}`);
       }
       const out = outcomeOf();
       if (out) { f.outcome = out; break; }
@@ -427,6 +469,8 @@ export const runFight = async (cfg: FightConfig, seed: number, dodge: boolean, s
     const pu = b.usersState.find((u) => u.userId === puid)!;
     const bu = bossU();
     f.rounds = b.round;
+    const pet = b.usersState.find((u: any) => u.petId);
+    if (pet) f.petEndHpPct = Math.round((1000 * Math.max(0, pet.curHealth)) / pet.maxHealth) / 10;
     f.endHpFrac = Math.max(0, pu.curHealth) / maxHp;
     f.endCpFrac = Math.max(0, pu.curChakra) / maxCp;
     f.endSpFrac = Math.max(0, pu.curStamina) / maxSp;
@@ -484,8 +528,11 @@ export const summarise = (fs: Fight[], setNames: string[]) => {
     summonDamageSharePct: r1((100 * fs.reduce((s, f) => s + f.summonDamage, 0)) / totSrc),
     bossIdleTurnPct: r1((100 * fs.reduce((s, f) => s + f.bossIdleTurns, 0)) / Math.max(1, fs.reduce((s, f) => s + f.bossTurns, 0))),
     playerIdleTurnPct: r1((100 * fs.reduce((s, f) => s + f.playerIdleTurns, 0)) / Math.max(1, fs.reduce((s, f) => s + f.playerTurns, 0))),
+    misreadsPerFight: r1(fs.reduce((s, f) => s + (f.misreads ?? 0), 0) / fs.length),
     dodgeMovesPerFight: r1(fs.reduce((s, f) => s + f.dodgeMoves, 0) / fs.length),
     cleansesPerFight: r1(fs.reduce((s, f) => s + f.cleanses, 0) / fs.length),
+    petBossDmgSharePct: r1((100 * fs.reduce((s, f) => s + f.petBossDmg, 0)) / Math.max(1, fs.reduce((s, f) => s + f.bossDmgTotal, 0))),
+    petAliveAtEndPct: fs.some((f) => f.petEndHpPct !== null) ? r1((100 * fs.filter((f) => (f.petEndHpPct ?? 0) > 0).length) / fs.length) : null,
     blockedMovesPerFight: r1(fs.reduce((s, f) => s + f.blockedMoves, 0) / fs.length),
     damageShareToPlayerPct: Object.fromEntries(Object.entries(src).sort((a, b) => b[1] - a[1]).map(([k, v]) => [k, r1((100 * v) / totSrc)])),
   };
