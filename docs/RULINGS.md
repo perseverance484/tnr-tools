@@ -3548,3 +3548,36 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "Approved. Builder route ok."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3, `docs/design/SKYGLASS_PETS.md`.
+
+## RUL-2026-10-28-013 — Structure review fixes; Crownhold carries HP; Archive guard; Sealwright's bruiser
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / economy and encounters
+
+**Status:** ACTIVE. Harness re-runs are pending.
+
+**Ruling:**
+1. **The structure review's fixes are approved:**
+   - Pets are added to the Wreck and hunt harnesses.
+   - An upstream proposal goes in to exempt entry-item Pyramid runs from the lifetime 100-start cap. The cap stays at 100 for launch.
+   - The Rotted Reliquary's press-on room becomes Replicant Zero.
+   - The Sealed Reliquary's last echo is the First Blade.
+   - The common runs end with Core Rot at 15%.
+   - The Archive Chart Case's Legendary tier becomes Lantern 3 / rare chart 5.
+   - The Buried Cache pays 25,000 ryo.
+   - Titles get small values, proposed for approval; their effects are permanent mastery or regeneration bonuses.
+   - The easy Wreck gets Galley Stores at 10%.
+   - The Core Horror carries Core Rot as an AI drop in quest battles. The steeping fight uses its own copy, with no Rot drop.
+   - Tainted runs and Crownhold use pick 2 (`rewardPickCount`) instead of ×2 quantities.
+   - The Crown's Hoard is one item opening the Coffer, Treasury and Echo Jar caches.
+   - The common runs get mixed package cards.
+   - Titles move to one-time first-clear achievements.
+   - The harness confirms objective rewards bank mid-run.
+2. **Crownhold keeps carrying HP between fights.** Its routes (shortcut, War Rite buff, Healing Rite) only mean something if HP carries. The commanders are retuned for the chain, since they are never fought alone. Targets: every route clears; Healing Rite highest, alarm lowest.
+3. **The Archive alarm guard gets its own record:** Crown Archivist (the Skyglass Archive Keeper), not the Sentinel. The Cache Sentinel is unchanged.
+4. **The Sealwright keeps Ward of Command.** "Called to the Archive" summons a lighter bruiser, Crown Stonebound, and the ward lands on it as the highest-health ally.
+
+**Evidence:** Director, 2026-10-28: "Approve fixes. If we refill their HP what's the point of the separate nodes and all the extra work we put in on the shortcut vs buff vs heal? Archive alarm guard can have a separate record. We have a bunch of ghost ship AI, can use a Crownhold one if needed. Keep the Sealwright's ward and give him a lighter bruiser than the Crowned Captain to work with".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`, `docs/design/SKYGLASS_BOSS_FIGHTS.md`; harness `fable/skyglass-wreck-sim`, `fable/crowned-captain-sim`, `fable/skyglass-hunts-sim`.
