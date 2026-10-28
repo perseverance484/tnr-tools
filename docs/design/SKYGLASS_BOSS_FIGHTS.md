@@ -120,9 +120,8 @@ himself; phase 2 his echoes fight for him; phase 3 his crown fights for him. The
 shard (a tg_safe variant). A player who ends a move on one gains, through a ground `injectjutsus`, a one-use jutsu,
 **Crown Shard**: "%user drives a shard of his own crown back at him." The Crowned Captain has a `weakness` to that jutsu
 (x5).
-- **Fallback if Last Directive's clearprevent stays:** if the engine allows it, Crown Shard also carries a `clear` that
-  strips the Last Directive's "cannot fall". If it does not, Crown Shard is simply the biggest damage in the fight, and the
-  Last Directive's 5 rounds are a dodge test.
+- **Last Directive keeps its clearprevent** (director, 2026-10-28). Nothing removes it: its five rounds are a survival test.
+  Crown Shard is the fight's biggest damage, so the player is ready to finish him the moment it ends.
 - **The beat:** in the last act, the player breaks the crown with its own pieces.
 
 **Battle log (his voice):**
@@ -148,5 +147,5 @@ shard (a tg_safe variant). A player who ends a move on one gains, through a grou
 1. Does a two-marker chain (mark plus 40 AP follow-up, detonate next turn) fire in order?
 2. Does `weakness` on SELF expose the caster as designed, for 1 round?
 3. Can a ground effect grant `injectjutsus` to whoever ends a move on it? Is the injected jutsu preloaded into the battle? Does it disappear after one use?
-4. Can a `clear` remove `finalstand` through `clearprevent`?
+4. Settled by the director: Last Directive keeps clearprevent, so no clear is needed.
 5. Will players attack a barrier when it blocks their path?
