@@ -18,7 +18,7 @@
 
 ## 2. Wreck clear (each member)
 
-Currency package (director, in game). Independent drops: the chest of chests **10%** (RUL-2026-10-25-014; one roll (RUL-2026-10-28-016): Common 40 Medicine Inro or Elemental Tool Pouch / Rare 35 Sage's Strongbox or Galley Stores / Epic 18 Skyglass Coffer or Archive Chart Case / Legendary 7 Sealed Treasury or Echo Jar; **Unmarked Cargo**, untradeable), Chart of the Buried Cache **20%** (RUL-2026-10-25-012), Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Lastlight Lantern **3%**, Sealed Treasury **3%** (ruled).
+Currency package (director, in game). Independent drops: the chest of chests **10%** (RUL-2026-10-25-014; one roll (RUL-2026-10-28-016): Common 40 Medicine Inro, Elemental Tool Pouch or Quartermaster's Kit / Rare 35 Sage's Strongbox, Officer's Pill Case or Galley Stores / Epic 18 Skyglass Coffer or Archive Chart Case / Legendary 7 Sealed Treasury or Echo Jar; **Unmarked Cargo**, untradeable), Chart of the Buried Cache **20%** (RUL-2026-10-25-012), Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Lastlight Lantern **3%**, Sealed Treasury **3%** (ruled).
 
 ## 3. Caches (weighted, one roll each)
 
@@ -61,6 +61,24 @@ That averages about 13 Imperial Gold per opening, against about 1.2 before.
 
 **Elemental Tool Pouch** (RUL-2026-10-28-003; was five element pouches, now one: the Katon pouch record, re-pointed) — Elemental Kunai ×10 every opening, plus one roll: Common 70 (kunai ×10 / Smoke Pellet ×10 / Whetstone Oil ×10 / Venom Cask ×10; Chakra Disrupting Needles removed, the Strongbox owns them); Rare 25 (kunai ×20 / Elite Smoke Bomb ×10 / Paper Bombs ×10); Epic 5 (kunai ×30 / Senbon Needles ×10 / Saki ×10).
 
+## 3a. Consumable caches: five themed caches (RUL-2026-10-28-018; supersedes the Inro, Strongbox and Pouch contents in §3)
+
+Finished, profession-crafted consumables are allowed: every ninja uses them (director). Weights and quantities are set after the push/323 item capture. Old elemental kunai stay out; the single Elemental Kunai replaces them.
+
+| Cache | Theme | Common → Legendary |
+|---|---|---|
+| Medicine Inro | healing | Field Tonic, Energy Potion → Small Health Pill, Full Potion → Panacea → Pill Pack |
+| Officer's Pill Case (new) | self-buffs | Chakra Pill, Stamina Pill → Chakra Pill II, Stamina Pill II → Solider Pill → Dr. Kim's Miracle Potion |
+| Sage's Strongbox | enemy alchemy | Dr. Kim's Poison Potion, Dr. Kim Disaster Potion → Infernum, Bashōsen → Enemy Pill, Mona's Mermaid Song, Chakra Disrupting Needles → Forbidden Jutsu Scroll (1%) |
+| Elemental Tool Pouch | throwing | Elemental Kunai (every opening) plus a roll of Paper Bombs → Senbon Needles, Saki → Venom Cask |
+| Quartermaster's Kit (new; the Arsenal Keeper's stores) | utility | Smoke Pellet, Whetstone Oil → Smoke Bomb → Elite Smoke Bomb → Repair Kit |
+
+- **Dead Man's Draught is not used.** Skyglass Serum (Coffer) is its live successor.
+
+**Placement**
+- **Night Watch pick:** Pill Case + 10,000 ryo / Quartermaster's Kit + 10,000 ryo / Galley Stores.
+- **Chest of chests:** Common 40 Inro / Pouch / Quartermaster's Kit; Rare 35 Strongbox / Pill Case / Galley Stores.
+
 ## 4. Treasure hunts
 
 Every hunt is an isolated Battle Pyramid. **Ending rewards** (always paid, every ending): the 1,000-5,000 exp ladder by final opponent and gating, the hunt's currency (director, in game) and the Sealed Treasury at **1% per ladder step** (I 1% · II 2% · III 3% · IV 4% · V 5% · VI 6%). No caches on endings. **Completion pick** (choose 1) is the hunt's identity:
@@ -87,7 +105,8 @@ The Sealwright's doubled health (push/252) applies to the Archive's final fight 
 
 | Run | Options (pick 1) |
 |---|---|
-| Low Tide Run / Night Watch | Pouch + 10,000 ryo (one package card) / Inro + 10,000 ryo (one package card) / Galley Stores |
+| Low Tide Run | Pouch + 10,000 ryo (one package card) / Inro + 10,000 ryo (one package card) / Galley Stores |
+| Night Watch | Officer's Pill Case + 10,000 ryo / Quartermaster's Kit + 10,000 ryo / Galley Stores (RUL-2026-10-28-018) |
 | Buried Cache | 25,000 ryo / Medicine Inro / Galley Stores |
 | Drowned Foundry | Elemental Tool Pouch / 50,000 ryo / Galley Stores |
 | Quarantined Archive | Archive Chart Case / Sage's Strongbox / Echo Jar *(Records exp cut; the alarm/clean ladder is left as is)* |
