@@ -2850,6 +2850,18 @@
     "range",
     "cooldown"
   ];
+  function normalizeSpecies(d) {
+    if (!d || typeof d !== "object") return d;
+    const out = { ...d };
+    for (const k of ["name", "description"]) if (typeof out[k] === "string") out[k] = out[k].trim();
+    if ("artDirection" in out) out.artDirection = typeof out.artDirection === "string" ? out.artDirection.trim() || null : out.artDirection ?? null;
+    if (Array.isArray(out.rankConcepts)) {
+      const kept = out.rankConcepts.map((c) => typeof c === "string" ? c.trim() : c ?? "");
+      while (kept.length && !kept[kept.length - 1]) kept.pop();
+      out.rankConcepts = kept;
+    }
+    return out;
+  }
   function petSpeciesPayload(d) {
     const out = { ...d };
     for (const k of PET_STRIPPED_OK) delete out[k];
@@ -3114,6 +3126,10 @@
   var definedKeys = (o) => Object.keys(o).filter((k) => o[k] !== void 0);
   function diffAsserted(entity, asserted, live) {
     if (isDungeonEntity(entity)) return dungeonDiffs(asserted, live ? live.content : void 0);
+    if (entity === "petSpecies") {
+      asserted = normalizeSpecies(asserted);
+      live = live && normalizeSpecies(live);
+    }
     const diffs = [];
     for (const k of Object.keys(asserted)) {
       if (SERVER_OWNED.includes(k)) continue;
@@ -3669,11 +3685,13 @@
           if (d.itemType !== void 0 && d.itemType !== "CONSUMABLE") E(it, "L18 noncombatconsumereward requires itemType CONSUMABLE");
           if (d.target !== void 0 && d.target !== "SELF") E(it, "L18 noncombatconsumereward requires item target SELF");
           if (d.method !== void 0 && d.method !== "SINGLE") E(it, "L18 noncombatconsumereward requires method SINGLE");
-          const pets = Array.isArray(f.reward_pets) ? f.reward_pets.length : 0;
-          if (pets && f.rewardMode === "weightedCache") E(it, "PET reward_pets requires rewardMode standard");
-          if (pets > 1) E(it, "PET an item may grant at most 1 companion");
-          if (pets && (d.preventBattleUsage === false || it.op === "create" && d.preventBattleUsage !== true)) E(it, "PET companion rewards require preventBattleUsage true");
+          if (Array.isArray(f.reward_pets) && f.reward_pets.length && f.rewardMode === "weightedCache") E(it, "PET reward_pets requires rewardMode standard");
         }
+      }
+      if (it.entity === "item") {
+        const pets = (Array.isArray(d.effects) ? d.effects : []).reduce((n, f) => n + (f && f.type === "noncombatconsumereward" && Array.isArray(f.reward_pets) ? f.reward_pets.length : 0), 0);
+        if (pets > 1) E(it, `PET an item may grant at most 1 companion (${pets} across its effects)`);
+        if (pets && (d.preventBattleUsage === false || it.op === "create" && d.preventBattleUsage !== true)) E(it, "PET companion rewards require preventBattleUsage true");
       }
       for (const [tp, n] of Object.entries(pct)) {
         if (n <= 4) continue;

@@ -35,6 +35,26 @@ const LINKS = ["bloodlineId", "bloodlineReskinId", "reskinParentJutsuId", "villa
 const NON_NEGATIVE = ["healthCost", "chakraCost", "staminaCost", "healthCostReducePerLvl", "chakraCostReducePerLvl",
   "staminaCostReducePerLvl", "range", "cooldown"];
 
+/**
+ * A species record as PetSpeciesValidator stores it (validators/petSpecies.ts:22-48): name and
+ * description trimmed; artDirection trimmed, and blank or null is null; each rank concept trimmed
+ * with null/undefined as "", trailing blank concepts dropped. Only keys present are touched, and it
+ * is idempotent, so the asserted payload and the stored row compare under one rule (read-back and
+ * lost-create matching alike). Anything else that differs is still a difference.
+ */
+export function normalizeSpecies(d) {
+  if (!d || typeof d !== "object") return d;
+  const out = { ...d };
+  for (const k of ["name", "description"]) if (typeof out[k] === "string") out[k] = out[k].trim();
+  if ("artDirection" in out) out.artDirection = typeof out.artDirection === "string" ? out.artDirection.trim() || null : out.artDirection ?? null;
+  if (Array.isArray(out.rankConcepts)) {
+    const kept = out.rankConcepts.map((c) => (typeof c === "string" ? c.trim() : c ?? ""));
+    while (kept.length && !kept[kept.length - 1]) kept.pop();
+    out.rankConcepts = kept;
+  }
+  return out;
+}
+
 /** Strip the keys a species has no column for, so they are never sent or diffed. */
 export function petSpeciesPayload(d) {
   const out = { ...d };

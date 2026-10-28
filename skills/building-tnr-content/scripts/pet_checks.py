@@ -92,8 +92,10 @@ def check_species(entry, items, fields, checks, consts, rep, where):
     rc = data.get("rankConcepts")
     if rc is not None:
         ranks = len(re.findall(r"\brank\s*:", (consts.get("PET_RANKS") or {}).get("raw") or ""))
-        if not isinstance(rc, list) or not all(isinstance(x, str) and len(x) <= 1000 for x in rc):
-            rep.err(where, "rankConcepts is a list of strings of at most 1000 characters")
+        # validators/petSpecies.ts:30-47: each concept is a string trimmed to at most 1000 characters,
+        # or null/absent (stored as ""); the array itself holds at most one entry per pet rank
+        if not isinstance(rc, list) or not all(x is None or (isinstance(x, str) and len(x.strip()) <= 1000) for x in rc):
+            rep.err(where, "rankConcepts is a list of strings (or null for a blank rank) of at most 1000 characters after trimming")
         elif ranks and len(rc) > ranks:
             rep.err(where, f"rankConcepts has {len(rc)} entries; there are {ranks} pet ranks")
     ids = data.get("defaultJutsuIds")
@@ -191,6 +193,8 @@ def check_jutsu(entry, rep, where):
     if ap is not None and not (isinstance(ap, (int, float)) and 10 <= ap <= 100):
         bad("actionCostPerc must be 10-100")
     effects = d.get("effects")
+    if not create and "effects" in d and not effects:
+        bad("its effects are explicitly empty")
     if create and not effects:
         bad("it has no effects (the placeholder's are empty)")
     for i, f in enumerate(effects or []):

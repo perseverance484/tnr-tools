@@ -107,12 +107,16 @@ export function lintManifest(manifest) {
         if (d.itemType !== undefined && d.itemType !== "CONSUMABLE") E(it, "L18 noncombatconsumereward requires itemType CONSUMABLE");
         if (d.target !== undefined && d.target !== "SELF") E(it, "L18 noncombatconsumereward requires item target SELF");
         if (d.method !== undefined && d.method !== "SINGLE") E(it, "L18 noncombatconsumereward requires method SINGLE");
-        // combat.ts:867-893, :1547-1559 at 2af4b320: one companion per item, standard rewards, no battle use
-        const pets = Array.isArray(f.reward_pets) ? f.reward_pets.length : 0;
-        if (pets && f.rewardMode === "weightedCache") E(it, "PET reward_pets requires rewardMode standard");
-        if (pets > 1) E(it, "PET an item may grant at most 1 companion");
-        if (pets && (d.preventBattleUsage === false || (it.op === "create" && d.preventBattleUsage !== true))) E(it, "PET companion rewards require preventBattleUsage true");
+        // combat.ts:867-893 at 2af4b320: pet grants require standard rewards
+        if (Array.isArray(f.reward_pets) && f.reward_pets.length && f.rewardMode === "weightedCache") E(it, "PET reward_pets requires rewardMode standard");
       }
+    }
+    // combat.ts:1547-1559 at 2af4b320: the companion cap counts reward_pets across ALL of the item's
+    // noncombatconsumereward effects, and any grant requires the item to prevent battle usage
+    if (it.entity === "item") {
+      const pets = (Array.isArray(d.effects) ? d.effects : []).reduce((n, f) => n + (f && f.type === "noncombatconsumereward" && Array.isArray(f.reward_pets) ? f.reward_pets.length : 0), 0);
+      if (pets > 1) E(it, `PET an item may grant at most 1 companion (${pets} across its effects)`);
+      if (pets && (d.preventBattleUsage === false || (it.op === "create" && d.preventBattleUsage !== true))) E(it, "PET companion rewards require preventBattleUsage true");
     }
     for (const [tp, n] of Object.entries(pct)) {
       if (n <= 4) continue;
