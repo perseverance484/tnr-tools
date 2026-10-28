@@ -48,8 +48,14 @@ TNR_SCRIPT=crowned_captain.ts harness/skyglass_wreck_sim/run.sh --seeds 60 \
 TNR_SCRIPT=crownhold.ts harness/skyglass_wreck_sim/run.sh --solo 60 \
     --out $PWD/harness/skyglass_wreck_sim/results/crownhold_commanders_solo.json \
     --write-spec $PWD/harness/skyglass_wreck_sim/crownhold_spec.json
-TNR_SCRIPT=crownhold.ts harness/skyglass_wreck_sim/run.sh --chain 20 --policies clean,alert,healing,war \
+# Chain-tuned (RUL-2026-10-28-013): the player brings one modelled pet (--no-pet to drop it) and reads each telegraph
+# with probability --read (report 4 uses 0.85). The whole pyramid per route policy, pools carried:
+TNR_SCRIPT=crownhold.ts harness/skyglass_wreck_sim/run.sh --read 0.85 --chain 16 --policies clean,alert,healing,war \
     --out $PWD/harness/skyglass_wreck_sim/results/crownhold_chain.json
+# Per-fight tables at full pools (fast), then an offline chain estimate from them (tuning surrogate only):
+TNR_SCRIPT=crownhold.ts harness/skyglass_wreck_sim/run.sh --read 0.85 --table all --hps 1 --variants none,alarm,war \
+    --seeds 20 --shard 0/2 --out /abs/table_0.json   # and --shard 1/2 in a second process
+python3 harness/skyglass_wreck_sim/tools/compose_chain.py /abs/table_0.json /abs/table_1.json [--reg-scale ...] [--war-restore N]
 
 # Boss-fight mechanic probes (two-marker chain, weakness window, ring/bell, Chain Hook, barriers):
 TNR_SCRIPT=probe_boss.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_boss.json
