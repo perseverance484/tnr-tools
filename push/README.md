@@ -1176,3 +1176,13 @@ sessions, `art/skyglass_boss_fx/raw/`). Creates, hidden:
 Preview: `docs/design/skyglass_boss_fx/v3_battle.mp4`. Image pack pinned at the commit printed by the generator (looping glints keep clear of every portrait; blasts unrestricted, director 2026-10-28). Gates: `validate.py --strict`
 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:** from its results bundle, push/321
 unhides the ten (law 16c) and creates a hidden test jutsu that lays the tiles.
+
+## 323 Item catalog capture (read-only, 6 parts): READY TO RUN (any order)
+
+Director 2026-10-28: "Thinking you may need a fresh capture of all items for this." Point-reads every item in the seed
+index (766, hidden included) with `item.get`, persist full, so each record's shop flag, crafting requirements, event flag
+and effects land in the bundle. The records feed the consumable-cache split and the profession-material review
+(RUL-2026-10-28-018). Part 1 also reads `item.getAllNames`. Forge allows persist only on point reads, so this gives just
+the row count, which shows how many items are newer than the seed. Those newer items need a follow-up read by id.
+129/128/128/128/128/126 reads, zero writes. Built by `push/323_item_catalog_capture.gen.py`. Gates (each part):
+`validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
