@@ -3661,3 +3661,27 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "Get rid of honor and echo jar from crownhold choices."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4a; `push/crownhold.gen.py`.
+
+## RUL-2026-10-28-018 — Five themed consumable caches; Serum succeeds Dead Man's Draught; item capture
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE. Weights and quantities wait on the push/323 capture.
+
+**Ruling:**
+1. **Five themed consumable caches**, laid out in loot tables §3a:
+   - Medicine Inro, healing;
+   - Officer's Pill Case (new), self-buffs;
+   - Sage's Strongbox, enemy alchemy;
+   - Elemental Tool Pouch, throwing;
+   - Quartermaster's Kit (new), utility.
+2. **Profession-crafted finished consumables are allowed in caches.** Every ninja uses them, unlike raw materials and crystals.
+3. **Skyglass Serum is the live successor of Dead Man's Draught.** The Draught is not added anywhere.
+4. **The old elemental kunai stay out.** The single Elemental Kunai replaces them.
+5. **A fresh read-only capture of every item** runs first: push/323, 6 parts.
+
+**Evidence:** Director, 2026-10-28: "The items are all crafted by a profession mostly, they can stay in. They are finished products all ninja use which is fine. I like your split of the chests, except Skyglass Serum should be the live version of Dead Man's Draught. Thinking you may need a fresh capture of all items for this. Leave the old elemental kunai out, they are being replaced by the one size fits all elemental kunai".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3a, §4a.
