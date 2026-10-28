@@ -250,7 +250,14 @@ export const assembleFloor = async (opts: {
   }
   // Pets spawned beside their owner's engine-drawn cell; re-seat each beside the owner's redrawn cell
   // (the nearest free hex, the engine's own getPetSpawnLocation rule restated: owner's half, grid order on ties).
-  for (const pet of usersState.filter((u: any) => u.petId)) {
+  // Clear every pet's engine-drawn cell first: those derive from the unseeded engine spawn draw, and a pet not yet
+  // re-seated would otherwise block a cell for the others (same seed, different placement).
+  const petsInBattle = usersState.filter((u: any) => u.petId);
+  for (const pet of petsInBattle) {
+    pet.longitude = -1;
+    pet.latitude = -1;
+  }
+  for (const pet of petsInBattle) {
     const owner = usersState.find((u) => u.userId === pet.controllerId)!;
     const half = Math.floor(width / 2);
     const cells: { x: number; y: number; d: number }[] = [];

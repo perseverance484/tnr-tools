@@ -23,8 +23,8 @@
     "rows": 0
    },
    "3V_gdHYaclMB1gTyOPAbV": {
-    "pools": 3.26,
-    "rows": 2
+    "pools": 3,
+    "rows": 3
    },
    "AQi-bHJ-5tHXtxrnc0P9E": {
     "pools": 2,
@@ -132,8 +132,253 @@
    "record": "lib-ward-of-command (Ward of Command, library crew addition)",
    "fix": "decreasedamagetaken row: target SELF -> INHERIT",
    "why": "the SELF target (inherited from the Folding Screen Guard shape donor) makes the ward land on the caster, never on the ally the rule picks; the hunts use the fixed row"
+  },
+  {
+   "record": "jBRyl7F4UjTyxG5nnzLqj (Erupting Ground), LIVE jutsu",
+   "fix": "Erupting Ground: damage row friendlyFire ENEMIES (was unset, so it hit the caster's allies)",
+   "procedure": "law 18: unequip it from every holder, edit the record, re-equip",
+   "holders": {
+    "count": 89,
+    "ids": [
+     "Lvtngyubn-FIPj2hPNxOC (Lost Wind Stillness Wraith)",
+     "px11YTstH3oan7Bw3edRq (Luzzel)",
+     "m-s8nvf6yA-Pqs1YMduBt (Mini-Momo)",
+     "usZ5lyaQTr4iYzCPeRr83 (Mist Phantom)",
+     "A65jEDcPuAXRGryWd6_05 (Moon Shrine Guardian )",
+     "l-QeI1-lml0SMiEGL2qIh (Nameless Ninja)",
+     "clik9wpb0000009l606opg0zj (Rabid Puppy)",
+     "QZMJYrwFuNGeT6-uvY2dS (Radiant Echo)",
+     "Vg5Tqp6mBvOJsm5zPMpdv (Ravena Bloodsilk)",
+     "1Y1MowDQnf7hS5MrlBOLJ (redscribe)",
+     "-QvAUrUMI0K76iUf648i5 (Icefire Spawnling:)",
+     "0MvpXaR7OYFP9nDzHkggp (Subaku Prince)",
+     "11NiR7_xqwK5N6yps12_k (Baby Diamond)",
+     "2r5LghYdi8AjThUJ4EvEU (Xerath the Infernal Talon)",
+     "3RRSR7PUsGAtr2koel9H0 (Wyrmspire Stormcrown)",
+     "3TsBQVWHGoIjvduoYNQlD (Veylan - Maw of the Pyre)",
+     "3U0KRTg2ko93OlyezMrQS (*Frost Sovereign*)",
+     "4Eo44biJr4J4FaJZk2iCC (Veyra)",
+     "4cS42hlE24BN8IPse-jLu (Tenshiro Kanna)",
+     "5FvtzaEb78NZewjG4eWyy (Waddle Jr.)",
+     "5adiProrOk2sITqCtTbN0 (IronClawS2)",
+     "5nfTe8PUxNO4ktfL1-OgP (KGK overseer)",
+     "6Epsi6Q6XFmZi2XnV2EUg (Guard Captain)",
+     "7vvzBmJ4hLOv-W2qwiBcF (Wyrmspire Hatchling)",
+     "8yRUnNxv8lCZakrxTvlBM (Digger Sandworm)",
+     "BLWL6UByLFSTdgPzJItLJ (Juvenile Crystal Weaver)",
+     "BgNaYU3tZepB3GZ1EImnT (Wyrmspire Cinderjaw)",
+     "BuyM_4fl_NPR0BgF8oKAw (Toto The Baby Dragon )",
+     "dpp9mShY4DbLT5Ae58SCf (Aery - The Crystal Dragon)",
+     "np_EJBegir7_6B55S8wpm (Aery - The Dragon)",
+     "d-t1xbnAoIZWEE2F8U8iS (AI Loadout: Default Rotation)",
+     "YdjazDbs0kpcZfP8wEO1p (Alpha sandworm)",
+     "KluiFx_j3tHNZ1AMKaP8G (Amir-The Hoarder )",
+     "WMHV_3jN8BFtJmjdk5zuv (ANBU Coordinator)",
+     "IjogfBiosqrr6o6dt8R8Y (ashledger)",
+     "czs_soa4-j2Qq42Y_E0d9 (Asset \"Sparrow\")",
+     "Eu67fptoGJR96GmV4ciG8 (Azael)",
+     "oPeKAnZh2Gd57yX1IR9aM (Azir-The Emerald Dragon)",
+     "XMlYJ6wB8XCd-iW2J9Mui (Baby Emerald)",
+     "ptmGFL_TzA0UdwCmfhKkB (Balista - The Diamond Dragon)",
+     "yEd2Pko-jdUENWxmxPtef (Beta Sandworm)",
+     "L4s3qy3-M5q4IvtqUEL2m (Black Water)",
+     "QkeO3FM0wjewDRCcWzUFP (Blazdrift)",
+     "Fuu-PW-W30kuQOOlN_YEP (Brassel)",
+     "aCZRjRc1Iemx41nkjwA94 (Frost Sovereign )",
+     "LLy5QUFtasGU_Elp8RpEz (Colossus)",
+     "Q7iyQmtGEPk4g3Cai7Bn3 (Colossus*)",
+     "s1wwyd11ljbxi9ny3qubtdhi (Haruto)",
+     "sxd1f3plxebhw4km47pgn4k4 (Hisame)",
+     "FVN_wMPLyqWzEUUZQcnBw (Cult Illusionist)",
+     "zNdF4ODA4NXuK9KrMUStT (RopeSab)",
+     "vod382vs003fpvgeujddzcas (Ryouichi)",
+     "LmDfPrPIIJY-f9hzv7IJE (Samurai Guard)",
+     "G8RPruFGyWX818aSlmIwJ (Sandling)",
+     "LIRaoHHoP0huRdr0vpsPm (Sandstalker)",
+     "_sWndzhX_CS0MP2_b2i07 (Sapphire Dragon)",
+     "TX6Q2UeZGYAaizQt9XrV- (ShadowBeast)",
+     "nwdAs6QF4NG4huwhh5vmz (Shimo no Seirei )",
+     "MJMzOE67Cx2YP3NX8SAbh (Shrine Guardian )",
+     "UTo52RChnsRZDOnIpSTom (Spectral Windcallers)",
+     "T4iLiYblNMxBHmyCfVp3K (Spintret)",
+     "_YNqmh1xbL43c_aXS2ehP (Spiral Saboteur)",
+     "Htnht8qOq0JuDOVSj7y9F (Subaku Demon Lord)",
+     "GAJ_Ui4rqmeeAzNg_VhJi (Subaku General )",
+     "Qtu7KRV7q7ptf92_thg4l (Subaku Grunt)",
+     "OrufsY6iocN7hOoKJdwLr (Subaku Guard)",
+     "Tpmvt0DPZnIoGM7LFNruG (Enemy Chunin)",
+     "VPsLUbApjbOIMb_EyXGA8 (Lady Peckyra)",
+     "Y5YBOViBSWkiF_ZCormfy (Wyrmspire Skyrender)",
+     "YHCBvSzVi9wR3G1EtaCFe (Chakra Rift)",
+     "_-LABA3r7vwogsQ4O3ALq (Larry)",
+     "_Qrz-6O0TYzFM5qXaDUmG (Subaku Two Headed Beast)",
+     "d_rZiKu5QtovK1qQJKZEK (Cryverin)",
+     "eag7ofEvBUiO9nDfhuY1x (Thornelure)",
+     "hRc3_dFlIpQ6S87WylvLh (ClawElite)",
+     "l5SfWTM89UTN7N5JtbvNU (Eggzilla)",
+     "ncV5vlnTN_yjUCEpteZ0q (Wyrmspire Elder Vulkar)",
+     "o5bvA2fo9QHDDw-t6hIXv (Vaelith - Shadow of the Maw)",
+     "oYJagQ1G-UZVTsvffYz2b (Echobound Kin)",
+     "p7mO6uq_v-4sP3KsD8VrS (The Hollow Crucible)",
+     "yItYDKXEOPSh9X5viec-P (Frozen Wraith)",
+     "zIg3AFBvnxx9TVR7llPzy (Crystal Weaver)",
+     "zLSvLqIc-eTorqRBL6qok (Subaku Winged Captain)",
+     "7rTiCa1loO3kyEewmxHJH (AI Loadout: Default Rotation - copy)",
+     "Q1ufQB8unfxIqkoGmRjuj (Vulcan-Infernal Reaper)",
+     "RiwqMrOJE2mip3i88_yux (Whisperbloom Apparition)",
+     "OJ4mfMTWWr0sITFH8C2Au (Yuki Onna)",
+     "DEZR2NYA_OmQPMa1pvZqZ (Eviler Momo)",
+     "ERvW3ceoClmMDhzQ-p0jL (Tainted Kuma)"
+    ]
+   }
   }
  ],
+ "counters": {
+  "foundry": {
+   "hunt": "Drowned Foundry",
+   "boss": "crucible: Foundry Warden + Core Canister",
+   "cases": {
+    "all answers": {
+     "win": "20/40",
+     "bossWonOfReached": "20/40",
+     "endHpMedian": 32.4
+    },
+    "no cleanse": {
+     "win": "25/40",
+     "bossWonOfReached": "25/40",
+     "endHpMedian": 29.2
+    },
+    "no clear": {
+     "win": "33/40",
+     "bossWonOfReached": "33/40",
+     "endHpMedian": 48.9
+    },
+    "no window timing": {
+     "win": "14/40",
+     "bossWonOfReached": "14/40",
+     "endHpMedian": 22.8
+    },
+    "no consumables": {
+     "win": "21/40",
+     "bossWonOfReached": "21/40",
+     "endHpMedian": 27.3
+    },
+    "no answers (main runs)": {
+     "win": "32/40",
+     "bossWonOfReached": "32/40",
+     "endHpMedian": 51.9
+    }
+   }
+  },
+  "archive_clean": {
+   "hunt": "Quarantined Archive",
+   "boss": "archive: Sealwright",
+   "cases": {
+    "all answers": {
+     "win": "14/40",
+     "bossWonOfReached": "14/40",
+     "endHpMedian": 34.8
+    },
+    "no cleanse": {
+     "win": "10/40",
+     "bossWonOfReached": "10/40",
+     "endHpMedian": 47.1
+    },
+    "no clear": {
+     "win": "31/40",
+     "bossWonOfReached": "31/36",
+     "endHpMedian": 39.6
+    },
+    "no window timing": {
+     "win": "13/40",
+     "bossWonOfReached": "13/40",
+     "endHpMedian": 25.6
+    },
+    "no consumables": {
+     "win": "14/40",
+     "bossWonOfReached": "14/40",
+     "endHpMedian": 34.8
+    },
+    "no answers (main runs)": {
+     "win": "28/40",
+     "bossWonOfReached": "28/40",
+     "endHpMedian": 44.5
+    }
+   }
+  },
+  "watch_000": {
+   "hunt": "Captain's Watch",
+   "boss": "helm: The Captain",
+   "cases": {
+    "all answers": {
+     "win": "35/40",
+     "bossWonOfReached": "35/40",
+     "endHpMedian": 68.9
+    },
+    "no cleanse": {
+     "win": "34/40",
+     "bossWonOfReached": "34/40",
+     "endHpMedian": 68.9
+    },
+    "no clear": {
+     "win": "38/40",
+     "bossWonOfReached": "38/40",
+     "endHpMedian": 68.9
+    },
+    "no window timing": {
+     "win": "36/40",
+     "bossWonOfReached": "36/40",
+     "endHpMedian": 68.7
+    },
+    "no consumables": {
+     "win": "35/40",
+     "bossWonOfReached": "35/40",
+     "endHpMedian": 68.9
+    },
+    "no answers (main runs)": {
+     "win": "37/40",
+     "bossWonOfReached": "37/40",
+     "endHpMedian": 68.9
+    }
+   }
+  },
+  "cache_right": {
+   "hunt": "Buried Cache",
+   "boss": "dig: Skyglass Sentinel",
+   "cases": {
+    "all answers": {
+     "win": "40/40",
+     "bossWonOfReached": "40/40",
+     "endHpMedian": 87.2
+    },
+    "no cleanse": {
+     "win": "40/40",
+     "bossWonOfReached": "40/40",
+     "endHpMedian": 87.2
+    },
+    "no clear": {
+     "win": "40/40",
+     "bossWonOfReached": "40/40",
+     "endHpMedian": 101.1
+    },
+    "no window timing": {
+     "win": "40/40",
+     "bossWonOfReached": "40/40",
+     "endHpMedian": 80.9
+    },
+    "no consumables": {
+     "win": "40/40",
+     "bossWonOfReached": "40/40",
+     "endHpMedian": 87.2
+    },
+    "no answers (main runs)": {
+     "win": "40/40",
+     "bossWonOfReached": "40/40",
+     "endHpMedian": 80.9
+    }
+   }
+  }
+ },
  "playerPet": {
   "model": "one modelled mid-rank companion per player, in every hunt fight (engine/hunts.ts petFor)",
   "example": {
@@ -2732,17 +2977,17 @@
    "username": "Skyglass Sentinel",
    "record": "live record 3V_gdHYaclMB1gTyOPAbV, upgraded in place",
    "soloTuning": {
-    "pools": 3.26,
-    "rows": 2
+    "pools": 3,
+    "rows": 3
    },
    "level": 100,
    "rank": "JONIN",
    "statsMultiplier": 5,
-   "poolsMultiplier": 3.26,
+   "poolsMultiplier": 3,
    "pools": {
-    "maxHealth": 16463,
-    "maxChakra": 16463,
-    "maxStamina": 16463
+    "maxHealth": 15150,
+    "maxChakra": 15150,
+    "maxStamina": 15150
    },
    "stats": {
     "offence": 1391300,
@@ -2753,6 +2998,22 @@
     "speed": 1391300
    },
    "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 100,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
     {
      "type": "increasedamagegiven",
      "power": 100,
@@ -3194,7 +3455,7 @@
     9
    ],
    "scaleEditedAiNotes": [
-    "override aiEdit {\"poolsMultiplier\":3.26} via scaleEditedAi",
+    "override aiEdit {\"poolsMultiplier\":3} via scaleEditedAi",
     "kit -> 10 jutsu"
    ],
    "insertAiSchemaCheck": "ok"
