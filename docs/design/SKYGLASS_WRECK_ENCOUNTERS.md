@@ -43,17 +43,25 @@ Not available: "an ally is below X% health" and "I do not have effect X"; design
 | Sealwright | Support | Seals and slows players, cleanses/heals allies (via ally targets); kill first or the fight drags. |
 | Crowned Captain | Final boss | Three phases by health (100-60 / 60-30 / under 30): duelist, then calls hazards, then a desperate burst with Final-Stand-style protection. |
 
-## Endgame floor arcs (level 100, 15-20 min, few wipes)
+## Endgame floor layout (director, 2026-10-28)
 
-| Floor | Idea | Wave (single wave unless noted) |
+| Floor | Wave 1 | Wave 2 |
 |---|---|---|
-| 1 | Movement matters | Deck Warden x3 + Seal Charge |
-| 2 | Reach the back line | Arsenal Keeper + Deck Warden x2 + Seal Charge |
-| 3 | Kill order | Skyglass Sentinel + First Blade + Deck Warden; second wave candidate: Core Horror + Wayfinder |
-| 4 (mini-boss) | Protect your damage dealer | The Captain + Oathkeeper + Wayfinder |
-| 5 (boss) | Everything at once | Crowned Captain + Sealwright + 2 Core Canisters, the Canisters dormant until a fixed round (a later wave cannot join mid-fight: waves spawn only after the previous one is dead) |
+| 1 | Deck Warden x3 + Seal Charge | none |
+| 2 | Deck Warden + Seal Charge x2 | Deck Warden x3 |
+| 3 | Skyglass Sentinel + First Blade + Deck Warden | none |
+| 4 (mini-boss) | Deck Warden x2 + Oathkeeper | The Captain + Wayfinder |
+| 5 (boss) | Deck Warden x2 + First Blade + Core Canister x2 | Crowned Captain + Sealwright |
 
-Wave sizes and second waves are set by the harness against the 15-20 minute target for the real-gear party (single-wave layout shown; floors earn a second wave if time allows).
+**Hazards are never reinforcements** (director): Seal Charges and Core Canisters do not move, so a hazard in a later wave
+just sits on the far side and detonates harmlessly. They appear only in a floor's first wave.
+
+**Openers in later waves.** A floor battle's round counter runs across its waves, so `round_lower_than 2` never fires for
+a wave-2 enemy. Two fixes inside the current rules: (1) put the opener first with no condition and let the jutsu's
+cooldown stop it repeating (a new enemy always starts with its cooldowns ready); (2) gate it on distance ("every player is
+more than 5 hexes away"), which is true on a later wave's first turn because it spawns on the far side. Where an opener
+needs a longer cooldown than its shared jutsu record has, the dungeon copy gets its own copy of that jutsu (the hunts keep
+theirs). The harness checks every opener fires once per fight.
 
 ## Level 40-60 version (10-15 min)
 
