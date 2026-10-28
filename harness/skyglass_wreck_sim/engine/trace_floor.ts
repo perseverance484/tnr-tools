@@ -4,7 +4,7 @@
  * Prints, per round, each action with the rule index that produced it, HP changes and new effects.
  */
 import { join } from "node:path";
-import { buildTemplates, enemyQueryUser, loadJson, PLAYER_VARIANTS, playerQueryUser } from "./model";
+import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, PLAYER_VARIANTS, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32, runFloor } from "./sim";
 
 const H = process.env.TNR_HARNESS!;
@@ -16,7 +16,7 @@ const players = [0, 1, 2].map((i) => playerQueryUser(i, v, donor, t.jutsu));
 const rows = Object.fromEntries(Object.entries(t.enemies).map(([id, e]) => [id, enemyQueryUser(e)]));
 const rand = mulberry32(Number(process.argv[5] ?? 1));
 Math.random = rand;
-const b = await assembleFloor({ players, enemyRows: rows, floor: t.floors[Number(process.argv[2] ?? 0)]!, rand, initialBarriers: true });
+const b = await assembleFloor({ players, enemyRows: rows, floor: t.floors[Number(process.argv[2] ?? 0)]!, rand, initialBarriers: true, dmgConfig: loadDmgConfig(H, process.env.TNR_DMG_CONFIG ?? "live").config });
 const r = runFloor(b, { playerIds: players.map((p) => p.userId), maxRounds: 150 });
 // Battle ids of spawned waves are minted at assembly; resolve names through the wave records.
 const names = new Map<string, string>(players.map((p) => [p.userId, p.username]));

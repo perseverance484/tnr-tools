@@ -14,6 +14,7 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import {
   buildTemplates,
+  loadDmgConfig,
   describePlayer,
   enemyQueryUser,
   loadJson,
@@ -40,6 +41,7 @@ const seed0 = Number(opt("seed", "1"));
 const maxWipes = Number(opt("max-wipes", "3"));
 const maxRounds = Number(opt("max-rounds", "150"));
 const barriers = !flag("no-barriers");
+const dmg = loadDmgConfig(HARNESS, opt("dmg-config", "live"));
 const onlyFloors = opt("floors")?.split(",").map(Number);
 const PACES = [10, 15, 20];
 const AI_SECONDS = [0, 1.5];
@@ -79,7 +81,7 @@ const runDungeon = async (v: PlayerVariant, seed: number, probeOn = true) => {
     let wipes = 0;
     let status: "cleared" | "max-wipes" | "ended" | "stalled" = "stalled";
     while (f < floors.length) {
-      const battle = await assembleFloor({ players, enemyRows, floor: floors[f]!, rand, initialBarriers: barriers });
+      const battle = await assembleFloor({ players, enemyRows, floor: floors[f]!, rand, initialBarriers: barriers, dmgConfig: dmg.config });
       const res = runFloor(battle, { playerIds: players.map((p) => p.userId), maxRounds });
       if (!probeOn) g.__TNR_RULE_PROBE__ = undefined;
       attempts.push({ floor: f, res, seed });
@@ -121,6 +123,8 @@ const inc = (o: Record<string, number>, k: string, n = 1) => {
 };
 
 type EnemyAgg = {
+  /** Per authored rule: how many appearances fired it never / exactly once / more than once. */
+  ruleFireDist?: Record<string, { never: number; once: number; more: number }>;
   aiId: string; name: string; appearances: number; deaths: number; diedAfterRounds: number[];
   turns: number; actions: Record<string, number>; ruleFires: Record<string, number>;
   authoredRules: number; dealt: number; taken: number; healed: number;
@@ -220,6 +224,30 @@ const summarise = (v: PlayerVariant, results: Awaited<ReturnType<typeof runDunge
           }
         }
       }
+      // Per-appearance rule fire distribution (authored rules only).
+      const firesByUid: Record<string, Record<string, number>> = {};
+      let authoredOf: Record<string, number> = {};
+      for (const st of res.steps) {
+        if (st.human) continue;
+        authoredOf[st.actorUid] = Math.max(authoredOf[st.actorUid] ?? 0, st.authoredRules);
+        if (st.ruleIndex !== null && st.ruleIndex < st.authoredRules) inc((firesByUid[st.actorUid] ??= {}), String(st.ruleIndex));
+      }
+      for (const w of res.waves)
+        for (const e of w.enemies) {
+          const n = authoredOf[e.uid] ?? 0;
+          for (const bucket of [enemies[waveKey(at.floor, w.wave)] ?? {}, enemyAll]) {
+            const ea = bucket[e.aiId];
+            if (!ea) continue;
+            ea.ruleFireDist ??= {};
+            for (let i = 0; i < n; i++) {
+              const c = firesByUid[e.uid]?.[String(i)] ?? 0;
+              const d = (ea.ruleFireDist[String(i)] ??= { never: 0, once: 0, more: 0 });
+              if (c === 0) d.never++;
+              else if (c === 1) d.once++;
+              else d.more++;
+            }
+          }
+        }
       for (const [uid, p] of Object.entries(res.players)) {
         const pa = (players[uid] ??= { actions: {}, dealt: 0, taken: 0, healed: 0, effectsApplied: {} });
         (pa.lowestHpPct ??= []).push((100 * Math.max(0, p.minHealth)) / p.maxHealth);
@@ -237,7 +265,7 @@ const summarise = (v: PlayerVariant, results: Awaited<ReturnType<typeof runDunge
       healedPerAppearance: Math.round(e.healed / e.appearances),
       idleOrMovePct: r1((100 * e.idleActions) / Math.max(1, e.totalActions)),
       actions: Object.fromEntries(Object.entries(e.actions).sort((a, b) => b[1] - a[1])),
-      ruleFires: e.ruleFires, rulesNeverFired: authored.filter((i) => !e.ruleFires[i]),
+      ruleFires: e.ruleFires, rulesNeverFired: authored.filter((i) => !e.ruleFires[i]), ruleFireDist: e.ruleFireDist ?? {},
       effectsApplied: e.effectsApplied,
     };
   };
@@ -324,7 +352,7 @@ if (flag("probe-check")) {
 const out: any = {
   generatedBy: "harness/skyglass_wreck_sim/engine/main.ts",
   override: ovPath ? { path: ovPath, name: override.name, note: override.note } : null,
-  settings: { runs, seed0, maxWipes, maxRounds, initialBarriers: barriers, paces: PACES, aiSecondsPerTurn: AI_SECONDS, transitionSecondsPerFloorBattle: TRANSITION_SECONDS, limitSeconds: LIMIT },
+  settings: { dmgConfig: dmg.name, dmgConfigValues: dmg.config ?? null, runs, seed0, maxWipes, maxRounds, initialBarriers: barriers, paces: PACES, aiSecondsPerTurn: AI_SECONDS, transitionSecondsPerFloorBattle: TRANSITION_SECONDS, limitSeconds: LIMIT },
   enemyNotes: Object.fromEntries(Object.entries(T.enemies).filter(([, e]) => e.notes.length).map(([id, e]) => [e.row.username ?? id, e.notes])),
   layout: floors.map((f, i) => ({ floor: floorLabel(i) + 1, kind: f.kind, waves: f.waves.map((w) => w.aiIds.map((id) => T.enemies[id]!.row.username)) })),
   variants: [] as any[],
