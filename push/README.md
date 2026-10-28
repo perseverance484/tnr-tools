@@ -1173,6 +1173,6 @@ sessions, `art/skyglass_boss_fx/raw/`). Creates, hidden:
   `staticAssetPath` (theninjarpg `libs/threejs/combat.ts` ~632: depthTest on, behind USER_LAYER);
 - four glint ANIMATIONs over them (the safe one carries the floating emblem);
 - two detonation ANIMATIONs (eruption, crystal shard).
-Preview: `docs/design/skyglass_boss_fx/v3_battle.mp4`. Image pack pinned at bdc665c. Gates: `validate.py --strict`
+Preview: `docs/design/skyglass_boss_fx/v3_battle.mp4`. Image pack pinned at the commit printed by the generator (looping glints keep clear of every portrait; blasts unrestricted, director 2026-10-28). Gates: `validate.py --strict`
 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:** from its results bundle, push/321
 unhides the ten (law 16c) and creates a hidden test jutsu that lays the tiles.
