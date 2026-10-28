@@ -15,6 +15,12 @@
  */
 import { anim, capturedJutsu, cast, cond, endTurn, jutsu, moveTo, tag } from "./kitlib";
 import { buildEndgame, DEFAULT_PARAMS, IDS, type KitParams } from "./kits";
+import { readFileSync } from "node:fs";
+import { JutsuValidator } from "@/validators/combat";
+import { join } from "node:path";
+import { getUserCaps } from "@/drizzle/constants";
+import { calcLevel, calcLevelRequirements } from "@/libs/profile";
+import { scaleEditedAi } from "@/server/api/routers/profile";
 import { buildLibrary, LIB, MARKER_TYPES, type MarkKey } from "./library";
 
 /* ------------------------------------------------------------------ */
@@ -25,12 +31,18 @@ export const LIVE = {
   sealwright: "RBW5KsIXmTGR710D2y2Y7", wayfinder: "v7T9_XdGMfP46em0dPuBc", blade: "d6g0mOM7RBSsYI1hrUVT9",
   captain: "QY69h271Nx9uHrBeR6jwW", warden: "texZaFi42S3EvJZBwQ8cd", canister: "frc9LTxqQlM7mncG4VZGK",
   keeper: "2OXJEXoktxJcjqMkE851g", foundry: "81lnIP-q97gItQYWl5vWD",
+  // Crownhold AIs (state/crownhold/ids.json; push/272 creates, push/276 renames), RUL-2026-10-28-013:
+  archivist: "LZiunyinw9ScK3mh9HiR2", // D3.REG1 Skyglass Archive Keeper -> Crown Archivist: the Archive alarm guard
+  stonebound: "jqxu13kNHhfNY-NF68Ftb", // D3.REG4 Failed Reconstruction Prototype -> Crown Stonebound: the Sealwright's summon
 } as const;
 export const NAME: Record<string, string> = {
   [LIVE.horror]: "Core Horror", [LIVE.sentinel]: "Skyglass Sentinel", [LIVE.charge]: "Seal Charge", [LIVE.sealwright]: "Sealwright",
   [LIVE.wayfinder]: "Wayfinder", [LIVE.blade]: "First Blade", [LIVE.captain]: "The Captain", [LIVE.warden]: "Deck Warden",
   [LIVE.canister]: "Core Canister", [LIVE.keeper]: "Arsenal Keeper", [LIVE.foundry]: "Foundry Warden",
+  [LIVE.archivist]: "Crown Archivist", [LIVE.stonebound]: "Crown Stonebound",
 };
+/** Crownhold records: manifest slot (push/272 srcId) for the hunt-used ones. */
+export const CROWN_SLOT: Record<string, string> = { [LIVE.archivist]: "crownhold_d3.reg1", [LIVE.stonebound]: "crownhold_d3.reg4" };
 /** Endgame dungeon copy whose kit and rules each live crew record takes (shared kit). */
 const SHARED_FROM: Record<string, string> = {
   [LIVE.warden]: IDS.warden, [LIVE.charge]: IDS.charge, [LIVE.sentinel]: IDS.sentinel, [LIVE.blade]: IDS.blade,
@@ -58,7 +70,7 @@ export type Stat = { pools: number; rows: number; stats?: number };
 export type HuntParams = {
   /** Solo stats per live record (poolsMultiplier, number of +100% damage rows, optional statsMultiplier). */
   stats: Record<string, Stat>;
-  /** Called to the Archive: summon HP and power % of the Sentinel record. */
+  /** Called to the Archive: summon HP and power % of the Crown Stonebound record (RUL-2026-10-28-013). */
   echoHp: number; echoPower: number;
   /** REFERENCE RUNS ONLY (not a design): shared-rule notes to drop, per live id, to measure what a kit decision would change. */
   refDropRules?: Record<string, string[]>;
@@ -70,10 +82,11 @@ export const DEFAULT_HUNT_PARAMS: HuntParams = {
   stats: {
     [LIVE.warden]: { pools: 1, rows: 0 }, [LIVE.charge]: { pools: 1, rows: 0, stats: 1 }, [LIVE.canister]: { pools: 1, rows: 0, stats: 5 },
     [LIVE.keeper]: { pools: 1, rows: 0 }, [LIVE.sentinel]: { pools: 3.26, rows: 2 }, [LIVE.horror]: { pools: 2, rows: 2 },
-    [LIVE.sealwright]: { pools: 2, rows: 2 }, [LIVE.wayfinder]: { pools: 1.26, rows: 1 }, [LIVE.blade]: { pools: 1.5, rows: 2 },
-    [LIVE.captain]: { pools: 2, rows: 4 }, [LIVE.foundry]: { pools: 1.5, rows: 2 },
+    [LIVE.sealwright]: { pools: 2.5, rows: 2 }, [LIVE.wayfinder]: { pools: 1.26, rows: 1 }, [LIVE.blade]: { pools: 1.5, rows: 2 },
+    [LIVE.captain]: { pools: 2, rows: 4 }, [LIVE.foundry]: { pools: 2.5, rows: 1 },
+    [LIVE.archivist]: { pools: 2, rows: 2 },
   },
-  echoHp: 3000, echoPower: 60,
+  echoHp: 15000, echoPower: 60,
 };
 
 /* ------------------------------------------------------------------ */
@@ -113,13 +126,21 @@ export const buildHunts = (HP: HuntParams, kitParams: KitParams) => {
   const lib = buildLibrary();
   const remap = (rules: any[]) => rules.map((r) => (r.action.jutsuId && CREW_TO_LIB[r.action.jutsuId] ? { ...r, action: { ...r.action, jutsuId: CREW_TO_LIB[r.action.jutsuId] } } : r));
   const J: Record<string, any> = { ...shared.jutsu, ...lib };
+  // LIBRARY FIX (for the library owner to adopt): Ward of Command's decreasedamagetaken row inherits target SELF from
+  // its shape donor (Folding Screen Guard), so the ward always lands on the caster, never on the ally the rule picks.
+  // RUL-2026-10-28-013 wants it on the Stonebound, so the hunts use the same record with that row's target INHERIT.
+  const ward = structuredClone(J[LIB.crew.ward]);
+  ward.effects = ward.effects.map((e: any) => (e.type === "decreasedamagetaken" ? { ...e, target: "INHERIT" } : e));
+  const wardOk = JutsuValidator.safeParse(ward);
+  if (!wardOk.success) throw new Error(`ward fix: ${wardOk.error.message}`);
+  J[LIB.crew.ward] = ward;
   const sharedRules = (liveId: string) => remap(structuredClone(shared.newEnemies[SHARED_FROM[liveId]!].rules) as any[]);
   // The one record beyond the library: the Sealwright's summon (5a budget: "Summons (Recall, Called to the Archive)").
   const echo = jutsu("hunt-called-to-the-archive", {
-    name: "Called to the Archive", description: "One Skyglass Sentinel echo steps out of a frame (one at a time).",
-    battleDescription: "%user touches an empty frame. A Sentinel's echo steps out of it.", target: "EMPTY_GROUND", method: "SINGLE",
+    name: "Called to the Archive", description: "The Stonebound, the one they kept, steps out of a frame (one at a time).",
+    battleDescription: "%user touches an empty frame. The Stonebound steps out of it.", target: "EMPTY_GROUND", method: "SINGLE",
     range: 4, cooldown: 4, actionCostPerc: 40, donor: LIVE_J.hellHound,
-    effects: [tag("summon", { aiId: LIVE.sentinel, aiHp: HP.echoHp, power: HP.echoPower, rounds: 3, calculation: "percentage", appearAnimation: anim("cc_recall") })],
+    effects: [tag("summon", { aiId: LIVE.stonebound, aiHp: HP.echoHp, power: HP.echoPower, rounds: 3, calculation: "percentage", appearAnimation: anim("cc_recall") })],
   });
   J[echo.id] = echo;
   // Live records referenced by hunt rules that are not in the baseline catalog (used as they are).
@@ -166,7 +187,7 @@ export const buildHunts = (HP: HuntParams, kitParams: KitParams) => {
       ...afterMark("lastLightBinding", "Archive Lock", swPlain),
       ...afterMark("sealLines", "Script Lines", swPlain),
       cast("He Lowers His Seals (under 30%, once)", LIB.loweredGuard, "SELF", [cond.hp(30)]),
-      cast("Called to the Archive (one echo at a time)", echo.id, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [cond.roundGt(1), cond.noSummon()]),
+      cast("Called to the Archive (one Stonebound at a time)", echo.id, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [cond.roundGt(1), cond.noSummon()]),
       cast("Archive Lock mark (from round 3)", LIB.mark.lastLightBinding, "SELF", [cond.roundGt(2)]),
       cast("Script Lines mark", LIB.mark.sealLines, "SELF", [cond.roundGt(1)]),
       ...sharedRules(LIVE.sealwright),
@@ -270,7 +291,8 @@ export const buildPaths = (compose: Record<string, string[]> = {}): Record<strin
   const P: any = {};
   const f = (label: string, ids: string[], debuffs?: any[], boss = false) => ({ label, ids, debuffs, boss });
   P.foundry = { hunt: "Drowned Foundry", fights: [f("intake: Deck Warden + Core Canister", [LIVE.warden, LIVE.canister]), f("pour hall: Arsenal Keeper + Seal Charge x2", [LIVE.keeper, LIVE.charge, LIVE.charge]), f("crucible: Foundry Warden + Core Canister", [LIVE.foundry, LIVE.canister], undefined, true)] };
-  const alarmIds = compose.alarm ?? [LIVE.sentinel, LIVE.charge];
+  // RUL-2026-10-28-013: the alarm guard is the Crown Archivist (its own record), still with the Seal Charge.
+  const alarmIds = compose.alarm ?? [LIVE.archivist, LIVE.charge];
   const alarm = (n: number) => f(`alarm ${n}: ${alarmIds.map((i) => NAME[i]).join(" + ")} (alarm debuff)`, alarmIds, ALARM);
   const descent = f("descent: Core Horror", [LIVE.horror]);
   const keeper = f("archive: Sealwright", [LIVE.sealwright], undefined, true);
@@ -295,3 +317,94 @@ export const buildPaths = (compose: Record<string, string[]> = {}): Record<strin
 export const PATHS = buildPaths();
 
 export { DEFAULT_PARAMS as KIT_DEFAULTS };
+
+/* ------------------------------------------------------------------ */
+/* Crownhold records used by the hunts (RUL-2026-10-28-013)             */
+/* ------------------------------------------------------------------ */
+const repoDoc = (f: string) => JSON.parse(readFileSync(join(process.env.TNR_REPO!, f), "utf8"));
+/**
+ * Template rows for the Crown Archivist and Crown Stonebound: the push/272 create payload (kit, rules, pools, level),
+ * with the combat stats from the live readback (tnr_results_1792984876132.json: the server stored 812,519.2 /
+ * 926,605.8 instead of the sent 1,391,299.95). Jutsu records from the captures. The Archivist's solo stats are then
+ * replayed through scaleEditedAi like a Forge edit; the Stonebound is used as stored (only summoned; its strength in
+ * the hunt is set by the summon's aiHp and power %).
+ */
+export const crownTemplates = (donorRow: any, jutsuCatalog: Record<string, any>, HP: HuntParams) => {
+  const m = repoDoc("archive/spent-manifests/push-2026-10-25/272_crownhold_ais.json");
+  const res = repoDoc("harvests/inbox/tnr_results_1792984876132.json");
+  const out: Record<string, { row: any; profile: any; notes: string[] }> = {};
+  for (const [id, slot] of Object.entries(CROWN_SLOT)) {
+    const item = m.items.find((i: any) => i.srcId === slot);
+    const rb = res.entries.find((e: any) => e.id === id);
+    const live: Record<string, number> = {};
+    for (const f of rb?.asserted?.fail ?? []) {
+      const mm = /live ([\d.]+)/.exec(f.d?.[0] ?? "");
+      if (mm) live[f.k] = Number(mm[1]);
+    }
+    const d = item.data;
+    for (const jid of d.jutsus) jutsuCatalog[jid] ??= capturedJutsu(jid).record;
+    const hp = 5050 * d.poolsMultiplier;
+    const stored: any = {
+      ...structuredClone(donorRow), userId: id, username: NAME[id], level: d.level, rank: d.rank, regeneration: d.regeneration,
+      poolsMultiplier: d.poolsMultiplier, statsMultiplier: d.statsMultiplier,
+      maxHealth: hp, curHealth: hp, maxChakra: hp, curChakra: hp, maxStamina: hp, curStamina: hp,
+      ninjutsuMastery: d.ninjutsuMastery, genjutsuMastery: d.genjutsuMastery, taijutsuMastery: d.taijutsuMastery, bukijutsuMastery: d.bukijutsuMastery,
+      offence: live.offence ?? d.offence, defence: live.defence ?? d.defence, strength: live.strength ?? d.strength,
+      intelligence: live.intelligence ?? d.intelligence, willpower: live.willpower ?? d.willpower, speed: live.speed ?? d.speed,
+      preferredGeneral1: d.preferredGeneral1, preferredGeneral2: d.preferredGeneral2,
+      effects: structuredClone(d.effects), items: [], aiProfileId: `profile-${id}`, isSummon: false,
+      jutsus: d.jutsus.map((jid: string, i: number) => ({
+        id: `crown-${slot}-${i}`, userId: id, jutsuId: jid, level: 1, experience: 0, equipped: true, finishTraining: null,
+        reskinId: null, activeReskin: null, createdAt: new Date(0), updatedAt: new Date(0), jutsu: structuredClone(jutsuCatalog[jid]),
+      })),
+    };
+    const notes = [`push/272 ${slot} with live readback stats (${Object.keys(live).length} fields)`];
+    let row = stored;
+    const s = HP.stats[id];
+    if (s) {
+      row = { ...structuredClone(stored), poolsMultiplier: s.pools, ...(s.stats ? { statsMultiplier: s.stats } : {}) };
+      scaleEditedAi(stored, row);
+      row.effects = idgRows(s.rows);
+      notes.push(`solo edit poolsMultiplier ${s.pools}${s.stats ? `, statsMultiplier ${s.stats}` : ""}, ${s.rows} damage rows via scaleEditedAi -> maxHealth ${row.maxHealth}`);
+    }
+    const profile = { id: `profile-${id}`, userId: id, name: NAME[id], includeDefaultRules: d.includeDefaultRules, rules: structuredClone(d.rules) };
+    out[id] = { row, profile, notes };
+  }
+  return out;
+};
+
+/* ------------------------------------------------------------------ */
+/* Player companion pet (RUL-2026-10-28-013: pets join QUEST battles)    */
+/* ------------------------------------------------------------------ */
+/**
+ * One modelled mid-rank companion per player (no pet record is captured). Same model as the Wreck harness's petFor
+ * (fable/skyglass-wreck-sim working tree), restated here so the shared model.ts is not edited:
+ * - rank: the middle of what a JONIN owner allows (max 7): rank 5 "Hunter", at its level cap 30;
+ * - stats: half the stat caps of the pet rank's character rank (Hunter -> CHUNIN caps), evenly;
+ * - species: COMMON ASSAULT, no passives, no PETS-type jutsu (none captured), the engine's default AI rules
+ *   (close in, highest-power damage: its basic attack); spawn BEHIND the owner.
+ * The engine builds the battle actor (addPetsToBattle): HP calcHP(30), a summon-like AI on the player's side, fresh in
+ * every battle (pet HP does not carry between pyramid fights).
+ */
+export const petFor = (owner: any, statFraction = 0.5) => {
+  const rank = 5;
+  const levelCap = 30;
+  const caps = getUserCaps("CHUNIN");
+  const species = {
+    id: "harness-species", name: "Harness Companion", description: "modelled mid-rank companion", artDirection: null, rankConcepts: [],
+    rarity: "COMMON", role: "ASSAULT", preferredDamageElement: null, defaultJutsuIds: [], aiRules: [], includeDefaultRules: true,
+    effects: [], skillTarget: "SELF", isActive: true, createdAt: new Date(0), updatedAt: new Date(0),
+  };
+  let experience = calcLevelRequirements(levelCap - 1);
+  while (calcLevel(experience) < levelCap) experience += 1000;
+  return {
+    id: `pet-${owner.userId}`, userId: owner.userId, name: `${owner.username}'s companion`, speciesId: species.id, paletteIndex: 0,
+    characteristicIndex: 0, auraIndex: 0, gender: null, rank, experience, storedExperience: 0, lastFedAt: null, jutsuIds: [], skillIds: [],
+    offence: caps.stats_cap * statFraction, defence: caps.stats_cap * statFraction,
+    strength: caps.gens_cap * statFraction, speed: caps.gens_cap * statFraction,
+    intelligence: caps.gens_cap * statFraction, willpower: caps.gens_cap * statFraction,
+    avatar: "harness-pet-avatar", avatarFacing: "left", battleEnabled: true, spawnPosition: "BEHIND", aiRules: [],
+    includeDefaultRules: true, generationStatus: "READY", generationToken: null, generationStartedAt: null, generationAttempts: 0,
+    artRank: rank, revision: 0, createdAt: new Date(0), updatedAt: new Date(0), species,
+  };
+};

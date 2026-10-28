@@ -1,4 +1,213 @@
-# Skyglass treasure hunts, solo: offline simulation and build spec (2026-10-28)
+# Skyglass treasure hunts, solo: report 2 (2026-10-28, RUL-2026-10-28-013)
+
+This report supersedes report 1 below. Report 1's results files were overwritten by this run.
+
+## What changed
+
+**Inputs merged:**
+- The fixed shared library: fable/skyglass-wreck-sim `5f6c3edb`. Lines is now a true fan, Seal Lines a diagonal cross,
+  and Scatter A/B complementary halves. Blasts have cooldown 2. Violet blasts lock with non-shared types.
+- The Wreck agent's `sim.ts` working-tree change, applied as is:
+  - a virtual clock: `seedClock` from `seedEntropy`, `tickClock` once per action;
+  - companion-pet support in `assembleFloor` (`pets` -> `processUsersForBattle` `petPreload`).
+
+**Tide Line:** the fixed library still has no character-target push row, so Tide Line stays damage only.
+
+### 1. Archive alarm guard
+
+- **Record:** the Crown Archivist, Crownhold D3.REG1 (Skyglass Archive Keeper), live id `LZiunyinw9ScK3mh9HiR2` from
+  `state/crownhold/ids.json`.
+- **Source:** the row is the push/272 create payload, with the live readback stats (812,519.2 in every combat stat)
+  from `tnr_results_1792984876132.json`.
+- **Kit and rules:** its live Crownhold kit and rules, unchanged.
+- **Alarm fights:** now Crown Archivist + Seal Charge under ALARM. The generator needs the Archivist in its `AI` map and
+  in the alarm fight's `fight` list.
+- **Cache Sentinel:** unchanged.
+- **Tuned:** pools 2 (10,100 HP), 2 rows of +100% damage.
+- **Caution:** the same live record is a Crownhold D3 regular. Upgrading it in place changes Crownhold too, unless the
+  hunt gets its own copy (director call).
+
+### 2. Sealwright and the Stonebound
+
+- **The Sealwright** keeps Ward of Command, at pools 2.5 (12,625 HP) with 2 rows.
+- **Called to the Archive** now summons Crown Stonebound:
+  - Crownhold D3.REG4, live id `jqxu13kNHhfNY-NF68Ftb`;
+  - its live record and rules, used as stored;
+  - summon HP 15,000, more than the Sealwright's 12,625; 60% power; 3 rounds; one at a time.
+- **Library bug found and patched for the hunts:**
+  - Ward of Command's `decreasedamagetaken` row has `target: SELF`, inherited from its shape donor (Folding Screen
+    Guard). So the ward always landed on the caster, whatever ally the rule picked.
+  - This also means the dungeon Sealwright never warded the Captain.
+  - The hunts use the same `lib-ward-of-command` record with that row's target set to `INHERIT` (validated).
+  - Traced: the ward lands on the Stonebound whenever one is up, and on the Sealwright in the gaps.
+  - The library owner needs to adopt the fix. It is listed in `hunts_spec.json` under `sharedKitFixes`.
+- **Stonebound side effect:** its live Erupting Ground hits the Sealwright too, because its damage row is not
+  enemies-only. This is shared Crownhold data, left as is.
+
+### 3. First Blade fix
+
+- The end-turn rule is the First Blade's last rule in `hunts_spec.json`.
+- It is marked `SHARED KIT FIX for dg-first-blade`, and listed under `sharedKitFixes` for the Wreck agent's kit.
+
+### 4. Pets
+
+One modelled mid-rank companion joins the player in every hunt fight (`hunts.ts petFor`). It is the same model as the
+Wreck harness's `petFor`; no pet record is captured.
+
+| Field | Value |
+|---|---|
+| Rank | 5, "Hunter": the middle of a JONIN owner's allowed range (1-7) |
+| Level | 30, the rank's cap |
+| Stats | half the CHUNIN caps, spread evenly |
+| Species | COMMON ASSAULT, no passives, no pet jutsu |
+| AI | the engine's default rules: close in, basic attack |
+| Spawn | behind the owner |
+
+- **How it enters battle:** the engine's own `addPetsToBattle` builds the actor. It is a summon-like ally with
+  calcHP(30) HP, fresh in every fight; pet HP does not carry between fights.
+- **Effect:** its hits are tiny (4-22 damage). Its effect is as a target: enemies whose rules aim at the
+  `CLOSEST_OPPONENT` often hit the pet.
+- **Measurement gap:** the engine does not credit `damageDealt` to pet actors, so pet damage reads 0 in the results.
+- **Seal Charges** also detonate on the pet.
+
+### 5. Retune for the merged library and the pet
+
+| Record | Report 1 | Report 2 |
+|---|---|---|
+| Foundry Warden | pools 1.5, 2 rows | pools 2.5 (12,625 HP), 1 row |
+| Sealwright | pools 2, 2 rows | pools 2.5, 2 rows (ruling) |
+| Crown Archivist | - | pools 2, 2 rows |
+| Called to the Archive | Sentinel echo, 3,000 HP | Stonebound, 15,000 HP, 60% |
+
+Every other stat is unchanged from report 1. The Captain is still within the dungeon Captain: same kit, pools 2, 4 rows.
+
+## Results (40 seeds per path, pet on; dodge on and off)
+
+### Summary
+
+| Path | Win (dodge on) | End HP median [p10] | Rounds total | Lost at fight | Win (dodge off) | End HP (off) |
+|---|---:|---|---:|---|---:|---|
+| foundry | 32/40 | 51.9% [7.7] | 16.5 | F3: 8 | 14/40 | 32.6% |
+| archive_clean | 32/40 | 48.1% [19.8] | 21.5 | F2: 8 | 0/40 | - |
+| archive_alarm1 | 29/40 | 23.4% [9.1] | 27 | F2: 2, F3: 9 | 0/40 | - |
+| archive_alarm3 | 15/40 | 22.6% [5.8] | 37 | F2: 2, F4: 7, F5: 16 | 0/40 | - |
+| watch_000 | 37/40 | 68.9% [55.5] | 19 | F3: 3 | 15/40 | 56.7% |
+| watch_100 | 34/40 | 65.8% [31.9] | 28 | F1: 3, F3: 3 | 8/40 | 38.3% |
+| watch_010 | 38/40 | 68.9% [55.5] | 19 | F3: 2 | 29/40 | 53.5% |
+| watch_110 | 31/40 | 68.9% [49.1] | 28 | F1: 3, F3: 6 | 9/40 | 29.8% |
+| watch_001 | 37/40 | 45.4% [32] | 19 | F3: 3 | 15/40 | 52.3% |
+| watch_101 | 34/40 | 45.4% [25.5] | 28 | F1: 3, F3: 3 | 7/40 | 55.5% |
+| watch_011 | 38/40 | 45.4% [32] | 19 | F3: 2 | 29/40 | 48.7% |
+| watch_111 | 31/40 | 45.4% [26.6] | 28 | F1: 3, F3: 6 | 9/40 | 25.5% |
+| cache_right | 40/40 | 99.8% [56.8] | 9 | none | 40/40 | 72.4% |
+| cache_wrong | 40/40 | 99.2% [56.8] | 13.5 | none | 40/40 | 71.7% |
+
+### Per fight
+
+| Path | Fight | Won / reached | Rounds median [p10-p90] | HP start -> end (median, p10 end) | Gross HP lost | Player idle turns | Won / reached (off) | HP end (off) |
+|---|---|---:|---|---|---:|---:|---:|---|
+| foundry | intake: Deck Warden + Core Canister | 40/40 | 6 [1-6] | 100 -> 88.9 (81) | 11.1% | 3.3% | 40/40 | 88.9 |
+| foundry | pour hall: Arsenal Keeper + Seal Charge x2 | 40/40 | 6 [3-7] | 88.9 -> 81.2 (55.1) | 11.4% | 2.3% | 40/40 | 81.2 |
+| foundry | crucible: Foundry Warden + Core Canister **(boss)** | 32/40 | 7 [6-9] | 81.2 -> 51.9 (7.7) | 40.2% | 13% | 14/40 | 32.6 |
+| archive_clean | descent: Core Horror | 40/40 | 7 [7-7] | 100 -> 109 (109) | -9% | 0% | 23/40 | 33.6 |
+| archive_clean | archive: Sealwright **(boss)** | 32/40 | 14.5 [10-16] | 109 -> 48.1 (19.8) | 60.9% | 0.4% | 0/23 | - |
+| archive_alarm1 | descent: Core Horror | 40/40 | 7 [7-7] | 100 -> 109 (109) | -9% | 0% | 23/40 | 33.6 |
+| archive_alarm1 | alarm 1: Crown Archivist + Seal Charge (alarm debuff) | 38/40 | 8 [5-8] | 109 -> 64.5 (57.5) | 43.5% | 1.9% | 11/23 | 32.2 |
+| archive_alarm1 | archive: Sealwright **(boss)** | 29/38 | 15 [10-15] | 64.6 -> 23.4 (9.1) | 55.5% | 2.2% | 0/11 | - |
+| archive_alarm3 | descent: Core Horror | 40/40 | 7 [7-7] | 100 -> 109 (109) | -9% | 0% | 23/40 | 33.6 |
+| archive_alarm3 | alarm 1: Crown Archivist + Seal Charge (alarm debuff) | 38/40 | 8 [5-8] | 109 -> 64.5 (57.5) | 43.5% | 1.9% | 11/23 | 32.2 |
+| archive_alarm3 | alarm 2: Crown Archivist + Seal Charge (alarm debuff) | 38/38 | 7.5 [5-8] | 64.6 -> 54.9 (20.9) | 30.7% | 1.2% | 8/11 | 33.1 |
+| archive_alarm3 | alarm 3: Crown Archivist + Seal Charge (alarm debuff) | 31/38 | 6 [1-8] | 54.9 -> 36.8 (14.3) | 8.5% | 0.5% | 6/8 | 31 |
+| archive_alarm3 | archive: Sealwright **(boss)** | 15/31 | 10 [10-15] | 36.8 -> 22.6 (5.8) | 27.7% | 0.9% | 0/6 | - |
+| watch_000 | chart room: Wayfinder | 40/40 | 4 [4-5] | 100 -> 99.6 (67.2) | 0.4% | 0% | 40/40 | 93.4 |
+| watch_000 | deck: First Blade | 40/40 | 6 [6-7] | 99.6 -> 105.2 (83.1) | -5.4% | 0% | 40/40 | 76.2 |
+| watch_000 | helm: The Captain **(boss)** | 37/40 | 9 [6-10] | 105.2 -> 68.9 (55.5) | 31.1% | 11.3% | 15/40 | 56.7 |
+| watch_100 | chart room: Wayfinder (term: elementalseal) | 37/40 | 12 [12-17] | 100 -> 81.2 (36) | 18.8% | 20.1% | 31/40 | 49.9 |
+| watch_100 | deck: First Blade | 37/37 | 6 [6-7] | 81.2 -> 91.6 (48) | -13.3% | 0% | 27/31 | 34.4 |
+| watch_100 | helm: The Captain **(boss)** | 34/37 | 9 [6-10] | 91.6 -> 65.8 (31.9) | 31.1% | 11.5% | 8/27 | 38.3 |
+| watch_010 | chart room: Wayfinder | 40/40 | 4 [4-5] | 100 -> 99.6 (67.2) | 0.4% | 0% | 40/40 | 93.4 |
+| watch_010 | deck: First Blade (term: disarm) | 40/40 | 6 [6-7] | 99.6 -> 105.2 (83.1) | -5.4% | 0% | 40/40 | 76.2 |
+| watch_010 | helm: The Captain **(boss)** | 38/40 | 9 [6-10] | 105.2 -> 68.9 (55.5) | 31.1% | 12.9% | 29/40 | 53.5 |
+| watch_110 | chart room: Wayfinder (term: elementalseal) | 37/40 | 12 [12-17] | 100 -> 81.2 (36) | 18.8% | 20.1% | 31/40 | 49.9 |
+| watch_110 | deck: First Blade (term: disarm) | 37/37 | 6 [6-7] | 81.2 -> 91.6 (48) | -13.3% | 0% | 27/31 | 34.4 |
+| watch_110 | helm: The Captain **(boss)** | 31/37 | 9 [6-10] | 91.6 -> 68.9 (49.1) | 31.1% | 9.1% | 9/27 | 29.8 |
+| watch_001 | chart room: Wayfinder | 40/40 | 4 [4-5] | 100 -> 99.6 (67.2) | 0.4% | 0% | 40/40 | 93.4 |
+| watch_001 | deck: First Blade | 40/40 | 6 [6-7] | 99.6 -> 105.2 (83.1) | -5.4% | 0% | 40/40 | 76.2 |
+| watch_001 | helm: The Captain (term: healprevent) **(boss)** | 37/40 | 9 [6-10] | 105.2 -> 45.4 (32) | 54.6% | 11.3% | 15/40 | 52.3 |
+| watch_101 | chart room: Wayfinder (term: elementalseal) | 37/40 | 12 [12-17] | 100 -> 81.2 (36) | 18.8% | 20.1% | 31/40 | 49.9 |
+| watch_101 | deck: First Blade | 37/37 | 6 [6-7] | 81.2 -> 91.6 (48) | -13.3% | 0% | 27/31 | 34.4 |
+| watch_101 | helm: The Captain (term: healprevent) **(boss)** | 34/37 | 9 [6-10] | 91.6 -> 45.4 (25.5) | 54.6% | 11.5% | 7/27 | 55.5 |
+| watch_011 | chart room: Wayfinder | 40/40 | 4 [4-5] | 100 -> 99.6 (67.2) | 0.4% | 0% | 40/40 | 93.4 |
+| watch_011 | deck: First Blade (term: disarm) | 40/40 | 6 [6-7] | 99.6 -> 105.2 (83.1) | -5.4% | 0% | 40/40 | 76.2 |
+| watch_011 | helm: The Captain (term: healprevent) **(boss)** | 38/40 | 9 [6-10] | 105.2 -> 45.4 (32) | 54.6% | 12.9% | 29/40 | 48.7 |
+| watch_111 | chart room: Wayfinder (term: elementalseal) | 37/40 | 12 [12-17] | 100 -> 81.2 (36) | 18.8% | 20.1% | 31/40 | 49.9 |
+| watch_111 | deck: First Blade (term: disarm) | 37/37 | 6 [6-7] | 81.2 -> 91.6 (48) | -13.3% | 0% | 27/31 | 34.4 |
+| watch_111 | helm: The Captain (term: healprevent) **(boss)** | 31/37 | 9 [6-10] | 91.6 -> 45.4 (26.6) | 49.3% | 9.1% | 9/27 | 25.5 |
+| cache_right | dig: Skyglass Sentinel **(boss)** | 40/40 | 9 [9-10] | 100 -> 99.8 (56.8) | 0.2% | 0% | 40/40 | 72.4 |
+| cache_wrong | wrong cove: Deck Warden + Seal Charge | 40/40 | 4 [1-6] | 100 -> 101 (89.7) | -1% | 3.6% | 40/40 | 101 |
+| cache_wrong | dig: Skyglass Sentinel **(boss)** | 40/40 | 9 [9-10] | 101 -> 99.2 (56.8) | 2.7% | 0.3% | 40/40 | 71.7 |
+
+### Set pieces and behaviour
+
+| Fight (first path seen) | Enemy | Appearances | Mark fired % | Marks / blasts per fight | Blast hit % (on / off) | Windows per fight | Signature % | Idle turns after r2 | Dealt per fight (on / off) |
+|---|---|---:|---:|---|---|---:|---:|---:|---|
+| intake: Deck Warden + Core Canister | Deck Warden | 40 | 0 | 0 / 0 | - / - | 0 | 42.5 | 0% | 816 / 816 |
+| intake: Deck Warden + Core Canister | Core Canister | 40 | 0 | 0 / 0 | - / - | 0 | 90 | 44.4% | 1406 / 1406 |
+| pour hall: Arsenal Keeper + Seal Charge x2 | Arsenal Keeper | 40 | 0 | 0 / 0 | - / - | 0 | 0 | 0% | 891 / 891 |
+| pour hall: Arsenal Keeper + Seal Charge x2 | Seal Charge | 40 | 0 | 0 / 0 | - / - | 0 | 85 | 0% | 1489 / 1489 |
+| crucible: Foundry Warden + Core Canister | Foundry Warden | 40 | 97.5 | 2.7 / 2.1 | 34.9 / 98.9 | 1 | 97.5 | 4.5% | 2864 / 5173 |
+| crucible: Foundry Warden + Core Canister | Core Canister | 40 | 0 | 0 / 0 | - / - | 0 | 100 | - | 1326 / 1326 |
+| descent: Core Horror | Core Horror | 40 | 100 | 2.1 / 2 | 5 / 95.9 | 0 | 100 | 0% | 1414 / 7522 |
+| archive: Sealwright | Sealwright | 40 | 100 | 4.1 / 3.5 | 13.7 / 81.8 | 0.9 | 100 | 4.8% | 2778 / 3676 |
+| archive: Sealwright | (clone or summon) | 40 | 0 | 0 / 0 | - / - | 0 | 0 | 0% | 0 / 0 |
+| alarm 1: Crown Archivist + Seal Charge (alarm debuff) | Crown Archivist | 40 | 0 | 0 / 0 | - / - | 0 | 0 | 0% | 2357 / 2584 |
+| alarm 1: Crown Archivist + Seal Charge (alarm debuff) | Seal Charge | 40 | 0 | 0 / 0 | - / - | 0 | 75 | 0% | 847 / 813 |
+| alarm 2: Crown Archivist + Seal Charge (alarm debuff) | Crown Archivist | 38 | 0 | 0 / 0 | - / - | 0 | 0 | 0% | 2344 / 1974 |
+| alarm 2: Crown Archivist + Seal Charge (alarm debuff) | Seal Charge | 38 | 0 | 0 / 0 | - / - | 0 | 60.5 | 0% | 615 / 531 |
+| alarm 3: Crown Archivist + Seal Charge (alarm debuff) | Crown Archivist | 38 | 0 | 0 / 0 | - / - | 0 | 0 | 0% | 2114 / 2019 |
+| alarm 3: Crown Archivist + Seal Charge (alarm debuff) | Seal Charge | 38 | 0 | 0 / 0 | - / - | 0 | 63.2 | - | 676 / 584 |
+| chart room: Wayfinder | Wayfinder | 40 | 100 | 1.3 / 1.2 | 28.3 / 47.8 | 0 | 100 | 0% | 982 / 1305 |
+| chart room: Wayfinder | (clone or summon) | 8 | 100 | 1.4 / 1 | 0 / 25 | 0 | 0 | 0% | 0 / 0 |
+| deck: First Blade | First Blade | 40 | 100 | 2 / 1 | 0 / 100 | 0.7 | 100 | 38% | 844 / 2934 |
+| helm: The Captain | The Captain | 40 | 100 | 3.5 / 1.6 | 4.6 / 45.8 | 0 | 100 | 0% | 3231 / 10287 |
+| dig: Skyglass Sentinel | Skyglass Sentinel | 40 | 100 | 3.8 / 2.4 | 2.1 / 40.8 | 1 | 100 | 1.6% | 1570 / 3305 |
+| wrong cove: Deck Warden + Seal Charge | Deck Warden | 40 | 0 | 0 / 0 | - / - | 0 | 35 | 0% | 680 / 680 |
+| wrong cove: Deck Warden + Seal Charge | Seal Charge | 40 | 0 | 0 / 0 | - / - | 0 | 75 | 0% | 847 / 847 |
+
+Dodge totals (all paths, dodge on): {"threatened": 2686, "dodged": 2455, "failedRooted": 149, "failedNoPath": 72, "failedOther": 6, "stepsTaken": 4332}
+
+
+## Reading against the targets
+
+- **Archive alarm paths:**
+  - 1 alarm: **29/40** (target 25-30).
+  - 3 alarms: **15/40** (target 15-20).
+  - With dodge off, every Archive path is 0/40.
+- **Archive boss is the costliest fight:**
+
+  | Path | Sealwright | Alarm fights | Core Horror |
+  |---|---|---|---|
+  | Clean | 61% gross, 32/40 | - | -9% |
+  | 1 alarm | 55% | 44% | -9% |
+
+- **Foundry:** 32/40. The boss costs 40% gross (the earlier fights 11% each). 14/40 with dodge off.
+- **Watch:** 31-38/40 across the eight term combinations.
+  - The Captain is the costliest fight: 31% gross, 49% under healprevent. Every no-term loss is at the Captain.
+  - **elementalseal** turns the Wayfinder into a 12-round fight and costs 3 runs there.
+  - **disarm** does nothing to this build, which carries no weapon.
+  - **healprevent** lowers end HP (69% -> 45%).
+  - With dodge off: 7-29/40.
+- **Cache: 40/40 on both coves, and the Sentinel now costs almost nothing** (0-3% gross, end HP 99%).
+  - Cause: the Sentinel's rules target the closest opponent, and the pet spawned beside the player takes many of its
+    hits.
+  - The ruling keeps the Cache Sentinel unchanged, so it was not retuned. Making the Cache a real fight again needs
+    the Sentinel retuned with pets in mind (director call).
+- **Time readouts:** the console's "(Ns)" elapsed times are negative. The virtual clock replaces `Date`, which the
+  runner also uses for timing. Battle results are unaffected.
+
+---
+
+# Report 1 (superseded): offline simulation and build spec (2026-10-28)
 
 The four hunts (Drowned Foundry, Quarantined Archive, Captain's Watch, Buried Cache) played end to end by one endgame
 player, through the game's own combat engine (pin `c86f43f4`), offline. Zero live requests, no credentials.

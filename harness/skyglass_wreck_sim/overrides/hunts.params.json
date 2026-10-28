@@ -1,5 +1,5 @@
 {
- "_about": "Solo-tuned AI stats for the Skyglass treasure hunts (engine/hunts.ts). Keys are live AI ids; pools = poolsMultiplier, rows = innate +100% damage-given rows (each capped at 100 by the engine, rows multiply), stats = statsMultiplier where changed from live.",
+ "_about": "Solo-tuned AI stats for the Skyglass treasure hunts (engine/hunts.ts). Keys are live AI ids; pools = poolsMultiplier, rows = innate +100% damage-given rows (each capped at 100 by the engine, rows multiply), stats = statsMultiplier where changed from live. Crown Archivist (Archive alarm guard) and the Called to the Archive summon (Crown Stonebound: echoHp, echoPower) per RUL-2026-10-28-013.",
  "_names": {
   "texZaFi42S3EvJZBwQ8cd": "Deck Warden",
   "wTgO-Q32caSSd0is1QIS7": "Seal Charge",
@@ -11,7 +11,8 @@
   "v7T9_XdGMfP46em0dPuBc": "Wayfinder",
   "d6g0mOM7RBSsYI1hrUVT9": "First Blade",
   "QY69h271Nx9uHrBeR6jwW": "The Captain",
-  "81lnIP-q97gItQYWl5vWD": "Foundry Warden"
+  "81lnIP-q97gItQYWl5vWD": "Foundry Warden",
+  "LZiunyinw9ScK3mh9HiR2": "Crown Archivist"
  },
  "stats": {
   "texZaFi42S3EvJZBwQ8cd": {
@@ -41,7 +42,7 @@
    "rows": 2
   },
   "RBW5KsIXmTGR710D2y2Y7": {
-   "pools": 2,
+   "pools": 2.5,
    "rows": 2
   },
   "v7T9_XdGMfP46em0dPuBc": {
@@ -57,10 +58,14 @@
    "rows": 4
   },
   "81lnIP-q97gItQYWl5vWD": {
-   "pools": 1.5,
+   "pools": 2.5,
+   "rows": 1
+  },
+  "LZiunyinw9ScK3mh9HiR2": {
+   "pools": 2,
    "rows": 2
   }
  },
- "echoHp": 3000,
+ "echoHp": 15000,
  "echoPower": 60
 }

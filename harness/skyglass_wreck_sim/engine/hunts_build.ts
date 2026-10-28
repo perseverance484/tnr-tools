@@ -15,7 +15,7 @@ import { join, resolve } from "node:path";
 import { AiRule } from "@/validators/ai";
 import { insertAiSchema } from "@/validators/aiInput";
 import { JutsuValidator } from "@/validators/combat";
-import { ALARM, buildHunts, buildPaths, CREW_TO_LIB, DEFAULT_HUNT_PARAMS, LIVE, NAME, TERM } from "./hunts";
+import { ALARM, buildHunts, buildPaths, CREW_TO_LIB, crownTemplates, DEFAULT_HUNT_PARAMS, LIVE, NAME, petFor, TERM } from "./hunts";
 import { buildEndgame, DEFAULT_PARAMS, IDS } from "./kits";
 import { LIB } from "./library";
 import { buildTemplates, loadJson } from "./model";
@@ -36,6 +36,7 @@ const built = buildHunts(HP, kitParams);
 const coreRupture = loadJson(join(H, "overrides/director_6wave_tuned.json")).jutsu["nCQETf-HNnbRec1OSY2-R"];
 built.override.jutsu["nCQETf-HNnbRec1OSY2-R"] = coreRupture;
 const T = buildTemplates(baseline, built.override as never);
+Object.assign(T.enemies, crownTemplates(T.enemies[LIVE.warden]!.row, T.jutsu, HP));
 const shared = (buildEndgame(kitParams, "endgame").override as any).newEnemies;
 const SHARED_FROM: Record<string, string> = {
   [LIVE.warden]: IDS.warden, [LIVE.charge]: IDS.charge, [LIVE.sentinel]: IDS.sentinel, [LIVE.blade]: IDS.blade,
@@ -59,7 +60,7 @@ const anims = (rec: any) => [...new Set(rec.effects.flatMap((e: any) => ["appear
 const RELATIONS = new Set(["jutsus", "items", "aiProfile", "titles", "raidBuffs", "cookingJobs", "village", "bloodline", "sageMode", "anbuSquad", "clan", "loadout", "userSkills", "userQuests", "completedQuests", "bounties", "bountySignups", "queue"]);
 const key = (r: any) => JSON.stringify({ c: r.conditions, a: r.action });
 
-const enemyIds = [LIVE.warden, LIVE.canister, LIVE.keeper, LIVE.charge, LIVE.foundry, LIVE.horror, LIVE.sentinel, LIVE.sealwright, LIVE.wayfinder, LIVE.blade, LIVE.captain];
+const enemyIds = [LIVE.warden, LIVE.canister, LIVE.keeper, LIVE.charge, LIVE.foundry, LIVE.horror, LIVE.sentinel, LIVE.archivist, LIVE.sealwright, LIVE.stonebound, LIVE.wayfinder, LIVE.blade, LIVE.captain];
 const usedJutsu = new Set<string>();
 const ais = enemyIds.map((id) => {
   const e = T.enemies[id]!;
@@ -73,21 +74,28 @@ const ais = enemyIds.map((id) => {
   const s = HP.stats[id];
   return {
     liveId: id, username: row.username,
-    record: id === LIVE.foundry ? "live record created by push/262 (Foundry Warden), upgraded in place" : `live record ${id}, upgraded in place`,
+    record: id === LIVE.foundry ? "live record created by push/262 (Foundry Warden), upgraded in place"
+      : id === LIVE.stonebound ? "Crownhold live record (push/272 D3.REG4), used as stored: only summoned by Called to the Archive (HP and power % set by the summon)"
+      : id === LIVE.archivist ? "Crownhold live record (push/272 D3.REG1, live readback stats), upgraded in place as the Archive alarm guard (RUL-2026-10-28-013); NOTE: the same record is a Crownhold D3 regular, so these stats also apply there"
+      : `live record ${id}, upgraded in place`,
     soloTuning: s, level: row.level, rank: row.rank, statsMultiplier: row.statsMultiplier, poolsMultiplier: row.poolsMultiplier,
     pools: { maxHealth: row.maxHealth, maxChakra: row.maxChakra, maxStamina: row.maxStamina },
     stats: { offence: row.offence, defence: row.defence, strength: row.strength, intelligence: row.intelligence, willpower: row.willpower, speed: row.speed },
     effects: row.effects,
     kit: SHARED_FROM[id]
       ? `shared endgame kit of ${SHARED_FROM[id]} (build_spec.json endgame; engine/kits.ts) with the six crew additions remapped to the identical library records${(built.rules as any)[id].rules.length > sh.length ? ", plus the hunt-boss additions marked below" : ""}`
-      : id === LIVE.keeper ? "live kit and live rules (no shared endgame kit exists)" : (built.rules as any)[id]?.note,
+      : id === LIVE.keeper || id === LIVE.archivist || id === LIVE.stonebound ? "live kit and live rules (no shared endgame kit exists)" : (built.rules as any)[id]?.note,
     note: (built.notes as any)[id],
     jutsu: row.jutsus.map((uj: any) => ({ id: uj.jutsuId, name: T.jutsu[uj.jutsuId]?.name ?? uj.jutsuId, ...provenance(uj.jutsuId) })),
     includeDefaultRules: e.profile.includeDefaultRules,
     rules: rules.map((r, i) => {
       const k = shKeys.indexOf(key(r));
       const ok = AiRule.safeParse(r).success;
-      return { index: i, from: k >= 0 ? `shared ${SHARED_FROM[id]} rule ${k}` : id === LIVE.keeper ? "live rule" : "hunt", note: r.action.description, conditions: r.conditions, action: r.action, aiRule: ok ? "ok" : "INVALID" };
+      const from = k >= 0 ? `shared ${SHARED_FROM[id]} rule ${k}`
+        : id === LIVE.keeper || id === LIVE.archivist || id === LIVE.stonebound ? "live rule"
+        : r.action.description.startsWith("hold while veiled") ? `SHARED KIT FIX for ${SHARED_FROM[id]}: append as its last rule (stealth give-up death)`
+        : "hunt";
+      return { index: i, from, note: r.action.description, conditions: r.conditions, action: r.action, aiRule: ok ? "ok" : "INVALID" };
     }),
     signatureRules: (built.override.signatures as any)[id] ?? null,
     scaleEditedAiNotes: e.notes,
@@ -124,6 +132,11 @@ const spec = {
     libraryRecordsUsedByHunts: libraryUsed.map((j) => `${j.id} (${j.record?.name})`),
     liveRecordsUsedByHuntBosses: jutsuSpec.filter((j) => j.status === "LIVE" && j.huntBossSetPiece).map((j) => `${j.id} (${j.record?.name})`),
   },
+  sharedKitFixes: [
+    { record: "dg-first-blade (shared First Blade kit)", fix: "append rule: end turn, no conditions ('hold while veiled (no valid action)')", why: "while Glassveil Step's stealth lasts no rule matches and the engine's give-up path sets his HP to 0 (ai_v2.ts)" },
+    { record: `${LIB.crew.ward} (Ward of Command, library crew addition)`, fix: "decreasedamagetaken row: target SELF -> INHERIT", why: "the SELF target (inherited from the Folding Screen Guard shape donor) makes the ward land on the caster, never on the ally the rule picks; the hunts use the fixed row" },
+  ],
+  playerPet: { model: "one modelled mid-rank companion per player, in every hunt fight (engine/hunts.ts petFor)", example: (({ species, ...p }) => ({ ...p, species: { rarity: species.rarity, role: species.role } }))(petFor({ userId: "player", username: "Player" })) },
   questDebuffs: { ALARM, TERM, source: "push/skyglass_hunts.gen.py (unchanged)" },
   hunts: Object.fromEntries(Object.entries(paths).map(([k, v]) => [k, { hunt: v.hunt, fights: v.fights.map((f) => ({ label: f.label, opponents: f.ids.map((i) => NAME[i]), debuffs: f.debuffs ? f.debuffs.map((d: any) => d.type) : [], boss: !!f.boss })) }])),
   ais, jutsu: jutsuSpec,
