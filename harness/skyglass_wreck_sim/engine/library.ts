@@ -55,6 +55,23 @@ const rayFrom = (dir: Dir, len: number, startRowParity: 0 | 1) => {
   return out;
 };
 const rays = (dirs: Dir[], len: number, parity: 0 | 1) => dirs.flatMap((d) => rayFrom(d, len, parity));
+/** Offsets of every hex within `radius` of a caster on a row of the given parity (odd rows shifted right). */
+const discFrom = (radius: number, parity: 0 | 1) => {
+  const cube = (c: number, r: number) => {
+    const x = c - (r - (r & 1)) / 2;
+    return [x, r, -x - r];
+  };
+  const [ox, oy, oz] = cube(0, parity);
+  const out: XY[] = [];
+  for (let dr = -radius; dr <= radius; dr++)
+    for (let dc = -radius - 1; dc <= radius + 1; dc++) {
+      const [x, y, z] = cube(dc, parity + dr);
+      if (Math.max(Math.abs(x - ox), Math.abs(y - oy), Math.abs(z - oz)) <= radius) out.push({ longitude: dc, latitude: dr });
+    }
+  return out;
+};
+const ORIGIN: XY = { longitude: 0, latitude: 0 };
+const notOrigin = (xs: XY[]) => xs.filter((x) => x.longitude !== 0 || x.latitude !== 0);
 const uniq = (xs: XY[]) => [...new Map(xs.map((x) => [`${x.longitude},${x.latitude}`, x])).values()];
 
 /** Patterns (all parity-safe). */
@@ -79,6 +96,10 @@ export const PATTERNS = {
     return { longitude: -2 + dc, latitude: dr };
   }))]),
   shortLine: rayFrom("W", 3, 0),
+  /** Binding Ring / Ship's Bell: every hex within 2 of the caster on either row parity (caster excluded). The Bell's
+   * blast adds the caster's own hex so the cast is valid even when everyone stepped off (it stays a CHARACTER jutsu for
+   * its push and lock rows; its rows are enemies only, so the caster is untouched). */
+  bindingRing: notOrigin(uniq([...discFrom(2, 0), ...discFrom(2, 1)])),
   /** Exact single-parity offset sets, for a boss on a known row. */
   linesByRowParity: { even: rays(FAN, 5, 0), odd: rays(FAN, 5, 1) },
   sealLinesByRowParity: { even: rays(CROSS, 5, 0), odd: rays(CROSS, 5, 1) },
@@ -156,7 +177,7 @@ export const ANSWERS: Record<string, MarkKey> = {
 export const LIB_POWERS = {
   blastRing: 160, blastRows: 140, blastScatter: 140, scatterPool: 30, blastLines: 150, sealLinesDamage: 60,
   maw: 200, quench: 220, commandAbsolute: 80, crownfall: 180, broadside: 140, shipsBell: 50,
-  splash: 80, shortLine: 90,
+  splash: 58, shortLine: 65,
   chainHook: 45, oath: 35, aegisShield: 1500, mending: 20, wardDR: 80,
 };
 
@@ -195,7 +216,7 @@ export const buildLibrary = () => {
   const violet = () => T.visual(anim("tg_control"), 1);
   const safe = () => T.visual(anim("tg_safe"), 1, { target: "COORDINATES", coordinateTargeting: field("ALL", PATTERNS.stars) });
   mark("ring", "Omen: Ring", "AOE_SPIRAL_SHOOT", 2, [red()], undefined, 4, "The ground around %user cracks and glows.");
-  mark("bindingRing", "Omen: Binding Ring", "AOE_SPIRAL_SHOOT", 2, [violet()], undefined, 4, "Chains of ink coil around %user.");
+  mark("bindingRing", "Omen: Binding Ring", "COORDINATES", 0, [violet()], field("ALL", PATTERNS.bindingRing, "CASTER"), 4, "Chains of ink coil around %user.");
   mark("rowsA", "Omen: Rows", "COORDINATES", 0, [red()], field("ALL", PATTERNS.rowsA), 4, "Two lines across the field begin to glow.");
   mark("rowsB", "Omen: Rows", "COORDINATES", 0, [red()], field("ALL", PATTERNS.rowsB), 4, "Two lines across the field begin to glow.");
   mark("scatterA", "Omen: Scatter", "COORDINATES", 0, [red()], field("ALL", PATTERNS.scatterA), 4, "The ground swells in patches.");
@@ -220,25 +241,32 @@ export const buildLibrary = () => {
   const blast = (id: string, name: string, target: string, method: string, range: number, ct: any, effects: any[], line = "The marked ground erupts.") =>
     add(jutsu(id, { name, description: `Shared blast: fires on the hexes its Omen marked.`, battleDescription: line, target, method, range, cooldown: 2, actionCostPerc: 100, coordinateTargeting: ct, effects }));
   const heavy = (power: number) => T.damage(power, { appearAnimation: anim("dt_heavy") });
-  blast(LIB.blast.ring, "Eruption: Ring", "CHARACTER", "AOE_SPIRAL_SHOOT", 2, undefined, [heavy(p.blastRing)]);
-  blast(LIB.blast.rowsA, "Eruption: Rows", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.rowsA), [heavy(p.blastRows)]);
-  blast(LIB.blast.rowsB, "Eruption: Rows", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.rowsB), [heavy(p.blastRows)]);
+  // Once marked, every blast goes off. Pure-damage blasts are GROUND: ground damage resolves as an instant hit on
+  // occupants (enemies only), so they erupt on the marked tiles whether or not anyone is still there. (A CHARACTER
+  // blast is not a valid cast with no character on its pattern; GROUND damage also strikes barriers on empty tiles.)
+  // Blasts that stun, lock or push stay CHARACTER (GROUND lands only damage) and include a tile a character always
+  // holds: the caster's own hex, or the whole field but the stars.
+  blast(LIB.blast.ring, "Eruption: Ring", "GROUND", "AOE_SPIRAL_SHOOT", 2, undefined, [heavy(p.blastRing)]);
+  blast(LIB.blast.rowsA, "Eruption: Rows", "GROUND", "COORDINATES", 0, field("ALL", PATTERNS.rowsA), [heavy(p.blastRows)]);
+  blast(LIB.blast.rowsB, "Eruption: Rows", "GROUND", "COORDINATES", 0, field("ALL", PATTERNS.rowsB), [heavy(p.blastRows)]);
   for (const [id, pat] of [[LIB.blast.scatterA, PATTERNS.scatterA], [LIB.blast.scatterB, PATTERNS.scatterB]] as const)
     blast(id, "Eruption: Scatter", "GROUND", "COORDINATES", 0, field("ALL", pat), [T.damage(p.blastScatter, { appearAnimation: anim("dt_linger") }), T.pool(p.scatterPool, 2), T.visual(anim("tg_linger"), 2)]);
-  blast(LIB.blast.lines, "Eruption: Lines", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.lines, "CASTER"), [heavy(p.blastLines)]);
-  blast(LIB.blast.sealLines, "Binding: Seal Lines", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.sealLines, "CASTER"),
+  blast(LIB.blast.lines, "Eruption: Lines", "GROUND", "COORDINATES", 0, field("ALL", PATTERNS.lines, "CASTER"), [heavy(p.blastLines)]);
+  blast(LIB.blast.sealLines, "Binding: Seal Lines", "CHARACTER", "COORDINATES", 0, field("ALL", [ORIGIN, ...PATTERNS.sealLines], "CASTER"),
     [T.damage(p.sealLinesDamage, { appearAnimation: anim("dt_control") }), ...LOCK(2)], "The marked lines close.");
-  blast(LIB.blast.splash, "Eruption: Splash", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.splash, "CASTER"), [T.damage(p.splash, { appearAnimation: anim("dt_heavy"), friendlyFire: "ENEMIES" })], "The marked planks burst.");
-  blast(LIB.blast.shortLine, "Eruption: Short Line", "CHARACTER", "COORDINATES", 0, field("ALL", PATTERNS.shortLine, "CASTER"), [T.damage(p.shortLine, { appearAnimation: anim("dt_heavy"), friendlyFire: "ENEMIES" })], "A short line of force cuts across the deck.");
+  // GROUND target: ground damage resolves as an instant hit on occupants, so the blast erupts on the marked tiles
+  // whether or not anyone is still there (a CHARACTER blast is not a valid cast with nobody on its pattern).
+  blast(LIB.blast.splash, "Eruption: Splash", "GROUND", "COORDINATES", 0, field("ALL", PATTERNS.splash, "CASTER"), [T.damage(p.splash, { appearAnimation: anim("dt_heavy"), friendlyFire: "ENEMIES" })], "The marked planks burst.");
+  blast(LIB.blast.shortLine, "Eruption: Short Line", "GROUND", "COORDINATES", 0, field("ALL", PATTERNS.shortLine, "CASTER"), [T.damage(p.shortLine, { appearAnimation: anim("dt_heavy"), friendlyFire: "ENEMIES" })], "A short line of force cuts across the deck.");
   /* ---- bespoke signatures ---- */
   const sig = (id: string, f: { name: string; description: string; line: string; target: string; method: string; range: number; ct?: any; effects: any[] }) =>
     add(jutsu(id, { name: f.name, description: f.description, battleDescription: f.line, target: f.target, method: f.method, range: f.range, cooldown: 2, actionCostPerc: 100, coordinateTargeting: f.ct, effects: f.effects }));
   sig(LIB.sig.maw, { name: "Maw of the Deep", description: "Core Horror signature (Omen: Last Light): black water and teeth everywhere but the stars; Exposed Seam, x3 damage taken for 1 round.", line: "Black water and teeth rise from every plank. The mass splits open along a glowing seam.", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("EXCLUDE", PATTERNS.stars), effects: [T.damage(p.maw, { appearAnimation: anim("ch_maw") }), T.stun(1, { friendlyFire: "ENEMIES" }), weakness(anim("ch_exposed"))] });
   sig(LIB.sig.quench, { name: "Quench", description: "Foundry Warden signature (Omen: Last Light): steam everywhere but the cooled tiles; Cooling Shell, x3 damage taken for 1 round.", line: "%user tips seawater onto the melt. The room explodes in steam.", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("EXCLUDE", PATTERNS.stars), effects: [T.damage(p.quench, { appearAnimation: anim("fw_quench") }), weakness(anim("fw_cracked"))] });
   sig(LIB.sig.commandAbsolute, { name: "Command Absolute", description: "Crowned Captain signature (Omen: Last Light, Binding): everywhere but the stars, a 2-round lock: elemental jutsu sealed, +10 AP per action, Move and Replacement Technique +2 cooldown.", line: "\"Kneel.\"", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("EXCLUDE", PATTERNS.stars), effects: [T.damage(p.commandAbsolute, { appearAnimation: anim("cc_command_absolute") }), ...LOCK(2)] });
-  sig(LIB.sig.crownfall, { name: "Crownfall", description: "Crowned Captain signature (Omen: Lines): crown shards fall along the fan.", line: "Shards of the crown fall like blades.", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("ALL", PATTERNS.lines, "CASTER"), effects: [T.damage(p.crownfall, { appearAnimation: anim("cc_crownfall") })] });
-  sig(LIB.sig.broadside, { name: "Broadside", description: "The Captain's signature (Omen: Rows, set A): the ship's guns fire down the marked rows.", line: "\"Fire.\"", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("ALL", PATTERNS.rowsA), effects: [T.damage(p.broadside, { appearAnimation: anim("cp_broadside") })] });
-  sig(LIB.sig.shipsBell, { name: "Ship's Bell", description: "The Captain's signature (Omen: Binding Ring): the bell tolls; push 3 and a 1-round lock inside the ring.", line: "\"All hands.\" The great bell answers.", target: "CHARACTER", method: "AOE_SPIRAL_SHOOT", range: 2, effects: [T.damage(p.shipsBell, { appearAnimation: anim("cp_bell_toll") }), T.push(3, { friendlyFire: "ENEMIES" }), ...LOCK(1)] });
+  sig(LIB.sig.crownfall, { name: "Crownfall", description: "Crowned Captain signature (Omen: Lines): crown shards fall along the fan.", line: "Shards of the crown fall like blades.", target: "GROUND", method: "COORDINATES", range: 0, ct: field("ALL", PATTERNS.lines, "CASTER"), effects: [T.damage(p.crownfall, { appearAnimation: anim("cc_crownfall") })] });
+  sig(LIB.sig.broadside, { name: "Broadside", description: "The Captain's signature (Omen: Rows, set A): the ship's guns fire down the marked rows.", line: "\"Fire.\"", target: "GROUND", method: "COORDINATES", range: 0, ct: field("ALL", PATTERNS.rowsA), effects: [T.damage(p.broadside, { appearAnimation: anim("cp_broadside") })] });
+  sig(LIB.sig.shipsBell, { name: "Ship's Bell", description: "The Captain's signature (Omen: Binding Ring): the bell tolls; push 3 and a 1-round lock inside the ring.", line: "\"All hands.\" The great bell answers.", target: "CHARACTER", method: "COORDINATES", range: 0, ct: field("ALL", [ORIGIN, ...PATTERNS.bindingRing], "CASTER"), effects: [T.damage(p.shipsBell, { appearAnimation: anim("cp_bell_toll") }), T.push(3, { friendlyFire: "ENEMIES" }), ...LOCK(1)] });
   /* ---- lowered guard ---- */
   add(jutsu(LIB.loweredGuard, { name: "Lowered Guard", description: "Shared window: the caster takes x3 damage for 1 round.", battleDescription: "%user lowers their guard for one breath.", target: "SELF", method: "SINGLE", range: 0, cooldown: 99, actionCostPerc: 40, effects: [weakness(anim("lg_lowered"))] }));
   /* ---- crew additions ---- */

@@ -5,7 +5,8 @@
   "Each mark has its own marker type, so different marks never satisfy each other's blast rule and any two can coexist on one boss. Marker types are outside SHARED_COOLDOWN_TAGS, so a mark never locks another mark.",
   "A boss must not lay two marks in one turn (40 + 40 AP fits, but only one blast can follow): after its mark rules, give it rules `has_effect <its marker> -> plain attack` and `-> end turn` ahead of the other marks.",
   "The 60 AP left after a mark can carry a 60 AP follow-up such as a live pull (the two-marker chain).",
-  "CHARACTER blasts (everything that stuns, seals or pushes, and the plain heavy ones) are only valid when someone stands on the pattern; if everyone dodged, the cast fails and the marker expires. Scatter blasts are GROUND so they leave a 2-round pool (ground damage + tg_linger).",
+  "Once marked, every blast goes off, even if everyone stepped off. Pure-damage blasts (Ring, Rows, Scatter, Lines, Crownfall, Broadside, Splash, Short Line) are GROUND: ground damage resolves as an instant hit on occupants (enemies only), so they erupt on empty tiles too. Note: GROUND damage also strikes any barrier standing on an empty marked tile, including the caster's own. Blasts with stun, lock or push rows (Seal Lines, Ship's Bell, Maw of the Deep, Quench, Command Absolute) stay CHARACTER, because GROUND lands only damage. A CHARACTER cast is valid only with a character on its pattern, so Seal Lines and Ship's Bell include the caster's own hex, and the Last Light signatures cover the whole field but the stars. Scatter blasts also leave a 2-round pool (ground damage + tg_linger).",
+  "Minor marks (Splash, Short Line) are caster-anchored. A target-anchored pattern cannot hold its tiles: the blast is a new cast on the next turn, and the AI aims it at the target's current hex.",
   "Caster-relative patterns (Ring, Binding Ring, Lines, Seal Lines) need the boss to stay where it marked; marks and blasts cost all its AP across two turns, so it does."
  ],
  "markerTypes": {
@@ -951,6 +952,88 @@
     "latitude": 0
    }
   ],
+  "bindingRing": [
+   {
+    "longitude": -1,
+    "latitude": -2
+   },
+   {
+    "longitude": 0,
+    "latitude": -2
+   },
+   {
+    "longitude": 1,
+    "latitude": -2
+   },
+   {
+    "longitude": -2,
+    "latitude": -1
+   },
+   {
+    "longitude": -1,
+    "latitude": -1
+   },
+   {
+    "longitude": 0,
+    "latitude": -1
+   },
+   {
+    "longitude": 1,
+    "latitude": -1
+   },
+   {
+    "longitude": -2,
+    "latitude": 0
+   },
+   {
+    "longitude": -1,
+    "latitude": 0
+   },
+   {
+    "longitude": 1,
+    "latitude": 0
+   },
+   {
+    "longitude": 2,
+    "latitude": 0
+   },
+   {
+    "longitude": -2,
+    "latitude": 1
+   },
+   {
+    "longitude": -1,
+    "latitude": 1
+   },
+   {
+    "longitude": 0,
+    "latitude": 1
+   },
+   {
+    "longitude": 1,
+    "latitude": 1
+   },
+   {
+    "longitude": -1,
+    "latitude": 2
+   },
+   {
+    "longitude": 0,
+    "latitude": 2
+   },
+   {
+    "longitude": 1,
+    "latitude": 2
+   },
+   {
+    "longitude": 2,
+    "latitude": -1
+   },
+   {
+    "longitude": 2,
+    "latitude": 1
+   }
+  ],
   "linesByRowParity": {
    "even": [
     {
@@ -1257,8 +1340,7 @@
     "latitude": 8
    }
   ],
-  "ring": "AOE_SPIRAL_SHOOT range 2 around the caster (disc minus the caster)",
-  "bindingRing": "as ring"
+  "ring": "AOE_SPIRAL_SHOOT range 2 around the caster (disc minus the caster)"
  },
  "powers": {
   "blastRing": 160,
@@ -1273,8 +1355,8 @@
   "crownfall": 180,
   "broadside": 140,
   "shipsBell": 50,
-  "splash": 80,
-  "shortLine": 90,
+  "splash": 58,
+  "shortLine": 65,
   "chainHook": 45,
   "oath": 35,
   "aegisShield": 1500,
@@ -1387,9 +1469,95 @@
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
     "target": "GROUND",
-    "method": "AOE_SPIRAL_SHOOT",
-    "range": 2,
-    "coordinateTargeting": null,
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -1,
+       "latitude": -2
+      },
+      {
+       "longitude": 0,
+       "latitude": -2
+      },
+      {
+       "longitude": 1,
+       "latitude": -2
+      },
+      {
+       "longitude": -2,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": 0,
+       "latitude": -1
+      },
+      {
+       "longitude": 1,
+       "latitude": -1
+      },
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": 1,
+       "latitude": 0
+      },
+      {
+       "longitude": 2,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": 0,
+       "latitude": 1
+      },
+      {
+       "longitude": 1,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 2
+      },
+      {
+       "longitude": 0,
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": 2
+      },
+      {
+       "longitude": 2,
+       "latitude": -1
+      },
+      {
+       "longitude": 2,
+       "latitude": 1
+      }
+     ],
+     "randomCount": 1
+    },
     "methodSize": null,
     "cooldown": 4,
     "actionCostPerc": 40,
@@ -3300,7 +3468,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "AOE_SPIRAL_SHOOT",
     "range": 2,
     "coordinateTargeting": null,
@@ -3366,7 +3534,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -3534,7 +3702,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -4396,7 +4564,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -4559,6 +4727,10 @@
      "origin": "CASTER",
      "selection": "ALL",
      "coordinates": [
+      {
+       "longitude": 0,
+       "latitude": 0
+      },
       {
        "longitude": -1,
        "latitude": -1
@@ -4799,7 +4971,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -4869,7 +5041,7 @@
       "appearSfx": "",
       "disappearSfx": "",
       "rounds": 0,
-      "power": 80,
+      "power": 58,
       "powerPerLevel": 0,
       "direction": "offence",
       "target": "INHERIT",
@@ -4907,7 +5079,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -4953,7 +5125,7 @@
       "appearSfx": "",
       "disappearSfx": "",
       "rounds": 0,
-      "power": 90,
+      "power": 65,
       "powerPerLevel": 0,
       "direction": "offence",
       "target": "INHERIT",
@@ -5386,7 +5558,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -5542,7 +5714,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -5711,9 +5883,99 @@
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
     "target": "CHARACTER",
-    "method": "AOE_SPIRAL_SHOOT",
-    "range": 2,
-    "coordinateTargeting": null,
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": 0,
+       "latitude": 0
+      },
+      {
+       "longitude": -1,
+       "latitude": -2
+      },
+      {
+       "longitude": 0,
+       "latitude": -2
+      },
+      {
+       "longitude": 1,
+       "latitude": -2
+      },
+      {
+       "longitude": -2,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": 0,
+       "latitude": -1
+      },
+      {
+       "longitude": 1,
+       "latitude": -1
+      },
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": 1,
+       "latitude": 0
+      },
+      {
+       "longitude": 2,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": 0,
+       "latitude": 1
+      },
+      {
+       "longitude": 1,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 2
+      },
+      {
+       "longitude": 0,
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": 2
+      },
+      {
+       "longitude": 2,
+       "latitude": -1
+      },
+      {
+       "longitude": 2,
+       "latitude": 1
+      }
+     ],
+     "randomCount": 1
+    },
     "methodSize": null,
     "cooldown": 2,
     "actionCostPerc": 100,
