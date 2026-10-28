@@ -128,6 +128,83 @@ Shardstorm; he falls when it ends.
 
 ---
 
+## 4. The hunt bosses
+
+Director, 2026-10-28: the hunts use these enemies, not weaker versions, and their bosses play like the PoE fights above.
+Each gets at most two marked set pieces and one window, to keep the jutsu count down.
+
+### 4a. The Foundry Warden: "The Last Pour" (Drowned Foundry, solo, with a Core Canister)
+
+**Fantasy.** A master smelter fused with his pouring frame, standing in the one dry room of a flooding foundry. Molten
+skyglass on one side, seawater on the other. **Arena:** the crucible chamber. He never leaves the crucible.
+
+| Move | Kind | What it does | Mark / animation | Counterplay |
+|---|---|---|---|---|
+| **Pour Line** | set piece | Marks a straight channel from the crucible across the floor; next turn molten skyglass runs down it: heavy damage, and the channel keeps burning for 2 rounds | tg_heavy line, then fw_pour, leaving a tg_linger-style burning glass tile | stay out of the channel, and remember where it burns |
+| **Quench** | set piece, signature | Marks the whole floor except three cooled tiles at the chamber's edge; next turn he tips seawater onto the melt and the room explodes in steam | tg_heavy field, tg_safe tiles, then fw_quench | get to a cooled tile |
+| **Cooling Shell** | window | After Quench his shell cracks: 1 round at x3 damage taken | fw_cracked | burst him |
+| **Mould Cage** | control | Roots the player beside the Core Canister he keeps by the crucible | chain-wrap hit | cleanse, or kill the Canister first |
+| **Overpour** | phase, under 50% | Pour Line marks two channels at once | the same, doubled | the floor gets crowded |
+
+### 4b. The Sealwright: "The Keeper of the Archive" (Quarantined Archive, solo)
+
+**Fantasy.** The archive's conscience. He sealed away what command would not let him mend, and now guards it against
+you, reluctantly. **Arena:** the archive. He stands before the chained reliquary and does not step away from it.
+
+| Move | Kind | What it does | Mark / animation | Counterplay |
+|---|---|---|---|---|
+| **Script Lines** | set piece | Marks a cross of four seal lines from the reliquary; next turn they close: seal, plus an elemental seal on anyone standing in them | tg_control lines, then sw_script | step off the lines |
+| **Archive Lock** | set piece, signature | Violet over the whole archive except three tiles in the reliquary's light; next turn a 2-round stun and seal everywhere else | tg_control field, tg_safe, then sw_lock | get into the light |
+| **Called to the Archive** | summon | One Skyglass Sentinel echo steps out of a frame (one at a time) | cc_recall reused | kill it, or ignore it and pressure him |
+| **Mending Seal** | sustain | Heals and cleanses himself | soft seal glow | interrupt with burst |
+| **He Lowers His Seals** | window, under 30% | Once: for 1 round he takes x3 damage. "He lowers his seals for one breath, as if hoping you will end it." | sw_lowered | end it |
+
+### 4c. The Skyglass Sentinel: "Tidewatch" (Buried Cache, solo)
+
+**Fantasy.** A guardian of shell and stone, buried in the sand with the cache, and the tide is on its side. **Arena:** the
+cove. It holds the dig site.
+
+| Move | Kind | What it does | Mark / animation | Counterplay |
+|---|---|---|---|---|
+| **Tide Line** | set piece | Marks the two rows nearest the sea; next turn the surf hammers in: damage and a push up the beach | tg_heavy rows, then st_tide | stand above the line |
+| **Shell Wall** | barrier | A shell-and-stone barrier between it and the player | barrier sprite | break it, or go around |
+| **Counter Stance** | duel, under 60% | Reflect | as live | do not burst into it |
+| **Low Tide** | window | After Tide Line the sand runs out from under it: 1 round at x3 damage taken | st_exposed | burst it |
+
+### 4d. The Captain's Watch duels
+
+- **The Wayfinder ("Still no home port").** Marks a scatter of "old coastline" tiles; next turn the coast moves and they
+  erupt. Afterwards he repositions to empty ground (AI movement to EMPTY_GROUND is harness-confirmed). He opens with Chart
+  Mark. **Counterplay:** read the scatter; follow him.
+- **The First Blade ("Finally. Something new.").** He fades into stealth, marks a red ring around himself, and the next
+  turn cuts everything inside it. **Window, under 25%:** "That was new." He lowers his blades to savour it, taking x3
+  damage for 1 round.
+- **The Captain** fights exactly as in section 1, minus the Sealwright's Ward. The Oathkeeper's terms still apply.
+
+## 5. Sharing (director, 2026-10-28)
+
+- **Jutsu are shared.** One set of jutsu and rules per enemy, used by the hunts, the endgame dungeon and the level 40-60
+  dungeon. Only AI records differ, and only for stats:
+  - the live crew records, used by the hunts, are upgraded in place with solo-tuned stats;
+  - the dungeon copies carry the party-tuned stats;
+  - the level-50 copies carry the lower stats.
+- **No copies to rename.** Live jutsu are used as they are wherever only the name or battle text would change; the Captain uses the old Crowned Captain's live kit.
+- **Fewer patterns.** At most two per set piece, with lingering pools built into the base blast.
+- **Budget:** about 35 new jutsu for the Wreck crew and bosses, 10 for the Crowned Captain, and about 15 for the hunt bosses.
+
+## 6. Engine recipe (harness-confirmed)
+
+- **Marks:** a mark is a visual ground jutsu with a 1-round life.
+- **Marker for the next turn:** each set piece puts its own marker type on the boss. Use a type outside the shared 3-round cooldown list: increasecooldown with no actions, or increaserange.
+- **Turn cost:** the mark and the blast both cost 100 AP. A two-marker chain (a 60 AP mark plus a 40 AP follow-up) works.
+- **Ground jutsu land only damage.** A blast that stuns or pushes targets CHARACTER, with the rule targeting SELF; that spares the boss and the safe tiles.
+- **Patterns:** rings use the spiral method; arena patterns use battlefield coordinates. The boss stays put so his patterns line up.
+- **Range** caps at 5.
+- **Shared cooldowns:** stun moves (and other shared types) lock each other.
+- **Windows:** weakness on SELF gives a working 1-round x3 window. A cleanse in the same jutsu strips it.
+- **Summons:** one live summon per caster.
+- **Tiles do not grant jutsu.** A heal or buff tile has to be an ordinary ground effect, applied while an action resolves.
+
 ## Animations this adds (to `SKYGLASS_BOSS_ANIMATIONS.md`)
 
 | Boss | New ids |
