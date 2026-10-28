@@ -3321,3 +3321,32 @@ closely"; targets chosen: "15-20 min", "Clearable, few wipes", "Level 100 Jonin,
 **Evidence:** User, 2026-10-26: "I figured it out. When we updated the claws it severed the link." Live fight log the same day (zombies adjacent to Carbon and Kitsu, End Turn each round, no claw or move).
 
 **Canonical destination:** `docs/ENGINE_LAWS.md` law 18 (pending reconciliation).
+
+## RUL-2026-10-28-001 — Skyglass Wreck hazards: a small, heavy blast; dungeon kit additions approved
+
+**Date:** 2026-10-28
+
+**Domain:** TNR content balance / Skyglass Wreck dungeon and treasure hunts
+
+**Status:** ACTIVE. Chart Mark is not settled.
+
+**Ruling:**
+1. Core Rupture (`nCQETf-HNnbRec1OSY2-R`, held only by Seal Charge and Core Canister) stops hitting every player on the board (`method: ALL`). It now hits a small area (AOE circle spawn: the target hex and the six around it, range 5) for more damage (pierce 120 -> 180, a reversible starting value). The hazard's self-destruct (`onehitkill` on SELF) and the 2-round stun stay. The change is made to the live record, so it applies to the hunts and the dungeon alike (push/316-317).
+2. Dungeon-only jutsu approved as designed in `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`: Chain Hook (now a pull, then a 1-round root), Long Barrage, Oath of Stillness, Skyglass Aegis, Mending Seal, and the per-enemy rules and Crowned Captain phases. Numbers are starting values for the harness to tune.
+3. Chart Mark is open: 20% damage taken is too low, and the crew's focus rule must not fire on every damage-taken debuff.
+
+**Evidence:** Director, 2026-10-28: "We can make them smaller AoE blasts that do large amounts of damage instead I suppose. Rest looks pretty good"; "Chain Hook … sounds more like a move for a pull which would also be approved. Long barrage approved. Oath of stillness approved. Chart mark could be better executed. 20% is low … it will make any increased damage taken set the crew off. Needs more thought. Rest is approved. Yes change the hunts too."
+
+**Canonical destination:** `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`; `push/core_rupture.gen.py`.
+
+## RUL-2026-10-28-002 — validate.py exception for push/317 (Core Rupture pierce 180)
+
+**Date:** 2026-10-28
+
+**Domain:** validation; D-validate-always (`docs/DOCTRINE.md`); engine law 6
+
+**Status:** PENDING director approval. push/317 holds until approved.
+
+**Ruling (proposed):** push/317 may run although `validate.py --strict` reports law 6 "pierce power 180 exceeds the cap of 100". The game's `PierceTag` power has no maximum (`validators/combat.ts` `PowerAttributes`: `min(0)`), and the live Core Rupture already carries 120. Law 6's flat cap is already listed for law reconciliation (RUL-2026-10-20-001, Boundary). The exception holds only while `python3 scripts/validate_exception.py state/validate_exceptions/317_core_rupture_blast.json` passes.
+
+**Canonical destination:** `state/validate_exceptions/317_core_rupture_blast.json`.

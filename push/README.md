@@ -1141,3 +1141,12 @@ orbit it and come round in front, the gold one lashes out; behind passes hidden 
 archived unrun. Built by `push/233_ethereal_rebirth_animation_v2.gen.py`, strip pinned by SHA-256 at the commit that built
 it. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **Run 233, then 231.**
 
+
+## 316–317 Core Rupture: a small, heavy blast (RUL-2026-10-28-001). 316 READY; 317 HOLD (exception pending, RUL-2026-10-28-002)
+
+Built by `push/core_rupture.gen.py` from capture `tnr_results_1792900120886.json`. Core Rupture is held only by Seal Charge
+and Core Canister, so this changes the hunts and the dungeon together. **316** unequips it from both (law 18); AI Heavy Armor
+stays. **317** converts it (method ALL -> AOE circle spawn, range 5, pierce 120 -> 180; the self-destruct and 2-round stun
+unchanged), then re-equips it on both. Rules untouched. Gates: 316 `validate.py --strict` 0 errors, 0 warnings; 317 one
+diagnostic (law 6, power cap; the source has no cap), held under `state/validate_exceptions/317_core_rupture_blast.json`;
+`check_manifest.mjs` 0 pre-send problems on both. **Run 316 then 317, back to back** (between them both hazards are unarmed).
