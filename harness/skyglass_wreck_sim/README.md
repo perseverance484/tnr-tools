@@ -44,7 +44,22 @@ TNR_SCRIPT=crowned_captain.ts harness/skyglass_wreck_sim/run.sh --seeds 60 \
     --out $PWD/harness/skyglass_wreck_sim/results/crowned_captain_tuned.json \
     --write-spec $PWD/harness/skyglass_wreck_sim/crowned_captain_spec.json   # see REPORT_crowned_captain.md
 
-# Trace one floor action by action (absolute override path):
+# Boss-fight mechanic probes (two-marker chain, weakness window, ring/bell, Chain Hook, barriers):
+TNR_SCRIPT=probe_boss.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_boss.json
+
+# Build the designed dungeon-copy kits (engine/kits.ts) into an override + build_spec.json section:
+TNR_SCRIPT=build_kits.ts harness/skyglass_wreck_sim/run.sh \
+    --params harness/skyglass_wreck_sim/overrides/kits_endgame.params.json
+harness/skyglass_wreck_sim/run.sh --override harness/skyglass_wreck_sim/overrides/kits_endgame.json \
+    --variants average --runs 60 --out harness/skyglass_wreck_sim/results/kits_endgame.json
+#   add --no-dodge to switch off the auto-player's dodge of marked hexes
+# Level 40-60 version (level-50 copies, lighter kits; the lvl50/lvl40/lvl60 player tiers):
+TNR_SCRIPT=build_kits.ts harness/skyglass_wreck_sim/run.sh --version lvl50 \
+    --params harness/skyglass_wreck_sim/overrides/kits_lvl50.params.json
+harness/skyglass_wreck_sim/run.sh --override harness/skyglass_wreck_sim/overrides/kits_lvl50.json \
+    --variants lvl50 --runs 60 --out harness/skyglass_wreck_sim/results/kits_lvl50.json
+
+# Trace one floor action by action (absolute override path; TNR_DODGE=0 turns dodging off):
 TNR_SCRIPT=trace_floor.ts harness/skyglass_wreck_sim/run.sh 1 "$PWD/harness/skyglass_wreck_sim/overrides/director_layout.json" average 1
 ```
 
@@ -52,6 +67,27 @@ Options: `--variants a,b` (player tiers, below), `--runs N`, `--seed S` (first s
 (retries before a run is abandoned; default 3), `--max-rounds N` per floor battle (default 150),
 `--floors i,j`, `--no-barriers`, `--override file.json`, `--out file.json`,
 `--dmg-config live|default|file.json` (default `live`, see below).
+`--no-dodge` turns off the harness dodge (below).
+
+**Dodging (harness auto-player, not engine behaviour).** At a player's turn, if they stand on a hex an
+enemy marked `tg_heavy` / `tg_control`, or in a `tg_linger` pool, or an arena-wide mark is up (`tg_safe`
+stars exist) and they are not on a star, they walk (engine basic Move, one hex per action, at most 3) to
+the nearest free acceptable hex. While marks are up, their "close in" move becomes a one-hex step that
+never enters a marked hex, and an explicit end of turn keeps the engine's appended backup rules from
+walking them back in. Counts (threatened / dodged / failed: rooted or stunned, no free hex in reach)
+are in each variant's `dodge` block.
+
+**Determinism.** Each run seeds Math.random (combat rolls, spawn redraw) and, separately, the id entropy the engine
+draws from crypto.getRandomValues through nanoid (`seedEntropy`), so a seed reproduces a run even with clones or
+summons on the field. `--probe-check` verifies it.
+
+**Kits (`engine/kits.ts`, `engine/kitlib.ts`, `engine/build_kits.ts`).** The dungeon copies (ids `dg-*`,
+placeholders), their dungeon-only jutsu and priority rules are built in code from captured shape donors
+and checked against the live `JutsuValidator`, `AiRule` and `insertAiSchema` while building. Tuning
+knobs live in a params JSON (pools, +100% damage rows, move powers). The override also carries
+`signatures` (rule indices per AI); `main.ts` reports per enemy `signatureFiredPct` (appearances in
+which a signature rule fired) and `idleTurnsAfterRound2Pct` (turns from the enemy's 3rd round in its
+wave with nothing but move / end turn).
 
 **Damage settings.** Every simulated battle carries `battle.extraState.dmgConfig`, which
 `process.ts` reads before its code defaults. The harness default is the LIVE config in
