@@ -4,8 +4,8 @@
  * Prints, per round, each action with the rule index that produced it, HP changes and new effects.
  */
 import { join } from "node:path";
-import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, PLAYER_VARIANTS, playerQueryUser } from "./model";
-import { assembleFloor, mulberry32, runFloor } from "./sim";
+import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, petFor, PLAYER_VARIANTS, playerQueryUser } from "./model";
+import { assembleFloor, mulberry32, runFloor, seedEntropy } from "./sim";
 
 const H = process.env.TNR_HARNESS!;
 const ov = process.argv[3] ? loadJson(process.argv[3]) : {};
@@ -13,10 +13,15 @@ const t = buildTemplates(loadJson(join(H, "data/baseline.json")), ov);
 const v = { ...PLAYER_VARIANTS[process.argv[4] || "strong"]!, ...(ov.players?.[process.argv[4] ?? ""] ?? {}) };
 const donor = t.enemies["texZaFi42S3EvJZBwQ8cd"]!.row;
 const players = [0, 1, 2].map((i) => playerQueryUser(i, v, donor, t.jutsu));
+// argv[6] === "pets": each player brings the modelled companion (model.ts petFor).
+const pets = process.argv[6] === "pets" ? players.map((p) => petFor(p)) : undefined;
+if (pets) players.forEach((p, i) => (p.activePetId = pets[i]!.id));
 const rows = Object.fromEntries(Object.entries(t.enemies).map(([id, e]) => [id, enemyQueryUser(e)]));
 const rand = mulberry32(Number(process.argv[5] ?? 1));
+seedEntropy(Number(process.argv[5] ?? 1));
 Math.random = rand;
-const b = await assembleFloor({ players, enemyRows: rows, floor: t.floors[Number(process.argv[2] ?? 0)]!, rand, initialBarriers: true, dmgConfig: loadDmgConfig(H, process.env.TNR_DMG_CONFIG ?? "live").config });
+const b = await assembleFloor({ players, enemyRows: rows, floor: t.floors[Number(process.argv[2] ?? 0)]!, rand, initialBarriers: true, dmgConfig: loadDmgConfig(H, process.env.TNR_DMG_CONFIG ?? "live").config, pets });
+for (const u of b.usersState as any[]) if (u.petId) console.log(`pet ${u.username} L${u.level} HP ${u.maxHealth} off ${Math.round(u.offence)} at ${u.longitude},${u.latitude}`);
 const r = runFloor(b, { playerIds: players.map((p) => p.userId), maxRounds: 150, dodge: process.env.TNR_DODGE !== "0", detail: true });
 // Battle ids of spawned waves are minted at assembly; resolve names through the wave records.
 const names = new Map<string, string>(players.map((p) => [p.userId, p.username]));
