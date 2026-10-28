@@ -3456,3 +3456,25 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "Problems: 1. Approved 2. Buff him / Decisions: 1. Leave as is 2. OK, maybe in a bit 3. Yeah give him more HP, double it. 4. Yes, approved." Read against the open lists: problem 1 is the Core Horror fix; "Buff him" is read as the First Blade (problem 3, which dies in round 2), since problem 2 was the Captain's jutsu count. Decision 1 is the level range; decision 2 is the level-50 capture; decision 3 is the Crowned Captain; decision 4 is the Core Horror.
 
 **Canonical destination:** `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`, `docs/design/SKYGLASS_BOSS_FIGHTS.md`; harness `fable/skyglass-wreck-sim`, `fable/crowned-captain-sim`.
+
+
+## RUL-2026-10-28-009 — Skyglass charts: the map system, tainted rares, Core Rot, titles and trophies
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE. Design approved; manifests not yet built.
+
+**Ruling:**
+1. **Chart runs are high-stakes.** The chart is spent at entry, any loss fails the run, pools carry between fights, rewards bank per fight, and a final press-on room is lost on a fall.
+2. **Two new common charts:** Tide Chart and Watch Roster. They scale to the player and drop from both Wreck versions.
+3. **Two new rare charts:** Reliquary Seal and The Last Heading. They drop from the Archive and the Watch.
+4. **The chart ladder drop rates are approved as proposed.**
+5. **Tainted versions exist for the rares only:** the Rotted Reliquary and the Burning Heading, with the twists in the loot tables doc. They are obtained by steeping, breaking the seal, pressing on, or a 1% natural drop.
+6. **Core Rot** is a reagent: 15% from the Core Horror in the Wreck, more common in his runs.
+7. **Trophies are cut to two:** The Warden's Ladle and Wayfinder's Compass. **Titles are cut to five.**
+
+**Evidence:** Director, 2026-10-28: "1. Yes, rares only. Add a few more twists that make these charts unique harder upgrades of their counterpart. Propose methods to obtain, prefer creativity here 2. Approved. 3. Draft them". Then: "Cut the trophies, inventing that many items will be difficult. Perhaps 1-2 well designed ones. Cut number of titles in half. Core Rot as a reagent that drops rarely from Core Horror in the wreck(15%) and more commonly in his hunts".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5.
