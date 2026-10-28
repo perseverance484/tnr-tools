@@ -18,7 +18,9 @@
   "lines": "disarm",
   "sealLines": "elementalseal",
   "lastLight": "summonprevent",
-  "lastLightBinding": "sealprevent"
+  "lastLightBinding": "sealprevent",
+  "splash": "increaseheal",
+  "shortLine": "lifesteal"
  },
  "patterns": {
   "rowsA": [
@@ -897,6 +899,58 @@
     "latitude": 5
    }
   ],
+  "splash": [
+   {
+    "longitude": -2,
+    "latitude": 0
+   },
+   {
+    "longitude": -3,
+    "latitude": 0
+   },
+   {
+    "longitude": -1,
+    "latitude": 0
+   },
+   {
+    "longitude": -3,
+    "latitude": -1
+   },
+   {
+    "longitude": -2,
+    "latitude": -1
+   },
+   {
+    "longitude": -3,
+    "latitude": 1
+   },
+   {
+    "longitude": -2,
+    "latitude": 1
+   },
+   {
+    "longitude": -1,
+    "latitude": -1
+   },
+   {
+    "longitude": -1,
+    "latitude": 1
+   }
+  ],
+  "shortLine": [
+   {
+    "longitude": -1,
+    "latitude": 0
+   },
+   {
+    "longitude": -2,
+    "latitude": 0
+   },
+   {
+    "longitude": -3,
+    "latitude": 0
+   }
+  ],
   "linesByRowParity": {
    "even": [
     {
@@ -1219,6 +1273,8 @@
   "crownfall": 180,
   "broadside": 140,
   "shipsBell": 50,
+  "splash": 80,
+  "shortLine": 90,
   "chainHook": 45,
   "oath": 35,
   "aegisShield": 1500,
@@ -1226,12 +1282,12 @@
   "wardDR": 80
  },
  "counts": {
-  "marks": 10,
-  "sharedBlasts": 7,
+  "marks": 12,
+  "sharedBlasts": 9,
   "signatures": 6,
   "loweredGuard": 1,
   "crewAdditions": 6,
-  "total": 30
+  "total": 34
  },
  "records": [
   {
@@ -3016,6 +3072,220 @@
    "validator": "JutsuValidator: ok"
   },
   {
+   "id": "lib-omen-splash",
+   "status": "NEW",
+   "group": "mark",
+   "primedMarker": {
+    "type": "increaseheal",
+    "rounds": 1,
+    "rule": "has_effect increaseheal >= 1"
+   },
+   "record": {
+    "name": "Omen: Splash",
+    "description": "A minor warning mark (Omen: Splash). Its blast follows on the caster's next turn.",
+    "battleDescription": "%user marks a patch of deck in front of them.",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "jutsuWeapon": "NONE",
+    "target": "GROUND",
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": 0
+      },
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": -1
+      },
+      {
+       "longitude": -2,
+       "latitude": -1
+      },
+      {
+       "longitude": -3,
+       "latitude": 1
+      },
+      {
+       "longitude": -2,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      }
+     ],
+     "randomCount": 1
+    },
+    "methodSize": null,
+    "cooldown": 3,
+    "actionCostPerc": 40,
+    "healthCost": 0,
+    "chakraCost": 0.05,
+    "staminaCost": 0.05,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "battleUsageType": "BOTH",
+    "elementClassification": "None",
+    "statClassification": "None",
+    "hidden": true,
+    "extraBaseCost": 0,
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "tg_heavy",
+      "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+      "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 1,
+      "power": 2,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "static",
+      "type": "visual",
+      "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 1,
+      "power": 1,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "SELF",
+      "calculation": "percentage",
+      "type": "increaseheal",
+      "description": "placeholder"
+     }
+    ]
+   },
+   "animationPlaceholders": [
+    "tg_heavy"
+   ],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "lib-omen-short-line",
+   "status": "NEW",
+   "group": "mark",
+   "primedMarker": {
+    "type": "lifesteal",
+    "rounds": 1,
+    "rule": "has_effect lifesteal >= 1"
+   },
+   "record": {
+    "name": "Omen: Short Line",
+    "description": "A minor warning mark (Omen: Short Line). Its blast follows on the caster's next turn.",
+    "battleDescription": "%user sights down a short line.",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "jutsuWeapon": "NONE",
+    "target": "GROUND",
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": 0
+      }
+     ],
+     "randomCount": 1
+    },
+    "methodSize": null,
+    "cooldown": 3,
+    "actionCostPerc": 40,
+    "healthCost": 0,
+    "chakraCost": 0.05,
+    "staminaCost": 0.05,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "battleUsageType": "BOTH",
+    "elementClassification": "None",
+    "statClassification": "None",
+    "hidden": true,
+    "extraBaseCost": 0,
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "tg_heavy",
+      "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+      "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 1,
+      "power": 2,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "static",
+      "type": "visual",
+      "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 1,
+      "power": 1,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "SELF",
+      "calculation": "percentage",
+      "type": "lifesteal",
+      "description": "placeholder"
+     }
+    ]
+   },
+   "animationPlaceholders": [
+    "tg_heavy"
+   ],
+   "validator": "JutsuValidator: ok"
+  },
+  {
    "id": "lib-blast-ring",
    "status": "NEW",
    "group": "shared blast",
@@ -4511,6 +4781,198 @@
    },
    "animationPlaceholders": [
     "dt_control"
+   ],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "lib-blast-splash",
+   "status": "NEW",
+   "group": "shared blast",
+   "answersMark": "lib-omen-splash",
+   "fireRule": "use_specific_jutsu lib-blast-splash target SELF when has_effect increaseheal >= 1",
+   "record": {
+    "name": "Eruption: Splash",
+    "description": "Shared blast: fires on the hexes its Omen marked.",
+    "battleDescription": "The marked planks burst.",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "jutsuWeapon": "NONE",
+    "target": "CHARACTER",
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": 0
+      },
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": -1
+      },
+      {
+       "longitude": -2,
+       "latitude": -1
+      },
+      {
+       "longitude": -3,
+       "latitude": 1
+      },
+      {
+       "longitude": -2,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      }
+     ],
+     "randomCount": 1
+    },
+    "methodSize": null,
+    "cooldown": 2,
+    "actionCostPerc": 100,
+    "healthCost": 0,
+    "chakraCost": 0.05,
+    "staminaCost": 0.05,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "battleUsageType": "BOTH",
+    "elementClassification": "None",
+    "statClassification": "None",
+    "hidden": true,
+    "extraBaseCost": 0,
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "dt_heavy",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 0,
+      "power": 80,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "formula",
+      "statTypes": [
+       "None"
+      ],
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     }
+    ]
+   },
+   "animationPlaceholders": [
+    "dt_heavy"
+   ],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "lib-blast-short-line",
+   "status": "NEW",
+   "group": "shared blast",
+   "answersMark": "lib-omen-short-line",
+   "fireRule": "use_specific_jutsu lib-blast-short-line target SELF when has_effect lifesteal >= 1",
+   "record": {
+    "name": "Eruption: Short Line",
+    "description": "Shared blast: fires on the hexes its Omen marked.",
+    "battleDescription": "A short line of force cuts across the deck.",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "jutsuWeapon": "NONE",
+    "target": "CHARACTER",
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": 0
+      }
+     ],
+     "randomCount": 1
+    },
+    "methodSize": null,
+    "cooldown": 2,
+    "actionCostPerc": 100,
+    "healthCost": 0,
+    "chakraCost": 0.05,
+    "staminaCost": 0.05,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "battleUsageType": "BOTH",
+    "elementClassification": "None",
+    "statClassification": "None",
+    "hidden": true,
+    "extraBaseCost": 0,
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "dt_heavy",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 0,
+      "power": 90,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "formula",
+      "statTypes": [
+       "None"
+      ],
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     }
+    ]
+   },
+   "animationPlaceholders": [
+    "dt_heavy"
    ],
    "validator": "JutsuValidator: ok"
   },
