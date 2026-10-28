@@ -48,6 +48,11 @@ TNR_SCRIPT=build_kits.ts harness/skyglass_wreck_sim/run.sh \
 harness/skyglass_wreck_sim/run.sh --override harness/skyglass_wreck_sim/overrides/kits_endgame.json \
     --variants average --runs 60 --out harness/skyglass_wreck_sim/results/kits_endgame.json
 #   add --no-dodge to switch off the auto-player's dodge of marked hexes
+# Level 40-60 version (level-50 copies, lighter kits; the lvl50/lvl40/lvl60 player tiers):
+TNR_SCRIPT=build_kits.ts harness/skyglass_wreck_sim/run.sh --version lvl50 \
+    --params harness/skyglass_wreck_sim/overrides/kits_lvl50.params.json
+harness/skyglass_wreck_sim/run.sh --override harness/skyglass_wreck_sim/overrides/kits_lvl50.json \
+    --variants lvl50 --runs 60 --out harness/skyglass_wreck_sim/results/kits_lvl50.json
 
 # Trace one floor action by action (absolute override path; TNR_DODGE=0 turns dodging off):
 TNR_SCRIPT=trace_floor.ts harness/skyglass_wreck_sim/run.sh 1 "$PWD/harness/skyglass_wreck_sim/overrides/director_layout.json" average 1

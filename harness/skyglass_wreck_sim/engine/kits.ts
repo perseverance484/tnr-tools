@@ -24,6 +24,18 @@
 import { anim, cast, cond, copyJutsu, endTurn, highest, jutsu, moveTo, rule, T, tag } from "./kitlib";
 
 export type KitParams = {
+  /** AI level of every dungeon copy except the Seal Charge (endgame: unset = captured level 100). */
+  level?: number;
+  /** AI statsMultiplier for those copies (replayed through scaleEditedAi; captured crew: 5). */
+  statsMultiplier?: number;
+  /**
+   * Innate +damage-taken % rows on the crew (each row capped at 100 by the engine; rows multiply). The level 40-60 version
+   * needs it: pools and stats multipliers cannot go below 1 (insertAiSchema), so a level-50 copy has at least
+   * 2,550 HP, more than a level-50 party clears in the target time.
+   */
+  crewTaken?: number[];
+  /** Same for the Core Horror and The Captain. */
+  bossTaken?: number[];
   crewPools: number; crewRows: number;
   horrorPools: number; horrorRows: number;
   captainPools: number; captainRows: number;
@@ -63,6 +75,8 @@ export const BROADSIDE = [
   [[1, 4, 7], [2, 5, 8], [3, 6, 0]],
 ].map((sets) => sets.map((rows) => cells((_c, r) => rows.includes(r))));
 
+/** Innate +damage-taken row (built and validated like every tag; see KitParams.crewTaken). */
+const takenRow = (pct: number) => tag("increasedamagetaken", { power: pct, rounds: 99, calculation: "percentage", description: "Increased damage taken" });
 const idgRows = (n: number) =>
   Array.from({ length: n }, () => ({
     type: "increasedamagegiven", power: 100, rounds: 99, target: "INHERIT", appearSfx: "", direction: "offence",
@@ -83,7 +97,26 @@ const BASE: Record<string, string> = {
   [IDS.oath]: "Oathkeeper", [IDS.wayfinder]: "Wayfinder", [IDS.horror]: "Core Horror", [IDS.captain]: "The Captain", [IDS.sealwright]: "Sealwright",
 };
 
-export const buildEndgame = (P: KitParams = DEFAULT_PARAMS) => {
+/**
+ * Level 40-60 version (SKYGLASS_WRECK_ENCOUNTERS.md "Level 40-60 version"): the same arcs with level-50 copies and
+ * lighter kits. Rules whose notes start with these prefixes are left out of that version's copies.
+ */
+const LVL50_DROP: Record<string, string[]> = {
+  [IDS.warden]: ["Quick Strike"],
+  [IDS.sentinel]: ["Counter Stance", "Rigging Snare"],
+  [IDS.blade]: ["Glassveil Step", "Shuriken Storm", "Numbing Senbon"],
+  [IDS.oath]: ["Opening Strike"],
+  [IDS.wayfinder]: ["Keelbind", "Afterimage Decoy"],
+  // One phase of set pieces (no Undertow, no faster phase-2 cycle, no pools, no second Maw); The Core Rebuilds stays.
+  [IDS.horror]: ["Undertow", "Maw of the Deep II", "Collapse mark (phase 2)", "Rupture Field A mark (phase 2)", "Rupture Field B mark (phase 2)", "Rupture Field C mark (phase 2)", "Rupture Field A (pools)", "Rupture Field B (pools)", "Rupture Field C (pools)"],
+  // Two phases kept (Last Stand, faster Bell, three-row Broadside); no Sealwright, so no Gunwale; a short duel kit.
+  [IDS.captain]: ["Raise the Gunwale", "Stolen Form", "Suppression Writ", "Counter Stance", "Ruin Refrain", "Unraveling Strike", "Explosive Tag Cataclysm", "Windlash Focus"],
+};
+
+export const buildEndgame = (P: KitParams = DEFAULT_PARAMS, version: "endgame" | "lvl50" = "endgame") => {
+  const l50 = version === "lvl50";
+  const aid = (id: string) => (l50 ? `${id}-l50` : id);
+  const trim = (id: string, rules: any[]) => (l50 ? rules.filter((r) => !(LVL50_DROP[id] ?? []).some((d) => r.action.description.startsWith(d))) : rules);
   const J: Record<string, any> = {};
   const add = (j: any) => {
     J[j.id] = j;
@@ -183,7 +216,8 @@ export const buildEndgame = (P: KitParams = DEFAULT_PARAMS) => {
     cast("Maw of the Deep II mark (phase 2, once)", mawT[1]!, "SELF", [cond.hp(50)]),
     cast("Collapse mark (phase 2)", collapseT, "SELF", [cond.hp(50), cond.within(0, 2)]),
     ...rupT2.map((id, k) => cast(`Rupture Field ${"ABC"[k]} mark (phase 2)`, id, "SELF", [cond.hp(50)])),
-    cast("Maw of the Deep mark (once, from round 3)", mawT[0]!, "SELF", [cond.roundGt(2)]),
+    // Level 40-60: the fight is shorter, so the signature opens it.
+    l50 ? cast("Maw of the Deep mark (once, opener)", mawT[0]!, "SELF") : cast("Maw of the Deep mark (once, from round 3)", mawT[0]!, "SELF", [cond.roundGt(2)]),
     cast("Collapse mark", collapseT, "SELF", [cond.within(0, 2)]),
     ...rupT.map((id, k) => cast(`Rupture Field ${"ABC"[k]} mark`, id, "SELF")),
     cast("Splintered Grasp", grasp, "CLOSEST_OPPONENT", [cond.near(1)]),
@@ -221,10 +255,13 @@ export const buildEndgame = (P: KitParams = DEFAULT_PARAMS) => {
     cast("Broadside B fires", bsD[1]!, "SELF", [cond.marker(C_M.bB)]),
     cast("Broadside A fires", bsD[0]!, "SELF", [cond.marker(C_M.bA)]),
     cast("Ship's Bell tolls", bellD, "SELF", [cond.marker(C_M.bell)]),
-    cast("Ship's Bell mark (phase 2)", bellT, "SELF", [cond.hp(50), cond.within(0, 2)]),
+    ...(l50 ? [] : [cast("Ship's Bell mark (phase 2)", bellT, "SELF", [cond.hp(50), cond.within(0, 2)])]),
     ...bsT.slice(3).map((id, k) => cast(`Broadside ${"ABC"[k]} mark (phase 2, 3 rows)`, id, "SELF", [cond.hp(50)])),
-    cast("Ship's Bell mark", bellT, "SELF", [cond.within(0, 2)]),
+    ...(l50 ? [cast("Ship's Bell mark (phase 2)", bellT, "SELF", [cond.hp(50), cond.within(0, 2)])] : []),
+    // Level 40-60: Broadside (his signature) ahead of the Bell, so the shorter fight shows it.
+    ...(l50 ? [] : [cast("Ship's Bell mark", bellT, "SELF", [cond.within(0, 2)])]),
     ...bsT.slice(0, 3).map((id, k) => cast(`Broadside ${"ABC"[k]} mark`, id, "SELF", [cond.roundGt(1)])),
+    ...(l50 ? [cast("Ship's Bell mark", bellT, "SELF", [cond.within(0, 2)])] : []),
     cast("Raise the Gunwale", gunwale, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [cond.roundGt(2)]),
     cast("Final Command", finalCmd, "HIGHEST_ENMITY_OPPONENT", [cond.near(4, "HIGHEST_ENMITY_OPPONENT")]),
     cast("Keelbind", keel, "HIGHEST_ENMITY_OPPONENT", [cond.near(5, "HIGHEST_ENMITY_OPPONENT")]),
@@ -301,6 +338,8 @@ export const buildEndgame = (P: KitParams = DEFAULT_PARAMS) => {
   ];
   const wayRules = [
     cast("Chart Mark on the top threat", chartMark, "HIGHEST_ENMITY_OPPONENT", [cond.near(5, "HIGHEST_ENMITY_OPPONENT")]),
+    // Level 40-60: the crew live about 2 rounds, so the mark also goes on the closest player when the top threat is out of reach.
+    ...(l50 ? [cast("Chart Mark on the closest (top threat out of reach)", chartMark, "CLOSEST_OPPONENT", [cond.near(5)])] : []),
     cast("Keelbind at range", wfKeel, "HIGHEST_ENMITY_OPPONENT", [cond.near(5, "HIGHEST_ENMITY_OPPONENT")]),
     cast("Afterimage Decoy (a player within 2)", decoy, "EMPTY_GROUND_CLOSEST_TO_SELF", [cond.within(0, 2)]),
     ...focus("3v9c1SHlD2GLPF2HW1_Sc"),
@@ -310,22 +349,35 @@ export const buildEndgame = (P: KitParams = DEFAULT_PARAMS) => {
   ];
 
   const kitOf = (rules: any[], extra: string[] = []) => [...new Set([...rules.map((r) => r.action.jutsuId).filter(Boolean), ...extra])];
-  const enemy = (id: string, pools: number, rows: number, rules: any[], signature: string[], extraKit: string[] = []) => ({
-    id, o: { base: BASE[id], username: BASE[id], aiEdit: { poolsMultiplier: pools }, effects: idgRows(rows), jutsuIds: kitOf(rules, extraKit), rules, includeDefaultRules: false },
-    signature: rules.map((r, i) => (signature.some((s) => r.action.description.startsWith(s)) ? i : -1)).filter((i) => i >= 0),
-  });
+  const enemy = (id: string, pools: number, rows: number, all: any[], signature: string[], extraKit: string[] = []) => {
+    const rules = trim(id, all);
+    const taken = (id === IDS.horror || id === IDS.captain ? P.bossTaken : P.crewTaken) ?? [];
+    return {
+      id: aid(id),
+      o: { base: BASE[id], username: BASE[id], ...(P.level ? { level: P.level } : {}), aiEdit: { poolsMultiplier: pools, ...(P.statsMultiplier ? { statsMultiplier: P.statsMultiplier } : {}) }, effects: [...idgRows(rows), ...taken.map(takenRow)], jutsuIds: kitOf(rules, extraKit), rules, includeDefaultRules: false },
+      signature: rules.map((r, i) => (signature.some((s) => r.action.description.startsWith(s)) ? i : -1)).filter((i) => i >= 0),
+    };
+  };
   const E = [
     enemy(IDS.warden, P.crewPools, P.crewRows, wardenRules, ["Chain Hook"]),
-    { id: IDS.charge, o: { base: BASE[IDS.charge], username: BASE[IDS.charge], jutsuIds: ["nCQETf-HNnbRec1OSY2-R"], rules: chargeRules, includeDefaultRules: false }, signature: [0, 1] },
+    { id: aid(IDS.charge), o: { base: BASE[IDS.charge], username: BASE[IDS.charge], ...(P.level ? { level: Math.min(P.level, 70) } : {}), ...(P.statsMultiplier ? { aiEdit: { statsMultiplier: P.statsMultiplier } } : {}), jutsuIds: ["nCQETf-HNnbRec1OSY2-R"], rules: chargeRules, includeDefaultRules: false }, signature: [0, 1] },
     enemy(IDS.sentinel, P.crewPools, P.crewRows, sentinelRules, ["Skyglass Aegis"]),
     enemy(IDS.blade, P.crewPools, P.crewRows, bladeRules, ["Raijin's Spear", "Shuriken Storm", "Numbing Senbon"]),
     enemy(IDS.oath, P.crewPools, P.crewRows, oathRules, ["Oath of Stillness"]),
     enemy(IDS.wayfinder, P.crewPools, P.crewRows, wayRules, ["Chart Mark"]),
     enemy(IDS.horror, P.horrorPools, P.horrorRows, horrorRules, ["Maw of the Deep"]),
     enemy(IDS.captain, P.captainPools, P.captainRows, captainRules, ["Broadside"]),
-    enemy(IDS.sealwright, P.sealPools, P.sealRows, sealRules, ["Ward of Command"]),
+    ...(l50 ? [] : [enemy(IDS.sealwright, P.sealPools, P.sealRows, sealRules, ["Ward of Command"])]),
   ];
-  const floors = [
+  const A = Object.fromEntries(Object.entries(IDS).map(([k, v]) => [k, aid(v)])) as typeof IDS;
+  // Level 40-60: two enemies on floors 1-3, the Core Horror alone, the boss floor without the Sealwright.
+  const floors = l50 ? [
+    { kind: "floor", waves: [{ aiIds: [A.warden, A.charge], delayRounds: 0 }] },
+    { kind: "floor", waves: [{ aiIds: [A.sentinel, A.blade], delayRounds: 0 }] },
+    { kind: "floor", waves: [{ aiIds: [A.oath, A.wayfinder], delayRounds: 0 }] },
+    { kind: "mini-boss", waves: [{ aiIds: [A.horror], delayRounds: 0 }] },
+    { kind: "boss", waves: [{ aiIds: [A.warden, A.warden], delayRounds: 0 }, { aiIds: [A.captain], delayRounds: 0 }] },
+  ] : [
     { kind: "floor", waves: [{ aiIds: [IDS.warden, IDS.warden, IDS.warden, IDS.charge], delayRounds: 0 }] },
     { kind: "floor", waves: [{ aiIds: [IDS.sentinel, IDS.blade, IDS.warden], delayRounds: 0 }] },
     { kind: "floor", waves: [{ aiIds: [IDS.oath, IDS.wayfinder, IDS.warden], delayRounds: 0 }] },
@@ -335,8 +387,8 @@ export const buildEndgame = (P: KitParams = DEFAULT_PARAMS) => {
   // Captured jutsu referenced by rules must be in the override jutsu map only if new; captured ids resolve from the catalog.
   return {
     override: {
-      name: "kits_endgame",
-      note: "Endgame dungeon copies with the designed kits and priority rules (SKYGLASS_WRECK_ENCOUNTERS.md, SKYGLASS_BOSS_FIGHTS.md 1-2), built and schema-validated by engine/kits.ts.",
+      name: `kits_${version}`,
+      note: l50 ? "Level 40-60 dungeon copies (level 50, lighter kits, two enemies a floor, no Sealwright), built and schema-validated by engine/kits.ts." : "Endgame dungeon copies with the designed kits and priority rules (SKYGLASS_WRECK_ENCOUNTERS.md, SKYGLASS_BOSS_FIGHTS.md 1-2), built and schema-validated by engine/kits.ts.",
       params: P,
       jutsu: J,
       newEnemies: Object.fromEntries(E.map((e) => [e.id, e.o])),

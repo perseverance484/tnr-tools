@@ -27,7 +27,7 @@ const paramsPath = opt("params");
 const params: KitParams = paramsPath ? { ...DEFAULT_PARAMS, ...loadJson(resolve(paramsPath)), pow: { ...DEFAULT_PARAMS.pow, ...(loadJson(resolve(paramsPath)).pow ?? {}) } } : DEFAULT_PARAMS;
 const version = opt("version") ?? "endgame";
 
-const { override } = buildEndgame(params);
+const { override } = buildEndgame(params, version as "endgame" | "lvl50");
 // Core Rupture v2 (live record as edited by push/316-317; RUL-2026-10-28-001) from the tuned override.
 const tuned = loadJson(join(H, "overrides/director_6wave_tuned.json"));
 (override.jutsu as any)["nCQETf-HNnbRec1OSY2-R"] = tuned.jutsu["nCQETf-HNnbRec1OSY2-R"];
@@ -51,7 +51,8 @@ const RECORD_FIELDS = [
   "staminaCost", "healthCostReducePerLvl", "chakraCostReducePerLvl", "staminaCostReducePerLvl", "battleUsageType",
   "elementClassification", "statClassification", "hidden", "extraBaseCost", "image", "effects",
 ];
-const newJutsu = Object.entries<any>(override.jutsu).map(([id, rec]) => {
+const used = new Set(Object.values<any>(override.newEnemies).flatMap((o) => o.jutsuIds));
+const newJutsu = Object.entries<any>(override.jutsu).filter(([id]) => used.has(id)).map(([id, rec]) => {
   const parsed = JutsuValidator.safeParse(rec);
   const copyOf = id.startsWith("dg-") ? null : id;
   return {

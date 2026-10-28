@@ -11379,5 +11379,7909 @@
     "validator": "JutsuValidator: ok"
    }
   ]
+ },
+ "lvl50": {
+  "params": {
+   "crewPools": 1,
+   "crewRows": 1,
+   "horrorPools": 5,
+   "horrorRows": 2,
+   "captainPools": 3,
+   "captainRows": 3,
+   "sealPools": 2,
+   "sealRows": 3,
+   "pow": {
+    "chainHook": 45,
+    "oath": 35,
+    "collapse": 160,
+    "rupture": 140,
+    "rupturePool": 30,
+    "maw": 200,
+    "grasp": 100,
+    "bilge": 70,
+    "broadside": 110,
+    "bell": 50,
+    "wardDR": 60,
+    "aegisShield": 1500,
+    "mending": 20,
+    "rebuildHeal": 20,
+    "rebuildIDG": 50,
+    "gunwaleHP": 3000
+   },
+   "level": 50,
+   "statsMultiplier": 1,
+   "crewTaken": [
+    100,
+    100
+   ],
+   "bossTaken": [
+    100
+   ]
+  },
+  "floors": [
+   {
+    "kind": "floor",
+    "waves": [
+     {
+      "aiIds": [
+       "dg-deck-warden-l50",
+       "dg-seal-charge-l50"
+      ],
+      "delayRounds": 0
+     }
+    ]
+   },
+   {
+    "kind": "floor",
+    "waves": [
+     {
+      "aiIds": [
+       "dg-skyglass-sentinel-l50",
+       "dg-first-blade-l50"
+      ],
+      "delayRounds": 0
+     }
+    ]
+   },
+   {
+    "kind": "floor",
+    "waves": [
+     {
+      "aiIds": [
+       "dg-oathkeeper-l50",
+       "dg-wayfinder-l50"
+      ],
+      "delayRounds": 0
+     }
+    ]
+   },
+   {
+    "kind": "mini-boss",
+    "waves": [
+     {
+      "aiIds": [
+       "dg-core-horror-l50"
+      ],
+      "delayRounds": 0
+     }
+    ]
+   },
+   {
+    "kind": "boss",
+    "waves": [
+     {
+      "aiIds": [
+       "dg-deck-warden-l50",
+       "dg-deck-warden-l50"
+      ],
+      "delayRounds": 0
+     },
+     {
+      "aiIds": [
+       "dg-the-captain-l50"
+      ],
+      "delayRounds": 0
+     }
+    ]
+   }
+  ],
+  "ais": [
+   {
+    "harnessId": "dg-deck-warden-l50",
+    "copyOf": {
+     "liveAi": "Deck Warden",
+     "liveAiId": "texZaFi42S3EvJZBwQ8cd"
+    },
+    "username": "Deck Warden",
+    "level": 50,
+    "rank": "JONIN",
+    "statsMultiplier": 1,
+    "poolsMultiplier": 1,
+    "pools": {
+     "maxHealth": 2550,
+     "maxChakra": 2550,
+     "maxStamina": 2550
+    },
+    "stats": {
+     "offence": 53093.33,
+     "defence": 53093.33,
+     "strength": 53093.33,
+     "intelligence": 53093.33,
+     "willpower": 53093.33,
+     "speed": 53093.33
+    },
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     }
+    ],
+    "jutsu": [
+     {
+      "id": "dg-warden-resolve",
+      "name": "Warden's Resolve",
+      "new": true
+     },
+     {
+      "id": "dg-chain-hook",
+      "name": "Chain Hook",
+      "new": true
+     },
+     {
+      "id": "UnQKfwq_JoRVu10aTX6Uv",
+      "name": "Tide Bolt",
+      "new": false
+     }
+    ],
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "index": 0,
+      "note": "Warden's Resolve (opener, once)",
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Warden's Resolve (opener, once)",
+       "jutsuId": "dg-warden-resolve",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 1,
+      "note": "Chain Hook (top threat 3+ hexes away)",
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "description": "",
+        "value": 3,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Chain Hook (top threat 3+ hexes away)",
+       "jutsuId": "dg-chain-hook",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 2,
+      "note": "focus the Chart Mark (HIGHEST_ENMITY_OPPONENT)",
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "description": "",
+        "effectType": "increasepoolcost",
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "threshold": 5
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "focus the Chart Mark (HIGHEST_ENMITY_OPPONENT)",
+       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 3,
+      "note": "focus the Chart Mark (CLOSEST_OPPONENT)",
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "description": "",
+        "effectType": "increasepoolcost",
+        "target": "CLOSEST_OPPONENT",
+        "threshold": 5
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "focus the Chart Mark (CLOSEST_OPPONENT)",
+       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 4,
+      "note": "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)",
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "description": "",
+        "effectType": "increasepoolcost",
+        "target": "LOWEST_HEALTH_OPPONENT",
+        "threshold": 5
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "LOWEST_HEALTH_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)",
+       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     },
+     {
+      "index": 5,
+      "note": "Tide Bolt",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Tide Bolt",
+       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 6,
+      "note": "Tide Bolt (closest, top threat out of reach)",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Tide Bolt (closest, top threat out of reach)",
+       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 7,
+      "note": "move towards the top threat",
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "description": "",
+        "value": 2,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "move towards the top threat",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 8,
+      "note": "highest-power damage",
+      "conditions": [],
+      "action": {
+       "type": "use_highest_power_action",
+       "description": "highest-power damage",
+       "target": "CLOSEST_OPPONENT",
+       "effect": "damage"
+      }
+     }
+    ],
+    "signatureRules": [
+     1
+    ],
+    "scaleEditedAiNotes": [
+     "new enemy cloned from Deck Warden",
+     "override level 100 -> 50 via scaleEditedAi (HP 12625 -> 6375, offence 1391299.95 -> 265466.65)",
+     "override aiEdit {\"poolsMultiplier\":1,\"statsMultiplier\":1} via scaleEditedAi",
+     "kit -> 3 jutsu"
+    ],
+    "insertAiSchemaCheck": "ok"
+   },
+   {
+    "harnessId": "dg-seal-charge-l50",
+    "copyOf": {
+     "liveAi": "Seal Charge",
+     "liveAiId": "wTgO-Q32caSSd0is1QIS7"
+    },
+    "username": "Seal Charge",
+    "level": 50,
+    "rank": "JONIN",
+    "statsMultiplier": 1,
+    "poolsMultiplier": 1,
+    "pools": {
+     "maxHealth": 2550,
+     "maxChakra": 2550,
+     "maxStamina": 2550
+    },
+    "stats": {
+     "offence": 53093.33,
+     "defence": 53093.33,
+     "strength": 53093.33,
+     "intelligence": 53093.33,
+     "willpower": 53093.33,
+     "speed": 53093.33
+    },
+    "effects": [],
+    "jutsu": [
+     {
+      "id": "nCQETf-HNnbRec1OSY2-R",
+      "name": "Core Rupture",
+      "new": false
+     }
+    ],
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "index": 0,
+      "note": "Core Rupture: a player adjacent",
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "description": "",
+        "minRange": 0,
+        "maxRange": 1
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Core Rupture: a player adjacent",
+       "jutsuId": "nCQETf-HNnbRec1OSY2-R",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 1,
+      "note": "Core Rupture: fuse (from round 3)",
+      "conditions": [
+       {
+        "type": "round_greater_than",
+        "description": "",
+        "value": 2
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Core Rupture: fuse (from round 3)",
+       "jutsuId": "nCQETf-HNnbRec1OSY2-R",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 2,
+      "note": "walk at the closest player",
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "description": "",
+        "value": 2,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "walk at the closest player",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 3,
+      "note": "end turn",
+      "conditions": [],
+      "action": {
+       "type": "end_turn",
+       "description": "end turn"
+      }
+     }
+    ],
+    "signatureRules": [
+     0,
+     1
+    ],
+    "scaleEditedAiNotes": [
+     "new enemy cloned from Seal Charge",
+     "override level 70 -> 50 via scaleEditedAi (HP 3550 -> 2550, offence 1035100 -> 530933.3)",
+     "override aiEdit {\"statsMultiplier\":1} via scaleEditedAi",
+     "kit -> 1 jutsu"
+    ],
+    "insertAiSchemaCheck": "ok"
+   },
+   {
+    "harnessId": "dg-skyglass-sentinel-l50",
+    "copyOf": {
+     "liveAi": "Skyglass Sentinel",
+     "liveAiId": "3V_gdHYaclMB1gTyOPAbV"
+    },
+    "username": "Skyglass Sentinel",
+    "level": 50,
+    "rank": "JONIN",
+    "statsMultiplier": 1,
+    "poolsMultiplier": 1,
+    "pools": {
+     "maxHealth": 2550,
+     "maxChakra": 2550,
+     "maxStamina": 2550
+    },
+    "stats": {
+     "offence": 53093.33,
+     "defence": 53093.33,
+     "strength": 53093.33,
+     "intelligence": 53093.33,
+     "willpower": 53093.33,
+     "speed": 53093.33
+    },
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     }
+    ],
+    "jutsu": [
+     {
+      "id": "dg-skyglass-aegis",
+      "name": "Skyglass Aegis",
+      "new": true
+     },
+     {
+      "id": "3v9c1SHlD2GLPF2HW1_Sc",
+      "name": "Twin Kunai",
+      "new": false
+     }
+    ],
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "index": 0,
+      "note": "Skyglass Aegis on an ally",
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Skyglass Aegis on an ally",
+       "jutsuId": "dg-skyglass-aegis",
+       "target": "LOWEST_MAX_HEALTH_ALLY"
+      }
+     },
+     {
+      "index": 1,
+      "note": "Twin Kunai",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Twin Kunai",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 2,
+      "note": "move towards",
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "description": "",
+        "value": 2,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "move towards",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 3,
+      "note": "highest-power damage",
+      "conditions": [],
+      "action": {
+       "type": "use_highest_power_action",
+       "description": "highest-power damage",
+       "target": "CLOSEST_OPPONENT",
+       "effect": "damage"
+      }
+     }
+    ],
+    "signatureRules": [
+     0
+    ],
+    "scaleEditedAiNotes": [
+     "new enemy cloned from Skyglass Sentinel",
+     "override level 100 -> 50 via scaleEditedAi (HP 17675 -> 8925, offence 1391300 -> 265466.65)",
+     "override aiEdit {\"poolsMultiplier\":1,\"statsMultiplier\":1} via scaleEditedAi",
+     "kit -> 2 jutsu"
+    ],
+    "insertAiSchemaCheck": "ok"
+   },
+   {
+    "harnessId": "dg-first-blade-l50",
+    "copyOf": {
+     "liveAi": "First Blade",
+     "liveAiId": "d6g0mOM7RBSsYI1hrUVT9"
+    },
+    "username": "First Blade",
+    "level": 50,
+    "rank": "JONIN",
+    "statsMultiplier": 1,
+    "poolsMultiplier": 1,
+    "pools": {
+     "maxHealth": 2550,
+     "maxChakra": 2550,
+     "maxStamina": 2550
+    },
+    "stats": {
+     "offence": 53093.33,
+     "defence": 53093.33,
+     "strength": 53093.33,
+     "intelligence": 53093.33,
+     "willpower": 53093.33,
+     "speed": 53093.33
+    },
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     }
+    ],
+    "jutsu": [
+     {
+      "id": "xGVqWSX93hXZgfmlKZODp",
+      "name": "Raijin's Spear",
+      "new": false
+     },
+     {
+      "id": "Cw51Wm_Uy0GiIkiEjlQtn",
+      "name": "Opening Strike",
+      "new": false
+     }
+    ],
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "index": 0,
+      "note": "Raijin's Spear on the lowest-health player",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "LOWEST_HEALTH_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Raijin's Spear on the lowest-health player",
+       "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     },
+     {
+      "index": 1,
+      "note": "Opening Strike on the lowest-threat player",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 4,
+        "target": "LOWEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Opening Strike on the lowest-threat player",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "target": "LOWEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 2,
+      "note": "Opening Strike (closest, while hunting)",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Opening Strike (closest, while hunting)",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 3,
+      "note": "hunt the lowest-health player",
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "description": "",
+        "value": 2,
+        "target": "LOWEST_HEALTH_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "hunt the lowest-health player",
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     },
+     {
+      "index": 4,
+      "note": "highest-power damage",
+      "conditions": [],
+      "action": {
+       "type": "use_highest_power_action",
+       "description": "highest-power damage",
+       "target": "CLOSEST_OPPONENT",
+       "effect": "damage"
+      }
+     }
+    ],
+    "signatureRules": [
+     0
+    ],
+    "scaleEditedAiNotes": [
+     "new enemy cloned from First Blade",
+     "override level 100 -> 50 via scaleEditedAi (HP 17675 -> 8925, offence 1391300 -> 265466.65)",
+     "override aiEdit {\"poolsMultiplier\":1,\"statsMultiplier\":1} via scaleEditedAi",
+     "kit -> 2 jutsu"
+    ],
+    "insertAiSchemaCheck": "ok"
+   },
+   {
+    "harnessId": "dg-oathkeeper-l50",
+    "copyOf": {
+     "liveAi": "Oathkeeper",
+     "liveAiId": "0PZU_FvlbM3ErYGlD5r56"
+    },
+    "username": "Oathkeeper",
+    "level": 50,
+    "rank": "JONIN",
+    "statsMultiplier": 1,
+    "poolsMultiplier": 1,
+    "pools": {
+     "maxHealth": 2550,
+     "maxChakra": 2550,
+     "maxStamina": 2550
+    },
+    "stats": {
+     "offence": 53093.33,
+     "defence": 53093.33,
+     "strength": 53093.33,
+     "intelligence": 53093.33,
+     "willpower": 53093.33,
+     "speed": 53093.33
+    },
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     }
+    ],
+    "jutsu": [
+     {
+      "id": "dg-oath-of-stillness",
+      "name": "Oath of Stillness",
+      "new": true
+     },
+     {
+      "id": "YiRdVytsdxFzZtqkEDs5Q",
+      "name": "Weakening Strike",
+      "new": false
+     }
+    ],
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "index": 0,
+      "note": "Oath of Stillness on the top threat",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Oath of Stillness on the top threat",
+       "jutsuId": "dg-oath-of-stillness",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 1,
+      "note": "focus the Chart Mark (HIGHEST_ENMITY_OPPONENT)",
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "description": "",
+        "effectType": "increasepoolcost",
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "threshold": 5
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "focus the Chart Mark (HIGHEST_ENMITY_OPPONENT)",
+       "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 2,
+      "note": "focus the Chart Mark (CLOSEST_OPPONENT)",
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "description": "",
+        "effectType": "increasepoolcost",
+        "target": "CLOSEST_OPPONENT",
+        "threshold": 5
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "focus the Chart Mark (CLOSEST_OPPONENT)",
+       "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 3,
+      "note": "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)",
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "description": "",
+        "effectType": "increasepoolcost",
+        "target": "LOWEST_HEALTH_OPPONENT",
+        "threshold": 5
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "LOWEST_HEALTH_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)",
+       "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     },
+     {
+      "index": 4,
+      "note": "Weakening Strike on the top threat",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Weakening Strike on the top threat",
+       "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 5,
+      "note": "move towards the top threat",
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "description": "",
+        "value": 2,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "move towards the top threat",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 6,
+      "note": "highest-power damage",
+      "conditions": [],
+      "action": {
+       "type": "use_highest_power_action",
+       "description": "highest-power damage",
+       "target": "CLOSEST_OPPONENT",
+       "effect": "damage"
+      }
+     }
+    ],
+    "signatureRules": [
+     0
+    ],
+    "scaleEditedAiNotes": [
+     "new enemy cloned from Oathkeeper",
+     "override level 100 -> 50 via scaleEditedAi (HP 12625 -> 6375, offence 1391299.95 -> 265466.65)",
+     "override aiEdit {\"poolsMultiplier\":1,\"statsMultiplier\":1} via scaleEditedAi",
+     "kit -> 2 jutsu"
+    ],
+    "insertAiSchemaCheck": "ok"
+   },
+   {
+    "harnessId": "dg-wayfinder-l50",
+    "copyOf": {
+     "liveAi": "Wayfinder",
+     "liveAiId": "v7T9_XdGMfP46em0dPuBc"
+    },
+    "username": "Wayfinder",
+    "level": 50,
+    "rank": "JONIN",
+    "statsMultiplier": 1,
+    "poolsMultiplier": 1,
+    "pools": {
+     "maxHealth": 2550,
+     "maxChakra": 2550,
+     "maxStamina": 2550
+    },
+    "stats": {
+     "offence": 53093.33,
+     "defence": 53093.33,
+     "strength": 53093.33,
+     "intelligence": 53093.33,
+     "willpower": 53093.33,
+     "speed": 53093.33
+    },
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     }
+    ],
+    "jutsu": [
+     {
+      "id": "dg-chart-mark",
+      "name": "Chart Mark",
+      "new": true
+     },
+     {
+      "id": "3v9c1SHlD2GLPF2HW1_Sc",
+      "name": "Twin Kunai",
+      "new": false
+     }
+    ],
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "index": 0,
+      "note": "Chart Mark on the top threat",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Chart Mark on the top threat",
+       "jutsuId": "dg-chart-mark",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 1,
+      "note": "Chart Mark on the closest (top threat out of reach)",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Chart Mark on the closest (top threat out of reach)",
+       "jutsuId": "dg-chart-mark",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 2,
+      "note": "focus the Chart Mark (HIGHEST_ENMITY_OPPONENT)",
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "description": "",
+        "effectType": "increasepoolcost",
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "threshold": 5
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "focus the Chart Mark (HIGHEST_ENMITY_OPPONENT)",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 3,
+      "note": "focus the Chart Mark (CLOSEST_OPPONENT)",
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "description": "",
+        "effectType": "increasepoolcost",
+        "target": "CLOSEST_OPPONENT",
+        "threshold": 5
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "focus the Chart Mark (CLOSEST_OPPONENT)",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 4,
+      "note": "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)",
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "description": "",
+        "effectType": "increasepoolcost",
+        "target": "LOWEST_HEALTH_OPPONENT",
+        "threshold": 5
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "LOWEST_HEALTH_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     },
+     {
+      "index": 5,
+      "note": "Twin Kunai",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Twin Kunai",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 6,
+      "note": "keep range: close only when out of reach",
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "description": "",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "keep range: close only when out of reach",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 7,
+      "note": "highest-power damage",
+      "conditions": [],
+      "action": {
+       "type": "use_highest_power_action",
+       "description": "highest-power damage",
+       "target": "CLOSEST_OPPONENT",
+       "effect": "damage"
+      }
+     }
+    ],
+    "signatureRules": [
+     0,
+     1
+    ],
+    "scaleEditedAiNotes": [
+     "new enemy cloned from Wayfinder",
+     "override level 100 -> 50 via scaleEditedAi (HP 15150 -> 7650, offence 1391299.95 -> 265466.65)",
+     "override aiEdit {\"poolsMultiplier\":1,\"statsMultiplier\":1} via scaleEditedAi",
+     "kit -> 2 jutsu"
+    ],
+    "insertAiSchemaCheck": "ok"
+   },
+   {
+    "harnessId": "dg-core-horror-l50",
+    "copyOf": {
+     "liveAi": "Core Horror",
+     "liveAiId": "AQi-bHJ-5tHXtxrnc0P9E"
+    },
+    "username": "Core Horror",
+    "level": 50,
+    "rank": "JONIN",
+    "statsMultiplier": 1,
+    "poolsMultiplier": 5,
+    "pools": {
+     "maxHealth": 12750,
+     "maxChakra": 12750,
+     "maxStamina": 12750
+    },
+    "stats": {
+     "offence": 53093.33,
+     "defence": 53093.33,
+     "strength": 53093.33,
+     "intelligence": 53093.33,
+     "willpower": 53093.33,
+     "speed": 53093.33
+    },
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     }
+    ],
+    "jutsu": [
+     {
+      "id": "dg-core-rebuilds",
+      "name": "The Core Rebuilds",
+      "new": true
+     },
+     {
+      "id": "dg-maw-1",
+      "name": "Maw of the Deep",
+      "new": true
+     },
+     {
+      "id": "dg-rupture-c",
+      "name": "Rupture Field",
+      "new": true
+     },
+     {
+      "id": "dg-rupture-b",
+      "name": "Rupture Field",
+      "new": true
+     },
+     {
+      "id": "dg-rupture-a",
+      "name": "Rupture Field",
+      "new": true
+     },
+     {
+      "id": "dg-collapse",
+      "name": "Collapse",
+      "new": true
+     },
+     {
+      "id": "dg-splintered-grasp",
+      "name": "Splintered Grasp",
+      "new": true
+     },
+     {
+      "id": "dg-bilge-spit",
+      "name": "Bilge Spit",
+      "new": true
+     },
+     {
+      "id": "dg-maw-mark-1",
+      "name": "Maw of the Deep",
+      "new": true
+     },
+     {
+      "id": "dg-collapse-mark",
+      "name": "Collapse",
+      "new": true
+     },
+     {
+      "id": "dg-rupture-mark-a",
+      "name": "Rupture Field",
+      "new": true
+     },
+     {
+      "id": "dg-rupture-mark-b",
+      "name": "Rupture Field",
+      "new": true
+     },
+     {
+      "id": "dg-rupture-mark-c",
+      "name": "Rupture Field",
+      "new": true
+     }
+    ],
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "index": 0,
+      "note": "The Core Rebuilds (under 50%, once)",
+      "conditions": [
+       {
+        "type": "health_below",
+        "description": "",
+        "value": 50
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "The Core Rebuilds (under 50%, once)",
+       "jutsuId": "dg-core-rebuilds",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 1,
+      "note": "Maw of the Deep detonates",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 50
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Maw of the Deep detonates",
+       "jutsuId": "dg-maw-1",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 2,
+      "note": "Rupture Field C detonates",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 30
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Rupture Field C detonates",
+       "jutsuId": "dg-rupture-c",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 3,
+      "note": "Rupture Field B detonates",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 20
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Rupture Field B detonates",
+       "jutsuId": "dg-rupture-b",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 4,
+      "note": "Rupture Field A detonates",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 10
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Rupture Field A detonates",
+       "jutsuId": "dg-rupture-a",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 5,
+      "note": "Collapse detonates",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 1
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Collapse detonates",
+       "jutsuId": "dg-collapse",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 6,
+      "note": "beat: Splintered Grasp",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increaserange",
+        "threshold": 1
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 1,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "beat: Splintered Grasp",
+       "jutsuId": "dg-splintered-grasp",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 7,
+      "note": "beat: Bilge Spit",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increaserange",
+        "threshold": 1
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "beat: Bilge Spit",
+       "jutsuId": "dg-bilge-spit",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 8,
+      "note": "beat: hold",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increaserange",
+        "threshold": 1
+       }
+      ],
+      "action": {
+       "type": "end_turn",
+       "description": "beat: hold"
+      }
+     },
+     {
+      "index": 9,
+      "note": "Maw of the Deep mark (once, opener)",
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Maw of the Deep mark (once, opener)",
+       "jutsuId": "dg-maw-mark-1",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 10,
+      "note": "Collapse mark",
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "description": "",
+        "minRange": 0,
+        "maxRange": 2
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Collapse mark",
+       "jutsuId": "dg-collapse-mark",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 11,
+      "note": "Rupture Field A mark",
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Rupture Field A mark",
+       "jutsuId": "dg-rupture-mark-a",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 12,
+      "note": "Rupture Field B mark",
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Rupture Field B mark",
+       "jutsuId": "dg-rupture-mark-b",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 13,
+      "note": "Rupture Field C mark",
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Rupture Field C mark",
+       "jutsuId": "dg-rupture-mark-c",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 14,
+      "note": "Splintered Grasp",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 1,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Splintered Grasp",
+       "jutsuId": "dg-splintered-grasp",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 15,
+      "note": "Bilge Spit",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Bilge Spit",
+       "jutsuId": "dg-bilge-spit",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 16,
+      "note": "stationary: hold",
+      "conditions": [],
+      "action": {
+       "type": "end_turn",
+       "description": "stationary: hold"
+      }
+     }
+    ],
+    "signatureRules": [
+     1,
+     9
+    ],
+    "scaleEditedAiNotes": [
+     "new enemy cloned from Core Horror",
+     "override level 100 -> 50 via scaleEditedAi (HP 12625 -> 6375, offence 1391299.95 -> 265466.65)",
+     "override aiEdit {\"poolsMultiplier\":5,\"statsMultiplier\":1} via scaleEditedAi",
+     "kit -> 13 jutsu"
+    ],
+    "insertAiSchemaCheck": "ok"
+   },
+   {
+    "harnessId": "dg-the-captain-l50",
+    "copyOf": {
+     "liveAi": "The Captain",
+     "liveAiId": "QY69h271Nx9uHrBeR6jwW"
+    },
+    "username": "The Captain",
+    "level": 50,
+    "rank": "JONIN",
+    "statsMultiplier": 1,
+    "poolsMultiplier": 3,
+    "pools": {
+     "maxHealth": 7650,
+     "maxChakra": 7650,
+     "maxStamina": 7650
+    },
+    "stats": {
+     "offence": 53093.33,
+     "defence": 53093.33,
+     "strength": 53093.33,
+     "intelligence": 53093.33,
+     "willpower": 53093.33,
+     "speed": 53093.33
+    },
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Increased damage taken"
+     }
+    ],
+    "jutsu": [
+     {
+      "id": "dg-hold-the-line",
+      "name": "Hold the Line",
+      "new": true
+     },
+     {
+      "id": "dg-last-stand-at-the-helm",
+      "name": "Last Stand at the Helm",
+      "new": true
+     },
+     {
+      "id": "dg-broadside2-c",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-broadside2-b",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-broadside2-a",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-broadside-c",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-broadside-b",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-broadside-a",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-ships-bell",
+      "name": "Ship's Bell",
+      "new": true
+     },
+     {
+      "id": "dg-broadside2-mark-a",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-broadside2-mark-b",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-broadside2-mark-c",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-ships-bell-mark",
+      "name": "Ship's Bell",
+      "new": true
+     },
+     {
+      "id": "dg-broadside-mark-a",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-broadside-mark-b",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-broadside-mark-c",
+      "name": "Broadside",
+      "new": true
+     },
+     {
+      "id": "dg-final-command",
+      "name": "Final Command",
+      "new": true
+     },
+     {
+      "id": "dg-captain-keelbind",
+      "name": "Keelbind",
+      "new": true
+     },
+     {
+      "id": "dg-captain-secondwind",
+      "name": "Second Wind",
+      "new": true
+     }
+    ],
+    "includeDefaultRules": false,
+    "rules": [
+     {
+      "index": 0,
+      "note": "Hold the Line (opener, once)",
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Hold the Line (opener, once)",
+       "jutsuId": "dg-hold-the-line",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 1,
+      "note": "Last Stand at the Helm (under 50%, once)",
+      "conditions": [
+       {
+        "type": "health_below",
+        "description": "",
+        "value": 50
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Last Stand at the Helm (under 50%, once)",
+       "jutsuId": "dg-last-stand-at-the-helm",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 2,
+      "note": "Broadside C (3 rows) fires",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 60
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside C (3 rows) fires",
+       "jutsuId": "dg-broadside2-c",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 3,
+      "note": "Broadside B (3 rows) fires",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 50
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside B (3 rows) fires",
+       "jutsuId": "dg-broadside2-b",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 4,
+      "note": "Broadside A (3 rows) fires",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 40
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside A (3 rows) fires",
+       "jutsuId": "dg-broadside2-a",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 5,
+      "note": "Broadside C fires",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 30
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside C fires",
+       "jutsuId": "dg-broadside-c",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 6,
+      "note": "Broadside B fires",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 20
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside B fires",
+       "jutsuId": "dg-broadside-b",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 7,
+      "note": "Broadside A fires",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 10
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside A fires",
+       "jutsuId": "dg-broadside-a",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 8,
+      "note": "Ship's Bell tolls",
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "increasecooldown",
+        "threshold": 1
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Ship's Bell tolls",
+       "jutsuId": "dg-ships-bell",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 9,
+      "note": "Broadside A mark (phase 2, 3 rows)",
+      "conditions": [
+       {
+        "type": "health_below",
+        "description": "",
+        "value": 50
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside A mark (phase 2, 3 rows)",
+       "jutsuId": "dg-broadside2-mark-a",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 10,
+      "note": "Broadside B mark (phase 2, 3 rows)",
+      "conditions": [
+       {
+        "type": "health_below",
+        "description": "",
+        "value": 50
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside B mark (phase 2, 3 rows)",
+       "jutsuId": "dg-broadside2-mark-b",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 11,
+      "note": "Broadside C mark (phase 2, 3 rows)",
+      "conditions": [
+       {
+        "type": "health_below",
+        "description": "",
+        "value": 50
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside C mark (phase 2, 3 rows)",
+       "jutsuId": "dg-broadside2-mark-c",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 12,
+      "note": "Ship's Bell mark (phase 2)",
+      "conditions": [
+       {
+        "type": "health_below",
+        "description": "",
+        "value": 50
+       },
+       {
+        "type": "player_within_range",
+        "description": "",
+        "minRange": 0,
+        "maxRange": 2
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Ship's Bell mark (phase 2)",
+       "jutsuId": "dg-ships-bell-mark",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 13,
+      "note": "Broadside A mark",
+      "conditions": [
+       {
+        "type": "round_greater_than",
+        "description": "",
+        "value": 1
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside A mark",
+       "jutsuId": "dg-broadside-mark-a",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 14,
+      "note": "Broadside B mark",
+      "conditions": [
+       {
+        "type": "round_greater_than",
+        "description": "",
+        "value": 1
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside B mark",
+       "jutsuId": "dg-broadside-mark-b",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 15,
+      "note": "Broadside C mark",
+      "conditions": [
+       {
+        "type": "round_greater_than",
+        "description": "",
+        "value": 1
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Broadside C mark",
+       "jutsuId": "dg-broadside-mark-c",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 16,
+      "note": "Ship's Bell mark",
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "description": "",
+        "minRange": 0,
+        "maxRange": 2
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Ship's Bell mark",
+       "jutsuId": "dg-ships-bell-mark",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 17,
+      "note": "Final Command",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 4,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Final Command",
+       "jutsuId": "dg-final-command",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 18,
+      "note": "Keelbind",
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Keelbind",
+       "jutsuId": "dg-captain-keelbind",
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     },
+     {
+      "index": 19,
+      "note": "Second Wind (under 40%)",
+      "conditions": [
+       {
+        "type": "health_below",
+        "description": "",
+        "value": 40
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Second Wind (under 40%)",
+       "jutsuId": "dg-captain-secondwind",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 20,
+      "note": "patrol: close in",
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "description": "",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "patrol: close in",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "index": 21,
+      "note": "highest-power damage",
+      "conditions": [],
+      "action": {
+       "type": "use_highest_power_action",
+       "description": "highest-power damage",
+       "target": "CLOSEST_OPPONENT",
+       "effect": "damage"
+      }
+     }
+    ],
+    "signatureRules": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     13,
+     14,
+     15
+    ],
+    "scaleEditedAiNotes": [
+     "new enemy cloned from The Captain",
+     "override level 100 -> 50 via scaleEditedAi (HP 12625 -> 6375, offence 1391300 -> 265466.65)",
+     "override aiEdit {\"poolsMultiplier\":3,\"statsMultiplier\":1} via scaleEditedAi",
+     "kit -> 19 jutsu"
+    ],
+    "insertAiSchemaCheck": "ok"
+   }
+  ],
+  "newJutsu": [
+   {
+    "harnessId": "dg-chain-hook",
+    "liveRecord": null,
+    "record": {
+     "name": "Chain Hook",
+     "description": "A weighted chain hooks a target, drags them in and pins them.",
+     "battleDescription": "%user hurls a weighted chain and drags %target across the deck.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "OTHER_USER",
+     "method": "SINGLE",
+     "range": 5,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 3,
+     "actionCostPerc": 60,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "chain-hook-hit",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 45,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+       "disappearAnimation": "",
+       "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 3,
+       "powerPerLevel": 0,
+       "direction": "pull",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "redirection",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "moveprevent",
+       "description": "placeholder"
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "chain-hook-hit"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-oath-of-stillness",
+    "liveRecord": null,
+    "record": {
+     "name": "Oath of Stillness",
+     "description": "A binding oath that slows the target's footwork.",
+     "battleDescription": "%user speaks the oath; %target's footing turns to stone.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "OTHER_USER",
+     "method": "SINGLE",
+     "range": 5,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 4,
+     "actionCostPerc": 60,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 35,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 2,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": [
+        "move",
+        "replacementTechnique"
+       ]
+      }
+     ]
+    },
+    "animationPlaceholders": [],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-chart-mark",
+    "liveRecord": null,
+    "record": {
+     "name": "Chart Mark",
+     "description": "Marks a target on the chart; the crew converge on it.",
+     "battleDescription": "%user marks %target on the chart. \"There.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "OTHER_USER",
+     "method": "SINGLE",
+     "range": 5,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 4,
+     "actionCostPerc": 40,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "mark-sigil",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 2,
+       "power": 40,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagetaken",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 2,
+       "power": 5,
+       "powerPerLevel": 0,
+       "direction": "defence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "poolsAffected": [],
+       "type": "increasepoolcost",
+       "description": "placeholder"
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "mark-sigil"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-skyglass-aegis",
+    "liveRecord": null,
+    "record": {
+     "name": "Skyglass Aegis",
+     "description": "A pane of skyglass forms around an ally.",
+     "battleDescription": "%user raises a pane of skyglass around %target.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "ALLY",
+     "method": "SINGLE",
+     "range": 4,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 4,
+     "actionCostPerc": 40,
+     "healthCost": 0,
+     "chakraCost": 200,
+     "staminaCost": 200,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJCTKvgX26OYrIJuNP1pvSyz29edFtKbngjRcA",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "skyglass-pane",
+       "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+       "disappearAnimation": "",
+       "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+       "disappearSfx": "",
+       "rounds": 2,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "FRIENDLY",
+       "calculation": "static",
+       "type": "shield",
+       "description": "placeholder",
+       "health": 1500
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+       "disappearAnimation": "",
+       "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+       "disappearSfx": "",
+       "rounds": 2,
+       "power": 20,
+       "powerPerLevel": 0,
+       "direction": "defence",
+       "target": "INHERIT",
+       "friendlyFire": "FRIENDLY",
+       "calculation": "percentage",
+       "type": "absorb",
+       "description": " placeholder",
+       "poolsAffected": [
+        "Health"
+       ]
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "skyglass-pane"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-warden-resolve",
+    "liveRecord": null,
+    "record": {
+     "name": "Warden's Resolve",
+     "description": "Shared pool record EA03. Balance values pending sign-off.",
+     "battleDescription": "%user sets his feet on the deck.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "SELF",
+     "method": "SINGLE",
+     "range": 0,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 99,
+     "actionCostPerc": 40,
+     "healthCost": 0,
+     "chakraCost": 0,
+     "staminaCost": 0,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+       "disappearAnimation": "",
+       "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+       "disappearSfx": "",
+       "rounds": 2,
+       "power": 20,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "placeholder"
+      }
+     ]
+    },
+    "animationPlaceholders": [],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-splintered-grasp",
+    "liveRecord": null,
+    "record": {
+     "name": "Splintered Grasp",
+     "description": "Heavy melee and a bleeding wound.",
+     "battleDescription": "Timber and rope lash out from the mass.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "OTHER_USER",
+     "method": "SINGLE",
+     "range": 1,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 1,
+     "actionCostPerc": 60,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "ch_claw",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 2,
+       "power": 30,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "wound",
+       "description": "placeholder"
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "ch_claw"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-bilge-spit",
+    "liveRecord": null,
+    "record": {
+     "name": "Bilge Spit",
+     "description": "Range 5 (design: 4; widened so he always has a reply at range): damage and a poison.",
+     "battleDescription": "A glob of black bilge arcs across the hold.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "OTHER_USER",
+     "method": "SINGLE",
+     "range": 5,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 1,
+     "actionCostPerc": 60,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "ch_bile_spit",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 70,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 2,
+       "power": 20,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "poolsAffected": [
+        "Health",
+        "Chakra",
+        "Stamina"
+       ],
+       "type": "poison",
+       "description": "placeholder"
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "ch_bile_spit"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-collapse-mark",
+    "liveRecord": null,
+    "record": {
+     "name": "Collapse",
+     "description": "Telegraph: Collapse.",
+     "battleDescription": "The planks around it groan and split.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "AOE_SPIRAL_SHOOT",
+     "range": 2,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 4,
+     "actionCostPerc": 60,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_heavy",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 1,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_heavy"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-collapse",
+    "liveRecord": null,
+    "record": {
+     "name": "Collapse",
+     "description": "The deck caves in around him.",
+     "battleDescription": "The deck caves in.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "AOE_SPIRAL_SHOOT",
+     "range": 2,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "ch_collapse",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 160,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 1,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increaserange",
+       "description": "placeholder",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "ch_collapse"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-rupture-mark-a",
+    "liveRecord": null,
+    "record": {
+     "name": "Rupture Field",
+     "description": "Telegraph: Rupture Field.",
+     "battleDescription": "Rot swells under the floorboards.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 9
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 5
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 8
+       },
+       {
+        "longitude": 4,
+        "latitude": 1
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 7
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 7
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 0
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 9
+       },
+       {
+        "longitude": 8,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 8
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 8
+       },
+       {
+        "longitude": 10,
+        "latitude": 1
+       },
+       {
+        "longitude": 10,
+        "latitude": 4
+       },
+       {
+        "longitude": 10,
+        "latitude": 7
+       },
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 7
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 9,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_heavy",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 10,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_heavy"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-rupture-mark-b",
+    "liveRecord": null,
+    "record": {
+     "name": "Rupture Field",
+     "description": "Telegraph: Rupture Field.",
+     "battleDescription": "Rot swells under the floorboards.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 0,
+        "latitude": 7
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 9
+       },
+       {
+        "longitude": 4,
+        "latitude": 2
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 8
+       },
+       {
+        "longitude": 5,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 8
+       },
+       {
+        "longitude": 6,
+        "latitude": 1
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 7
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 7
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 9
+       },
+       {
+        "longitude": 9,
+        "latitude": 0
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 9
+       },
+       {
+        "longitude": 10,
+        "latitude": 2
+       },
+       {
+        "longitude": 10,
+        "latitude": 5
+       },
+       {
+        "longitude": 10,
+        "latitude": 8
+       },
+       {
+        "longitude": 11,
+        "latitude": 2
+       },
+       {
+        "longitude": 11,
+        "latitude": 5
+       },
+       {
+        "longitude": 11,
+        "latitude": 8
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 9,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_heavy",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 20,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_heavy"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-rupture-mark-c",
+    "liveRecord": null,
+    "record": {
+     "name": "Rupture Field",
+     "description": "Telegraph: Rupture Field.",
+     "battleDescription": "Rot swells under the floorboards.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 5
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 5
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 7
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 9
+       },
+       {
+        "longitude": 5,
+        "latitude": 0
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 9
+       },
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 8
+       },
+       {
+        "longitude": 7,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 8
+       },
+       {
+        "longitude": 8,
+        "latitude": 1
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 7
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 10,
+        "latitude": 0
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 9
+       },
+       {
+        "longitude": 11,
+        "latitude": 0
+       },
+       {
+        "longitude": 11,
+        "latitude": 3
+       },
+       {
+        "longitude": 11,
+        "latitude": 6
+       },
+       {
+        "longitude": 11,
+        "latitude": 9
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 9,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_heavy",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 30,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_heavy"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-rupture-a",
+    "liveRecord": null,
+    "record": {
+     "name": "Rupture Field",
+     "description": "The rot erupts.",
+     "battleDescription": "The rot erupts through the floor.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 9
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 5
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 8
+       },
+       {
+        "longitude": 4,
+        "latitude": 1
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 7
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 7
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 0
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 9
+       },
+       {
+        "longitude": 8,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 8
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 8
+       },
+       {
+        "longitude": 10,
+        "latitude": 1
+       },
+       {
+        "longitude": 10,
+        "latitude": 4
+       },
+       {
+        "longitude": 10,
+        "latitude": 7
+       },
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 7
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "ch_rupture",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 140,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 1,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increaserange",
+       "description": "placeholder",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "ch_rupture"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-rupture-b",
+    "liveRecord": null,
+    "record": {
+     "name": "Rupture Field",
+     "description": "The rot erupts.",
+     "battleDescription": "The rot erupts through the floor.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 0,
+        "latitude": 7
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 9
+       },
+       {
+        "longitude": 4,
+        "latitude": 2
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 8
+       },
+       {
+        "longitude": 5,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 8
+       },
+       {
+        "longitude": 6,
+        "latitude": 1
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 7
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 7
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 9
+       },
+       {
+        "longitude": 9,
+        "latitude": 0
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 9
+       },
+       {
+        "longitude": 10,
+        "latitude": 2
+       },
+       {
+        "longitude": 10,
+        "latitude": 5
+       },
+       {
+        "longitude": 10,
+        "latitude": 8
+       },
+       {
+        "longitude": 11,
+        "latitude": 2
+       },
+       {
+        "longitude": 11,
+        "latitude": 5
+       },
+       {
+        "longitude": 11,
+        "latitude": 8
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "ch_rupture",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 140,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 1,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increaserange",
+       "description": "placeholder",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "ch_rupture"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-rupture-c",
+    "liveRecord": null,
+    "record": {
+     "name": "Rupture Field",
+     "description": "The rot erupts.",
+     "battleDescription": "The rot erupts through the floor.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 5
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 5
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 7
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 9
+       },
+       {
+        "longitude": 5,
+        "latitude": 0
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 9
+       },
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 8
+       },
+       {
+        "longitude": 7,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 8
+       },
+       {
+        "longitude": 8,
+        "latitude": 1
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 7
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 10,
+        "latitude": 0
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 9
+       },
+       {
+        "longitude": 11,
+        "latitude": 0
+       },
+       {
+        "longitude": 11,
+        "latitude": 3
+       },
+       {
+        "longitude": 11,
+        "latitude": 6
+       },
+       {
+        "longitude": 11,
+        "latitude": 9
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "ch_rupture",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 140,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 1,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increaserange",
+       "description": "placeholder",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "ch_rupture"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-maw-mark-1",
+    "liveRecord": null,
+    "record": {
+     "name": "Maw of the Deep",
+     "description": "Telegraph: Maw of the Deep.",
+     "battleDescription": "The water in the hold goes still. Three points of skyglass light remain.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "EXCLUDE",
+      "coordinates": [
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 8
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 99,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_heavy",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_safe",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "COORDINATES",
+       "coordinateTargeting": {
+        "origin": "BATTLEFIELD",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "longitude": 6,
+          "latitude": 2
+         },
+         {
+          "longitude": 5,
+          "latitude": 5
+         },
+         {
+          "longitude": 6,
+          "latitude": 8
+         }
+        ],
+        "randomCount": 1
+       },
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 50,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_heavy",
+     "tg_safe"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-maw-1",
+    "liveRecord": null,
+    "record": {
+     "name": "Maw of the Deep",
+     "description": "Black water and teeth rise everywhere but the stars; then the seam splits open (Exposed Seam: x3 damage taken for 1 round).",
+     "battleDescription": "Black water and teeth rise from every plank. The mass splits open along a glowing seam.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "EXCLUDE",
+      "coordinates": [
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 8
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "ch_maw",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 200,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "static",
+       "type": "stun",
+       "description": "placeholder",
+       "apReduction": 60
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "ch_exposed",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "weakness",
+       "items": [],
+       "jutsus": [],
+       "elements": [],
+       "statTypes": [
+        "None",
+        "Ninjutsu",
+        "Genjutsu",
+        "Taijutsu",
+        "Bukijutsu"
+       ],
+       "generalTypes": [
+        "Highest",
+        "Strength",
+        "Intelligence",
+        "Willpower",
+        "Speed"
+       ],
+       "description": "placeholder",
+       "dmgModifier": 3
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 1,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increaserange",
+       "description": "placeholder",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "ch_maw",
+     "ch_exposed"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-core-rebuilds",
+    "liveRecord": null,
+    "record": {
+     "name": "The Core Rebuilds",
+     "description": "Under 50%: heals once and enrages.",
+     "battleDescription": "Skyglass light floods the mass. It knits itself back together, wrong.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "SELF",
+     "method": "SINGLE",
+     "range": 0,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 99,
+     "actionCostPerc": 60,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "I9aYhT5wMB",
+       "disappearAnimation": "",
+       "appearSfx": "4iG_WpgEmPGUzHn8z129r",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 20,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "friendlyFire": "FRIENDLY",
+       "calculation": "percentage",
+       "poolsAffected": [
+        "Health"
+       ],
+       "type": "heal",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "ch_enrage",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 99,
+       "power": 50,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "placeholder"
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "ch_enrage"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-hold-the-line",
+    "liveRecord": null,
+    "record": {
+     "name": "Hold the Line",
+     "description": "An enduring command imprint sharpens offensive technique and lends greater force to attacks.",
+     "battleDescription": "%user plants his blade on the deck. \"Hold the line.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "SELF",
+     "method": "SINGLE",
+     "range": 0,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 99,
+     "actionCostPerc": 40,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJF8O3AyG2iOewJtjGzvNcmEX3TBnoSfMDZPH4",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 99,
+       "power": 80,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 99,
+       "power": 30,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "statTypes": [
+        "None"
+       ],
+       "type": "increasestat",
+       "description": "placeholder"
+      }
+     ]
+    },
+    "animationPlaceholders": [],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-last-stand-at-the-helm",
+    "liveRecord": null,
+    "record": {
+     "name": "Last Stand at the Helm",
+     "description": "Heightened strength of body and mind.",
+     "battleDescription": "\"I have held this deck through worse than you.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "SELF",
+     "method": "SINGLE",
+     "range": 0,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 99,
+     "actionCostPerc": 40,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 2,
+       "power": 25,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "statTypes": [
+        "None"
+       ],
+       "type": "increasestat",
+       "description": "Increase stats of target"
+      }
+     ]
+    },
+    "animationPlaceholders": [],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-final-command",
+    "liveRecord": null,
+    "record": {
+     "name": "Final Command",
+     "description": "A crushing command strike disrupts the target's actions and attempts to suppress their bloodline effects.",
+     "battleDescription": "\"Stand down.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "OTHER_USER",
+     "method": "SINGLE",
+     "range": 4,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 6,
+     "actionCostPerc": 60,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 70,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 3,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "stun",
+       "description": "Stuns the target",
+       "apReduction": 60
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 3,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "seal",
+       "description": "Seals the target's bloodline effects"
+      }
+     ]
+    },
+    "animationPlaceholders": [],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-captain-keelbind",
+    "liveRecord": null,
+    "record": {
+     "name": "Keelbind",
+     "description": "Chakra moorings strike and anchor the target while draining health, chakra, and stamina over time.",
+     "battleDescription": "%user lashes %target to the keel.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "OTHER_USER",
+     "method": "SINGLE",
+     "range": 5,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 8,
+     "actionCostPerc": 60,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRMUOms0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 50,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "generalTypes": [
+        "Highest"
+       ],
+       "type": "damage",
+       "description": "placeholder",
+       "residualModifier": 0,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 2,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "moveprevent",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 2,
+       "power": 505,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "poolsAffected": [
+        "Chakra",
+        "Health",
+        "Stamina"
+       ],
+       "type": "drain",
+       "description": "placeholder"
+      }
+     ]
+    },
+    "animationPlaceholders": [],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-captain-secondwind",
+    "liveRecord": null,
+    "record": {
+     "name": "Second Wind",
+     "description": "Shared pool record S35. Balance values pending sign-off.",
+     "battleDescription": "%user draws on a last reserve of chakra deep in the belly and breathes it out through their body. Their wounds begin to close and their footing steadies.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "SELF",
+     "method": "SINGLE",
+     "range": 0,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 6,
+     "actionCostPerc": 40,
+     "healthCost": 0,
+     "chakraCost": 0,
+     "staminaCost": 0,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+       "disappearAnimation": "",
+       "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 15,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "poolsAffected": [
+        "Health"
+       ],
+       "type": "heal",
+       "description": "placeholder"
+      }
+     ]
+    },
+    "animationPlaceholders": [],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-ships-bell-mark",
+    "liveRecord": null,
+    "record": {
+     "name": "Ship's Bell",
+     "description": "Telegraph: Ship's Bell.",
+     "battleDescription": "\"All hands.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "AOE_SPIRAL_SHOOT",
+     "range": 2,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 5,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_control",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 1,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_control"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-ships-bell",
+    "liveRecord": null,
+    "record": {
+     "name": "Ship's Bell",
+     "description": "The great bell tolls: push 3 and a 1-round stun inside the ring.",
+     "battleDescription": "\"All hands.\" The great bell answers.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "AOE_SPIRAL_SHOOT",
+     "range": 2,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "cp_bell_toll",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 50,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+       "disappearAnimation": "",
+       "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 3,
+       "powerPerLevel": 0,
+       "direction": "push",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "redirection",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "static",
+       "type": "stun",
+       "description": "placeholder",
+       "apReduction": 60
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "cp_bell_toll"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside-mark-a",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "Telegraph: Broadside.",
+     "battleDescription": "%user raises a hand. \"Run out the guns.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 5
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 5
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 2
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 10,
+        "latitude": 2
+       },
+       {
+        "longitude": 10,
+        "latitude": 5
+       },
+       {
+        "longitude": 11,
+        "latitude": 2
+       },
+       {
+        "longitude": 11,
+        "latitude": 5
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 9,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_heavy",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 10,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_heavy"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside-mark-b",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "Telegraph: Broadside.",
+     "battleDescription": "%user raises a hand. \"Run out the guns.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 11,
+        "latitude": 3
+       },
+       {
+        "longitude": 11,
+        "latitude": 6
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 9,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_heavy",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 20,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_heavy"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside-mark-c",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "Telegraph: Broadside.",
+     "battleDescription": "%user raises a hand. \"Run out the guns.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 1
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 1
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 1
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 10,
+        "latitude": 1
+       },
+       {
+        "longitude": 10,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 9,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_heavy",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 30,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_heavy"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside2-mark-a",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "Telegraph: Broadside.",
+     "battleDescription": "%user raises a hand. \"Run out the guns.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 0,
+        "latitude": 7
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 7
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 4,
+        "latitude": 1
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 7
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 7
+       },
+       {
+        "longitude": 6,
+        "latitude": 1
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 7
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 7
+       },
+       {
+        "longitude": 8,
+        "latitude": 1
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 7
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 10,
+        "latitude": 1
+       },
+       {
+        "longitude": 10,
+        "latitude": 4
+       },
+       {
+        "longitude": 10,
+        "latitude": 7
+       },
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 7
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 6,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_heavy",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 40,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_heavy"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside2-mark-b",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "Telegraph: Broadside.",
+     "battleDescription": "%user raises a hand. \"Run out the guns.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 5
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 5
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 5
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 8
+       },
+       {
+        "longitude": 4,
+        "latitude": 2
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 8
+       },
+       {
+        "longitude": 5,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 8
+       },
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 8
+       },
+       {
+        "longitude": 7,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 8
+       },
+       {
+        "longitude": 8,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 8
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 8
+       },
+       {
+        "longitude": 10,
+        "latitude": 2
+       },
+       {
+        "longitude": 10,
+        "latitude": 5
+       },
+       {
+        "longitude": 10,
+        "latitude": 8
+       },
+       {
+        "longitude": 11,
+        "latitude": 2
+       },
+       {
+        "longitude": 11,
+        "latitude": 5
+       },
+       {
+        "longitude": 11,
+        "latitude": 8
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 6,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_heavy",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 50,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_heavy"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside2-mark-c",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "Telegraph: Broadside.",
+     "battleDescription": "%user raises a hand. \"Run out the guns.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "GROUND",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 0
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 0
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 0
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 0
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 11,
+        "latitude": 0
+       },
+       {
+        "longitude": 11,
+        "latitude": 3
+       },
+       {
+        "longitude": 11,
+        "latitude": 6
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 6,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "tg_heavy",
+       "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+       "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 2,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "static",
+       "type": "visual",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 60,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increasecooldown",
+       "description": "Increase cooldown of basic actions",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "tg_heavy"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside-a",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "The ship's guns fire down the marked rows.",
+     "battleDescription": "\"Fire.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 5
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 5
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 2
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 10,
+        "latitude": 2
+       },
+       {
+        "longitude": 10,
+        "latitude": 5
+       },
+       {
+        "longitude": 11,
+        "latitude": 2
+       },
+       {
+        "longitude": 11,
+        "latitude": 5
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "cp_broadside",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 110,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 1,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increaserange",
+       "description": "placeholder",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "cp_broadside"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside-b",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "The ship's guns fire down the marked rows.",
+     "battleDescription": "\"Fire.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 11,
+        "latitude": 3
+       },
+       {
+        "longitude": 11,
+        "latitude": 6
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "cp_broadside",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 110,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 1,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increaserange",
+       "description": "placeholder",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "cp_broadside"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside-c",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "The ship's guns fire down the marked rows.",
+     "battleDescription": "\"Fire.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 1
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 1
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 1
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 10,
+        "latitude": 1
+       },
+       {
+        "longitude": 10,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "cp_broadside",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 110,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 1,
+       "power": 1,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "increaserange",
+       "description": "placeholder",
+       "actionsAffected": []
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "cp_broadside"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside2-a",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "The ship's guns fire down the marked rows.",
+     "battleDescription": "\"Fire.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 0,
+        "latitude": 7
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 7
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 4,
+        "latitude": 1
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 7
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 7
+       },
+       {
+        "longitude": 6,
+        "latitude": 1
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 7
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 7
+       },
+       {
+        "longitude": 8,
+        "latitude": 1
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 7
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 10,
+        "latitude": 1
+       },
+       {
+        "longitude": 10,
+        "latitude": 4
+       },
+       {
+        "longitude": 10,
+        "latitude": 7
+       },
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 7
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "cp_broadside",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 110,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "cp_broadside"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside2-b",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "The ship's guns fire down the marked rows.",
+     "battleDescription": "\"Fire.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 5
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 5
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 5
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 8
+       },
+       {
+        "longitude": 4,
+        "latitude": 2
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 8
+       },
+       {
+        "longitude": 5,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 8
+       },
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 8
+       },
+       {
+        "longitude": 7,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 8
+       },
+       {
+        "longitude": 8,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 8
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 8
+       },
+       {
+        "longitude": 10,
+        "latitude": 2
+       },
+       {
+        "longitude": 10,
+        "latitude": 5
+       },
+       {
+        "longitude": 10,
+        "latitude": 8
+       },
+       {
+        "longitude": 11,
+        "latitude": 2
+       },
+       {
+        "longitude": 11,
+        "latitude": 5
+       },
+       {
+        "longitude": 11,
+        "latitude": 8
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "cp_broadside",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 110,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "cp_broadside"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "dg-broadside2-c",
+    "liveRecord": null,
+    "record": {
+     "name": "Broadside",
+     "description": "The ship's guns fire down the marked rows.",
+     "battleDescription": "\"Fire.\"",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "CHARACTER",
+     "method": "COORDINATES",
+     "range": 0,
+     "coordinateTargeting": {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 0
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 0
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 0
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 0
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 11,
+        "latitude": 0
+       },
+       {
+        "longitude": 11,
+        "latitude": 3
+       },
+       {
+        "longitude": 11,
+        "latitude": 6
+       }
+      ],
+      "randomCount": 1
+     },
+     "methodSize": null,
+     "cooldown": 2,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+     "effects": [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "cp_broadside",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 0,
+       "power": 110,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "friendlyFire": "ENEMIES",
+       "calculation": "formula",
+       "statTypes": [
+        "None"
+       ],
+       "type": "damage",
+       "description": "Deals damage to target",
+       "residualModifier": 1,
+       "dmgModifier": 1,
+       "allowBloodlineDamageIncrease": true,
+       "allowBloodlineDamageDecrease": true
+      }
+     ]
+    },
+    "animationPlaceholders": [
+     "cp_broadside"
+    ],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   },
+   {
+    "harnessId": "nCQETf-HNnbRec1OSY2-R",
+    "liveRecord": "existing live record nCQETf-HNnbRec1OSY2-R (referenced as-is; already edited by push/316-317)",
+    "record": {
+     "name": "Core Rupture",
+     "description": "A containment seal ruptures, destroying the casting device in a piercing chakra blast that staggers nearby enemies.",
+     "battleDescription": "%user's containment seal splits, consuming the device in a piercing chakra blast that tears through the surrounding battlefield.",
+     "jutsuType": "AI",
+     "jutsuRank": "D",
+     "requiredRank": "STUDENT",
+     "requiredLevel": 1,
+     "jutsuWeapon": "NONE",
+     "target": "OTHER_USER",
+     "method": "AOE_CIRCLE_SPAWN",
+     "range": 5,
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "cooldown": 3,
+     "actionCostPerc": 100,
+     "healthCost": 0,
+     "chakraCost": 0.05,
+     "staminaCost": 0.05,
+     "healthCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "staminaCostReducePerLvl": 0,
+     "battleUsageType": "BOTH",
+     "elementClassification": "None",
+     "statClassification": "None",
+     "hidden": true,
+     "extraBaseCost": 0,
+     "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJpNJEpDbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D",
+     "effects": [
+      {
+       "allowBloodlineDamageDecrease": true,
+       "allowBloodlineDamageIncrease": true,
+       "appearAnimation": "dBatQkc1Ts2ask5ZN-A3p",
+       "appearSfx": "",
+       "calculation": "formula",
+       "description": "placeholder",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "dmgModifier": 2,
+       "friendlyFire": "ENEMIES",
+       "generalTypes": [
+        "Highest"
+       ],
+       "power": 180,
+       "powerPerLevel": 0,
+       "residualModifier": 0,
+       "rounds": 0,
+       "statTypes": [
+        "None"
+       ],
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "pierce"
+      },
+      {
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "static",
+       "description": "placeholder",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "friendlyFire": "FRIENDLY",
+       "power": 100,
+       "powerPerLevel": 0,
+       "rounds": 0,
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "SELF",
+       "type": "onehitkill"
+      },
+      {
+       "apReduction": 60,
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "static",
+       "description": "placeholder",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "friendlyFire": "ENEMIES",
+       "power": 100,
+       "powerPerLevel": 0,
+       "rounds": 2,
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "stun"
+      }
+     ]
+    },
+    "animationPlaceholders": [],
+    "image": "placeholder: copied from the shape donor; art pass to replace",
+    "validator": "JutsuValidator: ok"
+   }
+  ]
  }
 }
