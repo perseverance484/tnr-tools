@@ -76,6 +76,83 @@ The Sealwright's doubled health (push/252) applies to the Archive's final fight 
 
 **Shelved:** Armory Requisition and its Special quest (icon kept in `art/skyglass_event_icons/` unused); Lion Token as a Wreck drop.
 
+## 5. Charts: the map system (RUL-2026-10-28-009)
+
+PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated high-stakes run.
+
+**Every chart run**
+- The chart is an entry item, spent when the run starts.
+- Losing any fight fails the run (`failObjectiveId`).
+- Health and chakra carry between fights; there are no refills.
+- Rewards bank at each fight. At the last landing the player picks: leave with what they hold, or press on into a final room whose reward is lost on a fall.
+
+**New common charts** (`opponent_scaled_to_user`, so they serve L40 and L100 alike)
+| Chart | Run | Shape |
+|---|---|---|
+| Tide Chart | The Low Tide Run | the tide opens a breach in the lower hull; 3 quick fights against scaled crew, with the Sentinel's Tide Line set piece |
+| Watch Roster | The Night Watch | your name on the duty roster; hold the post through 3 waves back to back. The press-on room is the Second Watch. Ends with you relieving the Deck Warden |
+
+**New rare charts** (drop only from hunts)
+| Chart | Source | Run |
+|---|---|---|
+| Reliquary Seal | Archive | **The Sealed Reliquary**: the echoes the Core could not hold. Foundry Warden, Sealwright and Sentinel back to back, then a last echo. (Named apart from the retired Skyglass Reliquary item, RUL-2026-10-24-024.) |
+| The Last Heading | Watch | **The Fall**: the Wayfinder's final course. The Core replays the night the ship came down: burning decks, then the Core Horror as it breaks |
+
+**Chart ladder** (each run can drop the next chart up)
+| Source | Drops |
+|---|---|
+| Easy Wreck clear | Tide 25% · Roster 15% · Buried Cache 5% |
+| Endgame Wreck clear | Tide 15% · Roster 10% · the §2 table unchanged |
+| Low Tide / Night Watch ending | Buried Cache chart 10% |
+| Buried Cache ending | Foundry chart 15% |
+| Foundry ending | Archive chart 10% |
+| Archive ending | Reliquary Seal 8% |
+| Watch ending | The Last Heading 8% |
+| Sealed Reliquary / The Fall ending | Lastlight Lantern 15% |
+
+**Tainted rares** (rares only). Harder upgrades of their counterpart. Each pays an extra reward roll and twice the trophy rate.
+- **The Rotted Reliquary** (tainted Reliquary Seal)
+  - The echoes fight in pairs: Foundry Warden + Sealwright, then Sentinel + the last echo.
+  - Entry at 70% pools (`givePools`).
+  - Elemental seal on the player for the first 2 rounds of every fight (`applyDebuffs`).
+  - Final room: the Core Horror curled inside the reliquary.
+- **The Burning Heading** (tainted Last Heading)
+  - Runs backwards: it starts at the Core Horror as the ship breaks, then fights out through the decks with no refill.
+  - Afterburn on the player at the start of every fight.
+  - The Captain fights beside the player (`allyAIs`).
+  - The Wayfinder duels at the gangway.
+
+**Getting a tainted chart**
+- **Steeping** (the signature gamble): a short quest at the Core.
+  - Entry: a rare chart plus Core Rot ×3, both spent.
+  - One fight against a Core Horror scaled to the player.
+  - Win: the tainted chart. Lose: both are gone.
+- **Breaking the seal:** an Archive dialogue choice adds an echo fight and guarantees Core Rot ×2.
+- **Pressing on:** the rare runs' final room drops the tainted chart 5%.
+- **Natural:** the Archive and Watch endings drop the tainted chart directly at 1%.
+
+**Core Rot:** a stackable reagent with one job, steeping.
+- 15% from the Core Horror in the Wreck.
+- More common in his runs: 40% in The Fall, the Rotted Reliquary and the Burning Heading.
+
+**Titles** (one each, on the run's ending)
+| Title | Run |
+|---|---|
+| Relief of the Watch | The Night Watch |
+| Who Relieved the Captain | Captain's Watch |
+| Keeper of Echoes | The Sealed Reliquary |
+| Walked Out of the Fire | either tainted rare |
+| Crownbreaker | Crownhold (matches the badge) |
+
+**Trophies** (rare boss drops, 1-2%; effect sketches, with numbers set when the kits are approved)
+- **The Warden's Ladle:** a bukijutsu weapon with fire damage and a short burn. Drops from the Foundry Warden (Foundry, Sealed Reliquary, Rotted Reliquary).
+- **Wayfinder's Compass:** an accessory with a flee bonus; its needle never settles ("Still no home port"). Drops from the Wayfinder (Watch, Burning Heading).
+
+**New art**
+- 2 trophy icons and 4 chart icons.
+- 2 tainted chart recolours.
+- 1 Core Rot icon.
+
 ## 6. To check before the manifests
 
 - Shop items sit in a cache's Common tier; Dr. Kim's Miracle Potion is the one exception, in Rare. Pill Pack, Small Health Pill, Stamina Pill II, Paper Bombs, Saki, Senbon Needles, Smoke Pellet, Venom Cask, Whetstone Oil, Solider Pill and Mona's Mermaid Song have no capture with a shop flag yet; confirm each before the manifest.
