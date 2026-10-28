@@ -3685,3 +3685,27 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "The items are all crafted by a profession mostly, they can stay in. They are finished products all ninja use which is fine. I like your split of the chests, except Skyglass Serum should be the live version of Dead Man's Draught. Thinking you may need a fresh capture of all items for this. Leave the old elemental kunai out, they are being replaced by the one size fits all elemental kunai".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3a, §4a.
+
+## RUL-2026-10-28-019 — Profession materials return; tainted pick 2 only; review decisions
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / rewards and encounters
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Profession materials return through the hunts.** Hunt fights and endings carry hunter and gathering material drops that only that profession receives, rolled from the player's own rank. Each area gets a themed item list. Yield is tuned below regular hunting/gathering but still rewarding. Details in loot tables §4b.
+2. **The easy Wreck keeps its higher common-chart rates (Tide 25%, Roster 15%).** The endgame Wreck drops the hunt and rare-tier charts, and the easy Wreck should give a chart without needing four repeats.
+3. **Tainted runs keep pick 2 and lose the guaranteed Treasury and Echo Jar.** The second pick is the appeal.
+4. **The Watch keeps its disarm term.** Almost every build uses a weapon.
+5. **A failed rare-chart run pays 1 Core Rot as consolation.**
+
+**Evidence:** Director, 2026-10-28:
+- "1. Doesnt the endgame wreck drop more rare+ charts though? I wanted the easy wreck to drop more commons so players still get decent drop rates from it and dont have to repeat it 4x before getting a chart."
+- "2. Just removed the guaranteed drops from the tainted maps. Getting the 2nd roll is the appeal."
+- "3. Almost every build uses a weapon, keep it."
+- "4. Fine, approved."
+- "Profession fix is approved, drops need to be tuned to be less than regular hunting/gathering but still rewarding and themed to each area."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4a, §4b.

@@ -113,10 +113,20 @@ The Sealwright's doubled health (push/252) applies to the Archive's final fight 
 | Captain's Watch | Skyglass Coffer / Captain's Purse / Echo Jar *(Inro ×3 cut)* |
 | Sealed Reliquary | Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Archive Chart Case ×2 |
 | The Fall | Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Galley Stores ×3 *(Captain's Purse cut)* |
-| Tainted runs | **pick 2** from their rare's options, plus a guaranteed Sealed Treasury and Echo Jar, Lantern 30% and Core Rot 40% |
+| Tainted runs | **pick 2** from their rare's options; Lantern 30% and Core Rot 40%. No guaranteed drops: the second pick is the appeal (RUL-2026-10-28-019) |
 | Crownhold | Crown's Hoard / Skyglass Coffer ×2 / Crownhold badge / Crownhold jutsu / Crown Fragment *(Crownhold's Honor and Echo Jar ×2 cut, RUL-2026-10-28-017)* |
 
 The rares double the Watch's Coffer and Jar, so each rung pays more than the one below it.
+
+## 4b. Profession materials in the hunts (RUL-2026-10-28-019)
+
+- **What:** hunt fights and endings carry `reward_hunter_items` and `reward_gathering_items` (theninjarpg `routers/quests.ts` ~2218, `libs/hunting.ts` `getHuntingItemDrops`).
+- **Who gets them:** only a HUNTER-occupation player receives hunter materials, and only a GATHERING player receives gathering materials. Each drop is rolled from the player's own rank chances. Everyone else gets nothing, so materials still enter the market only through the professions.
+- **Themed per area:** each hunt restricts the drop to a short id list (`reward_*_items_ids`), for example ores and metals at the Foundry, roots and herbs at the Buried Cache. The lists are drawn from the push/323 capture.
+- **Tuned below regular hunting/gathering but still rewarding:**
+  - yield per minute stays under the live profession quests (baseline: the profession-gated Ghost Ship Gather 6Ri-W5TtUrEMWpyYlnf_F and Hunt HckXVOf-qk6ESU9t5rxLh);
+  - levers are which fights carry a roll and how long the themed list is.
+- **Not in the Wreck:** dungeon rewards don't support these fields. Hunting and gathering exp go on hunt endings.
 
 ## 5. Charts: the map system (RUL-2026-10-28-009)
 
