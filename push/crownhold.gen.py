@@ -160,7 +160,6 @@ SCENE = {  # placeholders from the Skyglass set until Crownhold's six scenes are
 ITEM = {"lantern": "jCJv4N3JSiihuqnK0jJ7t", "coffer": "THo7rfzP-S82_43aN8fs3", "treasury": "Ma8S90Nmbi0Xvm4u4FzJh"}
 LASTLIGHT_JUTSU = "0F-68bxOXW_LkJnXV0lwT"
 CROWN_FRAGMENT = "ayiRmSjWs05lMPyL3G-1d"  # Fragment of the Skyglass Crown
-HONOR_TOKENS = 1000  # Crownhold's Honor: PROPOSAL, the director sets the amount (RUL-2026-10-25-002)
 # Director 2026-10-26 (RUL-2026-10-26-003): short ninja-world names. USERNAME = the live AI name (a "Crown " prefix on
 # the one-word titles, because usernames are unique across all users, players included: engine law 66). PROSE = how the
 # quest text names them (no prefix). Replicant Zero and Supreme Commander Arakane keep their names.
@@ -485,7 +484,7 @@ def quest():
     out.append({"id": FAIL_ID, "task": "fail_quest", "description": FAIL_TEXT, "sceneBackground": SCENE[2], "sceneCharacters": []})
     # RUL-2026-10-28-003: a guaranteed pick of one Fragment of the Skyglass Crown for players farming it
     reward = {"reward_items": [{"ids": [ITEM["coffer"]], "number": 100, "quantity": 2},
-                               {"ids": [CROWN_FRAGMENT], "number": 100, "quantity": 1}], "reward_tokens": HONOR_TOKENS,
+                               {"ids": [CROWN_FRAGMENT], "number": 100, "quantity": 1}],  # Honor cut: RUL-2026-10-28-017
               "reward_jutsus": [LASTLIGHT_JUTSU]}
     if "badge:crownbreaker" in IDS: reward["reward_badges"] = [IDS["badge:crownbreaker"]]
     return {"entity": "quest", "slot": "create", "srcId": "crownhold", "name": "Crownhold", "data": {
