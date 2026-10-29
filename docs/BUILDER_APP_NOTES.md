@@ -925,6 +925,18 @@ The game's staff-authored `dungeon` entity is a tenth manifest entity (brief `st
 - **Lost create.** No idempotency key: a lost `petSpecies.create` is ORPHANED with each new row's `matches` against the plan, and only the operator's adopt binds one (read back, never re-sent).
 - **Not mirrored here:** the pet AI action/effect allowlists on `aiRules` (the server refuses them before writing anything; `validate.py` checks them from 45e).
 
+## Badges and titles (0.11.0, release pending)
+
+`badge` and `title` are the twelfth and thirteenth manifest entities, read at `studie-tech/TheNinjaRPG@2af4b320` (same pin; `fields.json` gains both entities, `nested.json` a `titleEffects` section from `TitleEffectSchema`'s inline members). Rules and citations: `src/runner/catalog.mjs`.
+
+- **Two-phase, like jutsu and items.** `badge.create` / `title.create` take no input and insert a placeholder (`New Badge - <id>`, `New Title - <id>`); `update {id, data}` saves the whole record and Forge fetch-merges over the `fields.json` set. Name lists: `badge.getAllNames` (public) and `title.getAllNames` (public, unarchived titles only). `title.get` is staff-only (protected).
+- **Visibility.** Neither table has a `hidden` column: a create carries `hidden:true` for L13, the pinned-field merge drops it and the read-back diff skips it. A title create must state `archived` explicitly; it is the title's only visibility switch, and an archived title cannot be rewarded (`titleRewards.ts`: quest and item saves refuse it), so lint "TITLE" refuses a manifest that archives a title and rewards it.
+- **Required on create** (else the placeholder's value would stay): badge `name`, `image`, `description`; title `name`, `archived`. A badge description is capped at 500 (the column; the validator allows 512). Badge images go through `@img`/image packs like every other image.
+- **Title effects** are checked against `nested.json` `titleEffects`, never the combat tag table (combat has its own, wider `increasemastery`). With no `titleEffects` section, title effects are refused (fail closed).
+- **Bounds before the create.** zod refuses a bad name, description, image URL or effect only at the update, after the create has minted a placeholder that `badge.getAll` (the public `/manual/badge` page) or `title.getAllNames` lists. `catalog.mjs` therefore checks the validator bounds first: name 1-191 after trim, description (badge 1-500, title at most 512), image an `@img` ref or a URL of at most 191 characters, at most 20 effects, power finite and >= 0, `masteryTypes` 1+ of `MasteryTypes` (mirrored from `constants.ts:413`; the checkout-gated test compares it).
+- **Lost create.** A lost badge or title create is ORPHANED with its candidates (and whether each is still a placeholder), not adopted automatically as jutsu and items are; the operator's adopt continues at the update, and the create is never re-sent.
+- **Captures.** `badge.get` (public) and `title.get` (staff-only, NOT_FOUND for per-player legacy labels) are full-persistence point reads, so a capture manifest can export exact rows, title effects included. The lists stay summary (row count only): `badge.getAllNames` (every badge), `title.getAllNames` (unarchived catalog titles) and `title.getAll` (staff-only, every catalog title including archived; listed like `petSpecies.getAll`, no input). No Forge capture exports list ids; title ids come from the game's `/manual/title` editor links.
+
 ## Not finished
 
 - **Pause during a run** is wired (`Runner.requestPause()`, honoured between items; the Run

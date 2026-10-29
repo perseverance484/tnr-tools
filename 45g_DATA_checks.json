@@ -105,7 +105,9 @@
    "petSpecies": [
     "artDirection",
     "preferredDamageElement"
-   ]
+   ],
+   "badge": [],
+   "title": []
   }
  },
  "cap_100": {
@@ -136,7 +138,9 @@
     "speed"
    ],
    "aiRule": [],
-   "petSpecies": []
+   "petSpecies": [],
+   "badge": [],
+   "title": []
   }
  },
  "null_strip_exempt": {
@@ -148,14 +152,17 @@
     "item": false,
     "bloodline": false,
     "quest": true,
-    "gameAsset": false
+    "gameAsset": false,
+    "badge": false
    },
    "description": {
     "jutsu": false,
     "item": false,
     "bloodline": false,
     "quest": true,
-    "petSpecies": false
+    "petSpecies": false,
+    "badge": false,
+    "title": false
    }
   },
   "_splits_note": "Nullable on some entities and required on others. NEVER exempt these by name; they need entity context.",
@@ -348,6 +355,17 @@
     "isActive",
     "name",
     "rarity"
+   ],
+   "badge": [
+    "description",
+    "image",
+    "name"
+   ],
+   "title": [
+    "archived",
+    "description",
+    "effects",
+    "name"
    ]
   }
  },
@@ -682,7 +700,9 @@
      "SELF",
      "ENEMIES"
     ]
-   }
+   },
+   "badge": {},
+   "title": {}
   }
  },
  "booleans": {
@@ -725,6 +745,10 @@
    "petSpecies": [
     "includeDefaultRules",
     "isActive"
+   ],
+   "badge": [],
+   "title": [
+    "archived"
    ]
   }
  },
@@ -743,7 +767,9 @@
    ],
    "gameAsset": [],
    "aiRule": [],
-   "petSpecies": []
+   "petSpecies": [],
+   "badge": [],
+   "title": []
   }
  },
  "tag_power_max": {

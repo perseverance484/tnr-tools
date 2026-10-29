@@ -1,0 +1,45 @@
+{
+ "_note": "Badge/title builder fixture (forge/test/fixtures/catalog). Not content: never pushed.",
+ "items": [
+  {
+   "entity": "title",
+   "slot": "create",
+   "name": "Fixture Lancer",
+   "srcId": "fx_lancer",
+   "data": {
+    "name": "Fixture Lancer",
+    "description": "A test title used by the title builder fixtures.",
+    "archived": false,
+    "hidden": true,
+    "effects": [
+     {
+      "type": "increasemastery",
+      "power": 1,
+      "masteryTypes": [
+       "Taijutsu",
+       "Bukijutsu"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "entity": "title",
+   "slot": "create",
+   "name": "Fixture Warden",
+   "srcId": "fx_warden",
+   "data": {
+    "name": "Fixture Warden",
+    "description": "",
+    "archived": false,
+    "hidden": true,
+    "effects": [
+     {
+      "type": "increaseregeneration",
+      "power": 2
+     }
+    ]
+   }
+  }
+ ]
+}

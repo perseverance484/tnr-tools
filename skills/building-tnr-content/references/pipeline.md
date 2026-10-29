@@ -265,6 +265,22 @@ Unlike 2.2-2.7 these were read at source (`routers/petSpecies.ts`, `validators/p
 - A PETS jutsu that `isPetJutsuAllowed` refuses is saved by the game and is never equippable: weapon `NONE`, element `None`, not injectable, not PVP-only, not H rank, no bloodline/village/skill/mastery links, `actionCostPerc` 10-100, at least one effect, every effect one of damage/elementaldamage/heal/shield/increase-decrease stat/damage given/damage taken/clear/cleanse/move with no elements. `validate.py` and Forge both refuse it.
 - Pet rewards: `reward_pet_experience` is valid on item `noncombatconsumereward` and on quest rewards; `reward_pets` exists ONLY on the item tag (max 1 per item, `rewardMode` standard, `preventBattleUsage: true`).
 
+### 2.9 Badges and titles (Forge 0.11.0; source-verified at TheNinjaRPG@2af4b320, NOT yet behaviour-proven)
+
+Read at source (`routers/badge.ts`, `routers/title.ts`, `validators/badge.ts`, `validators/title.ts`, `server/utils/titleRewards.ts`), not confirmed by a save. The first badge and title pushes are the behaviour proof.
+
+| Op | Shape |
+|---|---|
+| `badge.create` / `title.create` | no input; inserts a placeholder (`New Badge - <id>` with the default avatar and an empty description; `New Title - <id>`, unarchived, no effects) -> id in `message`. |
+| `badge.update` / `title.update` | `{id, data}`; saves the whole record, so Forge fetch-merges. A badge name another badge holds is refused. |
+| `badge.get` / `title.get` | `{id}`. `title.get` and `title.getAll` are staff-only; `title.getAllNames` lists unarchived titles only. Both point reads accept `persist: "full"` in a capture; the lists give a row count only. |
+
+- Manifest entities `badge` and `title`; ref prefixes `@badge:<srcId>` and `@title:<srcId>`, usable in `reward_badges` / `reward_titles`. Neither table has a `hidden` column: a create carries `hidden: true` like every entity and Forge strips it.
+- Badge: `name`, `image` (an `@img` ref, or a URL of at most 191 characters) and `description` (1-500 characters: the column is narrower than the validator's 512) are all required on a create.
+- Title: `name` and an explicit `archived` are required on a create; `effects` holds at most 20 of `{type: "increasemastery", power >= 0, masteryTypes: [...]}` and `{type: "increaseregeneration", power >= 0}`, strict: no other key. These are NOT the combat `increasemastery` tag.
+- Neither has a hidden state: every badge (placeholder included) is listed on the public `/manual/badge` page from its create, and an unarchived title is listed by the public `title.getAllNames`.
+- `archived` is a title's only visibility switch. Quest and item saves refuse `reward_titles` naming an archived title, so a title a hidden quest rewards must be `archived: false` when that quest is saved. Both gates refuse a manifest that archives a title and rewards it.
+
 ## 3. Rate limit
 
 The limiter is a **rolling cumulative request-count budget**, not per-burst. It drains across repeated sessions and refills over time. Use fewer, larger requests with exponential backoff (the builder does this), and let it refill rather than hammering.

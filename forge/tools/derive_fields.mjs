@@ -19,6 +19,8 @@ const TARGETS = {
   quest:     { file: "app/src/validators/objectives.ts", name: "QuestValidatorRawSchema" },
   gameAsset: { file: "app/src/validators/asset.ts",      name: "gameAssetValidator" },
   petSpecies: { file: "app/src/validators/petSpecies.ts", name: "PetSpeciesValidator" },
+  badge:     { file: "app/src/validators/badge.ts",      name: "BadgeValidator" },
+  title:     { file: "app/src/validators/title.ts",      name: "TitleValidator" },
 };
 
 /** Text between a brace opened just before `from`, and its match. */
