@@ -111,6 +111,8 @@ export class FakeGame {
       if (path === "gameAsset.getAllNames" && input.type) rows = rows.filter((r) => r.type === input.type);
       const name = (r) => (path === "gameAsset.getAllNames" && input.folderPrefix ? `${r.folder ?? ""}/${r[nk]}` : r[nk]);
       result = ok(rows.map((r) => ({ [k]: r[k], [nk]: name(r) })));
+    } else if (path === "item.getItemWithCraftingRequirements") {
+      result = this.itemWithCraftingRequirements(input, ok, err);
     } else if (path === "ai.getAiProfile") {
       const p = this.tables.aiProfile.get(input.id); result = p ? ok(structuredClone(p)) : err("NOT_FOUND", "profile not found", 404);
     } else if (path === "ai.toggleAiProfile") {
@@ -248,5 +250,26 @@ export class FakeClient {
   async call(path, input) { const [r] = await this.batch([{ path, input }]); return r; }
   async batch(calls) { return calls.map((c) => this.game.handle(c.path, c.input)); }
 }
+
+/**
+ * item.getItemWithCraftingRequirements as routers/item.ts:400 answers at TheNinjaRPG@2af4b320:
+ * fetchItemWithCraftingRequirements (item.ts:4094) is item.findFirst({with: {craftingRequirements:
+ * {with: {requirementItem: true}}, requiredBloodline: true}}), and a missing item THROWS NOT_FOUND
+ * ("Item not found") rather than answering null as item.get does. Recipe rows are seeded with
+ * seedCraftingRequirement() and live beside the item table, as the CraftingRequirement table does.
+ */
+FakeGame.prototype.seedCraftingRequirement = function (row) {
+  (this.craftingRequirements ??= []).push(row);
+  return row;
+};
+FakeGame.prototype.itemWithCraftingRequirements = function (input, ok, err) {
+  const row = this.tables.item.get(input?.id);
+  if (!row) return err("NOT_FOUND", "Item not found", 404);
+  const craftingRequirements = (this.craftingRequirements ?? [])
+    .filter((r) => r.craftItemId === row.id)
+    .map((r) => ({ ...structuredClone(r), requirementItem: structuredClone(this.tables.item.get(r.requirementItemId) ?? null) }));
+  const requiredBloodline = row.bloodlineId ? structuredClone(this.tables.bloodline.get(row.bloodlineId) ?? null) : null;
+  return ok({ ...structuredClone(row), craftingRequirements, requiredBloodline });
+};
 
 export { Session, TrpcClient };
