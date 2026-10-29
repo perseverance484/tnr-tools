@@ -96,8 +96,9 @@ alertness, and whether a cut-through hazard is pending.
 ## Balance targets (harness)
 
 - **Values:** chest values on the RUL-2026-10-28-033 basis.
-  - Hunter's Chests: Common ~4.3M, Rare ~6.0M, Epic ~7.4M, Legendary ~11.5M.
-  - Gatherer's Chests: Common ~3.2M, Rare ~4.8M, Epic ~5.2M, Legendary ~10.5M.
+  - Hunter's Chests: Common ~4.2M, Rare ~6.1M, Epic ~6.7M, Legendary ~11.5M.
+  - Gatherer's Chests: Common ~3.2M, Rare ~4.9M, Epic ~5.4M, Legendary ~10.5M.
+  - These are the final tables (`SKYGLASS_PROFESSION_CHESTS.md`, Upgrade tier removed).
   - The old S-rank Ghost Ship endings paid roughly 7-8M a run.
 - **A sensible path** (about 3 steps, 1 locker) clears about 85% of the time and averages the old payout, about 7-8M.
 - **A greedy path** (5 steps, 3+ lockers) clears 30-40% of the time. A clear pays about 2-2.5× the old payout, so its

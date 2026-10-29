@@ -121,6 +121,24 @@ Finished, profession-crafted consumables are allowed: every ninja uses them. Wei
 | Elemental Tool Pouch | throwing | Elemental Kunai (every opening) plus a roll of Paper Bombs → Senbon Needles, Saki → Venom Cask |
 | Quartermaster's Kit (new; the Arsenal Keeper's stores) | utility | Smoke Pellet, Whetstone Oil → Smoke Bomb → Elite Smoke Bomb → Repair Kit |
 
+**Weights and quantities: PROPOSED (2026-10-29), pending director confirmation.**
+- These are the original pre-split tables (RUL-2026-10-24-013, RUL-2026-10-25-012) with their original quantities (RUL-2026-10-28-033).
+- Where the theme list above placed an item in a different tier from the original table, the original placement is kept.
+- One roll each, except the Inro's two.
+- Values are on the RUL-2026-10-28-033 basis.
+
+| Cache | Common | Rare | Epic | Legendary | EV |
+|---|---|---|---|---|---|
+| Medicine Inro (2 rolls) | 70: Field Tonic ×10 / Energy Potion ×10 | 22: Small Health Pill ×10 / Full Potion ×10 | 7: Panacea ×10 | 1: Pill Pack ×5 | ~1.35M |
+| Officer's Pill Case | 70: Chakra Pill ×10 / Stamina Pill ×10 | 22: Chakra Pill II ×10 / Stamina Pill II ×10 | 7: Dr. Kim's Miracle Potion ×10 | 1: Solider Pill ×2 | ~0.9M |
+| Sage's Strongbox | 65: Dr. Kim Disaster Potion ×20 / Chakra Disrupting Needles ×20 | — | 26: Infernum ×10 / Bashōsen ×10 / Dr. Kim's Poison Potion ×10 | 8: Enemy Pill ×2 / Mona's Mermaid Song ×2; Forbidden 1: Forbidden Jutsu Scroll (Nexus / Rebirth) ×1 | ~3.8M |
+| Elemental Tool Pouch (+ Elemental Kunai ×10 always) | 70: Elemental Kunai ×10 / Paper Bombs ×10 / Venom Cask ×10 | 25: Elemental Kunai ×20 / Paper Bombs ×10 | 5: Elemental Kunai ×30 / Senbon Needles ×10 / Saki ×10 | — | ~0.65M |
+| Quartermaster's Kit | 70: Smoke Pellet ×10 / Whetstone Oil ×10 | 22: Smoke Bomb ×10 | 7: Elite Smoke Bomb ×10 | 1: Repair Kit ×10 | ~0.04M |
+
+Open points:
+- Field Tonic, Smoke Pellet and Whetstone Oil have no shop price and no recipe in the capture, so they are valued at 0.
+- The Elemental Kunai is newer than the push/323 capture, so it is also valued at 0.
+
 - **Dead Man's Draught is not used.** Skyglass Serum (Coffer) is its live successor.
 - Placement: §1 and §4a.
 

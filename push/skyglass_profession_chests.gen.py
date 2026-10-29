@@ -8,7 +8,7 @@ for f in glob.glob('harvests/inbox/tnr_results_17932*.json'):
 byid={x['id']:x for x in items.values()}
 recs=[r for r in json.load(open(SP+'recipes.json')).values() if not r.get('hidden') and r.get('craftingRequirements')]
 RAR=['COMMON','RARE','EPIC','LEGENDARY']; LOT={'COMMON':2,'RARE':3,'EPIC':5,'LEGENDARY':10}
-EXCL={'Frostbite Leaf','Heart of Kaeruun','Imperial Gold','Bloodcore Ore','Bloodflower'}
+EXCL={'Frostbite Leaf','Heart of Kaeruun','Seed of False Vitality','Imperial Gold','Bloodcore Ore','Bloodflower'}
 def prof_ok(m,p): return (m['canBeHunted'] if p=='H' else m['canBeGathered'])
 demand=collections.Counter(); kits=collections.defaultdict(list)
 for r in recs:
@@ -41,11 +41,12 @@ def chest(p,rar,target):
         kitlist.setdefault(part,name)
     kit_entries=[tuple((n,q) for n,q in part) for part in kitlist][:12]
     bulk=[((n,6*lot),) for n in staples[:3]]
+    # RUL-2026-10-29-036: no Upgrade tier; its 2% goes back as Staples +1, Recipe kit +1 (Legendary keeps 55/25/12/8).
     tiers=[['Staples',5500,st_entries],['Recipe kit',2500,kit_entries or st_entries],['Bulk',1200,bulk]]
     if i<3:
         up=RAR[i+1]; ups=mats(p,up)[:4]
+        tiers[0][1]+=100; tiers[1][1]+=100
         tiers.append(['Windfall',600,[((n,LOT[up]),) for n in ups]])
-        tiers.append(['Upgrade',200,[(('__chest__'+up,1),)]])
     else:
         heir=[tuple((n,q) for n,q in part) for name,part in kits[(p,rar)] if len(part)>=3][:4] or kit_entries
         tiers.append(['Heirloom',800,[tuple((n,q*2) for n,q in e) for e in heir]])
@@ -71,9 +72,9 @@ for p in 'HG':
     for rar in reversed(RAR):
         tiers,rolls=chest(p,rar,OLD[(p,rar)])
         # scale quantities to target value
-        base=[[t[0],t[1],t[2]] for t in tiers]; lot=LOT[rar]; best=None
+        base=[[t[0],t[1],t[2]] for t in tiers]; lot=LOT[rar]; best=None  # quantities clamped to the engine cap of 100
         for k in range(1,40):
-            tt=[[t[0],t[1],[tuple((n,q if n.startswith('__chest__') else (lambda r: max(1,round(r*k/2)))(q//lot if q>=lot else 1)*lot) for n,q in ent) for ent in t[2]]] for t in base]
+            tt=[[t[0],t[1],[tuple((n,q if n.startswith('__chest__') else min(100//lot*lot,(lambda r: max(1,round(r*k/2)))(q//lot if q>=lot else 1)*lot)) for n,q in ent) for ent in t[2]]] for t in base]
             e=ev(tt,rolls,cv)
             if best is None or abs(e-OLD[(p,rar)])<abs(best[0]-OLD[(p,rar)]): best=(e,tt,k)
         e2,tiers,f=best; cv[rar]=e2
