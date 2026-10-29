@@ -64,3 +64,25 @@ Smallest raise that passes: **raw 451,000 / gzip 108,500** (585 / 195 bytes of h
 
 - No browser, live or session checks; no Forge release; the old builder (`builder_bundle.js`) was not extended.
 - No Crownbreaker badge or Skyglass title manifests, no title/badge capture manifest, no answers/ catalogue for badges or titles.
+
+## Review round 1 (ChatGPT on `778bdda3`; fixed on top of `800f6660`)
+
+| Finding | Fix |
+|---|---|
+| **F1 (P2)** a malformed image URL (`https://[`) or an `@img` upload whose URL exceeds `Badge.image` varchar(191) passed preflight and failed only at `badge.update`, after the placeholder existed | `catalog.mjs`: the image check is now the regex AND a `new URL()` parse (`BadgeValidator.image` is `z.url()`; zod 4.6.7, the `app/bun.lock` version, trims then `URL.canParse`s, so http(s) with no whitespace is a strict subset with an unchanged saved value). `runner.mjs _create`: a badge resolves its `@img` refs (the upload) BEFORE `badge.create`, like the one-step entities, and re-runs the pre-create checks on the resolved data, so the uploaded URL's length is checked before a placeholder exists. Titles have no image/URL field. |
+| **F2 (P2)** the validators trim `name`; a padded name was accepted and read back as drift | Forge and `validate.py` refuse a badge/title `name` with leading/trailing whitespace before any write (create and edit). The other trimmed field is `Badge.image` (`z.url()` trims and strips tab/CR/LF); both sides already refuse any whitespace in a URL. Descriptions and title effects are not trimmed. |
+| **F3 (P3)** `validate.py` required title `description`/`effects` on create (45g); Forge requires `name` + explicit `archived` | `catalog_checks.py` takes required-on-create from a `REQUIRED_ON_CREATE` table equal to Forge's `REQUIRED` (badge `name`/`image`/`description` — unchanged, already equal to 45g; title `name`/`archived`). 45g is left as derived (Title.description/effects have column defaults `""`/`[]`, `drizzle/schema.ts:4713-4714`, and Forge fetch-merges over them). |
+| **F4 (P3)** `validate.py` accepted a nonfinite title effect `power` (`1e309`) | `catalog_checks.py`: `math.isfinite(power) and power >= 0` (TitleEffectSchema `.finite().nonnegative()`); Forge already checked `Number.isFinite`. |
+
+Tests: `forge/test/catalog.test.mjs` (validator cases for malformed URLs and padded names on both entities and on an edit; a runner case where a malformed URL, an over-long uploaded URL and a padded name each fail with zero `badge.create` calls and no row); new `scripts/test_catalog_checks.py` (5 tests, one per finding plus baselines). The finding cases fail against `800f6660`'s `catalog.mjs`/`runner.mjs`/`catalog_checks.py` (the over-long-URL case needs the `runner.mjs` change).
+
+Not changed: `factory.py` still requires title `description` on a create (it skips `effects`); it builds manifests and is stricter, not unsafe.
+
+### Gates (round 1, exact)
+
+- `npm test` (forge/): 756 tests, 745 pass, 0 fail, 11 skipped. `TNR_GAME_CHECKOUT=<2af4b320> node --test test/catalog.test.mjs test/pets.test.mjs`: 29/29.
+- `npm run build` twice: byte-identical, sha256 `e7cdaff2d8e9efe289ba3adec93f66f25d438275e90f446b507045916a6f78fc`. `npm run fixtures` then `git diff --exit-code`: clean (real `node_modules` copy).
+- `check_boundaries` 0 violations, `check_imports` 0, `check_release_pin` ok, `check_bundle_budget` exit 0: **raw 450,662 / 455,000 (99.0%), gzip 108,381 / 109,500 (99.0%)** (+247 / +76 over round 0).
+- `check_manifest.mjs` and `validate.py` (cwd skill `data/`) on all 120 `push/*.json`: per-file exit codes, check_manifest output digest and validate.py error/warning counts identical to `800f6660`.
+- `python3 -m unittest scripts/test_pet_species.py scripts/test_schema_diff.py scripts/test_catalog_checks.py`: 24 OK. `selfcheck.py --generated data` 0 errors; `factory.py --selftest` 20/20; `doctrinemap.py .` 0/0; `render_doctrine.py --check` current; `build_packs.py --check` current; `lawmap.py .` 0 errors, 5 pre-existing warnings.
+- Live requests / writes: 0 / 0. No browser or session checks. `dist/building-tnr-content.zip` is left to the skillpack workflow.

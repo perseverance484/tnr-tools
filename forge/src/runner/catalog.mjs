@@ -22,15 +22,18 @@ const REQUIRED = { badge: ["name", "image", "description"], title: ["name", "arc
 // validators/badge.ts and validators/title.ts bounds, checked here because zod refuses them only at
 // the update, after the create has minted a placeholder that badge.getAll / title.getAllNames list.
 const MASTERY = ["Ninjutsu", "Genjutsu", "Taijutsu", "Bukijutsu", "Sage", "Bloodline"]; // constants.ts:413
+const url = (s) => { try { return /^https?:\/\/\S+$/.test(s) && !!new URL(s); } catch { return false; } };
 export function catalogProblems(entity, data, { preCreate = false } = {}) {
   const out = [], d = data, str = (v) => typeof v === "string";
   if ("hidden" in d && d.hidden !== true) out.push(`hidden: ${entity} has no hidden column; send hidden:true (law 16b)`);
   if (preCreate) for (const k of REQUIRED[entity]) if (d[k] === undefined) out.push(`${k} is required on a ${entity} create`);
-  if ("name" in d && !(str(d.name) && d.name.trim() && d.name.trim().length <= 191)) out.push("name: 1-191 characters");
+  // the validators trim a name before saving it: a padded one would read back as drift
+  if ("name" in d && !(str(d.name) && d.name && d.name === d.name.trim() && d.name.length <= 191)) out.push("name: 1-191 characters, no leading or trailing whitespace");
   // the Badge column holds 500, the validator 512: a longer badge description fails the save
   const cap = entity === "badge" ? 500 : 512;
   if ("description" in d && !(str(d.description) && d.description.length <= cap && (entity === "title" || d.description))) out.push(entity === "badge" ? "description: 1-500 characters (the Badge column holds 500)" : "description: at most 512 characters");
-  if ("image" in d && !(str(d.image) && (d.image.startsWith("@img:") || /^https?:\/\/\S+$/.test(d.image) && d.image.length <= 191))) out.push("image: an @img ref or a URL of at most 191 characters");
+  // z.url() (zod 4.6.7) is URL.canParse after a trim; no whitespace keeps the saved value unchanged
+  if ("image" in d && !(str(d.image) && (d.image.startsWith("@img:") || url(d.image) && d.image.length <= 191))) out.push("image: an @img ref or a URL of at most 191 characters");
   if ("archived" in d && typeof d.archived !== "boolean") out.push("archived must be a boolean");
   if ("effects" in d) {
     if (!Array.isArray(d.effects) || d.effects.length > 20) out.push("effects: an array of at most 20"); // TITLE_MAX_EFFECTS
