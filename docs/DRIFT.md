@@ -1,31 +1,12 @@
-# DRIFT.md - upstream contract drift (2026-10-27)
+# DRIFT.md - upstream contract drift (2026-10-29)
 
-Upstream: studie-tech/TheNinjaRPG@3a1acf4ec8a6ef1abfa9f83582ecacdc43f804f3
+Upstream: studie-tech/TheNinjaRPG@cd04ebf5cde5524448a48b03b9830f039dd6a5df
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
 ~~~
 == 45c_DATA_constructors ==
 ADDITIONS
-  enum-member  AllObjectives.SimpleObjective.task  overworld_ai_fought
-  enum-member  AllObjectives.SimpleObjective.task  pvp_participated
-  enum-member  AllObjectives.SimpleObjective.task  ranked_participated
-  enum-member  AllObjectives.SimpleObjective.task  ranked_wins
-  enum-member  AllObjectives.SimpleObjective.task  spars_participated
-  enum-member  AllObjectives.tag_usage_win.tagType  siphon
-  enum-member  AllTags.siphon.calculation  percentage
-  enum-member  AllTags.siphon.friendlyFire  ALL
-  enum-member  AllTags.siphon.friendlyFire  ENEMIES
-  enum-member  AllTags.siphon.friendlyFire  FRIENDLY
-  enum-member  AllTags.siphon.target  COORDINATES
-  enum-member  AllTags.siphon.target  INHERIT
-  enum-member  AllTags.siphon.target  SELF
-  enum-member  allObjectiveSchema.SimpleObjective.task  overworld_ai_fought
-  enum-member  allObjectiveSchema.SimpleObjective.task  pvp_participated
-  enum-member  allObjectiveSchema.SimpleObjective.task  ranked_participated
-  enum-member  allObjectiveSchema.SimpleObjective.task  ranked_wins
-  enum-member  allObjectiveSchema.SimpleObjective.task  spars_participated
-  enum-member  allObjectiveSchema.tag_usage_win.tagType  siphon
   union-variant  AllTags  decreasecookingtime
   union-variant  AllTags  decreasecraftingtime
   union-variant  AllTags  decreasefarmingtime
@@ -33,49 +14,70 @@ ADDITIONS
   union-variant  AllTags  increasegatheringyield
   union-variant  AllTags  increasehuntingyield
   union-variant  AllTags  increasejutsuslots
-  union-variant  AllTags  siphon
-  variant-field  AllObjectives.InstantWinLoseObjective  reward_level
-  variant-field  AllObjectives.InstantWinLoseObjective  reward_pet_experience
-  variant-field  AllObjectives.InstantWinLoseObjective  reward_stats
-  variant-field  AllObjectives.RaidObjective  reward_level
-  variant-field  AllObjectives.RaidObjective  reward_pet_experience
-  variant-field  AllObjectives.RaidObjective  reward_stats
-  variant-field  AllObjectives.SimpleObjective  reward_level
-  variant-field  AllObjectives.SimpleObjective  reward_pet_experience
-  variant-field  AllObjectives.SimpleObjective  reward_stats
-  variant-field  AllObjectives.bloodline_collection  reward_level
-  variant-field  AllObjectives.bloodline_collection  reward_pet_experience
-  variant-field  AllObjectives.bloodline_collection  reward_stats
-  variant-field  AllObjectives.buy_item  reward_level
-  variant-field  AllObjectives.buy_item  reward_pet_experience
-  variant-field  AllObjectives.buy_item  reward_stats
-  variant-field  AllObjectives.collect_item  reward_level
-  variant-field  AllObjectives.collect_item  reward_pet_experience
-  variant-field  AllObjectives.collect_item  reward_stats
-  variant-field  AllObjectives.complete_specific_quest  reward_level
-  variant-field  AllObjectives.complete_specific_quest  reward_pet_experience
-  variant-field  AllObjectives.complete_specific_quest  reward_stats
-  variant-field  AllObjectives.craft_specific_item  reward_level
-  variant-field  AllObjectives.craft_specific_item  reward_pet_experience
-  variant-field  AllObjectives.craft_specific_item  reward_stats
-  variant-field  AllObjectives.damage_dealt  reward_level
-  variant-field  AllObjectives.damage_dealt  reward_pet_experience
-  variant-field  AllObjectives.damage_dealt  reward_stats
-  variant-field  AllObjectives.defeat_opponents  reward_level
-  variant-field  AllObjectives.defeat_opponents  reward_pet_experience
-  variant-field  AllObjectives.defeat_opponents  reward_stats
-  variant-field  AllObjectives.deliver_item  reward_level
-  variant-field  AllObjectives.deliver_item  reward_pet_experience
-  variant-field  AllObjectives.deliver_item  reward_stats
-  ... 210 more
+  variant-field  AllTags.decreasecookingtime  appearAnimation
+  variant-field  AllTags.decreasecookingtime  appearSfx
+  variant-field  AllTags.decreasecookingtime  calculation
+  variant-field  AllTags.decreasecookingtime  coordinateTargeting
+  variant-field  AllTags.decreasecookingtime  description
+  variant-field  AllTags.decreasecookingtime  direction
+  variant-field  AllTags.decreasecookingtime  disappearAnimation
+  variant-field  AllTags.decreasecookingtime  disappearSfx
+  variant-field  AllTags.decreasecookingtime  friendlyFire
+  variant-field  AllTags.decreasecookingtime  power
+  variant-field  AllTags.decreasecookingtime  powerPerLevel
+  variant-field  AllTags.decreasecookingtime  rounds
+  variant-field  AllTags.decreasecookingtime  staticAnimation
+  variant-field  AllTags.decreasecookingtime  staticAssetPath
+  variant-field  AllTags.decreasecookingtime  target
+  variant-field  AllTags.decreasecookingtime  timeTracker
+  variant-field  AllTags.decreasecookingtime  type
+  variant-field  AllTags.decreasecraftingtime  appearAnimation
+  variant-field  AllTags.decreasecraftingtime  appearSfx
+  variant-field  AllTags.decreasecraftingtime  calculation
+  variant-field  AllTags.decreasecraftingtime  coordinateTargeting
+  variant-field  AllTags.decreasecraftingtime  description
+  variant-field  AllTags.decreasecraftingtime  direction
+  variant-field  AllTags.decreasecraftingtime  disappearAnimation
+  variant-field  AllTags.decreasecraftingtime  disappearSfx
+  variant-field  AllTags.decreasecraftingtime  friendlyFire
+  variant-field  AllTags.decreasecraftingtime  power
+  variant-field  AllTags.decreasecraftingtime  powerPerLevel
+  variant-field  AllTags.decreasecraftingtime  rounds
+  variant-field  AllTags.decreasecraftingtime  staticAnimation
+  variant-field  AllTags.decreasecraftingtime  staticAssetPath
+  variant-field  AllTags.decreasecraftingtime  target
+  variant-field  AllTags.decreasecraftingtime  timeTracker
+  variant-field  AllTags.decreasecraftingtime  type
+  variant-field  AllTags.decreasefarmingtime  appearAnimation
+  variant-field  AllTags.decreasefarmingtime  appearSfx
+  variant-field  AllTags.decreasefarmingtime  calculation
+  variant-field  AllTags.decreasefarmingtime  coordinateTargeting
+  variant-field  AllTags.decreasefarmingtime  description
+  variant-field  AllTags.decreasefarmingtime  direction
+  variant-field  AllTags.decreasefarmingtime  disappearAnimation
+  variant-field  AllTags.decreasefarmingtime  disappearSfx
+  variant-field  AllTags.decreasefarmingtime  friendlyFire
+  variant-field  AllTags.decreasefarmingtime  power
+  variant-field  AllTags.decreasefarmingtime  powerPerLevel
+  variant-field  AllTags.decreasefarmingtime  rounds
+  variant-field  AllTags.decreasefarmingtime  staticAnimation
+  variant-field  AllTags.decreasefarmingtime  staticAssetPath
+  variant-field  AllTags.decreasefarmingtime  target
+  variant-field  AllTags.decreasefarmingtime  timeTracker
+  variant-field  AllTags.decreasefarmingtime  type
+  variant-field  AllTags.decreasegatheringtime  appearAnimation
+  variant-field  AllTags.decreasegatheringtime  appearSfx
+  ... 66 more
 
-no breaking changes: 270 addition(s), safe to adopt (exit 0)
+no breaking changes: 126 addition(s), safe to adopt (exit 0)
 == 45d_DATA_entity_schemas ==
+REMOVALS
+  field  petSpecies  skillTarget
 
-no breaking changes: 0 addition(s), safe to adopt (exit 0)
+BREAKING: 1 change(s) - DO NOT ADOPT (exit 1)
 == 45e_DATA_constants ==
 REMOVALS
-  const-member  ACTIVE_VOTING_SITES  bbogd
+  const-member  COPY_PRIORITY_TIERS  ["increaseheal"]
 ADDITIONS
   const-member  AvailableEffectTypes  decreasecookingtime
   const-member  AvailableEffectTypes  decreasecraftingtime
@@ -83,52 +85,24 @@ ADDITIONS
   const-member  AvailableEffectTypes  decreasegatheringtime
   const-member  AvailableEffectTypes  increasegatheringyield
   const-member  AvailableEffectTypes  increasehuntingyield
-  const-member  AvailableEffectTypes  siphon
   const-member  BattleTypes  TERRITORY_WAR
-  const-member  CombatActivityTasks  overworld_ai_fought
-  const-member  CombatActivityTasks  pvp_participated
-  const-member  CombatActivityTasks  ranked_participated
-  const-member  CombatActivityTasks  ranked_wins
-  const-member  CombatActivityTasks  spars_participated
+  const-member  COPY_PRIORITY_TIERS  // Static HP must not compete with percentage-based absorb/reflect power.
+  ["increaseheal"]
   const-member  DiscordTokenSources  CLERK
   const-member  DiscordTokenSources  OAUTH
   const-member  DiscordUnlinkReasons  ACCOUNT_DELETED
   const-member  DiscordUnlinkReasons  STAFF
   const-member  DiscordUnlinkReasons  USER
-  const-member  LOG_TYPES  village
   const-member  MPVP_BATTLE_TYPES  TERRITORY_WAR
-  const-member  OBJECTIVE_TAG_TYPES  siphon
-  const-member  POST_DAMAGE_MODIFIER_TYPES  siphon
-  const-member  PetArtProviders  GPT
-  const-member  PetArtProviders  NANO_BANANA
   const-member  PetGenders  FEMALE
   const-member  PetGenders  MALE
-  const-member  PotencyTagTypes  siphon
   const-member  PveBattleTypes  TERRITORY_WAR
-  const-member  SHARED_COOLDOWN_TAGS  siphon
-  const-member  SimpleTasks  overworld_ai_fought
-  const-member  SimpleTasks  pvp_participated
-  const-member  SimpleTasks  ranked_participated
-  const-member  SimpleTasks  ranked_wins
-  const-member  SimpleTasks  spars_participated
-  const-member  WEB_REP_PRESETS  100
-  const-member  WEB_REP_PRESETS  20
-  const-member  WEB_REP_PRESETS  250
-  const-member  WEB_REP_PRESETS  50
-  const-member  WEB_REP_PRESETS  500
   const-member  activityBonusTypes  decreasecookingtime
   const-member  activityBonusTypes  decreasecraftingtime
   const-member  activityBonusTypes  decreasefarmingtime
   const-member  activityBonusTypes  decreasegatheringtime
   const-member  activityBonusTypes  increasegatheringyield
   const-member  activityBonusTypes  increasehuntingyield
-  const-member  allObjectiveTasks  overworld_ai_fought
-  const-member  allObjectiveTasks  pvp_participated
-  const-member  allObjectiveTasks  ranked_participated
-  const-member  allObjectiveTasks  ranked_wins
-  const-member  allObjectiveTasks  spars_participated
-  const-member  allState  isMasked
-  const-member  publicState  isMasked
   const-member  tagTypes  decreasecookingtime
   const-member  tagTypes  decreasecraftingtime
   const-member  tagTypes  decreasefarmingtime
@@ -136,7 +110,6 @@ ADDITIONS
   const-member  tagTypes  increasegatheringyield
   const-member  tagTypes  increasehuntingyield
   const-member  tagTypes  increasejutsuslots
-  const-member  tagTypes  siphon
 
 BREAKING: 1 change(s) - DO NOT ADOPT (exit 1)
 ~~~
