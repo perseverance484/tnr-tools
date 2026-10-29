@@ -132,26 +132,26 @@ The badge and the jutsu in Crownhold's pick grey out once held (the game blocks 
 
 The Sealwright's doubled health (push/252) applies to the Archive's final fight too, solo; accepted (RUL-2026-10-25-004).
 
-## 4a. Completion picks: final (RUL-2026-10-28-016; supersedes every earlier pick table)
+## 4a. Completion picks: final (RUL-2026-10-28-016, ladder RUL-2026-10-28-034; supersedes every earlier pick table)
 
 **Pick 1 on every run; tainted runs pick 2.** Difficulty scales through option quality and quantity, not pick count.
 
 | Run | Options (pick 1) |
 |---|---|
-| Low Tide Run | Pouch + 10,000 ryo (one package card) / Inro + 10,000 ryo (one package card) / Galley Stores |
-| Night Watch | Officer's Pill Case + 10,000 ryo / Quartermaster's Kit + 10,000 ryo / Galley Stores (RUL-2026-10-28-018) |
-| Buried Cache | 25,000 ryo / Medicine Inro / Galley Stores |
-| Drowned Foundry | Elemental Tool Pouch / 50,000 ryo / Galley Stores |
+| Low Tide Run | Officer's Pill Case / Medicine Inro / Galley Stores |
+| Night Watch | Officer's Pill Case + Quartermaster's Kit (one package card) / Medicine Inro / Galley Stores |
+| Buried Cache | Medicine Inro / Officer's Pill Case / Galley Stores |
+| Drowned Foundry | Elemental Tool Pouch / Officer's Pill Case / Galley Stores |
 | Quarantined Archive | Archive Chart Case / Sage's Strongbox / Echo Jar |
-| Captain's Watch | Skyglass Coffer / Captain's Purse / Echo Jar |
+| Captain's Watch | Skyglass Coffer / Captain's Purse (1,000,000 ryo) / Echo Jar |
 | Sealed Reliquary | Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Archive Chart Case ×2 |
 | The Fall | Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Galley Stores ×3 |
 | Tainted runs | **pick 2** from their rare's options; Lantern 30% and Core Rot 40%. No guaranteed drops: the second pick is the appeal (RUL-2026-10-28-019) |
 | Crownhold | Crown's Hoard / Skyglass Coffer ×2 / Crownhold badge / Crownhold jutsu / Crown Fragment (RUL-2026-10-28-017) |
 
-The rares double the Watch's Coffer and Jar, so each rung pays more than the one below it.
+The rares double the Watch's Coffer and Jar, so each rung pays more than the one below it. Value ladder of each run's best item option (RUL-2026-10-28-033 basis): common runs ~1.4M (Inro) < Buried Cache ~1.4M < Foundry ~3.7M (Pouch) < Archive ~4.3M (Strongbox) < Watch (Coffer) < rare runs (Treasury ~8M, Coffer ×2) < tainted (pick 2) < Crownhold (unique pieces). Ryo appears only as the Watch's Captain's Purse (RUL-2026-10-28-034). The Quartermaster's Kit (~0.05M) appears only as an add-on on the Night Watch card and in the chest of chests.
 
-Cut and not to be rebuilt: the Archive's Records exp, the Watch's Inro ×3, The Fall's Captain's Purse, the commons' exp cards (RUL-2026-10-28-016); Crownhold's Honor and Crownhold's Echo Jar ×2 (RUL-2026-10-28-017); the tainted runs' guaranteed Sealed Treasury and Echo Jar (RUL-2026-10-28-019).
+Cut and not to be rebuilt: every ryo card except the Watch's Captain's Purse (RUL-2026-10-28-034); the Archive's Records exp, the Watch's Inro ×3, The Fall's Captain's Purse, the commons' exp cards (RUL-2026-10-28-016); Crownhold's Honor and Crownhold's Echo Jar ×2 (RUL-2026-10-28-017); the tainted runs' guaranteed Sealed Treasury and Echo Jar (RUL-2026-10-28-019).
 
 ## 4b. Profession chests (RUL-2026-10-28-023; supersedes the per-item rolls of RUL-2026-10-28-019)
 
