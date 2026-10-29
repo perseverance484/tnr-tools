@@ -9,6 +9,7 @@
 // @run-at       document-start
 // @updateURL    https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
 // @downloadURL  https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
+// @x-release-pending 0.10.0
 // @require      https://raw.githubusercontent.com/perseverance484/tnr-tools/b13425b348eafc7235dfd6dd7d819d17c9a26113/forge_bundle.js
 // ==/UserScript==
 // Open https://www.theninja-rpg.com/forge while logged in. That entry is unchanged, but since

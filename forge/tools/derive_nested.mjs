@@ -22,7 +22,7 @@ import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.argv[2];
-const PIN = process.argv[3] || "85cecaebf4ada2e265a18a1405f63c9637443275";
+const PIN = process.argv[3] || "2af4b32066c39e2868efae5dba6b339278701dca";
 const FILES = {
   combat: "app/src/validators/combat.ts",
   objectives: "app/src/validators/objectives.ts",
@@ -195,11 +195,37 @@ function discriminators(name, field) {
   if (literals.length) return literals;
   const ref = /^\s*([A-Za-z_$][\w$]*)/.exec(inner);
   if (!ref) return [];
-  const cm = new RegExp(`const\\s+${ref[1]}\\s*=\\s*\\[`, "m").exec(ALL);
-  if (!cm) throw new Error(`cannot resolve enum source ${ref[1]} for ${name}.${field}`);
-  // A commented-out member (SimpleTasks: // "anbu_kills") is not a member: the server's z.enum
-  // refuses it, so Forge must not accept it as a discriminator.
-  return [...stripComments(balanced(ALL, cm.index + cm[0].length)).matchAll(/"([^"]+)"/g)].map((x) => x[1]);
+  return constMembers(ref[1], `${name}.${field}`);
+}
+
+/**
+ * Members of a `const NAME = [...] as const` list. A commented-out member (SimpleTasks:
+ * // "anbu_kills") is not a member: the server's z.enum refuses it, so Forge must not accept it as a
+ * discriminator. Spreads are followed, because the server's enum holds them: `...OtherList`, and
+ * `...Object.values(OBJ)` over a `const OBJ = { k: "v", ... }` of string values (SimpleTasks gained
+ * both forms at 2af4b320: CombatActivityTasks, CompletionTasks <- QuestCompletionTasks). A spread
+ * this cannot resolve is a hard error, never a silently shorter enum.
+ */
+function constMembers(name, where, seen = new Set()) {
+  if (seen.has(name)) throw new Error(`enum source ${name} spreads itself (${where})`);
+  seen.add(name);
+  const cm = new RegExp(`const\\s+${name}\\s*=\\s*\\[`, "m").exec(ALL);
+  if (!cm) throw new Error(`cannot resolve enum source ${name} for ${where}`);
+  const body = stripComments(balanced(ALL, cm.index + cm[0].length));
+  const out = [];
+  const add = (v) => { if (!out.includes(v)) out.push(v); };
+  for (const m of body.matchAll(/"([^"]+)"|\.\.\.\s*Object\.values\(\s*([A-Za-z_$][\w$]*)\s*\)|\.\.\.\s*([A-Za-z_$][\w$]*)/g)) {
+    if (m[1] !== undefined) add(m[1]);
+    else if (m[2]) {
+      const om = new RegExp(`const\\s+${m[2]}\\s*=\\s*\\{`, "m").exec(ALL);
+      if (!om) throw new Error(`cannot resolve Object.values(${m[2]}) in ${name} for ${where}`);
+      const obj = stripComments(balanced(ALL, om.index + om[0].length));
+      const vals = [...obj.matchAll(/:\s*"([^"]+)"/g)].map((x) => x[1]);
+      if (!vals.length) throw new Error(`Object.values(${m[2]}) in ${name} has no string values (${where})`);
+      vals.forEach(add);
+    } else for (const v of constMembers(m[3], where, new Set(seen))) add(v);
+  }
+  return out;
 }
 
 /** Source text with // and /* *\/ comments removed (string literals left intact). */

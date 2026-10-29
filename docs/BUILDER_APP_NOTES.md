@@ -913,6 +913,18 @@ The game's staff-authored `dungeon` entity is a tenth manifest entity (brief `st
 - **Resume after a lost save never adopts by itself.** `coop.dungeon.save` has no idempotency key, so a new row matching the plan may be another operator's. Every lost create is ORPHANED with its candidates (rows owned by any journal job excluded), each compared with the full planned content (defaults applied) as `matches`/`differs`. The operator's adopt binds one; it is read back and verified, never saved again. Suggest mode refuses dungeons: the review desk has no dungeon entity type.
 - `validate.py` routes dungeon entries to the same validator through `scripts/dungeon_bridge.py` and `tools/validate_dungeon.mjs`.
 
+## Pet species (0.10.0)
+
+`petSpecies` is an eleventh manifest entity (RUL-2026-10-28-012), read at `studie-tech/TheNinjaRPG@2af4b320`, which is also the new pin for `fields.json`/`nested.json` (re-derived; `derive_fields.mjs` now finds `insertAiSchema` in `validators/aiInput.ts`, where upstream moved it, and `derive_nested.mjs` follows `...List` and `...Object.values(OBJ)` spreads in task enums, which added eleven SimpleTasks).
+
+- **One step, id in `message`.** `petSpecies.create` takes the whole `PetSpeciesValidator` record (no placeholder), so the recipe is `oneStep` and a create goes straight to read-back through `petSpecies.get`. `petSpecies.update {id, data}` re-saves the whole parsed record: edits fetch-merge over the `fields.json` set like every two-phase entity. Names list: `petSpecies.getAll` (public, no input).
+- **Visibility.** Species have no `hidden` column; a create carries `hidden:true` for L13 and `src/runner/pets.mjs` strips it from the send and the read-back diff. `isActive` is the species' own switch and must be `false` on create; an edit may set it (publishing, the director's step).
+- **Rules no key set expresses** (`src/runner/pets.mjs`, cited to source): defaults unique and within `PET_ABILITY_SLOTS_BY_RARITY` (an edit uses the live rarity), innate effects without barrier/move/COORDINATES, and `isPetJutsuAllowed` minus `hidden` on any jutsu whose merged record is `jutsuType PETS` (the game saves a PETS jutsu that fails it and no pet can ever equip it). `requiredPetSpeciesId` needs `jutsuType PETS`. Manifest lints (`lints.mjs`, "PET"): a species default that is a jutsu created in the same manifest is refused (it ships hidden; the server refuses unpublished defaults), as is a locked default on a species create, and `reward_pets` needs `rewardMode` standard, at most one per item and `preventBattleUsage:true`.
+- **Refs.** `@petSpecies:<srcId>` resolves from the same job or the retained idmap; committed manifests normally carry the literal id from the earlier push's results bundle, with a literal `targetId` on every species edit.
+- **Compared as stored.** Read-back and lost-create matching normalise both sides through `normalizeSpecies` (the validator's trims, blank artDirection -> null, null rank concepts -> "", trailing blanks dropped), so a create the server normalised verifies and real differences stay drift. The companion cap counts `reward_pets` across all of an item's effects.
+- **Lost create.** No idempotency key: a lost `petSpecies.create` is ORPHANED with each new row's `matches` against the plan, and only the operator's adopt binds one (read back, never re-sent).
+- **Not mirrored here:** the pet AI action/effect allowlists on `aiRules` (the server refuses them before writing anything; `validate.py` checks them from 45e).
+
 ## Not finished
 
 - **Pause during a run** is wired (`Runner.requestPause()`, honoured between items; the Run

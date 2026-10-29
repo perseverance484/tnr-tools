@@ -1,13 +1,14 @@
 import PINNED_FIELDS from "./fields.json" with { type: "json" };
 import { isBloodrightEntity, bloodrightFields, bloodrightProblems } from "../bloodright/validate.mjs";
 import { isDungeonEntity, dungeonFields, dungeonProblems, dungeonDiffs } from "../dungeon/validate.mjs";
+import { PET_STRIPPED_OK, petSpeciesProblems, petJutsuProblems, normalizeSpecies } from "./pets.mjs";
 // Pre-send validation (spec section 9, R3). Every content validator on the server is
 // non-strict: an unknown or misspelled key is dropped at .input() parse time with no error
 // and the mutation reports success. The only place that error can surface is here.
 //
 // Field sets come from src/runner/fields.json, derived from the PINNED validators by
-// tools/derive_fields.mjs (jutsu, item, bloodline, quest, gameAsset, and ai), pinned to
-// TheNinjaRPG@94f9d84 since 2026-10-18 (spreads resolved). Every update is a fetch-merge filtered to
+// tools/derive_fields.mjs (jutsu, item, bloodline, quest, gameAsset, petSpecies, and ai), pinned to
+// TheNinjaRPG@2af4b320 since 2026-10-28 (spreads resolved). Every update is a fetch-merge filtered to
 // these fields and the server saves the whole parsed record, so a field missing here is RESET on
 // each edit (elementClassification to "None", requiredSkillId/reskin links/masteries to null).
 // 45d_DATA_entity_schemas (generated 2026-08-26) was already stale against 345d18ac: it lacks the twelve item farm* keys and
@@ -67,7 +68,7 @@ export const SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updated
 export const AI_OMITTED = Object.freeze([...PINNED_FIELDS.entities.ai.omitted]);
 
 /** Which 45d entity backs a manifest entity. */
-export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai" });
+export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai", petSpecies: "petSpecies" });
 
 /**
  * Restore the per-discriminator key sets from nested.json's shared key-set table.
@@ -170,7 +171,12 @@ export class Validator {
     } else {
       const known = this.knownFields(entity);
       if (!known) out.push(`no field schema for entity ${entity}`);
-      else for (const k of keys) if (!known.has(k) && !SERVER_OWNED.includes(k)) out.push(`unknown key "${k}" for ${entity} (would be silently dropped by the server)`);
+      else for (const k of keys) if (!known.has(k) && !SERVER_OWNED.includes(k) && !(entity === "petSpecies" && PET_STRIPPED_OK.includes(k))) out.push(`unknown key "${k}" for ${entity} (would be silently dropped by the server)`);
+      if (entity === "petSpecies") {
+        out.push(...petSpeciesProblems(data, live, { preCreate }));
+        if (Array.isArray(data.aiRules)) out.push(...ruleProblems(data.aiRules).map((p) => "aiRules: " + p));
+      }
+      if (entity === "jutsu") out.push(...petJutsuProblems(data, live));
     }
     out.push(...this.nestedProblems(entity, data));
     // law 46 / empty_string_rule: '' becomes null on the write path; for image that 500s.
@@ -201,7 +207,8 @@ export class Validator {
     const families = [];
     if (Array.isArray(data.effects) && data.effects.length) families.push("effects");
     if (entity === "quest" && data.content && typeof data.content === "object" && Object.keys(data.content).length) families.push("quest content");
-    if ((entity === "ai" || entity === "aiProfile") && Array.isArray(data.rules) && data.rules.length) families.push("ai rules");
+    const rules = entity === "petSpecies" ? data.aiRules : (entity === "ai" || entity === "aiProfile") ? data.rules : null;
+    if (Array.isArray(rules) && rules.length) families.push("ai rules");
     if (!families.length) return out;
     if (!this.nested) return [`no derived nested key set: refusing to send ${families.join(", ")} unchecked`];
 
@@ -243,8 +250,8 @@ export class Validator {
       }
     }
 
-    if ((entity === "ai" || entity === "aiProfile") && Array.isArray(data.rules)) {
-      for (const [i, r] of data.rules.entries()) {
+    if (Array.isArray(rules)) {
+      for (const [i, r] of rules.entries()) {
         if (!r || typeof r !== "object") continue; // shape is reported by ruleProblems()
         for (const [j, c] of (Array.isArray(r.conditions) ? r.conditions : []).entries()) {
           if (!c || typeof c !== "object") continue;
@@ -331,11 +338,14 @@ export function diffAsserted(entity, asserted, live) {
   // A dungeon is the getAll row {id, content, updatedAt}; its content is compared by the dungeon's
   // own normalisation (defaults, trimmed name, expiry instants), not eqLoose (review F5).
   if (isDungeonEntity(entity)) return dungeonDiffs(asserted, live ? live.content : undefined);
+  // the server stores a species through PetSpeciesValidator's transforms; compare what it stores
+  if (entity === "petSpecies") { asserted = normalizeSpecies(asserted); live = live && normalizeSpecies(live); }
   const diffs = [];
   for (const k of Object.keys(asserted)) {
     if (SERVER_OWNED.includes(k)) continue;
     if (entity === "ai" && ["rules", "includeDefaultRules"].includes(k)) continue; // verified via the profile read
     if (entity === "ai" && AI_STRIPPED_OK.includes(k)) continue; // never reaches the server; see AI_STRIPPED_OK
+    if (entity === "petSpecies" && PET_STRIPPED_OK.includes(k)) continue; // stripped before the send (pets.mjs)
     if (entity === "ai" && k === "jutsus") { // live row carries relation rows; compare ids
       const l = Array.isArray(live?.jutsus) ? live.jutsus.map((r) => (typeof r === "string" ? r : r.jutsuId ?? r.id)) : [];
       const s = (asserted.jutsus ?? []).map((j) => (typeof j === "string" ? j : j?.jutsuId ?? j?.id));

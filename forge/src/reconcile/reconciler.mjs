@@ -12,7 +12,8 @@
 //     independent cross-check; for gameAsset every orphan is named "Placeholder", so the
 //     diff is the ONLY signal, which is why the snapshot is mandatory.
 //   A dungeon create is never adopted here: coop.dungeon.save has no idempotency key, so every lost
-//     one is ORPHANED with its candidates compared to the planned content (_dungeonCreate).
+//     one is ORPHANED with its candidates compared to the planned content (_dungeonCreate). A lost
+//     petSpecies create is handled the same way (_petSpeciesCreate).
 //   phase update (entityId known): read the record; if every asserted key already matches,
 //     the update landed -> confirm with landed:true and the runner goes straight to verify.
 //     Otherwise -> ORPHANED ("live differs"), and the user decides; never re-sent by itself.
@@ -117,6 +118,7 @@ export class Reconciler {
     const pending = job.items.filter((it) => it.entity === item.entity && it.state === "SENT" && (it.phase === "create" || !it.entityId));
     const candidates = rows.map((r) => ({ id: r[rc.idKey], name: rowName(rc, r) ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
     if (item.entity === "dungeon") return this._dungeonCreate(rows, candidates, pending, ctx);
+    if (item.entity === "petSpecies") return this._petSpeciesCreate(rows, candidates, pending, ctx);
     if (candidates.length === 1 && pending.length === 1) {
       const c = candidates[0];
       if (item.entity === "skillTree" || item.entity === "skillTreeFolder") {
@@ -156,6 +158,21 @@ export class Reconciler {
     const n = evidence.filter((c) => c.matches).length;
     return { action: "orphan", candidates: evidence,
       note: `lost dungeon create: ${candidates.length} new row(s), ${n} matching the plan, ${pending.length} create(s) pending${why}. coop.dungeon.save has no idempotency key: a matching row may be someone else's. Check it, then adopt (read back, never re-saved) or skip` };
+  }
+
+  /**
+   * A lost petSpecies create. petSpecies.create is one step and carries no idempotency key, so a new
+   * row is evidence, not ownership, exactly as for a dungeon: every candidate is listed with whether
+   * its name and asserted keys match the plan, and only the operator's adopt() binds one (it then
+   * goes straight to read-back; nothing is re-sent). Names are unique server-side, so a row bearing
+   * the planned name means a re-send would be refused, not duplicated.
+   */
+  _petSpeciesCreate(rows, candidates, pending, ctx) {
+    const r = ctx.planned ? resolveRefs(ctx.planned.data, ctx.lookup ?? (() => undefined)) : null;
+    const data = r && !r.unresolved.length ? r.value : null;
+    const evidence = candidates.map((c, i) => (data ? { ...c, matches: !diffAsserted("petSpecies", data, rows[i]).length } : c));
+    return { action: "orphan", candidates: evidence,
+      note: `lost petSpecies create: ${candidates.length} new row(s), ${evidence.filter((c) => c.matches).length} matching the plan, ${pending.length} create(s) pending${data ? "" : "; cannot compare"}. Check it, then adopt (read back, never re-sent) or skip` };
   }
 
   async _resolveUpdate(item, rc, ctx) {

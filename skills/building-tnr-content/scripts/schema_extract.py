@@ -323,6 +323,27 @@ def parse_unions(path: str) -> dict:
     return out
 
 
+OBJ_VALUES_RE = re.compile(r"^\.\.\.\s*Object\.values\(\s*([A-Za-z_]\w*)\s*\)$")
+
+
+def _object_values(vals, src):
+    """`...Object.values(OBJ)` members of a const list -> OBJ's string values, when OBJ is a
+    `const OBJ = { key: "value", ... }` in the same file (CompletionTasks <- QuestCompletionTasks at
+    2af4b320). Left as is otherwise, so the member check refuses the list instead of guessing."""
+    out = []
+    for v in vals:
+        m = OBJ_VALUES_RE.match(v)
+        om = m and re.search(r"(?:export )?const %s\s*(?::[^=]*)?=\s*\{" % re.escape(m.group(1)), src)
+        if not om:
+            out.append(v)
+            continue
+        a, b = balanced(src, om.end() - 1)
+        body = re.sub(r"//[^\n]*", "", re.sub(r"/\*.*?\*/", " ", src[a + 1:b], flags=re.S))
+        got = re.findall(r":\s*[\"']([^\"']+)[\"']", body)
+        out.extend(got if got else [v])
+    return out
+
+
 def parse_const_arrays(path: str) -> dict:
     """`export const NAMES = ["a","b"] as const` -> value lists."""
     out = {}
@@ -347,7 +368,7 @@ def parse_const_arrays(path: str) -> dict:
         # member check below and drop the whole list (SimpleTasks)
         body = re.sub(r"/\*.*?\*/", " ", body, flags=re.S)
         body = re.sub(r"//[^\n]*", "", body)
-        vals = [x.strip().strip("\"'") for x in body.split(",") if x.strip()]
+        vals = _object_values([x.strip().strip("\"'") for x in body.split(",") if x.strip()], src)
         if vals and all(re.match(r"^[\w \-'/.]+$", v) for v in vals):
             out[name] = vals
     return out
@@ -646,6 +667,7 @@ ENTITY_TARGETS = [
     ("quest",      "app/src/validators/objectives.ts", "QuestValidatorRawSchema"),
     ("gameAsset",  "app/src/validators/asset.ts",      "gameAssetValidator"),
     ("aiRule",     "app/src/validators/ai.ts",         "AiRule"),
+    ("petSpecies", "app/src/validators/petSpecies.ts", "PetSpeciesValidator"),
 ]
 
 ROUTER_DIR = "app/src/server/api/routers"
@@ -1026,8 +1048,58 @@ def const_values(consts):
 
 # ---------------------------------------------------------- entity schemas
 
+def _shape_field_expr(base, key, ctx):
+    """`Base.shape.key`: the expression the object declaration `Base` gives `key` (last wins)."""
+    found = None
+    for _rel, d in ctx["decls"].get(base, []):
+        if d[0] != "obj":
+            continue
+        for _doc, text in split_entries(d[1]):
+            f, e = split_field(text.strip())
+            if f and f.strip("\"'") == key:
+                found = e
+    return found
+
+
+def _outer_array_bounds(expr, spec, cvals):
+    """A `z.array(inner)` field's bounds are the OUTER chain's: `z.array(z.string().min(1).max(191))
+    .max(PET_MAX_ABILITY_SLOTS)` holds at most six ids, not 191. parse_expr reads the first .min/.max
+    anywhere in the text, which is the element's, and the same holds for the flags."""
+    if not expr.startswith("z.array("):
+        return spec
+    _a, b = balanced(expr, len("z.array"), "(", ")")
+    tail = expr[b + 1:]
+    for k in ("min", "max", "min_ref", "max_ref", "int"):
+        spec.pop(k, None)
+    # so are its optional/nullable/coerce flags: rankConcepts' elements are .nullish(), the array is not
+    spec["coerce"] = False
+    spec["optional"] = ".optional()" in tail or ".nullish()" in tail
+    spec["nullable"] = ".nullable()" in tail or ".nullish()" in tail
+    for name in ("min", "max"):
+        bm = re.search(r"\.%s\(\s*(-?\d+)\s*\)" % name, tail)
+        if bm:
+            spec[name] = int(bm.group(1))
+            continue
+        rm = re.search(r"\.%s\(\s*([A-Z][A-Z0-9_]*)\s*\)" % name, tail)
+        if rm:
+            spec[name + "_ref"] = rm.group(1)
+            if isinstance(cvals.get(rm.group(1)), (int, float)):
+                spec[name] = cvals[rm.group(1)]
+    return spec
+
+
 def _entity_spec(expr, doc, ctx, rel, cvals):
     helpers = {**ctx["all_helpers"], **(ctx["helpers"].get(rel) or {})}
+    sh = re.match(r"^([A-Za-z_]\w*)\.shape\.([A-Za-z_]\w*)(.*)$", expr)
+    if sh and _shape_field_expr(sh.group(1), sh.group(2), ctx) is not None:
+        # `petAiProfileSchema.shape.rules.default([])` (PetSpeciesValidator.aiRules at 2af4b320): the
+        # named object's own field, with this chain applied. It used to match nothing and be dropped.
+        inner = _shape_field_expr(sh.group(1), sh.group(2), ctx) + sh.group(3)
+        spec = _outer_array_bounds(inner, parse_expr2(inner, helpers, cvals), cvals)
+        spec["shape_ref"] = "%s.shape.%s" % (sh.group(1), sh.group(2))
+        if doc:
+            spec["doc"] = doc[:300]
+        return spec
     bare = re.match(r"^([A-Za-z_]\w*)((?:\.\w+\([^()]*\))*)$", expr)
     if bare and bare.group(1) != "z" and bare.group(1) not in helpers:
         # a field typed by a named schema (rewardFields-style object, a zod constant, or an
@@ -1046,7 +1118,7 @@ def _entity_spec(expr, doc, ctx, rel, cvals):
             if ".nullable()" in chain or ".nullish()" in chain:
                 spec["nullable"] = True
     elif "z." in expr or re.match(r"^\w+\(", expr):
-        spec = parse_expr2(expr, helpers, cvals)
+        spec = _outer_array_bounds(expr, parse_expr2(expr, helpers, cvals), cvals)
     else:
         return None
     if doc:
@@ -1103,10 +1175,17 @@ def extract_entity(repo, rel, name, consts, ctx=None):
     refines = re.findall(
         r"export const %s\s*=\s*%s((?:\s*\.\s*superRefine\(\w+\))+)"
         % (re.escape(name.replace("RawSchema", "")), re.escape(name)), src)
+    named = re.findall(r"\.superRefine\((\w+)\)", refines[0]) if refines else []
+    # an arrow refinement chained onto the declaration itself (PetSpeciesValidator: unique defaults,
+    # defaults within the rarity's slots) has no name to record; say that one exists
+    om = re.search(r"export const %s\s*=\s*z\s*\.\s*object\(" % re.escape(name), src)
+    _a, b = balanced(src, om.end() - 1, "(", ")")
+    if re.match(r"\s*\.\s*superRefine\(\s*\(", src[b + 1:]):
+        named.append("<inline>")
     return {
         "source": rel,
         "schema": name,
-        "superRefine": re.findall(r"\.superRefine\((\w+)\)", refines[0]) if refines else [],
+        "superRefine": named,
         "fields": fields,
     }
 
@@ -1209,6 +1288,8 @@ LOCAL_ENUM_FILES = [
     "app/src/validators/ai.ts",
     "app/src/validators/quest.ts",
     "app/src/validators/item.ts",
+    # PET_AI_ACTION_TYPES / PET_AI_EFFECT_TYPES, which PetSpeciesValidator.aiRules refines against
+    "app/src/validators/pets.ts",
 ]
 
 
@@ -1234,6 +1315,7 @@ def extract_local_enums(repo):
                 v = re.sub(r"//.*", "", v).strip().strip("\"'")
                 if v:
                     vals.append(v)   # `...NAME` kept; expanded in emit_constants
+            vals = _object_values(vals, src)
             if vals and all(re.match(r"^[\w \-'/.]+$", v) for v in vals):
                 out.setdefault(name, {"value": vals, "kind": "list", "source": rel,
                                       "exported": src[max(0, m.start() - 7):m.start()].endswith("export ")

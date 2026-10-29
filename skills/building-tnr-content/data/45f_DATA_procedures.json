@@ -1,10 +1,10 @@
 {
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-10-20",
-  "source_drop": "git:studie-tech/TheNinjaRPG@85cecaeb (2026-10-20)",
+  "extracted": "2026-10-28",
+  "source_drop": "git:studie-tech/TheNinjaRPG@2af4b320 (2026-10-28)",
   "source_sha256_16": {
-   "app/src/server/api/routers/ (79 files)": "4210e555b3cc1b5e"
+   "app/src/server/api/routers/ (80 files)": "b1185a8a2a70eaaa"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
  },
@@ -14,9 +14,9 @@
   "guard": "publicProcedure = no auth. protectedProcedure = session required. The guard is not the permission check; staff gating happens in the body."
  },
  "counts": {
-  "routers": 78,
-  "procedures": 851,
-  "described": 469
+  "routers": 79,
+  "procedures": 872,
+  "described": 471
  },
  "routers": {
   "accountDeletion": {
@@ -422,7 +422,7 @@
    "getHistorical": {
     "procedure": "protectedProcedure",
     "kind": "query",
-    "input": "z.object({ relationId: z.string().optional(), limit: z.number().min(1).max(100).optional(), cursor: z.number().optional(), }),"
+    "input": "mediaHistoryQuerySchema"
    }
   },
   "avatar": {
@@ -437,7 +437,7 @@
     "kind": "query",
     "mcp": false,
     "description": "Get user's historical avatars",
-    "input": "z.object({ relationId: z.string().nullish(), limit: z.number().min(1).max(100).nullish(), cursor: z.number().nullish(), }),"
+    "input": "mediaHistoryQuerySchema"
    },
    "updateAvatar": {
     "procedure": "protectedProcedure",
@@ -1113,7 +1113,7 @@
     "kind": "query",
     "mcp": false,
     "description": "Get user battle history",
-    "input": "z.object({ userId: z.string().optional(), secondsBack: z.number().optional(), combatTypes: z.array(z.enum(BattleTypes)).optional(), }),"
+    "input": "z.object({ userId: z.string().optional(), secondsBack: z.number().nonnegative().optional(), combatTypes: z.array(z.enum(BattleTypes)).optional(), limit: z.number().int().min(1).max(100).default(20), cursor: z .object({ createdAt: z.date(), id: z.number().int().positive() }) .nullish(), }),"
    },
    "performAction": {
     "procedure": "protectedProcedure",
@@ -1161,7 +1161,7 @@
     "kind": "mutation",
     "mcp": false,
     "description": "Hand battle turns to own AI profile or take back control",
-    "input": "z.object({ battleId: z.string(), enabled: z.boolean() })"
+    "input": "toggleAutoCombatSchema"
    },
    "startShrineBattle": {
     "procedure": "protectedProcedure",
@@ -1490,14 +1490,14 @@
    "getAiBalanceStatistics": {
     "procedure": "publicProcedure",
     "kind": "query",
-    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), userRanks: z.array(z.string()).optional(), villages: z.array(z.string()).optional(), minLevel: z.number().min(1).default(1), maxLevel: z.number().max(100).default(100), }),"
+    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), userRanks: z.array(z.string()).optional(), villages: z.array(z.string()).optional(), minLevel: z.number().min(1).default(1), maxLevel: z.number().max(MAX_PLAYER_LEVEL).default(MAX_PLAYER_LEVEL), }),"
    },
    "getBattleLengthStatistics": {
     "procedure": "publicProcedure",
     "kind": "query",
     "mcp": false,
     "description": "Get battle length distribution data",
-    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), minWinnerLevel: z.number().min(1).max(100).optional(), maxWinnerLevel: z.number().min(1).max(100).optional(), minLoserLevel: z.number().min(1).max(100).optional(), maxLoserLevel: z.number().min(1).max(100).optional(), }),"
+    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), minWinnerLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), maxWinnerLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), minLoserLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), maxLoserLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), }),"
    },
    "getQueueLengthStatistics": {
     "procedure": "publicProcedure",
@@ -1520,7 +1520,7 @@
    "getRankedRankDistributionStatistics": {
     "procedure": "publicProcedure",
     "kind": "query",
-    "input": "z.object({ minCount: z.number().min(1).default(1), minLevel: z.number().min(1).max(100).optional(), maxLevel: z.number().min(1).max(100).optional(), }),"
+    "input": "z.object({ minCount: z.number().min(1).default(1), minLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), maxLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), }),"
    },
    "getQuestRewardStatistics": {
     "procedure": "publicProcedure",
@@ -2147,7 +2147,7 @@
     "kind": "mutation",
     "mcp": false,
     "description": "Transfer levels between jutsus",
-    "input": "z.object({ fromJutsuId: z.string(), toJutsuId: z.string(), transferLevels: z.number().min(1, \"Must transfer at least 1 level\"), }),"
+    "input": "z.object({ fromJutsuId: z.string(), toJutsuId: z.string(), transferLevels: z.number().int().min(1, \"Must transfer at least 1 level\"), }),"
    },
    "getAllNames": {
     "procedure": "publicProcedure",
@@ -2253,7 +2253,7 @@
     "kind": "query",
     "mcp": false,
     "description": "Get current user's jutsus",
-    "input": "jutsuFilteringSchema"
+    "input": "userJutsuFilteringSchema"
    },
    "getUserJutsuOwnership": {
     "procedure": "protectedProcedure",
@@ -2269,7 +2269,7 @@
    "adjustUserJutsu": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "input": "z.object({ userId: z.string(), jutsuId: z.string(), level: z.number(), reskinId: z.string().nullable().optional(), }),"
+    "input": "z.object({ userId: z.string(), jutsuId: z.string(), level: z.number().int().min(0), reskinId: z.string().nullable().optional(), }),"
    },
    "startTraining": {
     "procedure": "protectedProcedure",
@@ -2485,10 +2485,20 @@
     "kind": "mutation",
     "input": "kageMatchSchema"
    },
-   "startDefense": {
+   "requestInstantDefense": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
     "input": "kageMatchSchema"
+   },
+   "dismissInstantDefense": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "kageInstantResponseSchema"
+   },
+   "startDefense": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "kageStartSchema"
    }
   },
   "linkpromotion": {
@@ -2675,6 +2685,19 @@
     "kind": "query",
     "mcp": false,
     "description": "Get captcha for verification"
+   },
+   "refreshCaptcha": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": false,
+    "description": "Replace the pending captcha with a new one"
+   },
+   "verifyCaptcha": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": false,
+    "description": "Answer the pending training captcha",
+    "input": "z.object({ guess: z.string().trim().min(1).max(20) })"
    },
    "submitNotification": {
     "procedure": "protectedProcedure",
@@ -2909,10 +2932,30 @@
    }
   },
   "paypal": {
+   "getStoreBundles": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ includeInactive: z.boolean().optional() }).nullish()"
+   },
+   "saveStoreBundle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string().optional(), data: storeBundleSchema })"
+   },
+   "createStoreOrder": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "storeCheckoutSchema"
+   },
+   "captureStoreOrder": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ orderId: z.string().min(15).max(20) })"
+   },
    "resolveOrder": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "input": "z.object({ startDate: z.date().optional(), endDate: z.date().optional(), orderId: z.string().min(15).max(20), }),"
+    "input": "z.strictObject({ orderId: z.string().min(15).max(20) })"
    },
    "resolveTransaction": {
     "procedure": "protectedProcedure",
@@ -2922,7 +2965,7 @@
    "resolveSubscription": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "input": "z.object({ subscriptionId: z.string(), orderId: z.string().optional(), }),"
+    "input": "z.strictObject({ subscriptionId: z.string().min(1).max(191), orderId: z.string().min(1).max(191).optional(), }),"
    },
    "getRecentRepsCount": {
     "procedure": "protectedProcedure",
@@ -2941,17 +2984,17 @@
    "subscribeWithReps": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "input": "z.object({ userId: z.string(), status: z.enum(FederalStatuses) })"
+    "input": "z.strictObject({ userId: z.string().min(1).max(191), expectedUserId: z.string().min(1).max(191), status: z.enum(FederalStatuses), }),"
    },
    "upgradeSubscription": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "input": "z.object({ userId: z.string(), plan: z.enum(FederalStatuses) })"
+    "input": "z.strictObject({ userId: z.string().min(1).max(191), plan: z.enum(FederalStatuses), }),"
    },
    "cancelPaypalSubscription": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "input": "z.object({ subscriptionId: z.string() })"
+    "input": "z.strictObject({ subscriptionId: z.string().min(1).max(191) })"
    }
   },
   "petSpecies": {
@@ -4451,6 +4494,44 @@
     "description": "Cancel covert training"
    }
   },
+  "stripe": {
+   "availability": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "createCheckout": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ requestId: z.string().regex(/^[A-Za-z0-9_-]{21}$/), expectedUserId: z.string().min(1).max(191), userId: z.string().min(1).max(191), purchase: stripePurchaseSchema, }),"
+   },
+   "cancelCheckout": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ checkoutId: z.string().min(1).max(191) })"
+   },
+   "resolveSession": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ sessionId: z .string() .regex(/^cs_(?:test_|live_)?[A-Za-z0-9]+$/) .max(255), }),"
+   },
+   "getPendingCheckouts": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "getPayments": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "getSubscriptions": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "cancelSubscription": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ checkoutId: z.string().min(1).max(191) })"
+   }
+  },
   "support": {
    "getTickets": {
     "procedure": "protectedProcedure",
@@ -4972,6 +5053,30 @@
    }
   },
   "war": {
+   "getMercenaryOffers": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "getMercenaries": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "warIdSchema"
+   },
+   "inviteMercenary": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ warId: z.string(), userId: z.string(), tokens: z.number().int().min(1).max(WAR_MERCENARY_MAX_TOKENS), }),"
+   },
+   "acceptMercenary": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ contractId: z.string() })"
+   },
+   "leaveMercenary": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ contractId: z.string() })"
+   },
    "getRules": {
     "procedure": "protectedProcedure",
     "kind": "query"
@@ -5028,7 +5133,7 @@
     "procedure": "protectedProcedure",
     "kind": "query",
     "mcp": false,
-    "description": "Get active wars for a village",
+    "description": "Get active wars for your effective participation when villageId is your own or empty; otherwise, get wars involving the requested village. Objectives follow your viewing permissions.",
     "input": "z.object({ villageId: z.string() })"
    },
    "getEndedWars": {

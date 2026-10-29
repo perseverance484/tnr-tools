@@ -1,0 +1,96 @@
+{
+ "_note": "Pet builder fixture (forge/test/fixtures/pets). Not content: never pushed. Refused: all three steps in one manifest. The jutsu ships hidden, so the species edit naming it as a default is refused by the server.",
+ "items": [
+  {
+   "entity": "petSpecies",
+   "slot": "create",
+   "name": "Fixture Moth",
+   "srcId": "fx_moth",
+   "data": {
+    "name": "Fixture Moth",
+    "description": "A test companion species used by the pet builder fixtures.",
+    "artDirection": "Soft grey moth, pixel art.",
+    "rankConcepts": [
+     "Small moth",
+     "Lantern moth"
+    ],
+    "rarity": "RARE",
+    "role": "HEALER",
+    "isActive": false,
+    "hidden": true,
+    "skillTarget": "SELF",
+    "includeDefaultRules": true,
+    "effects": [
+     {
+      "type": "heal",
+      "power": 2,
+      "calculation": "percentage",
+      "rounds": 100,
+      "target": "SELF"
+     }
+    ],
+    "aiRules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "heal",
+       "description": "Heal when able"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "create",
+   "name": "Fixture Glow",
+   "srcId": "fx_glow",
+   "data": {
+    "name": "Fixture Glow",
+    "description": "Test pet jutsu.",
+    "battleDescription": "%user glows.",
+    "jutsuType": "PETS",
+    "requiredPetSpeciesId": "@petSpecies:fx_moth",
+    "jutsuRank": "C",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "method": "SINGLE",
+    "target": "SELF",
+    "jutsuWeapon": "NONE",
+    "elementClassification": "None",
+    "range": 0,
+    "cooldown": 3,
+    "actionCostPerc": 60,
+    "healthCost": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "injectableInBattle": false,
+    "hidden": true,
+    "effects": [
+     {
+      "type": "heal",
+      "power": 10,
+      "calculation": "percentage",
+      "rounds": 0,
+      "target": "SELF",
+      "powerPerLevel": 0
+     }
+    ]
+   }
+  },
+  {
+   "entity": "petSpecies",
+   "slot": "edit",
+   "name": "Fixture Moth",
+   "srcId": "fx_moth_defaults",
+   "targetId": "fxPetSpecies000000001",
+   "data": {
+    "rarity": "RARE",
+    "defaultJutsuIds": [
+     "@jutsu:fx_glow"
+    ]
+   }
+  }
+ ]
+}

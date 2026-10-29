@@ -26,9 +26,12 @@ function scriptedFetch(script) {
 }
 const resOf = (name) => ({ status: fx(name).exchanges[0].response.status, body: fx(name).exchanges[0].response.body });
 
-test("procedure table: 43 legacy plus 7 scoped Bloodright, 3 content-review and 2 dungeon paths; limited set is the publicProcedure reads plus coop.dungeon.save", () => {
-  assert.equal(Object.keys(PROCEDURES).length, 55);
-  assert.equal(LIMITED_PATHS.length, 20);
+test("procedure table: 43 legacy plus 7 scoped Bloodright, 3 content-review, 2 dungeon and 4 petSpecies paths; limited set is the publicProcedure reads plus coop.dungeon.save", () => {
+  assert.equal(Object.keys(PROCEDURES).length, 59);
+  assert.equal(LIMITED_PATHS.length, 22);
+  // routers/petSpecies.ts at 2af4b320: getAll/get publicProcedure, create/update protectedProcedure
+  assert.deepEqual(PROCEDURES["petSpecies.create"], { kind: "mutation", limited: false, mcp: false, auth: "protected" });
+  assert.deepEqual(PROCEDURES["petSpecies.getAll"], { kind: "query", limited: true, mcp: false, auth: "public" });
   // coop.dungeon.save is protectedProcedure.use(ratelimitMiddleware) at its pin (src/dungeon/contract.json):
   // the one mutation the server rate-limits. Every other limited path is a public read.
   for (const p of LIMITED_PATHS) if (p !== "coop.dungeon.save") assert.equal(PROCEDURES[p].kind, "query", p + " limited but not a query");

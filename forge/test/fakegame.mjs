@@ -25,7 +25,7 @@ const PLACEHOLDER = {
   "quests.create": (id) => ({ id, name: `New Quest - ${id}`, hidden: true, content: { objectives: [], reward: {}, sceneBackground: "", sceneCharacters: [] }, createdAt: new Date(0), updatedAt: new Date(0) }),
   "profile.create": (id) => ({ userId: id, username: `New AI - ${id}`, isAi: true, level: 1, rank: "STUDENT", aiProfileId: null, jutsus: [], items: [], createdAt: new Date(0), updatedAt: new Date(0) }),
 };
-const TABLE = { jutsu: "jutsu", item: "item", bloodline: "bloodline", gameAsset: "asset", quests: "quest", profile: "ai", ai: "aiProfile", dungeon: "dungeon" };
+const TABLE = { jutsu: "jutsu", item: "item", bloodline: "bloodline", gameAsset: "asset", quests: "quest", profile: "ai", ai: "aiProfile", dungeon: "dungeon", petSpecies: "petSpecies" };
 const ID_KEY = { ai: "userId" };
 
 /**
@@ -43,7 +43,7 @@ export const rekey = (v) => (Array.isArray(v) ? v.map(rekey)
 
 export class FakeGame {
   constructor({ crashAt = Infinity, dropAt = Infinity, refuse = new Set(), limitPath = null, signedOut = false } = {}) {
-    this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map(), dungeon: new Map() };
+    this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map(), dungeon: new Map(), petSpecies: new Map() };
     this.calls = [];
     this.crashAt = crashAt;
     // the connection fails at this call BEFORE the server applies it: nothing is written
@@ -79,6 +79,7 @@ export class FakeGame {
     if (this.limitPath === path) return err("TOO_MANY_REQUESTS", "You are moving too fast! Incident logged for review", 429);
     if (this.signedOut && isProtected(path)) return err("UNAUTHORIZED", `UNAUTHORIZED: Data: ${JSON.stringify(input ?? null)}`, 401);
     if (router === "dungeon") result = this.dungeon(proc, input, ok, err);
+    else if (router === "petSpecies") result = this.petSpecies(proc, input, ok, err);
     else if (PLACEHOLDER[path]) {
       if (this.refuse.has(path)) result = ok({ success: false, message: `Not allowed to create` });
       else { const id = nanoidLike(); const row = PLACEHOLDER[path](id, input); table.set(id, row); result = ok({ success: true, message: id }); }
@@ -90,6 +91,8 @@ export class FakeGame {
       const row = table.get(input.id);
       if (!row) result = ok({ success: false, message: `${router} not found` });
       else if (this.refuse.has(path)) result = ok({ success: false, message: "Not allowed" });
+      // routers/jutsu.ts:1153-1157 at 2af4b320
+      else if (router === "jutsu" && input.data.requiredPetSpeciesId && (input.data.jutsuType !== "PETS" || !this.tables.petSpecies.has(input.data.requiredPetSpeciesId))) result = ok({ success: false, message: "Select a valid companion species for a PETS jutsu" });
       else { const { jutsus, items, ...rest } = input.data; Object.assign(row, rest, { updatedAt: new Date(1) });
              if (router === "profile") { if (jutsus) row.jutsus = jutsus.map((j) => ({ jutsuId: j })); if (items) row.items = items.flatMap((t) => t.ids.map((i) => ({ itemId: i, quantity: (row.items ?? []).find((r) => r.itemId === i)?.quantity ?? 1, dropChancePerc: Number(t.number) }))); }
              result = ok({ success: true, message: `Updated ${input.id}` }); }
@@ -192,6 +195,51 @@ FakeGame.prototype.dungeon = function (proc, input, ok, err) {
   const id = input.id ?? nanoidLike();
   table.set(id, { id, content: rekey(JSON.parse(JSON.stringify(c))), updatedAt: new Date(1) });
   return ok({ success: true, message: "Dungeon saved.", id });
+};
+
+/**
+ * petSpecies.* as routers/petSpecies.ts answers at TheNinjaRPG@2af4b320, written out here independently
+ * of Forge's pets.mjs: the input is parsed the way PetSpeciesValidator parses it (unknown keys
+ * STRIPPED, defaults filled, name/description/rarity/isActive required, defaults unique and within
+ * the rarity's slots); create refuses a taken name and any default that is not a published,
+ * unlocked PETS jutsu and answers {success, message: <id>}; update {id, data} re-saves the whole
+ * parsed record and accepts defaults locked to that species only; get {id}; getAll lists every row.
+ */
+const PET_KEYS = { name: undefined, description: undefined, artDirection: null, rankConcepts: [], rarity: undefined, role: "ASSAULT",
+  preferredDamageElement: null, isActive: undefined, defaultJutsuIds: [], aiRules: [], includeDefaultRules: true, effects: [], skillTarget: "SELF" };
+const PET_SLOTS_AT_SOURCE = { COMMON: 2, UNCOMMON: 3, RARE: 4, EPIC: 5, LEGENDARY: 6 };
+FakeGame.prototype.petSpecies = function (proc, input, ok, err) {
+  const table = this.tables.petSpecies;
+  if (proc === "getAll") return ok([...table.values()].map((r) => structuredClone(r)));
+  if (proc === "get") { const r = table.get(input.id); return r ? ok(structuredClone(r)) : err("NOT_FOUND", "Companion species not found", 404); }
+  if (proc !== "create" && proc !== "update") return err("NOT_FOUND", "unknown procedure petSpecies." + proc, 404);
+  const raw = proc === "create" ? input : input.data;
+  const d = {};
+  for (const [k, dflt] of Object.entries(PET_KEYS)) {
+    if (raw?.[k] !== undefined) d[k] = structuredClone(raw[k]);
+    else if (dflt !== undefined) d[k] = structuredClone(dflt);
+    else return { ok: false, error: { code: "BAD_REQUEST", httpStatus: 400, message: "Required", path: "petSpecies." + proc, zodError: [{ path: [k], message: "Required" }] } };
+  }
+  // the validator's transforms (validators/petSpecies.ts:22-48), as the stored row carries them
+  for (const k of ["name", "description"]) d[k] = String(d[k]).trim();
+  d.artDirection = typeof d.artDirection === "string" && d.artDirection.trim() ? d.artDirection.trim() : null;
+  d.rankConcepts = d.rankConcepts.map((c) => (c == null ? "" : String(c).trim()));
+  while (d.rankConcepts.length && !d.rankConcepts.at(-1)) d.rankConcepts.pop();
+  if (new Set(d.defaultJutsuIds).size !== d.defaultJutsuIds.length || d.defaultJutsuIds.length > PET_SLOTS_AT_SOURCE[d.rarity]) {
+    return { ok: false, error: { code: "BAD_REQUEST", httpStatus: 400, message: "defaults", path: "petSpecies." + proc, zodError: [{ path: ["defaultJutsuIds"], message: "defaults" }] } };
+  }
+  const id = proc === "create" ? null : input.id;
+  const named = [...table.values()].find((r) => r.name === d.name);
+  if (named && named.id !== id) return ok({ success: false, message: "Companion species name already exists" });
+  if (id && !table.has(id)) return ok({ success: false, message: "Companion species not found" });
+  const defaults = d.defaultJutsuIds.map((j) => this.tables.jutsu.get(j));
+  if (defaults.some((j) => !j || j.hidden || j.jutsuType !== "PETS" || (j.requiredPetSpeciesId && j.requiredPetSpeciesId !== id))) {
+    return ok({ success: false, message: "Choose published, compatible PETS jutsu for the default loadout." });
+  }
+  if (this.refuse.has("petSpecies." + proc)) return ok({ success: false, message: "Not allowed" });
+  if (proc === "create") { const nid = nanoidLike(); table.set(nid, { id: nid, ...d, createdAt: new Date(0), updatedAt: new Date(0) }); return ok({ success: true, message: nid }); }
+  Object.assign(table.get(id), d, { updatedAt: new Date(1) });
+  return ok({ success: true, message: "Companion species updated." });
 };
 
 /** A Session-less TrpcClient stand-in with the same batch()/call() surface, backed by FakeGame. */

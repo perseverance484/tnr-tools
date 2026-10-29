@@ -1,0 +1,134 @@
+{
+ "schema": "tnr.schema_adoption_ledger",
+ "ruling": "RUL-2026-10-28-012",
+ "scope": "One adoption of the generated 45c/45d/45e/45f/45g contracts; each entry is bound to the exact OLD and NEW file hashes. Not a waiver: any other file, or any other breaking atom, fails schema_diff.py exactly as before.",
+ "source": {
+  "old": "studie-tech/TheNinjaRPG@85cecaebf4ada2e265a18a1405f63c9637443275",
+  "new": "studie-tech/TheNinjaRPG@2af4b32066c39e2868efae5dba6b339278701dca"
+ },
+ "regenerate": "python3 scripts/schema_adoption_ledger.py <OLD checkout> <NEW checkout> <pre-adoption 45x dir> <adopted 45x dir> --write state/schema_adoption_ledger_2af4b320.json --ruling RUL-2026-10-28-012",
+ "classes": {
+  "upstream_field_removed": {
+   "evidence": "A key the validator no longer declares at the new pin. Verified independently: Forge tools/derive_fields.mjs (entity columns) or tools/derive_nested.mjs (tag/objective/AI keys) lists it at the old pin and not at the new one. Examples: migration 0056 dropped required{Ninjutsu,...}{Offence,Defence}; ten tags stopped spreading IncludeStats.",
+   "count": 0
+  },
+  "upstream_const_member_removed": {
+   "evidence": "A member the constant's declaration no longer contains at the new pin (comments stripped, spreads followed), present at the old pin. E.g. StatTypes lost \"Highest\" (IncludeStats maps legacy Highest to None), UserStatuses lost KAGE_QUEUED.",
+   "count": 1
+  },
+  "upstream_procedure_removed": {
+   "evidence": "A router procedure no longer declared in its router file at the new pin (kage challenges, train.stopTraining -> stopMasteryTraining, ...); its guard/kind atoms go with it.",
+   "count": 0
+  },
+  "consequence_of_removal": {
+   "evidence": "An enum member, or a 45g nullable/required/enum/null-strip entry, that belonged to a field verified as removed in this same ledger, or to a constant member verified as removed (statClassification lost \"Highest\" because StatTypes did).",
+   "count": 0
+  },
+  "extractor_spread_marker": {
+   "evidence": "The old file carried a literal \"...Name\" spread marker as if it were a value (ElementNames held \"...BasicElementName\" instead of Fire/Water/...). The fixed extractor expands the spread; the marker was never a value the server accepts.",
+   "count": 0
+  },
+  "extractor_nested_key": {
+   "evidence": "The old line-based parser attributed a key of an inline nested z.object to the outer variant (dialog.text came from nextObjectiveId: z.array(z.object({text, ...}))), and reported that inner key's type as the field's (nextObjectiveId \"string\", really an array). Forge derive_nested at the old pin confirms `text` was never a dialog key; the field's declaration at both pins is z.array(z.object({...})).",
+   "count": 0
+  },
+  "extractor_helper_overreach": {
+   "evidence": "The old helper collector read a fixed 600-character window past a helper, so z.enum(WeaponTypes) from unrelated code became the enum of every stat requirement (requiredStrength...). The old field's own raw expression declares no enum.",
+   "count": 0
+  },
+  "extractor_spread_precedence": {
+   "evidence": "The old flattener let the FIRST spread win; zod lets the LAST win. BaseAttributes.power (max 100) was reported for tags whose PowerAttributes.power (min 0, no max) overrides it: the 45g tag_power_max mistake Forge validate.mjs documents. The new 45c field for that tag has no max.",
+   "count": 0
+  },
+  "upstream_default_removed": {
+   "evidence": "A union-variant field that had a default at the old pin and none at the new one, so it is now required (every objective's `task: z.literal(x).prefault(x)` became `z.literal(x)` upstream). Verified from the variant schema's own field declaration at both pins (top-level entries of the declared object; spreads followed).",
+   "count": 0
+  },
+  "extractor_type_fragment": {
+   "evidence": "The old line-based parser read `z.coerce` at the end of a line as the type \"coerce\"; the field's declaration at both pins is z.coerce.number().",
+   "count": 0
+  },
+  "upstream_bound_changed": {
+   "evidence": "A 45g cap_100 entry for a field the validator still declares, whose upper bound is no longer 100 at the new pin (requiredLevel/maxLevel: .max(100) became .max(MAX_PLAYER_LEVEL) = 110 at 2af4b320). Verified from the entity schema's own field declaration at both pins (spreads followed) and, for a named bound, the constant's declaration at the new pin.",
+   "count": 4
+  },
+  "extractor_ref_resolution": {
+   "evidence": "A field typed by a named schema was recorded as an opaque object; the fixed extractor resolves the name (aiRule.action: ZodAllAiActions is a z.union).",
+   "count": 0
+  }
+ },
+ "files": [
+  {
+   "file": "skills/building-tnr-content/data/45c_DATA_constructors.json",
+   "old_sha256": "8ea74e2a69fb8d577c3ef7db3537eaf88b78f762071f1dacde5db6dbc40f81c3",
+   "new_sha256": "7dc0af28b02176e5612f7ed533355ccfaa3be11c705959c43ea8b0190b3048ca",
+   "accepted": []
+  },
+  {
+   "file": "skills/building-tnr-content/data/45d_DATA_entity_schemas.json",
+   "old_sha256": "71aae6108915890ab03ff3490f2cd1667f033e66407d1abab372bf3950183e4a",
+   "new_sha256": "521466d1fe90dfa129278efc8a0131a74e2180f4ec9946e77c4968b1ba2c7ff9",
+   "accepted": []
+  },
+  {
+   "file": "skills/building-tnr-content/data/45e_DATA_constants.json",
+   "old_sha256": "3fe30e13fe9796f6af3f479a3f68d5e6535c39f3dcf1c526c2f36d37d7a5cd06",
+   "new_sha256": "16856acdf32b5f8b763c145564c58a0e2d3619b92de945441d10b4239963d2f6",
+   "accepted": [
+    {
+     "atom": [
+      "const-member",
+      "ACTIVE_VOTING_SITES",
+      "bbogd"
+     ],
+     "class": "upstream_const_member_removed"
+    }
+   ]
+  },
+  {
+   "file": "skills/building-tnr-content/data/45f_DATA_procedures.json",
+   "old_sha256": "43db77353bf3f4e9c2390cf5dda79814e3792818624ddbe5bc38cec5690dea6f",
+   "new_sha256": "6637e8f4a8eff9372caef7f067d8724edb8bd6b9a86240ba9968aa6f4047d573",
+   "accepted": []
+  },
+  {
+   "file": "skills/building-tnr-content/data/45g_DATA_checks.json",
+   "old_sha256": "3c51960d15adc733df31cff2ea60c21cb8a1ed3e9c571e9146905697e972c198",
+   "new_sha256": "fbb547933c478f6c3d33a0bd1f82a332411d2455ddbd9363569a78ecd4f3d9a0",
+   "accepted": [
+    {
+     "atom": [
+      "check",
+      "cap_100.fields.item",
+      "\"requiredLevel\""
+     ],
+     "class": "upstream_bound_changed"
+    },
+    {
+     "atom": [
+      "check",
+      "cap_100.fields.jutsu",
+      "\"requiredLevel\""
+     ],
+     "class": "upstream_bound_changed"
+    },
+    {
+     "atom": [
+      "check",
+      "cap_100.fields.quest",
+      "\"maxLevel\""
+     ],
+     "class": "upstream_bound_changed"
+    },
+    {
+     "atom": [
+      "check",
+      "cap_100.fields.quest",
+      "\"requiredLevel\""
+     ],
+     "class": "upstream_bound_changed"
+    }
+   ]
+  }
+ ]
+}

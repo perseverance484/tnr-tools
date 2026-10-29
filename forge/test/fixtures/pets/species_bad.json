@@ -1,0 +1,55 @@
+{
+ "_note": "Pet builder fixture (forge/test/fixtures/pets). Not content: never pushed. Refused: active on create, duplicate defaults over the RARE slots, barrier and COORDINATES innates, a non-pet AI action, an unknown key.",
+ "items": [
+  {
+   "entity": "petSpecies",
+   "slot": "create",
+   "name": "Fixture Moth",
+   "srcId": "fx_moth",
+   "data": {
+    "name": "Fixture Moth",
+    "description": "A test companion species used by the pet builder fixtures.",
+    "artDirection": "Soft grey moth, pixel art.",
+    "rankConcepts": [
+     "Small moth",
+     "Lantern moth"
+    ],
+    "rarity": "RARE",
+    "role": "HEALER",
+    "isActive": true,
+    "hidden": true,
+    "skillTarget": "SELF",
+    "includeDefaultRules": true,
+    "effects": [
+     {
+      "type": "barrier",
+      "power": 10,
+      "target": "SELF"
+     },
+     {
+      "type": "heal",
+      "power": 2,
+      "target": "COORDINATES"
+     }
+    ],
+    "aiRules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_random_jutsu",
+       "description": "x"
+      }
+     }
+    ],
+    "defaultJutsuIds": [
+     "fxPetJutsu00000000001",
+     "fxPetJutsu00000000001",
+     "fxPetJutsu00000000001",
+     "fxPetJutsu00000000001",
+     "fxPetJutsu00000000001"
+    ],
+    "colour": "grey"
+   }
+  }
+ ]
+}
