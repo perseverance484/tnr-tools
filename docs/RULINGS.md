@@ -4005,7 +4005,7 @@ The text is generated from the cache weights and enforced by `scripts/skyglass_c
    - clearprevent, 2 rounds.
 
    This gives phase 2 a couple more rounds.
-3. **The Gunwale and Battle Trance move to the spare AP after later marks.** The harness fits them around the transition turn's AP budget.
+3. **One turn holds all three: the first mark, Raise the Gunwale and the transition jutsu** (100 AP split between them; the Gunwale's AP is ours to set). Battle Trance follows normally on a later turn. Director refinement: "Fit the mark, the gunwale and the transition jutsu into 1 turn. Then follow up with battle trance normally".
 
 **Evidence:** Director, 2026-10-28: "Lay the first mark on the transition turn and fit in a transition jutsu : cleanse(0 rounds, instant), 40% DR, 40% absorb, clear prevent, rest for 2 rounds. This should give his 2nd phase a couple more rounds."
 
