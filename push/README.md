@@ -1164,7 +1164,7 @@ problems; `validate.py --strict` 1 error + 8 warnings, all held under `state/val
 (RUL-2026-10-28-002: the law-6 power cap, and the build-order lint, which ignores phases). Regenerate and re-write the
 ledger whenever the manifest changes.
 
-## 320 Skyglass danger-language assets (10 asset creates, HIDDEN): READY TO RUN (test of tiles under characters)
+## 320 Skyglass danger-language assets (10 asset creates, HIDDEN): RUN (bundle tnr_results_1793211363293.json: 10/10 ok; ids in `state/skyglass_fx/asset_ids.json`), archived
 
 Director 2026-10-28: marks play under the characters; "We'll double check with a push". Built by
 `push/skyglass_fx_assets.gen.py` from `art/skyglass_boss_fx/exports` (`animate.py`; key art = the director's six art
@@ -1177,7 +1177,7 @@ Preview: `docs/design/skyglass_boss_fx/v3_battle.mp4`. Image pack pinned at the 
 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:** from its results bundle, push/321
 unhides the ten (law 16c) and creates a hidden test jutsu that lays the tiles.
 
-## 323 Item catalog capture (read-only, 6 parts): READY TO RUN (any order)
+## 323 Item catalog capture (read-only, 6 parts): RUN (bundles tnr_results_1793209531278 .. 1793211272111: 766/766 reads ok; item.getAllNames = 873 rows; no empty-id profession flags on any item), archived
 
 Director 2026-10-28: "Thinking you may need a fresh capture of all items for this." Point-reads every item in the seed
 index (766, hidden included) with `item.get`, persist full, so each record's shop flag, crafting requirements, event flag
@@ -1187,7 +1187,7 @@ the row count, which shows how many items are newer than the seed. Those newer i
 129/128/128/128/128/126 reads, zero writes. Built by `push/323_item_catalog_capture.gen.py`. Gates (each part):
 `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 324 Quest catalog capture (read-only, 4 parts): READY TO RUN (any order)
+## 324 Quest catalog capture (read-only, 4 parts): RUN (bundles tnr_results_1793212875766, 1793241212213, 1793245183632, 1793245399559: 385/385 reads ok; quests.getAllNames = 452 rows, so 67 newer quests are unaudited; no empty-id reward_hunter_items / reward_gathering_items in any audited quest), archived
 
 Director, 2026-10-28: "Approve and build the audit" (RUL-2026-10-28-023). The Hunter's and Gatherer's Chests are about to
 be flagged `canBeHunted` / `canBeGathered`. Any quest whose reward sets `reward_hunter_items` or `reward_gathering_items`
@@ -1207,3 +1207,10 @@ Both manifests ran in October 2026. On 2026-10-28 the director approved archivin
 Ship text trips the Skyglass consistency check, which would otherwise fail every full run over `push/`. The JSON now
 lives in `archive/spent-manifests/push-2026-10-12/`. Their generators and helpers stay in `push/`, because push/93 imports
 push/90's exception gate.
+
+## 321 Unhide the Skyglass danger-language assets (10 asset edits): READY TO RUN
+
+Built by `push/321_skyglass_fx_assets_unhide.gen.py` from the push/320 results bundle. Each of the ten assets' full create
+data is re-sent with `hidden: false`; the images are unchanged. Battles load only unhidden assets (law 16c). The tiles are
+test-played in the Proving Ground quest (RUL-2026-10-28-028), so no test jutsu is created here. Gates: `validate.py
+--strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
