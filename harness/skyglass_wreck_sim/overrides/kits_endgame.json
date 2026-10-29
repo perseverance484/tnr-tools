@@ -10733,10 +10733,10 @@
     {
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
@@ -10915,7 +10915,6 @@
      "aiIds": [
       "dg-deck-warden",
       "dg-deck-warden",
-      "dg-deck-warden",
       "dg-seal-charge"
      ],
      "delayRounds": 0
@@ -10928,8 +10927,7 @@
     {
      "aiIds": [
       "dg-skyglass-sentinel",
-      "dg-first-blade",
-      "dg-deck-warden"
+      "dg-first-blade"
      ],
      "delayRounds": 0
     }
@@ -10941,8 +10939,7 @@
     {
      "aiIds": [
       "dg-oathkeeper",
-      "dg-wayfinder",
-      "dg-deck-warden"
+      "dg-wayfinder"
      ],
      "delayRounds": 0
     }

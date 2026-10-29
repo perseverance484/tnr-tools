@@ -7,7 +7,7 @@
  "variant": "average",
  "pets": true,
  "appearances": 60,
- "decisions": 1768,
+ "decisions": 1791,
  "roundsInWaveMedian": 14,
  "phases": {
   "phaseHp": 50,
@@ -15,17 +15,17 @@
   "phase1RoundsMedian": 8,
   "phase2RoundsMedian": 6,
   "phase2RoundsMedianKilled": 6,
-  "phase1RoundsP90": 12,
-  "phase2RoundsP90": 10,
-  "hpAtFirstPhase2DecisionMedian": 44,
-  "killedPct": 83,
+  "phase1RoundsP90": 11,
+  "phase2RoundsP90": 8,
+  "hpAtFirstPhase2DecisionMedian": 43,
+  "killedPct": 90,
   "phase1Range": [
    5,
-   18
+   16
   ],
   "phase2Range": [
    3,
-   18
+   26
   ]
  },
  "together": {
@@ -40,7 +40,7 @@
    [
     13,
     13,
-    14
+    13
    ],
    [
     10,
@@ -56,51 +56,51 @@
     8,
     8,
     9
+   ],
+   [
+    16,
+    16,
+    16
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    11,
+    11,
+    11
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    9,
+    9,
+    9
+   ],
+   [
+    10,
+    10,
+    10
    ],
    [
     15,
     15,
     15
-   ],
-   [
-    10,
-    10,
-    10
-   ],
-   [
-    10,
-    10,
-    10
-   ],
-   [
-    11,
-    11,
-    11
-   ],
-   [
-    10,
-    10,
-    10
-   ],
-   [
-    10,
-    10,
-    10
-   ],
-   [
-    9,
-    9,
-    9
-   ],
-   [
-    10,
-    10,
-    10
-   ],
-   [
-    18,
-    18,
-    18
    ],
    [
     null,
@@ -158,9 +158,9 @@
     11
    ],
    [
-    16,
-    16,
-    17
+    14,
+    14,
+    15
    ],
    [
     10,
@@ -193,9 +193,9 @@
     null
    ],
    [
-    11,
-    11,
-    11
+    10,
+    10,
+    10
    ],
    [
     12,
@@ -211,71 +211,6 @@
     13,
     13,
     13
-   ],
-   [
-    13,
-    13,
-    13
-   ],
-   [
-    9,
-    9,
-    9
-   ],
-   [
-    12,
-    12,
-    12
-   ],
-   [
-    10,
-    10,
-    10
-   ],
-   [
-    9,
-    9,
-    9
-   ],
-   [
-    11,
-    11,
-    11
-   ],
-   [
-    11,
-    11,
-    11
-   ],
-   [
-    9,
-    9,
-    9
-   ],
-   [
-    11,
-    11,
-    11
-   ],
-   [
-    10,
-    10,
-    10
-   ],
-   [
-    10,
-    10,
-    10
-   ],
-   [
-    10,
-    10,
-    10
-   ],
-   [
-    9,
-    9,
-    9
    ],
    [
     14,
@@ -283,9 +218,74 @@
     14
    ],
    [
-    17,
-    17,
-    17
+    9,
+    9,
+    9
+   ],
+   [
+    12,
+    12,
+    12
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    9,
+    9,
+    9
+   ],
+   [
+    11,
+    11,
+    11
+   ],
+   [
+    11,
+    11,
+    11
+   ],
+   [
+    9,
+    9,
+    9
+   ],
+   [
+    11,
+    11,
+    11
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    8,
+    8,
+    8
+   ],
+   [
+    14,
+    14,
+    14
+   ],
+   [
+    14,
+    14,
+    14
    ],
    [
     13,
@@ -298,8 +298,8 @@
     11
    ],
    [
-    11,
-    11,
+    10,
+    10,
     11
    ],
    [
@@ -339,12 +339,41 @@
    ]
   ]
  },
+ "actionsByPhase": {
+  "p1": {
+   "Final Command": 91,
+   "Counter Stance": 137,
+   "Keelbind": 72,
+   "Suppression Writ": 76,
+   "Unraveling Strike": 93,
+   "Windlash Focus": 107,
+   "Explosive Tag Cataclysm": 64,
+   "basicAttack": 176,
+   "wait": 177,
+   "Stolen Form": 57,
+   "Unbroken Command": 22
+  },
+  "p2": {
+   "Steady the Helm": 57,
+   "Raise the Gunwale": 57,
+   "Omen: Binding Ring": 97,
+   "wait": 155,
+   "Ship's Bell": 92,
+   "Omen: Rows": 79,
+   "Battle Trance": 63,
+   "Broadside": 54,
+   "Second Wind": 37,
+   "Final Command": 24,
+   "basicAttack": 1,
+   "Keelbind": 3
+  }
+ },
  "perAppearance": [
   {
    "seed": 1,
    "phase1": 9,
-   "phase2": 10,
-   "hpAtFirstPhase2Decision": 48,
+   "phase2": 7,
+   "hpAtFirstPhase2Decision": 50,
    "killed": true
   },
   {
@@ -357,8 +386,8 @@
   {
    "seed": 3,
    "phase1": 8,
-   "phase2": 8,
-   "hpAtFirstPhase2Decision": 48,
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 40,
    "killed": true
   },
   {
@@ -370,9 +399,9 @@
   },
   {
    "seed": 5,
-   "phase1": 12,
-   "phase2": 18,
-   "hpAtFirstPhase2Decision": 46,
+   "phase1": 13,
+   "phase2": 8,
+   "hpAtFirstPhase2Decision": 43,
    "killed": false
   },
   {
@@ -426,14 +455,14 @@
   },
   {
    "seed": 13,
-   "phase1": 15,
-   "phase2": 6,
-   "hpAtFirstPhase2Decision": 46,
-   "killed": false
+   "phase1": 12,
+   "phase2": 7,
+   "hpAtFirstPhase2Decision": 44,
+   "killed": true
   },
   {
    "seed": 14,
-   "phase1": 12,
+   "phase1": 15,
    "phase2": null,
    "hpAtFirstPhase2Decision": null,
    "killed": false
@@ -449,7 +478,7 @@
    "seed": 16,
    "phase1": 10,
    "phase2": 6,
-   "hpAtFirstPhase2Decision": 46,
+   "hpAtFirstPhase2Decision": 47,
    "killed": true
   },
   {
@@ -462,8 +491,8 @@
   {
    "seed": 18,
    "phase1": 13,
-   "phase2": 10,
-   "hpAtFirstPhase2Decision": 43,
+   "phase2": 26,
+   "hpAtFirstPhase2Decision": 45,
    "killed": false
   },
   {
@@ -497,8 +526,8 @@
   {
    "seed": 23,
    "phase1": 8,
-   "phase2": 4,
-   "hpAtFirstPhase2Decision": 30,
+   "phase2": 5,
+   "hpAtFirstPhase2Decision": 32,
    "killed": true
   },
   {
@@ -510,8 +539,8 @@
   },
   {
    "seed": 25,
-   "phase1": 12,
-   "phase2": 9,
+   "phase1": 10,
+   "phase2": 13,
    "hpAtFirstPhase2Decision": 50,
    "killed": true
   },
@@ -546,9 +575,9 @@
   {
    "seed": 30,
    "phase1": 7,
-   "phase2": 7,
-   "hpAtFirstPhase2Decision": 31,
-   "killed": false
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 26,
+   "killed": true
   },
   {
    "seed": 31,
@@ -559,9 +588,9 @@
   },
   {
    "seed": 32,
-   "phase1": 8,
+   "phase1": 7,
    "phase2": 4,
-   "hpAtFirstPhase2Decision": 34,
+   "hpAtFirstPhase2Decision": 49,
    "killed": true
   },
   {
@@ -582,14 +611,14 @@
    "seed": 35,
    "phase1": 10,
    "phase2": 6,
-   "hpAtFirstPhase2Decision": 49,
+   "hpAtFirstPhase2Decision": 43,
    "killed": true
   },
   {
    "seed": 36,
-   "phase1": 10,
-   "phase2": 5,
-   "hpAtFirstPhase2Decision": 47,
+   "phase1": 11,
+   "phase2": 8,
+   "hpAtFirstPhase2Decision": 44,
    "killed": true
   },
   {
@@ -623,15 +652,15 @@
   {
    "seed": 41,
    "phase1": 8,
-   "phase2": 10,
-   "hpAtFirstPhase2Decision": 48,
-   "killed": false
+   "phase2": 7,
+   "hpAtFirstPhase2Decision": 44,
+   "killed": true
   },
   {
    "seed": 42,
    "phase1": 8,
    "phase2": 13,
-   "hpAtFirstPhase2Decision": 48,
+   "hpAtFirstPhase2Decision": 32,
    "killed": false
   },
   {
@@ -671,24 +700,24 @@
   },
   {
    "seed": 48,
-   "phase1": 6,
-   "phase2": 7,
-   "hpAtFirstPhase2Decision": 45,
+   "phase1": 5,
+   "phase2": 8,
+   "hpAtFirstPhase2Decision": 49,
    "killed": true
   },
   {
    "seed": 49,
    "phase1": 11,
-   "phase2": 10,
-   "hpAtFirstPhase2Decision": 47,
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 35,
    "killed": true
   },
   {
    "seed": 50,
-   "phase1": 14,
-   "phase2": 7,
-   "hpAtFirstPhase2Decision": 44,
-   "killed": false
+   "phase1": 11,
+   "phase2": 6,
+   "hpAtFirstPhase2Decision": 39,
+   "killed": true
   },
   {
    "seed": 51,
@@ -706,9 +735,9 @@
   },
   {
    "seed": 53,
-   "phase1": 8,
-   "phase2": 7,
-   "hpAtFirstPhase2Decision": 33,
+   "phase1": 7,
+   "phase2": 8,
+   "hpAtFirstPhase2Decision": 49,
    "killed": true
   },
   {
@@ -727,7 +756,7 @@
   },
   {
    "seed": 56,
-   "phase1": 18,
+   "phase1": 16,
    "phase2": null,
    "hpAtFirstPhase2Decision": null,
    "killed": false
@@ -769,18 +798,18 @@
    "conditions": [
     "has_effect 1 increaserange"
    ],
-   "firedInAppearancesPct": 72,
+   "firedInAppearancesPct": 70,
    "firedByPhase": {
     "p1": 0,
-    "p2": 56
+    "p2": 54
    },
    "decisions": {
-    "fired": 56,
+    "fired": 54,
     "preempted": 0,
-    "condition": 1582,
+    "condition": 1605,
     "cooldown": 20,
     "locked": 0,
-    "ap": 110,
+    "ap": 112,
     "engine": 0
    },
    "mainReasonNotFired": "condition"
@@ -795,15 +824,15 @@
    "firedInAppearancesPct": 93,
    "firedByPhase": {
     "p1": 0,
-    "p2": 90
+    "p2": 92
    },
    "decisions": {
-    "fired": 90,
+    "fired": 92,
     "preempted": 0,
-    "condition": 1529,
-    "cooldown": 39,
+    "condition": 1549,
+    "cooldown": 34,
     "locked": 0,
-    "ap": 110,
+    "ap": 116,
     "engine": 0
    },
    "mainReasonNotFired": "condition"
@@ -816,16 +845,16 @@
     "has_effect 1 increaserange",
     "health_below 50"
    ],
-   "firedInAppearancesPct": 50,
+   "firedInAppearancesPct": 52,
    "firedByPhase": {
     "p1": 0,
-    "p2": 32
+    "p2": 33
    },
    "decisions": {
-    "fired": 32,
-    "preempted": 9,
-    "condition": 1582,
-    "cooldown": 145,
+    "fired": 33,
+    "preempted": 7,
+    "condition": 1605,
+    "cooldown": 146,
     "locked": 0,
     "ap": 0,
     "engine": 0
@@ -840,18 +869,18 @@
     "has_effect 1 increaserange",
     "health_below 25"
    ],
-   "firedInAppearancesPct": 32,
+   "firedInAppearancesPct": 30,
    "firedByPhase": {
     "p1": 0,
     "p2": 19
    },
    "decisions": {
     "fired": 19,
-    "preempted": 31,
-    "condition": 1674,
-    "cooldown": 26,
+    "preempted": 32,
+    "condition": 1689,
+    "cooldown": 31,
     "locked": 0,
-    "ap": 18,
+    "ap": 20,
     "engine": 0
    },
    "mainReasonNotFired": "condition"
@@ -867,15 +896,15 @@
    "firedInAppearancesPct": 20,
    "firedByPhase": {
     "p1": 0,
-    "p2": 12
+    "p2": 13
    },
    "decisions": {
-    "fired": 12,
-    "preempted": 53,
-    "condition": 1582,
-    "cooldown": 90,
+    "fired": 13,
+    "preempted": 57,
+    "condition": 1605,
+    "cooldown": 81,
     "locked": 0,
-    "ap": 31,
+    "ap": 35,
     "engine": 0
    },
    "mainReasonNotFired": "condition"
@@ -888,15 +917,15 @@
     "has_effect 1 increaserange",
     "distance_lower_than 5 HIGHEST_ENMITY_OPPONENT"
    ],
-   "firedInAppearancesPct": 7,
+   "firedInAppearancesPct": 3,
    "firedByPhase": {
     "p1": 0,
-    "p2": 4
+    "p2": 2
    },
    "decisions": {
-    "fired": 4,
-    "preempted": 70,
-    "condition": 1582,
+    "fired": 2,
+    "preempted": 72,
+    "condition": 1605,
     "cooldown": 88,
     "locked": 0,
     "ap": 24,
@@ -914,12 +943,12 @@
    "firedInAppearancesPct": 92,
    "firedByPhase": {
     "p1": 0,
-    "p2": 63
+    "p2": 65
    },
    "decisions": {
-    "fired": 63,
-    "preempted": 123,
-    "condition": 1582,
+    "fired": 65,
+    "preempted": 121,
+    "condition": 1605,
     "cooldown": 0,
     "locked": 0,
     "ap": 0,
@@ -935,18 +964,18 @@
     "has_effect 1 decreasecooldown",
     "health_below 50"
    ],
-   "firedInAppearancesPct": 48,
+   "firedInAppearancesPct": 45,
    "firedByPhase": {
     "p1": 0,
     "p2": 30
    },
    "decisions": {
     "fired": 30,
-    "preempted": 56,
-    "condition": 1529,
-    "cooldown": 99,
+    "preempted": 55,
+    "condition": 1549,
+    "cooldown": 104,
     "locked": 0,
-    "ap": 54,
+    "ap": 53,
     "engine": 0
    },
    "mainReasonNotFired": "condition"
@@ -959,16 +988,16 @@
     "has_effect 1 decreasecooldown",
     "health_below 25"
    ],
-   "firedInAppearancesPct": 23,
+   "firedInAppearancesPct": 30,
    "firedByPhase": {
     "p1": 0,
-    "p2": 14
+    "p2": 18
    },
    "decisions": {
-    "fired": 14,
-    "preempted": 27,
-    "condition": 1677,
-    "cooldown": 44,
+    "fired": 18,
+    "preempted": 30,
+    "condition": 1684,
+    "cooldown": 53,
     "locked": 0,
     "ap": 6,
     "engine": 0
@@ -983,18 +1012,18 @@
     "has_effect 1 decreasecooldown",
     "distance_lower_than 4 HIGHEST_ENMITY_OPPONENT"
    ],
-   "firedInAppearancesPct": 27,
+   "firedInAppearancesPct": 15,
    "firedByPhase": {
     "p1": 0,
-    "p2": 17
+    "p2": 11
    },
    "decisions": {
-    "fired": 17,
-    "preempted": 71,
-    "condition": 1529,
+    "fired": 11,
+    "preempted": 76,
+    "condition": 1549,
     "cooldown": 118,
     "locked": 0,
-    "ap": 33,
+    "ap": 37,
     "engine": 0
    },
    "mainReasonNotFired": "condition"
@@ -1014,11 +1043,11 @@
    },
    "decisions": {
     "fired": 1,
-    "preempted": 65,
-    "condition": 1529,
-    "cooldown": 149,
+    "preempted": 66,
+    "condition": 1549,
+    "cooldown": 148,
     "locked": 0,
-    "ap": 24,
+    "ap": 27,
     "engine": 0
    },
    "mainReasonNotFired": "condition"
@@ -1033,12 +1062,12 @@
    "firedInAppearancesPct": 95,
    "firedByPhase": {
     "p1": 0,
-    "p2": 87
+    "p2": 90
    },
    "decisions": {
-    "fired": 87,
+    "fired": 90,
     "preempted": 152,
-    "condition": 1529,
+    "condition": 1549,
     "cooldown": 0,
     "locked": 0,
     "ap": 0,
@@ -1061,8 +1090,8 @@
    "decisions": {
     "fired": 57,
     "preempted": 0,
-    "condition": 1053,
-    "cooldown": 658,
+    "condition": 1072,
+    "cooldown": 662,
     "locked": 0,
     "ap": 0,
     "engine": 0
@@ -1084,8 +1113,8 @@
    "decisions": {
     "fired": 57,
     "preempted": 57,
-    "condition": 1053,
-    "cooldown": 601,
+    "condition": 1072,
+    "cooldown": 605,
     "locked": 0,
     "ap": 0,
     "engine": 0
@@ -1102,13 +1131,13 @@
    "firedInAppearancesPct": 95,
    "firedByPhase": {
     "p1": 0,
-    "p2": 96
+    "p2": 97
    },
    "decisions": {
-    "fired": 96,
-    "preempted": 134,
-    "condition": 1053,
-    "cooldown": 482,
+    "fired": 97,
+    "preempted": 135,
+    "condition": 1072,
+    "cooldown": 484,
     "locked": 0,
     "ap": 3,
     "engine": 0
@@ -1129,11 +1158,11 @@
    },
    "decisions": {
     "fired": 79,
-    "preempted": 270,
-    "condition": 1053,
-    "cooldown": 306,
+    "preempted": 266,
+    "condition": 1072,
+    "cooldown": 315,
     "locked": 0,
-    "ap": 60,
+    "ap": 59,
     "engine": 0
    },
    "mainReasonNotFired": "condition"
@@ -1152,11 +1181,11 @@
    },
    "decisions": {
     "fired": 0,
-    "preempted": 139,
-    "condition": 1509,
-    "cooldown": 96,
+    "preempted": 154,
+    "condition": 1493,
+    "cooldown": 118,
     "locked": 0,
-    "ap": 24,
+    "ap": 26,
     "engine": 0
    },
    "mainReasonNotFired": "condition"
@@ -1175,8 +1204,8 @@
    },
    "decisions": {
     "fired": 22,
-    "preempted": 137,
-    "condition": 1581,
+    "preempted": 130,
+    "condition": 1611,
     "cooldown": 6,
     "locked": 0,
     "ap": 22,
@@ -1191,19 +1220,19 @@
    "conditions": [
     "distance_lower_than 4 HIGHEST_ENMITY_OPPONENT"
    ],
-   "firedInAppearancesPct": 98,
+   "firedInAppearancesPct": 100,
    "firedByPhase": {
-    "p1": 89,
+    "p1": 91,
     "p2": 0
    },
    "decisions": {
-    "fired": 89,
-    "preempted": 272,
-    "condition": 31,
-    "cooldown": 1225,
+    "fired": 91,
+    "preempted": 286,
+    "condition": 32,
+    "cooldown": 1212,
     "locked": 0,
-    "ap": 97,
-    "engine": 54
+    "ap": 109,
+    "engine": 61
    },
    "mainReasonNotFired": "cooldown"
   },
@@ -1216,17 +1245,17 @@
    ],
    "firedInAppearancesPct": 100,
    "firedByPhase": {
-    "p1": 73,
+    "p1": 72,
     "p2": 0
    },
    "decisions": {
-    "fired": 73,
-    "preempted": 274,
+    "fired": 72,
+    "preempted": 282,
     "condition": 8,
-    "cooldown": 1246,
+    "cooldown": 1255,
     "locked": 0,
-    "ap": 118,
-    "engine": 49
+    "ap": 123,
+    "engine": 51
    },
    "mainReasonNotFired": "cooldown"
   },
@@ -1240,17 +1269,17 @@
    ],
    "firedInAppearancesPct": 90,
    "firedByPhase": {
-    "p1": 58,
+    "p1": 57,
     "p2": 0
    },
    "decisions": {
-    "fired": 58,
-    "preempted": 249,
-    "condition": 846,
-    "cooldown": 461,
+    "fired": 57,
+    "preempted": 251,
+    "condition": 850,
+    "cooldown": 478,
     "locked": 0,
-    "ap": 111,
-    "engine": 43
+    "ap": 115,
+    "engine": 40
    },
    "mainReasonNotFired": "condition"
   },
@@ -1263,16 +1292,16 @@
    ],
    "firedInAppearancesPct": 100,
    "firedByPhase": {
-    "p1": 138,
+    "p1": 137,
     "p2": 0
    },
    "decisions": {
-    "fired": 138,
-    "preempted": 326,
-    "condition": 198,
-    "cooldown": 1037,
+    "fired": 137,
+    "preempted": 327,
+    "condition": 194,
+    "cooldown": 1061,
     "locked": 0,
-    "ap": 69,
+    "ap": 72,
     "engine": 0
    },
    "mainReasonNotFired": "cooldown"
@@ -1286,17 +1315,17 @@
    ],
    "firedInAppearancesPct": 98,
    "firedByPhase": {
-    "p1": 74,
+    "p1": 76,
     "p2": 0
    },
    "decisions": {
-    "fired": 74,
-    "preempted": 571,
-    "condition": 31,
-    "cooldown": 900,
+    "fired": 76,
+    "preempted": 551,
+    "condition": 32,
+    "cooldown": 935,
     "locked": 0,
-    "ap": 104,
-    "engine": 88
+    "ap": 102,
+    "engine": 95
    },
    "mainReasonNotFired": "cooldown"
   },
@@ -1309,16 +1338,16 @@
    ],
    "firedInAppearancesPct": 100,
    "firedByPhase": {
-    "p1": 92,
+    "p1": 93,
     "p2": 0
    },
    "decisions": {
-    "fired": 92,
-    "preempted": 525,
+    "fired": 93,
+    "preempted": 515,
     "condition": 0,
-    "cooldown": 942,
+    "cooldown": 977,
     "locked": 0,
-    "ap": 205,
+    "ap": 202,
     "engine": 4
    },
    "mainReasonNotFired": "cooldown"
@@ -1332,16 +1361,16 @@
    ],
    "firedInAppearancesPct": 100,
    "firedByPhase": {
-    "p1": 65,
+    "p1": 64,
     "p2": 0
    },
    "decisions": {
-    "fired": 65,
-    "preempted": 443,
+    "fired": 64,
+    "preempted": 452,
     "condition": 0,
-    "cooldown": 1047,
+    "cooldown": 1066,
     "locked": 0,
-    "ap": 213,
+    "ap": 209,
     "engine": 0
    },
    "mainReasonNotFired": "cooldown"
@@ -1355,16 +1384,16 @@
    ],
    "firedInAppearancesPct": 100,
    "firedByPhase": {
-    "p1": 111,
+    "p1": 107,
     "p2": 0
    },
    "decisions": {
-    "fired": 111,
-    "preempted": 719,
+    "fired": 107,
+    "preempted": 722,
     "condition": 0,
-    "cooldown": 845,
+    "cooldown": 864,
     "locked": 0,
-    "ap": 93,
+    "ap": 98,
     "engine": 0
    },
    "mainReasonNotFired": "cooldown"
@@ -1384,7 +1413,7 @@
    "decisions": {
     "fired": 0,
     "preempted": 0,
-    "condition": 1768,
+    "condition": 1791,
     "cooldown": 0,
     "locked": 0,
     "ap": 0,
@@ -1394,22 +1423,22 @@
   },
   {
    "index": 27,
-   "note": "highest-power damage",
-   "jutsuId": null,
+   "note": "basic attack (fallback; never a set piece)",
+   "jutsuId": "basicAttack",
    "conditions": [],
    "firedInAppearancesPct": 100,
    "firedByPhase": {
-    "p1": 185,
+    "p1": 176,
     "p2": 1
    },
    "decisions": {
-    "fired": 186,
-    "preempted": 1436,
+    "fired": 177,
+    "preempted": 1434,
     "condition": 0,
-    "cooldown": 0,
+    "cooldown": 177,
     "locked": 0,
     "ap": 0,
-    "engine": 146
+    "engine": 3
    },
    "mainReasonNotFired": "preempted"
   }
