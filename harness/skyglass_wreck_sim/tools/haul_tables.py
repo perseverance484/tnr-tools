@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """The Haul: policy / variant / modifier tables from haul_main.ts results (--exhaustive or --paths).
 
-  python3 haul_tables.py results/haul_x.json [more.json ...] [--scale PCT] [--old 7.5]
+  python3 haul_tables.py results/haul_x.json [more.json ...] [--scale PCT] [--old 7.5] [--exact exact.json ...]
+
+--exact: exact per-seed results (--paths) whose clear rates and EVs replace the state-merged ones for the same paths
+(same dodge setting); those cells are the best estimate, the rest are state-merged.
 
 --scale rescales every EV by PCT/100 (a chest drop chance applied after the run, e.g. to read a 100% run at 55%).
 Policies (per variant, over the evaluated paths):
@@ -18,8 +21,13 @@ args = sys.argv[1:]
 scale = 1.0
 old = 7.5
 files = []
+exact_files = []
 i = 0
 while i < len(args):
+    if args[i] == "--exact":
+        exact_files.append(args[i + 1])
+        i += 2
+        continue
     if args[i] == "--scale":
         scale = float(args[i + 1]) / 100
         i += 2
@@ -30,11 +38,19 @@ while i < len(args):
         files.append(args[i])
         i += 1
 
+EX = {}
+for f in exact_files:
+    d = json.load(open(f))
+    for r in d["results"]:
+        EX[(r["variant"], d["settings"]["dodge"])] = {p["path"]: p for p in r["paths"]}
+
 rows = []
 for f in files:
     d = json.load(open(f))
     dodge = d["settings"]["dodge"]
     for r in d["results"]:
+        ex = EX.get((r["variant"], dodge), {})
+        r["paths"] = [dict(p, clearPct=ex[p["path"]]["clearPct"], evM=ex[p["path"]]["evM"], exact=True) if p["path"] in ex else p for p in r["paths"]]
         rows.append((r, dodge))
 
 
@@ -55,7 +71,7 @@ def fmt(p, sens=None):
     if not p:
         return "-"
     rel = f" ({100 * ev(p) / ev(sens):.0f}%)" if sens and ev(sens) else ""
-    return f"{p['path']} {p['clearPct']}% / {ev(p):.1f}M{rel} / {mins(p)} min"
+    return f"{p['path']}{'*' if p.get('exact') else ''} {p['clearPct']}% / {ev(p):.1f}M{rel} / {mins(p)} min"
 
 
 print(f"EV scale {scale * 100:.0f}% of the haul; old S-rank quest ~{old}M per run\n")
