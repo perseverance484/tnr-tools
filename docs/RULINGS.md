@@ -4131,3 +4131,25 @@ The text is generated from the cache weights and enforced by `scripts/skyglass_c
 - "Yes, that's perfect. Flesh out the lore and balancing some more and proceed"
 
 **Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`.
+
+## RUL-2026-10-29-038 — The Haul: layout variants, steeping modifiers, bonus chances
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / profession rewards
+
+**Status:** ACTIVE. The harness tuning is pending.
+
+**Ruling:**
+1. **Three layout variants per profession**, picked at random when the chart drops:
+   - Hunters: Trophy Hold, Bone Store, Snare Room.
+   - Gatherers: Overgrown Stores, Ore Vault, Bloom Cellar.
+2. **Steeping a Haul chart gives a Rot-Sealed Page.** Opening it rolls one of four modifiers: Rot-soaked, Flooded hold, Alarmed, Picked clean.
+3. **Each locker pays its chest plus about a 20% chance at a bonus chest.**
+4. **Chest rolls supply further variety.**
+
+The intent is that veterans' runs stay varied: the ideal route depends on the page and the modifier.
+
+**Evidence:** Director, 2026-10-29: "I worry this version we're making could become very samey once someone has run 5-10 of them and figured out an ideal route. Anything we can do to combat that? Perhaps steeping?", then "All approved, yes."
+
+**Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md` (Variety).
