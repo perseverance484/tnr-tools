@@ -53,6 +53,12 @@ export const PROCEDURES = Object.freeze({
   "item.get": { kind: "query", limited: true, mcp: true, auth: "public" },
   "item.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
   "item.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+  // Recipe point read, read at TheNinjaRPG@2af4b320 and byte-identical at 85cecaeb (the 45f pin):
+  // routers/item.ts:400 getItemWithCraftingRequirements is publicProcedure (ratelimitMiddleware,
+  // trpc.ts:255-257) with .meta({mcp}), input idSchema, NOT_FOUND when absent. Its body is
+  // fetchItemWithCraftingRequirements (item.ts:4094): the item row + craftingRequirements
+  // [{id, craftItemId, requirementItemId, quantity, createdAt, updatedAt, requirementItem}] + requiredBloodline.
+  "item.getItemWithCraftingRequirements": { kind: "query", limited: true, mcp: true, auth: "public" },
   "item.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "jutsu.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "jutsu.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },

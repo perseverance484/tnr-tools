@@ -111,7 +111,9 @@ test("the table's shape is an invariant: every mutation is protected, every publ
   // pinned here rather than left to whoever regenerates it next. Both directions matter: a
   // mutation classified public would let the gate wave through a write the server will refuse,
   // and a public read classified protected would block work that would have succeeded.
-  const PUBLIC_READ = /\.(get|getAll|getAllNames|getAllAiNames|getAllFolders)$/;
+  // getItemWithCraftingRequirements is the one named point read outside the families: the recipe
+  // read, publicProcedure at routers/item.ts:400 (TheNinjaRPG@2af4b320), admitted deliberately.
+  const PUBLIC_READ = /\.(get|getAll|getAllNames|getAllAiNames|getAllFolders|getItemWithCraftingRequirements)$/;
   for (const [path, p] of Object.entries(PROCEDURES)) {
     if (p.kind === "mutation") assert.equal(p.auth, "protected", `${path} is a mutation and must be protected`);
     if (p.auth === "public") {
