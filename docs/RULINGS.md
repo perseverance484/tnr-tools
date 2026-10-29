@@ -4384,3 +4384,29 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "Need to rework our rewards. Only 1 pet, but now we can grant rewards only 1 time if we want. Can also grant variants as a reward. These can be our trophies", then "They apply to any item they're chosen for. We should be able to award variants directly with the change right? I would choose Little Horror."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5, §5b; `docs/design/SKYGLASS_PETS.md`.
+
+## RUL-2026-10-29-048 — Skin tokens: two layers, crafted-weapon skins, half-catalogue pace
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE.
+- Pending: the skin list and trophy bases, and the token drop rates (they need the event's length).
+- Pending: Lane A variant tooling on `fable/variant-builder`.
+
+**Ruling:**
+1. **Two token layers:**
+   - the farmable **Skyglass Token** unlocks any Skyglass skin; each skin requires it, through `requiredItemId`;
+   - **trophy tokens** each unlock one specific skin, through `variantId`.
+2. **Skin bases are crafted weapons**, not item-shop items (e.g. Aetherion, Thornsilver, Night's Testament).
+3. **Trophies:** one per boss is kept, for the Captain, Core Horror, Foundry Warden, Wayfinder, First Blade, Sealwright and Crowned Captain.
+   - Once-per-player Wreck trophies and the Crownhold trophy are **untradeable**.
+   - Chart and hunt boss trophies (1-2% drops) are **tradeable**.
+4. **Pace:** a dedicated player earns Skyglass Tokens for about **half** the catalogue per event run. The event is recurring, so the rest is a reason to come back.
+5. **The Skyglass Token replaces the Echo Jar slots** (the Archive, Watch and rare-run picks, the chest of chests' Legendary tier, the Crown's Hoard). The Little Horror's jar is a once-per-player endgame Wreck drop.
+6. **Lane A is started:** the re-pin to upstream, plus Forge/validate support for item variants, `unlockitemvariant.variantId` and dungeon `onlyOnce`.
+
+**Evidence:** Director, 2026-10-29: "Both layers for sure. We can even add tokens as a choice to replace the Echo Jars that we just lost.", then "1. I'd rather do crafted weapons like Aetherion, Thornsilver, Night's Testament, etc. Not item shop items. 2. Keep. 3. Approved. 4. Enough for half, this event is recurring so we want there to be some continued draw. Go ahead and start in parallel".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §1, §4a, §5, §5b.
