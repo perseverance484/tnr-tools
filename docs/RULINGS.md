@@ -4101,3 +4101,33 @@ The text is generated from the cache weights and enforced by `scripts/skyglass_c
 **Evidence:** Director, 2026-10-29: "1. Looks good. 2. No, thats what the unmarked cargo is for. 3. I think perhaps we should separate recipe kit chests from bulk chests or something... 4. Uh, leave it to its real source i guess." Also: "We also currently dont really have our S rank profession hunts designed to understand how players can influence their drops..."
 
 **Canonical destination:** `docs/design/SKYGLASS_PROFESSION_CHESTS.md`.
+
+## RUL-2026-10-29-037 — The Haul: S-rank profession charts as push-your-luck runs
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / profession rewards
+
+**Status:** ACTIVE. The harness tuning is pending.
+
+**Ruling:**
+1. **The two S-rank profession charts become The Haul:**
+   - **Hunters:** *Ledger Page: The Trophy Hold*.
+   - **Gatherers:** *Stores Manifest: The Overgrown Stores*.
+
+   Design in `docs/design/SKYGLASS_THE_HAUL.md`.
+2. **Every step offers a choice of crate, locker or cut-through, or leaving.**
+   - Each choice carries its own reward tier, enemies and starting hazards.
+   - Lockers raise alertness, which hardens every later fight.
+   - Leaving pays the exact haul.
+3. **All chart rules apply:** the chart is spent at entry; a lost fight fails the run; health carries between fights; the haul pays only at a win ending.
+4. **Rewards come from the one combined profession chest kind**, the 8 chests (RUL-2026-10-29-036). Separate stockpile and kit chests are rejected.
+5. **Balance targets:** a sensible path matches the old S-rank quests (about 7-8M); a greedy path is variance, not free value; no path dominates.
+
+**Evidence:** Director, 2026-10-29:
+- "Keep one combined, 8 chests is already a lot. Too much steering. Let's try to be more sophisticated"
+- "This should have the same if you fail a combat you fail the quest rule as the others."
+- "A, for sure... Different choices = different enemies, debuffs, difficulty of encounters"
+- "Yes, that's perfect. Flesh out the lore and balancing some more and proceed"
+
+**Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`.
