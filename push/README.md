@@ -1214,3 +1214,13 @@ Built by `push/321_skyglass_fx_assets_unhide.gen.py` from the push/320 results b
 data is re-sent with `hidden: false`; the images are unchanged. Battles load only unhidden assets (law 16c). The tiles are
 test-played in the Proving Ground quest (RUL-2026-10-28-028), so no test jutsu is created here. Gates: `validate.py
 --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 325 Recipe capture (read-only, 2 parts): READY TO RUN (any order; needs Forge 0.10.1)
+
+Director, 2026-10-28: "all crafting recipes were updated so we need to pull those. I want our drops to reflect the
+changes." Recipes live in the CraftingRequirement table, which `item.get` does not return. These parts point-read
+`item.getItemWithCraftingRequirements`, persist full, for all 122 items the push/323 capture marks craftable or MEAL. Each
+read returns the item, its recipe rows and each ingredient. Forge allows that read from 0.10.1 (merge 5a20f3b9), so
+install 0.10.1 first. Parts are 61 reads each, to stay inside that path's limit of 60 per 60 s. Items newer than the
+seed (873 live against 766 read) are not covered. Zero writes. Built by `push/325_recipe_capture.gen.py`. Gates (each
+part): `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
