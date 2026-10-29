@@ -40,14 +40,21 @@
 - `derive_fields.mjs` / `derive_nested.mjs` at the pin: byte-identical to the committed `fields.json` / `nested.json`. 45d badge/title fields equal `fields.json`.
 - `test_pet_species.py` + `test_schema_diff.py`: 19 OK; `selfcheck.py --generated` 0 errors; `factory.py --selftest` 20/20; `doctrinemap.py .` 0/0; `render_doctrine.py --check` current; `build_packs.py --check` current (after `--write`); `lawmap.py .` 0 errors, 5 pre-existing warnings.
 
-## Budget (director's decision; not raised here)
+## Budget: raised to 455,000 / 109,500 by the director (RUL-2026-10-29-043)
+
+After the raise:
+- `check_bundle_budget` exits 0: raw 450,415 / 455,000 (99.0%), gzip 108,305 / 109,500 (98.9%).
+- `npm test`: 755 tests, 744 pass, 0 fail, 11 skipped.
+- `npm run build` is byte-identical, sha256 `a906a2bd4eb6f5fc...`, so the bundle is unchanged.
+
+The original analysis, kept for the record:
 
 Smallest raise that passes: **raw 451,000 / gzip 108,500** (585 / 195 bytes of headroom). Any later Forge change will need another step at that ceiling; 455,000 / 109,500 would leave ~4.5 KB / ~1.2 KB. No trim inside this feature closes a 4.4 KB raw gap: dropping the pre-create bounds in `catalog.mjs` saves ~1.1 KB and re-opens the stray-placeholder case; dropping `title.getAll` saves ~0.15 KB.
 
 ## Known debt, deviations, open decisions
 
-1. **Bundle over budget** (above) — `npm test` and `check_bundle_budget` stay red until the director rules.
-2. **Decision: title visibility on create.** A title has no hidden column; `archived` is its only switch. This branch requires `archived` to be stated on every create and does not choose. `archived:true` (the hidden-on-create analogue) makes every quest/item save that rewards it fail until the director unarchives it — a publish step between the title create and the reward edits. `archived:false` lists the name in the public `title.getAllNames` at once (nothing grants it until a published reward names it).
+1. **Bundle budget: resolved.** The director raised it to 455,000 / 109,500 (RUL-2026-10-29-043).
+2. **Decision, deferred (the Skyglass titles are out of this release, RUL-2026-10-29-041): title visibility on create.** A title has no hidden column; `archived` is its only switch. This branch requires `archived` to be stated on every create and does not choose. `archived:true` (the hidden-on-create analogue) makes every quest/item save that rewards it fail until the director unarchives it — a publish step between the title create and the reward edits. `archived:false` lists the name in the public `title.getAllNames` at once (nothing grants it until a published reward names it).
 3. **Decision: badges are player-visible from the create.** The public `/manual/badge` page lists every badge (the placeholder too, for the instant between create and update). There is no switch to hide one.
 4. Badge names are unique (the update refuses a duplicate); title names are not checked by the server.
 5. The Forge `MasteryTypes` list is hand-held (no Forge contract carries enum values); the checkout-gated test compares it with `constants.ts`.
