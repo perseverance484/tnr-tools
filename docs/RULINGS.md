@@ -3945,3 +3945,23 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "1. His ladle? That sounds more like a cooking utensil lol. Give him something cooler. 2. Sure, but dont be so on the nose about it. 3. Sure. 4. Approved".
 
 **Canonical destination:** `docs/design/SKYGLASS_STORY_BIBLE.md`; `state/skyglass_hunts/hunts.py`.
+
+## RUL-2026-10-28-030 — Chest description format
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass player-facing text
+
+**Status:** ACTIVE.
+
+**Ruling:** Chest descriptions follow the HTML format in loot tables §0:
+- one story line;
+- "Always:" for any fixed reward;
+- a roll line only when the roll count varies;
+- one coloured tier line per tier (grey, blue, purple, gold), giving the percentage and the items, joined with "or", with the first three then "and more" for longer lists.
+
+The text is generated from the cache weights and enforced by `scripts/skyglass_check.py`.
+
+**Evidence:** Director, 2026-10-28: "Lets identify the best format for the chest description. I kinda wanna include what items can drop alongside the rates in a way that displays well in the game", then "Approved".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §0.
