@@ -4476,3 +4476,20 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "All approved except 4 and 5. Leave ryo as is. Lets find a new home for the trophy then, dont want players to pick a double and waste a run".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §1, §4a, §5d.
+
+## RUL-2026-10-29-051 — The Crownbreaker trophy is Walked Every Deck's reward
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE. Supersedes item 5 of RUL-2026-10-29-050 (the separate Crownbreaker achievement).
+
+**Ruling:**
+1. **The Walked Every Deck achievement is revived.** It was deferred with the titles by RUL-2026-10-29-041. It completes on clearing every chart run and Crownhold.
+2. **Its reward is the untradeable Crownbreaker trophy token**, the Thornsilver skin. There is no separate Crownhold achievement.
+3. **Why not a badge + token bundle in Crownhold's pick:** a pick package is blocked only when every reward in it is owned (theninjarpg `libs/rewardChoice.ts` `getUnavailableRewardCards`). The token never counts as owned, so the bundle would stay pickable and could give a dead duplicate.
+
+**Evidence:** Director, 2026-10-29: "Just put the crownbreaker token on the badge, we already have an achievement for doing all content.", then "A." after the bundle-blocking catch.
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5c, §5d.
