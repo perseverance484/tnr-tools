@@ -93,15 +93,17 @@ The Skyglass Crystal is not in the Coffer: it comes only from crafting 12 Skygla
 
 That averages about 13 Imperial Gold per opening, against about 1.2 before.
 
-**Archive Chart Case** (weights ruled; Legendary tier per RUL-2026-10-28-013)
+**Archive Chart Case** (reweighted towards sustain, RUL-2026-10-29-040; Legendary tier per RUL-2026-10-28-013)
 
 | Tier | Weight | Gives |
 |---|---|---|
-| Common | 60 | Chart of the Drowned Foundry ×1 |
+| Common | 45 | Chart of the Drowned Foundry ×1 |
 | Rare | 25 | Chart of the Quarantined Archive ×1 |
-| Epic | 12 | Chart of the Captain's Watch ×1 |
+| Epic | 20 | Chart of the Captain's Watch ×1 |
 | Legendary | 3 | Lastlight Lantern ×1 |
-| Legendary | 5 | a rare chart ×1 (Reliquary Seal or The Last Heading) |
+| Legendary | 7 | a rare chart ×1 (Reliquary Seal or The Last Heading) |
+
+Haul pages, tainted charts and the common charts (Tide, Roster, Buried Cache) stay out of the case (RUL-2026-10-29-040).
 
 **Crown's Hoard** (RUL-2026-10-28-013): one item that opens the Skyglass Coffer, the Sealed Treasury and the Echo Jar caches. Open: whether each is opened once or more (§6).
 
@@ -206,7 +208,7 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 | Watch ending | The Last Heading 25%, +20% from its press-on room |
 | Crownhold ending | one of the two rare charts 50% |
 | Sealed Reliquary / The Fall ending | Lastlight Lantern 15% |
-| Archive Chart Case | Legendary: Lantern 3 / rare chart 5 (§3) |
+| Archive Chart Case | Legendary: Lantern 3 / rare chart 7 (§3) |
 
 **Tainted rares** (rares only). Harder upgrades of their counterpart; target clear rate about 55%, against about 80% for the base rare. Rewards: §4a (pick 2, Lantern 30%, Core Rot 40%, no guaranteed drops; RUL-2026-10-28-019), and twice the trophy rate (RUL-2026-10-28-010).
 - **The Rotted Reliquary** (tainted Reliquary Seal)

@@ -4173,3 +4173,24 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "1. Approved. 2. Approved. 3. Go ahead 4. Prices are determined by what players are willing to pay, not what the price says on the item. The prices set for materials are relatively accurate though. Tune the haul with Kitsune as well. ... 2 Yes 3. Yes. 4. Yes."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`; `docs/design/SKYGLASS_THE_HAUL.md`.
+
+## RUL-2026-10-29-040 — Archive Chart Case reweighted towards sustain
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / chart economy
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **The Archive Chart Case weights are:** Foundry chart 45, Archive chart 25, Watch chart 20, Lastlight Lantern 3, and a rare chart 7. This supersedes 60 / 25 / 12 / 3 / 5.
+2. **These stay out of the case:**
+   - the Haul pages, whose supply is tuned separately;
+   - the tainted charts, which come from steeping;
+   - the common charts (Tide, Roster, Buried Cache).
+
+**Rationale:** the Wreck is the chart engine, and no chart run returns a full chart. The case is the one deliberate sustain loop, through the Archive pick and the Reliquary's Chart Case ×2 pick. At 60% Foundry, a common Wreck drop, the pick felt weak.
+
+**Evidence:** Director, 2026-10-29: "Sure, reweight."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3, §5.
