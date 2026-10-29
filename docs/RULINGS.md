@@ -4153,3 +4153,23 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "I worry this version we're making could become very samey once someone has run 5-10 of them and figured out an ideal route. Anything we can do to combat that? Perhaps steeping?", then "All approved, yes."
 
 **Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md` (Variety).
+
+## RUL-2026-10-29-039 — Galley Stores 20,000 pet exp; Crown's Hoard contents; title capture; The Haul tuned with Kitsune
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards and tuning
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Galley Stores grants 20,000 pet experience** (about 20 meals), to the active eligible pet.
+2. **The Crown's Hoard is one item with three caches:** a Skyglass Coffer roll, a Sealed Treasury roll (its fixed ryo plus its rolls), and an Echo Jar roll.
+3. **A capture of all existing titles is built** to size the Skyglass title bonuses. It needs a title read in Forge; that goes on `fable/badge-builder`.
+4. **Prices:** item prices are what players will pay, not the price field. Material price fields are a reasonable guide, so the value analysis keeps using them. Unpriced event rewards (Coffer, Echo Jar, pets) are valued by the market, not by the tables.
+5. **The Haul is tuned with the Kitsune set**, like the rest of the event.
+6. **The final pass of all harnesses on the finished library proceeds.** The upstream proposal on the 100-start cap is written.
+
+**Evidence:** Director, 2026-10-29: "1. Approved. 2. Approved. 3. Go ahead 4. Prices are determined by what players are willing to pay, not what the price says on the item. The prices set for materials are relatively accurate though. Tune the haul with Kitsune as well. ... 2 Yes 3. Yes. 4. Yes."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`; `docs/design/SKYGLASS_THE_HAUL.md`.
