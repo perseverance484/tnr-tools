@@ -1208,7 +1208,7 @@ Ship text trips the Skyglass consistency check, which would otherwise fail every
 lives in `archive/spent-manifests/push-2026-10-12/`. Their generators and helpers stay in `push/`, because push/93 imports
 push/90's exception gate.
 
-## 321 Unhide the Skyglass danger-language assets (10 asset edits): READY TO RUN
+## 321 Unhide the Skyglass danger-language assets (10 asset edits): RUN, verified (bundle tnr_results_1793247846220.json: 10/10 match), archived
 
 Built by `push/321_skyglass_fx_assets_unhide.gen.py` from the push/320 results bundle. Each of the ten assets' full create
 data is re-sent with `hidden: false`; the images are unchanged. Battles load only unhidden assets (law 16c). The tiles are
