@@ -94,7 +94,14 @@ const ruleVariants = Object.fromEntries(Object.entries(shared).filter(([id, s]) 
   why: "version-specific rule order (same jutsu as sharedKits)",
   rules: s.rules.map((r: any, i: number) => ({ index: i, note: r.action.description, conditions: r.conditions, action: r.action })),
 }]));
-spec[version] = { params, floors: (override as any).floors, ais, ...(Object.keys(ruleVariants).length ? { ruleVariants } : {}) };
+// Dungeon-level notes for the builder (director rulings).
+const dungeonNotes = version === "lvl50"
+  ? {
+      descriptionText: "for level 45+",
+      instruction: "Add \"for level 45+\" to this (easy) Skyglass Wreck dungeon's description text. The easy version is accepted as 45+ (RUL-2026-10-28-031); the harness's level-40 party cannot clear it.",
+    }
+  : undefined;
+spec[version] = { params, ...(dungeonNotes ? { dungeonNotes } : {}), floors: (override as any).floors, ais, ...(Object.keys(ruleVariants).length ? { ruleVariants } : {}) };
 writeFileSync(specPath, `${JSON.stringify(spec, null, 1)}\n`);
 console.log(`wrote ${specPath} [${version}]: ${ais.length} AIs; counts ${JSON.stringify(spec.counts)}`);
 for (const a of ais) console.log(`  ${a.username.padEnd(18)} L${a.level} HP ${a.pools.maxHealth} insertAi ${JSON.stringify(a.insertAiSchemaCheck).slice(0, 80)}`);

@@ -5737,7 +5737,7 @@
    ],
    "target": "EMPTY_GROUND",
    "range": 3,
-   "cooldown": 8,
+   "cooldown": 99,
    "bloodlineId": "",
    "requiredLevel": 1,
    "requiredRank": "STUDENT",
@@ -7315,95 +7315,6 @@
    "requiredSkillId": null,
    "requiredBloodlineItemId": null
   },
-  "0Y10JpChssDwFUxNRk6p3": {
-   "id": "0Y10JpChssDwFUxNRk6p3",
-   "name": "Unbroken Command",
-   "description": "An enduring command imprint sharpens offensive technique and lends greater force to attacks.",
-   "createdAt": "2026-04-24T17:32:49.039Z",
-   "updatedAt": "2026-10-12T04:32:42.370Z",
-   "extraBaseCost": 0,
-   "effects": [
-    {
-     "type": "increasedamagegiven",
-     "power": 80,
-     "rounds": 99,
-     "target": "INHERIT",
-     "appearSfx": "",
-     "direction": "offence",
-     "calculation": "percentage",
-     "description": "placeholder",
-     "disappearSfx": "",
-     "powerPerLevel": 0,
-     "appearAnimation": "",
-     "staticAnimation": "",
-     "staticAssetPath": "",
-     "disappearAnimation": ""
-    },
-    {
-     "type": "increasestat",
-     "power": 30,
-     "rounds": 99,
-     "target": "INHERIT",
-     "appearSfx": "",
-     "direction": "offence",
-     "statTypes": [
-      "None"
-     ],
-     "calculation": "percentage",
-     "description": "placeholder",
-     "disappearSfx": "",
-     "powerPerLevel": 0,
-     "appearAnimation": "",
-     "staticAnimation": "",
-     "staticAssetPath": "",
-     "disappearAnimation": ""
-    }
-   ],
-   "target": "SELF",
-   "range": 0,
-   "cooldown": 2,
-   "bloodlineId": "",
-   "requiredLevel": 1,
-   "requiredRank": "STUDENT",
-   "jutsuType": "AI",
-   "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJF8O3AyG2iOewJtjGzvNcmEX3TBnoSfMDZPH4",
-   "jutsuWeapon": "NONE",
-   "statClassification": "None",
-   "elementClassification": "None",
-   "battleDescription": "%user draws upon an unbroken command imprint, old orders burning through their reconstructed form as their offensive power rises.",
-   "jutsuRank": "D",
-   "actionCostPerc": 40,
-   "staminaCost": 0.05,
-   "chakraCost": 0.05,
-   "staminaCostReducePerLvl": 0,
-   "chakraCostReducePerLvl": 0,
-   "healthCostReducePerLvl": 0,
-   "healthCost": 0,
-   "villageId": "",
-   "requiredPetSpeciesId": null,
-   "method": "SINGLE",
-   "coordinateTargeting": null,
-   "methodSize": null,
-   "hidden": true,
-   "injectableInBattle": false,
-   "battleUsageType": "BOTH",
-   "reskinParentJutsuId": null,
-   "bloodlineReskinId": null,
-   "parentJutsuId": null,
-   "requiredNinjutsuMastery": null,
-   "requiredGenjutsuMastery": null,
-   "requiredTaijutsuMastery": null,
-   "requiredBukijutsuMastery": null,
-   "requiredBloodlineMastery": null,
-   "requiredSageMastery": null,
-   "requiredStrength": null,
-   "requiredSpeed": null,
-   "requiredIntelligence": null,
-   "requiredWillpower": null,
-   "requiredSkillId": null,
-   "requiredBloodlineItemId": null,
-   "bloodline": null
-  },
   "MG9ZujAV8lK7--YxThVbQ": {
    "id": "MG9ZujAV8lK7--YxThVbQ",
    "name": "Battle Trance",
@@ -7586,6 +7497,95 @@
    "requiredBloodlineItemId": null,
    "bloodline": null
   },
+  "0Y10JpChssDwFUxNRk6p3": {
+   "id": "0Y10JpChssDwFUxNRk6p3",
+   "name": "Unbroken Command",
+   "description": "An enduring command imprint sharpens offensive technique and lends greater force to attacks.",
+   "createdAt": "2026-04-24T17:32:49.039Z",
+   "updatedAt": "2026-10-12T04:32:42.370Z",
+   "extraBaseCost": 0,
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 80,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "placeholder",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "increasestat",
+     "power": 30,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "statTypes": [
+      "None"
+     ],
+     "calculation": "percentage",
+     "description": "placeholder",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ],
+   "target": "SELF",
+   "range": 0,
+   "cooldown": 2,
+   "bloodlineId": "",
+   "requiredLevel": 1,
+   "requiredRank": "STUDENT",
+   "jutsuType": "AI",
+   "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJF8O3AyG2iOewJtjGzvNcmEX3TBnoSfMDZPH4",
+   "jutsuWeapon": "NONE",
+   "statClassification": "None",
+   "elementClassification": "None",
+   "battleDescription": "%user draws upon an unbroken command imprint, old orders burning through their reconstructed form as their offensive power rises.",
+   "jutsuRank": "D",
+   "actionCostPerc": 40,
+   "staminaCost": 0.05,
+   "chakraCost": 0.05,
+   "staminaCostReducePerLvl": 0,
+   "chakraCostReducePerLvl": 0,
+   "healthCostReducePerLvl": 0,
+   "healthCost": 0,
+   "villageId": "",
+   "requiredPetSpeciesId": null,
+   "method": "SINGLE",
+   "coordinateTargeting": null,
+   "methodSize": null,
+   "hidden": true,
+   "injectableInBattle": false,
+   "battleUsageType": "BOTH",
+   "reskinParentJutsuId": null,
+   "bloodlineReskinId": null,
+   "parentJutsuId": null,
+   "requiredNinjutsuMastery": null,
+   "requiredGenjutsuMastery": null,
+   "requiredTaijutsuMastery": null,
+   "requiredBukijutsuMastery": null,
+   "requiredBloodlineMastery": null,
+   "requiredSageMastery": null,
+   "requiredStrength": null,
+   "requiredSpeed": null,
+   "requiredIntelligence": null,
+   "requiredWillpower": null,
+   "requiredSkillId": null,
+   "requiredBloodlineItemId": null,
+   "bloodline": null
+  },
   "VuFuBtE7h5B1nnA2J1lFZ": {
    "id": "VuFuBtE7h5B1nnA2J1lFZ",
    "name": "Stolen Form",
@@ -7735,100 +7735,6 @@
    "villageId": null,
    "requiredPetSpeciesId": null,
    "method": "SINGLE",
-   "coordinateTargeting": null,
-   "methodSize": null,
-   "hidden": true,
-   "injectableInBattle": false,
-   "battleUsageType": "BOTH",
-   "reskinParentJutsuId": null,
-   "bloodlineReskinId": null,
-   "parentJutsuId": null,
-   "requiredNinjutsuMastery": null,
-   "requiredGenjutsuMastery": null,
-   "requiredTaijutsuMastery": null,
-   "requiredBukijutsuMastery": null,
-   "requiredBloodlineMastery": null,
-   "requiredSageMastery": null,
-   "requiredStrength": null,
-   "requiredSpeed": null,
-   "requiredIntelligence": null,
-   "requiredWillpower": null,
-   "requiredSkillId": null,
-   "requiredBloodlineItemId": null,
-   "bloodline": null
-  },
-  "EQ93LX8wvuIAd5u75q_i1": {
-   "id": "EQ93LX8wvuIAd5u75q_i1",
-   "name": "Ruin Refrain",
-   "description": "The ship's remembered destruction erupts across the battlefield as a chakra projection of shattering timbers and staggering impacts.",
-   "createdAt": "2026-07-10T17:59:03.456Z",
-   "updatedAt": "2026-10-12T04:32:41.305Z",
-   "extraBaseCost": 0,
-   "effects": [
-    {
-     "type": "damage",
-     "power": 72,
-     "rounds": 0,
-     "target": "INHERIT",
-     "appearSfx": "",
-     "direction": "offence",
-     "statTypes": [
-      "None"
-     ],
-     "calculation": "formula",
-     "description": "Deals damage to target",
-     "dmgModifier": 1,
-     "disappearSfx": "",
-     "powerPerLevel": 0,
-     "appearAnimation": "",
-     "staticAnimation": "",
-     "staticAssetPath": "",
-     "residualModifier": 1,
-     "disappearAnimation": "",
-     "allowBloodlineDamageDecrease": true,
-     "allowBloodlineDamageIncrease": true
-    },
-    {
-     "type": "stun",
-     "power": 100,
-     "rounds": 2,
-     "target": "INHERIT",
-     "appearSfx": "",
-     "direction": "offence",
-     "apReduction": 20,
-     "calculation": "static",
-     "description": "Stuns the target",
-     "disappearSfx": "",
-     "powerPerLevel": 0,
-     "appearAnimation": "",
-     "staticAnimation": "",
-     "staticAssetPath": "",
-     "disappearAnimation": ""
-    }
-   ],
-   "target": "OTHER_USER",
-   "range": 5,
-   "cooldown": 3,
-   "bloodlineId": null,
-   "requiredLevel": 1,
-   "requiredRank": "STUDENT",
-   "jutsuType": "AI",
-   "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
-   "jutsuWeapon": "NONE",
-   "statClassification": "None",
-   "elementClassification": "None",
-   "battleDescription": "%user releases the ship's memory of ruin, sending a storm of fractured timbers and concussive chakra across the battlefield.",
-   "jutsuRank": "D",
-   "actionCostPerc": 60,
-   "staminaCost": 0.05,
-   "chakraCost": 0.05,
-   "staminaCostReducePerLvl": 0,
-   "chakraCostReducePerLvl": 0,
-   "healthCostReducePerLvl": 0,
-   "healthCost": 0,
-   "villageId": null,
-   "requiredPetSpeciesId": null,
-   "method": "ALL",
    "coordinateTargeting": null,
    "methodSize": null,
    "hidden": true,
@@ -10258,22 +10164,19 @@
     }
    ],
    "jutsuIds": [
-    "0Y10JpChssDwFUxNRk6p3",
+    "dg-raise-the-gunwale",
     "MG9ZujAV8lK7--YxThVbQ",
+    "STu1VHNcfgeC3x-UiQDgt",
     "lib-broadside",
-    "lib-blast-rows-b",
     "lib-ships-bell",
     "X2P22h8ApDmTZHjWpNO87",
     "PdD44PGaNv4MN5fOALhAF",
     "lib-omen-binding-ring",
     "lib-omen-rows-a",
-    "lib-omen-rows-b",
-    "dg-raise-the-gunwale",
+    "0Y10JpChssDwFUxNRk6p3",
     "VuFuBtE7h5B1nnA2J1lFZ",
-    "ddbIyVtoxdPQwLRXxSBq8",
-    "STu1VHNcfgeC3x-UiQDgt",
     "T3glZGcSd-jS8G-NB43GR",
-    "EQ93LX8wvuIAd5u75q_i1",
+    "ddbIyVtoxdPQwLRXxSBq8",
     "1OhP0StX4VTsosWtCxhsG",
     "o-4SCAhJ4LHdCwcBDgJrV",
     "_9k7kSYUgMtB-AEFgRly5"
@@ -10282,17 +10185,16 @@
     {
      "conditions": [
       {
-       "type": "distance_higher_than",
+       "type": "health_below",
        "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
+       "value": 50
       }
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Hold the Line (live Unbroken Command; the wave opens far away)",
-      "jutsuId": "0Y10JpChssDwFUxNRk6p3",
-      "target": "SELF"
+      "description": "Raise the Gunwale (phase 2 begins; once)",
+      "jutsuId": "dg-raise-the-gunwale",
+      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
      }
     },
     {
@@ -10305,8 +10207,23 @@
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Last Stand at the Helm (live Battle Trance, under 50%)",
+      "description": "Last Stand at the Helm (live Battle Trance, phase 2)",
       "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 25
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Second Wind (under 25%)",
+      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
       "target": "SELF"
      }
     },
@@ -10323,22 +10240,6 @@
       "type": "use_specific_jutsu",
       "description": "Broadside (signature, rows A)",
       "jutsuId": "lib-broadside",
-      "target": "SELF"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "fleeprevent",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Broadside, second volley (shared rows B blast)",
-      "jutsuId": "lib-blast-rows-b",
       "target": "SELF"
      }
     },
@@ -10421,64 +10322,6 @@
       {
        "type": "has_effect",
        "description": "",
-       "effectType": "fleeprevent",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 4,
-       "target": "HIGHEST_ENMITY_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-rows-b: Final Command",
-      "jutsuId": "X2P22h8ApDmTZHjWpNO87",
-      "target": "HIGHEST_ENMITY_OPPONENT"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "fleeprevent",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "HIGHEST_ENMITY_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-rows-b: Keelbind",
-      "jutsuId": "PdD44PGaNv4MN5fOALhAF",
-      "target": "HIGHEST_ENMITY_OPPONENT"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "fleeprevent",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "end_turn",
-      "description": "after lib-omen-rows-b: end turn"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
        "effectType": "decreasecooldown",
        "threshold": 1
       },
@@ -10535,15 +10378,14 @@
     {
      "conditions": [
       {
-       "type": "player_within_range",
+       "type": "health_below",
        "description": "",
-       "minRange": 0,
-       "maxRange": 2
+       "value": 50
       }
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Omen: Binding Ring (Ship's Bell, a player within 2)",
+      "description": "Omen: Binding Ring (Ship's Bell, phase 2)",
       "jutsuId": "lib-omen-binding-ring",
       "target": "SELF"
      }
@@ -10551,14 +10393,14 @@
     {
      "conditions": [
       {
-       "type": "round_greater_than",
+       "type": "health_below",
        "description": "",
-       "value": 1
+       "value": 50
       }
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Omen: Rows A (Broadside)",
+      "description": "Omen: Rows A (Broadside, phase 2)",
       "jutsuId": "lib-omen-rows-a",
       "target": "SELF"
      }
@@ -10566,31 +10408,17 @@
     {
      "conditions": [
       {
-       "type": "round_greater_than",
+       "type": "distance_higher_than",
        "description": "",
-       "value": 1
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
       }
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Omen: Rows B (Broadside)",
-      "jutsuId": "lib-omen-rows-b",
+      "description": "Hold the Line (live Unbroken Command, opener: party 3+ hexes away)",
+      "jutsuId": "0Y10JpChssDwFUxNRk6p3",
       "target": "SELF"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "round_greater_than",
-       "description": "",
-       "value": 2
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Raise the Gunwale",
-      "jutsuId": "dg-raise-the-gunwale",
-      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
      }
     },
     {
@@ -10604,7 +10432,7 @@
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Final Command",
+      "description": "Final Command (duel)",
       "jutsuId": "X2P22h8ApDmTZHjWpNO87",
       "target": "HIGHEST_ENMITY_OPPONENT"
      }
@@ -10620,7 +10448,7 @@
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Keelbind",
+      "description": "Keelbind (duel)",
       "jutsuId": "PdD44PGaNv4MN5fOALhAF",
       "target": "HIGHEST_ENMITY_OPPONENT"
      }
@@ -10638,14 +10466,30 @@
        "description": "",
        "effectType": "increasedamagegiven",
        "target": "HIGHEST_ENMITY_OPPONENT",
-       "threshold": 25
+       "threshold": 1
       }
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Stolen Form (target buffed)",
+      "description": "Stolen Form (duel: top threat carries a damage buff)",
       "jutsuId": "VuFuBtE7h5B1nnA2J1lFZ",
       "target": "HIGHEST_ENMITY_OPPONENT"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Counter Stance (duel: a player within 2)",
+      "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+      "target": "SELF"
      }
     },
     {
@@ -10662,53 +10506,6 @@
       "description": "Suppression Writ",
       "jutsuId": "ddbIyVtoxdPQwLRXxSBq8",
       "target": "HIGHEST_ENMITY_OPPONENT"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 40
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Second Wind (under 40%)",
-      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
-      "target": "SELF"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "player_within_range",
-       "description": "",
-       "minRange": 0,
-       "maxRange": 1
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Counter Stance (player adjacent)",
-      "jutsuId": "T3glZGcSd-jS8G-NB43GR",
-      "target": "SELF"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Ruin Refrain",
-      "jutsuId": "EQ93LX8wvuIAd5u75q_i1",
-      "target": "CLOSEST_OPPONENT"
      }
     },
     {
@@ -10770,7 +10567,7 @@
      ],
      "action": {
       "type": "move_towards_opponent",
-      "description": "patrol: close in",
+      "description": "close in (duel)",
       "target": "CLOSEST_OPPONENT"
      }
     },
@@ -10882,10 +10679,10 @@
    22
   ],
   "dg-the-captain-l50": [
-   2,
    3,
-   15,
-   16
+   4,
+   11,
+   12
   ]
  }
 }

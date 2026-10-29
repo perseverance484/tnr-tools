@@ -14,7 +14,7 @@
    "horrorRows": 4,
    "horrorPhase2": 70,
    "captainPools": 2.8,
-   "captainRows": 4,
+   "captainRows": 2,
    "sealPools": 2.6,
    "sealRows": 3
   },
@@ -715,51 +715,19 @@
       "staticAnimation": "",
       "staticAssetPath": "",
       "disappearAnimation": ""
-     },
-     {
-      "type": "increasedamagegiven",
-      "power": 100,
-      "rounds": 99,
-      "target": "INHERIT",
-      "appearSfx": "",
-      "direction": "offence",
-      "calculation": "percentage",
-      "description": "Increased damage given",
-      "disappearSfx": "",
-      "powerPerLevel": 0,
-      "appearAnimation": "",
-      "staticAnimation": "",
-      "staticAssetPath": "",
-      "disappearAnimation": ""
-     },
-     {
-      "type": "increasedamagegiven",
-      "power": 100,
-      "rounds": 99,
-      "target": "INHERIT",
-      "appearSfx": "",
-      "direction": "offence",
-      "calculation": "percentage",
-      "description": "Increased damage given",
-      "disappearSfx": "",
-      "powerPerLevel": 0,
-      "appearAnimation": "",
-      "staticAnimation": "",
-      "staticAssetPath": "",
-      "disappearAnimation": ""
      }
     ],
     "sharedKit": "sharedKits[\"The Captain\"]",
     "signatureRules": [
-     2,
      3,
-     15,
-     16
+     4,
+     11,
+     12
     ],
     "scaleEditedAiNotes": [
      "new enemy cloned from The Captain",
      "override aiEdit {\"poolsMultiplier\":2.8} via scaleEditedAi",
-     "kit -> 19 jutsu"
+     "kit -> 16 jutsu"
     ],
     "insertAiSchemaCheck": "ok"
    },
@@ -871,6 +839,10 @@
    "sealPools": 1,
    "sealRows": 0,
    "horrorMawFirst": true
+  },
+  "dungeonNotes": {
+   "descriptionText": "for level 45+",
+   "instruction": "Add \"for level 45+\" to this (easy) Skyglass Wreck dungeon's description text. The easy version is accepted as 45+ (RUL-2026-10-28-031); the harness's level-40 party cannot clear it."
   },
   "floors": [
    {
@@ -1590,16 +1562,16 @@
     ],
     "sharedKit": "sharedKits[\"The Captain\"]",
     "signatureRules": [
-     2,
      3,
-     15,
-     16
+     4,
+     11,
+     12
     ],
     "scaleEditedAiNotes": [
      "new enemy cloned from The Captain",
      "override level 100 -> 50 via scaleEditedAi (HP 12625 -> 6375, offence 1391300 -> 265466.65)",
      "override aiEdit {\"poolsMultiplier\":2.5,\"statsMultiplier\":1} via scaleEditedAi",
-     "kit -> 19 jutsu"
+     "kit -> 16 jutsu"
     ],
     "insertAiSchemaCheck": "ok"
    }
@@ -4107,9 +4079,9 @@
    "liveAiId": "QY69h271Nx9uHrBeR6jwW",
    "jutsu": [
     {
-     "id": "0Y10JpChssDwFUxNRk6p3",
-     "name": "Unbroken Command",
-     "status": "LIVE (unchanged)"
+     "id": "dg-raise-the-gunwale",
+     "name": "Raise the Gunwale",
+     "status": "WRECK-NEW"
     },
     {
      "id": "MG9ZujAV8lK7--YxThVbQ",
@@ -4117,13 +4089,13 @@
      "status": "LIVE (unchanged)"
     },
     {
-     "id": "lib-broadside",
-     "name": "Broadside",
-     "status": "LIBRARY (NEW, library_spec.json)"
+     "id": "STu1VHNcfgeC3x-UiQDgt",
+     "name": "Second Wind",
+     "status": "LIVE (unchanged)"
     },
     {
-     "id": "lib-blast-rows-b",
-     "name": "Eruption: Rows",
+     "id": "lib-broadside",
+     "name": "Broadside",
      "status": "LIBRARY (NEW, library_spec.json)"
     },
     {
@@ -4152,28 +4124,13 @@
      "status": "LIBRARY (NEW, library_spec.json)"
     },
     {
-     "id": "lib-omen-rows-b",
-     "name": "Omen: Rows",
-     "status": "LIBRARY (NEW, library_spec.json)"
-    },
-    {
-     "id": "dg-raise-the-gunwale",
-     "name": "Raise the Gunwale",
-     "status": "WRECK-NEW"
+     "id": "0Y10JpChssDwFUxNRk6p3",
+     "name": "Unbroken Command",
+     "status": "LIVE (unchanged)"
     },
     {
      "id": "VuFuBtE7h5B1nnA2J1lFZ",
      "name": "Stolen Form",
-     "status": "LIVE (unchanged)"
-    },
-    {
-     "id": "ddbIyVtoxdPQwLRXxSBq8",
-     "name": "Suppression Writ",
-     "status": "LIVE (unchanged)"
-    },
-    {
-     "id": "STu1VHNcfgeC3x-UiQDgt",
-     "name": "Second Wind",
      "status": "LIVE (unchanged)"
     },
     {
@@ -4182,8 +4139,8 @@
      "status": "LIVE (unchanged)"
     },
     {
-     "id": "EQ93LX8wvuIAd5u75q_i1",
-     "name": "Ruin Refrain",
+     "id": "ddbIyVtoxdPQwLRXxSBq8",
+     "name": "Suppression Writ",
      "status": "LIVE (unchanged)"
     },
     {
@@ -4205,25 +4162,7 @@
    "rules": [
     {
      "index": 0,
-     "note": "Hold the Line (live Unbroken Command; the wave opens far away)",
-     "conditions": [
-      {
-       "type": "distance_higher_than",
-       "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Hold the Line (live Unbroken Command; the wave opens far away)",
-      "jutsuId": "0Y10JpChssDwFUxNRk6p3",
-      "target": "SELF"
-     }
-    },
-    {
-     "index": 1,
-     "note": "Last Stand at the Helm (live Battle Trance, under 50%)",
+     "note": "Raise the Gunwale (phase 2 begins; once)",
      "conditions": [
       {
        "type": "health_below",
@@ -4233,13 +4172,47 @@
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Last Stand at the Helm (live Battle Trance, under 50%)",
+      "description": "Raise the Gunwale (phase 2 begins; once)",
+      "jutsuId": "dg-raise-the-gunwale",
+      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
+     }
+    },
+    {
+     "index": 1,
+     "note": "Last Stand at the Helm (live Battle Trance, phase 2)",
+     "conditions": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Last Stand at the Helm (live Battle Trance, phase 2)",
       "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
       "target": "SELF"
      }
     },
     {
      "index": 2,
+     "note": "Second Wind (under 25%)",
+     "conditions": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 25
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Second Wind (under 25%)",
+      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+      "target": "SELF"
+     }
+    },
+    {
+     "index": 3,
      "note": "Broadside (signature, rows A)",
      "conditions": [
       {
@@ -4253,24 +4226,6 @@
       "type": "use_specific_jutsu",
       "description": "Broadside (signature, rows A)",
       "jutsuId": "lib-broadside",
-      "target": "SELF"
-     }
-    },
-    {
-     "index": 3,
-     "note": "Broadside, second volley (shared rows B blast)",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "fleeprevent",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Broadside, second volley (shared rows B blast)",
-      "jutsuId": "lib-blast-rows-b",
       "target": "SELF"
      }
     },
@@ -4358,70 +4313,6 @@
     },
     {
      "index": 8,
-     "note": "after lib-omen-rows-b: Final Command",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "fleeprevent",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 4,
-       "target": "HIGHEST_ENMITY_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-rows-b: Final Command",
-      "jutsuId": "X2P22h8ApDmTZHjWpNO87",
-      "target": "HIGHEST_ENMITY_OPPONENT"
-     }
-    },
-    {
-     "index": 9,
-     "note": "after lib-omen-rows-b: Keelbind",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "fleeprevent",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "HIGHEST_ENMITY_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-rows-b: Keelbind",
-      "jutsuId": "PdD44PGaNv4MN5fOALhAF",
-      "target": "HIGHEST_ENMITY_OPPONENT"
-     }
-    },
-    {
-     "index": 10,
-     "note": "after lib-omen-rows-b: end turn",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "fleeprevent",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "end_turn",
-      "description": "after lib-omen-rows-b: end turn"
-     }
-    },
-    {
-     "index": 11,
      "note": "after lib-omen-binding-ring: Final Command",
      "conditions": [
       {
@@ -4445,7 +4336,7 @@
      }
     },
     {
-     "index": 12,
+     "index": 9,
      "note": "after lib-omen-binding-ring: Keelbind",
      "conditions": [
       {
@@ -4469,7 +4360,7 @@
      }
     },
     {
-     "index": 13,
+     "index": 10,
      "note": "after lib-omen-binding-ring: end turn",
      "conditions": [
       {
@@ -4485,77 +4376,60 @@
      }
     },
     {
-     "index": 14,
-     "note": "Omen: Binding Ring (Ship's Bell, a player within 2)",
+     "index": 11,
+     "note": "Omen: Binding Ring (Ship's Bell, phase 2)",
      "conditions": [
       {
-       "type": "player_within_range",
+       "type": "health_below",
        "description": "",
-       "minRange": 0,
-       "maxRange": 2
+       "value": 50
       }
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Omen: Binding Ring (Ship's Bell, a player within 2)",
+      "description": "Omen: Binding Ring (Ship's Bell, phase 2)",
       "jutsuId": "lib-omen-binding-ring",
       "target": "SELF"
      }
     },
     {
-     "index": 15,
-     "note": "Omen: Rows A (Broadside)",
+     "index": 12,
+     "note": "Omen: Rows A (Broadside, phase 2)",
      "conditions": [
       {
-       "type": "round_greater_than",
+       "type": "health_below",
        "description": "",
-       "value": 1
+       "value": 50
       }
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Omen: Rows A (Broadside)",
+      "description": "Omen: Rows A (Broadside, phase 2)",
       "jutsuId": "lib-omen-rows-a",
       "target": "SELF"
      }
     },
     {
-     "index": 16,
-     "note": "Omen: Rows B (Broadside)",
+     "index": 13,
+     "note": "Hold the Line (live Unbroken Command, opener: party 3+ hexes away)",
      "conditions": [
       {
-       "type": "round_greater_than",
+       "type": "distance_higher_than",
        "description": "",
-       "value": 1
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
       }
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Omen: Rows B (Broadside)",
-      "jutsuId": "lib-omen-rows-b",
+      "description": "Hold the Line (live Unbroken Command, opener: party 3+ hexes away)",
+      "jutsuId": "0Y10JpChssDwFUxNRk6p3",
       "target": "SELF"
      }
     },
     {
-     "index": 17,
-     "note": "Raise the Gunwale",
-     "conditions": [
-      {
-       "type": "round_greater_than",
-       "description": "",
-       "value": 2
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Raise the Gunwale",
-      "jutsuId": "dg-raise-the-gunwale",
-      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
-     }
-    },
-    {
-     "index": 18,
-     "note": "Final Command",
+     "index": 14,
+     "note": "Final Command (duel)",
      "conditions": [
       {
        "type": "distance_lower_than",
@@ -4566,14 +4440,14 @@
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Final Command",
+      "description": "Final Command (duel)",
       "jutsuId": "X2P22h8ApDmTZHjWpNO87",
       "target": "HIGHEST_ENMITY_OPPONENT"
      }
     },
     {
-     "index": 19,
-     "note": "Keelbind",
+     "index": 15,
+     "note": "Keelbind (duel)",
      "conditions": [
       {
        "type": "distance_lower_than",
@@ -4584,14 +4458,14 @@
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Keelbind",
+      "description": "Keelbind (duel)",
       "jutsuId": "PdD44PGaNv4MN5fOALhAF",
       "target": "HIGHEST_ENMITY_OPPONENT"
      }
     },
     {
-     "index": 20,
-     "note": "Stolen Form (target buffed)",
+     "index": 16,
+     "note": "Stolen Form (duel: top threat carries a damage buff)",
      "conditions": [
       {
        "type": "distance_lower_than",
@@ -4604,18 +4478,36 @@
        "description": "",
        "effectType": "increasedamagegiven",
        "target": "HIGHEST_ENMITY_OPPONENT",
-       "threshold": 25
+       "threshold": 1
       }
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Stolen Form (target buffed)",
+      "description": "Stolen Form (duel: top threat carries a damage buff)",
       "jutsuId": "VuFuBtE7h5B1nnA2J1lFZ",
       "target": "HIGHEST_ENMITY_OPPONENT"
      }
     },
     {
-     "index": 21,
+     "index": 17,
+     "note": "Counter Stance (duel: a player within 2)",
+     "conditions": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Counter Stance (duel: a player within 2)",
+      "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+      "target": "SELF"
+     }
+    },
+    {
+     "index": 18,
      "note": "Suppression Writ",
      "conditions": [
       {
@@ -4633,60 +4525,7 @@
      }
     },
     {
-     "index": 22,
-     "note": "Second Wind (under 40%)",
-     "conditions": [
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 40
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Second Wind (under 40%)",
-      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
-      "target": "SELF"
-     }
-    },
-    {
-     "index": 23,
-     "note": "Counter Stance (player adjacent)",
-     "conditions": [
-      {
-       "type": "player_within_range",
-       "description": "",
-       "minRange": 0,
-       "maxRange": 1
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Counter Stance (player adjacent)",
-      "jutsuId": "T3glZGcSd-jS8G-NB43GR",
-      "target": "SELF"
-     }
-    },
-    {
-     "index": 24,
-     "note": "Ruin Refrain",
-     "conditions": [
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Ruin Refrain",
-      "jutsuId": "EQ93LX8wvuIAd5u75q_i1",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 25,
+     "index": 19,
      "note": "Unraveling Strike",
      "conditions": [
       {
@@ -4704,7 +4543,7 @@
      }
     },
     {
-     "index": 26,
+     "index": 20,
      "note": "Explosive Tag Cataclysm",
      "conditions": [
       {
@@ -4722,7 +4561,7 @@
      }
     },
     {
-     "index": 27,
+     "index": 21,
      "note": "Windlash Focus",
      "conditions": [
       {
@@ -4740,8 +4579,8 @@
      }
     },
     {
-     "index": 28,
-     "note": "patrol: close in",
+     "index": 22,
+     "note": "close in (duel)",
      "conditions": [
       {
        "type": "distance_higher_than",
@@ -4752,12 +4591,12 @@
      ],
      "action": {
       "type": "move_towards_opponent",
-      "description": "patrol: close in",
+      "description": "close in (duel)",
       "target": "CLOSEST_OPPONENT"
      }
     },
     {
-     "index": 29,
+     "index": 23,
      "note": "highest-power damage",
      "conditions": [],
      "action": {
@@ -4769,10 +4608,10 @@
     }
    ],
    "signatureRules": [
-    2,
     3,
-    15,
-    16
+    4,
+    11,
+    12
    ]
   },
   "Sealwright": {
@@ -4957,7 +4796,7 @@
     ],
     "target": "EMPTY_GROUND",
     "range": 3,
-    "cooldown": 8,
+    "cooldown": 99,
     "bloodlineId": "",
     "requiredLevel": 1,
     "requiredRank": "STUDENT",
@@ -5007,8 +4846,8 @@
   }
  ],
  "counts": {
-  "libraryRecordsUsedByTheWreck": 24,
+  "libraryRecordsUsedByTheWreck": 22,
   "wreckNew": 1,
-  "liveUsed": 29
+  "liveUsed": 28
  }
 }

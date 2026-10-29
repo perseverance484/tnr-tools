@@ -114,27 +114,32 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     ["Final Command", LIVE.finalCommand, t, [cond.near(4, t)]],
     ["Keelbind", LIVE.keelbind, t, [cond.near(5, t)]],
   ];
+  // The Captain (RUL-2026-10-28-031): phase 1 (above 50%) is a duel; at 50% he raises the Gunwale once and enters
+  // Battle Trance; phase 2 is command of the deck (Broadside and Ship's Bell alternate, a duel move on each mark's
+  // spare 60 AP, Second Wind under 25%). Phase-2 rules sit above the duel and are gated on health below 50.
+  const P2 = 50;
   const captain = [
-    cast("Hold the Line (live Unbroken Command; the wave opens far away)", LIVE.unbrokenCommand, "SELF", [cond.far(5)]),
-    cast("Last Stand at the Helm (live Battle Trance, under 50%)", LIVE.battleTrance, "SELF", [cond.hp(50)]),
+    // Transition (once): the rail goes up between him and the party (cooldown 99), then Last Stand.
+    cast("Raise the Gunwale (phase 2 begins; once)", WRECK_NEW.gunwale, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [cond.hp(P2)]),
+    cast("Last Stand at the Helm (live Battle Trance, phase 2)", LIVE.battleTrance, "SELF", [cond.hp(P2)]),
+    cast("Second Wind (under 25%)", LIVE.secondWind, "SELF", [cond.hp(25)]),
     blast("Broadside (signature, rows A)", "rowsA", LIB.sig.broadside),
-    blast("Broadside, second volley (shared rows B blast)", "rowsB"),
     blast("Ship's Bell (signature)", "bindingRing", LIB.sig.shipsBell),
-    ...afterMark(["rowsA", "rowsB", "bindingRing"], duel()),
-    mark("Omen: Binding Ring (Ship's Bell, a player within 2)", "bindingRing", [cond.within(0, 2)]),
-    mark("Omen: Rows A (Broadside)", "rowsA", [cond.roundGt(1)]),
-    mark("Omen: Rows B (Broadside)", "rowsB", [cond.roundGt(1)]),
-    cast("Raise the Gunwale", WRECK_NEW.gunwale, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [cond.roundGt(2)]),
-    ...duel().map(([n, id, t, c]) => cast(n, id, t, c)),
-    cast("Stolen Form (target buffed)", LIVE.stolen, "HIGHEST_ENMITY_OPPONENT", [cond.near(4, "HIGHEST_ENMITY_OPPONENT"), cond.targetHas("HIGHEST_ENMITY_OPPONENT", 25, "increasedamagegiven")]),
+    ...afterMark(["rowsA", "bindingRing"], duel()),
+    // Alternation: both marks have cooldown 4 and each costs a two-turn cycle, so Bell and Broadside take turns.
+    mark("Omen: Binding Ring (Ship's Bell, phase 2)", "bindingRing", [cond.hp(P2)]),
+    mark("Omen: Rows A (Broadside, phase 2)", "rowsA", [cond.hp(P2)]),
+    // Phase 1: the duel. Hold the Line opens it: the wave starts mid-battle (no wave-round condition exists), so it fires
+    // while the party is still 3+ hexes away; below the phase-2 block, so it never displaces a set piece.
+    cast("Hold the Line (live Unbroken Command, opener: party 3+ hexes away)", LIVE.unbrokenCommand, "SELF", [cond.far(3)]),
+    ...duel().map(([n, id, t, c]) => cast(`${n} (duel)`, id, t, c)),
+    cast("Stolen Form (duel: top threat carries a damage buff)", LIVE.stolen, "HIGHEST_ENMITY_OPPONENT", [cond.near(4, "HIGHEST_ENMITY_OPPONENT"), cond.targetHas("HIGHEST_ENMITY_OPPONENT", 1, "increasedamagegiven")]),
+    cast("Counter Stance (duel: a player within 2)", LIVE.counter, "SELF", [cond.within(0, 2)]),
     cast("Suppression Writ", LIVE.writ, "HIGHEST_ENMITY_OPPONENT", [cond.near(4, "HIGHEST_ENMITY_OPPONENT")]),
-    cast("Second Wind (under 40%)", LIVE.secondWind, "SELF", [cond.hp(40)]),
-    cast("Counter Stance (player adjacent)", LIVE.counter, "SELF", [cond.within(0, 1)]),
-    cast("Ruin Refrain", LIVE.refrain, "CLOSEST_OPPONENT", [cond.near(5)]),
     cast("Unraveling Strike", LIVE.unraveling, "CLOSEST_OPPONENT", [cond.near(3)]),
     cast("Explosive Tag Cataclysm", LIVE.cataclysm, "CLOSEST_OPPONENT", [cond.near(5)]),
     cast("Windlash Focus", LIVE.windlash, "SELF", [cond.within(0, 4)]),
-    moveTo("patrol: close in", "CLOSEST_OPPONENT", [cond.far(4)]),
+    moveTo("close in (duel)", "CLOSEST_OPPONENT", [cond.far(4)]),
     highest("highest-power damage", "CLOSEST_OPPONENT"),
   ];
   const sealwright = [
@@ -229,7 +234,7 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     [IDS.oath]: { rules: oath, signature: ["Oath of Stillness"] },
     [IDS.wayfinder]: { rules: wayfinder, signature: ["Chart Mark"] },
     [IDS.horror]: { rules: horror, signature: ["Maw of the Deep", "Omen: Last Light"] },
-    [IDS.captain]: { rules: captain, signature: ["Broadside", "Omen: Rows"] },
+    [IDS.captain]: { rules: captain, signature: ["Broadside", "Omen: Rows", "Ship's Bell", "Omen: Binding Ring"] },
     [IDS.sealwright]: { rules: sealwright, signature: ["Ward of Command"] },
   } as Record<string, { rules: any[]; signature: string[] }>;
 };
@@ -240,7 +245,7 @@ export const buildKits = (P: KitParams, version: "endgame" | "lvl50" = "endgame"
   const J: Record<string, any> = { ...buildLibrary() };
   J[WRECK_NEW.gunwale] = jutsu(WRECK_NEW.gunwale, {
     name: "Raise the Gunwale", description: "A barrier line of timber and seals; it has its own health.", battleDescription: "%user barks an order; the gunwale rises.",
-    target: "EMPTY_GROUND", method: "AOE_WALL_SHOOT", range: 3, cooldown: 8, actionCostPerc: 60, donor: "i4lGrYY5HNN2Q2GPToKUS",
+    target: "EMPTY_GROUND", method: "AOE_WALL_SHOOT", range: 3, cooldown: 99, actionCostPerc: 60, donor: "i4lGrYY5HNN2Q2GPToKUS",
     effects: [tag("barrier", { power: 100, rounds: 3, curHealth: P.gunwaleHP ?? 3000, maxHealth: P.gunwaleHP ?? 3000, absorbPercentage: 50, staticAnimation: "cp_gunwale" })],
   });
   const shared = sharedRules(P);
