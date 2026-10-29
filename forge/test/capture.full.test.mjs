@@ -188,7 +188,7 @@ test('a full capture with no record id is refused: "full" is a point read or not
 
 test("the allowlist is exactly the audited content-record point reads and nothing else", () => {
   assert.deepEqual([...FULL_PERSIST_PATHS].sort(), [
-    "ai.getAiProfile", "bloodline.get", "gameAsset.get", "item.get", "jutsu.get", "profile.getAi", "quests.get", "skillTree.get",
+    "ai.getAiProfile", "bloodline.get", "gameAsset.get", "item.get", "item.getItemWithCraftingRequirements", "jutsu.get", "profile.getAi", "quests.get", "skillTree.get",
   ]);
 });
 
@@ -501,4 +501,89 @@ test("FFC-1: a job's snapshots are deletable by job, and only that job's", async
   assert.deepEqual(left.map((r) => r.jobId), ["keep"]);
   assert.deepEqual((await h.cache.getSnapshot(snapshotKey("keep", "after", 0))).data, ASSET);
   assert.equal(await h.cache.getSnapshot(snapshotKey("drop", "after", 0)), null);
+});
+
+// ================================================================ recipes
+// Crafting recipes live in the CraftingRequirement table, which item.get does not return. The
+// game's own point read for them is item.getItemWithCraftingRequirements (routers/item.ts:400 at
+// TheNinjaRPG@2af4b320), so that is the one recipe path admitted to full persistence. The list
+// procedures that also carry recipes (occupation.getCraftableItems, occupation.getCookingRecipes)
+// are protected, unaudited and list-shaped, and stay out.
+const RECIPE = "item.getItemWithCraftingRequirements";
+const FILAMENT = Object.freeze({ id: "itemFilament000000001", name: "Skyglass Filament", itemType: "MATERIAL", hidden: false, canBeCrafted: false, bloodlineId: null });
+const CRYSTAL = Object.freeze({ id: "itemCrystal0000000001", name: "Skyglass Crystal", itemType: "WEAPON", hidden: true, canBeCrafted: true, bloodlineId: null });
+const STEW = Object.freeze({ id: "itemStew000000000001", name: "Riverside Stew", itemType: "MEAL", hidden: false, canBeCrafted: true, bloodlineId: null });
+const REQ = Object.freeze({ id: "craftReq0000000000001", craftItemId: CRYSTAL.id, requirementItemId: FILAMENT.id, quantity: 12 });
+const STEW_REQ = Object.freeze({ id: "craftReq0000000000002", craftItemId: STEW.id, requirementItemId: FILAMENT.id, quantity: 2 });
+
+function recipeHarness() {
+  const h = harness();
+  for (const row of [FILAMENT, CRYSTAL, STEW]) h.game.seed("item", { ...row });
+  h.game.seedCraftingRequirement({ ...REQ });
+  h.game.seedCraftingRequirement({ ...STEW_REQ });
+  return h;
+}
+
+test("recipes: the crafting-requirements point read is accepted for full persistence with an id", () => {
+  const m = parseManifest({ items: [], capture: { after: [{ proc: RECIPE, input: { id: CRYSTAL.id }, persist: "full" }] } });
+  assert.equal(m.fullCaptures, 1);
+  assert.equal(m.capture.after[0].proc, RECIPE);
+  assert.equal(m.capture.after[0].persist, "full");
+  assert.equal(m.capture.after[0].id, CRYSTAL.id);
+});
+
+test("recipes: the crafting-requirements read is refused for full persistence without one record id", () => {
+  // idSchema at source is z.object({ id: z.string() }): there is no itemId spelling and no list form
+  for (const input of [undefined, {}, { id: "" }, { id: 7 }, { itemId: CRYSTAL.id }, { limit: 10 }]) {
+    assert.throws(
+      () => parseManifest({ items: [], capture: { after: [{ proc: RECIPE, input, persist: "full" }] } }),
+      /needs input\.id \(or input\.userId\)/, `input ${JSON.stringify(input)} must be refused`);
+  }
+  // the recipe LISTS remain outside the allowlist, whatever input they are given
+  for (const proc of ["occupation.getCraftableItems", "occupation.getCookingRecipes"]) {
+    assert.throws(
+      () => parseManifest({ items: [], capture: { after: [{ proc, input: { id: "x" }, persist: "full" }] } }),
+      /only allowed for the audited content-record point reads/, `${proc} must not be persistable`);
+  }
+});
+
+test("recipes: a full capture exports the item, its crafting requirements and requirement items from one read", async () => {
+  const h = recipeHarness();
+  h.runner.plan({ items: [], capture: { after: [fullCapture(CRYSTAL.id, RECIPE), fullCapture(STEW.id, RECIPE)] } }, { jobId: "recipes" });
+  const s = await h.runner.run("recipes");
+  assert.equal(s.state, "DONE");
+  assert.equal(s.outcome, "success");
+  assert.deepEqual(h.game.calls.map((c) => [c.path, c.input]), [[RECIPE, { id: CRYSTAL.id }], [RECIPE, { id: STEW.id }]],
+    "one point read per recipe, sent as {id}");
+
+  const bundle = await h.bundle("recipes");
+  const [crystal, stew] = bundle.captures;
+  for (const c of [crystal, stew]) {
+    assert.equal(c.proc, RECIPE);
+    assert.equal(c.ok, true);
+    assert.equal(c.persistOk, true);
+    assert.equal(c.persistError, null);
+    assert.equal(c.rows, 1);
+  }
+  assert.deepEqual(crystal.data, { ...CRYSTAL, craftingRequirements: [{ ...REQ, requirementItem: { ...FILAMENT } }], requiredBloodline: null },
+    "the exact decoded body, recipe rows included");
+  assert.equal(crystal.data.craftingRequirements[0].quantity, 12);
+  // a MEAL is point-readable through the same procedure: it has no itemType filter at source
+  assert.equal(stew.data.itemType, "MEAL");
+  assert.deepEqual(stew.data.craftingRequirements.map((r) => [r.requirementItemId, r.quantity]), [[FILAMENT.id, 2]]);
+  assert.equal(h.game.calls.length, 2, "export materializes from the snapshots, never re-reads");
+});
+
+test("recipes: a missing item is NOT_FOUND at source, so the capture fails and persists nothing", async () => {
+  const h = recipeHarness();
+  h.runner.plan({ items: [], capture: { after: [fullCapture("itemGone000000000001", RECIPE)] } }, { jobId: "norecipe" });
+  const s = await h.runner.run("norecipe");
+  assert.equal(s.state, "DONE");
+  assert.equal(s.outcome, "failed");
+  const [capture] = (await h.bundle("norecipe")).captures;
+  assert.equal(capture.ok, false);
+  assert.equal(capture.error, "NOT_FOUND");
+  assert.equal(capture.persistOk, false);
+  assert.match(capture.persistError, /no body to persist/);
+  assert.ok(!("data" in capture));
 });

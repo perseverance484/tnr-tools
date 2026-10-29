@@ -60,6 +60,11 @@ export const FULL_PERSIST_PATHS = Object.freeze([
   "gameAsset.get",
   "jutsu.get",
   "item.get",
+  // Recipes live in the CraftingRequirement table, which item.get does not return. This is the
+  // same item row plus its craftingRequirements (each with the full requirementItem row) and
+  // requiredBloodline: content records only, one item per call, keyed by {id}. It has no
+  // itemType filter, so MEAL (cooking) recipes are point-readable through it too.
+  "item.getItemWithCraftingRequirements",
   "bloodline.get",
   "quests.get",
   "profile.getAi",

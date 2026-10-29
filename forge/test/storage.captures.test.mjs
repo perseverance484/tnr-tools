@@ -13,6 +13,8 @@ test("key and entity mapping", () => {
   assert.equal(entityOfPath("gameAsset.get"), "asset");
   assert.equal(entityOfPath("profile.getAi"), "ai");
   assert.equal(entityOfPath("ai.getAiProfile"), "ai");
+  // a recipe read is an item read: an item write must invalidate its cache slot too
+  assert.equal(entityOfPath("item.getItemWithCraftingRequirements"), "item");
   assert.equal(entityOfPath("quests.getAllNames"), "quest");
 });
 
@@ -80,7 +82,7 @@ test("every full-persistence path is an audited content-record point read, and n
     const p = PROCEDURES[path];
     assert.ok(p, `${path} is not in the audited crud surface; the allowlist may not invent a procedure`);
     assert.equal(p.kind, "query", `${path} is not a query; a mutation body may never be durably persisted`);
-    assert.ok(/\.(get|getAi|getAiProfile)$/.test(path), `${path} is not a point read`);
+    assert.ok(/\.(get|getAi|getAiProfile|getItemWithCraftingRequirements)$/.test(path), `${path} is not a point read`);
     assert.ok(!/getAll/.test(path), `${path} is a list procedure`);
     assert.equal(canPersistFull(path), true);
     assert.equal(persistProcedureKind(path), "query");
