@@ -3873,3 +3873,21 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "Approved. 1 Give him his own. 2 apply 3 no 4 sure 5 figure out which moves go unused and why. Lets analyze his kit and see what needs to stay or go 6 I think you can turn friendlyFire setting on to prevent this 7 yes 8 yes 9 why? 10 lets analyze with and without to decide. If they dont add something meaningful (cant tell when they're gone) we cut them".
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md`; harness branches `fable/skyglass-*-sim`, `fable/crowned-captain-sim`.
+
+## RUL-2026-10-28-027 — Battle terrain: shore sand for the Wreck; custom tilesets deferred
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass presentation
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Custom battle tilesets are deferred.** Combat arenas render only the 7 built-in biomes (theninjarpg `libs/sector-map/terrains.ts`: "battle backgrounds are a closed enum"). Custom terrains need an upstream change.
+2. **Both Wreck dungeon versions use the `dessert` biome**, a sand shore with water edges, matching the beached wreck. The dungeon `background` field accepts this.
+3. **Quest battles (hunts, chart runs, Crownhold) can't choose a biome.** They take the biome of the sector the player stands in (`routers/quests.ts` ~4795: `biome: "default"`, the player's sector). They are left as is.
+4. **The Fall's fire source becomes the Arsenal Keeper's echo at the powder magazine**, not a "Burning Deck". It is tanky and immobile, so breaking him to stop the spreading fire is a real choice. Proposed and not objected to; confirm at the next review.
+
+**Evidence:** Director, 2026-10-28: "Fighting 'the deck' seems weird. Decks arent sentient. Need a different enemy in its place maybe? ... Definitely can make it tanker so theres a choice." Then: "Just pick the right terrains for now, we'll worry about that later."
+
+**Canonical destination:** `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`, `docs/design/SKYGLASS_BOSS_FIGHTS.md` §8.
