@@ -16,6 +16,7 @@ read at that pin and cited per rule:
 
 Forge mirrors the same rules in forge/src/runner/catalog.mjs and lints.mjs.
 """
+import ipaddress
 import math
 import re
 from urllib.parse import urlsplit
@@ -29,13 +30,30 @@ BADGE_DESCRIPTION_MAX = 500
 REQUIRED_ON_CREATE = {"badge": ("name", "image", "description"), "title": ("name", "archived")}
 
 
+# WHATWG forbidden host code points (url.spec.whatwg.org, "forbidden domain code point") plus '%':
+# Python does not percent-decode the host, so any '%' is refused (stricter than new URL(), never looser).
+_BAD_HOST = set(" \t\n\r#%/:<>?@[\\]^|")
+
+
 def _url(v):
-    """BadgeValidator's z.url() (zod 4.6.7) parses after a trim; http(s) without whitespace only."""
+    """BadgeValidator's z.url() (zod 4.6.7) is URL.canParse after a trim; Forge also requires http(s) and no
+    whitespace (catalog.mjs). Ports must be numeric and at most 65535; the host must parse as WHATWG would."""
+    if not isinstance(v, str) or not re.match(r"^https?://\S+$", v):
+        return False
     try:
         u = urlsplit(v)
-        return bool(re.match(r"^https?://\S+$", v)) and bool(u.hostname)
+        host, _ = u.hostname, u.port  # .port raises ValueError for a non-numeric or out-of-range port
     except ValueError:
         return False
+    if not host:
+        return False
+    if u.netloc.rpartition("@")[2].startswith("["):
+        try:
+            ipaddress.IPv6Address(host)
+            return True
+        except ValueError:
+            return False
+    return not (set(host) & _BAD_HOST) and not any(ord(c) < 0x20 or ord(c) == 0x7F for c in host)
 
 
 def check(entry, items, fields, checks, check_member, ctors, rep, where):

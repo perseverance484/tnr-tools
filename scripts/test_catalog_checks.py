@@ -72,5 +72,25 @@ class CatalogChecks(unittest.TestCase):
         self.assertIn("power must be finite and >= 0", out)
 
 
+    def test_r1_url_parity_with_forge(self):
+        # Expected values are Forge's url() (catalog.mjs: http(s), no whitespace, new URL() parses) on Node.
+        # "https:///x" is the one known difference: new URL() repairs it, Python refuses it (stricter only).
+        sys.path.insert(0, str(ROOT / "skills" / "building-tnr-content" / "scripts"))
+        from catalog_checks import _url
+        cases = {
+            "https://example.com:99999/a.png": False, "https://example.com:bad/a.png": False,
+            "https://exa%mple.com/a.png": False, "https://[": False, "https://[zz]/a.png": False,
+            "https://ho|st.com/x": False, "https://ho^st.com/x": False, "https://example.com:-1/a": False,
+            "https://[::1]/a.png": True, "https://example.com:65535/a.png": True, "https://example.com:/a.png": True,
+            "https://utfs.io/f/abc": True, "http://a.b/c?d=e#f": True, "https://user:pw@host.com/x": True,
+            "https://host.com:0/x": True,
+        }
+        for v, want in cases.items():
+            self.assertEqual(_url(v), want, v)
+        for v in ("https://example.com:99999/a.png", "https://example.com:bad/a.png", "https://exa%mple.com/a.png"):
+            code, out = self.validate("badge", {**BADGE, "image": v})
+            self.assertNotEqual(code, 0, v)
+
+
 if __name__ == "__main__":
     unittest.main()
