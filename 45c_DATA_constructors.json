@@ -8,6 +8,7 @@
   "app/src/validators/item.ts",
   "app/src/validators/asset.ts",
   "app/src/validators/bloodline.ts",
+  "app/src/validators/title.ts",
   "app/drizzle/constants.ts"
  ],
  "_contract": {
@@ -23152,13 +23153,62 @@
      "value": "wound"
     }
    }
+  },
+  "TitleEffectSchema": {
+   "increasemastery": {
+    "schema": "TitleEffectSchema[0]",
+    "fields": {
+     "type": {
+      "type": "literal",
+      "literal": "increasemastery"
+     },
+     "power": {
+      "type": "number",
+      "min": 0
+     },
+     "masteryTypes": {
+      "type": "array",
+      "min": 1,
+      "enum_ref": "MasteryTypes",
+      "enum": [
+       "Bloodline",
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Sage",
+       "Taijutsu"
+      ]
+     }
+    },
+    "discriminant": {
+     "field": "type",
+     "value": "increasemastery"
+    }
+   },
+   "increaseregeneration": {
+    "schema": "TitleEffectSchema[1]",
+    "fields": {
+     "type": {
+      "type": "literal",
+      "literal": "increaseregeneration"
+     },
+     "power": {
+      "type": "number",
+      "min": 0
+     }
+    },
+    "discriminant": {
+     "field": "type",
+     "value": "increaseregeneration"
+    }
+   }
   }
  },
  "_provenance": {
   "generator": "schema_extract.py v2.0",
   "extracted": "2026-10-28",
   "source_drop": "git:studie-tech/TheNinjaRPG@2af4b320 (2026-10-28)",
-  "content_sha256_16": "3813df2b932872b4",
+  "content_sha256_16": "dc90447623f7a036",
   "contract": "GENERATED. Do not hand-edit. content_sha256_16 fingerprints the payload, not the stamp: two files claiming the same generator, drop and date but differing in content are detectable by comparing this field."
  }
 }

@@ -1,13 +1,14 @@
 import PINNED_FIELDS from "./fields.json" with { type: "json" };
 import { isBloodrightEntity, bloodrightFields, bloodrightProblems } from "../bloodright/validate.mjs";
 import { isDungeonEntity, dungeonFields, dungeonProblems, dungeonDiffs } from "../dungeon/validate.mjs";
-import { PET_STRIPPED_OK, petSpeciesProblems, petJutsuProblems, normalizeSpecies } from "./pets.mjs";
+import { petSpeciesProblems, petJutsuProblems, normalizeSpecies } from "./pets.mjs";
+import { HIDDENLESS, catalogProblems } from "./catalog.mjs";
 // Pre-send validation (spec section 9, R3). Every content validator on the server is
 // non-strict: an unknown or misspelled key is dropped at .input() parse time with no error
 // and the mutation reports success. The only place that error can surface is here.
 //
 // Field sets come from src/runner/fields.json, derived from the PINNED validators by
-// tools/derive_fields.mjs (jutsu, item, bloodline, quest, gameAsset, petSpecies, and ai), pinned to
+// tools/derive_fields.mjs (jutsu, item, bloodline, quest, gameAsset, petSpecies, badge, title, and ai), pinned to
 // TheNinjaRPG@2af4b320 since 2026-10-28 (spreads resolved). Every update is a fetch-merge filtered to
 // these fields and the server saves the whole parsed record, so a field missing here is RESET on
 // each edit (elementClassification to "None", requiredSkillId/reskin links/masteries to null).
@@ -68,7 +69,7 @@ export const SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updated
 export const AI_OMITTED = Object.freeze([...PINNED_FIELDS.entities.ai.omitted]);
 
 /** Which 45d entity backs a manifest entity. */
-export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai", petSpecies: "petSpecies" });
+export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai", petSpecies: "petSpecies", badge: "badge", title: "title" });
 
 /**
  * Restore the per-discriminator key sets from nested.json's shared key-set table.
@@ -171,12 +172,13 @@ export class Validator {
     } else {
       const known = this.knownFields(entity);
       if (!known) out.push(`no field schema for entity ${entity}`);
-      else for (const k of keys) if (!known.has(k) && !SERVER_OWNED.includes(k) && !(entity === "petSpecies" && PET_STRIPPED_OK.includes(k))) out.push(`unknown key "${k}" for ${entity} (would be silently dropped by the server)`);
+      else for (const k of keys) if (!known.has(k) && !SERVER_OWNED.includes(k) && !(k === "hidden" && HIDDENLESS.includes(entity))) out.push(`unknown key "${k}" for ${entity} (would be silently dropped by the server)`);
       if (entity === "petSpecies") {
         out.push(...petSpeciesProblems(data, live, { preCreate }));
         if (Array.isArray(data.aiRules)) out.push(...ruleProblems(data.aiRules).map((p) => "aiRules: " + p));
       }
       if (entity === "jutsu") out.push(...petJutsuProblems(data, live));
+      if (entity === "badge" || entity === "title") out.push(...catalogProblems(entity, data, { preCreate }));
     }
     out.push(...this.nestedProblems(entity, data));
     // law 46 / empty_string_rule: '' becomes null on the write path; for image that 500s.
@@ -219,9 +221,11 @@ export class Validator {
       }
     };
 
+    // a title's effects are TitleEffectSchema members, not combat tags (absent table: refused)
+    const fx = (entity === "title" ? this.nested.titleEffects : this.nested.effects) ?? {};
     for (const [i, f] of (Array.isArray(data.effects) ? data.effects : []).entries()) {
       if (!f || typeof f !== "object") { out.push(`effects[${i}] is not an object`); continue; }
-      const allowed = typeof f.type === "string" ? this.nested.effects[f.type] : null;
+      const allowed = typeof f.type === "string" ? fx[f.type] : null;
       if (!allowed) { out.push(`effects[${i}]: unknown effect type ${JSON.stringify(f.type)} at the pin`); continue; }
       check(f, allowed, `effects[${i}] (${f.type})`);
     }
@@ -345,7 +349,7 @@ export function diffAsserted(entity, asserted, live) {
     if (SERVER_OWNED.includes(k)) continue;
     if (entity === "ai" && ["rules", "includeDefaultRules"].includes(k)) continue; // verified via the profile read
     if (entity === "ai" && AI_STRIPPED_OK.includes(k)) continue; // never reaches the server; see AI_STRIPPED_OK
-    if (entity === "petSpecies" && PET_STRIPPED_OK.includes(k)) continue; // stripped before the send (pets.mjs)
+    if (k === "hidden" && HIDDENLESS.includes(entity)) continue; // no column: stripped before the send
     if (entity === "ai" && k === "jutsus") { // live row carries relation rows; compare ids
       const l = Array.isArray(live?.jutsus) ? live.jutsus.map((r) => (typeof r === "string" ? r : r.jutsuId ?? r.id)) : [];
       const s = (asserted.jutsus ?? []).map((j) => (typeof j === "string" ? j : j?.jutsuId ?? j?.id));

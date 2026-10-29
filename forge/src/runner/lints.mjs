@@ -144,6 +144,13 @@ export function lintManifest(manifest) {
     }
   }
 
+  // TITLE (titleRewards.ts:9-37 at 2af4b320): quest and item saves refuse reward_titles naming an
+  // archived title, so a title this manifest archives cannot be rewarded by it
+  for (const t of items) if (t.entity === "title" && t.data?.archived === true) {
+    const ref = JSON.stringify(t.op === "create" ? "@title:" + t.srcId : t.targetId);
+    for (const it of items) if (JSON.stringify(it.data ?? {}).match(/"reward_titles":\[[^\]]*\]/g)?.some((m) => m.includes(ref))) E(it, `TITLE ${ref} is archived in this manifest; the server refuses rewarding it`);
+  }
+
   // L17: the Android picker matches a file by size when the name differs, so every @img ref needs
   // a byte entry or the upload cannot be checked against the file on disk.
   const sizes = manifest.imgSizes ?? {};

@@ -168,7 +168,8 @@ test("full persistence is refused for list, mutation, unknown and un-audited pro
       `${proc} must not be persistable`);
   };
   for (const proc of ["jutsu.getAllNames", "gameAsset.getAllNames", "profile.getAllAiNames"]) refuse(proc);   // name lists
-  for (const proc of ["jutsu.getAll", "item.getAll", "quests.getAll", "gameAsset.getAll"]) refuse(proc);      // list dumps
+  for (const proc of ["jutsu.getAll", "item.getAll", "quests.getAll", "gameAsset.getAll", "title.getAll", "badge.getAll"]) refuse(proc); // list dumps
+  for (const proc of ["title.getAllNames", "badge.getAllNames", "title.select", "title.archive"]) refuse(proc);
   for (const proc of ["jutsu.update", "gameAsset.create", "quests.delete", "profile.updateAi"]) refuse(proc); // mutations
   for (const proc of ["asset.get", "user.get", "profile.getUser", "auth.session", "nonsense"]) refuse(proc);  // unknown / not audited
   // and the same paths remain perfectly legal as SUMMARY captures: this gate is about durability
@@ -188,7 +189,7 @@ test('a full capture with no record id is refused: "full" is a point read or not
 
 test("the allowlist is exactly the audited content-record point reads and nothing else", () => {
   assert.deepEqual([...FULL_PERSIST_PATHS].sort(), [
-    "ai.getAiProfile", "bloodline.get", "gameAsset.get", "item.get", "item.getItemWithCraftingRequirements", "jutsu.get", "profile.getAi", "quests.get", "skillTree.get",
+    "ai.getAiProfile", "badge.get", "bloodline.get", "gameAsset.get", "item.get", "item.getItemWithCraftingRequirements", "jutsu.get", "profile.getAi", "quests.get", "skillTree.get", "title.get",
   ]);
 });
 
@@ -586,4 +587,37 @@ test("recipes: a missing item is NOT_FOUND at source, so the capture fails and p
   assert.equal(capture.persistOk, false);
   assert.match(capture.persistError, /no body to persist/);
   assert.ok(!("data" in capture));
+});
+
+// ---------------------------------------------------------------- badges and titles
+// routers/badge.ts:62 (public) and routers/title.ts:40 (staff-only) at TheNinjaRPG@2af4b320.
+const BADGE_ROW = Object.freeze({ id: "bdgCrownbreaker000001", name: "Crownbreaker", image: "https://utfs.io/f/crown.webp", description: "Broke the crown." });
+const TITLE_ROW = Object.freeze({ id: "ttlSkyLancer000000001", name: "Sky Lancer", description: "", legacyOwnerId: null, archived: true,
+  effects: [{ type: "increasemastery", power: 2, masteryTypes: ["Taijutsu"] }, { type: "increaseregeneration", power: 1 }] });
+
+test("titles and badges: full point reads export the exact rows, archived titles and effects included; the lists stay summary", async () => {
+  const h = harness();
+  h.game.seed("badge", { ...BADGE_ROW });
+  h.game.seed("title", { ...TITLE_ROW });
+  h.game.seed("title", { ...TITLE_ROW, id: "ttlLegacy00000000001", name: "Old Label", legacyOwnerId: "user1", archived: false });
+  h.runner.plan({ items: [], capture: { before: [{ proc: "title.getAll" }, { proc: "badge.getAllNames" }],
+    after: [fullCapture(TITLE_ROW.id, "title.get"), fullCapture(BADGE_ROW.id, "badge.get"), fullCapture("ttlLegacy00000000001", "title.get")] } }, { jobId: "titles" });
+  const s = await h.runner.run("titles");
+  assert.equal(s.state, "DONE");
+  const [titles, badges, title, badge, legacy] = (await h.bundle("titles")).captures;
+  assert.deepEqual([titles.rows, badges.rows, "data" in titles], [1, 1, false], "a list capture carries a row count, never the rows");
+  assert.deepEqual([title.persistOk, title.data], [true, { ...TITLE_ROW }]);
+  assert.deepEqual([badge.persistOk, badge.data], [true, { ...BADGE_ROW }]);
+  assert.deepEqual([legacy.ok, legacy.error, "data" in legacy], [false, "NOT_FOUND", false], "a legacy label is not a catalog title");
+  assert.equal(h.game.calls.length, 5);
+});
+
+test("titles: title.get and title.getAll are staff reads; signed out, the capture stops on the session, persisting nothing", async () => {
+  const h = harness({ game: new FakeGame({ signedOut: true }) });
+  h.game.seed("title", { ...TITLE_ROW });
+  h.runner.plan({ items: [], capture: { after: [fullCapture(TITLE_ROW.id, "title.get")] } }, { jobId: "anon" });
+  const s = await h.runner.run("anon");
+  assert.deepEqual([s.state, s.pause.reason, s.pause.path], ["PAUSED", "SESSION", "title.get"]);
+  assert.equal(h.game.calls.length, 1, "the one refused read; nothing more is spent proving it");
+  assert.equal(await h.cache.getSnapshot(snapshotKey("anon", "after", 0)), null, "no body was persisted");
 });

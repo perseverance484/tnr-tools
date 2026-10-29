@@ -67,6 +67,10 @@ export const FULL_PERSIST_PATHS = Object.freeze([
   "item.getItemWithCraftingRequirements",
   "bloodline.get",
   "quests.get",
+  // Badge and title rows by {id} (routers/badge.ts:62 public, routers/title.ts:40 staff-only;
+  // TheNinjaRPG@2af4b320): content records only, the title's effects included.
+  "badge.get",
+  "title.get",
   "profile.getAi",
   "ai.getAiProfile",
 ]);

@@ -1,0 +1,47 @@
+{
+ "_note": "Badge/title builder fixture (forge/test/fixtures/catalog). Not content: never pushed. Every entry is refused.",
+ "items": [
+  {
+   "entity": "badge",
+   "slot": "create",
+   "name": "Fixture Bad Crest",
+   "srcId": "fx_bad_crest",
+   "data": {
+    "name": "Fixture Bad Crest",
+    "description": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "icon": "crest.png",
+    "hidden": true
+   }
+  },
+  {
+   "entity": "title",
+   "slot": "create",
+   "name": "Fixture Bad Title",
+   "srcId": "fx_bad_title",
+   "data": {
+    "name": "Fixture Bad Title",
+    "description": "",
+    "hidden": true,
+    "effects": [
+     {
+      "type": "increasemastery",
+      "power": 1,
+      "masteryTypes": [
+       "Taijutsu"
+      ],
+      "bonus": 2
+     },
+     {
+      "type": "heal",
+      "power": 1
+     },
+     {
+      "type": "increasemastery",
+      "power": -1,
+      "masteryTypes": []
+     }
+    ]
+   }
+  }
+ ]
+}

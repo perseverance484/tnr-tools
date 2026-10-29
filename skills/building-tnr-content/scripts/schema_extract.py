@@ -42,6 +42,8 @@ CTOR_FILES = [
     "app/src/validators/item.ts",
     "app/src/validators/asset.ts",
     "app/src/validators/bloodline.ts",
+    # TitleEffectSchema: a discriminatedUnion of INLINE z.object members (parse_inline_unions)
+    "app/src/validators/title.ts",
 ]
 
 CONST_FILE = "app/drizzle/constants.ts"
@@ -101,6 +103,8 @@ def parse_expr(expr: str) -> dict:
         out["int"] = True
     if ".positive()" in e:
         out["min"] = 1
+    if ".nonnegative()" in e:  # TitleEffectSchema power (validators/title.ts at 2af4b320)
+        out["min"] = 0
     for name in ("min", "max"):
         b = re.search(rf"\.{name}\((-?\d+)\)", e)
         if b:
@@ -323,6 +327,34 @@ def parse_unions(path: str) -> dict:
     return out
 
 
+def parse_inline_unions(path, ctx, rel):
+    """Unions whose members are written inline, `z.discriminatedUnion("type", [z.object({...})
+    .strict(), ...])` (TitleEffectSchema, validators/title.ts at 2af4b320). parse_unions keeps
+    named members only, so these had no constructor at all. Each inline member becomes a synthetic
+    object `Union[i]` with its fields resolved like any declared object. A union with any named
+    member is left to parse_unions. Returns ({union: [synthetic names]}, {synthetic name: fields})."""
+    src = open(path).read()
+    unions, objs = {}, {}
+    for m in UNION_RE.finditer(src):
+        i = src.index("[", m.end() - 1)
+        a, b = balanced(src, i, "[", "]")
+        body, names, j = src[a + 1:b], [], 0
+        while True:
+            om = re.compile(r"z\s*\.\s*(?:strictObject|object)\(\s*\{").search(body, j)
+            if not om:
+                break
+            oa, ob = balanced(body, om.end() - 1)
+            fields = {}
+            _apply_body(fields, body[oa + 1:ob], ctx, rel, ())
+            name = "%s[%d]" % (m.group(1), len(names))
+            objs[name] = fields
+            names.append(name)
+            j = ob + 1
+        if names and not re.search(r"(?:^|,)\s*[A-Za-z_]\w*\s*(?:,|$)", body):
+            unions[m.group(1)] = names
+    return unions, objs
+
+
 OBJ_VALUES_RE = re.compile(r"^\.\.\.\s*Object\.values\(\s*([A-Za-z_]\w*)\s*\)$")
 
 
@@ -465,6 +497,11 @@ def build_constructors(repo: str) -> dict:
                 objects.setdefault(k, {}).update(v)
                 obj_src.setdefault(k, rel)
         unions.update(parse_unions(p))
+        inline, inline_objs = parse_inline_unions(p, ctx, rel)
+        for k, v in inline_objs.items():
+            objects[k] = v
+            obj_src[k] = rel
+        unions.update(inline)
 
     enums = expand_all(parse_const_arrays(os.path.join(repo, CONST_FILE)))
     file_enums = {}
@@ -668,6 +705,8 @@ ENTITY_TARGETS = [
     ("gameAsset",  "app/src/validators/asset.ts",      "gameAssetValidator"),
     ("aiRule",     "app/src/validators/ai.ts",         "AiRule"),
     ("petSpecies", "app/src/validators/petSpecies.ts", "PetSpeciesValidator"),
+    ("badge",      "app/src/validators/badge.ts",      "BadgeValidator"),
+    ("title",      "app/src/validators/title.ts",      "TitleValidator"),
 ]
 
 ROUTER_DIR = "app/src/server/api/routers"

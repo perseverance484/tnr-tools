@@ -35,6 +35,19 @@ export const PROCEDURES = Object.freeze({
   "ai.getAiProfile": { kind: "query", limited: false, mcp: true, auth: "protected" },
   "ai.toggleAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "ai.updateAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+  // Badges and titles, read at TheNinjaRPG@2af4b320: routers/badge.ts getAllNames :29 and get :62 are
+  // publicProcedure with mcp meta, create :124 and update :72 protectedProcedure; routers/title.ts
+  // getAllNames :23 is publicProcedure (unarchived titles only), getAll :30 (every catalog title,
+  // archived too; staff-only), get :40, create :93 and update :148 protectedProcedure, no mcp meta.
+  "badge.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+  "badge.get": { kind: "query", limited: true, mcp: true, auth: "public" },
+  "badge.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+  "badge.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+  "title.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+  "title.get": { kind: "query", limited: false, mcp: false, auth: "protected" },
+  "title.getAll": { kind: "query", limited: false, mcp: false, auth: "protected" },
+  "title.getAllNames": { kind: "query", limited: true, mcp: false, auth: "public" },
+  "title.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "bloodline.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "bloodline.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "bloodline.get": { kind: "query", limited: true, mcp: true, auth: "public" },

@@ -24,8 +24,11 @@ const PLACEHOLDER = {
   "gameAsset.create": (id) => ({ id, name: "Placeholder", type: "STATIC", image: "", url: "", hidden: true, createdAt: new Date(0), updatedAt: new Date(0) }),
   "quests.create": (id) => ({ id, name: `New Quest - ${id}`, hidden: true, content: { objectives: [], reward: {}, sceneBackground: "", sceneCharacters: [] }, createdAt: new Date(0), updatedAt: new Date(0) }),
   "profile.create": (id) => ({ userId: id, username: `New AI - ${id}`, isAi: true, level: 1, rank: "STUDENT", aiProfileId: null, jutsus: [], items: [], createdAt: new Date(0), updatedAt: new Date(0) }),
+  // routers/badge.ts:124-138 and routers/title.ts:93-110 at 2af4b320
+  "badge.create": (id) => ({ id, name: `New Badge - ${id}`, image: "https://utfs.io/f/default-avatar", description: "", createdAt: new Date(0), updatedAt: new Date(0) }),
+  "title.create": (id) => ({ id, name: `New Title - ${id}`, description: "", effects: [], legacyOwnerId: null, archived: false, createdAt: new Date(0), updatedAt: new Date(0) }),
 };
-const TABLE = { jutsu: "jutsu", item: "item", bloodline: "bloodline", gameAsset: "asset", quests: "quest", profile: "ai", ai: "aiProfile", dungeon: "dungeon", petSpecies: "petSpecies" };
+const TABLE = { jutsu: "jutsu", item: "item", bloodline: "bloodline", gameAsset: "asset", quests: "quest", profile: "ai", ai: "aiProfile", dungeon: "dungeon", petSpecies: "petSpecies", badge: "badge", title: "title" };
 const ID_KEY = { ai: "userId" };
 
 /**
@@ -43,7 +46,7 @@ export const rekey = (v) => (Array.isArray(v) ? v.map(rekey)
 
 export class FakeGame {
   constructor({ crashAt = Infinity, dropAt = Infinity, refuse = new Set(), limitPath = null, signedOut = false } = {}) {
-    this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map(), dungeon: new Map(), petSpecies: new Map() };
+    this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map(), dungeon: new Map(), petSpecies: new Map(), badge: new Map(), title: new Map() };
     this.calls = [];
     this.crashAt = crashAt;
     // the connection fails at this call BEFORE the server applies it: nothing is written
@@ -83,15 +86,23 @@ export class FakeGame {
     else if (PLACEHOLDER[path]) {
       if (this.refuse.has(path)) result = ok({ success: false, message: `Not allowed to create` });
       else { const id = nanoidLike(); const row = PLACEHOLDER[path](id, input); table.set(id, row); result = ok({ success: true, message: id }); }
+    } else if (path === "title.getAll") {
+      // routers/title.ts:30-38 at 2af4b320: every catalog title, archived too; legacy labels excluded
+      result = ok(this.rows("title").filter((r) => !r.legacyOwnerId).map((r) => structuredClone(r)));
     } else if (proc === "get" || proc === "getAi") {
       const id = input.id ?? input.userId;
-      const row = table.get(id);
+      // routers/title.ts:40-50: a per-player legacy label is not a catalog title, NOT_FOUND
+      const row = path === "title.get" && table.get(id)?.legacyOwnerId ? null : table.get(id);
       result = row ? ok(structuredClone(row)) : (proc === "getAi" ? ok(null) : err("NOT_FOUND", `${router} not found`, 404));
     } else if (proc === "update" || proc === "updateAi") {
       const row = table.get(input.id);
       if (!row) result = ok({ success: false, message: `${router} not found` });
       else if (this.refuse.has(path)) result = ok({ success: false, message: "Not allowed" });
       // routers/jutsu.ts:1153-1157 at 2af4b320
+      // routers/badge.ts:88-89: names are unique
+      else if (router === "badge" && [...table.values()].some((r) => r.name === input.data.name && r.id !== input.id)) result = ok({ success: false, message: "Badge name already exists" });
+      // server/utils/titleRewards.ts:9-37 (quests.ts:877, item.ts:682): reward_titles must name unarchived catalog titles
+      else if ((router === "quests" || router === "item") && [...JSON.stringify(input.data).matchAll(/"reward_titles":\[([^\]]*)\]/g)].flatMap((m) => m[1].match(/[^",]+/g) ?? []).some((t) => !this.tables.title.get(t) || this.tables.title.get(t).archived)) result = ok({ success: false, message: "A reward title is missing, archived or private. Select an available title." });
       else if (router === "jutsu" && input.data.requiredPetSpeciesId && (input.data.jutsuType !== "PETS" || !this.tables.petSpecies.has(input.data.requiredPetSpeciesId))) result = ok({ success: false, message: "Select a valid companion species for a PETS jutsu" });
       else { const { jutsus, items, ...rest } = input.data; Object.assign(row, rest, { updatedAt: new Date(1) });
              if (router === "profile") { if (jutsus) row.jutsus = jutsus.map((j) => ({ jutsuId: j })); if (items) row.items = items.flatMap((t) => t.ids.map((i) => ({ itemId: i, quantity: (row.items ?? []).find((r) => r.itemId === i)?.quantity ?? 1, dropChancePerc: Number(t.number) }))); }
@@ -108,6 +119,7 @@ export class FakeGame {
       }
       const k = ID_KEY[TABLE[router]] ?? "id", nk = TABLE[router] === "ai" ? "username" : "name";
       let rows = [...table.values()];
+      if (path === "title.getAllNames") rows = rows.filter((r) => !r.archived && !r.legacyOwnerId); // routers/title.ts:23-28
       if (path === "gameAsset.getAllNames" && input.type) rows = rows.filter((r) => r.type === input.type);
       const name = (r) => (path === "gameAsset.getAllNames" && input.folderPrefix ? `${r.folder ?? ""}/${r[nk]}` : r[nk]);
       result = ok(rows.map((r) => ({ [k]: r[k], [nk]: name(r) })));

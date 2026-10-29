@@ -16,7 +16,7 @@ import { lintManifest } from "./lints.mjs";
 import { normalizeImagePack } from "./imgpack.mjs";
 import REVIEW from "../review/contract.json" with { type: "json" };
 
-export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile", "skillTree", "skillTreeFolder", "dungeon", "petSpecies"]);
+export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile", "skillTree", "skillTreeFolder", "dungeon", "petSpecies", "badge", "title"]);
 const SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
 // = floor(SERVER_LIMIT * DEFAULT_MARGIN) in src/budget/bucket.mjs: one budget allowance per manifest.
 export const MAX_DUNGEON_WRITES = 30;
