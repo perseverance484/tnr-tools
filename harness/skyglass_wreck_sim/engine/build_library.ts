@@ -18,7 +18,7 @@ const FIELDS = [
 ];
 const ANIM = /^(tg|dt|ch|cp|cc|fw|lg)_[a-z_]+$|^(mark-sigil|chain-hook-hit|skyglass-pane)$/;
 const group = (id: string) =>
-  Object.values(LIB.mark).includes(id) ? "mark" : Object.values(LIB.blast).includes(id) ? "shared blast" : Object.values(LIB.sig).includes(id) ? "signature" : id === LIB.loweredGuard ? "lowered guard" : Object.values(LIB.liveCopy).includes(id) ? "Skyglass-only copy of a live jutsu" : "crew addition";
+  Object.values(LIB.mark).includes(id) ? "mark" : Object.values(LIB.blast).includes(id) ? "shared blast" : Object.values(LIB.sig).includes(id) ? "signature" : id === LIB.loweredGuard ? "lowered guard" : Object.values(LIB.liveCopy).includes(id) ? "Skyglass-only copy of a live jutsu" : Object.values(LIB.transition).includes(id) ? "phase transition" : "crew addition";
 const markOf = Object.fromEntries(Object.entries(LIB.mark).map(([k, id]) => [id, k]));
 const records = Object.entries<any>(J).map(([id, rec]) => {
   const v = JutsuValidator.safeParse(rec);
@@ -48,7 +48,7 @@ const spec = {
   markerTypes: MARKER_TYPES,
   patterns: { ...PATTERNS, ring: "AOE_SPIRAL_SHOOT range 2 around the caster (disc minus the caster)" },
   powers: LIB_POWERS,
-  counts: { marks: Object.keys(LIB.mark).length, sharedBlasts: Object.keys(LIB.blast).length, signatures: Object.keys(LIB.sig).length, loweredGuard: 1, crewAdditions: Object.keys(LIB.crew).length, liveCopies: Object.keys(LIB.liveCopy).length, total: records.length },
+  counts: { marks: Object.keys(LIB.mark).length, sharedBlasts: Object.keys(LIB.blast).length, signatures: Object.keys(LIB.sig).length, loweredGuard: 1, crewAdditions: Object.keys(LIB.crew).length, liveCopies: Object.keys(LIB.liveCopy).length, transitions: Object.keys(LIB.transition).length, total: records.length },
   records,
 };
 writeFileSync(out, `${JSON.stringify(spec, null, 1)}\n`);

@@ -169,6 +169,10 @@ export const LIB = {
     chainHook: "lib-chain-hook", oath: "lib-oath-of-stillness", chartMark: "lib-chart-mark", aegis: "lib-skyglass-aegis",
     mending: "lib-mending-seal", ward: "lib-ward-of-command",
   },
+  /** Phase transitions (RUL-2026-10-28-032). */
+  transition: {
+    captain: "lib-steady-the-helm",
+  },
   /** Skyglass-only copies of live jutsu (RUL-2026-10-28-026): used by the hunts / Crownhold instead of editing the
    * shared live record. */
   liveCopy: {
@@ -296,6 +300,24 @@ export const buildLibrary = () => {
     // 2 rounds. clearprevent is a shared-cooldown type, but the Sealwright carries no other clearprevent jutsu.
     tag("clearprevent", { power: 100, rounds: 2, target: "INHERIT", friendlyFire: "FRIENDLY" }),
   ] }));
+  /* ---- phase transitions ---- */
+  // The Captain at 50% (RUL-2026-10-28-032): a 20 AP self move; with Raise the Gunwale (20 AP) and the first deck mark
+  // (40 AP) the whole transition fits one turn, even under a player stun (apReduction 20, which cleanse cannot lift).
+  // (JutsuValidator: actionCostPerc 10-100.)
+  // Cooldown 99: once per fight. Its cleanse and clearprevent are shared-cooldown types, but no other jutsu in his kit
+  // carries either (Unraveling Strike's "clear" is a separate group), so the 3-round lock blocks nothing.
+  add(jutsu(LIB.transition.captain, {
+    name: "Steady the Helm", description: "The Captain's turn to command: sheds afflictions, takes the wheel and braces for 2 rounds (40% less damage, 40% absorb, cannot be cleared).",
+    // Placeholder text; the quote is the design's under-50% line (SKYGLASS_BOSS_FIGHTS.md section 1).
+    battleDescription: "%user shakes off every hold on him and takes the wheel. \"I have held this deck through worse than you.\"",
+    target: "SELF", method: "SINGLE", range: 0, cooldown: 99, actionCostPerc: 20, donor: "xs-8r_KRJS8QQMpBDyhUv",
+    effects: [
+      T.cleanse({ target: "SELF", friendlyFire: "FRIENDLY" }),
+      T.pct("decreasedamagetaken", 40, 2, { target: "SELF", staticAnimation: anim("cp_steady") }),
+      tag("absorb", { power: 40, rounds: 2, target: "SELF", calculation: "percentage" }),
+      tag("clearprevent", { power: 100, rounds: 2, target: "SELF" }),
+    ],
+  }));
   /* ---- Skyglass-only copies of live jutsu ---- */
   // Crown Stonebound's Erupting Ground (live jBRyl7F4UjTyxG5nnzLqj), unchanged except that its damage hits enemies only.
   {

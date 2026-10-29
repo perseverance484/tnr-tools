@@ -1362,7 +1362,8 @@
   "loweredGuard": 1,
   "crewAdditions": 6,
   "liveCopies": 1,
-  "total": 35
+  "transitions": 1,
+  "total": 36
  },
  "records": [
   {
@@ -6614,6 +6615,116 @@
    },
    "animationPlaceholders": [
     "cp_command"
+   ],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "lib-steady-the-helm",
+   "status": "NEW",
+   "group": "phase transition",
+   "record": {
+    "name": "Steady the Helm",
+    "description": "The Captain's turn to command: sheds afflictions, takes the wheel and braces for 2 rounds (40% less damage, 40% absorb, cannot be cleared).",
+    "battleDescription": "%user shakes off every hold on him and takes the wheel. \"I have held this deck through worse than you.\"",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "jutsuWeapon": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "range": 0,
+    "coordinateTargeting": null,
+    "methodSize": null,
+    "cooldown": 99,
+    "actionCostPerc": 20,
+    "healthCost": 0,
+    "chakraCost": 200,
+    "staminaCost": 200,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "battleUsageType": "BOTH",
+    "elementClassification": "None",
+    "statClassification": "None",
+    "hidden": true,
+    "extraBaseCost": 0,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJCTKvgX26OYrIJuNP1pvSyz29edFtKbngjRcA",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+      "disappearAnimation": "",
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "disappearSfx": "",
+      "rounds": 0,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "SELF",
+      "friendlyFire": "FRIENDLY",
+      "calculation": "static",
+      "type": "cleanse",
+      "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "cp_steady",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 2,
+      "power": 40,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "SELF",
+      "friendlyFire": "ALL",
+      "calculation": "percentage",
+      "elements": [],
+      "type": "decreasedamagetaken",
+      "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+      "disappearAnimation": "",
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "disappearSfx": "",
+      "rounds": 2,
+      "power": 40,
+      "powerPerLevel": 0,
+      "direction": "defence",
+      "target": "SELF",
+      "calculation": "percentage",
+      "type": "absorb",
+      "description": " placeholder",
+      "poolsAffected": [
+       "Health"
+      ]
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 2,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "SELF",
+      "calculation": "static",
+      "type": "clearprevent",
+      "description": "placeholder"
+     }
+    ]
+   },
+   "animationPlaceholders": [
+    "cp_steady"
    ],
    "validator": "JutsuValidator: ok"
   },

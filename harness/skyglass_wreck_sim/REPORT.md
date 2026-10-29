@@ -1082,3 +1082,113 @@ So the deck set pieces show in only 17-27% of appearances.
 - **Battle Trance and Second Wind repeat on cooldown** (5 / 6 rounds). A long solo fight sees them more than once.
 - **Stolen Form needs a buffed top threat.** It never fires against a player who uses no damage-given buffs (level 50: 0%).
 - The per-version stats (rows, pools) are not part of the shared record.
+
+# Report 4d (2026-10-29): the Captain's transition turn and a longer phase 2 (RUL-2026-10-28-032)
+
+Branch `fable/skyglass-wreck-sim`, built on ff9ca6ff. Offline, zero live requests. Engine pin c86f43f4.
+
+## The transition turn
+
+At his first turn below 50% the Captain spends **80 AP in one turn**:
+
+| Order | Move | AP | Notes |
+|---:|---|---:|---|
+| 1 | **Steady the Helm** (new, `lib-steady-the-helm`; name is a proposal) | 20 | self: cleanse, 40% less damage taken, 40% absorb, clear-proof; cooldown 99 (once) |
+| 2 | Raise the Gunwale | 20 (was 60, then 30) | cooldown 99 (once) |
+| 3 | First deck mark (Omen: Binding Ring → Ship's Bell) | 40 | library mark |
+| - | after-mark end turn | | the 20 AP left fit nothing (every after-mark move costs 40+) |
+
+- **80, not 100.** A player stun (Stunning Jab, `apReduction` 20) leaves him 80 AP, and the engine's cleanse cannot lift a stun (`isNegativeUserEffect` does not list `stun`). With 30 + 30 + 40 the level-50 transition split in 80% of appearances (the level-50 party stuns him often); with 20 + 20 + 40 it holds in 100%.
+- **Battle Trance follows on a later turn.** It now ranks first in the 60 AP after each later mark (above Second Wind). The turn after the transition is the first blast (100 AP), so it lands on the second phase-2 turn: 2 rounds after the transition in 51 of 55 endgame appearances, 1 round after in the 4 split cases; never on the transition turn (`--together "Steady the Helm|Last Stand"`: same round 0%).
+- **Remaining split (endgame 5%).** The rule engine has no action-point condition. When he crosses 50% *during* his own turn (a wound / afterburn tick or reflect on his first action, e.g. seed 1: Keelbind, then a 755 HP wound tick), he has 40-60 AP left: Steady and the Gunwale fire, and the mark opens his next turn. Fixing this needs an AP-aware condition in the engine.
+
+## Steady the Helm: tags and engine semantics (pinned source)
+
+| Tag | Setting | Engine behaviour |
+|---|---|---|
+| `cleanse` | power 100, rounds 0, SELF | `tags.ts` `cleanse` → `removeEffects(..., "negative")`: removes his non-persistent negative tags at once (seen: wound, increasedamagetaken). Does not remove `stun` (not in the negative list). Shared-cooldown tag (3 rounds); nothing else in his kit carries it. |
+| `decreasedamagetaken` | 40%, rounds 2, SELF | applies only from the round after the cast (`passesTiming`: not new, not the cast round). Rounds tick at each round change, except in the cast round, so it covers **the two full rounds after the transition**. |
+| `absorb` | 40%, rounds 2, SELF, pools Health | `tags.ts` `absorb`: converts 40% of each incoming damage packet into health, from the round after the cast (same timing as the DR). It is a heal: `healprevent` blocks it. Chosen over `shield` (a flat HP bubble with a power-% creation roll) and `lifesteal` / `vamp` (heal from damage *dealt*). |
+| `clearprevent` | power 100, rounds 2, SELF | `clear` checks it (`preventCheck(..., "clearprevent")`): the party's clears cannot strip his DR, absorb or Battle Trance. Shared-cooldown tag. |
+
+## Tuning (`overrides/kits_*.params.json`)
+
+Phase 2 barely responded to HP at first. The party's burst rounds reach 7,000-14,000 damage, so he often makes his first phase-2 decision well below 50% (median 41-44%, down to 4%). At the old HP, 20% of appearances never reached phase 2.
+
+Sweep, endgame boss wave, 30-60 runs each (`audit_rules.ts`, pets, dodging):
+
+| Captain pools / damage rows / Steady DR-absorb-rounds | HP | Phase 1 med | Phase 2 med (p90) | Wave wipes per attempt |
+|---|---:|---:|---:|---:|
+| 2.8 / 2 / 40-40-2 (start) | 14,140 | 6 | 4 (7) | 10% |
+| 4.4 / 2 / 40-40-2 | 22,220 | 7 | 4 | 23% |
+| 6.0 / 2 / 40-40-2 | 30,300 | 8 | 5 | 43% |
+| 4.0 / 1 / 40-40-**4** | 20,200 | 6 | 4 (6) | 3% |
+| 5.0 / 1 / **60-60-3** | 25,250 | 7 | 5 (8) | 3% |
+| 7.0 / 1 / 40-40-2 (60 runs) | 35,350 | 7 | 6 (9) | 15% |
+| **7.5 / 1 / 40-40-2 (60 runs, chosen)** | **37,875** | **8** | **6 (10)** | **17%** |
+| 8.0 / 1 / 40-40-2 (60 runs) | 40,400 | 8 | 7 (10) | 22% |
+
+- The sweep rows except the chosen one ran with the 30 + 30 AP transition, before the 20 + 20 change.
+- **Chosen: pools 7.5, damage rows 2 → 1, Steady exactly as ruled (40/40/2).** Longer or stronger defence did less than HP, so the ruled numbers stand.
+- **Level 50: pools 2.5 → 4** (10,200 HP, rows 3 unchanged): phase 2 4 → 7 rounds. Pools 3.5 gives 5.
+
+## Results (this build, `results/`)
+
+Phase lengths (`audit_rules.ts`, pets, dodging; phase 2 = from his first decision below 50% to his death or the wipe):
+
+| | Endgame (60 runs) | Level 50 (30 runs) |
+|---|---|---|
+| Phase 1, median / p90 [range] | **8 / 12** [5-18] | 3 / 4 [2-6] |
+| Phase 2, median / p90 [range] | **6 / 10** [3-18] | **7 / 9** [4-16] |
+| Reached phase 2 | 95% | 100% |
+| Health at first phase-2 decision (median) | 44% | 44% |
+| Mark + Gunwale + Steady in one turn | **95%** of transitions | **100%** |
+| Battle Trance in phase 2 | 92% of appearances, never on the transition turn | 100% |
+| Broadside / Ship's Bell blast fired | 72% / 93% (were 7% / 17%) | 63% / 97% |
+
+Full dungeon (`main.ts`):
+
+| Version, runs | Cleared | Runs with a wipe | Boss wave wipes / attempts | Boss wave rounds med / p90 | Min @15 s (+ AI 1.5 s) | Was (report 4c) |
+|---|---:|---:|---:|---|---|---|
+| Endgame, 60, pets, dodging | 60 | **26.7%** | 18 / 78 (23%), plus 1 Core Horror | 12 / 17 | **23.1** (25.2) | 21.7%, 7.5 rounds, 19.8 min |
+| Endgame, 30, pets, no dodging | 0 | 100% | n/a | n/a | n/a | unchanged: the Core Horror wipes 120 of 120 |
+| Level 50, 60, pets, dodging | 60 | **10%** | 7 / 67, plus 1 Core Horror | 9 / 12 | **18.5** (19.9) | 1.7%, 4 rounds, 15.4 min |
+| Level 50, 30, pets, no dodging | 30 | 46.7% | 13 / 43, plus 8 Core Horror | 8 / 10 | 19.4 | 16.7% (Core Horror only) |
+
+The no-pets results (`kits_*_nopets.json`) are from the previous build and were not re-run.
+
+**Reading.**
+- **Endgame.** Phase 2 meets the median 6. Wipes and time are over the earlier targets:
+  - wave wipes are 17% in the audit seeds and 23% in the full runs (seed noise is about ±5 points at 78 attempts);
+  - runs with a wipe are 26.7%, against ~22%;
+  - the run takes 23.1 min, against ~20.
+- **The time cannot be recovered with the Captain alone.** A 6-7 round phase 2 plus an 8-round duel makes a 12-14 round wave, against 7.5 before. Phase 1 and phase 2 share one health pool, and the transition defence did less than HP.
+- **Level 50.** The easier version's Captain now costs wipes: 10% of runs with dodging, and 13 of 43 attempts without dodging. Pools 3.5 (phase 2 5 rounds) or the old 2.5 are the alternatives.
+
+## Determinism
+
+- `--probe-check` with pets passes on both versions (seeds 1-2; rule probe on/off and repeat identical).
+- `main.ts` endgame, 8 runs, run twice concurrently: identical results.
+- `trace_floor.ts` endgame seed 42, three times (two concurrently): byte-identical.
+- **Open item:** `audit_rules.ts` runs all its seeds in one process. Between invocations, 2-4 of 45-60 seeds differ (e.g. seeds 20, 24, 42), although each seed reproduces alone in a fresh process. The medians, p90s and kill rates matched in all four audit invocations. Unexplained; the earlier parallel-load probe-check failure (report 4b) may share the cause. The `main.ts` figures above are unaffected.
+
+## Also seen (not changed)
+
+- **A stunned Captain cannot fire a 100 AP blast.** Stunning Jab (apReduction 20) leaves him 80 AP, so a primed Broadside / Bell is skipped that turn and the after-mark slot fires instead (seed 1, round 17). This holds for every library blast (all 100 AP).
+- **Unmarked Broadside in phase 1.** The fallback `highest-power damage` (use_highest_power_action) can pick Broadside without its mark (1 of 8 fallback picks in traced seeds). This is a phase-1 set piece, against RUL-2026-10-28-031. Replacing the fallback with a named duel move would close it.
+- **Second Wind now heals 15% of 37,875** (about 5,700 HP) once below 25%.
+
+## What the Watch / The Fall re-run needs (shared record)
+
+- **New jutsu in his kit:** Steady the Helm (`lib-steady-the-helm`, 20 AP, cooldown 99, once per fight). The kit is 17 jutsu (was 16).
+- **Raise the Gunwale is 20 AP** (was 30 in the uncommitted draft, 60 in 4c), still once per fight.
+- **The rule order changed:**
+  - Steady → Gunwale → mark sit below the blasts and the after-mark slots;
+  - Battle Trance moved into the after-mark slots, above Second Wind, so it fires only after a later mark (in a long solo fight: on the cooldown-5 cadence after marks);
+  - Second Wind also fires on a phase-2 turn with no mark ready.
+- **A solo player's own stun or cleanse play changes the transition:**
+  - one stun (apReduction ≤ 20) still fits it;
+  - a stronger stun (apReduction > 20) splits it;
+  - his clearprevent blocks the player's clears for 2 rounds.
+- **Health and damage rows are per-version stats** (endgame pools 7.5 / rows 1, level 50 pools 4 / rows 3), not part of the shared record. The Watch's own Captain row needs its own phase-2 check: DR / absorb cover the 2 rounds after the transition whatever his HP.
+- **Hold the Line / Stolen Form caveats from 4c are unchanged.**
