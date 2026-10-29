@@ -1093,7 +1093,7 @@ At his first turn below 50% the Captain spends **80 AP in one turn**:
 
 | Order | Move | AP | Notes |
 |---:|---|---:|---|
-| 1 | **Steady the Helm** (new, `lib-steady-the-helm`; name is a proposal) | 20 | self: cleanse, 40% less damage taken, 40% absorb, clear-proof; cooldown 99 (once) |
+| 1 | **Steady the Helm** (new, `lib-steady-the-helm`; name approved in RUL-2026-10-29-045) | 20 | self: cleanse, 40% less damage taken, 40% absorb, clear-proof; cooldown 99 (once) |
 | 2 | Raise the Gunwale | 20 (was 60, then 30) | cooldown 99 (once) |
 | 3 | First deck mark (Omen: Binding Ring → Ship's Bell) | 40 | library mark |
 | - | after-mark end turn | | the 20 AP left fit nothing (every after-mark move costs 40+) |
@@ -1192,3 +1192,97 @@ The no-pets results (`kits_*_nopets.json`) are from the previous build and were 
   - his clearprevent blocks the player's clears for 2 rounds.
 - **Health and damage rows are per-version stats** (endgame pools 7.5 / rows 1, level 50 pools 4 / rows 3), not part of the shared record. The Watch's own Captain row needs its own phase-2 check: DR / absorb cover the 2 rounds after the transition whatever his HP.
 - **Hold the Line / Stolen Form caveats from 4c are unchanged.**
+
+# Report 4e (2026-10-29): RUL-2026-10-29-045 follow-up: phase-1 fallback, earlier-floor trim
+
+Branch `fable/skyglass-wreck-sim`, built on 9ce90151. Offline, zero live requests. The Captain's numbers are unchanged (endgame pools 7.5 / rows 1; level 50 pools 4 / rows 3; Steady the Helm 40/40/2 at 20 AP). Steady the Helm is the approved name.
+
+## Phase 1 is a duel only: the fallback fix
+
+- **The problem.** The Captain's last rule was `use_highest_power_action` (damage). The engine ranks every available action by its damage tag's power, so whenever his duel moves were on cooldown it picked **Broadside (140)**, unmarked, in phase 1.
+- **The fix.** That rule is now `use_specific_jutsu` naming the engine's basic attack (`actions.ts`: id `basicAttack`, range 1, 20 AP; `ai_v2` matches a use_specific_jutsu action by id). With nothing in reach he ends his turn.
+- **Kit and server.** `basicAttack` is not a jutsu record, so it is kept out of his kit list and the build_spec counts. The server's profile save only looks up jutsu ids to reject move/summon effects, so an unknown id passes.
+- **For the builder.** The rule's `jutsuId` is the literal `basicAttack`; it must not be remapped like the placeholder ids.
+
+Verified with `audit_rules.ts` `actionsByPhase` (endgame, 60 runs, same seeds):
+
+| | Broadside in phase 1 | Basic attacks in phase 1 | Boss wave killed (audit) |
+|---|---:|---:|---:|
+| Before (9ce90151) | **36** | 147 | 83% |
+| After | **0** | 176 | 90% |
+
+- Level 50 has 0 Broadsides in phase 1.
+- Level 50's dodging battery is byte-for-byte the same as 9ce90151 (10% runs with a wipe, 18.5 min). Without dodging it moves by one boss-wave wipe (12 / 42, was 13 / 43). **Level 50 is left as it was.**
+
+## Trimming an earlier floor
+
+Endgame time per wave, human turns (median) at 9ce90151 + the fix:
+
+| F1 | F2 | F3 | F4 Core Horror | F5 wave 1 (3 Wardens) | F5 the Captain |
+|---:|---:|---:|---:|---:|---:|
+| 9 | 8 | 8 | 16 | 8 | 31 |
+
+- Each turn is 15 s, and each floor battle adds 30 s.
+- Floors 1-3 already clear in 3 rounds each.
+- **The Captain wave alone is about 8 minutes.**
+
+Options tested (40 runs, pets, dodging, with the fallback fix):
+
+| Layout | Runs with a wipe | Min @15 s | Change |
+|---|---:|---:|---|
+| Fix only, layout unchanged | 20% | 23.3 | |
+| **B (applied): drop the filler Deck Warden on floors 1, 2 and 3** | 17.5% | 22.3 | −1.0 min |
+| A: drop floor 5's 3-Warden wave | 12.5% | 22.9 | −0.4 min |
+| A + B | 12.5% | 21.8 | −1.5 min |
+
+- **Why B.**
+  - The three Wardens it removes are a Deck Warden wave's worth.
+  - On floors 2 and 3 the Warden was a repeated add-on to each floor's own crew pair (Sentinel + First Blade, Oathkeeper + Wayfinder).
+  - Floor 1 keeps two Wardens + the Seal Charge, and the boss floor keeps its Warden lead-in.
+  - Earlier floors restore the party on a win, so it does not touch the boss wipes.
+- **Why not A.**
+  - It cuts the deck crew's lead-in to the Captain.
+  - It saves little: with the Captain as the floor's first wave, the party starts at spawn distance, and his wave takes about 8 more human turns. The time moves into his wave.
+  - It drops wipes to about 12%.
+
+**One wave is not enough.** About −3 minutes would mean removing a whole earlier floor battle, and the engine fixes five floors per tier. Other options (not applied):
+1. **Lighter crew health.** Crew pools x1.0 → x0.6: 20.3 min, but 0% runs with a wipe (40 runs).
+   - Floor 5's Wardens are the same record, and the party reaches the Captain fresher.
+   - Pools below x1 also fail `insertAiSchema` (`poolsMultiplier >= 1`), so it would need a level / stat route.
+   - Lightening only the floor 2-3 crews (separate records) is worth about −1 min.
+2. **A + B:** 21.8 min, about 12% wipes.
+3. **Accept about 22 minutes** with B (applied).
+4. Anything shorter has to come from the Captain wave itself (phase 1 length), which the ruling keeps.
+
+## Results (this build, `results/`)
+
+Phase lengths and the transition (`audit_rules.ts`):
+
+| | Endgame (60) | Level 50 (30) |
+|---|---|---|
+| Phase 1 median / p90 | 8 / 11 | 3 / 4 |
+| Phase 2 median / p90 | **6 / 8** | **7 / 9** |
+| Mark + Gunwale + Steady in one turn | 95% | 100% |
+
+Full dungeon, before and after:
+
+| Version, runs | 4c (ff9ca6ff) | 4d (9ce90151) | **4e (this build)** |
+|---|---|---|---|
+| Endgame, 60, pets, dodging: runs with a wipe | 21.7% | 26.7% | **16.7%** (boss wave 10 / 70; Core Horror 1 / 71) |
+| Endgame: min @15 s (+ AI 1.5 s) | 19.8 (21.6) | 23.1 (25.2) | **22.3** (24.1) |
+| Endgame: boss wave rounds median / p90 | 7.5 / 14 | 12 / 17 | 12.5 / 16 |
+| Endgame, 30, no dodging | 0 cleared (Core Horror) | 0 cleared | 0 cleared (Core Horror 120 / 120) |
+| Level 50, 60, pets, dodging | 1.7%, 15.4 min | 10%, 18.5 min | **10%, 18.5 min** (unchanged) |
+| Level 50, 30, no dodging | 16.7% | 46.7% | 46.7% (Captain 12 / 42, Core Horror 8 / 50) |
+
+The endgame wipe rate fell below the ~22% target because the phase-1 Broadside is gone. Restoring it would mean raising the Captain's damage or health, which the ruling keeps fixed.
+
+## Determinism
+
+- `--probe-check` with pets passes on both versions (seeds 1-2).
+- The `audit_rules.ts` in-process seed drift from 4d is still open. The `main.ts` batteries are seed-deterministic.
+
+## For the Watch re-run
+
+- His last rule is now the named basic attack. A solo Watch Captain also stops casting unmarked Broadsides.
+- **Other enemies still end on `use_highest_power_action`.** It ranks every available action by power, so it can also cast unmarked library blasts. The Wreck crew and the Core Horror were not audited for this; the Captain's fix is the pattern if they need it.

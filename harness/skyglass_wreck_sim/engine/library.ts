@@ -169,7 +169,7 @@ export const LIB = {
     chainHook: "lib-chain-hook", oath: "lib-oath-of-stillness", chartMark: "lib-chart-mark", aegis: "lib-skyglass-aegis",
     mending: "lib-mending-seal", ward: "lib-ward-of-command",
   },
-  /** Phase transitions (RUL-2026-10-28-032). */
+  /** Phase transitions (RUL-2026-10-28-032). Steady the Helm: name approved in RUL-2026-10-29-045. */
   transition: {
     captain: "lib-steady-the-helm",
   },

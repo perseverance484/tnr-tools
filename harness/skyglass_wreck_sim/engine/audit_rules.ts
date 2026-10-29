@@ -55,6 +55,8 @@ const phase2RoundsKilled: number[] = [];
 // Per appearance: seed, phase lengths, his health % at his first decision below the split, killed or not.
 const perAppearance: { seed: number; phase1: number; phase2: number | null; hpAtFirstPhase2Decision: number | null; killed: boolean }[] = [];
 const firedByPhase: { p1: number; p2: number }[] = [];
+// Every action the enemy took, by name, split by phase (e.g. to show that no set piece is cast in phase 1).
+const actionsByPhase: { p1: Record<string, number>; p2: Record<string, number> } = { p1: {}, p2: {} };
 // --together "a|b|c": rule-note substrings that should fire in one turn (e.g. a phase transition). Per appearance, the
 // round each group first fires (a group = every rule whose note contains the substring); reported as how often all
 // groups fired, and how often they did so in the same round.
@@ -140,6 +142,11 @@ for (let s = 1; s <= runs; s++) {
   for (let i = 0; i < pending.length && i < capSteps.length; i++) {
     const fired = capSteps[i]!.ruleIndex ?? -1;
     decisions++;
+    {
+      const name = t.jutsu[capSteps[i]!.actionId]?.name ?? String(capSteps[i]!.actionId);
+      const tally = actionsByPhase[pending[i]!.phase === 1 ? "p1" : "p2"];
+      tally[name] = (tally[name] ?? 0) + 1;
+    }
     pending[i]!.per.forEach((st: string, k: number) => {
       perRule[k] ??= Object.fromEntries(reasons.map((x) => [x, 0]));
       const reason = k === fired ? "fired" : st === "ok" ? (fired >= 0 && k > fired ? "preempted" : "engine") : st;
@@ -207,8 +214,9 @@ const phases = { phaseHp, reachedPhase2Pct: Math.round((100 * reachedPhase2) / M
 const togetherOut = together.length
   ? { groups: together, allFiredPct: Math.round((100 * togetherStats.allFired) / Math.max(1, togetherStats.appearances)), sameRoundOfAllFiredPct: Math.round((100 * togetherStats.sameRound) / Math.max(1, togetherStats.allFired)), firstRoundsPerAppearance: togetherStats.rounds }
   : undefined;
-const out = { generatedBy: "engine/audit_rules.ts", override: opt("override"), floor: floorIdx, enemy: enemyName, runs, variant, pets, appearances, decisions, roundsInWaveMedian: sorted[Math.floor(sorted.length / 2)] ?? null, phases, together: togetherOut, perAppearance, rules: table };
+const out = { generatedBy: "engine/audit_rules.ts", override: opt("override"), floor: floorIdx, enemy: enemyName, runs, variant, pets, appearances, decisions, roundsInWaveMedian: sorted[Math.floor(sorted.length / 2)] ?? null, phases, together: togetherOut, actionsByPhase, perAppearance, rules: table };
 console.log(`${enemyName}: ${appearances} appearances, ${decisions} decisions, wave rounds median ${out.roundsInWaveMedian}; phases ${JSON.stringify(phases)}`);
+console.log(`actions by phase ${JSON.stringify(actionsByPhase)}`);
 if (togetherOut) console.log(`together ${JSON.stringify(together)}: all fired in ${togetherOut.allFiredPct}% of appearances; same round in ${togetherOut.sameRoundOfAllFiredPct}% of those`);
 for (const x of table) console.log(`${String(x.index).padStart(2)} ${x.note.slice(0, 58).padEnd(58)} fired ${String(x.firedInAppearancesPct).padStart(3)}% (p1 ${x.firedByPhase.p1}, p2 ${x.firedByPhase.p2})  ${reasons.map((rr) => `${rr}:${x.decisions[rr] ?? 0}`).join(" ")}`);
 const outPath = opt("out");

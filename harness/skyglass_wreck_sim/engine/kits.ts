@@ -58,6 +58,9 @@ export const LIVE = {
   counter: "T3glZGcSd-jS8G-NB43GR", stolen: "VuFuBtE7h5B1nnA2J1lFZ", finalCommand: "X2P22h8ApDmTZHjWpNO87",
 };
 export const WRECK_NEW = { gunwale: "dg-raise-the-gunwale" };
+/** The engine's basic attack (actions.ts availableUserActions: id "basicAttack", range 1, 20 AP). A use_specific_jutsu rule
+ * matches actions by id, so a rule can name it; it is not a jutsu record and is left out of the kit lists. */
+export const BASIC_ATTACK = "basicAttack";
 
 const idgRow = () => ({
   type: "increasedamagegiven", power: 100, rounds: 99, target: "INHERIT", appearSfx: "", direction: "offence",
@@ -154,7 +157,9 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     cast("Explosive Tag Cataclysm", LIVE.cataclysm, "CLOSEST_OPPONENT", [cond.near(5)]),
     cast("Windlash Focus", LIVE.windlash, "SELF", [cond.within(0, 4)]),
     moveTo("close in (duel)", "CLOSEST_OPPONENT", [cond.far(4)]),
-    highest("highest-power damage", "CLOSEST_OPPONENT"),
+    // Fallback: the basic attack by name. use_highest_power_action ranked Broadside (power 140) first and cast it unmarked
+    // in phase 1 (RUL-2026-10-28-031: phase 1 is a duel only; RUL-2026-10-29-045). With nothing in reach he ends his turn.
+    cast("basic attack (fallback; never a set piece)", BASIC_ATTACK, "CLOSEST_OPPONENT"),
   ];
   const sealwright = [
     cast("Ward of Command on the Captain", LIB.crew.ward, "HIGHEST_MAX_HEALTH_ALLY"),
@@ -267,7 +272,7 @@ export const buildKits = (P: KitParams, version: "endgame" | "lvl50" = "endgame"
   for (const { rules } of Object.values(shared))
     for (const r of rules) {
       const id = r.action.jutsuId as string | undefined;
-      if (id && liveIds.has(id) && !J[id] && id !== LIVE.coreRupture) {
+      if (id && id !== BASIC_ATTACK && liveIds.has(id) && !J[id] && id !== LIVE.coreRupture) {
         try {
           J[id] = capturedJutsu(id).record; // live record, unchanged (catalog ids resolve from the baseline anyway)
         } catch {
@@ -275,7 +280,7 @@ export const buildKits = (P: KitParams, version: "endgame" | "lvl50" = "endgame"
         }
       }
     }
-  const kitOf = (rules: any[]) => [...new Set(rules.map((r) => r.action.jutsuId).filter(Boolean))] as string[];
+  const kitOf = (rules: any[]) => [...new Set(rules.map((r) => r.action.jutsuId).filter((id: string) => id && id !== BASIC_ATTACK))] as string[];
   const enemy = (id: string, pools: number | null, rows: number) => {
     const { rules, signature } = shared[id]!;
     const boss = id === IDS.horror || id === IDS.captain || id === IDS.sealwright;
@@ -314,9 +319,11 @@ export const buildKits = (P: KitParams, version: "endgame" | "lvl50" = "endgame"
         { kind: "boss", waves: [{ aiIds: [A.warden, A.warden], delayRounds: 0 }, { aiIds: [A.captain], delayRounds: 0 }] },
       ]
     : [
-        { kind: "floor", waves: [{ aiIds: [A.warden, A.warden, A.warden, A.charge], delayRounds: 0 }] },
-        { kind: "floor", waves: [{ aiIds: [A.sentinel, A.blade, A.warden], delayRounds: 0 }] },
-        { kind: "floor", waves: [{ aiIds: [A.oath, A.wayfinder, A.warden], delayRounds: 0 }] },
+        // RUL-2026-10-29-045: about one wave trimmed from the earlier floors: the filler Deck Warden on floors 1-3 (three
+        // Wardens, a Deck Warden wave's worth). Each floor keeps its own crew; Wardens still open floor 1 and the boss floor.
+        { kind: "floor", waves: [{ aiIds: [A.warden, A.warden, A.charge], delayRounds: 0 }] },
+        { kind: "floor", waves: [{ aiIds: [A.sentinel, A.blade], delayRounds: 0 }] },
+        { kind: "floor", waves: [{ aiIds: [A.oath, A.wayfinder], delayRounds: 0 }] },
         { kind: "mini-boss", waves: [{ aiIds: [A.horror], delayRounds: 0 }] },
         { kind: "boss", waves: [{ aiIds: [A.warden, A.warden, A.warden], delayRounds: 0 }, { aiIds: [A.captain, A.sealwright], delayRounds: 0 }] },
       ];

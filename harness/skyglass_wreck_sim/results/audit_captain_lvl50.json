@@ -189,6 +189,35 @@
    ]
   ]
  },
+ "actionsByPhase": {
+  "p1": {
+   "Unbroken Command": 6,
+   "Keelbind": 22,
+   "Counter Stance": 25,
+   "Unraveling Strike": 14,
+   "Explosive Tag Cataclysm": 5,
+   "basicAttack": 32,
+   "Final Command": 30,
+   "Stolen Form": 3,
+   "Suppression Writ": 15,
+   "Windlash Focus": 12,
+   "wait": 2
+  },
+  "p2": {
+   "Steady the Helm": 30,
+   "Raise the Gunwale": 30,
+   "Omen: Binding Ring": 57,
+   "wait": 93,
+   "Battle Trance": 38,
+   "Omen: Rows": 44,
+   "Broadside": 19,
+   "Final Command": 22,
+   "Ship's Bell": 46,
+   "Second Wind": 26,
+   "Keelbind": 5,
+   "basicAttack": 3
+  }
+ },
  "perAppearance": [
   {
    "seed": 1,
@@ -1034,8 +1063,8 @@
   },
   {
    "index": 27,
-   "note": "highest-power damage",
-   "jutsuId": null,
+   "note": "basic attack (fallback; never a set piece)",
+   "jutsuId": "basicAttack",
    "conditions": [],
    "firedInAppearancesPct": 87,
    "firedByPhase": {
@@ -1046,10 +1075,10 @@
     "fired": 35,
     "preempted": 542,
     "condition": 0,
-    "cooldown": 0,
+    "cooldown": 2,
     "locked": 0,
     "ap": 0,
-    "engine": 2
+    "engine": 0
    },
    "mainReasonNotFired": "preempted"
   }
