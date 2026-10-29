@@ -17,6 +17,25 @@ Each Skyglass item's description tells the player what the item is for, in plain
 
 Descriptions are generated from the same tables the caches are built from, so the stated rates always match the live weights.
 
+**Chest description format (RUL-2026-10-28-030).** Item descriptions render basic HTML (theninjarpg `utils/parse.ts` parseHtml). The item card already shows the cache's display name and roll odds (`layout/ItemWithEffects.tsx` ~1341), so the description adds the tiers and items:
+
+```html
+<i>One line of story.</i><br><br>
+<b>Always:</b> 150,000 ryo<br>            (only when the item has a fixed reward)
+<i>3–6 rolls.</i><br>                       (only when the roll count varies)
+<b>Each roll:</b><br>
+<span style="color:#9ca3af"><b>Common 69%</b></span> · Item ×n<br>
+<span style="color:#3b82f6"><b>Rare 24%</b></span> · Item ×n<br>
+<span style="color:#a855f7"><b>Epic 5%</b></span> · Item<br>
+<span style="color:#f59e0b"><b>Legendary 2%</b></span> · Item
+```
+
+- A tier with several options joins them with " *or* ".
+- A tier with more than 3 options lists the first three, then "and more".
+- Tiers with the same name are added together.
+- A fixed roll count is not repeated, because the card already shows it.
+- The rendering is checked on the director's phone through a hidden test item before release.
+
 ## 1. Who owns what
 
 | Container / item | Owns | Found in |
