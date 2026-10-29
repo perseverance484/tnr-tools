@@ -13,13 +13,14 @@
   ],
   "crewPools": 1,
   "crewRows": 1,
-  "horrorPools": 4,
+  "horrorPools": 6,
   "horrorRows": 2,
   "horrorPhase2": 70,
   "captainPools": 2.5,
   "captainRows": 3,
   "sealPools": 1,
-  "sealRows": 0
+  "sealRows": 0,
+  "horrorMawFirst": true
  },
  "jutsu": {
   "lib-omen-ring": {
@@ -3775,7 +3776,7 @@
      "appearSfx": "",
      "disappearSfx": "",
      "rounds": 0,
-     "power": 58,
+     "power": 80,
      "powerPerLevel": 0,
      "direction": "offence",
      "target": "INHERIT",
@@ -3894,7 +3895,7 @@
      "appearSfx": "",
      "disappearSfx": "",
      "rounds": 0,
-     "power": 65,
+     "power": 90,
      "powerPerLevel": 0,
      "direction": "offence",
      "target": "INHERIT",
@@ -5561,6 +5562,23 @@
      "elements": [],
      "type": "decreasedamagetaken",
      "description": "placeholder"
+    },
+    {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 2,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "FRIENDLY",
+     "calculation": "static",
+     "type": "clearprevent",
+     "description": "placeholder"
     }
    ],
    "target": "ALLY",
@@ -5606,6 +5624,87 @@
    "requiredBloodlineItemId": null,
    "methodSize": null,
    "requiredPetSpeciesId": null
+  },
+  "hunt-stonebound-erupting-ground": {
+   "id": "hunt-stonebound-erupting-ground",
+   "name": "Erupting Ground",
+   "description": "Shared pool record A3. Balance values pending sign-off. (Skyglass copy: damage hits enemies only.)",
+   "createdAt": "2026-08-23T21:01:41.393Z",
+   "updatedAt": "2026-10-21T03:29:45.208Z",
+   "extraBaseCost": 0,
+   "effects": [
+    {
+     "staticAssetPath": "",
+     "staticAnimation": "hit",
+     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+     "disappearAnimation": "hit",
+     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+     "disappearSfx": "",
+     "rounds": 0,
+     "power": 55,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "formula",
+     "statTypes": [
+      "None"
+     ],
+     "generalTypes": [
+      "Highest"
+     ],
+     "elements": [],
+     "type": "damage",
+     "description": "<p>placeholder</p>",
+     "residualModifier": 1,
+     "dmgModifier": 1,
+     "allowBloodlineDamageIncrease": true,
+     "allowBloodlineDamageDecrease": true
+    }
+   ],
+   "target": "OTHER_USER",
+   "range": 3,
+   "cooldown": 5,
+   "bloodlineId": "",
+   "requiredLevel": 1,
+   "requiredRank": "STUDENT",
+   "jutsuType": "AI",
+   "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+   "jutsuWeapon": "NONE",
+   "statClassification": "None",
+   "elementClassification": "None",
+   "battleDescription": "%user forms the Boar seal and pours chakra deep into the earth beneath %target. The ground heaves and bursts upward in a column of rock and soil, battering everyone caught above it.",
+   "jutsuRank": "D",
+   "actionCostPerc": 60,
+   "staminaCost": 0,
+   "chakraCost": 0,
+   "staminaCostReducePerLvl": 0,
+   "chakraCostReducePerLvl": 0,
+   "healthCostReducePerLvl": 0,
+   "healthCost": 0,
+   "villageId": "",
+   "requiredPetSpeciesId": null,
+   "method": "AOE_CIRCLE_SPAWN",
+   "coordinateTargeting": null,
+   "methodSize": null,
+   "hidden": true,
+   "injectableInBattle": false,
+   "battleUsageType": "BOTH",
+   "reskinParentJutsuId": null,
+   "bloodlineReskinId": null,
+   "parentJutsuId": null,
+   "requiredNinjutsuMastery": null,
+   "requiredGenjutsuMastery": null,
+   "requiredTaijutsuMastery": null,
+   "requiredBukijutsuMastery": null,
+   "requiredBloodlineMastery": null,
+   "requiredSageMastery": null,
+   "requiredStrength": null,
+   "requiredSpeed": null,
+   "requiredIntelligence": null,
+   "requiredWillpower": null,
+   "requiredSkillId": null,
+   "requiredBloodlineItemId": null
   },
   "dg-raise-the-gunwale": {
    "id": "dg-raise-the-gunwale",
@@ -9463,7 +9562,7 @@
    "username": "Core Horror",
    "level": 50,
    "aiEdit": {
-    "poolsMultiplier": 4,
+    "poolsMultiplier": 6,
     "statsMultiplier": 1
    },
    "effects": [
@@ -9526,8 +9625,8 @@
     "pUrUJX8Jml7fUIBXKsPwv",
     "LiVOnYq6qHzjB0XkIIA2e",
     "3v9c1SHlD2GLPF2HW1_Sc",
-    "lib-omen-scatter-a",
     "lib-omen-last-light",
+    "lib-omen-scatter-a",
     "lib-omen-scatter-b",
     "lib-omen-ring"
    ],
@@ -9954,6 +10053,15 @@
      }
     },
     {
+     "conditions": [],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Omen: Last Light (Maw of the Deep, level-50 order: first)",
+      "jutsuId": "lib-omen-last-light",
+      "target": "SELF"
+     }
+    },
+    {
      "conditions": [
       {
        "type": "health_below",
@@ -9965,21 +10073,6 @@
       "type": "use_specific_jutsu",
       "description": "Omen: Scatter A (phase 2)",
       "jutsuId": "lib-omen-scatter-a",
-      "target": "SELF"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "round_greater_than",
-       "description": "",
-       "value": 3
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Omen: Last Light (Maw of the Deep, from round 4)",
-      "jutsuId": "lib-omen-last-light",
       "target": "SELF"
      }
     },
@@ -10786,7 +10879,7 @@
   ],
   "dg-core-horror-l50": [
    1,
-   23
+   22
   ],
   "dg-the-captain-l50": [
    2,

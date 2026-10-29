@@ -45,6 +45,9 @@ TNR_SCRIPT=probe_boss.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglas
 # Shared set-piece library (engine/library.ts) -> library_spec.json, and its marker / minor-mark probes:
 TNR_SCRIPT=build_library.ts harness/skyglass_wreck_sim/run.sh
 TNR_SCRIPT=probe_library.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_library.json
+# Rule audit for one enemy: why each authored rule did or did not fire (read-only hook before each AI decision):
+TNR_SCRIPT=audit_rules.ts harness/skyglass_wreck_sim/run.sh --override harness/skyglass_wreck_sim/overrides/kits_endgame.json \
+    --floor 4 --enemy "The Captain" --runs 30 --pets --out harness/skyglass_wreck_sim/results/audit_captain_endgame.json
 # Delayed GROUND damage probe (elementaldamage, damage over rounds, poison/wound/afterburn/drain):
 TNR_SCRIPT=probe_ground.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_ground.json
 

@@ -5,7 +5,7 @@
 import { writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { JutsuValidator } from "@/validators/combat";
-import { ANSWERS, buildLibrary, LIB, LIB_POWERS, MARKER_TYPES, PATTERNS } from "./library";
+import { ANSWERS, buildLibrary, LIB, LIB_POWERS, LIVE_COPY_SOURCE, MARKER_TYPES, PATTERNS } from "./library";
 
 const args = process.argv.slice(2);
 const out = resolve(args.includes("--out") ? args[args.indexOf("--out") + 1]! : join(process.env.TNR_HARNESS!, "library_spec.json"));
@@ -18,7 +18,7 @@ const FIELDS = [
 ];
 const ANIM = /^(tg|dt|ch|cp|cc|fw|lg)_[a-z_]+$|^(mark-sigil|chain-hook-hit|skyglass-pane)$/;
 const group = (id: string) =>
-  Object.values(LIB.mark).includes(id) ? "mark" : Object.values(LIB.blast).includes(id) ? "shared blast" : Object.values(LIB.sig).includes(id) ? "signature" : id === LIB.loweredGuard ? "lowered guard" : "crew addition";
+  Object.values(LIB.mark).includes(id) ? "mark" : Object.values(LIB.blast).includes(id) ? "shared blast" : Object.values(LIB.sig).includes(id) ? "signature" : id === LIB.loweredGuard ? "lowered guard" : Object.values(LIB.liveCopy).includes(id) ? "Skyglass-only copy of a live jutsu" : "crew addition";
 const markOf = Object.fromEntries(Object.entries(LIB.mark).map(([k, id]) => [id, k]));
 const records = Object.entries<any>(J).map(([id, rec]) => {
   const v = JutsuValidator.safeParse(rec);
@@ -28,6 +28,7 @@ const records = Object.entries<any>(J).map(([id, rec]) => {
     id, status: "NEW", group: group(id),
     ...(markOf[id] ? { primedMarker: { type: MARKER_TYPES[markOf[id] as keyof typeof MARKER_TYPES], rounds: 1, rule: `has_effect ${MARKER_TYPES[markOf[id] as keyof typeof MARKER_TYPES]} >= 1` } } : {}),
     ...(ANSWERS[id] ? { answersMark: LIB.mark[ANSWERS[id]!], fireRule: `use_specific_jutsu ${id} target SELF when has_effect ${MARKER_TYPES[ANSWERS[id]!]} >= 1` } : {}),
+    ...(LIVE_COPY_SOURCE[id] ? { copyOf: LIVE_COPY_SOURCE[id] } : {}),
     record: Object.fromEntries(FIELDS.map((k) => [k, rec[k]])),
     animationPlaceholders: [...anims],
     validator: v.success ? "JutsuValidator: ok" : v.error.issues.map((i) => i.message).join("; "),
@@ -47,7 +48,7 @@ const spec = {
   markerTypes: MARKER_TYPES,
   patterns: { ...PATTERNS, ring: "AOE_SPIRAL_SHOOT range 2 around the caster (disc minus the caster)" },
   powers: LIB_POWERS,
-  counts: { marks: Object.keys(LIB.mark).length, sharedBlasts: Object.keys(LIB.blast).length, signatures: Object.keys(LIB.sig).length, loweredGuard: 1, crewAdditions: Object.keys(LIB.crew).length, total: records.length },
+  counts: { marks: Object.keys(LIB.mark).length, sharedBlasts: Object.keys(LIB.blast).length, signatures: Object.keys(LIB.sig).length, loweredGuard: 1, crewAdditions: Object.keys(LIB.crew).length, liveCopies: Object.keys(LIB.liveCopy).length, total: records.length },
   records,
 };
 writeFileSync(out, `${JSON.stringify(spec, null, 1)}\n`);
