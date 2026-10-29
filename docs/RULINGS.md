@@ -4493,3 +4493,25 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "Just put the crownbreaker token on the badge, we already have an achievement for doing all content.", then "A." after the bundle-blocking catch.
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5c, §5d.
+
+## RUL-2026-10-29-052 — The Haul is open to every player
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / profession rewards
+
+**Status:** ACTIVE. Open: whether the page drop rates are re-tuned for everyone running pages.
+
+**Ruling:**
+1. **The Haul has no rank gate.** The `huntingRank` / `gatheringRank` S-rank gate is removed, and any player can run any Haul page, hunter or gatherer.
+2. **Unchanged:** the six pages, their themes, the guards, the steeping, and the payout in Hunter's and Gatherer's Chests. The chests are ordinary items, so anyone can open them.
+3. **Superseded:**
+   - RUL-2026-10-29-035's "professionals' rewards stay the same" goal;
+   - the S-rank-only framing of RUL-2026-10-29-037.
+
+   The Haul is now everyone's push-your-luck run with a profession theme.
+4. **The drop-rate model behind RUL-2026-10-29-044 item 7 no longer holds.** It assumed professionals were about a quarter of chart farmers and traded for pages. Rates stay at endgame Wreck 4% and hunt endings 2.5% per profession page until re-tuned.
+
+**Evidence:** Director, 2026-10-29: "Changing the haul to be available to all".
+
+**Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`; `docs/design/SKYGLASS_LOOT_TABLES.md` §4b.
