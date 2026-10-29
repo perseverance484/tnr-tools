@@ -828,9 +828,9 @@
     }
     return map;
   }
-  function recordAssetUpload(storage, sha2562, url, { path = null, ref = null, at = Date.now() } = {}) {
+  function recordAssetUpload(storage, sha2562, url2, { path = null, ref = null, at = Date.now() } = {}) {
     const map = readAssetUploads(storage);
-    map[sha2562] = { url, at, path, ref };
+    map[sha2562] = { url: url2, at, path, ref };
     storage.setItem(ASSET_UPLOADS_KEY, JSON.stringify(map));
     return map;
   }
@@ -859,16 +859,16 @@
     }
     static ALLOWED_PATHS = /^\/api\/(trpc\/|uploadthing(\?|$))/;
     static ALLOWED_HEADERS =  new Set(["content-type", "x-uploadthing-version", "accept"]);
-    async fetch(url, init = {}) {
-      if (typeof url !== "string" || !_CookieSession.ALLOWED_PATHS.test(url)) {
-        throw new SessionRefused("CookieSession only issues same-origin /api/trpc and /api/uploadthing requests, got " + String(url).slice(0, 80));
+    async fetch(url2, init = {}) {
+      if (typeof url2 !== "string" || !_CookieSession.ALLOWED_PATHS.test(url2)) {
+        throw new SessionRefused("CookieSession only issues same-origin /api/trpc and /api/uploadthing requests, got " + String(url2).slice(0, 80));
       }
       const headers = new Headers();
       new Headers(init.headers ?? {}).forEach((v, k) => {
         if (!_CookieSession.ALLOWED_HEADERS.has(k)) throw new SessionRefused(`CookieSession refuses header ${k} on a game request`);
         headers.set(k, v);
       });
-      return this.fetchImpl(this.origin + url, { ...init, headers, credentials: "same-origin" });
+      return this.fetchImpl(this.origin + url2, { ...init, headers, credentials: "same-origin" });
     }
     describe() {
       return { kind: "cookie", origin: this.origin || "(same-origin)" };
@@ -2151,8 +2151,8 @@
         const reason = String(verdict.error || "the game removed the upload");
         throw new UploadError(`the game removed ${meta.name} after upload: ${reason}`, { removed: true, reason });
       }
-      const url = verdict && typeof verdict.fileUrl === "string" && /^https:\/\//.test(verdict.fileUrl) ? verdict.fileUrl : done.ufsUrl;
-      return { url, ufsUrl: done.ufsUrl, key: p.key, fileHash: done.fileHash ?? null };
+      const url2 = verdict && typeof verdict.fileUrl === "string" && /^https:\/\//.test(verdict.fileUrl) ? verdict.fileUrl : done.ufsUrl;
+      return { url: url2, ufsUrl: done.ufsUrl, key: p.key, fileHash: done.fileHash ?? null };
     }
   };
 
@@ -2171,22 +2171,22 @@
       img.src = src;
     });
     const offline = () => win.navigator && win.navigator.onLine === false;
-    return (url) => {
-      if (typeof url !== "string" || !/^https:\/\//.test(url)) return Promise.resolve(false);
-      if (seen.has(url)) return seen.get(url);
+    return (url2) => {
+      if (typeof url2 !== "string" || !/^https:\/\//.test(url2)) return Promise.resolve(false);
+      if (seen.has(url2)) return seen.get(url2);
       const answer = (async () => {
         if (offline()) return null;
-        const first = await load(url);
+        const first = await load(url2);
         if (first !== false) return first;
         await new Promise((r) => win.setTimeout(r, confirmDelayMs));
         if (offline()) return null;
-        return load(`${url}${url.includes("?") ? "&" : "?"}forge-probe=${Date.now()}`);
+        return load(`${url2}${url2.includes("?") ? "&" : "?"}forge-probe=${Date.now()}`);
       })();
-      seen.set(url, answer.then((v) => {
-        if (v === null) seen.delete(url);
+      seen.set(url2, answer.then((v) => {
+        if (v === null) seen.delete(url2);
         return v;
       }));
-      return seen.get(url);
+      return seen.get(url2);
     };
   }
 
@@ -2934,16 +2934,23 @@
   var HIDDENLESS = Object.freeze(["petSpecies", "badge", "title"]);
   var REQUIRED = { badge: ["name", "image", "description"], title: ["name", "archived"] };
   var MASTERY = ["Ninjutsu", "Genjutsu", "Taijutsu", "Bukijutsu", "Sage", "Bloodline"];
+  var url = (s) => {
+    try {
+      return /^https?:\/\/\S+$/.test(s) && !!new URL(s);
+    } catch {
+      return false;
+    }
+  };
   function catalogProblems(entity, data, { preCreate = false } = {}) {
     const out = [], d = data, str3 = (v) => typeof v === "string";
     if ("hidden" in d && d.hidden !== true) out.push(`hidden: ${entity} has no hidden column; send hidden:true (law 16b)`);
     if (preCreate) {
       for (const k of REQUIRED[entity]) if (d[k] === void 0) out.push(`${k} is required on a ${entity} create`);
     }
-    if ("name" in d && !(str3(d.name) && d.name.trim() && d.name.trim().length <= 191)) out.push("name: 1-191 characters");
+    if ("name" in d && !(str3(d.name) && d.name && d.name === d.name.trim() && d.name.length <= 191)) out.push("name: 1-191 characters, no leading or trailing whitespace");
     const cap = entity === "badge" ? 500 : 512;
     if ("description" in d && !(str3(d.description) && d.description.length <= cap && (entity === "title" || d.description))) out.push(entity === "badge" ? "description: 1-500 characters (the Badge column holds 500)" : "description: at most 512 characters");
-    if ("image" in d && !(str3(d.image) && (d.image.startsWith("@img:") || /^https?:\/\/\S+$/.test(d.image) && d.image.length <= 191))) out.push("image: an @img ref or a URL of at most 191 characters");
+    if ("image" in d && !(str3(d.image) && (d.image.startsWith("@img:") || url(d.image) && d.image.length <= 191))) out.push("image: an @img ref or a URL of at most 191 characters");
     if ("archived" in d && typeof d.archived !== "boolean") out.push("archived must be a boolean");
     if ("effects" in d) {
       if (!Array.isArray(d.effects) || d.effects.length > 20) out.push("effects: an array of at most 20");
@@ -4448,8 +4455,9 @@
         const key = await this.reconciler.beforeCreate(this.journal.get(jobId), item, item.entity);
         if (key) this.journal.annotate(jobId, item.idx, { snapshotKey: key });
       }
-      const createData = rc.oneStep ? await this._resolved(planned.data, jobId) : planned.data;
-      if (rc.oneStep) {
+      const pre = rc.oneStep || item.entity === "badge";
+      const createData = pre ? await this._resolved(planned.data, jobId) : planned.data;
+      if (pre) {
         const problems = this.validator.problems(item.entity, createData, null, { preCreate: true });
         if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
       }
@@ -4868,11 +4876,11 @@
         if (readOnly) throw new Error(`@img:${r.key} has no recorded upload to verify against`);
         if (!this.uploader) throw new Error("no uploader configured for @img refs");
         const up = await this.uploader.upload(file, { onWait: heartbeat });
-        const url = up.url ?? up.ufsUrl;
-        if (probe && await probe(url) === false) throw new Error(`@img:${r.key} uploaded but does not load (${url}); nothing was saved with it`);
-        map[r.key] = url;
+        const url2 = up.url ?? up.ufsUrl;
+        if (probe && await probe(url2) === false) throw new Error(`@img:${r.key} uploaded but does not load (${url2}); nothing was saved with it`);
+        map[r.key] = url2;
         writeIdmap(this.storage, map);
-        if (prov) recordAssetUpload(this.storage, prov.sha256, url, { path: prov.path, ref: prov.ref, at: this.clock() });
+        if (prov) recordAssetUpload(this.storage, prov.sha256, url2, { path: prov.path, ref: prov.ref, at: this.clock() });
       }
       const job = jobId ? this.journal.get(jobId) : null;
       const { value, unresolved } = resolveRefs(data, this._lookup(job));
@@ -7204,12 +7212,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       const xs = this.view.exports;
       const download = (x) => {
         try {
-          const url = URL.createObjectURL(new Blob([x.text], { type: x.name.endsWith(".json") ? "application/json" : "text/plain" }));
-          const a = h("a", { href: url, download: x.name, style: { display: "none" } });
+          const url2 = URL.createObjectURL(new Blob([x.text], { type: x.name.endsWith(".json") ? "application/json" : "text/plain" }));
+          const a = h("a", { href: url2, download: x.name, style: { display: "none" } });
           this.root.appendChild(a);
           a.click();
           a.remove();
-          setTimeout(() => URL.revokeObjectURL(url), 6e4);
+          setTimeout(() => URL.revokeObjectURL(url2), 6e4);
           return true;
         } catch (e) {
           this.toast(`download failed: ${e.message}; use Copy`, "bad", 8e3);
@@ -7772,8 +7780,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   }
   function showLauncher(win, doc, { redirect = null, armed = false } = {}) {
     if (onEntryPath(win.location) || isArmed(win) && !armed) return;
-    const go = redirect ?? ((url) => {
-      win.location.assign(url);
+    const go = redirect ?? ((url2) => {
+      win.location.assign(url2);
     });
     mountLauncher(doc, win, { onOpen: () => go(ENTRY_PATH) });
   }
@@ -7800,8 +7808,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       h("p", {}, "Opening the game so Forge runs inside your signed-in session\u2026"),
       h("p", { class: "f-mute" }, `${ENTRY_PATH} has no game providers, so a session cannot live here. Forge continues on ${CARRIER_PATH}.`)
     );
-    const go = redirect ?? ((url) => {
-      win.location.replace(url);
+    const go = redirect ?? ((url2) => {
+      win.location.replace(url2);
     });
     go(CARRIER_PATH);
     return null;

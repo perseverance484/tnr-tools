@@ -98,6 +98,10 @@ test("validator: badge and title creates are checked before the placeholder is m
   assert.match(p("badge", { ...BADGE(), name: "  " }), /name: 1-191/);
   assert.match(p("badge", { ...BADGE(), image: "crest.png" }), /image: an @img ref or a URL/);
   assert.match(p("badge", { ...BADGE(), image: "https://utfs.io/f/" + "x".repeat(180) }), /at most 191/);
+  // review F1: z.url() is a parse, not a shape; F2: the validators trim names, so padding reads back as drift
+  for (const bad of ["https://[", "https://exa mple.com/a.png", "https://"]) assert.match(p("badge", { ...BADGE(), image: bad }), /image: an @img ref or a URL/, bad);
+  for (const e of ["badge", "title"]) for (const bad of [" Crest", "Crest ", "Crest\n"]) assert.match(p(e, { ...(e === "badge" ? BADGE() : TITLE()), name: bad }), /no leading or trailing whitespace/, bad);
+  assert.match(p("badge", { name: " Crest " }, {}), /no leading or trailing whitespace/, "an edit too");
   assert.match(p("title", { ...TITLE(), description: "x".repeat(513) }), /at most 512/);
   assert.match(p("title", { ...TITLE(), effects: Array(21).fill({ type: "increaseregeneration", power: 1 }) }), /at most 20/);
   assert.match(p("title", { ...TITLE(), effects: [{ type: "increaseregeneration", power: -1 }] }), /power must be a finite number >= 0/);
@@ -205,6 +209,22 @@ for (const [entity, file, names] of [["badge", "badge_create.json", 1], ["title"
     assert.equal(game.rows(entity).filter((r) => /^New (Badge|Title) - /.test(r.name)).length, 0, "the adopted placeholder was filled");
   });
 }
+
+test("review F1/F2: a malformed URL, an over-long uploaded URL or a padded name fails before badge.create; no placeholder", async () => {
+  const run = async (data, up) => {
+    const h = withImage(harness());
+    if (up) h.uploader.upload = async () => ({ ufsUrl: up });
+    const m = fixture("badge_create.json"); m.items[0].data = { ...m.items[0].data, ...data };
+    let error;
+    try { h.runner.plan(m, { jobId: "f" }); await h.runner.run("f"); error = h.journal.get("f").items[0].error; } catch (e) { error = e.message; }
+    assert.equal(h.game.calls.filter((c) => c.path === "badge.create").length, 0, JSON.stringify(data));
+    assert.equal(h.game.rows("badge").length, 0);
+    return error;
+  };
+  assert.match(await run({ image: "https://[" }), /image: an @img ref or a URL/);
+  assert.match(await run({}, "https://utfs.io/f/" + "x".repeat(180)), /at most 191/);
+  assert.match(await run({ name: " Fixture Crest " }), /no leading or trailing whitespace/);
+});
 
 test("an edit keeps the live image and name: the fetch-merge re-sends the whole record", async () => {
   const h = harness();
