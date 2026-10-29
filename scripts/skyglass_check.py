@@ -98,6 +98,23 @@ def _section(text, heading_prefix):
     return out if inside else None
 
 
+def _strip_refs(text):
+    """A section 4a cell without its trailing ruling references, e.g. ' (RUL-2026-10-28-018)'."""
+    return re.sub(r"\s*\(RUL-[\d-]+(?:[,;/ ]+RUL-[\d-]+)*\)\s*$", "", text.strip())
+
+
+def _canon(options):
+    """Options in a comparable form: package components unordered, quantity 1 made explicit on items."""
+    def one(o):
+        if "package" in o:
+            return {"package": sorted((one(c) for c in o["package"]), key=lambda x: json.dumps(x, sort_keys=True))}
+        o = dict(o)
+        if "item" in o:
+            o.setdefault("quantity", 1)
+        return o
+    return sorted((one(o) for o in options), key=lambda x: json.dumps(x, sort_keys=True))
+
+
 def _cells(line):
     return [c.strip() for c in line.strip().strip("|").split("|")]
 
@@ -126,6 +143,18 @@ def desc_lines(desc):
 
 def item_text(name, qty):
     return f"{name} ×{qty}" if qty > 1 else name
+
+
+def always_entries(plain):
+    """The entries of an 'Always:' line, each in canonical form ('150,000 ryo', 'Name', 'Name ×n'): the label is
+    dropped and the rest is split on ' · ', ', ', ' + ', ' and ' or ' or '."""
+    body = re.sub(r"^\s*Always:\s*", "", plain, flags=re.I).strip().rstrip(".")
+    out = []
+    for part in re.split(r"\s*·\s*|,\s+|\s+\+\s+|\s+and\s+|\s+or\s+", body):
+        part = re.sub(r"\s*[×x]\s*(\d+)$", r" ×\1", part.strip())
+        if part:
+            out.append(part)
+    return out
 
 
 def norm_items(text):
@@ -216,6 +245,7 @@ class Design:
             runs[r["run"]] = r
         for r in runs.values():
             if "options_from" in r:
+                r["_inherited"] = True
                 base = runs.get(r["options_from"])
                 if base is None:
                     self.err(f"picks.{r['run']}", "options_from", f"unknown run {r['options_from']}")
@@ -261,11 +291,19 @@ class Design:
             sec = []
         if picks["doc_rule"] not in "\n".join(sec):
             self.err("picks", "doc_rule", f"{LOOT} section 4a no longer states {picks['doc_rule']!r}")
-        table = {}
+        table, header_pick = {}, None
         for ln in sec:
             c = _cells(ln) if ln.strip().startswith("|") else None
-            if c and len(c) >= 2 and c[0] not in ("Run",) and not set(c[0]) <= set("-:"):
+            if not c or len(c) < 2 or set(c[0]) <= set("-:"):
+                continue
+            if c[0] == "Run":
+                m = re.search(r"pick (\d+)", c[1])
+                header_pick = int(m.group(1)) if m else None
+            else:
                 table[c[0]] = c[1]
+        if header_pick is None:
+            self.err("picks", "doc_section", "section 4a's table header no longer states the default '(pick N)'")
+        self._bind_values(loot, table, header_pick)
         data_rows = {}
         for r in picks["runs"]:
             data_rows.setdefault(r["doc_row"], set()).add(r["doc_options"])
@@ -298,6 +336,64 @@ class Design:
             for run in a["runs"]:
                 if run not in self.runs:
                     self.err("profession_chests.areas", "runs", f"unknown run {run!r}")
+
+    def _bind_values(self, loot, table, header_pick):
+        """Re-derive every run's pick count and options from the section 4a cell itself and fail when the machine
+        values disagree, so the data cannot keep the doc's prose while carrying other numbers."""
+        picks = self.data["picks"]
+        aliases = picks.get("doc_aliases", {})
+        for key, a in aliases.items():
+            if isinstance(a, dict) and a.get("evidence") and a["evidence"] not in _read(self.root, a["evidence_file"]):
+                self.err(f"picks.doc_aliases.{key}", "evidence", f"{a['evidence_file']} no longer states {a['evidence']!r}")
+        by_name = {rec["name"]: k for k, rec in self.items.items() if rec.get("name")}
+        for r in picks["runs"]:
+            cell = table.get(r["doc_row"])
+            if cell is None:
+                continue
+            where = f"picks.{r['run']}"
+            m = re.match(r"\*\*pick (\d+)\*\* from their rare's options", cell)
+            if m:
+                want_pick = int(m.group(1))
+                if not r.get("_inherited"):
+                    self.err(where, "options", "section 4a gives this run its rare's options; use options_from")
+                for ev in r.get("doc_evidence", []):
+                    if ev not in loot:
+                        self.err(where, "doc_evidence", f"{LOOT} no longer states {ev!r}")
+                if not r.get("doc_evidence"):
+                    self.err(where, "doc_evidence", "an inherited run needs doc_evidence tying it to its rare run")
+            else:
+                want_pick = header_pick
+                try:
+                    want = [self._parse_option(t, aliases, by_name) for t in re.split(r"\s+/\s+", _strip_refs(cell))]
+                except ValueError as e:
+                    self.err(where, "doc_options", str(e))
+                    want = None
+                if r.get("_inherited"):
+                    self.err(where, "options_from", "section 4a lists this run's own options; options_from is wrong")
+                elif want is not None and _canon(want) != _canon(r["options"]):
+                    self.err(where, "options",
+                             f"the data's options {_canon(r['options'])} disagree with section 4a's {_canon(want)}")
+            if want_pick is not None and r.get("pickCount") != want_pick:
+                self.err(where, "pickCount", f"the data says pick {r.get('pickCount')}; section 4a says pick {want_pick}")
+
+    def _parse_option(self, text, aliases, by_name):
+        text = re.sub(r"\s*\(one package card\)$", "", text.strip())
+        if " + " in text:
+            return {"package": [self._parse_option(t, aliases, by_name) for t in text.split(" + ")]}
+        m = re.fullmatch(r"([\d,]+) ryo", text)
+        if m:
+            return {"money": int(m.group(1).replace(",", ""))}
+        m = re.fullmatch(r"(.+?)(?: ×(\d+))?", text)
+        name, qty = m.group(1), int(m.group(2) or 1)
+        target = aliases.get(name, by_name.get(name))
+        if isinstance(target, dict):
+            target = target.get("key") or {k: v for k, v in target.items() if k == "money"}
+            if isinstance(target, dict):
+                return dict(target)
+        if not target or target not in self.items:
+            raise ValueError(f"section 4a option {text!r} names nothing in items or doc_aliases")
+        kind = self.items[target]["kind"]
+        return {"item": target, "quantity": qty} if kind == "item" else {kind: target}
 
     # --- lookups used by the checks
     def run_for_quest(self, it):
@@ -342,21 +438,28 @@ class Design:
 
 
 # ---------------------------------------------------------------- cards
+def _num(v):
+    try:
+        f = float(v)
+    except (TypeError, ValueError):
+        return 0
+    return int(f) if f == int(f) else f
+
+
 def reward_cards(reward):
-    """The pickable cards of a choose-mode reward, normalised for comparison (see AMOUNT_FIELDS provenance)."""
+    """The pickable cards of a choose-mode reward, normalised for comparison (see AMOUNT_FIELDS provenance). Direct
+    cards are guaranteed, so a direct item card carries no drop chance. A package card is granted whole, so it carries
+    its complete payload (package_payload)."""
     cards = []
     if not isinstance(reward, dict):
         return cards, []
     unresolved = []
     for f in AMOUNT_FIELDS:
-        try:
-            amt = int(float(reward.get(f) or 0))
-        except (TypeError, ValueError):
-            amt = 0
+        amt = int(_num(reward.get(f) or 0))
         if amt > 0:
             cards.append(("money", amt) if f == "reward_money" else (f, amt))
     for entry in reward.get("reward_items") or []:
-        q = max(1, int(entry.get("quantity") or 1))
+        q = max(1, int(_num(entry.get("quantity") or 1)))
         for cid in dict.fromkeys(entry.get("ids") or []):
             cards.append(("item", cid, q))
     for f, kind in CONTENT_FIELDS.items():
@@ -364,24 +467,59 @@ def reward_cards(reward):
             cards.append((kind, cid))
     for pack in reward.get("reward_packages") or []:
         if isinstance(pack, dict) and isinstance(pack.get("rewards"), dict):
-            inner, _ = reward_cards(pack["rewards"])
-            if inner:
-                cards.append(("package", tuple(sorted(inner))))
+            payload = package_payload(pack["rewards"])
+            if payload:
+                cards.append(("package", payload))
         else:
             unresolved.append(pack)
     return cards, unresolved
 
 
+STRUCTURAL_NONE = (None, "", "NONE", "None")
+
+
+def package_payload(rewards):
+    """Everything a package grants when picked, as a sorted tuple: scalar amounts, every item id with its quantity AND
+    drop chance (`number`, 100 = guaranteed), content ids, structural outcomes (rank, village, mastery promotion,
+    hunter/gathering drops with their id lists), nested packages, and any other reward_* field that carries a value."""
+    out = []
+    handled = set(AMOUNT_FIELDS) | set(CONTENT_FIELDS) | {"reward_items", "reward_packages"} \
+        | set(PROFESSION_FLAGS) | set(PROFESSION_FLAGS.values())
+    for f in AMOUNT_FIELDS:
+        amt = _num(rewards.get(f) or 0)
+        if amt > 0:
+            out.append(("money", amt) if f == "reward_money" else (f, amt))
+    for entry in rewards.get("reward_items") or []:
+        q = max(1, int(_num(entry.get("quantity") or 1)))
+        n = _num(entry.get("number", 100))
+        for cid in dict.fromkeys(entry.get("ids") or []):
+            out.append(("item", cid, q, n))
+    for f, kind in CONTENT_FIELDS.items():
+        for cid in dict.fromkeys(rewards.get(f) or []):
+            out.append((kind, cid))
+    for flag, ids in PROFESSION_FLAGS.items():
+        if rewards.get(flag) is True:
+            out.append((flag, tuple(sorted(rewards.get(ids) or []))))
+    for pack in rewards.get("reward_packages") or []:
+        inner = package_payload(pack.get("rewards") or {}) if isinstance(pack, dict) else ()
+        out.append(("package", inner) if inner else ("package_ref", json.dumps(pack, sort_keys=True)))
+    for k in sorted(rewards):
+        if k.startswith("reward_") and k not in handled and rewards[k] not in STRUCTURAL_NONE and _carries(rewards[k]):
+            out.append((k, json.dumps(rewards[k], sort_keys=True)))
+    return tuple(sorted(out, key=str))
+
+
 def option_card(design, opt):
-    """(card, pending_names): the normalised card for one design option, or None with the pending names."""
+    """(card, pending_names): the normalised card for one design option, or None with the pending names. A package
+    option's items are guaranteed (drop chance 100), as the design states them."""
     if "package" in opt:
         comps, pend = [], []
         for c in opt["package"]:
             card, p = option_card(design, c)
             pend += p
             if card:
-                comps.append(card)
-        return (None, pend) if pend else (("package", tuple(sorted(comps))), [])
+                comps.append(card + (100,) if card[0] == "item" else card)
+        return (None, pend) if pend else (("package", tuple(sorted(comps, key=str))), [])
     if "money" in opt:
         return ("money", int(opt["money"])), []
     for kind in ("item", "jutsu", "badge"):
@@ -402,10 +540,13 @@ def describe_card(design, card):
         return "package[" + " + ".join(describe_card(design, c) for c in card[1]) + "]"
     if card[0] in ("item",):
         nm = design.names.get(card[1], card[1])
-        return f"{nm} ×{card[2]}" if card[2] != 1 else nm
+        text = f"{nm} ×{card[2]}" if card[2] != 1 else nm
+        return text + (f" ({card[3]}% chance)" if len(card) > 3 and card[3] != 100 else "")
     if card[0] in CONTENT_FIELDS.values():
         return f"{card[0]} {design.names.get(card[1], card[1])}"
-    return f"{card[0]} {card[1]:,}"
+    if isinstance(card[1], (int, float)):
+        return f"{card[0]} {card[1]:,}"
+    return f"{card[0]} {card[1]}"
 
 
 def card_ids(card):
@@ -445,7 +586,7 @@ class Checker:
                 self.check_battle_rewards(path, w, it)
                 self.check_area_chests(path, w, it)
             if ent == "item":
-                self.check_retired_item(path, w, it)
+                self.check_retired(path, w, it, "item_id")
                 self.check_chest_text(path, w, it, items)
                 self.check_chart_tier(path, w, it)
                 self.check_prof_chest(path, w, it)
@@ -454,16 +595,8 @@ class Checker:
     # 1. picks
     def check_picks(self, f, w, it):
         data = it.get("data") or {}
-        for ret in self.d.data.get("retired", []):
-            if it.get("targetId") and it["targetId"] == ret.get("quest_id"):
-                cards, _ = reward_cards(((data.get("content") or {}).get("reward")))
-                if data.get("hidden") is not True:
-                    self.add("ERROR", "picks", f, w, "data.hidden",
-                             f"{ret['name']} is retired ({ret['ruling']}); an edit may only hide it")
-                if cards:
-                    self.add("ERROR", "picks", f, w, "data.content.reward",
-                             f"retired {ret['name']} still offers " + " / ".join(describe_card(self.d, c) for c in cards))
-                return
+        if self.check_retired(f, w, it, "quest_id"):
+            return
         run = self.d.run_for_quest(it)
         content = data.get("content")
         if run is None:
@@ -515,12 +648,26 @@ class Checker:
             self.add("WARN", "picks", f, w, "data.content.reward",
                      f"{label} pending: {name} has no id yet (not created); option not verifiable")
 
-    def check_retired_item(self, f, w, it):
+    def check_retired(self, f, w, it, id_field):
+        """A retired record may only be hidden: the whole payload must be exactly {"hidden": true} on an edit.
+        Returns True when the item targets a retired record."""
         for ret in self.d.data.get("retired", []):
-            if it.get("targetId") and it["targetId"] == ret.get("item_id"):
-                if (it.get("data") or {}).get("hidden") is not True:
-                    self.add("ERROR", "picks", f, w, "data.hidden",
-                             f"{ret['name']} is retired ({ret['ruling']}); an edit may only hide it")
+            if not (it.get("targetId") and it["targetId"] == ret.get(id_field)):
+                continue
+            data = it.get("data")
+            why = f"{ret['name']} is retired ({ret['ruling']}); an edit may only hide it"
+            if it.get("slot") != "edit":
+                self.add("ERROR", "picks", f, w, "slot", f"{why}, but this is a '{it.get('slot')}'")
+            if not isinstance(data, dict) or data.get("hidden") is not True:
+                self.add("ERROR", "picks", f, w, "data.hidden", why)
+            extra = sorted(set(data) - {"hidden"}) if isinstance(data, dict) else []
+            if extra:
+                cards, _ = reward_cards(((data.get("content") or {}).get("reward")))
+                offer = (" (still offers " + " / ".join(describe_card(self.d, c) for c in cards) + ")") if cards else ""
+                self.add("ERROR", "picks", f, w, "data",
+                         f"{why}; the payload also sends {', '.join(extra)}{offer}")
+            return True
+        return False
 
     # 2. win-only rewards
     def check_battle_rewards(self, f, w, it):
@@ -571,7 +718,7 @@ class Checker:
 
     def _always_line(self, f, w, lines, effects, names):
         fld = "data.description"
-        parts, unknown = [], False
+        parts, unknown = [], 0
         for e in effects:
             if not isinstance(e, dict) or e.get("type") != "noncombatconsumereward" or e.get("rewardMode") == "weightedCache":
                 continue
@@ -586,7 +733,7 @@ class Checker:
                 for iid in entry.get("ids") or []:
                     nm = names.get(iid)
                     if not nm:
-                        unknown = True
+                        unknown += 1
                         self.add("WARN", "chest-text", f, w, fld,
                                  f"fixed reward item {iid}{' ×' + str(q) if q > 1 else ''}: no known name to check against")
                     else:
@@ -603,10 +750,18 @@ class Checker:
             return
         if len(always) > 1:
             self.add("ERROR", "chest-text", f, w, fld, "more than one 'Always:' line")
-        text = always[0]
-        for p in parts:
-            if not re.search(r"(?<![\w,])" + re.escape(p) + r"(?![\d,])", text):
-                self.add("ERROR", "chest-text", f, w, fld, f"'Always:' line '{text}' does not state '{p}'")
+        stated = Counter(always_entries(always[0]))
+        want = Counter(parts)
+        for p in sorted((want - stated).elements()):
+            self.add("ERROR", "chest-text", f, w, fld, f"'Always:' line '{always[0]}' does not state '{p}'")
+        budget = unknown
+        for p in sorted((stated - want).elements()):
+            if budget > 0 and not re.search(r"\d ?(ryo|exp)$", p):
+                budget -= 1
+                self.add("WARN", "chest-text", f, w, fld, f"'Always:' entry '{p}' may be the unnamed fixed item; unverified")
+            else:
+                self.add("ERROR", "chest-text", f, w, fld,
+                         f"'Always:' line states '{p}', which the item does not grant on every opening")
 
     def _cache_text(self, f, w, lines, cache, names):
         fld = "data.description"

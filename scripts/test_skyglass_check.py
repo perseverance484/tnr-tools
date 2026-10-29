@@ -118,6 +118,53 @@ class TempRoot(unittest.TestCase):
         self.edit(sc.LOOT, '<span style="color:#3b82f6"><b>Rare', '<span style="color:#2563eb"><b>Rare')
         self.assertTrue(any(f.field == "TIER_COLOURS" and "Rare" in f.msg for f in self.design_errors()))
 
+    def edit_data(self, mutate):
+        p = os.path.join(self.tmp, sc.DESIGN)
+        with open(p, encoding="utf-8") as fh:
+            data = json.load(fh)
+        mutate(data)
+        with open(p, "w", encoding="utf-8") as fh:
+            json.dump(data, fh)
+
+    def test_review4_data_values_must_match_the_doc_values(self):
+        def wrong(data):
+            run = next(r for r in data["picks"]["runs"] if r["run"] == "Drowned Foundry")
+            run["pickCount"] = 2
+            run["options"][1] = {"money": 1}
+        self.edit_data(wrong)
+        errs = {(f.where, f.field) for f in self.design_errors()}
+        self.assertIn(("picks.Drowned Foundry", "pickCount"), errs)
+        self.assertIn(("picks.Drowned Foundry", "options"), errs)
+        # and a manifest matching those wrong values does not pass: the design errors fail the run
+        findings, _, _ = sc.check(self.tmp, [os.path.join(FIX, "pass.json")])
+        self.assertTrue(any(f.check == "design" and f.level == "ERROR" for f in findings))
+
+    def test_review4_wrong_quantity_and_inherited_pick_count(self):
+        def wrong(data):
+            for r in data["picks"]["runs"]:
+                if r["run"] == "The Fall":
+                    r["options"][3] = {"item": "galley_stores", "quantity": 2}
+                if r["run"] == "The Rotted Reliquary":
+                    r["pickCount"] = 1
+        self.edit_data(wrong)
+        errs = {(f.where, f.field) for f in self.design_errors()}
+        self.assertIn(("picks.The Fall", "options"), errs)
+        self.assertIn(("picks.The Rotted Reliquary", "pickCount"), errs)
+
+    def test_review4_doc_value_change_is_caught_even_with_doc_options_updated(self):
+        self.edit(sc.LOOT, "| Drowned Foundry | Elemental Tool Pouch / 50,000 ryo / Galley Stores |",
+                  "| Drowned Foundry | Elemental Tool Pouch / 60,000 ryo / Galley Stores |")
+        self.edit_data(lambda d: next(r for r in d["picks"]["runs"] if r["run"] == "Drowned Foundry")
+                       .update(doc_options="Elemental Tool Pouch / 60,000 ryo / Galley Stores"))
+        self.assertTrue(any(f.field == "options" and "60000" in f.msg for f in self.design_errors()))
+
+    def test_review4_ruling_backed_alias_and_tainted_evidence(self):
+        self.edit(sc.RULINGS, '"Captain\'s Purse" pick is **100,000 ryo**', '"Captain\'s Purse" pick is **120,000 ryo**')
+        self.edit(sc.LOOT, "- **The Burning Heading** (tainted Last Heading)", "- **The Burning Heading** (tainted Reliquary Seal)")
+        fields = {f.field for f in self.design_errors()}
+        self.assertIn("evidence", fields)
+        self.assertIn("doc_evidence", fields)
+
     def test_missing_never_use_line_is_caught(self):
         self.edit(sc.BIBLE, "- **Never use:**", "- **Avoid:**")
         self.assertTrue(any(f.field == "doc_marker" for f in self.design_errors()))
@@ -146,6 +193,9 @@ class Fixtures(unittest.TestCase):
         self.assertTrue(any("rewardPickCount" in m and "needs 1" in m for m in p))
         self.assertTrue(any("missing option: 25,000 ryo" in m for m in p))
         self.assertTrue(any("not in section 4a: 50,000 ryo" in m for m in p))
+        self.assertTrue(any("Elemental Tool Pouch (1% chance)" in m for m in p))
+        self.assertTrue(any("reward_rank" in m for m in p))
+        self.assertTrue(any("also sends content" in m for m in p) and any("also sends effects" in m for m in p))
         w = msgs("fail_win_only.json")
         self.assertTrue(any("reward_exp=500" in m for m in w))
         self.assertTrue(any("data.effects[0].reward_gathering_items_ids" in m for m in w))
@@ -153,7 +203,8 @@ class Fixtures(unittest.TestCase):
         for want in ("stated 70% but the cache weight is 69%", "'Rare' is coloured #f59e0b", "'Epic' lists 'Sealed Treasury'",
                      "tier line for 'Mythic'", "outside the coloured tier-line format", "but the item has no fixed reward",
                      "needs '<b>Always:</b> 150,000 ryo'", "needs a roll line '3–6 rolls'", "and more'",
-                     "same-named tiers share one", "no tier line for 'Legendary'"):
+                     "same-named tiers share one", "no tier line for 'Legendary'",
+                     "does not state 'Medicine Inro'", "states 'Medicine Inro ×99'"):
             self.assertTrue(any(want in m for m in c), (want, c))
         v = msgs("fail_voice.json")
         self.assertTrue(any("'system'" in m for m in v) and any("seven-bladed" in m for m in v))
@@ -205,7 +256,7 @@ class Units(unittest.TestCase):
                                 {"id": "q", "name": "empty", "rewards": {}}, {"id": "r"}]})
         self.assertEqual(sorted(cards, key=str), sorted([
             ("money", 10000), ("reward_tokens", 1000), ("item", "A", 2), ("item", "B", 2), ("jutsu", "J"),
-            ("package", tuple(sorted([("money", 10000), ("item", "C", 1)])))], key=str))
+            ("package", tuple(sorted([("money", 10000), ("item", "C", 1, 100)], key=str)))], key=str))
         self.assertEqual(unresolved, [{"id": "r"}])
 
     def test_choice_text_and_ai_rules_scope(self):
@@ -227,6 +278,78 @@ class Units(unittest.TestCase):
         ch.run("m.json", {"items": [{"entity": "item", "slot": "edit", "targetId": "z", "data": {
             "description": "a system", "effects": [{"reward_hunter_items": True, "reward_hunter_items_ids": []}]}}]}, False)
         self.assertEqual([f.check for f in ch.findings], ["win-only"])
+
+
+class ReviewRegressions(unittest.TestCase):
+    """REQUEST CHANGES on b1e7527b: one regression per finding."""
+    POUCH, INRO = "D0gtI5dOgj2dFO4VexsLJ", "ixEKlJ0MmDrX7JoMNJVhi"
+
+    def findings(self, items):
+        ch = sc.Checker(sc.Design(ROOT))
+        ch.run("m.json", {"items": items}, True)
+        return ch.findings
+
+    def low_tide(self, packages):
+        return {"entity": "quest", "slot": "create", "srcId": "lt", "name": "lt", "data": {"name": "The Low Tide Run",
+                "content": {"rewardMode": "choose", "rewardPickCount": 1, "reward": {"reward_packages": packages}}}}
+
+    def pkg(self, item, number=100, **extra):
+        return {"id": item, "name": item, "rewards": {"reward_money": 10000, **extra,
+                "reward_items": [{"ids": [item], "number": number, "quantity": 1}]}}
+
+    def test_finding1_package_drop_chance_and_structural_fields_count(self):
+        ok = self.findings([self.low_tide([self.pkg(self.POUCH), self.pkg(self.INRO)])])
+        self.assertEqual([str(f) for f in errors(ok)], [])
+        for bad in ([self.pkg(self.POUCH, number=1), self.pkg(self.INRO, number=1)],
+                    [self.pkg(self.POUCH, reward_hunter_items=True, reward_hunter_items_ids=["x"]), self.pkg(self.INRO)],
+                    [self.pkg(self.POUCH, reward_rank="JONIN"), self.pkg(self.INRO)],
+                    [self.pkg(self.POUCH, reward_exp=1), self.pkg(self.INRO)]):
+            with self.subTest(bad=bad[0]["rewards"]):
+                errs = [f for f in errors(self.findings([self.low_tide(bad)])) if f.check == "picks"]
+                self.assertTrue(any("missing option: package" in f.msg for f in errs), [str(f) for f in errs])
+
+    def test_finding1_direct_cards_unchanged(self):
+        q = {"entity": "quest", "slot": "edit", "targetId": "UGHSuhi83C3wRtH3FD4Eu", "data": {"content": {
+             "rewardMode": "choose", "reward": {"reward_money": 50000,
+                                                "reward_items": [{"ids": [self.POUCH], "number": 5, "quantity": 1}]}}}}
+        self.assertEqual([str(f) for f in errors(self.findings([q]))], [])
+
+    def test_finding2_retired_records_may_only_be_hidden(self):
+        hide_q = {"entity": "quest", "slot": "edit", "targetId": "3BYr-HMkOepywS77vJvJh", "data": {"hidden": True}}
+        hide_i = {"entity": "item", "slot": "edit", "targetId": "Fz1MU04kLIIM0EMXgouo6", "data": {"hidden": True}}
+        self.assertEqual([str(f) for f in errors(self.findings([hide_q, hide_i]))], [])
+        pay_q = {**hide_q, "data": {"hidden": True, "content": {"objectives": [
+            {"id": "w", "task": "win_quest", "reward_money": 100000}]}}}
+        pay_i = {**hide_i, "data": {"hidden": True, "effects": [
+            {"type": "noncombatconsumereward", "rewardMode": "standard", "reward_money": 100000}]}}
+        rename = {**hide_i, "data": {"hidden": True, "name": "Armory Requisition II"}}
+        create = {**hide_q, "slot": "convert"}
+        for bad in (pay_q, pay_i, rename, create):
+            with self.subTest(bad=bad["data"]):
+                self.assertTrue(errors(self.findings([bad])))
+
+    def kit(self, always, fixed_items=(), money=0):
+        return {"entity": "item", "slot": "edit", "targetId": "kit", "data": {
+            "description": (f"<b>Always:</b> {always}<br>" if always is not None else "")
+            + '<span style="color:#9ca3af"><b>Common 100%</b></span> · Skyglass Coffer',
+            "effects": [{"type": "noncombatconsumereward", "rewardMode": "standard", "reward_money": money,
+                         "reward_items": [{"ids": [i], "number": 100, "quantity": q} for i, q in fixed_items]},
+                        {"type": "noncombatconsumereward", "rewardMode": "weightedCache", "weightedCache": {
+                            "rolls": [{"count": 1, "probability": 10000}],
+                            "tiers": [{"name": "Common", "probability": 10000,
+                                       "entries": [{"items": [{"itemId": "THo7rfzP-S82_43aN8fs3", "quantity": 1}]}]}]}}]}}
+
+    def test_finding3_always_line_compares_whole_entries(self):
+        good = self.kit("150,000 ryo · Medicine Inro ×2", [(self.INRO, 2)], 150000)
+        self.assertEqual([str(f) for f in errors(self.findings([good]))], [])
+        for always, fixed, money in (("Medicine Inro ×99", [(self.INRO, 1)], 0),   # wrong quantity
+                                     ("Medicine Inro ×1", [(self.INRO, 1)], 0),    # ×1 is not shown
+                                     ("Medicine Inro · 5,000 ryo", [(self.INRO, 1)], 0),  # extra entry
+                                     ("1,500,000 ryo", [], 150000),                # amount that contains the right one
+                                     ("150,000 ryo", [(self.INRO, 1)], 150000)):   # missing entry
+            with self.subTest(always=always):
+                errs = [f for f in errors(self.findings([self.kit(always, fixed, money)])) if f.check == "chest-text"]
+                self.assertTrue(errs)
 
 
 class Cli(unittest.TestCase):

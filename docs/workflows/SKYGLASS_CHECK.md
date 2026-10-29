@@ -49,9 +49,17 @@ the record exists, put its id in the design data (with the file that holds it) a
 **Option cards** follow the engine exactly (source-verified, theninjarpg@2af4b320 `libs/rewardChoice.ts`
 `buildRewardChoiceCards`, `validators/rewards.ts`:172-202): every positive amount field (ryo, exp, tokens, ...) is one
 card; every id in a `reward_items` entry is one card with that entry's quantity; every jutsu, bloodline, sage mode, badge
-and title id is one card; every reward package with a reward is one card holding its whole payload. The `number` (drop
-chance) of a `reward_items` entry does not matter in choose mode. A package sent without a `rewards` snapshot cannot be
-compared and is a warning.
+and title id is one card; every reward package with a reward is one card holding its whole payload. A direct item card
+is guaranteed, so the `number` (drop chance) of a direct `reward_items` entry does not matter. A package card is granted
+whole, chances included, so it is compared on its complete payload: every scalar amount, every item id with its
+quantity **and drop chance**, content ids, structural outcomes (rank, village, mastery promotion, hunter/gathering drops
+with their id lists), nested packages and any other `reward_*` field that carries a value. A design package option means
+exactly its components, items guaranteed (chance 100): `Pouch + 10,000 ryo` is not met by 10,000 ryo plus a 1% chance
+of the pouch, nor by a package that adds anything else. A package sent without a `rewards` snapshot cannot be compared
+and is a warning.
+
+**Retired records** (the Armory Requisition) may only be hidden: the item must be an `edit` whose whole `data` is
+`{"hidden": true}`. Any other field (a description, content, effects, a reward anywhere) is an error.
 
 **"Carries a reward"** (check 2a) means a value other than `0`, `false`, `null`, `""`, `"NONE"`, `"None"`, `[]` or
 `{}`. Builder defaults that are zero or empty are fine.
@@ -86,8 +94,11 @@ into lines on `<br>`; the story line and `<b>Each roll:</b>` are free text and n
    - no line may name a tier the cache lacks, and a tier rate written outside this format (e.g. a plain
      `Legendary 2%`) fails.
 2. **`<b>Always:</b> …`** appears if and only if the item has a fixed reward (another `noncombatconsumereward` effect,
-   paid on every opening). It must state each one: ryo as `150,000 ryo`, exp as `5,000 exp`, items as `Name` /
-   `Name ×n`.
+   paid on every opening). Its entries are split on ` · `, `, `, ` + `, ` and ` or ` or ` and compared whole, as a
+   multiset, with the item's fixed rewards: ryo as `150,000 ryo`, exp as `5,000 exp`, items as `Name`, or `Name ×n`
+   above 1 (so `Medicine Inro ×1` and `Medicine Inro ×99` both fail for a fixed Medicine Inro). A fixed reward the line
+   leaves out, and an entry the item does not grant, are both errors. An item name containing one of the separators
+   would be split; none of the Skyglass items does.
 3. **A roll line** is required only when the roll count varies: `<min>–<max> rolls` (an ASCII hyphen is accepted),
    e.g. `<i>3–6 rolls.</i>`. A fixed roll count is not required, because the item card already shows the cache's roll
    odds; a roll line on a fixed-count cache is a warning (§0: "not repeated").
@@ -113,7 +124,9 @@ The rendering itself is checked on the director's phone through a hidden test it
 
 | Section | Derived from | Kept honest by |
 |---|---|---|
-| `picks.runs` | loot tables §4a | each run stores its §4a row and option cell verbatim (`doc_row`, `doc_options`); any edit to a §4a row, a new or removed row, or a change to the bold pick rule is a `design` error until the data is re-derived |
+| `picks.runs` | loot tables §4a | each run stores its §4a row and option cell verbatim (`doc_row`, `doc_options`); any edit to a §4a row, a new or removed row, or a change to the bold pick rule is a `design` error until the data is re-derived. The values are bound too: every run's `pickCount` and `options` are re-parsed from the §4a cell on each run (the header's `(pick 1)`, a row's `**pick N**`; options split on ` / `, packages on ` + `, `N ryo`, `Name ×n`), and data that disagrees with the parsed values is an error |
+| `picks.doc_aliases` | §4a's short names | names §4a uses that are not an item's own name (`Pouch`, `Inro`, `Crown Fragment`, `Crownhold badge`, `Crownhold jutsu`); `Captain's Purse` is a 100,000 ryo money alias whose ruling sentence (RUL-2026-10-25-010) is checked verbatim. Every other option name must equal an item's name exactly |
+| tainted runs | §4a "pick 2 from their rare's options" | `options_from` plus `doc_evidence`: the §5 lines tying each tainted run to its rare chart and that chart to its run, checked verbatim |
 | `items` | ids already in the repository | every literal id names the file that holds it (`source`) and must still be found there; the Crownbreaker badge resolves at run time from `state/crownhold/ids.json` (`id_from`) |
 | `chart_tiers` | RUL-2026-10-28-028 item 4 table | each tier stores its RULINGS row verbatim |
 | `profession_chests` | loot tables §4b; chest ids from `answers/names_item.json` | each area stores its §4b row prefix verbatim |

@@ -129,6 +129,74 @@
    }
   },
   {
+   "entity": "quest",
+   "slot": "create",
+   "srcId": "low_tide",
+   "name": "The Low Tide Run",
+   "data": {
+    "name": "The Low Tide Run",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_packages": [
+       {
+        "id": "pouch",
+        "name": "pouch",
+        "rewards": {
+         "reward_items": [
+          {
+           "ids": [
+            "D0gtI5dOgj2dFO4VexsLJ"
+           ],
+           "number": 100,
+           "quantity": 1
+          }
+         ],
+         "reward_money": 10000
+        }
+       },
+       {
+        "id": "inro",
+        "name": "inro",
+        "rewards": {
+         "reward_items": [
+          {
+           "ids": [
+            "ixEKlJ0MmDrX7JoMNJVhi"
+           ],
+           "number": 100,
+           "quantity": 1
+          }
+         ],
+         "reward_money": 10000
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
    "entity": "item",
    "slot": "edit",
    "targetId": "THo7rfzP-S82_43aN8fs3",

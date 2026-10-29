@@ -1,5 +1,5 @@
 {
- "_note": "skyglass_check fixture: chest-text (RUL-2026-10-28-030). Wrong rate, wrong colour, wrong items, a tier the cache lacks, an uncoloured rate, an Always line with no fixed reward; a missing Always line, a missing roll range, an item list past three without 'and more', same-named tiers on two lines.",
+ "_note": "skyglass_check fixture: chest-text (RUL-2026-10-28-030). Wrong rate, wrong colour, wrong items, a tier the cache lacks, an uncoloured rate, an Always line with no fixed reward; a missing Always line, a missing roll range, an item list past three without 'and more', same-named tiers on two lines; an Always line with the wrong quantity and an entry the item does not grant.",
  "items": [
   {
    "entity": "item",
@@ -226,6 +226,64 @@
             {
              "itemId": "THo7rfzP-S82_43aN8fs3",
              "quantity": 5
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "fixture-kit",
+   "name": "a kit with a fixed Inro",
+   "data": {
+    "description": "<i>A kit.</i><br><b>Always:</b> Medicine Inro ×99 · 5,000 ryo<br><span style=\"color:#9ca3af\"><b>Common 100%</b></span> · Skyglass Coffer",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "rewardMode": "standard",
+      "reward_money": 0,
+      "reward_items": [
+       {
+        "ids": [
+         "ixEKlJ0MmDrX7JoMNJVhi"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ]
+     },
+     {
+      "type": "noncombatconsumereward",
+      "description": "One roll",
+      "rewardMode": "weightedCache",
+      "reward_items": [],
+      "reward_money": 0,
+      "weightedCache": {
+       "version": 1,
+       "displayName": "x",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 10000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
             }
            ]
           }
