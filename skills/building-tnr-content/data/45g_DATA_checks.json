@@ -1,13 +1,13 @@
 {
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-10-28",
-  "source_drop": "git:studie-tech/TheNinjaRPG@2af4b320 (2026-10-28)",
+  "extracted": "2026-10-29",
+  "source_drop": "git:studie-tech/TheNinjaRPG@3314d122 (2026-10-29)",
   "source_sha256_16": {
-   "app/drizzle/constants.ts": "20c99bed58d1dd52",
-   "app/src/validators/combat.ts": "e050191dc5b1998c",
-   "app/src/validators/objectives.ts": "fc25e25c75ca6f09",
-   "app/src/validators/ai.ts": "889a5bcdae666e2d"
+   "app/drizzle/constants.ts": "f39417940b09b025",
+   "app/src/validators/combat.ts": "c0b5b4d278b95d4e",
+   "app/src/validators/objectives.ts": "049d96b3b9a98bff",
+   "app/src/validators/ai.ts": "c9c1367baf197eb2"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
  },
@@ -107,7 +107,11 @@
     "preferredDamageElement"
    ],
    "badge": [],
-   "title": []
+   "title": [],
+   "itemVariant": [
+    "furnitureData",
+    "requiredItemId"
+   ]
   }
  },
  "cap_100": {
@@ -140,7 +144,8 @@
    "aiRule": [],
    "petSpecies": [],
    "badge": [],
-   "title": []
+   "title": [],
+   "itemVariant": []
   }
  },
  "null_strip_exempt": {
@@ -153,7 +158,8 @@
     "bloodline": false,
     "quest": true,
     "gameAsset": false,
-    "badge": false
+    "badge": false,
+    "itemVariant": false
    },
    "description": {
     "jutsu": false,
@@ -162,7 +168,8 @@
     "quest": true,
     "petSpecies": false,
     "badge": false,
-    "title": false
+    "title": false,
+    "itemVariant": false
    }
   },
   "_splits_note": "Nullable on some entities and required on others. NEVER exempt these by name; they need entity context.",
@@ -200,6 +207,7 @@
    "requiredBukijutsuMastery",
    "requiredGenjutsuMastery",
    "requiredIntelligence",
+   "requiredItemId",
    "requiredNinjutsuMastery",
    "requiredPetSpeciesId",
    "requiredSageMastery",
@@ -277,7 +285,6 @@
     "expireFromStoreAt",
     "farmExtractSeedItemId",
     "farmYieldItemId",
-    "furnitureData",
     "healthCost",
     "healthCostReducePerLvl",
     "hidden",
@@ -366,6 +373,13 @@
     "description",
     "effects",
     "name"
+   ],
+   "itemVariant": [
+    "cost",
+    "costType",
+    "image",
+    "name",
+    "order"
    ]
   }
  },
@@ -695,14 +709,19 @@
      "Wind",
      "Earth",
      "Lightning"
-    ],
-    "skillTarget": [
-     "SELF",
-     "ENEMIES"
     ]
    },
    "badge": {},
-   "title": {}
+   "title": {},
+   "itemVariant": {
+    "costType": [
+     "MONEY",
+     "REPUTATION",
+     "SEICHI_SILVER",
+     "VILLAGE_PRESTIGE",
+     "VARIANT_TOKEN"
+    ]
+   }
   }
  },
  "booleans": {
@@ -749,7 +768,8 @@
    "badge": [],
    "title": [
     "archived"
-   ]
+   ],
+   "itemVariant": []
   }
  },
  "date_fields": {
@@ -769,7 +789,8 @@
    "aiRule": [],
    "petSpecies": [],
    "badge": [],
-   "title": []
+   "title": [],
+   "itemVariant": []
   }
  },
  "tag_power_max": {

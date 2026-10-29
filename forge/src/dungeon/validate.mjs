@@ -192,6 +192,8 @@ function rewardProblems(rewards, out, authored) {
     const p = idProblem(drop.id, REF_FOR_DROP[drop.type], `${where}.id`);
     if (p) out.push(p);
     if (!(num(drop.chance) && drop.chance >= B.chance.min && drop.chance <= B.chance.max)) out.push(`${where}.chance must be ${B.chance.min}..${B.chance.max}`);
+    // onlyOnce (z.boolean().optional()): per player and dungeon, keyed by (type, id)
+    for (const k of CONTRACT.dropFlags ?? []) if (k in drop && typeof drop[k] !== "boolean") out.push(`${where}.${k} must be true or false`);
     const quantity = drop.quantity === undefined ? D.drop.quantity : drop.quantity;
     if (!int(quantity, 1, B.maxRewardQuantity)) out.push(`${where}.quantity must be an integer 1..${B.maxRewardQuantity} (null is not accepted)`);
     else if (drop.type === "jutsu" && quantity !== 1) out.push(`${where}.quantity must be 1: jutsu rewards can only be learned once`);

@@ -135,6 +135,19 @@ class Gate(unittest.TestCase):
         got = self.breaking(old, {"routers": {"train": {}}})
         self.assertIn(("procedure", "train", "stopTraining"), got)
 
+    # ---- 45c intersections (PetSpeciesEffect = AllTags.and({skillTarget}), 3314d122) ------------
+
+    def test_intersection_key_and_enum_member_removal_is_breaking(self):
+        old = {"_contract": {}, "unions": {}, "intersections": {"PetSpeciesEffect": {"base": "AllTags", "fields": {
+            "skillTarget": {"type": "enum", "optional": True, "enum": ["ENEMIES", "SELF"]}}}}}
+        less = copy.deepcopy(old)
+        less["intersections"]["PetSpeciesEffect"]["fields"]["skillTarget"]["enum"] = ["SELF"]
+        self.assertEqual(self.breaking(old, less), [("enum-member", "PetSpeciesEffect.skillTarget", "ENEMIES")])
+        gone = copy.deepcopy(old)
+        gone["intersections"]["PetSpeciesEffect"]["fields"] = {}
+        self.assertIn(("variant-field", "PetSpeciesEffect", "skillTarget"), self.breaking(old, gone))
+        self.assertEqual(self.breaking({"_contract": {}, "unions": {}}, old), [], "a new intersection is additive")
+
 
 if __name__ == "__main__":
     unittest.main()

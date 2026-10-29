@@ -18,18 +18,19 @@
     "role": "HEALER",
     "isActive": true,
     "hidden": true,
-    "skillTarget": "SELF",
     "includeDefaultRules": true,
     "effects": [
      {
       "type": "barrier",
       "power": 10,
-      "target": "SELF"
+      "target": "SELF",
+      "skillTarget": "SELF"
      },
      {
       "type": "heal",
       "power": 2,
-      "target": "COORDINATES"
+      "target": "COORDINATES",
+      "skillTarget": "SELF"
      }
     ],
     "aiRules": [

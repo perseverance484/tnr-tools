@@ -9,6 +9,7 @@
   "app/src/validators/asset.ts",
   "app/src/validators/bloodline.ts",
   "app/src/validators/title.ts",
+  "app/src/validators/petSpecies.ts",
   "app/drizzle/constants.ts"
  ],
  "_contract": {
@@ -14598,6 +14599,91 @@
      "value": "decreaseaggro"
     }
    },
+   "decreasecookingtime": {
+    "schema": "DecreaseCookingTime",
+    "fields": {
+     "staticAssetPath": {
+      "type": "string",
+      "default": ""
+     },
+     "staticAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "rounds": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "timeTracker": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "power": {
+      "type": "number",
+      "default": 1,
+      "min": 0
+     },
+     "powerPerLevel": {
+      "type": "literal",
+      "default": 0
+     },
+     "direction": {
+      "type": "literal",
+      "default": "offence",
+      "literal": "offence"
+     },
+     "target": {
+      "type": "literal",
+      "default": "SELF",
+      "literal": "SELF"
+     },
+     "coordinateTargeting": {
+      "type": "ref",
+      "schema_ref": "coordinateTargetingSchema",
+      "optional": true,
+      "nullable": true
+     },
+     "friendlyFire": {
+      "type": "literal",
+      "literal": "FRIENDLY",
+      "optional": true
+     },
+     "calculation": {
+      "type": "literal",
+      "default": "percentage",
+      "literal": "percentage"
+     },
+     "type": {
+      "type": "literal",
+      "default": "decreasecookingtime",
+      "literal": "decreasecookingtime"
+     },
+     "description": {
+      "type": "string",
+      "default": "`Reduce duration by power percent (minimum one second) once per complete meal cooking job. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when submitted.`"
+     }
+    },
+    "discriminant": {
+     "field": "type",
+     "value": "decreasecookingtime"
+    }
+   },
    "decreasecooldown": {
     "schema": "DecreaseCooldownTag",
     "fields": {
@@ -14714,6 +14800,91 @@
     "discriminant": {
      "field": "type",
      "value": "decreasecooldown"
+    }
+   },
+   "decreasecraftingtime": {
+    "schema": "DecreaseCraftingTime",
+    "fields": {
+     "staticAssetPath": {
+      "type": "string",
+      "default": ""
+     },
+     "staticAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "rounds": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "timeTracker": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "power": {
+      "type": "number",
+      "default": 1,
+      "min": 0
+     },
+     "powerPerLevel": {
+      "type": "literal",
+      "default": 0
+     },
+     "direction": {
+      "type": "literal",
+      "default": "offence",
+      "literal": "offence"
+     },
+     "target": {
+      "type": "literal",
+      "default": "SELF",
+      "literal": "SELF"
+     },
+     "coordinateTargeting": {
+      "type": "ref",
+      "schema_ref": "coordinateTargetingSchema",
+      "optional": true,
+      "nullable": true
+     },
+     "friendlyFire": {
+      "type": "literal",
+      "literal": "FRIENDLY",
+      "optional": true
+     },
+     "calculation": {
+      "type": "literal",
+      "default": "percentage",
+      "literal": "percentage"
+     },
+     "type": {
+      "type": "literal",
+      "default": "decreasecraftingtime",
+      "literal": "decreasecraftingtime"
+     },
+     "description": {
+      "type": "string",
+      "default": "`Reduce duration by power percent (minimum one second) once per non-meal crafting job, excluding imbuing. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when submitted.`"
+     }
+    },
+    "discriminant": {
+     "field": "type",
+     "value": "decreasecraftingtime"
     }
    },
    "decreasedamagegiven": {
@@ -14976,6 +15147,176 @@
     "discriminant": {
      "field": "type",
      "value": "decreasedamagetaken"
+    }
+   },
+   "decreasefarmingtime": {
+    "schema": "DecreaseFarmingTime",
+    "fields": {
+     "staticAssetPath": {
+      "type": "string",
+      "default": ""
+     },
+     "staticAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "rounds": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "timeTracker": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "power": {
+      "type": "number",
+      "default": 1,
+      "min": 0
+     },
+     "powerPerLevel": {
+      "type": "literal",
+      "default": 0
+     },
+     "direction": {
+      "type": "literal",
+      "default": "offence",
+      "literal": "offence"
+     },
+     "target": {
+      "type": "literal",
+      "default": "SELF",
+      "literal": "SELF"
+     },
+     "coordinateTargeting": {
+      "type": "ref",
+      "schema_ref": "coordinateTargetingSchema",
+      "optional": true,
+      "nullable": true
+     },
+     "friendlyFire": {
+      "type": "literal",
+      "literal": "FRIENDLY",
+      "optional": true
+     },
+     "calculation": {
+      "type": "literal",
+      "default": "percentage",
+      "literal": "percentage"
+     },
+     "type": {
+      "type": "literal",
+      "default": "decreasefarmingtime",
+      "literal": "decreasefarmingtime"
+     },
+     "description": {
+      "type": "string",
+      "default": "`Reduce each planted crop duration by power percent, with a one-second minimum. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when planting.`"
+     }
+    },
+    "discriminant": {
+     "field": "type",
+     "value": "decreasefarmingtime"
+    }
+   },
+   "decreasegatheringtime": {
+    "schema": "DecreaseGatheringTime",
+    "fields": {
+     "staticAssetPath": {
+      "type": "string",
+      "default": ""
+     },
+     "staticAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "rounds": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "timeTracker": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "power": {
+      "type": "number",
+      "default": 1,
+      "min": 0
+     },
+     "powerPerLevel": {
+      "type": "literal",
+      "default": 0
+     },
+     "direction": {
+      "type": "literal",
+      "default": "offence",
+      "literal": "offence"
+     },
+     "target": {
+      "type": "literal",
+      "default": "SELF",
+      "literal": "SELF"
+     },
+     "coordinateTargeting": {
+      "type": "ref",
+      "schema_ref": "coordinateTargetingSchema",
+      "optional": true,
+      "nullable": true
+     },
+     "friendlyFire": {
+      "type": "literal",
+      "literal": "FRIENDLY",
+      "optional": true
+     },
+     "calculation": {
+      "type": "literal",
+      "default": "percentage",
+      "literal": "percentage"
+     },
+     "type": {
+      "type": "literal",
+      "default": "decreasegatheringtime",
+      "literal": "decreasegatheringtime"
+     },
+     "description": {
+      "type": "string",
+      "default": "`Reduce each gathering quest collection duration by power percent, with a one-second minimum. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when collection begins.`"
+     }
+    },
+    "discriminant": {
+     "field": "type",
+     "value": "decreasegatheringtime"
     }
    },
    "decreaseheal": {
@@ -17325,6 +17666,92 @@
      "value": "increasedamagetaken"
     }
    },
+   "increasegatheringyield": {
+    "schema": "IncreaseGatheringYield",
+    "fields": {
+     "staticAssetPath": {
+      "type": "string",
+      "default": ""
+     },
+     "staticAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "rounds": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "timeTracker": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "power": {
+      "type": "number",
+      "default": 1,
+      "min": 0,
+      "int": true
+     },
+     "powerPerLevel": {
+      "type": "literal",
+      "default": 0
+     },
+     "direction": {
+      "type": "literal",
+      "default": "offence",
+      "literal": "offence"
+     },
+     "target": {
+      "type": "literal",
+      "default": "SELF",
+      "literal": "SELF"
+     },
+     "coordinateTargeting": {
+      "type": "ref",
+      "schema_ref": "coordinateTargetingSchema",
+      "optional": true,
+      "nullable": true
+     },
+     "friendlyFire": {
+      "type": "literal",
+      "literal": "FRIENDLY",
+      "optional": true
+     },
+     "calculation": {
+      "type": "literal",
+      "default": "static",
+      "literal": "static"
+     },
+     "type": {
+      "type": "literal",
+      "default": "increasegatheringyield",
+      "literal": "increasegatheringyield"
+     },
+     "description": {
+      "type": "string",
+      "default": "`Add units to each successfully dropped gathering material. Eligible bloodline, activated skill and usable worn gear bonuses stack up to +${MAX_GATHERING_BONUS_QUANTITY}; captured when collection begins. Drop chances are unchanged.`"
+     }
+    },
+    "discriminant": {
+     "field": "type",
+     "value": "increasegatheringyield"
+    }
+   },
    "increaseheal": {
     "schema": "IncreaseHealGivenTag",
     "fields": {
@@ -17426,6 +17853,178 @@
     "discriminant": {
      "field": "type",
      "value": "increaseheal"
+    }
+   },
+   "increasehuntingyield": {
+    "schema": "IncreaseHuntingYield",
+    "fields": {
+     "staticAssetPath": {
+      "type": "string",
+      "default": ""
+     },
+     "staticAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "rounds": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "timeTracker": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "power": {
+      "type": "number",
+      "default": 1,
+      "min": 0,
+      "int": true
+     },
+     "powerPerLevel": {
+      "type": "literal",
+      "default": 0
+     },
+     "direction": {
+      "type": "literal",
+      "default": "offence",
+      "literal": "offence"
+     },
+     "target": {
+      "type": "literal",
+      "default": "SELF",
+      "literal": "SELF"
+     },
+     "coordinateTargeting": {
+      "type": "ref",
+      "schema_ref": "coordinateTargetingSchema",
+      "optional": true,
+      "nullable": true
+     },
+     "friendlyFire": {
+      "type": "literal",
+      "literal": "FRIENDLY",
+      "optional": true
+     },
+     "calculation": {
+      "type": "literal",
+      "default": "static",
+      "literal": "static"
+     },
+     "type": {
+      "type": "literal",
+      "default": "increasehuntingyield",
+      "literal": "increasehuntingyield"
+     },
+     "description": {
+      "type": "string",
+      "default": "`Add units to each successfully dropped hunting material. Eligible bloodline, activated skill and usable worn gear bonuses stack up to +${MAX_HUNTING_BONUS_QUANTITY}; captured when battle begins. Drop chances are unchanged.`"
+     }
+    },
+    "discriminant": {
+     "field": "type",
+     "value": "increasehuntingyield"
+    }
+   },
+   "increasejutsuslots": {
+    "schema": "IncreaseJutsuSlots",
+    "fields": {
+     "staticAssetPath": {
+      "type": "string",
+      "default": ""
+     },
+     "staticAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "rounds": {
+      "type": "ref",
+      "schema_ref": "BaseAttributes"
+     },
+     "timeTracker": {
+      "type": "record",
+      "optional": true
+     },
+     "power": {
+      "type": "number",
+      "default": 1,
+      "min": 1,
+      "int": true
+     },
+     "powerPerLevel": {
+      "type": "literal",
+      "default": 0
+     },
+     "direction": {
+      "type": "literal",
+      "default": "offence",
+      "literal": "offence"
+     },
+     "target": {
+      "type": "literal",
+      "default": "SELF",
+      "literal": "SELF"
+     },
+     "coordinateTargeting": {
+      "type": "ref",
+      "schema_ref": "coordinateTargetingSchema",
+      "optional": true,
+      "nullable": true
+     },
+     "friendlyFire": {
+      "type": "literal",
+      "literal": "FRIENDLY",
+      "optional": true
+     },
+     "calculation": {
+      "type": "literal",
+      "default": "static",
+      "literal": "static"
+     },
+     "type": {
+      "type": "literal",
+      "default": "increasejutsuslots",
+      "literal": "increasejutsuslots"
+     },
+     "description": {
+      "type": "string",
+      "default": "`Permanently add extra jutsu slots on consumption. Shares the ${MAX_EXTRA_JUTSU_SLOTS}-slot limit with purchased slots; the item is not consumed if the grant would exceed it.`"
+     }
+    },
+    "discriminant": {
+     "field": "type",
+     "value": "increasejutsuslots"
     }
    },
    "increasepotency": {
@@ -22525,6 +23124,10 @@
      "description": {
       "type": "string",
       "default": "Unlocks a token-locked item variant when used on an item"
+     },
+     "variantId": {
+      "type": "string",
+      "nullable": true
      }
     },
     "discriminant": {
@@ -23204,11 +23807,28 @@
    }
   }
  },
+ "intersections": {
+  "PetSpeciesEffect": {
+   "source": "app/src/validators/petSpecies.ts",
+   "base": "AllTags",
+   "fields": {
+    "skillTarget": {
+     "type": "enum",
+     "optional": true,
+     "enum_ref": "PetSkillTargets",
+     "enum": [
+      "ENEMIES",
+      "SELF"
+     ]
+    }
+   }
+  }
+ },
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-10-28",
-  "source_drop": "git:studie-tech/TheNinjaRPG@2af4b320 (2026-10-28)",
-  "content_sha256_16": "dc90447623f7a036",
+  "extracted": "2026-10-29",
+  "source_drop": "git:studie-tech/TheNinjaRPG@3314d122 (2026-10-29)",
+  "content_sha256_16": "cff4d3361bc14ae4",
   "contract": "GENERATED. Do not hand-edit. content_sha256_16 fingerprints the payload, not the stamp: two files claiming the same generator, drop and date but differing in content are detectable by comparing this field."
  }
 }

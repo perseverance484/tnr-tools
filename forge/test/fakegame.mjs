@@ -46,7 +46,7 @@ export const rekey = (v) => (Array.isArray(v) ? v.map(rekey)
 
 export class FakeGame {
   constructor({ crashAt = Infinity, dropAt = Infinity, refuse = new Set(), limitPath = null, signedOut = false } = {}) {
-    this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map(), dungeon: new Map(), petSpecies: new Map(), badge: new Map(), title: new Map() };
+    this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map(), dungeon: new Map(), petSpecies: new Map(), badge: new Map(), title: new Map(), itemVariant: new Map() };
     this.calls = [];
     this.crashAt = crashAt;
     // the connection fails at this call BEFORE the server applies it: nothing is written
@@ -83,6 +83,7 @@ export class FakeGame {
     if (this.signedOut && isProtected(path)) return err("UNAUTHORIZED", `UNAUTHORIZED: Data: ${JSON.stringify(input ?? null)}`, 401);
     if (router === "dungeon") result = this.dungeon(proc, input, ok, err);
     else if (router === "petSpecies") result = this.petSpecies(proc, input, ok, err);
+    else if (path === "item.getItemVariants" || path === "item.upsertItemVariant") result = this.itemVariant(proc, input, ok, err);
     else if (PLACEHOLDER[path]) {
       if (this.refuse.has(path)) result = ok({ success: false, message: `Not allowed to create` });
       else { const id = nanoidLike(); const row = PLACEHOLDER[path](id, input); table.set(id, row); result = ok({ success: true, message: id }); }
@@ -161,7 +162,7 @@ export class FakeGame {
  */
 const DUNGEON_KEYS = {
   content: ["name", "description", "structureAssetId", "structureScale", "sector", "longitude", "latitude", "expiresAt", "hidden", "background", "tiers", "rewards"],
-  rewards: ["money", "experience", "tokens", "prestige", "drops"], drop: ["type", "id", "chance", "quantity", "package"],
+  rewards: ["money", "experience", "tokens", "prestige", "drops"], drop: ["type", "id", "chance", "onlyOnce", "quantity", "package"],
   floor: ["kind", "waves"], wave: ["aiIds", "delayRounds"],
 };
 class ZodIssue extends Error { constructor(path, message) { super(message); this.path = path; } }
@@ -220,7 +221,7 @@ FakeGame.prototype.dungeon = function (proc, input, ok, err) {
  * parsed record and accepts defaults locked to that species only; get {id}; getAll lists every row.
  */
 const PET_KEYS = { name: undefined, description: undefined, artDirection: null, rankConcepts: [], rarity: undefined, role: "ASSAULT",
-  preferredDamageElement: null, isActive: undefined, defaultJutsuIds: [], aiRules: [], includeDefaultRules: true, effects: [], skillTarget: "SELF" };
+  preferredDamageElement: null, isActive: undefined, defaultJutsuIds: [], aiRules: [], includeDefaultRules: true, effects: [] };
 const PET_SLOTS_AT_SOURCE = { COMMON: 2, UNCOMMON: 3, RARE: 4, EPIC: 5, LEGENDARY: 6 };
 FakeGame.prototype.petSpecies = function (proc, input, ok, err) {
   const table = this.tables.petSpecies;
@@ -285,3 +286,55 @@ FakeGame.prototype.itemWithCraftingRequirements = function (input, ok, err) {
 };
 
 export { Session, TrpcClient };
+
+/**
+ * item.getItemVariants / item.upsertItemVariant as routers/item.ts:1151-1275 answers at
+ * TheNinjaRPG@3314d122, written out here independently of src/runner/variants.mjs. getItemVariants
+ * {itemId} lists that item's rows by order. upsertItemVariant {itemId, variant} parses
+ * ItemVariantValidator (unknown keys stripped, name trimmed, requiredItemId/furnitureData prefault
+ * null), refuses before writing (item / required item missing, a required item on a non-token cost,
+ * a required item whose unlockitemvariant has a variantId other than this variant's, furniture data
+ * on a non-furniture item, 7 variants, a taken order), then inserts with a fresh id - answering
+ * "Variant saved" and NO id - or replaces every column of {id, itemId}. description is stored null
+ * when absent.
+ */
+const VARIANT_COSTS = ["MONEY", "REPUTATION", "SEICHI_SILVER", "VILLAGE_PRESTIGE", "VARIANT_TOKEN"];
+FakeGame.prototype.itemVariant = function (proc, input, ok, err) {
+  const table = this.tables.itemVariant, items = this.tables.item;
+  const listOf = (itemId) => [...table.values()].filter((v) => v.itemId === itemId).sort((a, b) => a.order - b.order);
+  if (proc === "getItemVariants") return ok(listOf(input.itemId).map((v) => structuredClone(v)));
+  const bad = (path, message) => ({ ok: false, error: { code: "BAD_REQUEST", httpStatus: 400, message, path: "item.upsertItemVariant", zodError: [{ path: ["variant", path], message }] } });
+  const v = input.variant ?? {};
+  const name = typeof v.name === "string" ? v.name.trim() : null;
+  if (!name) return bad("name", "Name required");
+  if (typeof v.image !== "string" || !v.image) return bad("image", "Image required");
+  const req = v.requiredItemId == null ? null : String(v.requiredItemId).trim();
+  if (req === "") return bad("requiredItemId", "Too small");
+  if (!VARIANT_COSTS.includes(v.costType)) return bad("costType", "Invalid option");
+  const cost = Number(v.cost), order = Number(v.order);
+  if (!Number.isInteger(cost) || cost < 0) return bad("cost", "Invalid cost");
+  if (!Number.isInteger(order) || order < 1 || order > 7) return bad("order", "Invalid order");
+  for (const k of ["description", "battleDescription"]) if (v[k] !== undefined && typeof v[k] !== "string") return bad(k, "Expected string");
+  if (this.refuse.has("item.upsertItemVariant")) return ok({ success: false, message: "Not allowed" });
+  const parent = items.get(input.itemId), required = req ? items.get(req) : undefined;
+  const existing = listOf(input.itemId);
+  if (!parent) return ok({ success: false, message: "Item not found" });
+  if (req && !required) return ok({ success: false, message: "Required unlock item not found" });
+  if (req && v.costType !== "VARIANT_TOKEN") return ok({ success: false, message: "Only token variants can require an unlock item" });
+  if (required && !(required.effects ?? []).some((e) => e.type === "unlockitemvariant" && (!e.variantId || e.variantId === v.id))) return ok({ success: false, message: "Required unlock item cannot unlock this variant" });
+  if (parent.itemType !== "FURNITURE" && v.furnitureData) return ok({ success: false, message: "Only furniture variants can define orientation images" });
+  if (!v.id && existing.length >= 7) return ok({ success: false, message: "Items can have at most 7 variants" });
+  const clash = existing.find((r) => r.order === order && r.id !== v.id);
+  if (clash) return ok({ success: false, message: `Order ${order} is already used by "${clash.name}"` });
+  const row = { itemId: input.itemId, name, image: v.image, requiredItemId: req, costType: v.costType, cost, order,
+    description: v.description ?? null, battleDescription: v.battleDescription ?? null, furnitureData: v.furnitureData ?? null, updatedAt: new Date(1) };
+  if (v.id) {
+    const cur = table.get(v.id);
+    if (!cur || cur.itemId !== input.itemId) return ok({ success: false, message: "Variant or required item changed — refresh and try again" });
+    Object.assign(cur, row);
+  } else {
+    const id = nanoidLike();
+    table.set(id, { id, ...row, createdAt: new Date(0) });
+  }
+  return ok({ success: true, message: "Variant saved" });
+};

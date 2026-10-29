@@ -38,9 +38,10 @@ const harness = (opts = {}) => composeForTest({ game: new FakeGame(), storage: n
 
 // ------------------------------------------------------------------ contract
 test("contract: derived from the pin, covering every rule the validator mirrors", () => {
-  assert.equal(CONTRACT._meta.pin, "107d7a86894f806a4c9cec89effef5992118a0ed");
+  assert.equal(CONTRACT._meta.pin, "3314d122c93e036618483d18229a793ad7ad21fd");
   assert.deepEqual(CONTRACT.contentFields, ["name", "description", "structureAssetId", "structureScale", "sector", "longitude", "latitude", "expiresAt", "hidden", "background", "tiers", "rewards"]);
-  assert.deepEqual(CONTRACT.dropFields, ["type", "id", "chance", "quantity", "package"]);
+  assert.deepEqual(CONTRACT.dropFields, ["type", "id", "chance", "onlyOnce", "quantity", "package"]);
+  assert.deepEqual(CONTRACT.dropFlags, ["onlyOnce"]); // 3314d122: z.boolean().optional(), once per player and dungeon
   assert.deepEqual(CONTRACT.floorKinds, ["floor", "mini-boss", "boss"]);
   assert.deepEqual(CONTRACT.dropTypes, ["item", "jutsu", "cache", "package"]);
   assert.equal(B.floorsPerTier, 5); assert.equal(B.maxTiers, 4); assert.equal(B.maxWaves, 5); assert.equal(B.maxMobs, 10);

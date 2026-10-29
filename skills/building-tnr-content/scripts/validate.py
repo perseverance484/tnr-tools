@@ -337,10 +337,17 @@ def check_rules(rules, ctors, where, rep, include_default_rules=False):
                 rep.err(f"{where}.rules[{i}]", "unconditional rule above the end; every rule below it is dead")
 
 
-def check_effects(effects, ctors, where, rep):
+def check_effects(effects, ctors, where, rep, extra=None):
+    """`extra`: keys an intersection adds to every tag (45c intersections; PetSpeciesEffect's
+    skillTarget at 3314d122), checked here and removed before the tag itself is."""
     if not isinstance(effects, list):
         return
     for i, e in enumerate(effects):
+        if extra and isinstance(e, dict):
+            for k, spec in extra.items():
+                if k in e and spec.get("enum") and e[k] not in spec["enum"]:
+                    rep.err(f"{where}.effects[{i}]", f"{k}={e[k]!r} not in {spec['enum']}")
+            e = {k: v for k, v in e.items() if k not in extra}
         check_member(e, "AllTags", ctors, f"{where}.effects[{i}]", rep)
 
 
@@ -909,13 +916,19 @@ def check_entry(entry, ctors, rep, manifest):
             elif len(str(j)) != ID_LEN:
                 rep.err(where, f"jutsu id {j!r} is not {ID_LEN} chars")
     if "effects" in data and entry.get("entity") != "title":  # title effects: catalog_checks
-        check_effects(data["effects"], ctors, where, rep)
+        extra = (ctors.get("intersections") or {}).get("PetSpeciesEffect", {}).get("fields") \
+            if entry.get("entity") == "petSpecies" else None
+        check_effects(data["effects"], ctors, where, rep, extra)
+    import variant_checks  # item variants, variant tokens, where the 3314d122 tags may live
+    if entry.get("entity") == "itemVariant":
+        variant_checks.check(entry, manifest.get("items") or [], ENTITIES.get("itemVariant"), CHECKS, rep, where)
+    variant_checks.check_effects_placement(entry, CONSTS, rep, where)
     if entry.get("entity") in ("ai", "aiProfile"):
         check_pool_kit(data, where, rep)
     check_laws(entry, rep)
 
     blob = json.dumps(data)
-    for m in re.findall(r"@(?:jutsu|ai|scene|item|quest|img|bloodline|petSpecies|badge|title):[^\"]{1,60}", blob):
+    for m in re.findall(r"@(?:jutsu|ai|scene|item|quest|img|bloodline|petSpecies|badge|title|variant):[^\"]{1,60}", blob):
         if "@@" in m or m.count(":") > 1:
             rep.err(where, f"malformed ref {m} (doubled prefix survives naive sweeps, law 45)")
 
@@ -975,6 +988,7 @@ LCORE = {
     "lifesteal": {"elements", "timeTracker"},
 }
 LFORM = {"damage", "pierce", "wound"}
+INTERSECTION_KEYS = {}  # entity -> keys from 45c intersections, filled when 45c loads
 LPCT = {"increasedamagegiven", "decreasedamagetaken", "increasedamagetaken"}
 _DASH = re.compile("[\u2013\u2014]")
 _DATE = re.compile(r"^\d{4}-\d{1,2}-\d{1,2}$")
@@ -1072,7 +1086,7 @@ def lint_entries(items, rep, blob):
             if t in LCORE:
                 for k in f:
                     if k not in ("type", "power", "rounds") and k not in LDECOR \
-                            and k not in LCORE[t]:
+                            and k not in LCORE[t] and k not in INTERSECTION_KEYS.get(ent, ()):
                         E('L09 %s illegal field "%s"' % (t, k))
             if t in LPCT and (f.get("calculation") == "percentage" or not f.get("calculation")):
                 pc[t] = pc.get(t, 0) + 1
@@ -1154,6 +1168,8 @@ def check_manifest(path, ctors_path, strict=False):
     rep = Report()
     man = json.load(open(path))
     ctors = json.load(open(ctors_path))
+    # keys an intersection adds to every tag of an entity's effects (L09 must not call them illegal)
+    INTERSECTION_KEYS["petSpecies"] = set(((ctors.get("intersections") or {}).get("PetSpeciesEffect") or {}).get("fields") or {})
     items = man.get("items") or []
     if man.get("bloodright"):
         rep.err("manifest", "Bloodright design package is not a compiled manifest; prepare its authenticated inventory preview in Forge")
@@ -1195,13 +1211,15 @@ def check_manifest(path, ctors_path, strict=False):
             o = -1 if e.get("slot") == "create" else 0.5
         if e.get("entity") in ("badge", "title"):
             o = -1  # depend on nothing; the items and quests that reward them come after
+        if e.get("entity") == "itemVariant":
+            o = 2  # interleaved with items: a variant names its item and token, a token its variant
         if o < seen:
             rep.warn("manifest", f"build order: {e.get('entity')} appears after a later phase")
         seen = max(seen, o)
 
     srcs = {e.get("srcId") for e in items if e.get("srcId")}
     blob = json.dumps(man)
-    for ref in set(re.findall(r"@(?:jutsu|ai|scene|item|quest|bloodline|petSpecies|badge|title):([A-Za-z0-9_\-]+)", blob)):
+    for ref in set(re.findall(r"@(?:jutsu|ai|scene|item|quest|bloodline|petSpecies|badge|title|variant):([A-Za-z0-9_\-]+)", blob)):
         if ref not in srcs:
             rep.warn("manifest", f"@ref '{ref}' has no srcId in this manifest; it must already be in the idmap")
 
