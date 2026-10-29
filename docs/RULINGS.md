@@ -4225,3 +4225,30 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "Just drop titles and trophies for now."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5, §5c.
+
+## RUL-2026-10-29-042 — Three consumable caches; common runs offer charts
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE. Open: the Pouch's guaranteed kunai (×10 or ×5).
+
+**Ruling:**
+1. **The Officer's Pill Case merges back into the Medicine Inro.** The Inro returns to its original two-roll table (RUL-2026-10-25-012). The healing-only Inro was one good pill (Small Health Pill) plus filler.
+2. **The Quartermaster's Kit is dropped as filler.** Elite Smoke Bombs return to the Elemental Tool Pouch's Rare tier. Smoke Pellet and Whetstone Oil are out.
+3. **The Solider Pill returns to the Sage's Strongbox Legendary tier**, at ×2 under RUL-2026-10-28-033.
+4. **The common picks offer a chart in place of the Pill Case:**
+   - Low Tide: Inro / Galley / Watch Roster;
+   - Night Watch: Inro / Galley / Tide Chart;
+   - Buried Cache: Inro / Galley / Drowned Foundry chart;
+   - Foundry: Pouch / Inro / Galley.
+5. **The chest of chests** is reweighted: Common is the Inro or the Pouch, Rare is the Strongbox or Galley.
+6. **Valuation:** market sales the director showed are used where available:
+   - Elemental Kunai ~300k;
+   - Small Health Pill ~450k;
+   - Chakra Pill II and Stamina Pill II ~125-150k.
+
+**Evidence:** Director, 2026-10-29: "I mean, why even split the inro and the pill case if the inro is just 1 good pill drop and a bunch of filler", then "Quartermaster's kit is also pure filler is it not? Just need to put elite smoke bombs in the tool pouch". The director also posted screenshots of auction sales.
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §1, §2, §3a, §4a.
