@@ -123,3 +123,50 @@ alertness, and whether a cut-through hazard is pending.
   total stays at the old quests' level. Starting candidates: endgame Wreck 3% each, hunt endings 2% each.
 - **Lore and text:** tag lines from the ledger and manifest, one per locker or crate per step, written in the story
   bible's voice.
+
+## Variety (RUL-2026-10-29-038)
+
+A quest can't roll randomness mid-run: battles and branches are fixed. So the variety comes from where the engine does
+roll: drops, chest openings and reward chances.
+
+1. **Layout variants.** Three pages per profession, each a different part of the stores. The page is picked at random when
+   the chart drops (uniform among the three).
+
+   | Profession | Page | Character |
+   |---|---|---|
+   | Hunters | **The Trophy Hold** | the classic balance |
+   | Hunters | **The Bone Store** | lockers early, a cheap but dangerous start |
+   | Hunters | **The Snare Room** | heavy hazards, safe cut-throughs |
+   | Gatherers | **The Overgrown Stores** | the classic balance |
+   | Gatherers | **The Ore Vault** | dense guards, rich lockers |
+   | Gatherers | **The Bloom Cellar** | heavy dust hazards, a steep tier curve |
+
+   Variants differ in which steps offer lockers, the guard mix, the hazards and the tier curve, so the best route
+   depends on the page.
+2. **Steeping (RUL-2026-10-28-010 rules).** A Haul chart plus 3 Core Rot steeps into a **Rot-Sealed Page**: a
+   weighted-cache item whose opening rolls one modified page, of the same profession and layout.
+
+   | Modifier | Effect |
+   |---|---|
+   | **Rot-soaked** | every hazard doubled; every chest one tier higher |
+   | **Flooded hold** | moveprevent in every fight; lockers carry no hazard |
+   | **Alarmed** | start at alertness 2; a Legendary locker from step 4 |
+   | **Picked clean** | easier fights, smaller haul: the gamble's bad roll |
+
+   Weights are set in the harness. A lost steeping fight returns the chart, and the Rot is spent.
+3. **Bonus chances.** Each locker pays its chest plus a chance at a bonus chest of the same tier (starting at about 20%),
+   as a `reward_items` drop chance at the ending. The same route gives different hauls.
+4. **Chest rolls.** The 8 profession chests already vary: 3-6 rolls across staples, kits, bulk and windfall.
+
+**Cost:**
+- **Items:**
+  - 6 page charts (3 per profession);
+  - 2 Rot-Sealed Page items (one per profession; each opening rolls one of 4 modifiers × 3 layouts, as 12 cache entries);
+  - the modified page charts that those openings grant, made on demand by the generator: up to 24.
+- **Quests:**
+  - 6 base quests;
+  - up to 24 modified quests, generated from a modifier pass over the base graphs.
+
+  The harness reports whether the full set is worth its size, or whether some modifiers should apply only to the
+  classic layout.
+- **No new jutsu.**
