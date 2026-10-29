@@ -4012,3 +4012,26 @@ The text is generated from the cache weights and enforced by `scripts/skyglass_c
 **Evidence:** Director, 2026-10-28: "Lay the first mark on the transition turn and fit in a transition jutsu : cleanse(0 rounds, instant), 40% DR, 40% absorb, clear prevent, rest for 2 rounds. This should give his 2nd phase a couple more rounds."
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §1; harness `fable/skyglass-wreck-sim`.
+
+## RUL-2026-10-28-033 — Consumable caches keep the original quantities; Strongbox Legendary tier ×2
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **The five themed consumable caches (RUL-2026-10-28-018) keep the original quantities** from the pre-split Inro, Strongbox and Pouch tables.
+2. **Valuation basis:**
+   - A crafted item is valued at the cumulative cost of its materials. Craftable items are not sold in the shop, whatever their price field says.
+   - A shop item is valued at its shop price.
+   - A sell-only currency (e.g. Rare Jewels) is valued at its sell price, 20% of cost (theninjarpg `libs/item.ts` calcItemSellingPrice).
+
+   On this basis the old caches sit at or below one profession chest per open: Pouch ~0.8M, Inro ~1.7M, Strongbox ~6.0M, against Hunter's/Gatherer's Chests at 3.2-10.6M.
+3. **Exception: the Sage's Strongbox Legendary tier drops from ×5 to ×2.** Solider Pill materials cost about 13M per pill, and Enemy Pill and Mona's Mermaid Song about 4.2-4.4M each. At ×5 an 8% roll paid up to six legendary profession chests.
+4. **An earlier proposal to cut every cache 10-50× is withdrawn.** It used an invented exchange rate.
+
+**Evidence:** Director, 2026-10-28: "Well not all items are sold in the shop just because they have a shop price. If they are craftable they do not appear in the shop at all and instead should be priced on the cumulative value of their materials. I quite liked the numbers I had before, were they too rewarding?", then "Yes, they're mostly gated by obtaining a chart, which is like finding a treasure map. I want the treasure to be worthwhile."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3a.
