@@ -4057,3 +4057,29 @@ The text is generated from the cache weights and enforced by `scripts/skyglass_c
 **Evidence:** Director, 2026-10-29: "Cut ryo from everything but watch, 1m ryo from watch." This answered the ladder proposal.
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4a.
+
+## RUL-2026-10-29-035 — S-rank profession charts; chest content fixes
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE. Supersedes the per-win profession drops in shared hunts (RUL-2026-10-28-023 items 2-3) and the 4-tier chart proposal.
+
+**Ruling:**
+1. **Shared hunts carry no profession drops.**
+2. **Only S-rank profession charts exist:** one hunter's chart and one gatherer's chart.
+   - Each is gated by S rank in its profession.
+   - Each pays the old S-rank Ghost Ship hunting/gathering quests' chest tables, so professionals' rewards stay the same.
+   - The charts drop for everyone and are tradeable.
+3. **Chest content fixes:**
+   - The Common Gatherer's Chest swaps Rust Ferret Pelt for Copper Ore.
+   - Frostbite Leaf is removed.
+   - Contents are weighted by recipe demand.
+   - Imperial Gold is not added.
+   - Heart of Kaeruun is excluded, because it has a pyramid source.
+4. **The chests' rarity still matches their contents.**
+
+**Evidence:** Director, 2026-10-29: "1. Yes 2. No 3. Yes 4. Yes 5. It has a pyramid as a source already, exclude. Honestly, I kind of like having just S-rank profession charts drop, as a callback to how it started and to keep hunters/gatherers rewards the same."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4b.
