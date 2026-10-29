@@ -3891,3 +3891,38 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "Fighting 'the deck' seems weird. Decks arent sentient. Need a different enemy in its place maybe? ... Definitely can make it tanker so theres a choice." Then: "Just pick the right terrains for now, we'll worry about that later."
 
 **Canonical destination:** `docs/design/SKYGLASS_WRECK_ENCOUNTERS.md`, `docs/design/SKYGLASS_BOSS_FIGHTS.md` §8.
+
+## RUL-2026-10-28-028 — Quality pass: existing SFX, intro quest, consistency check, tier looks, battle text, fight rules, Proving Ground, stakes lines
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass presentation and release quality
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Sound uses only the 16 existing SFX assets.** The mapping is in Boss Fights §10. New audio needs separate approval.
+2. **"Wreck Sighted" intro quest:** a one-time free quest that grants the first Tide Chart, explains charts, pressing on and carried HP, and points to the Wreck.
+3. **A consistency check runs before push/319.** It compares manifests against loot tables §4a, chest weights against their descriptions, player text against the banned-word list, and rarity against tier. This is repository tooling, so it goes on a `fable/*` branch with review (Lane A).
+4. **One rarity and seal colour per tier:**
+
+   | Tier | Rarity | Seal colour |
+   |---|---|---|
+   | Common charts | Common | plain |
+   | Hunt charts | Rare | cyan |
+   | Rare charts | Epic | gold |
+   | Tainted charts | Legendary | rot-green |
+
+   Chests take their tier the same way.
+5. **Battle text for shared and library jutsu follows the house style used for the rest of our jutsu:** action first, what the user is doing.
+6. **Every fight follows the same rules:**
+   - A mark resolves on the following turn, never the same turn.
+   - Every phase change gets a one-line battle cue.
+   - Every burst window uses the same tile.
+7. **"Proving Ground":** a hidden test-play quest for the director, with each boss and the minor marks, run before release.
+8. **Every run's description opens with a two-line stakes summary:** the chart is spent at entry, HP carries, a lost fight ends the run, and what pressing on risks.
+9. **No retirement checklist is needed.** The old Ghost Ship content is already hidden.
+
+**Evidence:** Director, 2026-10-28: "1. Sound effects need separate approval, lets just pick from whats available. 2. Yep, approved. 3. Approved. 4. Approved 5. Just write these like the rest of the jutsu we wrote. Action first, what the user is doing etc 6. Approved 7. Approved 8. Approved. 9. Its already hidden so should be fine".
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §10; `docs/design/SKYGLASS_LOOT_TABLES.md` §0.
