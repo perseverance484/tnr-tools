@@ -1,6 +1,6 @@
 # The Haul: profession-themed push-your-luck charts
 
-**Update (RUL-2026-10-29-052):** the Haul is open to **every player**. There is no S-rank gate. Hunter and gatherer pages are themes, not requirements, and the rest of this doc applies as written.
+**Update (RUL-2026-10-29-052):** the Haul is open to **every player**. There is no S-rank gate. Hunter and gatherer pages are themes, not requirements. Page drop rates are endgame Wreck 2% and hunt endings 1.25% per page (RUL-2026-10-29-053). The rest of this doc applies as written.
 
 **Status:** APPROVED direction (RUL-2026-10-29-037). Numbers are harness targets until the simulator rounds return.
 

@@ -322,7 +322,7 @@ Engine (theninjarpg upstream `3314d122`, after the 2af4b320 pin):
   - Rare: Yuki's Frostbite.
   - More skins can be added in later weekends without new tokens.
 
-**Trophy tokens** (one skin each: `variantId` set, and the skin's `requiredItemId` is the trophy itself)
+**Trophy tokens** (one skin each: `variantId` set, and the skin's `requiredItemId` is the token itself). Player-facing name: **variants**, never "trophies" (RUL-2026-10-29-053).
 
 | Boss | Trophy skin | Base | Source | Tradeable |
 |---|---|---|---|---|
