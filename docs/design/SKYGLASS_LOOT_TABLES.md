@@ -50,7 +50,7 @@ Descriptions are generated from the same tables the caches are built from, so th
 | Common charts as picks | Watch Roster, Tide Chart, Chart of the Drowned Foundry (§4a) | Low Tide Run, Night Watch and Buried Cache picks (RUL-2026-10-29-042) |
 | Galley Stores | pet experience (§5b) | Easy Wreck clear 10%; Low Tide Run, Night Watch, Buried Cache and Foundry picks; The Fall pick (×3); chest of chests Rare |
 | Skyglass Token | unlocks any one Skyglass skin (§5d) | Archive, Watch, Sealed Reliquary and The Fall picks; chest of chests Legendary; Crown's Hoard (RUL-2026-10-29-049) |
-| Trophy tokens | each unlocks one boss skin (§5d) | the Wreck bosses (once per player); chart and hunt bosses (1% hunts, 2% rares, 4% tainted); the Crownbreaker achievement |
+| Trophy tokens | each unlocks one boss skin (§5d) | the Wreck bosses (once per player); chart and hunt bosses (1% hunts, 2% rares, 4% tainted); Walked Every Deck (Crownbreaker) |
 | The Little Horror's Jar | the event's one pet (§5b) | endgame Wreck clear, once per player (proposed 5%) |
 | Crown's Hoard | opens the Skyglass Coffer and Sealed Treasury caches together, plus a Skyglass Token (RUL-2026-10-28-013, -049) | Crownhold pick |
 | Core Rot | steeping reagent (§5) | Endgame Wreck clears, the common runs, the Core Horror's hunt runs, breaking the seal, a failed rare run (§5) |
@@ -259,7 +259,7 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 - Breaking the seal: Core Rot ×2, guaranteed.
 - A failed rare-chart run: 1 Core Rot as consolation (RUL-2026-10-28-019).
 
-**Titles: deferred** (RUL-2026-10-29-041). The run titles and Walked Every Deck are kept in git history for a later update. Trophies return as skin tokens (§5d, RUL-2026-10-29-047).
+**Titles: deferred** (RUL-2026-10-29-041). The run titles are kept in git history for a later update; Walked Every Deck returns with the Crownbreaker trophy (§5c). Trophies return as skin tokens (§5d, RUL-2026-10-29-047).
 
 **New art**
 - 4 chart icons.
@@ -288,9 +288,15 @@ Engine facts (theninjarpg source):
 - 1 jar icon;
 - the Galley Stores icon.
 
-## 5c. Completion achievement: deferred (RUL-2026-10-29-041)
+## 5c. Completion achievement: Walked Every Deck (RUL-2026-10-28-020, revived by RUL-2026-10-29-051)
 
-**Walked Every Deck** (RUL-2026-10-28-020) is deferred with the titles, because its reward was a title. The design is kept: a one-time quest that completes on clearing every chart run, using `complete_specific_quest` objectives.
+**Walked Every Deck** is a one-time achievement quest. It completes when a player has cleared every chart run, using `complete_specific_quest` objectives:
+- Low Tide Run, Night Watch, Buried Cache;
+- Drowned Foundry, Quarantined Archive, Captain's Watch;
+- Sealed Reliquary, The Fall, both tainted runs;
+- Crownhold.
+
+**Reward:** the untradeable **Crownbreaker** trophy token. It replaces the deferred title reward. Achievements complete once per player, so a duplicate is impossible.
 
 ## 5d. Skins: Skyglass Tokens and trophy tokens (RUL-2026-10-29-047 … -049)
 
@@ -326,7 +332,7 @@ Engine (theninjarpg upstream `3314d122`, after the 2af4b320 pin):
 | Wayfinder | Wayfinder's Heading | Stormrender | his runs: 1% hunts, 2% rares, 4% tainted | yes |
 | First Blade | The First Blade | Aetherion | 2% rares, 4% tainted | yes |
 | Sealwright | Sealwright's Seal | Whispering Dawnblade | his runs: 1% hunts, 2% rares, 4% tainted | yes |
-| Crowned Captain | Crownbreaker | Thornsilver | the one-time **Crownbreaker** achievement: first Crownhold clear (RUL-2026-10-29-050) | no |
+| Crowned Captain | Crownbreaker | Thornsilver | the **Walked Every Deck** achievement (RUL-2026-10-29-051) | no |
 
 **Art rule:** a skin keeps its base weapon's silhouette, with skyglass as inlay and accents. The Skyglass Katana stays the only all-crystal blade.
 
