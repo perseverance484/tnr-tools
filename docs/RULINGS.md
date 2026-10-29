@@ -4007,6 +4007,8 @@ The text is generated from the cache weights and enforced by `scripts/skyglass_c
    This gives phase 2 a couple more rounds.
 3. **One turn holds all three: the first mark, Raise the Gunwale and the transition jutsu** (100 AP split between them; the Gunwale's AP is ours to set). Battle Trance follows normally on a later turn. Director refinement: "Fit the mark, the gunwale and the transition jutsu into 1 turn. Then follow up with battle trance normally".
 
+4. **Phase 2 lasts at least 6-7 rounds (median).** Director: "The captain dies a little too fast, I want him to last at least 6-7 rounds in phase 2". Tuned with his HP and the transition defence, keeping the wave at about 18-20% wipes.
+
 **Evidence:** Director, 2026-10-28: "Lay the first mark on the transition turn and fit in a transition jutsu : cleanse(0 rounds, instant), 40% DR, 40% absorb, clear prevent, rest for 2 rounds. This should give his 2nd phase a couple more rounds."
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §1; harness `fable/skyglass-wreck-sim`.
