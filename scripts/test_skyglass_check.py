@@ -114,6 +114,10 @@ class TempRoot(unittest.TestCase):
             json.dump(ids, fh)
         self.assertEqual(sc.Design(self.tmp).ids["crownhold_badge"], "BADGE123")
 
+    def test_tier_colour_change_in_section_0_is_caught(self):
+        self.edit(sc.LOOT, '<span style="color:#3b82f6"><b>Rare', '<span style="color:#2563eb"><b>Rare')
+        self.assertTrue(any(f.field == "TIER_COLOURS" and "Rare" in f.msg for f in self.design_errors()))
+
     def test_missing_never_use_line_is_caught(self):
         self.edit(sc.BIBLE, "- **Never use:**", "- **Avoid:**")
         self.assertTrue(any(f.field == "doc_marker" for f in self.design_errors()))
@@ -146,10 +150,11 @@ class Fixtures(unittest.TestCase):
         self.assertTrue(any("reward_exp=500" in m for m in w))
         self.assertTrue(any("data.effects[0].reward_gathering_items_ids" in m for m in w))
         c = msgs("fail_chest_text.json")
-        self.assertTrue(any("stated 70% but the cache weight is 69%" in m for m in c))
-        self.assertTrue(any("Mythic 1%" in m for m in c))
-        self.assertTrue(any("150,000 ryo" in m for m in c))
-        self.assertTrue(any("'3 rolls 60%'" in m for m in c))
+        for want in ("stated 70% but the cache weight is 69%", "'Rare' is coloured #f59e0b", "'Epic' lists 'Sealed Treasury'",
+                     "tier line for 'Mythic'", "outside the coloured tier-line format", "but the item has no fixed reward",
+                     "needs '<b>Always:</b> 150,000 ryo'", "needs a roll line '3–6 rolls'", "and more'",
+                     "same-named tiers share one", "no tier line for 'Legendary'"):
+            self.assertTrue(any(want in m for m in c), (want, c))
         v = msgs("fail_voice.json")
         self.assertTrue(any("'system'" in m for m in v) and any("seven-bladed" in m for m in v))
         t = msgs("fail_chart_tier.json")
@@ -165,8 +170,31 @@ class Units(unittest.TestCase):
         self.assertEqual(sc.pct_text(6900), "69")
         self.assertEqual(sc.pct_text(250), "3")      # 2.5 rounds half up
         self.assertEqual(sc.pct_text(10000), "100")
-        self.assertEqual(sc.pct_text(50), "0.5")
+        self.assertEqual(sc.pct_text(50), "1")       # whole percent only (RUL-2026-10-28-030)
+        self.assertEqual(sc.pct_text(49), "0")
         self.assertEqual(sc.pct_text(100), "1")
+
+    def test_tier_items_text(self):
+        names = {"a": "Alpha", "b": "Beta", "c": "Gamma", "d": "Delta"}
+        e = lambda *xs: {"items": [{"itemId": i, "quantity": q} for i, q in xs]}
+        self.assertEqual(sc.tier_items_text([e(("a", 1))], names), "Alpha")
+        self.assertEqual(sc.tier_items_text([e(("a", 3)), e(("b", 1))], names), "Alpha ×3 or Beta")
+        self.assertEqual(sc.tier_items_text([e(("a", 1)), e(("b", 1)), e(("c", 1)), e(("d", 1))], names),
+                         "Alpha or Beta or Gamma and more")
+        self.assertEqual(sc.tier_items_text([e(("a", 1), ("b", 2))], names), "Alpha + Beta ×2")
+        self.assertIsNone(sc.tier_items_text([e(("zz", 1))], names))
+        self.assertEqual(sc.norm_items("Alpha <i>or</i> Beta <i>or</i> Gamma, and more"), "Alpha or Beta or Gamma and more")
+
+    def test_fixed_roll_line_is_not_required_and_only_warned(self):
+        d = sc.Design(ROOT)
+        with open(os.path.join(FIX, "pass.json"), encoding="utf-8") as fh:
+            fx = json.load(fh)
+        coffer = next(it for it in fx["items"] if it["name"] == "Skyglass Coffer: text")
+        self.assertNotIn("roll", coffer["data"]["description"].replace("Each roll", ""))
+        coffer["data"]["description"] = coffer["data"]["description"].replace("<br><br>", "<br><i>1 roll.</i><br>", 1)
+        ch = sc.Checker(d)
+        ch.run("m.json", {"items": [coffer]}, True)
+        self.assertEqual([(f.level, f.check) for f in ch.findings], [("WARN", "chest-text")])
 
     def test_cards_follow_the_engine(self):
         cards, unresolved = sc.reward_cards({

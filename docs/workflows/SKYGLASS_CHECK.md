@@ -41,7 +41,7 @@ the record exists, put its id in the design data (with the file that holds it) a
 | `design` | the design data still matches its prose sources; every id is still in the file it cites | below |
 | `picks` | each known run's `rewardMode` is `choose`, `rewardPickCount` matches, and the option cards are exactly the design's options; a retired record (the Armory Requisition) may only be hidden | loot tables §4a; RUL-2026-10-28-016 |
 | `win-only` | (a) a `start_battle` / `defeat_opponents` objective carries no reward field with a value except `reward_hunter_items(_ids)` / `reward_gathering_items(_ids)`; (b) anywhere in any manifest (quests, objectives, packages, item effects) a profession flag that is `true` has a non-empty id list | RUL-2026-10-28-022, -023 |
-| `chest-text` | every item with a `noncombatconsumereward` weighted cache states its rates, rolls and fixed rewards (convention below) | loot tables §0 |
+| `chest-text` | every item with a `noncombatconsumereward` weighted cache follows the coloured tier-line format, with `Always:` for fixed rewards and a roll line only when the count varies (below) | loot tables §0; RUL-2026-10-28-030 |
 | `voice` | player-facing text has none of the story bible's "Never use" words (whole word, any case) and no "seven-bladed" | story bible, Voice |
 | `chart-tier` | chart rarity matches its tier | RUL-2026-10-28-028 item 4 |
 | `prof-chest` | an edited profession chest has the rarity and hunt/gather flag of §4b; a hunt's profession id lists hold only that profession's chests of the area's tier | loot tables §4b; RUL-2026-10-28-023 |
@@ -63,35 +63,49 @@ asset records and the manifest's own item labels are not player-facing and are n
 the story bible at run time, so editing the bible's "Never use" line changes the check; words match whole, without
 inflection (`lift` matches "lift", not "lifts").
 
-## Chest description convention (loot tables §0)
+## Chest description format (RUL-2026-10-28-030, loot tables §0)
 
-Every item whose effects include a `noncombatconsumereward` with `rewardMode: "weightedCache"` must send its
-`description` in the same edit (an edit that sets the cache without the text fails: the live text could not be shown to
-match). The description may open with story voice and the explanation §0 asks for; somewhere in it, it must state:
+The format of record is the HTML template in loot tables §0; this is how the checker reads it. Every item whose effects
+include a `noncombatconsumereward` with `rewardMode: "weightedCache"` must send its `description` in the same edit (an
+edit that sets the cache without the text fails: the live text could not be shown to match). The description is split
+into lines on `<br>`; the story line and `<b>Each roll:</b>` are free text and not checked.
 
-1. **Each tier and its chance:** `<Tier name> <p>%`, using the tier names of the cache. Tiers that share a name are
-   stated once with their summed chance (the Archive Chart Case's two Legendary tiers, 3 + 5, read `Legendary 8%`).
-   Zero-weight tiers are left out. No other `Common/Uncommon/Rare/Epic/Legendary/Mythic <n>%` may appear.
-2. **The rolls:** one fixed count is `<n> roll` / `<n> rolls` (digits), and no other roll count may be mentioned; a
-   distribution states every count with its chance, `<n> rolls <p>%`.
-3. **Fixed rewards** (any other `noncombatconsumereward` effect on the item, paid on every opening): ryo as
-   `<amount with thousands commas> ryo`, exp as `<amount> exp`, items as `<item name> ×<quantity>` (`x` accepted).
-   An item whose name is not known to the repository (design data, `answers/names_item.json`, or a named item in the
-   same manifest) is a warning.
+1. **One coloured tier line per tier**, matched exactly as
+   `<span style="color:#xxxxxx"><b>{Tier} {p}%</b></span> · {items}`:
+   - colour by tier name: Common `#9ca3af` (grey), Rare `#3b82f6` (blue), Epic `#a855f7` (purple), Legendary
+     `#f59e0b` (gold); a tier with any other name has no colour and fails;
+   - `{p}` is the tier's weight in whole percent, rounded half up (weights are basis points, 10000 = 100%); tiers that
+     share a name are summed and get one line (the Archive Chart Case's two Legendary tiers, 3 + 5, read
+     `Legendary 8%`); zero-weight tiers get no line;
+   - `{items}` lists the tier's entries in cache order, joined with ` <i>or</i> ` or ` or `; past three entries, the
+     first three then ` and more` (`, and more` accepted). An item reads `Name`, or `Name ×n` when the quantity is above
+     1. An entry that bundles several items joins them with ` + ` (the ruling does not cover bundles; this is the
+     checker's reading). Tags inside the list are ignored when comparing. An item whose name the repository does not
+     know (design data, `answers/names_item.json`, or a named item in the same manifest) makes that tier's list a
+     warning instead of a check;
+   - no line may name a tier the cache lacks, and a tier rate written outside this format (e.g. a plain
+     `Legendary 2%`) fails.
+2. **`<b>Always:</b> …`** appears if and only if the item has a fixed reward (another `noncombatconsumereward` effect,
+   paid on every opening). It must state each one: ryo as `150,000 ryo`, exp as `5,000 exp`, items as `Name` /
+   `Name ×n`.
+3. **A roll line** is required only when the roll count varies: `<min>–<max> rolls` (an ASCII hyphen is accepted),
+   e.g. `<i>3–6 rolls.</i>`. A fixed roll count is not required, because the item card already shows the cache's roll
+   odds; a roll line on a fixed-count cache is a warning (§0: "not repeated").
 
-**Percentages:** cache weights are basis points (10000 = 100%). The stated value is the exact percentage rounded half
-up to a whole number, or to one decimal below 1% (`50` → `0.5%`). Only that canonical form passes.
+Example (the Sealed Treasury shape):
 
-Separators are free; the house style is the middle dot. Examples:
-
-```text
-A sealed coffer from the Core's own stores. 1 roll: Common 69% · Rare 24% · Epic 5% · Legendary 2%.
-
-Crownhold's own coffers. Every opening pays 150,000 ryo, then 3 rolls 60% · 4 rolls 30% · 6 rolls 10% of:
-Common 45% · Rare 35% · Epic 15% · Legendary 5%.
+```html
+<i>Crownhold's own coffers.</i><br><br>
+<b>Always:</b> 150,000 ryo<br>
+<i>3–6 rolls.</i><br>
+<b>Each roll:</b><br>
+<span style="color:#9ca3af"><b>Common 45%</b></span> · Imperial Gold ×5<br>
+<span style="color:#3b82f6"><b>Rare 35%</b></span> · Rare Jewels ×10<br>
+<span style="color:#a855f7"><b>Epic 15%</b></span> · Imperial Gold ×15<br>
+<span style="color:#f59e0b"><b>Legendary 5%</b></span> · Unobtanium ×5
 ```
 
-This convention is the checker's machine-readable reading of §0; the wording around the rates stays the director's.
+The rendering itself is checked on the director's phone through a hidden test item (§0); this tool checks the text only.
 
 ## The design data
 
@@ -105,6 +119,7 @@ This convention is the checker's machine-readable reading of §0; the wording ar
 | `profession_chests` | loot tables §4b; chest ids from `answers/names_item.json` | each area stores its §4b row prefix verbatim |
 | `retired` | RUL-2026-10-28-016 item 3 | ids checked in their source files |
 | `voice` | story bible "Never use" line | parsed at run time; only the extra "seven-bladed" phrase lives in the data |
+| tier colours (in the script, `TIER_COLOURS`) | loot tables §0 template (RUL-2026-10-28-030) | each colour/tier pair must still appear in §0's template |
 
 Interpretations made while deriving (attack these in review):
 - Low Tide Run "Pouch" = the Elemental Tool Pouch (the single pouch, RUL-2026-10-28-003); "Inro" = Medicine Inro.

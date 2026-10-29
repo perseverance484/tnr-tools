@@ -134,7 +134,7 @@
    "targetId": "THo7rfzP-S82_43aN8fs3",
    "name": "Skyglass Coffer: text",
    "data": {
-    "description": "A sealed coffer from the Core's own stores. 1 roll: Common 69% · Rare 24% · Epic 5% · Legendary 2%.",
+    "description": "<i>A sealed coffer from the Core's own stores.</i><br><br><b>Each roll:</b><br><span style=\"color:#9ca3af\"><b>Common 69%</b></span> · Medicine Inro ×2<br><span style=\"color:#3b82f6\"><b>Rare 24%</b></span> · Elemental Tool Pouch ×3<br><span style=\"color:#a855f7\"><b>Epic 5%</b></span> · Archive Chart Case<br><span style=\"color:#f59e0b\"><b>Legendary 2%</b></span> · Sealed Treasury",
     "effects": [
      {
       "type": "noncombatconsumereward",
@@ -159,8 +159,8 @@
           {
            "items": [
             {
-             "itemId": "THo7rfzP-S82_43aN8fs3",
-             "quantity": 1
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
+             "quantity": 2
             }
            ]
           }
@@ -173,8 +173,8 @@
           {
            "items": [
             {
-             "itemId": "THo7rfzP-S82_43aN8fs3",
-             "quantity": 1
+             "itemId": "D0gtI5dOgj2dFO4VexsLJ",
+             "quantity": 3
             }
            ]
           }
@@ -187,7 +187,7 @@
           {
            "items": [
             {
-             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "itemId": "B48dTRsoLJGKBWIUbeUoG",
              "quantity": 1
             }
            ]
@@ -201,7 +201,7 @@
           {
            "items": [
             {
-             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "itemId": "Ma8S90Nmbi0Xvm4u4FzJh",
              "quantity": 1
             }
            ]
@@ -220,7 +220,7 @@
    "targetId": "Ma8S90Nmbi0Xvm4u4FzJh",
    "name": "Sealed Treasury: text",
    "data": {
-    "description": "Crownhold's own coffers. Every opening pays 150,000 ryo, then 3 rolls 60% · 4 rolls 30% · 6 rolls 10% of: Common 45% · Rare 35% · Epic 15% · Legendary 5%.",
+    "description": "<i>Crownhold's own coffers.</i><br><br><b>Always:</b> 150,000 ryo<br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style=\"color:#9ca3af\"><b>Common 45%</b></span> · Medicine Inro <i>or</i> Elemental Tool Pouch <i>or</i> Archive Chart Case and more<br><span style=\"color:#3b82f6\"><b>Rare 35%</b></span> · Medicine Inro ×2 or Elemental Tool Pouch ×2<br><span style=\"color:#a855f7\"><b>Epic 15%</b></span> · Archive Chart Case ×5 <i>or</i> Skyglass Coffer + Medicine Inro<br><span style=\"color:#f59e0b\"><b>Legendary 5%</b></span> · Skyglass Coffer ×5",
     "effects": [
      {
       "type": "noncombatconsumereward",
@@ -259,6 +259,30 @@
           {
            "items": [
             {
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
+             "quantity": 1
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "D0gtI5dOgj2dFO4VexsLJ",
+             "quantity": 1
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "B48dTRsoLJGKBWIUbeUoG",
+             "quantity": 1
+            }
+           ]
+          },
+          {
+           "items": [
+            {
              "itemId": "THo7rfzP-S82_43aN8fs3",
              "quantity": 1
             }
@@ -273,8 +297,16 @@
           {
            "items": [
             {
-             "itemId": "THo7rfzP-S82_43aN8fs3",
-             "quantity": 1
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
+             "quantity": 2
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "D0gtI5dOgj2dFO4VexsLJ",
+             "quantity": 2
             }
            ]
           }
@@ -282,12 +314,30 @@
         },
         {
          "name": "Epic",
-         "probability": 1500,
+         "probability": 1000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "B48dTRsoLJGKBWIUbeUoG",
+             "quantity": 5
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 500,
          "entries": [
           {
            "items": [
             {
              "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            },
+            {
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
              "quantity": 1
             }
            ]
@@ -302,7 +352,7 @@
            "items": [
             {
              "itemId": "THo7rfzP-S82_43aN8fs3",
-             "quantity": 1
+             "quantity": 5
             }
            ]
           }
