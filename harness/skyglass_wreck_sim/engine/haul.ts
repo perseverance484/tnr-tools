@@ -1,13 +1,14 @@
 /**
- * The Haul (docs/design/SKYGLASS_THE_HAUL.md; RUL-2026-10-29-037, variety RUL-2026-10-29-038): the S-rank profession
- * push-your-luck charts, 3 layout pages per profession, steeping modifiers, locker bonus chances.
+ * The Haul (docs/design/SKYGLASS_THE_HAUL.md; RUL-2026-10-29-037, variety -038, simulator rulings -044): the S-rank
+ * profession push-your-luck charts, 3 layout pages per profession, steeping modifiers.
  *
- * - Up to 5 steps. At each step: Crate (base tier, crew fight), Locker (+1 tier, elite + crew, one hazard for the first
- *   rounds; + a bonus chest of the same tier at bonusChance %), Cut through (-1 tier, min Common, no fight now, a
- *   lingering hazard on the next fight), or Leave.
- * - Alertness = lockers opened (never falls): 0 as built; 1-2 one more crew guard + 1 starting hazard; 3+ the Arsenal
- *   Keeper / Sealwright echo joins the elite (locker) fights + 2 starting hazards.
+ * - Up to 5 steps. At each step: Crate (crew fight), Locker (elite + crew, one hazard for the first 2 rounds, more
+ *   points), Cut through (fewer points, no fight now, a lingering hazard on the next fight, which must be fought), or Leave.
+ * - Alertness = lockers opened (never falls): 0 as built; 1-2 one more crew guard (while a fight has < maxGuards) + 1
+ *   starting hazard; 3+ the Arsenal Keeper / Sealwright echo joins locker fights; alert3 sets its extra hazards.
  * - Health and chakra carry between fights; any lost fight fails the run; the haul pays only at a win ending.
+ * - Payout (-044): each choice adds haul points; the run pays the profession ladder's highest rung its points reach
+ *   (guaranteed chests). Points are order-free, which keeps every quest under ~90 objectives.
  *
  * Pure data (no engine run): params, hazard tags (questDebuffTypes only), the fight for each graph state, and the
  * quest state-graph generator (`buildGraph`) whose JSON feeds the quest generator later.
@@ -63,8 +64,12 @@ export type LayoutP = {
   alertHazards?: string[];
   /** Cut-through hazard by the step it was cut at: [odd step, even step]. */
   cutHazards: string[];
-  /** Base tier index by step (0 C .. 3 L); lockers +lockerUp (per step if an array), cuts -cutDown. */
-  tiers: { base: number[]; lockerUp: number | number[]; cutDown: number | number[] };
+  /**
+   * Haul points (millions of chest value) a step adds: a crate adds step[s-1], a locker step[s-1] + locker, a cut
+   * step[s-1] - cut[s-1]. The run pays the quest's ladder bundle for its total (RUL-2026-10-29-044: guaranteed chests,
+   * the quest stays small; points are order-free, so the graph state is (step, alertness, pending cut, points)).
+   */
+  points: { step: number[]; locker: number; cut: number[] };
   /** Steps offering a locker. */
   lockerSteps: number[];
   /**
@@ -74,14 +79,16 @@ export type LayoutP = {
   cutSteps?: number[];
   /** Hazard strength multipliers: every hazard / the cut-through hazard only. Rounds: added to the defaults. */
   hazardMult: number; cutMult: number; roundsAdd?: { locker?: number; alert?: number; cut?: number };
-  bonusChance?: number;
 };
+/** One rung of a quest's payout ladder: guaranteed chests, plus optional bonus chests at a chance (%). */
+export type Rung = { chests: Tier[]; bonus?: { tier: Tier; chance: number }[] };
 export type ModP = {
   name: string; effect: string;
   /** Rot-Sealed Page cache weight (relative). */
   weight: number;
   hazardMult?: number; tierShift?: number; floodRounds?: number; lockerNoHazard?: boolean; startAlert?: number;
-  legendaryLockerFrom?: number;
+  /** Alarmed: lockers are offered from this step on every page; every locker adds `lockerPts` more points (order-free, so the graph stays small). */
+  legendaryLockerFrom?: number; lockerPts?: number;
   /** Picked clean: guard compositions taken from `easier` steps earlier (min step 1); no crate / alertness hazards. */
   easier?: number;
   /** Proposed steeping premium: every chest of the haul also carries a bonus chest of its tier at this chance (%). */
@@ -101,10 +108,12 @@ export type HaulParams = {
   cutRule: "as-written" | "must-fight-next";
   /** Alertness adds its crew guard only while a fight has fewer guards than this (hazard AIs not counted). */
   maxGuards: number;
-  /** Drop chance (%) of every haul chest at the ending (design: 100). */
+  /** Drop chance (%) of every haul chest at the ending (RUL-2026-10-29-044: 100, guaranteed). */
   chestChance: number;
-  /** Locker bonus chest of the same tier, drop chance (%), unless the layout sets its own. */
-  bonusChance: number;
+  /** Payout ladder per profession, ascending; a run pays the highest rung whose value is <= its points (else the lowest). */
+  ladder: Record<Quest, Rung[]>;
+  /** Alertness 3+ (RUL-2026-10-29-044 item 2, softened): extra hazards on crates / on lockers (the Keeper still joins lockers). */
+  alert3: { crateHazards: number; lockerHazards: number };
   layouts: Record<string, LayoutP>;
   modifiers: Record<string, ModP>;
 };
@@ -121,18 +130,18 @@ export const DEFAULT_HAUL: HaulParams = {
     "h-wayfinder": { src: LIVE.wayfinder, name: "Wayfinder", stats: 3, pools: 1, rows: 2, taken: 100, givenDown: 40, role: "hunter crew", rules: "shared" },
     "h-blade": { src: LIVE.blade, name: "First Blade", stats: 3, pools: 1, rows: 2, taken: 100, givenDown: 40, role: "hunter crew", rules: "shared" },
     "h-warden": { src: LIVE.warden, name: "Deck Warden", stats: 3, pools: 1, rows: 2, taken: 100, givenDown: 40, role: "hunter crew", rules: "shared" },
-    "h-veteran": { src: LIVE.blade, name: "First Blade (veteran)", stats: 3, pools: 1.4, rows: 3, taken: 100, role: "hunter crew, steps 4-5 (the crew scaled to the step)", rules: "shared" },
+    "h-veteran": { src: LIVE.blade, name: "First Blade (veteran)", stats: 3, pools: 1.2, rows: 3, taken: 100, role: "hunter crew, steps 4-5 (the crew scaled to the step)", rules: "shared" },
     "h-lookout": { src: LIVE.warden, name: "Deck Warden (lookout)", stats: 3, pools: 1, rows: 0, taken: 100, givenDown: 30, role: "hunter alertness crew", rules: "shared" },
-    "trophy-warden": { src: "0PZU_FvlbM3ErYGlD5r56", name: "Trophy Warden", stats: 4, pools: 1.5, rows: 2, role: "hunter elite (Oathkeeper copy)", setPiece: "ring" },
+    "trophy-warden": { src: "0PZU_FvlbM3ErYGlD5r56", name: "Trophy Warden", stats: 4, pools: 1.2, rows: 2, role: "hunter elite (Oathkeeper copy)", setPiece: "ring" },
     "h-keeper": { src: LIVE.keeper, name: "Arsenal Keeper", stats: 5, pools: 1, rows: 0, role: "hunter alertness 3+ (joins locker fights)" },
     // Gatherers: stores crew with Seal Charges / Core Canisters, the Stores Ward (Crown Archivist copy), the Sealwright echo.
     "g-warden": { src: LIVE.warden, name: "Deck Warden", stats: 3, pools: 1, rows: 2, taken: 100, givenDown: 40, role: "gatherer crew", rules: "shared" },
     "g-sentinel": { src: LIVE.sentinel, name: "Skyglass Sentinel", stats: 3, pools: 1, rows: 2, taken: 100, givenDown: 40, role: "gatherer crew", rules: "shared" },
-    "g-veteran": { src: LIVE.sentinel, name: "Skyglass Sentinel (veteran)", stats: 3, pools: 1.4, rows: 3, taken: 100, role: "gatherer crew, steps 4-5 (the crew scaled to the step)", rules: "shared" },
+    "g-veteran": { src: LIVE.sentinel, name: "Skyglass Sentinel (veteran)", stats: 3, pools: 1.2, rows: 3, taken: 100, role: "gatherer crew, steps 4-5 (the crew scaled to the step)", rules: "shared" },
     "g-lookout": { src: LIVE.warden, name: "Deck Warden (lookout)", stats: 3, pools: 1, rows: 0, taken: 100, givenDown: 30, role: "gatherer alertness crew", rules: "shared" },
     "g-charge": { src: LIVE.charge, name: "Seal Charge", stats: 1, pools: 1, rows: 0, taken: 100, fuse: { adjacent: 0, round: 4 }, role: "gatherer hazard AI" },
     "g-canister": { src: LIVE.canister, name: "Core Canister", stats: 1, pools: 1, rows: 0, taken: 100, fuse: { adjacent: 0, round: 5 }, role: "gatherer hazard AI" },
-    "stores-ward": { src: LIVE.archivist, name: "Stores Ward", stats: 4, pools: 1.5, rows: 3, role: "gatherer elite (Crown Archivist copy)", setPiece: "sealLines" },
+    "stores-ward": { src: LIVE.archivist, name: "Stores Ward", stats: 4, pools: 1.2, rows: 3, role: "gatherer elite (Crown Archivist copy)", setPiece: "sealLines" },
     "g-sealwright": { src: LIVE.sealwright, name: "Sealwright's Echo", stats: 5, pools: 1, rows: 0, role: "gatherer alertness 3+ (joins locker fights)" },
   },
   hazard: {
@@ -150,7 +159,11 @@ export const DEFAULT_HAUL: HaulParams = {
   cutRule: "must-fight-next",
   maxGuards: 2,
   chestChance: 100,
-  bonusChance: 20,
+  ladder: {
+    hunter: [{ chests: ["C"] }, { chests: ["R"] }, { chests: ["C", "C"] }, { chests: ["C", "R"] }, { chests: ["R", "R"] }, { chests: ["C", "L"] }, { chests: ["R", "L"] }, { chests: ["C", "R", "L"] }, { chests: ["L", "L"] }],
+    gatherer: [{ chests: ["C"] }, { chests: ["R"] }, { chests: ["C", "R"] }, { chests: ["R", "R"] }, { chests: ["L"] }, { chests: ["C", "L"] }, { chests: ["R", "L"] }, { chests: ["C", "R", "L"] }, { chests: ["L", "L"] }],
+  },
+  alert3: { crateHazards: 1, lockerHazards: 1 },
   layouts: {
     // ---------------- hunters ----------------
     trophy: {
@@ -158,10 +171,10 @@ export const DEFAULT_HAUL: HaulParams = {
       crate: [["h-blade", "h-wayfinder"], ["h-blade", "h-wayfinder"], ["h-blade", "h-wayfinder", "h-warden"], ["h-veteran", "h-wayfinder"], ["h-veteran", "h-wayfinder"]],
       locker: [["trophy-warden"], ["trophy-warden"], ["trophy-warden", "h-wayfinder"], ["trophy-warden", "h-veteran"], ["trophy-warden", "h-veteran"]],
       alertCrew: "h-lookout", alertBoss: "h-keeper",
-      hazards: ["wound", "poison", "moveprevent", "decreasemaxpools"], alertHazards: ["wound", "poison", "decreasemaxpools"],
+      hazards: ["wound", "poison", "moveprevent", "decreasemaxpools"], alertHazards: ["poison", "decreasemaxpools"],
       lockerHazards: ["wound", "poison", "decreasemaxpools", "wound", "poison"],
       cutHazards: ["wound", "wound"],
-      tiers: { base: [0, 0, 1, 2, 2], lockerUp: 1, cutDown: [1, 1, 1, 2, 1] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 2.5,
+      points: { step: [4.2, 1.6, 1.5, 2.4, 2.5], locker: 1.6, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 2.5,
     },
     bone: {
       // Lockers only at steps 1-3, two tiers up at steps 1-2 (Epic); the opening crates and lockers carry an extra guard.
@@ -169,22 +182,22 @@ export const DEFAULT_HAUL: HaulParams = {
       crate: [["h-blade", "h-wayfinder"], ["h-blade", "h-wayfinder"], ["h-blade", "h-wayfinder", "h-warden"], ["h-veteran", "h-wayfinder"], ["h-veteran", "h-wayfinder"]],
       locker: [["trophy-warden"], ["trophy-warden"], ["trophy-warden", "h-veteran"], ["trophy-warden", "h-veteran"], ["trophy-warden", "h-veteran"]],
       alertCrew: "h-lookout", alertBoss: "h-keeper",
-      hazards: ["wound", "poison", "moveprevent", "decreasemaxpools"], alertHazards: ["wound", "poison", "decreasemaxpools"],
+      hazards: ["wound", "poison", "moveprevent", "decreasemaxpools"], alertHazards: ["poison", "decreasemaxpools"],
       lockerHazards: ["poison", "wound", "decreasemaxpools", "wound", "poison"],
       cutHazards: ["wound", "wound"],
-      tiers: { base: [0, 0, 1, 2, 2], lockerUp: [2, 2, 1, 1, 1], cutDown: [1, 1, 1, 2, 1] }, lockerSteps: [1, 2, 3], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
+      points: { step: [4.2, 1.2, 1.2, 1.4, 2.0], locker: 2.1, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
     },
     snare: {
       // Every fight from step 2 carries a snare, hazards x1.25; cut-throughs from step 2 with a 2-round bleed, but they drop two tiers at steps 3-4.
       quest: "hunter", page: "The Snare Room", chart: "Ledger Page: The Snare Room", character: "heavy hazards, safe cut-throughs",
       crate: [["h-blade", "h-wayfinder"], ["h-blade", "h-wayfinder"], ["h-blade", "h-wayfinder", "h-warden"], ["h-veteran", "h-wayfinder"], ["h-veteran", "h-wayfinder"]],
-      locker: [["trophy-warden"], ["trophy-warden"], ["trophy-warden", "h-wayfinder"], ["trophy-warden", "h-veteran"], ["trophy-warden", "h-veteran"]],
+      locker: [["trophy-warden"], ["trophy-warden", "h-wayfinder"], ["trophy-warden", "h-wayfinder", "h-warden"], ["trophy-warden", "h-veteran"], ["trophy-warden", "h-veteran"]],
       alertCrew: "h-lookout", alertBoss: "h-keeper",
-      hazards: ["wound", "poison", "moveprevent", "decreasemaxpools"], alertHazards: ["wound", "poison", "decreasemaxpools"],
+      hazards: ["wound", "poison", "moveprevent", "decreasemaxpools"], alertHazards: ["poison", "decreasemaxpools"],
       lockerHazards: ["wound", "decreasemaxpools", "wound", "wound", "poison"],
       crateHazards: [null, "moveprevent", "wound", "poison", "decreasemaxpools"],
       cutHazards: ["wound", "wound"],
-      tiers: { base: [0, 0, 1, 2, 2], lockerUp: 1, cutDown: [1, 1, 2, 2, 1] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [2, 3, 4], hazardMult: 1.25, cutMult: 1.5,
+      points: { step: [4.2, 1.1, 2.3, 2.1, 2.2], locker: 3.1, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [2, 3, 4], hazardMult: 1.25, cutMult: 1.5,
       roundsAdd: { cut: -2 },
     },
     // ---------------- gatherers ----------------
@@ -193,10 +206,10 @@ export const DEFAULT_HAUL: HaulParams = {
       crate: [["g-warden", "g-sentinel", "g-charge"], ["g-warden", "g-sentinel", "g-charge"], ["g-sentinel", "g-warden", "g-charge"], ["g-veteran", "g-warden", "g-charge"], ["g-veteran", "g-warden", "g-charge"]],
       locker: [["stores-ward", "g-canister"], ["stores-ward", "g-canister"], ["stores-ward", "g-warden", "g-canister"], ["stores-ward", "g-veteran", "g-canister"], ["stores-ward", "g-veteran", "g-canister"]],
       alertCrew: "g-lookout", alertBoss: "g-sealwright",
-      hazards: ["elementalseal", "increasepoolcost", "decreasemaxpools", "afterburn"],
+      hazards: ["elementalseal", "increasepoolcost", "decreasemaxpools", "afterburn"], alertHazards: ["increasepoolcost", "decreasemaxpools", "afterburn"],
       lockerHazards: ["elementalseal", "increasepoolcost", "decreasemaxpools", "afterburn", "elementalseal"],
       cutHazards: ["elementalseal", "afterburn"],
-      tiers: { base: [0, 0, 1, 2, 2], lockerUp: 1, cutDown: [1, 1, 1, 2, 1] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
+      points: { step: [3.3, 1.4, 2.4, 2.9, 2.7], locker: 1.0, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
     },
     vault: {
       // Every locker fields an extra guard; a step-3 locker pays Legendary; locker bonus chance 40%.
@@ -204,10 +217,10 @@ export const DEFAULT_HAUL: HaulParams = {
       crate: [["g-warden", "g-sentinel", "g-charge"], ["g-warden", "g-sentinel", "g-charge"], ["g-sentinel", "g-warden", "g-charge"], ["g-veteran", "g-warden", "g-charge"], ["g-veteran", "g-warden", "g-charge"]],
       locker: [["stores-ward", "g-warden", "g-canister"], ["stores-ward", "g-warden", "g-canister"], ["stores-ward", "g-veteran", "g-canister"], ["stores-ward", "g-veteran", "g-warden", "g-canister"], ["stores-ward", "g-veteran", "g-warden", "g-canister"]],
       alertCrew: "g-lookout", alertBoss: "g-sealwright",
-      hazards: ["elementalseal", "increasepoolcost", "decreasemaxpools", "afterburn"],
+      hazards: ["elementalseal", "increasepoolcost", "decreasemaxpools", "afterburn"], alertHazards: ["increasepoolcost", "decreasemaxpools", "afterburn"],
       lockerHazards: ["increasepoolcost", "elementalseal", "afterburn", "decreasemaxpools", "increasepoolcost"],
       cutHazards: ["elementalseal", "afterburn"],
-      tiers: { base: [0, 0, 1, 2, 2], lockerUp: [1, 1, 2, 1, 1], cutDown: [1, 1, 1, 2, 1] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5, bonusChance: 40,
+      points: { step: [5.0, 1.1, 2.3, 2.2, 2.8], locker: 2.1, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
     },
     bloom: {
       // Dust on every crate, no multiplier; Common, Common, Rare, Rare, then a Legendary crate at step 5.
@@ -215,20 +228,20 @@ export const DEFAULT_HAUL: HaulParams = {
       crate: [["g-warden", "g-sentinel", "g-charge"], ["g-warden", "g-sentinel", "g-charge"], ["g-sentinel", "g-warden", "g-charge"], ["g-veteran", "g-warden", "g-charge"], ["g-veteran", "g-warden", "g-charge"]],
       locker: [["stores-ward", "g-canister"], ["stores-ward", "g-canister"], ["stores-ward", "g-warden", "g-canister"], ["stores-ward", "g-veteran", "g-canister"], ["stores-ward", "g-veteran", "g-canister"]],
       alertCrew: "g-lookout", alertBoss: "g-sealwright",
-      hazards: ["decreasemaxpools", "afterburn", "elementalseal", "increasepoolcost"],
+      hazards: ["decreasemaxpools", "afterburn", "elementalseal", "increasepoolcost"], alertHazards: ["decreasemaxpools", "afterburn", "increasepoolcost"],
       lockerHazards: ["decreasemaxpools", "afterburn", "elementalseal", "decreasemaxpools", "afterburn"],
       crateHazards: ["afterburn", "decreasemaxpools", "afterburn", "decreasemaxpools", "afterburn"],
       cutHazards: ["elementalseal", "afterburn"],
-      tiers: { base: [0, 0, 1, 1, 3], lockerUp: 1, cutDown: [1, 1, 1, 2, 1] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
+      points: { step: [3.8, 1.4, 2.1, 2.4, 4.1], locker: 1.1, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
     },
   },
   modifiers: {
     // Proposed steeping premium (all but Picked clean): every chest one tier higher and a 40% bonus chest of its tier.
     // Rot-soaked's own effect is the doubled hazards; Picked clean is the bad roll (easier, one tier lower, chests at 60%).
     // Weights are the Rot-Sealed Page cache weights.
-    rot: { name: "Rot-soaked", effect: "every hazard doubled; every chest one tier higher (+40% bonus chest)", weight: 30, hazardMult: 2, tierShift: 1, bonusAll: 40 },
-    flood: { name: "Flooded hold", effect: "moveprevent on the opening round of every fight; lockers carry no hazard; chests one tier higher (+40% bonus chest)", weight: 25, floodRounds: 1, lockerNoHazard: true, tierShift: 1, bonusAll: 40 },
-    alarmed: { name: "Alarmed", effect: "start at alertness 2; a Legendary locker from step 4; chests one tier higher (+40% bonus chest)", weight: 25, startAlert: 2, legendaryLockerFrom: 4, tierShift: 1, bonusAll: 40 },
+    rot: { name: "Rot-soaked", effect: "every hazard doubled; every chest one tier higher (+40% bonus chest each)", weight: 30, hazardMult: 2, tierShift: 1, bonusAll: 40 },
+    flood: { name: "Flooded hold", effect: "rooted (moveprevent) for the first 3 rounds of every fight; lockers carry no hazard; chests one tier higher (+40% bonus chest)", weight: 25, floodRounds: 3, lockerNoHazard: true, tierShift: 1, bonusAll: 40 },
+    alarmed: { name: "Alarmed", effect: "start at alertness 2; lockers offered at every step from 4 and worth more; chests one tier higher (+40% bonus chest each)", weight: 25, startAlert: 2, legendaryLockerFrom: 4, lockerPts: 1.5, tierShift: 1, bonusAll: 40 },
     picked: { name: "Picked clean", effect: "easier fights (the previous step's guards, no crate or alertness hazards); chests one tier lower, each at 60%", weight: 20, easier: 1, tierShift: -1, haulChance: 60 },
   },
 };
@@ -262,18 +275,37 @@ export const lockerOffered = (P: HaulParams, v: Variant, step: number) => {
   const m = modOf(P, v);
   return lay(P, v).lockerSteps.includes(step) || (m?.legendaryLockerFrom !== undefined && step >= m.legendaryLockerFrom);
 };
-export const tierOf = (P: HaulParams, v: Variant, step: number, c: Choice): Tier => {
-  const L = lay(P, v);
+/** Points a choice adds at `step`. */
+export const choicePoints = (P: HaulParams, v: Variant, step: number, c: Choice) => {
+  const Lp = lay(P, v).points;
   const m = modOf(P, v);
-  const b = L.tiers.base[step - 1]!;
-  const up = Array.isArray(L.tiers.lockerUp) ? L.tiers.lockerUp[step - 1]! : L.tiers.lockerUp;
-  const down = Array.isArray(L.tiers.cutDown) ? L.tiers.cutDown[step - 1]! : L.tiers.cutDown;
-  let t = c === "L" ? b + up : c === "X" ? b - down : b;
-  t = Math.max(0, Math.min(3, t));
-  if (c === "L" && m?.legendaryLockerFrom !== undefined && step >= m.legendaryLockerFrom) t = 3;
-  return TIERS[Math.max(0, Math.min(3, t + (m?.tierShift ?? 0)))]!;
+  const base = Lp.step[step - 1]!;
+  if (c === "X") return base - Lp.cut[step - 1]!;
+  if (c === "L") return base + Lp.locker + (m?.lockerPts ?? 0);
+  return base;
 };
-export const bonusOf = (P: HaulParams, v: Variant) => lay(P, v).bonusChance ?? P.bonusChance;
+export const chanceOf = (P: HaulParams, v: Variant) => modOf(P, v)?.haulChance ?? P.chestChance;
+/** A ladder rung as paid on this page: steeping tier shift, sealed-page bonus chests, chest chance. */
+export const rungEntries = (P: HaulParams, v: Variant, r: Rung) => {
+  const m = modOf(P, v);
+  const sh = (t: Tier) => TIERS[Math.max(0, Math.min(3, TIERS.indexOf(t) + (m?.tierShift ?? 0)))]!;
+  const chance = chanceOf(P, v);
+  const out: { tier: Tier; chance: number; why: string }[] = r.chests.map((t) => ({ tier: sh(t), chance, why: "haul" }));
+  for (const b of r.bonus ?? []) out.push({ tier: sh(b.tier), chance: Math.round(b.chance * chance) / 100, why: "bonus" });
+  if (m?.bonusAll) for (const t of r.chests) out.push({ tier: sh(t), chance: Math.round(m.bonusAll * chance) / 100, why: "sealed-page bonus" });
+  return out;
+};
+export const rungValue = (P: HaulParams, v: Variant, r: Rung) => rungEntries(P, v, r).reduce((s, e) => s + (VALUE[questOf(P, v)][e.tier] * e.chance) / 100, 0);
+/** The rung a points total pays: the highest whose base value (unmodified) is <= the points, else the lowest. */
+export const rungFor = (P: HaulParams, v: Variant, pts: number) => {
+  const q = questOf(P, v);
+  const lad = P.ladder[q];
+  const base = (r: Rung) => r.chests.reduce((s, t) => s + VALUE[q][t], 0) + (r.bonus ?? []).reduce((s, b) => s + (VALUE[q][b.tier] * b.chance) / 100, 0);
+  let k = 0;
+  lad.forEach((r, i) => { if (base(r) <= pts + 1e-9) k = i; });
+  return k;
+};
+export const rungName = (r: Rung) => [...r.chests, ...(r.bonus ?? []).map((b) => `${b.tier}@${b.chance}%`)].join("+");
 
 export type FightDef = { key: string; label: string; ids: string[]; debuffs: any[]; hazards: { key: string; type: string; rounds: number; mult: number; why: string }[] };
 
@@ -310,7 +342,7 @@ export const fightFor = (P: HaulParams, v: Variant, kind: "C" | "L", step: numbe
   // Alertness: +1 / +2 starting hazards, distinct from the ones already on this fight, in the layout's order from the step.
   const AH = L.alertHazards ?? L.hazards;
   if (!m?.easier)
-    for (let k = 0, n = 0; n < band && k < AH.length; k++) {
+    for (let k = 0, n = 0, want = band < 2 ? band : kind === "C" ? P.alert3.crateHazards : P.alert3.lockerHazards; n < want && k < AH.length; k++) {
       const key = AH[(step - 1 + k) % AH.length]!;
       if (hz.some((h) => h.key === key)) continue;
       add(key, P.rounds.alert + (ra.alert ?? 0), hmult, "alertness");
@@ -348,19 +380,14 @@ export const allPaths = (P: HaulParams, v: Variant) => {
   rec("", false);
   return out;
 };
-export const pathTiers = (P: HaulParams, v: Variant, path: string) => [...path].map((c, i) => tierOf(P, v, i + 1, c as Choice));
-/** Expected haul value of a cleared path (M): chests x chestChance + lockers' bonus chests x bonusChance. */
-export const chanceOf = (P: HaulParams, v: Variant) => modOf(P, v)?.haulChance ?? P.chestChance;
-export const pathValue = (P: HaulParams, v: Variant, path: string) => {
-  const q = questOf(P, v);
-  const all = (modOf(P, v)?.bonusAll ?? 0) / 100;
-  let s = 0;
-  [...path].forEach((c, i) => {
-    const t = tierOf(P, v, i + 1, c as Choice);
-    s += VALUE[q][t] * (chanceOf(P, v) / 100) * (1 + (c === "L" ? bonusOf(P, v) / 100 : 0) + all);
-  });
-  return s;
+export const pathPoints = (P: HaulParams, v: Variant, path: string) => [...path].reduce((t, c, i) => t + choicePoints(P, v, i + 1, c as Choice), 0);
+/** The rung a cleared path pays (index into the ladder) and its name, for tables. */
+export const pathTiers = (P: HaulParams, v: Variant, path: string) => {
+  const k = rungFor(P, v, pathPoints(P, v, path));
+  return [`r${k}:${rungName(P.ladder[questOf(P, v)][k]!)}`];
 };
+/** Expected value (M) of a cleared path: its rung's chests (and bonus entries) at their chances. */
+export const pathValue = (P: HaulParams, v: Variant, path: string) => (path.length ? rungValue(P, v, P.ladder[questOf(P, v)][rungFor(P, v, pathPoints(P, v, path))]!) : 0);
 /** Path -> its fight states: [{step, kind, alert, pendingFrom}] (cuts skipped). */
 export const pathFights = (P: HaulParams, v: Variant, path: string) => {
   const out: { step: number; kind: "C" | "L"; alert: number; pendingFrom: number | null }[] = [];
@@ -379,71 +406,54 @@ export const pathFights = (P: HaulParams, v: Variant, path: string) => {
 /* ------------------------------------------------------------------ */
 /* Quest state graph (spec for the quest generator)                     */
 /* ------------------------------------------------------------------ */
-type Haul = Record<string, number>; // "C" / "R" / "E" / "L" chests, "bR" etc. locker bonus entries
-const haulKey = (h: Haul) => [...TIERS, ...TIERS.map((t) => `b${t}`), ...TIERS.map((t) => `a${t}`)].map((t) => (h[t] ? `${t}${h[t]}` : "")).join("") || "empty";
-
 /**
- * The generated quest as a state graph. Node state = (step, alertness 0..3 [3 = 3+], pending cut hazard, haul). A haul
- * is the exact multiset of chests plus locker bonus entries (bounded: no value folding is needed). `fold` > 0 instead
- * keys nodes by a value band of that width (millions), paying the band's first-reached haul (a lossy alternative).
+ * The generated quest as a state graph (RUL-2026-10-29-044: under ~90 objectives a quest).
+ * - Choice node (dialog) per state (step, alertness 0..3 [3 = 3+, exact below: lockers drive the fights], pending cut,
+ *   haul points). Points are order-free (step + locker + cut values), so paths with the same state share the node.
+ * - Battle per (state, crate|locker): nextObjectiveId -> the next state's node (or the paid ending after step 5).
+ * - Ending per payout rung (the ladder bundle the points buy), shared by every path that earns it; one fail ending.
  */
-export const buildGraph = (P: HaulParams, v: Variant, copyMeta: Record<string, { id: string; name: string }>, fold = 0) => {
+export const buildGraph = (P: HaulParams, v: Variant, copyMeta: Record<string, { id: string; name: string }>) => {
   const q = questOf(P, v);
   const L = lay(P, v);
   const m = modOf(P, v);
-  const bonus = bonusOf(P, v);
-  const chance = chanceOf(P, v);
-  const all = m?.bonusAll ?? 0;
-  type Node = { id: string; task: "dialog"; step: number; alertness: number; pending: number | null; haul: Haul; haulExpectedM: number; options: any[] };
+  type Node = { id: string; task: "dialog"; step: number; alertness: number; pending: number | null; points: number; rungIfLeaving: number; options: any[] };
   const choices = new Map<string, Node>();
   const battles = new Map<string, any>();
   const endings = new Map<string, any>();
-  const canonical = new Map<string, Haul>();
-  const val = (h: Haul) => Math.round(TIERS.reduce((s, t) => s + (((h[t] ?? 0) + ((h[`b${t}`] ?? 0) * bonus + (h[`a${t}`] ?? 0) * all) / 100) * chance) / 100 * VALUE[q][t], 0) * 100) / 100;
-  const keyOf = (h: Haul) => {
-    if (!fold) return haulKey(h);
-    const b = `v${Math.floor(val(h) / fold)}`;
-    if (!canonical.has(b)) canonical.set(b, { ...h });
-    return b;
-  };
-  const resolveHaul = (h: Haul) => (fold ? canonical.get(keyOf(h))! : h);
-  const ending = (h0: Haul) => {
-    const h = resolveHaul(h0);
-    const id = `win_${haulKey(h)}`;
-    if (!endings.has(id))
+  const r2 = (x: number) => Math.round(x * 100) / 100;
+  const ending = (pts: number) => {
+    const k = rungFor(P, v, pts);
+    const id = `win_r${k}`;
+    if (!endings.has(id)) {
+      const r = P.ladder[q][k]!;
       endings.set(id, {
-        id, task: "win_quest", haul: { ...h }, haulExpectedM: val(h),
-        reward_items: TIERS.flatMap((t) => [
-          ...Array.from({ length: h[t] ?? 0 }, () => ({ ids: [CHEST[q][t].id], name: CHEST[q][t].name, number: chance, quantity: 1 })),
-          ...Array.from({ length: h[`b${t}`] ?? 0 }, () => ({ ids: [CHEST[q][t].id], name: `${CHEST[q][t].name} (locker bonus)`, number: Math.round(bonus * chance) / 100, quantity: 1 })),
-          ...Array.from({ length: h[`a${t}`] ?? 0 }, () => ({ ids: [CHEST[q][t].id], name: `${CHEST[q][t].name} (sealed-page bonus)`, number: Math.round(all * chance) / 100, quantity: 1 })),
-        ]),
+        id, task: "win_quest", rung: k, bundle: rungName(r), expectedValueM: r2(rungValue(P, v, r)),
+        reward_items: rungEntries(P, v, r).map((e) => ({ ids: [CHEST[q][e.tier].id], name: `${CHEST[q][e.tier].name}${e.why === "haul" ? "" : ` (${e.why})`}`, number: e.chance, quantity: 1 })),
       });
+    }
     return id;
   };
   endings.set("fail", { id: "fail", task: "fail_quest", note: "any lost (or drawn / fled) fight: the run fails, the chart stays spent, no haul" });
-  const visit = (s: number, a: number, p: number | null, h: Haul): string => {
-    if (s > 5) return ending(h);
-    const id = `c${s}_a${a}_p${p ?? 0}_${keyOf(h)}`;
+  const visit = (s: number, a: number, p: number | null, pts: number): string => {
+    if (s > 5) return ending(pts);
+    const id = `c${s}_a${a}_p${p ?? 0}_v${r2(pts)}`;
     if (choices.has(id)) return id;
-    const node: Node = { id, task: "dialog", step: s, alertness: a, pending: p, haul: { ...resolveHaul(h) }, haulExpectedM: val(resolveHaul(h)), options: [] };
+    const node: Node = { id, task: "dialog", step: s, alertness: a, pending: p, points: r2(pts), rungIfLeaving: s > 1 ? rungFor(P, v, pts) : -1, options: [] };
     choices.set(id, node);
     for (const o of optionsAt(P, v, s, p !== null)) {
       if (o === "leave") {
-        node.options.push({ choice: "leave", text: "Take what you have and go", next: ending(h) });
+        node.options.push({ choice: "leave", text: "Take what you have and go", next: ending(pts) });
         continue;
       }
-      const tier = tierOf(P, v, s, o);
-      const h2: Haul = { ...h, [tier]: (h[tier] ?? 0) + 1 };
-      if (o === "L" && bonus > 0) h2[`b${tier}`] = (h2[`b${tier}`] ?? 0) + 1;
-      if (all > 0) h2[`a${tier}`] = (h2[`a${tier}`] ?? 0) + 1;
+      const add = choicePoints(P, v, s, o);
       if (o === "X") {
-        node.options.push({ choice: "cut", tier, chest: CHEST[q][tier].name, fight: false, hazardNextFight: L.cutHazards[(s - 1) % 2], next: visit(s + 1, a, s, h2) });
+        node.options.push({ choice: "cut", points: r2(add), fight: false, hazardNextFight: L.cutHazards[(s - 1) % 2], next: visit(s + 1, a, s, pts + add) });
         continue;
       }
       const f = fightFor(P, v, o, s, a, p);
-      const onWin = visit(s + 1, o === "L" ? Math.min(3, a + 1) : a, null, h2);
-      const bid = `b${s}${o}_a${a}_p${p ?? 0}_${keyOf(h)}`;
+      const onWin = visit(s + 1, o === "L" ? Math.min(3, a + 1) : a, null, pts + add);
+      const bid = `b${s}${o}_a${a}_p${p ?? 0}_v${r2(pts)}`;
       const opp = new Map<string, number>();
       for (const k of f.ids) opp.set(k, (opp.get(k) ?? 0) + 1);
       battles.set(bid, {
@@ -452,15 +462,15 @@ export const buildGraph = (P: HaulParams, v: Variant, copyMeta: Record<string, {
         opponent_scaled_to_user: true, applyDebuffs: f.debuffs, hazards: f.hazards.map((x) => ({ hazard: x.key, type: x.type, rounds: x.rounds, mult: x.mult, why: x.why })),
         nextObjectiveId: onWin, failObjectiveId: "fail",
       });
-      node.options.push({ choice: o === "C" ? "crate" : "locker", tier, chest: CHEST[q][tier].name, bonusChance: o === "L" ? bonus : 0, fight: true, battle: bid });
+      node.options.push({ choice: o === "C" ? "crate" : "locker", points: r2(add), fight: true, battle: bid });
     }
     return id;
   };
-  const start = visit(1, Math.min(3, startAlert(P, v)), null, {});
+  const start = visit(1, Math.min(3, startAlert(P, v)), null, 0);
   const shapes = new Set([...battles.values()].map((b) => JSON.stringify([b.opponent_ai, b.hazards])));
   return {
     variant: variantKey(v), quest: q, page: L.page, chart: m ? `Rot-Sealed ${L.chart} (${m.name})` : L.chart, modifier: m ? { key: v.mod, name: m.name, effect: m.effect } : null,
-    gate: q === "hunter" ? "huntingRank S RANK" : "gatheringRank S RANK", start, fold,
+    gate: q === "hunter" ? "huntingRank S RANK" : "gatheringRank S RANK", start,
     counts: { choiceNodes: choices.size, battles: battles.size, endings: endings.size, objectives: choices.size + battles.size + endings.size, distinctFightShapes: shapes.size, legalPaths: allPaths(P, v).length },
     nodes: [...choices.values()], battles: [...battles.values()], endings: [...endings.values()],
   };

@@ -27,7 +27,7 @@ import { crownTemplates, DEFAULT_HUNT_PARAMS, DEFAULT_PARAMS, LIVE, NAME } from 
 import { buildCharts, type ChartParams, DEFAULT_CHART_EXTRA, scaledRow } from "./charts";
 import { tag } from "./kitlib";
 import {
-  allPaths, bonusOf, buildGraph, copyId, DEFAULT_HAUL, fightFor, type FightDef, type HaulParams, hazardTag, optionsAt, pathFights, pathTiers,
+  allPaths, buildGraph, copyId, DEFAULT_HAUL, fightFor, type FightDef, type HaulParams, hazardTag, optionsAt, pathFights, pathTiers,
   pathValue, questOf, startAlert, type Variant, variantKey, VALUE,
 } from "./haul";
 import { buildEndgame, CREW_TO_LIB } from "./hunts";
@@ -550,7 +550,7 @@ if (pathArg || flag("exhaustive")) {
   for (const v of variants) {
     const t0 = performance.now();
     const r = pathArg ? await evalPathsExact(v, pathArg.split(",").filter((p) => allPaths(P, v).includes(p))) : await evalPathsMerged(v);
-    results.push({ ...r, quest: questOf(P, v), bonusChance: bonusOf(P, v), wallMin: r1((performance.now() - t0) / 60000) });
+    results.push({ ...r, quest: questOf(P, v), wallMin: r1((performance.now() - t0) / 60000) });
     console.log(`\n=== ${variantKey(v)} ${r.method} dodge=${dodge} seeds=${seeds} (${((performance.now() - t0) / 60000).toFixed(1)} min wall)`);
     for (const p of [...r.paths].sort((a: any, b: any) => b.evM - a.evM).slice(0, Number(opt("top", "12"))))
       console.log(`  ${p.path.padEnd(5)} ${p.tiers.padEnd(5)} haul ${String(p.haulM).padStart(5)}M clear ${p.clearPct}% EV ${p.evM}M min ${p.minutesClearMedian ?? p.minutesClear}`);

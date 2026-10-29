@@ -226,26 +226,69 @@ Variant fields (override `players`): `level`, `rank`, `statBudget`, `stats`, `po
 
 ## The Haul (S-rank profession charts)
 
-`engine/haul.ts` (params, hazards, fights per state, quest state-graph generator) and `engine/haul_main.ts` (runner).
-Results: `results/haul_*.json` (settings and params embedded); tables: `tools/haul_tables.py`; quest graphs: `haul_spec.json`.
+`engine/haul.ts` (params, hazards, fights per state, quest state-graph generator), `engine/haul_main.ts` (runner),
+`tools/haul_payout_fit.py` (payout fit), `tools/haul_tables.py` (tables). Quest graphs: `haul_spec.json`. Results:
+`results/haul_*.json` (settings and params embedded). Rulings: RUL-2026-10-29-037, -038, -044.
+
+**Payout (RUL-2026-10-29-044).** Chests are guaranteed. Each choice adds haul points (millions of chest value): a crate
+the step's points, a locker the step's points + the page's locker points, a cut the step's points minus the cut penalty
+(a step-4 cut drops to Common: -2). A run pays the profession ladder's highest rung its points reach:
+
+- Hunter: C 4.2 / R 6.1 / C+C 8.4 / C+R 10.3 / R+R 12.2 / C+L 15.7 / R+L 17.6 / C+R+L 21.8 / L+L 23.0
+- Gatherer: C 3.2 / R 4.9 / C+R 8.1 / R+R 9.8 / L 10.5 / C+L 13.7 / R+L 15.4 / C+R+L 18.6 / L+L 21.0
+
+Points are order-free, so the quest state is (step, alertness 0..3, pending cut, points): every quest is a few dozen
+dialog choices, one battle per (state, crate|locker), and one ending per rung reached (all 30 quests 55-82 objectives).
+Steeped pages pay the same rungs one tier higher with a 40% bonus chest each (Picked clean: one tier lower, each at 60%).
+The step and locker points were fitted (`haul_payout_fit.py`) to the simulated clear rates: sensible run about 7.5M,
+no route more than ~20% above it, timid clearly less, a greedy clear worth 2-2.5x the old S-rank payout.
+
+**Results (exact per-seed runs, 40 seeds, L100 Kitsune + pet; "clear % / EV M", dodge on, dodge off in brackets).**
+
+| Page | Timid CC | Sensible CLC | Best 3-step 1-locker | Greedy (most likely 5-step, 3+ L) | Deep crates CCCCC | Best named route (vs sensible) |
+|---|---|---|---|---|---|---|
+| trophy | 100% / 4.2 (off 97.5% / 4.1) | 87.5% / 7.3 (off 67.5% / 5.7) | CLC 87.5% / 7.3 | LCLLC 37.5% / clear pays 15.7 / EV 5.9 / 6 min (off 0%) | 70% / 8.5 (off 47.5% / 5.8) | CCCCC 70% / 8.5 (116%) |
+| bone | 100% / 4.2 (off 100% / 4.2) | 85% / 7.1 (off 62.5% / 5.2) | LCC 87.5% / 7.3 | LLLCC 22.5% / clear pays 15.7 / EV 3.5 / 6.3 min (off 0%) | 50% / 4.2 (off 25% / 2.1) | LCL 85% / 8.8 (119%) |
+| snare | 100% / 4.2 (off 92.5% / 3.9) | 67.5% / 7.0 (off 27.5% / 2.8) | LCC 77.5% / 8.0 | CLLLC 5% / clear pays 17.6 / EV 0.9 / 5.9 min (off 0%) | 10% / 1.0 (off 5% / 0.5) | CLXL 55% / 8.6 (108%) |
+| overgrown | 90% / 2.9 (off 97.5% / 3.1) | 92.5% / 7.5 (off 95% / 7.7) | CLC 92.5% / 7.5 | LLLCC 37.5% / clear pays 15.4 / EV 5.8 / 6.5 min (off 27.5%) | 37.5% / 3.9 (off 47.5% / 5.0) | LLC 95% / 7.7 (103%) |
+| vault | 97.5% / 4.8 (off 95% / 4.7) | 70% / 7.3 (off 67.5% / 7.1) | LCC 72.5% / 7.6 | CLLCL 12.5% / clear pays 18.6 / EV 2.3 / 7.8 min (off 0%) | 35% / 3.7 (off 30% / 3.1) | LL 90% / 8.8 (116%) |
+| bloom | 90% / 4.4 (off 92.5% / 4.5) | 90% / 7.3 (off 87.5% / 7.1) | CLC 90% / 7.3 | LLLCC 32.5% / clear pays 15.4 / EV 5.0 / 6.5 min (off 17.5%) | 30% / 4.1 (off 25% / 3.4) | CLL 97.5% / 7.9 (108%) |
+
+| Page | Points: crate by step | Locker + | Cut - (step 4) | Lockers at | Cuts at | Choice / battle / ending / total objectives |
+|---|---|---|---|---|---|---|
+| trophy | 4.2 / 1.6 / 1.5 / 2.4 / 2.5 | 1.6 | 2 | 1,2,3,4,5 | 3,4 | 22 / 44 / 8 / 74 |
+| bone | 4.2 / 1.2 / 1.2 / 1.4 / 2 | 2.1 | 2 | 1,2,3 | 3,4 | 21 / 27 / 7 / 55 |
+| snare | 4.2 / 1.1 / 2.3 / 2.1 / 2.2 | 3.1 | 2 | 1,2,3,4,5 | 2,3,4 | 24 / 48 / 10 / 82 |
+| overgrown | 3.3 / 1.4 / 2.4 / 2.9 / 2.7 | 1 | 2 | 1,2,3,4,5 | 3,4 | 22 / 44 / 8 / 74 |
+| vault | 5 / 1.1 / 2.3 / 2.2 / 2.8 | 2.1 | 2 | 1,2,3,4,5 | 3,4 | 22 / 44 / 9 / 75 |
+| bloom | 3.8 / 1.4 / 2.1 / 2.4 / 4.1 | 1.1 | 2 | 1,2,3,4,5 | 3,4 | 22 / 44 / 8 / 74 |
+
+Steeping (best route EV of the steeped page / the base page, dodge on; weights 30/25/25/20): Rot-soaked 1.47-1.75x,
+Flooded hold (rooted 3 rounds) 0.48-1.26x, Alarmed 1.42-1.75x, Picked clean 0.43-0.59x; the roll: trophy 1.37x,
+bone 1.25x, snare 1.28x, overgrown 1.05x, vault 1.07x, bloom 1.10x.
 
 ```bash
-# Every legal path of every base page, state-merged (40 particles per state), dodge on / off:
+# Every legal path of every base page, state-merged (40 particles per state):
 TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --exhaustive --variants base --seeds 40 --out results/haul_base_dodge.json
-TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --exhaustive --variants base --seeds 40 --no-dodge --out results/haul_base_nododge.json
 # The 24 steeped pages (layout+modifier):
 TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --exhaustive --variants mods --seeds 24 --out results/haul_mods_dodge.json
-# Exact per-seed simulation of named paths (shared prefix tree), e.g. the policies:
-TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --paths C,CC,CLC,CCL,CLLLC --variants trophy,overgrown --seeds 40 --out results/haul_exact.json
+# Exact per-seed simulation of named routes (shared prefix tree), dodge on / off:
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --paths CC,CLC,LCC,CCCCC,CLLLC,LLLCC --variants base --seeds 40 --out results/haul_exact_dodge.json
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --paths CC,CLC,LCC,CCCCC,CLLLC,LLLCC --variants base --seeds 40 --no-dodge --out results/haul_exact_nododge.json
+# Payout fit (offline: fights do not depend on the payout), then recompute haul values of a results file:
+python3 harness/skyglass_wreck_sim/tools/haul_payout_fit.py results/haul_base_dodge.json --exact results/haul_exact_dodge.json
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --revalue "$PWD/harness/skyglass_wreck_sim/results/haul_mods_dodge.json" --out results/x.json
 # Calibration / probes / determinism / spec:
 TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --fights --variants trophy --seeds 8      # each fight state from full HP
 TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --solo h-veteran,trophy-warden --seeds 6  # guard strength alone
 TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --probe-hazards --variants trophy,overgrown --seeds 6
-TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --repro trophy@CLLC@3
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --repro trophy@CLLCL@5
 TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --spec-out harness/skyglass_wreck_sim/haul_spec.json
-python3 harness/skyglass_wreck_sim/tools/haul_tables.py results/haul_base_dodge.json results/haul_mods_dodge.json
+python3 harness/skyglass_wreck_sim/tools/haul_tables.py results/haul_base_dodge.json results/haul_mods_dodge.json --exact results/haul_exact_dodge.json
 ```
 
 Variants: `base` (6 pages), `mods` (24 steeped pages), `all`, or a list such as `trophy,overgrown+rot`. `--set=path.to.knob=json`
 overrides one param for a quick probe. Every fight is seeded by (page, seed, state) through the virtual clock
 (`seedEntropy` -> `seedClock`); `--repro` reruns a path twice and compares actions, positions (pets included) and HP.
+The state-merged evaluation gives each path the pooled HP of its state (about +-15 points per path); the exact runs
+are the reference for the named routes.
