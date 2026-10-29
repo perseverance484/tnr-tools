@@ -34,7 +34,7 @@ const SURFACES = {
   "app/src/server/api/trpc.ts": "the sliding-window limiter, publicProcedure vs protectedProcedure",
   "app/src/server/api/root.ts": "which routers exist at which path",
   "app/src/server/api/routers/jutsu.ts": "create/update/get/getAllNames semantics",
-  "app/src/server/api/routers/item.ts": "create takes {type}; update/get/getAllNames",
+  "app/src/server/api/routers/item.ts": "create takes {type}; update/get/getAllNames; getItemWithCraftingRequirements (recipe full-persist point read)",
   "app/src/server/api/routers/quests.ts": "create/update/get/getAllNames",
   "app/src/server/api/routers/profile.ts": "AI create, updateAi kit sync, getAi, getAllAiNames",
   "app/src/server/api/routers/ai.ts": "toggleAiProfile, getAiProfile, updateAiProfile",
