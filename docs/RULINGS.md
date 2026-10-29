@@ -4515,3 +4515,19 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "Changing the haul to be available to all".
 
 **Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`; `docs/design/SKYGLASS_LOOT_TABLES.md` §4b.
+
+## RUL-2026-10-29-053 — Haul page rates halved; boss skins are called "variants"
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards and naming
+
+**Status:** ACTIVE. Settles RUL-2026-10-29-052's open item.
+
+**Ruling:**
+1. **Haul page drop rates are halved,** per profession page: endgame Wreck **2%**, each hunt ending **1.25%**. This aims at about 1.5 Haul runs (about 11M) per dedicated weekend now that everyone runs pages.
+2. **Player-facing naming:** the boss skins are **variants**, never "trophies". "Trophy token" and "trophy" stay only as internal design terms. Every item name, description and announcement says "variant".
+
+**Evidence:** Director, 2026-10-29: "Halve rates. Adjust post. Dont call them trophies. Call them variants".
+
+**Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`; `docs/design/SKYGLASS_LOOT_TABLES.md` §5d.
