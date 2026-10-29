@@ -11,7 +11,8 @@ Each Skyglass item's description tells the player what the item is for, in plain
 - **Core Rot:** what steeping is, where it happens, the cost (a rare chart plus 3 Rot), and the outcome on a win (tainted chart) and on a loss (the chart comes back, the Rot is spent).
 - **Tainted charts:** the twists, and that the run pays pick 2.
 - **Chests, every one:** what can drop and how common each tier is, with the real weights (e.g. "Common 69% · Rare 24% · Epic 5% · Legendary 2%"), the roll count, and any fixed reward (e.g. the Treasury's 150,000 ryo).
-- **Echo Jars:** which pet; that a full collection blocks opening.
+- **The Little Horror's Jar:** the pet; that a full collection blocks opening.
+- **Skin tokens:** which skins the token unlocks, that the player must own the base weapon, and that each skin unlocks once per player.
 - **Galley Stores:** the pet exp goes to the active pet only, so the pet must be battle-ready and not on a task.
 - **The Wreck's text:** it tells players the wreck drops charts, which lead to treasure hunts.
 
@@ -48,8 +49,10 @@ Descriptions are generated from the same tables the caches are built from, so th
 | Elemental Tool Pouch | throwing consumables and Elite Smoke Bombs, Elemental Kunai on every opening (§3a) | Drowned Foundry pick; chest of chests Common |
 | Common charts as picks | Watch Roster, Tide Chart, Chart of the Drowned Foundry (§4a) | Low Tide Run, Night Watch and Buried Cache picks (RUL-2026-10-29-042) |
 | Galley Stores | pet experience (§5b) | Easy Wreck clear 10%; Low Tide Run, Night Watch, Buried Cache and Foundry picks; The Fall pick (×3); chest of chests Rare |
-| Echo Jar | the five Skyglass pets (§5b) | Archive and Watch picks; Sealed Reliquary and The Fall picks (×2); chest of chests Legendary; Crown's Hoard |
-| Crown's Hoard | opens the Skyglass Coffer, Sealed Treasury and Echo Jar caches together (RUL-2026-10-28-013) | Crownhold pick |
+| Skyglass Token | unlocks any one Skyglass skin (§5d) | Archive, Watch, Sealed Reliquary and The Fall picks; chest of chests Legendary; Crown's Hoard (RUL-2026-10-29-049) |
+| Trophy tokens | each unlocks one boss skin (§5d) | the Wreck bosses (once per player), chart and hunt bosses (1-2%), Crownhold pick |
+| The Little Horror's Jar | the event's one pet (§5b) | endgame Wreck clear, once per player (proposed 5%) |
+| Crown's Hoard | opens the Skyglass Coffer and Sealed Treasury caches together, plus a Skyglass Token (RUL-2026-10-28-013, -049) | Crownhold pick |
 | Core Rot | steeping reagent (§5) | Endgame Wreck clears, the common runs, the Core Horror's hunt runs, breaking the seal, a failed rare run (§5) |
 | Charts / Lastlight Lantern | hunt access (§5) | Wreck clear drops, the chart ladder, the Archive Chart Case |
 | Unmarked Cargo (chest of chests) | one roll of the caches above (§2) | Endgame Wreck clear 10% |
@@ -59,7 +62,7 @@ Descriptions are generated from the same tables the caches are built from, so th
 ## 2. Wreck clear (each member)
 
 **Endgame Wreck.** Currency package (director, in game). Independent drops:
-- the chest of chests **10%** (RUL-2026-10-25-014; one roll, reweighted by RUL-2026-10-28-016/-018): Common 40 Medicine Inro or Elemental Tool Pouch / Rare 35 Sage's Strongbox or Galley Stores (RUL-2026-10-29-042) / Epic 18 Skyglass Coffer or Archive Chart Case / Legendary 7 Sealed Treasury or Echo Jar; **Unmarked Cargo**, untradeable;
+- the chest of chests **10%** (RUL-2026-10-25-014; one roll, reweighted by RUL-2026-10-28-016/-018): Common 40 Medicine Inro or Elemental Tool Pouch / Rare 35 Sage's Strongbox or Galley Stores (RUL-2026-10-29-042) / Epic 18 Skyglass Coffer or Archive Chart Case / Legendary 7 Sealed Treasury or Skyglass Token (RUL-2026-10-29-049); **Unmarked Cargo**, untradeable;
 - Chart of the Buried Cache **20%** (RUL-2026-10-25-012), Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Lastlight Lantern **3%**, Sealed Treasury **3%** (ruled);
 - Tide Chart **15%**, Watch Roster **10%** (RUL-2026-10-28-009);
 - Core Rot **15%** for the Core Horror's floor (RUL-2026-10-28-009). Dungeon rewards carry no AI drops, so this is a clear drop, not a drop on the Core Horror record.
@@ -104,7 +107,7 @@ That averages about 13 Imperial Gold per opening, against about 1.2 before.
 
 Haul pages, tainted charts and the common charts (Tide, Roster, Buried Cache) stay out of the case (RUL-2026-10-29-040).
 
-**Crown's Hoard** (RUL-2026-10-28-013): one item that opens the Skyglass Coffer, the Sealed Treasury and the Echo Jar caches. Open: whether each is opened once or more (§6).
+**Crown's Hoard** (RUL-2026-10-28-013, RUL-2026-10-29-039, -049): one item with a Skyglass Coffer roll, a Sealed Treasury roll (its fixed ryo plus its rolls) and a Skyglass Token ×1.
 
 The Medicine Inro, Sage's Strongbox and Elemental Tool Pouch contents are in §3a (RUL-2026-10-29-042). The Elemental Tool Pouch remains the single pouch (the Katon pouch record, re-pointed; RUL-2026-10-28-003) and gives Elemental Kunai on every opening.
 
@@ -158,14 +161,14 @@ The Sealwright's doubled health (push/252) applies to the Archive's final fight 
 | Night Watch | Medicine Inro / Galley Stores / Tide Chart |
 | Buried Cache | Medicine Inro / Galley Stores / Chart of the Drowned Foundry |
 | Drowned Foundry | Elemental Tool Pouch / Medicine Inro / Galley Stores |
-| Quarantined Archive | Archive Chart Case / Sage's Strongbox / Echo Jar |
-| Captain's Watch | Skyglass Coffer / Captain's Purse (1,000,000 ryo) / Echo Jar |
-| Sealed Reliquary | Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Archive Chart Case ×2 |
-| The Fall | Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Galley Stores ×3 |
+| Quarantined Archive | Archive Chart Case / Sage's Strongbox / Skyglass Token |
+| Captain's Watch | Skyglass Coffer / Captain's Purse (1,000,000 ryo) / Skyglass Token |
+| Sealed Reliquary | Skyglass Coffer ×2 / Sealed Treasury / Skyglass Token / Archive Chart Case ×2 |
+| The Fall | Skyglass Coffer ×2 / Sealed Treasury / Skyglass Token / Galley Stores ×3 |
 | Tainted runs | **pick 2** from their rare's options; Lantern 30% and Core Rot 40%. No guaranteed drops: the second pick is the appeal (RUL-2026-10-28-019) |
-| Crownhold | Crown's Hoard / Skyglass Coffer ×2 / Crownhold badge / Crownhold jutsu / Crown Fragment (RUL-2026-10-28-017) |
+| Crownhold | Crown's Hoard / Skyglass Coffer ×2 / Crownbreaker badge / Crownhold jutsu / Crown Fragment / Crownbreaker trophy token (RUL-2026-10-28-017, RUL-2026-10-29-049) |
 
-The rares double the Watch's Coffer and Jar, so each rung pays more than the one below it. Value ladder of each run's best item option (RUL-2026-10-28-033 basis): common runs ~1.4M (Inro, or the other common chart) < Buried Cache ~1.4M (Inro, or a Foundry chart) < Foundry ~5.5M (Pouch, kept by RUL-2026-10-29-043) < Archive ~4.2M (Strongbox) < Watch (Coffer) < rare runs (Treasury ~8M, Coffer ×2) < tainted (pick 2) < Crownhold (unique pieces). Ryo appears only as the Watch's Captain's Purse (RUL-2026-10-28-034). The common runs' chart options make them feed each other, and the Buried Cache feeds the Foundry (RUL-2026-10-29-042).
+The rares double the Watch's Coffer, so each rung pays more than the one below it. Value ladder of each run's best item option (RUL-2026-10-28-033 basis): common runs ~1.4M (Inro, or the other common chart) < Buried Cache ~1.4M (Inro, or a Foundry chart) < Foundry ~5.5M (Pouch, kept by RUL-2026-10-29-043) < Archive ~4.2M (Strongbox) < Watch (Coffer) < rare runs (Treasury ~8M, Coffer ×2) < tainted (pick 2) < Crownhold (unique pieces). Ryo appears only as the Watch's Captain's Purse (RUL-2026-10-28-034). The common runs' chart options make them feed each other, and the Buried Cache feeds the Foundry (RUL-2026-10-29-042).
 
 Cut and not to be rebuilt: every ryo card except the Watch's Captain's Purse (RUL-2026-10-28-034); the Archive's Records exp, the Watch's Inro ×3, The Fall's Captain's Purse, the commons' exp cards (RUL-2026-10-28-016); Crownhold's Honor and Crownhold's Echo Jar ×2 (RUL-2026-10-28-017); the tainted runs' guaranteed Sealed Treasury and Echo Jar (RUL-2026-10-28-019).
 
@@ -256,57 +259,88 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 - Breaking the seal: Core Rot ×2, guaranteed.
 - A failed rare-chart run: 1 Core Rot as consolation (RUL-2026-10-28-019).
 
-**Titles and trophies: deferred** (RUL-2026-10-29-041).
-- Not in this release: the five run titles (Relief of the Watch, Who Relieved the Captain, Keeper of Echoes, Walked Out of the Fire, Crownbreaker) and the two trophies (the Warden's Maul, the Wayfinder's Compass).
-- The tainted runs' doubled trophy rate goes with them.
-- The designs are kept in git history (RUL-2026-10-28-013) for a later update.
-- The Crownbreaker **badge** is unaffected.
+**Titles: deferred** (RUL-2026-10-29-041). The run titles and Walked Every Deck are kept in git history for a later update. Trophies return as skin tokens (§5d, RUL-2026-10-29-047).
 
 **New art**
 - 4 chart icons.
 - 2 tainted chart recolours.
 - 1 Core Rot icon.
 
-## 5b. Pets: Galley Stores and the Echo Jar (RUL-2026-10-28-011)
+## 5b. Pet: the Little Horror (RUL-2026-10-29-047; replaces the five-pet Echo Jar of RUL-2026-10-28-011)
 
 Engine facts (theninjarpg source):
-- **Reward-only species.** An inactive species is never offered in the sanctuary's daily picks, but an item can still grant it (`item.ts`: "Authored rewards may grant species excluded from daily sanctuary offers").
-- **Pet grants need standard mode.** A pet can only come from a standard `reward_pets` grant, one species per item; a weighted cache cannot grant a pet. So the Echo Jar rolls jar items, and each jar grants its pet.
-- **Full collections block the jar.** A jar won't open while the collection is full, and stays in the inventory.
-- **Art is generated per owner** from the species' `artDirection` and `rankConcepts` (10 ranks). No hand-drawn art per pet.
-- **Pets fight in quest PvE battles**, which includes the hunts, the pyramid and dungeons (`combat/pets.ts`). The tuning harness must add a pet.
-- **Pet exp lands only for an eligible active pet** (battle-enabled, art ready, not on a task); otherwise it is lost (`pets/experience.ts`). The Galley Stores description must say so.
-- **Signature jutsu.** Pet jutsu are `jutsuType PETS`. A jutsu with `requiredPetSpeciesId` can be equipped only by that species.
+- **Reward-only species.** An inactive species is never offered in the sanctuary's daily picks, but an item can still grant it.
+- **Pet grants need standard mode:** a `reward_pets` grant, one species per item.
+- **Full collections block the jar.** A jar won't open while the collection is full, and it stays in the inventory.
+- **Art is generated per owner** from the species' `artDirection` and `rankConcepts` (10 ranks).
+- **Pets fight in quest PvE battles** (hunts, pyramid, dungeons). The tuning harness adds a pet.
+- **Pet exp lands only for an eligible active pet**, otherwise it is lost. The Galley Stores description says so.
+- **Signature jutsu** use `requiredPetSpeciesId`.
 
-**Galley Stores** (pet progression)
-- A standard reward of pet experience (`reward_pet_experience`): a lump of roughly 5-7 meals' worth, with no feeding cooldown. The amount is set by the director (open, §6).
-- No meal items, because meals are crafted.
+**The Little Horror's Jar** grants the event's one pet (kit: `SKYGLASS_PETS.md`).
+- **Drop:** an endgame Wreck clear drop, **once per player**, using the dungeon `onlyOnce` flag (theninjarpg upstream; needs the re-pin). Proposed 5%, about 20 clears on average.
+- **The Deck Gull, Bilge Rat, Lantern Moth and Ship's Cat are cut.**
 
-**Echo Jar** (weighted, 1 roll; each jar is its own tradeable item granting one inactive species)
-| Weight | Jar → pet | Rarity / role |
-|---|---|---|
-| 50 | Deck Gull | Common / Support |
-| 30 | Bilge Rat | Uncommon / Assault |
-| 13 | Lantern Moth | Rare / Healer |
-| 5 | The Ship's Cat | Epic / Support |
-| 2 | Little Horror | Legendary / Assault |
+**Galley Stores** (pet progression): 20,000 pet experience (RUL-2026-10-29-039).
+- Found in: easy Wreck clear 10%; a pick option in the Low Tide Run, the Night Watch, the Buried Cache and the Foundry; The Fall's pick (×3); the chest of chests' Rare tier.
 
-**Placement** (the Footlocker / Shore Leave proposals were not adopted)
-- **Galley Stores:** easy Wreck clear 10%; a pick option in the Low Tide Run, the Night Watch, the Buried Cache and the Foundry; The Fall's pick (×3); the chest of chests' Rare tier.
-- **Echo Jar:** a pick option in the Archive, the Watch and the rare runs (×2 in the rares); the chest of chests' Legendary tier; the Crown's Hoard. It is not guaranteed on the tainted runs (RUL-2026-10-28-019) and is not in Crownhold's pick (RUL-2026-10-28-017).
-
-**New art:** 2 chest icons, plus 1 jar icon recoloured per pet.
-
-**Kits:** `SKYGLASS_PETS.md`.
+**New art:**
+- 1 jar icon;
+- the Galley Stores icon.
 
 ## 5c. Completion achievement: deferred (RUL-2026-10-29-041)
 
 **Walked Every Deck** (RUL-2026-10-28-020) is deferred with the titles, because its reward was a title. The design is kept: a one-time quest that completes on clearing every chart run, using `complete_specific_quest` objectives.
 
+## 5d. Skins: Skyglass Tokens and trophy tokens (RUL-2026-10-29-047 … -049)
+
+Engine (theninjarpg upstream `3314d122`, after the 2af4b320 pin):
+- **Variants are reskins.** An item variant is a cosmetic reskin of a base item: name, image and descriptions, with the same stats.
+- **Token-gated unlock.** A `VARIANT_TOKEN` variant is unlocked by consuming a token item that carries `unlockitemvariant`. The player must own the base item. Each variant unlocks once per player.
+- **Two locking fields:**
+  - `requiredItemId` on a variant accepts only that token item;
+  - `variantId` on a token unlocks only that variant.
+
+**Skyglass Token** (farmable layer)
+- **Unlocks:** any one Skyglass skin. Every Skyglass skin carries `requiredItemId` = Skyglass Token, so no other token opens them.
+- **Tradeable.**
+- **Pace:** about 2-3 a dedicated weekend. The event runs Friday to Sunday and repeats weekly, so half the catalogue takes a few weekends.
+- **Found in** (all ×1, no direct drop):
+  - the Archive, Watch, Sealed Reliquary and The Fall picks;
+  - the chest of chests' Legendary tier;
+  - the Crown's Hoard.
+  - The tainted runs inherit their rare's options.
+- **Catalogue:** 12 crafted weapons.
+  - Legendary: Aetherion, Thornsilver, Night's Testament, Stormrender, Oathbinder, Ink of the Void, The Unwritten.
+  - Epic: Gaea's Embrace, Warden's Bracers, Eclipsed Dawnblade, Zephyr's Whisper.
+  - Rare: Yuki's Frostbite.
+  - More skins can be added in later weekends without new tokens.
+
+**Trophy tokens** (one skin each: `variantId` set, and the skin's `requiredItemId` is the trophy itself)
+
+| Boss | Trophy skin | Base | Source | Tradeable |
+|---|---|---|---|---|
+| The Captain | Captain's Command Fan (a gunbai) | The Unwritten | endgame Wreck, once per player | no |
+| Core Horror | Rot-Bloom Reaper | Oathbinder | endgame Wreck, once per player | no |
+| Foundry Warden | Warden's Forge-Fists | Warden's Bracers | his runs, 1-2% | yes |
+| Wayfinder | Wayfinder's Heading | Stormrender | his runs, 1-2% | yes |
+| First Blade | The First Blade | Aetherion | Sealed Reliquary, 1-2% | yes |
+| Sealwright | Sealwright's Seal | Whispering Dawnblade | his runs, 1-2% | yes |
+| Crowned Captain | Crownbreaker | Thornsilver | Crownhold pick | no |
+
+**Art rule:** a skin keeps its base weapon's silhouette, with skyglass as inlay and accents. The Skyglass Katana stays the only all-crystal blade.
+
+**New art:**
+- 12 catalogue skin images;
+- 7 trophy skin images;
+- the Skyglass Token icon;
+- 7 trophy token icons.
+
 ## 6. To check before the manifests
 
 Open:
-- **Crown's Hoard contents:** how many of each cache (Coffer, Treasury, Echo Jar) one Hoard opens.
+- **Skin token rates:** confirm about 2-3 Skyglass Tokens per dedicated weekend, and the trophy drop chances, in the final simulation pass.
+- **Little Horror's Jar rate** (proposed 5%, once per player).
 - **Galley Stores amount:** the pet-experience lump (director).
 - **Core Rot in the easy Wreck:** none (RUL-2026-10-28-020). Only the endgame Wreck drops it.
 - **Profession material id lists** per hunt (§4b), from the push/323 capture.
