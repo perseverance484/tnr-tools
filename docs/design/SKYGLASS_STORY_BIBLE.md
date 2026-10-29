@@ -109,7 +109,7 @@ echoes, which reward veterans without excluding anyone.
 ## Voice
 
 - **Tone:** Edo-era Japanese fantasy, quiet and melancholy, with dry humour from the afterimages. Short sentences at the moments that matter.
-- **"Relieved" carries the story's weight.** It belongs to the refrain ("None is relieved", "No one is relieved"). Its only other use is the two titles that answer it: Relief of the Watch and Who Relieved the Captain.
+- **"Relieved" carries the story's weight.** It belongs to the refrain ("None is relieved", "No one is relieved"). Its only other use is the two titles that answer it: Relief of the Watch and Who Relieved the Captain. (Both titles are deferred, RUL-2026-10-29-041; until they return, the refrain is its only use.)
 - **Never use:** technology words such as system, network, lattice, interface, protocol, terminal, personnel, maintenance, conduit, lift, reactor, data, scan, unit.
 - **Use instead:** seal-work, seal channels, the Core, recall, impression, afterimage, echo, watch, post, order, directive, rite, shrine.
 - **Characters:**

@@ -4194,3 +4194,34 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "Sure, reweight."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3, §5.
+
+## RUL-2026-10-29-041 — Skyglass titles and trophies deferred
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **The Skyglass titles are dropped from this release:**
+   - Relief of the Watch;
+   - Who Relieved the Captain;
+   - Keeper of Echoes;
+   - Walked Out of the Fire;
+   - Crownbreaker (the title).
+
+   The title capture (RUL-2026-10-29-039 item 3) is shelved too.
+2. **The trophies are dropped:**
+   - the Warden's Maul;
+   - the Wayfinder's Compass;
+   - the tainted runs' doubled trophy rate.
+3. **The Walked Every Deck achievement is deferred with the titles**, because its reward was a title.
+4. **Unaffected:**
+   - the Crownbreaker badge;
+   - the `fable/badge-builder` Forge work, which still covers badges, with titles ready for later.
+5. **The designs are kept in git history** (RUL-2026-10-28-013, RUL-2026-10-28-020) for a later update.
+
+**Evidence:** Director, 2026-10-29: "Just drop titles and trophies for now."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5, §5c.
