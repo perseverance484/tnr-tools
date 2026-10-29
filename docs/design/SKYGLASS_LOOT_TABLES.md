@@ -231,7 +231,7 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 | Sealed Reliquary / The Fall ending | Lastlight Lantern 15% |
 | Archive Chart Case | Legendary: Lantern 3 / rare chart 7 (§3) |
 
-**Tainted rares** (rares only). Harder upgrades of their counterpart; target clear rate about 55%, against about 80% for the base rare. Rewards: §4a (pick 2, Lantern 30%, Core Rot 40%, no guaranteed drops; RUL-2026-10-28-019), and twice the trophy rate (RUL-2026-10-28-010).
+**Tainted rares** (rares only). Harder upgrades of their counterpart; target clear rate about 55%, against about 80% for the base rare. Rewards: §4a (pick 2, Lantern 30%, Core Rot 40%, no guaranteed drops; RUL-2026-10-28-019). (Their doubled trophy rate is deferred with the trophies, RUL-2026-10-29-041.)
 - **The Rotted Reliquary** (tainted Reliquary Seal)
   - The echoes fight in pairs: Foundry Warden + Sealwright, then Sentinel + the last echo.
   - Entry at 70% pools (`givePools`).
@@ -260,23 +260,14 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 - Breaking the seal: Core Rot ×2, guaranteed.
 - A failed rare-chart run: 1 Core Rot as consolation (RUL-2026-10-28-019).
 
-**Titles** (one each; one-time first-clear achievements, RUL-2026-10-28-013)
-| Title | Run |
-|---|---|
-| Relief of the Watch | The Night Watch |
-| Who Relieved the Captain | Captain's Watch |
-| Keeper of Echoes | The Sealed Reliquary |
-| Walked Out of the Fire | either tainted rare |
-| Crownbreaker | Crownhold (matches the badge) |
-
-Each title carries a small permanent mastery or regeneration bonus; the values are proposed for approval and not yet ruled (§6).
-
-**Trophies** (rare boss drops, 1-2%; effect sketches, with numbers set when the kits are approved)
-- **The Warden's Maul:** a bukijutsu weapon, a forge maul glowing at the head, with fire damage and a short burn. Drops from the Foundry Warden (Foundry, Sealed Reliquary, Rotted Reliquary).
-- **Wayfinder's Compass:** an accessory with a flee bonus; its needle never settles ("Still no home port"). Drops from the Wayfinder (Watch, Burning Heading).
+**Titles and trophies: deferred** (RUL-2026-10-29-041).
+- Not in this release: the five run titles (Relief of the Watch, Who Relieved the Captain, Keeper of Echoes, Walked Out of the Fire, Crownbreaker) and the two trophies (the Warden's Maul, the Wayfinder's Compass).
+- The tainted runs' doubled trophy rate goes with them.
+- The designs are kept in git history (RUL-2026-10-28-013) for a later update.
+- The Crownbreaker **badge** is unaffected.
 
 **New art**
-- 2 trophy icons and 4 chart icons.
+- 4 chart icons.
 - 2 tainted chart recolours.
 - 1 Core Rot icon.
 
@@ -312,18 +303,15 @@ Engine facts (theninjarpg source):
 
 **Kits:** `SKYGLASS_PETS.md`.
 
-## 5c. Completion achievement (RUL-2026-10-28-020)
+## 5c. Completion achievement: deferred (RUL-2026-10-29-041)
 
-**Walked Every Deck** is a one-time achievement quest. It completes when a player has cleared every chart run: Low Tide Run, Night Watch, Buried Cache, Drowned Foundry, Quarantined Archive, Captain's Watch, Sealed Reliquary, The Fall, both tainted runs, and Crownhold. It uses `complete_specific_quest` objectives.
-- **Reward:** the title **Walked Every Deck**. Its bonus is set with the other title values.
-- **Purpose:** an endgame goal past Crownhold.
+**Walked Every Deck** (RUL-2026-10-28-020) is deferred with the titles, because its reward was a title. The design is kept: a one-time quest that completes on clearing every chart run, using `complete_specific_quest` objectives.
 
 ## 6. To check before the manifests
 
 Open:
 - **Crown's Hoard contents:** how many of each cache (Coffer, Treasury, Echo Jar) one Hoard opens.
 - **Galley Stores amount:** the pet-experience lump (director).
-- **Title values:** the small mastery/regeneration bonuses are proposed, not ruled.
 - **Core Rot in the easy Wreck:** none (RUL-2026-10-28-020). Only the endgame Wreck drops it.
 - **Consumable-cache weights and quantities** (§3a), set from the push/323 capture. That capture also settles the shop flags still unconfirmed for Pill Pack, Small Health Pill, Stamina Pill II, Paper Bombs, Saki, Senbon Needles, Smoke Pellet, Venom Cask, Whetstone Oil, Solider Pill and Mona's Mermaid Song.
 - **Profession material id lists** per hunt (§4b), from the push/323 capture.
