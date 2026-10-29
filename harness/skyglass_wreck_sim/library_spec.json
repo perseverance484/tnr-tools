@@ -5,7 +5,8 @@
   "Each mark has its own marker type, so different marks never satisfy each other's blast rule and any two can coexist on one boss. Marker types are outside SHARED_COOLDOWN_TAGS, so a mark never locks another mark.",
   "A boss must not lay two marks in one turn (40 + 40 AP fits, but only one blast can follow): after its mark rules, give it rules `has_effect <its marker> -> plain attack` and `-> end turn` ahead of the other marks.",
   "The 60 AP left after a mark can carry a 60 AP follow-up such as a live pull (the two-marker chain).",
-  "CHARACTER blasts (everything that stuns, seals or pushes, and the plain heavy ones) are only valid when someone stands on the pattern; if everyone dodged, the cast fails and the marker expires. Scatter blasts are GROUND so they leave a 2-round pool (ground damage + tg_linger).",
+  "Once marked, every blast goes off, even if everyone stepped off. Pure-damage blasts (Ring, Rows, Scatter, Lines, Crownfall, Broadside, Splash, Short Line) are GROUND: ground damage resolves as an instant hit on occupants (enemies only), so they erupt on empty tiles too. Note: GROUND damage also strikes any barrier standing on an empty marked tile, including the caster's own. Blasts with stun, lock or push rows (Seal Lines, Ship's Bell, Maw of the Deep, Quench, Command Absolute) stay CHARACTER, because GROUND lands only damage. A CHARACTER cast is valid only with a character on its pattern, so Seal Lines and Ship's Bell include the caster's own hex, and the Last Light signatures cover the whole field but the stars. Scatter blasts also leave a 2-round pool (ground damage + tg_linger).",
+  "Minor marks (Splash, Short Line) are caster-anchored. A target-anchored pattern cannot hold its tiles: the blast is a new cast on the next turn, and the AI aims it at the target's current hex.",
   "Caster-relative patterns (Ring, Binding Ring, Lines, Seal Lines) need the boss to stay where it marked; marks and blasts cost all its AP across two turns, so it does."
  ],
  "markerTypes": {
@@ -18,7 +19,9 @@
   "lines": "disarm",
   "sealLines": "elementalseal",
   "lastLight": "summonprevent",
-  "lastLightBinding": "sealprevent"
+  "lastLightBinding": "sealprevent",
+  "splash": "increaseheal",
+  "shortLine": "lifesteal"
  },
  "patterns": {
   "rowsA": [
@@ -715,64 +718,56 @@
     "latitude": -1
    },
    {
-    "longitude": -1,
-    "latitude": -2
-   },
-   {
     "longitude": -2,
-    "latitude": -3
-   },
-   {
-    "longitude": -2,
-    "latitude": -4
-   },
-   {
-    "longitude": -3,
-    "latitude": -5
-   },
-   {
-    "longitude": -1,
-    "latitude": 1
-   },
-   {
-    "longitude": -1,
-    "latitude": 2
-   },
-   {
-    "longitude": -2,
-    "latitude": 3
-   },
-   {
-    "longitude": -2,
-    "latitude": 4
-   },
-   {
-    "longitude": -3,
-    "latitude": 5
-   },
-   {
-    "longitude": 0,
     "latitude": -1
    },
    {
-    "longitude": -1,
+    "longitude": -3,
+    "latitude": -2
+   },
+   {
+    "longitude": -4,
+    "latitude": -2
+   },
+   {
+    "longitude": -5,
     "latitude": -3
    },
    {
     "longitude": -2,
-    "latitude": -5
-   },
-   {
-    "longitude": 0,
     "latitude": 1
    },
    {
-    "longitude": -1,
-    "latitude": 3
+    "longitude": -3,
+    "latitude": 1
    },
    {
-    "longitude": -2,
-    "latitude": 5
+    "longitude": -4,
+    "latitude": 2
+   },
+   {
+    "longitude": -5,
+    "latitude": 2
+   },
+   {
+    "longitude": -3,
+    "latitude": -1
+   },
+   {
+    "longitude": -5,
+    "latitude": -2
+   },
+   {
+    "longitude": -1,
+    "latitude": 1
+   },
+   {
+    "longitude": -3,
+    "latitude": 2
+   },
+   {
+    "longitude": -5,
+    "latitude": 3
    }
   ],
   "sealLines": [
@@ -781,88 +776,20 @@
     "latitude": -1
    },
    {
-    "longitude": -1,
-    "latitude": -2
-   },
-   {
     "longitude": -2,
-    "latitude": -3
-   },
-   {
-    "longitude": -2,
-    "latitude": -4
-   },
-   {
-    "longitude": -3,
-    "latitude": -5
-   },
-   {
-    "longitude": 0,
     "latitude": -1
    },
    {
-    "longitude": 1,
+    "longitude": -3,
     "latitude": -2
    },
    {
-    "longitude": 1,
+    "longitude": -4,
+    "latitude": -2
+   },
+   {
+    "longitude": -5,
     "latitude": -3
-   },
-   {
-    "longitude": 2,
-    "latitude": -4
-   },
-   {
-    "longitude": 2,
-    "latitude": -5
-   },
-   {
-    "longitude": -1,
-    "latitude": 1
-   },
-   {
-    "longitude": -1,
-    "latitude": 2
-   },
-   {
-    "longitude": -2,
-    "latitude": 3
-   },
-   {
-    "longitude": -2,
-    "latitude": 4
-   },
-   {
-    "longitude": -3,
-    "latitude": 5
-   },
-   {
-    "longitude": 0,
-    "latitude": 1
-   },
-   {
-    "longitude": 1,
-    "latitude": 2
-   },
-   {
-    "longitude": 1,
-    "latitude": 3
-   },
-   {
-    "longitude": 2,
-    "latitude": 4
-   },
-   {
-    "longitude": 2,
-    "latitude": 5
-   },
-   {
-    "longitude": -1,
-    "latitude": -3
-   },
-   {
-    "longitude": -2,
-    "latitude": -5
    },
    {
     "longitude": 1,
@@ -870,34 +797,236 @@
    },
    {
     "longitude": 2,
-    "latitude": -3
+    "latitude": -1
    },
    {
     "longitude": 3,
-    "latitude": -5
+    "latitude": -2
+   },
+   {
+    "longitude": 4,
+    "latitude": -2
+   },
+   {
+    "longitude": 5,
+    "latitude": -3
    },
    {
     "longitude": -1,
-    "latitude": 3
+    "latitude": 0
    },
    {
     "longitude": -2,
-    "latitude": 5
+    "latitude": 1
+   },
+   {
+    "longitude": -3,
+    "latitude": 1
+   },
+   {
+    "longitude": -4,
+    "latitude": 2
+   },
+   {
+    "longitude": -5,
+    "latitude": 2
+   },
+   {
+    "longitude": 1,
+    "latitude": 0
+   },
+   {
+    "longitude": 2,
+    "latitude": 1
+   },
+   {
+    "longitude": 3,
+    "latitude": 1
+   },
+   {
+    "longitude": 4,
+    "latitude": 2
+   },
+   {
+    "longitude": 5,
+    "latitude": 2
+   },
+   {
+    "longitude": -3,
+    "latitude": -1
+   },
+   {
+    "longitude": -5,
+    "latitude": -2
+   },
+   {
+    "longitude": 3,
+    "latitude": -1
+   },
+   {
+    "longitude": 5,
+    "latitude": -2
+   },
+   {
+    "longitude": -1,
+    "latitude": 1
+   },
+   {
+    "longitude": -3,
+    "latitude": 2
+   },
+   {
+    "longitude": -5,
+    "latitude": 3
    },
    {
     "longitude": 1,
     "latitude": 1
    },
    {
-    "longitude": 2,
-    "latitude": 3
+    "longitude": 3,
+    "latitude": 2
    },
    {
-    "longitude": 3,
-    "latitude": 5
+    "longitude": 5,
+    "latitude": 3
    }
   ],
-  "linesByRowParity": {
+  "splash": [
+   {
+    "longitude": -2,
+    "latitude": 0
+   },
+   {
+    "longitude": -2,
+    "latitude": -1
+   },
+   {
+    "longitude": -2,
+    "latitude": 1
+   },
+   {
+    "longitude": -3,
+    "latitude": -1
+   },
+   {
+    "longitude": -1,
+    "latitude": -1
+   },
+   {
+    "longitude": -3,
+    "latitude": 0
+   },
+   {
+    "longitude": -1,
+    "latitude": 0
+   },
+   {
+    "longitude": -3,
+    "latitude": 1
+   },
+   {
+    "longitude": -1,
+    "latitude": 1
+   }
+  ],
+  "shortLine": [
+   {
+    "longitude": -1,
+    "latitude": 0
+   },
+   {
+    "longitude": -2,
+    "latitude": 0
+   },
+   {
+    "longitude": -3,
+    "latitude": 0
+   }
+  ],
+  "bindingRing": [
+   {
+    "longitude": -2,
+    "latitude": -1
+   },
+   {
+    "longitude": -2,
+    "latitude": 0
+   },
+   {
+    "longitude": -2,
+    "latitude": 1
+   },
+   {
+    "longitude": -1,
+    "latitude": -2
+   },
+   {
+    "longitude": -1,
+    "latitude": -1
+   },
+   {
+    "longitude": -1,
+    "latitude": 0
+   },
+   {
+    "longitude": -1,
+    "latitude": 1
+   },
+   {
+    "longitude": 0,
+    "latitude": -2
+   },
+   {
+    "longitude": 0,
+    "latitude": -1
+   },
+   {
+    "longitude": 0,
+    "latitude": 1
+   },
+   {
+    "longitude": 0,
+    "latitude": 2
+   },
+   {
+    "longitude": 1,
+    "latitude": -2
+   },
+   {
+    "longitude": 1,
+    "latitude": -1
+   },
+   {
+    "longitude": 1,
+    "latitude": 0
+   },
+   {
+    "longitude": 1,
+    "latitude": 1
+   },
+   {
+    "longitude": 2,
+    "latitude": -1
+   },
+   {
+    "longitude": 2,
+    "latitude": 0
+   },
+   {
+    "longitude": 2,
+    "latitude": 1
+   },
+   {
+    "longitude": -1,
+    "latitude": 2
+   },
+   {
+    "longitude": 1,
+    "latitude": 2
+   }
+  ],
+  "linesByColumnParity": {
    "even": [
     {
      "longitude": -1,
@@ -924,40 +1053,40 @@
      "latitude": -1
     },
     {
-     "longitude": -1,
+     "longitude": -2,
+     "latitude": -1
+    },
+    {
+     "longitude": -3,
      "latitude": -2
     },
     {
-     "longitude": -2,
+     "longitude": -4,
+     "latitude": -2
+    },
+    {
+     "longitude": -5,
      "latitude": -3
     },
     {
-     "longitude": -2,
-     "latitude": -4
-    },
-    {
-     "longitude": -3,
-     "latitude": -5
-    },
-    {
      "longitude": -1,
+     "latitude": 0
+    },
+    {
+     "longitude": -2,
      "latitude": 1
     },
     {
-     "longitude": -1,
+     "longitude": -3,
+     "latitude": 1
+    },
+    {
+     "longitude": -4,
      "latitude": 2
     },
     {
-     "longitude": -2,
-     "latitude": 3
-    },
-    {
-     "longitude": -2,
-     "latitude": 4
-    },
-    {
-     "longitude": -3,
-     "latitude": 5
+     "longitude": -5,
+     "latitude": 2
     }
    ],
    "odd": [
@@ -982,210 +1111,210 @@
      "latitude": 0
     },
     {
-     "longitude": 0,
+     "longitude": -1,
+     "latitude": 0
+    },
+    {
+     "longitude": -2,
      "latitude": -1
     },
     {
-     "longitude": -1,
+     "longitude": -3,
+     "latitude": -1
+    },
+    {
+     "longitude": -4,
+     "latitude": -2
+    },
+    {
+     "longitude": -5,
      "latitude": -2
     },
     {
      "longitude": -1,
-     "latitude": -3
-    },
-    {
-     "longitude": -2,
-     "latitude": -4
-    },
-    {
-     "longitude": -2,
-     "latitude": -5
-    },
-    {
-     "longitude": 0,
      "latitude": 1
     },
     {
-     "longitude": -1,
+     "longitude": -2,
+     "latitude": 1
+    },
+    {
+     "longitude": -3,
      "latitude": 2
     },
     {
-     "longitude": -1,
+     "longitude": -4,
+     "latitude": 2
+    },
+    {
+     "longitude": -5,
      "latitude": 3
-    },
-    {
-     "longitude": -2,
-     "latitude": 4
-    },
-    {
-     "longitude": -2,
-     "latitude": 5
     }
    ]
   },
-  "sealLinesByRowParity": {
+  "sealLinesByColumnParity": {
    "even": [
     {
      "longitude": -1,
      "latitude": -1
     },
     {
-     "longitude": -1,
-     "latitude": -2
-    },
-    {
      "longitude": -2,
-     "latitude": -3
-    },
-    {
-     "longitude": -2,
-     "latitude": -4
-    },
-    {
-     "longitude": -3,
-     "latitude": -5
-    },
-    {
-     "longitude": 0,
      "latitude": -1
     },
     {
-     "longitude": 1,
+     "longitude": -3,
      "latitude": -2
     },
     {
-     "longitude": 1,
+     "longitude": -4,
+     "latitude": -2
+    },
+    {
+     "longitude": -5,
      "latitude": -3
     },
     {
-     "longitude": 2,
-     "latitude": -4
+     "longitude": 1,
+     "latitude": -1
     },
     {
      "longitude": 2,
-     "latitude": -5
+     "latitude": -1
+    },
+    {
+     "longitude": 3,
+     "latitude": -2
+    },
+    {
+     "longitude": 4,
+     "latitude": -2
+    },
+    {
+     "longitude": 5,
+     "latitude": -3
     },
     {
      "longitude": -1,
+     "latitude": 0
+    },
+    {
+     "longitude": -2,
      "latitude": 1
-    },
-    {
-     "longitude": -1,
-     "latitude": 2
-    },
-    {
-     "longitude": -2,
-     "latitude": 3
-    },
-    {
-     "longitude": -2,
-     "latitude": 4
     },
     {
      "longitude": -3,
-     "latitude": 5
-    },
-    {
-     "longitude": 0,
      "latitude": 1
     },
     {
-     "longitude": 1,
+     "longitude": -4,
+     "latitude": 2
+    },
+    {
+     "longitude": -5,
      "latitude": 2
     },
     {
      "longitude": 1,
-     "latitude": 3
+     "latitude": 0
     },
     {
      "longitude": 2,
-     "latitude": 4
+     "latitude": 1
     },
     {
-     "longitude": 2,
-     "latitude": 5
+     "longitude": 3,
+     "latitude": 1
+    },
+    {
+     "longitude": 4,
+     "latitude": 2
+    },
+    {
+     "longitude": 5,
+     "latitude": 2
     }
    ],
    "odd": [
     {
-     "longitude": 0,
+     "longitude": -1,
+     "latitude": 0
+    },
+    {
+     "longitude": -2,
      "latitude": -1
     },
     {
-     "longitude": -1,
+     "longitude": -3,
+     "latitude": -1
+    },
+    {
+     "longitude": -4,
+     "latitude": -2
+    },
+    {
+     "longitude": -5,
+     "latitude": -2
+    },
+    {
+     "longitude": 1,
+     "latitude": 0
+    },
+    {
+     "longitude": 2,
+     "latitude": -1
+    },
+    {
+     "longitude": 3,
+     "latitude": -1
+    },
+    {
+     "longitude": 4,
+     "latitude": -2
+    },
+    {
+     "longitude": 5,
      "latitude": -2
     },
     {
      "longitude": -1,
-     "latitude": -3
-    },
-    {
-     "longitude": -2,
-     "latitude": -4
-    },
-    {
-     "longitude": -2,
-     "latitude": -5
-    },
-    {
-     "longitude": 1,
-     "latitude": -1
-    },
-    {
-     "longitude": 1,
-     "latitude": -2
-    },
-    {
-     "longitude": 2,
-     "latitude": -3
-    },
-    {
-     "longitude": 2,
-     "latitude": -4
-    },
-    {
-     "longitude": 3,
-     "latitude": -5
-    },
-    {
-     "longitude": 0,
      "latitude": 1
     },
     {
-     "longitude": -1,
+     "longitude": -2,
+     "latitude": 1
+    },
+    {
+     "longitude": -3,
      "latitude": 2
     },
     {
-     "longitude": -1,
+     "longitude": -4,
+     "latitude": 2
+    },
+    {
+     "longitude": -5,
      "latitude": 3
-    },
-    {
-     "longitude": -2,
-     "latitude": 4
-    },
-    {
-     "longitude": -2,
-     "latitude": 5
     },
     {
      "longitude": 1,
      "latitude": 1
     },
     {
-     "longitude": 1,
-     "latitude": 2
-    },
-    {
      "longitude": 2,
-     "latitude": 3
-    },
-    {
-     "longitude": 2,
-     "latitude": 4
+     "latitude": 1
     },
     {
      "longitude": 3,
-     "latitude": 5
+     "latitude": 2
+    },
+    {
+     "longitude": 4,
+     "latitude": 2
+    },
+    {
+     "longitude": 5,
+     "latitude": 3
     }
    ]
   },
@@ -1203,8 +1332,7 @@
     "latitude": 8
    }
   ],
-  "ring": "AOE_SPIRAL_SHOOT range 2 around the caster (disc minus the caster)",
-  "bindingRing": "as ring"
+  "ring": "AOE_SPIRAL_SHOOT range 2 around the caster (disc minus the caster)"
  },
  "powers": {
   "blastRing": 160,
@@ -1219,6 +1347,8 @@
   "crownfall": 180,
   "broadside": 140,
   "shipsBell": 50,
+  "splash": 80,
+  "shortLine": 90,
   "chainHook": 45,
   "oath": 35,
   "aegisShield": 1500,
@@ -1226,12 +1356,13 @@
   "wardDR": 80
  },
  "counts": {
-  "marks": 10,
-  "sharedBlasts": 7,
+  "marks": 12,
+  "sharedBlasts": 9,
   "signatures": 6,
   "loweredGuard": 1,
   "crewAdditions": 6,
-  "total": 30
+  "liveCopies": 1,
+  "total": 35
  },
  "records": [
   {
@@ -1331,9 +1462,95 @@
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
     "target": "GROUND",
-    "method": "AOE_SPIRAL_SHOOT",
-    "range": 2,
-    "coordinateTargeting": null,
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -2,
+       "latitude": -1
+      },
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": -2
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": 0,
+       "latitude": -2
+      },
+      {
+       "longitude": 0,
+       "latitude": -1
+      },
+      {
+       "longitude": 0,
+       "latitude": 1
+      },
+      {
+       "longitude": 0,
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": -2
+      },
+      {
+       "longitude": 1,
+       "latitude": -1
+      },
+      {
+       "longitude": 1,
+       "latitude": 0
+      },
+      {
+       "longitude": 1,
+       "latitude": 1
+      },
+      {
+       "longitude": 2,
+       "latitude": -1
+      },
+      {
+       "longitude": 2,
+       "latitude": 0
+      },
+      {
+       "longitude": 2,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": 2
+      }
+     ],
+     "randomCount": 1
+    },
     "methodSize": null,
     "cooldown": 4,
     "actionCostPerc": 40,
@@ -2433,64 +2650,56 @@
        "latitude": -1
       },
       {
-       "longitude": -1,
-       "latitude": -2
-      },
-      {
        "longitude": -2,
-       "latitude": -3
-      },
-      {
-       "longitude": -2,
-       "latitude": -4
-      },
-      {
-       "longitude": -3,
-       "latitude": -5
-      },
-      {
-       "longitude": -1,
-       "latitude": 1
-      },
-      {
-       "longitude": -1,
-       "latitude": 2
-      },
-      {
-       "longitude": -2,
-       "latitude": 3
-      },
-      {
-       "longitude": -2,
-       "latitude": 4
-      },
-      {
-       "longitude": -3,
-       "latitude": 5
-      },
-      {
-       "longitude": 0,
        "latitude": -1
       },
       {
-       "longitude": -1,
+       "longitude": -3,
+       "latitude": -2
+      },
+      {
+       "longitude": -4,
+       "latitude": -2
+      },
+      {
+       "longitude": -5,
        "latitude": -3
       },
       {
        "longitude": -2,
-       "latitude": -5
-      },
-      {
-       "longitude": 0,
        "latitude": 1
       },
       {
-       "longitude": -1,
-       "latitude": 3
+       "longitude": -3,
+       "latitude": 1
       },
       {
-       "longitude": -2,
-       "latitude": 5
+       "longitude": -4,
+       "latitude": 2
+      },
+      {
+       "longitude": -5,
+       "latitude": 2
+      },
+      {
+       "longitude": -3,
+       "latitude": -1
+      },
+      {
+       "longitude": -5,
+       "latitude": -2
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": -3,
+       "latitude": 2
+      },
+      {
+       "longitude": -5,
+       "latitude": 3
       }
      ],
      "randomCount": 1
@@ -2580,88 +2789,20 @@
        "latitude": -1
       },
       {
-       "longitude": -1,
-       "latitude": -2
-      },
-      {
        "longitude": -2,
-       "latitude": -3
-      },
-      {
-       "longitude": -2,
-       "latitude": -4
-      },
-      {
-       "longitude": -3,
-       "latitude": -5
-      },
-      {
-       "longitude": 0,
        "latitude": -1
       },
       {
-       "longitude": 1,
+       "longitude": -3,
        "latitude": -2
       },
       {
-       "longitude": 1,
+       "longitude": -4,
+       "latitude": -2
+      },
+      {
+       "longitude": -5,
        "latitude": -3
-      },
-      {
-       "longitude": 2,
-       "latitude": -4
-      },
-      {
-       "longitude": 2,
-       "latitude": -5
-      },
-      {
-       "longitude": -1,
-       "latitude": 1
-      },
-      {
-       "longitude": -1,
-       "latitude": 2
-      },
-      {
-       "longitude": -2,
-       "latitude": 3
-      },
-      {
-       "longitude": -2,
-       "latitude": 4
-      },
-      {
-       "longitude": -3,
-       "latitude": 5
-      },
-      {
-       "longitude": 0,
-       "latitude": 1
-      },
-      {
-       "longitude": 1,
-       "latitude": 2
-      },
-      {
-       "longitude": 1,
-       "latitude": 3
-      },
-      {
-       "longitude": 2,
-       "latitude": 4
-      },
-      {
-       "longitude": 2,
-       "latitude": 5
-      },
-      {
-       "longitude": -1,
-       "latitude": -3
-      },
-      {
-       "longitude": -2,
-       "latitude": -5
       },
       {
        "longitude": 1,
@@ -2669,31 +2810,99 @@
       },
       {
        "longitude": 2,
-       "latitude": -3
+       "latitude": -1
       },
       {
        "longitude": 3,
-       "latitude": -5
+       "latitude": -2
+      },
+      {
+       "longitude": 4,
+       "latitude": -2
+      },
+      {
+       "longitude": 5,
+       "latitude": -3
       },
       {
        "longitude": -1,
-       "latitude": 3
+       "latitude": 0
       },
       {
        "longitude": -2,
-       "latitude": 5
+       "latitude": 1
+      },
+      {
+       "longitude": -3,
+       "latitude": 1
+      },
+      {
+       "longitude": -4,
+       "latitude": 2
+      },
+      {
+       "longitude": -5,
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": 0
+      },
+      {
+       "longitude": 2,
+       "latitude": 1
+      },
+      {
+       "longitude": 3,
+       "latitude": 1
+      },
+      {
+       "longitude": 4,
+       "latitude": 2
+      },
+      {
+       "longitude": 5,
+       "latitude": 2
+      },
+      {
+       "longitude": -3,
+       "latitude": -1
+      },
+      {
+       "longitude": -5,
+       "latitude": -2
+      },
+      {
+       "longitude": 3,
+       "latitude": -1
+      },
+      {
+       "longitude": 5,
+       "latitude": -2
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": -3,
+       "latitude": 2
+      },
+      {
+       "longitude": -5,
+       "latitude": 3
       },
       {
        "longitude": 1,
        "latitude": 1
       },
       {
-       "longitude": 2,
-       "latitude": 3
+       "longitude": 3,
+       "latitude": 2
       },
       {
-       "longitude": 3,
-       "latitude": 5
+       "longitude": 5,
+       "latitude": 3
       }
      ],
      "randomCount": 1
@@ -3016,6 +3225,220 @@
    "validator": "JutsuValidator: ok"
   },
   {
+   "id": "lib-omen-splash",
+   "status": "NEW",
+   "group": "mark",
+   "primedMarker": {
+    "type": "increaseheal",
+    "rounds": 1,
+    "rule": "has_effect increaseheal >= 1"
+   },
+   "record": {
+    "name": "Omen: Splash",
+    "description": "A minor warning mark (Omen: Splash). Its blast follows on the caster's next turn.",
+    "battleDescription": "%user marks a patch of deck in front of them.",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "jutsuWeapon": "NONE",
+    "target": "GROUND",
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": -1
+      },
+      {
+       "longitude": -2,
+       "latitude": 1
+      },
+      {
+       "longitude": -3,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": -3,
+       "latitude": 0
+      },
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      }
+     ],
+     "randomCount": 1
+    },
+    "methodSize": null,
+    "cooldown": 3,
+    "actionCostPerc": 40,
+    "healthCost": 0,
+    "chakraCost": 0.05,
+    "staminaCost": 0.05,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "battleUsageType": "BOTH",
+    "elementClassification": "None",
+    "statClassification": "None",
+    "hidden": true,
+    "extraBaseCost": 0,
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "tg_heavy",
+      "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+      "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 1,
+      "power": 2,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "static",
+      "type": "visual",
+      "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 1,
+      "power": 1,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "SELF",
+      "calculation": "percentage",
+      "type": "increaseheal",
+      "description": "placeholder"
+     }
+    ]
+   },
+   "animationPlaceholders": [
+    "tg_heavy"
+   ],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "lib-omen-short-line",
+   "status": "NEW",
+   "group": "mark",
+   "primedMarker": {
+    "type": "lifesteal",
+    "rounds": 1,
+    "rule": "has_effect lifesteal >= 1"
+   },
+   "record": {
+    "name": "Omen: Short Line",
+    "description": "A minor warning mark (Omen: Short Line). Its blast follows on the caster's next turn.",
+    "battleDescription": "%user sights down a short line.",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "jutsuWeapon": "NONE",
+    "target": "GROUND",
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": 0
+      }
+     ],
+     "randomCount": 1
+    },
+    "methodSize": null,
+    "cooldown": 3,
+    "actionCostPerc": 40,
+    "healthCost": 0,
+    "chakraCost": 0.05,
+    "staminaCost": 0.05,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "battleUsageType": "BOTH",
+    "elementClassification": "None",
+    "statClassification": "None",
+    "hidden": true,
+    "extraBaseCost": 0,
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "tg_heavy",
+      "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+      "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 1,
+      "power": 2,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "static",
+      "type": "visual",
+      "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 1,
+      "power": 1,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "SELF",
+      "calculation": "percentage",
+      "type": "lifesteal",
+      "description": "placeholder"
+     }
+    ]
+   },
+   "animationPlaceholders": [
+    "tg_heavy"
+   ],
+   "validator": "JutsuValidator: ok"
+  },
+  {
    "id": "lib-blast-ring",
    "status": "NEW",
    "group": "shared blast",
@@ -3030,7 +3453,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "AOE_SPIRAL_SHOOT",
     "range": 2,
     "coordinateTargeting": null,
@@ -3096,7 +3519,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -3264,7 +3687,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -4126,7 +4549,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -4158,64 +4581,56 @@
        "latitude": -1
       },
       {
-       "longitude": -1,
-       "latitude": -2
-      },
-      {
        "longitude": -2,
-       "latitude": -3
-      },
-      {
-       "longitude": -2,
-       "latitude": -4
-      },
-      {
-       "longitude": -3,
-       "latitude": -5
-      },
-      {
-       "longitude": -1,
-       "latitude": 1
-      },
-      {
-       "longitude": -1,
-       "latitude": 2
-      },
-      {
-       "longitude": -2,
-       "latitude": 3
-      },
-      {
-       "longitude": -2,
-       "latitude": 4
-      },
-      {
-       "longitude": -3,
-       "latitude": 5
-      },
-      {
-       "longitude": 0,
        "latitude": -1
       },
       {
-       "longitude": -1,
+       "longitude": -3,
+       "latitude": -2
+      },
+      {
+       "longitude": -4,
+       "latitude": -2
+      },
+      {
+       "longitude": -5,
        "latitude": -3
       },
       {
        "longitude": -2,
-       "latitude": -5
-      },
-      {
-       "longitude": 0,
        "latitude": 1
       },
       {
-       "longitude": -1,
-       "latitude": 3
+       "longitude": -3,
+       "latitude": 1
       },
       {
-       "longitude": -2,
-       "latitude": 5
+       "longitude": -4,
+       "latitude": 2
+      },
+      {
+       "longitude": -5,
+       "latitude": 2
+      },
+      {
+       "longitude": -3,
+       "latitude": -1
+      },
+      {
+       "longitude": -5,
+       "latitude": -2
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": -3,
+       "latitude": 2
+      },
+      {
+       "longitude": -5,
+       "latitude": 3
       }
      ],
      "randomCount": 1
@@ -4290,124 +4705,128 @@
      "selection": "ALL",
      "coordinates": [
       {
+       "longitude": 0,
+       "latitude": 0
+      },
+      {
        "longitude": -1,
        "latitude": -1
       },
       {
-       "longitude": -1,
-       "latitude": -2
-      },
-      {
        "longitude": -2,
-       "latitude": -3
-      },
-      {
-       "longitude": -2,
-       "latitude": -4
+       "latitude": -1
       },
       {
        "longitude": -3,
-       "latitude": -5
-      },
-      {
-       "longitude": 0,
-       "latitude": -1
-      },
-      {
-       "longitude": 1,
        "latitude": -2
       },
       {
-       "longitude": 1,
+       "longitude": -4,
+       "latitude": -2
+      },
+      {
+       "longitude": -5,
        "latitude": -3
       },
       {
-       "longitude": 2,
-       "latitude": -4
+       "longitude": 1,
+       "latitude": -1
       },
       {
        "longitude": 2,
-       "latitude": -5
+       "latitude": -1
+      },
+      {
+       "longitude": 3,
+       "latitude": -2
+      },
+      {
+       "longitude": 4,
+       "latitude": -2
+      },
+      {
+       "longitude": 5,
+       "latitude": -3
       },
       {
        "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
        "latitude": 1
       },
       {
-       "longitude": -1,
+       "longitude": -3,
+       "latitude": 1
+      },
+      {
+       "longitude": -4,
        "latitude": 2
       },
       {
-       "longitude": -2,
-       "latitude": 3
-      },
-      {
-       "longitude": -2,
-       "latitude": 4
-      },
-      {
-       "longitude": -3,
-       "latitude": 5
-      },
-      {
-       "longitude": 0,
-       "latitude": 1
-      },
-      {
-       "longitude": 1,
+       "longitude": -5,
        "latitude": 2
       },
       {
        "longitude": 1,
-       "latitude": 3
+       "latitude": 0
       },
       {
        "longitude": 2,
-       "latitude": 4
-      },
-      {
-       "longitude": 2,
-       "latitude": 5
-      },
-      {
-       "longitude": -1,
-       "latitude": -3
-      },
-      {
-       "longitude": -2,
-       "latitude": -5
-      },
-      {
-       "longitude": 1,
-       "latitude": -1
-      },
-      {
-       "longitude": 2,
-       "latitude": -3
+       "latitude": 1
       },
       {
        "longitude": 3,
-       "latitude": -5
+       "latitude": 1
+      },
+      {
+       "longitude": 4,
+       "latitude": 2
+      },
+      {
+       "longitude": 5,
+       "latitude": 2
+      },
+      {
+       "longitude": -3,
+       "latitude": -1
+      },
+      {
+       "longitude": -5,
+       "latitude": -2
+      },
+      {
+       "longitude": 3,
+       "latitude": -1
+      },
+      {
+       "longitude": 5,
+       "latitude": -2
       },
       {
        "longitude": -1,
-       "latitude": 3
+       "latitude": 1
       },
       {
-       "longitude": -2,
-       "latitude": 5
+       "longitude": -3,
+       "latitude": 2
+      },
+      {
+       "longitude": -5,
+       "latitude": 3
       },
       {
        "longitude": 1,
        "latitude": 1
       },
       {
-       "longitude": 2,
-       "latitude": 3
+       "longitude": 3,
+       "latitude": 2
       },
       {
-       "longitude": 3,
-       "latitude": 5
+       "longitude": 5,
+       "latitude": 3
       }
      ],
      "randomCount": 1
@@ -4511,6 +4930,198 @@
    },
    "animationPlaceholders": [
     "dt_control"
+   ],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "lib-blast-splash",
+   "status": "NEW",
+   "group": "shared blast",
+   "answersMark": "lib-omen-splash",
+   "fireRule": "use_specific_jutsu lib-blast-splash target SELF when has_effect increaseheal >= 1",
+   "record": {
+    "name": "Eruption: Splash",
+    "description": "Shared blast: fires on the hexes its Omen marked.",
+    "battleDescription": "The marked planks burst.",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "jutsuWeapon": "NONE",
+    "target": "GROUND",
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": -1
+      },
+      {
+       "longitude": -2,
+       "latitude": 1
+      },
+      {
+       "longitude": -3,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": -3,
+       "latitude": 0
+      },
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      }
+     ],
+     "randomCount": 1
+    },
+    "methodSize": null,
+    "cooldown": 2,
+    "actionCostPerc": 100,
+    "healthCost": 0,
+    "chakraCost": 0.05,
+    "staminaCost": 0.05,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "battleUsageType": "BOTH",
+    "elementClassification": "None",
+    "statClassification": "None",
+    "hidden": true,
+    "extraBaseCost": 0,
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "dt_heavy",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 0,
+      "power": 80,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "formula",
+      "statTypes": [
+       "None"
+      ],
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     }
+    ]
+   },
+   "animationPlaceholders": [
+    "dt_heavy"
+   ],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "lib-blast-short-line",
+   "status": "NEW",
+   "group": "shared blast",
+   "answersMark": "lib-omen-short-line",
+   "fireRule": "use_specific_jutsu lib-blast-short-line target SELF when has_effect lifesteal >= 1",
+   "record": {
+    "name": "Eruption: Short Line",
+    "description": "Shared blast: fires on the hexes its Omen marked.",
+    "battleDescription": "A short line of force cuts across the deck.",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "jutsuWeapon": "NONE",
+    "target": "GROUND",
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": 0
+      }
+     ],
+     "randomCount": 1
+    },
+    "methodSize": null,
+    "cooldown": 2,
+    "actionCostPerc": 100,
+    "healthCost": 0,
+    "chakraCost": 0.05,
+    "staminaCost": 0.05,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "battleUsageType": "BOTH",
+    "elementClassification": "None",
+    "statClassification": "None",
+    "hidden": true,
+    "extraBaseCost": 0,
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "dt_heavy",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 0,
+      "power": 90,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "formula",
+      "statTypes": [
+       "None"
+      ],
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     }
+    ]
+   },
+   "animationPlaceholders": [
+    "dt_heavy"
    ],
    "validator": "JutsuValidator: ok"
   },
@@ -4924,7 +5535,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -4956,64 +5567,56 @@
        "latitude": -1
       },
       {
-       "longitude": -1,
-       "latitude": -2
-      },
-      {
        "longitude": -2,
-       "latitude": -3
-      },
-      {
-       "longitude": -2,
-       "latitude": -4
-      },
-      {
-       "longitude": -3,
-       "latitude": -5
-      },
-      {
-       "longitude": -1,
-       "latitude": 1
-      },
-      {
-       "longitude": -1,
-       "latitude": 2
-      },
-      {
-       "longitude": -2,
-       "latitude": 3
-      },
-      {
-       "longitude": -2,
-       "latitude": 4
-      },
-      {
-       "longitude": -3,
-       "latitude": 5
-      },
-      {
-       "longitude": 0,
        "latitude": -1
       },
       {
-       "longitude": -1,
+       "longitude": -3,
+       "latitude": -2
+      },
+      {
+       "longitude": -4,
+       "latitude": -2
+      },
+      {
+       "longitude": -5,
        "latitude": -3
       },
       {
        "longitude": -2,
-       "latitude": -5
-      },
-      {
-       "longitude": 0,
        "latitude": 1
       },
       {
-       "longitude": -1,
-       "latitude": 3
+       "longitude": -3,
+       "latitude": 1
       },
       {
-       "longitude": -2,
-       "latitude": 5
+       "longitude": -4,
+       "latitude": 2
+      },
+      {
+       "longitude": -5,
+       "latitude": 2
+      },
+      {
+       "longitude": -3,
+       "latitude": -1
+      },
+      {
+       "longitude": -5,
+       "latitude": -2
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": -3,
+       "latitude": 2
+      },
+      {
+       "longitude": -5,
+       "latitude": 3
       }
      ],
      "randomCount": 1
@@ -5080,7 +5683,7 @@
     "requiredRank": "STUDENT",
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
-    "target": "CHARACTER",
+    "target": "GROUND",
     "method": "COORDINATES",
     "range": 0,
     "coordinateTargeting": {
@@ -5249,9 +5852,99 @@
     "requiredLevel": 1,
     "jutsuWeapon": "NONE",
     "target": "CHARACTER",
-    "method": "AOE_SPIRAL_SHOOT",
-    "range": 2,
-    "coordinateTargeting": null,
+    "method": "COORDINATES",
+    "range": 0,
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": 0,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": -1
+      },
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": -2
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": 0,
+       "latitude": -2
+      },
+      {
+       "longitude": 0,
+       "latitude": -1
+      },
+      {
+       "longitude": 0,
+       "latitude": 1
+      },
+      {
+       "longitude": 0,
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": -2
+      },
+      {
+       "longitude": 1,
+       "latitude": -1
+      },
+      {
+       "longitude": 1,
+       "latitude": 0
+      },
+      {
+       "longitude": 1,
+       "latitude": 1
+      },
+      {
+       "longitude": 2,
+       "latitude": -1
+      },
+      {
+       "longitude": 2,
+       "latitude": 0
+      },
+      {
+       "longitude": 2,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": 2
+      }
+     ],
+     "randomCount": 1
+    },
     "methodSize": null,
     "cooldown": 2,
     "actionCostPerc": 100,
@@ -5899,12 +6592,100 @@
       "elements": [],
       "type": "decreasedamagetaken",
       "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 2,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "FRIENDLY",
+      "calculation": "static",
+      "type": "clearprevent",
+      "description": "placeholder"
      }
     ]
    },
    "animationPlaceholders": [
     "cp_command"
    ],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "hunt-stonebound-erupting-ground",
+   "status": "NEW",
+   "group": "Skyglass-only copy of a live jutsu",
+   "copyOf": {
+    "liveId": "jBRyl7F4UjTyxG5nnzLqj",
+    "liveName": "Erupting Ground (Crown Stonebound)",
+    "change": "damage rows friendlyFire ENEMIES (live: unset, hits everyone)"
+   },
+   "record": {
+    "name": "Erupting Ground",
+    "description": "Shared pool record A3. Balance values pending sign-off. (Skyglass copy: damage hits enemies only.)",
+    "battleDescription": "%user forms the Boar seal and pours chakra deep into the earth beneath %target. The ground heaves and bursts upward in a column of rock and soil, battering everyone caught above it.",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "jutsuWeapon": "NONE",
+    "target": "OTHER_USER",
+    "method": "AOE_CIRCLE_SPAWN",
+    "range": 3,
+    "coordinateTargeting": null,
+    "methodSize": null,
+    "cooldown": 5,
+    "actionCostPerc": 60,
+    "healthCost": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "battleUsageType": "BOTH",
+    "elementClassification": "None",
+    "statClassification": "None",
+    "hidden": true,
+    "extraBaseCost": 0,
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "hit",
+      "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+      "disappearAnimation": "hit",
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "disappearSfx": "",
+      "rounds": 0,
+      "power": 55,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "formula",
+      "statTypes": [
+       "None"
+      ],
+      "generalTypes": [
+       "Highest"
+      ],
+      "elements": [],
+      "type": "damage",
+      "description": "<p>placeholder</p>",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     }
+    ]
+   },
+   "animationPlaceholders": [],
    "validator": "JutsuValidator: ok"
   }
  ]

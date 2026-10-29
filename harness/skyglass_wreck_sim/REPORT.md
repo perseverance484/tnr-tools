@@ -631,3 +631,454 @@ rows (100% each, capped per row, rows multiply) are the remaining storable lever
   his set pieces. A level-40 party clears 3 of 30 runs: the Core Horror wipes 91 of 114 attempts and the Captain 20 of
   23. With this player model the version cannot serve both ends of 40-60. Gating it at about 45+, or a softer
   Core Horror and Captain for the low end, is a director decision.
+
+# Report 4 (2026-10-28): shared library, one kit per enemy, pets, retune
+
+Supersedes the tuned figures, kit notes and build_spec notes of report 3 parts A and B. It also corrects report 3's
+statements that the grid is pointy-topped and that "no pattern depends on row parity" (see Geometry).
+
+Offline only, zero live requests, engine pin c86f43f4. Commits on `fable/skyglass-wreck-sim` (local, not pushed):
+
+| Commit | What |
+|---|---|
+| 4bd5356a | the library |
+| 5f6c3edb | library fixes |
+| ad379117 | Ward of Command and First Blade fixes, virtual clock, pets |
+| c301632b | pet-placement determinism |
+| 23e3a45f | minor marks, crew wiring, endgame retune |
+| 422c0508 | every blast detonates once marked |
+| dff3a89a | patterns on the engine's real grid |
+| next | the results of this report |
+
+## What changed
+
+### Shared set-piece library
+
+`engine/library.ts` writes `library_spec.json`: 34 NEW records, all passing `JutsuValidator`.
+
+| Group | Count | Records |
+|---|---:|---|
+| Marks | 10 | Omen: Ring, Binding Ring, Rows A/B, Scatter A/B, Lines, Seal Lines, Last Light, Last Light Binding |
+| Shared blasts | 7 | one per shared mark |
+| Bespoke signatures | 6 | Maw of the Deep, Quench, Command Absolute, Crownfall, Broadside, Ship's Bell |
+| Shared lowered guard | 1 | Lowered Guard |
+| Crew additions | 6 | Chain Hook, Oath of Stillness, Chart Mark, Skyglass Aegis, Mending Seal, Ward of Command |
+| Minor-mark pairs | 4 | Splash and Short Line (2 marks, 2 blasts) |
+
+- Each mark puts its own 1-round primed-marker type on the caster. All 12 marker types are outside the shared-cooldown list.
+- `results/probe_library.json` holds the probes:
+  - each mark and its blast fire in order;
+  - two marks coexist on one caster;
+  - the minor pairs work as designed;
+  - dodged players are not hit;
+  - the engine geometry checks.
+
+### One kit per enemy
+
+- Both Wreck versions use the same jutsu and the same ordered rules per enemy (`build_spec.json` → `sharedKits`). Only stats, pools and damage rows differ per version.
+- The Captain keeps the live Crowned Captain records unchanged. Hold the Line is live Unbroken Command; Last Stand is live Battle Trance.
+- `build_spec.json` marks each jutsu LIBRARY, WRECK-NEW (Raise the Gunwale only) or LIVE (live id, unchanged).
+- Counts: 24 library records used by the Wreck, 1 Wreck-new, 29 live.
+
+### Every blast detonates once marked (422c0508)
+
+- A CHARACTER cast is valid only when some character stands on a pattern tile (`util.ts isValidMove`).
+- So with everyone stepped off, the AI had no valid cast. Ring, Ship's Bell, Rows B, Lines and Seal Lines then never went off.
+- Pure-damage blasts are now GROUND:
+  - Ring, Rows A/B, Lines, Crownfall, Broadside, Splash and Short Line (Scatter already was).
+  - Ground damage resolves as an instant hit on whoever stands there (`process.ts`, enemies only).
+  - So they erupt on the marked tiles even when nobody is left.
+- Blasts with stun, lock or push rows stay CHARACTER, because GROUND lands only damage:
+  - Seal Lines and Ship's Bell include the caster's own hex, so the cast is always valid. Their rows hit enemies only.
+  - Maw, Quench and Command Absolute cover the whole field except the stars.
+- Probe with every player dodged off: all 10 boss pairs and both minor pairs are cast and hit nobody.
+- Exception: Last Light hits 2 of 5 players in that probe, because 3 stars cannot hold 5 players.
+- **Side effect:** GROUND damage also strikes a barrier on an empty marked tile. The Captain's Broadside and Rows B now chip his own Raise the Gunwale when a marked row crosses it.
+
+### Geometry (dff3a89a)
+
+The engine grid is FLAT-topped with odd columns shifted down (`getBattleGrid`, honeycomb `Orientation.FLAT`, checked with the engine's own `grid.distance`).
+
+| Column | N | S | NW | NE | SW | SE |
+|---|---|---|---|---|---|---|
+| even | (0,-1) | (0,+1) | (-1,-1) | (+1,-1) | (-1,0) | (+1,0) |
+| odd | (0,-1) | (0,+1) | (-1,0) | (+1,0) | (-1,+1) | (+1,+1) |
+
+- Diagonal neighbours depend on **column** parity.
+- There is no straight west; a row is a zigzag chain of neighbours.
+- Report 3 and library 5f6c3edb assumed pointy-topped hexes with row parity. The Crowned Captain harness found the result: Lines / Crownfall and Seal Lines ran near-vertical, and the Binding Ring disc was skewed.
+- Rays and discs are rebuilt on column parity. Records use the union of both parities; exact per-parity sets are exported (`PATTERNS.linesByColumnParity`, `sealLinesByColumnParity`).
+- `probe_library` lists the exact hexes each pattern covers from thrones (8,4), (8,5), (9,4) and (9,5), using the engine's `getTargetTiles`. Every ray step is an engine neighbour.
+- From (8,5), Lines / Crownfall covers 19 hexes: the row west of the throne plus the NW and SW rays.
+
+### Library fixes (5f6c3edb)
+
+- Scatter A and B are complementary halves that cover the arena outside the three stars.
+- Every blast has cooldown 2. Seal Lines hits enemies only.
+- **LOCK replaces stun and seal** on Command Absolute, Ship's Bell and the Seal Lines blast:
+  - elemental seal;
+  - +10 AP per action (timecompression);
+  - +2 cooldown on Move and Replacement Technique.
+- None of these types is in the shared-cooldown list, so the Captain's own stun and seal moves can no longer lock his signature. The signatures no longer stun, so **this needs director confirmation.**
+
+### Ward of Command fix
+
+- Found by the hunts harness: the damage-reduction row resolved to the caster, so the Sealwright warded herself and never the Captain.
+- The row now targets the chosen ally (`INHERIT`). A trace shows `decreasedamagetaken@The Captain`.
+- Report 3's part-A wipe rate came from an 80%-reduced Sealwright, not from the intended kill-order puzzle.
+- With the fix, the same parameters wiped **5%** of runs instead of 22.5%: players kill the Sealwright (round 6), then the Captain.
+- The boss wave was retuned: the Captain has 4 damage rows and x2.8 pools.
+
+### First Blade
+
+His shared rules end with an explicit end turn, so a turn with nothing usable never reaches the engine's give-up path.
+
+### Pets (`--pets`)
+
+- No pet record exists in the committed captures. Each player brings a modelled mid-rank companion:
+  - pet rank is half the owner's maximum: a JONIN owner gets rank 5 (level 30), a CHUNIN owner rank 3 (level 15);
+  - stats at half the caps of the matching character rank;
+  - COMMON / ASSAULT, no jutsu, the engine's default pet rules;
+  - they enter through the engine's own pet path and sit beside their owner.
+- An endgame companion has 1,550 HP and basic attacks of about 22. Pets mostly add bodies: they absorb hits and stand on marks. They do not dodge.
+
+### Determinism
+
+- **Virtual clock.** The engine's 60 s round timer (`calcActiveUser`) and its `updatedAt` stamps read the wall clock. On a loaded machine the same seed could end a round early. The harness now runs a virtual clock: a fixed epoch per run, +1 s per action.
+- **Pet placement.** The engine draws spawn cells with unseeded node:crypto. A pet not yet re-seated kept its engine-derived cell and could block another pet's hex. All pet cells are now cleared first.
+- **`--probe-check`** now also compares positions. It passes with pets on both versions (seeds 1 and 2 identical, also with the rule probe removed).
+
+## Minor marks (RUL-2026-10-28-024)
+
+| Pair | Mark / blast ids | Pattern (caster-anchored) | Marker | Power | Player / modelled pet hit |
+|---|---|---|---|---:|---|
+| Splash | `lib-omen-splash` / `lib-blast-splash` | 3 x 3 block centred two hexes west of the caster | increaseheal 1% | 58 | 143 / 1,025 of 1,550 (66%) |
+| Short Line | `lib-omen-short-line` / `lib-blast-short-line` | the row, 3 hexes west of the caster | lifesteal 1% | 65 | 161 / 1,149 (74%) |
+
+**Recipe.**
+- Mark: 40 AP, cooldown 3, GROUND, tg_heavy visual.
+- Blast: 100 AP, cooldown 2, GROUND damage (enemies only), dt_heavy visual.
+- No floor coverage, no safe tiles.
+
+**Rules.**
+- Blast when primed.
+- Mark when a player is within 3.
+- Hold position while primed (the patterns move with the caster).
+
+**Wiring.**
+- Deck Warden: Splash.
+- Skyglass Sentinel and Wayfinder: Short Line.
+- Every endgame floor 1-3 has one.
+
+| Enemy | Marks (% of appearances) | Blasts (% of appearances) |
+|---|---:|---:|
+| Deck Warden | 85 | 41 (often dies before its next turn) |
+| Sentinel | 97 | 81 |
+| Wayfinder | 94 | 72 |
+
+**Why caster-anchored, not target-anchored as the ruling asked.**
+- The blast is a new cast on the caster's next turn, and the AI aims it at the target's current hex.
+- In the probe, a player who stepped off a target-anchored Splash or Short Line was still hit.
+- COORDINATES with origin TARGET behaves the same.
+- Caster-anchored patterns stay where they were marked: standing in one is hit; one step off avoids it, and the blast still erupts on the empty tiles.
+
+## Ground probe (`engine/probe_ground.ts`, `results/probe_ground.json`)
+
+| Ground effect | What happens |
+|---|---|
+| elementaldamage | resolves to damage at cast |
+| damage with rounds 2 | hits occupants at cast, then each occupant at the start of their later turns |
+| poison, afterburn | nothing on the ground |
+| wound | applies only with a damage row on the same action |
+| drain | nothing at cast, then drains the occupant on their next action, including the move that takes them out |
+
+- Whoever stood inside at cast cannot avoid drain.
+- No type gives "nothing on cast, hits whoever stands there next round". Mark then blast stays the way to do it.
+
+## Endgame result (`overrides/kits_endgame.params.json`; average party, live damage settings)
+
+Tuned figures:
+
+| Copy | Pools | HP | +100% damage rows |
+|---|---:|---:|---:|
+| Crew | x1 | 5,050 | 2 (+70% damage taken) |
+| Core Horror | x5 | 25,250 | 4 (phase 2 at 70%) |
+| The Captain | x2.8 | 14,140 | 4 |
+| Sealwright | x2.6 | 13,130 | 3 (below the Captain, so the ally rules pick him) |
+
+| Runs | Cleared | Runs with a wipe | Rounds median [p10-p90] | Min @10 s | Min @15 s [p10-p90] | @15 s + AI 1.5 s |
+|---|---:|---:|---|---:|---|---:|
+| 60, pets, dodging | 60 | **18.3%** (12 wipes, all on the boss wave) | 26 [24-54] | 13.8 | **19.4** [18.3-37.5] | 21.2 |
+| 40, no pets, dodging | 40 | 20% (5 boss wave, 2 Core Horror) | 26 [24-55] | 13.8 | 19.4 | 20.4 |
+| 30, pets, no dodging | 0 | 100% | n/a | n/a | n/a | n/a |
+
+Without dodging, the Core Horror wipes every attempt (120 of 120). The marks are the fight.
+
+| Wave (pets, dodging) | Rounds median [min-max] | Wiped / reached | Party HP lost |
+|---|---|---:|---:|
+| F1 Deck Warden x3 + Seal Charge | 3 [1-5] | 0/72 | 25% |
+| F2 Sentinel + First Blade + Deck Warden | 3 [3-4] | 0/72 | 6% |
+| F3 Oathkeeper + Wayfinder + Deck Warden | 3 [2-4] | 0/72 | 9% |
+| F4 Core Horror | 6 [4-11] | 0/72 | **28%** |
+| F5 W1 Deck Warden x3 | 3 [2-5] | 0/72 | 11% |
+| F5 W2 The Captain + Sealwright | 8 [6-14] | 12/72 | 64% |
+
+- Signature rules fire in 62-100% of appearances; the Core Horror's in 89%.
+- Idle turns after round 2: 0% for the crew and the Core Horror, 6% for the Captain.
+- Dodging: 86% of 1,096 threatened turns reached safety.
+- Pets change little here (18.3% of runs wipe vs 20% without), because the boss wave decides the run.
+
+## Level 40-60 result (`overrides/kits_lvl50.params.json`, unchanged; level-50 party)
+
+| Runs | Cleared | Runs with a wipe | Rounds median [p10-p90] | Min @10 s | Min @15 s | @15 s + AI 1.5 s |
+|---|---:|---:|---|---:|---:|---:|
+| 60, pets, dodging | 60 | 0% | 19 [16-22] | 11.3 | **15.8** | 17.1 |
+| 40, no pets, dodging | 40 | 5% (2 wipes, Core Horror) | 20 [17-26] | 11.3 | 15.8 | 16.3 |
+| 30, pets, no dodging | 30 | 0% | 17 [16-18] | n/a | 14.0 | n/a |
+| Level 40, pets | 29/30 | 50% (Core Horror 21 of 56 attempts, Captain 6 of 35) | 51 [36-99] | n/a | 31.8 | n/a |
+| Level 60, pets | 30 | 0% | 14 [12-16] | n/a | 12.0 | n/a |
+
+Signature rates (pets, dodging):
+
+| Enemy | Fired in % of appearances |
+|---|---:|
+| Core Horror | 37 |
+| The Captain | 70 |
+| Deck Warden | 49 |
+| First Blade | 62 |
+| Oathkeeper | 68 |
+| Seal Charge | 80 |
+| Sentinel | 92 |
+| Wayfinder | 100 |
+
+## Decisions for the director
+
+1. **LOCK instead of stun/seal** on Command Absolute, Ship's Bell and the Seal Lines blast.
+2. **Minor marks are caster-anchored.** Target-anchored ones cannot be stepped out of in this engine.
+3. **GROUND Broadside / Rows B damage the Captain's own Gunwale.** The alternative is to keep Broadside CHARACTER, but then it cannot detonate on empty rows.
+4. **Shared rules cost level-50 signature turns.**
+   - With one rule list per enemy, the level-50 fights are short: Core Horror 37%, Deck Warden 49% (table above).
+   - Several crew rules never fire before the crew dies.
+   - A level-50-only rule order would fix this but break "one kit per enemy".
+5. **Level-40 bound.** The level-40 party wipes in half its runs. Gate the version at about 45+, or soften it for the low end.
+6. **The Captain's lower duel rules (17-29) never fire** in an 8-round fight.
+7. **Pet model.** The modelled pets are fragile and have no jutsu. Real pet data would change every floor's figures.
+
+## Not done / incidents
+
+- No browser, live-game or session checks. Nothing pushed, `main` untouched, game checkout unmodified.
+- **Incident:** during tuning I ran `pkill -f "skyglass_wreck_sim/run.sh"`, which may have stopped other agents' harness runs. It was reported at the time. Since then I only stop processes by PID or task id from this worktree.
+
+# Report 4b (2026-10-28): director rulings RUL-2026-10-28-025 / -026, Captain rule audit
+
+Branch `fable/skyglass-wreck-sim`, built on 41436bdb. Offline, zero live requests.
+
+## Changes
+
+1. **Minor marks back to their original power:** Splash 80, Short Line 90.
+   - In `probe_library`, a player standing in the blast takes 198 / 222.
+   - A modelled pet (1,550 HP) takes 1,414 / 1,550, so Short Line kills it. This is accepted collateral.
+2. **Level-50 Core Horror shows his signature first.**
+   - New param `horrorMawFirst` (level-50 params only) moves Omen: Last Light (Maw of the Deep) to the head of his marks, with no round gate.
+   - The Maw's x3 window then shortened his fight to 3 rounds and the run to 13.6 min, so his level-50 pools went from x4 to **x6** (15,300 HP). At x6 the fight lasts 6 rounds.
+   - Signature rate: **100% of appearances** (was 37%).
+   - `build_spec.json` keeps the base order under `sharedKits`. The level-50 order is listed under `lvl50.ruleVariants["Core Horror"]`: same jutsu, different order.
+3. **Captain rule audit:** below. Nothing was cut.
+4. **Broadside / Rows B and the Captain's own Gunwale.** friendlyFire **cannot** stop this in the engine:
+   - `process.ts`: when ground damage lands on a tile with no unit, it is forwarded to any barrier there (`if (!user && e.type === "damage") findBarrier(...)`). `damageBarrier` then applies it. Neither step consults `friendlyFire` or the barrier's `creatorId`.
+   - `checkFriendlyFire` is only called for units.
+   - In the Wreck the question is currently moot: Raise the Gunwale fires in **0%** of appearances (audit below).
+   - Alternatives if the Gunwale is brought back:
+     - (a) accept the chip, as flavour: "his own broadside splinters the rail";
+     - (b) make Broadside / Rows B CHARACTER blasts again: no chip, but they do not detonate on empty rows;
+     - (c) place the Gunwale away from rows 2/3 and 5/6. That is not controllable: it is an `AOE_WALL_SHOOT` at `EMPTY_GROUND_CLOSEST_TO_OPPONENT`.
+5. **Ward of Command is clear-proof.**
+   - New row: `clearprevent` 100, 2 rounds, on the warded ally (`INHERIT`, FRIENDLY).
+   - The engine's `clear` checks `clearprevent` first (`tags.ts clear → preventCheck`). Power 100 always blocks.
+   - A trace shows `clearprevent@The Captain,decreasedamagetaken@The Captain` on each cast.
+   - `clearprevent` is a shared-cooldown type, but the Sealwright has no other clearprevent jutsu.
+6. **`hunt-stonebound-erupting-ground`** "Erupting Ground", added to `library_spec.json` (group "Skyglass-only copy of a live jutsu").
+   - It is a copy of live `jBRyl7F4UjTyxG5nnzLqj` (Crown Stonebound) with one change: the damage row is `friendlyFire: ENEMIES` (live: unset).
+   - Its `copyOf` field gives the source and the change.
+   - Library total: 35 NEW records, all pass `JutsuValidator`.
+
+`probe_library` (rerun):
+- all 10 boss pairs fire in order;
+- both minor pairs fire;
+- every blast still detonates with all players stepped off, hitting nobody (Last Light 2 of 5, star capacity);
+- the engine geometry checks are unchanged.
+
+## The Captain: rule audit (`engine/audit_rules.ts`, `results/audit_captain_endgame.json`)
+
+Method:
+- Endgame boss wave (Captain + Sealwright), 30 seeded runs, pets and dodging on, 400 Captain decisions, wave median 9 rounds.
+- A read-only hook inspects the battle before each AI decision and classifies every rule as:
+  - fired;
+  - **preempted** (usable, conditions met, but a higher rule fired);
+  - **condition** (conditions false);
+  - **cooldown** (on its own cooldown);
+  - **locked** (shared-cooldown lock from another jutsu);
+  - **AP** (not enough action points left).
+- Distances use hex distance, an approximation of the engine's path length.
+
+**The Captain record is shared by the Watch and The Fall,** so "cut" below means cutting from the Wreck's rule order. The moves themselves stay on the record.
+
+**Main finding: the set-piece loop fills every turn.**
+- Each turn is either a mark (40 AP, then the after-mark end turn) or a blast (100 AP).
+- Rows A and the Binding Ring each have cooldown 4, so they alternate and leave no free turn.
+- So nothing below rule 16 ever acts.
+
+| # | Rule (move) | Fired in % of appearances | Cause when not firing | Recommendation |
+|---:|---|---:|---|---|
+| 0 | Hold the Line (live Unbroken Command), `far 5` | 3 | condition: players are within 5 when the wave opens | reorder/condition: make it the opener (`round_lower_than 2`) or cut |
+| 1 | Last Stand at the Helm (live Battle Trance), under 50% | 93 | n/a | keep |
+| 2 | Broadside (signature) | 97 | n/a | keep |
+| 3 | Rows B blast (second volley) | 0 | its mark (16) never fires | cut, with 16 and 8-10 |
+| 4 | Ship's Bell (signature) | 100 | n/a | keep |
+| 5-6 | after Rows A: Final Command / Keelbind | 43 / 47 | their own cooldowns | keep: the duel moves land here |
+| 7 | after Rows A: end turn | 83 | n/a | keep (structural) |
+| 8-10 | after Rows B: Final Command / Keelbind / end turn | 0 | Rows B is never marked | cut with Rows B |
+| 11-12 | after the Binding Ring: Final Command / Keelbind | 67 / 57 | own cooldowns | keep |
+| 13 | after the Binding Ring: end turn | 93 | n/a | keep |
+| 14 | Omen: Binding Ring (a player within 2) | 100 | n/a | keep |
+| 15 | Omen: Rows A | 100 | n/a | keep |
+| 16 | Omen: Rows B | 0 | preempted (381 of 400 decisions): Rows A has the same condition and cooldown and sits above it, and Rows A plus the Binding Ring fill every mark turn | cut in the Wreck, or alternate (e.g. Rows A cooldown 6 so Rows B fills the gap) |
+| 17 | Raise the Gunwale (round > 2) | 0 | preempted (365): no turn is free | reorder above the marks with a gate (e.g. health below 70, or Sealwright alive) if the director wants it; then see item 4 |
+| 18-19 | Final Command / Keelbind (standalone) | 0 | duplicates of 5-6 / 11-12: on cooldown from those (227 / 250) or preempted | cut (duplicates) |
+| 20 | Stolen Form (target buffed) | 0 | condition (176: no target with +25% damage given) and preempted | cut from the Wreck order (keep for Watch / Fall) |
+| 21 | Suppression Writ | 0 | preempted (364) | move into an after-mark slot for variety, or cut |
+| 22 | Second Wind (under 40%) | 0 | condition (328): he rarely lives long below 40%; Last Stand at 50% comes first | reorder above the marks if a heal is wanted; else cut |
+| 23 | Counter Stance (player adjacent) | 0 | condition (211) and preempted (177) | cut from the Wreck order |
+| 24 | Ruin Refrain | 0 | preempted (271), and **locked** (112) by Final Command's shared stun cooldown | cut in the Wreck (stun overlap with Final Command) |
+| 25-27 | Unraveling Strike / Explosive Tag Cataclysm / Windlash Focus | 0 | preempted (369 / 369 / 380) | optional: rotate into after-mark slots; else cut |
+| 28 | patrol: close in (`far 4`) | 0 | condition (399): players are always within 4 | keep (fallback) |
+| 29 | highest-power damage | 0 | preempted (400) | keep (fallback) |
+
+Level 50 (same order, no Sealwright): the Captain's signature fires in 85% of appearances. Rules 17-28 never fire, for the same reason.
+
+## Final runs (this build)
+
+| Version, runs | Cleared | Runs with a wipe | Rounds median [p10-p90] | Min @15 s (+ AI 1.5 s) | Notes |
+|---|---:|---:|---|---|---|
+| Endgame, 60, pets, dodging | 60 | **18.3%** (13 wipes, all on the boss wave) | 26 [24-55] | **19.3** (21.2) | Core Horror 32.5% party HP, no floor-4 wipes; signatures: Horror 90%, Captain 100% |
+| Endgame, 40, no pets | 40 | 25% (9 boss wave, 2 Core Horror) | 26.5 [24-55] | 19.5 (20.5) | |
+| Endgame, 30, pets, no dodging | 0 | 100% | n/a | n/a | the Core Horror wipes 120 of 120 attempts |
+| Level 50, 60, pets, dodging | 60 | 1.7% (1 Core Horror wipe) | 19 [16-22] | **15.3** (16.4) | Horror 6 rounds, signature **100%**; Captain 85% |
+| Level 50, 40, no pets | 40 | 0% | 21 [18-26] | 16.9 (17.5) | |
+| Level 50, 30, pets, no dodging | 30 | 20% (5 Core Horror, 1 Captain) | 19 [16-30] | 15.1 | |
+| Level 40, 30, pets | 0 | 100% | 105 | n/a | the Core Horror wipes 118 of 120 attempts |
+| Level 60, 30, pets | 30 | 0% | 14 [13-16] | 11.8 | |
+
+- The level-40 bound is now worse than in report 4 (was 50%). The x6, Maw-first Core Horror is a wall for this level-40 model.
+- That reinforces the earlier recommendation: gate this version at about level 45+, or give the low end its own Horror.
+
+**Determinism.**
+- `--probe-check` with pets passes on both versions: endgame seeds 1-4, run alone and under parallel load; level 50 seeds 1-2.
+- **One unexplained failure:** the endgame probe-check, run once in parallel with two other final-run jobs, reported a different Sealwright action right after a Ward of Command in seed 1's boss floor.
+- Under similar load the failure did not reproduce, alone or in-process across all floors.
+- No unseeded source was found: Math.random, getRandomValues and Date are all seeded or virtual, `preventCheck` uses the seeded Math.random, and enemy rows are cloned per floor.
+- Logged as an open item.
+
+# Report 4c (2026-10-28): the Captain rebuilt in two phases (RUL-2026-10-28-031)
+
+Branch `fable/skyglass-wreck-sim`, built on c519601b. Offline, zero live requests.
+
+## The new rule order (`engine/kits.ts`; `build_spec.json` → `sharedKits["The Captain"]`)
+
+| # | Rule | Gate |
+|---:|---|---|
+| 0 | Raise the Gunwale | health below 50. Record cooldown 8 → **99**, so it fires once per fight: the rail goes up between him and the party. |
+| 1 | Last Stand at the Helm (live Battle Trance) | health below 50 |
+| 2 | Second Wind | health below 25 |
+| 3-4 | Broadside / Ship's Bell blasts | their primed markers |
+| 5-10 | after each mark: Final Command, Keelbind, end turn | the 60 AP left after the mark |
+| 11-12 | Omen: Binding Ring, Omen: Rows A | health below 50. Each has cooldown 4 and each set piece takes two turns, so they alternate. |
+| 13 | Hold the Line (live Unbroken Command), the duel opener | the party is 3+ hexes away (the boss wave starts mid-battle, and no condition can detect the wave's first round) |
+| 14-17 | Final Command, Keelbind, Stolen Form (top threat has any damage-given buff, was 25%+), Counter Stance (a player within 2, was adjacent) | duel |
+| 18-21 | Suppression Writ, Unraveling Strike, Explosive Tag Cataclysm, Windlash Focus | duel fillers (not cut) |
+| 22-23 | close in, highest-power damage | fallbacks |
+
+**Cut from the order:**
+- Rows B: its mark, blast and after-mark rules.
+- The duplicate standalone Final Command / Keelbind. Each now appears once as a phase-1 duel move, plus in the after-mark slots.
+- Ruin Refrain.
+
+**Not exactly as ruled:**
+- "Once" holds only for the Gunwale (my record).
+- Battle Trance (cooldown 5) and Second Wind (cooldown 6) are live records, and the engine has no "has not used" condition. They fire once per cooldown while under their gate; in a 2-3-round phase 2 that is effectively once.
+- Broadside chipping the Gunwale is accepted.
+- The Sealwright / Ward of Command puzzle is unchanged.
+
+**Tuning:** the duel phase hits far harder than the old set-piece loop.
+- With 4 Captain damage rows, the boss wave wiped 44 of 56 attempts.
+- Rows 1 / 2 / 3 gave 5% / 20% / 52.5% of runs wiping. **Captain rows 2** (pools x2.8 unchanged, still above the Sealwright).
+
+## Results (this build)
+
+| Version, runs | Cleared | Runs with a wipe | Min @15 s (+ AI 1.5 s) | Notes |
+|---|---:|---:|---|---|
+| Endgame, 60, pets, dodging | 60 | **21.7%** (16 wipes, all on the boss wave) | **19.8** (21.6) | Core Horror 32.5% party HP, no floor-4 wipes |
+| Endgame, 40, no pets | 40 | 22.5% (10 boss wave, 1 Core Horror) | 19.3 (20.2) | |
+| Endgame, 30, no dodging | 0 | 100% | n/a | Core Horror 120 of 120 |
+| Level 50, 60, pets | 60 | 1.7% | 15.4 (16.6) | the Captain costs 31.5% party HP (was 11%) |
+| Level 50, 40, no pets | 40 | 0% | 16.8 | |
+| Level 50, 30, no dodging | 30 | 16.7% (Core Horror) | 15.5 | |
+| Level 40 / level 60 | 0 / 30 | 100% / 0% | n/a / 11.6 | the easy version is now marked "for level 45+" (`build_spec.json` → `lvl50.dungeonNotes`) |
+
+`--probe-check` with pets passes on both versions (seeds 1-2).
+
+## Phase lengths and per-move fire rates (`audit_rules.ts`; 30 runs, pets, dodging)
+
+| | Endgame boss wave | Level 50 boss wave |
+|---|---|---|
+| Wave rounds (median) | 7 | 5 |
+| Phase 1 (above 50%), median [range] | **6** [1-9] | 2 [1-4] |
+| Reached phase 2 | 80% of appearances | 97% |
+| Phase 2, median [range] | **2** [1-9] | 3 [1-5] |
+
+Fired in % of appearances (endgame / level 50):
+
+| Move | Endgame | Level 50 | Main reason when not firing (endgame) |
+|---|---:|---:|---|
+| Raise the Gunwale (transition) | 80 | 97 | phase 2 not reached |
+| Last Stand (Battle Trance) | 80 | 73 | phase 2 not reached |
+| Second Wind (under 25%) | 33 | 73 | rarely under 25% while alive |
+| Omen: Binding Ring → Ship's Bell | 27 → 17 | 43 → 20 | phase 2 is short; the transition turn spends 100 AP on Gunwale + Trance |
+| Omen: Rows A → Broadside | 10 → 7 | 0 → 0 | the Bell comes first; there is rarely a second mark turn |
+| After a mark: Final Command / Keelbind | 3 / 7 | 0 / 13 | own cooldowns, often already used in phase 1 |
+| Hold the Line (opener) | 37 | 20 | the party is often within 3 hexes when the wave opens |
+| Final Command (duel) | 93 | 77 | own cooldown |
+| Keelbind (duel) | 100 | 47 | own cooldown |
+| Stolen Form (duel) | 50 | 0 | condition: the top threat carries no damage-given buff |
+| Counter Stance (duel) | 100 | 67 | own cooldown |
+| Suppression Writ / Unraveling / Cataclysm / Windlash | 93 / 100 / 93 / 97 | 23 / 30 / 0 / 3 | own cooldowns (at level 50: preempted, the fight is short) |
+
+Full tallies by phase: `results/audit_captain_endgame.json`, `results/audit_captain_lvl50.json`.
+
+**Reading.** The duel now carries the fight. In the endgame, phase 2 is short (2 rounds) for three reasons:
+- he melts once the Ward is gone (the Sealwright usually dies in phase 1);
+- the transition turn uses all 100 AP on the Gunwale and Battle Trance;
+- 20% of the time he dies or wipes the party before 50%.
+
+So the deck set pieces show in only 17-27% of appearances.
+
+**Options for the director** (none applied):
+1. **Gunwale with the first mark, Trance on the spare AP after a mark** (tested, 40 runs):
+   - wipes 22.5%, 19.8 min;
+   - Bell mark 55%, Rows A mark 25%;
+   - but Battle Trance falls to about 20% of appearances.
+2. **Raise the phase threshold to about 60-65%**, so phase 2 gets more of his HP.
+3. **Give phase 2 its own damage reduction** (a phase-2 Ward or rail absorb), so the deck phase lasts.
+
+## What would affect the Watch and The Fall (the record is shared)
+
+- **Kit list.** The kit is derived from the rule list, so **Ruin Refrain and Omen: Rows B / its blast leave his jutsu list.** The list now carries the library's lib-omen-binding-ring / lib-omen-rows-a, Broadside, Ship's Bell and Raise the Gunwale.
+- **Raise the Gunwale is now once per fight** (cooldown 99).
+- **Phase 2 is gated only on health below 50.** In a solo fight he switches to the deck set pieces at 50%:
+  - Broadside's rows are fixed battlefield rows (2 and 5);
+  - the Bell is a radius-2 disc around him.
+  - Both are dodgeable by one player, but the fight's feel changes.
+- **Hold the Line needs the party 3+ hexes away.** If the Watch / Fall start the player adjacent, it never fires.
+- **Battle Trance and Second Wind repeat on cooldown** (5 / 6 rounds). A long solo fight sees them more than once.
+- **Stolen Form needs a buffed top threat.** It never fires against a player who uses no damage-given buffs (level 50: 0%).
+- The per-version stats (rows, pools) are not part of the shared record.

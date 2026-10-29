@@ -363,7 +363,7 @@ export const assembleFloor = async (opts: {
 };
 
 /** Run one floor battle to its dungeon outcome. */
-export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; maxRounds: number; detail?: boolean; dodge?: boolean }): FloorResult => {
+export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; maxRounds: number; detail?: boolean; dodge?: boolean; onAiDecision?: (b: CompleteBattle, actorUid: string, grid: any) => void }): FloorResult => {
   let b = battle;
   const suid = opts.playerIds[0]!;
   const grid = getBattleGrid(1, b);
@@ -604,6 +604,8 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
       }
     }
     tickClock(1000);
+    // Read-only audit hook (audit_rules.ts): sees the battle as the AI is about to decide.
+    if (opts.onAiDecision && !isHuman) opts.onAiDecision(b, actor.userId, grid);
     const res = performAIaction(b, grid, actor.userId);
     b = res.nextBattle;
     restoreRules?.();
