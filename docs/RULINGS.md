@@ -4035,3 +4035,25 @@ The text is generated from the cache weights and enforced by `scripts/skyglass_c
 **Evidence:** Director, 2026-10-28: "Well not all items are sold in the shop just because they have a shop price. If they are craftable they do not appear in the shop at all and instead should be priced on the cumulative value of their materials. I quite liked the numbers I had before, were they too rewarding?", then "Yes, they're mostly gated by obtaining a chart, which is like finding a treasure map. I want the treasure to be worthwhile."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3a.
+
+## RUL-2026-10-28-034 — Ryo cut from every pick except the Watch (1M); the value ladder
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Ryo cards are cut from every completion pick except the Captain's Watch.**
+   - The Captain's Purse becomes 1,000,000 ryo (was 100,000).
+   - The cut cards are the Buried Cache's 25,000, the Foundry's 50,000, and the common runs' +10,000.
+   - On the item-value basis (RUL-2026-10-28-033) they were never worth picking.
+2. **The ladder's best option rises at each rung.** Final options are in loot tables §4a.
+   - The common runs and the Buried Cache offer Inro / Pill Case / Galley Stores.
+   - The Foundry offers Pouch / Pill Case / Galley Stores, so the commons no longer match the Foundry's Pouch.
+   - The Quartermaster's Kit is only an add-on on the Night Watch's Pill Case card, and stays in the chest of chests.
+
+**Evidence:** Director, 2026-10-29: "Cut ryo from everything but watch, 1m ryo from watch." This answered the ladder proposal.
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4a.
