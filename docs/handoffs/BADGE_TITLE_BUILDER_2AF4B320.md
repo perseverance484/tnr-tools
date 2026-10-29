@@ -109,3 +109,30 @@ Not changed: `factory.py` still requires title `description` on a create (it ski
 | `build_packs.py --check` | current |
 | `lawmap.py .` | 0 errors, 5 pre-existing warnings |
 | `validate.py --strict` on all 120 `push/*.json` | per-file exit codes identical to e356490c |
+
+## Review round 3 (re-review of 9feec7a0: no P1/P2; R1 still partly open at P3)
+
+**R1, closed with a conservative host subset.** Python now accepts only hosts that `new URL()` also accepts. Python may refuse more, but never accepts what Forge refuses.
+- **Rules:**
+  - The URL must be ASCII only, so there is no IDNA handling.
+  - A bracketed host must be an unscoped IPv6 address; any `%` is refused.
+  - A host whose last label is numeric or `0x`-hex is parsed as IPv4 (WHATWG "ends in a number") and must be valid dotted-decimal.
+  - Otherwise the host is non-empty dot-separated labels of `[A-Za-z0-9_-]`, with one trailing dot allowed.
+- **Reviewer's cases:** all three are now refused (`https://256.1.1.1/a.png`, `https://[fe80::1%25eth0]/a.png`, `https://‍.com/a.png`).
+- **Parity test:** `test_r1_url_parity_with_forge` holds 39 cases with Node's results recorded. It asserts that Python never accepts a URL Forge refuses, and it lists the 8 known stricter cases:
+  - `https:///x`, `a..b`, `exämple.com`, `0x7f.0.0.1`, `1.2.3`;
+  - the sub-delimiter hosts `*`, `!` and `$`.
+- **Fuzz (not committed):** 35,000 random URLs over hostile host characters and ports, run through Node `new URL()` and Python. No case was accepted by Python and refused by Forge. The test fails on 9feec7a0 and passes now.
+
+**Gates.** Python only, as in round 2.
+
+| Gate | Result |
+|---|---|
+| Python unit tests | OK |
+| `selfcheck.py --generated data` | 0 errors |
+| `factory.py --selftest` | 20/20 |
+| `doctrinemap.py .` | 0/0 |
+| `render_doctrine.py --check` | current |
+| `build_packs.py --check` | current |
+| `lawmap.py .` | 0 errors, 5 pre-existing warnings |
+| `validate.py --strict` on all 120 `push/*.json` | per-file exit codes identical to e356490c |
