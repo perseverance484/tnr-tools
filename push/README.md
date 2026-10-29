@@ -1200,3 +1200,10 @@ the rewards can be audited before the flags change.
 
 Built by `push/324_quest_catalog_capture.gen.py`. Gates (each part): `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems.
+
+## 90, 94 Ghost Ship Skyglass release and Sentinel repair (2026-10-12): archived
+
+Both manifests ran in October 2026. On 2026-10-28 the director approved archiving them ("Sure, archive"). Their old Ghost
+Ship text trips the Skyglass consistency check, which would otherwise fail every full run over `push/`. The JSON now
+lives in `archive/spent-manifests/push-2026-10-12/`. Their generators and helpers stay in `push/`, because push/93 imports
+push/90's exception gate.

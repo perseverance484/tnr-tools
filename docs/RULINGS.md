@@ -3965,3 +3965,25 @@ The text is generated from the cache weights and enforced by `scripts/skyglass_c
 **Evidence:** Director, 2026-10-28: "Lets identify the best format for the chest description. I kinda wanna include what items can drop alongside the rates in a way that displays well in the game", then "Approved".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §0.
+
+## RUL-2026-10-28-031 — The Captain: duel first, then command of the deck; easy Wreck is for level 45+; archive push/90 and push/94
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass encounters
+
+**Status:** ACTIVE. The harness rebuild is pending.
+
+**Ruling:**
+1. **The Captain fights in two phases, split at 50% HP.** He has had two (base and Last Stand under 50%); they now become distinct roles.
+   - **Phase 1, the duel (above 50%):** Hold the Line opens. His duel kit carries the phase: Keelbind, Final Command, Stolen Form, Counter Stance. No deck set pieces.
+   - **Transition (at 50%):** Raise the Gunwale marks the shift: he falls back behind his rail and takes command. Battle Trance once. The Gunwale's own Broadside chip is accepted.
+   - **Phase 2, command of the deck:** Broadside and the Ship's Bell alternate, with a duel move (Final Command or Keelbind) on the spare AP after each mark. Second Wind once, under 25%.
+   - **Cut from the rule order:** Rows B, the duplicate standalone Final Command and Keelbind, and Ruin Refrain, which is always locked.
+   - The same record is used by the Captain's Watch and The Fall, so the structure applies there too.
+2. **The easy Wreck is for level 45+.** The dungeon description says so; dungeons can't be level-gated. The level-50 Core Horror keeps his signature-first order and x6 HP.
+3. **push/90 and push/94 are archived** to `archive/spent-manifests/push-2026-10-12/`.
+
+**Evidence:** Director, 2026-10-28: "Perhaps we make phase 1 dueling, then phase 2 is command of the deck, the set pieces? Gunwale could mark the transition. How many phases does he have? Accept the level 45+ caveat. Sure, archive".
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §1; harness `fable/skyglass-wreck-sim`.
