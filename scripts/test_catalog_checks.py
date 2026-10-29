@@ -73,61 +73,66 @@ class CatalogChecks(unittest.TestCase):
 
 
     def test_r1_url_parity_with_forge(self):
-        # (url, Forge's url() on Node: http(s), no whitespace, new URL() parses). Node results recorded 2026-10-29.
-        # Python may be stricter (a conservative host subset: no IDNA, dotted-decimal IPv4 only, no empty labels,
-        # no sub-delims) but must never accept a URL Forge refuses. A 35,000-case random fuzz found no looser case.
+        # (url, Forge's url() on Node — http(s), no whitespace, new URL() parses — recorded 2026-10-29, Python's
+        # expected result). Python accepts a conservative subset (catalog_checks.py): where the two differ, Python
+        # must be the one refusing. Review rounds 2-3 found looser cases; each is listed here.
         sys.path.insert(0, str(ROOT / "skills" / "building-tnr-content" / "scripts"))
         from catalog_checks import _url
         cases = [
-            ("https://example.com:99999/a.png", False),
-            ("https://example.com:bad/a.png", False),
-            ("https://exa%mple.com/a.png", False),
-            ("https://[", False),
-            ("https://[::1]/a.png", True),
-            ("https://[zz]/a.png", False),
-            ("https://example.com:65535/a.png", True),
-            ("https://example.com:/a.png", True),
-            ("https://utfs.io/f/abc", True),
-            ("http://a.b/c?d=e#f", True),
-            ("https://user:pw@host.com/x", True),
-            ("https://ho|st.com/x", False),
-            ("https://ho^st.com/x", False),
-            ("https://host.com:0/x", True),
-            ("https:///x", True),
-            ("https://example.com:-1/a", False),
-            ("https://256.1.1.1/a.png", False),
-            ("https://[fe80::1%25eth0]/a.png", False),
-            ("https://\u200d.com/a.png", False),
-            ("https://1.2.3.4/a", True),
-            ("https://1.2.3.4:8080/a", True),
-            ("https://example.123/a", False),
-            ("https://a..b/x", True),
-            ("https://example.com./x", True),
-            ("https://ex_ample.com/x", True),
-            ("https://-a.com/x", True),
-            ("https://xn--nxasmq6b.com/x", True),
-            ("https://ex\u00e4mple.com/x", True),
-            ("https://[::ffff:1.2.3.4]/x", True),
-            ("https://0x7f.0.0.1/x", True),
-            ("https://1.2.3/x", True),
-            ("https://EXAMPLE.COM/X", True),
-            ("https://ex*ample.com/x", True),
-            ("https://ex!ample.com/x", True),
-            ("https://ex$ample.com/x", True),
-            ("https://localhost/x", True),
-            ("https://a.b.c.d.e/x", True),
-            ("https://[::1]:443/x", True),
-            ("https://u@[::1]/x", True),
+            ("https://example.com:99999/a.png", False, False),
+            ("https://example.com:bad/a.png", False, False),
+            ("https://exa%mple.com/a.png", False, False),
+            ("https://[", False, False),
+            ("https://[::1]/a.png", True, True),
+            ("https://[zz]/a.png", False, False),
+            ("https://example.com:65535/a.png", True, True),
+            ("https://example.com:/a.png", True, True),
+            ("https://utfs.io/f/abc", True, True),
+            ("http://a.b/c?d=e#f", True, True),
+            ("https://user:pw@host.com/x", True, False),
+            ("https://ho|st.com/x", False, False),
+            ("https://ho^st.com/x", False, False),
+            ("https://host.com:0/x", True, True),
+            ("https:///x", True, False),
+            ("https://example.com:-1/a", False, False),
+            ("https://256.1.1.1/a.png", False, False),
+            ("https://[fe80::1%25eth0]/a.png", False, False),
+            ("https://\u200d.com/a.png", False, False),
+            ("https://1.2.3.4/a", True, True),
+            ("https://1.2.3.4:8080/a", True, True),
+            ("https://example.123/a", False, False),
+            ("https://a..b/x", True, False),
+            ("https://example.com./x", True, True),
+            ("https://ex_ample.com/x", True, True),
+            ("https://-a.com/x", True, True),
+            ("https://xn--nxasmq6b.com/x", True, False),
+            ("https://ex\u00e4mple.com/x", True, False),
+            ("https://[::ffff:1.2.3.4]/x", True, True),
+            ("https://0x7f.0.0.1/x", True, False),
+            ("https://1.2.3/x", True, False),
+            ("https://EXAMPLE.COM/X", True, True),
+            ("https://ex*ample.com/x", True, False),
+            ("https://ex!ample.com/x", True, False),
+            ("https://ex$ample.com/x", True, False),
+            ("https://localhost/x", True, True),
+            ("https://a.b.c.d.e/x", True, True),
+            ("https://[::1]:443/x", True, True),
+            ("https://u@[::1]/x", True, False),
+            ("https://xn--a.com/a.png", False, False),
+            ("https://bad^host\\@example.com/a.png", False, False),
+            ("https://xn--nxasmq6b.com/a.png", True, False),
+            ("https://example.com\\a.png", True, False),
+            ("https://example.com?x", True, True),
+            ("https://example.com", True, True),
+            ("https://0.0.0.0/a", True, True),
+            ("https://4294967295/a", True, False),
         ]
-        stricter = {"https:///x", "https://a..b/x", "https://exämple.com/x", "https://0x7f.0.0.1/x", "https://1.2.3/x",
-                    "https://ex*ample.com/x", "https://ex!ample.com/x", "https://ex$ample.com/x"}
-        for v, node in cases:
-            got = _url(v)
-            if got:
+        for v, node, py in cases:
+            self.assertEqual(_url(v), py, v)
+            if py:
                 self.assertTrue(node, f"Python accepts what Forge refuses: {v!r}")
-            self.assertEqual(got, node and v not in stricter, v)
         for v in ("https://example.com:99999/a.png", "https://256.1.1.1/a.png", "https://[fe80::1%25eth0]/a.png",
-                  "https://‍.com/a.png"):
+                  "https://\u200d.com/a.png", "https://xn--a.com/a.png", "https://bad^host\\@example.com/a.png"):
             code, out = self.validate("badge", {**BADGE, "image": v})
             self.assertNotEqual(code, 0, v)
 

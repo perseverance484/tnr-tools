@@ -136,3 +136,34 @@ Not changed: `factory.py` still requires title `description` on a create (it ski
 | `build_packs.py --check` | current |
 | `lawmap.py .` | 0 errors, 5 pre-existing warnings |
 | `validate.py --strict` on all 120 `push/*.json` | per-file exit codes identical to e356490c |
+
+## Review round 4 (re-review of adfe5669: no P1/P2; R1 still partly open at P3)
+
+**R1.** The round-3 subset was still parsed with `urlsplit`, which splits the authority differently from WHATWG. Two cases got through: a backslash before `@`, and IDNA `xn--` labels.
+
+**The fix: `catalog_checks.py` no longer uses `urlsplit`.** It matches the authority directly.
+- **Regex:** `^https?://(host)(:port)?` followed by `/`, `?`, `#` or the end.
+- **Refused anywhere in the URL:**
+  - userinfo;
+  - a backslash;
+  - non-ASCII;
+  - whitespace and control characters.
+- **Host rules:**
+  - an `xn--` label is refused;
+  - a bracketed host must be an unscoped IPv6 address;
+  - a host ending in a number must be dotted-decimal IPv4;
+  - any other host is `[A-Za-z0-9_-]` labels.
+- **Port:** empty, or at most 65535.
+- **After the authority:** WHATWG never fails on path, query or fragment characters.
+
+**Tests.** `test_r1_url_parity_with_forge` now holds 47 cases. Each records Node's `new URL()` result and Python's expected result, and the test asserts that Python never accepts a case Node refuses. It includes both reviewer cases, and it fails on adfe5669.
+
+**Fuzz.** An exhaustive and random check against Node (not committed) found no case where Python accepts and Node refuses. It covered:
+- every host of 1-5 characters over `a0-_.x9`;
+- 10,000 IPv4-shaped hosts;
+- 40 IPv6/port combinations, and assorted ports and tails;
+- 40,000 random authorities over `abc.-_:@\/[]%#?^|xn-0`.
+
+That is evidence, not proof. The guarantee rests on the subset being narrow enough to read.
+
+**Gates.** All are unchanged from round 3: Python tests OK; selfcheck 0; factory 20/20; doctrinemap 0/0; render_doctrine and build_packs current; lawmap 0 errors and 5 pre-existing warnings; all 120 `push/*.json` identical per file.
