@@ -1,0 +1,191 @@
+{
+ "_note": "skyglass_check fixture: chest-text. Wrong tier rate, a tier the cache lacks, wrong roll count, missing roll distribution and fixed ryo.",
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "THo7rfzP-S82_43aN8fs3",
+   "name": "Skyglass Coffer: text",
+   "data": {
+    "description": "A sealed coffer. 2 rolls: Common 70% · Rare 24% · Epic 5% · Mythic 1%.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "description": "One roll",
+      "rewardMode": "weightedCache",
+      "reward_items": [],
+      "reward_money": 0,
+      "weightedCache": {
+       "version": 1,
+       "displayName": "x",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 6900,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2400,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 200,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "Ma8S90Nmbi0Xvm4u4FzJh",
+   "name": "Sealed Treasury: text",
+   "data": {
+    "description": "Crownhold's own coffers. 3 rolls of: Common 45% · Rare 35% · Epic 15% · Legendary 5%.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "rewardMode": "standard",
+      "reward_money": 150000,
+      "reward_items": []
+     },
+     {
+      "type": "noncombatconsumereward",
+      "description": "One roll",
+      "rewardMode": "weightedCache",
+      "reward_items": [],
+      "reward_money": 0,
+      "weightedCache": {
+       "version": 1,
+       "displayName": "x",
+       "rolls": [
+        {
+         "count": 3,
+         "probability": 6000
+        },
+        {
+         "count": 4,
+         "probability": 3000
+        },
+        {
+         "count": 6,
+         "probability": 1000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 4500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 3500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 1500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

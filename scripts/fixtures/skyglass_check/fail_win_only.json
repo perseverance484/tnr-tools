@@ -1,0 +1,84 @@
+{
+ "_note": "skyglass_check fixture: win-only. A battle that pays exp and an item; an item effect whose gathering flag has an empty id list.",
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "UGHSuhi83C3wRtH3FD4Eu",
+   "name": "The Drowned Foundry",
+   "data": {
+    "name": "The Drowned Foundry",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "b_warden",
+       "task": "start_battle",
+       "description": "The Warden tips the crucible.",
+       "reward_exp": 500,
+       "reward_items": [
+        {
+         "ids": [
+          "THo7rfzP-S82_43aN8fs3"
+         ],
+         "number": 10,
+         "quantity": 1
+        }
+       ],
+       "reward_hunter_items": true,
+       "reward_hunter_items_ids": [
+        "M-0CPw9yBmmreLvJU6gav"
+       ]
+      },
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "D0gtI5dOgj2dFO4VexsLJ"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 50000
+     }
+    }
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "some-other-item",
+   "name": "a bundle with a pool-wide flag",
+   "data": {
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "rewardMode": "standard",
+      "reward_gathering_items": true,
+      "reward_gathering_items_ids": []
+     }
+    ]
+   }
+  }
+ ]
+}
