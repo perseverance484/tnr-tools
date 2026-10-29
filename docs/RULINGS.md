@@ -3846,3 +3846,30 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "Damage is too low for the smaller mark skills. Put them back to normal and accept pet deaths as collateral."
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §9; harness `fable/skyglass-wreck-sim` `library_spec.json`.
+
+## RUL-2026-10-28-026 — Crownhold heal top-ups; final-pass decisions
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass encounters
+
+**Status:** ACTIVE. A final integration pass of all harnesses on the fixed library follows.
+
+**Ruling:**
+1. **Crownhold:** HP carries between fights, and the Crowned Captain fight opens with a route-specific heal (`applyBuffs` heal, percentage). It adds to carried HP, capped at max, and never lowers it.
+   - Starting values: Healing Rite full; clean +35%; War Rite +20% with its buffs for the whole fight; alarm +15%.
+   - Tuned so every route clears: Healing highest, alarm lowest.
+   - This replaces the fixed-HP antechamber idea; the director rejected fixed HP because it can negate a good run.
+2. **Crown Stonebound gets its own copy of Erupting Ground**, with enemies-only damage. The shared live jutsu, held by 89 AIs, is not edited.
+3. **The Stonebound summon is set to 40% power.**
+4. **The easy Wreck is not softened for level 40.**
+5. **The level-50 Core Horror copies move his signature earlier in the rule list.**
+6. **The Captain's kit is analysed:** which moves never fire and why, and what stays or goes.
+7. **Broadside and Rows B must not damage his own Gunwale.** Use the friendlyFire setting, if the engine applies it to barriers.
+8. **The Kitsune set is the endgame norm.** Tuning assumes it.
+9. **The common runs being easy at level 100 is accepted.**
+10. **Press-on rooms are kept only if they matter.** Each proposed room is simulated with and without it, and a room that adds nothing noticeable is cut.
+
+**Evidence:** Director, 2026-10-28: "Approved. 1 Give him his own. 2 apply 3 no 4 sure 5 figure out which moves go unused and why. Lets analyze his kit and see what needs to stay or go 6 I think you can turn friendlyFire setting on to prevent this 7 yes 8 yes 9 why? 10 lets analyze with and without to decide. If they dont add something meaningful (cant tell when they're gone) we cut them".
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md`; harness branches `fable/skyglass-*-sim`, `fable/crowned-captain-sim`.
