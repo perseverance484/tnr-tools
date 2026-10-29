@@ -1,0 +1,64 @@
+{
+ "_note": "Pet builder fixture (forge/test/fixtures/pets). Not content: never pushed. Saved by the game but never equippable by a pet: weapon, element, injectable, action cost, a non-pet effect, elemental scaling.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "create",
+   "name": "Fixture Glow",
+   "srcId": "fx_glow",
+   "data": {
+    "name": "Fixture Glow",
+    "description": "Test pet jutsu.",
+    "battleDescription": "%user glows.",
+    "jutsuType": "PETS",
+    "requiredPetSpeciesId": "fxPetSpecies000000001",
+    "jutsuRank": "C",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "method": "SINGLE",
+    "target": "SELF",
+    "jutsuWeapon": "SWORD",
+    "elementClassification": "Fire",
+    "range": 0,
+    "cooldown": 3,
+    "actionCostPerc": 5,
+    "healthCost": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "injectableInBattle": true,
+    "hidden": true,
+    "effects": [
+     {
+      "type": "stun",
+      "power": 10,
+      "target": "SELF"
+     },
+     {
+      "type": "damage",
+      "power": 10,
+      "elements": [
+       "Fire"
+      ],
+      "statTypes": [
+       "Ninjutsu"
+      ],
+      "generalTypes": [
+       "Strength"
+      ],
+      "target": "SELF"
+     }
+    ]
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Fixture Lock",
+   "targetId": "fxPetJutsu00000000001",
+   "data": {
+    "jutsuType": "NORMAL",
+    "requiredPetSpeciesId": "fxPetSpecies000000001"
+   }
+  }
+ ]
+}

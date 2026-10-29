@@ -107,13 +107,40 @@ export function lintManifest(manifest) {
         if (d.itemType !== undefined && d.itemType !== "CONSUMABLE") E(it, "L18 noncombatconsumereward requires itemType CONSUMABLE");
         if (d.target !== undefined && d.target !== "SELF") E(it, "L18 noncombatconsumereward requires item target SELF");
         if (d.method !== undefined && d.method !== "SINGLE") E(it, "L18 noncombatconsumereward requires method SINGLE");
+        // combat.ts:867-893 at 2af4b320: pet grants require standard rewards
+        if (Array.isArray(f.reward_pets) && f.reward_pets.length && f.rewardMode === "weightedCache") E(it, "PET reward_pets requires rewardMode standard");
       }
+    }
+    // combat.ts:1547-1559 at 2af4b320: the companion cap counts reward_pets across ALL of the item's
+    // noncombatconsumereward effects, and any grant requires the item to prevent battle usage
+    if (it.entity === "item") {
+      const pets = (Array.isArray(d.effects) ? d.effects : []).reduce((n, f) => n + (f && f.type === "noncombatconsumereward" && Array.isArray(f.reward_pets) ? f.reward_pets.length : 0), 0);
+      if (pets > 1) E(it, `PET an item may grant at most 1 companion (${pets} across its effects)`);
+      if (pets && (d.preventBattleUsage === false || (it.op === "create" && d.preventBattleUsage !== true))) E(it, "PET companion rewards require preventBattleUsage true");
     }
     for (const [tp, n] of Object.entries(pct)) {
       if (n <= 4) continue;
       let p = 1;
       for (const f of d.effects) if (f && f.type === tp && (f.calculation === "percentage" || !f.calculation)) p *= 1 + (f.power ?? 0) / 100;
       W(it, `L08 ${n} ${tp} rows: product x${p.toFixed(1)}`);
+    }
+  }
+
+  // PET (RUL-2026-10-28-012): species defaults must be published, compatible PETS jutsu
+  // (routers/petSpecies.ts:56-67, :113-125 at 2af4b320). Every jutsu CREATED in this manifest ships
+  // hidden, so naming one as a default is refused by the server; a create also refuses any
+  // species-locked default, and an edit accepts only jutsu locked to that species.
+  const jutsuBySrc = new Map(items.filter((it) => it.entity === "jutsu" && it.srcId).map((it) => [it.srcId, it]));
+  for (const it of items) {
+    if (it.entity !== "petSpecies" || !Array.isArray(it.data?.defaultJutsuIds)) continue;
+    for (const ref of it.data.defaultJutsuIds) {
+      const j = typeof ref === "string" && ref.startsWith("@jutsu:") ? jutsuBySrc.get(ref.slice(7)) : null;
+      if (!j) continue;
+      if (j.op === "create") E(it, `PET default ${ref} is created hidden in this manifest; the server refuses unpublished defaults. Publish it, then set the defaults in a later manifest`);
+      const lock = j.data?.requiredPetSpeciesId;
+      if (lock && it.op === "create") E(it, `PET default ${ref} is species-locked; a species create accepts only unlocked PETS jutsu`);
+      // a ref names a species by srcId, the edit by literal id: only two literal ids are comparable offline
+      if (lock && it.op === "update" && !lock.startsWith("@") && lock !== it.targetId) E(it, `PET default ${ref} is locked to another species (${lock})`);
     }
   }
 

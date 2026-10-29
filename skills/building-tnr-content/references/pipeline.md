@@ -250,6 +250,21 @@ Asset types: `STATIC`, `SCENE_BACKGROUND`, `SCENE_CHARACTER`, `MUSIC`, `SFX`. Ed
 - **Asset list (confirmed):** `gameAsset.getAll`, GET, input `{limit, direction:"forward", folder?}` (omit `folder` for all, or pass a folder name to scope), returns `{data:[...], nextCursor}`; records carry `id`, `name`, `type`, `folder`, `image`, `url`. The folder index is `gameAsset.getAllFolders`, GET, null body, returning `{folder, count}[]`. Both dumped by `TNR_asset_dumper.user.js`.
 - **Scene assets (confirmed, sniffer):** `gameAsset.getSceneAssets`, GET, null body, returns the quest-usable scene records (`SCENE_BACKGROUND` and `SCENE_CHARACTER`). A record is `{id, name, type, image, url, frames, speed, hidden, folder, onInitialBattleField, licenseDetails, createdByUserId, createdAt, updatedAt}` where **`image` is the art URL** (the `ufs.sh` upload) and `url` is a webp fallback. So scene backgrounds and characters are real `gameAsset` rows created in the editor (grouped in a `folder`), separate from the combined manifest. Verified from a populated quest save, a node references these by id or URL: `sceneBackground` accepts either a `SCENE_BACKGROUND` asset id (dialogs use this) or a direct `ufs.sh` URL (battles use this), and `sceneCharacters` is an array of `SCENE_CHARACTER` asset id strings (a boss dialog carried the Kaisei portrait id). The node `image` field is separate from the backdrop and stays a placeholder on dialogs.
 
+### 2.8 Pet species (Forge 0.10.0; source-verified at TheNinjaRPG@2af4b320, NOT yet behaviour-proven)
+
+Unlike 2.2-2.7 these were read at source (`routers/petSpecies.ts`, `validators/petSpecies.ts`, `libs/pets/abilities.ts`), not confirmed by a save. The first species push is the behaviour proof.
+
+| Op | Shape |
+|---|---|
+| `petSpecies.create` | the WHOLE `PetSpeciesValidator` record in one step -> new id in `message`. No placeholder. |
+| `petSpecies.update` | `{id, data}`; re-saves the whole parsed record, so Forge fetch-merges like every entity. |
+| `petSpecies.get` / `getAll` | `{id}` / no input (every species, retired ones too). Names are unique. |
+
+- Manifest entity `petSpecies`; ref prefix `@petSpecies:<srcId>`. A create carries `hidden: true` like every entity (there is no column; Forge strips it) and **`isActive: false`**, the species' own visibility switch. Activating it is a publishing step.
+- **Build order, three pushes:** (1) species create; (2) the signature jutsu, `jutsuType: "PETS"`, `requiredPetSpeciesId` = the species id copied from push 1's results bundle; (3) after the director publishes that jutsu, a species edit (literal `targetId`) setting `defaultJutsuIds`. The server refuses hidden defaults and, on a create, any species-locked default, so step 3 can never ride in the same manifest as step 2.
+- A PETS jutsu that `isPetJutsuAllowed` refuses is saved by the game and is never equippable: weapon `NONE`, element `None`, not injectable, not PVP-only, not H rank, no bloodline/village/skill/mastery links, `actionCostPerc` 10-100, at least one effect, every effect one of damage/elementaldamage/heal/shield/increase-decrease stat/damage given/damage taken/clear/cleanse/move with no elements. `validate.py` and Forge both refuse it.
+- Pet rewards: `reward_pet_experience` is valid on item `noncombatconsumereward` and on quest rewards; `reward_pets` exists ONLY on the item tag (max 1 per item, `rewardMode` standard, `preventBattleUsage: true`).
+
 ## 3. Rate limit
 
 The limiter is a **rolling cumulative request-count budget**, not per-burst. It drains across repeated sessions and refills over time. Use fewer, larger requests with exponential backoff (the builder does this), and let it refill rather than hammering.

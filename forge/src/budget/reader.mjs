@@ -135,7 +135,8 @@ export class CachedReader {
     if (path === "skillTree.getAll" || path === "skillTree.getAllFolders") return this.skillInventory(path, { fresh, input });
     // getAll takes a required {limit, cursor} input (jutsu.ts:266-285); only the name lists take none
     // coop.dungeon.getAll takes no input and returns every definition (staff only), so it lists like a name list.
-    if (!/\.getAll(Ai)?Names$/.test(path) && path !== "coop.dungeon.getAll") throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
+    // petSpecies.getAll likewise takes no input and returns every species (routers/petSpecies.ts:24).
+    if (!/\.getAll(Ai)?Names$/.test(path) && path !== "coop.dungeon.getAll" && path !== "petSpecies.getAll") throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
     const sent = input === undefined ? listInput(path) : input;
     const cacheable = sameInput(sent, listInput(path));
     const hit = fresh || !cacheable ? null : await this.cache.get(path, "");

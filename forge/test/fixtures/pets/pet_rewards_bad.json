@@ -1,0 +1,88 @@
+{
+ "_note": "Pet builder fixture (forge/test/fixtures/pets). Not content: never pushed. Refused: two companions, weighted cache, battle usage allowed.",
+ "items": [
+  {
+   "entity": "item",
+   "slot": "create",
+   "name": "Fixture Moth Jar",
+   "srcId": "fx_jar",
+   "data": {
+    "name": "Fixture Moth Jar",
+    "description": "Test jar.",
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "preventBattleUsage": false,
+    "hidden": true,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "reward_pets": [
+       "fxPetSpecies000000001",
+       "fxPetSpecies000000002"
+      ],
+      "reward_pet_experience": 500,
+      "rewardMode": "weightedCache",
+      "target": "SELF",
+      "power": 1,
+      "powerPerLevel": 0,
+      "calculation": "static",
+      "direction": "offence",
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "description": "Release a companion"
+     }
+    ]
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Fixture Feeding",
+   "targetId": "fxPetQuest00000000001",
+   "data": {
+    "content": {
+     "reward": {
+      "reward_pets": [
+       "fxPetSpecies000000001"
+      ],
+      "reward_pet_experience": -5
+     },
+     "sceneBackground": "",
+     "sceneCharacters": [],
+     "objectives": [
+      {
+       "task": "dialog",
+       "id": "fx_o0",
+       "description": "A test node.",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "nextObjectiveId": [
+        {
+         "text": "Feed the companion.",
+         "nextObjectiveId": "fx_win"
+        }
+       ]
+      },
+      {
+       "task": "win_quest",
+       "id": "fx_win",
+       "description": "",
+       "successDescription": "Fed.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_pet_experience": 250
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

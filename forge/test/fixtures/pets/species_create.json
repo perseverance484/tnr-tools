@@ -1,0 +1,45 @@
+{
+ "_note": "Pet builder fixture (forge/test/fixtures/pets). Not content: never pushed. Step 1: create the species.",
+ "items": [
+  {
+   "entity": "petSpecies",
+   "slot": "create",
+   "name": "Fixture Moth",
+   "srcId": "fx_moth",
+   "data": {
+    "name": "Fixture Moth",
+    "description": "A test companion species used by the pet builder fixtures.",
+    "artDirection": "Soft grey moth, pixel art.",
+    "rankConcepts": [
+     "Small moth",
+     "Lantern moth"
+    ],
+    "rarity": "RARE",
+    "role": "HEALER",
+    "isActive": false,
+    "hidden": true,
+    "skillTarget": "SELF",
+    "includeDefaultRules": true,
+    "effects": [
+     {
+      "type": "heal",
+      "power": 2,
+      "calculation": "percentage",
+      "rounds": 100,
+      "target": "SELF"
+     }
+    ],
+    "aiRules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "heal",
+       "description": "Heal when able"
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

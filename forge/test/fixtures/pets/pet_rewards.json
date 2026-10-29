@@ -1,0 +1,84 @@
+{
+ "_note": "Pet builder fixture (forge/test/fixtures/pets). Not content: never pushed. reward_pets and reward_pet_experience on an item; reward_pet_experience on a quest reward.",
+ "items": [
+  {
+   "entity": "item",
+   "slot": "create",
+   "name": "Fixture Moth Jar",
+   "srcId": "fx_jar",
+   "data": {
+    "name": "Fixture Moth Jar",
+    "description": "Test jar.",
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "preventBattleUsage": true,
+    "hidden": true,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "reward_pets": [
+       "fxPetSpecies000000001"
+      ],
+      "reward_pet_experience": 500,
+      "rewardMode": "standard",
+      "target": "SELF",
+      "power": 1,
+      "powerPerLevel": 0,
+      "calculation": "static",
+      "direction": "offence",
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "description": "Release a companion"
+     }
+    ]
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Fixture Feeding",
+   "targetId": "fxPetQuest00000000001",
+   "data": {
+    "content": {
+     "reward": {
+      "reward_pet_experience": 1000
+     },
+     "sceneBackground": "",
+     "sceneCharacters": [],
+     "objectives": [
+      {
+       "task": "dialog",
+       "id": "fx_o0",
+       "description": "A test node.",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "nextObjectiveId": [
+        {
+         "text": "Feed the companion.",
+         "nextObjectiveId": "fx_win"
+        }
+       ]
+      },
+      {
+       "task": "win_quest",
+       "id": "fx_win",
+       "description": "",
+       "successDescription": "Fed.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_pet_experience": 250
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

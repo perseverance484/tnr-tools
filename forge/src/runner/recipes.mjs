@@ -1,5 +1,6 @@
 import { AI_OMITTED } from "./validate.mjs";
 import { dungeonName, mergeDungeon } from "../dungeon/validate.mjs";
+import { petSpeciesPayload } from "./pets.mjs";
 // Per-entity write recipes. Every path and input shape below was read at source
 // (studie-tech/TheNinjaRPG@345d18ac, app/src/server/api/routers/*), not from the old bundle.
 //
@@ -63,6 +64,15 @@ export const RECIPES = Object.freeze({
     get: "coop.dungeon.getAll", update: "coop.dungeon.save", names: "coop.dungeon.getAll",
     updateInput: (id, payload) => ({ id, content: payload }),
     idKey: "id", nameKey: "name", nameOf: dungeonName, cacheEntity: "dungeon",
+  },
+  petSpecies: {
+    // routers/petSpecies.ts at 2af4b320: create takes the whole PetSpeciesValidator record and answers
+    // {success, message: <new id>} (:38-89); update is {id, data} and re-saves the whole parsed
+    // record (:92-153), so an edit fetch-merges like every entity; get {id} returns the row; getAll
+    // takes no input and lists every species, retired ones included. Species names are unique.
+    create: { path: "petSpecies.create", input: petSpeciesPayload }, oneStep: true,
+    get: "petSpecies.get", update: "petSpecies.update", names: "petSpecies.getAll",
+    idKey: "id", nameKey: "name", cacheEntity: "petSpecies",
   },
   aiProfile: {
     // update-only. targetId is the AI's userId. Rules live on a separate row reached through
