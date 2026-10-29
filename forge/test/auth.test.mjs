@@ -102,7 +102,10 @@ test("the auth class of every audited procedure is transcribed from source, not 
   assert.equal(isProtected("jutsu.getAllNames"), false); // routers/jutsu.ts:257, publicProcedure
   assert.equal(isProtected("petSpecies.create"), true);  // routers/petSpecies.ts:38 at 2af4b320
   assert.equal(isProtected("petSpecies.getAll"), false); // routers/petSpecies.ts:24, publicProcedure
-  assert.equal(PROTECTED_PATHS.length, 38); // 31 audited + 3 content review (src/review/contract.json) + 2 dungeon (src/dungeon/contract.json) + 2 petSpecies
+  assert.equal(isProtected("title.get"), true);          // routers/title.ts:40 at 2af4b320: the staff read
+  assert.equal(isProtected("badge.get"), false);         // routers/badge.ts:62, publicProcedure
+  assert.equal(isProtected("title.getAll"), true);       // routers/title.ts:30, staff list (archived included)
+  assert.equal(PROTECTED_PATHS.length, 44); // 31 audited + 3 content review (src/review/contract.json) + 2 dungeon (src/dungeon/contract.json) + 2 petSpecies + 2 badge + 4 title
   assert.throws(() => isProtected("jutsu.nope"), /unknown procedure/);
 });
 

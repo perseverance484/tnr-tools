@@ -593,8 +593,10 @@ export class Runner {
       const key = await this.reconciler.beforeCreate(this.journal.get(jobId), item, item.entity);
       if (key) this.journal.annotate(jobId, item.idx, { snapshotKey: key });
     }
-    const createData = rc.oneStep ? await this._resolved(planned.data, jobId) : planned.data;
-    if (rc.oneStep) {
+    // a badge's @img resolves first so its URL is checked before a listed placeholder exists
+    const pre = rc.oneStep || item.entity === "badge";
+    const createData = pre ? await this._resolved(planned.data, jobId) : planned.data;
+    if (pre) {
       const problems = this.validator.problems(item.entity, createData, null, { preCreate: true });
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
     }

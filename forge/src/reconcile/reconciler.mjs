@@ -13,7 +13,9 @@
 //     diff is the ONLY signal, which is why the snapshot is mandatory.
 //   A dungeon create is never adopted here: coop.dungeon.save has no idempotency key, so every lost
 //     one is ORPHANED with its candidates compared to the planned content (_dungeonCreate). A lost
-//     petSpecies create is handled the same way (_petSpeciesCreate).
+//     petSpecies create is handled the same way (_petSpeciesCreate). A lost badge or title create
+//     is ORPHANED too: the placeholder carries no idempotency key, so only the operator's adopt()
+//     binds a row (it then continues at update; the create is never re-sent).
 //   phase update (entityId known): read the record; if every asserted key already matches,
 //     the update landed -> confirm with landed:true and the runner goes straight to verify.
 //     Otherwise -> ORPHANED ("live differs"), and the user decides; never re-sent by itself.
@@ -119,6 +121,9 @@ export class Reconciler {
     const candidates = rows.map((r) => ({ id: r[rc.idKey], name: rowName(rc, r) ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
     if (item.entity === "dungeon") return this._dungeonCreate(rows, candidates, pending, ctx);
     if (item.entity === "petSpecies") return this._petSpeciesCreate(rows, candidates, pending, ctx);
+    // a placeholder may be another operator's (each candidate says whether it still is one)
+    if (item.entity === "badge" || item.entity === "title") return { action: "orphan", candidates,
+      note: `lost ${item.entity} create: ${candidates.length} new row(s); adopt one (filled, never re-created) or skip` };
     if (candidates.length === 1 && pending.length === 1) {
       const c = candidates[0];
       if (item.entity === "skillTree" || item.entity === "skillTreeFolder") {

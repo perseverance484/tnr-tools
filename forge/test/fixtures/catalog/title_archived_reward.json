@@ -1,0 +1,33 @@
+{
+ "_note": "Badge/title builder fixture (forge/test/fixtures/catalog). Not content: never pushed. A title archived in the same manifest that rewards it: the server refuses the quest save.",
+ "items": [
+  {
+   "entity": "title",
+   "slot": "create",
+   "name": "Fixture Retired",
+   "srcId": "fx_retired",
+   "data": {
+    "name": "Fixture Retired",
+    "description": "",
+    "archived": true,
+    "hidden": true,
+    "effects": []
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Fixture Quest",
+   "targetId": "fxQuest00000000000001",
+   "data": {
+    "content": {
+     "reward": {
+      "reward_titles": [
+       "@title:fx_retired"
+      ]
+     }
+    }
+   }
+  }
+ ]
+}
