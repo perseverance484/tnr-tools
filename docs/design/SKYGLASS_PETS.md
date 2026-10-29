@@ -1,5 +1,7 @@
 # Skyglass pets: the ship's echoes
 
+**Update (RUL-2026-10-29-047):** the event ships **one pet, the Little Horror**, from a once-per-player Wreck jar. The Deck Gull, Bilge Rat, Lantern Moth and Ship's Cat kits below are cut. They are kept here only as design history.
+
 Five reward-only companions from the Echo Jar (RUL-2026-10-28-011; loot tables §5b). Story: the Skyglass Project
 tested recall on the ship's animals first; their impressions were sealed in jars like Replicant Zero's.
 
