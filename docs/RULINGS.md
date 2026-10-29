@@ -4356,3 +4356,31 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "All approved and accepted."
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md`; `docs/design/SKYGLASS_THE_HAUL.md`.
+
+## RUL-2026-10-29-047 — One pet, the Little Horror; trophies become variant tokens
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE.
+- Pending: the trophy list and base items, and the replacements for the Echo Jar slots.
+- Pending: the tooling re-pin to upstream (`fable/` branch).
+
+**Ruling:**
+1. **The event has one pet: the Little Horror.** Its jar replaces the five-pet Echo Jar.
+   - Proposed: a once-per-player endgame Wreck drop (dungeon `onlyOnce`).
+   - The Deck Gull, Bilge Rat, Lantern Moth and Ship's Cat are cut.
+   - The jar's other slots (picks, chest of chests, Crown's Hoard) are to be refilled.
+2. **Trophies are item variants** (cosmetic reskins: name, image, description).
+   - Each trophy is a **variant token**, an item carrying `unlockitemvariant` with a specific `variantId`.
+   - A trophy variant can go on any item it is chosen for.
+3. **Engine facts** (theninjarpg upstream `3314d122`, after pin 2af4b320):
+   - **No direct variant grant.** No reward type grants a variant directly; the token is the reward.
+   - **The token is consumed on use.** It requires the player to own the variant's base item (`fetchVariantOwnership`) and unlocks that variant once per player.
+   - **Tradeability is per token.** An untradeable token is the closest to a direct award; a tradeable one keeps duplicates worth something.
+   - **`onlyOnce` (once per player)** exists only on dungeon drops, so only on the Wreck.
+
+**Evidence:** Director, 2026-10-29: "Need to rework our rewards. Only 1 pet, but now we can grant rewards only 1 time if we want. Can also grant variants as a reward. These can be our trophies", then "They apply to any item they're chosen for. We should be able to award variants directly with the change right? I would choose Little Horror."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5, §5b; `docs/design/SKYGLASS_PETS.md`.
