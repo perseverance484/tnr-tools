@@ -10,7 +10,9 @@
   "lines": "disarm",
   "sealLines": "elementalseal",
   "lastLight": "summonprevent",
-  "lastLightBinding": "sealprevent"
+  "lastLightBinding": "sealprevent",
+  "splash": "increaseheal",
+  "shortLine": "lifesteal"
  },
  "probes": [
   {
@@ -26,6 +28,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 18,
      "newEffects": [
       "increasecooldown"
      ]
@@ -38,6 +42,8 @@
       "increasecooldown:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -48,6 +54,12 @@
       "increasecooldown:1:r1"
      ],
      "playersHit": 3,
+     "damage": {
+      "player@8,4": -396,
+      "player@7,5": -396,
+      "player@6,5": -396
+     },
+     "groundHexes": 21,
      "newEffects": []
     },
     {
@@ -56,6 +68,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -73,6 +87,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 20,
      "newEffects": [
       "decreasecooldown"
      ]
@@ -85,6 +101,8 @@
       "decreasecooldown:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -95,6 +113,12 @@
       "decreasecooldown:1:r1"
      ],
      "playersHit": 3,
+     "damage": {
+      "player@8,4": -123,
+      "player@7,5": -123,
+      "player@6,5": -123
+     },
+     "groundHexes": 6,
      "newEffects": [
       "elementalseal",
       "timecompression",
@@ -107,6 +131,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -124,6 +150,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 24,
      "newEffects": [
       "increaserange"
      ]
@@ -136,6 +164,8 @@
       "increaserange:1:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -146,6 +176,11 @@
       "increaserange:1:r1"
      ],
      "playersHit": 2,
+     "damage": {
+      "player@7,5": -346,
+      "player@6,5": -346
+     },
+     "groundHexes": 26,
      "newEffects": []
     },
     {
@@ -154,6 +189,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -171,6 +208,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 24,
      "newEffects": [
       "fleeprevent"
      ]
@@ -183,6 +222,8 @@
       "fleeprevent:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -193,6 +234,10 @@
       "fleeprevent:100:r1"
      ],
      "playersHit": 1,
+     "damage": {
+      "player@3,3": -346
+     },
+     "groundHexes": 25,
      "newEffects": []
     },
     {
@@ -201,6 +246,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -218,6 +265,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 60,
      "newEffects": [
       "robprevent"
      ]
@@ -230,6 +279,8 @@
       "robprevent:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -240,6 +291,13 @@
       "robprevent:100:r1"
      ],
      "playersHit": 4,
+     "damage": {
+      "player@8,4": -420,
+      "player@7,5": -420,
+      "player@3,3": -420,
+      "player@6,5": -420
+     },
+     "groundHexes": 184,
      "newEffects": []
     },
     {
@@ -248,6 +306,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -265,6 +325,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 57,
      "newEffects": [
       "onehitkillprevent"
      ]
@@ -277,6 +339,8 @@
       "onehitkillprevent:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -287,6 +351,10 @@
       "onehitkillprevent:100:r1"
      ],
      "playersHit": 1,
+     "damage": {
+      "player@5,7": -420
+     },
+     "groundHexes": 172,
      "newEffects": []
     },
     {
@@ -295,6 +363,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -312,6 +382,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 19,
      "newEffects": [
       "disarm"
      ]
@@ -324,6 +396,8 @@
       "disarm:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -333,7 +407,14 @@
      "bossEffects": [
       "disarm:100:r1"
      ],
-     "playersHit": 3,
+     "playersHit": 4,
+     "damage": {
+      "player@5,7": -370,
+      "player@7,5": -370,
+      "player@3,3": -370,
+      "player@6,5": -370
+     },
+     "groundHexes": 23,
      "newEffects": []
     },
     {
@@ -342,6 +423,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -359,6 +442,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 24,
      "newEffects": [
       "elementalseal"
      ]
@@ -371,6 +456,8 @@
       "elementalseal:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -380,7 +467,13 @@
      "bossEffects": [
       "elementalseal:100:r1"
      ],
-     "playersHit": 1,
+     "playersHit": 3,
+     "damage": {
+      "player@5,7": -148,
+      "player@7,5": -148,
+      "player@3,3": -148
+     },
+     "groundHexes": 3,
      "newEffects": [
       "elementalseal",
       "timecompression",
@@ -393,6 +486,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -410,6 +505,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 120,
      "newEffects": [
       "summonprevent"
      ]
@@ -422,6 +519,8 @@
       "summonprevent:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -432,6 +531,14 @@
       "summonprevent:100:r1"
      ],
      "playersHit": 5,
+     "damage": {
+      "player@8,4": -494,
+      "player@5,7": -494,
+      "player@7,5": -494,
+      "player@3,3": -494,
+      "player@6,5": -494
+     },
+     "groundHexes": 5,
      "newEffects": [
       "weakness",
       "stun"
@@ -445,6 +552,8 @@
       "weakness:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -462,6 +571,8 @@
      "rule": 1,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 120,
      "newEffects": [
       "sealprevent"
      ]
@@ -474,6 +585,8 @@
       "sealprevent:100:r1"
      ],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     },
     {
@@ -484,6 +597,14 @@
       "sealprevent:100:r1"
      ],
      "playersHit": 5,
+     "damage": {
+      "player@8,4": -198,
+      "player@5,7": -198,
+      "player@7,5": -198,
+      "player@3,3": -198,
+      "player@6,5": -198
+     },
+     "groundHexes": 5,
      "newEffects": [
       "elementalseal",
       "timecompression",
@@ -496,6 +617,8 @@
      "rule": 2,
      "bossEffects": [],
      "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
      "newEffects": []
     }
    ]
@@ -508,6 +631,8 @@
    "rule": 2,
    "bossEffects": [],
    "playersHit": 0,
+   "damage": {},
+   "groundHexes": 18,
    "newEffects": [
     "increasecooldown"
    ]
@@ -520,6 +645,8 @@
     "increasecooldown:1:r1"
    ],
    "playersHit": 0,
+   "damage": {},
+   "groundHexes": 60,
    "newEffects": [
     "robprevent"
    ]
@@ -533,6 +660,8 @@
     "robprevent:100:r1"
    ],
    "playersHit": 0,
+   "damage": {},
+   "groundHexes": 0,
    "newEffects": []
   },
   {
@@ -544,6 +673,13 @@
     "robprevent:100:r1"
    ],
    "playersHit": 4,
+   "damage": {
+    "player@8,4": -420,
+    "player@7,5": -420,
+    "player@3,3": -420,
+    "player@6,5": -420
+   },
+   "groundHexes": 184,
    "newEffects": []
   },
   {
@@ -552,7 +688,2225 @@
    "rule": 4,
    "bossEffects": [],
    "playersHit": 0,
+   "damage": {},
+   "groundHexes": 0,
    "newEffects": []
+  }
+ ],
+ "minor": [
+  {
+   "mark": "Omen: Splash",
+   "blast": "Eruption: Splash",
+   "markerType": "increaseheal",
+   "scenario": "stays (player and pet on the pattern)",
+   "blastCast": true,
+   "groundHexes": 11,
+   "damage": {
+    "player@6,5": -198,
+    "pet@5,5": -1414
+   },
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Splash",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 9,
+     "newEffects": [
+      "increaseheal"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 1,
+     "bossEffects": [
+      "increaseheal:1:r1"
+     ],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Splash",
+     "rule": 0,
+     "bossEffects": [
+      "increaseheal:1:r1"
+     ],
+     "playersHit": 2,
+     "damage": {
+      "player@6,5": -198,
+      "pet@5,5": -1414
+     },
+     "groundHexes": 11,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Splash",
+   "blast": "Eruption: Splash",
+   "markerType": "increaseheal",
+   "scenario": "steps off (pet off the pattern)",
+   "blastCast": true,
+   "groundHexes": 9,
+   "damage": {},
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Splash",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 9,
+     "newEffects": [
+      "increaseheal"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 1,
+     "bossEffects": [
+      "increaseheal:1:r1"
+     ],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
+     "newEffects": []
+    },
+    {
+     "player": true,
+     "to": [
+      7,
+      4
+     ],
+     "round": 2,
+     "action": "move",
+     "rule": null,
+     "bossEffects": [
+      "increasemaxpools:500:r19",
+      "increasemaxpools:500:r19",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasemaxpools:200:r19",
+      "increasestat:20:r99",
+      "absorb:30:r4"
+     ],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
+     "newEffects": []
+    },
+    {
+     "player": true,
+     "to": [
+      8,
+      4
+     ],
+     "round": 2,
+     "action": "move",
+     "rule": null,
+     "bossEffects": [
+      "increasemaxpools:500:r19",
+      "increasemaxpools:500:r19",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasemaxpools:200:r19",
+      "increasestat:20:r99",
+      "absorb:30:r4"
+     ],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Splash",
+     "rule": 0,
+     "bossEffects": [
+      "increaseheal:1:r1"
+     ],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 9,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Short Line",
+   "blast": "Eruption: Short Line",
+   "markerType": "lifesteal",
+   "scenario": "stays (player and pet on the pattern)",
+   "blastCast": true,
+   "groundHexes": 5,
+   "damage": {
+    "player@6,5": -222,
+    "pet@5,5": -1550
+   },
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Short Line",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 3,
+     "newEffects": [
+      "lifesteal"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 1,
+     "bossEffects": [
+      "lifesteal:1:r1"
+     ],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Short Line",
+     "rule": 0,
+     "bossEffects": [
+      "lifesteal:1:r1"
+     ],
+     "playersHit": 2,
+     "damage": {
+      "player@6,5": -222,
+      "pet@5,5": -1550
+     },
+     "groundHexes": 5,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
+     "newEffects": []
+    }
+   ]
+  },
+  {
+   "mark": "Omen: Short Line",
+   "blast": "Eruption: Short Line",
+   "markerType": "lifesteal",
+   "scenario": "steps off (pet off the pattern)",
+   "blastCast": true,
+   "groundHexes": 3,
+   "damage": {},
+   "steps": [
+    {
+     "round": 1,
+     "action": "Omen: Short Line",
+     "rule": 2,
+     "bossEffects": [],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 3,
+     "newEffects": [
+      "lifesteal"
+     ]
+    },
+    {
+     "round": 1,
+     "action": "wait",
+     "rule": 1,
+     "bossEffects": [
+      "lifesteal:1:r1"
+     ],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
+     "newEffects": []
+    },
+    {
+     "player": true,
+     "to": [
+      7,
+      4
+     ],
+     "round": 2,
+     "action": "move",
+     "rule": null,
+     "bossEffects": [
+      "increasemaxpools:500:r19",
+      "increasemaxpools:500:r19",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasestat:20:r99",
+      "increasemaxpools:200:r19",
+      "increasestat:20:r99",
+      "absorb:30:r4"
+     ],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
+     "newEffects": []
+    },
+    {
+     "round": 2,
+     "action": "Eruption: Short Line",
+     "rule": 0,
+     "bossEffects": [
+      "lifesteal:1:r1"
+     ],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 3,
+     "newEffects": []
+    },
+    {
+     "round": 3,
+     "action": "wait",
+     "rule": 3,
+     "bossEffects": [],
+     "playersHit": 0,
+     "damage": {},
+     "groundHexes": 0,
+     "newEffects": []
+    }
+   ]
+  }
+ ],
+ "dodged": [
+  {
+   "key": "ring",
+   "blast": "Eruption: Ring",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 5
+  },
+  {
+   "key": "bindingRing",
+   "blast": "Ship's Bell",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 5
+  },
+  {
+   "key": "rowsA",
+   "blast": "Eruption: Rows",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 2
+  },
+  {
+   "key": "rowsB",
+   "blast": "Eruption: Rows",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 1
+  },
+  {
+   "key": "scatterA",
+   "blast": "Eruption: Scatter",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 4
+  },
+  {
+   "key": "scatterB",
+   "blast": "Eruption: Scatter",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 1
+  },
+  {
+   "key": "lines",
+   "blast": "Eruption: Lines",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 5
+  },
+  {
+   "key": "sealLines",
+   "blast": "Binding: Seal Lines",
+   "blastCast": true,
+   "playersHit": 0,
+   "dodgeSteps": 3
+  },
+  {
+   "key": "lastLight",
+   "blast": "Maw of the Deep",
+   "blastCast": true,
+   "playersHit": 2,
+   "dodgeSteps": 5
+  },
+  {
+   "key": "lastLightBinding",
+   "blast": "Command Absolute",
+   "blastCast": true,
+   "playersHit": 2,
+   "dodgeSteps": 5
+  }
+ ],
+ "geometry": [
+  {
+   "throne": [
+    8,
+    4
+   ],
+   "columnParity": "even",
+   "pattern": "Eruption: Lines / Crownfall (Omen: Lines)",
+   "hexes": [
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     3,
+     7
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     5,
+     5
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    4
+   ],
+   "columnParity": "even",
+   "pattern": "Binding: Seal Lines",
+   "hexes": [
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     3,
+     7
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     5,
+     5
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     9,
+     3
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     10,
+     3
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     11,
+     2
+    ],
+    [
+     11,
+     3
+    ],
+    [
+     11,
+     5
+    ],
+    [
+     11,
+     6
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    4
+   ],
+   "columnParity": "even",
+   "pattern": "Ship's Bell (Omen: Binding Ring)",
+   "hexes": [
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     7,
+     2
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     8,
+     2
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     9,
+     2
+    ],
+    [
+     9,
+     3
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     9,
+     6
+    ],
+    [
+     10,
+     3
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    4
+   ],
+   "columnParity": "even",
+   "pattern": "Eruption: Ring",
+   "hexes": [
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     7,
+     2
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     8,
+     2
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     9,
+     2
+    ],
+    [
+     9,
+     3
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     10,
+     3
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    4
+   ],
+   "columnParity": "even",
+   "pattern": "Eruption: Splash",
+   "hexes": [
+    [
+     5,
+     3
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     5,
+     5
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    4
+   ],
+   "columnParity": "even",
+   "pattern": "Eruption: Short Line",
+   "hexes": [
+    [
+     5,
+     4
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     7,
+     4
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    4
+   ],
+   "rays": "fan W/NW/SW",
+   "everyStepAdjacent": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "throne": [
+    8,
+    4
+   ],
+   "rays": "cross NW/NE/SW/SE",
+   "everyStepAdjacent": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "throne": [
+    8,
+    5
+   ],
+   "columnParity": "even",
+   "pattern": "Eruption: Lines / Crownfall (Omen: Lines)",
+   "hexes": [
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     3,
+     7
+    ],
+    [
+     3,
+     8
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     4,
+     7
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     5,
+     5
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     5,
+     7
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     7,
+     6
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    5
+   ],
+   "columnParity": "even",
+   "pattern": "Binding: Seal Lines",
+   "hexes": [
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     7
+    ],
+    [
+     3,
+     8
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     7
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     5,
+     7
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     9,
+     6
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     6
+    ],
+    [
+     11,
+     3
+    ],
+    [
+     11,
+     4
+    ],
+    [
+     11,
+     6
+    ],
+    [
+     11,
+     7
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    5
+   ],
+   "columnParity": "even",
+   "pattern": "Ship's Bell (Omen: Binding Ring)",
+   "hexes": [
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     7,
+     7
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     8,
+     7
+    ],
+    [
+     9,
+     3
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     9,
+     6
+    ],
+    [
+     9,
+     7
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     10,
+     6
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    5
+   ],
+   "columnParity": "even",
+   "pattern": "Eruption: Ring",
+   "hexes": [
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     8,
+     7
+    ],
+    [
+     9,
+     3
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     9,
+     6
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     10,
+     6
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    5
+   ],
+   "columnParity": "even",
+   "pattern": "Eruption: Splash",
+   "hexes": [
+    [
+     5,
+     4
+    ],
+    [
+     5,
+     5
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     7,
+     6
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    5
+   ],
+   "columnParity": "even",
+   "pattern": "Eruption: Short Line",
+   "hexes": [
+    [
+     5,
+     5
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     7,
+     5
+    ]
+   ]
+  },
+  {
+   "throne": [
+    8,
+    5
+   ],
+   "rays": "fan W/NW/SW",
+   "everyStepAdjacent": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "throne": [
+    8,
+    5
+   ],
+   "rays": "cross NW/NE/SW/SE",
+   "everyStepAdjacent": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "throne": [
+    9,
+    4
+   ],
+   "columnParity": "odd",
+   "pattern": "Eruption: Lines / Crownfall (Omen: Lines)",
+   "hexes": [
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     4,
+     7
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     6,
+     2
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    4
+   ],
+   "columnParity": "odd",
+   "pattern": "Binding: Seal Lines",
+   "hexes": [
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     4,
+     7
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     6,
+     2
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     10,
+     3
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     11,
+     3
+    ],
+    [
+     11,
+     5
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    4
+   ],
+   "columnParity": "odd",
+   "pattern": "Ship's Bell (Omen: Binding Ring)",
+   "hexes": [
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     8,
+     2
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     9,
+     2
+    ],
+    [
+     9,
+     3
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     9,
+     6
+    ],
+    [
+     10,
+     2
+    ],
+    [
+     10,
+     3
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     10,
+     6
+    ],
+    [
+     11,
+     3
+    ],
+    [
+     11,
+     4
+    ],
+    [
+     11,
+     5
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    4
+   ],
+   "columnParity": "odd",
+   "pattern": "Eruption: Ring",
+   "hexes": [
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     9,
+     2
+    ],
+    [
+     9,
+     3
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     9,
+     6
+    ],
+    [
+     10,
+     3
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     10,
+     6
+    ],
+    [
+     11,
+     3
+    ],
+    [
+     11,
+     4
+    ],
+    [
+     11,
+     5
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    4
+   ],
+   "columnParity": "odd",
+   "pattern": "Eruption: Splash",
+   "hexes": [
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    4
+   ],
+   "columnParity": "odd",
+   "pattern": "Eruption: Short Line",
+   "hexes": [
+    [
+     6,
+     4
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     8,
+     4
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    4
+   ],
+   "rays": "fan W/NW/SW",
+   "everyStepAdjacent": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "throne": [
+    9,
+    4
+   ],
+   "rays": "cross NW/NE/SW/SE",
+   "everyStepAdjacent": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "throne": [
+    9,
+    5
+   ],
+   "columnParity": "odd",
+   "pattern": "Eruption: Lines / Crownfall (Omen: Lines)",
+   "hexes": [
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     4,
+     7
+    ],
+    [
+     4,
+     8
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     5,
+     5
+    ],
+    [
+     5,
+     7
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     8,
+     6
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    5
+   ],
+   "columnParity": "odd",
+   "pattern": "Binding: Seal Lines",
+   "hexes": [
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     7
+    ],
+    [
+     4,
+     8
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     5,
+     7
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     10,
+     6
+    ],
+    [
+     11,
+     4
+    ],
+    [
+     11,
+     6
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    5
+   ],
+   "columnParity": "odd",
+   "pattern": "Ship's Bell (Omen: Binding Ring)",
+   "hexes": [
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     8,
+     7
+    ],
+    [
+     9,
+     3
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     9,
+     6
+    ],
+    [
+     9,
+     7
+    ],
+    [
+     10,
+     3
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     10,
+     6
+    ],
+    [
+     10,
+     7
+    ],
+    [
+     11,
+     4
+    ],
+    [
+     11,
+     5
+    ],
+    [
+     11,
+     6
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    5
+   ],
+   "columnParity": "odd",
+   "pattern": "Eruption: Ring",
+   "hexes": [
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     8,
+     7
+    ],
+    [
+     9,
+     3
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     9,
+     6
+    ],
+    [
+     9,
+     7
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     10,
+     6
+    ],
+    [
+     10,
+     7
+    ],
+    [
+     11,
+     4
+    ],
+    [
+     11,
+     5
+    ],
+    [
+     11,
+     6
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    5
+   ],
+   "columnParity": "odd",
+   "pattern": "Eruption: Splash",
+   "hexes": [
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     8,
+     6
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    5
+   ],
+   "columnParity": "odd",
+   "pattern": "Eruption: Short Line",
+   "hexes": [
+    [
+     6,
+     5
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     8,
+     5
+    ]
+   ]
+  },
+  {
+   "throne": [
+    9,
+    5
+   ],
+   "rays": "fan W/NW/SW",
+   "everyStepAdjacent": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "throne": [
+    9,
+    5
+   ],
+   "rays": "cross NW/NE/SW/SE",
+   "everyStepAdjacent": [
+    true,
+    true,
+    true,
+    true
+   ]
   }
  ]
 }

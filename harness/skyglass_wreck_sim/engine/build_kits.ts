@@ -13,7 +13,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { insertAiSchema } from "@/validators/aiInput";
 import { JutsuValidator } from "@/validators/combat";
-import { BASE, buildKits, type KitParams, LIVE, WRECK_NEW } from "./kits";
+import { BASE, buildKits, type KitParams, LIVE, sharedRules, WRECK_NEW } from "./kits";
 import { LIB } from "./library";
 import { buildTemplates, loadJson } from "./model";
 
@@ -71,7 +71,9 @@ const spec: any = {
   ...(old.endgame?.ais?.[0]?.sharedKit ? { endgame: old.endgame } : {}),
   ...(old.lvl50?.ais?.[0]?.sharedKit ? { lvl50: old.lvl50 } : {}),
 };
-spec.sharedKits = Object.fromEntries(Object.entries(shared).map(([id, s]) => {
+// sharedKits is the base rule order (endgame); a version whose rules differ for an enemy lists them under ruleVariants.
+const base = sharedRules({ horrorPhase2: params.horrorPhase2 });
+spec.sharedKits = Object.fromEntries(Object.entries(base).map(([id, s]) => {
   const kit = [...new Set(s.rules.map((r: any) => r.action.jutsuId).filter(Boolean))] as string[];
   return [BASE[id]!, {
     liveAiId: liveIdOf(BASE[id]!),
@@ -88,7 +90,18 @@ spec.counts = {
   wreckNew: 1,
   liveUsed: [...new Set(Object.values(shared).flatMap((s) => s.rules.map((r: any) => r.action.jutsuId)).filter((id) => id && !libIds.has(id) && !wreckNew.has(id)))].length,
 };
-spec[version] = { params, floors: (override as any).floors, ais };
+const ruleVariants = Object.fromEntries(Object.entries(shared).filter(([id, s]) => JSON.stringify(s.rules) !== JSON.stringify(base[id]!.rules)).map(([id, s]) => [BASE[id]!, {
+  why: "version-specific rule order (same jutsu as sharedKits)",
+  rules: s.rules.map((r: any, i: number) => ({ index: i, note: r.action.description, conditions: r.conditions, action: r.action })),
+}]));
+// Dungeon-level notes for the builder (director rulings).
+const dungeonNotes = version === "lvl50"
+  ? {
+      descriptionText: "for level 45+",
+      instruction: "Add \"for level 45+\" to this (easy) Skyglass Wreck dungeon's description text. The easy version is accepted as 45+ (RUL-2026-10-28-031); the harness's level-40 party cannot clear it.",
+    }
+  : undefined;
+spec[version] = { params, ...(dungeonNotes ? { dungeonNotes } : {}), floors: (override as any).floors, ais, ...(Object.keys(ruleVariants).length ? { ruleVariants } : {}) };
 writeFileSync(specPath, `${JSON.stringify(spec, null, 1)}\n`);
 console.log(`wrote ${specPath} [${version}]: ${ais.length} AIs; counts ${JSON.stringify(spec.counts)}`);
 for (const a of ais) console.log(`  ${a.username.padEnd(18)} L${a.level} HP ${a.pools.maxHealth} insertAi ${JSON.stringify(a.insertAiSchemaCheck).slice(0, 80)}`);
