@@ -298,6 +298,13 @@
        "L",
        "L"
       ]
+     },
+     {
+      "chests": [
+       "C",
+       "L",
+       "L"
+      ]
      }
     ],
     "gatherer": [
@@ -349,6 +356,13 @@
      },
      {
       "chests": [
+       "L",
+       "L"
+      ]
+     },
+     {
+      "chests": [
+       "C",
        "L",
        "L"
       ]
@@ -434,12 +448,12 @@
      "points": {
       "step": [
        4.2,
-       1.6,
-       1.5,
-       2.4,
-       2.5
+       0.9,
+       1.3,
+       3,
+       5.4
       ],
-      "locker": 1.6,
+      "locker": 2.4,
       "cut": [
        0,
        0,
@@ -536,12 +550,12 @@
      "points": {
       "step": [
        4.2,
+       0.9,
+       1.3,
        1.2,
-       1.2,
-       1.4,
-       2
+       7.3
       ],
-      "locker": 2.1,
+      "locker": 2.5,
       "cut": [
        0,
        0,
@@ -600,8 +614,7 @@
       ],
       [
        "trophy-warden",
-       "h-wayfinder",
-       "h-warden"
+       "h-wayfinder"
       ],
       [
        "trophy-warden",
@@ -636,7 +649,7 @@
       "moveprevent",
       "wound",
       "poison",
-      "decreasemaxpools"
+      null
      ],
      "cutHazards": [
       "wound",
@@ -644,13 +657,13 @@
      ],
      "points": {
       "step": [
-       4.2,
-       1.1,
-       2.3,
-       2.1,
-       2.2
+       5.2,
+       0.9,
+       1.5,
+       1.2,
+       3.5
       ],
-      "locker": 3.1,
+      "locker": 3.3,
       "cut": [
        0,
        0,
@@ -671,7 +684,7 @@
       3,
       4
      ],
-     "hazardMult": 1.25,
+     "hazardMult": 1,
      "cutMult": 1.5,
      "roundsAdd": {
       "cut": -2
@@ -756,17 +769,17 @@
      ],
      "cutHazards": [
       "elementalseal",
-      "afterburn"
+      "elementalseal"
      ],
      "points": {
       "step": [
-       3.3,
+       3.7,
        1.4,
-       2.4,
-       2.9,
-       2.7
+       1.9,
+       2.5,
+       8.6
       ],
-      "locker": 1,
+      "locker": 1.1,
       "cut": [
        0,
        0,
@@ -812,12 +825,10 @@
       ],
       [
        "g-veteran",
-       "g-warden",
        "g-charge"
       ],
       [
        "g-veteran",
-       "g-warden",
        "g-charge"
       ]
      ],
@@ -839,14 +850,10 @@
       ],
       [
        "stores-ward",
-       "g-veteran",
-       "g-warden",
        "g-canister"
       ],
       [
        "stores-ward",
-       "g-veteran",
-       "g-warden",
        "g-canister"
       ]
      ],
@@ -872,17 +879,17 @@
      ],
      "cutHazards": [
       "elementalseal",
-      "afterburn"
+      "elementalseal"
      ],
      "points": {
       "step": [
-       5,
-       1.1,
-       2.3,
+       4.5,
+       1.9,
        2.2,
-       2.8
+       0.6,
+       0.6
       ],
-      "locker": 2.1,
+      "locker": 1.9,
       "cut": [
        0,
        0,
@@ -991,17 +998,17 @@
      ],
      "cutHazards": [
       "elementalseal",
-      "afterburn"
+      "elementalseal"
      ],
      "points": {
       "step": [
-       3.8,
-       1.4,
-       2.1,
-       2.4,
-       4.1
+       4.1,
+       0.9,
+       1.9,
+       4.2,
+       5.7
       ],
-      "locker": 1.1,
+      "locker": 1.4,
       "cut": [
        0,
        0,
@@ -1036,9 +1043,10 @@
     },
     "flood": {
      "name": "Flooded hold",
-     "effect": "rooted (moveprevent) for the first 3 rounds of every fight; lockers carry no hazard; chests one tier higher (+40% bonus chest)",
+     "effect": "rooted (moveprevent) for the first 3 rounds of every fight (2 on gatherer pages, RUL-2026-10-29-045); lockers carry no hazard; chests one tier higher (+40% bonus chest)",
      "weight": 25,
      "floodRounds": 3,
+     "floodRoundsGatherer": 2,
      "lockerNoHazard": true,
      "tierShift": 1,
      "bonusAll": 40
@@ -1166,8 +1174,8 @@
     },
     {
      "path": "CCLLL",
-     "tiers": "r5:C+L",
-     "haulM": 15.7,
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
@@ -1273,8 +1281,8 @@
     },
     {
      "path": "CLLCL",
-     "tiers": "r5:C+L",
-     "haulM": 15.7,
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
@@ -1290,8 +1298,8 @@
     },
     {
      "path": "CLLLC",
-     "tiers": "r5:C+L",
-     "haulM": 15.7,
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
@@ -1377,8 +1385,8 @@
     },
     {
      "path": "LCLLC",
-     "tiers": "r5:C+L",
-     "haulM": 15.7,
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
@@ -1405,6 +1413,21 @@
      }
     },
     {
+     "path": "LCXLL",
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
+     "seeds": 40,
+     "clears": 0,
+     "clearPct": 0,
+     "evM": 0,
+     "minutesClearMedian": 0,
+     "minutesAllMean": 2.7,
+     "failsAtStep": {
+      "4": 39,
+      "5": 1
+     }
+    },
+    {
      "path": "LLC",
      "tiers": "r3:C+R",
      "haulM": 10.3,
@@ -1421,8 +1444,8 @@
     },
     {
      "path": "LLLCC",
-     "tiers": "r5:C+L",
-     "haulM": 15.7,
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
@@ -1433,6 +1456,22 @@
       "2": 5,
       "3": 34,
       "4": 1
+     }
+    },
+    {
+     "path": "LLLXC",
+     "tiers": "r6:R+L",
+     "haulM": 17.6,
+     "seeds": 40,
+     "clears": 0,
+     "clearPct": 0,
+     "evM": 0,
+     "minutesClearMedian": 0,
+     "minutesAllMean": 2.9,
+     "failsAtStep": {
+      "2": 5,
+      "3": 34,
+      "5": 1
      }
     },
     {
@@ -2019,6 +2058,47 @@
      "lossMaxStepPctMedian": null,
      "chainLosses": 0
     },
+    "LCXL": {
+     "key": "trophy:L4:a1:p3",
+     "label": "trophy step 4 locker alert 1 cut-hazard [trophy-warden+h-veteran] hz woundx2.5/4,decreasemaxpoolsx1/2",
+     "reached": 40,
+     "won": 1,
+     "winPct": 2.5,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 96,
+     "hpEndMedian": 10.7,
+     "hpCostMedian": 85.3,
+     "outcomes": {
+      "wipe": 39,
+      "won": 1
+     },
+     "losses": 39,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 45,
+     "chainLosses": 38
+    },
+    "LCXLL": {
+     "key": "trophy:L5:a2:p-",
+     "label": "trophy step 5 locker alert 2 [trophy-warden+h-veteran] hz poisonx1/2,decreasemaxpoolsx1/2",
+     "reached": 1,
+     "won": 0,
+     "winPct": 0,
+     "roundsMedian": 1,
+     "roundsP90": 1,
+     "hpStartMedian": 34.5,
+     "hpEndMedian": null,
+     "hpCostMedian": 34.5,
+     "outcomes": {
+      "wipe": 1
+     },
+     "losses": 1,
+     "lossStunsMean": 0,
+     "winStunsMean": null,
+     "lossMaxStepPctMedian": 34,
+     "chainLosses": 0
+    },
     "LL": {
      "key": "trophy:L2:a1:p-",
      "label": "trophy step 2 locker alert 1 [trophy-warden+h-lookout] hz poisonx1/2,decreasemaxpoolsx1/2",
@@ -2120,6 +2200,26 @@
      "lossMaxStepPctMedian": null,
      "chainLosses": 0
     },
+    "LLLXC": {
+     "key": "trophy:C5:a3:p4",
+     "label": "trophy step 5 crate alert 3 cut-hazard [h-veteran+h-wayfinder] hz woundx2.5/4,poisonx1/2",
+     "reached": 1,
+     "won": 0,
+     "winPct": 0,
+     "roundsMedian": 3,
+     "roundsP90": 3,
+     "hpStartMedian": 57.3,
+     "hpEndMedian": null,
+     "hpCostMedian": 57.3,
+     "outcomes": {
+      "wipe": 1
+     },
+     "losses": 1,
+     "lossStunsMean": 0,
+     "winStunsMean": null,
+     "lossMaxStepPctMedian": 19,
+     "chainLosses": 0
+    },
     "LLXC": {
      "key": "trophy:C4:a2:p3",
      "label": "trophy step 4 crate alert 2 cut-hazard [h-veteran+h-wayfinder] hz woundx2.5/4,decreasemaxpoolsx1/2",
@@ -2142,7 +2242,7 @@
     }
    },
    "quest": "hunter",
-   "wallMin": 2.9
+   "wallMin": 2.8
   },
   {
    "variant": "bone",
@@ -2150,12 +2250,12 @@
    "paths": [
     {
      "path": "CCCCC",
-     "tiers": "r2:C+C",
-     "haulM": 8.4,
+     "tiers": "r4:R+R",
+     "haulM": 12.2,
      "seeds": 40,
      "clears": 10,
      "clearPct": 25,
-     "evM": 2.1,
+     "evM": 3.05,
      "minutesClearMedian": 5.6,
      "minutesAllMean": 4.9,
      "failsAtStep": {
@@ -2366,8 +2466,23 @@
     },
     {
      "path": "LLLCC",
-     "tiers": "r5:C+L",
-     "haulM": 15.7,
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
+     "seeds": 40,
+     "clears": 0,
+     "clearPct": 0,
+     "evM": 0,
+     "minutesClearMedian": 0,
+     "minutesAllMean": 2.8,
+     "failsAtStep": {
+      "2": 8,
+      "3": 32
+     }
+    },
+    {
+     "path": "LLLXC",
+     "tiers": "r6:R+L",
+     "haulM": 17.6,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
@@ -2861,6 +2976,24 @@
      "lossMaxStepPctMedian": null,
      "chainLosses": 0
     },
+    "LLLXC": {
+     "key": "bone:C5:a3:p4",
+     "label": "bone step 5 crate alert 3 cut-hazard [h-veteran+h-wayfinder] hz woundx1.5/4,poisonx1/2",
+     "reached": 0,
+     "won": 0,
+     "winPct": 0,
+     "roundsMedian": null,
+     "roundsP90": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null,
+     "hpCostMedian": 0,
+     "outcomes": {},
+     "losses": 0,
+     "lossStunsMean": null,
+     "winStunsMean": null,
+     "lossMaxStepPctMedian": null,
+     "chainLosses": 0
+    },
     "LLXC": {
      "key": "bone:C4:a2:p3",
      "label": "bone step 4 crate alert 2 cut-hazard [h-veteran+h-wayfinder] hz woundx1.5/4,decreasemaxpoolsx1/2",
@@ -2883,7 +3016,7 @@
     }
    },
    "quest": "hunter",
-   "wallMin": 2.5
+   "wallMin": 2.4
   },
   {
    "variant": "snare",
@@ -2891,19 +3024,19 @@
    "paths": [
     {
      "path": "CCCCC",
-     "tiers": "r3:C+R",
-     "haulM": 10.3,
+     "tiers": "r4:R+R",
+     "haulM": 12.2,
      "seeds": 40,
-     "clears": 2,
-     "clearPct": 5,
-     "evM": 0.52,
-     "minutesClearMedian": 5,
-     "minutesAllMean": 4.5,
+     "clears": 6,
+     "clearPct": 15,
+     "evM": 1.83,
+     "minutesClearMedian": 5.3,
+     "minutesAllMean": 4.8,
      "failsAtStep": {
-      "2": 3,
-      "3": 14,
-      "4": 8,
-      "5": 13
+      "2": 2,
+      "3": 13,
+      "4": 9,
+      "5": 10
      }
     },
     {
@@ -2911,15 +3044,15 @@
      "tiers": "r2:C+C",
      "haulM": 8.4,
      "seeds": 40,
-     "clears": 15,
-     "clearPct": 37.5,
-     "evM": 3.15,
-     "minutesClearMedian": 4.5,
-     "minutesAllMean": 4.3,
+     "clears": 16,
+     "clearPct": 40,
+     "evM": 3.36,
+     "minutesClearMedian": 4.6,
+     "minutesAllMean": 4.5,
      "failsAtStep": {
-      "2": 3,
-      "3": 14,
-      "4": 8
+      "2": 2,
+      "3": 13,
+      "4": 9
      }
     },
     {
@@ -2927,46 +3060,46 @@
      "tiers": "r1:R",
      "haulM": 6.1,
      "seeds": 40,
-     "clears": 23,
-     "clearPct": 57.5,
-     "evM": 3.51,
+     "clears": 25,
+     "clearPct": 62.5,
+     "evM": 3.81,
      "minutesClearMedian": 4,
-     "minutesAllMean": 3.8,
+     "minutesAllMean": 3.9,
      "failsAtStep": {
-      "2": 3,
-      "3": 14
+      "2": 2,
+      "3": 13
      }
     },
     {
      "path": "CCLC",
-     "tiers": "r4:R+R",
-     "haulM": 12.2,
+     "tiers": "r3:C+R",
+     "haulM": 10.3,
      "seeds": 40,
-     "clears": 1,
-     "clearPct": 2.5,
-     "evM": 0.31,
-     "minutesClearMedian": 3.8,
-     "minutesAllMean": 3.6,
+     "clears": 2,
+     "clearPct": 5,
+     "evM": 0.52,
+     "minutesClearMedian": 4.8,
+     "minutesAllMean": 4,
      "failsAtStep": {
-      "2": 3,
-      "3": 32,
-      "4": 4
+      "2": 2,
+      "3": 20,
+      "4": 16
      }
     },
     {
      "path": "CCLLL",
-     "tiers": "r6:R+L",
-     "haulM": 17.6,
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
      "evM": 0,
      "minutesClearMedian": 0,
-     "minutesAllMean": 3.5,
+     "minutesAllMean": 3.9,
      "failsAtStep": {
-      "2": 3,
-      "3": 32,
-      "4": 5
+      "2": 2,
+      "3": 20,
+      "4": 18
      }
     },
     {
@@ -2974,14 +3107,14 @@
      "tiers": "r3:C+R",
      "haulM": 10.3,
      "seeds": 40,
-     "clears": 5,
-     "clearPct": 12.5,
-     "evM": 1.29,
-     "minutesClearMedian": 3.3,
-     "minutesAllMean": 3.5,
+     "clears": 18,
+     "clearPct": 45,
+     "evM": 4.64,
+     "minutesClearMedian": 3.8,
+     "minutesAllMean": 3.7,
      "failsAtStep": {
-      "2": 3,
-      "3": 32
+      "2": 2,
+      "3": 20
      }
     },
     {
@@ -2989,59 +3122,59 @@
      "tiers": "r2:C+C",
      "haulM": 8.4,
      "seeds": 40,
-     "clears": 28,
-     "clearPct": 70,
-     "evM": 5.88,
-     "minutesClearMedian": 3.6,
+     "clears": 31,
+     "clearPct": 77.5,
+     "evM": 6.51,
+     "minutesClearMedian": 3.8,
      "minutesAllMean": 3.6,
      "failsAtStep": {
-      "2": 3,
-      "4": 9
+      "2": 2,
+      "4": 7
      }
     },
     {
      "path": "CCXL",
-     "tiers": "r4:R+R",
-     "haulM": 12.2,
+     "tiers": "r3:C+R",
+     "haulM": 10.3,
      "seeds": 40,
-     "clears": 11,
-     "clearPct": 27.5,
-     "evM": 3.36,
+     "clears": 12,
+     "clearPct": 30,
+     "evM": 3.09,
      "minutesClearMedian": 3.5,
      "minutesAllMean": 3.5,
      "failsAtStep": {
-      "2": 3,
+      "2": 2,
       "4": 26
      }
     },
     {
      "path": "CC",
-     "tiers": "r0:C",
-     "haulM": 4.2,
+     "tiers": "r1:R",
+     "haulM": 6.1,
      "seeds": 40,
-     "clears": 37,
-     "clearPct": 92.5,
-     "evM": 3.89,
+     "clears": 38,
+     "clearPct": 95,
+     "evM": 5.8,
      "minutesClearMedian": 2.5,
      "minutesAllMean": 2.6,
      "failsAtStep": {
-      "2": 3
+      "2": 2
      }
     },
     {
      "path": "CLCC",
-     "tiers": "r4:R+R",
-     "haulM": 12.2,
+     "tiers": "r3:C+R",
+     "haulM": 10.3,
      "seeds": 40,
-     "clears": 0,
-     "clearPct": 0,
-     "evM": 0,
-     "minutesClearMedian": 0,
-     "minutesAllMean": 3.4,
+     "clears": 1,
+     "clearPct": 2.5,
+     "evM": 0.26,
+     "minutesClearMedian": 3.8,
+     "minutesAllMean": 3.5,
      "failsAtStep": {
       "2": 9,
-      "3": 20,
-      "4": 11
+      "3": 18,
+      "4": 12
      }
     },
     {
@@ -3049,46 +3182,46 @@
      "tiers": "r3:C+R",
      "haulM": 10.3,
      "seeds": 40,
-     "clears": 11,
-     "clearPct": 27.5,
-     "evM": 2.83,
+     "clears": 13,
+     "clearPct": 32.5,
+     "evM": 3.35,
      "minutesClearMedian": 3.5,
-     "minutesAllMean": 3.3,
+     "minutesAllMean": 3.4,
      "failsAtStep": {
       "2": 9,
-      "3": 20
+      "3": 18
      }
     },
     {
      "path": "CLLCL",
-     "tiers": "r6:R+L",
-     "haulM": 17.6,
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
      "evM": 0,
      "minutesClearMedian": 0,
-     "minutesAllMean": 3,
+     "minutesAllMean": 3.2,
      "failsAtStep": {
       "2": 9,
-      "3": 29,
-      "4": 2
+      "3": 28,
+      "4": 3
      }
     },
     {
      "path": "CLLLC",
-     "tiers": "r6:R+L",
-     "haulM": 17.6,
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
      "evM": 0,
      "minutesClearMedian": 0,
-     "minutesAllMean": 3,
+     "minutesAllMean": 3.2,
      "failsAtStep": {
       "2": 9,
-      "3": 29,
-      "4": 2
+      "3": 28,
+      "4": 3
      }
     },
     {
@@ -3096,41 +3229,41 @@
      "tiers": "r4:R+R",
      "haulM": 12.2,
      "seeds": 40,
-     "clears": 2,
-     "clearPct": 5,
-     "evM": 0.61,
+     "clears": 3,
+     "clearPct": 7.5,
+     "evM": 0.92,
      "minutesClearMedian": 3.8,
-     "minutesAllMean": 3,
+     "minutesAllMean": 3.1,
      "failsAtStep": {
       "2": 9,
-      "3": 29
+      "3": 28
      }
     },
     {
      "path": "CLXC",
-     "tiers": "r4:R+R",
-     "haulM": 12.2,
+     "tiers": "r3:C+R",
+     "haulM": 10.3,
      "seeds": 40,
-     "clears": 3,
-     "clearPct": 7.5,
-     "evM": 0.92,
-     "minutesClearMedian": 3,
-     "minutesAllMean": 2.8,
+     "clears": 6,
+     "clearPct": 15,
+     "evM": 1.55,
+     "minutesClearMedian": 3.1,
+     "minutesAllMean": 2.9,
      "failsAtStep": {
       "2": 9,
-      "4": 28
+      "4": 25
      }
     },
     {
      "path": "CLXL",
-     "tiers": "r5:C+L",
-     "haulM": 15.7,
+     "tiers": "r4:R+R",
+     "haulM": 12.2,
      "seeds": 40,
      "clears": 2,
      "clearPct": 5,
-     "evM": 0.79,
+     "evM": 0.61,
      "minutesClearMedian": 3,
-     "minutesAllMean": 2.8,
+     "minutesAllMean": 2.9,
      "failsAtStep": {
       "2": 9,
       "4": 29
@@ -3153,20 +3286,19 @@
      "tiers": "r3:C+R",
      "haulM": 10.3,
      "seeds": 40,
-     "clears": 9,
-     "clearPct": 22.5,
-     "evM": 2.32,
+     "clears": 13,
+     "clearPct": 32.5,
+     "evM": 3.35,
      "minutesClearMedian": 3.8,
-     "minutesAllMean": 3.5,
+     "minutesAllMean": 3.6,
      "failsAtStep": {
-      "2": 1,
-      "3": 30
+      "3": 27
      }
     },
     {
      "path": "LCLLC",
-     "tiers": "r6:R+L",
-     "haulM": 17.6,
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
@@ -3174,8 +3306,8 @@
      "minutesClearMedian": 0,
      "minutesAllMean": 3.2,
      "failsAtStep": {
-      "2": 1,
-      "3": 39
+      "3": 36,
+      "4": 4
      }
     },
     {
@@ -3183,14 +3315,28 @@
      "tiers": "r4:R+R",
      "haulM": 12.2,
      "seeds": 40,
+     "clears": 4,
+     "clearPct": 10,
+     "evM": 1.22,
+     "minutesClearMedian": 3.5,
+     "minutesAllMean": 3.2,
+     "failsAtStep": {
+      "3": 36
+     }
+    },
+    {
+     "path": "LCXLL",
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
+     "seeds": 40,
      "clears": 0,
      "clearPct": 0,
      "evM": 0,
      "minutesClearMedian": 0,
-     "minutesAllMean": 3.2,
+     "minutesAllMean": 3,
      "failsAtStep": {
-      "2": 1,
-      "3": 39
+      "4": 38,
+      "5": 2
      }
     },
     {
@@ -3198,18 +3344,34 @@
      "tiers": "r4:R+R",
      "haulM": 12.2,
      "seeds": 40,
-     "clears": 3,
-     "clearPct": 7.5,
-     "evM": 0.92,
-     "minutesClearMedian": 2.8,
-     "minutesAllMean": 2,
+     "clears": 4,
+     "clearPct": 10,
+     "evM": 1.22,
+     "minutesClearMedian": 2.9,
+     "minutesAllMean": 2.2,
      "failsAtStep": {
-      "2": 31,
-      "3": 6
+      "2": 27,
+      "3": 9
      }
     },
     {
      "path": "LLLCC",
+     "tiers": "r7:C+R+L",
+     "haulM": 21.8,
+     "seeds": 40,
+     "clears": 0,
+     "clearPct": 0,
+     "evM": 0,
+     "minutesClearMedian": 0,
+     "minutesAllMean": 2.1,
+     "failsAtStep": {
+      "2": 27,
+      "3": 12,
+      "4": 1
+     }
+    },
+    {
+     "path": "LLLXC",
      "tiers": "r6:R+L",
      "haulM": 17.6,
      "seeds": 40,
@@ -3217,39 +3379,40 @@
      "clearPct": 0,
      "evM": 0,
      "minutesClearMedian": 0,
-     "minutesAllMean": 2,
+     "minutesAllMean": 2.1,
      "failsAtStep": {
-      "2": 31,
-      "3": 9
+      "2": 27,
+      "3": 12,
+      "5": 1
      }
     },
     {
      "path": "LLXC",
-     "tiers": "r5:C+L",
-     "haulM": 15.7,
+     "tiers": "r4:R+R",
+     "haulM": 12.2,
      "seeds": 40,
-     "clears": 0,
-     "clearPct": 0,
-     "evM": 0,
-     "minutesClearMedian": 0,
-     "minutesAllMean": 1.9,
+     "clears": 1,
+     "clearPct": 2.5,
+     "evM": 0.31,
+     "minutesClearMedian": 3,
+     "minutesAllMean": 2,
      "failsAtStep": {
-      "2": 31,
-      "4": 9
+      "2": 27,
+      "4": 12
      }
     },
     {
      "path": "LL",
-     "tiers": "r3:C+R",
-     "haulM": 10.3,
+     "tiers": "r4:R+R",
+     "haulM": 12.2,
      "seeds": 40,
-     "clears": 9,
-     "clearPct": 22.5,
-     "evM": 2.32,
+     "clears": 13,
+     "clearPct": 32.5,
+     "evM": 3.97,
      "minutesClearMedian": 2,
-     "minutesAllMean": 1.8,
+     "minutesAllMean": 1.9,
      "failsAtStep": {
-      "2": 31
+      "2": 27
      }
     }
    ],
@@ -3276,153 +3439,153 @@
     },
     "CC": {
      "key": "snare:C2:a0:p-",
-     "label": "snare step 2 crate alert 0 [h-blade+h-wayfinder] hz movepreventx1.25/2",
+     "label": "snare step 2 crate alert 0 [h-blade+h-wayfinder] hz movepreventx1/2",
      "reached": 40,
-     "won": 37,
-     "winPct": 92.5,
+     "won": 38,
+     "winPct": 95,
      "roundsMedian": 6,
-     "roundsP90": 9,
+     "roundsP90": 8,
      "hpStartMedian": 122.8,
-     "hpEndMedian": 71.4,
-     "hpCostMedian": 51.4,
+     "hpEndMedian": 75.8,
+     "hpCostMedian": 47.1,
      "outcomes": {
-      "won": 37,
-      "wipe": 3
+      "won": 38,
+      "wipe": 2
      },
-     "losses": 3,
+     "losses": 2,
      "lossStunsMean": 0,
      "winStunsMean": 0.1,
-     "lossMaxStepPctMedian": 20,
+     "lossMaxStepPctMedian": 10.5,
      "chainLosses": 0
     },
     "CCC": {
      "key": "snare:C3:a0:p-",
-     "label": "snare step 3 crate alert 0 [h-blade+h-wayfinder+h-warden] hz woundx1.25/2",
-     "reached": 37,
-     "won": 23,
-     "winPct": 62.2,
-     "roundsMedian": 5,
+     "label": "snare step 3 crate alert 0 [h-blade+h-wayfinder+h-warden] hz woundx1/2",
+     "reached": 38,
+     "won": 25,
+     "winPct": 65.8,
+     "roundsMedian": 5.5,
      "roundsP90": 8,
-     "hpStartMedian": 95.2,
-     "hpEndMedian": 35.7,
-     "hpCostMedian": 59.5,
+     "hpStartMedian": 99.5,
+     "hpEndMedian": 39.7,
+     "hpCostMedian": 59.8,
      "outcomes": {
-      "wipe": 14,
-      "won": 23
+      "won": 25,
+      "wipe": 13
      },
-     "losses": 14,
+     "losses": 13,
      "lossStunsMean": 0,
-     "winStunsMean": 0.1,
-     "lossMaxStepPctMedian": 15.5,
+     "winStunsMean": 0.2,
+     "lossMaxStepPctMedian": 13,
      "chainLosses": 0
     },
     "CCCC": {
      "key": "snare:C4:a0:p-",
-     "label": "snare step 4 crate alert 0 [h-veteran+h-wayfinder] hz poisonx1.25/2",
-     "reached": 23,
-     "won": 15,
-     "winPct": 65.2,
+     "label": "snare step 4 crate alert 0 [h-veteran+h-wayfinder] hz poisonx1/2",
+     "reached": 25,
+     "won": 16,
+     "winPct": 64,
      "roundsMedian": 3,
      "roundsP90": 5,
-     "hpStartMedian": 59.5,
-     "hpEndMedian": 15.9,
-     "hpCostMedian": 43.6,
+     "hpStartMedian": 63.5,
+     "hpEndMedian": 24.8,
+     "hpCostMedian": 38.7,
      "outcomes": {
-      "won": 15,
-      "wipe": 8
+      "wipe": 9,
+      "won": 16
      },
-     "losses": 8,
-     "lossStunsMean": 0.1,
+     "losses": 9,
+     "lossStunsMean": 0,
      "winStunsMean": 0.1,
-     "lossMaxStepPctMedian": 14.9,
+     "lossMaxStepPctMedian": 18.1,
      "chainLosses": 0
     },
     "CCCCC": {
      "key": "snare:C5:a0:p-",
-     "label": "snare step 5 crate alert 0 [h-veteran+h-wayfinder] hz decreasemaxpoolsx1.25/2",
-     "reached": 15,
-     "won": 2,
-     "winPct": 13.3,
-     "roundsMedian": 2,
-     "roundsP90": 3,
-     "hpStartMedian": 39.6,
-     "hpEndMedian": 51.7,
-     "hpCostMedian": -12,
+     "label": "snare step 5 crate alert 0 [h-veteran+h-wayfinder] hz -",
+     "reached": 16,
+     "won": 6,
+     "winPct": 37.5,
+     "roundsMedian": 4,
+     "roundsP90": 5,
+     "hpStartMedian": 48.6,
+     "hpEndMedian": 41.1,
+     "hpCostMedian": 7.4,
      "outcomes": {
-      "wipe": 13,
-      "won": 2
+      "wipe": 10,
+      "won": 6
      },
-     "losses": 13,
-     "lossStunsMean": 0,
+     "losses": 10,
+     "lossStunsMean": 0.1,
      "winStunsMean": 0,
-     "lossMaxStepPctMedian": 35.1,
+     "lossMaxStepPctMedian": 16.1,
      "chainLosses": 0
     },
     "CCL": {
      "key": "snare:L3:a0:p-",
-     "label": "snare step 3 locker alert 0 [trophy-warden+h-wayfinder+h-warden] hz woundx1.25/2",
-     "reached": 37,
-     "won": 5,
-     "winPct": 13.5,
+     "label": "snare step 3 locker alert 0 [trophy-warden+h-wayfinder] hz woundx1/2",
+     "reached": 38,
+     "won": 18,
+     "winPct": 47.4,
      "roundsMedian": 4,
-     "roundsP90": 6,
-     "hpStartMedian": 95.2,
-     "hpEndMedian": 34.5,
-     "hpCostMedian": 60.7,
+     "roundsP90": 7,
+     "hpStartMedian": 99.5,
+     "hpEndMedian": 28.7,
+     "hpCostMedian": 70.8,
      "outcomes": {
-      "wipe": 32,
-      "won": 5
+      "won": 18,
+      "wipe": 20
      },
-     "losses": 32,
+     "losses": 20,
      "lossStunsMean": 0,
      "winStunsMean": 0,
-     "lossMaxStepPctMedian": 43,
-     "chainLosses": 19
+     "lossMaxStepPctMedian": 43.9,
+     "chainLosses": 12
     },
     "CCLC": {
      "key": "snare:C4:a1:p-",
-     "label": "snare step 4 crate alert 1 [h-veteran+h-wayfinder] hz poisonx1.25/2,decreasemaxpoolsx1.25/2",
-     "reached": 5,
-     "won": 1,
-     "winPct": 20,
+     "label": "snare step 4 crate alert 1 [h-veteran+h-wayfinder] hz poisonx1/2,decreasemaxpoolsx1/2",
+     "reached": 18,
+     "won": 2,
+     "winPct": 11.1,
      "roundsMedian": 2,
-     "roundsP90": 4,
-     "hpStartMedian": 58.3,
-     "hpEndMedian": 12.8,
-     "hpCostMedian": 45.5,
+     "roundsP90": 2,
+     "hpStartMedian": 52.5,
+     "hpEndMedian": 9.8,
+     "hpCostMedian": 42.7,
      "outcomes": {
-      "won": 1,
-      "wipe": 4
+      "wipe": 16,
+      "won": 2
      },
-     "losses": 4,
-     "lossStunsMean": 0,
-     "winStunsMean": 0,
-     "lossMaxStepPctMedian": 42,
-     "chainLosses": 3
+     "losses": 16,
+     "lossStunsMean": 0.2,
+     "winStunsMean": 0.5,
+     "lossMaxStepPctMedian": 34,
+     "chainLosses": 0
     },
     "CCLL": {
      "key": "snare:L4:a1:p-",
-     "label": "snare step 4 locker alert 1 [trophy-warden+h-veteran] hz woundx1.25/2,decreasemaxpoolsx1.25/2",
-     "reached": 5,
+     "label": "snare step 4 locker alert 1 [trophy-warden+h-veteran] hz woundx1/2,decreasemaxpoolsx1/2",
+     "reached": 18,
      "won": 0,
      "winPct": 0,
      "roundsMedian": 2,
      "roundsP90": 2,
-     "hpStartMedian": 58.3,
+     "hpStartMedian": 52.5,
      "hpEndMedian": null,
-     "hpCostMedian": 58.3,
+     "hpCostMedian": 52.5,
      "outcomes": {
-      "wipe": 5
+      "wipe": 18
      },
-     "losses": 5,
-     "lossStunsMean": 0,
+     "losses": 18,
+     "lossStunsMean": 0.1,
      "winStunsMean": null,
-     "lossMaxStepPctMedian": 46,
-     "chainLosses": 4
+     "lossMaxStepPctMedian": 36,
+     "chainLosses": 1
     },
     "CCLLL": {
      "key": "snare:L5:a2:p-",
-     "label": "snare step 5 locker alert 2 [trophy-warden+h-veteran] hz poisonx1.25/2,decreasemaxpoolsx1.25/2",
+     "label": "snare step 5 locker alert 2 [trophy-warden+h-veteran] hz poisonx1/2,decreasemaxpoolsx1/2",
      "reached": 0,
      "won": 0,
      "winPct": 0,
@@ -3440,49 +3603,49 @@
     },
     "CCXC": {
      "key": "snare:C4:a0:p3",
-     "label": "snare step 4 crate alert 0 cut-hazard [h-veteran+h-wayfinder] hz poisonx1.25/2,woundx1.875/2",
-     "reached": 37,
-     "won": 28,
-     "winPct": 75.7,
+     "label": "snare step 4 crate alert 0 cut-hazard [h-veteran+h-wayfinder] hz poisonx1/2,woundx1.5/2",
+     "reached": 38,
+     "won": 31,
+     "winPct": 81.6,
      "roundsMedian": 4,
      "roundsP90": 6,
-     "hpStartMedian": 95.2,
-     "hpEndMedian": 37.8,
-     "hpCostMedian": 57.4,
+     "hpStartMedian": 99.5,
+     "hpEndMedian": 41.3,
+     "hpCostMedian": 58.2,
      "outcomes": {
-      "won": 28,
-      "wipe": 9
+      "won": 31,
+      "wipe": 7
      },
-     "losses": 9,
+     "losses": 7,
      "lossStunsMean": 0,
      "winStunsMean": 0,
-     "lossMaxStepPctMedian": 15.7,
+     "lossMaxStepPctMedian": 13.5,
      "chainLosses": 0
     },
     "CCXL": {
      "key": "snare:L4:a0:p3",
-     "label": "snare step 4 locker alert 0 cut-hazard [trophy-warden+h-veteran] hz woundx1.875/2",
-     "reached": 37,
-     "won": 11,
-     "winPct": 29.7,
+     "label": "snare step 4 locker alert 0 cut-hazard [trophy-warden+h-veteran] hz woundx1.5/2",
+     "reached": 38,
+     "won": 12,
+     "winPct": 31.6,
      "roundsMedian": 4,
-     "roundsP90": 5,
-     "hpStartMedian": 95.2,
-     "hpEndMedian": 17,
-     "hpCostMedian": 78.2,
+     "roundsP90": 6,
+     "hpStartMedian": 99.5,
+     "hpEndMedian": 20.3,
+     "hpCostMedian": 79.3,
      "outcomes": {
       "wipe": 26,
-      "won": 11
+      "won": 12
      },
      "losses": 26,
      "lossStunsMean": 0.2,
      "winStunsMean": 0.1,
      "lossMaxStepPctMedian": 31.4,
-     "chainLosses": 6
+     "chainLosses": 5
     },
     "CL": {
      "key": "snare:L2:a0:p-",
-     "label": "snare step 2 locker alert 0 [trophy-warden+h-wayfinder] hz decreasemaxpoolsx1.25/2",
+     "label": "snare step 2 locker alert 0 [trophy-warden+h-wayfinder] hz decreasemaxpoolsx1/2",
      "reached": 40,
      "won": 31,
      "winPct": 77.5,
@@ -3498,94 +3661,95 @@
      "losses": 9,
      "lossStunsMean": 0,
      "winStunsMean": 0,
-     "lossMaxStepPctMedian": 40.9,
-     "chainLosses": 5
+     "lossMaxStepPctMedian": 43.9,
+     "chainLosses": 6
     },
     "CLC": {
      "key": "snare:C3:a1:p-",
-     "label": "snare step 3 crate alert 1 [h-blade+h-wayfinder+h-warden] hz woundx1.25/2,poisonx1.25/2",
+     "label": "snare step 3 crate alert 1 [h-blade+h-wayfinder+h-warden] hz woundx1/2,poisonx1/2",
      "reached": 31,
-     "won": 11,
-     "winPct": 35.5,
+     "won": 13,
+     "winPct": 41.9,
      "roundsMedian": 5,
      "roundsP90": 7,
      "hpStartMedian": 78.2,
-     "hpEndMedian": 19.8,
-     "hpCostMedian": 58.4,
+     "hpEndMedian": 20.4,
+     "hpCostMedian": 57.8,
      "outcomes": {
-      "wipe": 20,
-      "won": 11
+      "wipe": 18,
+      "won": 13
      },
-     "losses": 20,
-     "lossStunsMean": 0.2,
-     "winStunsMean": 0,
-     "lossMaxStepPctMedian": 12,
+     "losses": 18,
+     "lossStunsMean": 0.1,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": 12.5,
      "chainLosses": 0
     },
     "CLCC": {
      "key": "snare:C4:a1:p-",
-     "label": "snare step 4 crate alert 1 [h-veteran+h-wayfinder] hz poisonx1.25/2,decreasemaxpoolsx1.25/2",
-     "reached": 11,
+     "label": "snare step 4 crate alert 1 [h-veteran+h-wayfinder] hz poisonx1/2,decreasemaxpoolsx1/2",
+     "reached": 13,
+     "won": 1,
+     "winPct": 7.7,
+     "roundsMedian": 2,
+     "roundsP90": 2,
+     "hpStartMedian": 44.1,
+     "hpEndMedian": 24.8,
+     "hpCostMedian": 19.4,
+     "outcomes": {
+      "wipe": 12,
+      "won": 1
+     },
+     "losses": 12,
+     "lossStunsMean": 0.1,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 34,
+     "chainLosses": 0
+    },
+    "CLL": {
+     "key": "snare:L3:a1:p-",
+     "label": "snare step 3 locker alert 1 [trophy-warden+h-wayfinder] hz woundx1/2,poisonx1/2",
+     "reached": 31,
+     "won": 3,
+     "winPct": 9.7,
+     "roundsMedian": 3,
+     "roundsP90": 6,
+     "hpStartMedian": 78.2,
+     "hpEndMedian": 2.4,
+     "hpCostMedian": 75.8,
+     "outcomes": {
+      "wipe": 28,
+      "won": 3
+     },
+     "losses": 28,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 39.9,
+     "chainLosses": 14
+    },
+    "CLLC": {
+     "key": "snare:C4:a2:p-",
+     "label": "snare step 4 crate alert 2 [h-veteran+h-wayfinder] hz poisonx1/2,decreasemaxpoolsx1/2",
+     "reached": 3,
      "won": 0,
      "winPct": 0,
      "roundsMedian": 1,
      "roundsP90": 2,
-     "hpStartMedian": 43.5,
+     "hpStartMedian": 26.1,
      "hpEndMedian": null,
-     "hpCostMedian": 43.5,
+     "hpCostMedian": 26.1,
      "outcomes": {
-      "wipe": 11
+      "wipe": 3
      },
-     "losses": 11,
+     "losses": 3,
      "lossStunsMean": 0,
      "winStunsMean": null,
-     "lossMaxStepPctMedian": 42,
-     "chainLosses": 7
-    },
-    "CLL": {
-     "key": "snare:L3:a1:p-",
-     "label": "snare step 3 locker alert 1 [trophy-warden+h-wayfinder+h-warden] hz woundx1.25/2,poisonx1.25/2",
-     "reached": 31,
-     "won": 2,
-     "winPct": 6.5,
-     "roundsMedian": 3,
-     "roundsP90": 4,
-     "hpStartMedian": 78.2,
-     "hpEndMedian": 4.7,
-     "hpCostMedian": 73.5,
-     "outcomes": {
-      "wipe": 29,
-      "won": 2
-     },
-     "losses": 29,
-     "lossStunsMean": 0,
-     "winStunsMean": 0,
-     "lossMaxStepPctMedian": 34.7,
-     "chainLosses": 12
-    },
-    "CLLC": {
-     "key": "snare:C4:a2:p-",
-     "label": "snare step 4 crate alert 2 [h-veteran+h-wayfinder] hz poisonx1.25/2,decreasemaxpoolsx1.25/2",
-     "reached": 2,
-     "won": 0,
-     "winPct": 0,
-     "roundsMedian": 1,
-     "roundsP90": 1,
-     "hpStartMedian": 28.5,
-     "hpEndMedian": null,
-     "hpCostMedian": 28.5,
-     "outcomes": {
-      "wipe": 2
-     },
-     "losses": 2,
-     "lossStunsMean": 0,
-     "winStunsMean": null,
-     "lossMaxStepPctMedian": 28.5,
+     "lossMaxStepPctMedian": 26.1,
      "chainLosses": 0
     },
     "CLLCL": {
      "key": "snare:L5:a2:p-",
-     "label": "snare step 5 locker alert 2 [trophy-warden+h-veteran] hz poisonx1.25/2,decreasemaxpoolsx1.25/2",
+     "label": "snare step 5 locker alert 2 [trophy-warden+h-veteran] hz poisonx1/2,decreasemaxpoolsx1/2",
      "reached": 0,
      "won": 0,
      "winPct": 0,
@@ -3603,27 +3767,27 @@
     },
     "CLLL": {
      "key": "snare:L4:a2:p-",
-     "label": "snare step 4 locker alert 2 [trophy-warden+h-veteran] hz woundx1.25/2,decreasemaxpoolsx1.25/2",
-     "reached": 2,
+     "label": "snare step 4 locker alert 2 [trophy-warden+h-veteran] hz woundx1/2,decreasemaxpoolsx1/2",
+     "reached": 3,
      "won": 0,
      "winPct": 0,
-     "roundsMedian": 1.5,
+     "roundsMedian": 1,
      "roundsP90": 2,
-     "hpStartMedian": 28.5,
+     "hpStartMedian": 26.1,
      "hpEndMedian": null,
-     "hpCostMedian": 28.5,
+     "hpCostMedian": 26.1,
      "outcomes": {
-      "wipe": 2
+      "wipe": 3
      },
-     "losses": 2,
+     "losses": 3,
      "lossStunsMean": 0,
      "winStunsMean": null,
-     "lossMaxStepPctMedian": 28.5,
+     "lossMaxStepPctMedian": 26.1,
      "chainLosses": 0
     },
     "CLLLC": {
      "key": "snare:C5:a3:p-",
-     "label": "snare step 5 crate alert 3 [h-veteran+h-wayfinder] hz decreasemaxpoolsx1.25/2,poisonx1.25/2",
+     "label": "snare step 5 crate alert 3 [h-veteran+h-wayfinder] hz poisonx1/2",
      "reached": 0,
      "won": 0,
      "winPct": 0,
@@ -3641,57 +3805,57 @@
     },
     "CLXC": {
      "key": "snare:C4:a1:p3",
-     "label": "snare step 4 crate alert 1 cut-hazard [h-veteran+h-wayfinder] hz poisonx1.25/2,woundx1.875/2,decreasemaxpoolsx1.25/2",
+     "label": "snare step 4 crate alert 1 cut-hazard [h-veteran+h-wayfinder] hz poisonx1/2,woundx1.5/2,decreasemaxpoolsx1/2",
      "reached": 31,
-     "won": 3,
-     "winPct": 9.7,
+     "won": 6,
+     "winPct": 19.4,
      "roundsMedian": 2,
-     "roundsP90": 3,
+     "roundsP90": 5,
      "hpStartMedian": 78.2,
-     "hpEndMedian": 31.8,
-     "hpCostMedian": 46.4,
+     "hpEndMedian": 25.8,
+     "hpCostMedian": 52.4,
      "outcomes": {
-      "wipe": 28,
-      "won": 3
+      "wipe": 25,
+      "won": 6
      },
-     "losses": 28,
-     "lossStunsMean": 0,
+     "losses": 25,
+     "lossStunsMean": 0.1,
      "winStunsMean": 0,
-     "lossMaxStepPctMedian": 53,
-     "chainLosses": 26
+     "lossMaxStepPctMedian": 43,
+     "chainLosses": 23
     },
     "CLXL": {
      "key": "snare:L4:a1:p3",
-     "label": "snare step 4 locker alert 1 cut-hazard [trophy-warden+h-veteran] hz woundx1.875/2,decreasemaxpoolsx1.25/2",
+     "label": "snare step 4 locker alert 1 cut-hazard [trophy-warden+h-veteran] hz woundx1.5/2,decreasemaxpoolsx1/2",
      "reached": 31,
      "won": 2,
      "winPct": 6.5,
      "roundsMedian": 2,
      "roundsP90": 3,
      "hpStartMedian": 78.2,
-     "hpEndMedian": 6.9,
-     "hpCostMedian": 71.3,
+     "hpEndMedian": 10.9,
+     "hpCostMedian": 67.3,
      "outcomes": {
       "wipe": 29,
       "won": 2
      },
      "losses": 29,
-     "lossStunsMean": 0,
+     "lossStunsMean": 0.1,
      "winStunsMean": 0,
-     "lossMaxStepPctMedian": 49,
-     "chainLosses": 27
+     "lossMaxStepPctMedian": 39,
+     "chainLosses": 2
     },
     "L": {
      "key": "snare:L1:a0:p-",
-     "label": "snare step 1 locker alert 0 [trophy-warden] hz woundx1.25/2",
+     "label": "snare step 1 locker alert 0 [trophy-warden] hz woundx1/2",
      "reached": 40,
      "won": 40,
      "winPct": 100,
      "roundsMedian": 4,
      "roundsP90": 4,
      "hpStartMedian": 123.8,
-     "hpEndMedian": 67,
-     "hpCostMedian": 56.7,
+     "hpEndMedian": 71,
+     "hpCostMedian": 52.7,
      "outcomes": {
       "won": 40
      },
@@ -3703,223 +3867,290 @@
     },
     "LC": {
      "key": "snare:C2:a1:p-",
-     "label": "snare step 2 crate alert 1 [h-blade+h-wayfinder] hz movepreventx1.25/2,decreasemaxpoolsx1.25/2",
+     "label": "snare step 2 crate alert 1 [h-blade+h-wayfinder] hz movepreventx1/2,decreasemaxpoolsx1/2",
      "reached": 40,
-     "won": 39,
-     "winPct": 97.5,
+     "won": 40,
+     "winPct": 100,
      "roundsMedian": 6,
-     "roundsP90": 8,
-     "hpStartMedian": 90.8,
-     "hpEndMedian": 47.2,
+     "roundsP90": 7,
+     "hpStartMedian": 94.8,
+     "hpEndMedian": 51.2,
      "hpCostMedian": 43.6,
      "outcomes": {
-      "won": 39,
-      "wipe": 1
+      "won": 40
      },
-     "losses": 1,
-     "lossStunsMean": 0,
+     "losses": 0,
+     "lossStunsMean": null,
      "winStunsMean": 0,
-     "lossMaxStepPctMedian": 38,
+     "lossMaxStepPctMedian": null,
      "chainLosses": 0
     },
     "LCC": {
      "key": "snare:C3:a1:p-",
-     "label": "snare step 3 crate alert 1 [h-blade+h-wayfinder+h-warden] hz woundx1.25/2,poisonx1.25/2",
-     "reached": 39,
-     "won": 9,
-     "winPct": 23.1,
-     "roundsMedian": 4,
-     "roundsP90": 6,
-     "hpStartMedian": 71,
-     "hpEndMedian": 19.9,
+     "label": "snare step 3 crate alert 1 [h-blade+h-wayfinder+h-warden] hz woundx1/2,poisonx1/2",
+     "reached": 40,
+     "won": 13,
+     "winPct": 32.5,
+     "roundsMedian": 5,
+     "roundsP90": 7,
+     "hpStartMedian": 75,
+     "hpEndMedian": 23.9,
      "hpCostMedian": 51.1,
      "outcomes": {
-      "wipe": 30,
-      "won": 9
+      "wipe": 27,
+      "won": 13
      },
-     "losses": 30,
+     "losses": 27,
      "lossStunsMean": 0.1,
      "winStunsMean": 0.1,
-     "lossMaxStepPctMedian": 12,
+     "lossMaxStepPctMedian": 14.8,
      "chainLosses": 0
     },
     "LCL": {
      "key": "snare:L3:a1:p-",
-     "label": "snare step 3 locker alert 1 [trophy-warden+h-wayfinder+h-warden] hz woundx1.25/2,poisonx1.25/2",
-     "reached": 39,
-     "won": 0,
-     "winPct": 0,
+     "label": "snare step 3 locker alert 1 [trophy-warden+h-wayfinder] hz woundx1/2,poisonx1/2",
+     "reached": 40,
+     "won": 4,
+     "winPct": 10,
      "roundsMedian": 3,
      "roundsP90": 4,
-     "hpStartMedian": 71,
-     "hpEndMedian": null,
-     "hpCostMedian": 71,
+     "hpStartMedian": 75,
+     "hpEndMedian": 9.3,
+     "hpCostMedian": 65.6,
      "outcomes": {
-      "wipe": 39
+      "wipe": 36,
+      "won": 4
      },
-     "losses": 39,
+     "losses": 36,
      "lossStunsMean": 0,
-     "winStunsMean": null,
-     "lossMaxStepPctMedian": 22.5,
-     "chainLosses": 6
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 43.6,
+     "chainLosses": 19
     },
     "LCLL": {
      "key": "snare:L4:a2:p-",
-     "label": "snare step 4 locker alert 2 [trophy-warden+h-veteran] hz woundx1.25/2,decreasemaxpoolsx1.25/2",
-     "reached": 0,
-     "won": 0,
-     "winPct": 0,
-     "roundsMedian": null,
-     "roundsP90": null,
-     "hpStartMedian": null,
-     "hpEndMedian": null,
-     "hpCostMedian": 0,
-     "outcomes": {},
-     "losses": 0,
-     "lossStunsMean": null,
-     "winStunsMean": null,
-     "lossMaxStepPctMedian": null,
-     "chainLosses": 0
-    },
-    "LCLLC": {
-     "key": "snare:C5:a3:p-",
-     "label": "snare step 5 crate alert 3 [h-veteran+h-wayfinder] hz decreasemaxpoolsx1.25/2,poisonx1.25/2",
-     "reached": 0,
-     "won": 0,
-     "winPct": 0,
-     "roundsMedian": null,
-     "roundsP90": null,
-     "hpStartMedian": null,
-     "hpEndMedian": null,
-     "hpCostMedian": 0,
-     "outcomes": {},
-     "losses": 0,
-     "lossStunsMean": null,
-     "winStunsMean": null,
-     "lossMaxStepPctMedian": null,
-     "chainLosses": 0
-    },
-    "LL": {
-     "key": "snare:L2:a1:p-",
-     "label": "snare step 2 locker alert 1 [trophy-warden+h-wayfinder] hz decreasemaxpoolsx1.25/2,poisonx1.25/2",
-     "reached": 40,
-     "won": 9,
-     "winPct": 22.5,
-     "roundsMedian": 3,
-     "roundsP90": 4,
-     "hpStartMedian": 90.8,
-     "hpEndMedian": 33.6,
-     "hpCostMedian": 57.2,
-     "outcomes": {
-      "wipe": 31,
-      "won": 9
-     },
-     "losses": 31,
-     "lossStunsMean": 0,
-     "winStunsMean": 0,
-     "lossMaxStepPctMedian": 46.4,
-     "chainLosses": 31
-    },
-    "LLC": {
-     "key": "snare:C3:a2:p-",
-     "label": "snare step 3 crate alert 2 [h-blade+h-wayfinder+h-warden] hz woundx1.25/2,poisonx1.25/2",
-     "reached": 9,
-     "won": 3,
-     "winPct": 33.3,
-     "roundsMedian": 3,
-     "roundsP90": 5,
-     "hpStartMedian": 57.4,
-     "hpEndMedian": 9.9,
-     "hpCostMedian": 47.5,
-     "outcomes": {
-      "wipe": 6,
-      "won": 3
-     },
-     "losses": 6,
-     "lossStunsMean": 0,
-     "winStunsMean": 0,
-     "lossMaxStepPctMedian": 13.1,
-     "chainLosses": 0
-    },
-    "LLL": {
-     "key": "snare:L3:a2:p-",
-     "label": "snare step 3 locker alert 2 [trophy-warden+h-wayfinder+h-warden] hz woundx1.25/2,poisonx1.25/2",
-     "reached": 9,
-     "won": 0,
-     "winPct": 0,
-     "roundsMedian": 2,
-     "roundsP90": 3,
-     "hpStartMedian": 57.4,
-     "hpEndMedian": null,
-     "hpCostMedian": 57.4,
-     "outcomes": {
-      "wipe": 9
-     },
-     "losses": 9,
-     "lossStunsMean": 0,
-     "winStunsMean": null,
-     "lossMaxStepPctMedian": 23.2,
-     "chainLosses": 0
-    },
-    "LLLC": {
-     "key": "snare:C4:a3:p-",
-     "label": "snare step 4 crate alert 3 [h-veteran+h-wayfinder] hz poisonx1.25/2,decreasemaxpoolsx1.25/2",
-     "reached": 0,
-     "won": 0,
-     "winPct": 0,
-     "roundsMedian": null,
-     "roundsP90": null,
-     "hpStartMedian": null,
-     "hpEndMedian": null,
-     "hpCostMedian": 0,
-     "outcomes": {},
-     "losses": 0,
-     "lossStunsMean": null,
-     "winStunsMean": null,
-     "lossMaxStepPctMedian": null,
-     "chainLosses": 0
-    },
-    "LLLCC": {
-     "key": "snare:C5:a3:p-",
-     "label": "snare step 5 crate alert 3 [h-veteran+h-wayfinder] hz decreasemaxpoolsx1.25/2,poisonx1.25/2",
-     "reached": 0,
-     "won": 0,
-     "winPct": 0,
-     "roundsMedian": null,
-     "roundsP90": null,
-     "hpStartMedian": null,
-     "hpEndMedian": null,
-     "hpCostMedian": 0,
-     "outcomes": {},
-     "losses": 0,
-     "lossStunsMean": null,
-     "winStunsMean": null,
-     "lossMaxStepPctMedian": null,
-     "chainLosses": 0
-    },
-    "LLXC": {
-     "key": "snare:C4:a2:p3",
-     "label": "snare step 4 crate alert 2 cut-hazard [h-veteran+h-wayfinder] hz poisonx1.25/2,woundx1.875/2,decreasemaxpoolsx1.25/2",
-     "reached": 9,
+     "label": "snare step 4 locker alert 2 [trophy-warden+h-veteran] hz woundx1/2,decreasemaxpoolsx1/2",
+     "reached": 4,
      "won": 0,
      "winPct": 0,
      "roundsMedian": 1,
      "roundsP90": 2,
-     "hpStartMedian": 57.4,
+     "hpStartMedian": 33.1,
      "hpEndMedian": null,
-     "hpCostMedian": 57.4,
+     "hpCostMedian": 33.1,
      "outcomes": {
-      "wipe": 9
+      "wipe": 4
      },
-     "losses": 9,
+     "losses": 4,
      "lossStunsMean": 0,
      "winStunsMean": null,
-     "lossMaxStepPctMedian": 53,
-     "chainLosses": 6
+     "lossMaxStepPctMedian": 33.1,
+     "chainLosses": 0
+    },
+    "LCLLC": {
+     "key": "snare:C5:a3:p-",
+     "label": "snare step 5 crate alert 3 [h-veteran+h-wayfinder] hz poisonx1/2",
+     "reached": 0,
+     "won": 0,
+     "winPct": 0,
+     "roundsMedian": null,
+     "roundsP90": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null,
+     "hpCostMedian": 0,
+     "outcomes": {},
+     "losses": 0,
+     "lossStunsMean": null,
+     "winStunsMean": null,
+     "lossMaxStepPctMedian": null,
+     "chainLosses": 0
+    },
+    "LCXL": {
+     "key": "snare:L4:a1:p3",
+     "label": "snare step 4 locker alert 1 cut-hazard [trophy-warden+h-veteran] hz woundx1.5/2,decreasemaxpoolsx1/2",
+     "reached": 40,
+     "won": 2,
+     "winPct": 5,
+     "roundsMedian": 2,
+     "roundsP90": 3,
+     "hpStartMedian": 75,
+     "hpEndMedian": 21.3,
+     "hpCostMedian": 53.6,
+     "outcomes": {
+      "wipe": 38,
+      "won": 2
+     },
+     "losses": 38,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 39,
+     "chainLosses": 1
+    },
+    "LCXLL": {
+     "key": "snare:L5:a2:p-",
+     "label": "snare step 5 locker alert 2 [trophy-warden+h-veteran] hz poisonx1/2,decreasemaxpoolsx1/2",
+     "reached": 2,
+     "won": 0,
+     "winPct": 0,
+     "roundsMedian": 1.5,
+     "roundsP90": 2,
+     "hpStartMedian": 45.1,
+     "hpEndMedian": null,
+     "hpCostMedian": 45.1,
+     "outcomes": {
+      "wipe": 2
+     },
+     "losses": 2,
+     "lossStunsMean": 0,
+     "winStunsMean": null,
+     "lossMaxStepPctMedian": 34,
+     "chainLosses": 0
+    },
+    "LL": {
+     "key": "snare:L2:a1:p-",
+     "label": "snare step 2 locker alert 1 [trophy-warden+h-wayfinder] hz decreasemaxpoolsx1/2,poisonx1/2",
+     "reached": 40,
+     "won": 13,
+     "winPct": 32.5,
+     "roundsMedian": 3,
+     "roundsP90": 4,
+     "hpStartMedian": 94.8,
+     "hpEndMedian": 23.9,
+     "hpCostMedian": 70.9,
+     "outcomes": {
+      "wipe": 27,
+      "won": 13
+     },
+     "losses": 27,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 59.5,
+     "chainLosses": 23
+    },
+    "LLC": {
+     "key": "snare:C3:a2:p-",
+     "label": "snare step 3 crate alert 2 [h-blade+h-wayfinder+h-warden] hz woundx1/2,poisonx1/2",
+     "reached": 13,
+     "won": 4,
+     "winPct": 30.8,
+     "roundsMedian": 3,
+     "roundsP90": 6,
+     "hpStartMedian": 47.7,
+     "hpEndMedian": 18.5,
+     "hpCostMedian": 29.2,
+     "outcomes": {
+      "wipe": 9,
+      "won": 4
+     },
+     "losses": 9,
+     "lossStunsMean": 0.1,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 10.5,
+     "chainLosses": 0
+    },
+    "LLL": {
+     "key": "snare:L3:a2:p-",
+     "label": "snare step 3 locker alert 2 [trophy-warden+h-wayfinder] hz woundx1/2,poisonx1/2",
+     "reached": 13,
+     "won": 1,
+     "winPct": 7.7,
+     "roundsMedian": 3,
+     "roundsP90": 4,
+     "hpStartMedian": 47.7,
+     "hpEndMedian": 14.9,
+     "hpCostMedian": 32.8,
+     "outcomes": {
+      "wipe": 12,
+      "won": 1
+     },
+     "losses": 12,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 24.3,
+     "chainLosses": 3
+    },
+    "LLLC": {
+     "key": "snare:C4:a3:p-",
+     "label": "snare step 4 crate alert 3 [h-veteran+h-wayfinder] hz poisonx1/2,decreasemaxpoolsx1/2",
+     "reached": 1,
+     "won": 0,
+     "winPct": 0,
+     "roundsMedian": 2,
+     "roundsP90": 2,
+     "hpStartMedian": 38.6,
+     "hpEndMedian": null,
+     "hpCostMedian": 38.6,
+     "outcomes": {
+      "wipe": 1
+     },
+     "losses": 1,
+     "lossStunsMean": 0,
+     "winStunsMean": null,
+     "lossMaxStepPctMedian": 34,
+     "chainLosses": 0
+    },
+    "LLLCC": {
+     "key": "snare:C5:a3:p-",
+     "label": "snare step 5 crate alert 3 [h-veteran+h-wayfinder] hz poisonx1/2",
+     "reached": 0,
+     "won": 0,
+     "winPct": 0,
+     "roundsMedian": null,
+     "roundsP90": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null,
+     "hpCostMedian": 0,
+     "outcomes": {},
+     "losses": 0,
+     "lossStunsMean": null,
+     "winStunsMean": null,
+     "lossMaxStepPctMedian": null,
+     "chainLosses": 0
+    },
+    "LLLXC": {
+     "key": "snare:C5:a3:p4",
+     "label": "snare step 5 crate alert 3 cut-hazard [h-veteran+h-wayfinder] hz woundx1.5/2,poisonx1/2",
+     "reached": 1,
+     "won": 0,
+     "winPct": 0,
+     "roundsMedian": 2,
+     "roundsP90": 2,
+     "hpStartMedian": 38.6,
+     "hpEndMedian": null,
+     "hpCostMedian": 38.6,
+     "outcomes": {
+      "wipe": 1
+     },
+     "losses": 1,
+     "lossStunsMean": 0,
+     "winStunsMean": null,
+     "lossMaxStepPctMedian": 13,
+     "chainLosses": 0
+    },
+    "LLXC": {
+     "key": "snare:C4:a2:p3",
+     "label": "snare step 4 crate alert 2 cut-hazard [h-veteran+h-wayfinder] hz poisonx1/2,woundx1.5/2,decreasemaxpoolsx1/2",
+     "reached": 13,
+     "won": 1,
+     "winPct": 7.7,
+     "roundsMedian": 2,
+     "roundsP90": 2,
+     "hpStartMedian": 47.7,
+     "hpEndMedian": 5.4,
+     "hpCostMedian": 42.3,
+     "outcomes": {
+      "wipe": 12,
+      "won": 1
+     },
+     "losses": 12,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 43,
+     "chainLosses": 8
     }
    },
    "quest": "hunter",
-   "wallMin": 2.2
+   "wallMin": 3.3
   },
   {
    "variant": "overgrown",
@@ -3927,12 +4158,12 @@
    "paths": [
     {
      "path": "CCCCC",
-     "tiers": "r4:L",
-     "haulM": 10.5,
+     "tiers": "r6:R+L",
+     "haulM": 15.4,
      "seeds": 40,
      "clears": 19,
      "clearPct": 47.5,
-     "evM": 4.99,
+     "evM": 7.32,
      "minutesClearMedian": 5.5,
      "minutesAllMean": 5.4,
      "failsAtStep": {
@@ -3944,12 +4175,12 @@
     },
     {
      "path": "CCCC",
-     "tiers": "r3:R+R",
-     "haulM": 9.8,
+     "tiers": "r2:C+R",
+     "haulM": 8.1,
      "seeds": 40,
      "clears": 28,
      "clearPct": 70,
-     "evM": 6.86,
+     "evM": 5.67,
      "minutesClearMedian": 4.5,
      "minutesAllMean": 4.7,
      "failsAtStep": {
@@ -3991,12 +4222,12 @@
     },
     {
      "path": "CCLLL",
-     "tiers": "r6:R+L",
-     "haulM": 15.4,
+     "tiers": "r8:L+L",
+     "haulM": 21,
      "seeds": 40,
      "clears": 2,
      "clearPct": 5,
-     "evM": 0.77,
+     "evM": 1.05,
      "minutesClearMedian": 5.9,
      "minutesAllMean": 5,
      "failsAtStep": {
@@ -4023,12 +4254,12 @@
     },
     {
      "path": "CCXC",
-     "tiers": "r3:R+R",
-     "haulM": 9.8,
+     "tiers": "r2:C+R",
+     "haulM": 8.1,
      "seeds": 40,
      "clears": 1,
      "clearPct": 2.5,
-     "evM": 0.25,
+     "evM": 0.2,
      "minutesClearMedian": 5,
      "minutesAllMean": 3.7,
      "failsAtStep": {
@@ -4053,12 +4284,12 @@
     },
     {
      "path": "CC",
-     "tiers": "r0:C",
-     "haulM": 3.2,
+     "tiers": "r1:R",
+     "haulM": 4.9,
      "seeds": 40,
      "clears": 39,
      "clearPct": 97.5,
-     "evM": 3.12,
+     "evM": 4.78,
      "minutesClearMedian": 2.5,
      "minutesAllMean": 2.4,
      "failsAtStep": {
@@ -4096,12 +4327,12 @@
     },
     {
      "path": "CLLCL",
-     "tiers": "r6:R+L",
-     "haulM": 15.4,
+     "tiers": "r8:L+L",
+     "haulM": 21,
      "seeds": 40,
      "clears": 2,
      "clearPct": 5,
-     "evM": 0.77,
+     "evM": 1.05,
      "minutesClearMedian": 6,
      "minutesAllMean": 4.8,
      "failsAtStep": {
@@ -4112,12 +4343,12 @@
     },
     {
      "path": "CLLLC",
-     "tiers": "r6:R+L",
-     "haulM": 15.4,
+     "tiers": "r8:L+L",
+     "haulM": 21,
      "seeds": 40,
      "clears": 1,
      "clearPct": 2.5,
-     "evM": 0.39,
+     "evM": 0.53,
      "minutesClearMedian": 5.8,
      "minutesAllMean": 4.8,
      "failsAtStep": {
@@ -4196,12 +4427,12 @@
     },
     {
      "path": "LCLLC",
-     "tiers": "r6:R+L",
-     "haulM": 15.4,
+     "tiers": "r8:L+L",
+     "haulM": 21,
      "seeds": 40,
      "clears": 3,
      "clearPct": 7.5,
-     "evM": 1.16,
+     "evM": 1.58,
      "minutesClearMedian": 6.5,
      "minutesAllMean": 4.9,
      "failsAtStep": {
@@ -4225,6 +4456,20 @@
      }
     },
     {
+     "path": "LCXLL",
+     "tiers": "r8:L+L",
+     "haulM": 21,
+     "seeds": 40,
+     "clears": 1,
+     "clearPct": 2.5,
+     "evM": 0.53,
+     "minutesClearMedian": 7.3,
+     "minutesAllMean": 3.9,
+     "failsAtStep": {
+      "4": 39
+     }
+    },
+    {
      "path": "LLC",
      "tiers": "r2:C+R",
      "haulM": 8.1,
@@ -4241,12 +4486,12 @@
     },
     {
      "path": "LLLCC",
-     "tiers": "r6:R+L",
-     "haulM": 15.4,
+     "tiers": "r8:L+L",
+     "haulM": 21,
      "seeds": 40,
      "clears": 11,
      "clearPct": 27.5,
-     "evM": 4.24,
+     "evM": 5.78,
      "minutesClearMedian": 6.8,
      "minutesAllMean": 5.2,
      "failsAtStep": {
@@ -4254,6 +4499,22 @@
       "3": 14,
       "4": 7,
       "5": 7
+     }
+    },
+    {
+     "path": "LLLXC",
+     "tiers": "r7:C+R+L",
+     "haulM": 18.6,
+     "seeds": 40,
+     "clears": 1,
+     "clearPct": 2.5,
+     "evM": 0.47,
+     "minutesClearMedian": 6,
+     "minutesAllMean": 4.8,
+     "failsAtStep": {
+      "2": 1,
+      "3": 14,
+      "5": 24
      }
     },
     {
@@ -4849,6 +5110,47 @@
      "lossMaxStepPctMedian": 39.2,
      "chainLosses": 3
     },
+    "LCXL": {
+     "key": "overgrown:L4:a1:p3",
+     "label": "overgrown step 4 locker alert 1 cut-hazard [stores-ward+g-veteran+g-canister] hz afterburnx1/2,elementalsealx1.5/4,increasepoolcostx1/2",
+     "reached": 40,
+     "won": 1,
+     "winPct": 2.5,
+     "roundsMedian": 5,
+     "roundsP90": 7,
+     "hpStartMedian": 101.6,
+     "hpEndMedian": 2.4,
+     "hpCostMedian": 99.2,
+     "outcomes": {
+      "wipe": 39,
+      "won": 1
+     },
+     "losses": 39,
+     "lossStunsMean": 0.2,
+     "winStunsMean": 1,
+     "lossMaxStepPctMedian": 39.2,
+     "chainLosses": 15
+    },
+    "LCXLL": {
+     "key": "overgrown:L5:a2:p-",
+     "label": "overgrown step 5 locker alert 2 [stores-ward+g-veteran+g-canister] hz elementalsealx1/2,decreasemaxpoolsx1/2",
+     "reached": 1,
+     "won": 1,
+     "winPct": 100,
+     "roundsMedian": 8,
+     "roundsP90": 8,
+     "hpStartMedian": 26.1,
+     "hpEndMedian": 6.6,
+     "hpCostMedian": 19.6,
+     "outcomes": {
+      "won": 1
+     },
+     "losses": 0,
+     "lossStunsMean": null,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": null,
+     "chainLosses": 0
+    },
     "LL": {
      "key": "overgrown:L2:a1:p-",
      "label": "overgrown step 2 locker alert 1 [stores-ward+g-canister+g-lookout] hz increasepoolcostx1/2,decreasemaxpoolsx1/2",
@@ -4954,6 +5256,27 @@
      "lossMaxStepPctMedian": 30,
      "chainLosses": 1
     },
+    "LLLXC": {
+     "key": "overgrown:C5:a3:p4",
+     "label": "overgrown step 5 crate alert 3 cut-hazard [g-veteran+g-warden+g-charge] hz elementalsealx1.5/4,decreasemaxpoolsx1/2",
+     "reached": 25,
+     "won": 1,
+     "winPct": 4,
+     "roundsMedian": 4,
+     "roundsP90": 6,
+     "hpStartMedian": 71.3,
+     "hpEndMedian": 26.1,
+     "hpCostMedian": 45.1,
+     "outcomes": {
+      "wipe": 24,
+      "won": 1
+     },
+     "losses": 24,
+     "lossStunsMean": 0.4,
+     "winStunsMean": 1,
+     "lossMaxStepPctMedian": 36.2,
+     "chainLosses": 8
+    },
     "LLXC": {
      "key": "overgrown:C4:a2:p3",
      "label": "overgrown step 4 crate alert 2 cut-hazard [g-veteran+g-warden+g-charge] hz elementalsealx1.5/4,increasepoolcostx1/2",
@@ -4976,7 +5299,7 @@
     }
    },
    "quest": "gatherer",
-   "wallMin": 6
+   "wallMin": 6.4
   },
   {
    "variant": "vault",
@@ -4984,35 +5307,35 @@
    "paths": [
     {
      "path": "CCCCC",
-     "tiers": "r4:L",
-     "haulM": 10.5,
+     "tiers": "r3:R+R",
+     "haulM": 9.8,
      "seeds": 40,
-     "clears": 12,
-     "clearPct": 30,
-     "evM": 3.15,
-     "minutesClearMedian": 6,
-     "minutesAllMean": 5.2,
+     "clears": 34,
+     "clearPct": 85,
+     "evM": 8.33,
+     "minutesClearMedian": 5,
+     "minutesAllMean": 5,
      "failsAtStep": {
       "2": 2,
       "3": 2,
-      "4": 13,
-      "5": 11
+      "4": 1,
+      "5": 1
      }
     },
     {
      "path": "CCCC",
-     "tiers": "r4:L",
-     "haulM": 10.5,
+     "tiers": "r2:C+R",
+     "haulM": 8.1,
      "seeds": 40,
-     "clears": 23,
-     "clearPct": 57.5,
-     "evM": 6.04,
-     "minutesClearMedian": 4.8,
-     "minutesAllMean": 4.5,
+     "clears": 35,
+     "clearPct": 87.5,
+     "evM": 7.09,
+     "minutesClearMedian": 4.3,
+     "minutesAllMean": 4.2,
      "failsAtStep": {
       "2": 2,
       "3": 2,
-      "4": 13
+      "4": 1
      }
     },
     {
@@ -5035,32 +5358,32 @@
      "tiers": "r4:L",
      "haulM": 10.5,
      "seeds": 40,
-     "clears": 9,
-     "clearPct": 22.5,
-     "evM": 2.36,
-     "minutesClearMedian": 4.8,
+     "clears": 8,
+     "clearPct": 20,
+     "evM": 2.1,
+     "minutesClearMedian": 4.6,
      "minutesAllMean": 3.8,
      "failsAtStep": {
       "2": 2,
       "3": 24,
-      "4": 5
+      "4": 6
      }
     },
     {
      "path": "CCLLL",
-     "tiers": "r7:C+R+L",
-     "haulM": 18.6,
+     "tiers": "r6:R+L",
+     "haulM": 15.4,
      "seeds": 40,
-     "clears": 0,
-     "clearPct": 0,
-     "evM": 0,
-     "minutesClearMedian": 0,
-     "minutesAllMean": 3.8,
+     "clears": 5,
+     "clearPct": 12.5,
+     "evM": 1.93,
+     "minutesClearMedian": 6.3,
+     "minutesAllMean": 4.2,
      "failsAtStep": {
       "2": 2,
       "3": 24,
-      "4": 13,
-      "5": 1
+      "4": 7,
+      "5": 2
      }
     },
     {
@@ -5080,17 +5403,17 @@
     },
     {
      "path": "CCXC",
-     "tiers": "r4:L",
-     "haulM": 10.5,
+     "tiers": "r2:C+R",
+     "haulM": 8.1,
      "seeds": 40,
-     "clears": 2,
-     "clearPct": 5,
-     "evM": 0.53,
-     "minutesClearMedian": 4.1,
-     "minutesAllMean": 3.5,
+     "clears": 15,
+     "clearPct": 37.5,
+     "evM": 3.04,
+     "minutesClearMedian": 3.5,
+     "minutesAllMean": 3.7,
      "failsAtStep": {
       "2": 2,
-      "4": 36
+      "4": 23
      }
     },
     {
@@ -5098,14 +5421,14 @@
      "tiers": "r4:L",
      "haulM": 10.5,
      "seeds": 40,
-     "clears": 0,
-     "clearPct": 0,
-     "evM": 0,
-     "minutesClearMedian": 0,
-     "minutesAllMean": 3.2,
+     "clears": 28,
+     "clearPct": 70,
+     "evM": 7.35,
+     "minutesClearMedian": 4.3,
+     "minutesAllMean": 4.3,
      "failsAtStep": {
       "2": 2,
-      "4": 38
+      "4": 10
      }
     },
     {
@@ -5127,15 +5450,15 @@
      "tiers": "r4:L",
      "haulM": 10.5,
      "seeds": 40,
-     "clears": 18,
-     "clearPct": 45,
-     "evM": 4.72,
+     "clears": 14,
+     "clearPct": 35,
+     "evM": 3.68,
      "minutesClearMedian": 4.8,
-     "minutesAllMean": 4.4,
+     "minutesAllMean": 4.3,
      "failsAtStep": {
       "2": 7,
       "3": 6,
-      "4": 9
+      "4": 13
      }
     },
     {
@@ -5155,36 +5478,36 @@
     },
     {
      "path": "CLLCL",
-     "tiers": "r7:C+R+L",
-     "haulM": 18.6,
+     "tiers": "r6:R+L",
+     "haulM": 15.4,
      "seeds": 40,
-     "clears": 0,
-     "clearPct": 0,
-     "evM": 0,
-     "minutesClearMedian": 0,
-     "minutesAllMean": 4.1,
+     "clears": 5,
+     "clearPct": 12.5,
+     "evM": 1.93,
+     "minutesClearMedian": 6.3,
+     "minutesAllMean": 4.2,
      "failsAtStep": {
       "2": 7,
       "3": 21,
-      "4": 3,
-      "5": 9
+      "4": 5,
+      "5": 2
      }
     },
     {
      "path": "CLLLC",
-     "tiers": "r7:C+R+L",
-     "haulM": 18.6,
+     "tiers": "r6:R+L",
+     "haulM": 15.4,
      "seeds": 40,
-     "clears": 1,
-     "clearPct": 2.5,
-     "evM": 0.47,
+     "clears": 4,
+     "clearPct": 10,
+     "evM": 1.54,
      "minutesClearMedian": 5.8,
-     "minutesAllMean": 4,
+     "minutesAllMean": 4.2,
      "failsAtStep": {
       "2": 7,
       "3": 21,
-      "4": 9,
-      "5": 2
+      "4": 4,
+      "5": 4
      }
     },
     {
@@ -5207,39 +5530,39 @@
      "tiers": "r4:L",
      "haulM": 10.5,
      "seeds": 40,
-     "clears": 2,
-     "clearPct": 5,
-     "evM": 0.53,
-     "minutesClearMedian": 3.9,
-     "minutesAllMean": 3.7,
+     "clears": 5,
+     "clearPct": 12.5,
+     "evM": 1.31,
+     "minutesClearMedian": 4.5,
+     "minutesAllMean": 3.8,
      "failsAtStep": {
       "2": 7,
-      "4": 31
+      "4": 28
      }
     },
     {
      "path": "CLXL",
-     "tiers": "r5:C+L",
-     "haulM": 13.7,
+     "tiers": "r4:L",
+     "haulM": 10.5,
      "seeds": 40,
-     "clears": 0,
-     "clearPct": 0,
-     "evM": 0,
-     "minutesClearMedian": 0,
-     "minutesAllMean": 3.5,
+     "clears": 11,
+     "clearPct": 27.5,
+     "evM": 2.89,
+     "minutesClearMedian": 4.8,
+     "minutesAllMean": 4.1,
      "failsAtStep": {
       "2": 7,
-      "4": 33
+      "4": 22
      }
     },
     {
      "path": "C",
-     "tiers": "r1:R",
-     "haulM": 4.9,
+     "tiers": "r0:C",
+     "haulM": 3.2,
      "seeds": 40,
      "clears": 40,
      "clearPct": 100,
-     "evM": 4.9,
+     "evM": 3.2,
      "minutesClearMedian": 1,
      "minutesAllMean": 1.1,
      "failsAtStep": {}
@@ -5262,20 +5585,20 @@
     },
     {
      "path": "LCLLC",
-     "tiers": "r7:C+R+L",
-     "haulM": 18.6,
+     "tiers": "r6:R+L",
+     "haulM": 15.4,
      "seeds": 40,
-     "clears": 2,
-     "clearPct": 5,
-     "evM": 0.93,
-     "minutesClearMedian": 6.9,
-     "minutesAllMean": 3.9,
+     "clears": 5,
+     "clearPct": 12.5,
+     "evM": 1.93,
+     "minutesClearMedian": 6,
+     "minutesAllMean": 4.1,
      "failsAtStep": {
       "1": 3,
       "2": 5,
       "3": 22,
-      "4": 7,
-      "5": 1
+      "4": 3,
+      "5": 2
      }
     },
     {
@@ -5292,6 +5615,23 @@
       "1": 3,
       "2": 5,
       "3": 22
+     }
+    },
+    {
+     "path": "LCXLL",
+     "tiers": "r6:R+L",
+     "haulM": 15.4,
+     "seeds": 40,
+     "clears": 4,
+     "clearPct": 10,
+     "evM": 1.54,
+     "minutesClearMedian": 6.9,
+     "minutesAllMean": 4.2,
+     "failsAtStep": {
+      "1": 3,
+      "2": 5,
+      "4": 23,
+      "5": 5
      }
     },
     {
@@ -5312,32 +5652,49 @@
     },
     {
      "path": "LLLCC",
-     "tiers": "r7:C+R+L",
-     "haulM": 18.6,
+     "tiers": "r6:R+L",
+     "haulM": 15.4,
      "seeds": 40,
-     "clears": 2,
-     "clearPct": 5,
-     "evM": 0.93,
-     "minutesClearMedian": 6.4,
-     "minutesAllMean": 3.7,
+     "clears": 1,
+     "clearPct": 2.5,
+     "evM": 0.39,
+     "minutesClearMedian": 8.3,
+     "minutesAllMean": 3.8,
      "failsAtStep": {
       "1": 3,
       "2": 15,
       "3": 15,
-      "4": 4,
-      "5": 1
+      "4": 3,
+      "5": 3
      }
     },
     {
-     "path": "LLXC",
-     "tiers": "r5:C+L",
-     "haulM": 13.7,
+     "path": "LLLXC",
+     "tiers": "r4:L",
+     "haulM": 10.5,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
      "evM": 0,
      "minutesClearMedian": 0,
-     "minutesAllMean": 3.4,
+     "minutesAllMean": 3.7,
+     "failsAtStep": {
+      "1": 3,
+      "2": 15,
+      "3": 15,
+      "5": 7
+     }
+    },
+    {
+     "path": "LLXC",
+     "tiers": "r4:L",
+     "haulM": 10.5,
+     "seeds": 40,
+     "clears": 0,
+     "clearPct": 0,
+     "evM": 0,
+     "minutesClearMedian": 0,
+     "minutesAllMean": 3.5,
      "failsAtStep": {
       "1": 3,
       "2": 15,
@@ -5425,45 +5782,45 @@
     },
     "CCCC": {
      "key": "vault:C4:a0:p-",
-     "label": "vault step 4 crate alert 0 [g-veteran+g-warden+g-charge] hz -",
+     "label": "vault step 4 crate alert 0 [g-veteran+g-charge] hz -",
      "reached": 36,
-     "won": 23,
-     "winPct": 63.9,
-     "roundsMedian": 5,
-     "roundsP90": 7,
+     "won": 35,
+     "winPct": 97.2,
+     "roundsMedian": 3,
+     "roundsP90": 4,
      "hpStartMedian": 86.4,
-     "hpEndMedian": 41.5,
-     "hpCostMedian": 44.9,
+     "hpEndMedian": 73.2,
+     "hpCostMedian": 13.2,
      "outcomes": {
-      "won": 23,
-      "wipe": 13
+      "won": 35,
+      "wipe": 1
      },
-     "losses": 13,
-     "lossStunsMean": 0.2,
-     "winStunsMean": 0.1,
-     "lossMaxStepPctMedian": 49.3,
-     "chainLosses": 9
+     "losses": 1,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 41.8,
+     "chainLosses": 1
     },
     "CCCCC": {
      "key": "vault:C5:a0:p-",
-     "label": "vault step 5 crate alert 0 [g-veteran+g-warden+g-charge] hz -",
-     "reached": 23,
-     "won": 12,
-     "winPct": 52.2,
+     "label": "vault step 5 crate alert 0 [g-veteran+g-charge] hz -",
+     "reached": 35,
+     "won": 34,
+     "winPct": 97.1,
      "roundsMedian": 4,
-     "roundsP90": 6,
-     "hpStartMedian": 65.3,
-     "hpEndMedian": 22.1,
-     "hpCostMedian": 43.2,
+     "roundsP90": 4,
+     "hpStartMedian": 97,
+     "hpEndMedian": 80.8,
+     "hpCostMedian": 16.1,
      "outcomes": {
-      "won": 12,
-      "wipe": 11
+      "won": 34,
+      "wipe": 1
      },
-     "losses": 11,
-     "lossStunsMean": 0.4,
-     "winStunsMean": 0.2,
-     "lossMaxStepPctMedian": 37.9,
-     "chainLosses": 4
+     "losses": 1,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 41.9,
+     "chainLosses": 1
     },
     "CCL": {
      "key": "vault:L3:a0:p-",
@@ -5488,106 +5845,108 @@
     },
     "CCLC": {
      "key": "vault:C4:a1:p-",
-     "label": "vault step 4 crate alert 1 [g-veteran+g-warden+g-charge] hz increasepoolcostx1/2",
+     "label": "vault step 4 crate alert 1 [g-veteran+g-charge+g-lookout] hz increasepoolcostx1/2",
      "reached": 14,
-     "won": 9,
-     "winPct": 64.3,
+     "won": 8,
+     "winPct": 57.1,
      "roundsMedian": 4,
      "roundsP90": 6,
      "hpStartMedian": 72.5,
-     "hpEndMedian": 46.3,
-     "hpCostMedian": 26.2,
+     "hpEndMedian": 39.5,
+     "hpCostMedian": 33,
      "outcomes": {
-      "wipe": 5,
-      "won": 9
+      "wipe": 6,
+      "won": 8
      },
-     "losses": 5,
-     "lossStunsMean": 0.2,
-     "winStunsMean": 0,
-     "lossMaxStepPctMedian": 39.2,
-     "chainLosses": 1
+     "losses": 6,
+     "lossStunsMean": 0.3,
+     "winStunsMean": 0.4,
+     "lossMaxStepPctMedian": 37,
+     "chainLosses": 2
     },
     "CCLL": {
      "key": "vault:L4:a1:p-",
-     "label": "vault step 4 locker alert 1 [stores-ward+g-veteran+g-warden+g-canister] hz decreasemaxpoolsx1/2,increasepoolcostx1/2",
+     "label": "vault step 4 locker alert 1 [stores-ward+g-canister+g-lookout] hz decreasemaxpoolsx1/2,increasepoolcostx1/2",
      "reached": 14,
-     "won": 1,
-     "winPct": 7.1,
-     "roundsMedian": 2.5,
+     "won": 7,
+     "winPct": 50,
+     "roundsMedian": 5,
      "roundsP90": 6,
      "hpStartMedian": 72.5,
-     "hpEndMedian": 33,
-     "hpCostMedian": 39.4,
+     "hpEndMedian": 63.9,
+     "hpCostMedian": 8.5,
      "outcomes": {
-      "wipe": 13,
-      "won": 1
+      "wipe": 7,
+      "won": 7
      },
-     "losses": 13,
-     "lossStunsMean": 0.1,
+     "losses": 7,
+     "lossStunsMean": 0.9,
      "winStunsMean": 0,
      "lossMaxStepPctMedian": 30,
-     "chainLosses": 2
+     "chainLosses": 1
     },
     "CCLLL": {
      "key": "vault:L5:a2:p-",
-     "label": "vault step 5 locker alert 2 [stores-ward+g-veteran+g-warden+g-canister] hz increasepoolcostx1/2,decreasemaxpoolsx1/2",
-     "reached": 1,
-     "won": 0,
-     "winPct": 0,
+     "label": "vault step 5 locker alert 2 [stores-ward+g-canister+g-lookout] hz increasepoolcostx1/2,decreasemaxpoolsx1/2",
+     "reached": 7,
+     "won": 5,
+     "winPct": 71.4,
      "roundsMedian": 7,
-     "roundsP90": 7,
-     "hpStartMedian": 56.8,
-     "hpEndMedian": null,
-     "hpCostMedian": 56.8,
+     "roundsP90": 8,
+     "hpStartMedian": 87.7,
+     "hpEndMedian": 21.8,
+     "hpCostMedian": 65.9,
      "outcomes": {
-      "wipe": 1
+      "wipe": 2,
+      "won": 5
      },
-     "losses": 1,
-     "lossStunsMean": 0,
-     "winStunsMean": null,
-     "lossMaxStepPctMedian": 30,
-     "chainLosses": 0
+     "losses": 2,
+     "lossStunsMean": 0.5,
+     "winStunsMean": 0.2,
+     "lossMaxStepPctMedian": 35.7,
+     "chainLosses": 1
     },
     "CCXC": {
      "key": "vault:C4:a0:p3",
-     "label": "vault step 4 crate alert 0 cut-hazard [g-veteran+g-warden+g-charge] hz elementalsealx1.5/4",
+     "label": "vault step 4 crate alert 0 cut-hazard [g-veteran+g-charge] hz elementalsealx1.5/4",
      "reached": 38,
-     "won": 2,
-     "winPct": 5.3,
-     "roundsMedian": 5.5,
-     "roundsP90": 7,
+     "won": 15,
+     "winPct": 39.5,
+     "roundsMedian": 6,
+     "roundsP90": 8,
      "hpStartMedian": 101.3,
-     "hpEndMedian": 38.6,
-     "hpCostMedian": 62.8,
+     "hpEndMedian": 31.1,
+     "hpCostMedian": 70.2,
      "outcomes": {
-      "wipe": 36,
-      "won": 2
+      "wipe": 23,
+      "won": 15
      },
-     "losses": 36,
-     "lossStunsMean": 0.4,
-     "winStunsMean": 1,
-     "lossMaxStepPctMedian": 39.2,
-     "chainLosses": 14
+     "losses": 23,
+     "lossStunsMean": 0.1,
+     "winStunsMean": 0.7,
+     "lossMaxStepPctMedian": 41.4,
+     "chainLosses": 13
     },
     "CCXL": {
      "key": "vault:L4:a0:p3",
-     "label": "vault step 4 locker alert 0 cut-hazard [stores-ward+g-veteran+g-warden+g-canister] hz decreasemaxpoolsx1/2,elementalsealx1.5/4",
+     "label": "vault step 4 locker alert 0 cut-hazard [stores-ward+g-canister] hz decreasemaxpoolsx1/2,elementalsealx1.5/4",
      "reached": 38,
-     "won": 0,
-     "winPct": 0,
-     "roundsMedian": 4,
-     "roundsP90": 5,
+     "won": 28,
+     "winPct": 73.7,
+     "roundsMedian": 9,
+     "roundsP90": 9,
      "hpStartMedian": 101.3,
-     "hpEndMedian": null,
-     "hpCostMedian": 101.3,
+     "hpEndMedian": 38.4,
+     "hpCostMedian": 63,
      "outcomes": {
-      "wipe": 38
+      "won": 28,
+      "wipe": 10
      },
-     "losses": 38,
-     "lossStunsMean": 0.2,
-     "winStunsMean": null,
-     "lossMaxStepPctMedian": 39.2,
-     "chainLosses": 16
+     "losses": 10,
+     "lossStunsMean": 0.5,
+     "winStunsMean": 0.2,
+     "lossMaxStepPctMedian": 35.7,
+     "chainLosses": 5
     },
     "CL": {
      "key": "vault:L2:a0:p-",
@@ -5633,24 +5992,24 @@
     },
     "CLCC": {
      "key": "vault:C4:a1:p-",
-     "label": "vault step 4 crate alert 1 [g-veteran+g-warden+g-charge] hz increasepoolcostx1/2",
+     "label": "vault step 4 crate alert 1 [g-veteran+g-charge+g-lookout] hz increasepoolcostx1/2",
      "reached": 27,
-     "won": 18,
-     "winPct": 66.7,
+     "won": 14,
+     "winPct": 51.9,
      "roundsMedian": 4,
-     "roundsP90": 6,
+     "roundsP90": 5,
      "hpStartMedian": 69.1,
-     "hpEndMedian": 33.9,
-     "hpCostMedian": 35.2,
+     "hpEndMedian": 47,
+     "hpCostMedian": 22.1,
      "outcomes": {
-      "wipe": 9,
-      "won": 18
+      "wipe": 13,
+      "won": 14
      },
-     "losses": 9,
+     "losses": 13,
      "lossStunsMean": 0.4,
      "winStunsMean": 0.1,
-     "lossMaxStepPctMedian": 37.2,
-     "chainLosses": 3
+     "lossMaxStepPctMedian": 39.2,
+     "chainLosses": 6
     },
     "CLL": {
      "key": "vault:L3:a1:p-",
@@ -5675,79 +6034,38 @@
     },
     "CLLC": {
      "key": "vault:C4:a2:p-",
-     "label": "vault step 4 crate alert 2 [g-veteran+g-warden+g-charge] hz increasepoolcostx1/2",
+     "label": "vault step 4 crate alert 2 [g-veteran+g-charge+g-lookout] hz increasepoolcostx1/2",
      "reached": 12,
-     "won": 9,
-     "winPct": 75,
-     "roundsMedian": 4.5,
-     "roundsP90": 6,
+     "won": 7,
+     "winPct": 58.3,
+     "roundsMedian": 4,
+     "roundsP90": 5,
      "hpStartMedian": 70.4,
-     "hpEndMedian": 16.1,
-     "hpCostMedian": 54.3,
+     "hpEndMedian": 29,
+     "hpCostMedian": 41.5,
      "outcomes": {
-      "won": 9,
-      "wipe": 3
+      "won": 7,
+      "wipe": 5
      },
-     "losses": 3,
-     "lossStunsMean": 0,
+     "losses": 5,
+     "lossStunsMean": 0.2,
      "winStunsMean": 0.1,
-     "lossMaxStepPctMedian": 23.2,
+     "lossMaxStepPctMedian": 33.9,
      "chainLosses": 0
     },
     "CLLCL": {
      "key": "vault:L5:a2:p-",
-     "label": "vault step 5 locker alert 2 [stores-ward+g-veteran+g-warden+g-canister] hz increasepoolcostx1/2,decreasemaxpoolsx1/2",
-     "reached": 9,
-     "won": 0,
-     "winPct": 0,
-     "roundsMedian": 2,
-     "roundsP90": 3,
-     "hpStartMedian": 39.9,
-     "hpEndMedian": null,
-     "hpCostMedian": 39.9,
-     "outcomes": {
-      "wipe": 9
-     },
-     "losses": 9,
-     "lossStunsMean": 0,
-     "winStunsMean": null,
-     "lossMaxStepPctMedian": 30,
-     "chainLosses": 2
-    },
-    "CLLL": {
-     "key": "vault:L4:a2:p-",
-     "label": "vault step 4 locker alert 2 [stores-ward+g-veteran+g-warden+g-canister] hz decreasemaxpoolsx1/2,increasepoolcostx1/2",
-     "reached": 12,
-     "won": 3,
-     "winPct": 25,
-     "roundsMedian": 4.5,
+     "label": "vault step 5 locker alert 2 [stores-ward+g-canister+g-lookout] hz increasepoolcostx1/2,decreasemaxpoolsx1/2",
+     "reached": 7,
+     "won": 5,
+     "winPct": 71.4,
+     "roundsMedian": 5,
      "roundsP90": 7,
-     "hpStartMedian": 70.4,
-     "hpEndMedian": 18.2,
-     "hpCostMedian": 52.3,
+     "hpStartMedian": 52.7,
+     "hpEndMedian": 58.2,
+     "hpCostMedian": -5.5,
      "outcomes": {
-      "wipe": 9,
-      "won": 3
-     },
-     "losses": 9,
-     "lossStunsMean": 0.2,
-     "winStunsMean": 0,
-     "lossMaxStepPctMedian": 39.2,
-     "chainLosses": 3
-    },
-    "CLLLC": {
-     "key": "vault:C5:a3:p-",
-     "label": "vault step 5 crate alert 3 [g-veteran+g-warden+g-charge] hz decreasemaxpoolsx1/2",
-     "reached": 3,
-     "won": 1,
-     "winPct": 33.3,
-     "roundsMedian": 3,
-     "roundsP90": 4,
-     "hpStartMedian": 41.9,
-     "hpEndMedian": 97.6,
-     "hpCostMedian": -55.7,
-     "outcomes": {
-      "won": 1,
+      "won": 5,
       "wipe": 2
      },
      "losses": 2,
@@ -5756,46 +6074,89 @@
      "lossMaxStepPctMedian": 30,
      "chainLosses": 0
     },
+    "CLLL": {
+     "key": "vault:L4:a2:p-",
+     "label": "vault step 4 locker alert 2 [stores-ward+g-canister+g-lookout] hz decreasemaxpoolsx1/2,increasepoolcostx1/2",
+     "reached": 12,
+     "won": 8,
+     "winPct": 66.7,
+     "roundsMedian": 5,
+     "roundsP90": 8,
+     "hpStartMedian": 70.4,
+     "hpEndMedian": 51.5,
+     "hpCostMedian": 18.9,
+     "outcomes": {
+      "won": 8,
+      "wipe": 4
+     },
+     "losses": 4,
+     "lossStunsMean": 0.3,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": 30,
+     "chainLosses": 1
+    },
+    "CLLLC": {
+     "key": "vault:C5:a3:p-",
+     "label": "vault step 5 crate alert 3 [g-veteran+g-charge+g-lookout] hz decreasemaxpoolsx1/2",
+     "reached": 8,
+     "won": 4,
+     "winPct": 50,
+     "roundsMedian": 3.5,
+     "roundsP90": 4,
+     "hpStartMedian": 75.3,
+     "hpEndMedian": 80.2,
+     "hpCostMedian": -4.9,
+     "outcomes": {
+      "wipe": 4,
+      "won": 4
+     },
+     "losses": 4,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 30,
+     "chainLosses": 1
+    },
     "CLXC": {
      "key": "vault:C4:a1:p3",
-     "label": "vault step 4 crate alert 1 cut-hazard [g-veteran+g-warden+g-charge] hz elementalsealx1.5/4,increasepoolcostx1/2",
+     "label": "vault step 4 crate alert 1 cut-hazard [g-veteran+g-charge+g-lookout] hz elementalsealx1.5/4,increasepoolcostx1/2",
      "reached": 33,
-     "won": 2,
-     "winPct": 6.1,
-     "roundsMedian": 4,
-     "roundsP90": 7,
+     "won": 5,
+     "winPct": 15.2,
+     "roundsMedian": 5,
+     "roundsP90": 8,
      "hpStartMedian": 83.2,
-     "hpEndMedian": 3,
-     "hpCostMedian": 80.2,
+     "hpEndMedian": 21.1,
+     "hpCostMedian": 62.2,
      "outcomes": {
-      "wipe": 31,
-      "won": 2
+      "wipe": 28,
+      "won": 5
      },
-     "losses": 31,
-     "lossStunsMean": 0.6,
-     "winStunsMean": 0.5,
-     "lossMaxStepPctMedian": 36.2,
-     "chainLosses": 11
+     "losses": 28,
+     "lossStunsMean": 0.4,
+     "winStunsMean": 0.8,
+     "lossMaxStepPctMedian": 39.3,
+     "chainLosses": 13
     },
     "CLXL": {
      "key": "vault:L4:a1:p3",
-     "label": "vault step 4 locker alert 1 cut-hazard [stores-ward+g-veteran+g-warden+g-canister] hz decreasemaxpoolsx1/2,elementalsealx1.5/4,increasepoolcostx1/2",
+     "label": "vault step 4 locker alert 1 cut-hazard [stores-ward+g-canister+g-lookout] hz decreasemaxpoolsx1/2,elementalsealx1.5/4,increasepoolcostx1/2",
      "reached": 33,
-     "won": 0,
-     "winPct": 0,
-     "roundsMedian": 4,
-     "roundsP90": 5,
+     "won": 11,
+     "winPct": 33.3,
+     "roundsMedian": 8,
+     "roundsP90": 10,
      "hpStartMedian": 83.2,
-     "hpEndMedian": null,
-     "hpCostMedian": 83.2,
+     "hpEndMedian": 14,
+     "hpCostMedian": 69.3,
      "outcomes": {
-      "wipe": 33
+      "wipe": 22,
+      "won": 11
      },
-     "losses": 33,
-     "lossStunsMean": 0.2,
-     "winStunsMean": null,
-     "lossMaxStepPctMedian": 39.2,
-     "chainLosses": 7
+     "losses": 22,
+     "lossStunsMean": 0.6,
+     "winStunsMean": 0.5,
+     "lossMaxStepPctMedian": 33,
+     "chainLosses": 9
     },
     "L": {
      "key": "vault:L1:a0:p-",
@@ -5883,45 +6244,87 @@
     },
     "LCLL": {
      "key": "vault:L4:a2:p-",
-     "label": "vault step 4 locker alert 2 [stores-ward+g-veteran+g-warden+g-canister] hz decreasemaxpoolsx1/2,increasepoolcostx1/2",
+     "label": "vault step 4 locker alert 2 [stores-ward+g-canister+g-lookout] hz decreasemaxpoolsx1/2,increasepoolcostx1/2",
      "reached": 10,
-     "won": 3,
-     "winPct": 30,
-     "roundsMedian": 4,
-     "roundsP90": 8,
+     "won": 7,
+     "winPct": 70,
+     "roundsMedian": 5,
+     "roundsP90": 7,
      "hpStartMedian": 68.4,
-     "hpEndMedian": 20.1,
-     "hpCostMedian": 48.3,
+     "hpEndMedian": 44.3,
+     "hpCostMedian": 24.1,
      "outcomes": {
-      "wipe": 7,
-      "won": 3
+      "won": 7,
+      "wipe": 3
      },
-     "losses": 7,
-     "lossStunsMean": 0.1,
-     "winStunsMean": 0.3,
+     "losses": 3,
+     "lossStunsMean": 0.7,
+     "winStunsMean": 0.1,
      "lossMaxStepPctMedian": 30,
-     "chainLosses": 0
+     "chainLosses": 1
     },
     "LCLLC": {
      "key": "vault:C5:a3:p-",
-     "label": "vault step 5 crate alert 3 [g-veteran+g-warden+g-charge] hz decreasemaxpoolsx1/2",
-     "reached": 3,
-     "won": 2,
-     "winPct": 66.7,
+     "label": "vault step 5 crate alert 3 [g-veteran+g-charge+g-lookout] hz decreasemaxpoolsx1/2",
+     "reached": 7,
+     "won": 5,
+     "winPct": 71.4,
      "roundsMedian": 4,
      "roundsP90": 5,
-     "hpStartMedian": 43.8,
-     "hpEndMedian": 8,
-     "hpCostMedian": 35.8,
+     "hpStartMedian": 68,
+     "hpEndMedian": 53.1,
+     "hpCostMedian": 14.9,
      "outcomes": {
-      "won": 2,
-      "wipe": 1
+      "won": 5,
+      "wipe": 2
      },
-     "losses": 1,
+     "losses": 2,
      "lossStunsMean": 0,
-     "winStunsMean": 0,
-     "lossMaxStepPctMedian": 57.7,
+     "winStunsMean": 0.2,
+     "lossMaxStepPctMedian": 43,
      "chainLosses": 1
+    },
+    "LCXL": {
+     "key": "vault:L4:a1:p3",
+     "label": "vault step 4 locker alert 1 cut-hazard [stores-ward+g-canister+g-lookout] hz decreasemaxpoolsx1/2,elementalsealx1.5/4,increasepoolcostx1/2",
+     "reached": 32,
+     "won": 9,
+     "winPct": 28.1,
+     "roundsMedian": 7,
+     "roundsP90": 10,
+     "hpStartMedian": 76.4,
+     "hpEndMedian": 10.3,
+     "hpCostMedian": 66.1,
+     "outcomes": {
+      "wipe": 23,
+      "won": 9
+     },
+     "losses": 23,
+     "lossStunsMean": 0.7,
+     "winStunsMean": 0.6,
+     "lossMaxStepPctMedian": 34.7,
+     "chainLosses": 8
+    },
+    "LCXLL": {
+     "key": "vault:L5:a2:p-",
+     "label": "vault step 5 locker alert 2 [stores-ward+g-canister+g-lookout] hz increasepoolcostx1/2,decreasemaxpoolsx1/2",
+     "reached": 9,
+     "won": 4,
+     "winPct": 44.4,
+     "roundsMedian": 5,
+     "roundsP90": 8,
+     "hpStartMedian": 34.1,
+     "hpEndMedian": 13.4,
+     "hpCostMedian": 20.7,
+     "outcomes": {
+      "wipe": 5,
+      "won": 4
+     },
+     "losses": 5,
+     "lossStunsMean": 0.2,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 30,
+     "chainLosses": 0
     },
     "LL": {
      "key": "vault:L2:a1:p-",
@@ -5988,54 +6391,74 @@
     },
     "LLLC": {
      "key": "vault:C4:a3:p-",
-     "label": "vault step 4 crate alert 3 [g-veteran+g-warden+g-charge] hz increasepoolcostx1/2",
+     "label": "vault step 4 crate alert 3 [g-veteran+g-charge+g-lookout] hz increasepoolcostx1/2",
      "reached": 7,
-     "won": 3,
-     "winPct": 42.9,
-     "roundsMedian": 4,
-     "roundsP90": 4,
+     "won": 4,
+     "winPct": 57.1,
+     "roundsMedian": 5,
+     "roundsP90": 6,
      "hpStartMedian": 44.5,
-     "hpEndMedian": 29.5,
-     "hpCostMedian": 14.9,
+     "hpEndMedian": 28.8,
+     "hpCostMedian": 15.7,
      "outcomes": {
-      "wipe": 4,
-      "won": 3
+      "won": 4,
+      "wipe": 3
      },
-     "losses": 4,
+     "losses": 3,
      "lossStunsMean": 0.3,
      "winStunsMean": 0,
      "lossMaxStepPctMedian": 29.5,
-     "chainLosses": 1
+     "chainLosses": 0
     },
     "LLLCC": {
      "key": "vault:C5:a3:p-",
-     "label": "vault step 5 crate alert 3 [g-veteran+g-warden+g-charge] hz decreasemaxpoolsx1/2",
-     "reached": 3,
-     "won": 2,
-     "winPct": 66.7,
-     "roundsMedian": 6,
-     "roundsP90": 7,
-     "hpStartMedian": 53.3,
-     "hpEndMedian": 20.9,
-     "hpCostMedian": 32.4,
+     "label": "vault step 5 crate alert 3 [g-veteran+g-charge+g-lookout] hz decreasemaxpoolsx1/2",
+     "reached": 4,
+     "won": 1,
+     "winPct": 25,
+     "roundsMedian": 4,
+     "roundsP90": 6,
+     "hpStartMedian": 52.5,
+     "hpEndMedian": 24.6,
+     "hpCostMedian": 28,
      "outcomes": {
-      "won": 2,
-      "wipe": 1
+      "wipe": 3,
+      "won": 1
      },
-     "losses": 1,
-     "lossStunsMean": 0,
-     "winStunsMean": 0.5,
-     "lossMaxStepPctMedian": 26.6,
+     "losses": 3,
+     "lossStunsMean": 0.7,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 35.1,
      "chainLosses": 0
     },
-    "LLXC": {
-     "key": "vault:C4:a2:p3",
-     "label": "vault step 4 crate alert 2 cut-hazard [g-veteran+g-warden+g-charge] hz elementalsealx1.5/4,increasepoolcostx1/2",
-     "reached": 22,
+    "LLLXC": {
+     "key": "vault:C5:a3:p4",
+     "label": "vault step 5 crate alert 3 cut-hazard [g-veteran+g-charge+g-lookout] hz elementalsealx1.5/4,decreasemaxpoolsx1/2",
+     "reached": 7,
      "won": 0,
      "winPct": 0,
      "roundsMedian": 4,
      "roundsP90": 5,
+     "hpStartMedian": 44.5,
+     "hpEndMedian": null,
+     "hpCostMedian": 44.5,
+     "outcomes": {
+      "wipe": 7
+     },
+     "losses": 7,
+     "lossStunsMean": 0.3,
+     "winStunsMean": null,
+     "lossMaxStepPctMedian": 30,
+     "chainLosses": 2
+    },
+    "LLXC": {
+     "key": "vault:C4:a2:p3",
+     "label": "vault step 4 crate alert 2 cut-hazard [g-veteran+g-charge+g-lookout] hz elementalsealx1.5/4,increasepoolcostx1/2",
+     "reached": 22,
+     "won": 0,
+     "winPct": 0,
+     "roundsMedian": 4,
+     "roundsP90": 7,
      "hpStartMedian": 68.6,
      "hpEndMedian": null,
      "hpCostMedian": 68.6,
@@ -6050,7 +6473,7 @@
     }
    },
    "quest": "gatherer",
-   "wallMin": 3.3
+   "wallMin": 3.5
   },
   {
    "variant": "bloom",
@@ -6058,12 +6481,12 @@
    "paths": [
     {
      "path": "CCCCC",
-     "tiers": "r5:C+L",
-     "haulM": 13.7,
+     "tiers": "r6:R+L",
+     "haulM": 15.4,
      "seeds": 40,
      "clears": 10,
      "clearPct": 25,
-     "evM": 3.43,
+     "evM": 3.85,
      "minutesClearMedian": 5.4,
      "minutesAllMean": 4.8,
      "failsAtStep": {
@@ -6075,12 +6498,12 @@
     },
     {
      "path": "CCCC",
-     "tiers": "r2:C+R",
-     "haulM": 8.1,
+     "tiers": "r4:L",
+     "haulM": 10.5,
      "seeds": 40,
      "clears": 19,
      "clearPct": 47.5,
-     "evM": 3.85,
+     "evM": 4.99,
      "minutesClearMedian": 4.5,
      "minutesAllMean": 4.3,
      "failsAtStep": {
@@ -6122,12 +6545,12 @@
     },
     {
      "path": "CCLLL",
-     "tiers": "r6:R+L",
-     "haulM": 15.4,
+     "tiers": "r8:L+L",
+     "haulM": 21,
      "seeds": 40,
      "clears": 1,
      "clearPct": 2.5,
-     "evM": 0.39,
+     "evM": 0.53,
      "minutesClearMedian": 6.8,
      "minutesAllMean": 4.2,
      "failsAtStep": {
@@ -6154,12 +6577,12 @@
     },
     {
      "path": "CCXC",
-     "tiers": "r2:C+R",
-     "haulM": 8.1,
+     "tiers": "r4:L",
+     "haulM": 10.5,
      "seeds": 40,
      "clears": 1,
      "clearPct": 2.5,
-     "evM": 0.2,
+     "evM": 0.26,
      "minutesClearMedian": 3.3,
      "minutesAllMean": 3.4,
      "failsAtStep": {
@@ -6229,12 +6652,12 @@
     },
     {
      "path": "CLLCL",
-     "tiers": "r6:R+L",
-     "haulM": 15.4,
+     "tiers": "r8:L+L",
+     "haulM": 21,
      "seeds": 40,
      "clears": 4,
      "clearPct": 10,
-     "evM": 1.54,
+     "evM": 2.1,
      "minutesClearMedian": 6.4,
      "minutesAllMean": 4.8,
      "failsAtStep": {
@@ -6246,12 +6669,12 @@
     },
     {
      "path": "CLLLC",
-     "tiers": "r6:R+L",
-     "haulM": 15.4,
+     "tiers": "r8:L+L",
+     "haulM": 21,
      "seeds": 40,
      "clears": 5,
      "clearPct": 12.5,
-     "evM": 1.93,
+     "evM": 2.63,
      "minutesClearMedian": 5.8,
      "minutesAllMean": 4.8,
      "failsAtStep": {
@@ -6293,8 +6716,8 @@
     },
     {
      "path": "CLXL",
-     "tiers": "r4:L",
-     "haulM": 10.5,
+     "tiers": "r5:C+L",
+     "haulM": 13.7,
      "seeds": 40,
      "clears": 0,
      "clearPct": 0,
@@ -6334,12 +6757,12 @@
     },
     {
      "path": "LCLLC",
-     "tiers": "r6:R+L",
-     "haulM": 15.4,
+     "tiers": "r8:L+L",
+     "haulM": 21,
      "seeds": 40,
      "clears": 5,
      "clearPct": 12.5,
-     "evM": 1.93,
+     "evM": 2.63,
      "minutesClearMedian": 6,
      "minutesAllMean": 4.7,
      "failsAtStep": {
@@ -6363,6 +6786,21 @@
      }
     },
     {
+     "path": "LCXLL",
+     "tiers": "r8:L+L",
+     "haulM": 21,
+     "seeds": 40,
+     "clears": 0,
+     "clearPct": 0,
+     "evM": 0,
+     "minutesClearMedian": 0,
+     "minutesAllMean": 3.6,
+     "failsAtStep": {
+      "4": 38,
+      "5": 2
+     }
+    },
+    {
      "path": "LLC",
      "tiers": "r2:C+R",
      "haulM": 8.1,
@@ -6379,12 +6817,12 @@
     },
     {
      "path": "LLLCC",
-     "tiers": "r6:R+L",
-     "haulM": 15.4,
+     "tiers": "r8:L+L",
+     "haulM": 21,
      "seeds": 40,
      "clears": 7,
      "clearPct": 17.5,
-     "evM": 2.7,
+     "evM": 3.68,
      "minutesClearMedian": 6,
      "minutesAllMean": 5,
      "failsAtStep": {
@@ -6395,13 +6833,29 @@
      }
     },
     {
+     "path": "LLLXC",
+     "tiers": "r7:C+R+L",
+     "haulM": 18.6,
+     "seeds": 40,
+     "clears": 1,
+     "clearPct": 2.5,
+     "evM": 0.47,
+     "minutesClearMedian": 5.5,
+     "minutesAllMean": 4.8,
+     "failsAtStep": {
+      "2": 1,
+      "3": 11,
+      "5": 27
+     }
+    },
+    {
      "path": "LLXC",
-     "tiers": "r4:L",
-     "haulM": 10.5,
+     "tiers": "r5:C+L",
+     "haulM": 13.7,
      "seeds": 40,
      "clears": 2,
      "clearPct": 5,
-     "evM": 0.53,
+     "evM": 0.69,
      "minutesClearMedian": 4.1,
      "minutesAllMean": 3.6,
      "failsAtStep": {
@@ -6987,6 +7441,47 @@
      "lossMaxStepPctMedian": 50.9,
      "chainLosses": 2
     },
+    "LCXL": {
+     "key": "bloom:L4:a1:p3",
+     "label": "bloom step 4 locker alert 1 cut-hazard [stores-ward+g-veteran+g-canister] hz decreasemaxpoolsx1/2,elementalsealx1.5/4,afterburnx1/2",
+     "reached": 40,
+     "won": 2,
+     "winPct": 5,
+     "roundsMedian": 5.5,
+     "roundsP90": 7,
+     "hpStartMedian": 108.6,
+     "hpEndMedian": 27,
+     "hpCostMedian": 81.5,
+     "outcomes": {
+      "wipe": 38,
+      "won": 2
+     },
+     "losses": 38,
+     "lossStunsMean": 0.4,
+     "winStunsMean": 0.5,
+     "lossMaxStepPctMedian": 39.2,
+     "chainLosses": 17
+    },
+    "LCXLL": {
+     "key": "bloom:L5:a2:p-",
+     "label": "bloom step 5 locker alert 2 [stores-ward+g-veteran+g-canister] hz afterburnx1/2,increasepoolcostx1/2",
+     "reached": 2,
+     "won": 0,
+     "winPct": 0,
+     "roundsMedian": 4,
+     "roundsP90": 5,
+     "hpStartMedian": 50.8,
+     "hpEndMedian": null,
+     "hpCostMedian": 50.8,
+     "outcomes": {
+      "wipe": 2
+     },
+     "losses": 2,
+     "lossStunsMean": 0,
+     "winStunsMean": null,
+     "lossMaxStepPctMedian": 27.2,
+     "chainLosses": 0
+    },
     "LL": {
      "key": "bloom:L2:a1:p-",
      "label": "bloom step 2 locker alert 1 [stores-ward+g-canister+g-lookout] hz afterburnx1/2,increasepoolcostx1/2",
@@ -7092,6 +7587,27 @@
      "lossMaxStepPctMedian": 32.7,
      "chainLosses": 2
     },
+    "LLLXC": {
+     "key": "bloom:C5:a3:p4",
+     "label": "bloom step 5 crate alert 3 cut-hazard [g-veteran+g-warden+g-charge] hz afterburnx1/2,elementalsealx1.5/4,increasepoolcostx1/2",
+     "reached": 28,
+     "won": 1,
+     "winPct": 3.6,
+     "roundsMedian": 4,
+     "roundsP90": 6,
+     "hpStartMedian": 87.9,
+     "hpEndMedian": 33.9,
+     "hpCostMedian": 54,
+     "outcomes": {
+      "wipe": 27,
+      "won": 1
+     },
+     "losses": 27,
+     "lossStunsMean": 0.2,
+     "winStunsMean": 1,
+     "lossMaxStepPctMedian": 39.2,
+     "chainLosses": 10
+    },
     "LLXC": {
      "key": "bloom:C4:a2:p3",
      "label": "bloom step 4 crate alert 2 cut-hazard [g-veteran+g-warden+g-charge] hz decreasemaxpoolsx1/2,elementalsealx1.5/4,afterburnx1/2",
@@ -7115,7 +7631,7 @@
     }
    },
    "quest": "gatherer",
-   "wallMin": 4
+   "wallMin": 3.9
   }
  ],
  "revalued": "haul values recomputed with the current params (haul_main.ts --revalue); clear rates from the original run"

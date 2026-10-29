@@ -234,38 +234,41 @@ Variant fields (override `players`): `level`, `rank`, `statBudget`, `stats`, `po
 the step's points, a locker the step's points + the page's locker points, a cut the step's points minus the cut penalty
 (a step-4 cut drops to Common: -2). A run pays the profession ladder's highest rung its points reach:
 
-- Hunter: C 4.2 / R 6.1 / C+C 8.4 / C+R 10.3 / R+R 12.2 / C+L 15.7 / R+L 17.6 / C+R+L 21.8 / L+L 23.0
-- Gatherer: C 3.2 / R 4.9 / C+R 8.1 / R+R 9.8 / L 10.5 / C+L 13.7 / R+L 15.4 / C+R+L 18.6 / L+L 21.0
+- Hunter: C 4.2 / R 6.1 / C+C 8.4 / C+R 10.3 / R+R 12.2 / C+L 15.7 / R+L 17.6 / C+R+L 21.8 / L+L 23.0 / C+L+L 27.2
+- Gatherer: C 3.2 / R 4.9 / C+R 8.1 / R+R 9.8 / L 10.5 / C+L 13.7 / R+L 15.4 / C+R+L 18.6 / L+L 21.0 / C+L+L 24.2
 
 Points are order-free, so the quest state is (step, alertness 0..3, pending cut, points): every quest is a few dozen
-dialog choices, one battle per (state, crate|locker), and one ending per rung reached (all 30 quests 55-82 objectives).
+dialog choices, one battle per (state, crate|locker), and one ending per rung reached (all 30 quests 57-83 objectives).
 Steeped pages pay the same rungs one tier higher with a 40% bonus chest each (Picked clean: one tier lower, each at 60%).
 The step and locker points were fitted (`haul_payout_fit.py`) to the simulated clear rates: sensible run about 7.5M,
-no route more than ~20% above it, timid clearly less, a greedy clear worth 2-2.5x the old S-rank payout.
+no route more than ~20% above it, timid clearly less, a greedy clear worth ~3x the old S-rank payout (RUL-2026-10-29-045).
 
 **Results (exact per-seed runs, 40 seeds, L100 Kitsune + pet; "clear % / EV M", dodge on, dodge off in brackets).**
+Round 2 (RUL-2026-10-29-045): Snare Room extra guard on the step-2 locker only, its crate snares at steps 2-4 and
+hazards x1; Ore Vault one guard fewer at steps 4-5; top rungs raised so a greedy clear pays ~3x; cut-through hazards:
+drain (hunters) / elementalseal (gatherers) on the next fight.
 
-| Page | Timid CC | Sensible CLC | Best 3-step 1-locker | Greedy (most likely 5-step, 3+ L) | Deep crates CCCCC | Best named route (vs sensible) |
+| Page | Timid CC | Sensible CLC | Best 3-step 1-locker | Greedy (most likely 5-step, 3+ L route) | Deep crates CCCCC | Best named route (vs sensible) |
 |---|---|---|---|---|---|---|
-| trophy | 100% / 4.2 (off 97.5% / 4.1) | 87.5% / 7.3 (off 67.5% / 5.7) | CLC 87.5% / 7.3 | LCLLC 37.5% / clear pays 15.7 / EV 5.9 / 6 min (off 0%) | 70% / 8.5 (off 47.5% / 5.8) | CCCCC 70% / 8.5 (116%) |
-| bone | 100% / 4.2 (off 100% / 4.2) | 85% / 7.1 (off 62.5% / 5.2) | LCC 87.5% / 7.3 | LLLCC 22.5% / clear pays 15.7 / EV 3.5 / 6.3 min (off 0%) | 50% / 4.2 (off 25% / 2.1) | LCL 85% / 8.8 (119%) |
-| snare | 100% / 4.2 (off 92.5% / 3.9) | 67.5% / 7.0 (off 27.5% / 2.8) | LCC 77.5% / 8.0 | CLLLC 5% / clear pays 17.6 / EV 0.9 / 5.9 min (off 0%) | 10% / 1.0 (off 5% / 0.5) | CLXL 55% / 8.6 (108%) |
-| overgrown | 90% / 2.9 (off 97.5% / 3.1) | 92.5% / 7.5 (off 95% / 7.7) | CLC 92.5% / 7.5 | LLLCC 37.5% / clear pays 15.4 / EV 5.8 / 6.5 min (off 27.5%) | 37.5% / 3.9 (off 47.5% / 5.0) | LLC 95% / 7.7 (103%) |
-| vault | 97.5% / 4.8 (off 95% / 4.7) | 70% / 7.3 (off 67.5% / 7.1) | LCC 72.5% / 7.6 | CLLCL 12.5% / clear pays 18.6 / EV 2.3 / 7.8 min (off 0%) | 35% / 3.7 (off 30% / 3.1) | LL 90% / 8.8 (116%) |
-| bloom | 90% / 4.4 (off 92.5% / 4.5) | 90% / 7.3 (off 87.5% / 7.1) | CLC 90% / 7.3 | LLLCC 32.5% / clear pays 15.4 / EV 5.0 / 6.5 min (off 17.5%) | 30% / 4.1 (off 25% / 3.4) | CLL 97.5% / 7.9 (108%) |
+| trophy | 100% / 4.2 (off 97.5% / 4.1) | 87.5% / 7.3 (off 67.5% / 5.7) | CLC 87.5% / 7.3 | LCLLC 37.5% (off 0%), clear pays 21.8, EV 8.2, 6 min | 70% / 8.5 (off 47.5% / 5.8) | CCCCC 70% / 8.5 (116%) |
+| bone | 100% / 4.2 (off 100% / 4.2) | 85% / 7.1 (off 62.5% / 5.2) | LCC 87.5% / 7.3 | LLLCC 22.5% (off 0%), clear pays 21.8, EV 4.9, 6.3 min | 50% / 6.1 (off 25% / 3.0) | LCL 85% / 8.8 (119%) |
+| snare | 100% / 6.1 (off 95% / 5.8) | 70% / 7.2 (off 32.5% / 3.4) | CCL 82.5% / 8.5 | LCXLL 35% (off 0%), clear pays 21.8, EV 7.6, 5.8 min | 20% / 2.4 (off 15% / 1.8) | LCL 80% / 9.8 (115%) |
+| overgrown | 90% / 4.4 (off 97.5% / 4.8) | 92.5% / 7.5 (off 95% / 7.7) | CLC 92.5% / 7.5 | LLLCC 37.5% (off 27.5%), clear pays 21.0, EV 7.9, 6.5 min | 37.5% / 5.8 (off 47.5% / 7.3) | LLLCC 37.5% / 7.9 (105%) |
+| vault | 97.5% / 4.8 (off 95% / 4.7) | 70% / 7.3 (off 67.5% / 7.1) | LCC 72.5% / 7.6 | CLLLC 32.5% (off 10%), clear pays 15.4, EV 5.0, 6.8 min | 80% / 7.8 (off 85% / 8.3) | CCXL 87.5% / 9.2 (121%) |
+| bloom | 90% / 4.4 (off 92.5% / 4.5) | 90% / 7.3 (off 87.5% / 7.1) | CLC 90% / 7.3 | LLLCC 32.5% (off 17.5%), clear pays 21.0, EV 6.8, 6.5 min | 30% / 4.6 (off 25% / 3.9) | CLL 97.5% / 7.9 (108%) |
 
-| Page | Points: crate by step | Locker + | Cut - (step 4) | Lockers at | Cuts at | Choice / battle / ending / total objectives |
+| Page | Points: crate by step | Locker + | Cut - (step 4) | Lockers at | Cuts at | Objectives: base / rot / flood / alarmed / picked (choice-battle-ending) |
 |---|---|---|---|---|---|---|
-| trophy | 4.2 / 1.6 / 1.5 / 2.4 / 2.5 | 1.6 | 2 | 1,2,3,4,5 | 3,4 | 22 / 44 / 8 / 74 |
-| bone | 4.2 / 1.2 / 1.2 / 1.4 / 2 | 2.1 | 2 | 1,2,3 | 3,4 | 21 / 27 / 7 / 55 |
-| snare | 4.2 / 1.1 / 2.3 / 2.1 / 2.2 | 3.1 | 2 | 1,2,3,4,5 | 2,3,4 | 24 / 48 / 10 / 82 |
-| overgrown | 3.3 / 1.4 / 2.4 / 2.9 / 2.7 | 1 | 2 | 1,2,3,4,5 | 3,4 | 22 / 44 / 8 / 74 |
-| vault | 5 / 1.1 / 2.3 / 2.2 / 2.8 | 2.1 | 2 | 1,2,3,4,5 | 3,4 | 22 / 44 / 9 / 75 |
-| bloom | 3.8 / 1.4 / 2.1 / 2.4 / 4.1 | 1.1 | 2 | 1,2,3,4,5 | 3,4 | 22 / 44 / 8 / 74 |
+| trophy | 4.2 / 0.9 / 1.3 / 3 / 5.4 | 2.4 | 2 | 1,2,3,4,5 | 3,4 | 76 (22-44-10) / 76 / 76 / 77 / 76 |
+| bone | 4.2 / 0.9 / 1.3 / 1.2 / 7.3 | 2.5 | 2 | 1,2,3 | 3,4 | 57 (21-27-9) / 57 / 57 / 77 / 57 |
+| snare | 5.2 / 0.9 / 1.5 / 1.2 / 3.5 | 3.3 | 2 | 1,2,3,4,5 | 2,3,4 | 83 (24-48-11) / 83 / 83 / 83 / 83 |
+| overgrown | 3.7 / 1.4 / 1.9 / 2.5 / 8.6 | 1.1 | 2 | 1,2,3,4,5 | 3,4 | 76 (22-44-10) / 76 / 76 / 77 / 76 |
+| vault | 4.5 / 1.9 / 2.2 / 0.6 / 0.6 | 1.9 | 2 | 1,2,3,4,5 | 3,4 | 75 (22-44-9) / 75 / 75 / 77 / 75 |
+| bloom | 4.1 / 0.9 / 1.9 / 4.2 / 5.7 | 1.4 | 2 | 1,2,3,4,5 | 3,4 | 75 (22-44-9) / 75 / 75 / 76 / 75 |
 
-Steeping (best route EV of the steeped page / the base page, dodge on; weights 30/25/25/20): Rot-soaked 1.47-1.75x,
-Flooded hold (rooted 3 rounds) 0.48-1.26x, Alarmed 1.42-1.75x, Picked clean 0.43-0.59x; the roll: trophy 1.37x,
-bone 1.25x, snare 1.28x, overgrown 1.05x, vault 1.07x, bloom 1.10x.
+Steeping (best route EV of the steeped page / the base page, dodge on; weights 30/25/25/20): Rot-soaked 1.44-1.75x,
+Flooded hold (rooted 3 rounds on hunter pages, 2 on gatherer pages) 0.78-1.41x, Alarmed 1.54-1.75x, Picked clean
+0.40-0.59x; the roll: trophy 1.37x, bone 1.23x, snare 1.36x, overgrown 1.15x, vault 1.12x, bloom 1.17x.
 
 ```bash
 # Every legal path of every base page, state-merged (40 particles per state):

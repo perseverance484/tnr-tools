@@ -86,7 +86,7 @@ export type ModP = {
   name: string; effect: string;
   /** Rot-Sealed Page cache weight (relative). */
   weight: number;
-  hazardMult?: number; tierShift?: number; floodRounds?: number; lockerNoHazard?: boolean; startAlert?: number;
+  hazardMult?: number; tierShift?: number; floodRounds?: number; floodRoundsGatherer?: number; lockerNoHazard?: boolean; startAlert?: number;
   /** Alarmed: lockers are offered from this step on every page; every locker adds `lockerPts` more points (order-free, so the graph stays small). */
   legendaryLockerFrom?: number; lockerPts?: number;
   /** Picked clean: guard compositions taken from `easier` steps earlier (min step 1); no crate / alertness hazards. */
@@ -160,8 +160,8 @@ export const DEFAULT_HAUL: HaulParams = {
   maxGuards: 2,
   chestChance: 100,
   ladder: {
-    hunter: [{ chests: ["C"] }, { chests: ["R"] }, { chests: ["C", "C"] }, { chests: ["C", "R"] }, { chests: ["R", "R"] }, { chests: ["C", "L"] }, { chests: ["R", "L"] }, { chests: ["C", "R", "L"] }, { chests: ["L", "L"] }],
-    gatherer: [{ chests: ["C"] }, { chests: ["R"] }, { chests: ["C", "R"] }, { chests: ["R", "R"] }, { chests: ["L"] }, { chests: ["C", "L"] }, { chests: ["R", "L"] }, { chests: ["C", "R", "L"] }, { chests: ["L", "L"] }],
+    hunter: [{ chests: ["C"] }, { chests: ["R"] }, { chests: ["C", "C"] }, { chests: ["C", "R"] }, { chests: ["R", "R"] }, { chests: ["C", "L"] }, { chests: ["R", "L"] }, { chests: ["C", "R", "L"] }, { chests: ["L", "L"] }, { chests: ["C", "L", "L"] }],
+    gatherer: [{ chests: ["C"] }, { chests: ["R"] }, { chests: ["C", "R"] }, { chests: ["R", "R"] }, { chests: ["L"] }, { chests: ["C", "L"] }, { chests: ["R", "L"] }, { chests: ["C", "R", "L"] }, { chests: ["L", "L"] }, { chests: ["C", "L", "L"] }],
   },
   alert3: { crateHazards: 1, lockerHazards: 1 },
   layouts: {
@@ -174,7 +174,7 @@ export const DEFAULT_HAUL: HaulParams = {
       hazards: ["wound", "poison", "moveprevent", "decreasemaxpools"], alertHazards: ["poison", "decreasemaxpools"],
       lockerHazards: ["wound", "poison", "decreasemaxpools", "wound", "poison"],
       cutHazards: ["wound", "wound"],
-      points: { step: [4.2, 1.6, 1.5, 2.4, 2.5], locker: 1.6, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 2.5,
+      points: { step: [4.2, 0.9, 1.3, 3, 5.4], locker: 2.4, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 2.5,
     },
     bone: {
       // Lockers only at steps 1-3, two tiers up at steps 1-2 (Epic); the opening crates and lockers carry an extra guard.
@@ -185,19 +185,19 @@ export const DEFAULT_HAUL: HaulParams = {
       hazards: ["wound", "poison", "moveprevent", "decreasemaxpools"], alertHazards: ["poison", "decreasemaxpools"],
       lockerHazards: ["poison", "wound", "decreasemaxpools", "wound", "poison"],
       cutHazards: ["wound", "wound"],
-      points: { step: [4.2, 1.2, 1.2, 1.4, 2.0], locker: 2.1, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
+      points: { step: [4.2, 0.9, 1.3, 1.2, 7.3], locker: 2.5, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
     },
     snare: {
-      // Every fight from step 2 carries a snare, hazards x1.25; cut-throughs from step 2 with a 2-round bleed, but they drop two tiers at steps 3-4.
+      // Crates at steps 2-4 carry a snare on top of the usual hazards; cut-throughs from step 2 with a 2-round bleed (only a step-4 cut drops to Common).
       quest: "hunter", page: "The Snare Room", chart: "Ledger Page: The Snare Room", character: "heavy hazards, safe cut-throughs",
       crate: [["h-blade", "h-wayfinder"], ["h-blade", "h-wayfinder"], ["h-blade", "h-wayfinder", "h-warden"], ["h-veteran", "h-wayfinder"], ["h-veteran", "h-wayfinder"]],
-      locker: [["trophy-warden"], ["trophy-warden", "h-wayfinder"], ["trophy-warden", "h-wayfinder", "h-warden"], ["trophy-warden", "h-veteran"], ["trophy-warden", "h-veteran"]],
+      locker: [["trophy-warden"], ["trophy-warden", "h-wayfinder"], ["trophy-warden", "h-wayfinder"], ["trophy-warden", "h-veteran"], ["trophy-warden", "h-veteran"]],
       alertCrew: "h-lookout", alertBoss: "h-keeper",
       hazards: ["wound", "poison", "moveprevent", "decreasemaxpools"], alertHazards: ["poison", "decreasemaxpools"],
       lockerHazards: ["wound", "decreasemaxpools", "wound", "wound", "poison"],
-      crateHazards: [null, "moveprevent", "wound", "poison", "decreasemaxpools"],
+      crateHazards: [null, "moveprevent", "wound", "poison", null],
       cutHazards: ["wound", "wound"],
-      points: { step: [4.2, 1.1, 2.3, 2.1, 2.2], locker: 3.1, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [2, 3, 4], hazardMult: 1.25, cutMult: 1.5,
+      points: { step: [5.2, 0.9, 1.5, 1.2, 3.5], locker: 3.3, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [2, 3, 4], hazardMult: 1, cutMult: 1.5,
       roundsAdd: { cut: -2 },
     },
     // ---------------- gatherers ----------------
@@ -208,19 +208,19 @@ export const DEFAULT_HAUL: HaulParams = {
       alertCrew: "g-lookout", alertBoss: "g-sealwright",
       hazards: ["elementalseal", "increasepoolcost", "decreasemaxpools", "afterburn"], alertHazards: ["increasepoolcost", "decreasemaxpools", "afterburn"],
       lockerHazards: ["elementalseal", "increasepoolcost", "decreasemaxpools", "afterburn", "elementalseal"],
-      cutHazards: ["elementalseal", "afterburn"],
-      points: { step: [3.3, 1.4, 2.4, 2.9, 2.7], locker: 1.0, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
+      cutHazards: ["elementalseal", "elementalseal"],
+      points: { step: [3.7, 1.4, 1.9, 2.5, 8.6], locker: 1.1, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
     },
     vault: {
       // Every locker fields an extra guard; a step-3 locker pays Legendary; locker bonus chance 40%.
       quest: "gatherer", page: "The Ore Vault", chart: "Stores Manifest: The Ore Vault", character: "dense guards, rich lockers",
-      crate: [["g-warden", "g-sentinel", "g-charge"], ["g-warden", "g-sentinel", "g-charge"], ["g-sentinel", "g-warden", "g-charge"], ["g-veteran", "g-warden", "g-charge"], ["g-veteran", "g-warden", "g-charge"]],
-      locker: [["stores-ward", "g-warden", "g-canister"], ["stores-ward", "g-warden", "g-canister"], ["stores-ward", "g-veteran", "g-canister"], ["stores-ward", "g-veteran", "g-warden", "g-canister"], ["stores-ward", "g-veteran", "g-warden", "g-canister"]],
+      crate: [["g-warden", "g-sentinel", "g-charge"], ["g-warden", "g-sentinel", "g-charge"], ["g-sentinel", "g-warden", "g-charge"], ["g-veteran", "g-charge"], ["g-veteran", "g-charge"]],
+      locker: [["stores-ward", "g-warden", "g-canister"], ["stores-ward", "g-warden", "g-canister"], ["stores-ward", "g-veteran", "g-canister"], ["stores-ward", "g-canister"], ["stores-ward", "g-canister"]],
       alertCrew: "g-lookout", alertBoss: "g-sealwright",
       hazards: ["elementalseal", "increasepoolcost", "decreasemaxpools", "afterburn"], alertHazards: ["increasepoolcost", "decreasemaxpools", "afterburn"],
       lockerHazards: ["increasepoolcost", "elementalseal", "afterburn", "decreasemaxpools", "increasepoolcost"],
-      cutHazards: ["elementalseal", "afterburn"],
-      points: { step: [5.0, 1.1, 2.3, 2.2, 2.8], locker: 2.1, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
+      cutHazards: ["elementalseal", "elementalseal"],
+      points: { step: [4.5, 1.9, 2.2, 0.6, 0.6], locker: 1.9, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
     },
     bloom: {
       // Dust on every crate, no multiplier; Common, Common, Rare, Rare, then a Legendary crate at step 5.
@@ -231,8 +231,8 @@ export const DEFAULT_HAUL: HaulParams = {
       hazards: ["decreasemaxpools", "afterburn", "elementalseal", "increasepoolcost"], alertHazards: ["decreasemaxpools", "afterburn", "increasepoolcost"],
       lockerHazards: ["decreasemaxpools", "afterburn", "elementalseal", "decreasemaxpools", "afterburn"],
       crateHazards: ["afterburn", "decreasemaxpools", "afterburn", "decreasemaxpools", "afterburn"],
-      cutHazards: ["elementalseal", "afterburn"],
-      points: { step: [3.8, 1.4, 2.1, 2.4, 4.1], locker: 1.1, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
+      cutHazards: ["elementalseal", "elementalseal"],
+      points: { step: [4.1, 0.9, 1.9, 4.2, 5.7], locker: 1.4, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
     },
   },
   modifiers: {
@@ -240,7 +240,7 @@ export const DEFAULT_HAUL: HaulParams = {
     // Rot-soaked's own effect is the doubled hazards; Picked clean is the bad roll (easier, one tier lower, chests at 60%).
     // Weights are the Rot-Sealed Page cache weights.
     rot: { name: "Rot-soaked", effect: "every hazard doubled; every chest one tier higher (+40% bonus chest each)", weight: 30, hazardMult: 2, tierShift: 1, bonusAll: 40 },
-    flood: { name: "Flooded hold", effect: "rooted (moveprevent) for the first 3 rounds of every fight; lockers carry no hazard; chests one tier higher (+40% bonus chest)", weight: 25, floodRounds: 3, lockerNoHazard: true, tierShift: 1, bonusAll: 40 },
+    flood: { name: "Flooded hold", effect: "rooted (moveprevent) for the first 3 rounds of every fight (2 on gatherer pages, RUL-2026-10-29-045); lockers carry no hazard; chests one tier higher (+40% bonus chest)", weight: 25, floodRounds: 3, floodRoundsGatherer: 2, lockerNoHazard: true, tierShift: 1, bonusAll: 40 },
     alarmed: { name: "Alarmed", effect: "start at alertness 2; lockers offered at every step from 4 and worth more; chests one tier higher (+40% bonus chest each)", weight: 25, startAlert: 2, legendaryLockerFrom: 4, lockerPts: 1.5, tierShift: 1, bonusAll: 40 },
     picked: { name: "Picked clean", effect: "easier fights (the previous step's guards, no crate or alertness hazards); chests one tier lower, each at 60%", weight: 20, easier: 1, tierShift: -1, haulChance: 60 },
   },
@@ -334,7 +334,7 @@ export const fightFor = (P: HaulParams, v: Variant, kind: "C" | "L", step: numbe
       ex.mult = Math.max(ex.mult, mult);
     } else hz.push({ key, type: P.hazard[key]!.type, rounds: Math.max(1, rounds), mult, why });
   };
-  if (m?.floodRounds) add("moveprevent", m.floodRounds, 1, "flooded hold");
+  if (m?.floodRounds) add("moveprevent", (L.quest === "gatherer" ? m.floodRoundsGatherer : undefined) ?? m.floodRounds, 1, "flooded hold");
   if (kind === "L" && !m?.lockerNoHazard) add(L.lockerHazards[step - 1]!, P.rounds.locker + (ra.locker ?? 0), hmult, "locker");
   const ch = L.crateHazards?.[step - 1];
   if (kind === "C" && ch && !m?.easier) add(ch, P.rounds.crate, hmult, "crate (layout)");
