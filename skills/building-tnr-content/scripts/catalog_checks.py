@@ -19,7 +19,6 @@ Forge mirrors the same rules in forge/src/runner/catalog.mjs and lints.mjs.
 import ipaddress
 import math
 import re
-from urllib.parse import urlsplit
 
 ID_LEN = 21
 BADGE_IMAGE_MAX = 191
@@ -30,26 +29,30 @@ BADGE_DESCRIPTION_MAX = 500
 REQUIRED_ON_CREATE = {"badge": ("name", "image", "description"), "title": ("name", "archived")}
 
 
-# A conservative subset of WHATWG hosts: anything accepted here, new URL() accepts too (stricter, never looser).
-#   - a bracketed host must be an unscoped IPv6 address;
-#   - a host whose last label is numeric is parsed as IPv4 (WHATWG "ends in a number") and must be dotted-decimal;
-#   - otherwise ASCII letters, digits, '-' and '_' in non-empty dot-separated labels (no IDNA, no '%').
+# A conservative subset of http(s) URLs that new URL() accepts. Python's urlsplit is not used: it splits the
+# authority differently from WHATWG (backslashes, userinfo), so the authority is matched directly:
+#   - scheme http or https, lower case; then the host; then an optional port; then '/', '?', '#' or the end;
+#   - no userinfo, no backslash, ASCII only, no whitespace or control characters anywhere;
+#   - a bracketed host is an unscoped IPv6 address;
+#   - a host whose last label is numeric or 0x-hex is parsed as IPv4 (WHATWG "ends in a number") and must be
+#     valid dotted-decimal;
+#   - otherwise non-empty labels of [A-Za-z0-9_-], one trailing dot allowed, and no "xn--" label (IDNA);
+#   - a port is empty or a number up to 65535.
+_AUTHORITY = re.compile(r"^https?://(\[[0-9A-Fa-f:.]+\]|[A-Za-z0-9_.-]+)(?::([0-9]*))?(?=[/?#]|$)")
 _LABEL = re.compile(r"^[A-Za-z0-9_-]+$")
 
 
-def _host_ok(netloc_host, host):
-    if netloc_host.startswith("["):
-        if "%" in netloc_host:
-            return False
+def _host_ok(host):
+    if host.startswith("["):
         try:
-            ipaddress.IPv6Address(host)
+            ipaddress.IPv6Address(host[1:-1])
             return True
         except ValueError:
             return False
     labels = host.split(".")
     if labels[-1] == "" and len(labels) > 1:
         labels = labels[:-1]
-    if not all(_LABEL.match(x) for x in labels):
+    if not all(_LABEL.match(x) and not x.lower().startswith("xn--") for x in labels):
         return False
     last = labels[-1]
     if last.isdigit() or re.match(r"^0[xX][0-9A-Fa-f]*$", last):
@@ -63,15 +66,14 @@ def _host_ok(netloc_host, host):
 
 def _url(v):
     """BadgeValidator's z.url() (zod 4.6.7) is URL.canParse after a trim; Forge also requires http(s) and no
-    whitespace (catalog.mjs). Ports must be numeric and at most 65535; the host must be in _host_ok's subset."""
-    if not isinstance(v, str) or not v.isascii() or not re.match(r"^https?://\S+$", v):
+    whitespace (catalog.mjs). This accepts a conservative subset of what Forge accepts (see above)."""
+    if not isinstance(v, str) or not v.isascii() or "\\" in v or any(ord(c) <= 0x20 or ord(c) == 0x7F for c in v):
         return False
-    try:
-        u = urlsplit(v)
-        host, _ = u.hostname, u.port  # .port raises ValueError for a non-numeric or out-of-range port
-    except ValueError:
+    m = _AUTHORITY.match(v)
+    if not m:
         return False
-    return bool(host) and _host_ok(u.netloc.rpartition("@")[2], host)
+    host, port = m.group(1), m.group(2)
+    return _host_ok(host) and (not port or int(port) <= 65535)
 
 
 def check(entry, items, fields, checks, check_member, ctors, rep, where):
