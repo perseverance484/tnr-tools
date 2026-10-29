@@ -4410,3 +4410,48 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "Both layers for sure. We can even add tokens as a choice to replace the Echo Jars that we just lost.", then "1. I'd rather do crafted weapons like Aetherion, Thornsilver, Night's Testament, etc. Not item shop items. 2. Keep. 3. Approved. 4. Enough for half, this event is recurring so we want there to be some continued draw. Go ahead and start in parallel".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §1, §4a, §5, §5b.
+
+## RUL-2026-10-29-049 — Trophy bases, skyglass art rule, token pace 2-3 a weekend
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE. The rates are an estimate until the final simulation pass.
+
+**Ruling:**
+1. **Trophy skins:**
+
+   | Boss | Trophy | Base | Tradeable |
+   |---|---|---|---|
+   | The Captain | Captain's Command Fan (a gunbai) | The Unwritten | no (once-per-player Wreck drop) |
+   | Core Horror | Rot-Bloom Reaper | Oathbinder | no (once-per-player Wreck drop) |
+   | Foundry Warden | Warden's Forge-Fists | Warden's Bracers | yes |
+   | Wayfinder | Wayfinder's Heading | Stormrender | yes |
+   | First Blade | The First Blade | Aetherion | yes |
+   | Sealwright | Sealwright's Seal | Whispering Dawnblade | yes |
+   | Crowned Captain | Crownbreaker | Thornsilver | no (Crownhold pick) |
+
+   Chart and hunt bosses drop their trophy tokens at 1-2%.
+2. **The Skyglass skin catalogue is 12 crafted weapons:** Aetherion, Thornsilver, Night's Testament, Stormrender, Oathbinder, Ink of the Void, The Unwritten, Gaea's Embrace, Warden's Bracers, Eclipsed Dawnblade, Zephyr's Whisper and Yuki's Frostbite.
+3. **Art rule:**
+   - Skyglass skins keep their base weapon's silhouette, with skyglass as inlay and accents.
+   - The Skyglass Katana stays the only all-crystal blade.
+   - No trophy reads as a crystal sword next to the Katana (the director's concern with a Captain cutlass).
+4. **Pace: about 2-3 Skyglass Tokens per dedicated weekend.** The event runs Friday to Sunday, ends on Monday, and repeats every weekend.
+   - **Proposed sources, all as pick options at ×1:**
+     - the Archive pick;
+     - the Watch pick;
+     - the Sealed Reliquary and The Fall picks;
+     - the chest of chests' Legendary tier (Treasury or token);
+     - the Crown's Hoard.
+   - **No direct Wreck drop.** Each token competes with a real option (Strongbox, Coffer, Purse, Treasury).
+   - **Estimate:** about 5 a weekend for a player who always takes the token, and 2-3 for a typical mix. To be checked in the final pass.
+
+**Evidence:** Director, 2026-10-29:
+- "Keep, but the captains reskin on nights testament echoes our Skyglass Katana too closely. Need to problem solve this";
+- "On weekends, Friday-Sunday, ends on Monday. This event repeats every weekend.";
+- "Seal Wright should reskin Dawnblade or the Gauntlets... Gaea's Embrace is too weak of a weapon";
+- then "A. Oathbinder approved. Approved. 2-3 tokens a weekend".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §1, §4a, §5.
