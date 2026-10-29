@@ -14,7 +14,8 @@ Checks (convention and data: docs/workflows/SKYGLASS_CHECK.md; design data: stat
               retired records are only hidden
   win-only    battle objectives carry no reward except the profession flags; no profession flag anywhere has an
               empty id list (empty = the whole pool)
-  chest-text  every weighted-cache item's description states its tier rates, roll count and fixed rewards
+  chest-text  every weighted-cache item's description follows the RUL-2026-10-28-030 format: a coloured line
+              per tier (rate and items), 'Always:' for fixed rewards, a roll line only when the count varies
   voice       player-facing text uses none of the story bible's "Never use" words, nor "seven-bladed"
   chart-tier  chart rarity matches its tier (RUL-2026-10-28-028 item 4)
   prof-chest  profession chest rarity and hunt/gather flags (RUL-2026-10-28-023); hunt profession drops limited
@@ -102,13 +103,53 @@ def _cells(line):
 
 
 def pct_text(basis_points):
-    """Canonical percentage for a cache weight in basis points (10000 = 100%): whole percent rounded half up, or one
-    decimal below 1%."""
-    exact = Decimal(basis_points) / Decimal(100)
-    if exact >= 1:
-        return str(exact.quantize(Decimal("1"), rounding=ROUND_HALF_UP))
-    s = str(exact.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
-    return s.rstrip("0").rstrip(".") if "." in s else s
+    """Canonical percentage for a cache weight in basis points (10000 = 100%): whole percent, rounded half up
+    (RUL-2026-10-28-030)."""
+    return str((Decimal(basis_points) / Decimal(100)).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+
+
+# RUL-2026-10-28-030 / loot tables section 0: one coloured line per tier.
+TIER_COLOURS = {"Common": "#9ca3af", "Rare": "#3b82f6", "Epic": "#a855f7", "Legendary": "#f59e0b"}
+TIER_LINE = re.compile(r'\s*<span\s+style\s*=\s*"\s*color\s*:\s*(?P<colour>#[0-9a-fA-F]{6})\s*;?\s*"\s*>\s*<b>\s*'
+                       r'(?P<tier>[A-Za-z]+)\s+(?P<pct>\d+(?:\.\d+)?)%\s*</b>\s*</span>\s*·\s*(?P<items>.*?)\s*$')
+
+
+def desc_lines(desc):
+    """(raw, plain) per rendered line: split on <br>, tags stripped and whitespace collapsed for plain."""
+    out = []
+    for raw in re.split(r"<br\s*/?>", desc, flags=re.I):
+        plain = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", raw)).strip()
+        if raw.strip():
+            out.append((raw.strip(), plain))
+    return out
+
+
+def item_text(name, qty):
+    return f"{name} ×{qty}" if qty > 1 else name
+
+
+def norm_items(text):
+    """A tier line's item list as plain text: tags dropped, ', and more' read as ' and more'."""
+    plain = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", text)).strip()
+    return re.sub(r",?\s+and more$", " and more", plain)
+
+
+def tier_items_text(entries, names):
+    """The expected item list of a tier: entries joined with ' or ' (items of one bundle with ' + '), the first three
+    then 'and more' past three; None when an item has no known name."""
+    parts = []
+    for e in entries:
+        bundle = []
+        for it in e.get("items") or []:
+            nm = names.get(it.get("itemId"))
+            if not nm:
+                return None
+            bundle.append(item_text(nm, int(it.get("quantity") or 1)))
+        if bundle:
+            parts.append(" + ".join(bundle))
+    if len(parts) > 3:
+        return " or ".join(parts[:3]) + " and more"
+    return " or ".join(parts)
 
 
 class Design:
@@ -237,6 +278,11 @@ class Design:
         for row in data_rows:
             if row not in table:
                 self.err(f"picks.{row}", "doc_row", f"no section 4a row {row!r}; the doc and the data diverged")
+        sec0 = "\n".join(_section(loot, "## 0.") or [])
+        for tier, colour in TIER_COLOURS.items():
+            if f'<span style="color:{colour}"><b>{tier} ' not in sec0:
+                self.err("chest-text", "TIER_COLOURS",
+                         f"loot tables section 0 no longer shows {tier} in {colour}; update TIER_COLOURS to match")
         rulings = _read(self.root, RULINGS)
         for t in self.data["chart_tiers"]["tiers"]:
             if t["doc_row"] not in rulings:
@@ -518,33 +564,53 @@ class Checker:
             od = (other or {}).get("data") or {}
             if other.get("entity") == "item" and other.get("targetId") and od.get("name"):
                 names[other["targetId"]] = od["name"]
+        lines = desc_lines(desc)
+        self._always_line(f, w, lines, effects, names)
+        for e in caches:
+            self._cache_text(f, w, lines, e["weightedCache"], names)
+
+    def _always_line(self, f, w, lines, effects, names):
+        fld = "data.description"
+        parts, unknown = [], False
         for e in effects:
             if not isinstance(e, dict) or e.get("type") != "noncombatconsumereward" or e.get("rewardMode") == "weightedCache":
                 continue
             money = int(float(e.get("reward_money") or 0))
-            if money > 0 and f"{money:,} ryo" not in desc:
-                self.add("ERROR", "chest-text", f, w, "data.description",
-                         f"fixed reward {money:,} ryo on every opening is not stated as '{money:,} ryo'")
+            if money > 0:
+                parts.append(f"{money:,} ryo")
             exp = int(float(e.get("reward_exp") or 0))
-            if exp > 0 and f"{exp:,} exp" not in desc:
-                self.add("ERROR", "chest-text", f, w, "data.description",
-                         f"fixed reward {exp:,} exp is not stated as '{exp:,} exp'")
+            if exp > 0:
+                parts.append(f"{exp:,} exp")
             for entry in e.get("reward_items") or []:
                 q = max(1, int(entry.get("quantity") or 1))
                 for iid in entry.get("ids") or []:
                     nm = names.get(iid)
                     if not nm:
-                        self.add("WARN", "chest-text", f, w, "data.description",
-                                 f"fixed reward item {iid} ×{q}: no known name to check against")
-                    elif not re.search(re.escape(nm) + r"\s*[×x]\s*" + str(q) + r"(?!\d)", desc, re.I):
-                        self.add("ERROR", "chest-text", f, w, "data.description",
-                                 f"fixed reward is not stated as '{nm} ×{q}'")
-        for c, e in enumerate(caches):
-            self._cache_text(f, w, desc, e["weightedCache"], c)
+                        unknown = True
+                        self.add("WARN", "chest-text", f, w, fld,
+                                 f"fixed reward item {iid}{' ×' + str(q) if q > 1 else ''}: no known name to check against")
+                    else:
+                        parts.append(item_text(nm, q))
+        always = [plain for raw, plain in lines if re.match(r"\s*<b>\s*Always:\s*</b>", raw, re.I)]
+        if not parts and not unknown:
+            for a in always:
+                self.add("ERROR", "chest-text", f, w, fld, f"'{a}' but the item has no fixed reward")
+            return
+        if not always:
+            self.add("ERROR", "chest-text", f, w, fld,
+                     "fixed reward not stated: needs '<b>Always:</b> " + (" · ".join(parts) or "…")
+                     + "' (RUL-2026-10-28-030)")
+            return
+        if len(always) > 1:
+            self.add("ERROR", "chest-text", f, w, fld, "more than one 'Always:' line")
+        text = always[0]
+        for p in parts:
+            if not re.search(r"(?<![\w,])" + re.escape(p) + r"(?![\d,])", text):
+                self.add("ERROR", "chest-text", f, w, fld, f"'Always:' line '{text}' does not state '{p}'")
 
-    def _cache_text(self, f, w, desc, cache, c):
+    def _cache_text(self, f, w, lines, cache, names):
         fld = "data.description"
-        totals, order = {}, []
+        totals, order, entries = {}, [], {}
         for t in cache.get("tiers") or []:
             p = int(t.get("probability") or 0)
             if p <= 0:
@@ -553,39 +619,56 @@ class Checker:
             if name not in totals:
                 order.append(name)
             totals[name] = totals.get(name, 0) + p
+            entries.setdefault(name, []).extend(t.get("entries") or [])
+        stated = {}
+        for raw, plain in lines:
+            m = TIER_LINE.match(raw)
+            if m:
+                stated.setdefault(m.group("tier"), []).append((m.group("colour").lower(), m.group("pct"), m.group("items")))
+                continue
+            m = re.search(r"\b(" + "|".join(TIER_WORDS) + r")\s+\d+(?:\.\d+)?\s*%", plain, re.I)
+            if m:
+                self.add("ERROR", "chest-text", f, w, fld,
+                         f"'{plain}' states a tier rate outside the coloured tier-line format (RUL-2026-10-28-030)")
         for name in order:
             want = pct_text(totals[name])
-            stated = re.findall(r"(?<![\w'])" + re.escape(name) + r"\s+(\d+(?:\.\d+)?)\s*%", desc, re.I)
-            if not stated:
-                self.add("ERROR", "chest-text", f, w, fld, f"tier '{name}' is not stated as '{name} {want}%'")
-            for s in stated:
-                if s != want:
-                    self.add("ERROR", "chest-text", f, w, fld,
-                             f"tier '{name}' stated {s}% but the cache weight is {want}%")
-        lower = {n.lower() for n in totals}
-        for m in re.finditer(r"\b(" + "|".join(TIER_WORDS) + r")\s+(\d+(?:\.\d+)?)\s*%", desc, re.I):
-            if m.group(1).lower() not in lower:
-                self.add("ERROR", "chest-text", f, w, fld, f"states '{m.group(0)}' but the cache has no such tier")
+            colour = TIER_COLOURS.get(name)
+            got = stated.pop(name, [])
+            if colour is None:
+                self.add("ERROR", "chest-text", f, w, fld, f"tier '{name}' has no colour in the RUL-2026-10-28-030 format")
+            if not got:
+                self.add("ERROR", "chest-text", f, w, fld,
+                         f"no tier line for '{name}': needs '<span style=\"color:{colour or '?'}\"><b>{name} {want}%</b></span> · …'")
+                continue
+            if len(got) > 1:
+                self.add("ERROR", "chest-text", f, w, fld, f"tier '{name}' has {len(got)} lines; same-named tiers share one")
+            c, pct, items = got[0]
+            if colour and c != colour:
+                self.add("ERROR", "chest-text", f, w, fld, f"tier '{name}' is coloured {c}; the format uses {colour}")
+            if pct != want:
+                self.add("ERROR", "chest-text", f, w, fld, f"tier '{name}' stated {pct}% but the cache weight is {want}%")
+            expect = tier_items_text(entries[name], names)
+            if expect is None:
+                self.add("WARN", "chest-text", f, w, fld, f"tier '{name}' lists an item with no known name; items not checked")
+            elif norm_items(items) != expect:
+                self.add("ERROR", "chest-text", f, w, fld,
+                         f"tier '{name}' lists '{norm_items(items)}' but the cache gives '{expect}'")
+        for name in stated:
+            self.add("ERROR", "chest-text", f, w, fld, f"tier line for '{name}' but the cache has no such tier")
         rolls = [r for r in cache.get("rolls") or [] if int(r.get("probability") or 0) > 0]
-        mentioned = {int(x) for x in re.findall(r"(?<![\d.])(\d+)\s+rolls?\b", desc, re.I)}
-        if len(rolls) == 1:
-            n = int(rolls[0]["count"])
-            if n not in mentioned:
-                self.add("ERROR", "chest-text", f, w, fld, f"roll count not stated as '{n} roll{'s' if n != 1 else ''}'")
-            for x in sorted(mentioned - {n}):
-                self.add("ERROR", "chest-text", f, w, fld, f"states {x} roll(s) but the cache rolls {n}")
-        elif rolls:
-            counts = set()
-            for r in rolls:
-                n, want = int(r["count"]), pct_text(int(r["probability"]))
-                counts.add(n)
-                if not re.search(r"(?<![\d.])" + str(n) + r"\s+rolls?\s+" + re.escape(want) + r"\s*%", desc, re.I):
-                    self.add("ERROR", "chest-text", f, w, fld,
-                             f"roll distribution not stated as '{n} rolls {want}%'")
-            for x in sorted(mentioned - counts):
-                self.add("ERROR", "chest-text", f, w, fld, f"states {x} roll(s) but the cache has no such roll count")
-        else:
+        counts = sorted({int(r["count"]) for r in rolls})
+        roll_lines = [plain for _, plain in lines if re.search(r"\brolls?\b", plain, re.I)
+                      and not re.match(r"\s*Each roll:?\s*$", plain, re.I)]
+        if not rolls:
             self.add("ERROR", "chest-text", f, w, "data.effects.weightedCache.rolls", "the cache has no active roll")
+        elif len(counts) > 1:
+            want = f"{counts[0]}–{counts[-1]} rolls"
+            if not any(re.search(rf"(?<!\d){counts[0]}\s*[–-]\s*{counts[-1]}\s+rolls\b", p) for p in roll_lines):
+                self.add("ERROR", "chest-text", f, w, fld, f"the roll count varies; needs a roll line '{want}'")
+        else:
+            for p in roll_lines:
+                self.add("WARN", "chest-text", f, w, fld,
+                         f"'{p}': the roll count is fixed ({counts[0]}) and the item card already shows it")
 
     # 4. voice
     def check_voice(self, f, w, it):

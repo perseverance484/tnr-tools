@@ -1,5 +1,5 @@
 {
- "_note": "skyglass_check fixture: chest-text. Wrong tier rate, a tier the cache lacks, wrong roll count, missing roll distribution and fixed ryo.",
+ "_note": "skyglass_check fixture: chest-text (RUL-2026-10-28-030). Wrong rate, wrong colour, wrong items, a tier the cache lacks, an uncoloured rate, an Always line with no fixed reward; a missing Always line, a missing roll range, an item list past three without 'and more', same-named tiers on two lines.",
  "items": [
   {
    "entity": "item",
@@ -7,7 +7,7 @@
    "targetId": "THo7rfzP-S82_43aN8fs3",
    "name": "Skyglass Coffer: text",
    "data": {
-    "description": "A sealed coffer. 2 rolls: Common 70% · Rare 24% · Epic 5% · Mythic 1%.",
+    "description": "<i>A sealed coffer.</i><br><b>Always:</b> 10,000 ryo<br><span style=\"color:#9ca3af\"><b>Common 70%</b></span> · Medicine Inro ×2<br><span style=\"color:#f59e0b\"><b>Rare 24%</b></span> · Elemental Tool Pouch ×3<br><span style=\"color:#a855f7\"><b>Epic 5%</b></span> · Sealed Treasury<br><span style=\"color:#f59e0b\"><b>Mythic 1%</b></span> · Skyglass Coffer<br>Legendary 2%: Sealed Treasury",
     "effects": [
      {
       "type": "noncombatconsumereward",
@@ -32,8 +32,8 @@
           {
            "items": [
             {
-             "itemId": "THo7rfzP-S82_43aN8fs3",
-             "quantity": 1
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
+             "quantity": 2
             }
            ]
           }
@@ -46,8 +46,8 @@
           {
            "items": [
             {
-             "itemId": "THo7rfzP-S82_43aN8fs3",
-             "quantity": 1
+             "itemId": "D0gtI5dOgj2dFO4VexsLJ",
+             "quantity": 3
             }
            ]
           }
@@ -60,7 +60,7 @@
           {
            "items": [
             {
-             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "itemId": "B48dTRsoLJGKBWIUbeUoG",
              "quantity": 1
             }
            ]
@@ -74,7 +74,7 @@
           {
            "items": [
             {
-             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "itemId": "Ma8S90Nmbi0Xvm4u4FzJh",
              "quantity": 1
             }
            ]
@@ -93,7 +93,7 @@
    "targetId": "Ma8S90Nmbi0Xvm4u4FzJh",
    "name": "Sealed Treasury: text",
    "data": {
-    "description": "Crownhold's own coffers. 3 rolls of: Common 45% · Rare 35% · Epic 15% · Legendary 5%.",
+    "description": "<i>Crownhold's own coffers.</i><br><b>Each roll:</b><br><span style=\"color:#9ca3af\"><b>Common 45%</b></span> · Medicine Inro or Elemental Tool Pouch or Archive Chart Case or Skyglass Coffer<br><span style=\"color:#3b82f6\"><b>Rare 35%</b></span> · Medicine Inro ×2 or Elemental Tool Pouch ×2<br><span style=\"color:#a855f7\"><b>Epic 10%</b></span> · Archive Chart Case ×5<br><span style=\"color:#a855f7\"><b>Epic 5%</b></span> · Skyglass Coffer + Medicine Inro<br><span style=\"color:#f59e0b\"><b>Legendary 5%</b></span> · Skyglass Coffer ×5",
     "effects": [
      {
       "type": "noncombatconsumereward",
@@ -132,6 +132,30 @@
           {
            "items": [
             {
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
+             "quantity": 1
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "D0gtI5dOgj2dFO4VexsLJ",
+             "quantity": 1
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "B48dTRsoLJGKBWIUbeUoG",
+             "quantity": 1
+            }
+           ]
+          },
+          {
+           "items": [
+            {
              "itemId": "THo7rfzP-S82_43aN8fs3",
              "quantity": 1
             }
@@ -146,8 +170,16 @@
           {
            "items": [
             {
-             "itemId": "THo7rfzP-S82_43aN8fs3",
-             "quantity": 1
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
+             "quantity": 2
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "D0gtI5dOgj2dFO4VexsLJ",
+             "quantity": 2
             }
            ]
           }
@@ -155,12 +187,30 @@
         },
         {
          "name": "Epic",
-         "probability": 1500,
+         "probability": 1000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "B48dTRsoLJGKBWIUbeUoG",
+             "quantity": 5
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 500,
          "entries": [
           {
            "items": [
             {
              "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            },
+            {
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
              "quantity": 1
             }
            ]
@@ -175,7 +225,7 @@
            "items": [
             {
              "itemId": "THo7rfzP-S82_43aN8fs3",
-             "quantity": 1
+             "quantity": 5
             }
            ]
           }
