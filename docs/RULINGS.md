@@ -4083,3 +4083,21 @@ The text is generated from the cache weights and enforced by `scripts/skyglass_c
 **Evidence:** Director, 2026-10-29: "1. Yes 2. No 3. Yes 4. Yes 5. It has a pyramid as a source already, exclude. Honestly, I kind of like having just S-rank profession charts drop, as a callback to how it started and to keep hunters/gatherers rewards the same."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4b.
+
+## RUL-2026-10-29-036 — Profession chest redesign: weights approved, no Upgrade tier, Seed of False Vitality out
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE. Chest kinds and the S-rank hunt design are pending.
+
+**Ruling:**
+1. **Tier weights (55/25/12/6/2) and the 3/4/6 roll distribution are approved.**
+2. **No Upgrade tier (a chest inside a chest).** That is the Unmarked Cargo's job. Its weight goes back to the other tiers.
+3. **Seed of False Vitality leaves the Legendary Hunter's Chest** and stays with its real source.
+4. **Open:** separate chest kinds (recipe-kit chests and bulk/stockpile chests), and an S-rank profession run designed so player choices steer their drops.
+
+**Evidence:** Director, 2026-10-29: "1. Looks good. 2. No, thats what the unmarked cargo is for. 3. I think perhaps we should separate recipe kit chests from bulk chests or something... 4. Uh, leave it to its real source i guess." Also: "We also currently dont really have our S rank profession hunts designed to understand how players can influence their drops..."
+
+**Canonical destination:** `docs/design/SKYGLASS_PROFESSION_CHESTS.md`.
