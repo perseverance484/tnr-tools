@@ -3987,3 +3987,26 @@ The text is generated from the cache weights and enforced by `scripts/skyglass_c
 **Evidence:** Director, 2026-10-28: "Perhaps we make phase 1 dueling, then phase 2 is command of the deck, the set pieces? Gunwale could mark the transition. How many phases does he have? Accept the level 45+ caveat. Sure, archive".
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §1; harness `fable/skyglass-wreck-sim`.
+
+## RUL-2026-10-28-032 — The Captain's transition: first mark plus a new transition jutsu
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass encounters
+
+**Status:** ACTIVE. The harness re-tune is pending.
+
+**Ruling:**
+1. **The phase-2 transition turn lays the first deck mark.**
+2. **One new transition jutsu goes on the Captain**, cast on himself on that turn:
+   - cleanse, instant (0 rounds);
+   - 40% decreasedamagetaken, 2 rounds;
+   - 40% absorb, 2 rounds;
+   - clearprevent, 2 rounds.
+
+   This gives phase 2 a couple more rounds.
+3. **The Gunwale and Battle Trance move to the spare AP after later marks.** The harness fits them around the transition turn's AP budget.
+
+**Evidence:** Director, 2026-10-28: "Lay the first mark on the transition turn and fit in a transition jutsu : cleanse(0 rounds, instant), 40% DR, 40% absorb, clear prevent, rest for 2 rounds. This should give his 2nd phase a couple more rounds."
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §1; harness `fable/skyglass-wreck-sim`.
