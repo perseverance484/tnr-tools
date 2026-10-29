@@ -86,3 +86,26 @@ Not changed: `factory.py` still requires title `description` on a create (it ski
 - `check_manifest.mjs` and `validate.py` (cwd skill `data/`) on all 120 `push/*.json`: per-file exit codes, check_manifest output digest and validate.py error/warning counts identical to `800f6660`.
 - `python3 -m unittest scripts/test_pet_species.py scripts/test_schema_diff.py scripts/test_catalog_checks.py`: 24 OK. `selfcheck.py --generated data` 0 errors; `factory.py --selftest` 20/20; `doctrinemap.py .` 0/0; `render_doctrine.py --check` current; `build_packs.py --check` current; `lawmap.py .` 0 errors, 5 pre-existing warnings.
 - Live requests / writes: 0 / 0. No browser or session checks. `dist/building-tnr-content.zip` is left to the skillpack workflow.
+
+## Review round 2 (re-review of e356490c: no P1/P2; R1 P3)
+
+**R1, fixed.** Python's URL check (`catalog_checks.py` `_url`) accepted URLs that Forge's `new URL()` refuses.
+- **Ports:** must be numeric and at most 65535. `urlsplit().port` raises otherwise.
+- **Hosts:** WHATWG's forbidden domain code points and control characters are refused.
+  - Python does not percent-decode a host, so any `%` in a host is refused.
+  - A bracketed host must be a valid IPv6 address.
+- **Parity test:** `test_r1_url_parity_with_forge` holds 15 cases with Node's results hard-coded, including the reviewer's three reproductions. It fails on e356490c and passes now.
+- **The one known difference:** `new URL()` repairs `https:///x` to `https://x/`; Python refuses it. Python is stricter here, never looser.
+
+**Gates.** Python only, so Forge, the bundle, contracts and fixtures are untouched.
+
+| Gate | Result |
+|---|---|
+| `python3 -m unittest scripts/test_pet_species.py scripts/test_schema_diff.py scripts/test_catalog_checks.py` | OK (25) |
+| `selfcheck.py --generated data` | 0 errors |
+| `factory.py --selftest` (from `data/`) | 20/20 |
+| `doctrinemap.py .` | 0/0 |
+| `render_doctrine.py --check` | current |
+| `build_packs.py --check` | current |
+| `lawmap.py .` | 0 errors, 5 pre-existing warnings |
+| `validate.py --strict` on all 120 `push/*.json` | per-file exit codes identical to e356490c |
