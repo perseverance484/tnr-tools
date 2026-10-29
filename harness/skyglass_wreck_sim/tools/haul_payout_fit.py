@@ -4,7 +4,7 @@
   - the sensible run (best 3-step, 1-locker path) averages about the old S-rank payout (7.5M),
   - no path (2+ steps, other than the timid CC) has an EV more than ~20% above it,
   - the timid run (CC) pays clearly less,
-  - a full greedy clear (5 steps, 3+ lockers) is worth about 2-2.5x the old payout.
+  - a full greedy clear (5 steps, 3+ lockers) is worth about 3x the old payout (--greedy lo,hi; RUL-2026-10-29-045).
 
 Clear rates come from a results file (--exhaustive or --paths); fights do not depend on the payout, so the fit is offline.
 The ladder (chest bundles) and the step-4 cut penalty are fixed; the fit searches step points and locker points.
@@ -22,6 +22,10 @@ args = sys.argv[1:]
 src = args[0]
 opt = lambda k, d=None: args[args.index(k) + 1] if k in args else d
 iters = int(opt("--iters", "20000"))
+# greedy clear value band, x the old payout (RUL-2026-10-29-044: 2-2.5x; -045: ~3x)
+GW = float(opt("--gw", "0.5"))
+CAPW = float(opt("--capw", "40"))
+GLO, GHI = (float(x) for x in opt("--greedy", "2.8,3.2").split(","))
 rnd = random.Random(int(opt("--seed", "1")))
 d = json.load(open(src))
 P = json.load(open(opt("--params")))["params"] if opt("--params") else d["settings"]["params"]  # --params: a haul_spec.json (current params)
@@ -67,13 +71,13 @@ def loss(paths, q, lv, step, locker, cut, layout=""):
     L = 4 * (S - OLD) ** 2
     for k, (e, v, c) in ev.items():
         if len(k) >= 2 and k != "CC":
-            L += 40 * max(0, e / S - 1.2) ** 2
+            L += CAPW * max(0, e / S - 1.2) ** 2
     if "CC" in ev:
         L += 20 * max(0, ev["CC"][0] / S - 0.75) ** 2
     live = [k for k in greedy if ev[k][2] >= 15] or greedy
     if live:
         gv = max(ev[k][1] for k in live)
-        L += 0.5 * (max(0, 2.0 * OLD - gv) ** 2 + max(0, gv - 2.5 * OLD) ** 2)
+        L += GW * (max(0, GLO * OLD - gv) ** 2 + max(0, gv - GHI * OLD) ** 2)
     # haul points should grow with depth: every step adds something
     L += sum(10 * max(0, 0.8 - s) ** 2 for s in step[1:])
     L += 10 * max(0, MIN_LOCKER.get(layout, 1.0) - locker) ** 2
