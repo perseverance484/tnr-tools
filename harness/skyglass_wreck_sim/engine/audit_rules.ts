@@ -1,7 +1,7 @@
 /**
  * Rule audit for one enemy: at every decision the AI makes, why each authored rule did or did not fire.
  *   TNR_SCRIPT=audit_rules.ts run.sh --override overrides/kits_endgame.json --floor 4 --enemy "The Captain"
- *       [--runs 20] [--variant average] [--pets] [--out results/audit_captain.json]
+ *       [--runs 20] [--variant average] [--pets] [--phase-hp 50] [--out results/audit_captain.json]
  *
  * Read-only: the hook (runFloor onAiDecision) inspects a clone of the battle just before performAIaction, so outcomes
  * are those of the ordinary run. Per decision and rule:
@@ -44,6 +44,12 @@ const appearancesFired: number[] = [];
 let decisions = 0;
 let appearances = 0;
 const roundsInWave: number[] = [];
+// Phases: --phase-hp N splits each appearance at the first decision below N% health (phase 1 above, phase 2 below).
+const phaseHp = Number(opt("phase-hp") ?? 50);
+const phase1Rounds: number[] = [];
+const phase2Rounds: number[] = [];
+let reachedPhase2 = 0;
+const firedByPhase: { p1: number; p2: number }[] = [];
 
 const hpPct = (u: any) => (u.curHealth / u.maxHealth) * 100;
 for (let s = 1; s <= runs; s++) {
@@ -54,7 +60,8 @@ for (let s = 1; s <= runs; s++) {
   const ps = pets ? players.map((p) => petFor(p)) : undefined;
   if (ps) players.forEach((p, i) => (p.activePetId = ps[i]!.id));
   const b0 = await assembleFloor({ players, enemyRows: rows, floor: t.floors[floorIdx]!, rand, initialBarriers: true, dmgConfig: dmg.config, pets: ps });
-  const pending: { uid: string; per: string[] }[] = [];
+  const pending: { uid: string; per: string[]; phase: 1 | 2 }[] = [];
+  const crossed = new Map<string, number>();
   const firedThisRun = new Map<string, Set<number>>();
   const r = runFloor(b0, {
     playerIds: players.map((p) => p.userId), maxRounds: 150, dodge: true,
@@ -108,7 +115,9 @@ for (let s = 1; s <= runs; s++) {
         if (action && !actionPointsAfterAction(me, c as never, action).canAct) return "ap";
         return "ok";
       });
-      pending.push({ uid, per });
+      const phase = hpPct(me) < phaseHp ? 2 : 1;
+      if (phase === 2 && !crossed.has(uid)) crossed.set(uid, c.round);
+      pending.push({ uid, per, phase });
     },
   });
   // Pair each decision with the step it produced (same order: one performAIaction per AI decision).
@@ -121,6 +130,8 @@ for (let s = 1; s <= runs; s++) {
       const reason = k === fired ? "fired" : st === "ok" ? (fired >= 0 && k > fired ? "preempted" : "engine") : st;
       perRule[k]![reason]!++;
       if (k === fired) {
+        firedByPhase[k] ??= { p1: 0, p2: 0 };
+        firedByPhase[k]![pending[i]!.phase === 1 ? "p1" : "p2"]++;
         const set = firedThisRun.get(pending[i]!.uid) ?? new Set<number>();
         set.add(k);
         firedThisRun.set(pending[i]!.uid, set);
@@ -129,19 +140,31 @@ for (let s = 1; s <= runs; s++) {
   }
   for (const w of r.waves) for (const e of w.enemies) if (e.name === enemyName) {
     appearances++;
-    roundsInWave.push((w.endRound ?? w.startRound) - w.startRound + 1);
+    const end = w.endRound ?? w.startRound;
+    roundsInWave.push(end - w.startRound + 1);
+    const x = crossed.get(e.uid);
+    if (x !== undefined) {
+      reachedPhase2++;
+      phase1Rounds.push(x - w.startRound);
+      phase2Rounds.push(end - x + 1);
+    } else phase1Rounds.push(end - w.startRound + 1);
     for (const k of firedThisRun.get(e.uid) ?? []) appearancesFired[k] = (appearancesFired[k] ?? 0) + 1;
   }
 }
 const table = rules.map((rule, k) => {
   const tally = perRule[k] ?? {};
   const main = reasons.filter((x) => x !== "fired").sort((a, b) => (tally[b] ?? 0) - (tally[a] ?? 0))[0];
-  return { index: k, note: rule.action.description, jutsuId: rule.action.jutsuId ?? null, conditions: rule.conditions.map((c: any) => `${c.type} ${c.value ?? c.threshold ?? `${c.minRange}-${c.maxRange}`}${c.effectType ? ` ${c.effectType}` : ""}${c.target ? ` ${c.target}` : ""}`), firedInAppearancesPct: Math.round((100 * (appearancesFired[k] ?? 0)) / Math.max(1, appearances)), decisions: tally, mainReasonNotFired: main };
+  return { index: k, note: rule.action.description, jutsuId: rule.action.jutsuId ?? null, conditions: rule.conditions.map((c: any) => `${c.type} ${c.value ?? c.threshold ?? `${c.minRange}-${c.maxRange}`}${c.effectType ? ` ${c.effectType}` : ""}${c.target ? ` ${c.target}` : ""}`), firedInAppearancesPct: Math.round((100 * (appearancesFired[k] ?? 0)) / Math.max(1, appearances)), firedByPhase: firedByPhase[k] ?? { p1: 0, p2: 0 }, decisions: tally, mainReasonNotFired: main };
 });
+const med = (xs: number[]) => {
+  const q = [...xs].sort((a, b) => a - b);
+  return q.length ? q[Math.floor(q.length / 2)]! : null;
+};
 const sorted = [...roundsInWave].sort((a, b) => a - b);
-const out = { generatedBy: "engine/audit_rules.ts", override: opt("override"), floor: floorIdx, enemy: enemyName, runs, variant, pets, appearances, decisions, roundsInWaveMedian: sorted[Math.floor(sorted.length / 2)] ?? null, rules: table };
-console.log(`${enemyName}: ${appearances} appearances, ${decisions} decisions, wave rounds median ${out.roundsInWaveMedian}`);
-for (const x of table) console.log(`${String(x.index).padStart(2)} ${x.note.slice(0, 58).padEnd(58)} fired ${String(x.firedInAppearancesPct).padStart(3)}%  ${reasons.map((rr) => `${rr}:${x.decisions[rr] ?? 0}`).join(" ")}`);
+const phases = { phaseHp, reachedPhase2Pct: Math.round((100 * reachedPhase2) / Math.max(1, appearances)), phase1RoundsMedian: med(phase1Rounds), phase2RoundsMedian: med(phase2Rounds), phase1Range: [Math.min(...phase1Rounds), Math.max(...phase1Rounds)], phase2Range: phase2Rounds.length ? [Math.min(...phase2Rounds), Math.max(...phase2Rounds)] : null };
+const out = { generatedBy: "engine/audit_rules.ts", override: opt("override"), floor: floorIdx, enemy: enemyName, runs, variant, pets, appearances, decisions, roundsInWaveMedian: sorted[Math.floor(sorted.length / 2)] ?? null, phases, rules: table };
+console.log(`${enemyName}: ${appearances} appearances, ${decisions} decisions, wave rounds median ${out.roundsInWaveMedian}; phases ${JSON.stringify(phases)}`);
+for (const x of table) console.log(`${String(x.index).padStart(2)} ${x.note.slice(0, 58).padEnd(58)} fired ${String(x.firedInAppearancesPct).padStart(3)}% (p1 ${x.firedByPhase.p1}, p2 ${x.firedByPhase.p2})  ${reasons.map((rr) => `${rr}:${x.decisions[rr] ?? 0}`).join(" ")}`);
 const outPath = opt("out");
 if (outPath) {
   mkdirSync(dirname(resolve(outPath)), { recursive: true });

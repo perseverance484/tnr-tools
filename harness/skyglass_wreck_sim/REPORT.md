@@ -978,3 +978,107 @@ Level 50 (same order, no Sealwright): the Captain's signature fires in 85% of ap
 - Under similar load the failure did not reproduce, alone or in-process across all floors.
 - No unseeded source was found: Math.random, getRandomValues and Date are all seeded or virtual, `preventCheck` uses the seeded Math.random, and enemy rows are cloned per floor.
 - Logged as an open item.
+
+# Report 4c (2026-10-28): the Captain rebuilt in two phases (RUL-2026-10-28-031)
+
+Branch `fable/skyglass-wreck-sim`, built on c519601b. Offline, zero live requests.
+
+## The new rule order (`engine/kits.ts`; `build_spec.json` → `sharedKits["The Captain"]`)
+
+| # | Rule | Gate |
+|---:|---|---|
+| 0 | Raise the Gunwale | health below 50. Record cooldown 8 → **99**, so it fires once per fight: the rail goes up between him and the party. |
+| 1 | Last Stand at the Helm (live Battle Trance) | health below 50 |
+| 2 | Second Wind | health below 25 |
+| 3-4 | Broadside / Ship's Bell blasts | their primed markers |
+| 5-10 | after each mark: Final Command, Keelbind, end turn | the 60 AP left after the mark |
+| 11-12 | Omen: Binding Ring, Omen: Rows A | health below 50. Each has cooldown 4 and each set piece takes two turns, so they alternate. |
+| 13 | Hold the Line (live Unbroken Command), the duel opener | the party is 3+ hexes away (the boss wave starts mid-battle, and no condition can detect the wave's first round) |
+| 14-17 | Final Command, Keelbind, Stolen Form (top threat has any damage-given buff, was 25%+), Counter Stance (a player within 2, was adjacent) | duel |
+| 18-21 | Suppression Writ, Unraveling Strike, Explosive Tag Cataclysm, Windlash Focus | duel fillers (not cut) |
+| 22-23 | close in, highest-power damage | fallbacks |
+
+**Cut from the order:**
+- Rows B: its mark, blast and after-mark rules.
+- The duplicate standalone Final Command / Keelbind. Each now appears once as a phase-1 duel move, plus in the after-mark slots.
+- Ruin Refrain.
+
+**Not exactly as ruled:**
+- "Once" holds only for the Gunwale (my record).
+- Battle Trance (cooldown 5) and Second Wind (cooldown 6) are live records, and the engine has no "has not used" condition. They fire once per cooldown while under their gate; in a 2-3-round phase 2 that is effectively once.
+- Broadside chipping the Gunwale is accepted.
+- The Sealwright / Ward of Command puzzle is unchanged.
+
+**Tuning:** the duel phase hits far harder than the old set-piece loop.
+- With 4 Captain damage rows, the boss wave wiped 44 of 56 attempts.
+- Rows 1 / 2 / 3 gave 5% / 20% / 52.5% of runs wiping. **Captain rows 2** (pools x2.8 unchanged, still above the Sealwright).
+
+## Results (this build)
+
+| Version, runs | Cleared | Runs with a wipe | Min @15 s (+ AI 1.5 s) | Notes |
+|---|---:|---:|---|---|
+| Endgame, 60, pets, dodging | 60 | **21.7%** (16 wipes, all on the boss wave) | **19.8** (21.6) | Core Horror 32.5% party HP, no floor-4 wipes |
+| Endgame, 40, no pets | 40 | 22.5% (10 boss wave, 1 Core Horror) | 19.3 (20.2) | |
+| Endgame, 30, no dodging | 0 | 100% | n/a | Core Horror 120 of 120 |
+| Level 50, 60, pets | 60 | 1.7% | 15.4 (16.6) | the Captain costs 31.5% party HP (was 11%) |
+| Level 50, 40, no pets | 40 | 0% | 16.8 | |
+| Level 50, 30, no dodging | 30 | 16.7% (Core Horror) | 15.5 | |
+| Level 40 / level 60 | 0 / 30 | 100% / 0% | n/a / 11.6 | the easy version is now marked "for level 45+" (`build_spec.json` → `lvl50.dungeonNotes`) |
+
+`--probe-check` with pets passes on both versions (seeds 1-2).
+
+## Phase lengths and per-move fire rates (`audit_rules.ts`; 30 runs, pets, dodging)
+
+| | Endgame boss wave | Level 50 boss wave |
+|---|---|---|
+| Wave rounds (median) | 7 | 5 |
+| Phase 1 (above 50%), median [range] | **6** [1-9] | 2 [1-4] |
+| Reached phase 2 | 80% of appearances | 97% |
+| Phase 2, median [range] | **2** [1-9] | 3 [1-5] |
+
+Fired in % of appearances (endgame / level 50):
+
+| Move | Endgame | Level 50 | Main reason when not firing (endgame) |
+|---|---:|---:|---|
+| Raise the Gunwale (transition) | 80 | 97 | phase 2 not reached |
+| Last Stand (Battle Trance) | 80 | 73 | phase 2 not reached |
+| Second Wind (under 25%) | 33 | 73 | rarely under 25% while alive |
+| Omen: Binding Ring → Ship's Bell | 27 → 17 | 43 → 20 | phase 2 is short; the transition turn spends 100 AP on Gunwale + Trance |
+| Omen: Rows A → Broadside | 10 → 7 | 0 → 0 | the Bell comes first; there is rarely a second mark turn |
+| After a mark: Final Command / Keelbind | 3 / 7 | 0 / 13 | own cooldowns, often already used in phase 1 |
+| Hold the Line (opener) | 37 | 20 | the party is often within 3 hexes when the wave opens |
+| Final Command (duel) | 93 | 77 | own cooldown |
+| Keelbind (duel) | 100 | 47 | own cooldown |
+| Stolen Form (duel) | 50 | 0 | condition: the top threat carries no damage-given buff |
+| Counter Stance (duel) | 100 | 67 | own cooldown |
+| Suppression Writ / Unraveling / Cataclysm / Windlash | 93 / 100 / 93 / 97 | 23 / 30 / 0 / 3 | own cooldowns (at level 50: preempted, the fight is short) |
+
+Full tallies by phase: `results/audit_captain_endgame.json`, `results/audit_captain_lvl50.json`.
+
+**Reading.** The duel now carries the fight. In the endgame, phase 2 is short (2 rounds) for three reasons:
+- he melts once the Ward is gone (the Sealwright usually dies in phase 1);
+- the transition turn uses all 100 AP on the Gunwale and Battle Trance;
+- 20% of the time he dies or wipes the party before 50%.
+
+So the deck set pieces show in only 17-27% of appearances.
+
+**Options for the director** (none applied):
+1. **Gunwale with the first mark, Trance on the spare AP after a mark** (tested, 40 runs):
+   - wipes 22.5%, 19.8 min;
+   - Bell mark 55%, Rows A mark 25%;
+   - but Battle Trance falls to about 20% of appearances.
+2. **Raise the phase threshold to about 60-65%**, so phase 2 gets more of his HP.
+3. **Give phase 2 its own damage reduction** (a phase-2 Ward or rail absorb), so the deck phase lasts.
+
+## What would affect the Watch and The Fall (the record is shared)
+
+- **Kit list.** The kit is derived from the rule list, so **Ruin Refrain and Omen: Rows B / its blast leave his jutsu list.** The list now carries the library's lib-omen-binding-ring / lib-omen-rows-a, Broadside, Ship's Bell and Raise the Gunwale.
+- **Raise the Gunwale is now once per fight** (cooldown 99).
+- **Phase 2 is gated only on health below 50.** In a solo fight he switches to the deck set pieces at 50%:
+  - Broadside's rows are fixed battlefield rows (2 and 5);
+  - the Bell is a radius-2 disc around him.
+  - Both are dodgeable by one player, but the fight's feel changes.
+- **Hold the Line needs the party 3+ hexes away.** If the Watch / Fall start the player adjacent, it never fires.
+- **Battle Trance and Second Wind repeat on cooldown** (5 / 6 rounds). A long solo fight sees them more than once.
+- **Stolen Form needs a buffed top threat.** It never fires against a player who uses no damage-given buffs (level 50: 0%).
+- The per-version stats (rows, pools) are not part of the shared record.
