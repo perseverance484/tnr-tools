@@ -4333,3 +4333,26 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "1. All approved. 2. One quest, with a disclaimer. Enter without the chart and you're stuck 3. Approved".
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §1; `docs/design/SKYGLASS_LOOT_TABLES.md` §5; `docs/design/SKYGLASS_THE_HAUL.md`.
+
+## RUL-2026-10-29-046 — Captain run length and Haul round 2 accepted; library-wide fallback fix
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / encounters and rewards
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **The endgame Wreck is accepted** at about 22 minutes and about 17% runs with a wipe (harness `ce25fac8`). The filler Deck Warden is trimmed from floors 1-3.
+2. **Library-wide fallback fix.** No enemy's fallback rule may fire a set piece or blast without its mark. Each enemy's last rule names the basic attack instead of the highest-power action, as the Captain's now does. This is applied and audited in the final simulation pass.
+3. **The Haul round 2 is accepted** (harness `b973ff28`):
+   - The Ore Vault's greedy clear pays about 2×. It is the "safer route, smaller jackpot" page.
+   - The Bone Store's greedy clear rate (22.5%) and its best-route margin are accepted.
+   - The agent's own changes are approved:
+     - after a cut-through, the next fight opens with the heaviest hazard (drain for hunters, elementalseal for gatherers);
+     - Snare Room crate snares only at steps 2-4, at normal strength.
+   - On the four low steeping pages (Bone Store, Overgrown Stores, Ore Vault, Bloom Cellar), the steeped bonus-chest chance rises from 40% to about 70%, to be confirmed in the final pass.
+
+**Evidence:** Director, 2026-10-29: "All approved and accepted."
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md`; `docs/design/SKYGLASS_THE_HAUL.md`.
