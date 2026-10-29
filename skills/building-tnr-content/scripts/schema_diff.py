@@ -92,6 +92,17 @@ def atoms(doc):
                     if isinstance(f, dict) and isinstance(f.get("enum"), list):
                         for m in f["enum"]:
                             out.add(("enum-member", uname + "." + vkey + "." + fname, str(m)))
+    # 45c intersections (PetSpeciesEffect = AllTags.and(z.object({skillTarget}))): keys every
+    # member of the base union also accepts; a key leaving one is a removal like a variant field's
+    inter = doc.get("intersections")
+    if isinstance(inter, dict):
+        for iname, spec in inter.items():
+            fields = spec.get("fields") if isinstance(spec, dict) else None
+            for fname, f in (fields or {}).items():
+                out.add(("variant-field", iname, fname))
+                if isinstance(f, dict) and isinstance(f.get("enum"), list):
+                    for m in f["enum"]:
+                        out.add(("enum-member", iname + "." + fname, str(m)))
     ents = doc.get("entities")
     if isinstance(ents, dict):
         for ename, ent in ents.items():

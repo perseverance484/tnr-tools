@@ -1,0 +1,41 @@
+{
+ "_note": "Item variant builder fixture. Step 2 of a 1:1 trophy: the token is bound to the variant (literal ids from step 1's results bundle).",
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Fixture Trophy Token",
+   "targetId": "trophyTokenItem000001",
+   "data": {
+    "effects": [
+     {
+      "type": "unlockitemvariant",
+      "variantId": "trophyVariant00000001",
+      "description": "Unlocks a token-locked item variant when used on an item",
+      "power": 1,
+      "powerPerLevel": 0,
+      "calculation": "static",
+      "direction": "offence",
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "target": "SELF"
+     }
+    ]
+   }
+  },
+  {
+   "entity": "itemVariant",
+   "slot": "edit",
+   "name": "Fixture Trophy",
+   "targetId": "trophyVariant00000001",
+   "data": {
+    "itemId": "trophyBaseItem0000001",
+    "description": "A fixture trophy look, retold."
+   }
+  }
+ ]
+}

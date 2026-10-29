@@ -281,6 +281,24 @@ Read at source (`routers/badge.ts`, `routers/title.ts`, `validators/badge.ts`, `
 - Neither has a hidden state: every badge (placeholder included) is listed on the public `/manual/badge` page from its create, and an unarchived title is listed by the public `title.getAllNames`.
 - `archived` is a title's only visibility switch. Quest and item saves refuse `reward_titles` naming an archived title, so a title a hidden quest rewards must be `archived: false` when that quest is saved. Both gates refuse a manifest that archives a title and rewards it.
 
+### 2.10 Item variants, variant tokens and dungeon `onlyOnce` (Forge 0.12.0; source-verified at TheNinjaRPG@3314d122, NOT yet behaviour-proven)
+
+Read at source (`routers/item.ts`, `queries/item.ts`, `validators/item.ts`, `validators/combat.ts`, `validators/dungeon.ts`, `libs/dungeonRewards.ts`, `routers/dungeon.ts`), not confirmed by a save. The first variant push is the behaviour proof.
+
+| Op | Shape |
+|---|---|
+| `item.upsertItemVariant` (create) | `{itemId, variant}` with no `variant.id`; answers `{success, message: "Variant saved"}` with **no id**. Forge reads the item's variants first and finds the new id by `(itemId, order)` (a unique index). |
+| `item.upsertItemVariant` (edit) | `{itemId, variant: {id, ...}}`; replaces every column, so Forge re-sends the live record; a stored null `description`/`battleDescription` is omitted (the validator refuses null). |
+| `item.getItemVariants` | `{itemId}`; one item's variants by order. There is no point read: every variant entry carries `itemId`, on edits too. No full-persist capture. |
+
+- Manifest entity `itemVariant`; ref prefix `@variant:<srcId>`, usable anywhere, typically in a token item's `unlockitemvariant.variantId` (resolved at send time). Both procedures are protected (content staff); no rate limiter.
+- Fields: `itemId`, `name` (1-191 after trim; no padding), `image` (an `@img` ref or a URL of at most 512), `costType` (`VARIANT_COST_TYPES`, incl. `VARIANT_TOKEN`), `cost` (integer >= 0), `order` (1-7, unique per item), `description`, `battleDescription` (strings; markup is sanitised, so it may read back as drift), `requiredItemId` (token variants only), `furnitureData` (furniture items only). Never send `id`: the entry's `targetId` is the id.
+- **No hidden state.** A variant is listed to every owner of its base item from its create (a token variant as "Need <token name>"), and any cost other than `VARIANT_TOKEN` can be bought at once. A create carries `hidden: true` like every entity; Forge strips it.
+- **Tokens.** An item with `unlockitemvariant` must be CONSUMABLE, target SELF, method SINGLE, `destroyOnUse: true`, `preventBattleUsage: true`. `variantId: null` unlocks any token variant whose `requiredItemId` is unset or names this item; `variantId: <id>` unlocks only that variant. A variant with `requiredItemId` accepts only that item.
+- **At a variant's create the server accepts `requiredItemId` only if that item's `unlockitemvariant` has `variantId: null`** (the new id does not exist yet). A 1:1 trophy is therefore three steps: token create (`variantId: null`), variant create (`requiredItemId: @item:<token>`), then a later token edit setting `variantId` (a literal `targetId`, the `@variant` ref from the idmap). A shared token (`variantId: null` forever) is the Skyglass Token pattern: each skin requires it, and it also unlocks any older token variant that has no `requiredItemId`.
+- New tags at this pin: six activity bonuses (`decrease{gathering,farming,crafting,cooking}time`, `increase{hunting,gathering}yield`) allowed only on bloodlines and ARMOR/ACCESSORY/KEYSTONE/CRYSTAL items; `increasejutsuslots` only on a consumable like a token, at most `MAX_EXTRA_JUTSU_SLOTS` in total. A pet species' `skillTarget` moved onto each innate effect.
+- **Dungeon `onlyOnce`** (a drop flag, boolean): once a player has received that drop's `(type, id)` from this dungeon definition, later claims skip it. Every successful direct drop is recorded, `onlyOnce` or not; receipts from before the field have no record.
+
 ## 3. Rate limit
 
 The limiter is a **rolling cumulative request-count budget**, not per-burst. It drains across repeated sessions and refills over time. Use fewer, larger requests with exponential backoff (the builder does this), and let it refill rather than hammering.

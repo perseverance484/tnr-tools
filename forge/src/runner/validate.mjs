@@ -3,13 +3,14 @@ import { isBloodrightEntity, bloodrightFields, bloodrightProblems } from "../blo
 import { isDungeonEntity, dungeonFields, dungeonProblems, dungeonDiffs } from "../dungeon/validate.mjs";
 import { petSpeciesProblems, petJutsuProblems, normalizeSpecies } from "./pets.mjs";
 import { HIDDENLESS, catalogProblems } from "./catalog.mjs";
+import { variantProblems } from "./variants.mjs";
 // Pre-send validation (spec section 9, R3). Every content validator on the server is
 // non-strict: an unknown or misspelled key is dropped at .input() parse time with no error
 // and the mutation reports success. The only place that error can surface is here.
 //
 // Field sets come from src/runner/fields.json, derived from the PINNED validators by
-// tools/derive_fields.mjs (jutsu, item, bloodline, quest, gameAsset, petSpecies, badge, title, and ai), pinned to
-// TheNinjaRPG@2af4b320 since 2026-10-28 (spreads resolved). Every update is a fetch-merge filtered to
+// tools/derive_fields.mjs (jutsu, item, bloodline, quest, gameAsset, petSpecies, badge, title, itemVariant and ai), pinned to
+// TheNinjaRPG@3314d122 since 2026-10-29 (spreads resolved). Every update is a fetch-merge filtered to
 // these fields and the server saves the whole parsed record, so a field missing here is RESET on
 // each edit (elementClassification to "None", requiredSkillId/reskin links/masteries to null).
 // 45d_DATA_entity_schemas (generated 2026-08-26) was already stale against 345d18ac: it lacks the twelve item farm* keys and
@@ -69,7 +70,7 @@ export const SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updated
 export const AI_OMITTED = Object.freeze([...PINNED_FIELDS.entities.ai.omitted]);
 
 /** Which 45d entity backs a manifest entity. */
-export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai", petSpecies: "petSpecies", badge: "badge", title: "title" });
+export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai", petSpecies: "petSpecies", badge: "badge", title: "title", itemVariant: "itemVariant" });
 
 /**
  * Restore the per-discriminator key sets from nested.json's shared key-set table.
@@ -172,13 +173,14 @@ export class Validator {
     } else {
       const known = this.knownFields(entity);
       if (!known) out.push(`no field schema for entity ${entity}`);
-      else for (const k of keys) if (!known.has(k) && !SERVER_OWNED.includes(k) && !(k === "hidden" && HIDDENLESS.includes(entity))) out.push(`unknown key "${k}" for ${entity} (would be silently dropped by the server)`);
+      else for (const k of keys) if (!known.has(k) && !SERVER_OWNED.includes(k) && !(k === "hidden" && HIDDENLESS.includes(entity)) && !(k === "itemId" && entity === "itemVariant")) out.push(`unknown key "${k}" for ${entity} (would be silently dropped by the server)`);
       if (entity === "petSpecies") {
         out.push(...petSpeciesProblems(data, live, { preCreate }));
         if (Array.isArray(data.aiRules)) out.push(...ruleProblems(data.aiRules).map((p) => "aiRules: " + p));
       }
       if (entity === "jutsu") out.push(...petJutsuProblems(data, live));
       if (entity === "badge" || entity === "title") out.push(...catalogProblems(entity, data, { preCreate }));
+      if (entity === "itemVariant") out.push(...variantProblems(data, { preCreate }));
     }
     out.push(...this.nestedProblems(entity, data));
     // law 46 / empty_string_rule: '' becomes null on the write path; for image that 500s.
@@ -223,11 +225,13 @@ export class Validator {
 
     // a title's effects are TitleEffectSchema members, not combat tags (absent table: refused)
     const fx = (entity === "title" ? this.nested.titleEffects : this.nested.effects) ?? {};
+    // a species' innate effects are PetSpeciesEffect = AllTags.and({skillTarget}) at 3314d122
+    const extra = entity === "petSpecies" ? this.nested.petSpeciesEffect ?? [] : [];
     for (const [i, f] of (Array.isArray(data.effects) ? data.effects : []).entries()) {
       if (!f || typeof f !== "object") { out.push(`effects[${i}] is not an object`); continue; }
       const allowed = typeof f.type === "string" ? fx[f.type] : null;
       if (!allowed) { out.push(`effects[${i}]: unknown effect type ${JSON.stringify(f.type)} at the pin`); continue; }
-      check(f, allowed, `effects[${i}] (${f.type})`);
+      check(f, [...allowed, ...extra], `effects[${i}] (${f.type})`);
     }
 
     if (entity === "quest" && data.content && typeof data.content === "object") {

@@ -151,6 +151,34 @@ export function lintManifest(manifest) {
     for (const it of items) if (JSON.stringify(it.data ?? {}).match(/"reward_titles":\[[^\]]*\]/g)?.some((m) => m.includes(ref))) E(it, `TITLE ${ref} is archived in this manifest; the server refuses rewarding it`);
   }
 
+  // VARIANT (routers/item.ts at 3314d122, src/runner/variants.mjs). A token item's unlockitemvariant
+  // names the variant it unlocks (variantId: null = any token variant without a required item); the
+  // item must be a consumable destroyed on use, SELF/SINGLE, battle use prevented (SuperRefineItem).
+  // At a variant's CREATE the server accepts a requiredItemId only if that item's unlockitemvariant has
+  // a null variantId (the new id does not exist yet), so a 1:1 trophy is: token (variantId null),
+  // variant (requiredItemId), then a token edit setting variantId.
+  const bySrc = new Map(items.filter((it) => it.srcId).map((it) => [it.srcId, it]));
+  const slots = new Set();
+  for (const it of items) {
+    const d = it.data ?? {}, unlock = (Array.isArray(d.effects) ? d.effects : []).filter((f) => f && f.type === "unlockitemvariant");
+    if (it.entity === "item" && unlock.length) {
+      for (const f of unlock) if (f.variantId != null && !(typeof f.variantId === "string" && (/^@variant:./.test(f.variantId) || /^[\w-]{21}$/.test(f.variantId)))) E(it, `VARIANT variantId ${JSON.stringify(f.variantId)}: null, a variant id or an @variant ref`);
+      const need = { itemType: "CONSUMABLE", target: "SELF", method: "SINGLE", destroyOnUse: true, preventBattleUsage: true };
+      for (const [k, v] of Object.entries(need)) if (d[k] !== undefined ? d[k] !== v : it.op === "create" && typeof v === "boolean") E(it, `VARIANT unlockitemvariant requires ${k} ${v}`);
+    }
+    if (it.entity !== "itemVariant" || it.op !== "create") continue;
+    const key = JSON.stringify([d.itemId, d.order]);
+    if (slots.has(key)) E(it, `VARIANT two variant creates on ${d.itemId} at order ${d.order}; (itemId, order) is unique`);
+    slots.add(key);
+    if (d.costType !== "VARIANT_TOKEN") W(it, `VARIANT costType ${d.costType}: a variant has no hidden switch, so owners of the item can buy it as soon as it exists`);
+    else if (d.requiredItemId == null) W(it, "VARIANT no requiredItemId: any token whose unlockitemvariant has no variantId (every older Variant Token) unlocks it");
+    const tok = typeof d.requiredItemId === "string" && d.requiredItemId.startsWith("@item:") ? bySrc.get(d.requiredItemId.slice(6)) : null;
+    if (tok && tok.op === "create") {
+      const fx = (Array.isArray(tok.data?.effects) ? tok.data.effects : []).filter((f) => f && f.type === "unlockitemvariant");
+      if (!fx.some((f) => f.variantId == null)) E(it, `VARIANT ${d.requiredItemId} needs an unlockitemvariant with variantId null when this variant is created; set the variantId in a later edit of the token`);
+    }
+  }
+
   // L17: the Android picker matches a file by size when the name differs, so every @img ref needs
   // a byte entry or the upload cannot be checked against the file on disk.
   const sizes = manifest.imgSizes ?? {};

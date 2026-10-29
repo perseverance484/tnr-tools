@@ -1,16 +1,17 @@
 {
   "_meta": {
-    "pin": "107d7a86894f806a4c9cec89effef5992118a0ed",
+    "pin": "3314d122c93e036618483d18229a793ad7ad21fd",
     "scope": "Dungeon definitions only (coop.dungeon.save / coop.dungeon.getAll); lobby, run and claim procedures are out of scope",
     "sources": {
-      "app/src/validators/dungeon.ts": "3ef77e9821e5b456a80c351b8fb91920d730be364d275d3927f6c22c23df0e27",
-      "app/src/server/api/routers/dungeon.ts": "6280604be39691695ea72c6e6026ba8f521586b847fd4130dc30463aee8b6ead",
+      "app/src/validators/dungeon.ts": "273106cdc6735260f993fcbaea85f299b1a3f7bef2d93751ca269ad5ae03c152",
+      "app/src/server/api/routers/dungeon.ts": "56464424c185cefc16d75636b3e2620f23277c829176ea39b3d76d0b15525cd9",
       "app/src/validators/coop.ts": "e4e3c2c5b8e2a7bb865967933b0c51ce5968199fee5e274a27b7b66edf95e450",
       "app/src/validators/mapLocation.ts": "274f5a713ba37c6dea42102071a29fb3ecfca4d563d19a663e3fb6e9f8222b0e",
-      "app/drizzle/constants.ts": "4d3cf207812a7ef9403fb4b4e9a5bc74cc2baec8c5ea51b69d4f426bbcedab75",
-      "app/src/libs/dungeonRewards.ts": "4db0b8fb142c03d93021a6da08c4b090a4e4566e34c6638b21011a898d054ae8",
-      "app/src/server/api/root.ts": "6f1e67f3d56c9fc60f43fa557ab529c384970896325f1c0db779fa4f968259a9",
-      "app/src/server/api/routers/coop.ts": "2ef0395758c845fe4f5dbc093a3b1a9b38b8bd27915a07e511c8a51508eac898"
+      "app/drizzle/constants.ts": "f39417940b09b02549170302bc7b17345bb20199ab5e6ae2428ff1ef0bad0e6c",
+      "app/src/libs/dungeonRewards.ts": "2f10a5e9fe846845c04df8ed2605a874608a8f56ce556ce5379573abadf7fc82",
+      "app/src/server/api/root.ts": "30654af86921d736c2f0bb7d7787c3825954bee55a9684e29cab19d1fc60f7c4",
+      "app/src/server/api/routers/coop.ts": "2ef0395758c845fe4f5dbc093a3b1a9b38b8bd27915a07e511c8a51508eac898",
+      "app/src/queries/dungeon.ts": "06ce1e246a83f8dd3761375c3f0e54d3bb878cfea0da8a50a8d3c4fb71b3a21f"
     }
   },
   "contentFields": [
@@ -38,8 +39,12 @@
     "type",
     "id",
     "chance",
+    "onlyOnce",
     "quantity",
     "package"
+  ],
+  "dropFlags": [
+    "onlyOnce"
   ],
   "floorFields": [
     "kind",

@@ -30,7 +30,7 @@ test("post-0056: the combat columns are accepted on an AI create, before any liv
   assert.match(v.problems("ai", { username: "S", occupation: "NONE" }, null, { preCreate: true }).join(";"), /not writable on an ai/);
   // Re-pinned at 94f9d84 (post-0056): the pre-0056 per-type stats and preferredStat are gone upstream,
   // so they are refused loudly instead of being stripped silently by the server.
-  assert.equal(v.knownFields("ai").size, 189);
+  assert.equal(v.knownFields("ai").size, 188); // 3314d122: userData lost avatar3d (d45cd0c8, GLTF support removed)
   const old = v.problems("ai", { username: "S", ninjutsuOffence: 1, preferredStat: "Ninjutsu" }, null, { preCreate: true }).join(";");
   assert.match(old, /unknown key "ninjutsuOffence"/); assert.match(old, /unknown key "preferredStat"/);
 });

@@ -1,10 +1,10 @@
 {
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-10-28",
-  "source_drop": "git:studie-tech/TheNinjaRPG@2af4b320 (2026-10-28)",
+  "extracted": "2026-10-29",
+  "source_drop": "git:studie-tech/TheNinjaRPG@3314d122 (2026-10-29)",
   "source_sha256_16": {
-   "app/src/server/api/routers/ (80 files)": "b1185a8a2a70eaaa"
+   "app/src/server/api/routers/ (82 files)": "5d5723be09db61f2"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
  },
@@ -14,9 +14,9 @@
   "guard": "publicProcedure = no auth. protectedProcedure = session required. The guard is not the permission check; staff gating happens in the body."
  },
  "counts": {
-  "routers": 79,
-  "procedures": 872,
-  "described": 471
+  "routers": 81,
+  "procedures": 912,
+  "described": 460
  },
  "routers": {
   "accountDeletion": {
@@ -305,14 +305,15 @@
     "procedure": "publicProcedure",
     "kind": "query",
     "mcp": false,
-    "description": "Get all game asset folders"
+    "description": "Get all game asset folders",
+    "input": "z.object({ type: z.enum(GameAssetTypes).optional() }).nullish()"
    },
    "getAll": {
     "procedure": "publicProcedure",
     "kind": "query",
     "mcp": false,
     "description": "Get all game assets with filtering",
-    "input": "gameAssetSchema.extend({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), nameTokens: z.array(z.string()).optional(), }),"
+    "input": "gameAssetSchema.extend({ cursor: z.number().int().min(0).nullish(), limit: z.number().int().min(1).max(500), nameTokens: z.array(z.string()).optional(), includeAnimations: z.boolean().optional(), exactFolder: z.string().optional(), sort: z.enum([\"newest\", \"oldest\", \"name-asc\", \"name-desc\"]).optional(), }),"
    },
    "getSceneAssets": {
     "procedure": "publicProcedure",
@@ -335,7 +336,8 @@
    },
    "create": {
     "procedure": "protectedProcedure",
-    "kind": "mutation"
+    "kind": "mutation",
+    "input": "gameAssetValidator.pick({ name: true, type: true, folder: true }).nullish()"
    },
    "delete": {
     "procedure": "protectedProcedure",
@@ -1196,27 +1198,21 @@
     "kind": "query",
     "mcp": false,
     "description": "Get comments on a forum thread",
-    "input": "z.object({ thread_id: z.string(), cursor: z.number().nullish(), limit: z.number().min(1).max(100), }),"
+    "input": "z.object({ thread_id: z.string(), cursor: z.number().int().min(0).nullish(), limit: z.number().int().min(1).max(100), }),"
    },
    "createForumComment": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "mcp": false,
-    "description": "Post a comment on a forum thread",
     "input": "mutateCommentSchema"
    },
    "editForumComment": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "mcp": false,
-    "description": "Edit your forum comment",
     "input": "mutateCommentSchema"
    },
    "deleteForumComment": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "mcp": false,
-    "description": "Delete your forum comment",
     "input": "deleteCommentSchema"
    },
    "getUserConversations": {
@@ -1245,7 +1241,7 @@
     "kind": "mutation",
     "mcp": false,
     "description": "Fetch a single conversation comment",
-    "input": "z.object({ commentId: z.string() })"
+    "input": "z.object({ commentId: z.string(), conversationId: z.string().min(1).optional(), }),"
    },
    "getConversationComments": {
     "procedure": "protectedProcedure",
@@ -1397,7 +1393,7 @@
    "getAbTests": {
     "procedure": "protectedProcedure",
     "kind": "query",
-    "input": "abTestFilterSchema"
+    "input": "z.object({ utmSource: z.string().max(191).optional(), deviceType: z.array(z.enum([\"mobile\", \"desktop\", \"unknown\"])).optional(), }),"
    },
    "getVisitorUtmSources": {
     "procedure": "protectedProcedure",
@@ -1533,6 +1529,35 @@
     "input": "z.object({ id: z.string(), type: z.enum([\"jutsu\", \"item\", \"bloodline\", \"basic\", \"ai\"]), battleType: z.enum(BattleTypes).optional(), startDate: z.string().optional(), endDate: z.string().optional(), }),"
    }
   },
+  "discord": {
+   "getStatus": {
+    "procedure": "publicProcedure",
+    "kind": "query"
+   },
+   "setPrimary": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "unlink": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "searchLinks": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ query: z.string().trim().min(2).max(191) })"
+   },
+   "forceUnlink": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string(), reason: z.string().trim().min(3).max(150), waiveCooldown: z.boolean(), }),"
+   },
+   "resync": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string() })"
+   }
+  },
   "dungeon": {
    "getAvailable": {
     "procedure": "protectedProcedure",
@@ -1652,52 +1677,173 @@
    }
   },
   "forum": {
-   "getAll": {
+   "uploads": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "threadPoll": {
     "procedure": "publicProcedure",
     "kind": "query",
-    "mcp": false,
-    "description": "Get all forum boards"
+    "input": "z.object({ threadId: z.string() })"
+   },
+   "votePoll": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ threadId: z.string(), optionId: z.string().nullable() })"
+   },
+   "saveTopicExtras": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ threadId: z.string(), pollId: z.string().nullable(), summary: z.string().trim().max(2000), reason: z.string().trim().min(3).max(1000), }),"
+   },
+   "analytics": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ days: z.union([z.literal(7), z.literal(30), z.literal(90)]).default(30), }),"
+   },
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query"
+   },
+   "getContext": {
+    "procedure": "publicProcedure",
+    "kind": "query"
    },
    "readNews": {
     "procedure": "protectedProcedure",
-    "kind": "mutation",
-    "mcp": false,
-    "description": "Mark news as read for current user"
+    "kind": "mutation"
    },
    "getThreads": {
     "procedure": "publicProcedure",
     "kind": "query",
-    "mcp": false,
-    "description": "Get threads for a forum board",
-    "input": "z.object({ boardId: z.string().optional(), boardName: z.string().optional(), cursor: z.number().nullish(), limit: z.number().min(1).max(100), }),"
+    "input": "z.object({ boardId: z.string().optional(), boardName: z.string().optional(), cursor: z.number().int().min(0).nullish(), limit: z.number().int().min(1).max(100), query: z.string().trim().max(200).optional(), author: z.string().trim().max(100).optional(), since: z.date().optional(), until: z.date().optional(), tag: z.string().max(32).optional(), view: z.enum([\"latest\", \"mine\", \"unread\", \"watched\", \"unanswered\"]).optional(), }),"
+   },
+   "personal": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "resolvePost": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ postId: z.string() })"
+   },
+   "markRead": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ postId: z.string() })"
+   },
+   "watch": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ scope: z.enum([\"BOARD\", \"THREAD\"]), scopeId: z.string(), active: z.boolean(), push: z.boolean().default(false), }),"
+   },
+   "alerts": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "readAlerts": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
    },
    "createThread": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "mcp": false,
-    "description": "Create a new forum thread",
-    "input": "forumBoardSchema"
+    "input": "z.strictObject({ board_id: z.string(), title: z.string().trim().min(4).max(88), content: z.string().min(4).max(10000), image: z.url().optional().nullable(), senderId: z.string().optional().nullable(), kind: z.enum([\"DISCUSSION\", \"QUESTION\", \"ANNOUNCEMENT\"]).optional(), tags: z.array(z.string().trim().min(1).max(32)).max(5).optional(), }),"
    },
    "pinThread": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "mcp": false,
-    "description": "Pin or unpin a forum thread (requires moderation permissions)",
     "input": "z.object({ thread_id: z.string(), status: z.boolean() })"
    },
    "lockThread": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "mcp": false,
-    "description": "Lock or unlock a forum thread (requires moderation permissions)",
     "input": "z.object({ thread_id: z.string(), status: z.boolean() })"
    },
    "deleteThread": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
-    "mcp": false,
-    "description": "Delete a forum thread (requires moderation permissions)",
     "input": "z.object({ thread_id: z.string() })"
+   },
+   "moderateThreads": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ ids: z.array(z.string()).min(1).max(50), action: z.enum([ \"PIN\", \"UNPIN\", \"LOCK\", \"UNLOCK\", \"REMOVE\", \"RESTORE\", \"APPROVE\", \"UPDATE\", ]), title: z.string().trim().min(4).max(88).optional(), boardId: z.string().optional(), kind: z.enum([\"DISCUSSION\", \"QUESTION\", \"ANNOUNCEMENT\"]).optional(), tags: z.array(z.string().trim().min(1).max(32)).max(5).optional(), reason: z.string().trim().min(3).max(500), }),"
+   },
+   "editPost": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ object_id: z.string(), comment: z.string().min(4).max(10000), reason: z.string().trim().min(3).max(500), }),"
+   },
+   "moderatePost": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ postId: z.string(), action: z.enum([\"REMOVE\", \"RESTORE\", \"LOCK\", \"UNLOCK\", \"APPROVE\"]), reason: z.string().trim().min(3).max(500), }),"
+   },
+   "revisions": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ postId: z.string() })"
+   },
+   "acceptAnswer": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ threadId: z.string(), postId: z.string().nullable() })"
+   },
+   "react": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ postId: z.string(), reaction: z.enum([\"helpful\", \"\u2764\ufe0f\", \"\ud83d\ude02\", \"\ud83d\udc4f\"]), active: z.boolean(), }),"
+   },
+   "restructureTopic": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ threadId: z.string(), action: z.enum([\"COPY\", \"MERGE\", \"SPLIT\"]), targetThreadId: z.string().optional(), boardId: z.string().optional(), postIds: z.array(z.string()).max(100).default([]), title: z.string().trim().min(4).max(88).optional(), reason: z.string().trim().min(3).max(500), }),"
+   },
+   "purgeTopic": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ threadId: z.string(), confirmTitle: z.string(), reason: z.string().trim().min(3).max(500), }),"
+   },
+   "effectivePermissions": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "administration": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ query: z.string().trim().max(200).default(\"\"), reviewPage: z.number().int().min(0).default(0), }),"
+   },
+   "saveSection": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "forumSectionSchema"
+   },
+   "saveBoard": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "forumStructureBoardSchema"
+   },
+   "removeStructure": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ type: z.enum([\"BOARD\", \"SECTION\"]), id: z.string(), destinationId: z.string().optional(), reason: z.string().trim().min(3).max(500), }),"
+   },
+   "saveGrant": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string().optional(), userId: z.string(), scope: z.enum([\"GLOBAL\", \"SECTION\", \"BOARD\"]), scopeId: z.string(), permissions: z.array(z.enum(forumCapabilities)), denies: z.array(z.enum(forumCapabilities)), reason: z.string().trim().min(3).max(500), remove: z.boolean().default(false), }),"
+   },
+   "restrict": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string().optional(), userId: z.string(), boardId: z.string().nullable(), expiresAt: z.date(), reason: z.string().trim().min(3).max(500), remove: z.boolean().default(false), }),"
+   },
+   "repairCounters": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ boardId: z.string() })"
    }
   },
   "guide": {
@@ -1980,6 +2126,10 @@
     "kind": "mutation",
     "input": "adjustUserItemSchema"
    },
+   "getVariantNames": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
    "getItemVariants": {
     "procedure": "protectedProcedure",
     "kind": "query",
@@ -2254,12 +2404,6 @@
     "mcp": false,
     "description": "Get current user's jutsus",
     "input": "userJutsuFilteringSchema"
-   },
-   "getUserJutsuOwnership": {
-    "procedure": "protectedProcedure",
-    "kind": "query",
-    "mcp": false,
-    "description": "Get current user's jutsu ownership (ids + ancestor ids)"
    },
    "getPublicUserJutsus": {
     "procedure": "protectedProcedure",
@@ -3180,7 +3324,8 @@
     "procedure": "publicProcedure",
     "kind": "query",
     "mcp": false,
-    "description": "Get list of all AI character names"
+    "description": "Get AI character names, optionally restricted to arena opponents",
+    "input": "z.object({ arenaOnly: z.boolean().optional() }).nullish()"
    },
    "levelUp": {
     "procedure": "protectedProcedure",
@@ -4586,6 +4731,36 @@
     "procedure": "protectedProcedure",
     "kind": "mutation",
     "input": "escalateToGithubSchema"
+   }
+  },
+  "territoryWar": {
+   "getNotice": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "getCurrent": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "createTeam": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ eventId: z.string() })"
+   },
+   "joinTeam": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ teamId: z.string() })"
+   },
+   "leaveTeam": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ teamId: z.string() })"
+   },
+   "startBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ teamId: z.string() })"
    }
   },
   "title": {

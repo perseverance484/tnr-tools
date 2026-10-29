@@ -1,12 +1,12 @@
 {
  "_provenance": {
   "generator": "forge/tools/derive_fields.mjs",
-  "pin": "2af4b32066c39e2868efae5dba6b339278701dca",
+  "pin": "3314d122c93e036618483d18229a793ad7ad21fd",
   "note": "top-level keys of each entity validator at the pinned commit; spreads are resolved into fields"
  },
  "entities": {
   "jutsu": {
-   "source": "app/src/validators/combat.ts:1791",
+   "source": "app/src/validators/combat.ts:1957",
    "validator": "JutsuValidatorRawSchema",
    "spreads": [],
    "fields": {
@@ -60,7 +60,7 @@
    }
   },
   "item": {
-   "source": "app/src/validators/combat.ts:1992",
+   "source": "app/src/validators/combat.ts:2163",
    "validator": "ItemValidatorRawSchema",
    "spreads": [
     "itemEconomySchema.shape",
@@ -152,7 +152,7 @@
    }
   },
   "bloodline": {
-   "source": "app/src/validators/combat.ts:1881",
+   "source": "app/src/validators/combat.ts:2047",
    "validator": "BloodlineValidator",
    "spreads": [],
    "fields": {
@@ -170,7 +170,7 @@
    }
   },
   "quest": {
-   "source": "app/src/validators/objectives.ts:892",
+   "source": "app/src/validators/objectives.ts:897",
    "validator": "QuestValidatorRawSchema",
    "spreads": [
     "masteryRequirementFields"
@@ -217,7 +217,7 @@
    }
   },
   "gameAsset": {
-   "source": "app/src/validators/asset.ts:4",
+   "source": "app/src/validators/asset.ts:5",
    "validator": "gameAssetValidator",
    "spreads": [],
    "fields": {
@@ -234,7 +234,7 @@
    }
   },
   "petSpecies": {
-   "source": "app/src/validators/petSpecies.ts:20",
+   "source": "app/src/validators/petSpecies.ts:30",
    "validator": "PetSpeciesValidator",
    "spreads": [],
    "fields": {
@@ -249,8 +249,7 @@
     "defaultJutsuIds": true,
     "aiRules": true,
     "includeDefaultRules": true,
-    "effects": true,
-    "skillTarget": true
+    "effects": true
    }
   },
   "badge": {
@@ -274,11 +273,28 @@
     "archived": true
    }
   },
+  "itemVariant": {
+   "source": "app/src/validators/item.ts:92",
+   "validator": "ItemVariantValidator",
+   "spreads": [],
+   "fields": {
+    "id": true,
+    "name": true,
+    "image": true,
+    "requiredItemId": true,
+    "costType": true,
+    "cost": true,
+    "order": true,
+    "description": true,
+    "battleDescription": true,
+    "furnitureData": true
+   }
+  },
   "ai": {
-   "source": "app/src/validators/aiInput.ts:12",
+   "source": "app/src/validators/aiInput.ts:13",
    "validator": "insertAiSchema",
    "spreads": [],
-   "columns": 205,
+   "columns": 204,
    "omitted": [
     "bracketImmunityPausedAt",
     "covertTrainingMinutes",
@@ -333,7 +349,6 @@
     "anbuId": true,
     "approvedTos": true,
     "avatar": true,
-    "avatar3d": true,
     "avatarFacing": true,
     "avatarLight": true,
     "bank": true,

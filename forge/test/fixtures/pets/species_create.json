@@ -18,7 +18,6 @@
     "role": "HEALER",
     "isActive": false,
     "hidden": true,
-    "skillTarget": "SELF",
     "includeDefaultRules": true,
     "effects": [
      {
@@ -26,7 +25,8 @@
       "power": 2,
       "calculation": "percentage",
       "rounds": 100,
-      "target": "SELF"
+      "target": "SELF",
+      "skillTarget": "SELF"
      }
     ],
     "aiRules": [

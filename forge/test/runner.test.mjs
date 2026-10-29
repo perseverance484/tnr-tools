@@ -440,7 +440,9 @@ test("the One Perfect Crop core manifest plans as three items, both AI through t
 // objective gains the mapLocationFields keys from validators/mapLocation.ts), then 2026-10-28 to 2af4b320
 // (the siphon tag; reward_pet_experience, reward_level and reward_stats on rewards; eleven SimpleTasks
 // reached through `...List` and `...Object.values(OBJ)` spreads), then at the same pin the titleEffects
-// section (TitleEffectSchema's two inline members): the digest, counts and slots below are that derivation's.
+// section (TitleEffectSchema's two inline members), then 2026-10-29 to 3314d122 (seven tags: six activity
+// bonuses and increasejutsuslots; unlockitemvariant gains variantId; a petSpeciesEffect section, the
+// skillTarget key PetSpeciesEffect adds to every tag): the digest, counts and slots below are that derivation's.
 test("the shared key-set table expands to exactly the pre-compaction key surface", () => {
   const expanded = expandNested(NESTED_KEYS);
   assert.ok(expanded, "the committed nested.json must expand");
@@ -449,11 +451,13 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
   const stable = (v) => Array.isArray(v) ? v.map(stable)
     : (v && typeof v === "object" ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, stable(v[k])])) : v);
   assert.equal(createHash("sha256").update(JSON.stringify(stable(expanded))).digest("hex"),
-    "0aa79f1fe5bc7d60e91ddb7f4c97dbd08eaa840d8d95c92693fec2dbae39c3ca",
+    "d6133e82692bac5600d2cc4a6b6204e2780155e437286927834ede33fcb55510",
     "the expanded nested key surface no longer matches the pinned pre-compaction content");
   assert.ok(canonical.length > 0);
   // the shape the Validator reads, spot-checked against the pin rather than only against a digest
-  assert.equal(Object.keys(expanded.effects).length, 87);
+  assert.equal(Object.keys(expanded.effects).length, 94);
+  assert.ok(expanded.effects.unlockitemvariant.includes("variantId"));
+  assert.deepEqual(expanded.petSpeciesEffect, ["skillTarget"]);
   assert.equal(Object.keys(expanded.objectives).length, 75);
   // 2af4b320: pet experience is a reward on items' noncombatconsumereward and on quest rewards;
   // reward_pets (a companion grant) exists on the item tag only, never on a quest reward
@@ -469,7 +473,7 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
     "entryItems", "isolated", "rewardMode", "rewardPickCount"]);
   // content.reward is QuestReward at 94f9d84 (rewardFields + reward_packages)
   assert.ok(expanded.objectiveReward.includes("reward_packages"));
-  // the table really is shared: 190 discriminator values resolve to 64 distinct array objects,
+  // the table really is shared: 198 discriminator values resolve to 66 distinct array objects,
   // and same-shaped tags resolve to the IDENTICAL object, not to equal copies
   const arrays = new Set();
   let slots = 0;
@@ -477,8 +481,8 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
     if (Array.isArray(v)) { slots += 1; arrays.add(v); continue; }
     for (const set of Object.values(v)) { slots += 1; arrays.add(set); }
   }
-  assert.equal(slots, 190, "the pin defines 190 key-set slots");
-  assert.equal(arrays.size, 64, "which are only 64 distinct key sets");
+  assert.equal(slots, 198, "the pin defines 198 key-set slots");
+  assert.equal(arrays.size, 66, "which are only 66 distinct key sets");
 });
 
 test("a nested table that cannot be trusted fails closed rather than half-expanding", () => {
