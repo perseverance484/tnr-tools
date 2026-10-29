@@ -238,7 +238,7 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 Each title carries a small permanent mastery or regeneration bonus; the values are proposed for approval and not yet ruled (§6).
 
 **Trophies** (rare boss drops, 1-2%; effect sketches, with numbers set when the kits are approved)
-- **The Warden's Ladle:** a bukijutsu weapon with fire damage and a short burn. Drops from the Foundry Warden (Foundry, Sealed Reliquary, Rotted Reliquary).
+- **The Warden's Maul:** a bukijutsu weapon, a forge maul glowing at the head, with fire damage and a short burn. Drops from the Foundry Warden (Foundry, Sealed Reliquary, Rotted Reliquary).
 - **Wayfinder's Compass:** an accessory with a flee bonus; its needle never settles ("Still no home port"). Drops from the Wayfinder (Watch, Burning Heading).
 
 **New art**

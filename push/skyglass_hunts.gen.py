@@ -12,7 +12,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spec = importlib.util.spec_from_file_location("hunts", os.path.join(ROOT, "state/skyglass_hunts/hunts.py"))
 H = importlib.util.module_from_spec(spec); spec.loader.exec_module(H)
 
-AI = {"Core Horror": "AQi-bHJ-5tHXtxrnc0P9E", "Skyglass Sentinel": "3V_gdHYaclMB1gTyOPAbV", "Seal Charge": "wTgO-Q32caSSd0is1QIS7",
+AI = {"Crown Archivist": "LZiunyinw9ScK3mh9HiR2",  # Archive alarm guard, RUL-2026-10-28-013
+      "Core Horror": "AQi-bHJ-5tHXtxrnc0P9E", "Skyglass Sentinel": "3V_gdHYaclMB1gTyOPAbV", "Seal Charge": "wTgO-Q32caSSd0is1QIS7",
       "Sealwright": "RBW5KsIXmTGR710D2y2Y7", "Wayfinder": "v7T9_XdGMfP46em0dPuBc", "First Blade": "d6g0mOM7RBSsYI1hrUVT9",
       "The Captain": "QY69h271Nx9uHrBeR6jwW", "Deck Warden": "texZaFi42S3EvJZBwQ8cd", "Core Canister": "frc9LTxqQlM7mncG4VZGK",
       "Arsenal Keeper": "2OXJEXoktxJcjqMkE851g", "Foundry Warden": "81lnIP-q97gItQYWl5vWD"}  # Warden: push/262 result

@@ -120,7 +120,7 @@ echoes, which reward veterans without excluding anyone.
   - **First Blade:** bored for decades; thrilled by anything new.
   - **Sealwright:** the conscience. Sealed away what command would not let him stop.
   - **Sentinel:** the guard. Says little.
-  - **Foundry Warden:** never set down his ladle.
+  - **Foundry Warden:** never set down his forge maul.
   - **Core Horror:** what the Core builds when the impression is too damaged to follow. It does not speak.
   - **The Captain:** tired, honest, still dutiful.
   - **The Crowned Captain:** certain. He thinks he gave his people a gift.

@@ -804,7 +804,7 @@
       {
        "id": "d_crucible",
        "task": "dialog",
-       "description": "The crucible chamber is the only dry room in the works, kept dry by heat. The Foundry Warden stands in it, half fused with the pouring frame, a master smelter whose impression never set down his ladle. 'The last pour is not finished,' he says. 'It is never finished.'",
+       "description": "The crucible chamber is the only dry room in the works, kept dry by heat. The Foundry Warden stands in it, half fused with the pouring frame, a master smelter whose impression never set down his forge maul. 'The last pour is not finished,' he says. 'It is never finished.'",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -1007,7 +1007,7 @@
        "sceneCharacters": [],
        "nextObjectiveId": [
         {
-         "text": "Follow the severed impression conduit",
+         "text": "Follow the severed seal channel",
          "nextObjectiveId": "d_chamber"
         }
        ]
@@ -1020,7 +1020,7 @@
        "sceneCharacters": [],
        "nextObjectiveId": [
         {
-         "text": "Examine the maintenance plate",
+         "text": "Examine the seal plate",
          "nextObjectiveId": "d_seal1"
         }
        ]
@@ -1075,7 +1075,7 @@
       {
        "id": "d_alarm1",
        "task": "dialog",
-       "description": "The plate flares red. Every empty frame in the room turns toward you, and a Skyglass Sentinel steps out of the nearest one.",
+       "description": "The plate flares red. Every empty frame in the room turns toward you, and an archive keeper in Crownhold's grey steps out of the nearest one, ledger open.",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -1094,7 +1094,7 @@
        "opponentAIs": [
         {
          "ids": [
-          "3V_gdHYaclMB1gTyOPAbV"
+          "LZiunyinw9ScK3mh9HiR2"
          ],
          "number": 1,
          "quantity": 1
@@ -1251,7 +1251,7 @@
        "opponentAIs": [
         {
          "ids": [
-          "3V_gdHYaclMB1gTyOPAbV"
+          "LZiunyinw9ScK3mh9HiR2"
          ],
          "number": 1,
          "quantity": 1
@@ -1408,7 +1408,7 @@
        "opponentAIs": [
         {
          "ids": [
-          "3V_gdHYaclMB1gTyOPAbV"
+          "LZiunyinw9ScK3mh9HiR2"
          ],
          "number": 1,
          "quantity": 1
@@ -1482,7 +1482,7 @@
       {
        "id": "d_records",
        "task": "dialog",
-       "description": "The reports span decades, all in one seal-smith's hand. Each warns that the crew's impressions are fraying: names forgotten, faces filled in wrong, men coming back as less each time. Each asks leave to let them rest. Every answer is the same, sealed in cyan wax with a seven-bladed crown, sent down from a fortress called Crownhold: 'Refused. None is relieved.'",
+       "description": "The reports span decades, all in one seal-smith's hand. Each warns that the crew's impressions are fraying: names forgotten, faces filled in wrong, men coming back as less each time. Each asks leave to let them rest. Every answer is the same, sealed in cyan wax under a crown of jagged frost points around one tall central blade, sent down from a fortress called Crownhold: 'Refused. None is relieved.'",
        "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJpo8lFZubKBAOsGCHyl3Sk0mZFrgWPUdjMJ75",
        "sceneCharacters": [],
        "nextObjectiveId": [
@@ -4645,7 +4645,6 @@
         "quantity": 1
        }
       ],
-      "reward_tokens": 1000,
       "reward_jutsus": [
        "0F-68bxOXW_LkJnXV0lwT"
       ]
