@@ -1,0 +1,50 @@
+{
+ "_note": "skyglass_check fixture: picks. 50,000 ryo instead of 25,000, a cut exp card, pick 2 on a pick-1 run.",
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "CgwAVCyZLgNQtEnqgLxxv",
+   "name": "The Buried Cache",
+   "data": {
+    "name": "The Buried Cache",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 2,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "ixEKlJ0MmDrX7JoMNJVhi"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 50000,
+      "reward_exp": 5000
+     }
+    }
+   }
+  }
+ ]
+}

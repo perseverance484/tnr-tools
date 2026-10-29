@@ -1,0 +1,357 @@
+{
+ "_note": "skyglass_check fixture: passes every check (warnings only for pending ids).",
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "UGHSuhi83C3wRtH3FD4Eu",
+   "name": "The Drowned Foundry",
+   "data": {
+    "name": "The Drowned Foundry",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "b_warden",
+       "task": "start_battle",
+       "description": "The Warden tips the crucible.",
+       "reward_exp": 0,
+       "reward_items": [],
+       "reward_hunter_items": true,
+       "reward_hunter_items_ids": [
+        "M-0CPw9yBmmreLvJU6gav"
+       ],
+       "reward_gathering_items": true,
+       "reward_gathering_items_ids": [
+        "SWQpaXB8csJWL3zZMTz4r"
+       ]
+      },
+      {
+       "id": "w_deep",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "D0gtI5dOgj2dFO4VexsLJ"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 50000
+     }
+    }
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "create",
+   "srcId": "rotted",
+   "name": "The Rotted Reliquary",
+   "data": {
+    "name": "The Rotted Reliquary",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "b1",
+       "task": "start_battle",
+       "description": "The Warden tips the crucible.",
+       "reward_exp": 0,
+       "reward_items": [],
+       "reward_hunter_items": true,
+       "reward_hunter_items_ids": [
+        "32k2rXF6W-7gn_Fubp4kU"
+       ]
+      },
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 2,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 2
+       },
+       {
+        "ids": [
+         "Ma8S90Nmbi0Xvm4u4FzJh"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "B48dTRsoLJGKBWIUbeUoG"
+        ],
+        "number": 100,
+        "quantity": 2
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "THo7rfzP-S82_43aN8fs3",
+   "name": "Skyglass Coffer: text",
+   "data": {
+    "description": "A sealed coffer from the Core's own stores. 1 roll: Common 69% · Rare 24% · Epic 5% · Legendary 2%.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "description": "One roll",
+      "rewardMode": "weightedCache",
+      "reward_items": [],
+      "reward_money": 0,
+      "weightedCache": {
+       "version": 1,
+       "displayName": "x",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 6900,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2400,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 200,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "Ma8S90Nmbi0Xvm4u4FzJh",
+   "name": "Sealed Treasury: text",
+   "data": {
+    "description": "Crownhold's own coffers. Every opening pays 150,000 ryo, then 3 rolls 60% · 4 rolls 30% · 6 rolls 10% of: Common 45% · Rare 35% · Epic 15% · Legendary 5%.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "rewardMode": "standard",
+      "reward_money": 150000,
+      "reward_items": []
+     },
+     {
+      "type": "noncombatconsumereward",
+      "description": "One roll",
+      "rewardMode": "weightedCache",
+      "reward_items": [],
+      "reward_money": 0,
+      "weightedCache": {
+       "version": 1,
+       "displayName": "x",
+       "rolls": [
+        {
+         "count": 3,
+         "probability": 6000
+        },
+        {
+         "count": 4,
+         "probability": 3000
+        },
+        {
+         "count": 6,
+         "probability": 1000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 4500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 3500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 1500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "nbLC37UzBamthKXvZsgQB",
+   "name": "Buried Cache chart rarity",
+   "data": {
+    "rarity": "RARE"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "M-0CPw9yBmmreLvJU6gav",
+   "name": "Rare Hunter's Chest",
+   "data": {
+    "rarity": "RARE",
+    "canBeHunted": true,
+    "canBeGathered": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "3BYr-HMkOepywS77vJvJh",
+   "name": "Armory Requisition: hide",
+   "data": {
+    "hidden": true
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "j1",
+   "name": "Lastlight text",
+   "data": {
+    "description": "Crownhold's last signal, loosed as a line of pale fire.",
+    "battleDescription": "%user looses the Lastlight at %target."
+   }
+  }
+ ]
+}
