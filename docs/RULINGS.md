@@ -4232,7 +4232,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 
 **Domain:** Skyglass event / rewards
 
-**Status:** ACTIVE. Open: the Pouch's guaranteed kunai (×10 or ×5).
+**Status:** ACTIVE. The Pouch's guaranteed kunai is settled by RUL-2026-10-29-043.
 
 **Ruling:**
 1. **The Officer's Pill Case merges back into the Medicine Inro.** The Inro returns to its original two-roll table (RUL-2026-10-25-012). The healing-only Inro was one good pill (Small Health Pill) plus filler.
@@ -4252,3 +4252,19 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "I mean, why even split the inro and the pill case if the inro is just 1 good pill drop and a bunch of filler", then "Quartermaster's kit is also pure filler is it not? Just need to put elite smoke bombs in the tool pouch". The director also posted screenshots of auction sales.
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §1, §2, §3a, §4a.
+
+## RUL-2026-10-29-043 — Pouch keeps kunai ×10; Forge budget raised for badges and titles
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards; Forge
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **The Elemental Tool Pouch keeps Elemental Kunai ×10 on every opening.** At about 5.5M it out-pays the Archive's Strongbox, and that is accepted.
+2. **The Forge bundle budget is raised** from 446,000 / 108,000 to **455,000 / 109,500** (raw / gzip), for the badge and title builder (`fable/badge-builder`). Measured at 450,415 / 108,305.
+
+**Evidence:** Director, 2026-10-29: "1. Keep. 2 approved raise".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3a; `forge/tools/check_bundle_budget.mjs` on `fable/badge-builder`.

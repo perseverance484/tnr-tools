@@ -133,7 +133,7 @@ Values are market prices where the director has shown sales (2026-10-29), otherw
 | Sage's Strongbox (1 roll) | 65: Dr. Kim Disaster Potion / Chakra Disrupting Needles ×20 | — | 26: Infernum / Bashōsen / Dr. Kim's Poison Potion ×10 | 8: Solider Pill / Enemy Pill / Mona's Mermaid Song ×2; Forbidden 1: Forbidden Jutsu Scroll (Nexus / Rebirth) ×1 | ~4.2M |
 | Elemental Tool Pouch (Elemental Kunai ×10 always, + 1 roll) | 70: Elemental Kunai ×10 / Venom Cask ×10 | 25: Elemental Kunai ×20 / Elite Smoke Bomb ×10 / Paper Bombs ×10 | 5: Elemental Kunai ×30 / Senbon Needles ×10 / Saki ×10 | — | ~5.5M |
 
-- **Open: the Pouch's guaranteed kunai.** At ×10 the Pouch (~5.5M) out-pays the Archive's Strongbox. At ×5 it is ~4M. The supply of the one Elemental Kunai will likely push its price down.
+- **The Pouch keeps Elemental Kunai ×10 on every opening** (RUL-2026-10-29-043). At ~5.5M it out-pays the Archive's Strongbox; the Foundry is the kunai run.
 - Field Tonic has no price and no recipe in the capture, so it is valued at 0.
 - **Dead Man's Draught is not used.** Skyglass Serum (Coffer) is its live successor.
 - Placement: §1 and §4a.
@@ -165,7 +165,7 @@ The Sealwright's doubled health (push/252) applies to the Archive's final fight 
 | Tainted runs | **pick 2** from their rare's options; Lantern 30% and Core Rot 40%. No guaranteed drops: the second pick is the appeal (RUL-2026-10-28-019) |
 | Crownhold | Crown's Hoard / Skyglass Coffer ×2 / Crownhold badge / Crownhold jutsu / Crown Fragment (RUL-2026-10-28-017) |
 
-The rares double the Watch's Coffer and Jar, so each rung pays more than the one below it. Value ladder of each run's best item option (RUL-2026-10-28-033 basis): common runs ~1.4M (Inro, or the other common chart) < Buried Cache ~1.4M (Inro, or a Foundry chart) < Foundry ~5.5M (Pouch; see the §3a open point) < Archive ~4.2M (Strongbox) < Watch (Coffer) < rare runs (Treasury ~8M, Coffer ×2) < tainted (pick 2) < Crownhold (unique pieces). Ryo appears only as the Watch's Captain's Purse (RUL-2026-10-28-034). The common runs' chart options make them feed each other, and the Buried Cache feeds the Foundry (RUL-2026-10-29-042).
+The rares double the Watch's Coffer and Jar, so each rung pays more than the one below it. Value ladder of each run's best item option (RUL-2026-10-28-033 basis): common runs ~1.4M (Inro, or the other common chart) < Buried Cache ~1.4M (Inro, or a Foundry chart) < Foundry ~5.5M (Pouch, kept by RUL-2026-10-29-043) < Archive ~4.2M (Strongbox) < Watch (Coffer) < rare runs (Treasury ~8M, Coffer ×2) < tainted (pick 2) < Crownhold (unique pieces). Ryo appears only as the Watch's Captain's Purse (RUL-2026-10-28-034). The common runs' chart options make them feed each other, and the Buried Cache feeds the Foundry (RUL-2026-10-29-042).
 
 Cut and not to be rebuilt: every ryo card except the Watch's Captain's Purse (RUL-2026-10-28-034); the Archive's Records exp, the Watch's Inro ×3, The Fall's Captain's Purse, the commons' exp cards (RUL-2026-10-28-016); Crownhold's Honor and Crownhold's Echo Jar ×2 (RUL-2026-10-28-017); the tainted runs' guaranteed Sealed Treasury and Echo Jar (RUL-2026-10-28-019).
 
@@ -306,7 +306,6 @@ Open:
 - **Crown's Hoard contents:** how many of each cache (Coffer, Treasury, Echo Jar) one Hoard opens.
 - **Galley Stores amount:** the pet-experience lump (director).
 - **Core Rot in the easy Wreck:** none (RUL-2026-10-28-020). Only the endgame Wreck drops it.
-- **Pouch guaranteed kunai** (§3a): ×10 or ×5.
 - **Profession material id lists** per hunt (§4b), from the push/323 capture.
 - Reward packages are built in the game's catalog editor until Forge has a package recipe.
 
