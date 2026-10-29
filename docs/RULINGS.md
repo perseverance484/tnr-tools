@@ -4455,3 +4455,24 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 - then "A. Oathbinder approved. Approved. 2-3 tokens a weekend".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §1, §4a, §5.
+
+## RUL-2026-10-29-050 — Reward scaling fixes; the Crownbreaker trophy moves to an achievement
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Skyglass Token ×2 in the rare picks** (Sealed Reliquary, The Fall, and so the tainted runs). It stays ×1 at the Archive and the Watch, so the token scales with difficulty.
+2. **Crownhold's pick offers Skyglass Coffer ×3**, up from ×2, so the pinnacle out-pays the rares on gear.
+3. **Trophy drops scale by run:** 1% in hunts, 2% in rares, 4% in tainted runs. This restores the doubled tainted rate.
+4. **Not adopted:** the Captain's Purse stays at 1,000,000 ryo.
+5. **The Crownbreaker trophy token leaves Crownhold's pick.** Item picks don't grey out once held, so a second pick would waste a run on a dead, untradeable duplicate.
+   - It is now the reward of a one-time **Crownbreaker** achievement quest: one `complete_specific_quest` objective on Crownhold.
+   - Achievements complete once per player, so a duplicate is impossible.
+
+**Evidence:** Director, 2026-10-29: "All approved except 4 and 5. Leave ryo as is. Lets find a new home for the trophy then, dont want players to pick a double and waste a run".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §1, §4a, §5d.

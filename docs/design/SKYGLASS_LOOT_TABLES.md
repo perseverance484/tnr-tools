@@ -41,7 +41,7 @@ Descriptions are generated from the same tables the caches are built from, so th
 
 | Container / item | Owns | Found in |
 |---|---|---|
-| Skyglass Coffer | every Skyglass item | Captain's Watch pick (×1); Sealed Reliquary, The Fall and Crownhold picks (×2); chest of chests Epic; Crown's Hoard |
+| Skyglass Coffer | every Skyglass item | Captain's Watch pick (×1); Sealed Reliquary and The Fall picks (×2); Crownhold pick (×3); chest of chests Epic; Crown's Hoard |
 | Sealed Treasury | 150,000 ryo on every opening + 3/4/6 rolls of Imperial Gold, Rare Jewels, Unobtanium (RUL-2026-10-28-012) | Endgame Wreck clear 3%; every hunt ending at 1% per ladder step (ruled); Sealed Reliquary and The Fall picks; chest of chests Legendary; Crown's Hoard |
 | Archive Chart Case | the hunt charts, the Lantern and the rare charts | Quarantined Archive pick; Sealed Reliquary pick (×2); chest of chests Epic |
 | Medicine Inro | healing and self-buff consumables, 2 rolls (§3a) | Low Tide Run, Night Watch, Buried Cache and Foundry picks; chest of chests Common |
@@ -50,7 +50,7 @@ Descriptions are generated from the same tables the caches are built from, so th
 | Common charts as picks | Watch Roster, Tide Chart, Chart of the Drowned Foundry (§4a) | Low Tide Run, Night Watch and Buried Cache picks (RUL-2026-10-29-042) |
 | Galley Stores | pet experience (§5b) | Easy Wreck clear 10%; Low Tide Run, Night Watch, Buried Cache and Foundry picks; The Fall pick (×3); chest of chests Rare |
 | Skyglass Token | unlocks any one Skyglass skin (§5d) | Archive, Watch, Sealed Reliquary and The Fall picks; chest of chests Legendary; Crown's Hoard (RUL-2026-10-29-049) |
-| Trophy tokens | each unlocks one boss skin (§5d) | the Wreck bosses (once per player), chart and hunt bosses (1-2%), Crownhold pick |
+| Trophy tokens | each unlocks one boss skin (§5d) | the Wreck bosses (once per player); chart and hunt bosses (1% hunts, 2% rares, 4% tainted); the Crownbreaker achievement |
 | The Little Horror's Jar | the event's one pet (§5b) | endgame Wreck clear, once per player (proposed 5%) |
 | Crown's Hoard | opens the Skyglass Coffer and Sealed Treasury caches together, plus a Skyglass Token (RUL-2026-10-28-013, -049) | Crownhold pick |
 | Core Rot | steeping reagent (§5) | Endgame Wreck clears, the common runs, the Core Horror's hunt runs, breaking the seal, a failed rare run (§5) |
@@ -163,10 +163,10 @@ The Sealwright's doubled health (push/252) applies to the Archive's final fight 
 | Drowned Foundry | Elemental Tool Pouch / Medicine Inro / Galley Stores |
 | Quarantined Archive | Archive Chart Case / Sage's Strongbox / Skyglass Token |
 | Captain's Watch | Skyglass Coffer / Captain's Purse (1,000,000 ryo) / Skyglass Token |
-| Sealed Reliquary | Skyglass Coffer ×2 / Sealed Treasury / Skyglass Token / Archive Chart Case ×2 |
-| The Fall | Skyglass Coffer ×2 / Sealed Treasury / Skyglass Token / Galley Stores ×3 |
+| Sealed Reliquary | Skyglass Coffer ×2 / Sealed Treasury / Skyglass Token ×2 / Archive Chart Case ×2 |
+| The Fall | Skyglass Coffer ×2 / Sealed Treasury / Skyglass Token ×2 / Galley Stores ×3 |
 | Tainted runs | **pick 2** from their rare's options; Lantern 30% and Core Rot 40%. No guaranteed drops: the second pick is the appeal (RUL-2026-10-28-019) |
-| Crownhold | Crown's Hoard / Skyglass Coffer ×2 / Crownbreaker badge / Crownhold jutsu / Crown Fragment / Crownbreaker trophy token (RUL-2026-10-28-017, RUL-2026-10-29-049) |
+| Crownhold | Crown's Hoard / Skyglass Coffer ×3 / Crownbreaker badge / Crownhold jutsu / Crown Fragment (RUL-2026-10-28-017, RUL-2026-10-29-050) |
 
 The rares double the Watch's Coffer, so each rung pays more than the one below it. Value ladder of each run's best item option (RUL-2026-10-28-033 basis): common runs ~1.4M (Inro, or the other common chart) < Buried Cache ~1.4M (Inro, or a Foundry chart) < Foundry ~5.5M (Pouch, kept by RUL-2026-10-29-043) < Archive ~4.2M (Strongbox) < Watch (Coffer) < rare runs (Treasury ~8M, Coffer ×2) < tainted (pick 2) < Crownhold (unique pieces). Ryo appears only as the Watch's Captain's Purse (RUL-2026-10-28-034). The common runs' chart options make them feed each other, and the Buried Cache feeds the Foundry (RUL-2026-10-29-042).
 
@@ -305,8 +305,8 @@ Engine (theninjarpg upstream `3314d122`, after the 2af4b320 pin):
 - **Unlocks:** any one Skyglass skin. Every Skyglass skin carries `requiredItemId` = Skyglass Token, so no other token opens them.
 - **Tradeable.**
 - **Pace:** about 2-3 a dedicated weekend. The event runs Friday to Sunday and repeats weekly, so half the catalogue takes a few weekends.
-- **Found in** (all ×1, no direct drop):
-  - the Archive, Watch, Sealed Reliquary and The Fall picks;
+- **Found in** (×1, ×2 in the rare picks; no direct drop):
+  - the Archive and Watch picks (×1), the Sealed Reliquary and The Fall picks (×2);
   - the chest of chests' Legendary tier;
   - the Crown's Hoard.
   - The tainted runs inherit their rare's options.
@@ -322,11 +322,11 @@ Engine (theninjarpg upstream `3314d122`, after the 2af4b320 pin):
 |---|---|---|---|---|
 | The Captain | Captain's Command Fan (a gunbai) | The Unwritten | endgame Wreck, once per player | no |
 | Core Horror | Rot-Bloom Reaper | Oathbinder | endgame Wreck, once per player | no |
-| Foundry Warden | Warden's Forge-Fists | Warden's Bracers | his runs, 1-2% | yes |
-| Wayfinder | Wayfinder's Heading | Stormrender | his runs, 1-2% | yes |
-| First Blade | The First Blade | Aetherion | Sealed Reliquary, 1-2% | yes |
-| Sealwright | Sealwright's Seal | Whispering Dawnblade | his runs, 1-2% | yes |
-| Crowned Captain | Crownbreaker | Thornsilver | Crownhold pick | no |
+| Foundry Warden | Warden's Forge-Fists | Warden's Bracers | his runs: 1% hunts, 2% rares, 4% tainted | yes |
+| Wayfinder | Wayfinder's Heading | Stormrender | his runs: 1% hunts, 2% rares, 4% tainted | yes |
+| First Blade | The First Blade | Aetherion | 2% rares, 4% tainted | yes |
+| Sealwright | Sealwright's Seal | Whispering Dawnblade | his runs: 1% hunts, 2% rares, 4% tainted | yes |
+| Crowned Captain | Crownbreaker | Thornsilver | the one-time **Crownbreaker** achievement: first Crownhold clear (RUL-2026-10-29-050) | no |
 
 **Art rule:** a skin keeps its base weapon's silhouette, with skyglass as inlay and accents. The Skyglass Katana stays the only all-crystal blade.
 
