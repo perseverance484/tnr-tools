@@ -223,3 +223,29 @@ close in, basic attack). Ids contain `user_`, so `ai_v2` treats them as players.
 
 Variant fields (override `players`): `level`, `rank`, `statBudget`, `stats`, `poolsMultiplier`,
 `damageGivenPct`, `damageTakenReductionPct`, `gearMode`, `gearItemIds`, `elements`, `jutsuIds`, `jutsuLevel`, `rules`.
+
+## The Haul (S-rank profession charts)
+
+`engine/haul.ts` (params, hazards, fights per state, quest state-graph generator) and `engine/haul_main.ts` (runner).
+Results: `results/haul_*.json` (settings and params embedded); tables: `tools/haul_tables.py`; quest graphs: `haul_spec.json`.
+
+```bash
+# Every legal path of every base page, state-merged (40 particles per state), dodge on / off:
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --exhaustive --variants base --seeds 40 --out results/haul_base_dodge.json
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --exhaustive --variants base --seeds 40 --no-dodge --out results/haul_base_nododge.json
+# The 24 steeped pages (layout+modifier):
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --exhaustive --variants mods --seeds 24 --out results/haul_mods_dodge.json
+# Exact per-seed simulation of named paths (shared prefix tree), e.g. the policies:
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --paths C,CC,CLC,CCL,CLLLC --variants trophy,overgrown --seeds 40 --out results/haul_exact.json
+# Calibration / probes / determinism / spec:
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --fights --variants trophy --seeds 8      # each fight state from full HP
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --solo h-veteran,trophy-warden --seeds 6  # guard strength alone
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --probe-hazards --variants trophy,overgrown --seeds 6
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --repro trophy@CLLC@3
+TNR_SCRIPT=haul_main.ts harness/skyglass_wreck_sim/run.sh --spec-out harness/skyglass_wreck_sim/haul_spec.json
+python3 harness/skyglass_wreck_sim/tools/haul_tables.py results/haul_base_dodge.json results/haul_mods_dodge.json
+```
+
+Variants: `base` (6 pages), `mods` (24 steeped pages), `all`, or a list such as `trophy,overgrown+rot`. `--set=path.to.knob=json`
+overrides one param for a quick probe. Every fight is seeded by (page, seed, state) through the virtual clock
+(`seedEntropy` -> `seedClock`); `--repro` reruns a path twice and compares actions, positions (pets included) and HP.
