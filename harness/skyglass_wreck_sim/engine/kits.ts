@@ -27,6 +27,9 @@ export type KitParams = {
   bossTaken?: number[];
   /** Core Horror phase 2 (The Core Rebuilds, Rupture Field first) starts below this % health. */
   horrorPhase2?: number;
+  /** Level-50 copies (RUL-2026-10-28-025): the Core Horror's signature mark (Omen: Last Light -> Maw of the Deep) moves to
+   * the head of his marks with no round gate, so his short level-50 fight shows it. */
+  horrorMawFirst?: boolean;
   gunwaleHP?: number;
 };
 
@@ -64,7 +67,7 @@ const idgRow = () => ({
 const takenRow = (pct: number) => tag("increasedamagetaken", { power: pct, rounds: 99, calculation: "percentage", description: "Increased damage taken" });
 
 /** The shared rule lists (independent of stats). */
-export const sharedRules = (P: Pick<KitParams, "horrorPhase2">) => {
+export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst">) => {
   const PH2 = P.horrorPhase2 ?? 70;
   const mk = (k: MarkKey) => MARKER_TYPES[k];
   const blastOf = (k: MarkKey, prefer?: string) => prefer ?? Object.keys(ANSWERS).find((id) => ANSWERS[id] === k && id.startsWith("lib-blast"))!;
@@ -96,8 +99,9 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2">) => {
     ...afterMark(["ring", "scatterA", "scatterB", "lastLight"], horrorPlain),
     // Phase 2 (director: earlier, so Rupture Field and its pools appear): Rupture Field A, then the Maw (from round 4;
     // its 6-round cooldown keeps it to about once a phase), then Rupture Field B.
+    ...(P.horrorMawFirst ? [mark("Omen: Last Light (Maw of the Deep, level-50 order: first)", "lastLight")] : []),
     mark("Omen: Scatter A (phase 2)", "scatterA", [cond.hp(PH2)]),
-    mark("Omen: Last Light (Maw of the Deep, from round 4)", "lastLight", [cond.roundGt(3)]),
+    ...(P.horrorMawFirst ? [] : [mark("Omen: Last Light (Maw of the Deep, from round 4)", "lastLight", [cond.roundGt(3)])]),
     mark("Omen: Scatter B (phase 2)", "scatterB", [cond.hp(PH2)]),
     mark("Omen: Ring (Collapse, a player within 2)", "ring", [cond.within(0, 2)]),
     mark("Omen: Scatter A", "scatterA"),

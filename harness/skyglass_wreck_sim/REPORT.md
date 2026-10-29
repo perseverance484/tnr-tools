@@ -868,3 +868,113 @@ Signature rates (pets, dodging):
 
 - No browser, live-game or session checks. Nothing pushed, `main` untouched, game checkout unmodified.
 - **Incident:** during tuning I ran `pkill -f "skyglass_wreck_sim/run.sh"`, which may have stopped other agents' harness runs. It was reported at the time. Since then I only stop processes by PID or task id from this worktree.
+
+# Report 4b (2026-10-28): director rulings RUL-2026-10-28-025 / -026, Captain rule audit
+
+Branch `fable/skyglass-wreck-sim`, built on 41436bdb. Offline, zero live requests.
+
+## Changes
+
+1. **Minor marks back to their original power:** Splash 80, Short Line 90.
+   - In `probe_library`, a player standing in the blast takes 198 / 222.
+   - A modelled pet (1,550 HP) takes 1,414 / 1,550, so Short Line kills it. This is accepted collateral.
+2. **Level-50 Core Horror shows his signature first.**
+   - New param `horrorMawFirst` (level-50 params only) moves Omen: Last Light (Maw of the Deep) to the head of his marks, with no round gate.
+   - The Maw's x3 window then shortened his fight to 3 rounds and the run to 13.6 min, so his level-50 pools went from x4 to **x6** (15,300 HP). At x6 the fight lasts 6 rounds.
+   - Signature rate: **100% of appearances** (was 37%).
+   - `build_spec.json` keeps the base order under `sharedKits`. The level-50 order is listed under `lvl50.ruleVariants["Core Horror"]`: same jutsu, different order.
+3. **Captain rule audit:** below. Nothing was cut.
+4. **Broadside / Rows B and the Captain's own Gunwale.** friendlyFire **cannot** stop this in the engine:
+   - `process.ts`: when ground damage lands on a tile with no unit, it is forwarded to any barrier there (`if (!user && e.type === "damage") findBarrier(...)`). `damageBarrier` then applies it. Neither step consults `friendlyFire` or the barrier's `creatorId`.
+   - `checkFriendlyFire` is only called for units.
+   - In the Wreck the question is currently moot: Raise the Gunwale fires in **0%** of appearances (audit below).
+   - Alternatives if the Gunwale is brought back:
+     - (a) accept the chip, as flavour: "his own broadside splinters the rail";
+     - (b) make Broadside / Rows B CHARACTER blasts again: no chip, but they do not detonate on empty rows;
+     - (c) place the Gunwale away from rows 2/3 and 5/6. That is not controllable: it is an `AOE_WALL_SHOOT` at `EMPTY_GROUND_CLOSEST_TO_OPPONENT`.
+5. **Ward of Command is clear-proof.**
+   - New row: `clearprevent` 100, 2 rounds, on the warded ally (`INHERIT`, FRIENDLY).
+   - The engine's `clear` checks `clearprevent` first (`tags.ts clear → preventCheck`). Power 100 always blocks.
+   - A trace shows `clearprevent@The Captain,decreasedamagetaken@The Captain` on each cast.
+   - `clearprevent` is a shared-cooldown type, but the Sealwright has no other clearprevent jutsu.
+6. **`hunt-stonebound-erupting-ground`** "Erupting Ground", added to `library_spec.json` (group "Skyglass-only copy of a live jutsu").
+   - It is a copy of live `jBRyl7F4UjTyxG5nnzLqj` (Crown Stonebound) with one change: the damage row is `friendlyFire: ENEMIES` (live: unset).
+   - Its `copyOf` field gives the source and the change.
+   - Library total: 35 NEW records, all pass `JutsuValidator`.
+
+`probe_library` (rerun):
+- all 10 boss pairs fire in order;
+- both minor pairs fire;
+- every blast still detonates with all players stepped off, hitting nobody (Last Light 2 of 5, star capacity);
+- the engine geometry checks are unchanged.
+
+## The Captain: rule audit (`engine/audit_rules.ts`, `results/audit_captain_endgame.json`)
+
+Method:
+- Endgame boss wave (Captain + Sealwright), 30 seeded runs, pets and dodging on, 400 Captain decisions, wave median 9 rounds.
+- A read-only hook inspects the battle before each AI decision and classifies every rule as:
+  - fired;
+  - **preempted** (usable, conditions met, but a higher rule fired);
+  - **condition** (conditions false);
+  - **cooldown** (on its own cooldown);
+  - **locked** (shared-cooldown lock from another jutsu);
+  - **AP** (not enough action points left).
+- Distances use hex distance, an approximation of the engine's path length.
+
+**The Captain record is shared by the Watch and The Fall,** so "cut" below means cutting from the Wreck's rule order. The moves themselves stay on the record.
+
+**Main finding: the set-piece loop fills every turn.**
+- Each turn is either a mark (40 AP, then the after-mark end turn) or a blast (100 AP).
+- Rows A and the Binding Ring each have cooldown 4, so they alternate and leave no free turn.
+- So nothing below rule 16 ever acts.
+
+| # | Rule (move) | Fired in % of appearances | Cause when not firing | Recommendation |
+|---:|---|---:|---|---|
+| 0 | Hold the Line (live Unbroken Command), `far 5` | 3 | condition: players are within 5 when the wave opens | reorder/condition: make it the opener (`round_lower_than 2`) or cut |
+| 1 | Last Stand at the Helm (live Battle Trance), under 50% | 93 | n/a | keep |
+| 2 | Broadside (signature) | 97 | n/a | keep |
+| 3 | Rows B blast (second volley) | 0 | its mark (16) never fires | cut, with 16 and 8-10 |
+| 4 | Ship's Bell (signature) | 100 | n/a | keep |
+| 5-6 | after Rows A: Final Command / Keelbind | 43 / 47 | their own cooldowns | keep: the duel moves land here |
+| 7 | after Rows A: end turn | 83 | n/a | keep (structural) |
+| 8-10 | after Rows B: Final Command / Keelbind / end turn | 0 | Rows B is never marked | cut with Rows B |
+| 11-12 | after the Binding Ring: Final Command / Keelbind | 67 / 57 | own cooldowns | keep |
+| 13 | after the Binding Ring: end turn | 93 | n/a | keep |
+| 14 | Omen: Binding Ring (a player within 2) | 100 | n/a | keep |
+| 15 | Omen: Rows A | 100 | n/a | keep |
+| 16 | Omen: Rows B | 0 | preempted (381 of 400 decisions): Rows A has the same condition and cooldown and sits above it, and Rows A plus the Binding Ring fill every mark turn | cut in the Wreck, or alternate (e.g. Rows A cooldown 6 so Rows B fills the gap) |
+| 17 | Raise the Gunwale (round > 2) | 0 | preempted (365): no turn is free | reorder above the marks with a gate (e.g. health below 70, or Sealwright alive) if the director wants it; then see item 4 |
+| 18-19 | Final Command / Keelbind (standalone) | 0 | duplicates of 5-6 / 11-12: on cooldown from those (227 / 250) or preempted | cut (duplicates) |
+| 20 | Stolen Form (target buffed) | 0 | condition (176: no target with +25% damage given) and preempted | cut from the Wreck order (keep for Watch / Fall) |
+| 21 | Suppression Writ | 0 | preempted (364) | move into an after-mark slot for variety, or cut |
+| 22 | Second Wind (under 40%) | 0 | condition (328): he rarely lives long below 40%; Last Stand at 50% comes first | reorder above the marks if a heal is wanted; else cut |
+| 23 | Counter Stance (player adjacent) | 0 | condition (211) and preempted (177) | cut from the Wreck order |
+| 24 | Ruin Refrain | 0 | preempted (271), and **locked** (112) by Final Command's shared stun cooldown | cut in the Wreck (stun overlap with Final Command) |
+| 25-27 | Unraveling Strike / Explosive Tag Cataclysm / Windlash Focus | 0 | preempted (369 / 369 / 380) | optional: rotate into after-mark slots; else cut |
+| 28 | patrol: close in (`far 4`) | 0 | condition (399): players are always within 4 | keep (fallback) |
+| 29 | highest-power damage | 0 | preempted (400) | keep (fallback) |
+
+Level 50 (same order, no Sealwright): the Captain's signature fires in 85% of appearances. Rules 17-28 never fire, for the same reason.
+
+## Final runs (this build)
+
+| Version, runs | Cleared | Runs with a wipe | Rounds median [p10-p90] | Min @15 s (+ AI 1.5 s) | Notes |
+|---|---:|---:|---|---|---|
+| Endgame, 60, pets, dodging | 60 | **18.3%** (13 wipes, all on the boss wave) | 26 [24-55] | **19.3** (21.2) | Core Horror 32.5% party HP, no floor-4 wipes; signatures: Horror 90%, Captain 100% |
+| Endgame, 40, no pets | 40 | 25% (9 boss wave, 2 Core Horror) | 26.5 [24-55] | 19.5 (20.5) | |
+| Endgame, 30, pets, no dodging | 0 | 100% | n/a | n/a | the Core Horror wipes 120 of 120 attempts |
+| Level 50, 60, pets, dodging | 60 | 1.7% (1 Core Horror wipe) | 19 [16-22] | **15.3** (16.4) | Horror 6 rounds, signature **100%**; Captain 85% |
+| Level 50, 40, no pets | 40 | 0% | 21 [18-26] | 16.9 (17.5) | |
+| Level 50, 30, pets, no dodging | 30 | 20% (5 Core Horror, 1 Captain) | 19 [16-30] | 15.1 | |
+| Level 40, 30, pets | 0 | 100% | 105 | n/a | the Core Horror wipes 118 of 120 attempts |
+| Level 60, 30, pets | 30 | 0% | 14 [13-16] | 11.8 | |
+
+- The level-40 bound is now worse than in report 4 (was 50%). The x6, Maw-first Core Horror is a wall for this level-40 model.
+- That reinforces the earlier recommendation: gate this version at about level 45+, or give the low end its own Horror.
+
+**Determinism.**
+- `--probe-check` with pets passes on both versions: endgame seeds 1-4, run alone and under parallel load; level 50 seeds 1-2.
+- **One unexplained failure:** the endgame probe-check, run once in parallel with two other final-run jobs, reported a different Sealwright action right after a Ward of Command in seed 1's boss floor.
+- Under similar load the failure did not reproduce, alone or in-process across all floors.
+- No unseeded source was found: Math.random, getRandomValues and Date are all seeded or virtual, `preventCheck` uses the seeded Math.random, and enemy rows are cloned per floor.
+- Logged as an open item.

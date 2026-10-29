@@ -12,7 +12,7 @@
  * stun, seal or push target CHARACTER (GROUND lands only damage); the scatter blasts stay GROUND so they leave a pool.
  */
 import { getDefaultBattleSizes } from "@/libs/combat/util";
-import { anim, jutsu, T, tag } from "./kitlib";
+import { anim, copyJutsu, jutsu, T, tag } from "./kitlib";
 
 const size = getDefaultBattleSizes("QUEST" as never, 100)!; // 12 x 10 at level >= 50
 const W = size.width;
@@ -169,8 +169,17 @@ export const LIB = {
     chainHook: "lib-chain-hook", oath: "lib-oath-of-stillness", chartMark: "lib-chart-mark", aegis: "lib-skyglass-aegis",
     mending: "lib-mending-seal", ward: "lib-ward-of-command",
   },
+  /** Skyglass-only copies of live jutsu (RUL-2026-10-28-026): used by the hunts / Crownhold instead of editing the
+   * shared live record. */
+  liveCopy: {
+    stoneboundEruptingGround: "hunt-stonebound-erupting-ground",
+  },
 };
 /** Which mark each blast or signature answers. */
+/** Source and change of each Skyglass-only live copy. */
+export const LIVE_COPY_SOURCE: Record<string, { liveId: string; liveName: string; change: string }> = {
+  [LIB.liveCopy.stoneboundEruptingGround]: { liveId: "jBRyl7F4UjTyxG5nnzLqj", liveName: "Erupting Ground (Crown Stonebound)", change: "damage rows friendlyFire ENEMIES (live: unset, hits everyone)" },
+};
 export const ANSWERS: Record<string, MarkKey> = {
   [LIB.blast.ring]: "ring", [LIB.blast.rowsA]: "rowsA", [LIB.blast.rowsB]: "rowsB", [LIB.blast.scatterA]: "scatterA",
   [LIB.blast.scatterB]: "scatterB", [LIB.blast.lines]: "lines", [LIB.blast.sealLines]: "sealLines",
@@ -182,7 +191,8 @@ export const ANSWERS: Record<string, MarkKey> = {
 export const LIB_POWERS = {
   blastRing: 160, blastRows: 140, blastScatter: 140, scatterPool: 30, blastLines: 150, sealLinesDamage: 60,
   maw: 200, quench: 220, commandAbsolute: 80, crownfall: 180, broadside: 140, shipsBell: 50,
-  splash: 58, shortLine: 65,
+  // RUL-2026-10-28-025: original powers; a modelled pet standing in a minor blast is accepted collateral.
+  splash: 80, shortLine: 90,
   chainHook: 45, oath: 35, aegisShield: 1500, mending: 20, wardDR: 80,
 };
 
@@ -280,6 +290,20 @@ export const buildLibrary = () => {
   add(jutsu(LIB.crew.chartMark, { name: "Chart Mark", description: "Marks a target on the chart; the crew converge on it.", battleDescription: "%user marks %target on the chart. \"There.\"", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 4, actionCostPerc: 40, effects: [T.pct("increasedamagetaken", 40, 2, { staticAnimation: anim("mark-sigil") }), tag("increasepoolcost", { power: 5, rounds: 2, calculation: "percentage", poolsAffected: [] })] }));
   add(jutsu(LIB.crew.aegis, { name: "Skyglass Aegis", description: "A pane of skyglass forms around an ally.", battleDescription: "%user raises a pane of skyglass around %target.", target: "ALLY", method: "SINGLE", range: 4, cooldown: 4, actionCostPerc: 40, donor: "xs-8r_KRJS8QQMpBDyhUv", effects: [tag("shield", { power: 100, health: p.aegisShield, rounds: 2, friendlyFire: "FRIENDLY", staticAnimation: anim("skyglass-pane") }), tag("absorb", { power: 20, rounds: 2, friendlyFire: "FRIENDLY", calculation: "percentage" })] }));
   add(jutsu(LIB.crew.mending, { name: "Mending Seal", description: "A seal that knits wounds and lifts afflictions from an ally.", battleDescription: "%user presses a mending seal to %target.", target: "ALLY", method: "SINGLE", range: 5, cooldown: 4, actionCostPerc: 40, donor: "xs-8r_KRJS8QQMpBDyhUv", effects: [T.heal(p.mending, { friendlyFire: "FRIENDLY" }), T.cleanse({ friendlyFire: "FRIENDLY" })] }));
-  add(jutsu(LIB.crew.ward, { name: "Ward of Command", description: "The Sealwright's ward on the Captain: heavily reduced damage while she stands.", battleDescription: "%user binds the command ward to %target.", target: "ALLY", method: "SINGLE", range: 5, cooldown: 2, actionCostPerc: 40, donor: "xs-8r_KRJS8QQMpBDyhUv", effects: [T.pct("decreasedamagetaken", p.wardDR, 2, { target: "INHERIT", friendlyFire: "FRIENDLY", staticAnimation: anim("cp_command") })] }));
+  add(jutsu(LIB.crew.ward, { name: "Ward of Command", description: "The Sealwright's ward on the Captain: heavily reduced damage while she stands.", battleDescription: "%user binds the command ward to %target.", target: "ALLY", method: "SINGLE", range: 5, cooldown: 2, actionCostPerc: 40, donor: "xs-8r_KRJS8QQMpBDyhUv", effects: [
+    T.pct("decreasedamagetaken", p.wardDR, 2, { target: "INHERIT", friendlyFire: "FRIENDLY", staticAnimation: anim("cp_command") }),
+    // Clear-proof (RUL-2026-10-28-025; the hunts harness cleared it): clearprevent on the warded ally for the ward's
+    // 2 rounds. clearprevent is a shared-cooldown type, but the Sealwright carries no other clearprevent jutsu.
+    tag("clearprevent", { power: 100, rounds: 2, target: "INHERIT", friendlyFire: "FRIENDLY" }),
+  ] }));
+  /* ---- Skyglass-only copies of live jutsu ---- */
+  // Crown Stonebound's Erupting Ground (live jBRyl7F4UjTyxG5nnzLqj), unchanged except that its damage hits enemies only.
+  {
+    const src = copyJutsu("jBRyl7F4UjTyxG5nnzLqj", LIB.liveCopy.stoneboundEruptingGround, {});
+    add(copyJutsu("jBRyl7F4UjTyxG5nnzLqj", LIB.liveCopy.stoneboundEruptingGround, {
+      description: `${src.description ?? ""} (Skyglass copy: damage hits enemies only.)`.trim(),
+      effects: src.effects.map((e: any) => (e.type === "damage" ? { ...e, friendlyFire: "ENEMIES" } : e)),
+    }));
+  }
   return J;
 };

@@ -1347,8 +1347,8 @@
   "crownfall": 180,
   "broadside": 140,
   "shipsBell": 50,
-  "splash": 58,
-  "shortLine": 65,
+  "splash": 80,
+  "shortLine": 90,
   "chainHook": 45,
   "oath": 35,
   "aegisShield": 1500,
@@ -1361,7 +1361,8 @@
   "signatures": 6,
   "loweredGuard": 1,
   "crewAdditions": 6,
-  "total": 34
+  "liveCopies": 1,
+  "total": 35
  },
  "records": [
   {
@@ -5017,7 +5018,7 @@
       "appearSfx": "",
       "disappearSfx": "",
       "rounds": 0,
-      "power": 58,
+      "power": 80,
       "powerPerLevel": 0,
       "direction": "offence",
       "target": "INHERIT",
@@ -5101,7 +5102,7 @@
       "appearSfx": "",
       "disappearSfx": "",
       "rounds": 0,
-      "power": 65,
+      "power": 90,
       "powerPerLevel": 0,
       "direction": "offence",
       "target": "INHERIT",
@@ -6591,12 +6592,100 @@
       "elements": [],
       "type": "decreasedamagetaken",
       "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 2,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "FRIENDLY",
+      "calculation": "static",
+      "type": "clearprevent",
+      "description": "placeholder"
      }
     ]
    },
    "animationPlaceholders": [
     "cp_command"
    ],
+   "validator": "JutsuValidator: ok"
+  },
+  {
+   "id": "hunt-stonebound-erupting-ground",
+   "status": "NEW",
+   "group": "Skyglass-only copy of a live jutsu",
+   "copyOf": {
+    "liveId": "jBRyl7F4UjTyxG5nnzLqj",
+    "liveName": "Erupting Ground (Crown Stonebound)",
+    "change": "damage rows friendlyFire ENEMIES (live: unset, hits everyone)"
+   },
+   "record": {
+    "name": "Erupting Ground",
+    "description": "Shared pool record A3. Balance values pending sign-off. (Skyglass copy: damage hits enemies only.)",
+    "battleDescription": "%user forms the Boar seal and pours chakra deep into the earth beneath %target. The ground heaves and bursts upward in a column of rock and soil, battering everyone caught above it.",
+    "jutsuType": "AI",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "jutsuWeapon": "NONE",
+    "target": "OTHER_USER",
+    "method": "AOE_CIRCLE_SPAWN",
+    "range": 3,
+    "coordinateTargeting": null,
+    "methodSize": null,
+    "cooldown": 5,
+    "actionCostPerc": 60,
+    "healthCost": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "battleUsageType": "BOTH",
+    "elementClassification": "None",
+    "statClassification": "None",
+    "hidden": true,
+    "extraBaseCost": 0,
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "hit",
+      "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+      "disappearAnimation": "hit",
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "disappearSfx": "",
+      "rounds": 0,
+      "power": 55,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "formula",
+      "statTypes": [
+       "None"
+      ],
+      "generalTypes": [
+       "Highest"
+      ],
+      "elements": [],
+      "type": "damage",
+      "description": "<p>placeholder</p>",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     }
+    ]
+   },
+   "animationPlaceholders": [],
    "validator": "JutsuValidator: ok"
   }
  ]
