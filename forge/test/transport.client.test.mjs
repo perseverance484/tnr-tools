@@ -26,9 +26,12 @@ function scriptedFetch(script) {
 }
 const resOf = (name) => ({ status: fx(name).exchanges[0].response.status, body: fx(name).exchanges[0].response.body });
 
-test("procedure table: 43 legacy plus 7 scoped Bloodright, 3 content-review, 2 dungeon, 4 petSpecies paths and the recipe read; limited set is the publicProcedure reads plus coop.dungeon.save", () => {
-  assert.equal(Object.keys(PROCEDURES).length, 60);
-  assert.equal(LIMITED_PATHS.length, 23);
+test("procedure table: 43 legacy plus 7 scoped Bloodright, 3 content-review, 2 dungeon, 4 petSpecies, 4 badge and 5 title paths and the recipe read; limited set is the publicProcedure reads plus coop.dungeon.save", () => {
+  assert.equal(Object.keys(PROCEDURES).length, 69);
+  assert.equal(LIMITED_PATHS.length, 26);
+  // routers/badge.ts and routers/title.ts at 2af4b320: title.get is the staff-only protected read
+  assert.deepEqual(PROCEDURES["badge.getAllNames"], { kind: "query", limited: true, mcp: true, auth: "public" });
+  assert.deepEqual(PROCEDURES["title.get"], { kind: "query", limited: false, mcp: false, auth: "protected" });
   // routers/petSpecies.ts at 2af4b320: getAll/get publicProcedure, create/update protectedProcedure
   assert.deepEqual(PROCEDURES["petSpecies.create"], { kind: "mutation", limited: false, mcp: false, auth: "protected" });
   assert.deepEqual(PROCEDURES["petSpecies.getAll"], { kind: "query", limited: true, mcp: false, auth: "public" });

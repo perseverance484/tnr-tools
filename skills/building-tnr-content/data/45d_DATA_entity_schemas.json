@@ -7,9 +7,11 @@
    "app/drizzle/constants.ts": "20c99bed58d1dd52",
    "app/src/validators/ai.ts": "889a5bcdae666e2d",
    "app/src/validators/asset.ts": "b4a1cb632651922e",
+   "app/src/validators/badge.ts": "f4e98913bfff6e9a",
    "app/src/validators/combat.ts": "e050191dc5b1998c",
    "app/src/validators/objectives.ts": "fc25e25c75ca6f09",
-   "app/src/validators/petSpecies.ts": "22a7eb10b9e92c91"
+   "app/src/validators/petSpecies.ts": "22a7eb10b9e92c91",
+   "app/src/validators/title.ts": "e0cc20712903bc6d"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
  },
@@ -1901,6 +1903,79 @@
      "nullable": false,
      "default": "SELF",
      "enum_ref": "PetSkillTargets"
+    }
+   }
+  },
+  "badge": {
+   "source": "app/src/validators/badge.ts",
+   "schema": "BadgeValidator",
+   "superRefine": [],
+   "fields": {
+    "name": {
+     "raw": "z.string().trim().min(1).max(191)",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "min": 1,
+     "max": 191
+    },
+    "image": {
+     "raw": "z.url()",
+     "type": "url",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "description": {
+     "raw": "z.string().min(1).max(512)",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "min": 1,
+     "max": 512
+    }
+   }
+  },
+  "title": {
+   "source": "app/src/validators/title.ts",
+   "schema": "TitleValidator",
+   "superRefine": [],
+   "fields": {
+    "name": {
+     "raw": "z.string().trim().min(1).max(191)",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "min": 1,
+     "max": 191
+    },
+    "description": {
+     "raw": "z.string().max(512)",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "max": 512
+    },
+    "effects": {
+     "raw": "z.array(TitleEffectSchema).max(TITLE_MAX_EFFECTS)",
+     "type": "array",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "items_ref": "TitleEffectSchema",
+     "max_ref": "TITLE_MAX_EFFECTS",
+     "max": 20
+    },
+    "archived": {
+     "raw": "z.boolean()",
+     "type": "boolean",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
     }
    }
   }

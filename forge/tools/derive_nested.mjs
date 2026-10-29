@@ -279,6 +279,27 @@ function inlineArrayObjectKeys(name, field) {
 }
 
 /**
+ * {discriminatorValue: [keys]} for a union whose members are written INLINE as z.object({...})
+ * (TitleEffectSchema, validators/title.ts at 2af4b320). Its members are .strict(), so an unknown key
+ * is refused loudly rather than dropped; checking it here keeps that refusal from costing a title
+ * placeholder. A union with a named member is family()'s, and is refused here.
+ */
+function inlineFamily(name, field) {
+  const m = new RegExp(`const\\s+${name}\\s*=\\s*z\\s*\\.\\s*discriminatedUnion\\(\\s*"${field}"\\s*,\\s*\\[`, "m").exec(ALL);
+  if (!m) throw new Error("cannot find inline union " + name);
+  const body = balanced(ALL, m.index + m[0].length);
+  const out = {};
+  for (const om of body.matchAll(/z\s*\.\s*(?:strictObject|object)\(\s*\{/g)) {
+    const { keys, spreads } = shallow(balanced(body, om.index + om[0].length));
+    const lit = /"([^"]+)"/.exec(stripComments(balanced(body, om.index + om[0].length)).match(new RegExp(`\\b${field}\\s*:\\s*z\\s*\\.\\s*literal\\(\\s*"[^"]+"`))?.[0] ?? "");
+    if (spreads.length || !lit) throw new Error(`${name}: inline member needs a literal ${field} and no spreads`);
+    out[lit[1]] = keys.sort();
+  }
+  if (!Object.keys(out).length) throw new Error(`${name} has no inline z.object members`);
+  return out;
+}
+
+/**
  * QuestValidatorRawSchema.content: its top-level keys (spread groups resolved, source order) and
  * the schema name its `reward` field references. Read from source, not hand-kept: a key missing
  * here is refused by Forge and reset to its default by the server on every shallow content merge.
@@ -312,6 +333,9 @@ const derived = {
   // the pin (ObjectiveReward at 345d18ac; QuestReward, which adds reward_packages, at 94f9d84).
   objectiveReward: keysOf(questContentShape().reward).sort(),
   questContent: questContentShape().keys,
+  // title.effects: TitleValidator.effects is z.array(TitleEffectSchema), inline strict members. Pins
+  // before validators/title.ts derive unchanged; Forge then refuses title effects (fail closed).
+  ...(/const\s+TitleEffectSchema\s*=/.test(ALL) ? { titleEffects: inlineFamily("TitleEffectSchema", "type") } : {}),
 };
 
 for (const [k, v] of Object.entries(derived)) {

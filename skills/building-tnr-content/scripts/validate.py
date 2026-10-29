@@ -787,7 +787,7 @@ def check_laws(entry, rep):
                 if f in o and not isinstance(o[f], bool):
                     rep.err(where, f"{f} must be a boolean")
 
-    for e in data.get("effects") or []:
+    for e in (data.get("effects") or []) if ent != "title" else []:  # combat-tag laws
         if not isinstance(e, dict):
             continue
         t = e.get("type")
@@ -878,6 +878,10 @@ def check_entry(entry, ctors, rep, manifest):
         pet_checks.check_jutsu(entry, rep, where)
     if entry.get("entity") in ("item", "quest"):
         pet_checks.check_rewards(entry, CONSTS, rep, where)
+    if entry.get("entity") in ("badge", "title"):
+        import catalog_checks  # badges and titles (routers/badge.ts, routers/title.ts at 2af4b320)
+        catalog_checks.check(entry, manifest.get("items") or [], ENTITIES.get(entry["entity"]), CHECKS,
+                             check_member, ctors, rep, where)
     if entry.get("entity") == "quest":
         # A quest edit/convert fetch-merges over the live record, so an entry that
         # carries no `content` is a field patch, not a flow rewrite: the live flow
@@ -904,14 +908,14 @@ def check_entry(entry, ctors, rep, manifest):
                                "server-side and the AI stands naked (law 17). Substitute literal ids")
             elif len(str(j)) != ID_LEN:
                 rep.err(where, f"jutsu id {j!r} is not {ID_LEN} chars")
-    if "effects" in data:
+    if "effects" in data and entry.get("entity") != "title":  # title effects: catalog_checks
         check_effects(data["effects"], ctors, where, rep)
     if entry.get("entity") in ("ai", "aiProfile"):
         check_pool_kit(data, where, rep)
     check_laws(entry, rep)
 
     blob = json.dumps(data)
-    for m in re.findall(r"@(?:jutsu|ai|scene|item|quest|img|bloodline|petSpecies):[^\"]{1,60}", blob):
+    for m in re.findall(r"@(?:jutsu|ai|scene|item|quest|img|bloodline|petSpecies|badge|title):[^\"]{1,60}", blob):
         if "@@" in m or m.count(":") > 1:
             rep.err(where, f"malformed ref {m} (doubled prefix survives naive sweeps, law 45)")
 
@@ -1189,13 +1193,15 @@ def check_manifest(path, ctors_path, strict=False):
             # a species exists before the jutsu locked to it; its defaults edit comes after them
             # (RUL-2026-10-28-012, routers/jutsu.ts and routers/petSpecies.ts at 2af4b320)
             o = -1 if e.get("slot") == "create" else 0.5
+        if e.get("entity") in ("badge", "title"):
+            o = -1  # depend on nothing; the items and quests that reward them come after
         if o < seen:
             rep.warn("manifest", f"build order: {e.get('entity')} appears after a later phase")
         seen = max(seen, o)
 
     srcs = {e.get("srcId") for e in items if e.get("srcId")}
     blob = json.dumps(man)
-    for ref in set(re.findall(r"@(?:jutsu|ai|scene|item|quest|bloodline|petSpecies):([A-Za-z0-9_\-]+)", blob)):
+    for ref in set(re.findall(r"@(?:jutsu|ai|scene|item|quest|bloodline|petSpecies|badge|title):([A-Za-z0-9_\-]+)", blob)):
         if ref not in srcs:
             rep.warn("manifest", f"@ref '{ref}' has no srcId in this manifest; it must already be in the idmap")
 

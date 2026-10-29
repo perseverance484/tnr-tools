@@ -253,6 +253,27 @@
     "skillTarget": true
    }
   },
+  "badge": {
+   "source": "app/src/validators/badge.ts:3",
+   "validator": "BadgeValidator",
+   "spreads": [],
+   "fields": {
+    "name": true,
+    "image": true,
+    "description": true
+   }
+  },
+  "title": {
+   "source": "app/src/validators/title.ts:22",
+   "validator": "TitleValidator",
+   "spreads": [],
+   "fields": {
+    "name": true,
+    "description": true,
+    "effects": true,
+    "archived": true
+   }
+  },
   "ai": {
    "source": "app/src/validators/aiInput.ts:12",
    "validator": "insertAiSchema",

@@ -11,6 +11,11 @@ import { petSpeciesPayload } from "./pets.mjs";
 // validator's field set (45d) from live ∪ asserted and drops everything else (relations,
 // server-owned columns).
 
+function catalogRecipe(e, label) {
+  return { create: { path: e + ".create", input: () => undefined }, get: e + ".get", update: e + ".update", names: e + ".getAllNames",
+    idKey: "id", nameKey: "name", placeholder: (id) => `New ${label} - ${id}`, cacheEntity: e };
+}
+
 export const RECIPES = Object.freeze({
   skillTree: {
     create: { path: "skillTree.create", input: d => ({ bloodlineId: d.bloodlineId }) },
@@ -74,6 +79,10 @@ export const RECIPES = Object.freeze({
     get: "petSpecies.get", update: "petSpecies.update", names: "petSpecies.getAll",
     idKey: "id", nameKey: "name", cacheEntity: "petSpecies",
   },
+  // routers/badge.ts and routers/title.ts at 2af4b320 (src/runner/catalog.mjs): placeholder creates
+  // with no input, answering the id in message; update {id, data} saves the whole record.
+  badge: catalogRecipe("badge", "Badge"),
+  title: catalogRecipe("title", "Title"),
   aiProfile: {
     // update-only. targetId is the AI's userId. Rules live on a separate row reached through
     // profile.getAi().aiProfileId; ai.toggleAiProfile {aiId} creates that row when missing.
