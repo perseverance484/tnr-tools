@@ -333,3 +333,19 @@ Same recipe as the boss set pieces: a 40 AP mark with a unique 1-round marker on
 - The visuals reuse the existing mark and blast tiles.
 
 Used by Wreck floors 1-3 crew, the common runs and the opening fights of the hunts. The library adds 4 jutsu for these.
+
+
+## 10. Sound (RUL-2026-10-28-028: existing SFX only)
+
+Effects carry `appearSfx` / `disappearSfx` (asset ids, `validators/combat.ts` BaseAttributes). New audio needs separate approval, so only the 16 live SFX assets are used.
+
+| Moment | SFX (asset id) |
+|---|---|
+| Every mark (Omen) lands | WindSFX `oDdj-mBmiWTswFi_NkOqc` |
+| Heavy ground blasts (Ring, Rows, Lines, Splash, Short Line, Broadside) | EarthSFX `XBlRonNjvwAZx1_HFpHdM` |
+| Crownfall, Shardstorm (skyglass shards) | SwordSFX `muq1tu3xvolOsUHm-NqBr` |
+| Control/lock blasts (Binding Ring, Seal Lines, Command Absolute, Ship's Bell) | LightningSFX `eJCEtS5_P_pW_VPc6ttRh` |
+| Core Horror water/rot (Maw, Undertow, Collapse, Rupture) | WaterSFX `NThXOSKNDXPwNnGxDtH0Z` |
+| Ember tiles, Pour Line, Quench | FireSFX `9-b8hbTXA019dgn8yyr3j` |
+| Summons (Recall, Called to the Archive) | Shinobi Dash `gR2880EZVlWV4eam-ufei` |
+| Burst windows open (lowered guard, Exposed Seam, Cooling Shell) | Sword Clash `PFY2oXpwIpNwUOx327WCm` |
