@@ -114,21 +114,35 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     ["Final Command", LIVE.finalCommand, t, [cond.near(4, t)]],
     ["Keelbind", LIVE.keelbind, t, [cond.near(5, t)]],
   ];
-  // The Captain (RUL-2026-10-28-031): phase 1 (above 50%) is a duel; at 50% he raises the Gunwale once and enters
-  // Battle Trance; phase 2 is command of the deck (Broadside and Ship's Bell alternate, a duel move on each mark's
-  // spare 60 AP, Second Wind under 25%). Phase-2 rules sit above the duel and are gated on health below 50.
+  // The Captain (RUL-2026-10-28-031 / -032): phase 1 (above 50%) is a duel. The transition turn at 50% is Steady the Helm
+  // (20 AP, once: cleanse, 40% less damage and 40% absorb for 2 rounds, clear-proof), Raise the Gunwale (20 AP, once)
+  // and the first deck mark (40 AP), all in one turn. 80 AP, not 100: a player stun (Stunning Jab: apReduction 20) cannot
+  // be cleansed (the engine's cleanse list excludes stun), and a stunned Captain has 80 AP.
+  // Phase 2 is command of the deck: Ship's Bell and Broadside
+  // alternate; the 60 AP left after each later mark goes to Last Stand (live Battle Trance), else Second Wind (under
+  // 25%), else a duel move.
   const P2 = 50;
   const captain = [
-    // Transition (once): the rail goes up between him and the party (cooldown 99), then Last Stand.
-    cast("Raise the Gunwale (phase 2 begins; once)", WRECK_NEW.gunwale, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [cond.hp(P2)]),
-    cast("Last Stand at the Helm (live Battle Trance, phase 2)", LIVE.battleTrance, "SELF", [cond.hp(P2)]),
-    cast("Second Wind (under 25%)", LIVE.secondWind, "SELF", [cond.hp(25)]),
     blast("Broadside (signature, rows A)", "rowsA", LIB.sig.broadside),
     blast("Ship's Bell (signature)", "bindingRing", LIB.sig.shipsBell),
-    ...afterMark(["rowsA", "bindingRing"], duel()),
-    // Alternation: both marks have cooldown 4 and each costs a two-turn cycle, so Bell and Broadside take turns.
+    // Battle Trance ranks above Second Wind here: it follows on the first mark turn after the transition (the turn after
+    // the transition is the first blast, 100 AP), so a fall below 25% cannot push it out.
+    ...afterMark(["rowsA", "bindingRing"], [
+      ["Last Stand at the Helm (live Battle Trance)", LIVE.battleTrance, "SELF", [cond.hp(P2)]],
+      ["Second Wind (under 25%)", LIVE.secondWind, "SELF", [cond.hp(25)]],
+      ...duel(),
+    ]),
+    // The transition turn (80 AP): Steady the Helm (20) + Raise the Gunwale (20) + the first deck mark (40); the 20 AP left
+    // fit no after-mark move (all 40+), so the after-mark end turn closes it and Battle Trance waits for a later turn. Both
+    // transition moves have cooldown 99: once per fight. Second Wind sits below the marks (and in the after-mark slots),
+    // so a fall from above 50% to below 25% in one round cannot split the transition turn.
+    cast("Steady the Helm (phase 2 begins; once)", LIB.transition.captain, "SELF", [cond.hp(P2)]),
+    cast("Raise the Gunwale (transition; once; he falls back behind the rail)", WRECK_NEW.gunwale, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [cond.hp(P2)]),
+    // Alternation: both marks have cooldown 4 and each set piece takes two turns, so Bell and Broadside take turns.
     mark("Omen: Binding Ring (Ship's Bell, phase 2)", "bindingRing", [cond.hp(P2)]),
     mark("Omen: Rows A (Broadside, phase 2)", "rowsA", [cond.hp(P2)]),
+    // A phase-2 turn with no mark ready.
+    cast("Second Wind (under 25%, no mark ready)", LIVE.secondWind, "SELF", [cond.hp(25)]),
     // Phase 1: the duel. Hold the Line opens it: the wave starts mid-battle (no wave-round condition exists), so it fires
     // while the party is still 3+ hexes away; below the phase-2 block, so it never displaces a set piece.
     cast("Hold the Line (live Unbroken Command, opener: party 3+ hexes away)", LIVE.unbrokenCommand, "SELF", [cond.far(3)]),
@@ -234,7 +248,7 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     [IDS.oath]: { rules: oath, signature: ["Oath of Stillness"] },
     [IDS.wayfinder]: { rules: wayfinder, signature: ["Chart Mark"] },
     [IDS.horror]: { rules: horror, signature: ["Maw of the Deep", "Omen: Last Light"] },
-    [IDS.captain]: { rules: captain, signature: ["Broadside", "Omen: Rows", "Ship's Bell", "Omen: Binding Ring"] },
+    [IDS.captain]: { rules: captain, signature: ["Broadside", "Omen: Rows", "Ship's Bell", "Omen: Binding Ring", "Steady the Helm"] },
     [IDS.sealwright]: { rules: sealwright, signature: ["Ward of Command"] },
   } as Record<string, { rules: any[]; signature: string[] }>;
 };
@@ -245,7 +259,7 @@ export const buildKits = (P: KitParams, version: "endgame" | "lvl50" = "endgame"
   const J: Record<string, any> = { ...buildLibrary() };
   J[WRECK_NEW.gunwale] = jutsu(WRECK_NEW.gunwale, {
     name: "Raise the Gunwale", description: "A barrier line of timber and seals; it has its own health.", battleDescription: "%user barks an order; the gunwale rises.",
-    target: "EMPTY_GROUND", method: "AOE_WALL_SHOOT", range: 3, cooldown: 99, actionCostPerc: 60, donor: "i4lGrYY5HNN2Q2GPToKUS",
+    target: "EMPTY_GROUND", method: "AOE_WALL_SHOOT", range: 3, cooldown: 99, actionCostPerc: 20, donor: "i4lGrYY5HNN2Q2GPToKUS",
     effects: [tag("barrier", { power: 100, rounds: 3, curHealth: P.gunwaleHP ?? 3000, maxHealth: P.gunwaleHP ?? 3000, absorbPercentage: 50, staticAnimation: "cp_gunwale" })],
   });
   const shared = sharedRules(P);
