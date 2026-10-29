@@ -3926,3 +3926,22 @@ sides of the jutsu and item edits).
 **Evidence:** Director, 2026-10-28: "1. Sound effects need separate approval, lets just pick from whats available. 2. Yep, approved. 3. Approved. 4. Approved 5. Just write these like the rest of the jutsu we wrote. Action first, what the user is doing etc 6. Approved 7. Approved 8. Approved. 9. Its already hidden so should be fine".
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §10; `docs/design/SKYGLASS_LOOT_TABLES.md` §0.
+
+## RUL-2026-10-28-029 — Polish: the Foundry Warden's forge maul, boss closing lines, subtle intro screens, themed library names, final text pass
+
+**Date:** 2026-10-28
+
+**Domain:** Skyglass story and presentation
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **The Foundry Warden's tool is a forge maul, not a ladle.** "never set down his forge maul". The kept trophy becomes **The Warden's Maul**.
+2. **Every boss gets one closing line when it falls**, in the bible's voice.
+3. **Each boss fight opens on the boss's existing scene art with one line.** The line hints at the danger without naming the mechanic. Director: "dont be so on the nose about it."
+4. **Every library jutsu gets a themed name and description** in the story's voice.
+5. **A final read-through of all player text** for tone, tense and names, done last.
+
+**Evidence:** Director, 2026-10-28: "1. His ladle? That sounds more like a cooking utensil lol. Give him something cooler. 2. Sure, but dont be so on the nose about it. 3. Sure. 4. Approved".
+
+**Canonical destination:** `docs/design/SKYGLASS_STORY_BIBLE.md`; `state/skyglass_hunts/hunts.py`.
