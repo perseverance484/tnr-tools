@@ -4268,3 +4268,35 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "1. Keep. 2 approved raise".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3a; `forge/tools/check_bundle_budget.mjs` on `fable/badge-builder`.
+
+## RUL-2026-10-29-044 — The Haul: simulator decisions; quests under ~90 nodes
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / profession rewards
+
+**Status:** ACTIVE. Re-tuning on `fable/skyglass-haul-sim`.
+
+**Ruling:**
+1. **Payout.** Chests stay guaranteed, with no drop-chance gate. The chests themselves (tiers and counts per step) are adjusted so that a sensible run pays about the old ~7.5M.
+2. **Greedy.** Alertness 3+ is softened a little, so that a greedy run is a gamble and not a certain loss.
+3. **The Snare Room** gains one guard on its step-2 and step-3 lockers.
+4. **Steeping.**
+   - Weights: 30 Rot-soaked / 25 Flooded hold / 25 Alarmed / 20 Picked clean.
+   - The premium as proposed: one tier higher plus a 40% bonus chest, except Picked clean.
+   - Picked clean: one tier lower, each chest at 60%.
+   - **Flooded hold roots the player for 3 rounds**, not 1.
+   - All 24 steeped pages are generated.
+5. **Cut-through rules:**
+   - offered at steps 3-4 only (2-4 on the Snare Room);
+   - a cut must be followed by a fight;
+   - a step-4 cut drops to Common.
+6. **Engine substitutions:**
+   - drain replaces wound;
+   - Seal Charges and Core Canisters are stationary fuses.
+7. **Chart drops, per profession page:** endgame Wreck 4%; each hunt ending 2.5%.
+8. **Size:** each Haul quest stays under about 90 nodes (objectives).
+
+**Evidence:** Director, 2026-10-29: "1. No, adjust the chest drops to compensate. 2. Soften it just a bit. 3. Sure 4. Flood roots you for 3 rounds, rest is approved. 5. Approved 6. Approved 7. Approved. The quests need to be under ~90 nodes individually".
+
+**Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`.
