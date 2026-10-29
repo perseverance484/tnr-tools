@@ -78,7 +78,7 @@ for p in 'HG':
             if best is None or abs(e-OLD[(p,rar)])<abs(best[0]-OLD[(p,rar)]): best=(e,tt,k)
         e2,tiers,f=best; cv[rar]=e2
         res[(p,rar)]=(tiers,rolls,e2,OLD[(p,rar)],f)
-json.dump({f"{p}:{r}":[[t[0],t[1],[[list(x) for x in en] for en in t[2]]] for t in v[0]] for (p,r),v in res.items()},open(SP+'chestgen/chests.json','w'),indent=1)
+json.dump({f"{p}:{r}":[[t[0],t[1],[[list(x) for x in en] for en in t[2]]] for t in v[0]] for (p,r),v in res.items()},open(SP+'chests.json','w'),indent=1)
 for (p,rar),(tiers,rolls,e2,old,f) in res.items():
     print(f"\n### {rar.title()} {'Hunter' if p=='H' else 'Gatherer'}'s Chest — EV {e2/1e6:.1f}M (old {old/1e6:.1f}M), scale {f:.2f}")
     for name,pr,ents in tiers:
