@@ -30,30 +30,48 @@ BADGE_DESCRIPTION_MAX = 500
 REQUIRED_ON_CREATE = {"badge": ("name", "image", "description"), "title": ("name", "archived")}
 
 
-# WHATWG forbidden host code points (url.spec.whatwg.org, "forbidden domain code point") plus '%':
-# Python does not percent-decode the host, so any '%' is refused (stricter than new URL(), never looser).
-_BAD_HOST = set(" \t\n\r#%/:<>?@[\\]^|")
+# A conservative subset of WHATWG hosts: anything accepted here, new URL() accepts too (stricter, never looser).
+#   - a bracketed host must be an unscoped IPv6 address;
+#   - a host whose last label is numeric is parsed as IPv4 (WHATWG "ends in a number") and must be dotted-decimal;
+#   - otherwise ASCII letters, digits, '-' and '_' in non-empty dot-separated labels (no IDNA, no '%').
+_LABEL = re.compile(r"^[A-Za-z0-9_-]+$")
+
+
+def _host_ok(netloc_host, host):
+    if netloc_host.startswith("["):
+        if "%" in netloc_host:
+            return False
+        try:
+            ipaddress.IPv6Address(host)
+            return True
+        except ValueError:
+            return False
+    labels = host.split(".")
+    if labels[-1] == "" and len(labels) > 1:
+        labels = labels[:-1]
+    if not all(_LABEL.match(x) for x in labels):
+        return False
+    last = labels[-1]
+    if last.isdigit() or re.match(r"^0[xX][0-9A-Fa-f]*$", last):
+        try:
+            ipaddress.IPv4Address(".".join(labels))
+            return True
+        except ValueError:
+            return False
+    return True
 
 
 def _url(v):
     """BadgeValidator's z.url() (zod 4.6.7) is URL.canParse after a trim; Forge also requires http(s) and no
-    whitespace (catalog.mjs). Ports must be numeric and at most 65535; the host must parse as WHATWG would."""
-    if not isinstance(v, str) or not re.match(r"^https?://\S+$", v):
+    whitespace (catalog.mjs). Ports must be numeric and at most 65535; the host must be in _host_ok's subset."""
+    if not isinstance(v, str) or not v.isascii() or not re.match(r"^https?://\S+$", v):
         return False
     try:
         u = urlsplit(v)
         host, _ = u.hostname, u.port  # .port raises ValueError for a non-numeric or out-of-range port
     except ValueError:
         return False
-    if not host:
-        return False
-    if u.netloc.rpartition("@")[2].startswith("["):
-        try:
-            ipaddress.IPv6Address(host)
-            return True
-        except ValueError:
-            return False
-    return not (set(host) & _BAD_HOST) and not any(ord(c) < 0x20 or ord(c) == 0x7F for c in host)
+    return bool(host) and _host_ok(u.netloc.rpartition("@")[2], host)
 
 
 def check(entry, items, fields, checks, check_member, ctors, rep, where):
