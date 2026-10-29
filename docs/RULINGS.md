@@ -4300,3 +4300,36 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "1. No, adjust the chest drops to compensate. 2. Soften it just a bit. 3. Sure 4. Flood roots you for 3 rounds, rest is approved. 5. Approved 6. Approved 7. Approved. The quests need to be under ~90 nodes individually".
 
 **Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`.
+
+## RUL-2026-10-29-045 — Captain transition tuning; one steeping quest; The Haul round 2
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / encounters and rewards
+
+**Status:** ACTIVE. Simulations re-running on `fable/skyglass-wreck-sim` and `fable/skyglass-haul-sim`.
+
+**Ruling:**
+1. **The Captain** (harness `9ce90151`):
+   - Phase 2 keeps its 6-7 round median.
+   - The extra ~3 minutes are won back by trimming an earlier endgame Wreck floor, by about one wave, so the run returns to about 20 minutes and about 22% wipes.
+   - The level-50 Wreck's 10% wipe rate is accepted.
+   - His phase-1 fallback rule must not cast Broadside, so phase 1 is a duel only (RUL-2026-10-28-031).
+   - The transition jutsu is named **Steady the Helm**.
+2. **Steeping is one quest.** "Steep at the Core":
+   - 3 Core Rot are paid at entry.
+   - A dialog asks which chart to offer: the 2 rare charts or the 6 Haul pages.
+   - A deliver step at the Core's map location consumes that chart.
+   - Then the Core Horror fight. A win grants the tainted chart or that page's Rot-Sealed Page; a loss returns the chart.
+   - The quest text carries a clear disclaimer: entering without the chosen chart leaves the quest stuck, and the Rot is lost.
+3. **The Haul** (harness `8e4a231a`):
+   - The Snare Room keeps its extra guard on the step-2 locker only.
+   - The Ore Vault loses one guard at steps 4-5.
+   - The top payout bundles rise so that a greedy clear pays about 3× the old quest.
+   - Flooded hold roots for 2 rounds on gatherer pages; hunter pages keep 3 rounds.
+   - Approved: Alarmed becomes +1.5 points per locker, with lockers offered at steps 4-5.
+   - Approved: a step-3 cut-through costs only the next fight's hazard. Only a step-4 cut drops to Common.
+
+**Evidence:** Director, 2026-10-29: "1. All approved. 2. One quest, with a disclaimer. Enter without the chart and you're stuck 3. Approved".
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §1; `docs/design/SKYGLASS_LOOT_TABLES.md` §5; `docs/design/SKYGLASS_THE_HAUL.md`.

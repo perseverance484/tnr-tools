@@ -237,7 +237,10 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
   - The Wayfinder duels at the gangway.
 
 **Getting a tainted chart**
-- **Steeping** (the signature gamble): a short quest at the Core.
+- **Steeping** (the signature gamble): one quest, "Steep at the Core" (RUL-2026-10-29-045).
+  - Pay 3 Core Rot at entry, then choose which chart to offer: either rare chart, or any of the 6 Haul pages.
+  - Hand that chart in at the Core on the map, then fight.
+  - The text warns that entering without the chosen chart leaves the quest stuck and the Rot lost.
   - Entry: a rare chart plus Core Rot ×3, both spent.
   - One fight against a Core Horror scaled to the player. This fight uses its own Core Horror copy, which carries no Core Rot drop (RUL-2026-10-28-013).
   - Win: the tainted chart. Lose: a "the rot spits it out" step (`failObjectiveId`) hands the chart back, and the 3 Core Rot are spent.
