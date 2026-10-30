@@ -336,6 +336,7 @@ Each rare run gets one signature twist, so it doesn't replay the hunt bosses in 
   - He is fought at the powder magazine as copy `chart-arsenal-keeper`: the live Keeper's kit with the fallback fix, immobile, pools 4, **30% innate damage reduction**.
   - He lays three ember bands, at rounds 1, 4 and 7, each draining 5% max HP per action.
   - Final pass: 85% clear, against about 80%. Without his fire the run clears 100%.
+  - **Press-on room (the Captain at the helm):** Captain copy pools 2, **0 damage rows, 15% damage given down** (RUL-2026-10-30-062 item 1). At 2 rows the room was won 0 of 14; this copy gives 50%.
 - **The Sealed Reliquary: the reliquary remembers.**
   - Each echo that falls leaves its signature set piece behind. A static hazard echo keeps casting it during the next fight, so the gauntlet layers up: the Warden's pour lines under the Sealwright, then both under the Sentinel.
   - Candidate engine route: per-fight hazard records holding the previous boss's library mark-and-blast pair.
@@ -344,6 +345,7 @@ Each rare run gets one signature twist, so it doesn't replay the hunt bosses in 
 Tainted versions keep the same twist and add their own (loot tables §5).
 - **The Burning Heading's Core Horror** (tainted copy): pools 5.5, **3 damage rows, 65% damage given down** (RUL-2026-10-30-060 item 7).
   - At 2 rows the opening duel is a deterministic race: pools 5.5 gives 100% and pools 6 gives 0%.
+  - **Afterburn lasts 7 rounds** (up from 4; RUL-2026-10-30-062 item 1). The 47.5% was measured with it.
   - Final pass: 47.5% clear, against about 55% (40-seed noise ±15).
 
 

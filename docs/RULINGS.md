@@ -4742,3 +4742,23 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-30: "Approve all" on the ten recommendations.
 
 **Canonical destination:** `docs/design/SKYGLASS_ART_AUDIT.md`.
+
+## RUL-2026-10-30-062 — Follow-ups to the final sim pass
+
+**Date:** 2026-10-30
+
+**Domain:** Skyglass event / balance and text
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Two pass tunings outside RUL-2026-10-30-060 are kept, because each has a measured benefit** (director: "only if it has a benefit"):
+   - The Fall's press-on Captain copy goes from 2 rows to **pools 2, 0 damage rows, 15% damage given down**. At 2 rows the room was won 0 of 14; with this copy it is won 50%, so the kept room is winnable.
+   - The Burning Heading's afterburn lasts **7 rounds instead of 4**. The run's measured 47.5% depends on it.
+2. **The Captain's Watch press-on text** is written by Claude: `SKYGLASS_TEXT.md` §2.8a (the dawn watch: the Wayfinder + Deck Warden).
+3. **Lower Reliquary Seal supply is accepted.** Cutting the Archive's press-on room also removes its +20% Reliquary Seal chance; the Archive ending stays at 25%.
+4. **The Last Heading's "while the fire spreads"** stays as flavour.
+
+**Evidence:** Director, 2026-10-30, answers 1-4; the final pass at `d5957e79` (`overrides/charts.params.json` `_final_pass`).
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §8 (item 1); `docs/design/SKYGLASS_TEXT.md` §2.8a (item 2); `docs/design/SKYGLASS_LOOT_TABLES.md` §4a (item 3, already so).
