@@ -1,0 +1,1014 @@
+{
+ "generatedBy": "charts_main.ts --probe-embers",
+ "ember": {
+  "power": 5,
+  "rounds": [
+   1,
+   4,
+   7
+  ],
+  "pools": 3
+ },
+ "probes": [
+  {
+   "label": "A: on row 1, waits",
+   "maxHp": 5050,
+   "steps": [
+    {
+     "round": 1,
+     "actor": "Burning Deck",
+     "action": "Spreading Fire I",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      1
+     ],
+     "to": [
+      3,
+      1
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": true
+    },
+    {
+     "round": 2,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      1
+     ],
+     "to": [
+      3,
+      1
+     ],
+     "playerHp": -252,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": true
+    },
+    {
+     "round": 3,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 3,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      1
+     ],
+     "to": [
+      3,
+      1
+     ],
+     "playerHp": -252,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": true
+    },
+    {
+     "round": 4,
+     "actor": "Burning Deck",
+     "action": "Spreading Fire II",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 4,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 4,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      1
+     ],
+     "to": [
+      3,
+      1
+     ],
+     "playerHp": -252,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": true
+    },
+    {
+     "round": 5,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 5,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      1
+     ],
+     "to": [
+      3,
+      1
+     ],
+     "playerHp": -252,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": true
+    }
+   ]
+  },
+  {
+   "label": "B: on row 1, walks off to row 8",
+   "maxHp": 5050,
+   "steps": [
+    {
+     "round": 1,
+     "actor": "Burning Deck",
+     "action": "Spreading Fire I",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      1
+     ],
+     "to": [
+      3,
+      2
+     ],
+     "playerHp": -252,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": true
+    },
+    {
+     "round": 1,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      2
+     ],
+     "to": [
+      3,
+      3
+     ],
+     "playerHp": -252,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": true
+    },
+    {
+     "round": 1,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      3
+     ],
+     "to": [
+      3,
+      4
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      4
+     ],
+     "to": [
+      3,
+      5
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      5
+     ],
+     "to": [
+      3,
+      6
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      6
+     ],
+     "to": [
+      3,
+      7
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      7
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 3,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 3,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 4,
+     "actor": "Burning Deck",
+     "action": "Spreading Fire II",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 4,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 4,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 5,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 5,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    }
+   ]
+  },
+  {
+   "label": "C: on row 8 (clear), waits",
+   "maxHp": 5050,
+   "steps": [
+    {
+     "round": 1,
+     "actor": "Burning Deck",
+     "action": "Spreading Fire I",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 3,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 3,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 4,
+     "actor": "Burning Deck",
+     "action": "Spreading Fire II",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 4,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 4,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 5,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 5,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    }
+   ]
+  },
+  {
+   "label": "D: row 8, walks onto row 2 in round 2",
+   "maxHp": 5050,
+   "steps": [
+    {
+     "round": 1,
+     "actor": "Burning Deck",
+     "action": "Spreading Fire I",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 1,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      8
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      8
+     ],
+     "to": [
+      3,
+      7
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      7
+     ],
+     "to": [
+      3,
+      6
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      6
+     ],
+     "to": [
+      3,
+      5
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      5
+     ],
+     "to": [
+      3,
+      4
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      4
+     ],
+     "to": [
+      3,
+      3
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "player",
+     "action": "move",
+     "at": [
+      3,
+      3
+     ],
+     "to": [
+      3,
+      2
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 2,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      2
+     ],
+     "to": [
+      3,
+      2
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": true
+    },
+    {
+     "round": 3,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 3,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      2
+     ],
+     "to": [
+      3,
+      2
+     ],
+     "playerHp": -252,
+     "embersAfter": 36,
+     "playerOnEmberAtStart": true
+    },
+    {
+     "round": 4,
+     "actor": "Burning Deck",
+     "action": "Spreading Fire II",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 4,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 4,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      2
+     ],
+     "to": [
+      3,
+      2
+     ],
+     "playerHp": -252,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": true
+    },
+    {
+     "round": 5,
+     "actor": "Burning Deck",
+     "action": "wait",
+     "at": [
+      10,
+      9
+     ],
+     "to": [
+      10,
+      9
+     ],
+     "playerHp": 0,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": false
+    },
+    {
+     "round": 5,
+     "actor": "player",
+     "action": "wait",
+     "at": [
+      3,
+      2
+     ],
+     "to": [
+      3,
+      2
+     ],
+     "playerHp": -252,
+     "embersAfter": 60,
+     "playerOnEmberAtStart": true
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,114 @@
+{
+ "name": "candidate_target20",
+ "note": "Aim: ~20-27 rounds. One wave of two crew per floor; every crew AI poolsMultiplier -> 1.5 (7,575 HP); Crowned Captain poolsMultiplier -> 4 (20,200 HP) with two Core Canisters. All via scaleEditedAi (storable values). Kits, rules, innate effects as captured.",
+ "enemies": {
+  "Deck Warden": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   }
+  },
+  "Core Horror": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   }
+  },
+  "Wayfinder": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   }
+  },
+  "Arsenal Keeper": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   }
+  },
+  "Skyglass Sentinel": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   }
+  },
+  "First Blade": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   }
+  },
+  "Oathkeeper": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   }
+  },
+  "The Captain": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   }
+  },
+  "Crowned Captain": {
+   "aiEdit": {
+    "poolsMultiplier": 4
+   }
+  }
+ },
+ "floors": [
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Core Horror"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Oathkeeper",
+      "Arsenal Keeper"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Skyglass Sentinel",
+      "First Blade"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "The Captain",
+      "Wayfinder"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "boss",
+   "waves": [
+    {
+     "aiIds": [
+      "Crowned Captain",
+      "Core Canister",
+      "Core Canister"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "name": "candidate_compact",
+ "note": "Seven small waves (1-2 per floor, 2-3 enemies each); Crowned Captain pools 12 -> 6 (30,300 HP, a storable value, replayed via scaleEditedAi). Kits, rules and stats otherwise as captured.",
+ "enemies": {"Crowned Captain": {"aiEdit": {"poolsMultiplier": 6}}},
+ "floors": [
+  {"kind": "floor", "waves": [{"aiIds": ["Deck Warden", "Deck Warden"], "delayRounds": 0}, {"aiIds": ["Core Horror", "Deck Warden"], "delayRounds": 0}]},
+  {"kind": "floor", "waves": [{"aiIds": ["Oathkeeper", "Deck Warden", "Seal Charge"], "delayRounds": 0}]},
+  {"kind": "floor", "waves": [{"aiIds": ["Arsenal Keeper", "Deck Warden"], "delayRounds": 0}, {"aiIds": ["Skyglass Sentinel", "Core Canister"], "delayRounds": 0}]},
+  {"kind": "floor", "waves": [{"aiIds": ["The Captain", "First Blade"], "delayRounds": 0}]},
+  {"kind": "boss", "waves": [{"aiIds": ["Crowned Captain", "Core Canister", "Core Canister"], "delayRounds": 0}]}
+ ]
+}

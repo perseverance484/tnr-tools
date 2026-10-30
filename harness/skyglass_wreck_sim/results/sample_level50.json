@@ -1,0 +1,1253 @@
+{
+ "generatedBy": "harness/skyglass_wreck_sim/engine/main.ts",
+ "override": {
+  "path": "/home/claude/tnr-tools/harness/skyglass_wreck_sim/overrides/sample_level50.json",
+  "name": "sample_level50",
+  "note": "End-to-end check of the easier (level 40-60) version: one floor, one small wave of level-50 copies of the crew (level replayed via scaleEditedAi)."
+ },
+ "settings": {
+  "runs": 5,
+  "seed0": 1,
+  "maxWipes": 0,
+  "maxRounds": 150,
+  "initialBarriers": true,
+  "paces": [
+   10,
+   15,
+   20
+  ],
+  "aiSecondsPerTurn": [
+   0,
+   1.5
+  ],
+  "transitionSecondsPerFloorBattle": 30,
+  "limitSeconds": 3600
+ },
+ "enemyNotes": {
+  "Core Horror": [
+   "override level 100 -> 50 via scaleEditedAi (HP 12625 -> 6375, offence 1391299.95 -> 265466.65)"
+  ],
+  "Sealwright": [
+   "scaleEditedAi({\"poolsMultiplier\":5}) -> maxHealth 25250"
+  ],
+  "Crowned Captain": [
+   "scaleEditedAi({\"poolsMultiplier\":12}) -> maxHealth 60600"
+  ],
+  "Deck Warden": [
+   "override level 100 -> 50 via scaleEditedAi (HP 12625 -> 6375, offence 1391299.95 -> 265466.65)"
+  ]
+ },
+ "layout": [
+  {
+   "floor": 1,
+   "kind": "floor",
+   "waves": [
+    [
+     "Deck Warden",
+     "Core Horror"
+    ]
+   ]
+  }
+ ],
+ "variants": [
+  {
+   "variant": "lvl40",
+   "note": "easier-version lower bound: level 40, otherwise as lvl50 (jutsu level 12)",
+   "player": {
+    "userId": "user_wreck_p1",
+    "level": 40,
+    "rank": "CHUNIN",
+    "offence": 68260,
+    "defence": 68260,
+    "generals": 68260,
+    "hp": 2050,
+    "cp": 2050,
+    "sp": 2050,
+    "jutsu": [
+     "Harden Fist@12",
+     "Aqua Barrier@12",
+     "Rejuvenating Chakra@12",
+     "Stunning Jab@12",
+     "Shattering Strike@12",
+     "Chakra Palm@12",
+     "Resounding Crescendo@12",
+     "Iron Fist@12"
+    ],
+    "innateEffects": [],
+    "rankCaps": {
+     "stats_cap": 1300000,
+     "gens_cap": 400000,
+     "lvl_cap": 100
+    }
+   },
+   "runs": 5,
+   "outcomes": {
+    "cleared": 0,
+    "max-wipes": 5,
+    "ended": 0,
+    "stalled": 0
+   },
+   "runsWithAWipePct": 100,
+   "wipesPerRunMedian": 1,
+   "totalRoundsMedian": 2,
+   "totalRoundsP10": 2,
+   "totalRoundsP90": 3,
+   "totalRoundsCleanClearMedian": null,
+   "time": {
+    "player10s_ai0s": {
+     "minutesMedianAllRuns": 1.2,
+     "minutesP10": 1.2,
+     "minutesP90": 1.3,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player10s_ai1.5s": {
+     "minutesMedianAllRuns": 1.3,
+     "minutesP10": 1.2,
+     "minutesP90": 1.4,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player15s_ai0s": {
+     "minutesMedianAllRuns": 1.5,
+     "minutesP10": 1.5,
+     "minutesP90": 1.8,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player15s_ai1.5s": {
+     "minutesMedianAllRuns": 1.6,
+     "minutesP10": 1.6,
+     "minutesP90": 1.9,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player20s_ai0s": {
+     "minutesMedianAllRuns": 1.8,
+     "minutesP10": 1.8,
+     "minutesP90": 2.2,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player20s_ai1.5s": {
+     "minutesMedianAllRuns": 1.9,
+     "minutesP10": 1.9,
+     "minutesP90": 2.3,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    }
+   },
+   "floors": {
+    "F1": {
+     "attempts": 5,
+     "won": 0,
+     "wipes": 5,
+     "roundsMedian": 2,
+     "humanTurnsMedian": 4,
+     "aiTurnsMedian": 4
+    }
+   },
+   "waves": [
+    {
+     "wave": "F1W1",
+     "enemies": "Deck Warden + Core Horror",
+     "attempts": 5,
+     "cleared": 0,
+     "wipedHere": 5,
+     "roundsMedian": null,
+     "roundsMin": null,
+     "roundsMax": null,
+     "roundsP90": null,
+     "humanTurnsMedian": 4,
+     "aiTurnsMedian": 4,
+     "partyHpLostPctMedian": 100,
+     "poolsLeftMedianPct": {
+      "hp": 0,
+      "cp": 0,
+      "sp": 0,
+      "playersAlive": null
+     },
+     "threats": [
+      {
+       "name": "Core Horror",
+       "dealtPerAppearance": 8329,
+       "sharePct": 50.6
+      },
+      {
+       "name": "Deck Warden",
+       "dealtPerAppearance": 8138,
+       "sharePct": 49.4
+      }
+     ],
+     "enemyBehaviour": [
+      {
+       "name": "Deck Warden",
+       "aiId": "texZaFi42S3EvJZBwQ8cd",
+       "appearances": 5,
+       "killedPct": 0,
+       "diedAfterRoundsMedian": null,
+       "turnsPerAppearance": 2.2,
+       "dealtPerAppearance": 8138,
+       "takenPerAppearance": 157,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 19,
+       "actions": {
+        "Windlash Focus": 5,
+        "Tide Bolt": 5,
+        "Numbing Senbon": 4,
+        "move": 4,
+        "Springguard": 2,
+        "Stoneward": 1
+       },
+       "ruleFires": {
+        "0": 5,
+        "1": 8,
+        "3": 1,
+        "4": 1,
+        "5": 2,
+        "6": 4
+       },
+       "rulesNeverFired": [
+        "2",
+        "7"
+       ],
+       "effectsApplied": {
+        "increasedamagegiven": 5,
+        "absorb": 2,
+        "decreasedamagetaken": 1,
+        "stun": 1
+       }
+      },
+      {
+       "name": "Core Horror",
+       "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+       "appearances": 5,
+       "killedPct": 0,
+       "diedAfterRoundsMedian": null,
+       "turnsPerAppearance": 1.6,
+       "dealtPerAppearance": 8329,
+       "takenPerAppearance": 51,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 33.3,
+       "actions": {
+        "move": 7,
+        "Twin Kunai": 5,
+        "Stoneward": 5,
+        "Springguard": 3,
+        "basic attack": 2,
+        "wait (end turn)": 1,
+        "Numbing Senbon": 1
+       },
+       "ruleFires": {
+        "0": 5,
+        "1": 1,
+        "4": 5,
+        "5": 3,
+        "6": 7,
+        "7": 2,
+        "engine-fallback": 1
+       },
+       "rulesNeverFired": [
+        "2",
+        "3"
+       ],
+       "effectsApplied": {
+        "decreasedamagetaken": 5,
+        "absorb": 3,
+        "stun": 1
+       }
+      }
+     ]
+    }
+   ],
+   "enemiesOverall": [
+    {
+     "name": "Deck Warden",
+     "aiId": "texZaFi42S3EvJZBwQ8cd",
+     "appearances": 5,
+     "killedPct": 0,
+     "diedAfterRoundsMedian": null,
+     "turnsPerAppearance": 2.2,
+     "dealtPerAppearance": 8138,
+     "takenPerAppearance": 157,
+     "healedPerAppearance": 0,
+     "idleOrMovePct": 19,
+     "actions": {
+      "Windlash Focus": 5,
+      "Tide Bolt": 5,
+      "Numbing Senbon": 4,
+      "move": 4,
+      "Springguard": 2,
+      "Stoneward": 1
+     },
+     "ruleFires": {
+      "0": 5,
+      "1": 8,
+      "3": 1,
+      "4": 1,
+      "5": 2,
+      "6": 4
+     },
+     "rulesNeverFired": [
+      "2",
+      "7"
+     ],
+     "effectsApplied": {
+      "increasedamagegiven": 5,
+      "absorb": 2,
+      "decreasedamagetaken": 1,
+      "stun": 1
+     }
+    },
+    {
+     "name": "Core Horror",
+     "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+     "appearances": 5,
+     "killedPct": 0,
+     "diedAfterRoundsMedian": null,
+     "turnsPerAppearance": 1.6,
+     "dealtPerAppearance": 8329,
+     "takenPerAppearance": 51,
+     "healedPerAppearance": 0,
+     "idleOrMovePct": 33.3,
+     "actions": {
+      "move": 7,
+      "Twin Kunai": 5,
+      "Stoneward": 5,
+      "Springguard": 3,
+      "basic attack": 2,
+      "wait (end turn)": 1,
+      "Numbing Senbon": 1
+     },
+     "ruleFires": {
+      "0": 5,
+      "1": 1,
+      "4": 5,
+      "5": 3,
+      "6": 7,
+      "7": 2,
+      "engine-fallback": 1
+     },
+     "rulesNeverFired": [
+      "2",
+      "3"
+     ],
+     "effectsApplied": {
+      "decreasedamagetaken": 5,
+      "absorb": 3,
+      "stun": 1
+     }
+    }
+   ],
+   "players": {
+    "user_wreck_p1": {
+     "actions": {
+      "move": 16,
+      "Harden Fist": 5,
+      "Aqua Barrier": 5,
+      "Stunning Jab": 3,
+      "wait (end turn)": 2,
+      "basic attack": 2
+     },
+     "dealtPerRun": 100,
+     "takenPerRun": 2050,
+     "healedPerRun": 0,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 1,
+     "effectsApplied": {
+      "increasedamagegiven": 10,
+      "decreasedamagetaken": 10,
+      "stun": 3
+     }
+    },
+    "user_wreck_p3": {
+     "actions": {
+      "move": 15,
+      "Harden Fist": 5,
+      "Aqua Barrier": 5,
+      "Stunning Jab": 3,
+      "basic attack": 3,
+      "wait (end turn)": 1
+     },
+     "dealtPerRun": 108,
+     "takenPerRun": 2050,
+     "healedPerRun": 0,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 1,
+     "effectsApplied": {
+      "increasedamagegiven": 10,
+      "decreasedamagetaken": 10,
+      "stun": 3
+     }
+    },
+    "user_wreck_p2": {
+     "actions": {
+      "move": 10,
+      "Harden Fist": 4,
+      "Aqua Barrier": 4,
+      "Stunning Jab": 1,
+      "basic attack": 1
+     },
+     "dealtPerRun": 29,
+     "takenPerRun": 2050,
+     "healedPerRun": 0,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 1,
+     "effectsApplied": {
+      "increasedamagegiven": 8,
+      "decreasedamagetaken": 8,
+      "stun": 1
+     }
+    }
+   },
+   "runStatus": [
+    {
+     "seed": 1,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:2"
+     ]
+    },
+    {
+     "seed": 2,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:3"
+     ]
+    },
+    {
+     "seed": 3,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:2"
+     ]
+    },
+    {
+     "seed": 4,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:2"
+     ]
+    },
+    {
+     "seed": 5,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:2"
+     ]
+    }
+   ]
+  },
+  {
+   "variant": "lvl50",
+   "note": "easier-version average: level-50 CHUNIN, level-50 stat budget (scaleUserStats 'player') spread evenly, calcHP/CP/SP(50) = 2,550 pools, Chunin kit at jutsu level 15, no gear",
+   "player": {
+    "userId": "user_wreck_p1",
+    "level": 50,
+    "rank": "CHUNIN",
+    "offence": 106176.67,
+    "defence": 106176.67,
+    "generals": 106176.67,
+    "hp": 2550,
+    "cp": 2550,
+    "sp": 2550,
+    "jutsu": [
+     "Harden Fist@15",
+     "Aqua Barrier@15",
+     "Rejuvenating Chakra@15",
+     "Stunning Jab@15",
+     "Shattering Strike@15",
+     "Chakra Palm@15",
+     "Resounding Crescendo@15",
+     "Iron Fist@15"
+    ],
+    "innateEffects": [],
+    "rankCaps": {
+     "stats_cap": 1300000,
+     "gens_cap": 400000,
+     "lvl_cap": 100
+    }
+   },
+   "runs": 5,
+   "outcomes": {
+    "cleared": 0,
+    "max-wipes": 5,
+    "ended": 0,
+    "stalled": 0
+   },
+   "runsWithAWipePct": 100,
+   "wipesPerRunMedian": 1,
+   "totalRoundsMedian": 2,
+   "totalRoundsP10": 2,
+   "totalRoundsP90": 3,
+   "totalRoundsCleanClearMedian": null,
+   "time": {
+    "player10s_ai0s": {
+     "minutesMedianAllRuns": 1.2,
+     "minutesP10": 1.2,
+     "minutesP90": 1.2,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player10s_ai1.5s": {
+     "minutesMedianAllRuns": 1.3,
+     "minutesP10": 1.3,
+     "minutesP90": 1.3,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player15s_ai0s": {
+     "minutesMedianAllRuns": 1.5,
+     "minutesP10": 1.5,
+     "minutesP90": 1.5,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player15s_ai1.5s": {
+     "minutesMedianAllRuns": 1.6,
+     "minutesP10": 1.6,
+     "minutesP90": 1.6,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player20s_ai0s": {
+     "minutesMedianAllRuns": 1.8,
+     "minutesP10": 1.8,
+     "minutesP90": 1.8,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player20s_ai1.5s": {
+     "minutesMedianAllRuns": 1.9,
+     "minutesP10": 1.9,
+     "minutesP90": 2,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    }
+   },
+   "floors": {
+    "F1": {
+     "attempts": 5,
+     "won": 0,
+     "wipes": 5,
+     "roundsMedian": 2,
+     "humanTurnsMedian": 4,
+     "aiTurnsMedian": 4
+    }
+   },
+   "waves": [
+    {
+     "wave": "F1W1",
+     "enemies": "Deck Warden + Core Horror",
+     "attempts": 5,
+     "cleared": 0,
+     "wipedHere": 5,
+     "roundsMedian": null,
+     "roundsMin": null,
+     "roundsMax": null,
+     "roundsP90": null,
+     "humanTurnsMedian": 4,
+     "aiTurnsMedian": 4,
+     "partyHpLostPctMedian": 100,
+     "poolsLeftMedianPct": {
+      "hp": 0,
+      "cp": 0,
+      "sp": 0,
+      "playersAlive": null
+     },
+     "threats": [
+      {
+       "name": "Core Horror",
+       "dealtPerAppearance": 7318,
+       "sharePct": 54.5
+      },
+      {
+       "name": "Deck Warden",
+       "dealtPerAppearance": 6114,
+       "sharePct": 45.5
+      }
+     ],
+     "enemyBehaviour": [
+      {
+       "name": "Deck Warden",
+       "aiId": "texZaFi42S3EvJZBwQ8cd",
+       "appearances": 5,
+       "killedPct": 0,
+       "diedAfterRoundsMedian": null,
+       "turnsPerAppearance": 2.2,
+       "dealtPerAppearance": 6114,
+       "takenPerAppearance": 203,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 22.2,
+       "actions": {
+        "move": 6,
+        "Windlash Focus": 5,
+        "Tide Bolt": 5,
+        "Numbing Senbon": 4,
+        "Stoneward": 3,
+        "Springguard": 2,
+        "basic attack": 2
+       },
+       "ruleFires": {
+        "0": 5,
+        "1": 8,
+        "3": 1,
+        "4": 3,
+        "5": 2,
+        "6": 6,
+        "7": 2
+       },
+       "rulesNeverFired": [
+        "2"
+       ],
+       "effectsApplied": {
+        "increasedamagegiven": 5,
+        "decreasedamagetaken": 3,
+        "absorb": 2,
+        "stun": 1
+       }
+      },
+      {
+       "name": "Core Horror",
+       "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+       "appearances": 5,
+       "killedPct": 0,
+       "diedAfterRoundsMedian": null,
+       "turnsPerAppearance": 2,
+       "dealtPerAppearance": 7318,
+       "takenPerAppearance": 46,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 34.5,
+       "actions": {
+        "move": 9,
+        "Twin Kunai": 5,
+        "Stoneward": 5,
+        "Springguard": 4,
+        "basic attack": 3,
+        "Numbing Senbon": 2,
+        "wait (end turn)": 1
+       },
+       "ruleFires": {
+        "0": 5,
+        "1": 2,
+        "4": 5,
+        "5": 4,
+        "6": 9,
+        "7": 3,
+        "engine-fallback": 1
+       },
+       "rulesNeverFired": [
+        "2",
+        "3"
+       ],
+       "effectsApplied": {
+        "decreasedamagetaken": 5,
+        "absorb": 4
+       }
+      }
+     ]
+    }
+   ],
+   "enemiesOverall": [
+    {
+     "name": "Deck Warden",
+     "aiId": "texZaFi42S3EvJZBwQ8cd",
+     "appearances": 5,
+     "killedPct": 0,
+     "diedAfterRoundsMedian": null,
+     "turnsPerAppearance": 2.2,
+     "dealtPerAppearance": 6114,
+     "takenPerAppearance": 203,
+     "healedPerAppearance": 0,
+     "idleOrMovePct": 22.2,
+     "actions": {
+      "move": 6,
+      "Windlash Focus": 5,
+      "Tide Bolt": 5,
+      "Numbing Senbon": 4,
+      "Stoneward": 3,
+      "Springguard": 2,
+      "basic attack": 2
+     },
+     "ruleFires": {
+      "0": 5,
+      "1": 8,
+      "3": 1,
+      "4": 3,
+      "5": 2,
+      "6": 6,
+      "7": 2
+     },
+     "rulesNeverFired": [
+      "2"
+     ],
+     "effectsApplied": {
+      "increasedamagegiven": 5,
+      "decreasedamagetaken": 3,
+      "absorb": 2,
+      "stun": 1
+     }
+    },
+    {
+     "name": "Core Horror",
+     "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+     "appearances": 5,
+     "killedPct": 0,
+     "diedAfterRoundsMedian": null,
+     "turnsPerAppearance": 2,
+     "dealtPerAppearance": 7318,
+     "takenPerAppearance": 46,
+     "healedPerAppearance": 0,
+     "idleOrMovePct": 34.5,
+     "actions": {
+      "move": 9,
+      "Twin Kunai": 5,
+      "Stoneward": 5,
+      "Springguard": 4,
+      "basic attack": 3,
+      "Numbing Senbon": 2,
+      "wait (end turn)": 1
+     },
+     "ruleFires": {
+      "0": 5,
+      "1": 2,
+      "4": 5,
+      "5": 4,
+      "6": 9,
+      "7": 3,
+      "engine-fallback": 1
+     },
+     "rulesNeverFired": [
+      "2",
+      "3"
+     ],
+     "effectsApplied": {
+      "decreasedamagetaken": 5,
+      "absorb": 4
+     }
+    }
+   ],
+   "players": {
+    "user_wreck_p1": {
+     "actions": {
+      "move": 16,
+      "Harden Fist": 5,
+      "Aqua Barrier": 5,
+      "Stunning Jab": 3,
+      "wait (end turn)": 2,
+      "basic attack": 2
+     },
+     "dealtPerRun": 146,
+     "takenPerRun": 2550,
+     "healedPerRun": 0,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 1,
+     "effectsApplied": {
+      "increasedamagegiven": 10,
+      "decreasedamagetaken": 10,
+      "stun": 3
+     }
+    },
+    "user_wreck_p3": {
+     "actions": {
+      "move": 13,
+      "Harden Fist": 5,
+      "Aqua Barrier": 5,
+      "Stunning Jab": 2,
+      "basic attack": 2,
+      "wait (end turn)": 1
+     },
+     "dealtPerRun": 114,
+     "takenPerRun": 2550,
+     "healedPerRun": 0,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 1,
+     "effectsApplied": {
+      "increasedamagegiven": 10,
+      "decreasedamagetaken": 10,
+      "stun": 2
+     }
+    },
+    "user_wreck_p2": {
+     "actions": {
+      "move": 10,
+      "Harden Fist": 5,
+      "Aqua Barrier": 5
+     },
+     "dealtPerRun": 0,
+     "takenPerRun": 2550,
+     "healedPerRun": 0,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 1,
+     "effectsApplied": {
+      "increasedamagegiven": 10,
+      "decreasedamagetaken": 10
+     }
+    }
+   },
+   "runStatus": [
+    {
+     "seed": 1,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:2"
+     ]
+    },
+    {
+     "seed": 2,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:3"
+     ]
+    },
+    {
+     "seed": 3,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:2"
+     ]
+    },
+    {
+     "seed": 4,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:2"
+     ]
+    },
+    {
+     "seed": 5,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:2"
+     ]
+    }
+   ]
+  },
+  {
+   "variant": "lvl60",
+   "note": "easier-version upper bound: level 60, otherwise as lvl50 (jutsu level 18)",
+   "player": {
+    "userId": "user_wreck_p1",
+    "level": 60,
+    "rank": "CHUNIN",
+    "offence": 152426.67,
+    "defence": 152426.67,
+    "generals": 152426.67,
+    "hp": 3050,
+    "cp": 3050,
+    "sp": 3050,
+    "jutsu": [
+     "Harden Fist@18",
+     "Aqua Barrier@18",
+     "Rejuvenating Chakra@18",
+     "Stunning Jab@18",
+     "Shattering Strike@18",
+     "Chakra Palm@18",
+     "Resounding Crescendo@18",
+     "Iron Fist@18"
+    ],
+    "innateEffects": [],
+    "rankCaps": {
+     "stats_cap": 1300000,
+     "gens_cap": 400000,
+     "lvl_cap": 100
+    }
+   },
+   "runs": 5,
+   "outcomes": {
+    "cleared": 0,
+    "max-wipes": 5,
+    "ended": 0,
+    "stalled": 0
+   },
+   "runsWithAWipePct": 100,
+   "wipesPerRunMedian": 1,
+   "totalRoundsMedian": 3,
+   "totalRoundsP10": 2,
+   "totalRoundsP90": 4,
+   "totalRoundsCleanClearMedian": null,
+   "time": {
+    "player10s_ai0s": {
+     "minutesMedianAllRuns": 1.3,
+     "minutesP10": 1.2,
+     "minutesP90": 1.8,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player10s_ai1.5s": {
+     "minutesMedianAllRuns": 1.5,
+     "minutesP10": 1.3,
+     "minutesP90": 2,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player15s_ai0s": {
+     "minutesMedianAllRuns": 1.8,
+     "minutesP10": 1.5,
+     "minutesP90": 2.5,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player15s_ai1.5s": {
+     "minutesMedianAllRuns": 1.9,
+     "minutesP10": 1.6,
+     "minutesP90": 2.7,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player20s_ai0s": {
+     "minutesMedianAllRuns": 2.2,
+     "minutesP10": 1.8,
+     "minutesP90": 3.2,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player20s_ai1.5s": {
+     "minutesMedianAllRuns": 2.3,
+     "minutesP10": 1.9,
+     "minutesP90": 3.4,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    }
+   },
+   "floors": {
+    "F1": {
+     "attempts": 5,
+     "won": 0,
+     "wipes": 5,
+     "roundsMedian": 3,
+     "humanTurnsMedian": 5,
+     "aiTurnsMedian": 6
+    }
+   },
+   "waves": [
+    {
+     "wave": "F1W1",
+     "enemies": "Deck Warden + Core Horror",
+     "attempts": 5,
+     "cleared": 0,
+     "wipedHere": 5,
+     "roundsMedian": null,
+     "roundsMin": null,
+     "roundsMax": null,
+     "roundsP90": null,
+     "humanTurnsMedian": 5,
+     "aiTurnsMedian": 6,
+     "partyHpLostPctMedian": 100,
+     "poolsLeftMedianPct": {
+      "hp": 0,
+      "cp": 0,
+      "sp": 0,
+      "playersAlive": null
+     },
+     "threats": [
+      {
+       "name": "Core Horror",
+       "dealtPerAppearance": 9071,
+       "sharePct": 65.5
+      },
+      {
+       "name": "Deck Warden",
+       "dealtPerAppearance": 4770,
+       "sharePct": 34.5
+      }
+     ],
+     "enemyBehaviour": [
+      {
+       "name": "Deck Warden",
+       "aiId": "texZaFi42S3EvJZBwQ8cd",
+       "appearances": 5,
+       "killedPct": 0,
+       "diedAfterRoundsMedian": null,
+       "turnsPerAppearance": 3,
+       "dealtPerAppearance": 4770,
+       "takenPerAppearance": 538,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 26.3,
+       "actions": {
+        "move": 8,
+        "basic attack": 6,
+        "Windlash Focus": 5,
+        "Tide Bolt": 5,
+        "Numbing Senbon": 5,
+        "Springguard": 4,
+        "Stoneward": 3,
+        "wait (end turn)": 2
+       },
+       "ruleFires": {
+        "0": 5,
+        "1": 7,
+        "3": 3,
+        "4": 3,
+        "5": 4,
+        "6": 8,
+        "7": 6,
+        "engine-fallback": 2
+       },
+       "rulesNeverFired": [
+        "2"
+       ],
+       "effectsApplied": {
+        "increasedamagegiven": 5,
+        "decreasedamagetaken": 3,
+        "absorb": 4
+       }
+      },
+      {
+       "name": "Core Horror",
+       "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+       "appearances": 5,
+       "killedPct": 0,
+       "diedAfterRoundsMedian": null,
+       "turnsPerAppearance": 3.2,
+       "dealtPerAppearance": 9071,
+       "takenPerAppearance": 302,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 39.5,
+       "actions": {
+        "move": 13,
+        "Twin Kunai": 6,
+        "Stoneward": 5,
+        "Springguard": 5,
+        "Numbing Senbon": 5,
+        "wait (end turn)": 4,
+        "basic attack": 3,
+        "Rigging Snare": 2
+       },
+       "ruleFires": {
+        "0": 6,
+        "1": 5,
+        "2": 2,
+        "4": 5,
+        "5": 5,
+        "6": 13,
+        "7": 3,
+        "engine-fallback": 4
+       },
+       "rulesNeverFired": [
+        "3"
+       ],
+       "effectsApplied": {
+        "decreasedamagetaken": 5,
+        "absorb": 5,
+        "stun": 3,
+        "moveprevent": 2
+       }
+      }
+     ]
+    }
+   ],
+   "enemiesOverall": [
+    {
+     "name": "Deck Warden",
+     "aiId": "texZaFi42S3EvJZBwQ8cd",
+     "appearances": 5,
+     "killedPct": 0,
+     "diedAfterRoundsMedian": null,
+     "turnsPerAppearance": 3,
+     "dealtPerAppearance": 4770,
+     "takenPerAppearance": 538,
+     "healedPerAppearance": 0,
+     "idleOrMovePct": 26.3,
+     "actions": {
+      "move": 8,
+      "basic attack": 6,
+      "Windlash Focus": 5,
+      "Tide Bolt": 5,
+      "Numbing Senbon": 5,
+      "Springguard": 4,
+      "Stoneward": 3,
+      "wait (end turn)": 2
+     },
+     "ruleFires": {
+      "0": 5,
+      "1": 7,
+      "3": 3,
+      "4": 3,
+      "5": 4,
+      "6": 8,
+      "7": 6,
+      "engine-fallback": 2
+     },
+     "rulesNeverFired": [
+      "2"
+     ],
+     "effectsApplied": {
+      "increasedamagegiven": 5,
+      "decreasedamagetaken": 3,
+      "absorb": 4
+     }
+    },
+    {
+     "name": "Core Horror",
+     "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+     "appearances": 5,
+     "killedPct": 0,
+     "diedAfterRoundsMedian": null,
+     "turnsPerAppearance": 3.2,
+     "dealtPerAppearance": 9071,
+     "takenPerAppearance": 302,
+     "healedPerAppearance": 0,
+     "idleOrMovePct": 39.5,
+     "actions": {
+      "move": 13,
+      "Twin Kunai": 6,
+      "Stoneward": 5,
+      "Springguard": 5,
+      "Numbing Senbon": 5,
+      "wait (end turn)": 4,
+      "basic attack": 3,
+      "Rigging Snare": 2
+     },
+     "ruleFires": {
+      "0": 6,
+      "1": 5,
+      "2": 2,
+      "4": 5,
+      "5": 5,
+      "6": 13,
+      "7": 3,
+      "engine-fallback": 4
+     },
+     "rulesNeverFired": [
+      "3"
+     ],
+     "effectsApplied": {
+      "decreasedamagetaken": 5,
+      "absorb": 5,
+      "stun": 3,
+      "moveprevent": 2
+     }
+    }
+   ],
+   "players": {
+    "user_wreck_p1": {
+     "actions": {
+      "move": 15,
+      "Harden Fist": 5,
+      "Aqua Barrier": 5,
+      "Stunning Jab": 3,
+      "basic attack": 3,
+      "Rejuvenating Chakra": 1,
+      "Shattering Strike": 1,
+      "wait (end turn)": 1
+     },
+     "dealtPerRun": 287,
+     "takenPerRun": 3050,
+     "healedPerRun": 0,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 1,
+     "effectsApplied": {
+      "increasedamagegiven": 10,
+      "decreasedamagetaken": 11,
+      "stun": 3,
+      "heal": 1,
+      "visual": 1
+     }
+    },
+    "user_wreck_p3": {
+     "actions": {
+      "move": 13,
+      "Harden Fist": 5,
+      "Aqua Barrier": 5,
+      "basic attack": 5,
+      "wait (end turn)": 5,
+      "Stunning Jab": 3,
+      "Shattering Strike": 3,
+      "Rejuvenating Chakra": 2,
+      "Chakra Palm": 1
+     },
+     "dealtPerRun": 430,
+     "takenPerRun": 3144,
+     "healedPerRun": 94,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 1,
+     "effectsApplied": {
+      "increasedamagegiven": 10,
+      "decreasedamagetaken": 13,
+      "stun": 2,
+      "heal": 2,
+      "visual": 2,
+      "shield": 1
+     }
+    },
+    "user_wreck_p2": {
+     "actions": {
+      "move": 10,
+      "Harden Fist": 5,
+      "Aqua Barrier": 5,
+      "Stunning Jab": 3,
+      "Rejuvenating Chakra": 2,
+      "basic attack": 2,
+      "wait (end turn)": 2,
+      "Shattering Strike": 1
+     },
+     "dealtPerRun": 267,
+     "takenPerRun": 3144,
+     "healedPerRun": 94,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 1,
+     "effectsApplied": {
+      "increasedamagegiven": 10,
+      "decreasedamagetaken": 11,
+      "heal": 2,
+      "visual": 2,
+      "stun": 3
+     }
+    }
+   },
+   "runStatus": [
+    {
+     "seed": 1,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:3"
+     ]
+    },
+    {
+     "seed": 2,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:4"
+     ]
+    },
+    {
+     "seed": 3,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:4"
+     ]
+    },
+    {
+     "seed": 4,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:2"
+     ]
+    },
+    {
+     "seed": 5,
+     "status": "max-wipes",
+     "wipes": 1,
+     "floorsAttempted": [
+      "F1:wipe:3"
+     ]
+    }
+   ]
+  }
+ ]
+}

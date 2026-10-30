@@ -1,0 +1,96 @@
+{
+ "name": "director_layout",
+ "note": "Director's endgame layout (2026-10-28), crew as currently live (no stat changes). Hazards (Seal Charge, Core Canister) only in first waves. F4 is a mini-boss room (a wipe there retries F4 instead of returning to F1).",
+ "floors": [
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Deck Warden",
+      "Deck Warden",
+      "Seal Charge"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Seal Charge",
+      "Seal Charge"
+     ],
+     "delayRounds": 0
+    },
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Deck Warden",
+      "Deck Warden"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Skyglass Sentinel",
+      "First Blade",
+      "Deck Warden"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "mini-boss",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Deck Warden",
+      "Oathkeeper"
+     ],
+     "delayRounds": 0
+    },
+    {
+     "aiIds": [
+      "The Captain",
+      "Wayfinder"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "boss",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Deck Warden",
+      "First Blade",
+      "Core Canister",
+      "Core Canister"
+     ],
+     "delayRounds": 0
+    },
+    {
+     "aiIds": [
+      "Crowned Captain",
+      "Sealwright"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  }
+ ]
+}

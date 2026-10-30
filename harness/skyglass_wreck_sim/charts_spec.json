@@ -1,0 +1,8479 @@
+{
+ "generatedBy": "harness/skyglass_wreck_sim/engine/charts_main.ts --spec-out",
+ "engineRun": "c86f43f4 (harness pin); source checks cite 2af4b320",
+ "note": "Placeholder ids (chart-*); the builder mints real ids. Live ids are the hunts' live records upgraded in place with hunts.params.json stats (unchanged here).",
+ "params": {
+  "stats": {
+   "texZaFi42S3EvJZBwQ8cd": {
+    "pools": 1,
+    "rows": 0
+   },
+   "wTgO-Q32caSSd0is1QIS7": {
+    "pools": 1,
+    "rows": 0,
+    "stats": 1
+   },
+   "frc9LTxqQlM7mncG4VZGK": {
+    "pools": 1,
+    "rows": 0,
+    "stats": 5
+   },
+   "2OXJEXoktxJcjqMkE851g": {
+    "pools": 1,
+    "rows": 0
+   },
+   "3V_gdHYaclMB1gTyOPAbV": {
+    "pools": 3.26,
+    "rows": 2
+   },
+   "AQi-bHJ-5tHXtxrnc0P9E": {
+    "pools": 2,
+    "rows": 2
+   },
+   "RBW5KsIXmTGR710D2y2Y7": {
+    "pools": 2.5,
+    "rows": 2
+   },
+   "v7T9_XdGMfP46em0dPuBc": {
+    "pools": 1.26,
+    "rows": 1
+   },
+   "d6g0mOM7RBSsYI1hrUVT9": {
+    "pools": 1.5,
+    "rows": 2
+   },
+   "QY69h271Nx9uHrBeR6jwW": {
+    "pools": 2,
+    "rows": 4
+   },
+   "81lnIP-q97gItQYWl5vWD": {
+    "pools": 2.5,
+    "rows": 1
+   },
+   "LZiunyinw9ScK3mh9HiR2": {
+    "pools": 2,
+    "rows": 2
+   },
+   "vjEFUJ9mb1zNTuQf4lfXv": {
+    "pools": 1.5,
+    "rows": 1
+   }
+  },
+  "echoHp": 15000,
+  "echoPower": 60,
+  "_about": "Skyglass charts (engine/charts.ts) tuned values on top of overrides/hunts.params.json. Keys are live AI ids. commons = the common-chart crew copies (scaled to the player: statsMultiplier `stats`, per id pools/rows); rares = rare-chart stat copies chart-r-*; taintedCopies = tainted pair-fight copies chart-t-*; stats.<Replicant Zero> = its solo edit; echo = Lingering Echo hazard; ember = Burning Deck; steep = Steeping Horror; tainted = tainted twists. Schema floor (insertAiSchema): statsMultiplier >= 1 and poolsMultiplier >= 1; the commons soften through innate rows instead (taken: +damage-taken % rows; givenDown: -damage-given %).",
+  "_names": {
+   "texZaFi42S3EvJZBwQ8cd": "Deck Warden",
+   "wTgO-Q32caSSd0is1QIS7": "Seal Charge",
+   "frc9LTxqQlM7mncG4VZGK": "Core Canister",
+   "2OXJEXoktxJcjqMkE851g": "Arsenal Keeper",
+   "3V_gdHYaclMB1gTyOPAbV": "Skyglass Sentinel",
+   "AQi-bHJ-5tHXtxrnc0P9E": "Core Horror",
+   "RBW5KsIXmTGR710D2y2Y7": "Sealwright",
+   "v7T9_XdGMfP46em0dPuBc": "Wayfinder",
+   "d6g0mOM7RBSsYI1hrUVT9": "First Blade",
+   "QY69h271Nx9uHrBeR6jwW": "The Captain",
+   "81lnIP-q97gItQYWl5vWD": "Foundry Warden",
+   "LZiunyinw9ScK3mh9HiR2": "Crown Archivist",
+   "0PZU_FvlbM3ErYGlD5r56": "Oathkeeper",
+   "vjEFUJ9mb1zNTuQf4lfXv": "Replicant Zero"
+  },
+  "echo": {
+   "pools": 2,
+   "rows": 1,
+   "fade": 10
+  },
+  "ember": {
+   "power": 5,
+   "rounds": [
+    1,
+    4,
+    7
+   ],
+   "pools": 3
+  },
+  "steep": {
+   "pools": 3.76,
+   "rows": 3
+  },
+  "tainted": {
+   "givePools": 70,
+   "sealRounds": 2,
+   "afterburn": 60,
+   "afterburnRounds": 4,
+   "echo": "echo2"
+  },
+  "commons": {
+   "stats": 1,
+   "byId": {
+    "3V_gdHYaclMB1gTyOPAbV": {
+     "pools": 1.5,
+     "rows": 1
+    },
+    "wTgO-Q32caSSd0is1QIS7": {
+     "pools": 1,
+     "rows": 0,
+     "stats": 1
+    },
+    "v7T9_XdGMfP46em0dPuBc": {
+     "pools": 1,
+     "rows": 0
+    },
+    "d6g0mOM7RBSsYI1hrUVT9": {
+     "pools": 1.5,
+     "rows": 1
+    }
+   },
+   "taken": [
+    100
+   ],
+   "givenDown": 50
+  },
+  "rares": {
+   "byId": {
+    "81lnIP-q97gItQYWl5vWD": {
+     "pools": 1.2,
+     "rows": 1
+    },
+    "RBW5KsIXmTGR710D2y2Y7": {
+     "pools": 1,
+     "rows": 1
+    },
+    "3V_gdHYaclMB1gTyOPAbV": {
+     "pools": 2,
+     "rows": 1
+    },
+    "d6g0mOM7RBSsYI1hrUVT9": {
+     "pools": 1.2,
+     "rows": 1
+    },
+    "AQi-bHJ-5tHXtxrnc0P9E": {
+     "pools": 2,
+     "rows": 2
+    },
+    "QY69h271Nx9uHrBeR6jwW": {
+     "pools": 2,
+     "rows": 2
+    },
+    "0PZU_FvlbM3ErYGlD5r56": {
+     "pools": 2.5,
+     "rows": 2
+    }
+   }
+  },
+  "taintedCopies": {
+   "byId": {
+    "81lnIP-q97gItQYWl5vWD": {
+     "pools": 1,
+     "rows": 0
+    },
+    "RBW5KsIXmTGR710D2y2Y7": {
+     "pools": 1,
+     "rows": 0
+    },
+    "3V_gdHYaclMB1gTyOPAbV": {
+     "pools": 1,
+     "rows": 0
+    },
+    "d6g0mOM7RBSsYI1hrUVT9": {
+     "pools": 1,
+     "rows": 0
+    }
+   }
+  }
+ },
+ "newAIs": {
+  "chart-c-deck-warden": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Deck Warden: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user",
+   "username": "Deck Warden",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1,
+   "statsMultiplier": 1,
+   "maxHealth": 5050,
+   "stats": {
+    "offence": 278259.99,
+    "defence": 278259.99,
+    "strength": 278259.99,
+    "intelligence": 278259.99,
+    "willpower": 278259.99,
+    "speed": 278259.99
+   },
+   "effects": [
+    "increasedamagetaken 100%",
+    "decreasedamagegiven 50%"
+   ],
+   "jutsu": [
+    {
+     "id": "_9k7kSYUgMtB-AEFgRly5",
+     "name": "Windlash Focus"
+    },
+    {
+     "id": "lib-chain-hook",
+     "name": "Chain Hook"
+    },
+    {
+     "id": "UnQKfwq_JoRVu10aTX6Uv",
+     "name": "Tide Bolt"
+    },
+    {
+     "id": "FeYnH7BBw_usnc1K-TM-J",
+     "name": "Quick Strike"
+    }
+   ],
+   "rules": [
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+      "target": "SELF"
+     },
+     "note": "Warden's Resolve (live Windlash Focus, opener)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 3,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-chain-hook",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Chain Hook (top threat 3+ hexes away)"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "focus the Chart Mark (HIGHEST_ENMITY_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "CLOSEST_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "focus the Chart Mark (CLOSEST_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "LOWEST_HEALTH_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Quick Strike"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Tide Bolt"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Tide Bolt (closest, top threat out of reach)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "move towards the top threat"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-c-seal-charge": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Seal Charge: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user",
+   "username": "Seal Charge",
+   "level": 70,
+   "rank": "JONIN",
+   "poolsMultiplier": 1,
+   "statsMultiplier": 1,
+   "maxHealth": 3550,
+   "stats": {
+    "offence": 103510,
+    "defence": 103510,
+    "strength": 103510,
+    "intelligence": 103510,
+    "willpower": 103510,
+    "speed": 103510
+   },
+   "effects": [
+    "increasedamagetaken 100%",
+    "decreasedamagegiven 50%"
+   ],
+   "jutsu": [
+    {
+     "id": "nCQETf-HNnbRec1OSY2-R",
+     "name": "Core Rupture"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "nCQETf-HNnbRec1OSY2-R",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Core Rupture: a player adjacent"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "nCQETf-HNnbRec1OSY2-R",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Core Rupture: fuse (from round 3)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "walk at the closest player"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "end turn"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-c-arsenal-keeper": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Arsenal Keeper: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user",
+   "username": "Arsenal Keeper",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1,
+   "statsMultiplier": 1,
+   "maxHealth": 5050,
+   "stats": {
+    "offence": 278259.99,
+    "defence": 278259.99,
+    "strength": 278259.99,
+    "intelligence": 278259.99,
+    "willpower": 278259.99,
+    "speed": 278259.99
+   },
+   "effects": [
+    "increasedamagetaken 100%",
+    "decreasedamagegiven 50%"
+   ],
+   "jutsu": [
+    {
+     "id": "_9k7kSYUgMtB-AEFgRly5",
+     "name": "Windlash Focus"
+    },
+    {
+     "id": "3v9c1SHlD2GLPF2HW1_Sc",
+     "name": "Twin Kunai"
+    },
+    {
+     "id": "m-ur3A8TS8r5jGb84L9x7",
+     "name": "Numbing Senbon"
+    },
+    {
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard"
+    },
+    {
+     "id": "pUrUJX8Jml7fUIBXKsPwv",
+     "name": "Heavy Strike"
+    },
+    {
+     "id": "V3WrfQ3pB-eCq2hojsxWe",
+     "name": "Stoneward"
+    },
+    {
+     "id": "wMcoazoyXaEXViSCn5weF",
+     "name": "Revocation Strike"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 2
+      }
+     ],
+     "do": {
+      "type": "use_combo_action",
+      "target": "RANDOM_OPPONENT"
+     },
+     "note": "Cycly through a specific combo of jutsu & items"
+    },
+    {
+     "when": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 6
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+      "target": "RANDOM_OPPONENT"
+     },
+     "note": "Select specific jutsu"
+    },
+    {
+     "when": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "wMcoazoyXaEXViSCn5weF",
+      "target": "RANDOM_OPPONENT"
+     },
+     "note": "Select specific jutsu"
+    },
+    {
+     "when": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 6
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "RANDOM_OPPONENT"
+     },
+     "note": "Select specific jutsu"
+    },
+    {
+     "when": [
+      {
+       "description": "Distance higher than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_higher_than",
+       "value": 5
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+      "target": "SELF"
+     },
+     "note": "Select specific jutsu"
+    },
+    {
+     "when": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 5
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+      "target": "SELF"
+     },
+     "note": "Select specific jutsu"
+    },
+    {
+     "when": [
+      {
+       "description": "Distance higher than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_higher_than",
+       "value": 2
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "RANDOM_OPPONENT"
+     },
+     "note": "Move towards opponent"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "RANDOM_OPPONENT"
+     },
+     "note": "Use highest power action of given effect"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-c-skyglass-sentinel": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Skyglass Sentinel: same kit and rules, statsMultiplier 1, pools 1.5; opponent_scaled_to_user",
+   "username": "Skyglass Sentinel",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1.5,
+   "statsMultiplier": 1,
+   "maxHealth": 7575,
+   "stats": {
+    "offence": 278260,
+    "defence": 278260,
+    "strength": 278260,
+    "intelligence": 278260,
+    "willpower": 278260,
+    "speed": 278260
+   },
+   "effects": [
+    "increasedamagegiven 100%",
+    "increasedamagetaken 100%",
+    "decreasedamagegiven 50%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-blast-rows-b",
+     "name": "Eruption: Rows"
+    },
+    {
+     "id": "lib-blast-rows-a",
+     "name": "Eruption: Rows"
+    },
+    {
+     "id": "lib-lowered-guard",
+     "name": "Lowered Guard"
+    },
+    {
+     "id": "3v9c1SHlD2GLPF2HW1_Sc",
+     "name": "Twin Kunai"
+    },
+    {
+     "id": "lib-omen-rows-b",
+     "name": "Omen: Rows"
+    },
+    {
+     "id": "lib-omen-rows-a",
+     "name": "Omen: Rows"
+    },
+    {
+     "id": "lib-skyglass-aegis",
+     "name": "Skyglass Aegis"
+    },
+    {
+     "id": "i4lGrYY5HNN2Q2GPToKUS",
+     "name": "Adamantine Fortress"
+    },
+    {
+     "id": "T3glZGcSd-jS8G-NB43GR",
+     "name": "Counter Stance"
+    },
+    {
+     "id": "1jXfTgrtGUaSfqTPSSa83",
+     "name": "Rigging Snare"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-rows-b",
+      "target": "SELF"
+     },
+     "note": "Tide Line B: the surf hammers in"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-rows-a",
+      "target": "SELF"
+     },
+     "note": "Tide Line A: the surf hammers in"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-lowered-guard",
+      "target": "SELF"
+     },
+     "note": "Low Tide (the sand runs out, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Tide Line B: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Tide Line B: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-lowered-guard",
+      "target": "SELF"
+     },
+     "note": "Low Tide (the sand runs out, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Tide Line A: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Tide Line A: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-rows-b",
+      "target": "SELF"
+     },
+     "note": "Tide Line B mark (under 50%)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-rows-a",
+      "target": "SELF"
+     },
+     "note": "Tide Line A mark"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-skyglass-aegis",
+      "target": "LOWEST_MAX_HEALTH_ALLY"
+     },
+     "note": "Skyglass Aegis on an ally"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "i4lGrYY5HNN2Q2GPToKUS",
+      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
+     },
+     "note": "Shell Wall (live Adamantine Fortress)"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 60
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+      "target": "SELF"
+     },
+     "note": "Counter Stance (under 60%)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "1jXfTgrtGUaSfqTPSSa83",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Rigging Snare"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "move towards"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-c-wayfinder": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Wayfinder: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user",
+   "username": "Wayfinder",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1,
+   "statsMultiplier": 1,
+   "maxHealth": 5050,
+   "stats": {
+    "offence": 278259.99,
+    "defence": 278259.99,
+    "strength": 278259.99,
+    "intelligence": 278259.99,
+    "willpower": 278259.99,
+    "speed": 278259.99
+   },
+   "effects": [
+    "increasedamagetaken 100%",
+    "decreasedamagegiven 50%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-blast-scatter-b",
+     "name": "Eruption: Scatter"
+    },
+    {
+     "id": "lib-blast-scatter-a",
+     "name": "Eruption: Scatter"
+    },
+    {
+     "id": "lib-chart-mark",
+     "name": "Chart Mark"
+    },
+    {
+     "id": "3v9c1SHlD2GLPF2HW1_Sc",
+     "name": "Twin Kunai"
+    },
+    {
+     "id": "lib-omen-scatter-b",
+     "name": "Omen: Scatter"
+    },
+    {
+     "id": "lib-omen-scatter-a",
+     "name": "Omen: Scatter"
+    },
+    {
+     "id": "PdD44PGaNv4MN5fOALhAF",
+     "name": "Keelbind"
+    },
+    {
+     "id": "LQ26G2ANWkbTRL7Ry__F0",
+     "name": "Split Image"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-scatter-b",
+      "target": "SELF"
+     },
+     "note": "Coastline B erupts"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-scatter-a",
+      "target": "SELF"
+     },
+     "note": "Coastline A erupts"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-chart-mark",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Chart Mark on the top threat"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Coastline B: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Coastline B: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-chart-mark",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Chart Mark on the top threat"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Coastline A: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Coastline A: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-chart-mark",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Chart Mark on the top threat"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-b",
+      "target": "SELF"
+     },
+     "note": "Coastline B mark (under 50%)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-a",
+      "target": "SELF"
+     },
+     "note": "Coastline A mark"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-chart-mark",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Chart Mark on the closest (top threat out of reach)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Keelbind at range"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LQ26G2ANWkbTRL7Ry__F0",
+      "target": "EMPTY_GROUND_CLOSEST_TO_SELF"
+     },
+     "note": "Afterimage Decoy (live Split Image, a player within 2)"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "focus the Chart Mark (HIGHEST_ENMITY_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "CLOSEST_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "focus the Chart Mark (CLOSEST_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "LOWEST_HEALTH_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "keep range: close only when out of reach"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-c-first-blade": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of First Blade: same kit and rules, statsMultiplier 1, pools 1.5; opponent_scaled_to_user",
+   "username": "First Blade",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1.5,
+   "statsMultiplier": 1,
+   "maxHealth": 7575,
+   "stats": {
+    "offence": 278260,
+    "defence": 278260,
+    "strength": 278260,
+    "intelligence": 278260,
+    "willpower": 278260,
+    "speed": 278260
+   },
+   "effects": [
+    "increasedamagegiven 100%",
+    "increasedamagetaken 100%",
+    "decreasedamagegiven 50%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-blast-ring",
+     "name": "Eruption: Ring"
+    },
+    {
+     "id": "xGVqWSX93hXZgfmlKZODp",
+     "name": "Raijin's Spear"
+    },
+    {
+     "id": "m-ur3A8TS8r5jGb84L9x7",
+     "name": "Numbing Senbon"
+    },
+    {
+     "id": "lib-lowered-guard",
+     "name": "Lowered Guard"
+    },
+    {
+     "id": "lib-omen-ring",
+     "name": "Omen: Ring"
+    },
+    {
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard"
+    },
+    {
+     "id": "Nrxc8m9utE9qaD_gWpLgf",
+     "name": "Shuriken Storm"
+    },
+    {
+     "id": "Cw51Wm_Uy0GiIkiEjlQtn",
+     "name": "Opening Strike"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-ring",
+      "target": "SELF"
+     },
+     "note": "Ring cut"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Ring: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Ring: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Ring: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 25
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-lowered-guard",
+      "target": "SELF"
+     },
+     "note": "That was new (under 25%, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-ring",
+      "target": "SELF"
+     },
+     "note": "Ring mark (a player within 2)"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+      "target": "SELF"
+     },
+     "note": "Glassedge Guard (live Springguard, opener)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Raijin's Spear on the lowest-health player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "Nrxc8m9utE9qaD_gWpLgf",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Shuriken Storm on the lowest-health player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Numbing Senbon on the lowest-health player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "LOWEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+      "target": "LOWEST_ENMITY_OPPONENT"
+     },
+     "note": "Opening Strike on the lowest-threat player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Opening Strike (closest, while hunting)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "hunt the lowest-health player"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "end turn (never give up)"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "hold while veiled (no valid action)"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-c-oathkeeper": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Oathkeeper: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user",
+   "username": "Oathkeeper",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1,
+   "statsMultiplier": 1,
+   "maxHealth": 5050,
+   "stats": {
+    "offence": 278259.99,
+    "defence": 278259.99,
+    "strength": 278259.99,
+    "intelligence": 278259.99,
+    "willpower": 278259.99,
+    "speed": 278259.99
+   },
+   "effects": [
+    "increasedamagetaken 100%",
+    "decreasedamagegiven 50%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-oath-of-stillness",
+     "name": "Oath of Stillness"
+    },
+    {
+     "id": "YiRdVytsdxFzZtqkEDs5Q",
+     "name": "Weakening Strike"
+    },
+    {
+     "id": "Cw51Wm_Uy0GiIkiEjlQtn",
+     "name": "Opening Strike"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-oath-of-stillness",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Oath of Stillness on the top threat"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "focus the Chart Mark (HIGHEST_ENMITY_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "CLOSEST_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "focus the Chart Mark (CLOSEST_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "LOWEST_HEALTH_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Weakening Strike on the top threat"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Opening Strike"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "move towards the top threat"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-r-foundry-warden": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Foundry Warden: same kit and rules, pools 1.2, 1 damage rows (unscaled)",
+   "username": "Foundry Warden",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1.2,
+   "statsMultiplier": 5,
+   "maxHealth": 6060,
+   "stats": {
+    "offence": 1391299.95,
+    "defence": 1391299.95,
+    "strength": 1391299.95,
+    "intelligence": 1391299.95,
+    "willpower": 1391299.95,
+    "speed": 1391299.95
+   },
+   "effects": [
+    "increasedamagegiven 100%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-quench",
+     "name": "Quench"
+    },
+    {
+     "id": "lib-blast-lines",
+     "name": "Eruption: Lines"
+    },
+    {
+     "id": "pUrUJX8Jml7fUIBXKsPwv",
+     "name": "Heavy Strike"
+    },
+    {
+     "id": "FeYnH7BBw_usnc1K-TM-J",
+     "name": "Quick Strike"
+    },
+    {
+     "id": "lib-chain-hook",
+     "name": "Chain Hook"
+    },
+    {
+     "id": "_9k7kSYUgMtB-AEFgRly5",
+     "name": "Windlash Focus"
+    },
+    {
+     "id": "lib-omen-lines",
+     "name": "Omen: Lines"
+    },
+    {
+     "id": "lib-omen-last-light",
+     "name": "Omen: Last Light"
+    },
+    {
+     "id": "1jXfTgrtGUaSfqTPSSa83",
+     "name": "Rigging Snare"
+    },
+    {
+     "id": "V3WrfQ3pB-eCq2hojsxWe",
+     "name": "Stoneward"
+    },
+    {
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-quench",
+      "target": "SELF"
+     },
+     "note": "Quench (Cooling Shell window)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-lines",
+      "target": "SELF"
+     },
+     "note": "Pour Line: the channels run"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Quench: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Quench: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Quench: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Pour Line: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Pour Line: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-chain-hook",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Pour Line: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Pour Line: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+      "target": "SELF"
+     },
+     "note": "Windlash Focus (opener, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "Overpour: Pour Line mark (under 50%)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-last-light",
+      "target": "SELF"
+     },
+     "note": "Quench mark (from round 3)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "Pour Line mark"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "LOWEST_MAX_HEALTH_ALLY"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "LOWEST_MAX_HEALTH_ALLY"
+     },
+     "note": "stay by the crucible (his Canister)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-chain-hook",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Mould Cage (Chain Hook: drag beside the Canister)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Heavy Strike"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Quick Strike"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "1jXfTgrtGUaSfqTPSSa83",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Rigging Snare"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "V3WrfQ3pB-eCq2hojsxWe",
+      "target": "SELF"
+     },
+     "note": "Stoneward (player within 2)"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 5
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+      "target": "SELF"
+     },
+     "note": "Springguard (player within 5)"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "stationary: hold the crucible"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-r-sealwright": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Sealwright: same kit and rules, pools 1, 1 damage rows (unscaled)",
+   "username": "Sealwright",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1,
+   "statsMultiplier": 5,
+   "maxHealth": 5050,
+   "stats": {
+    "offence": 1391300,
+    "defence": 1391300,
+    "strength": 1391300,
+    "intelligence": 1391300,
+    "willpower": 1391300,
+    "speed": 1391300
+   },
+   "effects": [
+    "increasedamagegiven 100%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-command-absolute",
+     "name": "Command Absolute"
+    },
+    {
+     "id": "lib-blast-seal-lines",
+     "name": "Binding: Seal Lines"
+    },
+    {
+     "id": "YiRdVytsdxFzZtqkEDs5Q",
+     "name": "Weakening Strike"
+    },
+    {
+     "id": "lib-lowered-guard",
+     "name": "Lowered Guard"
+    },
+    {
+     "id": "hunt-called-to-the-archive",
+     "name": "Called to the Archive"
+    },
+    {
+     "id": "lib-omen-last-light-binding",
+     "name": "Omen: Last Light, Binding"
+    },
+    {
+     "id": "lib-omen-seal-lines",
+     "name": "Omen: Seal Lines"
+    },
+    {
+     "id": "lib-ward-of-command",
+     "name": "Ward of Command"
+    },
+    {
+     "id": "lib-mending-seal",
+     "name": "Mending Seal"
+    },
+    {
+     "id": "RPdeeWhFI5AIUUpJXwUlf",
+     "name": "Sovereign Fetters"
+    },
+    {
+     "id": "JWZYiHKPNwYziWEFjw4Fn",
+     "name": "Dispelling Wave"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "sealprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-command-absolute",
+      "target": "SELF"
+     },
+     "note": "Archive Lock closes (Command Absolute)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-seal-lines",
+      "target": "SELF"
+     },
+     "note": "Script Lines close"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "sealprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Archive Lock: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "sealprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Archive Lock: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Script Lines: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Script Lines: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 30
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-lowered-guard",
+      "target": "SELF"
+     },
+     "note": "He Lowers His Seals (under 30%, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      },
+      {
+       "type": "does_not_have_summon",
+       "description": ""
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "hunt-called-to-the-archive",
+      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
+     },
+     "note": "Called to the Archive (one Stonebound at a time)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-last-light-binding",
+      "target": "SELF"
+     },
+     "note": "Archive Lock mark (from round 3)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     },
+     "note": "Script Lines mark"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-ward-of-command",
+      "target": "HIGHEST_MAX_HEALTH_ALLY"
+     },
+     "note": "Ward of Command on the Captain"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-mending-seal",
+      "target": "HIGHEST_MAX_HEALTH_ALLY"
+     },
+     "note": "Mending Seal on the Captain"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "RPdeeWhFI5AIUUpJXwUlf",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Sovereign Fetters"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      },
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasedamagegiven",
+       "target": "CLOSEST_OPPONENT",
+       "threshold": 25
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "JWZYiHKPNwYziWEFjw4Fn",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Dispelling Wave (player buffed)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Weakening Strike"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "keep range: close only when out of reach"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-r-skyglass-sentinel": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Skyglass Sentinel: same kit and rules, pools 2, 1 damage rows (unscaled)",
+   "username": "Skyglass Sentinel",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 2,
+   "statsMultiplier": 5,
+   "maxHealth": 10100,
+   "stats": {
+    "offence": 1391300,
+    "defence": 1391300,
+    "strength": 1391300,
+    "intelligence": 1391300,
+    "willpower": 1391300,
+    "speed": 1391300
+   },
+   "effects": [
+    "increasedamagegiven 100%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-blast-rows-b",
+     "name": "Eruption: Rows"
+    },
+    {
+     "id": "lib-blast-rows-a",
+     "name": "Eruption: Rows"
+    },
+    {
+     "id": "lib-lowered-guard",
+     "name": "Lowered Guard"
+    },
+    {
+     "id": "3v9c1SHlD2GLPF2HW1_Sc",
+     "name": "Twin Kunai"
+    },
+    {
+     "id": "lib-omen-rows-b",
+     "name": "Omen: Rows"
+    },
+    {
+     "id": "lib-omen-rows-a",
+     "name": "Omen: Rows"
+    },
+    {
+     "id": "lib-skyglass-aegis",
+     "name": "Skyglass Aegis"
+    },
+    {
+     "id": "i4lGrYY5HNN2Q2GPToKUS",
+     "name": "Adamantine Fortress"
+    },
+    {
+     "id": "T3glZGcSd-jS8G-NB43GR",
+     "name": "Counter Stance"
+    },
+    {
+     "id": "1jXfTgrtGUaSfqTPSSa83",
+     "name": "Rigging Snare"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-rows-b",
+      "target": "SELF"
+     },
+     "note": "Tide Line B: the surf hammers in"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-rows-a",
+      "target": "SELF"
+     },
+     "note": "Tide Line A: the surf hammers in"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-lowered-guard",
+      "target": "SELF"
+     },
+     "note": "Low Tide (the sand runs out, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Tide Line B: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Tide Line B: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-lowered-guard",
+      "target": "SELF"
+     },
+     "note": "Low Tide (the sand runs out, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Tide Line A: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Tide Line A: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-rows-b",
+      "target": "SELF"
+     },
+     "note": "Tide Line B mark (under 50%)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-rows-a",
+      "target": "SELF"
+     },
+     "note": "Tide Line A mark"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-skyglass-aegis",
+      "target": "LOWEST_MAX_HEALTH_ALLY"
+     },
+     "note": "Skyglass Aegis on an ally"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "i4lGrYY5HNN2Q2GPToKUS",
+      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
+     },
+     "note": "Shell Wall (live Adamantine Fortress)"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 60
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+      "target": "SELF"
+     },
+     "note": "Counter Stance (under 60%)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "1jXfTgrtGUaSfqTPSSa83",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Rigging Snare"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "move towards"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-r-first-blade": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of First Blade: same kit and rules, pools 1.2, 1 damage rows (unscaled)",
+   "username": "First Blade",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1.2,
+   "statsMultiplier": 5,
+   "maxHealth": 6060,
+   "stats": {
+    "offence": 1391300,
+    "defence": 1391300,
+    "strength": 1391300,
+    "intelligence": 1391300,
+    "willpower": 1391300,
+    "speed": 1391300
+   },
+   "effects": [
+    "increasedamagegiven 100%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-blast-ring",
+     "name": "Eruption: Ring"
+    },
+    {
+     "id": "xGVqWSX93hXZgfmlKZODp",
+     "name": "Raijin's Spear"
+    },
+    {
+     "id": "m-ur3A8TS8r5jGb84L9x7",
+     "name": "Numbing Senbon"
+    },
+    {
+     "id": "lib-lowered-guard",
+     "name": "Lowered Guard"
+    },
+    {
+     "id": "lib-omen-ring",
+     "name": "Omen: Ring"
+    },
+    {
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard"
+    },
+    {
+     "id": "Nrxc8m9utE9qaD_gWpLgf",
+     "name": "Shuriken Storm"
+    },
+    {
+     "id": "Cw51Wm_Uy0GiIkiEjlQtn",
+     "name": "Opening Strike"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-ring",
+      "target": "SELF"
+     },
+     "note": "Ring cut"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Ring: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Ring: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Ring: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 25
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-lowered-guard",
+      "target": "SELF"
+     },
+     "note": "That was new (under 25%, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-ring",
+      "target": "SELF"
+     },
+     "note": "Ring mark (a player within 2)"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+      "target": "SELF"
+     },
+     "note": "Glassedge Guard (live Springguard, opener)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Raijin's Spear on the lowest-health player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "Nrxc8m9utE9qaD_gWpLgf",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Shuriken Storm on the lowest-health player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Numbing Senbon on the lowest-health player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "LOWEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+      "target": "LOWEST_ENMITY_OPPONENT"
+     },
+     "note": "Opening Strike on the lowest-threat player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Opening Strike (closest, while hunting)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "hunt the lowest-health player"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "end turn (never give up)"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "hold while veiled (no valid action)"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-r-core-horror": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Core Horror: same kit and rules, pools 2, 2 damage rows (unscaled)",
+   "username": "Core Horror",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 2,
+   "statsMultiplier": 5,
+   "maxHealth": 10100,
+   "stats": {
+    "offence": 1391299.95,
+    "defence": 1391299.95,
+    "strength": 1391299.95,
+    "intelligence": 1391299.95,
+    "willpower": 1391299.95,
+    "speed": 1391299.95
+   },
+   "effects": [
+    "increasedamagegiven 100%",
+    "increasedamagegiven 100%"
+   ],
+   "jutsu": [
+    {
+     "id": "STu1VHNcfgeC3x-UiQDgt",
+     "name": "Second Wind"
+    },
+    {
+     "id": "lib-maw-of-the-deep",
+     "name": "Maw of the Deep"
+    },
+    {
+     "id": "lib-blast-scatter-a",
+     "name": "Eruption: Scatter"
+    },
+    {
+     "id": "lib-blast-scatter-b",
+     "name": "Eruption: Scatter"
+    },
+    {
+     "id": "lib-blast-ring",
+     "name": "Eruption: Ring"
+    },
+    {
+     "id": "nOYLPmN3TXj6wEe_oE6HQ",
+     "name": "Sovereign Undertow"
+    },
+    {
+     "id": "pUrUJX8Jml7fUIBXKsPwv",
+     "name": "Heavy Strike"
+    },
+    {
+     "id": "LiVOnYq6qHzjB0XkIIA2e",
+     "name": "Venom Strike"
+    },
+    {
+     "id": "3v9c1SHlD2GLPF2HW1_Sc",
+     "name": "Twin Kunai"
+    },
+    {
+     "id": "lib-omen-scatter-a",
+     "name": "Omen: Scatter"
+    },
+    {
+     "id": "lib-omen-last-light",
+     "name": "Omen: Last Light"
+    },
+    {
+     "id": "lib-omen-scatter-b",
+     "name": "Omen: Scatter"
+    },
+    {
+     "id": "lib-omen-ring",
+     "name": "Omen: Ring"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 70
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+      "target": "SELF"
+     },
+     "note": "The Core Rebuilds (live Second Wind, under 70%)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-maw-of-the-deep",
+      "target": "SELF"
+     },
+     "note": "Maw of the Deep (signature, Exposed Seam)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-scatter-a",
+      "target": "SELF"
+     },
+     "note": "Rupture Field A erupts (pools)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-scatter-b",
+      "target": "SELF"
+     },
+     "note": "Rupture Field B erupts (pools)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-ring",
+      "target": "SELF"
+     },
+     "note": "Collapse (ring blast)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 4,
+       "target": "RANDOM_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "nOYLPmN3TXj6wEe_oE6HQ",
+      "target": "RANDOM_OPPONENT"
+     },
+     "note": "Undertow (live Sovereign Undertow, during a ring mark)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-ring: Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-ring: Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-ring: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-a: Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-a: Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-a: Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-scatter-a: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-b: Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-b: Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-b: Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-scatter-b: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-last-light: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 70
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-a",
+      "target": "SELF"
+     },
+     "note": "Omen: Scatter A (phase 2)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 3
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-last-light",
+      "target": "SELF"
+     },
+     "note": "Omen: Last Light (Maw of the Deep, from round 4)"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 70
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-b",
+      "target": "SELF"
+     },
+     "note": "Omen: Scatter B (phase 2)"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-ring",
+      "target": "SELF"
+     },
+     "note": "Omen: Ring (Collapse, a player within 2)"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-a",
+      "target": "SELF"
+     },
+     "note": "Omen: Scatter A"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-b",
+      "target": "SELF"
+     },
+     "note": "Omen: Scatter B"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Twin Kunai"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "stationary: hold"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-r-the-captain": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of The Captain: same kit and rules, pools 2, 2 damage rows (unscaled)",
+   "username": "The Captain",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 2,
+   "statsMultiplier": 5,
+   "maxHealth": 10100,
+   "stats": {
+    "offence": 1391300,
+    "defence": 1391300,
+    "strength": 1391300,
+    "intelligence": 1391300,
+    "willpower": 1391300,
+    "speed": 1391300
+   },
+   "effects": [
+    "increasedamagegiven 100%",
+    "increasedamagegiven 100%"
+   ],
+   "jutsu": [
+    {
+     "id": "0Y10JpChssDwFUxNRk6p3",
+     "name": "Unbroken Command"
+    },
+    {
+     "id": "MG9ZujAV8lK7--YxThVbQ",
+     "name": "Battle Trance"
+    },
+    {
+     "id": "lib-broadside",
+     "name": "Broadside"
+    },
+    {
+     "id": "lib-blast-rows-b",
+     "name": "Eruption: Rows"
+    },
+    {
+     "id": "lib-ships-bell",
+     "name": "Ship's Bell"
+    },
+    {
+     "id": "X2P22h8ApDmTZHjWpNO87",
+     "name": "Final Command"
+    },
+    {
+     "id": "PdD44PGaNv4MN5fOALhAF",
+     "name": "Keelbind"
+    },
+    {
+     "id": "lib-omen-binding-ring",
+     "name": "Omen: Binding Ring"
+    },
+    {
+     "id": "lib-omen-rows-a",
+     "name": "Omen: Rows"
+    },
+    {
+     "id": "lib-omen-rows-b",
+     "name": "Omen: Rows"
+    },
+    {
+     "id": "dg-raise-the-gunwale",
+     "name": "Raise the Gunwale"
+    },
+    {
+     "id": "VuFuBtE7h5B1nnA2J1lFZ",
+     "name": "Stolen Form"
+    },
+    {
+     "id": "ddbIyVtoxdPQwLRXxSBq8",
+     "name": "Suppression Writ"
+    },
+    {
+     "id": "STu1VHNcfgeC3x-UiQDgt",
+     "name": "Second Wind"
+    },
+    {
+     "id": "T3glZGcSd-jS8G-NB43GR",
+     "name": "Counter Stance"
+    },
+    {
+     "id": "EQ93LX8wvuIAd5u75q_i1",
+     "name": "Ruin Refrain"
+    },
+    {
+     "id": "1OhP0StX4VTsosWtCxhsG",
+     "name": "Unraveling Strike"
+    },
+    {
+     "id": "o-4SCAhJ4LHdCwcBDgJrV",
+     "name": "Explosive Tag Cataclysm"
+    },
+    {
+     "id": "_9k7kSYUgMtB-AEFgRly5",
+     "name": "Windlash Focus"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "0Y10JpChssDwFUxNRk6p3",
+      "target": "SELF"
+     },
+     "note": "Hold the Line (live Unbroken Command; the wave opens far away)"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+      "target": "SELF"
+     },
+     "note": "Last Stand at the Helm (live Battle Trance, under 50%)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-broadside",
+      "target": "SELF"
+     },
+     "note": "Broadside (signature, rows A)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-rows-b",
+      "target": "SELF"
+     },
+     "note": "Broadside, second volley (shared rows B blast)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "decreasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-ships-bell",
+      "target": "SELF"
+     },
+     "note": "Ship's Bell (signature)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "X2P22h8ApDmTZHjWpNO87",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "after lib-omen-rows-a: Final Command"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "after lib-omen-rows-a: Keelbind"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-rows-a: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "X2P22h8ApDmTZHjWpNO87",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "after lib-omen-rows-b: Final Command"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "after lib-omen-rows-b: Keelbind"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-rows-b: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "decreasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "X2P22h8ApDmTZHjWpNO87",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "after lib-omen-binding-ring: Final Command"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "decreasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "after lib-omen-binding-ring: Keelbind"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "decreasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-binding-ring: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-binding-ring",
+      "target": "SELF"
+     },
+     "note": "Omen: Binding Ring (Ship's Bell, a player within 2)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-rows-a",
+      "target": "SELF"
+     },
+     "note": "Omen: Rows A (Broadside)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-rows-b",
+      "target": "SELF"
+     },
+     "note": "Omen: Rows B (Broadside)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "dg-raise-the-gunwale",
+      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
+     },
+     "note": "Raise the Gunwale"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "X2P22h8ApDmTZHjWpNO87",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Final Command"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Keelbind"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      },
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasedamagegiven",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "threshold": 25
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "VuFuBtE7h5B1nnA2J1lFZ",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Stolen Form (target buffed)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "ddbIyVtoxdPQwLRXxSBq8",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Suppression Writ"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+      "target": "SELF"
+     },
+     "note": "Second Wind (under 40%)"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+      "target": "SELF"
+     },
+     "note": "Counter Stance (player adjacent)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "EQ93LX8wvuIAd5u75q_i1",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Ruin Refrain"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "1OhP0StX4VTsosWtCxhsG",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Unraveling Strike"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Explosive Tag Cataclysm"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 4
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+      "target": "SELF"
+     },
+     "note": "Windlash Focus"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "patrol: close in"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-r-oathkeeper": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Oathkeeper: same kit and rules, pools 2.5, 2 damage rows (unscaled)",
+   "username": "Oathkeeper",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 2.5,
+   "statsMultiplier": 5,
+   "maxHealth": 12625,
+   "stats": {
+    "offence": 1391299.95,
+    "defence": 1391299.95,
+    "strength": 1391299.95,
+    "intelligence": 1391299.95,
+    "willpower": 1391299.95,
+    "speed": 1391299.95
+   },
+   "effects": [
+    "increasedamagegiven 100%",
+    "increasedamagegiven 100%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-oath-of-stillness",
+     "name": "Oath of Stillness"
+    },
+    {
+     "id": "YiRdVytsdxFzZtqkEDs5Q",
+     "name": "Weakening Strike"
+    },
+    {
+     "id": "Cw51Wm_Uy0GiIkiEjlQtn",
+     "name": "Opening Strike"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-oath-of-stillness",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Oath of Stillness on the top threat"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "focus the Chart Mark (HIGHEST_ENMITY_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "CLOSEST_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "focus the Chart Mark (CLOSEST_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasepoolcost",
+       "target": "LOWEST_HEALTH_OPPONENT",
+       "threshold": 5
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Weakening Strike on the top threat"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Opening Strike"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "move towards the top threat"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-t-foundry-warden": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of Foundry Warden: same kit and rules, pools 1, 0 damage rows (unscaled)",
+   "username": "Foundry Warden",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1,
+   "statsMultiplier": 5,
+   "maxHealth": 5050,
+   "stats": {
+    "offence": 1391299.95,
+    "defence": 1391299.95,
+    "strength": 1391299.95,
+    "intelligence": 1391299.95,
+    "willpower": 1391299.95,
+    "speed": 1391299.95
+   },
+   "effects": [],
+   "jutsu": [
+    {
+     "id": "lib-quench",
+     "name": "Quench"
+    },
+    {
+     "id": "lib-blast-lines",
+     "name": "Eruption: Lines"
+    },
+    {
+     "id": "pUrUJX8Jml7fUIBXKsPwv",
+     "name": "Heavy Strike"
+    },
+    {
+     "id": "FeYnH7BBw_usnc1K-TM-J",
+     "name": "Quick Strike"
+    },
+    {
+     "id": "lib-chain-hook",
+     "name": "Chain Hook"
+    },
+    {
+     "id": "_9k7kSYUgMtB-AEFgRly5",
+     "name": "Windlash Focus"
+    },
+    {
+     "id": "lib-omen-lines",
+     "name": "Omen: Lines"
+    },
+    {
+     "id": "lib-omen-last-light",
+     "name": "Omen: Last Light"
+    },
+    {
+     "id": "1jXfTgrtGUaSfqTPSSa83",
+     "name": "Rigging Snare"
+    },
+    {
+     "id": "V3WrfQ3pB-eCq2hojsxWe",
+     "name": "Stoneward"
+    },
+    {
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-quench",
+      "target": "SELF"
+     },
+     "note": "Quench (Cooling Shell window)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-lines",
+      "target": "SELF"
+     },
+     "note": "Pour Line: the channels run"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Quench: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Quench: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Quench: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Pour Line: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Pour Line: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-chain-hook",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Pour Line: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Pour Line: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+      "target": "SELF"
+     },
+     "note": "Windlash Focus (opener, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "Overpour: Pour Line mark (under 50%)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-last-light",
+      "target": "SELF"
+     },
+     "note": "Quench mark (from round 3)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "Pour Line mark"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "LOWEST_MAX_HEALTH_ALLY"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "LOWEST_MAX_HEALTH_ALLY"
+     },
+     "note": "stay by the crucible (his Canister)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-chain-hook",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Mould Cage (Chain Hook: drag beside the Canister)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Heavy Strike"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Quick Strike"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "1jXfTgrtGUaSfqTPSSa83",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Rigging Snare"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "V3WrfQ3pB-eCq2hojsxWe",
+      "target": "SELF"
+     },
+     "note": "Stoneward (player within 2)"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 5
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+      "target": "SELF"
+     },
+     "note": "Springguard (player within 5)"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "stationary: hold the crucible"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-t-sealwright": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of Sealwright: same kit and rules, pools 1, 0 damage rows (unscaled)",
+   "username": "Sealwright",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1,
+   "statsMultiplier": 5,
+   "maxHealth": 5050,
+   "stats": {
+    "offence": 1391300,
+    "defence": 1391300,
+    "strength": 1391300,
+    "intelligence": 1391300,
+    "willpower": 1391300,
+    "speed": 1391300
+   },
+   "effects": [],
+   "jutsu": [
+    {
+     "id": "lib-command-absolute",
+     "name": "Command Absolute"
+    },
+    {
+     "id": "lib-blast-seal-lines",
+     "name": "Binding: Seal Lines"
+    },
+    {
+     "id": "YiRdVytsdxFzZtqkEDs5Q",
+     "name": "Weakening Strike"
+    },
+    {
+     "id": "lib-lowered-guard",
+     "name": "Lowered Guard"
+    },
+    {
+     "id": "hunt-called-to-the-archive",
+     "name": "Called to the Archive"
+    },
+    {
+     "id": "lib-omen-last-light-binding",
+     "name": "Omen: Last Light, Binding"
+    },
+    {
+     "id": "lib-omen-seal-lines",
+     "name": "Omen: Seal Lines"
+    },
+    {
+     "id": "lib-ward-of-command",
+     "name": "Ward of Command"
+    },
+    {
+     "id": "lib-mending-seal",
+     "name": "Mending Seal"
+    },
+    {
+     "id": "RPdeeWhFI5AIUUpJXwUlf",
+     "name": "Sovereign Fetters"
+    },
+    {
+     "id": "JWZYiHKPNwYziWEFjw4Fn",
+     "name": "Dispelling Wave"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "sealprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-command-absolute",
+      "target": "SELF"
+     },
+     "note": "Archive Lock closes (Command Absolute)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-seal-lines",
+      "target": "SELF"
+     },
+     "note": "Script Lines close"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "sealprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Archive Lock: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "sealprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Archive Lock: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Script Lines: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Script Lines: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 30
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-lowered-guard",
+      "target": "SELF"
+     },
+     "note": "He Lowers His Seals (under 30%, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      },
+      {
+       "type": "does_not_have_summon",
+       "description": ""
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "hunt-called-to-the-archive",
+      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
+     },
+     "note": "Called to the Archive (one Stonebound at a time)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-last-light-binding",
+      "target": "SELF"
+     },
+     "note": "Archive Lock mark (from round 3)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     },
+     "note": "Script Lines mark"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-ward-of-command",
+      "target": "HIGHEST_MAX_HEALTH_ALLY"
+     },
+     "note": "Ward of Command on the Captain"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-mending-seal",
+      "target": "HIGHEST_MAX_HEALTH_ALLY"
+     },
+     "note": "Mending Seal on the Captain"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "RPdeeWhFI5AIUUpJXwUlf",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Sovereign Fetters"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      },
+      {
+       "type": "target_has_effect",
+       "description": "",
+       "effectType": "increasedamagegiven",
+       "target": "CLOSEST_OPPONENT",
+       "threshold": 25
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "JWZYiHKPNwYziWEFjw4Fn",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Dispelling Wave (player buffed)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "HIGHEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "target": "HIGHEST_ENMITY_OPPONENT"
+     },
+     "note": "Weakening Strike"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "keep range: close only when out of reach"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-t-skyglass-sentinel": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of Skyglass Sentinel: same kit and rules, pools 1, 0 damage rows (unscaled)",
+   "username": "Skyglass Sentinel",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1,
+   "statsMultiplier": 5,
+   "maxHealth": 5050,
+   "stats": {
+    "offence": 1391300,
+    "defence": 1391300,
+    "strength": 1391300,
+    "intelligence": 1391300,
+    "willpower": 1391300,
+    "speed": 1391300
+   },
+   "effects": [],
+   "jutsu": [
+    {
+     "id": "lib-blast-rows-b",
+     "name": "Eruption: Rows"
+    },
+    {
+     "id": "lib-blast-rows-a",
+     "name": "Eruption: Rows"
+    },
+    {
+     "id": "lib-lowered-guard",
+     "name": "Lowered Guard"
+    },
+    {
+     "id": "3v9c1SHlD2GLPF2HW1_Sc",
+     "name": "Twin Kunai"
+    },
+    {
+     "id": "lib-omen-rows-b",
+     "name": "Omen: Rows"
+    },
+    {
+     "id": "lib-omen-rows-a",
+     "name": "Omen: Rows"
+    },
+    {
+     "id": "lib-skyglass-aegis",
+     "name": "Skyglass Aegis"
+    },
+    {
+     "id": "i4lGrYY5HNN2Q2GPToKUS",
+     "name": "Adamantine Fortress"
+    },
+    {
+     "id": "T3glZGcSd-jS8G-NB43GR",
+     "name": "Counter Stance"
+    },
+    {
+     "id": "1jXfTgrtGUaSfqTPSSa83",
+     "name": "Rigging Snare"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-rows-b",
+      "target": "SELF"
+     },
+     "note": "Tide Line B: the surf hammers in"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-rows-a",
+      "target": "SELF"
+     },
+     "note": "Tide Line A: the surf hammers in"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-lowered-guard",
+      "target": "SELF"
+     },
+     "note": "Low Tide (the sand runs out, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Tide Line B: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "fleeprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Tide Line B: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-lowered-guard",
+      "target": "SELF"
+     },
+     "note": "Low Tide (the sand runs out, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Tide Line A: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Tide Line A: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-rows-b",
+      "target": "SELF"
+     },
+     "note": "Tide Line B mark (under 50%)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-rows-a",
+      "target": "SELF"
+     },
+     "note": "Tide Line A mark"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-skyglass-aegis",
+      "target": "LOWEST_MAX_HEALTH_ALLY"
+     },
+     "note": "Skyglass Aegis on an ally"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "i4lGrYY5HNN2Q2GPToKUS",
+      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
+     },
+     "note": "Shell Wall (live Adamantine Fortress)"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 60
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+      "target": "SELF"
+     },
+     "note": "Counter Stance (under 60%)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "1jXfTgrtGUaSfqTPSSa83",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Rigging Snare"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "move towards"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-t-first-blade": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of First Blade: same kit and rules, pools 1, 0 damage rows (unscaled)",
+   "username": "First Blade",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 1,
+   "statsMultiplier": 5,
+   "maxHealth": 5050,
+   "stats": {
+    "offence": 1391300,
+    "defence": 1391300,
+    "strength": 1391300,
+    "intelligence": 1391300,
+    "willpower": 1391300,
+    "speed": 1391300
+   },
+   "effects": [],
+   "jutsu": [
+    {
+     "id": "lib-blast-ring",
+     "name": "Eruption: Ring"
+    },
+    {
+     "id": "xGVqWSX93hXZgfmlKZODp",
+     "name": "Raijin's Spear"
+    },
+    {
+     "id": "m-ur3A8TS8r5jGb84L9x7",
+     "name": "Numbing Senbon"
+    },
+    {
+     "id": "lib-lowered-guard",
+     "name": "Lowered Guard"
+    },
+    {
+     "id": "lib-omen-ring",
+     "name": "Omen: Ring"
+    },
+    {
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard"
+    },
+    {
+     "id": "Nrxc8m9utE9qaD_gWpLgf",
+     "name": "Shuriken Storm"
+    },
+    {
+     "id": "Cw51Wm_Uy0GiIkiEjlQtn",
+     "name": "Opening Strike"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-ring",
+      "target": "SELF"
+     },
+     "note": "Ring cut"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Ring: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Ring: plain attack after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "Ring: end turn after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 25
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-lowered-guard",
+      "target": "SELF"
+     },
+     "note": "That was new (under 25%, once)"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-ring",
+      "target": "SELF"
+     },
+     "note": "Ring mark (a player within 2)"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+      "target": "SELF"
+     },
+     "note": "Glassedge Guard (live Springguard, opener)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Raijin's Spear on the lowest-health player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "Nrxc8m9utE9qaD_gWpLgf",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Shuriken Storm on the lowest-health player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "Numbing Senbon on the lowest-health player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "LOWEST_ENMITY_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+      "target": "LOWEST_ENMITY_OPPONENT"
+     },
+     "note": "Opening Strike on the lowest-threat player"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Opening Strike (closest, while hunting)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 2,
+       "target": "LOWEST_HEALTH_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "move_towards_opponent",
+      "target": "LOWEST_HEALTH_OPPONENT"
+     },
+     "note": "hunt the lowest-health player"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_highest_power_action",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "highest-power damage"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "end turn (never give up)"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "hold while veiled (no valid action)"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-lingering-echo-2": {
+   "kind": "AI (hazard)",
+   "note": "Sealed Reliquary twist: immobile, casts lines (library pairs), fades at round 10",
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-lines",
+      "target": "SELF"
+     },
+     "note": "lines: the echo's blast"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "lines: hold after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "lines: the echo's mark (round 1)"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 5
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "lines: the echo's mark (round 5)"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 9
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "lines: the echo's mark (round 9)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "linger (until it fades)"
+    }
+   ],
+   "username": "Lingering Echo",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 2,
+   "statsMultiplier": 5,
+   "maxHealth": 10100,
+   "stats": {
+    "offence": 1391299.95,
+    "defence": 1391299.95,
+    "strength": 1391299.95,
+    "intelligence": 1391299.95,
+    "willpower": 1391299.95,
+    "speed": 1391299.95
+   },
+   "effects": [
+    "increasedamagegiven 100%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-blast-lines",
+     "name": "Eruption: Lines"
+    },
+    {
+     "id": "lib-omen-lines",
+     "name": "Omen: Lines"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-lingering-echo-3": {
+   "kind": "AI (hazard)",
+   "note": "Sealed Reliquary twist: immobile, casts lines + sealLines (library pairs), fades at round 10",
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-lines",
+      "target": "SELF"
+     },
+     "note": "lines: the echo's blast"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-seal-lines",
+      "target": "SELF"
+     },
+     "note": "sealLines: the echo's blast"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "lines: hold after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "sealLines: hold after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "lines: the echo's mark (round 1)"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 5
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "lines: the echo's mark (round 5)"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 9
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "lines: the echo's mark (round 9)"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 3
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     },
+     "note": "sealLines: the echo's mark (round 3)"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 7
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     },
+     "note": "sealLines: the echo's mark (round 7)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "linger (until it fades)"
+    }
+   ],
+   "username": "Lingering Echo",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 2,
+   "statsMultiplier": 5,
+   "maxHealth": 10100,
+   "stats": {
+    "offence": 1391299.95,
+    "defence": 1391299.95,
+    "strength": 1391299.95,
+    "intelligence": 1391299.95,
+    "willpower": 1391299.95,
+    "speed": 1391299.95
+   },
+   "effects": [
+    "increasedamagegiven 100%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-blast-lines",
+     "name": "Eruption: Lines"
+    },
+    {
+     "id": "lib-blast-seal-lines",
+     "name": "Binding: Seal Lines"
+    },
+    {
+     "id": "lib-omen-lines",
+     "name": "Omen: Lines"
+    },
+    {
+     "id": "lib-omen-seal-lines",
+     "name": "Omen: Seal Lines"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-lingering-echo-4": {
+   "kind": "AI (hazard)",
+   "note": "Sealed Reliquary twist: immobile, casts lines + sealLines + rowsA (library pairs), fades at round 10",
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-lines",
+      "target": "SELF"
+     },
+     "note": "lines: the echo's blast"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-seal-lines",
+      "target": "SELF"
+     },
+     "note": "sealLines: the echo's blast"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-rows-a",
+      "target": "SELF"
+     },
+     "note": "rowsA: the echo's blast"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "lines: hold after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "sealLines: hold after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "rowsA: hold after the mark"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "lines: the echo's mark (round 1)"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 7
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     },
+     "note": "lines: the echo's mark (round 7)"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 3
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     },
+     "note": "sealLines: the echo's mark (round 3)"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 9
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     },
+     "note": "sealLines: the echo's mark (round 9)"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 5
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-rows-a",
+      "target": "SELF"
+     },
+     "note": "rowsA: the echo's mark (round 5)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "linger (until it fades)"
+    }
+   ],
+   "username": "Lingering Echo",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 2,
+   "statsMultiplier": 5,
+   "maxHealth": 10100,
+   "stats": {
+    "offence": 1391299.95,
+    "defence": 1391299.95,
+    "strength": 1391299.95,
+    "intelligence": 1391299.95,
+    "willpower": 1391299.95,
+    "speed": 1391299.95
+   },
+   "effects": [
+    "increasedamagegiven 100%"
+   ],
+   "jutsu": [
+    {
+     "id": "lib-blast-lines",
+     "name": "Eruption: Lines"
+    },
+    {
+     "id": "lib-blast-seal-lines",
+     "name": "Binding: Seal Lines"
+    },
+    {
+     "id": "lib-blast-rows-a",
+     "name": "Eruption: Rows"
+    },
+    {
+     "id": "lib-omen-lines",
+     "name": "Omen: Lines"
+    },
+    {
+     "id": "lib-omen-seal-lines",
+     "name": "Omen: Seal Lines"
+    },
+    {
+     "id": "lib-omen-rows-a",
+     "name": "Omen: Rows"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-burning-deck": {
+   "kind": "AI (hazard)",
+   "note": "The Fall twist: immobile, lays ember bands at rounds 1,4,7, burns out after the last",
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "chart-embers-1",
+      "target": "SELF"
+     },
+     "note": "Embers 1"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "chart-embers-2",
+      "target": "SELF"
+     },
+     "note": "Embers 2"
+    },
+    {
+     "when": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 7
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "chart-embers-3",
+      "target": "SELF"
+     },
+     "note": "Embers 3"
+    },
+    {
+     "when": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 8
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "the deck burns"
+    }
+   ],
+   "username": "Burning Deck",
+   "level": 70,
+   "rank": "JONIN",
+   "poolsMultiplier": 3,
+   "statsMultiplier": 1,
+   "maxHealth": 10650,
+   "stats": {
+    "offence": 103510,
+    "defence": 103510,
+    "strength": 103510,
+    "intelligence": 103510,
+    "willpower": 103510,
+    "speed": 103510
+   },
+   "effects": [],
+   "jutsu": [
+    {
+     "id": "chart-embers-1",
+     "name": "Spreading Fire I"
+    },
+    {
+     "id": "chart-embers-2",
+     "name": "Spreading Fire II"
+    },
+    {
+     "id": "chart-embers-3",
+     "name": "Spreading Fire III"
+    }
+   ],
+   "insertAiSchema": "pass"
+  },
+  "chart-steeping-horror": {
+   "kind": "AI (copy)",
+   "note": "Core Horror copy for steeping: same shared kit and rules, no AI drop; opponent_scaled_to_user",
+   "username": "Steeping Horror",
+   "level": 100,
+   "rank": "JONIN",
+   "poolsMultiplier": 3.76,
+   "statsMultiplier": 5,
+   "maxHealth": 18988,
+   "stats": {
+    "offence": 1391299.95,
+    "defence": 1391299.95,
+    "strength": 1391299.95,
+    "intelligence": 1391299.95,
+    "willpower": 1391299.95,
+    "speed": 1391299.95
+   },
+   "effects": [
+    "increasedamagegiven 100%",
+    "increasedamagegiven 100%",
+    "increasedamagegiven 100%"
+   ],
+   "jutsu": [
+    {
+     "id": "STu1VHNcfgeC3x-UiQDgt",
+     "name": "Second Wind"
+    },
+    {
+     "id": "lib-maw-of-the-deep",
+     "name": "Maw of the Deep"
+    },
+    {
+     "id": "lib-blast-scatter-a",
+     "name": "Eruption: Scatter"
+    },
+    {
+     "id": "lib-blast-scatter-b",
+     "name": "Eruption: Scatter"
+    },
+    {
+     "id": "lib-blast-ring",
+     "name": "Eruption: Ring"
+    },
+    {
+     "id": "nOYLPmN3TXj6wEe_oE6HQ",
+     "name": "Sovereign Undertow"
+    },
+    {
+     "id": "pUrUJX8Jml7fUIBXKsPwv",
+     "name": "Heavy Strike"
+    },
+    {
+     "id": "LiVOnYq6qHzjB0XkIIA2e",
+     "name": "Venom Strike"
+    },
+    {
+     "id": "3v9c1SHlD2GLPF2HW1_Sc",
+     "name": "Twin Kunai"
+    },
+    {
+     "id": "lib-omen-scatter-a",
+     "name": "Omen: Scatter"
+    },
+    {
+     "id": "lib-omen-last-light",
+     "name": "Omen: Last Light"
+    },
+    {
+     "id": "lib-omen-scatter-b",
+     "name": "Omen: Scatter"
+    },
+    {
+     "id": "lib-omen-ring",
+     "name": "Omen: Ring"
+    }
+   ],
+   "rules": [
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 70
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+      "target": "SELF"
+     },
+     "note": "The Core Rebuilds (live Second Wind, under 70%)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-maw-of-the-deep",
+      "target": "SELF"
+     },
+     "note": "Maw of the Deep (signature, Exposed Seam)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-scatter-a",
+      "target": "SELF"
+     },
+     "note": "Rupture Field A erupts (pools)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-scatter-b",
+      "target": "SELF"
+     },
+     "note": "Rupture Field B erupts (pools)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-blast-ring",
+      "target": "SELF"
+     },
+     "note": "Collapse (ring blast)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_higher_than",
+       "description": "",
+       "value": 4,
+       "target": "RANDOM_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "nOYLPmN3TXj6wEe_oE6HQ",
+      "target": "RANDOM_OPPONENT"
+     },
+     "note": "Undertow (live Sovereign Undertow, during a ring mark)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-ring: Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-ring: Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-ring: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-a: Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-a: Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-a: Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-scatter-a: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-b: Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-b: Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-scatter-b: Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-scatter-b: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Twin Kunai"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-last-light: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 70
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-a",
+      "target": "SELF"
+     },
+     "note": "Omen: Scatter A (phase 2)"
+    },
+    {
+     "when": [
+      {
+       "type": "round_greater_than",
+       "description": "",
+       "value": 3
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-last-light",
+      "target": "SELF"
+     },
+     "note": "Omen: Last Light (Maw of the Deep, from round 4)"
+    },
+    {
+     "when": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 70
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-b",
+      "target": "SELF"
+     },
+     "note": "Omen: Scatter B (phase 2)"
+    },
+    {
+     "when": [
+      {
+       "type": "player_within_range",
+       "description": "",
+       "minRange": 0,
+       "maxRange": 2
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-ring",
+      "target": "SELF"
+     },
+     "note": "Omen: Ring (Collapse, a player within 2)"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-a",
+      "target": "SELF"
+     },
+     "note": "Omen: Scatter A"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-b",
+      "target": "SELF"
+     },
+     "note": "Omen: Scatter B"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 3,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "Twin Kunai"
+    },
+    {
+     "when": [],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "stationary: hold"
+    }
+   ],
+   "insertAiSchema": "pass"
+  }
+ },
+ "newJutsu": {
+  "chart-embers-1": {
+   "record": {
+    "id": "chart-embers-1",
+    "name": "Spreading Fire I",
+    "description": "The burning deck spreads: embers on these rows burn whoever acts on them.",
+    "createdAt": "2026-07-17T02:18:53.545Z",
+    "updatedAt": "2026-10-21T03:33:45.862Z",
+    "extraBaseCost": 0,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 10,
+      "power": 5,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "percentage",
+      "poolsAffected": [
+       "Health"
+      ],
+      "type": "drain",
+      "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "tg_ember",
+      "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+      "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 10,
+      "power": 2,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "static",
+      "type": "visual",
+      "description": "placeholder"
+     }
+    ],
+    "target": "GROUND",
+    "range": 0,
+    "cooldown": 3,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "STUDENT",
+    "jutsuType": "AI",
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "jutsuWeapon": "NONE",
+    "statClassification": "None",
+    "elementClassification": "None",
+    "battleDescription": "Fire catches the far planks.",
+    "jutsuRank": "D",
+    "actionCostPerc": 40,
+    "staminaCost": 0.05,
+    "chakraCost": 0.05,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "requiredPetSpeciesId": null,
+    "method": "COORDINATES",
+    "coordinateTargeting": {
+     "origin": "BATTLEFIELD",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": 0,
+       "latitude": 0
+      },
+      {
+       "longitude": 0,
+       "latitude": 1
+      },
+      {
+       "longitude": 0,
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": 0
+      },
+      {
+       "longitude": 1,
+       "latitude": 1
+      },
+      {
+       "longitude": 1,
+       "latitude": 2
+      },
+      {
+       "longitude": 2,
+       "latitude": 0
+      },
+      {
+       "longitude": 2,
+       "latitude": 1
+      },
+      {
+       "longitude": 2,
+       "latitude": 2
+      },
+      {
+       "longitude": 3,
+       "latitude": 0
+      },
+      {
+       "longitude": 3,
+       "latitude": 1
+      },
+      {
+       "longitude": 3,
+       "latitude": 2
+      },
+      {
+       "longitude": 4,
+       "latitude": 0
+      },
+      {
+       "longitude": 4,
+       "latitude": 1
+      },
+      {
+       "longitude": 4,
+       "latitude": 2
+      },
+      {
+       "longitude": 5,
+       "latitude": 0
+      },
+      {
+       "longitude": 5,
+       "latitude": 1
+      },
+      {
+       "longitude": 5,
+       "latitude": 2
+      },
+      {
+       "longitude": 6,
+       "latitude": 0
+      },
+      {
+       "longitude": 6,
+       "latitude": 1
+      },
+      {
+       "longitude": 6,
+       "latitude": 2
+      },
+      {
+       "longitude": 7,
+       "latitude": 0
+      },
+      {
+       "longitude": 7,
+       "latitude": 1
+      },
+      {
+       "longitude": 7,
+       "latitude": 2
+      },
+      {
+       "longitude": 8,
+       "latitude": 0
+      },
+      {
+       "longitude": 8,
+       "latitude": 1
+      },
+      {
+       "longitude": 8,
+       "latitude": 2
+      },
+      {
+       "longitude": 9,
+       "latitude": 0
+      },
+      {
+       "longitude": 9,
+       "latitude": 1
+      },
+      {
+       "longitude": 9,
+       "latitude": 2
+      },
+      {
+       "longitude": 10,
+       "latitude": 0
+      },
+      {
+       "longitude": 10,
+       "latitude": 1
+      },
+      {
+       "longitude": 10,
+       "latitude": 2
+      },
+      {
+       "longitude": 11,
+       "latitude": 0
+      },
+      {
+       "longitude": 11,
+       "latitude": 1
+      },
+      {
+       "longitude": 11,
+       "latitude": 2
+      }
+     ],
+     "randomCount": 1
+    },
+    "methodSize": null,
+    "hidden": true,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "reskinParentJutsuId": null,
+    "bloodlineReskinId": null,
+    "parentJutsuId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredSkillId": null,
+    "requiredBloodlineItemId": null
+   },
+   "JutsuValidator": "pass"
+  },
+  "chart-embers-2": {
+   "record": {
+    "id": "chart-embers-2",
+    "name": "Spreading Fire II",
+    "description": "The burning deck spreads: embers on these rows burn whoever acts on them.",
+    "createdAt": "2026-07-17T02:18:53.545Z",
+    "updatedAt": "2026-10-21T03:33:45.862Z",
+    "extraBaseCost": 0,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 10,
+      "power": 5,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "percentage",
+      "poolsAffected": [
+       "Health"
+      ],
+      "type": "drain",
+      "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "tg_ember",
+      "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+      "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 10,
+      "power": 2,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "static",
+      "type": "visual",
+      "description": "placeholder"
+     }
+    ],
+    "target": "GROUND",
+    "range": 0,
+    "cooldown": 3,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "STUDENT",
+    "jutsuType": "AI",
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "jutsuWeapon": "NONE",
+    "statClassification": "None",
+    "elementClassification": "None",
+    "battleDescription": "The fire spreads down the deck.",
+    "jutsuRank": "D",
+    "actionCostPerc": 40,
+    "staminaCost": 0.05,
+    "chakraCost": 0.05,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "requiredPetSpeciesId": null,
+    "method": "COORDINATES",
+    "coordinateTargeting": {
+     "origin": "BATTLEFIELD",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": 0,
+       "latitude": 3
+      },
+      {
+       "longitude": 0,
+       "latitude": 4
+      },
+      {
+       "longitude": 1,
+       "latitude": 3
+      },
+      {
+       "longitude": 1,
+       "latitude": 4
+      },
+      {
+       "longitude": 2,
+       "latitude": 3
+      },
+      {
+       "longitude": 2,
+       "latitude": 4
+      },
+      {
+       "longitude": 3,
+       "latitude": 3
+      },
+      {
+       "longitude": 3,
+       "latitude": 4
+      },
+      {
+       "longitude": 4,
+       "latitude": 3
+      },
+      {
+       "longitude": 4,
+       "latitude": 4
+      },
+      {
+       "longitude": 5,
+       "latitude": 3
+      },
+      {
+       "longitude": 5,
+       "latitude": 4
+      },
+      {
+       "longitude": 6,
+       "latitude": 3
+      },
+      {
+       "longitude": 6,
+       "latitude": 4
+      },
+      {
+       "longitude": 7,
+       "latitude": 3
+      },
+      {
+       "longitude": 7,
+       "latitude": 4
+      },
+      {
+       "longitude": 8,
+       "latitude": 3
+      },
+      {
+       "longitude": 8,
+       "latitude": 4
+      },
+      {
+       "longitude": 9,
+       "latitude": 3
+      },
+      {
+       "longitude": 9,
+       "latitude": 4
+      },
+      {
+       "longitude": 10,
+       "latitude": 3
+      },
+      {
+       "longitude": 10,
+       "latitude": 4
+      },
+      {
+       "longitude": 11,
+       "latitude": 3
+      },
+      {
+       "longitude": 11,
+       "latitude": 4
+      }
+     ],
+     "randomCount": 1
+    },
+    "methodSize": null,
+    "hidden": true,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "reskinParentJutsuId": null,
+    "bloodlineReskinId": null,
+    "parentJutsuId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredSkillId": null,
+    "requiredBloodlineItemId": null
+   },
+   "JutsuValidator": "pass"
+  },
+  "chart-embers-3": {
+   "record": {
+    "id": "chart-embers-3",
+    "name": "Spreading Fire III",
+    "description": "The burning deck spreads: embers on these rows burn whoever acts on them.",
+    "createdAt": "2026-07-17T02:18:53.545Z",
+    "updatedAt": "2026-10-21T03:33:45.862Z",
+    "extraBaseCost": 0,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 10,
+      "power": 5,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "percentage",
+      "poolsAffected": [
+       "Health"
+      ],
+      "type": "drain",
+      "description": "placeholder"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "tg_ember",
+      "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+      "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 10,
+      "power": 2,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "static",
+      "type": "visual",
+      "description": "placeholder"
+     }
+    ],
+    "target": "GROUND",
+    "range": 0,
+    "cooldown": 3,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "STUDENT",
+    "jutsuType": "AI",
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "jutsuWeapon": "NONE",
+    "statClassification": "None",
+    "elementClassification": "None",
+    "battleDescription": "Only the gangway is clear.",
+    "jutsuRank": "D",
+    "actionCostPerc": 40,
+    "staminaCost": 0.05,
+    "chakraCost": 0.05,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "requiredPetSpeciesId": null,
+    "method": "COORDINATES",
+    "coordinateTargeting": {
+     "origin": "BATTLEFIELD",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": 0,
+       "latitude": 5
+      },
+      {
+       "longitude": 0,
+       "latitude": 6
+      },
+      {
+       "longitude": 1,
+       "latitude": 5
+      },
+      {
+       "longitude": 1,
+       "latitude": 6
+      },
+      {
+       "longitude": 2,
+       "latitude": 5
+      },
+      {
+       "longitude": 2,
+       "latitude": 6
+      },
+      {
+       "longitude": 3,
+       "latitude": 5
+      },
+      {
+       "longitude": 3,
+       "latitude": 6
+      },
+      {
+       "longitude": 4,
+       "latitude": 5
+      },
+      {
+       "longitude": 4,
+       "latitude": 6
+      },
+      {
+       "longitude": 5,
+       "latitude": 5
+      },
+      {
+       "longitude": 5,
+       "latitude": 6
+      },
+      {
+       "longitude": 6,
+       "latitude": 5
+      },
+      {
+       "longitude": 6,
+       "latitude": 6
+      },
+      {
+       "longitude": 7,
+       "latitude": 5
+      },
+      {
+       "longitude": 7,
+       "latitude": 6
+      },
+      {
+       "longitude": 8,
+       "latitude": 5
+      },
+      {
+       "longitude": 8,
+       "latitude": 6
+      },
+      {
+       "longitude": 9,
+       "latitude": 5
+      },
+      {
+       "longitude": 9,
+       "latitude": 6
+      },
+      {
+       "longitude": 10,
+       "latitude": 5
+      },
+      {
+       "longitude": 10,
+       "latitude": 6
+      },
+      {
+       "longitude": 11,
+       "latitude": 5
+      },
+      {
+       "longitude": 11,
+       "latitude": 6
+      }
+     ],
+     "randomCount": 1
+    },
+    "methodSize": null,
+    "hidden": true,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "reskinParentJutsuId": null,
+    "bloodlineReskinId": null,
+    "parentJutsuId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredSkillId": null,
+    "requiredBloodlineItemId": null
+   },
+   "JutsuValidator": "pass"
+  }
+ },
+ "runs": {
+  "lowtide": {
+   "chart": "Tide Chart: The Low Tide Run",
+   "fights": [
+    {
+     "label": "breach: Deck Warden + Seal Charge",
+     "ids": [
+      {
+       "id": "chart-c-deck-warden",
+       "name": "Deck Warden"
+      },
+      {
+       "id": "chart-c-seal-charge",
+       "name": "Seal Charge"
+      }
+     ],
+     "scaled": true
+    },
+    {
+     "label": "flooded hold: Arsenal Keeper",
+     "ids": [
+      {
+       "id": "chart-c-arsenal-keeper",
+       "name": "Arsenal Keeper"
+      }
+     ],
+     "scaled": true
+    },
+    {
+     "label": "tide line: Skyglass Sentinel",
+     "ids": [
+      {
+       "id": "chart-c-skyglass-sentinel",
+       "name": "Skyglass Sentinel"
+      }
+     ],
+     "scaled": true,
+     "boss": true
+    },
+    {
+     "label": "PRESS ON (proposed): chart room, Wayfinder",
+     "ids": [
+      {
+       "id": "chart-c-wayfinder",
+       "name": "Wayfinder"
+      }
+     ],
+     "scaled": true,
+     "pressOn": true
+    }
+   ]
+  },
+  "nightwatch": {
+   "chart": "Watch Roster: The Night Watch",
+   "fights": [
+    {
+     "label": "first watch: Deck Warden + Seal Charge",
+     "ids": [
+      {
+       "id": "chart-c-deck-warden",
+       "name": "Deck Warden"
+      },
+      {
+       "id": "chart-c-seal-charge",
+       "name": "Seal Charge"
+      }
+     ],
+     "scaled": true
+    },
+    {
+     "label": "middle watch: Oathkeeper",
+     "ids": [
+      {
+       "id": "chart-c-oathkeeper",
+       "name": "Oathkeeper"
+      }
+     ],
+     "scaled": true
+    },
+    {
+     "label": "relief: Deck Warden + Oathkeeper",
+     "ids": [
+      {
+       "id": "chart-c-deck-warden",
+       "name": "Deck Warden"
+      },
+      {
+       "id": "chart-c-oathkeeper",
+       "name": "Oathkeeper"
+      }
+     ],
+     "scaled": true,
+     "boss": true
+    },
+    {
+     "label": "PRESS ON: Second Watch, First Blade",
+     "ids": [
+      {
+       "id": "chart-c-first-blade",
+       "name": "First Blade"
+      }
+     ],
+     "scaled": true,
+     "pressOn": true
+    }
+   ]
+  },
+  "reliquary": {
+   "chart": "Reliquary Seal: The Sealed Reliquary",
+   "fights": [
+    {
+     "label": "1st echo: Foundry Warden",
+     "ids": [
+      {
+       "id": "chart-r-foundry-warden",
+       "name": "Foundry Warden"
+      }
+     ],
+     "boss": true
+    },
+    {
+     "label": "2nd echo: Sealwright + Lingering Echo (Pour Line)",
+     "ids": [
+      {
+       "id": "chart-r-sealwright",
+       "name": "Sealwright"
+      },
+      {
+       "id": "chart-lingering-echo-2",
+       "name": "Lingering Echo"
+      }
+     ],
+     "boss": true
+    },
+    {
+     "label": "3rd echo: Skyglass Sentinel + Lingering Echo (Pour + Script)",
+     "ids": [
+      {
+       "id": "chart-r-skyglass-sentinel",
+       "name": "Skyglass Sentinel"
+      },
+      {
+       "id": "chart-lingering-echo-3",
+       "name": "Lingering Echo"
+      }
+     ],
+     "boss": true
+    },
+    {
+     "label": "last echo: First Blade + Lingering Echo (Pour + Script + Tide)",
+     "ids": [
+      {
+       "id": "chart-r-first-blade",
+       "name": "First Blade"
+      },
+      {
+       "id": "chart-lingering-echo-4",
+       "name": "Lingering Echo"
+      }
+     ],
+     "boss": true
+    },
+    {
+     "label": "PRESS ON (proposed): the Oathkeeper",
+     "ids": [
+      {
+       "id": "chart-r-oathkeeper",
+       "name": "Oathkeeper"
+      }
+     ],
+     "pressOn": true,
+     "boss": true
+    }
+   ]
+  },
+  "fall": {
+   "chart": "The Last Heading: The Fall",
+   "fights": [
+    {
+     "label": "burning deck: Deck Warden + Seal Charge + embers",
+     "ids": [
+      {
+       "id": "texZaFi42S3EvJZBwQ8cd",
+       "name": "Deck Warden"
+      },
+      {
+       "id": "wTgO-Q32caSSd0is1QIS7",
+       "name": "Seal Charge"
+      },
+      {
+       "id": "chart-burning-deck",
+       "name": "Burning Deck"
+      }
+     ]
+    },
+    {
+     "label": "gun deck: Arsenal Keeper + Deck Warden + embers",
+     "ids": [
+      {
+       "id": "2OXJEXoktxJcjqMkE851g",
+       "name": "Arsenal Keeper"
+      },
+      {
+       "id": "texZaFi42S3EvJZBwQ8cd",
+       "name": "Deck Warden"
+      },
+      {
+       "id": "chart-burning-deck",
+       "name": "Burning Deck"
+      }
+     ]
+    },
+    {
+     "label": "the break: Core Horror + embers",
+     "ids": [
+      {
+       "id": "chart-r-core-horror",
+       "name": "Core Horror"
+      },
+      {
+       "id": "chart-burning-deck",
+       "name": "Burning Deck"
+      }
+     ],
+     "boss": true
+    },
+    {
+     "label": "PRESS ON (proposed): The Captain at the helm",
+     "ids": [
+      {
+       "id": "chart-r-the-captain",
+       "name": "The Captain"
+      }
+     ],
+     "pressOn": true,
+     "boss": true
+    }
+   ]
+  },
+  "rotted": {
+   "chart": "Rotted Reliquary (tainted)",
+   "fights": [
+    {
+     "label": "echoes rise in pairs: Foundry Warden + Sealwright",
+     "ids": [
+      {
+       "id": "chart-t-foundry-warden",
+       "name": "Foundry Warden"
+      },
+      {
+       "id": "chart-t-sealwright",
+       "name": "Sealwright"
+      }
+     ],
+     "givePools": 70,
+     "debuffs": [
+      {
+       "type": "elementalseal",
+       "power": 100,
+       "rounds": 2,
+       "target": "INHERIT",
+       "direction": "offence",
+       "calculation": "static",
+       "powerPerLevel": 0,
+       "description": "The rot: your elemental jutsu are sealed",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      }
+     ],
+     "boss": true
+    },
+    {
+     "label": "last pair: Skyglass Sentinel + First Blade + Lingering Echo (Pour)",
+     "ids": [
+      {
+       "id": "chart-t-skyglass-sentinel",
+       "name": "Skyglass Sentinel"
+      },
+      {
+       "id": "chart-t-first-blade",
+       "name": "First Blade"
+      },
+      {
+       "id": "chart-lingering-echo-2",
+       "name": "Lingering Echo"
+      }
+     ],
+     "debuffs": [
+      {
+       "type": "elementalseal",
+       "power": 100,
+       "rounds": 2,
+       "target": "INHERIT",
+       "direction": "offence",
+       "calculation": "static",
+       "powerPerLevel": 0,
+       "description": "The rot: your elemental jutsu are sealed",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      }
+     ],
+     "boss": true
+    },
+    {
+     "label": "PRESS ON: Replicant Zero",
+     "ids": [
+      {
+       "id": "vjEFUJ9mb1zNTuQf4lfXv",
+       "name": "Replicant Zero"
+      }
+     ],
+     "debuffs": [
+      {
+       "type": "elementalseal",
+       "power": 100,
+       "rounds": 2,
+       "target": "INHERIT",
+       "direction": "offence",
+       "calculation": "static",
+       "powerPerLevel": 0,
+       "description": "The rot: your elemental jutsu are sealed",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      }
+     ],
+     "pressOn": true,
+     "boss": true
+    }
+   ]
+  },
+  "burning": {
+   "chart": "Burning Heading (tainted)",
+   "fights": [
+    {
+     "label": "the break: Core Horror + embers",
+     "ids": [
+      {
+       "id": "AQi-bHJ-5tHXtxrnc0P9E",
+       "name": "Core Horror"
+      },
+      {
+       "id": "chart-burning-deck",
+       "name": "Burning Deck"
+      }
+     ],
+     "givePools": 70,
+     "debuffs": [
+      {
+       "type": "afterburn",
+       "power": 60,
+       "rounds": 4,
+       "target": "INHERIT",
+       "direction": "offence",
+       "calculation": "percentage",
+       "powerPerLevel": 0,
+       "description": "The fire: you take extra burn damage",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      }
+     ],
+     "boss": true
+    },
+    {
+     "label": "gun deck with the Captain: Arsenal Keeper + Deck Warden + embers",
+     "ids": [
+      {
+       "id": "2OXJEXoktxJcjqMkE851g",
+       "name": "Arsenal Keeper"
+      },
+      {
+       "id": "texZaFi42S3EvJZBwQ8cd",
+       "name": "Deck Warden"
+      },
+      {
+       "id": "chart-burning-deck",
+       "name": "Burning Deck"
+      }
+     ],
+     "allies": [
+      {
+       "id": "QY69h271Nx9uHrBeR6jwW",
+       "name": "The Captain"
+      }
+     ],
+     "debuffs": [
+      {
+       "type": "afterburn",
+       "power": 60,
+       "rounds": 4,
+       "target": "INHERIT",
+       "direction": "offence",
+       "calculation": "percentage",
+       "powerPerLevel": 0,
+       "description": "The fire: you take extra burn damage",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      }
+     ]
+    },
+    {
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "ids": [
+      {
+       "id": "v7T9_XdGMfP46em0dPuBc",
+       "name": "Wayfinder"
+      }
+     ],
+     "allies": [
+      {
+       "id": "QY69h271Nx9uHrBeR6jwW",
+       "name": "The Captain"
+      }
+     ],
+     "debuffs": [
+      {
+       "type": "afterburn",
+       "power": 60,
+       "rounds": 4,
+       "target": "INHERIT",
+       "direction": "offence",
+       "calculation": "percentage",
+       "powerPerLevel": 0,
+       "description": "The fire: you take extra burn damage",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      }
+     ],
+     "boss": true
+    },
+    {
+     "label": "PRESS ON (proposed): First Blade on the burning deck + embers",
+     "ids": [
+      {
+       "id": "d6g0mOM7RBSsYI1hrUVT9",
+       "name": "First Blade"
+      },
+      {
+       "id": "chart-burning-deck",
+       "name": "Burning Deck"
+      }
+     ],
+     "allies": [
+      {
+       "id": "QY69h271Nx9uHrBeR6jwW",
+       "name": "The Captain"
+      }
+     ],
+     "debuffs": [
+      {
+       "type": "afterburn",
+       "power": 60,
+       "rounds": 4,
+       "target": "INHERIT",
+       "direction": "offence",
+       "calculation": "percentage",
+       "powerPerLevel": 0,
+       "description": "The fire: you take extra burn damage",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      }
+     ],
+     "pressOn": true,
+     "boss": true
+    }
+   ]
+  },
+  "steeping": {
+   "chart": "Steeping (the Core)",
+   "fights": [
+    {
+     "label": "steeping: Steeping Horror (scaled)",
+     "ids": [
+      {
+       "id": "chart-steeping-horror",
+       "name": "Steeping Horror"
+      }
+     ],
+     "scaled": true,
+     "boss": true
+    }
+   ]
+  }
+ },
+ "objectiveShape": {
+  "RUL-2026-10-28-022": "Battles carry no Skyglass rewards. Every run: start_battle objectives in order (consecutiveObjectives); each base fight's failObjectiveId -> fail ending (the run's consolation, e.g. 1 Core Rot on a failed rare). After the last base fight: dialog 'leave' -> win_quest ending at step N, or 'press on' -> press-on start_battle: win -> win_quest ending at step N+1; lose -> failObjectiveId -> the same win_quest ending at step N. Completion pick = quest content.reward with rewardMode choose (rewardPickCount 1; 2 on tainted).",
+  "givePools": "Only on the FIRST fight objective of the tainted runs (entry at 70%). On a later objective givePools REPLACES the carried pools (initiateBattle sets cur := % of effective max), which would refill or drain the player.",
+  "applyDebuffs": "Tainted twists on every fight objective: Rotted elementalseal for tainted.sealRounds; Burning afterburn tainted.afterburn % for tainted.afterburnRounds.",
+  "allyAIs": "Burning Heading fights 2+ carry allyAIs [The Captain]; the player's battle ends (lost) when the player is out even if the Captain fights on.",
+  "scaled": "Common charts and steeping: opponent_scaled_to_user true."
+ }
+}
