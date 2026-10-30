@@ -46,6 +46,17 @@ def main():
                 r = by[path]
                 out[k] = {"clear": r["wins"] / r["runs"], "minutes": round(r["totalRoundsMedian"] * 15 / 60, 1), "pressOn": 0.0}
                 out["_sources"][k] = f"final_hunts_dodge.json {path}"
+    # Archive / Watch press-on rooms (probe compositions, final_hunts_presson_probe.json): win of reached, pressed on
+    # at the same share as the charts.
+    pp = load("final_hunts_presson_probe.json")
+    if pp:
+        for r in pp["results"]:
+            k = {"archive_clean_press": "archive", "watch_000_press": "watch"}.get(r["path"])
+            if k and k in out:
+                last = r["fights"][-1]
+                out[k]["pressOn"] = a.press_on
+                out[k]["pressWin"] = last["won"] / last["reached"] if last["reached"] else 0.0
+                out["_sources"][k] += f"; press-on probe {r['path']}"
     ch = [r for n in ("final_charts_dodge_a.json", "final_charts_dodge_b.json", "final_charts_burning.json") for r in ((load(n) or {}).get("results") or [])]
     if ch:
         for r in ch:
