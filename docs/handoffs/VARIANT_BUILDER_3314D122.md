@@ -143,3 +143,32 @@ Not changed: L18 (`noncombatconsumereward`) still checks only a stated `target`,
 | `lawmap` | 0 errors, 5 pre-existing warnings |
 
 Contracts, ledger, `fields.json`, `nested.json`, the dungeon contract and the loader are unchanged. Live requests / writes: 0 / 0.
+
+## Review round 2 (ChatGPT on `6956bf66`: F1-F3 verified; one P2 and the L18 advice)
+
+Branch fast-forwarded to the bot's `da94470b` (skillpack dist rebuild) first. Each fix has a test that fails on `da94470b` and passes after it.
+
+| Item | Fix | Test |
+|---|---|---|
+| **1 (P2)** Forge added a string slot power to the running total (`"1"` + `"1"` = `"011"`, refused); `validate.py` skipped non-numbers (accepted `"abc"`). | Commit `005181ac`. **Both gates** coerce like the pinned `z.coerce.number().int().min(1).prefault(1)`. An omitted power is 1 (Python reads the 45c default); a given one goes through JavaScript `Number()` (Python: `_zod_number`). A power that is NaN, not an integer, or below 1 is refused per effect, and only valid powers count toward the cap. **Known difference:** Python refuses some strings `Number()` accepts (hex such as `"0x1"`, `"Infinity"`). It is stricter, never looser. | Forge "review round 2 (1)" and Python `test_r2_slot_power_coerced_like_zod`: 1 + `"1"` and `"1"` + `"1"` accepted; `"1"` + `"1"` + 1 refused as 3; `"abc"`, -1 and 1.5 refused. |
+| **2 (advice)** L18 (`noncombatconsumereward`) checked only a stated `target`. | Separate commit `67903359`. **Forge:** a create with `target` omitted now fails L18 (the placeholder holds `CHARACTER`); an edit may still omit it, because it merges the live value. **Python:** unchanged, because `validate.py`'s L18 already refused an omitted target (on edits too, stricter). The six reward-item entries in `push/*.json` all state `SELF` (97 x3 creates; 132, 133, 319 edits); outputs unchanged. | Forge "review round 2 (2)": omitted and CHARACTER refused on a create, SELF accepted, an edit without target accepted; `validate.py --strict` refuses the omitted-target create. |
+| **3** The distributed skill ZIP must carry the corrected validators. | `dist/` is built by the skillpack workflow on push. The frozen head is the bot's dist commit on top of these commits, checked against the tree (reported with the push). | n/a |
+
+### Gates (round 2, exact)
+
+| Gate | Result |
+|---|---|
+| `npm test` (forge/) | 775 tests, 762 pass, 0 fail, 13 skipped |
+| Source-gated, `TNR_GAME_CHECKOUT=<3314d122>` (catalog, pets, variants, dungeon x3) | 115 / 115 |
+| `npm run build` twice | byte-identical, sha256 `871026de765db3e022d26c609e4d9307186d1d37e3dc1af075fc2a15c7c818d4`; the committed bundle equals a fresh build |
+| `npm run fixtures` then `git status` | clean |
+| `check_boundaries` / `check_imports` / `check_release_pin` | 0 / 0 / ok |
+| `derive_dungeon.mjs --check` | current |
+| `check_bundle_budget` | exit 0: **raw 463,369 / 466,000 (99.4%), gzip 111,448 / 112,000 (99.5%)** |
+| `check_manifest.mjs` and `validate.py` on all 120 `push/*.json` vs `da94470b` | outputs and exit codes identical; `--strict` exit codes identical (14 fail at both) |
+| Python unit tests (pet_species, schema_diff, catalog_checks, variant_checks) | 38 OK |
+| `selfcheck --generated` / `factory --selftest` | 0 errors / 20/20 |
+| `doctrinemap` / `render_doctrine --check` / `build_packs --check` | 0/0 / current / current |
+| `lawmap` | 0 errors, 5 pre-existing warnings |
+
+Live requests / writes: 0 / 0.
