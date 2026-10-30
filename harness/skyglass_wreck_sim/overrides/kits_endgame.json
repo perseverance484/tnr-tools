@@ -8620,10 +8620,10 @@
     {
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
@@ -8878,10 +8878,10 @@
     {
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
@@ -9058,10 +9058,10 @@
     {
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     },
     {
@@ -9271,10 +9271,10 @@
     {
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
@@ -9558,10 +9558,10 @@
     {
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
@@ -10897,10 +10897,10 @@
     {
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],

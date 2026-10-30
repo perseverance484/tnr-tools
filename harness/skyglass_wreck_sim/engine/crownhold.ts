@@ -19,6 +19,7 @@
  *   boss with Alarm Raised (+10% damage taken, 2r); healing = 4 regulars, Healing Rite (enter full); war = 4
  *   regulars, War Rite (the division's buff). Quest data: push/273 (archive/spent-manifests/push-2026-10-28).
  */
+import { auditEnemy, unmarkedReport } from "./fallback";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { loadJson } from "./model";
@@ -53,6 +54,12 @@ export const CMD_DEFAULTS = {
     } as Record<string, { type: string; power: number; rounds: number; calculation: string }>,
     /** Proposal knob (not push/273): extra War Rite rows added in every division. */
     warExtra: [] as { type: string; power: number; rounds: number; calculation?: string }[],
+    /**
+     * RUL-2026-10-28-026 item 1: the Crowned Captain fight opens with a route heal (applyBuffs heal, percentage of max
+     * HP), added to the carried HP and capped at max; it never lowers it. Healing Rite: full. War Rite: +20% and the
+     * division's War Rite buff for the whole fight. Chakra and stamina still carry. `null` = the pre-ruling chain.
+     */
+    ccTopUp: { healing: 100, clean: 35, war: 20, alert: 15, warWholeFight: true } as null | { healing: number; clean: number; war: number; alert: number; warWholeFight: boolean },
   },
 };
 type CmdParams = typeof CMD_DEFAULTS;
@@ -61,6 +68,7 @@ const loadParams = (): CmdParams => {
   return { ...CMD_DEFAULTS, ...o, D2: { ...CMD_DEFAULTS.D2, ...(o.D2 ?? {}) },
     D3: { ...CMD_DEFAULTS.D3, ...(o.D3 ?? {}) }, D4: { ...CMD_DEFAULTS.D4, ...(o.D4 ?? {}) }, regs: { ...CMD_DEFAULTS.regs, ...(o.regs ?? {}) },
     quest: { alarm: { ...CMD_DEFAULTS.quest.alarm, ...(o.quest?.alarm ?? {}) }, warExtra: o.quest?.warExtra ?? [],
+      ccTopUp: o.quest?.ccTopUp === null ? null : { ...CMD_DEFAULTS.quest.ccTopUp!, ...(o.quest?.ccTopUp ?? {}) },
       war: Object.fromEntries(Object.entries(CMD_DEFAULTS.quest.war).map(([d, w]) => [d, { ...w, ...(o.quest?.war?.[d] ?? {}) }])) } };
 };
 
@@ -195,11 +203,16 @@ const runChain = async (P: CmdParams, policy: Policy, seed: number) => {
       if (f.outcome !== "won") { out.outcome = `lost ${div}.REG${r}`; out.reached = div; return out; }
       pools = { hp: f.endHpFrac, cp: f.endCpFrac, sp: f.endSpFrac };
     }
-    const start: PlayerStart = policy === "healing" ? {} : { hpFrac: pools.hp, cpFrac: pools.cp, spFrac: pools.sp };
-    const fx = routeEffects(P, policy === "alert" ? "alarm" : policy, div);
+    const top = div === "D5" ? P.quest.ccTopUp : null;
+    // Healing Rite: every commander and the Crowned Captain are entered full (push/273; the ruled top-up is "full").
+    const carriedHp = pools.hp;
+    const hpAtEntry = policy === "healing" ? 1 : top ? Math.min(1, carriedHp + (top[policy] ?? 0) / 100) : carriedHp;
+    const start: PlayerStart = policy === "healing" ? {} : { hpFrac: hpAtEntry, cpFrac: pools.cp, spFrac: pools.sp };
+    let fx = routeEffects(P, policy === "alert" ? "alarm" : policy, div);
+    if (fx && top && policy === "war" && top.warWholeFight) fx = fx.map((e: any) => ({ ...e, rounds: 99 }));
     if (fx) start.startingEffects = fx;
     const f = await runFight(bosses[div]!, s++, READ, start);
-    out.fights.push({ fight: `${div}.BOSS`, outcome: f.outcome, rounds: f.rounds, startHp: policy === "healing" ? 100 : Math.round(100 * pools.hp), endHp: f.playerHpPct });
+    out.fights.push({ fight: `${div}.BOSS`, outcome: f.outcome, rounds: f.rounds, startHp: Math.round(100 * hpAtEntry), carriedHp: Math.round(100 * carriedHp), endHp: f.playerHpPct });
     out.reached = div;
     if (f.outcome !== "won") { out.outcome = `lost ${div}.BOSS`; return out; }
     pools = { hp: f.endHpFrac, cp: f.endCpFrac, sp: f.endSpFrac };
@@ -257,6 +270,22 @@ const main = async () => {
     mkdirSync(dirname(resolve(specPath)), { recursive: true });
     writeFileSync(resolve(specPath), `${JSON.stringify(cmdSpec(P, issues), null, 1)}\n`);
     console.log(`wrote ${specPath}`);
+  }
+  const auditPath = opt("audit-fallback");
+  if (auditPath) {
+    // RUL-2026-10-29-046 audit: every Crownhold record as the harness fights it (commanders with their library rules,
+    // the Crowned Captain, all regulars at their push/272 rules).
+    const rows: any[] = [];
+    const add = (cfg: FightConfig) => {
+      for (const r of Object.values<any>(cfg.rows)) rows.push(auditEnemy("crownhold", r.userId, r.username, r.aiProfile ?? { rules: [], includeDefaultRules: false }, r.jutsus.map((uj: any) => uj.jutsuId)));
+    };
+    for (const c of COMMANDERS) add(cmdFightConfig(c, P));
+    add(ccFightConfig(ccParams(P.cc)));
+    for (const slot of Object.keys(IN.ais)) if (!slot.endsWith("BOSS")) add(regFightConfig(slot, P));
+    mkdirSync(dirname(resolve(auditPath)), { recursive: true });
+    writeFileSync(resolve(auditPath), `${JSON.stringify(rows, null, 1)}\n`);
+    console.log(`wrote ${auditPath}`);
+    return;
   }
   const results: any = { generatedBy: "engine/crownhold.ts", params: P, ccParams: ccParams(P.cc), dmgConfig: dmg.name, grid: SIZE, player: { telegraphReadP: READ, pet: PET_ON ? "one modelled mid-rank companion (model.ts petFor)" : false }, solo: {}, chain: {} };
   const tr = opt("trace");
@@ -328,6 +357,8 @@ const main = async () => {
     results.chain[policy] = { summary: s, chains: cs };
     console.log(`== chain ${policy}: ${JSON.stringify(s)}`);
   }
+  results.fallbackGuard = unmarkedReport();
+  console.log("fallback guard:", JSON.stringify(results.fallbackGuard));
   const outPath = opt("out");
   if (outPath) {
     mkdirSync(dirname(resolve(outPath)), { recursive: true });

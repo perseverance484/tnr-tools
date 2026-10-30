@@ -35,7 +35,7 @@
   },
   "3V_gdHYaclMB1gTyOPAbV": {
    "pools": 3,
-   "rows": 3
+   "rows": 4
   },
   "AQi-bHJ-5tHXtxrnc0P9E": {
    "pools": 2,
@@ -54,11 +54,12 @@
    "rows": 2
   },
   "QY69h271Nx9uHrBeR6jwW": {
-   "pools": 2,
-   "rows": 4
+   "pools": 2.5,
+   "rows": 1,
+   "givenDown": 10
   },
   "81lnIP-q97gItQYWl5vWD": {
-   "pools": 2.5,
+   "pools": 3.5,
    "rows": 1
   },
   "LZiunyinw9ScK3mh9HiR2": {
@@ -67,5 +68,6 @@
   }
  },
  "echoHp": 15000,
- "echoPower": 60
+ "echoPower": 40,
+ "_final_pass": "fable/skyglass-final-sim: Watch Captain 2/4 -> 2.5/1 + 10% givenDown (the phase-1 duel killed a solo player by round 3-9: 7/40); Foundry Warden 2.5/1 -> 3.5/1 (97.5% -> target 80%); Cache Sentinel 3/3 -> 3/4 (RUL-2026-10-28-021: boss ~20% HP); echoPower 60 -> 40 (RUL-2026-10-28-026 item 3)."
 }

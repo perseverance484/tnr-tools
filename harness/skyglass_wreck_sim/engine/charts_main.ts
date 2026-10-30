@@ -20,6 +20,7 @@ import { getEffectiveMaxPool } from "@/libs/combat/util";
 import { insertAiSchema } from "@/validators/aiInput";
 import { buildTemplates, enemyQueryUser, KITSUNE_SET, loadDmgConfig, loadJson, PLAYER_VARIANTS, petFor, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32, runFloor, seedEntropy } from "./sim";
+import { auditTemplates, fixFallback, unmarkedReport } from "./fallback";
 import { crownTemplates, DEFAULT_HUNT_PARAMS, DEFAULT_PARAMS, LIVE, NAME } from "./hunts";
 import { buildCharts, buildRuns, C, COMMON_CREW, COPY, type ChartParams, DEFAULT_CHART_EXTRA, type Run, scaledRow } from "./charts";
 import { LIB } from "./library";
@@ -67,11 +68,13 @@ const setup = (params: ChartParams, twist: boolean) => {
   built.override.jutsu["nCQETf-HNnbRec1OSY2-R"] = coreRuptureV2;
   T = buildTemplates(baseline, built.override as never);
   Object.assign(T.enemies, crownTemplates(T.enemies[LIVE.warden]!.row, T.jutsu, P));
+  // RUL-2026-10-29-046: chart-* records built on live rules (live kit, live profile) get the fallback fix too.
+  // Live records the hunts upgrade in place (e.g. the Arsenal Keeper's live rules) get it as well; a no-op elsewhere.
+  for (const [id, e] of Object.entries(T.enemies))
+    if (e.profile) e.profile = fixFallback(e.profile, e.row.jutsus.map((uj: any) => uj.jutsuId)).profile;
   enemyRows = Object.fromEntries(Object.entries(T.enemies).map(([id, e]) => [id, enemyQueryUser(e)]));
-  // RUL-2026-10-28-021 item 3: Crown Stonebound's live Erupting Ground hits enemies only (a push/319 live edit).
-  for (const row of Object.values(enemyRows))
-    for (const uj of row.jutsus ?? [])
-      if (uj.jutsu?.name === "Erupting Ground") uj.jutsu.effects = uj.jutsu.effects.map((e: any) => (["damage", "pierce"].includes(e.type) ? { ...e, friendlyFire: "ENEMIES" } : e));
+  // RUL-2026-10-28-026 item 2: the Crown Stonebound holds its own enemies-only copy of Erupting Ground (hunts.ts
+  // SKYGLASS_COPY); the shared live record is no longer patched here.
   donor = T.enemies[LIVE.warden]!.row;
   RUNS = buildRuns(P, twist);
   // Every CHART-NEW AI row must be storable (insertAiSchema: e.g. statsMultiplier and poolsMultiplier >= 1).
@@ -86,6 +89,15 @@ const setup = (params: ChartParams, twist: boolean) => {
 };
 const twistOn = !flag("no-twist");
 setup(P, twistOn);
+{
+  const auditPath = opt("audit-fallback");
+  if (auditPath) {
+    mkdirSync(dirname(resolve(auditPath)), { recursive: true });
+    writeFileSync(resolve(auditPath), `${JSON.stringify(auditTemplates("charts", T.enemies, new Set(Object.values(RUNS).flatMap((r) => r.fights.flatMap((f) => [...f.ids, ...(f.allies ?? [])])))), null, 1)}\n`);
+    console.log(`wrote ${auditPath}`);
+    process.exit(0);
+  }
+}
 
 const dodge = !flag("no-dodge");
 const maxRounds = Number(opt("max-rounds", "60"));
@@ -172,7 +184,7 @@ const runOne = async (runKey: string, vk: string, seed: number, trace?: number) 
           }
           if (s.actionId === null && s.hp[s.actorUid] && s.hp[s.actorUid]! < 0 && !(s.dealtBy && Object.keys(s.dealtBy).length)) e.gaveUp = true;
         }
-        // Ember damage: HP loss on a player's own step while the Burning Deck is in the fight (drain fires on the occupant's action).
+        // Ember damage: HP loss on a player's own step while the fire source (the Arsenal Keeper (fire source)) is in the fight (drain fires on the occupant's action).
         if (s.human && (s.hp[player.userId] ?? 0) < 0 && f.ids.includes(C.deck)) {
           emberHits++;
           emberDmg -= s.hp[player.userId]!;
@@ -307,7 +319,7 @@ if (flag("probe-embers")) {
     battle.activeUserId = du.userId;
     const res = runFloor(battle, { playerIds: [player.userId], maxRounds: 5, detail: true, dodge: false });
     const steps = res.steps.map((s) => ({
-      round: s.round, actor: s.human ? "player" : "Burning Deck", action: jname(s.actionId), at: s.actorFrom, to: s.actorTo,
+      round: s.round, actor: s.human ? "player" : "Arsenal Keeper (fire source)", action: jname(s.actionId), at: s.actorFrom, to: s.actorTo,
       playerHp: Math.round(s.hp[player.userId] ?? 0),
       embersAfter: (s.groundAfter ?? []).filter((g: any) => g.type === "drain").length,
       playerOnEmberAtStart: (s.groundAfter ?? []).some((g: any) => g.type === "drain" && s.actorFrom && g.x === s.actorFrom[0] && g.y === s.actorFrom[1]),
@@ -412,7 +424,7 @@ if (sweepArg) {
         const runs = [];
         for (let i = 0; i < (c.seeds ?? seeds); i++) runs.push(await runOne(key, vk, seed0 + i));
         const s = summarise(key, vk, runs);
-        console.log(`${c.name.padEnd(22)} ${vk.padEnd(11)} ${key.padEnd(11)} base ${String(s.baseClear).padStart(2)}/${s.runs} press ${s.pressOnWon}/${s.pressOnReached} min ${s.baseMinutesMedian} | ` + s.fights.map((f) => `F${f.fight} ${f.won}/${f.reached} r${f.roundsMedian} ${f.hpStartMedian}->${f.hpEndMedian}`).join(" | "));
+        console.log(`${c.name.padEnd(22)} ${vk.padEnd(11)} ${key.padEnd(11)} base ${String(s.baseClear).padStart(2)}/${s.runs} press ${s.pressOnWon}/${s.pressOnReached} min ${s.baseMinutesMedian} | ` + s.fights.map((f) => `F${f.fight} ${f.won}/${f.reached} r${f.roundsMedian} ${f.hpStartMedian}->${f.hpEndMedian}${(f.enemies as any)["Arsenal Keeper"] ? ` keeper†r${(f.enemies as any)["Arsenal Keeper"].diedMedianRound} emb${f.emberHitsMedian ?? 0}` : ""}`).join(" | "));
         rows.push({ case: c.name, ...s, perSeed: undefined });
       }
   }
@@ -431,9 +443,11 @@ for (const vk of variantArg)
     console.log(`\n=== ${vk} ${key} (${s.chart}) dodge=${dodge} twist=${twistOn}: base ${s.baseClear}/${s.runs} press-on ${s.pressOnWon}/${s.pressOnReached} (${s.pressOnPctOfAll}% of all) base ${s.baseRoundsMedian} rounds = ${s.baseMinutesMedian} min; losses ${JSON.stringify(s.lossesAt)}`);
     for (const f of s.fights) {
       console.log(`  F${f.fight} ${f.label.padEnd(64)} won ${f.won}/${f.reached} rnd ${f.roundsMedian} (p90 ${f.roundsP90}) HP ${f.hpStartMedian}->${f.hpEndMedian} (p10 ${f.hpEndP10}) cost ${f.hpCostMedian} idle ${f.playerIdlePct}%${f.emberHitsMedian ? ` embers ${f.emberHitsMedian} hits/${f.emberDmgMedian}%` : ""} ${JSON.stringify(f.outcomes)}`);
-      for (const [n, e] of Object.entries<any>(f.enemies)) if (e.marksPerFight || e.blastsPerFight) console.log(`      ${n.padEnd(18)} marks ${e.marksPerFight} blasts ${e.blastsPerFight} hit% ${e.blastHitPct} dealt ${e.dealtPerFight} died r${e.diedMedianRound}`);
+      for (const [n, e] of Object.entries<any>(f.enemies)) if (e.marksPerFight || e.blastsPerFight || n.includes("fire source") || n === "Arsenal Keeper") console.log(`      ${n.padEnd(18)} marks ${e.marksPerFight} blasts ${e.blastsPerFight} hit% ${e.blastHitPct} dealt ${e.dealtPerFight} died r${e.diedMedianRound}`);
     }
   }
+out.fallbackGuard = unmarkedReport();
+console.log("fallback guard:", JSON.stringify(out.fallbackGuard));
 const outPath = opt("out");
 if (outPath) {
   mkdirSync(dirname(resolve(outPath)), { recursive: true });

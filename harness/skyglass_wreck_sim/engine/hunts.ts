@@ -74,7 +74,8 @@ export const TERM: Record<number, any[]> = {
 /* ------------------------------------------------------------------ */
 /* Params                                                               */
 /* ------------------------------------------------------------------ */
-export type Stat = { pools: number; rows: number; stats?: number };
+/** givenDown: one innate decreasedamagegiven % row (solo softening below the +100% rows, e.g. the Watch Captain). */
+export type Stat = { pools: number; rows: number; stats?: number; givenDown?: number };
 export type HuntParams = {
   /** Solo stats per live record (poolsMultiplier, number of +100% damage rows, optional statsMultiplier). */
   stats: Record<string, Stat>;
@@ -267,7 +268,7 @@ export const buildHunts = (HP: HuntParams, kitParams: KitParams) => {
     ],
   };
 
-  const kitOf = (rules: any[], extra: string[] = []) => [...new Set([...rules.map((r) => r.action.jutsuId).filter(Boolean), ...extra])];
+  const kitOf = (rules: any[], extra: string[] = []) => [...new Set([...rules.map((r) => r.action.jutsuId).filter((id: string) => id && id !== "basicAttack"), ...extra])];
   const enemies: Record<string, any> = {};
   const newEnemies: Record<string, any> = {};
   const signatures: Record<string, number[]> = {};
@@ -278,7 +279,8 @@ export const buildHunts = (HP: HuntParams, kitParams: KitParams) => {
     const s = HP.stats[id]!;
     const o = {
       aiEdit: { poolsMultiplier: s.pools, ...(s.stats ? { statsMultiplier: s.stats } : {}) },
-      effects: idgRows(s.rows), jutsuIds: kitOf(r.rules, id === LIVE.foundry ? [LIVE_J.quickStrike, LIVE_J.heavyStrike, LIVE_J.snare, LIVE_J.stoneward, LIVE_J.springguard, LIVE_J.windlash] : []),
+      effects: [...idgRows(s.rows), ...(s.givenDown ? [tag("decreasedamagegiven", { power: s.givenDown, rounds: 99, calculation: "percentage", description: "Decreased damage given" })] : [])],
+      jutsuIds: kitOf(r.rules, id === LIVE.foundry ? [LIVE_J.quickStrike, LIVE_J.heavyStrike, LIVE_J.snare, LIVE_J.stoneward, LIVE_J.springguard, LIVE_J.windlash] : []),
       rules: r.rules, includeDefaultRules: false,
     };
     if (id === LIVE.foundry) newEnemies[id] = { base: "Arsenal Keeper", username: "Foundry Warden", ...o };
@@ -318,6 +320,10 @@ export const buildPaths = (compose: Record<string, string[]> = {}): Record<strin
       ],
     };
   }
+  // Press-on probes (RUL-2026-10-29-057 item 6 asks whether the Archive and Watch keep press-on rooms): one extra room after
+  // the boss, HP carried, built only from records these hunts already field. Not part of the hunts' design.
+  P.archive_clean_press = { hunt: "Quarantined Archive", fights: [descent, keeper, f(`PRESS ON (probe): ${alarmIds.map((i) => NAME[i]).join(" + ")}`, alarmIds)] };
+  P.watch_000_press = { hunt: "Captain's Watch", fights: [...P.watch_000.fights, f("PRESS ON (probe): Wayfinder + Deck Warden", [LIVE.wayfinder, LIVE.warden])] };
   P.cache_right = { hunt: "Buried Cache", fights: [f("dig: Skyglass Sentinel", [LIVE.sentinel], undefined, true)] };
   P.cache_wrong = { hunt: "Buried Cache", fights: [f("wrong cove: Deck Warden + Seal Charge", [LIVE.warden, LIVE.charge]), f("dig: Skyglass Sentinel", [LIVE.sentinel], undefined, true)] };
   return P;
@@ -335,11 +341,15 @@ export { DEFAULT_PARAMS as KIT_DEFAULTS };
  * enemies-only. A live edit: law 18 (unequip from every holder, edit, re-equip); the holders are listed in the spec.
  */
 export const LIVE_JUTSU_FIXES: Record<string, { note: string; apply: (rec: any) => any }> = {
-  jBRyl7F4UjTyxG5nnzLqj: {
-    note: "Erupting Ground: damage row friendlyFire ENEMIES (was unset, so it hit the caster's allies)",
-    apply: (rec: any) => ({ ...rec, effects: rec.effects.map((e: any) => (e.type === "damage" ? { ...e, friendlyFire: "ENEMIES" } : e)) }),
-  },
+  // Superseded by RUL-2026-10-28-026 item 2: the shared live Erupting Ground (89 holders) is NOT edited; the Crown
+  // Stonebound holds its own copy (library LIB.liveCopy.stoneboundEruptingGround, damage enemies only): see SKYGLASS_COPY.
 };
+/** Live jutsu -> the Skyglass-only copy a Crownhold record holds instead (RUL-2026-10-28-026 item 2). */
+export const SKYGLASS_COPY: Record<string, string> = { jBRyl7F4UjTyxG5nnzLqj: LIB.liveCopy.stoneboundEruptingGround };
+export const useSkyglassCopies = (jutsuIds: string[], rules: any[]) => ({
+  jutsuIds: jutsuIds.map((j) => SKYGLASS_COPY[j] ?? j),
+  rules: rules.map((r) => (r.action?.jutsuId && SKYGLASS_COPY[r.action.jutsuId] ? { ...r, action: { ...r.action, jutsuId: SKYGLASS_COPY[r.action.jutsuId] } } : r)),
+});
 const repoDoc = (f: string) => JSON.parse(readFileSync(join(process.env.TNR_REPO!, f), "utf8"));
 /**
  * Template rows for the Crown Archivist and Crown Stonebound: the push/272 create payload (kit, rules, pools, level),
@@ -360,8 +370,11 @@ export const crownTemplates = (donorRow: any, jutsuCatalog: Record<string, any>,
       const mm = /live ([\d.]+)/.exec(f.d?.[0] ?? "");
       if (mm) live[f.k] = Number(mm[1]);
     }
-    const d = item.data;
+    const d0 = item.data;
+    const sw = useSkyglassCopies(d0.jutsus, d0.rules);
+    const d = { ...d0, jutsus: sw.jutsuIds, rules: sw.rules };
     for (const jid of d.jutsus) {
+      jutsuCatalog[jid] ??= buildLibrary()[jid];
       jutsuCatalog[jid] ??= capturedJutsu(jid).record;
       const fix = LIVE_JUTSU_FIXES[jid];
       if (fix && !jutsuCatalog[jid].__fixed) {

@@ -15,7 +15,8 @@ import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { addQuestStartingEffects } from "@/libs/combat/questEffects";
 import { buildTemplates, enemyQueryUser, kitFor, loadDmgConfig, loadJson, PLAYER_VARIANTS, playerQueryUser, playerRules } from "./model";
-import { assembleFloor, mulberry32, runFloor, seedEntropy } from "./sim";
+import { assembleFloor, mulberry32, phaseTrack, runFloor, seedEntropy } from "./sim";
+import { auditTemplates, fixFallback, unmarkedReport } from "./fallback";
 import { buildHunts, buildPaths, crownTemplates, DEFAULT_HUNT_PARAMS, type HuntParams, LIVE, NAME, type Path, petFor } from "./hunts";
 import { DEFAULT_PARAMS } from "./hunts";
 import { LIB } from "./library";
@@ -52,6 +53,8 @@ const setup = (params: HuntParams) => {
   T = buildTemplates(baseline, built.override as never);
   // Crownhold records (Crown Archivist, Crown Stonebound) are not in the Wreck baseline: built from push/272 + readback.
   Object.assign(T.enemies, crownTemplates(T.enemies[LIVE.warden]!.row, T.jutsu, HP));
+  // RUL-2026-10-29-046: records still on live rules (the Arsenal Keeper) get the fallback fix; a no-op elsewhere.
+  for (const e of Object.values(T.enemies)) if (e.profile) e.profile = fixFallback(e.profile, e.row.jutsus.map((uj: any) => uj.jutsuId)).profile;
   enemyRows = Object.fromEntries(Object.entries(T.enemies).map(([id, e]) => [id, enemyQueryUser(e)]));
   donor = T.enemies[LIVE.warden]!.row;
   MARKS.clear();
@@ -67,6 +70,15 @@ const setup = (params: HuntParams) => {
   }
 };
 setup(HP);
+{
+  const auditPath = opt("audit-fallback");
+  if (auditPath) {
+    mkdirSync(dirname(resolve(auditPath)), { recursive: true });
+    writeFileSync(resolve(auditPath), `${JSON.stringify(auditTemplates("hunts", T.enemies, new Set(Object.values(PATHS).flatMap((p) => p.fights.flatMap((f) => f.ids)))), null, 1)}\n`);
+    console.log(`wrote ${auditPath}`);
+    process.exit(0);
+  }
+}
 const variant = PLAYER_VARIANTS[opt("variant", "average")!]!;
 const dodge = !flag("no-dodge");
 /** One modelled mid-rank companion pet joins the player in every fight (hunts.ts petFor); --no-pets to leave it out. */
@@ -217,7 +229,8 @@ const runPath = async (pathKey: string, seed: number, trace?: number) => {
         playerTurns++;
         if (v) playerIdle++;
       }
-      fights.push({ label: f.label, boss: !!f.boss, outcome: res.outcome, rounds: res.rounds, hpStart, hpEnd: Math.max(0, fin.hp), maxHp: fin.maxHp, cpEnd: fin.cp, spEnd: fin.sp, enemies, playerTurns, playerIdleTurns: playerIdle, dodge: res.dodge as any, playerDealt, petDealt });
+      const captainPhases = f.ids.includes(LIVE.captain) ? phaseTrack(battle, res, LIVE.captain, 50) : null;
+      fights.push({ label: f.label, boss: !!f.boss, outcome: res.outcome, rounds: res.rounds, hpStart, hpEnd: Math.max(0, fin.hp), maxHp: fin.maxHp, cpEnd: fin.cp, spEnd: fin.sp, enemies, playerTurns, playerIdleTurns: playerIdle, dodge: res.dodge as any, playerDealt, petDealt, captainPhases } as any);
       if (res.outcome !== "won") {
         status = `lost at fight ${fi + 1} (${res.outcome})`;
         break;
@@ -286,6 +299,13 @@ const summarise = (key: string, runs: Awaited<ReturnType<typeof runPath>>[]) => 
     return {
       fight: i + 1, label: f.label, boss: !!f.boss, reached: recs.length, won: won.length, lost: recs.length - won.length,
       winPctOfReached: r1((100 * won.length) / Math.max(1, recs.length)),
+      ...(recs.some((x: any) => x.captainPhases) ? ((cp: any[]) => ({ captainPhases: {
+        reachedPhase2Pct: r1((100 * cp.filter((c) => c.reachedPhase2).length) / Math.max(1, cp.length)),
+        phase1RoundsMedian: median(cp.filter((c) => c.phase1Rounds !== null).map((c) => c.phase1Rounds)),
+        phase2RoundsMedian: median(cp.filter((c) => c.reachedPhase2 && c.died).map((c) => c.phase2Rounds)),
+        phase2RoundsP90: pctl(cp.filter((c) => c.reachedPhase2 && c.died).map((c) => c.phase2Rounds), 0.9),
+        killedPct: r1((100 * cp.filter((c) => c.died).length) / Math.max(1, cp.length)),
+      } }))(recs.map((x: any) => x.captainPhases).filter(Boolean)) : {}),
       roundsMedian: median(won.map((x) => x.rounds)), roundsP10: pctl(won.map((x) => x.rounds), 0.1), roundsP90: pctl(won.map((x) => x.rounds), 0.9),
       hpStartPctMedian: r1(median(recs.map((x) => (100 * x.hpStart) / BASE_HP))),
       hpEndPctMedian: r1(median(won.map((x) => (100 * x.hpEnd) / BASE_HP))), hpEndPctP10: r1(pctl(won.map((x) => (100 * x.hpEnd) / BASE_HP), 0.1)),
@@ -330,7 +350,7 @@ if (sweepArg) {
       for (let i = 0; i < (c.seeds ?? seeds); i++) runs.push(await runPath(key, seed0 + i));
       const s = summarise(key, runs);
       const line = `${c.name.padEnd(24)} ${key.padEnd(34)} win ${String(s.wins).padStart(2)}/${s.runs} endHP ${s.endHpPctMedian}% p10 ${s.endHpPctP10} | ` +
-        s.fights.map((f) => `F${f.fight} ${f.won}/${f.reached} r${f.roundsMedian} ${f.hpStartPctMedian}->${f.hpEndPctMedian}`).join(" | ");
+        s.fights.map((f) => `F${f.fight} ${f.won}/${f.reached} r${f.roundsMedian} ${f.hpStartPctMedian}->${f.hpEndPctMedian}${(f as any).captainPhases ? ` cap p1 ${(f as any).captainPhases.phase1RoundsMedian} p2 ${(f as any).captainPhases.phase2RoundsMedian} (p90 ${(f as any).captainPhases.phase2RoundsP90})` : ""}`).join(" | ");
       console.log(line);
       rows.push({ case: c.name, answers: [...answers], ...s, perSeed: undefined });
     }
@@ -349,10 +369,12 @@ for (const key of paths) {
   out.results.push(s);
   console.log(`\n=== ${key} (${s.hunt}) dodge=${dodge}: win ${s.wins}/${s.runs} end HP ${s.endHpPctMedian}% [p10 ${s.endHpPctP10}] losses ${JSON.stringify(s.lossesAt)} (${((Date.now() - t0) / 1000).toFixed(0)}s)`);
   for (const f of s.fights) {
-    console.log(`  F${f.fight} ${f.label.padEnd(52)} won ${f.won}/${f.reached} rnd ${f.roundsMedian} [${f.roundsP10}-${f.roundsP90}] HP ${f.hpStartPctMedian}->${f.hpEndPctMedian}% (p10 ${f.hpEndPctP10}) cp ${f.cpEndPctMedian} sp ${f.spEndPctMedian} pIdle ${f.playerIdleTurnsPct}%`);
+    console.log(`  F${f.fight} ${f.label.padEnd(52)} won ${f.won}/${f.reached} rnd ${f.roundsMedian} [${f.roundsP10}-${f.roundsP90}] HP ${f.hpStartPctMedian}->${f.hpEndPctMedian}% (p10 ${f.hpEndPctP10}) cp ${f.cpEndPctMedian} sp ${f.spEndPctMedian} pIdle ${f.playerIdleTurnsPct}%${(f as any).captainPhases ? ` | Captain ${JSON.stringify((f as any).captainPhases)}` : ""}`);
     for (const [n, e] of Object.entries<any>(f.enemies)) console.log(`      ${n.padEnd(18)} mark% ${e.markFiredPct} marks ${e.marksPerFight} blasts ${e.blastsPerFight} hit% ${e.blastHitPct} win ${e.windowsPerFight} sig% ${e.signatureFiredPct} idle>r2 ${e.idleTurnsAfterR2Pct}% dealt ${e.dealtPerFight}`);
   }
 }
+out.fallbackGuard = unmarkedReport();
+console.log("fallback guard:", JSON.stringify(out.fallbackGuard));
 const outPath = opt("out");
 if (outPath) {
   mkdirSync(dirname(resolve(outPath)), { recursive: true });

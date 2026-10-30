@@ -1,0 +1,1661 @@
+{
+ "generatedBy": "harness/skyglass_wreck_sim/engine/hunts_main.ts",
+ "settings": {
+  "dodge": true,
+  "pets": "one modelled mid-rank companion (hunts.ts petFor: rank 5 Hunter, level 30, half CHUNIN caps, default AI)",
+  "maxRounds": 60,
+  "seeds": 40,
+  "seed0": 1,
+  "variant": "average",
+  "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+  "params": {
+   "stats": {
+    "texZaFi42S3EvJZBwQ8cd": {
+     "pools": 1,
+     "rows": 0
+    },
+    "wTgO-Q32caSSd0is1QIS7": {
+     "pools": 1,
+     "rows": 0,
+     "stats": 1
+    },
+    "frc9LTxqQlM7mncG4VZGK": {
+     "pools": 1,
+     "rows": 0,
+     "stats": 5
+    },
+    "2OXJEXoktxJcjqMkE851g": {
+     "pools": 1,
+     "rows": 0
+    },
+    "3V_gdHYaclMB1gTyOPAbV": {
+     "pools": 3,
+     "rows": 4
+    },
+    "AQi-bHJ-5tHXtxrnc0P9E": {
+     "pools": 2,
+     "rows": 2
+    },
+    "RBW5KsIXmTGR710D2y2Y7": {
+     "pools": 2.5,
+     "rows": 2
+    },
+    "v7T9_XdGMfP46em0dPuBc": {
+     "pools": 1.26,
+     "rows": 1
+    },
+    "d6g0mOM7RBSsYI1hrUVT9": {
+     "pools": 1.5,
+     "rows": 2
+    },
+    "QY69h271Nx9uHrBeR6jwW": {
+     "pools": 2.5,
+     "rows": 1,
+     "givenDown": 10
+    },
+    "81lnIP-q97gItQYWl5vWD": {
+     "pools": 3.5,
+     "rows": 1
+    },
+    "LZiunyinw9ScK3mh9HiR2": {
+     "pools": 2,
+     "rows": 2
+    }
+   },
+   "echoHp": 15000,
+   "echoPower": 40,
+   "_about": "Solo-tuned AI stats for the Skyglass treasure hunts (engine/hunts.ts). Keys are live AI ids; pools = poolsMultiplier, rows = innate +100% damage-given rows (each capped at 100 by the engine, rows multiply), stats = statsMultiplier where changed from live. Crown Archivist (Archive alarm guard) and the Called to the Archive summon (Crown Stonebound: echoHp, echoPower) per RUL-2026-10-28-013.",
+   "_names": {
+    "texZaFi42S3EvJZBwQ8cd": "Deck Warden",
+    "wTgO-Q32caSSd0is1QIS7": "Seal Charge",
+    "frc9LTxqQlM7mncG4VZGK": "Core Canister",
+    "2OXJEXoktxJcjqMkE851g": "Arsenal Keeper",
+    "3V_gdHYaclMB1gTyOPAbV": "Skyglass Sentinel",
+    "AQi-bHJ-5tHXtxrnc0P9E": "Core Horror",
+    "RBW5KsIXmTGR710D2y2Y7": "Sealwright",
+    "v7T9_XdGMfP46em0dPuBc": "Wayfinder",
+    "d6g0mOM7RBSsYI1hrUVT9": "First Blade",
+    "QY69h271Nx9uHrBeR6jwW": "The Captain",
+    "81lnIP-q97gItQYWl5vWD": "Foundry Warden",
+    "LZiunyinw9ScK3mh9HiR2": "Crown Archivist"
+   },
+   "_final_pass": "fable/skyglass-final-sim: Watch Captain 2/4 -> 2.5/1 + 10% givenDown (the phase-1 duel killed a solo player by round 3-9: 7/40); Foundry Warden 2.5/1 -> 3.5/1 (97.5% -> target 80%); Cache Sentinel 3/3 -> 3/4 (RUL-2026-10-28-021: boss ~20% HP); echoPower 60 -> 40 (RUL-2026-10-28-026 item 3).",
+   "pow": {}
+  }
+ },
+ "results": [
+  {
+   "path": "archive_clean_press",
+   "hunt": "Quarantined Archive",
+   "runs": 40,
+   "wins": 35,
+   "winPct": 87.5,
+   "endHpPctMedian": 20.8,
+   "endHpPctP10": 5.1,
+   "totalRoundsMedian": 30,
+   "lossesAt": {
+    "1": 0,
+    "2": 2,
+    "3": 3
+   },
+   "fights": [
+    {
+     "fight": 1,
+     "label": "descent: Core Horror",
+     "boss": false,
+     "reached": 40,
+     "won": 40,
+     "lost": 0,
+     "winPctOfReached": 100,
+     "roundsMedian": 7,
+     "roundsP10": 7,
+     "roundsP90": 7,
+     "hpStartPctMedian": 100,
+     "hpEndPctMedian": 103.9,
+     "hpEndPctP10": 95.5,
+     "hpLostPctMedian": -3.9,
+     "cpEndPctMedian": 91.1,
+     "spEndPctMedian": 90.3,
+     "petDealtMedian": 0,
+     "playerDealtMedian": 14052,
+     "playerIdleTurnsPct": 0,
+     "dodge": {
+      "threatened": 99,
+      "dodged": 97,
+      "failedRooted": 0,
+      "failedNoPath": 2,
+      "failedOther": 0,
+      "stepsTaken": 175
+     },
+     "enemies": {
+      "Core Horror": {
+       "appearances": 40,
+       "markFiredPct": 100,
+       "marksPerFight": 3,
+       "blastsPerFight": 3,
+       "blastHitPct": 1.7,
+       "windowsPerFight": 0,
+       "signatureFiredPct": 100,
+       "idleTurnsAfterR2Pct": 0,
+       "dealtPerFight": 1165
+      }
+     }
+    },
+    {
+     "fight": 2,
+     "label": "archive: Sealwright",
+     "boss": true,
+     "reached": 40,
+     "won": 38,
+     "lost": 2,
+     "winPctOfReached": 95,
+     "roundsMedian": 16,
+     "roundsP10": 16,
+     "roundsP90": 17,
+     "hpStartPctMedian": 103.9,
+     "hpEndPctMedian": 48,
+     "hpEndPctP10": 13.6,
+     "hpLostPctMedian": 54.9,
+     "cpEndPctMedian": 64.9,
+     "spEndPctMedian": 62.5,
+     "petDealtMedian": 0,
+     "playerDealtMedian": 12758.5,
+     "playerIdleTurnsPct": 2,
+     "dodge": {
+      "threatened": 194,
+      "dodged": 187,
+      "failedRooted": 0,
+      "failedNoPath": 6,
+      "failedOther": 1,
+      "stepsTaken": 300
+     },
+     "enemies": {
+      "Sealwright": {
+       "appearances": 40,
+       "markFiredPct": 100,
+       "marksPerFight": 5.6,
+       "blastsPerFight": 5,
+       "blastHitPct": 4,
+       "windowsPerFight": 1,
+       "signatureFiredPct": 100,
+       "idleTurnsAfterR2Pct": 0.5,
+       "dealtPerFight": 2733
+      },
+      "(clone or summon)": {
+       "appearances": 40,
+       "markFiredPct": 0,
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "windowsPerFight": 0,
+       "signatureFiredPct": 0,
+       "idleTurnsAfterR2Pct": 0,
+       "dealtPerFight": 0
+      }
+     }
+    },
+    {
+     "fight": 3,
+     "label": "PRESS ON (probe): Crown Archivist + Seal Charge",
+     "boss": false,
+     "reached": 38,
+     "won": 35,
+     "lost": 3,
+     "winPctOfReached": 92.1,
+     "roundsMedian": 6,
+     "roundsP10": 5,
+     "roundsP90": 8,
+     "hpStartPctMedian": 48,
+     "hpEndPctMedian": 20.8,
+     "hpEndPctP10": 5.1,
+     "hpLostPctMedian": 4.8,
+     "cpEndPctMedian": 56.9,
+     "spEndPctMedian": 53,
+     "petDealtMedian": 0,
+     "playerDealtMedian": 12424,
+     "playerIdleTurnsPct": 1.7,
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Crown Archivist": {
+       "appearances": 38,
+       "markFiredPct": 0,
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "windowsPerFight": 0,
+       "signatureFiredPct": 0,
+       "idleTurnsAfterR2Pct": 0,
+       "dealtPerFight": 1983
+      },
+      "Seal Charge": {
+       "appearances": 38,
+       "markFiredPct": 0,
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "windowsPerFight": 0,
+       "signatureFiredPct": 55.3,
+       "idleTurnsAfterR2Pct": 0,
+       "dealtPerFight": 645
+      }
+     }
+    }
+   ],
+   "perSeed": [
+    {
+     "seed": 1,
+     "status": "won",
+     "hp": [
+      107,
+      52,
+      13
+     ],
+     "rounds": [
+      7,
+      16,
+      8
+     ]
+    },
+    {
+     "seed": 2,
+     "status": "lost at fight 3 (wipe)",
+     "hp": [
+      48,
+      1,
+      0
+     ],
+     "rounds": [
+      7,
+      16,
+      5
+     ]
+    },
+    {
+     "seed": 3,
+     "status": "won",
+     "hp": [
+      107,
+      52,
+      53
+     ],
+     "rounds": [
+      7,
+      16,
+      5
+     ]
+    },
+    {
+     "seed": 4,
+     "status": "won",
+     "hp": [
+      96,
+      48,
+      43
+     ],
+     "rounds": [
+      7,
+      16,
+      6
+     ]
+    },
+    {
+     "seed": 5,
+     "status": "won",
+     "hp": [
+      116,
+      42,
+      43
+     ],
+     "rounds": [
+      7,
+      16,
+      1
+     ]
+    },
+    {
+     "seed": 6,
+     "status": "won",
+     "hp": [
+      96,
+      44,
+      5
+     ],
+     "rounds": [
+      7,
+      16,
+      9
+     ]
+    },
+    {
+     "seed": 7,
+     "status": "won",
+     "hp": [
+      96,
+      48,
+      49
+     ],
+     "rounds": [
+      7,
+      16,
+      5
+     ]
+    },
+    {
+     "seed": 8,
+     "status": "lost at fight 2 (wipe)",
+     "hp": [
+      104,
+      0
+     ],
+     "rounds": [
+      7,
+      20
+     ]
+    },
+    {
+     "seed": 9,
+     "status": "won",
+     "hp": [
+      107,
+      33,
+      40
+     ],
+     "rounds": [
+      7,
+      17,
+      5
+     ]
+    },
+    {
+     "seed": 10,
+     "status": "won",
+     "hp": [
+      104,
+      4,
+      11
+     ],
+     "rounds": [
+      7,
+      22,
+      5
+     ]
+    },
+    {
+     "seed": 11,
+     "status": "won",
+     "hp": [
+      96,
+      44,
+      46
+     ],
+     "rounds": [
+      7,
+      16,
+      1
+     ]
+    },
+    {
+     "seed": 12,
+     "status": "won",
+     "hp": [
+      104,
+      39,
+      0
+     ],
+     "rounds": [
+      7,
+      17,
+      8
+     ]
+    },
+    {
+     "seed": 13,
+     "status": "won",
+     "hp": [
+      96,
+      43,
+      4
+     ],
+     "rounds": [
+      7,
+      17,
+      8
+     ]
+    },
+    {
+     "seed": 14,
+     "status": "won",
+     "hp": [
+      104,
+      48,
+      16
+     ],
+     "rounds": [
+      7,
+      16,
+      8
+     ]
+    },
+    {
+     "seed": 15,
+     "status": "won",
+     "hp": [
+      96,
+      31,
+      32
+     ],
+     "rounds": [
+      7,
+      17,
+      6
+     ]
+    },
+    {
+     "seed": 16,
+     "status": "won",
+     "hp": [
+      96,
+      31,
+      26
+     ],
+     "rounds": [
+      7,
+      17,
+      6
+     ]
+    },
+    {
+     "seed": 17,
+     "status": "won",
+     "hp": [
+      116,
+      54,
+      56
+     ],
+     "rounds": [
+      7,
+      17,
+      6
+     ]
+    },
+    {
+     "seed": 18,
+     "status": "won",
+     "hp": [
+      48,
+      1,
+      8
+     ],
+     "rounds": [
+      7,
+      16,
+      5
+     ]
+    },
+    {
+     "seed": 19,
+     "status": "won",
+     "hp": [
+      96,
+      52,
+      20
+     ],
+     "rounds": [
+      7,
+      16,
+      8
+     ]
+    },
+    {
+     "seed": 20,
+     "status": "won",
+     "hp": [
+      116,
+      48,
+      15
+     ],
+     "rounds": [
+      7,
+      17,
+      8
+     ]
+    },
+    {
+     "seed": 21,
+     "status": "won",
+     "hp": [
+      96,
+      48,
+      9
+     ],
+     "rounds": [
+      7,
+      16,
+      8
+     ]
+    },
+    {
+     "seed": 22,
+     "status": "won",
+     "hp": [
+      104,
+      59,
+      66
+     ],
+     "rounds": [
+      7,
+      15,
+      1
+     ]
+    },
+    {
+     "seed": 23,
+     "status": "won",
+     "hp": [
+      96,
+      29,
+      30
+     ],
+     "rounds": [
+      7,
+      17,
+      5
+     ]
+    },
+    {
+     "seed": 24,
+     "status": "won",
+     "hp": [
+      107,
+      57,
+      52
+     ],
+     "rounds": [
+      7,
+      16,
+      6
+     ]
+    },
+    {
+     "seed": 25,
+     "status": "lost at fight 2 (wipe)",
+     "hp": [
+      107,
+      0
+     ],
+     "rounds": [
+      7,
+      16
+     ]
+    },
+    {
+     "seed": 26,
+     "status": "won",
+     "hp": [
+      107,
+      50,
+      58
+     ],
+     "rounds": [
+      7,
+      16,
+      5
+     ]
+    },
+    {
+     "seed": 27,
+     "status": "won",
+     "hp": [
+      87,
+      39,
+      6
+     ],
+     "rounds": [
+      7,
+      17,
+      8
+     ]
+    },
+    {
+     "seed": 28,
+     "status": "won",
+     "hp": [
+      96,
+      43,
+      4
+     ],
+     "rounds": [
+      7,
+      17,
+      8
+     ]
+    },
+    {
+     "seed": 29,
+     "status": "won",
+     "hp": [
+      104,
+      55,
+      10
+     ],
+     "rounds": [
+      7,
+      16,
+      9
+     ]
+    },
+    {
+     "seed": 30,
+     "status": "won",
+     "hp": [
+      104,
+      53,
+      20
+     ],
+     "rounds": [
+      7,
+      16,
+      8
+     ]
+    },
+    {
+     "seed": 31,
+     "status": "lost at fight 3 (wipe)",
+     "hp": [
+      96,
+      14,
+      0
+     ],
+     "rounds": [
+      7,
+      16,
+      5
+     ]
+    },
+    {
+     "seed": 32,
+     "status": "won",
+     "hp": [
+      107,
+      51,
+      53
+     ],
+     "rounds": [
+      7,
+      17,
+      5
+     ]
+    },
+    {
+     "seed": 33,
+     "status": "won",
+     "hp": [
+      96,
+      60,
+      21
+     ],
+     "rounds": [
+      7,
+      14,
+      8
+     ]
+    },
+    {
+     "seed": 34,
+     "status": "won",
+     "hp": [
+      116,
+      48,
+      55
+     ],
+     "rounds": [
+      7,
+      16,
+      5
+     ]
+    },
+    {
+     "seed": 35,
+     "status": "won",
+     "hp": [
+      104,
+      53,
+      54
+     ],
+     "rounds": [
+      7,
+      16,
+      6
+     ]
+    },
+    {
+     "seed": 36,
+     "status": "won",
+     "hp": [
+      96,
+      31,
+      26
+     ],
+     "rounds": [
+      7,
+      17,
+      6
+     ]
+    },
+    {
+     "seed": 37,
+     "status": "lost at fight 3 (wipe)",
+     "hp": [
+      116,
+      13,
+      0
+     ],
+     "rounds": [
+      7,
+      16,
+      3
+     ]
+    },
+    {
+     "seed": 38,
+     "status": "won",
+     "hp": [
+      107,
+      59,
+      20
+     ],
+     "rounds": [
+      7,
+      16,
+      8
+     ]
+    },
+    {
+     "seed": 39,
+     "status": "won",
+     "hp": [
+      96,
+      50,
+      17
+     ],
+     "rounds": [
+      7,
+      17,
+      8
+     ]
+    },
+    {
+     "seed": 40,
+     "status": "won",
+     "hp": [
+      107,
+      52,
+      19
+     ],
+     "rounds": [
+      7,
+      16,
+      8
+     ]
+    }
+   ]
+  },
+  {
+   "path": "watch_000_press",
+   "hunt": "Captain's Watch",
+   "runs": 40,
+   "wins": 34,
+   "winPct": 85,
+   "endHpPctMedian": 29.7,
+   "endHpPctP10": 12.2,
+   "totalRoundsMedian": 32,
+   "lossesAt": {
+    "1": 0,
+    "2": 0,
+    "3": 1,
+    "4": 5
+   },
+   "fights": [
+    {
+     "fight": 1,
+     "label": "chart room: Wayfinder",
+     "boss": false,
+     "reached": 40,
+     "won": 40,
+     "lost": 0,
+     "winPctOfReached": 100,
+     "roundsMedian": 4,
+     "roundsP10": 4,
+     "roundsP90": 4,
+     "hpStartPctMedian": 100,
+     "hpEndPctMedian": 117.6,
+     "hpEndPctP10": 117.6,
+     "hpLostPctMedian": -17.6,
+     "cpEndPctMedian": 96.5,
+     "spEndPctMedian": 95.9,
+     "petDealtMedian": 0,
+     "playerDealtMedian": 7232,
+     "playerIdleTurnsPct": 0,
+     "dodge": {
+      "threatened": 37,
+      "dodged": 37,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 37
+     },
+     "enemies": {
+      "Wayfinder": {
+       "appearances": 40,
+       "markFiredPct": 100,
+       "marksPerFight": 2,
+       "blastsPerFight": 1,
+       "blastHitPct": 0,
+       "windowsPerFight": 0,
+       "signatureFiredPct": 100,
+       "idleTurnsAfterR2Pct": 0,
+       "dealtPerFight": 280
+      }
+     }
+    },
+    {
+     "fight": 2,
+     "label": "deck: First Blade",
+     "boss": false,
+     "reached": 40,
+     "won": 40,
+     "lost": 0,
+     "winPctOfReached": 100,
+     "roundsMedian": 5,
+     "roundsP10": 5,
+     "roundsP90": 5,
+     "hpStartPctMedian": 117.6,
+     "hpEndPctMedian": 105.4,
+     "hpEndPctP10": 98.4,
+     "hpLostPctMedian": 18.3,
+     "cpEndPctMedian": 91.1,
+     "spEndPctMedian": 90.1,
+     "petDealtMedian": 0,
+     "playerDealtMedian": 9103,
+     "playerIdleTurnsPct": 0,
+     "dodge": {
+      "threatened": 40,
+      "dodged": 40,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 76
+     },
+     "enemies": {
+      "First Blade": {
+       "appearances": 40,
+       "markFiredPct": 100,
+       "marksPerFight": 1,
+       "blastsPerFight": 1,
+       "blastHitPct": 0,
+       "windowsPerFight": 1,
+       "signatureFiredPct": 100,
+       "idleTurnsAfterR2Pct": 0,
+       "dealtPerFight": 1374
+      }
+     }
+    },
+    {
+     "fight": 3,
+     "label": "helm: The Captain",
+     "boss": true,
+     "reached": 40,
+     "won": 39,
+     "lost": 1,
+     "winPctOfReached": 97.5,
+     "captainPhases": {
+      "reachedPhase2Pct": 97.5,
+      "phase1RoundsMedian": 8,
+      "phase2RoundsMedian": 7,
+      "phase2RoundsP90": 11,
+      "killedPct": 97.5
+     },
+     "roundsMedian": 15,
+     "roundsP10": 10,
+     "roundsP90": 20,
+     "hpStartPctMedian": 105.4,
+     "hpEndPctMedian": 21.6,
+     "hpEndPctP10": 3.1,
+     "hpLostPctMedian": 83.9,
+     "cpEndPctMedian": 57.2,
+     "spEndPctMedian": 54.1,
+     "petDealtMedian": 0,
+     "playerDealtMedian": 14703,
+     "playerIdleTurnsPct": 5.6,
+     "dodge": {
+      "threatened": 106,
+      "dodged": 106,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 193
+     },
+     "enemies": {
+      "The Captain": {
+       "appearances": 40,
+       "markFiredPct": 97.5,
+       "marksPerFight": 3.5,
+       "blastsPerFight": 3.2,
+       "blastHitPct": 0,
+       "windowsPerFight": 0,
+       "signatureFiredPct": 97.5,
+       "idleTurnsAfterR2Pct": 0,
+       "dealtPerFight": 2786
+      }
+     }
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (probe): Wayfinder + Deck Warden",
+     "boss": false,
+     "reached": 39,
+     "won": 34,
+     "lost": 5,
+     "winPctOfReached": 87.2,
+     "roundsMedian": 7,
+     "roundsP10": 5,
+     "roundsP90": 9,
+     "hpStartPctMedian": 21.6,
+     "hpEndPctMedian": 29.7,
+     "hpEndPctP10": 12.2,
+     "hpLostPctMedian": 0,
+     "cpEndPctMedian": 46.6,
+     "spEndPctMedian": 42.8,
+     "petDealtMedian": 0,
+     "playerDealtMedian": 11598,
+     "playerIdleTurnsPct": 3,
+     "dodge": {
+      "threatened": 70,
+      "dodged": 60,
+      "failedRooted": 9,
+      "failedNoPath": 1,
+      "failedOther": 0,
+      "stepsTaken": 80
+     },
+     "enemies": {
+      "Wayfinder": {
+       "appearances": 39,
+       "markFiredPct": 100,
+       "marksPerFight": 2.6,
+       "blastsPerFight": 2.2,
+       "blastHitPct": 9.3,
+       "windowsPerFight": 0,
+       "signatureFiredPct": 100,
+       "idleTurnsAfterR2Pct": 0,
+       "dealtPerFight": 690
+      },
+      "Deck Warden": {
+       "appearances": 39,
+       "markFiredPct": 100,
+       "marksPerFight": 1.3,
+       "blastsPerFight": 1,
+       "blastHitPct": 7.5,
+       "windowsPerFight": 0,
+       "signatureFiredPct": 48.7,
+       "idleTurnsAfterR2Pct": 0,
+       "dealtPerFight": 319
+      }
+     }
+    }
+   ],
+   "perSeed": [
+    {
+     "seed": 1,
+     "status": "lost at fight 4 (wipe)",
+     "hp": [
+      118,
+      98,
+      0,
+      0
+     ],
+     "rounds": [
+      4,
+      5,
+      22,
+      3
+     ]
+    },
+    {
+     "seed": 2,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      5,
+      10
+     ],
+     "rounds": [
+      4,
+      5,
+      20,
+      8
+     ]
+    },
+    {
+     "seed": 3,
+     "status": "won",
+     "hp": [
+      119,
+      98,
+      59,
+      53
+     ],
+     "rounds": [
+      4,
+      5,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 4,
+     "status": "lost at fight 4 (wipe)",
+     "hp": [
+      124,
+      98,
+      3,
+      0
+     ],
+     "rounds": [
+      4,
+      5,
+      20,
+      4
+     ]
+    },
+    {
+     "seed": 5,
+     "status": "won",
+     "hp": [
+      124,
+      105,
+      22,
+      39
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      5
+     ]
+    },
+    {
+     "seed": 6,
+     "status": "won",
+     "hp": [
+      118,
+      98,
+      59,
+      30
+     ],
+     "rounds": [
+      4,
+      5,
+      10,
+      9
+     ]
+    },
+    {
+     "seed": 7,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      69,
+      83
+     ],
+     "rounds": [
+      4,
+      5,
+      10,
+      7
+     ]
+    },
+    {
+     "seed": 8,
+     "status": "lost at fight 4 (wipe)",
+     "hp": [
+      118,
+      105,
+      22,
+      0
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      3
+     ]
+    },
+    {
+     "seed": 9,
+     "status": "won",
+     "hp": [
+      118,
+      98,
+      3,
+      15
+     ],
+     "rounds": [
+      4,
+      5,
+      20,
+      7
+     ]
+    },
+    {
+     "seed": 10,
+     "status": "lost at fight 4 (wipe)",
+     "hp": [
+      118,
+      105,
+      5,
+      0
+     ],
+     "rounds": [
+      4,
+      5,
+      20,
+      6
+     ]
+    },
+    {
+     "seed": 11,
+     "status": "won",
+     "hp": [
+      118,
+      98,
+      3,
+      21
+     ],
+     "rounds": [
+      4,
+      5,
+      20,
+      7
+     ]
+    },
+    {
+     "seed": 12,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      61,
+      56
+     ],
+     "rounds": [
+      4,
+      5,
+      11,
+      7
+     ]
+    },
+    {
+     "seed": 13,
+     "status": "won",
+     "hp": [
+      124,
+      105,
+      61,
+      61
+     ],
+     "rounds": [
+      4,
+      5,
+      10,
+      9
+     ]
+    },
+    {
+     "seed": 14,
+     "status": "won",
+     "hp": [
+      118,
+      98,
+      20,
+      35
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      6
+     ]
+    },
+    {
+     "seed": 15,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      23,
+      16
+     ],
+     "rounds": [
+      4,
+      5,
+      16,
+      8
+     ]
+    },
+    {
+     "seed": 16,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      23,
+      30
+     ],
+     "rounds": [
+      4,
+      5,
+      16,
+      7
+     ]
+    },
+    {
+     "seed": 17,
+     "status": "lost at fight 3 (wipe)",
+     "hp": [
+      124,
+      105,
+      0
+     ],
+     "rounds": [
+      4,
+      5,
+      6
+     ]
+    },
+    {
+     "seed": 18,
+     "status": "won",
+     "hp": [
+      118,
+      98,
+      22,
+      17
+     ],
+     "rounds": [
+      4,
+      5,
+      16,
+      7
+     ]
+    },
+    {
+     "seed": 19,
+     "status": "won",
+     "hp": [
+      119,
+      98,
+      20,
+      38
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      7
+     ]
+    },
+    {
+     "seed": 20,
+     "status": "won",
+     "hp": [
+      124,
+      98,
+      20,
+      27
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      8
+     ]
+    },
+    {
+     "seed": 21,
+     "status": "won",
+     "hp": [
+      124,
+      98,
+      22,
+      20
+     ],
+     "rounds": [
+      4,
+      5,
+      16,
+      9
+     ]
+    },
+    {
+     "seed": 22,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      22,
+      6
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      9
+     ]
+    },
+    {
+     "seed": 23,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      22,
+      31
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      5
+     ]
+    },
+    {
+     "seed": 24,
+     "status": "lost at fight 4 (wipe)",
+     "hp": [
+      124,
+      105,
+      22,
+      0
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      4
+     ]
+    },
+    {
+     "seed": 25,
+     "status": "won",
+     "hp": [
+      124,
+      98,
+      22,
+      19
+     ],
+     "rounds": [
+      4,
+      5,
+      16,
+      6
+     ]
+    },
+    {
+     "seed": 26,
+     "status": "won",
+     "hp": [
+      119,
+      105,
+      23,
+      42
+     ],
+     "rounds": [
+      4,
+      5,
+      16,
+      7
+     ]
+    },
+    {
+     "seed": 27,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      5,
+      22
+     ],
+     "rounds": [
+      4,
+      5,
+      20,
+      7
+     ]
+    },
+    {
+     "seed": 28,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      22,
+      30
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      7
+     ]
+    },
+    {
+     "seed": 29,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      21,
+      12
+     ],
+     "rounds": [
+      4,
+      5,
+      16,
+      7
+     ]
+    },
+    {
+     "seed": 30,
+     "status": "won",
+     "hp": [
+      124,
+      105,
+      21,
+      40
+     ],
+     "rounds": [
+      4,
+      5,
+      16,
+      7
+     ]
+    },
+    {
+     "seed": 31,
+     "status": "won",
+     "hp": [
+      118,
+      98,
+      59,
+      44
+     ],
+     "rounds": [
+      4,
+      5,
+      10,
+      9
+     ]
+    },
+    {
+     "seed": 32,
+     "status": "won",
+     "hp": [
+      124,
+      105,
+      22,
+      7
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      9
+     ]
+    },
+    {
+     "seed": 33,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      22,
+      19
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      6
+     ]
+    },
+    {
+     "seed": 34,
+     "status": "won",
+     "hp": [
+      124,
+      105,
+      22,
+      24
+     ],
+     "rounds": [
+      4,
+      5,
+      15,
+      8
+     ]
+    },
+    {
+     "seed": 35,
+     "status": "won",
+     "hp": [
+      118,
+      98,
+      20,
+      15
+     ],
+     "rounds": [
+      4,
+      5,
+      16,
+      7
+     ]
+    },
+    {
+     "seed": 36,
+     "status": "won",
+     "hp": [
+      124,
+      98,
+      3,
+      13
+     ],
+     "rounds": [
+      4,
+      5,
+      20,
+      8
+     ]
+    },
+    {
+     "seed": 37,
+     "status": "won",
+     "hp": [
+      124,
+      105,
+      21,
+      40
+     ],
+     "rounds": [
+      4,
+      5,
+      16,
+      7
+     ]
+    },
+    {
+     "seed": 38,
+     "status": "won",
+     "hp": [
+      124,
+      105,
+      61,
+      56
+     ],
+     "rounds": [
+      4,
+      5,
+      10,
+      9
+     ]
+    },
+    {
+     "seed": 39,
+     "status": "won",
+     "hp": [
+      118,
+      105,
+      21,
+      39
+     ],
+     "rounds": [
+      4,
+      5,
+      16,
+      5
+     ]
+    },
+    {
+     "seed": 40,
+     "status": "won",
+     "hp": [
+      118,
+      98,
+      59,
+      77
+     ],
+     "rounds": [
+      4,
+      5,
+      11,
+      5
+     ]
+    }
+   ]
+  }
+ ],
+ "fallbackGuard": {
+  "setPieceCasts": 655,
+  "unmarkedCasts": 0,
+  "byEnemyJutsu": {},
+  "first": []
+ }
+}
