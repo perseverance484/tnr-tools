@@ -10,7 +10,7 @@ import { join } from "node:path";
 
 const root = process.argv[2];
 if (!root || !existsSync(join(root, "app/src/validators/combat.ts")) || !existsSync(join(root, "app/drizzle/schema.ts"))) { console.error("usage: derive_fields.mjs <TheNinjaRPG checkout>"); process.exit(2); }
-const PIN = process.argv[3] || "2af4b32066c39e2868efae5dba6b339278701dca";
+const PIN = process.argv[3] || "3314d122c93e036618483d18229a793ad7ad21fd";
 
 const TARGETS = {
   jutsu:     { file: "app/src/validators/combat.ts",     name: "JutsuValidatorRawSchema" },
@@ -21,6 +21,8 @@ const TARGETS = {
   petSpecies: { file: "app/src/validators/petSpecies.ts", name: "PetSpeciesValidator" },
   badge:     { file: "app/src/validators/badge.ts",      name: "BadgeValidator" },
   title:     { file: "app/src/validators/title.ts",      name: "TitleValidator" },
+  // the `variant` record of item.upsertItemVariant {itemId, variant} (validators/item.ts at 3314d122)
+  itemVariant: { file: "app/src/validators/item.ts",     name: "ItemVariantValidator" },
 };
 
 /** Text between a brace opened just before `from`, and its match. */

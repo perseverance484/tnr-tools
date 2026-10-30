@@ -1,16 +1,17 @@
 {
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-10-28",
-  "source_drop": "git:studie-tech/TheNinjaRPG@2af4b320 (2026-10-28)",
+  "extracted": "2026-10-29",
+  "source_drop": "git:studie-tech/TheNinjaRPG@3314d122 (2026-10-29)",
   "source_sha256_16": {
-   "app/drizzle/constants.ts": "20c99bed58d1dd52",
-   "app/src/validators/ai.ts": "889a5bcdae666e2d",
-   "app/src/validators/asset.ts": "b4a1cb632651922e",
+   "app/drizzle/constants.ts": "f39417940b09b025",
+   "app/src/validators/ai.ts": "c9c1367baf197eb2",
+   "app/src/validators/asset.ts": "e17002268211aa1a",
    "app/src/validators/badge.ts": "f4e98913bfff6e9a",
-   "app/src/validators/combat.ts": "e050191dc5b1998c",
-   "app/src/validators/objectives.ts": "fc25e25c75ca6f09",
-   "app/src/validators/petSpecies.ts": "22a7eb10b9e92c91",
+   "app/src/validators/combat.ts": "c0b5b4d278b95d4e",
+   "app/src/validators/item.ts": "4f09d26fe539a26b",
+   "app/src/validators/objectives.ts": "049d96b3b9a98bff",
+   "app/src/validators/petSpecies.ts": "eb5c1fb9bfe333ee",
    "app/src/validators/title.ts": "e0cc20712903bc6d"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
@@ -494,6 +495,7 @@
      "schema_ref": "furnitureDataSchema",
      "raw": "furnitureDataSchema.nullable().prefault(null)",
      "nullable": true,
+     "default": null,
      "spread_from": "furnitureItemSchema"
     },
     "name": {
@@ -1725,11 +1727,12 @@
      "nullable": false
     },
     "folder": {
-     "raw": "z.string().regex(/^[a-zA-Z0-9]*$/, \"Folder name can only contain letters and numbers\").optional()",
+     "raw": "z.string().max(191).regex(/^[a-zA-Z0-9]*$/, \"Folder name can only contain letters and numbers\").optional()",
      "type": "string",
      "coerce": false,
      "optional": true,
-     "nullable": false
+     "nullable": false,
+     "max": 191
     }
    }
   },
@@ -1885,24 +1888,15 @@
      "shape_ref": "petAiProfileSchema.shape.includeDefaultRules"
     },
     "effects": {
-     "raw": "z.array(AllTags).superRefine(SuperRefineEffects).superRefine(SuperRefinePassiveEffects).superRefine((effects, ctx) => { effects.forEach((effect, index) => { if (effect.type === \"barrier\" || effect.type === \"move\") { ctx.addIssue({ code: \"cu",
+     "raw": "z.array(PetSpeciesEffect).superRefine(SuperRefineEffects).superRefine(SuperRefinePassiveEffects).superRefine(rejectActivityBonuses).superRefine((effects, ctx) => { effects.forEach((effect, index) => { if (effect.type === \"barrier\" || effect",
      "type": "array",
      "coerce": false,
      "optional": false,
      "nullable": false,
      "default": [],
-     "items_ref": "AllTags",
+     "items_ref": "PetSpeciesEffect",
      "_superRefine": "SuperRefineEffects",
      "doc": "Innate skills have no selected empty-ground destination.\n        effects.forEach((effect, index) => {\n          if (effect.type === \"barrier\" || effect.type === \"move\") {\n            ctx.addIssue({\n              code: \"custom\",\n              path: [index, \"type\"],\n              message: `${effect.ty"
-    },
-    "skillTarget": {
-     "raw": "z.enum(PetSkillTargets).default(\"SELF\")",
-     "type": "enum",
-     "coerce": false,
-     "optional": false,
-     "nullable": false,
-     "default": "SELF",
-     "enum_ref": "PetSkillTargets"
     }
    }
   },
@@ -1976,6 +1970,93 @@
      "coerce": false,
      "optional": false,
      "nullable": false
+    }
+   }
+  },
+  "itemVariant": {
+   "source": "app/src/validators/item.ts",
+   "schema": "ItemVariantValidator",
+   "superRefine": [],
+   "fields": {
+    "id": {
+     "raw": "z.string().optional()",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": false
+    },
+    "name": {
+     "raw": "z.string().trim().min(1, \"Name required\")",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "image": {
+     "raw": "z.string().min(1, \"Image required\")",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "requiredItemId": {
+     "raw": "z.string().trim().min(1).nullable().prefault(null)",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true,
+     "default": null,
+     "min": 1
+    },
+    "costType": {
+     "raw": "z.enum(VARIANT_COST_TYPES)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "VARIANT_COST_TYPES"
+    },
+    "cost": {
+     "raw": "z.coerce.number().int().min(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0
+    },
+    "order": {
+     "raw": "z.coerce.number().int().min(1).max(MAX_ITEM_VARIANTS)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 1,
+     "max_ref": "MAX_ITEM_VARIANTS",
+     "max": 7
+    },
+    "description": {
+     "raw": "z.string().optional()",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": false,
+     "doc": ".optional() (string | undefined) is correct here: the form treats absent fields as\n  // undefined, not null. The tRPC output schema uses .nullish() because MySQL returns SQL NULL.\n  description: z.string().optional()"
+    },
+    "battleDescription": {
+     "raw": "z.string().optional()",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": false
+    },
+    "furnitureData": {
+     "type": "object",
+     "schema_ref": "furnitureVariantDataSchema",
+     "raw": "furnitureVariantDataSchema.nullable().prefault(null)",
+     "nullable": true,
+     "default": null
     }
    }
   }

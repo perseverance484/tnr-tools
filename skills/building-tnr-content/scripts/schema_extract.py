@@ -595,7 +595,41 @@ def build_constructors(repo: str) -> dict:
     return {"unions": ctors,
             "objects": {k: {f: r for f, r in v.items() if not r.get("_bare")}
                         for k, v in objects.items()},
-            "enums": enums}
+            "enums": enums,
+            "intersections": parse_intersections(repo, ctx, enums)}
+
+
+# `export const X = Union.and(z.object({...}))`: every member of Union, plus these keys
+# (PetSpeciesEffect = AllTags.and(z.object({ skillTarget })), validators/petSpecies.ts at 3314d122,
+# where skillTarget moved from the species onto each innate effect).
+INTERSECTION_FILES = ["app/src/validators/petSpecies.ts"]
+INTERSECTION_RE = re.compile(r"export const (\w+)\s*=\s*(\w+)\s*\.\s*and\(\s*z\s*\.\s*object\(\s*\{")
+
+
+def parse_intersections(repo, ctx, enums):
+    out = {}
+    for rel in INTERSECTION_FILES:
+        p = os.path.join(repo, rel)
+        if not os.path.exists(p):
+            continue
+        src = open(p).read()
+        for m in INTERSECTION_RE.finditer(src):
+            a, b = balanced(src, m.end() - 1)
+            fields = {}
+            _apply_body(fields, src[a + 1:b], ctx, rel, ())
+            spec = {}
+            for f, r in fields.items():
+                fs = {"type": r.get("type", "unknown")}
+                for k in ("default", "optional", "nullable"):
+                    if r.get(k) is not None and r.get(k) is not False:
+                        fs[k] = r[k]
+                if r.get("enum_ref"):
+                    fs["enum_ref"] = r["enum_ref"]
+                    if r["enum_ref"] in enums:
+                        fs["enum"] = sorted(enums[r["enum_ref"]])
+                spec[f] = fs
+            out[m.group(1)] = {"source": rel, "base": m.group(2), "fields": spec}
+    return out
 
 
 def emit_shapes(repo: str) -> dict:
@@ -644,7 +678,7 @@ def emit_ctors(repo: str, zipname=None) -> dict:
                     if k not in members and any(t in k for t in
                     ("Objective", "Quest", "Reward", "Attributes", "Stats"))}
     return {
-        "_generated_from": CTOR_FILES + [CONST_FILE],
+        "_generated_from": CTOR_FILES + (INTERSECTION_FILES if c["intersections"] else []) + [CONST_FILE],
         "_contract": {
             "purpose": "Build payload objects from these; never hand-author a tagged shape.",
             "usage": ("Pick the union, pick the member by its discriminant value, emit every field. "
@@ -655,11 +689,12 @@ def emit_ctors(repo: str, zipname=None) -> dict:
                       "top-level enums/objects blocks had no consumer and are no longer emitted."),
         },
         "unions": ai,
-        "_provenance": _ctor_provenance(repo, ai, zipname),
+        **({"intersections": c["intersections"]} if c["intersections"] else {}),
+        "_provenance": _ctor_provenance(repo, ai, zipname, c["intersections"]),
     }
 
 
-def _ctor_provenance(repo, unions, zipname):
+def _ctor_provenance(repo, unions, zipname, intersections=None):
     """45c's stamp. content_sha256_16 fingerprints the payload (sha256 of
     json.dumps(unions, sort_keys=True)), as the 2026-08-30 file did by hand."""
     import hashlib
@@ -669,7 +704,8 @@ def _ctor_provenance(repo, unions, zipname):
         "extracted": datetime.date.today().isoformat(),
         "source_drop": zipname or os.path.basename(repo.rstrip("/")),
         "content_sha256_16": hashlib.sha256(
-            json.dumps(unions, sort_keys=True).encode()).hexdigest()[:16],
+            json.dumps(unions if not intersections else {"unions": unions, "intersections": intersections},
+                       sort_keys=True).encode()).hexdigest()[:16],
         "contract": ("GENERATED. Do not hand-edit. content_sha256_16 fingerprints the payload, "
                      "not the stamp: two files claiming the same generator, drop and date but "
                      "differing in content are detectable by comparing this field."),
@@ -707,6 +743,8 @@ ENTITY_TARGETS = [
     ("petSpecies", "app/src/validators/petSpecies.ts", "PetSpeciesValidator"),
     ("badge",      "app/src/validators/badge.ts",      "BadgeValidator"),
     ("title",      "app/src/validators/title.ts",      "TitleValidator"),
+    # the record inside item.upsertItemVariant {itemId, variant} (validators/item.ts at 3314d122)
+    ("itemVariant", "app/src/validators/item.ts",      "ItemVariantValidator"),
 ]
 
 ROUTER_DIR = "app/src/server/api/routers"
@@ -732,6 +770,23 @@ def _skip(src, i):
         j = src.find("*/", i)
         return len(src) if j < 0 else j + 2
     return None
+
+
+def strip_comments(src):
+    """`src` without its // and /* */ comments; string literals are kept whole, so a `//`
+    inside a string is not a comment. A trailing `// note` after a list member's comma is part
+    of the NEXT member's text once the list is split (COPY_PRIORITY_TIERS at 3314d122)."""
+    out, i = [], 0
+    while i < len(src):
+        s = _skip(src, i)
+        if s is None:
+            out.append(src[i])
+            i += 1
+            continue
+        if src[i] in "\"'`":
+            out.append(src[i:s])
+        i = s
+    return "".join(out)
 
 
 def balanced(src, i, opener="{", closer="}"):
@@ -1035,7 +1090,7 @@ def extract_constants(repo, rel=None):
         elif raw.startswith("["):
             inner = raw[1:-1]
             if "{" not in inner and "(" not in inner:
-                vals = [v.strip().strip("\"'") for v in split_top_args(inner) if v.strip()]
+                vals = [v.strip().strip("\"'") for v in map(strip_comments, split_top_args(inner)) if v.strip()]
                 if vals:
                     entry["value"] = vals
                     entry["kind"] = "list"
@@ -1156,6 +1211,11 @@ def _entity_spec(expr, doc, ctx, rel, cvals):
                 spec["optional"] = True
             if ".nullable()" in chain or ".nullish()" in chain:
                 spec["nullable"] = True
+            # `furnitureVariantDataSchema.nullable().prefault(null)` (ItemVariantValidator at 3314d122):
+            # a literal default makes the key omissible; it used to be reported required on create
+            dm = re.search(r"\.(?:prefault|default)\(\s*(null|true|false|\[\s*\]|\{\s*\}|-?\d+(?:\.\d+)?|\"[^\"]*\")\s*\)", chain)
+            if dm:
+                spec["default"] = json.loads(re.sub(r"\s+", "", dm.group(1)))
     elif "z." in expr or re.match(r"^\w+\(", expr):
         spec = _outer_array_bounds(expr, parse_expr2(expr, helpers, cvals), cvals)
     else:
@@ -1383,9 +1443,19 @@ def emit_constants(repo, zipname=None):
         m = re.search(r"export const AvailableEffectTypes\s*=\s*([^;]*);", src)
         body = m.group(1) if m else ""
         excluded = re.findall(r"!==\s*[\"']([^\"']+)[\"']", body)
+        # `!isActivityBonus({ type })` (3314d122): the activityBonusTypes list in validators/combat.ts
+        bonus = "!isActivityBonus(" in body
+        if bonus:
+            excluded += [t for t in (c.get("activityBonusTypes") or {}).get("value") or [] if t not in excluded]
+        # any other filter term would be silently ignored: say so instead of emitting a wider list
+        rest = re.sub(r"type\s*!==\s*[\"'][^\"']+[\"']|!isActivityBonus\(\s*\{\s*type\s*\}\s*\)|&&|,|\s", "",
+                      strip_comments(body.split("=>", 1)[1].rsplit(")", 1)[0])) if "=>" in body else ""
+        if rest.strip("()"):
+            UNRESOLVED.add("AvailableEffectTypes filter term %r" % rest)
         if body and (excluded or "tagTypes" in body):
-            note = ("tagTypes.filter(type !== %s)" % ", ".join(excluded)) if excluded \
-                else "tagTypes fallback [damage]"
+            note = ("tagTypes.filter(type !== %s%s)" % (", ".join(e for e in excluded if not bonus or e not in
+                    ((c.get("activityBonusTypes") or {}).get("value") or [])), ", !isActivityBonus" if bonus else "")) \
+                if excluded else "tagTypes fallback [damage]"
             c["AvailableEffectTypes"] = {"value": [t for t in tags if t not in excluded],
                                          "kind": "list", "derived_from": note,
                                          "source": "app/src/validators/ai.ts"}

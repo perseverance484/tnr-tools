@@ -27,19 +27,21 @@ const JUTSU = () => structuredClone(fixture("pet_jutsu_create.json").items[0].da
 const harness = (opts = {}) => composeForTest({ game: new FakeGame(), storage: new MemoryStorage(), idb: new IDBFactory(), ...opts });
 
 // ------------------------------------------------------------------ contract
-test("contract: petSpecies field set and procedures at the 2af4b320 pin", () => {
-  assert.equal(FIELDS._provenance.pin, "2af4b32066c39e2868efae5dba6b339278701dca");
-  assert.equal(FIELDS.entities.petSpecies.source, "app/src/validators/petSpecies.ts:20");
+test("contract: petSpecies field set and procedures at the 3314d122 pin", () => {
+  assert.equal(FIELDS._provenance.pin, "3314d122c93e036618483d18229a793ad7ad21fd");
+  assert.equal(FIELDS.entities.petSpecies.source, "app/src/validators/petSpecies.ts:30");
   assert.deepEqual(Object.keys(FIELDS.entities.petSpecies.fields), ["name", "description", "artDirection", "rankConcepts", "rarity", "role",
-    "preferredDamageElement", "isActive", "defaultJutsuIds", "aiRules", "includeDefaultRules", "effects", "skillTarget"]);
+    "preferredDamageElement", "isActive", "defaultJutsuIds", "aiRules", "includeDefaultRules", "effects"]);
+  // 3314d122: skillTarget left the species for each innate effect (PetSpeciesEffect = AllTags.and({skillTarget}))
+  assert.deepEqual(NESTED.sets[NESTED.petSpeciesEffect], ["skillTarget"]);
   assert.ok(FIELDS.entities.jutsu.fields.requiredPetSpeciesId, "jutsu carries the species lock");
-  assert.equal(FIELDS.entities.ai.source, "app/src/validators/aiInput.ts:12", "insertAiSchema moved out of drizzle/schema.ts upstream");
+  assert.equal(FIELDS.entities.ai.source, "app/src/validators/aiInput.ts:13", "insertAiSchema moved out of drizzle/schema.ts upstream");
   for (const p of ["petSpecies.create", "petSpecies.update"]) assert.equal(PROCEDURES[p].auth, "protected", p);
   for (const p of ["petSpecies.get", "petSpecies.getAll"]) assert.deepEqual([PROCEDURES[p].auth, PROCEDURES[p].limited], ["public", true], p);
   assert.deepEqual(PET_SLOTS, { COMMON: 2, UNCOMMON: 3, RARE: 4, EPIC: 5, LEGENDARY: 6 });
 });
 
-test("contract: the hand-held pet rules still match the pinned source, when a checkout is supplied", { skip: !process.env.TNR_GAME_CHECKOUT && "set TNR_GAME_CHECKOUT to a checkout at 2af4b320" }, () => {
+test("contract: the hand-held pet rules still match the pinned source, when a checkout is supplied", { skip: !process.env.TNR_GAME_CHECKOUT && "set TNR_GAME_CHECKOUT to a checkout at 3314d122" }, () => {
   const root = process.env.TNR_GAME_CHECKOUT;
   const src = readFileSync(join(root, "app/src/libs/pets/abilities.ts"), "utf8");
   const set = /const activeEffects = new Set<[^>]*>\(\[([\s\S]*?)\]\)/.exec(src)[1].match(/"([^"]+)"/g).map((s) => s.slice(1, -1));

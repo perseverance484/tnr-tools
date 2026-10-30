@@ -105,12 +105,14 @@ class Contracts(unittest.TestCase):
         c, d, k, g = (json.loads((DATA / f).read_text()) for f in (
             "45c_DATA_constructors.json", "45d_DATA_entity_schemas.json", "45e_DATA_constants.json", "45g_DATA_checks.json"))
         k = k["constants"]
-        self.assertIn("2af4b320", d["_provenance"]["source_drop"])
+        self.assertIn("3314d122", d["_provenance"]["source_drop"])  # re-pinned from 2af4b320 (RUL-2026-10-29-047)
         self.assertIn("reward_pet_experience", c["unions"]["AllTags"]["noncombatconsumereward"]["fields"])
         self.assertIn("reward_pets", c["unions"]["AllTags"]["noncombatconsumereward"]["fields"])
         self.assertEqual(sorted(d["entities"]["petSpecies"]["fields"]), sorted(
             ["name", "description", "artDirection", "rankConcepts", "rarity", "role", "preferredDamageElement",
-             "isActive", "defaultJutsuIds", "aiRules", "includeDefaultRules", "effects", "skillTarget"]))
+             "isActive", "defaultJutsuIds", "aiRules", "includeDefaultRules", "effects"]))
+        # 3314d122: skillTarget moved from the species onto each innate effect
+        self.assertEqual(sorted(c["intersections"]["PetSpeciesEffect"]["fields"]), ["skillTarget"])
         self.assertIn("requiredPetSpeciesId", d["entities"]["jutsu"]["fields"])
         self.assertIn("PETS", g["enums"]["fields"]["jutsu"]["jutsuType"])
         self.assertEqual(k["PET_AI_ACTION_TYPES"]["value"], ["move_towards_opponent", "end_turn", "use_highest_power_action"])

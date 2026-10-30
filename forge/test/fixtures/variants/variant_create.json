@@ -1,0 +1,60 @@
+{
+ "_note": "Item variant builder fixture (forge/test/fixtures/variants). Not content: never pushed. Step 1 of a 1:1 trophy: the token (variantId null) and the variant that requires it.",
+ "items": [
+  {
+   "entity": "item",
+   "slot": "create",
+   "name": "Fixture Trophy Token",
+   "srcId": "fx_token",
+   "data": {
+    "name": "Fixture Trophy Token",
+    "description": "Unlocks the fixture trophy look on its base item.",
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "destroyOnUse": true,
+    "preventBattleUsage": true,
+    "canBeTraded": false,
+    "hidden": true,
+    "effects": [
+     {
+      "type": "unlockitemvariant",
+      "variantId": null,
+      "description": "Unlocks a token-locked item variant when used on an item",
+      "power": 1,
+      "powerPerLevel": 0,
+      "calculation": "static",
+      "direction": "offence",
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "target": "SELF"
+     }
+    ]
+   }
+  },
+  {
+   "entity": "itemVariant",
+   "slot": "create",
+   "name": "Fixture Trophy",
+   "srcId": "fx_trophy",
+   "data": {
+    "itemId": "trophyBaseItem0000001",
+    "name": "Fixture Trophy",
+    "image": "https://utfs.io/f/fixture-trophy.webp",
+    "requiredItemId": "@item:fx_token",
+    "costType": "VARIANT_TOKEN",
+    "cost": 0,
+    "order": 2,
+    "description": "A fixture trophy look.",
+    "battleDescription": "A fixture trophy flashes.",
+    "hidden": true
+   }
+  }
+ ]
+}

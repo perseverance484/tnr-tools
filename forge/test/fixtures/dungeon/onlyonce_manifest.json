@@ -1,0 +1,144 @@
+{
+ "_note": "Forge dungeon fixture: a once-per-player drop (onlyOnce, 3314d122). Offline only; never pushed.",
+ "items": [
+  {
+   "entity": "dungeon",
+   "slot": "create",
+   "name": "Skyglass Wreck (once)",
+   "srcId": "fixture-once",
+   "data": {
+    "name": "Skyglass Wreck (once)",
+    "description": "A downed warship on the tideline.",
+    "sector": 222,
+    "longitude": 12,
+    "latitude": 7,
+    "expiresAt": null,
+    "hidden": true,
+    "background": "ocean",
+    "tiers": [
+     [
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-1"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-2"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-3"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-4"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "mini-boss",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-5"
+         ]
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-6"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-7"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-8"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-9"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "boss",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-10"
+         ]
+        }
+       ]
+      }
+     ]
+    ],
+    "rewards": {
+     "money": 5000,
+     "experience": 2000,
+     "drops": [
+      {
+       "type": "item",
+       "id": "chest-1",
+       "chance": 100
+      },
+      {
+       "type": "item",
+       "id": "jar-1",
+       "chance": 4,
+       "onlyOnce": true
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

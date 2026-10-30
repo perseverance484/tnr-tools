@@ -1,12 +1,12 @@
 // @refs. `@jutsu:key`, `@ai:key`, `@item:key`, `@quest:key`, `@bloodline:key`, `@scene:key`
-// (asset), `@petSpecies:key`, `@badge:key` and `@title:key` resolve to ids minted by an earlier create in this job or by a
+// (asset), `@petSpecies:key`, `@badge:key`, `@title:key` and `@variant:key` (itemVariant) resolve to ids minted by an earlier create in this job or by a
 // previous job (the retained tnr_bk_idmap_v1). `@img:name` resolves to an uploaded URL.
 //
 // The lesson from push/16 (unresolved pool codes shipped as literals and were stripped
 // server-side with a green row): resolution is checked, and an unresolved ref at send time is
 // a hard failure, never a payload.
 
-export const REF_RE = /^@(jutsu|ai|scene|item|quest|bloodline|img|skillTree|skillTreeFolder|petSpecies|badge|title):(.+)$/;
+export const REF_RE = /^@(jutsu|ai|scene|item|quest|bloodline|img|skillTree|skillTreeFolder|petSpecies|badge|title|variant):(.+)$/;
 export const DOUBLED_RE = /^@\w+:@\w+:/; // law 45: a doubled prefix survives a naive sweep
 
 /** Walk any value and collect refs as {pfx, key, path}. */

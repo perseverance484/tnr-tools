@@ -1,17 +1,17 @@
 {
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-10-28",
-  "source_drop": "git:studie-tech/TheNinjaRPG@2af4b320 (2026-10-28)",
+  "extracted": "2026-10-29",
+  "source_drop": "git:studie-tech/TheNinjaRPG@3314d122 (2026-10-29)",
   "source_sha256_16": {
-   "app/drizzle/constants.ts": "20c99bed58d1dd52",
+   "app/drizzle/constants.ts": "f39417940b09b025",
    "app/src/libs/combat/constants.ts": "0fc218f26d6304ca",
-   "app/src/validators/combat.ts": "e050191dc5b1998c",
-   "app/src/validators/objectives.ts": "fc25e25c75ca6f09",
-   "app/src/validators/ai.ts": "889a5bcdae666e2d",
+   "app/src/validators/combat.ts": "c0b5b4d278b95d4e",
+   "app/src/validators/objectives.ts": "049d96b3b9a98bff",
+   "app/src/validators/ai.ts": "c9c1367baf197eb2",
    "app/src/validators/quest.ts": "7e8d877078f933f6",
-   "app/src/validators/item.ts": "e3f9f841fcc08fd8",
-   "app/src/validators/pets.ts": "ac649e0c7429ee14"
+   "app/src/validators/item.ts": "4f09d26fe539a26b",
+   "app/src/validators/pets.ts": "14a8011b9a577577"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
  },
@@ -20,11 +20,24 @@
   "kinds": "number|string|boolean|list|array_expr|expr. `value` present only when statically resolvable; `raw` is always the source text.",
   "local_enums": "Entries carrying `source` are const arrays defined inside a validator file, not constants.ts. They are folded in here so every enum_ref in 45c/45d resolves in one place."
  },
- "count": 1288,
+ "count": 1309,
  "constants": {
+  "TAVERN_IMAGE_MAX_SIZE_MB": {
+   "raw": "4",
+   "order": 0,
+   "doc": "Original images shared through posts and conversations.",
+   "value": 4,
+   "kind": "number"
+  },
+  "TAVERN_IMAGE_UPLOAD_DAILY_LIMIT": {
+   "raw": "50",
+   "order": 1,
+   "value": 50,
+   "kind": "number"
+  },
   "OCCUPATIONS": {
    "raw": "[\"GATHERING\", \"HUNTER\", \"CRAFTING\"]",
-   "order": 0,
+   "order": 2,
    "value": [
     "GATHERING",
     "HUNTER",
@@ -34,7 +47,7 @@
   },
   "CURRENCY_TYPES": {
    "raw": "[\"MONEY\", \"REPUTATION\", \"SEICHI_SILVER\"]",
-   "order": 1,
+   "order": 3,
    "value": [
     "MONEY",
     "REPUTATION",
@@ -44,7 +57,7 @@
   },
   "VARIANT_COST_TYPES": {
    "raw": "[\n  \"MONEY\",\n  \"REPUTATION\",\n  \"SEICHI_SILVER\",\n  \"VILLAGE_PRESTIGE\",\n  \"VARIANT_TOKEN\",\n]",
-   "order": 2,
+   "order": 4,
    "value": [
     "MONEY",
     "REPUTATION",
@@ -56,20 +69,20 @@
   },
   "MAX_ITEM_VARIANTS": {
    "raw": "7",
-   "order": 3,
+   "order": 5,
    "value": 7,
    "kind": "number"
   },
   "STRONGEST_USERS_COUNT": {
    "raw": "10",
-   "order": 4,
+   "order": 6,
    "doc": "Rows in the sidebar banner of users with the most ranked LP.",
    "value": 10,
    "kind": "number"
   },
   "ItemPurchaseLimitPeriods": {
    "raw": "[\"NONE\", \"DAILY\", \"WEEKLY\", \"MONTHLY\"]",
-   "order": 5,
+   "order": 7,
    "value": [
     "NONE",
     "DAILY",
@@ -80,39 +93,39 @@
   },
   "MAX_ITEM_PURCHASE_LIMIT": {
    "raw": "100",
-   "order": 6,
+   "order": 8,
    "value": 100,
    "kind": "number"
   },
   "MAX_ITEM_STACK_SIZE": {
    "raw": "9_999",
-   "order": 7,
+   "order": 9,
    "value": 9999,
    "kind": "number"
   },
   "MAX_ITEM_CRAFTING_REQUIREMENT_QUANTITY": {
    "raw": "MAX_ITEM_STACK_SIZE",
-   "order": 8,
+   "order": 10,
    "kind": "number",
    "value": 9999,
    "alias_of": "MAX_ITEM_STACK_SIZE"
   },
   "MAX_ITEM_SHOP_PURCHASE_QUANTITY": {
    "raw": "50",
-   "order": 9,
+   "order": 11,
    "value": 50,
    "kind": "number"
   },
   "MIN_ITEM_SHOP_DISCOUNT_FACTOR": {
    "raw": "0.05",
-   "order": 10,
+   "order": 12,
    "doc": "Minimum fraction of the configured Ryo price retained after item-shop discounts.",
    "value": 0.05,
    "kind": "number"
   },
   "ActivityStreakTypes": {
    "raw": "[\"RECURRING\", \"EVENT_PASS\"]",
-   "order": 11,
+   "order": 13,
    "value": [
     "RECURRING",
     "EVENT_PASS"
@@ -121,60 +134,23 @@
   },
   "TRADEABLE_CURRENCY_TYPES": {
    "raw": "[\"MONEY\", \"REPUTATION\"]",
-   "order": 12,
+   "order": 14,
    "value": [
     "MONEY",
     "REPUTATION"
    ],
    "kind": "list"
   },
-  "STATUS_LAYER": {
-   "raw": "-3",
-   "order": 13,
-   "doc": "Threejs drawing layers",
-   "value": -3,
-   "kind": "number"
-  },
-  "USER_LAYER": {
-   "raw": "-4",
-   "order": 14,
-   "value": -4,
-   "kind": "number"
-  },
-  "ASSETS_LAYER": {
-   "raw": "-5",
-   "order": 15,
-   "value": -5,
-   "kind": "number"
-  },
-  "EFFECTS_LAYER": {
-   "raw": "-6",
-   "order": 16,
-   "value": -6,
-   "kind": "number"
-  },
-  "TILES_LAYER": {
-   "raw": "-9",
-   "order": 17,
-   "value": -9,
-   "kind": "number"
-  },
-  "DIRT_LAYER": {
-   "raw": "-10",
-   "order": 18,
-   "value": -10,
-   "kind": "number"
-  },
   "OCCUPATION_CHANGE_COOLDOWN_DAYS": {
    "raw": "3",
-   "order": 19,
+   "order": 15,
    "doc": "Occupation config",
    "value": 3,
    "kind": "number"
   },
   "PollOptionTypes": {
    "raw": "[\"text\", \"user\"]",
-   "order": 20,
+   "order": 16,
    "value": [
     "text",
     "user"
@@ -183,7 +159,7 @@
   },
   "STARTER_VILLAGES": {
    "raw": "[\n  \"NONE\",\n  \"SHIROHANA\",\n  \"TSUKIMORI\",\n  \"HYORIN\",\n  \"AKASUMI\",\n  \"AKIKAZE\",\n]",
-   "order": 21,
+   "order": 17,
    "value": [
     "NONE",
     "SHIROHANA",
@@ -196,7 +172,7 @@
   },
   "ACTIVE_VOTING_SITES": {
    "raw": "[\"mmoHub\", \"arenaTop100\", \"topWebGames\"]",
-   "order": 22,
+   "order": 18,
    "doc": "bbogd.com stopped resolving (Oct 2026); its UserVote column is kept but no longer active",
    "value": [
     "mmoHub",
@@ -207,7 +183,7 @@
   },
   "GameAssetTypes": {
    "raw": "[\n  \"STATIC\",\n  \"ANIMATION\",\n  \"SCENE_BACKGROUND\",\n  \"SCENE_CHARACTER\",\n  \"SFX\",\n  \"MUSIC\",\n]",
-   "order": 23,
+   "order": 19,
    "value": [
     "STATIC",
     "ANIMATION",
@@ -220,7 +196,7 @@
   },
   "IMG_ORIENTATIONS": {
    "raw": "[\"square\", \"portrait\", \"landscape\"]",
-   "order": 24,
+   "order": 20,
    "doc": "Image orientations",
    "value": [
     "square",
@@ -231,21 +207,21 @@
   },
   "REGEN_SECONDS": {
    "raw": "60",
-   "order": 25,
+   "order": 21,
    "doc": "How many seconds to regen a given regen value",
    "value": 60,
    "kind": "number"
   },
   "TITLE_MAX_EFFECTS": {
    "raw": "20",
-   "order": 26,
+   "order": 22,
    "doc": "Shared bound for authored title bonuses in validation and the staff editor.",
    "value": 20,
    "kind": "number"
   },
   "ContentTypes": {
    "raw": "[\n  \"activityStreak\",\n  \"asset\",\n  \"ai\",\n  \"badge\",\n  \"title\",\n  \"bloodline\",\n  \"bloodline_reskin\",\n  \"item\",\n  \"jutsu\",\n  \"jutsu_reskin\",\n  \"mapAsset\",\n  \"mapTerrain\",\n  \"quest\",\n  \"sageMode\",\n  \"user\",\n  \"skillTree\",\n  \"towerDefenseCharacter\",\n  \"towerDefenseUpgrade\",\n  \"guide\",\n]",
-   "order": 27,
+   "order": 23,
    "value": [
     "activityStreak",
     "asset",
@@ -271,7 +247,7 @@
   },
   "GuideCategories": {
    "raw": "[\n  \"getting-started\",\n  \"combat\",\n  \"world\",\n  \"villages\",\n  \"bloodlines\",\n  \"farming\",\n  \"economy\",\n  \"ranks\",\n  \"reference\",\n]",
-   "order": 28,
+   "order": 24,
    "value": [
     "getting-started",
     "combat",
@@ -287,13 +263,13 @@
   },
   "GUIDE_CATEGORY_LABELS": {
    "raw": "{\n  \"getting-started\": \"Getting Started\",\n  combat: \"Combat\",\n  world: \"World & Travel\",\n  villages: \"Villages\",\n  bloodlines: \"Bloodlines\",\n  farming: \"Farming\",\n  economy: \"Economy\",\n  ranks: \"Ranks\",\n  reference: \"Reference\",\n}",
-   "order": 29,
+   "order": 25,
    "ts_type": "Record<GuideCategory, string>",
    "kind": "expr"
   },
   "GUIDE_HUB_CATEGORY_ORDER": {
    "raw": "[\n  \"getting-started\",\n  \"combat\",\n  \"world\",\n  \"villages\",\n  \"economy\",\n  \"ranks\",\n  \"bloodlines\",\n  \"farming\",\n  \"reference\",\n]",
-   "order": 30,
+   "order": 26,
    "ts_type": "GuideCategory[]",
    "doc": "Hub and tab order. Kept separate from `GuideCategories` so the SQL enum does not change.",
    "value": [
@@ -311,7 +287,7 @@
   },
   "GUIDE_RESERVED_SLUGS": {
    "raw": "[\"edit\", \"new\"]",
-   "order": 31,
+   "order": 27,
    "value": [
     "edit",
     "new"
@@ -320,101 +296,101 @@
   },
   "GUIDE_SYSTEM_COVERS": {
    "raw": "{\n  \"getting-started\": \"https://ui0arpl8sm.ufs.sh/f/guide-getting-started-v3.webp\",\n  combat: \"https://ui0arpl8sm.ufs.sh/f/guide-combat-v3.webp\",\n  \"combat-tags\": \"https://ui0arpl8sm.ufs.sh/f/guide-combat-tags-v3.webp\",\n  \"prevent-tags\": \"https://ui0arpl8sm.ufs.sh/f/guide-prevent-tags-v3.webp\",\n  \"cleansable-tags\": \"https://ui0arpl8sm.ufs.sh/f/guide-cleansable-tags-v3.webp\",\n  \"clearable-tags\": \"https://ui0arpl8sm.ufs.sh/f/guide-clearable-tags-v3.webp\",\n  \"combat-tag-priority\":\n    \"https://ui0arpl8sm.ufs.sh/f/guide-combat-tag-priority-v3.webp\",\n  \"loadout-building\": \"https://ui0arpl8sm.ufs.sh/f/guide-loadout-building-v3.webp\",\n  \"ai-rules\": \"https://ui0arpl8sm.ufs.sh/f/guide-ai-rules-v3.webp\",\n  raids: \"https://ui0arpl8sm.ufs.sh/f/guide-raids-v3.webp\",\n  \"bracket-system\": \"https://ui0arpl8sm.ufs.sh/f/guide-bracket-system-v3.webp\",\n  farming: \"https://ui0arpl8sm.ufs.sh/f/guide-farming-v3.webp\",\n  villages: \"https://ui0arpl8sm.ufs.sh/f/guide-villages-v3.webp\",\n  world: \"https://ui0arpl8sm.ufs.sh/f/guide-world-v3.webp\",\n  \"wake-island\": \"https://ui0arpl8sm.ufs.sh/f/guide-wake-island-v3.webp\",\n  bloodlines: \"https://ui0arpl8sm.ufs.sh/f/guide-bloodlines-v3.webp\",\n  ranks: \"https://ui0arpl8sm.ufs.sh/f/guide-ranks-v3.webp\",\n  economy: \"https://ui0arpl8sm.ufs.sh/f/guide-economy-v3.webp\",\n  \"auction-house\": \"https://ui0arpl8sm.ufs.sh/f/guide-auction-house-v3.webp\",\n  \"item-variants\": \"https://ui0arpl8sm.ufs.sh/f/guide-item-variants-v3.webp\",\n}",
-   "order": 32,
+   "order": 28,
    "ts_type": "Record<string, string>",
    "doc": "Hosted cover URLs for first-party system guides.",
    "kind": "expr"
   },
   "MAP_RESERVED_SECTORS": {
    "raw": "[\n  73, 72, 75, 78, 275, 279, 201, 183, 272, 264, 270, 308, 289, 259, 260, 253, 304, 307,\n  283, 284, 340, 334, 330, 331, 332, 337, 342, 336, 341, 335, 113, 109, 443,\n  // Home of the starter quest's puppy (migration 0038). Reserved so a shrine,\n  // war or clan hideout cannot take the sector the tutorial sends every new\n  // player into.\n  227,\n]",
-   "order": 33,
+   "order": 29,
    "kind": "array_expr"
   },
   "MAP_SECTOR_ID_MIN": {
    "raw": "0",
-   "order": 34,
+   "order": 30,
    "value": 0,
    "kind": "number"
   },
   "MAP_WORLD_COLUMNS": {
    "raw": "72",
-   "order": 35,
+   "order": 31,
    "doc": "Cylindrical longitude/latitude sector grid. East/west wraps; the north and south edges terminate at 25-degree non-navigable polar caps. 72 * 27 preserves the existing 1,944 sector ids so database references do not need remapping.",
    "value": 72,
    "kind": "number"
   },
   "MAP_WORLD_ROWS": {
    "raw": "27",
-   "order": 36,
+   "order": 32,
    "value": 27,
    "kind": "number"
   },
   "MAP_NAVIGABLE_LATITUDE_LIMIT": {
    "raw": "65",
-   "order": 37,
+   "order": 33,
    "value": 65,
    "kind": "number"
   },
   "MAP_TOTAL_SECTORS": {
    "raw": "MAP_WORLD_COLUMNS * MAP_WORLD_ROWS",
-   "order": 38,
+   "order": 34,
    "kind": "number",
    "value": 1944,
    "derived_from": "MAP_WORLD_COLUMNS * MAP_WORLD_ROWS"
   },
   "MAP_SECTOR_ID_MAX": {
    "raw": "MAP_TOTAL_SECTORS - 1",
-   "order": 39,
+   "order": 35,
    "kind": "number",
    "value": 1943,
    "derived_from": "MAP_TOTAL_SECTORS - 1"
   },
   "MAP_WAKE_ISLAND_SECTOR": {
    "raw": "222",
-   "order": 40,
+   "order": 36,
    "value": 222,
    "kind": "number"
   },
   "WAKE_ISLAND_PVP_PROTECTION": {
    "raw": "false",
-   "order": 41,
+   "order": 37,
    "doc": "When true, PvP combat attacks are blocked for everyone in the Wake Island sector. Robbery, farming and crafting restrictions on Wake Island are independent of this.",
    "value": false,
    "kind": "boolean"
   },
   "MAP_WAR_TORN_BATTLEGROUND_SECTOR": {
    "raw": "335",
-   "order": 42,
+   "order": 38,
    "value": 335,
    "kind": "number"
   },
   "MAP_WAR_TORN_BATTLEGROUND_COLOR": {
    "raw": "\"#dc2626\"",
-   "order": 43,
+   "order": 39,
    "value": "#dc2626",
    "kind": "string"
   },
   "MAP_GLOBAL_TRAVEL_TIME_CAP_SECS": {
    "raw": "10",
-   "order": 44,
+   "order": 40,
    "value": 10,
    "kind": "number"
   },
   "SECTOR_MAP_MAX_DIMENSION": {
    "raw": "64",
-   "order": 45,
+   "order": 41,
    "value": 64,
    "kind": "number"
   },
   "SECTOR_MAP_VERSION": {
    "raw": "1",
-   "order": 46,
+   "order": 42,
    "value": 1,
    "kind": "number"
   },
   "SectorMapStatuses": {
    "raw": "[\"DRAFT\", \"PUBLISHED\", \"ARCHIVED\"]",
-   "order": 47,
+   "order": 43,
    "value": [
     "DRAFT",
     "PUBLISHED",
@@ -424,28 +400,28 @@
   },
   "MAX_PLAYER_LEVEL": {
    "raw": "110",
-   "order": 48,
+   "order": 44,
    "doc": "Absolute character-level ceiling, including earned Elite Jonin milestones.",
    "value": 110,
    "kind": "number"
   },
   "MAX_EXPERIENCE_LEVEL": {
    "raw": "100",
-   "order": 49,
+   "order": 45,
    "doc": "XP progression stops here; higher Elite Jonin levels require milestones.",
    "value": 100,
    "kind": "number"
   },
   "ELITE_JONIN_BRACKET": {
    "raw": "8",
-   "order": 50,
+   "order": 46,
    "doc": "Elite Jonin use a rank-based bracket independently of their accumulated XP.",
    "value": 8,
    "kind": "number"
   },
   "MAX_PVP_BRACKET": {
    "raw": "ELITE_JONIN_BRACKET",
-   "order": 51,
+   "order": 47,
    "doc": "Inclusive upper bound shared by bracket filters and displays.",
    "kind": "number",
    "value": 8,
@@ -453,45 +429,45 @@
   },
   "XP_BRACKETS": {
    "raw": "[\n  { bracket: 1, min: 0,         max: 500_000 },\n  { bracket: 2, min: 500_001,   max: 1_000_000 },\n  { bracket: 3, min: 1_000_001, max: 1_500_000 },\n  { bracket: 4, min: 1_500_001, max: 2_000_000 },\n  { bracket: 5, min: 2_000_001, max: 2_500_000 },\n  { bracket: 6, min: 2_500_001, max: 3_000_000 },\n  { bracket: 7, min: 3_000_001, max: Infinity },\n]",
-   "order": 52,
+   "order": 48,
    "doc": "XP Bracket system \u2014 maps experience to protection tiers for PvP eligibility. Bracket 0 is reserved for Academy students & Genin (RANKS_RESTRICTED_FROM_PVP).",
    "kind": "array_expr"
   },
   "PLAYER_LEVEL_XP_BASE_FACTOR": {
    "raw": "500",
-   "order": 53,
+   "order": 49,
    "value": 500,
    "kind": "number"
   },
   "PLAYER_LEVEL_XP_HIGH_FACTOR": {
    "raw": "950",
-   "order": 54,
+   "order": 50,
    "value": 950,
    "kind": "number"
   },
   "PLAYER_LEVEL_XP_HIGH_THRESHOLD": {
    "raw": "80",
-   "order": 55,
+   "order": 51,
    "value": 80,
    "kind": "number"
   },
   "BRACKET_IMMUNITY_LIFT_SECS": {
    "raw": "1800",
-   "order": 56,
+   "order": 52,
    "doc": "Active seconds of bracket exposure after PvP, shrine attacks or war missions; paused in combat.",
    "value": 1800,
    "kind": "number"
   },
   "WAR_PARTICIPANT_SECS": {
    "raw": "7200",
-   "order": 57,
+   "order": 53,
    "doc": "Seconds of war participation after starting a war mission, wartime PvP or a shrine attack.",
    "value": 7200,
    "kind": "number"
   },
   "CoreVillages": {
    "raw": "[\n  \"Shirohana\",\n  \"Tsukimori\",\n  \"Hyorin\",\n  \"Akasumi\",\n  \"Akikaze\",\n]",
-   "order": 58,
+   "order": 54,
    "value": [
     "Shirohana",
     "Tsukimori",
@@ -503,7 +479,7 @@
   },
   "LegacyVillageNames": {
    "raw": "[\n  \"Shine\",\n  \"Glacier\",\n  \"Shroud\",\n  \"Current\",\n]",
-   "order": 59,
+   "order": 55,
    "value": [
     "Shine",
     "Glacier",
@@ -514,37 +490,37 @@
   },
   "BUILDING_UPGRADE_BASE_COST": {
    "raw": "200_000",
-   "order": 60,
+   "order": 56,
    "value": 200000,
    "kind": "number"
   },
   "BUILDING_UPGRADE_PER_LEVEL_COST": {
    "raw": "150_000",
-   "order": 61,
+   "order": 57,
    "value": 150000,
    "kind": "number"
   },
   "VILLAGE_STRUCTURE_UPGRADE_BASE_COST": {
    "raw": "100_000",
-   "order": 62,
+   "order": 58,
    "value": 100000,
    "kind": "number"
   },
   "VILLAGE_STRUCTURE_UPGRADE_PER_LEVEL_COST": {
    "raw": "50_000",
-   "order": 63,
+   "order": 59,
    "value": 50000,
    "kind": "number"
   },
   "VILLAGE_STRUCTURE_MONTHLY_COST": {
    "raw": "100_000",
-   "order": 64,
+   "order": 60,
    "value": 100000,
    "kind": "number"
   },
   "VILLAGE_MAINTAINED_STRUCTURE_ROUTES": {
    "raw": "[\n  \"/anbu\", \"/bank\", \"/battlearena\", \"/clanhall\", \"/home\", \"/hospital\",\n  \"/itemshop\", \"/missionhall\", \"/ramenshop\", \"/townhall\", \"/traininggrounds\",\n]",
-   "order": 65,
+   "order": 61,
    "value": [
     "/anbu",
     "/bank",
@@ -562,7 +538,7 @@
   },
   "VILLAGE_MISSION_TASKS": {
    "raw": "[\n  \"pvp_kills\", \"siege_operation\", \"combined_mission_effort\",\n  \"d_missions_total\", \"c_missions_total\", \"b_missions_total\", \"a_missions_total\",\n]",
-   "order": 66,
+   "order": 62,
    "value": [
     "pvp_kills",
     "siege_operation",
@@ -576,24 +552,24 @@
   },
   "VILLAGE_MISSION_RANK_POINTS": {
    "raw": "{ D: 1, C: 3, B: 7, A: 14 }",
-   "order": 67,
+   "order": 63,
    "kind": "expr"
   },
   "HOSPITAL_BASE_HEAL_SECONDS": {
    "raw": "600",
-   "order": 68,
+   "order": 64,
    "value": 600,
    "kind": "number"
   },
   "HOSPITAL_RYO_PER_100_HP": {
    "raw": "400",
-   "order": 69,
+   "order": 65,
    "value": 400,
    "kind": "number"
   },
   "LetterRanks": {
    "raw": "[\"D\", \"C\", \"B\", \"A\", \"S\", \"H\"]",
-   "order": 70,
+   "order": 66,
    "value": [
     "D",
     "C",
@@ -606,7 +582,7 @@
   },
   "SHARED_COOLDOWN_TAGS": {
    "raw": "[\n  \"barrier\",\n  \"buffprevent\",\n  \"cleanse\",\n  \"cleanseprevent\",\n  \"clear\",\n  \"clearprevent\",\n  \"consume\",\n  \"siphon\",\n  \"debuffprevent\",\n  \"drain\",\n  \"increasepoolcost\",\n  \"moveprevent\",\n  \"pierce\",\n  \"poison\",\n  \"seal\",\n  \"stun\",\n  \"summon\",\n  \"vamp\",\n]",
-   "order": 71,
+   "order": 67,
    "doc": "List of tags that share cooldowns",
    "value": [
     "barrier",
@@ -632,14 +608,14 @@
   },
   "SHARED_COOLDOWN_ROUNDS": {
    "raw": "3",
-   "order": 72,
+   "order": 68,
    "doc": "Rounds every action sharing a SHARED_COOLDOWN_TAGS tag is locked after one of them is used",
    "value": 3,
    "kind": "number"
   },
   "LOG_TYPES": {
    "raw": "[\n  \"ai\",\n  \"badge\",\n  \"title\",\n  \"battleAction\",\n  \"bloodline\",\n  \"clan\",\n  \"gameAsset\",\n  \"guide\",\n  \"item\",\n  \"jutsu\",\n  \"poll\",\n  \"quest\",\n  \"user\",\n  \"userjutsu\",\n  \"village\",\n  \"villageStructure\",\n  \"war\",\n]",
-   "order": 73,
+   "order": 69,
    "value": [
     "ai",
     "badge",
@@ -663,7 +639,7 @@
   },
   "ContentProposalCategories": {
    "raw": "[\n  \"GRAMMAR\",\n  \"BALANCE\",\n  \"SOUND\",\n  \"ANIMATION\",\n  \"VISUAL\",\n  \"CONSISTENCY\",\n  \"NEW_CONTENT\",\n]",
-   "order": 74,
+   "order": 70,
    "doc": "What a suggestion improves; the review desk filters by it.",
    "value": [
     "GRAMMAR",
@@ -678,7 +654,7 @@
   },
   "ContentProposalStatuses": {
    "raw": "[\n  \"PENDING\",\n  \"APPLIED\",\n  \"REJECTED\",\n  \"OUTDATED\",\n  \"REVERTED\",\n]",
-   "order": 75,
+   "order": 71,
    "doc": "A suggestion is PENDING until a reviewer applies or rejects it, OUTDATED when an entity it rests on changes or its usage data expires first, and REVERTED once its change is undone.",
    "value": [
     "PENDING",
@@ -691,7 +667,7 @@
   },
   "ContentProposalSources": {
    "raw": "[\"AGENT\", \"STAFF\"]",
-   "order": 76,
+   "order": 72,
    "doc": "AGENT for the content audit, STAFF for a suggestion made from the manual.",
    "value": [
     "AGENT",
@@ -701,7 +677,7 @@
   },
   "ContentProposalEntityTypes": {
    "raw": "[\n  \"JUTSU\",\n  \"ITEM\",\n  \"BLOODLINE\",\n  \"QUEST\",\n  \"BADGE\",\n  \"TITLE\",\n  \"GAME_ASSET\",\n  \"AI\",\n]",
-   "order": 77,
+   "order": 73,
    "doc": "Content a suggestion can change or create.",
    "value": [
     "JUTSU",
@@ -717,7 +693,7 @@
   },
   "ContentProposalOperations": {
    "raw": "[\"UPDATE\", \"CREATE\"]",
-   "order": 78,
+   "order": 74,
    "doc": "Whether a change edits an existing entity or creates a new one.",
    "value": [
     "UPDATE",
@@ -727,7 +703,7 @@
   },
   "ContentProposalBasisRoles": {
    "raw": "[\"TARGET\", \"CONTEXT\"]",
-   "order": 79,
+   "order": 75,
    "doc": "TARGET entities are the ones a suggestion changes; CONTEXT entities only informed it.",
    "value": [
     "TARGET",
@@ -737,7 +713,7 @@
   },
   "ContentProposalMediaSources": {
    "raw": "[\"CATALOG\", \"EPIDEMIC\", \"GENERATED\"]",
-   "order": 80,
+   "order": 76,
    "doc": "Where a media candidate comes from: the asset library, Epidemic Sound or a generation.",
    "value": [
     "CATALOG",
@@ -748,7 +724,7 @@
   },
   "ContentProposalMediaKinds": {
    "raw": "[\"SFX\", \"ANIMATION\", \"IMAGE\"]",
-   "order": 81,
+   "order": 77,
    "doc": "Sounds and animations fill a field with an asset id, images with an image URL.",
    "value": [
     "SFX",
@@ -759,7 +735,7 @@
   },
   "ContentProposalRejectReasons": {
    "raw": "[\n  \"NOT_AN_IMPROVEMENT\",\n  \"FACTUALLY_WRONG\",\n  \"STYLE_MISMATCH\",\n  \"WRONG_CHANGE\",\n  \"OTHER\",\n]",
-   "order": 82,
+   "order": 78,
    "doc": "Why a reviewer rejected a suggestion; the next audit reads it.",
    "value": [
     "NOT_AN_IMPROVEMENT",
@@ -772,7 +748,7 @@
   },
   "ContentAuditFocuses": {
    "raw": "[\n  \"grammar\",\n  \"balance\",\n  \"sound\",\n  \"animation\",\n  \"visual\",\n  \"consistency\",\n  \"new_content\",\n]",
-   "order": 83,
+   "order": 79,
    "doc": "What one audit run concentrates on; a rotating run takes the next one in this order.",
    "value": [
     "grammar",
@@ -787,87 +763,87 @@
   },
   "CONTENT_AUDIT_INTERVAL_HOURS": {
    "raw": "3",
-   "order": 84,
+   "order": 80,
    "doc": "Hours between scheduled audit runs; the cron in .github/workflows/content-audit.yml.",
    "value": 3,
    "kind": "number"
   },
   "CONTENT_PROPOSAL_RETENTION_DAYS": {
    "raw": "90",
-   "order": 85,
+   "order": 81,
    "doc": "Rejected and outdated suggestions are removed this long after they were decided.",
    "value": 90,
    "kind": "number"
   },
   "CONTENT_PROPOSAL_EVIDENCE_DAYS": {
    "raw": "14",
-   "order": 86,
+   "order": 82,
    "doc": "Suggestions resting on usage statistics go out of date after this many days.",
    "value": 14,
    "kind": "number"
   },
   "CONTENT_PROPOSAL_MAX_BASIS": {
    "raw": "25",
-   "order": 87,
+   "order": 83,
    "doc": "Most entities one audit suggestion may list as its basis.",
    "value": 25,
    "kind": "number"
   },
   "CONTENT_PROPOSAL_MAX_CANDIDATES": {
    "raw": "3",
-   "order": 88,
+   "order": 84,
    "doc": "Most media candidates offered for one field.",
    "value": 3,
    "kind": "number"
   },
   "CONTENT_AUDIT_MAX_SOUND_SEARCHES": {
    "raw": "3",
-   "order": 89,
+   "order": 85,
    "doc": "Epidemic Sound searches one audit run may make; they cost API quota.",
    "value": 3,
    "kind": "number"
   },
   "CONTENT_AUDIT_MAX_GENERATIONS": {
    "raw": "2",
-   "order": 90,
+   "order": 86,
    "doc": "Replicate generations one audit run may request; they cost money.",
    "value": 2,
    "kind": "number"
   },
   "CONTENT_REVIEW_BULK_LIMIT": {
    "raw": "25",
-   "order": 91,
+   "order": 87,
    "doc": "Most suggestions one bulk approval takes.",
    "value": 25,
    "kind": "number"
   },
   "CONTENT_PROPOSAL_TITLE_LENGTH": {
    "raw": "{ min: 3, max: 120 }",
-   "order": 92,
+   "order": 88,
    "doc": "Length bounds of a suggestion's title and rationale, and the longest rejection note.",
    "kind": "expr"
   },
   "CONTENT_PROPOSAL_RATIONALE_LENGTH": {
    "raw": "{ min: 10, max: 4000 }",
-   "order": 93,
+   "order": 89,
    "kind": "expr"
   },
   "CONTENT_PROPOSAL_NOTE_MAX_LENGTH": {
    "raw": "500",
-   "order": 94,
+   "order": 90,
    "value": 500,
    "kind": "number"
   },
   "CONTENT_REVIEW_SFX_SEARCH_RESULTS": {
    "raw": "12",
-   "order": 95,
+   "order": 91,
    "doc": "Sound effects one search in the SFX picker returns.",
    "value": 12,
    "kind": "number"
   },
   "StatTypes": {
    "raw": "[\n  \"None\",\n  \"Ninjutsu\",\n  \"Genjutsu\",\n  \"Taijutsu\",\n  \"Bukijutsu\",\n]",
-   "order": 96,
+   "order": 92,
    "value": [
     "None",
     "Ninjutsu",
@@ -879,7 +855,7 @@
   },
   "MasteryTypes": {
    "raw": "[\n  \"Ninjutsu\",\n  \"Genjutsu\",\n  \"Taijutsu\",\n  \"Bukijutsu\",\n  \"Bloodline\",\n  \"Sage\",\n]",
-   "order": 97,
+   "order": 93,
    "value": [
     "Ninjutsu",
     "Genjutsu",
@@ -892,7 +868,7 @@
   },
   "CombatStatTypes": {
    "raw": "[\"Offence\", \"Defence\"]",
-   "order": 98,
+   "order": 94,
    "doc": "Display names of the unified combat stats that increasestat/decreasestat move.",
    "value": [
     "Offence",
@@ -902,7 +878,7 @@
   },
   "GeneralTypes": {
    "raw": "[\n  \"Highest\",\n  \"Strength\",\n  \"Intelligence\",\n  \"Willpower\",\n  \"Speed\",\n]",
-   "order": 99,
+   "order": 95,
    "value": [
     "Highest",
     "Strength",
@@ -914,7 +890,7 @@
   },
   "AdjustableBasicActions": {
    "raw": "[\n  \"basicAttack\",\n  \"basicHeal\",\n  \"meditate\",\n  \"offensiveStance\",\n  \"defensiveStance\",\n  \"move\",\n  \"replacementTechnique\",\n  \"clear\",\n  \"cleanse\",\n]",
-   "order": 100,
+   "order": 96,
    "value": [
     "basicAttack",
     "basicHeal",
@@ -930,7 +906,7 @@
   },
   "PoolTypes": {
    "raw": "[\"Health\", \"Chakra\", \"Stamina\"]",
-   "order": 101,
+   "order": 97,
    "value": [
     "Health",
     "Chakra",
@@ -940,7 +916,7 @@
   },
   "MaxPoolTypes": {
    "raw": "[...PoolTypes, \"Energy\"]",
-   "order": 102,
+   "order": 98,
    "value": [
     "Health",
     "Chakra",
@@ -952,7 +928,7 @@
   },
   "ItemRarities": {
    "raw": "[\"COMMON\", \"RARE\", \"EPIC\", \"LEGENDARY\"]",
-   "order": 103,
+   "order": 99,
    "value": [
     "COMMON",
     "RARE",
@@ -963,7 +939,7 @@
   },
   "ItemSlotTypes": {
    "raw": "[\n  \"HEAD\",\n  \"CHEST\",\n  \"LEGS\",\n  \"FEET\",\n  \"HAND\",\n  \"THROWN\",\n  \"ITEM\",\n  \"WAIST\",\n  \"KEYSTONE\",\n  \"NONE\",\n]",
-   "order": 104,
+   "order": 100,
    "value": [
     "HEAD",
     "CHEST",
@@ -980,7 +956,7 @@
   },
   "StructureRoutes": {
    "raw": "[\n  \"\",\n  \"/academy\",\n  \"/adminbuilding\",\n  \"/anbu\",\n  \"/bank\",\n  \"/battlearena\",\n  \"/blackmarket\",\n  \"/clanhall\",\n  \"/dungeon\",\n  \"/globalanbuhq\",\n  \"/home\",\n  \"/hospital\",\n  \"/itemshop\",\n  \"/missionhall\",\n  \"/ramenshop\",\n  \"/science\",\n  \"/pets\",\n  \"/souvenirs\",\n  \"/townhall\",\n  \"/traininggrounds\",\n  \"/occupation\",\n  \"/auctionhouse\",\n]",
-   "order": 105,
+   "order": 101,
    "value": [
     "",
     "/academy",
@@ -1009,82 +985,82 @@
   },
   "DUNGEON_PARTY_SIZE": {
    "raw": "3",
-   "order": 106,
+   "order": 102,
    "doc": "Shared dungeon limits for content validation, party commands, combat and player-facing rules.",
    "value": 3,
    "kind": "number"
   },
   "DUNGEON_RUN_SECONDS": {
    "raw": "60 * 60",
-   "order": 107,
+   "order": 103,
    "kind": "expr"
   },
   "DUNGEON_MAX_TIERS": {
    "raw": "4",
-   "order": 108,
+   "order": 104,
    "value": 4,
    "kind": "number"
   },
   "DUNGEON_FLOORS_PER_TIER": {
    "raw": "5",
-   "order": 109,
+   "order": 105,
    "value": 5,
    "kind": "number"
   },
   "DUNGEON_MAX_WAVES": {
    "raw": "5",
-   "order": 110,
+   "order": 106,
    "value": 5,
    "kind": "number"
   },
   "ENCOUNTER_MAX_WAVE_DELAY_ROUNDS": {
    "raw": "20",
-   "order": 111,
+   "order": 107,
    "value": 20,
    "kind": "number"
   },
   "DUNGEON_MAX_MOBS": {
    "raw": "10",
-   "order": 112,
+   "order": 108,
    "value": 10,
    "kind": "number"
   },
   "DUNGEON_MAX_DROPS": {
    "raw": "100",
-   "order": 113,
+   "order": 109,
    "doc": "Maximum authored completion-drop entries per definition.",
    "value": 100,
    "kind": "number"
   },
   "DUNGEON_MAX_REWARD_QUANTITY": {
    "raw": "100",
-   "order": 114,
+   "order": 110,
    "doc": "Maximum copies granted by one successful completion drop.",
    "value": 100,
    "kind": "number"
   },
   "DUNGEON_MAX_GRANTED_ITEMS": {
    "raw": "2_000",
-   "order": 115,
+   "order": 111,
    "doc": "Worst-case inventory delivery per member, including multiplied package contents.",
    "value": 2000,
    "kind": "number"
   },
   "DUNGEON_MAX_REWARD_AMOUNT": {
    "raw": "1e9",
-   "order": 116,
+   "order": 112,
    "doc": "Scalar payout ceiling shared by direct and multiplied package rewards.",
    "kind": "expr"
   },
   "DUNGEON_INACTIVE_ROUNDS": {
    "raw": "3",
-   "order": 117,
+   "order": 113,
    "value": 3,
    "kind": "number"
   },
   "ItemSlots": {
    "raw": "[\n  \"HEAD\",\n  \"CHEST\",\n  \"LEGS\",\n  \"FEET\",\n  \"HAND_1\",\n  \"HAND_2\",\n  \"THROWN\",\n  \"WAIST\",\n  \"KEYSTONE\",\n  \"ITEM_1\",\n  \"ITEM_2\",\n  \"ITEM_3\",\n  \"ITEM_4\",\n  \"ITEM_5\",\n  \"ITEM_6\",\n  \"NONE\",\n]",
-   "order": 118,
+   "order": 114,
    "value": [
     "HEAD",
     "CHEST",
@@ -1107,7 +1083,7 @@
   },
   "AutomoderationCategories": {
    "raw": "[\n  \"comment\",\n  \"privateMessage\",\n  \"forumPost\",\n  \"userReport\",\n  \"userNindo\",\n  \"clanOrder\",\n  \"anbuOrder\",\n  \"kageOrder\",\n  \"userAvatar\",\n]",
-   "order": 119,
+   "order": 115,
    "value": [
     "comment",
     "privateMessage",
@@ -1123,21 +1099,21 @@
   },
   "FORUM_BOARD_THREADS_PER_PAGE": {
    "raw": "20",
-   "order": 120,
+   "order": 116,
    "doc": "Forum pagination",
    "value": 20,
    "kind": "number"
   },
   "FORUM_THREAD_POSTS_PER_PAGE": {
    "raw": "10",
-   "order": 121,
+   "order": 117,
    "doc": "Posts per page in a forum thread. The thread route server-renders this many.",
    "value": 10,
    "kind": "number"
   },
   "UserRoles": {
    "raw": "[\n  \"USER\",\n  \"OWNER\",\n  \"CODING-ADMIN\",\n  \"CONTENT-ADMIN\",\n  \"EVENT-ADMIN\",\n  \"MODERATOR-ADMIN\",\n  \"HEAD_MODERATOR\",\n  \"MODERATOR\",\n  \"JR_MODERATOR\",\n  \"HEAD_CONTENT\",\n  \"HEAD_BALANCE\",\n  \"CONTENT\",\n  \"BALANCE\",\n  \"HEAD_EVENT\",\n  \"EVENT\",\n  \"CODER\",\n]",
-   "order": 122,
+   "order": 118,
    "value": [
     "USER",
     "OWNER",
@@ -1160,7 +1136,7 @@
   },
   "UserRolesWithSkillTreeAccess": {
    "raw": "[\"CHUNIN\", \"JONIN\", \"ELITE JONIN\", \"ELDER\"]",
-   "order": 123,
+   "order": 119,
    "value": [
     "CHUNIN",
     "JONIN",
@@ -1171,7 +1147,7 @@
   },
   "StaffApplicationStates": {
    "raw": "[\"PENDING\", \"APPROVED\", \"REJECTED\"]",
-   "order": 124,
+   "order": 120,
    "doc": "Staff Applications",
    "value": [
     "PENDING",
@@ -1182,7 +1158,7 @@
   },
   "StaffApprovalGroups": {
    "raw": "[\n  \"EVENT-ADMIN\",\n  \"CODING-ADMIN\",\n  \"MODERATOR-ADMIN\",\n  \"CONTENT-ADMIN\",\n]",
-   "order": 125,
+   "order": 121,
    "doc": "Approval groups required for promotion",
    "value": [
     "EVENT-ADMIN",
@@ -1194,13 +1170,13 @@
   },
   "isStaffApprovalGroup": {
    "raw": "(role: UserRole): role is StaffApprovalGroup => {\n  return (StaffApprovalGroups as readonly string[]).includes(role)",
-   "order": 126,
+   "order": 122,
    "doc": "Type guard to check if a UserRole is a StaffApprovalGroup",
    "kind": "expr"
   },
   "StaffApplicationApprovalStates": {
    "raw": "[\"APPROVED\", \"REJECTED\"]",
-   "order": 127,
+   "order": 123,
    "doc": "Per-group approval decision states",
    "value": [
     "APPROVED",
@@ -1210,7 +1186,7 @@
   },
   "StaffApplicationTargetRoles": {
    "raw": "[\n  \"CONTENT\",\n  \"BALANCE\",\n  \"HEAD_CONTENT\",\n  \"HEAD_BALANCE\",\n  \"CODER\",\n  \"EVENT\",\n  \"HEAD_EVENT\",\n  \"JR_MODERATOR\",\n  \"MODERATOR\",\n  \"HEAD_MODERATOR\",\n]",
-   "order": 128,
+   "order": 124,
    "doc": "Roles users are allowed to apply for",
    "value": [
     "CONTENT",
@@ -1228,7 +1204,7 @@
   },
   "UserStatuses": {
    "raw": "[\n  \"AWAKE\",\n  \"HOSPITALIZED\",\n  \"TRAVEL\",\n  \"BATTLE\",\n  \"QUEUED\",\n  \"ASLEEP\",\n]",
-   "order": 129,
+   "order": 125,
    "value": [
     "AWAKE",
     "HOSPITALIZED",
@@ -1241,7 +1217,7 @@
   },
   "FederalStatuses": {
    "raw": "[\"NONE\", \"NORMAL\", \"SILVER\", \"GOLD\"]",
-   "order": 130,
+   "order": 126,
    "value": [
     "NONE",
     "NORMAL",
@@ -1252,7 +1228,7 @@
   },
   "AvatarFacings": {
    "raw": "[\"left\", \"right\"]",
-   "order": 131,
+   "order": 127,
    "doc": "Which way an AI's avatar artwork points. Combat mirrors the sprite when the opponent it should look at sits on the opposite side of the battlefield.",
    "value": [
     "left",
@@ -1262,7 +1238,7 @@
   },
   "UserRanks": {
    "raw": "[\n  \"STUDENT\",\n  \"GENIN\",\n  \"CHUNIN\",\n  \"JONIN\",\n  \"ELITE JONIN\",\n  \"ELDER\",\n  \"NONE\",\n]",
-   "order": 132,
+   "order": 128,
    "value": [
     "STUDENT",
     "GENIN",
@@ -1276,49 +1252,49 @@
   },
   "EMAIL_REMINDER_EXPERIENCE_REWARD": {
    "raw": "10_000",
-   "order": 133,
+   "order": 129,
    "value": 10000,
    "kind": "number"
   },
   "PET_BATTLE_CONFIG": {
    "raw": "{ enabled: true, battleTypes: [\"QUEST\"] as readonly BattleType[] }",
-   "order": 134,
+   "order": 130,
    "doc": "Shared availability gate for companion combat, including saved opt-in settings.",
    "kind": "expr"
   },
   "PET_BASE_STAT": {
    "raw": "10",
-   "order": 135,
+   "order": 131,
    "value": 10,
    "kind": "number"
   },
   "PET_REPLACEMENT_COST": {
    "raw": "30",
-   "order": 136,
+   "order": 132,
    "value": 30,
    "kind": "number"
   },
   "PET_MAX_COLLECTION_SLOTS": {
    "raw": "6",
-   "order": 137,
+   "order": 133,
    "value": 6,
    "kind": "number"
   },
   "PET_COLLECTION_SLOT_COST": {
    "raw": "20",
-   "order": 138,
+   "order": 134,
    "value": 20,
    "kind": "number"
   },
   "PET_SEICHI_SILVER_COST": {
    "raw": "50",
-   "order": 139,
+   "order": 135,
    "value": 50,
    "kind": "number"
   },
   "PetPaymentCurrencies": {
    "raw": "[\"REPUTATION\", \"SEICHI_SILVER\"]",
-   "order": 140,
+   "order": 136,
    "value": [
     "REPUTATION",
     "SEICHI_SILVER"
@@ -1327,69 +1303,69 @@
   },
   "PET_FED_COLLECTION_SLOTS": {
    "raw": "{\n  NONE: 0, NORMAL: 1, SILVER: 2, GOLD: 3,\n}",
-   "order": 141,
+   "order": 137,
    "ts_type": "Record<FederalStatus, number>",
    "doc": "Supporter capacity is temporary; purchased collection slots remain permanent.",
    "kind": "expr"
   },
   "PET_MAX_ABILITY_SLOTS": {
    "raw": "6",
-   "order": 142,
+   "order": 138,
    "value": 6,
    "kind": "number"
   },
   "PET_MAX_CONSUME_PETS": {
    "raw": "1",
-   "order": 143,
+   "order": 139,
    "value": 1,
    "kind": "number"
   },
   "PET_TASK_MIN_RANK": {
    "raw": "5",
-   "order": 144,
+   "order": 140,
    "value": 5,
    "kind": "number"
   },
   "PET_TASK_MAX_MINUTES": {
    "raw": "7 * 24 * 60",
-   "order": 145,
+   "order": 141,
    "kind": "expr"
   },
   "PET_ABILITY_POWER_BUDGET_BONUS": {
    "raw": "1",
-   "order": 146,
+   "order": 142,
    "doc": "Rarity grants slots immediately; progression still controls the shared power budget.",
    "value": 1,
    "kind": "number"
   },
   "PET_MIN_SKILL_POWER_COST": {
    "raw": "1",
-   "order": 147,
+   "order": 143,
    "value": 1,
    "kind": "number"
   },
   "PET_JUTSU_POWER_COST_BY_RANK": {
    "raw": "{\n  D: 1, C: 2, B: 3, A: 4, S: 5, H: Number.POSITIVE_INFINITY,\n}",
-   "order": 148,
+   "order": 144,
    "doc": "H-rank techniques cannot fit a pet loadout, regardless of its power budget.",
    "kind": "expr"
   },
   "PET_FEED_EXPERIENCE_BY_RARITY": {
    "raw": "{\n  COMMON: 500, RARE: 750, EPIC: 1000, LEGENDARY: 1200,\n}",
-   "order": 149,
+   "order": 145,
    "ts_type": "Record<ItemRarity, number>",
    "kind": "expr"
   },
   "PET_FEED_COOLDOWN_HOURS": {
    "raw": "3",
-   "order": 150,
+   "order": 146,
    "doc": "Rolling cooldown between companion meals.",
    "value": 3,
    "kind": "number"
   },
   "PetRarities": {
    "raw": "[\"COMMON\", \"UNCOMMON\", \"RARE\", \"EPIC\", \"LEGENDARY\"]",
-   "order": 151,
+   "order": 147,
    "value": [
     "COMMON",
     "UNCOMMON",
@@ -1401,13 +1377,13 @@
   },
   "PET_ABILITY_SLOTS_BY_RARITY": {
    "raw": "{\n  COMMON: 2, UNCOMMON: 3, RARE: 4, EPIC: 5, LEGENDARY: 6,\n}",
-   "order": 152,
+   "order": 148,
    "ts_type": "Record<PetRarity, number>",
    "kind": "expr"
   },
   "PetRoles": {
    "raw": "[\"SUPPORT\", \"HEALER\", \"ASSAULT\"]",
-   "order": 153,
+   "order": 149,
    "value": [
     "SUPPORT",
     "HEALER",
@@ -1417,7 +1393,7 @@
   },
   "PetSkillTargets": {
    "raw": "[\"SELF\", \"ENEMIES\"]",
-   "order": 154,
+   "order": 150,
    "doc": "Species passives either empower both bonded actors or trigger on their enemy hits.",
    "value": [
     "SELF",
@@ -1427,36 +1403,36 @@
   },
   "PET_SPECIES_RARITY_WEIGHTS": {
    "raw": "{\n  NONE: { COMMON: 7000, UNCOMMON: 2200, RARE: 600, EPIC: 170, LEGENDARY: 30 },\n  NORMAL: { COMMON: 6000, UNCOMMON: 2500, RARE: 1000, EPIC: 400, LEGENDARY: 100 },\n  SILVER: { COMMON: 5000, UNCOMMON: 2800, RARE: 1500, EPIC: 550, LEGENDARY: 150 },\n  GOLD: { COMMON: 4000, UNCOMMON: 3000, RARE: 2000, EPIC: 750, LEGENDARY: 250 },\n}",
-   "order": 155,
+   "order": 151,
    "ts_type": "Record<FederalStatus, Record<PetRarity, number>>",
    "doc": "Later supporter choices use these rarity weights; earlier choices remain shared.",
    "kind": "expr"
   },
   "PET_MAX_GENERATION_ATTEMPTS": {
    "raw": "3",
-   "order": 156,
+   "order": 152,
    "doc": "Image attempts per evolution rank, including its initial generation.",
    "value": 3,
    "kind": "number"
   },
   "PET_GENERATION_LEASE_MS": {
    "raw": "15 * 60 * 1000",
-   "order": 157,
+   "order": 153,
    "kind": "expr"
   },
   "PET_GENERATION_TIMEOUT_MS": {
    "raw": "4 * 60 * 1000",
-   "order": 158,
+   "order": 154,
    "kind": "expr"
   },
   "PET_GENERATION_RETRY_MS": {
    "raw": "60 * 1000",
-   "order": 159,
+   "order": 155,
    "kind": "expr"
   },
   "PetArtProviders": {
    "raw": "[\"GPT\", \"NANO_BANANA\"]",
-   "order": 160,
+   "order": 156,
    "doc": "Image providers for companion art; the GameSetting row stores the array index, absent = GPT.",
    "value": [
     "GPT",
@@ -1466,49 +1442,49 @@
   },
   "PET_ART_PROVIDER_SETTING": {
    "raw": "\"petArtProvider\"",
-   "order": 161,
+   "order": 157,
    "value": "petArtProvider",
    "kind": "string"
   },
   "PET_SANCTUARY_NAME": {
    "raw": "\"Bondkeeper Sanctuary\"",
-   "order": 162,
+   "order": 158,
    "value": "Bondkeeper Sanctuary",
    "kind": "string"
   },
   "PET_SANCTUARY_IMAGE": {
    "raw": "\"https://ui0arpl8sm.ufs.sh/f/ar-xbD9hKwKkVBXFZacnC.webp\"",
-   "order": 163,
+   "order": 159,
    "value": "https://ui0arpl8sm.ufs.sh/f/ar-xbD9hKwKkVBXFZacnC.webp",
    "kind": "string"
   },
   "PET_SANCTUARY_LONGITUDE": {
    "raw": "3",
-   "order": 164,
+   "order": 160,
    "value": 3,
    "kind": "number"
   },
   "PET_SANCTUARY_LATITUDE": {
    "raw": "6",
-   "order": 165,
+   "order": 161,
    "value": 6,
    "kind": "number"
   },
   "PET_SANCTUARY_LORE": {
    "raw": "\"Beneath Wake Island's wind-bent cedars, the Bondkeepers shelter creatures touched by Seichi's wandering chakra. Their sanctuary was founded after the island's keepers learned that a willing pact could steady both shinobi and beast. No creature is bought or bound here: choose the signs of the companion you hope to meet, and the keepers will guide your first bond. A released companion returns to the sanctuary's wild groves.\"",
-   "order": 166,
+   "order": 162,
    "value": "Beneath Wake Island's wind-bent cedars, the Bondkeepers shelter creatures touched by Seichi's wandering chakra. Their sanctuary was founded after the island's keepers learned that a willing pact could steady both shinobi and beast. No creature is bought or bound here: choose the signs of the companion you hope to meet, and the keepers will guide your first bond. A released companion returns to the sanctuary's wild groves.",
    "kind": "string"
   },
   "PET_OPTION_COUNTS": {
    "raw": "{\n  NONE: 3, NORMAL: 5, SILVER: 6, GOLD: 8,\n}",
-   "order": 167,
+   "order": 163,
    "ts_type": "Record<FederalStatus, number>",
    "kind": "expr"
   },
   "PetSpawnPositions": {
    "raw": "[\"BEHIND\", \"LEFT\", \"RIGHT\", \"FRONT\"]",
-   "order": 168,
+   "order": 164,
    "value": [
     "BEHIND",
     "LEFT",
@@ -1519,7 +1495,7 @@
   },
   "PetGenerationStatuses": {
    "raw": "[\"PENDING\", \"GENERATING\", \"READY\", \"FAILED\"]",
-   "order": 169,
+   "order": 165,
    "value": [
     "PENDING",
     "GENERATING",
@@ -1528,15 +1504,37 @@
    ],
    "kind": "list"
   },
+  "PetGenders": {
+   "raw": "[\"MALE\", \"FEMALE\"]",
+   "order": 166,
+   "doc": "Companion sex; drives sex-specific art (e.g. a lion's mane). Pets adopted before it existed store NULL.",
+   "value": [
+    "MALE",
+    "FEMALE"
+   ],
+   "kind": "list"
+  },
+  "PET_GENDER_LABELS": {
+   "raw": "{ MALE: \"Male\", FEMALE: \"Female\" }",
+   "order": 167,
+   "ts_type": "Record<PetGender, string>",
+   "kind": "expr"
+  },
+  "PET_GENDER_EDIT_UNTIL": {
+   "raw": "new Date(\"2026-11-26T00:00:00Z\")",
+   "order": 168,
+   "doc": "Owners may set or change a companion's gender in its settings until this instant. TODO: after this cutoff the gender edit control (PetProfile settings, updatePet gender field and isPetGenderEditable) can be removed; adoption keeps the required choice.",
+   "kind": "expr"
+  },
   "PET_RANKS": {
    "raw": "[\n  { rank: 1, name: \"Companion\", minUserRank: \"STUDENT\", levelCap: 5, experienceRequired: 0 },\n  { rank: 2, name: \"Scout\", minUserRank: \"GENIN\", levelCap: 10, experienceRequired: 7500 },\n  { rank: 3, name: \"Tracker\", minUserRank: \"GENIN\", levelCap: 15, experienceRequired: 27500 },\n  { rank: 4, name: \"Guardian\", minUserRank: \"CHUNIN\", levelCap: 20, experienceRequired: 60000 },\n  { rank: 5, name: \"Hunter\", minUserRank: \"CHUNIN\", levelCap: 30, experienceRequired: 105000 },\n  { rank: 6, name: \"Warden\", minUserRank: \"JONIN\", levelCap: 40, experienceRequired: 232500 },\n  { rank: 7, name: \"Sentinel\", minUserRank: \"JONIN\", levelCap: 50, experienceRequired: 410000 },\n  { rank: 8, name: \"Mythic\", minUserRank: \"ELITE JONIN\", levelCap: 60, experienceRequired: 637500 },\n  { rank: 9, name: \"Sovereign\", minUserRank: \"ELITE JONIN\", levelCap: 80, experienceRequired: 915000 },\n  { rank: 10, name: \"Celestial\", minUserRank: \"ELITE JONIN\", levelCap: 100, experienceRequired: 1620000 },\n]",
-   "order": 170,
+   "order": 169,
    "doc": "Pet progression follows the player experience curve at each previous rank's level cap.",
    "kind": "array_expr"
   },
   "ItemTypes": {
    "raw": "[\n  \"WEAPON\",\n  \"CONSUMABLE\",\n  \"ARMOR\",\n  \"ACCESSORY\",\n  \"MATERIAL\",\n  \"COOKING\",\n  \"MEAL\",\n  \"KEYSTONE\",\n  \"CRYSTAL\",\n  \"FURNITURE\",\n  \"OTHER\",\n]",
-   "order": 171,
+   "order": 170,
    "value": [
     "WEAPON",
     "CONSUMABLE",
@@ -1554,7 +1552,7 @@
   },
   "NonActionItemTypes": {
    "raw": "[\n  \"MEAL\",\n  \"MATERIAL\",\n  \"COOKING\",\n  \"CRYSTAL\",\n  \"ARMOR\",\n  \"ACCESSORY\",\n  \"KEYSTONE\",\n  \"FURNITURE\",\n]",
-   "order": 172,
+   "order": 171,
    "ts_type": "ItemType[]",
    "value": [
     "MEAL",
@@ -1570,7 +1568,7 @@
   },
   "BanStates": {
    "raw": "[\n  \"UNVIEWED\",\n  \"REPORT_CLEARED\",\n  \"BAN_ACTIVATED\",\n  \"SILENCE_ACTIVATED\",\n  \"TIMEOUT_ACTIVATED\",\n  \"BAN_ESCALATED\",\n  \"SILENCE_ESCALATED\",\n  \"OFFICIAL_WARNING\",\n  \"TRADE_BAN_ACTIVATED\",\n]",
-   "order": 173,
+   "order": 172,
    "value": [
     "UNVIEWED",
     "REPORT_CLEARED",
@@ -1586,7 +1584,7 @@
   },
   "SanctionTombstoneTypes": {
    "raw": "[\"BAN\", \"SILENCE\"]",
-   "order": 174,
+   "order": 173,
    "doc": "Sanctions that outlive a deleted account; timeouts count as silences.",
    "value": [
     "BAN",
@@ -1596,13 +1594,13 @@
   },
   "TERR_BOT_ID": {
    "raw": "\"iDoQgjrffFd81z8dCYdw7\"",
-   "order": 175,
+   "order": 174,
    "value": "iDoQgjrffFd81z8dCYdw7",
    "kind": "string"
   },
   "TimeUnits": {
    "raw": "[\"minutes\", \"hours\", \"days\", \"weeks\", \"months\"]",
-   "order": 176,
+   "order": 175,
    "value": [
     "minutes",
     "hours",
@@ -1614,7 +1612,7 @@
   },
   "WeaponTypes": {
    "raw": "[\n  \"STAFF\",\n  \"AXE\",\n  \"FIST_WEAPON\",\n  \"SHURIKEN\",\n  \"SICKLE\",\n  \"DAGGER\",\n  \"SWORD\",\n  \"POLEARM\",\n  \"FLAIL\",\n  \"CHAIN\",\n  \"FAN\",\n  \"BOW\",\n  \"HAMMER\",\n  \"NONE\",\n]",
-   "order": 177,
+   "order": 176,
    "value": [
     "STAFF",
     "AXE",
@@ -1635,7 +1633,7 @@
   },
   "AttackTargets": {
    "raw": "[\n  \"SELF\",\n  \"OTHER_USER\",\n  \"OPPONENT\",\n  \"ALLY\",\n  \"CHARACTER\",\n  \"GROUND\",\n  \"EMPTY_GROUND\",\n]",
-   "order": 178,
+   "order": 177,
    "value": [
     "SELF",
     "OTHER_USER",
@@ -1649,7 +1647,7 @@
   },
   "SkillTreeTargets": {
    "raw": "[\"SELF\", \"ENEMIES\", \"ALLIES\"]",
-   "order": 179,
+   "order": 178,
    "doc": "Targets for passive skill tree effects applied on battle start",
    "value": [
     "SELF",
@@ -1660,26 +1658,26 @@
   },
   "DURABILITY_MAX_DEFAULT": {
    "raw": "100",
-   "order": 180,
+   "order": 179,
    "doc": "Durability config",
    "value": 100,
    "kind": "number"
   },
   "DURABILITY_USABILITY_THR": {
    "raw": "0",
-   "order": 181,
+   "order": 180,
    "value": 0,
    "kind": "number"
   },
   "DURABILITY_POINT_PRICE_PERCENT": {
    "raw": "0.1",
-   "order": 182,
+   "order": 181,
    "value": 0.1,
    "kind": "number"
   },
   "SkillTreeEntryTypes": {
    "raw": "[\"DEFAULT\", \"SPECIAL\"]",
-   "order": 183,
+   "order": 182,
    "doc": "Skill Tree Entry Types",
    "value": [
     "DEFAULT",
@@ -1689,14 +1687,14 @@
   },
   "MAX_METHOD_SIZE": {
    "raw": "10",
-   "order": 184,
+   "order": 183,
    "doc": "Maximum extra columns or rows on each side of a method's default footprint.",
    "value": 10,
    "kind": "number"
   },
   "AttackMethods": {
    "raw": "[\n  \"SINGLE\",\n  \"ALL\",\n  \"AOE_CIRCLE_SPAWN\",\n  \"AOE_LINE_SHOOT\",\n  \"AOE_WALL_SHOOT\",\n  \"AOE_LARGE_WALL_SHOOT\",\n  \"AOE_CIRCLE_SHOOT\",\n  \"AOE_SPIRAL_SHOOT\",\n  \"COORDINATES\",\n]",
-   "order": 185,
+   "order": 184,
    "value": [
     "SINGLE",
     "ALL",
@@ -1712,7 +1710,7 @@
   },
   "JutsuTypes": {
    "raw": "[\n  \"NORMAL\",\n  \"SPECIAL\",\n  \"BLOODLINE\",\n  \"FORBIDDEN\",\n  \"LOYALTY\",\n  \"CLAN\",\n  \"EVENT\",\n  \"AI\",\n  \"PETS\",\n]",
-   "order": 186,
+   "order": 185,
    "value": [
     "NORMAL",
     "SPECIAL",
@@ -1728,7 +1726,7 @@
   },
   "JUTSU_TRAIN_TO_LEARN_RESTRICTED_TYPES": {
    "raw": "[\n  \"EVENT\",\n  \"LOYALTY\",\n  \"SPECIAL\",\n  \"FORBIDDEN\",\n]",
-   "order": 187,
+   "order": 186,
    "doc": "Jutsu types that cannot be initially learned via training grounds (leveling owned ones is allowed).",
    "value": [
     "EVENT",
@@ -1740,7 +1738,7 @@
   },
   "CombatStatNames": {
    "raw": "[\n  \"offence\",\n  \"defence\",\n  \"intelligence\",\n  \"speed\",\n  \"willpower\",\n  \"strength\",\n]",
-   "order": 188,
+   "order": 187,
    "value": [
     "offence",
     "defence",
@@ -1753,7 +1751,7 @@
   },
   "MasteryNames": {
    "raw": "[\n  \"ninjutsuMastery\",\n  \"genjutsuMastery\",\n  \"taijutsuMastery\",\n  \"bukijutsuMastery\",\n  \"bloodlineMastery\",\n  \"sageMastery\",\n]",
-   "order": 189,
+   "order": 188,
    "value": [
     "ninjutsuMastery",
     "genjutsuMastery",
@@ -1766,7 +1764,7 @@
   },
   "UserStatNames": {
    "raw": "[...CombatStatNames, ...MasteryNames]",
-   "order": 190,
+   "order": 189,
    "value": [
     "offence",
     "defence",
@@ -1785,8 +1783,8 @@
    "spreads_resolved": true
   },
   "BattleTypes": {
-   "raw": "[\n  \"ARENA\",\n  \"COMBAT\",\n  \"SPARRING\",\n  \"KAGE_AI\",\n  \"KAGE_PVP\",\n  \"CLAN_CHALLENGE\",\n  \"CLAN_BATTLE\",\n  \"SHRINE_WAR\",\n  \"TOURNAMENT\",\n  \"QUEST\",\n  \"RANDOM_ENCOUNTER\",\n  \"VILLAGE_PROTECTOR\",\n  \"TRAINING\",\n  \"RANKED_PVP\",\n  \"RANKED_SPARRING\",\n  \"RAID\",\n  \"OVERWORLD\",\n  \"HUNTING\",\n]",
-   "order": 191,
+   "raw": "[\n  \"ARENA\",\n  \"COMBAT\",\n  \"SPARRING\",\n  \"KAGE_AI\",\n  \"KAGE_PVP\",\n  \"CLAN_CHALLENGE\",\n  \"CLAN_BATTLE\",\n  \"SHRINE_WAR\",\n  \"TERRITORY_WAR\",\n  \"TOURNAMENT\",\n  \"QUEST\",\n  \"RANDOM_ENCOUNTER\",\n  \"VILLAGE_PROTECTOR\",\n  \"TRAINING\",\n  \"RANKED_PVP\",\n  \"RANKED_SPARRING\",\n  \"RAID\",\n  \"OVERWORLD\",\n  \"HUNTING\",\n]",
+   "order": 190,
    "value": [
     "ARENA",
     "COMBAT",
@@ -1796,6 +1794,7 @@
     "CLAN_CHALLENGE",
     "CLAN_BATTLE",
     "SHRINE_WAR",
+    "TERRITORY_WAR",
     "TOURNAMENT",
     "QUEST",
     "RANDOM_ENCOUNTER",
@@ -1811,7 +1810,7 @@
   },
   "PvpBattleTypes": {
    "raw": "[\n  \"COMBAT\",\n  \"SPARRING\",\n  \"CLAN_BATTLE\",\n  \"TOURNAMENT\",\n  \"RANKED_SPARRING\",\n  \"KAGE_PVP\",\n  \"KAGE_AI\",\n  \"RANKED_PVP\",\n]",
-   "order": 192,
+   "order": 191,
    "ts_type": "BattleType[]",
    "value": [
     "COMBAT",
@@ -1826,10 +1825,11 @@
    "kind": "list"
   },
   "PveBattleTypes": {
-   "raw": "[\n  \"HUNTING\",\n  \"ARENA\",\n  \"QUEST\",\n  \"RANDOM_ENCOUNTER\",\n  \"TRAINING\",\n  \"VILLAGE_PROTECTOR\",\n  \"CLAN_CHALLENGE\",\n  \"RAID\",\n  \"OVERWORLD\",\n]",
-   "order": 193,
+   "raw": "[\n  \"TERRITORY_WAR\",\n  \"HUNTING\",\n  \"ARENA\",\n  \"QUEST\",\n  \"RANDOM_ENCOUNTER\",\n  \"TRAINING\",\n  \"VILLAGE_PROTECTOR\",\n  \"CLAN_CHALLENGE\",\n  \"RAID\",\n  \"OVERWORLD\",\n]",
+   "order": 192,
    "ts_type": "BattleType[]",
    "value": [
+    "TERRITORY_WAR",
     "HUNTING",
     "ARENA",
     "QUEST",
@@ -1844,7 +1844,7 @@
   },
   "QuestBattleTypes": {
    "raw": "[\n  \"HUNTING\",\n  \"QUEST\",\n  \"RANDOM_ENCOUNTER\",\n  \"RAID\",\n  \"OVERWORLD\",\n]",
-   "order": 194,
+   "order": 193,
    "ts_type": "BattleType[]",
    "value": [
     "HUNTING",
@@ -1857,7 +1857,7 @@
   },
   "BattleUsageTypes": {
    "raw": "[\"PVE\", \"PVP\", \"BOTH\"]",
-   "order": 195,
+   "order": 194,
    "value": [
     "PVE",
     "PVP",
@@ -1867,7 +1867,7 @@
   },
   "COMBAT_BIOMES": {
    "raw": "[\n  \"ocean\",\n  \"ground\",\n  \"dessert\",\n  \"ice\",\n  \"snow\",\n  \"arena\",\n  \"default\",\n]",
-   "order": 196,
+   "order": 195,
    "doc": "Combat backgrounds",
    "value": [
     "ocean",
@@ -1882,20 +1882,20 @@
   },
   "HEX_STACKING_DISPLACEMENT": {
    "raw": "0.25",
-   "order": 197,
+   "order": 196,
    "doc": "HEX grid settings",
    "value": 0.25,
    "kind": "number"
   },
   "HEX_ASPECT_RATIO": {
    "raw": "0.5",
-   "order": 198,
+   "order": 197,
    "value": 0.5,
    "kind": "number"
   },
   "NO_DURABILITY_LOSS_COMBATS": {
    "raw": "[\"SPARRING\"]",
-   "order": 199,
+   "order": 198,
    "ts_type": "BattleType[]",
    "value": [
     "SPARRING"
@@ -1904,52 +1904,52 @@
   },
   "SECTOR_WIDTH": {
    "raw": "26",
-   "order": 200,
+   "order": 199,
    "doc": "Sector settings. Every sector uses the same unrotated local hex frame; the cylindrical world grid only needs ordinary N/S and E/W edge stitching.",
    "value": 26,
    "kind": "number"
   },
   "SECTOR_HEIGHT": {
    "raw": "26",
-   "order": 201,
+   "order": 200,
    "value": 26,
    "kind": "number"
   },
   "ALLIANCEHALL_LONG": {
    "raw": "10",
-   "order": 202,
+   "order": 201,
    "doc": "Alliance hall settings default",
    "value": 10,
    "kind": "number"
   },
   "ALLIANCEHALL_LAT": {
    "raw": "7",
-   "order": 203,
+   "order": 202,
    "value": 7,
    "kind": "number"
   },
   "HOSPITAL_LONG": {
    "raw": "13",
-   "order": 204,
+   "order": 203,
    "doc": "Hospital settings default",
    "value": 13,
    "kind": "number"
   },
   "HOSPITAL_LAT": {
    "raw": "8",
-   "order": 205,
+   "order": 204,
    "value": 8,
    "kind": "number"
   },
   "STRUCTURE_ADJACENTS": {
    "raw": "[\n  { dCol: -1, dRow: 0 },\n  { dCol: -1, dRow: 1 },\n  { dCol: -1, dRow: -1 },\n  { dCol: 1, dRow: -1 },\n  { dCol: 1, dRow: 1 },\n  { dCol: 1, dRow: 0 },\n  { dCol: 0, dRow: 0 },\n  { dCol: 0, dRow: 1 },\n  { dCol: 0, dRow: -1 },\n  { dCol: 0, dRow: -1 },\n  { dCol: 0, dRow: 1 },\n  { dCol: 0, dRow: 0 },\n]",
-   "order": 206,
+   "order": 205,
    "doc": "Structure adjacent positions",
    "kind": "array_expr"
   },
   "TournamentTypes": {
    "raw": "[\"CLAN\", \"EVENT\"]",
-   "order": 207,
+   "order": 206,
    "value": [
     "CLAN",
     "EVENT"
@@ -1958,7 +1958,7 @@
   },
   "TournamentStates": {
    "raw": "[\"OPEN\", \"IN_PROGRESS\", \"COMPLETED\"]",
-   "order": 208,
+   "order": 207,
    "value": [
     "OPEN",
     "IN_PROGRESS",
@@ -1968,7 +1968,7 @@
   },
   "TournamentMatchStates": {
    "raw": "[\"WAITING\", \"PLAYED\", \"NO_SHOW\"]",
-   "order": 209,
+   "order": 208,
    "value": [
     "WAITING",
     "PLAYED",
@@ -1978,7 +1978,7 @@
   },
   "AutoBattleTypes": {
    "raw": "[\"KAGE_AI\", \"CLAN_CHALLENGE\"]",
-   "order": 210,
+   "order": 209,
    "value": [
     "KAGE_AI",
     "CLAN_CHALLENGE"
@@ -1987,7 +1987,7 @@
   },
   "ManualStartBattleTypes": {
    "raw": "[...PvpBattleTypes, \"SHRINE_WAR\"]",
-   "order": 211,
+   "order": 210,
    "ts_type": "BattleType[]",
    "doc": "Battle types that always start under manual control, whatever the player's stored defaultAutoCombat says: every PvP type, plus SHRINE_WAR, whose shrine lobbies put human attackers against human defenders and which counts as an act of war (it lifts the attacker's immunity like a PvP attack). Nobody can leave their profile fighting other players unattended. SHRINE_WAR stays out of PvpBattleTypes bec",
    "value": [
@@ -2006,14 +2006,14 @@
   },
   "AutoCombatBattleTypes": {
    "raw": "BattleTypes.filter(\n  (type) => !ManualStartBattleTypes.includes(type),\n)",
-   "order": 212,
+   "order": 211,
    "ts_type": "BattleType[]",
    "doc": "Battle types that may be STARTED with auto combat already enabled, from the arena page's toggle or a player's stored defaultAutoCombat: every battle type not in ManualStartBattleTypes, so a newly added PvE type is eligible by default. Tournament AI games and mutually agreed Kage AI matches are PvP types that initiateBattle admits separately.  The in-combat toggle is broader: it is available in eve",
    "kind": "expr"
   },
   "BattleDataEntryType": {
    "raw": "[\n  \"jutsu\",\n  \"item\",\n  \"bloodline\",\n  \"basic\",\n  \"ai\",\n]",
-   "order": 213,
+   "order": 212,
    "value": [
     "jutsu",
     "item",
@@ -2025,7 +2025,7 @@
   },
   "RetryQuestDelays": {
    "raw": "[\"daily\", \"weekly\", \"monthly\", \"none\"]",
-   "order": 214,
+   "order": 213,
    "value": [
     "daily",
     "weekly",
@@ -2036,7 +2036,7 @@
   },
   "QUEST_REWARD_MODES": {
    "raw": "[\"all\", \"choose\"]",
-   "order": 215,
+   "order": 214,
    "doc": "How a quest's completion reward is granted: everything, or a player-picked subset.",
    "value": [
     "all",
@@ -2046,26 +2046,26 @@
   },
   "QUEST_REWARD_PICK_MAX": {
    "raw": "5",
-   "order": 216,
+   "order": 215,
    "doc": "Upper bound for how many rewards a \"choose\" quest lets the player pick.",
    "value": 5,
    "kind": "number"
   },
   "QUEST_PARTY_MAX_MEMBERS": {
    "raw": "3",
-   "order": 217,
+   "order": 216,
    "value": 3,
    "kind": "number"
   },
   "QUEST_PARTY_MAX_INVITATIONS": {
    "raw": "30",
-   "order": 218,
+   "order": 217,
    "value": 30,
    "kind": "number"
   },
   "QUEST_PARTY_TYPES": {
    "raw": "[\"story\", \"event\", \"anbu\"]",
-   "order": 219,
+   "order": 218,
    "value": [
     "story",
     "event",
@@ -2075,7 +2075,7 @@
   },
   "QuestTypes": {
    "raw": "[\n  \"starter\",\n  \"tier\",\n  \"daily\",\n  \"mission\",\n  \"village_mission\",\n  \"errand\",\n  \"crime\",\n  \"exam\",\n  \"event\",\n  \"story\",\n  \"anbu\",\n  \"medical\",\n  \"hunting\",\n  \"gathering\",\n  \"battlepyramid\",\n  \"pvp\",\n  \"achievement\",\n  \"war\",\n  \"raid\",\n  \"overworld\",\n  \"mastery\",\n  \"special\",\n]",
-   "order": 220,
+   "order": 219,
    "value": [
     "starter",
     "tier",
@@ -2104,7 +2104,7 @@
   },
   "NPC_ONLY_QUEST_TYPES": {
    "raw": "[\"overworld\"]",
-   "order": 221,
+   "order": 220,
    "value": [
     "overworld"
    ],
@@ -2112,13 +2112,13 @@
   },
   "QUESTS_CONCURRENT_LIMIT": {
    "raw": "4",
-   "order": 222,
+   "order": 221,
    "value": 4,
    "kind": "number"
   },
   "OrderedQuestTypesInTutorial": {
    "raw": "[\n  \"starter\",\n  \"tier\",\n  \"daily\",\n  \"mission\",\n  \"errand\",\n  \"crime\",\n  \"exam\",\n  \"event\",\n  \"story\",\n]",
-   "order": 223,
+   "order": 222,
    "ts_type": "QuestType[]",
    "doc": "Ordering here represents the default ordering for tutorial component",
    "value": [
@@ -2136,7 +2136,7 @@
   },
   "QuestRewardMetrics": {
    "raw": "[\n  \"reward_money\",\n  \"reward_seichi_silver\",\n  \"reward_clanpoints\",\n  \"reward_anbupoints\",\n  \"reward_exp\",\n  \"reward_tokens\",\n  \"reward_prestige\",\n  \"reward_reputation\",\n  \"reward_skillpoints\",\n  \"reward_medical_experience\",\n  \"reward_hunting_experience\",\n  \"reward_crafting_experience\",\n  \"reward_gathering_experience\",\n]",
-   "order": 224,
+   "order": 223,
    "doc": "Quest reward metrics used in balance statistics and filters",
    "value": [
     "reward_money",
@@ -2157,7 +2157,7 @@
   },
   "QuestTypesWithMaxAttempts": {
    "raw": "[\n  \"mastery\",\n  \"event\",\n  \"story\",\n  \"battlepyramid\",\n  \"starter\",\n  \"raid\",\n  \"overworld\",\n]",
-   "order": 225,
+   "order": 224,
    "value": [
     "mastery",
     "event",
@@ -2171,7 +2171,7 @@
   },
   "SmileyEmotions": {
    "raw": "[\"like\", \"love\", \"laugh\"]",
-   "order": 226,
+   "order": 225,
    "value": [
     "like",
     "love",
@@ -2181,7 +2181,7 @@
   },
   "TrainingSpeeds": {
    "raw": "[\n  \"15min\",\n  \"1hr\",\n  \"4hrs\",\n  \"8hrs\",\n  \"12hrs\",\n  \"24hrs\",\n]",
-   "order": 227,
+   "order": 226,
    "value": [
     "15min",
     "1hr",
@@ -2194,55 +2194,55 @@
   },
   "JUTSU_MAX_RESIDUAL_EQUIPPED": {
    "raw": "4",
-   "order": 228,
+   "order": 227,
    "value": 4,
    "kind": "number"
   },
   "JUTSU_MAX_PIERCE_EQUIPPED": {
    "raw": "9999",
-   "order": 229,
+   "order": 228,
    "value": 9999,
    "kind": "number"
   },
   "JUTSU_MAX_EVENT_EQUIPPED": {
    "raw": "2",
-   "order": 230,
+   "order": 229,
    "value": 2,
    "kind": "number"
   },
   "JUTSU_MAX_FORBIDDEN_EQUIPPED": {
    "raw": "1",
-   "order": 231,
+   "order": 230,
    "value": 1,
    "kind": "number"
   },
   "JUTSU_MAX_BARRIER_EQUIPPED": {
    "raw": "1",
-   "order": 232,
+   "order": 231,
    "value": 1,
    "kind": "number"
   },
   "JUTSU_MAX_STUN_EQUIPPED": {
    "raw": "2",
-   "order": 233,
+   "order": 232,
    "value": 2,
    "kind": "number"
   },
   "JUTSU_MAX_SHIELD_EQUIPPED": {
    "raw": "2",
-   "order": 234,
+   "order": 233,
    "value": 2,
    "kind": "number"
   },
   "JUTSU_MAX_HEAL_EQUIPPED": {
    "raw": "3",
-   "order": 235,
+   "order": 234,
    "value": 3,
    "kind": "number"
   },
   "BloodlineDifficultyRatings": {
    "raw": "[\"Easy\", \"Medium\", \"Hard\", \"Expert\"]",
-   "order": 236,
+   "order": 235,
    "doc": "Content difficulty ratings",
    "value": [
     "Easy",
@@ -2254,7 +2254,7 @@
   },
   "UserAssociations": {
    "raw": "[\"MARRIAGE\", \"DIVORCED\"]",
-   "order": 237,
+   "order": 236,
    "value": [
     "MARRIAGE",
     "DIVORCED"
@@ -2263,7 +2263,7 @@
   },
   "UserRequestStates": {
    "raw": "[\n  \"PENDING\",\n  \"ACCEPTED\",\n  \"REJECTED\",\n  \"CANCELLED\",\n  \"EXPIRED\",\n]",
-   "order": 238,
+   "order": 237,
    "value": [
     "PENDING",
     "ACCEPTED",
@@ -2275,7 +2275,7 @@
   },
   "UserRequestTypes": {
    "raw": "[\n  \"SPAR\",\n  \"ALLIANCE\",\n  \"SURRENDER\",\n  \"SENSEI\",\n  \"ANBU\",\n  \"CLAN\",\n  \"MARRIAGE\",\n  \"KAGE\",\n  \"WAR_ALLY\",\n  \"HOME\",\n]",
-   "order": 239,
+   "order": 238,
    "value": [
     "SPAR",
     "ALLIANCE",
@@ -2292,7 +2292,7 @@
   },
   "AllianceStates": {
    "raw": "[\"NEUTRAL\", \"ALLY\", \"ENEMY\"]",
-   "order": 240,
+   "order": 239,
    "value": [
     "NEUTRAL",
     "ALLY",
@@ -2302,7 +2302,7 @@
   },
   "BasicElementName": {
    "raw": "[\n  \"Fire\",\n  \"Water\",\n  \"Wind\",\n  \"Earth\",\n  \"Lightning\",\n]",
-   "order": 241,
+   "order": 240,
    "value": [
     "Fire",
     "Water",
@@ -2314,7 +2314,7 @@
   },
   "TimedMasteryNames": {
    "raw": "[...MasteryNames, ...BasicElementName]",
-   "order": 242,
+   "order": 241,
    "doc": "Targets supported by timed training; each section has an independent queue.",
    "value": [
     "ninjutsuMastery",
@@ -2334,19 +2334,19 @@
   },
   "ELEMENTAL_MASTERY_CAP": {
    "raw": "300_000",
-   "order": 243,
+   "order": 242,
    "value": 300000,
    "kind": "number"
   },
   "ELEMENTAL_MASTERY_BOOST": {
    "raw": "15",
-   "order": 244,
+   "order": 243,
    "value": 15,
    "kind": "number"
   },
   "ElementNames": {
    "raw": "[\n  ...BasicElementName,\n  \"Ice\",\n  \"Crystal\",\n  \"Dust\",\n  \"Shadow\",\n  \"Wood\",\n  \"Scorch\",\n  \"Storm\",\n  \"Magnet\",\n  \"Yin-Yang\",\n  \"Lava\",\n  \"Explosion\",\n  \"Light\",\n  \"Boil\",\n  \"Metal\",\n  \"Sand\",\n  \"None\",\n]",
-   "order": 245,
+   "order": 244,
    "value": [
     "Fire",
     "Water",
@@ -2375,38 +2375,38 @@
   },
   "HP_PER_LVL": {
    "raw": "50",
-   "order": 246,
+   "order": 245,
    "doc": "User stats config",
    "value": 50,
    "kind": "number"
   },
   "SP_PER_LVL": {
    "raw": "50",
-   "order": 247,
+   "order": 246,
    "value": 50,
    "kind": "number"
   },
   "CP_PER_LVL": {
    "raw": "50",
-   "order": 248,
+   "order": 247,
    "value": 50,
    "kind": "number"
   },
   "ENERGY_PER_LVL": {
    "raw": "50",
-   "order": 249,
+   "order": 248,
    "value": 50,
    "kind": "number"
   },
   "STATS_PER_ENERGY": {
    "raw": "0.085",
-   "order": 250,
+   "order": 249,
    "value": 0.085,
    "kind": "number"
   },
   "QueueKinds": {
    "raw": "[\"JUTSU\", \"CRAFT\", \"MASTERY\", \"ENERGY\", \"ELEMENT\"]",
-   "order": 251,
+   "order": 250,
    "doc": "Kinds of entries held in `UserQueue`.",
    "value": [
     "JUTSU",
@@ -2419,7 +2419,7 @@
   },
   "MasteryQueueKinds": {
    "raw": "[\"MASTERY\", \"ELEMENT\"]",
-   "order": 252,
+   "order": 251,
    "value": [
     "MASTERY",
     "ELEMENT"
@@ -2428,7 +2428,7 @@
   },
   "TimedQueueKinds": {
    "raw": "[\"JUTSU\", \"CRAFT\"]",
-   "order": 253,
+   "order": 252,
    "doc": "Queue kinds started on a timer and settled in the database.",
    "value": [
     "JUTSU",
@@ -2438,122 +2438,122 @@
   },
   "QUEUE_WAITING_SLOTS": {
    "raw": "{ NONE: 1, NORMAL: 2, SILVER: 3, GOLD: 4 }",
-   "order": 254,
+   "order": 253,
    "kind": "expr"
   },
   "TRAINING_CAPTCHA_MIN_TRAININGS": {
    "raw": "10",
-   "order": 255,
+   "order": 254,
    "doc": "Training captcha cadence: no captcha below the minimum daily trainings, then one at every Nth daily training, rarer for higher federal tiers.",
    "value": 10,
    "kind": "number"
   },
   "TRAINING_CAPTCHA_COUNT_INTERVALS": {
    "raw": "[\n  { below: 30, every: 4 },\n  { below: 40, every: 3 },\n  { below: 50, every: 2 },\n]",
-   "order": 256,
+   "order": 255,
    "doc": "Count-based captcha interval (before federal tiers): every 4th below 30, every 3rd below 40, every 2nd below 50, then every training. The rarer of this and the tier interval applies.",
    "kind": "array_expr"
   },
   "TRAINING_CAPTCHA_SOLVED_GRACE_MINUTES": {
    "raw": "10",
-   "order": 257,
+   "order": 256,
    "doc": "After a solved training captcha, no further captcha is asked for this many minutes. Energy training and queue edits do not advance `dailyTrainings`, so without this window every Energy action asks again while the counter rests on a captcha count.",
    "value": 10,
    "kind": "number"
   },
   "TRAINING_CAPTCHA_REFRESHES_PER_MINUTE": {
    "raw": "5",
-   "order": 258,
+   "order": 257,
    "doc": "New training captchas (requested or after a wrong answer) a user can get per minute.",
    "value": 5,
    "kind": "number"
   },
   "TRAINING_CAPTCHA_INTERVAL": {
    "raw": "{\n  NONE: 2,\n  NORMAL: 3,\n  SILVER: 4,\n  GOLD: 5,\n}",
-   "order": 259,
+   "order": 258,
    "kind": "expr"
   },
   "ENERGY_QUEST_REWARDS": {
    "raw": "{\n  mission: 20,\n  battlepyramid: 100,\n  story: 20,\n  starter: 20,\n  event: 100,\n}",
-   "order": 260,
+   "order": 259,
    "ts_type": "Partial<Record<QuestType, number>>",
    "doc": "Energy restored (up to capacity) when a quest of one of these types is completed.",
    "kind": "expr"
   },
   "ENERGY_PVP_WIN_REWARD": {
    "raw": "250",
-   "order": 261,
+   "order": 260,
    "value": 250,
    "kind": "number"
   },
   "ENERGY_PVP_LOSS_REWARD": {
    "raw": "200",
-   "order": 262,
+   "order": 261,
    "value": 200,
    "kind": "number"
   },
   "MAX_ATTRIBUTES": {
    "raw": "5",
-   "order": 263,
+   "order": 262,
    "value": 5,
    "kind": "number"
   },
   "BANK_INTEREST_CLAIM_DAYS": {
    "raw": "8",
-   "order": 264,
+   "order": 263,
    "value": 8,
    "kind": "number"
   },
   "RYO_CAP": {
    "raw": "3000000000",
-   "order": 265,
+   "order": 264,
    "value": 3000000000,
    "kind": "number"
   },
   "MAX_STATS_CAP": {
    "raw": "1500000",
-   "order": 266,
+   "order": 265,
    "doc": "Highest earned offence/defence cap; individual ranks may have lower ceilings.",
    "value": 1500000,
    "kind": "number"
   },
   "MAX_GENS_CAP": {
    "raw": "600000",
-   "order": 267,
+   "order": 266,
    "doc": "Highest earned cap for each general; individual ranks may have lower ceilings.",
    "value": 600000,
    "kind": "number"
   },
   "JONIN_STATS_CAP": {
    "raw": "1300000",
-   "order": 268,
+   "order": 267,
    "doc": "Non-Elite endgame offence/defence ceiling.",
    "value": 1300000,
    "kind": "number"
   },
   "JONIN_GENS_CAP": {
    "raw": "400000",
-   "order": 269,
+   "order": 268,
    "doc": "Non-Elite endgame ceiling for each general.",
    "value": 400000,
    "kind": "number"
   },
   "MAX_MASTERY_CAP": {
    "raw": "1500000",
-   "order": 270,
+   "order": 269,
    "value": 1500000,
    "kind": "number"
   },
   "TOTAL_MASTERY_CAP": {
    "raw": "4200000",
-   "order": 271,
+   "order": 270,
    "doc": "Shared ceiling for earned mastery; equipment and bloodline modifiers are excluded.",
    "value": 4200000,
    "kind": "number"
   },
   "MASTERY_RANKS": {
    "raw": "[\"NONE\", \"NOVICE\", \"ADEPT\", \"MASTER\", \"LEGENDARY\"]",
-   "order": 272,
+   "order": 271,
    "doc": "Persisted progression order, independent of the character's ninja rank.",
    "value": [
     "NONE",
@@ -2566,110 +2566,110 @@
   },
   "MASTERY_RANK_CAPS": {
    "raw": "{\n  NONE: 375000,\n  NOVICE: 600000,\n  ADEPT: 1000000,\n  MASTER: MAX_MASTERY_CAP,\n  LEGENDARY: MAX_MASTERY_CAP,\n}",
-   "order": 273,
+   "order": 272,
    "ts_type": "Record<MasteryRank, number>",
    "doc": "Gain ceiling at each current rank; the Legendary exam changes rank without raising it.",
    "kind": "expr"
   },
   "MASTERY_RANK_REQUIREMENTS": {
    "raw": "{\n  NONE: 0,\n  NOVICE: 375000,\n  ADEPT: 600000,\n  MASTER: 1000000,\n  LEGENDARY: MAX_MASTERY_CAP,\n}",
-   "order": 274,
+   "order": 273,
    "ts_type": "Record<MasteryRank, number>",
    "doc": "Default earned minimums for exam templates; published quests may override these.",
    "kind": "expr"
   },
   "PVP_EXPERIENCE_PARTICIPATION_REWARD": {
    "raw": "100",
-   "order": 275,
+   "order": 274,
    "value": 100,
    "kind": "number"
   },
   "PVP_EXPERIENCE_WIN_REWARD": {
    "raw": "150",
-   "order": 276,
+   "order": 275,
    "value": 150,
    "kind": "number"
   },
   "PVP_EXPERIENCE_DAILY_DECAY": {
    "raw": "0.1",
-   "order": 277,
+   "order": 276,
    "value": 0.1,
    "kind": "number"
   },
   "PVP_EXPERIENCE_AVERAGE_SETTING": {
    "raw": "\"pvpExperienceAverage\"",
-   "order": 278,
+   "order": 277,
    "value": "pvpExperienceAverage",
    "kind": "string"
   },
   "PVP_WEEKLY_KILL_BOOST": {
    "raw": "0.25",
-   "order": 279,
+   "order": 278,
    "value": 0.25,
    "kind": "number"
   },
   "PVP_WEEKLY_KILL_BOOST_CAP": {
    "raw": "20",
-   "order": 280,
+   "order": 279,
    "value": 20,
    "kind": "number"
   },
   "PVP_EXPERIENCE_BOOST_TIERS": {
    "raw": "[\n  { ratio: 1.4, percent: 15 },\n  { ratio: 1.3, percent: 10 },\n  { ratio: 1.2, percent: 5 },\n  { ratio: 0.8, percent: 2 },\n]",
-   "order": 281,
+   "order": 280,
    "kind": "array_expr"
   },
   "PVP_MASTERY_WIN_REWARD": {
    "raw": "200",
-   "order": 282,
+   "order": 281,
    "value": 200,
    "kind": "number"
   },
   "PVP_MASTERY_LOSS_REWARD": {
    "raw": "100",
-   "order": 283,
+   "order": 282,
    "value": 100,
    "kind": "number"
   },
   "SCALED_AI_STAT_BUDGET_SHARE": {
    "raw": "0.5",
-   "order": 284,
+   "order": 283,
    "doc": "AI rows retain their catalog tuning: half the level budget over 6 stats is 1/12 each.",
    "value": 0.5,
    "kind": "number"
   },
   "MAX_DAILY_AI_CALLS": {
    "raw": "100",
-   "order": 285,
+   "order": 284,
    "value": 100,
    "kind": "number"
   },
   "ROLL_CHANCE_PERCENTAGE": {
    "raw": "{\n  [\"H\"]: 0,\n  [\"S\"]: 0.005,\n  [\"A\"]: 0.01,\n  [\"B\"]: 0.05,\n  [\"C\"]: 0.25,\n}",
-   "order": 286,
+   "order": 285,
    "kind": "expr"
   },
   "ROLL_CHANCE": {
    "raw": "{\n  [\"H\"]: 0,\n  [\"S\"]: ROLL_CHANCE_PERCENTAGE.S,\n  [\"A\"]: ROLL_CHANCE_PERCENTAGE.S + ROLL_CHANCE_PERCENTAGE.A,\n  [\"B\"]: ROLL_CHANCE_PERCENTAGE.S + ROLL_CHANCE_PERCENTAGE.A + ROLL_CHANCE_PERCENTAGE.B,\n  [\"C\"]:\n    ROLL_CHANCE_PERCENTAGE.S +\n    ROLL_CHANCE_PERCENTAGE.A +\n    ROLL_CHANCE_PERCENTAGE.B +\n    ROLL_CHANCE_PERCENTAGE.C,\n}",
-   "order": 287,
+   "order": 286,
    "doc": "Calculate cumulative probabilities from individual percentages",
    "kind": "expr"
   },
   "BLOODLINE_COST": {
    "raw": "{\n  [\"H\"]: 999999,\n  [\"S\"]: 999999,\n  [\"A\"]: 200,\n  [\"B\"]: 190,\n  [\"C\"]: 180,\n  [\"D\"]: 170,\n}",
-   "order": 288,
+   "order": 287,
    "doc": "Bloodline Pricing",
    "kind": "expr"
   },
   "REMOVAL_COST": {
    "raw": "5",
-   "order": 289,
+   "order": 288,
    "value": 5,
    "kind": "number"
   },
   "Sentiment": {
    "raw": "[\"POSITIVE\", \"NEGATIVE\", \"NEUTRAL\"]",
-   "order": 290,
+   "order": 289,
    "value": [
     "POSITIVE",
     "NEGATIVE",
@@ -2679,76 +2679,76 @@
   },
   "IMG_URL_ASSISTANT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIG7HmDxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp\"",
-   "order": 291,
+   "order": 290,
    "doc": "Starter quest used for recruitment analytics",
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIG7HmDxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp",
    "kind": "string"
   },
   "IMG_URL_ASSISTANT_ALTERNATIVES": {
    "raw": "[\n  // Silver blade\n  \"https://ui0arpl8sm.ufs.sh/f/content-jlYDeVvWQIv0UDYJndtBn.webp\",\n  // Golden hawk\n  \"https://ui0arpl8sm.ufs.sh/f/content-6jMP1VF5X1Zu2wppt4vec.webp\",\n  // Shadow mentor\n  \"https://ui0arpl8sm.ufs.sh/f/content-NBVEXpYD8aRhwFof6jq45.webp\",\n  // Copper lioness\n  \"https://ui0arpl8sm.ufs.sh/f/content-2bwqugh_JdcS55ALvzfhV.webp\",\n  // Tiger captain\n  \"https://ui0arpl8sm.ufs.sh/f/content-r6_prvN1P_dntlkbOEJSL.webp\",\n  // Moon sentinel\n  \"https://ui0arpl8sm.ufs.sh/f/content-jMcyVJrtGlAclqlBlbJFR.webp\",\n]",
-   "order": 292,
+   "order": 291,
    "doc": "Tutorial experiment alternatives, in treatment assignment order.",
    "value": [
-    "// Silver blade\n  \"https://ui0arpl8sm.ufs.sh/f/content-jlYDeVvWQIv0UDYJndtBn.webp",
-    "// Golden hawk\n  \"https://ui0arpl8sm.ufs.sh/f/content-6jMP1VF5X1Zu2wppt4vec.webp",
-    "// Shadow mentor\n  \"https://ui0arpl8sm.ufs.sh/f/content-NBVEXpYD8aRhwFof6jq45.webp",
-    "// Copper lioness\n  \"https://ui0arpl8sm.ufs.sh/f/content-2bwqugh_JdcS55ALvzfhV.webp",
-    "// Tiger captain\n  \"https://ui0arpl8sm.ufs.sh/f/content-r6_prvN1P_dntlkbOEJSL.webp",
-    "// Moon sentinel\n  \"https://ui0arpl8sm.ufs.sh/f/content-jMcyVJrtGlAclqlBlbJFR.webp"
+    "https://ui0arpl8sm.ufs.sh/f/content-jlYDeVvWQIv0UDYJndtBn.webp",
+    "https://ui0arpl8sm.ufs.sh/f/content-6jMP1VF5X1Zu2wppt4vec.webp",
+    "https://ui0arpl8sm.ufs.sh/f/content-NBVEXpYD8aRhwFof6jq45.webp",
+    "https://ui0arpl8sm.ufs.sh/f/content-2bwqugh_JdcS55ALvzfhV.webp",
+    "https://ui0arpl8sm.ufs.sh/f/content-r6_prvN1P_dntlkbOEJSL.webp",
+    "https://ui0arpl8sm.ufs.sh/f/content-jMcyVJrtGlAclqlBlbJFR.webp"
    ],
    "kind": "list"
   },
   "IMG_URL_HANDPOINTER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIvN7gkJxfOewksxBoS1HQCihpL7c42Ky9uUF.webp\"",
-   "order": 293,
+   "order": 292,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIvN7gkJxfOewksxBoS1HQCihpL7c42Ky9uUF.webp",
    "kind": "string"
   },
   "TUTORIAL_JUTSU_ID": {
    "raw": "\"clh4d6pxd0006tb0h4y1yudi5\"",
-   "order": 294,
+   "order": 293,
    "value": "clh4d6pxd0006tb0h4y1yudi5",
    "kind": "string"
   },
   "TUTORIAL_ITEM_ID": {
    "raw": "\"VOditPJ3X2id0yC-F5Kz3\"",
-   "order": 295,
+   "order": 294,
    "value": "VOditPJ3X2id0yC-F5Kz3",
    "kind": "string"
   },
   "TUTORIAL_STARTER_QUEST_ID": {
    "raw": "\"eYDVpL63vPhK3lywMexdv\"",
-   "order": 296,
+   "order": 295,
    "value": "eYDVpL63vPhK3lywMexdv",
    "kind": "string"
   },
   "TUTORIAL_GENIN_EXAM_QUEST_ID": {
    "raw": "\"9-t1rNWEzXbIfdUfxWrny\"",
-   "order": 297,
+   "order": 296,
    "value": "9-t1rNWEzXbIfdUfxWrny",
    "kind": "string"
   },
   "HEAVENLY_SONATA_BLOODLINE_ID": {
    "raw": "\"clh4d6q6s000atb0h0qdqdh1z\"",
-   "order": 298,
+   "order": 297,
    "value": "clh4d6q6s000atb0h0qdqdh1z",
    "kind": "string"
   },
   "BLUE_BLADE_EYES_BLOODLINE_ID": {
    "raw": "\"clh4d6qo4000itb0hrx8t06wq\"",
-   "order": 299,
+   "order": 298,
    "value": "clh4d6qo4000itb0hrx8t06wq",
    "kind": "string"
   },
   "TUTORIAL_ARENA_DUMMY_ID": {
    "raw": "\"ICXb49Z0Jle3GyJ-rosTi\"",
-   "order": 300,
+   "order": 299,
    "value": "ICXb49Z0Jle3GyJ-rosTi",
    "kind": "string"
   },
   "RecruitmentMetrics": {
    "raw": "[\n  \"level\",\n  \"pveFights\",\n  \"pvpFights\",\n  \"missionsD\",\n  \"missionsC\",\n  \"missionsB\",\n  \"missionsA\",\n  \"crimesD\",\n  \"crimesC\",\n  \"crimesB\",\n  \"crimesA\",\n  \"completedQuests\",\n]",
-   "order": 301,
+   "order": 300,
    "doc": "Recruitment analytics metric options (used by frontend and backend)",
    "value": [
     "level",
@@ -2768,26 +2768,26 @@
   },
   "RecruitmentMetricMax": {
    "raw": "{\n  level: 50,\n  pveFights: 50,\n  pvpFights: 50,\n  missionsD: 50,\n  missionsC: 50,\n  missionsB: 50,\n  missionsA: 50,\n  crimesD: 50,\n  crimesC: 50,\n  crimesB: 50,\n  crimesA: 50,\n  completedQuests: 50,\n}",
-   "order": 302,
+   "order": 301,
    "ts_type": "Record<RecruitmentMetric, number>",
    "doc": "Default clamp maxima for recruitment metrics (min is always 0)",
    "kind": "expr"
   },
   "RECRUITMENT_GOALS": {
    "raw": "{\n  SIGNUP_RATE_PERCENT: 20,\n  RANK_RATE_PERCENT: 5,\n  PVP_RATE_PERCENT: 5,\n  TUTORIAL_RATE_PERCENT: 50,\n  SIGNUP_VALUE_USD: 0.5,\n}",
-   "order": 303,
+   "order": 302,
    "kind": "expr"
   },
   "TUTORIAL_STEPS_COUNT": {
    "raw": "52",
-   "order": 304,
+   "order": 303,
    "doc": "Number of tutorial steps used by the onboarding flow (see hooks/tutorial.tsx) IMPORTANT: Keep this in sync with TUTORIAL_STEPS.length in hooks/tutorial.tsx",
    "value": 52,
    "kind": "number"
   },
   "RECRUITMENT_REWARDS": {
    "raw": "[\n  \"MONEY\",\n  \"REPUTATION\",\n  \"PRESTIGE\",\n  \"CLAN_POINTS\",\n  \"RANK_MILESTONE\",\n]",
-   "order": 305,
+   "order": 304,
    "doc": "Recruitment rewards config",
    "value": [
     "MONEY",
@@ -2800,13 +2800,13 @@
   },
   "RECRUIT_RANK_MILESTONES": {
    "raw": "[\n  { rank: \"GENIN\", reputation: 1 },\n  { rank: \"CHUNIN\", reputation: 5 },\n  { rank: \"JONIN\", reputation: 10 },\n  { rank: \"ELITE JONIN\", reputation: 10 },\n]",
-   "order": 306,
+   "order": 305,
    "doc": "Reputation points a recruiter receives the first time an eligible recruit reaches each rank, in rank order. Reaching a rank also reaches every milestone below it. Elder is not on the ladder: Elders are chosen from Jonin and rank below Elite Jonin (see hasRequiredRank), so an Elder holds the milestones up to Jonin and never Elite Jonin.",
    "kind": "array_expr"
   },
   "RECRUIT_MILESTONE_RANKS": {
    "raw": "[\"GENIN\", \"CHUNIN\", \"JONIN\", \"ELITE JONIN\"]",
-   "order": 307,
+   "order": 306,
    "value": [
     "GENIN",
     "CHUNIN",
@@ -2817,7 +2817,7 @@
   },
   "RECRUIT_MILESTONE_STATUSES": {
    "raw": "[\n  \"PAID\",\n  \"PRE_EXISTING\",\n  \"INELIGIBLE\",\n  \"NO_RECRUITER\",\n]",
-   "order": 308,
+   "order": 307,
    "doc": "Outcome recorded for each (recruit, rank) milestone; only PAID moved reputation. PRE_EXISTING: the rank was already held when milestones were introduced. INELIGIBLE: the referral is ineligible, or has no eligibility record. NO_RECRUITER: the recruiter account no longer exists.",
    "value": [
     "PAID",
@@ -2829,7 +2829,7 @@
   },
   "RECRUIT_ELIGIBILITY_REASONS": {
    "raw": "[\n  \"IP_NOT_SHARED\",\n  \"IP_UNKNOWN\",\n  \"SHARED_IP\",\n  \"SELF_REFERRAL\",\n  \"BACKFILL_IP_NOT_SHARED\",\n  \"BACKFILL_SHARED_IP\",\n  \"BACKFILL_UNVERIFIED\",\n]",
-   "order": 309,
+   "order": 308,
    "doc": "Why a referral is (in)eligible for rank milestone rewards. Internal: the recruitment page only says whether a recruit is eligible, never which account or IP matched. IP_NOT_SHARED / IP_UNKNOWN: eligible at signup (no match / no client IP on the request). SHARED_IP: the signup IP was already recorded for another account. SELF_REFERRAL: the account used its own recruitment link. BACKFILL_*: referral",
    "value": [
     "IP_NOT_SHARED",
@@ -2844,7 +2844,7 @@
   },
   "BankTransferTypes": {
    "raw": "[\"bank\", \"sensei\", \"recruiter\"]",
-   "order": 310,
+   "order": 309,
    "doc": "Bank config",
    "value": [
     "bank",
@@ -2855,64 +2855,64 @@
   },
   "USER_CAPS": {
    "raw": "{\n  STUDENT: { GENS_CAP: 20000, STATS_CAP: 20000, LVL_CAP: 10 },\n  GENIN: { GENS_CAP: 60000, STATS_CAP: 60000, LVL_CAP: 30 },\n  CHUNIN: {\n    GENS_CAP: JONIN_GENS_CAP,\n    STATS_CAP: JONIN_STATS_CAP,\n    LVL_CAP: MAX_EXPERIENCE_LEVEL,\n  },\n  JONIN: {\n    GENS_CAP: JONIN_GENS_CAP,\n    STATS_CAP: JONIN_STATS_CAP,\n    LVL_CAP: MAX_EXPERIENCE_LEVEL,\n  },\n  \"ELITE JONIN\": {\n    GENS_CAP: MAX_GENS_CAP,\n    STATS_CAP: MAX_STATS_CAP,\n    LVL_CAP: MAX_PLAYER_LEVEL,\n  },\n  ELDER: {\n    GENS_CAP: JONIN_GENS_CAP,\n    STATS_CAP: JONIN_STATS_CAP,\n    LVL_CAP: MAX_EXPERIENCE_LEVEL,\n  },\n  NONE: {\n    GENS_CAP: JONIN_GENS_CAP,\n    STATS_CAP: JONIN_STATS_CAP,\n    LVL_CAP: MAX_EXPERIENCE_LEVEL,\n  },\n}",
-   "order": 311,
+   "order": 310,
    "ts_type": "Record< UserRank, { GENS_CAP: number; STATS_CAP: number; LVL_CAP: number } >",
    "doc": "Caps lookup table",
    "kind": "expr"
   },
   "OPENAI_REVIEW_MODEL": {
    "raw": "\"gpt-6-luna\"",
-   "order": 312,
+   "order": 311,
    "doc": "OpenAI models",
    "value": "gpt-6-luna",
    "kind": "string"
   },
   "OPENAI_MODERATION_MODEL": {
    "raw": "\"gpt-4o-mini\"",
-   "order": 313,
+   "order": 312,
    "value": "gpt-4o-mini",
    "kind": "string"
   },
   "MODERATION_PROMPT_VERSION": {
    "raw": "\"evidence-v1\"",
-   "order": 314,
+   "order": 313,
    "value": "evidence-v1",
    "kind": "string"
   },
   "MODERATION_SCAN_RETENTION_DAYS": {
    "raw": "90",
-   "order": 315,
+   "order": 314,
    "value": 90,
    "kind": "number"
   },
   "OPENAI_REPORT_EMBEDDING_MODEL": {
    "raw": "\"text-embedding-3-small\"",
-   "order": 316,
+   "order": 315,
    "value": "text-embedding-3-small",
    "kind": "string"
   },
   "REPORT_EMBEDDING_DIMENSIONS": {
    "raw": "1536",
-   "order": 317,
+   "order": 316,
    "value": 1536,
    "kind": "number"
   },
   "OPENAI_CHAT_MODEL": {
    "raw": "\"gpt-4o-mini\"",
-   "order": 318,
+   "order": 317,
    "value": "gpt-4o-mini",
    "kind": "string"
   },
   "PAYPAL_DISCOUNT_PERCENT": {
    "raw": "0",
-   "order": 319,
+   "order": 318,
    "doc": "Paypal shop config",
    "value": 0,
    "kind": "number"
   },
   "TRANSACTION_TYPES": {
    "raw": "[\"REP_PURCHASE\", \"REFERRAL\"]",
-   "order": 320,
+   "order": 319,
    "value": [
     "REP_PURCHASE",
     "REFERRAL"
@@ -2921,159 +2921,159 @@
   },
   "ROBBING_SUCCESS_CHANCE": {
    "raw": "0.4",
-   "order": 321,
+   "order": 320,
    "doc": "Outlaw config",
    "value": 0.4,
    "kind": "number"
   },
   "ROBBING_STOLLEN_AMOUNT": {
    "raw": "0.3",
-   "order": 322,
+   "order": 321,
    "value": 0.3,
    "kind": "number"
   },
   "ROBBING_VILLAGE_PRESTIGE_GAIN": {
    "raw": "5",
-   "order": 323,
+   "order": 322,
    "value": 5,
    "kind": "number"
   },
   "ROBBING_IMMUNITY_DURATION": {
    "raw": "90",
-   "order": 324,
+   "order": 323,
    "value": 90,
    "kind": "number"
   },
   "KILLING_NOTORIETY_GAIN": {
    "raw": "5",
-   "order": 325,
+   "order": 324,
    "value": 5,
    "kind": "number"
   },
   "STARTING_REPUTATION_POINTS": {
    "raw": "11",
-   "order": 326,
+   "order": 325,
    "doc": "Reputation cost config",
    "value": 11,
    "kind": "number"
   },
   "COST_CHANGE_USERNAME": {
    "raw": "5",
-   "order": 327,
+   "order": 326,
    "value": 5,
    "kind": "number"
   },
   "COST_CHANGE_GENDER": {
    "raw": "5",
-   "order": 328,
+   "order": 327,
    "value": 5,
    "kind": "number"
   },
   "COST_TAVERN_COLOR_CHANGE": {
    "raw": "10",
-   "order": 329,
+   "order": 328,
    "value": 10,
    "kind": "number"
   },
   "COST_SWAP_BLOODLINE": {
    "raw": "50",
-   "order": 330,
+   "order": 329,
    "value": 50,
    "kind": "number"
   },
   "COST_SWAP_VILLAGE": {
    "raw": "0",
-   "order": 331,
+   "order": 330,
    "value": 0,
    "kind": "number"
   },
   "COST_RESET_STATS": {
    "raw": "15",
-   "order": 332,
+   "order": 331,
    "value": 15,
    "kind": "number"
   },
   "COST_EXTRA_ITEM_SLOT": {
    "raw": "10",
-   "order": 333,
+   "order": 332,
    "value": 10,
    "kind": "number"
   },
   "COST_EXTRA_JUTSU_SLOT": {
    "raw": "50",
-   "order": 334,
+   "order": 333,
    "value": 50,
    "kind": "number"
   },
   "COST_REROLL_ELEMENT": {
    "raw": "10",
-   "order": 335,
+   "order": 334,
    "value": 10,
    "kind": "number"
   },
   "COST_SKILL_RESET": {
    "raw": "30",
-   "order": 336,
+   "order": 335,
    "value": 30,
    "kind": "number"
   },
   "COST_CONCEPT_IMAGE": {
    "raw": "1",
-   "order": 337,
+   "order": 336,
    "value": 1,
    "kind": "number"
   },
   "COST_CONCEPT_VIDEO": {
    "raw": "15",
-   "order": 338,
+   "order": 337,
    "value": 15,
    "kind": "number"
   },
   "COST_STREAK_CATCHUP_DAY": {
    "raw": "1",
-   "order": 339,
+   "order": 338,
    "value": 1,
    "kind": "number"
   },
   "STREAK_CONTINUITY_HOURS": {
    "raw": "36",
-   "order": 340,
+   "order": 339,
    "value": 36,
    "kind": "number"
   },
   "MAX_EXTRA_JUTSU_SLOTS": {
    "raw": "2",
-   "order": 341,
+   "order": 340,
    "value": 2,
    "kind": "number"
   },
   "BATTLE_LOG_FULL_LIMIT": {
    "raw": "1000",
-   "order": 342,
+   "order": 341,
    "value": 1000,
    "kind": "number"
   },
   "BATTLE_LOG_DEFAULT_LIMIT": {
    "raw": "30",
-   "order": 343,
+   "order": 342,
    "value": 30,
    "kind": "number"
   },
   "MAX_EXTRA_RESKIN_SLOTS": {
    "raw": "255",
-   "order": 344,
+   "order": 343,
    "value": 255,
    "kind": "number"
   },
   "MAX_MARRIAGE_SLOTS": {
    "raw": "7",
-   "order": 345,
+   "order": 344,
    "value": 7,
    "kind": "number"
   },
   "TavernColorPresets": {
    "raw": "[\n  \"DEFAULT\",\n  \"MIDNIGHT\",\n  \"NAVY\",\n  \"COBALT\",\n  \"YELLOW\",\n  \"SLATE\",\n  \"CHARCOAL\",\n  \"GOLD\",\n  \"CRIMSON\",\n  \"FUCHSIA\",\n  \"MINT\",\n  \"LIME\",\n]",
-   "order": 346,
+   "order": 345,
    "doc": "User-selectable tavern colours. These semantic IDs are persisted instead of arbitrary colour values so the server remains the source of truth for the palette.",
    "value": [
     "DEFAULT",
@@ -3093,12 +3093,12 @@
   },
   "getTavernColorChangeCost": {
    "raw": "(_color: TavernColorPreset) =>\n  COST_TAVERN_COLOR_CHANGE",
-   "order": 347,
+   "order": 346,
    "kind": "expr"
   },
   "BLOODLINE_ROLL_TYPES": {
    "raw": "[\n  \"NATURAL\",\n  \"ITEM\",\n  \"PITY\",\n  \"DIRECT\",\n  \"QUEST\",\n  \"REGISTRATION\",\n]",
-   "order": 348,
+   "order": 347,
    "value": [
     "NATURAL",
     "ITEM",
@@ -3111,44 +3111,44 @@
   },
   "BLOODLINE_SWAP_COOLDOWN_HOURS": {
    "raw": "120",
-   "order": 349,
+   "order": 348,
    "doc": "Bloodline swap config",
    "value": 120,
    "kind": "number"
   },
   "BLOODLINE_SWAP_FREE_DAYS": {
    "raw": "30",
-   "order": 350,
+   "order": 349,
    "value": 30,
    "kind": "number"
   },
   "BLOODLINE_SWAP_FREE_AMOUNT": {
    "raw": "0",
-   "order": 351,
+   "order": 350,
    "value": 0,
    "kind": "number"
   },
   "BLOODLINE_SWAP_FREE_NORMAL": {
    "raw": "0",
-   "order": 352,
+   "order": 351,
    "value": 0,
    "kind": "number"
   },
   "BLOODLINE_SWAP_FREE_SILVER": {
    "raw": "0",
-   "order": 353,
+   "order": 352,
    "value": 0,
    "kind": "number"
   },
   "BLOODLINE_SWAP_FREE_GOLD": {
    "raw": "1",
-   "order": 354,
+   "order": 353,
    "value": 1,
    "kind": "number"
   },
   "SAGE_MODE_ROLL_TYPES": {
    "raw": "[\"ITEM\", \"QUEST\"]",
-   "order": 355,
+   "order": 354,
    "doc": "Provenance stored on `SageModeRolls.type`. There is no pity or swap path.",
    "value": [
     "ITEM",
@@ -3158,14 +3158,14 @@
   },
   "SAGE_MODE_MAX_LEVEL": {
    "raw": "2",
-   "order": 356,
+   "order": 355,
    "doc": "Combat levels a mode can apply. Catalog `level` is a roll-pool gate, not this.",
    "value": 2,
    "kind": "number"
   },
   "SAGE_MASTERY_RANKS": {
    "raw": "[\n  \"NONE\",\n  \"INITIATE\",\n  \"ADEPT\",\n  \"MASTER\",\n  \"LEGENDARY\",\n]",
-   "order": 357,
+   "order": 356,
    "doc": "Mastery ladder. `NONE` means no mode equipped; INITIATE+ require `sageModeId`.",
    "value": [
     "NONE",
@@ -3178,28 +3178,28 @@
   },
   "SAGE_MASTERY_REQUIRED_EXP": {
    "raw": "{\n  NONE: 0,\n  INITIATE: 0,\n  ADEPT: 150000,\n  MASTER: 250000,\n  LEGENDARY: 450000,\n}",
-   "order": 358,
+   "order": 357,
    "ts_type": "Record<SAGE_MASTERY_RANK, number>",
    "doc": "Experience thresholds for `getSageMasteryRank`. INITIATE and NONE both start at 0.",
    "kind": "expr"
   },
   "SAGE_MASTERY_EXP_CAP": {
    "raw": "450_000",
-   "order": 359,
+   "order": 358,
    "doc": "Hard cap on `userData.sageMasteryExperience` (Legendary threshold).",
    "value": 450000,
    "kind": "number"
   },
   "SAGE_MASTERY_DAILY_ACTIVATIONS": {
    "raw": "{\n  NONE: 10,\n  INITIATE: 10,\n  ADEPT: 12,\n  MASTER: 15,\n  LEGENDARY: 20,\n}",
-   "order": 360,
+   "order": 359,
    "ts_type": "Record<SAGE_MASTERY_RANK, number>",
    "doc": "Daily Activation uses allowed at each mastery rank. NONE and INITIATE share 10.",
    "kind": "expr"
   },
   "SAGE_MODE_DISABLED_BATTLES": {
    "raw": "[\"RANKED_PVP\", \"RANKED_SPARRING\"]",
-   "order": 361,
+   "order": 360,
    "ts_type": "BattleType[]",
    "doc": "Battle types that never offer or accept sage Activation.",
    "value": [
@@ -3210,134 +3210,134 @@
   },
   "SAGE_MODE_ACTIVATION_JUTSU_ID": {
    "raw": "\"cmj8sagemodeactivatejutsu000000\"",
-   "order": 362,
+   "order": 361,
    "doc": "Injectable jutsu that runs sage-mode activation (costs + effects come from `SageMode` row).",
    "value": "cmj8sagemodeactivatejutsu000000",
    "kind": "string"
   },
   "SAGE_MODE_DEFAULT_ACTIVATION_MESSAGE": {
    "raw": "\"%user enters sage mode!\"",
-   "order": 363,
+   "order": 362,
    "doc": "Combat-log line when a mode has no `battleDescription`. `%user` is templated.",
    "value": "%user enters sage mode!",
    "kind": "string"
   },
   "SAGE_MODE_DEFAULT_ACTION_COST_PERC": {
    "raw": "80",
-   "order": 364,
+   "order": 363,
    "doc": "AP cost % of the Activation action when a mode defines no value of its own.",
    "value": 80,
    "kind": "number"
   },
   "SKILL_TREE_RESET_FREE_NORMAL": {
    "raw": "1",
-   "order": 365,
+   "order": 364,
    "doc": "Skill tree config",
    "value": 1,
    "kind": "number"
   },
   "SKILL_TREE_RESET_FREE_SILVER": {
    "raw": "1",
-   "order": 366,
+   "order": 365,
    "value": 1,
    "kind": "number"
   },
   "SKILL_TREE_RESET_FREE_GOLD": {
    "raw": "2",
-   "order": 367,
+   "order": 366,
    "value": 2,
    "kind": "number"
   },
   "JUTSU_TRANSFER_DAYS": {
    "raw": "20",
-   "order": 368,
+   "order": 367,
    "doc": "Jutsu level transfer config",
    "value": 20,
    "kind": "number"
   },
   "JUTSU_TRANSFER_COST": {
    "raw": "20",
-   "order": 369,
+   "order": 368,
    "value": 20,
    "kind": "number"
   },
   "JUTSU_TRANSFER_MAX_LEVEL": {
    "raw": "25",
-   "order": 370,
+   "order": 369,
    "value": 25,
    "kind": "number"
   },
   "JUTSU_TRANSFER_MINIMUM_LEVEL": {
    "raw": "10",
-   "order": 371,
+   "order": 370,
    "value": 10,
    "kind": "number"
   },
   "JUTSU_TRANSFER_FREE_AMOUNT": {
    "raw": "2",
-   "order": 372,
+   "order": 371,
    "value": 2,
    "kind": "number"
   },
   "JUTSU_TRANSFER_FREE_NORMAL": {
    "raw": "3",
-   "order": 373,
+   "order": 372,
    "value": 3,
    "kind": "number"
   },
   "JUTSU_TRANSFER_FREE_SILVER": {
    "raw": "4",
-   "order": 374,
+   "order": 373,
    "value": 4,
    "kind": "number"
   },
   "JUTSU_TRANSFER_FREE_GOLD": {
    "raw": "5",
-   "order": 375,
+   "order": 374,
    "value": 5,
    "kind": "number"
   },
   "RESKIN_LIMIT": {
    "raw": "2",
-   "order": 376,
+   "order": 375,
    "doc": "Jutsu reskin config",
    "value": 2,
    "kind": "number"
   },
   "COST_RESKIN_JUTSU": {
    "raw": "60",
-   "order": 377,
+   "order": 376,
    "value": 60,
    "kind": "number"
   },
   "VILLAGE_LEAVE_REQUIRED_RANK": {
    "raw": "\"CHUNIN\"",
-   "order": 378,
+   "order": 377,
    "doc": "Village config",
    "value": "CHUNIN",
    "kind": "string"
   },
   "VILLAGE_REDUCED_GAINS_DAYS": {
    "raw": "7",
-   "order": 379,
+   "order": 378,
    "value": 7,
    "kind": "number"
   },
   "VILLAGE_SYNDICATE_ID": {
    "raw": "\"ryBk0qD4EgvPPyav2K4OC\"",
-   "order": 380,
+   "order": 379,
    "value": "ryBk0qD4EgvPPyav2K4OC",
    "kind": "string"
   },
   "VILLAGE_LOYALTY_TIERS": {
    "raw": "[\n  { days: 7, bonus: \"regen\", percent: 5 },\n  { days: 14, bonus: \"villageRewards\", percent: 3 },\n  { days: 20, bonus: \"statGains\", percent: 5 },\n  { days: 30, bonus: \"pvpRewards\", percent: 5 },\n  { days: 40, bonus: \"shopDiscount\", percent: 5 },\n  { days: 50, bonus: \"regen\", percent: 10 },\n  { days: 60, bonus: \"missionRewards\", percent: 5 },\n  { days: 70, bonus: \"statGains\", percent: 10 },\n  { days: 80, bonus: \"masteryTraining\", percent: 15 },\n  { days: 90, bonus: \"villageRewards\", percent: 10 },\n  { days: 100, bonus: \"masteryTraining\", percent: 15 },\n]",
-   "order": 381,
+   "order": 380,
    "doc": "Ascending, incremental milestones; repeated categories add percentage points.",
    "kind": "array_expr"
   },
   "ALLIANCE_VILLAGE_TYPES": {
    "raw": "[\"VILLAGE\", \"HIDEOUT\", \"STRONGHOLD\"]",
-   "order": 382,
+   "order": 381,
    "value": [
     "VILLAGE",
     "HIDEOUT",
@@ -3347,7 +3347,7 @@
   },
   "FACTION_VILLAGE_TYPES": {
    "raw": "[\"HIDEOUT\", \"STRONGHOLD\"]",
-   "order": 383,
+   "order": 382,
    "doc": "Village types owned by a faction (clan), led by its leader without an elder council",
    "value": [
     "HIDEOUT",
@@ -3357,103 +3357,103 @@
   },
   "ANBU_MEMBER_RANK_REQUIREMENT": {
    "raw": "\"CHUNIN\"",
-   "order": 384,
+   "order": 383,
    "doc": "ANBU config",
    "value": "CHUNIN",
    "kind": "string"
   },
   "ANBU_LEADER_RANK_REQUIREMENT": {
    "raw": "\"JONIN\"",
-   "order": 385,
+   "order": 384,
    "value": "JONIN",
    "kind": "string"
   },
   "ANBU_MAX_MEMBERS": {
    "raw": "4",
-   "order": 386,
+   "order": 385,
    "value": 4,
    "kind": "number"
   },
   "ANBU_HOSPITAL_DISCOUNT_PERC": {
    "raw": "5",
-   "order": 387,
+   "order": 386,
    "value": 5,
    "kind": "number"
   },
   "ANBU_ITEMSHOP_DISCOUNT_PERC": {
    "raw": "5",
-   "order": 388,
+   "order": 387,
    "value": 5,
    "kind": "number"
   },
   "ANBU_DELAY_SECS": {
    "raw": "5 * 24 * 3600",
-   "order": 389,
+   "order": 388,
    "kind": "expr"
   },
   "ANBU_MAX_ESPIONAGE_LEVEL": {
    "raw": "10",
-   "order": 390,
+   "order": 389,
    "value": 10,
    "kind": "number"
   },
   "ANBU_ESPIONAGE_BASE_CHANCE_PERC": {
    "raw": "10",
-   "order": 391,
+   "order": 390,
    "value": 10,
    "kind": "number"
   },
   "ANBU_ESPIONAGE_CHANGE_PER_LEVEL": {
    "raw": "5",
-   "order": 392,
+   "order": 391,
    "value": 5,
    "kind": "number"
   },
   "ANBU_ESPIONAGE_UPGRADE_COST": {
    "raw": "200",
-   "order": 393,
+   "order": 392,
    "value": 200,
    "kind": "number"
   },
   "ANBU_ESPIONAGE_PRESTIGE_COST": {
    "raw": "10000",
-   "order": 394,
+   "order": 393,
    "value": 10000,
    "kind": "number"
   },
   "ANBU_ESPIONAGE_POINTS_COST": {
    "raw": "100",
-   "order": 395,
+   "order": 394,
    "value": 100,
    "kind": "number"
   },
   "ANBU_MAX_STEALTH_LEVEL": {
    "raw": "10",
-   "order": 396,
+   "order": 395,
    "value": 10,
    "kind": "number"
   },
   "ANBU_STEALTH_BASE_CHANCE_PERC": {
    "raw": "10",
-   "order": 397,
+   "order": 396,
    "value": 10,
    "kind": "number"
   },
   "ANBU_STEALTH_CHANGE_PER_LEVEL": {
    "raw": "5",
-   "order": 398,
+   "order": 397,
    "value": 5,
    "kind": "number"
   },
   "ANBU_STEALTH_UPGRADE_COST": {
    "raw": "200",
-   "order": 399,
+   "order": 398,
    "value": 200,
    "kind": "number"
   },
   "SENSEI_RANKS": {
    "raw": "[\"JONIN\", \"ELITE JONIN\", \"ELDER\"]",
-   "order": 400,
+   "order": 399,
    "doc": "Sensei config",
    "value": [
     "JONIN",
@@ -3464,50 +3464,50 @@
   },
   "SENSEI_STUDENT_RYO_PER_MISSION": {
    "raw": "100",
-   "order": 401,
+   "order": 400,
    "value": 100,
    "kind": "number"
   },
   "SENSEI_GENIN_TRAIN_EXP_BOOST_PERC": {
    "raw": "5",
-   "order": 402,
+   "order": 401,
    "value": 5,
    "kind": "number"
   },
   "SENSEI_GENIN_MED_EXP_SHARE_PERC": {
    "raw": "5",
-   "order": 403,
+   "order": 402,
    "value": 5,
    "kind": "number"
   },
   "SENSEI_STUDENT_MISSION_EXP_BOOST_PERC": {
    "raw": "3",
-   "order": 404,
+   "order": 403,
    "value": 3,
    "kind": "number"
   },
   "SENSEI_MAX_STUDENT_LEVEL": {
    "raw": "40",
-   "order": 405,
+   "order": 404,
    "value": 40,
    "kind": "number"
   },
   "SENSEI_JUTSU_TRAIN_COST_REDUCTION_PERC": {
    "raw": "5",
-   "order": 406,
+   "order": 405,
    "value": 5,
    "kind": "number"
   },
   "MEDNIN_HEAL_ITEM_DISCOUNT_PERC": {
    "raw": "30",
-   "order": 407,
+   "order": 406,
    "doc": "Medical Ninja config",
    "value": 30,
    "kind": "number"
   },
   "MEDNIN_HEALABLE_STATES": {
    "raw": "[\"HOSPITALIZED\", \"AWAKE\"]",
-   "order": 408,
+   "order": 407,
    "value": [
     "HOSPITALIZED",
     "AWAKE"
@@ -3516,13 +3516,13 @@
   },
   "MEDNIN_MIN_RANK": {
    "raw": "\"GENIN\"",
-   "order": 409,
+   "order": 408,
    "value": "GENIN",
    "kind": "string"
   },
   "MEDNIN_RANKS": {
    "raw": "[\n  \"NONE\",\n  \"NOVICE\",\n  \"APPRENTICE\",\n  \"MASTER\",\n  \"LEGENDARY\",\n]",
-   "order": 410,
+   "order": 409,
    "value": [
     "NONE",
     "NOVICE",
@@ -3534,49 +3534,49 @@
   },
   "MEDNIN_HEAL_TO_EXP": {
    "raw": "0.1",
-   "order": 411,
+   "order": 410,
    "value": 0.1,
    "kind": "number"
   },
   "MEDNIN_REQUIRED_EXP": {
    "raw": "{\n  NONE: 0,\n  NOVICE: 0,\n  APPRENTICE: 100000,\n  MASTER: 400000,\n  LEGENDARY: 600000,\n}",
-   "order": 412,
+   "order": 411,
    "ts_type": "Record<MEDNIN_RANK, number>",
    "kind": "expr"
   },
   "MEDNIN_EXP_CAP": {
    "raw": "4000000",
-   "order": 413,
+   "order": 412,
    "value": 4000000,
    "kind": "number"
   },
   "MEDNIN_EXP_PER_IMPROVEMENT": {
    "raw": "340000",
-   "order": 414,
+   "order": 413,
    "value": 340000,
    "kind": "number"
   },
   "MEDNIN_CHAKRA_REDUCTION_PER_IMPROVEMENT": {
    "raw": "0.01",
-   "order": 415,
+   "order": 414,
    "value": 0.01,
    "kind": "number"
   },
   "MEDNIN_MIN_CHAKRA_FACTOR": {
    "raw": "0.05",
-   "order": 416,
+   "order": 415,
    "value": 0.05,
    "kind": "number"
   },
   "HUNTING_CONTRACT_DEFAULTS": {
    "raw": "{ preparationSeconds: 30, hunts: 3, cooldownSeconds: 3600, experience: 100 }",
-   "order": 417,
+   "order": 416,
    "doc": "Staff-editor starting values; each saved contract supplies its own encounter rules.",
    "kind": "expr"
   },
   "HUNTING_RANKS": {
    "raw": "[\n  \"NONE\",\n  \"D RANK\",\n  \"C RANK\",\n  \"B RANK\",\n  \"A RANK\",\n  \"S RANK\",\n]",
-   "order": 418,
+   "order": 417,
    "value": [
     "NONE",
     "D RANK",
@@ -3589,19 +3589,19 @@
   },
   "HUNTING_REQUIRED_EXP": {
    "raw": "{\n  NONE: 0,\n  \"D RANK\": 0,\n  \"C RANK\": 360500,\n  \"B RANK\": 1081500,\n  \"A RANK\": 2163000,\n  \"S RANK\": 3244500,\n}",
-   "order": 419,
+   "order": 418,
    "ts_type": "Record<HUNTING_RANK, number>",
    "kind": "expr"
   },
   "HUNTING_ITEM_DROP_CHANCES": {
    "raw": "{\n  NONE: {\n    COMMON: 15,\n    RARE: 0,\n    EPIC: 0,\n    LEGENDARY: 0,\n  },\n  \"D RANK\": {\n    COMMON: 15,\n    RARE: 10,\n    EPIC: 0,\n    LEGENDARY: 0,\n  },\n  \"C RANK\": {\n    COMMON: 20,\n    RARE: 15,\n    EPIC: 5,\n    LEGENDARY: 1,\n  },\n  \"B RANK\": {\n    COMMON: 25,\n    RARE: 20,\n    EPIC: 10,\n    LEGENDARY: 2,\n  },\n  \"A RANK\": {\n    COMMON: 30,\n    RARE: 25,\n    EPIC: 15,\n    LEGENDARY: 5,\n  },\n  \"S RANK\": {\n    COMMON: 40,\n    RARE: 30,\n    EPIC: 20,\n    LEGENDARY: 10,\n  },\n}",
-   "order": 420,
+   "order": 419,
    "ts_type": "Record< HUNTING_RANK, Record<ItemRarity, number> >",
    "kind": "expr"
   },
   "GATHERING_RANKS": {
    "raw": "[\n  \"NONE\",\n  \"D RANK\",\n  \"C RANK\",\n  \"B RANK\",\n  \"A RANK\",\n  \"S RANK\",\n]",
-   "order": 421,
+   "order": 420,
    "doc": "Gathering config",
    "value": [
     "NONE",
@@ -3615,49 +3615,49 @@
   },
   "GATHERING_REQUIRED_EXP": {
    "raw": "{\n  NONE: 0,\n  \"D RANK\": 0,\n  \"C RANK\": 360500,\n  \"B RANK\": 1081500,\n  \"A RANK\": 2163000,\n  \"S RANK\": 3244500,\n}",
-   "order": 422,
+   "order": 421,
    "ts_type": "Record<GATHERING_RANK, number>",
    "kind": "expr"
   },
   "GATHERING_EXPERIENCE_GAIN": {
    "raw": "{\n  COMMON: 200,\n  RARE: 300,\n  EPIC: 400,\n  LEGENDARY: 500,\n}",
-   "order": 423,
+   "order": 422,
    "ts_type": "Record<ItemRarity, number>",
    "kind": "expr"
   },
   "GATHERING_ITEM_DROP_CHANCES": {
    "raw": "{\n  NONE: {\n    COMMON: 0,\n    RARE: 0,\n    EPIC: 0,\n    LEGENDARY: 0,\n  },\n  \"D RANK\": {\n    COMMON: 15,\n    RARE: 10,\n    EPIC: 0,\n    LEGENDARY: 0,\n  },\n  \"C RANK\": {\n    COMMON: 20,\n    RARE: 15,\n    EPIC: 5,\n    LEGENDARY: 1,\n  },\n  \"B RANK\": {\n    COMMON: 25,\n    RARE: 20,\n    EPIC: 10,\n    LEGENDARY: 2,\n  },\n  \"A RANK\": {\n    COMMON: 30,\n    RARE: 25,\n    EPIC: 15,\n    LEGENDARY: 5,\n  },\n  \"S RANK\": {\n    COMMON: 40,\n    RARE: 30,\n    EPIC: 20,\n    LEGENDARY: 10,\n  },\n}",
-   "order": 424,
+   "order": 423,
    "ts_type": "Record< GATHERING_RANK, Record<ItemRarity, number> >",
    "kind": "expr"
   },
   "COOKING_RANKS": {
    "raw": "[\n  { title: \"Apprentice Cook\", level: 1 },\n  { title: \"Chef\", level: 25 },\n  { title: \"1 Star Master Chef\", level: 50 },\n  { title: \"2 Star Master Chef\", level: 75 },\n  { title: \"3 Star Master Chef\", level: 100 },\n]",
-   "order": 425,
+   "order": 424,
    "doc": "Cooking levels follow the Farming XP curve; ranks are milestones on that curve.",
    "kind": "array_expr"
   },
   "MAX_COOKING_BATCHES": {
    "raw": "10",
-   "order": 426,
+   "order": 425,
    "value": 10,
    "kind": "number"
   },
   "MAX_COOKING_OUTPUT": {
    "raw": "100",
-   "order": 427,
+   "order": 426,
    "value": 100,
    "kind": "number"
   },
   "MAX_MEAL_DURATION_SECONDS": {
    "raw": "604800",
-   "order": 428,
+   "order": 427,
    "value": 604800,
    "kind": "number"
   },
   "CRAFTING_RANKS": {
    "raw": "[\n  \"NOVICE\",\n  \"APPRENTICE\",\n  \"MASTER\",\n  \"FORGEMASTER\",\n]",
-   "order": 429,
+   "order": 428,
    "doc": "Crafting config",
    "value": [
     "NOVICE",
@@ -3669,124 +3669,124 @@
   },
   "CRAFTING_REQUIRED_EXP": {
    "raw": "{\n  NOVICE: 0,\n  APPRENTICE: 540750,\n  MASTER: 1622250,\n  FORGEMASTER: 3244500,\n}",
-   "order": 430,
+   "order": 429,
    "ts_type": "Record<CRAFTING_RANK, number>",
    "kind": "expr"
   },
   "CRAFTING_EXP_GAIN": {
    "raw": "{\n  NOVICE: 1000,\n  APPRENTICE: 2000,\n  MASTER: 3000,\n  FORGEMASTER: 0,\n}",
-   "order": 431,
+   "order": 430,
    "ts_type": "Record<CRAFTING_RANK, number>",
    "kind": "expr"
   },
   "CRAFTING_MAX_IMBUED_ITEMS": {
    "raw": "{\n  NOVICE: 0,\n  APPRENTICE: 1,\n  MASTER: 2,\n  FORGEMASTER: 3,\n}",
-   "order": 432,
+   "order": 431,
    "ts_type": "Record<CRAFTING_RANK, number>",
    "kind": "expr"
   },
   "CRAFTING_TIMES_MINS": {
    "raw": "{\n  NOVICE: {\n    COMMON: 60,\n    RARE: 0, // Cannot craft rare items\n    EPIC: 0, // Cannot craft epic items\n    LEGENDARY: 0, // Cannot craft legendary items\n  },\n  APPRENTICE: {\n    COMMON: 40,\n    RARE: 65,\n    EPIC: 0, // Cannot craft epic items\n    LEGENDARY: 0, // Cannot craft legendary items\n  },\n  MASTER: {\n    COMMON: 30,\n    RARE: 50,\n    EPIC: 70,\n    LEGENDARY: 0, // Cannot craft legendary items\n  },\n  FORGEMASTER: {\n    COMMON: 15,\n    RARE: 30,\n    EPIC: 60,\n    LEGENDARY: 160,\n  },\n}",
-   "order": 433,
+   "order": 432,
    "ts_type": "Record<CRAFTING_RANK, Record<ItemRarity, number>>",
    "kind": "expr"
   },
   "CONSUMABLE_CRAFTING_TIMES_MINS": {
    "raw": "{\n  NOVICE: 2,\n  APPRENTICE: 1.5,\n  MASTER: 1,\n  FORGEMASTER: 0.5,\n}",
-   "order": 434,
+   "order": 433,
    "ts_type": "Record<CRAFTING_RANK, number>",
    "doc": "Consumable crafting times by crafting rank, independent of item rarity.",
    "kind": "expr"
   },
   "AI_PROFILE_MAX_RULES": {
    "raw": "20",
-   "order": 435,
+   "order": 434,
    "doc": "Ai profile config",
    "value": 20,
    "kind": "number"
   },
   "JUTSU_XP_TO_LEVEL": {
    "raw": "1000",
-   "order": 436,
+   "order": 435,
    "doc": "Training config",
    "value": 1000,
    "kind": "number"
   },
   "JUTSU_LEVEL_CAP": {
    "raw": "20",
-   "order": 437,
+   "order": 436,
    "value": 20,
    "kind": "number"
   },
   "JUTSU_TRAIN_LEVEL_CAP": {
    "raw": "25",
-   "order": 438,
+   "order": 437,
    "value": 25,
    "kind": "number"
   },
   "ELITE_JONIN_JUTSU_LEVEL_CAP": {
    "raw": "30",
-   "order": 439,
+   "order": 438,
    "value": 30,
    "kind": "number"
   },
   "ELITE_JONIN_JUTSU_XP_TO_LEVEL": {
    "raw": "5000",
-   "order": 440,
+   "order": 439,
    "value": 5000,
    "kind": "number"
   },
   "ELITE_JONIN_JUTSU_ADVANCED_XP_TO_LEVEL": {
    "raw": "10000",
-   "order": 441,
+   "order": 440,
    "value": 10000,
    "kind": "number"
   },
   "ELITE_JONIN_JUTSU_TRAIN_TIME_MULTIPLIER": {
    "raw": "5",
-   "order": 442,
+   "order": 441,
    "value": 5,
    "kind": "number"
   },
   "MAX_DAILY_TRAININGS": {
    "raw": "64",
-   "order": 443,
+   "order": 442,
    "value": 64,
    "kind": "number"
   },
   "MAX_JUTSU_TRAIN_TIME_MS": {
    "raw": "60 * 60 * 1000",
-   "order": 444,
+   "order": 443,
    "kind": "expr"
   },
   "ITEM_XP_TO_LEVEL": {
    "raw": "1000",
-   "order": 445,
+   "order": 444,
    "doc": "Default Item.xpToLevel when creating/editing items; each item can override this.",
    "value": 1000,
    "kind": "number"
   },
   "ITEM_LEVEL_CAP": {
    "raw": "25",
-   "order": 446,
+   "order": 445,
    "value": 25,
    "kind": "number"
   },
   "ITEM_XP_ON_WIN": {
    "raw": "200",
-   "order": 447,
+   "order": 446,
    "value": 200,
    "kind": "number"
   },
   "ITEM_XP_ON_LOSS": {
    "raw": "100",
-   "order": 448,
+   "order": 447,
    "value": 100,
    "kind": "number"
   },
   "ITEM_XP_BATTLE_TYPES": {
    "raw": "[\n  \"COMBAT\",\n  \"RANKED_PVP\",\n  \"KAGE_PVP\",\n  \"CLAN_BATTLE\",\n  \"TOURNAMENT\",\n  \"SHRINE_WAR\",\n]",
-   "order": 449,
+   "order": 448,
    "ts_type": "BattleType[]",
    "value": [
     "COMBAT",
@@ -3800,39 +3800,39 @@
   },
   "EVOLUTION_MAX_CHILDREN": {
    "raw": "3",
-   "order": 450,
+   "order": 449,
    "doc": "Shared evolution graph limits (jutsu, items, \u2026).",
    "value": 3,
    "kind": "number"
   },
   "EVOLUTION_MAX_DEPTH": {
    "raw": "3",
-   "order": 451,
+   "order": 450,
    "value": 3,
    "kind": "number"
   },
   "BATTLE_ARENA_DAILY_LIMIT": {
    "raw": "99999",
-   "order": 452,
+   "order": 451,
    "doc": "Combat config",
    "value": 99999,
    "kind": "number"
   },
   "BATTLE_ARENA_HEAL_COST": {
    "raw": "500",
-   "order": 453,
+   "order": 452,
    "value": 500,
    "kind": "number"
   },
   "BATTLE_TAG_STACKING": {
    "raw": "true",
-   "order": 454,
+   "order": 453,
    "value": true,
    "kind": "boolean"
   },
   "RANKS_RESTRICTED_FROM_PVP": {
    "raw": "[\"STUDENT\", \"GENIN\"]",
-   "order": 455,
+   "order": 454,
    "value": [
     "STUDENT",
     "GENIN"
@@ -3841,20 +3841,20 @@
   },
   "STREAK_LEVEL_DIFF": {
    "raw": "10",
-   "order": 456,
+   "order": 455,
    "value": 10,
    "kind": "number"
   },
   "SHIELD_MAX_HEALTH": {
    "raw": "100000",
-   "order": 457,
+   "order": 456,
    "doc": "Upper bound on the HP a single shield effect may hold. Enforced by ShieldTag.health and used to clamp shields generated in combat (e.g. by the consume tag) so they can never exceed what the schema accepts.",
    "value": 100000,
    "kind": "number"
   },
   "POST_DAMAGE_MODIFIER_TYPES": {
    "raw": "[\n  \"siphon\",\n  \"wound\",\n  \"afterburn\",\n  \"reflect\",\n  \"recoil\",\n  \"lifesteal\",\n  \"absorb\",\n  \"vamp\",\n  \"consume\",\n]",
-   "order": 458,
+   "order": 457,
    "ts_type": "string[]",
    "doc": "Effect types that depend on post-mitigated damage values. These must be processed AFTER damage modifiers and pierce have been applied.",
    "value": [
@@ -3872,235 +3872,235 @@
   },
   "RYO_FOR_REP_DAYS_FROZEN": {
    "raw": "3",
-   "order": 459,
+   "order": 458,
    "doc": "Black market config",
    "value": 3,
    "kind": "number"
   },
   "RYO_FOR_REP_DAYS_AUTO_DELIST": {
    "raw": "30",
-   "order": 460,
+   "order": 459,
    "value": 30,
    "kind": "number"
   },
   "RYO_FOR_REP_MAX_LISTINGS": {
    "raw": "5",
-   "order": 461,
+   "order": 460,
    "value": 5,
    "kind": "number"
   },
   "RYO_FOR_REP_MIN_REPS": {
    "raw": "10",
-   "order": 462,
+   "order": 461,
    "value": 10,
    "kind": "number"
   },
   "PITY_BLOODLINE_ROLLS": {
    "raw": "200",
-   "order": 463,
+   "order": 462,
    "value": 200,
    "kind": "number"
   },
   "PITY_SYSTEM_ENABLED": {
    "raw": "true",
-   "order": 464,
+   "order": 463,
    "value": true,
    "kind": "boolean"
   },
   "MAX_REPS_PER_MONTH": {
    "raw": "4000",
-   "order": 465,
+   "order": 464,
    "doc": "Reputation purchase config",
    "value": 4000,
    "kind": "number"
   },
   "MAX_REPS_EXTRA_PER_MONTH": {
    "raw": "250",
-   "order": 466,
+   "order": 465,
    "value": 250,
    "kind": "number"
   },
   "FED_NORMAL_REPS_COST": {
    "raw": "15",
-   "order": 467,
+   "order": 466,
    "doc": "Federal config",
    "value": 15,
    "kind": "number"
   },
   "FED_SILVER_REPS_COST": {
    "raw": "35",
-   "order": 468,
+   "order": 467,
    "value": 35,
    "kind": "number"
   },
   "FED_GOLD_REPS_COST": {
    "raw": "50",
-   "order": 469,
+   "order": 468,
    "value": 50,
    "kind": "number"
   },
   "FED_NORMAL_BANK_INTEREST": {
    "raw": "2",
-   "order": 470,
+   "order": 469,
    "value": 2,
    "kind": "number"
   },
   "FED_SILVER_BANK_INTEREST": {
    "raw": "5",
-   "order": 471,
+   "order": 470,
    "value": 5,
    "kind": "number"
   },
   "FED_GOLD_BANK_INTEREST": {
    "raw": "8",
-   "order": 472,
+   "order": 471,
    "value": 8,
    "kind": "number"
   },
   "FED_NORMAL_INVENTORY_SLOTS": {
    "raw": "2",
-   "order": 473,
+   "order": 472,
    "value": 2,
    "kind": "number"
   },
   "FED_SILVER_INVENTORY_SLOTS": {
    "raw": "5",
-   "order": 474,
+   "order": 473,
    "value": 5,
    "kind": "number"
   },
   "FED_GOLD_INVENTORY_SLOTS": {
    "raw": "10",
-   "order": 475,
+   "order": 474,
    "value": 10,
    "kind": "number"
   },
   "FED_NORMAL_JUTSU_SLOTS": {
    "raw": "1",
-   "order": 476,
+   "order": 475,
    "value": 1,
    "kind": "number"
   },
   "FED_SILVER_JUTSU_SLOTS": {
    "raw": "2",
-   "order": 477,
+   "order": 476,
    "value": 2,
    "kind": "number"
   },
   "FED_GOLD_JUTSU_SLOTS": {
    "raw": "3",
-   "order": 478,
+   "order": 477,
    "value": 3,
    "kind": "number"
   },
   "FED_JUTSU_LOADOUTS_BASE": {
    "raw": "2",
-   "order": 479,
+   "order": 478,
    "value": 2,
    "kind": "number"
   },
   "FED_NORMAL_JUTSU_LOADOUTS": {
    "raw": "1",
-   "order": 480,
+   "order": 479,
    "value": 1,
    "kind": "number"
   },
   "FED_SILVER_JUTSU_LOADOUTS": {
    "raw": "2",
-   "order": 481,
+   "order": 480,
    "value": 2,
    "kind": "number"
   },
   "FED_GOLD_JUTSU_LOADOUTS": {
    "raw": "3",
-   "order": 482,
+   "order": 481,
    "value": 3,
    "kind": "number"
   },
   "FED_ITEM_LOADOUTS_BASE": {
    "raw": "2",
-   "order": 483,
+   "order": 482,
    "value": 2,
    "kind": "number"
   },
   "FED_NORMAL_ITEM_LOADOUTS": {
    "raw": "1",
-   "order": 484,
+   "order": 483,
    "value": 1,
    "kind": "number"
   },
   "FED_SILVER_ITEM_LOADOUTS": {
    "raw": "2",
-   "order": 485,
+   "order": 484,
    "value": 2,
    "kind": "number"
   },
   "FED_GOLD_ITEM_LOADOUTS": {
    "raw": "3",
-   "order": 486,
+   "order": 485,
    "value": 3,
    "kind": "number"
   },
   "LOADOUT_NAME_MAX_LENGTH": {
    "raw": "24",
-   "order": 487,
+   "order": 486,
    "value": 24,
    "kind": "number"
   },
   "ACTION_LOG_RELATED_MSG_MAX_LENGTH": {
    "raw": "191",
-   "order": 488,
+   "order": 487,
    "doc": "Matches the `actionLog.relatedText` varchar column width; audit text must be clamped to this before insert or a long reason fails the write.",
    "value": 191,
    "kind": "number"
   },
   "SEICHI_SILVER_ADJUST_LIMIT": {
    "raw": "1_000_000",
-   "order": 489,
+   "order": 488,
    "doc": "Max magnitude of a single staff Seichi Silver adjustment (shared by the zod schema and the client-side form validation so the bounds stay in sync).",
    "value": 1000000,
    "kind": "number"
   },
   "FED_EVENT_ITEMS_NORMAL": {
    "raw": "15",
-   "order": 490,
+   "order": 489,
    "value": 15,
    "kind": "number"
   },
   "FED_EVENT_ITEMS_SILVER": {
    "raw": "20",
-   "order": 491,
+   "order": 490,
    "value": 20,
    "kind": "number"
   },
   "FED_EVENT_ITEMS_GOLD": {
    "raw": "25",
-   "order": 492,
+   "order": 491,
    "value": 25,
    "kind": "number"
   },
   "FED_EVENT_ITEMS_DEFAULT": {
    "raw": "10",
-   "order": 493,
+   "order": 492,
    "value": 10,
    "kind": "number"
   },
   "ERRANDS_PER_DAY": {
    "raw": "50",
-   "order": 494,
+   "order": 493,
    "doc": "Missions config",
    "value": 50,
    "kind": "number"
   },
   "MISSIONS_PER_DAY": {
    "raw": "20",
-   "order": 495,
+   "order": 494,
    "value": 20,
    "kind": "number"
   },
   "OVERWORLD_QUEST_ROLLS_PER_DAY": {
    "raw": "MISSIONS_PER_DAY",
-   "order": 496,
+   "order": 495,
    "doc": "Overworld friendly-NPC quest-give attempts a player gets per day; mirrors the daily mission cap.",
    "kind": "number",
    "value": 20,
@@ -4108,14 +4108,14 @@
   },
   "TERMINAL_DIALOG_PREFIX": {
    "raw": "\"__terminal__:\"",
-   "order": 497,
+   "order": 496,
    "doc": "Sentinel a client sends as a dialog \"contentId\"/\"nextObjectiveId\" when the player picks a terminal dialog branch (a branch with no follow-up objective). The suffix is the dialog objective's own id, so the server completes exactly that objective without routing onward. The prefix distinguishes it from a real next-objective id (plain nanoids, never prefixed), so it can never be mistaken for routing.",
    "value": "__terminal__:",
    "kind": "string"
   },
   "OverworldInteractionTypes": {
    "raw": "[\"FRIENDLY\", \"HOSTILE\"]",
-   "order": 498,
+   "order": 497,
    "value": [
     "FRIENDLY",
     "HOSTILE"
@@ -4124,7 +4124,7 @@
   },
   "OverworldSectorTypes": {
    "raw": "[\"specific\", \"random\", \"from_list\"]",
-   "order": 499,
+   "order": 498,
    "value": [
     "specific",
     "random",
@@ -4134,7 +4134,7 @@
   },
   "OverworldLocationTypes": {
    "raw": "[\"specific\", \"random\"]",
-   "order": 500,
+   "order": 499,
    "value": [
     "specific",
     "random"
@@ -4143,215 +4143,215 @@
   },
   "MEDICAL_MISSIONS_PER_DAY": {
    "raw": "9",
-   "order": 501,
+   "order": 500,
    "value": 9,
    "kind": "number"
   },
   "PVP_MISSIONS_PER_DAY": {
    "raw": "12",
-   "order": 502,
+   "order": 501,
    "value": 12,
    "kind": "number"
   },
   "MISSIONS_FULL_REWARD_COUNT": {
    "raw": "9",
-   "order": 503,
+   "order": 502,
    "doc": "Last daily mission that still pays full rewards. The 10th+ pay the reduced multiplier.",
    "value": 9,
    "kind": "number"
   },
   "ADDITIONAL_MISSION_REWARD_MULTIPLIER": {
    "raw": "0.4",
-   "order": 504,
+   "order": 503,
    "value": 0.4,
    "kind": "number"
   },
   "WAR_VILLAGE_MAX_SECTORS": {
    "raw": "12",
-   "order": 505,
+   "order": 504,
    "doc": "War config",
    "value": 12,
    "kind": "number"
   },
   "WAR_FACTION_MAX_SECTORS": {
    "raw": "6",
-   "order": 506,
+   "order": 505,
    "value": 6,
    "kind": "number"
   },
   "WAR_MINIMUM_TOKENS_FOR_BEING_ATTACKABLE": {
    "raw": "10000",
-   "order": 507,
+   "order": 506,
    "value": 10000,
    "kind": "number"
   },
   "WAR_MINIMUM_MEMBERS_REQUIRED": {
    "raw": "10",
-   "order": 508,
+   "order": 507,
    "value": 10,
    "kind": "number"
   },
   "WAR_WINNING_BOOST_DAYS": {
    "raw": "3",
-   "order": 509,
+   "order": 508,
    "value": 3,
    "kind": "number"
   },
   "WAR_WINNING_BOOST_REGEN_PERC": {
    "raw": "40",
-   "order": 510,
+   "order": 509,
    "value": 40,
    "kind": "number"
   },
   "WAR_WINNING_BOOST_TRAINING_PERC": {
    "raw": "20",
-   "order": 511,
+   "order": 510,
    "value": 20,
    "kind": "number"
   },
   "WAR_TOKEN_REDUCTION_INTERVAL_HOURS": {
    "raw": "24",
-   "order": 512,
+   "order": 511,
    "value": 24,
    "kind": "number"
   },
   "WAR_LOSING_COOLDOWN_DAYS": {
    "raw": "10",
-   "order": 513,
+   "order": 512,
    "value": 10,
    "kind": "number"
   },
   "WAR_WINNING_COOLDOWN_DAYS": {
    "raw": "3",
-   "order": 514,
+   "order": 513,
    "value": 3,
    "kind": "number"
   },
   "WAR_STRUCTURE_UPGRADE_BLOCK_DAYS": {
    "raw": "7",
-   "order": 515,
+   "order": 514,
    "value": 7,
    "kind": "number"
   },
   "WAR_VICTORY_TOKEN_BONUS": {
    "raw": "3000000",
-   "order": 516,
+   "order": 515,
    "value": 3000000,
    "kind": "number"
   },
   "WAR_PURCHASE_SHRINE_TOKEN_COST": {
    "raw": "100000",
-   "order": 517,
+   "order": 516,
    "value": 100000,
    "kind": "number"
   },
   "WAR_DECLARATION_COST": {
    "raw": "1000000",
-   "order": 518,
+   "order": 517,
    "value": 1000000,
    "kind": "number"
   },
   "WAR_DECLARATION_COOLDOWN_HOURS": {
    "raw": "24",
-   "order": 519,
+   "order": 518,
    "value": 24,
    "kind": "number"
   },
   "WAR_MISSION_REQUIRED_RANK": {
    "raw": "\"CHUNIN\"",
-   "order": 520,
+   "order": 519,
    "ts_type": "UserRank",
    "value": "CHUNIN",
    "kind": "string"
   },
   "WAR_MISSIONS_PER_DAY": {
    "raw": "5",
-   "order": 521,
+   "order": 520,
    "value": 5,
    "kind": "number"
   },
   "WAR_ATTACKER_EXHAUSTION_MULTIPLIER": {
    "raw": "1.1",
-   "order": 522,
+   "order": 521,
    "value": 1.1,
    "kind": "number"
   },
   "WAR_ALLY_OFFER_MIN": {
    "raw": "1000",
-   "order": 523,
+   "order": 522,
    "value": 1000,
    "kind": "number"
   },
   "WAR_ALLY_MAX_PAYMENT_PERCENTAGE": {
    "raw": "0.2",
-   "order": 524,
+   "order": 523,
    "value": 0.2,
    "kind": "number"
   },
   "FACTION_RAID_COST": {
    "raw": "40_000",
-   "order": 525,
+   "order": 524,
    "doc": "Faction raids share war combat with a separate outcome policy.",
    "value": 40000,
    "kind": "number"
   },
   "FACTION_RAID_MIN_MEMBERS": {
    "raw": "20",
-   "order": 526,
+   "order": 525,
    "value": 20,
    "kind": "number"
   },
   "FACTION_RAID_STRUCTURE_HP": {
    "raw": "2_000",
-   "order": 527,
+   "order": 526,
    "value": 2000,
    "kind": "number"
   },
   "FACTION_RAID_DAILY_DRAIN": {
    "raw": "300",
-   "order": 528,
+   "order": 527,
    "value": 300,
    "kind": "number"
   },
   "FACTION_RAID_MAX_DAYS": {
    "raw": "2",
-   "order": 529,
+   "order": 528,
    "value": 2,
    "kind": "number"
   },
   "FACTION_RAID_REWARD": {
    "raw": "100_000",
-   "order": 530,
+   "order": 529,
    "value": 100000,
    "kind": "number"
   },
   "FACTION_RAID_BOOST_PERCENT": {
    "raw": "20",
-   "order": 531,
+   "order": 530,
    "value": 20,
    "kind": "number"
   },
   "FACTION_RAID_BOOST_HOURS": {
    "raw": "24",
-   "order": 532,
+   "order": 531,
    "value": 24,
    "kind": "number"
   },
   "FACTION_RAID_TARGET_COOLDOWN_HOURS": {
    "raw": "48",
-   "order": 533,
+   "order": 532,
    "value": 48,
    "kind": "number"
   },
   "FACTION_RAID_FAILURE_COOLDOWN_HOURS": {
    "raw": "72",
-   "order": 534,
+   "order": 533,
    "value": 72,
    "kind": "number"
   },
   "FACTION_RAID_STRUCTURE_ROUTES": {
    "raw": "[\n  \"/missionhall\", \"/traininggrounds\", \"/itemshop\", \"/battlearena\",\n]",
-   "order": 535,
+   "order": 534,
    "value": [
     "/missionhall",
     "/traininggrounds",
@@ -4362,131 +4362,131 @@
   },
   "STRONGHOLD_MEMBER_GRACE_HOURS": {
    "raw": "72",
-   "order": 536,
+   "order": 535,
    "value": 72,
    "kind": "number"
   },
   "WAR_INSTANCE_HEALTH": {
    "raw": "10000",
-   "order": 537,
+   "order": 536,
    "doc": "War health system (per-instance health pools)",
    "value": 10000,
    "kind": "number"
   },
   "WAR_HEALTH_REMOVE": {
    "raw": "5",
-   "order": 538,
+   "order": 537,
    "doc": "War health damage/recovery per kill by rank",
    "value": 5,
    "kind": "number"
   },
   "WAR_HEALTH_RECOVER": {
    "raw": "2",
-   "order": 539,
+   "order": 538,
    "value": 2,
    "kind": "number"
   },
   "WAR_HEALTH_ANBU_REMOVE": {
    "raw": "10",
-   "order": 540,
+   "order": 539,
    "value": 10,
    "kind": "number"
   },
   "WAR_HEALTH_ANBU_RECOVER": {
    "raw": "5",
-   "order": 541,
+   "order": 540,
    "value": 5,
    "kind": "number"
   },
   "WAR_HEALTH_ASSASSIN_REMOVE": {
    "raw": "10",
-   "order": 542,
+   "order": 541,
    "value": 10,
    "kind": "number"
   },
   "WAR_HEALTH_ASSASSIN_RECOVER": {
    "raw": "5",
-   "order": 543,
+   "order": 542,
    "value": 5,
    "kind": "number"
   },
   "WAR_HEALTH_ELDER_REMOVE": {
    "raw": "15",
-   "order": 544,
+   "order": 543,
    "value": 15,
    "kind": "number"
   },
   "WAR_HEALTH_ELDER_RECOVER": {
    "raw": "10",
-   "order": 545,
+   "order": 544,
    "value": 10,
    "kind": "number"
   },
   "WAR_HEALTH_COLEADER_REMOVE": {
    "raw": "15",
-   "order": 546,
+   "order": 545,
    "value": 15,
    "kind": "number"
   },
   "WAR_HEALTH_COLEADER_RECOVER": {
    "raw": "10",
-   "order": 547,
+   "order": 546,
    "value": 10,
    "kind": "number"
   },
   "WAR_HEALTH_KAGE_REMOVE": {
    "raw": "35",
-   "order": 548,
+   "order": 547,
    "value": 35,
    "kind": "number"
   },
   "WAR_HEALTH_KAGE_RECOVER": {
    "raw": "15",
-   "order": 549,
+   "order": 548,
    "value": 15,
    "kind": "number"
   },
   "WAR_HEALTH_KAGEDEATH_REMOVE": {
    "raw": "50",
-   "order": 550,
+   "order": 549,
    "value": 50,
    "kind": "number"
   },
   "WAR_SECTOR_LOSS_TOWNHALL_DAMAGE": {
    "raw": "300",
-   "order": 551,
+   "order": 550,
    "doc": "Sector control impact on townhall",
    "value": 300,
    "kind": "number"
   },
   "WAR_SECTOR_RECAPTURE_TOWNHALL_HEAL": {
    "raw": "150",
-   "order": 552,
+   "order": 551,
    "value": 150,
    "kind": "number"
   },
   "WAR_SECTOR_RECAPTURE_WINDOW_DAYS": {
    "raw": "7",
-   "order": 553,
+   "order": 552,
    "value": 7,
    "kind": "number"
   },
   "WAR_VICTORY_STRUCTURE_BOOST_LEVELS": {
    "raw": "3",
-   "order": 554,
+   "order": 553,
    "doc": "Enhanced rewards",
    "value": 3,
    "kind": "number"
   },
   "WAR_VICTORY_STRUCTURE_BOOST_DAYS": {
    "raw": "5",
-   "order": 555,
+   "order": 554,
    "value": 5,
    "kind": "number"
   },
   "WAR_VICTORY_BOOSTED_STRUCTURES": {
    "raw": "[\n  \"/traininggrounds\",\n  \"/ramenshop\",\n  \"/missionhall\",\n  \"/home\",\n  \"/battlearena\",\n]",
-   "order": 556,
+   "order": 555,
    "value": [
     "/traininggrounds",
     "/ramenshop",
@@ -4498,121 +4498,121 @@
   },
   "WAR_DEFEAT_STRUCTURE_PENALTY_LEVELS": {
    "raw": "3",
-   "order": 557,
+   "order": 556,
    "doc": "Enhanced punishment",
    "value": 3,
    "kind": "number"
   },
   "WAR_DEFEAT_STRUCTURE_PENALTY_DAYS": {
    "raw": "7",
-   "order": 558,
+   "order": 557,
    "value": 7,
    "kind": "number"
   },
   "WAR_DAILY_TOKEN_DECAY_PERCENT_BASE": {
    "raw": "3",
-   "order": 559,
+   "order": 558,
    "doc": "Percentage-based token decay",
    "value": 3,
    "kind": "number"
   },
   "WAR_DAILY_TOKEN_DECAY_PERCENT_DAY_5": {
    "raw": "6",
-   "order": 560,
+   "order": 559,
    "value": 6,
    "kind": "number"
   },
   "WAR_DAILY_TOKEN_DECAY_PERCENT_DAY_8": {
    "raw": "10",
-   "order": 561,
+   "order": 560,
    "value": 10,
    "kind": "number"
   },
   "WAR_DAILY_HEALTH_DRAIN": {
    "raw": "400",
-   "order": 562,
+   "order": 561,
    "doc": "Daily war health drain (affects both sides equally each day)",
    "value": 400,
    "kind": "number"
   },
   "WAR_MAX_DURATION_DAYS": {
    "raw": "14",
-   "order": 563,
+   "order": 562,
    "doc": "War duration limit",
    "value": 14,
    "kind": "number"
   },
   "SKILL_POINT_MIN_LEVEL": {
    "raw": "31",
-   "order": 564,
+   "order": 563,
    "doc": "Skill point leveling constants",
    "value": 31,
    "kind": "number"
   },
   "MAX_SKILL_POINTS_FROM_LEVELING": {
-   "raw": "20",
-   "order": 565,
-   "value": 20,
+   "raw": "30",
+   "order": 564,
+   "value": 30,
    "kind": "number"
   },
   "SKILL_POINT_MAX_LEVEL": {
    "raw": "SKILL_POINT_MIN_LEVEL + MAX_SKILL_POINTS_FROM_LEVELING - 1",
-   "order": 566,
+   "order": 565,
    "kind": "number",
-   "value": 50,
+   "value": 60,
    "derived_from": "SKILL_POINT_MIN_LEVEL + MAX_SKILL_POINTS_FROM_LEVELING - 1"
   },
   "WAR_SECTORWAR_AI_SHRINE_REDUCE": {
    "raw": "10",
-   "order": 567,
+   "order": 566,
    "value": 10,
    "kind": "number"
   },
   "WAR_SECTORWAR_AI_SHRINE_RECOVER": {
    "raw": "3",
-   "order": 568,
+   "order": 567,
    "value": 3,
    "kind": "number"
   },
   "WAR_SECTORWAR_PVP_SHRINE_REDUCE": {
    "raw": "20",
-   "order": 569,
+   "order": 568,
    "value": 20,
    "kind": "number"
   },
   "WAR_SECTORWAR_PVP_SHRINE_RECOVER": {
    "raw": "7",
-   "order": 570,
+   "order": 569,
    "value": 7,
    "kind": "number"
   },
   "WAR_RAID_SHRINE_HP": {
    "raw": "500",
-   "order": 571,
+   "order": 570,
    "value": 500,
    "kind": "number"
   },
   "WAR_SHRINE_CAPTURE_WARHEALTH_DMG": {
    "raw": "200",
-   "order": 572,
+   "order": 571,
    "value": 200,
    "kind": "number"
   },
   "WAR_SHRINE_RECAPTURE_WARHEALTH_HEAL": {
    "raw": "150",
-   "order": 573,
+   "order": 572,
    "value": 150,
    "kind": "number"
   },
   "WAR_RECAPTURE_THRESHOLD": {
    "raw": "0.25",
-   "order": 574,
+   "order": 573,
    "value": 0.25,
    "kind": "number"
   },
   "SHRINE_STATUSES": {
    "raw": "[\"ACTIVE\", \"CAPTURED\"]",
-   "order": 575,
+   "order": 574,
    "value": [
     "ACTIVE",
     "CAPTURED"
@@ -4621,26 +4621,26 @@
   },
   "WAR_SHRINE_IMAGE": {
    "raw": "\"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJxtEfghWZsq9k0Von5rUfP6OgQ2TyptCKHS4u.webp\"",
-   "order": 576,
+   "order": 575,
    "value": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJxtEfghWZsq9k0Von5rUfP6OgQ2TyptCKHS4u.webp",
    "kind": "string"
   },
   "WAR_SHRINE_IMAGE_BY_BIOME": {
    "raw": "{\n  ocean:\n    \"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJe7TE7RyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp\",\n  ground: WAR_SHRINE_IMAGE,\n  dessert:\n    \"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJe7TE7RyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp\",\n  ice: \"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJco2C06SnxBpQqGNDcTHbLmYz8uXAl3oa54ti.webp\",\n  snow: \"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJco2C06SnxBpQqGNDcTHbLmYz8uXAl3oa54ti.webp\",\n  arena: WAR_SHRINE_IMAGE,\n  default: WAR_SHRINE_IMAGE,\n}",
-   "order": 577,
+   "order": 576,
    "ts_type": "Record<CombatBiome, string>",
    "doc": "Sector-map shrine sprite per sector biome, so the shrine's baked ground patch matches the terrain it stands on (water sectors use the desert variant - the tiles beneath become a sand island).",
    "kind": "expr"
   },
   "WAR_RAMEN_IMAGE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/6407eedd-9382-41e9-b27d-eb02afe87ce9-srb0e7.webp\"",
-   "order": 578,
+   "order": 577,
    "value": "https://uploadthing.b-cdn.net/f/6407eedd-9382-41e9-b27d-eb02afe87ce9-srb0e7.webp",
    "kind": "string"
   },
   "WAR_STATES": {
    "raw": "[\n  \"ACTIVE\",\n  \"ATTACKER_VICTORY\",\n  \"DEFENDER_VICTORY\",\n  \"DRAW\",\n]",
-   "order": 579,
+   "order": 578,
    "value": [
     "ACTIVE",
     "ATTACKER_VICTORY",
@@ -4651,13 +4651,13 @@
   },
   "WAR_SHRINE_MAINTENANCE_DAYS": {
    "raw": "7",
-   "order": 580,
+   "order": 579,
    "value": 7,
    "kind": "number"
   },
   "WAR_TYPES": {
    "raw": "[\"VILLAGE_WAR\", \"SECTOR_WAR\", \"WAR_RAID\"]",
-   "order": 581,
+   "order": 580,
    "value": [
     "VILLAGE_WAR",
     "SECTOR_WAR",
@@ -4667,71 +4667,71 @@
   },
   "SHRINE_MAX_PER_VILLAGE": {
    "raw": "4",
-   "order": 582,
+   "order": 581,
    "value": 4,
    "kind": "number"
   },
   "SHRINE_BOOST_COST": {
    "raw": "15_000",
-   "order": 583,
+   "order": 582,
    "value": 15000,
    "kind": "number"
   },
   "SHRINE_BOOST_BASE_PERC": {
    "raw": "10",
-   "order": 584,
+   "order": 583,
    "value": 10,
    "kind": "number"
   },
   "SHRINE_BOOST_PER_SHRINE_PERC": {
    "raw": "3.33",
-   "order": 585,
+   "order": 584,
    "value": 3.33,
    "kind": "number"
   },
   "SHRINE_UPGRADE_COST": {
    "raw": "60_000",
-   "order": 586,
+   "order": 585,
    "value": 60000,
    "kind": "number"
   },
   "SHRINE_BOOST_DURATION_HOURS": {
    "raw": "2",
-   "order": 587,
+   "order": 586,
    "value": 2,
    "kind": "number"
   },
   "SHRINE_AI_UNLOCK_COST": {
    "raw": "10_000",
-   "order": 588,
+   "order": 587,
    "value": 10000,
    "kind": "number"
   },
   "SHRINE_WEEKLY_MAINTENANCE_COST": {
    "raw": "5_000",
-   "order": 589,
+   "order": 588,
    "value": 5000,
    "kind": "number"
   },
   "SHRINE_MAX_AI_ASSIGNMENTS": {
    "raw": "3",
-   "order": 590,
+   "order": 589,
    "value": 3,
    "kind": "number"
   },
   "SHRINE_HP_BY_LEVEL": {
    "raw": "{ 1: 3000, 2: 4000, 3: 5000 }",
-   "order": 591,
+   "order": 590,
    "kind": "expr"
   },
   "SHRINE_MAX_LEVEL": {
    "raw": "Math.max(\n  ...Object.keys(SHRINE_HP_BY_LEVEL).map(Number),\n)",
-   "order": 592,
+   "order": 591,
    "kind": "expr"
   },
   "SHRINE_BOOST_TYPES": {
    "raw": "[\n  \"Training\",\n  \"PVP\",\n  \"Mission\",\n  \"Errands\",\n  \"Crafting\",\n]",
-   "order": 593,
+   "order": 592,
    "value": [
     "Training",
     "PVP",
@@ -4743,65 +4743,66 @@
   },
   "SHRINE_BOOST_DISPLAY": {
    "raw": "{\n  Training: { color: \"bg-green-700 text-green-200\", abbrev: \"Trn\" },\n  PVP: { color: \"bg-purple-700 text-purple-200\", abbrev: \"PVP\" },\n  Mission: { color: \"bg-orange-700 text-orange-200\", abbrev: \"Mis\" },\n  Errands: { color: \"bg-red-700 text-red-200\", abbrev: \"Err\" },\n  Crafting: { color: \"bg-cyan-700 text-cyan-200\", abbrev: \"Crf\" },\n}",
-   "order": 594,
+   "order": 593,
    "ts_type": "Record< SHRINE_BOOST_TYPE, { color: string; abbrev: string } >",
    "doc": "Display metadata co-located with the canonical type list. Adding a new entry to SHRINE_BOOST_TYPES will produce a TS error here until matching display data is provided.",
    "kind": "expr"
   },
   "PVP_KILL_TOKEN_REWARD": {
    "raw": "300",
-   "order": 595,
+   "order": 594,
    "doc": "PvP Rewards",
    "value": 300,
    "kind": "number"
   },
   "PVP_KILL_TOKEN_REWARD_ANBU": {
    "raw": "500",
-   "order": 596,
+   "order": 595,
    "value": 500,
    "kind": "number"
   },
   "PVP_KILL_TOKEN_REWARD_ASSASSIN": {
    "raw": "500",
-   "order": 597,
+   "order": 596,
    "value": 500,
    "kind": "number"
   },
   "PVP_KILL_PRESTIGE_REWARD": {
    "raw": "150",
-   "order": 598,
+   "order": 597,
    "value": 150,
    "kind": "number"
   },
   "PVP_KILL_PRESTIGE_REWARD_ANBU": {
    "raw": "300",
-   "order": 599,
+   "order": 598,
    "value": 300,
    "kind": "number"
   },
   "PVP_KILL_PRESTIGE_REWARD_ASSASSIN": {
    "raw": "300",
-   "order": 600,
+   "order": 599,
    "value": 300,
    "kind": "number"
   },
   "PVP_KILL_ANBU_POINTS_REWARD": {
    "raw": "5",
-   "order": 601,
+   "order": 600,
    "value": 5,
    "kind": "number"
   },
   "WAR_TORN_SECTOR_BASE_MONEY": {
    "raw": "2000",
-   "order": 602,
+   "order": 601,
    "value": 2000,
    "kind": "number"
   },
   "MPVP_BATTLE_TYPES": {
-   "raw": "[\n  \"CLAN_BATTLE\",\n  \"SHRINE_BATTLE\",\n  \"RAID_BATTLE\",\n]",
-   "order": 603,
+   "raw": "[\n  \"TERRITORY_WAR\",\n  \"CLAN_BATTLE\",\n  \"SHRINE_BATTLE\",\n  \"RAID_BATTLE\",\n]",
+   "order": 602,
    "doc": "MPVP Battle Types (for generalized multiplayer PvP battles)",
    "value": [
+    "TERRITORY_WAR",
     "CLAN_BATTLE",
     "SHRINE_BATTLE",
     "RAID_BATTLE"
@@ -4810,7 +4811,7 @@
   },
   "MPVP_BATTLE_SIDES": {
    "raw": "[\"ATTACKER\", \"DEFENDER\"]",
-   "order": 604,
+   "order": 603,
    "value": [
     "ATTACKER",
     "DEFENDER"
@@ -4819,46 +4820,53 @@
   },
   "SHRINE_BATTLE_MIN_ATTACKERS": {
    "raw": "2",
-   "order": 605,
+   "order": 604,
    "doc": "Shrine Battle Config",
    "value": 2,
    "kind": "number"
   },
   "SHRINE_BATTLE_MAX_USERS_PER_SIDE": {
    "raw": "3",
-   "order": 606,
+   "order": 605,
    "value": 3,
    "kind": "number"
   },
   "SHRINE_BATTLE_LOBBY_SECONDS": {
    "raw": "60",
-   "order": 607,
+   "order": 606,
    "value": 60,
    "kind": "number"
   },
   "SHRINE_BATTLE_STALE_LOBBY_SECONDS": {
    "raw": "300",
-   "order": 608,
+   "order": 607,
    "value": 300,
    "kind": "number"
   },
   "RAID_BATTLE_MAX_USERS_PER_TEAM": {
    "raw": "3",
-   "order": 609,
+   "order": 608,
    "doc": "Raid Battle Config",
    "value": 3,
    "kind": "number"
   },
   "RAID_MAX_CONCURRENT_TEAMS": {
    "raw": "5",
-   "order": 610,
+   "order": 609,
    "value": 5,
    "kind": "number"
   },
   "RAID_BATTLE_LOBBY_SECONDS": {
    "raw": "60",
-   "order": 611,
+   "order": 610,
    "value": 60,
+   "kind": "number"
+  },
+  "EXCLUSIVE_RAID_DURATION_HOURS": {
+   "raw": "24",
+   "order": 611,
+   "doc": "Exclusive raid windows begin when a sector shrine falls.",
+   "value": 24,
    "kind": "number"
   },
   "RAID_CLAIMING_TIMEOUT_MS": {
@@ -5707,9 +5715,9 @@
    "kind": "number"
   },
   "WORLD_NIGHT_BRIGHTNESS": {
-   "raw": "0.38",
+   "raw": "0.8",
    "order": 743,
-   "value": 0.38,
+   "value": 0.8,
    "kind": "number"
   },
   "FARM_STARTING_PLOTS": {
@@ -7259,304 +7267,298 @@
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJy7pL6jukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.png",
    "kind": "string"
   },
-  "IMG_ICON_FORUM": {
-   "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTwT9cY5IU29dZYJPoOKSh5vmlqatMub3EigH.png\"",
-   "order": 1002,
-   "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTwT9cY5IU29dZYJPoOKSh5vmlqatMub3EigH.png",
-   "kind": "string"
-  },
   "IMG_ICON_MOVE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJepKSYSyV3OvUJQExAi0bGoIZDF74LqSnHRdp.png\"",
-   "order": 1003,
+   "order": 1002,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJepKSYSyV3OvUJQExAi0bGoIZDF74LqSnHRdp.png",
    "kind": "string"
   },
   "IMG_ICON_HEAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJrtRSYfhuJPmdY8zI2ptZXAoEj1c6BMKvrQOx.webp\"",
-   "order": 1004,
+   "order": 1003,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJrtRSYfhuJPmdY8zI2ptZXAoEj1c6BMKvrQOx.webp",
    "kind": "string"
   },
   "IMG_MISSION_S": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJz3Ph17emvaQu94EYJs8HpxVzofny6iPtbgCZ.webp\"",
-   "order": 1005,
+   "order": 1004,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJz3Ph17emvaQu94EYJs8HpxVzofny6iPtbgCZ.webp",
    "kind": "string"
   },
   "IMG_MISSION_A": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ0ORGP9grYldRWJcD6vE10SjNsXHeA9pVMfQi.webp\"",
-   "order": 1006,
+   "order": 1005,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ0ORGP9grYldRWJcD6vE10SjNsXHeA9pVMfQi.webp",
    "kind": "string"
   },
   "IMG_MISSION_B": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoVn7VTZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp\"",
-   "order": 1007,
+   "order": 1006,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoVn7VTZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp",
    "kind": "string"
   },
   "IMG_MISSION_C": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoe3eJHZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp\"",
-   "order": 1008,
+   "order": 1007,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoe3eJHZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp",
    "kind": "string"
   },
   "IMG_MISSION_D": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ7r7fFcXKPBOUWGyFuM4DlL1v5HNTZhkte0z6.webp\"",
-   "order": 1009,
+   "order": 1008,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ7r7fFcXKPBOUWGyFuM4DlL1v5HNTZhkte0z6.webp",
    "kind": "string"
   },
   "IMG_MISSION_E": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJPAguocQpKeUGyX2kj6u45AOQiSa1zYH0mqZo.webp\"",
-   "order": 1010,
+   "order": 1009,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJPAguocQpKeUGyX2kj6u45AOQiSa1zYH0mqZo.webp",
    "kind": "string"
   },
   "IMG_MISSION_M": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyweIVKukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp\"",
-   "order": 1011,
+   "order": 1010,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyweIVKukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp",
    "kind": "string"
   },
   "IMG_MISSION_PVP": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzCBxBXemvaQu94EYJs8HpxVzofny6iPtbgCZ.webp\"",
-   "order": 1012,
+   "order": 1011,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzCBxBXemvaQu94EYJs8HpxVzofny6iPtbgCZ.webp",
    "kind": "string"
   },
   "IMG_MISSION_WAR": {
    "raw": "\"/War_mission.webp\"",
-   "order": 1013,
+   "order": 1012,
    "value": "/War_mission.webp",
    "kind": "string"
   },
   "IMG_BUILDING_PET_SANCTUARY": {
    "raw": "\"https://ui0arpl8sm.ufs.sh/f/jBPMweRXHOHqCpuvFDvkb.webp\"",
-   "order": 1014,
+   "order": 1013,
    "value": "https://ui0arpl8sm.ufs.sh/f/jBPMweRXHOHqCpuvFDvkb.webp",
    "kind": "string"
   },
   "IMG_BUILDING_MISSIONHALL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2TCTWInMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8.webp\"",
-   "order": 1015,
+   "order": 1014,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2TCTWInMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8.webp",
    "kind": "string"
   },
   "IMG_BUILDING_SCIENCEBUILDING": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwQxr3PT2j854CWbaITZyegfXimvd7s16cO0h.webp\"",
-   "order": 1016,
+   "order": 1015,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwQxr3PT2j854CWbaITZyegfXimvd7s16cO0h.webp",
    "kind": "string"
   },
   "IMG_BUILDING_NEWS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJYKooj7OMAlNnPZ41ev6fCGcFK3hmjX9I8W7d.webp\"",
-   "order": 1017,
+   "order": 1016,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJYKooj7OMAlNnPZ41ev6fCGcFK3hmjX9I8W7d.webp",
    "kind": "string"
   },
   "IMG_BUILDING_SOUVENIER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHmrEYkQvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp\"",
-   "order": 1018,
+   "order": 1017,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHmrEYkQvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp",
    "kind": "string"
   },
   "IMG_BUILDING_HOSPITAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ3n9SmD8pYHJX5rdkUTfOKtvu2eGIELmSWqBx.webp\"",
-   "order": 1019,
+   "order": 1018,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ3n9SmD8pYHJX5rdkUTfOKtvu2eGIELmSWqBx.webp",
    "kind": "string"
   },
   "IMG_BUILDING_GLOBALANBU": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIfwMDCxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp\"",
-   "order": 1020,
+   "order": 1019,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIfwMDCxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp",
    "kind": "string"
   },
   "IMG_BUILDING_ACADEMY": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ5kYqQv797jl4ubX8xrRqTZasyMp2WA5eLGUP.webp\"",
-   "order": 1021,
+   "order": 1020,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ5kYqQv797jl4ubX8xrRqTZasyMp2WA5eLGUP.webp",
    "kind": "string"
   },
   "IMG_BUILDING_BANK": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJEHFjuQLfKL5D7TAFe29bymSaPCIQ846MdzGg.webp\"",
-   "order": 1022,
+   "order": 1021,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJEHFjuQLfKL5D7TAFe29bymSaPCIQ846MdzGg.webp",
    "kind": "string"
   },
   "IMG_BUILDING_ARCHIVE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJXk8AUJqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv.webp\"",
-   "order": 1023,
+   "order": 1022,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJXk8AUJqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv.webp",
    "kind": "string"
   },
   "IMG_BUILDING_ADMINBUILDING": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMyfWBKtsO4cexqW2RDgkE3zZbNXSFGitmnar.webp\"",
-   "order": 1024,
+   "order": 1023,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMyfWBKtsO4cexqW2RDgkE3zZbNXSFGitmnar.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_BG": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZNkUoDaYQrBIUTu69nkMxWmS4ah0O7LVCp8b.webp\"",
-   "order": 1025,
+   "order": 1024,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZNkUoDaYQrBIUTu69nkMxWmS4ah0O7LVCp8b.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_YELLOW": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJXnRHYeqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv.webp\"",
-   "order": 1026,
+   "order": 1025,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJXnRHYeqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_RED": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyrbex4ukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp\"",
-   "order": 1027,
+   "order": 1026,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyrbex4ukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_BLUE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJqA6PRRdkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn.webp\"",
-   "order": 1028,
+   "order": 1027,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJqA6PRRdkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_GREEN": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwSFJxPT2j854CWbaITZyegfXimvd7s16cO0h.webp\"",
-   "order": 1029,
+   "order": 1028,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwSFJxPT2j854CWbaITZyegfXimvd7s16cO0h.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_OVERLAY": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHVKSE4QvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp\"",
-   "order": 1030,
+   "order": 1029,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHVKSE4QvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp",
    "kind": "string"
   },
   "IMG_INITIATIVE_D20": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJE7476GLfKL5D7TAFe29bymSaPCIQ846MdzGg.webp\"",
-   "order": 1031,
+   "order": 1030,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJE7476GLfKL5D7TAFe29bymSaPCIQ846MdzGg.webp",
    "kind": "string"
   },
   "IMG_BATTLEFIELD_TOMBSTONE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJVVIq2fF2veAXohUuE59nTQHRJIYjtiG18aF4.webp\"",
-   "order": 1032,
+   "order": 1031,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJVVIq2fF2veAXohUuE59nTQHRJIYjtiG18aF4.webp",
    "kind": "string"
   },
   "IMG_BATTLEFIELD_STAR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuGvcEjCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp\"",
-   "order": 1033,
+   "order": 1032,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuGvcEjCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp",
    "kind": "string"
   },
   "MUSIC_SHADOW_OF_THE_BLADE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQCH0mJjhzBPya1rwfCIqOTU0cV5xgsMeo3u2\"",
-   "order": 1034,
+   "order": 1033,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQCH0mJjhzBPya1rwfCIqOTU0cV5xgsMeo3u2",
    "kind": "string"
   },
   "MUSIC_WELCOME_TO_SEICHI": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJmJDFBGHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap\"",
-   "order": 1035,
+   "order": 1034,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJmJDFBGHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap",
    "kind": "string"
   },
   "MUSIC_SHIROHANA_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ4vI0KulYIif5CL8BKvMsOh2ZnmS7yHt0jTD3\"",
-   "order": 1036,
+   "order": 1035,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ4vI0KulYIif5CL8BKvMsOh2ZnmS7yHt0jTD3",
    "kind": "string"
   },
   "MUSIC_TSUKIMORI_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJE9b6CNLfKL5D7TAFe29bymSaPCIQ846MdzGg\"",
-   "order": 1037,
+   "order": 1036,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJE9b6CNLfKL5D7TAFe29bymSaPCIQ846MdzGg",
    "kind": "string"
   },
   "MUSIC_AKIKAZE_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ8Aqzvwkkp45TvAnoIBa0rtCf1lbyXYjVKQ2q\"",
-   "order": 1038,
+   "order": 1037,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ8Aqzvwkkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
    "kind": "string"
   },
   "MUSIC_AKASUMI_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTvL90a5IU29dZYJPoOKSh5vmlqatMub3EigH\"",
-   "order": 1039,
+   "order": 1038,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTvL90a5IU29dZYJPoOKSh5vmlqatMub3EigH",
    "kind": "string"
   },
   "MUSIC_SYNDICATE_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJxrcAPUWZsq9k0Von5rUfP6OgQ2TyptCKHS4u\"",
-   "order": 1040,
+   "order": 1039,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJxrcAPUWZsq9k0Von5rUfP6OgQ2TyptCKHS4u",
    "kind": "string"
   },
   "MUSIC_HYORIN_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJe1hBMMyV3OvUJQExAi0bGoIZDF74LqSnHRdp\"",
-   "order": 1041,
+   "order": 1040,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJe1hBMMyV3OvUJQExAi0bGoIZDF74LqSnHRdp",
    "kind": "string"
   },
   "MUSIC_HORIZON_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ7dGr02BXKPBOUWGyFuM4DlL1v5HNTZhkte0z\"",
-   "order": 1042,
+   "order": 1041,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ7dGr02BXKPBOUWGyFuM4DlL1v5HNTZhkte0z",
    "kind": "string"
   },
   "MUSIC_FREEDOM_STATE_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeMdhutyV3OvUJQExAi0bGoIZDF74LqSnHRdp\"",
-   "order": 1043,
+   "order": 1042,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeMdhutyV3OvUJQExAi0bGoIZDF74LqSnHRdp",
    "kind": "string"
   },
   "MUSIC_HALLOWEEN_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJX2KBuGqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv\"",
-   "order": 1044,
+   "order": 1043,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJX2KBuGqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv",
    "kind": "string"
   },
   "MUSIC_WINTER_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMIfxyadtsO4cexqW2RDgkE3zZbNXSFGitmna\"",
-   "order": 1045,
+   "order": 1044,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMIfxyadtsO4cexqW2RDgkE3zZbNXSFGitmna",
    "kind": "string"
   },
   "MUSIC_SHADOWS_DANCE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJhUwWfeMfUBdnwAX5LTajlNc4mrgzi0RJtqpM\"",
-   "order": 1046,
+   "order": 1045,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJhUwWfeMfUBdnwAX5LTajlNc4mrgzi0RJtqpM",
    "kind": "string"
   },
   "MUSIC_ANOTHER_DAY_ANOTHER_BATTLEFIELD": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJmK3DnyHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap\"",
-   "order": 1047,
+   "order": 1046,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJmK3DnyHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap",
    "kind": "string"
   },
   "MUSIC_HEAVENLY_SONATA_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpoak58fbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75\"",
-   "order": 1048,
+   "order": 1047,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpoak58fbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75",
    "kind": "string"
   },
   "MUSIC_BLUE_BLADE_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIvdW2M4xfOewksxBoS1HQCihpL7c42Ky9uUF\"",
-   "order": 1049,
+   "order": 1048,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIvdW2M4xfOewksxBoS1HQCihpL7c42Ky9uUF",
    "kind": "string"
   },
   "CONFETTI_SFX_URL": {
    "raw": "\"https://ui0arpl8sm.ufs.sh/f/confetti-success-fanfare-b859237a-db7f-425e-9228-3465d2152e6b.mp3\"",
-   "order": 1050,
+   "order": 1049,
    "doc": "Cartoon, Musical, Success, Fanfare (Epidemic Sound a7890bad-75d0-415f-b721-e31c7b87fd6f).",
    "value": "https://ui0arpl8sm.ufs.sh/f/confetti-success-fanfare-b859237a-db7f-425e-9228-3465d2152e6b.mp3",
    "kind": "string"
   },
   "BUTTON_CLICK_SFX_URLS": {
    "raw": "[\n  \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJSiIRUn3jWrEB7TyZlmpoAxMK5Qi16kNPVJuH\",\n  \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDaZRDSzEwoh0WXMnscL279N8ayVQUCbRzS3p\",\n  \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDTV5J0zEwoh0WXMnscL279N8ayVQUCbRzS3p\",\n  \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJPB6OtxpKeUGyX2kj6u45AOQiSa1zYH0mqZoc\",\n]",
-   "order": 1051,
+   "order": 1050,
    "value": [
     "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJSiIRUn3jWrEB7TyZlmpoAxMK5Qi16kNPVJuH",
     "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDaZRDSzEwoh0WXMnscL279N8ayVQUCbRzS3p",
@@ -7567,7 +7569,7 @@
   },
   "HomeTypes": {
    "raw": "[\n  \"NONE\",\n  \"STUDIO_APARTMENT\",\n  \"ONE_BED_APARTMENT\",\n  \"TWO_BED_HOUSE\",\n  \"TOWN_HOUSE\",\n  \"MANSION\",\n  \"PALACE\",\n  \"MARSHMALLOWOPOLIS\",\n]",
-   "order": 1052,
+   "order": 1051,
    "value": [
     "NONE",
     "STUDIO_APARTMENT",
@@ -7582,12 +7584,12 @@
   },
   "HomeTypeDetails": {
    "raw": "{\n  NONE: { regen: 0, storage: 15, cost: 0, name: \"Tent\" },\n  STUDIO_APARTMENT: { regen: 20, storage: 25, cost: 3000000, name: \"Studio Apartment\" },\n  ONE_BED_APARTMENT: {\n    regen: 50,\n    storage: 30,\n    cost: 10000000,\n    name: \"One Bedroom Apartment\",\n  },\n  TWO_BED_HOUSE: { regen: 70, storage: 35, cost: 20000000, name: \"Two Bedroom House\" },\n  TOWN_HOUSE: { regen: 100, storage: 40, cost: 35000000, name: \"Town House\" },\n  MANSION: { regen: 200, storage: 60, cost: 100000000, name: \"Mansion\" },\n  PALACE: { regen: 300, storage: 80, cost: 300000000, name: \"Palace\" },\n  MARSHMALLOWOPOLIS: {\n    regen: 400,\n    storage: 100,\n    cost: 500000000,\n    name: \"Marshmallowopolis\",\n  },\n}",
-   "order": 1053,
+   "order": 1052,
    "kind": "expr"
   },
   "HomeFurnitureActions": {
    "raw": "[\"sleep\", \"storage\", \"kitchen\", \"farm\"]",
-   "order": 1054,
+   "order": 1053,
    "doc": "Furniture definitions choose only existing home actions; a null action is decorative.",
    "value": [
     "sleep",
@@ -7599,7 +7601,7 @@
   },
   "HOME_FURNITURE_ROTATIONS": {
    "raw": "[0, 1, 2, 3]",
-   "order": 1055,
+   "order": 1054,
    "doc": "Placement stores clockwise quarter turns; each direction uses separately painted art.",
    "value": [
     "0",
@@ -7611,68 +7613,68 @@
   },
   "HOME_FURNITURE_ROTATION_DEGREES": {
    "raw": "{ 0: 0, 1: 90, 2: 180, 3: 270 }",
-   "order": 1056,
+   "order": 1055,
    "kind": "expr"
   },
   "HOME_FURNITURE_STARTERS": {
    "raw": "[\n  { itemId: \"home-bed\", x: 22, y: 15.15 },\n  { itemId: \"home-armory\", x: 75, y: 15.15 },\n  { itemId: \"home-kitchen\", x: 76, y: 57.58 },\n  { itemId: \"home-garden\", x: 86, y: 90.91 },\n]",
-   "order": 1057,
+   "order": 1056,
    "doc": "Every character starts with four movable fixtures, owned through ordinary inventory rows.",
    "kind": "array_expr"
   },
   "HOME_FURNITURE_POSITION_MIN": {
    "raw": "-1000",
-   "order": 1058,
+   "order": 1057,
    "doc": "Measured floors can extend beyond the historical room frame; geometry validates usable ground.",
    "value": -1000,
    "kind": "number"
   },
   "HOME_FURNITURE_POSITION_MAX": {
    "raw": "1000",
-   "order": 1059,
+   "order": 1058,
    "value": 1000,
    "kind": "number"
   },
   "HOME_FURNITURE_MIN_WIDTH": {
    "raw": "6",
-   "order": 1060,
+   "order": 1059,
    "value": 6,
    "kind": "number"
   },
   "HOME_FURNITURE_MAX_WIDTH": {
    "raw": "40",
-   "order": 1061,
+   "order": 1060,
    "value": 40,
    "kind": "number"
   },
   "HOME_FURNITURE_MAX_PLACEMENTS": {
    "raw": "50",
-   "order": 1062,
+   "order": 1061,
    "value": 50,
    "kind": "number"
   },
   "HOME_MAX_ROOMS": {
    "raw": "11",
-   "order": 1063,
+   "order": 1062,
    "doc": "A property's room limit includes its yard; room identities remain stable across tiers.",
    "value": 11,
    "kind": "number"
   },
   "HOME_MAX_INVITATIONS": {
    "raw": "100",
-   "order": 1064,
+   "order": 1063,
    "value": 100,
    "kind": "number"
   },
   "HOME_INVITATION_EXPIRY_SECONDS": {
    "raw": "24 * 3600",
-   "order": 1065,
+   "order": 1064,
    "doc": "Pending home invitations follow the request cleaner\u2019s one-day retention.",
    "kind": "expr"
   },
   "HOME_ROOM_IDS": {
    "raw": "[\"main\", \"room-1\", \"room-2\", \"room-3\", \"room-4\", \"room-5\", \"room-6\", \"room-7\", \"room-8\", \"room-9\", \"yard\"]",
-   "order": 1066,
+   "order": 1065,
    "value": [
     "main",
     "room-1",
@@ -7690,25 +7692,25 @@
   },
   "HOME_WALL_PAINTS": {
    "raw": "{ ivory: \"#ddd0ac\", sage: \"#a9ba9a\", indigo: \"#8b96b7\", rose: \"#cfaaa3\", charcoal: \"#777b80\" }",
-   "order": 1067,
+   "order": 1066,
    "doc": "Persist palette keys so editor choices and rendered wall finishes share one source.",
    "kind": "expr"
   },
   "IMG_HOME_PROPERTIES": {
    "raw": "{\n  NONE: {\n    ground: \"https://ui0arpl8sm.ufs.sh/f/Teveo0f5yUTysHpT9iBly.webp\",\n    dessert: \"https://ui0arpl8sm.ufs.sh/f/IhUIzHX0Yulu0zXkaD0cI.webp\",\n    snow: \"https://ui0arpl8sm.ufs.sh/f/5c-DiCzFxZit_rAadfaPm.webp\",\n  },\n  STUDIO_APARTMENT: {\n    ground: \"https://ui0arpl8sm.ufs.sh/f/p9CC-MXfVyXHpVtdNgAMP.webp\",\n    dessert: \"https://ui0arpl8sm.ufs.sh/f/xPtQG6LSY7aOO9H02Dujf.webp\",\n    snow: \"https://ui0arpl8sm.ufs.sh/f/S6X_DL27oVSK30TlbeQSz.webp\",\n  },\n  ONE_BED_APARTMENT: {\n    ground: \"https://ui0arpl8sm.ufs.sh/f/zZgQZUapi3Ic_z0ttTlNx.webp\",\n    dessert: \"https://ui0arpl8sm.ufs.sh/f/zHXXqoq5X3zD-BEZ-s0BS.webp\",\n    snow: \"https://ui0arpl8sm.ufs.sh/f/1NgeNXBMkNb03ft4SKgX8.webp\",\n  },\n  TWO_BED_HOUSE: {\n    ground: \"https://ui0arpl8sm.ufs.sh/f/UjeXrQdLH7IwmUew8CLNV.webp\",\n    dessert: \"https://ui0arpl8sm.ufs.sh/f/snPYLB1NrLCbtS8K7aBF2.webp\",\n    snow: \"https://ui0arpl8sm.ufs.sh/f/9ceuDm_w3Wg4h6vIOjISb.webp\",\n  },\n  TOWN_HOUSE: {\n    ground: \"https://ui0arpl8sm.ufs.sh/f/C2Iyp7Ajrm6J3oHLKyrML.webp\",\n    dessert: \"https://ui0arpl8sm.ufs.sh/f/G4fWN1hShhXwwjr4iifNc.webp\",\n    snow: \"https://ui0arpl8sm.ufs.sh/f/yB-Q_45IMvxLjRM_G4Xzl.webp\",\n  },\n  MANSION: {\n    ground: \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHezDBLQvYURJhgs76VZtf9wxpMa13Cq0iOnr\",\n    dessert: \"https://uploadthing.b-cdn.net/f/N15VuvdnfDnk6D-Y7XQ6F.webp\",\n    snow: \"https://uploadthing.b-cdn.net/f/PGX8lUT9xCDqtVNfkvrYx.webp\",\n  },\n  PALACE: {\n    ground: \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJVlImyxF2veAXohUuE59nTQHRJIYjtiG18aF4\",\n    dessert: \"https://uploadthing.b-cdn.net/f/1G2_ZRwT_Ga0hEz-WEATu.webp\",\n    snow: \"https://uploadthing.b-cdn.net/f/obq3x6kpj32siJee-a76a.webp\",\n  },\n  MARSHMALLOWOPOLIS: {\n    ground: \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJVlImyxF2veAXohUuE59nTQHRJIYjtiG18aF4\",\n    dessert: \"https://uploadthing.b-cdn.net/f/1G2_ZRwT_Ga0hEz-WEATu.webp\",\n    snow: \"https://uploadthing.b-cdn.net/f/obq3x6kpj32siJee-a76a.webp\",\n  },\n}",
-   "order": 1068,
+   "order": 1067,
    "doc": "Complete property paintings share their source with every foreground depth mask.",
    "kind": "expr"
   },
   "HOME_FLOOR_TILES": {
    "raw": "{\n  original: null,\n  cedar: \"https://ui0arpl8sm.ufs.sh/f/tSoM_Rq-bCEP3dJJvUfiC.webp\",\n  oak: \"https://ui0arpl8sm.ufs.sh/f/yozmhQoEyur_AuQnabpAW.webp\",\n  slate: \"https://ui0arpl8sm.ufs.sh/f/2-DXtElMITFF--JiIW8Pk.webp\",\n  terracotta: \"https://ui0arpl8sm.ufs.sh/f/v2dMX-jt0CGomn1vHS12x.webp\",\n}",
-   "order": 1069,
+   "order": 1068,
    "doc": "Original retains the authored floor; other finishes use measured room surface masks.",
    "kind": "expr"
   },
   "HOME_FURNITURE_STORAGE_CAPACITY": {
    "raw": "HOME_FURNITURE_MAX_PLACEMENTS * HOME_MAX_ROOMS",
-   "order": 1070,
+   "order": 1069,
    "doc": "Furniture storage is independent of item storage and can hold every room's display capacity.",
    "kind": "number",
    "value": 550,
@@ -7716,21 +7718,21 @@
   },
   "HOME_FURNITURE_FLOOR_DEPTH_RATIO": {
    "raw": "0.7",
-   "order": 1071,
+   "order": 1070,
    "doc": "The fixed room camera foreshortens furniture facing along the front-to-back floor axis.",
    "value": 0.7,
    "kind": "number"
   },
   "IMG_AUCTION_HOUSE": {
    "raw": "\"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJmcDNSqHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap.webp\"",
-   "order": 1072,
+   "order": 1071,
    "doc": "Auction system constants",
    "value": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJmcDNSqHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap.webp",
    "kind": "string"
   },
   "AUCTION_LISTING_STATES": {
    "raw": "[\n  \"ACTIVE\",\n  \"SOLD\",\n  \"EXPIRED\",\n  \"CANCELLED\",\n]",
-   "order": 1073,
+   "order": 1072,
    "value": [
     "ACTIVE",
     "SOLD",
@@ -7741,7 +7743,7 @@
   },
   "AUCTION_LISTING_TYPES": {
    "raw": "[\"AUCTION\", \"DIRECT\"]",
-   "order": 1074,
+   "order": 1073,
    "value": [
     "AUCTION",
     "DIRECT"
@@ -7750,7 +7752,7 @@
   },
   "AUCTION_OFFER_TYPES": {
    "raw": "[\"REQUEST\", \"TRADE\"]",
-   "order": 1075,
+   "order": 1074,
    "value": [
     "REQUEST",
     "TRADE"
@@ -7759,27 +7761,27 @@
   },
   "AUCTION_OFFER_MAX_RYO": {
    "raw": "4_294_967_295",
-   "order": 1076,
+   "order": 1075,
    "value": 4294967295,
    "kind": "number"
   },
   "AUCTION_BIDDER_LEVEL_MIN": {
    "raw": "1",
-   "order": 1077,
+   "order": 1076,
    "doc": "Allowed bidder character level range for open auctions (absolute bounds).",
    "value": 1,
    "kind": "number"
   },
   "AUCTION_BIDDER_LEVEL_MAX": {
    "raw": "MAX_PLAYER_LEVEL",
-   "order": 1078,
+   "order": 1077,
    "kind": "number",
    "value": 110,
    "alias_of": "MAX_PLAYER_LEVEL"
   },
   "AUCTION_BID_STATES": {
    "raw": "[\"ACTIVE\", \"REFUNDED\", \"WON\"]",
-   "order": 1079,
+   "order": 1078,
    "value": [
     "ACTIVE",
     "REFUNDED",
@@ -7789,7 +7791,7 @@
   },
   "BOUNTY_STATUSES": {
    "raw": "[\"OPEN\", \"CLAIMED\", \"EXPIRED\", \"CANCELLED\"]",
-   "order": 1080,
+   "order": 1079,
    "doc": "Bounty system constants",
    "value": [
     "OPEN",
@@ -7801,26 +7803,26 @@
   },
   "BOUNTY_MAX_HUNTERS": {
    "raw": "3",
-   "order": 1081,
+   "order": 1080,
    "value": 3,
    "kind": "number"
   },
   "BOUNTY_MIN_AMOUNT": {
    "raw": "1000000",
-   "order": 1082,
+   "order": 1081,
    "value": 1000000,
    "kind": "number"
   },
   "MAX_SKILL_POINTS": {
    "raw": "100",
-   "order": 1083,
+   "order": 1082,
    "doc": "Skill system constants",
    "value": 100,
    "kind": "number"
   },
   "SupportTicketCategories": {
    "raw": "[\n  \"BUG_REPORT\",\n  \"FEATURE_REQUEST\",\n  \"ACCOUNT_ISSUE\",\n  \"GAMEPLAY_QUESTION\",\n  \"PAYMENT_ISSUE\",\n  \"TECHNICAL_SUPPORT\",\n  \"MODERATION_SUPPORT\",\n  \"OTHER\",\n]",
-   "order": 1084,
+   "order": 1083,
    "doc": "Support System Settings",
    "value": [
     "BUG_REPORT",
@@ -7836,7 +7838,7 @@
   },
   "SupportTicketPriorities": {
    "raw": "[\"LOW\", \"MEDIUM\", \"HIGH\", \"URGENT\"]",
-   "order": 1085,
+   "order": 1084,
    "value": [
     "LOW",
     "MEDIUM",
@@ -7847,7 +7849,7 @@
   },
   "SupportTicketStatuses": {
    "raw": "[\n  \"OPEN\",\n  \"IN_PROGRESS\",\n  \"WAITING_FOR_USER\",\n  \"WAITING_FOR_STAFF\",\n  \"RESOLVED\",\n  \"CLOSED\",\n]",
-   "order": 1086,
+   "order": 1085,
    "value": [
     "OPEN",
     "IN_PROGRESS",
@@ -7860,7 +7862,7 @@
   },
   "SupportTicketActivityActions": {
    "raw": "[\n  \"CREATED\",\n  \"UPDATED\",\n  \"ASSIGNED\",\n  \"UNASSIGNED\",\n  \"STATUS_CHANGED\",\n  \"PRIORITY_CHANGED\",\n  \"CATEGORY_CHANGED\",\n  \"TAGGED\",\n  \"UNTAGGED\",\n  \"MERGED\",\n  \"ESCALATED_TO_GITHUB\",\n  \"COMMENTED\",\n  \"CLOSED\",\n  \"REOPENED\",\n]",
-   "order": 1087,
+   "order": 1086,
    "value": [
     "CREATED",
     "UPDATED",
@@ -7881,90 +7883,90 @@
   },
   "SUPPORT_TICKET_LIMITS": {
    "raw": "{\n  TITLE_MIN_LENGTH: 10,\n  TITLE_MAX_LENGTH: 255,\n  DESCRIPTION_MIN_LENGTH: 50,\n  DESCRIPTION_MAX_LENGTH: 5000,\n  COMMENT_MIN_LENGTH: 1,\n  COMMENT_MAX_LENGTH: 5000,\n  MAX_TAGS: 20,\n  MAX_TAG_LENGTH: 50,\n  MAX_ATTACHMENT_SIZE: 10 * 1024 * 1024, // 10MB\n  MAX_SUGGESTIONS: 10,\n  MAX_SEARCH_RESULTS: 50,\n  MAX_BULK_ACTIONS: 100,\n}",
-   "order": 1088,
+   "order": 1087,
    "doc": "Support Ticket Limits",
    "kind": "expr"
   },
   "SUPPORT_TICKET_STATUS_TRANSITIONS": {
    "raw": "{\n  OPEN: [\"IN_PROGRESS\", \"WAITING_FOR_USER\", \"RESOLVED\", \"CLOSED\", \"OPEN\"],\n  IN_PROGRESS: [\n    \"WAITING_FOR_USER\",\n    \"WAITING_FOR_STAFF\",\n    \"RESOLVED\",\n    \"CLOSED\",\n    \"IN_PROGRESS\",\n  ],\n  WAITING_FOR_USER: [\n    \"IN_PROGRESS\",\n    \"WAITING_FOR_STAFF\",\n    \"RESOLVED\",\n    \"CLOSED\",\n    \"WAITING_FOR_USER\",\n  ],\n  WAITING_FOR_STAFF: [\"IN_PROGRESS\", \"RESOLVED\", \"CLOSED\", \"WAITING_FOR_STAFF\"],\n  RESOLVED: [\"CLOSED\", \"OPEN\", \"RESOLVED\"],\n  CLOSED: [\"OPEN\", \"CLOSED\"],\n}",
-   "order": 1089,
+   "order": 1088,
    "ts_type": "Record< SupportTicketStatus, SupportTicketStatus[] >",
    "doc": "Support Ticket Status Transitions",
    "kind": "expr"
   },
   "SUPPORT_TICKET_COLORS": {
    "raw": "{\n  CATEGORY: {\n    BUG_REPORT: \"bg-red-100 text-red-800\",\n    FEATURE_REQUEST: \"bg-blue-100 text-blue-800\",\n    ACCOUNT_ISSUE: \"bg-yellow-100 text-yellow-800\",\n    GAMEPLAY_QUESTION: \"bg-green-100 text-green-800\",\n    PAYMENT_ISSUE: \"bg-purple-100 text-purple-800\",\n    TECHNICAL_SUPPORT: \"bg-gray-100 text-gray-800\",\n    MODERATION_SUPPORT: \"bg-orange-100 text-orange-800\",\n    OTHER: \"bg-indigo-100 text-indigo-800\",\n  },\n  PRIORITY: {\n    LOW: \"bg-gray-100 text-gray-800\",\n    MEDIUM: \"bg-blue-100 text-blue-800\",\n    HIGH: \"bg-orange-100 text-orange-800\",\n    URGENT: \"bg-red-100 text-red-800\",\n  },\n  STATUS: {\n    OPEN: \"bg-green-100 text-green-800\",\n    IN_PROGRESS: \"bg-yellow-100 text-yellow-800\",\n    WAITING_FOR_USER: \"bg-blue-100 text-blue-800\",\n    WAITING_FOR_STAFF: \"bg-purple-100 text-purple-800\",\n    RESOLVED: \"bg-teal-100 text-teal-800\",\n    CLOSED: \"bg-gray-100 text-gray-800\",\n  },\n}",
-   "order": 1090,
+   "order": 1089,
    "doc": "Support Ticket Color Schemes",
    "kind": "expr"
   },
   "SUPPORT_TICKET_CATEGORY_DESCRIPTIONS": {
    "raw": "{\n  BUG_REPORT: \"Report a bug or technical issue with the game\",\n  FEATURE_REQUEST: \"Suggest a new feature or improvement\",\n  ACCOUNT_ISSUE: \"Problems with your account, login, or profile\",\n  GAMEPLAY_QUESTION: \"Questions about game mechanics, rules, or strategies\",\n  PAYMENT_ISSUE: \"Problems with purchases, subscriptions, or payments\",\n  TECHNICAL_SUPPORT: \"Technical problems or performance issues\",\n  MODERATION_SUPPORT: \"Moderation-related issues or questions\",\n  OTHER: \"Any other questions or concerns\",\n}",
-   "order": 1091,
+   "order": 1090,
    "ts_type": "Record< SupportTicketCategory, string >",
    "doc": "Category descriptions to help users choose the right category",
    "kind": "expr"
   },
   "SUPPORT_TICKET_PRIORITY_DESCRIPTIONS": {
    "raw": "{\n  LOW: \"Minor issue that doesn't affect gameplay\",\n  MEDIUM: \"Standard issue that may affect gameplay\",\n  HIGH: \"Important issue that significantly affects gameplay\",\n  URGENT: \"Critical issue that prevents gameplay\",\n}",
-   "order": 1092,
+   "order": 1091,
    "ts_type": "Record< SupportTicketPriority, string >",
    "doc": "Priority descriptions",
    "kind": "expr"
   },
   "MATERIALS_BASE_SLOTS": {
    "raw": "25",
-   "order": 1093,
+   "order": 1092,
    "doc": "Materials inventory config",
    "value": 25,
    "kind": "number"
   },
   "FED_MATERIALS_NORMAL_SLOTS": {
    "raw": "5",
-   "order": 1094,
+   "order": 1093,
    "value": 5,
    "kind": "number"
   },
   "FED_MATERIALS_SILVER_SLOTS": {
    "raw": "10",
-   "order": 1095,
+   "order": 1094,
    "value": 10,
    "kind": "number"
   },
   "FED_MATERIALS_GOLD_SLOTS": {
    "raw": "15",
-   "order": 1096,
+   "order": 1095,
    "value": 15,
    "kind": "number"
   },
   "COOKING_BASE_SLOTS": {
    "raw": "25",
-   "order": 1097,
+   "order": 1096,
    "doc": "Cooking inventory config (mirrors materials)",
    "value": 25,
    "kind": "number"
   },
   "FED_COOKING_NORMAL_SLOTS": {
    "raw": "5",
-   "order": 1098,
+   "order": 1097,
    "value": 5,
    "kind": "number"
   },
   "FED_COOKING_SILVER_SLOTS": {
    "raw": "10",
-   "order": 1099,
+   "order": 1098,
    "value": 10,
    "kind": "number"
   },
   "FED_COOKING_GOLD_SLOTS": {
    "raw": "15",
-   "order": 1100,
+   "order": 1099,
    "value": 15,
    "kind": "number"
   },
   "TD_ENEMY_DIRECTIONS": {
    "raw": "[\n  \"n\",\n  \"ne\",\n  \"e\",\n  \"se\",\n  \"s\",\n  \"sw\",\n  \"w\",\n  \"nw\",\n]",
-   "order": 1101,
+   "order": 1100,
    "doc": "============================================ Tower Defense Constants ============================================",
    "value": [
     "n",
@@ -7980,38 +7982,38 @@
   },
   "TowerDefenseUpgradeTypes": {
    "raw": "[\n  // Attack upgrades\n  \"DAMAGE\",\n  \"ATTACK_SPEED\",\n  \"RANGE\",\n  \"CRIT_CHANCE\",\n  \"DAMAGE_PER_TILE\",\n  // Defense upgrades\n  \"HEALTH\",\n  \"HEALTH_REGEN\",\n  \"DEFENSE_PERCENT\",\n  \"DEFENSE_FLAT\",\n  \"LIFESTEAL\",\n  \"KNOCKBACK_CHANCE\",\n  \"KNOCKBACK_FORCE\",\n  // Utility upgrades\n  \"TOKENS_PER_WAVE\",\n  \"TOKENS_PER_KILL\",\n  \"INTEREST_PER_WAVE\",\n  \"SKIP_ENEMY_CHANCE\",\n  // Ability unlocks\n  \"ABILITY_UNLOCK\",\n]",
-   "order": 1102,
+   "order": 1101,
    "value": [
-    "// Attack upgrades\n  \"DAMAGE",
+    "DAMAGE",
     "ATTACK_SPEED",
     "RANGE",
     "CRIT_CHANCE",
     "DAMAGE_PER_TILE",
-    "// Defense upgrades\n  \"HEALTH",
+    "HEALTH",
     "HEALTH_REGEN",
     "DEFENSE_PERCENT",
     "DEFENSE_FLAT",
     "LIFESTEAL",
     "KNOCKBACK_CHANCE",
     "KNOCKBACK_FORCE",
-    "// Utility upgrades\n  \"TOKENS_PER_WAVE",
+    "TOKENS_PER_WAVE",
     "TOKENS_PER_KILL",
     "INTEREST_PER_WAVE",
     "SKIP_ENEMY_CHANCE",
-    "// Ability unlocks\n  \"ABILITY_UNLOCK"
+    "ABILITY_UNLOCK"
    ],
    "kind": "list"
   },
   "TowerDefenseUpgradeCategories": {
    "raw": "{\n  ATTACK: [\"DAMAGE\", \"ATTACK_SPEED\", \"RANGE\", \"CRIT_CHANCE\", \"DAMAGE_PER_TILE\"],\n  DEFENSE: [\n    \"HEALTH\",\n    \"DEFENSE_FLAT\",\n    \"DEFENSE_PERCENT\",\n    \"HEALTH_REGEN\",\n    \"LIFESTEAL\",\n    \"KNOCKBACK_CHANCE\",\n    \"KNOCKBACK_FORCE\",\n  ],\n  UTILITY: [\n    \"TOKENS_PER_KILL\",\n    \"TOKENS_PER_WAVE\",\n    \"INTEREST_PER_WAVE\",\n    \"SKIP_ENEMY_CHANCE\",\n  ],\n  ABILITIES: [\"ABILITY_UNLOCK\"],\n}",
-   "order": 1103,
+   "order": 1102,
    "ts_type": "Record< string, readonly TowerDefenseUpgradeType[] >",
    "doc": "Upgrade categories for UI organization",
    "kind": "expr"
   },
   "TowerDefenseRunStatuses": {
    "raw": "[\"ACTIVE\", \"COMPLETED\", \"ABANDONED\"]",
-   "order": 1104,
+   "order": 1103,
    "value": [
     "ACTIVE",
     "COMPLETED",
@@ -8021,244 +8023,244 @@
   },
   "TD_INITIAL_GRID_SIZE": {
    "raw": "7",
-   "order": 1105,
+   "order": 1104,
    "doc": "Game balance constants",
    "value": 7,
    "kind": "number"
   },
   "TD_MAX_GRID_SIZE": {
    "raw": "35",
-   "order": 1106,
+   "order": 1105,
    "value": 35,
    "kind": "number"
   },
   "TD_GRID_EXPAND_EVERY_N_WAVES": {
    "raw": "5",
-   "order": 1107,
+   "order": 1106,
    "value": 5,
    "kind": "number"
   },
   "TD_WAVE_ENEMY_BASE": {
    "raw": "3",
-   "order": 1108,
+   "order": 1107,
    "value": 3,
    "kind": "number"
   },
   "TD_WAVE_ENEMY_SCALING": {
    "raw": "1.2",
-   "order": 1109,
+   "order": 1108,
    "value": 1.2,
    "kind": "number"
   },
   "TD_SCORE_PER_KILL": {
    "raw": "10",
-   "order": 1110,
+   "order": 1109,
    "value": 10,
    "kind": "number"
   },
   "TD_SCORE_TO_POINTS_RATIO": {
    "raw": "100",
-   "order": 1111,
+   "order": 1110,
    "value": 100,
    "kind": "number"
   },
   "TD_PLAYER_BASE_HEALTH": {
    "raw": "100",
-   "order": 1112,
+   "order": 1111,
    "value": 100,
    "kind": "number"
   },
   "TD_SHURIKEN_BASE_DAMAGE": {
    "raw": "10",
-   "order": 1113,
+   "order": 1112,
    "value": 10,
    "kind": "number"
   },
   "TD_SHURIKEN_BASE_RANGE": {
    "raw": "2",
-   "order": 1114,
+   "order": 1113,
    "value": 2,
    "kind": "number"
   },
   "TD_SHURIKEN_BASE_COOLDOWN": {
    "raw": "500",
-   "order": 1115,
+   "order": 1114,
    "value": 500,
    "kind": "number"
   },
   "TD_BASE_CRIT_CHANCE": {
    "raw": "0",
-   "order": 1116,
+   "order": 1115,
    "value": 0,
    "kind": "number"
   },
   "TD_BASE_DAMAGE_PER_TILE": {
    "raw": "0",
-   "order": 1117,
+   "order": 1116,
    "value": 0,
    "kind": "number"
   },
   "TD_WAVE_END_GRACE_PERIOD_MS": {
    "raw": "200",
-   "order": 1118,
+   "order": 1117,
    "value": 200,
    "kind": "number"
   },
   "TD_RANGE_VISUAL_FACTOR": {
    "raw": "0.85",
-   "order": 1119,
+   "order": 1118,
    "value": 0.85,
    "kind": "number"
   },
   "TD_PROJECTILE_SPEED": {
    "raw": "5.0",
-   "order": 1120,
+   "order": 1119,
    "value": 5.0,
    "kind": "number"
   },
   "TD_EXISTING_SESSION_CHECK_TIMEOUT_MS": {
    "raw": "500",
-   "order": 1121,
+   "order": 1120,
    "value": 500,
    "kind": "number"
   },
   "TD_HIT_EVENT_DURATION_MS": {
    "raw": "500",
-   "order": 1122,
+   "order": 1121,
    "value": 500,
    "kind": "number"
   },
   "TD_ABILITY_IDS": {
    "raw": "{\n  SHURIKEN: \"shuriken\",\n}",
-   "order": 1123,
+   "order": 1122,
    "doc": "Ability IDs",
    "kind": "expr"
   },
   "TD_DAMAGE_NUMBER_POOL_SIZE": {
    "raw": "20",
-   "order": 1124,
+   "order": 1123,
    "doc": "Visual & Effect Constants",
    "value": 20,
    "kind": "number"
   },
   "TD_DAMAGE_NUMBER_LIFETIME": {
    "raw": "0.8",
-   "order": 1125,
+   "order": 1124,
    "value": 0.8,
    "kind": "number"
   },
   "TD_DAMAGE_NUMBER_RISE_SPEED_FACTOR": {
    "raw": "0.48",
-   "order": 1126,
+   "order": 1125,
    "value": 0.48,
    "kind": "number"
   },
   "TD_SHURIKEN_IMAGE_URL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/4a3100e5-97c6-4e5a-96e2-1c3520838179-gwm3dh.svg\"",
-   "order": 1127,
+   "order": 1126,
    "value": "https://uploadthing.b-cdn.net/f/4a3100e5-97c6-4e5a-96e2-1c3520838179-gwm3dh.svg",
    "kind": "string"
   },
   "TD_HEX_SIZE": {
    "raw": "100",
-   "order": 1128,
+   "order": 1127,
    "value": 100,
    "kind": "number"
   },
   "STEALTH_SENSORY_CAP": {
    "raw": "20000",
-   "order": 1129,
+   "order": 1128,
    "doc": "============================================ Stealth & Sensory System Constants ============================================",
    "value": 20000,
    "kind": "number"
   },
   "STEALTH_SENSORY_DEFAULT": {
    "raw": "1000",
-   "order": 1130,
+   "order": 1129,
    "value": 1000,
    "kind": "number"
   },
   "STEALTH_BASE_DURATION_SECONDS": {
    "raw": "60",
-   "order": 1131,
+   "order": 1130,
    "value": 60,
    "kind": "number"
   },
   "STEALTH_DURATION_PER_1000_POINTS": {
    "raw": "60",
-   "order": 1132,
+   "order": 1131,
    "value": 60,
    "kind": "number"
   },
   "STEALTH_MAX_DURATION_SECONDS": {
    "raw": "1200",
-   "order": 1133,
+   "order": 1132,
    "value": 1200,
    "kind": "number"
   },
   "STEALTH_BASE_KEEP_CHANCE_PERC": {
    "raw": "5",
-   "order": 1134,
+   "order": 1133,
    "value": 5,
    "kind": "number"
   },
   "STEALTH_KEEP_CHANCE_PER_1000_POINTS": {
    "raw": "2.75",
-   "order": 1135,
+   "order": 1134,
    "value": 2.75,
    "kind": "number"
   },
   "STEALTH_POST_COMBAT_COOLDOWN_SECONDS": {
    "raw": "20",
-   "order": 1136,
+   "order": 1135,
    "value": 20,
    "kind": "number"
   },
   "SENSORY_BASE_DETECT_CHANCE_PERC": {
    "raw": "5",
-   "order": 1137,
+   "order": 1136,
    "value": 5,
    "kind": "number"
   },
   "SENSORY_DETECT_CHANCE_PER_1000_POINTS": {
    "raw": "2.75",
-   "order": 1138,
+   "order": 1137,
    "value": 2.75,
    "kind": "number"
   },
   "SENSORY_MAX_DETECT_CHANCE_PERC": {
    "raw": "60",
-   "order": 1139,
+   "order": 1138,
    "value": 60,
    "kind": "number"
   },
   "SENSORY_BASE_COOLDOWN_SECONDS": {
    "raw": "120",
-   "order": 1140,
+   "order": 1139,
    "value": 120,
    "kind": "number"
   },
   "SENSORY_COOLDOWN_REDUCTION_PER_1000_POINTS": {
    "raw": "5",
-   "order": 1141,
+   "order": 1140,
    "value": 5,
    "kind": "number"
   },
   "SENSORY_DETECTION_DURATION_SECONDS": {
    "raw": "30",
-   "order": 1142,
+   "order": 1141,
    "value": 30,
    "kind": "number"
   },
   "STEALTH_TRAIN_GAIN_PER_MINUTE": {
    "raw": "50",
-   "order": 1143,
+   "order": 1142,
    "value": 50,
    "kind": "number"
   },
   "CovertTrainingTypes": {
    "raw": "[\"stealth\", \"sensory\"]",
-   "order": 1144,
+   "order": 1143,
    "doc": "Covert training types enum",
    "value": [
     "stealth",
@@ -8268,93 +8270,93 @@
   },
   "COMBAT_ENMITY_PER_DAMAGE": {
    "raw": "1",
-   "order": 1145,
+   "order": 1144,
    "doc": "Enmity awarded per point of opposing combatant HP lost after mitigation.",
    "value": 1,
    "kind": "number"
   },
   "DMG_STATS_SCALING": {
    "raw": "1",
-   "order": 1146,
+   "order": 1145,
    "doc": "Damage formula constants",
    "value": 1,
    "kind": "number"
   },
   "DMG_BASE_HITS": {
    "raw": "10",
-   "order": 1147,
+   "order": 1146,
    "value": 10,
    "kind": "number"
   },
   "DMG_CURVE": {
    "raw": "1.6",
-   "order": 1148,
+   "order": 1147,
    "value": 1.6,
    "kind": "number"
   },
   "DMG_AMPLITUDE": {
    "raw": "0.75",
-   "order": 1149,
+   "order": 1148,
    "value": 0.75,
    "kind": "number"
   },
   "DMG_EP_NORMALIZATION": {
    "raw": "40",
-   "order": 1150,
+   "order": 1149,
    "value": 40,
    "kind": "number"
   },
   "DMG_GEN_WEIGHT": {
    "raw": "2.0",
-   "order": 1151,
+   "order": 1150,
    "value": 2.0,
    "kind": "number"
   },
   "DMG_ADVANTAGE_MIN": {
    "raw": "0.01",
-   "order": 1152,
+   "order": 1151,
    "value": 0.01,
    "kind": "number"
   },
   "DMG_ADVANTAGE_MAX": {
    "raw": "10.0",
-   "order": 1153,
+   "order": 1152,
    "value": 10.0,
    "kind": "number"
   },
   "DMG_REDUCTION_CAP": {
    "raw": "0.9",
-   "order": 1154,
+   "order": 1153,
    "value": 0.9,
    "kind": "number"
   },
   "OUT_OF_COMBAT_BASE_DAMAGE_INCREASE": {
    "raw": "60",
-   "order": 1155,
+   "order": 1154,
    "value": 60,
    "kind": "number"
   },
   "DIFFUSE_MAX_PERCENTAGE": {
    "raw": "99",
-   "order": 1156,
+   "order": 1155,
    "value": 99,
    "kind": "number"
   },
   "DIFFUSE_DEFAULT_DELAY_ROUNDS": {
    "raw": "3",
-   "order": 1157,
+   "order": 1156,
    "value": 3,
    "kind": "number"
   },
   "OUT_OF_COMBAT_BASE_DAMAGE_REDUCTION": {
    "raw": "50",
-   "order": 1158,
+   "order": 1157,
    "value": 50,
    "kind": "number"
   },
   "preBattleGearFromTypes": {
    "raw": "[\"armor\", \"accessory\"]",
-   "order": 1159,
+   "order": 1158,
    "doc": "Armor/accessory folded into early pre-battle inc/DR pools in the damage pipeline.",
    "value": [
     "armor",
@@ -8364,7 +8366,7 @@
   },
   "preBattleKeystoneFromTypes": {
    "raw": "[\"keystone\"]",
-   "order": 1160,
+   "order": 1159,
    "doc": "Keystone % damage mods are consolidated at battle start but applied pre-bloodline.",
    "value": [
     "keystone"
@@ -8373,30 +8375,30 @@
   },
   "isPreBattleGearFromType": {
    "raw": "(\n  fromType?: string,\n): fromType is PreBattleGearFromType =>\n  fromType !== undefined &&\n  (preBattleGearFromTypes as readonly string[]).includes(fromType)",
-   "order": 1161,
+   "order": 1160,
    "kind": "expr"
   },
   "isPreBattleKeystoneFromType": {
    "raw": "(\n  fromType?: string,\n): fromType is PreBattleKeystoneFromType =>\n  fromType !== undefined &&\n  (preBattleKeystoneFromTypes as readonly string[]).includes(fromType)",
-   "order": 1162,
+   "order": 1161,
    "kind": "expr"
   },
   "COPY_MAX_TAGS": {
    "raw": "4",
-   "order": 1163,
+   "order": 1162,
    "doc": "Maximum number of effects the `copy` / `mirror` tags may transfer. This is a PERSISTENT, per-caster ceiling: at most this many copied effects may be active on the caster (mirrored on the target) at once, across any number of casts.",
    "value": 4,
    "kind": "number"
   },
   "MIRROR_MAX_TAGS": {
    "raw": "4",
-   "order": 1164,
+   "order": 1163,
    "value": 4,
    "kind": "number"
   },
   "COPY_PRIORITY_TIERS": {
-   "raw": "[\n  [\"increasedamagegiven\", \"decreasedamagetaken\"],\n  [\"lifesteal\"],\n  [\"absorb\", \"reflect\"],\n  [\"shield\"],\n  [\"increaseheal\"],\n  [\"increasestat\"],\n]",
-   "order": 1165,
+   "raw": "[\n  [\"increasedamagegiven\", \"decreasedamagetaken\"],\n  [\"lifesteal\"],\n  [\"absorb\", \"reflect\"],\n  [\"shield\"], // Static HP must not compete with percentage-based absorb/reflect power.\n  [\"increaseheal\"],\n  [\"increasestat\"],\n]",
+   "order": 1164,
    "ts_type": "readonly (readonly string[])[]",
    "doc": "Commitment-priority tiers for the `copy` tag (opponent buffs -> self), highest commitment first. The array index of a tier IS its rank. Same-tier types are independent slots, tie-broken by effect power.  NOTE: This is unrelated to `sortEffects` round-application ordering. These tiers only govern copy/mirror *selection* \u2014 which effects are eligible and which win the capped slots.",
    "value": [
@@ -8411,7 +8413,7 @@
   },
   "MIRROR_PRIORITY_TIERS": {
    "raw": "[\n  [\"increasedamagetaken\", \"decreasedamagegiven\"],\n  [\"afterburn\"],\n  [\"poison\", \"increasepoolcost\"],\n  [\"wound\"],\n]",
-   "order": 1166,
+   "order": 1165,
    "ts_type": "readonly (readonly string[])[]",
    "doc": "Commitment-priority tiers for the `mirror` tag (own debuffs -> target). Only the named types are ranked; any other mirror-eligible negative type falls to a tail rank (supplied by the caller) and is tie-broken by power.",
    "value": [
@@ -8424,50 +8426,50 @@
   },
   "COPYABLE_EFFECT_TYPES": {
    "raw": "new Set(\n  COPY_PRIORITY_TIERS.flat(),\n)",
-   "order": 1167,
+   "order": 1166,
    "ts_type": "ReadonlySet<string>",
    "doc": "Effect types the `copy` tag may transfer (flattened copy priority tiers).",
    "kind": "expr"
   },
   "TRANSFER_EXCLUDED_SOURCE_TYPES": {
    "raw": "new Set([\n  \"bloodline\",\n  \"armor\",\n  \"accessory\",\n  \"keystone\",\n  \"item\",\n  \"village\",\n  \"skill\",\n  \"ranked\",\n  \"elementalMastery\",\n  \"sageMode\",\n  \"sageModeAfter\",\n])",
-   "order": 1168,
+   "order": 1167,
    "ts_type": "ReadonlySet<string>",
    "doc": "Source (`fromType`) origins that copy/mirror never transfer \u2014 passive/gear effects are not stealable/reflectable. Shared by both tags. Keep in step with the passive/pre-battle sources in `persistentEffectSourceTypes` (tags.ts) and `getEffectStage` (util.ts): a source those treat as passive belongs here too.",
    "kind": "expr"
   },
   "MIRROR_EXCLUDED_EFFECT_TYPES": {
    "raw": "new Set([\n  \"damage\",\n  \"pierce\",\n  \"clear\",\n  \"buffprevent\",\n  \"cleanseprevent\",\n  \"moveprevent\",\n  \"healprevent\",\n  \"timecompression\",\n])",
-   "order": 1169,
+   "order": 1168,
    "ts_type": "ReadonlySet<string>",
    "doc": "Negative effect TYPES the `mirror` tag never reflects onto the target (raw damage, hard control, and non-transferable mechanics). This is the effect-type axis (`e.type`) \u2014 distinct from `TRANSFER_EXCLUDED_SOURCE_TYPES`, which excludes by source origin (`e.fromType`); the two lists are not interchangeable. `wound` is intentionally NOT here \u2014 it is mirror-eligible.",
    "kind": "expr"
   },
   "COPY_PRIORITY_RANK": {
    "raw": "buildTagPriorityRank(COPY_PRIORITY_TIERS)",
-   "order": 1170,
+   "order": 1169,
    "kind": "expr"
   },
   "MIRROR_PRIORITY_RANK": {
    "raw": "buildTagPriorityRank(MIRROR_PRIORITY_TIERS)",
-   "order": 1171,
+   "order": 1170,
    "kind": "expr"
   },
   "DMG_SETTING_DEFAULTS": {
    "raw": "{\n  DMG_STATS_SCALING,\n  DMG_BASE_HITS,\n  DMG_CURVE,\n  DMG_AMPLITUDE,\n  DMG_EP_NORMALIZATION,\n  DMG_GEN_WEIGHT,\n  DMG_ADVANTAGE_MIN,\n  DMG_ADVANTAGE_MAX,\n}",
-   "order": 1172,
+   "order": 1171,
    "ts_type": "Record<string, number>",
    "doc": "Map of DMG setting names to their default values (for gameSetting table storage)",
    "kind": "expr"
   },
   "DMG_SETTING_NAMES": {
    "raw": "Object.keys(DMG_SETTING_DEFAULTS)",
-   "order": 1173,
+   "order": 1172,
    "kind": "expr"
   },
   "PUSH_PLATFORMS": {
    "raw": "[\"ios\", \"android\", \"web\"]",
-   "order": 1174,
+   "order": 1173,
    "doc": "Platforms a push token can belong to. `web` is reserved for a future Web Push transport.",
    "value": [
     "ios",
@@ -8478,7 +8480,7 @@
   },
   "PUSH_CATEGORIES": {
    "raw": "[\n  \"combat\",\n  \"recovery\",\n  \"training\",\n  \"war\",\n  \"clan\",\n  \"trade\",\n  \"social\",\n  \"system\",\n]",
-   "order": 1175,
+   "order": 1174,
    "doc": "Notification categories the player can mute individually. Each maps to an Android notification channel and an APNs `thread-id`, so adding one here means adding a channel in the native shell too.",
    "value": [
     "combat",
@@ -8494,7 +8496,7 @@
   },
   "LIVE_ACTIVITY_KINDS": {
    "raw": "[\"hospital\", \"training\", \"war\"]",
-   "order": 1176,
+   "order": 1175,
    "doc": "Live Activity kinds the iOS shell knows how to render.",
    "value": [
     "hospital",
@@ -8505,35 +8507,35 @@
   },
   "PUSH_TOKEN_STALE_DAYS": {
    "raw": "90",
-   "order": 1177,
+   "order": 1176,
    "doc": "Longest a device token is allowed to stay in the table without being seen again.",
    "value": 90,
    "kind": "number"
   },
   "PUSH_MAX_DEVICES_PER_USER": {
    "raw": "10",
-   "order": 1178,
+   "order": 1177,
    "doc": "Devices a single account may register before the oldest are evicted.",
    "value": 10,
    "kind": "number"
   },
   "MIN_NATIVE_APP_VERSION": {
    "raw": "\"1.0.0\"",
-   "order": 1179,
+   "order": 1178,
    "doc": "Oldest shell build the site still supports. Raise it when a release depends on a plugin or a native behaviour an older binary cannot provide; anything below is shown an update wall instead of a half-working game.",
    "value": "1.0.0",
    "kind": "string"
   },
   "NATIVE_UA_MARKER": {
    "raw": "\"TNR-Native/\"",
-   "order": 1180,
+   "order": 1179,
    "doc": "Marker appended to the WebView user agent by the native shell, e.g. `... TNR-Native/1.0.0 (ios)`. The server branches on this to hide web-only purchase flows that would breach App Store guideline 3.1.1.",
    "value": "TNR-Native/",
    "kind": "string"
   },
   "STORE_PLATFORMS": {
    "raw": "[\"APPLE\", \"GOOGLE\"]",
-   "order": 1181,
+   "order": 1180,
    "doc": "Which store a purchase came through.",
    "value": [
     "APPLE",
@@ -8543,32 +8545,32 @@
   },
   "STORE_REP_PRODUCTS": {
    "raw": "[\n  { productId: \"tnr_reps_tier1\", usd: 4.99, reputationPoints: 8 },\n  { productId: \"tnr_reps_tier2\", usd: 9.99, reputationPoints: 20 },\n  { productId: \"tnr_reps_tier3\", usd: 19.99, reputationPoints: 49 },\n  { productId: \"tnr_reps_tier4\", usd: 49.99, reputationPoints: 164 },\n  { productId: \"tnr_reps_tier5\", usd: 99.99, reputationPoints: 407 },\n]",
-   "order": 1182,
+   "order": 1181,
    "doc": "Consumable reputation bundles.  Store purchases need fixed price points, so these replace the web's free-form amount. The rep totals are `dollars2reps(usd)` at the current web rate, which means in-app and web buy the same reputation for the same dollars and the store's cut is absorbed rather than passed on. A test asserts they stay in step; change `usd` and the test tells you the new rep figure. P",
    "kind": "array_expr"
   },
   "STORE_FEDERAL_PRODUCTS": {
    "raw": "[\n  {\n    productId: \"tnr_federal_normal\",\n    androidProductId: \"tnr_federal_normal:monthly\",\n    federalStatus: \"NORMAL\",\n  },\n  {\n    productId: \"tnr_federal_silver\",\n    androidProductId: \"tnr_federal_silver:monthly\",\n    federalStatus: \"SILVER\",\n  },\n  {\n    productId: \"tnr_federal_gold\",\n    androidProductId: \"tnr_federal_gold:monthly\",\n    federalStatus: \"GOLD\",\n  },\n]",
-   "order": 1183,
+   "order": 1182,
    "doc": "Federal status subscriptions. On Apple these belong to one subscription group so upgrades and downgrades are handled by the system. Play uses a separate subscription for each benefit tier, each with a monthly base plan.",
    "kind": "array_expr"
   },
   "STORE_FEDERAL_ENTITLEMENT": {
    "raw": "\"federal\"",
-   "order": 1184,
+   "order": 1183,
    "doc": "RevenueCat entitlement that grants federal status, whichever plan is active.",
    "value": "federal",
    "kind": "string"
   },
   "FEDERAL_MONTHLY_USD_CENTS": {
    "raw": "{ NORMAL: 500, SILVER: 1000, GOLD: 1500 }",
-   "order": 1185,
+   "order": 1184,
    "doc": "Tax-inclusive USD monthly prices shared by Stripe validation and federal support UI.",
    "kind": "expr"
   },
   "SkillTreePathTypes": {
    "raw": "[\"SKILL\", \"BLOODRIGHT\"]",
-   "order": 1186,
+   "order": 1185,
    "value": [
     "SKILL",
     "BLOODRIGHT"
@@ -8577,271 +8579,271 @@
   },
   "MAX_BLOODRIGHT_TIERS": {
    "raw": "5",
-   "order": 1187,
+   "order": 1186,
    "value": 5,
    "kind": "number"
   },
   "OBJECTIVE_WAR_DEFAULTS": {
    "raw": "{\n  enabled: false,\n  townhallHp: 10000,\n  shrineHp: 5000,\n  declarationCost: 500000,\n  noticeHours: 24,\n  durationDays: 7,\n  dailyDecay: 300,\n  guardianDamage: 350,\n  objectiveDamage: 1500,\n  campDamage: 300,\n  regularDamage: 10, regularRecovery: 7,\n  anbuDamage: 15, anbuRecovery: 10,\n  assassinDamage: 15, assassinRecovery: 10,\n  elderDamage: 20, elderRecovery: 15,\n  coleaderDamage: 20, coleaderRecovery: 15,\n  leaderDamage: 40, leaderRecovery: 30,\n}",
-   "order": 1188,
+   "order": 1187,
    "doc": "Defaults are snapshotted when an objective village war is approved.",
    "kind": "expr"
   },
   "WAR_ESPIONAGE_TARGET": {
    "raw": "100",
-   "order": 1189,
+   "order": 1188,
    "value": 100,
    "kind": "number"
   },
   "WAR_PVP_ESPIONAGE_POINTS": {
    "raw": "3",
-   "order": 1190,
+   "order": 1189,
    "value": 3,
    "kind": "number"
   },
   "WAR_OBJECTIVES_PER_SIDE": {
    "raw": "2",
-   "order": 1191,
+   "order": 1190,
    "value": 2,
    "kind": "number"
   },
   "WAR_CAMP_INTERVAL_HOURS": {
    "raw": "3",
-   "order": 1192,
+   "order": 1191,
    "value": 3,
    "kind": "number"
   },
   "WAR_CAMP_DURATION_HOURS": {
    "raw": "1",
-   "order": 1193,
+   "order": 1192,
    "value": 1,
    "kind": "number"
   },
   "WAR_CAMP_SCORE_PER_WIN": {
    "raw": "10",
-   "order": 1194,
+   "order": 1193,
    "doc": "Camp score belongs to the village; personal points count only actual townhall damage.",
    "value": 10,
    "kind": "number"
   },
   "WAR_POINT_PRESTIGE_RATE": {
    "raw": "10",
-   "order": 1195,
+   "order": 1194,
    "value": 10,
    "kind": "number"
   },
   "WAR_POINT_CONVERSION_DAYS": {
    "raw": "3",
-   "order": 1196,
+   "order": 1195,
    "value": 3,
    "kind": "number"
   },
   "WAR_RESERVE_LOCKOUT_DAYS": {
    "raw": "7",
-   "order": 1197,
+   "order": 1196,
    "value": 7,
    "kind": "number"
   },
   "OBJECTIVE_WAR_ATTACKER_COOLDOWN_DAYS": {
    "raw": "2",
-   "order": 1198,
+   "order": 1197,
    "doc": "Objective wars use separate attacker/defender cooldowns and temporary defeat penalties.",
    "value": 2,
    "kind": "number"
   },
   "OBJECTIVE_WAR_DEFENDER_COOLDOWN_DAYS": {
    "raw": "4",
-   "order": 1199,
+   "order": 1198,
    "value": 4,
    "kind": "number"
   },
   "OBJECTIVE_WAR_DEFEAT_PENALTY_LEVELS": {
    "raw": "2",
-   "order": 1200,
+   "order": 1199,
    "value": 2,
    "kind": "number"
   },
   "OBJECTIVE_WAR_DEFEAT_PENALTY_DAYS": {
    "raw": "3",
-   "order": 1201,
+   "order": 1200,
    "value": 3,
    "kind": "number"
   },
   "WAR_DRAW_PENALTY_LEVELS": {
    "raw": "1",
-   "order": 1202,
+   "order": 1201,
    "value": 1,
    "kind": "number"
   },
   "EVENT_TOURNAMENT_READY_SECONDS": {
    "raw": "5 * 60",
-   "order": 1203,
+   "order": 1202,
    "doc": "Staff tournament limits, ready checks, inter-game preparation and history retention.",
    "kind": "expr"
   },
   "EVENT_TOURNAMENT_GAME_DELAY_SECONDS": {
    "raw": "30",
-   "order": 1204,
+   "order": 1203,
    "value": 30,
    "kind": "number"
   },
   "EVENT_TOURNAMENT_RETENTION_DAYS": {
    "raw": "30",
-   "order": 1205,
+   "order": 1204,
    "value": 30,
    "kind": "number"
   },
   "EVENT_TOURNAMENT_MAX_CAPACITY": {
    "raw": "64",
-   "order": 1206,
+   "order": 1205,
    "value": 64,
    "kind": "number"
   },
   "EVENT_TOURNAMENT_MIN_CAPACITY": {
    "raw": "8",
-   "order": 1207,
+   "order": 1206,
    "value": 8,
    "kind": "number"
   },
   "EVENT_TOURNAMENT_LAUNCH_RECOVERY_SECONDS": {
    "raw": "120",
-   "order": 1208,
+   "order": 1207,
    "value": 120,
    "kind": "number"
   },
   "CACHE_PROBABILITY_TOTAL": {
    "raw": "10_000",
-   "order": 1209,
+   "order": 1208,
    "doc": "Weighted-cache probabilities use integer basis points (100 units = 1%).",
    "value": 10000,
    "kind": "number"
   },
   "CACHE_MAX_ROLLS": {
    "raw": "20",
-   "order": 1210,
+   "order": 1209,
    "value": 20,
    "kind": "number"
   },
   "CACHE_MAX_TIERS": {
    "raw": "20",
-   "order": 1211,
+   "order": 1210,
    "value": 20,
    "kind": "number"
   },
   "CACHE_MAX_ENTRIES": {
    "raw": "50",
-   "order": 1212,
+   "order": 1211,
    "value": 50,
    "kind": "number"
   },
   "CACHE_MAX_BUNDLE_ITEMS": {
    "raw": "10",
-   "order": 1213,
+   "order": 1212,
    "value": 10,
    "kind": "number"
   },
   "CACHE_MAX_QUANTITY": {
    "raw": "100",
-   "order": 1214,
+   "order": 1213,
    "value": 100,
    "kind": "number"
   },
   "CACHE_MAX_GRANTED_ITEMS": {
    "raw": "2_000",
-   "order": 1215,
+   "order": 1214,
    "value": 2000,
    "kind": "number"
   },
   "KAGE_DEFENSE_WINDOW_HOURS": {
    "raw": "2",
-   "order": 1216,
+   "order": 1215,
    "doc": "Kage defenses use UTC game time and Monday calendar weeks.",
    "value": 2,
    "kind": "number"
   },
   "KAGE_DEFENSE_MIN_DAYS": {
    "raw": "2",
-   "order": 1217,
+   "order": 1216,
    "value": 2,
    "kind": "number"
   },
   "KAGE_DEFENSE_SLOT_MINUTES": {
    "raw": "60",
-   "order": 1218,
+   "order": 1217,
    "value": 60,
    "kind": "number"
   },
   "KAGE_DEFENSE_NOTICE_HOURS": {
    "raw": "24",
-   "order": 1219,
+   "order": 1218,
    "value": 24,
    "kind": "number"
   },
   "KAGE_DEFENSE_SETUP_HOURS": {
    "raw": "24",
-   "order": 1220,
+   "order": 1219,
    "value": 24,
    "kind": "number"
   },
   "KAGE_DEFENSE_REMINDER_HOURS": {
    "raw": "12",
-   "order": 1221,
+   "order": 1220,
    "doc": "The incumbent's schedule reminder turns urgent this close to the publication deadline.",
    "value": 12,
    "kind": "number"
   },
   "KAGE_DEFENSE_CHECK_IN_MINUTES": {
    "raw": "5",
-   "order": 1222,
+   "order": 1221,
    "value": 5,
    "kind": "number"
   },
   "KAGE_DEFENSE_GRACE_MINUTES": {
    "raw": "5",
-   "order": 1223,
+   "order": 1222,
    "value": 5,
    "kind": "number"
   },
   "KAGE_DEFENSE_INSTANT_REQUEST_MINUTES": {
    "raw": "5",
-   "order": 1224,
+   "order": 1223,
    "doc": "Optional early-fight invitations expire independently of scheduled attendance.",
    "value": 5,
    "kind": "number"
   },
   "KAGE_DEFENSE_MAX_NO_SHOWS": {
    "raw": "3",
-   "order": 1225,
+   "order": 1224,
    "value": 3,
    "kind": "number"
   },
   "KAGE_DEFENSE_PUBLIC_SYNC_SECONDS": {
    "raw": "30",
-   "order": 1226,
+   "order": 1225,
    "value": 30,
    "kind": "number"
   },
   "KAGE_CHALLENGER_DAILY_LIMIT": {
    "raw": "1",
-   "order": 1227,
+   "order": 1226,
    "value": 1,
    "kind": "number"
   },
   "KAGE_CHALLENGER_WEEKLY_LIMIT": {
    "raw": "3",
-   "order": 1228,
+   "order": 1227,
    "value": 3,
    "kind": "number"
   },
   "KAGE_REMOVAL_COOLDOWN_DAYS": {
    "raw": "7",
-   "order": 1229,
+   "order": 1228,
    "value": 7,
    "kind": "number"
   },
   "KAGE_MATCH_STATUSES": {
    "raw": "[\"QUEUED\", \"SCHEDULED\", \"STARTING\", \"BATTLE\", \"COMPLETED\", \"CANCELLED\", \"FORFEITED\"]",
-   "order": 1230,
+   "order": 1229,
    "value": [
     "QUEUED",
     "SCHEDULED",
@@ -8855,45 +8857,45 @@
   },
   "IMG_LAYOUT_THEME_ART": {
    "raw": "{\n  \"3-sakura-courtyard\": \"https://ui0arpl8sm.ufs.sh/f/Y0Q-1HeBSKsPlYBadbMF8.webp\",\n  \"17-obsidian-council\": \"https://ui0arpl8sm.ufs.sh/f/Y2FQDnymspxiAsgd1Sz9F.webp\",\n  \"20-eclipse-observatory\": \"https://ui0arpl8sm.ufs.sh/f/DChv6QwC43mEy6HAEWuq_.webp\",\n}",
-   "order": 1231,
+   "order": 1230,
    "doc": "Compressed environment paintings for the selectable game layouts.",
    "kind": "expr"
   },
   "WAR_MERCENARY_LIMIT": {
    "raw": "3",
-   "order": 1232,
+   "order": 1231,
    "doc": "War mercenary contracts use village tokens and pay the player in Ryo.",
    "value": 3,
    "kind": "number"
   },
   "WAR_MERCENARY_RYO_PER_TOKEN": {
    "raw": "1000",
-   "order": 1233,
+   "order": 1232,
    "value": 1000,
    "kind": "number"
   },
   "WAR_MERCENARY_MAX_TOKENS": {
    "raw": "1_000_000",
-   "order": 1234,
+   "order": 1233,
    "value": 1000000,
    "kind": "number"
   },
   "WEB_REP_MIN": {
    "raw": "5",
-   "order": 1235,
+   "order": 1234,
    "doc": "Web checkout limits and quick selections; prices use the shared reputation curve.",
    "value": 5,
    "kind": "number"
   },
   "WEB_REP_MAX": {
    "raw": "1000",
-   "order": 1236,
+   "order": 1235,
    "value": 1000,
    "kind": "number"
   },
   "WEB_REP_PRESETS": {
    "raw": "[20, 50, 100, 250, 500]",
-   "order": 1237,
+   "order": 1236,
    "value": [
     "20",
     "50",
@@ -8905,45 +8907,191 @@
   },
   "STORE_BUNDLE_MAX_ITEMS": {
    "raw": "20",
-   "order": 1238,
+   "order": 1237,
    "value": 20,
    "kind": "number"
   },
   "STORE_BUNDLE_MAX_QUANTITY": {
    "raw": "100",
-   "order": 1239,
+   "order": 1238,
    "value": 100,
    "kind": "number"
   },
   "STORE_BUNDLE_MAX_RYO": {
    "raw": "10000000",
-   "order": 1240,
+   "order": 1239,
    "value": 10000000,
    "kind": "number"
   },
   "STORE_BUNDLE_MIN_PRICE_CENTS": {
    "raw": "100",
-   "order": 1241,
+   "order": 1240,
    "value": 100,
    "kind": "number"
   },
   "STORE_BUNDLE_MAX_PRICE_CENTS": {
    "raw": "100000",
-   "order": 1242,
+   "order": 1241,
    "value": 100000,
    "kind": "number"
   },
   "STORE_BUNDLE_MAX_PURCHASE_LIMIT": {
    "raw": "1000000",
-   "order": 1243,
+   "order": 1242,
    "doc": "Upper bound for staff-configured lifetime purchase limits; zero is unlimited.",
    "value": 1000000,
    "kind": "number"
   },
   "STORE_ORDER_RESERVATION_MINUTES": {
    "raw": "30",
-   "order": 1244,
+   "order": 1243,
    "value": 30,
+   "kind": "number"
+  },
+  "DISCORD_MIN_ACCOUNT_AGE_DAYS": {
+   "raw": "7",
+   "order": 1244,
+   "doc": "Discord account linking (see docs/DiscordLinking.md). A Discord account must be at least this old, measured from its snowflake id, before it can be linked.",
+   "value": 7,
+   "kind": "number"
+  },
+  "DISCORD_MAX_CHARACTERS_PER_ACCOUNT": {
+   "raw": "2",
+   "order": 1245,
+   "doc": "Characters one Discord account may be linked to (game rules: two accounts per person).",
+   "value": 2,
+   "kind": "number"
+  },
+  "DISCORD_UNLINK_COOLDOWN_DAYS": {
+   "raw": "30",
+   "order": 1246,
+   "doc": "After an unlink, the character cannot link a different Discord account until this passes, and the Discord account keeps counting the character toward its limit for as long.",
+   "value": 30,
+   "kind": "number"
+  },
+  "DISCORD_INDEFINITE_SANCTION_DAYS": {
+   "raw": "365",
+   "order": 1247,
+   "doc": "A ban or silence imposed for at least this long counts as indefinite and bans the linked Discord account from the server until it ends. Staff impose indefinite sanctions as the longest available duration, so anything of a year or more is treated as one.",
+   "value": 365,
+   "kind": "number"
+  },
+  "DISCORD_NICKNAME_MAX_LENGTH": {
+   "raw": "32",
+   "order": 1248,
+   "doc": "Discord rejects guild nicknames longer than this.",
+   "value": 32,
+   "kind": "number"
+  },
+  "DISCORD_SYNC_BATCH_SIZE": {
+   "raw": "100",
+   "order": 1249,
+   "doc": "Linked accounts reconciled per run of the Discord sync cron.",
+   "value": 100,
+   "kind": "number"
+  },
+  "DISCORD_SYNC_REFRESH_DAYS": {
+   "raw": "7",
+   "order": 1250,
+   "doc": "Linked accounts are fully re-applied at least this often, even without changes.",
+   "value": 7,
+   "kind": "number"
+  },
+  "DiscordUnlinkReasons": {
+   "raw": "[\"USER\", \"STAFF\", \"ACCOUNT_DELETED\"]",
+   "order": 1251,
+   "doc": "Why a Discord link ended; kept in DiscordLinkHistory for cooldowns and staff review.",
+   "value": [
+    "USER",
+    "STAFF",
+    "ACCOUNT_DELETED"
+   ],
+   "kind": "list"
+  },
+  "DiscordTokenSources": {
+   "raw": "[\"OAUTH\", \"CLERK\"]",
+   "order": 1252,
+   "doc": "Where a link's Discord token comes from. OAUTH links store their own encrypted token pair from the consent flow; CLERK links reuse the token of the player's Discord sign-in, which Clerk stores and refreshes, so nothing is stored and each use asks Clerk for it.",
+   "value": [
+    "OAUTH",
+    "CLERK"
+   ],
+   "kind": "list"
+  },
+  "TERRITORY_WAR_INTERVAL_HOURS": {
+   "raw": "5",
+   "order": 1253,
+   "doc": "Global competition; the next event opens after the preceding event has ended.",
+   "value": 5,
+   "kind": "number"
+  },
+  "TERRITORY_WAR_DURATION_MINUTES": {
+   "raw": "60",
+   "order": 1254,
+   "value": 60,
+   "kind": "number"
+  },
+  "TERRITORY_WAR_TARGET_POINTS": {
+   "raw": "400",
+   "order": 1255,
+   "value": 400,
+   "kind": "number"
+  },
+  "TERRITORY_WAR_AI_POINTS": {
+   "raw": "5",
+   "order": 1256,
+   "value": 5,
+   "kind": "number"
+  },
+  "TERRITORY_WAR_PVP_POINTS": {
+   "raw": "3",
+   "order": 1257,
+   "value": 3,
+   "kind": "number"
+  },
+  "TERRITORY_WAR_TEAM_SIZE": {
+   "raw": "3",
+   "order": 1258,
+   "value": 3,
+   "kind": "number"
+  },
+  "TERRITORY_WAR_TOKEN_REWARD": {
+   "raw": "300_000",
+   "order": 1259,
+   "value": 300000,
+   "kind": "number"
+  },
+  "TERRITORY_WAR_BOOST_PERCENT": {
+   "raw": "15",
+   "order": 1260,
+   "value": 15,
+   "kind": "number"
+  },
+  "TERRITORY_WAR_BOOST_HOURS": {
+   "raw": "1",
+   "order": 1261,
+   "value": 1,
+   "kind": "number"
+  },
+  "MAX_ACTIVITY_REDUCTION_PERCENT": {
+   "raw": "60",
+   "order": 1262,
+   "doc": "Per-effect and total percentage cap after eligible passive sources stack additively.",
+   "value": 60,
+   "kind": "number"
+  },
+  "MAX_HUNTING_BONUS_QUANTITY": {
+   "raw": "20",
+   "order": 1263,
+   "doc": "Per-effect and total extra units per successful hunting material, without changing drop chances.",
+   "value": 20,
+   "kind": "number"
+  },
+  "MAX_GATHERING_BONUS_QUANTITY": {
+   "raw": "20",
+   "order": 1264,
+   "doc": "Per-effect and total extra units per successful gathering material.",
+   "value": 20,
    "kind": "number"
   },
   "RANKED_BLOODLINE_DAMAGE_TAG": {
@@ -9313,6 +9461,19 @@
    "kind": "list",
    "source": "app/src/validators/combat.ts",
    "exported": false
+  },
+  "activityBonusTypes": {
+   "value": [
+    "decreasegatheringtime",
+    "decreasefarmingtime",
+    "decreasecraftingtime",
+    "decreasecookingtime",
+    "increasehuntingyield",
+    "increasegatheringyield"
+   ],
+   "kind": "list",
+   "source": "app/src/validators/combat.ts",
+   "exported": true
   },
   "PreventTagTypes": {
    "value": [
@@ -9814,9 +9975,13 @@
     "damage",
     "debuffprevent",
     "decreaseaggro",
+    "decreasecookingtime",
     "decreasecooldown",
+    "decreasecraftingtime",
     "decreasedamagegiven",
     "decreasedamagetaken",
+    "decreasefarmingtime",
+    "decreasegatheringtime",
     "decreaseheal",
     "decreasemastery",
     "decreasemaxpools",
@@ -9838,7 +10003,10 @@
     "increasecooldown",
     "increasedamagegiven",
     "increasedamagetaken",
+    "increasegatheringyield",
     "increaseheal",
+    "increasehuntingyield",
+    "increasejutsuslots",
     "increasemastery",
     "increasemaxpools",
     "increasepoolcost",
@@ -9981,7 +10149,7 @@
     "wound"
    ],
    "kind": "list",
-   "derived_from": "tagTypes.filter(type !== elementaldamage)",
+   "derived_from": "tagTypes.filter(type !== elementaldamage, increasejutsuslots, !isActivityBonus)",
    "source": "app/src/validators/ai.ts"
   }
  }
