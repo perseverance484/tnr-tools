@@ -849,20 +849,20 @@ The six Haul pages: §3.2.
 <i>A token pressed from clouded skyglass and stamped with the four-point star.</i><br><br>Use it to unlock <b>one Skyglass variant</b> of your choice: a new look and name for one of your crafted weapons, with the same stats. You must own the weapon. Each variant unlocks once per player, and the token is used up.<br>Skyglass variants exist for Aetherion, Thornsilver, Night's Testament, Stormrender, Oathbinder, Ink of the Void, The Unwritten, Gaea's Embrace, Warden's Bracers, Eclipsed Dawnblade, Zephyr's Whisper and Yuki's Frostbite.
 ```
 
-**Boss variant tokens.** Item name `<Variant> Variant` (open question 1). Description template:
+**Boss variant tokens.** Item name: the variant's name alone, `<Variant>` (RUL-2026-10-29-057 item 1). Description template:
 ```html
 <i><story line></i><br><br>Use it to unlock the <b><Variant></b> variant of <b><Base></b>: a new look and name, with the same stats. You must own <Base>. Each variant unlocks once per player, and the token is used up.
 ```
 
 | Token item | `<Base>` | Story line |
 |---|---|---|
-| Captain's Command Fan Variant | The Unwritten | `Taken from the Captain on his own deck. He gave every order with it, and every order was his master's.` |
-| Rot-Bloom Reaper Variant | Oathbinder | `Cut from what the Core Horror left behind when it finally lay still.` |
-| Warden's Forge-Fists Variant | Warden's Bracers | `The Foundry Warden never set down his work. Now someone else can carry it.` |
-| Wayfinder's Heading Variant | Stormrender | `The Wayfinder's last correction, still pointing at a port that is not there.` |
-| The First Blade Variant | Aetherion | `Something new, at last. He would have liked you.` |
-| Sealwright's Seal Variant | Whispering Dawnblade | `The Sealwright's own seal, from the hand that buried every report.` |
-| Crownbreaker Variant | Thornsilver | `For walking every deck of the war-ship, and breaking the crown that held them.` |
+| Captain's Command Fan | The Unwritten | `Taken from the Captain on his own deck. He gave every order with it, and every order was his master's.` |
+| Rot-Bloom Reaper | Oathbinder | `Cut from what the Core Horror left behind when it finally lay still.` |
+| Warden's Forge-Fists | Warden's Bracers | `The Foundry Warden never set down his work. Now someone else can carry it.` |
+| Wayfinder's Heading | Stormrender | `The Wayfinder's last correction, still pointing at a port that is not there.` |
+| The First Blade | Aetherion | `Something new, at last. He would have liked you.` |
+| Sealwright's Seal | Whispering Dawnblade | `The Sealwright's own seal, from the hand that buried every report.` |
+| Crownbreaker | Thornsilver | `For walking every deck of the war-ship, and breaking the crown that held them.` |
 
 ### 4.4 Caches
 
@@ -1157,8 +1157,7 @@ The Foundry ledger's "crew not relieved" stays: the bible's "carried forward" ta
 
 ## 9. Open questions for the director
 
-1. **Variant token names.** Proposed `<Variant> Variant` (e.g. "Captain's Command Fan Variant"). Alternatives:
-   "Variant Seal: Captain's Command Fan", or the bare variant name.
+1. **Variant token names.** Settled: the bare variant name (RUL-2026-10-29-057 item 1).
 2. **The tainted Last Heading's item name.** Proposed **The Rotted Heading**, to sit beside the Rotted Reliquary Seal
    and not repeat its run's name (The Burning Heading). Or "The Burning Heading" for both.
 3. **"Relief" in the Haul's ledger.** The approved Haul story "Draw on relief. Relief is crossed out" uses the
