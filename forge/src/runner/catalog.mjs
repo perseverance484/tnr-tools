@@ -16,7 +16,7 @@
 // merge and never diffed. `archived` is the only visibility-like switch a title has, and it is
 // required explicitly on a create: false makes the title referenceable by (hidden) rewards and lists
 // it in title.getAllNames; true makes the server refuse every save that rewards it.
-export const HIDDENLESS = Object.freeze(["petSpecies", "badge", "title"]);
+export const HIDDENLESS = Object.freeze(["petSpecies", "badge", "title", "itemVariant"]);
 const REQUIRED = { badge: ["name", "image", "description"], title: ["name", "archived"] };
 
 // validators/badge.ts and validators/title.ts bounds, checked here because zod refuses them only at

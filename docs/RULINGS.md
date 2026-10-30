@@ -4592,3 +4592,57 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "Drop haul steeping to keep it simple".
 
 **Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`.
+
+## RUL-2026-10-29-057 — Writing-pass decisions
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / text
+
+**Status:** ACTIVE. The tier and naming system is being drafted (director item 8).
+
+**Ruling** (on `docs/design/SKYGLASS_TEXT.md`, commit 800015ec):
+1. **Variant tokens carry the variant's name alone**, with no "Variant" suffix (e.g. "Captain's Command Fan").
+2. **The tainted Last Heading item is named "The Rotted Heading"**, apart from its run, The Burning Heading.
+3. **The Haul ledger reads "Draw on landing"**, not "Draw on relief": "relief" belongs to the refrain.
+4. **The Wreck's boss lines live in the battle log only.** Dungeons have no intro or closing screens.
+5. **The Fall's fire is the Arsenal Keeper's.** The harness's separate "Burning Deck" hazard is removed in the final simulation pass.
+6. **Archive and Watch press-on text waits** for the final simulation pass's verdict on press-on rooms.
+7. **Wreck Sighted's salvager needs a scene character portrait.** It is added to the art list.
+
+**Evidence:** Director, 2026-10-29: "1. Yes but without Variant in the name. 2. Approve 3. Approve. 4. Approve. 5. Good 6. Ok 7. Ok".
+
+**Canonical destination:** `docs/design/SKYGLASS_TEXT.md`.
+
+## RUL-2026-10-29-058 — Tier and naming system; "Forbidden" cache tier; charts are named by tier
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / rewards and text
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Item rarity uses the game's four** (Common, Rare, Epic, Legendary) and reflects how hard the item is to get:
+
+   | Rarity | Charts | Caches and rewards | Skyglass items |
+   |---|---|---|---|
+   | Common | Tide Chart, Watch Roster | Medicine Inro, Elemental Tool Pouch | Filament |
+   | Rare | hunt charts | Sage's Strongbox, Galley Stores, Core Rot | Serum |
+   | Epic | Reliquary Seal, Last Heading | Skyglass Coffer, Archive Chart Case, Unmarked Cargo | Crown Fragment |
+   | Legendary | tainted charts, Lastlight Lantern, Haul pages | Sealed Treasury, Crown's Hoard, Skyglass Token, variant tokens, the Little Horror's Jar | Skyglass Katana |
+
+   Profession chests keep the rarity already in their names.
+2. **Cache tiers are named Common, Rare, Epic and Legendary, plus a new Forbidden tier** above Legendary, coloured red. Each name is used at most once per cache, in order of weight. Colours follow the game's rarities (grey, blue, purple, gold), with red for Forbidden.
+   - **The Sage's Strongbox** keeps its **Forbidden** tier (1%, the Forbidden Jutsu Scrolls).
+   - **The Archive Chart Case:** Legendary 7 is an Epic chart; **Forbidden 3** is the Lastlight Lantern.
+   - **Profession chests:** Staples, Recipe kit, Bulk and Windfall/Heirloom are renamed Common, Rare, Epic and Legendary. The weights are unchanged.
+3. **The flavour names for charts stay.**
+4. **Player text names a chart by its tier:** Common, Rare, Epic or Legendary chart. "Hunt" is never used, because hunting is a separate game mechanic.
+   - The former "hunt charts" are **Rare charts**.
+   - The former "rare charts" are **Epic charts**.
+   - Tainted charts, the Lantern and the Haul pages are **Legendary charts**.
+
+**Evidence:** Director, 2026-10-29: "Need to iron out an exact tier system and naming system for everything in the game. Should match the game's system which uses common, rare, epic, legendary", then "Keep forbidden for Sage's Strongbox. That can be a new tier for reward Caches. Can use forbidden for the lantern. The flavor names are fine. Its use of the word "hunts" when hunting is a different mechanic... should be referred to as the tier of chart they are, rare chart, legendary chart, etc."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` (header); `docs/design/SKYGLASS_TEXT.md`; `push/skyglass_profession_chests.gen.py`.

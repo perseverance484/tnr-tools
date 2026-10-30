@@ -29,6 +29,7 @@ import { classifyError } from "../transport/outcome.mjs";
 import { AuthRefused } from "../transport/auth.mjs";
 import { diffAsserted, deepEqualPayload, SERVER_OWNED } from "../runner/validate.mjs";
 import { resolveRefs } from "../runner/refs.mjs";
+import { readVariant, variantCandidates } from "../runner/variants.mjs";
 
 export const SNAP_PREFIX = "tnr_forge_snap_v1:";
 
@@ -72,6 +73,7 @@ export class Reconciler {
 
   /** Called by the runner before every create; takes the snapshot once per (job, entity). */
   async beforeCreate(job, item, entity) {
+    if (entity === "itemVariant") return null; // the runner records the item's own pre-create rows
     const key = this.snapKey(job.jobId, entity);
     if (this.storage.getItem(key)) return key;
     const rc = recipe(entity);
@@ -106,6 +108,7 @@ export class Reconciler {
   }
 
   async _resolveCreate(job, item, rc, ctx) {
+    if (item.entity === "itemVariant") return this._variantCreate(item, ctx);
     const key = item.snapshotKey || this.snapKey(job.jobId, item.entity);
     const snap = this.readSnapshot(key);
     if (!snap) return { action: "orphan", candidates: [], note: "no pre-create snapshot for this entity type; cannot tell which row is ours" };
@@ -180,10 +183,25 @@ export class Reconciler {
       note: `lost petSpecies create: ${candidates.length} new row(s), ${evidence.filter((c) => c.matches).length} matching the plan, ${pending.length} create(s) pending${data ? "" : "; cannot compare"}. Check it, then adopt (read back, never re-sent) or skip` };
   }
 
+  /**
+   * A lost variant create. upsertItemVariant answers no id and carries no idempotency key, so every
+   * variant of the item the pre-create read did not hold, and no job owns, is listed with whether it
+   * sits at the planned order holding the asserted keys. Only the operator's adopt() binds one; it is
+   * read back, never re-sent.
+   */
+  async _variantCreate(item, ctx) {
+    const r = ctx.planned ? resolveRefs(ctx.planned.data, ctx.lookup ?? (() => undefined)) : null;
+    if (!r || r.unresolved.length) return { action: "orphan", candidates: [], note: "lost variant create: its itemId cannot be resolved to read the item's variants" };
+    const data = r.value, list = this._ensureSession("item.getItemVariants", await readVariant(this.reader, null, data));
+    if (!list.ok) return { action: "orphan", candidates: [], note: `item.getItemVariants unavailable: ${list.error.code}` };
+    const candidates = variantCandidates(list.data, item.variantSnapshot, data, diffAsserted, this.journal.knownEntityIds("itemVariant"));
+    return { action: "orphan", candidates, note: `lost variant create: ${candidates.length} new variant(s), ${candidates.filter((c) => c.matches).length} at the planned order matching the plan${item.variantSnapshot ? "" : "; no pre-create read was recorded"}. Adopt (read back, never re-sent) or skip` };
+  }
+
   async _resolveUpdate(item, rc, ctx) {
     const planned = ctx.planned;
     if (!planned) return { action: "orphan", candidates: [], note: "no planned data to compare against" };
-    const live = this._ensureSession(rc.get, await this.reader.get(rc.get, item.entityId, { fresh: true }));
+    const live = this._ensureSession(rc.get, await (rc.read ? rc.read(this.reader, item.entityId, resolveRefs(planned.data, ctx.lookup ?? (() => undefined)).value) : this.reader.get(rc.get, item.entityId, { fresh: true })));
     if (!live.ok || !live.data) return { action: "orphan", candidates: [], note: `${rc.get} ${item.entityId}: ${live.ok ? "no record" : live.error.code}` };
     // resolve refs the same way the runner would; an unresolvable ref means we cannot compare
     const { value: data, unresolved } = resolveRefs(planned.data, ctx.lookup ?? (() => undefined));

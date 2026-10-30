@@ -10,7 +10,7 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
-export const PIN = "107d7a86894f806a4c9cec89effef5992118a0ed";
+export const PIN = "3314d122c93e036618483d18229a793ad7ad21fd";
 const FILES = Object.freeze({
   validator: "app/src/validators/dungeon.ts",
   router: "app/src/server/api/routers/dungeon.ts",
@@ -20,6 +20,8 @@ const FILES = Object.freeze({
   rewards: "app/src/libs/dungeonRewards.ts",
   apiRoot: "app/src/server/api/root.ts",
   coopRouter: "app/src/server/api/routers/coop.ts",
+  // 3314d122 moved the router's database statements into src/queries (one module per router)
+  queries: "app/src/queries/dungeon.ts",
 });
 
 const fail = (m) => { throw new Error(m); };
@@ -115,6 +117,8 @@ const T = {
     type: /^z\.enum\(\[((?:"[\w-]+",?)+)\]\)$/,
     id: new RegExp(String.raw`^z\.string\(\)\.min\(1${MSG}\)$`),
     chance: /^z\.number\(\)\.min\((\d+)\)\.max\((\d+)\)$/,
+    // 3314d122: "Stop rolling this reward after a successful drop in this dungeon" (per player)
+    onlyOnce: /^z\.boolean\(\)\.optional\(\)$/,
     quantity: /^z\.number\(\)\.int\(\)\.min\(1\)\.max\(DUNGEON_MAX_REWARD_QUANTITY\)\.prefault\((\d+)\)$/,
     package: /^RewardPackageValidator\.optional\(\)$/,
   },
@@ -406,9 +410,15 @@ export function derive(root) {
   one(rewardsLib, /total > DUNGEON_MAX_GRANTED_ITEMS/, "granted-item bound binding");
   one(rewardsLib, /amounts\[field\] > DUNGEON_MAX_REWARD_AMOUNT/, "scalar reward bound binding");
   one(router, /effect\.rewardMode === "weightedCache"/, "cache drop rule");
-  one(router, /mapAsset\.id, input\.content\.structureAssetId/, "entrance asset lookup (mapAsset)");
+  one(router, /input\.content\.structureAssetId \? findMapAssetForSave\(ctx\.drizzle, input\) : null/, "entrance asset lookup (router)");
+  one(read(FILES.queries), /findMapAssetForSave = \([\s\S]{0,160}client\.query\.mapAsset\.findFirst\(\{[\s\S]{0,80}eq\(mapAsset\.id, input\.content\.structureAssetId\)/, "entrance asset lookup (mapAsset)");
   one(router, /drops\.map\(\(\{ package: _snapshot, \.\.\.drop \}\)/, "server-side package snapshot copy");
   one(router, /return \{ success: true, message: "Dungeon saved\.", id \};/, "save response shape");
+  // onlyOnce: a drop is skipped once THIS player's earlier claims of THIS dungeon definition hold its
+  // (type, id) identity; every successful direct drop is recorded, onlyOnce or not.
+  one(rewardsLib, /dungeonDropKey = \([\s\S]{0,120}JSON\.stringify\(\[drop\.type, drop\.id\]\)/, "onlyOnce drop identity");
+  one(rewardsLib, /if \(drop\.onlyOnce && \(claimedDrops\.has\(key\) \|\| grantedOnlyOnceDrops\.has\(key\)\)\)/, "onlyOnce roll rule");
+  one(router, /listDungeonRewardHistory\(tx, ctx\.userId, run\.dungeonId\)/, "onlyOnce per-player, per-dungeon history");
 
   const scale = map.structureScale;
   const bounds = {
@@ -461,6 +471,7 @@ export function derive(root) {
       sources: Object.fromEntries(files.map((p) => [p, createHash("sha256").update(readFileSync(`${root}/${p}`)).digest("hex")])),
     },
     contentFields: Object.keys(content), rewardFields: Object.keys(rewards), dropFields: Object.keys(drop),
+    ...(drop.onlyOnce ? { dropFlags: Object.keys(drop).filter((k) => /^z\.boolean\(\)/.test(drop[k].input)) } : {}),
     floorFields: Object.keys(floor), waveFields: Object.keys(wave),
     floorKinds, dropTypes, biomes, bounds, defaults, facts, procedures,
   };

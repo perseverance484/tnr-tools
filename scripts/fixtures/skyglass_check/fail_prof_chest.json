@@ -1,0 +1,78 @@
+{
+ "_note": "skyglass_check fixture: prof-chest. Wrong rarity on a gatherer chest (its hunt/gather flags are not checked: section 4b, the chests need no flags); a hunter chest and a gatherer chest on a run's hunter list, where section 4b allows no profession drops.",
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "hikAzfsQPCvNUaFw_P8vs",
+   "name": "Epic Gatherer's Chest",
+   "data": {
+    "rarity": "RARE",
+    "canBeHunted": true,
+    "canBeGathered": true
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "UGHSuhi83C3wRtH3FD4Eu",
+   "name": "The Drowned Foundry",
+   "data": {
+    "name": "The Drowned Foundry",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "b_warden",
+       "task": "start_battle",
+       "description": "The Warden tips the crucible.",
+       "reward_exp": 0,
+       "reward_items": [],
+       "reward_hunter_items": true,
+       "reward_hunter_items_ids": [
+        "32k2rXF6W-7gn_Fubp4kU",
+        "SWQpaXB8csJWL3zZMTz4r"
+       ]
+      },
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "D0gtI5dOgj2dFO4VexsLJ"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "ixEKlJ0MmDrX7JoMNJVhi"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ]
+     }
+    }
+   }
+  }
+ ]
+}

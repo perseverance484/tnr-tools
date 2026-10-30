@@ -52,6 +52,18 @@ const SURFACES = {
   "app/src/validators/badge.ts": "BadgeValidator",
   "app/src/validators/title.ts": "TitleValidator and the inline TitleEffectSchema members",
   "app/src/server/utils/titleRewards.ts": "reward_titles must name unarchived titles (lints.mjs TITLE)",
+  "app/src/validators/item.ts": "ItemVariantValidator and upsertItemVariantInputSchema (src/runner/variants.mjs)",
+  // 3314d122 moved each router's database statements into src/queries/<router>.ts: placeholder
+  // inserts, what get/list return, and the variant insert/update guards live there now
+  "app/src/queries/jutsu.ts": "jutsu placeholder insert, get and name list",
+  "app/src/queries/item.ts": "item placeholder insert, get, name list; variant insert/update/list (src/runner/variants.mjs)",
+  "app/src/queries/quests.ts": "quest placeholder insert, get and name list",
+  "app/src/queries/profile.ts": "AI placeholder insert, getAi and the name list",
+  "app/src/queries/asset.ts": "gameAsset placeholder insert (\"Placeholder\"), get and name list",
+  "app/src/queries/bloodline.ts": "bloodline placeholder insert, get and name list",
+  "app/src/queries/petSpecies.ts": "species insert/update/get/getAll",
+  "app/src/queries/badge.ts": "badge placeholder insert, get and name list",
+  "app/src/queries/title.ts": "title placeholder insert, get/getAll and the reward-title check",
   "app/src/validators/rewards.ts": "the reward field block shared by objectives",
   "app/src/validators/base.ts": "idsWithNumberField (opponentAIs, attackers)",
   "app/drizzle/schema.ts": "userData columns behind insertAiSchema",

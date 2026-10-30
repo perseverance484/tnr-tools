@@ -18,6 +18,7 @@
 //     cap. The noncombatconsumereward half IS ported and was re-verified at the pin
 //     (app/src/validators/combat.ts:1151-1163: CONSUMABLE, target SELF, method SINGLE).
 
+import { ACTIVITY_BONUSES, MAX_JUTSU_SLOTS } from "./variants.mjs";
 const DATE_RE = /^\d{4}-\d{1,2}-\d{1,2}$/;
 const DASH_RE = /[–—]/;
 const IMG_REF_RE = /@img:([A-Za-z0-9_.\-]+)/g;
@@ -105,7 +106,9 @@ export function lintManifest(manifest) {
       if (it.entity === "item" && f.type === "noncombatconsumereward") {
         // combat.ts:1151-1163 at the pin, three separate addIssue() calls
         if (d.itemType !== undefined && d.itemType !== "CONSUMABLE") E(it, "L18 noncombatconsumereward requires itemType CONSUMABLE");
-        if (d.target !== undefined && d.target !== "SELF") E(it, "L18 noncombatconsumereward requires item target SELF");
+        // a create must state it: item.create's placeholder holds target CHARACTER (queries/item.ts at 3314d122)
+        // and the fetch-merged update would keep it; an edit merges the live value
+        if (d.target !== undefined ? d.target !== "SELF" : it.op === "create") E(it, "L18 noncombatconsumereward requires item target SELF");
         if (d.method !== undefined && d.method !== "SINGLE") E(it, "L18 noncombatconsumereward requires method SINGLE");
         // combat.ts:867-893 at 2af4b320: pet grants require standard rewards
         if (Array.isArray(f.reward_pets) && f.reward_pets.length && f.rewardMode === "weightedCache") E(it, "PET reward_pets requires rewardMode standard");
@@ -149,6 +152,47 @@ export function lintManifest(manifest) {
   for (const t of items) if (t.entity === "title" && t.data?.archived === true) {
     const ref = JSON.stringify(t.op === "create" ? "@title:" + t.srcId : t.targetId);
     for (const it of items) if (JSON.stringify(it.data ?? {}).match(/"reward_titles":\[[^\]]*\]/g)?.some((m) => m.includes(ref))) E(it, `TITLE ${ref} is archived in this manifest; the server refuses rewarding it`);
+  }
+
+  // VARIANT (routers/item.ts at 3314d122, src/runner/variants.mjs). A token item's unlockitemvariant
+  // names the variant it unlocks (variantId: null = any token variant without a required item); the
+  // item must be a consumable destroyed on use, SELF/SINGLE, battle use prevented (SuperRefineItem).
+  // At a variant's CREATE the server accepts a requiredItemId only if that item's unlockitemvariant has
+  // a null variantId (the new id does not exist yet), so a 1:1 trophy is: token (variantId null),
+  // variant (requiredItemId), then a token edit setting variantId.
+  const bySrc = new Map(items.filter((it) => it.srcId).map((it) => [it.srcId, it]));
+  const slots = new Set();
+  for (const it of items) {
+    const d = it.data ?? {}, fx = (Array.isArray(d.effects) ? d.effects : []).filter(Boolean), unlock = fx.filter((f) => f.type === "unlockitemvariant");
+    if (it.entity === "item") for (const f of unlock) if (f.variantId != null && !(typeof f.variantId === "string" && (/^@variant:./.test(f.variantId) || /^[\w-]{21}$/.test(f.variantId)))) E(it, `VARIANT variantId ${JSON.stringify(f.variantId)}: null, a variant id or an @variant ref`);
+    // the 3314d122 tags (SuperRefineItem/Jutsu/PassiveEffects, PetSpeciesValidator): activity bonuses only on
+    // bloodlines and worn gear; slot grants only on a token-like consumable, at most MAX_JUTSU_SLOTS, power
+    // defaulting to 1. An item create without itemType is created CONSUMABLE (recipes.mjs item.create).
+    const type = d.itemType ?? (it.op === "create" ? "CONSUMABLE" : null), grants = fx.filter((f) => f.type === "increasejutsuslots");
+    if (fx.some((f) => ACTIVITY_BONUSES.includes(f.type)) && (["jutsu", "petSpecies"].includes(it.entity) || it.entity === "item" && type && !["ARMOR", "ACCESSORY", "KEYSTONE", "CRYSTAL"].includes(type))) E(it, `VARIANT an activity bonus (${fx.filter((f) => ACTIVITY_BONUSES.includes(f.type)).map((f) => f.type)}) needs a bloodline or ARMOR/ACCESSORY/KEYSTONE/CRYSTAL gear`);
+    if (grants.length && it.entity !== "item") E(it, "VARIANT increasejutsuslots: jutsu slot grants are only on non-combat consumables");
+    // IncreaseJutsuSlots.power is z.coerce.number().int().min(1).prefault(1): Number() first, so "1" is 1
+    const pow = (f) => (f.power === undefined ? 1 : Number(f.power)), okPow = (p) => Number.isInteger(p) && p >= 1;
+    for (const f of grants) if (!okPow(pow(f))) E(it, `VARIANT increasejutsuslots power ${JSON.stringify(f.power)} is not an integer of at least 1`);
+    const slotsGranted = grants.reduce((n, f) => n + (okPow(pow(f)) ? pow(f) : 0), 0);
+    if (it.entity === "item" && slotsGranted > MAX_JUTSU_SLOTS) E(it, `VARIANT an item grants at most ${MAX_JUTSU_SLOTS} extra jutsu slots (${slotsGranted})`);
+    // the placeholder holds target CHARACTER, destroyOnUse/preventBattleUsage false (queries/item.ts insertItemForCreate,
+    // schema.ts defaults); method SINGLE and the created type are already right, so a create must state the other three
+    if (it.entity === "item") for (const t of ["unlockitemvariant", "increasejutsuslots"]) if (fx.some((f) => f.type === t)) {
+      const need = { itemType: "CONSUMABLE", target: "SELF", method: "SINGLE", destroyOnUse: true, preventBattleUsage: true };
+      for (const [k, v] of Object.entries(need)) if (d[k] !== undefined ? d[k] !== v : it.op === "create" && !["itemType", "method"].includes(k)) E(it, `VARIANT ${t} requires ${k} ${v}`);
+    }
+    if (it.entity !== "itemVariant" || it.op !== "create") continue;
+    const key = JSON.stringify([d.itemId, d.order]);
+    if (slots.has(key)) E(it, `VARIANT two variant creates on ${d.itemId} at order ${d.order}; (itemId, order) is unique`);
+    slots.add(key);
+    if (d.costType !== "VARIANT_TOKEN") W(it, `VARIANT costType ${d.costType}: a variant has no hidden switch, so owners of the item can buy it as soon as it exists`);
+    else if (d.requiredItemId == null) W(it, "VARIANT no requiredItemId: any token whose unlockitemvariant has no variantId (every older Variant Token) unlocks it");
+    const tok = typeof d.requiredItemId === "string" && d.requiredItemId.startsWith("@item:") ? bySrc.get(d.requiredItemId.slice(6)) : null;
+    if (tok && tok.op === "create") {
+      const fx = (Array.isArray(tok.data?.effects) ? tok.data.effects : []).filter((f) => f && f.type === "unlockitemvariant");
+      if (!fx.some((f) => f.variantId == null)) E(it, `VARIANT ${d.requiredItemId} needs an unlockitemvariant with variantId null when this variant is created; set the variantId in a later edit of the token`);
+    }
   }
 
   // L17: the Android picker matches a file by size when the name differs, so every @img ref needs

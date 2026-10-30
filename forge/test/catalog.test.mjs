@@ -33,8 +33,8 @@ const withImage = (h) => {
 };
 
 // ------------------------------------------------------------------ contract
-test("contract: badge and title field sets, title effect key sets and procedures at the 2af4b320 pin", () => {
-  assert.equal(FIELDS._provenance.pin, "2af4b32066c39e2868efae5dba6b339278701dca");
+test("contract: badge and title field sets, title effect key sets and procedures at the 3314d122 pin", () => {
+  assert.equal(FIELDS._provenance.pin, "3314d122c93e036618483d18229a793ad7ad21fd");
   assert.deepEqual([FIELDS.entities.badge.source, Object.keys(FIELDS.entities.badge.fields)], ["app/src/validators/badge.ts:3", ["name", "image", "description"]]);
   assert.deepEqual([FIELDS.entities.title.source, Object.keys(FIELDS.entities.title.fields)], ["app/src/validators/title.ts:22", ["name", "description", "effects", "archived"]]);
   const at = (i) => NESTED.sets[i];
@@ -42,10 +42,10 @@ test("contract: badge and title field sets, title effect key sets and procedures
   assert.deepEqual(at(NESTED.titleEffects.increaseregeneration), ["power", "type"]);
   for (const p of ["badge.create", "badge.update", "title.create", "title.update", "title.get"]) assert.equal(PROCEDURES[p].auth, "protected", p);
   for (const p of ["badge.get", "badge.getAllNames", "title.getAllNames"]) assert.deepEqual([PROCEDURES[p].auth, PROCEDURES[p].limited], ["public", true], p);
-  assert.deepEqual(HIDDENLESS, ["petSpecies", "badge", "title"]);
+  assert.deepEqual(HIDDENLESS, ["petSpecies", "badge", "title", "itemVariant"]);
 });
 
-test("contract: the hand-held badge/title facts still match the pinned source, when a checkout is supplied", { skip: !process.env.TNR_GAME_CHECKOUT && "set TNR_GAME_CHECKOUT to a checkout at 2af4b320" }, () => {
+test("contract: the hand-held badge/title facts still match the pinned source, when a checkout is supplied", { skip: !process.env.TNR_GAME_CHECKOUT && "set TNR_GAME_CHECKOUT to a checkout at 3314d122" }, () => {
   const root = process.env.TNR_GAME_CHECKOUT;
   const read = (f) => readFileSync(join(root, f), "utf8");
   const schema = read("app/drizzle/schema.ts");
@@ -54,13 +54,15 @@ test("contract: the hand-held badge/title facts still match the pinned source, w
   assert.match(table("Badge"), /description: varchar\("description", \{ length: 500 \}\)/);
   assert.match(table("Title"), /archived: boolean\("archived"\)\.default\(false\)/);
   const badge = read("app/src/server/api/routers/badge.ts"), title = read("app/src/server/api/routers/title.ts");
-  assert.match(badge, /name: `New Badge - \$\{id\}`/);
-  assert.match(title, /name: `New Title - \$\{id\}`/);
+  // 3314d122 moved the routers' statements into src/queries (the placeholder inserts with them)
+  assert.match(read("app/src/queries/badge.ts"), /name: `New Badge - \$\{id\}`/);
+  assert.match(read("app/src/queries/title.ts"), /name: `New Title - \$\{id\}`/);
   for (const [src, proc, kind] of [[badge, "get", "public"], [badge, "getAllNames", "public"], [badge, "create", "protected"], [badge, "update", "protected"],
     [title, "get", "protected"], [title, "getAllNames", "public"], [title, "create", "protected"], [title, "update", "protected"]]) {
     assert.match(src, new RegExp(`\\n  ${proc}: ${kind}Procedure`), proc);
   }
-  assert.match(read("app/src/server/utils/titleRewards.ts"), /eq\(title\.archived, false\)/);
+  assert.match(read("app/src/server/utils/titleRewards.ts"), /selectTitleForValidateTitleRewardIds\(client, ids\)/);
+  assert.match(read("app/src/queries/title.ts"), /selectTitleForValidateTitleRewardIds = [\s\S]{0,400}eq\(title\.archived, false\)/);
   const mastery = /export const MasteryTypes = \[([^\]]*)\]/.exec(read("app/drizzle/constants.ts"))[1].match(/"[^"]+"/g).map((x) => JSON.parse(x));
   for (const m of mastery) assert.equal(new Validator(FIELDS, NESTED).problems("title", { effects: [{ type: "increasemastery", power: 1, masteryTypes: [m] }] }).length, 0, m);
   const listed = /needs 1\+ of (\S+)/.exec(new Validator(FIELDS, NESTED).problems("title", { effects: [{ type: "increasemastery", power: 1, masteryTypes: ["Nope"] }] }).join())[1].split("/");
