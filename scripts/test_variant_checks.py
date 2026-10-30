@@ -107,6 +107,30 @@ class VariantChecks(unittest.TestCase):
         self.assertIn("unknown key 'skillTarget'", out)
 
 
+    # ---- review round 1 ---------------------------------------------------------------------
+
+    def test_r1_f1_token_create_states_target(self):
+        for k in ("target", "destroyOnUse", "preventBattleUsage"):
+            code, out = self.validate(item("item", {kk: v for kk, v in TOKEN.items() if kk != k}))
+            self.assertNotEqual(code, 0, k)
+            self.assertIn(f"unlockitemvariant requires {k}", out, k)
+        code, out = self.validate(item("item", {k: v for k, v in TOKEN.items() if k not in ("method", "itemType")}))
+        self.assertEqual(code, 0, out)
+
+    def test_r1_f2_omitted_item_type_is_consumable_on_create(self):
+        bonus = {"type": "increasehuntingyield", **FX}
+        code, out = self.validate(item("item", {**{k: v for k, v in TOKEN.items() if k != "itemType"}, "effects": [bonus]}))
+        self.assertIn("activity bonuses require", out)
+
+    def test_r1_f3_slot_power_defaults_before_summing(self):
+        slot = {"type": "increasejutsuslots", **{k: v for k, v in FX.items() if k not in ("description", "power")}}
+        code, out = self.validate(item("item", {**TOKEN, "effects": [slot, slot, slot]}))
+        self.assertNotEqual(code, 0)
+        self.assertIn("at most 2 extra jutsu slots", out)
+        code, out = self.validate(item("item", {**TOKEN, "effects": [slot, slot]}))
+        self.assertEqual(code, 0, out)
+
+
 class ExtractorCorrections(unittest.TestCase):
     def test_comments_are_not_list_members(self):
         self.assertEqual(se.strip_comments('[\n  ["a"], // note\n  "http://x/y", /* c */ "b"\n]'), '[\n  ["a"], \n  "http://x/y",  "b"\n]')
