@@ -46,7 +46,7 @@ def main():
                 r = by[path]
                 out[k] = {"clear": r["wins"] / r["runs"], "minutes": round(r["totalRoundsMedian"] * 15 / 60, 1), "pressOn": 0.0}
                 out["_sources"][k] = f"final_hunts_dodge.json {path}"
-    ch = [r for n in ("final_charts_dodge_a.json", "final_charts_dodge_b.json") for r in ((load(n) or {}).get("results") or [])]
+    ch = [r for n in ("final_charts_dodge_a.json", "final_charts_dodge_b.json", "final_charts_burning.json") for r in ((load(n) or {}).get("results") or [])]
     if ch:
         for r in ch:
             key = {"lowtide": "tide", "nightwatch": "roster", "reliquary": "reliquary", "fall": "fall", "rotted": "t_rel", "burning": "t_fall"}.get(r["run"])

@@ -97,6 +97,7 @@ if __name__ == "__main__":
     hunts("final_hunts_nododge.json", "Hunts (dodge off)")
     charts("final_charts_dodge_a.json", "Charts: commons, Reliquary runs, steeping (L100, dodge on)")
     charts("final_charts_dodge_b.json", "Charts: The Fall, Burning Heading (L100, dodge on)")
+    charts("final_charts_burning.json", "Burning Heading as adopted (3 rows + 65% givenDown; L100, dodge on)")
     charts("final_charts_fall_notwist.json", "The Fall without the Keeper's fire (L100, dodge on)")
     charts("final_charts_commons_L50_dodge.json", "Commons, L50 (dodge on)")
     charts("final_charts_commons_L50_nododge.json", "Commons, L50 (dodge off)")
