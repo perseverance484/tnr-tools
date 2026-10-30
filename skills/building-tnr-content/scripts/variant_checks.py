@@ -124,10 +124,12 @@ def _zod_number(v):
     if v is None:
         return 0.0
     if isinstance(v, str):
-        t = v.strip()
+        # ASCII-only: JavaScript Number() reads only ASCII digits; padding is limited to ASCII whitespace
+        # (Number() also trims Unicode spaces, so this is stricter, never looser).
+        t = v.strip(" \t\n\r\f\v")
         if not t:
             return 0.0
-        if "_" in t or not re.fullmatch(r"[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?", t):
+        if "_" in t or not re.fullmatch(r"[+-]?([0-9]+\.?[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?", t):
             return float("nan")
         return float(t)
     return float("nan")

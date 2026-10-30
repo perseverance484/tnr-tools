@@ -144,6 +144,15 @@ class VariantChecks(unittest.TestCase):
             self.assertNotEqual(code, 0, bad)
             self.assertIn(want, out, bad)
 
+    def test_r3_unicode_digits_refused_like_number(self):
+        # JavaScript Number() reads only ASCII digits: Arabic-Indic and fullwidth digits are NaN there.
+        base = {k: v for k, v in FX.items() if k not in ("description", "power")}
+        for bad in ("\u0661", "\uff11", "1\u0660"):
+            code, out = self.validate(item("item", {**TOKEN, "effects": [{"type": "increasejutsuslots", **base, "power": bad}]}))
+            self.assertNotEqual(code, 0, repr(bad))
+        code, out = self.validate(item("item", {**TOKEN, "effects": [{"type": "increasejutsuslots", **base, "power": " 1 "}]}))
+        self.assertEqual(code, 0, out)
+
 
 class ExtractorCorrections(unittest.TestCase):
     def test_comments_are_not_list_members(self):
