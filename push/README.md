@@ -1241,7 +1241,7 @@ every live VARIANT_TOKEN variant is listed, and those still open are bound to th
 Forge 0.12.1 (merge 002c240f) is required. Zero writes. Gates (pass 1): `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems.
 
-## 327 Bind the six live token variants to the Lion Token (6 itemVariant edits): READY TO RUN (Forge 0.12.1)
+## 327 Bind the six live token variants to the Lion Token, hide "Test Variant" (6 itemVariant edits + 1 item edit): READY TO RUN (Forge 0.12.1)
 
 RUL-2026-10-29-054 item 2, from the push/326 pass-2 bundle. Each of the six live VARIANT_TOKEN variants has no required
 unlock item, so any generic token (the Lion Token, "Test Variant", and the coming Skyglass Token) can unlock it:
@@ -1254,5 +1254,6 @@ unlock item, so any generic token (the Lion Token, "Test Variant", and the comin
 
 Each edit sets `requiredItemId` to the Lion Token (`FG4xYkI8UmRrJCdD3yPxI`) and is fetch-merged over the live row, so
 name, image, cost and order are kept. Players keep unlocking these with Lion Tokens; nothing else changes for them.
-Run before any Skyglass Token is created. Built by `push/327_lion_token_variant_bind.gen.py`. Gates: `validate.py
+The seventh edit hides the stray unhidden generic token item "Test Variant" (`QeQtevFEEL766JJQZ5tWK`; director,
+2026-10-30). Run before any Skyglass Token is created. Built by `push/327_lion_token_variant_bind.gen.py`. Gates: `validate.py
 --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
