@@ -12,17 +12,23 @@ Core Rupture blast carries the approved law-6 exception (RUL-2026-10-28-002). It
        usernames (RUL-2026-10-26-003).
   328  Core Rupture: a small, heavy blast (RUL-2026-10-28-001). The law-6 pierce exception (RUL-2026-10-28-002) is held
        by state/validate_exceptions/328_skyglass_core_rupture.json.
-  329  everything else: the Last Directive and Countermand texts; the Skyglass items, caches, charts, Haul pages, Core
-       Rot, Galley Stores, Skyglass Token and the seven boss variant tokens, the profession chests and the 19 variants
-       (push/skyglass_items.gen.py); the tokens bound to their variants; kits back on; the Armory Requisition hidden;
-       the Buried Cache, Drowned Foundry, Quarantined Archive and Captain's Watch re-sent with the section 4a picks, the
-       chart-ladder and Haul-page drops, the stakes headers and closing lines (text doc 2.8, 2.8a, 6.1, 6.2, 8) and the
-       Watch's dawn-watch press-on room; Crownhold created with its section 4a pick.
+  329  hidden records only (RUL-2026-10-30-063 item 1): the Last Directive and Countermand texts; the 22 new Skyglass
+       items (charts, Haul pages, Core Rot, Galley Stores, Skyglass Token, the seven boss variant tokens), all hidden;
+       the 19 variants (no hidden state); kits back on (closes 319); Crownhold created hidden.
+  330  the seven boss tokens bound to their variants, from 329's results (--binds).
+  331  GO-LIVE (RUL-2026-10-30-063 item 1), from 329's results (--golive): every edit that changes what live players can
+       obtain or see. The 20 edits to existing items (the four Rare charts' text and tier, the Lantern, the Coffer, Sealed
+       Treasury, Archive Chart Case, Medicine Inro, Sage's Strongbox, Elemental Tool Pouch, Unmarked Cargo, the 8
+       profession chests) and the Buried Cache, Drowned Foundry, Quarantined Archive and Captain's Watch re-sent with the
+       section 4a picks, the chart-ladder, Haul-page and boss-token drops, the stakes headers and closing lines (text doc
+       2.8, 2.8a, 6.1, 6.2, 8) and the Watch's dawn-watch press-on room. Runs LAST, after every other manifest of the
+       event (push/README.md lists the preconditions). The new items it names are 329 creates, so it carries their
+       literal ids from 329's results bundle (L01; check_manifest plans with no retained idmap).
 
 Sources: push/core_rupture.gen.py, push/crownhold.gen.py, push/skyglass_hunts.gen.py (state/skyglass_hunts/hunts.py),
 push/skyglass_items.gen.py, docs/design/SKYGLASS_TEXT.md, docs/design/SKYGLASS_LOOT_TABLES.md. Do not hand-edit the output.
 
-Not in these three (built later, from these manifests' results): the chart runs, steeping, the Haul, Walked Every
+Not in these (built later, from these manifests' results): the chart runs, steeping, the Haul, Walked Every
 Deck, the Wreck dungeon drops and floors, the set-piece library and the AI copies; see push/README.md.
 """
 import copy
@@ -274,6 +280,63 @@ def write(num, slug, note, items, extra=None):
     print(f"push/{num}_{slug}.json: {len(items)} items")
 
 
+# Edits to existing records that live players can reach today (RUL-2026-10-30-063 item 1): they go in the go-live
+# manifest, never in 329. Every item edit push/skyglass_items.gen.py builds must be named here, so a new one cannot slip
+# into 329 unclassified.
+GO_LIVE_ITEM_EDITS = {
+    "Chart of the Buried Cache", "Chart of the Drowned Foundry", "Chart of the Quarantined Archive",
+    "Chart of the Captain's Watch", "Lastlight Lantern", "Skyglass Coffer", "Sealed Treasury", "Archive Chart Case",
+    "Medicine Inro", "Sage's Strongbox", "Elemental Tool Pouch", "Unmarked Cargo",
+    *IT.PROF.values(),
+}
+GO_LIVE = 331
+
+
+def split_items(items):
+    """(hidden creates for 329, live item edits for the go-live manifest)."""
+    creates = [e for e in items if e["slot"] == "create"]
+    edits = [e for e in items if e["slot"] != "create"]
+    assert all(e["data"].get("hidden") is True for e in creates)
+    ids = {IT.LIVE.get(n) or IT.cid(n): n for n in GO_LIVE_ITEM_EDITS}
+    assert {e["targetId"] for e in edits} == set(ids), "an item edit is not classified for 329 / go-live"
+    return creates, edits
+
+
+def resolve_329(o, idmap, missing):
+    """Replace every @item/@variant ref to a 329 create with its literal id from 329's results (L01)."""
+    if isinstance(o, list):
+        return [resolve_329(x, idmap, missing) for x in o]
+    if isinstance(o, dict):
+        return {k: resolve_329(v, idmap, missing) for k, v in o.items()}
+    if isinstance(o, str) and o.startswith("@") and ":" + IT.PFX in o and not o.startswith("@img:"):
+        key = o.split(":", 1)[1]
+        if not idmap.get(key):
+            missing.add(key)
+            return o
+        return idmap[key]
+    return o
+
+
+def golive(bundle):
+    b = json.load(open(bundle))
+    idmap = b.get("idmap") or {}
+    _, edits = split_items(IT.all_items()["items"])
+    body = phased(edits, 1) + phased([cache(), foundry(), archive(), watch()], 2)
+    missing = set()
+    body = resolve_329(body, idmap, missing)
+    if missing:
+        raise SystemExit("329 creates missing from the results idmap: " + ", ".join(sorted(missing)))
+    write(GO_LIVE, "skyglass_go_live", (
+        f"push/{GO_LIVE}, GO-LIVE (RUL-2026-10-30-063 item 1): DO NOT RUN until every other manifest of the Skyglass / "
+        "Crownhold event has run (push/README.md lists the preconditions). Built from push/329's results bundle "
+        + os.path.basename(bundle) + " (literal ids, L01). Phase 1: the 20 edits to existing items live players can reach "
+        "(the four Rare charts' text and tier, the Lantern, the Coffer, Sealed Treasury, Archive Chart Case, Medicine Inro, "
+        "Sage's Strongbox, Elemental Tool Pouch, Unmarked Cargo, the 8 profession chests). Phase 2: the Buried Cache, "
+        "Drowned Foundry, Quarantined Archive and Captain's Watch re-sent whole (section 4a picks, chart ladder, Haul pages "
+        "1.5% each, boss variant tokens 1%, stakes headers and closing lines, the Watch's dawn-watch press-on room)."),
+        body)
+
+
 def binds(bundle):
     b = json.load(open(bundle))
     write(330, "skyglass_token_binds", (
@@ -285,6 +348,8 @@ def binds(bundle):
 def main():
     if len(sys.argv) > 2 and sys.argv[1] == "--binds":
         return binds(sys.argv[2])
+    if len(sys.argv) > 2 and sys.argv[1] == "--golive":
+        return golive(sys.argv[2])
     jutsus, items = boss_kit()
     assert EXCLUSIVE_JUTSU <= set(jutsus) and any(COUNTERMAND in it["ids"] for it in items)
     unequip, convert, reequip = CR.main()
@@ -320,22 +385,21 @@ def main():
     # The retired Armory Requisition (RUL-2026-10-28-016) is already hidden live (push/274 created it hidden); it is no
     # longer edited, and the Unmarked Cargo edit below drops it from the chest of chests.
     parts = IT.all_items()
-    hunts = [cache(), foundry(), archive(), watch()]
-    body = (phased([ld], 1) + phased(parts["items"] + [cm], 1) + phased(parts["variants"], 2)
-            + phased(reequip + [boss_on], 4) + phased(hunts + [crownhold()], 5))
+    creates, _live_edits = split_items(parts["items"])  # the live edits go in the go-live manifest (--golive)
+    body = (phased([ld], 1) + phased(creates + [cm], 1) + phased(parts["variants"], 2)
+            + phased(reequip + [boss_on], 4) + phased([crownhold()], 5))
     ph = IT.placeholders(body)
     write(329, "skyglass_items_and_quests", (
-        "push/329, step 3 of 3 (after 328). All HIDDEN; every new image is the engine default placeholder "
-        "(RUL-2026-10-30-059; list in _placeholders). Phase 1: the Last Directive and Countermand texts; 22 new items (6 "
-        "charts, 6 Haul pages, Core Rot, Galley Stores, the Skyglass Token, 7 boss variant tokens) and 20 item edits "
-        "(chart texts and tiers, the Lantern, Coffer, Treasury, Archive Chart Case, Medicine Inro, Sage's Strongbox, "
-        "Elemental Tool Pouch, Unmarked Cargo, the 8 profession chests). Phase 2: the 19 variants (12 Skyglass, 7 boss; "
-        "variants have no hidden state). The seven boss tokens are bound to their variants by push/330, built from this "
-        "manifest's results. Phase 4: kits back on (Core Rupture; the Crowned Captain's exclusives). Phase 5: the Buried Cache, Drowned "
-        "Foundry, Quarantined Archive and Captain's Watch re-sent whole (section 4a picks, chart ladder, Haul pages 1.5% "
-        "each, boss variant tokens 1%, stakes headers and closing lines, the Watch's dawn-watch press-on room); "
-        "Crownhold created (pick: Skyglass Coffer x3 / Lastlight / Crown Fragment; Crown's Hoard and the Crownbreaker "
-        "badge join when their ids exist)."),
+        "push/329, step 3 of 3 (after 328). Hidden records only (RUL-2026-10-30-063 item 1): nothing here changes what "
+        "live players can obtain or see, except the variants (no hidden state). Every new image is the engine default "
+        "placeholder (RUL-2026-10-30-059; list in _placeholders). Phase 1: the Last Directive and Countermand texts (hidden "
+        "Crownhold exclusives); 22 new HIDDEN items (6 charts, 6 Haul pages, Core Rot, Galley Stores, the Skyglass Token, "
+        "7 boss variant tokens). Phase 2: the 19 variants (12 Skyglass, 7 boss); each shows on its base weapon as 'Need "
+        "<token>' from this run, the tokens staying hidden. The seven boss tokens are bound to their variants by push/330, "
+        "built from this manifest's results. Phase 4: kits back on (Core Rupture; the Crowned Captain's exclusives), "
+        "closing push/319. Phase 5: Crownhold created HIDDEN (pick: Skyglass Coffer x3 / Lastlight / Crown Fragment; "
+        "Crown's Hoard and the Crownbreaker badge join when their ids exist). The live item edits and the four live chart "
+        f"runs' re-sends are push/{GO_LIVE} (go-live), built from this manifest's results and run last."),
         body, {"_placeholders": ph})
 
 
