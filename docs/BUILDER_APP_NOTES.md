@@ -949,6 +949,13 @@ RUL-2026-10-29-047/048: Skyglass trophies and skins are item variants unlocked b
 - **Dungeon `onlyOnce`.** The dungeon contract gains `onlyOnce` in `dropFields` and a derived `dropFlags`; the validator refuses a non-boolean. `tools/derive_dungeon.mjs` now also reads `src/queries/dungeon.ts` (3314d122 moved each router's statements into `src/queries`) and asserts the onlyOnce identity `(type, id)` and the per-player, per-dungeon history.
 - **Re-pin effects on existing entities.** A pet species' `skillTarget` moved onto each innate effect (`nested.json` `petSpeciesEffect`; a species-level key is now refused). `userData` lost `avatar3d` (`insertAiSchema` 189 -> 188 keys). Seven new tags (six activity bonuses, `increasejutsuslots`). `gameAsset.create` and `profile.getAllAiNames` gained optional inputs (Forge sends none, as before). No procedure Forge calls changed its auth class (`tools/auth_pin_diff.mjs`, 0 disagreements across 59 paths).
 
+## Variant capture reads (0.12.1, release pending)
+
+RUL-2026-10-29-054 item 2: every live `VARIANT_TOKEN` variant is captured before the Skyglass Token ships. Audited at `studie-tech/TheNinjaRPG@3314d122`; handoff `docs/handoffs/VARIANT_CAPTURE_READS_3314D122.md`.
+
+- **`item.getItemVariants {itemId}` is a full-persist read** (`FULL_PERSIST_PATHS`). Its record key is `itemId`, declared in `PERSIST_RECORD_KEY` (`storage/captures.mjs`); a full request without a non-empty `input.itemId` is refused at parse time. The runner reads it through `reader.list()` with the manifest's input (uncached, as before), never as `{id}`; the snapshot is filed under the itemId. This supersedes the 0.12.0 note "there is no full-persist read".
+- **`item.getVariantNames` is the one list that may persist whole** (`FULL_PERSIST_LIST_PATHS`). Protected, no `.input()` at source; rows `{id, name: "<item>: <variant>"}` for every `VARIANT_TOKEN` variant, inner-joined to Item, unordered, with no `itemId`. Content only: no `ctx.userId`, no user table. A full request that carries any input is refused. Every other list is still a row count. It is a new row in `transport/procedures.mjs` (protected, not limited, no mcp) and is now accepted by `reader.list()`; its id-`""` cache slot is entity `item`, dropped by every item and variant write.
+
 ## Not finished
 
 - **Pause during a run** is wired (`Runner.requestPause()`, honoured between items; the Run

@@ -67,6 +67,21 @@ test("contract: the hand-held variant facts still match the pinned source, when 
   assert.match(read("app/src/validators/dungeon.ts"), /onlyOnce: z\.boolean\(\)\.optional\(\)/);
 });
 
+test("contract: the two variant capture reads are content-only at the pinned source, when a checkout is supplied", { skip: !process.env.TNR_GAME_CHECKOUT && "set TNR_GAME_CHECKOUT to a checkout at 3314d122" }, () => {
+  const read = (f) => readFileSync(join(process.env.TNR_GAME_CHECKOUT, f), "utf8");
+  const router = read("app/src/server/api/routers/item.ts"), queries = read("app/src/queries/item.ts");
+  // getVariantNames: protected, NO input, and the query never sees ctx.userId
+  assert.match(router, /\n  getVariantNames: protectedProcedure\.query\(\(\{ ctx \}\) => listVariantNames\(ctx\.drizzle\)\),\n/);
+  const names = queries.slice(queries.indexOf("export const listVariantNames"), queries.indexOf(";", queries.indexOf("export const listVariantNames")));
+  assert.match(names, /\.select\(\{\s*id: itemVariant\.id,\s*name: sql<string>`concat\(\$\{item\.name\}, ": ", \$\{itemVariant\.name\}\)`,\s*\}\)/);
+  assert.match(names, /\.from\(itemVariant\)\s*\.innerJoin\(item, eq\(item\.id, itemVariant\.itemId\)\)\s*\.where\(eq\(itemVariant\.costType, "VARIANT_TOKEN"\)\)$/);
+  assert.ok(!/user|ctx/i.test(names.replace("listVariantNames", "")), "no user table, no ctx");
+  // getItemVariants: the ItemVariant rows of one item, nothing per player
+  assert.match(router, /\n  getItemVariants: protectedProcedure\n    \.input\(z\.object\(\{ itemId: z\.string\(\) \}\)\)\n    \.output\(z\.array\(ItemVariantResponseSchema\)\)\n    \.query\(async \(\{ ctx, input \}\) => \{\n      return await listItemVariantForGetItemVariants\(ctx\.drizzle, input\);/);
+  const rows = queries.slice(queries.indexOf("export const listItemVariantForGetItemVariants"), queries.indexOf("});", queries.indexOf("export const listItemVariantForGetItemVariants")));
+  assert.match(rows, /client\.query\.itemVariant\.findMany\(\{\s*where: eq\(itemVariant\.itemId, input\.itemId\),\s*orderBy: asc\(itemVariant\.order\),\s*$/);
+});
+
 // ------------------------------------------------------------------ recipe and validator
 test("recipe: the create sends {itemId, variant} without id or hidden; an edit re-sends the live record and omits a stored null description", () => {
   const rc = recipe("itemVariant");
