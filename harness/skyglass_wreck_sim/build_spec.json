@@ -13,8 +13,8 @@
    "horrorPools": 5,
    "horrorRows": 4,
    "horrorPhase2": 70,
-   "captainPools": 2.8,
-   "captainRows": 2,
+   "captainPools": 7.5,
+   "captainRows": 1,
    "sealPools": 2.6,
    "sealRows": 3
   },
@@ -24,7 +24,6 @@
     "waves": [
      {
       "aiIds": [
-       "dg-deck-warden",
        "dg-deck-warden",
        "dg-deck-warden",
        "dg-seal-charge"
@@ -39,8 +38,7 @@
      {
       "aiIds": [
        "dg-skyglass-sentinel",
-       "dg-first-blade",
-       "dg-deck-warden"
+       "dg-first-blade"
       ],
       "delayRounds": 0
      }
@@ -52,8 +50,7 @@
      {
       "aiIds": [
        "dg-oathkeeper",
-       "dg-wayfinder",
-       "dg-deck-warden"
+       "dg-wayfinder"
       ],
       "delayRounds": 0
      }
@@ -669,11 +666,11 @@
     "level": 100,
     "rank": "JONIN",
     "statsMultiplier": 5,
-    "poolsMultiplier": 2.8,
+    "poolsMultiplier": 7.5,
     "pools": {
-     "maxHealth": 14140,
-     "maxChakra": 14140,
-     "maxStamina": 14140
+     "maxHealth": 37875,
+     "maxChakra": 37875,
+     "maxStamina": 37875
     },
     "stats": {
      "offence": 1391300,
@@ -699,35 +696,20 @@
       "staticAnimation": "",
       "staticAssetPath": "",
       "disappearAnimation": ""
-     },
-     {
-      "type": "increasedamagegiven",
-      "power": 100,
-      "rounds": 99,
-      "target": "INHERIT",
-      "appearSfx": "",
-      "direction": "offence",
-      "calculation": "percentage",
-      "description": "Increased damage given",
-      "disappearSfx": "",
-      "powerPerLevel": 0,
-      "appearAnimation": "",
-      "staticAnimation": "",
-      "staticAssetPath": "",
-      "disappearAnimation": ""
      }
     ],
     "sharedKit": "sharedKits[\"The Captain\"]",
     "signatureRules": [
-     3,
-     4,
-     11,
-     12
+     0,
+     1,
+     12,
+     14,
+     15
     ],
     "scaleEditedAiNotes": [
      "new enemy cloned from The Captain",
-     "override aiEdit {\"poolsMultiplier\":2.8} via scaleEditedAi",
-     "kit -> 16 jutsu"
+     "override aiEdit {\"poolsMultiplier\":7.5} via scaleEditedAi",
+     "kit -> 17 jutsu"
     ],
     "insertAiSchemaCheck": "ok"
    },
@@ -834,7 +816,7 @@
    "horrorPools": 6,
    "horrorRows": 2,
    "horrorPhase2": 70,
-   "captainPools": 2.5,
+   "captainPools": 4,
    "captainRows": 3,
    "sealPools": 1,
    "sealRows": 0,
@@ -1480,11 +1462,11 @@
     "level": 50,
     "rank": "JONIN",
     "statsMultiplier": 1,
-    "poolsMultiplier": 2.5,
+    "poolsMultiplier": 4,
     "pools": {
-     "maxHealth": 6375,
-     "maxChakra": 6375,
-     "maxStamina": 6375
+     "maxHealth": 10200,
+     "maxChakra": 10200,
+     "maxStamina": 10200
     },
     "stats": {
      "offence": 53093.33,
@@ -1562,16 +1544,17 @@
     ],
     "sharedKit": "sharedKits[\"The Captain\"]",
     "signatureRules": [
-     3,
-     4,
-     11,
-     12
+     0,
+     1,
+     12,
+     14,
+     15
     ],
     "scaleEditedAiNotes": [
      "new enemy cloned from The Captain",
      "override level 100 -> 50 via scaleEditedAi (HP 12625 -> 6375, offence 1391300 -> 265466.65)",
-     "override aiEdit {\"poolsMultiplier\":2.5,\"statsMultiplier\":1} via scaleEditedAi",
-     "kit -> 16 jutsu"
+     "override aiEdit {\"poolsMultiplier\":4,\"statsMultiplier\":1} via scaleEditedAi",
+     "kit -> 17 jutsu"
     ],
     "insertAiSchemaCheck": "ok"
    }
@@ -4079,9 +4062,14 @@
    "liveAiId": "QY69h271Nx9uHrBeR6jwW",
    "jutsu": [
     {
-     "id": "dg-raise-the-gunwale",
-     "name": "Raise the Gunwale",
-     "status": "WRECK-NEW"
+     "id": "lib-broadside",
+     "name": "Broadside",
+     "status": "LIBRARY (NEW, library_spec.json)"
+    },
+    {
+     "id": "lib-ships-bell",
+     "name": "Ship's Bell",
+     "status": "LIBRARY (NEW, library_spec.json)"
     },
     {
      "id": "MG9ZujAV8lK7--YxThVbQ",
@@ -4094,16 +4082,6 @@
      "status": "LIVE (unchanged)"
     },
     {
-     "id": "lib-broadside",
-     "name": "Broadside",
-     "status": "LIBRARY (NEW, library_spec.json)"
-    },
-    {
-     "id": "lib-ships-bell",
-     "name": "Ship's Bell",
-     "status": "LIBRARY (NEW, library_spec.json)"
-    },
-    {
      "id": "X2P22h8ApDmTZHjWpNO87",
      "name": "Final Command",
      "status": "LIVE (unchanged)"
@@ -4112,6 +4090,16 @@
      "id": "PdD44PGaNv4MN5fOALhAF",
      "name": "Keelbind",
      "status": "LIVE (unchanged)"
+    },
+    {
+     "id": "lib-steady-the-helm",
+     "name": "Steady the Helm",
+     "status": "LIVE (unchanged)"
+    },
+    {
+     "id": "dg-raise-the-gunwale",
+     "name": "Raise the Gunwale",
+     "status": "WRECK-NEW"
     },
     {
      "id": "lib-omen-binding-ring",
@@ -4162,57 +4150,6 @@
    "rules": [
     {
      "index": 0,
-     "note": "Raise the Gunwale (phase 2 begins; once)",
-     "conditions": [
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 50
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Raise the Gunwale (phase 2 begins; once)",
-      "jutsuId": "dg-raise-the-gunwale",
-      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
-     }
-    },
-    {
-     "index": 1,
-     "note": "Last Stand at the Helm (live Battle Trance, phase 2)",
-     "conditions": [
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 50
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Last Stand at the Helm (live Battle Trance, phase 2)",
-      "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
-      "target": "SELF"
-     }
-    },
-    {
-     "index": 2,
-     "note": "Second Wind (under 25%)",
-     "conditions": [
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 25
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Second Wind (under 25%)",
-      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
-      "target": "SELF"
-     }
-    },
-    {
-     "index": 3,
      "note": "Broadside (signature, rows A)",
      "conditions": [
       {
@@ -4230,7 +4167,7 @@
      }
     },
     {
-     "index": 4,
+     "index": 1,
      "note": "Ship's Bell (signature)",
      "conditions": [
       {
@@ -4248,7 +4185,53 @@
      }
     },
     {
-     "index": 5,
+     "index": 2,
+     "note": "after lib-omen-rows-a: Last Stand at the Helm (live Battle Trance)",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      },
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-rows-a: Last Stand at the Helm (live Battle Trance)",
+      "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+      "target": "SELF"
+     }
+    },
+    {
+     "index": 3,
+     "note": "after lib-omen-rows-a: Second Wind (under 25%)",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      },
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 25
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-rows-a: Second Wind (under 25%)",
+      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+      "target": "SELF"
+     }
+    },
+    {
+     "index": 4,
      "note": "after lib-omen-rows-a: Final Command",
      "conditions": [
       {
@@ -4272,7 +4255,7 @@
      }
     },
     {
-     "index": 6,
+     "index": 5,
      "note": "after lib-omen-rows-a: Keelbind",
      "conditions": [
       {
@@ -4296,7 +4279,7 @@
      }
     },
     {
-     "index": 7,
+     "index": 6,
      "note": "after lib-omen-rows-a: end turn",
      "conditions": [
       {
@@ -4312,7 +4295,53 @@
      }
     },
     {
+     "index": 7,
+     "note": "after lib-omen-binding-ring: Last Stand at the Helm (live Battle Trance)",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "decreasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-binding-ring: Last Stand at the Helm (live Battle Trance)",
+      "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+      "target": "SELF"
+     }
+    },
+    {
      "index": 8,
+     "note": "after lib-omen-binding-ring: Second Wind (under 25%)",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "decreasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 25
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-binding-ring: Second Wind (under 25%)",
+      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+      "target": "SELF"
+     }
+    },
+    {
+     "index": 9,
      "note": "after lib-omen-binding-ring: Final Command",
      "conditions": [
       {
@@ -4336,7 +4365,7 @@
      }
     },
     {
-     "index": 9,
+     "index": 10,
      "note": "after lib-omen-binding-ring: Keelbind",
      "conditions": [
       {
@@ -4360,7 +4389,7 @@
      }
     },
     {
-     "index": 10,
+     "index": 11,
      "note": "after lib-omen-binding-ring: end turn",
      "conditions": [
       {
@@ -4376,7 +4405,41 @@
      }
     },
     {
-     "index": 11,
+     "index": 12,
+     "note": "Steady the Helm (phase 2 begins; once)",
+     "conditions": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Steady the Helm (phase 2 begins; once)",
+      "jutsuId": "lib-steady-the-helm",
+      "target": "SELF"
+     }
+    },
+    {
+     "index": 13,
+     "note": "Raise the Gunwale (transition; once; he falls back behind the rail)",
+     "conditions": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Raise the Gunwale (transition; once; he falls back behind the rail)",
+      "jutsuId": "dg-raise-the-gunwale",
+      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
+     }
+    },
+    {
+     "index": 14,
      "note": "Omen: Binding Ring (Ship's Bell, phase 2)",
      "conditions": [
       {
@@ -4393,7 +4456,7 @@
      }
     },
     {
-     "index": 12,
+     "index": 15,
      "note": "Omen: Rows A (Broadside, phase 2)",
      "conditions": [
       {
@@ -4410,7 +4473,24 @@
      }
     },
     {
-     "index": 13,
+     "index": 16,
+     "note": "Second Wind (under 25%, no mark ready)",
+     "conditions": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 25
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Second Wind (under 25%, no mark ready)",
+      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+      "target": "SELF"
+     }
+    },
+    {
+     "index": 17,
      "note": "Hold the Line (live Unbroken Command, opener: party 3+ hexes away)",
      "conditions": [
       {
@@ -4428,7 +4508,7 @@
      }
     },
     {
-     "index": 14,
+     "index": 18,
      "note": "Final Command (duel)",
      "conditions": [
       {
@@ -4446,7 +4526,7 @@
      }
     },
     {
-     "index": 15,
+     "index": 19,
      "note": "Keelbind (duel)",
      "conditions": [
       {
@@ -4464,7 +4544,7 @@
      }
     },
     {
-     "index": 16,
+     "index": 20,
      "note": "Stolen Form (duel: top threat carries a damage buff)",
      "conditions": [
       {
@@ -4489,7 +4569,7 @@
      }
     },
     {
-     "index": 17,
+     "index": 21,
      "note": "Counter Stance (duel: a player within 2)",
      "conditions": [
       {
@@ -4507,7 +4587,7 @@
      }
     },
     {
-     "index": 18,
+     "index": 22,
      "note": "Suppression Writ",
      "conditions": [
       {
@@ -4525,7 +4605,7 @@
      }
     },
     {
-     "index": 19,
+     "index": 23,
      "note": "Unraveling Strike",
      "conditions": [
       {
@@ -4543,7 +4623,7 @@
      }
     },
     {
-     "index": 20,
+     "index": 24,
      "note": "Explosive Tag Cataclysm",
      "conditions": [
       {
@@ -4561,7 +4641,7 @@
      }
     },
     {
-     "index": 21,
+     "index": 25,
      "note": "Windlash Focus",
      "conditions": [
       {
@@ -4579,7 +4659,7 @@
      }
     },
     {
-     "index": 22,
+     "index": 26,
      "note": "close in (duel)",
      "conditions": [
       {
@@ -4596,22 +4676,23 @@
      }
     },
     {
-     "index": 23,
-     "note": "highest-power damage",
+     "index": 27,
+     "note": "basic attack (fallback; never a set piece)",
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
    "signatureRules": [
-    3,
-    4,
-    11,
-    12
+    0,
+    1,
+    12,
+    14,
+    15
    ]
   },
   "Sealwright": {
@@ -4807,7 +4888,7 @@
     "elementClassification": "None",
     "battleDescription": "%user barks an order; the gunwale rises.",
     "jutsuRank": "A",
-    "actionCostPerc": 60,
+    "actionCostPerc": 20,
     "staminaCost": 350,
     "chakraCost": 350,
     "staminaCostReducePerLvl": 10,
@@ -4848,6 +4929,6 @@
  "counts": {
   "libraryRecordsUsedByTheWreck": 22,
   "wreckNew": 1,
-  "liveUsed": 28
+  "liveUsed": 29
  }
 }

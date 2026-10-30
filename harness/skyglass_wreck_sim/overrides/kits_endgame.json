@@ -11,8 +11,8 @@
   "horrorPools": 5,
   "horrorRows": 4,
   "horrorPhase2": 70,
-  "captainPools": 2.8,
-  "captainRows": 2,
+  "captainPools": 7.5,
+  "captainRows": 1,
   "sealPools": 2.6,
   "sealRows": 3
  },
@@ -5619,6 +5619,129 @@
    "methodSize": null,
    "requiredPetSpeciesId": null
   },
+  "lib-steady-the-helm": {
+   "id": "lib-steady-the-helm",
+   "name": "Steady the Helm",
+   "description": "The Captain's turn to command: sheds afflictions, takes the wheel and braces for 2 rounds (40% less damage, 40% absorb, cannot be cleared).",
+   "createdAt": "2025-06-17T07:55:22.991Z",
+   "updatedAt": "2025-06-17T07:55:22.991Z",
+   "extraBaseCost": 0,
+   "effects": [
+    {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+     "disappearAnimation": "",
+     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+     "disappearSfx": "",
+     "rounds": 0,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "friendlyFire": "FRIENDLY",
+     "calculation": "static",
+     "type": "cleanse",
+     "description": "placeholder"
+    },
+    {
+     "staticAssetPath": "",
+     "staticAnimation": "cp_steady",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 2,
+     "power": 40,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "friendlyFire": "ALL",
+     "calculation": "percentage",
+     "elements": [],
+     "type": "decreasedamagetaken",
+     "description": "placeholder"
+    },
+    {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+     "disappearAnimation": "",
+     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+     "disappearSfx": "",
+     "rounds": 2,
+     "power": 40,
+     "powerPerLevel": 0,
+     "direction": "defence",
+     "target": "SELF",
+     "calculation": "percentage",
+     "type": "absorb",
+     "description": " placeholder",
+     "poolsAffected": [
+      "Health"
+     ]
+    },
+    {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 2,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "static",
+     "type": "clearprevent",
+     "description": "placeholder"
+    }
+   ],
+   "target": "SELF",
+   "range": 0,
+   "cooldown": 99,
+   "bloodlineId": "",
+   "requiredLevel": 1,
+   "requiredRank": "STUDENT",
+   "jutsuType": "AI",
+   "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJCTKvgX26OYrIJuNP1pvSyz29edFtKbngjRcA",
+   "jutsuWeapon": "NONE",
+   "statClassification": "None",
+   "elementClassification": "None",
+   "battleDescription": "%user shakes off every hold on him and takes the wheel. \"I have held this deck through worse than you.\"",
+   "jutsuRank": "D",
+   "actionCostPerc": 20,
+   "staminaCost": 200,
+   "chakraCost": 200,
+   "staminaCostReducePerLvl": 0,
+   "chakraCostReducePerLvl": 0,
+   "healthCostReducePerLvl": 0,
+   "healthCost": 0,
+   "villageId": "",
+   "method": "SINGLE",
+   "coordinateTargeting": null,
+   "hidden": true,
+   "injectableInBattle": false,
+   "battleUsageType": "BOTH",
+   "reskinParentJutsuId": null,
+   "bloodlineReskinId": null,
+   "parentJutsuId": null,
+   "requiredNinjutsuMastery": null,
+   "requiredGenjutsuMastery": null,
+   "requiredTaijutsuMastery": null,
+   "requiredBukijutsuMastery": null,
+   "requiredBloodlineMastery": null,
+   "requiredSageMastery": null,
+   "requiredStrength": null,
+   "requiredSpeed": null,
+   "requiredIntelligence": null,
+   "requiredWillpower": null,
+   "requiredSkillId": null,
+   "requiredBloodlineItemId": null,
+   "methodSize": null,
+   "requiredPetSpeciesId": null
+  },
   "hunt-stonebound-erupting-ground": {
    "id": "hunt-stonebound-erupting-ground",
    "name": "Erupting Ground",
@@ -5742,7 +5865,7 @@
    "elementClassification": "None",
    "battleDescription": "%user barks an order; the gunwale rises.",
    "jutsuRank": "A",
-   "actionCostPerc": 60,
+   "actionCostPerc": 20,
    "staminaCost": 350,
    "chakraCost": 350,
    "staminaCostReducePerLvl": 10,
@@ -10094,25 +10217,9 @@
    "base": "The Captain",
    "username": "The Captain",
    "aiEdit": {
-    "poolsMultiplier": 2.8
+    "poolsMultiplier": 7.5
    },
    "effects": [
-    {
-     "type": "increasedamagegiven",
-     "power": 100,
-     "rounds": 99,
-     "target": "INHERIT",
-     "appearSfx": "",
-     "direction": "offence",
-     "calculation": "percentage",
-     "description": "Increased damage given",
-     "disappearSfx": "",
-     "powerPerLevel": 0,
-     "appearAnimation": "",
-     "staticAnimation": "",
-     "staticAssetPath": "",
-     "disappearAnimation": ""
-    },
     {
      "type": "increasedamagegiven",
      "power": 100,
@@ -10131,13 +10238,14 @@
     }
    ],
    "jutsuIds": [
-    "dg-raise-the-gunwale",
-    "MG9ZujAV8lK7--YxThVbQ",
-    "STu1VHNcfgeC3x-UiQDgt",
     "lib-broadside",
     "lib-ships-bell",
+    "MG9ZujAV8lK7--YxThVbQ",
+    "STu1VHNcfgeC3x-UiQDgt",
     "X2P22h8ApDmTZHjWpNO87",
     "PdD44PGaNv4MN5fOALhAF",
+    "lib-steady-the-helm",
+    "dg-raise-the-gunwale",
     "lib-omen-binding-ring",
     "lib-omen-rows-a",
     "0Y10JpChssDwFUxNRk6p3",
@@ -10149,51 +10257,6 @@
     "_9k7kSYUgMtB-AEFgRly5"
    ],
    "rules": [
-    {
-     "conditions": [
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 50
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Raise the Gunwale (phase 2 begins; once)",
-      "jutsuId": "dg-raise-the-gunwale",
-      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 50
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Last Stand at the Helm (live Battle Trance, phase 2)",
-      "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
-      "target": "SELF"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 25
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Second Wind (under 25%)",
-      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
-      "target": "SELF"
-     }
-    },
     {
      "conditions": [
       {
@@ -10223,6 +10286,48 @@
       "type": "use_specific_jutsu",
       "description": "Ship's Bell (signature)",
       "jutsuId": "lib-ships-bell",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      },
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-rows-a: Last Stand at the Helm (live Battle Trance)",
+      "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      },
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 25
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-rows-a: Second Wind (under 25%)",
+      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
       "target": "SELF"
      }
     },
@@ -10293,6 +10398,48 @@
        "threshold": 1
       },
       {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-binding-ring: Last Stand at the Helm (live Battle Trance)",
+      "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "decreasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 25
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-binding-ring: Second Wind (under 25%)",
+      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "decreasecooldown",
+       "threshold": 1
+      },
+      {
        "type": "distance_lower_than",
        "description": "",
        "value": 4,
@@ -10352,6 +10499,36 @@
      ],
      "action": {
       "type": "use_specific_jutsu",
+      "description": "Steady the Helm (phase 2 begins; once)",
+      "jutsuId": "lib-steady-the-helm",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Raise the Gunwale (transition; once; he falls back behind the rail)",
+      "jutsuId": "dg-raise-the-gunwale",
+      "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
       "description": "Omen: Binding Ring (Ship's Bell, phase 2)",
       "jutsuId": "lib-omen-binding-ring",
       "target": "SELF"
@@ -10369,6 +10546,21 @@
       "type": "use_specific_jutsu",
       "description": "Omen: Rows A (Broadside, phase 2)",
       "jutsuId": "lib-omen-rows-a",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 25
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Second Wind (under 25%, no mark ready)",
+      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
       "target": "SELF"
      }
     },
@@ -10541,10 +10733,10 @@
     {
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
@@ -10723,7 +10915,6 @@
      "aiIds": [
       "dg-deck-warden",
       "dg-deck-warden",
-      "dg-deck-warden",
       "dg-seal-charge"
      ],
      "delayRounds": 0
@@ -10736,8 +10927,7 @@
     {
      "aiIds": [
       "dg-skyglass-sentinel",
-      "dg-first-blade",
-      "dg-deck-warden"
+      "dg-first-blade"
      ],
      "delayRounds": 0
     }
@@ -10749,8 +10939,7 @@
     {
      "aiIds": [
       "dg-oathkeeper",
-      "dg-wayfinder",
-      "dg-deck-warden"
+      "dg-wayfinder"
      ],
      "delayRounds": 0
     }
@@ -10816,10 +11005,11 @@
    23
   ],
   "dg-the-captain": [
-   3,
-   4,
-   11,
-   12
+   0,
+   1,
+   12,
+   14,
+   15
   ],
   "dg-sealwright": [
    0

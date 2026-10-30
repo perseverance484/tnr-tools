@@ -13,7 +13,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { insertAiSchema } from "@/validators/aiInput";
 import { JutsuValidator } from "@/validators/combat";
-import { BASE, buildKits, type KitParams, LIVE, sharedRules, WRECK_NEW } from "./kits";
+import { BASE, BASIC_ATTACK, buildKits, type KitParams, LIVE, sharedRules, WRECK_NEW } from "./kits";
 import { LIB } from "./library";
 import { buildTemplates, loadJson } from "./model";
 
@@ -74,7 +74,7 @@ const spec: any = {
 // sharedKits is the base rule order (endgame); a version whose rules differ for an enemy lists them under ruleVariants.
 const base = sharedRules({ horrorPhase2: params.horrorPhase2 });
 spec.sharedKits = Object.fromEntries(Object.entries(base).map(([id, s]) => {
-  const kit = [...new Set(s.rules.map((r: any) => r.action.jutsuId).filter(Boolean))] as string[];
+  const kit = [...new Set(s.rules.map((r: any) => r.action.jutsuId).filter((id: string) => id && id !== BASIC_ATTACK))] as string[];
   return [BASE[id]!, {
     liveAiId: liveIdOf(BASE[id]!),
     jutsu: kit.map(kitEntry),
@@ -88,7 +88,7 @@ spec.wreckNewJutsu = [{ id: WRECK_NEW.gunwale, status: "WRECK-NEW", record: gun,
 spec.counts = {
   libraryRecordsUsedByTheWreck: [...new Set(Object.values(shared).flatMap((s) => s.rules.map((r: any) => r.action.jutsuId)).filter((id) => id && libIds.has(id)))].length,
   wreckNew: 1,
-  liveUsed: [...new Set(Object.values(shared).flatMap((s) => s.rules.map((r: any) => r.action.jutsuId)).filter((id) => id && !libIds.has(id) && !wreckNew.has(id)))].length,
+  liveUsed: [...new Set(Object.values(shared).flatMap((s) => s.rules.map((r: any) => r.action.jutsuId)).filter((id) => id && id !== BASIC_ATTACK && !libIds.has(id) && !wreckNew.has(id)))].length,
 };
 const ruleVariants = Object.fromEntries(Object.entries(shared).filter(([id, s]) => JSON.stringify(s.rules) !== JSON.stringify(base[id]!.rules)).map(([id, s]) => [BASE[id]!, {
   why: "version-specific rule order (same jutsu as sharedKits)",

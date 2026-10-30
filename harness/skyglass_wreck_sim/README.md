@@ -47,7 +47,12 @@ TNR_SCRIPT=build_library.ts harness/skyglass_wreck_sim/run.sh
 TNR_SCRIPT=probe_library.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_library.json
 # Rule audit for one enemy: why each authored rule did or did not fire (read-only hook before each AI decision):
 TNR_SCRIPT=audit_rules.ts harness/skyglass_wreck_sim/run.sh --override harness/skyglass_wreck_sim/overrides/kits_endgame.json \
-    --floor 4 --enemy "The Captain" --runs 30 --pets --out harness/skyglass_wreck_sim/results/audit_captain_endgame.json
+    --floor 4 --enemy "The Captain" --runs 30 --pets --together "Steady the Helm|Raise the Gunwale|Omen:" \
+    --out harness/skyglass_wreck_sim/results/audit_captain_endgame.json
+#   --phase-hp N (default 50) splits each appearance into phase 1 / phase 2 at his first decision below N% health:
+#   medians, p90, his health at that decision, and per-appearance rows (`perAppearance`). --together "a|b|c" checks that
+#   rules whose notes contain a, b and c first fire in the same round (the Captain's transition turn).
+#   actionsByPhase counts every action the enemy took, by name, in each phase.
 # Delayed GROUND damage probe (elementaldamage, damage over rounds, poison/wound/afterburn/drain):
 TNR_SCRIPT=probe_ground.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_ground.json
 
@@ -101,6 +106,13 @@ knobs live in a params JSON (pools, +100% damage rows, move powers). The overrid
 `signatures` (rule indices per AI); `main.ts` reports per enemy `signatureFiredPct` (appearances in
 which a signature rule fired) and `idleTurnsAfterRound2Pct` (turns from the enemy's 3rd round in its
 wave with nothing but move / end turn).
+
+**The Captain's phases (RUL-2026-10-28-031 / -032).** Phase 1 (above 50%) is a duel. His first turn below 50% is the
+transition: Steady the Helm (`lib-steady-the-helm`, 20 AP: cleanse, 40% decreasedamagetaken and 40% absorb for 2 rounds,
+clearprevent), Raise the Gunwale (20 AP) and the first deck mark (40 AP) in one turn; 80 AP so that it also fits under a
+20-AP player stun, which cleanse cannot lift. Battle Trance follows in the AP after a later mark. His last rule is the basic attack by name (`use_specific_jutsu` with the engine's
+`basicAttack` action id), not `use_highest_power_action`, which cast Broadside unmarked in phase 1. Check it with
+`audit_rules.ts --together` (above) and its `actionsByPhase` tally; findings in `REPORT.md` reports 4d and 4e.
 
 **Damage settings.** Every simulated battle carries `battle.extraState.dmgConfig`, which
 `process.ts` reads before its code defaults. The harness default is the LIVE config in
