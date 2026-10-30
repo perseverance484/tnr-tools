@@ -11,10 +11,10 @@
  * inside an isolated run). A lost, drawn or stalled fight fails the hunt (RUL-2026-10-25-010). Quest debuffs (ALARM,
  * TERM) are added to the player through the engine's own addQuestStartingEffects, as initiateBattle does.
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { addQuestStartingEffects } from "@/libs/combat/questEffects";
-import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, PLAYER_VARIANTS, playerQueryUser } from "./model";
+import { buildTemplates, enemyQueryUser, kitFor, loadDmgConfig, loadJson, PLAYER_VARIANTS, playerQueryUser, playerRules } from "./model";
 import { assembleFloor, mulberry32, runFloor, seedEntropy } from "./sim";
 import { buildHunts, buildPaths, crownTemplates, DEFAULT_HUNT_PARAMS, type HuntParams, LIVE, NAME, type Path, petFor } from "./hunts";
 import { DEFAULT_PARAMS } from "./hunts";
@@ -87,6 +87,57 @@ type FightRec = {
   playerTurns: number; playerIdleTurns: number; dodge: Record<string, number>; playerDealt: number; petDealt: number;
 };
 
+/* ---------------- player answers (counters check) ---------------- */
+/**
+ * Answers the auto-player can be given on top of its rotation (default: none, as in the main runs):
+ * - cleanse: basic Cleanse (cooldown 10) when rooted, elementally sealed, slowed (+cooldown on Move), time-compressed or poisoned;
+ * - clear: basic Clear (range 4, cooldown 10) on the closest enemy while it carries damage reduction, absorb or +damage;
+ * - window: while the closest enemy shows a weakness (a boss's x3 window), its highest-power damage jutsu first;
+ * - potion: 3 Full Potions per hunt (live consumable lhWHqPsXjZCS7YGK8vr2q: heal 50%, AP 40, cooldown 4) below 40% HP;
+ *   uses carry across the hunt's fights.
+ */
+export const ANSWERS = ["cleanse", "clear", "window", "potion"] as const;
+let answers = new Set<string>((opt("answers") ?? "").split(",").filter(Boolean));
+const POTION_ID = "lhWHqPsXjZCS7YGK8vr2q";
+const POTIONS_PER_HUNT = 3;
+/** Newest captured item record with this id across the committed harvests. */
+const capturedItem = (id: string) => {
+  const dir = join(process.env.TNR_REPO!, "harvests/inbox");
+  let best: any = null;
+  const walk = (x: any) => {
+    if (Array.isArray(x)) x.forEach(walk);
+    else if (x && typeof x === "object") {
+      if (x.id === id && "itemType" in x && Array.isArray(x.effects) && (!best || (x.updatedAt ?? "") > (best.updatedAt ?? ""))) best = x;
+      for (const v of Object.values(x)) walk(v);
+    }
+  };
+  for (const f of readdirSync(dir).filter((f) => f.endsWith(".json"))) {
+    const txt = readFileSync(join(dir, f), "utf8");
+    if (txt.includes(id)) walk(JSON.parse(txt));
+  }
+  return best;
+};
+const potionRecord = capturedItem(POTION_ID);
+const cnd = (type: string, effectType: string, target?: string) => (target ? { type: "target_has_effect", effectType, target, threshold: 1, description: "" } : { type: "has_effect", effectType, threshold: 1, description: "" });
+const answerRules = () => {
+  const r: any[] = [];
+  if (answers.has("potion")) r.push({ conditions: [{ type: "health_below", value: 40, description: "" }], action: { type: "use_specific_item", itemId: POTION_ID, target: "SELF", description: "answer: potion" } });
+  if (answers.has("window")) r.push({ conditions: [cnd("target_has_effect", "weakness", "CLOSEST_OPPONENT")], action: { type: "use_highest_power_jutsu", effect: "damage", target: "CLOSEST_OPPONENT", description: "answer: burst the window" } });
+  if (answers.has("cleanse")) for (const t of ["moveprevent", "elementalseal", "increasecooldown", "timecompression", "poison"]) r.push({ conditions: [cnd("has_effect", t)], action: { type: "use_specific_jutsu", jutsuId: "cleanse", target: "SELF", description: `answer: cleanse ${t}` } });
+  if (answers.has("clear")) for (const t of ["decreasedamagetaken", "absorb", "increasedamagegiven"]) r.push({ conditions: [cnd("target_has_effect", t, "CLOSEST_OPPONENT"), { type: "distance_lower_than", value: 4, target: "CLOSEST_OPPONENT", description: "" }], action: { type: "use_specific_jutsu", jutsuId: "clear", target: "CLOSEST_OPPONENT", description: `answer: clear ${t}` } });
+  return r;
+};
+/** The player variant with the answers' rules ahead of the rotation. */
+const playerVariant = () => {
+  if (!answers.size) return variant;
+  const kit = kitFor(variant.level ?? 100, variant.rank ?? "JONIN", T.jutsu, variant.jutsuIds);
+  return { ...variant, rules: [...answerRules(), ...playerRules(kit, T.jutsu)] };
+};
+const potionRow = (userId: string, quantity: number) => {
+  const donorItem = structuredClone(T.enemies[LIVE.canister]!.row.items[0]);
+  return { ...donorItem, id: `potion-${userId}`, userId, itemId: POTION_ID, equipped: "ITEM_1", quantity, isInAuction: false, imbuements: [], item: structuredClone(potionRecord) };
+};
+
 /** A path key "fight:Name+Name" is one ad-hoc fight at full pools (debugging). */
 const pathOf = (key: string) => {
   if (!key.startsWith("fight:")) return PATHS[key]!;
@@ -100,7 +151,8 @@ const runPath = async (pathKey: string, seed: number, trace?: number) => {
   const orig = Math.random;
   Math.random = rand;
   try {
-    const player = playerQueryUser(0, variant, donor, T.jutsu);
+    const player = playerQueryUser(0, playerVariant(), donor, T.jutsu);
+    let potions = answers.has("potion") && potionRecord ? POTIONS_PER_HUNT : 0;
     const pets = petsOn ? [petFor(player)] : undefined;
     if (pets) player.activePetId = pets[0]!.id;
     const fights: FightRec[] = [];
@@ -108,9 +160,11 @@ const runPath = async (pathKey: string, seed: number, trace?: number) => {
     for (let fi = 0; fi < path.fights.length; fi++) {
       const f = path.fights[fi]!;
       const hpStart = player.curHealth;
+      player.items = [...player.items.filter((ui: any) => ui.itemId !== POTION_ID), ...(potions > 0 ? [potionRow(player.userId, potions)] : [])];
       const battle = await assembleFloor({ players: [player], enemyRows, floor: { kind: "floor", waves: [{ aiIds: f.ids, delayRounds: 0 }] }, rand, initialBarriers: true, dmgConfig: dmg.config, mode: "quest", pets });
       const pu = battle.usersState.find((u) => u.userId === player.userId)!;
       if (f.debuffs?.length) addQuestStartingEffects(pu, battle.usersEffects, f.debuffs as never, `quest-${pathKey}`);
+      if (trace === fi) console.log(`player items in battle: ${JSON.stringify((pu.items ?? []).map((ui: any) => [ui.itemId, ui.equipped, ui.quantity]))}; potionRecord ${potionRecord ? potionRecord.name : "missing"}${potionRecord?.preventBattleUsage ? " (preventBattleUsage: not usable in battle)" : ""}`);
       const res = runFloor(battle, { playerIds: [player.userId], maxRounds, dodge, detail: trace === fi });
       if (trace === fi) printTrace(res, battle, player.userId);
       const fin = res.final[player.userId]!;
@@ -158,6 +212,7 @@ const runPath = async (pathKey: string, seed: number, trace?: number) => {
           }
         }
       }
+      potions = Math.max(0, potions - res.steps.filter((x) => x.human && x.actionId === POTION_ID).length);
       for (const v of pTurn.values()) {
         playerTurns++;
         if (v) playerIdle++;
@@ -265,10 +320,11 @@ if (traceArg) {
 const sweepArg = opt("sweep");
 if (sweepArg) {
   const base = HP;
-  const cases: { name: string; params?: any; paths: string[]; seeds?: number }[] = loadJson(resolve(sweepArg));
+  const cases: { name: string; params?: any; paths: string[]; seeds?: number; answers?: string[] }[] = loadJson(resolve(sweepArg));
   const rows: any[] = [];
   for (const c of cases) {
     setup(mergeParams(base, c.params ?? {}));
+    answers = new Set(c.answers ?? (opt("answers") ?? "").split(",").filter(Boolean));
     for (const key of c.paths) {
       const runs = [];
       for (let i = 0; i < (c.seeds ?? seeds); i++) runs.push(await runPath(key, seed0 + i));
@@ -276,7 +332,7 @@ if (sweepArg) {
       const line = `${c.name.padEnd(24)} ${key.padEnd(34)} win ${String(s.wins).padStart(2)}/${s.runs} endHP ${s.endHpPctMedian}% p10 ${s.endHpPctP10} | ` +
         s.fights.map((f) => `F${f.fight} ${f.won}/${f.reached} r${f.roundsMedian} ${f.hpStartPctMedian}->${f.hpEndPctMedian}`).join(" | ");
       console.log(line);
-      rows.push({ case: c.name, ...s, perSeed: undefined });
+      rows.push({ case: c.name, answers: [...answers], ...s, perSeed: undefined });
     }
   }
   const o = opt("out");
