@@ -44,7 +44,7 @@ Descriptions are generated from the same tables the caches are built from, so th
 
 - A tier with several options joins them with " *or* ".
 - A tier with more than 3 options lists the first three, then "and more".
-- Tiers with the same name are added together.
+- Each tier name appears at most once per cache, in order of weight. **Forbidden** (red, `#ef4444`) sits above Legendary (RUL-2026-10-29-058).
 - A fixed roll count is not repeated, because the card already shows it.
 - The rendering is checked on the director's phone through a hidden test item before release.
 
@@ -183,15 +183,17 @@ The rares double the Watch's Coffer, so each rung pays more than the one below i
 
 Cut and not to be rebuilt: every ryo card except the Watch's Captain's Purse (RUL-2026-10-28-034); the Archive's Records exp, the Watch's Inro ×3, The Fall's Captain's Purse, the commons' exp cards (RUL-2026-10-28-016); Crownhold's Honor and Crownhold's Echo Jar ×2 (RUL-2026-10-28-017); the tainted runs' guaranteed Sealed Treasury and Echo Jar (RUL-2026-10-28-019).
 
-## 4b. Profession rewards: S-rank profession charts (RUL-2026-10-29-035; supersedes RUL-2026-10-28-023's per-win hunt drops)
+## 4b. Profession rewards: the Haul (RUL-2026-10-29-035, -037, -052, -053)
 
 - **Shared hunts carry no profession drops.** Every player gets the same rewards from the same run.
-- **Two S-rank profession charts** call back to the original S-rank Ghost Ship hunting and gathering quests and keep professionals' rewards the same:
-  - **Hunter's chart:** the run requires hunting rank S (`huntingRank`).
-  - **Gatherer's chart:** the run requires gathering rank S (`gatheringRank`).
-  - Each run's win endings pay the old quests' chest tables (Common/Rare/Epic/Legendary Hunter's or Gatherer's Chest by drop %, from the captured Ghost Ship (Hunt) and (Gather) endings) as plain `reward_items`.
-  - The S-rank gate keeps them to professionals. The chests need no huntable/gatherable flags.
-- **The charts drop for everyone and are tradeable**, so non-professionals can sell theirs to S-rank professionals. Sources and rates are set at build.
+- **The Haul** (`SKYGLASS_THE_HAUL.md`) is where the profession chests come from.
+  - Six Legendary Haul pages: three hunter-themed, three gatherer-themed.
+  - It is **open to every player**, with no rank gate (RUL-2026-10-29-052).
+  - Its endings pay Hunter's or Gatherer's Chests as plain `reward_items`. The chests need no huntable/gatherable flags.
+- **Page drops,** per page (RUL-2026-10-29-053):
+  - endgame Wreck clear **2%**;
+  - every Rare chart ending **1.25%**.
+  - Pages are tradeable.
 - **The chests' rarity matches their contents** (RUL-2026-10-28-023 item 1, kept).
 - **Chest content fixes** (RUL-2026-10-29-035):
   1. The Common Gatherer's Chest swaps Rust Ferret Pelt (a hunted material) for Copper Ore (gathered, used by Repair Kits).
