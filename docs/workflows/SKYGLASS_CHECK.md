@@ -31,7 +31,7 @@ name), get every check; every other write manifest gets only the empty-professio
 rule holds for any manifest. Read-only captures carry no items and are skipped.
 
 **WARN `pending`:** the design names a record that does not exist yet (no id anywhere in the repository), such as Galley
-Stores, the Echo Jar or the Crownbreaker badge. The option cannot be verified, so it is a warning, not an error. Once
+Stores, the Skyglass Token or the Crownbreaker badge. The option cannot be verified, so it is a warning, not an error. Once
 the record exists, put its id in the design data (with the file that holds it) and the warning becomes a real check.
 
 ## Checks
@@ -42,9 +42,9 @@ the record exists, put its id in the design data (with the file that holds it) a
 | `picks` | each known run's `rewardMode` is `choose`, `rewardPickCount` matches, and the option cards are exactly the design's options; a retired record (the Armory Requisition) may only be hidden | loot tables §4a; RUL-2026-10-28-016 |
 | `win-only` | (a) a `start_battle` / `defeat_opponents` objective carries no reward field with a value except `reward_hunter_items(_ids)` / `reward_gathering_items(_ids)`; (b) anywhere in any manifest (quests, objectives, packages, item effects) a profession flag that is `true` has a non-empty id list | RUL-2026-10-28-022, -023 |
 | `chest-text` | every item with a `noncombatconsumereward` weighted cache follows the coloured tier-line format, with `Always:` for fixed rewards and a roll line only when the count varies (below) | loot tables §0; RUL-2026-10-28-030 |
-| `voice` | player-facing text has none of the story bible's "Never use" words (whole word, any case) and no "seven-bladed" | story bible, Voice |
-| `chart-tier` | chart rarity matches its tier | RUL-2026-10-28-028 item 4 |
-| `prof-chest` | an edited profession chest has the rarity and hunt/gather flag of §4b; a hunt's profession id lists hold only that profession's chests of the area's tier | loot tables §4b; RUL-2026-10-28-023 |
+| `voice` | player-facing text has none of the story bible's "Never use" words (whole word, any case), no "seven-bladed" and no "hunt chart" | story bible, Voice; RUL-2026-10-29-058 item 4 |
+| `chart-tier` | chart rarity matches its tier (Common: Tide, Roster; Rare: the four former hunt charts; Epic: Reliquary Seal, Last Heading; Legendary: tainted charts, the Lantern, the Haul pages) | RUL-2026-10-29-058 item 1 (supersedes RUL-2026-10-28-028 item 4) |
+| `prof-chest` | an edited profession chest has the rarity of §4b (hunt/gather flags only while the design data requires them; §4b: "The chests need no huntable/gatherable flags."); no §4a run carries a profession drop (§4b: "Shared hunts carry no profession drops."), whether as a profession-flag reward or as a profession chest in plain `reward_items`, directly or inside a reward-package snapshot. The Haul quests are not §4a runs and are not checked here. | loot tables §4b; RUL-2026-10-29-035; RUL-2026-10-28-023 item 1 (rarity) |
 
 **Option cards** follow the engine exactly (source-verified, theninjarpg@2af4b320 `libs/rewardChoice.ts`
 `buildRewardChoiceCards`, `validators/rewards.ts`:172-202): every positive amount field (ryo, exp, tokens, ...) is one
@@ -81,10 +81,14 @@ into lines on `<br>`; the story line and `<b>Each roll:</b>` are free text and n
 1. **One coloured tier line per tier**, matched exactly as
    `<span style="color:#xxxxxx"><b>{Tier} {p}%</b></span> · {items}`:
    - colour by tier name: Common `#9ca3af` (grey), Rare `#3b82f6` (blue), Epic `#a855f7` (purple), Legendary
-     `#f59e0b` (gold); a tier with any other name has no colour and fails;
-   - `{p}` is the tier's weight in whole percent, rounded half up (weights are basis points, 10000 = 100%); tiers that
-     share a name are summed and get one line (the Archive Chart Case's two Legendary tiers, 3 + 5, read
-     `Legendary 8%`); zero-weight tiers get no line;
+     `#f59e0b` (gold), Forbidden `#ef4444` (red, above Legendary; RUL-2026-10-29-058); a tier with any other name has no
+     colour and fails;
+   - each tier name is used by at most one tier of a cache, and a higher tier never outweighs a lower one (Common <
+     Rare < Epic < Legendary < Forbidden; RUL-2026-10-29-058 item 2: "each name is used at most once per cache, in order
+     of weight"); either is an error on the cache itself;
+   - `{p}` is the tier's weight in whole percent, rounded half up (weights are basis points, 10000 = 100%); zero-weight
+     tiers get no line. Same-named tiers are still summed into one line for the text comparison, so a text error is
+     reported apart from the one-name error;
    - `{items}` lists the tier's entries in cache order, joined with ` <i>or</i> ` or ` or `; past three entries, the
      first three then ` and more` (`, and more` accepted). An item reads `Name`, or `Name ×n` when the quantity is above
      1. An entry that bundles several items joins them with ` + ` (the ruling does not cover bundles; this is the
@@ -125,20 +129,27 @@ The rendering itself is checked on the director's phone through a hidden test it
 | Section | Derived from | Kept honest by |
 |---|---|---|
 | `picks.runs` | loot tables §4a | each run stores its §4a row and option cell verbatim (`doc_row`, `doc_options`); any edit to a §4a row, a new or removed row, or a change to the bold pick rule is a `design` error until the data is re-derived. The values are bound too: every run's `pickCount` and `options` are re-parsed from the §4a cell on each run (the header's `(pick 1)`, a row's `**pick N**`; options split on ` / `, packages on ` + `, `N ryo`, `Name ×n`), and data that disagrees with the parsed values is an error |
-| `picks.doc_aliases` | §4a's short names | names §4a uses that are not an item's own name (`Pouch`, `Inro`, `Crown Fragment`, `Crownhold badge`, `Crownhold jutsu`); `Captain's Purse` is a 100,000 ryo money alias whose ruling sentence (RUL-2026-10-25-010) is checked verbatim, and whose `money` must equal the ryo amount that sentence states. Every other option name must equal an item's name exactly |
+| `picks.doc_aliases` | §4a's short names | names §4a uses that are not an item's own name (`Crown Fragment`, `Crownbreaker badge`, `Crownhold jutsu`); `Captain's Purse (1,000,000 ryo)` (the whole §4a option text, so a change to the amount in the cell breaks the match) is a money alias whose ruling sentence (RUL-2026-10-28-034: "The Captain's Purse becomes 1,000,000 ryo (was 100,000).") is checked verbatim, and whose `money` must equal the ryo amount that sentence states. Every other option name must equal an item's name exactly |
 | tainted runs | §4a "pick 2 from their rare's options" | `options_from` plus `doc_evidence`: the §5 lines tying each tainted run to its rare chart and that chart to its run, checked verbatim; `options_from` must equal the run those two lines derive |
 | `items` | ids already in the repository | every literal id names the file that holds it (`source`) and must still be found there; the Crownbreaker badge resolves at run time from `state/crownhold/ids.json` (`id_from`) |
-| `chart_tiers` | RUL-2026-10-28-028 item 4 table | each tier stores its RULINGS row verbatim |
-| `profession_chests` | loot tables §4b; chest ids from `answers/names_item.json` | each area stores its §4b row prefix verbatim |
+| `chart_tiers` | RUL-2026-10-29-058 item 1 table; members from the loot tables header | each tier stores its RULINGS row verbatim (only the chart column is checked) |
+| `profession_chests` | loot tables §4b; chest ids from `answers/names_item.json` | each area stores its §4b line verbatim (today one area, "Shared hunts carry no profession drops.", with no allowed tier); `flags` stores whether hunt/gather flags are required and the §4b sentence that says so, checked verbatim |
 | `retired` | RUL-2026-10-28-016 item 3 | ids checked in their source files |
 | `voice` | story bible "Never use" line | parsed at run time; only the extra "seven-bladed" phrase lives in the data |
-| tier colours (in the script, `TIER_COLOURS`) | loot tables §0 template (RUL-2026-10-28-030) | each colour/tier pair must still appear in §0's template |
+| tier colours (in the script, `TIER_COLOURS`) | loot tables §0 template (RUL-2026-10-28-030); Forbidden: loot tables header (RUL-2026-10-29-058) and `docs/design/SKYGLASS_TEXT.md` | each colour/tier pair must still appear in §0's template; Forbidden, which §0 does not show, is bound instead to the header's "plus **Forbidden** above Legendary (red)" and the text doc's "Forbidden tier uses red `#ef4444`" (`TIER_COLOUR_EVIDENCE`) |
 
 Interpretations made while deriving (attack these in review):
-- Low Tide Run "Pouch" = the Elemental Tool Pouch (the single pouch, RUL-2026-10-28-003); "Inro" = Medicine Inro.
-- Night Watch's two "+ 10,000 ryo" options are package cards, as the Low Tide Run's are (§1 places both "with 10,000 ryo").
-- Captain's Purse = a 100,000 ryo card (RUL-2026-10-25-010 item 3).
+- Captain's Purse = a 1,000,000 ryo card (RUL-2026-10-28-034 item 1; kept by RUL-2026-10-29-050 item 4).
+- The Crownbreaker badge in Crownhold's pick is the badge (RUL-2026-10-29-041 item 4), not the Crownbreaker variant token,
+  which is Walked Every Deck's reward (RUL-2026-10-29-051).
+- The Skyglass Token is one item (`Skyglass Token ×2` = one card of quantity 2); pending until it is created.
 - The Crownhold jutsu = Lastlight (RUL-2026-10-25-006), id from `push/crownhold.gen.py`.
+- Chart tiers: the Buried Cache chart is a Rare chart (loot tables header; RUL-2026-10-29-058 "hunt charts"), although
+  `SKYGLASS_TEXT.md` still labels it Common. The tainted chart names are "Rotted Reliquary Seal" (text doc) and "The
+  Rotted Heading" (RUL-2026-10-29-057 item 2); the six Haul page names come from `SKYGLASS_THE_HAUL.md` / the text doc.
+- RUL-2026-10-29-058 "in order of weight" is read as: a higher-ranked tier never outweighs a lower-ranked one.
+- No §4a run offers a package card any more; the package comparison stays (engine logic) and its regression uses a
+  synthetic package option.
 - Tainted runs: the Rotted Reliquary takes the Sealed Reliquary's options and the Burning Heading takes The Fall's, pick 2.
   Their Lantern 30% / Core Rot 40% are drops, not pick options, and are not checked here.
 - Run quests are matched by quest id where one exists, otherwise by the quest's name on a create.
@@ -153,5 +164,5 @@ Never edit the doc text to match the data.
 
 The check reads manifests, not the live game: a record last written by an archived manifest is not re-checked. It does
 not check drop rates, ladders, the Wreck's drops, the tainted runs' extra drops, the failed-run Core Rot consolation,
-the area material id lists themselves beyond the chest tier, or the tier of chests other than the eight profession
-chests ("Chests take their tier the same way", RUL-2026-10-28-028 item 4, is not yet mapped to records).
+the Haul quests, or the rarity of caches, rewards and Skyglass items (the other columns of the RUL-2026-10-29-058 item 1
+table are not yet mapped to records).

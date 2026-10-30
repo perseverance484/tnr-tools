@@ -17,9 +17,9 @@ Checks (convention and data: docs/workflows/SKYGLASS_CHECK.md; design data: stat
   chest-text  every weighted-cache item's description follows the RUL-2026-10-28-030 format: a coloured line
               per tier (rate and items), 'Always:' for fixed rewards, a roll line only when the count varies
   voice       player-facing text uses none of the story bible's "Never use" words, nor "seven-bladed"
-  chart-tier  chart rarity matches its tier (RUL-2026-10-28-028 item 4)
-  prof-chest  profession chest rarity and hunt/gather flags (RUL-2026-10-28-023); hunt profession drops limited
-              to the area's chests
+  chart-tier  chart rarity matches its tier (RUL-2026-10-29-058 item 1; was RUL-2026-10-28-028 item 4)
+  prof-chest  profession chest rarity (and hunt/gather flags while the design data requires them); a run's
+              profession drops limited to its area's chests (section 4b: shared runs carry none)
 """
 from __future__ import annotations
 
@@ -37,6 +37,7 @@ DESIGN = "state/skyglass_design/design_data.json"
 LOOT = "docs/design/SKYGLASS_LOOT_TABLES.md"
 BIBLE = "docs/design/SKYGLASS_STORY_BIBLE.md"
 RULINGS = "docs/RULINGS.md"
+TEXT = "docs/design/SKYGLASS_TEXT.md"
 NAMES = "answers/names_item.json"
 
 # Source-verified: studie-tech/theninjarpg@2af4b32066c39e2868efae5dba6b339278701dca
@@ -60,7 +61,7 @@ PROFESSION_FLAGS = {"reward_hunter_items": "reward_hunter_items_ids",
 BATTLE_ALLOWED = set(PROFESSION_FLAGS) | set(PROFESSION_FLAGS.values())
 TEXT_KEYS = {"name", "description", "successDescription", "failDescription", "drawDescription", "fleeDescription",
              "battleDescription", "text", "displayName"}
-TIER_WORDS = ("Common", "Uncommon", "Rare", "Epic", "Legendary", "Mythic")
+TIER_WORDS = ("Common", "Uncommon", "Rare", "Epic", "Legendary", "Forbidden", "Mythic")
 SKYGLASS_FILE = re.compile(r"skyglass|crownhold", re.I)
 
 
@@ -125,8 +126,13 @@ def pct_text(basis_points):
     return str((Decimal(basis_points) / Decimal(100)).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
 
 
-# RUL-2026-10-28-030 / loot tables section 0: one coloured line per tier.
-TIER_COLOURS = {"Common": "#9ca3af", "Rare": "#3b82f6", "Epic": "#a855f7", "Legendary": "#f59e0b"}
+# RUL-2026-10-28-030 / loot tables section 0: one coloured line per tier. The order is the tier rank, lowest first
+# (RUL-2026-10-29-058 item 2: Forbidden sits above Legendary).
+TIER_COLOURS = {"Common": "#9ca3af", "Rare": "#3b82f6", "Epic": "#a855f7", "Legendary": "#f59e0b", "Forbidden": "#ef4444"}
+# Tiers the section 0 template does not show: the sentences that set each one, checked verbatim; the colour must appear
+# in one of them. Forbidden: the loot tables header (RUL-2026-10-29-058, "red") and the text doc's hex.
+TIER_COLOUR_EVIDENCE = {"Forbidden": ((LOOT, "plus **Forbidden** above Legendary (red)"),
+                                      (TEXT, "Forbidden tier uses red `#ef4444`"))}
 TIER_LINE = re.compile(r'\s*<span\s+style\s*=\s*"\s*color\s*:\s*(?P<colour>#[0-9a-fA-F]{6})\s*;?\s*"\s*>\s*<b>\s*'
                        r'(?P<tier>[A-Za-z]+)\s+(?P<pct>\d+(?:\.\d+)?)%\s*</b>\s*</span>\s*·\s*(?P<items>.*?)\s*$')
 
@@ -278,8 +284,9 @@ class Design:
         else:
             body = line[len(marker):].strip().rstrip(".")
             words = [w.strip() for w in body.split(",") if w.strip()]
-        pats = [(w, re.compile(r"\b" + re.escape(w) + r"\b", re.I)) for w in words]
-        pats += [(p["phrase"], re.compile(p["pattern"], re.I)) for p in voice.get("extra_banned_phrases", [])]
+        pats = [(w, re.compile(r"\b" + re.escape(w) + r"\b", re.I), "story bible, Voice") for w in words]
+        pats += [(p["phrase"], re.compile(p["pattern"], re.I), "design data voice.extra_banned_phrases")
+                 for p in voice.get("extra_banned_phrases", [])]
         return pats
 
     def _verify_docs(self):
@@ -318,7 +325,19 @@ class Design:
                 self.err(f"picks.{row}", "doc_row", f"no section 4a row {row!r}; the doc and the data diverged")
         sec0 = "\n".join(_section(loot, "## 0.") or [])
         for tier, colour in TIER_COLOURS.items():
-            if f'<span style="color:{colour}"><b>{tier} ' not in sec0:
+            if tier in TIER_COLOUR_EVIDENCE:
+                evidence = TIER_COLOUR_EVIDENCE[tier]
+                for src, sentence in evidence:
+                    try:
+                        found = sentence in _read(self.root, src)
+                    except OSError:
+                        found = False
+                    if not found:
+                        self.err("chest-text", "TIER_COLOUR_EVIDENCE",
+                                 f"{src} no longer states {sentence!r}; update TIER_COLOURS / TIER_COLOUR_EVIDENCE")
+                if not any(colour in sentence for _, sentence in evidence):
+                    self.err("chest-text", "TIER_COLOURS", f"no evidence sentence for {tier} states {colour}")
+            elif f'<span style="color:{colour}"><b>{tier} ' not in sec0:
                 self.err("chest-text", "TIER_COLOURS",
                          f"loot tables section 0 no longer shows {tier} in {colour}; update TIER_COLOURS to match")
         rulings = _read(self.root, RULINGS)
@@ -330,6 +349,13 @@ class Design:
                     self.err(f"chart_tiers.{t['tier']}", "charts", f"unknown item key {key}")
         pc = self.data["profession_chests"]
         sec4b = "\n".join(_section(loot, "## 4b.") or [])
+        flags = pc.get("flags")
+        if not (isinstance(flags, dict) and isinstance(flags.get("required"), bool)
+                and isinstance(flags.get("doc"), str) and flags["doc"].strip()):
+            self.err("profession_chests.flags", "flags",
+                     "needs {required: true|false, doc: the section 4b sentence that sets it}")
+        elif flags["doc"] not in sec4b:
+            self.err("profession_chests.flags", "doc", f"section 4b no longer states {flags['doc']!r}")
         for a in pc["areas"]:
             if a["doc_row"] not in sec4b:
                 self.err("profession_chests.areas", "doc_row", f"section 4b no longer has {a['doc_row']!r}")
@@ -452,6 +478,10 @@ class Design:
             for key in t["charts"]:
                 out[key] = t
         return out
+
+    def chest_flags_required(self):
+        flags = self.data["profession_chests"].get("flags")
+        return not isinstance(flags, dict) or flags.get("required") is not False
 
     def chest_rules(self):
         return {self.ids[c["key"]]: c for c in self.data["profession_chests"]["chests"] if self.ids.get(c["key"])}
@@ -804,7 +834,7 @@ class Checker:
 
     def _cache_text(self, f, w, lines, cache, names):
         fld = "data.description"
-        totals, order, entries = {}, [], {}
+        totals, order, entries, uses = {}, [], {}, Counter()
         for t in cache.get("tiers") or []:
             p = int(t.get("probability") or 0)
             if p <= 0:
@@ -813,7 +843,20 @@ class Checker:
             if name not in totals:
                 order.append(name)
             totals[name] = totals.get(name, 0) + p
+            uses[name] += 1
             entries.setdefault(name, []).extend(t.get("entries") or [])
+        # RUL-2026-10-29-058 item 2: each tier name at most once per cache, named in order of weight (a higher tier
+        # never outweighs a lower one).
+        for name, n in uses.items():
+            if n > 1:
+                self.add("ERROR", "chest-text", f, w, "data.effects.weightedCache.tiers",
+                         f"tier name '{name}' is used by {n} tiers; each name is used once per cache (RUL-2026-10-29-058)")
+        ranked = [n for n in TIER_COLOURS if n in totals]
+        for lo, hi in zip(ranked, ranked[1:]):
+            if totals[hi] > totals[lo]:
+                self.add("ERROR", "chest-text", f, w, "data.effects.weightedCache.tiers",
+                         f"tier '{hi}' ({pct_text(totals[hi])}%) outweighs '{lo}' ({pct_text(totals[lo])}%); tier names "
+                         f"follow the order of weight (RUL-2026-10-29-058)")
         stated = {}
         for raw, plain in lines:
             m = TIER_LINE.match(raw)
@@ -876,16 +919,17 @@ class Checker:
         for path, text in texts:
             if not isinstance(text, str):
                 continue
-            for word, pat in self.d.banned:
+            for word, pat, source in self.d.banned:
                 m = pat.search(text)
                 if m:
                     lo = max(0, m.start() - 30)
                     self.add("ERROR", "voice", f, w, path,
-                             f"banned word '{word}' (story bible, Voice): ...{text[lo:m.end() + 30]}...")
+                             f"banned word '{word}' ({source}): ...{text[lo:m.end() + 30]}...")
 
     # 5. chart tier
     def check_chart_tier(self, f, w, it):
         data = it.get("data") or {}
+        ruling = self.d.data["chart_tiers"].get("ruling") or "RUL-2026-10-28-028"
         for key, tier in self.d.chart_keys().items():
             rid, name = self.d.ids.get(key), self.d.items[key].get("name")
             hit = (rid and it.get("targetId") == rid) or (it.get("slot") == "create" and name and data.get("name") == name)
@@ -894,7 +938,7 @@ class Checker:
             if "rarity" in data:
                 if data["rarity"] != tier["rarity"]:
                     self.add("ERROR", "chart-tier", f, w, "data.rarity",
-                             f"{name or key} is {data['rarity']}; {tier['tier']} are {tier['rarity']} (RUL-2026-10-28-028)")
+                             f"{name or key} is {data['rarity']}; {tier['tier']} are {tier['rarity']} ({ruling})")
             elif it.get("slot") == "create":
                 self.add("ERROR", "chart-tier", f, w, "data.rarity",
                          f"{name or key} is created without a rarity; {tier['tier']} are {tier['rarity']}")
@@ -909,6 +953,11 @@ class Checker:
         if "rarity" in data and data["rarity"] != rule["rarity"]:
             self.add("ERROR", "prof-chest", f, w, "data.rarity",
                      f"{name} is {data['rarity']}; section 4b sets {rule['rarity']}")
+        if not self.d.chest_flags_required():
+            # Section 4b: the chests need no huntable/gatherable flags (design data profession_chests.flags).
+            if "rarity" not in data:
+                self.add("WARN", "prof-chest", f, w, "data", f"{name} edited without rarity")
+            return
         want = {"canBeHunted": rule["profession"] == "hunter", "canBeGathered": rule["profession"] == "gatherer"}
         for flag, val in want.items():
             if flag in data and bool(data[flag]) != val:
@@ -933,10 +982,30 @@ class Checker:
                     if r is None or r["profession"] != prof[ids_key]:
                         self.add("ERROR", "prof-chest", f, w, f"{path}.{ids_key}",
                                  f"[{run['run']}] {cid} is not a {prof[ids_key]} profession chest (section 4b)")
+                    elif tiers is not None and not tiers:
+                        self.add("ERROR", "prof-chest", f, w, f"{path}.{ids_key}",
+                                 f"[{run['run']}] {self.d.items[r['key']]['name']}: this run carries no profession "
+                                 f"drops (section 4b)")
                     elif tiers is not None and r["tier"] not in tiers:
                         self.add("ERROR", "prof-chest", f, w, f"{path}.{ids_key}",
                                  f"[{run['run']}] {self.d.items[r['key']]['name']} is outside the area's tier "
                                  f"({' + '.join(sorted(tiers))})")
+            # Plain rewards count too: a profession chest given as an ordinary reward_items entry (directly or inside
+            # a reward-package snapshot, which _walk also visits) is still a profession drop on this run.
+            for i, entry in enumerate(d.get("reward_items") or []):
+                if not isinstance(entry, dict):
+                    continue
+                for cid in entry.get("ids") or []:
+                    r = rules.get(cid)
+                    if r is None:
+                        continue
+                    name = self.d.items[r["key"]]["name"]
+                    if tiers is not None and not tiers:
+                        self.add("ERROR", "prof-chest", f, w, f"{path}.reward_items[{i}]",
+                                 f"[{run['run']}] {name}: this run carries no profession drops (section 4b)")
+                    elif tiers is not None and r["tier"] not in tiers:
+                        self.add("ERROR", "prof-chest", f, w, f"{path}.reward_items[{i}]",
+                                 f"[{run['run']}] {name} is outside the area's tier ({' + '.join(sorted(tiers))})")
 
 
 def _carries(v):

@@ -47,14 +47,15 @@ class DesignIntegrity(unittest.TestCase):
                          {"The Rotted Reliquary": 2, "The Burning Heading": 2})
 
     def test_banned_words_are_parsed_from_the_story_bible(self):
-        words = [w for w, _ in sc.Design(ROOT).banned]
-        for w in ("system", "network", "lattice", "conduit", "lift", "unit", "seven-bladed"):
+        words = [w for w, _, _ in sc.Design(ROOT).banned]
+        for w in ("system", "network", "lattice", "conduit", "lift", "unit", "seven-bladed", "hunt chart"):
             self.assertIn(w, words)
 
 
 class TempRoot(unittest.TestCase):
     """A copy of just the files the design check reads, so a doc edit can be simulated."""
-    FILES = [sc.DESIGN, sc.LOOT, sc.BIBLE, sc.RULINGS, sc.NAMES, "state/crownhold/ids.json",
+    PURSE = "Captain's Purse (1,000,000 ryo)"
+    FILES = [sc.DESIGN, sc.LOOT, sc.BIBLE, sc.RULINGS, sc.TEXT, sc.NAMES, "state/crownhold/ids.json",
              "push/skyglass_hunts.gen.py", "push/skyglass_update.gen.py", "push/elemental_pouch.gen.py",
              "push/crownhold.gen.py"]
 
@@ -82,10 +83,10 @@ class TempRoot(unittest.TestCase):
         self.assertEqual(self.design_errors(), [])
 
     def test_doc_cell_change_is_caught(self):
-        self.edit(sc.LOOT, "| Buried Cache | 25,000 ryo / Medicine Inro / Galley Stores |",
-                  "| Buried Cache | 30,000 ryo / Medicine Inro / Galley Stores |")
+        self.edit(sc.LOOT, "| Buried Cache | Medicine Inro / Galley Stores / Chart of the Drowned Foundry |",
+                  "| Buried Cache | Medicine Inro / Galley Stores / Tide Chart |")
         msgs = [f.msg for f in self.design_errors()]
-        self.assertTrue(any("section 4a now reads" in m and "30,000" in m for m in msgs), msgs)
+        self.assertTrue(any("section 4a now reads" in m and "Tide Chart" in m for m in msgs), msgs)
 
     def test_new_doc_row_is_caught(self):
         self.edit(sc.LOOT, "| Crownhold | Crown's Hoard", "| Proving Ground | Skyglass Coffer |\n| Crownhold | Crown's Hoard")
@@ -97,8 +98,8 @@ class TempRoot(unittest.TestCase):
         self.assertTrue(any(f.field == "doc_rule" for f in self.design_errors()))
 
     def test_chart_tier_row_change_is_caught(self):
-        self.edit(sc.RULINGS, "| Hunt charts | Rare | cyan |", "| Hunt charts | Epic | cyan |")
-        self.assertTrue(any("Hunt charts" in f.msg for f in self.design_errors()))
+        self.edit(sc.RULINGS, "| Rare | hunt charts | Sage's Strongbox", "| Epic | hunt charts | Sage's Strongbox")
+        self.assertTrue(any(f.where == "chart_tiers.Rare charts" and f.field == "doc_row" for f in self.design_errors()))
 
     def test_id_missing_from_its_source_is_caught(self):
         self.edit("push/elemental_pouch.gen.py", "D0gtI5dOgj2dFO4VexsLJ", "somethingelse", count=-1)
@@ -117,6 +118,53 @@ class TempRoot(unittest.TestCase):
     def test_tier_colour_change_in_section_0_is_caught(self):
         self.edit(sc.LOOT, '<span style="color:#3b82f6"><b>Rare', '<span style="color:#2563eb"><b>Rare')
         self.assertTrue(any(f.field == "TIER_COLOURS" and "Rare" in f.msg for f in self.design_errors()))
+
+    def test_forbidden_colour_is_bound_to_its_sources(self):
+        # RUL-2026-10-29-058: Forbidden is not in the section 0 template; its name/red come from the loot tables header
+        # and its hex from the text doc. Changing either source fails the design check.
+        self.edit(sc.TEXT, "Forbidden tier uses red `#ef4444`", "Forbidden tier uses red `#dc2626`")
+        self.assertTrue(any(f.field == "TIER_COLOUR_EVIDENCE" and "#ef4444" in f.msg for f in self.design_errors()))
+        self.setUp()
+        self.edit(sc.LOOT, "plus **Forbidden** above Legendary (red)", "plus **Mythic** above Legendary (red)")
+        self.assertTrue(any(f.field == "TIER_COLOUR_EVIDENCE" for f in self.design_errors()))
+
+    def test_profession_flag_rule_is_bound_to_section_4b(self):
+        self.edit(sc.LOOT, "The chests need no huntable/gatherable flags.", "The chests are flagged huntable/gatherable.")
+        self.assertTrue(any(f.where == "profession_chests.flags" and f.field == "doc" for f in self.design_errors()))
+        self.setUp()
+        self.edit_data(lambda d: d["profession_chests"].pop("flags"))
+        self.assertTrue(any(f.where == "profession_chests.flags" for f in self.design_errors()))
+
+    def test_profession_flags_are_enforced_again_when_required(self):
+        self.edit_data(lambda d: d["profession_chests"]["flags"].update(required=True))
+        findings, _, _ = sc.check(self.tmp, [os.path.join(FIX, "fail_prof_chest.json")])
+        self.assertTrue(any("canBeHunted=false" in f.msg for f in errors(findings)), [str(f) for f in findings])
+
+    def _foundry_with(self, reward):
+        with open(os.path.join(FIX, "pass.json"), encoding="utf-8") as fh:
+            m = json.load(fh)
+        it = next(i for i in m["items"] if (i.get("data") or {}).get("name") == "The Drowned Foundry")
+        win = next(o for o in it["data"]["content"]["objectives"] if o.get("task") == "win_quest")
+        win.update(reward)
+        p = os.path.join(self.tmp, "foundry_prof.json")
+        with open(p, "w", encoding="utf-8") as fh:
+            json.dump(m, fh)
+        findings, _, _ = sc.check(self.tmp, [p])
+        return [f for f in errors(findings) if f.check == "prof-chest"]
+
+    def test_review_plain_profession_chest_reward_is_caught(self):
+        cid = sc.Design(self.tmp).ids["epic_hunters_chest"]
+        errs = self._foundry_with({"reward_items": [{"ids": [cid], "number": 100, "quantity": 1}]})
+        self.assertTrue(any("carries no profession drops" in f.msg for f in errs), errs)
+
+    def test_review_profession_chest_inside_a_package_is_caught(self):
+        cid = sc.Design(self.tmp).ids["epic_hunters_chest"]
+        errs = self._foundry_with({"reward_packages": [{"rewards": {"reward_items": [{"ids": [cid], "number": 100, "quantity": 1}]}}]})
+        self.assertTrue(any("carries no profession drops" in f.msg for f in errs), errs)
+
+    def test_section_4b_no_drops_row_is_bound(self):
+        self.edit(sc.LOOT, "- **Shared hunts carry no profession drops.**", "- **Shared hunts carry Epic profession drops.**")
+        self.assertTrue(any(f.where == "profession_chests.areas" and f.field == "doc_row" for f in self.design_errors()))
 
     def edit_data(self, mutate):
         p = os.path.join(self.tmp, sc.DESIGN)
@@ -152,23 +200,31 @@ class TempRoot(unittest.TestCase):
         self.assertIn(("picks.The Rotted Reliquary", "pickCount"), errs)
 
     def test_review4_doc_value_change_is_caught_even_with_doc_options_updated(self):
-        self.edit(sc.LOOT, "| Drowned Foundry | Elemental Tool Pouch / 50,000 ryo / Galley Stores |",
-                  "| Drowned Foundry | Elemental Tool Pouch / 60,000 ryo / Galley Stores |")
-        self.edit_data(lambda d: next(r for r in d["picks"]["runs"] if r["run"] == "Drowned Foundry")
-                       .update(doc_options="Elemental Tool Pouch / 60,000 ryo / Galley Stores"))
-        self.assertTrue(any(f.field == "options" and "60000" in f.msg for f in self.design_errors()))
+        self.edit(sc.LOOT, "| The Fall | Skyglass Coffer ×2 / Sealed Treasury / Skyglass Token ×2 / Galley Stores ×3 |",
+                  "| The Fall | Skyglass Coffer ×2 / Sealed Treasury / Skyglass Token ×2 / Galley Stores ×4 |")
+        self.edit_data(lambda d: next(r for r in d["picks"]["runs"] if r["run"] == "The Fall")
+                       .update(doc_options="Skyglass Coffer ×2 / Sealed Treasury / Skyglass Token ×2 / Galley Stores ×4"))
+        self.assertTrue(any(f.field == "options" and "'quantity': 4" in f.msg for f in self.design_errors()))
 
     def test_review4_ruling_backed_alias_and_tainted_evidence(self):
-        self.edit(sc.RULINGS, '"Captain\'s Purse" pick is **100,000 ryo**', '"Captain\'s Purse" pick is **120,000 ryo**')
+        self.edit(sc.RULINGS, "The Captain's Purse becomes 1,000,000 ryo", "The Captain's Purse becomes 1,200,000 ryo")
         self.edit(sc.LOOT, "- **The Burning Heading** (tainted Last Heading)", "- **The Burning Heading** (tainted Reliquary Seal)")
         fields = {f.field for f in self.design_errors()}
         self.assertIn("evidence", fields)
         self.assertIn("doc_evidence", fields)
 
     def test_review5_purse_alias_amount_is_bound_to_its_ruling(self):
-        # Alias and data both moved to 1 ryo while the ruling still says 100,000: must fail.
-        self.edit_data(lambda d: d["picks"]["doc_aliases"]["Captain's Purse"].update(money=1))
-        self.assertTrue(any(f.field == "money" and "100000" in f.msg for f in self.design_errors()))
+        # Alias and data both moved to 1 ryo while the ruling still says 1,000,000: must fail.
+        def wrong(d):
+            d["picks"]["doc_aliases"][self.PURSE].update(money=1)
+            next(r for r in d["picks"]["runs"] if r["run"] == "Captain's Watch")["options"][1] = {"money": 1}
+        self.edit_data(wrong)
+        self.assertTrue(any(f.field == "money" and "1000000" in f.msg for f in self.design_errors()))
+
+    def test_purse_amount_in_the_cell_is_bound(self):
+        # The section 4a cell states the amount; changing it breaks the alias name and so the option.
+        self.edit(sc.LOOT, "Captain's Purse (1,000,000 ryo)", "Captain's Purse (2,000,000 ryo)")
+        self.assertTrue(any(f.where == "picks.Captain's Watch" and "names nothing" in f.msg for f in self.design_errors()))
 
     def test_review5_tainted_inheritance_is_derived_from_section_5(self):
         self.edit_data(lambda d: next(r for r in d["picks"]["runs"] if r["run"] == "The Rotted Reliquary")
@@ -181,7 +237,7 @@ class TempRoot(unittest.TestCase):
             with self.subTest(mutate=mutate):
                 self.setUp()
                 def change(d, mutate=mutate):
-                    a = d["picks"]["doc_aliases"]["Captain's Purse"]
+                    a = d["picks"]["doc_aliases"][self.PURSE]
                     a.update(money=1)
                     mutate(a)
                 self.edit_data(change)
@@ -199,7 +255,8 @@ class Fixtures(unittest.TestCase):
         findings, scanned, io_errors = run([os.path.join(FIX, "pass.json")])
         self.assertEqual(io_errors, [])
         self.assertEqual([str(f) for f in errors(findings)], [])
-        # Only pending-id warnings remain (Galley Stores and Echo Jar are not created yet).
+        # Only pending-id warnings remain (Galley Stores, the Skyglass Token, the Watch Roster, Crown's Hoard and the
+        # Crownbreaker badge are not created yet).
         self.assertTrue(all("pending" in f.msg for f in findings), [str(f) for f in findings])
 
     def test_each_fail_fixture_trips_only_its_check(self):
@@ -215,8 +272,12 @@ class Fixtures(unittest.TestCase):
             return [f"{f.field} {f.msg}" for f in errors(run([os.path.join(FIX, name)])[0])]
         p = msgs("fail_picks.json")
         self.assertTrue(any("rewardPickCount" in m and "needs 1" in m for m in p))
-        self.assertTrue(any("missing option: 25,000 ryo" in m for m in p))
+        self.assertTrue(any("missing option: Chart of the Drowned Foundry" in m for m in p))
         self.assertTrue(any("not in section 4a: 50,000 ryo" in m for m in p))
+        self.assertTrue(any("[Low Tide Run] missing option: Medicine Inro" in m for m in p))
+        self.assertTrue(any("missing option: 1,000,000 ryo" in m for m in p))
+        self.assertTrue(any("not in section 4a: 100,000 ryo" in m for m in p))
+        self.assertTrue(any("missing option: Skyglass Coffer ×3" in m for m in p))
         self.assertTrue(any("Elemental Tool Pouch (1% chance)" in m for m in p))
         self.assertTrue(any("reward_rank" in m for m in p))
         self.assertTrue(any("also sends content" in m for m in p) and any("also sends effects" in m for m in p))
@@ -228,16 +289,22 @@ class Fixtures(unittest.TestCase):
                      "tier line for 'Mythic'", "outside the coloured tier-line format", "but the item has no fixed reward",
                      "needs '<b>Always:</b> 150,000 ryo'", "needs a roll line '3–6 rolls'", "and more'",
                      "same-named tiers share one", "no tier line for 'Legendary'",
-                     "does not state 'Medicine Inro'", "states 'Medicine Inro ×99'"):
+                     "does not state 'Medicine Inro'", "states 'Medicine Inro ×99'",
+                     "tier name 'Epic' is used by 2 tiers", "'Forbidden' is coloured #f59e0b; the format uses #ef4444",
+                     "tier 'Forbidden' (7%) outweighs 'Legendary' (3%)", "'Forbidden 7%: Lastlight Lantern' states a tier rate"):
             self.assertTrue(any(want in m for m in c), (want, c))
         v = msgs("fail_voice.json")
-        self.assertTrue(any("'system'" in m for m in v) and any("seven-bladed" in m for m in v))
+        self.assertTrue(any("'system'" in m for m in v) and any("seven-bladed" in m for m in v)
+                        and any("'hunt chart'" in m for m in v))
         t = msgs("fail_chart_tier.json")
-        self.assertTrue(any("Hunt charts are RARE" in m for m in t) and any("without a rarity" in m for m in t))
+        self.assertTrue(any("Rare charts are RARE" in m for m in t) and any("without a rarity" in m for m in t))
+        self.assertTrue(any("Lastlight Lantern is EPIC; Legendary charts are LEGENDARY" in m for m in t))
         pc = msgs("fail_prof_chest.json")
-        self.assertTrue(any("outside the area's tier (Rare)" in m for m in pc))
+        self.assertTrue(any("Epic Hunter's Chest: this run carries no profession drops" in m for m in pc))
         self.assertTrue(any("is not a hunter profession chest" in m for m in pc))
-        self.assertTrue(any("canBeHunted=false" in m for m in pc))
+        self.assertTrue(any("is RARE; section 4b sets EPIC" in m for m in pc))
+        # Section 4b: the chests need no hunt/gather flags, so the fixture's flags are not an error.
+        self.assertFalse(any("canBeHunted" in m or "canBeGathered" in m for m in pc))
 
 
 class Units(unittest.TestCase):
@@ -270,6 +337,37 @@ class Units(unittest.TestCase):
         ch = sc.Checker(d)
         ch.run("m.json", {"items": [coffer]}, True)
         self.assertEqual([(f.level, f.check) for f in ch.findings], [("WARN", "chest-text")])
+
+    def test_forbidden_tier_line_and_tier_rules(self):
+        d = sc.Design(ROOT)
+        with open(os.path.join(FIX, "pass.json"), encoding="utf-8") as fh:
+            fx = json.load(fh)
+        case = next(it for it in fx["items"] if it["name"].startswith("Archive Chart Case"))
+        ch = sc.Checker(d)
+        ch.run("m.json", {"items": [case]}, True)
+        self.assertEqual([str(f) for f in ch.findings], [])   # a red Forbidden 3% line passes
+        tiers = case["data"]["effects"][0]["weightedCache"]["tiers"]
+        # two tiers with one name (RUL-2026-10-29-058): an error even when the text sums them correctly
+        dup = json.loads(json.dumps(case))
+        dup["data"]["effects"][0]["weightedCache"]["tiers"] = tiers[:4] + [dict(tiers[3], probability=0)] + [
+            dict(tiers[4], name="Legendary")]
+        dup["data"]["description"] = dup["data"]["description"].replace(
+            '<span style="color:#f59e0b"><b>Legendary 7%</b></span> · Chart of the Buried Cache<br>'
+            '<span style="color:#ef4444"><b>Forbidden 3%</b></span> · Lastlight Lantern',
+            '<span style="color:#f59e0b"><b>Legendary 10%</b></span> · Chart of the Buried Cache or Lastlight Lantern')
+        ch = sc.Checker(d)
+        ch.run("m.json", {"items": [dup]}, True)
+        self.assertEqual([f.msg for f in errors(ch.findings)],
+                         ["tier name 'Legendary' is used by 2 tiers; each name is used once per cache (RUL-2026-10-29-058)"])
+        # a higher tier that outweighs a lower one
+        heavy = json.loads(json.dumps(case))
+        t = heavy["data"]["effects"][0]["weightedCache"]["tiers"]
+        t[1]["probability"], t[2]["probability"] = 2000, 2500
+        heavy["data"]["description"] = heavy["data"]["description"].replace("Rare 25%", "Rare 20%").replace("Epic 20%", "Epic 25%")
+        ch = sc.Checker(d)
+        ch.run("m.json", {"items": [heavy]}, True)
+        self.assertEqual([f.msg for f in errors(ch.findings)],
+                         ["tier 'Epic' (25%) outweighs 'Rare' (20%); tier names follow the order of weight (RUL-2026-10-29-058)"])
 
     def test_cards_follow_the_engine(self):
         cards, unresolved = sc.reward_cards({
@@ -308,8 +406,15 @@ class ReviewRegressions(unittest.TestCase):
     """REQUEST CHANGES on b1e7527b: one regression per finding."""
     POUCH, INRO = "D0gtI5dOgj2dFO4VexsLJ", "ixEKlJ0MmDrX7JoMNJVhi"
 
-    def findings(self, items):
-        ch = sc.Checker(sc.Design(ROOT))
+    def findings(self, items, package_run=False):
+        d = sc.Design(ROOT)
+        if package_run:
+            # No section 4a run offers a package card any more (RUL-2026-10-28-034 cut the +10,000 ryo packages), but the
+            # package comparison is engine logic: pin it on a synthetic Low Tide Run of two Pouch/Inro + 10,000 ryo packages.
+            d.runs["Low Tide Run"] = dict(d.runs["Low Tide Run"], options=[
+                {"package": [{"item": "elemental_tool_pouch", "quantity": 1}, {"money": 10000}]},
+                {"package": [{"item": "medicine_inro", "quantity": 1}, {"money": 10000}]}])
+        ch = sc.Checker(d)
         ch.run("m.json", {"items": items}, True)
         return ch.findings
 
@@ -322,20 +427,23 @@ class ReviewRegressions(unittest.TestCase):
                 "reward_items": [{"ids": [item], "number": number, "quantity": 1}]}}
 
     def test_finding1_package_drop_chance_and_structural_fields_count(self):
-        ok = self.findings([self.low_tide([self.pkg(self.POUCH), self.pkg(self.INRO)])])
+        ok = self.findings([self.low_tide([self.pkg(self.POUCH), self.pkg(self.INRO)])], package_run=True)
         self.assertEqual([str(f) for f in errors(ok)], [])
+        # against the real section 4a Low Tide Run (plain cards), the packages are not options
+        real = [f for f in errors(self.findings([self.low_tide([self.pkg(self.POUCH), self.pkg(self.INRO)])])) if f.check == "picks"]
+        self.assertTrue(any("not in section 4a: package" in f.msg for f in real), [str(f) for f in real])
         for bad in ([self.pkg(self.POUCH, number=1), self.pkg(self.INRO, number=1)],
                     [self.pkg(self.POUCH, reward_hunter_items=True, reward_hunter_items_ids=["x"]), self.pkg(self.INRO)],
                     [self.pkg(self.POUCH, reward_rank="JONIN"), self.pkg(self.INRO)],
                     [self.pkg(self.POUCH, reward_exp=1), self.pkg(self.INRO)]):
             with self.subTest(bad=bad[0]["rewards"]):
-                errs = [f for f in errors(self.findings([self.low_tide(bad)])) if f.check == "picks"]
+                errs = [f for f in errors(self.findings([self.low_tide(bad)], package_run=True)) if f.check == "picks"]
                 self.assertTrue(any("missing option: package" in f.msg for f in errs), [str(f) for f in errs])
 
     def test_finding1_direct_cards_unchanged(self):
         q = {"entity": "quest", "slot": "edit", "targetId": "UGHSuhi83C3wRtH3FD4Eu", "data": {"content": {
-             "rewardMode": "choose", "reward": {"reward_money": 50000,
-                                                "reward_items": [{"ids": [self.POUCH], "number": 5, "quantity": 1}]}}}}
+             "rewardMode": "choose", "reward": {"reward_items": [{"ids": [self.POUCH], "number": 5, "quantity": 1},
+                                                                 {"ids": [self.INRO], "number": 5, "quantity": 1}]}}}}
         self.assertEqual([str(f) for f in errors(self.findings([q]))], [])
 
     def test_finding2_retired_records_may_only_be_hidden(self):
@@ -397,7 +505,7 @@ class Cli(unittest.TestCase):
         code, out = self.call(["--json", os.path.join(FIX, "fail_chart_tier.json")])
         doc = json.loads(out)
         self.assertEqual(code, 1)
-        self.assertEqual(doc["errors"], 2)
+        self.assertEqual(doc["errors"], 3)
         self.assertEqual({f["check"] for f in doc["findings"]}, {"chart-tier"})
 
 

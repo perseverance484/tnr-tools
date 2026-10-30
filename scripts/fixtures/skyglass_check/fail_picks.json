@@ -1,5 +1,5 @@
 {
- "_note": "skyglass_check fixture: picks. Buried Cache: 50,000 ryo instead of 25,000, a cut exp card, pick 2 on a pick-1 run. Low Tide Run: a package whose Pouch is only a 1% chance, and one that adds a rank promotion. The retired Armory Requisition hidden but also paying 100,000 ryo (quest objective and item effect).",
+ "_note": "skyglass_check fixture: picks. Buried Cache: a cut 50,000 ryo card and a cut exp card where section 4a offers the Foundry chart, pick 2 on a pick-1 run. Low Tide Run: the old +10,000 ryo package cards (one with the Pouch at only a 1% chance, one adding a rank promotion) where section 4a offers plain cards. Captain's Watch: the old 100,000 ryo Purse (now 1,000,000). Crownhold: Coffer x2 (now x3). The retired Armory Requisition hidden but also paying 100,000 ryo (quest objective and item effect).",
  "items": [
   {
    "entity": "quest",
@@ -114,6 +114,103 @@
      }
     }
    }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Captain's Watch",
+   "data": {
+    "name": "The Captain's Watch",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 100000
+     }
+    }
+   },
+   "targetId": "liljq0yVXWTSna4X6dZE1"
+  },
+  {
+   "entity": "quest",
+   "slot": "create",
+   "name": "Crownhold",
+   "data": {
+    "name": "Crownhold",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 2
+       },
+       {
+        "ids": [
+         "ayiRmSjWs05lMPyL3G-1d"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ],
+      "reward_jutsus": [
+       "0F-68bxOXW_LkJnXV0lwT"
+      ]
+     }
+    }
+   },
+   "srcId": "crownhold"
   },
   {
    "entity": "quest",
