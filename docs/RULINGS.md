@@ -4592,3 +4592,24 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "Drop haul steeping to keep it simple".
 
 **Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`.
+
+## RUL-2026-10-29-057 — Writing-pass decisions
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / text
+
+**Status:** ACTIVE. The tier and naming system is being drafted (director item 8).
+
+**Ruling** (on `docs/design/SKYGLASS_TEXT.md`, commit 800015ec):
+1. **Variant tokens carry the variant's name alone**, with no "Variant" suffix (e.g. "Captain's Command Fan").
+2. **The tainted Last Heading item is named "The Rotted Heading"**, apart from its run, The Burning Heading.
+3. **The Haul ledger reads "Draw on landing"**, not "Draw on relief": "relief" belongs to the refrain.
+4. **The Wreck's boss lines live in the battle log only.** Dungeons have no intro or closing screens.
+5. **The Fall's fire is the Arsenal Keeper's.** The harness's separate "Burning Deck" hazard is removed in the final simulation pass.
+6. **Archive and Watch press-on text waits** for the final simulation pass's verdict on press-on rooms.
+7. **Wreck Sighted's salvager needs a scene character portrait.** It is added to the art list.
+
+**Evidence:** Director, 2026-10-29: "1. Yes but without Variant in the name. 2. Approve 3. Approve. 4. Approve. 5. Good 6. Ok 7. Ok".
+
+**Canonical destination:** `docs/design/SKYGLASS_TEXT.md`.
