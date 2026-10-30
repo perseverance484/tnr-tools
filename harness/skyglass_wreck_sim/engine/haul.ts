@@ -169,12 +169,13 @@ export const DEFAULT_HAUL: HaulParams = {
     trophy: {
       quest: "hunter", page: "The Trophy Hold", chart: "Ledger Page: The Trophy Hold", character: "the classic balance",
       crate: [["h-blade", "h-wayfinder"], ["h-blade", "h-wayfinder"], ["h-blade", "h-wayfinder", "h-warden"], ["h-veteran", "h-wayfinder"], ["h-veteran", "h-wayfinder"]],
-      locker: [["trophy-warden"], ["trophy-warden"], ["trophy-warden", "h-wayfinder"], ["trophy-warden", "h-veteran"], ["trophy-warden", "h-veteran"]],
+      // RUL-2026-10-30-060 item 4: one extra guard on the step-2 and step-3 lockers, as on the Snare Room.
+      locker: [["trophy-warden"], ["trophy-warden", "h-wayfinder"], ["trophy-warden", "h-wayfinder", "h-blade"], ["trophy-warden", "h-veteran"], ["trophy-warden", "h-veteran"]],
       alertCrew: "h-lookout", alertBoss: "h-keeper",
       hazards: ["wound", "poison", "moveprevent", "decreasemaxpools"], alertHazards: ["poison", "decreasemaxpools"],
       lockerHazards: ["wound", "poison", "decreasemaxpools", "wound", "poison"],
       cutHazards: ["wound", "wound"],
-      points: { step: [4.2, 0.9, 1.3, 3, 5.4], locker: 2.4, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 2.5,
+      points: { step: [4.2, 0.9, 1.3, 3, 2.7], locker: 3.3, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [3, 4], hazardMult: 1, cutMult: 2.5, // points: RUL-2026-10-30-060 item 4 fit
     },
     bone: {
       // Lockers only at steps 1-3, two tiers up at steps 1-2 (Epic); the opening crates and lockers carry an extra guard.
@@ -185,7 +186,7 @@ export const DEFAULT_HAUL: HaulParams = {
       hazards: ["wound", "poison", "moveprevent", "decreasemaxpools"], alertHazards: ["poison", "decreasemaxpools"],
       lockerHazards: ["poison", "wound", "decreasemaxpools", "wound", "poison"],
       cutHazards: ["wound", "wound"],
-      points: { step: [4.2, 0.9, 1.3, 1.2, 7.3], locker: 2.5, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5,
+      points: { step: [4.2, 0.9, 1.3, 1.1, 2.1], locker: 2.5, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3], cutSteps: [3, 4], hazardMult: 1, cutMult: 1.5, // points: RUL-2026-10-30-060 item 4 fit
     },
     snare: {
       // Crates at steps 2-4 carry a snare on top of the usual hazards; cut-throughs from step 2 with a 2-round bleed (only a step-4 cut drops to Common).
@@ -197,7 +198,7 @@ export const DEFAULT_HAUL: HaulParams = {
       lockerHazards: ["wound", "decreasemaxpools", "wound", "wound", "poison"],
       crateHazards: [null, "moveprevent", "wound", "poison", null],
       cutHazards: ["wound", "wound"],
-      points: { step: [5.2, 0.9, 1.5, 1.2, 3.5], locker: 3.3, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [2, 3, 4], hazardMult: 1, cutMult: 1.5,
+      points: { step: [5.1, 0.9, 1.5, 1, 3.5], locker: 1.7, cut: [0, 0, 0, 2, 0] }, lockerSteps: [1, 2, 3, 4, 5], cutSteps: [2, 3, 4], hazardMult: 1, cutMult: 1.5, // points: RUL-2026-10-30-060 item 4 fit
       roundsAdd: { cut: -2 },
     },
     // ---------------- gatherers ----------------
@@ -226,7 +227,8 @@ export const DEFAULT_HAUL: HaulParams = {
       // Dust on every crate, no multiplier; Common, Common, Rare, Rare, then a Legendary crate at step 5.
       quest: "gatherer", page: "The Bloom Cellar", chart: "Stores Manifest: The Bloom Cellar", character: "heavy dust hazards, a steep tier curve",
       crate: [["g-warden", "g-sentinel", "g-charge"], ["g-warden", "g-sentinel", "g-charge"], ["g-sentinel", "g-warden", "g-charge"], ["g-veteran", "g-warden", "g-charge"], ["g-veteran", "g-warden", "g-charge"]],
-      locker: [["stores-ward", "g-canister"], ["stores-ward", "g-canister"], ["stores-ward", "g-warden", "g-canister"], ["stores-ward", "g-veteran", "g-canister"], ["stores-ward", "g-veteran", "g-canister"]],
+      // RUL-2026-10-30-060 item 4: one extra guard on the step-2 and step-3 lockers, as on the Snare Room.
+      locker: [["stores-ward", "g-canister"], ["stores-ward", "g-warden", "g-canister"], ["stores-ward", "g-warden", "g-sentinel", "g-canister"], ["stores-ward", "g-veteran", "g-canister"], ["stores-ward", "g-veteran", "g-canister"]],
       alertCrew: "g-lookout", alertBoss: "g-sealwright",
       hazards: ["decreasemaxpools", "afterburn", "elementalseal", "increasepoolcost"], alertHazards: ["decreasemaxpools", "afterburn", "increasepoolcost"],
       lockerHazards: ["decreasemaxpools", "afterburn", "elementalseal", "decreasemaxpools", "afterburn"],
