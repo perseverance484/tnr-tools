@@ -4549,3 +4549,23 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "2. Approved, proceed. 3. It does. 4. Approved."
 
 **Canonical destination:** `forge/tools/check_bundle_budget.mjs`; `docs/design/SKYGLASS_LOOT_TABLES.md` §5b, §5d.
+
+## RUL-2026-10-29-055 — Steeping: use the chart; refund if short; a loss returns the chart
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / charts
+
+**Status:** ACTIVE. Supersedes the single "Steep at the Core" hub of RUL-2026-10-29-045 item 2. Open: Haul-page steeping.
+
+**Ruling:**
+1. **Steeping starts by using the rare chart.** Its item effect starts its own steeping quest: 2 `special` quests, one per rare chart. Special quests are never listed and are started only by an item.
+2. **There is no Core item, hub or deliver step.**
+3. **If the player lacks the 3 Core Rot, they refund it:** the chart comes back and nothing is spent.
+4. **A loss returns the chart, and the Core Rot is spent.** A win grants the tainted chart.
+5. **The chart's description carries all of this:** both uses (the Battle Arena run, and Use to steep), the Rot cost, the refund, and the loss rule.
+6. **Why not one quest for every chart:** a deliver step deletes the whole stack (theninjarpg `deleteUserItemsWithPositiveQuantity`). A hub cannot start special quests, and quests cannot be unlisted. The item-started special quest avoids all three.
+
+**Evidence:** Director, 2026-10-29: "No need for the core item anymore. Use the chart, unlock the steeping, if you dont have the required materials you can refund it. Fail, get your chart back but lose your Core Rot. The item itself will need to include this in its description".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5.

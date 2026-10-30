@@ -240,14 +240,17 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
   - The Wayfinder duels at the gangway.
 
 **Getting a tainted chart**
-- **Steeping** (the signature gamble): one quest, "Steep at the Core" (RUL-2026-10-29-045).
-  - Pay 3 Core Rot at entry, then choose which chart to offer: either rare chart, or any of the 6 Haul pages.
-  - Hand that chart in at the Core on the map, then fight.
-  - The text warns that entering without the chosen chart leaves the quest stuck and the Rot lost.
-  - Entry: a rare chart plus Core Rot ×3, both spent.
-  - One fight against a Core Horror scaled to the player. This fight uses its own Core Horror copy, which carries no Core Rot drop (RUL-2026-10-28-013).
-  - Win: the tainted chart. Lose: a "the rot spits it out" step (`failObjectiveId`) hands the chart back, and the 3 Core Rot are spent.
-  - Two versions, one per rare chart. The scaled Core Horror is tuned in the harness to about a 75% solo win rate.
+- **Steeping** (the signature gamble): **use the chart itself** (RUL-2026-10-29-055).
+  - **Start.** Each rare chart's item effect (`noncombatquest`) starts its own steeping quest.
+    - These are 2 `special` quests, one per rare chart. Special quests are started only by an item and never appear in any quest list.
+    - Using the chart consumes one copy.
+  - **Rot.** The quest needs Core Rot ×3. If the player lacks them, they take the refund: the chart comes back and nothing is spent.
+  - **Opening dialog: "Steep" or "Take it back".** Taking it back refunds the chart (and any Rot already paid), which covers a mis-tap.
+  - **Fight.** One fight against a Core Horror scaled to the player, about a 75% solo win rate. It uses its own Core Horror copy, with no Core Rot drop (RUL-2026-10-28-013).
+  - **Win:** the tainted chart.
+  - **Loss:** a "the rot spits it out" step (`failObjectiveId`) hands the chart back, and the 3 Core Rot are spent.
+  - **Item text.** Each rare chart's description says both uses: run it from the Battle Arena, or **use it to steep it at the Core** (3 Core Rot; refund if you lack them; a loss returns the chart and spends the Rot).
+  - **To verify before building:** whether an item-started quest charges its entry items at the start (a shortfall would then roll the item use back by itself) or at the fight. The refund dialog covers both cases.
 - **Breaking the seal:** an Archive dialogue choice adds an echo fight and guarantees Core Rot ×2.
 - **Pressing on:** the rare runs' final room drops the tainted chart 5%.
 - **Natural:** the Archive and Watch endings drop the tainted chart directly at 1%.
