@@ -106,7 +106,9 @@ export function lintManifest(manifest) {
       if (it.entity === "item" && f.type === "noncombatconsumereward") {
         // combat.ts:1151-1163 at the pin, three separate addIssue() calls
         if (d.itemType !== undefined && d.itemType !== "CONSUMABLE") E(it, "L18 noncombatconsumereward requires itemType CONSUMABLE");
-        if (d.target !== undefined && d.target !== "SELF") E(it, "L18 noncombatconsumereward requires item target SELF");
+        // a create must state it: item.create's placeholder holds target CHARACTER (queries/item.ts at 3314d122)
+        // and the fetch-merged update would keep it; an edit merges the live value
+        if (d.target !== undefined ? d.target !== "SELF" : it.op === "create") E(it, "L18 noncombatconsumereward requires item target SELF");
         if (d.method !== undefined && d.method !== "SINGLE") E(it, "L18 noncombatconsumereward requires method SINGLE");
         // combat.ts:867-893 at 2af4b320: pet grants require standard rewards
         if (Array.isArray(f.reward_pets) && f.reward_pets.length && f.rewardMode === "weightedCache") E(it, "PET reward_pets requires rewardMode standard");

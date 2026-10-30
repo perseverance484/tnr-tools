@@ -4,8 +4,9 @@
 // src/runner/variants.mjs.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { IDBFactory } from "fake-indexeddb";
@@ -153,6 +154,23 @@ test("review round 2 (1): slot powers are coerced like z.coerce.number() before 
   assert.match(run("abc"), /power "abc" is not an integer of at least 1/);
   assert.match(run(-1), /power -1 is not an integer of at least 1/);
   assert.match(run(1.5), /power 1\.5 is not an integer/);
+});
+
+test("review round 2 (2): L18 - a noncombatconsumereward create must state target SELF (the placeholder holds CHARACTER); an edit may omit it", () => {
+  const reward = { type: "noncombatconsumereward", rewardMode: "standard", reward_money: 10, ...FXKEYS };
+  const cache = () => { const t = TOKEN(); t.data.effects = [reward]; delete t.data.destroyOnUse; return t; };
+  const omitted = cache(); delete omitted.data.target;
+  assert.match(refusal({ items: [omitted] }), /L18 noncombatconsumereward requires item target SELF/);
+  assert.match(refusal({ items: [{ ...cache(), data: { ...cache().data, target: "CHARACTER" } }] }), /L18 noncombatconsumereward requires item target SELF/);
+  assert.equal(refusal({ items: [cache()] }), "");
+  const edit = cache(); edit.slot = "edit"; edit.targetId = "fixtureCacheItem00001"; delete edit.srcId; delete edit.data.target;
+  assert.equal(refusal({ items: [edit] }), "", "an edit fetch-merges the live target");
+  const data = fileURLToPath(new URL("../../skills/building-tnr-content/data/", import.meta.url));
+  const tmp = join(tmpdir(), `l18_${process.pid}.json`);
+  writeFileSync(tmp, JSON.stringify({ items: [omitted] }));
+  try { execFileSync("python3", ["../scripts/validate.py", "--strict", tmp], { cwd: data, encoding: "utf8" }); assert.fail("validate.py accepted it"); }
+  catch (e) { assert.match(String(e.stdout), /L18 noncombatconsumereward requires item target SELF/); }
+  finally { rmSync(tmp, { force: true }); }
 });
 
 test("review F2/F3: the hand-held activity-bonus list, slot cap and default match the pinned source, when a checkout is supplied", { skip: !process.env.TNR_GAME_CHECKOUT && "set TNR_GAME_CHECKOUT to a checkout at 3314d122" }, () => {
