@@ -1,5 +1,5 @@
 {
- "_note": "skyglass_check fixture: prof-chest. Wrong rarity and flags on a gatherer chest; an Epic chest and a gatherer chest on a Rare-tier hunt's hunter list.",
+ "_note": "skyglass_check fixture: prof-chest. Wrong rarity on a gatherer chest (its hunt/gather flags are not checked: section 4b, the chests need no flags); a hunter chest and a gatherer chest on a run's hunter list, where section 4b allows no profession drops.",
  "items": [
   {
    "entity": "item",
@@ -61,9 +61,15 @@
         ],
         "number": 100,
         "quantity": 1
+       },
+       {
+        "ids": [
+         "ixEKlJ0MmDrX7JoMNJVhi"
+        ],
+        "number": 100,
+        "quantity": 1
        }
-      ],
-      "reward_money": 50000
+      ]
      }
     }
    }

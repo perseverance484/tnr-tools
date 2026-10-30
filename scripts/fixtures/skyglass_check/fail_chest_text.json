@@ -1,5 +1,5 @@
 {
- "_note": "skyglass_check fixture: chest-text (RUL-2026-10-28-030). Wrong rate, wrong colour, wrong items, a tier the cache lacks, an uncoloured rate, an Always line with no fixed reward; a missing Always line, a missing roll range, an item list past three without 'and more', same-named tiers on two lines; an Always line with the wrong quantity and an entry the item does not grant.",
+ "_note": "skyglass_check fixture: chest-text (RUL-2026-10-28-030). Wrong rate, wrong colour, wrong items, a tier the cache lacks, an uncoloured rate, an Always line with no fixed reward; a missing Always line, a missing roll range, an item list past three without 'and more', same-named tiers on two lines; an Always line with the wrong quantity and an entry the item does not grant. Archive Chart Case (RUL-2026-10-29-058): a Forbidden line in gold instead of red, a Forbidden tier that outweighs Legendary, and an uncoloured Forbidden rate. The Sealed Treasury's two Epic tiers also break the one-name-per-cache rule.",
  "items": [
   {
    "entity": "item",
@@ -283,6 +283,106 @@
            "items": [
             {
              "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "B48dTRsoLJGKBWIUbeUoG",
+   "name": "Archive Chart Case: Forbidden tier",
+   "data": {
+    "description": "<i>A chart case.</i><br><b>Each roll:</b><br><span style=\"color:#9ca3af\"><b>Common 45%</b></span> · Chart of the Drowned Foundry<br><span style=\"color:#3b82f6\"><b>Rare 25%</b></span> · Chart of the Quarantined Archive<br><span style=\"color:#a855f7\"><b>Epic 20%</b></span> · Chart of the Captain's Watch<br><span style=\"color:#f59e0b\"><b>Legendary 3%</b></span> · Chart of the Buried Cache<br><span style=\"color:#f59e0b\"><b>Forbidden 7%</b></span> · Lastlight Lantern<br>Forbidden 7%: Lastlight Lantern",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "description": "One roll",
+      "rewardMode": "weightedCache",
+      "reward_items": [],
+      "reward_money": 0,
+      "weightedCache": {
+       "version": 1,
+       "displayName": "x",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 4500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "pY-0O5Gs2n89pf0kYb5J2",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "cRZT41zm5vhPTQwwn8vtv",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 2000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "aHFNuo5RkKpDcaOBLIKiu",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 300,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "nbLC37UzBamthKXvZsgQB",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Forbidden",
+         "probability": 700,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "jCJv4N3JSiihuqnK0jJ7t",
              "quantity": 1
             }
            ]
