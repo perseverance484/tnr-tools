@@ -1,0 +1,113 @@
+{
+ "_note": "Item variant builder fixture: every entry is refused. Never pushed.",
+ "items": [
+  {
+   "entity": "item",
+   "slot": "create",
+   "name": "Fixture Bound Token",
+   "srcId": "fx_bound",
+   "data": {
+    "name": "Fixture Bound Token",
+    "description": "Unlocks the fixture trophy look on its base item.",
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "destroyOnUse": false,
+    "preventBattleUsage": true,
+    "canBeTraded": false,
+    "hidden": true,
+    "effects": [
+     {
+      "type": "unlockitemvariant",
+      "variantId": "@variant:fx_other",
+      "description": "Unlocks a token-locked item variant when used on an item",
+      "power": 1,
+      "powerPerLevel": 0,
+      "calculation": "static",
+      "direction": "offence",
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "target": "SELF"
+     },
+     {
+      "type": "unlockitemvariant",
+      "variantId": "not-an-id",
+      "description": "x",
+      "power": 1,
+      "powerPerLevel": 0,
+      "calculation": "static",
+      "direction": "offence",
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "target": "SELF"
+     }
+    ]
+   }
+  },
+  {
+   "entity": "itemVariant",
+   "slot": "create",
+   "name": " Padded ",
+   "srcId": "fx_b1",
+   "data": {
+    "itemId": "trophyBaseItem0000001",
+    "name": " Padded ",
+    "image": "https://utfs.io/f/fixture-trophy.webp",
+    "requiredItemId": "@item:fx_token",
+    "costType": "MONEY",
+    "cost": -1,
+    "order": 8,
+    "description": null,
+    "battleDescription": "A fixture trophy flashes.",
+    "hidden": true,
+    "colour": "red",
+    "id": "x"
+   }
+  },
+  {
+   "entity": "itemVariant",
+   "slot": "create",
+   "name": "Other Trophy",
+   "srcId": "fx_other",
+   "data": {
+    "itemId": "trophyBaseItem0000001",
+    "name": "Other Trophy",
+    "image": "https://utfs.io/f/fixture-trophy.webp",
+    "requiredItemId": "@item:fx_bound",
+    "costType": "VARIANT_TOKEN",
+    "cost": 0,
+    "order": 3,
+    "description": "A fixture trophy look.",
+    "battleDescription": "A fixture trophy flashes.",
+    "hidden": true
+   }
+  },
+  {
+   "entity": "itemVariant",
+   "slot": "create",
+   "name": "Twin Trophy",
+   "srcId": "fx_b3",
+   "data": {
+    "itemId": "trophyBaseItem0000001",
+    "name": "Twin Trophy",
+    "image": "https://utfs.io/f/fixture-trophy.webp",
+    "costType": "VARIANT_TOKEN",
+    "cost": 0,
+    "order": 3,
+    "description": "A fixture trophy look.",
+    "battleDescription": "A fixture trophy flashes.",
+    "hidden": true
+   }
+  }
+ ]
+}

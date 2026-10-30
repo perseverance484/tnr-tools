@@ -136,7 +136,8 @@ export class CachedReader {
     // getAll takes a required {limit, cursor} input (jutsu.ts:266-285); only the name lists take none
     // coop.dungeon.getAll takes no input and returns every definition (staff only), so it lists like a name list.
     // petSpecies.getAll and title.getAll likewise take no input and return every row (routers/petSpecies.ts:24, title.ts:30).
-    if (!/\.getAll(Ai)?Names$/.test(path) && !["coop.dungeon.getAll", "petSpecies.getAll", "title.getAll"].includes(path)) throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
+    // item.getItemVariants {itemId} is one item's variants: always called with that input, so never cached.
+    if (!/\.getAll(Ai)?Names$/.test(path) && !["coop.dungeon.getAll", "petSpecies.getAll", "title.getAll", "item.getItemVariants"].includes(path)) throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
     const sent = input === undefined ? listInput(path) : input;
     const cacheable = sameInput(sent, listInput(path));
     const hit = fresh || !cacheable ? null : await this.cache.get(path, "");

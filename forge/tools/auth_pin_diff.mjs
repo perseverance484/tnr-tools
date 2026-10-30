@@ -31,6 +31,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const ROUTER_FILES = Object.freeze({
   jutsu: "jutsu.ts", item: "item.ts", quests: "quests.ts", profile: "profile.ts",
   ai: "ai.ts", gameAsset: "asset.ts", bloodline: "bloodline.ts",
+  petSpecies: "petSpecies.ts", badge: "badge.ts", title: "title.ts",
 });
 const DECL = /^ {2}([A-Za-z0-9_]+):\s*(publicProcedure|protectedProcedure)\b/;
 

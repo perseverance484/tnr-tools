@@ -1,0 +1,74 @@
+{
+  "_note": "READ-ONLY diagnosis capture for A-rank AI idling from about round 4 (Pale Fang, Winter Crow). Zero mutations. Captures each AI's current record, kit and rule chain, plus its 20 newest QUEST battles. Stage 2 pulls the full action log (combat.getBattleEntries, showBasicActions true) for the battles this returns.",
+  "items": [],
+  "capture": {
+    "after": [
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "yTHaQ_sdw-JW0C35W-Uo9"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "H0ItJ3_JKIymkKhCpDhVf"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "combat.getBattleHistory",
+        "input": {
+          "userId": "yTHaQ_sdw-JW0C35W-Uo9",
+          "combatTypes": [
+            "QUEST"
+          ],
+          "limit": 20
+        },
+        "select": [
+          "battleId",
+          "battleType",
+          "createdAt",
+          "attackedId",
+          "defenderId",
+          "attacker",
+          "defender"
+        ]
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "WxsmoaAoV0y8vqcWYw96y"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "jCVEoYMOHFQK3SGjnxHoi"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "combat.getBattleHistory",
+        "input": {
+          "userId": "WxsmoaAoV0y8vqcWYw96y",
+          "combatTypes": [
+            "QUEST"
+          ],
+          "limit": 20
+        },
+        "select": [
+          "battleId",
+          "battleType",
+          "createdAt",
+          "attackedId",
+          "defenderId",
+          "attacker",
+          "defender"
+        ]
+      }
+    ]
+  }
+}

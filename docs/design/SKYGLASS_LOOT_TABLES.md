@@ -1,5 +1,16 @@
 # Skyglass event — loot tables
 
+> **Tiers and terms (RUL-2026-10-29-058).**
+> - **Item rarity** uses the game's four: Common, Rare, Epic, Legendary.
+>   - Common charts: Tide, Roster.
+>   - Rare charts: Buried Cache, Foundry, Archive, Watch.
+>   - Epic charts: Reliquary Seal, Last Heading.
+>   - Legendary charts: tainted, Lantern, Haul pages.
+> - **Cache tiers** are named Common, Rare, Epic, Legendary, plus **Forbidden** above Legendary (red), each name used once.
+>   - Forbidden is used by the Sage's Strongbox (Forbidden Jutsu Scrolls) and the Archive Chart Case (Lastlight Lantern).
+> - **Player-facing text** names a chart by its tier ("a Rare chart", "an Epic chart"), never "hunt": hunting is a separate game mechanic.
+> - Older wording in this doc ("hunt charts", "rare charts", "hunts") is internal shorthand: hunt charts are the Rare charts, and "rare charts" are the Epic charts.
+
 **Status:** Structure ruled by RUL-2026-10-25-002 and the balance pass RUL-2026-10-25-004, amended by RUL-2026-10-28-009 … -019 (later rulings supersede earlier ones). Weights and quantities below are proposals unless marked ruled; currency amounts are set by the director in game (RUL-2026-10-24-019). Consumable-cache weights and quantities wait on the push/323 item capture (RUL-2026-10-28-018).
 
 **Rule: every item has one home.** A reward appears in more than one source only as the same container, never as loose contents. Skyglass items come only from the Skyglass Coffer, with one exception: Crownhold's pick offers one Fragment of the Skyglass Crown directly (RUL-2026-10-28-003, recorded as an exception by RUL-2026-10-28-010).
@@ -33,7 +44,7 @@ Descriptions are generated from the same tables the caches are built from, so th
 
 - A tier with several options joins them with " *or* ".
 - A tier with more than 3 options lists the first three, then "and more".
-- Tiers with the same name are added together.
+- Each tier name appears at most once per cache, in order of weight. **Forbidden** (red, `#ef4444`) sits above Legendary (RUL-2026-10-29-058).
 - A fixed roll count is not repeated, because the card already shows it.
 - The rendering is checked on the director's phone through a hidden test item before release.
 
@@ -102,8 +113,8 @@ That averages about 13 Imperial Gold per opening, against about 1.2 before.
 | Common | 45 | Chart of the Drowned Foundry ×1 |
 | Rare | 25 | Chart of the Quarantined Archive ×1 |
 | Epic | 20 | Chart of the Captain's Watch ×1 |
-| Legendary | 3 | Lastlight Lantern ×1 |
-| Legendary | 7 | a rare chart ×1 (Reliquary Seal or The Last Heading) |
+| Legendary | 7 | an Epic chart ×1 (Reliquary Seal or The Last Heading) |
+| Forbidden | 3 | Lastlight Lantern ×1 |
 
 Haul pages, tainted charts and the common charts (Tide, Roster, Buried Cache) stay out of the case (RUL-2026-10-29-040).
 
@@ -172,15 +183,17 @@ The rares double the Watch's Coffer, so each rung pays more than the one below i
 
 Cut and not to be rebuilt: every ryo card except the Watch's Captain's Purse (RUL-2026-10-28-034); the Archive's Records exp, the Watch's Inro ×3, The Fall's Captain's Purse, the commons' exp cards (RUL-2026-10-28-016); Crownhold's Honor and Crownhold's Echo Jar ×2 (RUL-2026-10-28-017); the tainted runs' guaranteed Sealed Treasury and Echo Jar (RUL-2026-10-28-019).
 
-## 4b. Profession rewards: S-rank profession charts (RUL-2026-10-29-035; supersedes RUL-2026-10-28-023's per-win hunt drops)
+## 4b. Profession rewards: the Haul (RUL-2026-10-29-035, -037, -052, -053)
 
 - **Shared hunts carry no profession drops.** Every player gets the same rewards from the same run.
-- **Two S-rank profession charts** call back to the original S-rank Ghost Ship hunting and gathering quests and keep professionals' rewards the same:
-  - **Hunter's chart:** the run requires hunting rank S (`huntingRank`).
-  - **Gatherer's chart:** the run requires gathering rank S (`gatheringRank`).
-  - Each run's win endings pay the old quests' chest tables (Common/Rare/Epic/Legendary Hunter's or Gatherer's Chest by drop %, from the captured Ghost Ship (Hunt) and (Gather) endings) as plain `reward_items`.
-  - The S-rank gate keeps them to professionals. The chests need no huntable/gatherable flags.
-- **The charts drop for everyone and are tradeable**, so non-professionals can sell theirs to S-rank professionals. Sources and rates are set at build.
+- **The Haul** (`SKYGLASS_THE_HAUL.md`) is where the profession chests come from.
+  - Six Legendary Haul pages: three hunter-themed, three gatherer-themed.
+  - It is **open to every player**, with no rank gate (RUL-2026-10-29-052).
+  - Its endings pay Hunter's or Gatherer's Chests as plain `reward_items`. The chests need no huntable/gatherable flags.
+- **Page drops,** per page (RUL-2026-10-29-053):
+  - endgame Wreck clear **2%**;
+  - every Rare chart ending **1.25%**.
+  - Pages are tradeable.
 - **The chests' rarity matches their contents** (RUL-2026-10-28-023 item 1, kept).
 - **Chest content fixes** (RUL-2026-10-29-035):
   1. The Common Gatherer's Chest swaps Rust Ferret Pelt (a hunted material) for Copper Ore (gathered, used by Repair Kits).

@@ -1,0 +1,639 @@
+{
+ "_note": "skyglass_check fixture: passes every check (warnings only for pending ids: Galley Stores, the Skyglass Token, the Watch Roster, Crown's Hoard and the Crownbreaker badge are not created yet). Picks follow loot tables section 4a (RUL-2026-10-29-042, -048 .. -050; the Captain's Purse is 1,000,000 ryo, RUL-2026-10-28-034). No run carries a profession drop (section 4b). The Archive Chart Case text uses the Forbidden tier (RUL-2026-10-29-058); its Legendary entry is a stand-in with a known id (the real tier is the two Epic charts, not created yet).",
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Drowned Foundry",
+   "data": {
+    "name": "The Drowned Foundry",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "b_warden",
+       "task": "start_battle",
+       "description": "The Warden tips the crucible.",
+       "reward_exp": 0,
+       "reward_items": [],
+       "reward_hunter_items": false,
+       "reward_hunter_items_ids": []
+      },
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "D0gtI5dOgj2dFO4VexsLJ"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "ixEKlJ0MmDrX7JoMNJVhi"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ]
+     }
+    }
+   },
+   "targetId": "UGHSuhi83C3wRtH3FD4Eu"
+  },
+  {
+   "entity": "quest",
+   "slot": "create",
+   "name": "The Rotted Reliquary",
+   "data": {
+    "name": "The Rotted Reliquary",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 2,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 2
+       },
+       {
+        "ids": [
+         "Ma8S90Nmbi0Xvm4u4FzJh"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "B48dTRsoLJGKBWIUbeUoG"
+        ],
+        "number": 100,
+        "quantity": 2
+       }
+      ]
+     }
+    }
+   },
+   "srcId": "rotted"
+  },
+  {
+   "entity": "quest",
+   "slot": "create",
+   "name": "The Low Tide Run",
+   "data": {
+    "name": "The Low Tide Run",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "ixEKlJ0MmDrX7JoMNJVhi"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ]
+     }
+    }
+   },
+   "srcId": "low_tide"
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Captain's Watch",
+   "data": {
+    "name": "The Captain's Watch",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 1000000
+     }
+    }
+   },
+   "targetId": "liljq0yVXWTSna4X6dZE1"
+  },
+  {
+   "entity": "quest",
+   "slot": "create",
+   "name": "Crownhold",
+   "data": {
+    "name": "Crownhold",
+    "description": "Lose a fight and the run is over.",
+    "hidden": true,
+    "content": {
+     "objectives": [
+      {
+       "id": "w",
+       "task": "win_quest",
+       "description": "You carry the last pour out.",
+       "reward_exp": 5000,
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ]
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 3
+       },
+       {
+        "ids": [
+         "ayiRmSjWs05lMPyL3G-1d"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ],
+      "reward_jutsus": [
+       "0F-68bxOXW_LkJnXV0lwT"
+      ]
+     }
+    }
+   },
+   "srcId": "crownhold"
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "THo7rfzP-S82_43aN8fs3",
+   "name": "Skyglass Coffer: text",
+   "data": {
+    "description": "<i>A sealed coffer from the Core's own stores.</i><br><br><b>Each roll:</b><br><span style=\"color:#9ca3af\"><b>Common 69%</b></span> · Medicine Inro ×2<br><span style=\"color:#3b82f6\"><b>Rare 24%</b></span> · Elemental Tool Pouch ×3<br><span style=\"color:#a855f7\"><b>Epic 5%</b></span> · Archive Chart Case<br><span style=\"color:#f59e0b\"><b>Legendary 2%</b></span> · Sealed Treasury",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "description": "One roll",
+      "rewardMode": "weightedCache",
+      "reward_items": [],
+      "reward_money": 0,
+      "weightedCache": {
+       "version": 1,
+       "displayName": "x",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 6900,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
+             "quantity": 2
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2400,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "D0gtI5dOgj2dFO4VexsLJ",
+             "quantity": 3
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "B48dTRsoLJGKBWIUbeUoG",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 200,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "Ma8S90Nmbi0Xvm4u4FzJh",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "Ma8S90Nmbi0Xvm4u4FzJh",
+   "name": "Sealed Treasury: text",
+   "data": {
+    "description": "<i>Crownhold's own coffers.</i><br><br><b>Always:</b> 150,000 ryo<br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style=\"color:#9ca3af\"><b>Common 45%</b></span> · Medicine Inro <i>or</i> Elemental Tool Pouch <i>or</i> Archive Chart Case and more<br><span style=\"color:#3b82f6\"><b>Rare 35%</b></span> · Medicine Inro ×2 or Elemental Tool Pouch ×2<br><span style=\"color:#a855f7\"><b>Epic 15%</b></span> · Archive Chart Case ×5 <i>or</i> Skyglass Coffer + Medicine Inro<br><span style=\"color:#f59e0b\"><b>Legendary 5%</b></span> · Skyglass Coffer ×5",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "rewardMode": "standard",
+      "reward_money": 150000,
+      "reward_items": []
+     },
+     {
+      "type": "noncombatconsumereward",
+      "description": "One roll",
+      "rewardMode": "weightedCache",
+      "reward_items": [],
+      "reward_money": 0,
+      "weightedCache": {
+       "version": 1,
+       "displayName": "x",
+       "rolls": [
+        {
+         "count": 3,
+         "probability": 6000
+        },
+        {
+         "count": 4,
+         "probability": 3000
+        },
+        {
+         "count": 6,
+         "probability": 1000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 4500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
+             "quantity": 1
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "D0gtI5dOgj2dFO4VexsLJ",
+             "quantity": 1
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "B48dTRsoLJGKBWIUbeUoG",
+             "quantity": 1
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 3500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
+             "quantity": 2
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "D0gtI5dOgj2dFO4VexsLJ",
+             "quantity": 2
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 1500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "B48dTRsoLJGKBWIUbeUoG",
+             "quantity": 5
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 1
+            },
+            {
+             "itemId": "ixEKlJ0MmDrX7JoMNJVhi",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "THo7rfzP-S82_43aN8fs3",
+             "quantity": 5
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "B48dTRsoLJGKBWIUbeUoG",
+   "name": "Archive Chart Case: text (Forbidden tier)",
+   "data": {
+    "description": "<i>A sealed chart case from the Quarantined Archive.</i><br><br><b>Each roll:</b><br><span style=\"color:#9ca3af\"><b>Common 45%</b></span> · Chart of the Drowned Foundry<br><span style=\"color:#3b82f6\"><b>Rare 25%</b></span> · Chart of the Quarantined Archive<br><span style=\"color:#a855f7\"><b>Epic 20%</b></span> · Chart of the Captain's Watch<br><span style=\"color:#f59e0b\"><b>Legendary 7%</b></span> · Chart of the Buried Cache<br><span style=\"color:#ef4444\"><b>Forbidden 3%</b></span> · Lastlight Lantern",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "description": "One roll",
+      "rewardMode": "weightedCache",
+      "reward_items": [],
+      "reward_money": 0,
+      "weightedCache": {
+       "version": 1,
+       "displayName": "x",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 4500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "pY-0O5Gs2n89pf0kYb5J2",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "cRZT41zm5vhPTQwwn8vtv",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 2000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "aHFNuo5RkKpDcaOBLIKiu",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 700,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "nbLC37UzBamthKXvZsgQB",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Forbidden",
+         "probability": 300,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "jCJv4N3JSiihuqnK0jJ7t",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "nbLC37UzBamthKXvZsgQB",
+   "name": "Buried Cache chart rarity",
+   "data": {
+    "rarity": "RARE"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "jCJv4N3JSiihuqnK0jJ7t",
+   "name": "Lastlight Lantern rarity",
+   "data": {
+    "rarity": "LEGENDARY"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "M-0CPw9yBmmreLvJU6gav",
+   "name": "Rare Hunter's Chest",
+   "data": {
+    "rarity": "RARE",
+    "canBeHunted": false,
+    "canBeGathered": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "3BYr-HMkOepywS77vJvJh",
+   "name": "Armory Requisition: hide",
+   "data": {
+    "hidden": true
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "j1",
+   "name": "Lastlight text",
+   "data": {
+    "description": "Crownhold's last signal, loosed as a line of pale fire.",
+    "battleDescription": "%user looses the Lastlight at %target."
+   }
+  }
+ ]
+}

@@ -1,6 +1,7 @@
 import { AI_OMITTED } from "./validate.mjs";
 import { dungeonName, mergeDungeon } from "../dungeon/validate.mjs";
 import { petSpeciesPayload } from "./pets.mjs";
+import { variantInput, mergeVariant, readVariant } from "./variants.mjs";
 // Per-entity write recipes. Every path and input shape below was read at source
 // (studie-tech/TheNinjaRPG@345d18ac, app/src/server/api/routers/*), not from the old bundle.
 //
@@ -83,6 +84,15 @@ export const RECIPES = Object.freeze({
   // with no input, answering the id in message; update {id, data} saves the whole record.
   badge: catalogRecipe("badge", "Badge"),
   title: catalogRecipe("title", "Title"),
+  // routers/item.ts at 3314d122 (src/runner/variants.mjs): one mutation creates (no variant.id) and
+  // replaces (with it); the create answers no id. A variant is read from its item's list by itemId,
+  // so `read` replaces the {id} point read and names are not listed (they are not unique).
+  itemVariant: {
+    create: { path: "item.upsertItemVariant", input: (d) => variantInput(d) }, oneStep: true,
+    get: "item.getItemVariants", update: "item.upsertItemVariant", read: readVariant,
+    updateInput: (id, payload) => variantInput(payload, id),
+    idKey: "id", nameKey: "name", cacheEntity: "item",
+  },
   aiProfile: {
     // update-only. targetId is the AI's userId. Rules live on a separate row reached through
     // profile.getAi().aiProfileId; ai.toggleAiProfile {aiId} creates that row when missing.
@@ -122,6 +132,7 @@ export function recipe(entity) {
 export function mergeForUpdate(entity, live, data, fields) {
   if (entity === "ai") return mergeAi(live, data);
   if (entity === "dungeon") return mergeDungeon(live, data);
+  if (entity === "itemVariant") return mergeVariant(live, data, fields);
   const src = { ...(live ?? {}), ...data };
   if (!fields) return src;
   const out = {};

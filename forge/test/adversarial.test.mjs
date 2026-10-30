@@ -567,7 +567,7 @@ test("validate: the pinned ItemValidator's farm* keys and quest.requiredFarmingL
   const payload = mergeForUpdate("item", live, { name: "New" }, v.knownFields("item"));
   assert.equal(payload.farmYieldItemId, "y", "ItemValidator requires farmYieldItemId; stripping it would fail every item update");
   assert.equal(payload.farmGrowTimeSeconds, 120); assert.equal(payload.name, "New");
-  assert.equal(SCHEMAS._provenance.pin, "2af4b32066c39e2868efae5dba6b339278701dca");
+  assert.equal(SCHEMAS._provenance.pin, "3314d122c93e036618483d18229a793ad7ad21fd");
 });
 
 test("re-pin 94f9d84: fetch-merge keeps every post-345d18ac jutsu and item column instead of resetting it", () => {
@@ -1048,7 +1048,7 @@ test("F3: an unknown AI key is refused BEFORE the placeholder is created", async
   const v = new Validator(SCHEMAS);
   assert.match(v.problems("ai", { username: "X", usernmae: "typo" }, null, { preCreate: true }).join(";"), /unknown key "usernmae"/);
   assert.deepEqual(v.problems("ai", { username: "X", level: 3, avatar: "u", jutsus: [], items: [], rules: [], includeDefaultRules: false }, null, { preCreate: true }), []);
-  assert.equal(v.knownFields("ai").size, 189); // insertAiSchema at 6524d0f/85cecae (post-0056; +pet/title columns, -customTitle)
+  assert.equal(v.knownFields("ai").size, 188); // insertAiSchema at 6524d0f/85cecae (post-0056; +pet/title columns, -customTitle); 3314d122 drops avatar3d
   for (const k of ["username", "level", "avatar", "isAi", "jutsus", "items"]) assert.ok(v.knownFields("ai").has(k), k);
   for (const k of ["questData", "occupation", "deletionAt"]) assert.ok(!v.knownFields("ai").has(k), k + " is omitted by insertAiSchema");
   const h = harness();

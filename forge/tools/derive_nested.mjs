@@ -22,7 +22,7 @@ import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.argv[2];
-const PIN = process.argv[3] || "2af4b32066c39e2868efae5dba6b339278701dca";
+const PIN = process.argv[3] || "3314d122c93e036618483d18229a793ad7ad21fd";
 const FILES = {
   combat: "app/src/validators/combat.ts",
   objectives: "app/src/validators/objectives.ts",
@@ -300,6 +300,20 @@ function inlineFamily(name, field) {
 }
 
 /**
+ * The keys `NAME = BASE.and(z.object({...}))` adds to every member of BASE. Anything else - another
+ * base, a spread, a second .and(), a named object - is refused, so a reshaped intersection stops here.
+ */
+function intersectionKeys(name, base) {
+  const m = new RegExp(`const\\s+${name}\\s*=\\s*${base}\\s*\\.\\s*and\\(\\s*z\\s*\\.\\s*object\\(\\s*\\{`).exec(ALL);
+  if (!m) throw new Error(`${name} is not ${base}.and(z.object({...}))`);
+  const body = balanced(ALL, m.index + m[0].length);
+  const { keys, spreads } = shallow(body);
+  const rest = ALL.slice(m.index + m[0].length + body.length + 1).match(/^\s*\)\s*,?\s*\)\s*([;.])/);
+  if (spreads.length || !keys.length || !rest || rest[1] !== ";") throw new Error(`${name}: one plain z.object of keys expected`);
+  return keys.sort();
+}
+
+/**
  * QuestValidatorRawSchema.content: its top-level keys (spread groups resolved, source order) and
  * the schema name its `reward` field references. Read from source, not hand-kept: a key missing
  * here is refused by Forge and reset to its default by the server on every shallow content merge.
@@ -336,6 +350,9 @@ const derived = {
   // title.effects: TitleValidator.effects is z.array(TitleEffectSchema), inline strict members. Pins
   // before validators/title.ts derive unchanged; Forge then refuses title effects (fail closed).
   ...(/const\s+TitleEffectSchema\s*=/.test(ALL) ? { titleEffects: inlineFamily("TitleEffectSchema", "type") } : {}),
+  // PetSpeciesValidator.effects is z.array(PetSpeciesEffect) = AllTags.and(z.object({skillTarget})) at
+  // 3314d122: every tag's keys plus these. Pins before it derive unchanged (skillTarget on the species).
+  ...(/const\s+PetSpeciesEffect\s*=/.test(ALL) ? { petSpeciesEffect: intersectionKeys("PetSpeciesEffect", "AllTags") } : {}),
 };
 
 for (const [k, v] of Object.entries(derived)) {
