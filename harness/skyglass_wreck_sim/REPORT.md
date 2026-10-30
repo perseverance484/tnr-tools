@@ -1,3 +1,201 @@
+# Skyglass offline simulation
+
+## Final pass (2026-10-30, `fable/skyglass-final-sim`): current
+
+This section supersedes the per-harness reports (`REPORT_hunts.md`, `REPORT_charts.md`, `REPORT_crowned_captain.md`,
+the Haul section of `README.md` and report 2 below) wherever they differ.
+
+**Sources:**
+- Merged branches: `origin/main` 87c96edd (rulings to RUL-2026-10-29-058), Wreck ce25fac8, hunts aac4a221, Crownhold
+  035212ef, Haul b973ff28, charts f7694676.
+- Engine: pin `c86f43f4`, live damage settings.
+- Zero live requests, no credentials.
+- Tables: `python3 tools/final_tables.py`. Raw: `results/final_*.json`.
+- Player: L100 Kitsune JONIN + one modelled pet, dodge on/off. L50 for the level-50 Wreck and the commons.
+- Every runner's output carries a `fallbackGuard` block: set-piece casts, and how many were cast without their marker.
+
+### 1. Library-wide fallback fix (RUL-2026-10-29-046)
+
+**Code:**
+- `engine/fallback.ts`: `fixFallback`, the static per-phase audit `--audit-fallback`, the runtime guard, and
+  `--no-fallback-fix` for the before case.
+- Shared kits (`engine/kits.ts`, rebuilt `overrides/kits_*.json`): the last rule is the named basic attack.
+- Profiles built from live rules (Haul guards, chart copies, the live Arsenal Keeper):
+  - every `use_highest_power_*`, `use_random_jutsu` or `use_combo_action` damage rule becomes the basic attack;
+  - `includeDefaultRules` is off, and the engine backup rules are restated without their highest-power rows.
+
+**Static audit** (`results/final_fallback_audit.json`): enemies with a rule that can cast a set piece or blast
+unmarked, before → after.
+
+| Set | Before → after |
+|---|---|
+| Wreck endgame | 3/9 → **0** |
+| Wreck L50 | 3/8 → **0** |
+| Rare charts | 5/12 → **0** |
+| Other charts | 13/30 → **0** |
+| Haul | 11/15 → **0** |
+| Crownhold | 0/21 → 0 |
+
+No last rule is a free pick any more.
+
+**Runtime:** 0 unmarked of about 11,300 set-piece casts across all final runs.
+
+**Not changed (flagged).** These end on an end of turn with no basic attack: the immobile fuses and hazards, the Core
+Horror, the Foundry Warden, Replicant Zero, the Steeping Horror, and every Crownhold record (push/272 rules end "move
+→ end turn"). None has a free pick. Adding a basic attack would change tuned fights.
+
+### 2-3. Wreck and the Captain's Watch with the fix
+
+**Wreck:**
+- **Endgame** (60 runs, pets, dodge): 60/60 cleared, **16.7%** runs with a wipe, **22.3 min** median (24.1 with AI
+  animation). The boss wave wipes 10 of 70.
+- **Level 50:** **10%** runs with a wipe, 18.5 min.
+- **Dodge off:** endgame 0/30 (unchanged); L50 46.7% runs with a wipe.
+
+**Captain's Watch** (40 seeds; shared Captain record with Steady the Helm and the basic-attack fallback):
+- **No terms: 97.5% clear.**
+- **Phase 2:** median **7 rounds** (p90 11). Phase 1: median 8.
+- Reaches phase 2 in 97.5% of fights.
+- With the Captain's term: 65-90%.
+- Dodge off: 0%.
+- **Transition order:** `results/final_audit_captain_endgame.json`.
+
+### 4. Rare charts (40 seeds, dodge on)
+
+| Run | Clear |
+|---|---|
+| Buried Cache | **95%** (boss ~16% HP) |
+| Foundry | **75%** |
+| Archive, clean | **95%** |
+| Archive, alarm 1 | **78%** |
+| Archive, alarm 3 | **30%** |
+| Watch | **97.5%** |
+
+The Archive's Stonebound summon runs at 40% power (`echoPower` 40) with its own enemies-only Erupting Ground copy
+`hunt-stonebound-erupting-ground`. The shared live jutsu is untouched (RUL-2026-10-28-026 items 2-3).
+
+### 5. Common, Epic and Legendary charts
+
+L100, 40 seeds, dodge on. Dodge off at 30 seeds in brackets.
+
+| Run | Clear (dodge off) | Press-on won / reached | Base minutes |
+|---|---|---|---|
+| Low Tide | 100% (100%) | 40/40 | 2 |
+| Night Watch | 100% (100%) | 40/40 | 2 |
+| Sealed Reliquary | **92.5%** (40%) | 35/37 | 9 |
+| The Fall | **85%** (0%) | 17/34 | 7 |
+| Rotted Reliquary | **55%** (20%) | 8/22 | 5.9 |
+| Burning Heading | **47.5%** (0%) | 19/19 | 6 |
+| Steeping fight | **77.5%** (0%) | n/a | 2.3 |
+
+At L50 (dodge on / off): Low Tide 100% / 100%, press-on 40/40 / 39/40; Night Watch 100% / 97.5%, press-on 36/40 /
+16/39.
+
+**The Fall: the Arsenal Keeper is the only fire source** (RUL-2026-10-29-057 item 5). The "Burning Deck" hazard is
+removed.
+- `chart-arsenal-keeper` is a copy of the live Keeper: his live kit with the fallback fix, immobile, pools 4.
+- **30% innate damage reduction** (new).
+- Three ember bands (drain 5% max HP per action) at rounds 1, 4 and 7, in the powder-magazine fight.
+- He dies in a median round 16, after about 7 ember hits (~35% HP).
+- Without his fire, the Fall is 100%.
+- Damage reduction sweep (20 seeds): 0 → 95%, 20-25 → 90%, 30 → 75%. At 40 seeds, 30 gives 85%.
+
+**Burning Heading made harder** (~68% → target ~55%).
+- With the fire gone from its opening Core Horror fight, the old copy (pools 5.5, 2 rows) cleared 100%.
+- At 2 rows the duel is a deterministic race: pools 6 gives 0%, and 5.75 is not storable.
+- Adopted: **pools 5.5, 3 rows, 65% damage given down → 47.5%**.
+- At 40 seeds: 60% → 35%, 70% → 72.5%, 80% → 100%.
+- Sweeps: `results/final_charts_sweeps.json`.
+- The no-dodge file ran the 60% build.
+
+**Steeping** (RUL-2026-10-29-055): one Steeping Horror fight, scaled to the player, at full pools. **77.5%**.
+
+**Crownhold with heal top-ups** (16 chains per route, pet, reads 0.85; Healing full, clean +35%, War +20% with whole-
+fight War Rite, alarm +15%):
+
+| Route | Clear | Where runs end |
+|---|---|---|
+| Healing | **93.8%** | |
+| Clean | **56.3%** | the Crowned Captain |
+| Alarm | **37.5%** | the Crowned Captain |
+| War | **6.3%** | the D4/D5 fourth regulars, before the top-up |
+
+**Press-on verdicts** (keep only if a player would notice it gone, RUL-2026-10-28-026 item 10):
+
+| Run | Room | Won / reached | Verdict |
+|---|---|---|---|
+| Low Tide | proposed room | 100% everywhere | **cut** |
+| Night Watch | the Second Watch | L50 90%, L50 no dodge 41% | **keep** |
+| Archive | probe: Crown Archivist + Seal Charge | 92%, ~27% HP | **cut** (or harden) |
+| Watch | probe: Wayfinder + Deck Warden | 87% from ~22% HP | **keep** |
+| Sealed Reliquary | First Blade echo | 95% | **cut** (or harden) |
+| The Fall | the Captain | 50% | **keep** |
+| Rotted Reliquary | Replicant Zero | 36% | **keep** |
+| Burning Heading | First Blade | 100%, ~0 HP | **cut** |
+
+### 6. The Haul, no steeping (RUL-2026-10-29-056)
+
+`results/final_haul_exact_dodge.json`: exact runs, 40 seeds, after the fallback fix.
+
+| Page | Sensible CLC: clear / EV M | Greedy clears (LLLCC / CLLLC) | Best named route vs sensible |
+|---|---|---|---|
+| Trophy Hold | 95% / 7.98 | 30% / 25% | CCCCC **122%** |
+| Bone Store | 90% / 7.56 | 25% / n/a | CCCCC 109% |
+| Snare Room | 80% / 8.24 | 27.5% / 30% | LCC 109% |
+| Overgrown Stores | 92.5% / 7.49 | 37.5% / 30% | LLLCC 105% |
+| Ore Vault | 70% / 7.35 | 17.5% / 32.5% | CCCCC 110% |
+| Bloom Cellar | 92.5% / 7.49 | 32.5% / 30% | sensible is best |
+
+- Sensible mean **7.69M**.
+- The Trophy Hold's deep crates got easier: its guards lost their free picks, and CCCCC now clears 80% (70% before).
+
+### 7. Economy: dedicated player, 12-hour weekend
+
+Built by `tools/economy.py` from `results/final_economy_inputs.json`. Output: `results/final_economy.json`.
+- Loot tables §2-§5d.
+- Players press on half the time, and every Epic chart is steeped while Rot allows.
+- Picks are spread evenly over the non-token cards; "typical" takes the token on half of the picks that offer it.
+
+**Typical weekend:**
+- **23.3 Wreck clears** (30.9-minute cycle with their charts).
+- Chart runs: 8.7 Common, 15.2 Rare, 0.07 Epic (the rest are steeped), 1.56 tainted, 0.99 Crownhold.
+- **1.26 Haul runs.**
+- Core Rot: 5.9 gained, all spent on about 2 steeps.
+- **Skyglass Tokens 3.0**, from 5.1 opportunities. A player who always takes the token gets **5.5**; one who never
+  does, 0.08.
+- Boss-variant tokens (1 / 2 / 4%): **0.15**.
+- Without steeping: 1.54 Epic runs, 3.5 tokens.
+
+**Haul pages:** for 1.5 runs a weekend, use **Wreck 2.4% / Rare-chart endings 1.5% per page** (both ×1.19), or the
+Wreck alone at 2.5%.
+
+**Not modelled:** breaking the Archive seal (Rot ×2), and the once-per-player Wreck drops.
+
+### 8. Hit / miss and recommended fixes
+
+| Item | Target | Measured | Verdict | Fix |
+|---|---|---|---|---|
+| Fallback fix | 0 unmarked | 0 violations, 0 of ~11,300 casts | hit | optional: basic attack before end turn on bosses and Crownhold |
+| Endgame Wreck | ~22 min, ~17% | 22.3 min, 16.7% | hit | none |
+| L50 Wreck | ~10% | 10% | hit | none |
+| Watch phase 2 | ≥6-7 rounds | 7 (p90 11) | hit | none |
+| Watch clear | ~80% | 97.5% | over | Captain pools 2.5 → 3, or drop givenDown 10 |
+| Buried Cache | boss ~20% HP | ~16% | hit | none |
+| Foundry | ~80% | 75% | hit | none |
+| Archive routes | clean > alarm | 95 / 78 / 30% | hit | none |
+| Sealed Reliquary | ~80% | 92.5% | over | Sealwright copy rows 1 → 2 |
+| The Fall | ~80% | 85% | hit | Keeper 30% DR adopted |
+| Rotted Reliquary | ~55% | 55% | hit | none |
+| Burning Heading | ~55% | 47.5% | hit (40-seed noise ±15) | adopted 3 rows + 65% |
+| Steeping | ~75% | 77.5% | hit | none |
+| Crownhold | all routes clear | War 6.3% | miss | War Rite top-up at D4 and D5, or no fourth regular on the War route |
+| Haul sensible / greedy | ~7.5M / 22-38% | 7.69M / 25-37.5% | hit | none |
+| Haul max path | ≤ ~120% | Trophy CCCCC 122% | marginal | Trophy step-5 crate points 5.4 → ~4.6 |
+| Haul per weekend | ~1.5 | 1.26 | miss | Wreck 2.4%, Rare endings 1.5% per page |
+| Tokens | 2-3 / ~5 | 3.0 / 5.5 | hit | none |
+
+---
+
 # Skyglass Wreck offline simulation: report 2 (2026-10-28)
 
 All fights are engine-native and offline: the game source at origin/main `c86f43f4`, an exported copy, battles in memory.
