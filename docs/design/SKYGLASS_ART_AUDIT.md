@@ -420,7 +420,7 @@ tables §5b). The species record has no image field (`fable/pet-species-builder`
 | Asset | Status | Note |
 |---|---|---|
 | `artDirection` text | EXISTS (text) | `SKYGLASS_PETS.md`: "small, oddly cute rot-and-skyglass creature, the Core's bad copy of the ship's mascot" |
-| `rankConcepts` (10 entries) | **NEEDS TEXT** | the doc gives a two-point arc ("oddly loyal blob with one tooth too many → towering skyglass rot-beast, still loyal"); ten concepts must be written. Writing work, not an art session |
+| `rankConcepts` (10 entries) | **NEEDS TEXT** | the doc gives a two-point arc ("oddly loyal blob with one tooth too many → towering skyglass rot-beast, still loyal"); ten concepts must be written. Writing work, not an art session. **Claude drafts them; text pending the director's approval** (RUL-2026-10-30-063 item 4) |
 | The Little Horror's Jar icon | NEEDS ART | D3 |
 | Little Maw jutsu icon | NEEDS ART | F |
 | Little Maw animation | reuse `anim_maw_v1.webp` | H2 (upload once, shared) |

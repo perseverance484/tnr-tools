@@ -4762,3 +4762,40 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-30, answers 1-4; the final pass at `d5957e79` (`overrides/charts.params.json` `_final_pass`).
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` §8 (item 1); `docs/design/SKYGLASS_TEXT.md` §2.8a (item 2); `docs/design/SKYGLASS_LOOT_TABLES.md` §4a (item 3, already so).
+
+## RUL-2026-10-30-063 — Skyglass go-live split; Haul fit accepted; distinct library jutsu names; Little Horror concepts; Crownbreaker badge
+
+**Date:** 2026-10-30
+
+**Domain:** Skyglass event / build, rewards and text
+
+**Status:** ACTIVE. Item 3's names are proposals; the director may rename. Item 4's rankConcepts are not yet drafted.
+
+**Ruling:**
+1. **The live-run edits leave push/329 for a final "go-live" manifest, push/331**, which runs only after everything else in the event exists.
+   - **push/329 holds only hidden records and edits players cannot reach:** the Last Directive and Countermand texts (hidden Crownhold exclusives), the 22 new items (all hidden), the kits back on (closes push/319) and Crownhold (created hidden). It also keeps **the 19 variants**, which have no hidden state: each shows on its base weapon as "Need <token>" from the 329 run, while the tokens stay hidden.
+   - **push/331 (go-live) holds everything that changes what live players can obtain or see:**
+     - the four live chart runs re-sent whole (the Buried Cache, the Drowned Foundry, the Quarantined Archive and the Captain's Watch): the new picks, chart-ladder drops, Haul page drops, boss token drops, the new text and the Watch's dawn-watch press-on room;
+     - all 20 edits to existing items: the four Rare charts' text and tier, the Lastlight Lantern, the Skyglass Coffer, the Sealed Treasury, the Archive Chart Case, the Medicine Inro, the Sage's Strongbox, the Elemental Tool Pouch, Unmarked Cargo and the 8 profession chests. Every one of them is reachable live, and their new text or contents name items that are not yet obtainable.
+   - push/331 names 329's new items, so it is built from push/329's results bundle with literal ids (`push/skyglass_update.gen.py --golive <bundle>`), as push/330 is. Its preconditions are in `push/README.md`.
+   - push/319 → 328 → 329 still run back to back: 319 strips the kits and 329 restores them.
+2. **The Haul fit is accepted as recorded** in `SKYGLASS_THE_HAUL.md` "Payout points":
+   - the Ore Vault's CCCL at 124% is accepted;
+   - greedy routes now pay about 2.1×;
+   - the Trophy Hold's best greedy route clears about 13%.
+3. **Every jutsu in the set-piece library gets a distinct name** (jutsu names must be unique).
+   - Players learn where to move from the move name, so each name hints at its shape (ring, rows, scatter, lines, cross, lights, planks, line) in the event's Edo and skyglass voice.
+   - The names were proposed by Claude and written into `SKYGLASS_TEXT.md` §6.4 as canonical. The director may rename them.
+   - The Archive's Skyglass-only copy of Erupting Ground also needs a new name, because it shares the live jutsu's name. The proposed name is "Echo of Erupting Ground".
+4. **Two further decisions:**
+   - **Claude drafts the Little Horror's 10 rankConcepts.** The text is pending the director's approval and is not yet written.
+   - **The director creates the Crownbreaker badge by hand before push/329 runs.**
+
+**Not decided (open to the director; placeholders unchanged):**
+- **Tradeability of Core Rot and Galley Stores.** Placeholder: untradeable (`push/skyglass_items.gen.py` `pet_and_rot`).
+- **The Captain's Watch press-on payout: +1 ladder step or +20% Last Heading.** Placeholder: both. A won room pays one ladder step more (VI at most) **and** the Last Heading at 45% instead of 25% (`push/skyglass_update.gen.py` `watch`, `NEXT_STEP`).
+- **Crownhold's chart line.** Placeholder: two separate 25% drops, the Reliquary Seal and the Last Heading. The loot tables read "one of the two Epic charts 50%" (`push/skyglass_update.gen.py` `crownhold`).
+
+**Evidence:** Director, 2026-10-30: the four decisions above, relayed for this session.
+
+**Canonical destination:** `push/README.md` and `push/skyglass_update.gen.py` (item 1); `docs/design/SKYGLASS_THE_HAUL.md` (item 2); `docs/design/SKYGLASS_TEXT.md` §6.4 (item 3); `docs/design/SKYGLASS_ART_AUDIT.md` pet row (item 4, rankConcepts; the text joins the species record when approved); `push/README.md` 329 preconditions (item 4, badge).

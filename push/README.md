@@ -1142,7 +1142,7 @@ archived unrun. Built by `push/233_ethereal_rebirth_animation_v2.gen.py`, strip 
 it. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **Run 233, then 231.**
 
 
-## 319, 328, 329, 330 Skyglass / Crownhold update (HIDDEN, placeholder art): 319 / 328 / 329 READY TO RUN in that order; 330 built from 329's results
+## 319, 328, 329, 330, 331 Skyglass / Crownhold update (HIDDEN, placeholder art): 319 / 328 / 329 READY TO RUN in that order; 330 built from 329's results; 331 GO-LIVE: DO NOT RUN until the event's remaining manifests have run
 
 Plan (RUL-2026-10-30-059): everything ships hidden with the engine-default placeholder image wherever art is still
 pending; a separate visual-asset push swaps the real art in afterwards (image-only edits plus uploads, in the art audit's
@@ -1166,44 +1166,77 @@ so the update is split. **Run on one Forge install, in this order, and export th
      by `python3 scripts/validate_exception.py state/validate_exceptions/328_skyglass_core_rupture.json` (exit 0; the
      ledger moved here from 319). `check_manifest.mjs` 0 problems. Regenerate and `--write` the ledger whenever 328 changes.
    - After it runs: read back the jutsu's method, range and pierce power.
-3. **`329_skyglass_items_and_quests.json`** (71 items, by phase):
-   - Phase 1: the Last Directive and Countermand texts; **22 item creates** (Tide Chart, Watch Roster, Reliquary Seal, The
-     Last Heading, Rotted Reliquary Seal, The Rotted Heading; the 6 Haul pages; Core Rot; Galley Stores; the Skyglass
-     Token; the 7 boss variant tokens); **20 item edits** (the four Rare chart texts and tiers, the Lantern; the Coffer,
-     Sealed Treasury 150,000 ryo + 3-6 rolls, Archive Chart Case 45/25/20/7/3, Medicine Inro, Sage's Strongbox, Elemental
-     Tool Pouch, Unmarked Cargo 40/35/18/7; the 8 profession chests with Common/Rare/Epic/Legendary tiers). Every chest
-     description is rendered from its cache table and equals SKYGLASS_TEXT.md section 4.
+3. **`329_skyglass_items_and_quests.json`** (47 items, by phase). **Hidden records only** (RUL-2026-10-30-063 item 1):
+   nothing in it changes what live players can obtain or see, except the variants (below).
+   - Phase 1: the Last Directive and Countermand texts (hidden Crownhold exclusives); **22 item creates, all HIDDEN**
+     (Tide Chart, Watch Roster, Reliquary Seal, The Last Heading, Rotted Reliquary Seal, The Rotted Heading; the 6 Haul
+     pages; Core Rot; Galley Stores; the Skyglass Token; the 7 boss variant tokens).
    - Phase 2: the **19 variants** (12 Skyglass on `requiredItemId` Skyglass Token, 7 boss variants each on its own token;
      cost 1 token, placeholder image). **Variants have no hidden state:** from this run each one shows in its base weapon's
-     Variants list as "Need <token>" (the tokens themselves are hidden and unobtainable until publishing). Orders: next free
-     after the live token variants (push/326); a non-token variant Forge has not read can still hold an order, and then
-     Forge refuses that variant before sending.
-   - Phase 4: kits back on (Core Rupture on both hazards; the Crowned Captain's exclusives).
-   - Phase 5: the Buried Cache, Drowned Foundry, Quarantined Archive and Captain's Watch re-sent whole: section 4a picks;
-     chart ladder drops (Foundry chart 15%, Archive chart 10%, Reliquary Seal 25%, Last Heading 25% / 45% after the press-on
-     room, tainted chart 1%); Haul pages 1.5% each on every Rare-chart ending; boss variant tokens 1% (Foundry Warden,
-     Sealwright, Wayfinder); stakes headers and closing lines (text doc 2.8, 6.1, 6.2) and the Buried Cache note fix
-     (section 8); the Captain's Watch dawn-watch press-on room (2.8a: Deck Warden + Wayfinder; a won room pays one ladder
-     step more, VI at most; a lost room keeps the step's ending). **Crownhold** created: pick Skyglass Coffer x3 /
-     Lastlight / Crown Fragment, Treasury 6%, an Epic chart 25% each.
-   - The retired Armory Requisition (item and quest) is not edited: both are already hidden live (push/274), and the
-     Unmarked Cargo edit drops it from the chest of chests.
-   - Placeholders: `_placeholders` in the manifest lists all 41 records carrying the engine-default image.
+     Variants list as "Need <token>", with its name and description (the tokens themselves are hidden and unobtainable
+     until go-live). Orders: next free after the live token variants (push/326); a non-token variant Forge has not read
+     can still hold an order, and then Forge refuses that variant before sending.
+   - Phase 4: kits back on (Core Rupture on both hazards; the Crowned Captain's exclusives). This closes push/319, so
+     319 → 328 → 329 still run back to back.
+   - Phase 5: **Crownhold** created HIDDEN: pick Skyglass Coffer x3 / Lastlight / Crown Fragment, Treasury 6%, the two
+     Epic charts 25% each (placeholder, open question below).
+   - The 20 item edits and the four live chart runs' re-sends that used to be here are now **push/331 (go-live)**, below.
+   - The retired Armory Requisition (item and quest) is not edited: both are already hidden live (push/274); the Unmarked
+     Cargo edit in push/331 drops it from the chest of chests.
+   - Placeholders: `_placeholders` in the manifest lists the records carrying the engine-default image.
    - Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems; `skyglass_check.py`
-     0 errors (13 WARN, all expected: same-manifest @item refs have no name yet; Galley Stores, the Skyglass Token, Crown's
-     Hoard and the Crownbreaker badge are pending in the design data until their ids exist).
-   - **Before it runs (preferred):** create the Crownbreaker badge by hand (image `art/crownhold/icon-badge-crownbreaker-v2.webp`),
-     put its id in `state/crownhold/ids.json` as `badge:crownbreaker`, regenerate, and re-run the gates: Crownhold's pick then
-     carries the badge. Otherwise a later Crownhold edit adds it. Crown's Hoard has no record yet and joins the same way.
-   - After it runs: put the new ids into `state/skyglass_design/design_data.json` (Galley Stores, Skyglass Token, the charts
-     and pages) so `skyglass_check.py` verifies them; read back every item edit's effects, the 19 variants per base item
-     (`item.getItemVariants`), and the four hunts' and Crownhold's rewards.
+     0 errors (2 WARN, both expected: Crown's Hoard and the Crownbreaker badge are pending in the design data until
+     their ids exist).
+   - **Before it runs:** the director creates the Crownbreaker badge by hand (RUL-2026-10-30-063 item 4; image
+     `art/crownhold/icon-badge-crownbreaker-v2.webp`). Put its id in `state/crownhold/ids.json` as `badge:crownbreaker`,
+     regenerate, and re-run the gates: Crownhold's pick then carries the badge. Crown's Hoard has no record yet and joins
+     the same way, or by a later Crownhold edit.
+   - After it runs: put the new ids into `state/skyglass_design/design_data.json` (Galley Stores, Skyglass Token, the
+     charts and pages) so `skyglass_check.py` verifies them; read back the 19 variants per base item
+     (`item.getItemVariants`) and Crownhold's rewards.
 4. **330 (token binds), built from 329's results:** `python3 push/skyglass_update.gen.py --binds <329 results bundle>` writes
    `330_skyglass_token_binds.json`: each boss token's `unlockitemvariant.variantId` set to its variant (pipeline 2.10 step 3;
    the edit needs literal ids, L01). Until it runs, the hidden boss tokens could unlock any token variant that has no
    required item.
+5. **331 GO-LIVE (RUL-2026-10-30-063 item 1): DO NOT RUN until the event's remaining manifests have run.** Built from
+   329's results: `python3 push/skyglass_update.gen.py --golive <329 results bundle>` writes `331_skyglass_go_live.json`
+   (24 items). It names 329's new items by literal id (L01; Forge's offline plan has no retained idmap), so it cannot be
+   written before 329 has run. The generator was exercised against a synthetic idmap in this session; that file was not
+   committed.
+   - Phase 1, **20 item edits** to existing, reachable items: the four Rare charts' text and tier (Buried Cache, Drowned
+     Foundry, Quarantined Archive, Captain's Watch); the Lastlight Lantern (text, Legendary); the Skyglass Coffer;
+     Sealed Treasury 150,000 ryo + 3-6 rolls; Archive Chart Case 45/25/20/7/3 (its Legendary and Forbidden tiers are the
+     Epic charts and the Lantern); Medicine Inro; Sage's Strongbox; Elemental Tool Pouch; Unmarked Cargo 40/35/18/7
+     (Galley Stores and the Skyglass Token); the 8 profession chests (Common/Rare/Epic/Legendary tiers). Every chest
+     description is rendered from its cache table and equals SKYGLASS_TEXT.md section 4.
+   - Phase 2, the **four live chart runs** re-sent whole: the Buried Cache, Drowned Foundry, Quarantined Archive and
+     Captain's Watch with the section 4a picks; chart ladder drops (Foundry chart 15%, Archive chart 10%, Reliquary Seal
+     25%, Last Heading 25% / 45% after the press-on room, tainted chart 1%); Haul pages 1.5% each on every Rare-chart
+     ending; boss variant tokens 1% (Foundry Warden, Sealwright, Wayfinder); stakes headers and closing lines (text doc
+     2.8, 6.1, 6.2) and the Buried Cache note fix (section 8); the Captain's Watch dawn-watch press-on room (2.8a: Deck
+     Warden + Wayfinder; a won room pays one ladder step more, VI at most; a lost room keeps the step's ending).
+   - **Preconditions, all of them:**
+     1. 319, 328, 329 and 330 have run and verified.
+     2. Every manifest still to build (list below) has run: every item 331 makes obtainable has its content (the Epic
+        charts their steeping quests and effect, the Haul pages their Haul quests, the Tide Chart and Watch Roster their
+        runs, Galley Stores its pet, and so on).
+     3. The open questions below are settled, and 331 is regenerated from the answers.
+     4. Publishing the event's hidden records is ready to happen with it. 331 makes the hidden items obtainable from live
+        runs and chests, and the hidden runs stay hidden until published.
+     5. 331 is regenerated right before the run (`--golive` with the 329 bundle), and its gates are re-run. If any later
+        manifest edits these records, regenerate it from the current generator.
+   - Gates (on the synthetic build): `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send
+     problems; `skyglass_check.py` 0 errors (11 WARN: the 329 items' ids are not yet in the design data).
+   - After it runs: read back every item edit's effects and the four runs' rewards.
 
-**Not in these four, still to build (each needs 329's ids, then its own generator):** the set-piece library and the AI
+**Open questions to the director (placeholders unchanged; RUL-2026-10-30-063):**
+- Core Rot and Galley Stores tradeability. Placeholder: both untradeable.
+- The Captain's Watch press-on payout: +1 ladder step, or +20% Last Heading. Placeholder: both (a won room pays one step
+  more and the Last Heading at 45%).
+- Crownhold's chart line. Placeholder: two separate 25% drops (Reliquary Seal, Last Heading), where the loot tables read
+  "one of the two Epic charts 50%".
+
+**Not in these five, still to build (each needs 329's ids, then its own generator; all run before 331):** the set-piece library and the AI
 copies (charts, Haul guards, the steeping Horror), the six new chart runs and the two steeping special quests (and the
 Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.json` on `fable/skyglass-haul-fit`
 `6ad2a102`), Walked Every Deck (needs every chart run's id), the Wreck dungeon's drops and floors and the easy Wreck, the
