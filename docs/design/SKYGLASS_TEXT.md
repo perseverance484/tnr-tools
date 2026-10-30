@@ -103,7 +103,7 @@ Word comes down the coast road: the Ghost Ship is down. It lies broken on the sa
 
 **`obj:Wreck Sighted/d_chart.description`**
 ```html
-It is a <b>Tide Chart</b>, marking where the low tide opens the wreck's lower hull.<br><br>The crew carry charts like this one, and the <b>Skyglass Wreck</b> gives them up. Each chart opens a treasure run in the <b>Battle Arena</b>, and is spent when the run starts.<br><br>Health and chakra carry from fight to fight, with no refills, and a lost fight ends the run. At the last landing you choose: leave with what you hold, or press on for more. Lose after pressing on and you keep only what you held.<br><br>Clear the Wreck for more charts, and better ones.
+It is a <b>Tide Chart</b>, marking where the low tide opens the wreck's lower hull.<br><br>The crew carry charts like this one, and the <b>Skyglass Wreck</b> gives them up. Each chart opens a treasure run in the <b>Battle Arena</b>, and is spent when the run starts.<br><br>Health and chakra carry from fight to fight, with no refills, and a lost fight ends the run. On some runs, at the last landing you choose: leave with what you hold, or press on for more. Lose after pressing on and you keep only what you held.<br><br>Clear the Wreck for more charts, and better ones.
 ```
 - `choice[0]`: `Take the chart`
 
@@ -127,15 +127,19 @@ Every run's quest description opens with the two-line stakes summary (RUL-2026-1
 harness shape (`charts_spec.json` `objectiveShape`): base fights `b1…`, the last-landing dialog `d_landing` with the
 leave / press-on choice, the press-on fight `b_press`, endings `w_leave` / `w_press`, and the fail ending `f_lost`.
 
+**Press-on rooms** (RUL-2026-10-30-060 item 6): kept on the Night Watch, the Captain's Watch, The Fall and the Rotted
+Reliquary. Cut from the Low Tide Run, the Quarantined Archive, the Sealed Reliquary and the Burning Heading. A run without a
+room has no `d_landing`, `b_press` or `w_press`: its last fight routes to a single win ending `w_done`, and the closing line
+from the old `d_landing` opens that ending.
+
 ### 2.1 The Low Tide Run (Tide Chart)
 
-Fights: breach (Deck Warden + Seal Charge), flooded hold (Arsenal Keeper), tide line (Skyglass Sentinel); press-on: the
-chart room (Wayfinder, proposed in the harness). Scaled to the player.
+Fights: breach (Deck Warden + Seal Charge), flooded hold (Arsenal Keeper), tide line (Skyglass Sentinel). No press-on room
+(cut, RUL-2026-10-30-060 item 6). Scaled to the player.
 
 **`quest:The Low Tide Run.description`**
 ```
 The chart is spent when the run starts. Health and chakra carry from fight to fight, and a lost fight ends the run.
-At the last landing, leave with what you hold or press on to the chart room; lose there and you keep only what you held.
 
 When the tide runs far enough out, it bares the wreck's lower hull. The Tide Chart marks where the planks have opened. Go in while the water is out, and be gone before it turns.
 ```
@@ -166,23 +170,9 @@ The Warden falls apart into sand and seal script, and the count goes with him.<b
 
 **`obj:The Low Tide Run/b3.description`**: `The Sentinel plants itself at the waterline. Behind it, the sea is gathering.`
 
-**`obj:The Low Tide Run/d_landing.description`** (press-on choice)
+**`obj:The Low Tide Run/w_done.description`** (win; follows `b3`)
 ```html
-The Sentinel sinks back into the sand, and the surf goes back to being only surf.<br><br>A stair above the beach climbs into the hull, to the chart room, where a lamp is still lit. The Wayfinder will be at his table. He always is. The water is at your ankles.<br><br><b>Leave now and keep everything you hold. Press on and win, and the chart room adds to it. Lose up there and you keep only what you hold now.</b>
-```
-- `choice[0]`: `Take the haul and go before the tide`
-- `choice[1]`: `Climb to the chart room`
-
-**`obj:The Low Tide Run/b_press.description`**: `The Wayfinder rolls up his charts and rises. "You are not on any of these."`
-
-**`obj:The Low Tide Run/w_leave.description`**
-```html
-You walk out through the breach as the first wave comes back in. Behind you, the hull is already closing.
-```
-
-**`obj:The Low Tide Run/w_press.description`**
-```html
-"Still no home port," the Wayfinder says from the floor of the chart room, to no one. You leave his lamp burning, and the tide covers the breach behind you.
+The Sentinel sinks back into the sand, and the surf goes back to being only surf.<br><br>You walk out through the breach as the first wave comes back in. Behind you, the hull is already closing.
 ```
 
 **`obj:The Low Tide Run/f_lost.description`**
@@ -257,13 +247,12 @@ You fall at your post. When you wake, there is a new name at the bottom of the r
 ### 2.3 The Sealed Reliquary (Reliquary Seal)
 
 Fights: Foundry Warden; Sealwright + Lingering Echo; Skyglass Sentinel + Lingering Echo; the First Blade + Lingering
-Echo; press-on: the Oathkeeper (proposed in the harness). Twist: each fallen echo's set piece lingers (Boss Fights §8).
+Echo. No press-on room (cut, RUL-2026-10-30-060 item 6). Twist: each fallen echo's set piece lingers (Boss Fights §8).
 A failed run pays 1 Core Rot (RUL-2026-10-28-019).
 
 **`quest:The Sealed Reliquary.description`**
 ```
 The seal is spent when the run starts. Health and chakra carry through four echoes with no refills, and a lost fight ends the run.
-After the last echo, leave with what you hold or open one more frame; lose there and you keep only what you held.
 
 Behind the Sealwright's archive, a black iron reliquary is chained to the wall. Inside are the echoes the Core could not hold: impressions too strong to fade and too damaged to rebuild, sealed away so the ship would stop trying. The Reliquary Seal opens it. What the reliquary remembers, it keeps.
 ```
@@ -302,23 +291,9 @@ The Sentinel crumbles to sand, but the tide it carried keeps coming, in the line
 
 **`obj:The Sealed Reliquary/b4.description`**: `The last frame bursts outward. The First Blade looks at the ruin on the floor and grins. "Finally. Something new."`
 
-**`obj:The Sealed Reliquary/d_landing.description`** (press-on choice)
+**`obj:The Sealed Reliquary/w_done.description`** (win; follows `b4`)
 ```html
-"That was new," the First Blade says, and lies back on the floor to savour it.<br><br>At the far end of the reliquary one more frame stands apart, sealed in a careful, formal hand. The Oathkeeper waits behind the glass. He has been counting.<br><br><b>Close the reliquary now and keep everything you hold. Break his seal and win, and the haul grows. Lose and you keep only what you hold now.</b>
-```
-- `choice[0]`: `Close the reliquary and go`
-- `choice[1]`: `Break the Oathkeeper's seal`
-
-**`obj:The Sealed Reliquary/b_press.description`**: `The Oathkeeper steps out of his frame and straightens his coat. "You have kept every term so far. Here is the last."`
-
-**`obj:The Sealed Reliquary/w_leave.description`**
-```html
-You step out, and the chains draw tight behind you. Inside, the frames stand empty, for now.
-```
-
-**`obj:The Sealed Reliquary/w_press.description`**
-```html
-"We had time," the Oathkeeper says, settling back into his frame like a man sitting down. "We had plenty of that." Every frame stands empty. The chains draw tight behind you.
+"That was new," the First Blade says, and lies back on the floor to savour it.<br><br>You step out, and the chains draw tight behind you. Inside, the frames stand empty, for now.
 ```
 
 **`obj:The Sealed Reliquary/f_lost.description`** (pays 1 Core Rot)
@@ -328,9 +303,10 @@ The reliquary closes around you. You wake outside the iron box with the seal spe
 
 ### 2.4 The Fall (The Last Heading)
 
-Fights: burning deck (Deck Warden + Seal Charge, embers); gun deck (Arsenal Keeper + Deck Warden, embers); the break
-(Core Horror, embers); press-on: the Captain at the helm (proposed in the harness). The fire's source is the Arsenal
-Keeper at the powder magazine (RUL-2026-10-28-027 item 4; see open question 5). A failed run pays 1 Core Rot.
+Fights: burning deck (Deck Warden + Seal Charge); gun deck, at the powder magazine (Arsenal Keeper + Deck Warden); the
+break (Core Horror); press-on: the Captain at the helm (kept, RUL-2026-10-30-060 item 6). The Arsenal Keeper is the only
+fire source: his ember bands in the powder-magazine fight. The "Burning Deck" hazard is removed (RUL-2026-10-29-057
+item 5, RUL-2026-10-30-060 item 7; Boss Fights §8). A failed run pays 1 Core Rot.
 
 **`quest:The Fall.description`**
 ```
@@ -450,12 +426,11 @@ The rot closes over you. You wake outside with the seal gone and black water dry
 
 Runs backwards: entry at 70% pools at the break (Core Horror, embers); `afterburn` at the start of every fight; the
 Captain joins as an ally (`allyAIs`) after the Core Horror; gun deck (Arsenal Keeper + Deck Warden, embers); the
-gangway duel (Wayfinder); press-on: the First Blade on the burning deck (proposed in the harness). Pick 2.
+gangway duel (Wayfinder). No press-on room (cut, RUL-2026-10-30-060 item 6). Pick 2.
 
 **`quest:The Burning Heading.description`**
 ```
 The heading is spent when the run starts, and you start in the worst of it: 70% health and chakra, carried from fight to fight with no refills. A lost fight ends the run.
-At the gangway, walk off with what you hold or go back into the fire; lose there and you keep only what you held.
 
 Steeped in rot, the last heading runs the wrong way. It starts at the end: the Core breaking open, the ship already in pieces, fire in every breath. Fight your way out through the decks, the way no one did that night. You will not be alone for all of it.
 ```
@@ -486,23 +461,9 @@ The Keeper falls across his ledger. The Captain closes it for him. "He kept the 
 
 **`obj:The Burning Heading/b3.description`**: `The Wayfinder blocks the gangway, charts in hand. "This is not the heading," he says. "There is no heading off this ship."`
 
-**`obj:The Burning Heading/d_landing.description`** (press-on choice)
+**`obj:The Burning Heading/w_done.description`** (win; follows `b3`)
 ```html
-The Wayfinder looks at the shore. "Still no home port," he says, and lets his charts go into the wind.<br><br>The gangway is clear. Behind you, on the burning deck, the First Blade stands in the fire and calls after you: he has never fought on a deck this hot. The Captain looks at you, and waits.<br><br><b>Walk off now and keep everything you hold. Go back and win, and the haul grows. Lose and you keep only what you hold now.</b>
-```
-- `choice[0]`: `Walk off the ship`
-- `choice[1]`: `Go back for the First Blade`
-
-**`obj:The Burning Heading/b_press.description`**: `The First Blade spins his cleavers through the heat. "Finally," he says. "Something new."`
-
-**`obj:The Burning Heading/w_leave.description`**
-```html
-You walk off the ship with the Captain beside you. At the foot of the gangway he stops. "I cannot come further," he says. "Go on." When you look back, he is gone, and the wreck is cold.
-```
-
-**`obj:The Burning Heading/w_press.description`**
-```html
-"That was new," the First Blade says from the embers. "Do it again some time." The Captain walks you to the foot of the gangway, and no further. When you look back, the wreck is cold.
+The Wayfinder looks at the shore. "Still no home port," he says, and lets his charts go into the wind.<br><br>You walk off the ship with the Captain beside you. At the foot of the gangway he stops. "I cannot come further," he says. "Go on." When you look back, he is gone, and the wreck is cold.
 ```
 
 **`obj:The Burning Heading/f_lost.description`**
@@ -559,8 +520,9 @@ You draw <chart> out of the rot before it takes hold. Nothing is spent.
 
 ### 2.8 Stakes headers for the existing hunts (prepend to the live descriptions)
 
-The live descriptions keep their story; RUL-2026-10-28-028 item 8 asks for the two stakes lines first. These hunts
-have no press-on room in the current text (open question 6), so the second line names their own choice.
+The live descriptions keep their story; RUL-2026-10-28-028 item 8 asks for the two stakes lines first. These runs
+have no press-on text: the Archive's room is cut, and the Watch's room is kept but its text is not yet written
+(RUL-2026-10-30-060 item 6). So the second line names their own choice.
 
 - **`quest:The Buried Cache.description`** (prepend):
   `The chart is spent when the run starts. Health and chakra carry from fight to fight, and a lost fight ends the run.`
@@ -808,7 +770,7 @@ repeated (the card shows it).
 
 **`item:Tide Chart.description`** (Common)
 ```html
-<i>The Wayfinder's tide table, marked where the low tide opens the wreck's lower hull.</i><br><br>Bring it to the Battle Arena to run <b>The Low Tide Run</b>: three fights, scaled to you. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.<br>At the last landing, leave with what you hold or press on to the chart room for more. Lose there and you keep only what you held.
+<i>The Wayfinder's tide table, marked where the low tide opens the wreck's lower hull.</i><br><br>Bring it to the Battle Arena to run <b>The Low Tide Run</b>: three fights, scaled to you. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.
 ```
 
 **`item:Watch Roster.description`** (Common)
@@ -838,7 +800,7 @@ repeated (the card shows it).
 
 **`item:Reliquary Seal.description`** (Epic)
 ```html
-<i>The seal of the iron reliquary chained behind the Sealwright, where the echoes the Core could not hold were sealed away.</i><br><br><b>Two uses.</b><br><b>Run it:</b> bring it to the Battle Arena to run <b>The Sealed Reliquary</b>: four echoes back to back, and the reliquary remembers each one that falls. The seal is spent when the run starts. Health and chakra carry, with no refills. A lost fight ends the run and leaves you 1 Core Rot. After the last echo, leave with what you hold or open one more frame; lose there and you keep only what you held.<br><b>Steep it:</b> use it from your inventory to soak it in the Core's rot. It costs 3 Core Rot. Win the fight and it becomes the Rotted Reliquary Seal. Lose and the seal comes back, but the Rot is spent. Short of 3 Core Rot? Take it back, and nothing is spent.
+<i>The seal of the iron reliquary chained behind the Sealwright, where the echoes the Core could not hold were sealed away.</i><br><br><b>Two uses.</b><br><b>Run it:</b> bring it to the Battle Arena to run <b>The Sealed Reliquary</b>: four echoes back to back, and the reliquary remembers each one that falls. The seal is spent when the run starts. Health and chakra carry, with no refills. A lost fight ends the run and leaves you 1 Core Rot.<br><b>Steep it:</b> use it from your inventory to soak it in the Core's rot. It costs 3 Core Rot. Win the fight and it becomes the Rotted Reliquary Seal. Lose and the seal comes back, but the Rot is spent. Short of 3 Core Rot? Take it back, and nothing is spent.
 ```
 
 **`item:The Last Heading.description`** (Epic)
@@ -853,7 +815,7 @@ repeated (the card shows it).
 
 **`item:The Rotted Heading.description`** (Legendary; name: open question 2)
 ```html
-<i>The Last Heading, soaked in the Core's rot. It runs the night of the fall backwards.</i><br><br>Bring it to the Battle Arena to run <b>The Burning Heading</b>. The heading is spent when the run starts.<br><b>The twists:</b> it starts at the end, in the break, at 70% health and chakra; fire catches you at the start of every fight, so the damage you take burns again; you fight your way out through the decks, and you will not fight all of it alone.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.<br>At the gangway, walk off with what you hold or go back for one more fight; lose there and you keep only what you held.<br>The run's reward lets you <b>pick 2</b>.
+<i>The Last Heading, soaked in the Core's rot. It runs the night of the fall backwards.</i><br><br>Bring it to the Battle Arena to run <b>The Burning Heading</b>. The heading is spent when the run starts.<br><b>The twists:</b> it starts at the end, in the break, at 70% health and chakra; fire catches you at the start of every fight, so the damage you take burns again; you fight your way out through the decks, and you will not fight all of it alone.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.<br>The run's reward lets you <b>pick 2</b>.
 ```
 
 **`item:Lastlight Lantern.description`** (live story kept)
@@ -1073,12 +1035,12 @@ Target: the first sentence of the objective that follows the boss's battle (or i
 | Sealwright (Reliquary) | §2.3 | `"Thank you," he says, very quietly.` | new |
 | Skyglass Sentinel (Buried Cache) | live closing narration | `The Sentinel breaks apart into sand and fading script.` | exists (it says little) |
 | Wayfinder (Watch) | `d_term2_*`, prepend | `"Mark it on the chart," the Wayfinder says from the floor. "You were here."` | new |
-| Wayfinder (Low Tide, Burning Heading) | §2.1, §2.6 | `"Still no home port."` | new |
+| Wayfinder (Burning Heading) | §2.6 `w_done` | `"Still no home port."` | new |
 | First Blade (Watch) | `d_term3_*`, prepend | `"That was new," the First Blade says, and lowers his cleavers to savour it.` | new |
-| First Blade (Night Watch, Reliquary, Burning Heading) | §2 | `"That was new."` (Rotted: he falls silent, by design) | new |
+| First Blade (Night Watch, Reliquary) | §2 | `"That was new."` (Rotted: he falls silent, by design) | new |
 | Arsenal Keeper (Foundry) | `d_gate`, prepend | `"Unlisted," the Keeper says as he falls, and makes a note of it.` | new |
 | Deck Warden (Foundry) | `d_racks`, prepend | `The Deck Warden sinks into the water, still counting.` | new |
-| Oathkeeper (Night Watch, Reliquary) | §2.2, §2.3 | `"The term holds."` / `"We had time. We had plenty of that."` | new |
+| Oathkeeper (Night Watch) | §2.2 | `"The term holds."` | new |
 | Replicant Zero (Rotted press-on) | §2.5 | `"The first to return. Not the last."` | new |
 | The Crowned Captain | Crownhold aftermath | (the crown breaks; he settles like ash) | exists |
 | Crownhold commanders | Crownhold | their after-fight dialogs | exist |
@@ -1205,17 +1167,17 @@ The Foundry ledger's "crew not relieved" stays: the bible's "carried forward" ta
 4. **The Wreck's boss lines.** A dungeon has no dialogs, so the Captain and the Core Horror have no intro screen or
    closing line there. Options: leave them to the battle log (as now), or add a one-line defeat cue to a jutsu that
    fires on their last phase.
-5. **The Fall's fire source.** RUL-2026-10-28-027 makes it the Arsenal Keeper's echo at the powder magazine; the charts
+5. **Settled** (RUL-2026-10-29-057 item 5, RUL-2026-10-30-060 item 7): the Keeper is the only fire source and the hazard is removed. **The Fall's fire source.** RUL-2026-10-28-027 makes it the Arsenal Keeper's echo at the powder magazine; the charts
    harness still has a separate hazard record named "Burning Deck" beside a gun-deck Arsenal Keeper. The text assumes the
    Keeper is the source and the hazard is never named to the player. Confirm, and rename the hazard record (e.g. "Powder
    Fire") if it stays separate.
-6. **Archive and Watch press-on rooms.** Loot tables §5 ladder gives them "+20% from its press-on room", but the live
+6. **Settled** (RUL-2026-10-30-060 item 6): the Archive's room is cut and the Watch's is kept. The Watch's press-on text is still to be written. **Archive and Watch press-on rooms.** Loot tables §5 ladder gives them "+20% from its press-on room", but the live
    hunt text has none. No press-on text is written for them until that is settled.
 7. **Wreck Sighted's scene character.** A public quest needs one. The salvager is unnamed and has no portrait; use an
    existing crew portrait (the Deck Warden) or commission one?
 8. **Tier colours outside the four rarities.** The Strongbox's Forbidden tier uses red `#ef4444`; the profession chests'
    Staples / Recipe kit / Bulk / Windfall map to grey / blue / purple / gold. Both need the §0 hidden-item phone check.
 9. **Variant battle lines.** Should boss variants carry their own `battleDescription` (e.g. Crownbreaker: "%user swings a blade set with the crown's broken points.")? None written yet.
-10. **Press-on rooms marked "proposed" in the harness** (Low Tide's Wayfinder, the Reliquary's Oathkeeper, the Fall's
+10. **Settled** (RUL-2026-10-30-060 item 6): Low Tide's, the Reliquary's and the Burning Heading's rooms are cut and their text is removed; the Fall's is kept. **Press-on rooms marked "proposed" in the harness** (Low Tide's Wayfinder, the Reliquary's Oathkeeper, the Fall's
     Captain, the Burning Heading's First Blade) are written; RUL-2026-10-28-026 item 10 may still cut any that add
     nothing.

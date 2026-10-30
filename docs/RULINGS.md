@@ -4669,3 +4669,52 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-30: "Let's plan to do push 319 with placeholder assets and then we'll do a separate visual asset push".
 
 **Canonical destination:** `push/README.md` (319 entry); `docs/design/SKYGLASS_ART_AUDIT.md`.
+
+## RUL-2026-10-30-060 — Final Skyglass simulation pass: fixes approved; Sealwright base; Wreck variant-token rate
+
+**Date:** 2026-10-30
+
+**Domain:** Skyglass event / encounters and rewards
+
+**Status:** ACTIVE. The Haul's new payout points are still to be fitted in the harness before the build (item 4).
+
+**Evidence base:** the final simulation pass, `fable/skyglass-final-sim` at `d5957e793f0eeced2e771e0f606c070c68fd049c`: `harness/skyglass_wreck_sim/REPORT.md` (final-pass section), `overrides/charts.params.json`, `overrides/hunts.params.json`, `results/final_*.json`. Zero live requests.
+
+**Ruling:**
+1. **The Captain's Watch is too easy** (97.5% clear with no terms, target about 80%). The Captain's solo pools go **2.5 → 3**. His 1 damage row and 10% damage given down are unchanged.
+2. **The Sealed Reliquary is too easy** (92.5%, target about 80%). Its Sealwright copy goes from **1 damage row to 2** (pools 1, unchanged).
+3. **Crownhold's War Rite route clears 6.3%.** Its runs end at the D4/D5 fourth regulars, before the Crowned Captain's top-up. The War route also gets its heal top-up (+20%, RUL-2026-10-28-026 item 1) at **D4 and D5**. The other routes are unchanged: Healing 93.8%, clean 56.3%, alarm 37.5%.
+4. **Some Haul routes overpay.** Measured against the sensible route: Trophy Hold CLLCC **138%**, Snare Room LCXLC **139%**, Bloom Cellar LLL **137%**.
+   - **Target:** no route above about 120% of the sensible route.
+   - **Fix:** re-fit the payout points (`tools/haul_payout_fit.py`, against the exact top routes), and add **one extra guard** to the step-2 and step-3 locker fights on the Trophy Hold and the Bloom Cellar, as on the Snare Room (RUL-2026-10-29-045).
+   - **The exact new points are to be fitted in the harness before the build.** The report has only a first offline fit, for the Snare Room alone (steps 4.4 / 1.0 / 0.9 / 0.9 / 3.5, locker 2.4, which brings it to 120%). Points alone cannot bring the other two pages under 120%.
+5. **Haul page drop rates, per page:**
+   - endgame Wreck clear: **2% → 2.4%**;
+   - Rare-chart endings: **1.25% → 1.5%**.
+   - Target: about 1.5 Haul runs a dedicated weekend. The final pass measured 1.26 at the old rates; both rates go up by ×1.19.
+6. **Press-on rooms** (RUL-2026-10-28-026 item 10):
+   - **Cut:** the Low Tide Run (100% won everywhere), the Quarantined Archive (92%), the Sealed Reliquary (95%) and the Burning Heading (100%, ~0 HP).
+   - **Kept:** the Night Watch (Second Watch: 90% at L50, 41% at L50 without dodging), the Captain's Watch (87%, from ~22% HP), The Fall (the Captain, 50%) and the Rotted Reliquary (Replicant Zero, 36%).
+   - Press-on text for the cut rooms is removed. So is the Archive ending's "+20% from its press-on room".
+7. **Tuning the pass already applied and found on target is adopted:**
+   - **The Fall:** the "Burning Deck" hazard is removed, and the Arsenal Keeper is the only fire source (RUL-2026-10-29-057 item 5).
+     - Copy `chart-arsenal-keeper`: the live Keeper's kit, immobile, pools 4, **30% innate damage reduction**.
+     - Three ember bands (drain 5% max HP per action) at rounds 1, 4 and 7 of the powder-magazine fight.
+     - Measured 85%, against a target of about 80%.
+   - **The Burning Heading:** the Core Horror tainted copy is pools 5.5, **3 damage rows, 65% damage given down**. Measured 47.5%, against about 55% (40-seed noise ±15).
+   - **The Quarantined Archive, alarm route:** the Crown Stonebound summon runs at **40% power** with its own enemies-only Erupting Ground copy (`hunt-stonebound-erupting-ground`), as RUL-2026-10-28-026 items 2-3 ruled. The shared live jutsu is untouched. Measured: alarm 3 at 30%; clean 95% and alarm 1 78%.
+   - **Fallback fix** (RUL-2026-10-29-046 item 2): no set piece is ever cast without its mark.
+     - Every enemy's last rule is the named basic attack.
+     - No `use_highest_power_*`, `use_random_jutsu` or `use_combo_action` damage rule remains.
+     - `includeDefaultRules` is off, with the backup rules restated without their highest-power rows.
+     - Audit: 0 unmarked casts of about 11,300.
+     - Records that end on an end of turn with no free pick are unchanged: the hazards, the Core Horror, the Foundry Warden, Replicant Zero, the Steeping Horror and Crownhold.
+8. **The Sealwright's Seal variant's base is Whispering Dawnblade** (`mqCCZGSfXUNL02B4H6C9R`), not Eclipsed Dawnblade (`MbPhG5El3UYjS5Bk2K3Bl`, which stays in the Skyglass Token catalogue).
+9. **The Captain's and the Core Horror's boss-variant tokens drop at 5%** from the endgame Wreck clear. They drop once per player (the dungeon `onlyOnce` flag, as for the Little Horror's Jar, RUL-2026-10-29-054) and are untradeable, as already ruled.
+10. **Steeping consumes nearly all Epic charts.** A typical weekend is about 2 steeps and about 0.07 Epic runs (1.54 Epic runs without steeping). This is **accepted behaviour, with no change**.
+
+**Measured and on target** (final pass, no change): endgame Wreck 22.3 min and 16.7% runs with a wipe; level-50 Wreck 10%; Watch phase 2 median 7 rounds; Buried Cache boss ~16% HP; Foundry 75%; Rotted Reliquary 55%; steeping fight 77.5%; Haul sensible route 7.69M, greedy clears 25-37.5%; Skyglass Tokens 3.0 a typical weekend (5.5 always taking the token).
+
+**Evidence:** Director, 2026-10-30: approved all fixes from the final Skyglass simulation pass, plus the Sealwright variant's base (Whispering Dawnblade) and the Wreck variant-token rate (5%).
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` (items 1-3, 7); `docs/design/SKYGLASS_THE_HAUL.md` (item 4); `docs/design/SKYGLASS_LOOT_TABLES.md` (items 5, 6, 8-10); `docs/design/SKYGLASS_TEXT.md` (item 6 text); `docs/design/SKYGLASS_ART_AUDIT.md` (rates and the Sealwright base). The fitted Haul points live in the Haul harness until the build.

@@ -1,6 +1,6 @@
 # The Haul: profession-themed push-your-luck charts
 
-**Update (RUL-2026-10-29-052):** the Haul is open to **every player**. There is no S-rank gate. Hunter and gatherer pages are themes, not requirements. Page drop rates are endgame Wreck 2% and hunt endings 1.25% per page (RUL-2026-10-29-053). The rest of this doc applies as written.
+**Update (RUL-2026-10-29-052):** the Haul is open to **every player**. There is no S-rank gate. Hunter and gatherer pages are themes, not requirements. The page drop rates are in loot tables §4b: endgame Wreck 2.4% and Rare-chart endings 1.5% per page (RUL-2026-10-30-060 item 5, replacing RUL-2026-10-29-053's 2% / 1.25%). The rest of this doc applies as written.
 
 **Status:** APPROVED direction (RUL-2026-10-29-037). Numbers are harness targets until the simulator rounds return.
 
@@ -110,6 +110,11 @@ alertness, and whether a cut-through hazard is pending.
   - every path's expected value sits within about 20% of the sensible path;
   - cut-through is worth it sometimes, not always;
   - a locker at alertness 3+ is a real gamble.
+- **Final pass** (`fable/skyglass-final-sim` d5957e79, after the fallback fix; RUL-2026-10-30-060 item 4):
+  - Sensible route: mean 7.69M. Greedy clears: 25-37.5%.
+  - Three routes break the 120% ceiling: Trophy Hold CLLCC **138%**, Snare Room LCXLC **139%** and Bloom Cellar LLL **137%**. The fallback fix took the guards' free picks, so the locker-heavy fights got easier.
+  - **Fix:** re-fit the payout points against the exact top routes (`tools/haul_payout_fit.py`), and add one more guard to the step-2 and step-3 locker fights on the Trophy Hold and the Bloom Cellar, as on the Snare Room (RUL-2026-10-29-045). The target is that no route pays more than about 120% of the sensible route.
+  - **The exact new points are to be fitted in the harness before the build.** The only fit so far is a first offline fit for the Snare Room alone (steps 4.4 / 1.0 / 0.9 / 0.9 / 3.5, locker 2.4, which brings it to 120%). Points alone cannot pull the Trophy Hold or the Bloom Cellar under 120%.
 - **Fight lengths:** crates 3-5 rounds, lockers 5-8, Keeper or Sealwright 8-10. A full greedy run takes about 12-15
   minutes.
 - **Player model:** a solo S-rank professional at level 100, with the Kitsune set and a pet (RUL-2026-10-28-026 items
@@ -122,8 +127,8 @@ alertness, and whether a cut-through hazard is pending.
   - about 4 guard copies (Trophy Warden, Stores Ward, and alertness copies of the Keeper and the Sealwright's echo);
   - 2 generated quests, gated by S rank (`huntingRank` / `gatheringRank`) and entered with the chart;
   - no new jutsu.
-- **Chart sources:** both drop for everyone and are tradeable. Rates are set with the simulator so S-rank professionals'
-  total stays at the old quests' level. Starting candidates: endgame Wreck 3% each, hunt endings 2% each.
+- **Chart sources:** both drop for everyone and are tradeable. Rates are set with the simulator. The current rates are in
+  loot tables §4b (RUL-2026-10-30-060 item 5).
 - **Lore and text:** tag lines from the ledger and manifest, one per locker or crate per step, written in the story
   bible's voice.
 
