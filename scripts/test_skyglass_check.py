@@ -175,6 +175,20 @@ class TempRoot(unittest.TestCase):
                        .update(options_from="The Fall"))
         self.assertTrue(any(f.field == "options_from" and "Sealed Reliquary" in f.msg for f in self.design_errors()))
 
+    def test_review6_money_alias_requires_evidence(self):
+        for mutate in (lambda a: a.pop("evidence"), lambda a: a.update(evidence=""),
+                       lambda a: a.pop("evidence_file"), lambda a: a.update(evidence_file="")):
+            with self.subTest(mutate=mutate):
+                self.setUp()
+                def change(d, mutate=mutate):
+                    a = d["picks"]["doc_aliases"]["Captain's Purse"]
+                    a.update(money=1)
+                    mutate(a)
+                self.edit_data(change)
+                self.assertTrue(any(f.field == "evidence" for f in self.design_errors()))
+                self.tearDown()
+        self.setUp()
+
     def test_missing_never_use_line_is_caught(self):
         self.edit(sc.BIBLE, "- **Never use:**", "- **Avoid:**")
         self.assertTrue(any(f.field == "doc_marker" for f in self.design_errors()))
