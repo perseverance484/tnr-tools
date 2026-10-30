@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { IDBFactory } from "fake-indexeddb";
-import { CaptureCache, captureKey, snapshotKey, entityOfPath, DB_NAME, STORE, DB_VERSION, FULL_PERSIST_PATHS, canPersistFull, persistProcedureKind, MAX_FULL_CAPTURE_BYTES } from "../src/storage/captures.mjs";
+import { CaptureCache, captureKey, snapshotKey, entityOfPath, DB_NAME, STORE, DB_VERSION, FULL_PERSIST_PATHS, FULL_PERSIST_LIST_PATHS, PERSIST_RECORD_KEY, canPersistFull, persistProcedureKind, MAX_FULL_CAPTURE_BYTES } from "../src/storage/captures.mjs";
 import { PROCEDURES } from "../src/transport/procedures.mjs";
 import { fakeClock } from "./shim.mjs";
 
@@ -82,14 +82,24 @@ test("every full-persistence path is an audited content-record point read, and n
     const p = PROCEDURES[path];
     assert.ok(p, `${path} is not in the audited crud surface; the allowlist may not invent a procedure`);
     assert.equal(p.kind, "query", `${path} is not a query; a mutation body may never be durably persisted`);
-    assert.ok(/\.(get|getAi|getAiProfile|getItemWithCraftingRequirements)$/.test(path), `${path} is not a point read`);
+    assert.ok(/\.(get|getAi|getAiProfile|getItemWithCraftingRequirements|getItemVariants)$/.test(path), `${path} is not a point read`);
     assert.ok(!/getAll/.test(path), `${path} is a list procedure`);
     assert.equal(canPersistFull(path), true);
     assert.equal(persistProcedureKind(path), "query");
   }
+  // the one list exception: an input-less content list, a protected query, and nothing else
+  assert.deepEqual([...FULL_PERSIST_LIST_PATHS], ["item.getVariantNames"]);
+  for (const path of FULL_PERSIST_LIST_PATHS) {
+    assert.deepEqual(PROCEDURES[path], { kind: "query", limited: false, mcp: false, auth: "protected" }, path);
+    assert.ok(!FULL_PERSIST_PATHS.includes(path), `${path} is a list, not a point read`);
+    assert.equal(canPersistFull(path), true);
+  }
+  // a non-id record key is declared, never guessed, and only for a persistable point read
+  assert.deepEqual({ ...PERSIST_RECORD_KEY }, { "item.getItemVariants": "itemId" });
+  for (const path of Object.keys(PERSIST_RECORD_KEY)) assert.ok(FULL_PERSIST_PATHS.includes(path), path);
   // the closed half of the boundary: nothing else in the audited surface is persistable
   for (const path of Object.keys(PROCEDURES)) {
-    if (FULL_PERSIST_PATHS.includes(path)) continue;
+    if (FULL_PERSIST_PATHS.includes(path) || FULL_PERSIST_LIST_PATHS.includes(path)) continue;
     assert.equal(canPersistFull(path), false, `${path} must not be persistable without a reviewed change`);
   }
   assert.equal(canPersistFull("asset.get"), false, "the un-audited asset.get alias is not a way in");
