@@ -42,14 +42,14 @@ def chest(p,rar,target):
     kit_entries=[tuple((n,q) for n,q in part) for part in kitlist][:12]
     bulk=[((n,6*lot),) for n in staples[:3]]
     # RUL-2026-10-29-036: no Upgrade tier; its 2% goes back as Staples +1, Recipe kit +1 (Legendary keeps 55/25/12/8).
-    tiers=[['Staples',5500,st_entries],['Recipe kit',2500,kit_entries or st_entries],['Bulk',1200,bulk]]
+    tiers=[['Common',5500,st_entries],['Rare',2500,kit_entries or st_entries],['Epic',1200,bulk]]  # RUL-2026-10-29-058: game tier names (were Staples / Recipe kit / Bulk)
     if i<3:
         up=RAR[i+1]; ups=mats(p,up)[:4]
         tiers[0][1]+=100; tiers[1][1]+=100
-        tiers.append(['Windfall',600,[((n,LOT[up]),) for n in ups]])
+        tiers.append(['Legendary',600,[((n,LOT[up]),) for n in ups]])
     else:
         heir=[tuple((n,q) for n,q in part) for name,part in kits[(p,rar)] if len(part)>=3][:4] or kit_entries
-        tiers.append(['Heirloom',800,[tuple((n,q*2) for n,q in e) for e in heir]])
+        tiers.append(['Legendary',800,[tuple((n,q*2) for n,q in e) for e in heir]])
     s=sum(t[1] for t in tiers); tiers[0][1]+=10000-s
     rolls=[(3,6000),(4,3000),(6,1000)]
     return tiers,rolls
