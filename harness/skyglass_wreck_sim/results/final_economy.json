@@ -1,0 +1,428 @@
+{
+ "inputs": {
+  "wreck": {
+   "minutes": 25.6
+  },
+  "tide": {
+   "clear": 1.0,
+   "minutes": 2,
+   "pressOn": 0.5,
+   "pressWin": 1.0
+  },
+  "roster": {
+   "clear": 1.0,
+   "minutes": 2,
+   "pressOn": 0.5,
+   "pressWin": 1.0
+  },
+  "buried": {
+   "clear": 0.95,
+   "minutes": 2.0,
+   "pressOn": 0.0,
+   "pressWin": 0.6
+  },
+  "foundry": {
+   "clear": 0.75,
+   "minutes": 4.8,
+   "pressOn": 0.0,
+   "pressWin": 0.6
+  },
+  "archive": {
+   "clear": 0.95,
+   "minutes": 5.8,
+   "pressOn": 0.5,
+   "pressWin": 0.9210526315789473
+  },
+  "watch": {
+   "clear": 0.975,
+   "minutes": 6.0,
+   "pressOn": 0.5,
+   "pressWin": 0.8717948717948718
+  },
+  "reliquary": {
+   "clear": 0.925,
+   "minutes": 9,
+   "pressOn": 0.5,
+   "pressWin": 0.9459459459459459
+  },
+  "fall": {
+   "clear": 0.85,
+   "minutes": 7,
+   "pressOn": 0.5,
+   "pressWin": 0.5
+  },
+  "t_rel": {
+   "clear": 0.55,
+   "minutes": 5.9,
+   "pressOn": 0.5,
+   "pressWin": 0.36363636363636365
+  },
+  "t_fall": {
+   "clear": 0.475,
+   "minutes": 6,
+   "pressOn": 0.5,
+   "pressWin": 1.0
+  },
+  "crown": {
+   "clear": 0.563,
+   "minutes": 23.2,
+   "pressOn": 0.0,
+   "pressWin": 0.6
+  },
+  "haul": {
+   "clear": 0.8666666666666667,
+   "minutes": 3.8,
+   "pressOn": 0.0,
+   "pressWin": 0.6
+  },
+  "steep": {
+   "win": 0.775,
+   "minutes": 2.3
+  },
+  "failFrac": 0.5,
+  "overheadMin": 0.5,
+  "_sources": {
+   "wreck": "final_wreck_endgame.json",
+   "buried": "final_hunts_dodge.json cache_right",
+   "foundry": "final_hunts_dodge.json foundry",
+   "archive": "final_hunts_dodge.json archive_clean; press-on probe archive_clean_press",
+   "watch": "final_hunts_dodge.json watch_000; press-on probe watch_000_press",
+   "tide": "final_charts_dodge_[ab].json lowtide",
+   "roster": "final_charts_dodge_[ab].json nightwatch",
+   "reliquary": "final_charts_dodge_[ab].json reliquary",
+   "t_rel": "final_charts_dodge_[ab].json rotted",
+   "fall": "final_charts_dodge_[ab].json fall",
+   "t_fall": "final_charts_dodge_[ab].json burning",
+   "steep": "final_charts_dodge_a.json steeping",
+   "crown": "final_crownhold_chain.json clean",
+   "haul": "final_haul_exact_dodge.json CLC (mean of 6 pages)"
+  }
+ },
+ "defaultsUsedFor": [],
+ "hours": 12,
+ "typical": {
+  "policy": "typical",
+  "hauls": {
+   "wreckPerPage": 0.02,
+   "huntEndingPerPage": 0.0125
+  },
+  "wreckClears": 23.28,
+  "cycleMinutes": 30.9,
+  "runs": {
+   "tide": 4.8,
+   "roster": 3.93,
+   "buried": 5.53,
+   "foundry": 5.87,
+   "archive": 2.14,
+   "watch": 1.64,
+   "reliquary": 0.04,
+   "fall": 0.03,
+   "t_rel": 0.86,
+   "t_fall": 0.7,
+   "crown": 0.99,
+   "haul": 1.26
+  },
+  "clears": {
+   "tide": 4.8,
+   "roster": 3.93,
+   "buried": 5.25,
+   "foundry": 4.4,
+   "archive": 2.03,
+   "watch": 1.6,
+   "reliquary": 0.04,
+   "fall": 0.03,
+   "t_rel": 0.47,
+   "t_fall": 0.33,
+   "crown": 0.55,
+   "haul": 1.09
+  },
+  "chartsByTier": {
+   "common (Tide, Roster)": 8.73,
+   "hunt (Buried, Foundry, Archive, Watch)": 15.18,
+   "rare (Reliquary, Fall)": 0.07,
+   "tainted (Rotted, Burning)": 1.56,
+   "Lantern (Crownhold)": 0.99,
+   "Haul pages": 1.26
+  },
+  "steepAttempts": 1.97,
+  "steepFracOfRareCharts": 0.96,
+  "coreRot": {
+   "gained": 5.9,
+   "spentSteeping": 5.9
+  },
+  "skyglassTokens": 3.04,
+  "skyglassTokenOpportunities": 5.13,
+  "trophyTokens": {
+   "Foundry Warden": 0.064,
+   "Sealwright": 0.04,
+   "Wayfinder": 0.029,
+   "First Blade": 0.02
+  },
+  "trophyTokensTotal": 0.152,
+  "skyglassCoffers": 1.92,
+  "sealedTreasuries": 2.12,
+  "littleHorrorJarChance": 0.697,
+  "hoursSplit": {
+   "wreck": 9.93,
+   "tide": 0.2,
+   "roster": 0.16,
+   "buried": 0.23,
+   "foundry": 0.46,
+   "archive": 0.22,
+   "watch": 0.18,
+   "reliquary": 0.01,
+   "fall": 0.0,
+   "t_rel": 0.07,
+   "t_fall": 0.06,
+   "crown": 0.31,
+   "haul": 0.09,
+   "steeping": 0.09
+  }
+ },
+ "always": {
+  "policy": "always",
+  "hauls": {
+   "wreckPerPage": 0.02,
+   "huntEndingPerPage": 0.0125
+  },
+  "wreckClears": 23.48,
+  "cycleMinutes": 30.7,
+  "runs": {
+   "tide": 4.84,
+   "roster": 3.96,
+   "buried": 5.58,
+   "foundry": 5.61,
+   "archive": 1.96,
+   "watch": 1.51,
+   "reliquary": 0.0,
+   "fall": 0.0,
+   "t_rel": 0.81,
+   "t_fall": 0.66,
+   "crown": 0.95,
+   "haul": 1.26
+  },
+  "clears": {
+   "tide": 4.84,
+   "roster": 3.96,
+   "buried": 5.3,
+   "foundry": 4.2,
+   "archive": 1.86,
+   "watch": 1.47,
+   "reliquary": 0.0,
+   "fall": 0.0,
+   "t_rel": 0.44,
+   "t_fall": 0.31,
+   "crown": 0.53,
+   "haul": 1.09
+  },
+  "chartsByTier": {
+   "common (Tide, Roster)": 8.8,
+   "hunt (Buried, Foundry, Archive, Watch)": 14.65,
+   "rare (Reliquary, Fall)": 0.0,
+   "tainted (Rotted, Burning)": 1.47,
+   "Lantern (Crownhold)": 0.95,
+   "Haul pages": 1.26
+  },
+  "steepAttempts": 1.85,
+  "steepFracOfRareCharts": 1.0,
+  "coreRot": {
+   "gained": 5.85,
+   "spentSteeping": 5.55
+  },
+  "skyglassTokens": 5.46,
+  "skyglassTokenOpportunities": 4.7,
+  "trophyTokens": {
+   "Foundry Warden": 0.06,
+   "Sealwright": 0.036,
+   "Wayfinder": 0.027,
+   "First Blade": 0.018
+  },
+  "trophyTokensTotal": 0.141,
+  "skyglassCoffers": 1.25,
+  "sealedTreasuries": 2.19,
+  "littleHorrorJarChance": 0.7,
+  "hoursSplit": {
+   "wreck": 10.02,
+   "tide": 0.2,
+   "roster": 0.17,
+   "buried": 0.23,
+   "foundry": 0.44,
+   "archive": 0.2,
+   "watch": 0.16,
+   "t_rel": 0.07,
+   "t_fall": 0.05,
+   "crown": 0.29,
+   "haul": 0.08,
+   "steeping": 0.09
+  }
+ },
+ "never": {
+  "policy": "never",
+  "hauls": {
+   "wreckPerPage": 0.02,
+   "huntEndingPerPage": 0.0125
+  },
+  "wreckClears": 23.04,
+  "cycleMinutes": 31.2,
+  "runs": {
+   "tide": 4.75,
+   "roster": 3.89,
+   "buried": 5.47,
+   "foundry": 6.2,
+   "archive": 2.36,
+   "watch": 1.79,
+   "reliquary": 0.15,
+   "fall": 0.12,
+   "t_rel": 0.86,
+   "t_fall": 0.71,
+   "crown": 1.03,
+   "haul": 1.27
+  },
+  "clears": {
+   "tide": 4.75,
+   "roster": 3.89,
+   "buried": 5.2,
+   "foundry": 4.65,
+   "archive": 2.24,
+   "watch": 1.75,
+   "reliquary": 0.13,
+   "fall": 0.1,
+   "t_rel": 0.48,
+   "t_fall": 0.34,
+   "crown": 0.58,
+   "haul": 1.1
+  },
+  "chartsByTier": {
+   "common (Tide, Roster)": 8.64,
+   "hunt (Buried, Foundry, Archive, Watch)": 15.83,
+   "rare (Reliquary, Fall)": 0.27,
+   "tainted (Rotted, Burning)": 1.57,
+   "Lantern (Crownhold)": 1.03,
+   "Haul pages": 1.27
+  },
+  "steepAttempts": 1.97,
+  "steepFracOfRareCharts": 0.85,
+  "coreRot": {
+   "gained": 5.91,
+   "spentSteeping": 5.91
+  },
+  "skyglassTokens": 0.08,
+  "skyglassTokenOpportunities": 5.7,
+  "trophyTokens": {
+   "Foundry Warden": 0.068,
+   "Sealwright": 0.044,
+   "Wayfinder": 0.031,
+   "First Blade": 0.022
+  },
+  "trophyTokensTotal": 0.165,
+  "skyglassCoffers": 2.76,
+  "sealedTreasuries": 2.08,
+  "littleHorrorJarChance": 0.693,
+  "hoursSplit": {
+   "wreck": 9.83,
+   "tide": 0.2,
+   "roster": 0.16,
+   "buried": 0.22,
+   "foundry": 0.49,
+   "archive": 0.24,
+   "watch": 0.19,
+   "reliquary": 0.02,
+   "fall": 0.01,
+   "t_rel": 0.07,
+   "t_fall": 0.06,
+   "crown": 0.32,
+   "haul": 0.09,
+   "steeping": 0.09
+  }
+ },
+ "typical_noSteeping": {
+  "policy": "typical",
+  "hauls": {
+   "wreckPerPage": 0.02,
+   "huntEndingPerPage": 0.0125
+  },
+  "wreckClears": 23.38,
+  "cycleMinutes": 30.8,
+  "runs": {
+   "tide": 4.82,
+   "roster": 3.95,
+   "buried": 5.55,
+   "foundry": 5.8,
+   "archive": 2.08,
+   "watch": 1.6,
+   "reliquary": 0.85,
+   "fall": 0.69,
+   "t_rel": 0.04,
+   "t_fall": 0.02,
+   "crown": 0.95,
+   "haul": 1.26
+  },
+  "clears": {
+   "tide": 4.82,
+   "roster": 3.95,
+   "buried": 5.27,
+   "foundry": 4.35,
+   "archive": 1.98,
+   "watch": 1.56,
+   "reliquary": 0.78,
+   "fall": 0.59,
+   "t_rel": 0.02,
+   "t_fall": 0.01,
+   "crown": 0.53,
+   "haul": 1.1
+  },
+  "chartsByTier": {
+   "common (Tide, Roster)": 8.77,
+   "hunt (Buried, Foundry, Archive, Watch)": 15.04,
+   "rare (Reliquary, Fall)": 1.54,
+   "tainted (Rotted, Burning)": 0.06,
+   "Lantern (Crownhold)": 0.95,
+   "Haul pages": 1.26
+  },
+  "steepAttempts": 0.0,
+  "steepFracOfRareCharts": 0.0,
+  "coreRot": {
+   "gained": 5.27,
+   "spentSteeping": 0.0
+  },
+  "skyglassTokens": 3.52,
+  "skyglassTokenOpportunities": 5.56,
+  "trophyTokens": {
+   "Foundry Warden": 0.06,
+   "Sealwright": 0.036,
+   "Wayfinder": 0.016,
+   "First Blade": 0.016
+  },
+  "trophyTokensTotal": 0.129,
+  "skyglassCoffers": 1.56,
+  "sealedTreasuries": 1.97,
+  "littleHorrorJarChance": 0.699,
+  "hoursSplit": {
+   "wreck": 9.97,
+   "tide": 0.2,
+   "roster": 0.16,
+   "buried": 0.23,
+   "foundry": 0.45,
+   "archive": 0.21,
+   "watch": 0.17,
+   "reliquary": 0.13,
+   "fall": 0.08,
+   "t_rel": 0.0,
+   "t_fall": 0.0,
+   "crown": 0.29,
+   "haul": 0.09,
+   "steeping": 0.0
+  }
+ },
+ "haulTarget": {
+  "targetRuns": 1.5,
+  "scale": 1.185,
+  "wreckPerPage": 0.0237,
+  "huntEndingPerPage": 0.0148,
+  "check": 1.5
+ },
+ "haulTargetWreckOnly": {
+  "wreckPerPage": 0.025,
+  "huntEndingPerPage": 0.0125
+ }
+}
