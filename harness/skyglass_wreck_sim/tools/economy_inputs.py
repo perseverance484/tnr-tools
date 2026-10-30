@@ -6,8 +6,8 @@
 Sources (results/, dodge on, L100 Kitsune + pet; minutes at 15 s per player turn):
 - final_wreck_endgame.json: Wreck minutes (mean over runs, wipes included, AI 0 s).
 - final_hunts_dodge.json: Buried Cache (cache_right), Foundry, Archive (clean), Watch (no terms); minutes = total rounds x 15 s.
-- final_charts_dodge.json: commons (L100), rares, tainted; base clear, base minutes, press-on win of reached.
-- final_charts_steeping.json: the steeping fight.
+- final_charts_dodge_a.json / _b.json: commons (L100), Epic and Legendary charts, steeping; base clear, base minutes,
+  press-on win of reached.
 - final_crownhold_chain.json: Crownhold (clean route).
 - final_haul_exact_dodge.json: the Haul (sensible CLC route, mean over the six pages).
 """
@@ -46,20 +46,20 @@ def main():
                 r = by[path]
                 out[k] = {"clear": r["wins"] / r["runs"], "minutes": round(r["totalRoundsMedian"] * 15 / 60, 1), "pressOn": 0.0}
                 out["_sources"][k] = f"final_hunts_dodge.json {path}"
-    ch = load("final_charts_dodge.json")
+    ch = [r for n in ("final_charts_dodge_a.json", "final_charts_dodge_b.json") for r in ((load(n) or {}).get("results") or [])]
     if ch:
-        for r in ch["results"]:
+        for r in ch:
             key = {"lowtide": "tide", "nightwatch": "roster", "reliquary": "reliquary", "fall": "fall", "rotted": "t_rel", "burning": "t_fall"}.get(r["run"])
             if not key or r["variant"] != "L100":
                 continue
             out[key] = {"clear": r["baseClear"] / r["runs"], "minutes": r["baseMinutesMedian"], "pressOn": a.press_on,
                         "pressWin": (r["pressOnWon"] / r["pressOnReached"]) if r["pressOnReached"] else 0.0}
-            out["_sources"][key] = f"final_charts_dodge.json {r['run']}"
-    st = load("final_charts_steeping.json")
+            out["_sources"][key] = f"final_charts_dodge_[ab].json {r['run']}"
+    st = [x for x in ch if x["run"] == "steeping" and x["variant"] == "L100"]
     if st:
-        r = [x for x in st["results"] if x["variant"] == "L100"][0]
+        r = st[0]
         out["steep"] = {"win": r["baseClear"] / r["runs"], "minutes": r["baseMinutesMedian"]}
-        out["_sources"]["steep"] = "final_charts_steeping.json"
+        out["_sources"]["steep"] = "final_charts_dodge_a.json steeping"
     cr = load("final_crownhold_chain.json")
     if cr and cr.get("chain", {}).get("clean"):
         s = cr["chain"]["clean"]["summary"]
