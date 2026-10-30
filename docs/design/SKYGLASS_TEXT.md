@@ -1082,33 +1082,53 @@ The Captain falls back to his helm and takes command of the deck. He shakes off 
 %user falls back to the helm and sets both hands on the rail. "Steady. Steady."
 ```
 
-### 6.4 Library jutsu: themed names and action-first battle text (RUL-2026-10-28-028 item 5, -029 item 4)
+### 6.4 Library jutsu: themed names and action-first battle text (RUL-2026-10-28-028 item 5, -029 item 4; names RUL-2026-10-30-063 item 3)
 
-Shared marks and blasts are used by every boss, so their names stay neutral but in the story's voice, and keep the
-shape word so the battle log still teaches the pattern (Boss Fights §5a). Marks and their blasts share one name.
-`description` for every mark: `A warning mark. Whatever it marks is struck on the caster's next turn.` For every shared
-blast: `Strikes the ground its omen marked.`
+Shared marks and blasts are used by every boss, so their names stay neutral but in the story's voice. **Every library
+jutsu has its own name** (jutsu names must be unique, RUL-2026-10-30-063 item 3): the A and B halves of a pattern are
+two records and get two names. Players learn where to move from the move name, so each name carries its shape word
+(ring, rows, scatter, lines, cross, lights, planks, line) and the battle log still teaches the pattern (Boss Fights §5a).
+A mark and its blast share the pattern words and differ by the prefix: **Omen:** marks, **Eruption:** strikes,
+**Binding:** binds. `description` for every mark: `A warning mark. Whatever it marks is struck on the caster's next turn.`
+For every shared blast: `Strikes the ground its omen marked.`
 
-| Harness name | Themed name | `battleDescription` |
-|---|---|---|
-| Omen: Ring | Omen: Cracking Ring | `%user presses a palm to the floor, and a ring of red cracks opens around them.` |
-| Omen: Binding Ring | Omen: Chain Ring | `%user draws a violet seal in the air, and a ring of script binds the floor around them.` |
-| Omen: Rows (A and B) | Omen: Twin Rows | `%user sweeps an arm across the field, and two rows of floor glow red.` |
-| Omen: Scatter (A and B) | Omen: Swelling Ground | `%user stamps once, and the floor swells red in patches.` |
-| Omen: Lines | Omen: Fanned Lines | `%user points across the field, and three red lines fan out from their feet.` |
-| Omen: Seal Lines | Omen: Seal Cross | `%user flicks seal script from their fingers, and it runs out across the floor in a violet cross.` |
-| Omen: Last Light | Omen: Last Light (kept) | `%user raises both hands, and the whole field darkens red. Three points of skyglass light remain.` |
-| Omen: Last Light, Binding | Omen: Last Light, Binding (kept) | `%user spreads violet script over the whole field. Three points of skyglass light remain.` |
-| Omen: Splash | Omen: Marked Plank | `%user marks the planks under %target with a red seal.` |
-| Omen: Short Line | Omen: Sighted Line | `%user sights down a short red line toward %target.` |
-| Eruption: Ring | Eruption: Cracking Ring | `%user closes a fist, and the cracked ring bursts upward.` |
-| Eruption: Rows (A and B) | Eruption: Twin Rows | `%user brings the arm down, and the marked rows erupt.` |
-| Eruption: Scatter (A and B) | Eruption: Swelling Ground | `%user stamps again, and the swollen ground bursts.` |
-| Eruption: Lines | Eruption: Fanned Lines | `%user snaps their fingers, and the marked lines split open.` |
-| Binding: Seal Lines | Binding: Seal Cross | `%user closes the cross, and the marked lines bind whoever stands on them.` |
-| Eruption: Splash | Eruption: Marked Plank | `%user strikes the marked planks, and they burst.` |
-| Eruption: Short Line | Eruption: Sighted Line | `%user lunges down the marked line.` |
-| Lowered Guard | Lowered Guard (kept) | `%user lowers their guard for one breath.` (kept; already action first) |
+**Canonical names: proposed by Claude, RUL-063 item 3; director may rename.** Checked unique against each other and
+against every jutsu name in the repository's captures (`answers/names_jutsu.json`, 1,472 rows, plus every `harvests/`
+jutsu capture: 1,550 distinct names; no match, case-insensitive). The shape notes give the pattern from harness
+`library_spec.json` (`fable/skyglass-final-sim` d5957e79): rows A are the second and fifth rows, rows B the third and sixth
+(one row aft of A); scatter A and B are complementary halves of the field, like ebb and flood.
+
+| Harness record (id) | Shape | Canonical name | `battleDescription` |
+|---|---|---|---|
+| Omen: Ring (`lib-omen-ring`) | radius-2 ring around the caster, red | Omen: Cracking Ring | `%user presses a palm to the floor, and a ring of red cracks opens around them.` |
+| Omen: Binding Ring (`lib-omen-binding-ring`) | radius-2 ring around the caster, violet | Omen: Chain Ring | `%user draws a violet seal in the air, and a ring of script binds the floor around them.` |
+| Omen: Rows A (`lib-omen-rows-a`) | two rows, forward pair | Omen: Fore Rows | `%user sweeps an arm across the field, and two rows of floor glow red.` |
+| Omen: Rows B (`lib-omen-rows-b`) | two rows, one row aft of A | Omen: Aft Rows | `%user sweeps an arm across the field, and two rows of floor glow red.` |
+| Omen: Scatter A (`lib-omen-scatter-a`) | half the field in patches | Omen: Ebb Scatter | `%user stamps once, and the floor swells red in patches.` |
+| Omen: Scatter B (`lib-omen-scatter-b`) | the other half | Omen: Flood Scatter | `%user stamps once, and the floor swells red in patches.` |
+| Omen: Lines (`lib-omen-lines`) | 3-ray fan from the caster | Omen: Fanned Lines | `%user points across the field, and three red lines fan out from their feet.` |
+| Omen: Seal Lines (`lib-omen-seal-lines`) | diagonal cross from the caster, violet | Omen: Seal Cross | `%user flicks seal script from their fingers, and it runs out across the floor in a violet cross.` |
+| Omen: Last Light (`lib-omen-last-light`) | whole field but three safe lights, red | Omen: Three Lights | `%user raises both hands, and the whole field darkens red. Three points of skyglass light remain.` |
+| Omen: Last Light, Binding (`lib-omen-last-light-binding`) | whole field but three safe lights, violet | Omen: Three Seal Lights | `%user spreads violet script over the whole field. Three points of skyglass light remain.` |
+| Omen: Splash (`lib-omen-splash`) | the target's plank and its six neighbours | Omen: Seven Planks | `%user marks the planks under %target with a red seal.` |
+| Omen: Short Line (`lib-omen-short-line`) | three planks from the caster toward the target | Omen: Three-Plank Line | `%user sights down a short red line toward %target.` |
+| Eruption: Ring (`lib-blast-ring`) | as its omen | Eruption: Cracking Ring | `%user closes a fist, and the cracked ring bursts upward.` |
+| Eruption: Rows A (`lib-blast-rows-a`) | as its omen | Eruption: Fore Rows | `%user brings the arm down, and the marked rows erupt.` |
+| Eruption: Rows B (`lib-blast-rows-b`) | as its omen | Eruption: Aft Rows | `%user brings the arm down, and the marked rows erupt.` |
+| Eruption: Scatter A (`lib-blast-scatter-a`) | as its omen | Eruption: Ebb Scatter | `%user stamps again, and the swollen ground bursts.` |
+| Eruption: Scatter B (`lib-blast-scatter-b`) | as its omen | Eruption: Flood Scatter | `%user stamps again, and the swollen ground bursts.` |
+| Eruption: Lines (`lib-blast-lines`) | as its omen | Eruption: Fanned Lines | `%user snaps their fingers, and the marked lines split open.` |
+| Binding: Seal Lines (`lib-blast-seal-lines`) | as its omen | Binding: Seal Cross | `%user closes the cross, and the marked lines bind whoever stands on them.` |
+| Eruption: Splash (`lib-blast-splash`) | as its omen | Eruption: Seven Planks | `%user strikes the marked planks, and they burst.` |
+| Eruption: Short Line (`lib-blast-short-line`) | as its omen | Eruption: Three-Plank Line | `%user lunges down the marked line.` |
+| Lowered Guard (`lib-lowered-guard`) | self | Lowered Guard (kept) | `%user lowers their guard for one breath.` (kept; already action first) |
+
+The two Three Lights marks are answered by bespoke signatures (Maw of the Deep, Quench; Command Absolute), not by a
+shared blast. The bespoke signatures, crew additions and Steady the Helm keep their names below; none of them matches a
+captured live jutsu name. **One library record does:** the Archive's Skyglass-only copy of Erupting Ground
+(`hunt-stonebound-erupting-ground`, RUL-2026-10-30-060 item 7) carries the live jutsu's name `Erupting Ground`
+(`jBRyl7F4UjTyxG5nnzLqj`). Proposed (Claude, RUL-063 item 3; director may rename): **Echo of Erupting Ground**, the
+Stonebound summon being an echo; its battle line is unchanged.
 
 Bespoke signatures (their battle lines become action first; the voice lines stay):
 

@@ -2,7 +2,7 @@
 
 **Update (RUL-2026-10-29-052):** the Haul is open to **every player**. There is no S-rank gate. Hunter and gatherer pages are themes, not requirements. The page drop rates are in loot tables §4b: endgame Wreck 2.4% and Rare-chart endings 1.5% per page (RUL-2026-10-30-060 item 5, replacing RUL-2026-10-29-053's 2% / 1.25%). The rest of this doc applies as written.
 
-**Status:** APPROVED direction (RUL-2026-10-29-037). The payout points are fitted (RUL-2026-10-30-060 item 4; "Payout points" below).
+**Status:** APPROVED direction (RUL-2026-10-29-037). The payout points are fitted (RUL-2026-10-30-060 item 4; "Payout points" below) and the fit is **accepted as recorded** (RUL-2026-10-30-063 item 2).
 
 These two charts are Skyglass's callback to the original S-rank Ghost Ship hunting and gathering quests. Professionals
 are rewarded the same, but through a push-your-luck run instead of a flat payout. Both follow every chart rule: the chart is
@@ -116,7 +116,7 @@ alertness, and whether a cut-through hazard is pending.
   - **Fix:** re-fit the payout points against the exact top routes (`tools/haul_payout_fit.py`), and add one more guard to the step-2 and step-3 locker fights on the Trophy Hold and the Bloom Cellar, as on the Snare Room (RUL-2026-10-29-045). The target is that no route pays more than about 120% of the sensible route.
   - **Fitted** (below, "Payout points"). The first offline fit in the report (Snare Room only) is superseded.
 
-### Payout points (RUL-2026-10-30-060 item 4, fitted)
+### Payout points (RUL-2026-10-30-060 item 4, fitted; accepted, RUL-2026-10-30-063 item 2)
 
 Fitted offline on `fable/skyglass-haul-fit` at `6ad2a102a9b0845411100f1c6f6cf08a63691c93`, from `d5957e79` (harness
 `REPORT.md` section 8; `results/fit_haul_points.json`, `results/fit_haul_summary.json`; `haul_spec.json` regenerated). Zero
@@ -146,7 +146,8 @@ A route is the choice per step: C crate, L locker, X cut through. "Sensible" is 
   It is inside the ~125% line, so it is reported and not changed.
 - **For the director:** holding the ceiling and a ~7.5M sensible route lowers the greedy clear's pay on the Bone Store and
   the Snare Room to 15.7M (about 2.1×, was ~3× under RUL-2026-10-29-045). On the Trophy Hold the extra guards drop the
-  best greedy route to about 13-16% clears. Neither is changed here.
+  best greedy route to about 13-16% clears. Neither is changed here. **Accepted by the director** with the Ore Vault's
+  CCCL 124% (RUL-2026-10-30-063 item 2).
 - **Fight lengths:** crates 3-5 rounds, lockers 5-8, Keeper or Sealwright 8-10. A full greedy run takes about 12-15
   minutes.
 - **Player model:** a solo S-rank professional at level 100, with the Kitsune set and a pet (RUL-2026-10-28-026 items
