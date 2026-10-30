@@ -69,7 +69,9 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // re-pinned contracts. Raised to 446,000 / 108,000 by the director (RUL-2026-10-28-014).
 // Badge and title builder (Forge 0.11.0, 2026-10-29): measured 450,415 / 108,305 with the badge and title
 // entities and the badge.get/title.get reads. Raised to 455,000 / 109,500 by the director (RUL-2026-10-29-043).
-export const BUDGET = { raw: 455_000, gzip: 109_500 };
+// Item variants + re-pin to TheNinjaRPG@3314d122 (Forge 0.12.0, 2026-10-29): measured 461,813 / 110,989.
+// Raised to 466,000 / 112,000 by the director (RUL-2026-10-29-054).
+export const BUDGET = { raw: 466_000, gzip: 112_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

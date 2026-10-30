@@ -105,3 +105,10 @@ Mutation checks (reverted): binding a row without the asserted-key match fails "
 - No browser, live or session checks; no Forge release; the old builder (`builder_bundle.js`) was not extended.
 - No Skyglass variant, token, Little Horror jar or Wreck manifests; no variant capture manifest; no answers/ catalogue of live variants.
 - `docs/DRIFT.md`, `docs/RULINGS.md` and `state/` (digest/board) not edited.
+
+
+## Budget: resolved
+
+The director raised the budget to **466,000 / 112,000** (RUL-2026-10-29-054). After the raise:
+- `check_bundle_budget` exits 0, at raw 461,813 / 466,000 and gzip 110,989 / 112,000.
+- The bundle is byte-unchanged.
