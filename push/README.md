@@ -1215,7 +1215,7 @@ data is re-sent with `hidden: false`; the images are unchanged. Battles load onl
 test-played in the Proving Ground quest (RUL-2026-10-28-028), so no test jutsu is created here. Gates: `validate.py
 --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 325 Recipe capture (read-only, 2 parts): READY TO RUN (any order; needs Forge 0.10.1)
+## 325 Recipe capture (read-only, 2 parts): RUN (122/122; director 2026-10-29 "Recipe capture complete")
 
 Director, 2026-10-28: "all crafting recipes were updated so we need to pull those. I want our drops to reflect the
 changes." Recipes live in the CraftingRequirement table, which `item.get` does not return. These parts point-read
@@ -1224,3 +1224,19 @@ read returns the item, its recipe rows and each ingredient. Forge allows that re
 install 0.10.1 first. Parts are 61 reads each, to stay inside that path's limit of 60 per 60 s. Items newer than the
 seed (873 live against 766 read) are not covered. Zero writes. Built by `push/325_recipe_capture.gen.py`. Gates (each
 part): `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 326 Variant token capture (read-only, 2 passes): PASS 1 READY TO RUN (needs Forge 0.12.1)
+
+RUL-2026-10-29-054 item 2. The Skyglass Token unlocks any token-cost variant with no required unlock item. Before it ships,
+every live VARIANT_TOKEN variant is listed, and those still open are bound to the Lion Token.
+- **Pass 1** (`326_variant_token_capture_1.json`) reads the following, all persisted in full:
+  - `item.getVariantNames`: every token-cost variant, as id plus "<item>: <variant>";
+  - `item.get` of the Lion Token (`FG4xYkI8UmRrJCdD3yPxI`);
+  - `item.get` of the unhidden "Test Variant" token (`QeQtevFEEL766JJQZ5tWK`).
+- **Pass 2** is built from the pass-1 bundle with `python3 push/326_variant_token_capture.gen.py --pass2 <bundle>`.
+  - It reads `item.getItemVariants` for each base item, which includes each variant's `requiredItemId`.
+  - Item names are matched to ids from the catalog. Any name that can't be matched stops the generator and is listed; supply it with `--item "Name=id"` from `/manual/item`.
+- **Report:** `--report <pass-2 bundle>` lists the open variants to bind, and fails if any listed variant was not read.
+
+Forge 0.12.1 (merge 002c240f) is required. Zero writes. Gates (pass 1): `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems.
