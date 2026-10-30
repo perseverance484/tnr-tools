@@ -17,7 +17,7 @@ import { App } from "../src/ui/app.mjs";
 import { parseManifest, ManifestError } from "../src/runner/manifest.mjs";
 import { captureLabel } from "../src/ui/screens.mjs";
 import { jobOutcome } from "../src/storage/journal.mjs";
-import { MAX_FULL_CAPTURE_BYTES, FULL_PERSIST_PATHS, snapshotKey } from "../src/storage/captures.mjs";
+import { MAX_FULL_CAPTURE_BYTES, FULL_PERSIST_PATHS, FULL_PERSIST_LIST_PATHS, snapshotKey } from "../src/storage/captures.mjs";
 import { FakeGame } from "./fakegame.mjs";
 import { MemoryStorage } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
@@ -189,8 +189,10 @@ test('a full capture with no record id is refused: "full" is a point read or not
 
 test("the allowlist is exactly the audited content-record point reads and nothing else", () => {
   assert.deepEqual([...FULL_PERSIST_PATHS].sort(), [
-    "ai.getAiProfile", "badge.get", "bloodline.get", "gameAsset.get", "item.get", "item.getItemWithCraftingRequirements", "jutsu.get", "profile.getAi", "quests.get", "skillTree.get", "title.get",
+    "ai.getAiProfile", "badge.get", "bloodline.get", "gameAsset.get", "item.get", "item.getItemVariants", "item.getItemWithCraftingRequirements", "jutsu.get", "profile.getAi", "quests.get", "skillTree.get", "title.get",
   ]);
+  // the one input-less content list (handoff docs/handoffs/VARIANT_CAPTURE_READS_3314D122.md), held apart from the point reads
+  assert.deepEqual([...FULL_PERSIST_LIST_PATHS], ["item.getVariantNames"]);
 });
 
 // ---------------------------------------------------------------- hashing the contract
@@ -620,4 +622,101 @@ test("titles: title.get and title.getAll are staff reads; signed out, the captur
   assert.deepEqual([s.state, s.pause.reason, s.pause.path], ["PAUSED", "SESSION", "title.get"]);
   assert.equal(h.game.calls.length, 1, "the one refused read; nothing more is spent proving it");
   assert.equal(await h.cache.getSnapshot(snapshotKey("anon", "after", 0)), null, "no body was persisted");
+});
+
+// ---------------------------------------------------------------- item variants (VARIANT_CAPTURE_READS)
+// routers/item.ts:1150 getVariantNames (no input) and :1153 getItemVariants {itemId}, both protected,
+// at TheNinjaRPG@3314d122. The Skyglass Token pre-launch census: every live VARIANT_TOKEN variant,
+// then each base item's variant rows with requiredItemId (RUL-2026-10-29-054 item 2).
+const LION = "FG4xYkI8UmRrJCdD3yPxI";
+const vItem = (id, name) => ({ id, name, itemType: "WEAPON", hidden: false, effects: [], createdAt: new Date(0), updatedAt: new Date(0) });
+const vRow = (id, itemId, order, costType, requiredItemId = null) => ({ id, itemId, name: `Skin ${order}`, image: `https://utfs.io/f/${id}.webp`, requiredItemId,
+  costType, cost: 0, order, description: null, battleDescription: null, furnitureData: null, createdAt: new Date(0), updatedAt: new Date(0) });
+function seedVariants(game) {
+  game.seed("item", vItem("baseBlade00000000001", "Storm Blade"));
+  game.seed("item", vItem("baseFan0000000000001", "War Fan: Gale"));
+  game.seed("itemVariant", vRow("varA0000000000000001", "baseBlade00000000001", 1, "VARIANT_TOKEN"));
+  game.seed("itemVariant", vRow("varB0000000000000001", "baseBlade00000000001", 2, "MONEY"));
+  game.seed("itemVariant", vRow("varC0000000000000001", "baseFan0000000000001", 1, "VARIANT_TOKEN", LION));
+}
+const VARIANT_CENSUS = { items: [], capture: { before: [
+  { proc: "item.getVariantNames", persist: "full" },
+  { proc: "item.getItemVariants", input: { itemId: "baseBlade00000000001" }, persist: "full" },
+  { proc: "item.getItemVariants", input: { itemId: "baseFan0000000000001" }, persist: "full" },
+] } };
+
+test("variants: getItemVariants persists by {itemId}; getVariantNames persists whole only with no input; nothing else widens", () => {
+  const cap = (c) => parseManifest({ items: [], capture: { after: [c] } }).capture.after[0];
+  assert.deepEqual(cap({ proc: "item.getItemVariants", input: { itemId: "b1" }, persist: "full" }), { proc: "item.getItemVariants", input: { itemId: "b1" }, persist: "full", id: "b1" });
+  for (const input of [undefined, {}, { id: "b1" }, { itemId: "" }, { itemId: 7 }]) {
+    assert.throws(() => cap({ proc: "item.getItemVariants", input, persist: "full" }), /needs input\.itemId naming one record/);
+  }
+  for (const input of [undefined, null, {}]) assert.equal(cap({ proc: "item.getVariantNames", input, persist: "full" }).persist, "full");
+  for (const input of [{ itemId: "b1" }, { limit: 10 }, []]) {
+    assert.throws(() => cap({ proc: "item.getVariantNames", input, persist: "full" }), /takes no input/);
+  }
+  // every other list is still a row count only
+  for (const proc of ["item.getAllNames", "title.getAll", "petSpecies.getAll", "item.getUserUnlockedVariants"]) {
+    assert.throws(() => cap({ proc, persist: "full" }), /only allowed for the audited/);
+  }
+  // summary mode of both parses as before
+  assert.equal(cap({ proc: "item.getVariantNames" }).persist, "summary");
+  assert.equal(cap({ proc: "item.getItemVariants", input: { itemId: "b1" } }).persist, "summary");
+});
+
+test("variants: the census exports getVariantNames rows and each item's variant rows exactly, one uncached read each", async () => {
+  const h = harness();
+  seedVariants(h.game);
+  h.runner.plan(VARIANT_CENSUS, { jobId: "census" });
+  const s = await h.runner.run("census");
+  assert.equal(s.state, "DONE");
+  assert.deepEqual(h.game.calls.map((c) => [c.path, c.input]), [
+    ["item.getVariantNames", undefined],
+    ["item.getItemVariants", { itemId: "baseBlade00000000001" }],
+    ["item.getItemVariants", { itemId: "baseFan0000000000001" }],
+  ], "the list is sent with no input; the item reads with {itemId}, never {id}");
+  const [names, blade, fan] = (await h.bundle("census")).captures;
+  assert.deepEqual([names.persistOk, names.input, names.rows], [true, null, 2]);
+  assert.deepEqual(names.data, [
+    { id: "varA0000000000000001", name: "Storm Blade: Skin 1" },
+    { id: "varC0000000000000001", name: "War Fan: Gale: Skin 1" },
+  ], "VARIANT_TOKEN rows only, id and the joined name");
+  assert.deepEqual([blade.persistOk, blade.input, blade.data.map((v) => [v.id, v.costType, v.requiredItemId])],
+    [true, { itemId: "baseBlade00000000001" }, [["varA0000000000000001", "VARIANT_TOKEN", null], ["varB0000000000000001", "MONEY", null]]]);
+  assert.deepEqual(fan.data.map((v) => [v.id, v.requiredItemId]), [["varC0000000000000001", LION]]);
+  // the snapshot is filed under the itemId; the journal entry stays compact
+  assert.equal((await h.cache.getSnapshot(snapshotKey("census", "before", 1))).id, "baseBlade00000000001");
+  assert.ok(h.journal.get("census").capturesBefore.every((c) => !("data" in c)));
+  // a filtered list is never written into the read cache
+  assert.equal(await h.cache.get("item.getItemVariants", "baseBlade00000000001"), null);
+  assert.equal(await h.cache.get("item.getItemVariants", ""), null);
+});
+
+test("variants: a summary getItemVariants capture still sends {itemId} and records a row count", async () => {
+  const h = harness();
+  seedVariants(h.game);
+  h.runner.plan({ items: [], capture: { after: [{ proc: "item.getItemVariants", input: { itemId: "baseBlade00000000001" } }] } }, { jobId: "sum" });
+  assert.equal((await h.runner.run("sum")).state, "DONE");
+  assert.deepEqual(h.game.calls.map((c) => c.input), [{ itemId: "baseBlade00000000001" }]);
+  const [c] = (await h.bundle("sum")).captures;
+  assert.deepEqual([c.ok, c.rows, c.input, "data" in c], [true, 2, { itemId: "baseBlade00000000001" }, false]);
+});
+
+test("variants: both reads are protected; signed out, the census stops on the session and persists nothing", async () => {
+  const h = harness({ game: new FakeGame({ signedOut: true }) });
+  seedVariants(h.game);
+  h.runner.plan(VARIANT_CENSUS, { jobId: "anon" });
+  const s = await h.runner.run("anon");
+  assert.deepEqual([s.state, s.pause.reason, s.pause.path], ["PAUSED", "SESSION", "item.getVariantNames"]);
+  assert.equal(h.game.calls.length, 1);
+  assert.equal(await h.cache.getSnapshot(snapshotKey("anon", "before", 0)), null);
+});
+
+test("variants: the getVariantNames list slot is dropped by a variant write", async () => {
+  const h = harness();
+  seedVariants(h.game);
+  await h.reader.list("item.getVariantNames");
+  assert.ok(await h.cache.get("item.getVariantNames", ""), "the input-less list caches under id \"\"");
+  await h.cache.invalidateRecord("item", "varA0000000000000001"); // what a variant edit does (recipes itemVariant.cacheEntity)
+  assert.equal(await h.cache.get("item.getVariantNames", ""), null);
 });

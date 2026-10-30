@@ -76,6 +76,10 @@ export const PROCEDURES = Object.freeze({
   // Item variants, read at TheNinjaRPG@3314d122 routers/item.ts: getItemVariants :1153 and
   // upsertItemVariant :1167 are protectedProcedure with no limiter and no mcp meta.
   "item.getItemVariants": { kind: "query", limited: false, mcp: false, auth: "protected" },
+  // routers/item.ts:1150 getVariantNames: protectedProcedure with no .input(), no limiter, no mcp meta.
+  // queries/item.ts:2350 listVariantNames selects {id, name: concat(item.name, ": ", variant.name)}
+  // from ItemVariant inner-joined to Item where costType = "VARIANT_TOKEN"; no ctx.userId, no user table.
+  "item.getVariantNames": { kind: "query", limited: false, mcp: false, auth: "protected" },
   "item.upsertItemVariant": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "jutsu.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "jutsu.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },

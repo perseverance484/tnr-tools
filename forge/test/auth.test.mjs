@@ -105,7 +105,8 @@ test("the auth class of every audited procedure is transcribed from source, not 
   assert.equal(isProtected("title.get"), true);          // routers/title.ts:40 at 2af4b320: the staff read
   assert.equal(isProtected("badge.get"), false);         // routers/badge.ts:62, publicProcedure
   assert.equal(isProtected("title.getAll"), true);       // routers/title.ts:30, staff list (archived included)
-  assert.equal(PROTECTED_PATHS.length, 46); // 31 audited + 3 content review (src/review/contract.json) + 2 dungeon (src/dungeon/contract.json) + 2 petSpecies + 2 badge + 4 title + 2 item variant
+  assert.equal(isProtected("item.getVariantNames"), true); // routers/item.ts:1150 at 3314d122
+  assert.equal(PROTECTED_PATHS.length, 47); // 31 audited + 3 content review (src/review/contract.json) + 2 dungeon (src/dungeon/contract.json) + 2 petSpecies + 2 badge + 4 title + 3 item variant
   assert.throws(() => isProtected("jutsu.nope"), /unknown procedure/);
 });
 

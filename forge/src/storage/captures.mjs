@@ -47,7 +47,8 @@ export function snapshotKey(jobId, phase, ordinal) { return `${jobId}::${phase}:
 // A capture may ask for `persist: "full"`, which means the exact decoded response body is
 // written into the exported results bundle. That bundle is committed to this repository when
 // GitHub sync is on, so full persistence is fail-closed: only the audited TNR content-record
-// POINT READS below may ever be persisted in v1. List procedures, mutations, unknown paths and
+// POINT READS below (and the one input-less content list, FULL_PERSIST_LIST_PATHS) may ever be
+// persisted. Other list procedures, mutations, unknown paths and
 // anything protected/user/account/session shaped are refused before a job opens, and widening
 // this list is a separate reviewed change (task brief, "Full-mode safety boundary").
 //
@@ -73,10 +74,34 @@ export const FULL_PERSIST_PATHS = Object.freeze([
   "title.get",
   "profile.getAi",
   "ai.getAiProfile",
+  // One item's variant rows, keyed by {itemId} (routers/item.ts:1153 protected, no limiter;
+  // queries/item.ts:933 ItemVariant where itemId = input.itemId, ordered by `order`; output
+  // ItemVariantResponseSchema: id, itemId, name, image, requiredItemId, costType, cost, order,
+  // description, battleDescription, furnitureData, createdAt, updatedAt; TheNinjaRPG@3314d122).
+  // Content rows of ONE record's children and nothing per player: who unlocked a variant lives in
+  // UserItemVariant, which this query never touches. The record key is itemId, not id
+  // (PERSIST_RECORD_KEY), and the runner reads it as the uncached filtered list it is.
+  "item.getItemVariants",
 ]);
 
+/**
+ * The input member that names the one record a full point read reads, where it is not `id` (or
+ * `userId`, which profile.getAi uses). A full capture of these paths must carry that member.
+ */
+export const PERSIST_RECORD_KEY = Object.freeze({ "item.getItemVariants": "itemId" });
+
+// THE ONE LIST EXCEPTION, a reviewed widening (handoff docs/handoffs/VARIANT_CAPTURE_READS_3314D122.md). A list may be
+// persisted whole only when it takes NO input (so there is no filter whose silence could be
+// misread) and every column of every row is content. item.getVariantNames (routers/item.ts:1150,
+// protected, no .input(); queries/item.ts:2350 listVariantNames at TheNinjaRPG@3314d122) answers
+// {id, name: "<item name>: <variant name>"} for every VARIANT_TOKEN variant: an ItemVariant id and
+// two content names, no ctx.userId, no user table, no counts. It is the only way to enumerate the
+// token variants without a read per item. Rows are unordered at source. Every other list stays a
+// row count, and a full list request with an input is refused at parse time.
+export const FULL_PERSIST_LIST_PATHS = Object.freeze(["item.getVariantNames"]);
+
 /** Whether a procedure path may have its response body durably persisted into a bundle. */
-export function canPersistFull(path) { return FULL_PERSIST_PATHS.includes(path); }
+export function canPersistFull(path) { return FULL_PERSIST_PATHS.includes(path) || FULL_PERSIST_LIST_PATHS.includes(path); }
 
 /** The audited registry's opinion of a path, or null when it is not in the crud surface. */
 export function persistProcedureKind(path) { return PROCEDURES[path] ? PROCEDURES[path].kind : null; }

@@ -83,7 +83,7 @@ export class FakeGame {
     if (this.signedOut && isProtected(path)) return err("UNAUTHORIZED", `UNAUTHORIZED: Data: ${JSON.stringify(input ?? null)}`, 401);
     if (router === "dungeon") result = this.dungeon(proc, input, ok, err);
     else if (router === "petSpecies") result = this.petSpecies(proc, input, ok, err);
-    else if (path === "item.getItemVariants" || path === "item.upsertItemVariant") result = this.itemVariant(proc, input, ok, err);
+    else if (path === "item.getItemVariants" || path === "item.upsertItemVariant" || path === "item.getVariantNames") result = this.itemVariant(proc, input, ok, err);
     else if (PLACEHOLDER[path]) {
       if (this.refuse.has(path)) result = ok({ success: false, message: `Not allowed to create` });
       else { const id = nanoidLike(); const row = PLACEHOLDER[path](id, input); table.set(id, row); result = ok({ success: true, message: id }); }
@@ -288,7 +288,7 @@ FakeGame.prototype.itemWithCraftingRequirements = function (input, ok, err) {
 export { Session, TrpcClient };
 
 /**
- * item.getItemVariants / item.upsertItemVariant as routers/item.ts:1151-1275 answers at
+ * item.getItemVariants / item.upsertItemVariant (and item.getVariantNames, routers/item.ts:1150) as routers/item.ts:1151-1275 answers at
  * TheNinjaRPG@3314d122, written out here independently of src/runner/variants.mjs. getItemVariants
  * {itemId} lists that item's rows by order. upsertItemVariant {itemId, variant} parses
  * ItemVariantValidator (unknown keys stripped, name trimmed, requiredItemId/furnitureData prefault
@@ -303,6 +303,9 @@ FakeGame.prototype.itemVariant = function (proc, input, ok, err) {
   const table = this.tables.itemVariant, items = this.tables.item;
   const listOf = (itemId) => [...table.values()].filter((v) => v.itemId === itemId).sort((a, b) => a.order - b.order);
   if (proc === "getItemVariants") return ok(listOf(input.itemId).map((v) => structuredClone(v)));
+  // queries/item.ts:2350 listVariantNames: no input; {id, "<item>: <variant>"} for VARIANT_TOKEN
+  // rows inner-joined to their item (a variant whose item is gone is not listed); no ORDER BY.
+  if (proc === "getVariantNames") return ok([...table.values()].filter((v) => v.costType === "VARIANT_TOKEN" && items.has(v.itemId)).map((v) => ({ id: v.id, name: `${items.get(v.itemId).name}: ${v.name}` })));
   const bad = (path, message) => ({ ok: false, error: { code: "BAD_REQUEST", httpStatus: 400, message, path: "item.upsertItemVariant", zodError: [{ path: ["variant", path], message }] } });
   const v = input.variant ?? {};
   const name = typeof v.name === "string" ? v.name.trim() : null;

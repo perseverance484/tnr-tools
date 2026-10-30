@@ -289,7 +289,8 @@ Read at source (`routers/item.ts`, `queries/item.ts`, `validators/item.ts`, `val
 |---|---|
 | `item.upsertItemVariant` (create) | `{itemId, variant}` with no `variant.id`; answers `{success, message: "Variant saved"}` with **no id**. Forge reads the item's variants first and finds the new id by `(itemId, order)` (a unique index). |
 | `item.upsertItemVariant` (edit) | `{itemId, variant: {id, ...}}`; replaces every column, so Forge re-sends the live record; a stored null `description`/`battleDescription` is omitted (the validator refuses null). |
-| `item.getItemVariants` | `{itemId}`; one item's variants by order. There is no point read: every variant entry carries `itemId`, on edits too. No full-persist capture. |
+| `item.getItemVariants` | `{itemId}`; one item's variants by order. There is no point read: every variant entry carries `itemId`, on edits too. Since Forge 0.12.1 a capture may ask `persist: "full"` with `input: {itemId}` (the rows, `requiredItemId` included). |
+| `item.getVariantNames` | No input; `{id, name: "<item>: <variant>"}` for every `VARIANT_TOKEN` variant, unordered, no `itemId`. Protected. Since Forge 0.12.1 the one list a capture may persist whole (`persist: "full"`, no input); every other list is a row count. |
 
 - Manifest entity `itemVariant`; ref prefix `@variant:<srcId>`, usable anywhere, typically in a token item's `unlockitemvariant.variantId` (resolved at send time). Both procedures are protected (content staff); no rate limiter.
 - Fields: `itemId`, `name` (1-191 after trim; no padding), `image` (an `@img` ref or a URL of at most 512), `costType` (`VARIANT_COST_TYPES`, incl. `VARIANT_TOKEN`), `cost` (integer >= 0), `order` (1-7, unique per item), `description`, `battleDescription` (strings; markup is sanitised, so it may read back as drift), `requiredItemId` (token variants only), `furnitureData` (furniture items only). Never send `id`: the entry's `targetId` is the id.
