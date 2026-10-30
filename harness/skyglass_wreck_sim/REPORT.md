@@ -58,7 +58,17 @@ Horror, the Foundry Warden, Replicant Zero, the Steeping Horror, and every Crown
 - Reaches phase 2 in 97.5% of fights.
 - With the Captain's term: 65-90%.
 - Dodge off: 0%.
-- **Transition order:** `results/final_audit_captain_endgame.json`.
+- **Transition order** (`results/final_audit_captain_endgame.json`: the endgame Wreck boss wave, 20 runs with pets):
+  - Steady the Helm, Raise the Gunwale and the first Omen fire in one round in 95% of appearances.
+  - Broadside is never cast in phase 1 (0 of 19 casts).
+  - Phase 1 ends on the basic attack (63 casts).
+  - Wreck phase 2: median 6 rounds (p90 8).
+
+**Determinism:** same-seed reruns are identical, positions and pets included:
+- charts `--repro` on `burning@L100@3`, `fall@L100@2` and `steeping@L100@1`;
+- Haul `--repro trophy@CLLCL@5`;
+- Wreck `--probe-check` on the endgame boss floor with pets: 2 seeds identical, and identical with the rule probe
+  removed.
 
 ### 4. Rare charts (40 seeds, dodge on)
 
