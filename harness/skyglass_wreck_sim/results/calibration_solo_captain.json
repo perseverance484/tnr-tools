@@ -1,0 +1,2839 @@
+{
+ "generatedBy": "engine/calibrate.ts",
+ "scenario": "solo level-100 player vs The Captain (captured live record, push/249), plain QUEST battle",
+ "anchor": "director 2026-10-28: good players win in 8-10 rounds, some fewer; tough fight, end HP depends on build",
+ "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+ "dmgConfigValues": {
+  "stats_scaling": 1,
+  "base_hits": 10,
+  "curve": 2,
+  "amplitude": 0.75,
+  "ep_normalization": 40,
+  "gen_weight": 1,
+  "advantage_min": 0,
+  "advantage_max": 10
+ },
+ "seeds": 60,
+ "seed0": 1,
+ "tiers": [
+  {
+   "tier": "average",
+   "knobs": {
+    "poolsMultiplier": 1,
+    "damageTakenReductionPct": 0,
+    "damageGivenPct": 0,
+    "hp": 5050
+   },
+   "inBattle": {
+    "jutsuLoaded": [
+     "Chakra Overflow@25",
+     "Typhon Burst@25",
+     "Tempestual Fury@25",
+     "Burning Coil@25",
+     "Gale Force Blast@25",
+     "Scorching Sun Strike@25",
+     "Wind Style: Sky Dragon@25",
+     "Phoenix Flame Strike@25",
+     "Stunning Jab@25"
+    ],
+    "jutsuDropped": [],
+    "maxHealth": 5050,
+    "offence": 1300000,
+    "defence": 1300000,
+    "preBattleGearModifiers": {
+     "incDamageGivenFromGear": 50,
+     "incDamageTakenFromGear": 0,
+     "drTakenFromGear": 30,
+     "drGivenFromGear": 0,
+     "incDamageGivenFromKeystone": 0,
+     "incDamageTakenFromKeystone": 0,
+     "drTakenFromKeystone": 0,
+     "drGivenFromKeystone": 0
+    },
+    "itemEffects": [
+     "armor:increasemaxpools 500 r20",
+     "armor:increasemaxpools 500 r20",
+     "armor:increasestat 20% r100",
+     "armor:absorb 30% r5",
+     "armor:increasestat 20% r100",
+     "armor:increasestat 20% r100",
+     "armor:increasemaxpools 200 r20",
+     "armor:increasestat 20% r100"
+    ]
+   },
+   "seeds": 60,
+   "winPct": 100,
+   "winRoundsMedian": 8,
+   "winRoundsP10": 8,
+   "winRoundsP90": 8,
+   "winEndHpPctMedian": 71.6,
+   "winEndHpPctP10": 71.6,
+   "winEndHpPctP90": 71.6,
+   "lossRoundsMedian": null,
+   "lossCaptainHpLeftPctMedian": null,
+   "fights": [
+    {
+     "seed": 1,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 69.28677117687924,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 2,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 3,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 69.28677117687924,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 4,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 5,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 6,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 7,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 8,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 9,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 10,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 11,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 12,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 69.28677117687924,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 13,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 14,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 15,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 16,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 17,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 18,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 19,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 20,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 21,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 22,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 23,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 24,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 25,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 26,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 27,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 28,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 29,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 30,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 31,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 32,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 33,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 34,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 35,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 36,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 37,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 38,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 69.28677117687924,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 39,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 40,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 41,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 42,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 43,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 44,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 45,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 46,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 47,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 69.28677117687924,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 48,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 49,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 50,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 51,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 52,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 53,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 69.28677117687924,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 54,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 55,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 56,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 57,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 58,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 59,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 60,
+     "won": true,
+     "rounds": 8,
+     "playerHpPct": 71.58519897831715,
+     "captainHpPct": 0
+    }
+   ]
+  },
+  {
+   "tier": "noarmor",
+   "knobs": {
+    "poolsMultiplier": 1,
+    "damageTakenReductionPct": 0,
+    "damageGivenPct": 0,
+    "hp": 5050
+   },
+   "inBattle": {
+    "jutsuLoaded": [
+     "Chakra Overflow@25",
+     "Typhon Burst@25",
+     "Tempestual Fury@25",
+     "Burning Coil@25",
+     "Gale Force Blast@25",
+     "Scorching Sun Strike@25",
+     "Wind Style: Sky Dragon@25",
+     "Phoenix Flame Strike@25",
+     "Stunning Jab@25"
+    ],
+    "jutsuDropped": [],
+    "maxHealth": 5050,
+    "offence": 1300000,
+    "defence": 1300000,
+    "preBattleGearModifiers": {
+     "incDamageGivenFromGear": 0,
+     "incDamageTakenFromGear": 0,
+     "drTakenFromGear": 0,
+     "drGivenFromGear": 0,
+     "incDamageGivenFromKeystone": 0,
+     "incDamageTakenFromKeystone": 0,
+     "drTakenFromKeystone": 0,
+     "drGivenFromKeystone": 0
+    },
+    "itemEffects": []
+   },
+   "seeds": 60,
+   "winPct": 0,
+   "winRoundsMedian": null,
+   "winRoundsP10": null,
+   "winRoundsP90": null,
+   "winEndHpPctMedian": null,
+   "winEndHpPctP10": null,
+   "winEndHpPctP90": null,
+   "lossRoundsMedian": 3,
+   "lossCaptainHpLeftPctMedian": 80.6,
+   "fights": [
+    {
+     "seed": 1,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 83.06237915392693
+    },
+    {
+     "seed": 2,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 3,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 83.06237915392693
+    },
+    {
+     "seed": 4,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 5,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 6,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 7,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 8,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 9,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 10,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 11,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 12,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 83.06237915392693
+    },
+    {
+     "seed": 13,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 14,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 15,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 16,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 17,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 18,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 19,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 20,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 21,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 22,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 23,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 24,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 25,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 26,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 27,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 28,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 29,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 30,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 31,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 32,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 33,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 34,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 35,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 36,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 37,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 38,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 83.06237915392693
+    },
+    {
+     "seed": 39,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 40,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 41,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 42,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 43,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 44,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 45,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 46,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 47,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 83.06237915392693
+    },
+    {
+     "seed": 48,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 49,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 50,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 51,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 52,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 53,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 83.06237915392693
+    },
+    {
+     "seed": 54,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 55,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 56,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 57,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    },
+    {
+     "seed": 58,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 59,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.01223497183351
+    },
+    {
+     "seed": 60,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 81.09288835787193
+    }
+   ]
+  },
+  {
+   "tier": "cap",
+   "knobs": {
+    "poolsMultiplier": 1,
+    "damageTakenReductionPct": 0,
+    "damageGivenPct": 0,
+    "hp": 5050
+   },
+   "inBattle": {
+    "jutsuLoaded": [
+     "Chakra Overflow@25",
+     "Aqua Barrier@25",
+     "Rejuvenating Chakra@25",
+     "Void Pulse Barrage@25",
+     "Shrapnel Clone Barrage@25",
+     "Stunning Jab@25",
+     "Eight Fist Style: Lotus Dance@25",
+     "Phantom Requiem@25"
+    ],
+    "jutsuDropped": [],
+    "maxHealth": 5050,
+    "offence": 1300000,
+    "defence": 1300000,
+    "preBattleGearModifiers": {
+     "incDamageGivenFromGear": 0,
+     "incDamageTakenFromGear": 0,
+     "drTakenFromGear": 0,
+     "drGivenFromGear": 0,
+     "incDamageGivenFromKeystone": 0,
+     "incDamageTakenFromKeystone": 0,
+     "drTakenFromKeystone": 0,
+     "drGivenFromKeystone": 0
+    },
+    "itemEffects": []
+   },
+   "seeds": 60,
+   "winPct": 0,
+   "winRoundsMedian": null,
+   "winRoundsP10": null,
+   "winRoundsP90": null,
+   "winEndHpPctMedian": null,
+   "winEndHpPctP10": null,
+   "winEndHpPctP90": null,
+   "lossRoundsMedian": 5,
+   "lossCaptainHpLeftPctMedian": 82,
+   "fights": [
+    {
+     "seed": 1,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 76.47763375589945
+    },
+    {
+     "seed": 2,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 87.23105350235979
+    },
+    {
+     "seed": 3,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 90.81552675117989
+    },
+    {
+     "seed": 4,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 5,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 6,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 7,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 87.23105350235979
+    },
+    {
+     "seed": 8,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 9,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 10,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 11,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 12,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 90.81552675117989
+    },
+    {
+     "seed": 13,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 14,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 15,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 16,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 17,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 18,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 19,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 20,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 21,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 22,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 23,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 24,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 25,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 26,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 27,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 28,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 29,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 30,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 87.23105350235979
+    },
+    {
+     "seed": 31,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 32,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 33,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 34,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 35,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 36,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 37,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 38,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 90.81552675117989
+    },
+    {
+     "seed": 39,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 40,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 41,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 42,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 43,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 44,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 45,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 46,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 47,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 76.47763375589945
+    },
+    {
+     "seed": 48,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 49,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 50,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 87.23105350235979
+    },
+    {
+     "seed": 51,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 87.23105350235979
+    },
+    {
+     "seed": 52,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 53,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 76.47763375589945
+    },
+    {
+     "seed": 54,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 55,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 56,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 57,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    },
+    {
+     "seed": 58,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 59,
+     "won": false,
+     "rounds": 5,
+     "playerHpPct": 0,
+     "captainHpPct": 81.95416898566492
+    },
+    {
+     "seed": 60,
+     "won": false,
+     "rounds": 3,
+     "playerHpPct": 0,
+     "captainHpPct": 80.06210700471955
+    }
+   ]
+  },
+  {
+   "tier": "geared",
+   "knobs": {
+    "poolsMultiplier": 2.5,
+    "damageTakenReductionPct": 40,
+    "damageGivenPct": 100,
+    "hp": 12625
+   },
+   "inBattle": {
+    "jutsuLoaded": [
+     "Chakra Overflow@25",
+     "Aqua Barrier@25",
+     "Rejuvenating Chakra@25",
+     "Void Pulse Barrage@25",
+     "Shrapnel Clone Barrage@25",
+     "Stunning Jab@25",
+     "Eight Fist Style: Lotus Dance@25",
+     "Phantom Requiem@25"
+    ],
+    "jutsuDropped": [],
+    "maxHealth": 12625,
+    "offence": 1300000,
+    "defence": 1300000,
+    "preBattleGearModifiers": {
+     "incDamageGivenFromGear": 100,
+     "incDamageTakenFromGear": 0,
+     "drTakenFromGear": 40,
+     "drGivenFromGear": 0,
+     "incDamageGivenFromKeystone": 0,
+     "incDamageTakenFromKeystone": 0,
+     "drTakenFromKeystone": 0,
+     "drGivenFromKeystone": 0
+    },
+    "itemEffects": []
+   },
+   "seeds": 60,
+   "winPct": 100,
+   "winRoundsMedian": 10,
+   "winRoundsP10": 10,
+   "winRoundsP90": 10,
+   "winEndHpPctMedian": 81.8,
+   "winEndHpPctP10": 72.7,
+   "winEndHpPctP90": 81.8,
+   "lossRoundsMedian": null,
+   "lossCaptainHpLeftPctMedian": null,
+   "fights": [
+    {
+     "seed": 1,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.22723828175722,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 2,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 72.71953227809298,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 3,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 72.71953227809298,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 4,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 5,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 6,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 7,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 72.71953227809298,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 8,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 9,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 10,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 11,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 12,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 72.71953227809298,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 13,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 14,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 15,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 16,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 17,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 18,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 19,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 20,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 21,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 22,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 23,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 24,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 25,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 26,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 27,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 28,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 29,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 30,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 72.71953227809298,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 31,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 32,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 33,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 34,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 35,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 36,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 37,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 38,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 72.71953227809298,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 39,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 40,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 41,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 42,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 43,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 44,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 45,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 46,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 47,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.22723828175722,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 48,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 49,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 50,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 72.71953227809298,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 51,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 72.71953227809298,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 52,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 53,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.22723828175722,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 54,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 55,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 56,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 57,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 58,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 59,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 81.80731157241075,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 60,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 73.00893753626235,
+     "captainHpPct": 0
+    }
+   ]
+  },
+  {
+   "tier": "strong",
+   "knobs": {
+    "poolsMultiplier": 4,
+    "damageTakenReductionPct": 60,
+    "damageGivenPct": 250,
+    "hp": 20200
+   },
+   "inBattle": {
+    "jutsuLoaded": [
+     "Chakra Overflow@25",
+     "Aqua Barrier@25",
+     "Rejuvenating Chakra@25",
+     "Void Pulse Barrage@25",
+     "Shrapnel Clone Barrage@25",
+     "Stunning Jab@25",
+     "Eight Fist Style: Lotus Dance@25",
+     "Phantom Requiem@25"
+    ],
+    "jutsuDropped": [],
+    "maxHealth": 20200,
+    "offence": 1300000,
+    "defence": 1300000,
+    "preBattleGearModifiers": {
+     "incDamageGivenFromGear": 100,
+     "incDamageTakenFromGear": 0,
+     "drTakenFromGear": 60,
+     "drGivenFromGear": 0,
+     "incDamageGivenFromKeystone": 0,
+     "incDamageTakenFromKeystone": 0,
+     "drTakenFromKeystone": 0,
+     "drGivenFromKeystone": 0
+    },
+    "itemEffects": []
+   },
+   "seeds": 60,
+   "winPct": 100,
+   "winRoundsMedian": 10,
+   "winRoundsP10": 10,
+   "winRoundsP90": 10,
+   "winEndHpPctMedian": 90.9,
+   "winEndHpPctP10": 87,
+   "winEndHpPctP90": 90.9,
+   "lossRoundsMedian": null,
+   "lossCaptainHpLeftPctMedian": null,
+   "fights": [
+    {
+     "seed": 1,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.29509288373508,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 2,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 86.9512236095695,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 3,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 86.9512236095695,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 4,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 5,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 6,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 7,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 86.9512236095695,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 8,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 9,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 10,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 11,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 12,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 86.9512236095695,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 13,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 14,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 15,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 16,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 17,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 18,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 19,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 20,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 21,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 22,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 23,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 24,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 25,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 26,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 27,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 28,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 29,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 30,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 86.9512236095695,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 31,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 32,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 33,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 34,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 35,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 36,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 37,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 38,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 86.9512236095695,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 39,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 40,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 41,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 42,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 43,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 44,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 45,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 46,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 47,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.29509288373508,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 48,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 49,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 50,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 86.9512236095695,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 51,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 86.9512236095695,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 52,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 53,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.29509288373508,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 54,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 55,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 56,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 57,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 58,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 59,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 90.87547477729727,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 60,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 87.7530612454565,
+     "captainHpPct": 0
+    }
+   ]
+  },
+  {
+   "tier": "elite",
+   "knobs": {
+    "poolsMultiplier": 6,
+    "damageTakenReductionPct": 75,
+    "damageGivenPct": 400,
+    "hp": 30300
+   },
+   "inBattle": {
+    "jutsuLoaded": [
+     "Chakra Overflow@25",
+     "Aqua Barrier@25",
+     "Rejuvenating Chakra@25",
+     "Void Pulse Barrage@25",
+     "Shrapnel Clone Barrage@25",
+     "Stunning Jab@25",
+     "Eight Fist Style: Lotus Dance@25",
+     "Phantom Requiem@25"
+    ],
+    "jutsuDropped": [],
+    "maxHealth": 30300,
+    "offence": 1300000,
+    "defence": 1300000,
+    "preBattleGearModifiers": {
+     "incDamageGivenFromGear": 100,
+     "incDamageTakenFromGear": 0,
+     "drTakenFromGear": 75,
+     "drGivenFromGear": 0,
+     "incDamageGivenFromKeystone": 0,
+     "incDamageTakenFromKeystone": 0,
+     "drTakenFromKeystone": 0,
+     "drGivenFromKeystone": 0
+    },
+    "itemEffects": []
+   },
+   "seeds": 60,
+   "winPct": 100,
+   "winRoundsMedian": 10,
+   "winRoundsP10": 10,
+   "winRoundsP90": 10,
+   "winEndHpPctMedian": 93.9,
+   "winEndHpPctP10": 91.3,
+   "winEndHpPctP90": 93.9,
+   "lossRoundsMedian": null,
+   "lossCaptainHpLeftPctMedian": null,
+   "fights": [
+    {
+     "seed": 1,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.53006192249006,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 2,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.300815739713,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 3,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.300815739713,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 4,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 5,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 6,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 7,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.300815739713,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 8,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 9,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 10,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 11,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 12,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.300815739713,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 13,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 14,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 15,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 16,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 17,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 18,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 19,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 20,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 21,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 22,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 23,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 24,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 25,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 26,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 27,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 28,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 29,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 30,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.300815739713,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 31,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 32,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 33,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 34,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 35,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 36,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 37,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 38,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.300815739713,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 39,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 40,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 41,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 42,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 43,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 44,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 45,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 46,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 47,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.53006192249006,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 48,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 49,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 50,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.300815739713,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 51,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.300815739713,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 52,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 53,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.53006192249006,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 54,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 55,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 56,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 57,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 58,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 59,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 93.91698318486485,
+     "captainHpPct": 0
+    },
+    {
+     "seed": 60,
+     "won": true,
+     "rounds": 10,
+     "playerHpPct": 91.83537416363767,
+     "captainHpPct": 0
+    }
+   ]
+  }
+ ]
+}

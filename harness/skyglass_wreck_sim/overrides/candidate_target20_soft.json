@@ -1,0 +1,258 @@
+{
+ "name": "candidate_target20_soft",
+ "note": "Aim: ~20-27 rounds. One wave of two crew per floor; every crew AI poolsMultiplier -> 1.5 (7,575 HP); Crowned Captain poolsMultiplier -> 4 (20,200 HP) with two Core Canisters. All via scaleEditedAi (storable values). Additionally every crew AI's innate effects are replaced by one increasedamagegiven 150% / 99 rounds (captured: +350-450% across 4-5 stacked rows); Crowned Captain keeps its captured +450%. Kits and rules as captured.",
+ "enemies": {
+  "Deck Warden": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Core Horror": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Wayfinder": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Arsenal Keeper": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Skyglass Sentinel": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "First Blade": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Oathkeeper": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "The Captain": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Crowned Captain": {
+   "aiEdit": {
+    "poolsMultiplier": 4
+   }
+  }
+ },
+ "floors": [
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Core Horror"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Oathkeeper",
+      "Arsenal Keeper"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Skyglass Sentinel",
+      "First Blade"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "The Captain",
+      "Wayfinder"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "boss",
+   "waves": [
+    {
+     "aiIds": [
+      "Crowned Captain",
+      "Core Canister",
+      "Core Canister"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,578 @@
+{
+ "name": "dense_b_opener_far",
+ "note": "Dense candidate B: the director's layout (2026-10-28) with the dense_a stat changes (crew pools 1.5 and innate damage given +150%; Crowned pools 4; Sealwright pools 2.5). Waves and hazards exactly as director_layout. Plus the wave-2 opener fix \"far\" (see director_layout_opener_far.json): wave-2 Deck Wardens (F2W2) and the wave-2 Wayfinder (F4W2) are clones with the edited rule 0; the clones also get the dense_b stat changes.",
+ "enemies": {
+  "Deck Warden": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Core Horror": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Wayfinder": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Arsenal Keeper": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Skyglass Sentinel": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "First Blade": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Oathkeeper": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "The Captain": {
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Crowned Captain": {
+   "aiEdit": {
+    "poolsMultiplier": 4
+   }
+  },
+  "Sealwright": {
+   "aiEdit": {
+    "poolsMultiplier": 2.5
+   }
+  }
+ },
+ "floors": [
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Deck Warden",
+      "Deck Warden",
+      "Seal Charge"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Seal Charge",
+      "Seal Charge"
+     ],
+     "delayRounds": 0
+    },
+    {
+     "aiIds": [
+      "Deck Warden (wave 2)",
+      "Deck Warden (wave 2)",
+      "Deck Warden (wave 2)"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "floor",
+   "waves": [
+    {
+     "aiIds": [
+      "Skyglass Sentinel",
+      "First Blade",
+      "Deck Warden"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "mini-boss",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Deck Warden",
+      "Oathkeeper"
+     ],
+     "delayRounds": 0
+    },
+    {
+     "aiIds": [
+      "The Captain",
+      "Wayfinder (wave 2)"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  },
+  {
+   "kind": "boss",
+   "waves": [
+    {
+     "aiIds": [
+      "Deck Warden",
+      "Deck Warden",
+      "First Blade",
+      "Core Canister",
+      "Core Canister"
+     ],
+     "delayRounds": 0
+    },
+    {
+     "aiIds": [
+      "Crowned Captain",
+      "Sealwright"
+     ],
+     "delayRounds": 0
+    }
+   ]
+  }
+ ],
+ "newEnemies": {
+  "Deck Warden (wave 2)": {
+   "base": "Deck Warden",
+   "username": "Deck Warden (wave 2)",
+   "rules": [
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+      "target": "SELF",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "type": "distance_higher_than",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance higher than or equal given value"
+      }
+     ]
+    },
+    {
+     "action": {
+      "comboIds": [
+       "UnQKfwq_JoRVu10aTX6Uv",
+       "m-ur3A8TS8r5jGb84L9x7"
+      ],
+      "description": "Cycly through a specific combo of jutsu & items",
+      "target": "RANDOM_OPPONENT",
+      "type": "use_combo_action"
+     },
+     "conditions": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+      "target": "RANDOM_OPPONENT",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+      "target": "RANDOM_OPPONENT",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "V3WrfQ3pB-eCq2hojsxWe",
+      "target": "SELF",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "An enemy player is within the inclusive hex range",
+       "maxRange": 2,
+       "minRange": 0,
+       "type": "player_within_range"
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+      "target": "SELF",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "An enemy player is within the inclusive hex range",
+       "maxRange": 5,
+       "minRange": 0,
+       "type": "player_within_range"
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Move towards opponent",
+      "target": "RANDOM_OPPONENT",
+      "type": "move_towards_opponent"
+     },
+     "conditions": [
+      {
+       "description": "Distance higher than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_higher_than",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Use highest power action",
+      "effect": "damage",
+      "target": "RANDOM_OPPONENT",
+      "type": "use_highest_power_action"
+     },
+     "conditions": []
+    }
+   ],
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  "Wayfinder (wave 2)": {
+   "base": "Wayfinder",
+   "username": "Wayfinder (wave 2)",
+   "rules": [
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+      "target": "SELF",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "type": "distance_higher_than",
+       "value": 5,
+       "target": "CLOSEST_OPPONENT",
+       "description": "Distance higher than or equal given value"
+      }
+     ]
+    },
+    {
+     "action": {
+      "comboIds": [
+       "3v9c1SHlD2GLPF2HW1_Sc",
+       "_nUaGHlWhn3-U0xbxJHFw"
+      ],
+      "description": "Cycly through a specific combo of jutsu & items",
+      "target": "RANDOM_OPPONENT",
+      "type": "use_combo_action"
+     },
+     "conditions": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "RANDOM_OPPONENT",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "V3WrfQ3pB-eCq2hojsxWe",
+      "target": "SELF",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "An enemy player is within the inclusive hex range",
+       "maxRange": 2,
+       "minRange": 0,
+       "type": "player_within_range"
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+      "target": "SELF",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "An enemy player is within the inclusive hex range",
+       "maxRange": 5,
+       "minRange": 0,
+       "type": "player_within_range"
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Move towards opponent",
+      "target": "RANDOM_OPPONENT",
+      "type": "move_towards_opponent"
+     },
+     "conditions": [
+      {
+       "description": "Distance higher than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_higher_than",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Use highest power action",
+      "effect": "damage",
+      "target": "RANDOM_OPPONENT",
+      "type": "use_highest_power_action"
+     },
+     "conditions": []
+    }
+   ],
+   "aiEdit": {
+    "poolsMultiplier": 1.5
+   },
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 150,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "percentage",
+     "description": "Increased damage given",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  }
+ }
+}

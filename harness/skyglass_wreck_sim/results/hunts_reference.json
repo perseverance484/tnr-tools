@@ -1,0 +1,650 @@
+[
+ {
+  "case": "REF_alarm_sentinel_only",
+  "path": "archive_alarm1",
+  "hunt": "Quarantined Archive",
+  "runs": 40,
+  "wins": 35,
+  "winPct": 87.5,
+  "endHpPctMedian": 53.6,
+  "endHpPctP10": 20.8,
+  "totalRoundsMedian": 25,
+  "lossesAt": {
+   "1": 1,
+   "2": 2,
+   "3": 2
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "descent: Core Horror",
+    "boss": false,
+    "reached": 40,
+    "won": 39,
+    "lost": 1,
+    "winPctOfReached": 97.5,
+    "roundsMedian": 7,
+    "roundsP10": 7,
+    "roundsP90": 7,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 109,
+    "hpEndPctP10": 78.2,
+    "hpLostPctMedian": -9,
+    "cpEndPctMedian": 91.1,
+    "spEndPctMedian": 90.3,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 78,
+     "dodged": 75,
+     "failedRooted": 0,
+     "failedNoPath": 3,
+     "failedOther": 0,
+     "stepsTaken": 149
+    },
+    "enemies": {
+     "Core Horror": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2.1,
+      "blastsPerFight": 2,
+      "blastHitPct": 15,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1792
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "alarm 1: Skyglass Sentinel (alarm debuff)",
+    "boss": false,
+    "reached": 39,
+    "won": 37,
+    "lost": 2,
+    "winPctOfReached": 94.9,
+    "roundsMedian": 9,
+    "roundsP10": 9,
+    "roundsP90": 9,
+    "hpStartPctMedian": 109,
+    "hpEndPctMedian": 56.3,
+    "hpEndPctP10": 34.5,
+    "hpLostPctMedian": 45.9,
+    "cpEndPctMedian": 76.7,
+    "spEndPctMedian": 74.8,
+    "playerIdleTurnsPct": 0.6,
+    "dodge": {
+     "threatened": 41,
+     "dodged": 41,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 41
+    },
+    "enemies": {
+     "Skyglass Sentinel": {
+      "appearances": 39,
+      "markFiredPct": 100,
+      "marksPerFight": 2.9,
+      "blastsPerFight": 2.1,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 3,
+      "dealtPerFight": 2679
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "archive: Sealwright",
+    "boss": true,
+    "reached": 37,
+    "won": 35,
+    "lost": 2,
+    "winPctOfReached": 94.6,
+    "roundsMedian": 8,
+    "roundsP10": 8,
+    "roundsP90": 13,
+    "hpStartPctMedian": 56.3,
+    "hpEndPctMedian": 53.6,
+    "hpEndPctP10": 20.8,
+    "hpLostPctMedian": 9.5,
+    "cpEndPctMedian": 62.9,
+    "spEndPctMedian": 59.5,
+    "playerIdleTurnsPct": 1,
+    "dodge": {
+     "threatened": 130,
+     "dodged": 121,
+     "failedRooted": 1,
+     "failedNoPath": 8,
+     "failedOther": 0,
+     "stepsTaken": 189
+    },
+    "enemies": {
+     "Sealwright": {
+      "appearances": 37,
+      "markFiredPct": 100,
+      "marksPerFight": 4.1,
+      "blastsPerFight": 1.6,
+      "blastHitPct": 3.3,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 13.2,
+      "dealtPerFight": 1595
+     },
+     "(clone or summon)": {
+      "appearances": 37,
+      "markFiredPct": 100,
+      "marksPerFight": 2.8,
+      "blastsPerFight": 0.7,
+      "blastHitPct": 20,
+      "windowsPerFight": 2.7,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "REF_alarm_sentinel_only",
+  "path": "archive_alarm3",
+  "hunt": "Quarantined Archive",
+  "runs": 40,
+  "wins": 0,
+  "winPct": 0,
+  "endHpPctMedian": null,
+  "endHpPctP10": null,
+  "totalRoundsMedian": null,
+  "lossesAt": {
+   "1": 1,
+   "2": 2,
+   "3": 4,
+   "4": 31,
+   "5": 2
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "descent: Core Horror",
+    "boss": false,
+    "reached": 40,
+    "won": 39,
+    "lost": 1,
+    "winPctOfReached": 97.5,
+    "roundsMedian": 7,
+    "roundsP10": 7,
+    "roundsP90": 7,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 109,
+    "hpEndPctP10": 78.2,
+    "hpLostPctMedian": -9,
+    "cpEndPctMedian": 91.1,
+    "spEndPctMedian": 90.3,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 78,
+     "dodged": 75,
+     "failedRooted": 0,
+     "failedNoPath": 3,
+     "failedOther": 0,
+     "stepsTaken": 149
+    },
+    "enemies": {
+     "Core Horror": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2.1,
+      "blastsPerFight": 2,
+      "blastHitPct": 15,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1792
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "alarm 1: Skyglass Sentinel (alarm debuff)",
+    "boss": false,
+    "reached": 39,
+    "won": 37,
+    "lost": 2,
+    "winPctOfReached": 94.9,
+    "roundsMedian": 9,
+    "roundsP10": 9,
+    "roundsP90": 9,
+    "hpStartPctMedian": 109,
+    "hpEndPctMedian": 56.3,
+    "hpEndPctP10": 34.5,
+    "hpLostPctMedian": 45.9,
+    "cpEndPctMedian": 76.7,
+    "spEndPctMedian": 74.8,
+    "playerIdleTurnsPct": 0.6,
+    "dodge": {
+     "threatened": 41,
+     "dodged": 41,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 41
+    },
+    "enemies": {
+     "Skyglass Sentinel": {
+      "appearances": 39,
+      "markFiredPct": 100,
+      "marksPerFight": 2.9,
+      "blastsPerFight": 2.1,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 3,
+      "dealtPerFight": 2679
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "alarm 2: Skyglass Sentinel (alarm debuff)",
+    "boss": false,
+    "reached": 37,
+    "won": 33,
+    "lost": 4,
+    "winPctOfReached": 89.2,
+    "roundsMedian": 9,
+    "roundsP10": 9,
+    "roundsP90": 10,
+    "hpStartPctMedian": 56.3,
+    "hpEndPctMedian": 19.4,
+    "hpEndPctP10": 10.8,
+    "hpLostPctMedian": 36.9,
+    "cpEndPctMedian": 62.4,
+    "spEndPctMedian": 59.4,
+    "playerIdleTurnsPct": 0.9,
+    "dodge": {
+     "threatened": 33,
+     "dodged": 33,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 33
+    },
+    "enemies": {
+     "Skyglass Sentinel": {
+      "appearances": 37,
+      "markFiredPct": 100,
+      "marksPerFight": 3,
+      "blastsPerFight": 2.2,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 4,
+      "dealtPerFight": 2622
+     }
+    }
+   },
+   {
+    "fight": 4,
+    "label": "alarm 3: Skyglass Sentinel (alarm debuff)",
+    "boss": false,
+    "reached": 33,
+    "won": 2,
+    "lost": 31,
+    "winPctOfReached": 6.1,
+    "roundsMedian": 10,
+    "roundsP10": 10,
+    "roundsP90": 10,
+    "hpStartPctMedian": 19.4,
+    "hpEndPctMedian": 3.1,
+    "hpEndPctP10": 0.9,
+    "hpLostPctMedian": 19.4,
+    "cpEndPctMedian": 52.7,
+    "spEndPctMedian": 47.9,
+    "playerIdleTurnsPct": 1.5,
+    "dodge": {
+     "threatened": 18,
+     "dodged": 18,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 18
+    },
+    "enemies": {
+     "Skyglass Sentinel": {
+      "appearances": 33,
+      "markFiredPct": 100,
+      "marksPerFight": 2.2,
+      "blastsPerFight": 1.2,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 2.4,
+      "dealtPerFight": 2366
+     }
+    }
+   },
+   {
+    "fight": 5,
+    "label": "archive: Sealwright",
+    "boss": true,
+    "reached": 2,
+    "won": 0,
+    "lost": 2,
+    "winPctOfReached": 0,
+    "roundsMedian": null,
+    "roundsP10": null,
+    "roundsP90": null,
+    "hpStartPctMedian": 3.1,
+    "hpEndPctMedian": null,
+    "hpEndPctP10": null,
+    "hpLostPctMedian": 3.1,
+    "cpEndPctMedian": null,
+    "spEndPctMedian": null,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 2,
+     "dodged": 2,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 4
+    },
+    "enemies": {
+     "Sealwright": {
+      "appearances": 2,
+      "markFiredPct": 100,
+      "marksPerFight": 3,
+      "blastsPerFight": 1,
+      "blastHitPct": 0,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 2060
+     },
+     "(clone or summon)": {
+      "appearances": 2,
+      "markFiredPct": 100,
+      "marksPerFight": 2,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 2,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "REF_sealwright_noWard",
+  "path": "archive_clean",
+  "hunt": "Quarantined Archive",
+  "runs": 40,
+  "wins": 39,
+  "winPct": 97.5,
+  "endHpPctMedian": 93.8,
+  "endHpPctP10": 52.7,
+  "totalRoundsMedian": 15,
+  "lossesAt": {
+   "1": 1,
+   "2": 0
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "descent: Core Horror",
+    "boss": false,
+    "reached": 40,
+    "won": 39,
+    "lost": 1,
+    "winPctOfReached": 97.5,
+    "roundsMedian": 7,
+    "roundsP10": 7,
+    "roundsP90": 7,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 109,
+    "hpEndPctP10": 78.2,
+    "hpLostPctMedian": -9,
+    "cpEndPctMedian": 91.1,
+    "spEndPctMedian": 90.3,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 78,
+     "dodged": 75,
+     "failedRooted": 0,
+     "failedNoPath": 3,
+     "failedOther": 0,
+     "stepsTaken": 149
+    },
+    "enemies": {
+     "Core Horror": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2.1,
+      "blastsPerFight": 2,
+      "blastHitPct": 15,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1792
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "archive: Sealwright",
+    "boss": true,
+    "reached": 39,
+    "won": 39,
+    "lost": 0,
+    "winPctOfReached": 100,
+    "roundsMedian": 8,
+    "roundsP10": 7,
+    "roundsP90": 10,
+    "hpStartPctMedian": 109,
+    "hpEndPctMedian": 93.8,
+    "hpEndPctP10": 52.7,
+    "hpLostPctMedian": 6.2,
+    "cpEndPctMedian": 80.7,
+    "spEndPctMedian": 78.7,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 100,
+     "dodged": 89,
+     "failedRooted": 0,
+     "failedNoPath": 11,
+     "failedOther": 0,
+     "stepsTaken": 128
+    },
+    "enemies": {
+     "Sealwright": {
+      "appearances": 39,
+      "markFiredPct": 100,
+      "marksPerFight": 2.8,
+      "blastsPerFight": 1.2,
+      "blastHitPct": 24.4,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 4.7,
+      "dealtPerFight": 2008
+     },
+     "(clone or summon)": {
+      "appearances": 39,
+      "markFiredPct": 100,
+      "marksPerFight": 2.1,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 2.1,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "REF_sealwright_noWard",
+  "path": "archive_alarm1",
+  "hunt": "Quarantined Archive",
+  "runs": 40,
+  "wins": 31,
+  "winPct": 77.5,
+  "endHpPctMedian": 50.9,
+  "endHpPctP10": 14.9,
+  "totalRoundsMedian": 25,
+  "lossesAt": {
+   "1": 1,
+   "2": 6,
+   "3": 2
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "descent: Core Horror",
+    "boss": false,
+    "reached": 40,
+    "won": 39,
+    "lost": 1,
+    "winPctOfReached": 97.5,
+    "roundsMedian": 7,
+    "roundsP10": 7,
+    "roundsP90": 7,
+    "hpStartPctMedian": 100,
+    "hpEndPctMedian": 109,
+    "hpEndPctP10": 78.2,
+    "hpLostPctMedian": -9,
+    "cpEndPctMedian": 91.1,
+    "spEndPctMedian": 90.3,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 78,
+     "dodged": 75,
+     "failedRooted": 0,
+     "failedNoPath": 3,
+     "failedOther": 0,
+     "stepsTaken": 149
+    },
+    "enemies": {
+     "Core Horror": {
+      "appearances": 40,
+      "markFiredPct": 100,
+      "marksPerFight": 2.1,
+      "blastsPerFight": 2,
+      "blastHitPct": 15,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 1792
+     }
+    }
+   },
+   {
+    "fight": 2,
+    "label": "alarm 1: Skyglass Sentinel + Seal Charge (alarm debuff)",
+    "boss": false,
+    "reached": 39,
+    "won": 33,
+    "lost": 6,
+    "winPctOfReached": 84.6,
+    "roundsMedian": 11,
+    "roundsP10": 7,
+    "roundsP90": 12,
+    "hpStartPctMedian": 109,
+    "hpEndPctMedian": 57.1,
+    "hpEndPctP10": 11.5,
+    "hpLostPctMedian": 47.9,
+    "cpEndPctMedian": 77.2,
+    "spEndPctMedian": 74.7,
+    "playerIdleTurnsPct": 7,
+    "dodge": {
+     "threatened": 48,
+     "dodged": 47,
+     "failedRooted": 1,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 48
+    },
+    "enemies": {
+     "Skyglass Sentinel": {
+      "appearances": 39,
+      "markFiredPct": 100,
+      "marksPerFight": 3.3,
+      "blastsPerFight": 2.2,
+      "blastHitPct": 2.3,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 7.5,
+      "dealtPerFight": 3092
+     },
+     "Seal Charge": {
+      "appearances": 39,
+      "markFiredPct": 0,
+      "marksPerFight": 0,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 0,
+      "signatureFiredPct": 59,
+      "idleTurnsAfterR2Pct": null,
+      "dealtPerFight": 689
+     }
+    }
+   },
+   {
+    "fight": 3,
+    "label": "archive: Sealwright",
+    "boss": true,
+    "reached": 33,
+    "won": 31,
+    "lost": 2,
+    "winPctOfReached": 93.9,
+    "roundsMedian": 8,
+    "roundsP10": 7,
+    "roundsP90": 8,
+    "hpStartPctMedian": 57.1,
+    "hpEndPctMedian": 50.9,
+    "hpEndPctP10": 14.9,
+    "hpLostPctMedian": 6.2,
+    "cpEndPctMedian": 67.3,
+    "spEndPctMedian": 64,
+    "playerIdleTurnsPct": 0,
+    "dodge": {
+     "threatened": 80,
+     "dodged": 73,
+     "failedRooted": 0,
+     "failedNoPath": 7,
+     "failedOther": 0,
+     "stepsTaken": 112
+    },
+    "enemies": {
+     "Sealwright": {
+      "appearances": 33,
+      "markFiredPct": 100,
+      "marksPerFight": 2.9,
+      "blastsPerFight": 1.1,
+      "blastHitPct": 19.4,
+      "windowsPerFight": 1,
+      "signatureFiredPct": 100,
+      "idleTurnsAfterR2Pct": 3.5,
+      "dealtPerFight": 1971
+     },
+     "(clone or summon)": {
+      "appearances": 33,
+      "markFiredPct": 100,
+      "marksPerFight": 2.1,
+      "blastsPerFight": 0,
+      "blastHitPct": null,
+      "windowsPerFight": 2.1,
+      "signatureFiredPct": 0,
+      "idleTurnsAfterR2Pct": 0,
+      "dealtPerFight": 0
+     }
+    }
+   }
+  ]
+ }
+]

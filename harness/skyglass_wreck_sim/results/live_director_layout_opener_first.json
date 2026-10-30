@@ -1,0 +1,1915 @@
+{
+ "generatedBy": "harness/skyglass_wreck_sim/engine/main.ts",
+ "override": {
+  "path": "/tmp/claude-0/-home-claude/7b0c37c7-23de-5628-97e5-5a20d2af594f/scratchpad/wt_wreck/harness/skyglass_wreck_sim/overrides/director_layout_opener_first.json",
+  "name": "director_layout_opener_first",
+  "note": "director_layout; wave-2 Deck Wardens (F2W2) and the wave-2 Wayfinder (F4W2) get their round_lower_than-2 opener (Windlash Focus, cd 4) as rule 0 with no condition. Other units unchanged."
+ },
+ "settings": {
+  "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+  "dmgConfigValues": {
+   "stats_scaling": 1,
+   "base_hits": 10,
+   "curve": 2,
+   "amplitude": 0.75,
+   "ep_normalization": 40,
+   "gen_weight": 1,
+   "advantage_min": 0,
+   "advantage_max": 10
+  },
+  "runs": 30,
+  "seed0": 1,
+  "maxWipes": 3,
+  "maxRounds": 150,
+  "initialBarriers": true,
+  "paces": [
+   10,
+   15,
+   20
+  ],
+  "aiSecondsPerTurn": [
+   0,
+   1.5
+  ],
+  "transitionSecondsPerFloorBattle": 30,
+  "limitSeconds": 3600
+ },
+ "enemyNotes": {
+  "Sealwright": [
+   "scaleEditedAi({\"poolsMultiplier\":5}) -> maxHealth 25250"
+  ],
+  "Crowned Captain": [
+   "scaleEditedAi({\"poolsMultiplier\":12}) -> maxHealth 60600"
+  ],
+  "Deck Warden (wave 2)": [
+   "new enemy cloned from Deck Warden"
+  ],
+  "Wayfinder (wave 2)": [
+   "new enemy cloned from Wayfinder"
+  ]
+ },
+ "layout": [
+  {
+   "floor": 1,
+   "kind": "floor",
+   "waves": [
+    [
+     "Deck Warden",
+     "Deck Warden",
+     "Deck Warden",
+     "Seal Charge"
+    ]
+   ]
+  },
+  {
+   "floor": 2,
+   "kind": "floor",
+   "waves": [
+    [
+     "Deck Warden",
+     "Seal Charge",
+     "Seal Charge"
+    ],
+    [
+     "Deck Warden (wave 2)",
+     "Deck Warden (wave 2)",
+     "Deck Warden (wave 2)"
+    ]
+   ]
+  },
+  {
+   "floor": 3,
+   "kind": "floor",
+   "waves": [
+    [
+     "Skyglass Sentinel",
+     "First Blade",
+     "Deck Warden"
+    ]
+   ]
+  },
+  {
+   "floor": 4,
+   "kind": "mini-boss",
+   "waves": [
+    [
+     "Deck Warden",
+     "Deck Warden",
+     "Oathkeeper"
+    ],
+    [
+     "The Captain",
+     "Wayfinder (wave 2)"
+    ]
+   ]
+  },
+  {
+   "floor": 5,
+   "kind": "boss",
+   "waves": [
+    [
+     "Deck Warden",
+     "Deck Warden",
+     "First Blade",
+     "Core Canister",
+     "Core Canister"
+    ],
+    [
+     "Crowned Captain",
+     "Sealwright"
+    ]
+   ]
+  }
+ ],
+ "variants": [
+  {
+   "variant": "average",
+   "note": "director's endgame party member (2026-10-28): level-100 JONIN, stats at the JONIN caps, full Kitsune armour set (6 captured pieces, worn through the engine's item path), 9 PvE jutsu at the level cap 25, Fire/Wind elements",
+   "player": {
+    "userId": "user_wreck_p1",
+    "level": 100,
+    "rank": "JONIN",
+    "offence": 1300000,
+    "defence": 1300000,
+    "generals": 400000,
+    "hp": 5050,
+    "cp": 5050,
+    "sp": 5050,
+    "jutsu": [
+     "Chakra Overflow@25",
+     "Typhon Burst@25",
+     "Tempestual Fury@25",
+     "Burning Coil@25",
+     "Gale Force Blast@25",
+     "Scorching Sun Strike@25",
+     "Wind Style: Sky Dragon@25",
+     "Phoenix Flame Strike@25",
+     "Stunning Jab@25"
+    ],
+    "innateEffects": [],
+    "gear": [
+     "ARMOR decreasedamagetaken 15%",
+     "ARMOR increasedamagegiven 10%",
+     "ARMOR decreasedamagetaken 15%",
+     "ARMOR increasemaxpools 500%",
+     "ARMOR increasemaxpools 500%",
+     "ARMOR increasestat 20%",
+     "ARMOR absorb 30%",
+     "ARMOR increasestat 20%",
+     "ARMOR increasestat 20%",
+     "ARMOR increasedamagegiven 20%",
+     "ARMOR increasemaxpools 200%",
+     "ARMOR increasestat 20%",
+     "ARMOR increasedamagegiven 20%"
+    ],
+    "rankCaps": {
+     "stats_cap": 1300000,
+     "gens_cap": 400000,
+     "lvl_cap": 100
+    }
+   },
+   "runs": 30,
+   "outcomes": {
+    "cleared": 0,
+    "max-wipes": 30,
+    "ended": 0,
+    "stalled": 0
+   },
+   "runsWithAWipePct": 100,
+   "wipesPerRunMedian": 4,
+   "totalRoundsMedian": 84.5,
+   "totalRoundsP10": 66,
+   "totalRoundsP90": 100,
+   "totalRoundsCleanClearMedian": null,
+   "time": {
+    "player10s_ai0s": {
+     "minutesMedianAllRuns": 40.8,
+     "minutesP10": 30.3,
+     "minutesP90": 46.7,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player10s_ai1.5s": {
+     "minutesMedianAllRuns": 46,
+     "minutesP10": 34.5,
+     "minutesP90": 52.1,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player15s_ai0s": {
+     "minutesMedianAllRuns": 58.6,
+     "minutesP10": 43.8,
+     "minutesP90": 67.3,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player15s_ai1.5s": {
+     "minutesMedianAllRuns": 64,
+     "minutesP10": 48,
+     "minutesP90": 72.7,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player20s_ai0s": {
+     "minutesMedianAllRuns": 76.5,
+     "minutesP10": 57.2,
+     "minutesP90": 87.8,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    },
+    "player20s_ai1.5s": {
+     "minutesMedianAllRuns": 81.8,
+     "minutesP10": 61.5,
+     "minutesP90": 93.3,
+     "minutesMedianClearedRuns": null,
+     "clearedWithinLimitPct": 0
+    }
+   },
+   "floors": {
+    "F1": {
+     "attempts": 120,
+     "won": 101,
+     "wipes": 19,
+     "roundsMedian": 9,
+     "humanTurnsMedian": 23.5,
+     "aiTurnsMedian": 21
+    },
+    "F2": {
+     "attempts": 101,
+     "won": 59,
+     "wipes": 42,
+     "roundsMedian": 10,
+     "humanTurnsMedian": 29,
+     "aiTurnsMedian": 24
+    },
+    "F3": {
+     "attempts": 59,
+     "won": 0,
+     "wipes": 59,
+     "roundsMedian": 5,
+     "humanTurnsMedian": 11,
+     "aiTurnsMedian": 14
+    }
+   },
+   "waves": [
+    {
+     "wave": "F1W1",
+     "enemies": "Deck Warden + Deck Warden + Seal Charge + Deck Warden",
+     "attempts": 120,
+     "cleared": 101,
+     "wipedHere": 19,
+     "roundsMedian": 9,
+     "roundsMin": 3,
+     "roundsMax": 14,
+     "roundsP90": 10,
+     "humanTurnsMedian": 23.5,
+     "aiTurnsMedian": 21,
+     "partyHpLostPctMedian": 85.2,
+     "poolsLeftMedianPct": {
+      "hp": 42,
+      "cp": 88.9,
+      "sp": 87.5,
+      "playersAlive": 3
+     },
+     "threats": [
+      {
+       "name": "Deck Warden",
+       "dealtPerAppearance": 5468,
+       "sharePct": 85.8
+      },
+      {
+       "name": "Seal Charge",
+       "dealtPerAppearance": 2721,
+       "sharePct": 14.2
+      }
+     ],
+     "enemyBehaviour": [
+      {
+       "name": "Deck Warden",
+       "aiId": "texZaFi42S3EvJZBwQ8cd",
+       "appearances": 360,
+       "killedPct": 90.6,
+       "diedAfterRoundsMedian": 7,
+       "turnsPerAppearance": 6.7,
+       "dealtPerAppearance": 5468,
+       "takenPerAppearance": 12267,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 42,
+       "actions": {
+        "move": 2060,
+        "basic attack": 1158,
+        "wait (end turn)": 977,
+        "Tide Bolt": 879,
+        "Stoneward": 649,
+        "Numbing Senbon": 587,
+        "Springguard": 581,
+        "Windlash Focus": 360,
+        "(no action)": 19
+       },
+       "ruleFires": {
+        "0": 360,
+        "1": 1110,
+        "3": 356,
+        "4": 649,
+        "5": 581,
+        "6": 2060,
+        "7": 1158,
+        "engine-fallback": 977,
+        "none": 19
+       },
+       "rulesNeverFired": [
+        "2"
+       ],
+       "ruleFireDist": {
+        "0": {
+         "never": 0,
+         "once": 360,
+         "more": 0
+        },
+        "1": {
+         "never": 0,
+         "once": 14,
+         "more": 346
+        },
+        "2": {
+         "never": 360,
+         "once": 0,
+         "more": 0
+        },
+        "3": {
+         "never": 88,
+         "once": 191,
+         "more": 81
+        },
+        "4": {
+         "never": 0,
+         "once": 106,
+         "more": 254
+        },
+        "5": {
+         "never": 10,
+         "once": 139,
+         "more": 211
+        },
+        "6": {
+         "never": 47,
+         "once": 16,
+         "more": 297
+        },
+        "7": {
+         "never": 15,
+         "once": 34,
+         "more": 311
+        }
+       },
+       "effectsApplied": {
+        "increasedamagegiven": 360,
+        "stun": 194,
+        "decreasedamagetaken": 649,
+        "absorb": 581
+       }
+      },
+      {
+       "name": "Seal Charge",
+       "aiId": "wTgO-Q32caSSd0is1QIS7",
+       "appearances": 120,
+       "killedPct": 100,
+       "diedAfterRoundsMedian": 3,
+       "turnsPerAppearance": 2.3,
+       "dealtPerAppearance": 2721,
+       "takenPerAppearance": 3550,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 79.6,
+       "actions": {
+        "wait (end turn)": 222,
+        "Core Rupture": 57
+       },
+       "ruleFires": {
+        "0": 57,
+        "engine-fallback": 222
+       },
+       "rulesNeverFired": [],
+       "ruleFireDist": {
+        "0": {
+         "never": 63,
+         "once": 57,
+         "more": 0
+        }
+       },
+       "effectsApplied": {
+        "stun": 168
+       }
+      }
+     ]
+    },
+    {
+     "wave": "F2W1",
+     "enemies": "Seal Charge + Seal Charge + Deck Warden",
+     "attempts": 101,
+     "cleared": 101,
+     "wipedHere": 0,
+     "roundsMedian": 4,
+     "roundsMin": 3,
+     "roundsMax": 7,
+     "roundsP90": 6,
+     "humanTurnsMedian": 12,
+     "aiTurnsMedian": 8,
+     "partyHpLostPctMedian": 22.3,
+     "poolsLeftMedianPct": {
+      "hp": 101.4,
+      "cp": 96.7,
+      "sp": 96,
+      "playersAlive": 3
+     },
+     "threats": [
+      {
+       "name": "Deck Warden",
+       "dealtPerAppearance": 4330,
+       "sharePct": 67
+      },
+      {
+       "name": "Seal Charge",
+       "dealtPerAppearance": 1068,
+       "sharePct": 33
+      }
+     ],
+     "enemyBehaviour": [
+      {
+       "name": "Seal Charge",
+       "aiId": "wTgO-Q32caSSd0is1QIS7",
+       "appearances": 202,
+       "killedPct": 100,
+       "diedAfterRoundsMedian": 3,
+       "turnsPerAppearance": 1.9,
+       "dealtPerAppearance": 1068,
+       "takenPerAppearance": 3550,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 90.6,
+       "actions": {
+        "wait (end turn)": 356,
+        "Core Rupture": 37
+       },
+       "ruleFires": {
+        "0": 37,
+        "engine-fallback": 356
+       },
+       "rulesNeverFired": [],
+       "ruleFireDist": {
+        "0": {
+         "never": 165,
+         "once": 37,
+         "more": 0
+        }
+       },
+       "effectsApplied": {
+        "stun": 111
+       }
+      },
+      {
+       "name": "Deck Warden",
+       "aiId": "texZaFi42S3EvJZBwQ8cd",
+       "appearances": 101,
+       "killedPct": 100,
+       "diedAfterRoundsMedian": 4,
+       "turnsPerAppearance": 3.7,
+       "dealtPerAppearance": 4330,
+       "takenPerAppearance": 12625,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 27.7,
+       "actions": {
+        "basic attack": 170,
+        "wait (end turn)": 164,
+        "Tide Bolt": 140,
+        "Stoneward": 109,
+        "move": 108,
+        "Numbing Senbon": 104,
+        "Windlash Focus": 101,
+        "Springguard": 99,
+        "(no action)": 5
+       },
+       "ruleFires": {
+        "0": 101,
+        "1": 203,
+        "3": 41,
+        "4": 109,
+        "5": 99,
+        "6": 108,
+        "7": 170,
+        "engine-fallback": 164,
+        "none": 5
+       },
+       "rulesNeverFired": [
+        "2"
+       ],
+       "ruleFireDist": {
+        "0": {
+         "never": 0,
+         "once": 101,
+         "more": 0
+        },
+        "1": {
+         "never": 0,
+         "once": 31,
+         "more": 70
+        },
+        "2": {
+         "never": 101,
+         "once": 0,
+         "more": 0
+        },
+        "3": {
+         "never": 60,
+         "once": 41,
+         "more": 0
+        },
+        "4": {
+         "never": 0,
+         "once": 93,
+         "more": 8
+        },
+        "5": {
+         "never": 5,
+         "once": 93,
+         "more": 3
+        },
+        "6": {
+         "never": 54,
+         "once": 11,
+         "more": 36
+        },
+        "7": {
+         "never": 6,
+         "once": 38,
+         "more": 57
+        }
+       },
+       "effectsApplied": {
+        "increasedamagegiven": 101,
+        "decreasedamagetaken": 109,
+        "absorb": 99,
+        "stun": 31
+       }
+      }
+     ]
+    },
+    {
+     "wave": "F2W2",
+     "enemies": "Deck Warden (wave 2) + Deck Warden (wave 2) + Deck Warden (wave 2)",
+     "attempts": 101,
+     "cleared": 59,
+     "wipedHere": 42,
+     "roundsMedian": 7,
+     "roundsMin": 4,
+     "roundsMax": 14,
+     "roundsP90": 10,
+     "humanTurnsMedian": 16,
+     "aiTurnsMedian": 16,
+     "partyHpLostPctMedian": 75.2,
+     "poolsLeftMedianPct": {
+      "hp": 30.6,
+      "cp": 85.3,
+      "sp": 83.7,
+      "playersAlive": 2
+     },
+     "threats": [
+      {
+       "name": "Deck Warden (wave 2)",
+       "dealtPerAppearance": 4495,
+       "sharePct": 100
+      }
+     ],
+     "enemyBehaviour": [
+      {
+       "name": "Deck Warden (wave 2)",
+       "aiId": "Deck Warden (wave 2)",
+       "appearances": 303,
+       "killedPct": 66,
+       "diedAfterRoundsMedian": 7,
+       "turnsPerAppearance": 5.3,
+       "dealtPerAppearance": 4495,
+       "takenPerAppearance": 10009,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 34.5,
+       "actions": {
+        "move": 997,
+        "basic attack": 682,
+        "Tide Bolt": 616,
+        "wait (end turn)": 606,
+        "Windlash Focus": 527,
+        "Numbing Senbon": 445,
+        "Stoneward": 439,
+        "Springguard": 347,
+        "(no action)": 9
+       },
+       "ruleFires": {
+        "0": 527,
+        "1": 890,
+        "3": 171,
+        "4": 439,
+        "5": 347,
+        "6": 997,
+        "7": 682,
+        "engine-fallback": 606,
+        "none": 9
+       },
+       "rulesNeverFired": [
+        "2"
+       ],
+       "ruleFireDist": {
+        "0": {
+         "never": 0,
+         "once": 97,
+         "more": 206
+        },
+        "1": {
+         "never": 0,
+         "once": 7,
+         "more": 296
+        },
+        "2": {
+         "never": 303,
+         "once": 0,
+         "more": 0
+        },
+        "3": {
+         "never": 143,
+         "once": 150,
+         "more": 10
+        },
+        "4": {
+         "never": 1,
+         "once": 172,
+         "more": 130
+        },
+        "5": {
+         "never": 16,
+         "once": 231,
+         "more": 56
+        },
+        "6": {
+         "never": 96,
+         "once": 22,
+         "more": 185
+        },
+        "7": {
+         "never": 27,
+         "once": 51,
+         "more": 225
+        }
+       },
+       "effectsApplied": {
+        "increasedamagegiven": 527,
+        "decreasedamagetaken": 439,
+        "absorb": 347,
+        "stun": 140
+       }
+      }
+     ]
+    },
+    {
+     "wave": "F3W1",
+     "enemies": "First Blade + Deck Warden + Skyglass Sentinel",
+     "attempts": 59,
+     "cleared": 0,
+     "wipedHere": 59,
+     "roundsMedian": null,
+     "roundsMin": null,
+     "roundsMax": null,
+     "roundsP90": null,
+     "humanTurnsMedian": 11,
+     "aiTurnsMedian": 14,
+     "partyHpLostPctMedian": 123.8,
+     "poolsLeftMedianPct": {
+      "hp": 0,
+      "cp": 0,
+      "sp": 0,
+      "playersAlive": null
+     },
+     "threats": [
+      {
+       "name": "Skyglass Sentinel",
+       "dealtPerAppearance": 12959,
+       "sharePct": 52
+      },
+      {
+       "name": "First Blade",
+       "dealtPerAppearance": 7371,
+       "sharePct": 29.6
+      },
+      {
+       "name": "Deck Warden",
+       "dealtPerAppearance": 4574,
+       "sharePct": 18.4
+      }
+     ],
+     "enemyBehaviour": [
+      {
+       "name": "First Blade",
+       "aiId": "d6g0mOM7RBSsYI1hrUVT9",
+       "appearances": 59,
+       "killedPct": 1.7,
+       "diedAfterRoundsMedian": 6,
+       "turnsPerAppearance": 4.8,
+       "dealtPerAppearance": 7371,
+       "takenPerAppearance": 6965,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 36.8,
+       "actions": {
+        "move": 198,
+        "basic attack": 103,
+        "wait (end turn)": 97,
+        "Opening Strike": 85,
+        "Stoneward": 75,
+        "Springguard": 63,
+        "Raijin's Spear": 61,
+        "Numbing Senbon": 60,
+        "Battle Trance": 59
+       },
+       "ruleFires": {
+        "0": 59,
+        "1": 61,
+        "2": 88,
+        "3": 57,
+        "4": 75,
+        "5": 63,
+        "6": 198,
+        "7": 103,
+        "engine-fallback": 97
+       },
+       "rulesNeverFired": [],
+       "ruleFireDist": {
+        "0": {
+         "never": 0,
+         "once": 59,
+         "more": 0
+        },
+        "1": {
+         "never": 0,
+         "once": 57,
+         "more": 2
+        },
+        "2": {
+         "never": 0,
+         "once": 32,
+         "more": 27
+        },
+        "3": {
+         "never": 3,
+         "once": 55,
+         "more": 1
+        },
+        "4": {
+         "never": 0,
+         "once": 43,
+         "more": 16
+        },
+        "5": {
+         "never": 0,
+         "once": 55,
+         "more": 4
+        },
+        "6": {
+         "never": 18,
+         "once": 4,
+         "more": 37
+        },
+        "7": {
+         "never": 3,
+         "once": 23,
+         "more": 33
+        }
+       },
+       "effectsApplied": {
+        "increasestat": 59,
+        "decreasedamagetaken": 75,
+        "absorb": 63,
+        "increasedamagetaken": 85,
+        "stun": 22
+       }
+      },
+      {
+       "name": "Deck Warden",
+       "aiId": "texZaFi42S3EvJZBwQ8cd",
+       "appearances": 59,
+       "killedPct": 15.3,
+       "diedAfterRoundsMedian": 5,
+       "turnsPerAppearance": 4.6,
+       "dealtPerAppearance": 4574,
+       "takenPerAppearance": 6468,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 42.2,
+       "actions": {
+        "move": 245,
+        "basic attack": 121,
+        "wait (end turn)": 108,
+        "Tide Bolt": 106,
+        "Stoneward": 69,
+        "Springguard": 65,
+        "Numbing Senbon": 64,
+        "Windlash Focus": 59
+       },
+       "ruleFires": {
+        "0": 59,
+        "1": 145,
+        "3": 25,
+        "4": 69,
+        "5": 65,
+        "6": 245,
+        "7": 121,
+        "engine-fallback": 108
+       },
+       "rulesNeverFired": [
+        "2"
+       ],
+       "ruleFireDist": {
+        "0": {
+         "never": 0,
+         "once": 59,
+         "more": 0
+        },
+        "1": {
+         "never": 0,
+         "once": 9,
+         "more": 50
+        },
+        "2": {
+         "never": 59,
+         "once": 0,
+         "more": 0
+        },
+        "3": {
+         "never": 35,
+         "once": 23,
+         "more": 1
+        },
+        "4": {
+         "never": 0,
+         "once": 49,
+         "more": 10
+        },
+        "5": {
+         "never": 0,
+         "once": 53,
+         "more": 6
+        },
+        "6": {
+         "never": 7,
+         "once": 8,
+         "more": 44
+        },
+        "7": {
+         "never": 3,
+         "once": 10,
+         "more": 46
+        }
+       },
+       "effectsApplied": {
+        "increasedamagegiven": 59,
+        "absorb": 65,
+        "decreasedamagetaken": 69,
+        "stun": 20
+       }
+      },
+      {
+       "name": "Skyglass Sentinel",
+       "aiId": "3V_gdHYaclMB1gTyOPAbV",
+       "appearances": 59,
+       "killedPct": 1.7,
+       "diedAfterRoundsMedian": 6,
+       "turnsPerAppearance": 5.1,
+       "dealtPerAppearance": 12959,
+       "takenPerAppearance": 6085,
+       "healedPerAppearance": 0,
+       "idleOrMovePct": 35.3,
+       "actions": {
+        "move": 235,
+        "Rigging Snare": 127,
+        "basic attack": 104,
+        "Counter Stance": 96,
+        "wait (end turn)": 81,
+        "Stoneward": 74,
+        "Springguard": 59,
+        "Twin Kunai": 59,
+        "Hollow Timber": 44,
+        "Light Barrier": 15
+       },
+       "ruleFires": {
+        "0": 59,
+        "1": 15,
+        "2": 96,
+        "3": 141,
+        "4": 74,
+        "5": 59,
+        "6": 235,
+        "7": 134,
+        "engine-fallback": 81
+       },
+       "rulesNeverFired": [],
+       "ruleFireDist": {
+        "0": {
+         "never": 0,
+         "once": 59,
+         "more": 0
+        },
+        "1": {
+         "never": 44,
+         "once": 15,
+         "more": 0
+        },
+        "2": {
+         "never": 0,
+         "once": 22,
+         "more": 37
+        },
+        "3": {
+         "never": 0,
+         "once": 1,
+         "more": 58
+        },
+        "4": {
+         "never": 0,
+         "once": 44,
+         "more": 15
+        },
+        "5": {
+         "never": 4,
+         "once": 51,
+         "more": 4
+        },
+        "6": {
+         "never": 6,
+         "once": 4,
+         "more": 49
+        },
+        "7": {
+         "never": 1,
+         "once": 13,
+         "more": 45
+        }
+       },
+       "effectsApplied": {
+        "absorb": 59,
+        "reflect": 96,
+        "moveprevent": 127,
+        "decreasedamagetaken": 74,
+        "shield": 15,
+        "drain": 44
+       }
+      }
+     ]
+    }
+   ],
+   "enemiesOverall": [
+    {
+     "name": "Deck Warden",
+     "aiId": "texZaFi42S3EvJZBwQ8cd",
+     "appearances": 520,
+     "killedPct": 83.8,
+     "diedAfterRoundsMedian": 6,
+     "turnsPerAppearance": 5.9,
+     "dealtPerAppearance": 5146,
+     "takenPerAppearance": 11678,
+     "healedPerAppearance": 0,
+     "idleOrMovePct": 40.5,
+     "actions": {
+      "move": 2413,
+      "basic attack": 1449,
+      "wait (end turn)": 1249,
+      "Tide Bolt": 1125,
+      "Stoneward": 827,
+      "Numbing Senbon": 755,
+      "Springguard": 745,
+      "Windlash Focus": 520,
+      "(no action)": 24
+     },
+     "ruleFires": {
+      "0": 520,
+      "1": 1458,
+      "3": 422,
+      "4": 827,
+      "5": 745,
+      "6": 2413,
+      "7": 1449,
+      "engine-fallback": 1249,
+      "none": 24
+     },
+     "rulesNeverFired": [
+      "2"
+     ],
+     "ruleFireDist": {
+      "0": {
+       "never": 0,
+       "once": 520,
+       "more": 0
+      },
+      "1": {
+       "never": 0,
+       "once": 54,
+       "more": 466
+      },
+      "2": {
+       "never": 520,
+       "once": 0,
+       "more": 0
+      },
+      "3": {
+       "never": 183,
+       "once": 255,
+       "more": 82
+      },
+      "4": {
+       "never": 0,
+       "once": 248,
+       "more": 272
+      },
+      "5": {
+       "never": 15,
+       "once": 285,
+       "more": 220
+      },
+      "6": {
+       "never": 108,
+       "once": 35,
+       "more": 377
+      },
+      "7": {
+       "never": 24,
+       "once": 82,
+       "more": 414
+      }
+     },
+     "effectsApplied": {
+      "increasedamagegiven": 520,
+      "stun": 245,
+      "decreasedamagetaken": 827,
+      "absorb": 745
+     }
+    },
+    {
+     "name": "Seal Charge",
+     "aiId": "wTgO-Q32caSSd0is1QIS7",
+     "appearances": 322,
+     "killedPct": 100,
+     "diedAfterRoundsMedian": 3,
+     "turnsPerAppearance": 2.1,
+     "dealtPerAppearance": 1684,
+     "takenPerAppearance": 3550,
+     "healedPerAppearance": 0,
+     "idleOrMovePct": 86,
+     "actions": {
+      "wait (end turn)": 578,
+      "Core Rupture": 94
+     },
+     "ruleFires": {
+      "0": 94,
+      "engine-fallback": 578
+     },
+     "rulesNeverFired": [],
+     "ruleFireDist": {
+      "0": {
+       "never": 228,
+       "once": 94,
+       "more": 0
+      }
+     },
+     "effectsApplied": {
+      "stun": 279
+     }
+    },
+    {
+     "name": "Deck Warden (wave 2)",
+     "aiId": "Deck Warden (wave 2)",
+     "appearances": 303,
+     "killedPct": 66,
+     "diedAfterRoundsMedian": 7,
+     "turnsPerAppearance": 5.3,
+     "dealtPerAppearance": 4495,
+     "takenPerAppearance": 10009,
+     "healedPerAppearance": 0,
+     "idleOrMovePct": 34.5,
+     "actions": {
+      "move": 997,
+      "basic attack": 682,
+      "Tide Bolt": 616,
+      "wait (end turn)": 606,
+      "Windlash Focus": 527,
+      "Numbing Senbon": 445,
+      "Stoneward": 439,
+      "Springguard": 347,
+      "(no action)": 9
+     },
+     "ruleFires": {
+      "0": 527,
+      "1": 890,
+      "3": 171,
+      "4": 439,
+      "5": 347,
+      "6": 997,
+      "7": 682,
+      "engine-fallback": 606,
+      "none": 9
+     },
+     "rulesNeverFired": [
+      "2"
+     ],
+     "ruleFireDist": {
+      "0": {
+       "never": 0,
+       "once": 97,
+       "more": 206
+      },
+      "1": {
+       "never": 0,
+       "once": 7,
+       "more": 296
+      },
+      "2": {
+       "never": 303,
+       "once": 0,
+       "more": 0
+      },
+      "3": {
+       "never": 143,
+       "once": 150,
+       "more": 10
+      },
+      "4": {
+       "never": 1,
+       "once": 172,
+       "more": 130
+      },
+      "5": {
+       "never": 16,
+       "once": 231,
+       "more": 56
+      },
+      "6": {
+       "never": 96,
+       "once": 22,
+       "more": 185
+      },
+      "7": {
+       "never": 27,
+       "once": 51,
+       "more": 225
+      }
+     },
+     "effectsApplied": {
+      "increasedamagegiven": 527,
+      "decreasedamagetaken": 439,
+      "absorb": 347,
+      "stun": 140
+     }
+    },
+    {
+     "name": "First Blade",
+     "aiId": "d6g0mOM7RBSsYI1hrUVT9",
+     "appearances": 59,
+     "killedPct": 1.7,
+     "diedAfterRoundsMedian": 6,
+     "turnsPerAppearance": 4.8,
+     "dealtPerAppearance": 7371,
+     "takenPerAppearance": 6965,
+     "healedPerAppearance": 0,
+     "idleOrMovePct": 36.8,
+     "actions": {
+      "move": 198,
+      "basic attack": 103,
+      "wait (end turn)": 97,
+      "Opening Strike": 85,
+      "Stoneward": 75,
+      "Springguard": 63,
+      "Raijin's Spear": 61,
+      "Numbing Senbon": 60,
+      "Battle Trance": 59
+     },
+     "ruleFires": {
+      "0": 59,
+      "1": 61,
+      "2": 88,
+      "3": 57,
+      "4": 75,
+      "5": 63,
+      "6": 198,
+      "7": 103,
+      "engine-fallback": 97
+     },
+     "rulesNeverFired": [],
+     "ruleFireDist": {
+      "0": {
+       "never": 0,
+       "once": 59,
+       "more": 0
+      },
+      "1": {
+       "never": 0,
+       "once": 57,
+       "more": 2
+      },
+      "2": {
+       "never": 0,
+       "once": 32,
+       "more": 27
+      },
+      "3": {
+       "never": 3,
+       "once": 55,
+       "more": 1
+      },
+      "4": {
+       "never": 0,
+       "once": 43,
+       "more": 16
+      },
+      "5": {
+       "never": 0,
+       "once": 55,
+       "more": 4
+      },
+      "6": {
+       "never": 18,
+       "once": 4,
+       "more": 37
+      },
+      "7": {
+       "never": 3,
+       "once": 23,
+       "more": 33
+      }
+     },
+     "effectsApplied": {
+      "increasestat": 59,
+      "decreasedamagetaken": 75,
+      "absorb": 63,
+      "increasedamagetaken": 85,
+      "stun": 22
+     }
+    },
+    {
+     "name": "Skyglass Sentinel",
+     "aiId": "3V_gdHYaclMB1gTyOPAbV",
+     "appearances": 59,
+     "killedPct": 1.7,
+     "diedAfterRoundsMedian": 6,
+     "turnsPerAppearance": 5.1,
+     "dealtPerAppearance": 12959,
+     "takenPerAppearance": 6085,
+     "healedPerAppearance": 0,
+     "idleOrMovePct": 35.3,
+     "actions": {
+      "move": 235,
+      "Rigging Snare": 127,
+      "basic attack": 104,
+      "Counter Stance": 96,
+      "wait (end turn)": 81,
+      "Stoneward": 74,
+      "Springguard": 59,
+      "Twin Kunai": 59,
+      "Hollow Timber": 44,
+      "Light Barrier": 15
+     },
+     "ruleFires": {
+      "0": 59,
+      "1": 15,
+      "2": 96,
+      "3": 141,
+      "4": 74,
+      "5": 59,
+      "6": 235,
+      "7": 134,
+      "engine-fallback": 81
+     },
+     "rulesNeverFired": [],
+     "ruleFireDist": {
+      "0": {
+       "never": 0,
+       "once": 59,
+       "more": 0
+      },
+      "1": {
+       "never": 44,
+       "once": 15,
+       "more": 0
+      },
+      "2": {
+       "never": 0,
+       "once": 22,
+       "more": 37
+      },
+      "3": {
+       "never": 0,
+       "once": 1,
+       "more": 58
+      },
+      "4": {
+       "never": 0,
+       "once": 44,
+       "more": 15
+      },
+      "5": {
+       "never": 4,
+       "once": 51,
+       "more": 4
+      },
+      "6": {
+       "never": 6,
+       "once": 4,
+       "more": 49
+      },
+      "7": {
+       "never": 1,
+       "once": 13,
+       "more": 45
+      }
+     },
+     "effectsApplied": {
+      "absorb": 59,
+      "reflect": 96,
+      "moveprevent": 127,
+      "decreasedamagetaken": 74,
+      "shield": 15,
+      "drain": 44
+     }
+    }
+   ],
+   "players": {
+    "user_wreck_p1": {
+     "actions": {
+      "move": 2494,
+      "basic attack": 1807,
+      "wait (end turn)": 1156,
+      "Chakra Overflow": 441,
+      "Typhon Burst": 401,
+      "Tempestual Fury": 338,
+      "Burning Coil": 253,
+      "Gale Force Blast": 218,
+      "Scorching Sun Strike": 180,
+      "Wind Style: Sky Dragon": 132,
+      "Phoenix Flame Strike": 110,
+      "(no action)": 6
+     },
+     "dealtPerRun": 134439,
+     "takenPerRun": 48276,
+     "healedPerRun": 0,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 5,
+     "effectsApplied": {
+      "visual": 441,
+      "increasedamagegiven": 1393,
+      "afterburn": 470,
+      "increasedamagetaken": 471,
+      "wound": 312
+     }
+    },
+    "user_wreck_p3": {
+     "actions": {
+      "move": 2436,
+      "basic attack": 1766,
+      "wait (end turn)": 1155,
+      "Chakra Overflow": 446,
+      "Typhon Burst": 394,
+      "Tempestual Fury": 331,
+      "Burning Coil": 259,
+      "Gale Force Blast": 227,
+      "Scorching Sun Strike": 196,
+      "Wind Style: Sky Dragon": 125,
+      "Phoenix Flame Strike": 100,
+      "(no action)": 14
+     },
+     "dealtPerRun": 127450,
+     "takenPerRun": 48393,
+     "healedPerRun": 0,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 4.7,
+     "effectsApplied": {
+      "visual": 446,
+      "increasedamagegiven": 1386,
+      "afterburn": 445,
+      "increasedamagetaken": 486,
+      "wound": 321
+     }
+    },
+    "user_wreck_p2": {
+     "actions": {
+      "move": 2425,
+      "basic attack": 1738,
+      "wait (end turn)": 1125,
+      "Chakra Overflow": 429,
+      "Typhon Burst": 376,
+      "Tempestual Fury": 314,
+      "Burning Coil": 247,
+      "Gale Force Blast": 216,
+      "Scorching Sun Strike": 175,
+      "Wind Style: Sky Dragon": 125,
+      "Phoenix Flame Strike": 98,
+      "(no action)": 13
+     },
+     "dealtPerRun": 120395,
+     "takenPerRun": 50562,
+     "healedPerRun": 0,
+     "lowestHpPctMedianPerFloor": 0,
+     "downsPerRun": 5,
+     "effectsApplied": {
+      "visual": 429,
+      "increasedamagegiven": 1332,
+      "afterburn": 430,
+      "increasedamagetaken": 463,
+      "wound": 300
+     }
+    }
+   },
+   "runStatus": [
+    {
+     "seed": 1,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:10",
+      "F2:won:15",
+      "F3:wipe:6",
+      "F1:won:8",
+      "F2:wipe:12",
+      "F1:won:10",
+      "F2:won:11",
+      "F3:wipe:6",
+      "F1:won:8",
+      "F2:won:10",
+      "F3:wipe:5"
+     ]
+    },
+    {
+     "seed": 2,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:8",
+      "F2:wipe:10",
+      "F1:won:9",
+      "F2:wipe:9",
+      "F1:won:10",
+      "F2:won:13",
+      "F3:wipe:6",
+      "F1:won:9",
+      "F2:won:11",
+      "F3:wipe:5"
+     ]
+    },
+    {
+     "seed": 3,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:7",
+      "F2:won:10",
+      "F3:wipe:4",
+      "F1:won:9",
+      "F2:wipe:10",
+      "F1:won:9",
+      "F2:wipe:12",
+      "F1:won:9",
+      "F2:wipe:10"
+     ]
+    },
+    {
+     "seed": 4,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:10",
+      "F2:wipe:9",
+      "F1:wipe:11",
+      "F1:won:9",
+      "F2:won:10",
+      "F3:wipe:6",
+      "F1:won:7",
+      "F2:won:11",
+      "F3:wipe:6"
+     ]
+    },
+    {
+     "seed": 5,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:wipe:10",
+      "F1:wipe:11",
+      "F1:won:7",
+      "F2:won:10",
+      "F3:wipe:4",
+      "F1:won:9",
+      "F2:won:11",
+      "F3:wipe:5"
+     ]
+    },
+    {
+     "seed": 6,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:wipe:11",
+      "F1:won:8",
+      "F2:won:10",
+      "F3:wipe:6",
+      "F1:won:9",
+      "F2:won:10",
+      "F3:wipe:5",
+      "F1:wipe:13"
+     ]
+    },
+    {
+     "seed": 7,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:3",
+      "F2:wipe:10",
+      "F1:won:7",
+      "F2:won:13",
+      "F3:wipe:4",
+      "F1:won:7",
+      "F2:wipe:15",
+      "F1:won:9",
+      "F2:wipe:8"
+     ]
+    },
+    {
+     "seed": 8,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:wipe:10",
+      "F1:won:8",
+      "F2:wipe:11",
+      "F1:wipe:10",
+      "F1:wipe:12"
+     ]
+    },
+    {
+     "seed": 9,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:9",
+      "F2:won:8",
+      "F3:wipe:6",
+      "F1:won:9",
+      "F2:won:10",
+      "F3:wipe:6",
+      "F1:won:7",
+      "F2:won:10",
+      "F3:wipe:4",
+      "F1:won:9",
+      "F2:won:10",
+      "F3:wipe:6"
+     ]
+    },
+    {
+     "seed": 10,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:10",
+      "F2:won:9",
+      "F3:wipe:4",
+      "F1:won:9",
+      "F2:won:10",
+      "F3:wipe:6",
+      "F1:won:11",
+      "F2:wipe:9",
+      "F1:won:10",
+      "F2:won:14",
+      "F3:wipe:5"
+     ]
+    },
+    {
+     "seed": 11,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:8",
+      "F2:won:10",
+      "F3:wipe:5",
+      "F1:won:9",
+      "F2:wipe:11",
+      "F1:won:8",
+      "F2:won:10",
+      "F3:wipe:5",
+      "F1:won:9",
+      "F2:wipe:10"
+     ]
+    },
+    {
+     "seed": 12,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:8",
+      "F2:wipe:14",
+      "F1:won:9",
+      "F2:won:10",
+      "F3:wipe:6",
+      "F1:won:9",
+      "F2:wipe:9",
+      "F1:won:9",
+      "F2:won:11",
+      "F3:wipe:6"
+     ]
+    },
+    {
+     "seed": 13,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:7",
+      "F2:won:10",
+      "F3:wipe:6",
+      "F1:won:9",
+      "F2:won:10",
+      "F3:wipe:7",
+      "F1:won:9",
+      "F2:won:11",
+      "F3:wipe:6",
+      "F1:won:9",
+      "F2:wipe:16"
+     ]
+    },
+    {
+     "seed": 14,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:8",
+      "F2:won:10",
+      "F3:wipe:5",
+      "F1:won:10",
+      "F2:wipe:12",
+      "F1:won:9",
+      "F2:won:11",
+      "F3:wipe:5",
+      "F1:won:9",
+      "F2:won:10",
+      "F3:wipe:5"
+     ]
+    },
+    {
+     "seed": 15,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:11",
+      "F2:wipe:10",
+      "F1:won:11",
+      "F2:won:10",
+      "F3:wipe:6",
+      "F1:won:8",
+      "F2:won:10",
+      "F3:wipe:5",
+      "F1:won:9",
+      "F2:won:11",
+      "F3:wipe:5"
+     ]
+    },
+    {
+     "seed": 16,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:11",
+      "F2:won:10",
+      "F3:wipe:6",
+      "F1:wipe:10",
+      "F1:wipe:13",
+      "F1:won:10",
+      "F2:wipe:9"
+     ]
+    },
+    {
+     "seed": 17,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:6",
+      "F2:won:13",
+      "F3:wipe:5",
+      "F1:wipe:10",
+      "F1:wipe:9",
+      "F1:won:9",
+      "F2:wipe:10"
+     ]
+    },
+    {
+     "seed": 18,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:wipe:11",
+      "F1:wipe:11",
+      "F1:won:9",
+      "F2:wipe:9",
+      "F1:won:9",
+      "F2:won:12",
+      "F3:wipe:5"
+     ]
+    },
+    {
+     "seed": 19,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:9",
+      "F2:won:10",
+      "F3:wipe:5",
+      "F1:wipe:10",
+      "F1:wipe:10",
+      "F1:won:8",
+      "F2:wipe:10"
+     ]
+    },
+    {
+     "seed": 20,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:10",
+      "F2:won:10",
+      "F3:wipe:7",
+      "F1:won:9",
+      "F2:won:11",
+      "F3:wipe:4",
+      "F1:won:7",
+      "F2:wipe:9",
+      "F1:won:12",
+      "F2:won:13",
+      "F3:wipe:4"
+     ]
+    },
+    {
+     "seed": 21,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:9",
+      "F2:wipe:10",
+      "F1:won:9",
+      "F2:won:12",
+      "F3:wipe:4",
+      "F1:won:9",
+      "F2:wipe:9",
+      "F1:won:9",
+      "F2:wipe:9"
+     ]
+    },
+    {
+     "seed": 22,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:9",
+      "F2:won:11",
+      "F3:wipe:6",
+      "F1:won:8",
+      "F2:won:12",
+      "F3:wipe:5",
+      "F1:won:9",
+      "F2:won:16",
+      "F3:wipe:8",
+      "F1:won:9",
+      "F2:wipe:12"
+     ]
+    },
+    {
+     "seed": 23,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:9",
+      "F2:wipe:9",
+      "F1:won:9",
+      "F2:won:8",
+      "F3:wipe:5",
+      "F1:won:9",
+      "F2:won:11",
+      "F3:wipe:6",
+      "F1:won:8",
+      "F2:won:12",
+      "F3:wipe:5"
+     ]
+    },
+    {
+     "seed": 24,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:9",
+      "F2:wipe:8",
+      "F1:won:9",
+      "F2:won:12",
+      "F3:wipe:5",
+      "F1:won:7",
+      "F2:wipe:9",
+      "F1:won:10",
+      "F2:won:10",
+      "F3:wipe:5"
+     ]
+    },
+    {
+     "seed": 25,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:9",
+      "F2:wipe:10",
+      "F1:won:9",
+      "F2:wipe:16",
+      "F1:won:6",
+      "F2:won:11",
+      "F3:wipe:6",
+      "F1:won:9",
+      "F2:wipe:14"
+     ]
+    },
+    {
+     "seed": 26,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:14",
+      "F2:wipe:14",
+      "F1:won:8",
+      "F2:wipe:17",
+      "F1:won:10",
+      "F2:won:10",
+      "F3:wipe:5",
+      "F1:wipe:11"
+     ]
+    },
+    {
+     "seed": 27,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:10",
+      "F2:wipe:10",
+      "F1:won:10",
+      "F2:won:17",
+      "F3:wipe:6",
+      "F1:won:9",
+      "F2:wipe:11",
+      "F1:won:9",
+      "F2:won:16",
+      "F3:wipe:4"
+     ]
+    },
+    {
+     "seed": 28,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:10",
+      "F2:won:10",
+      "F3:wipe:6",
+      "F1:won:9",
+      "F2:won:10",
+      "F3:wipe:5",
+      "F1:won:8",
+      "F2:wipe:11",
+      "F1:won:6",
+      "F2:wipe:9"
+     ]
+    },
+    {
+     "seed": 29,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:wipe:11",
+      "F1:won:10",
+      "F2:won:13",
+      "F3:wipe:6",
+      "F1:won:10",
+      "F2:won:10",
+      "F3:wipe:7",
+      "F1:wipe:9"
+     ]
+    },
+    {
+     "seed": 30,
+     "status": "max-wipes",
+     "wipes": 4,
+     "floorsAttempted": [
+      "F1:won:8",
+      "F2:won:8",
+      "F3:wipe:7",
+      "F1:won:11",
+      "F2:wipe:10",
+      "F1:won:9",
+      "F2:won:11",
+      "F3:wipe:4",
+      "F1:won:9",
+      "F2:wipe:7"
+     ]
+    }
+   ]
+  }
+ ]
+}

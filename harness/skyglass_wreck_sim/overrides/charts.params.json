@@ -1,0 +1,124 @@
+{
+ "_about": "Skyglass charts (engine/charts.ts) tuned values on top of overrides/hunts.params.json. Keys are live AI ids. commons = the common-chart crew copies (scaled to the player: statsMultiplier `stats`, per id pools/rows); rares = rare-chart stat copies chart-r-*; taintedCopies = tainted pair-fight copies chart-t-*; stats.<Replicant Zero> = its solo edit; echo = Lingering Echo hazard; ember = Burning Deck; steep = Steeping Horror; tainted = tainted twists. Schema floor (insertAiSchema): statsMultiplier >= 1 and poolsMultiplier >= 1; the commons soften through innate rows instead (taken: +damage-taken % rows; givenDown: -damage-given %).",
+ "_names": {
+  "81lnIP-q97gItQYWl5vWD": "Foundry Warden",
+  "RBW5KsIXmTGR710D2y2Y7": "Sealwright",
+  "3V_gdHYaclMB1gTyOPAbV": "Skyglass Sentinel",
+  "d6g0mOM7RBSsYI1hrUVT9": "First Blade",
+  "AQi-bHJ-5tHXtxrnc0P9E": "Core Horror",
+  "QY69h271Nx9uHrBeR6jwW": "The Captain",
+  "0PZU_FvlbM3ErYGlD5r56": "Oathkeeper",
+  "wTgO-Q32caSSd0is1QIS7": "Seal Charge",
+  "v7T9_XdGMfP46em0dPuBc": "Wayfinder",
+  "vjEFUJ9mb1zNTuQf4lfXv": "Replicant Zero"
+ },
+ "stats": {
+  "vjEFUJ9mb1zNTuQf4lfXv": {
+   "pools": 1.5,
+   "rows": 1
+  }
+ },
+ "commons": {
+  "stats": 1,
+  "taken": [
+   100
+  ],
+  "givenDown": 50,
+  "byId": {
+   "3V_gdHYaclMB1gTyOPAbV": {
+    "pools": 1.5,
+    "rows": 1
+   },
+   "wTgO-Q32caSSd0is1QIS7": {
+    "pools": 1,
+    "rows": 0,
+    "stats": 1
+   },
+   "v7T9_XdGMfP46em0dPuBc": {
+    "pools": 1,
+    "rows": 0
+   },
+   "d6g0mOM7RBSsYI1hrUVT9": {
+    "pools": 1.5,
+    "rows": 1
+   }
+  }
+ },
+ "rares": {
+  "byId": {
+   "81lnIP-q97gItQYWl5vWD": {
+    "pools": 1.2,
+    "rows": 1
+   },
+   "RBW5KsIXmTGR710D2y2Y7": {
+    "pools": 1,
+    "rows": 1
+   },
+   "3V_gdHYaclMB1gTyOPAbV": {
+    "pools": 2,
+    "rows": 1
+   },
+   "d6g0mOM7RBSsYI1hrUVT9": {
+    "pools": 1.2,
+    "rows": 1
+   },
+   "AQi-bHJ-5tHXtxrnc0P9E": {
+    "pools": 2,
+    "rows": 2
+   },
+   "QY69h271Nx9uHrBeR6jwW": {
+    "pools": 2,
+    "rows": 2
+   },
+   "0PZU_FvlbM3ErYGlD5r56": {
+    "pools": 2.5,
+    "rows": 2
+   }
+  }
+ },
+ "taintedCopies": {
+  "byId": {
+   "81lnIP-q97gItQYWl5vWD": {
+    "pools": 1,
+    "rows": 0
+   },
+   "RBW5KsIXmTGR710D2y2Y7": {
+    "pools": 1,
+    "rows": 0
+   },
+   "3V_gdHYaclMB1gTyOPAbV": {
+    "pools": 1,
+    "rows": 0
+   },
+   "d6g0mOM7RBSsYI1hrUVT9": {
+    "pools": 1,
+    "rows": 0
+   }
+  }
+ },
+ "echo": {
+  "pools": 2,
+  "rows": 1,
+  "fade": 10
+ },
+ "ember": {
+  "power": 5,
+  "rounds": [
+   1,
+   4,
+   7
+  ],
+  "pools": 3
+ },
+ "steep": {
+  "pools": 3.76,
+  "rows": 3
+ },
+ "tainted": {
+  "givePools": 70,
+  "sealRounds": 2,
+  "afterburn": 60,
+  "afterburnRounds": 4,
+  "echo": "echo2"
+ }
+}

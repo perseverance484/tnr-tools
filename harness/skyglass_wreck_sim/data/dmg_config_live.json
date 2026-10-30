@@ -1,0 +1,9 @@
+{
+ "_note": "Live damage-formula settings (gameSetting table) as returned by misc.getDmgConfig. Harness default: written to battle.extraState.dmgConfig, which process.ts reads before falling back to the code defaults (dmgConfig in app/src/libs/combat/constants.ts).",
+ "provenance": {
+  "source": "misc.getDmgConfig, read in game by the director (dauntless) and relayed by the coordinator on 2026-10-28",
+  "capturedBy": "director (manual read; no harness or agent live request)",
+  "differsFromCodeDefaults": {"curve": [2, 1.6], "gen_weight": [1, 2.0], "advantage_min": [0, 0.01]}
+ },
+ "dmgConfig": {"stats_scaling": 1, "base_hits": 10, "curve": 2, "amplitude": 0.75, "ep_normalization": 40, "gen_weight": 1, "advantage_min": 0, "advantage_max": 10}
+}

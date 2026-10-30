@@ -1,0 +1,583 @@
+{
+ "generatedBy": "engine/audit_rules.ts",
+ "override": "/tmp/claude-0/-home-claude/7b0c37c7-23de-5628-97e5-5a20d2af594f/scratchpad/wt_wreck/harness/skyglass_wreck_sim/overrides/kits_endgame.json",
+ "floor": 4,
+ "enemy": "The Captain",
+ "runs": 30,
+ "variant": "average",
+ "pets": true,
+ "appearances": 30,
+ "decisions": 491,
+ "roundsInWaveMedian": 7,
+ "phases": {
+  "phaseHp": 50,
+  "reachedPhase2Pct": 80,
+  "phase1RoundsMedian": 6,
+  "phase2RoundsMedian": 2,
+  "phase1Range": [
+   1,
+   9
+  ],
+  "phase2Range": [
+   1,
+   9
+  ]
+ },
+ "rules": [
+  {
+   "index": 0,
+   "note": "Raise the Gunwale (phase 2 begins; once)",
+   "jutsuId": "dg-raise-the-gunwale",
+   "conditions": [
+    "health_below 50"
+   ],
+   "firedInAppearancesPct": 80,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 24
+   },
+   "decisions": {
+    "fired": 24,
+    "preempted": 0,
+    "condition": 393,
+    "cooldown": 74,
+    "locked": 0,
+    "ap": 0,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 1,
+   "note": "Last Stand at the Helm (live Battle Trance, phase 2)",
+   "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+   "conditions": [
+    "health_below 50"
+   ],
+   "firedInAppearancesPct": 80,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 27
+   },
+   "decisions": {
+    "fired": 27,
+    "preempted": 24,
+    "condition": 393,
+    "cooldown": 47,
+    "locked": 0,
+    "ap": 0,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 2,
+   "note": "Second Wind (under 25%)",
+   "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+   "conditions": [
+    "health_below 25"
+   ],
+   "firedInAppearancesPct": 33,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 10
+   },
+   "decisions": {
+    "fired": 10,
+    "preempted": 19,
+    "condition": 448,
+    "cooldown": 14,
+    "locked": 0,
+    "ap": 0,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 3,
+   "note": "Broadside (signature, rows A)",
+   "jutsuId": "lib-broadside",
+   "conditions": [
+    "has_effect 1 increaserange"
+   ],
+   "firedInAppearancesPct": 7,
+   "firedByPhase": {
+    "p1": 1,
+    "p2": 1
+   },
+   "decisions": {
+    "fired": 2,
+    "preempted": 1,
+    "condition": 484,
+    "cooldown": 1,
+    "locked": 0,
+    "ap": 3,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 4,
+   "note": "Ship's Bell (signature)",
+   "jutsuId": "lib-ships-bell",
+   "conditions": [
+    "has_effect 1 decreasecooldown"
+   ],
+   "firedInAppearancesPct": 17,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 6
+   },
+   "decisions": {
+    "fired": 6,
+    "preempted": 0,
+    "condition": 472,
+    "cooldown": 2,
+    "locked": 0,
+    "ap": 11,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 5,
+   "note": "after lib-omen-rows-a: Final Command",
+   "jutsuId": "X2P22h8ApDmTZHjWpNO87",
+   "conditions": [
+    "has_effect 1 increaserange",
+    "distance_lower_than 4 HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 3,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 1
+   },
+   "decisions": {
+    "fired": 1,
+    "preempted": 2,
+    "condition": 484,
+    "cooldown": 3,
+    "locked": 0,
+    "ap": 1,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 6,
+   "note": "after lib-omen-rows-a: Keelbind",
+   "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+   "conditions": [
+    "has_effect 1 increaserange",
+    "distance_lower_than 5 HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 0,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 0,
+    "preempted": 1,
+    "condition": 484,
+    "cooldown": 6,
+    "locked": 0,
+    "ap": 0,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 7,
+   "note": "after lib-omen-rows-a: end turn",
+   "jutsuId": null,
+   "conditions": [
+    "has_effect 1 increaserange"
+   ],
+   "firedInAppearancesPct": 7,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 2
+   },
+   "decisions": {
+    "fired": 2,
+    "preempted": 5,
+    "condition": 484,
+    "cooldown": 0,
+    "locked": 0,
+    "ap": 0,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 8,
+   "note": "after lib-omen-binding-ring: Final Command",
+   "jutsuId": "X2P22h8ApDmTZHjWpNO87",
+   "conditions": [
+    "has_effect 1 decreasecooldown",
+    "distance_lower_than 4 HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 0,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 0,
+    "preempted": 3,
+    "condition": 472,
+    "cooldown": 13,
+    "locked": 0,
+    "ap": 3,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 9,
+   "note": "after lib-omen-binding-ring: Keelbind",
+   "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+   "conditions": [
+    "has_effect 1 decreasecooldown",
+    "distance_lower_than 5 HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 7,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 2
+   },
+   "decisions": {
+    "fired": 2,
+    "preempted": 2,
+    "condition": 472,
+    "cooldown": 14,
+    "locked": 0,
+    "ap": 1,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 10,
+   "note": "after lib-omen-binding-ring: end turn",
+   "jutsuId": null,
+   "conditions": [
+    "has_effect 1 decreasecooldown"
+   ],
+   "firedInAppearancesPct": 27,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 10
+   },
+   "decisions": {
+    "fired": 10,
+    "preempted": 9,
+    "condition": 472,
+    "cooldown": 0,
+    "locked": 0,
+    "ap": 0,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 11,
+   "note": "Omen: Binding Ring (Ship's Bell, phase 2)",
+   "jutsuId": "lib-omen-binding-ring",
+   "conditions": [
+    "health_below 50"
+   ],
+   "firedInAppearancesPct": 27,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 10
+   },
+   "decisions": {
+    "fired": 10,
+    "preempted": 60,
+    "condition": 393,
+    "cooldown": 26,
+    "locked": 0,
+    "ap": 2,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 12,
+   "note": "Omen: Rows A (Broadside, phase 2)",
+   "jutsuId": "lib-omen-rows-a",
+   "conditions": [
+    "health_below 50"
+   ],
+   "firedInAppearancesPct": 10,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 3
+   },
+   "decisions": {
+    "fired": 3,
+    "preempted": 74,
+    "condition": 393,
+    "cooldown": 12,
+    "locked": 0,
+    "ap": 9,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 13,
+   "note": "Hold the Line (live Unbroken Command, opener: party 3+ hexes away)",
+   "jutsuId": "0Y10JpChssDwFUxNRk6p3",
+   "conditions": [
+    "distance_higher_than 3 CLOSEST_OPPONENT"
+   ],
+   "firedInAppearancesPct": 37,
+   "firedByPhase": {
+    "p1": 13,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 13,
+    "preempted": 10,
+    "condition": 464,
+    "cooldown": 3,
+    "locked": 0,
+    "ap": 1,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 14,
+   "note": "Final Command (duel)",
+   "jutsuId": "X2P22h8ApDmTZHjWpNO87",
+   "conditions": [
+    "distance_lower_than 4 HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 93,
+   "firedByPhase": {
+    "p1": 35,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 35,
+    "preempted": 23,
+    "condition": 16,
+    "cooldown": 365,
+    "locked": 0,
+    "ap": 28,
+    "engine": 24
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 15,
+   "note": "Keelbind (duel)",
+   "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+   "conditions": [
+    "distance_lower_than 5 HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 100,
+   "firedByPhase": {
+    "p1": 32,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 32,
+    "preempted": 38,
+    "condition": 4,
+    "cooldown": 376,
+    "locked": 0,
+    "ap": 27,
+    "engine": 14
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 16,
+   "note": "Stolen Form (duel: top threat carries a damage buff)",
+   "jutsuId": "VuFuBtE7h5B1nnA2J1lFZ",
+   "conditions": [
+    "distance_lower_than 4 HIGHEST_ENMITY_OPPONENT",
+    "target_has_effect 1 increasedamagegiven HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 50,
+   "firedByPhase": {
+    "p1": 16,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 16,
+    "preempted": 72,
+    "condition": 272,
+    "cooldown": 73,
+    "locked": 0,
+    "ap": 48,
+    "engine": 10
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 17,
+   "note": "Counter Stance (duel: a player within 2)",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "conditions": [
+    "player_within_range 0-2"
+   ],
+   "firedInAppearancesPct": 100,
+   "firedByPhase": {
+    "p1": 57,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 57,
+    "preempted": 61,
+    "condition": 18,
+    "cooldown": 349,
+    "locked": 0,
+    "ap": 6,
+    "engine": 0
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 18,
+   "note": "Suppression Writ",
+   "jutsuId": "ddbIyVtoxdPQwLRXxSBq8",
+   "conditions": [
+    "distance_lower_than 4 HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 93,
+   "firedByPhase": {
+    "p1": 32,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 32,
+    "preempted": 123,
+    "condition": 16,
+    "cooldown": 277,
+    "locked": 0,
+    "ap": 11,
+    "engine": 32
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 19,
+   "note": "Unraveling Strike",
+   "jutsuId": "1OhP0StX4VTsosWtCxhsG",
+   "conditions": [
+    "distance_lower_than 3 CLOSEST_OPPONENT"
+   ],
+   "firedInAppearancesPct": 100,
+   "firedByPhase": {
+    "p1": 35,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 35,
+    "preempted": 108,
+    "condition": 0,
+    "cooldown": 280,
+    "locked": 0,
+    "ap": 65,
+    "engine": 3
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 20,
+   "note": "Explosive Tag Cataclysm",
+   "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+   "conditions": [
+    "distance_lower_than 5 CLOSEST_OPPONENT"
+   ],
+   "firedInAppearancesPct": 93,
+   "firedByPhase": {
+    "p1": 28,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 28,
+    "preempted": 113,
+    "condition": 0,
+    "cooldown": 270,
+    "locked": 0,
+    "ap": 80,
+    "engine": 0
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 21,
+   "note": "Windlash Focus",
+   "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+   "conditions": [
+    "player_within_range 0-4"
+   ],
+   "firedInAppearancesPct": 97,
+   "firedByPhase": {
+    "p1": 39,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 39,
+    "preempted": 195,
+    "condition": 0,
+    "cooldown": 250,
+    "locked": 0,
+    "ap": 7,
+    "engine": 0
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 22,
+   "note": "close in (duel)",
+   "jutsuId": null,
+   "conditions": [
+    "distance_higher_than 4 CLOSEST_OPPONENT"
+   ],
+   "firedInAppearancesPct": 0,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 0,
+    "preempted": 0,
+    "condition": 491,
+    "cooldown": 0,
+    "locked": 0,
+    "ap": 0,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 23,
+   "note": "highest-power damage",
+   "jutsuId": null,
+   "conditions": [],
+   "firedInAppearancesPct": 87,
+   "firedByPhase": {
+    "p1": 56,
+    "p2": 2
+   },
+   "decisions": {
+    "fired": 58,
+    "preempted": 384,
+    "condition": 0,
+    "cooldown": 0,
+    "locked": 0,
+    "ap": 0,
+    "engine": 49
+   },
+   "mainReasonNotFired": "preempted"
+  }
+ ]
+}
