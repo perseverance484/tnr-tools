@@ -172,3 +172,21 @@ Branch fast-forwarded to the bot's `da94470b` (skillpack dist rebuild) first. Ea
 | `lawmap` | 0 errors, 5 pre-existing warnings |
 
 Live requests / writes: 0 / 0.
+
+## Review round 3 (re-review of 678327fc: no P0-P2; one P3)
+
+**P3, fixed.** `_zod_number` in `variant_checks.py` used Unicode-aware `\d`, so `power: "١"` passed Python as 1. JavaScript `Number()` returns NaN for it, and so does the pinned `z.coerce.number()`.
+- **Digits:** the regex now matches ASCII `[0-9]` only.
+- **Padding:** limited to ASCII whitespace. `Number()` also trims Unicode spaces, so Python is stricter here, never looser.
+- **Test:** `test_r3_unicode_digits_refused_like_number` covers Arabic-Indic `١`, fullwidth `１` and mixed `1٠`, all refused; `" 1 "` is still accepted. Node results were checked. The test fails on 678327fc and passes now.
+
+**Gates.** Python only, so Forge, the bundle, contracts and fixtures are untouched.
+
+| Gate | Result |
+|---|---|
+| Python unit tests | OK |
+| `selfcheck` | 0 errors |
+| `factory --selftest` | 20/20 |
+| `doctrinemap`, `render_doctrine`, `build_packs` | clean / current / current |
+| `lawmap` | 0 errors, 5 pre-existing warnings |
+| `validate.py --strict` on all 120 `push/*.json` | exit codes and output digests identical to 678327fc |
