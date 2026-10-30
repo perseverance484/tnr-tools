@@ -72,7 +72,9 @@ export const fixFallback = (profile: any, kitIds: string[]) => {
 /* ------------------------------------------------------------------ static audit */
 export type AuditRow = {
   set: string; id: string; name: string; includeDefaultRules: boolean; setPiecesInKit: string[]; lastRule: string;
-  phases: { band: string; terminal: string }[]; violations: string[];
+  phases: { band: string; terminal: string; fallback: string }[]; violations: string[];
+  /** Index of the first unconditioned basic-attack rule (null: none; the enemy ends its turn when nothing else fires). */
+  basicAttackRule: number | null;
 };
 const describe = (r: any) => {
   if (!r) return "(none)";
@@ -107,9 +109,12 @@ export const auditEnemy = (set: string, id: string, name: string, profile: any, 
     // Terminal: the last active rule with no conditions beyond health (what fires when nothing else does).
     const uncond = active.filter((r) => (r.conditions ?? []).every((c: any) => c.type === "health_below"));
     const term = uncond[uncond.length - 1] ?? active[active.length - 1];
-    return { band: `${hi}-${lo}%`, terminal: describe(term) };
+    // Fallback: the first unconditioned action that is not an end of turn (what the enemy does when no authored move fits).
+    const fb = uncond.find((r) => r.action?.type !== "end_turn");
+    return { band: `${hi}-${lo}%`, terminal: describe(term), fallback: fb ? describe(fb) : "(ends turn)" };
   });
-  return { set, id, name, includeDefaultRules: idr, setPiecesInKit: kitSP, lastRule: describe(rules[rules.length - 1]), phases, violations };
+  const bi = rules.findIndex((r) => ruleJutsu(r) === BASIC_ATTACK && (r.conditions ?? []).every((c: any) => c.type === "health_below"));
+  return { set, id, name, includeDefaultRules: idr, setPiecesInKit: kitSP, lastRule: describe(rules[rules.length - 1]), phases, violations, basicAttackRule: bi < 0 ? null : bi };
 };
 export const auditTemplates = (set: string, enemies: Record<string, { row: any; profile: any }>, only?: Set<string>) =>
   Object.entries(enemies)

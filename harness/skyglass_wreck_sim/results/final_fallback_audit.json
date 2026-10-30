@@ -1,0 +1,4395 @@
+{
+ "generatedBy": "engine/fallback.ts --audit-fallback (static, per enemy and per health phase); before = --no-fallback-fix (runners) or the pre-fix kits_*.json at ac466402 (Wreck)",
+ "sets": {
+  "wreck_endgame": {
+   "summary": {
+    "enemies": 9,
+    "withViolationsBefore": 3,
+    "withViolationsAfter": 0,
+    "lastRuleFreePickBefore": 5,
+    "lastRuleFreePickAfter": 0,
+    "noBasicAttackAfter": [
+     "Seal Charge",
+     "Core Horror"
+    ]
+   },
+   "before": [
+    {
+     "set": "kits_endgame",
+     "id": "dg-deck-warden",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-splash unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-seal-charge",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-skyglass-sentinel",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      }
+     ],
+     "violations": [
+      "rule 8 use_highest_power_action: may pick lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-first-blade",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-oathkeeper",
+     "name": "Oathkeeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-wayfinder",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-core-horror",
+     "name": "Core Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-the-captain",
+     "name": "The Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-broadside",
+      "lib-ships-bell"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-25%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 27
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-sealwright",
+     "name": "Sealwright",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-ward-of-command"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    }
+   ],
+   "after": [
+    {
+     "set": "kits_endgame",
+     "id": "dg-deck-warden",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-seal-charge",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-skyglass-sentinel",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 8
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-first-blade",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 7
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-oathkeeper",
+     "name": "Oathkeeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 7
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-wayfinder",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-core-horror",
+     "name": "Core Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-the-captain",
+     "name": "The Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-broadside",
+      "lib-ships-bell"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-25%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 27
+    },
+    {
+     "set": "kits_endgame",
+     "id": "dg-sealwright",
+     "name": "Sealwright",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-ward-of-command"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 6
+    }
+   ]
+  },
+  "wreck_lvl50": {
+   "summary": {
+    "enemies": 8,
+    "withViolationsBefore": 3,
+    "withViolationsAfter": 0,
+    "lastRuleFreePickBefore": 4,
+    "lastRuleFreePickAfter": 0,
+    "noBasicAttackAfter": [
+     "Seal Charge",
+     "Core Horror"
+    ]
+   },
+   "before": [
+    {
+     "set": "kits_lvl50",
+     "id": "dg-deck-warden-l50",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-splash unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-seal-charge-l50",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-skyglass-sentinel-l50",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      }
+     ],
+     "violations": [
+      "rule 8 use_highest_power_action: may pick lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-first-blade-l50",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-oathkeeper-l50",
+     "name": "Oathkeeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-wayfinder-l50",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-core-horror-l50",
+     "name": "Core Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-last-light"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-the-captain-l50",
+     "name": "The Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-broadside",
+      "lib-ships-bell"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-25%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 27
+    }
+   ],
+   "after": [
+    {
+     "set": "kits_lvl50",
+     "id": "dg-deck-warden-l50",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-seal-charge-l50",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-skyglass-sentinel-l50",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 8
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-first-blade-l50",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 7
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-oathkeeper-l50",
+     "name": "Oathkeeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 7
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-wayfinder-l50",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-core-horror-l50",
+     "name": "Core Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-last-light"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "kits_lvl50",
+     "id": "dg-the-captain-l50",
+     "name": "The Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-broadside",
+      "lib-ships-bell"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-25%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 27
+    }
+   ]
+  },
+  "hunts": {
+   "summary": {
+    "enemies": 12,
+    "withViolationsBefore": 5,
+    "withViolationsAfter": 0,
+    "lastRuleFreePickBefore": 5,
+    "lastRuleFreePickAfter": 0,
+    "noBasicAttackAfter": [
+     "Core Horror",
+     "Core Canister",
+     "Seal Charge",
+     "Foundry Warden",
+     "Crown Archivist"
+    ]
+   },
+   "before": [
+    {
+     "set": "hunts",
+     "id": "2OXJEXoktxJcjqMkE851g",
+     "name": "Arsenal Keeper",
+     "includeDefaultRules": true,
+     "setPiecesInKit": [],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "3V_gdHYaclMB1gTyOPAbV",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-50%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-omen-rows-b"
+      }
+     ],
+     "violations": [
+      "rule 19 use_highest_power_action: may pick lib-blast-rows-b/lib-blast-rows-a/lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "AQi-bHJ-5tHXtxrnc0P9E",
+     "name": "Core Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "QY69h271Nx9uHrBeR6jwW",
+     "name": "The Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-broadside",
+      "lib-ships-bell"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-25%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 27
+    },
+    {
+     "set": "hunts",
+     "id": "RBW5KsIXmTGR710D2y2Y7",
+     "name": "Sealwright",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-command-absolute",
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-30%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-ward-of-command"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [
+      "rule 16 use_highest_power_action: may pick lib-command-absolute/lib-blast-seal-lines unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "d6g0mOM7RBSsYI1hrUVT9",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-25%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [
+      "rule 13 use_highest_power_action: may pick lib-blast-ring unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "frc9LTxqQlM7mncG4VZGK",
+     "name": "Core Canister",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "texZaFi42S3EvJZBwQ8cd",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-splash unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "v7T9_XdGMfP46em0dPuBc",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-scatter-b",
+      "lib-blast-scatter-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-omen-scatter-b"
+      }
+     ],
+     "violations": [
+      "rule 22 use_highest_power_action: may pick lib-blast-scatter-b/lib-blast-scatter-a/lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "wTgO-Q32caSSd0is1QIS7",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "81lnIP-q97gItQYWl5vWD",
+     "name": "Foundry Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-quench",
+      "lib-blast-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-lines"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "LZiunyinw9ScK3mh9HiR2",
+     "name": "Crown Archivist",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    }
+   ],
+   "after": [
+    {
+     "set": "hunts",
+     "id": "2OXJEXoktxJcjqMkE851g",
+     "name": "Arsenal Keeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 7
+    },
+    {
+     "set": "hunts",
+     "id": "3V_gdHYaclMB1gTyOPAbV",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-50%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-omen-rows-b"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 19
+    },
+    {
+     "set": "hunts",
+     "id": "AQi-bHJ-5tHXtxrnc0P9E",
+     "name": "Core Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "QY69h271Nx9uHrBeR6jwW",
+     "name": "The Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-broadside",
+      "lib-ships-bell"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-25%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 27
+    },
+    {
+     "set": "hunts",
+     "id": "RBW5KsIXmTGR710D2y2Y7",
+     "name": "Sealwright",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-command-absolute",
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-30%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-ward-of-command"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 16
+    },
+    {
+     "set": "hunts",
+     "id": "d6g0mOM7RBSsYI1hrUVT9",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-25%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 13
+    },
+    {
+     "set": "hunts",
+     "id": "frc9LTxqQlM7mncG4VZGK",
+     "name": "Core Canister",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "texZaFi42S3EvJZBwQ8cd",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "hunts",
+     "id": "v7T9_XdGMfP46em0dPuBc",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-scatter-b",
+      "lib-blast-scatter-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-omen-scatter-b"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 22
+    },
+    {
+     "set": "hunts",
+     "id": "wTgO-Q32caSSd0is1QIS7",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "81lnIP-q97gItQYWl5vWD",
+     "name": "Foundry Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-quench",
+      "lib-blast-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-lines"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "hunts",
+     "id": "LZiunyinw9ScK3mh9HiR2",
+     "name": "Crown Archivist",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    }
+   ]
+  },
+  "charts": {
+   "summary": {
+    "enemies": 30,
+    "withViolationsBefore": 13,
+    "withViolationsAfter": 0,
+    "lastRuleFreePickBefore": 12,
+    "lastRuleFreePickAfter": 0,
+    "noBasicAttackAfter": [
+     "Seal Charge",
+     "Seal Charge",
+     "Foundry Warden",
+     "Core Horror",
+     "Foundry Warden",
+     "Core Horror",
+     "Lingering Echo",
+     "Lingering Echo",
+     "Lingering Echo",
+     "Steeping Horror",
+     "Replicant Zero"
+    ]
+   },
+   "before": [
+    {
+     "set": "charts",
+     "id": "QY69h271Nx9uHrBeR6jwW",
+     "name": "The Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-broadside",
+      "lib-ships-bell"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-25%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 27
+    },
+    {
+     "set": "charts",
+     "id": "d6g0mOM7RBSsYI1hrUVT9",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-25%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [
+      "rule 13 use_highest_power_action: may pick lib-blast-ring unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "texZaFi42S3EvJZBwQ8cd",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-splash unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "v7T9_XdGMfP46em0dPuBc",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-scatter-b",
+      "lib-blast-scatter-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-omen-scatter-b"
+      }
+     ],
+     "violations": [
+      "rule 22 use_highest_power_action: may pick lib-blast-scatter-b/lib-blast-scatter-a/lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "wTgO-Q32caSSd0is1QIS7",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-deck-warden",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-splash unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-seal-charge",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-arsenal-keeper",
+     "name": "Arsenal Keeper",
+     "includeDefaultRules": true,
+     "setPiecesInKit": [],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-skyglass-sentinel",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-50%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-omen-rows-b"
+      }
+     ],
+     "violations": [
+      "rule 19 use_highest_power_action: may pick lib-blast-rows-b/lib-blast-rows-a/lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-wayfinder",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-scatter-b",
+      "lib-blast-scatter-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-omen-scatter-b"
+      }
+     ],
+     "violations": [
+      "rule 22 use_highest_power_action: may pick lib-blast-scatter-b/lib-blast-scatter-a/lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-first-blade",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-25%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [
+      "rule 13 use_highest_power_action: may pick lib-blast-ring unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-oathkeeper",
+     "name": "Oathkeeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-foundry-warden",
+     "name": "Foundry Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-quench",
+      "lib-blast-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-lines"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-sealwright",
+     "name": "Sealwright",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-command-absolute",
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-30%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-ward-of-command"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [
+      "rule 16 use_highest_power_action: may pick lib-command-absolute/lib-blast-seal-lines unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-skyglass-sentinel",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-50%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-omen-rows-b"
+      }
+     ],
+     "violations": [
+      "rule 19 use_highest_power_action: may pick lib-blast-rows-b/lib-blast-rows-a/lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-first-blade",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-25%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [
+      "rule 13 use_highest_power_action: may pick lib-blast-ring unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-core-horror",
+     "name": "Core Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-the-captain",
+     "name": "The Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-broadside",
+      "lib-ships-bell"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-25%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 27
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-oathkeeper",
+     "name": "Oathkeeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-t-foundry-warden",
+     "name": "Foundry Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-quench",
+      "lib-blast-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-lines"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-t-sealwright",
+     "name": "Sealwright",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-command-absolute",
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-30%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-ward-of-command"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [
+      "rule 16 use_highest_power_action: may pick lib-command-absolute/lib-blast-seal-lines unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-t-skyglass-sentinel",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-50%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-omen-rows-b"
+      }
+     ],
+     "violations": [
+      "rule 19 use_highest_power_action: may pick lib-blast-rows-b/lib-blast-rows-a/lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-t-first-blade",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-25%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [
+      "rule 13 use_highest_power_action: may pick lib-blast-ring unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-t-core-horror",
+     "name": "Core Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-lingering-echo-2",
+     "name": "Lingering Echo",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-lingering-echo-3",
+     "name": "Lingering Echo",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-lines",
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-lingering-echo-4",
+     "name": "Lingering Echo",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-lines",
+      "lib-blast-seal-lines",
+      "lib-blast-rows-a"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-arsenal-keeper",
+     "name": "Arsenal Keeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 9
+    },
+    {
+     "set": "charts",
+     "id": "chart-steeping-horror",
+     "name": "Steeping Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "vjEFUJ9mb1zNTuQf4lfXv",
+     "name": "Replicant Zero",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-65%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "65-40%",
+       "terminal": "end_turn",
+       "fallback": "jutsu S_ix-gZcXi6RirSVpSLV0"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu S_ix-gZcXi6RirSVpSLV0"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    }
+   ],
+   "after": [
+    {
+     "set": "charts",
+     "id": "QY69h271Nx9uHrBeR6jwW",
+     "name": "The Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-broadside",
+      "lib-ships-bell"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-25%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 27
+    },
+    {
+     "set": "charts",
+     "id": "d6g0mOM7RBSsYI1hrUVT9",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-25%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 13
+    },
+    {
+     "set": "charts",
+     "id": "texZaFi42S3EvJZBwQ8cd",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "charts",
+     "id": "v7T9_XdGMfP46em0dPuBc",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-scatter-b",
+      "lib-blast-scatter-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-omen-scatter-b"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 22
+    },
+    {
+     "set": "charts",
+     "id": "wTgO-Q32caSSd0is1QIS7",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-deck-warden",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-seal-charge",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-arsenal-keeper",
+     "name": "Arsenal Keeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 7
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-skyglass-sentinel",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-50%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-omen-rows-b"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 19
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-wayfinder",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-scatter-b",
+      "lib-blast-scatter-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-omen-scatter-b"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 22
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-first-blade",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-25%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 13
+    },
+    {
+     "set": "charts",
+     "id": "chart-c-oathkeeper",
+     "name": "Oathkeeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 7
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-foundry-warden",
+     "name": "Foundry Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-quench",
+      "lib-blast-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-lines"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-sealwright",
+     "name": "Sealwright",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-command-absolute",
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-30%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-ward-of-command"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 16
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-skyglass-sentinel",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-50%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-omen-rows-b"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 19
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-first-blade",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-25%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 13
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-core-horror",
+     "name": "Core Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-the-captain",
+     "name": "The Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-broadside",
+      "lib-ships-bell"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      },
+      {
+       "band": "50-25%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-steady-the-helm"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 27
+    },
+    {
+     "set": "charts",
+     "id": "chart-r-oathkeeper",
+     "name": "Oathkeeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 7
+    },
+    {
+     "set": "charts",
+     "id": "chart-t-foundry-warden",
+     "name": "Foundry Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-quench",
+      "lib-blast-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-lines"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-t-sealwright",
+     "name": "Sealwright",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-command-absolute",
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-30%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-ward-of-command"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 16
+    },
+    {
+     "set": "charts",
+     "id": "chart-t-skyglass-sentinel",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-50%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-omen-rows-b"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 19
+    },
+    {
+     "set": "charts",
+     "id": "chart-t-first-blade",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-25%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      },
+      {
+       "band": "25-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 13
+    },
+    {
+     "set": "charts",
+     "id": "chart-t-core-horror",
+     "name": "Core Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-lingering-echo-2",
+     "name": "Lingering Echo",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-lingering-echo-3",
+     "name": "Lingering Echo",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-lines",
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-lingering-echo-4",
+     "name": "Lingering Echo",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-lines",
+      "lib-blast-seal-lines",
+      "lib-blast-rows-a"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "chart-arsenal-keeper",
+     "name": "Arsenal Keeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 9
+    },
+    {
+     "set": "charts",
+     "id": "chart-steeping-horror",
+     "name": "Steeping Horror",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-maw-of-the-deep",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-70%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "70-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "charts",
+     "id": "vjEFUJ9mb1zNTuQf4lfXv",
+     "name": "Replicant Zero",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-65%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "65-40%",
+       "terminal": "end_turn",
+       "fallback": "jutsu S_ix-gZcXi6RirSVpSLV0"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu S_ix-gZcXi6RirSVpSLV0"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    }
+   ]
+  },
+  "haul": {
+   "summary": {
+    "enemies": 15,
+    "withViolationsBefore": 11,
+    "withViolationsAfter": 0,
+    "lastRuleFreePickBefore": 10,
+    "lastRuleFreePickAfter": 0,
+    "noBasicAttackAfter": [
+     "Seal Charge",
+     "Core Canister",
+     "Stores Ward"
+    ]
+   },
+   "before": [
+    {
+     "set": "haul",
+     "id": "haul-h-wayfinder",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-scatter-b",
+      "lib-blast-scatter-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-scatter-b/lib-blast-scatter-a/lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-h-blade",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      }
+     ],
+     "violations": [
+      "rule 7 use_highest_power_action: may pick lib-blast-ring unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-h-warden",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-splash unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-h-veteran",
+     "name": "First Blade (veteran)",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      }
+     ],
+     "violations": [
+      "rule 7 use_highest_power_action: may pick lib-blast-ring unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-h-lookout",
+     "name": "Deck Warden (lookout)",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-splash unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-trophy-warden",
+     "name": "Trophy Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      }
+     ],
+     "violations": [
+      "rule 10 use_highest_power_action: may pick lib-blast-ring unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-h-keeper",
+     "name": "Arsenal Keeper",
+     "includeDefaultRules": true,
+     "setPiecesInKit": [],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "use_highest_power_action"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-warden",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-splash unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-sentinel",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      }
+     ],
+     "violations": [
+      "rule 8 use_highest_power_action: may pick lib-blast-rows-b/lib-blast-rows-a/lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-veteran",
+     "name": "Skyglass Sentinel (veteran)",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-skyglass-aegis"
+      }
+     ],
+     "violations": [
+      "rule 8 use_highest_power_action: may pick lib-blast-rows-b/lib-blast-rows-a/lib-blast-short-line unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-lookout",
+     "name": "Deck Warden (lookout)",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [
+      "rule 12 use_highest_power_action: may pick lib-blast-splash unmarked"
+     ],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-charge",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-canister",
+     "name": "Core Canister",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-stores-ward",
+     "name": "Stores Ward",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-sealwright",
+     "name": "Sealwright's Echo",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-command-absolute",
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "use_highest_power_action",
+     "phases": [
+      {
+       "band": "100-30%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-ward-of-command"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "use_highest_power_action",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [
+      "rule 16 use_highest_power_action: may pick lib-command-absolute/lib-blast-seal-lines unmarked"
+     ],
+     "basicAttackRule": null
+    }
+   ],
+   "after": [
+    {
+     "set": "haul",
+     "id": "haul-h-wayfinder",
+     "name": "Wayfinder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-scatter-b",
+      "lib-blast-scatter-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "haul",
+     "id": "haul-h-blade",
+     "name": "First Blade",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 7
+    },
+    {
+     "set": "haul",
+     "id": "haul-h-warden",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "haul",
+     "id": "haul-h-veteran",
+     "name": "First Blade (veteran)",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu mOA1hXNf4CcuwOhnnN7ZK"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 7
+    },
+    {
+     "set": "haul",
+     "id": "haul-h-lookout",
+     "name": "Deck Warden (lookout)",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "haul",
+     "id": "haul-trophy-warden",
+     "name": "Trophy Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-ring"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 10
+    },
+    {
+     "set": "haul",
+     "id": "haul-h-keeper",
+     "name": "Arsenal Keeper",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "basic attack"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 7
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-warden",
+     "name": "Deck Warden",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-sentinel",
+     "name": "Skyglass Sentinel",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 8
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-veteran",
+     "name": "Skyglass Sentinel (veteran)",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-b",
+      "lib-blast-rows-a",
+      "lib-blast-short-line"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      },
+      {
+       "band": "60-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-skyglass-aegis"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 8
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-lookout",
+     "name": "Deck Warden (lookout)",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-splash"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu _9k7kSYUgMtB-AEFgRly5"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 12
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-charge",
+     "name": "Seal Charge",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-canister",
+     "name": "Core Canister",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-stores-ward",
+     "name": "Stores Ward",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "haul",
+     "id": "haul-g-sealwright",
+     "name": "Sealwright's Echo",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-command-absolute",
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "basic attack",
+     "phases": [
+      {
+       "band": "100-30%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-ward-of-command"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "basic attack",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": 16
+    }
+   ]
+  },
+  "crownhold": {
+   "summary": {
+    "enemies": 21,
+    "withViolationsBefore": 0,
+    "withViolationsAfter": 0,
+    "lastRuleFreePickBefore": 0,
+    "lastRuleFreePickAfter": 0,
+    "noBasicAttackAfter": [
+     "Crown Armsmaster",
+     "Replicant Zero",
+     "The Second",
+     "The Crowned Captain",
+     "Sanctum Vanguard",
+     "Crown Trialmaster",
+     "Crown Tagwright",
+     "Crown Lancer",
+     "Crown Duelist",
+     "Crown Archivist",
+     "Crown Binder",
+     "Crown Echo",
+     "Crown Stonebound",
+     "Crown Signaller",
+     "Crown Tactician",
+     "Honor Guard",
+     "Crown Runner",
+     "Crown Vanguard",
+     "Crown Herald",
+     "Last Watch",
+     "Crown Sealbearer"
+    ]
+   },
+   "before": [
+    {
+     "set": "crownhold",
+     "id": "-GKFYAZUg1eF-3VnZhDjx",
+     "name": "Crown Armsmaster",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "60-50%",
+       "terminal": "end_turn",
+       "fallback": "jutsu yDznlfsnPaOSFtdjfCyTZ"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu yDznlfsnPaOSFtdjfCyTZ"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "vjEFUJ9mb1zNTuQf4lfXv",
+     "name": "Replicant Zero",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-65%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "65-40%",
+       "terminal": "end_turn",
+       "fallback": "jutsu S_ix-gZcXi6RirSVpSLV0"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu S_ix-gZcXi6RirSVpSLV0"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "ZsfRoyJ55Zsay5bHNLMPv",
+     "name": "The Second",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-a",
+      "lib-blast-rows-b"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-55%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-rows-a"
+      },
+      {
+       "band": "55-30%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-rows-a"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "7QofodAiUwIoM-voiA2p6",
+     "name": "The Crowned Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-crownfall",
+      "lib-command-absolute",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "end_turn",
+       "fallback": "move_towards_opponent"
+      },
+      {
+       "band": "60-30%",
+       "terminal": "end_turn",
+       "fallback": "move_towards_opponent"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "end_turn",
+       "fallback": "move_towards_opponent"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "pshn-LkaC5vIgI6EOv68I",
+     "name": "Sanctum Vanguard",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-40%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "1iJF8VBietrfvxJd_ZhFS",
+     "name": "Crown Trialmaster",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "1syezT0axWVQVgeOGN-LH",
+     "name": "Crown Tagwright",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "e5ye0RlN0fManSKdD_k-o",
+     "name": "Crown Lancer",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu 05rH3kZNXbtFq9a9iRl-W"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "B41DtMALbOTpL82thkBZu",
+     "name": "Crown Duelist",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-40%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "LZiunyinw9ScK3mh9HiR2",
+     "name": "Crown Archivist",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "N3E3C6MGgVYql2pTvpuGf",
+     "name": "Crown Binder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "0LON_CwaUuXj4EYL7BtxS",
+     "name": "Crown Echo",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-40%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "jqxu13kNHhfNY-NF68Ftb",
+     "name": "Crown Stonebound",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-35%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "35-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu yOgwN1WGkwNL9qMImc9aY"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "IJNhy83uB5Lc3sqn6Iqcr",
+     "name": "Crown Signaller",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "5U0WgIrowP6HdP5DrrxBS",
+     "name": "Crown Tactician",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "1orTQQ0Q9XhBvwlSZuzj5",
+     "name": "Honor Guard",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "60-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu V3WrfQ3pB-eCq2hojsxWe"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "-U_-iIwhGodkqdvc4GPa6",
+     "name": "Crown Runner",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "pshn-LkaC5vIgI6EOv68I",
+     "name": "Crown Vanguard",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-40%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "Q6QjSoH6d1SabfQOLb12-",
+     "name": "Crown Herald",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "qQn9h2FY3GUUqgaFIRAuf",
+     "name": "Last Watch",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "09gLgh9sCtshISC0dvpka",
+     "name": "Crown Sealbearer",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-40%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    }
+   ],
+   "after": [
+    {
+     "set": "crownhold",
+     "id": "-GKFYAZUg1eF-3VnZhDjx",
+     "name": "Crown Armsmaster",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b",
+      "lib-blast-ring"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-scatter-a"
+      },
+      {
+       "band": "60-50%",
+       "terminal": "end_turn",
+       "fallback": "jutsu yDznlfsnPaOSFtdjfCyTZ"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu yDznlfsnPaOSFtdjfCyTZ"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "vjEFUJ9mb1zNTuQf4lfXv",
+     "name": "Replicant Zero",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-seal-lines"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-65%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "65-40%",
+       "terminal": "end_turn",
+       "fallback": "jutsu S_ix-gZcXi6RirSVpSLV0"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu S_ix-gZcXi6RirSVpSLV0"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "ZsfRoyJ55Zsay5bHNLMPv",
+     "name": "The Second",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-blast-rows-a",
+      "lib-blast-rows-b"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-55%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-rows-a"
+      },
+      {
+       "band": "55-30%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-omen-rows-a"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu lib-lowered-guard"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "7QofodAiUwIoM-voiA2p6",
+     "name": "The Crowned Captain",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [
+      "lib-crownfall",
+      "lib-command-absolute",
+      "lib-blast-scatter-a",
+      "lib-blast-scatter-b"
+     ],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "end_turn",
+       "fallback": "move_towards_opponent"
+      },
+      {
+       "band": "60-30%",
+       "terminal": "end_turn",
+       "fallback": "move_towards_opponent"
+      },
+      {
+       "band": "30-0%",
+       "terminal": "end_turn",
+       "fallback": "move_towards_opponent"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "pshn-LkaC5vIgI6EOv68I",
+     "name": "Sanctum Vanguard",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-40%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "1iJF8VBietrfvxJd_ZhFS",
+     "name": "Crown Trialmaster",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "1syezT0axWVQVgeOGN-LH",
+     "name": "Crown Tagwright",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "e5ye0RlN0fManSKdD_k-o",
+     "name": "Crown Lancer",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-50%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "50-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu 05rH3kZNXbtFq9a9iRl-W"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "B41DtMALbOTpL82thkBZu",
+     "name": "Crown Duelist",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-40%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "LZiunyinw9ScK3mh9HiR2",
+     "name": "Crown Archivist",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "N3E3C6MGgVYql2pTvpuGf",
+     "name": "Crown Binder",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "0LON_CwaUuXj4EYL7BtxS",
+     "name": "Crown Echo",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-40%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "jqxu13kNHhfNY-NF68Ftb",
+     "name": "Crown Stonebound",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-35%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "35-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu yOgwN1WGkwNL9qMImc9aY"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "IJNhy83uB5Lc3sqn6Iqcr",
+     "name": "Crown Signaller",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "5U0WgIrowP6HdP5DrrxBS",
+     "name": "Crown Tactician",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "1orTQQ0Q9XhBvwlSZuzj5",
+     "name": "Honor Guard",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-60%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "60-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu V3WrfQ3pB-eCq2hojsxWe"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "-U_-iIwhGodkqdvc4GPa6",
+     "name": "Crown Runner",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "pshn-LkaC5vIgI6EOv68I",
+     "name": "Crown Vanguard",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-40%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "Q6QjSoH6d1SabfQOLb12-",
+     "name": "Crown Herald",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "qQn9h2FY3GUUqgaFIRAuf",
+     "name": "Last Watch",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-0%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    },
+    {
+     "set": "crownhold",
+     "id": "09gLgh9sCtshISC0dvpka",
+     "name": "Crown Sealbearer",
+     "includeDefaultRules": false,
+     "setPiecesInKit": [],
+     "lastRule": "end_turn",
+     "phases": [
+      {
+       "band": "100-40%",
+       "terminal": "end_turn",
+       "fallback": "(ends turn)"
+      },
+      {
+       "band": "40-0%",
+       "terminal": "end_turn",
+       "fallback": "jutsu STu1VHNcfgeC3x-UiQDgt"
+      }
+     ],
+     "violations": [],
+     "basicAttackRule": null
+    }
+   ]
+  }
+ }
+}
