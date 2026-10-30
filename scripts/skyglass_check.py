@@ -343,7 +343,15 @@ class Design:
         picks = self.data["picks"]
         aliases = picks.get("doc_aliases", {})
         for key, a in aliases.items():
-            if not (isinstance(a, dict) and a.get("evidence")):
+            if not isinstance(a, dict):
+                continue
+            if "money" in a and not (isinstance(a.get("evidence"), str) and a["evidence"].strip()
+                                     and isinstance(a.get("evidence_file"), str) and a["evidence_file"].strip()):
+                # A money alias sets an amount, so it must always cite the ruling that sets it.
+                self.err(f"picks.doc_aliases.{key}", "evidence",
+                         "a money alias needs a non-empty evidence sentence and evidence_file")
+                continue
+            if not a.get("evidence"):
                 continue
             if a["evidence"] not in _read(self.root, a["evidence_file"]):
                 self.err(f"picks.doc_aliases.{key}", "evidence", f"{a['evidence_file']} no longer states {a['evidence']!r}")
