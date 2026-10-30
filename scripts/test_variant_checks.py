@@ -131,6 +131,20 @@ class VariantChecks(unittest.TestCase):
         self.assertEqual(code, 0, out)
 
 
+    def test_r2_slot_power_coerced_like_zod(self):
+        base = {k: v for k, v in FX.items() if k not in ("description", "power")}
+        run = lambda *ps: self.validate(item("item", {**TOKEN, "effects": [{"type": "increasejutsuslots", **base, "power": p} for p in ps]}))  # noqa: E731
+        for ps in ((1, "1"), ("1", "1")):
+            code, out = run(*ps)
+            self.assertEqual(code, 0, f"{ps}\n{out}")
+        code, out = run("1", "1", 1)
+        self.assertIn("at most 2 extra jutsu slots (3)", out)
+        for bad, want in (("abc", "power 'abc' is not an integer of at least 1"), (-1, "power -1 is not an integer"), (1.5, "power 1.5 is not an integer")):
+            code, out = run(bad)
+            self.assertNotEqual(code, 0, bad)
+            self.assertIn(want, out, bad)
+
+
 class ExtractorCorrections(unittest.TestCase):
     def test_comments_are_not_list_members(self):
         self.assertEqual(se.strip_comments('[\n  ["a"], // note\n  "http://x/y", /* c */ "b"\n]'), '[\n  ["a"], \n  "http://x/y",  "b"\n]')

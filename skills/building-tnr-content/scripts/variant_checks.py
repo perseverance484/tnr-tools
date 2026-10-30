@@ -26,6 +26,7 @@ are read at that pin and cited per rule:
 Forge mirrors the variant rules in forge/src/runner/variants.mjs and lints.mjs ("VARIANT").
 """
 import json
+import math
 import re
 
 from catalog_checks import _url
@@ -115,6 +116,23 @@ def check(entry, items, fields, checks, rep, where):
         rep.err(where, f"another variant create in this manifest uses order {data.get('order')} on the same item; (itemId, order) is unique")
 
 
+def _zod_number(v):
+    """z.coerce.number(): JavaScript Number(v). NaN for anything it cannot read. Python's float() is
+    wider than Number() for "1_0"/"inf"; those are refused here, hex strings too (stricter, never looser)."""
+    if isinstance(v, (bool, int, float)):
+        return float(v)
+    if v is None:
+        return 0.0
+    if isinstance(v, str):
+        t = v.strip()
+        if not t:
+            return 0.0
+        if "_" in t or not re.fullmatch(r"[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?", t):
+            return float("nan")
+        return float(t)
+    return float("nan")
+
+
 def check_effects_placement(entry, consts, rep, where, ctors=None):
     """The tags 3314d122 added: where they may live (SuperRefineItem/Jutsu, PetSpeciesValidator)."""
     ent, data = entry.get("entity"), entry.get("data") or {}
@@ -144,8 +162,17 @@ def check_effects_placement(entry, consts, rep, where, ctors=None):
                 rep.err(where, f"{t} requires {k} {v!r}, got {data[k]!r}")
             elif k not in data and create and k not in PLACEHOLDER_OK:
                 rep.err(where, f"{t} requires {k} {v!r}; state it on the create")
-    # an omitted power is the tag's prefault (45c), not 0
+    # an omitted power is the tag's prefault (45c), not 0; a given one is z.coerce.number() (JS Number()),
+    # then .int().min(1): "1" counts as 1, "abc" / 1.5 / 0 / -1 are refused
     dflt = ((((ctors or {}).get("unions") or {}).get("AllTags") or {}).get("increasejutsuslots") or {}).get("fields", {}).get("power", {}).get("default", 1)
-    total = sum(f.get("power", dflt) for f in slots if isinstance(f.get("power", dflt), (int, float)))
+    total = 0
+    for i, f in enumerate(effects):
+        if f.get("type") != "increasejutsuslots":
+            continue
+        p = _zod_number(f["power"]) if "power" in f else dflt
+        if not (math.isfinite(p) and p == int(p) and p >= 1):
+            rep.err(f"{where}.effects[{i}]", f"increasejutsuslots power {f.get('power')!r} is not an integer of at least 1")
+        else:
+            total += int(p)
     if slots and isinstance(cap, int) and total > cap:
         rep.err(where, f"increasejutsuslots: an item may grant at most {cap} extra jutsu slots ({total})")
