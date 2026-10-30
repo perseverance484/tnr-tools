@@ -144,6 +144,17 @@ test("review F2/F3: the 3314d122 tags' placement and the slot-grant cap (power d
   assert.match(refusal({ items: [{ entity: "jutsu", slot: "create", name: "J", srcId: "j", data: { name: "J", hidden: true, effects: [slot] } }] }), /only on non-combat consumables/);
 });
 
+test("review round 2 (1): slot powers are coerced like z.coerce.number() before summing, at parity with validate.py", () => {
+  const slot = (power) => ({ type: "increasejutsuslots", ...FXKEYS, ...(power === undefined ? {} : { power }) });
+  const run = (...powers) => { const t = TOKEN(); t.data.effects = powers.map(slot); return refusal({ items: [t] }); };
+  assert.equal(run(1, "1"), "", "1 + \"1\" = 2");
+  assert.equal(run("1", "1"), "", "\"1\" + \"1\" = 2, not \"011\"");
+  assert.match(run("1", "1", 1), /at most 2 extra jutsu slots \(3\)/);
+  assert.match(run("abc"), /power "abc" is not an integer of at least 1/);
+  assert.match(run(-1), /power -1 is not an integer of at least 1/);
+  assert.match(run(1.5), /power 1\.5 is not an integer/);
+});
+
 test("review F2/F3: the hand-held activity-bonus list, slot cap and default match the pinned source, when a checkout is supplied", { skip: !process.env.TNR_GAME_CHECKOUT && "set TNR_GAME_CHECKOUT to a checkout at 3314d122" }, () => {
   const read = (f) => readFileSync(join(process.env.TNR_GAME_CHECKOUT, f), "utf8");
   const combat = read("app/src/validators/combat.ts");

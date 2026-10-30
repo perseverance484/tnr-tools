@@ -169,7 +169,10 @@ export function lintManifest(manifest) {
     const type = d.itemType ?? (it.op === "create" ? "CONSUMABLE" : null), grants = fx.filter((f) => f.type === "increasejutsuslots");
     if (fx.some((f) => ACTIVITY_BONUSES.includes(f.type)) && (["jutsu", "petSpecies"].includes(it.entity) || it.entity === "item" && type && !["ARMOR", "ACCESSORY", "KEYSTONE", "CRYSTAL"].includes(type))) E(it, `VARIANT an activity bonus (${fx.filter((f) => ACTIVITY_BONUSES.includes(f.type)).map((f) => f.type)}) needs a bloodline or ARMOR/ACCESSORY/KEYSTONE/CRYSTAL gear`);
     if (grants.length && it.entity !== "item") E(it, "VARIANT increasejutsuslots: jutsu slot grants are only on non-combat consumables");
-    const slotsGranted = grants.reduce((n, f) => n + (f.power ?? 1), 0);
+    // IncreaseJutsuSlots.power is z.coerce.number().int().min(1).prefault(1): Number() first, so "1" is 1
+    const pow = (f) => (f.power === undefined ? 1 : Number(f.power)), okPow = (p) => Number.isInteger(p) && p >= 1;
+    for (const f of grants) if (!okPow(pow(f))) E(it, `VARIANT increasejutsuslots power ${JSON.stringify(f.power)} is not an integer of at least 1`);
+    const slotsGranted = grants.reduce((n, f) => n + (okPow(pow(f)) ? pow(f) : 0), 0);
     if (it.entity === "item" && slotsGranted > MAX_JUTSU_SLOTS) E(it, `VARIANT an item grants at most ${MAX_JUTSU_SLOTS} extra jutsu slots (${slotsGranted})`);
     // the placeholder holds target CHARACTER, destroyOnUse/preventBattleUsage false (queries/item.ts insertItemForCreate,
     // schema.ts defaults); method SINGLE and the created type are already right, so a create must state the other three
