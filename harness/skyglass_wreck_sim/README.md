@@ -39,6 +39,24 @@ python3 harness/skyglass_wreck_sim/tools/probe_summary.py harness/skyglass_wreck
 # Telegraphed-boss probes (ground marks, self markers, COORDINATES patterns, grid/spawns, summoning an AI record):
 TNR_SCRIPT=probe_telegraph.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_telegraph.json
 
+# Crownhold bosses on the shared set-piece library (engine/cclib.ts, engine/library.ts; REPORT_crowned_captain.md).
+# The Crowned Captain solo, dodge on/off, writes his build spec:
+TNR_SCRIPT=crowned_captain.ts harness/skyglass_wreck_sim/run.sh --seeds 60 \
+    --out $PWD/harness/skyglass_wreck_sim/results/crowned_captain_tuned.json \
+    --write-spec $PWD/harness/skyglass_wreck_sim/crowned_captain_spec.json
+# The three division commanders solo, and the whole isolated pyramid with pools carried (route policies):
+TNR_SCRIPT=crownhold.ts harness/skyglass_wreck_sim/run.sh --solo 60 \
+    --out $PWD/harness/skyglass_wreck_sim/results/crownhold_commanders_solo.json \
+    --write-spec $PWD/harness/skyglass_wreck_sim/crownhold_spec.json
+# Chain-tuned (RUL-2026-10-28-013): the player brings one modelled pet (--no-pet to drop it) and reads each telegraph
+# with probability --read (report 4 uses 0.85). The whole pyramid per route policy, pools carried:
+TNR_SCRIPT=crownhold.ts harness/skyglass_wreck_sim/run.sh --read 0.85 --chain 16 --policies clean,alert,healing,war \
+    --out $PWD/harness/skyglass_wreck_sim/results/crownhold_chain.json
+# Per-fight tables at full pools (fast), then an offline chain estimate from them (tuning surrogate only):
+TNR_SCRIPT=crownhold.ts harness/skyglass_wreck_sim/run.sh --read 0.85 --table all --hps 1 --variants none,alarm,war \
+    --seeds 20 --shard 0/2 --out /abs/table_0.json   # and --shard 1/2 in a second process
+python3 harness/skyglass_wreck_sim/tools/compose_chain.py /abs/table_0.json /abs/table_1.json [--reg-scale ...] [--war-restore N]
+
 # Boss-fight mechanic probes (two-marker chain, weakness window, ring/bell, Chain Hook, barriers):
 TNR_SCRIPT=probe_boss.ts harness/skyglass_wreck_sim/run.sh --out harness/skyglass_wreck_sim/results/probe_boss.json
 
