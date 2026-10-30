@@ -990,6 +990,22 @@ class Checker:
                         self.add("ERROR", "prof-chest", f, w, f"{path}.{ids_key}",
                                  f"[{run['run']}] {self.d.items[r['key']]['name']} is outside the area's tier "
                                  f"({' + '.join(sorted(tiers))})")
+            # Plain rewards count too: a profession chest given as an ordinary reward_items entry (directly or inside
+            # a reward-package snapshot, which _walk also visits) is still a profession drop on this run.
+            for i, entry in enumerate(d.get("reward_items") or []):
+                if not isinstance(entry, dict):
+                    continue
+                for cid in entry.get("ids") or []:
+                    r = rules.get(cid)
+                    if r is None:
+                        continue
+                    name = self.d.items[r["key"]]["name"]
+                    if tiers is not None and not tiers:
+                        self.add("ERROR", "prof-chest", f, w, f"{path}.reward_items[{i}]",
+                                 f"[{run['run']}] {name}: this run carries no profession drops (section 4b)")
+                    elif tiers is not None and r["tier"] not in tiers:
+                        self.add("ERROR", "prof-chest", f, w, f"{path}.reward_items[{i}]",
+                                 f"[{run['run']}] {name} is outside the area's tier ({' + '.join(sorted(tiers))})")
 
 
 def _carries(v):
