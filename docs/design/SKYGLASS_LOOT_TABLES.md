@@ -278,7 +278,7 @@ Engine facts (theninjarpg source):
 - **Signature jutsu** use `requiredPetSpeciesId`.
 
 **The Little Horror's Jar** grants the event's one pet (kit: `SKYGLASS_PETS.md`).
-- **Drop:** an endgame Wreck clear drop, **once per player**, using the dungeon `onlyOnce` flag (theninjarpg upstream; needs the re-pin). Proposed 5%, about 20 clears on average.
+- **Drop:** an endgame Wreck clear drop at **5%, once per player**, using the dungeon `onlyOnce` flag (RUL-2026-10-29-054). About 20 clears on average.
 - **The Deck Gull, Bilge Rat, Lantern Moth and Ship's Cat are cut.**
 
 **Galley Stores** (pet progression): 20,000 pet experience (RUL-2026-10-29-039).

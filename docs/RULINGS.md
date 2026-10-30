@@ -4531,3 +4531,21 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "Halve rates. Adjust post. Dont call them trophies. Call them variants".
 
 **Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`; `docs/design/SKYGLASS_LOOT_TABLES.md` §5d.
+
+## RUL-2026-10-29-054 — Variant builder budget; live variant capture first; live runs 3314d122; Little Horror jar 5%
+
+**Date:** 2026-10-29
+
+**Domain:** Forge; Skyglass event / rewards
+
+**Status:** ACTIVE. Steeping redesign under discussion.
+
+**Ruling:**
+1. **The Forge bundle budget is raised** to **466,000 / 112,000** for the variant builder (`fable/variant-builder`). Measured at 461,813 / 110,989.
+2. **Live item variants are captured** (read-only) before any Skyglass Token ships. Any live token-cost variant without a required unlock item is bound to its own token, so the Skyglass Token can't unlock it.
+3. **The live game runs theninjarpg `3314d122` or later.** `requiredItemId`, `variantId` and `onlyOnce` are available.
+4. **The Little Horror's jar** is a once-per-player endgame Wreck drop at **5%**.
+
+**Evidence:** Director, 2026-10-29: "2. Approved, proceed. 3. It does. 4. Approved."
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs`; `docs/design/SKYGLASS_LOOT_TABLES.md` §5b, §5d.
