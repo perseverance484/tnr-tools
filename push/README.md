@@ -1144,6 +1144,8 @@ it. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 p
 
 ## 319 Skyglass / Crownhold update (35 items, HIDDEN): HOLD, being assembled (one large update, director 2026-10-28)
 
+Plan (RUL-2026-10-30-059): push/319 ships with placeholder images wherever art is still pending; a separate visual-asset push swaps the real art in afterwards (image-only edits plus uploads, in the art audit's session order).
+
 Built by `push/skyglass_update.gen.py`. Supersedes 273, 276, 316, 317 and 318 (none run; archived under
 `archive/spent-manifests/push-2026-10-28/`). Forge runs it by phase (law 18: kits come off before their jutsu/items are
 edited and go back on after):
