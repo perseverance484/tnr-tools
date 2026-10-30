@@ -40,6 +40,7 @@ import { recipe, mergeForUpdate, recipeRows, updateInput, rowName } from "./reci
 import { resolveRefs, collectRefs } from "./refs.mjs";
 import { diffAsserted, deepEqualPayload } from "./validate.mjs";
 import { parseManifest, planOrder, toJournalSpecs } from "./manifest.mjs";
+import { readVariant, variantSlotProblem, variantCandidates } from "./variants.mjs";
 import REVIEW from "../review/contract.json" with { type: "json" };
 
 // One tab drives a job at a time. Two runners over one localStorage would each read PLANNED and
@@ -600,7 +601,16 @@ export class Runner {
       const problems = this.validator.problems(item.entity, createData, null, { preCreate: true });
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
     }
+    const variant = item.entity === "itemVariant";
+    if (variant) {
+      // the item's variants now: the server's slot refusals, and the rows that are NOT ours
+      const rows = await this._variantRows(createData, item.idx);
+      const slot = variantSlotProblem(rows, createData);
+      if (slot) throw new Error("pre-send: " + slot);
+      this.journal.annotate(jobId, item.idx, { variantSnapshot: rows.map((v) => v.id) });
+    }
     const decoded = await this._send(jobId, item, { phase: "create" }, rc.create.path, rc.create.input(createData), reserved, expect);
+    if (variant) return this._variantCreated(jobId, item, planned, createData, decoded);
     const o = rc.createdId ? readCreatedId(rc, decoded) : readCreate(decoded);
     if (o.kind === "ok") {
       this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: o.id, phase: rc.oneStep ? "verify" : "update", ...(rc.oneStep ? { asserted: Object.keys(planned.data) } : {}) });
@@ -611,6 +621,41 @@ export class Runner {
     }
     this._failFromOutcome(jobId, item, o, "create");
   }
+
+  /** One item's variants (item.getItemVariants {itemId}); a failed read throws, it is never "none". */
+  async _variantRows(data, idx) {
+    this._requireAuth("item.getItemVariants", idx);
+    const r = await readVariant(this.reader, null, data);
+    if (r.ok) return r.data;
+    if (classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path: "item.getItemVariants", idx });
+    throw new Error(`item.getItemVariants failed: ${r.error.code} ${r.error.message}`);
+  }
+
+  /**
+   * upsertItemVariant answered for a create; it carries no id. Ours is the row at the planned order
+   * that the pre-create read did not hold (the (itemId, order) index admits one), and only when it
+   * holds the asserted keys. Anything else is ORPHANED for the operator, never re-sent. A failed
+   * read leaves the item SENT, so resume() reconciles it.
+   */
+  async _variantCreated(jobId, item, planned, data, decoded) {
+    const o = readMutation(decoded);
+    if (o.kind !== "ok") return this._failFromOutcome(jobId, item, o, "create");
+    const rows = await this._variantRows(data, item.idx);
+    await this.cache.invalidateEntity("item");
+    const candidates = variantCandidates(rows, this.journal.get(jobId).items[item.idx].variantSnapshot, data, diffAsserted);
+    const at = candidates.filter((c) => c.order === data.order);
+    if (at.length === 1 && at[0].matches) {
+      this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: at[0].id, phase: "verify", asserted: Object.keys(planned.data) });
+      this._remember(item.srcId, at[0].id);
+      this.log(`created itemVariant ${at[0].id}`, item);
+      return;
+    }
+    this.journal.transition(jobId, item.idx, "ORPHANED", { error: `variant saved, but no single new row at order ${data.order} matches the plan; adopt (never re-sent) or skip`, candidates });
+    throw new Paused("ORPHANED", { idx: item.idx });
+  }
+
+  /** The live record a write is merged over and read back from: a recipe without a point read reads its own way. */
+  _get(rc, id, data) { return rc.read ? rc.read(this.reader, id, data) : this.reader.get(rc.get, id, { fresh: true }); }
 
   /**
    * Send ONE mutation, write-ahead (journal SENT before the request leaves). Every mutation goes
@@ -687,7 +732,7 @@ export class Runner {
     const expect = this._expect(jobId, item.idx);
     const reserved = await this._throttle(jobId, item.idx, rc.update, expect);
     this._requireAuth(rc.get, item.idx);
-    const live = await this.reader.get(rc.get, id, { fresh: true });
+    const live = await this._get(rc, id, data);
     if (!live.ok) {
       const cls = classifyError(live.error);
       if (cls === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
@@ -858,7 +903,7 @@ export class Runner {
     const diffs = [];
     if (item.entity !== "aiProfile") {
       this._requireAuth(rc.get, item.idx);
-      const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
+      const live = await this._get(rc, item.entityId, data);
       // An expired session must not be recorded as "we read it back and could not see it". The
       // write is real and unverified either way, but the operator is told which problem it is.
       if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });

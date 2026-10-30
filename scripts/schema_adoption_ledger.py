@@ -93,6 +93,16 @@ CLASSES = {
         ".max(MAX_PLAYER_LEVEL) = 110 at 2af4b320). Verified from the entity schema's own field "
         "declaration at both pins (spreads followed) and, for a named bound, the constant's "
         "declaration at the new pin."),
+    "extractor_comment_glued": (
+        "The old constant-list parser split on commas without removing comments, so a `// note` "
+        "line between two members was glued onto the next member (TowerDefenseUpgradeTypes held "
+        "\"// Attack upgrades\\n  \\\"DAMAGE\" instead of DAMAGE). The fixed extractor strips "
+        "comments outside strings; the member with its comment removed is in the new file."),
+    "extractor_ref_default": (
+        "A field typed by a named schema whose chain carries a literal .prefault()/.default() "
+        "(furnitureData: furniture*DataSchema.nullable().prefault(null)) was reported required on "
+        "create because the old extractor ignored that chain's default. Verified from the field's "
+        "own declaration at the new pin, which carries the default."),
     "extractor_ref_resolution": (
         "A field typed by a named schema was recorded as an opaque object; the fixed extractor "
         "resolves the name (aiRule.action: ZodAllAiActions is a z.union)."),
@@ -156,6 +166,27 @@ def _decl(src, name):
                     return s[i:j + 1]
         return s[i:i + 400]
     return None
+
+
+def _strip_code(s):
+    """Comments removed OUTSIDE string literals only."""
+    out, i = [], 0
+    while i < len(s):
+        c = s[i]
+        if c in "\"'`":
+            j = i + 1
+            while j < len(s) and s[j] != c:
+                j += 2 if s[j] == "\\" else 1
+            out.append(s[i:j + 1])
+            i = j + 1
+        elif s.startswith("//", i):
+            i = s.find("\n", i) if s.find("\n", i) >= 0 else len(s)
+        elif s.startswith("/*", i):
+            i = s.find("*/", i) + 2 if s.find("*/", i) >= 0 else len(s)
+        else:
+            out.append(c)
+            i += 1
+    return "".join(out)
 
 
 def const_members(src, name, seen=()):
@@ -255,6 +286,15 @@ def classify(name, atom, ctx):
     kind = atom[0]
     if kind in ("const-member", "enum-member") and atom[2].startswith("..."):
         return "extractor_spread_marker"
+    if kind == "const-member" and atom[2].lstrip().startswith(("//", "/*")):
+        # the comment-free member must be in the NEW file's own list for this constant
+        clean = re.sub(r"^(?:\s*(?://[^\n]*|/\*.*?\*/))+\s*", "", atom[2], flags=re.S).strip().strip("\"'")
+        vals = ctx["new_docs"]["45e"]["constants"].get(atom[1], {}).get("value") or []
+        # the declaration, read independently: string literals of its comment-free text (a `//` in a
+        # URL literal is not a comment, which _strip cannot tell)
+        src_m = set(re.findall(r'"([^"]*)"|\'([^\']*)\'', _strip_code(_decl(ctx["new"], atom[1]) or "")))
+        src_m = {a or b for a, b in src_m}
+        return "extractor_comment_glued" if clean and clean in vals and clean in src_m else None
     if kind == "const-member":
         old_m, new_m = const_members(ctx["old"], atom[1]), const_members(ctx["new"], atom[1])
         if old_m and atom[2] in old_m and (new_m is None or atom[2] not in new_m):
@@ -337,6 +377,12 @@ def classify_late(name, atom, ctx):
     if block in ("nullable", "required_on_create", "cap_100", "booleans", "date_fields"):
         if (parts[2], val) in ctx["field_removed"]:
             return "consequence_of_removal"
+        if block == "required_on_create":
+            sn = ents_new.get(parts[2], {}).get("schema")
+            en = field_expr(ctx["new"], sn, val) if sn else None
+            nf = ents_new.get(parts[2], {}).get("fields", {}).get(val) or {}
+            if en and re.match(r"^[A-Za-z_]\w*\.", en) and _has_default(en) and "default" in nf:
+                return "extractor_ref_default"
         if block == "cap_100":
             so = ents_old.get(parts[2], {}).get("schema")
             sn = ents_new.get(parts[2], {}).get("schema")

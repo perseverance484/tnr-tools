@@ -73,6 +73,10 @@ export const PROCEDURES = Object.freeze({
   // [{id, craftItemId, requirementItemId, quantity, createdAt, updatedAt, requirementItem}] + requiredBloodline.
   "item.getItemWithCraftingRequirements": { kind: "query", limited: true, mcp: true, auth: "public" },
   "item.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+  // Item variants, read at TheNinjaRPG@3314d122 routers/item.ts: getItemVariants :1153 and
+  // upsertItemVariant :1167 are protectedProcedure with no limiter and no mcp meta.
+  "item.getItemVariants": { kind: "query", limited: false, mcp: false, auth: "protected" },
+  "item.upsertItemVariant": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "jutsu.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "jutsu.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "jutsu.get": { kind: "query", limited: true, mcp: true, auth: "public" },
