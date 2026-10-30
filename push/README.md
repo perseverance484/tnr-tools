@@ -1142,29 +1142,73 @@ archived unrun. Built by `push/233_ethereal_rebirth_animation_v2.gen.py`, strip 
 it. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **Run 233, then 231.**
 
 
-## 319 Skyglass / Crownhold update (35 items, HIDDEN): HOLD, being assembled (one large update, director 2026-10-28)
+## 319, 328, 329, 330 Skyglass / Crownhold update (HIDDEN, placeholder art): 319 / 328 / 329 READY TO RUN in that order; 330 built from 329's results
 
-Plan (RUL-2026-10-30-059): push/319 ships with placeholder images wherever art is still pending; a separate visual-asset push swaps the real art in afterwards (image-only edits plus uploads, in the art audit's session order).
+Plan (RUL-2026-10-30-059): everything ships hidden with the engine-default placeholder image wherever art is still
+pending; a separate visual-asset push swaps the real art in afterwards (image-only edits plus uploads, in the art audit's
+session order). The three committed exports for existing records (Sealed Treasury, Archive Chart Case, Unmarked Cargo;
+art audit D2) are used now. The Buried Cache chart's export is held back until its seal colour is checked (audit D2).
 
-Built by `push/skyglass_update.gen.py`. Supersedes 273, 276, 316, 317 and 318 (none run; archived under
-`archive/spent-manifests/push-2026-10-28/`). Forge runs it by phase (law 18: kits come off before their jutsu/items are
-edited and go back on after):
-- **Phase 1:** Core Rupture off Seal Charge and Core Canister. The Crownhold boss (`7QofodAiUwIoM-voiA2p6`) renamed **The
-  Crowned Captain** with the crew sprite, his Last Directive, Extermination Order and Countermand off. The 18 Crownhold
-  usernames (RUL-2026-10-26-003). The Katon Tool Pouch becomes the **Elemental Tool Pouch** (Elemental Kunai).
-- **Phase 2:** Core Rupture: AOE circle spawn, range 5, pierce 180 (self-destruct and 2-round stun kept). The Last
-  Directive's and Countermand's text name the Crowned Captain. The Armory Requisition and the Drowned Foundry pick 1 of:
-  Elemental Tool Pouch / Medicine Inro / 50,000 ryo. The Quarantined Archive, the Captain's Watch and the Buried Cache
-  are re-sent whole with the story-bible text (`docs/design/SKYGLASS_STORY_BIBLE.md`; only text changes, checked against
-  push/268 and push/270), and the Armory Requisition's description is updated.
-- **Phase 3:** kits back on; **Crownhold** created with the Crowned Captain story (RUL-2026-10-28-004) and a Crown
-  fragment in its pick.
+Built by `push/skyglass_update.gen.py` (items: `push/skyglass_items.gen.py`; player text read verbatim from
+`docs/design/SKYGLASS_TEXT.md` by `push/skyglass_text.py`). Supersedes the one-manifest 319 of 2026-10-28 (never run).
+Law 18 puts AI edits on both sides of the jutsu edits, which `validate.py`'s build-order lint refuses inside one manifest,
+so the update is split. **Run on one Forge install, in this order, and export the results after each:**
 
-**Before it runs:** the Crownbreaker badge id (`state/crownhold/ids.json`), then the Wreck dungeon's AI copies and dungeon
-edits and the easy dungeon (harness tuning in progress) join this manifest. Gates: `check_manifest.mjs` 0 pre-send
-problems; `validate.py --strict` 1 error + 8 warnings, all held under `state/validate_exceptions/319_skyglass_update.json`
-(RUL-2026-10-28-002: the law-6 power cap, and the build-order lint, which ignores phases). Regenerate and re-write the
-ledger whenever the manifest changes.
+1. **`319_skyglass_update.json`** (21 AI edits): kit off. Core Rupture off Seal Charge and Core Canister (AI Heavy Armor
+   kept). The Crownhold boss (`7QofodAiUwIoM-voiA2p6`) renamed **The Crowned Captain** with the crew sprite, his Last
+   Directive, Extermination Order and Countermand off (RUL-2026-10-28-003/-004). The 18 Crownhold usernames
+   (RUL-2026-10-26-003).
+   - Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems; `skyglass_check.py` 0 errors.
+   - After it runs: read back that Seal Charge and Core Canister hold no jutsu and the boss is named The Crowned Captain.
+2. **`328_skyglass_core_rupture.json`** (1 jutsu convert): Core Rupture, AOE circle spawn, range 5, pierce 180; the
+   self-destruct and 2-round stun kept (RUL-2026-10-28-001).
+   - Gates: `validate.py --strict` **exit 1, by ruling**: one diagnostic, the law-6 pierce cap (RUL-2026-10-28-002), held
+     by `python3 scripts/validate_exception.py state/validate_exceptions/328_skyglass_core_rupture.json` (exit 0; the
+     ledger moved here from 319). `check_manifest.mjs` 0 problems. Regenerate and `--write` the ledger whenever 328 changes.
+   - After it runs: read back the jutsu's method, range and pierce power.
+3. **`329_skyglass_items_and_quests.json`** (71 items, by phase):
+   - Phase 1: the Last Directive and Countermand texts; **22 item creates** (Tide Chart, Watch Roster, Reliquary Seal, The
+     Last Heading, Rotted Reliquary Seal, The Rotted Heading; the 6 Haul pages; Core Rot; Galley Stores; the Skyglass
+     Token; the 7 boss variant tokens); **20 item edits** (the four Rare chart texts and tiers, the Lantern; the Coffer,
+     Sealed Treasury 150,000 ryo + 3-6 rolls, Archive Chart Case 45/25/20/7/3, Medicine Inro, Sage's Strongbox, Elemental
+     Tool Pouch, Unmarked Cargo 40/35/18/7; the 8 profession chests with Common/Rare/Epic/Legendary tiers). Every chest
+     description is rendered from its cache table and equals SKYGLASS_TEXT.md section 4.
+   - Phase 2: the **19 variants** (12 Skyglass on `requiredItemId` Skyglass Token, 7 boss variants each on its own token;
+     cost 1 token, placeholder image). **Variants have no hidden state:** from this run each one shows in its base weapon's
+     Variants list as "Need <token>" (the tokens themselves are hidden and unobtainable until publishing). Orders: next free
+     after the live token variants (push/326); a non-token variant Forge has not read can still hold an order, and then
+     Forge refuses that variant before sending.
+   - Phase 4: kits back on (Core Rupture on both hazards; the Crowned Captain's exclusives).
+   - Phase 5: the Buried Cache, Drowned Foundry, Quarantined Archive and Captain's Watch re-sent whole: section 4a picks;
+     chart ladder drops (Foundry chart 15%, Archive chart 10%, Reliquary Seal 25%, Last Heading 25% / 45% after the press-on
+     room, tainted chart 1%); Haul pages 1.5% each on every Rare-chart ending; boss variant tokens 1% (Foundry Warden,
+     Sealwright, Wayfinder); stakes headers and closing lines (text doc 2.8, 6.1, 6.2) and the Buried Cache note fix
+     (section 8); the Captain's Watch dawn-watch press-on room (2.8a: Deck Warden + Wayfinder; a won room pays one ladder
+     step more, VI at most; a lost room keeps the step's ending). **Crownhold** created: pick Skyglass Coffer x3 /
+     Lastlight / Crown Fragment, Treasury 6%, an Epic chart 25% each.
+   - The retired Armory Requisition (item and quest) is not edited: both are already hidden live (push/274), and the
+     Unmarked Cargo edit drops it from the chest of chests.
+   - Placeholders: `_placeholders` in the manifest lists all 41 records carrying the engine-default image.
+   - Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems; `skyglass_check.py`
+     0 errors (13 WARN, all expected: same-manifest @item refs have no name yet; Galley Stores, the Skyglass Token, Crown's
+     Hoard and the Crownbreaker badge are pending in the design data until their ids exist).
+   - **Before it runs (preferred):** create the Crownbreaker badge by hand (image `art/crownhold/icon-badge-crownbreaker-v2.webp`),
+     put its id in `state/crownhold/ids.json` as `badge:crownbreaker`, regenerate, and re-run the gates: Crownhold's pick then
+     carries the badge. Otherwise a later Crownhold edit adds it. Crown's Hoard has no record yet and joins the same way.
+   - After it runs: put the new ids into `state/skyglass_design/design_data.json` (Galley Stores, Skyglass Token, the charts
+     and pages) so `skyglass_check.py` verifies them; read back every item edit's effects, the 19 variants per base item
+     (`item.getItemVariants`), and the four hunts' and Crownhold's rewards.
+4. **330 (token binds), built from 329's results:** `python3 push/skyglass_update.gen.py --binds <329 results bundle>` writes
+   `330_skyglass_token_binds.json`: each boss token's `unlockitemvariant.variantId` set to its variant (pipeline 2.10 step 3;
+   the edit needs literal ids, L01). Until it runs, the hidden boss tokens could unlock any token variant that has no
+   required item.
+
+**Not in these four, still to build (each needs 329's ids, then its own generator):** the set-piece library and the AI
+copies (charts, Haul guards, the steeping Horror), the six new chart runs and the two steeping special quests (and the
+Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.json` on `fable/skyglass-haul-fit`
+`6ad2a102`), Walked Every Deck (needs every chart run's id), the Wreck dungeon's drops and floors and the easy Wreck, the
+Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
+and jar.
 
 ## 320 Skyglass danger-language assets (10 asset creates, HIDDEN): RUN (bundle tnr_results_1793211363293.json: 10/10 ok; ids in `state/skyglass_fx/asset_ids.json`), archived
 

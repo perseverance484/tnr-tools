@@ -2,7 +2,7 @@
 
 **Update (RUL-2026-10-29-052):** the Haul is open to **every player**. There is no S-rank gate. Hunter and gatherer pages are themes, not requirements. The page drop rates are in loot tables §4b: endgame Wreck 2.4% and Rare-chart endings 1.5% per page (RUL-2026-10-30-060 item 5, replacing RUL-2026-10-29-053's 2% / 1.25%). The rest of this doc applies as written.
 
-**Status:** APPROVED direction (RUL-2026-10-29-037). Numbers are harness targets until the simulator rounds return.
+**Status:** APPROVED direction (RUL-2026-10-29-037). The payout points are fitted (RUL-2026-10-30-060 item 4; "Payout points" below).
 
 These two charts are Skyglass's callback to the original S-rank Ghost Ship hunting and gathering quests. Professionals
 are rewarded the same, but through a push-your-luck run instead of a flat payout. Both follow every chart rule: the chart is
@@ -114,7 +114,39 @@ alertness, and whether a cut-through hazard is pending.
   - Sensible route: mean 7.69M. Greedy clears: 25-37.5%.
   - Three routes break the 120% ceiling: Trophy Hold CLLCC **138%**, Snare Room LCXLC **139%** and Bloom Cellar LLL **137%**. The fallback fix took the guards' free picks, so the locker-heavy fights got easier.
   - **Fix:** re-fit the payout points against the exact top routes (`tools/haul_payout_fit.py`), and add one more guard to the step-2 and step-3 locker fights on the Trophy Hold and the Bloom Cellar, as on the Snare Room (RUL-2026-10-29-045). The target is that no route pays more than about 120% of the sensible route.
-  - **The exact new points are to be fitted in the harness before the build.** The only fit so far is a first offline fit for the Snare Room alone (steps 4.4 / 1.0 / 0.9 / 0.9 / 3.5, locker 2.4, which brings it to 120%). Points alone cannot pull the Trophy Hold or the Bloom Cellar under 120%.
+  - **Fitted** (below, "Payout points"). The first offline fit in the report (Snare Room only) is superseded.
+
+### Payout points (RUL-2026-10-30-060 item 4, fitted)
+
+Fitted offline on `fable/skyglass-haul-fit` at `6ad2a102a9b0845411100f1c6f6cf08a63691c93`, from `d5957e79` (harness
+`REPORT.md` section 8; `results/fit_haul_points.json`, `results/fit_haul_summary.json`; `haul_spec.json` regenerated). Zero
+live requests.
+
+- **The extra guard:** the Trophy Hold's step-2 locker adds a Wayfinder copy and its step-3 locker a Blade copy; the Bloom
+  Cellar's step-2 locker adds a Warden copy and its step-3 locker a Sentinel copy. Both pages re-run (every legal path,
+  24 seeds; top routes exactly, 40 seeds).
+- **Exact runs** also covered every other page's top routes that had only merged rates. At the old points the Bone
+  Store's CLXCC was 157% and the Ore Vault's CCCL 124%.
+- **Method:** `tools/haul_payout_minmax.py` (same rungs and sensible route as `haul_payout_fit.py`; global search with the
+  120% ceiling first, then the sensible route near 7.5M, then the greedy band).
+
+A route is the choice per step: C crate, L locker, X cut through. "Sensible" is the best 3-step, 1-locker route.
+
+| Page | Points: crate by step / locker | Sensible route | Worst route, % of sensible | Best-clearing greedy route |
+|---|---|---|---|---|
+| Trophy Hold | **4.2 / 0.9 / 1.3 / 3.0 / 2.7, locker 3.3** (was 5.4 at step 5, locker 2.4) | LCC 7.77M | CL 108% (at most; merged 100% clear) | CLXLL, about 13% clear, pays 21.8M |
+| Bone Store | **4.2 / 0.9 / 1.3 / 1.1 / 2.1, locker 2.5** (was 1.2 / 7.3 at steps 4-5) | LCC 7.98M | LCL 110% | LLLCC 25%, pays 15.7M |
+| Snare Room | **5.1 / 0.9 / 1.5 / 1.0 / 3.5, locker 1.7** (was 5.2 / 0.9 / 1.5 / 1.2 / 3.5, locker 3.3) | CCL 7.35M | LXL 119% | CLLLC 30%, pays 15.7M |
+| Overgrown Stores | 3.7 / 1.4 / 1.9 / 2.5 / 8.6, locker 1.1 (unchanged) | CLC 7.49M | LLL 118% | LLLCC 37.5%, pays 21.0M |
+| Ore Vault | 4.5 / 1.9 / 2.2 / 0.6 / 0.6, locker 1.9 (unchanged) | LCC 7.61M | **CCCL 124%** | CLCLL 55%, pays 15.4M |
+| Bloom Cellar | 4.1 / 0.9 / 1.9 / 4.2 / 5.7, locker 1.4 (unchanged) | LCC 7.29M | LLCC 113% | LLCCL 27.5%, pays 21.0M |
+
+- **The Ore Vault cannot reach 120% with points.** CCCL holds every point of LCC plus step 4's, so it always reaches at
+  least LCC's rung, and it clears 90% against 72.5% (the vault's step-4 locker has one guard fewer, RUL-2026-10-29-045).
+  It is inside the ~125% line, so it is reported and not changed.
+- **For the director:** holding the ceiling and a ~7.5M sensible route lowers the greedy clear's pay on the Bone Store and
+  the Snare Room to 15.7M (about 2.1×, was ~3× under RUL-2026-10-29-045). On the Trophy Hold the extra guards drop the
+  best greedy route to about 13-16% clears. Neither is changed here.
 - **Fight lengths:** crates 3-5 rounds, lockers 5-8, Keeper or Sealwright 8-10. A full greedy run takes about 12-15
   minutes.
 - **Player model:** a solo S-rank professional at level 100, with the Kitsune set and a pet (RUL-2026-10-28-026 items
