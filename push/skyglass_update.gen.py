@@ -1,21 +1,36 @@
 #!/usr/bin/env python3
-"""Generate push/319: the Skyglass / Crownhold update, one manifest (director 2026-10-28: "one large update").
+"""Generate the Skyglass / Crownhold update (push/319, 328, 329), all HIDDEN, placeholder art (RUL-2026-10-30-059).
 
     python3 push/skyglass_update.gen.py
 
-Assembles, by phase (law 18: an equipped jutsu or held item is taken off before it is edited and put back after):
-  Phase 1  take Core Rupture off Seal Charge and Core Canister; take the Last Directive, Extermination Order and
-           Countermand off the Crownhold boss while renaming it "The Crowned Captain" with the crew sprite
-           (RUL-2026-10-28-003/-004); the 18 Crownhold usernames (was push/276, RUL-2026-10-26-003); the Katon Tool
-           Pouch becomes the Elemental Tool Pouch.
-  Phase 2  Core Rupture: a small, heavy blast (RUL-2026-10-28-001); the Last Directive's and Countermand's text name
-           the Crowned Captain; the Armory Requisition and the Drowned Foundry pick 1 of 3.
-  Phase 3  put Core Rupture back on both hazards and the exclusives back on the boss; create Crownhold (was push/273).
-Still to join before it runs: the Wreck dungeon's AI copies and dungeon edit (harness pending), the easy dungeon, and the
-Crownbreaker badge id. Sources: push/core_rupture.gen.py, push/elemental_pouch.gen.py, push/crownhold.gen.py.
-Do not hand-edit the output.
+push/319 was one manifest run by phase. Law 18 (a held jutsu is taken off before it is edited and put back after) puts
+AI edits on both sides of the jutsu edits, which validate.py's build-order lint refuses inside one manifest, and the
+Core Rupture blast carries the approved law-6 exception (RUL-2026-10-28-002). It is now three ordered manifests:
+
+  319  kit off (AI edits only): Core Rupture off Seal Charge and Core Canister; the Crownhold boss renamed The Crowned
+       Captain with the crew sprite and his Last Directive, Extermination Order and Countermand off; the 18 Crownhold
+       usernames (RUL-2026-10-26-003).
+  328  Core Rupture: a small, heavy blast (RUL-2026-10-28-001). The law-6 pierce exception (RUL-2026-10-28-002) is held
+       by state/validate_exceptions/328_skyglass_core_rupture.json.
+  329  everything else: the Last Directive and Countermand texts; the Skyglass items, caches, charts, Haul pages, Core
+       Rot, Galley Stores, Skyglass Token and the seven boss variant tokens, the profession chests and the 19 variants
+       (push/skyglass_items.gen.py); the tokens bound to their variants; kits back on; the Armory Requisition hidden;
+       the Buried Cache, Drowned Foundry, Quarantined Archive and Captain's Watch re-sent with the section 4a picks, the
+       chart-ladder and Haul-page drops, the stakes headers and closing lines (text doc 2.8, 2.8a, 6.1, 6.2, 8) and the
+       Watch's dawn-watch press-on room; Crownhold created with its section 4a pick.
+
+Sources: push/core_rupture.gen.py, push/crownhold.gen.py, push/skyglass_hunts.gen.py (state/skyglass_hunts/hunts.py),
+push/skyglass_items.gen.py, docs/design/SKYGLASS_TEXT.md, docs/design/SKYGLASS_LOOT_TABLES.md. Do not hand-edit the output.
+
+Not in these three (built later, from these manifests' results): the chart runs, steeping, the Haul, Walked Every
+Deck, the Wreck dungeon drops and floors, the set-piece library and the AI copies; see push/README.md.
 """
-import importlib.util, json, os, sys
+import copy
+import hashlib
+import importlib.util
+import json
+import os
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,19 +41,25 @@ def load(name):
     return m
 
 
-CR, EP, CH = load("core_rupture.gen.py"), load("elemental_pouch.gen.py"), load("crownhold.gen.py")
+CR, CH, G, IT = load("core_rupture.gen.py"), load("crownhold.gen.py"), load("skyglass_hunts.gen.py"), load("skyglass_items.gen.py")
+T = IT.T
 BOSS_ID = CH.IDS["@ai:D5.BOSS"]
-# The Wreck's description (story bible); sent with the dungeon edits once the harness tuning lands.
-WRECK_DESCRIPTION = ("The Ghost Ship has finally come down. The war-ship that hung over this coast for decades lies broken on "
-                     "the sand, its Skyglass Core cracked and still burning. Inside, the Core holds every deck the way it "
-                     "was, and the crew stand their watch as if nothing has changed. No one has relieved them. Enter as "
-                     "three, and you may leave with their charts.")
 EXCLUSIVE_JUTSU = {CH.IDS["@jutsu:last_directive"], CH.IDS["@jutsu:extermination_order"]}
 COUNTERMAND = CH.IDS["@item:countermand"]
-
-
-def phased(items, phase):
-    return [{**it, "phase": phase} for it in items]
+REQUISITION_ITEM, REQUISITION_QUEST = "Fz1MU04kLIIM0EMXgouo6", "3BYr-HMkOepywS77vJvJh"  # retired (RUL-2026-10-28-016)
+QUEST_ID = {"foundry": "UGHSuhi83C3wRtH3FD4Eu", "archive": "-bZ_ZoI6yrUJ_LKT9R5zm", "watch": "liljq0yVXWTSna4X6dZE1",
+            "cache": "CgwAVCyZLgNQtEnqgLxxv"}  # push/265, 266, 270 (design_data.json picks)
+CHART_BURIED_CACHE = "nbLC37UzBamthKXvZsgQB"  # push/270 result (design_data.json items.chart_buried_cache cites this file)
+R = IT.ref
+assert R("Chart of the Buried Cache") == CHART_BURIED_CACHE
+# The Coffer's contents (push/260; design_data.json items cite this file for their names).
+COFFER_CONTENTS = {"Skyglass Filament": "CTZ1mwhHrICLtiCaZATY6", "Skyglass Serum": "XhilCv1Hq4eNt-Wddok-m",
+                   "Skyglass Katana": "ZSUdrzzgorepP4CQrBfEk"}
+assert all(R(n) == i for n, i in COFFER_CONTENTS.items())
+PAGES = ["Ledger Page: The Trophy Hold", "Ledger Page: The Bone Store", "Ledger Page: The Snare Room",
+         "Stores Manifest: The Overgrown Stores", "Stores Manifest: The Ore Vault", "Stores Manifest: The Bloom Cellar"]
+PAGE_RARE_ENDING = 1.5  # per page, every Rare-chart ending (loot tables 4b; RUL-2026-10-30-060 item 5)
+HUNT_VARIANT = 1        # boss variant token, his hunt runs (loot tables 5d)
 
 
 def boss_kit():
@@ -47,7 +68,223 @@ def boss_kit():
     return ai["jutsus"], [{"ids": it["ids"], "number": it.get("number", 0)} for it in ai["items"]]
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# Hunts (existing records, re-sent whole)
+# ---------------------------------------------------------------------------------------------------------------
+def drop(name, chance):
+    return {"ids": [R(name)], "number": chance, "quantity": 1}
+
+
+def add_drops(objs, ids, drops):
+    for o in objs:
+        if o["id"] in ids:
+            assert o["task"] == "win_quest", o["id"]
+            o["reward_items"] = list(o.get("reward_items") or []) + [dict(d) for d in drops]
+
+
+def by_id(objs, i):
+    return next(o for o in objs if o["id"] == i)
+
+
+def prepend(o, line):
+    o["description"] = line + "<br><br>" + o["description"]
+
+
+def stakes(run, premise):
+    L = T.lines()
+    i = next(i for i, l in enumerate(L) if l.startswith(f"- **`quest:{run}.description`** (prepend):"))
+    lines = []
+    for l in L[i + 1:]:
+        if not l.startswith("  `"):
+            break
+        lines.append(l.strip()[1:-1])
+    return "\n".join(lines) + "\n\n" + premise
+
+
+CLOSE = {row[0] + " @ " + row[1]: row[2] for row in T.table("### 6.2 Closing lines")}
+_INTRO = [(row[0], row[2]) for row in T.table("### 6.1 Intro screens")]
+
+
+def intro(target):
+    hits = [p for t, p in _INTRO if target in t]
+    assert len(hits) == 1, target
+    return hits[0]
+
+
+def close(boss, where):
+    cell = CLOSE[boss + " @ " + where]
+    if cell.startswith("`"):
+        cell = cell[1:cell.index("`", 1)]
+    return cell
+
+
+PAGE_DROPS = [drop(p, PAGE_RARE_ENDING) for p in PAGES]
+
+
+def foundry():
+    objs = G.foundry()
+    o = by_id(objs, "d_pour")
+    old = "The Warden cools into a shell of skyglass."
+    assert o["description"].startswith(old)
+    o["description"] = close("Foundry Warden (Foundry)", "`d_pour`, prepend") + o["description"][len(old):]
+    prepend(by_id(objs, "d_gate"), close("Arsenal Keeper (Foundry)", "`d_gate`, prepend"))
+    prepend(by_id(objs, "d_racks"), close("Deck Warden (Foundry)", "`d_racks`, prepend"))
+    add_drops(objs, {"w_deep"}, [drop("Chart of the Quarantined Archive", 10)] + PAGE_DROPS + [drop("Warden's Forge-Fists", HUNT_VARIANT)])
+    reward = G.items_reward((R("Elemental Tool Pouch"), 1), (R("Medicine Inro"), 1), (R("Galley Stores"), 1))
+    q = G.quest("hunt_foundry", "The Drowned Foundry", stakes("The Drowned Foundry", G.H.FOUNDRY["premise"]),
+                "You carried the last pour out of the keel works.", R("Chart of the Drowned Foundry"),
+                "@img:icon-chart-drowned-foundry.webp", objs, reward, "A", QUEST_ID["foundry"])
+    return q
+
+
+def archive():
+    objs = G.archive()
+    for b in ("b_sealwright", "b_sealwright_a"):
+        assert by_id(objs, b)["description"] == "Break the Sealwright's seals."
+        by_id(objs, b)["description"] = intro("obj:The Quarantined Archive/b_sealwright.description")
+    for w in ("w_clean", "w_alarm"):
+        prepend(by_id(objs, w), close("Sealwright (Archive)", "`w_clean`, `w_alarm`, prepend"))
+    add_drops(objs, {"w_clean", "w_alarm"}, [drop("Reliquary Seal", 25), drop("Rotted Reliquary Seal", 1)] + PAGE_DROPS
+              + [drop("Sealwright's Seal", HUNT_VARIANT)])
+    reward = G.items_reward((R("Archive Chart Case"), 1), (R("Sage's Strongbox"), 1), (R("Skyglass Token"), 1))
+    return G.quest("hunt_archive", "The Quarantined Archive", stakes("The Quarantined Archive", G.H.ARCHIVE["premise"]),
+                   "The archive's last seal is broken and its records are yours.", R("Chart of the Quarantined Archive"),
+                   "@img:icon-chart-quarantined-archive.webp", objs, reward, "A", QUEST_ID["archive"])
+
+
+NEXT_STEP = {"IV": "V", "V": "VI", "VI": "VI"}  # a won press-on room pays one ladder step more (VI is the top)
+
+
+def watch():
+    objs = G.watch()
+    captain = intro("obj:The Captain's Watch/b3*.description")
+    for o in objs:
+        if o["task"] == "start_battle" and o["id"].startswith("b3"):
+            base = "The Captain steps down from the command dais."
+            assert o["description"].startswith(base), o["id"]
+            o["description"] = captain + o["description"][len(base):]
+        if o["id"].startswith("d_term2_"):
+            prepend(o, close("Wayfinder (Watch)", "`d_term2_*`, prepend"))
+        if o["id"].startswith("d_term3_"):
+            prepend(o, close("First Blade (Watch)", "`d_term3_*`, prepend"))
+    gallery_add = T.block("obj:The Captain's Watch/d_gallery_*.description")
+    gch = T.choices("obj:The Captain's Watch/d_gallery_*.description")
+    press = T.block("obj:The Captain's Watch/b_press_*.description")
+    press_win = T.block("obj:The Captain's Watch/w_press_*.description")
+    fail_press = "You fall back, and keep only what you held."  # text doc section 2, shared press-on failDescription
+    new = []
+    for step in ("IV", "V", "VI"):
+        g = by_id(objs, "d_gallery_" + step)
+        assert g["nextObjectiveId"][0]["text"] == gch[0]
+        g["description"] += gallery_add
+        g["nextObjectiveId"].append({"text": gch[1], "nextObjectiveId": "b_press_" + step})
+        b = G.battle("b_press_" + step, "command_observation_gallery", press, ["Deck Warden", "Wayfinder"],
+                     "w_press_" + step)[0]
+        b["failObjectiveId"] = "w_" + step
+        b["failDescription"] = fail_press
+        new.append(b)
+        w = G.win("w_press_" + step, "command_observation_gallery", press_win, NEXT_STEP[step])
+        new.append(w)
+    objs = objs[:-1] + new + objs[-1:]  # keep the fail ending last
+    ends = {"w_IV", "w_V", "w_VI"}
+    add_drops(objs, ends, [drop("The Last Heading", 25), drop("The Rotted Heading", 1)] + PAGE_DROPS
+              + [drop("Wayfinder's Heading", HUNT_VARIANT)])
+    add_drops(objs, {"w_press_IV", "w_press_V", "w_press_VI"},
+              [drop("The Last Heading", 45), drop("The Rotted Heading", 1)] + PAGE_DROPS + [drop("Wayfinder's Heading", HUNT_VARIANT)])
+    reward = G.items_reward((R("Skyglass Coffer"), 1), (R("Skyglass Token"), 1), reward_money=1000000)
+    return G.quest("hunt_watch", "The Captain's Watch", stakes("The Captain's Watch", G.H.WATCH["premise"]),
+                   "You kept the Captain's watch and claimed its stores.", R("Chart of the Captain's Watch"),
+                   "@img:icon-chart-captains-watch.webp", objs, reward, "A", QUEST_ID["watch"])
+
+
+def cache():
+    objs = G.cache()
+    sentinel = intro("obj:The Buried Cache` Sentinel battle")
+    for b in ("b_guardian", "b_guardian_late"):
+        assert by_id(objs, b)["description"] == "The Sentinel rises between you and the cache."
+        by_id(objs, b)["description"] = sentinel
+    fix = next(r for r in T.table("## 8. Corrections") if "The Buried Cache` win objectives" in r[0])
+    old, new = "Tucked under the lid is a note in a careful hand: 'For when we are relieved.'", fix[2]
+    for w in ("w_clean", "w_late"):
+        o = by_id(objs, w)
+        assert o["description"].endswith(old)
+        o["description"] = o["description"][:-len(old)] + new
+    add_drops(objs, {"w_clean", "w_late"}, [drop("Chart of the Drowned Foundry", 15)] + PAGE_DROPS)
+    reward = G.items_reward((R("Medicine Inro"), 1), (R("Galley Stores"), 1), (R("Chart of the Drowned Foundry"), 1))
+    return G.quest("hunt_buried_cache", "The Buried Cache", stakes("The Buried Cache", G.CACHE_PREMISE),
+                   "You dug up the Skyglass crew's field cache.", R("Chart of the Buried Cache"),
+                   "@img:icon-chart-drowned-foundry.webp", objs, reward, "B", QUEST_ID["cache"])
+
+
+def crownhold():
+    q = CH.quest()
+    q["srcId"] = IT.PFX + "crownhold"
+    d = q["data"]
+    d["description"] = T.block("quest:Crownhold.description") + "\n\n" + d["description"]
+    r = d["content"]["reward"]
+    coffer = next(x for x in r["reward_items"] if x["ids"] == [CH.ITEM["coffer"]])
+    coffer["quantity"] = 3  # RUL-2026-10-29-050 item 2
+    # Crown's Hoard (no id) and the Crownbreaker badge (created by the director) join when their ids exist.
+    for o in d["content"]["objectives"]:
+        if o["task"] == "win_quest":  # loot tables 5: Crownhold ending, one of the two Epic charts 50%
+            o["reward_items"] = list(o.get("reward_items") or []) + [drop("Reliquary Seal", 25), drop("The Last Heading", 25)]
+    return q
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Manifests
+# ---------------------------------------------------------------------------------------------------------------
+def phased(items, phase):
+    return [{**it, "phase": phase} for it in items]
+
+
+def pack(items):
+    files = {}
+    used = json.dumps(items)
+    for name, path in {**G.IMAGES, **IT.IMAGES}.items():
+        if "@img:" + name in used:
+            b = open(os.path.join(ROOT, path), "rb").read()
+            files[name] = {"path": path, "sha256": hashlib.sha256(b).hexdigest(), "bytes": len(b)}
+    return files
+
+
+def pack_ref(files):
+    import subprocess
+    paths = [f["path"] for f in files.values()]
+    ref = subprocess.check_output(["git", "-C", ROOT, "log", "-1", "--format=%H", "HEAD", "--", *paths], text=True).strip()
+    for f in files.values():
+        b = subprocess.check_output(["git", "-C", ROOT, "show", f"{ref}:{f['path']}"])
+        assert hashlib.sha256(b).hexdigest() == f["sha256"], f["path"]
+    return ref
+
+
+def write(num, slug, note, items, extra=None):
+    m = {"_note": note + " Generated by push/skyglass_update.gen.py; do not hand-edit.", "dedupNames": True}
+    files = pack(items)
+    if files:
+        m["imgSizes"] = {k: v["bytes"] for k, v in files.items()}
+        m["imagePack"] = {"ref": pack_ref(files), "files": files}
+    if extra:
+        m.update(extra)
+    m["items"] = items
+    path = os.path.join(ROOT, f"push/{num}_{slug}.json")
+    with open(path, "w") as f:
+        json.dump(m, f, indent=1, ensure_ascii=False)
+        f.write("\n")
+    print(f"push/{num}_{slug}.json: {len(items)} items")
+
+
+def binds(bundle):
+    b = json.load(open(bundle))
+    write(330, "skyglass_token_binds", (
+        "push/330 (after 329, from its results bundle " + os.path.basename(bundle) + "). Each of the seven boss variant "
+        "tokens is bound to its own variant (unlockitemvariant.variantId; pipeline 2.10 step 3). Until this runs, each "
+        "token (all hidden) could unlock any token variant without a required item."), IT.bind_edits(b.get("idmap") or {}))
+
+
 def main():
+    if len(sys.argv) > 2 and sys.argv[1] == "--binds":
+        return binds(sys.argv[2])
     jutsus, items = boss_kit()
     assert EXCLUSIVE_JUTSU <= set(jutsus) and any(COUNTERMAND in it["ids"] for it in items)
     unequip, convert, reequip = CR.main()
@@ -59,60 +296,47 @@ def main():
                "data": {"jutsus": jutsus, "items": items}}
     renames = [{"entity": "ai", "slot": "edit", "name": CH.USERNAME[p["name"]], "targetId": CH.IDS["@ai:" + p["slot"]],
                 "data": {"username": CH.USERNAME[p["name"]]}} for p in CH.PROFILES if p["name"] in CH.USERNAME]
-    ld = CH.COMMANDERS["exclusives"]["X:LAST_DIRECTIVE"]["record"]
-    ld_text = {"entity": "jutsu", "slot": "convert", "targetId": CH.IDS["@jutsu:last_directive"],
-               "name": "The Last Directive: the Crowned Captain",
-               "data": {"description": ("The Crowned Captain's final order to himself. For five rounds he cannot fall, "
-                                        "strikes harder, and nothing he carries can be stripped away."),
-                        "injectableInBattle": False}}
-    cm_text = {"entity": "item", "slot": "edit", "targetId": COUNTERMAND, "name": "Countermand: the Crowned Captain",
-               "data": {"description": CH.countermand()["data"]["description"]}}
-    pouch, armory, foundry = EP.pouch_edit(), EP.armory_edit(), EP.foundry_edit()
-    # Story rewrite (docs/design/SKYGLASS_STORY_BIBLE.md, 2026-10-28): the other three hunts re-sent whole with the new
-    # text; rewards, ladders, fights and debuffs as last written (push/268, push/270).
-    G = EP.G
-    archive = G.quest("hunt_archive", "The Quarantined Archive", G.H.ARCHIVE["premise"],
-                      "The archive's last seal is broken and its records are yours.", G.ITEM["chart_archive"],
-                      "@img:icon-chart-quarantined-archive.webp", G.archive(),
-                      G.items_reward((G.ITEM["case"], 1), (G.ITEM["strongbox"], 1), reward_exp=15000), "A", "-bZ_ZoI6yrUJ_LKT9R5zm")
-    watch = G.quest("hunt_watch", "The Captain's Watch", G.H.WATCH["premise"],
-                    "You kept the Captain's watch and claimed its stores.", G.ITEM["chart_watch"],
-                    "@img:icon-chart-captains-watch.webp", G.watch(),
-                    G.items_reward((G.ITEM["coffer"], 1), (G.ITEM["inro"], 3), reward_money=100000), "A", "liljq0yVXWTSna4X6dZE1")
-    cache = G.quest("hunt_buried_cache", "The Buried Cache", G.CACHE_PREMISE,
-                    "You dug up the Skyglass crew's field cache.", "nbLC37UzBamthKXvZsgQB",
-                    "@img:icon-chart-drowned-foundry.webp", G.cache(),
-                    G.items_reward((G.ITEM["inro"], 1), reward_money=50000, reward_exp=5000), "B", "CgwAVCyZLgNQtEnqgLxxv")
-    requisition = {"entity": "item", "slot": "edit", "targetId": "Fz1MU04kLIIM0EMXgouo6", "name": "Armory Requisition: text",
-                   "data": {"description": ("A sealed requisition slip from the Skyglass armory. Present it to draw one "
-                                            "issue: an Elemental Tool Pouch, a Medicine Inro, or a purse of ryo.")}}
-    quest = CH.quest()
-    badge = "badge:crownbreaker" in CH.IDS
-    items = (phased(unequip + [boss_off] + renames + [pouch], 1)
-             + phased([convert, ld_text, cm_text, requisition, armory, foundry, archive, watch, cache], 2)
-             + phased(reequip + [boss_on, quest], 3))
-    # image pack: the Foundry's chart icon (hunts pack) is the only @img; the Crownhold quest uses a live sprite
-    files = {}
-    used = json.dumps(items)
-    for name, path in EP.G.IMAGES.items():
-        if "@img:" + name in used:
-            import hashlib
-            b = open(os.path.join(ROOT, path), "rb").read()
-            files[name] = {"path": path, "sha256": hashlib.sha256(b).hexdigest(), "bytes": len(b)}
-    m = {"_note": (
-            "push/319 Skyglass / Crownhold update, all HIDDEN (director 2026-10-28: one large update). Phase 1: Core Rupture "
-            "off both hazards; the Crownhold boss renamed The Crowned Captain with the crew sprite, exclusives off; the 18 "
-            "Crownhold usernames (RUL-2026-10-26-003); Katon Tool Pouch -> Elemental Tool Pouch. Phase 2: Core Rupture = AOE "
-            "circle spawn, range 5, pierce 180 (self-destruct and 2r stun kept; RUL-2026-10-28-001, law-6 exception "
-            "RUL-2026-10-28-002); the Last Directive and Countermand texts; Armory Requisition and Drowned Foundry pick 1 of: "
-            "Elemental Tool Pouch / Medicine Inro / 50,000 ryo; the Archive, Watch and Buried Cache re-sent with the story-bible text "
-            "(docs/design/SKYGLASS_STORY_BIBLE.md); the Armory Requisition's text. Phase 3: kits back on; Crownhold created (Crowned Captain "
-            "story, RUL-2026-10-28-004; pick gains a Crown fragment). " + ("" if badge else "HOLD: no Crownbreaker badge id yet. ")
-            + "Generated by push/skyglass_update.gen.py; do not hand-edit."),
-         "dedupNames": True, "imgSizes": {k: v["bytes"] for k, v in files.items()},
-         "imagePack": {"ref": EP.G.PACK_REF, "files": files}, "items": items}
-    json.dump(m, open(os.path.join(ROOT, "push/319_skyglass_update.json"), "w"), indent=1)
-    print(len(items), "items;", "badge in" if badge else "NO BADGE ID YET")
+
+    write(319, "skyglass_update", (
+        "push/319, step 1 of 3 (RUL-2026-10-30-059: hidden, placeholder art). Kit off (law 18), AI edits only: Core "
+        "Rupture off Seal Charge and Core Canister (AI Heavy Armor kept); the Crownhold boss renamed The Crowned Captain "
+        "with the crew sprite, his Last Directive, Extermination Order and Countermand off (RUL-2026-10-28-003/-004); the "
+        "18 Crownhold usernames (RUL-2026-10-26-003). Then run push/328, then push/329."),
+        unequip + [boss_off] + renames)
+
+    write(328, "skyglass_core_rupture", (
+        "push/328, step 2 of 3 (after 319). Core Rupture: AOE circle spawn, range 5, pierce 180; the self-destruct and the "
+        "2-round stun kept (RUL-2026-10-28-001). The law-6 pierce cap is exceeded by ruling (RUL-2026-10-28-002); "
+        "gate: python3 scripts/validate_exception.py state/validate_exceptions/328_skyglass_core_rupture.json."),
+        [convert])
+
+    ld = {"entity": "jutsu", "slot": "convert", "targetId": CH.IDS["@jutsu:last_directive"],
+          "name": "The Last Directive: the Crowned Captain",
+          "data": {"description": ("The Crowned Captain's final order to himself. For five rounds he cannot fall, "
+                                   "strikes harder, and nothing he carries can be stripped away."),
+                   "injectableInBattle": False}}
+    cm = {"entity": "item", "slot": "edit", "targetId": COUNTERMAND, "name": "Countermand: the Crowned Captain",
+          "data": {"description": CH.countermand()["data"]["description"]}}
+    # The retired Armory Requisition (RUL-2026-10-28-016) is already hidden live (push/274 created it hidden); it is no
+    # longer edited, and the Unmarked Cargo edit below drops it from the chest of chests.
+    parts = IT.all_items()
+    hunts = [cache(), foundry(), archive(), watch()]
+    body = (phased([ld], 1) + phased(parts["items"] + [cm], 1) + phased(parts["variants"], 2)
+            + phased(reequip + [boss_on], 4) + phased(hunts + [crownhold()], 5))
+    ph = IT.placeholders(body)
+    write(329, "skyglass_items_and_quests", (
+        "push/329, step 3 of 3 (after 328). All HIDDEN; every new image is the engine default placeholder "
+        "(RUL-2026-10-30-059; list in _placeholders). Phase 1: the Last Directive and Countermand texts; 22 new items (6 "
+        "charts, 6 Haul pages, Core Rot, Galley Stores, the Skyglass Token, 7 boss variant tokens) and 20 item edits "
+        "(chart texts and tiers, the Lantern, Coffer, Treasury, Archive Chart Case, Medicine Inro, Sage's Strongbox, "
+        "Elemental Tool Pouch, Unmarked Cargo, the 8 profession chests). Phase 2: the 19 variants (12 Skyglass, 7 boss; "
+        "variants have no hidden state). The seven boss tokens are bound to their variants by push/330, built from this "
+        "manifest's results. Phase 4: kits back on (Core Rupture; the Crowned Captain's exclusives). Phase 5: the Buried Cache, Drowned "
+        "Foundry, Quarantined Archive and Captain's Watch re-sent whole (section 4a picks, chart ladder, Haul pages 1.5% "
+        "each, boss variant tokens 1%, stakes headers and closing lines, the Watch's dawn-watch press-on room); "
+        "Crownhold created (pick: Skyglass Coffer x3 / Lastlight / Crown Fragment; Crown's Hoard and the Crownbreaker "
+        "badge join when their ids exist)."),
+        body, {"_placeholders": ph})
 
 
 if __name__ == "__main__":

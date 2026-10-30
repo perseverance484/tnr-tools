@@ -1,0 +1,9 @@
+{
+ "manifest": "push/328_skyglass_core_rupture.json",
+ "ruling": "RUL-2026-10-28-002",
+ "reason": "law 6 caps pierce power at 100 but PierceTag power has no maximum (live Core Rupture is 120); the blast is pierce 180 by ruling. Core Rupture's law-18 kit-off and kit-on edits are in push/319 and push/329, so this manifest carries the jutsu convert alone.",
+ "sha256": "7f5e7c39177e942c1f83ef5322eac8181c3e567cc5a0e0342084796ccae8d167",
+ "accepted": [
+  "ERROR  [jutsu:Core Rupture: small heavy blast]: law 6: effect 'pierce' power 180 exceeds the cap of 100 (rows are rounded down)"
+ ]
+}
