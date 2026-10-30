@@ -89,7 +89,7 @@ export type HuntParams = {
 export const DEFAULT_HUNT_PARAMS: HuntParams = {
   stats: {
     [LIVE.warden]: { pools: 1, rows: 0 }, [LIVE.charge]: { pools: 1, rows: 0, stats: 1 }, [LIVE.canister]: { pools: 1, rows: 0, stats: 5 },
-    [LIVE.keeper]: { pools: 1, rows: 0 }, [LIVE.sentinel]: { pools: 3.26, rows: 2 }, [LIVE.horror]: { pools: 2, rows: 2 },
+    [LIVE.keeper]: { pools: 1, rows: 0 }, [LIVE.sentinel]: { pools: 3, rows: 3 }, [LIVE.horror]: { pools: 2, rows: 2 },
     [LIVE.sealwright]: { pools: 2.5, rows: 2 }, [LIVE.wayfinder]: { pools: 1.26, rows: 1 }, [LIVE.blade]: { pools: 1.5, rows: 2 },
     [LIVE.captain]: { pools: 2, rows: 4 }, [LIVE.foundry]: { pools: 2.5, rows: 1 },
     [LIVE.archivist]: { pools: 2, rows: 2 },
@@ -329,6 +329,17 @@ export { DEFAULT_PARAMS as KIT_DEFAULTS };
 /* ------------------------------------------------------------------ */
 /* Crownhold records used by the hunts (RUL-2026-10-28-013)             */
 /* ------------------------------------------------------------------ */
+/**
+ * Live jutsu edits the hunts model (director, 2026-10-28). Erupting Ground (`jBRyl7F4UjTyxG5nnzLqj`, the Crown
+ * Stonebound's AOE) has no friendlyFire on its damage row, so it hit the Sealwright beside it: the row becomes
+ * enemies-only. A live edit: law 18 (unequip from every holder, edit, re-equip); the holders are listed in the spec.
+ */
+export const LIVE_JUTSU_FIXES: Record<string, { note: string; apply: (rec: any) => any }> = {
+  jBRyl7F4UjTyxG5nnzLqj: {
+    note: "Erupting Ground: damage row friendlyFire ENEMIES (was unset, so it hit the caster's allies)",
+    apply: (rec: any) => ({ ...rec, effects: rec.effects.map((e: any) => (e.type === "damage" ? { ...e, friendlyFire: "ENEMIES" } : e)) }),
+  },
+};
 const repoDoc = (f: string) => JSON.parse(readFileSync(join(process.env.TNR_REPO!, f), "utf8"));
 /**
  * Template rows for the Crown Archivist and Crown Stonebound: the push/272 create payload (kit, rules, pools, level),
@@ -350,7 +361,16 @@ export const crownTemplates = (donorRow: any, jutsuCatalog: Record<string, any>,
       if (mm) live[f.k] = Number(mm[1]);
     }
     const d = item.data;
-    for (const jid of d.jutsus) jutsuCatalog[jid] ??= capturedJutsu(jid).record;
+    for (const jid of d.jutsus) {
+      jutsuCatalog[jid] ??= capturedJutsu(jid).record;
+      const fix = LIVE_JUTSU_FIXES[jid];
+      if (fix && !jutsuCatalog[jid].__fixed) {
+        const rec = fix.apply(structuredClone(jutsuCatalog[jid]));
+        const ok = JutsuValidator.safeParse(rec);
+        if (!ok.success) throw new Error(`live fix ${jid}: ${ok.error.message}`);
+        jutsuCatalog[jid] = Object.defineProperty(rec, "__fixed", { value: true, enumerable: false });
+      }
+    }
     const hp = 5050 * d.poolsMultiplier;
     const stored: any = {
       ...structuredClone(donorRow), userId: id, username: NAME[id], level: d.level, rank: d.rank, regeneration: d.regeneration,
