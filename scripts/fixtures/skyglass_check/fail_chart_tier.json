@@ -1,5 +1,5 @@
 {
- "_note": "skyglass_check fixture: chart-tier. A hunt chart set EPIC; a common chart created without a rarity.",
+ "_note": "skyglass_check fixture: chart-tier (RUL-2026-10-29-058 item 1). A Rare chart (the Watch) set EPIC; a Common chart created without a rarity; the Lantern (a Legendary chart) set EPIC.",
  "items": [
   {
    "entity": "item",
@@ -18,6 +18,15 @@
    "data": {
     "name": "Tide Chart",
     "description": "A chart."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "jCJv4N3JSiihuqnK0jJ7t",
+   "name": "Lastlight Lantern",
+   "data": {
+    "rarity": "EPIC"
    }
   }
  ]
