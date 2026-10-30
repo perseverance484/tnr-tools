@@ -6,7 +6,16 @@ and to tune enemies and waves before anything is pushed. Zero live requests, no 
 the engine is a `git archive` export of a local game clone, run in a socket-denied child
 (`harness/ghost_ship_final/tools/offline_exec.py`: `unshare -rn` plus seccomp).
 
-Results and findings: `REPORT.md`. Raw results: `results/*.json`.
+Results and findings: `REPORT.md` (its first section, the 2026-10-30 final pass, is current). Raw results: `results/*.json`.
+
+**Final pass (`results/final_*.json`, tables: `python3 tools/final_tables.py`).** Every runner (`main.ts`, `hunts_main.ts`,
+`charts_main.ts`, `haul_main.ts`, `crownhold.ts`) takes:
+- `--audit-fallback /abs/out.json`: a static per-enemy, per-phase audit of fallback rules (RUL-2026-10-29-046);
+- `--no-fallback-fix`: rebuilds the pre-fix rules.
+
+Each runner also writes a `fallbackGuard` block (set pieces cast without their marker) into its output.
+`tools/economy_inputs.py` and `tools/economy.py` turn the measured clear rates and run lengths into a 12-hour weekend
+economy. The Haul has no steeping (RUL-2026-10-29-056); the steeped-page commands below are historical.
 
 ## Run
 
