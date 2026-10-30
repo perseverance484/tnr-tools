@@ -1152,6 +1152,122 @@
      "hpEndMedian": 86.5
     }
    ]
+  },
+  {
+   "sweep": "sweep7 (40 seeds)",
+   "case": "h5.5r3_gd70",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 5.5,
+       "rows": 3,
+       "givenDown": 70
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 29,
+   "runs": 40,
+   "pressOnWon": 29,
+   "pressOnReached": 29,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 29,
+     "reached": 40,
+     "roundsMedian": 16,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 32.4
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 29,
+     "reached": 29,
+     "roundsMedian": 6,
+     "hpStartMedian": 56.2,
+     "hpEndMedian": 40.7
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 29,
+     "reached": 29,
+     "roundsMedian": 3,
+     "hpStartMedian": 64.5,
+     "hpEndMedian": 64.5
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 29,
+     "reached": 29,
+     "roundsMedian": 3,
+     "hpStartMedian": 88.3,
+     "hpEndMedian": 86.8
+    }
+   ]
+  },
+  {
+   "sweep": "sweep7 (40 seeds)",
+   "case": "h5.5r3_gd80",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 5.5,
+       "rows": 3,
+       "givenDown": 80
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 40,
+   "runs": 40,
+   "pressOnWon": 40,
+   "pressOnReached": 40,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 40,
+     "reached": 40,
+     "roundsMedian": 16,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 45.4
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 40,
+     "reached": 40,
+     "roundsMedian": 6,
+     "hpStartMedian": 69.1,
+     "hpEndMedian": 54.4
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 40,
+     "reached": 40,
+     "roundsMedian": 3,
+     "hpStartMedian": 78.2,
+     "hpEndMedian": 78.2
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 40,
+     "reached": 40,
+     "roundsMedian": 3,
+     "hpStartMedian": 101.9,
+     "hpEndMedian": 96.1
+    }
+   ]
   }
  ]
 }
