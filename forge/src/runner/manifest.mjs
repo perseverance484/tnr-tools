@@ -9,7 +9,7 @@ import { CONTRACT } from "../bloodright/validate.mjs";
 // so refs resolve from ids minted earlier in the same job (topological sort, stable).
 
 import { payloadHash, stableStringify, fnv1a32 } from "../storage/hash.mjs";
-import { canPersistFull, FULL_PERSIST_PATHS } from "../storage/captures.mjs";
+import { canPersistFull, FULL_PERSIST_PATHS, FULL_PERSIST_LIST_PATHS, PERSIST_RECORD_KEY } from "../storage/captures.mjs";
 import { collectRefs, REF_RE } from "./refs.mjs";
 import { resolvePoolCodes, stuckPoolCodes, kitProblems } from "./pool.mjs";
 import { lintManifest } from "./lints.mjs";
@@ -244,13 +244,17 @@ function normalizeCapture(c, phase, i) {
     throw new ManifestError(`${where} (${proc}): persist must be ${PERSIST_MODES.map((p) => JSON.stringify(p)).join(" or ")}, got ${JSON.stringify(c.persist)}`, { phase, idx: i, proc, persist: c.persist });
   }
   const input = c.input && typeof c.input === "object" && !Array.isArray(c.input) ? c.input : null;
-  const id = input ? (input.id ?? input.userId) : undefined;
+  const key = PERSIST_RECORD_KEY[proc];
+  const id = input ? (key ? input[key] : (input.id ?? input.userId)) : undefined;
   if (persist === "full") {
     if (!canPersistFull(proc)) {
-      throw new ManifestError(`${where} (${proc}): persist "full" is only allowed for the audited content-record point reads ${FULL_PERSIST_PATHS.join(", ")}`, { phase, idx: i, proc });
+      throw new ManifestError(`${where} (${proc}): persist "full" is only allowed for the audited content-record point reads ${FULL_PERSIST_PATHS.join(", ")} and the input-less list ${FULL_PERSIST_LIST_PATHS.join(", ")}`, { phase, idx: i, proc });
     }
-    if (typeof id !== "string" || !id) {
-      throw new ManifestError(`${where} (${proc}): persist "full" needs input.id (or input.userId) naming one record`, { phase, idx: i, proc });
+    if (FULL_PERSIST_LIST_PATHS.includes(proc)) {
+      // the whole list or nothing: it has no filter, so any input is a misunderstanding
+      if (c.input != null && (!input || Object.keys(input).length)) throw new ManifestError(`${where} (${proc}): persist "full" on this list takes no input`, { phase, idx: i, proc });
+    } else if (typeof id !== "string" || !id) {
+      throw new ManifestError(`${where} (${proc}): persist "full" needs input.${key ?? "id (or input.userId)"} naming one record`, { phase, idx: i, proc });
     }
   }
   return { proc, input, persist, id: typeof id === "string" && id ? id : null };
