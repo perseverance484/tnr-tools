@@ -1,5 +1,16 @@
 # Skyglass event — loot tables
 
+> **Tiers and terms (RUL-2026-10-29-058).**
+> - **Item rarity** uses the game's four: Common, Rare, Epic, Legendary.
+>   - Common charts: Tide, Roster.
+>   - Rare charts: Buried Cache, Foundry, Archive, Watch.
+>   - Epic charts: Reliquary Seal, Last Heading.
+>   - Legendary charts: tainted, Lantern, Haul pages.
+> - **Cache tiers** are named Common, Rare, Epic, Legendary, plus **Forbidden** above Legendary (red), each name used once.
+>   - Forbidden is used by the Sage's Strongbox (Forbidden Jutsu Scrolls) and the Archive Chart Case (Lastlight Lantern).
+> - **Player-facing text** names a chart by its tier ("a Rare chart", "an Epic chart"), never "hunt": hunting is a separate game mechanic.
+> - Older wording in this doc ("hunt charts", "rare charts", "hunts") is internal shorthand: hunt charts are the Rare charts, and "rare charts" are the Epic charts.
+
 **Status:** Structure ruled by RUL-2026-10-25-002 and the balance pass RUL-2026-10-25-004, amended by RUL-2026-10-28-009 … -019 (later rulings supersede earlier ones). Weights and quantities below are proposals unless marked ruled; currency amounts are set by the director in game (RUL-2026-10-24-019). Consumable-cache weights and quantities wait on the push/323 item capture (RUL-2026-10-28-018).
 
 **Rule: every item has one home.** A reward appears in more than one source only as the same container, never as loose contents. Skyglass items come only from the Skyglass Coffer, with one exception: Crownhold's pick offers one Fragment of the Skyglass Crown directly (RUL-2026-10-28-003, recorded as an exception by RUL-2026-10-28-010).
@@ -102,8 +113,8 @@ That averages about 13 Imperial Gold per opening, against about 1.2 before.
 | Common | 45 | Chart of the Drowned Foundry ×1 |
 | Rare | 25 | Chart of the Quarantined Archive ×1 |
 | Epic | 20 | Chart of the Captain's Watch ×1 |
-| Legendary | 3 | Lastlight Lantern ×1 |
-| Legendary | 7 | a rare chart ×1 (Reliquary Seal or The Last Heading) |
+| Legendary | 7 | an Epic chart ×1 (Reliquary Seal or The Last Heading) |
+| Forbidden | 3 | Lastlight Lantern ×1 |
 
 Haul pages, tainted charts and the common charts (Tide, Roster, Buried Cache) stay out of the case (RUL-2026-10-29-040).
 

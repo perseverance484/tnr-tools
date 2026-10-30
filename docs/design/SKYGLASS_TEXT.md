@@ -510,7 +510,7 @@ You walk off the ship with the Captain beside you. At the foot of the gangway he
 The fire wins. You wake on the sand below the wreck with smoke in your lungs and rot on your hands.
 ```
 
-### 2.7 Steeping: two special quests, started by using a rare chart
+### 2.7 Steeping: two special quests, started by using an Epic chart
 
 RUL-2026-10-29-055: using the chart consumes it and starts its quest; the quest takes 3 Core Rot; the opening dialog is
 "Steep" / "Take it back"; a loss returns the chart and spends the Rot. The fight is the steeping Core Horror (no Rot
@@ -563,15 +563,15 @@ The live descriptions keep their story; RUL-2026-10-28-028 item 8 asks for the t
 have no press-on room in the current text (open question 6), so the second line names their own choice.
 
 - **`quest:The Buried Cache.description`** (prepend):
-  `The chart is spent when the hunt starts. Health and chakra carry from fight to fight, and a lost fight ends the hunt.`
+  `The chart is spent when the run starts. Health and chakra carry from fight to fight, and a lost fight ends the run.`
 - **`quest:The Drowned Foundry.description`** (prepend):
-  `The chart is spent when the hunt starts. Health and chakra carry from fight to fight, and a lost fight ends the hunt.`
+  `The chart is spent when the run starts. Health and chakra carry from fight to fight, and a lost fight ends the run.`
   `There is no turning back: the only way out is through the crucible.`
 - **`quest:The Quarantined Archive.description`** (prepend):
-  `The chart is spent when the hunt starts. Health and chakra carry from fight to fight, and a lost fight ends the hunt.`
+  `The chart is spent when the run starts. Health and chakra carry from fight to fight, and a lost fight ends the run.`
   `A wrong answer at a seal costs you an extra fight and a smaller haul.`
 - **`quest:The Captain's Watch.description`** (prepend):
-  `The chart is spent when the hunt starts. Health and chakra carry from fight to fight, and a lost fight ends the hunt.`
+  `The chart is spent when the run starts. Health and chakra carry from fight to fight, and a lost fight ends the run.`
   `Every term you accept makes a fight harder and the haul bigger.`
 
 ### 2.9 Crownhold (exists; stakes header only)
@@ -818,22 +818,22 @@ repeated (the card shows it).
 
 **`item:Chart of the Buried Cache.description`** (Common; live story kept)
 ```html
-<i>A salt-stained chart from the Skyglass wreck, marking a field cache its crew buried on the shore before the ship vanished.</i><br><br>Bring it to the Battle Arena to run <b>The Buried Cache</b>, scaled to you. The chart is spent when the hunt starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the hunt.
+<i>A salt-stained chart from the Skyglass wreck, marking a field cache its crew buried on the shore before the ship vanished.</i><br><br>Bring it to the Battle Arena to run <b>The Buried Cache</b>, scaled to you. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.
 ```
 
 **`item:Chart of the Drowned Foundry.description`** (live story kept)
 ```html
-<i>A waterlogged chart of the wreck's keel and lower decks, where the drowned foundry lies.</i><br><br>Bring it to the Battle Arena to run <b>The Drowned Foundry</b>. The chart is spent when the hunt starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the hunt. There is no way out but through the crucible.
+<i>A waterlogged chart of the wreck's keel and lower decks, where the drowned foundry lies.</i><br><br>Bring it to the Battle Arena to run <b>The Drowned Foundry</b>. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run. There is no way out but through the crucible.
 ```
 
 **`item:Chart of the Quarantined Archive.description`** (live story kept)
 ```html
-<i>A chart of the wreck that shows a sealed chamber missing from every other plan.</i><br><br>Bring it to the Battle Arena to run <b>The Quarantined Archive</b>. The chart is spent when the hunt starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the hunt.<br>Three seals bar the way. A wrong answer brings the archive's guard and a smaller haul.
+<i>A chart of the wreck that shows a sealed chamber missing from every other plan.</i><br><br>Bring it to the Battle Arena to run <b>The Quarantined Archive</b>. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.<br>Three seals bar the way. A wrong answer brings the archive's guard and a smaller haul.
 ```
 
 **`item:Chart of the Captain's Watch.description`** (live story kept)
 ```html
-<i>The Captain's own chart of the wreck's command decks.</i><br><br>Bring it to the Battle Arena to run <b>The Captain's Watch</b>. The chart is spent when the hunt starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the hunt.<br>Before each fight the Oathkeeper offers a term. Every term you take and survive raises the haul.
+<i>The Captain's own chart of the wreck's command decks.</i><br><br>Bring it to the Battle Arena to run <b>The Captain's Watch</b>. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.<br>Before each fight the Oathkeeper offers a term. Every term you take and survive raises the haul.
 ```
 
 **`item:Reliquary Seal.description`** (Epic)
@@ -867,7 +867,7 @@ The six Haul pages: §3.2.
 
 **`item:Core Rot.description`**
 ```html
-<i>What the Core leaves behind when it rebuilds an impression badly: dark, wet timber and rope, and skyglass gone cloudy.</i><br><br>Used for <b>steeping</b>. Use a rare chart (the Reliquary Seal or The Last Heading) from your inventory to soak it in the Core's rot. Steeping costs the chart and <b>3 Core Rot</b>, and you fight what the rot builds.<br><b>Win:</b> you get the tainted chart (the Rotted Reliquary Seal or the Rotted Heading).<br><b>Lose:</b> the chart comes back to you, and the 3 Core Rot are spent.<br>Short of 3 Core Rot? Take the chart back at the start, and nothing is spent.
+<i>What the Core leaves behind when it rebuilds an impression badly: dark, wet timber and rope, and skyglass gone cloudy.</i><br><br>Used for <b>steeping</b>. Use an Epic chart (the Reliquary Seal or The Last Heading) from your inventory to soak it in the Core's rot. Steeping costs the chart and <b>3 Core Rot</b>, and you fight what the rot builds.<br><b>Win:</b> you get the tainted chart (the Rotted Reliquary Seal or the Rotted Heading).<br><b>Lose:</b> the chart comes back to you, and the 3 Core Rot are spent.<br>Short of 3 Core Rot? Take the chart back at the start, and nothing is spent.
 ```
 
 **`item:The Little Horror's Jar.description`**
@@ -916,7 +916,7 @@ The six Haul pages: §3.2.
 
 **`item:Archive Chart Case.description`** (the two Legendary tiers add together, per §0)
 ```html
-<i>A sealed chart case from the Quarantined Archive, holding one chart of the wreck's shifting decks.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 45%</b></span> · Chart of the Drowned Foundry<br><span style="color:#3b82f6"><b>Rare 25%</b></span> · Chart of the Quarantined Archive<br><span style="color:#a855f7"><b>Epic 20%</b></span> · Chart of the Captain's Watch<br><span style="color:#f59e0b"><b>Legendary 10%</b></span> · Lastlight Lantern <i>or</i> Reliquary Seal <i>or</i> The Last Heading
+<i>A sealed chart case from the Quarantined Archive, holding one chart of the wreck's shifting decks.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 45%</b></span> · Chart of the Drowned Foundry<br><span style="color:#3b82f6"><b>Rare 25%</b></span> · Chart of the Quarantined Archive<br><span style="color:#a855f7"><b>Epic 20%</b></span> · Chart of the Captain's Watch<br><span style="color:#f59e0b"><b>Legendary 7%</b></span> · Reliquary Seal <i>or</i> The Last Heading<br><span style="color:#ef4444"><b>Forbidden 3%</b></span> · Lastlight Lantern
 ```
 
 **`item:Medicine Inro.description`**
@@ -947,50 +947,50 @@ The six Haul pages: §3.2.
 ### 4.5 The eight profession chests
 
 Weights from `state/skyglass_design/chests.json` (generator `push/skyglass_profession_chests.gen.py`): 3 rolls 60% /
-4 rolls 30% / 6 rolls 10%, so every chest shows "3–6 rolls". These chests' tiers are named Staples, Recipe kit, Bulk and
-Windfall (Heirloom on Legendary chests), coloured grey, blue, purple and gold in that order (open question 8). Options
+4 rolls 30% / 6 rolls 10%, so every chest shows "3–6 rolls". These chests' tiers are named Common, Rare, Epic and Legendary (RUL-2026-10-29-058; formerly Staples, Recipe kit, Bulk and
+Windfall/Heirloom), coloured grey, blue, purple and gold in that order. Options
 are listed most frequent first, three at most, then "and more".
 
 Each description is `<i><story></i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br>` followed by the four tier lines.
 
 **`item:Common Hunter's Chest.description`**
 ```html
-<i>A hunter's sea-chest from the ship's stores: the everyday take, cured and logged.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Staples 56%</b></span> · Owlcat's Fur ×26 <i>or</i> Glimmer Dust ×26 <i>or</i> Moonlight Antlers ×26, and more<br><span style="color:#3b82f6"><b>Recipe kit 26%</b></span> · Owlcat's Fur ×12 + Rust Ferret Pelt ×12 <i>or</i> Glimmer Dust ×12 + Moonlight Antlers ×12 <i>or</i> Badger Shell ×12 + Glimmer Dust ×12 + Moonlight Antlers ×12 + Owlcat's Fur ×12, and more<br><span style="color:#a855f7"><b>Bulk 12%</b></span> · Owlcat's Fur ×78 <i>or</i> Glimmer Dust ×78 <i>or</i> Moonlight Antlers ×78<br><span style="color:#f59e0b"><b>Windfall 6%</b></span> · Ashrend Wing ×12 <i>or</i> Brasel Spine ×12 <i>or</i> Glimmerchitin ×12, and more
+<i>A hunter's sea-chest from the ship's stores: the everyday take, cured and logged.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Owlcat's Fur ×26 <i>or</i> Glimmer Dust ×26 <i>or</i> Moonlight Antlers ×26, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Owlcat's Fur ×12 + Rust Ferret Pelt ×12 <i>or</i> Glimmer Dust ×12 + Moonlight Antlers ×12 <i>or</i> Badger Shell ×12 + Glimmer Dust ×12 + Moonlight Antlers ×12 + Owlcat's Fur ×12, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Owlcat's Fur ×78 <i>or</i> Glimmer Dust ×78 <i>or</i> Moonlight Antlers ×78<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Ashrend Wing ×12 <i>or</i> Brasel Spine ×12 <i>or</i> Glimmerchitin ×12, and more
 ```
 
 **`item:Rare Hunter's Chest.description`**
 ```html
-<i>A hunter's chest of the rarer game the ship took along the coastlines.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Staples 56%</b></span> · Ashrend Wing ×27 <i>or</i> Brasel Spine ×27 <i>or</i> Glimmerchitin ×27, and more<br><span style="color:#3b82f6"><b>Recipe kit 26%</b></span> · Ashrend Wing ×12 + Brasel Spine ×12 <i>or</i> Ashrend Wing ×12 + Frostscale ×12 + Glimmerchitin ×12 <i>or</i> Brasel Spine ×12 + Voltleaf Plume ×12, and more<br><span style="color:#a855f7"><b>Bulk 12%</b></span> · Ashrend Wing ×81 <i>or</i> Brasel Spine ×81 <i>or</i> Glimmerchitin ×81<br><span style="color:#f59e0b"><b>Windfall 6%</b></span> · Moonpetal Weave ×12 <i>or</i> Ofuda Moss ×12 <i>or</i> Urami Drop ×12, and more
+<i>A hunter's chest of the rarer game the ship took along the coastlines.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Ashrend Wing ×27 <i>or</i> Brasel Spine ×27 <i>or</i> Glimmerchitin ×27, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Ashrend Wing ×12 + Brasel Spine ×12 <i>or</i> Ashrend Wing ×12 + Frostscale ×12 + Glimmerchitin ×12 <i>or</i> Brasel Spine ×12 + Voltleaf Plume ×12, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Ashrend Wing ×81 <i>or</i> Brasel Spine ×81 <i>or</i> Glimmerchitin ×81<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Moonpetal Weave ×12 <i>or</i> Ofuda Moss ×12 <i>or</i> Urami Drop ×12, and more
 ```
 
 **`item:Epic Hunter's Chest.description`**
 ```html
-<i>A hunter's chest of strange catches from the high air, sealed under the Warden's mark.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Staples 56%</b></span> · Moonpetal Weave ×25 <i>or</i> Ofuda Moss ×25 <i>or</i> Urami Drop ×25, and more<br><span style="color:#3b82f6"><b>Recipe kit 26%</b></span> · Moonpetal Weave ×10 + Yamidangan ×10 <i>or</i> Ofuda Moss ×10 + Yamidangan ×10 <i>or</i> Ofuda Moss ×10 + Tsukinari Bell ×10, and more<br><span style="color:#a855f7"><b>Bulk 12%</b></span> · Moonpetal Weave ×75 <i>or</i> Ofuda Moss ×75 <i>or</i> Urami Drop ×75<br><span style="color:#f59e0b"><b>Windfall 6%</b></span> · Parchment Core ×25 <i>or</i> Cracked Auditory Core ×25 <i>or</i> Mask Core ×25, and more
+<i>A hunter's chest of strange catches from the high air, sealed under the Warden's mark.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Moonpetal Weave ×25 <i>or</i> Ofuda Moss ×25 <i>or</i> Urami Drop ×25, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Moonpetal Weave ×10 + Yamidangan ×10 <i>or</i> Ofuda Moss ×10 + Yamidangan ×10 <i>or</i> Ofuda Moss ×10 + Tsukinari Bell ×10, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Moonpetal Weave ×75 <i>or</i> Ofuda Moss ×75 <i>or</i> Urami Drop ×75<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Parchment Core ×25 <i>or</i> Cracked Auditory Core ×25 <i>or</i> Mask Core ×25, and more
 ```
 
 **`item:Legendary Hunter's Chest.description`**
 ```html
-<i>The hunt-master's own chest: the best of decades, sealed and never drawn.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Staples 55%</b></span> · Parchment Core ×20 <i>or</i> Cracked Auditory Core ×20 <i>or</i> Mask Core ×20, and more<br><span style="color:#3b82f6"><b>Recipe kit 25%</b></span> · Cracked Auditory Core ×10 + Mask Core ×10 <i>or</i> Mask Core ×10 + Parchment Core ×10 <i>or</i> Mask Core ×10 + Parchment Core ×10 + Shard of Willful Steel ×10, and more<br><span style="color:#a855f7"><b>Bulk 12%</b></span> · Parchment Core ×60 <i>or</i> Cracked Auditory Core ×60 <i>or</i> Mask Core ×60<br><span style="color:#f59e0b"><b>Heirloom 8%</b></span> · Mask Core ×20 + Parchment Core ×20 + Shard of Willful Steel ×20 <i>or</i> Parchment Core ×20 + Shard of Willful Steel ×20 + Thread Core ×20
+<i>The hunt-master's own chest: the best of decades, sealed and never drawn.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 55%</b></span> · Parchment Core ×20 <i>or</i> Cracked Auditory Core ×20 <i>or</i> Mask Core ×20, and more<br><span style="color:#3b82f6"><b>Rare 25%</b></span> · Cracked Auditory Core ×10 + Mask Core ×10 <i>or</i> Mask Core ×10 + Parchment Core ×10 <i>or</i> Mask Core ×10 + Parchment Core ×10 + Shard of Willful Steel ×10, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Parchment Core ×60 <i>or</i> Cracked Auditory Core ×60 <i>or</i> Mask Core ×60<br><span style="color:#f59e0b"><b>Legendary 8%</b></span> · Mask Core ×20 + Parchment Core ×20 + Shard of Willful Steel ×20 <i>or</i> Parchment Core ×20 + Shard of Willful Steel ×20 + Thread Core ×20
 ```
 
 **`item:Common Gatherer's Chest.description`**
 ```html
-<i>The quartermaster's crate of everyday ore and root, cut from the hull and logged.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Staples 56%</b></span> · Murkshade ×34 <i>or</i> Sunroot ×34 <i>or</i> Copper Ore ×34, and more<br><span style="color:#3b82f6"><b>Recipe kit 26%</b></span> · Murkshade ×16 + Whistlegrass ×16 <i>or</i> Iron Ore ×16 + Murkshade ×16<br><span style="color:#a855f7"><b>Bulk 12%</b></span> · Murkshade ×100 <i>or</i> Sunroot ×100 <i>or</i> Copper Ore ×100<br><span style="color:#f59e0b"><b>Windfall 6%</b></span> · Galecrest Sage ×16 <i>or</i> Gold Ore ×16 <i>or</i> Silver Ore ×16, and more
+<i>The quartermaster's crate of everyday ore and root, cut from the hull and logged.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Murkshade ×34 <i>or</i> Sunroot ×34 <i>or</i> Copper Ore ×34, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Murkshade ×16 + Whistlegrass ×16 <i>or</i> Iron Ore ×16 + Murkshade ×16<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Murkshade ×100 <i>or</i> Sunroot ×100 <i>or</i> Copper Ore ×100<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Galecrest Sage ×16 <i>or</i> Gold Ore ×16 <i>or</i> Silver Ore ×16, and more
 ```
 
 **`item:Rare Gatherer's Chest.description`**
 ```html
-<i>A gatherer's crate of the rarer ore and bloom, sealed against the damp.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Staples 56%</b></span> · Galecrest Sage ×27 <i>or</i> Gold Ore ×27 <i>or</i> Silver Ore ×27, and more<br><span style="color:#3b82f6"><b>Recipe kit 26%</b></span> · Gold Ore ×12 + Shiverthorn ×12 + Starfire Petal ×12 + Wraithbloom ×12 <i>or</i> Galecrest Sage ×12 + Solar Petal ×12 <i>or</i> Gold Ore ×12 + Silver Ore ×12 + Starfire Petal ×12, and more<br><span style="color:#a855f7"><b>Bulk 12%</b></span> · Galecrest Sage ×81 <i>or</i> Gold Ore ×81 <i>or</i> Silver Ore ×81<br><span style="color:#f59e0b"><b>Windfall 6%</b></span> · Rainbow Cabochon ×12 <i>or</i> Adamantine Ore ×12 <i>or</i> Celestial Thristle ×12, and more
+<i>A gatherer's crate of the rarer ore and bloom, sealed against the damp.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Galecrest Sage ×27 <i>or</i> Gold Ore ×27 <i>or</i> Silver Ore ×27, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Gold Ore ×12 + Shiverthorn ×12 + Starfire Petal ×12 + Wraithbloom ×12 <i>or</i> Galecrest Sage ×12 + Solar Petal ×12 <i>or</i> Gold Ore ×12 + Silver Ore ×12 + Starfire Petal ×12, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Galecrest Sage ×81 <i>or</i> Gold Ore ×81 <i>or</i> Silver Ore ×81<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Rainbow Cabochon ×12 <i>or</i> Adamantine Ore ×12 <i>or</i> Celestial Thristle ×12, and more
 ```
 
 **`item:Epic Gatherer's Chest.description`**
 ```html
-<i>A gatherer's crate of crystal-grown ore and blooms the skyglass got into.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Staples 56%</b></span> · Rainbow Cabochon ×25 <i>or</i> Adamantine Ore ×25 <i>or</i> Celestial Thristle ×25, and more<br><span style="color:#3b82f6"><b>Recipe kit 26%</b></span> · Celestial Thristle ×10 + Shadeleaf ×10 <i>or</i> Adamantine Ore ×10 + Icewarden Root ×10 + Rainbow Cabochon ×10 <i>or</i> Celestial Thristle ×10 + Susanoo's Tear ×10, and more<br><span style="color:#a855f7"><b>Bulk 12%</b></span> · Rainbow Cabochon ×75 <i>or</i> Adamantine Ore ×75 <i>or</i> Celestial Thristle ×75<br><span style="color:#f59e0b"><b>Windfall 6%</b></span> · Mithril Ore ×25 <i>or</i> Phoenix Ash Bloom ×25 <i>or</i> Heart of Kuraokami ×25, and more
+<i>A gatherer's crate of crystal-grown ore and blooms the skyglass got into.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Rainbow Cabochon ×25 <i>or</i> Adamantine Ore ×25 <i>or</i> Celestial Thristle ×25, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Celestial Thristle ×10 + Shadeleaf ×10 <i>or</i> Adamantine Ore ×10 + Icewarden Root ×10 + Rainbow Cabochon ×10 <i>or</i> Celestial Thristle ×10 + Susanoo's Tear ×10, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Rainbow Cabochon ×75 <i>or</i> Adamantine Ore ×75 <i>or</i> Celestial Thristle ×75<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Mithril Ore ×25 <i>or</i> Phoenix Ash Bloom ×25 <i>or</i> Heart of Kuraokami ×25, and more
 ```
 
 **`item:Legendary Gatherer's Chest.description`**
 ```html
-<i>The quartermaster's reserve, sealed by his own hand and marked never to be drawn.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Staples 55%</b></span> · Mithril Ore ×20 <i>or</i> Phoenix Ash Bloom ×20 <i>or</i> Heart of Kuraokami ×20, and more<br><span style="color:#3b82f6"><b>Recipe kit 25%</b></span> · Fujin's Breath ×10 + Heart of Kuraokami ×10 <i>or</i> Fujin's Breath ×10 + Mithril Ore ×10 <i>or</i> Heart of Kuraokami ×10 + Mithril Ore ×10, and more<br><span style="color:#a855f7"><b>Bulk 12%</b></span> · Mithril Ore ×60 <i>or</i> Phoenix Ash Bloom ×60 <i>or</i> Heart of Kuraokami ×60<br><span style="color:#f59e0b"><b>Heirloom 8%</b></span> · Orichalcum Ore ×20 + Tempest Heart ×20 + Voidshade Petal ×20 <i>or</i> Lunaris Bloom ×20 + Phoenix Ash Bloom ×20 + Voidshade Petal ×20 <i>or</i> Fujin's Breath ×20 + Lunaris Bloom ×20 + Phoenix Ash Bloom ×20, and more
+<i>The quartermaster's reserve, sealed by his own hand and marked never to be drawn.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 55%</b></span> · Mithril Ore ×20 <i>or</i> Phoenix Ash Bloom ×20 <i>or</i> Heart of Kuraokami ×20, and more<br><span style="color:#3b82f6"><b>Rare 25%</b></span> · Fujin's Breath ×10 + Heart of Kuraokami ×10 <i>or</i> Fujin's Breath ×10 + Mithril Ore ×10 <i>or</i> Heart of Kuraokami ×10 + Mithril Ore ×10, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Mithril Ore ×60 <i>or</i> Phoenix Ash Bloom ×60 <i>or</i> Heart of Kuraokami ×60<br><span style="color:#f59e0b"><b>Legendary 8%</b></span> · Orichalcum Ore ×20 + Tempest Heart ×20 + Voidshade Petal ×20 <i>or</i> Lunaris Bloom ×20 + Phoenix Ash Bloom ×20 + Voidshade Petal ×20 <i>or</i> Fujin's Breath ×20 + Lunaris Bloom ×20 + Phoenix Ash Bloom ×20, and more
 ```
 
 ---
