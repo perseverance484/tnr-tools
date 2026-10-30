@@ -260,8 +260,8 @@ Cache **quest** image also shows the Foundry chart icon and is not in the push/2
 | Galley Stores | Rare, cyan | easy Wreck 10%; four picks; The Fall ×3; chest of chests | "The galley still stocks a larder for a crew that does not eat" (story bible): a ship's provisions crate or rice sack with the Skyglass star stamp |
 | Skyglass Token | Legendary | Archive, Watch, rare-run picks; chest of chests; Crown's Hoard | "A token pressed from clouded skyglass and stamped with the four-point star" (TEXT §4.3) |
 | Crown's Hoard | Legendary | Crownhold pick | "Crownhold's own coffers, treasury and jars, gathered beneath the throne" (story bible). **Not on any "new art" list** in the loot tables (flag); a placeholder would otherwise ship |
-| 7 boss variant tokens: Captain's Command Fan, Rot-Bloom Reaper, Warden's Forge-Fists, Wayfinder's Heading, The First Blade, Sealwright's Seal, Crownbreaker | Legendary | Wreck once-per-player (Captain, Core Horror); boss runs 1/2/4%; Walked Every Deck (Crownbreaker) | loot tables §5d: "7 trophy token icons". Names carry the variant alone, no "Variant" suffix (RUL-2026-10-29-057 item 1). No art line is written; the token story lines are in TEXT §4.3. **Uncertain:** seven distinct icons, or one token base with seven variant motifs (cheaper; only the motif changes) |
-| Haul pages, base icons ×2: Ledger Page, Stores Manifest | Legendary | endgame Wreck 2%, Rare-chart endings 1.25% each (RUL-2026-10-29-053); Haul entry | TEXT §3.2 stories: a torn ledger page from the Arsenal Keeper's ledger (due dates crossed out); a quartermaster's manifest with skyglass grown through the lines. See D4 for the other four pages |
+| 7 boss variant tokens: Captain's Command Fan, Rot-Bloom Reaper, Warden's Forge-Fists, Wayfinder's Heading, The First Blade, Sealwright's Seal, Crownbreaker | Legendary | endgame Wreck 5%, once per player (Captain, Core Horror; RUL-2026-10-30-060); boss runs 1/2/4%; Walked Every Deck (Crownbreaker) | loot tables §5d: "7 trophy token icons". Names carry the variant alone, no "Variant" suffix (RUL-2026-10-29-057 item 1). No art line is written; the token story lines are in TEXT §4.3. **Uncertain:** seven distinct icons, or one token base with seven variant motifs (cheaper; only the motif changes) |
+| Haul pages, base icons ×2: Ledger Page, Stores Manifest | Legendary | endgame Wreck 2.4%, Rare-chart endings 1.5% each (RUL-2026-10-30-060, replacing RUL-2026-10-29-053); Haul entry | TEXT §3.2 stories: a torn ledger page from the Arsenal Keeper's ledger (due dates crossed out); a quartermaster's manifest with skyglass grown through the lines. See D4 for the other four pages |
 | Countermand | AI-held item (the Crowned Captain), placeholder | `W3lOjQhhIPUYPkIZmiNum` (push/271 placeholder) | batch #48: the command seal of Crownhold, now the Skyglass emblem (RUL-2026-10-26-004). Low priority: players see it only in battle |
 
 ### D4. Recolours / redraws
@@ -314,8 +314,9 @@ style, framing and key). All **NEEDS ART**.
 | Thornsilver (`MQ5mJqH-5MkQdtLGSZ5nb`) | Crownbreaker | three short broken frost-point shards of pale skyglass in the crossguard; plain steel blade |
 
 Note: six bases carry two variants each (Aetherion, Thornsilver, Stormrender, Oathbinder, The Unwritten, Warden's
-Bracers); the two on one base must read clearly apart at 125 px. The Sealwright's base is **Whispering** Dawnblade,
-not the catalogue's **Eclipsed** Dawnblade; both are live items.
+Bracers); the two on one base must read clearly apart at 125 px. The Sealwright's base is **Whispering** Dawnblade
+(`mqCCZGSfXUNL02B4H6C9R`), not the catalogue's **Eclipsed** Dawnblade; both are live items. Settled by RUL-2026-10-30-060
+item 8.
 
 ---
 
@@ -397,7 +398,7 @@ Each needs an asset-create manifest, then the unhide (as push/320 → 321), and 
 | ch_enrage | The Core Rebuilds (under 50%) | aura | "rot glow and drip on him" |
 | ch_bile_spit | Bilge Spit (plain attack) | cast / hit | "glob arc and splash" |
 | ch_undertow | Undertow pull (still a PROBE in Boss Fights) | hit | "water-drag streak"; needed only if the move survives the harness |
-| Spreading Fire ember tile | The Fall's twist (drain tiles that grow toward the gangway, Boss Fights §8) | STATIC or loop | not specified. **Uncertain:** a distinct ember look, so embers are not misread as a heavy mark that resolves next turn |
+| Spreading Fire ember tile | The Fall's twist: the Arsenal Keeper's ember bands at rounds 1, 4 and 7 (drain tiles; the Burning Deck hazard is removed, Boss Fights §8, RUL-2026-10-30-060) | STATIC or loop | not specified. **Uncertain:** a distinct ember look, so embers are not misread as a heavy mark that resolves next turn |
 
 ### H4. UNCERTAIN (move exists, no animation named)
 

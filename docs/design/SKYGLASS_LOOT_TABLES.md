@@ -18,7 +18,7 @@
 ## 0. Every item explains itself (RUL-2026-10-28-020)
 
 Each Skyglass item's description tells the player what the item is for, in plain words, after one line of story voice.
-- **Charts and the Lantern:** which run it opens; that the chart is spent at entry; that a lost fight ends the run; that health and chakra carry between fights; the press-on choice; for rares, that steeping can twist them.
+- **Charts and the Lantern:** which run it opens; that the chart is spent at entry; that a lost fight ends the run; that health and chakra carry between fights; the press-on choice, on runs that have one (RUL-2026-10-30-060 item 6); for rares, that steeping can twist them.
 - **Core Rot:** what steeping is, where it happens, the cost (a rare chart plus 3 Rot), and the outcome on a win (tainted chart) and on a loss (the chart comes back, the Rot is spent).
 - **Tainted charts:** the twists, and that the run pays pick 2.
 - **Chests, every one:** what can drop and how common each tier is, with the real weights (e.g. "Common 69% · Rare 24% · Epic 5% · Legendary 2%"), the roll count, and any fixed reward (e.g. the Treasury's 150,000 ryo).
@@ -61,7 +61,7 @@ Descriptions are generated from the same tables the caches are built from, so th
 | Common charts as picks | Watch Roster, Tide Chart, Chart of the Drowned Foundry (§4a) | Low Tide Run, Night Watch and Buried Cache picks (RUL-2026-10-29-042) |
 | Galley Stores | pet experience (§5b) | Easy Wreck clear 10%; Low Tide Run, Night Watch, Buried Cache and Foundry picks; The Fall pick (×3); chest of chests Rare |
 | Skyglass Token | unlocks any one Skyglass skin (§5d) | Archive, Watch, Sealed Reliquary and The Fall picks; chest of chests Legendary; Crown's Hoard (RUL-2026-10-29-049) |
-| Trophy tokens | each unlocks one boss skin (§5d) | the Wreck bosses (once per player); chart and hunt bosses (1% hunts, 2% rares, 4% tainted); Walked Every Deck (Crownbreaker) |
+| Trophy tokens | each unlocks one boss skin (§5d) | the Wreck bosses (5%, once per player, RUL-2026-10-30-060); chart and hunt bosses (1% hunts, 2% rares, 4% tainted); Walked Every Deck (Crownbreaker) |
 | The Little Horror's Jar | the event's one pet (§5b) | endgame Wreck clear, once per player (proposed 5%) |
 | Crown's Hoard | opens the Skyglass Coffer and Sealed Treasury caches together, plus a Skyglass Token (RUL-2026-10-28-013, -049) | Crownhold pick |
 | Core Rot | steeping reagent (§5) | Endgame Wreck clears, the common runs, the Core Horror's hunt runs, breaking the seal, a failed rare run (§5) |
@@ -191,8 +191,9 @@ Cut and not to be rebuilt: every ryo card except the Watch's Captain's Purse (RU
   - It is **open to every player**, with no rank gate (RUL-2026-10-29-052).
   - Its endings pay Hunter's or Gatherer's Chests as plain `reward_items`. The chests need no huntable/gatherable flags.
 - **Page drops,** per page (RUL-2026-10-29-053):
-  - endgame Wreck clear **2%**;
-  - every Rare chart ending **1.25%**.
+  - endgame Wreck clear **2.4%**;
+  - every Rare chart ending **1.5%**.
+  - These rates are from RUL-2026-10-30-060 item 5, replacing 2% and 1.25%. They target about 1.5 Haul runs a dedicated weekend; the final pass measured 1.26 at the old rates.
   - Pages are tradeable.
 - **The chests' rarity matches their contents** (RUL-2026-10-28-023 item 1, kept).
 - **Chest content fixes** (RUL-2026-10-29-035):
@@ -212,7 +213,8 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 - The chart is an entry item, spent when the run starts.
 - Losing any fight fails the run (`failObjectiveId`).
 - Health and chakra carry between fights; there are no refills.
-- Rewards bank at each fight. At the last landing the player picks: leave with what they hold, or press on into a final room whose reward is lost on a fall.
+- Rewards bank at each fight. On a run with a press-on room, the player picks at the last landing: leave with what they hold, or press on into a final room whose reward is lost on a fall.
+- **Press-on rooms** (RUL-2026-10-30-060 item 6, after RUL-2026-10-28-026 item 10): kept on the Night Watch, the Captain's Watch, The Fall and the Rotted Reliquary. Cut from the Low Tide Run, the Quarantined Archive, the Sealed Reliquary and the Burning Heading, which end at their last fight.
 
 **Common charts** (`opponent_scaled_to_user`, so they serve L40 and L100 alike)
 | Chart | Run | Shape |
@@ -234,7 +236,7 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 | Low Tide / Night Watch ending | Buried Cache chart 10% |
 | Buried Cache ending | Foundry chart 15% |
 | Foundry ending | Archive chart 10% |
-| Archive ending | Reliquary Seal 25%, +20% from its press-on room (RUL-2026-10-28-010) |
+| Archive ending | Reliquary Seal 25% (RUL-2026-10-28-010; its press-on room and the +20% are cut, RUL-2026-10-30-060) |
 | Watch ending | The Last Heading 25%, +20% from its press-on room |
 | Crownhold ending | one of the two rare charts 50% |
 | Sealed Reliquary / The Fall ending | Lastlight Lantern 15% |
@@ -263,9 +265,10 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
   - **Win:** the tainted chart.
   - **Loss:** a "the rot spits it out" step (`failObjectiveId`) hands the chart back, and the 3 Core Rot are spent.
   - **Item text.** Each rare chart's description says both uses: run it from the Battle Arena, or **use it to steep it at the Core** (3 Core Rot; refund if you lack them; a loss returns the chart and spends the Rot).
+  - **Accepted (RUL-2026-10-30-060 item 10):** steeping consumes nearly all Epic charts. The final pass measured about 2 steeps and about 0.07 Epic runs in a typical weekend (1.54 Epic runs without steeping). No change.
   - **To verify before building:** whether an item-started quest charges its entry items at the start (a shortfall would then roll the item use back by itself) or at the fight. The refund dialog covers both cases.
 - **Breaking the seal:** an Archive dialogue choice adds an echo fight and guarantees Core Rot ×2.
-- **Pressing on:** the rare runs' final room drops the tainted chart 5%.
+- **Pressing on:** The Fall's press-on room drops its tainted chart 5%. The Sealed Reliquary's room is cut (RUL-2026-10-30-060 item 6).
 - **Natural:** the Archive and Watch endings drop the tainted chart directly at 1%.
 
 **Core Rot:** a stackable reagent with one job, steeping. Sources:
@@ -326,7 +329,7 @@ Engine (theninjarpg upstream `3314d122`, after the 2af4b320 pin):
 **Skyglass Token** (farmable layer)
 - **Unlocks:** any one Skyglass skin. Every Skyglass skin carries `requiredItemId` = Skyglass Token, so no other token opens them.
 - **Tradeable.**
-- **Pace:** about 2-3 a dedicated weekend. The event runs Friday to Sunday and repeats weekly, so half the catalogue takes a few weekends.
+- **Pace:** about 2-3 a dedicated weekend. The final pass measured 3.0 for a typical player and 5.5 for one who always takes the token (RUL-2026-10-30-060). The event runs Friday to Sunday and repeats weekly, so half the catalogue takes a few weekends.
 - **Found in** (×1, ×2 in the rare picks; no direct drop):
   - the Archive and Watch picks (×1), the Sealed Reliquary and The Fall picks (×2);
   - the chest of chests' Legendary tier;
@@ -342,12 +345,12 @@ Engine (theninjarpg upstream `3314d122`, after the 2af4b320 pin):
 
 | Boss | Trophy skin | Base | Source | Tradeable |
 |---|---|---|---|---|
-| The Captain | Captain's Command Fan (a gunbai) | The Unwritten | endgame Wreck, once per player | no |
-| Core Horror | Rot-Bloom Reaper | Oathbinder | endgame Wreck, once per player | no |
+| The Captain | Captain's Command Fan (a gunbai) | The Unwritten | endgame Wreck clear **5%**, once per player (`onlyOnce`; RUL-2026-10-30-060) | no |
+| Core Horror | Rot-Bloom Reaper | Oathbinder | endgame Wreck clear **5%**, once per player (`onlyOnce`; RUL-2026-10-30-060) | no |
 | Foundry Warden | Warden's Forge-Fists | Warden's Bracers | his runs: 1% hunts, 2% rares, 4% tainted | yes |
 | Wayfinder | Wayfinder's Heading | Stormrender | his runs: 1% hunts, 2% rares, 4% tainted | yes |
 | First Blade | The First Blade | Aetherion | 2% rares, 4% tainted | yes |
-| Sealwright | Sealwright's Seal | Whispering Dawnblade | his runs: 1% hunts, 2% rares, 4% tainted | yes |
+| Sealwright | Sealwright's Seal | Whispering Dawnblade (`mqCCZGSfXUNL02B4H6C9R`; not Eclipsed Dawnblade, RUL-2026-10-30-060) | his runs: 1% hunts, 2% rares, 4% tainted | yes |
 | Crowned Captain | Crownbreaker | Thornsilver | the **Walked Every Deck** achievement (RUL-2026-10-29-051) | no |
 
 **Art rule:** a skin keeps its base weapon's silhouette, with skyglass as inlay and accents. The Skyglass Katana stays the only all-crystal blade.
@@ -361,7 +364,6 @@ Engine (theninjarpg upstream `3314d122`, after the 2af4b320 pin):
 ## 6. To check before the manifests
 
 Open:
-- **Skin token rates:** confirm about 2-3 Skyglass Tokens per dedicated weekend, and the trophy drop chances, in the final simulation pass.
 - **Little Horror's Jar rate** (proposed 5%, once per player).
 - **Galley Stores amount:** the pet-experience lump (director).
 - **Core Rot in the easy Wreck:** none (RUL-2026-10-28-020). Only the endgame Wreck drops it.
@@ -369,6 +371,7 @@ Open:
 - Reward packages are built in the game's catalog editor until Forge has a package recipe.
 
 Done or obsolete:
+- Skin token rates: confirmed by the final simulation pass (3.0 Skyglass Tokens a typical weekend). The Wreck variant tokens are set at 5%, once per player (RUL-2026-10-30-060).
 - Forbidden Jutsu Scrolls at 3% of a Strongbox roll: obsolete; §3a places the scroll at 1% (RUL-2026-10-28-018).
 - Armory Requisition (RUL-2026-10-25-014, RUL-2026-10-28-003): obsolete; retired (RUL-2026-10-28-016).
 - `reward_pet_experience` exists in the pinned source (theninjarpg@2af4b320 `validators/rewards.ts`:54); Galley Stores can use it.

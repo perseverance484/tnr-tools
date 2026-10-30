@@ -168,6 +168,10 @@ you, reluctantly. **Arena:** the archive. He stands before the chained reliquary
 The Sealwright keeps **Ward of Command** (RUL-2026-10-28-013). The Archive's alarm guard is its own record, **Crown
 Archivist** (the Skyglass Archive Keeper), not the Skyglass Sentinel; the Cache Sentinel is unchanged (RUL-2026-10-28-013).
 
+The Crown Stonebound runs at **40% power** and casts its own enemies-only copy of Erupting Ground
+(`hunt-stonebound-erupting-ground`); the shared live jutsu is not edited (RUL-2026-10-28-026 items 2-3). Final pass
+(RUL-2026-10-30-060 item 7): clean 95%, alarm 1 78%, alarm 3 30%.
+
 ### 4c. The Skyglass Sentinel: "Tidewatch" (Buried Cache, solo)
 
 **Fantasy.** A guardian of shell and stone, buried in the sand with the cache, and the tide is on its side. **Arena:** the
@@ -189,6 +193,8 @@ cove. It holds the dig site.
   turn cuts everything inside it. **Window, under 25%:** "That was new." He lowers his blades to savour it, taking x3
   damage for 1 round.
 - **The Captain** fights exactly as in section 1, minus the Sealwright's Ward. The Oathkeeper's terms still apply.
+  - **Solo tuning** (the live record, upgraded in place, §5): pools **3**, 1 damage row, 10% damage given down. Pools
+    went up from 2.5 because the Watch cleared 97.5% with no terms, against a target of about 80% (RUL-2026-10-30-060 item 1).
 
 ## 5. Sharing (director, 2026-10-28)
 
@@ -277,11 +283,25 @@ Crownhold carries HP between fights, and the commanders are never fought alone, 
 (shortcut, War Rite buff, Healing Rite) clears; the Healing Rite route clears highest and the alarm route lowest. Round
 targets: pending harness rerun.
 
+**Heal top-ups** (RUL-2026-10-28-026 item 1). The Crowned Captain fight opens with a route heal: Healing Rite full,
+clean +35%, War Rite +20% (its buffs for the whole fight), alarm +15%.
+- **The War route also gets its +20% top-up at D4 and D5** (RUL-2026-10-30-060 item 3). Its runs ended at the D4/D5
+  fourth regulars, before the top-up: 6.3% clear.
+- The final pass, before this change: Healing 93.8%, clean 56.3%, alarm 37.5%.
+
 ## 6. Engine recipe (harness-confirmed)
 
 - **Marks:** a mark is a visual ground jutsu with a 1-round life.
 - **Marker for the next turn:** each set piece puts its own marker type on the boss. Use a type outside the shared 3-round cooldown list: increasecooldown with no actions, or increaserange.
 - **Turn cost (library, 5f6c3edb):** the mark costs 40 AP and puts a unique 1-round marker on the boss. The blast costs 100 AP; its rule (`has_effect <marker>`) sits at the top of the list, so it fires on the next turn. After marking, the boss's rule `has_effect <marker>` → plain attack, then end turn, spends the remaining 60 AP. That 60 AP also allows a two-marker chain. Earlier harness builds used 100 AP for both; superseded.
+- **Fallback rule** (RUL-2026-10-29-046 item 2; adopted by RUL-2026-10-30-060 item 7). No set piece or blast is ever cast
+  without its mark.
+  - Every enemy's last rule is the named basic attack.
+  - No `use_highest_power_*`, `use_random_jutsu` or `use_combo_action` damage rule remains.
+  - `includeDefaultRules` is off, and the backup rules are restated without their highest-power rows.
+  - Final-pass audit: 0 unmarked casts of about 11,300.
+  - Records that end on an end of turn with no free pick are left as tuned: the hazards, the Core Horror, the Foundry
+    Warden, Replicant Zero, the Steeping Horror and Crownhold.
 - **Ground jutsu land only damage.** A blast that stuns or pushes targets CHARACTER, with the rule targeting SELF; that spares the boss and the safe tiles.
 - **Patterns:** rings use the spiral method; arena patterns use battlefield coordinates. The boss stays put so his patterns line up.
 - **Range** caps at 5.
@@ -310,15 +330,21 @@ targets: pending harness rerun.
 ## 8. Rare-run twists (RUL-2026-10-28-020; mechanics to be proven in the harness)
 
 Each rare run gets one signature twist, so it doesn't replay the hunt bosses in the same way.
-- **The Fall: spreading fire.**
-  - Each round, the burning decks lay ember tiles on more hexes. Ground damage is instant and ground afterburn does nothing, so the embers are `drain` tiles: standing on one burns you on your next action.
-  - Candidate engine route: an immobile hazard AI (Seal Charge pattern) that casts a growing ember pattern each round.
-  - The safe ground shrinks toward the gangway.
+- **The Fall: the Arsenal Keeper's fire** (RUL-2026-10-29-057 item 5; tuned by RUL-2026-10-30-060 item 7).
+  - The Keeper is the only fire source. The separate "Burning Deck" hazard is removed.
+  - Ground damage is instant and ground afterburn does nothing, so the embers are `drain` tiles: standing on one burns you on your next action.
+  - He is fought at the powder magazine as copy `chart-arsenal-keeper`: the live Keeper's kit with the fallback fix, immobile, pools 4, **30% innate damage reduction**.
+  - He lays three ember bands, at rounds 1, 4 and 7, each draining 5% max HP per action.
+  - Final pass: 85% clear, against about 80%. Without his fire the run clears 100%.
 - **The Sealed Reliquary: the reliquary remembers.**
   - Each echo that falls leaves its signature set piece behind. A static hazard echo keeps casting it during the next fight, so the gauntlet layers up: the Warden's pour lines under the Sealwright, then both under the Sentinel.
   - Candidate engine route: per-fight hazard records holding the previous boss's library mark-and-blast pair.
+  - **Sealwright copy:** pools 1, **2 damage rows** (up from 1, RUL-2026-10-30-060 item 2). With 1 row the run cleared 92.5%, against about 80%.
 
 Tainted versions keep the same twist and add their own (loot tables §5).
+- **The Burning Heading's Core Horror** (tainted copy): pools 5.5, **3 damage rows, 65% damage given down** (RUL-2026-10-30-060 item 7).
+  - At 2 rows the opening duel is a deterministic race: pools 5.5 gives 100% and pools 6 gives 0%.
+  - Final pass: 47.5% clear, against about 55% (40-seed noise ±15).
 
 
 ## 9. Minor marks for regular enemies (RUL-2026-10-28-024)
