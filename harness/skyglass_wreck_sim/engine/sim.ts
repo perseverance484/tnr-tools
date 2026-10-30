@@ -15,6 +15,7 @@
  */
 import { nanoid } from "nanoid";
 import { performAIaction } from "@/libs/combat/ai_v2";
+import { markersOf, noteAction } from "./fallback";
 import { stillInBattle } from "@/libs/combat/actions";
 import { advanceEncounterWave, prepareEncounterWaves } from "@/libs/combat/encounters";
 import { getBattleSpawnLocations } from "@/libs/combat/participants";
@@ -606,8 +607,10 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
     tickClock(1000);
     // Read-only audit hook (audit_rules.ts): sees the battle as the AI is about to decide.
     if (opts.onAiDecision && !isHuman) opts.onAiDecision(b, actor.userId, grid);
+    const markersBefore = isHuman ? null : markersOf(b, actor.userId);
     const res = performAIaction(b, grid, actor.userId);
     b = res.nextBattle;
+    if (markersBefore) noteAction(markersBefore, actor, res.nextActionId, pre.actionRound);
     restoreRules?.();
     if (dodgeStep) {
       dodge.stepsTaken++;
@@ -684,5 +687,32 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
   return {
     outcome, failedReason: b.extraState.dungeon?.failedReason, rounds: b.round,
     waves, steps, players, final, humanTurns, aiTurns, dodge,
+  };
+};
+
+/**
+ * Phase lengths of one enemy in a finished fight, rebuilt from the step HP deltas (read-only): phase 2 starts at its first
+ * own decision below `pct`% of max health (as audit_rules.ts --phase-hp) and ends at its death or the fight's end.
+ * Rounds are inclusive. Used for the Captain's phase 2 in the Watch and the chart runs.
+ */
+export const phaseTrack = (battle: CompleteBattle, res: FloorResult, controllerId: string, pct = 50) => {
+  const u0 = battle.usersState.find((u: any) => u.controllerId === controllerId && !u.isSummon) as any;
+  if (!u0) return null;
+  const uid = u0.userId;
+  let hp = u0.curHealth;
+  const max = u0.maxHealth;
+  const first = res.steps.find((s) => s.actorUid === uid)?.round ?? null;
+  let p2: number | null = null;
+  let died: number | null = null;
+  for (const s of res.steps) {
+    if (s.actorUid === uid && p2 === null && hp < (max * pct) / 100) p2 = s.round;
+    hp += s.hp[uid] ?? 0;
+    if (hp <= 0 && died === null) died = s.round;
+  }
+  const end = died ?? res.rounds;
+  return {
+    reachedPhase2: p2 !== null, died: died !== null,
+    phase1Rounds: first === null ? null : (p2 ?? end) - first + (p2 === null ? 1 : 0),
+    phase2Rounds: p2 === null ? null : end - p2 + 1,
   };
 };

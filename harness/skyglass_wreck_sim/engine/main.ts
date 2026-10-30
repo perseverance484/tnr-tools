@@ -26,6 +26,7 @@ import {
   type Templates,
 } from "./model";
 import { assembleFloor, type FloorResult, mulberry32, runFloor, seedEntropy } from "./sim";
+import { auditTemplates, unmarkedReport } from "./fallback";
 
 const args = process.argv.slice(2);
 const opt = (k: string, d?: string) => {
@@ -61,6 +62,15 @@ const variants: PlayerVariant[] = (opt("variants", "baseline,cap,geared,strong,e
 });
 const donor = T.enemies["texZaFi42S3EvJZBwQ8cd"]?.row ?? Object.values(T.enemies)[0]!.row; // field-set donor only
 const enemyRows = Object.fromEntries(Object.entries(T.enemies).map(([id, e]) => [id, enemyQueryUser(e)]));
+const AUDIT_ROWS = () => auditTemplates(override.name ?? "wreck", T.enemies, new Set((override.floors ?? []).flatMap((f: any) => f.waves.flatMap((w: any) => w.aiIds))));
+const auditPath = opt("audit-fallback");
+if (auditPath) {
+  mkdirSync(dirname(resolve(auditPath)), { recursive: true });
+  writeFileSync(resolve(auditPath), `${JSON.stringify(AUDIT_ROWS(), null, 1)}\n`);
+  console.log(`wrote ${auditPath}`);
+  process.exit(0);
+}
+
 const floors = onlyFloors ? onlyFloors.map((i) => T.floors[i]!) : T.floors;
 const floorLabel = (i: number) => (onlyFloors ? onlyFloors[i]! : i); // original floor index
 
@@ -416,6 +426,8 @@ for (const v of variants) {
   for (const e of s.enemiesOverall)
     console.log(`  ${e.name.padEnd(18)} app ${String(e.appearances).padStart(3)} sig ${String(e.signatureFiredPct).padStart(5)}% idle>r2 ${String(e.idleTurnsAfterRound2Pct).padStart(5)}% dealt ${e.dealtPerAppearance} never ${e.rulesNeverFired.join(",")}`);
 }
+out.fallbackGuard = unmarkedReport();
+console.log("fallback guard:", JSON.stringify(out.fallbackGuard));
 const outPath = opt("out");
 if (outPath) {
   mkdirSync(dirname(resolve(outPath)), { recursive: true });

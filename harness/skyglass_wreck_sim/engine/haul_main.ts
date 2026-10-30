@@ -23,6 +23,7 @@ import { insertAiSchema } from "@/validators/aiInput";
 import { questDebuffTypes, questStartingEffectsSchema } from "@/validators/combat";
 import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, PLAYER_VARIANTS, petFor, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32, runFloor, seedEntropy } from "./sim";
+import { auditTemplates, fixFallback, unmarkedReport } from "./fallback";
 import { crownTemplates, DEFAULT_HUNT_PARAMS, DEFAULT_PARAMS, LIVE, NAME } from "./hunts";
 import { buildCharts, type ChartParams, DEFAULT_CHART_EXTRA, scaledRow } from "./charts";
 import { tag } from "./kitlib";
@@ -121,10 +122,16 @@ for (const [k, c] of Object.entries(P.copies)) {
       if (!row.jutsus.some((uj: any) => uj.jutsuId === jid)) row.jutsus.push({ ...structuredClone(row.jutsus[0]), id: `${id}-${jid}`, jutsuId: jid, equipped: true, jutsu: structuredClone(T.jutsu[jid]) });
     note += ` + library set piece ${mk} (${markId} / ${blastId})`;
   }
+  // RUL-2026-10-29-046: no fallback may cast a set piece unmarked (live-source rules: highest power -> basic attack).
+  {
+    const fx = fixFallback(profile, row.jutsus.map((uj: any) => uj.jutsuId));
+    Object.assign(profile, fx.profile);
+    if (fx.changes.length) note += `; fallback fix: ${fx.changes.join("; ")}`;
+  }
   // Every rule's jutsu must be in the kit.
   for (const r of profile.rules) {
     const jid = r.action?.jutsuId;
-    if (jid && !row.jutsus.some((uj: any) => uj.jutsuId === jid)) {
+    if (jid && jid !== "basicAttack" && !row.jutsus.some((uj: any) => uj.jutsuId === jid)) {
       if (!T.jutsu[jid]) throw new Error(`${k}: rule jutsu ${jid} unknown`);
       row.jutsus.push({ ...structuredClone(row.jutsus[0]), id: `${id}-${jid}`, jutsuId: jid, equipped: true, jutsu: structuredClone(T.jutsu[jid]) });
     }
@@ -136,10 +143,18 @@ for (const [k, c] of Object.entries(P.copies)) {
   COPY_NOTES[k] = note;
 }
 const enemyRows: Record<string, any> = Object.fromEntries(Object.entries(T.enemies).map(([id, e]) => [id, enemyQueryUser(e)]));
-for (const row of Object.values(enemyRows))
-  for (const uj of row.jutsus ?? [])
-    if (uj.jutsu?.name === "Erupting Ground") uj.jutsu.effects = uj.jutsu.effects.map((e: any) => (["damage", "pierce"].includes(e.type) ? { ...e, friendlyFire: "ENEMIES" } : e));
+// RUL-2026-10-28-026 item 2: the Crown Stonebound holds its own enemies-only copy of Erupting Ground (hunts.ts
+// SKYGLASS_COPY); the shared live record is no longer patched here.
 const donor = T.enemies[LIVE.warden]!.row;
+{
+  const auditPath = opt("audit-fallback");
+  if (auditPath) {
+    mkdirSync(dirname(resolve(auditPath)), { recursive: true });
+    writeFileSync(resolve(auditPath), `${JSON.stringify(auditTemplates("haul", T.enemies, new Set(Object.values(COPY_META).map((m) => m.id))), null, 1)}\n`);
+    console.log(`wrote ${auditPath}`);
+    process.exit(0);
+  }
+}
 
 const dodge = !flag("no-dodge");
 const maxRounds = Number(opt("max-rounds", "60"));
@@ -384,6 +399,7 @@ const evalPathsMerged = async (v: Variant) => {
 const writeOut = (o: any) => {
   const out = opt("out");
   if (!out) return;
+  if (o && typeof o === "object" && !Array.isArray(o)) o.fallbackGuard = unmarkedReport();
   mkdirSync(dirname(resolve(out)), { recursive: true });
   writeFileSync(resolve(out), `${JSON.stringify(o, null, 1)}\n`);
   console.log(`wrote ${out}`);

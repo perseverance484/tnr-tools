@@ -12,6 +12,7 @@
  */
 import { join } from "node:path";
 import { performAIaction } from "@/libs/combat/ai_v2";
+import { markersOf, noteAction } from "./fallback";
 import { availableUserActions, actionPointsAfterAction, performBattleAction, stillInBattle } from "@/libs/combat/actions";
 import { applySageModeAfterRoundTransition } from "@/libs/combat/process";
 import { addQuestStartingEffects } from "@/libs/combat/questEffects";
@@ -127,7 +128,7 @@ export const jutsuRecord = (id: string, over: Record<string, unknown>) => ({
  * attack -> end turn, ahead of other marks; a CHARACTER blast with nobody in its pattern is not cast.
  */
 export { buildLibrary as buildLibraryRecords, LIB, LIB_POWERS, MARKER_TYPES, PATTERNS } from "./library";
-import { MARKER_TYPES as MT } from "./library";
+import { buildLibrary, MARKER_TYPES as MT } from "./library";
 /** After a mark: the rest of the turn is a plain attack, then end turn (the marker blocks a second mark). */
 export const afterMark = (markKey: keyof typeof MT, attacks: any[]) => [
   ...attacks.map((a) => ({ ...a, conditions: [{ type: "has_effect", effectType: MT[markKey], threshold: 1, description: "Has effect" }, ...a.conditions] })),
@@ -201,7 +202,12 @@ export const aiRow = (id: string, d: any, statsEach: number, recs: Record<string
 export const crownholdRow = (slot: string, recs: Record<string, any>, edit: Partial<{ data: any; rules: any[]; effects: any[] }> = {}) => {
   const a = IN.ais[slot];
   const d = { ...a.data, username: a.liveUsername, ...(edit.data ?? {}) };
-  return aiRow(a.id, d, statsFor(a.data, a.liveStats, edit.data?.statsMultiplier), recs, edit.rules ?? a.data.rules, edit.effects ?? a.data.effects,
+  // RUL-2026-10-28-026 item 2: Skyglass-only copies of live jutsu (the Stonebound's enemies-only Erupting Ground).
+  const COPIES: Record<string, string> = { jBRyl7F4UjTyxG5nnzLqj: "hunt-stonebound-erupting-ground" };
+  d.jutsus = d.jutsus.map((j: string) => COPIES[j] ?? j);
+  const rules0 = (edit.rules ?? a.data.rules).map((r: any) => (r.action?.jutsuId && COPIES[r.action.jutsuId] ? { ...r, action: { ...r.action, jutsuId: COPIES[r.action.jutsuId] } } : r));
+  if (d.jutsus.some((j: string) => !recs[j])) Object.assign(recs, Object.fromEntries(Object.entries(buildLibrary()).filter(([id]) => d.jutsus.includes(id))));
+  return aiRow(a.id, d, statsFor(a.data, a.liveStats, edit.data?.statsMultiplier), recs, rules0, edit.effects ?? a.data.effects,
     a.data.items.flatMap((it: any) => it.ids));
 };
 export const allCapturedRecords = () => Object.fromEntries([...Object.entries<any>(IN.jutsu), ...Object.entries<any>(IN.oldKit)].map(([id, j]) => [id, structuredClone(j.record)]));
@@ -405,8 +411,10 @@ export const runFight = async (cfg: FightConfig, seed: number, dodge: boolean | 
         actionId = "dodge";
         f.dodgeMoves++;
       } else {
+        const mkBefore = human ? null : markersOf(b, actor.userId);
         const res = performAIaction(b, grid, actor.userId);
         actionId = res.nextActionId;
+        if (mkBefore) noteAction(mkBefore, actor, actionId, b.round);
         if (human && readP > 0 && reads(b) && (actionId === "move" || actionId === "replacementTechnique")) {
           const after = res.nextBattle.usersState.find((u) => u.userId === puid)!;
           if (marked(res.nextBattle).has(`${after.longitude},${after.latitude}`)) {

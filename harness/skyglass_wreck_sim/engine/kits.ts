@@ -10,6 +10,7 @@
  *   and Core Rupture as edited by push/316-317).
  */
 import { capturedJutsu, cast, cond, endTurn, highest, jutsu, moveTo, tag } from "./kitlib";
+import { FALLBACK_FIX } from "./fallback";
 import { ANSWERS, buildLibrary, LIB, MARKER_TYPES, type MarkKey } from "./library";
 
 export type KitParams = {
@@ -61,6 +62,9 @@ export const WRECK_NEW = { gunwale: "dg-raise-the-gunwale" };
 /** The engine's basic attack (actions.ts availableUserActions: id "basicAttack", range 1, 20 AP). A use_specific_jutsu rule
  * matches actions by id, so a rule can name it; it is not a jutsu record and is left out of the kit lists. */
 export const BASIC_ATTACK = "basicAttack";
+/** Every enemy's last rule (RUL-2026-10-29-046): the basic attack by name; `--no-fallback-fix` restores the old one. */
+const fallbackLast = () =>
+  FALLBACK_FIX ? cast("basic attack (fallback; never a set piece)", BASIC_ATTACK, "CLOSEST_OPPONENT") : highest("highest-power damage", "CLOSEST_OPPONENT");
 
 const idgRow = () => ({
   type: "increasedamagegiven", power: 100, rounds: 99, target: "INHERIT", appearSfx: "", direction: "offence",
@@ -168,7 +172,8 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     cast("Dispelling Wave (player buffed)", LIVE.dispel, "CLOSEST_OPPONENT", [cond.near(5), cond.targetHas("CLOSEST_OPPONENT", 25, "increasedamagegiven")]),
     cast("Weakening Strike", LIVE.weakening, "HIGHEST_ENMITY_OPPONENT", [cond.near(5, "HIGHEST_ENMITY_OPPONENT")]),
     moveTo("keep range: close only when out of reach", "CLOSEST_OPPONENT", [cond.far(6)]),
-    highest("highest-power damage", "CLOSEST_OPPONENT"),
+    // RUL-2026-10-29-046: the basic attack by name, never use_highest_power_action (it can pick a set piece unmarked).
+    fallbackLast(),
   ];
   // Minor marks (RUL-2026-10-28-024): blast first when primed; mark when a player is within 3 (cooldown 3, so not every
   // turn); while primed the caster holds its hex (the patterns are caster-anchored), attacking but not moving.
@@ -190,7 +195,8 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     cast("Tide Bolt (closest, top threat out of reach)", LIVE.tideBolt, "CLOSEST_OPPONENT", [cond.near(5)]),
     mS.hold,
     moveTo("move towards the top threat", "HIGHEST_ENMITY_OPPONENT", [cond.far(2, "HIGHEST_ENMITY_OPPONENT")]),
-    highest("highest-power damage", "CLOSEST_OPPONENT"),
+    // RUL-2026-10-29-046: the basic attack by name, never use_highest_power_action (it can pick a set piece unmarked).
+    fallbackLast(),
   ];
   const charge = [
     cast("Core Rupture: a player adjacent", LIVE.coreRupture, "CLOSEST_OPPONENT", [cond.within(0, 1)]),
@@ -207,7 +213,8 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     cast("Twin Kunai", LIVE.twinKunai, "CLOSEST_OPPONENT", [cond.near(5)]),
     mL.hold,
     moveTo("move towards", "CLOSEST_OPPONENT", [cond.far(2)]),
-    highest("highest-power damage", "CLOSEST_OPPONENT"),
+    // RUL-2026-10-29-046: the basic attack by name, never use_highest_power_action (it can pick a set piece unmarked).
+    fallbackLast(),
   ];
   const blade = [
     // Defensive opener (director, retune): live Springguard. A live stealth opener was left out: stealth blocks the
@@ -219,7 +226,8 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     cast("Opening Strike on the lowest-threat player", LIVE.opening, "LOWEST_ENMITY_OPPONENT", [cond.near(4, "LOWEST_ENMITY_OPPONENT")]),
     cast("Opening Strike (closest, while hunting)", LIVE.opening, "CLOSEST_OPPONENT", [cond.near(4)]),
     moveTo("hunt the lowest-health player", "LOWEST_HEALTH_OPPONENT", [cond.far(2, "LOWEST_HEALTH_OPPONENT")]),
-    highest("highest-power damage", "CLOSEST_OPPONENT"),
+    // RUL-2026-10-29-046: the basic attack by name, never use_highest_power_action (it can pick a set piece unmarked).
+    fallbackLast(),
     // Hunts harness (sharedKitFixes): an explicit end of turn, so a turn with nothing usable (e.g. under stealth)
     // never reaches the engine's give-up path.
     endTurn("end turn (never give up)"),
@@ -230,7 +238,8 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     cast("Weakening Strike on the top threat", LIVE.weakening, "HIGHEST_ENMITY_OPPONENT", [cond.near(5, "HIGHEST_ENMITY_OPPONENT")]),
     cast("Opening Strike", LIVE.opening, "CLOSEST_OPPONENT", [cond.near(4)]),
     moveTo("move towards the top threat", "HIGHEST_ENMITY_OPPONENT", [cond.far(2, "HIGHEST_ENMITY_OPPONENT")]),
-    highest("highest-power damage", "CLOSEST_OPPONENT"),
+    // RUL-2026-10-29-046: the basic attack by name, never use_highest_power_action (it can pick a set piece unmarked).
+    fallbackLast(),
   ];
   const wayfinder = [
     mL.blast,
@@ -243,7 +252,8 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     cast("Twin Kunai", LIVE.twinKunai, "CLOSEST_OPPONENT", [cond.near(5)]),
     mL.hold,
     moveTo("keep range: close only when out of reach", "CLOSEST_OPPONENT", [cond.far(6)]),
-    highest("highest-power damage", "CLOSEST_OPPONENT"),
+    // RUL-2026-10-29-046: the basic attack by name, never use_highest_power_action (it can pick a set piece unmarked).
+    fallbackLast(),
   ];
   return {
     [IDS.warden]: { rules: warden, signature: ["Chain Hook"] },

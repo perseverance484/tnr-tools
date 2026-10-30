@@ -2445,13 +2445,13 @@
     },
     {
      "index": 12,
-     "note": "highest-power damage",
+     "note": "basic attack (fallback; never a set piece)",
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
@@ -2706,13 +2706,13 @@
     },
     {
      "index": 8,
-     "note": "highest-power damage",
+     "note": "basic attack (fallback; never a set piece)",
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
@@ -2870,13 +2870,13 @@
     },
     {
      "index": 7,
-     "note": "highest-power damage",
+     "note": "basic attack (fallback; never a set piece)",
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     },
     {
@@ -3063,13 +3063,13 @@
     },
     {
      "index": 7,
-     "note": "highest-power damage",
+     "note": "basic attack (fallback; never a set piece)",
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
@@ -3348,13 +3348,13 @@
     },
     {
      "index": 12,
-     "note": "highest-power damage",
+     "note": "basic attack (fallback; never a set piece)",
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
@@ -4827,13 +4827,13 @@
     },
     {
      "index": 6,
-     "note": "highest-power damage",
+     "note": "basic attack (fallback; never a set piece)",
      "conditions": [],
      "action": {
-      "type": "use_highest_power_action",
-      "description": "highest-power damage",
-      "target": "CLOSEST_OPPONENT",
-      "effect": "damage"
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
      }
     }
    ],
