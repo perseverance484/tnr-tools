@@ -1225,7 +1225,7 @@ install 0.10.1 first. Parts are 61 reads each, to stay inside that path's limit 
 seed (873 live against 766 read) are not covered. Zero writes. Built by `push/325_recipe_capture.gen.py`. Gates (each
 part): `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 326 Variant token capture (read-only, 2 passes): PASS 1 READY TO RUN (needs Forge 0.12.1)
+## 326 Variant token capture (read-only, 2 passes): PASS 1 RUN (bundle tnr_results_1793364800827.json: 6 token variants on 6 base items; Lion Token and Test Variant both generic tokens); PASS 2 READY TO RUN
 
 RUL-2026-10-29-054 item 2. The Skyglass Token unlocks any token-cost variant with no required unlock item. Before it ships,
 every live VARIANT_TOKEN variant is listed, and those still open are bound to the Lion Token.
