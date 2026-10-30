@@ -1,0 +1,1157 @@
+{
+ "generatedBy": "charts_main.ts --sweep, 20 seeds, L100, dodge on, on top of overrides/charts.params.json as it stood before each adoption",
+ "cases": [
+  {
+   "sweep": "sweep_burning",
+   "case": "cur",
+   "params": {},
+   "run": "burning",
+   "baseClear": 20,
+   "runs": 20,
+   "pressOnWon": 20,
+   "pressOnReached": 20,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 7,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 57.6
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 6,
+     "hpStartMedian": 81.3,
+     "hpEndMedian": 71.1
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 3,
+     "hpStartMedian": 94.8,
+     "hpEndMedian": 94.8
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 3,
+     "hpStartMedian": 118.6,
+     "hpEndMedian": 118.6
+    }
+   ]
+  },
+  {
+   "sweep": "sweep_burning",
+   "case": "cur",
+   "params": {},
+   "run": "fall",
+   "baseClear": 19,
+   "runs": 20,
+   "pressOnWon": 7,
+   "pressOnReached": 19,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "burning deck: Deck Warden + Seal Charge",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 4,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 105.4
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 19,
+     "reached": 20,
+     "roundsMedian": 10,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 65.1
+    },
+    {
+     "fight": 3,
+     "label": "the break: Core Horror",
+     "won": 19,
+     "reached": 19,
+     "roundsMedian": 7,
+     "hpStartMedian": 88.9,
+     "hpEndMedian": 66.9
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): The Captain at the helm",
+     "won": 7,
+     "reached": 19,
+     "roundsMedian": 15,
+     "hpStartMedian": 90.7,
+     "hpEndMedian": 9.6
+    }
+   ]
+  },
+  {
+   "sweep": "sweep_burning",
+   "case": "horror6.5",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 6.5,
+       "rows": 2
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 0,
+   "runs": 20,
+   "pressOnWon": 0,
+   "pressOnReached": 0,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 0,
+     "reached": 20,
+     "roundsMedian": null,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    }
+   ]
+  },
+  {
+   "sweep": "sweep_burning",
+   "case": "afterburn80",
+   "params": {
+    "tainted": {
+     "afterburn": 80
+    }
+   },
+   "run": "burning",
+   "baseClear": 19,
+   "runs": 20,
+   "pressOnWon": 19,
+   "pressOnReached": 19,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 7,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 52.5
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 19,
+     "reached": 20,
+     "roundsMedian": 6,
+     "hpStartMedian": 76.3,
+     "hpEndMedian": 66.7
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 19,
+     "reached": 19,
+     "roundsMedian": 3,
+     "hpStartMedian": 90.4,
+     "hpEndMedian": 90.4
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 19,
+     "reached": 19,
+     "roundsMedian": 3,
+     "hpStartMedian": 114.2,
+     "hpEndMedian": 111.7
+    }
+   ]
+  },
+  {
+   "sweep": "sweep_burning",
+   "case": "keeper_dr30",
+   "params": {
+    "ember": {
+     "dr": 30
+    }
+   },
+   "run": "fall",
+   "baseClear": 15,
+   "runs": 20,
+   "pressOnWon": 2,
+   "pressOnReached": 15,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "burning deck: Deck Warden + Seal Charge",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 4,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 105.4
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 18,
+     "reached": 20,
+     "roundsMedian": 13,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 48.7
+    },
+    {
+     "fight": 3,
+     "label": "the break: Core Horror",
+     "won": 15,
+     "reached": 18,
+     "roundsMedian": 7,
+     "hpStartMedian": 72.5,
+     "hpEndMedian": 54.6
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): The Captain at the helm",
+     "won": 2,
+     "reached": 15,
+     "roundsMedian": 10,
+     "hpStartMedian": 78.4,
+     "hpEndMedian": 33.3
+    }
+   ]
+  },
+  {
+   "sweep": "sweep2",
+   "case": "horror6.0",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 6.0,
+       "rows": 2
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 0,
+   "runs": 20,
+   "pressOnWon": 0,
+   "pressOnReached": 0,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 0,
+     "reached": 20,
+     "roundsMedian": null,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    }
+   ]
+  },
+  {
+   "sweep": "sweep2",
+   "case": "horror5.5r3",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 5.5,
+       "rows": 3
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 0,
+   "runs": 20,
+   "pressOnWon": 0,
+   "pressOnReached": 0,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 0,
+     "reached": 20,
+     "roundsMedian": null,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    }
+   ]
+  },
+  {
+   "sweep": "sweep2",
+   "case": "keeper_dr20",
+   "params": {
+    "ember": {
+     "dr": 20
+    }
+   },
+   "run": "fall",
+   "baseClear": 18,
+   "runs": 20,
+   "pressOnWon": 6,
+   "pressOnReached": 18,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "burning deck: Deck Warden + Seal Charge",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 4,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 105.4
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 18,
+     "reached": 20,
+     "roundsMedian": 11,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 55.6
+    },
+    {
+     "fight": 3,
+     "label": "the break: Core Horror",
+     "won": 18,
+     "reached": 18,
+     "roundsMedian": 7,
+     "hpStartMedian": 79.4,
+     "hpEndMedian": 62.5
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): The Captain at the helm",
+     "won": 6,
+     "reached": 18,
+     "roundsMedian": 11,
+     "hpStartMedian": 86.2,
+     "hpEndMedian": 13.3
+    }
+   ]
+  },
+  {
+   "sweep": "sweep3",
+   "case": "dr25",
+   "params": {
+    "ember": {
+     "dr": 25
+    }
+   },
+   "run": "fall",
+   "baseClear": 18,
+   "runs": 20,
+   "pressOnWon": 6,
+   "pressOnReached": 18,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "burning deck: Deck Warden + Seal Charge",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 4,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 105.4
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 18,
+     "reached": 20,
+     "roundsMedian": 12,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 53.5
+    },
+    {
+     "fight": 3,
+     "label": "the break: Core Horror",
+     "won": 18,
+     "reached": 18,
+     "roundsMedian": 7,
+     "hpStartMedian": 77.3,
+     "hpEndMedian": 57.4
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): The Captain at the helm",
+     "won": 6,
+     "reached": 18,
+     "roundsMedian": 10,
+     "hpStartMedian": 81.2,
+     "hpEndMedian": 29.8
+    }
+   ]
+  },
+  {
+   "sweep": "sweep3",
+   "case": "dr25",
+   "params": {
+    "ember": {
+     "dr": 25
+    }
+   },
+   "run": "burning",
+   "baseClear": 20,
+   "runs": 20,
+   "pressOnWon": 20,
+   "pressOnReached": 20,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 7,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 57.6
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 6,
+     "hpStartMedian": 81.3,
+     "hpEndMedian": 71.1
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 3,
+     "hpStartMedian": 94.8,
+     "hpEndMedian": 94.8
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 3,
+     "hpStartMedian": 118.6,
+     "hpEndMedian": 115.8
+    }
+   ]
+  },
+  {
+   "sweep": "sweep3",
+   "case": "dr30_ab80",
+   "params": {
+    "ember": {
+     "dr": 30
+    },
+    "tainted": {
+     "afterburn": 80
+    }
+   },
+   "run": "burning",
+   "baseClear": 19,
+   "runs": 20,
+   "pressOnWon": 19,
+   "pressOnReached": 19,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 7,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 52.5
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 19,
+     "reached": 20,
+     "roundsMedian": 6,
+     "hpStartMedian": 76.3,
+     "hpEndMedian": 66.7
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 19,
+     "reached": 19,
+     "roundsMedian": 3,
+     "hpStartMedian": 90.4,
+     "hpEndMedian": 90.4
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 19,
+     "reached": 19,
+     "roundsMedian": 3,
+     "hpStartMedian": 114.2,
+     "hpEndMedian": 111.7
+    }
+   ]
+  },
+  {
+   "sweep": "sweep3",
+   "case": "dr25_pow8",
+   "params": {
+    "ember": {
+     "dr": 25,
+     "power": 8
+    }
+   },
+   "run": "fall",
+   "baseClear": 17,
+   "runs": 20,
+   "pressOnWon": 5,
+   "pressOnReached": 17,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "burning deck: Deck Warden + Seal Charge",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 4,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 105.4
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 17,
+     "reached": 20,
+     "roundsMedian": 12,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 34
+    },
+    {
+     "fight": 3,
+     "label": "the break: Core Horror",
+     "won": 17,
+     "reached": 17,
+     "roundsMedian": 7,
+     "hpStartMedian": 57.8,
+     "hpEndMedian": 37.9
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): The Captain at the helm",
+     "won": 5,
+     "reached": 17,
+     "roundsMedian": 10,
+     "hpStartMedian": 61.7,
+     "hpEndMedian": 20
+    }
+   ]
+  },
+  {
+   "sweep": "sweep3",
+   "case": "dr25_pow8",
+   "params": {
+    "ember": {
+     "dr": 25,
+     "power": 8
+    }
+   },
+   "run": "burning",
+   "baseClear": 17,
+   "runs": 20,
+   "pressOnWon": 17,
+   "pressOnReached": 17,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 20,
+     "reached": 20,
+     "roundsMedian": 7,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 57.6
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 17,
+     "reached": 20,
+     "roundsMedian": 6,
+     "hpStartMedian": 81.3,
+     "hpEndMedian": 70.1
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 17,
+     "reached": 17,
+     "roundsMedian": 3,
+     "hpStartMedian": 93.9,
+     "hpEndMedian": 93.9
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 17,
+     "reached": 17,
+     "roundsMedian": 3,
+     "hpStartMedian": 117.7,
+     "hpEndMedian": 113.1
+    }
+   ]
+  },
+  {
+   "sweep": "sweep4",
+   "case": "h6_gd15",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 6,
+       "rows": 2,
+       "givenDown": 15
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 0,
+   "runs": 20,
+   "pressOnWon": 0,
+   "pressOnReached": 0,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 0,
+     "reached": 20,
+     "roundsMedian": null,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 0,
+     "reached": 0,
+     "roundsMedian": null,
+     "hpStartMedian": null,
+     "hpEndMedian": null
+    }
+   ]
+  },
+  {
+   "sweep": "sweep4",
+   "case": "h6_gd30",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 6,
+       "rows": 2,
+       "givenDown": 30
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 2,
+   "runs": 20,
+   "pressOnWon": 2,
+   "pressOnReached": 2,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 2,
+     "reached": 20,
+     "roundsMedian": 21,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 0
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 2,
+     "reached": 2,
+     "roundsMedian": 6,
+     "hpStartMedian": 23.8,
+     "hpEndMedian": 6.9
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 2,
+     "reached": 2,
+     "roundsMedian": 2.5,
+     "hpStartMedian": 30.6,
+     "hpEndMedian": 30.6
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 2,
+     "reached": 2,
+     "roundsMedian": 3,
+     "hpStartMedian": 54.4,
+     "hpEndMedian": 54.4
+    }
+   ]
+  },
+  {
+   "sweep": "sweep4",
+   "case": "h6_gd45",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 6,
+       "rows": 2,
+       "givenDown": 45
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 6,
+   "runs": 20,
+   "pressOnWon": 6,
+   "pressOnReached": 6,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 8,
+     "reached": 20,
+     "roundsMedian": 21,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 0
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 6,
+     "reached": 8,
+     "roundsMedian": 6,
+     "hpStartMedian": 23.8,
+     "hpEndMedian": 8.4
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 6,
+     "reached": 6,
+     "roundsMedian": 2.5,
+     "hpStartMedian": 32.2,
+     "hpEndMedian": 32.2
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 6,
+     "reached": 6,
+     "roundsMedian": 3,
+     "hpStartMedian": 55.9,
+     "hpEndMedian": 55.9
+    }
+   ]
+  },
+  {
+   "sweep": "sweep4",
+   "case": "h5.5r3_gd40",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 5.5,
+       "rows": 3,
+       "givenDown": 40
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 4,
+   "runs": 20,
+   "pressOnWon": 4,
+   "pressOnReached": 4,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 4,
+     "reached": 20,
+     "roundsMedian": 15,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 16.8
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 4,
+     "reached": 4,
+     "roundsMedian": 5.5,
+     "hpStartMedian": 40.5,
+     "hpEndMedian": 25.8
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 4,
+     "reached": 4,
+     "roundsMedian": 3,
+     "hpStartMedian": 49.5,
+     "hpEndMedian": 49.5
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 4,
+     "reached": 4,
+     "roundsMedian": 3,
+     "hpStartMedian": 73.3,
+     "hpEndMedian": 67.7
+    }
+   ]
+  },
+  {
+   "sweep": "sweep5",
+   "case": "h5.5r3_gd44",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 5.5,
+       "rows": 3,
+       "givenDown": 44
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 4,
+   "runs": 20,
+   "pressOnWon": 4,
+   "pressOnReached": 4,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 4,
+     "reached": 20,
+     "roundsMedian": 15,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 21.3
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 4,
+     "reached": 4,
+     "roundsMedian": 5.5,
+     "hpStartMedian": 45.1,
+     "hpEndMedian": 30.3
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 4,
+     "reached": 4,
+     "roundsMedian": 3,
+     "hpStartMedian": 54.1,
+     "hpEndMedian": 54.1
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 4,
+     "reached": 4,
+     "roundsMedian": 3,
+     "hpStartMedian": 77.9,
+     "hpEndMedian": 72.3
+    }
+   ]
+  },
+  {
+   "sweep": "sweep5",
+   "case": "h5.5r3_gd47",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 5.5,
+       "rows": 3,
+       "givenDown": 47
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 5,
+   "runs": 20,
+   "pressOnWon": 5,
+   "pressOnReached": 5,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 5,
+     "reached": 20,
+     "roundsMedian": 15,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 20.3
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 5,
+     "reached": 5,
+     "roundsMedian": 6,
+     "hpStartMedian": 44,
+     "hpEndMedian": 32.9
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 5,
+     "reached": 5,
+     "roundsMedian": 3,
+     "hpStartMedian": 56.7,
+     "hpEndMedian": 56.7
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 5,
+     "reached": 5,
+     "roundsMedian": 3,
+     "hpStartMedian": 80.4,
+     "hpEndMedian": 69.3
+    }
+   ]
+  },
+  {
+   "sweep": "sweep6",
+   "case": "h5.5r3_gd60",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 5.5,
+       "rows": 3,
+       "givenDown": 60
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 12,
+   "runs": 20,
+   "pressOnWon": 12,
+   "pressOnReached": 12,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 12,
+     "reached": 20,
+     "roundsMedian": 15.5,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 17.2
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 12,
+     "reached": 12,
+     "roundsMedian": 6,
+     "hpStartMedian": 40.9,
+     "hpEndMedian": 26.2
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 12,
+     "reached": 12,
+     "roundsMedian": 3,
+     "hpStartMedian": 50,
+     "hpEndMedian": 50
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 12,
+     "reached": 12,
+     "roundsMedian": 3,
+     "hpStartMedian": 73.7,
+     "hpEndMedian": 70.4
+    }
+   ]
+  },
+  {
+   "sweep": "sweep6",
+   "case": "h5.5r3_gd70",
+   "params": {
+    "taintedCopies": {
+     "byId": {
+      "AQi-bHJ-5tHXtxrnc0P9E": {
+       "pools": 5.5,
+       "rows": 3,
+       "givenDown": 70
+      }
+     }
+    }
+   },
+   "run": "burning",
+   "baseClear": 14,
+   "runs": 20,
+   "pressOnWon": 14,
+   "pressOnReached": 14,
+   "fights": [
+    {
+     "fight": 1,
+     "label": "the break: Core Horror",
+     "won": 14,
+     "reached": 20,
+     "roundsMedian": 16,
+     "hpStartMedian": 86.6,
+     "hpEndMedian": 32
+    },
+    {
+     "fight": 2,
+     "label": "powder magazine with the Captain: Arsenal Keeper (the fire source) + Deck Warden",
+     "won": 14,
+     "reached": 14,
+     "roundsMedian": 6,
+     "hpStartMedian": 55.7,
+     "hpEndMedian": 42.1
+    },
+    {
+     "fight": 3,
+     "label": "gangway duel (Captain beside you): Wayfinder",
+     "won": 14,
+     "reached": 14,
+     "roundsMedian": 3,
+     "hpStartMedian": 65.9,
+     "hpEndMedian": 65.9
+    },
+    {
+     "fight": 4,
+     "label": "PRESS ON (proposed): First Blade on the burning deck",
+     "won": 14,
+     "reached": 14,
+     "roundsMedian": 3,
+     "hpStartMedian": 89.7,
+     "hpEndMedian": 86.5
+    }
+   ]
+  }
+ ]
+}
