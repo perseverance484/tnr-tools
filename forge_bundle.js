@@ -3818,7 +3818,7 @@
         if (PCT_TAGS.has(f.type) && (f.calculation === "percentage" || !f.calculation)) pct[f.type] = (pct[f.type] ?? 0) + 1;
         if (it.entity === "item" && f.type === "noncombatconsumereward") {
           if (d.itemType !== void 0 && d.itemType !== "CONSUMABLE") E(it, "L18 noncombatconsumereward requires itemType CONSUMABLE");
-          if (d.target !== void 0 && d.target !== "SELF") E(it, "L18 noncombatconsumereward requires item target SELF");
+          if (d.target !== void 0 ? d.target !== "SELF" : it.op === "create") E(it, "L18 noncombatconsumereward requires item target SELF");
           if (d.method !== void 0 && d.method !== "SINGLE") E(it, "L18 noncombatconsumereward requires method SINGLE");
           if (Array.isArray(f.reward_pets) && f.reward_pets.length && f.rewardMode === "weightedCache") E(it, "PET reward_pets requires rewardMode standard");
         }
