@@ -157,7 +157,29 @@ fight War Rite, alarm +15%):
 | Bloom Cellar | 92.5% / 7.49 | 32.5% / 30% | sensible is best |
 
 - Sensible mean **7.69M**.
-- The Trophy Hold's deep crates got easier: its guards lost their free picks, and CCCCC now clears 80% (70% before).
+- Greedy clears are 25-37.5%. The exception is the Ore Vault's LLLCC at 17.5%; its CLLLC is 32.5%.
+
+**Every legal path** (`results/final_haul_base_dodge.json`, state-merged, 24 seeds). Its top routes were re-run
+exactly, 40 seeds (`results/final_haul_exact_top_a.json`, `_b.json`). Routes above 120% of sensible:
+
+| Page | Route | Clear | EV | % of sensible |
+|---|---|---|---|---|
+| Trophy Hold | CLLCC | 62.5% | 11.0 | **138%** |
+| Trophy Hold | CCCCC | 80% | 9.8 | 122% |
+| Snare Room | LCXLC | 65% | 11.4 | **139%** |
+| Snare Room | LLL | 65% | 10.2 | 124% |
+| Bloom Cellar | LLL | 97.5% | 10.2 | **137%** |
+| Bloom Cellar | LLCC | 72.5% | 9.9 | 133% |
+
+The Bone Store (best 116%), Overgrown Stores (115% merged) and Ore Vault (110%) stay inside.
+
+**Cause:** the fallback fix took the guards' free picks (`use_highest_power_action` could cast their blasts), so the
+locker-heavy fights got easier.
+
+**Fix:** re-fit the payout points with `tools/haul_payout_fit.py` against the exact top routes. A first offline fit
+moves the Snare Room to 120% (steps 4.4/1.0/0.9/0.9/3.5, locker 2.4), but cannot pull the Trophy Hold's CLLCC or the
+Bloom Cellar's LLL under 120% with points alone. Those two need step-2/3 locker fights hardened by one guard, as on
+the Snare Room (RUL-2026-10-29-045). Not adopted: payout is the director's.
 
 ### 7. Economy: dedicated player, 12-hour weekend
 
@@ -200,7 +222,7 @@ Wreck alone at 2.5%.
 | Steeping | ~75% | 77.5% | hit | none |
 | Crownhold | all routes clear | War 6.3% | miss | War Rite top-up at D4 and D5, or no fourth regular on the War route |
 | Haul sensible / greedy | ~7.5M / 22-38% | 7.69M / 25-37.5% | hit | none |
-| Haul max path | ≤ ~120% | Trophy CCCCC 122% | marginal | Trophy step-5 crate points 5.4 → ~4.6 |
+| Haul max path | ≤ ~120% | Trophy CLLCC 138%, Snare LCXLC 139%, Bloom LLL 137% | miss | re-fit points; one more guard on the Trophy/Bloom step-2/3 lockers |
 | Haul per weekend | ~1.5 | 1.26 | miss | Wreck 2.4%, Rare endings 1.5% per page |
 | Tokens | 2-3 / ~5 | 3.0 / 5.5 | hit | none |
 
