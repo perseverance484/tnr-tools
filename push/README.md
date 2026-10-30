@@ -1225,7 +1225,7 @@ install 0.10.1 first. Parts are 61 reads each, to stay inside that path's limit 
 seed (873 live against 766 read) are not covered. Zero writes. Built by `push/325_recipe_capture.gen.py`. Gates (each
 part): `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 326 Variant token capture (read-only, 2 passes): PASS 1 RUN (bundle tnr_results_1793364800827.json: 6 token variants on 6 base items; Lion Token and Test Variant both generic tokens); PASS 2 READY TO RUN
+## 326 Variant token capture (read-only, 2 passes): PASS 1 RUN (bundle tnr_results_1793364800827.json: 6 token variants on 6 base items; Lion Token and Test Variant both generic tokens); PASS 2 RUN (bundle tnr_results_1793364924712.json: 6/6 read, all six have no requiredItemId)
 
 RUL-2026-10-29-054 item 2. The Skyglass Token unlocks any token-cost variant with no required unlock item. Before it ships,
 every live VARIANT_TOKEN variant is listed, and those still open are bound to the Lion Token.
@@ -1240,3 +1240,19 @@ every live VARIANT_TOKEN variant is listed, and those still open are bound to th
 
 Forge 0.12.1 (merge 002c240f) is required. Zero writes. Gates (pass 1): `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems.
+
+## 327 Bind the six live token variants to the Lion Token (6 itemVariant edits): READY TO RUN (Forge 0.12.1)
+
+RUL-2026-10-29-054 item 2, from the push/326 pass-2 bundle. Each of the six live VARIANT_TOKEN variants has no required
+unlock item, so any generic token (the Lion Token, "Test Variant", and the coming Skyglass Token) can unlock it:
+- Aetherion: Captain's Decree
+- Thornsilver: Hemathorn
+- Night's Testament: Weeping Testament
+- Azure Dragon Breastplate: Subaku Demon Armor
+- Kaeruun's Ember Carapace: Dragonmancer Breastplate
+- Kaeruun's Molten Carapace: Dragonmancer Breastplate
+
+Each edit sets `requiredItemId` to the Lion Token (`FG4xYkI8UmRrJCdD3yPxI`) and is fetch-merged over the live row, so
+name, image, cost and order are kept. Players keep unlocking these with Lion Tokens; nothing else changes for them.
+Run before any Skyglass Token is created. Built by `push/327_lion_token_variant_bind.gen.py`. Gates: `validate.py
+--strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
