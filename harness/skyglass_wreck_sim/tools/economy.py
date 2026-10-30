@@ -179,6 +179,9 @@ def solve(I, policy, haul_wreck, haul_hunt, hours, steep=True):
         tok += clears[k] * y.get("token", 0)
         coffer += clears[k] * y.get("coffer", 0)
         treasury += clears[k] * (y.get("treasury", 0) + TREASURY_STEP.get(k, 0))
+    # Token opportunities: picks that offer a Skyglass Token card (Archive, Watch, rares, tainted, Crownhold's Hoard) plus
+    # chest-of-chests Legendary rolls that land on the token half.
+    tok_opps = per(COC * COC_TIERS["legendary"] * 0.5) + sum(clears[k] for k in RUNS if any("token" in o[1] for o in PICKS.get(k, [])))
     trophies = {}
     for k, (bosses, p) in TROPHY.items():
         for b in bosses:
@@ -201,7 +204,7 @@ def solve(I, policy, haul_wreck, haul_hunt, hours, steep=True):
         },
         "steepAttempts": round(per(steep_attempts), 2), "steepFracOfRareCharts": round(steep_frac, 2),
         "coreRot": {"gained": round(rot_in, 2), "spentSteeping": round(rot_spent, 2)},
-        "skyglassTokens": round(tok, 2), "trophyTokens": {k: round(v, 3) for k, v in trophies.items()}, "trophyTokensTotal": round(sum(trophies.values()), 3),
+        "skyglassTokens": round(tok, 2), "skyglassTokenOpportunities": round(tok_opps, 2), "trophyTokens": {k: round(v, 3) for k, v in trophies.items()}, "trophyTokensTotal": round(sum(trophies.values()), 3),
         "skyglassCoffers": round(coffer, 2), "sealedTreasuries": round(treasury, 2),
         "littleHorrorJarChance": round(1 - (1 - 0.05) ** W, 3),
         "hoursSplit": time_split,
