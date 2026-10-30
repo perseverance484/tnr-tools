@@ -1,0 +1,1926 @@
+{
+ "generatedBy": "haul_main.ts --paths",
+ "settings": {
+  "dodge": true,
+  "maxRounds": 60,
+  "seeds": 40,
+  "seed0": 1,
+  "variant": "L100",
+  "variantNote": "director's endgame party member (2026-10-28): level-100 JONIN, stats at the JONIN caps, full Kitsune armour set (6 captured pieces, worn through the engine's item path), 9 PvE jutsu at the level cap 25, Fire/Wind elements",
+  "secondsPerTurn": 15,
+  "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+  "params": {
+   "copies": {
+    "h-wayfinder": {
+     "src": "v7T9_XdGMfP46em0dPuBc",
+     "name": "Wayfinder",
+     "stats": 3,
+     "pools": 1,
+     "rows": 2,
+     "taken": 100,
+     "givenDown": 40,
+     "role": "hunter crew",
+     "rules": "shared"
+    },
+    "h-blade": {
+     "src": "d6g0mOM7RBSsYI1hrUVT9",
+     "name": "First Blade",
+     "stats": 3,
+     "pools": 1,
+     "rows": 2,
+     "taken": 100,
+     "givenDown": 40,
+     "role": "hunter crew",
+     "rules": "shared"
+    },
+    "h-warden": {
+     "src": "texZaFi42S3EvJZBwQ8cd",
+     "name": "Deck Warden",
+     "stats": 3,
+     "pools": 1,
+     "rows": 2,
+     "taken": 100,
+     "givenDown": 40,
+     "role": "hunter crew",
+     "rules": "shared"
+    },
+    "h-veteran": {
+     "src": "d6g0mOM7RBSsYI1hrUVT9",
+     "name": "First Blade (veteran)",
+     "stats": 3,
+     "pools": 1.2,
+     "rows": 3,
+     "taken": 100,
+     "role": "hunter crew, steps 4-5 (the crew scaled to the step)",
+     "rules": "shared"
+    },
+    "h-lookout": {
+     "src": "texZaFi42S3EvJZBwQ8cd",
+     "name": "Deck Warden (lookout)",
+     "stats": 3,
+     "pools": 1,
+     "rows": 0,
+     "taken": 100,
+     "givenDown": 30,
+     "role": "hunter alertness crew",
+     "rules": "shared"
+    },
+    "trophy-warden": {
+     "src": "0PZU_FvlbM3ErYGlD5r56",
+     "name": "Trophy Warden",
+     "stats": 4,
+     "pools": 1.2,
+     "rows": 2,
+     "role": "hunter elite (Oathkeeper copy)",
+     "setPiece": "ring"
+    },
+    "h-keeper": {
+     "src": "2OXJEXoktxJcjqMkE851g",
+     "name": "Arsenal Keeper",
+     "stats": 5,
+     "pools": 1,
+     "rows": 0,
+     "role": "hunter alertness 3+ (joins locker fights)"
+    },
+    "g-warden": {
+     "src": "texZaFi42S3EvJZBwQ8cd",
+     "name": "Deck Warden",
+     "stats": 3,
+     "pools": 1,
+     "rows": 2,
+     "taken": 100,
+     "givenDown": 40,
+     "role": "gatherer crew",
+     "rules": "shared"
+    },
+    "g-sentinel": {
+     "src": "3V_gdHYaclMB1gTyOPAbV",
+     "name": "Skyglass Sentinel",
+     "stats": 3,
+     "pools": 1,
+     "rows": 2,
+     "taken": 100,
+     "givenDown": 40,
+     "role": "gatherer crew",
+     "rules": "shared"
+    },
+    "g-veteran": {
+     "src": "3V_gdHYaclMB1gTyOPAbV",
+     "name": "Skyglass Sentinel (veteran)",
+     "stats": 3,
+     "pools": 1.2,
+     "rows": 3,
+     "taken": 100,
+     "role": "gatherer crew, steps 4-5 (the crew scaled to the step)",
+     "rules": "shared"
+    },
+    "g-lookout": {
+     "src": "texZaFi42S3EvJZBwQ8cd",
+     "name": "Deck Warden (lookout)",
+     "stats": 3,
+     "pools": 1,
+     "rows": 0,
+     "taken": 100,
+     "givenDown": 30,
+     "role": "gatherer alertness crew",
+     "rules": "shared"
+    },
+    "g-charge": {
+     "src": "wTgO-Q32caSSd0is1QIS7",
+     "name": "Seal Charge",
+     "stats": 1,
+     "pools": 1,
+     "rows": 0,
+     "taken": 100,
+     "fuse": {
+      "adjacent": 0,
+      "round": 4
+     },
+     "role": "gatherer hazard AI"
+    },
+    "g-canister": {
+     "src": "frc9LTxqQlM7mncG4VZGK",
+     "name": "Core Canister",
+     "stats": 1,
+     "pools": 1,
+     "rows": 0,
+     "taken": 100,
+     "fuse": {
+      "adjacent": 0,
+      "round": 5
+     },
+     "role": "gatherer hazard AI"
+    },
+    "stores-ward": {
+     "src": "LZiunyinw9ScK3mh9HiR2",
+     "name": "Stores Ward",
+     "stats": 4,
+     "pools": 1.2,
+     "rows": 3,
+     "role": "gatherer elite (Crown Archivist copy)",
+     "setPiece": "sealLines"
+    },
+    "g-sealwright": {
+     "src": "RBW5KsIXmTGR710D2y2Y7",
+     "name": "Sealwright's Echo",
+     "stats": 5,
+     "pools": 1,
+     "rows": 0,
+     "role": "gatherer alertness 3+ (joins locker fights)"
+    }
+   },
+   "hazard": {
+    "wound": {
+     "type": "drain",
+     "power": 6,
+     "calc": "percentage",
+     "by": "power",
+     "desc": "Torn on a snare: you bleed with every action",
+     "pools": [
+      "Health"
+     ],
+     "max": 15
+    },
+    "poison": {
+     "type": "poison",
+     "power": 250,
+     "calc": "percentage",
+     "by": "power",
+     "desc": "An old bait vial bursts: chakra and stamina you spend burn as poison",
+     "max": 400
+    },
+    "moveprevent": {
+     "type": "moveprevent",
+     "power": 100,
+     "calc": "static",
+     "by": "rounds",
+     "desc": "A line around the ankle: you cannot move"
+    },
+    "decreasemaxpools": {
+     "type": "decreasemaxpools",
+     "power": 30,
+     "calc": "percentage",
+     "by": "power",
+     "desc": "Cold eyes / crystal in the lungs: your maximum health is lowered",
+     "pools": [
+      "Health"
+     ],
+     "max": 50
+    },
+    "elementalseal": {
+     "type": "elementalseal",
+     "power": 100,
+     "calc": "static",
+     "by": "rounds",
+     "desc": "Dust in the seal channels: your elemental jutsu are sealed"
+    },
+    "increasepoolcost": {
+     "type": "increasepoolcost",
+     "power": 300,
+     "calc": "percentage",
+     "by": "power",
+     "desc": "The growth drinks chakra: your jutsu cost more",
+     "pools": [
+      "Chakra",
+      "Stamina"
+     ],
+     "max": 300
+    },
+    "afterburn": {
+     "type": "afterburn",
+     "power": 60,
+     "calc": "percentage",
+     "by": "power",
+     "desc": "A cut channel flares: damage you take burns again",
+     "max": 60
+    }
+   },
+   "rounds": {
+    "locker": 2,
+    "alert": 2,
+    "cut": 4,
+    "crate": 2
+   },
+   "cutRule": "must-fight-next",
+   "maxGuards": 2,
+   "chestChance": 100,
+   "ladder": {
+    "hunter": [
+     {
+      "chests": [
+       "C"
+      ]
+     },
+     {
+      "chests": [
+       "R"
+      ]
+     },
+     {
+      "chests": [
+       "C",
+       "C"
+      ]
+     },
+     {
+      "chests": [
+       "C",
+       "R"
+      ]
+     },
+     {
+      "chests": [
+       "R",
+       "R"
+      ]
+     },
+     {
+      "chests": [
+       "C",
+       "L"
+      ]
+     },
+     {
+      "chests": [
+       "R",
+       "L"
+      ]
+     },
+     {
+      "chests": [
+       "C",
+       "R",
+       "L"
+      ]
+     },
+     {
+      "chests": [
+       "L",
+       "L"
+      ]
+     },
+     {
+      "chests": [
+       "C",
+       "L",
+       "L"
+      ]
+     }
+    ],
+    "gatherer": [
+     {
+      "chests": [
+       "C"
+      ]
+     },
+     {
+      "chests": [
+       "R"
+      ]
+     },
+     {
+      "chests": [
+       "C",
+       "R"
+      ]
+     },
+     {
+      "chests": [
+       "R",
+       "R"
+      ]
+     },
+     {
+      "chests": [
+       "L"
+      ]
+     },
+     {
+      "chests": [
+       "C",
+       "L"
+      ]
+     },
+     {
+      "chests": [
+       "R",
+       "L"
+      ]
+     },
+     {
+      "chests": [
+       "C",
+       "R",
+       "L"
+      ]
+     },
+     {
+      "chests": [
+       "L",
+       "L"
+      ]
+     },
+     {
+      "chests": [
+       "C",
+       "L",
+       "L"
+      ]
+     }
+    ]
+   },
+   "alert3": {
+    "crateHazards": 1,
+    "lockerHazards": 1
+   },
+   "layouts": {
+    "trophy": {
+     "quest": "hunter",
+     "page": "The Trophy Hold",
+     "chart": "Ledger Page: The Trophy Hold",
+     "character": "the classic balance",
+     "crate": [
+      [
+       "h-blade",
+       "h-wayfinder"
+      ],
+      [
+       "h-blade",
+       "h-wayfinder"
+      ],
+      [
+       "h-blade",
+       "h-wayfinder",
+       "h-warden"
+      ],
+      [
+       "h-veteran",
+       "h-wayfinder"
+      ],
+      [
+       "h-veteran",
+       "h-wayfinder"
+      ]
+     ],
+     "locker": [
+      [
+       "trophy-warden"
+      ],
+      [
+       "trophy-warden"
+      ],
+      [
+       "trophy-warden",
+       "h-wayfinder"
+      ],
+      [
+       "trophy-warden",
+       "h-veteran"
+      ],
+      [
+       "trophy-warden",
+       "h-veteran"
+      ]
+     ],
+     "alertCrew": "h-lookout",
+     "alertBoss": "h-keeper",
+     "hazards": [
+      "wound",
+      "poison",
+      "moveprevent",
+      "decreasemaxpools"
+     ],
+     "alertHazards": [
+      "poison",
+      "decreasemaxpools"
+     ],
+     "lockerHazards": [
+      "wound",
+      "poison",
+      "decreasemaxpools",
+      "wound",
+      "poison"
+     ],
+     "cutHazards": [
+      "wound",
+      "wound"
+     ],
+     "points": {
+      "step": [
+       4.2,
+       0.9,
+       1.3,
+       3,
+       5.4
+      ],
+      "locker": 2.4,
+      "cut": [
+       0,
+       0,
+       0,
+       2,
+       0
+      ]
+     },
+     "lockerSteps": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "cutSteps": [
+      3,
+      4
+     ],
+     "hazardMult": 1,
+     "cutMult": 2.5
+    },
+    "bone": {
+     "quest": "hunter",
+     "page": "The Bone Store",
+     "chart": "Ledger Page: The Bone Store",
+     "character": "lockers early, a cheap but dangerous start",
+     "crate": [
+      [
+       "h-blade",
+       "h-wayfinder"
+      ],
+      [
+       "h-blade",
+       "h-wayfinder"
+      ],
+      [
+       "h-blade",
+       "h-wayfinder",
+       "h-warden"
+      ],
+      [
+       "h-veteran",
+       "h-wayfinder"
+      ],
+      [
+       "h-veteran",
+       "h-wayfinder"
+      ]
+     ],
+     "locker": [
+      [
+       "trophy-warden"
+      ],
+      [
+       "trophy-warden"
+      ],
+      [
+       "trophy-warden",
+       "h-veteran"
+      ],
+      [
+       "trophy-warden",
+       "h-veteran"
+      ],
+      [
+       "trophy-warden",
+       "h-veteran"
+      ]
+     ],
+     "alertCrew": "h-lookout",
+     "alertBoss": "h-keeper",
+     "hazards": [
+      "wound",
+      "poison",
+      "moveprevent",
+      "decreasemaxpools"
+     ],
+     "alertHazards": [
+      "poison",
+      "decreasemaxpools"
+     ],
+     "lockerHazards": [
+      "poison",
+      "wound",
+      "decreasemaxpools",
+      "wound",
+      "poison"
+     ],
+     "cutHazards": [
+      "wound",
+      "wound"
+     ],
+     "points": {
+      "step": [
+       4.2,
+       0.9,
+       1.3,
+       1.2,
+       7.3
+      ],
+      "locker": 2.5,
+      "cut": [
+       0,
+       0,
+       0,
+       2,
+       0
+      ]
+     },
+     "lockerSteps": [
+      1,
+      2,
+      3
+     ],
+     "cutSteps": [
+      3,
+      4
+     ],
+     "hazardMult": 1,
+     "cutMult": 1.5
+    },
+    "snare": {
+     "quest": "hunter",
+     "page": "The Snare Room",
+     "chart": "Ledger Page: The Snare Room",
+     "character": "heavy hazards, safe cut-throughs",
+     "crate": [
+      [
+       "h-blade",
+       "h-wayfinder"
+      ],
+      [
+       "h-blade",
+       "h-wayfinder"
+      ],
+      [
+       "h-blade",
+       "h-wayfinder",
+       "h-warden"
+      ],
+      [
+       "h-veteran",
+       "h-wayfinder"
+      ],
+      [
+       "h-veteran",
+       "h-wayfinder"
+      ]
+     ],
+     "locker": [
+      [
+       "trophy-warden"
+      ],
+      [
+       "trophy-warden",
+       "h-wayfinder"
+      ],
+      [
+       "trophy-warden",
+       "h-wayfinder"
+      ],
+      [
+       "trophy-warden",
+       "h-veteran"
+      ],
+      [
+       "trophy-warden",
+       "h-veteran"
+      ]
+     ],
+     "alertCrew": "h-lookout",
+     "alertBoss": "h-keeper",
+     "hazards": [
+      "wound",
+      "poison",
+      "moveprevent",
+      "decreasemaxpools"
+     ],
+     "alertHazards": [
+      "poison",
+      "decreasemaxpools"
+     ],
+     "lockerHazards": [
+      "wound",
+      "decreasemaxpools",
+      "wound",
+      "wound",
+      "poison"
+     ],
+     "crateHazards": [
+      null,
+      "moveprevent",
+      "wound",
+      "poison",
+      null
+     ],
+     "cutHazards": [
+      "wound",
+      "wound"
+     ],
+     "points": {
+      "step": [
+       5.2,
+       0.9,
+       1.5,
+       1.2,
+       3.5
+      ],
+      "locker": 3.3,
+      "cut": [
+       0,
+       0,
+       0,
+       2,
+       0
+      ]
+     },
+     "lockerSteps": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "cutSteps": [
+      2,
+      3,
+      4
+     ],
+     "hazardMult": 1,
+     "cutMult": 1.5,
+     "roundsAdd": {
+      "cut": -2
+     }
+    },
+    "overgrown": {
+     "quest": "gatherer",
+     "page": "The Overgrown Stores",
+     "chart": "Stores Manifest: The Overgrown Stores",
+     "character": "the classic balance",
+     "crate": [
+      [
+       "g-warden",
+       "g-sentinel",
+       "g-charge"
+      ],
+      [
+       "g-warden",
+       "g-sentinel",
+       "g-charge"
+      ],
+      [
+       "g-sentinel",
+       "g-warden",
+       "g-charge"
+      ],
+      [
+       "g-veteran",
+       "g-warden",
+       "g-charge"
+      ],
+      [
+       "g-veteran",
+       "g-warden",
+       "g-charge"
+      ]
+     ],
+     "locker": [
+      [
+       "stores-ward",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-warden",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-veteran",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-veteran",
+       "g-canister"
+      ]
+     ],
+     "alertCrew": "g-lookout",
+     "alertBoss": "g-sealwright",
+     "hazards": [
+      "elementalseal",
+      "increasepoolcost",
+      "decreasemaxpools",
+      "afterburn"
+     ],
+     "alertHazards": [
+      "increasepoolcost",
+      "decreasemaxpools",
+      "afterburn"
+     ],
+     "lockerHazards": [
+      "elementalseal",
+      "increasepoolcost",
+      "decreasemaxpools",
+      "afterburn",
+      "elementalseal"
+     ],
+     "cutHazards": [
+      "elementalseal",
+      "elementalseal"
+     ],
+     "points": {
+      "step": [
+       3.7,
+       1.4,
+       1.9,
+       2.5,
+       8.6
+      ],
+      "locker": 1.1,
+      "cut": [
+       0,
+       0,
+       0,
+       2,
+       0
+      ]
+     },
+     "lockerSteps": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "cutSteps": [
+      3,
+      4
+     ],
+     "hazardMult": 1,
+     "cutMult": 1.5
+    },
+    "vault": {
+     "quest": "gatherer",
+     "page": "The Ore Vault",
+     "chart": "Stores Manifest: The Ore Vault",
+     "character": "dense guards, rich lockers",
+     "crate": [
+      [
+       "g-warden",
+       "g-sentinel",
+       "g-charge"
+      ],
+      [
+       "g-warden",
+       "g-sentinel",
+       "g-charge"
+      ],
+      [
+       "g-sentinel",
+       "g-warden",
+       "g-charge"
+      ],
+      [
+       "g-veteran",
+       "g-charge"
+      ],
+      [
+       "g-veteran",
+       "g-charge"
+      ]
+     ],
+     "locker": [
+      [
+       "stores-ward",
+       "g-warden",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-warden",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-veteran",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-canister"
+      ]
+     ],
+     "alertCrew": "g-lookout",
+     "alertBoss": "g-sealwright",
+     "hazards": [
+      "elementalseal",
+      "increasepoolcost",
+      "decreasemaxpools",
+      "afterburn"
+     ],
+     "alertHazards": [
+      "increasepoolcost",
+      "decreasemaxpools",
+      "afterburn"
+     ],
+     "lockerHazards": [
+      "increasepoolcost",
+      "elementalseal",
+      "afterburn",
+      "decreasemaxpools",
+      "increasepoolcost"
+     ],
+     "cutHazards": [
+      "elementalseal",
+      "elementalseal"
+     ],
+     "points": {
+      "step": [
+       4.5,
+       1.9,
+       2.2,
+       0.6,
+       0.6
+      ],
+      "locker": 1.9,
+      "cut": [
+       0,
+       0,
+       0,
+       2,
+       0
+      ]
+     },
+     "lockerSteps": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "cutSteps": [
+      3,
+      4
+     ],
+     "hazardMult": 1,
+     "cutMult": 1.5
+    },
+    "bloom": {
+     "quest": "gatherer",
+     "page": "The Bloom Cellar",
+     "chart": "Stores Manifest: The Bloom Cellar",
+     "character": "heavy dust hazards, a steep tier curve",
+     "crate": [
+      [
+       "g-warden",
+       "g-sentinel",
+       "g-charge"
+      ],
+      [
+       "g-warden",
+       "g-sentinel",
+       "g-charge"
+      ],
+      [
+       "g-sentinel",
+       "g-warden",
+       "g-charge"
+      ],
+      [
+       "g-veteran",
+       "g-warden",
+       "g-charge"
+      ],
+      [
+       "g-veteran",
+       "g-warden",
+       "g-charge"
+      ]
+     ],
+     "locker": [
+      [
+       "stores-ward",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-warden",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-veteran",
+       "g-canister"
+      ],
+      [
+       "stores-ward",
+       "g-veteran",
+       "g-canister"
+      ]
+     ],
+     "alertCrew": "g-lookout",
+     "alertBoss": "g-sealwright",
+     "hazards": [
+      "decreasemaxpools",
+      "afterburn",
+      "elementalseal",
+      "increasepoolcost"
+     ],
+     "alertHazards": [
+      "decreasemaxpools",
+      "afterburn",
+      "increasepoolcost"
+     ],
+     "lockerHazards": [
+      "decreasemaxpools",
+      "afterburn",
+      "elementalseal",
+      "decreasemaxpools",
+      "afterburn"
+     ],
+     "crateHazards": [
+      "afterburn",
+      "decreasemaxpools",
+      "afterburn",
+      "decreasemaxpools",
+      "afterburn"
+     ],
+     "cutHazards": [
+      "elementalseal",
+      "elementalseal"
+     ],
+     "points": {
+      "step": [
+       4.1,
+       0.9,
+       1.9,
+       4.2,
+       5.7
+      ],
+      "locker": 1.4,
+      "cut": [
+       0,
+       0,
+       0,
+       2,
+       0
+      ]
+     },
+     "lockerSteps": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "cutSteps": [
+      3,
+      4
+     ],
+     "hazardMult": 1,
+     "cutMult": 1.5
+    }
+   },
+   "modifiers": {
+    "rot": {
+     "name": "Rot-soaked",
+     "effect": "every hazard doubled; every chest one tier higher (+40% bonus chest each)",
+     "weight": 30,
+     "hazardMult": 2,
+     "tierShift": 1,
+     "bonusAll": 40
+    },
+    "flood": {
+     "name": "Flooded hold",
+     "effect": "rooted (moveprevent) for the first 3 rounds of every fight (2 on gatherer pages, RUL-2026-10-29-045); lockers carry no hazard; chests one tier higher (+40% bonus chest)",
+     "weight": 25,
+     "floodRounds": 3,
+     "floodRoundsGatherer": 2,
+     "lockerNoHazard": true,
+     "tierShift": 1,
+     "bonusAll": 40
+    },
+    "alarmed": {
+     "name": "Alarmed",
+     "effect": "start at alertness 2; lockers offered at every step from 4 and worth more; chests one tier higher (+40% bonus chest each)",
+     "weight": 25,
+     "startAlert": 2,
+     "legendaryLockerFrom": 4,
+     "lockerPts": 1.5,
+     "tierShift": 1,
+     "bonusAll": 40
+    },
+    "picked": {
+     "name": "Picked clean",
+     "effect": "easier fights (the previous step's guards, no crate or alertness hazards); chests one tier lower, each at 60%",
+     "weight": 20,
+     "easier": 1,
+     "tierShift": -1,
+     "haulChance": 60
+    }
+   }
+  },
+  "copyRules": {
+   "h-wayfinder": "shared dungeon crew rules (dg-wayfinder)",
+   "h-blade": "shared dungeon crew rules (dg-first-blade)",
+   "h-warden": "shared dungeon crew rules (dg-deck-warden)",
+   "h-veteran": "shared dungeon crew rules (dg-first-blade)",
+   "h-lookout": "shared dungeon crew rules (dg-deck-warden)",
+   "trophy-warden": "source rules + library set piece ring (lib-omen-ring / lib-blast-ring)",
+   "h-keeper": "source rules; fallback fix: use_combo_action -> basic attack (Cycly through a specific combo of jutsu & items); use_highest_power_action -> basic attack (Use highest power action of given effect); includeDefaultRules true -> false; engine backup rules restated (move towards, basic attack)",
+   "g-warden": "shared dungeon crew rules (dg-deck-warden)",
+   "g-sentinel": "shared dungeon crew rules (dg-skyglass-sentinel)",
+   "g-veteran": "shared dungeon crew rules (dg-skyglass-sentinel)",
+   "g-lookout": "shared dungeon crew rules (dg-deck-warden)",
+   "g-charge": "set charge: stationary, Core Rupture adjacent (<= 0) or fuse round 4",
+   "g-canister": "set charge: stationary, Core Rupture adjacent (<= 0) or fuse round 5",
+   "stores-ward": "source rules + library set piece sealLines (lib-omen-seal-lines / lib-blast-seal-lines)",
+   "g-sealwright": "source rules"
+  }
+ },
+ "values": {
+  "hunter": {
+   "C": 4.2,
+   "R": 6.1,
+   "E": 6.7,
+   "L": 11.5
+  },
+  "gatherer": {
+   "C": 3.2,
+   "R": 4.9,
+   "E": 5.4,
+   "L": 10.5
+  }
+ },
+ "results": [
+  {
+   "variant": "snare",
+   "method": "exact prefix tree",
+   "paths": [
+    {
+     "path": "CLLC",
+     "tiers": "r4:R+R",
+     "haulM": 12.2,
+     "seeds": 40,
+     "clears": 19,
+     "clearPct": 47.5,
+     "evM": 5.8,
+     "minutesClearMedian": 5,
+     "minutesAllMean": 4.6,
+     "failsAtStep": {
+      "2": 4,
+      "3": 10,
+      "4": 7
+     }
+    },
+    {
+     "path": "CLL",
+     "tiers": "r4:R+R",
+     "haulM": 12.2,
+     "seeds": 40,
+     "clears": 26,
+     "clearPct": 65,
+     "evM": 7.93,
+     "minutesClearMedian": 4,
+     "minutesAllMean": 4,
+     "failsAtStep": {
+      "2": 4,
+      "3": 10
+     }
+    },
+    {
+     "path": "LCLC",
+     "tiers": "r4:R+R",
+     "haulM": 12.2,
+     "seeds": 40,
+     "clears": 21,
+     "clearPct": 52.5,
+     "evM": 6.4,
+     "minutesClearMedian": 5,
+     "minutesAllMean": 4.8,
+     "failsAtStep": {
+      "3": 8,
+      "4": 11
+     }
+    },
+    {
+     "path": "LCL",
+     "tiers": "r4:R+R",
+     "haulM": 12.2,
+     "seeds": 40,
+     "clears": 32,
+     "clearPct": 80,
+     "evM": 9.76,
+     "minutesClearMedian": 4.3,
+     "minutesAllMean": 4,
+     "failsAtStep": {
+      "3": 8
+     }
+    },
+    {
+     "path": "LCXLC",
+     "tiers": "r6:R+L",
+     "haulM": 17.6,
+     "seeds": 40,
+     "clears": 26,
+     "clearPct": 65,
+     "evM": 11.44,
+     "minutesClearMedian": 5.3,
+     "minutesAllMean": 4.9,
+     "failsAtStep": {
+      "4": 9,
+      "5": 5
+     }
+    },
+    {
+     "path": "LLCC",
+     "tiers": "r4:R+R",
+     "haulM": 12.2,
+     "seeds": 40,
+     "clears": 7,
+     "clearPct": 17.5,
+     "evM": 2.13,
+     "minutesClearMedian": 4.8,
+     "minutesAllMean": 4,
+     "failsAtStep": {
+      "2": 8,
+      "3": 9,
+      "4": 16
+     }
+    },
+    {
+     "path": "LLL",
+     "tiers": "r5:C+L",
+     "haulM": 15.7,
+     "seeds": 40,
+     "clears": 26,
+     "clearPct": 65,
+     "evM": 10.21,
+     "minutesClearMedian": 3.8,
+     "minutesAllMean": 3.5,
+     "failsAtStep": {
+      "2": 8,
+      "3": 6
+     }
+    }
+   ],
+   "fights": {
+    "C": {
+     "key": "snare:C1:a0:p-",
+     "label": "snare step 1 crate alert 0 [h-blade+h-wayfinder] hz -",
+     "reached": 40,
+     "won": 40,
+     "winPct": 100,
+     "roundsMedian": 4,
+     "roundsP90": 6,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 106.1,
+     "hpCostMedian": 17.6,
+     "outcomes": {
+      "won": 40
+     },
+     "losses": 0,
+     "lossStunsMean": null,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": null,
+     "chainLosses": 0
+    },
+    "CL": {
+     "key": "snare:L2:a0:p-",
+     "label": "snare step 2 locker alert 0 [trophy-warden+h-wayfinder] hz decreasemaxpoolsx1/2",
+     "reached": 40,
+     "won": 36,
+     "winPct": 90,
+     "roundsMedian": 7,
+     "roundsP90": 8,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 95.4,
+     "hpCostMedian": 28.3,
+     "outcomes": {
+      "won": 36,
+      "wipe": 4
+     },
+     "losses": 4,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 43.9,
+     "chainLosses": 4
+    },
+    "CLL": {
+     "key": "snare:L3:a1:p-",
+     "label": "snare step 3 locker alert 1 [trophy-warden+h-wayfinder] hz woundx1/2,poisonx1/2",
+     "reached": 36,
+     "won": 26,
+     "winPct": 72.2,
+     "roundsMedian": 7,
+     "roundsP90": 7,
+     "hpStartMedian": 119.2,
+     "hpEndMedian": 67.3,
+     "hpCostMedian": 51.9,
+     "outcomes": {
+      "wipe": 10,
+      "won": 26
+     },
+     "losses": 10,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 37.6,
+     "chainLosses": 5
+    },
+    "CLLC": {
+     "key": "snare:C4:a2:p-",
+     "label": "snare step 4 crate alert 2 [h-veteran+h-wayfinder] hz poisonx1/2,decreasemaxpoolsx1/2",
+     "reached": 26,
+     "won": 19,
+     "winPct": 73.1,
+     "roundsMedian": 4,
+     "roundsP90": 6,
+     "hpStartMedian": 91.1,
+     "hpEndMedian": 42.7,
+     "hpCostMedian": 48.4,
+     "outcomes": {
+      "won": 19,
+      "wipe": 7
+     },
+     "losses": 7,
+     "lossStunsMean": 0,
+     "winStunsMean": 0.2,
+     "lossMaxStepPctMedian": 34,
+     "chainLosses": 0
+    },
+    "L": {
+     "key": "snare:L1:a0:p-",
+     "label": "snare step 1 locker alert 0 [trophy-warden] hz woundx1/2",
+     "reached": 40,
+     "won": 40,
+     "winPct": 100,
+     "roundsMedian": 4,
+     "roundsP90": 4,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 102.4,
+     "hpCostMedian": 21.4,
+     "outcomes": {
+      "won": 40
+     },
+     "losses": 0,
+     "lossStunsMean": null,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": null,
+     "chainLosses": 0
+    },
+    "LC": {
+     "key": "snare:C2:a1:p-",
+     "label": "snare step 2 crate alert 1 [h-blade+h-wayfinder] hz movepreventx1/2,decreasemaxpoolsx1/2",
+     "reached": 40,
+     "won": 40,
+     "winPct": 100,
+     "roundsMedian": 6,
+     "roundsP90": 7,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 88.1,
+     "hpCostMedian": 35.6,
+     "outcomes": {
+      "won": 40
+     },
+     "losses": 0,
+     "lossStunsMean": null,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": null,
+     "chainLosses": 0
+    },
+    "LCL": {
+     "key": "snare:L3:a1:p-",
+     "label": "snare step 3 locker alert 1 [trophy-warden+h-wayfinder] hz woundx1/2,poisonx1/2",
+     "reached": 40,
+     "won": 32,
+     "winPct": 80,
+     "roundsMedian": 7,
+     "roundsP90": 7,
+     "hpStartMedian": 111.9,
+     "hpEndMedian": 53.4,
+     "hpCostMedian": 58.5,
+     "outcomes": {
+      "wipe": 8,
+      "won": 32
+     },
+     "losses": 8,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 43.9,
+     "chainLosses": 7
+    },
+    "LCLC": {
+     "key": "snare:C4:a2:p-",
+     "label": "snare step 4 crate alert 2 [h-veteran+h-wayfinder] hz poisonx1/2,decreasemaxpoolsx1/2",
+     "reached": 32,
+     "won": 21,
+     "winPct": 65.6,
+     "roundsMedian": 3.5,
+     "roundsP90": 8,
+     "hpStartMedian": 77.1,
+     "hpEndMedian": 42.1,
+     "hpCostMedian": 35,
+     "outcomes": {
+      "wipe": 11,
+      "won": 21
+     },
+     "losses": 11,
+     "lossStunsMean": 0.3,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": 34,
+     "chainLosses": 0
+    },
+    "LCXL": {
+     "key": "snare:L4:a1:p3",
+     "label": "snare step 4 locker alert 1 cut-hazard [trophy-warden+h-veteran] hz woundx1.5/2,decreasemaxpoolsx1/2",
+     "reached": 40,
+     "won": 31,
+     "winPct": 77.5,
+     "roundsMedian": 7,
+     "roundsP90": 7,
+     "hpStartMedian": 111.9,
+     "hpEndMedian": 55.8,
+     "hpCostMedian": 56.1,
+     "outcomes": {
+      "won": 31,
+      "wipe": 9
+     },
+     "losses": 9,
+     "lossStunsMean": 0,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": 39,
+     "chainLosses": 2
+    },
+    "LCXLC": {
+     "key": "snare:C5:a2:p-",
+     "label": "snare step 5 crate alert 2 [h-veteran+h-wayfinder] hz poisonx1/2",
+     "reached": 31,
+     "won": 26,
+     "winPct": 83.9,
+     "roundsMedian": 5,
+     "roundsP90": 8,
+     "hpStartMedian": 79.6,
+     "hpEndMedian": 33.4,
+     "hpCostMedian": 46.2,
+     "outcomes": {
+      "won": 26,
+      "wipe": 5
+     },
+     "losses": 5,
+     "lossStunsMean": 0.2,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 15.7,
+     "chainLosses": 0
+    },
+    "LL": {
+     "key": "snare:L2:a1:p-",
+     "label": "snare step 2 locker alert 1 [trophy-warden+h-wayfinder] hz decreasemaxpoolsx1/2,poisonx1/2",
+     "reached": 40,
+     "won": 32,
+     "winPct": 80,
+     "roundsMedian": 5,
+     "roundsP90": 7,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 75.2,
+     "hpCostMedian": 48.5,
+     "outcomes": {
+      "won": 32,
+      "wipe": 8
+     },
+     "losses": 8,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 60,
+     "chainLosses": 8
+    },
+    "LLC": {
+     "key": "snare:C3:a2:p-",
+     "label": "snare step 3 crate alert 2 [h-blade+h-wayfinder+h-warden] hz woundx1/2,poisonx1/2",
+     "reached": 32,
+     "won": 23,
+     "winPct": 71.9,
+     "roundsMedian": 6,
+     "roundsP90": 8,
+     "hpStartMedian": 99,
+     "hpEndMedian": 31,
+     "hpCostMedian": 68,
+     "outcomes": {
+      "wipe": 9,
+      "won": 23
+     },
+     "losses": 9,
+     "lossStunsMean": 0.1,
+     "winStunsMean": 0.2,
+     "lossMaxStepPctMedian": 10.5,
+     "chainLosses": 0
+    },
+    "LLCC": {
+     "key": "snare:C4:a2:p-",
+     "label": "snare step 4 crate alert 2 [h-veteran+h-wayfinder] hz poisonx1/2,decreasemaxpoolsx1/2",
+     "reached": 23,
+     "won": 7,
+     "winPct": 30.4,
+     "roundsMedian": 2,
+     "roundsP90": 5,
+     "hpStartMedian": 54.8,
+     "hpEndMedian": 27,
+     "hpCostMedian": 27.8,
+     "outcomes": {
+      "wipe": 16,
+      "won": 7
+     },
+     "losses": 16,
+     "lossStunsMean": 0.1,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": 34,
+     "chainLosses": 0
+    },
+    "LLL": {
+     "key": "snare:L3:a2:p-",
+     "label": "snare step 3 locker alert 2 [trophy-warden+h-wayfinder] hz woundx1/2,poisonx1/2",
+     "reached": 32,
+     "won": 26,
+     "winPct": 81.3,
+     "roundsMedian": 5.5,
+     "roundsP90": 8,
+     "hpStartMedian": 99,
+     "hpEndMedian": 54.2,
+     "hpCostMedian": 44.8,
+     "outcomes": {
+      "won": 26,
+      "wipe": 6
+     },
+     "losses": 6,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 43.1,
+     "chainLosses": 4
+    }
+   },
+   "quest": "hunter",
+   "wallMin": 2.3
+  },
+  {
+   "variant": "bloom",
+   "method": "exact prefix tree",
+   "paths": [
+    {
+     "path": "CLLC",
+     "tiers": "r5:C+L",
+     "haulM": 13.7,
+     "seeds": 40,
+     "clears": 20,
+     "clearPct": 50,
+     "evM": 6.85,
+     "minutesClearMedian": 4.8,
+     "minutesAllMean": 4.7,
+     "failsAtStep": {
+      "3": 1,
+      "4": 19
+     }
+    },
+    {
+     "path": "CLL",
+     "tiers": "r2:C+R",
+     "haulM": 8.1,
+     "seeds": 40,
+     "clears": 39,
+     "clearPct": 97.5,
+     "evM": 7.9,
+     "minutesClearMedian": 3.8,
+     "minutesAllMean": 3.8,
+     "failsAtStep": {
+      "3": 1
+     }
+    },
+    {
+     "path": "LCLC",
+     "tiers": "r5:C+L",
+     "haulM": 13.7,
+     "seeds": 40,
+     "clears": 20,
+     "clearPct": 50,
+     "evM": 6.85,
+     "minutesClearMedian": 5,
+     "minutesAllMean": 4.8,
+     "failsAtStep": {
+      "2": 1,
+      "3": 3,
+      "4": 16
+     }
+    },
+    {
+     "path": "LCL",
+     "tiers": "r2:C+R",
+     "haulM": 8.1,
+     "seeds": 40,
+     "clears": 36,
+     "clearPct": 90,
+     "evM": 7.29,
+     "minutesClearMedian": 4,
+     "minutesAllMean": 3.9,
+     "failsAtStep": {
+      "2": 1,
+      "3": 3
+     }
+    },
+    {
+     "path": "LCXLC",
+     "tiers": "r7:C+R+L",
+     "haulM": 18.6,
+     "seeds": 40,
+     "clears": 1,
+     "clearPct": 2.5,
+     "evM": 0.47,
+     "minutesClearMedian": 5.3,
+     "minutesAllMean": 4,
+     "failsAtStep": {
+      "2": 1,
+      "4": 32,
+      "5": 6
+     }
+    },
+    {
+     "path": "LLCC",
+     "tiers": "r5:C+L",
+     "haulM": 13.7,
+     "seeds": 40,
+     "clears": 29,
+     "clearPct": 72.5,
+     "evM": 9.93,
+     "minutesClearMedian": 5.3,
+     "minutesAllMean": 4.9,
+     "failsAtStep": {
+      "3": 1,
+      "4": 10
+     }
+    },
+    {
+     "path": "LLL",
+     "tiers": "r4:L",
+     "haulM": 10.5,
+     "seeds": 40,
+     "clears": 39,
+     "clearPct": 97.5,
+     "evM": 10.24,
+     "minutesClearMedian": 4,
+     "minutesAllMean": 4.1,
+     "failsAtStep": {
+      "3": 1
+     }
+    }
+   ],
+   "fights": {
+    "C": {
+     "key": "bloom:C1:a0:p-",
+     "label": "bloom step 1 crate alert 0 [g-warden+g-sentinel+g-charge] hz afterburnx1/2",
+     "reached": 40,
+     "won": 40,
+     "winPct": 100,
+     "roundsMedian": 5,
+     "roundsP90": 6,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 91.8,
+     "hpCostMedian": 32,
+     "outcomes": {
+      "won": 40
+     },
+     "losses": 0,
+     "lossStunsMean": null,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": null,
+     "chainLosses": 0
+    },
+    "CL": {
+     "key": "bloom:L2:a0:p-",
+     "label": "bloom step 2 locker alert 0 [stores-ward+g-canister] hz afterburnx1/2",
+     "reached": 40,
+     "won": 40,
+     "winPct": 100,
+     "roundsMedian": 4,
+     "roundsP90": 5,
+     "hpStartMedian": 115.6,
+     "hpEndMedian": 95.3,
+     "hpCostMedian": 20.3,
+     "outcomes": {
+      "won": 40
+     },
+     "losses": 0,
+     "lossStunsMean": null,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": null,
+     "chainLosses": 0
+    },
+    "CLL": {
+     "key": "bloom:L3:a1:p-",
+     "label": "bloom step 3 locker alert 1 [stores-ward+g-warden+g-canister] hz elementalsealx1/2,increasepoolcostx1/2",
+     "reached": 40,
+     "won": 39,
+     "winPct": 97.5,
+     "roundsMedian": 6,
+     "roundsP90": 8,
+     "hpStartMedian": 119.1,
+     "hpEndMedian": 77.8,
+     "hpCostMedian": 41.2,
+     "outcomes": {
+      "won": 39,
+      "wipe": 1
+     },
+     "losses": 1,
+     "lossStunsMean": 1,
+     "winStunsMean": 0.2,
+     "lossMaxStepPctMedian": 13.3,
+     "chainLosses": 0
+    },
+    "CLLC": {
+     "key": "bloom:C4:a2:p-",
+     "label": "bloom step 4 crate alert 2 [g-veteran+g-warden+g-charge] hz decreasemaxpoolsx1/2,afterburnx1/2",
+     "reached": 39,
+     "won": 20,
+     "winPct": 51.3,
+     "roundsMedian": 4,
+     "roundsP90": 6,
+     "hpStartMedian": 101.6,
+     "hpEndMedian": 56.6,
+     "hpCostMedian": 45,
+     "outcomes": {
+      "won": 20,
+      "wipe": 19
+     },
+     "losses": 19,
+     "lossStunsMean": 0.3,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": 36.2,
+     "chainLosses": 7
+    },
+    "L": {
+     "key": "bloom:L1:a0:p-",
+     "label": "bloom step 1 locker alert 0 [stores-ward+g-canister] hz decreasemaxpoolsx1/2",
+     "reached": 40,
+     "won": 40,
+     "winPct": 100,
+     "roundsMedian": 4,
+     "roundsP90": 5,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 112,
+     "hpCostMedian": 11.7,
+     "outcomes": {
+      "won": 40
+     },
+     "losses": 0,
+     "lossStunsMean": null,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": null,
+     "chainLosses": 0
+    },
+    "LC": {
+     "key": "bloom:C2:a1:p-",
+     "label": "bloom step 2 crate alert 1 [g-warden+g-sentinel+g-charge] hz decreasemaxpoolsx1/2,afterburnx1/2",
+     "reached": 40,
+     "won": 39,
+     "winPct": 97.5,
+     "roundsMedian": 5,
+     "roundsP90": 6,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 92.8,
+     "hpCostMedian": 31,
+     "outcomes": {
+      "won": 39,
+      "wipe": 1
+     },
+     "losses": 1,
+     "lossStunsMean": 1,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": 36.2,
+     "chainLosses": 0
+    },
+    "LCL": {
+     "key": "bloom:L3:a1:p-",
+     "label": "bloom step 3 locker alert 1 [stores-ward+g-warden+g-canister] hz elementalsealx1/2,increasepoolcostx1/2",
+     "reached": 39,
+     "won": 36,
+     "winPct": 92.3,
+     "roundsMedian": 6,
+     "roundsP90": 8,
+     "hpStartMedian": 116.6,
+     "hpEndMedian": 61.6,
+     "hpCostMedian": 54.9,
+     "outcomes": {
+      "won": 36,
+      "wipe": 3
+     },
+     "losses": 3,
+     "lossStunsMean": 1,
+     "winStunsMean": 0.3,
+     "lossMaxStepPctMedian": 58.3,
+     "chainLosses": 3
+    },
+    "LCLC": {
+     "key": "bloom:C4:a2:p-",
+     "label": "bloom step 4 crate alert 2 [g-veteran+g-warden+g-charge] hz decreasemaxpoolsx1/2,afterburnx1/2",
+     "reached": 36,
+     "won": 20,
+     "winPct": 55.6,
+     "roundsMedian": 4,
+     "roundsP90": 6,
+     "hpStartMedian": 85.4,
+     "hpEndMedian": 64.3,
+     "hpCostMedian": 21.1,
+     "outcomes": {
+      "won": 20,
+      "wipe": 16
+     },
+     "losses": 16,
+     "lossStunsMean": 0.3,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": 48.2,
+     "chainLosses": 11
+    },
+    "LCXL": {
+     "key": "bloom:L4:a1:p3",
+     "label": "bloom step 4 locker alert 1 cut-hazard [stores-ward+g-veteran+g-canister] hz decreasemaxpoolsx1/2,elementalsealx1.5/4,afterburnx1/2",
+     "reached": 39,
+     "won": 7,
+     "winPct": 17.9,
+     "roundsMedian": 6,
+     "roundsP90": 10,
+     "hpStartMedian": 116.6,
+     "hpEndMedian": 15.7,
+     "hpCostMedian": 100.8,
+     "outcomes": {
+      "wipe": 32,
+      "won": 7
+     },
+     "losses": 32,
+     "lossStunsMean": 0.5,
+     "winStunsMean": 0.9,
+     "lossMaxStepPctMedian": 39.2,
+     "chainLosses": 14
+    },
+    "LCXLC": {
+     "key": "bloom:C5:a2:p-",
+     "label": "bloom step 5 crate alert 2 [g-veteran+g-warden+g-charge] hz afterburnx1/2,increasepoolcostx1/2",
+     "reached": 7,
+     "won": 1,
+     "winPct": 14.3,
+     "roundsMedian": 3,
+     "roundsP90": 4,
+     "hpStartMedian": 39.5,
+     "hpEndMedian": 56.6,
+     "hpCostMedian": -17.1,
+     "outcomes": {
+      "wipe": 6,
+      "won": 1
+     },
+     "losses": 6,
+     "lossStunsMean": 0,
+     "winStunsMean": 0,
+     "lossMaxStepPctMedian": 30.7,
+     "chainLosses": 0
+    },
+    "LL": {
+     "key": "bloom:L2:a1:p-",
+     "label": "bloom step 2 locker alert 1 [stores-ward+g-canister+g-lookout] hz afterburnx1/2,increasepoolcostx1/2",
+     "reached": 40,
+     "won": 40,
+     "winPct": 100,
+     "roundsMedian": 6,
+     "roundsP90": 8,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 94.5,
+     "hpCostMedian": 29.2,
+     "outcomes": {
+      "won": 40
+     },
+     "losses": 0,
+     "lossStunsMean": null,
+     "winStunsMean": 0.2,
+     "lossMaxStepPctMedian": null,
+     "chainLosses": 0
+    },
+    "LLC": {
+     "key": "bloom:C3:a2:p-",
+     "label": "bloom step 3 crate alert 2 [g-sentinel+g-warden+g-charge] hz afterburnx1/2,increasepoolcostx1/2",
+     "reached": 40,
+     "won": 39,
+     "winPct": 97.5,
+     "roundsMedian": 5,
+     "roundsP90": 7,
+     "hpStartMedian": 118.3,
+     "hpEndMedian": 80.2,
+     "hpCostMedian": 38.1,
+     "outcomes": {
+      "won": 39,
+      "wipe": 1
+     },
+     "losses": 1,
+     "lossStunsMean": 1,
+     "winStunsMean": 0.2,
+     "lossMaxStepPctMedian": 37.3,
+     "chainLosses": 0
+    },
+    "LLCC": {
+     "key": "bloom:C4:a2:p-",
+     "label": "bloom step 4 crate alert 2 [g-veteran+g-warden+g-charge] hz decreasemaxpoolsx1/2,afterburnx1/2",
+     "reached": 39,
+     "won": 29,
+     "winPct": 74.4,
+     "roundsMedian": 5,
+     "roundsP90": 6,
+     "hpStartMedian": 104,
+     "hpEndMedian": 65.9,
+     "hpCostMedian": 38.1,
+     "outcomes": {
+      "wipe": 10,
+      "won": 29
+     },
+     "losses": 10,
+     "lossStunsMean": 0.2,
+     "winStunsMean": 0.1,
+     "lossMaxStepPctMedian": 40.1,
+     "chainLosses": 5
+    },
+    "LLL": {
+     "key": "bloom:L3:a2:p-",
+     "label": "bloom step 3 locker alert 2 [stores-ward+g-warden+g-canister] hz elementalsealx1/2,increasepoolcostx1/2",
+     "reached": 40,
+     "won": 39,
+     "winPct": 97.5,
+     "roundsMedian": 6,
+     "roundsP90": 8,
+     "hpStartMedian": 118.3,
+     "hpEndMedian": 66.5,
+     "hpCostMedian": 51.8,
+     "outcomes": {
+      "won": 39,
+      "wipe": 1
+     },
+     "losses": 1,
+     "lossStunsMean": 1,
+     "winStunsMean": 0.2,
+     "lossMaxStepPctMedian": 50.3,
+     "chainLosses": 1
+    }
+   },
+   "quest": "gatherer",
+   "wallMin": 2.9
+  }
+ ],
+ "fallbackGuard": {
+  "setPieceCasts": 1655,
+  "unmarkedCasts": 0,
+  "byEnemyJutsu": {},
+  "first": []
+ }
+}
