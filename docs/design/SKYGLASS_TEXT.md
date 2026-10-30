@@ -908,7 +908,7 @@ The six Haul pages: §3.2.
 
 **`item:Sage's Strongbox.description`** (the Forbidden tier colour: open question 8)
 ```html
-<i>The Sealwright's strongbox of remedies meant for enemies, not allies.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 65%</b></span> · Dr. Kim Disaster Potion ×20 <i>or</i> Chakra Disrupting Needles ×20<br><span style="color:#a855f7"><b>Epic 26%</b></span> · Infernum ×10 <i>or</i> Bashōsen ×10 <i>or</i> Dr. Kim's Poison Potion ×10<br><span style="color:#f59e0b"><b>Legendary 8%</b></span> · Solider Pill ×2 <i>or</i> Enemy Pill ×2 <i>or</i> Mona's Mermaid Song ×2<br><span style="color:#ef4444"><b>Forbidden 1%</b></span> · Forbidden Jutsu Scroll: Nexus <i>or</i> Rebirth
+<i>The Sealwright's strongbox of remedies meant for enemies, not allies.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 65%</b></span> · Dr. Kim Disaster Potion ×20 <i>or</i> Chakra Disrupting Needles ×20<br><span style="color:#a855f7"><b>Epic 26%</b></span> · Infernum ×10 <i>or</i> Bashōsen ×10 <i>or</i> Dr. Kim's Poison Potion ×10<br><span style="color:#f59e0b"><b>Legendary 8%</b></span> · Solider Pill ×2 <i>or</i> Enemy Pill ×2 <i>or</i> Mona's Mermaid Song ×2<br><span style="color:#ef4444"><b>Forbidden 1%</b></span> · Forbidden Jutsu Scroll: Nexus <i>or</i> Forbidden Jutsu Scroll: Rebirth
 ```
 
 **`item:Elemental Tool Pouch.description`** (live story kept)
