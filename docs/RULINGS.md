@@ -4718,3 +4718,27 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-30: approved all fixes from the final Skyglass simulation pass, plus the Sealwright variant's base (Whispering Dawnblade) and the Wreck variant-token rate (5%).
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` (items 1-3, 7); `docs/design/SKYGLASS_THE_HAUL.md` (item 4); `docs/design/SKYGLASS_LOOT_TABLES.md` (items 5, 6, 8-10); `docs/design/SKYGLASS_TEXT.md` (item 6 text); `docs/design/SKYGLASS_ART_AUDIT.md` (rates and the Sealwright base). The fitted Haul points live in the Haul harness until the build.
+
+## RUL-2026-10-30-061 — Skyglass art audit decisions
+
+**Date:** 2026-10-30
+
+**Domain:** Skyglass event / art
+
+**Status:** ACTIVE.
+
+**Ruling** (on `docs/design/SKYGLASS_ART_AUDIT.md` "Top uncertainties" 1-10):
+1. **Redraws stay cancelled** (RUL-2026-10-28-007): the 17 pixel redraws (#49-#65) and the 14 Skyglass scene redraws (#66-#79). The four Foundry rooms and the three-coves shore are **not** revived as new locations.
+2. **Boss variant token icons:** one token base with seven variant motifs (only the motif changes).
+3. **Haul page icons:** two bases (Ledger Page, Stores Manifest) plus four recolours, one icon per page.
+4. **Seal colours:** rot-green only on the two tainted charts (Rotted Reliquary Seal, The Rotted Heading). The Lantern and the Haul pages take the game's Legendary frame; no rot-green seal. Existing live chart and chest icons are **not** redrawn to fit the tier scheme; new icons (Galley Stores, Crown's Hoard, the new charts) follow it from the start.
+5. **Crown's Hoard icon and the Little Maw jutsu icon** are added to the art sessions.
+6. **AI-only jutsu** (about 37) keep the engine default image.
+7. **Scenes reuse existing ship art:** Wreck Sighted `cache_site` (the beach); The Haul `lower_hull` and `hold`; steeping `hold`.
+8. **Foundry Warden avatar:** upload the finished repo version (`art/skyglass_event_icons/avatars/avatar_skyglass_foundry_warden.webp`). It was never live, so RUL-2026-10-28-007 does not block it.
+9. **Crownhold scenes: six for release**, per the package shot list (gate, Experimental Armory, Skyglass Research, High Command, Command Sanctum / throne room, signal room). The other 13 batch scenes are deferred; the borrowed ship scenes cover them meanwhile.
+10. **Animations without an id reuse existing strips:** the violet Binding blast reuses `anim_chain_wrap_v1.webp`; the Shell Wall shares the Gunwale barrier; Steady the Helm, Mending Seal, Stolen Form and Extermination Order get no flourish of their own; the Last Directive blaze uses `anim_crown_aura_v1.webp`.
+
+**Evidence:** Director, 2026-10-30: "Approve all" on the ten recommendations.
+
+**Canonical destination:** `docs/design/SKYGLASS_ART_AUDIT.md`.

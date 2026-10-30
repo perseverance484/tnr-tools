@@ -1,6 +1,6 @@
 # Skyglass event: visual asset audit
 
-**Status:** AUDIT (Lane B planning document, 2026-10-30, `main` at `0e791fb0`). Zero live requests. It lists every visual
+**Status:** AUDIT, decisions settled by RUL-2026-10-30-061 (see the end). Lane B planning document, 2026-10-30, `main` at `0e791fb0`). Zero live requests. It lists every visual
 asset the Skyglass event (the Wreck, the chart runs, the hunts, The Haul, Crownhold, the rewards) needs, with its status,
 so the director can plan art sessions. This file owns no rule. Where it disagrees with the rulings or the design docs,
 they win and this file is corrected.
@@ -564,20 +564,17 @@ Counts are images to make or upload. UNCERTAIN items are excluded from the count
 
 Writing task alongside: the Little Horror's ten `rankConcepts`.
 
-### Top uncertainties (director decisions)
+### Director decisions (RUL-2026-10-30-061)
 
-1. **RUL-2026-10-28-007's reach.** Read here as cancelling the 17 pixel redraws (#49-#65) and the 14 scene redraws
-   (#66-#79). The four Foundry rooms and the three-coves shore are new locations; revive them or not?
-2. **Variant token icons:** seven distinct icons, or one token base with seven motifs?
-3. **Haul page icons:** six, or two (one per profession)?
-4. **Seal colours for the Lantern and the Haul pages** (Legendary, but rot-green was ruled for tainted charts), and
-   whether existing live chart and chest icons must be brought into the tier scheme.
-5. **Crown's Hoard and Little Maw** have no art entry in any design doc; both are player-facing and would ship with
-   placeholders.
-6. **AI-only jutsu icons** (about 37): keep the engine default, or a small shared glyph family?
-7. **Scenes for Wreck Sighted, The Haul and steeping:** reuse (assumed: `cache_site`, `hold` / `lower_hull`, `hold`) or new.
-8. **Foundry Warden avatar:** upload the repo version, redo it (RUL-2026-10-26-002 queue), or keep the Arsenal Keeper
-   sprite.
-9. **Crownhold scenes:** 19 (batch) or 6 (package shot list); and whether they are needed for release at all.
-10. **Animations without an id** (Steady the Helm, Mending Seal, Stolen Form, the Last Directive blaze, the Shell Wall)
-    and whether the violet blast reuses `chain_wrap` / `command_absolute`.
+All ten former uncertainties are settled; the ruling is the record. In short: redraws stay cancelled and the Foundry
+rooms / coves are not revived; one variant-token base with seven motifs; two Haul page bases plus four recolours;
+rot-green only on the two tainted charts (the Lantern and Haul pages take the Legendary frame; no live icon is redrawn);
+Crown's Hoard and Little Maw join the art sessions; AI-only jutsu keep the default image; Wreck Sighted uses
+`cache_site`, The Haul `lower_hull` / `hold`, steeping `hold`; the repo Foundry Warden avatar is uploaded; six Crownhold
+scenes for release (gate #27, proving hall #28, vat halls #34, planning hall #38, throne room #45, signal room #37;
+the other 13 deferred); the violet blast reuses `chain_wrap`, the Shell Wall the Gunwale sprite, the Last Directive
+blaze `crown_aura`, and the rest get no flourish.
+
+Counts after the ruling (the table above predates it): **NEEDS ART 59** (scenes 6, portrait 1, avatars 8, item icons 13
+incl. the token base and Crown's Hoard, variants 19, jutsu icons 4, animations 8 with the violet blast now reused), **derived 13** (7 token motifs, 2 tainted, 4 Haul pages; the neutral pouch stays a director call), **uploads 32**
+(the 31 plus the Foundry Warden). Deferred: 13 Crownhold scenes.

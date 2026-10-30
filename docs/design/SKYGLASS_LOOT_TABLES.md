@@ -62,7 +62,7 @@ Descriptions are generated from the same tables the caches are built from, so th
 | Galley Stores | pet experience (§5b) | Easy Wreck clear 10%; Low Tide Run, Night Watch, Buried Cache and Foundry picks; The Fall pick (×3); chest of chests Rare |
 | Skyglass Token | unlocks any one Skyglass skin (§5d) | Archive, Watch, Sealed Reliquary and The Fall picks; chest of chests Legendary; Crown's Hoard (RUL-2026-10-29-049) |
 | Trophy tokens | each unlocks one boss skin (§5d) | the Wreck bosses (5%, once per player, RUL-2026-10-30-060); chart and hunt bosses (1% hunts, 2% rares, 4% tainted); Walked Every Deck (Crownbreaker) |
-| The Little Horror's Jar | the event's one pet (§5b) | endgame Wreck clear, once per player (proposed 5%) |
+| The Little Horror's Jar | the event's one pet (§5b) | endgame Wreck clear, once per player, 5% (RUL-2026-10-29-054) |
 | Crown's Hoard | opens the Skyglass Coffer and Sealed Treasury caches together, plus a Skyglass Token (RUL-2026-10-28-013, -049) | Crownhold pick |
 | Core Rot | steeping reagent (§5) | Endgame Wreck clears, the common runs, the Core Horror's hunt runs, breaking the seal, a failed rare run (§5) |
 | Charts / Lastlight Lantern | hunt access (§5) | Wreck clear drops, the chart ladder, the Archive Chart Case |
@@ -357,14 +357,13 @@ Engine (theninjarpg upstream `3314d122`, after the 2af4b320 pin):
 
 **New art:**
 - 12 catalogue skin images;
-- 7 trophy skin images;
+- 7 boss variant images;
 - the Skyglass Token icon;
-- 7 trophy token icons.
+- 7 boss variant token icons (one token base, seven motifs: RUL-2026-10-30-061).
 
 ## 6. To check before the manifests
 
 Open:
-- **Little Horror's Jar rate** (proposed 5%, once per player).
 - **Galley Stores amount:** the pet-experience lump (director).
 - **Core Rot in the easy Wreck:** none (RUL-2026-10-28-020). Only the endgame Wreck drops it.
 - **Profession material id lists** per hunt (§4b), from the push/323 capture.
