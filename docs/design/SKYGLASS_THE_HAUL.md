@@ -146,32 +146,12 @@ roll: drops, chest openings and reward chances.
 
    Variants differ in which steps offer lockers, the guard mix, the hazards and the tier curve, so the best route
    depends on the page.
-2. **Steeping (RUL-2026-10-28-010 rules).** A Haul page plus 3 Core Rot steeps into a **Rot-Sealed Page** of that
-   same page: a weighted-cache item whose opening rolls one of the 4 modifiers below. The layout is kept: steep the
-   Bone Store, get a modified Bone Store. Each page has its own Rot-Sealed Page, because a steeping entry is a fixed
-   item (director, 2026-10-29).
-
-   | Modifier | Effect |
-   |---|---|
-   | **Rot-soaked** | every hazard doubled; every chest one tier higher |
-   | **Flooded hold** | moveprevent in every fight; lockers carry no hazard |
-   | **Alarmed** | start at alertness 2; a Legendary locker from step 4 |
-   | **Picked clean** | easier fights, smaller haul: the gamble's bad roll |
-
-   Weights 30 Rot-soaked / 25 Flooded hold / 25 Alarmed / 20 Picked clean (RUL-2026-10-29-044). A lost steeping fight returns the page, and the Rot is spent.
+2. **Steeping: dropped** (RUL-2026-10-29-056). Haul pages cannot be steeped, which keeps the Haul simple. Variety comes from the layouts, the bonus chances and the chest rolls.
 3. **Bonus chances.** Each locker pays its chest plus a chance at a bonus chest of the same tier (starting at about 20%),
    as a `reward_items` drop chance at the ending. The same route gives different hauls.
 4. **Chest rolls.** The 8 profession chests already vary: 3-6 rolls across staples, kits, bulk and windfall.
 
 **Cost:**
-- **Items:**
-  - 6 page charts (3 per profession);
-  - 6 Rot-Sealed Page items (one per page; each opening rolls one of the 4 modifiers, as 4 cache entries);
-  - the modified page charts that those openings grant, made on demand by the generator: up to 24.
-- **Quests:**
-  - 6 base quests;
-  - up to 24 modified quests, generated from a modifier pass over the base graphs.
-
-  The harness reports whether the full set is worth its size, or whether some modifiers should apply only to the
-  classic layout.
+- **Items:** 6 page charts (3 per profession).
+- **Quests:** 6 base quests. No steeped quests are built (RUL-2026-10-29-056).
 - **No new jutsu.**

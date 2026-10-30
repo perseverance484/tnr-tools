@@ -4569,3 +4569,26 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "No need for the core item anymore. Use the chart, unlock the steeping, if you dont have the required materials you can refund it. Fail, get your chart back but lose your Core Rot. The item itself will need to include this in its description".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5.
+
+## RUL-2026-10-29-056 — Haul steeping dropped
+
+**Date:** 2026-10-29
+
+**Domain:** Skyglass event / profession rewards
+
+**Status:** ACTIVE. Settles RUL-2026-10-29-055's open item.
+
+**Ruling:**
+1. **Haul pages cannot be steeped.** These are no longer built:
+   - the 6 Rot-Sealed Pages;
+   - their 4 modifiers (Rot-soaked, Flooded hold, Alarmed, Picked clean);
+   - the 24 steeped quests.
+2. **These are superseded:**
+   - RUL-2026-10-29-038 item 2 (steeping as Haul variety);
+   - the Haul steeping parts of RUL-2026-10-29-044, -045 and -046 (modifier weights, Flood rounds, the 40%→70% sealed bonus).
+3. **The Haul's variety** comes from its three layouts per profession, the locker bonus chances and the chest rolls.
+4. **Only the two rare charts can be steeped** (RUL-2026-10-29-055).
+
+**Evidence:** Director, 2026-10-29: "Drop haul steeping to keep it simple".
+
+**Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`.
