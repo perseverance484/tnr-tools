@@ -4646,3 +4646,26 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-29: "Need to iron out an exact tier system and naming system for everything in the game. Should match the game's system which uses common, rare, epic, legendary", then "Keep forbidden for Sage's Strongbox. That can be a new tier for reward Caches. Can use forbidden for the lantern. The flavor names are fine. Its use of the word "hunts" when hunting is a different mechanic... should be referred to as the tier of chart they are, rare chart, legendary chart, etc."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` (header); `docs/design/SKYGLASS_TEXT.md`; `push/skyglass_profession_chests.gen.py`.
+
+## RUL-2026-10-30-059 — push/319 ships with placeholder art; visual assets follow in a separate push
+
+**Date:** 2026-10-30
+
+**Domain:** Skyglass event / build
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **push/319 is built with placeholder images** for every record still waiting on art:
+   - items, charts, tokens, variants;
+   - AI avatars;
+   - quest and scene images;
+   - jutsu icons;
+   - the badge.
+2. **Records whose art is already live or committed use it.** The art audit (`docs/design/SKYGLASS_ART_AUDIT.md`) lists which.
+3. **Fields that require an image** (badge and variant `image`, item `image`) carry a placeholder URL. Each placeholder is listed in a manifest so nothing is missed.
+4. **A separate visual-asset push** swaps the real art in afterwards, as image-only edits, and uploads the finished files. It follows the audit's session order.
+
+**Evidence:** Director, 2026-10-30: "Let's plan to do push 319 with placeholder assets and then we'll do a separate visual asset push".
+
+**Canonical destination:** `push/README.md` (319 entry); `docs/design/SKYGLASS_ART_AUDIT.md`.
