@@ -520,9 +520,9 @@ You draw <chart> out of the rot before it takes hold. Nothing is spent.
 
 ### 2.8 Stakes headers for the existing hunts (prepend to the live descriptions)
 
-The live descriptions keep their story; RUL-2026-10-28-028 item 8 asks for the two stakes lines first. These runs
-have no press-on text: the Archive's room is cut, and the Watch's room is kept but its text is not yet written
-(RUL-2026-10-30-060 item 6). So the second line names their own choice.
+The live descriptions keep their story; RUL-2026-10-28-028 item 8 asks for the two stakes lines first. The Archive's
+press-on room is cut (RUL-2026-10-30-060 item 6); the Watch's is kept and its text is in §2.8a below. The second line
+names each run's own choice.
 
 - **`quest:The Buried Cache.description`** (prepend):
   `The chart is spent when the run starts. Health and chakra carry from fight to fight, and a lost fight ends the run.`
@@ -535,6 +535,26 @@ have no press-on text: the Archive's room is cut, and the Watch's room is kept b
 - **`quest:The Captain's Watch.description`** (prepend):
   `The chart is spent when the run starts. Health and chakra carry from fight to fight, and a lost fight ends the run.`
   `Every term you accept makes a fight harder and the haul bigger.`
+
+### 2.8a The Captain's Watch press-on room (new; RUL-2026-10-30-062 item 2)
+
+Fight: the dawn watch, the Wayfinder + Deck Warden (harness probe, 87% won from about 22% HP). It follows the Captain.
+Each `d_gallery_IV / _V / _VI` gains the press-on choice; one `b_press` per step routes to `w_press_IV / _V / _VI`, and
+a lost `b_press` routes to that step's `w_*` (the press-on `failDescription`, §2). No word "relieve" (bible, Voice).
+
+**`obj:The Captain's Watch/d_gallery_*.description`** (append after the live text)
+```html
+<br><br>Below, a lantern moves along the deck: the Deck Warden, with the Wayfinder beside him and a chart under his arm. "Dawn watch," the Captain says. "They will want to see who held mine."<br><br><b>Claim the watch's stores now and keep everything you hold. Stand the dawn watch and win, and it adds to the haul. Lose it and you keep only what you hold now.</b>
+```
+- `choice[0]`: `Claim the watch's stores` (live, unchanged)
+- `choice[1]`: `Stand the dawn watch`
+
+**`obj:The Captain's Watch/b_press_*.description`**: `The Deck Warden plants himself at the head of the stairs. The Wayfinder unrolls his chart, and the deck shifts to match it.`
+
+**`obj:The Captain's Watch/w_press_*.description`**
+```html
+The Deck Warden sits down hard against the rail. The Wayfinder rolls up his chart and, for once, does not correct it. "The watch is yours," the Captain says from the gallery, and the words sound new in his mouth.
+```
 
 ### 2.9 Crownhold (exists; stakes header only)
 
@@ -1170,7 +1190,7 @@ The Foundry ledger's "crew not relieved" stays: the bible's "carried forward" ta
    harness still has a separate hazard record named "Burning Deck" beside a gun-deck Arsenal Keeper. The text assumes the
    Keeper is the source and the hazard is never named to the player. Confirm, and rename the hazard record (e.g. "Powder
    Fire") if it stays separate.
-6. **Settled** (RUL-2026-10-30-060 item 6): the Archive's room is cut and the Watch's is kept. The Watch's press-on text is still to be written. **Archive and Watch press-on rooms.** Loot tables §5 ladder gives them "+20% from its press-on room", but the live
+6. **Settled** (RUL-2026-10-30-060 item 6): the Archive's room is cut and the Watch's is kept. The Watch's press-on text is written (§2.8a, RUL-2026-10-30-062). **Archive and Watch press-on rooms.** Loot tables §5 ladder gives them "+20% from its press-on room", but the live
    hunt text has none. No press-on text is written for them until that is settled.
 7. **Wreck Sighted's scene character.** A public quest needs one. The salvager is unnamed and has no portrait; use an
    existing crew portrait (the Deck Warden) or commission one?
