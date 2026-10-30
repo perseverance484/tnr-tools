@@ -1,0 +1,169 @@
+{
+  "_about": "Machine-readable Skyglass design of record for scripts/skyglass_check.py. Derived once from the prose sources named in each section; the checker re-verifies every doc_* field against those sources on every run, so an edit to the doc without an edit here (or the reverse) fails the check. Ids are never invented: each id carries the repository file that already holds it (checked literally), or an id_from lookup that is resolved at run time; an id of null is a record not yet created and is reported as pending. Convention and usage: docs/workflows/SKYGLASS_CHECK.md.",
+  "version": 1,
+
+  "items": {
+    "skyglass_coffer":      {"kind": "item", "name": "Skyglass Coffer",      "id": "THo7rfzP-S82_43aN8fs3", "source": "push/skyglass_hunts.gen.py"},
+    "sealed_treasury":      {"kind": "item", "name": "Sealed Treasury",      "id": "Ma8S90Nmbi0Xvm4u4FzJh", "source": "push/skyglass_hunts.gen.py"},
+    "archive_chart_case":   {"kind": "item", "name": "Archive Chart Case",   "id": "B48dTRsoLJGKBWIUbeUoG", "source": "push/skyglass_hunts.gen.py"},
+    "medicine_inro":        {"kind": "item", "name": "Medicine Inro",        "id": "ixEKlJ0MmDrX7JoMNJVhi", "source": "push/skyglass_hunts.gen.py"},
+    "sages_strongbox":      {"kind": "item", "name": "Sage's Strongbox",     "id": "h-d58UCSuHN8EZKbLjT5R", "source": "push/skyglass_hunts.gen.py"},
+    "elemental_tool_pouch": {"kind": "item", "name": "Elemental Tool Pouch", "id": "D0gtI5dOgj2dFO4VexsLJ", "source": "push/elemental_pouch.gen.py"},
+    "crown_fragment":       {"kind": "item", "name": "Fragment of the Skyglass Crown", "id": "ayiRmSjWs05lMPyL3G-1d", "source": "push/crownhold.gen.py"},
+    "lastlight_lantern":    {"kind": "item", "name": "Lastlight Lantern",    "id": "jCJv4N3JSiihuqnK0jJ7t", "source": "push/crownhold.gen.py"},
+    "galley_stores":        {"kind": "item", "name": "Galley Stores",        "id": null},
+    "echo_jar":             {"kind": "item", "name": "Echo Jar",             "id": null},
+    "officers_pill_case":   {"kind": "item", "name": "Officer's Pill Case",  "id": null},
+    "quartermasters_kit":   {"kind": "item", "name": "Quartermaster's Kit",  "id": null},
+    "crowns_hoard":         {"kind": "item", "name": "Crown's Hoard",        "id": null},
+    "lastlight_jutsu":      {"kind": "jutsu", "name": "Lastlight",           "id": "0F-68bxOXW_LkJnXV0lwT", "source": "push/crownhold.gen.py", "_note": "the Crownhold jutsu (RUL-2026-10-25-006)"},
+    "crownhold_badge":      {"kind": "badge", "name": "Crownbreaker",        "id": null, "id_from": {"file": "state/crownhold/ids.json", "key": "badge:crownbreaker"}},
+
+    "chart_tide":             {"kind": "item", "name": "Tide Chart",                       "id": null},
+    "chart_watch_roster":     {"kind": "item", "name": "Watch Roster",                     "id": null},
+    "chart_buried_cache":     {"kind": "item", "name": "Chart of the Buried Cache",        "id": "nbLC37UzBamthKXvZsgQB", "source": "push/skyglass_update.gen.py"},
+    "chart_drowned_foundry":  {"kind": "item", "name": "Chart of the Drowned Foundry",     "id": "pY-0O5Gs2n89pf0kYb5J2", "source": "push/skyglass_hunts.gen.py"},
+    "chart_quarantined_archive": {"kind": "item", "name": "Chart of the Quarantined Archive", "id": "cRZT41zm5vhPTQwwn8vtv", "source": "push/skyglass_hunts.gen.py"},
+    "chart_captains_watch":   {"kind": "item", "name": "Chart of the Captain's Watch",     "id": "aHFNuo5RkKpDcaOBLIKiu", "source": "push/skyglass_hunts.gen.py"},
+    "chart_reliquary_seal":   {"kind": "item", "name": "Reliquary Seal",                   "id": null},
+    "chart_last_heading":     {"kind": "item", "name": "The Last Heading",                 "id": null},
+    "chart_rotted_reliquary": {"kind": "item", "name": null, "id": null, "_note": "tainted Reliquary Seal; name not yet set"},
+    "chart_burning_heading":  {"kind": "item", "name": null, "id": null, "_note": "tainted Last Heading; name not yet set"},
+
+    "common_hunters_chest":      {"kind": "item", "name": "Common Hunter's Chest",      "id": "KwgjMOya2XT6uYsgXbsh6", "source": "answers/names_item.json"},
+    "rare_hunters_chest":        {"kind": "item", "name": "Rare Hunter's Chest",        "id": "M-0CPw9yBmmreLvJU6gav", "source": "answers/names_item.json"},
+    "epic_hunters_chest":        {"kind": "item", "name": "Epic Hunter's Chest",        "id": "32k2rXF6W-7gn_Fubp4kU", "source": "answers/names_item.json"},
+    "legendary_hunters_chest":   {"kind": "item", "name": "Legendary Hunter's Chest",   "id": "nAAfu3ya-dkVaZeH7LycZ", "source": "answers/names_item.json"},
+    "common_gatherers_chest":    {"kind": "item", "name": "Common Gatherer's Chest",    "id": "gb6vxdzWTYZR--7s-4kTX", "source": "answers/names_item.json"},
+    "rare_gatherers_chest":      {"kind": "item", "name": "Rare Gatherer's Chest",      "id": "SWQpaXB8csJWL3zZMTz4r", "source": "answers/names_item.json"},
+    "epic_gatherers_chest":      {"kind": "item", "name": "Epic Gatherer's Chest",      "id": "hikAzfsQPCvNUaFw_P8vs", "source": "answers/names_item.json"},
+    "legendary_gatherers_chest": {"kind": "item", "name": "Legendary Gatherer's Chest", "id": "Fh3xch8ox_JMaHj0-ntTF", "source": "answers/names_item.json"}
+  },
+
+  "picks": {
+    "_source": "docs/design/SKYGLASS_LOOT_TABLES.md section 4a (RUL-2026-10-28-016 .. -019). Option forms: {item, quantity} = one reward_items card; {money} = the reward_money card; {jutsu}/{badge} = one content card; {package: [...]} = one reward_packages card whose rewards hold exactly those components.",
+    "doc_section": "## 4a. Completion picks: final",
+    "doc_rule": "**Pick 1 on every run; tainted runs pick 2.**",
+    "doc_aliases": {
+      "_about": "Names section 4a uses that are not an item's own name. Every other option name must equal an items[].name exactly. A money alias carries the ruling text that sets its amount, checked verbatim.",
+      "Pouch": "elemental_tool_pouch",
+      "Inro": "medicine_inro",
+      "Crown Fragment": "crown_fragment",
+      "Crownhold badge": "crownhold_badge",
+      "Crownhold jutsu": "lastlight_jutsu",
+      "Captain's Purse": {"money": 100000, "evidence_file": "docs/RULINGS.md", "evidence": "3. The Captain's Watch \"Captain's Purse\" pick is **100,000 ryo** (was the 50,000 proposal)."}
+    },
+    "runs": [
+      {"run": "Low Tide Run", "doc_row": "Low Tide Run",
+       "doc_options": "Pouch + 10,000 ryo (one package card) / Inro + 10,000 ryo (one package card) / Galley Stores",
+       "quest": {"id": null, "names": ["The Low Tide Run", "Low Tide Run"]},
+       "pickCount": 1,
+       "options": [
+         {"package": [{"item": "elemental_tool_pouch", "quantity": 1}, {"money": 10000}]},
+         {"package": [{"item": "medicine_inro", "quantity": 1}, {"money": 10000}]},
+         {"item": "galley_stores", "quantity": 1}
+       ],
+       "_note": "Pouch = the single Elemental Tool Pouch (RUL-2026-10-28-003); Inro = Medicine Inro."},
+      {"run": "Night Watch", "doc_row": "Night Watch",
+       "doc_options": "Officer's Pill Case + 10,000 ryo / Quartermaster's Kit + 10,000 ryo / Galley Stores (RUL-2026-10-28-018)",
+       "quest": {"id": null, "names": ["The Night Watch", "Night Watch"]},
+       "pickCount": 1,
+       "options": [
+         {"package": [{"item": "officers_pill_case", "quantity": 1}, {"money": 10000}]},
+         {"package": [{"item": "quartermasters_kit", "quantity": 1}, {"money": 10000}]},
+         {"item": "galley_stores", "quantity": 1}
+       ],
+       "_note": "Packages: section 1 places the Pill Case and the Kit 'with 10,000 ryo' as the Low Tide Run's package cards."},
+      {"run": "Buried Cache", "doc_row": "Buried Cache",
+       "doc_options": "25,000 ryo / Medicine Inro / Galley Stores",
+       "quest": {"id": "CgwAVCyZLgNQtEnqgLxxv", "source": "push/skyglass_update.gen.py", "names": ["The Buried Cache"]},
+       "pickCount": 1,
+       "options": [{"money": 25000}, {"item": "medicine_inro", "quantity": 1}, {"item": "galley_stores", "quantity": 1}]},
+      {"run": "Drowned Foundry", "doc_row": "Drowned Foundry",
+       "doc_options": "Elemental Tool Pouch / 50,000 ryo / Galley Stores",
+       "quest": {"id": "UGHSuhi83C3wRtH3FD4Eu", "source": "push/elemental_pouch.gen.py", "names": ["The Drowned Foundry"]},
+       "pickCount": 1,
+       "options": [{"item": "elemental_tool_pouch", "quantity": 1}, {"money": 50000}, {"item": "galley_stores", "quantity": 1}]},
+      {"run": "Quarantined Archive", "doc_row": "Quarantined Archive",
+       "doc_options": "Archive Chart Case / Sage's Strongbox / Echo Jar",
+       "quest": {"id": "-bZ_ZoI6yrUJ_LKT9R5zm", "source": "push/skyglass_update.gen.py", "names": ["The Quarantined Archive"]},
+       "pickCount": 1,
+       "options": [{"item": "archive_chart_case", "quantity": 1}, {"item": "sages_strongbox", "quantity": 1}, {"item": "echo_jar", "quantity": 1}]},
+      {"run": "Captain's Watch", "doc_row": "Captain's Watch",
+       "doc_options": "Skyglass Coffer / Captain's Purse / Echo Jar",
+       "quest": {"id": "liljq0yVXWTSna4X6dZE1", "source": "push/skyglass_update.gen.py", "names": ["The Captain's Watch"]},
+       "pickCount": 1,
+       "options": [{"item": "skyglass_coffer", "quantity": 1}, {"money": 100000}, {"item": "echo_jar", "quantity": 1}],
+       "_note": "Captain's Purse = 100,000 ryo (RUL-2026-10-25-010 item 3)."},
+      {"run": "Sealed Reliquary", "doc_row": "Sealed Reliquary",
+       "doc_options": "Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Archive Chart Case ×2",
+       "quest": {"id": null, "names": ["The Sealed Reliquary"]},
+       "pickCount": 1,
+       "options": [{"item": "skyglass_coffer", "quantity": 2}, {"item": "sealed_treasury", "quantity": 1}, {"item": "echo_jar", "quantity": 2}, {"item": "archive_chart_case", "quantity": 2}]},
+      {"run": "The Fall", "doc_row": "The Fall",
+       "doc_options": "Skyglass Coffer ×2 / Sealed Treasury / Echo Jar ×2 / Galley Stores ×3",
+       "quest": {"id": null, "names": ["The Fall"]},
+       "pickCount": 1,
+       "options": [{"item": "skyglass_coffer", "quantity": 2}, {"item": "sealed_treasury", "quantity": 1}, {"item": "echo_jar", "quantity": 2}, {"item": "galley_stores", "quantity": 3}]},
+      {"run": "The Rotted Reliquary", "doc_row": "Tainted runs",
+       "doc_options": "**pick 2** from their rare's options; Lantern 30% and Core Rot 40%. No guaranteed drops: the second pick is the appeal (RUL-2026-10-28-019)",
+       "quest": {"id": null, "names": ["The Rotted Reliquary"]},
+       "pickCount": 2,
+       "options_from": "Sealed Reliquary",
+       "doc_evidence": ["- **The Rotted Reliquary** (tainted Reliquary Seal)", "| Reliquary Seal | Archive | **The Sealed Reliquary**"]},
+      {"run": "The Burning Heading", "doc_row": "Tainted runs",
+       "doc_options": "**pick 2** from their rare's options; Lantern 30% and Core Rot 40%. No guaranteed drops: the second pick is the appeal (RUL-2026-10-28-019)",
+       "quest": {"id": null, "names": ["The Burning Heading"]},
+       "pickCount": 2,
+       "options_from": "The Fall",
+       "doc_evidence": ["- **The Burning Heading** (tainted Last Heading)", "| The Last Heading | Watch | **The Fall**"]},
+      {"run": "Crownhold", "doc_row": "Crownhold",
+       "doc_options": "Crown's Hoard / Skyglass Coffer ×2 / Crownhold badge / Crownhold jutsu / Crown Fragment (RUL-2026-10-28-017)",
+       "quest": {"id": null, "names": ["Crownhold"]},
+       "pickCount": 1,
+       "options": [{"item": "crowns_hoard", "quantity": 1}, {"item": "skyglass_coffer", "quantity": 2}, {"badge": "crownhold_badge"}, {"jutsu": "lastlight_jutsu"}, {"item": "crown_fragment", "quantity": 1}]}
+    ]
+  },
+
+  "retired": [
+    {"name": "Armory Requisition", "quest_id": "3BYr-HMkOepywS77vJvJh", "item_id": "Fz1MU04kLIIM0EMXgouo6",
+     "source": ["push/elemental_pouch.gen.py", "push/skyglass_update.gen.py"], "ruling": "RUL-2026-10-28-016 item 3: removed entirely; its live record is hidden",
+     "rule": "an edit may only hide the record (data.hidden true) and must offer no reward"}
+  ],
+
+  "chart_tiers": {
+    "_source": "docs/RULINGS.md RUL-2026-10-28-028 item 4",
+    "tiers": [
+      {"tier": "Common charts",  "rarity": "COMMON",    "doc_row": "| Common charts | Common | plain |",       "charts": ["chart_tide", "chart_watch_roster"]},
+      {"tier": "Hunt charts",    "rarity": "RARE",      "doc_row": "| Hunt charts | Rare | cyan |",           "charts": ["chart_buried_cache", "chart_drowned_foundry", "chart_quarantined_archive", "chart_captains_watch"]},
+      {"tier": "Rare charts",    "rarity": "EPIC",      "doc_row": "| Rare charts | Epic | gold |",           "charts": ["chart_reliquary_seal", "chart_last_heading"]},
+      {"tier": "Tainted charts", "rarity": "LEGENDARY", "doc_row": "| Tainted charts | Legendary | rot-green |", "charts": ["chart_rotted_reliquary", "chart_burning_heading"]}
+    ]
+  },
+
+  "profession_chests": {
+    "_source": "docs/design/SKYGLASS_LOOT_TABLES.md section 4b (RUL-2026-10-28-023)",
+    "chests": [
+      {"key": "common_hunters_chest",      "profession": "hunter",    "tier": "Common",    "rarity": "COMMON"},
+      {"key": "rare_hunters_chest",        "profession": "hunter",    "tier": "Rare",      "rarity": "RARE"},
+      {"key": "epic_hunters_chest",        "profession": "hunter",    "tier": "Epic",      "rarity": "EPIC"},
+      {"key": "legendary_hunters_chest",   "profession": "hunter",    "tier": "Legendary", "rarity": "LEGENDARY"},
+      {"key": "common_gatherers_chest",    "profession": "gatherer",  "tier": "Common",    "rarity": "COMMON"},
+      {"key": "rare_gatherers_chest",      "profession": "gatherer",  "tier": "Rare",      "rarity": "RARE"},
+      {"key": "epic_gatherers_chest",      "profession": "gatherer",  "tier": "Epic",      "rarity": "EPIC"},
+      {"key": "legendary_gatherers_chest", "profession": "gatherer",  "tier": "Legendary", "rarity": "LEGENDARY"}
+    ],
+    "areas": [
+      {"doc_row": "| Buried Cache and the common runs | Common |",        "tiers": ["Common"],              "runs": ["Buried Cache", "Low Tide Run", "Night Watch"]},
+      {"doc_row": "| Drowned Foundry | Rare |",                         "tiers": ["Rare"],                "runs": ["Drowned Foundry"]},
+      {"doc_row": "| Quarantined Archive and Captain's Watch | Epic |", "tiers": ["Epic"],                "runs": ["Quarantined Archive", "Captain's Watch"]},
+      {"doc_row": "| The rare runs and Crownhold | Epic + Legendary |", "tiers": ["Epic", "Legendary"],   "runs": ["Sealed Reliquary", "The Fall", "The Rotted Reliquary", "The Burning Heading", "Crownhold"]}
+    ]
+  },
+
+  "voice": {
+    "_source": "docs/design/SKYGLASS_STORY_BIBLE.md, the '**Never use:**' line under Voice; parsed at run time, not copied here.",
+    "doc_marker": "- **Never use:** technology words such as ",
+    "extra_banned_phrases": [{"phrase": "seven-bladed", "pattern": "seven[- ]bladed", "_why": "the crown is frost points around one tall central blade (story bible, Locked to the existing art); task brief for RUL-2026-10-28-028 item 3"}]
+  }
+}

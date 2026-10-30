@@ -76,6 +76,7 @@ No clone means no state. Say so rather than working from memory.
 | Task | Use |
 |---|---|
 | Any manifest, before handoff | `validate.py m.json` MANDATORY, zero errors, run from skill `data/`, say it ran |
+| A Skyglass manifest, before handoff | `scripts/skyglass_check.py m.json` as well as `validate.py`: zero errors (RUL-2026-10-28-028); `docs/workflows/SKYGLASS_CHECK.md` |
 | Building any payload | `factory.py` CONSTRUCTS it (cwd = skill `data/`); hand-authoring is the fallback |
 | Field shapes, bounds, enums, constants, tRPC surface | `45c` / `45d` / `45e` / `45f` in skill `data/` |
 | Name collision, id lookup, what exists live | `answers/` in the clone; fresher than the last harvest takes a capture |
