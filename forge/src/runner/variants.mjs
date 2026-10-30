@@ -25,6 +25,10 @@
 // index makes one row, among the rows the pre-create read did not hold.
 
 export const MAX_VARIANTS = 7; // MAX_ITEM_VARIANTS, drizzle/constants.ts:20 (checkout-gated test)
+// validators/combat.ts at 3314d122 (checkout-gated test): activityBonusTypes; IncreaseJutsuSlots power
+// .min(1).max(MAX_EXTRA_JUTSU_SLOTS).prefault(1)
+export const ACTIVITY_BONUSES = ["decreasegatheringtime", "decreasefarmingtime", "decreasecraftingtime", "decreasecookingtime", "increasehuntingyield", "increasegatheringyield"];
+export const MAX_JUTSU_SLOTS = 2;
 const INT_MAX = 2147483647;    // MySQL int
 const url = (s) => { try { return /^https?:\/\/\S+$/.test(s) && !!new URL(s); } catch { return false; } };
 

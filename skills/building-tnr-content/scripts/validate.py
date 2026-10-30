@@ -922,7 +922,7 @@ def check_entry(entry, ctors, rep, manifest):
     import variant_checks  # item variants, variant tokens, where the 3314d122 tags may live
     if entry.get("entity") == "itemVariant":
         variant_checks.check(entry, manifest.get("items") or [], ENTITIES.get("itemVariant"), CHECKS, rep, where)
-    variant_checks.check_effects_placement(entry, CONSTS, rep, where)
+    variant_checks.check_effects_placement(entry, CONSTS, rep, where, ctors)
     if entry.get("entity") in ("ai", "aiProfile"):
         check_pool_kit(data, where, rep)
     check_laws(entry, rep)

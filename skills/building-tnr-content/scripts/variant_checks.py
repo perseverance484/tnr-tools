@@ -37,6 +37,10 @@ IMAGE_MAX = 512     # ItemVariant.image varchar(512)
 TOKEN_ITEM = {"itemType": "CONSUMABLE", "target": "SELF", "method": "SINGLE",
               "destroyOnUse": True, "preventBattleUsage": True}
 GEAR_TYPES = ("ARMOR", "ACCESSORY", "KEYSTONE", "CRYSTAL")
+# what item.create's placeholder already holds (queries/item.ts insertItemForCreate: target "CHARACTER";
+# schema.ts: method SINGLE, destroyOnUse/preventBattleUsage false; itemType is the create's own type,
+# CONSUMABLE when omitted): a token create must state the rest, or the fetch-merged update keeps them
+PLACEHOLDER_OK = ("itemType", "method")
 
 
 def _id_or_ref(v, prefix):
@@ -111,15 +115,17 @@ def check(entry, items, fields, checks, rep, where):
         rep.err(where, f"another variant create in this manifest uses order {data.get('order')} on the same item; (itemId, order) is unique")
 
 
-def check_effects_placement(entry, consts, rep, where):
+def check_effects_placement(entry, consts, rep, where, ctors=None):
     """The tags 3314d122 added: where they may live (SuperRefineItem/Jutsu, PetSpeciesValidator)."""
     ent, data = entry.get("entity"), entry.get("data") or {}
+    create = entry.get("slot") == "create"
+    item_type = data.get("itemType", "CONSUMABLE" if create else None)  # Forge creates an untyped item CONSUMABLE
     effects = [f for f in data.get("effects") or [] if isinstance(f, dict)]
     activity = set(((consts or {}).get("activityBonusTypes") or {}).get("value") or [])
     cap = ((consts or {}).get("MAX_EXTRA_JUTSU_SLOTS") or {}).get("value")
     for i, f in enumerate(effects):
         t, w = f.get("type"), f"{where}.effects[{i}]"
-        if t in activity and (ent in ("jutsu", "petSpecies", "quest") or (ent == "item" and data.get("itemType") not in (None,) + GEAR_TYPES)):
+        if t in activity and (ent in ("jutsu", "petSpecies", "quest") or (ent == "item" and item_type not in (None,) + GEAR_TYPES)):
             rep.err(w, f"{t}: activity bonuses require a bloodline, activated skill, worn gear (ARMOR/ACCESSORY/KEYSTONE/CRYSTAL) or imbuement")
         if t == "increasejutsuslots" and ent != "item":
             rep.err(w, "increasejutsuslots: jutsu slot grants are only supported on non-combat consumables")
@@ -136,7 +142,10 @@ def check_effects_placement(entry, consts, rep, where):
         for k, v in TOKEN_ITEM.items():
             if k in data and data[k] != v:
                 rep.err(where, f"{t} requires {k} {v!r}, got {data[k]!r}")
-            elif k not in data and entry.get("slot") == "create" and isinstance(v, bool):
+            elif k not in data and create and k not in PLACEHOLDER_OK:
                 rep.err(where, f"{t} requires {k} {v!r}; state it on the create")
-    if slots and isinstance(cap, int) and sum(f.get("power") or 0 for f in slots if isinstance(f.get("power"), (int, float))) > cap:
-        rep.err(where, f"increasejutsuslots: an item may grant at most {cap} extra jutsu slots")
+    # an omitted power is the tag's prefault (45c), not 0
+    dflt = ((((ctors or {}).get("unions") or {}).get("AllTags") or {}).get("increasejutsuslots") or {}).get("fields", {}).get("power", {}).get("default", 1)
+    total = sum(f.get("power", dflt) for f in slots if isinstance(f.get("power", dflt), (int, float)))
+    if slots and isinstance(cap, int) and total > cap:
+        rep.err(where, f"increasejutsuslots: an item may grant at most {cap} extra jutsu slots ({total})")

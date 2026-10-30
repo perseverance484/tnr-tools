@@ -112,3 +112,34 @@ Mutation checks (reverted): binding a row without the asserted-key match fails "
 The director raised the budget to **466,000 / 112,000** (RUL-2026-10-29-054). After the raise:
 - `check_bundle_budget` exits 0, at raw 461,813 / 466,000 and gzip 110,989 / 112,000.
 - The bundle is byte-unchanged.
+
+## Review round 1 (ChatGPT on `81295b8b`: no P0/P1, three P2)
+
+All three accepted. Each has a test that fails on `81295b8b` and passes after the fix.
+
+| Finding | Fix | Test |
+|---|---|---|
+| **F1** A token create could omit `target`. `item.create`'s placeholder holds `target: "CHARACTER"` (queries/item.ts `insertItemForCreate`), the fetch-merge kept it, and the update failed. | **Both gates:** a create of an item carrying `unlockitemvariant` or `increasejutsuslots` must state `target: "SELF"`, `destroyOnUse: true` and `preventBattleUsage: true`. Each is refused if stated otherwise, on edits too. `method` and `itemType` may be omitted on a create: the placeholder holds `method` SINGLE (schema default) and `item.create` takes the type, CONSUMABLE when omitted. **Forge:** `lints.mjs` "VARIANT". **Python:** `variant_checks.py`, `PLACEHOLDER_OK`. | Forge "review F1" (each of the three keys removed from the token fixture is refused; omitting method/itemType or an edit's target is accepted). Python `test_r1_f1_token_create_states_target`. |
+| **F2** Forge accepted invalid placements of the 3314d122 tags; Python and the game refused them, the game only at the update after the placeholder existed. | **Forge preflight (lint "VARIANT"), at parity with `variant_checks.py`:** activity bonuses are refused on jutsu, species and non-gear items; slot grants are refused off items; token requirements apply as F1. The six-name list `ACTIVITY_BONUSES` and `MAX_JUTSU_SLOTS` (2) live in `variants.mjs`, compared with combat.ts/constants.ts by the checkout-gated test. **Both gates:** an item create without `itemType` counts as CONSUMABLE (what Forge creates), so it cannot carry an activity bonus; Python had let it through. | Forge "review F2/F3" (consumable / untyped create / jutsu / species refused, ARMOR accepted) and the gated source test. Python `test_r1_f2_omitted_item_type_is_consumable_on_create`. |
+| **F3** Python counted an omitted `power` as 0, so three slot grants passed; the game prefaults each to 1. | **Python:** sums with the extracted 45c default (`AllTags.increasejutsuslots.power.default` = 1; `check_effects_placement` now gets the constructors). **Forge:** `power ?? 1`, the prefault the gated test reads at source. Both report the total. | Python `test_r1_f3_slot_power_defaults_before_summing` (three defaulted grants refused, two accepted). Forge "review F2/F3" (three defaulted grants refused as 3, two accepted). |
+
+Not changed: L18 (`noncombatconsumereward`) still checks only a stated `target`, the same shape as F1 for reward items. It is pre-existing, outside these findings, and changing it could move `push/*.json` results.
+
+### Gates (round 1, exact)
+
+| Gate | Result |
+|---|---|
+| `npm test` (forge/) | 773 tests, 760 pass, 0 fail, 13 skipped |
+| Source-gated, `TNR_GAME_CHECKOUT=<3314d122>` (catalog, pets, variants, dungeon x3) | 113 / 113 |
+| `npm run build` twice | byte-identical, sha256 `e259f57cb8b790ccc2f745daedbf87c69d2b10f41e3c9a8ad020f08c9f6ace96` |
+| `npm run fixtures` then `git status` | clean |
+| `check_boundaries` / `check_imports` / `check_release_pin` | 0 / 0 / ok |
+| `derive_dungeon.mjs --check` | current |
+| `check_bundle_budget` | exit 0: **raw 463,070 / 466,000 (99.4%), gzip 111,355 / 112,000 (99.4%)**, +1,257 / +366 over `81295b8b` |
+| `check_manifest.mjs` and `validate.py` on all 120 `push/*.json` vs `81295b8b` | outputs and exit codes identical; `--strict` exit codes identical (14 fail at both) |
+| Python unit tests (pet_species, schema_diff, catalog_checks, variant_checks) | 37 OK |
+| `selfcheck --generated` / `factory --selftest` | 0 errors / 20/20 |
+| `doctrinemap` / `render_doctrine --check` / `build_packs --check` | 0/0 / current / current |
+| `lawmap` | 0 errors, 5 pre-existing warnings |
+
+Contracts, ledger, `fields.json`, `nested.json`, the dungeon contract and the loader are unchanged. Live requests / writes: 0 / 0.

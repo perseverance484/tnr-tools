@@ -18,6 +18,7 @@
 //     cap. The noncombatconsumereward half IS ported and was re-verified at the pin
 //     (app/src/validators/combat.ts:1151-1163: CONSUMABLE, target SELF, method SINGLE).
 
+import { ACTIVITY_BONUSES, MAX_JUTSU_SLOTS } from "./variants.mjs";
 const DATE_RE = /^\d{4}-\d{1,2}-\d{1,2}$/;
 const DASH_RE = /[–—]/;
 const IMG_REF_RE = /@img:([A-Za-z0-9_.\-]+)/g;
@@ -160,11 +161,21 @@ export function lintManifest(manifest) {
   const bySrc = new Map(items.filter((it) => it.srcId).map((it) => [it.srcId, it]));
   const slots = new Set();
   for (const it of items) {
-    const d = it.data ?? {}, unlock = (Array.isArray(d.effects) ? d.effects : []).filter((f) => f && f.type === "unlockitemvariant");
-    if (it.entity === "item" && unlock.length) {
-      for (const f of unlock) if (f.variantId != null && !(typeof f.variantId === "string" && (/^@variant:./.test(f.variantId) || /^[\w-]{21}$/.test(f.variantId)))) E(it, `VARIANT variantId ${JSON.stringify(f.variantId)}: null, a variant id or an @variant ref`);
+    const d = it.data ?? {}, fx = (Array.isArray(d.effects) ? d.effects : []).filter(Boolean), unlock = fx.filter((f) => f.type === "unlockitemvariant");
+    if (it.entity === "item") for (const f of unlock) if (f.variantId != null && !(typeof f.variantId === "string" && (/^@variant:./.test(f.variantId) || /^[\w-]{21}$/.test(f.variantId)))) E(it, `VARIANT variantId ${JSON.stringify(f.variantId)}: null, a variant id or an @variant ref`);
+    // the 3314d122 tags (SuperRefineItem/Jutsu/PassiveEffects, PetSpeciesValidator): activity bonuses only on
+    // bloodlines and worn gear; slot grants only on a token-like consumable, at most MAX_JUTSU_SLOTS, power
+    // defaulting to 1. An item create without itemType is created CONSUMABLE (recipes.mjs item.create).
+    const type = d.itemType ?? (it.op === "create" ? "CONSUMABLE" : null), grants = fx.filter((f) => f.type === "increasejutsuslots");
+    if (fx.some((f) => ACTIVITY_BONUSES.includes(f.type)) && (["jutsu", "petSpecies"].includes(it.entity) || it.entity === "item" && type && !["ARMOR", "ACCESSORY", "KEYSTONE", "CRYSTAL"].includes(type))) E(it, `VARIANT an activity bonus (${fx.filter((f) => ACTIVITY_BONUSES.includes(f.type)).map((f) => f.type)}) needs a bloodline or ARMOR/ACCESSORY/KEYSTONE/CRYSTAL gear`);
+    if (grants.length && it.entity !== "item") E(it, "VARIANT increasejutsuslots: jutsu slot grants are only on non-combat consumables");
+    const slotsGranted = grants.reduce((n, f) => n + (f.power ?? 1), 0);
+    if (it.entity === "item" && slotsGranted > MAX_JUTSU_SLOTS) E(it, `VARIANT an item grants at most ${MAX_JUTSU_SLOTS} extra jutsu slots (${slotsGranted})`);
+    // the placeholder holds target CHARACTER, destroyOnUse/preventBattleUsage false (queries/item.ts insertItemForCreate,
+    // schema.ts defaults); method SINGLE and the created type are already right, so a create must state the other three
+    if (it.entity === "item") for (const t of ["unlockitemvariant", "increasejutsuslots"]) if (fx.some((f) => f.type === t)) {
       const need = { itemType: "CONSUMABLE", target: "SELF", method: "SINGLE", destroyOnUse: true, preventBattleUsage: true };
-      for (const [k, v] of Object.entries(need)) if (d[k] !== undefined ? d[k] !== v : it.op === "create" && typeof v === "boolean") E(it, `VARIANT unlockitemvariant requires ${k} ${v}`);
+      for (const [k, v] of Object.entries(need)) if (d[k] !== undefined ? d[k] !== v : it.op === "create" && !["itemType", "method"].includes(k)) E(it, `VARIANT ${t} requires ${k} ${v}`);
     }
     if (it.entity !== "itemVariant" || it.op !== "create") continue;
     const key = JSON.stringify([d.itemId, d.order]);

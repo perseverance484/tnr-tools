@@ -13,7 +13,7 @@ import { parseManifest, ManifestError } from "../src/runner/manifest.mjs";
 import { recipe, mergeForUpdate, updateInput } from "../src/runner/recipes.mjs";
 import { Validator } from "../src/runner/validate.mjs";
 import { HIDDENLESS } from "../src/runner/catalog.mjs";
-import { variantProblems, MAX_VARIANTS } from "../src/runner/variants.mjs";
+import { variantProblems, MAX_VARIANTS, ACTIVITY_BONUSES, MAX_JUTSU_SLOTS } from "../src/runner/variants.mjs";
 import { dungeonProblems, CONTRACT as DUNGEON } from "../src/dungeon/validate.mjs";
 import { PROCEDURES, isProtected } from "../src/transport/procedures.mjs";
 import { checkManifest } from "../tools/check_manifest.mjs";
@@ -107,6 +107,52 @@ test("lints: token items, a token bound before its variant exists, (itemId, orde
   assert.deepEqual(m.warnings, []);
   assert.match(parseManifest(solo()).warnings.join(), /no requiredItemId: any token whose unlockitemvariant has no variantId/);
   assert.match(parseManifest(solo({ costType: "MONEY", cost: 10 })).warnings.join(), /no hidden switch/);
+});
+
+// ------------------------------------------------------------------ review round 1
+const TOKEN = () => structuredClone(fixture("variant_create.json").items[0]);
+const refusal = (m) => { try { parseManifest(m); return ""; } catch (e) { return e.message; } };
+const FXKEYS = { powerPerLevel: 0, calculation: "static", direction: "offence", staticAssetPath: "", staticAnimation: "", appearAnimation: "", disappearAnimation: "", appearSfx: "", disappearSfx: "", target: "SELF" };
+
+test("review F1: a token create must state target SELF (the placeholder holds CHARACTER), destroyOnUse and preventBattleUsage", () => {
+  for (const k of ["target", "destroyOnUse", "preventBattleUsage"]) {
+    const t = TOKEN(); delete t.data[k];
+    assert.match(refusal({ items: [t] }), new RegExp(`VARIANT unlockitemvariant requires ${k}`), k);
+  }
+  const t = TOKEN(); delete t.data.method; delete t.data.itemType;
+  assert.equal(refusal({ items: [t] }), "", "method SINGLE and itemType CONSUMABLE are what the placeholder and item.create already hold");
+  const e = TOKEN(); e.slot = "edit"; e.targetId = "trophyTokenItem000001"; delete e.srcId; delete e.data.target;
+  assert.equal(refusal({ items: [e] }), "", "an edit merges the live target");
+});
+
+test("review F2/F3: the 3314d122 tags' placement and the slot-grant cap (power defaults to 1) are refused before anything is sent", () => {
+  const bonus = { type: "increasehuntingyield", power: 1, ...FXKEYS };
+  const tok = TOKEN(); tok.data.effects = [bonus];
+  assert.match(refusal({ items: [tok] }), /activity bonus .*increasehuntingyield/, "a consumable");
+  const armor = TOKEN(); armor.data = { ...armor.data, itemType: "ARMOR", slot: "CHEST", destroyOnUse: false, preventBattleUsage: false, effects: [bonus] };
+  assert.equal(refusal({ items: [armor] }), "", "worn gear may carry it");
+  const omitted = TOKEN(); delete omitted.data.itemType; omitted.data.effects = [bonus];
+  assert.match(refusal({ items: [omitted] }), /activity bonus/, "an item create without itemType is created CONSUMABLE");
+  for (const entity of ["jutsu", "petSpecies"]) assert.match(refusal({ items: [{ entity, slot: "create", name: "X", srcId: "x", data: { name: "X", hidden: true, effects: [bonus] } }] }), /activity bonus/, entity);
+  const slot = { type: "increasejutsuslots", ...FXKEYS };
+  const three = TOKEN(); three.data.effects = [slot, slot, slot];
+  assert.match(refusal({ items: [three] }), /at most 2 extra jutsu slots \(3\)/, "three grants with power omitted are 3");
+  const two = TOKEN(); two.data.effects = [slot, { ...slot, power: 1 }];
+  assert.equal(refusal({ items: [two] }), "");
+  const grant = TOKEN(); grant.data.effects = [slot]; delete grant.data.target;
+  assert.match(refusal({ items: [grant] }), /increasejutsuslots requires target SELF/);
+  assert.match(refusal({ items: [{ entity: "jutsu", slot: "create", name: "J", srcId: "j", data: { name: "J", hidden: true, effects: [slot] } }] }), /only on non-combat consumables/);
+});
+
+test("review F2/F3: the hand-held activity-bonus list, slot cap and default match the pinned source, when a checkout is supplied", { skip: !process.env.TNR_GAME_CHECKOUT && "set TNR_GAME_CHECKOUT to a checkout at 3314d122" }, () => {
+  const read = (f) => readFileSync(join(process.env.TNR_GAME_CHECKOUT, f), "utf8");
+  const combat = read("app/src/validators/combat.ts");
+  const list = /export const activityBonusTypes = \[([^\]]*)\]/.exec(combat)[1].match(/"[^"]+"/g).map((x) => JSON.parse(x));
+  assert.deepEqual([...ACTIVITY_BONUSES].sort(), list.sort());
+  assert.match(read("app/drizzle/constants.ts"), new RegExp(`export const MAX_EXTRA_JUTSU_SLOTS = ${MAX_JUTSU_SLOTS};`));
+  assert.match(combat, /power: z\.coerce\.number\(\)\.int\(\)\.min\(1\)\.max\(MAX_EXTRA_JUTSU_SLOTS\)\.prefault\(1\)/);
+  assert.match(combat, /if \(!\["ARMOR", "ACCESSORY", "KEYSTONE", "CRYSTAL"\]\.includes\(data\.itemType\)\) \{\s*rejectActivityBonuses/);
+  assert.match(read("app/src/queries/item.ts"), /itemType: input\.type,[\s\S]{0,80}target: "CHARACTER",/);
 });
 
 // ------------------------------------------------------------------ runner

@@ -2966,6 +2966,8 @@
   }
 
   var MAX_VARIANTS = 7;
+  var ACTIVITY_BONUSES = ["decreasegatheringtime", "decreasefarmingtime", "decreasecraftingtime", "decreasecookingtime", "increasehuntingyield", "increasegatheringyield"];
+  var MAX_JUTSU_SLOTS = 2;
   var INT_MAX = 2147483647;
   var url2 = (s) => {
     try {
@@ -3852,11 +3854,20 @@
     const bySrc = new Map(items.filter((it) => it.srcId).map((it) => [it.srcId, it]));
     const slots =  new Set();
     for (const it of items) {
-      const d = it.data ?? {}, unlock = (Array.isArray(d.effects) ? d.effects : []).filter((f) => f && f.type === "unlockitemvariant");
-      if (it.entity === "item" && unlock.length) {
+      const d = it.data ?? {}, fx = (Array.isArray(d.effects) ? d.effects : []).filter(Boolean), unlock = fx.filter((f) => f.type === "unlockitemvariant");
+      if (it.entity === "item") {
         for (const f of unlock) if (f.variantId != null && !(typeof f.variantId === "string" && (/^@variant:./.test(f.variantId) || /^[\w-]{21}$/.test(f.variantId)))) E(it, `VARIANT variantId ${JSON.stringify(f.variantId)}: null, a variant id or an @variant ref`);
-        const need = { itemType: "CONSUMABLE", target: "SELF", method: "SINGLE", destroyOnUse: true, preventBattleUsage: true };
-        for (const [k, v] of Object.entries(need)) if (d[k] !== void 0 ? d[k] !== v : it.op === "create" && typeof v === "boolean") E(it, `VARIANT unlockitemvariant requires ${k} ${v}`);
+      }
+      const type = d.itemType ?? (it.op === "create" ? "CONSUMABLE" : null), grants = fx.filter((f) => f.type === "increasejutsuslots");
+      if (fx.some((f) => ACTIVITY_BONUSES.includes(f.type)) && (["jutsu", "petSpecies"].includes(it.entity) || it.entity === "item" && type && !["ARMOR", "ACCESSORY", "KEYSTONE", "CRYSTAL"].includes(type))) E(it, `VARIANT an activity bonus (${fx.filter((f) => ACTIVITY_BONUSES.includes(f.type)).map((f) => f.type)}) needs a bloodline or ARMOR/ACCESSORY/KEYSTONE/CRYSTAL gear`);
+      if (grants.length && it.entity !== "item") E(it, "VARIANT increasejutsuslots: jutsu slot grants are only on non-combat consumables");
+      const slotsGranted = grants.reduce((n, f) => n + (f.power ?? 1), 0);
+      if (it.entity === "item" && slotsGranted > MAX_JUTSU_SLOTS) E(it, `VARIANT an item grants at most ${MAX_JUTSU_SLOTS} extra jutsu slots (${slotsGranted})`);
+      if (it.entity === "item") {
+        for (const t of ["unlockitemvariant", "increasejutsuslots"]) if (fx.some((f) => f.type === t)) {
+          const need = { itemType: "CONSUMABLE", target: "SELF", method: "SINGLE", destroyOnUse: true, preventBattleUsage: true };
+          for (const [k, v] of Object.entries(need)) if (d[k] !== void 0 ? d[k] !== v : it.op === "create" && !["itemType", "method"].includes(k)) E(it, `VARIANT ${t} requires ${k} ${v}`);
+        }
       }
       if (it.entity !== "itemVariant" || it.op !== "create") continue;
       const key = JSON.stringify([d.itemId, d.order]);
@@ -3866,8 +3877,8 @@
       else if (d.requiredItemId == null) W(it, "VARIANT no requiredItemId: any token whose unlockitemvariant has no variantId (every older Variant Token) unlocks it");
       const tok = typeof d.requiredItemId === "string" && d.requiredItemId.startsWith("@item:") ? bySrc.get(d.requiredItemId.slice(6)) : null;
       if (tok && tok.op === "create") {
-        const fx = (Array.isArray(tok.data?.effects) ? tok.data.effects : []).filter((f) => f && f.type === "unlockitemvariant");
-        if (!fx.some((f) => f.variantId == null)) E(it, `VARIANT ${d.requiredItemId} needs an unlockitemvariant with variantId null when this variant is created; set the variantId in a later edit of the token`);
+        const fx2 = (Array.isArray(tok.data?.effects) ? tok.data.effects : []).filter((f) => f && f.type === "unlockitemvariant");
+        if (!fx2.some((f) => f.variantId == null)) E(it, `VARIANT ${d.requiredItemId} needs an unlockitemvariant with variantId null when this variant is created; set the variantId in a later edit of the token`);
       }
     }
     const sizes = manifest.imgSizes ?? {};
