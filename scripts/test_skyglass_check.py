@@ -140,6 +140,28 @@ class TempRoot(unittest.TestCase):
         findings, _, _ = sc.check(self.tmp, [os.path.join(FIX, "fail_prof_chest.json")])
         self.assertTrue(any("canBeHunted=false" in f.msg for f in errors(findings)), [str(f) for f in findings])
 
+    def _foundry_with(self, reward):
+        with open(os.path.join(FIX, "pass.json"), encoding="utf-8") as fh:
+            m = json.load(fh)
+        it = next(i for i in m["items"] if (i.get("data") or {}).get("name") == "The Drowned Foundry")
+        win = next(o for o in it["data"]["content"]["objectives"] if o.get("task") == "win_quest")
+        win.update(reward)
+        p = os.path.join(self.tmp, "foundry_prof.json")
+        with open(p, "w", encoding="utf-8") as fh:
+            json.dump(m, fh)
+        findings, _, _ = sc.check(self.tmp, [p])
+        return [f for f in errors(findings) if f.check == "prof-chest"]
+
+    def test_review_plain_profession_chest_reward_is_caught(self):
+        cid = sc.Design(self.tmp).ids["epic_hunters_chest"]
+        errs = self._foundry_with({"reward_items": [{"ids": [cid], "number": 100, "quantity": 1}]})
+        self.assertTrue(any("carries no profession drops" in f.msg for f in errs), errs)
+
+    def test_review_profession_chest_inside_a_package_is_caught(self):
+        cid = sc.Design(self.tmp).ids["epic_hunters_chest"]
+        errs = self._foundry_with({"reward_packages": [{"rewards": {"reward_items": [{"ids": [cid], "number": 100, "quantity": 1}]}}]})
+        self.assertTrue(any("carries no profession drops" in f.msg for f in errs), errs)
+
     def test_section_4b_no_drops_row_is_bound(self):
         self.edit(sc.LOOT, "- **Shared hunts carry no profession drops.**", "- **Shared hunts carry Epic profession drops.**")
         self.assertTrue(any(f.where == "profession_chests.areas" and f.field == "doc_row" for f in self.design_errors()))
