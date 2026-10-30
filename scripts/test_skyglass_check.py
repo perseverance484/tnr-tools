@@ -165,6 +165,16 @@ class TempRoot(unittest.TestCase):
         self.assertIn("evidence", fields)
         self.assertIn("doc_evidence", fields)
 
+    def test_review5_purse_alias_amount_is_bound_to_its_ruling(self):
+        # Alias and data both moved to 1 ryo while the ruling still says 100,000: must fail.
+        self.edit_data(lambda d: d["picks"]["doc_aliases"]["Captain's Purse"].update(money=1))
+        self.assertTrue(any(f.field == "money" and "100000" in f.msg for f in self.design_errors()))
+
+    def test_review5_tainted_inheritance_is_derived_from_section_5(self):
+        self.edit_data(lambda d: next(r for r in d["picks"]["runs"] if r["run"] == "The Rotted Reliquary")
+                       .update(options_from="The Fall"))
+        self.assertTrue(any(f.field == "options_from" and "Sealed Reliquary" in f.msg for f in self.design_errors()))
+
     def test_missing_never_use_line_is_caught(self):
         self.edit(sc.BIBLE, "- **Never use:**", "- **Avoid:**")
         self.assertTrue(any(f.field == "doc_marker" for f in self.design_errors()))

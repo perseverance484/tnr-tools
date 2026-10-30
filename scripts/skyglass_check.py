@@ -343,8 +343,18 @@ class Design:
         picks = self.data["picks"]
         aliases = picks.get("doc_aliases", {})
         for key, a in aliases.items():
-            if isinstance(a, dict) and a.get("evidence") and a["evidence"] not in _read(self.root, a["evidence_file"]):
+            if not (isinstance(a, dict) and a.get("evidence")):
+                continue
+            if a["evidence"] not in _read(self.root, a["evidence_file"]):
                 self.err(f"picks.doc_aliases.{key}", "evidence", f"{a['evidence_file']} no longer states {a['evidence']!r}")
+            if "money" in a:
+                # The alias amount must equal the amount its ruling sentence states, not just cite the sentence.
+                amounts = [int(x.replace(",", "")) for x in re.findall(r"([\d,]+) ryo", a["evidence"])]
+                if not amounts:
+                    self.err(f"picks.doc_aliases.{key}", "evidence", "the evidence sentence states no ryo amount")
+                elif a["money"] != amounts[0]:
+                    self.err(f"picks.doc_aliases.{key}", "money",
+                             f"the alias says {a['money']} ryo; its ruling sentence says {amounts[0]} ryo")
         by_name = {rec["name"]: k for k, rec in self.items.items() if rec.get("name")}
         for r in picks["runs"]:
             cell = table.get(r["doc_row"])
@@ -361,6 +371,8 @@ class Design:
                         self.err(where, "doc_evidence", f"{LOOT} no longer states {ev!r}")
                 if not r.get("doc_evidence"):
                     self.err(where, "doc_evidence", "an inherited run needs doc_evidence tying it to its rare run")
+                else:
+                    self._bind_inheritance(where, r)
             else:
                 want_pick = header_pick
                 try:
@@ -375,6 +387,25 @@ class Design:
                              f"the data's options {_canon(r['options'])} disagree with section 4a's {_canon(want)}")
             if want_pick is not None and r.get("pickCount") != want_pick:
                 self.err(where, "pickCount", f"the data says pick {r.get('pickCount')}; section 4a says pick {want_pick}")
+
+    def _bind_inheritance(self, where, r):
+        """Derive the inherited run from section 5's two evidence lines and require options_from to equal it:
+        "- **<run>** (tainted <chart>)" names the chart, and "| <chart> | <source> | **<rare run>**" names the run
+        that chart opens."""
+        ev = r.get("doc_evidence", [])
+        m0 = re.match(r"- \*\*(.+?)\*\* \(tainted (.+?)\)", ev[0]) if ev else None
+        m1 = re.match(r"\| (.+?) \| .+? \| \*\*(.+?)\*\*", ev[1]) if len(ev) > 1 else None
+        if not (m0 and m1):
+            self.err(where, "doc_evidence", "inheritance evidence must be the run's '(tainted <chart>)' line and that chart's row")
+            return
+        if m0.group(1) != r["run"]:
+            self.err(where, "doc_evidence", f"the tainted line names {m0.group(1)!r}, not this run")
+        norm = lambda n: re.sub(r"^The ", "", n.strip())  # the doc writes "Last Heading" and "The Last Heading"
+        if norm(m1.group(1)) != norm(m0.group(2)):
+            self.err(where, "doc_evidence", f"the chart row is for {m1.group(1)!r}, not the tainted chart {m0.group(2)!r}")
+        if norm(m1.group(2)) != norm(r.get("options_from", "")):
+            self.err(where, "options_from",
+                     f"section 5 ties this run to {m1.group(2)!r}; options_from says {r.get('options_from')!r}")
 
     def _parse_option(self, text, aliases, by_name):
         text = re.sub(r"\s*\(one package card\)$", "", text.strip())
