@@ -816,7 +816,7 @@ repeated (the card shows it).
 <i>The Deck Warden's duty roster, with a new name at the bottom in fresh ink: yours.</i><br><br>Bring it to the Battle Arena to run <b>The Night Watch</b>: three watches back to back, scaled to you. The roster is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.<br>After the last watch, leave with what you hold or stand the Second Watch for more. Lose it and you keep only what you held.
 ```
 
-**`item:Chart of the Buried Cache.description`** (Common; live story kept)
+**`item:Chart of the Buried Cache.description`** (Rare, RUL-2026-10-29-058; live story kept)
 ```html
 <i>A salt-stained chart from the Skyglass wreck, marking a field cache its crew buried on the shore before the ship vanished.</i><br><br>Bring it to the Battle Arena to run <b>The Buried Cache</b>, scaled to you. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.
 ```
@@ -914,7 +914,7 @@ The six Haul pages: §3.2.
 <i>The war-ship's payroll vault, still locked under the ship's seals. No one aboard was ever paid off.</i><br><br><b>Always:</b> 150,000 ryo<br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 45%</b></span> · Imperial Gold ×5<br><span style="color:#3b82f6"><b>Rare 35%</b></span> · Rare Jewels ×10<br><span style="color:#a855f7"><b>Epic 15%</b></span> · Imperial Gold ×15<br><span style="color:#f59e0b"><b>Legendary 5%</b></span> · Unobtanium ×5
 ```
 
-**`item:Archive Chart Case.description`** (the two Legendary tiers add together, per §0)
+**`item:Archive Chart Case.description`** (Legendary 7% an Epic chart, Forbidden 3% the Lantern; RUL-2026-10-29-058)
 ```html
 <i>A sealed chart case from the Quarantined Archive, holding one chart of the wreck's shifting decks.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 45%</b></span> · Chart of the Drowned Foundry<br><span style="color:#3b82f6"><b>Rare 25%</b></span> · Chart of the Quarantined Archive<br><span style="color:#a855f7"><b>Epic 20%</b></span> · Chart of the Captain's Watch<br><span style="color:#f59e0b"><b>Legendary 7%</b></span> · Reliquary Seal <i>or</i> The Last Heading<br><span style="color:#ef4444"><b>Forbidden 3%</b></span> · Lastlight Lantern
 ```
