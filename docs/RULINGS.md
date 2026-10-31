@@ -4875,7 +4875,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 3. **One "Rot-Touched" version** per crew member on the tainted runs.
 4. **One-offs stay:** the Steeping Horror, the Fall's Arsenal Keeper, the three Lingering Echo hazards, the summoned Crown Stonebound.
 5. **Names show the difficulty, pictures are shared:** "Veteran <Name>" and "Rot-Touched <Name>", each with its base record's sprite. Checked free against the captured AI usernames.
-6. The easy (level-45) Wreck's eight versions are undecided (dungeons cannot scale enemies to the player).
+6. **The easy (level-45) Wreck is kept.** Dungeons cannot scale enemies to the player, so its eight versions are a fourth, weaker tier named **"Faded <Name>"** (same pictures; checked free), tuned to the level-50 Wreck target (director 2026-10-31: "Keep the easy wreck").
 
 **Evidence:** Director, 2026-10-31: "We have like 30+ ai for this event and you're telling me we need more??"; "1. Yes. Give them unique names indicating their difficulty level and we'll use the same pictures".
 
