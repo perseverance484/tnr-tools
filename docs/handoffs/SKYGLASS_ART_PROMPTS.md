@@ -214,15 +214,15 @@ Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VT01 · Captain's Command Fan
+### VT01 · Captain's Gunbai
 
-- **Target:** Captain's Command Fan, item `vltFmOTgOyqssIpNXvT37` · ICON (`item.image`) · Legendary; no seal · lime key · priority: **player-facing**
+- **Target:** Captain's Gunbai, item `vltFmOTgOyqssIpNXvT37` · ICON (`item.image`) · Legendary; no seal · lime key · priority: **player-facing**
 - **Attach folder:** `05_variant_token/`: `VT00_approved.png` (SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif)
 - **Return as:** `VT01_raw_icon-variant-token-captains-command-fan.png`
 - **Note:** Starts only after VT00 is approved. Each motif must read apart from the other six at 125 px.
 
 ```text
-Target: Captain's Command Fan, a boss variant token, one square game item icon for The Ninja RPG.
+Target: Captain's Gunbai, a boss variant token, one square game item icon for The Ninja RPG.
 References attached: 1. VT00_approved.png: SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
@@ -232,15 +232,15 @@ Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VT02 · Rot-Bloom Reaper
+### VT02 · Rotbloom
 
-- **Target:** Rot-Bloom Reaper, item `-7dQs2qwokuNSAS2c3X8Q` · ICON (`item.image`) · Legendary; no seal · lime key · priority: **player-facing**
+- **Target:** Rotbloom, item `-7dQs2qwokuNSAS2c3X8Q` · ICON (`item.image`) · Legendary; no seal · lime key · priority: **player-facing**
 - **Attach folder:** `05_variant_token/`: `VT00_approved.png` (SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif)
 - **Return as:** `VT02_raw_icon-variant-token-rot-bloom-reaper.png`
 - **Note:** Starts only after VT00 is approved. Each motif must read apart from the other six at 125 px.
 
 ```text
-Target: Rot-Bloom Reaper, a boss variant token, one square game item icon for The Ninja RPG.
+Target: Rotbloom, a boss variant token, one square game item icon for The Ninja RPG.
 References attached: 1. VT00_approved.png: SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
@@ -250,15 +250,15 @@ Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VT03 · Warden's Forge-Fists
+### VT03 · Forgefists
 
-- **Target:** Warden's Forge-Fists, item `d96tj122ex6BnzhMDwy0s` · ICON (`item.image`) · Legendary; no seal · lime key · priority: **player-facing**
+- **Target:** Forgefists, item `d96tj122ex6BnzhMDwy0s` · ICON (`item.image`) · Legendary; no seal · lime key · priority: **player-facing**
 - **Attach folder:** `05_variant_token/`: `VT00_approved.png` (SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif)
 - **Return as:** `VT03_raw_icon-variant-token-wardens-forge-fists.png`
 - **Note:** Starts only after VT00 is approved. Each motif must read apart from the other six at 125 px.
 
 ```text
-Target: Warden's Forge-Fists, a boss variant token, one square game item icon for The Ninja RPG.
+Target: Forgefists, a boss variant token, one square game item icon for The Ninja RPG.
 References attached: 1. VT00_approved.png: SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
@@ -268,15 +268,15 @@ Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VT04 · Wayfinder's Heading
+### VT04 · Wayfinder
 
-- **Target:** Wayfinder's Heading, item `giSqzJqE6YdsrnOoy1KLV` · ICON (`item.image`) · Legendary; no seal · lime key · priority: **player-facing**
+- **Target:** Wayfinder, item `giSqzJqE6YdsrnOoy1KLV` · ICON (`item.image`) · Legendary; no seal · lime key · priority: **player-facing**
 - **Attach folder:** `05_variant_token/`: `VT00_approved.png` (SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif)
 - **Return as:** `VT04_raw_icon-variant-token-wayfinders-heading.png`
 - **Note:** Starts only after VT00 is approved. Each motif must read apart from the other six at 125 px.
 
 ```text
-Target: Wayfinder's Heading, a boss variant token, one square game item icon for The Ninja RPG.
+Target: Wayfinder, a boss variant token, one square game item icon for The Ninja RPG.
 References attached: 1. VT00_approved.png: SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
@@ -304,15 +304,15 @@ Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VT06 · Sealwright's Seal
+### VT06 · Sealscript
 
-- **Target:** Sealwright's Seal, item `3ZR700BAWr_Pd3Eqnu1c9` · ICON (`item.image`) · Legendary; no seal · lime key · priority: **player-facing**
+- **Target:** Sealscript, item `3ZR700BAWr_Pd3Eqnu1c9` · ICON (`item.image`) · Legendary; no seal · lime key · priority: **player-facing**
 - **Attach folder:** `05_variant_token/`: `VT00_approved.png` (SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif)
 - **Return as:** `VT06_raw_icon-variant-token-sealwrights-seal.png`
 - **Note:** Starts only after VT00 is approved. Each motif must read apart from the other six at 125 px.
 
 ```text
-Target: Sealwright's Seal, a boss variant token, one square game item icon for The Ninja RPG.
+Target: Sealscript, a boss variant token, one square game item icon for The Ninja RPG.
 References attached: 1. VT00_approved.png: SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
@@ -477,58 +477,58 @@ Thumbnail test: shrunk to 125 px beside the base, this must read as a different 
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS04 · Mast-Lightning Stormrender
+### VS04 · Thunderwake
 
-- **Target:** Mast-Lightning Stormrender, item variant `_49jp25nHiH-v8ywlRdKH` on Stormrender (`cLXXf8RJv5l9B_gGsYN2a`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Thunderwake, item variant `_49jp25nHiH-v8ywlRdKH` on Stormrender (`cLXXf8RJv5l9B_gGsYN2a`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `13_variant_stormrender/`: `base_stormrender.png` (SUBJECT: the live Stormrender icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS04_raw_icon-variant-mast-lightning-stormrender.png`
-- **Note:** Shares its base with VS16 Wayfinder's Heading: the two must read clearly apart at 125 px.
+- **Note:** Shares its base with VS16 Wayfinder: the two must read clearly apart at 125 px.
 
 ```text
-Target: Mast-Lightning Stormrender, a skin of the weapon Stormrender, one square game item icon for The Ninja RPG.
+Target: Thunderwake, a skin of the weapon Stormrender, one square game item icon for The Ninja RPG.
 References attached: 1. base_stormrender.png: SUBJECT: the live Stormrender icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Mast-Lightning Stormrender. Keep the attached Stormrender's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the lightning recoloured from violet to pale cyan-white; the crossguard replaced by a short broken mast spar lashed with rope, a skyglass rod set upright in it; thin cyan crackle lines on the ricasso. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
-It must read clearly apart from its sibling skin on the same base (Wayfinder's Heading: a round compass rose at the crossguard and an etched route line down the fuller); do not use that design.
+Subject: Thunderwake. Keep the attached Stormrender's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the lightning recoloured from violet to pale cyan-white; the crossguard replaced by a short broken mast spar lashed with rope, a skyglass rod set upright in it; thin cyan crackle lines on the ricasso. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+It must read clearly apart from its sibling skin on the same base (Wayfinder: a round compass rose at the crossguard and an etched route line down the fuller); do not use that design.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS05 · Roll-Call Oathbinder
+### VS05 · Anchorline
 
-- **Target:** Roll-Call Oathbinder, item variant `umsYP0jL3emdVFDdU6Fcd` on Oathbinder (`ttwbJ6ZA5Id-OuBludM27`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Anchorline, item variant `umsYP0jL3emdVFDdU6Fcd` on Oathbinder (`ttwbJ6ZA5Id-OuBludM27`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `14_variant_oathbinder/`: `base_oathbinder.png` (SUBJECT: the live Oathbinder icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS05_raw_icon-variant-roll-call-oathbinder.png`
-- **Note:** Shares its base with VS14 Rot-Bloom Reaper: the two must read clearly apart at 125 px.
+- **Note:** Shares its base with VS14 Rotbloom: the two must read clearly apart at 125 px.
 
 ```text
-Target: Roll-Call Oathbinder, a skin of the weapon Oathbinder, one square game item icon for The Ninja RPG.
+Target: Anchorline, a skin of the weapon Oathbinder, one square game item icon for The Ninja RPG.
 References attached: 1. base_oathbinder.png: SUBJECT: the live Oathbinder icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Roll-Call Oathbinder. Keep the attached Oathbinder's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the chain recoloured weathered iron with rust-orange patches; the spiked ball replaced by a small ship's anchor of dark iron; the white prayer knots replaced by pale-cyan skyglass beads. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
-It must read clearly apart from its sibling skin on the same base (Rot-Bloom Reaper: a wet dark rope chain, milky barnacle-like skyglass on the blade back, a rot-stained haft); do not use that design.
+Subject: Anchorline. Keep the attached Oathbinder's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the chain recoloured weathered iron with rust-orange patches; the spiked ball replaced by a small ship's anchor of dark iron; the white prayer knots replaced by pale-cyan skyglass beads. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+It must read clearly apart from its sibling skin on the same base (Rotbloom: a wet dark rope chain, milky barnacle-like skyglass on the blade back, a rot-stained haft); do not use that design.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS06 · Chartline Ink of the Void
+### VS06 · Starchart
 
-- **Target:** Chartline Ink of the Void, item variant `1yWEP0r3elIzyScORfot4` on Ink of the Void (`wE1QeldWTjls2Cf43cFjf`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Starchart, item variant `1yWEP0r3elIzyScORfot4` on Ink of the Void (`wE1QeldWTjls2Cf43cFjf`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `15_variant_ink_of_the_void/`: `base_ink_of_the_void.png` (SUBJECT: the live Ink of the Void icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS06_raw_icon-variant-chartline-ink-of-the-void.png`
 
 ```text
-Target: Chartline Ink of the Void, a skin of the weapon Ink of the Void, one square game item icon for The Ninja RPG.
+Target: Starchart, a skin of the weapon Ink of the Void, one square game item icon for The Ninja RPG.
 References attached: 1. base_ink_of_the_void.png: SUBJECT: the live Ink of the Void icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Chartline Ink of the Void. Keep the attached Ink of the Void's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: both limbs recoloured old parchment-white, inlaid with fine cyan skyglass chart lines and one small compass mark; the bowstring becomes tarred rigging rope; a small brass compass charm hanging from the grip. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+Subject: Starchart. Keep the attached Ink of the Void's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: both limbs recoloured old parchment-white, inlaid with fine cyan skyglass chart lines and one small compass mark; the bowstring becomes tarred rigging rope; a small brass compass charm hanging from the grip. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
@@ -540,7 +540,7 @@ Generate ONE image. Do not crop, key, resize or otherwise process it.
 - **Target:** The Unwritten Order, item variant `3NH-VreJl9TcqqIYiztn_` on The Unwritten (`m0RZDUDnwQu_0BtOJgHi9`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `16_variant_the_unwritten/`: `base_the_unwritten.png` (SUBJECT: the live The Unwritten icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS07_raw_icon-variant-the-unwritten-order.png`
-- **Note:** Shares its base with VS13 Captain's Command Fan: the two must read clearly apart at 125 px.
+- **Note:** Shares its base with VS13 Captain's Gunbai: the two must read clearly apart at 125 px.
 
 ```text
 Target: The Unwritten Order, a skin of the weapon The Unwritten, one square game item icon for The Ninja RPG.
@@ -548,119 +548,119 @@ References attached: 1. base_the_unwritten.png: SUBJECT: the live The Unwritten 
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
 Subject: The Unwritten Order. Keep the attached The Unwritten's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the black fan leaves become pale cream paper written with faint unreadable brush strokes, one line left blank, so the fan reads light instead of dark; the outer edge sealed with drops of cyan skyglass wax; the skull charm replaced by a round skyglass seal. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
-It must read clearly apart from its sibling skin on the same base (Captain's Command Fan: a rounded black-lacquered gunbai war-fan paddle with a skyglass star at its centre); do not use that design.
+It must read clearly apart from its sibling skin on the same base (Captain's Gunbai: a rounded black-lacquered gunbai war-fan paddle with a skyglass star at its centre); do not use that design.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS08 · Keelstone Embrace
+### VS08 · Keelstone
 
-- **Target:** Keelstone Embrace, item variant `xFyTBqje5M1_68EqRRoBu` on Gaea's Embrace (`-LzgdTM1yTjlezOyjd-6H`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Keelstone, item variant `xFyTBqje5M1_68EqRRoBu` on Gaea's Embrace (`-LzgdTM1yTjlezOyjd-6H`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `17_variant_gaeas_embrace/`: `base_gaeas_embrace.png` (SUBJECT: the live Gaea's Embrace icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS08_raw_icon-variant-keelstone-embrace.png`
 
 ```text
-Target: Keelstone Embrace, a skin of the weapon Gaea's Embrace, one square game item icon for The Ninja RPG.
+Target: Keelstone, a skin of the weapon Gaea's Embrace, one square game item icon for The Ninja RPG.
 References attached: 1. base_gaeas_embrace.png: SUBJECT: the live Gaea's Embrace icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Keelstone Embrace. Keep the attached Gaea's Embrace's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the shaft becomes dark ship's keel timber with two iron bands and a few grey barnacles; the orange tip crystal recoloured pale skyglass cyan; a heavy iron mooring ring hanging below the head. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+Subject: Keelstone. Keep the attached Gaea's Embrace's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the shaft becomes dark ship's keel timber with two iron bands and a few grey barnacles; the orange tip crystal recoloured pale skyglass cyan; a heavy iron mooring ring hanging below the head. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS09 · Drill-Count Bracers
+### VS09 · Skyglass Kote
 
-- **Target:** Drill-Count Bracers, item variant `_tdmHvPnvlnIMLpRnk9GC` on Warden's Bracers (`qTzWEb6tFBv8dl15ztqDO`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Skyglass Kote, item variant `_tdmHvPnvlnIMLpRnk9GC` on Warden's Bracers (`qTzWEb6tFBv8dl15ztqDO`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `18_variant_wardens_bracers/`: `base_wardens_bracers.png` (SUBJECT: the live Warden's Bracers icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS09_raw_icon-variant-drill-count-bracers.png`
-- **Note:** Shares its base with VS15 Warden's Forge-Fists: the two must read clearly apart at 125 px.
+- **Note:** Shares its base with VS15 Forgefists: the two must read clearly apart at 125 px.
 
 ```text
-Target: Drill-Count Bracers, a skin of the weapon Warden's Bracers, one square game item icon for The Ninja RPG.
+Target: Skyglass Kote, a skin of the weapon Warden's Bracers, one square game item icon for The Ninja RPG.
 References attached: 1. base_wardens_bracers.png: SUBJECT: the live Warden's Bracers icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
-Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
+Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Drill-Count Bracers. Keep the attached Warden's Bracers's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the plates recoloured verdigris sea-green, like old bronze from a wreck; the glyph replaced by plain metal; a row of tally notches across the knuckles, each set with a tiny cyan skyglass stud; tarred rope lashings wrapped round each cuff. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
-It must read clearly apart from its sibling skin on the same base (Warden's Forge-Fists: soot-black forged iron, blunt maul-head knuckle plates, seams of cooled skyglass); do not use that design.
+Subject: Skyglass Kote. Keep the attached Warden's Bracers's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the whole pair made of raw skyglass crystal, faceted, unpolished and gleaming, pale cyan brightening to near-white at the facet edges, with darker cyan depths inside; the plates keep their shapes but read as cut crystal, with rough natural facets and a few jagged crystal points along the cuff edges that change the outline; the straps become thin dark-iron bands binding the crystal; the glyph removed. Skyglass family mark: a short torn deep-indigo pennant knotted at one cuff, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. These are crystal armour, not a blade (director 2026-10-31, RUL-2026-10-31-082); the Skyglass Katana stays the only crystal blade.
+It must read clearly apart from its sibling skin on the same base (Forgefists: soot-black forged iron, blunt maul-head knuckle plates, seams of cooled skyglass); do not use that design.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS10 · Lastlight Dawnblade
+### VS10 · Lastlight Duskblade
 
-- **Target:** Lastlight Dawnblade, item variant `m7Xqe9cD1oB_2vCj1Zvu5` on Eclipsed Dawnblade (`MbPhG5El3UYjS5Bk2K3Bl`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Lastlight Duskblade, item variant `m7Xqe9cD1oB_2vCj1Zvu5` on Eclipsed Dawnblade (`MbPhG5El3UYjS5Bk2K3Bl`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `19_variant_eclipsed_dawnblade/`: `base_eclipsed_dawnblade.png` (SUBJECT: the live Eclipsed Dawnblade icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS10_raw_icon-variant-lastlight-dawnblade.png`
-- **Note:** Must also read apart from VS18 Sealwright's Seal (a different Dawnblade with engraved lines and a pommel seal disc).
+- **Note:** Must also read apart from VS18 Sealscript (a different Dawnblade with engraved lines and a pommel seal disc).
 
 ```text
-Target: Lastlight Dawnblade, a skin of the weapon Eclipsed Dawnblade, one square game item icon for The Ninja RPG.
+Target: Lastlight Duskblade, a skin of the weapon Eclipsed Dawnblade, one square game item icon for The Ninja RPG.
 References attached: 1. base_eclipsed_dawnblade.png: SUBJECT: the live Eclipsed Dawnblade icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Lastlight Dawnblade. Keep the attached Eclipsed Dawnblade's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the blade recoloured night-blue steel with a pale edge; a small iron lantern cage set at the base of the blade holding a skyglass core, its soft cyan light contained inside it; the white grip rewrapped in deep indigo. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+Subject: Lastlight Duskblade. Keep the attached Eclipsed Dawnblade's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the blade recoloured night-blue steel with a pale edge; a small iron lantern cage set at the base of the blade holding a skyglass core, its soft cyan light contained inside it; the white grip rewrapped in deep indigo. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS11 · Skysail Whisper
+### VS11 · Skysail
 
-- **Target:** Skysail Whisper, item variant `kD6g1o5qJo3K9r1HeHtiH` on Zephyr's Whisper (`CBp4scJi9XzMKRqxpshwT`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Skysail, item variant `kD6g1o5qJo3K9r1HeHtiH` on Zephyr's Whisper (`CBp4scJi9XzMKRqxpshwT`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `20_variant_zephyrs_whisper/`: `base_zephyrs_whisper.png` (SUBJECT: the live Zephyr's Whisper icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS11_raw_icon-variant-skysail-whisper.png`
 
 ```text
-Target: Skysail Whisper, a skin of the weapon Zephyr's Whisper, one square game item icon for The Ninja RPG.
+Target: Skysail, a skin of the weapon Zephyr's Whisper, one square game item icon for The Ninja RPG.
 References attached: 1. base_zephyrs_whisper.png: SUBJECT: the live Zephyr's Whisper icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Skysail Whisper. Keep the attached Zephyr's Whisper's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the fan paper becomes patched off-white sailcloth with visible stitching; the red tassels replaced by deep-indigo cord; thin rigging cords strung between the ribs; the embedded crystal recoloured pale skyglass cyan; if the wind swirl is kept, recolour it storm-grey and keep it compact, inside the margin. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+Subject: Skysail. Keep the attached Zephyr's Whisper's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the fan paper becomes patched off-white sailcloth with visible stitching; the red tassels replaced by deep-indigo cord; thin rigging cords strung between the ribs; the embedded crystal recoloured pale skyglass cyan; if the wind swirl is kept, recolour it storm-grey and keep it compact, inside the margin. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS12 · Hullbreaker Frostbite
+### VS12 · Hullbreaker
 
-- **Target:** Hullbreaker Frostbite, item variant `Iew4QFXyfWLPlPoMgeDrz` on Yuki's Frostbite (`Z-JdppXvrSokRymXavpOw`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Hullbreaker, item variant `Iew4QFXyfWLPlPoMgeDrz` on Yuki's Frostbite (`Z-JdppXvrSokRymXavpOw`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `21_variant_yukis_frostbite/`: `base_yukis_frostbite.png` (SUBJECT: the live Yuki's Frostbite icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS12_raw_icon-variant-hullbreaker-frostbite.png`
 
 ```text
-Target: Hullbreaker Frostbite, a skin of the weapon Yuki's Frostbite, one square game item icon for The Ninja RPG.
+Target: Hullbreaker, a skin of the weapon Yuki's Frostbite, one square game item icon for The Ninja RPG.
 References attached: 1. base_yukis_frostbite.png: SUBJECT: the live Yuki's Frostbite icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Hullbreaker Frostbite. Keep the attached Yuki's Frostbite's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the haft replaced by dark ship's timber with iron rings; a skyglass inlay set into the cheek of the axe head, not the edge. The head keeps its frost colouring, but without the cloud of blue fire around it: the axe silhouette must read, with glow only as a thin edge light. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+Subject: Hullbreaker. Keep the attached Yuki's Frostbite's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the haft replaced by dark ship's timber with iron rings; a skyglass inlay set into the cheek of the axe head, not the edge. The head keeps its frost colouring, but without the cloud of blue fire around it: the axe silhouette must read, with glow only as a thin edge light. Skyglass family mark: a short torn deep-indigo pennant knotted at the guard, its ends trailing back. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS13 · Captain's Command Fan
+### VS13 · Captain's Gunbai
 
-- **Target:** Captain's Command Fan, item variant `Deo6Y7dNzaPhOAiWK-4I3` on The Unwritten (`m0RZDUDnwQu_0BtOJgHi9`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Captain's Gunbai, item variant `Deo6Y7dNzaPhOAiWK-4I3` on The Unwritten (`m0RZDUDnwQu_0BtOJgHi9`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `16_variant_the_unwritten/`: `base_the_unwritten.png` (SUBJECT: the live The Unwritten icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS13_raw_icon-variant-captains-command-fan.png`
 - **Note:** Shares its base with VS07 The Unwritten Order: the two must read clearly apart at 125 px.
 
 ```text
-Target: Captain's Command Fan, a skin of the weapon The Unwritten, one square game item icon for The Ninja RPG.
+Target: Captain's Gunbai, a skin of the weapon The Unwritten, one square game item icon for The Ninja RPG.
 References attached: 1. base_the_unwritten.png: SUBJECT: the live The Unwritten icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Captain's Command Fan. Keep the attached The Unwritten's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the folding fan becomes a gunbai war fan in the same footprint, angle and size: a rounded black-lacquered paddle with a thick iron rim on a short haft (the base's pommel and hanging cord kept), a large four-point star inlaid in pale cyan skyglass filling the centre, faint cyan cracks along the rim. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+Subject: Captain's Gunbai. Keep the attached The Unwritten's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the folding fan becomes a gunbai war fan in the same footprint, angle and size: a rounded black-lacquered paddle with a thick iron rim on a short haft (the base's pommel and hanging cord kept), a large four-point star inlaid in pale cyan skyglass filling the centre, faint cyan cracks along the rim. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
 It must read clearly apart from its sibling skin on the same base (The Unwritten Order: the folding fan kept, pale paper leaves with faint strokes and cyan wax on the edge); do not use that design.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
@@ -668,60 +668,60 @@ Thumbnail test: shrunk to 125 px beside the base, this must read as a different 
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS14 · Rot-Bloom Reaper
+### VS14 · Rotbloom
 
-- **Target:** Rot-Bloom Reaper, item variant `dkkdXbwWFOGSw1nemyK7K` on Oathbinder (`ttwbJ6ZA5Id-OuBludM27`) · ICON (item-variant image) · no tier seal · magenta key · priority: **player-facing**
+- **Target:** Rotbloom, item variant `dkkdXbwWFOGSw1nemyK7K` on Oathbinder (`ttwbJ6ZA5Id-OuBludM27`) · ICON (item-variant image) · no tier seal · magenta key · priority: **player-facing**
 - **Attach folder:** `14_variant_oathbinder/`: `base_oathbinder.png` (SUBJECT: the live Oathbinder icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS14_raw_icon-variant-rot-bloom-reaper.png`
-- **Note:** Shares its base with VS05 Roll-Call Oathbinder: the two must read clearly apart at 125 px.
+- **Note:** Shares its base with VS05 Anchorline: the two must read clearly apart at 125 px.
 
 ```text
-Target: Rot-Bloom Reaper, a skin of the weapon Oathbinder, one square game item icon for The Ninja RPG.
+Target: Rotbloom, a skin of the weapon Oathbinder, one square game item icon for The Ninja RPG.
 References attached: 1. base_oathbinder.png: SUBJECT: the live Oathbinder icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Rot-Bloom Reaper. Keep the attached Oathbinder's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the chain becomes wet dark rope; clusters of cloudy, milky skyglass grow like barnacles along the back of the blade; the whole weapon stained a sickly bile-green, so it reads green at a glance; ragged strands of rot hanging from the blade. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
-It must read clearly apart from its sibling skin on the same base (Roll-Call Oathbinder: the black chain kept with neat cyan beads in place of its prayer knots); do not use that design.
+Subject: Rotbloom. Keep the attached Oathbinder's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the chain becomes wet dark rope; clusters of cloudy, milky skyglass grow like barnacles along the back of the blade; the whole weapon stained a sickly bile-green, so it reads green at a glance; ragged strands of rot hanging from the blade. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+It must read clearly apart from its sibling skin on the same base (Anchorline: the black chain kept with neat cyan beads in place of its prayer knots); do not use that design.
 Background: transparent. If transparency is not available, a true solid flat magenta chroma key (#FF00FF) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no magenta spill on the object. (Magenta, not lime: this subject carries green.)
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS15 · Warden's Forge-Fists
+### VS15 · Forgefists
 
-- **Target:** Warden's Forge-Fists, item variant `3DtT9myjmYY5xNY5mv7Ew` on Warden's Bracers (`qTzWEb6tFBv8dl15ztqDO`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Forgefists, item variant `3DtT9myjmYY5xNY5mv7Ew` on Warden's Bracers (`qTzWEb6tFBv8dl15ztqDO`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `18_variant_wardens_bracers/`: `base_wardens_bracers.png` (SUBJECT: the live Warden's Bracers icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS15_raw_icon-variant-wardens-forge-fists.png`
-- **Note:** Shares its base with VS09 Drill-Count Bracers: the two must read clearly apart at 125 px.
+- **Note:** Shares its base with VS09 Skyglass Kote: the two must read clearly apart at 125 px.
 
 ```text
-Target: Warden's Forge-Fists, a skin of the weapon Warden's Bracers, one square game item icon for The Ninja RPG.
+Target: Forgefists, a skin of the weapon Warden's Bracers, one square game item icon for The Ninja RPG.
 References attached: 1. base_wardens_bracers.png: SUBJECT: the live Warden's Bracers icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Warden's Forge-Fists. Keep the attached Warden's Bracers's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the pair reforged in soot-black iron with blunt, oversized maul-head knuckle plates that change the outline; thin seams of cooled pale-cyan skyglass between the plates; any glyph on the plates removed. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
-It must read clearly apart from its sibling skin on the same base (Drill-Count Bracers: the base metal kept, a row of tally notches with tiny cyan studs); do not use that design.
+Subject: Forgefists. Keep the attached Warden's Bracers's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the pair reforged in soot-black iron with blunt, oversized maul-head knuckle plates that change the outline; thin seams of cooled pale-cyan skyglass between the plates; any glyph on the plates removed. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+It must read clearly apart from its sibling skin on the same base (Skyglass Kote: the base metal kept, a row of tally notches with tiny cyan studs); do not use that design.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS16 · Wayfinder's Heading
+### VS16 · Wayfinder
 
-- **Target:** Wayfinder's Heading, item variant `hkcF8F8RZa71dcLu8im8G` on Stormrender (`cLXXf8RJv5l9B_gGsYN2a`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Wayfinder, item variant `hkcF8F8RZa71dcLu8im8G` on Stormrender (`cLXXf8RJv5l9B_gGsYN2a`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `13_variant_stormrender/`: `base_stormrender.png` (SUBJECT: the live Stormrender icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS16_raw_icon-variant-wayfinders-heading.png`
-- **Note:** Shares its base with VS04 Mast-Lightning Stormrender: the two must read clearly apart at 125 px.
+- **Note:** Shares its base with VS04 Thunderwake: the two must read clearly apart at 125 px.
 
 ```text
-Target: Wayfinder's Heading, a skin of the weapon Stormrender, one square game item icon for The Ninja RPG.
+Target: Wayfinder, a skin of the weapon Stormrender, one square game item icon for The Ninja RPG.
 References attached: 1. base_stormrender.png: SUBJECT: the live Stormrender icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Wayfinder's Heading. Keep the attached Stormrender's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the lightning recoloured storm-grey with a single white core line; a large round compass rose of dark iron and cyan skyglass mounted as the crossguard, wider than the blade; a fine etched route line running down the fuller. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
-It must read clearly apart from its sibling skin on the same base (Mast-Lightning Stormrender: a short skyglass rod upright in the crossguard and cyan crackle on the ricasso); do not use that design.
+Subject: Wayfinder. Keep the attached Stormrender's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the lightning recoloured storm-grey with a single white core line; a large round compass rose of dark iron and cyan skyglass mounted as the crossguard, wider than the blade; a fine etched route line running down the fuller. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+It must read clearly apart from its sibling skin on the same base (Thunderwake: a short skyglass rod upright in the crossguard and cyan crackle on the ricasso); do not use that design.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.
@@ -748,19 +748,19 @@ Thumbnail test: shrunk to 125 px beside the base, this must read as a different 
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
-### VS18 · Sealwright's Seal
+### VS18 · Sealscript
 
-- **Target:** Sealwright's Seal, item variant `trSVpt_E_BqOJS1geL_Sn` on Whispering Dawnblade (`mqCCZGSfXUNL02B4H6C9R`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
+- **Target:** Sealscript, item variant `trSVpt_E_BqOJS1geL_Sn` on Whispering Dawnblade (`mqCCZGSfXUNL02B4H6C9R`) · ICON (item-variant image) · no tier seal · lime key · priority: **player-facing**
 - **Attach folder:** `22_variant_whispering_dawnblade/`: `base_whispering_dawnblade.png` (SUBJECT: the live Whispering Dawnblade icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says); `material_skyglass_crystal.png` (MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape)
 - **Return as:** `VS18_raw_icon-variant-sealwrights-seal.png`
-- **Note:** The base is Whispering Dawnblade, not Eclipsed Dawnblade (RUL-2026-10-30-060 item 8). Must read apart from VS10 Lastlight Dawnblade.
+- **Note:** The base is Whispering Dawnblade, not Eclipsed Dawnblade (RUL-2026-10-30-060 item 8). Must read apart from VS10 Lastlight Duskblade.
 
 ```text
-Target: Sealwright's Seal, a skin of the weapon Whispering Dawnblade, one square game item icon for The Ninja RPG.
+Target: Sealscript, a skin of the weapon Whispering Dawnblade, one square game item icon for The Ninja RPG.
 References attached: 1. base_whispering_dawnblade.png: SUBJECT: the live Whispering Dawnblade icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.
 Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
 Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
-Subject: Sealwright's Seal. Keep the attached Whispering Dawnblade's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the blade's rose-gold glow recoloured pale cyan-white; fine dark engraved lines like brushed seal script along the whole blade (decorative strokes only, no legible characters); a large round skyglass seal disc at the pommel; two blank paper seal strips hanging from the guard. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
+Subject: Sealscript. Keep the attached Whispering Dawnblade's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin, not the base, at 125 px: the blade's rose-gold glow recoloured pale cyan-white; fine dark engraved lines like brushed seal script along the whole blade (decorative strokes only, no legible characters); a large round skyglass seal disc at the pommel; two blank paper seal strips hanging from the guard. Add a thin pale-cyan edge light along the whole outline. Skyglass appears as inlay, shards and accents. The Skyglass Katana is the only all-crystal blade: no blade turns to crystal, and this must not read as a crystal sword.
 Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.
 Thumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.

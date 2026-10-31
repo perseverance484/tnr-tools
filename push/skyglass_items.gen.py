@@ -426,9 +426,25 @@ def pet_and_rot():
     ]
 
 
-VT = T.table("**Boss variant tokens.**")            # token item, base, story
-SKINS = T.table("### 5.1 The 12 Skyglass variants")  # base (type), name, description, art line
-BOSS = T.table("### 5.2 The 7 boss variants")         # base (type), name, description, art line
+# Variant renames (RUL-2026-10-31-082): the text doc carries the CURRENT names; every generator keeps keying records
+# by the name push/329 created them with (bundles, srcIds, drops), and push/371 renames the live records.
+VARIANT_RENAMES = {  # name created by 329/341 -> current name
+    "Mast-Lightning Stormrender": "Thunderwake", "Roll-Call Oathbinder": "Anchorline",
+    "Chartline Ink of the Void": "Starchart", "Keelstone Embrace": "Keelstone", "Drill-Count Bracers": "Skyglass Kote",
+    "Lastlight Dawnblade": "Lastlight Duskblade", "Skysail Whisper": "Skysail", "Hullbreaker Frostbite": "Hullbreaker",
+    "Captain's Command Fan": "Captain's Gunbai", "Rot-Bloom Reaper": "Rotbloom", "Warden's Forge-Fists": "Forgefists",
+    "Wayfinder's Heading": "Wayfinder", "Sealwright's Seal": "Sealscript",
+}
+CREATED_NAME = {v: k for k, v in VARIANT_RENAMES.items()}
+
+
+def _as_created(rows, col):
+    return [[CREATED_NAME.get(c, c) if i == col else c for i, c in enumerate(r)] for r in rows]
+
+
+VT = _as_created(T.table("**Boss variant tokens.**"), 0)            # token item, base, story
+SKINS = _as_created(T.table("### 5.1 The 12 Skyglass variants"), 1)  # base (type), name, description, art line
+BOSS = _as_created(T.table("### 5.2 The 7 boss variants"), 1)         # base (type), name, description, art line
 UNTRADEABLE = {"Captain's Command Fan", "Rot-Bloom Reaper", "Crownbreaker"}  # loot tables 5d
 VT_TEMPLATE = T.block("**Boss variant tokens.**") if False else None
 
