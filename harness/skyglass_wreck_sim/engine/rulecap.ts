@@ -14,7 +14,7 @@
  * summon-template row, so a profile over the cap fails the run instead of being simulated. `--allow-over-cap` (any
  * runner) downgrades the failure to a recorded warning, only to reproduce pre-trim measurements.
  */
-import { gateSpec } from "./gates";
+import { gateSpec, isRuleList } from "./gates";
 
 export const AI_PROFILE_MAX_RULES = 20;
 export const ALLOW_OVER_CAP = process.argv.includes("--allow-over-cap");
@@ -52,7 +52,7 @@ export const assertSpecRuleCap = (label: string, spec: any) => {
     if (Array.isArray(o)) return o.forEach((v, i) => walk(v, `${path}/${i}`));
     if (!o || typeof o !== "object") return;
     for (const [k, v] of Object.entries(o)) {
-      if (k === "rules" && Array.isArray(v) && v.length && typeof v[0] === "object" && v[0] && ("action" in v[0] || "conditions" in v[0])) {
+      if (k === "rules" && isRuleList(v)) {
         found.push({ path: `${path}/${k}`, n: v.length });
         checkRuleCap(`${label}${path}`, { rules: v });
       }

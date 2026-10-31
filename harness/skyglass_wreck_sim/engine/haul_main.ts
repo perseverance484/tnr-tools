@@ -452,6 +452,9 @@ if (opt("spec-out")) {
       rulesNote: COPY_NOTES[k], jutsu: row.jutsus.map((uj: any) => ({ id: uj.jutsuId, name: uj.jutsu?.name })),
       rules: e.profile.rules.map((r: any) => ({ when: r.conditions, do: { type: r.action.type, jutsuId: r.action.jutsuId, target: r.action.target }, note: r.action.description })),
       insertAiSchema: issues.length ? issues.slice(0, 3).map((i: any) => `${i.path.join(".")}: ${i.message}`).join("; ") : "pass",
+
+      fullRow: { ...Object.fromEntries(Object.entries(row).filter(([kk, val]) => !RELS.has(kk) && !(val && typeof (val as any).getTime === "function"))), jutsus: row.jutsus.map((uj: any) => uj.jutsuId), items: (row.items ?? []).map((ui: any) => ({ itemId: ui.itemId, quantity: ui.quantity, equipped: ui.equipped })) },
+      fullProfile: e.profile,
     };
   }
   const graphs: any = {};
