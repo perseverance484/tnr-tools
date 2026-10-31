@@ -14,9 +14,11 @@ Checks (convention and data: docs/workflows/SKYGLASS_CHECK.md; design data: stat
               retired records are only hidden
   win-only    battle objectives carry no reward except the profession flags; no profession flag anywhere has an
               empty id list (empty = the whole pool)
-  chest-text  every weighted-cache item's description follows the RUL-2026-10-28-030 format: a coloured line
-              per tier (rate and items), 'Always:' for fixed rewards, a roll line only when the count varies; an
-              item with several caches states each under its own '<b>Label[, n rolls]:</b>' heading
+  chest-text  every weighted-cache item's description follows the RUL-2026-10-28-030 format as amended by
+              RUL-2026-10-31-074: a line per tier with the colour on a ◆ marker (rate, and every item with its chance,
+              in one of the allowed condensed forms; continuation lines '&nbsp;&nbsp;· …'), 'Always:' for fixed
+              rewards, a roll line only when the count varies; an item with several caches states each under its own
+              '<b>Label[, n rolls]:</b>' heading
   voice       player-facing text uses none of the story bible's "Never use" words, nor "seven-bladed"
   chart-tier  chart rarity matches its tier (RUL-2026-10-29-058 item 1; was RUL-2026-10-28-028 item 4)
   prof-chest  profession chest rarity (and hunt/gather flags while the design data requires them); a run's
@@ -31,7 +33,8 @@ import os
 import re
 import sys
 from collections import Counter
-from decimal import ROUND_HALF_UP, Decimal
+from decimal import ROUND_HALF_EVEN, ROUND_HALF_UP, Decimal
+from fractions import Fraction
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 DESIGN = "state/skyglass_design/design_data.json"
@@ -127,15 +130,30 @@ def pct_text(basis_points):
     return str((Decimal(basis_points) / Decimal(100)).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
 
 
-# RUL-2026-10-28-030 / loot tables section 0: one coloured line per tier. The order is the tier rank, lowest first
-# (RUL-2026-10-29-058 item 2: Forbidden sits above Legendary).
+# RUL-2026-10-28-030 as amended by RUL-2026-10-31-074 (loot tables section 0): one line per tier, the tier colour on a
+# ◆ marker only. The order is the tier rank, lowest first (RUL-2026-10-29-058 item 2: Forbidden sits above Legendary).
 TIER_COLOURS = {"Common": "#9ca3af", "Rare": "#3b82f6", "Epic": "#a855f7", "Legendary": "#f59e0b", "Forbidden": "#ef4444"}
 # Tiers the section 0 template does not show: the sentences that set each one, checked verbatim; the colour must appear
 # in one of them. Forbidden: the loot tables header (RUL-2026-10-29-058, "red") and the text doc's hex.
 TIER_COLOUR_EVIDENCE = {"Forbidden": ((LOOT, "plus **Forbidden** above Legendary (red)"),
                                       (TEXT, "Forbidden tier uses red `#ef4444`"))}
-TIER_LINE = re.compile(r'\s*<span\s+style\s*=\s*"\s*color\s*:\s*(?P<colour>#[0-9a-fA-F]{6})\s*;?\s*"\s*>\s*<b>\s*'
-                       r'(?P<tier>[A-Za-z]+)\s+(?P<pct>\d+(?:\.\d+)?)%\s*</b>\s*</span>\s*·\s*(?P<items>.*?)\s*$')
+TIER_LINE = re.compile(r'\s*<span\s+style\s*=\s*"\s*color\s*:\s*(?P<colour>#[0-9a-fA-F]{6})\s*;?\s*"\s*>\s*◆\s*</span>\s*'
+                       r'<b>\s*(?P<tier>[A-Za-z]+)\s+(?P<pct>\d+(?:\.\d+)?)%\s*</b>\s*·\s*(?P<items>.*?)\s*$')
+# The superseded RUL-2026-10-28-030 line (the whole label coloured): reported, never accepted.
+LEGACY_TIER_LINE = re.compile(r'\s*<span\s+style\s*=\s*"\s*color\s*:\s*#[0-9a-fA-F]{6}\s*;?\s*"\s*>\s*<b>\s*'
+                              r'[A-Za-z]+\s+\d+(?:\.\d+)?%\s*</b>\s*</span>')
+# A tier's continuation line: '&nbsp;&nbsp;· names' under its tier line.
+SUB_LINE = re.compile(r"\s*(?:&nbsp;|\u00a0)+\s*·\s*(?P<text>.*?)\s*$")
+
+
+def pct_shown(x):
+    """A chance (Fraction, percent) as the RUL-2026-10-31-074 text shows it: whole percent from 9.95% up, else one
+    decimal without a trailing '.0'; ties to even."""
+    d = Decimal(x.numerator) / Decimal(x.denominator)
+    if d >= Decimal("9.95"):
+        return str(d.quantize(Decimal(1), rounding=ROUND_HALF_EVEN))
+    t = str(d.quantize(Decimal("0.1"), rounding=ROUND_HALF_EVEN))
+    return t[:-2] if t.endswith(".0") else t
 
 
 def desc_lines(desc):
@@ -165,27 +183,76 @@ def always_entries(plain):
 
 
 def norm_items(text):
-    """A tier line's item list as plain text: tags dropped, ', and more' read as ' and more'."""
-    plain = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", text)).strip()
-    return re.sub(r",?\s+and more$", " and more", plain)
+    """A tier's stated text as plain text: tags dropped, &nbsp; read as a space, whitespace collapsed; continuation
+    lines are joined to it with ' | '."""
+    plain = re.sub(r"<[^>]+>", "", text).replace("&nbsp;", " ").replace("\u00a0", " ")
+    return re.sub(r"\s+", " ", plain).strip()
 
 
-def tier_items_text(entries, names):
-    """The expected item list of a tier: entries joined with ' or ' (items of one bundle with ' + '), the first three
-    then 'and more' past three; None when an item has no known name."""
-    parts = []
+def _join_or(parts):
+    return parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + " or " + parts[-1]
+
+
+def tier_items_text(entries, names, probability, common=None):
+    """Every text the RUL-2026-10-31-074 format allows for one tier, in plain form (see norm_items), first the generic
+    one; None when an item has no known name. The engine picks one entry of a tier uniformly, so an entry's chance is
+    the tier's probability over the entry count, summed over identical entries. Forms:
+      generic        'A ×2, B + C or D (x% each)' (the chance only when there are several; all chances equal)
+      one size       '×q of A, B or C (x% each)' (single items, one quantity, equal chances)
+      materials      'one material ×q (x% each): | A, B' or 'one material ×q | A, B (x% each) | C (y%)' (single items,
+                     one quantity, grouped by chance, most likely first)
+      bundles        'one pair|bundle, ×q each (x% each): | A + B | C + D' (one quantity)
+      recipe kits    'a recipe kit: lo–hi of the Common materials[ (not X)] ×q each (k kits, x% each)' (one quantity;
+                     every kit drawn from the cache's Common tier, `common`)"""
+    ents = []
     for e in entries:
         bundle = []
         for it in e.get("items") or []:
             nm = names.get(it.get("itemId"))
             if not nm:
                 return None
-            bundle.append(item_text(nm, int(it.get("quantity") or 1)))
+            bundle.append((nm, int(it.get("quantity") or 1)))
         if bundle:
-            parts.append(" + ".join(bundle))
-    if len(parts) > 3:
-        return " or ".join(parts[:3]) + " and more"
-    return " or ".join(parts)
+            ents.append(tuple(bundle))
+    if not ents:
+        return [""]
+    n = len(ents)
+    per = Fraction(int(probability), 100 * n)
+    rates = {}
+    for e in ents:
+        rates[e] = rates.get(e, 0) + per
+    out = []
+    if len(set(rates.values())) == 1:
+        texts = [" + ".join(item_text(nm, q) for nm, q in e) for e in rates]
+        out.append(_join_or(texts) + (f" ({pct_shown(per)}% each)" if len(texts) > 1 else ""))
+    qs = {q for e in ents for _, q in e}
+    if len(qs) == 1:
+        q = next(iter(qs))
+        if all(len(e) == 1 for e in ents):
+            groups = {}
+            for e, r in sorted(rates.items(), key=lambda kv: -kv[1]):
+                groups.setdefault(r, []).append(e[0][0])
+            if len(groups) == 1:
+                (r, ms), = groups.items()
+                if len(ms) > 1:
+                    out.append(f"×{q} of {_join_or(ms)} ({pct_shown(r)}% each)")
+                    out.append(f"one material ×{q} ({pct_shown(r)}% each): | " + ", ".join(ms))
+            else:
+                out.append(f"one material ×{q} | " + " | ".join(
+                    f"{', '.join(ms)} ({pct_shown(r)}% each)" if len(ms) > 1 else f"{ms[0]} ({pct_shown(r)}%)"
+                    for r, ms in groups.items()))
+        else:
+            sizes = [len(e) for e in ents]
+            label = "pair" if max(sizes) == 2 else "bundle"
+            out.append(f"one {label}, ×{q} each ({pct_shown(per)}% each): | "
+                       + " | ".join(" + ".join(nm for nm, _ in e) for e in ents))
+            mats = {nm for e in ents for nm, _ in e}
+            if common and mats <= set(common):
+                miss = [m for m in common if m not in mats]
+                src = "Common materials" + (f" (not {_join_or(miss)})" if miss else "")
+                rng = f"{min(sizes)}" if min(sizes) == max(sizes) else f"{min(sizes)}–{max(sizes)}"
+                out.append(f"a recipe kit: {rng} of the {src} ×{q} each ({n} kits, {pct_shown(per)}% each)")
+    return out
 
 
 class Design:
@@ -338,7 +405,7 @@ class Design:
                                  f"{src} no longer states {sentence!r}; update TIER_COLOURS / TIER_COLOUR_EVIDENCE")
                 if not any(colour in sentence for _, sentence in evidence):
                     self.err("chest-text", "TIER_COLOURS", f"no evidence sentence for {tier} states {colour}")
-            elif f'<span style="color:{colour}"><b>{tier} ' not in sec0:
+            elif f'<span style="color:{colour}">◆</span> <b>{tier} ' not in sec0:
                 self.err("chest-text", "TIER_COLOURS",
                          f"loot tables section 0 no longer shows {tier} in {colour}; update TIER_COLOURS to match")
         rulings = _read(self.root, RULINGS)
@@ -817,7 +884,7 @@ class Checker:
             out.append((lines[k][1], lines[k + 1:end]))
         first = min([h[0] for h in heads] + [len(lines)])
         for raw, plain in lines[:first]:
-            if TIER_LINE.match(raw):
+            if TIER_LINE.match(raw) or LEGACY_TIER_LINE.match(raw):
                 self.add("ERROR", "chest-text", f, w, fld, f"tier line '{plain}' sits under no cache heading")
         return out
 
@@ -893,39 +960,59 @@ class Checker:
                 self.add("ERROR", "chest-text", f, w, "data.effects.weightedCache.tiers",
                          f"tier '{hi}' ({pct_text(totals[hi])}%) outweighs '{lo}' ({pct_text(totals[lo])}%); tier names "
                          f"follow the order of weight (RUL-2026-10-29-058)")
-        stated = {}
+        stated, current = {}, None
         for raw, plain in lines:
             m = TIER_LINE.match(raw)
             if m:
-                stated.setdefault(m.group("tier"), []).append((m.group("colour").lower(), m.group("pct"), m.group("items")))
+                current = [m.group("colour").lower(), m.group("pct"), [m.group("items")]]
+                stated.setdefault(m.group("tier"), []).append(current)
+                continue
+            sub = SUB_LINE.match(raw)
+            if sub and current is not None:
+                current[2].append(sub.group("text"))  # a continuation line of the tier above
+                continue
+            current = None
+            if LEGACY_TIER_LINE.match(raw):
+                self.add("ERROR", "chest-text", f, w, fld,
+                         f"'{plain}' uses the superseded colour-label tier line; the tier colour goes on a ◆ marker only "
+                         f"(RUL-2026-10-31-074 item 1)")
                 continue
             m = re.search(r"\b(" + "|".join(TIER_WORDS) + r")\s+\d+(?:\.\d+)?\s*%", plain, re.I)
             if m:
                 self.add("ERROR", "chest-text", f, w, fld,
-                         f"'{plain}' states a tier rate outside the coloured tier-line format (RUL-2026-10-28-030)")
+                         f"'{plain}' states a tier rate outside the coloured tier-line format (RUL-2026-10-31-074)")
+        common = None  # the Common tier's materials, which a recipe-kit summary refers to
+        if "Common" in entries and all(len(e.get("items") or []) == 1 for e in entries["Common"]):
+            common = []
+            for e in entries["Common"]:
+                nm = names.get(e["items"][0].get("itemId"))
+                if nm and nm not in common:
+                    common.append(nm)
         for name in order:
-            want = pct_text(totals[name])
+            want = pct_shown(Fraction(totals[name], 100))
             colour = TIER_COLOURS.get(name)
             got = stated.pop(name, [])
             if colour is None:
-                self.add("ERROR", "chest-text", f, w, fld, f"tier '{name}' has no colour in the RUL-2026-10-28-030 format")
+                self.add("ERROR", "chest-text", f, w, fld, f"tier '{name}' has no colour in the RUL-2026-10-31-074 format")
             if not got:
                 self.add("ERROR", "chest-text", f, w, fld,
-                         f"no tier line for '{name}': needs '<span style=\"color:{colour or '?'}\"><b>{name} {want}%</b></span> · …'")
+                         f"no tier line for '{name}': needs '<span style=\"color:{colour or '?'}\">◆</span> <b>{name} {want}%</b> · …'")
                 continue
             if len(got) > 1:
                 self.add("ERROR", "chest-text", f, w, fld, f"tier '{name}' has {len(got)} lines; same-named tiers share one")
-            c, pct, items = got[0]
+            c, pct, parts = got[0]
             if colour and c != colour:
                 self.add("ERROR", "chest-text", f, w, fld, f"tier '{name}' is coloured {c}; the format uses {colour}")
             if pct != want:
                 self.add("ERROR", "chest-text", f, w, fld, f"tier '{name}' stated {pct}% but the cache weight is {want}%")
-            expect = tier_items_text(entries[name], names)
+            expect = tier_items_text(entries[name], names, totals[name], common)
+            said = " | ".join(norm_items(x) for x in parts)
             if expect is None:
                 self.add("WARN", "chest-text", f, w, fld, f"tier '{name}' lists an item with no known name; items not checked")
-            elif norm_items(items) != expect:
+            elif said not in expect:
                 self.add("ERROR", "chest-text", f, w, fld,
-                         f"tier '{name}' lists '{norm_items(items)}' but the cache gives '{expect}'")
+                         f"tier '{name}' lists '{said}' but the cache gives '{expect[0] if expect else ''}'"
+                         + (f" (or {len(expect) - 1} other allowed form(s))" if len(expect) > 1 else ""))
         for name in stated:
             self.add("ERROR", "chest-text", f, w, fld, f"tier line for '{name}' but the cache has no such tier")
         rolls = [r for r in cache.get("rolls") or [] if int(r.get("probability") or 0) > 0]

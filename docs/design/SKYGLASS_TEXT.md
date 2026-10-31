@@ -6,9 +6,10 @@ itself", chest HTML format), `SKYGLASS_THE_HAUL.md`, `SKYGLASS_BOSS_FIGHTS.md`, 
 Horror ships) and RUL-2026-10-28-009 … RUL-2026-10-29-056 (latest wins). This file owns no rule: where it disagrees
 with those, they win and this text is rewritten.
 
-Generators copy from here; they do not paraphrase. Chest rate lines are the expected output of the cache tables
-(loot tables §0: "descriptions are generated from the same tables"), so a generator that renders them must match these
-lines exactly, and `scripts/skyglass_check.py` compares the two.
+Generators copy from here; they do not paraphrase. Container descriptions (§4.4, §4.5) are the expected output of the
+cache tables in the condensed ◆ format (loot tables §0: "descriptions are generated from the same tables";
+RUL-2026-10-31-074 item 1), so the generator that renders them must match these blocks exactly, and
+`scripts/skyglass_check.py` checks every manifest's container text against its weights.
 
 ## How to read this file
 
@@ -68,7 +69,7 @@ survives only in the approved place names The Trophy Hold and the Trophy Warden,
 | Haul hazard effect lines (`applyDebuffs` descriptions) | **exist** in `haul_spec.json`; one split proposed (§3.8) | harness `fable/skyglass-haul-sim` |
 | Wreck Sighted; Low Tide Run; Night Watch; Sealed Reliquary; The Fall; Rotted Reliquary; Burning Heading; both steeping quests | **new** (§1, §2) | none before |
 | The Haul: 6 pages, tags, step lines, endings | **new** (§3) | none before (only two chart descriptions in the Haul doc) |
-| Item descriptions per §0 for every Skyglass item | **new** (§4) | none |
+| Item descriptions per §0 for every Skyglass item | **approved 2026-10-31** (§3.2, §4; RUL-2026-10-31-074: condensed container format with a ◆ tier marker, star difficulty on charts and pages, the Coffer's contents in §4.6) | `push/skyglass_items.gen.py` (live records: go-live 339; hidden records: push/354) |
 | Variant names, flavour, art lines | **new** (§5) | none |
 | Steady the Helm; boss closing lines; press-on stakes lines | **new** (§2, §6) | none |
 | Walked Every Deck | **new** (§7) | none |
@@ -601,27 +602,44 @@ does not count them, because locker bonus chests vary.
 
 **`quest:<page>.successDescription`** (all six): `You took your haul out of the ship's stores.`
 
-### 3.2 Page items (`item:<chart>.description`)
+### 3.2 Page items (`item:<page>.description`)
 
-All six share the rules block; only the story line and the run name change. Rarity Legendary, tradeable.
+Director-approved 2026-10-31 (RUL-2026-10-31-074 item 3): one lore line, the run and where it starts, four stars of
+five (the Haul does not scale to the player, RUL-2026-10-31-073), what it pays, the step choices with this page's
+layout (§3.3 … §3.7), and the rules footer. Rarity Legendary, tradeable. The long stories are trimmed to one line;
+the Trophy Hold's "trophies" is now "prizes" (Naming rule). The locker alert and the bonus-chest rate are left to
+the run's own text. A page drops from the endgame Wreck clear (2.4%) and every Rare-chart ending (1.5% each; loot
+tables §4b); its own card does not say so.
 
-**Rules block** (after the story line; `<page>` is the run name, `<chests>` is Hunter's or Gatherer's):
+**`item:Ledger Page: The Trophy Hold.description`**
 ```html
-<br><br>Bring it to the Battle Arena to run <b><page></b>. The page is spent when the run starts.<br>Up to 5 steps. At each one, take a <b>crate</b> (a chest and a crew fight), a sealed <b>locker</b> (a better chest, a chance at a bonus chest, a harder fight and a hazard on you), or <b>cut through</b> where the way allows (no fight now, but the next fight opens with a hazard). Or leave with your haul.<br>Every locker you open puts the stores on alert for the rest of the run.<br>Health and chakra carry between fights, with no refills. Lose any fight and the run ends with nothing.<br>Pays in <chests> Chests.
+<i>A page torn from the Arsenal Keeper's ledger: hides, horn and the hunters' prizes, sealed below the gun deck.</i><br><br><b>The Trophy Hold</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Hunter's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
 ```
 
-| Item name | Story line (`<i>…</i>`) |
-|---|---|
-| Ledger Page: The Trophy Hold | `<i>A page torn from the Arsenal Keeper's ledger. Hides, horn and the hunters' trophies, sealed below the gun deck. Every due date is crossed out and written again.</i>` |
-| Ledger Page: The Bone Store | `<i>A page from the Keeper's ledger for the bone store: horn, tusk and antler, the best of it sealed nearest the door.</i>` |
-| Ledger Page: The Snare Room | `<i>The trapper's page of the ledger, stained with old bait. Every snare he ever set is listed, and none is marked as taken down.</i>` |
-| Stores Manifest: The Overgrown Stores | `<i>The quartermaster's manifest for the lower stores. Ore, root and bloom, cut from the hull and sealed. Skyglass has grown through every line since.</i>` |
-| Stores Manifest: The Ore Vault | `<i>The manifest for the ore vault, weighed twice and signed three times. The ship's metal was always the best guarded thing below decks.</i>` |
-| Stores Manifest: The Bloom Cellar | `<i>The manifest for the drying cellar, its ink faded to the colour of old petals. The last line is a warning about the dust.</i>` |
+**`item:Ledger Page: The Bone Store.description`**
+```html
+<i>A page from the Keeper's ledger for the bone store: horn, tusk and antler, the best of it sealed nearest the door.</i><br><br><b>The Bone Store</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Hunter's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at steps 1–3 only; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
+```
 
-(The two approved stories in `SKYGLASS_THE_HAUL.md` are kept, except the Trophy Hold's "Draw on relief. Relief is
-crossed out", which is reworded to keep "relieved" to the refrain; open question 3. The Haul doc's "S-rank hunting
-required" rule line is dropped by RUL-2026-10-29-052.)
+**`item:Ledger Page: The Snare Room.description`**
+```html
+<i>The trapper's page of the ledger, stained with old bait. None of his snares is marked as taken down.</i><br><br><b>The Snare Room</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Hunter's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 2–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
+```
+
+**`item:Stores Manifest: The Overgrown Stores.description`**
+```html
+<i>The quartermaster's manifest for the lower stores. Skyglass has grown through every line since.</i><br><br><b>The Overgrown Stores</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Gatherer's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
+```
+
+**`item:Stores Manifest: The Ore Vault.description`**
+```html
+<i>The manifest for the ore vault, weighed twice and signed three times: the best-guarded metal below decks.</i><br><br><b>The Ore Vault</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Gatherer's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
+```
+
+**`item:Stores Manifest: The Bloom Cellar.description`**
+```html
+<i>The manifest for the drying cellar, its ink faded to the colour of old petals. The last line warns of the dust.</i><br><br><b>The Bloom Cellar</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Gatherer's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
+```
 
 ### 3.3 The Trophy Hold (hunters; the classic balance)
 
@@ -782,96 +800,115 @@ professions. Proposed:
 
 ## 4. Item descriptions (loot tables §0)
 
-Story line first, in italics; then the rules in plain words. Rates are the loot-table weights (RUL-2026-10-28-030
-format). Colours: grey `#9ca3af`, blue `#3b82f6`, purple `#a855f7`, gold `#f59e0b`. A fixed roll count is not
-repeated (the card shows it).
+Director-approved 2026-10-31 ("Approve all", RUL-2026-10-31-074; cards from the item description audit,
+`docs/reviews/SKYGLASS_ITEM_DESCRIPTION_AUDIT.md`, and the playthrough fixes F01, F10, F12 and F13 of
+`docs/reviews/SKYGLASS_PLAYTHROUGH_REVIEW.md`). Story line first, in italics; then the rules in plain words.
+
+- **Charts, the Lantern and the Haul pages** (§4.1, §3.2): the lore line; the run and the Battle Arena; difficulty in
+  five stars (Common ★☆☆☆☆, Rare ★★☆☆☆, Epic ★★★☆☆, tainted ★★★★☆, the Lantern's Crownhold ★★★★★, the Haul pages
+  ★★★★☆); the chance drops with their rates; the pick ("Choose one", the tainted charts "Choose two"); the end
+  choice where the run has one; the rules footer, which ends with the claim line on every chart (F01, RUL-2026-10-31-072
+  item 1). A Sealed Treasury chance is the ending's ladder step (1% per step, loot tables §4).
+- **Containers** (§4.4, §4.5): the condensed format with a ◆ tier marker (loot tables §0, RUL-2026-10-31-074 item 1).
+  Only the ◆ carries the tier colour (grey `#9ca3af`, blue `#3b82f6`, purple `#a855f7`, gold `#f59e0b`, red `#ef4444`
+  for Forbidden); the label is normal text. Every drop is named with its own chance; options of one tier at the same
+  rate and quantity are grouped ("(x% each)"); a recipe-kit tier is summarised as "(k kits, x% each)". A varying
+  roll count opens the list ("3–6 rolls."); a fixed one is not repeated (the card shows it). These blocks are the
+  expected output of the cache tables: `push/skyglass_items.gen.py` renders them from the tables and stops on any
+  difference, and `scripts/skyglass_check.py` checks every manifest's container text against its weights.
+- **Everything else** (§4.2, §4.3, §4.6): story, then what it does.
 
 ### 4.1 Charts and the Lantern
 
+Runs not built yet take their drops and picks from loot tables §4a/§5 (inferred, director to confirm when each run is
+built). The Archive's break-the-seal fight (F15) and the steeping charge of exactly 3 Core Rot as entry items (F13) are
+ruled into the build.
+
 **`item:Tide Chart.description`** (Common)
 ```html
-<i>The Wayfinder's tide table, marked where the low tide opens the wreck's lower hull.</i><br><br>Bring it to the Battle Arena to run <b>The Low Tide Run</b>: three fights, scaled to you. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.
+<i>The Wayfinder's tide table, marked where the low tide opens the wreck's lower hull.</i><br><br><b>The Low Tide Run</b> · Battle Arena<br>Difficulty: ★☆☆☆☆<br><b>Chance drops:</b> Chart of the Buried Cache 10% · Core Rot 15% · Sealed Treasury 1%<br><b>Choose one:</b> Medicine Inro · Galley Stores · Watch Roster<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
 **`item:Watch Roster.description`** (Common)
 ```html
-<i>The Deck Warden's duty roster, with a new name at the bottom in fresh ink: yours.</i><br><br>Bring it to the Battle Arena to run <b>The Night Watch</b>: three watches back to back, scaled to you. The roster is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.<br>After the last watch, leave with what you hold or stand the Second Watch for more. Lose it and you keep only what you held.
+<i>The Deck Warden's duty roster, with a new name at the bottom in fresh ink: yours.</i><br><br><b>The Night Watch</b> · Battle Arena<br>Difficulty: ★☆☆☆☆<br><b>Chance drops:</b> Chart of the Buried Cache 10% · Core Rot 15% · Sealed Treasury 2% (3% after the Second Watch)<br><b>Choose one:</b> Medicine Inro · Galley Stores · Tide Chart<br><b>At the end:</b> leave, or stand the Second Watch for more (lose it and keep only what you held).<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
-**`item:Chart of the Buried Cache.description`** (Rare, RUL-2026-10-29-058; live story kept)
+**`item:Chart of the Buried Cache.description`** (Rare)
 ```html
-<i>A salt-stained chart from the Skyglass wreck, marking a field cache its crew buried on the shore before the ship vanished.</i><br><br>Bring it to the Battle Arena to run <b>The Buried Cache</b>, scaled to you. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.
+<i>A salt-stained chart marking a field cache the crew buried on the shore before the ship vanished.</i><br><br><b>The Buried Cache</b> · Battle Arena<br>Difficulty: ★★☆☆☆<br><b>Chance drops:</b> Chart of the Drowned Foundry 15% · Haul pages 1.5% each · Sealed Treasury 2% (1% after a wrong cove)<br><b>Choose one:</b> Medicine Inro · Galley Stores · Chart of the Drowned Foundry<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
-**`item:Chart of the Drowned Foundry.description`** (live story kept)
+**`item:Chart of the Drowned Foundry.description`** (Rare)
 ```html
-<i>A waterlogged chart of the wreck's keel and lower decks, where the drowned foundry lies.</i><br><br>Bring it to the Battle Arena to run <b>The Drowned Foundry</b>. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run. There is no way out but through the crucible.
+<i>A waterlogged chart of the wreck's keel, where the drowned foundry still pours.</i><br><br><b>The Drowned Foundry</b> · Battle Arena<br>Difficulty: ★★☆☆☆<br><b>Chance drops:</b> Chart of the Quarantined Archive 10% · Haul pages 1.5% each · Warden's Forge-Fists variant 1% · Sealed Treasury 5%<br><b>Choose one:</b> Elemental Tool Pouch · Medicine Inro · Galley Stores<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
-**`item:Chart of the Quarantined Archive.description`** (live story kept)
+**`item:Chart of the Quarantined Archive.description`** (Rare)
 ```html
-<i>A chart of the wreck that shows a sealed chamber missing from every other plan.</i><br><br>Bring it to the Battle Arena to run <b>The Quarantined Archive</b>. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.<br>Three seals bar the way. A wrong answer brings the archive's guard and a smaller haul.
+<i>A chart of the wreck that shows a sealed chamber missing from every other plan.</i><br><br><b>The Quarantined Archive</b> · Battle Arena<br>Difficulty: ★★☆☆☆<br><b>Chance drops:</b> Reliquary Seal 25% · Rotted Reliquary Seal 1% · Haul pages 1.5% each · Sealwright's Seal variant 1% · Sealed Treasury 5%<br><b>Choose one:</b> Archive Chart Case · Sage's Strongbox · Skyglass Token<br><b>At the seals:</b> a wrong answer brings the guard and drops the Treasury chance to 3%. Breaking the seal adds a fight for 2 Core Rot.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
-**`item:Chart of the Captain's Watch.description`** (live story kept)
+**`item:Chart of the Captain's Watch.description`** (Rare)
 ```html
-<i>The Captain's own chart of the wreck's command decks.</i><br><br>Bring it to the Battle Arena to run <b>The Captain's Watch</b>. The chart is spent when the run starts.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.<br>Before each fight the Oathkeeper offers a term. Every term you take and survive raises the haul.
+<i>The Captain's own chart of the wreck's command decks.</i><br><br><b>The Captain's Watch</b> · Battle Arena<br>Difficulty: ★★☆☆☆<br><b>Chance drops:</b> The Last Heading 25% (45% after the dawn watch) · The Rotted Heading 1% · Haul pages 1.5% each · Wayfinder's Heading variant 1% · Sealed Treasury 4–6%<br><b>Choose one:</b> Skyglass Coffer · 1,000,000 ryo · Skyglass Token<br><b>Terms:</b> before each fight, take the Oathkeeper's term for a harder fight and a bigger haul.<br><b>At the end:</b> claim the stores, or stand the dawn watch (lose it and keep only what you held).<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
 **`item:Reliquary Seal.description`** (Epic)
 ```html
-<i>The seal of the iron reliquary chained behind the Sealwright, where the echoes the Core could not hold were sealed away.</i><br><br><b>Two uses.</b><br><b>Run it:</b> bring it to the Battle Arena to run <b>The Sealed Reliquary</b>: four echoes back to back, and the reliquary remembers each one that falls. The seal is spent when the run starts. Health and chakra carry, with no refills. A lost fight ends the run and leaves you 1 Core Rot.<br><b>Steep it:</b> use it from your inventory to soak it in the Core's rot. It costs 3 Core Rot. Win the fight and it becomes the Rotted Reliquary Seal. Lose and the seal comes back, but the Rot is spent. Short of 3 Core Rot? Take it back, and nothing is spent.
+<i>The seal of the iron reliquary chained behind the Sealwright, where the echoes the Core could not hold were sealed away.</i><br><br><b>The Sealed Reliquary</b> · Battle Arena<br>Difficulty: ★★★☆☆<br><b>Chance drops:</b> Lastlight Lantern 15% · Sealed Treasury 6% · Warden's Forge-Fists, Sealwright's Seal, The First Blade variants 2% each<br><b>Choose one:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Archive Chart Case ×2<br><b>If you fall:</b> 1 Core Rot.<br><b>Steep it:</b> use it from your inventory: 3 Core Rot → a Legendary chart.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
 **`item:The Last Heading.description`** (Epic)
 ```html
-<i>The Wayfinder's final course: the night the ship came down, as the Core still replays it.</i><br><br><b>Two uses.</b><br><b>Run it:</b> bring it to the Battle Arena to run <b>The Fall</b>: the burning decks, then the Core as it breaks, while the fire spreads. The heading is spent when the run starts. Health and chakra carry, with no refills. A lost fight ends the run and leaves you 1 Core Rot. After the break, leave with what you hold or climb to the helm; lose there and you keep only what you held.<br><b>Steep it:</b> use it from your inventory to soak it in the Core's rot. It costs 3 Core Rot. Win the fight and it becomes the Rotted Heading. Lose and the heading comes back, but the Rot is spent. Short of 3 Core Rot? Take it back, and nothing is spent.
+<i>The Wayfinder's final course: the night the ship came down, as the Core still replays it.</i><br><br><b>The Fall</b> · Battle Arena<br>Difficulty: ★★★☆☆<br><b>Chance drops:</b> Lastlight Lantern 15% · Core Rot 40% · Sealed Treasury 6% · The Rotted Heading 5% (helm only)<br><b>Choose one:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Galley Stores ×3<br><b>At the end:</b> leave, or climb to the helm for more (lose it and keep only what you held). <b>If you fall:</b> 1 Core Rot.<br><b>Steep it:</b> use it from your inventory: 3 Core Rot → a Legendary chart.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
 **`item:Rotted Reliquary Seal.description`** (Legendary)
 ```html
-<i>The Reliquary Seal, soaked in the Core's rot. It opens the reliquary as the rot remembers it.</i><br><br>Bring it to the Battle Arena to run <b>The Rotted Reliquary</b>. The seal is spent when the run starts.<br><b>The twists:</b> you enter at 70% health and chakra; the echoes come out in pairs; the rot seals your elemental jutsu for the first 2 rounds of every fight.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.<br>After the last pair, leave with what you hold or open one more door; lose there and you keep only what you held.<br>The run's reward lets you <b>pick 2</b>.
+<i>The Reliquary Seal, soaked in rot: the echoes come out in pairs, and the air clogs your seals.</i><br><br><b>The Rotted Reliquary</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Chance drops:</b> Lastlight Lantern 30% · Core Rot 40% · Sealed Treasury 6% · Warden's Forge-Fists, Sealwright's Seal, The First Blade variants 4% each<br><b>Choose two:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Archive Chart Case ×2<br><b>At the end:</b> leave, or open the door the rot added for more (lose it and keep only what you held).<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
-**`item:The Rotted Heading.description`** (Legendary; name: open question 2)
+**`item:The Rotted Heading.description`** (Legendary)
 ```html
-<i>The Last Heading, soaked in the Core's rot. It runs the night of the fall backwards.</i><br><br>Bring it to the Battle Arena to run <b>The Burning Heading</b>. The heading is spent when the run starts.<br><b>The twists:</b> it starts at the end, in the break, at 70% health and chakra; fire catches you at the start of every fight, so the damage you take burns again; you fight your way out through the decks, and you will not fight all of it alone.<br>Health and chakra carry between fights, with no refills. A lost fight ends the run.<br>The run's reward lets you <b>pick 2</b>.
+<i>The Last Heading, soaked in rot: it runs the night of the fall backwards, and the fire follows you.</i><br><br><b>The Burning Heading</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Chance drops:</b> Lastlight Lantern 30% · Core Rot 40% · Sealed Treasury 6% · Wayfinder's Heading variant 4%<br><b>Choose two:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Galley Stores ×3<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
-**`item:Lastlight Lantern.description`** (live story kept)
+**`item:Lastlight Lantern.description`** (Legendary)
 ```html
-<i>Crownhold's final signal, caught in a skyglass lantern. It still burns with the last order the wreck's crew obey, and its light points home.</i><br><br>Bring it to the Battle Arena to follow the light to <b>Crownhold</b>, the mountain fortress at the end of the story. The Lantern is spent when the expedition starts.<br>Health carries between fights, and a lost fight ends the expedition.<br>Claim any reward choice still waiting from an earlier run before you set out.
+<i>Crownhold's final signal, caught in a skyglass lantern. Its light still points home.</i><br><br><b>Crownhold</b> · Battle Arena<br>Difficulty: ★★★★★<br><b>Chance drops:</b> Reliquary Seal 25% · The Last Heading 25% · Sealed Treasury 6%<br><b>Choose one:</b> Crown's Hoard · Skyglass Coffer ×3 · Fragment of the Skyglass Crown · Crownbreaker badge · Crownhold jutsu<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
 The six Haul pages: §3.2.
 
 ### 4.2 Core Rot and the pet items
 
-**`item:Core Rot.description`**
+**`item:Core Rot.description`** (steeping is used from the inventory and charges exactly 3 Core Rot as entry items, F13)
 ```html
-<i>What the Core leaves behind when it rebuilds an impression badly: dark, wet timber and rope, and skyglass gone cloudy.</i><br><br>Used for <b>steeping</b>. Use an Epic chart (the Reliquary Seal or The Last Heading) from your inventory to soak it in the Core's rot. Steeping costs the chart and <b>3 Core Rot</b>, and you fight what the rot builds.<br><b>Win:</b> you get the tainted chart (the Rotted Reliquary Seal or the Rotted Heading).<br><b>Lose:</b> the chart comes back to you, and the 3 Core Rot are spent.<br>Short of 3 Core Rot? Take the chart back at the start, and nothing is spent.
+<i>What the Core leaves behind when it rebuilds an impression badly: wet timber, rotten rope and skyglass gone cloudy.</i><br><br><b>Drops:</b> endgame Wreck 15% · Low Tide Run and Night Watch 15% · The Fall and both Legendary chart runs 40% · breaking the Archive's seal (2) · a lost Epic run (1)<br><b>Steeping:</b> use an Epic chart from your inventory and pay 3 Core Rot. Win the fight for a Legendary chart; lose and the chart comes back, the Rot spent.
 ```
 
-**`item:The Little Horror's Jar.description`**
+**`item:The Little Horror's Jar.description`** (RUL-2026-10-31-068, -070; pets fight in every quest battle, -072 item 7)
 ```html
-<i>One of the Skyglass Project's first recalls was the ship's mascot, sealed in a jar. The Core tried to remember it. This is what came back.</i><br><br>Open the jar to bind the <b>Little Horror</b> to you as a pet. It answers to you, not to the crown.<br>The jar will not open while your pet collection is full. It stays in your inventory until you make room.
+<i>The ship's mascot, sealed in a jar. The Core tried to remember it, and this is what came back.</i><br><br>Open it to bind the <b>Little Horror</b>, a Legendary pet: while it is out, enemies deal 10% less damage, and it bites 20% harder.<br>Will not open while your pet collection is full.
 ```
 
-**`item:Galley Stores.description`**
+**`item:Galley Stores.description`** (F10: the pet's appearance condition)
 ```html
-<i>The galley still stocks a larder for a crew that does not eat. A companion that does eat grows strong on it.</i><br><br>Gives <b>20,000 pet experience</b> to your active pet. The pet must be ready for battle and not away on a task. If no pet can take it, the experience is lost.
+<i>The galley still stocks a larder for a crew that does not eat. A companion that does grows strong on it.</i><br><br>Gives <b>20,000 pet experience</b> to your active pet. It must be ready for battle, have its look generated for its current rank, and not be on a task, or the experience is lost.
 ```
 
 ### 4.3 Tokens
 
-**`item:Skyglass Token.description`**
+**`item:Skyglass Token.description`** (F12: unlocked from the weapon's Variants list)
 ```html
-<i>A token pressed from clouded skyglass and stamped with the four-point star.</i><br><br>Use it to unlock <b>one Skyglass variant</b> of your choice: a new look and name for one of your crafted weapons, with the same stats. You must own the weapon. Each variant unlocks once per player, and the token is used up.<br>Skyglass variants exist for Aetherion, Thornsilver, Night's Testament, Stormrender, Oathbinder, Ink of the Void, The Unwritten, Gaea's Embrace, Warden's Bracers, Eclipsed Dawnblade, Zephyr's Whisper and Yuki's Frostbite.
+<i>A token pressed from clouded skyglass and stamped with the four-point star.</i><br><br>Unlocks one <b>Skyglass variant</b> (new look and name, same stats) of a crafted weapon you own: open the weapon, choose <b>Variants</b>, then <b>Use Skyglass Token</b>. Each variant once per player.<br>For: Aetherion, Thornsilver, Night's Testament, Stormrender, Oathbinder, Ink of the Void, The Unwritten, Gaea's Embrace, Warden's Bracers, Eclipsed Dawnblade, Zephyr's Whisper, Yuki's Frostbite.
 ```
 
-**Boss variant tokens.** Item name: the variant's name alone, `<Variant>` (RUL-2026-10-29-057 item 1). Description template:
+**Boss variant tokens.** Item name: the variant's name alone, `<Variant>` (RUL-2026-10-29-057 item 1). Description
+template (no "the" before `<Variant>`, so no "the The First Blade"; unlock path F12):
 ```html
-<i><story line></i><br><br>Use it to unlock the <b><Variant></b> variant of <b><Base></b>: a new look and name, with the same stats. You must own <Base>. Each variant unlocks once per player, and the token is used up.
+<i><story line></i><br><br>Unlocks <b><Variant></b>, a variant of <b><Base></b> (new look and name, same stats). You must own <Base>: open it, choose <b>Variants</b>, then <b>Use <Variant></b>. Once per player.
 ```
 
 | Token item | `<Base>` | Story line |
@@ -884,96 +921,126 @@ The six Haul pages: §3.2.
 | Sealwright's Seal | Whispering Dawnblade | `The Sealwright's own seal, from the hand that buried every report.` |
 | Crownbreaker | Thornsilver | `For walking every deck of the war-ship, and breaking the crown that held them.` |
 
+The Crownbreaker token stays hidden until Walked Every Deck exists (RUL-2026-10-31-069); its variant's description
+is blank until then (RUL-2026-10-31-072 item 6).
+
 ### 4.4 Caches
 
 **`item:Skyglass Coffer.description`**
 ```html
-<i>A seal-locked coffer from the Skyglass Project's stores, the only place its salvage is still kept.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 69%</b></span> · Skyglass Filament ×2<br><span style="color:#3b82f6"><b>Rare 24%</b></span> · Skyglass Serum ×3<br><span style="color:#a855f7"><b>Epic 5%</b></span> · Fragment of the Skyglass Crown<br><span style="color:#f59e0b"><b>Legendary 2%</b></span> · Skyglass Katana
+<i>A seal-locked coffer from the Skyglass Project's stores, the only place its salvage is still kept.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 69%</b> · Skyglass Filament ×2<br><span style="color:#3b82f6">◆</span> <b>Rare 24%</b> · Skyglass Serum ×3<br><span style="color:#a855f7">◆</span> <b>Epic 5%</b> · Fragment of the Skyglass Crown<br><span style="color:#f59e0b">◆</span> <b>Legendary 2%</b> · Skyglass Katana
 ```
 
 **`item:Sealed Treasury.description`**
 ```html
-<i>The war-ship's payroll vault, still locked under the ship's seals. No one aboard was ever paid off.</i><br><br><b>Always:</b> 150,000 ryo<br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 45%</b></span> · Imperial Gold ×5<br><span style="color:#3b82f6"><b>Rare 35%</b></span> · Rare Jewels ×10<br><span style="color:#a855f7"><b>Epic 15%</b></span> · Imperial Gold ×15<br><span style="color:#f59e0b"><b>Legendary 5%</b></span> · Unobtanium ×5
+<i>The war-ship's payroll vault, still locked under the ship's seals. No one aboard was ever paid off.</i><br><br><b>Always:</b> 150,000 ryo<br>3–6 rolls. <b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 45%</b> · Imperial Gold ×5<br><span style="color:#3b82f6">◆</span> <b>Rare 35%</b> · Rare Jewels ×10<br><span style="color:#a855f7">◆</span> <b>Epic 15%</b> · Imperial Gold ×15<br><span style="color:#f59e0b">◆</span> <b>Legendary 5%</b> · Unobtanium ×5
 ```
 
 **`item:Archive Chart Case.description`** (Legendary 7% an Epic chart, Forbidden 3% the Lantern; RUL-2026-10-29-058)
 ```html
-<i>A sealed chart case from the Quarantined Archive, holding one chart of the wreck's shifting decks.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 45%</b></span> · Chart of the Drowned Foundry<br><span style="color:#3b82f6"><b>Rare 25%</b></span> · Chart of the Quarantined Archive<br><span style="color:#a855f7"><b>Epic 20%</b></span> · Chart of the Captain's Watch<br><span style="color:#f59e0b"><b>Legendary 7%</b></span> · Reliquary Seal <i>or</i> The Last Heading<br><span style="color:#ef4444"><b>Forbidden 3%</b></span> · Lastlight Lantern
+<i>A sealed chart case from the Quarantined Archive, holding one chart of the wreck's shifting decks.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 45%</b> · Chart of the Drowned Foundry<br><span style="color:#3b82f6">◆</span> <b>Rare 25%</b> · Chart of the Quarantined Archive<br><span style="color:#a855f7">◆</span> <b>Epic 20%</b> · Chart of the Captain's Watch<br><span style="color:#f59e0b">◆</span> <b>Legendary 7%</b> · Reliquary Seal or The Last Heading <i>(3.5% each)</i><br><span style="color:#ef4444">◆</span> <b>Forbidden 3%</b> · Lastlight Lantern
 ```
 
 **`item:Medicine Inro.description`**
 ```html
-<i>A lacquered medicine case from the ship's infirmary, still stocked for a crew that cannot fall ill.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 70%</b></span> · Field Tonic ×10 <i>or</i> Chakra Pill ×10 <i>or</i> Stamina Pill ×10<br><span style="color:#3b82f6"><b>Rare 22%</b></span> · Small Health Pill ×10 <i>or</i> Dr. Kim's Miracle Potion ×10 <i>or</i> Panacea ×10<br><span style="color:#a855f7"><b>Epic 7%</b></span> · Chakra Pill II ×10 <i>or</i> Stamina Pill II ×10<br><span style="color:#f59e0b"><b>Legendary 1%</b></span> · Pill Pack ×5
+<i>A lacquered medicine case from the ship's infirmary, still stocked for a crew that cannot fall ill.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 70%</b> · Field Tonic ×10, Chakra Pill ×10 or Stamina Pill ×10 <i>(23% each)</i><br><span style="color:#3b82f6">◆</span> <b>Rare 22%</b> · Small Health Pill ×10, Dr. Kim's Miracle Potion ×10 or Panacea ×10 <i>(7.3% each)</i><br><span style="color:#a855f7">◆</span> <b>Epic 7%</b> · Chakra Pill II ×10 or Stamina Pill II ×10 <i>(3.5% each)</i><br><span style="color:#f59e0b">◆</span> <b>Legendary 1%</b> · Pill Pack ×5
 ```
 
-**`item:Sage's Strongbox.description`** (the Forbidden tier colour: open question 8)
+**`item:Sage's Strongbox.description`** (the Forbidden tier's ◆ is red)
 ```html
-<i>The Sealwright's strongbox of remedies meant for enemies, not allies.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 65%</b></span> · Dr. Kim Disaster Potion ×20 <i>or</i> Chakra Disrupting Needles ×20<br><span style="color:#a855f7"><b>Epic 26%</b></span> · Infernum ×10 <i>or</i> Bashōsen ×10 <i>or</i> Dr. Kim's Poison Potion ×10<br><span style="color:#f59e0b"><b>Legendary 8%</b></span> · Solider Pill ×2 <i>or</i> Enemy Pill ×2 <i>or</i> Mona's Mermaid Song ×2<br><span style="color:#ef4444"><b>Forbidden 1%</b></span> · Forbidden Jutsu Scroll: Nexus <i>or</i> Forbidden Jutsu Scroll: Rebirth
+<i>The Sealwright's strongbox of remedies meant for enemies, not allies.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 65%</b> · Dr. Kim Disaster Potion ×20 or Chakra Disrupting Needles ×20 <i>(32% each)</i><br><span style="color:#a855f7">◆</span> <b>Epic 26%</b> · Infernum ×10, Bashōsen ×10 or Dr. Kim's Poison Potion ×10 <i>(8.7% each)</i><br><span style="color:#f59e0b">◆</span> <b>Legendary 8%</b> · Solider Pill ×2, Enemy Pill ×2 or Mona's Mermaid Song ×2 <i>(2.7% each)</i><br><span style="color:#ef4444">◆</span> <b>Forbidden 1%</b> · Forbidden Jutsu Scroll: Nexus or Forbidden Jutsu Scroll: Rebirth <i>(0.5% each)</i>
 ```
 
-**`item:Elemental Tool Pouch.description`** (live story kept)
+**`item:Elemental Tool Pouch.description`**
 ```html
-<i>A buckled armory pouch: elemental kunai and the tools that go with them.</i><br><br><b>Always:</b> Elemental Kunai ×10<br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 70%</b></span> · Elemental Kunai ×10 <i>or</i> Venom Cask ×10<br><span style="color:#3b82f6"><b>Rare 25%</b></span> · Elemental Kunai ×20 <i>or</i> Elite Smoke Bomb ×10 <i>or</i> Paper Bombs ×10<br><span style="color:#a855f7"><b>Epic 5%</b></span> · Elemental Kunai ×30 <i>or</i> Senbon Needles ×10 <i>or</i> Saki ×10
+<i>A buckled armory pouch: elemental kunai and the tools that go with them.</i><br><br><b>Always:</b> Elemental Kunai ×10<br><b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 70%</b> · Elemental Kunai ×10 or Venom Cask ×10 <i>(35% each)</i><br><span style="color:#3b82f6">◆</span> <b>Rare 25%</b> · Elemental Kunai ×20, Elite Smoke Bomb ×10 or Paper Bombs ×10 <i>(8.3% each)</i><br><span style="color:#a855f7">◆</span> <b>Epic 5%</b> · Elemental Kunai ×30, Senbon Needles ×10 or Saki ×10 <i>(1.7% each)</i>
 ```
 
-**`item:Unmarked Cargo.description`** (live story kept)
+**`item:Unmarked Cargo.description`**
 ```html
-<i>Unmarked cargo hauled out of the Skyglass wreck. Something from the ship's stores is sealed inside.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 40%</b></span> · Medicine Inro <i>or</i> Elemental Tool Pouch<br><span style="color:#3b82f6"><b>Rare 35%</b></span> · Sage's Strongbox <i>or</i> Galley Stores<br><span style="color:#a855f7"><b>Epic 18%</b></span> · Skyglass Coffer <i>or</i> Archive Chart Case<br><span style="color:#f59e0b"><b>Legendary 7%</b></span> · Sealed Treasury <i>or</i> Skyglass Token
+<i>Unmarked cargo hauled out of the Skyglass wreck. Something from the ship's stores is sealed inside.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 40%</b> · Medicine Inro or Elemental Tool Pouch <i>(20% each)</i><br><span style="color:#3b82f6">◆</span> <b>Rare 35%</b> · Sage's Strongbox or Galley Stores <i>(18% each)</i><br><span style="color:#a855f7">◆</span> <b>Epic 18%</b> · Skyglass Coffer or Archive Chart Case <i>(9% each)</i><br><span style="color:#f59e0b">◆</span> <b>Legendary 7%</b> · Sealed Treasury or Skyglass Token <i>(3.5% each)</i>
 ```
 
 **`item:Crown's Hoard.description`** (three effects on one item: a Coffer roll, a Treasury roll, a Skyglass Token)
 ```html
-<i>What the crown kept for itself: Crownhold's own coffer and treasury, gathered beneath the throne.</i><br><br><b>Always:</b> 150,000 ryo · Skyglass Token<br><b>Coffer, 1 roll:</b><br><span style="color:#9ca3af"><b>Common 69%</b></span> · Skyglass Filament ×2<br><span style="color:#3b82f6"><b>Rare 24%</b></span> · Skyglass Serum ×3<br><span style="color:#a855f7"><b>Epic 5%</b></span> · Fragment of the Skyglass Crown<br><span style="color:#f59e0b"><b>Legendary 2%</b></span> · Skyglass Katana<br><b>Treasury, 3–6 rolls:</b><br><span style="color:#9ca3af"><b>Common 45%</b></span> · Imperial Gold ×5<br><span style="color:#3b82f6"><b>Rare 35%</b></span> · Rare Jewels ×10<br><span style="color:#a855f7"><b>Epic 15%</b></span> · Imperial Gold ×15<br><span style="color:#f59e0b"><b>Legendary 5%</b></span> · Unobtanium ×5
+<i>What the crown kept for itself: Crownhold's own coffer and treasury, gathered beneath the throne.</i><br><br><b>Always:</b> 150,000 ryo · Skyglass Token<br><b>Coffer, 1 roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 69%</b> · Skyglass Filament ×2<br><span style="color:#3b82f6">◆</span> <b>Rare 24%</b> · Skyglass Serum ×3<br><span style="color:#a855f7">◆</span> <b>Epic 5%</b> · Fragment of the Skyglass Crown<br><span style="color:#f59e0b">◆</span> <b>Legendary 2%</b> · Skyglass Katana<br><b>Treasury, 3–6 rolls:</b><br><span style="color:#9ca3af">◆</span> <b>Common 45%</b> · Imperial Gold ×5<br><span style="color:#3b82f6">◆</span> <b>Rare 35%</b> · Rare Jewels ×10<br><span style="color:#a855f7">◆</span> <b>Epic 15%</b> · Imperial Gold ×15<br><span style="color:#f59e0b">◆</span> <b>Legendary 5%</b> · Unobtanium ×5
 ```
 
 ### 4.5 The eight profession chests
 
-Weights from `state/skyglass_design/chests.json` (generator `push/skyglass_profession_chests.gen.py`): 3 rolls 60% /
-4 rolls 30% / 6 rolls 10%, so every chest shows "3–6 rolls". These chests' tiers are named Common, Rare, Epic and Legendary (RUL-2026-10-29-058; formerly Staples, Recipe kit, Bulk and
-Windfall/Heirloom), coloured grey, blue, purple and gold in that order. Options
-are listed most frequent first, three at most, then "and more".
-
-Each description is `<i><story></i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br>` followed by the four tier lines.
+Tables from `state/skyglass_design/chests.json` (generator `push/skyglass_profession_chests.gen.py`; quantities
+rounded to the nearest 5, RUL-2026-10-31-074 item 2): 3 rolls 60% / 4 rolls 30% / 6 rolls 10%, so every chest
+shows "3–6 rolls". Tiers Common, Rare, Epic, Legendary (RUL-2026-10-29-058). Within a tier the engine picks one
+entry uniformly and entries are duplicated to weight by recipe demand, so the Common tier lists its materials
+grouped by chance, most likely first.
 
 **`item:Common Hunter's Chest.description`**
 ```html
-<i>A hunter's sea-chest from the ship's stores: the everyday take, cured and logged.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Owlcat's Fur ×26 <i>or</i> Glimmer Dust ×26 <i>or</i> Moonlight Antlers ×26, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Owlcat's Fur ×12 + Rust Ferret Pelt ×12 <i>or</i> Glimmer Dust ×12 + Moonlight Antlers ×12 <i>or</i> Badger Shell ×12 + Glimmer Dust ×12 + Moonlight Antlers ×12 + Owlcat's Fur ×12, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Owlcat's Fur ×78 <i>or</i> Glimmer Dust ×78 <i>or</i> Moonlight Antlers ×78<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Ashrend Wing ×12 <i>or</i> Brasel Spine ×12 <i>or</i> Glimmerchitin ×12, and more
+<i>A hunter's sea-chest from the ship's stores: the everyday take, cured and logged.</i><br><br>3–6 rolls. <b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 56%</b> · one material ×25<br>&nbsp;&nbsp;· Owlcat's Fur, Glimmer Dust <i>(11% each)</i><br>&nbsp;&nbsp;· Moonlight Antlers, Mosswolf Tuft, Badger Shell, Rust Ferret Pelt <i>(8.4% each)</i><br><span style="color:#3b82f6">◆</span> <b>Rare 26%</b> · a recipe kit: 2–4 of the Common materials ×10 each <i>(5 kits, 5.2% each)</i><br><span style="color:#a855f7">◆</span> <b>Epic 12%</b> · ×80 of Owlcat's Fur, Glimmer Dust or Moonlight Antlers <i>(4% each)</i><br><span style="color:#f59e0b">◆</span> <b>Legendary 6%</b> · ×10 of Ashrend Wing, Brasel Spine, Glimmerchitin or Lurethorne <i>(1.5% each)</i>
 ```
 
 **`item:Rare Hunter's Chest.description`**
 ```html
-<i>A hunter's chest of the rarer game the ship took along the coastlines.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Ashrend Wing ×27 <i>or</i> Brasel Spine ×27 <i>or</i> Glimmerchitin ×27, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Ashrend Wing ×12 + Brasel Spine ×12 <i>or</i> Ashrend Wing ×12 + Frostscale ×12 + Glimmerchitin ×12 <i>or</i> Brasel Spine ×12 + Voltleaf Plume ×12, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Ashrend Wing ×81 <i>or</i> Brasel Spine ×81 <i>or</i> Glimmerchitin ×81<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Moonpetal Weave ×12 <i>or</i> Ofuda Moss ×12 <i>or</i> Urami Drop ×12, and more
+<i>A hunter's chest of the rarer game the ship took along the coastlines.</i><br><br>3–6 rolls. <b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 56%</b> · one material ×25<br>&nbsp;&nbsp;· Ashrend Wing <i>(12%)</i><br>&nbsp;&nbsp;· Brasel Spine, Glimmerchitin, Lurethorne, Voltleaf Plume, Frostscale <i>(8.8% each)</i><br><span style="color:#3b82f6">◆</span> <b>Rare 26%</b> · a recipe kit: 2–4 of the Common materials ×10 each <i>(10 kits, 2.6% each)</i><br><span style="color:#a855f7">◆</span> <b>Epic 12%</b> · ×80 of Ashrend Wing, Brasel Spine or Glimmerchitin <i>(4% each)</i><br><span style="color:#f59e0b">◆</span> <b>Legendary 6%</b> · ×10 of Moonpetal Weave, Ofuda Moss, Urami Drop or Yamidangan <i>(1.5% each)</i>
 ```
 
 **`item:Epic Hunter's Chest.description`**
 ```html
-<i>A hunter's chest of strange catches from the high air, sealed under the Warden's mark.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Moonpetal Weave ×25 <i>or</i> Ofuda Moss ×25 <i>or</i> Urami Drop ×25, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Moonpetal Weave ×10 + Yamidangan ×10 <i>or</i> Ofuda Moss ×10 + Yamidangan ×10 <i>or</i> Ofuda Moss ×10 + Tsukinari Bell ×10, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Moonpetal Weave ×75 <i>or</i> Ofuda Moss ×75 <i>or</i> Urami Drop ×75<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Parchment Core ×25 <i>or</i> Cracked Auditory Core ×25 <i>or</i> Mask Core ×25, and more
+<i>A hunter's chest of strange catches from the high air, sealed under the Warden's mark.</i><br><br>3–6 rolls. <b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 56%</b> · one material ×25<br>&nbsp;&nbsp;· Moonpetal Weave, Ofuda Moss, Urami Drop, Yamidangan <i>(10% each)</i><br>&nbsp;&nbsp;· Seika Seal Petal, Tsukinari Bell <i>(7.6% each)</i><br><span style="color:#3b82f6">◆</span> <b>Rare 26%</b> · a recipe kit: 2–3 of the Common materials ×10 each <i>(5 kits, 5.2% each)</i><br><span style="color:#a855f7">◆</span> <b>Epic 12%</b> · ×75 of Moonpetal Weave, Ofuda Moss or Urami Drop <i>(4% each)</i><br><span style="color:#f59e0b">◆</span> <b>Legendary 6%</b> · ×25 of Parchment Core, Cracked Auditory Core, Mask Core or Shard of Willful Steel <i>(1.5% each)</i>
 ```
 
 **`item:Legendary Hunter's Chest.description`**
 ```html
-<i>The hunt-master's own chest: the best of decades, sealed and never drawn.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 55%</b></span> · Parchment Core ×20 <i>or</i> Cracked Auditory Core ×20 <i>or</i> Mask Core ×20, and more<br><span style="color:#3b82f6"><b>Rare 25%</b></span> · Cracked Auditory Core ×10 + Mask Core ×10 <i>or</i> Mask Core ×10 + Parchment Core ×10 <i>or</i> Mask Core ×10 + Parchment Core ×10 + Shard of Willful Steel ×10, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Parchment Core ×60 <i>or</i> Cracked Auditory Core ×60 <i>or</i> Mask Core ×60<br><span style="color:#f59e0b"><b>Legendary 8%</b></span> · Mask Core ×20 + Parchment Core ×20 + Shard of Willful Steel ×20 <i>or</i> Parchment Core ×20 + Shard of Willful Steel ×20 + Thread Core ×20
+<i>The hunt-master's own chest: the best of decades, sealed and never drawn.</i><br><br>3–6 rolls. <b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 55%</b> · one material ×20 <i>(11% each)</i>:<br>&nbsp;&nbsp;· Parchment Core, Cracked Auditory Core, Mask Core, Shard of Willful Steel, Thread Core<br><span style="color:#3b82f6">◆</span> <b>Rare 25%</b> · a recipe kit: 2–3 of the Common materials ×10 each <i>(5 kits, 5% each)</i><br><span style="color:#a855f7">◆</span> <b>Epic 12%</b> · ×60 of Parchment Core, Cracked Auditory Core or Mask Core <i>(4% each)</i><br><span style="color:#f59e0b">◆</span> <b>Legendary 8%</b> · one bundle, ×20 each <i>(4% each)</i>:<br>&nbsp;&nbsp;· Mask Core + Parchment Core + Shard of Willful Steel<br>&nbsp;&nbsp;· Parchment Core + Shard of Willful Steel + Thread Core
 ```
 
 **`item:Common Gatherer's Chest.description`**
 ```html
-<i>The quartermaster's crate of everyday ore and root, cut from the hull and logged.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Murkshade ×34 <i>or</i> Sunroot ×34 <i>or</i> Copper Ore ×34, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Murkshade ×16 + Whistlegrass ×16 <i>or</i> Iron Ore ×16 + Murkshade ×16<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Murkshade ×100 <i>or</i> Sunroot ×100 <i>or</i> Copper Ore ×100<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Galecrest Sage ×16 <i>or</i> Gold Ore ×16 <i>or</i> Silver Ore ×16, and more
+<i>The quartermaster's crate of everyday ore and root, cut from the hull and logged.</i><br><br>3–6 rolls. <b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 56%</b> · one material ×35<br>&nbsp;&nbsp;· Murkshade, Sunroot <i>(12% each)</i><br>&nbsp;&nbsp;· Copper Ore, Iron Ore <i>(8.8% each)</i><br>&nbsp;&nbsp;· Whistlegrass <i>(5.9%)</i><br>&nbsp;&nbsp;· Moonveil Moss, Muskshade, Nightshade Thorn <i>(2.9% each)</i><br><span style="color:#3b82f6">◆</span> <b>Rare 26%</b> · one pair, ×15 each <i>(13% each)</i>:<br>&nbsp;&nbsp;· Murkshade + Whistlegrass<br>&nbsp;&nbsp;· Iron Ore + Murkshade<br><span style="color:#a855f7">◆</span> <b>Epic 12%</b> · ×100 of Murkshade, Sunroot or Copper Ore <i>(4% each)</i><br><span style="color:#f59e0b">◆</span> <b>Legendary 6%</b> · ×15 of Galecrest Sage, Gold Ore, Silver Ore or Shiverthorn <i>(1.5% each)</i>
 ```
 
 **`item:Rare Gatherer's Chest.description`**
 ```html
-<i>A gatherer's crate of the rarer ore and bloom, sealed against the damp.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Galecrest Sage ×27 <i>or</i> Gold Ore ×27 <i>or</i> Silver Ore ×27, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Gold Ore ×12 + Shiverthorn ×12 + Starfire Petal ×12 + Wraithbloom ×12 <i>or</i> Galecrest Sage ×12 + Solar Petal ×12 <i>or</i> Gold Ore ×12 + Silver Ore ×12 + Starfire Petal ×12, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Galecrest Sage ×81 <i>or</i> Gold Ore ×81 <i>or</i> Silver Ore ×81<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Rainbow Cabochon ×12 <i>or</i> Adamantine Ore ×12 <i>or</i> Celestial Thristle ×12, and more
+<i>A gatherer's crate of the rarer ore and bloom, sealed against the damp.</i><br><br>3–6 rolls. <b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 56%</b> · one material ×25<br>&nbsp;&nbsp;· Galecrest Sage, Gold Ore, Silver Ore <i>(8.8% each)</i><br>&nbsp;&nbsp;· Shiverthorn, Solar Petal, Starfire Petal, Widow's Kiss, Wraithbloom <i>(5.9% each)</i><br><span style="color:#3b82f6">◆</span> <b>Rare 26%</b> · a recipe kit: 2–4 of the Common materials ×10 each <i>(11 kits, 2.4% each)</i><br><span style="color:#a855f7">◆</span> <b>Epic 12%</b> · ×80 of Galecrest Sage, Gold Ore or Silver Ore <i>(4% each)</i><br><span style="color:#f59e0b">◆</span> <b>Legendary 6%</b> · ×10 of Rainbow Cabochon, Adamantine Ore, Celestial Thristle or Icewarden Root <i>(1.5% each)</i>
 ```
 
 **`item:Epic Gatherer's Chest.description`**
 ```html
-<i>A gatherer's crate of crystal-grown ore and blooms the skyglass got into.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 56%</b></span> · Rainbow Cabochon ×25 <i>or</i> Adamantine Ore ×25 <i>or</i> Celestial Thristle ×25, and more<br><span style="color:#3b82f6"><b>Rare 26%</b></span> · Celestial Thristle ×10 + Shadeleaf ×10 <i>or</i> Adamantine Ore ×10 + Icewarden Root ×10 + Rainbow Cabochon ×10 <i>or</i> Celestial Thristle ×10 + Susanoo's Tear ×10, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Rainbow Cabochon ×75 <i>or</i> Adamantine Ore ×75 <i>or</i> Celestial Thristle ×75<br><span style="color:#f59e0b"><b>Legendary 6%</b></span> · Mithril Ore ×25 <i>or</i> Phoenix Ash Bloom ×25 <i>or</i> Heart of Kuraokami ×25, and more
+<i>A gatherer's crate of crystal-grown ore and blooms the skyglass got into.</i><br><br>3–6 rolls. <b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 56%</b> · one material ×25 <i>(6.2% each)</i>:<br>&nbsp;&nbsp;· Rainbow Cabochon, Adamantine Ore, Celestial Thristle, Icewarden Root, Shadeleaf, Susanoo's Tear, Tempest Thorn, Ember Frond, Diamond Ore<br><span style="color:#3b82f6">◆</span> <b>Rare 26%</b> · a recipe kit: 2–4 of the Common materials (not Tempest Thorn) ×10 each <i>(9 kits, 2.9% each)</i><br><span style="color:#a855f7">◆</span> <b>Epic 12%</b> · ×75 of Rainbow Cabochon, Adamantine Ore or Celestial Thristle <i>(4% each)</i><br><span style="color:#f59e0b">◆</span> <b>Legendary 6%</b> · ×25 of Mithril Ore, Phoenix Ash Bloom, Heart of Kuraokami or Lunaris Bloom <i>(1.5% each)</i>
 ```
 
 **`item:Legendary Gatherer's Chest.description`**
 ```html
-<i>The quartermaster's reserve, sealed by his own hand and marked never to be drawn.</i><br><br><i>3–6 rolls.</i><br><b>Each roll:</b><br><span style="color:#9ca3af"><b>Common 55%</b></span> · Mithril Ore ×20 <i>or</i> Phoenix Ash Bloom ×20 <i>or</i> Heart of Kuraokami ×20, and more<br><span style="color:#3b82f6"><b>Rare 25%</b></span> · Fujin's Breath ×10 + Heart of Kuraokami ×10 <i>or</i> Fujin's Breath ×10 + Mithril Ore ×10 <i>or</i> Heart of Kuraokami ×10 + Mithril Ore ×10, and more<br><span style="color:#a855f7"><b>Epic 12%</b></span> · Mithril Ore ×60 <i>or</i> Phoenix Ash Bloom ×60 <i>or</i> Heart of Kuraokami ×60<br><span style="color:#f59e0b"><b>Legendary 8%</b></span> · Orichalcum Ore ×20 + Tempest Heart ×20 + Voidshade Petal ×20 <i>or</i> Lunaris Bloom ×20 + Phoenix Ash Bloom ×20 + Voidshade Petal ×20 <i>or</i> Fujin's Breath ×20 + Lunaris Bloom ×20 + Phoenix Ash Bloom ×20, and more
+<i>The quartermaster's reserve, sealed by his own hand and marked never to be drawn.</i><br><br>3–6 rolls. <b>Each roll:</b><br><span style="color:#9ca3af">◆</span> <b>Common 55%</b> · one material ×20<br>&nbsp;&nbsp;· Mithril Ore, Phoenix Ash Bloom, Heart of Kuraokami, Lunaris Bloom, Tempest Heart, Voidshade Petal, Fujin's Breath <i>(7.2% each)</i><br>&nbsp;&nbsp;· Orichalcum Ore <i>(4.8%)</i><br><span style="color:#3b82f6">◆</span> <b>Rare 25%</b> · a recipe kit: 2–3 of the Common materials ×10 each <i>(12 kits, 2.1% each)</i><br><span style="color:#a855f7">◆</span> <b>Epic 12%</b> · ×60 of Mithril Ore, Phoenix Ash Bloom or Heart of Kuraokami <i>(4% each)</i><br><span style="color:#f59e0b">◆</span> <b>Legendary 8%</b> · one bundle, ×20 each <i>(2% each)</i>:<br>&nbsp;&nbsp;· Orichalcum Ore + Tempest Heart + Voidshade Petal<br>&nbsp;&nbsp;· Lunaris Bloom + Phoenix Ash Bloom + Voidshade Petal<br>&nbsp;&nbsp;· Fujin's Breath + Lunaris Bloom + Phoenix Ash Bloom<br>&nbsp;&nbsp;· Fujin's Breath + Lunaris Bloom + Orichalcum Ore
 ```
+
+### 4.6 The Coffer's contents (live; carried by go-live 339 phase 1)
+
+Re-tiered to match the Coffer's tiers (RUL-2026-10-31-074 item 4): Skyglass Filament COMMON, Skyglass Serum RARE,
+Fragment of the Skyglass Crown EPIC (the Katana stays LEGENDARY). The Skyglass Serum keeps its live text (rarity
+only). No story/rules split: these are materials and gear, not containers or runs.
+
+**`item:Skyglass Filament.description`** (COMMON)
+```html
+A hair-thin strand of skyglass pulled from the wreck's hull, still holding the shape of the seals that kept the ship in the sky. Twelve can be worked into a <b>Skyglass Crystal</b>.
+```
+
+**`item:Fragment of the Skyglass Crown.description`** (EPIC)
+```html
+A shard of the Skyglass Crown, threaded with dormant command seals. Gather five and they can be joined into <b>The Skyglass Crown</b>.
+```
+
+**`item:Skyglass Katana.description`** (LEGENDARY, rarity unchanged)
+```html
+A crystal-edged sword borne by the Captain's most faithful reconstruction. Its command seals resist interference, turning a measure of the wielder's damage into a brief protective shield.
+```
+
+**`item:Skyglass Crystal.description`** (rarity unchanged)
+```html
+A shard of skyglass worked to carry the ship's protective seals into another weapon. When its seals wake, part of the wielder's damage returns as a brief shield.
+```
+
+---
 
 ---
 

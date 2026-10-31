@@ -3962,6 +3962,8 @@ sides of the jutsu and item edits).
 
 The text is generated from the cache weights and enforced by `scripts/skyglass_check.py`.
 
+**Amended by RUL-2026-10-31-074 item 1 (2026-10-31; the ruling text above is unchanged as history):** the tier colour now goes on a ◆ marker only (the label is normal text), every drop is named with its chance (no "first three, then and more"), same-rate same-quantity options are grouped "(x% each)", and recipe kits are shown as "(k kits, x% each)". The current template is loot tables §0.
+
 **Evidence:** Director, 2026-10-28: "Lets identify the best format for the chest description. I kinda wanna include what items can drop alongside the rates in a way that displays well in the game", then "Approved".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §0.
@@ -4872,6 +4874,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Ruling:**
 1. **The base version is the live record itself**, tuned for the endgame Wreck: the content it fought in before is being retired, so no Wreck copies are made. The common chart runs use the base records, scaled to the player (`opponent_scaled_to_user`).
 2. **One "Veteran" version per crew member** serves both the Rare chart runs and the Haul guards (the Haul already scales to the player). It replaces the separate rare-chart and Haul guard copies.
+   - **Note (2026-10-31, the text above is unchanged as history):** "the Haul already scales to the player" is wrong after RUL-2026-10-31-073: the Haul's guards are fixed level-100 records, not scaled, and the Veteran tier is a fixed level-100 record in both places. Read RUL-2026-10-31-073 for the Haul's scaling.
 3. **One "Rot-Touched" version** per crew member on the tainted runs.
 4. **One-offs stay:** the Steeping Horror, the Fall's Arsenal Keeper, the three Lingering Echo hazards, the summoned Crown Stonebound.
 5. **Names show the difficulty, pictures are shared:** "Veteran <Name>" and "Rot-Touched <Name>", each with its base record's sprite. Checked free against the captured AI usernames.
@@ -4993,3 +4996,22 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "The Haul should not scale to the player, I dont want to encourage swapping charts to lower level accounts to complete them".
 
 **Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`; the haul spec and harness on the re-simulation branch.
+
+## RUL-2026-10-31-074 — Skyglass item description pass: condensed ◆ container format, rounded chest quantities, chart cards, Coffer re-tier
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / player-facing text and rewards
+
+**Status:** ACTIVE. Amends RUL-2026-10-28-030 (chest description format). Source: `docs/reviews/SKYGLASS_ITEM_DESCRIPTION_AUDIT.md` and the approved card set (43 cards, the audit's C1/C2/N1-N4 fixes and the playthrough fixes below).
+
+**Ruling:**
+1. **Condensed container format with a ◆ tier marker.** The tier colour goes on a ◆ only; the tier label stays in the normal text colour. Every drop is named with its own chance (no "and more"); options of one tier at the same rate and quantity are grouped ("(x% each)"); a recipe-kit tier is shown as "(k kits, x% each)". Chances: whole percent from 9.95%, else one decimal, ties to even. Descriptions stay generated from the cache tables and checked against them.
+2. **Profession chest quantities are rounded to the nearest 5.** Common Hunter's 26→25, 12→10, 78→80, 12→10; Rare Hunter's 27→25, 12→10, 81→80, 12→10; Common Gatherer's 34→35, 16→15, 16→15; Rare Gatherer's 27→25, 12→10, 81→80, 12→10; the Epic and Legendary chests are unchanged. Recipe lots give way to readable stacks; expected value moves to 93-100% of the live chests (Common Hunter's 3.9M, Rare Hunter's 5.6M, Rare Gatherer's 4.5M; the rest unchanged).
+3. **Charts, the Lantern and the Haul pages** use one card: a lore line; the run and the Battle Arena; the difficulty in five stars (Common ★☆☆☆☆, Rare ★★☆☆☆, Epic ★★★☆☆, tainted ★★★★☆, the Lantern's Crownhold ★★★★★, the Haul pages ★★★★☆); the chance drops with their rates; the pick; the end choice where there is one; the rules footer. Every approved card is the canonical player text in `SKYGLASS_TEXT.md` (§3.2, §4.1-§4.6), including a new §4.6 for the Coffer's contents (Filament, Fragment, Katana, Crystal; the Serum keeps its text).
+4. **The Coffer's contents are re-tiered to the Coffer's tiers:** Skyglass Filament COMMON, Skyglass Serum RARE, Fragment of the Skyglass Crown EPIC. They are live items, so go-live push/339 carries the re-tier and the new text in phase 1.
+5. **The playthrough fixes the cards encode are part of this pass:** the claim line on every chart (F01), Galley Stores' pet appearance condition (F10), the token unlock path through the weapon's Variants list (F12), and steeping charging exactly 3 Core Rot as entry items (F13).
+
+**Evidence:** Director, 2026-10-31: "Approve all" (the item description card set, the rounding to the nearest 5, the chart card format, the Coffer re-tier).
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §0 (items 1, 3); RUL-2026-10-28-030 (amendment note); `docs/design/SKYGLASS_TEXT.md` header, §0, §3.2, §4 (items 1, 3-5); `push/skyglass_profession_chests.gen.py`, `state/skyglass_design/chests.json` and `docs/design/SKYGLASS_PROFESSION_CHESTS.md` (item 2); `push/skyglass_items.gen.py` (renderer, Coffer contents), `push/skyglass_update.gen.py` (go-live 339) and `scripts/skyglass_check.py` (items 1, 4); push/354 for the hidden records already created.
