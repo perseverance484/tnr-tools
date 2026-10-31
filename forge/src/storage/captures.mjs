@@ -98,10 +98,34 @@ export const PERSIST_RECORD_KEY = Object.freeze({ "item.getItemVariants": "itemI
 // two content names, no ctx.userId, no user table, no counts. It is the only way to enumerate the
 // token variants without a read per item. Rows are unordered at source. Every other list stays a
 // row count, and a full list request with an input is refused at parse time.
-export const FULL_PERSIST_LIST_PATHS = Object.freeze(["item.getVariantNames"]);
+//
+// petSpecies.getAll (routers/petSpecies.ts:32 publicProcedure, no .input(); queries/petSpecies.ts:10
+// listPetSpeciesForGetAll: PetSpecies findMany ordered by name, retired species included, at
+// TheNinjaRPG@3314d122) is the second, admitted on the same terms: every column of PetSpecies
+// (drizzle/schema.ts:3004: id, name, description, artDirection, rankConcepts, rarity, role,
+// preferredDamageElement, defaultJutsuIds, aiRules, includeDefaultRules, effects, isActive,
+// createdAt, updatedAt) is authored content; who owns a pet lives in UserPet, which this query never
+// touches. Handoff docs/handoffs/PET_CATALOGUE_READS_3314D122.md.
+export const FULL_PERSIST_LIST_PATHS = Object.freeze(["item.getVariantNames", "petSpecies.getAll"]);
+
+// THE ONE PAGED EXCEPTION, a reviewed widening (handoff docs/handoffs/PET_CATALOGUE_READS_3314D122.md).
+// jutsu.getAll (routers/jutsu.ts:404 publicProcedure) is a filtered, offset-paged list of whole
+// Jutsu rows (+ bloodline.name), answering {data, nextCursor}. A full capture of it is admitted
+// ONLY with the input {jutsuType: ["PETS"], hidden: true|false} exactly (manifest.mjs):
+//   - jutsuType PETS keeps it to the pet catalogue, not a dump of every jutsu;
+//   - hidden must be stated because the source filter defaults to hidden = false
+//     (jutsuDatabaseFilter, routers/jutsu.ts:2433-2436): an absent flag would silently omit every
+//     hidden PETS jutsu, so a complete census is two captures, hidden false and hidden true;
+//   - no effect/element/stat/appear/static/disappear member is allowed, so filterByEffectConstraints
+//     (:2577) returns every row and nextCursor (from the unfiltered page length) is exact.
+// The reader (CachedReader.page) sends cursor 0 at limit PAGE_LIMIT (the source maximum, 1000) and
+// accepts the answer only when nextCursor is null, so the body is complete; a second page could never
+// fit under MAX_FULL_CAPTURE_BYTES and is refused, not read. It is never cached, and every row is
+// checked against the filter. The persisted body is the page's rows: the envelope is not kept.
+export const FULL_PERSIST_PAGED_PATHS = Object.freeze(["jutsu.getAll"]);
 
 /** Whether a procedure path may have its response body durably persisted into a bundle. */
-export function canPersistFull(path) { return FULL_PERSIST_PATHS.includes(path) || FULL_PERSIST_LIST_PATHS.includes(path); }
+export function canPersistFull(path) { return [FULL_PERSIST_PATHS, FULL_PERSIST_LIST_PATHS, FULL_PERSIST_PAGED_PATHS].some((l) => l.includes(path)); }
 
 /** The audited registry's opinion of a path, or null when it is not in the crud surface. */
 export function persistProcedureKind(path) { return PROCEDURES[path] ? PROCEDURES[path].kind : null; }

@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { IDBFactory } from "fake-indexeddb";
-import { CaptureCache, captureKey, snapshotKey, entityOfPath, DB_NAME, STORE, DB_VERSION, FULL_PERSIST_PATHS, FULL_PERSIST_LIST_PATHS, PERSIST_RECORD_KEY, canPersistFull, persistProcedureKind, MAX_FULL_CAPTURE_BYTES } from "../src/storage/captures.mjs";
+import { CaptureCache, captureKey, snapshotKey, entityOfPath, DB_NAME, STORE, DB_VERSION, FULL_PERSIST_PATHS, FULL_PERSIST_LIST_PATHS, FULL_PERSIST_PAGED_PATHS, PERSIST_RECORD_KEY, canPersistFull, persistProcedureKind, MAX_FULL_CAPTURE_BYTES } from "../src/storage/captures.mjs";
 import { PROCEDURES } from "../src/transport/procedures.mjs";
 import { fakeClock } from "./shim.mjs";
 
@@ -87,10 +87,14 @@ test("every full-persistence path is an audited content-record point read, and n
     assert.equal(canPersistFull(path), true);
     assert.equal(persistProcedureKind(path), "query");
   }
-  // the one list exception: an input-less content list, a protected query, and nothing else
-  assert.deepEqual([...FULL_PERSIST_LIST_PATHS], ["item.getVariantNames"]);
-  for (const path of FULL_PERSIST_LIST_PATHS) {
-    assert.deepEqual(PROCEDURES[path], { kind: "query", limited: false, mcp: false, auth: "protected" }, path);
+  // the list exceptions: input-less content lists (a protected and a public query), and nothing else
+  assert.deepEqual([...FULL_PERSIST_LIST_PATHS], ["item.getVariantNames", "petSpecies.getAll"]);
+  assert.deepEqual(PROCEDURES["item.getVariantNames"], { kind: "query", limited: false, mcp: false, auth: "protected" });
+  assert.deepEqual(PROCEDURES["petSpecies.getAll"], { kind: "query", limited: true, mcp: false, auth: "public" });
+  // the one paged exception (its input is pinned to the pet catalogue at parse time, manifest.mjs)
+  assert.deepEqual([...FULL_PERSIST_PAGED_PATHS], ["jutsu.getAll"]);
+  assert.deepEqual(PROCEDURES["jutsu.getAll"], { kind: "query", limited: true, mcp: true, auth: "public" });
+  for (const path of [...FULL_PERSIST_LIST_PATHS, ...FULL_PERSIST_PAGED_PATHS]) {
     assert.ok(!FULL_PERSIST_PATHS.includes(path), `${path} is a list, not a point read`);
     assert.equal(canPersistFull(path), true);
   }
@@ -99,7 +103,7 @@ test("every full-persistence path is an audited content-record point read, and n
   for (const path of Object.keys(PERSIST_RECORD_KEY)) assert.ok(FULL_PERSIST_PATHS.includes(path), path);
   // the closed half of the boundary: nothing else in the audited surface is persistable
   for (const path of Object.keys(PROCEDURES)) {
-    if (FULL_PERSIST_PATHS.includes(path) || FULL_PERSIST_LIST_PATHS.includes(path)) continue;
+    if ([FULL_PERSIST_PATHS, FULL_PERSIST_LIST_PATHS, FULL_PERSIST_PAGED_PATHS].some((l) => l.includes(path))) continue;
     assert.equal(canPersistFull(path), false, `${path} must not be persistable without a reviewed change`);
   }
   assert.equal(canPersistFull("asset.get"), false, "the un-audited asset.get alias is not a way in");
