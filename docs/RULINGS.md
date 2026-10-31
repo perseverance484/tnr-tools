@@ -5158,3 +5158,20 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "renamed Mast Lightning Stormrender to Thunderwake"; "We need to do a naming pass on the remaining variants, they're kinda lamely named and a mouthful"; "The Unwritten Order was good … For Eclipsed Dawnblade, why not Lastlight Duskblade. Rest looks good"; "Skyglass Kote, and make them out of skyglass crystal. Raw and gleaming"; "Nah we need to rename aetherion, tidewater. Night Watch testament too", then Windward, Riptide and Nightreaver ("Something else, intimidating, menacing"); "What about Starfall instead of Starchart?".
 
 **Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §4.3, §5; `push/skyglass_items.gen.py`; `push/skyglass_variant_names.gen.py` (push/371); `docs/handoffs/SKYGLASS_ART_PROMPTS.md` (VS09).
+
+## RUL-2026-10-31-083 — push/344 and push/361 exceptions and enemy names accepted
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / build
+
+**Status:** ACTIVE. Accepts the pending diagnostics in `state/validate_exceptions/344_skyglass_copies_1.json`, `344_skyglass_copies_3.json` and `361_skyglass_crew_upgrade.json`.
+
+**Ruling:**
+1. **Exceptions accepted** (each is the record as the harness fought it): law 41 on the records at exactly 20 rules (the engine appends the end turn); the Arsenal Keeper copies' self-targeted Windlash Focus with a distance gate (the live rule, copied); the Steeping Horror's 5 damage rows (RUL-2026-10-31-077 retune); "kit is all 60 AP actions" on the Sealwright records and the Wreck Sealwright.
+2. **Enemy names accepted** (usernames must be unique): Veteran Captain, Faded Captain; Veteran Sealwright (Echo), Veteran Skyglass Sentinel (Echo), Veteran First Blade (Echo), Veteran Captain (Fall), Veteran Captain (Ally); Deck Warden (Haul), Deck Warden (Lookout). The Haul's steps 4-5 guards keep "First Blade (Veteran)" and "Skyglass Sentinel (Veteran)" (no rename given).
+3. **Hexweave (AN05)** redrawn art approved (an irregular snarl, no star).
+
+**Evidence:** Director, 2026-10-31: "Hexweave. Approve" (in reply to the 344/361 approval request).
+
+**Canonical destination:** the three ledgers; `push/skyglass_aikeys.py`; `docs/design/skyglass_art/ART_REGISTER.md` (AN05).

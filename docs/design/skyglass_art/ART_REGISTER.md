@@ -59,7 +59,7 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | AN02 | cc_phase_shift: shockwave flourish | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_phase_shift_v1.webp`; `an_v1.json`) |
 | AN03 | cp_gunwale: Raise the Gunwale barrier | gameAsset STATIC or ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_gunwale_barrier_v1.webp`, `tile_fx_gunwale_barrier_v1.webp`; `an_v1.json`) |
 | AN04 | ch_enrage: The Core Rebuilds aura | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_core_enrage_v1.webp`; `an_v1.json`) |
-| AN05 | cc_hexweave: Hexweave hit | ANIMATION | `35_fx_layers` | - | REDRAW (director 2026-10-31: the v1 knot reads as a six-pointed star; regenerate with the revised prompt) |
+| AN05 | cc_hexweave: Hexweave hit | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/anim_fx_hexweave_v1.webp`; redrawn 2026-10-31 as an irregular snarl) |
 | AN06 | Spreading Fire ember tile | gameAsset STATIC or ANIMATION loop | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `tile_fx_spreading_fire_embers_v1.webp`, `anim_fx_spreading_fire_glint_v1.webp`, `anim_fx_spreading_fire_embers_v1.webp`; `an_v1.json`) |
 | AN07 | ch_bile_spit: glob in flight | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_bile_glob_v1.webp`; `an_v1.json`) |
 | AN08 | ch_bile_spit: splash | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_bile_splash_v1.webp`; `an_v1.json`) |
