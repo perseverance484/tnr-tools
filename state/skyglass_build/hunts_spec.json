@@ -2390,6 +2390,12 @@
      "liveId": "nOYLPmN3TXj6wEe_oE6HQ"
     },
     {
+     "id": "lib-omen-scatter-a",
+     "name": "Omen: Scatter",
+     "status": "NEW",
+     "source": "shared set-piece library (engine/library.ts, library_spec.json; lib-* id is a placeholder)"
+    },
+    {
      "id": "pUrUJX8Jml7fUIBXKsPwv",
      "name": "Heavy Strike",
      "status": "LIVE",
@@ -2409,12 +2415,6 @@
      "status": "LIVE",
      "source": "live record 3v9c1SHlD2GLPF2HW1_Sc",
      "liveId": "3v9c1SHlD2GLPF2HW1_Sc"
-    },
-    {
-     "id": "lib-omen-scatter-a",
-     "name": "Omen: Scatter",
-     "status": "NEW",
-     "source": "shared set-piece library (engine/library.ts, library_spec.json; lib-* id is a placeholder)"
     },
     {
      "id": "lib-omen-last-light",
@@ -2565,6 +2565,25 @@
     {
      "index": 6,
      "from": "shared dg-core-horror rule 6",
+     "note": "Omen: Scatter A (phase 2)",
+     "conditions": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 70
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Omen: Scatter A (phase 2)",
+      "jutsuId": "lib-omen-scatter-a",
+      "target": "SELF"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 7,
+     "from": "shared dg-core-horror rule 7",
      "note": "Splintered Grasp (live Heavy Strike)",
      "conditions": [
       {
@@ -2583,8 +2602,8 @@
      "aiRule": "ok"
     },
     {
-     "index": 7,
-     "from": "shared dg-core-horror rule 7",
+     "index": 8,
+     "from": "shared dg-core-horror rule 8",
      "note": "Bilge Spit (live Venom Strike)",
      "conditions": [
       {
@@ -2603,8 +2622,8 @@
      "aiRule": "ok"
     },
     {
-     "index": 8,
-     "from": "shared dg-core-horror rule 8",
+     "index": 9,
+     "from": "shared dg-core-horror rule 9",
      "note": "Twin Kunai",
      "conditions": [
       {
@@ -2623,8 +2642,8 @@
      "aiRule": "ok"
     },
     {
-     "index": 9,
-     "from": "shared dg-core-horror rule 9",
+     "index": 10,
+     "from": "shared dg-core-horror rule 10",
      "note": "after lib-omen-ring: end turn",
      "conditions": [
       {
@@ -2641,8 +2660,8 @@
      "aiRule": "ok"
     },
     {
-     "index": 10,
-     "from": "shared dg-core-horror rule 10",
+     "index": 11,
+     "from": "shared dg-core-horror rule 11",
      "note": "after lib-omen-scatter-a: end turn",
      "conditions": [
       {
@@ -2659,8 +2678,8 @@
      "aiRule": "ok"
     },
     {
-     "index": 11,
-     "from": "shared dg-core-horror rule 11",
+     "index": 12,
+     "from": "shared dg-core-horror rule 12",
      "note": "after lib-omen-scatter-b: end turn",
      "conditions": [
       {
@@ -2677,8 +2696,8 @@
      "aiRule": "ok"
     },
     {
-     "index": 12,
-     "from": "shared dg-core-horror rule 12",
+     "index": 13,
+     "from": "shared dg-core-horror rule 13",
      "note": "after lib-omen-last-light: end turn",
      "conditions": [
       {
@@ -2691,25 +2710,6 @@
      "action": {
       "type": "end_turn",
       "description": "after lib-omen-last-light: end turn"
-     },
-     "aiRule": "ok"
-    },
-    {
-     "index": 13,
-     "from": "shared dg-core-horror rule 13",
-     "note": "Omen: Scatter A (phase 2)",
-     "conditions": [
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 70
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Omen: Scatter A (phase 2)",
-      "jutsuId": "lib-omen-scatter-a",
-      "target": "SELF"
      },
      "aiRule": "ok"
     },
