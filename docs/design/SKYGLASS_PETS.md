@@ -98,3 +98,8 @@ up), crystal as one smooth plate rather than spines (spiky or stacked layers are
 no named colours, bell, scarf or eye style (the player's palette, trait and aura decide those), glow only from rank 7.
 Text of record: `push/skyglass_little_horror_art.gen.py` (`ART_DIRECTION`, `RANKS`), sent by push/379. Little Maw's
 appear animation is the maw strip (`anim_maw_v1`, 150 px frames).
+Revised the same day after the first adoption render came out as a fluffy, big-eyed critter (the engine prompt defaults
+to "smooth species-specific fur"): the art direction now opens with "Hairless", names the material (slick, wet,
+wood-grained hide, barnacle crusts, tarred-rope tail), small eyes and a crooked grin, and the species description (also
+part of the prompt) drops "small". A pet's later ranks redraw from its current image, so an existing pet keeps its look
+as a reference; judge the change on a freshly opened jar.
