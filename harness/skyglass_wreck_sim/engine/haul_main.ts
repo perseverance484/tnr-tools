@@ -59,6 +59,8 @@ const deepMerge = (a: any, b: any): any => {
   return o;
 };
 const CP: ChartParams = deepMerge(deepMerge(deepMerge(DEFAULT_HUNT_PARAMS, huntParams), DEFAULT_CHART_EXTRA), chartParams);
+/** Director 2026-10-31: Haul guards are fixed level-100 records (no opponent_scaled_to_user); --scaled for the old model. */
+const HAUL_SCALED = args.includes("--scaled");
 const P: HaulParams = opt("params") ? deepMerge(DEFAULT_HAUL, loadJson(resolve(opt("params")!))) : DEFAULT_HAUL;
 for (const [k, v] of args.filter((a) => a.startsWith("--set=")).map((a) => a.slice(6).split("="))) {
   // --set=copies.h-blade.stats=4 style quick overrides (numbers / JSON)
@@ -208,7 +210,9 @@ const runFight = async (st: St, f: FightDef, fseed: number, detail = false): Pro
     const pets = [petFor(player)];
     player.activePetId = pets[0]!.id;
     const ids = f.ids.map(copyId);
-    const rows = { ...enemyRows, ...Object.fromEntries(ids.map((id) => [id, scaledRow(enemyRows[id], player.level)])) };
+    // Director 2026-10-31: the Haul does not scale to the player; every guard is a fixed level-100 record (its
+    // atLevel100 values). --scaled restores opponent_scaled_to_user (the guard takes the player's level).
+    const rows = { ...enemyRows, ...Object.fromEntries(ids.map((id) => [id, scaledRow(enemyRows[id], HAUL_SCALED ? player.level : 100)])) };
     const battle = await assembleFloor({ players: [player], enemyRows: rows, floor: { kind: "floor", waves: [{ aiIds: ids, delayRounds: 0 }] }, rand, initialBarriers: true, dmgConfig: dmg.config, mode: "quest", pets });
     const pu = battle.usersState.find((u) => u.userId === player.userId)!;
     if (f.debuffs.length) addQuestStartingEffects(pu, battle.usersEffects, f.debuffs as never, "quest-haul");
@@ -406,7 +410,7 @@ const writeOut = (o: any) => {
   writeFileSync(resolve(out), `${JSON.stringify(o, null, 1)}\n`);
   console.log(`wrote ${out}`);
 };
-const settings = () => ({ dodge, maxRounds, seeds, seed0, variant: vk, variantNote: VARIANTS[vk].note, secondsPerTurn: SEC_PER_TURN, dmgConfig: dmg.name, params: P, copyRules: COPY_NOTES });
+const settings = () => ({ guardsScaledToPlayer: HAUL_SCALED, dodge, maxRounds, seeds, seed0, variant: vk, variantNote: VARIANTS[vk].note, secondsPerTurn: SEC_PER_TURN, dmgConfig: dmg.name, params: P, copyRules: COPY_NOTES });
 
 if (opt("revalue")) {
   // Recompute haul values / EVs of a results file with the current params (clear rates unchanged: haul-only edits).
@@ -447,7 +451,7 @@ if (opt("spec-out")) {
     const issues = check.success ? [] : check.error.issues.filter((i: any) => !/date/i.test(i.message));
     records[id] = {
       key: k, name: c.name, role: c.role, copyOf: { id: c.src, name: NAME[c.src] }, statsMultiplier: c.stats, poolsMultiplier: c.pools, damageRows: c.rows,
-      innate: row.effects.map((x: any) => `${x.type} ${x.power}${x.calculation === "percentage" ? "%" : ""}`), opponent_scaled_to_user: true,
+      innate: row.effects.map((x: any) => `${x.type} ${x.power}${x.calculation === "percentage" ? "%" : ""}`), opponent_scaled_to_user: HAUL_SCALED, level: 100,
       atLevel100: { maxHealth: at100.maxHealth, offence: Math.round(at100.offence), defence: Math.round(at100.defence) },
       rulesNote: COPY_NOTES[k], jutsu: row.jutsus.map((uj: any) => ({ id: uj.jutsuId, name: uj.jutsu?.name })),
       rules: e.profile.rules.map((r: any) => ({ when: r.conditions, do: { type: r.action.type, jutsuId: r.action.jutsuId, target: r.action.target }, note: r.action.description })),
@@ -474,6 +478,19 @@ if (opt("spec-out")) {
     params: P, records, counts, graphs,
   };
   mkdirSync(dirname(resolve(opt("spec-out")!)), { recursive: true });
+  if (!HAUL_SCALED) {
+    // Fixed level-100 guards: every battle objective is unscaled (director 2026-10-31).
+    const unscale = (o: any): void => {
+      if (Array.isArray(o)) return o.forEach(unscale);
+      if (!o || typeof o !== "object") return;
+      for (const [k, v] of Object.entries(o)) {
+        if (k === "opponent_scaled_to_user") (o as any)[k] = false;
+        else if (typeof v === "string" && v.includes("All battles opponent_scaled_to_user")) (o as any)[k] = v.replace("All battles opponent_scaled_to_user", "All battles opponent_scaled_to_user false (guards are fixed level-100 records, director 2026-10-31)");
+        else unscale(v);
+      }
+    };
+    unscale(spec);
+  }
   assertSpecRuleCap("haul_spec", spec);
   writeFileSync(resolve(opt("spec-out")!), `${JSON.stringify(spec)}\n`);
   console.log(`wrote ${opt("spec-out")}: record schema failures ${Object.values<any>(records).filter((r) => r.insertAiSchema !== "pass").map((r) => r.key).join(",") || "none"}`);

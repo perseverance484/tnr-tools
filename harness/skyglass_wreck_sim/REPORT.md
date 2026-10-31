@@ -103,7 +103,88 @@ All are at most 20 rules per AI and carry law-40 gates. `charts_spec.json` and `
 **On `main`, replace every `state/skyglass_build/*.json` except `library_spec.json` and `charts.params.rul060.json`.**
 None carries the proposed retunes (§4).
 
-CONSOLIDATION
+### 6. RUL-2026-10-31-067 (three versions per crew member, Faded tier): what was applied, what was measured
+
+**Applied:**
+- **The Faded tier.** The eight level-50 Wreck copies are named "Faded <Name>" (`engine/kits.ts`, `build_spec.json`
+  `lvl50`): Faded Deck Warden, Faded Seal Charge, Faded Skyglass Sentinel, Faded First Blade, Faded Oathkeeper, Faded
+  Wayfinder, Faded Core Horror and Faded The Captain. The last is literal "Faded <Name>"; "Faded Captain" would read
+  better, but that name has not been checked against the captured usernames.
+- All eight are within the cap and gated. Measured above: 8.3% runs with a wipe, 18.8 min (target ~10%). Tuning is
+  unchanged (`overrides/kits_lvl50.params.json`).
+- The harness models level 50 (`level: 50`, CHUNIN level-50 party); the ruling says level 45. Not re-tuned for 45.
+
+**Not applied: the base / Veteran / Rot-Touched folding.** The harness measurements contradict its premise that
+pools/stats/rows/givenDown can hold every target with one record per tier. Each probe below uses the trimmed rules and
+law-40 gates, 40 seeds. They are in `results/rulecap_P_*.json`, with the params files `overrides/*rul067*`.
+
+1. **Base record (endgame-Wreck tuning) for the common charts, scaled to the player.**
+   - L100: Low Tide 100%, Night Watch 85% (final pass 100% / 100%).
+   - **L50: Low Tide 0%, Night Watch 0%** (final pass 100% / 100%).
+   - Cause: `opponent_scaled_to_user` (initiateBattle → `scaleUserStats(target, "ai")`) sets each stat to
+     statsMultiplier × half the player's level budget, and pools to calcHP(level) × poolsMultiplier. The unscaled Wreck
+     stores stats from statsMultiplier at level 100: about 278k offence per unit against the 1.3M JONIN cap, so the
+     endgame crew needs ≥ ~4.7.
+   - So a statsMultiplier-5 record fights a level-50 player with 265k offence (the common copies: 53k at 1).
+     Multiplier 1 would cut the endgame crew to ~21% of their capped stats.
+   - Separately, the Wreck crew carry two +100% damage rows and 70% damage taken. The common copies carry 50% damage
+     given down and 100% taken.
+   - One record cannot serve both, by stats alone.
+2. **One Veteran for the rare runs (hunts and the Reliquary / Fall copies) and the Haul.**
+   - Buried Cache with its Sentinel at the Haul crew values (`g-sentinel`: stats 3, pools 1, 2 rows, 100% taken, 40%
+     given down): **100%**, player ends at 122% HP (final pass 95%, 84% HP; target boss ~20% HP). At the Haul
+     steps-4-5 values (`g-veteran`): 100%.
+   - Hunt bosses at the rare-copy tuning (`charts.params` `rares`): Foundry **97.5%** (75), Archive clean 97.5% (95),
+     Watch **100%**, Buried Cache 100%.
+   - Rare copies at the hunt tuning: **Sealed Reliquary 0%** (target ~80), The Fall 82.5% with its press-on **0/33**.
+   - Haul crew guards at the base (Wreck) tuning: sensible-route clears **35-65%** (EV 3.7-5.5M), against 72.5-95%
+     (7.3-8.0M) at the fit.
+   - Haul gatherer pages with the Sentinel guards at the Buried Cache boss tuning (pools 3, 4 rows, stats 5): HAULPROBE.
+   - So each crew member's rare-hunt, rare-gauntlet and Haul roles need different rows and pools. For example, the
+     Sentinel: hunt boss 3 pools / 4 rows; gauntlet copy 2 / 1; Haul crew 1 / 2 + 100% taken + 40% given down; Haul
+     steps 4-5 1.2 / 3. No single tuning meets these targets.
+3. **Kits differ too.**
+   - The Wreck copies run the dungeon kits. The hunts, the chart copies and some Haul guards run the hunt kits: the
+     Sentinel's Tide Line, the Wayfinder's coastline, the First Blade's ring, the Sealwright's Archive Lock and summon.
+     The Haul elites add a set piece (Trophy Warden ring, Stores Ward seal lines).
+   - A live record has one AI profile. Making the live record the Wreck version (item 1) therefore also changes:
+     - the hunts (they fight the live records);
+     - the first two Fall fights (live Deck Warden, Seal Charge, Arsenal Keeper);
+     - most of the Burning Heading (live Deck Warden, Arsenal Keeper, Wayfinder, First Blade, and the Captain as ally).
+4. **Rot-Touched is feasible as is.** The tainted runs already use one copy per crew member (`chart-t-*`: Foundry
+   Warden, Sealwright, Skyglass Sentinel, First Blade, Core Horror), measured on target above (Rotted 55%, Burning
+   52.5%). Renaming them "Rot-Touched <Name>" changes nothing in the fights. It was not done here because their
+   sibling live records are undecided (point 3).
+
+**Smallest record set that keeps every measured target** (current structure; per crew member, the distinct tunings in
+use today):
+
+| Crew member | Base (live) | Wreck copy | Common copy | Rare gauntlet copy | Rot-Touched | Haul copies | Faded |
+|---|---|---|---|---|---|---|---|
+| Deck Warden | hunts, Fall, Burning (pools 1, 0 rows) | 1 / 2 + 70% taken | stats 1, 1 / 0 + 100% taken, 50% down | - | - | crew 1 / 2, lookout 1 / 0 | yes |
+| Seal Charge | hunts (stats 1) | live pools | stats 1 | - | - | `g-charge` | yes |
+| Skyglass Sentinel | Buried Cache boss 3 / 4 | 1 / 2 | 1.5 / 1 | 2 / 1 | 1 / 0 | crew 1 / 2, steps 4-5 1.2 / 3 | yes |
+| First Blade | Watch 1.5 / 2 | 1 / 2 | 1.5 / 1 | 1.2 / 1 | 1 / 0 | crew 1 / 2, steps 4-5 1.2 / 3 | yes |
+| Oathkeeper | - | 1 / 2 | 1 / 0 | 2.5 / 2 | - | Trophy Warden (+ ring) | yes |
+| Wayfinder | Watch 1.26 / 1, Burning | 1 / 2 | 1 / 0 | - | - | crew 1 / 2 | yes |
+| Core Horror | Archive 2 / 2 | 5 / 4 | - | 2 / 2 | 5.5 / 3 + 65% down | - | yes |
+| The Captain | Watch 3 / 1 (proposed 2.65) | 7.5 / 1 | - | 2 / 0 + 15% down | - | - | yes |
+| Sealwright | Archive boss 2.5 / 2 | 2.6 / 3 | - | 1 / 2 | 1 / 0 | Sealwright's Echo | - |
+| Foundry Warden | Foundry boss 2.5 / 1 | - | - | 1.2 / 1 | 1 / 0 | - | - |
+| Arsenal Keeper | live | - | stats 1 | - | - | `h-keeper` | - |
+
+**Director decisions needed before the build:**
+- **(a) Which uses become the live record.** The hunts, as today, or the endgame Wreck (item 1). The other one needs
+  its own record.
+- **(b) The common charts.** Keep scaled copies at statsMultiplier 1 (a "Common" tier), or accept that commons are
+  unwinnable below level ~100 on the base records.
+- **(c) The Veteran.** Either split it into a rare-boss tier and a Haul tier, or change the Haul and rare fights
+  themselves (guard counts, gauntlet length, quest debuffs: content, not stats) so that one tuning can fit both.
+- **(d) Kits.** One kit per record means choosing, per crew member, between the dungeon kit and the hunt kit for
+  each tier.
+
+Without (a)-(d), the specs here keep the current record structure, trimmed and gated.
+
 
 ---
 
