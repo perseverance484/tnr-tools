@@ -32,10 +32,10 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | IC10 | Galley Stores | ICON | `04_reward_icons` | `D-QTnbjgTyIVc593zzdSB` | TO GENERATE |
 | IC11 | Crown's Hoard | ICON | `04_reward_icons` | - | TO GENERATE |
 | IC12 | Countermand | ICON | `02_seal_icons` | `W3lOjQhhIPUYPkIZmiNum` | TO GENERATE |
-| VS01 | Gale-Watch Aetherion (variant of Aetherion) | ICON (variant) | `10_variant_aetherion` | `MXAAH-1fwPfyDJg2FnE8t` | TO GENERATE |
-| VS02 | Tidewater Thornsilver (variant of Thornsilver) | ICON (variant) | `11_variant_thornsilver` | `YNhKQmKUjfVIPQkGlNO41` | TO GENERATE |
-| VS03 | Night Watch Testament (variant of Night's Testament) | ICON (variant) | `12_variant_nights_testament` | `mtx4YmUu-wkKGwnOPVbYS` | TO GENERATE |
-| VS04 | Mast-Lightning Stormrender (variant of Stormrender) | ICON (variant) | `13_variant_stormrender` | `_49jp25nHiH-v8ywlRdKH` | TO GENERATE |
+| VS01 | Gale-Watch Aetherion (variant of Aetherion) | ICON (variant) | `10_variant_aetherion` | `MXAAH-1fwPfyDJg2FnE8t` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-gale-watch-aetherion.webp`) |
+| VS02 | Tidewater Thornsilver (variant of Thornsilver) | ICON (variant) | `11_variant_thornsilver` | `YNhKQmKUjfVIPQkGlNO41` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-tidewater-thornsilver.webp`) |
+| VS03 | Night Watch Testament (variant of Night's Testament) | ICON (variant) | `12_variant_nights_testament` | `mtx4YmUu-wkKGwnOPVbYS` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-night-watch-testament.webp`) |
+| VS04 | Thunderwake (variant of Stormrender; was Mast-Lightning Stormrender) | ICON (variant) | `13_variant_stormrender` | `_49jp25nHiH-v8ywlRdKH` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-thunderwake.webp`) |
 | VS05 | Roll-Call Oathbinder (variant of Oathbinder) | ICON (variant) | `14_variant_oathbinder` | `umsYP0jL3emdVFDdU6Fcd` | TO GENERATE |
 | VS06 | Chartline Ink of the Void (variant of Ink of the Void) | ICON (variant) | `15_variant_ink_of_the_void` | `1yWEP0r3elIzyScORfot4` | TO GENERATE |
 | VS07 | The Unwritten Order (variant of The Unwritten) | ICON (variant) | `16_variant_the_unwritten` | `3NH-VreJl9TcqqIYiztn_` | TO GENERATE |
