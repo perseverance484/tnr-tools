@@ -5075,3 +5075,20 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "Approve all", on the three retunes and the split recommendation (a)-(d).
 
 **Canonical destination:** `harness/skyglass_wreck_sim` specs and `state/skyglass_build/`; push/344 and `push/skyglass_aikeys.py`; the wave-2 generators that name enemies by key.
+
+## RUL-2026-10-31-078 — Steeping, Haul page and break-the-seal text
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / player-facing text
+
+**Status:** ACTIVE. Closes the text gaps in `push/skyglass_steeping.gen.py` (`_text_gaps`), the Haul page cards, and RUL-2026-10-31-076 item 5.
+
+**Ruling:**
+1. **Steeping (both quests):** the loss step's button is "Pick it up"; the fail ending reads "The pool goes still. It will wait for you."; the quest's success line becomes the neutral "You step back from the Core's rot.", because Take it back also ends the quest as a success.
+2. **Break the seal (the Archive, both routes):** text as drafted in `SKYGLASS_TEXT.md` §2.7a, with a **"Leave it sealed"** choice on the warning that returns to the normal path at no cost (the director added it).
+3. **Haul page cards:** the locker line drops the bonus-chest promise (the fitted ladder has no bonus chest): "a sealed locker (a better chest, a harder fight and a hazard)".
+
+**Evidence:** Director, 2026-10-31: "Leave it sealed added." (on Claude's drafts, accepted with that addition).
+
+**Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §2.7, §2.7a, §3.2; `push/skyglass_steeping.gen.py`; `push/skyglass_archive_seal.py` (the second choice on `d_break`).

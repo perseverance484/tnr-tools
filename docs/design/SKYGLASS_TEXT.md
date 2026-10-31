@@ -481,7 +481,7 @@ If you carry fewer than 3 Core Rot, choose Take it back: <chart> returns and not
 You lower <chart> into the Core's rot. It drinks.
 ```
 
-**`quest:<quest>.successDescription`**: `The rot took <chart>, and gave back <tainted>.`
+**`quest:<quest>.successDescription`**: `You step back from the Core's rot.` (shared by the win and Take it back, both of which end the quest as a success; the step before each ending says what happened. RUL-2026-10-31-078 item 1)
 
 **`obj:<quest>/d_steep.description`**
 ```html
@@ -501,11 +501,43 @@ The Core Horror sinks back into the pool. When you draw <chart> out, it is dark,
 ```html
 The rot spits <chart> back onto the planks beside you, untouched. The Core Rot you poured in is gone.
 ```
+- `choice[0]`: `Pick it up`
+
+**`obj:<quest>/f_lost.description`** (the fail ending after `f_spat`; RUL-2026-10-31-078 item 1)
+```html
+The pool goes still. It will wait for you.
+```
 
 **`obj:<quest>/w_back.description`** (Take it back; refunds the chart and any Rot paid)
 ```html
 You draw <chart> out of the rot before it takes hold. Nothing is spent.
 ```
+
+### 2.7a The Quarantined Archive: break the seal (RUL-2026-10-31-076 item 5, RUL-2026-10-31-078 item 2)
+
+An optional extra fight on both routes (the alarm route's nodes carry `_a`), built inside go-live 339's Archive by
+`push/skyglass_archive_seal.py`. The echo is the Veteran Core Horror; the win pays 2 Core Rot on `d_break_rot`.
+
+**`obj:The Quarantined Archive/d_entry.description`**: the live text, plus a third choice:
+- `choice[2]`: `Break the last seal`
+
+**`obj:The Quarantined Archive/d_break.description`**
+```html
+Behind the last seal, something presses against the glass from the other side: an echo the Archive was built to hold. Break it and you fight it here, before the Sealwright, with whatever you have left. What it leaves behind is pure rot.<br><br><b>An extra fight. No refills before the Sealwright. Pays 2 Core Rot.</b>
+```
+- `choice[0]`: `Break it`
+- `choice[1]`: `Leave it sealed` (returns to the node `d_entry`'s first choice leads to; nothing is spent)
+
+**`obj:The Quarantined Archive/b_break.description`**
+```html
+The seal cracks like ice. The echo steps through, wearing the Core Horror's shape.
+```
+
+**`obj:The Quarantined Archive/d_break_rot.description`**
+```html
+The echo comes apart into black, wet timber and clouded skyglass. Two lumps of Core Rot are left on the floor, still warm.
+```
+- `choice[0]`: `Go on`
 
 ### 2.8 Stakes headers for the existing hunts (prepend to the live descriptions)
 
@@ -601,32 +633,32 @@ tables §4b); its own card does not say so.
 
 **`item:Ledger Page: The Trophy Hold.description`**
 ```html
-<i>A page torn from the Arsenal Keeper's ledger: hides, horn and the hunters' prizes, sealed below the gun deck.</i><br><br><b>The Trophy Hold</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Hunter's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
+<i>A page torn from the Arsenal Keeper's ledger: hides, horn and the hunters' prizes, sealed below the gun deck.</i><br><br><b>The Trophy Hold</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Hunter's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest, a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
 ```
 
 **`item:Ledger Page: The Bone Store.description`**
 ```html
-<i>A page from the Keeper's ledger for the bone store: horn, tusk and antler, the best of it sealed nearest the door.</i><br><br><b>The Bone Store</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Hunter's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at steps 1–3 only; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
+<i>A page from the Keeper's ledger for the bone store: horn, tusk and antler, the best of it sealed nearest the door.</i><br><br><b>The Bone Store</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Hunter's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest, a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at steps 1–3 only; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
 ```
 
 **`item:Ledger Page: The Snare Room.description`**
 ```html
-<i>The trapper's page of the ledger, stained with old bait. None of his snares is marked as taken down.</i><br><br><b>The Snare Room</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Hunter's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 2–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
+<i>The trapper's page of the ledger, stained with old bait. None of his snares is marked as taken down.</i><br><br><b>The Snare Room</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Hunter's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest, a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 2–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
 ```
 
 **`item:Stores Manifest: The Overgrown Stores.description`**
 ```html
-<i>The quartermaster's manifest for the lower stores. Skyglass has grown through every line since.</i><br><br><b>The Overgrown Stores</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Gatherer's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
+<i>The quartermaster's manifest for the lower stores. Skyglass has grown through every line since.</i><br><br><b>The Overgrown Stores</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Gatherer's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest, a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
 ```
 
 **`item:Stores Manifest: The Ore Vault.description`**
 ```html
-<i>The manifest for the ore vault, weighed twice and signed three times: the best-guarded metal below decks.</i><br><br><b>The Ore Vault</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Gatherer's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
+<i>The manifest for the ore vault, weighed twice and signed three times: the best-guarded metal below decks.</i><br><br><b>The Ore Vault</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Gatherer's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest, a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
 ```
 
 **`item:Stores Manifest: The Bloom Cellar.description`**
 ```html
-<i>The manifest for the drying cellar, its ink faded to the colour of old petals. The last line warns of the dust.</i><br><br><b>The Bloom Cellar</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Gatherer's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest and a shot at a bonus one; a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
+<i>The manifest for the drying cellar, its ink faded to the colour of old petals. The last line warns of the dust.</i><br><br><b>The Bloom Cellar</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Pays:</b> Gatherer's Chests, Common up to Legendary<br><b>Up to 5 steps:</b> a crate (a chest and a fight), a sealed locker (a better chest, a harder fight and a hazard) or cut through (no fight, a hazard next). Here: lockers at every step; cut through at steps 3–4. Leave after any step.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by taking your haul, falling or abandoning. Lose a fight and you leave with nothing.</i>
 ```
 
 ### 3.3 The Trophy Hold (hunters; the classic balance)
