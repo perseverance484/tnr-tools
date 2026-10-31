@@ -1,0 +1,12 @@
+{
+ "manifest": "push/379_skyglass_little_horror_art.json",
+ "ruling": "Accepted by RUL-2026-10-31-085: law 4 / L06 on Little Maw's damage (generalTypes [Highest], no statTypes: RUL-2026-10-31-068 item 3, as push/346 and 353 sent it) and 2 'build order' warnings (the validator ranks the renamed gameAsset entity last; the same false positive accepted for 373, 374, 376).",
+ "reason": "Little Maw's effects are re-sent exactly as push/353 published them with only appearAnimation changed; phase 1 creates the asset, phase 2 edits the jutsu and the species. check_manifest.mjs: 0 pre-send problems.",
+ "sha256": "b8575733836d5793ad7bcf06ca03fdde8a1ae7056d64a5a4359c81045f355669",
+ "accepted": [
+  "ERROR  [jutsu:Little Maw: maw animation]: law 4: formula effect 'damage' requires BOTH statTypes AND generalTypes; an empty one silently zeroes the damage",
+  "ERROR  lint Little Maw: maw animation: L06 damage missing statTypes/generalTypes (generalTypes gap can explode damage)",
+  "ERROR  manifest: build order: jutsu appears after a later phase",
+  "ERROR  manifest: build order: petSpecies appears after a later phase"
+ ]
+}

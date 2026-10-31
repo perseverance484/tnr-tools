@@ -5189,3 +5189,21 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "Approve 364".
 
 **Canonical destination:** the ledger; a validator fix for the move_towards_opponent false positive is a later Lane A task.
+
+## RUL-2026-10-31-085 — Final art part 2 accepted; Little Horror refined; Little Maw gets the maw animation
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / art / build
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. push/373-377 accepted with their ledgers (validator "build order" false positives on the asset entity; the Sealwrights' all-60-AP kit, as RUL-083).
+2. The pet keeps its name, **Little Horror** (the "Bilgehound" rework is rejected); its art direction and ten rank concepts are refined for the engine's pet art rules (`docs/design/SKYGLASS_PETS.md`, art pass section).
+3. **Little Maw** uses the existing maw animation (`anim_maw_v1`, delivered at 150 px frames) in place of Rallying Echo's placeholder (push/379, unhidden by push/380).
+4. The four FX strips drawn for shared live jutsu (AN04, AN07/AN08, AN09) and Hexweave (AN05, no move in any kit) stay unused for now (no decision given).
+
+**Evidence:** Director, 2026-10-31: "I dont like the rework to Bilgehound. Keep Little Horror just refine it"; "No that's fine" (the maw animation); "Approved." (on 373-377 and the refined concepts).
+
+**Canonical destination:** the 373-377 and 379 ledgers; `push/skyglass_little_horror_art.gen.py`; `docs/design/SKYGLASS_PETS.md`.
