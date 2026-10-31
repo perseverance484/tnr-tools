@@ -220,6 +220,20 @@
     {
      "conditions": [
       {
+       "type": "has_effect",
+       "effectType": "disarm",
+       "threshold": 1,
+       "description": "Has effect"
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "End turn"
+     }
+    },
+    {
+     "conditions": [
+      {
        "type": "health_below",
        "value": 30,
        "description": "Health below given percentage"
@@ -315,6 +329,21 @@
        "type": "health_below",
        "value": 60,
        "description": "Health below given percentage"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF",
+      "description": "Select specific jutsu"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "health_below",
+       "value": 60,
+       "description": "Health below given percentage"
       },
       {
        "type": "distance_lower_than",
@@ -328,6 +357,19 @@
       "jutsuId": "EqZsaqser8c2-KpVCaXk_",
       "target": "CLOSEST_OPPONENT",
       "description": "Select specific jutsu"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "health_below",
+       "value": 60,
+       "description": "Health below given percentage"
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "End turn"
      }
     },
     {
@@ -366,54 +408,6 @@
      "action": {
       "type": "use_specific_jutsu",
       "jutsuId": "X2P22h8ApDmTZHjWpNO87",
-      "target": "CLOSEST_OPPONENT",
-      "description": "Select specific jutsu"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "distance_lower_than",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT",
-       "description": "Distance lower than or equal given value"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "PdD44PGaNv4MN5fOALhAF",
-      "target": "CLOSEST_OPPONENT",
-      "description": "Select specific jutsu"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "distance_lower_than",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT",
-       "description": "Distance lower than or equal given value"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "EQ93LX8wvuIAd5u75q_i1",
-      "target": "CLOSEST_OPPONENT",
-      "description": "Select specific jutsu"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "distance_lower_than",
-       "value": 6,
-       "target": "CLOSEST_OPPONENT",
-       "description": "Distance lower than or equal given value"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "Uou0sCjZ1rwiMJZ-JWEI_",
       "target": "CLOSEST_OPPONENT",
       "description": "Select specific jutsu"
      }
