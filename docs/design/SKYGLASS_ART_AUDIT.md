@@ -328,7 +328,7 @@ item 8.
 | **Little Maw** (the Little Horror's signature, `requiredPetSpeciesId`) | players: the pet's loadout | **NEEDS ART** | not on any art list (flag). Hint: the Core Horror's maw in miniature, small and oddly cute |
 | The Last Directive (`GHFMU_DDKvBBp5BEuTeah`) | AI only (the Crowned Captain) | NEEDS ART, low priority (#46) | live placeholder = engine default (push/271) |
 | Extermination Order (`EqZsaqser8c2-KpVCaXk_`) | AI only | NEEDS ART, low priority (#47) | same |
-| Steady the Helm; the shared library (10 marks, about 6 blasts, the Lowered Guard); the 6 bespoke signatures; the 6 crew additions; Recall and Called to the Archive; The Crown's Will; Spreading Fire I-III; Crown Stonebound's Erupting Ground copy | AI only | **UNCERTAIN, assumed placeholder** | the harness specs (`charts_spec.json`, `hunts_spec.json`) carry the engine default image; no design doc asks for icons. If wanted, about 37 icons, best as a family of 4-6 shared mark/blast glyphs |
+| Steady the Helm; the shared library (10 marks, about 6 blasts, the Lowered Guard); the 6 bespoke signatures; the 6 crew additions; Recall and Stonebound Summons; The Crown's Will; Spreading Fire I-III; Crown Stonebound's Erupting Ground copy | AI only | **UNCERTAIN, assumed placeholder** | the harness specs (`charts_spec.json`, `hunts_spec.json`) carry the engine default image; no design doc asks for icons. If wanted, about 37 icons, best as a family of 4-6 shared mark/blast glyphs |
 
 ---
 
@@ -378,7 +378,7 @@ separate strips.
 | `anim_ships_bell_v1.webp` | cp_bell_toll, Ship's Bell | |
 | `anim_crimson_strike_v1.webp` | cp_final_command, Final Command (Captain and Crowned Captain) | |
 | `anim_chain_wrap_v1.webp` | Keelbind, Chain Hook, Mould Cage | |
-| `anim_recall_v1.webp` | cc_recall; Called to the Archive reuses it | |
+| `anim_recall_v1.webp` | cc_recall; Stonebound Summons reuses it | |
 | `anim_crown_aura_v1.webp` | cc_crown_aura, The Crown's Will (loop; keeps the portrait clear) | `boss_fx.py` labels it "Crown's Will / Last Directive" |
 | `anim_rot_claw_v1.webp` | ch_claw, Splintered Grasp | |
 | `anim_exposed_v1.webp` | the one shared window: ch_exposed, fw_cracked, st_exposed, sw_lowered, the First Blade's and the Second's windows | RUL-2026-10-28-028 item 6 |

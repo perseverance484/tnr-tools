@@ -18,15 +18,12 @@
   "Ward of Command: effects[decreasedamagetaken].staticAnimation = cp_command (art pending; left empty)",
   "Steady the Helm: effects[decreasedamagetaken].staticAnimation = cp_steady (art pending; left empty)",
   "Raise the Gunwale: effects[barrier].staticAnimation = cp_gunwale (art pending; left empty)",
-  "Called to the Archive: effects[summon].appearAnimation = cc_recall (art pending; left empty)",
+  "Stonebound Summons: effects[summon].appearAnimation = cc_recall (art pending; left empty)",
   "Spreading Fire I: effects[visual].staticAnimation = tg_ember (art pending; left empty)",
   "Spreading Fire II: effects[visual].staticAnimation = tg_ember (art pending; left empty)",
   "Spreading Fire III: effects[visual].staticAnimation = tg_ember (art pending; left empty)"
  ],
- "_text_gaps": [
-  "jutsu sg342_dg-raise-the-gunwale Raise the Gunwale: description and battleDescription not in SKYGLASS_TEXT.md; created EMPTY",
-  "jutsu sg342_hunt-called-to-the-archive Called to the Archive: description and battleDescription not in SKYGLASS_TEXT.md; created EMPTY"
- ],
+ "_text_gaps": [],
  "_cooldown_floor": [
   "Eruption: Ring: cooldown 2 -> 3 (answers lib-omen-ring, cooldown 4: no change in battle)",
   "Eruption: Rows: cooldown 2 -> 3 (answers lib-omen-rows-a, cooldown 4: no change in battle)",
@@ -5391,8 +5388,8 @@
    "name": "Raise the Gunwale",
    "data": {
     "name": "Raise the Gunwale",
-    "description": "",
-    "battleDescription": "",
+    "description": "The Captain hauls up a wall of ship's timber bound in seal script. It blocks the way and has its own health: break it down or go around.",
+    "battleDescription": "%user stamps the deck, and a wall of timber and seal script rises along the gunwale.",
     "jutsuType": "AI",
     "jutsuRank": "A",
     "requiredRank": "STUDENT",
@@ -5448,11 +5445,11 @@
    "entity": "jutsu",
    "slot": "create",
    "srcId": "sg342_hunt-called-to-the-archive",
-   "name": "Called to the Archive",
+   "name": "Stonebound Summons",
    "data": {
-    "name": "Called to the Archive",
-    "description": "",
-    "battleDescription": "",
+    "name": "Stonebound Summons",
+    "description": "Calls a Crown Stonebound to fight at the caster's side. Only one answers at a time.",
+    "battleDescription": "%user breaks a seal in the air, and a Crown Stonebound steps out of the light.",
     "jutsuType": "AI",
     "jutsuRank": "A",
     "requiredRank": "STUDENT",

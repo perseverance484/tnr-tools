@@ -161,7 +161,7 @@ you, reluctantly. **Arena:** the archive. He stands before the chained reliquary
 |---|---|---|---|---|
 | **Script Lines** | set piece | Omen: Seal Lines, a diagonal cross from the reliquary; next turn they close: the set-piece lock (RUL-2026-10-28-015: `elementalseal`, `timecompression` +10 AP on every jutsu, `increasecooldown` +2 on Move and Replacement Technique) for 2 rounds on anyone standing in them | tg_control lines, then sw_script | step off the lines |
 | **Archive Lock** | set piece, signature | Violet over the whole archive except three tiles in the reliquary's light; next turn the set-piece lock (RUL-2026-10-28-015: `elementalseal`, `timecompression` +10 AP on every jutsu, `increasecooldown` +2 on Move and Replacement Technique) for 2 rounds everywhere else | tg_control field, tg_safe, then sw_lock | get into the light |
-| **Called to the Archive** | summon | One Crown Stonebound, a lighter bruiser than the Crowned Captain, steps out of a frame (one at a time). His Ward of Command lands on it as the highest-health ally (RUL-2026-10-28-013) | cc_recall reused | kill it, or ignore it and pressure him |
+| **Stonebound Summons (was Called to the Archive)** | summon | One Crown Stonebound, a lighter bruiser than the Crowned Captain, steps out of a frame (one at a time). His Ward of Command lands on it as the highest-health ally (RUL-2026-10-28-013) | cc_recall reused | kill it, or ignore it and pressure him |
 | **Mending Seal** | sustain | Heals and cleanses himself | soft seal glow | interrupt with burst |
 | **He Lowers His Seals** | window, under 30% | Once: for 1 round he takes x3 damage. "He lowers his seals for one breath, as if hoping you will end it." | sw_lowered | end it |
 
@@ -262,7 +262,7 @@ a neutral line, used by the Sealwright, the First Blade and the Second.
 | Bespoke signatures | 6 |
 | Lowered guard | 1 |
 | Crew additions (Chain Hook, Oath of Stillness, Chart Mark, Aegis, Mending Seal, Ward of Command) | 6 |
-| Summons (Recall, Called to the Archive) | 2 |
+| Summons (Recall, Stonebound Summons) | 2 |
 | The Crown's Will | 1 |
 | Barrier (or reuse a live barrier) | 0-1 |
 | **Total** | **about 32-33**, against 108 in the first build |
@@ -375,5 +375,5 @@ Effects carry `appearSfx` / `disappearSfx` (asset ids, `validators/combat.ts` Ba
 | Control/lock blasts (Binding Ring, Seal Lines, Command Absolute, Ship's Bell) | LightningSFX `eJCEtS5_P_pW_VPc6ttRh` |
 | Core Horror water/rot (Maw, Undertow, Collapse, Rupture) | WaterSFX `NThXOSKNDXPwNnGxDtH0Z` |
 | Ember tiles, Pour Line, Quench | FireSFX `9-b8hbTXA019dgn8yyr3j` |
-| Summons (Recall, Called to the Archive) | Shinobi Dash `gR2880EZVlWV4eam-ufei` |
+| Summons (Recall, Stonebound Summons) | Shinobi Dash `gR2880EZVlWV4eam-ufei` |
 | Burst windows open (lowered guard, Exposed Seam, Cooling Shell) | Sword Clash `PFY2oXpwIpNwUOx327WCm` |
