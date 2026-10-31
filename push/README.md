@@ -1283,7 +1283,7 @@ Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Gener
 by a generator mode reading that run's results bundle (the `--binds` / `--golive` / `--retry` pattern, L01), never
 committed before that run.
 
-### 344 Skyglass AI copies: part 1 (10 AI creates, HIDDEN) READY TO RUN after the director accepts its ledger; part 2 built from part 1's results; 45 copies BLOCKED on two director decisions
+### 344 Skyglass AI copies: part 1 (10 AI creates, HIDDEN) READY TO RUN (ledger accepted, RUL-2026-10-31-066 item 5); part 2 built from part 1's results; 45 copies BLOCKED on two director decisions
 
 `python3 push/skyglass_copies.gen.py` writes `344_skyglass_copies_1.json`. Every new AI record the remaining Skyglass
 content needs that copies a live AI: the chart-run copies (`charts_spec.json` `newAIs`), the 15 Haul guards
