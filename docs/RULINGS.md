@@ -5051,3 +5051,27 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "3. Half the currency and ryo reward of the endgame wreck. Rest is approved".
 
 **Canonical destination:** `push/skyglass_wreck.gen.py`, `push/skyglass_crownhold_rework.gen.py`, `push/skyglass_archive_seal.py`.
+
+## RUL-2026-10-31-077 — Rule-cap retunes and the enemy record structure
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / balance / build
+
+**Status:** ACTIVE. Amends RUL-2026-10-31-067 (tiers) and RUL-2026-10-30-060 item 1 (the Watch Captain's pools). Source: the rule-cap re-simulation, `fable/skyglass-rule-cap` at `990d0aa4` (`harness/skyglass_wreck_sim/REPORT.md`, rule-cap §4 and §6).
+
+**Ruling:**
+1. **Retunes adopted** (the report's proposals, measured there):
+   - Endgame Wreck: the Captain's pools 7.5 → **9** (19.2% runs with a wipe, 23.0 min over 120 runs).
+   - Captain's Watch: the solo Captain's pools **2.65**, replacing RUL-060's 3 (80% clear, phase 2 median 7 rounds).
+   - Steeping fight: the Steeping Horror at **5 damage rows plus 35% damage given down** (77.5%).
+2. **The one-record-per-tier consolidation of RUL-067 is not workable by stats alone** (report §6: base records scaled to level 50 clear 0%; one Veteran cannot fit both the rare runs and the Haul; a live record carries one rule list). The tier names stay; records split where the measurements require:
+   - **(a) The live record is the endgame Wreck version** (dungeon kit, Wreck tuning), as RUL-067 set. Fights that use the live records today with a different tuning or kit (the rare-chart hunts, the Fall and Burning Heading fights on live records) get their own copies.
+   - **(b) The Common charts keep their own scaled copies** (statsMultiplier 1 tuning).
+   - **(c) The Veteran tier splits in two:** one tier for the rare-chart bosses and echoes, fixed at level 100, and one for the Haul guards, fixed at level 100 and unscaled (RUL-2026-10-31-073). Within a tier, a crew member whose fights need different measured tunings keeps one record per tuning.
+   - **(d) Each record carries the rule list of the fight it is used in** (dungeon kit or hunt kit).
+   - Rot-Touched (the five tainted copies) and Faded (the eight level-50 copies) apply as RUL-067 set them.
+
+**Evidence:** Director, 2026-10-31: "Approve all", on the three retunes and the split recommendation (a)-(d).
+
+**Canonical destination:** `harness/skyglass_wreck_sim` specs and `state/skyglass_build/`; push/344 and `push/skyglass_aikeys.py`; the wave-2 generators that name enemies by key.
