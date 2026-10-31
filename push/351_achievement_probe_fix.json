@@ -1,0 +1,55 @@
+{
+ "_note": "push/351: re-sends 'Probe: Both Decks' (CVmmxRhrttQp6g6GBFbAG) with its two goals chained (g_a -> g_b), after push/350's update was refused. Same test as push/350. Built by push/achievement_probe.gen.py --fix <350 bundle>; do not hand-edit.",
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Probe: Both Decks",
+   "data": {
+    "name": "Probe: Both Decks",
+    "description": "Staff probe: complete Probe Deck A, then Probe Deck B.",
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "questType": "achievement",
+    "questRank": "D",
+    "successDescription": "Probe passed: progress survived.",
+    "consecutiveObjectives": true,
+    "hidden": true,
+    "requiredLevel": 1,
+    "maxLevel": 100,
+    "prerequisiteQuestId": null,
+    "tierLevel": null,
+    "content": {
+     "objectives": [
+      {
+       "id": "g_a",
+       "task": "complete_specific_quest",
+       "value": 1,
+       "description": "",
+       "completeQuestIds": [
+        "n6JqkJiJOGHbHUWAi7XV4"
+       ],
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "nextObjectiveId": "g_b"
+      },
+      {
+       "id": "g_b",
+       "task": "complete_specific_quest",
+       "value": 1,
+       "description": "",
+       "completeQuestIds": [
+        "vP-JxCD0nTMkqSk1R-1wG"
+       ],
+       "sceneBackground": "",
+       "sceneCharacters": []
+      }
+     ],
+     "sceneBackground": "",
+     "sceneCharacters": [],
+     "reward": {}
+    }
+   },
+   "targetId": "CVmmxRhrttQp6g6GBFbAG"
+  }
+ ]
+}

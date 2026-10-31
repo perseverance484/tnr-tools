@@ -2,10 +2,8 @@
  "manifest": "push/350_achievement_probe.json",
  "ruling": "Director request 2026-10-31 (staff achievement probe for Walked Every Deck); validate.py's quest-graph rules model linear quests, not achievements: an achievement's objectives are independent goals with no start node or win node (as the live 'Pizza Delivery Reward', elopwNBvN0rbuCfzTOo5E). Forge check_manifest passes.",
  "reason": "Achievement objectives are lifetime goals; libs/quest.ts completes an achievement when every goal is done. The three diagnostics (single start node, no win node, unreachable g_b) are graph-lint rules that do not apply to questType achievement.",
- "sha256": "d1e99d7c141845d62df9d089630c7c4b70621427e8508fcd386160a9e270e01f",
+ "sha256": "593f1e469056358c8c51efd2dab63a8a146ee9f88eda4e2a6ca09afd22108b00",
  "accepted": [
-  "ERROR  [quest:Probe: Both Decks]: expected exactly one start node, found ['g_a', 'g_b']",
-  "ERROR  [quest:Probe: Both Decks]: no win_quest / fail_quest / reset_quest node: nothing marks the quest complete",
-  "ERROR  lint Probe: Both Decks: L12b orphan node g_b (unreachable)"
+  "ERROR  [quest:Probe: Both Decks]: no win_quest / fail_quest / reset_quest node: nothing marks the quest complete"
  ]
 }
