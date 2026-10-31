@@ -309,3 +309,36 @@ test("review F2: the companion cap counts reward_pets across every effect of the
   const noPets = structuredClone(two); noPets.items[0].data.effects[1].reward_pets = [];
   assert.doesNotThrow(() => parseManifest(noPets), "a second reward effect without a pet is fine");
 });
+
+test("contract: the two pet catalogue capture reads are content-only at the pinned source, when a checkout is supplied", { skip: !process.env.TNR_GAME_CHECKOUT && "set TNR_GAME_CHECKOUT to a checkout at 3314d122" }, async () => {
+  const { MAX_FULL_CAPTURE_BYTES } = await import("../src/storage/captures.mjs");
+  const { PAGE_LIMIT } = await import("../src/budget/reader.mjs");
+  const read = (f) => readFileSync(join(process.env.TNR_GAME_CHECKOUT, f), "utf8");
+  const pr = read("app/src/server/api/routers/petSpecies.ts"), pq = read("app/src/queries/petSpecies.ts");
+  // petSpecies.getAll: public, NO input, every PetSpecies row by name, nothing per player
+  assert.match(pr, /\n  getAll: publicProcedure\.query\(\(\{ ctx \}\) => listPetSpeciesForGetAll\(ctx\.drizzle\)\),\n/);
+  assert.match(pq, /export const listPetSpeciesForGetAll = \(client: Pick<DrizzleClient, "query">\) =>\n  client\.query\.petSpecies\.findMany\(\{ orderBy: asc\(petSpecies\.name\) \}\);\n/);
+  const schema = read("app/drizzle/schema.ts");
+  const table = (name) => schema.slice(schema.indexOf(`export const ${name} = mysqlTable(`), schema.indexOf("\n);", schema.indexOf(`export const ${name} = mysqlTable(`)));
+  const cols = (name) => [...table(name).matchAll(/^    (\w+): /gm)].map((m) => m[1]);
+  assert.deepEqual(cols("petSpecies"), ["id", "name", "description", "artDirection", "rankConcepts", "rarity", "role", "preferredDamageElement", "defaultJutsuIds", "aiRules", "includeDefaultRules", "effects", "isActive", "createdAt", "updatedAt"]);
+  // jutsu.getAll: public, offset-paged, limit at most PAGE_LIMIT, nextCursor from the unfiltered page length
+  const jr = read("app/src/server/api/routers/jutsu.ts"), jq = read("app/src/queries/jutsu.ts");
+  assert.match(jr, /\n  getAll: publicProcedure\n    \.meta\(\{ mcp: \{ description: "Get paginated jutsus with filters" \} \}\)\n    \.input\(\n      jutsuFilteringSchema\.extend\(\{\n        cursor: z\.number\(\)\.nullish\(\),\n        limit: z\.number\(\)\.min\(1\)\.max\(1000\),\n/);
+  assert.equal(PAGE_LIMIT, 1000);
+  assert.match(jr, /const skip = currentCursor \* input\.limit;/);
+  assert.match(jr, /const nextCursor = results\.length < input\.limit \? null : currentCursor \+ 1;/);
+  // hidden defaults to false unless stated: why the manifest must state it
+  assert.match(jr, /: input\?\.hidden !== undefined\n        \? \[eq\(jutsu\.hidden, input\.hidden\)\]\n        : \[eq\(jutsu\.hidden, false\)\]\),/);
+  assert.match(jr, /\.\.\.\(input\?\.jutsuType \? \[inArray\(jutsu\.jutsuType, input\.jutsuType\)\] : \[\]\),/);
+  // the post-filter keeps every row when no effect/element/stat/appear/static/disappear member is sent
+  assert.match(jr, /    if \(\n      input\.stat \|\|\n      input\.effect \|\|\n      input\.element \|\|\n      input\.appear \|\|\n      input\.static \|\|\n      input\.disappear\n    \) \{/);
+  // the query: whole Jutsu rows plus bloodline.name, nothing per player
+  const q = jq.slice(jq.indexOf("export const listJutsuForGetAll ="), jq.indexOf("limit: input.limit,", jq.indexOf("export const listJutsuForGetAll =")));
+  assert.match(q, /client\.query\.jutsu\.findMany\(\{/);
+  assert.match(q, /with: \{\n      bloodline: \{\n        columns: \{\n          name: true,\n        \},\n      \},\n    \},/);
+  assert.ok(!/user/i.test(q), "no user table");
+  assert.ok(cols("jutsu").includes("requiredPetSpeciesId") && cols("jutsu").includes("hidden") && !cols("jutsu").some((c) => /^user/i.test(c)));
+  // one page is all a full body can hold: 1000 rows' column names alone exceed the ceiling
+  assert.ok(PAGE_LIMIT * JSON.stringify(Object.fromEntries(cols("jutsu").map((c) => [c, null]))).length > MAX_FULL_CAPTURE_BYTES);
+});

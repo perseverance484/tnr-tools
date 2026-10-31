@@ -17,7 +17,7 @@ import { App } from "../src/ui/app.mjs";
 import { parseManifest, ManifestError } from "../src/runner/manifest.mjs";
 import { captureLabel } from "../src/ui/screens.mjs";
 import { jobOutcome } from "../src/storage/journal.mjs";
-import { MAX_FULL_CAPTURE_BYTES, FULL_PERSIST_PATHS, FULL_PERSIST_LIST_PATHS, snapshotKey } from "../src/storage/captures.mjs";
+import { MAX_FULL_CAPTURE_BYTES, FULL_PERSIST_PATHS, FULL_PERSIST_LIST_PATHS, FULL_PERSIST_PAGED_PATHS, snapshotKey } from "../src/storage/captures.mjs";
 import { FakeGame } from "./fakegame.mjs";
 import { MemoryStorage } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
@@ -168,7 +168,9 @@ test("full persistence is refused for list, mutation, unknown and un-audited pro
       `${proc} must not be persistable`);
   };
   for (const proc of ["jutsu.getAllNames", "gameAsset.getAllNames", "profile.getAllAiNames"]) refuse(proc);   // name lists
-  for (const proc of ["jutsu.getAll", "item.getAll", "quests.getAll", "gameAsset.getAll", "title.getAll", "badge.getAll"]) refuse(proc); // list dumps
+  for (const proc of ["item.getAll", "quests.getAll", "gameAsset.getAll", "title.getAll", "badge.getAll"]) refuse(proc); // list dumps
+  // jutsu.getAll is admitted only as the pet catalogue (PET_CATALOGUE tests below); as a dump it is refused
+  assert.throws(() => parseManifest({ items: [], capture: { after: [{ proc: "jutsu.getAll", input: { id: "x" }, persist: "full" }] } }), /needs input exactly \{jutsuType: \["PETS"\], hidden: true\|false\}/);
   for (const proc of ["title.getAllNames", "badge.getAllNames", "title.select", "title.archive"]) refuse(proc);
   for (const proc of ["jutsu.update", "gameAsset.create", "quests.delete", "profile.updateAi"]) refuse(proc); // mutations
   for (const proc of ["asset.get", "user.get", "profile.getUser", "auth.session", "nonsense"]) refuse(proc);  // unknown / not audited
@@ -192,7 +194,9 @@ test("the allowlist is exactly the audited content-record point reads and nothin
     "ai.getAiProfile", "badge.get", "bloodline.get", "gameAsset.get", "item.get", "item.getItemVariants", "item.getItemWithCraftingRequirements", "jutsu.get", "profile.getAi", "quests.get", "skillTree.get", "title.get",
   ]);
   // the one input-less content list (handoff docs/handoffs/VARIANT_CAPTURE_READS_3314D122.md), held apart from the point reads
-  assert.deepEqual([...FULL_PERSIST_LIST_PATHS], ["item.getVariantNames"]);
+  assert.deepEqual([...FULL_PERSIST_LIST_PATHS], ["item.getVariantNames", "petSpecies.getAll"]);
+  // the one paged list, pinned to the pet catalogue (handoff docs/handoffs/PET_CATALOGUE_READS_3314D122.md)
+  assert.deepEqual([...FULL_PERSIST_PAGED_PATHS], ["jutsu.getAll"]);
 });
 
 // ---------------------------------------------------------------- hashing the contract
@@ -656,7 +660,7 @@ test("variants: getItemVariants persists by {itemId}; getVariantNames persists w
     assert.throws(() => cap({ proc: "item.getVariantNames", input, persist: "full" }), /takes no input/);
   }
   // every other list is still a row count only
-  for (const proc of ["item.getAllNames", "title.getAll", "petSpecies.getAll", "item.getUserUnlockedVariants"]) {
+  for (const proc of ["item.getAllNames", "title.getAll", "item.getUserUnlockedVariants"]) {
     assert.throws(() => cap({ proc, persist: "full" }), /only allowed for the audited/);
   }
   // summary mode of both parses as before
@@ -719,4 +723,91 @@ test("variants: the getVariantNames list slot is dropped by a variant write", as
   assert.ok(await h.cache.get("item.getVariantNames", ""), "the input-less list caches under id \"\"");
   await h.cache.invalidateRecord("item", "varA0000000000000001"); // what a variant edit does (recipes itemVariant.cacheEntity)
   assert.equal(await h.cache.get("item.getVariantNames", ""), null);
+});
+
+// ---------------------------------------------------------------- pet catalogue (PET_CATALOGUE_READS)
+// routers/petSpecies.ts:32 getAll (public, no input) and routers/jutsu.ts:404 getAll (public, paged,
+// filtered) at TheNinjaRPG@3314d122. The Skyglass Little Horror kit is balanced against live pets and
+// its default loadout may name live PETS jutsu, so both catalogues are captured with full records.
+const species = (id, name, isActive = true) => ({ id, name, description: `${name}.`, artDirection: null, rankConcepts: [], rarity: "COMMON", role: "ASSAULT",
+  preferredDamageElement: null, defaultJutsuIds: [], aiRules: [], includeDefaultRules: true, effects: [], isActive, createdAt: new Date(0), updatedAt: new Date(0) });
+const pj = (id, jutsuType, hidden, t) => ({ id, name: `Jutsu ${id}`, jutsuType, hidden, jutsuRank: "C", cooldown: 2, chakraCost: 0.1, staminaCost: 0.1, healthCost: 0,
+  requiredLevel: 1, requiredRank: "GENIN", requiredPetSpeciesId: null, bloodlineId: null, effects: [{ type: "damage", power: 10 }], createdAt: new Date(0), updatedAt: new Date(t) });
+function seedPets(game) {
+  game.seed("petSpecies", species("spFox00000000000001", "Ember Fox"));
+  game.seed("petSpecies", species("spOwl00000000000001", "Dusk Owl", false)); // retired: still listed at source
+  game.seed("jutsu", pj("pjA0000000000000001", "PETS", false, 100));
+  game.seed("jutsu", pj("pjB0000000000000001", "PETS", false, 300));
+  game.seed("jutsu", pj("pjH0000000000000001", "PETS", true, 200));
+  game.seed("jutsu", pj("nmA0000000000000001", "NORMAL", false, 400));
+}
+const PETS = (hidden) => ({ proc: "jutsu.getAll", input: { jutsuType: ["PETS"], hidden }, persist: "full" });
+const PET_CENSUS = { items: [], capture: { before: [{ proc: "petSpecies.getAll", persist: "full" }, PETS(false), PETS(true)] } };
+
+test("pet catalogue: petSpecies.getAll persists whole with no input; jutsu.getAll persists only as {jutsuType: [PETS], hidden}", () => {
+  const cap = (c) => parseManifest({ items: [], capture: { after: [c] } }).capture.after[0];
+  for (const input of [undefined, null, {}]) assert.equal(cap({ proc: "petSpecies.getAll", input, persist: "full" }).persist, "full");
+  for (const input of [{ id: "x" }, { limit: 10 }]) assert.throws(() => cap({ proc: "petSpecies.getAll", input, persist: "full" }), /takes no input/);
+  for (const hidden of [true, false]) assert.deepEqual(cap(PETS(hidden)), { proc: "jutsu.getAll", input: { jutsuType: ["PETS"], hidden }, persist: "full", id: null });
+  for (const input of [undefined, null, {}, { jutsuType: ["PETS"] }, { jutsuType: ["PETS"], hidden: "true" }, { jutsuType: ["PETS"], hidden: 0 }, { jutsuType: "PETS", hidden: false },
+    { jutsuType: ["NORMAL"], hidden: false }, { jutsuType: ["PETS", "NORMAL"], hidden: false }, { jutsuType: ["PETS"], hidden: false, limit: 1000 },
+    { jutsuType: ["PETS"], hidden: false, cursor: 1 }, { jutsuType: ["PETS"], hidden: false, effect: ["damage"] }, { jutsuType: ["PETS"], hidden: false, rarity: "S" }]) {
+    assert.throws(() => cap({ proc: "jutsu.getAll", input, persist: "full" }), /needs input exactly \{jutsuType: \["PETS"\], hidden: true\|false\}/, JSON.stringify(input));
+  }
+  // summary mode of both parses as before
+  assert.equal(cap({ proc: "petSpecies.getAll" }).persist, "summary");
+  assert.equal(cap({ proc: "jutsu.getAll", input: { limit: 5 } }).persist, "summary");
+});
+
+test("pet catalogue: the census exports every species and every PETS jutsu, visible and hidden, one uncached read each", async () => {
+  const h = harness();
+  seedPets(h.game);
+  h.runner.plan(PET_CENSUS, { jobId: "pets" });
+  assert.equal((await h.runner.run("pets")).state, "DONE");
+  assert.deepEqual(h.game.calls.map((c) => [c.path, c.input]), [
+    ["petSpecies.getAll", undefined],
+    ["jutsu.getAll", { jutsuType: ["PETS"], hidden: false, limit: 1000, cursor: 0 }],
+    ["jutsu.getAll", { jutsuType: ["PETS"], hidden: true, limit: 1000, cursor: 0 }],
+  ], "the species list is sent with no input; each jutsu read is cursor 0 at the source maximum");
+  const [sp, shown, hid] = (await h.bundle("pets")).captures;
+  assert.deepEqual([sp.persistOk, sp.input, sp.rows], [true, null, 2]);
+  assert.deepEqual(sp.data.map((s) => [s.id, s.isActive, s.rarity, s.role]), [["spFox00000000000001", true, "COMMON", "ASSAULT"], ["spOwl00000000000001", false, "COMMON", "ASSAULT"]], "retired species included");
+  assert.deepEqual([shown.persistOk, shown.input, shown.rows, shown.error], [true, { jutsuType: ["PETS"], hidden: false, limit: 1000, cursor: 0 }, 2, null]);
+  assert.deepEqual(shown.data.map((j) => [j.id, j.jutsuType, j.hidden, j.cooldown, j.bloodline]), [["pjB0000000000000001", "PETS", false, 2, null], ["pjA0000000000000001", "PETS", false, 2, null]],
+    "visible PETS rows only, updatedAt desc, the page's rows without its {data, nextCursor} envelope");
+  assert.deepEqual(hid.data.map((j) => [j.id, j.hidden]), [["pjH0000000000000001", true]]);
+  assert.ok(h.journal.get("pets").capturesBefore.every((c) => !("data" in c)), "the journal stays compact");
+  assert.equal(await h.cache.get("jutsu.getAll", ""), null, "a paged capture is never written into the read cache");
+});
+
+test("pet catalogue: a second page, a filter the server ignored, a repeated id or a malformed body is a failed read and persists nothing", async () => {
+  const cases = {
+    "more than one page": (r) => ({ ok: true, data: { ...r.data, nextCursor: 1 } }),
+    "filter ignored": (r) => ({ ok: true, data: { ...r.data, data: [...r.data.data, { id: "nmA0000000000000001", jutsuType: "NORMAL", hidden: false }] } }),
+    "repeated id": (r) => ({ ok: true, data: { ...r.data, data: [...r.data.data, r.data.data[0]] } }),
+    "bare array": (r) => ({ ok: true, data: r.data.data }),
+    "no nextCursor": (r) => ({ ok: true, data: { data: r.data.data } }),
+  };
+  for (const [name, bend] of Object.entries(cases)) {
+    const h = harness();
+    seedPets(h.game);
+    const orig = h.game.handle.bind(h.game);
+    h.game.handle = (p, i) => { const r = orig(p, i); return p === "jutsu.getAll" ? bend(r) : r; };
+    h.runner.plan({ items: [], capture: { after: [PETS(false)] } }, { jobId: "bad" });
+    assert.equal((await h.runner.run("bad")).state, "DONE", name);
+    const [c] = (await h.bundle("bad")).captures;
+    assert.deepEqual([c.ok, c.error, c.persistOk, "data" in c], [false, "BAD_PAGE", false, false], name);
+    assert.equal(h.game.calls.length, 1, `${name}: one read; a next page is never fetched`);
+    assert.equal(await h.cache.getSnapshot(snapshotKey("bad", "after", 0)), null, `${name}: no body was persisted`);
+  }
+});
+
+test("pet catalogue: a rate-limited jutsu.getAll pauses the pass and persists nothing", async () => {
+  const h = harness({ game: new FakeGame({ limitPath: "jutsu.getAll" }) });
+  seedPets(h.game);
+  h.runner.plan(PET_CENSUS, { jobId: "lim" });
+  const s = await h.runner.run("lim");
+  assert.equal(s.state, "PAUSED");
+  assert.equal(await h.cache.getSnapshot(snapshotKey("lim", "before", 1)), null);
+  assert.ok(await h.cache.getSnapshot(snapshotKey("lim", "before", 0)), "the species list read before the limit is kept");
 });

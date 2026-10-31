@@ -43,6 +43,12 @@ export function listInput(path) {
   return f ? f() : undefined;
 }
 
+// A paged full capture (page() below) asks for the source maximum, z.number().min(1).max(1000) at
+// routers/jutsu.ts:409. One page is all a full body can ever hold: the names of a Jutsu row's 50
+// columns (drizzle/schema.ts, jutsu) alone are about 1.1 KB of JSON, so 1000 rows exceed
+// MAX_FULL_CAPTURE_BYTES (512 KiB) before any value is counted. A second page could therefore never be persisted, and is refused instead of read.
+export const PAGE_LIMIT = 1000;
+
 // Order-insensitive structural comparison, used only to decide whether a caller's list input is
 // the default one. Keys are sorted and undefined-valued keys dropped, so {} and {type: undefined}
 // are the same request.
@@ -152,6 +158,26 @@ export class CachedReader {
     this.budget.observe([r], [path]);
     return r;
   }
+  /**
+   * The one page of a paged full capture (captures.mjs FULL_PERSIST_PAGED_PATHS: jutsu.getAll with
+   * the parse-checked {jutsuType: ["PETS"], hidden}). routers/jutsu.ts:404-431 at 3314d122 pages by
+   * OFFSET (cursor * limit) and answers nextCursor null only when the page is short, i.e. when it
+   * is the last. Cursor 0 at PAGE_LIMIT is sent; the answer is accepted only when nextCursor is null
+   * (complete: one SQL statement, one consistent snapshot), every row has a distinct id, and every
+   * row matches the filter it was asked for (a server that ignored the filter is refused, not
+   * persisted). Anything else is a failed read (BAD_PAGE), never a partial body. Uncached; one token.
+   */
+  async page(path, input) {
+    await this.budget.acquire(path, 1);
+    this.stats.requests++;
+    const [r] = await this.client.batch([{ path, input: { ...input, limit: PAGE_LIMIT, cursor: 0 } }]);
+    this.budget.observe([r], [path]);
+    if (!r.ok) return r;
+    const { data, nextCursor } = r.data ?? {};
+    return Array.isArray(data) && nextCursor === null && new Set(data.map((row) => row?.id)).size === data.length && data.every((row) => row?.id && Object.keys(input).every((k) => [input[k]].flat().includes(row[k])))
+      ? { ok: true, data } : { ok: false, error: { code: "BAD_PAGE", message: path + ": not one complete page (nextCursor null) of distinct rows matching the filter" } };
+  }
+
   // This is the complete skill inventory, not getAllNames (which omits BLOODRIGHT).
   // Every page consumes its own budget token. Nothing partial is cached or returned.
   async skillInventory(path, { fresh, input }) {

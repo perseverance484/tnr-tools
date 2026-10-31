@@ -200,7 +200,7 @@ The payloads above are abbreviated; every `create` still needs its complete fiel
 |---|---|---|
 | `jutsu.create` | POST | null-body envelope -> new id in `message`. |
 | `jutsu.update` | POST | `{json:{id,data}, meta:{values:{"data.createdAt":["Date"],"data.updatedAt":["Date"]}, v:1}}`. |
-| `jutsu.getAll` | GET | requires a `limit` (number) in input or it 400s; follow `nextCursor`. |
+| `jutsu.getAll` | GET | requires a `limit` (number) in input or it 400s; follow `nextCursor`. Hidden rows are omitted unless `hidden` is sent. In a Forge capture, `persist: "full"` only as the pet catalogue (2.8). |
 
 ### 2.3 Item
 
@@ -259,6 +259,8 @@ Unlike 2.2-2.7 these were read at source (`routers/petSpecies.ts`, `validators/p
 | `petSpecies.create` | the WHOLE `PetSpeciesValidator` record in one step -> new id in `message`. No placeholder. |
 | `petSpecies.update` | `{id, data}`; re-saves the whole parsed record, so Forge fetch-merges like every entity. |
 | `petSpecies.get` / `getAll` | `{id}` / no input (every species, retired ones too). Names are unique. |
+
+- **Capturing the pet catalogue (Forge 0.12.2; source-verified at TheNinjaRPG@3314d122).** `petSpecies.getAll` may be captured with `persist: "full"` and no input: every species row, retired ones too (`isActive: false`). `jutsu.getAll` may be captured with `persist: "full"` only with `input: {jutsuType: ["PETS"], hidden: true|false}` exactly (no other member, no `limit`/`cursor`). The game drops hidden jutsu unless `hidden` is sent, so a complete census is two captures, `hidden: false` and `hidden: true`. Forge sends `limit: 1000, cursor: 0` and accepts the page only when `nextCursor` is null and every row is a distinct PETS row with the requested `hidden`. Anything else is a failed read (`BAD_PAGE`) and nothing is persisted. The body is the page's rows, without the `{data, nextCursor}` envelope, so full Jutsu records including `bloodline: {name}`. Both reads are public and rate-limited. Every other list capture still records only a row count.
 
 - Manifest entity `petSpecies`; ref prefix `@petSpecies:<srcId>`. A create carries `hidden: true` like every entity (there is no column; Forge strips it) and **`isActive: false`**, the species' own visibility switch. Activating it is a publishing step.
 - **Build order, three pushes:** (1) species create; (2) the signature jutsu, `jutsuType: "PETS"`, `requiredPetSpeciesId` = the species id copied from push 1's results bundle; (3) after the director publishes that jutsu, a species edit (literal `targetId`) setting `defaultJutsuIds`. The server refuses hidden defaults and, on a create, any species-locked default, so step 3 can never ride in the same manifest as step 2.
