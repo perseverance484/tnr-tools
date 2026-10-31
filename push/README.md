@@ -1298,7 +1298,7 @@ reward) and the achievement "Probe: Both Decks" (A then B, no reward), shaped li
   whether the achievement completes. First goal still done after reload = Walked Every Deck can ship as designed.
 - Afterwards: leave all three hidden (or delete them).
 
-## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 RUN and verified; 344 (AI copies) part 1 READY TO RUN, most copies BLOCKED (director decisions); 348 (Crown's Hoard, Wreck Sighted) READY TO RUN, 349 after it
+## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 RUN and verified; 344 (AI copies) ON HOLD: rebuilt after the RUL-066/067 re-simulation (consolidated tiers); 348 RUN; 349 READY TO RUN
 
 Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Generators: `push/skyglass_library.gen.py`
 (342). Run order and dependencies are listed per manifest; a manifest that needs ids from an earlier unrun one is built
