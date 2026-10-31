@@ -1408,6 +1408,18 @@ the 20-rule cap; and a false "dead rules" error on the Crowned Captain's uncondi
 through once he stands on the post: theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~482-492). Both need a
 `state/validate_exceptions/` ledger with director acceptance when the manifests are built from the final specs.
 
+## 372 Skyglass final art, part 1 (32 image-only edits): READY TO RUN
+
+`372_skyglass_final_art.json` (`python3 push/skyglass_final_art.gen.py`): image-only edits on existing records: the
+Skyglass Token, the seven boss tokens, the Little Horror's Jar, Galley Stores, Crown's Hoard, Countermand, the two Haul
+Reserves (370 ran before PC07/PC08 existed), the jutsu icons of Lastlight, Little Maw, The Last Directive and
+Extermination Order (`injectableInBattle: false` sent, law 20), and the AI avatars of the eight Crownhold crew, Crown
+Armsmaster, Replicant Zero, The Second and the Foundry Warden (live, Veteran and Rot-Touched). Nothing else changes;
+hidden records stay hidden. Gates: `validate.py --strict` 0/0, `check_manifest.mjs` 0, `skyglass_check.py` 0/0.
+**Part 2 (to build):** the Crownhold scene backgrounds SC01-SC06 and the salvager PT01 (quest edits), the boss FX
+AN01-AN09 (gameAsset creates, then the library jutsu that use them), the Little Maw animation; the Chart of the Buried
+Cache icon stays held until its seal is checked.
+
 ## 371 Skyglass variants: all 19 skins + naming pass (19 itemVariant edits, 11 item edits): READY TO RUN
 
 `371_skyglass_variant_names.json` (`python3 push/skyglass_variant_names.gen.py`; RUL-2026-10-31-079, -082): the final
