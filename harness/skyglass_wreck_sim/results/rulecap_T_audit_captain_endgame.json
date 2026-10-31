@@ -1,0 +1,776 @@
+{
+ "generatedBy": "engine/audit_rules.ts",
+ "override": "/tmp/claude-0/-home-claude/7b0c37c7-23de-5628-97e5-5a20d2af594f/scratchpad/wt_t3/harness/skyglass_wreck_sim/overrides/kits_endgame.json",
+ "floor": 4,
+ "enemy": "The Captain",
+ "runs": 20,
+ "variant": "average",
+ "pets": true,
+ "appearances": 20,
+ "decisions": 619,
+ "roundsInWaveMedian": 12,
+ "phases": {
+  "phaseHp": 50,
+  "reachedPhase2Pct": 95,
+  "phase1RoundsMedian": 7,
+  "phase2RoundsMedian": 5,
+  "phase2RoundsMedianKilled": 5,
+  "phase1RoundsP90": 11,
+  "phase2RoundsP90": 9,
+  "hpAtFirstPhase2DecisionMedian": 42,
+  "killedPct": 90,
+  "phase1Range": [
+   6,
+   15
+  ],
+  "phase2Range": [
+   4,
+   26
+  ]
+ },
+ "together": {
+  "groups": [
+   "Steady the Helm",
+   "Raise the Gunwale",
+   "Omen:"
+  ],
+  "allFiredPct": 95,
+  "sameRoundOfAllFiredPct": 95,
+  "firstRoundsPerAppearance": [
+   [
+    13,
+    13,
+    13
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    11,
+    11,
+    11
+   ],
+   [
+    11,
+    11,
+    11
+   ],
+   [
+    11,
+    11,
+    11
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    11,
+    11,
+    11
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    9,
+    9,
+    9
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    14,
+    14,
+    15
+   ],
+   [
+    null,
+    null,
+    null
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    12,
+    12,
+    12
+   ],
+   [
+    8,
+    8,
+    8
+   ],
+   [
+    16,
+    16,
+    16
+   ],
+   [
+    10,
+    10,
+    10
+   ],
+   [
+    9,
+    9,
+    9
+   ]
+  ]
+ },
+ "actionsByPhase": {
+  "p1": {
+   "Final Command": 30,
+   "Counter Stance": 45,
+   "Keelbind": 23,
+   "Suppression Writ": 25,
+   "Unraveling Strike": 31,
+   "Windlash Focus": 35,
+   "Explosive Tag Cataclysm": 22,
+   "basicAttack": 60,
+   "wait": 61,
+   "Stolen Form": 21,
+   "Unbroken Command": 9
+  },
+  "p2": {
+   "Steady the Helm": 19,
+   "Raise the Gunwale": 19,
+   "Omen: Binding Ring": 33,
+   "wait": 56,
+   "Ship's Bell": 29,
+   "Omen: Rows": 31,
+   "Battle Trance": 23,
+   "Broadside": 21,
+   "Second Wind": 10,
+   "Final Command": 9,
+   "Unbroken Command": 4,
+   "basicAttack": 1,
+   "Counter Stance": 1,
+   "Keelbind": 1
+  }
+ },
+ "perAppearance": [
+  {
+   "seed": 1,
+   "phase1": 9,
+   "phase2": 7,
+   "hpAtFirstPhase2Decision": 50,
+   "killed": true
+  },
+  {
+   "seed": 2,
+   "phase1": 7,
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 22,
+   "killed": true
+  },
+  {
+   "seed": 3,
+   "phase1": 8,
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 48,
+   "killed": true
+  },
+  {
+   "seed": 4,
+   "phase1": 8,
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 23,
+   "killed": true
+  },
+  {
+   "seed": 5,
+   "phase1": 8,
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 20,
+   "killed": true
+  },
+  {
+   "seed": 6,
+   "phase1": 7,
+   "phase2": 7,
+   "hpAtFirstPhase2Decision": 26,
+   "killed": true
+  },
+  {
+   "seed": 7,
+   "phase1": 6,
+   "phase2": 7,
+   "hpAtFirstPhase2Decision": 45,
+   "killed": true
+  },
+  {
+   "seed": 8,
+   "phase1": 9,
+   "phase2": 8,
+   "hpAtFirstPhase2Decision": 46,
+   "killed": true
+  },
+  {
+   "seed": 9,
+   "phase1": 7,
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 25,
+   "killed": true
+  },
+  {
+   "seed": 10,
+   "phase1": 7,
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 42,
+   "killed": true
+  },
+  {
+   "seed": 11,
+   "phase1": 7,
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 32,
+   "killed": true
+  },
+  {
+   "seed": 12,
+   "phase1": 7,
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 32,
+   "killed": true
+  },
+  {
+   "seed": 13,
+   "phase1": 11,
+   "phase2": 8,
+   "hpAtFirstPhase2Decision": 48,
+   "killed": true
+  },
+  {
+   "seed": 14,
+   "phase1": 15,
+   "phase2": null,
+   "hpAtFirstPhase2Decision": null,
+   "killed": false
+  },
+  {
+   "seed": 15,
+   "phase1": 7,
+   "phase2": 7,
+   "hpAtFirstPhase2Decision": 50,
+   "killed": true
+  },
+  {
+   "seed": 16,
+   "phase1": 9,
+   "phase2": 9,
+   "hpAtFirstPhase2Decision": 45,
+   "killed": true
+  },
+  {
+   "seed": 17,
+   "phase1": 6,
+   "phase2": 4,
+   "hpAtFirstPhase2Decision": 45,
+   "killed": true
+  },
+  {
+   "seed": 18,
+   "phase1": 13,
+   "phase2": 26,
+   "hpAtFirstPhase2Decision": 45,
+   "killed": false
+  },
+  {
+   "seed": 19,
+   "phase1": 7,
+   "phase2": 5,
+   "hpAtFirstPhase2Decision": 39,
+   "killed": true
+  },
+  {
+   "seed": 20,
+   "phase1": 7,
+   "phase2": 5,
+   "hpAtFirstPhase2Decision": 40,
+   "killed": true
+  }
+ ],
+ "rules": [
+  {
+   "index": 0,
+   "note": "Broadside (signature, rows A)",
+   "jutsuId": "lib-broadside",
+   "conditions": [
+    "has_effect 1 increaserange"
+   ],
+   "firedInAppearancesPct": 65,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 21
+   },
+   "decisions": {
+    "fired": 21,
+    "preempted": 0,
+    "condition": 534,
+    "cooldown": 5,
+    "locked": 0,
+    "ap": 59,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 1,
+   "note": "Ship's Bell (signature)",
+   "jutsuId": "lib-ships-bell",
+   "conditions": [
+    "has_effect 1 decreasecooldown"
+   ],
+   "firedInAppearancesPct": 90,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 29
+   },
+   "decisions": {
+    "fired": 29,
+    "preempted": 2,
+    "condition": 534,
+    "cooldown": 10,
+    "locked": 0,
+    "ap": 44,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 2,
+   "note": "Steady the Helm (phase 2 begins; once)",
+   "jutsuId": "lib-steady-the-helm",
+   "conditions": [
+    "health_below 50"
+   ],
+   "firedInAppearancesPct": 95,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 19
+   },
+   "decisions": {
+    "fired": 19,
+    "preempted": 0,
+    "condition": 362,
+    "cooldown": 238,
+    "locked": 0,
+    "ap": 0,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 3,
+   "note": "Raise the Gunwale (transition; once; he falls back behind the rail)",
+   "jutsuId": "dg-raise-the-gunwale",
+   "conditions": [
+    "health_below 50"
+   ],
+   "firedInAppearancesPct": 95,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 19
+   },
+   "decisions": {
+    "fired": 19,
+    "preempted": 19,
+    "condition": 362,
+    "cooldown": 219,
+    "locked": 0,
+    "ap": 0,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 4,
+   "note": "Omen: Binding Ring (Ship's Bell, phase 2)",
+   "jutsuId": "lib-omen-binding-ring",
+   "conditions": [
+    "health_below 50"
+   ],
+   "firedInAppearancesPct": 95,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 33
+   },
+   "decisions": {
+    "fired": 33,
+    "preempted": 37,
+    "condition": 362,
+    "cooldown": 186,
+    "locked": 0,
+    "ap": 1,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 5,
+   "note": "Omen: Rows A (Broadside, phase 2)",
+   "jutsuId": "lib-omen-rows-a",
+   "conditions": [
+    "health_below 50"
+   ],
+   "firedInAppearancesPct": 95,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 31
+   },
+   "decisions": {
+    "fired": 31,
+    "preempted": 75,
+    "condition": 362,
+    "cooldown": 132,
+    "locked": 0,
+    "ap": 19,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 6,
+   "note": "Last Stand at the Helm (live Battle Trance)",
+   "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+   "conditions": [
+    "health_below 50"
+   ],
+   "firedInAppearancesPct": 95,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 23
+   },
+   "decisions": {
+    "fired": 23,
+    "preempted": 103,
+    "condition": 362,
+    "cooldown": 111,
+    "locked": 0,
+    "ap": 20,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 7,
+   "note": "Second Wind (under 25%)",
+   "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+   "conditions": [
+    "health_below 25"
+   ],
+   "firedInAppearancesPct": 40,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 10
+   },
+   "decisions": {
+    "fired": 10,
+    "preempted": 54,
+    "condition": 491,
+    "cooldown": 52,
+    "locked": 0,
+    "ap": 12,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 8,
+   "note": "Hold the Line (live Unbroken Command, opener: party 3+ hexes away)",
+   "jutsuId": "0Y10JpChssDwFUxNRk6p3",
+   "conditions": [
+    "distance_higher_than 3 CLOSEST_OPPONENT"
+   ],
+   "firedInAppearancesPct": 50,
+   "firedByPhase": {
+    "p1": 9,
+    "p2": 4
+   },
+   "decisions": {
+    "fired": 13,
+    "preempted": 41,
+    "condition": 551,
+    "cooldown": 6,
+    "locked": 0,
+    "ap": 8,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 9,
+   "note": "Final Command (duel)",
+   "jutsuId": "X2P22h8ApDmTZHjWpNO87",
+   "conditions": [
+    "distance_lower_than 4 HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 100,
+   "firedByPhase": {
+    "p1": 30,
+    "p2": 9
+   },
+   "decisions": {
+    "fired": 39,
+    "preempted": 87,
+    "condition": 11,
+    "cooldown": 420,
+    "locked": 0,
+    "ap": 41,
+    "engine": 21
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 10,
+   "note": "Keelbind (duel)",
+   "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+   "conditions": [
+    "distance_lower_than 5 HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 100,
+   "firedByPhase": {
+    "p1": 23,
+    "p2": 1
+   },
+   "decisions": {
+    "fired": 24,
+    "preempted": 125,
+    "condition": 4,
+    "cooldown": 411,
+    "locked": 0,
+    "ap": 46,
+    "engine": 9
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 11,
+   "note": "after lib-omen-rows-a: end turn",
+   "jutsuId": null,
+   "conditions": [
+    "has_effect 1 increaserange"
+   ],
+   "firedInAppearancesPct": 95,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 29
+   },
+   "decisions": {
+    "fired": 29,
+    "preempted": 56,
+    "condition": 534,
+    "cooldown": 0,
+    "locked": 0,
+    "ap": 0,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 12,
+   "note": "after lib-omen-binding-ring: end turn",
+   "jutsuId": null,
+   "conditions": [
+    "has_effect 1 decreasecooldown"
+   ],
+   "firedInAppearancesPct": 90,
+   "firedByPhase": {
+    "p1": 0,
+    "p2": 27
+   },
+   "decisions": {
+    "fired": 27,
+    "preempted": 58,
+    "condition": 534,
+    "cooldown": 0,
+    "locked": 0,
+    "ap": 0,
+    "engine": 0
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 13,
+   "note": "Stolen Form (duel: top threat carries a damage buff)",
+   "jutsuId": "VuFuBtE7h5B1nnA2J1lFZ",
+   "conditions": [
+    "distance_lower_than 5 HIGHEST_ENMITY_OPPONENT",
+    "target_has_effect 1 increasedamagegiven HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 95,
+   "firedByPhase": {
+    "p1": 21,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 21,
+    "preempted": 92,
+    "condition": 279,
+    "cooldown": 173,
+    "locked": 0,
+    "ap": 46,
+    "engine": 8
+   },
+   "mainReasonNotFired": "condition"
+  },
+  {
+   "index": 14,
+   "note": "Counter Stance (duel: a player within 2)",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "conditions": [
+    "player_within_range 0-2"
+   ],
+   "firedInAppearancesPct": 100,
+   "firedByPhase": {
+    "p1": 45,
+    "p2": 1
+   },
+   "decisions": {
+    "fired": 46,
+    "preempted": 122,
+    "condition": 69,
+    "cooldown": 355,
+    "locked": 0,
+    "ap": 27,
+    "engine": 0
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 15,
+   "note": "Suppression Writ",
+   "jutsuId": "ddbIyVtoxdPQwLRXxSBq8",
+   "conditions": [
+    "distance_lower_than 4 HIGHEST_ENMITY_OPPONENT"
+   ],
+   "firedInAppearancesPct": 100,
+   "firedByPhase": {
+    "p1": 25,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 25,
+    "preempted": 205,
+    "condition": 11,
+    "cooldown": 316,
+    "locked": 0,
+    "ap": 41,
+    "engine": 21
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 16,
+   "note": "Unraveling Strike",
+   "jutsuId": "1OhP0StX4VTsosWtCxhsG",
+   "conditions": [
+    "distance_lower_than 4 CLOSEST_OPPONENT"
+   ],
+   "firedInAppearancesPct": 100,
+   "firedByPhase": {
+    "p1": 31,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 31,
+    "preempted": 185,
+    "condition": 0,
+    "cooldown": 328,
+    "locked": 0,
+    "ap": 75,
+    "engine": 0
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 17,
+   "note": "Explosive Tag Cataclysm",
+   "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+   "conditions": [
+    "distance_lower_than 6 CLOSEST_OPPONENT"
+   ],
+   "firedInAppearancesPct": 100,
+   "firedByPhase": {
+    "p1": 22,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 22,
+    "preempted": 160,
+    "condition": 0,
+    "cooldown": 366,
+    "locked": 0,
+    "ap": 71,
+    "engine": 0
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 18,
+   "note": "Windlash Focus",
+   "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+   "conditions": [
+    "player_within_range 0-4"
+   ],
+   "firedInAppearancesPct": 100,
+   "firedByPhase": {
+    "p1": 35,
+    "p2": 0
+   },
+   "decisions": {
+    "fired": 35,
+    "preempted": 255,
+    "condition": 0,
+    "cooldown": 290,
+    "locked": 0,
+    "ap": 39,
+    "engine": 0
+   },
+   "mainReasonNotFired": "cooldown"
+  },
+  {
+   "index": 19,
+   "note": "basic attack (fallback; never a set piece)",
+   "jutsuId": "basicAttack",
+   "conditions": [],
+   "firedInAppearancesPct": 100,
+   "firedByPhase": {
+    "p1": 60,
+    "p2": 1
+   },
+   "decisions": {
+    "fired": 61,
+    "preempted": 497,
+    "condition": 0,
+    "cooldown": 60,
+    "locked": 0,
+    "ap": 0,
+    "engine": 1
+   },
+   "mainReasonNotFired": "preempted"
+  }
+ ]
+}
