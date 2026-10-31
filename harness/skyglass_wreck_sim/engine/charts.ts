@@ -58,7 +58,8 @@ export type ChartParams = HuntParams & {
    * is laid; its pools, statsMultiplier and innate damage reduction % (tanky: breaking it early is a real cost). */
   ember: { power: number; rounds: number[]; pools: number; stats?: number; dr?: number };
   /** Steeping Horror (scaled to the player): pools and rows. */
-  steep: { pools: number; rows: number };
+  /** givenDown: one innate decreasedamagegiven % row (a half step between whole +100% rows; rule-cap pass retune). */
+  steep: { pools: number; rows: number; givenDown?: number };
   /** Tainted twists: entry pools %, elementalseal rounds, afterburn % and rounds. */
   tainted: { givePools: number; sealRounds: number; afterburn: number; afterburnRounds: number; echo?: "echo2" | "echo3" };
   /**
@@ -241,7 +242,7 @@ export const buildCharts = (P: ChartParams, kitParams: any) => {
 
   // Steeping Horror: the Core Horror's shared kit and rules on a copy (no Core Rot drop); scaled to the player in battle.
   const hr = ov.enemies[LIVE.horror];
-  ov.newEnemies[C.steep] = { base: "Core Horror", username: "Steeping Horror", aiEdit: { poolsMultiplier: P.steep.pools }, effects: idgRows(P.steep.rows), jutsuIds: hr.jutsuIds, rules: hr.rules, includeDefaultRules: false };
+  ov.newEnemies[C.steep] = { base: "Core Horror", username: "Steeping Horror", aiEdit: { poolsMultiplier: P.steep.pools }, effects: [...idgRows(P.steep.rows), ...(P.steep.givenDown ? [tag("decreasedamagegiven", { power: P.steep.givenDown, rounds: 99, calculation: "percentage", description: "Decreased damage given" })] : [])], jutsuIds: hr.jutsuIds, rules: hr.rules, includeDefaultRules: false };
   ov.signatures[C.steep] = ov.signatures[LIVE.horror];
   newRecords[C.steep] = { kind: "AI (copy)", note: "Core Horror copy for steeping: same shared kit and rules, no AI drop; opponent_scaled_to_user" };
 
