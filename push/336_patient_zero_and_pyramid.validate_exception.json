@@ -1,0 +1,9 @@
+{
+ "manifest": "push/336_patient_zero_and_pyramid.json",
+ "ruling": null,
+ "reason": "validate.py law 14 still requires preferredStat on AI creates, but upstream migration 0056 dropped that column. Forge refuses the key as unknown (push/335 results tnr_results_1793413958294: 'unknown key \"preferredStat\" for ai') and its own lint no longer requires it (forge/src/runner/lints.mjs AI_CREATE_REQUIRED, comment at line 25). Sending it is impossible; omitting it is correct.",
+ "sha256": "db1e2fe949186f79743b94ec35355a173dbc468f10b796771fd151b57bbfe017",
+ "accepted": [
+  "ERROR  [ai:Patient Zero]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)"
+ ]
+}
