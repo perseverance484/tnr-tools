@@ -1283,8 +1283,8 @@ writes `346_skyglass_pet.json`: one manifest, `dedupNames: true`, in build order
 1. **petSpecies create "Little Horror"** (`sg346_little_horror`): LEGENDARY, ASSAULT, `isActive: false` (reward-only), `hidden: true`
    (stripped by Forge: species have no hidden column), artDirection and 10 rankConcepts verbatim from SKYGLASS_PETS.md, no
    defaults, no AI rules (`includeDefaultRules: true`, as every live species). Innates copied from the push/345 capture's
-   rows: **Rot Bite** = the Dragon's afterburn 25% row as `poison` 25% (`skillTarget` ENEMIES, target INHERIT,
-   `poolsAffected` the tag default) with **rounds 10**; **Hungry** = the Kitsune's row at `increasedamagegiven` 20%
+   rows: **Rot Bite** = the Dragon's `increasedamagetaken` row as `decreasedamagegiven` **10%** on enemies (`skillTarget`
+   ENEMIES, 30 rounds; RUL-2026-10-31-070); **Hungry** = the Kitsune's row at `increasedamagegiven` 20%
    (`skillTarget` SELF, 30 rounds).
 2. **jutsu create "Little Maw"** (`sg346_little_maw`): the Yamabiko's Rallying Echo record with PETS, `requiredPetSpeciesId:
    "@petSpecies:sg346_little_horror"` (Forge resolves it from step 1 in the same job), rank D, STUDENT / 1, OPPONENT,
@@ -1300,11 +1300,11 @@ be deleted**, so do not run 346 twice (Forge's dedupNames and the retained idmap
 `_placeholders` lists the jar and jutsu images, the empty maw animation and the species art (all art lands before launch,
 RUL-2026-10-31-066 item 4).
 
-**Before running, the director decides one number:** the engine's poison tag allows `rounds` 1-10 only (3314d122
-`validators/combat.ts` PoisonTag), so Rot Bite cannot carry the Dragon template's 30. The manifest uses **10**, the nearest
-legal value; to change it, edit `POISON_ROUNDS_MAX` in the generator, regenerate, and re-run the gates and
-`validate_exception.py --write`. Also note: an ENEMIES innate is applied once at battle start to every enemy, not on each
-hit (`libs/combat/pets.ts` ~146-180), so Rot Bite is "every enemy is poisoned for the first 10 rounds".
+**Rot Bite (RUL-2026-10-31-070):** enemies deal 10% less damage for the whole battle. An ENEMIES innate is applied once
+at battle start to every enemy (`libs/combat/pets.ts` ~146-180). Poison was dropped (it only bites on chakra/stamina
+spent, which is small for most AI jutsu) and so was a flat pool-cost rise (poison's damage maths ignores static costs).
+Pets fight only in QUEST battles (`PET_BATTLE_CONFIG`, constants.ts ~642): the chart runs and the Haul, not the Wreck
+dungeon or PvP. **READY TO RUN.**
 
 **Gates (2026-10-31):** `python3 ../scripts/validate.py --strict ../../../push/346_skyglass_pet.json` (from
 `skills/building-tnr-content/data`) exit 1 with exactly the 2 accepted law 4 / L06 diagnostics (no `statTypes`, as the live
