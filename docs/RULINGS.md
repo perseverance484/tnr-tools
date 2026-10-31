@@ -5092,3 +5092,21 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "Leave it sealed added." (on Claude's drafts, accepted with that addition).
 
 **Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §2.7, §2.7a, §3.2; `push/skyglass_steeping.gen.py`; `push/skyglass_archive_seal.py` (the second choice on `d_break`).
+
+## RUL-2026-10-31-079 — Variant skins get thumbnail-readable flair
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / art direction
+
+**Status:** ACTIVE. Amends RUL-2026-10-29-049 item 3 (variants keep the base silhouette; skyglass only as inlay and accents).
+
+**Ruling:**
+1. The first generated skins (Gale-Watch Aetherion, Tidewater Thornsilver, Night Watch Testament) were faithful but read as the base weapon at thumbnail size. Each variant skin now keeps the base's **core form, proportions and angle**, and must read as a different skin at 125 px: it **recolours the dominant blade or body colour** and **adds one element that changes the outline** (a wheel guard, an anchor weight, a mast-spar crossguard, shards, a hanging charm).
+2. Every skin carries a **thin pale-cyan edge light**; the twelve Skyglass-token skins (VS01-VS12) share a **family mark**: a short torn deep-indigo pennant knotted at the guard.
+3. The Skyglass Katana stays the only all-crystal blade; a blade may be recoloured but never turned to crystal.
+4. Each VS prompt ends with a thumbnail test.
+
+**Evidence:** Director, 2026-10-31: "they're a little *too* faithful. At thumbnail size they really dont read as reskins compared to the regular ones I don't think... need some more flair".
+
+**Canonical destination:** `docs/handoffs/SKYGLASS_ART_REQUEST.md` §5; `docs/handoffs/SKYGLASS_ART_PROMPTS.md` VS01-VS19.
