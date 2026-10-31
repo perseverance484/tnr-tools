@@ -106,10 +106,13 @@ class TempRoot(unittest.TestCase):
         self.assertTrue(any("D0gtI5dOgj2dFO4VexsLJ" in f.msg for f in self.design_errors()))
 
     def test_badge_resolves_from_ids_file_when_it_exists(self):
-        self.assertIsNone(sc.Design(self.tmp).ids["crownhold_badge"])
         p = os.path.join(self.tmp, "state/crownhold/ids.json")
         with open(p, encoding="utf-8") as fh:
             ids = json.load(fh)
+        ids.pop("badge:crownbreaker", None)
+        with open(p, "w", encoding="utf-8") as fh:
+            json.dump(ids, fh)
+        self.assertIsNone(sc.Design(self.tmp).ids["crownhold_badge"])
         ids["badge:crownbreaker"] = "BADGE123"
         with open(p, "w", encoding="utf-8") as fh:
             json.dump(ids, fh)
@@ -255,8 +258,8 @@ class Fixtures(unittest.TestCase):
         findings, scanned, io_errors = run([os.path.join(FIX, "pass.json")])
         self.assertEqual(io_errors, [])
         self.assertEqual([str(f) for f in errors(findings)], [])
-        # Only pending-id warnings remain (Galley Stores, the Skyglass Token, the Watch Roster, Crown's Hoard and the
-        # Crownbreaker badge are not created yet).
+        # Only pending-id warnings remain (records not created yet, e.g. Galley Stores, the Skyglass Token, the Watch
+        # Roster and Crown's Hoard).
         self.assertTrue(all("pending" in f.msg for f in findings), [str(f) for f in findings])
 
     def test_each_fail_fixture_trips_only_its_check(self):

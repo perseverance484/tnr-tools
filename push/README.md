@@ -1142,7 +1142,7 @@ archived unrun. Built by `push/233_ethereal_rebirth_animation_v2.gen.py`, strip 
 it. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **Run 233, then 231.**
 
 
-## 340, 319, 328, 329, 338, 339 Skyglass / Crownhold update (HIDDEN, placeholder art): 340 (badge) FIRST, then 319 / 328 / 329 READY TO RUN in that order once the badge id is recorded; 338 built from 329's results; 339 GO-LIVE: DO NOT RUN until the event's remaining manifests have run
+## 340, 319, 328, 329, 338, 339 Skyglass / Crownhold update (HIDDEN, placeholder art): 340 (badge) RUN and verified; 319 / 328 / 329 READY TO RUN in that order; 338 built from 329's results; 339 GO-LIVE: DO NOT RUN until the event's remaining manifests have run
 
 **Renumbered 2026-10-31:** the token-binds manifest was 330 and the go-live manifest 331; they are now **338** and **339**,
 because push/330, 332 and 337 belong to the Zombie Outbreak workstream (their entries below are unchanged). The
@@ -1158,7 +1158,7 @@ Built by `push/skyglass_update.gen.py` (items: `push/skyglass_items.gen.py`; pla
 Law 18 puts AI edits on both sides of the jutsu edits, which `validate.py`'s build-order lint refuses inside one manifest,
 so the update is split. **Run on one Forge install, in this order, and export the results after each:**
 
-0. **`340_crownbreaker_badge.json`** (1 badge create; RUL-2026-10-31-064 item 3, supersedes RUL-2026-10-30-063 item 4's
+0. **`340_crownbreaker_badge.json`** — **RUN 2026-10-31** (bundle `tnr_results_1793424407563.json`, VERIFIED 1/1; badge id `7kJGzBnfO14eKRs7_7c_f`, recorded in `state/crownhold/ids.json`, 329 regenerated with the badge in Crownhold's pick; archived to `archive/spent-manifests/push-2026-10-31/`). (1 badge create; RUL-2026-10-31-064 item 3, supersedes RUL-2026-10-30-063 item 4's
    "by hand"): the **Crownbreaker** badge, built by `python3 push/skyglass_update.gen.py --badge` (Forge 0.11.0+ for
    `entity: "badge"` creates). Image `@img:icon-badge-crownbreaker-v2.webp` from
    `art/crownhold/icon-badge-crownbreaker-v2.webp` (imagePack pinned at the art's commit; imgSizes 105,698). Description
