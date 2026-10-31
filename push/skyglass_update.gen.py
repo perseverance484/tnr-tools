@@ -15,13 +15,18 @@ Core Rupture blast carries the approved law-6 exception (RUL-2026-10-28-002). It
   329  hidden records only (RUL-2026-10-30-063 item 1): the Last Directive and Countermand texts; the 22 new Skyglass
        items (charts, Haul pages, Core Rot, Galley Stores, Skyglass Token, the seven boss variant tokens), all hidden;
        the 19 variants (no hidden state); kits back on (closes 319); Crownhold created hidden.
-  330  the seven boss tokens bound to their variants, from 329's results (--binds).
-  331  GO-LIVE (RUL-2026-10-30-063 item 1), from 329's results (--golive): every edit that changes what live players can
+  340  the Crownbreaker badge, created by the builder (--badge; RUL-2026-10-31-064 item 3). Runs FIRST, before 319:
+       its id goes into state/crownhold/ids.json as badge:crownbreaker, then 329 is regenerated so Crownhold's pick
+       carries it.
+  338  the seven boss tokens bound to their variants, from 329's results (--binds). (Was 330 until 2026-10-31; renumbered
+       because another workstream holds push/330, 332 and 337.)
+  339  GO-LIVE (RUL-2026-10-30-063 item 1; was 331), from 329's results (--golive): every edit that changes what live players can
        obtain or see. The 20 edits to existing items (the four Rare charts' text and tier, the Lantern, the Coffer, Sealed
        Treasury, Archive Chart Case, Medicine Inro, Sage's Strongbox, Elemental Tool Pouch, Unmarked Cargo, the 8
        profession chests) and the Buried Cache, Drowned Foundry, Quarantined Archive and Captain's Watch re-sent with the
        section 4a picks, the chart-ladder, Haul-page and boss-token drops, the stakes headers and closing lines (text doc
-       2.8, 2.8a, 6.1, 6.2, 8) and the Watch's dawn-watch press-on room. Runs LAST, after every other manifest of the
+       2.8, 2.8a, 6.1, 6.2, 8) and the Watch's dawn-watch press-on room (+20% Last Heading only, RUL-2026-10-31-064
+       item 2). Runs LAST, after every other manifest of the
        event (push/README.md lists the preconditions). The new items it names are 329 creates, so it carries their
        literal ids from 329's results bundle (L01; check_manifest plans with no retained idmap).
 
@@ -158,7 +163,8 @@ def archive():
                    "@img:icon-chart-quarantined-archive.webp", objs, reward, "A", QUEST_ID["archive"])
 
 
-NEXT_STEP = {"IV": "V", "V": "VI", "VI": "VI"}  # a won press-on room pays one ladder step more (VI is the top)
+# A won press-on room pays the step's own ladder ending plus the Last Heading at 45% instead of 25% (loot tables 4a:
+# "+20% from its press-on room"; RUL-2026-10-31-064 item 2). It pays no extra ladder step.
 
 
 def watch():
@@ -189,7 +195,7 @@ def watch():
         b["failObjectiveId"] = "w_" + step
         b["failDescription"] = fail_press
         new.append(b)
-        w = G.win("w_press_" + step, "command_observation_gallery", press_win, NEXT_STEP[step])
+        w = G.win("w_press_" + step, "command_observation_gallery", press_win, step)
         new.append(w)
     objs = objs[:-1] + new + objs[-1:]  # keep the fail ending last
     ends = {"w_IV", "w_V", "w_VI"}
@@ -230,9 +236,10 @@ def crownhold():
     r = d["content"]["reward"]
     coffer = next(x for x in r["reward_items"] if x["ids"] == [CH.ITEM["coffer"]])
     coffer["quantity"] = 3  # RUL-2026-10-29-050 item 2
-    # Crown's Hoard (no id) and the Crownbreaker badge (created by the director) join when their ids exist.
+    # Crown's Hoard (no id) and the Crownbreaker badge (push/340, RUL-2026-10-31-064 item 3) join when their ids exist
+    # (state/crownhold/ids.json badge:crownbreaker; CH.quest() adds reward_badges).
     for o in d["content"]["objectives"]:
-        if o["task"] == "win_quest":  # loot tables 5: Crownhold ending, one of the two Epic charts 50%
+        if o["task"] == "win_quest":  # loot tables 4a: Crownhold ending, two independent 25% lines (RUL-2026-10-31-064 item 5)
             o["reward_items"] = list(o.get("reward_items") or []) + [drop("Reliquary Seal", 25), drop("The Last Heading", 25)]
     return q
 
@@ -247,7 +254,7 @@ def phased(items, phase):
 def pack(items):
     files = {}
     used = json.dumps(items)
-    for name, path in {**G.IMAGES, **IT.IMAGES}.items():
+    for name, path in {**G.IMAGES, **IT.IMAGES, **BADGE_IMAGES}.items():
         if "@img:" + name in used:
             b = open(os.path.join(ROOT, path), "rb").read()
             files[name] = {"path": path, "sha256": hashlib.sha256(b).hexdigest(), "bytes": len(b)}
@@ -289,7 +296,13 @@ GO_LIVE_ITEM_EDITS = {
     "Medicine Inro", "Sage's Strongbox", "Elemental Tool Pouch", "Unmarked Cargo",
     *IT.PROF.values(),
 }
-GO_LIVE = 331
+# Manifest numbers. push/330, 332 and 337 belong to another workstream (Zombie Outbreak); the binds and go-live
+# manifests were 330 and 331 until 2026-10-31 and are now 338 and 339; the badge is 340.
+BINDS, GO_LIVE, BADGE = 338, 339, 340
+BADGE_SRC = "sg340_crownbreaker_badge"
+BADGE_IMAGES = {"icon-badge-crownbreaker-v2.webp": "art/crownhold/icon-badge-crownbreaker-v2.webp"}
+# Director-approved description (RUL-2026-10-31-064 item 3, 2026-10-31: no "crown", simple and elegant).
+BADGE_DESCRIPTION = "The throne is empty. The order still stands."
 
 
 def split_items(items):
@@ -333,14 +346,28 @@ def golive(bundle):
         "(the four Rare charts' text and tier, the Lantern, the Coffer, Sealed Treasury, Archive Chart Case, Medicine Inro, "
         "Sage's Strongbox, Elemental Tool Pouch, Unmarked Cargo, the 8 profession chests). Phase 2: the Buried Cache, "
         "Drowned Foundry, Quarantined Archive and Captain's Watch re-sent whole (section 4a picks, chart ladder, Haul pages "
-        "1.5% each, boss variant tokens 1%, stakes headers and closing lines, the Watch's dawn-watch press-on room)."),
+        "1.5% each, boss variant tokens 1%, stakes headers and closing lines, the Watch's dawn-watch press-on room: the "
+        "step's own ending plus the Last Heading at 45%, no extra ladder step, RUL-2026-10-31-064 item 2)."),
         body)
+
+
+def badge():
+    item = {"entity": "badge", "slot": "create", "srcId": BADGE_SRC, "name": "Crownbreaker",
+            "data": {"name": "Crownbreaker", "image": "@img:icon-badge-crownbreaker-v2.webp",
+                     "description": BADGE_DESCRIPTION, "hidden": True}}
+    write(BADGE, "crownbreaker_badge", (
+        f"push/{BADGE} (RUL-2026-10-31-064 item 3; supersedes RUL-2026-10-30-063 item 4's 'by hand'). Runs FIRST, before "
+        "push/319. Creates the Crownbreaker badge (Crownhold's pick; image art/crownhold/icon-badge-crownbreaker-v2.webp). "
+        "A badge has no hidden column: hidden:true is stripped before the send (law 16b), and nothing grants the badge "
+        "until a published reward names it (Crownhold is created hidden by push/329). Description director-approved "
+        "(2026-10-31). After it runs: put the new id into state/crownhold/ids.json as badge:crownbreaker, "
+        "regenerate (python3 push/skyglass_update.gen.py) and re-run the gates, then run 319, 328, 329."), [item])
 
 
 def binds(bundle):
     b = json.load(open(bundle))
-    write(330, "skyglass_token_binds", (
-        "push/330 (after 329, from its results bundle " + os.path.basename(bundle) + "). Each of the seven boss variant "
+    write(BINDS, "skyglass_token_binds", (
+        f"push/{BINDS} (after 329, from its results bundle " + os.path.basename(bundle) + "). Each of the seven boss variant "
         "tokens is bound to its own variant (unlockitemvariant.variantId; pipeline 2.10 step 3). Until this runs, each "
         "token (all hidden) could unlock any token variant without a required item."), IT.bind_edits(b.get("idmap") or {}))
 
@@ -348,6 +375,8 @@ def binds(bundle):
 def main():
     if len(sys.argv) > 2 and sys.argv[1] == "--binds":
         return binds(sys.argv[2])
+    if len(sys.argv) > 1 and sys.argv[1] == "--badge":
+        return badge()
     if len(sys.argv) > 2 and sys.argv[1] == "--golive":
         return golive(sys.argv[2])
     jutsus, items = boss_kit()
@@ -366,7 +395,8 @@ def main():
         "push/319, step 1 of 3 (RUL-2026-10-30-059: hidden, placeholder art). Kit off (law 18), AI edits only: Core "
         "Rupture off Seal Charge and Core Canister (AI Heavy Armor kept); the Crownhold boss renamed The Crowned Captain "
         "with the crew sprite, his Last Directive, Extermination Order and Countermand off (RUL-2026-10-28-003/-004); the "
-        "18 Crownhold usernames (RUL-2026-10-26-003). Then run push/328, then push/329."),
+        f"18 Crownhold usernames (RUL-2026-10-26-003). push/{BADGE} (the Crownbreaker badge) runs before this. Then run "
+        "push/328, then push/329."),
         unequip + [boss_off] + renames)
 
     write(328, "skyglass_core_rupture", (
@@ -395,10 +425,12 @@ def main():
         "placeholder (RUL-2026-10-30-059; list in _placeholders). Phase 1: the Last Directive and Countermand texts (hidden "
         "Crownhold exclusives); 22 new HIDDEN items (6 charts, 6 Haul pages, Core Rot, Galley Stores, the Skyglass Token, "
         "7 boss variant tokens). Phase 2: the 19 variants (12 Skyglass, 7 boss); each shows on its base weapon as 'Need "
-        "<token>' from this run, the tokens staying hidden. The seven boss tokens are bound to their variants by push/330, "
+        f"<token>' from this run, the tokens staying hidden. The seven boss tokens are bound to their variants by push/{BINDS}, "
         "built from this manifest's results. Phase 4: kits back on (Core Rupture; the Crowned Captain's exclusives), "
         "closing push/319. Phase 5: Crownhold created HIDDEN (pick: Skyglass Coffer x3 / Lastlight / Crown Fragment; "
-        "Crown's Hoard and the Crownbreaker badge join when their ids exist). The live item edits and the four live chart "
+        "Crown's Hoard joins when its id exists; "
+        + ("the Crownbreaker badge is in the pick" if "badge:crownbreaker" in CH.IDS
+           else f"the Crownbreaker badge joins once push/{BADGE} has run and its id is recorded") + "). The live item edits and the four live chart "
         f"runs' re-sends are push/{GO_LIVE} (go-live), built from this manifest's results and run last."),
         body, {"_placeholders": ph})
 

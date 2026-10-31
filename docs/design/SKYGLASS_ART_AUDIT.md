@@ -336,7 +336,7 @@ item 8.
 
 | Asset | Status | Evidence |
 |---|---|---|
-| **Crownbreaker** badge (Crownhold pick; the badge greys out once held) | EXISTS IN REPO, NOT UPLOADED | `art/crownhold/icon-badge-crownbreaker-v2.webp` (256 px lossless, 105,698 B; the frost crown in a Skyglass round border, director 2026-10-28). The director uploads it when creating the badge by hand; the badge id is still pending (push/319 "Before it runs") |
+| **Crownbreaker** badge (Crownhold pick; the badge greys out once held) | EXISTS IN REPO, NOT UPLOADED | `art/crownhold/icon-badge-crownbreaker-v2.webp` (256 px lossless, 105,698 B; the frost crown in a Skyglass round border, director 2026-10-28). The builder creates the badge with this image, push/340 (RUL-2026-10-31-064 item 3; was "by hand"); the badge id is pending until push/340 runs |
 | Crownbreaker v1 (Arakane's gold crown) | NOT NEEDED | retired with Arakane (RUL-2026-10-28-007; README of `art/crownhold/`) |
 
 "Crownhold badge" in the request is this badge: Crownhold has no second badge.
@@ -420,7 +420,7 @@ tables §5b). The species record has no image field (`fable/pet-species-builder`
 | Asset | Status | Note |
 |---|---|---|
 | `artDirection` text | EXISTS (text) | `SKYGLASS_PETS.md`: "small, oddly cute rot-and-skyglass creature, the Core's bad copy of the ship's mascot" |
-| `rankConcepts` (10 entries) | **NEEDS TEXT** | the doc gives a two-point arc ("oddly loyal blob with one tooth too many → towering skyglass rot-beast, still loyal"); ten concepts must be written. Writing work, not an art session. **Claude drafts them; text pending the director's approval** (RUL-2026-10-30-063 item 4) |
+| `rankConcepts` (10 entries) | DONE (text) | ten concepts written and director-approved (RUL-2026-10-31-064 item 6); canonical list in `SKYGLASS_PETS.md` (Little Horror kit, `rankConcepts`) |
 | The Little Horror's Jar icon | NEEDS ART | D3 |
 | Little Maw jutsu icon | NEEDS ART | F |
 | Little Maw animation | reuse `anim_maw_v1.webp` | H2 (upload once, shared) |
@@ -543,7 +543,7 @@ Counts are images to make or upload. UNCERTAIN items are excluded from the count
 ### Suggested session order
 
 1. **Uploads first, no generation (31 files, 2-3 manifests).** Run push/275 (four item icons) after checking the Buried
-   Cache seal colour, and add the Buried Cache quest image. The director creates the Crownbreaker badge with the v2 icon.
+   Cache seal colour, and add the Buried Cache quest image. The builder creates the Crownbreaker badge with the v2 icon (push/340, RUL-2026-10-31-064 item 3).
    Build the avatar edits for the 11 finished Crownhold avatars. Create the 15 boss FX strips hidden, preview them in the
    Proving Ground, then unhide. These cost no art time and remove most placeholders.
 2. **Item icons, charts and reagents (6 + 6 derived).** Tide Chart, Watch Roster, Reliquary Seal, The Last Heading, then
@@ -562,7 +562,7 @@ Counts are images to make or upload. UNCERTAIN items are excluded from the count
 8. **Avatars (8 + 1).** The remaining Crownhold regulars; the Foundry Warden after the director rules on his redo.
 9. **Backgrounds (19).** The Crownhold scenes, largest session, lowest risk: the placeholders work.
 
-Writing task alongside: the Little Horror's ten `rankConcepts`.
+Writing task alongside: the Little Horror's ten `rankConcepts` (done, RUL-2026-10-31-064 item 6; `SKYGLASS_PETS.md`).
 
 ### Director decisions (RUL-2026-10-30-061)
 

@@ -63,6 +63,17 @@ Legendary · Assault.
 - Signature (B) **Little Maw:** damage plus increasedamagetaken 10% for 1 round. Animation: the Core Horror's maw strip.
 - Art direction: small, oddly cute rot-and-skyglass creature, the Core's bad copy of the ship's mascot.
 - Rank arc: oddly loyal blob with one tooth too many → towering skyglass rot-beast, still loyal.
+- **`rankConcepts`** (canonical; director-approved, RUL-2026-10-31-064 item 6). Verbatim, ranks 1-10:
+  1. Companion: `A palm-sized blob of dark, wet rot with big round eyes and one tooth too many, a tarnished brass bell on a frayed rope collar, sitting in a puddle of bilge water`
+  2. Scout: `A small rot blob grown four stubby legs and a lopsided grin of too many teeth, flecks of cloudy skyglass in its skin, the brass bell on its rope collar`
+  3. Tracker: `A dog-sized rot creature with a ragged rope-like tail and a wide toothy mouth, small barnacle clusters of cloudy skyglass along its back`
+  4. Guardian: `A hound-sized rot beast with damp, timber-dark hide and a crest of cloudy skyglass shards down its spine, sitting like a loyal dog, bell at its neck`
+  5. Hunter: `A lean rot beast on four powerful legs, ribs of old ship timber showing through, a maw that splits too wide, skyglass shards on its shoulders`
+  6. Warden: `A large rot beast collared in scraps of rope and sailcloth, its mouth ringed with skyglass teeth, the brass bell now small against its throat`
+  7. Sentinel: `A horse-sized rot beast whose back has grown a ridge of clear skyglass crystal, a second, smaller maw on its chest, eyes still big and devoted`
+  8. Mythic: `A towering rot beast of wet timber and tar-black rope, rows of skyglass spines, a half-open maw in its chest, crouched protectively`
+  9. Sovereign: `A huge skyglass rot-beast with a cracked ship's figurehead fused into its brow, barnacled rot armour, the old bell still on its rope collar`
+  10. Celestial: `A colossal skyglass rot-beast, its body clouded crystal over dark rot, a maw full of crystal teeth, the tiny brass bell still at its neck, still loyal`
 - Story: the Core tried to remember the ship's mascot; this is what came back.
 
 ## Pipeline (Lane A)
