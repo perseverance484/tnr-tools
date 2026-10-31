@@ -1325,12 +1325,12 @@ exit 0 (0 pre-send problems; plan species → jar → jutsu, refs resolved in-jo
 - **the Jar's id goes to the Wreck drops builder** (the Wreck dungeon's once-per-player jar drop needs a literal id; it is
   not built yet, see the 342+ "still to build" list).
 
-### 353 Publish Little Maw (1 jutsu edit): READY TO RUN, then 347
+### 353 Publish Little Maw (1 jutsu edit): first run REFUSED (tnr_results_1793465311701.json: "At least one effect must have both appearAnimation and appearSfx defined"); REBUILT, READY TO RUN, then 347
 
 `python3 push/skyglass_pet.gen.py --publish <346 bundle>` (from `tnr_results_1793463543589.json`). Sets `hidden: false` on
 Little Maw (`GYy5K24tGkYIeGEJef3TW`; `injectableInBattle: false` stated, law 20) so push/347 can make it the Little
 Horror's default (RUL-2026-10-31-071 item 3). The species and the Jar stay hidden. `validate.py --strict` 0/0;
-`check_manifest.mjs` 0 problems. After it runs: read back `hidden: false`, then run 347.
+`check_manifest.mjs` 0 problems. **Rebuilt:** the server only publishes a jutsu with an effect that has both an appear animation and sound, so the edit re-sends Little Maw's effects with Rallying Echo's live animation (`X32FgBGqES-eDreOlVb6X`) and sound (`PFY2oXpwIpNwUOx327WCm`) on the damage effect, as a placeholder until the maw strip is uploaded. `validate.py --strict` now shows the same 2 law 4/L06 diagnostics accepted for 346 (ledger `state/validate_exceptions/353_skyglass_little_maw_publish.json`, `validate_exception.py` exit 0). After it runs: read back `hidden: false` and the effects, then run 347.
 
 ### 347 Little Horror default loadout (1 petSpecies edit): BUILT from 346 (validate --strict 0/0, check_manifest 0); run AFTER the director publishes Little Maw
 

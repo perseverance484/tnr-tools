@@ -154,13 +154,18 @@ def species():
 JUTSU_DROP = ("id", "createdAt", "updatedAt", "bloodline")  # read-only columns and the join
 
 
+def resolve_refs(x):
+    return x  # effects carry no @refs
+
+
 def little_maw():
     rally = copy.deepcopy(next(j for j in JUTSU_CAP if j["name"] == "Rallying Echo"))
     data = {k: v for k, v in rally.items() if k not in JUTSU_DROP}
     dmg = copy.deepcopy(rally["effects"][0])
     assert dmg["type"] == "damage" and dmg["generalTypes"] == ["Highest"] and "statTypes" not in dmg
-    dmg.update({"power": 50, "calculation": "formula", "description": "Deals damage to target",
-                "appearAnimation": "", "appearSfx": ""})  # maw strip not uploaded (_placeholders)
+    dmg.update({"power": 50, "calculation": "formula", "description": "Deals damage to target"})
+    if not PUBLISHABLE:
+        dmg.update({"appearAnimation": "", "appearSfx": ""})  # as push/346 created it: maw strip not uploaded
     taken = {"type": "increasedamagetaken", "power": 10, "rounds": 1, "target": "INHERIT", "direction": "offence",
              "calculation": "percentage", "description": "Increase damage taken of target", "powerPerLevel": 0,
              "appearSfx": "", "disappearSfx": "", "appearAnimation": "", "staticAnimation": "", "staticAssetPath": "",
@@ -223,6 +228,11 @@ def write(path, note, items, extra=None):
 
 
 PUBLISH_NUM = 353
+# The server publishes a jutsu only if one effect has both appearAnimation and appearSfx (push/353 first run refused:
+# "At least one effect must have both appearAnimation and appearSfx defined"). Until the maw strip is uploaded, Little
+# Maw's damage keeps Rallying Echo's live animation and sound (copied from the 345 capture; placeholder, swapped by the
+# visual-asset push). push/346 itself ran with both empty.
+PUBLISHABLE = False
 
 
 def main():
@@ -233,8 +243,13 @@ def main():
         # jutsu without the species (requiredPetSpeciesId).
         idmap = json.load(open(a[1])).get("idmap") or {}
         jid = idmap[PFX + "little_maw"]
+        global PUBLISHABLE
+        PUBLISHABLE = True
+        effects = resolve_refs(little_maw()["data"]["effects"])
+        assert effects[0]["type"] == "damage" and effects[0]["appearAnimation"] and effects[0]["appearSfx"]
         item = {"entity": "jutsu", "slot": "edit", "targetId": jid, "name": JUTSU,
-                "data": {"hidden": False, "injectableInBattle": False}}  # law 20: sent explicitly, as 346 created it
+                "data": {"hidden": False, "injectableInBattle": False,  # law 20: sent explicitly, as 346 created it
+                         "effects": effects}}
         return write(os.path.join(ROOT, f"push/{PUBLISH_NUM}_skyglass_little_maw_publish.json"), (
             f"push/{PUBLISH_NUM} (after push/{NUM}, from {os.path.basename(a[1])}): publishes {JUTSU} ({jid}) so "
             f"push/{DEFAULTS_NUM} can set it as the Little Horror's default. Species and Jar stay hidden."), [item])

@@ -9,7 +9,48 @@
    "name": "Little Maw",
    "data": {
     "hidden": false,
-    "injectableInBattle": false
+    "injectableInBattle": false,
+    "effects": [
+     {
+      "type": "damage",
+      "power": 50,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "PFY2oXpwIpNwUOx327WCm",
+      "direction": "offence",
+      "calculation": "formula",
+      "description": "Deals damage to target",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "X32FgBGqES-eDreOlVb6X",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "increasedamagetaken",
+      "power": 10,
+      "rounds": 1,
+      "target": "INHERIT",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increase damage taken of target",
+      "powerPerLevel": 0,
+      "appearSfx": "",
+      "disappearSfx": "",
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
    }
   }
  ]
