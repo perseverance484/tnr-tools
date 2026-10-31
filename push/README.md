@@ -1351,6 +1351,63 @@ build 347 → gates → run 347**. Publishing the jutsu does not make the pet ob
 and the jar stays hidden. Tested on stand-in ids (validate 0 errors / 0 warnings, check_manifest 0 problems); not
 committed. **Post-run check:** `petSpecies.get` shows `defaultJutsuIds` = [Little Maw's id].
 
+## 361–367 Skyglass Wreck, crew upgrade, Crowned Captain rework, Crownhold top-ups (+ the Archive's break-the-seal fight for 339): PLANNED, generators only; nothing committed until the final specs land (and 344 / 363 have run where noted)
+
+Generators (zero live requests; helpers and the AI-key convention in `push/skyglass_wave2.py`). Every AI kit, rule list
+and tuning number is read from `state/skyglass_build/` (`build_spec.json`, `crowned_captain_spec.json`,
+`crownhold_spec.json`), so refreshing that directory from the RUL-066/-067 re-simulation (`fable/skyglass-rule-cap`)
+and re-running regenerates everything. **On today's `main` specs the AI generators refuse** (e.g. the Deck Warden's
+gates are not range+1; the Core Horror has 32 rules): that is intended. Library jutsu by literal id from push/342's
+bundle (law 17). `SKYGLASS_BUILD=<dir>` / `SKYGLASS_OUT=<dir>` exist for stand-in testing only; never commit output
+built from another spec directory.
+
+| # | Built by | What | Needs |
+|---|---|---|---|
+| 361 | `python3 push/skyglass_crew_upgrade.gen.py` | 9 AI edits: the live crew (Deck Warden, Seal Charge, Skyglass Sentinel, First Blade, Oathkeeper, Wayfinder, Core Horror, The Captain, Sealwright) upgraded in place for the endgame Wreck (RUL-2026-10-31-067 item 1): `sharedKits` kit and rules (<= 20, includeDefaultRules false, named `basicAttack` fallback, range+1 gates), `endgame.ais` level / multipliers / stats / innate rows; masteries and items from the push/249 capture; username and avatar untouched | final specs |
+| 362 | `python3 push/skyglass_wreck.gen.py --currency M,E,T,P` | 1 dungeon edit of the hidden Skyglass Wreck (`RHqzYdY4EAQA9HwsBKWDS`): floors from `endgame.floors` on the base (live) records, floor kinds by position (floors 1-4 `floor`, 5 `boss`: the harness's floor-4 `mini-boss` is invalid in a single tier), background `dessert` (RUL-2026-10-28-027), SKYGLASS_TEXT.md §8 description, 19 clear-drop lines (below). `--currency` is REQUIRED: asserting `rewards` replaces the clear currency the director set in game, so pass the live values (or 0,0,0,0 and re-set them in game) | 361 run first; final specs |
+| 363 | `python3 push/skyglass_crownhold_rework.gen.py --jutsu` | 2 hidden AI jutsu creates: The Crown's Will, Recall (`crowned_captain_spec.json` `newJutsu`; harness text, as the text doc has none; `_placeholders`: 2 animations pending art) | final specs |
+| 364 | `... --ai <363 bundle>` | 4 AI edits: the Crowned Captain's rework (Crownfall, Command Absolute, Shardstorm, Recall, The Crown's Will; 20 rules; stats/pools x3) and the Armsmaster, Replicant Zero and the Second with their library set pieces (`crownhold_spec.json` `commanders`) | 363's bundle (idmap `sg363_cc-crowns-will`, `sg363_cc-recall`) |
+| 365 | `... --topup` | 1 quest edit: Crownhold (hidden) re-sent whole = push/349's record (`skyglass_hoard.gen.py crownhold_edit`) + heal top-ups: War route +20% at D4 and D5 (RUL-2026-10-30-060 item 3) on the fourth regular `b4.n.f4` / `b5.n.f4` (**placement is a proposal**: the harness tops up at division start, but the rite route only branches after the terminal puzzle; the Healing route passes there too, its boss is entered full anyway) and the Crowned Captain route heals (RUL-2026-10-28-026 item 1: clean +35, alarm +15, War +20 with its buff for the whole fight; Healing keeps givePools 100). Heal = quest starting buff `heal`, percentage, 1 round | buildable now; run with 364 |
+| 366 | `python3 push/skyglass_wreck.gen.py --easy --copies <344 bundle>` | 1 dungeon create, HIDDEN: the easy (level-45) Wreck on the Faded tier (`lvl50.floors`), drops Tide Chart 25 / Watch Roster 15 / Buried Cache chart 5 / Galley Stores 10, background `dessert`, description + "For level 45 and up." **Placeholders (`_placeholders`):** name "Faded Skyglass Wreck", entrance sector 210 (16, 6), clear currency 0 | the rebuilt 344's bundle |
+| 367 | `python3 push/skyglass_crew_upgrade.gen.py --unequip` | 9 AI edits, the base crew's kits off (law 18/60). **Not in the normal order:** the first step of any later edit to a library jutsu they hold (e.g. the visual-asset push's animations): 367 → the jutsu edit → 361 regenerated and re-run | only when needed |
+
+**AI keys** (same convention as `push/skyglass_charts.gen.py`): `base:<crew>` = the live record (build_spec
+`endgame.ais[].copyOf.liveAiId`, cross-checked with the push/249 ids); `faded:<crew>` = srcId **`sg344_faded-<crew>`**
+in the rebuilt 344's bundle, checked to be an ok AI create named `Faded <Name>` (a leading "The" may be dropped). The
+easy Wreck needs these eight from 344: `faded:deck-warden`, `faded:seal-charge`, `faded:skyglass-sentinel`,
+`faded:first-blade`, `faded:oathkeeper`, `faded:wayfinder`, `faded:core-horror`, `faded:the-captain`.
+
+**Endgame clear drops** (each member rolls each line; loot tables §2, §5, §5b, §5d): Unmarked Cargo 10, Chart of the
+Buried Cache 20, Drowned Foundry 12, Quarantined Archive 6, Captain's Watch 6, Lastlight Lantern 3, Sealed Treasury 3
+(as 263); Tide Chart 15, Watch Roster 10; Core Rot 15 (endgame only); each of the six Haul pages 2.4 (RUL-2026-10-30-060
+item 5); Captain's Command Fan and Rot-Bloom Reaper tokens 5 `onlyOnce` (item 9); The Little Horror's Jar
+(`oSFTrX15PqtFtjwRXk041`, push/346) 5 `onlyOnce` (RUL-2026-10-29-054). Pets fight in the Wreck (RUL-2026-10-31-072
+item 7): nothing to build; the re-simulation should include the pet.
+
+**Run order:** 361 → 362 (then the hidden party-of-three timing test) · 363 → 364 with 365 · 344 → 366. 361 changes
+the live crew that the four live chart runs still fight until push/339 points them at their Veteran copies: run it in
+the go-live window, outside an event weekend (F05). All before 339.
+
+**Break the seal (F15; RUL-2026-10-31-072 item 8): for push/339, no number of its own.** `push/skyglass_archive_seal.py`
+`break_the_seal(objs, echo_ai, core_rot)` adds the branch to the Archive's objectives (both routes: a "Break the seal"
+choice on `d_entry`/`d_entry_a` → warning dialog → echo fight (a loss fails the run) → a dialog paying Core Rot ×2 at
+100% (a dialog reward, as RUL-072 item 3) → back to the route). **How 339 includes it** (the owner of
+`skyglass_update.gen.py` applies this): load the module like the other `push/*.py` modules and call
+`SEAL.break_the_seal(objs, echo_ai=<id>, core_rot=R("Core Rot"))` inside `archive()` before `G.quest(...)`. Open: the
+echo's AI record (unsimulated; a Veteran copy such as `veteran:core-horror` is the natural pick), and its text:
+SKYGLASS_TEXT.md has none, so the function uses PLACEHOLDER text and returns the gaps (`strict=True` refuses instead);
+339 must not go live with gaps. `python3 push/skyglass_archive_seal.py --demo` prints the resulting node graph.
+
+**Stand-in test (2026-10-31; specs from `fable/skyglass-rule-cap` f5997646, fake 344 / 363 bundles; output not
+committed):** `check_manifest.mjs` 0 pre-send problems on all eight (361-367 and a 339 Archive with break the seal);
+`skyglass_check.py` 0 errors / 0 warnings on each and on `push/` (exit 0); `test_skyglass_check.py` OK.
+`validate.py --strict`: 0/0 on 362, 363, 365, 366, 367 and the 339 Archive; **361 exit 1** (law 41 on The Captain:
+20 rules ending on the basic attack, no room for the end-turn tail the engine appends anyway; a WARN that the
+Sealwright's kit is all 60 AP actions); **364 exit 1** (law 41 on the Crowned Captain, Armsmaster and the Second at
+the 20-rule cap; and a false "dead rules" error on the Crowned Captain's unconditional move-to-post, which falls
+through once he stands on the post: theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~482-492). Both need a
+`state/validate_exceptions/` ledger with director acceptance when the manifests are built from the final specs.
+
 ## 360 Skyglass item text for the hidden records (24 item edits + 1 itemVariant edit; records stay HIDDEN): READY TO RUN
 
 RUL-2026-10-31-074 (director "Approve all", 2026-10-31). `python3 push/skyglass_item_text.gen.py` writes
