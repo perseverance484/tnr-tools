@@ -37,6 +37,14 @@
     "rounds": 2
    },
    "warExtra": [],
+   "ccTopUp": {
+    "healing": 100,
+    "clean": 35,
+    "war": 20,
+    "alert": 15,
+    "warWholeFight": true
+   },
+   "warDivTopUp": null,
    "war": {
     "D2": {
      "type": "stunprevent",
@@ -79,6 +87,8 @@
   "crownfall": 180,
   "broadside": 140,
   "shipsBell": 50,
+  "splash": 80,
+  "shortLine": 90,
   "chainHook": 45,
   "oath": 35,
   "aegisShield": 1500,
@@ -95,7 +105,9 @@
   "lines": "disarm",
   "sealLines": "elementalseal",
   "lastLight": "summonprevent",
-  "lastLightBinding": "sealprevent"
+  "lastLightBinding": "sealprevent",
+  "splash": "increaseheal",
+  "shortLine": "lifesteal"
  },
  "commanders": {
   "D2.BOSS": {
@@ -244,50 +256,6 @@
         "effectType": "increasecooldown",
         "threshold": 1,
         "description": "Has effect"
-       },
-       {
-        "type": "distance_lower_than",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT",
-        "description": "Distance lower than or equal given value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "ElSK-RCrLjddEUm76FZrs",
-       "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "increasecooldown",
-        "threshold": 1,
-        "description": "Has effect"
-       },
-       {
-        "type": "distance_lower_than",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT",
-        "description": "Distance lower than or equal given value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "Nrxc8m9utE9qaD_gWpLgf",
-       "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "increasecooldown",
-        "threshold": 1,
-        "description": "Has effect"
        }
       ],
       "action": {
@@ -300,108 +268,6 @@
        {
         "type": "has_effect",
         "effectType": "robprevent",
-        "threshold": 1,
-        "description": "Has effect"
-       },
-       {
-        "type": "distance_lower_than",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT",
-        "description": "Distance lower than or equal given value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "ElSK-RCrLjddEUm76FZrs",
-       "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "robprevent",
-        "threshold": 1,
-        "description": "Has effect"
-       },
-       {
-        "type": "distance_lower_than",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT",
-        "description": "Distance lower than or equal given value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "Nrxc8m9utE9qaD_gWpLgf",
-       "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "robprevent",
-        "threshold": 1,
-        "description": "Has effect"
-       }
-      ],
-      "action": {
-       "type": "end_turn",
-       "description": "End turn"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "onehitkillprevent",
-        "threshold": 1,
-        "description": "Has effect"
-       },
-       {
-        "type": "distance_lower_than",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT",
-        "description": "Distance lower than or equal given value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "ElSK-RCrLjddEUm76FZrs",
-       "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "onehitkillprevent",
-        "threshold": 1,
-        "description": "Has effect"
-       },
-       {
-        "type": "distance_lower_than",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT",
-        "description": "Distance lower than or equal given value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "Nrxc8m9utE9qaD_gWpLgf",
-       "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "onehitkillprevent",
         "threshold": 1,
         "description": "Has effect"
        }
@@ -429,21 +295,6 @@
        "type": "use_specific_jutsu",
        "jutsuId": "RPdeeWhFI5AIUUpJXwUlf",
        "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "round_lower_than",
-        "value": 2,
-        "description": "Current round is lower than specified value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "lib-omen-scatter-a",
-       "target": "SELF",
        "description": "Select specific jutsu"
       }
      },
@@ -558,29 +409,6 @@
      {
       "action": {
        "description": "Select specific jutsu",
-       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
-       "target": "CLOSEST_OPPONENT",
-       "type": "use_specific_jutsu"
-      },
-      "conditions": [
-       {
-        "description": "Target has effect",
-        "effectType": "increasedamagetaken",
-        "target": "CLOSEST_OPPONENT",
-        "threshold": 35,
-        "type": "target_has_effect"
-       },
-       {
-        "description": "Distance lower than or equal given value",
-        "target": "CLOSEST_OPPONENT",
-        "type": "distance_lower_than",
-        "value": 6
-       }
-      ]
-     },
-     {
-      "action": {
-       "description": "Select specific jutsu",
        "jutsuId": "Ul83iTziN__Z0i_UOzZTK",
        "target": "CLOSEST_OPPONENT",
        "type": "use_specific_jutsu"
@@ -683,13 +511,6 @@
         "value": 3
        }
       ]
-     },
-     {
-      "action": {
-       "description": "End turn",
-       "type": "end_turn"
-      },
-      "conditions": []
      }
     ],
     "sageMastery": 10,
@@ -734,7 +555,7 @@
     ],
     "rules": [
      13,
-     30
+     20
     ]
    }
   },
@@ -847,7 +668,7 @@
        },
        {
         "type": "distance_lower_than",
-        "value": 5,
+        "value": 6,
         "target": "CLOSEST_OPPONENT",
         "description": "Distance lower than or equal given value"
        }
@@ -869,7 +690,7 @@
        },
        {
         "type": "distance_lower_than",
-        "value": 5,
+        "value": 6,
         "target": "CLOSEST_OPPONENT",
         "description": "Distance lower than or equal given value"
        }
@@ -1307,7 +1128,7 @@
        },
        {
         "type": "distance_lower_than",
-        "value": 5,
+        "value": 6,
         "target": "CLOSEST_OPPONENT",
         "description": "Distance lower than or equal given value"
        }
@@ -1324,130 +1145,6 @@
        {
         "type": "has_effect",
         "effectType": "increaserange",
-        "threshold": 1,
-        "description": "Has effect"
-       },
-       {
-        "type": "distance_lower_than",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT",
-        "description": "Distance lower than or equal given value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
-       "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "increaserange",
-        "threshold": 1,
-        "description": "Has effect"
-       },
-       {
-        "type": "distance_lower_than",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT",
-        "description": "Distance lower than or equal given value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
-       "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "increaserange",
-        "threshold": 1,
-        "description": "Has effect"
-       }
-      ],
-      "action": {
-       "type": "end_turn",
-       "description": "End turn"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "fleeprevent",
-        "threshold": 1,
-        "description": "Has effect"
-       },
-       {
-        "type": "distance_lower_than",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT",
-        "description": "Distance lower than or equal given value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "nOYLPmN3TXj6wEe_oE6HQ",
-       "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "fleeprevent",
-        "threshold": 1,
-        "description": "Has effect"
-       },
-       {
-        "type": "distance_lower_than",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT",
-        "description": "Distance lower than or equal given value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
-       "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "fleeprevent",
-        "threshold": 1,
-        "description": "Has effect"
-       },
-       {
-        "type": "distance_lower_than",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT",
-        "description": "Distance lower than or equal given value"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
-       "target": "CLOSEST_OPPONENT",
-       "description": "Select specific jutsu"
-      }
-     },
-     {
-      "conditions": [
-       {
-        "type": "has_effect",
-        "effectType": "fleeprevent",
         "threshold": 1,
         "description": "Has effect"
        }
@@ -1634,29 +1331,6 @@
       },
       "conditions": [
        {
-        "description": "Target has effect",
-        "effectType": "stun",
-        "target": "CLOSEST_OPPONENT",
-        "threshold": 1,
-        "type": "target_has_effect"
-       },
-       {
-        "description": "Distance lower than or equal given value",
-        "target": "CLOSEST_OPPONENT",
-        "type": "distance_lower_than",
-        "value": 6
-       }
-      ]
-     },
-     {
-      "action": {
-       "description": "Select specific jutsu",
-       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
-       "target": "CLOSEST_OPPONENT",
-       "type": "use_specific_jutsu"
-      },
-      "conditions": [
-       {
         "description": "Distance lower than or equal given value",
         "target": "CLOSEST_OPPONENT",
         "type": "distance_lower_than",
@@ -1724,13 +1398,6 @@
         "value": 3
        }
       ]
-     },
-     {
-      "action": {
-       "description": "End turn",
-       "type": "end_turn"
-      },
-      "conditions": []
      }
     ],
     "sageMastery": 10,
@@ -1774,7 +1441,7 @@
     ],
     "rules": [
      15,
-     28
+     20
     ]
    }
   }
@@ -1797,6 +1464,14 @@
    "rounds": 2
   },
   "warExtra": [],
+  "ccTopUp": {
+   "healing": 100,
+   "clean": 35,
+   "war": 20,
+   "alert": 15,
+   "warWholeFight": true
+  },
+  "warDivTopUp": null,
   "war": {
    "D2": {
     "type": "stunprevent",

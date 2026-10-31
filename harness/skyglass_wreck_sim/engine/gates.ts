@@ -47,14 +47,19 @@ export const gateProfile = (profile: any) => {
   return profile;
 };
 
+/** A spec's rule list: engine rules ({conditions, action}) or the spec writers' summaries ({when, do, note}). */
+export const isRuleList = (v: any) => Array.isArray(v) && v.length > 0 && !!v[0] && typeof v[0] === "object" && ("action" in v[0] || "conditions" in v[0] || ("when" in v[0] && "do" in v[0]));
 /** In place, on every AI-rule list in a spec / override object (the same walk as assertSpecRuleCap). */
 export const gateSpec = (spec: any) => {
   const walk = (o: any) => {
     if (Array.isArray(o)) return o.forEach(walk);
     if (!o || typeof o !== "object") return;
     for (const [k, v] of Object.entries(o)) {
-      if (k === "rules" && Array.isArray(v) && v.length && v[0] && typeof v[0] === "object" && ("action" in v[0] || "conditions" in v[0])) (o as any)[k] = gateRules(v);
-      else walk(v);
+      if (k === "rules" && isRuleList(v)) {
+        (o as any)[k] = "when" in (v as any[])[0]
+          ? gateRules((v as any[]).map((r) => ({ conditions: r.when, action: r.do }))).map((g, i) => ({ ...(v as any[])[i], when: g.conditions }))
+          : gateRules(v as any[]);
+      } else walk(v);
     }
   };
   walk(spec);

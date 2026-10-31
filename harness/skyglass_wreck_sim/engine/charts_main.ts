@@ -353,6 +353,9 @@ if (specOut) {
       effects: row.effects.map((x: any) => `${x.type} ${x.power}${x.calculation === "percentage" ? "%" : ""}`),
       jutsu: row.jutsus.map((uj: any) => ({ id: uj.jutsuId, name: uj.jutsu.name })), rules: e.profile.rules.map((r: any) => ({ when: r.conditions, do: { type: r.action.type, jutsuId: r.action.jutsuId, target: r.action.target }, note: r.action.description })),
       insertAiSchema: check.success ? "pass" : check.error.issues.slice(0, 3).map((i: any) => `${i.path.join(".")}: ${i.message}`),
+
+      fullRow: { ...Object.fromEntries(Object.entries(row).filter(([k, val]) => !RELATIONS.has(k) && !(val && typeof (val as any).getTime === "function"))), jutsus: row.jutsus.map((uj: any) => uj.jutsuId), items: (row.items ?? []).map((ui: any) => ({ itemId: ui.itemId, quantity: ui.quantity, equipped: ui.equipped })) },
+      fullProfile: e.profile,
     };
   }
   const jutsu: any = {};
