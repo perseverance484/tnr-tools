@@ -1351,7 +1351,7 @@ build 347 → gates → run 347**. Publishing the jutsu does not make the pet ob
 and the jar stays hidden. Tested on stand-in ids (validate 0 errors / 0 warnings, check_manifest 0 problems); not
 committed. **Post-run check:** `petSpecies.get` shows `defaultJutsuIds` = [Little Maw's id].
 
-## 361–367 Skyglass Wreck, crew upgrade, Crowned Captain rework, Crownhold top-ups (+ the Archive's break-the-seal fight for 339): 361 READY TO RUN (final RUL-2026-10-31-077 specs; ledger PENDING director acceptance); the others generators only (built from 344 / 363 results where noted)
+## 361–367 Skyglass Wreck, crew upgrade, Crowned Captain rework, Crownhold top-ups (+ the Archive's break-the-seal fight for 339): 361 READY TO RUN (final RUL-2026-10-31-077 specs; ledger accepted (RUL-2026-10-31-083)); the others generators only (built from 344 / 363 results where noted)
 
 Generators (zero live requests; helpers and the AI-key convention in `push/skyglass_wave2.py`). Every AI kit, rule list
 and tuning number is read from `state/skyglass_build/` (`build_spec.json`, `crowned_captain_spec.json`,
@@ -1512,7 +1512,7 @@ Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Gener
 by a generator mode reading that run's results bundle (the `--binds` / `--golive` / `--retry` pattern, L01), never
 committed before that run.
 
-### 344 Skyglass AI copies, rebuilt for RUL-2026-10-31-077 (52 AI creates, HIDDEN): part 1 (48) READY TO RUN, part 2 built from part 1's results, part 3 (4) after part 2; ledgers PARTLY PENDING director acceptance
+### 344 Skyglass AI copies, rebuilt for RUL-2026-10-31-077 (52 AI creates, HIDDEN): part 1 (48) READY TO RUN, part 2 built from part 1's results, part 3 (4) after part 2; ledgers accepted (RUL-2026-10-31-083)
 
 Never run (no `sg344_` srcId in any results bundle); the previous `344_skyglass_copies_1.json` (10 creates, built before
 the rule cap) is replaced. `python3 push/skyglass_copies.gen.py` writes parts 1 and 3. Source: the record table

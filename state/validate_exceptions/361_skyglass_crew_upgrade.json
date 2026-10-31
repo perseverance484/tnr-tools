@@ -1,6 +1,6 @@
 {
  "manifest": "push/361_skyglass_crew_upgrade.json",
- "ruling": "PENDING director acceptance (new): 2 law-41 diagnostics (base:core-horror, base:the-captain at the 20-rule cap) and 1 'kit is all 60 AP actions' (base:sealwright, the Wreck Sealwright's dungeon kit).",
+ "ruling": "Accepted by RUL-2026-10-31-083: 2 law-41 diagnostics (base:core-horror, base:the-captain at the 20-rule cap) and 1 'kit is all 60 AP actions' (base:sealwright, the Wreck Sealwright's dungeon kit).",
  "reason": "law 41: these records carry exactly 20 rules (AI_PROFILE_MAX_RULES, theninjarpg@3314d122 app/drizzle/constants.ts:1933) and their chain ends on an unconditional set piece or the named basic attack, so there is no room to write the closing end_turn; the engine appends the same end_turn to every profile in battle (libs/combat/ai_v2.ts ~273-281), which is what the harness fought. The Wreck Sealwright's dungeon kit is all 60 AP actions, as the harness fought it on the endgame boss floor. check_manifest.mjs: 0 pre-send problems.",
  "sha256": "ec06e7b4292b68d34a1ee8530015b3b433c9f534e635bffd5360182e4becb90c",
  "accepted": [
