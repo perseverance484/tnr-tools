@@ -1276,12 +1276,71 @@ Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.j
 Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
 and jar.
 
-## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 (text for Raise the Gunwale and Stonebound Summons) READY TO RUN; the AI copies become 344+; 348 (Crown's Hoard, Wreck Sighted) READY TO RUN, 349 after it
+## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 (text for Raise the Gunwale and Stonebound Summons) READY TO RUN; 344 (AI copies) part 1 READY TO RUN, most copies BLOCKED (director decisions); 348 (Crown's Hoard, Wreck Sighted) READY TO RUN, 349 after it
 
 Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Generators: `push/skyglass_library.gen.py`
 (342). Run order and dependencies are listed per manifest; a manifest that needs ids from an earlier unrun one is built
 by a generator mode reading that run's results bundle (the `--binds` / `--golive` / `--retry` pattern, L01), never
 committed before that run.
+
+### 344 Skyglass AI copies: part 1 (10 AI creates, HIDDEN) READY TO RUN after the director accepts its ledger; part 2 built from part 1's results; 45 copies BLOCKED on two director decisions
+
+`python3 push/skyglass_copies.gen.py` writes `344_skyglass_copies_1.json`. Every new AI record the remaining Skyglass
+content needs that copies a live AI: the chart-run copies (`charts_spec.json` `newAIs`), the 15 Haul guards
+(`haul_spec.json`), the Wreck's party-tuned and level-50 copies (`build_spec.json` `endgame` / `lvl50` + `sharedKits`)
+and the Crown Stonebound summon copy. Each copy is created from the row and rules the harness fought (`fullRow` /
+`fullProfile`; the Wreck copies from the shared kit on the live chassis), hidden, with its source's live sprite,
+includeDefaultRules false (the fallback fix is already in the rule sets; the generator refuses any
+use_highest_power_* / use_random_jutsu / use_combo_action rule). Library jutsu by literal id from push/342's bundle
+(`sg342_<spec id>`, law 17). Usernames (law 66) are **placeholders** for the director to rename: `<Name> (Chart)`,
+`(Rare Chart)`, `(Tainted)`, `(Hunter)`, `(Stores)`, `(Wreck)`, `(Easy Wreck)`, Lingering Echo I-III, Crown Stonebound
+(Summoned); the Haul's Trophy Warden, Stores Ward and Sealwright's Echo and the Steeping Horror keep their design names
+(`_usernames` in the manifest).
+- **Part 1, `344_skyglass_copies_1.json` (10):** Seal Charge (Chart), Lingering Echo I-III (the Sealed Reliquary's
+  static hazard echoes), Seal Charge (Haul), Core Canister (Haul), Stores Ward, Seal Charge (Wreck), Seal Charge (Easy
+  Wreck), Crown Stonebound (Summoned): a copy of the live Crown Stonebound (push/272 D3.REG4) with Erupting Ground swapped
+  for Echo of Erupting Ground (enemies only, RUL-2026-10-30-060 item 7); the live record is a Crownhold D3 regular and is
+  not touched. The Lingering Echoes get the unconditional end turn the engine appends anyway (`_tail_restated`;
+  theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~273-281).
+  - Gates: `check_manifest.mjs` 0 pre-send problems (exit 0); `skyglass_check.py` 0 errors (exit 0); `validate.py
+    --strict` **exit 1, 10 diagnostics**, all the stale law 14 / L05 `preferredStat` (migration 0056; Forge refuses the
+    key; as RUL-2026-10-25-009 / -013), held by `state/validate_exceptions/344_skyglass_copies_1.json`
+    (`validate_exception.py` exit 0). **The ledger's ruling is PENDING: director acceptance needed before the run.**
+  - Order: no dependency on push/343 (no part-1 copy holds Raise the Gunwale or Stonebound Summons).
+  - **After it runs:** keep the bundle; later builders read it (idmap `sg344_<spec id>`). Then build part 2.
+- **Part 2 (1 jutsu edit), built from part 1's bundle, not committed before it:** `python3 push/skyglass_copies.gen.py
+  --summon <part 1 bundle>` writes `344_skyglass_copies_2.json`: Stonebound Summons (`bcbOllIWqHEopmQGHKDED`) summons the
+  Crown Stonebound copy instead of the live record (same 40% / 15000 HP; whole effects array; `injectableInBattle: false`).
+  **Law 18: nothing may equip Stonebound Summons before part 2 runs** (the live Sealwright's hunts upgrade and the three
+  Sealwright copies below come after it).
+- **Not built, ruled out:** `chart-c-wayfinder` and `chart-r-oathkeeper` are used only by the Low Tide Run's and the
+  Sealed Reliquary's press-on rooms, cut by RUL-2026-10-30-060 item 6 (`_not_built`).
+- **BLOCKED, server cap (10; director decision):** the server refuses an AI profile above 20 rules
+  (`AI_PROFILE_MAX_RULES = 20`, theninjarpg@3314d122 `app/drizzle/constants.ts:1933`, `server/api/routers/ai.ts:87`;
+  same at the harness pin c86f43f4). The simulated rule sets are longer for the Core Horror (32: rare and tainted chart
+  copies, the Steeping Horror, Wreck, Easy Wreck), the Captain (28: the Fall's press-on copy, Wreck, Easy Wreck) and the
+  Foundry Warden (21: rare and tainted chart copies). Which rules to cut changes the tuned fight. The same cap hits the
+  shared kits meant for the live records (Core Horror 32, The Captain 28) and Crownhold (the Crowned Captain 40,
+  commanders 30 / 28) (`_blocked_rule_cap`).
+- **BLOCKED, Forge pre-send kit lint (35; director decision, or a Lane A Forge/validate.py change):** Forge parses the
+  manifest through `forge/src/runner/pool.mjs` `kitProblems` and refuses the whole manifest when (a) a rule fires
+  `basicAttack` ("not in the AI's jutsus"; but the engine resolves it, `ai_v2.ts` ~494 / `actions.ts` ~512, and it is
+  the fallback fix's named basic attack) or (b) a pool jutsu's gate is not exactly range+1 (the harness gates at range:
+  safe under law 40, one tile short of the exact gate). 32 crew/guard/Wreck copies trip one or both, and the three
+  Stonebound Summons holders (rare and tainted Sealwright copies, the Haul's Sealwright's Echo) also wait for part 2
+  (`_blocked_forge_kit_lint`). `python3 push/skyglass_copies.gen.py --blocked` writes them as
+  `344_skyglass_copies_3.json` for review only (not committed; validate.py 225 errors, check_manifest 41 basicAttack +
+  146 gate problems). Measured offline (scratch, not committed): writing each `basicAttack` rule as the push/90 singleton
+  `use_combo_action ["basicAttack"]` (engine-equivalent, `ai_v2.ts` ~546; but RUL-2026-10-30-060 item 7's wording bans
+  combo rules) and every gate at range+1 (an AI attacks from one tile further than simulated) gives check_manifest 0
+  problems for all 35. Neither is applied.
+- **Not new records (no copy built):** the live four runs' crew, the hunt bosses and the Archive alarm guard (Crown
+  Archivist) are the live records upgraded in place (`hunts_spec.json`; SKYGLASS_BOSS_FIGHTS.md section 5); Crownhold
+  keeps the Archivist's hunts tuning as a fixed input (`crownhold_spec.json`), so no Archivist copy is needed.
+- **Later builders (chart runs, Haul quests, steeping, Wreck floors) read 344's results bundles** for the copies' ids
+  (idmap `sg344_<spec id>`: e.g. `sg344_chart-lingering-echo-2`, `sg344_haul-stores-ward`, `sg344_dg-seal-charge-l50`).
+- Any later edit to a library jutsu a copy holds (e.g. the visual-asset push's animations) must unequip every copy
+  first, then re-equip (laws 18 and 60).
 
 ### 348 Crown's Hoard + Wreck Sighted (2 creates, HIDDEN, placeholder art): READY TO RUN; 349 (Crownhold's pick) is built from 348's results; Walked Every Deck STOPPED
 
