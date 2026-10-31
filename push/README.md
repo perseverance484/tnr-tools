@@ -1276,7 +1276,16 @@ Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.j
 Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
 and jar.
 
-## 350 Achievement probe (3 quest creates, HIDDEN): READY TO RUN (staff test for Walked Every Deck)
+## 351 Achievement probe fix (1 quest edit, HIDDEN): READY TO RUN
+
+`python3 push/achievement_probe.gen.py --fix <350 bundle>` (from `tnr_results_1793456820512.json`). push/350 created Probe
+Deck A (`n6JqkJiJOGHbHUWAi7XV4`) and B (`vP-JxCD0nTMkqSk1R-1wG`) and the achievement shell (`CVmmxRhrttQp6g6GBFbAG`),
+but the achievement's update was refused: "Objective flow invalid: Multiple starting objectives found: g_a, g_b" (a
+consecutive quest's goals must form one chain, theninjarpg@3314d122 libs/quest.ts verifyQuestObjectiveFlow). 351
+re-sends it with g_a -> g_b. `check_manifest.mjs` 0 problems; `validate.py --strict` 1 achievement-inapplicable lint,
+held by `state/validate_exceptions/351_achievement_probe_fix.json`. The test is unchanged (see 350).
+
+## 350 Achievement probe (3 quest creates, HIDDEN): RUN 2026-10-31 (tnr_results_1793456820512.json): 2/3, achievement refused, fixed by 351
 
 `python3 push/achievement_probe.gen.py`. Tests whether an achievement nobody has started keeps
 `complete_specific_quest` progress across saves (the source reading at theninjarpg@3314d122 `libs/quest.ts`

@@ -1,0 +1,9 @@
+{
+ "manifest": "push/351_achievement_probe_fix.json",
+ "ruling": "Director request 2026-10-31 (staff achievement probe for Walked Every Deck); validate.py's quest-graph rules model linear quests, not achievements: an achievement's objectives are independent goals with no start node or win node (as the live 'Pizza Delivery Reward', elopwNBvN0rbuCfzTOo5E). Forge check_manifest passes.",
+ "reason": "Achievements complete when every goal is done (libs/quest.ts); they have no win_quest node, as the live 'Pizza Delivery Reward'. The one diagnostic is a linear-quest graph lint that does not apply.",
+ "sha256": "dcaad35040b2730250dafb0043777a77dd3ff47b103887393a987873b91a9b45",
+ "accepted": [
+  "ERROR  [quest:Probe: Both Decks]: no win_quest / fail_quest / reset_quest node: nothing marks the quest complete"
+ ]
+}
