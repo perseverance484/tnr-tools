@@ -1274,7 +1274,65 @@ copies (charts, Haul guards, the steeping Horror), the six new chart runs and th
 Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.json` on `fable/skyglass-haul-fit`
 `6ad2a102`), Walked Every Deck (needs every chart run's id), the Wreck dungeon's drops and floors and the easy Wreck, the
 Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
-and jar.
+and jar (now built: push/346, see its entry).
+
+## 346 Skyglass pet: Little Horror species, Little Maw, The Little Horror's Jar (3 creates, HIDDEN, placeholder art): READY TO RUN; 347 (species defaults) built only after 346 runs AND Little Maw is published
+
+Director-approved 2026-10-31, **RUL-2026-10-31-068** (kit final in `docs/design/SKYGLASS_PETS.md`). `python3 push/skyglass_pet.gen.py`
+writes `346_skyglass_pet.json`: one manifest, `dedupNames: true`, in build order
+1. **petSpecies create "Little Horror"** (`sg346_little_horror`): LEGENDARY, ASSAULT, `isActive: false` (reward-only), `hidden: true`
+   (stripped by Forge: species have no hidden column), artDirection and 10 rankConcepts verbatim from SKYGLASS_PETS.md, no
+   defaults, no AI rules (`includeDefaultRules: true`, as every live species). Innates copied from the push/345 capture's
+   rows: **Rot Bite** = the Dragon's afterburn 25% row as `poison` 25% (`skillTarget` ENEMIES, target INHERIT,
+   `poolsAffected` the tag default) with **rounds 10**; **Hungry** = the Kitsune's row at `increasedamagegiven` 20%
+   (`skillTarget` SELF, 30 rounds).
+2. **jutsu create "Little Maw"** (`sg346_little_maw`): the Yamabiko's Rallying Echo record with PETS, `requiredPetSpeciesId:
+   "@petSpecies:sg346_little_horror"` (Forge resolves it from step 1 in the same job), rank D, STUDENT / 1, OPPONENT,
+   SINGLE, range 4, cooldown 5, 60 AP, no pool costs; damage 50 formula (`generalTypes` [Highest], no `statTypes`) then
+   `increasedamagetaken` 10% / 1 round. Hidden; animation and SFX empty (maw strip not uploaded).
+3. **item create "The Little Horror's Jar"** (`sg346_little_horror_jar`): LEGENDARY CONSUMABLE, untradeable,
+   `preventBattleUsage: true`, one standard `noncombatconsumereward` with `reward_pets: ["@petSpecies:sg346_little_horror"]`
+   (theninjarpg@3314d122 `validators/combat.ts` ~975), text `SKYGLASS_TEXT.md` `item:The Little Horror's Jar.description`,
+   engine-default image.
+
+Names checked free against the push/345 capture (69 species, 4 PETS jutsu) and the answer layer; **a species create cannot
+be deleted**, so do not run 346 twice (Forge's dedupNames and the retained idmap reuse an existing "Little Horror").
+`_placeholders` lists the jar and jutsu images, the empty maw animation and the species art (all art lands before launch,
+RUL-2026-10-31-066 item 4).
+
+**Before running, the director decides one number:** the engine's poison tag allows `rounds` 1-10 only (3314d122
+`validators/combat.ts` PoisonTag), so Rot Bite cannot carry the Dragon template's 30. The manifest uses **10**, the nearest
+legal value; to change it, edit `POISON_ROUNDS_MAX` in the generator, regenerate, and re-run the gates and
+`validate_exception.py --write`. Also note: an ENEMIES innate is applied once at battle start to every enemy, not on each
+hit (`libs/combat/pets.ts` ~146-180), so Rot Bite is "every enemy is poisoned for the first 10 rounds".
+
+**Gates (2026-10-31):** `python3 ../scripts/validate.py --strict ../../../push/346_skyglass_pet.json` (from
+`skills/building-tnr-content/data`) exit 1 with exactly the 2 accepted law 4 / L06 diagnostics (no `statTypes`, as the live
+Rallying Echo; at 3314d122 `damageCalc` an absent `statTypes` drops only the stat term), held by
+`state/validate_exceptions/346_skyglass_pet.json` (`python3 scripts/validate_exception.py
+state/validate_exceptions/346_skyglass_pet.json` exit 0); `node tools/check_manifest.mjs ../push/346_skyglass_pet.json`
+exit 0 (0 pre-send problems; plan species → jar → jutsu, refs resolved in-job); `python3 scripts/skyglass_check.py` exit 0
+(0 errors, 0 warnings); `python3 -m unittest scripts/test_skyglass_check.py` OK.
+
+**After 346 runs (post-run checks, from the results bundle and a read-back):**
+- record the three ids from the bundle's idmap (`sg346_little_horror`, `sg346_little_maw`, `sg346_little_horror_jar`);
+- **species innates:** `petSpecies.get` on the new id shows `effects` = [poison 25 / rounds 10 / ENEMIES, increasedamagegiven
+  20 / rounds 30 / SELF], `isActive: false`, `rarity` LEGENDARY, 10 rankConcepts;
+- **jutsu lock:** the jutsu reads back `jutsuType` PETS, `requiredPetSpeciesId` = the species id (not the `@petSpecies` ref),
+  `hidden: true`;
+- **jar reward:** the item reads back `reward_pets` = [the species id], `canBeTraded: false`, `preventBattleUsage: true`,
+  `hidden: true`;
+- **the Jar's id goes to the Wreck drops builder** (the Wreck dungeon's once-per-player jar drop needs a literal id; it is
+  not built yet, see the 342+ "still to build" list).
+
+### 347 Little Horror default loadout (1 petSpecies edit): NOT BUILT; waits on 346 and on the director publishing Little Maw
+
+`python3 push/skyglass_pet.gen.py --defaults <346 results bundle>` writes `347_skyglass_pet_defaults.json`: a species edit
+(literal `targetId`, L01) setting `defaultJutsuIds: [<Little Maw id>]` (`rarity` restated for the slot check). The server
+refuses a hidden default (routers/petSpecies.ts), so **run order: 346 → director publishes Little Maw (hidden: false) →
+build 347 → gates → run 347**. Publishing the jutsu does not make the pet obtainable: the species stays `isActive: false`
+and the jar stays hidden. Tested on stand-in ids (validate 0 errors / 0 warnings, check_manifest 0 problems); not
+committed. **Post-run check:** `petSpecies.get` shows `defaultJutsuIds` = [Little Maw's id].
 
 ## 351 Achievement probe fix (1 quest edit, HIDDEN): RUN 2026-10-31 (tnr_results_1793457034587.json, 1/1 VERIFIED); reload test FAILED as predicted (RUL-2026-10-31-069): records kept hidden for the re-test after the upstream fix
 

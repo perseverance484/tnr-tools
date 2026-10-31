@@ -4881,6 +4881,32 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` and the harness specs once re-simulated; push/344 is rebuilt to the consolidated list.
 
+## RUL-2026-10-31-068 — Little Horror kit final: species, Little Maw, the Jar; push/346 and push/347
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / pets, build and balance
+
+**Status:** ACTIVE. The numbers below are final (they replace the provisional kit of RUL-2026-10-28-012).
+
+**Ruling:**
+1. **Evidence and templates.** The push/345 capture `harvests/inbox/tnr_results_1793460185610.json` (69 species; 4 PETS jutsu, all Yamabiko signatures, none hidden) is the reference. The live legendary species (Dragon, Kitsune, Phoenix, Yamabiko) are the exact structural template for innate effects (their `effects` rows: `rounds` 30, `target` / `skillTarget` conventions, `calculation` percentage); the Yamabiko's Rallying Echo is the template for a PETS jutsu record.
+2. **Species "Little Horror":** LEGENDARY, ASSAULT, `isActive: false` (reward-only), hidden as Forge allows (a species has no hidden column), `artDirection` and the 10 `rankConcepts` verbatim from `SKYGLASS_PETS.md`, description `The Core tried to remember the ship's mascot. This is what came back: a small, damp thing with one tooth too many, and it has decided you are its crew.`
+   - Innate **Rot Bite**: on enemies (`skillTarget` ENEMIES), `poison` 25%, shaped like the Dragon's `afterburn` 25% row.
+   - Innate **Hungry**: `increasedamagegiven` 20% (`skillTarget` SELF), shaped like the Kitsune's 30% row.
+3. **Signature jutsu "Little Maw":** `jutsuType` PETS, `requiredPetSpeciesId` → the Little Horror, rank D, STUDENT / level 1, single OPPONENT target, range 4, cooldown 5, 60 AP, no pool costs. Effects: `damage` power 50, `calculation` formula, `statTypes` / `generalTypes` like Rallying Echo (`generalTypes` [Highest], no `statTypes`), then `increasedamagetaken` 10% for 1 round on the target. Description `The Little Horror opens a mouth far too big for its body and bites, leaving the target easier to hurt for a round.`; battleDescription `%user opens a maw far too big for its body and bites down on %target.` Hidden; animation empty (the maw strip is not uploaded; listed in `_placeholders`). The strict-validation diagnostics this shape raises (law 4 / L06, no `statTypes`) are accepted: `state/validate_exceptions/346_skyglass_pet.json`.
+4. **The Little Horror's Jar:** hidden LEGENDARY consumable, **untradeable**, `preventBattleUsage: true`, one `noncombatconsumereward` granting the species via `reward_pets`, description `SKYGLASS_TEXT.md` `item:The Little Horror's Jar.description` verbatim, engine-default image (placeholder; all art lands before launch, RUL-2026-10-31-066 item 4).
+5. **Build:** one manifest, **push/346** (`push/skyglass_pet.gen.py`), species → jutsu → jar, `dedupNames: true`, same-manifest `@petSpecies` refs. **push/347** (species defaults = [Little Maw]) is built by `--defaults <346 bundle>` and runs only after the director publishes Little Maw (the server refuses an unpublished default). After 346 runs, the Jar's id goes to the Wreck drops builder.
+
+**Build notes (source facts found while building; not the director's words):**
+- **Rot Bite carries `rounds` 10, not 30.** theninjarpg@3314d122 `validators/combat.ts` ~805-815 `PoisonTag.rounds` is `.min(1).max(10)`, so the Dragon template's 30 is refused. 10 is the schema maximum and the nearest legal value; the director may pick any 1-10 (or confirm 10) before push/346 runs, and a species effect stays editable afterwards.
+- **An ENEMIES innate is not an on-hit proc.** `libs/combat/pets.ts` ~146-180 realizes it once, at battle start, on every living enemy, with the companion as caster (the Dragon's rows work the same way). So Rot Bite poisons every enemy from round 1 for its rounds: the poisoned enemy takes 25% of the chakra and stamina it spends on each action as damage (`libs/combat/tags.ts` ~2256-2313).
+- Little Maw's 1-round debuff is cast with `castThisRound` set and is not counted down on the round it lands (`libs/combat/util.ts` ~3040-3050), so it covers the following round in full (law 75).
+
+**Evidence:** Director, 2026-10-31, relayed for this session ("Director-approved 2026-10-31 (record as RUL-2026-10-31-068 ...)").
+
+**Canonical destination:** `docs/design/SKYGLASS_PETS.md` Little Horror kit (items 2-4); `push/skyglass_pet.gen.py` and `push/README.md` (346/347, item 5); `state/validate_exceptions/346_skyglass_pet.json` (item 3).
+
 ## RUL-2026-10-31-069 — Walked Every Deck waits for the upstream achievement fix
 
 **Date:** 2026-10-31
