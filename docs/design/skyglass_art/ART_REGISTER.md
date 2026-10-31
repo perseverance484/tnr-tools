@@ -36,8 +36,8 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | VS02 | Riptide (variant of Thornsilver) | ICON (variant) | `11_variant_thornsilver` | `YNhKQmKUjfVIPQkGlNO41` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-riptide.webp`) |
 | VS03 | Nightreaver (variant of Night's Testament) | ICON (variant) | `12_variant_nights_testament` | `mtx4YmUu-wkKGwnOPVbYS` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-nightreaver.webp`) |
 | VS04 | Thunderwake (variant of Stormrender; was Thunderwake) | ICON (variant) | `13_variant_stormrender` | `_49jp25nHiH-v8ywlRdKH` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-thunderwake.webp`) |
-| VS05 | Anchorline (variant of Oathbinder) | ICON (variant) | `14_variant_oathbinder` | `umsYP0jL3emdVFDdU6Fcd` | TO GENERATE |
-| VS06 | Starchart (variant of Ink of the Void) | ICON (variant) | `15_variant_ink_of_the_void` | `1yWEP0r3elIzyScORfot4` | TO GENERATE |
+| VS05 | Anchorline (variant of Oathbinder) | ICON (variant) | `14_variant_oathbinder` | `umsYP0jL3emdVFDdU6Fcd` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-anchorline.webp`) |
+| VS06 | Starfall (variant of Ink of the Void) | ICON (variant) | `15_variant_ink_of_the_void` | `1yWEP0r3elIzyScORfot4` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-starfall.webp`) |
 | VS07 | The Unwritten Order (variant of The Unwritten) | ICON (variant) | `16_variant_the_unwritten` | `3NH-VreJl9TcqqIYiztn_` | TO GENERATE |
 | VS08 | Keelstone (variant of Gaea's Embrace) | ICON (variant) | `17_variant_gaeas_embrace` | `xFyTBqje5M1_68EqRRoBu` | TO GENERATE |
 | VS09 | Skyglass Kote (variant of Warden's Bracers) | ICON (variant) | `18_variant_wardens_bracers` | `_tdmHvPnvlnIMLpRnk9GC` | TO GENERATE |
