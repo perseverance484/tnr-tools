@@ -39,7 +39,7 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | VS05 | Anchorline (variant of Oathbinder) | ICON (variant) | `14_variant_oathbinder` | `umsYP0jL3emdVFDdU6Fcd` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-anchorline.webp`) |
 | VS06 | Starfall (variant of Ink of the Void) | ICON (variant) | `15_variant_ink_of_the_void` | `1yWEP0r3elIzyScORfot4` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-starfall.webp`) |
 | VS07 | The Unwritten Order (variant of The Unwritten) | ICON (variant) | `16_variant_the_unwritten` | `3NH-VreJl9TcqqIYiztn_` | TO GENERATE |
-| VS08 | Keelstone (variant of Gaea's Embrace) | ICON (variant) | `17_variant_gaeas_embrace` | `xFyTBqje5M1_68EqRRoBu` | TO GENERATE |
+| VS08 | Keelstone (variant of Gaea's Embrace) | ICON (variant) | `17_variant_gaeas_embrace` | `xFyTBqje5M1_68EqRRoBu` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-keelstone.webp`) |
 | VS09 | Skyglass Kote (variant of Warden's Bracers) | ICON (variant) | `18_variant_wardens_bracers` | `_tdmHvPnvlnIMLpRnk9GC` | TO GENERATE |
 | VS10 | Lastlight Duskblade (variant of Eclipsed Dawnblade) | ICON (variant) | `19_variant_eclipsed_dawnblade` | `m7Xqe9cD1oB_2vCj1Zvu5` | TO GENERATE |
 | VS11 | Skysail (variant of Zephyr's Whisper) | ICON (variant) | `20_variant_zephyrs_whisper` | `kD6g1o5qJo3K9r1HeHtiH` | TO GENERATE |
