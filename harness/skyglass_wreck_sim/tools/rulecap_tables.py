@@ -96,7 +96,7 @@ def main():
         extra = f" (old gates, pools 3: {hb[p]['win']})" if p in hb else ""
         row(f"Hunt {p}, clear %{extra}", tg[p], *(x.get(p, {}).get("win") for x in (hf, hg, ht)))
     row("Watch Captain phase 2 rounds", ">= 6-7", *(x.get("watch_000", {}).get("p2") for x in (hf, hg, ht)))
-    cf = charts(load("final_charts_dodge_a.json"), load("final_charts_dodge_b.json"))
+    cf = charts(load("final_charts_dodge_a.json"), load("final_charts_dodge_b.json"), load("final_charts_burning.json"))
     cg, ct, cb = charts(load("rulecap_G_charts.json")), charts(load("rulecap_T_charts.json")), charts(load("rulecap_B_reliquary.json"))
     tg = {"lowtide": "cut room", "nightwatch": "-", "reliquary": "~80 (2 rows)", "rotted": "~55", "steeping": "~75", "fall": "~80", "burning": "~55"}
     for run in ("lowtide", "nightwatch", "reliquary", "rotted", "steeping", "fall", "burning"):
