@@ -1424,8 +1424,7 @@ Crownbreaker variant shows with its blanked description (RUL-2026-10-31-072 item
 `370_skyglass_haul_chests.json` (`python3 push/skyglass_haul_chests.gen.py`; RUL-2026-10-31-081). Phase 1: eight
 HIDDEN, untradeable creates with the profession chests' tiers and tables: Hide Bundle, Keeper's Pack, Prize Strongbox,
 Keeper's Reserve (hunting pages) and Stores Bundle, Quartermaster's Pack, Overgrown Strongbox, Quartermaster's Reserve
-(gathering pages), PC01-PC06 art (the two Reserves carry the engine default until PC07/PC08 arrive; a later image edit
-adds them). Phase 2: the six hidden Haul pages' descriptions with the new "Pays:" line. **The eight live profession
+(gathering pages), PC01-PC08 art (all eight chests). Phase 2: the six hidden Haul pages' descriptions with the new "Pays:" line. **The eight live profession
 chests are no longer edited** (go-live 339 now has 9 entries: the Coffer's five contents and the four runs). After it
 runs, the Haul is built with `python3 push/skyglass_haul.gen.py --copies <344 bundle> --chests <370 bundle>` (`--chests`
 is required). Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems;

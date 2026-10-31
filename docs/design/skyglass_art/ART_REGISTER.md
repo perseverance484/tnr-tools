@@ -59,26 +59,26 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | AN02 | cc_phase_shift: shockwave flourish | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_phase_shift_v1.webp`; `an_v1.json`) |
 | AN03 | cp_gunwale: Raise the Gunwale barrier | gameAsset STATIC or ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_gunwale_barrier_v1.webp`, `tile_fx_gunwale_barrier_v1.webp`; `an_v1.json`) |
 | AN04 | ch_enrage: The Core Rebuilds aura | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_core_enrage_v1.webp`; `an_v1.json`) |
-| AN05 | cc_hexweave: Hexweave hit | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_hexweave_v1.webp`; `an_v1.json`) |
+| AN05 | cc_hexweave: Hexweave hit | ANIMATION | `35_fx_layers` | - | REDRAW (director 2026-10-31: the v1 knot reads as a six-pointed star; regenerate with the revised prompt) |
 | AN06 | Spreading Fire ember tile | gameAsset STATIC or ANIMATION loop | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `tile_fx_spreading_fire_embers_v1.webp`, `anim_fx_spreading_fire_glint_v1.webp`, `anim_fx_spreading_fire_embers_v1.webp`; `an_v1.json`) |
 | AN07 | ch_bile_spit: glob in flight | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_bile_glob_v1.webp`; `an_v1.json`) |
 | AN08 | ch_bile_spit: splash | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_bile_splash_v1.webp`; `an_v1.json`) |
 | AN09 | ch_undertow: water-drag streak (OPTIONAL) | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_undertow_v1.webp`; `an_v1.json`) |
 | PT01 | The salvager (Wreck Sighted) | SCENE_CHARACTER | `25_salvager_portrait` | - | PROCESSED (`art/skyglass_scene_chars/exports/scene_char_skyglass_salvager.webp`) |
 | AV01 | Tagwright (Crown Tagwright) | AI_AVATAR | `40_crew_avatars` | `1syezT0axWVQVgeOGN-LH` | PROCESSED (`art/crownhold/avatars/exports/avatar_crownhold_tagwright.webp`) |
-| AV02 | Lancer (Crown Lancer) | AI_AVATAR | `40_crew_avatars` | `e5ye0RlN0fManSKdD_k-o` | TO GENERATE |
-| AV03 | Honor Guard (Honor Guard) | AI_AVATAR | `40_crew_avatars` | `1orTQQ0Q9XhBvwlSZuzj5` | TO GENERATE |
-| AV04 | Runner (Crown Runner) | AI_AVATAR | `40_crew_avatars` | `-U_-iIwhGodkqdvc4GPa6` | TO GENERATE |
-| AV05 | Vanguard (Crown Vanguard) | AI_AVATAR | `40_crew_avatars` | `pshn-LkaC5vIgI6EOv68I` | TO GENERATE |
-| AV06 | Herald (Crown Herald) | AI_AVATAR | `40_crew_avatars` | `Q6QjSoH6d1SabfQOLb12-` | TO GENERATE |
-| AV07 | Last Watch (Last Watch) | AI_AVATAR | `40_crew_avatars` | `qQn9h2FY3GUUqgaFIRAuf` | TO GENERATE |
-| AV08 | Sealbearer (Crown Sealbearer) | AI_AVATAR | `40_crew_avatars` | `09gLgh9sCtshISC0dvpka` | TO GENERATE |
-| SC01 | Crownhold gate (scene #27) | SCENE_BACKGROUND | `50_ship_scenes` | - | TO GENERATE |
-| SC02 | Armory proving hall (Experimental Armory) (scene #28) | SCENE_BACKGROUND | `50_ship_scenes` | - | TO GENERATE |
-| SC03 | Sealing-jar halls (Skyglass Research) (scene #34) | SCENE_BACKGROUND | `50_ship_scenes` | - | TO GENERATE |
-| SC04 | High Command signal room (scene #37) | SCENE_BACKGROUND | `50_ship_scenes` | - | TO GENERATE |
-| SC05 | Planning hall (scene #38) | SCENE_BACKGROUND | `50_ship_scenes` | - | TO GENERATE |
-| SC06 | Throne room (Command Sanctum) (scene #45) | SCENE_BACKGROUND | `50_ship_scenes` | - | TO GENERATE |
+| AV02 | Lancer (Crown Lancer) | AI_AVATAR | `40_crew_avatars` | `e5ye0RlN0fManSKdD_k-o` | PROCESSED (`art/crownhold/avatars/exports/avatar_crownhold_lancer.webp`) |
+| AV03 | Honor Guard (Honor Guard) | AI_AVATAR | `40_crew_avatars` | `1orTQQ0Q9XhBvwlSZuzj5` | PROCESSED (`art/crownhold/avatars/exports/avatar_crownhold_honor-guard.webp`) |
+| AV04 | Runner (Crown Runner) | AI_AVATAR | `40_crew_avatars` | `-U_-iIwhGodkqdvc4GPa6` | PROCESSED (`art/crownhold/avatars/exports/avatar_crownhold_runner.webp`) |
+| AV05 | Vanguard (Crown Vanguard) | AI_AVATAR | `40_crew_avatars` | `pshn-LkaC5vIgI6EOv68I` | PROCESSED (`art/crownhold/avatars/exports/avatar_crownhold_vanguard.webp`) |
+| AV06 | Herald (Crown Herald) | AI_AVATAR | `40_crew_avatars` | `Q6QjSoH6d1SabfQOLb12-` | PROCESSED (`art/crownhold/avatars/exports/avatar_crownhold_herald.webp`) |
+| AV07 | Last Watch (Last Watch) | AI_AVATAR | `40_crew_avatars` | `qQn9h2FY3GUUqgaFIRAuf` | PROCESSED (`art/crownhold/avatars/exports/avatar_crownhold_last-watch.webp`) |
+| AV08 | Sealbearer (Crown Sealbearer) | AI_AVATAR | `40_crew_avatars` | `09gLgh9sCtshISC0dvpka` | PROCESSED (`art/crownhold/avatars/exports/avatar_crownhold_sealbearer.webp`) |
+| SC01 | Crownhold gate (scene #27) | SCENE_BACKGROUND | `50_ship_scenes` | - | PROCESSED (`art/crownhold/scenes/exports/scene_bg_crownhold_gate.webp`) |
+| SC02 | Armory proving hall (Experimental Armory) (scene #28) | SCENE_BACKGROUND | `50_ship_scenes` | - | PROCESSED (`art/crownhold/scenes/exports/scene_bg_crownhold_proving_hall.webp`) |
+| SC03 | Sealing-jar halls (Skyglass Research) (scene #34) | SCENE_BACKGROUND | `50_ship_scenes` | - | PROCESSED (`art/crownhold/scenes/exports/scene_bg_crownhold_vat_halls.webp`) |
+| SC04 | High Command signal room (scene #37) | SCENE_BACKGROUND | `50_ship_scenes` | - | PROCESSED (`art/crownhold/scenes/exports/scene_bg_crownhold_signal_room.webp`) |
+| SC05 | Planning hall (scene #38) | SCENE_BACKGROUND | `50_ship_scenes` | - | PROCESSED (`art/crownhold/scenes/exports/scene_bg_crownhold_planning_hall.webp`) |
+| SC06 | Throne room (Command Sanctum) (scene #45) | SCENE_BACKGROUND | `50_ship_scenes` | - | PROCESSED (`art/crownhold/scenes/exports/scene_bg_crownhold_throne_room.webp`) |
 | DR01 | Rotted Reliquary Seal | ICON (recolour) | `from IC03` | `2sGi5SZXh2UutHmM-mIMD` | DERIVED: DONE (rot-green seal, `icon-rotted-reliquary-seal.webp`, push/352) |
 | DR02 | The Rotted Heading | ICON (recolour) | `from IC04` | `U2yJbBM6_N1xBBf0ez96F` | DERIVED: DONE (rot-green seal, `icon-the-rotted-heading.webp`, push/352) |
 | DR03 | Ledger Page: The Bone Store | ICON (recolour) | `from IC06` | `uu6ETQimuBJ69jwr76IIi` | DERIVED: DONE (charcoal cord, `icon-ledger-page-bone-store.webp`, push/352) |
@@ -145,5 +145,7 @@ push/370 picks each image up once its export exists; the two Legendary chests sh
 | PC04 | Quartermaster's Pack | ICON | (director-generated) | see design_data.json | PROCESSED (`icon-rare-gatherers-chest.webp`, push/370) |
 | PC05 | Prize Strongbox | ICON | (director-generated) | `32k2rXF6W-7gn_Fubp4kU` | PROCESSED (`icon-epic-hunters-chest.webp`, push/370) |
 | PC06 | Overgrown Strongbox | ICON | (director-generated) | see design_data.json | PROCESSED (`icon-epic-gatherers-chest.webp`, push/370) |
-| PC07 | Keeper's Reserve | ICON | (director-generated) | see design_data.json | TO GENERATE (director) |
-| PC08 | Quartermaster's Reserve | ICON | (director-generated) | see design_data.json | TO GENERATE (director) |
+| PC07 | Keeper's Reserve | ICON | (director-generated) | see design_data.json | PROCESSED (`art/skyglass_event_icons/exports/icon-legendary-hunters-chest.webp`) |
+| PC08 | Quartermaster's Reserve | ICON | (director-generated) | see design_data.json | PROCESSED (`art/skyglass_event_icons/exports/icon-legendary-gatherers-chest.webp`) |
+
+FX frame size (director 2026-10-31): AN01-AN09 strips keep 150 px frames (drawn on the 50 px grid, delivered 3x) per the ANIMATION spec's 112 px minimum.
