@@ -372,15 +372,19 @@ def resolve_329(o, idmap, missing):
 
 
 SEAL = load("skyglass_archive_seal.py")
+RETRY_ONLY = "--retry-archive" in sys.argv
 SEAL_ECHO = []  # set by golive: the Veteran Core Horror's literal id
 # Quest scenes render only as gameAsset ids (theninjarpg@3314d122 layout/Logbook.tsx ~486-525, getSceneAssets; a URL
 # shows the default background). Existing Ghost Ship scene assets (harvests/seed/43_INDEX_asset.json, folder
 # ghostship, hidden; getSceneAssets does not filter hidden) by URL; the four with no asset are created in 339 phase 1.
 SCENE_ASSET = {"hold": "yufttCkG-KsefHKuz9Q2a", "lower_hull": "dFwyPzyhUZQjDBXpJRUDJ", "cache_site": "rX78pJPETsUL2JrsSvGHn",
-               "chart_room": "ApkLYWJ3AFe8oyqQwk_8z", "deck_b": "U2pjcM1_N-HdVf928Sn5z", "helm": "-eB0frmTJss6Uco6ZoM07"}
-SCENE_NEW = {"exterior_keel_walk": "Ghost Ship Keel Walk", "reconstruction_chamber": "Ghost Ship Reconstruction Chamber",
-             "quarantined_archive": "Ghost Ship Quarantined Archive",
-             "command_observation_gallery": "Ghost Ship Observation Gallery"}
+               "chart_room": "ApkLYWJ3AFe8oyqQwk_8z", "deck_b": "U2pjcM1_N-HdVf928Sn5z", "helm": "-eB0frmTJss6Uco6ZoM07",
+               # created by push/90 (tnr_results_1791779642866.json); missing from the seed index, so 339's first run
+               # collided on their names
+               "reconstruction_chamber": "81DATu13hATfbkPuLT54E", "quarantined_archive": "aOsaP9cilezNV8DqtTh4y",
+               # created by 339's first run (tnr_results_1793490827321.json)
+               "exterior_keel_walk": "fppGKEMlsyFXtk4Ddp7KI", "command_observation_gallery": "GBoLpiFb6ZwMe1VDYcK1o"}
+SCENE_NEW = {}  # every Ghost Ship scene now has an asset (339's first run created the last two)
 SCENE_PFX = "sg339_scene_"
 SCENE_IMAGES = {f"scene_bg_ghost_ship_{k}.webp": f"art/ghost_ship_skyglass/scene_bg_ghost_ship_{k}.webp" for k in SCENE_NEW}
 
@@ -396,6 +400,9 @@ def use_scene_assets():
     for k in list(G.SCENE):
         G.SCENE[k] = SCENE_ASSET[k] if k in SCENE_ASSET else "@scene:" + SCENE_PFX + k
     assert set(G.SCENE) == set(SCENE_ASSET) | set(SCENE_NEW), set(G.SCENE)
+
+
+RETRY_GOLIVE = 382  # 339's first run failed on the Archive only (two scene-asset name collisions); re-sent alone
 
 
 def golive(bundle, copies):
@@ -417,11 +424,19 @@ def golive(bundle, copies):
         # F05 (RUL-2026-10-31-072 item 8): the re-sent live runs keep their current visibility. A Forge edit is merged
         # over the live record, so leaving `hidden` out keeps whatever it is at run time (never re-hides a published run).
         del q["data"]["hidden"]
+    if RETRY_ONLY:
+        runs = [q for q in runs if q["name"] == "The Quarantined Archive"]
+        edits = []
     body = scene_assets() + phased(edits, 1) + phased(runs, 2)
     missing = set()
     body = resolve_329(body, idmap, missing)
     if missing:
         raise SystemExit("329 creates missing from the results idmap: " + ", ".join(sorted(missing)))
+    if RETRY_ONLY:
+        return write(RETRY_GOLIVE, "skyglass_go_live_archive_retry", (
+            f"push/{RETRY_GOLIVE}: re-sends The Quarantined Archive from go-live 339 alone (339's first run, "
+            "tnr_results_1793490827321.json, failed it on two scene assets whose names already existed live; their ids "
+            "are now literal). Same record as 339 otherwise: break-the-seal, Veteran copies, scene assets."), body)
     write(GO_LIVE, "skyglass_go_live", (
         f"push/{GO_LIVE}, GO-LIVE (RUL-2026-10-30-063 item 1): DO NOT RUN until every other manifest of the Skyglass / "
         "Crownhold event has run (push/README.md lists the preconditions). Built from push/329's results bundle "
