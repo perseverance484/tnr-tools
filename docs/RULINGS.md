@@ -4924,3 +4924,19 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "Already checked, the achievements were bugged as you described. Upstream fix in progress".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5c (Walked Every Deck); `push/README.md` (350/351).
+
+## RUL-2026-10-31-070 — Little Horror: Rot Bite is a 10% damage-given reduction on enemies
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / pets
+
+**Status:** ACTIVE. Amends RUL-2026-10-31-068's Rot Bite.
+
+**Ruling:** Rot Bite becomes **enemies deal 10% less damage** for the whole battle (`decreasedamagegiven` 10%, 30 rounds, on enemies). Poison is dropped: it only deals damage when the target spends chakra or stamina, and most AI jutsu cost little against their pools. A flat pool-cost rise was considered (`increasepoolcost` supports `static`, theninjarpg@3314d122 `libs/combat/util.ts` `calcPoolCost`) and dropped, because poison's damage maths ignores static cost changes (`libs/combat/tags.ts` ~2286, multiplier only). Hungry stays +20% damage dealt.
+
+**Note:** pets fight only in QUEST battles (`PET_BATTLE_CONFIG`, `constants.ts` ~642): the chart runs and the Haul, not the Wreck dungeon or PvP.
+
+**Evidence:** Director, 2026-10-31: "Lets do a different effect if flat cost doesnt work. 10% ddg is fine".
+
+**Canonical destination:** `docs/design/SKYGLASS_PETS.md`; `push/skyglass_pet.gen.py` (push/346).

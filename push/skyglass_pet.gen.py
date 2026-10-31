@@ -118,12 +118,14 @@ def pets_doc_kit():
 
 
 def rot_bite():
-    # Dragon's afterburn 25% row (target INHERIT, skillTarget ENEMIES, percentage, offence), as poison.
-    e = live_row("Dragon", "afterburn", 25)
-    e.update({"type": "poison", "power": 25, "rounds": POISON_ROUNDS_MAX,
-              "description": "Deal damage based on Chakra and Stamina lost",  # PoisonTag's own description
-              "poolsAffected": ["Health", "Chakra", "Stamina"]})               # PoisonTag's prefault, stated
-    assert e["target"] == "INHERIT" and e["skillTarget"] == "ENEMIES" and e["calculation"] == "percentage"
+    # RUL-2026-10-31-070: enemies deal 10% less damage for the whole battle. Built on the Dragon's live
+    # increasedamagetaken 30% row (target SELF, skillTarget ENEMIES, rounds 30, percentage): the same enemy-facing
+    # innate shape, as decreasedamagegiven 10%. (Poison was dropped: it only bites on chakra/stamina spent, and most AI
+    # jutsu cost little against their pools; a flat pool-cost rise was dropped too, since poison ignores static costs.)
+    e = live_row("Dragon", "increasedamagetaken", 30)
+    e.update({"type": "decreasedamagegiven", "power": 10, "description": "Decrease damage given by target"})
+    e.pop("poolsAffected", None)
+    assert e["skillTarget"] == "ENEMIES" and e["calculation"] == "percentage" and e["rounds"] == 30
     return e
 
 
@@ -239,8 +241,8 @@ def main():
     body = [species(), little_maw(), jar()]
     write(os.path.join(ROOT, f"push/{NUM}_skyglass_pet.json"), (
         f"push/{NUM}, HIDDEN, placeholder art (list in _placeholders). RUL-2026-10-31-068. Three creates in build order: "
-        f"the {SPECIES} species (Legendary Assault, isActive:false, innates Rot Bite = poison 25% on enemies for 10 "
-        f"rounds and Hungry = +20% damage given), its signature PETS jutsu {JUTSU} (requiredPetSpeciesId -> the species; "
+        f"the {SPECIES} species (Legendary Assault, isActive:false, innates Rot Bite = enemies deal 10% less damage "
+        f"(30 rounds) and Hungry = +20% damage given), its signature PETS jutsu {JUTSU} (requiredPetSpeciesId -> the species; "
         f"D rank, 60 AP, damage 50 + 10% damage taken for 1 round), and {JAR} (untradeable Legendary consumable granting "
         f"the species). After it runs: record the three ids; the director publishes {JUTSU}; then build push/"
         f"{DEFAULTS_NUM} with --defaults. The jar's id goes to the Wreck drops builder."),
