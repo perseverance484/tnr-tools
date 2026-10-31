@@ -4860,3 +4860,23 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "1. Yes … 3. Raise it … 6. Sure 7. All art gets done before launch 8. Ok".
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` (item 1, once re-simulated); `forge/tools/check_bundle_budget.mjs` (item 2, on the Forge branch); `docs/design/SKYGLASS_LOOT_TABLES.md` (item 3); `push/README.md` (items 4-5); `state/validate_exceptions/344_skyglass_copies_1.json` (item 5).
+
+## RUL-2026-10-31-067 — Skyglass enemies consolidated to three versions per crew member
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / build and balance
+
+**Status:** ACTIVE. Tuning to be confirmed by the re-simulation of RUL-2026-10-31-066 item 1 (one combined pass).
+
+**Ruling:**
+1. **The base version is the live record itself**, tuned for the endgame Wreck: the content it fought in before is being retired, so no Wreck copies are made. The common chart runs use the base records, scaled to the player (`opponent_scaled_to_user`).
+2. **One "Veteran" version per crew member** serves both the Rare chart runs and the Haul guards (the Haul already scales to the player). It replaces the separate rare-chart and Haul guard copies.
+3. **One "Rot-Touched" version** per crew member on the tainted runs.
+4. **One-offs stay:** the Steeping Horror, the Fall's Arsenal Keeper, the three Lingering Echo hazards, the summoned Crown Stonebound.
+5. **Names show the difficulty, pictures are shared:** "Veteran <Name>" and "Rot-Touched <Name>", each with its base record's sprite. Checked free against the captured AI usernames.
+6. The easy (level-45) Wreck's eight versions are undecided (dungeons cannot scale enemies to the player).
+
+**Evidence:** Director, 2026-10-31: "We have like 30+ ai for this event and you're telling me we need more??"; "1. Yes. Give them unique names indicating their difficulty level and we'll use the same pictures".
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` and the harness specs once re-simulated; push/344 is rebuilt to the consolidated list.
