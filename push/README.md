@@ -1408,6 +1408,15 @@ the 20-rule cap; and a false "dead rules" error on the Crowned Captain's uncondi
 through once he stands on the post: theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~482-492). Both need a
 `state/validate_exceptions/` ledger with director acceptance when the manifests are built from the final specs.
 
+## 368 Skyglass chart cards for the five hidden pre-existing charts (5 item edits; records stay HIDDEN): READY TO RUN
+
+`368_skyglass_chart_text.json` (`python3 push/skyglass_chart_text.gen.py`): `description` and `rarity` only for the
+Chart of the Buried Cache, Chart of the Drowned Foundry, Chart of the Quarantined Archive, Chart of the Captain's Watch
+and the Lastlight Lantern, in the approved card format (RUL-2026-10-31-074). These records are hidden (director
+2026-10-31), so the text need not wait for go-live; `hidden` is not sent, so each stays hidden. Values are taken from the
+same edits go-live push/339 builds, which re-sends them unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems. Run any time; verify the five descriptions in the results bundle.
+
 ## 360 Skyglass item text for the hidden records (24 item edits + 1 itemVariant edit; records stay HIDDEN): READY TO RUN
 
 RUL-2026-10-31-074 (director "Approve all", 2026-10-31). `python3 push/skyglass_item_text.gen.py` writes
