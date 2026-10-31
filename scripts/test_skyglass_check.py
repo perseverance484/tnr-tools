@@ -489,6 +489,56 @@ class ReviewRegressions(unittest.TestCase):
                 self.assertTrue(errs)
 
 
+class MultiCache(unittest.TestCase):
+    """An item with two weighted caches states each under its own heading (Crown's Hoard, SKYGLASS_TEXT.md 4.4)."""
+
+    def hoard(self):
+        with open(os.path.join(FIX, "multi_cache.json"), encoding="utf-8") as fh:
+            return json.load(fh)["items"][0]
+
+    def findings(self, item):
+        ch = sc.Checker(sc.Design(ROOT))
+        ch.run("m.json", {"items": [item]}, True)
+        return ch.findings
+
+    def edited(self, old, new):
+        it = self.hoard()
+        self.assertIn(old, it["data"]["description"])
+        it["data"]["description"] = it["data"]["description"].replace(old, new, 1)
+        return it
+
+    def test_fixture_passes_clean(self):
+        self.assertEqual([str(f) for f in self.findings(self.hoard())], [])
+
+    def test_wrong_rate_inside_one_section_is_caught(self):
+        it = self.edited("<b>Common 45%</b>", "<b>Common 69%</b>")
+        self.assertEqual([f.msg for f in errors(self.findings(it))],
+                         ["tier 'Common' stated 69% but the cache weight is 45%"])
+
+    def test_swapped_sections_are_caught(self):
+        it = self.edited("<b>Coffer, 1 roll:</b>", "<b>Treasury, 1 roll:</b>")
+        it["data"]["description"] = it["data"]["description"].replace("<b>Treasury, 3–6 rolls:</b>",
+                                                                      "<b>Coffer, 3–6 rolls:</b>")
+        self.assertTrue(errors(self.findings(it)))
+
+    def test_missing_heading_is_caught(self):
+        it = self.edited("<b>Treasury, 3–6 rolls:</b><br>", "")
+        msgs = [f.msg for f in errors(self.findings(it))]
+        self.assertTrue(any("cache 'Sealed Treasury' needs exactly one" in m for m in msgs), msgs)
+
+    def test_roll_counts_in_headings_are_checked(self):
+        it = self.edited("<b>Coffer, 1 roll:</b>", "<b>Coffer, 2 rolls:</b>")
+        self.assertEqual([f.msg for f in errors(self.findings(it))],
+                         ["heading 'Coffer, 2 rolls:' does not state the cache's fixed roll count (1)"])
+        it = self.edited("<b>Treasury, 3–6 rolls:</b>", "<b>Treasury, 3 rolls:</b>")
+        self.assertEqual([f.msg for f in errors(self.findings(it))],
+                         ["the roll count varies; needs a roll line '3–6 rolls'"])
+
+    def test_always_line_still_checked(self):
+        it = self.edited("150,000 ryo · Skyglass Token", "150,000 ryo")
+        self.assertTrue(any("does not state 'Skyglass Token'" in f.msg for f in errors(self.findings(it))))
+
+
 class Cli(unittest.TestCase):
     def call(self, argv):
         out = io.StringIO()

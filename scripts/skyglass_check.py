@@ -15,7 +15,8 @@ Checks (convention and data: docs/workflows/SKYGLASS_CHECK.md; design data: stat
   win-only    battle objectives carry no reward except the profession flags; no profession flag anywhere has an
               empty id list (empty = the whole pool)
   chest-text  every weighted-cache item's description follows the RUL-2026-10-28-030 format: a coloured line
-              per tier (rate and items), 'Always:' for fixed rewards, a roll line only when the count varies
+              per tier (rate and items), 'Always:' for fixed rewards, a roll line only when the count varies; an
+              item with several caches states each under its own '<b>Label[, n rolls]:</b>' heading
   voice       player-facing text uses none of the story bible's "Never use" words, nor "seven-bladed"
   chart-tier  chart rarity matches its tier (RUL-2026-10-29-058 item 1; was RUL-2026-10-28-028 item 4)
   prof-chest  profession chest rarity (and hunt/gather flags while the design data requires them); a run's
@@ -782,8 +783,43 @@ class Checker:
                 names[other["targetId"]] = od["name"]
         lines = desc_lines(desc)
         self._always_line(f, w, lines, effects, names)
+        if len(caches) == 1:
+            self._cache_text(f, w, lines, caches[0]["weightedCache"], names)
+            return
+        for e, seg in zip(caches, self._cache_segments(f, w, lines, caches)):
+            if seg is not None:
+                self._cache_text(f, w, seg[1], e["weightedCache"], names, heading=seg[0])
+
+    def _cache_segments(self, f, w, lines, caches):
+        """An item with several weighted caches (e.g. Crown's Hoard, SKYGLASS_TEXT.md 4.4) states each under its own
+        heading line '<b>Label[, n rolls]:</b>', where Label is a word of that cache's displayName. Returns, per cache,
+        (heading plain text, the lines after its heading up to the next heading) or None when its heading is missing,
+        ambiguous or already taken by another cache."""
+        fld = "data.description"
+        heads = []
+        for k, (raw, plain) in enumerate(lines):
+            m = re.match(r"\s*<b>\s*([^<]+?)\s*:\s*</b>\s*$", raw)
+            if m and not re.match(r"(Always|Each roll)$", m.group(1), re.I):
+                heads.append((k, m.group(1).split(",")[0].strip()))
+        out, used = [], set()
         for e in caches:
-            self._cache_text(f, w, lines, e["weightedCache"], names)
+            display = (e["weightedCache"].get("displayName") or "").lower().split()
+            hits = [h for h in heads if h[1].lower() in display]
+            if len(hits) != 1 or hits[0][0] in used:
+                self.add("ERROR", "chest-text", f, w, fld,
+                         f"the item has {len(caches)} weighted caches: cache '{e['weightedCache'].get('displayName')}' "
+                         f"needs exactly one '<b><word of its name>…:</b>' heading over its tier lines (found {len(hits)})")
+                out.append(None)
+                continue
+            k = hits[0][0]
+            used.add(k)
+            end = min([h[0] for h in heads if h[0] > k] + [len(lines)])
+            out.append((lines[k][1], lines[k + 1:end]))
+        first = min([h[0] for h in heads] + [len(lines)])
+        for raw, plain in lines[:first]:
+            if TIER_LINE.match(raw):
+                self.add("ERROR", "chest-text", f, w, fld, f"tier line '{plain}' sits under no cache heading")
+        return out
 
     def _always_line(self, f, w, lines, effects, names):
         fld = "data.description"
@@ -832,7 +868,7 @@ class Checker:
                 self.add("ERROR", "chest-text", f, w, fld,
                          f"'Always:' line states '{p}', which the item does not grant on every opening")
 
-    def _cache_text(self, f, w, lines, cache, names):
+    def _cache_text(self, f, w, lines, cache, names, heading=None):
         fld = "data.description"
         totals, order, entries, uses = {}, [], {}, Counter()
         for t in cache.get("tiers") or []:
@@ -896,6 +932,16 @@ class Checker:
         counts = sorted({int(r["count"]) for r in rolls})
         roll_lines = [plain for _, plain in lines if re.search(r"\brolls?\b", plain, re.I)
                       and not re.match(r"\s*Each roll:?\s*$", plain, re.I)]
+        if heading is not None and re.search(r"\brolls?\b", heading, re.I):
+            # A multi-cache item names each cache's rolls in its heading; a fixed count there is required context
+            # (the card's roll line does not say which cache it belongs to), so it is checked, not warned.
+            if len(counts) == 1:
+                m = re.search(r"(?<![\d–-])(\d+)\s+rolls?\b", heading)
+                if not m or int(m.group(1)) != counts[0]:
+                    self.add("ERROR", "chest-text", f, w, fld,
+                             f"heading '{heading}' does not state the cache's fixed roll count ({counts[0]})")
+            else:
+                roll_lines.append(heading)
         if not rolls:
             self.add("ERROR", "chest-text", f, w, "data.effects.weightedCache.rolls", "the cache has no active roll")
         elif len(counts) > 1:
