@@ -123,3 +123,21 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 IC01-IC07 intake 2026-10-31: raws `art/skyglass_event_icons/raw/IC0n_raw_*.png` (unchanged originals; hashes in
 `art/skyglass_event_icons/_provenance/`), processed and recoloured by `state/skyglass_art/ic01_07_intake.py`
 (256 px lossless webp under `art/skyglass_event_icons/exports/`); upload by push/352 (`push/skyglass_chart_icons.gen.py`).
+
+## Profession chests (PC01-PC08; edited by go-live push/339, visible pre-existing items)
+
+Iron = Common, bronze = Rare, silver = Epic; Legendary not yet generated. Intake 2026-10-31:
+`state/skyglass_art/profession_chests_intake.py` (raws `art/skyglass_event_icons/raw/PC0n_raw_*.png`, unchanged; PC01 and
+PC05 came flattened on black, so their outline is rebuilt after a border flood), artpreflight `--type ICON` 0/0 over 6 files.
+The 339 edits pick each image up automatically once its export exists.
+
+| Code | Asset | Type | Folder | Live id | Status |
+|---|---|---|---|---|---|
+| PC01 | Common Hunter's Chest | ICON | (director-generated) | `KwgjMOya2XT6uYsgXbsh6` | PROCESSED (`icon-common-hunters-chest.webp`, go-live push/339) |
+| PC02 | Common Gatherer's Chest | ICON | (director-generated) | `gb6vxdzWTYZR--7s-4kTX` | PROCESSED (`icon-common-gatherers-chest.webp`, go-live push/339) |
+| PC03 | Rare Hunter's Chest | ICON | (director-generated) | `M-0CPw9yBmmreLvJU6gav` | PROCESSED (`icon-rare-hunters-chest.webp`, go-live push/339) |
+| PC04 | Rare Gatherer's Chest | ICON | (director-generated) | see design_data.json | PROCESSED (`icon-rare-gatherers-chest.webp`, go-live push/339) |
+| PC05 | Epic Hunter's Chest | ICON | (director-generated) | `32k2rXF6W-7gn_Fubp4kU` | PROCESSED (`icon-epic-hunters-chest.webp`, go-live push/339) |
+| PC06 | Epic Gatherer's Chest | ICON | (director-generated) | see design_data.json | PROCESSED (`icon-epic-gatherers-chest.webp`, go-live push/339) |
+| PC07 | Legendary Hunter's Chest | ICON | (director-generated) | see design_data.json | TO GENERATE (director) |
+| PC08 | Legendary Gatherer's Chest | ICON | (director-generated) | see design_data.json | TO GENERATE (director) |

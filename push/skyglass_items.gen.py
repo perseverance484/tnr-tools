@@ -98,6 +98,10 @@ assert LIVE["Skyglass Serum"] == cid("Skyglass Serum")
 LIVE["Skyglass Crystal"] = json.load(open(os.path.join(ROOT, "harvests/inbox/tnr_results_1791779642866.json")))["idmap"]["skyglass_crystal"]
 assert _coffer_tiers[2]["entries"][0]["items"][0]["itemId"] == LIVE["Fragment of the Skyglass Crown"]
 
+PROF_ICON = {n: "icon-" + n.lower().replace("'s", "s").replace(" ", "-") + ".webp" for n in (
+    "Common Hunter's Chest", "Rare Hunter's Chest", "Epic Hunter's Chest", "Legendary Hunter's Chest",
+    "Common Gatherer's Chest", "Rare Gatherer's Chest", "Epic Gatherer's Chest", "Legendary Gatherer's Chest")}
+IMAGES.update({f: "art/skyglass_event_icons/exports/" + f for f in PROF_ICON.values()})
 PROF = {  # the eight profession chests (answers/names_item.json; design_data.json profession_chests)
     "H:COMMON": "Common Hunter's Chest", "H:RARE": "Rare Hunter's Chest", "H:EPIC": "Epic Hunter's Chest",
     "H:LEGENDARY": "Legendary Hunter's Chest", "G:COMMON": "Common Gatherer's Chest", "G:RARE": "Rare Gatherer's Chest",
@@ -517,6 +521,9 @@ def profession_chests():
                     "name": f"{name}: tiers Common/Rare/Epic/Legendary (RUL-2026-10-29-058), text",
                     "data": {"rarity": rar, "target": "SELF", "description": desc,
                              "effects": [cache(name, f"{name}: 3-6 rolls of materials", tiers, rolls)]}})
+        icon = PROF_ICON.get(name)
+        if icon and os.path.exists(os.path.join(ROOT, IMAGES[icon])):  # new art (PC01-PC08) once delivered
+            out[-1]["data"]["image"] = "@img:" + icon
     return out
 
 
