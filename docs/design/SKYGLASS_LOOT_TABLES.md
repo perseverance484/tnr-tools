@@ -287,7 +287,7 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 - The common runs (Low Tide Run, Night Watch): 15% on the ending (RUL-2026-10-28-013).
 - The Core Horror's hunt runs: 40% in The Fall, the Rotted Reliquary and the Burning Heading. In hunts the Core Horror carries Core Rot as an AI drop on its quest-battle record (RUL-2026-10-28-013).
 - Breaking the seal: Core Rot ×2, guaranteed.
-- A failed rare-chart run: 1 Core Rot as consolation (RUL-2026-10-28-019).
+- ~~A failed rare-chart run: 1 Core Rot as consolation (RUL-2026-10-28-019)~~: cut by RUL-2026-10-31-080; failed runs pay nothing.
 
 **Titles: deferred** (RUL-2026-10-29-041). The run titles are kept in git history for a later update; Walked Every Deck returns with the Crownbreaker trophy (§5c). Trophies return as skin tokens (§5d, RUL-2026-10-29-047).
 

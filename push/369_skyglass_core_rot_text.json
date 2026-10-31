@@ -1,0 +1,33 @@
+{
+ "_note": "push/369: re-sends the 3 hidden item descriptions changed by RUL-2026-10-31-080 (failed Epic runs no longer pay 1 Core Rot): Reliquary Seal, The Last Heading, Core Rot. description only; records stay hidden. Subset of push/360's regenerated output (push/skyglass_item_text.gen.py); do not hand-edit.",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Reliquary Seal: text (RUL-2026-10-31-074)",
+   "targetId": "sVqDdYUJIxxRYbmKbbxo0",
+   "data": {
+    "description": "<i>The seal of the iron reliquary chained behind the Sealwright, where the echoes the Core could not hold were sealed away.</i><br><br><b>The Sealed Reliquary</b> · Battle Arena<br>Difficulty: ★★★☆☆<br><b>Chance drops:</b> Lastlight Lantern 15% · Sealed Treasury 6% · Warden's Forge-Fists, Sealwright's Seal, The First Blade variants 2% each<br><b>Choose one:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Archive Chart Case ×2<br><b>Steep it:</b> use it from your inventory: 3 Core Rot → a Legendary chart.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "The Last Heading: text (RUL-2026-10-31-074)",
+   "targetId": "s1mYHuKqw2YuzIzxVwU-_",
+   "data": {
+    "description": "<i>The Wayfinder's final course: the night the ship came down, as the Core still replays it.</i><br><br><b>The Fall</b> · Battle Arena<br>Difficulty: ★★★☆☆<br><b>Chance drops:</b> Lastlight Lantern 15% · Core Rot 40% · Sealed Treasury 6% · The Rotted Heading 5% (helm only)<br><b>Choose one:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Galley Stores ×3<br><b>At the end:</b> leave, or climb to the helm for more (lose it and keep only what you held).<br><b>Steep it:</b> use it from your inventory: 3 Core Rot → a Legendary chart.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Core Rot: text (RUL-2026-10-31-074)",
+   "targetId": "KuqLeFB12BdB-0s5O1udk",
+   "data": {
+    "description": "<i>What the Core leaves behind when it rebuilds an impression badly: wet timber, rotten rope and skyglass gone cloudy.</i><br><br><b>Drops:</b> endgame Wreck 15% · Low Tide Run and Night Watch 15% · The Fall and both Legendary chart runs 40% · breaking the Archive's seal (2)<br><b>Steeping:</b> use an Epic chart from your inventory and pay 3 Core Rot. Win the fight for a Legendary chart; lose and the chart comes back, the Rot spent."
+   }
+  }
+ ]
+}
