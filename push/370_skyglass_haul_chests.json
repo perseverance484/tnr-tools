@@ -5,12 +5,14 @@
   "icon-common-hunters-chest.webp": 56434,
   "icon-rare-hunters-chest.webp": 60412,
   "icon-epic-hunters-chest.webp": 58780,
+  "icon-legendary-hunters-chest.webp": 76218,
   "icon-common-gatherers-chest.webp": 59318,
   "icon-rare-gatherers-chest.webp": 62310,
-  "icon-epic-gatherers-chest.webp": 63242
+  "icon-epic-gatherers-chest.webp": 63242,
+  "icon-legendary-gatherers-chest.webp": 70990
  },
  "imagePack": {
-  "ref": "c889994450c6442afc3a90c8ddc62372763c91f1",
+  "ref": "489fb8faa9c201bb482f27996d5ff1f58cdfcd1a",
   "files": {
    "icon-common-hunters-chest.webp": {
     "path": "art/skyglass_event_icons/exports/icon-common-hunters-chest.webp",
@@ -27,6 +29,11 @@
     "sha256": "facc5319afd1f7b5c70a095853e57a8fc9e35bcdcdd575ef3314dbf5ee3e99a5",
     "bytes": 58780
    },
+   "icon-legendary-hunters-chest.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-legendary-hunters-chest.webp",
+    "sha256": "2520191625dbd980770440d2ae9aa10d2104f399861e38aeb74f0a49871205a8",
+    "bytes": 76218
+   },
    "icon-common-gatherers-chest.webp": {
     "path": "art/skyglass_event_icons/exports/icon-common-gatherers-chest.webp",
     "sha256": "3286255a7f323f7abe294b58bddf500193517e0dabe92bfc64dab518c71ca4b7",
@@ -41,6 +48,11 @@
     "path": "art/skyglass_event_icons/exports/icon-epic-gatherers-chest.webp",
     "sha256": "785c0a8ab0a62a5d165901a08a0e181bc13d08ccfa5a1776f841e6bc5120bb4d",
     "bytes": 63242
+   },
+   "icon-legendary-gatherers-chest.webp": {
+    "path": "art/skyglass_event_icons/exports/icon-legendary-gatherers-chest.webp",
+    "sha256": "9182b2d6b978d74014e30d6ca79e5334be49a28c487cfe2e22ae0be0afac2e79",
+    "bytes": 70990
    }
   }
  },
@@ -1469,7 +1481,7 @@
     "repsCost": 0,
     "seichiSilverCost": 0,
     "stackSize": 999,
-    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "image": "@img:icon-legendary-hunters-chest.webp",
     "destroyOnUse": true,
     "range": 0,
     "chakraCost": 0,
@@ -3305,7 +3317,7 @@
     "repsCost": 0,
     "seichiSilverCost": 0,
     "stackSize": 999,
-    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "image": "@img:icon-legendary-gatherers-chest.webp",
     "destroyOnUse": true,
     "range": 0,
     "chakraCost": 0,
