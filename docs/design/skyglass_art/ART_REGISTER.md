@@ -38,19 +38,19 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | VS04 | Thunderwake (variant of Stormrender; was Thunderwake) | ICON (variant) | `13_variant_stormrender` | `_49jp25nHiH-v8ywlRdKH` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-thunderwake.webp`) |
 | VS05 | Anchorline (variant of Oathbinder) | ICON (variant) | `14_variant_oathbinder` | `umsYP0jL3emdVFDdU6Fcd` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-anchorline.webp`) |
 | VS06 | Starfall (variant of Ink of the Void) | ICON (variant) | `15_variant_ink_of_the_void` | `1yWEP0r3elIzyScORfot4` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-starfall.webp`) |
-| VS07 | The Unwritten Order (variant of The Unwritten) | ICON (variant) | `16_variant_the_unwritten` | `3NH-VreJl9TcqqIYiztn_` | TO GENERATE |
+| VS07 | The Unwritten Order (variant of The Unwritten) | ICON (variant) | `16_variant_the_unwritten` | `3NH-VreJl9TcqqIYiztn_` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-the-unwritten-order.webp`) |
 | VS08 | Keelstone (variant of Gaea's Embrace) | ICON (variant) | `17_variant_gaeas_embrace` | `xFyTBqje5M1_68EqRRoBu` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-keelstone.webp`) |
-| VS09 | Skyglass Kote (variant of Warden's Bracers) | ICON (variant) | `18_variant_wardens_bracers` | `_tdmHvPnvlnIMLpRnk9GC` | TO GENERATE |
-| VS10 | Lastlight Duskblade (variant of Eclipsed Dawnblade) | ICON (variant) | `19_variant_eclipsed_dawnblade` | `m7Xqe9cD1oB_2vCj1Zvu5` | TO GENERATE |
-| VS11 | Skysail (variant of Zephyr's Whisper) | ICON (variant) | `20_variant_zephyrs_whisper` | `kD6g1o5qJo3K9r1HeHtiH` | TO GENERATE |
-| VS12 | Hullbreaker (variant of Yuki's Frostbite) | ICON (variant) | `21_variant_yukis_frostbite` | `Iew4QFXyfWLPlPoMgeDrz` | TO GENERATE |
-| VS13 | Captain's Gunbai (variant of The Unwritten) | ICON (variant) | `16_variant_the_unwritten` | `Deo6Y7dNzaPhOAiWK-4I3` | TO GENERATE |
-| VS14 | Rotbloom (variant of Oathbinder) | ICON (variant) | `14_variant_oathbinder` | `dkkdXbwWFOGSw1nemyK7K` | TO GENERATE |
-| VS15 | Forgefists (variant of Warden's Bracers) | ICON (variant) | `18_variant_wardens_bracers` | `3DtT9myjmYY5xNY5mv7Ew` | TO GENERATE |
-| VS16 | Wayfinder (variant of Stormrender) | ICON (variant) | `13_variant_stormrender` | `hkcF8F8RZa71dcLu8im8G` | TO GENERATE |
-| VS17 | The First Blade (variant of Aetherion) | ICON (variant) | `10_variant_aetherion` | `m_CYA2H9XDF_TbMiii8PE` | TO GENERATE |
-| VS18 | Sealscript (variant of Whispering Dawnblade) | ICON (variant) | `22_variant_whispering_dawnblade` | `trSVpt_E_BqOJS1geL_Sn` | TO GENERATE |
-| VS19 | Crownbreaker (variant of Thornsilver) | ICON (variant) | `11_variant_thornsilver` | `dt6BWKCOfuB3mPLl14-CF` | TO GENERATE |
+| VS09 | Skyglass Kote (variant of Warden's Bracers) | ICON (variant) | `18_variant_wardens_bracers` | `_tdmHvPnvlnIMLpRnk9GC` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-skyglass-kote.webp`) |
+| VS10 | Lastlight Duskblade (variant of Eclipsed Dawnblade) | ICON (variant) | `19_variant_eclipsed_dawnblade` | `m7Xqe9cD1oB_2vCj1Zvu5` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-lastlight-duskblade.webp`) |
+| VS11 | Skysail (variant of Zephyr's Whisper) | ICON (variant) | `20_variant_zephyrs_whisper` | `kD6g1o5qJo3K9r1HeHtiH` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-skysail.webp`) |
+| VS12 | Hullbreaker (variant of Yuki's Frostbite) | ICON (variant) | `21_variant_yukis_frostbite` | `Iew4QFXyfWLPlPoMgeDrz` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-hullbreaker.webp`) |
+| VS13 | Captain's Gunbai (variant of The Unwritten) | ICON (variant) | `16_variant_the_unwritten` | `Deo6Y7dNzaPhOAiWK-4I3` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-captains-gunbai.webp`) |
+| VS14 | Rotbloom (variant of Oathbinder) | ICON (variant) | `14_variant_oathbinder` | `dkkdXbwWFOGSw1nemyK7K` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-rotbloom.webp`) |
+| VS15 | Forgefists (variant of Warden's Bracers) | ICON (variant) | `18_variant_wardens_bracers` | `3DtT9myjmYY5xNY5mv7Ew` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-forgefists.webp`) |
+| VS16 | Wayfinder (variant of Stormrender) | ICON (variant) | `13_variant_stormrender` | `hkcF8F8RZa71dcLu8im8G` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-wayfinder.webp`) |
+| VS17 | The First Blade (variant of Aetherion) | ICON (variant) | `10_variant_aetherion` | `m_CYA2H9XDF_TbMiii8PE` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-the-first-blade.webp`) |
+| VS18 | Sealscript (variant of Whispering Dawnblade) | ICON (variant) | `22_variant_whispering_dawnblade` | `trSVpt_E_BqOJS1geL_Sn` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-sealscript.webp`) |
+| VS19 | Crownbreaker (variant of Thornsilver) | ICON (variant) | `11_variant_thornsilver` | `dt6BWKCOfuB3mPLl14-CF` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-crownbreaker.webp`) |
 | JI01 | Lastlight (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | `0F-68bxOXW_LkJnXV0lwT` | TO GENERATE |
 | JI02 | Little Maw (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | - | TO GENERATE |
 | JI03 | The Last Directive (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | `GHFMU_DDKvBBp5BEuTeah` | TO GENERATE |
