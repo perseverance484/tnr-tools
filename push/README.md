@@ -1506,6 +1506,13 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 381 Little Horror text, third pass (1 petSpecies edit): READY TO RUN
+
+`381_skyglass_little_horror_text.json` (`python3 push/skyglass_little_horror_art.gen.py --species`): after the second
+adoption render (three upright crystal posts on its back), the crystal is described as flush barnacle clusters, never
+spikes or a row, and the eyes as always pale skyglass cyan whatever the palette (a player's "Mismatched eyes" trait may
+still override). Gates: `validate.py --strict` 0/0, `check_manifest.mjs` 0.
+
 ## 379-380 Little Horror art pass: READY TO RUN (379), 380 after
 
 `379_skyglass_little_horror_art.json` (`python3 push/skyglass_little_horror_art.gen.py`; RUL-2026-10-31-085): phase 1
