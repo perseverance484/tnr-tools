@@ -1276,14 +1276,14 @@ Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.j
 Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
 and jar.
 
-## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 BUILT, DO NOT RUN until its validate exception is accepted
+## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 BUILT; exceptions accepted (RUL-2026-10-31-065 item 1); DO NOT RUN until the two text gaps are filled and 342 is regenerated
 
 Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Generators: `push/skyglass_library.gen.py`
 (342). Run order and dependencies are listed per manifest; a manifest that needs ids from an earlier unrun one is built
 by a generator mode reading that run's results bundle (the `--binds` / `--golive` / `--retry` pattern, L01), never
 committed before that run.
 
-### 342 Skyglass set-piece library (41 jutsu creates, HIDDEN): BUILT; DO NOT RUN until the director accepts its exception ledger
+### 342 Skyglass set-piece library (41 jutsu creates, HIDDEN): BUILT; exception ledger ACCEPTED (RUL-2026-10-31-065 item 1); DO NOT RUN until the Raise the Gunwale / Called to the Archive text lands and 342 is regenerated
 
 `python3 push/skyglass_library.gen.py` writes `342_skyglass_library.json`.
 - **Contents:** the 36 library records (`library_spec.json`: 12 marks, 9 shared blasts, 6 bespoke signatures, Lowered
@@ -1304,7 +1304,7 @@ committed before that run.
   Command goes to 3 rounds / cooldown 3, still continuous.
 - **Gates:** `check_manifest.mjs` 0 pre-send problems (exit 0). `skyglass_check.py` 0 errors (exit 0).
   `validate.py --strict` **exit 1, 63 diagnostics**, all held by `state/validate_exceptions/342_skyglass_library.json`
-  (`validate_exception.py` exit 0) whose ruling is **PENDING**: law 6 (damage power 140-220; DamageTag power has no
+  (`validate_exception.py` exit 0) whose ruling is **RUL-2026-10-31-065 item 1** (accepted 2026-10-31): law 6 (damage power 140-220; DamageTag power has no
   maximum, as RUL-2026-10-28-002), law 4 / L06 (no `generalTypes`; at 3314d122 an absent list adds no generals term,
   `libs/combat/tags.ts` ~1463, and the harness tuned without it; adding `Highest` raises every blast), L10 (100 AP set
   pieces by the library recipe). Changing any of them changes tuned damage. **Director decision needed** before the run;
