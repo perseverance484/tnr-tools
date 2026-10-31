@@ -185,11 +185,9 @@ ENDING = {
     "burning": TAINTED_END + [drop("Wayfinder's Heading", 4)],
 }
 # A won press-on room: the Night Watch climbs one ladder step (II -> III); The Fall's room drops its tainted chart 5%
-# (loot tables 5, "Pressing on"). OPEN (director): the Rotted Reliquary's Replicant Zero room is "optional and paid
-# extra" (loot tables 5) but no extra is ruled and its ladder is already at VI; until it is, a won room pays the same
-# as leaving (reversible placeholder, listed in the manifest's `_open`).
-PRESS_STEP = {"nightwatch": "III", "fall": "VI", "rotted": "VI"}
-PRESS_EXTRA = {"nightwatch": [], "fall": [drop("The Rotted Heading", 5)], "rotted": []}
+# (loot tables 5, "Pressing on"). The Rotted Reliquary's Replicant Zero room is cut (RUL-2026-10-31-075).
+PRESS_STEP = {"nightwatch": "III", "fall": "VI"}
+PRESS_EXTRA = {"nightwatch": [], "fall": [drop("The Rotted Heading", 5)]}
 # F03 (RUL-2026-10-31-072 item 3): a failed Epic run's 1 Core Rot (RUL-2026-10-28-019) is paid on a dialog step the
 # fail route reaches before the fail ending (the engine pays nothing on fail_quest, theninjarpg@3314d122
 # libs/quest.ts ~1514-1525). Only the Epic runs: the text doc marks only their f_lost "(pays 1 Core Rot)".
@@ -235,9 +233,8 @@ RUNS = {
         "scaled": False, "step": "VI", "pickCount": 2,
         "nodes": [("d_open", "b1"), ("d_pair2", "b2")],
         "fights": {"b1": ["rot:foundry-warden", "rot:sealwright"],
-                   "b2": ["rot:skyglass-sentinel", "rot:first-blade", "oneoff:lingering-echo-i"],
-                   "b_press": ["base:replicant-zero"]},
-        "spec": "rotted", "press": "b_press"},
+                   "b2": ["rot:skyglass-sentinel", "rot:first-blade", "oneoff:lingering-echo-i"]},
+        "spec": "rotted", "press": None},  # Replicant Zero's room cut (RUL-2026-10-31-075)
     "burning": {
         "quest": "The Burning Heading", "chart": "The Rotted Heading", "num": NUM_EPIC, "rank": "S", "scaled": False,
         "step": "VI", "pickCount": 2,
@@ -257,7 +254,7 @@ assert DEBUFF["burning"][0]["type"] == "afterburn" and DEBUFF["burning"][0]["pow
 assert DEBUFF["burning"][0]["rounds"] == TAINT["afterburnRounds"] == 7  # RUL-2026-10-30-062 item 1
 assert GIVE_POOLS["rotted"] == 70
 # Press-on rooms cut by RUL-2026-10-30-060 item 6 (the spec still lists them as "(proposed)", review F20): never built.
-CUT_PRESS_ON = {"lowtide", "reliquary", "burning"}
+CUT_PRESS_ON = {"lowtide", "reliquary", "burning", "rotted"}  # rotted: RUL-2026-10-31-075
 
 SHARED = {"failDescription": "You are defeated.", "drawDescription": "The fight stalls, and the chart's way closes.",
           "fleeDescription": "You break away, and the way back closes behind you."}  # text doc section 2, shared lines
@@ -286,7 +283,8 @@ def cross_check():
         assert len(base) == len(bids), run
         pairs = list(zip(bids, base))
         if run in CUT_PRESS_ON:
-            assert r["press"] is None and all("(proposed)" in f["label"] for f in press), run
+            # cut rooms: the spec marks them "(proposed)", except the Rotted Reliquary's, cut later by RUL-2026-10-31-075
+            assert r["press"] is None and all("(proposed)" in f["label"] or run == "rotted" for f in press), run
         else:
             # (the spec labels The Fall's kept room "(proposed)" too; RUL-060 item 6 decides, not the label)
             assert r["press"] and len(press) == 1, run
@@ -485,14 +483,10 @@ def quest(run, r, ids):
 # ---------------------------------------------------------------------------------------------------------------
 # Manifests
 # ---------------------------------------------------------------------------------------------------------------
-OPEN = [
-    "Rotted Reliquary press-on (Replicant Zero) extra reward: not ruled (loot tables 5: 'optional and paid extra'; "
-    "ladder already VI). Placeholder: a won room pays the same as leaving (PRESS_EXTRA['rotted'] = []).",
-    "questRank: Common runs C, Epic and tainted runs S. Reversible placeholders (review F14: commons at or below B; "
-    "Jonin and above see A, S and H alike).",
-    "The tainted runs pay no failed-run Core Rot (the text doc marks only the Epic runs' f_lost; the harness economy "
-    "counted it on the tainted runs too).",
-]
+# Settled by the director 2026-10-31 (RUL-2026-10-31-075): questRank C for the Common runs and S for the Epic and
+# tainted runs; the tainted runs pay no failed-run Core Rot; the Rotted Reliquary's press-on room is cut.
+DECIDED = ["RUL-2026-10-31-075: questRank C (Common runs) / S (Epic, tainted); tainted runs pay no failed-run Core "
+           "Rot; the Rotted Reliquary's press-on room is cut."]
 
 
 def write(num, slug, note, items, out_dir, extra):
@@ -528,10 +522,7 @@ def build(bundle, keymap, out_dir):
         extra = {"_ai_keys": {k: v for k, v in roster.items() if k in used}, "_copies_bundle": src}
         if GAPS:
             extra["_text_gaps"] = list(GAPS)
-        if num == NUM_EPIC:
-            extra["_open"] = OPEN
-        else:
-            extra["_open"] = [OPEN[1]]
+        extra["_decided"] = DECIDED
         write(num, slug, (
             f"push/{num}: {what}. All HIDDEN, isolated Battle Pyramids entered with the chart (spent at start), a lost "
             "fight fails the run, completion pick (rewardMode choose). Enemies by literal id: base records from the "

@@ -258,7 +258,7 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
   - The echoes fight in pairs: Foundry Warden + Sealwright, then Sentinel + the last echo.
   - Entry at 70% pools (`givePools`).
   - Elemental seal on the player for the first 2 rounds of every fight (`applyDebuffs`).
-  - Press-on room: Replicant Zero (RUL-2026-10-28-013; this replaces the Core Horror room of RUL-2026-10-28-010). It is optional and paid extra.
+  - No press-on room (Replicant Zero's room cut, RUL-2026-10-31-075).
 - **The Burning Heading** (tainted Last Heading)
   - Runs backwards: it starts at the Core Horror as the ship breaks, entered at 70% pools, then fights out through the decks with no refill.
   - Afterburn on the player at the start of every fight.
