@@ -102,6 +102,10 @@ const ais = enemyIds.map((id) => {
     signatureRules: (built.override.signatures as any)[id] ?? null,
     scaleEditedAiNotes: e.notes,
     insertAiSchemaCheck: check.success ? "ok" : check.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).slice(0, 6),
+    // RUL-2026-10-31-077: the hunts fight their own copies (the live crew records become the endgame Wreck version), so
+    // the builder needs the row and rules as fought (same shape as charts_spec newAIs / haul_spec records).
+    fullRow: { ...Object.fromEntries(Object.entries(row).filter(([k, val]) => !RELATIONS.has(k) && !(val && typeof (val as any).getTime === "function"))), jutsus: row.jutsus.map((uj: any) => uj.jutsuId), items: (row.items ?? []).map((ui: any) => ({ itemId: ui.itemId, quantity: ui.quantity, equipped: ui.equipped })) },
+    fullProfile: e.profile,
   };
 });
 

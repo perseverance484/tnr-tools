@@ -1,4 +1,4 @@
-# Skyglass build inputs (harness specs), rule-cap pass
+# Skyglass build inputs (harness specs), rule-cap pass + RUL-2026-10-31-077 records
 
 Generator inputs for `push/skyglass_library.gen.py` (push/342) and the later Skyglass generators. Offline harness
 outputs, zero live requests. Do not hand-edit; regenerate from the harness.
@@ -14,16 +14,22 @@ outputs, zero live requests. Do not hand-edit; regenerate from the harness.
   every spec it emits (`engine/gates.ts`). Checked independently: 122 rule lists, 0 over the cap, 0 gate errors.
 
 The trims and their effects are in `harness/skyglass_wreck_sim/REPORT.md`, section "Rule cap and law-40 gates".
-RUL-2026-10-31-067: only the Faded names are applied; the base / Veteran / Rot-Touched folding is not (measured
-infeasible as specified; REPORT.md §6). Proposed retunes (`overrides/*rulecap_proposed.json`) are **not** in these files.
+**RUL-2026-10-31-077 (adopted here):** the three retunes are in the params these files were built from (endgame Wreck
+Captain pools 9, `overrides/kits_endgame.params.json`; Watch solo Captain pools 2.65, `overrides/hunts.params.rul077.json`;
+Steeping Horror 5 damage rows + 35% damage given down, `overrides/charts.params.rul077.json`), and `records_spec.json` is
+the enemy record table: every AI record the event fights, keyed (`base:`, `live:`, `veteran:`, `haul:`, `common:`,
+`rot:`, `faded:`, `oneoff:`, `copy:`; srcId `sg344_<key with ':' -> '-'>`), one record per measured tuning, with the spec
+entry that holds its row and rules and every fight that uses it (REPORT.md "RUL-2026-10-31-077" subsection). The level-50
+copies are named "Faded <Name>" with a leading "The" dropped ("Faded Captain").
 
 | File | Source (`harness/skyglass_wreck_sim/`, this branch) | Notes |
 |---|---|---|
-| `build_spec.json` | `TNR_SCRIPT=build_kits.ts run.sh --params overrides/kits_endgame.params.json`, then `--version lvl50 --params overrides/kits_lvl50.params.json` | Core Horror and The Captain 20 rules (were 32 / 28); the level-50 copies are named "Faded <Name>" (RUL-2026-10-31-067 item 6) |
-| `hunts_spec.json` | `TNR_SCRIPT=hunts_build.ts run.sh --params overrides/hunts.params.rul060.json --spec-out hunts_spec.json` | regenerated (the copy on main predated the final pass); The Captain at pools 3 (RUL-2026-10-30-060 item 1); Core Horror, The Captain, Wayfinder, Foundry Warden 20 rules |
-| `hunts.params.json` | `overrides/hunts.params.rul060.json` | final-pass hunt stats + RUL-060 item 1 |
-| `charts_spec.json` | `TNR_SCRIPT=charts_main.ts run.sh --params overrides/charts.params.rul060.json --spec-out charts_spec.json` | carries `fullRow` / `fullProfile` (the former `specout_full.patch`, now committed in `engine/charts_main.ts` and `engine/haul_main.ts`) |
+| `build_spec.json` | `TNR_SCRIPT=build_kits.ts run.sh --params overrides/kits_endgame.params.json`, then `--version lvl50 --params overrides/kits_lvl50.params.json` | Core Horror and The Captain 20 rules; endgame Captain pools 9 (RUL-077); the level-50 copies are the Faded tier ("Faded Captain") |
+| `hunts_spec.json` | `TNR_SCRIPT=hunts_build.ts run.sh --params overrides/hunts.params.rul077.json --spec-out hunts_spec.json` | The Captain at pools 2.65 (RUL-2026-10-31-077); every AI carries `fullRow` / `fullProfile` (the hunts fight their own Veteran copies) |
+| `hunts.params.json` | `overrides/hunts.params.rul077.json` | final-pass hunt stats + RUL-060 item 1, with the Captain at 2.65 (RUL-077) |
+| `charts_spec.json` | `TNR_SCRIPT=charts_main.ts run.sh --params overrides/charts.params.rul077.json --spec-out charts_spec.json` | carries `fullRow` / `fullProfile` for `newAIs` and, new, `liveRecords` (the live records a run fights: the Fall's and the Burning Heading's crew, the Captain as ally); Steeping Horror 5 rows + 35% down (RUL-077) |
 | `charts.params.rul060.json` | `overrides/charts.params.rul060.json` | unchanged from main |
+| `records_spec.json` | `python3 harness/skyglass_wreck_sim/tools/records.py` (reads the four specs above and the captured AI usernames in `harvests/`) | RUL-2026-10-31-077 record table: 65 records (9 base = live, 4 live non-crew, 52 new copies); checks the cap and law-40 gates on every record, unique usernames, and that shared records are identical |
 | `haul_spec.json` | `TNR_SCRIPT=haul_main.ts run.sh --spec-out haul_spec.json` (default params = the 6ad2a102 fit, merged here) | the 24 steeped variants trimmed from `graphs` / `counts`, as on main. **Guards are fixed level-100 records** (director 2026-10-31): every battle objective has `opponent_scaled_to_user: false`, each record `level: 100` with its `atLevel100` values |
 | `crowned_captain_spec.json` | `TNR_SCRIPT=crowned_captain.ts run.sh --write-spec crowned_captain_spec.json --seeds 0` | 20 rules (were 40), cut by his measured rule use |
 | `crownhold_spec.json` | `TNR_SCRIPT=crownhold.ts run.sh --write-spec crownhold_spec.json` | Crown Armsmaster 20 (were 30), The Second 20 (were 28) |

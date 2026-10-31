@@ -13,10 +13,11 @@
    "horrorPools": 5,
    "horrorRows": 4,
    "horrorPhase2": 70,
-   "captainPools": 7.5,
+   "captainPools": 9,
    "captainRows": 1,
    "sealPools": 2.6,
-   "sealRows": 3
+   "sealRows": 3,
+   "_rul077": "RUL-2026-10-31-077 item 1: the Captain's endgame pools 7.5 -> 9 (rule-cap pass: 19.2% runs with a wipe, 23.0 min over 120 runs; was 10.8% at 7.5)."
   },
   "floors": [
    {
@@ -666,11 +667,11 @@
     "level": 100,
     "rank": "JONIN",
     "statsMultiplier": 5,
-    "poolsMultiplier": 7.5,
+    "poolsMultiplier": 9,
     "pools": {
-     "maxHealth": 37875,
-     "maxChakra": 37875,
-     "maxStamina": 37875
+     "maxHealth": 45450,
+     "maxChakra": 45450,
+     "maxStamina": 45450
     },
     "stats": {
      "offence": 1391300,
@@ -708,7 +709,7 @@
     ],
     "scaleEditedAiNotes": [
      "new enemy cloned from The Captain",
-     "override aiEdit {\"poolsMultiplier\":7.5} via scaleEditedAi",
+     "override aiEdit {\"poolsMultiplier\":9} via scaleEditedAi",
      "kit -> 17 jutsu"
     ],
     "insertAiSchemaCheck": "ok"
@@ -1458,7 +1459,7 @@
      "liveAi": "The Captain",
      "liveAiId": "QY69h271Nx9uHrBeR6jwW"
     },
-    "username": "Faded The Captain",
+    "username": "Faded Captain",
     "level": 50,
     "rank": "JONIN",
     "statsMultiplier": 1,
