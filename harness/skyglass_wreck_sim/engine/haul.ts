@@ -14,7 +14,8 @@
  * quest state-graph generator (`buildGraph`) whose JSON feeds the quest generator later.
  *
  * Guards are stat copies (placeholder ids `haul-*`) of records the harness already fights with: same kit and rules,
- * their own statsMultiplier / poolsMultiplier / innate rows. All Haul fights are opponent_scaled_to_user.
+ * their own statsMultiplier / poolsMultiplier / innate rows. Haul guards are fixed level-100 records (director 2026-10-31:
+ * the Haul does not scale to the player; haul_main.ts --scaled restores opponent_scaled_to_user).
  */
 import { tag } from "./kitlib";
 import { LIVE } from "./hunts";
