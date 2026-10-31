@@ -431,7 +431,7 @@ def pet_and_rot():
 VARIANT_RENAMES = {  # name created by 329/341 -> current name
     "Gale-Watch Aetherion": "Windward", "Tidewater Thornsilver": "Riptide", "Night Watch Testament": "Nightreaver",
     "Mast-Lightning Stormrender": "Thunderwake", "Roll-Call Oathbinder": "Anchorline",
-    "Chartline Ink of the Void": "Starchart", "Keelstone Embrace": "Keelstone", "Drill-Count Bracers": "Skyglass Kote",
+    "Chartline Ink of the Void": "Starfall", "Keelstone Embrace": "Keelstone", "Drill-Count Bracers": "Skyglass Kote",
     "Lastlight Dawnblade": "Lastlight Duskblade", "Skysail Whisper": "Skysail", "Hullbreaker Frostbite": "Hullbreaker",
     "Captain's Command Fan": "Captain's Gunbai", "Rot-Bloom Reaper": "Rotbloom", "Warden's Forge-Fists": "Forgefists",
     "Wayfinder's Heading": "Wayfinder", "Sealwright's Seal": "Sealscript",
