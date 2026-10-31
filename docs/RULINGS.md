@@ -5175,3 +5175,17 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "Hexweave. Approve" (in reply to the 344/361 approval request).
 
 **Canonical destination:** the three ledgers; `push/skyglass_aikeys.py`; `docs/design/skyglass_art/ART_REGISTER.md` (AN05).
+
+## RUL-2026-10-31-084 — push/364 exceptions accepted
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / build
+
+**Status:** ACTIVE.
+
+**Ruling:** The four diagnostics in `state/validate_exceptions/364_crownhold_captain_rework.json` are accepted: law 41 on the Crowned Captain, Crown Armsmaster and The Second at the 20-rule cap (the engine appends the end turn), and the "every rule below it is dead" flag on the Crowned Captain's move_towards_opponent rule, a validator false positive (the move sets an action only when the target is more than one hex away, theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~482-492). The kit is the one fought on `fable/skyglass-rule-cap`.
+
+**Evidence:** Director, 2026-10-31: "Approve 364".
+
+**Canonical destination:** the ledger; a validator fix for the move_towards_opponent false positive is a later Lane A task.
