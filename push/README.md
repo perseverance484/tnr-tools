@@ -1276,6 +1276,42 @@ Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.j
 Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
 and jar.
 
+## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 BUILT, DO NOT RUN until its validate exception is accepted
+
+Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Generators: `push/skyglass_library.gen.py`
+(342). Run order and dependencies are listed per manifest; a manifest that needs ids from an earlier unrun one is built
+by a generator mode reading that run's results bundle (the `--binds` / `--golive` / `--retry` pattern, L01), never
+committed before that run.
+
+### 342 Skyglass set-piece library (41 jutsu creates, HIDDEN): BUILT; DO NOT RUN until the director accepts its exception ledger
+
+`python3 push/skyglass_library.gen.py` writes `342_skyglass_library.json`.
+- **Contents:** the 36 library records (`library_spec.json`: 12 marks, 9 shared blasts, 6 bespoke signatures, Lowered
+  Guard, 6 crew additions, Steady the Helm, Echo of Erupting Ground), Raise the Gunwale (`build_spec.json`), Called to the
+  Archive (Crown Stonebound summon at 40%, `hunts.params.json`) and Spreading Fire I-III (`charts_spec.json`). All
+  `jutsuType: AI`, hidden, engine-default image (RUL-2026-10-30-061 item 6).
+- **Text:** names and battle lines from SKYGLASS_TEXT.md 6.4 (RUL-2026-10-31-064 item 4), 6.3 (Steady the Helm), the
+  Spreading Fire lines and the Ward of Command fix; marks and shared blasts take 6.4's shared descriptions; records the
+  text doc keeps take the harness text. **Text gaps (`_text_gaps`):** Raise the Gunwale and Called to the Archive have
+  no text in SKYGLASS_TEXT.md and are created with EMPTY description and battle text (reversible) until the director
+  supplies it.
+- **Animations:** `tg_*` marks use the live push/320 tiles and glints, `dt_heavy`/`dt_linger` the live Eruption blast;
+  the 20 other symbolic names (boss strips not uploaded, strips that need art) are left empty and listed in
+  `_placeholders` for the visual-asset push.
+- **Cooldown floor (`_cooldown_floor`):** Forge refuses any jutsu with cooldown below 3 (L16). The 15 blasts and
+  signatures go 2 -> 3, which changes nothing in battle (each fires only the turn after its own mark, every mark has
+  cooldown >= 3, readiness is `roundsPassed >= cooldown`, theninjarpg@3314d122 `libs/combat/actions.ts` ~331). Ward of
+  Command goes to 3 rounds / cooldown 3, still continuous.
+- **Gates:** `check_manifest.mjs` 0 pre-send problems (exit 0). `skyglass_check.py` 0 errors (exit 0).
+  `validate.py --strict` **exit 1, 63 diagnostics**, all held by `state/validate_exceptions/342_skyglass_library.json`
+  (`validate_exception.py` exit 0) whose ruling is **PENDING**: law 6 (damage power 140-220; DamageTag power has no
+  maximum, as RUL-2026-10-28-002), law 4 / L06 (no `generalTypes`; at 3314d122 an absent list adds no generals term,
+  `libs/combat/tags.ts` ~1463, and the harness tuned without it; adding `Highest` raises every blast), L10 (100 AP set
+  pieces by the library recipe). Changing any of them changes tuned damage. **Director decision needed** before the run;
+  regenerate and `--write` the ledger whenever 342 changes.
+- **After it runs:** keep the results bundle; push/343 (the AI copies) is built from it
+  (`--library <342 bundle>`), since an AI's jutsu array needs literal ids (law 17).
+
 ## 320 Skyglass danger-language assets (10 asset creates, HIDDEN): RUN (bundle tnr_results_1793211363293.json: 10/10 ok; ids in `state/skyglass_fx/asset_ids.json`), archived
 
 Director 2026-10-28: marks play under the characters; "We'll double check with a push". Built by

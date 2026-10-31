@@ -1,0 +1,28 @@
+diff --git a/harness/skyglass_wreck_sim/engine/charts_main.ts b/harness/skyglass_wreck_sim/engine/charts_main.ts
+index d738c46c..78128996 100644
+--- a/harness/skyglass_wreck_sim/engine/charts_main.ts
++++ b/harness/skyglass_wreck_sim/engine/charts_main.ts
+@@ -351,6 +351,9 @@ if (specOut) {
+       effects: row.effects.map((x: any) => `${x.type} ${x.power}${x.calculation === "percentage" ? "%" : ""}`),
+       jutsu: row.jutsus.map((uj: any) => ({ id: uj.jutsuId, name: uj.jutsu.name })), rules: e.profile.rules.map((r: any) => ({ when: r.conditions, do: { type: r.action.type, jutsuId: r.action.jutsuId, target: r.action.target }, note: r.action.description })),
+       insertAiSchema: check.success ? "pass" : check.error.issues.slice(0, 3).map((i: any) => `${i.path.join(".")}: ${i.message}`),
++
++      fullRow: { ...Object.fromEntries(Object.entries(row).filter(([k, val]) => !RELATIONS.has(k) && !(val && typeof (val as any).getTime === "function"))), jutsus: row.jutsus.map((uj: any) => uj.jutsuId), items: (row.items ?? []).map((ui: any) => ({ itemId: ui.itemId, quantity: ui.quantity, equipped: ui.equipped })) },
++      fullProfile: e.profile,
+     };
+   }
+   const jutsu: any = {};
+diff --git a/harness/skyglass_wreck_sim/engine/haul_main.ts b/harness/skyglass_wreck_sim/engine/haul_main.ts
+index 15fb079d..7053c493 100644
+--- a/harness/skyglass_wreck_sim/engine/haul_main.ts
++++ b/harness/skyglass_wreck_sim/engine/haul_main.ts
+@@ -450,6 +450,9 @@ if (opt("spec-out")) {
+       rulesNote: COPY_NOTES[k], jutsu: row.jutsus.map((uj: any) => ({ id: uj.jutsuId, name: uj.jutsu?.name })),
+       rules: e.profile.rules.map((r: any) => ({ when: r.conditions, do: { type: r.action.type, jutsuId: r.action.jutsuId, target: r.action.target }, note: r.action.description })),
+       insertAiSchema: issues.length ? issues.slice(0, 3).map((i: any) => `${i.path.join(".")}: ${i.message}`).join("; ") : "pass",
++
++      fullRow: { ...Object.fromEntries(Object.entries(row).filter(([kk, val]) => !RELS.has(kk) && !(val && typeof (val as any).getTime === "function"))), jutsus: row.jutsus.map((uj: any) => uj.jutsuId), items: (row.items ?? []).map((ui: any) => ({ itemId: ui.itemId, quantity: ui.quantity, equipped: ui.equipped })) },
++      fullProfile: e.profile,
+     };
+   }
+   const graphs: any = {};
