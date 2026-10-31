@@ -299,6 +299,7 @@ GO_LIVE_ITEM_EDITS = {
 # Manifest numbers. push/330, 332 and 337 belong to another workstream (Zombie Outbreak); the binds and go-live
 # manifests were 330 and 331 until 2026-10-31 and are now 338 and 339; the badge is 340.
 BINDS, GO_LIVE, BADGE = 338, 339, 340
+RETRY = 341  # 329 entries that failed on the run, re-sent alone with literal ids (first: Roll-Call Oathbinder's order)
 BADGE_SRC = "sg340_crownbreaker_badge"
 BADGE_IMAGES = {"icon-badge-crownbreaker-v2.webp": "art/crownhold/icon-badge-crownbreaker-v2.webp"}
 # Director-approved description (RUL-2026-10-31-064 item 3, 2026-10-31: no "crown", simple and elegant).
@@ -372,7 +373,26 @@ def binds(bundle):
         "token (all hidden) could unlock any token variant without a required item."), IT.bind_edits(b.get("idmap") or {}))
 
 
+def retry(bundle):
+    """Re-send the 329 entries whose srcId has no id in 329's results (they failed), refs resolved to literal ids."""
+    b = json.load(open(bundle))
+    idmap = b.get("idmap") or {}
+    m = json.load(open(os.path.join(ROOT, "push/329_skyglass_items_and_quests.json")))
+    failed = [e for e in m["items"] if e.get("srcId") and not idmap.get(e["srcId"])]
+    assert failed, "every 329 entry has an id: nothing to retry"
+    assert all(e["slot"] == "create" for e in failed), "only creates can be retried this way"
+    missing = set()
+    body = resolve_329(failed, idmap, missing)
+    if missing:
+        raise SystemExit("329 refs missing from the results idmap: " + ", ".join(sorted(missing)))
+    write(RETRY, "skyglass_329_retry", (
+        f"push/{RETRY} (after 329, from its results bundle " + os.path.basename(bundle) + "): the 329 creates that failed "
+        "on the run, re-sent alone with literal ids (L01). " + "; ".join(e["name"] for e in failed) + "."), body)
+
+
 def main():
+    if len(sys.argv) > 2 and sys.argv[1] == "--retry":
+        return retry(sys.argv[2])
     if len(sys.argv) > 2 and sys.argv[1] == "--binds":
         return binds(sys.argv[2])
     if len(sys.argv) > 1 and sys.argv[1] == "--badge":

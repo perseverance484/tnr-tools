@@ -438,6 +438,12 @@ for _f in glob.glob(os.path.join(ROOT, "harvests/inbox/tnr_results_1793364924712
         if _c.get("proc") == "item.getItemVariants":
             for _v in _c.get("data") or []:
                 TAKEN_ORDERS.setdefault(_v["itemId"], set()).add(_v["order"])
+# The capture above read VARIANT_TOKEN variants only. Non-token variants hold orders too: push/329's run refused Roll-Call
+# Oathbinder at order 1, held by "Headless Rider's Scythe" (DmhRWpw13MbjnTPs4s12h; results tnr_results_1793424666625.json),
+# and the Rot-Bloom Reaper was then created at order 2. Roll-Call is pinned to order 3 so a regenerated 329 still matches
+# the live orders; it is re-sent alone by the retry manifest (push/skyglass_update.gen.py --retry).
+TAKEN_ORDERS.setdefault("ttwbJ6ZA5Id-OuBludM27", set()).add(1)  # Oathbinder: Headless Rider's Scythe
+ORDER_OVERRIDE = {"Roll-Call Oathbinder": 3}
 BASE_IDS = {"Whispering Dawnblade": "mqCCZGSfXUNL02B4H6C9R"}  # RUL-2026-10-30-060 item 8 (verified against the capture below)
 
 
@@ -452,9 +458,10 @@ def base_id(label):
 def variants():
     out, binds, used = [], [], {}
 
-    def order(item):
+    def order(item, name=None):
         taken = TAKEN_ORDERS.get(item, set()) | used.setdefault(item, set())
-        o = next(k for k in range(1, 8) if k not in taken)
+        o = ORDER_OVERRIDE.get(name) or next(k for k in range(1, 8) if k not in taken)
+        assert o not in taken, (name, o)
         used[item].add(o)
         return o
 
@@ -463,7 +470,7 @@ def variants():
         src = PFX + "var_" + name.lower().replace("'", "").replace(" ", "_").replace("-", "_")
         out.append({"entity": "itemVariant", "slot": "create", "srcId": src, "phase": 2, "name": name,
                     "data": {"itemId": item, "name": name, "image": PLACEHOLDER, "requiredItemId": "@item:" + NEW["Skyglass Token"],
-                             "costType": "VARIANT_TOKEN", "cost": 1, "order": order(item), "description": desc,
+                             "costType": "VARIANT_TOKEN", "cost": 1, "order": order(item, name), "description": desc,
                              "hidden": True}})
     tok = {r[0]: r for r in VT}
     for base, name, desc, _art in BOSS:
@@ -472,7 +479,7 @@ def variants():
         src = NEW[name].replace(PFX, PFX + "var_")
         out.append({"entity": "itemVariant", "slot": "create", "srcId": src, "phase": 2, "name": name,
                     "data": {"itemId": item, "name": name, "image": PLACEHOLDER, "requiredItemId": "@item:" + NEW[name],
-                             "costType": "VARIANT_TOKEN", "cost": 1, "order": order(item), "description": desc,
+                             "costType": "VARIANT_TOKEN", "cost": 1, "order": order(item, name), "description": desc,
                              "hidden": True}})
         # Step 3 of a 1:1 token (pipeline 2.10): bind the token to its variant once the variant exists. The edit needs
         # literal ids (L01), so it is built from this manifest's results bundle (bind_edits).
