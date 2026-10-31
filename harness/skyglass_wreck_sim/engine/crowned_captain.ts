@@ -134,20 +134,18 @@ export const ccRecords = (P: CCParams) => {
 const PLAYER = "CLOSEST_OPPONENT";
 const M = MARKER_TYPES;
 /**
- * Rule cap (RUL-2026-10-31-066: the server takes at most 20 rules; this list had 40). Kept: every set piece behind its
- * marker, the throne walk, the three phases and every move the design names except Stolen Form and Hexweave (Cursed
- * Thread Weave), plus the two live fillers that carry phase 1's damage (Scorching Rend; Devouring Grasp is cut).
- * - After-mark blocks: one end turn per mark that another mark could follow in the same turn (Shardstorm A in phase 3,
- *   Command Absolute in phase 2). A mark that is the last one its phase can lay needs none (any earlier mark already
- *   failed this turn and still fails): Shardstorm B ends on the phase-3 end turn; Crownfall's lines are followed by
- *   the next duel move. The after-mark basic attack (adjacent only) is gone.
- * - Phase 2 no longer ends its turn on its own list: after Command Absolute, Recall and Extermination Order it falls
- *   through to the phase-1 list (Crownfall, then the duel moves), so the duplicate phase-2 Crownfall mark goes.
- * - Cut (live leftovers outside the design, measured damage share from results/crowned_captain_tuned.json):
- *   Veilstep, both Countermand item rules, all three Purging Stance rules, Wind Spear (0%), Solar Bow (3.3%),
- *   Devouring Grasp (9.6%), Cursed Thread Weave (4.1%), Stolen Form (0%), and the explicit last end turn (the engine
- *   appends the same rule).
- * The phase3Extermination / phase2Fillers / phase2Lines / afterMarkAttack knobs no longer apply.
+ * Rule cap (RUL-2026-10-31-066: the server takes at most 20 rules; this list had 40). The phase structure and order are
+ * the final pass's; cuts follow his measured use (22 traced solo fights, old rules, law-40 gates: Lines 44, Scatter 41,
+ * Crownfall 38, Command Absolute marks 31, The Crown's Will 22, Purging Stance 21, Last Directive 17, Recall 17,
+ * Stolen Form 15, Extermination Order 12, Countermand 12, Cursed Thread Weave 6, end turns 147; never cast: Keelbind,
+ * Ruin Refrain, Scorching Rend, Devouring Grasp, Wind Spear, Veilstep, Solar Bow).
+ * - After every mark the turn ends, as before; the after-mark basic attack (adjacent only) is gone. Shardstorm B needs
+ *   no end turn of its own: it is phase 3's last mark and the phase-3 end turn follows it.
+ * - Cut: the never-cast moves above, all three Purging Stance rules, both Countermand rules, Stolen Form, Cursed
+ *   Thread Weave (6 casts), and the explicit last end turn (the engine appends the same rule).
+ * A first cut (kept the never-cast duel fillers, merged phase 2 into phase 1, no end turn after Crownfall's mark) made
+ * him far deadlier (solo dodge on 100% -> 72%; every clean / alert Crownhold chain lost at him). Not used.
+ * The phase3Extermination / phase2Fillers / afterMarkAttack knobs no longer apply; phase2Lines stays.
  */
 export const ccRules = (P: CCParams) => [
   // Blasts first: the marker left by last turn's mark.
@@ -158,25 +156,25 @@ export const ccRules = (P: CCParams) => [
   ...(P.alarmStrike ? [R.jutsu(P.alarmStrike, PLAYER, [C.tHas("increasedamagetaken", 10), C.round(3), C.near(5)])] : []),
   // The throne (a no-op once there; before any mark, so Lines are laid from it).
   R.moveTo(P.throne),
-  // After a mark that another mark could follow this turn: end turn (never two marks in a turn).
+  // After a mark: end turn (never two marks in a turn).
   R.end([C.has(M.scatterA)]),
   R.end([C.has(M.lastLightBinding)]),
+  R.end([C.has(M.lines)]),
   // Phase 3 (under 30%): the Last Directive; Shardstorm marks (A, then B while A cools down).
   R.jutsu(ID.lastDirective, "SELF", [C.hb(30)]),
   R.jutsu(LIB.mark.scatterA, "SELF", [C.hb(30)]),
   R.jutsu(LIB.mark.scatterB, "SELF", [C.hb(30)]),
   R.end([C.hb(30)]),
-  // Phase 2 (60-30%): Command Absolute, Recall, Extermination Order; then the phase-1 list.
+  // Phase 2 (60-30%)
   R.jutsu(LIB.mark.lastLightBinding, "SELF", [C.hb(60)]),
   R.jutsu(ID.recall, P.recallTarget, [C.hb(60), C.noSummon()]),
+  ...(P.phase2Lines ? [R.jutsu(LIB.mark.lines, "SELF", [C.hb(60)])] : []),
   R.jutsu(ID.extermination, PLAYER, [C.hb(60), C.near(5)]),
+  R.end([C.hb(60)]),
   // Phase 1 (100-60%): the duelist.
   R.jutsu(ID.crownsWill, "SELF", [C.round(2)]),
   R.jutsu(LIB.mark.lines, "SELF", []),
   R.jutsu(ID.finalCommand, PLAYER, [C.near(4)]),
-  R.jutsu(ID.keelbind, PLAYER, [C.near(5)]),
-  R.jutsu(ID.ruinRefrain, PLAYER, [C.near(5)]),
-  R.jutsu(ID.scorchingRend, PLAYER, [C.near(5)]),
 ];
 export const CC_LIBRARY_USED = [LIB.mark.lines, LIB.sig.crownfall, LIB.mark.lastLightBinding, LIB.sig.commandAbsolute, LIB.mark.scatterA, LIB.mark.scatterB, LIB.blast.scatterA, LIB.blast.scatterB];
 export const ccKit = () => [
