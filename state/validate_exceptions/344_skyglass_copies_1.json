@@ -1,0 +1,18 @@
+{
+ "manifest": "push/344_skyglass_copies_1.json",
+ "ruling": "PENDING: no ruling yet; director acceptance needed before the run (same stale diagnostic as RUL-2026-10-25-009 / RUL-2026-10-25-013)",
+ "reason": "validate.py law 14 / L05 demands preferredStat on every AI create; the game's AI schema no longer has preferredStat (migration 0056) and Forge refuses the key (RUL-2026-10-25-009; Lane A fix brief state/prompt_validate_stale_rules.md). Every other check passes: check_manifest.mjs 0 pre-send problems.",
+ "sha256": "b6d573145c8929435a45408bd53c39d22fb0591dcb6fdf1ffdd01b23a224595f",
+ "accepted": [
+  "ERROR  [ai:Core Canister (Haul)]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Crown Stonebound (Summoned)]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Lingering Echo III]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Lingering Echo II]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Lingering Echo I]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Seal Charge (Chart)]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Seal Charge (Easy Wreck)]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Seal Charge (Haul)]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Seal Charge (Wreck)]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Stores Ward]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)"
+ ]
+}
