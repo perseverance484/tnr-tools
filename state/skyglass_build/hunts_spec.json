@@ -2390,12 +2390,6 @@
      "liveId": "nOYLPmN3TXj6wEe_oE6HQ"
     },
     {
-     "id": "lib-omen-scatter-a",
-     "name": "Omen: Scatter",
-     "status": "NEW",
-     "source": "shared set-piece library (engine/library.ts, library_spec.json; lib-* id is a placeholder)"
-    },
-    {
      "id": "pUrUJX8Jml7fUIBXKsPwv",
      "name": "Heavy Strike",
      "status": "LIVE",
@@ -2410,11 +2404,10 @@
      "liveId": "LiVOnYq6qHzjB0XkIIA2e"
     },
     {
-     "id": "3v9c1SHlD2GLPF2HW1_Sc",
-     "name": "Twin Kunai",
-     "status": "LIVE",
-     "source": "live record 3v9c1SHlD2GLPF2HW1_Sc",
-     "liveId": "3v9c1SHlD2GLPF2HW1_Sc"
+     "id": "lib-omen-scatter-a",
+     "name": "Omen: Scatter",
+     "status": "NEW",
+     "source": "shared set-piece library (engine/library.ts, library_spec.json; lib-* id is a placeholder)"
     },
     {
      "id": "lib-omen-last-light",
@@ -2565,6 +2558,182 @@
     {
      "index": 6,
      "from": "shared dg-core-horror rule 6",
+     "note": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 7,
+     "from": "shared dg-core-horror rule 7",
+     "note": "after lib-omen-ring: Bilge Spit (live Venom Strike)",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-ring: Bilge Spit (live Venom Strike)",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 8,
+     "from": "shared dg-core-horror rule 8",
+     "note": "after lib-omen-ring: end turn",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "after lib-omen-ring: end turn"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 9,
+     "from": "shared dg-core-horror rule 9",
+     "note": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 10,
+     "from": "shared dg-core-horror rule 10",
+     "note": "after lib-omen-last-light: Bilge Spit (live Venom Strike)",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-last-light: Bilge Spit (live Venom Strike)",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 11,
+     "from": "shared dg-core-horror rule 11",
+     "note": "after lib-omen-last-light: end turn",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "after lib-omen-last-light: end turn"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 12,
+     "from": "shared dg-core-horror rule 12",
+     "note": "after lib-omen-scatter-a: end turn",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "after lib-omen-scatter-a: end turn"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 13,
+     "from": "shared dg-core-horror rule 13",
+     "note": "after lib-omen-scatter-b: end turn",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "after lib-omen-scatter-b: end turn"
+     },
+     "aiRule": "ok"
+    },
+    {
+     "index": 14,
+     "from": "shared dg-core-horror rule 14",
      "note": "Omen: Scatter A (phase 2)",
      "conditions": [
       {
@@ -2582,140 +2751,8 @@
      "aiRule": "ok"
     },
     {
-     "index": 7,
-     "from": "shared dg-core-horror rule 7",
-     "note": "Splintered Grasp (live Heavy Strike)",
-     "conditions": [
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 4,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Splintered Grasp (live Heavy Strike)",
-      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
-      "target": "CLOSEST_OPPONENT"
-     },
-     "aiRule": "ok"
-    },
-    {
-     "index": 8,
-     "from": "shared dg-core-horror rule 8",
-     "note": "Bilge Spit (live Venom Strike)",
-     "conditions": [
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 6,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Bilge Spit (live Venom Strike)",
-      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-      "target": "CLOSEST_OPPONENT"
-     },
-     "aiRule": "ok"
-    },
-    {
-     "index": 9,
-     "from": "shared dg-core-horror rule 9",
-     "note": "Twin Kunai",
-     "conditions": [
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 6,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Twin Kunai",
-      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-      "target": "CLOSEST_OPPONENT"
-     },
-     "aiRule": "ok"
-    },
-    {
-     "index": 10,
-     "from": "shared dg-core-horror rule 10",
-     "note": "after lib-omen-ring: end turn",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "increasecooldown",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "end_turn",
-      "description": "after lib-omen-ring: end turn"
-     },
-     "aiRule": "ok"
-    },
-    {
-     "index": 11,
-     "from": "shared dg-core-horror rule 11",
-     "note": "after lib-omen-scatter-a: end turn",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "robprevent",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "end_turn",
-      "description": "after lib-omen-scatter-a: end turn"
-     },
-     "aiRule": "ok"
-    },
-    {
-     "index": 12,
-     "from": "shared dg-core-horror rule 12",
-     "note": "after lib-omen-scatter-b: end turn",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "onehitkillprevent",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "end_turn",
-      "description": "after lib-omen-scatter-b: end turn"
-     },
-     "aiRule": "ok"
-    },
-    {
-     "index": 13,
-     "from": "shared dg-core-horror rule 13",
-     "note": "after lib-omen-last-light: end turn",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "summonprevent",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "end_turn",
-      "description": "after lib-omen-last-light: end turn"
-     },
-     "aiRule": "ok"
-    },
-    {
-     "index": 14,
-     "from": "shared dg-core-horror rule 14",
+     "index": 15,
+     "from": "shared dg-core-horror rule 15",
      "note": "Omen: Last Light (Maw of the Deep, from round 4)",
      "conditions": [
       {
@@ -2733,8 +2770,8 @@
      "aiRule": "ok"
     },
     {
-     "index": 15,
-     "from": "shared dg-core-horror rule 15",
+     "index": 16,
+     "from": "shared dg-core-horror rule 16",
      "note": "Omen: Scatter B (phase 2)",
      "conditions": [
       {
@@ -2752,8 +2789,8 @@
      "aiRule": "ok"
     },
     {
-     "index": 16,
-     "from": "shared dg-core-horror rule 16",
+     "index": 17,
+     "from": "shared dg-core-horror rule 17",
      "note": "Omen: Ring (Collapse, a player within 2)",
      "conditions": [
       {
@@ -2772,8 +2809,8 @@
      "aiRule": "ok"
     },
     {
-     "index": 17,
-     "from": "shared dg-core-horror rule 17",
+     "index": 18,
+     "from": "shared dg-core-horror rule 18",
      "note": "Omen: Scatter A",
      "conditions": [],
      "action": {
@@ -2785,8 +2822,8 @@
      "aiRule": "ok"
     },
     {
-     "index": 18,
-     "from": "shared dg-core-horror rule 18",
+     "index": 19,
+     "from": "shared dg-core-horror rule 19",
      "note": "Omen: Scatter B",
      "conditions": [],
      "action": {
@@ -2796,17 +2833,6 @@
       "target": "SELF"
      },
      "aiRule": "ok"
-    },
-    {
-     "index": 19,
-     "from": "shared dg-core-horror rule 19",
-     "note": "stationary: hold",
-     "conditions": [],
-     "action": {
-      "type": "end_turn",
-      "description": "stationary: hold"
-     },
-     "aiRule": "ok"
     }
    ],
    "signatureRules": [
@@ -2814,7 +2840,7 @@
    ],
    "scaleEditedAiNotes": [
     "override aiEdit {\"poolsMultiplier\":2} via scaleEditedAi",
-    "kit -> 13 jutsu"
+    "kit -> 12 jutsu"
    ],
    "insertAiSchemaCheck": "ok"
   },
@@ -6114,7 +6140,6 @@
    "liveId": "3v9c1SHlD2GLPF2HW1_Sc",
    "usedBy": [
     "Arsenal Keeper",
-    "Core Horror",
     "Skyglass Sentinel",
     "Wayfinder"
    ],
