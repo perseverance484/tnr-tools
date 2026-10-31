@@ -32,6 +32,7 @@ chart runs; F04 not addressed).
 Do not hand-edit the output.
 """
 import argparse
+import importlib.util
 import hashlib
 import json
 import os
@@ -182,6 +183,25 @@ def band(alertness):
     return 0 if alertness == 0 else (1 if alertness <= 2 else 2)
 
 
+CHESTS = {}  # profession chest id (haul_spec.json) -> the Haul chest id push/370 created (RUL-2026-10-31-081)
+
+
+def chest_map(bundle):
+    """Map each tier's profession chest id onto the new Haul chest of the same tier (push/skyglass_items.gen.py
+    HAUL_CHESTS), with the new ids taken from push/370's results bundle (literal ids, L01)."""
+    spec = importlib.util.spec_from_file_location("items", os.path.join(ROOT, "push", "skyglass_items.gen.py"))
+    IT = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(IT)
+    made = {e["srcId"]: e["id"] for e in json.load(open(bundle))["entries"]
+            if e.get("entity") == "item" and e.get("slot") == "create" and e.get("state") == "ok" and e.get("id")}
+    out = {}
+    for key, (name, src, _) in IT.HAUL_CHESTS.items():
+        if src not in made:
+            raise SystemExit(f"{name} ({src}) is not an ok create in {os.path.basename(bundle)}")
+        out[IT.cid(IT.PROF[key])] = made[src]
+    return out
+
+
 def build_quest(variant, g, R, pages, names, S):
     prof = g["quest"]
     assert prof in ("hunter", "gatherer")
@@ -257,7 +277,8 @@ def build_quest(variant, g, R, pages, names, S):
                 raise SystemExit(f"{variant} {e['id']}: chest {cid} is {names.get(cid)!r} in answers, not {r['name']!r}")
             if r["number"] != 100:
                 raise SystemExit(f"{variant} {e['id']}: a chest at {r['number']}% (the fitted ladder pays at 100%)")
-            ri.append({"ids": [cid], "number": 100, "quantity": r["quantity"]})
+            # RUL-2026-10-31-081: the spec names the profession chest of the tier; the Haul pays its own new chest
+            ri.append({"ids": [CHESTS[cid]], "number": 100, "quantity": r["quantity"]})
         objs.append({"id": e["id"], "task": "win_quest", "description": S["rungs"][e["rung"]][prof], **scene,
                      "reward_items": ri})
     ids = [o["id"] for o in objs]
@@ -282,7 +303,10 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--copies", action="append", default=[], help="push/344 results bundle (repeatable)")
     ap.add_argument("--keymap", help="JSON {AI key: literal id} overriding the bundle lookup")
+    ap.add_argument("--chests", required=True,
+                    help="push/370 results bundle: the Haul's own chests (RUL-2026-10-31-081) replace the profession chests")
     a = ap.parse_args()
+    CHESTS.update(chest_map(a.chests))
     if not a.copies and not a.keymap:
         ap.error("--copies <344 bundle> (or --keymap) is required: the guards' ids come from push/344")
     spec = json.load(open(SPEC))

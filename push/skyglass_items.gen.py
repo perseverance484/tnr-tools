@@ -98,10 +98,20 @@ assert LIVE["Skyglass Serum"] == cid("Skyglass Serum")
 LIVE["Skyglass Crystal"] = json.load(open(os.path.join(ROOT, "harvests/inbox/tnr_results_1791779642866.json")))["idmap"]["skyglass_crystal"]
 assert _coffer_tiers[2]["entries"][0]["items"][0]["itemId"] == LIVE["Fragment of the Skyglass Crown"]
 
-PROF_ICON = {n: "icon-" + n.lower().replace("'s", "s").replace(" ", "-") + ".webp" for n in (
-    "Common Hunter's Chest", "Rare Hunter's Chest", "Epic Hunter's Chest", "Legendary Hunter's Chest",
-    "Common Gatherer's Chest", "Rare Gatherer's Chest", "Epic Gatherer's Chest", "Legendary Gatherer's Chest")}
-IMAGES.update({f: "art/skyglass_event_icons/exports/" + f for f in PROF_ICON.values()})
+# The Haul's own chests (RUL-2026-10-31-081): new hidden items, so the eight live profession chests keep their art,
+# contents and text for players who own them. key -> (new name, srcId, icon export); tables and tiers are the
+# profession chests' (chests.json keys H:/G:<RARITY>).
+HAUL_CHESTS = {
+    "H:COMMON": ("Hide Bundle", "haul_hide_bundle", "icon-common-hunters-chest.webp"),
+    "H:RARE": ("Keeper's Pack", "haul_keepers_pack", "icon-rare-hunters-chest.webp"),
+    "H:EPIC": ("Prize Strongbox", "haul_prize_strongbox", "icon-epic-hunters-chest.webp"),
+    "H:LEGENDARY": ("Keeper's Reserve", "haul_keepers_reserve", "icon-legendary-hunters-chest.webp"),
+    "G:COMMON": ("Stores Bundle", "haul_stores_bundle", "icon-common-gatherers-chest.webp"),
+    "G:RARE": ("Quartermaster's Pack", "haul_quartermasters_pack", "icon-rare-gatherers-chest.webp"),
+    "G:EPIC": ("Overgrown Strongbox", "haul_overgrown_strongbox", "icon-epic-gatherers-chest.webp"),
+    "G:LEGENDARY": ("Quartermaster's Reserve", "haul_quartermasters_reserve", "icon-legendary-gatherers-chest.webp"),
+}
+IMAGES.update({f: "art/skyglass_event_icons/exports/" + f for _, _, f in HAUL_CHESTS.values()})
 PROF = {  # the eight profession chests (answers/names_item.json; design_data.json profession_chests)
     "H:COMMON": "Common Hunter's Chest", "H:RARE": "Rare Hunter's Chest", "H:EPIC": "Epic Hunter's Chest",
     "H:LEGENDARY": "Legendary Hunter's Chest", "G:COMMON": "Common Gatherer's Chest", "G:RARE": "Rare Gatherer's Chest",
@@ -508,22 +518,19 @@ def _round_robin(entries):
     return out
 
 
-def profession_chests():
+def haul_chests():
+    """The eight Haul chests as HIDDEN creates (push/370; RUL-2026-10-31-081)."""
     tables = json.load(open(os.path.join(ROOT, "state/skyglass_design/chests.json")))
     out = []
-    for key, name in PROF.items():
+    for key, (name, src, icon) in HAUL_CHESTS.items():
         tiers = [(n, p, [[(i, q) for i, q in ent] for ent in _round_robin(ents)]) for n, p, ents in tables[key]]
         rolls = ((3, 6000), (4, 3000), (6, 1000))
-        story = story_of(f"item:{name}.description")
-        desc = checked(f"item:{name}.description", render(story, tiers, rolls, materials=True))
-        rar = key.split(":")[1]
-        out.append({"entity": "item", "slot": "edit", "targetId": cid(name), "phase": 1,
-                    "name": f"{name}: tiers Common/Rare/Epic/Legendary (RUL-2026-10-29-058), text",
-                    "data": {"rarity": rar, "target": "SELF", "description": desc,
-                             "effects": [cache(name, f"{name}: 3-6 rolls of materials", tiers, rolls)]}})
-        icon = PROF_ICON.get(name)
-        if icon and os.path.exists(os.path.join(ROOT, IMAGES[icon])):  # new art (PC01-PC08) once delivered
-            out[-1]["data"]["image"] = "@img:" + icon
+        desc = checked(f"item:{name}.description", render(story_of(f"item:{name}.description"), tiers, rolls, materials=True))
+        e = create(src, name, desc, key.split(":")[1], "CONSUMABLE", False,  # untradeable, as the profession chests
+                   [cache(name, f"{name}: 3-6 rolls of materials", tiers, rolls)])
+        if os.path.exists(os.path.join(ROOT, IMAGES[icon])):  # PC01-PC08 art once delivered; engine default until then
+            e["data"]["image"] = "@img:" + icon
+        out.append(e)
     return out
 
 
@@ -602,7 +609,7 @@ def bind_edits(idmap):
 
 def all_items():
     v, b = variants()
-    return {"items": chart_items() + haul_pages() + pet_and_rot() + tokens() + caches() + profession_chests()
+    return {"items": chart_items() + haul_pages() + pet_and_rot() + tokens() + caches()
             + coffer_contents(),
             "variants": v, "binds": b}
 

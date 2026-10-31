@@ -1408,6 +1408,18 @@ the 20-rule cap; and a false "dead rules" error on the Crowned Captain's uncondi
 through once he stands on the post: theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~482-492). Both need a
 `state/validate_exceptions/` ledger with director acceptance when the manifests are built from the final specs.
 
+## 370 Skyglass Haul chests (8 item creates HIDDEN + 6 page text edits): READY TO RUN
+
+`370_skyglass_haul_chests.json` (`python3 push/skyglass_haul_chests.gen.py`; RUL-2026-10-31-081). Phase 1: eight
+HIDDEN, untradeable creates with the profession chests' tiers and tables: Hide Bundle, Keeper's Pack, Prize Strongbox,
+Keeper's Reserve (hunting pages) and Stores Bundle, Quartermaster's Pack, Overgrown Strongbox, Quartermaster's Reserve
+(gathering pages), PC01-PC06 art (the two Reserves carry the engine default until PC07/PC08 arrive; a later image edit
+adds them). Phase 2: the six hidden Haul pages' descriptions with the new "Pays:" line. **The eight live profession
+chests are no longer edited** (go-live 339 now has 9 entries: the Coffer's five contents and the four runs). After it
+runs, the Haul is built with `python3 push/skyglass_haul.gen.py --copies <344 bundle> --chests <370 bundle>` (`--chests`
+is required). Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems;
+`skyglass_check.py` 0/0; the Haul tested on stand-in 344/370 bundles (gates clean, no profession chest id left).
+
 ## 369 Skyglass Core Rot text after RUL-2026-10-31-080 (3 item edits; records stay HIDDEN): READY TO RUN
 
 `369_skyglass_core_rot_text.json`: description-only re-sends of the three hidden records whose text changed when failed

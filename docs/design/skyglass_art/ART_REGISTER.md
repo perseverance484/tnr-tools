@@ -124,20 +124,20 @@ IC01-IC07 intake 2026-10-31: raws `art/skyglass_event_icons/raw/IC0n_raw_*.png` 
 `art/skyglass_event_icons/_provenance/`), processed and recoloured by `state/skyglass_art/ic01_07_intake.py`
 (256 px lossless webp under `art/skyglass_event_icons/exports/`); upload by push/352 (`push/skyglass_chart_icons.gen.py`).
 
-## Profession chests (PC01-PC08; edited by go-live push/339, visible pre-existing items)
+## Haul chests (PC01-PC08; new hidden items created by push/370, RUL-2026-10-31-081)
 
 Iron = Common, bronze = Rare, silver = Epic; Legendary not yet generated. Intake 2026-10-31:
 `state/skyglass_art/profession_chests_intake.py` (raws `art/skyglass_event_icons/raw/PC0n_raw_*.png`, unchanged; PC01 and
 PC05 came flattened on black, so their outline is rebuilt after a border flood), artpreflight `--type ICON` 0/0 over 6 files.
-The 339 edits pick each image up automatically once its export exists.
+push/370 picks each image up once its export exists; the two Legendary chests ship with the engine default until PC07/PC08 arrive.
 
 | Code | Asset | Type | Folder | Live id | Status |
 |---|---|---|---|---|---|
-| PC01 | Common Hunter's Chest | ICON | (director-generated) | `KwgjMOya2XT6uYsgXbsh6` | PROCESSED (`icon-common-hunters-chest.webp`, go-live push/339) |
-| PC02 | Common Gatherer's Chest | ICON | (director-generated) | `gb6vxdzWTYZR--7s-4kTX` | PROCESSED (`icon-common-gatherers-chest.webp`, go-live push/339) |
-| PC03 | Rare Hunter's Chest | ICON | (director-generated) | `M-0CPw9yBmmreLvJU6gav` | PROCESSED (`icon-rare-hunters-chest.webp`, go-live push/339) |
-| PC04 | Rare Gatherer's Chest | ICON | (director-generated) | see design_data.json | PROCESSED (`icon-rare-gatherers-chest.webp`, go-live push/339) |
-| PC05 | Epic Hunter's Chest | ICON | (director-generated) | `32k2rXF6W-7gn_Fubp4kU` | PROCESSED (`icon-epic-hunters-chest.webp`, go-live push/339) |
-| PC06 | Epic Gatherer's Chest | ICON | (director-generated) | see design_data.json | PROCESSED (`icon-epic-gatherers-chest.webp`, go-live push/339) |
-| PC07 | Legendary Hunter's Chest | ICON | (director-generated) | see design_data.json | TO GENERATE (director) |
-| PC08 | Legendary Gatherer's Chest | ICON | (director-generated) | see design_data.json | TO GENERATE (director) |
+| PC01 | Hide Bundle | ICON | (director-generated) | `KwgjMOya2XT6uYsgXbsh6` | PROCESSED (`icon-common-hunters-chest.webp`, push/370) |
+| PC02 | Stores Bundle | ICON | (director-generated) | `gb6vxdzWTYZR--7s-4kTX` | PROCESSED (`icon-common-gatherers-chest.webp`, push/370) |
+| PC03 | Keeper's Pack | ICON | (director-generated) | `M-0CPw9yBmmreLvJU6gav` | PROCESSED (`icon-rare-hunters-chest.webp`, push/370) |
+| PC04 | Quartermaster's Pack | ICON | (director-generated) | see design_data.json | PROCESSED (`icon-rare-gatherers-chest.webp`, push/370) |
+| PC05 | Prize Strongbox | ICON | (director-generated) | `32k2rXF6W-7gn_Fubp4kU` | PROCESSED (`icon-epic-hunters-chest.webp`, push/370) |
+| PC06 | Overgrown Strongbox | ICON | (director-generated) | see design_data.json | PROCESSED (`icon-epic-gatherers-chest.webp`, push/370) |
+| PC07 | Keeper's Reserve | ICON | (director-generated) | see design_data.json | TO GENERATE (director) |
+| PC08 | Quartermaster's Reserve | ICON | (director-generated) | see design_data.json | TO GENERATE (director) |
