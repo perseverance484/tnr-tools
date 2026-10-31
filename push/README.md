@@ -1408,7 +1408,102 @@ the 20-rule cap; and a false "dead rules" error on the Crowned Captain's uncondi
 through once he stands on the post: theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~482-492). Both need a
 `state/validate_exceptions/` ledger with director acceptance when the manifests are built from the final specs.
 
-## 372 Skyglass final art, part 1 (32 image-only edits): READY TO RUN
+## 373–378 Skyglass final art, part 2 (Crownhold scenes, the salvager, boss FX): 373–377 READY TO RUN (ledgers PENDING director acceptance); 378 built from 376's results
+
+`python3 push/skyglass_final_art2.gen.py` writes 373–377; `--unhide <376 bundle>` writes 378. Zero live requests. Art is
+the committed exports (not reprocessed), uploaded through each manifest's imagePack (pinned at the newest commit that
+touched the files). **Gates on every manifest:** `validate.py --strict` exit 1, held by a ledger in
+`state/validate_exceptions/<manifest>.json` (`python3 scripts/validate_exception.py <ledger>` exit 0; **all five
+PENDING director acceptance**, reasons below); `node tools/check_manifest.mjs` 0 pre-send problems; `python3
+scripts/skyglass_check.py` 0 errors, 0 warnings; `python3 -m unittest scripts/test_skyglass_check.py` OK. Regenerate and
+`--write` a ledger whenever its manifest changes.
+
+**Scene assets, not URLs.** At theninjarpg@3314d122 a quest node's `sceneBackground` is looked up as a gameAsset id
+(`layout/Logbook.tsx` ~486-525 → `gameAsset.getSceneAssets`; a value that is not an asset id shows the default
+background), so 373 and 374 create SCENE_BACKGROUND / SCENE_CHARACTER assets and point at them by `@scene`. They stay
+hidden: `getSceneAssets` does not filter `hidden`, so no unhide is needed. (The borrowed URL scenes Crownhold had, and
+Wreck Sighted's `cache_site` URL, therefore render the default background today.)
+
+### 373 Crownhold scene backgrounds SC01–SC06 (6 asset creates HIDDEN + 1 quest edit, stays hidden): READY TO RUN
+- Phase 1: six SCENE_BACKGROUND assets (`art/crownhold/scenes/exports/`, folder `Crownhold`). Phase 2: Crownhold
+  (`fqqpkcp_L4oOsC6yyodlk`) re-sent whole (quest edits do not fetch-merge) from push/365's source
+  (`skyglass_crownhold_rework.gen.py crownhold_record()`, asserted equal to the committed 365 item, the live record),
+  with **only `sceneBackground` changed**: the manifest's `_diff_vs_365` (83 paths, every one a `sceneBackground`; the
+  generator aborts on any other difference).
+- Mapping (prompts §8 notes): **gate** = the opening `d2.n.f1` and both fail nodes (`f_lost`, `f.arakane`) + the
+  top-level scene (was empty; law 25); **proving hall** = the rest of the Experimental Armory (division 2); **vat
+  halls** = Skyglass Research (division 3); **High Command split (PROPOSAL):** **signal room** = the Signaller
+  (`d4.n.f1`/`b4.n.f1`) and the order shrine with its courier passage (terminal, puzzle and wrong answers, the Runner,
+  the rites); **planning hall** = the Tactician, the Honor Guard corridor and the Second's office and fights; **throne
+  room** = the Command Sanctum (division 5), `d.aftermath` and `w.complete`. Counts: gate 3, proving 17, vat 18,
+  signal 8, planning 10, throne 26.
+- Ledger reason (1 diagnostic): validate.py's build-order lint renames `asset` to `gameAsset` before ranking, so an
+  asset ranks 9 and the phase-2 quest after it is flagged (validator bug, not fixed here; Forge plans assets first).
+- After it runs: read back Crownhold's objectives (each `sceneBackground` = one of the six new asset ids) and its
+  rewards/top-ups unchanged. **Any later Crownhold edit must start from this record** (373's quest data), or the scenes
+  are erased.
+- Not changed: Crownhold has no scene characters (main or per node), so a `hidden: false` save is refused
+  (`routers/quests.ts` ~866-880); publishing Crownhold needs a scene character first.
+
+### 374 The salvager PT01 on Wreck Sighted (1 asset create HIDDEN + 1 quest edit, stays hidden): READY TO RUN
+- Phase 1: SCENE_CHARACTER asset from `art/skyglass_scene_chars/exports/scene_char_skyglass_salvager.webp` (341 × 512,
+  2:3). Phase 2: Wreck Sighted (`v7kKhLXsX9aofQfc7BnGx`; created by **push/348**, `skyglass_hoard.gen.py`, not 329)
+  re-sent whole from 348's create (asserted equal to the archived 348 record) with the salvager on both dialog nodes
+  (`d_word`, `d_chart`) **and as the quest's main scene character**: the publish rule accepts main characters or one on
+  every objective, and `w_done` has none, so the main entry is what makes the quest publishable (it also shows her on
+  the win text). `_diff_vs_348`: exactly those three `sceneCharacters` paths.
+- push/339 (go-live) does not re-send Wreck Sighted, so it needs no change. Publishing Wreck Sighted is still a separate
+  step.
+- Ledger reason: the same build-order validator bug (1 diagnostic).
+
+### 375 → 376 → 377 → 378 Boss FX (law 18/60 sequence): 375–377 READY TO RUN back to back; 378 after 376's bundle
+**Why the sequence.** A save of a hidden jutsu runs `updateUserJutsuForUpdate` (`routers/jutsu.ts` ~1117,
+`queries/jutsu.ts:662`): every holder's row is set `equipped: false`. An AI edit only inserts/deletes jutsu ids that
+change (`profile.ts` `updateUserContent`), so re-sending the same kit does not re-equip. Hence: remove the jutsu from
+every holder → edit it → add it back. Holders come from the last verified kit of each record (push/361, push/344 parts 1
+and 3 with their bundles, push/364); `_holders` in 375/377 lists them: The Captain, Veteran Captain, Veteran Captain
+(Fall), Veteran Captain (Ally), Faded Captain (Raise the Gunwale); the Sealwright, Veteran Sealwright, Veteran
+Sealwright (Echo), Rot-Touched Sealwright, Sealwright's Echo (Ward of Command); Arsenal Keeper (Magazine) (Spreading
+Fire I–III); the Crowned Captain (The Last Directive **and Extermination Order**).
+**push/372 has already severed the Crowned Captain's exclusives:** it ran (`tnr_results_1793486970672.json`, 32/32)
+with image edits on The Last Directive and Extermination Order, both hidden jutsu he holds, so both have been
+unequipped since. 375/377 take both off and put both back, which repairs that.
+- **375** (12 AI edits): each holder's kit minus those jutsu; items re-sent; rules untouched. The Captain and the
+  Sealwright are the live crew the four live hunts fight until 339: **run 375, 376, 377 back to back.** Ledger: 5 "kit is
+  all 60 AP actions" on the Sealwright records (the class RUL-2026-10-31-083 accepted on 361 / 344 part 3).
+- **376** (6 asset creates HIDDEN, phase 1; 6 jutsu edits, phase 2; @scene refs resolve in-job): assets from
+  `art/skyglass_boss_fx/exports` (`an_v1.json`: 150 px frames, 50 ms): AN01 banner, AN02 phase shift, AN03 strip + held
+  tile, AN06 ember tile + sparks. Jutsu edits send `effects` (+ `injectableInBattle: false`, law 20) only, built from
+  push/342 as committed (library, = live) and push/271 (The Last Directive): **Ward of Command**
+  decreasedamagetaken.staticAnimation = AN01; **Raise the Gunwale** barrier appearAnimation = AN03 strip,
+  staticAssetPath = AN03 tile (an_v1's pairing; replaces the donor appear id and the harness's `xAd94Cpuri`, which is
+  not an asset id); **Spreading Fire I–III** visual staticAssetPath = AN06 tile, staticAnimation = AN06 sparks (an_v1's
+  recommended pair); **The Last Directive** finalstand appearAnimation = AN02 (crowned_captain_spec `editedJutsu`; its
+  `cc_last_directive` loop has no art and stays empty). `_changes` lists every field. Ledger: 6 build-order diagnostics
+  (the validator bug).
+- **377** (12 AI edits): each holder's exact kit back. Ledger: as 375.
+- **378** (`--unhide <376 bundle>`, not committed before 376 runs): the six FX assets unhidden (law 16c), create data
+  re-sent with `hidden: false`, image kept (the push/321 pattern). Stand-in test 2026-10-31 (fake 376 bundle, output not
+  committed): `validate.py --strict` 0/0, `check_manifest.mjs` 0.
+- After 377: read back each holder's jutsu list (equipped) and each edited jutsu's effects; after 378, the assets'
+  `hidden: false`.
+
+**Not mapped (director decision):**
+- **AN04** (ch_enrage, "The Core Rebuilds") is live **Second Wind** (`STu1VHNcfgeC3x-UiQDgt`, pool S35); **AN07/AN08**
+  (ch_bile_spit, "Bilge Spit") is live **Venom Strike** (`LiVOnYq6qHzjB0XkIIA2e`, S29); **AN09** (ch_undertow; Undertow
+  survived the rule cap, it is in the Core Horror's kit) is live **Sovereign Undertow** (`nOYLPmN3TXj6wEe_oE6HQ`, B03).
+  These are shared pool jutsu held by AIs across the game: an edit would change their look everywhere and unequip
+  every holder in the game (law 18). Options: Skyglass-only copies of the three (new jutsu + kit swaps in every Skyglass
+  holder), or leave the strips unused. No assets are created for them.
+- **AN05** (cc_hexweave): no Hexweave move exists in any built kit (the Crowned Captain's spec does not carry it).
+- **cp_gunwale's second user**, the Sentinel's Shell Wall, is live Adamantine Fortress (shared): not edited.
+- **Little Maw:** none of AN01–AN09 is a bite (banner, shockwave, wall, aura, cords, embers, bile, water). The repo
+  already has the maw strip `anim_maw_v1.webp` (register UP18, made for the Core Horror's Maw of the Deep, `ch_maw`);
+  Little Maw keeps Rallying Echo's animation until the director picks one.
+
+## 372 Skyglass final art, part 1 (32 image-only edits): RUN 2026-10-31 (tnr_results_1793486970672.json, 32/32 VERIFIED)
+
+**Side effect (found 2026-10-31, repaired by 375/377):** its image edits on The Last Directive and Extermination Order (hidden jutsu) unequipped both from the Crowned Captain (`routers/jutsu.ts` ~1117, law 18). Part 2 is push/373-378 above.
 
 `372_skyglass_final_art.json` (`python3 push/skyglass_final_art.gen.py`): image-only edits on existing records: the
 Skyglass Token, the seven boss tokens, the Little Horror's Jar, Galley Stores, Crown's Hoard, Countermand, the two Haul
