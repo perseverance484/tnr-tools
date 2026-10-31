@@ -9,7 +9,7 @@ import { CONTRACT } from "../bloodright/validate.mjs";
 // so refs resolve from ids minted earlier in the same job (topological sort, stable).
 
 import { payloadHash, stableStringify, fnv1a32 } from "../storage/hash.mjs";
-import { canPersistFull, FULL_PERSIST_PATHS, FULL_PERSIST_LIST_PATHS, PERSIST_RECORD_KEY } from "../storage/captures.mjs";
+import { canPersistFull, FULL_PERSIST_PATHS, FULL_PERSIST_LIST_PATHS, FULL_PERSIST_PAGED_PATHS, PERSIST_RECORD_KEY } from "../storage/captures.mjs";
 import { collectRefs, REF_RE } from "./refs.mjs";
 import { resolvePoolCodes, stuckPoolCodes, kitProblems } from "./pool.mjs";
 import { lintManifest } from "./lints.mjs";
@@ -250,7 +250,10 @@ function normalizeCapture(c, phase, i) {
     if (!canPersistFull(proc)) {
       throw new ManifestError(`${where} (${proc}): persist "full" is only allowed for the audited content-record point reads ${FULL_PERSIST_PATHS.join(", ")} and the input-less list ${FULL_PERSIST_LIST_PATHS.join(", ")}`, { phase, idx: i, proc });
     }
-    if (FULL_PERSIST_LIST_PATHS.includes(proc)) {
+    if (FULL_PERSIST_PAGED_PATHS.includes(proc)) {
+      // the pet catalogue and nothing wider; hidden stated, since its absence means hidden = false at source
+      if (stableStringify(input) !== stableStringify({ hidden: !!input?.hidden, jutsuType: ["PETS"] })) throw new ManifestError(`${where} (${proc}): persist "full" needs input exactly {jutsuType: ["PETS"], hidden: true|false}`, { phase, idx: i, proc });
+    } else if (FULL_PERSIST_LIST_PATHS.includes(proc)) {
       // the whole list or nothing: it has no filter, so any input is a misunderstanding
       if (c.input != null && (!input || Object.keys(input).length)) throw new ManifestError(`${where} (${proc}): persist "full" on this list takes no input`, { phase, idx: i, proc });
     } else if (typeof id !== "string" || !id) {
