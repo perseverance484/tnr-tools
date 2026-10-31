@@ -20,7 +20,8 @@ Core Rupture blast carries the approved law-6 exception (RUL-2026-10-28-002). It
        carries it.
   338  the seven boss tokens bound to their variants, from 329's results (--binds). (Was 330 until 2026-10-31; renumbered
        because another workstream holds push/330, 332 and 337.)
-  339  GO-LIVE (RUL-2026-10-30-063 item 1; was 331), from 329's results (--golive): every edit that changes what live players can
+  339  GO-LIVE (RUL-2026-10-30-063 item 1; was 331), from 329's and 344's results (--golive <329 bundle> --copies
+       <344 bundle>; the hunts fight their RUL-2026-10-31-077 Veteran copies): every edit that changes what live players can
        obtain or see. The 25 edits to existing items (the four Rare charts' text and tier, the Lantern, the Coffer, Sealed
        Treasury, Archive Chart Case, Medicine Inro, Sage's Strongbox, Elemental Tool Pouch, Unmarked Cargo, the 8
        profession chests, all in the RUL-2026-10-31-074 text; the Coffer's five contents re-tiered and re-texted) and the
@@ -368,7 +369,12 @@ def resolve_329(o, idmap, missing):
     return o
 
 
-def golive(bundle):
+def golive(bundle, copies):
+    # RUL-2026-10-31-077 item 2a: the four hunts fight their Veteran copies (push/344), not the live crew records,
+    # which push/361 turns into the endgame Wreck version. Literal ids from 344's results bundle(s) by AI key.
+    sys.path.insert(0, os.path.join(ROOT, "push"))
+    import skyglass_aikeys as K
+    G.use_copies(K.Resolver(copies))
     b = json.load(open(bundle))
     idmap = b.get("idmap") or {}
     _, edits = split_items(IT.all_items()["items"])
@@ -444,7 +450,12 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] == "--badge":
         return badge()
     if len(sys.argv) > 2 and sys.argv[1] == "--golive":
-        return golive(sys.argv[2])
+        a = sys.argv[3:]
+        copies = [a[i + 1] for i, x in enumerate(a) if x == "--copies" and i + 1 < len(a)]
+        if not copies:
+            raise SystemExit("--golive <329 bundle> --copies <344 bundle> [--copies <bundle> ...]: the hunts name their "
+                             "RUL-2026-10-31-077 Veteran copies by literal id from push/344's results")
+        return golive(sys.argv[2], copies)
     jutsus, items = boss_kit()
     assert EXCLUSIVE_JUTSU <= set(jutsus) and any(COUNTERMAND in it["ids"] for it in items)
     unequip, convert, reequip = CR.main()

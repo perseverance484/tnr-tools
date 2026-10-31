@@ -13,10 +13,11 @@
    "horrorPools": 5,
    "horrorRows": 4,
    "horrorPhase2": 70,
-   "captainPools": 7.5,
+   "captainPools": 9,
    "captainRows": 1,
    "sealPools": 2.6,
-   "sealRows": 3
+   "sealRows": 3,
+   "_rul077": "RUL-2026-10-31-077 item 1: the Captain's endgame pools 7.5 -> 9 (rule-cap pass: 19.2% runs with a wipe, 23.0 min over 120 runs; was 10.8% at 7.5)."
   },
   "floors": [
    {
@@ -647,12 +648,12 @@
     "sharedKit": "sharedKits[\"Core Horror\"]",
     "signatureRules": [
      1,
-     23
+     15
     ],
     "scaleEditedAiNotes": [
      "new enemy cloned from Core Horror",
      "override aiEdit {\"poolsMultiplier\":5} via scaleEditedAi",
-     "kit -> 13 jutsu"
+     "kit -> 12 jutsu"
     ],
     "insertAiSchemaCheck": "ok"
    },
@@ -666,11 +667,11 @@
     "level": 100,
     "rank": "JONIN",
     "statsMultiplier": 5,
-    "poolsMultiplier": 7.5,
+    "poolsMultiplier": 9,
     "pools": {
-     "maxHealth": 37875,
-     "maxChakra": 37875,
-     "maxStamina": 37875
+     "maxHealth": 45450,
+     "maxChakra": 45450,
+     "maxStamina": 45450
     },
     "stats": {
      "offence": 1391300,
@@ -702,13 +703,13 @@
     "signatureRules": [
      0,
      1,
-     12,
-     14,
-     15
+     2,
+     4,
+     5
     ],
     "scaleEditedAiNotes": [
      "new enemy cloned from The Captain",
-     "override aiEdit {\"poolsMultiplier\":7.5} via scaleEditedAi",
+     "override aiEdit {\"poolsMultiplier\":9} via scaleEditedAi",
      "kit -> 17 jutsu"
     ],
     "insertAiSchemaCheck": "ok"
@@ -900,7 +901,7 @@
      "liveAi": "Deck Warden",
      "liveAiId": "texZaFi42S3EvJZBwQ8cd"
     },
-    "username": "Deck Warden",
+    "username": "Faded Deck Warden",
     "level": 50,
     "rank": "JONIN",
     "statsMultiplier": 1,
@@ -986,7 +987,7 @@
      "liveAi": "Seal Charge",
      "liveAiId": "wTgO-Q32caSSd0is1QIS7"
     },
-    "username": "Seal Charge",
+    "username": "Faded Seal Charge",
     "level": 50,
     "rank": "JONIN",
     "statsMultiplier": 1,
@@ -1024,7 +1025,7 @@
      "liveAi": "Skyglass Sentinel",
      "liveAiId": "3V_gdHYaclMB1gTyOPAbV"
     },
-    "username": "Skyglass Sentinel",
+    "username": "Faded Skyglass Sentinel",
     "level": 50,
     "rank": "JONIN",
     "statsMultiplier": 1,
@@ -1110,7 +1111,7 @@
      "liveAi": "First Blade",
      "liveAiId": "d6g0mOM7RBSsYI1hrUVT9"
     },
-    "username": "First Blade",
+    "username": "Faded First Blade",
     "level": 50,
     "rank": "JONIN",
     "statsMultiplier": 1,
@@ -1198,7 +1199,7 @@
      "liveAi": "Oathkeeper",
      "liveAiId": "0PZU_FvlbM3ErYGlD5r56"
     },
-    "username": "Oathkeeper",
+    "username": "Faded Oathkeeper",
     "level": 50,
     "rank": "JONIN",
     "statsMultiplier": 1,
@@ -1284,7 +1285,7 @@
      "liveAi": "Wayfinder",
      "liveAiId": "v7T9_XdGMfP46em0dPuBc"
     },
-    "username": "Wayfinder",
+    "username": "Faded Wayfinder",
     "level": 50,
     "rank": "JONIN",
     "statsMultiplier": 1,
@@ -1371,7 +1372,7 @@
      "liveAi": "Core Horror",
      "liveAiId": "AQi-bHJ-5tHXtxrnc0P9E"
     },
-    "username": "Core Horror",
+    "username": "Faded Core Horror",
     "level": 50,
     "rank": "JONIN",
     "statsMultiplier": 1,
@@ -1442,7 +1443,7 @@
     "sharedKit": "sharedKits[\"Core Horror\"]",
     "signatureRules": [
      1,
-     22
+     6
     ],
     "scaleEditedAiNotes": [
      "new enemy cloned from Core Horror",
@@ -1458,7 +1459,7 @@
      "liveAi": "The Captain",
      "liveAiId": "QY69h271Nx9uHrBeR6jwW"
     },
-    "username": "The Captain",
+    "username": "Faded Captain",
     "level": 50,
     "rank": "JONIN",
     "statsMultiplier": 1,
@@ -1546,9 +1547,9 @@
     "signatureRules": [
      0,
      1,
-     12,
-     14,
-     15
+     2,
+     4,
+     5
     ],
     "scaleEditedAiNotes": [
      "new enemy cloned from The Captain",
@@ -1678,78 +1679,71 @@
      },
      {
       "index": 6,
-      "note": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)",
+      "note": "Omen: Last Light (Maw of the Deep, level-50 order: first)",
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Omen: Last Light (Maw of the Deep, level-50 order: first)",
+       "jutsuId": "lib-omen-last-light",
+       "target": "SELF"
+      }
+     },
+     {
+      "index": 7,
+      "note": "Splintered Grasp (live Heavy Strike)",
       "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "increasecooldown",
-        "threshold": 1
-       },
        {
         "type": "distance_lower_than",
         "description": "",
-        "value": 3,
+        "value": 4,
         "target": "CLOSEST_OPPONENT"
        }
       ],
       "action": {
        "type": "use_specific_jutsu",
-       "description": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)",
+       "description": "Splintered Grasp (live Heavy Strike)",
        "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
        "target": "CLOSEST_OPPONENT"
       }
      },
      {
-      "index": 7,
-      "note": "after lib-omen-ring: Bilge Spit (live Venom Strike)",
+      "index": 8,
+      "note": "Bilge Spit (live Venom Strike)",
       "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "increasecooldown",
-        "threshold": 1
-       },
        {
         "type": "distance_lower_than",
         "description": "",
-        "value": 5,
+        "value": 6,
         "target": "CLOSEST_OPPONENT"
        }
       ],
       "action": {
        "type": "use_specific_jutsu",
-       "description": "after lib-omen-ring: Bilge Spit (live Venom Strike)",
+       "description": "Bilge Spit (live Venom Strike)",
        "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
        "target": "CLOSEST_OPPONENT"
       }
      },
      {
-      "index": 8,
-      "note": "after lib-omen-ring: Twin Kunai",
+      "index": 9,
+      "note": "Twin Kunai",
       "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "increasecooldown",
-        "threshold": 1
-       },
        {
         "type": "distance_lower_than",
         "description": "",
-        "value": 5,
+        "value": 6,
         "target": "CLOSEST_OPPONENT"
        }
       ],
       "action": {
        "type": "use_specific_jutsu",
-       "description": "after lib-omen-ring: Twin Kunai",
+       "description": "Twin Kunai",
        "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
        "target": "CLOSEST_OPPONENT"
       }
      },
      {
-      "index": 9,
+      "index": 10,
       "note": "after lib-omen-ring: end turn",
       "conditions": [
        {
@@ -1765,79 +1759,7 @@
       }
      },
      {
-      "index": 10,
-      "note": "after lib-omen-scatter-a: Splintered Grasp (live Heavy Strike)",
-      "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "robprevent",
-        "threshold": 1
-       },
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 3,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "after lib-omen-scatter-a: Splintered Grasp (live Heavy Strike)",
-       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
       "index": 11,
-      "note": "after lib-omen-scatter-a: Bilge Spit (live Venom Strike)",
-      "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "robprevent",
-        "threshold": 1
-       },
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "after lib-omen-scatter-a: Bilge Spit (live Venom Strike)",
-       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "index": 12,
-      "note": "after lib-omen-scatter-a: Twin Kunai",
-      "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "robprevent",
-        "threshold": 1
-       },
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "after lib-omen-scatter-a: Twin Kunai",
-       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "index": 13,
       "note": "after lib-omen-scatter-a: end turn",
       "conditions": [
        {
@@ -1853,79 +1775,7 @@
       }
      },
      {
-      "index": 14,
-      "note": "after lib-omen-scatter-b: Splintered Grasp (live Heavy Strike)",
-      "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "onehitkillprevent",
-        "threshold": 1
-       },
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 3,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "after lib-omen-scatter-b: Splintered Grasp (live Heavy Strike)",
-       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "index": 15,
-      "note": "after lib-omen-scatter-b: Bilge Spit (live Venom Strike)",
-      "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "onehitkillprevent",
-        "threshold": 1
-       },
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "after lib-omen-scatter-b: Bilge Spit (live Venom Strike)",
-       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "index": 16,
-      "note": "after lib-omen-scatter-b: Twin Kunai",
-      "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "onehitkillprevent",
-        "threshold": 1
-       },
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "after lib-omen-scatter-b: Twin Kunai",
-       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "index": 17,
+      "index": 12,
       "note": "after lib-omen-scatter-b: end turn",
       "conditions": [
        {
@@ -1941,79 +1791,7 @@
       }
      },
      {
-      "index": 18,
-      "note": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)",
-      "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "summonprevent",
-        "threshold": 1
-       },
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 3,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)",
-       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "index": 19,
-      "note": "after lib-omen-last-light: Bilge Spit (live Venom Strike)",
-      "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "summonprevent",
-        "threshold": 1
-       },
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "after lib-omen-last-light: Bilge Spit (live Venom Strike)",
-       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "index": 20,
-      "note": "after lib-omen-last-light: Twin Kunai",
-      "conditions": [
-       {
-        "type": "has_effect",
-        "description": "",
-        "effectType": "summonprevent",
-        "threshold": 1
-       },
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "after lib-omen-last-light: Twin Kunai",
-       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "index": 21,
+      "index": 13,
       "note": "after lib-omen-last-light: end turn",
       "conditions": [
        {
@@ -2029,18 +1807,7 @@
       }
      },
      {
-      "index": 22,
-      "note": "Omen: Last Light (Maw of the Deep, level-50 order: first)",
-      "conditions": [],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "Omen: Last Light (Maw of the Deep, level-50 order: first)",
-       "jutsuId": "lib-omen-last-light",
-       "target": "SELF"
-      }
-     },
-     {
-      "index": 23,
+      "index": 14,
       "note": "Omen: Scatter A (phase 2)",
       "conditions": [
        {
@@ -2057,7 +1824,7 @@
       }
      },
      {
-      "index": 24,
+      "index": 15,
       "note": "Omen: Scatter B (phase 2)",
       "conditions": [
        {
@@ -2074,7 +1841,7 @@
       }
      },
      {
-      "index": 25,
+      "index": 16,
       "note": "Omen: Ring (Collapse, a player within 2)",
       "conditions": [
        {
@@ -2092,7 +1859,7 @@
       }
      },
      {
-      "index": 26,
+      "index": 17,
       "note": "Omen: Scatter A",
       "conditions": [],
       "action": {
@@ -2103,7 +1870,7 @@
       }
      },
      {
-      "index": 27,
+      "index": 18,
       "note": "Omen: Scatter B",
       "conditions": [],
       "action": {
@@ -2114,61 +1881,7 @@
       }
      },
      {
-      "index": 28,
-      "note": "Splintered Grasp (live Heavy Strike)",
-      "conditions": [
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 3,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "Splintered Grasp (live Heavy Strike)",
-       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "index": 29,
-      "note": "Bilge Spit (live Venom Strike)",
-      "conditions": [
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "Bilge Spit (live Venom Strike)",
-       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "index": 30,
-      "note": "Twin Kunai",
-      "conditions": [
-       {
-        "type": "distance_lower_than",
-        "description": "",
-        "value": 5,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "Twin Kunai",
-       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "index": 31,
+      "index": 19,
       "note": "stationary: hold",
       "conditions": [],
       "action": {
@@ -2295,7 +2008,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "HIGHEST_ENMITY_OPPONENT"
       }
      ],
@@ -2320,7 +2033,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -2345,7 +2058,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "LOWEST_HEALTH_OPPONENT"
       }
      ],
@@ -2363,7 +2076,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 3,
+       "value": 4,
        "target": "HIGHEST_ENMITY_OPPONENT"
       }
      ],
@@ -2381,7 +2094,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "HIGHEST_ENMITY_OPPONENT"
       }
      ],
@@ -2399,7 +2112,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -2660,7 +2373,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -2768,7 +2481,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "LOWEST_HEALTH_OPPONENT"
       }
      ],
@@ -2786,7 +2499,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "LOWEST_HEALTH_OPPONENT"
       }
      ],
@@ -2804,7 +2517,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "LOWEST_HEALTH_OPPONENT"
       }
      ],
@@ -2822,7 +2535,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 4,
+       "value": 5,
        "target": "LOWEST_ENMITY_OPPONENT"
       }
      ],
@@ -2840,7 +2553,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 4,
+       "value": 5,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -2947,7 +2660,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "HIGHEST_ENMITY_OPPONENT"
       }
      ],
@@ -2972,7 +2685,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -2997,7 +2710,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "LOWEST_HEALTH_OPPONENT"
       }
      ],
@@ -3015,7 +2728,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "HIGHEST_ENMITY_OPPONENT"
       }
      ],
@@ -3033,7 +2746,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 4,
+       "value": 5,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -3234,7 +2947,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "HIGHEST_ENMITY_OPPONENT"
       }
      ],
@@ -3259,7 +2972,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -3284,7 +2997,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "LOWEST_HEALTH_OPPONENT"
       }
      ],
@@ -3302,7 +3015,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -3404,11 +3117,6 @@
     {
      "id": "LiVOnYq6qHzjB0XkIIA2e",
      "name": "Venom Strike",
-     "status": "LIVE (unchanged)"
-    },
-    {
-     "id": "3v9c1SHlD2GLPF2HW1_Sc",
-     "name": "Twin Kunai",
      "status": "LIVE (unchanged)"
     },
     {
@@ -3559,7 +3267,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 3,
+       "value": 4,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -3583,7 +3291,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -3596,30 +3304,6 @@
     },
     {
      "index": 8,
-     "note": "after lib-omen-ring: Twin Kunai",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "increasecooldown",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-ring: Twin Kunai",
-      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 9,
      "note": "after lib-omen-ring: end turn",
      "conditions": [
       {
@@ -3635,183 +3319,7 @@
      }
     },
     {
-     "index": 10,
-     "note": "after lib-omen-scatter-a: Splintered Grasp (live Heavy Strike)",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "robprevent",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 3,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-scatter-a: Splintered Grasp (live Heavy Strike)",
-      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 11,
-     "note": "after lib-omen-scatter-a: Bilge Spit (live Venom Strike)",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "robprevent",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-scatter-a: Bilge Spit (live Venom Strike)",
-      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 12,
-     "note": "after lib-omen-scatter-a: Twin Kunai",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "robprevent",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-scatter-a: Twin Kunai",
-      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 13,
-     "note": "after lib-omen-scatter-a: end turn",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "robprevent",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "end_turn",
-      "description": "after lib-omen-scatter-a: end turn"
-     }
-    },
-    {
-     "index": 14,
-     "note": "after lib-omen-scatter-b: Splintered Grasp (live Heavy Strike)",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "onehitkillprevent",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 3,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-scatter-b: Splintered Grasp (live Heavy Strike)",
-      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 15,
-     "note": "after lib-omen-scatter-b: Bilge Spit (live Venom Strike)",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "onehitkillprevent",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-scatter-b: Bilge Spit (live Venom Strike)",
-      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 16,
-     "note": "after lib-omen-scatter-b: Twin Kunai",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "onehitkillprevent",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-scatter-b: Twin Kunai",
-      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 17,
-     "note": "after lib-omen-scatter-b: end turn",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "onehitkillprevent",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "end_turn",
-      "description": "after lib-omen-scatter-b: end turn"
-     }
-    },
-    {
-     "index": 18,
+     "index": 9,
      "note": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)",
      "conditions": [
       {
@@ -3823,7 +3331,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 3,
+       "value": 4,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -3835,7 +3343,7 @@
      }
     },
     {
-     "index": 19,
+     "index": 10,
      "note": "after lib-omen-last-light: Bilge Spit (live Venom Strike)",
      "conditions": [
       {
@@ -3847,7 +3355,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -3859,31 +3367,7 @@
      }
     },
     {
-     "index": 20,
-     "note": "after lib-omen-last-light: Twin Kunai",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "summonprevent",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-last-light: Twin Kunai",
-      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 21,
+     "index": 11,
      "note": "after lib-omen-last-light: end turn",
      "conditions": [
       {
@@ -3899,7 +3383,39 @@
      }
     },
     {
-     "index": 22,
+     "index": 12,
+     "note": "after lib-omen-scatter-a: end turn",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "robprevent",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "after lib-omen-scatter-a: end turn"
+     }
+    },
+    {
+     "index": 13,
+     "note": "after lib-omen-scatter-b: end turn",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "onehitkillprevent",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "after lib-omen-scatter-b: end turn"
+     }
+    },
+    {
+     "index": 14,
      "note": "Omen: Scatter A (phase 2)",
      "conditions": [
       {
@@ -3916,7 +3432,7 @@
      }
     },
     {
-     "index": 23,
+     "index": 15,
      "note": "Omen: Last Light (Maw of the Deep, from round 4)",
      "conditions": [
       {
@@ -3933,7 +3449,7 @@
      }
     },
     {
-     "index": 24,
+     "index": 16,
      "note": "Omen: Scatter B (phase 2)",
      "conditions": [
       {
@@ -3950,7 +3466,7 @@
      }
     },
     {
-     "index": 25,
+     "index": 17,
      "note": "Omen: Ring (Collapse, a player within 2)",
      "conditions": [
       {
@@ -3968,7 +3484,7 @@
      }
     },
     {
-     "index": 26,
+     "index": 18,
      "note": "Omen: Scatter A",
      "conditions": [],
      "action": {
@@ -3979,7 +3495,7 @@
      }
     },
     {
-     "index": 27,
+     "index": 19,
      "note": "Omen: Scatter B",
      "conditions": [],
      "action": {
@@ -3988,74 +3504,11 @@
       "jutsuId": "lib-omen-scatter-b",
       "target": "SELF"
      }
-    },
-    {
-     "index": 28,
-     "note": "Splintered Grasp (live Heavy Strike)",
-     "conditions": [
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 3,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Splintered Grasp (live Heavy Strike)",
-      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 29,
-     "note": "Bilge Spit (live Venom Strike)",
-     "conditions": [
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Bilge Spit (live Venom Strike)",
-      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 30,
-     "note": "Twin Kunai",
-     "conditions": [
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Twin Kunai",
-      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 31,
-     "note": "stationary: hold",
-     "conditions": [],
-     "action": {
-      "type": "end_turn",
-      "description": "stationary: hold"
-     }
     }
    ],
    "signatureRules": [
     1,
-    23
+    15
    ]
   },
   "The Captain": {
@@ -4070,26 +3523,6 @@
      "id": "lib-ships-bell",
      "name": "Ship's Bell",
      "status": "LIBRARY (NEW, library_spec.json)"
-    },
-    {
-     "id": "MG9ZujAV8lK7--YxThVbQ",
-     "name": "Battle Trance",
-     "status": "LIVE (unchanged)"
-    },
-    {
-     "id": "STu1VHNcfgeC3x-UiQDgt",
-     "name": "Second Wind",
-     "status": "LIVE (unchanged)"
-    },
-    {
-     "id": "X2P22h8ApDmTZHjWpNO87",
-     "name": "Final Command",
-     "status": "LIVE (unchanged)"
-    },
-    {
-     "id": "PdD44PGaNv4MN5fOALhAF",
-     "name": "Keelbind",
-     "status": "LIVE (unchanged)"
     },
     {
      "id": "lib-steady-the-helm",
@@ -4112,8 +3545,28 @@
      "status": "LIBRARY (NEW, library_spec.json)"
     },
     {
+     "id": "MG9ZujAV8lK7--YxThVbQ",
+     "name": "Battle Trance",
+     "status": "LIVE (unchanged)"
+    },
+    {
+     "id": "STu1VHNcfgeC3x-UiQDgt",
+     "name": "Second Wind",
+     "status": "LIVE (unchanged)"
+    },
+    {
      "id": "0Y10JpChssDwFUxNRk6p3",
      "name": "Unbroken Command",
+     "status": "LIVE (unchanged)"
+    },
+    {
+     "id": "X2P22h8ApDmTZHjWpNO87",
+     "name": "Final Command",
+     "status": "LIVE (unchanged)"
+    },
+    {
+     "id": "PdD44PGaNv4MN5fOALhAF",
+     "name": "Keelbind",
      "status": "LIVE (unchanged)"
     },
     {
@@ -4186,226 +3639,6 @@
     },
     {
      "index": 2,
-     "note": "after lib-omen-rows-a: Last Stand at the Helm (live Battle Trance)",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "increaserange",
-       "threshold": 1
-      },
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 50
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-rows-a: Last Stand at the Helm (live Battle Trance)",
-      "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
-      "target": "SELF"
-     }
-    },
-    {
-     "index": 3,
-     "note": "after lib-omen-rows-a: Second Wind (under 25%)",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "increaserange",
-       "threshold": 1
-      },
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 25
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-rows-a: Second Wind (under 25%)",
-      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
-      "target": "SELF"
-     }
-    },
-    {
-     "index": 4,
-     "note": "after lib-omen-rows-a: Final Command",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "increaserange",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 4,
-       "target": "HIGHEST_ENMITY_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-rows-a: Final Command",
-      "jutsuId": "X2P22h8ApDmTZHjWpNO87",
-      "target": "HIGHEST_ENMITY_OPPONENT"
-     }
-    },
-    {
-     "index": 5,
-     "note": "after lib-omen-rows-a: Keelbind",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "increaserange",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "HIGHEST_ENMITY_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-rows-a: Keelbind",
-      "jutsuId": "PdD44PGaNv4MN5fOALhAF",
-      "target": "HIGHEST_ENMITY_OPPONENT"
-     }
-    },
-    {
-     "index": 6,
-     "note": "after lib-omen-rows-a: end turn",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "increaserange",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "end_turn",
-      "description": "after lib-omen-rows-a: end turn"
-     }
-    },
-    {
-     "index": 7,
-     "note": "after lib-omen-binding-ring: Last Stand at the Helm (live Battle Trance)",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "decreasecooldown",
-       "threshold": 1
-      },
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 50
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-binding-ring: Last Stand at the Helm (live Battle Trance)",
-      "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
-      "target": "SELF"
-     }
-    },
-    {
-     "index": 8,
-     "note": "after lib-omen-binding-ring: Second Wind (under 25%)",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "decreasecooldown",
-       "threshold": 1
-      },
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 25
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-binding-ring: Second Wind (under 25%)",
-      "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
-      "target": "SELF"
-     }
-    },
-    {
-     "index": 9,
-     "note": "after lib-omen-binding-ring: Final Command",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "decreasecooldown",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 4,
-       "target": "HIGHEST_ENMITY_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-binding-ring: Final Command",
-      "jutsuId": "X2P22h8ApDmTZHjWpNO87",
-      "target": "HIGHEST_ENMITY_OPPONENT"
-     }
-    },
-    {
-     "index": 10,
-     "note": "after lib-omen-binding-ring: Keelbind",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "decreasecooldown",
-       "threshold": 1
-      },
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 5,
-       "target": "HIGHEST_ENMITY_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "after lib-omen-binding-ring: Keelbind",
-      "jutsuId": "PdD44PGaNv4MN5fOALhAF",
-      "target": "HIGHEST_ENMITY_OPPONENT"
-     }
-    },
-    {
-     "index": 11,
-     "note": "after lib-omen-binding-ring: end turn",
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "decreasecooldown",
-       "threshold": 1
-      }
-     ],
-     "action": {
-      "type": "end_turn",
-      "description": "after lib-omen-binding-ring: end turn"
-     }
-    },
-    {
-     "index": 12,
      "note": "Steady the Helm (phase 2 begins; once)",
      "conditions": [
       {
@@ -4422,7 +3655,7 @@
      }
     },
     {
-     "index": 13,
+     "index": 3,
      "note": "Raise the Gunwale (transition; once; he falls back behind the rail)",
      "conditions": [
       {
@@ -4439,7 +3672,7 @@
      }
     },
     {
-     "index": 14,
+     "index": 4,
      "note": "Omen: Binding Ring (Ship's Bell, phase 2)",
      "conditions": [
       {
@@ -4456,7 +3689,7 @@
      }
     },
     {
-     "index": 15,
+     "index": 5,
      "note": "Omen: Rows A (Broadside, phase 2)",
      "conditions": [
       {
@@ -4473,8 +3706,25 @@
      }
     },
     {
-     "index": 16,
-     "note": "Second Wind (under 25%, no mark ready)",
+     "index": 6,
+     "note": "Last Stand at the Helm (live Battle Trance)",
+     "conditions": [
+      {
+       "type": "health_below",
+       "description": "",
+       "value": 50
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Last Stand at the Helm (live Battle Trance)",
+      "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+      "target": "SELF"
+     }
+    },
+    {
+     "index": 7,
+     "note": "Second Wind (under 25%)",
      "conditions": [
       {
        "type": "health_below",
@@ -4484,13 +3734,13 @@
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Second Wind (under 25%, no mark ready)",
+      "description": "Second Wind (under 25%)",
       "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
       "target": "SELF"
      }
     },
     {
-     "index": 17,
+     "index": 8,
      "note": "Hold the Line (live Unbroken Command, opener: party 3+ hexes away)",
      "conditions": [
       {
@@ -4508,7 +3758,7 @@
      }
     },
     {
-     "index": 18,
+     "index": 9,
      "note": "Final Command (duel)",
      "conditions": [
       {
@@ -4526,7 +3776,7 @@
      }
     },
     {
-     "index": 19,
+     "index": 10,
      "note": "Keelbind (duel)",
      "conditions": [
       {
@@ -4544,13 +3794,45 @@
      }
     },
     {
-     "index": 20,
+     "index": 11,
+     "note": "after lib-omen-rows-a: end turn",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "after lib-omen-rows-a: end turn"
+     }
+    },
+    {
+     "index": 12,
+     "note": "after lib-omen-binding-ring: end turn",
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "decreasecooldown",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "after lib-omen-binding-ring: end turn"
+     }
+    },
+    {
+     "index": 13,
      "note": "Stolen Form (duel: top threat carries a damage buff)",
      "conditions": [
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 4,
+       "value": 5,
        "target": "HIGHEST_ENMITY_OPPONENT"
       },
       {
@@ -4569,7 +3851,7 @@
      }
     },
     {
-     "index": 21,
+     "index": 14,
      "note": "Counter Stance (duel: a player within 2)",
      "conditions": [
       {
@@ -4587,7 +3869,7 @@
      }
     },
     {
-     "index": 22,
+     "index": 15,
      "note": "Suppression Writ",
      "conditions": [
       {
@@ -4605,13 +3887,13 @@
      }
     },
     {
-     "index": 23,
+     "index": 16,
      "note": "Unraveling Strike",
      "conditions": [
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 3,
+       "value": 4,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -4623,13 +3905,13 @@
      }
     },
     {
-     "index": 24,
+     "index": 17,
      "note": "Explosive Tag Cataclysm",
      "conditions": [
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "CLOSEST_OPPONENT"
       }
      ],
@@ -4641,7 +3923,7 @@
      }
     },
     {
-     "index": 25,
+     "index": 18,
      "note": "Windlash Focus",
      "conditions": [
       {
@@ -4659,24 +3941,7 @@
      }
     },
     {
-     "index": 26,
-     "note": "close in (duel)",
-     "conditions": [
-      {
-       "type": "distance_higher_than",
-       "description": "",
-       "value": 4,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "move_towards_opponent",
-      "description": "close in (duel)",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "index": 27,
+     "index": 19,
      "note": "basic attack (fallback; never a set piece)",
      "conditions": [],
      "action": {
@@ -4690,9 +3955,9 @@
    "signatureRules": [
     0,
     1,
-    12,
-    14,
-    15
+    2,
+    4,
+    5
    ]
   },
   "Sealwright": {
@@ -4754,7 +4019,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "HIGHEST_ENMITY_OPPONENT"
       }
      ],
@@ -4772,7 +4037,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "CLOSEST_OPPONENT"
       },
       {
@@ -4797,7 +4062,7 @@
       {
        "type": "distance_lower_than",
        "description": "",
-       "value": 5,
+       "value": 6,
        "target": "HIGHEST_ENMITY_OPPONENT"
       }
      ],

@@ -2,7 +2,8 @@
 """Generate the six new Skyglass chart runs (isolated Battle Pyramids entered with a chart), all HIDDEN.
 
     python3 push/skyglass_charts.gen.py --keys                    # print the AI keys this generator needs from 344
-    python3 push/skyglass_charts.gen.py --copies <344 bundle>     # write push/354 and push/355 (AFTER 344 has run)
+    python3 push/skyglass_charts.gen.py --copies <344 part 1 bundle> --copies <344 part 3 bundle>
+                                                                  # write push/354 and push/355 (AFTER 344 has run)
         [--keymap <json>]        # optional {key: srcId} overrides, if 344 names a copy differently
         [--out-dir <dir>]        # default push/
     python3 push/skyglass_charts.gen.py --stand-in <path>         # TEST ONLY: a fake 344 bundle with made-up ids
@@ -11,19 +12,20 @@
   355  the two Epic runs and the two tainted runs: The Sealed Reliquary (Reliquary Seal), The Fall (The Last Heading),
        The Rotted Reliquary (Rotted Reliquary Seal), The Burning Heading (The Rotted Heading).
 
-Neither manifest is committed before push/344 (the rebuilt AI copies, RUL-2026-10-31-066/-067) has run: every enemy
-is named by literal id (L01; Forge's offline plan keeps no idmap), and the Veteran, Rot-Touched and one-off records
-exist only after 344. The Common runs fight only base (live) records, but they are built in the same pass, because the
-base records are re-tuned by the same re-simulation (RUL-2026-10-31-067 item 1) and the commons fight them scaled.
+Neither manifest is committed before push/344 (the RUL-2026-10-31-077 records) has run: every enemy is named by
+literal id (L01; Forge's offline plan keeps no idmap), and every record these runs fight is a 344 copy.
 
-AI keys (`--keys` prints them; the 344 builder gives each record the srcId shown, or this generator gets a --keymap):
-  base:<crew>     the live record itself (RUL-2026-10-31-067 item 1); id from state/skyglass_build/charts_spec.json
-                  params._names (the harness's live-id table), never from the bundle.
-  veteran:<crew>  "Veteran <Name>" (item 2): the Epic runs (the charts spec's chart-r-* copies). srcId sg344_veteran-<crew>.
-  rot:<crew>      "Rot-Touched <Name>" (item 3): the tainted runs (chart-t-*). srcId sg344_rot-<crew>.
-  oneoff:<name>   item 4: the three Lingering Echo hazards and the Fall's Arsenal Keeper. srcId sg344_oneoff-<name>.
-Every bundle id is checked: present in the idmap, a 21-character nanoid, its entry an AI create in state ok, and for
-veteran/rot keys the entry's name is exactly "Veteran <Name>" / "Rot-Touched <Name>" (item 5).
+AI keys (push/skyglass_aikeys.py; the table is state/skyglass_build/records_spec.json; `--keys` prints them):
+  common:<crew>           the Common runs' scaled copies (RUL-2026-10-31-077 item 2b).
+  veteran:<crew>[-<use>]  the Epic runs, fixed level 100 (item 2c): the Sealed Reliquary echoes (veteran:foundry-warden,
+                          veteran:<crew>-echo), the Fall's crew (veteran:deck-warden / seal-charge, the hunts' records),
+                          its break (veteran:core-horror) and helm (veteran:the-captain-fall); the Burning Heading's
+                          Deck Warden and Wayfinder and its ally (veteran:the-captain-ally).
+  rot:<crew>              Rot-Touched, the tainted runs.
+  oneoff:<name>           the three Lingering Echo hazards and the Fall's Arsenal Keeper.
+Each key resolves to srcId sg344_<key> in the 344 bundle(s), checked to be an ok AI create named as the table names it
+(push/skyglass_aikeys.py Resolver). The cross-check below also requires every fight's spec record (charts_spec runs) to
+be the record the table assigns to that key.
 
 Design of record (zero live requests): docs/design/SKYGLASS_TEXT.md section 2 (all player text, node ids, scenes;
 read verbatim through push/skyglass_text.py), SKYGLASS_LOOT_TABLES.md 4 / 4a / 5 / 5d (ladder, picks, ending drops),
@@ -53,6 +55,8 @@ def load(name):
 
 T = load("skyglass_text.py")
 G = load("skyglass_hunts.gen.py")  # SCENE, STEP_EXP, STEP_N (the hunts' ladder; read only)
+sys.path.insert(0, os.path.join(ROOT, "push"))
+import skyglass_aikeys as K  # noqa: E402
 
 NUM_COMMON, NUM_EPIC = 354, 355
 PFX = {NUM_COMMON: "sg354_", NUM_EPIC: "sg355_"}
@@ -70,37 +74,16 @@ CREW = {"deck-warden": "Deck Warden", "seal-charge": "Seal Charge", "arsenal-kee
         "skyglass-sentinel": "Skyglass Sentinel", "oathkeeper": "Oathkeeper", "first-blade": "First Blade",
         "foundry-warden": "Foundry Warden", "sealwright": "Sealwright", "core-horror": "Core Horror",
         "the-captain": "The Captain", "wayfinder": "Wayfinder", "replicant-zero": "Replicant Zero"}
-LIVE = {v: k for k, v in SPEC["params"]["_names"].items()}  # name -> live id (harness live-id table)
-# One-offs (RUL-2026-10-31-067 item 4): crew name for the spec cross-check, and the spec record they were simulated as.
-ONEOFF = {"lingering-echo-i": ("Lingering Echo", "chart-lingering-echo-2"),     # under the Sealwright (Pour Line)
-          "lingering-echo-ii": ("Lingering Echo", "chart-lingering-echo-3"),    # under the Sentinel (Pour + Script)
-          "lingering-echo-iii": ("Lingering Echo", "chart-lingering-echo-4"),   # under the First Blade (Pour + Script + Tide)
-          "fall-arsenal-keeper": ("Arsenal Keeper", "chart-arsenal-keeper")}    # the Fall's fire source (Boss Fights 8)
+ONEOFF_NAME = {"lingering-echo-i": "Lingering Echo", "lingering-echo-ii": "Lingering Echo",
+               "lingering-echo-iii": "Lingering Echo", "fall-arsenal-keeper": "Arsenal Keeper"}
 
 
 def key_name(key):
+    """The crew name a key fights as (for the cross-check against the spec's fight labels)."""
     tier, slug = key.split(":")
-    return ONEOFF[slug][0] if tier == "oneoff" else CREW[slug]
-
-
-def expected_username(key):
-    tier, slug = key.split(":")
-    return {"veteran": "Veteran " + CREW.get(slug, ""), "rot": "Rot-Touched " + CREW.get(slug, "")}.get(tier)
-
-
-def name_ok(key, name):
-    """RUL-2026-10-31-067 item 5: "Veteran <Name>" / "Rot-Touched <Name>". A leading "The" may be dropped
-    ("Veteran Captain"); the prefix and the rest of the crew name are required."""
-    want = expected_username(key)
-    if not want or name == want:
-        return True
-    tier, slug = key.split(":")
-    crew = CREW[slug][4:] if CREW[slug].startswith("The ") else None
-    return bool(crew) and name == want.split(" ")[0] + " " + crew
-
-
-def default_src(key):
-    return COPIES_PFX + key.replace(":", "-")
+    if tier == "oneoff":
+        return ONEOFF_NAME[slug]
+    return CREW[re.sub(r"-(echo|fall|ally)$", "", slug)]
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -196,37 +179,36 @@ CONSOLATION = {}  # cut by RUL-2026-10-31-080 (director 2026-10-31: failed Epic 
 # ---------------------------------------------------------------------------------------------------------------
 # Runs: node order follows SKYGLASS_TEXT.md section 2; fights follow charts_spec.json `runs` (cross-checked).
 # ---------------------------------------------------------------------------------------------------------------
-RUL067_COMMON = True  # common runs fight the base records scaled to the player (RUL-2026-10-31-067 item 1)
 RUNS = {
     "lowtide": {
         "quest": "The Low Tide Run", "chart": "Tide Chart", "num": NUM_COMMON, "rank": "C", "scaled": True,
         "step": "I", "pickCount": 1,
         "nodes": [("d_breach", "b1"), ("d_hold", "b2"), ("d_beach", "b3")],
-        "fights": {"b1": ["base:deck-warden", "base:seal-charge"], "b2": ["base:arsenal-keeper"],
-                   "b3": ["base:skyglass-sentinel"]},
+        "fights": {"b1": ["common:deck-warden", "common:seal-charge"], "b2": ["common:arsenal-keeper"],
+                   "b3": ["common:skyglass-sentinel"]},
         "spec": "lowtide", "press": None},
     "nightwatch": {
         "quest": "The Night Watch", "chart": "Watch Roster", "num": NUM_COMMON, "rank": "C", "scaled": True,
         "step": "II", "pickCount": 1,
         "nodes": [("d_post", "b1"), ("d_middle", "b2"), ("d_last", "b3")],
-        "fights": {"b1": ["base:deck-warden", "base:seal-charge"], "b2": ["base:oathkeeper"],
-                   "b3": ["base:deck-warden", "base:oathkeeper"], "b_press": ["base:first-blade"]},
+        "fights": {"b1": ["common:deck-warden", "common:seal-charge"], "b2": ["common:oathkeeper"],
+                   "b3": ["common:deck-warden", "common:oathkeeper"], "b_press": ["common:first-blade"]},
         "spec": "nightwatch", "press": "b_press"},
     "reliquary": {
         "quest": "The Sealed Reliquary", "chart": "Reliquary Seal", "num": NUM_EPIC, "rank": "S", "scaled": False,
         "step": "VI", "pickCount": 1,
         "nodes": [("d_open", "b1"), ("d_after1", "b2"), ("d_after2", "b3"), ("d_after3", "b4")],
-        "fights": {"b1": ["veteran:foundry-warden"], "b2": ["veteran:sealwright", "oneoff:lingering-echo-i"],
-                   "b3": ["veteran:skyglass-sentinel", "oneoff:lingering-echo-ii"],
-                   "b4": ["veteran:first-blade", "oneoff:lingering-echo-iii"]},
+        "fights": {"b1": ["veteran:foundry-warden"], "b2": ["veteran:sealwright-echo", "oneoff:lingering-echo-i"],
+                   "b3": ["veteran:skyglass-sentinel-echo", "oneoff:lingering-echo-ii"],
+                   "b4": ["veteran:first-blade-echo", "oneoff:lingering-echo-iii"]},
         "spec": "reliquary", "press": None},
     "fall": {
         "quest": "The Fall", "chart": "The Last Heading", "num": NUM_EPIC, "rank": "S", "scaled": False,
         "step": "VI", "pickCount": 1,
         "nodes": [("d_aboard", "b1"), ("d_gundeck", "b2"), ("d_break", "b3")],
-        "fights": {"b1": ["base:deck-warden", "base:seal-charge"],
-                   "b2": ["oneoff:fall-arsenal-keeper", "base:deck-warden"], "b3": ["veteran:core-horror"],
-                   "b_press": ["veteran:the-captain"]},
+        "fights": {"b1": ["veteran:deck-warden", "veteran:seal-charge"],
+                   "b2": ["oneoff:fall-arsenal-keeper", "veteran:deck-warden"], "b3": ["veteran:core-horror"],
+                   "b_press": ["veteran:the-captain-fall"]},
         "spec": "fall", "press": "b_press"},
     "rotted": {
         "quest": "The Rotted Reliquary", "chart": "Rotted Reliquary Seal", "num": NUM_EPIC, "rank": "S",
@@ -239,9 +221,9 @@ RUNS = {
         "quest": "The Burning Heading", "chart": "The Rotted Heading", "num": NUM_EPIC, "rank": "S", "scaled": False,
         "step": "VI", "pickCount": 2,
         "nodes": [("d_break", "b1"), ("d_captain", "b2"), ("d_gangway", "b3")],
-        "fights": {"b1": ["rot:core-horror"], "b2": ["oneoff:fall-arsenal-keeper", "base:deck-warden"],
-                   "b3": ["base:wayfinder"]},
-        "allies": {"b2": ["base:the-captain"], "b3": ["base:the-captain"]},
+        "fights": {"b1": ["rot:core-horror"], "b2": ["oneoff:fall-arsenal-keeper", "veteran:deck-warden"],
+                   "b3": ["veteran:wayfinder"]},
+        "allies": {"b2": ["veteran:the-captain-ally"], "b3": ["veteran:the-captain-ally"]},
         "spec": "burning", "press": None},
 }
 # Tainted twists (charts_spec objectiveShape; Boss Fights 8; loot tables 5): entry at 70% pools on the FIRST fight only
@@ -296,17 +278,13 @@ def cross_check():
             assert bool(f.get("scaled")) == r["scaled"], (run, b)
             allies = sorted(key_name(k) for k in r.get("allies", {}).get(b, []))
             assert allies == sorted(a["name"] for a in f.get("allies", [])), (run, b)
-            for k, x in zip(sorted(r["fights"][b], key=key_name), sorted(f["ids"], key=lambda x: x["name"])):
-                tier, slug = k.split(":")
-                if tier == "base":
-                    # the spec fought the live record (or a common copy of it, which RUL-067 item 1 retires)
-                    assert x["id"] in (LIVE[CREW[slug]],) or x["id"].startswith("chart-c-"), (run, b, k, x)
-                elif tier == "veteran":
-                    assert x["id"].startswith("chart-r-"), (run, b, k, x)
-                elif tier == "rot":
-                    assert x["id"].startswith("chart-t-"), (run, b, k, x)
-                else:
-                    assert x["id"] == ONEOFF[slug][1], (run, b, k, x)
+            # every fighter is the record the RUL-077 table assigns to its key (charts_spec newAIs / liveRecords)
+            for side, keys, xs in (("enemy", r["fights"][b], f["ids"]), ("ally", r.get("allies", {}).get(b, []),
+                                                                         f.get("allies", []))):
+                spec_keys = sorted(K.key_of_source("charts_spec.json", "newAIs" if x["id"] in SPEC["newAIs"]
+                                                   else "liveRecords", x["id"]) or f"(no record for {x['id']})"
+                                   for x in xs)
+                assert sorted(keys) == spec_keys, (run, b, side, sorted(keys), spec_keys)
 
 
 def all_keys():
@@ -322,35 +300,12 @@ def all_keys():
 # ---------------------------------------------------------------------------------------------------------------
 # Resolve AI keys
 # ---------------------------------------------------------------------------------------------------------------
-def resolve(bundle_path, keymap):
-    b = json.load(open(bundle_path))
-    idmap = b.get("idmap") or {}
-    entries = {e.get("srcId"): e for e in b.get("entries", []) if e.get("srcId")}
-    ids, report, problems = {}, [], []
+def resolve(bundles, keymap):
+    R = K.Resolver(bundles, keymap)
+    ids, report = {}, []
     for k in all_keys():
-        tier, slug = k.split(":")
-        if tier == "base":
-            i = LIVE[CREW[slug]]
-            ids[k] = i
-            report.append((k, "state", i, CREW[slug]))
-            continue
-        src = keymap.get(k, default_src(k))
-        i = idmap.get(src)
-        e = entries.get(src)
-        if not i or not NANO.match(i):
-            problems.append(f"{k}: srcId {src} has no id in the 344 idmap")
-            continue
-        if not e or e.get("entity") != "ai" or e.get("slot") != "create" or e.get("state") != "ok" or e.get("id") != i:
-            problems.append(f"{k}: srcId {src} is not an ok AI create in the bundle entries")
-            continue
-        if not name_ok(k, e.get("name")):
-            problems.append(f"{k}: srcId {src} is named {e.get('name')!r}, expected {expected_username(k)!r} "
-                            "(RUL-2026-10-31-067 item 5)")
-            continue
-        ids[k] = i
-        report.append((k, src, i, e.get("name")))
-    if problems:
-        raise SystemExit("344 bundle does not give every AI this generator needs:\n  " + "\n  ".join(problems))
+        ids[k] = R(k)
+        report.append((k, K.src_id(k), ids[k], K.KEYS[k]))
     return ids, report
 
 
@@ -505,13 +460,13 @@ def write(num, slug, note, items, out_dir, extra):
 def build(bundle, keymap, out_dir):
     cross_check()
     ids, report = resolve(bundle, keymap)
-    src = os.path.basename(bundle)
+    src = ", ".join(os.path.basename(b) for b in bundle)
     roster = {k: {"id": i, "from": s, "name": n} for k, s, i, n in report}
     for num, slug, runs, what in (
             (NUM_COMMON, "skyglass_chart_runs_common", ("lowtide", "nightwatch"),
-             "the two Common chart runs, The Low Tide Run (Tide Chart) and The Night Watch (Watch Roster): base records "
-             "scaled to the player (RUL-2026-10-31-067 item 1), no press-on room on the Low Tide Run, the Second Watch "
-             "on the Night Watch"),
+             "the two Common chart runs, The Low Tide Run (Tide Chart) and The Night Watch (Watch Roster): the Common "
+             "copies scaled to the player (RUL-2026-10-31-077 item 2b), no press-on room on the Low Tide Run, the Second "
+             "Watch on the Night Watch"),
             (NUM_EPIC, "skyglass_chart_runs_epic", ("reliquary", "fall", "rotted", "burning"),
              "the two Epic runs (The Sealed Reliquary, The Fall: Veteran records, fixed) and the two tainted runs (The "
              "Rotted Reliquary, The Burning Heading: Rot-Touched records, fixed, 70% entry pools, pick 2)")):
@@ -525,36 +480,22 @@ def build(bundle, keymap, out_dir):
         extra["_decided"] = DECIDED
         write(num, slug, (
             f"push/{num}: {what}. All HIDDEN, isolated Battle Pyramids entered with the chart (spent at start), a lost "
-            "fight fails the run, completion pick (rewardMode choose). Enemies by literal id: base records from the "
-            f"harness live-id table, the rest from push/344's results bundle {src} (L01). Text: SKYGLASS_TEXT.md "
+            "fight fails the run, completion pick (rewardMode choose). Enemies by literal id, by AI key "
+            f"(push/skyglass_aikeys.py) from push/344's results bundle {src} (L01). Text: SKYGLASS_TEXT.md "
             "section 2, plus the Lantern's claim line on every run (RUL-2026-10-31-072 item 1). Rewards: loot tables "
             "4 / 4a / 5 / 5d (ladder, picks, ending drops); F03 consolation and F17 Core Rot per RUL-2026-10-31-072."),
             items, out_dir, extra)
 
 
 def stand_in(path):
-    """TEST ONLY: a fake 344 results bundle naming every key this generator needs, with made-up ids."""
-    import hashlib
-    entries, idmap = [], {}
-    for k in all_keys():
-        if k.startswith("base:"):
-            continue
-        src = default_src(k)
-        fake = ("X" + hashlib.sha256(k.encode()).hexdigest())[:21].replace("a", "_")
-        name = expected_username(k) or {"lingering-echo-i": "Lingering Echo I", "lingering-echo-ii": "Lingering Echo II",
-                                        "lingering-echo-iii": "Lingering Echo III"}.get(k.split(":")[1], "Arsenal Keeper (Fall)")
-        entries.append({"name": name, "srcId": src, "entity": "ai", "slot": "create", "op": "create", "state": "ok",
-                        "verdict": "match", "id": fake})
-        idmap[src] = fake
-    json.dump({"builder": "STAND-IN (not a real run)", "state": "DONE", "outcome": "success", "entries": entries,
-               "idmap": idmap}, open(path, "w"), indent=1)
-    print(f"{path}: stand-in 344 bundle, {len(entries)} AI records (fake ids)")
+    """TEST ONLY: a fake 344 results bundle naming every created key, with made-up ids."""
+    K.stand_in(path)
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--keys", action="store_true")
-    ap.add_argument("--copies")
+    ap.add_argument("--copies", action="append", default=[], help="a push/344 results bundle (repeat: parts 1 and 3)")
     ap.add_argument("--keymap")
     ap.add_argument("--out-dir", default=os.path.join(ROOT, "push"))
     ap.add_argument("--stand-in")
@@ -562,8 +503,7 @@ def main():
     if a.keys:
         cross_check()
         for k in all_keys():
-            src = "(live id, state)" if k.startswith("base:") else default_src(k)
-            print(f"{k:32} {src:40} {expected_username(k) or LIVE.get(CREW.get(k.split(':')[1], ''), '')}")
+            print(f"{k:32} {K.src_id(k):40} {K.KEYS[k]}")
         return
     if a.stand_in:
         stand_in(a.stand_in)

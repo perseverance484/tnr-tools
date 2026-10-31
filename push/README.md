@@ -1351,7 +1351,7 @@ build 347 → gates → run 347**. Publishing the jutsu does not make the pet ob
 and the jar stays hidden. Tested on stand-in ids (validate 0 errors / 0 warnings, check_manifest 0 problems); not
 committed. **Post-run check:** `petSpecies.get` shows `defaultJutsuIds` = [Little Maw's id].
 
-## 361–367 Skyglass Wreck, crew upgrade, Crowned Captain rework, Crownhold top-ups (+ the Archive's break-the-seal fight for 339): PLANNED, generators only; nothing committed until the final specs land (and 344 / 363 have run where noted)
+## 361–367 Skyglass Wreck, crew upgrade, Crowned Captain rework, Crownhold top-ups (+ the Archive's break-the-seal fight for 339): 361 READY TO RUN (final RUL-2026-10-31-077 specs; ledger PENDING director acceptance); the others generators only (built from 344 / 363 results where noted)
 
 Generators (zero live requests; helpers and the AI-key convention in `push/skyglass_wave2.py`). Every AI kit, rule list
 and tuning number is read from `state/skyglass_build/` (`build_spec.json`, `crowned_captain_spec.json`,
@@ -1363,7 +1363,7 @@ built from another spec directory.
 
 | # | Built by | What | Needs |
 |---|---|---|---|
-| 361 | `python3 push/skyglass_crew_upgrade.gen.py` | 9 AI edits: the live crew (Deck Warden, Seal Charge, Skyglass Sentinel, First Blade, Oathkeeper, Wayfinder, Core Horror, The Captain, Sealwright) upgraded in place for the endgame Wreck (RUL-2026-10-31-067 item 1): `sharedKits` kit and rules (<= 20, includeDefaultRules false, named `basicAttack` fallback, range+1 gates), `endgame.ais` level / multipliers / stats / innate rows; masteries and items from the push/249 capture; username and avatar untouched | final specs |
+| 361 | `python3 push/skyglass_crew_upgrade.gen.py` | **`361_skyglass_crew_upgrade.json`, committed.** 9 AI edits: the live crew (Deck Warden, Seal Charge, Skyglass Sentinel, First Blade, Oathkeeper, Wayfinder, Core Horror, The Captain, Sealwright) upgraded in place to the endgame Wreck version (RUL-2026-10-31-067 item 1, RUL-2026-10-31-077 item 2a; the `base:` keys): `sharedKits` kit and rules (<= 20, includeDefaultRules false, named `basicAttack` fallback, range+1 gates), `endgame.ais` level / multipliers / stats / innate rows (The Captain pools 9, RUL-077 item 1); masteries and items from the push/249 capture; username and avatar untouched. Gates: check_manifest 0; validate.py exit 1 held by `state/validate_exceptions/361_skyglass_crew_upgrade.json` (**PENDING**: law 41 on Core Horror and The Captain at the 20-rule cap; "kit is all 60 AP" on the Sealwright) | final specs (landed) |
 | 362 | `python3 push/skyglass_wreck.gen.py --currency M,E,T,P` | 1 dungeon edit of the hidden Skyglass Wreck (`RHqzYdY4EAQA9HwsBKWDS`): floors from `endgame.floors` on the base (live) records, floor kinds by position (floors 1-4 `floor`, 5 `boss`: the harness's floor-4 `mini-boss` is invalid in a single tier), background `dessert` (RUL-2026-10-28-027), SKYGLASS_TEXT.md §8 description, 19 clear-drop lines (below). `--currency` is REQUIRED: asserting `rewards` replaces the clear currency the director set in game, so pass the live values (or 0,0,0,0 and re-set them in game) | 361 run first; final specs |
 | 363 | `python3 push/skyglass_crownhold_rework.gen.py --jutsu` | 2 hidden AI jutsu creates: The Crown's Will, Recall (`crowned_captain_spec.json` `newJutsu`; harness text, as the text doc has none; `_placeholders`: 2 animations pending art) | final specs |
 | 364 | `... --ai <363 bundle>` | 4 AI edits: the Crowned Captain's rework (Crownfall, Command Absolute, Shardstorm, Recall, The Crown's Will; 20 rules; stats/pools x3) and the Armsmaster, Replicant Zero and the Second with their library set pieces (`crownhold_spec.json` `commanders`) | 363's bundle (idmap `sg363_cc-crowns-will`, `sg363_cc-recall`) |
@@ -1371,11 +1371,9 @@ built from another spec directory.
 | 366 | `python3 push/skyglass_wreck.gen.py --easy --copies <344 bundle>` | 1 dungeon create, HIDDEN: the easy (level-45) Wreck on the Faded tier (`lvl50.floors`), drops Tide Chart 25 / Watch Roster 15 / Buried Cache chart 5 / Galley Stores 10, background `dessert`, description + "For level 45 and up." **Placeholders (`_placeholders`):** name "Faded Skyglass Wreck", entrance sector 210 (16, 6), clear currency 0 | the rebuilt 344's bundle |
 | 367 | `python3 push/skyglass_crew_upgrade.gen.py --unequip` | 9 AI edits, the base crew's kits off (law 18/60). **Not in the normal order:** the first step of any later edit to a library jutsu they hold (e.g. the visual-asset push's animations): 367 → the jutsu edit → 361 regenerated and re-run | only when needed |
 
-**AI keys** (same convention as `push/skyglass_charts.gen.py`): `base:<crew>` = the live record (build_spec
-`endgame.ais[].copyOf.liveAiId`, cross-checked with the push/249 ids); `faded:<crew>` = srcId **`sg344_faded-<crew>`**
-in the rebuilt 344's bundle, checked to be an ok AI create named `Faded <Name>` (a leading "The" may be dropped). The
-easy Wreck needs these eight from 344: `faded:deck-warden`, `faded:seal-charge`, `faded:skyglass-sentinel`,
-`faded:first-blade`, `faded:oathkeeper`, `faded:wayfinder`, `faded:core-horror`, `faded:the-captain`.
+**AI keys** (`push/skyglass_aikeys.py`, table `state/skyglass_build/records_spec.json`): `base:<crew>` = the live record
+(build_spec `endgame.ais[].copyOf.liveAiId`, cross-checked with the push/249 ids and the table); `faded:<crew>` = srcId
+**`sg344_faded-<crew>`** in 344 part 1's bundle, checked to be an ok AI create named `Faded <Name>` ("Faded Captain").
 
 **Endgame clear drops** (each member rolls each line; loot tables §2, §5, §5b, §5d): Unmarked Cargo 10, Chart of the
 Buried Cache 20, Drowned Foundry 12, Quarantined Archive 6, Captain's Watch 6, Lastlight Lantern 3, Sealed Treasury 3
@@ -1384,19 +1382,21 @@ item 5); Captain's Command Fan and Rot-Bloom Reaper tokens 5 `onlyOnce` (item 9)
 (`oSFTrX15PqtFtjwRXk041`, push/346) 5 `onlyOnce` (RUL-2026-10-29-054). Pets fight in the Wreck (RUL-2026-10-31-072
 item 7): nothing to build; the re-simulation should include the pet.
 
-**Run order:** 361 → 362 (then the hidden party-of-three timing test) · 363 → 364 with 365 · 344 → 366. 361 changes
-the live crew that the four live chart runs still fight until push/339 points them at their Veteran copies: run it in
-the go-live window, outside an event weekend (F05). All before 339.
+**Run order:** 344 part 1 → 344 part 2 (built from part 1's bundle) → 344 part 3; then 361 → 362 (then the hidden
+party-of-three timing test) · 363 → 364 with 365 · 344 → 366. 361 changes the live crew that the four live hunts still
+fight until push/339 points them at their Veteran copies (339 is now built with `--golive <329 bundle> --copies <344
+part 1 bundle> --copies <344 part 3 bundle>`; RUL-2026-10-31-077 item 2a): run 361 in the go-live window, outside an
+event weekend (F05). All before 339.
 
 **Break the seal (F15; RUL-2026-10-31-072 item 8): for push/339, no number of its own.** `push/skyglass_archive_seal.py`
-`break_the_seal(objs, echo_ai, core_rot)` adds the branch to the Archive's objectives (both routes: a "Break the seal"
-choice on `d_entry`/`d_entry_a` → warning dialog → echo fight (a loss fails the run) → a dialog paying Core Rot ×2 at
-100% (a dialog reward, as RUL-072 item 3) → back to the route). **How 339 includes it** (the owner of
-`skyglass_update.gen.py` applies this): load the module like the other `push/*.py` modules and call
-`SEAL.break_the_seal(objs, echo_ai=<id>, core_rot=R("Core Rot"))` inside `archive()` before `G.quest(...)`. Open: the
-echo's AI record (unsimulated; a Veteran copy such as `veteran:core-horror` is the natural pick), and its text:
-SKYGLASS_TEXT.md has none, so the function uses PLACEHOLDER text and returns the gaps (`strict=True` refuses instead);
-339 must not go live with gaps. `python3 push/skyglass_archive_seal.py --demo` prints the resulting node graph.
+`break_the_seal(objs, echo_ai, core_rot)` adds the branch to the Archive's objectives (both routes: a "Break the last
+seal" choice on `d_entry`/`d_entry_a` → `d_break` (choice[0] "Break it" → the echo fight, a loss fails the run;
+choice[1] "Leave it sealed" → the node `d_entry`'s first choice leads to) → `d_break_rot` paying Core Rot ×2 at 100% →
+back to the route). Text: SKYGLASS_TEXT.md §2.7a (RUL-2026-10-31-078 item 2); `strict=True` reports no gaps. The echo
+is the Veteran Core Horror (RUL-2026-10-31-076 item 4), AI key `veteran:core-horror` (344 part 1). **How 339 includes
+it** (the owner of `skyglass_update.gen.py` applies this; `golive` now installs the 344 resolver): call
+`SEAL.break_the_seal(objs, echo_ai=<veteran:core-horror id>, core_rot=R("Core Rot"), strict=True)` inside `archive()`
+before `G.quest(...)`. `python3 push/skyglass_archive_seal.py --demo` prints the resulting node graph.
 
 **Stand-in test (2026-10-31; specs from `fable/skyglass-rule-cap` f5997646, fake 344 / 363 bundles; output not
 committed):** `check_manifest.mjs` 0 pre-send problems on all eight (361-367 and a 339 Archive with break the seal);
@@ -1505,82 +1505,68 @@ reward) and the achievement "Probe: Both Decks" (A then B, no reward), shaped li
   whether the achievement completes. First goal still done after reload = Walked Every Deck can ship as designed.
 - Afterwards: leave all three hidden (or delete them).
 
-## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 RUN and verified; 344 (AI copies) ON HOLD: rebuilt after the RUL-066/067 re-simulation (consolidated tiers); 348 RUN; 349 RUN 2026-10-31 (tnr_results_1793460192439.json, 1/1 VERIFIED)
+## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 RUN and verified; 344 (AI copies) REBUILT for RUL-2026-10-31-077 (52 creates in parts 1-3), ready to run; 348 RUN; 349 RUN 2026-10-31 (tnr_results_1793460192439.json, 1/1 VERIFIED)
 
 Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Generators: `push/skyglass_library.gen.py`
 (342). Run order and dependencies are listed per manifest; a manifest that needs ids from an earlier unrun one is built
 by a generator mode reading that run's results bundle (the `--binds` / `--golive` / `--retry` pattern, L01), never
 committed before that run.
 
-### 344 Skyglass AI copies: part 1 (10 AI creates, HIDDEN) READY TO RUN (ledger accepted, RUL-2026-10-31-066 item 5); part 2 built from part 1's results; 45 copies BLOCKED on two director decisions
+### 344 Skyglass AI copies, rebuilt for RUL-2026-10-31-077 (52 AI creates, HIDDEN): part 1 (48) READY TO RUN, part 2 built from part 1's results, part 3 (4) after part 2; ledgers PARTLY PENDING director acceptance
 
-`python3 push/skyglass_copies.gen.py` writes `344_skyglass_copies_1.json`. Every new AI record the remaining Skyglass
-content needs that copies a live AI: the chart-run copies (`charts_spec.json` `newAIs`), the 15 Haul guards
-(`haul_spec.json`), the Wreck's party-tuned and level-50 copies (`build_spec.json` `endgame` / `lvl50` + `sharedKits`)
-and the Crown Stonebound summon copy. Each copy is created from the row and rules the harness fought (`fullRow` /
-`fullProfile`; the Wreck copies from the shared kit on the live chassis), hidden, with its source's live sprite,
-includeDefaultRules false (the fallback fix is already in the rule sets; the generator refuses any
-use_highest_power_* / use_random_jutsu / use_combo_action rule). Library jutsu by literal id from push/342's bundle
-(`sg342_<spec id>`, law 17). Usernames (law 66) are **placeholders** for the director to rename: `<Name> (Chart)`,
-`(Rare Chart)`, `(Tainted)`, `(Hunter)`, `(Stores)`, `(Wreck)`, `(Easy Wreck)`, Lingering Echo I-III, Crown Stonebound
-(Summoned); the Haul's Trophy Warden, Stores Ward and Sealwright's Echo and the Steeping Horror keep their design names
-(`_usernames` in the manifest).
-- **Part 1, `344_skyglass_copies_1.json` (10):** Seal Charge (Chart), Lingering Echo I-III (the Sealed Reliquary's
-  static hazard echoes), Seal Charge (Haul), Core Canister (Haul), Stores Ward, Seal Charge (Wreck), Seal Charge (Easy
-  Wreck), Crown Stonebound (Summoned): a copy of the live Crown Stonebound (push/272 D3.REG4) with Erupting Ground swapped
-  for Echo of Erupting Ground (enemies only, RUL-2026-10-30-060 item 7); the live record is a Crownhold D3 regular and is
-  not touched. The Lingering Echoes get the unconditional end turn the engine appends anyway (`_tail_restated`;
-  theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~273-281).
-  - Gates: `check_manifest.mjs` 0 pre-send problems (exit 0); `skyglass_check.py` 0 errors (exit 0); `validate.py
-    --strict` **exit 1, 10 diagnostics**, all the stale law 14 / L05 `preferredStat` (migration 0056; Forge refuses the
-    key; as RUL-2026-10-25-009 / -013), held by `state/validate_exceptions/344_skyglass_copies_1.json`
-    (`validate_exception.py` exit 0). **The ledger's ruling is PENDING: director acceptance needed before the run.**
-  - Order: no dependency on push/343 (no part-1 copy holds Raise the Gunwale or Stonebound Summons).
-  - **After it runs:** keep the bundle; later builders read it (idmap `sg344_<spec id>`). Then build part 2.
+Never run (no `sg344_` srcId in any results bundle); the previous `344_skyglass_copies_1.json` (10 creates, built before
+the rule cap) is replaced. `python3 push/skyglass_copies.gen.py` writes parts 1 and 3. Source: the record table
+`state/skyglass_build/records_spec.json` (harness `tools/records.py` on `fable/skyglass-rule-cap` at 3e345c20; keys and
+usernames in `push/skyglass_aikeys.py` `KEYS`; `python3 push/skyglass_aikeys.py --list` prints every key, srcId and use).
+Every record of kind "copy" is created, srcId **`sg344_<key with ':' → '-'>`**, from the row and rules the harness fought
+(`fullRow` / `fullProfile` of its source spec entry; Faded from `build_spec.json` lvl50 on the live chassis; the Crown
+Stonebound copy from push/272 with Echo of Erupting Ground). Hidden, live sprites, includeDefaultRules false, at most 20
+rules, range+1 gates, named `basicAttack` fallback (Forge 0.12.3). The nine `base:` records are NOT here: they are the
+live crew, edited in place by push/361.
+- **Run order (RUL-077 build):** 344 part 1 → build and run part 2 (from part 1's bundle) → part 3 → **361** (the
+  live crew to the Wreck version) → the bundle-driven builds: 354 / 355 (`--copies` part 1 and part 3 bundles), 356 →
+  357 (part 1), 358 (parts 1 and 3), 362 (after 361), 366 (part 1); 363 → 364 with 365 independent; 339 last
+  (`--golive <329 bundle> --copies <part 1> --copies <part 3>`).
+- **Part 1, `344_skyglass_copies_1.json` (48):** Veteran 12 (`veteran:deck-warden`, `seal-charge`, `core-horror`,
+  `skyglass-sentinel`, `wayfinder`, `first-blade`, `the-captain`: the hunts' records, also the Fall's / Burning
+  Heading's crew; `veteran:foundry-warden`, `skyglass-sentinel-echo`, `first-blade-echo`: the Sealed Reliquary echoes;
+  `veteran:the-captain-fall`: the Fall's helm; `veteran:the-captain-ally`: the Burning Heading's ally), Common 6, Rot-Touched
+  4, Faded 8, Haul 10 (incl. the two fuse copies), one-off 8 (Lingering Echo I-III, Arsenal Keeper (Magazine), Steeping
+  Horror, Trophy Warden, Stores Ward, Crown Stonebound (Summoned)).
 - **Part 2 (1 jutsu edit), built from part 1's bundle, not committed before it:** `python3 push/skyglass_copies.gen.py
-  --summon <part 1 bundle>` writes `344_skyglass_copies_2.json`: Stonebound Summons (`bcbOllIWqHEopmQGHKDED`) summons the
-  Crown Stonebound copy instead of the live record (same 40% / 15000 HP; whole effects array; `injectableInBattle: false`).
-  **Law 18: nothing may equip Stonebound Summons before part 2 runs** (the live Sealwright's hunts upgrade and the three
-  Sealwright copies below come after it).
-- **Not built, ruled out:** `chart-c-wayfinder` and `chart-r-oathkeeper` are used only by the Low Tide Run's and the
-  Sealed Reliquary's press-on rooms, cut by RUL-2026-10-30-060 item 6 (`_not_built`).
-- **BLOCKED, server cap (10; director decision):** the server refuses an AI profile above 20 rules
-  (`AI_PROFILE_MAX_RULES = 20`, theninjarpg@3314d122 `app/drizzle/constants.ts:1933`, `server/api/routers/ai.ts:87`;
-  same at the harness pin c86f43f4). The simulated rule sets are longer for the Core Horror (32: rare and tainted chart
-  copies, the Steeping Horror, Wreck, Easy Wreck), the Captain (28: the Fall's press-on copy, Wreck, Easy Wreck) and the
-  Foundry Warden (21: rare and tainted chart copies). Which rules to cut changes the tuned fight. The same cap hits the
-  shared kits meant for the live records (Core Horror 32, The Captain 28) and Crownhold (the Crowned Captain 40,
-  commanders 30 / 28) (`_blocked_rule_cap`).
-- **BLOCKED, Forge pre-send kit lint (35; director decision, or a Lane A Forge/validate.py change):** Forge parses the
-  manifest through `forge/src/runner/pool.mjs` `kitProblems` and refuses the whole manifest when (a) a rule fires
-  `basicAttack` ("not in the AI's jutsus"; but the engine resolves it, `ai_v2.ts` ~494 / `actions.ts` ~512, and it is
-  the fallback fix's named basic attack) or (b) a pool jutsu's gate is not exactly range+1 (the harness gates at range:
-  safe under law 40, one tile short of the exact gate). 32 crew/guard/Wreck copies trip one or both, and the three
-  Stonebound Summons holders (rare and tainted Sealwright copies, the Haul's Sealwright's Echo) also wait for part 2
-  (`_blocked_forge_kit_lint`). `python3 push/skyglass_copies.gen.py --blocked` writes them as
-  `344_skyglass_copies_3.json` for review only (not committed; validate.py 225 errors, check_manifest 41 basicAttack +
-  146 gate problems). Measured offline (scratch, not committed): writing each `basicAttack` rule as the push/90 singleton
-  `use_combo_action ["basicAttack"]` (engine-equivalent, `ai_v2.ts` ~546; but RUL-2026-10-30-060 item 7's wording bans
-  combo rules) and every gate at range+1 (an AI attacks from one tile further than simulated) gives check_manifest 0
-  problems for all 35. Neither is applied.
-- **Not new records (no copy built):** the live four runs' crew, the hunt bosses and the Archive alarm guard (Crown
-  Archivist) are the live records upgraded in place (`hunts_spec.json`; SKYGLASS_BOSS_FIGHTS.md section 5); Crownhold
-  keeps the Archivist's hunts tuning as a fixed input (`crownhold_spec.json`), so no Archivist copy is needed.
-- **Later builders (chart runs, Haul quests, steeping, Wreck floors) read 344's results bundles** for the copies' ids
-  (idmap `sg344_<spec id>`: e.g. `sg344_chart-lingering-echo-2`, `sg344_haul-stores-ward`, `sg344_dg-seal-charge-l50`).
-- Any later edit to a library jutsu a copy holds (e.g. the visual-asset push's animations) must unequip every copy
+  --summon <part 1 bundle>` writes `344_skyglass_copies_2.json`: Stonebound Summons (`bcbOllIWqHEopmQGHKDED`) summons
+  `oneoff:crown-stonebound` instead of the live Crownhold record (same 40% / 15000 HP).
+- **Part 3, `344_skyglass_copies_3.json` (4), RUN AFTER part 2 (law 18):** the four holders of Stonebound Summons:
+  Veteran Sealwright (`veteran:sealwright`, the Archive boss), Veteran Sealwright (Echo), Rot-Touched Sealwright,
+  Sealwright's Echo (`haul:sealwright`).
+- **Names needing director confirmation** (theninjarpg@3314d122 forbids duplicate usernames: `UserData_username_key`,
+  `profile.updateAi` "Username already taken"): Veteran Captain, Faded Captain, Rot-Touched … (free among the 561
+  captured AI usernames); second Veteran records: Veteran Sealwright (Echo), Veteran Skyglass Sentinel (Echo), Veteran
+  First Blade (Echo), Veteran Captain (Fall), Veteran Captain (Ally); merged Haul guards: Deck Warden (Haul) (was
+  Hunter / Stores), Deck Warden (Lookout) (was Hunt Lookout / Stores Lookout). The Haul's steps 4-5 guards keep "First
+  Blade (Veteran)" / "Skyglass Sentinel (Veteran)", which now read like the Veteran tier.
+- **Gates (2026-10-31):** `check_manifest.mjs` 0 pre-send problems on parts 1 and 3 (and a stand-in part 2);
+  `skyglass_check.py` 0 / 0. `validate.py --strict` exit 1, held by ledgers (`validate_exception.py` exit 0):
+  `state/validate_exceptions/344_skyglass_copies_1.json` (66: 48 stale `preferredStat`, the class RUL-2026-10-31-066
+  item 5 accepted; **PENDING:** 14 law 41 at the 20-rule cap, the engine appends the end turn; 3 "Windlash Focus …
+  distance gate is meaningless" on the Arsenal Keeper copies, the live rule as fought; 1 L08 on the Steeping Horror's 5
+  rows, the RUL-077 retune) and `344_skyglass_copies_3.json` (8: 4 `preferredStat`; **PENDING:** 4 "kit is all 60 AP"
+  on the Sealwright records, as fought).
+- **After each part runs:** keep the bundle; every later builder resolves these records by AI key from it
+  (`push/skyglass_aikeys.py` Resolver checks srcId, state ok and the username).
+- Any later edit to a library jutsu a copy holds (e.g. the visual-asset push's animations) must unequip every holder
   first, then re-equip (laws 18 and 60).
 
 ### 354, 355 Skyglass chart runs (6 quest creates, HIDDEN): PLANNED, built from 344's results (not committed before 344 runs)
 
-`python3 push/skyglass_charts.gen.py --copies <344 results bundle>` writes both. The six new chart runs, isolated Battle
+`python3 push/skyglass_charts.gen.py --copies <344 part 1 bundle> --copies <344 part 3 bundle>` writes both. The six new chart runs, isolated Battle
 Pyramids entered with their chart (spent at start), a lost fight fails the run, completion pick (`rewardMode` choose).
 Text verbatim from `SKYGLASS_TEXT.md` section 2 (node ids, scenes, shared battle lines); fights from
 `state/skyglass_build/charts_spec.json` `runs`, which the generator cross-checks (crew per fight, scaling, allies) and
 which must still match after the RUL-2026-10-31-066/-067 re-simulation lands.
 - **`354_skyglass_chart_runs_common.json` (2):** The Low Tide Run (Tide Chart; 3 fights, no press-on room) and The Night
-  Watch (Watch Roster; 3 watches + the Second Watch). Base records scaled to the player (`opponent_scaled_to_user`,
-  RUL-2026-10-31-067 item 1). Picks Inro / Galley / the other common chart; ending Buried Cache chart 10%, Core Rot 15%;
+  Watch (Watch Roster; 3 watches + the Second Watch). The Common copies scaled to the player (`opponent_scaled_to_user`,
+  RUL-2026-10-31-077 item 2b). Picks Inro / Galley / the other common chart; ending Buried Cache chart 10%, Core Rot 15%;
   ladder I (Low Tide), II / III pressed on (Night Watch).
 - **`355_skyglass_chart_runs_epic.json` (4):** The Sealed Reliquary and The Fall (Veteran records, fixed, ladder VI,
   Lantern 15%; the Reliquary's three boss tokens 2%; The Fall's Core Rot 40% as an ending drop, F17; its press-on room
@@ -1589,13 +1575,15 @@ which must still match after the RUL-2026-10-31-066/-067 re-simulation lands.
   Core Rot 40%, boss tokens 4%; the Captain as `allyAIs` after the Core Horror). Press-on rooms only where RUL-2026-10-30-060
   item 6 keeps them (Night Watch, The Fall, Rotted Reliquary). A failed Epic run pays 1 Core Rot on a dialog (`d_rot`)
   before the fail ending (F03).
-- **AI keys** (`python3 push/skyglass_charts.gen.py --keys`): `base:<crew>` are live ids from the charts spec's live-id
-  table (Deck Warden, Seal Charge, Arsenal Keeper, Skyglass Sentinel, Oathkeeper, First Blade, Wayfinder, The Captain,
-  Replicant Zero). From the 344 bundle, by srcId: `sg344_veteran-{foundry-warden,sealwright,skyglass-sentinel,first-blade,core-horror,the-captain}`,
-  `sg344_rot-{foundry-warden,sealwright,skyglass-sentinel,first-blade,core-horror}`,
-  `sg344_oneoff-{lingering-echo-i,lingering-echo-ii,lingering-echo-iii,fall-arsenal-keeper}` (15). Each must be an ok AI
-  create with a nanoid; Veteran / Rot-Touched entries must be named "Veteran <Name>" / "Rot-Touched <Name>" (item 5).
-  If 344 uses other srcIds, pass `--keymap <json>` ({key: srcId}) rather than editing the generator.
+- **AI keys** (`python3 push/skyglass_charts.gen.py --keys`; RUL-2026-10-31-077): every fighter is a 344 copy:
+  `common:{deck-warden,seal-charge,arsenal-keeper,skyglass-sentinel,oathkeeper,first-blade}` (354);
+  `veteran:{foundry-warden,sealwright-echo,skyglass-sentinel-echo,first-blade-echo}` (Sealed Reliquary),
+  `veteran:{deck-warden,seal-charge,core-horror,the-captain-fall}` (The Fall), `veteran:{deck-warden,wayfinder,the-captain-ally}`
+  (Burning Heading), `rot:{foundry-warden,sealwright,skyglass-sentinel,first-blade,core-horror}`,
+  `oneoff:{lingering-echo-i,lingering-echo-ii,lingering-echo-iii,fall-arsenal-keeper}` (355). Resolved by
+  `push/skyglass_aikeys.py` (srcId `sg344_<key>`, ok AI create, the table's username); the generator also checks every
+  fight's spec record against the table. Build with `--copies <344 part 1 bundle> --copies <344 part 3 bundle>` (the
+  Sealwright echoes are part 3 records).
 - **Open (`_open` in the manifests):** the Rotted Reliquary's press-on extra (unruled; a won room pays the same as
   leaving), quest ranks (C commons, S Epic/tainted; reversible), no failed-run Core Rot on the tainted runs.
   **Text gaps (`_text_gaps`):** the F03 consolation step's choice and the fail ending after it are placeholders until
@@ -1643,19 +1631,16 @@ precondition 2: the Epic charts' steeping effect, the Haul pages' quests). `--co
   generator refuses `huntingRank` / `gatheringRank`). `decreasemaxpools` lines split by profession (text §3.8).
   Reversible placeholders: questRank A, scenes `hold` (hunter pages) / `lower_hull` (gatherer pages),
   maxAttempts/maxCompletes 100.
-- **AI keys needed from 344** (`push/skyglass_aikeys.py` `KEYS`; srcId `sg344_<key with ':' → '-'>`, an ok `ai`
-  create, or the bundle idmap; `--keymap <json>` {key: literal id or srcId} overrides, the same shape as the chart
-  generator's): `oneoff:steeping-horror` (356); `veteran:wayfinder`, `veteran:first-blade` (Haul h-blade and the
-  steps 4-5 h-veteran), `veteran:deck-warden` (h-warden, g-warden and both lookouts), `veteran:skyglass-sentinel`
-  (g-sentinel, g-veteran), `veteran:arsenal-keeper` (h-keeper, alertness 3+), `veteran:sealwright` (the Sealwright's
-  Echo, alertness 3+), `oneoff:trophy-warden`, `oneoff:stores-ward`, `copy:seal-charge-haul`,
-  `copy:core-canister-haul` (358). The Haul's separate steps 4-5 and lookout copies collapse onto the crew member's
-  Veteran (RUL-2026-10-31-067 item 2); if the re-simulation keeps any of them separate, add a key.
-- **Text gaps (`_text_gaps` in 356):** `SKYGLASS_TEXT.md` §2.7 has no choice for `f_spat` (placeholder "Leave the
-  pool") and no `f_lost` text (empty: the engine shows "Failed: <quest>"). Also for the text owner: Take it back ends
-  on a win, so it shows the quest's success line ("The rot took …, and gave back …"); §2.7's "If you carry fewer than 3
-  Core Rot, choose Take it back" is moot (the engine refuses the use instead); the Haul page items promise "a chance at
-  a bonus chest", but the fitted ladder has no bonus entries.
+- **AI keys needed from 344** (`push/skyglass_aikeys.py`; srcId `sg344_<key with ':' → '-'>`, an ok `ai` create named
+  as the table names it, or the bundle idmap; `--keymap <json>` overrides): `oneoff:steeping-horror` (356); the Haul
+  tier (RUL-2026-10-31-077 item 2c, one record per measured tuning): `haul:wayfinder`, `haul:first-blade`,
+  `haul:first-blade-steps`, `haul:deck-warden` (h-warden and g-warden, identical), `haul:deck-warden-lookout` (both
+  lookouts, identical), `haul:skyglass-sentinel`, `haul:skyglass-sentinel-steps`, `haul:arsenal-keeper`,
+  `haul:sealwright` (344 part 3), `oneoff:trophy-warden`, `oneoff:stores-ward`, `copy:seal-charge-haul`,
+  `copy:core-canister-haul` (358). 358 needs `--copies` for both 344 part 1 and part 3 bundles.
+- **Text (RUL-2026-10-31-078 item 1):** `f_spat`'s choice ("Pick it up"), `f_lost` ("The pool goes still. It will wait
+  for you.") and the success line ("You step back from the Core's rot.") are read from SKYGLASS_TEXT.md §2.7; 356 has
+  no `_text_gaps`.
 - **Tested 2026-10-31 on stand-in 344 and 356 bundles** (fake ids for every key; output not committed):
   `validate.py --strict` 0 errors, 0 warnings on 356, 357, 358; `check_manifest.mjs` 0 pre-send problems on all
   three; `skyglass_check.py` 0 errors, 0 warnings (also the whole `push/` tree); `test_skyglass_check.py` 48 OK.

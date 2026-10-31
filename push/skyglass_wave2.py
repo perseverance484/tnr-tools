@@ -10,8 +10,10 @@ Inputs
   - push/342's results bundle (library jutsu: idmap sg342_<spec id>), law 17: an AI's jutsu array and rules carry
     literal ids.
 
-AI keys (one name per record a dungeon wave or an edit can point at):
-  base:<slug>    the live crew record itself, upgraded in place for the endgame Wreck (RUL-2026-10-31-067 item 1).
+AI keys (one name per record a dungeon wave or an edit can point at; the full RUL-2026-10-31-077 key list is
+push/skyglass_aikeys.py KEYS / state/skyglass_build/records_spec.json, which base_key_map and faded_key_map check):
+  base:<slug>    the live crew record itself, upgraded in place for the endgame Wreck (RUL-2026-10-31-067 item 1,
+                 RUL-2026-10-31-077 item 2a).
                  Ids: build_spec.json `endgame.ais[].copyOf.liveAiId`, cross-checked against LIVE_CREW below (push/249
                  capture, push/skyglass_hunts.gen.py AI table).
   faded:<slug>   the easy (level-45) Wreck tier (RUL-2026-10-31-067 item 6), created by the rebuilt push/344. Ids come
@@ -115,6 +117,8 @@ def base_key_map():
         if LIVE_CREW.get(s) != lid:
             raise SystemExit(f"build_spec endgame {a['harnessId']}: live id {lid} != LIVE_CREW[{s}] {LIVE_CREW.get(s)}")
         out["base:" + s] = lid
+    import skyglass_aikeys as K  # the RUL-077 records table must agree
+    assert {k: r["liveId"] for k, r in K.RECORDS.items() if k.startswith("base:")} == out, "records_spec base: differs"
     return out
 
 
@@ -136,8 +140,10 @@ def faded_key_map(bundle, notes):
     im = b.get("idmap") or {}
     entries = {e.get("srcId"): e for e in b.get("entries", []) if e.get("srcId")}
     out, problems = {}, []
+    import skyglass_aikeys as K
+    assert sorted(k for k in K.KEYS if k.startswith("faded:")) == sorted("faded:" + s for s in FADED_SLUGS)
     for s in FADED_SLUGS:
-        src = f"{COPIES_PFX}faded-{s}"
+        src = K.src_id("faded:" + s)
         i, e = im.get(src), entries.get(src)
         if not NANO.match(i or ""):
             problems.append(f"faded:{s}: srcId {src} has no id in the idmap")
