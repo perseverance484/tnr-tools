@@ -854,7 +854,7 @@ ruled into the build.
 
 **`item:Rotted Reliquary Seal.description`** (Legendary)
 ```html
-<i>The Reliquary Seal, soaked in rot: the echoes come out in pairs, and the air clogs your seals.</i><br><br><b>The Rotted Reliquary</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Chance drops:</b> Lastlight Lantern 30% · Core Rot 40% · Sealed Treasury 6% · Warden's Forge-Fists, Sealwright's Seal, The First Blade variants 4% each<br><b>Choose two:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Archive Chart Case ×2<br><b>At the end:</b> leave, or open the door the rot added for more (lose it and keep only what you held).<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
+<i>The Reliquary Seal, soaked in rot: the echoes come out in pairs, and the air clogs your seals.</i><br><br><b>The Rotted Reliquary</b> · Battle Arena<br>Difficulty: ★★★★☆<br><b>Chance drops:</b> Lastlight Lantern 30% · Core Rot 40% · Sealed Treasury 6% · Warden's Forge-Fists, Sealwright's Seal, The First Blade variants 4% each<br><b>Choose two:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Archive Chart Case ×2<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
 **`item:The Rotted Heading.description`** (Legendary)
