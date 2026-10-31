@@ -1,0 +1,9 @@
+{
+ "manifest": "push/373_crownhold_scenes.json",
+ "ruling": "PENDING director acceptance: 1 build-order diagnostic (validator bug).",
+ "reason": "validate.py's build-order lint ranks entities from a table keyed 'asset', but it first renames every asset entry to 'gameAsset' (validate.py ~1195-1198, the push/16 misroute fix), so an asset ranks 9 and any quest/jutsu after it is flagged. The items are phased (assets phase 1, the Crownhold edit phase 2) and Forge orders by phase then refs (check_manifest.mjs plan: assets first, 0 pre-send problems); the Crownhold edit reference the assets by @scene, so they cannot run before them. Validator bug, Lane A, not fixed here.",
+ "sha256": "49c9669a07999e10806f6abb3e76f7b9d2c5d951466f1409c5171a88005506cd",
+ "accepted": [
+  "ERROR  manifest: build order: quest appears after a later phase"
+ ]
+}
