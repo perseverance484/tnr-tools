@@ -1509,6 +1509,61 @@ which must still match after the RUL-2026-10-31-066/-067 re-simulation lands.
   each run's objectives, opponents and rewards; record the six quest ids in `state/skyglass_design/design_data.json`
   `picks.runs[].quest.id` (Walked Every Deck needs them).
 
+### 356, 357 Skyglass steeping (2 special quest creates; 2 chart item edits) and 358 the Haul (6 quest creates), all HIDDEN: PLANNED, built from 344's (and 356's) results, not committed before those runs
+
+Generators: `push/skyglass_steeping.gen.py` (356, 357), `push/skyglass_haul.gen.py` (358); shared AI-key resolver
+`push/skyglass_aikeys.py`. Text verbatim from `SKYGLASS_TEXT.md` §2.7 (steeping) and §3 (the Haul) via `skyglass_text.py`.
+Quest icons are the push/352 exports (`imagePack` pinned at the exports' commit and SHA-256).
+
+**Run order:** rebuilt 344 → `python3 push/skyglass_steeping.gen.py --copies <344 bundle>` → gates → run **356** →
+`python3 push/skyglass_steeping.gen.py --charts <356 bundle>` → gates → run **357**. Independently:
+`python3 push/skyglass_haul.gen.py --copies <344 bundle>` → gates → run **358**. All before 339 go-live (339
+precondition 2: the Epic charts' steeping effect, the Haul pages' quests). `--copies` repeats for a multi-part 344.
+
+- **356 `356_skyglass_steeping.json`:** "Steep the Reliquary Seal" and "Steep the Last Heading", `questType: special`
+  (only an item starts them; never listed), rank D, levels 1-100, `isolated: true` (F32), **entry 3 Core Rot as
+  `entryItems`** (F13; never `deliver_item`, which deletes the whole stack). `d_steep`: Steep → `b_horror` (the
+  Steeping Horror, scaled to the player, loot tables §5) or Take it back → `w_back` (win: the chart + 3 Core Rot
+  back). Win → `w_taken` (Rotted Reliquary Seal / The Rotted Heading). **Loss → `f_spat`, a dialog paying the chart
+  back, then `f_lost` (fail_quest)** (F03: rewards on a fail ending never pay). Scene `hold`.
+- **357 `357_skyglass_steeping_charts.json`:** item edits (fetch-merge, `effects` only) on the hidden Reliquary Seal
+  (`sVqDdYUJIxxRYbmKbbxo0`) and The Last Heading (`s1mYHuKqw2YuzIzxVwU-_`): one `noncombatquest` effect with the 356
+  quest's literal id (the push/274 Armory Requisition shape). The 329 records already carry `preventBattleUsage`, SELF,
+  SINGLE and `destroyOnUse` (the generator asserts it).
+- **A chart is never destroyed when the player cannot proceed** (theninjarpg@3314d122, read, not run):
+  `routers/item.ts` ~1995-2033 refuses before the debit (already on the quest, malformed grant, non-special quest);
+  the debit and `assignQuestToUser` share one receipt transaction (~2421-2464), so a refusal there (rank, level,
+  not awake, "You need 3× Core Rot in your inventory to enter.") rolls the use back and the chart stays. Once started,
+  Take it back is the refund; **abandoning refunds nothing**, and editing a steeping quest restarts open attempts
+  (`hasQuestContentChanged`), so never edit 356's quests while players may be steeping.
+- **358 `358_skyglass_haul.json`:** The Trophy Hold, The Bone Store, The Snare Room, The Overgrown Stores, The Ore
+  Vault, The Bloom Cellar from `state/skyglass_build/haul_spec.json` `graphs` (the 6ad2a102 fit; identical on
+  `fable/skyglass-rule-cap`): isolated Battle Pyramids, the page as entry item, 55-80 objectives each (438 total, each
+  under 90, RUL-044 item 8), endings pay the chests at 100%. **Guards not scaled** (`opponent_scaled_to_user: false`,
+  RUL-2026-10-31-073; the spec says true). **No profession rank gate** (the spec's `gate` is dropped, F11; the
+  generator refuses `huntingRank` / `gatheringRank`). `decreasemaxpools` lines split by profession (text §3.8).
+  Reversible placeholders: questRank A, scenes `hold` (hunter pages) / `lower_hull` (gatherer pages),
+  maxAttempts/maxCompletes 100.
+- **AI keys needed from 344** (`push/skyglass_aikeys.py` `KEYS`; srcId `sg344_<key with ':' → '-'>`, an ok `ai`
+  create, or the bundle idmap; `--keymap <json>` {key: literal id or srcId} overrides, the same shape as the chart
+  generator's): `oneoff:steeping-horror` (356); `veteran:wayfinder`, `veteran:first-blade` (Haul h-blade and the
+  steps 4-5 h-veteran), `veteran:deck-warden` (h-warden, g-warden and both lookouts), `veteran:skyglass-sentinel`
+  (g-sentinel, g-veteran), `veteran:arsenal-keeper` (h-keeper, alertness 3+), `veteran:sealwright` (the Sealwright's
+  Echo, alertness 3+), `oneoff:trophy-warden`, `oneoff:stores-ward`, `copy:seal-charge-haul`,
+  `copy:core-canister-haul` (358). The Haul's separate steps 4-5 and lookout copies collapse onto the crew member's
+  Veteran (RUL-2026-10-31-067 item 2); if the re-simulation keeps any of them separate, add a key.
+- **Text gaps (`_text_gaps` in 356):** `SKYGLASS_TEXT.md` §2.7 has no choice for `f_spat` (placeholder "Leave the
+  pool") and no `f_lost` text (empty: the engine shows "Failed: <quest>"). Also for the text owner: Take it back ends
+  on a win, so it shows the quest's success line ("The rot took …, and gave back …"); §2.7's "If you carry fewer than 3
+  Core Rot, choose Take it back" is moot (the engine refuses the use instead); the Haul page items promise "a chance at
+  a bonus chest", but the fitted ladder has no bonus entries.
+- **Tested 2026-10-31 on stand-in 344 and 356 bundles** (fake ids for every key; output not committed):
+  `validate.py --strict` 0 errors, 0 warnings on 356, 357, 358; `check_manifest.mjs` 0 pre-send problems on all
+  three; `skyglass_check.py` 0 errors, 0 warnings (also the whole `push/` tree); `test_skyglass_check.py` 48 OK.
+- **After they run:** read back each quest's objectives, opponents, entry items and rewards (356, 358) and both charts'
+  effect (357); then a staff test on a hidden chart: use it with fewer than 3 Rot (refused, chart kept), with 3 (Take
+  it back refunds; a loss returns the chart).
+
 ### 348 Crown's Hoard + Wreck Sighted (2 creates, HIDDEN, placeholder art): 348 RUN 2026-10-31 (tnr_results_1793459592295.json, 2/2 VERIFIED; Crown's Hoard WrnHlt3h6ZDjFaJk3i41O, Wreck Sighted v7kKhLXsX9aofQfc7BnGx); 349 RUN 2026-10-31 (tnr_results_1793460192439.json, 1/1 VERIFIED)
 
 **348 archived 2026-10-31** to `archive/spent-manifests/push-2026-10-31/` (spent; its Crown's Hoard text is the
