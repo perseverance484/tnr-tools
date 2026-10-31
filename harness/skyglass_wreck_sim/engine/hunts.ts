@@ -180,7 +180,8 @@ export const buildHunts = (HP: HuntParams, kitParams: KitParams) => {
       cast("Rigging Snare", LIVE_J.snare, "CLOSEST_OPPONENT", [cond.near(4)]),
       cast("Stoneward (player within 2)", LIVE_J.stoneward, "SELF", [cond.within(0, 2)]),
       cast("Springguard (player within 5)", LIVE_J.springguard, "SELF", [cond.within(0, 5)]),
-      endTurn("stationary: hold the crucible"),
+      // Rule cap (RUL-2026-10-31-066; 21 -> 20): the explicit "stationary: hold the crucible" end turn is dropped. The
+      // engine appends the same unconditioned end turn to every AI profile (ai_v2.ts performAIaction), so nothing changes.
     ],
   };
   // Sealwright (4b): Script Lines = Omen: Seal Lines + Binding: Seal Lines; Archive Lock = Omen: Last Light, Binding +
@@ -228,12 +229,17 @@ export const buildHunts = (HP: HuntParams, kitParams: KitParams) => {
     rules: [
       cast("Coastline B erupts", LIB.blast.scatterB, "SELF", [primed("scatterB")]),
       cast("Coastline A erupts", LIB.blast.scatterA, "SELF", [primed("scatterA")]),
-      ...afterMark("scatterB", "Coastline B", wfPlain, [wfShared[0]]),
-      ...afterMark("scatterA", "Coastline A", wfPlain, [wfShared[0]]),
+      // Rule cap (RUL-2026-10-31-066; 23 -> 20): the minor-mark blast (wfShared[0]) is stated once, not three times
+      // (the two repeats had the same conditions and action as the first, so they could never fire), and the hunt copy
+      // drops the shared kit's third Chart Mark focus (LOWEST_HEALTH_OPPONENT: the marked player is the lowest-health
+      // one but neither the closest nor the top threat; 0 casts in 70 endgame Wreck appearances). The shared Wayfinder
+      // kit itself (Wreck, Haul) is unchanged.
       wfShared[0],
+      ...afterMark("scatterB", "Coastline B", wfPlain),
+      ...afterMark("scatterA", "Coastline A", wfPlain),
       cast("Coastline B mark (under 50%)", LIB.mark.scatterB, "SELF", [cond.hp(50)]),
       cast("Coastline A mark", LIB.mark.scatterA, "SELF", [cond.roundGt(1)]),
-      ...wfShared.slice(1),
+      ...wfShared.slice(1).filter((r: any) => r.action.description !== "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)"),
     ],
   };
   // First Blade (4d): ring = Omen: Ring + Eruption: Ring; "That was new." = Lowered Guard under 25% (once).

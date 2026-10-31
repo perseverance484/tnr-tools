@@ -95,6 +95,11 @@ type Commander = {
 const J2 = { backlashPalm: "ElSK-RCrLjddEUm76FZrs", shurikenStorm: "Nrxc8m9utE9qaD_gWpLgf", fetters: FETTERS_ID };
 const J3 = { devouringWave: "-45phqE2baTGC--lNSEx9", mirrorEdge: "AEeRf7i9215twJ_iEugZT" };
 const J4 = { piercingJudgment: "OyswJoalfNpmz7FsA8Hd8", explosiveTag: "o-4SCAhJ4LHdCwcBDgJrV" };
+/** The push/272 lists end on an unconditioned end turn; the engine appends the same rule to every AI profile. */
+const dropLastEnd = (rules: any[]) => {
+  const last = rules[rules.length - 1];
+  return last?.action?.type === "end_turn" && !(last.conditions ?? []).length ? rules.slice(0, -1) : rules;
+};
 export const COMMANDERS: Commander[] = [
   {
     slot: "D2", flavour: "\"Every weapon the Project ever tested. Mind your footing.\"",
@@ -102,19 +107,26 @@ export const COMMANDERS: Commander[] = [
     sets: { [LIB.mark.scatterA]: ["racksFall", "mark"], [LIB.mark.scatterB]: ["racksFall", "mark"], [LIB.blast.scatterA]: ["racksFall", "land"], [LIB.blast.scatterB]: ["racksFall", "land"], [LIB.mark.ring]: ["whirlwind", "mark"], [LIB.blast.ring]: ["whirlwind", "land"] },
     setNames: ["racksFall", "whirlwind"], special: {},
     // Racks Fall (Scatter) after his set-up and heavy moves; Whirlwind (Ring) under 50% when the player hugs him.
+    // Rule cap (RUL-2026-10-31-066; 30 -> 20): after Whirlwind's or Racks Fall A's mark the turn ends (the plain
+    // attacks after a mark are gone); Racks Fall B is the last mark in his order, so it needs no end turn (any earlier
+    // mark already failed this turn) and his own list below follows it (Cataclysm, Backlash Palm, Fighter's Poise,
+    // Shuriken Storm, close in). The round-1 Racks Fall A rule goes: after the opening Fetters (60 AP) only 40-AP rules
+    // fit and the plain Racks Fall A mark is the first of them. Also cut: the push/272 Cataclysm-on-a-debuffed-player
+    // rule (its plain Cataclysm stays) and the explicit last end turn (the engine appends the same rule).
     rules: (b, p) => [
       R.jutsu(LIB.blast.ring, "SELF", [C.has(M.ring)]),
       R.jutsu(LIB.blast.scatterB, "SELF", [C.has(M.scatterB)]),
       R.jutsu(LIB.blast.scatterA, "SELF", [C.has(M.scatterA)]),
-      ...(["ring", "scatterA", "scatterB"] as const).flatMap((k) => afterMark(k, [R.jutsu(J2.backlashPalm, PLAYER, [C.near(5)]), R.jutsu(J2.shurikenStorm, PLAYER, [C.near(5)])])),
+      R.end([C.has(M.ring)]),
+      R.end([C.has(M.scatterA)]),
       // Opening (round 1): Sovereign Fetters (60 AP), then Racks Fall's mark (40 AP) on the stunned player.
-      ...(p.opening ? [R.jutsu(J2.fetters, PLAYER, [C.round(2), C.near(6)]), R.jutsu(LIB.mark.scatterA, "SELF", [C.round(2)])] : []),
+      ...(p.opening ? [R.jutsu(J2.fetters, PLAYER, [C.round(2), C.near(6)])] : []),
       ...b.slice(0, 2),
       R.jutsu(LIB.mark.ring, "SELF", [C.hb(50), C.near(2)]),
-      ...b.slice(2, 7),
+      ...b.slice(2, 7).filter((r: any) => !(r.action.jutsuId === J4.explosiveTag && r.conditions.some((c: any) => c.type === "target_has_effect"))),
       R.jutsu(LIB.mark.scatterA, "SELF", []),
       R.jutsu(LIB.mark.scatterB, "SELF", []),
-      ...b.slice(7),
+      ...dropLastEnd(b.slice(7)),
     ],
   },
   {
@@ -142,15 +154,21 @@ export const COMMANDERS: Commander[] = [
     setNames: ["orderOfBattle"], special: { undertow: K.undertow, loweredGuard: LIB.loweredGuard },
     // Order of Battle: the Rows mark (40 AP), then his live Sovereign Undertow (60 AP) drags the player in the same turn;
     // the rows blast fires next turn. Under 30%, once: Lowered Guard.
+    // Rule cap (RUL-2026-10-31-066; 28 -> 20): after the Rows A mark, Sovereign Undertow (the drag), else end turn;
+    // Rows B is the last mark in his order (Rows A already failed this turn), so it needs no end turn, and his own
+    // list follows it, where his push/272 Undertow drags a player 4+ hexes away (a nearer one is already in the rows).
+    // Cut: Piercing Judgment and Cataclysm as after-mark follow-ups, the push/272 Cataclysm-on-a-stunned-player rule
+    // (the plain Cataclysm right below it covers every case it fired in) and the explicit last end turn (the engine
+    // appends the same rule).
     rules: (b, p) => [
       R.jutsu(LIB.blast.rowsB, "SELF", [C.has(M.rowsB)]),
       R.jutsu(LIB.blast.rowsA, "SELF", [C.has(M.rowsA)]),
-      ...(["rowsA", "rowsB"] as const).flatMap((k) => afterMark(k, [R.jutsu(K.undertow, PLAYER, [C.near(5)]), R.jutsu(J4.piercingJudgment, PLAYER, [C.near(5)]), R.jutsu(J4.explosiveTag, PLAYER, [C.near(5)])])),
+      ...afterMark("rowsA", [R.jutsu(K.undertow, PLAYER, [C.near(5)])]),
       R.jutsu(LIB.loweredGuard, "SELF", [C.hb(30)]),
       ...b.slice(0, 2),
       R.jutsu(LIB.mark.rowsA, "SELF", []),
       R.jutsu(LIB.mark.rowsB, "SELF", []),
-      ...b.slice(2),
+      ...dropLastEnd(b.slice(2).filter((r: any) => !(r.action.jutsuId === J4.explosiveTag && r.conditions.some((c: any) => c.type === "target_has_effect" && c.effectType === "stun")))),
     ],
   },
 ];

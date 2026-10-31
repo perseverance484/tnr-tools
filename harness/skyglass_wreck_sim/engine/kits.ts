@@ -103,7 +103,14 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     blast("Collapse (ring blast)", "ring"),
     // Two-marker chain: the 60 AP left after Omen: Ring drag a far player into the ring (live pull).
     cast("Undertow (live Sovereign Undertow, during a ring mark)", LIVE.undertow, "RANDOM_OPPONENT", [cond.marker(1, mk("ring")), cond.far(4, "RANDOM_OPPONENT")]),
-    ...afterMark(["ring", "scatterA", "scatterB", "lastLight"], horrorPlain),
+    // Rule cap (RUL-2026-10-31-066: the server takes at most 20 rules). The plain attacks are hoisted above the
+    // after-mark end turns instead of repeated once per marker (4 x 3 rules). Every plain attack is 60 AP and every
+    // mark 40 AP, so a turn still holds at most one plain attack and one mark: after a mark (60 AP left) the plain
+    // attack fires as before, else the marker's end turn closes the turn (never two marks); in a turn with no
+    // marker the plain attack now comes first and the mark follows in the 40 AP left (same pair, swapped order). Only
+    // a Second Wind turn differs: Second Wind (40) + plain attack (60) where it was Second Wind + mark.
+    ...horrorPlain.map(([n, id, t, c]) => cast(n, id, t, c)),
+    ...(["ring", "scatterA", "scatterB", "lastLight"] as const).map((k) => endTurn(`after ${LIB.mark[k]}: end turn`, [cond.marker(1, mk(k))])),
     // Phase 2 (director: earlier, so Rupture Field and its pools appear): Rupture Field A, then the Maw (from round 4;
     // its 6-round cooldown keeps it to about once a phase), then Rupture Field B.
     ...(P.horrorMawFirst ? [mark("Omen: Last Light (Maw of the Deep, level-50 order: first)", "lastLight")] : []),
@@ -113,7 +120,6 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     mark("Omen: Ring (Collapse, a player within 2)", "ring", [cond.within(0, 2)]),
     mark("Omen: Scatter A", "scatterA"),
     mark("Omen: Scatter B", "scatterB"),
-    ...horrorPlain.map(([n, id, t, c]) => cast(n, id, t, c)),
     endTurn("stationary: hold"),
   ];
 
@@ -129,38 +135,43 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
   // alternate; the 60 AP left after each later mark goes to Last Stand (live Battle Trance), else Second Wind (under
   // 25%), else a duel move.
   const P2 = 50;
+  // Rule cap (RUL-2026-10-31-066: at most 20 rules; this kit had 28). The after-mark blocks (one per mark: Battle
+  // Trance, Second Wind, Final Command, Keelbind, end turn) are folded into one ordered tail below the marks, closed by
+  // the two after-mark end turns, so phase 1 keeps its exact order and a mark turn keeps its follow-ups:
+  // - transition turn (80 AP): Steady (20) + Gunwale (20) + first mark (40); nothing in the tail fits 20 AP, so the
+  //   marker's end turn closes it, as before;
+  // - a later mark turn: mark (40), then Battle Trance (40) or Second Wind / Final Command / Keelbind, then end turn, as
+  //   before. New: Hold the Line can be the follow-up when the party stands 3+ hexes away;
+  // - two marks in one turn cannot happen when the other mark is cooling down (every turn of the Bell/Broadside
+  //   alternation); with the after-mark end turns below the marks, a turn whose blast was lost (stunned to 80 AP) may
+  //   lay the other mark;
+  // - dropped: "Second Wind (no mark ready)" (now the shared Second Wind rule in the tail) and "close in (duel)" (3 casts
+  //   in 70 endgame appearances); a phase-2 turn with no mark ready may now open with Battle Trance.
   const captain = [
     blast("Broadside (signature, rows A)", "rowsA", LIB.sig.broadside),
     blast("Ship's Bell (signature)", "bindingRing", LIB.sig.shipsBell),
-    // Battle Trance ranks above Second Wind here: it follows on the first mark turn after the transition (the turn after
-    // the transition is the first blast, 100 AP), so a fall below 25% cannot push it out.
-    ...afterMark(["rowsA", "bindingRing"], [
-      ["Last Stand at the Helm (live Battle Trance)", LIVE.battleTrance, "SELF", [cond.hp(P2)]],
-      ["Second Wind (under 25%)", LIVE.secondWind, "SELF", [cond.hp(25)]],
-      ...duel(),
-    ]),
-    // The transition turn (80 AP): Steady the Helm (20) + Raise the Gunwale (20) + the first deck mark (40); the 20 AP left
-    // fit no after-mark move (all 40+), so the after-mark end turn closes it and Battle Trance waits for a later turn. Both
-    // transition moves have cooldown 99: once per fight. Second Wind sits below the marks (and in the after-mark slots),
-    // so a fall from above 50% to below 25% in one round cannot split the transition turn.
+    // The transition turn (80 AP): Steady the Helm (20) + Raise the Gunwale (20) + the first deck mark (40). Both
+    // transition moves have cooldown 99: once per fight.
     cast("Steady the Helm (phase 2 begins; once)", LIB.transition.captain, "SELF", [cond.hp(P2)]),
     cast("Raise the Gunwale (transition; once; he falls back behind the rail)", WRECK_NEW.gunwale, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [cond.hp(P2)]),
     // Alternation: both marks have cooldown 4 and each set piece takes two turns, so Bell and Broadside take turns.
     mark("Omen: Binding Ring (Ship's Bell, phase 2)", "bindingRing", [cond.hp(P2)]),
     mark("Omen: Rows A (Broadside, phase 2)", "rowsA", [cond.hp(P2)]),
-    // A phase-2 turn with no mark ready.
-    cast("Second Wind (under 25%, no mark ready)", LIVE.secondWind, "SELF", [cond.hp(25)]),
+    // After a later mark (60 AP left): Last Stand, else Second Wind (under 25%), else a duel move.
+    cast("Last Stand at the Helm (live Battle Trance)", LIVE.battleTrance, "SELF", [cond.hp(P2)]),
+    cast("Second Wind (under 25%)", LIVE.secondWind, "SELF", [cond.hp(25)]),
     // Phase 1: the duel. Hold the Line opens it: the wave starts mid-battle (no wave-round condition exists), so it fires
-    // while the party is still 3+ hexes away; below the phase-2 block, so it never displaces a set piece.
+    // while the party is still 3+ hexes away.
     cast("Hold the Line (live Unbroken Command, opener: party 3+ hexes away)", LIVE.unbrokenCommand, "SELF", [cond.far(3)]),
     ...duel().map(([n, id, t, c]) => cast(`${n} (duel)`, id, t, c)),
+    // A mark turn ends here: never two marks in one turn.
+    ...(["rowsA", "bindingRing"] as const).map((k) => endTurn(`after ${LIB.mark[k]}: end turn`, [cond.marker(1, mk(k))])),
     cast("Stolen Form (duel: top threat carries a damage buff)", LIVE.stolen, "HIGHEST_ENMITY_OPPONENT", [cond.near(4, "HIGHEST_ENMITY_OPPONENT"), cond.targetHas("HIGHEST_ENMITY_OPPONENT", 1, "increasedamagegiven")]),
     cast("Counter Stance (duel: a player within 2)", LIVE.counter, "SELF", [cond.within(0, 2)]),
     cast("Suppression Writ", LIVE.writ, "HIGHEST_ENMITY_OPPONENT", [cond.near(4, "HIGHEST_ENMITY_OPPONENT")]),
     cast("Unraveling Strike", LIVE.unraveling, "CLOSEST_OPPONENT", [cond.near(3)]),
     cast("Explosive Tag Cataclysm", LIVE.cataclysm, "CLOSEST_OPPONENT", [cond.near(5)]),
     cast("Windlash Focus", LIVE.windlash, "SELF", [cond.within(0, 4)]),
-    moveTo("close in (duel)", "CLOSEST_OPPONENT", [cond.far(4)]),
     // Fallback: the basic attack by name. use_highest_power_action ranked Broadside (power 140) first and cast it unmarked
     // in phase 1 (RUL-2026-10-28-031: phase 1 is a duel only; RUL-2026-10-29-045). With nothing in reach he ends his turn.
     cast("basic attack (fallback; never a set piece)", BASIC_ATTACK, "CLOSEST_OPPONENT"),
