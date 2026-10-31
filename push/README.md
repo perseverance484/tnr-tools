@@ -1514,6 +1514,16 @@ committed before that run.
 
 ### 344 Skyglass AI copies, rebuilt for RUL-2026-10-31-077 (52 AI creates, HIDDEN): part 1 (48) READY TO RUN, part 2 built from part 1's results, part 3 (4) after part 2; ledgers accepted (RUL-2026-10-31-083)
 
+**Part 1 RUN 2026-10-31** (`harvests/inbox/tnr_results_1793484364363.json`): 48/48 ok, 37 VERIFIED, 11 CONFIRMED with
+stat drift (the Haul guards, Trophy Warden, Stores Ward, Crown Stonebound (Summoned), Core Canister (Haul)). Expected:
+the server re-derives combat stats from `statsMultiplier` on every AI create/edit (`profile.ts` `scaleUserStats`, ai
+share of the level budget × statsMultiplier), so the stored stats came out as multiplier × 278,260 at level 100 (e.g.
+3 → 834,780), not the chassis values the manifest carried. The harness fought exactly those values (`charts.ts`
+`scaledRow` calls the same `scaleUserStats`), so the live records match the simulation; rank is not involved. Records
+whose multiplier is 5 or 1 sent matching values and verified. **Part 2** (`344_skyglass_copies_2.json`, built from part
+1's bundle): READY TO RUN; then part 3.
+
+
 Never run (no `sg344_` srcId in any results bundle); the previous `344_skyglass_copies_1.json` (10 creates, built before
 the rule cap) is replaced. `python3 push/skyglass_copies.gen.py` writes parts 1 and 3. Source: the record table
 `state/skyglass_build/records_spec.json` (harness `tools/records.py` on `fable/skyglass-rule-cap` at 3e345c20; keys and
