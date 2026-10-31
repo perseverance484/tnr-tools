@@ -1408,6 +1408,14 @@ the 20-rule cap; and a false "dead rules" error on the Crowned Captain's uncondi
 through once he stands on the post: theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~482-492). Both need a
 `state/validate_exceptions/` ledger with director acceptance when the manifests are built from the final specs.
 
+## 369 Skyglass Core Rot text after RUL-2026-10-31-080 (3 item edits; records stay HIDDEN): READY TO RUN
+
+`369_skyglass_core_rot_text.json`: description-only re-sends of the three hidden records whose text changed when failed
+Epic runs stopped paying 1 Core Rot (RUL-2026-10-31-080): Reliquary Seal and The Last Heading (the "If you fall: 1 Core
+Rot" line removed) and Core Rot ("a lost Epic run (1)" removed). It is exactly the subset of `push/skyglass_item_text.gen.py`'s
+regenerated output that differs from the run push/360 (360 is left as run). Gates: `validate.py --strict` 0 errors,
+0 warnings; `check_manifest.mjs` 0 pre-send problems. Run any time.
+
 ## 368 Skyglass hidden event records: go-live edits sent early (12 item edits; records stay HIDDEN): READY TO RUN
 
 `368_skyglass_hidden_items.json` (`python3 push/skyglass_hidden_items.gen.py`, from 329's results bundle

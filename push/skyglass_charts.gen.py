@@ -191,7 +191,7 @@ PRESS_EXTRA = {"nightwatch": [], "fall": [drop("The Rotted Heading", 5)]}
 # F03 (RUL-2026-10-31-072 item 3): a failed Epic run's 1 Core Rot (RUL-2026-10-28-019) is paid on a dialog step the
 # fail route reaches before the fail ending (the engine pays nothing on fail_quest, theninjarpg@3314d122
 # libs/quest.ts ~1514-1525). Only the Epic runs: the text doc marks only their f_lost "(pays 1 Core Rot)".
-CONSOLATION = {"reliquary": [drop("Core Rot", 100)], "fall": [drop("Core Rot", 100)]}
+CONSOLATION = {}  # cut by RUL-2026-10-31-080 (director 2026-10-31: failed Epic runs pay nothing); F03 code kept inert
 
 # ---------------------------------------------------------------------------------------------------------------
 # Runs: node order follows SKYGLASS_TEXT.md section 2; fights follow charts_spec.json `runs` (cross-checked).

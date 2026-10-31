@@ -253,7 +253,7 @@ You fall at your post. When you wake, there is a new name at the bottom of the r
 
 Fights: Foundry Warden; Sealwright + Lingering Echo; Skyglass Sentinel + Lingering Echo; the First Blade + Lingering
 Echo. No press-on room (cut, RUL-2026-10-30-060 item 6). Twist: each fallen echo's set piece lingers (Boss Fights §8).
-A failed run pays 1 Core Rot (RUL-2026-10-28-019).
+A failed run pays nothing (RUL-2026-10-31-080 cut the 1 Core Rot consolation).
 
 **`quest:The Sealed Reliquary.description`**
 ```
@@ -301,7 +301,7 @@ The Sentinel crumbles to sand, but the tide it carried keeps coming, in the line
 "That was new," the First Blade says, and lies back on the floor to savour it.<br><br>You step out, and the chains draw tight behind you. Inside, the frames stand empty, for now.
 ```
 
-**`obj:The Sealed Reliquary/f_lost.description`** (pays 1 Core Rot)
+**`obj:The Sealed Reliquary/f_lost.description`**
 ```html
 The reliquary closes around you. You wake outside the iron box with the seal spent, and dark rot drying on your sleeve.
 ```
@@ -311,7 +311,7 @@ The reliquary closes around you. You wake outside the iron box with the seal spe
 Fights: burning deck (Deck Warden + Seal Charge); gun deck, at the powder magazine (Arsenal Keeper + Deck Warden); the
 break (Core Horror); press-on: the Captain at the helm (kept, RUL-2026-10-30-060 item 6). The Arsenal Keeper is the only
 fire source: his ember bands in the powder-magazine fight. The "Burning Deck" hazard is removed (RUL-2026-10-29-057
-item 5, RUL-2026-10-30-060 item 7; Boss Fights §8). A failed run pays 1 Core Rot.
+item 5, RUL-2026-10-30-060 item 7; Boss Fights §8). A failed run pays nothing (RUL-2026-10-31-080).
 
 **`quest:The Fall.description`**
 ```
@@ -366,7 +366,7 @@ You run the gangway as the hull breaks behind you. When you look back, the ship 
 The Captain lets go of the wheel for the first time. "Then it is done," he says, as the deck tips. "It was done a long time ago." When the smoke clears you are on the sand, and the wreck is only a wreck again.
 ```
 
-**`obj:The Fall/f_lost.description`** (pays 1 Core Rot)
+**`obj:The Fall/f_lost.description`**
 ```html
 The fire takes the deck out from under you. You wake on the sand below the wreck with the heading spent and the taste of rot in your mouth.
 ```
@@ -876,12 +876,12 @@ ruled into the build.
 
 **`item:Reliquary Seal.description`** (Epic)
 ```html
-<i>The seal of the iron reliquary chained behind the Sealwright, where the echoes the Core could not hold were sealed away.</i><br><br><b>The Sealed Reliquary</b> · Battle Arena<br>Difficulty: ★★★☆☆<br><b>Chance drops:</b> Lastlight Lantern 15% · Sealed Treasury 6% · Warden's Forge-Fists, Sealwright's Seal, The First Blade variants 2% each<br><b>Choose one:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Archive Chart Case ×2<br><b>If you fall:</b> 1 Core Rot.<br><b>Steep it:</b> use it from your inventory: 3 Core Rot → a Legendary chart.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
+<i>The seal of the iron reliquary chained behind the Sealwright, where the echoes the Core could not hold were sealed away.</i><br><br><b>The Sealed Reliquary</b> · Battle Arena<br>Difficulty: ★★★☆☆<br><b>Chance drops:</b> Lastlight Lantern 15% · Sealed Treasury 6% · Warden's Forge-Fists, Sealwright's Seal, The First Blade variants 2% each<br><b>Choose one:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Archive Chart Case ×2<br><b>Steep it:</b> use it from your inventory: 3 Core Rot → a Legendary chart.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
 **`item:The Last Heading.description`** (Epic)
 ```html
-<i>The Wayfinder's final course: the night the ship came down, as the Core still replays it.</i><br><br><b>The Fall</b> · Battle Arena<br>Difficulty: ★★★☆☆<br><b>Chance drops:</b> Lastlight Lantern 15% · Core Rot 40% · Sealed Treasury 6% · The Rotted Heading 5% (helm only)<br><b>Choose one:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Galley Stores ×3<br><b>At the end:</b> leave, or climb to the helm for more (lose it and keep only what you held). <b>If you fall:</b> 1 Core Rot.<br><b>Steep it:</b> use it from your inventory: 3 Core Rot → a Legendary chart.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
+<i>The Wayfinder's final course: the night the ship came down, as the Core still replays it.</i><br><br><b>The Fall</b> · Battle Arena<br>Difficulty: ★★★☆☆<br><b>Chance drops:</b> Lastlight Lantern 15% · Core Rot 40% · Sealed Treasury 6% · The Rotted Heading 5% (helm only)<br><b>Choose one:</b> Skyglass Coffer ×2 · Sealed Treasury · Skyglass Token ×2 · Galley Stores ×3<br><b>At the end:</b> leave, or climb to the helm for more (lose it and keep only what you held).<br><b>Steep it:</b> use it from your inventory: 3 Core Rot → a Legendary chart.<br><i>Spent when the run starts. No refills between fights; once inside, you leave by winning, falling or abandoning. Claim any waiting reward first.</i>
 ```
 
 **`item:Rotted Reliquary Seal.description`** (Legendary)
@@ -905,7 +905,7 @@ The six Haul pages: §3.2.
 
 **`item:Core Rot.description`** (steeping is used from the inventory and charges exactly 3 Core Rot as entry items, F13)
 ```html
-<i>What the Core leaves behind when it rebuilds an impression badly: wet timber, rotten rope and skyglass gone cloudy.</i><br><br><b>Drops:</b> endgame Wreck 15% · Low Tide Run and Night Watch 15% · The Fall and both Legendary chart runs 40% · breaking the Archive's seal (2) · a lost Epic run (1)<br><b>Steeping:</b> use an Epic chart from your inventory and pay 3 Core Rot. Win the fight for a Legendary chart; lose and the chart comes back, the Rot spent.
+<i>What the Core leaves behind when it rebuilds an impression badly: wet timber, rotten rope and skyglass gone cloudy.</i><br><br><b>Drops:</b> endgame Wreck 15% · Low Tide Run and Night Watch 15% · The Fall and both Legendary chart runs 40% · breaking the Archive's seal (2)<br><b>Steeping:</b> use an Epic chart from your inventory and pay 3 Core Rot. Win the fight for a Legendary chart; lose and the chart comes back, the Rot spent.
 ```
 
 **`item:The Little Horror's Jar.description`** (RUL-2026-10-31-068, -070; pets fight in every quest battle, -072 item 7)

@@ -5110,3 +5110,17 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "they're a little *too* faithful. At thumbnail size they really dont read as reskins compared to the regular ones I don't think... need some more flair".
 
 **Canonical destination:** `docs/handoffs/SKYGLASS_ART_REQUEST.md` §5; `docs/handoffs/SKYGLASS_ART_PROMPTS.md` VS01-VS19.
+
+## RUL-2026-10-31-080 — Failed Epic runs pay no Core Rot
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE. Supersedes RUL-2026-10-28-019 item 5 (a failed rare-chart run pays 1 Core Rot), RUL-2026-10-31-072 item 3 (the consolation on a dialog step, F03) and the Epic half of RUL-2026-10-31-075 item 3.
+
+**Ruling:** A failed Epic run (The Sealed Reliquary, The Fall) pays nothing, like every other failed run: the run costs no Core Rot, so failing it should not pay any. The F03 consolation dialog is not built; the two Epic chart cards drop "If you fall: 1 Core Rot" and the Core Rot card drops "a lost Epic run (1)". Steeping is unchanged (a loss returns the chart; the 3 Core Rot are spent).
+
+**Evidence:** Director, 2026-10-31: "Why does a failed epic run give core rot? It doesnt cost core rot so why would failing give you 1? We can leave the steeping as is", then "Cut".
+
+**Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §2.3, §2.4, §4.1, §4.2; `docs/design/SKYGLASS_LOOT_TABLES.md` §5a; `push/skyglass_charts.gen.py` (`CONSOLATION`); push/369.
