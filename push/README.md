@@ -1441,6 +1441,43 @@ use_highest_power_* / use_random_jutsu / use_combo_action rule). Library jutsu b
 - Any later edit to a library jutsu a copy holds (e.g. the visual-asset push's animations) must unequip every copy
   first, then re-equip (laws 18 and 60).
 
+### 354, 355 Skyglass chart runs (6 quest creates, HIDDEN): PLANNED, built from 344's results (not committed before 344 runs)
+
+`python3 push/skyglass_charts.gen.py --copies <344 results bundle>` writes both. The six new chart runs, isolated Battle
+Pyramids entered with their chart (spent at start), a lost fight fails the run, completion pick (`rewardMode` choose).
+Text verbatim from `SKYGLASS_TEXT.md` section 2 (node ids, scenes, shared battle lines); fights from
+`state/skyglass_build/charts_spec.json` `runs`, which the generator cross-checks (crew per fight, scaling, allies) and
+which must still match after the RUL-2026-10-31-066/-067 re-simulation lands.
+- **`354_skyglass_chart_runs_common.json` (2):** The Low Tide Run (Tide Chart; 3 fights, no press-on room) and The Night
+  Watch (Watch Roster; 3 watches + the Second Watch). Base records scaled to the player (`opponent_scaled_to_user`,
+  RUL-2026-10-31-067 item 1). Picks Inro / Galley / the other common chart; ending Buried Cache chart 10%, Core Rot 15%;
+  ladder I (Low Tide), II / III pressed on (Night Watch).
+- **`355_skyglass_chart_runs_epic.json` (4):** The Sealed Reliquary and The Fall (Veteran records, fixed, ladder VI,
+  Lantern 15%; the Reliquary's three boss tokens 2%; The Fall's Core Rot 40% as an ending drop, F17; its press-on room
+  adds The Rotted Heading 5%), The Rotted Reliquary and The Burning Heading (Rot-Touched records, fixed, 70% entry
+  pools on the first fight, elemental seal 2 rounds / afterburn 60% for 7 rounds on every fight, pick 2, Lantern 30%,
+  Core Rot 40%, boss tokens 4%; the Captain as `allyAIs` after the Core Horror). Press-on rooms only where RUL-2026-10-30-060
+  item 6 keeps them (Night Watch, The Fall, Rotted Reliquary). A failed Epic run pays 1 Core Rot on a dialog (`d_rot`)
+  before the fail ending (F03).
+- **AI keys** (`python3 push/skyglass_charts.gen.py --keys`): `base:<crew>` are live ids from the charts spec's live-id
+  table (Deck Warden, Seal Charge, Arsenal Keeper, Skyglass Sentinel, Oathkeeper, First Blade, Wayfinder, The Captain,
+  Replicant Zero). From the 344 bundle, by srcId: `sg344_veteran-{foundry-warden,sealwright,skyglass-sentinel,first-blade,core-horror,the-captain}`,
+  `sg344_rot-{foundry-warden,sealwright,skyglass-sentinel,first-blade,core-horror}`,
+  `sg344_oneoff-{lingering-echo-i,lingering-echo-ii,lingering-echo-iii,fall-arsenal-keeper}` (15). Each must be an ok AI
+  create with a nanoid; Veteran / Rot-Touched entries must be named "Veteran <Name>" / "Rot-Touched <Name>" (item 5).
+  If 344 uses other srcIds, pass `--keymap <json>` ({key: srcId}) rather than editing the generator.
+- **Open (`_open` in the manifests):** the Rotted Reliquary's press-on extra (unruled; a won room pays the same as
+  leaving), quest ranks (C commons, S Epic/tainted; reversible), no failed-run Core Rot on the tainted runs.
+  **Text gaps (`_text_gaps`):** the F03 consolation step's choice and the fail ending after it are placeholders until
+  `SKYGLASS_TEXT.md` gives `obj:<run>/d_rot`; the generator picks the doc text up when it exists.
+- Quest icons are the chart icons push/352 uploaded (URLs from its bundle); nothing is uploaded.
+- **Tested 2026-10-31 on a stand-in 344 bundle** (`--stand-in`, fake ids; output not committed): `validate.py --strict`
+  0 errors, 0 warnings on both; `check_manifest.mjs` 0 pre-send problems on both; `skyglass_check.py` 0 errors,
+  0 warnings on both (picks, pick counts and win-only checked by run name); `test_skyglass_check.py` 48 OK.
+- **Run order:** after 344 (and anything that re-tunes the base records), before 339 go-live. After they run: read back
+  each run's objectives, opponents and rewards; record the six quest ids in `state/skyglass_design/design_data.json`
+  `picks.runs[].quest.id` (Walked Every Deck needs them).
+
 ### 348 Crown's Hoard + Wreck Sighted (2 creates, HIDDEN, placeholder art): 348 RUN 2026-10-31 (tnr_results_1793459592295.json, 2/2 VERIFIED; Crown's Hoard WrnHlt3h6ZDjFaJk3i41O, Wreck Sighted v7kKhLXsX9aofQfc7BnGx); 349 RUN 2026-10-31 (tnr_results_1793460192439.json, 1/1 VERIFIED)
 
 `python3 push/skyglass_hoard.gen.py` writes `348_skyglass_hoard_and_intro.json`. No dependency on an unrun manifest: it
