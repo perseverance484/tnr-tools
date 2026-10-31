@@ -1325,7 +1325,7 @@ exit 0 (0 pre-send problems; plan species → jar → jutsu, refs resolved in-jo
 - **the Jar's id goes to the Wreck drops builder** (the Wreck dungeon's once-per-player jar drop needs a literal id; it is
   not built yet, see the 342+ "still to build" list).
 
-### 347 Little Horror default loadout (1 petSpecies edit): NOT BUILT; waits on 346 and on the director publishing Little Maw
+### 347 Little Horror default loadout (1 petSpecies edit): BUILT from 346 (validate --strict 0/0, check_manifest 0); run AFTER the director publishes Little Maw
 
 `python3 push/skyglass_pet.gen.py --defaults <346 results bundle>` writes `347_skyglass_pet_defaults.json`: a species edit
 (literal `targetId`, L01) setting `defaultJutsuIds: [<Little Maw id>]` (`rarity` restated for the slot check). The server
@@ -1334,7 +1334,7 @@ build 347 → gates → run 347**. Publishing the jutsu does not make the pet ob
 and the jar stays hidden. Tested on stand-in ids (validate 0 errors / 0 warnings, check_manifest 0 problems); not
 committed. **Post-run check:** `petSpecies.get` shows `defaultJutsuIds` = [Little Maw's id].
 
-## 352 Skyglass chart, page and reagent icons (13 item image edits, records stay HIDDEN): READY TO RUN
+## 352 Skyglass chart, page and reagent icons (13 item image edits, records stay HIDDEN): RUN 2026-10-31 (tnr_results_1793463647707.json, 13/13 VERIFIED)
 
 `python3 push/skyglass_chart_icons.gen.py` writes `352_skyglass_chart_icons.json`. It makes direct, image-only edits
 (`data` is only `image`, so `hidden` is not touched) on the hidden push/329 items, using literal ids that are checked
