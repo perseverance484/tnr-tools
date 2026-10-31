@@ -1325,6 +1325,13 @@ exit 0 (0 pre-send problems; plan species → jar → jutsu, refs resolved in-jo
 - **the Jar's id goes to the Wreck drops builder** (the Wreck dungeon's once-per-player jar drop needs a literal id; it is
   not built yet, see the 342+ "still to build" list).
 
+### 353 Publish Little Maw (1 jutsu edit): READY TO RUN, then 347
+
+`python3 push/skyglass_pet.gen.py --publish <346 bundle>` (from `tnr_results_1793463543589.json`). Sets `hidden: false` on
+Little Maw (`GYy5K24tGkYIeGEJef3TW`; `injectableInBattle: false` stated, law 20) so push/347 can make it the Little
+Horror's default (RUL-2026-10-31-071 item 3). The species and the Jar stay hidden. `validate.py --strict` 0/0;
+`check_manifest.mjs` 0 problems. After it runs: read back `hidden: false`, then run 347.
+
 ### 347 Little Horror default loadout (1 petSpecies edit): BUILT from 346 (validate --strict 0/0, check_manifest 0); run AFTER the director publishes Little Maw
 
 `python3 push/skyglass_pet.gen.py --defaults <346 results bundle>` writes `347_skyglass_pet_defaults.json`: a species edit

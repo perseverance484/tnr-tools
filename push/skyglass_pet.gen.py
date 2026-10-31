@@ -222,8 +222,22 @@ def write(path, note, items, extra=None):
     print(f"{shown}: {len(items)} items")
 
 
+PUBLISH_NUM = 353
+
+
 def main():
     a = sys.argv[1:]
+    if a[:1] == ["--publish"] and len(a) == 2:
+        # Director 2026-10-31: publish Little Maw by a Forge edit (hidden false) so push/347 can set it as a default
+        # (the server refuses an unpublished default). The species and Jar stay hidden; nobody can learn or use the
+        # jutsu without the species (requiredPetSpeciesId).
+        idmap = json.load(open(a[1])).get("idmap") or {}
+        jid = idmap[PFX + "little_maw"]
+        item = {"entity": "jutsu", "slot": "edit", "targetId": jid, "name": JUTSU,
+                "data": {"hidden": False, "injectableInBattle": False}}  # law 20: sent explicitly, as 346 created it
+        return write(os.path.join(ROOT, f"push/{PUBLISH_NUM}_skyglass_little_maw_publish.json"), (
+            f"push/{PUBLISH_NUM} (after push/{NUM}, from {os.path.basename(a[1])}): publishes {JUTSU} ({jid}) so "
+            f"push/{DEFAULTS_NUM} can set it as the Little Horror's default. Species and Jar stay hidden."), [item])
     if a[:1] == ["--defaults"] and len(a) in (2, 4):
         bundle = a[1]
         out = os.path.join(ROOT, f"push/{DEFAULTS_NUM}_skyglass_pet_defaults.json")
