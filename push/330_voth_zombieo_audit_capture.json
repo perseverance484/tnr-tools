@@ -1,0 +1,13 @@
+{
+ "_note": "READ-ONLY capture for the Zombie Outbreak event audit. Zero mutations. (1) quests.get Vanquisher of the Horde battle pyramid 0U8N6218b095-TQbWlCep and Zombie O medical quest QczZtQGOuODzNVA-_rnHs, persist full: objectives, battles and their AI ids, rewards, scenes, text, hidden flag. (2) profile.getAi on the two known zombie villager records from the Headless Rider work (nqL-uL-Z_7I0iuowlpBDx, C2npKrdVww2J9EKsJpa1W), in case the pyramid waves reuse them: level, rank, kit, rules, avatar. A follow-up point read covers any other AI ids the quests reference. Upload the full results bundle.",
+ "capture": {
+  "before": [
+   {"proc": "quests.get", "input": {"id": "0U8N6218b095-TQbWlCep"}, "persist": "full", "_name": "Vanquisher of the Horde (pyramid)"},
+   {"proc": "quests.get", "input": {"id": "QczZtQGOuODzNVA-_rnHs"}, "persist": "full", "_name": "Zombie O (medical)"},
+   {"proc": "profile.getAi", "input": {"userId": "nqL-uL-Z_7I0iuowlpBDx"}, "persist": "full", "_name": "Zombie Villager"},
+   {"proc": "profile.getAi", "input": {"userId": "C2npKrdVww2J9EKsJpa1W"}, "persist": "full", "_name": "Headless Rider ruined-village AI"}
+  ],
+  "after": []
+ },
+ "items": []
+}

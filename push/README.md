@@ -1336,3 +1336,10 @@ name, image, cost and order are kept. Players keep unlocking these with Lion Tok
 The seventh edit hides the stray unhidden generic token item "Test Variant" (`QeQtevFEEL766JJQZ5tWK`; director,
 2026-10-30). Run before any Skyglass Token is created. Built by `push/327_lion_token_variant_bind.gen.py`. Gates: `validate.py
 --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 330 Zombie Outbreak audit capture (read-only)
+
+`330_voth_zombieo_audit_capture.json`: `quests.get` (persist full) of Vanquisher of the Horde
+(battle pyramid, `0U8N6218b095-TQbWlCep`) and Zombie O (medical, `QczZtQGOuODzNVA-_rnHs`), plus
+`profile.getAi` on the two Headless Rider zombie records (`nqL-uL-Z_7I0iuowlpBDx`,
+`C2npKrdVww2J9EKsJpa1W`). Zero mutations. Results set the boss level and drive the event audit.
