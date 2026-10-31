@@ -124,12 +124,27 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     //   appends the same rule): with no mark ready he now ends his turn.
     // (A first cut hoisted the plain attacks above the end turns; it turned every Second Wind turn into Second Wind + a
     // plain attack and cost the short fight its Maw: signature 92% -> 28-53% of appearances. Not used.)
-    ...(["ring", "lastLight"] as const).flatMap((k) => [
-      ...horrorPlain.slice(0, 2).map(([note, id, target, conds]) => cast(`after ${LIB.mark[k]}: ${note}`, id, target, [cond.marker(1, mk(k)), ...conds])),
-      endTurn(`after ${LIB.mark[k]}: end turn`, [cond.marker(1, mk(k))]),
-    ]),
-    ...(["scatterA", "scatterB"] as const).map((k) => endTurn(`after ${LIB.mark[k]}: end turn`, [cond.marker(1, mk(k))])),
-    ...horrorMarks,
+    ...(P.horrorMawFirst
+      ? [
+          // Level 50 (Faded): his follow-ups are spread over all four marks (final pass: Bilge Spit after Rupture Field
+          // A 53 times, Splintered Grasp after the Maw's mark 64), so the plain attacks are hoisted above one end turn
+          // per mark instead (all 60 AP, marks 40 AP: one attack and one mark per turn, never two marks). His first
+          // mark, Omen: Last Light (no condition), stays above the attacks, so a Second Wind turn is still Second Wind +
+          // Last Light; for the other marks a turn now opens with the plain attack and the mark follows (same pair).
+          horrorMarks[0]!,
+          ...horrorPlain.map(([n, id, t, c]) => cast(n, id, t, c)),
+          ...(["ring", "scatterA", "scatterB", "lastLight"] as const).map((k) => endTurn(`after ${LIB.mark[k]}: end turn`, [cond.marker(1, mk(k))])),
+          ...horrorMarks.slice(1),
+          endTurn("stationary: hold"),
+        ]
+      : [
+          ...(["ring", "lastLight"] as const).flatMap((k) => [
+            ...horrorPlain.slice(0, 2).map(([note, id, target, conds]) => cast(`after ${LIB.mark[k]}: ${note}`, id, target, [cond.marker(1, mk(k)), ...conds])),
+            endTurn(`after ${LIB.mark[k]}: end turn`, [cond.marker(1, mk(k))]),
+          ]),
+          ...(["scatterA", "scatterB"] as const).map((k) => endTurn(`after ${LIB.mark[k]}: end turn`, [cond.marker(1, mk(k))])),
+          ...horrorMarks,
+        ]),
   ];
 
   const duel = (t = "HIGHEST_ENMITY_OPPONENT"): [string, string, string, any[]][] => [
