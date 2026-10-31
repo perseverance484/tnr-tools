@@ -71,7 +71,10 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // entities and the badge.get/title.get reads. Raised to 455,000 / 109,500 by the director (RUL-2026-10-29-043).
 // Item variants + re-pin to TheNinjaRPG@3314d122 (Forge 0.12.0, 2026-10-29): measured 461,813 / 110,989.
 // Raised to 466,000 / 112,000 by the director (RUL-2026-10-29-054).
-export const BUDGET = { raw: 466_000, gzip: 112_000 };
+// AI basic-attack rule exception (Forge 0.12.3, 2026-10-31): base 465,508 / 111,989, measured 465,670 /
+// 112,059, over by 59 gzip. Raised to 470,000 / 113,000 under RUL-2026-10-31-066 item 2 (the director
+// raised it in advance for this change; the figure is set from this measurement, as RUL-2026-10-28-014 did).
+export const BUDGET = { raw: 470_000, gzip: 113_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

@@ -743,7 +743,8 @@ thing, and the same thing was green.
   A1-A3 and so never resolved OR flagged them.
 - Kit integrity from `validate.py check_pool_kit`: a rule firing a jutsu the AI does not carry is
   inert (law 18) and a gate that is not range+1 (law 40) are errors; a gate on a self/ground jutsu
-  and an all-60-AP kit stay advisory.
+  and an all-60-AP kit stay advisory. Since 0.12.3 the engine's basic attack (`use_specific_jutsu`
+  with `jutsuId: "basicAttack"`) is exempt from the first check (see the 0.12.3 section).
 - `src/runner/lints.mjs` ports L03, L04, L05, L07, L11, L12b, L13, L16, L17, L18 as errors and L06,
   L08, L10, L15 as advisories that do not block. Three deliberate differences are documented at the
   top of that file: `skipPreflight` cannot switch a safety lint off (every check fires only on data
@@ -964,6 +965,13 @@ Director-approved 2026-10-31: the Skyglass Little Horror kit is balanced against
 - **`jutsu.getAll` is the one paged list that may persist** (`FULL_PERSIST_PAGED_PATHS`), and only with `input` exactly `{jutsuType: ["PETS"], hidden: true|false}`. This is checked at parse time; any other member, missing or non-boolean `hidden`, or another type is refused. `hidden` must be stated because the source filter defaults to `hidden = false`. No effect/element/stat member is allowed, so the source post-filter keeps every row and `nextCursor` is exact.
 - **`CachedReader.page()`** sends `{...input, limit: 1000, cursor: 0}` (1000 is the source maximum), uncached, for one token. It accepts the answer only when `nextCursor === null`, ids are distinct, and every row matches the filter. Anything else is `{ok: false, error: {code: "BAD_PAGE"}}`, journaled as a failed read with nothing persisted. A second page is never read: 1000 rows' column names alone exceed `MAX_FULL_CAPTURE_BYTES`, so a two-page body could never be persisted. The persisted body is the page's `data` rows; the journal `input` records `limit` and `cursor`.
 - A summary `jutsu.getAll` capture is unchanged (`reader.list()` still refuses it as a paged input). No new procedure row, no write path, no budget change.
+
+## AI rules may fire the engine's basic attack (0.12.3, release pending)
+
+Director exception 2026-10-31 ("Do an exception for basic attack for now"; budget raise RUL-2026-10-31-066 item 2). Source-verified at `studie-tech/TheNinjaRPG@3314d122`; handoff `docs/handoffs/FORGE_BASIC_ATTACK_RULE_3314D122.md`.
+
+- **`kitProblems` (`src/runner/pool.mjs`) no longer refuses a `use_specific_jutsu` rule whose `jutsuId` is exactly `"basicAttack"`** when that id is not in the AI's `jutsus` array. `libs/combat/ai_v2.ts` ~494 resolves `use_specific_jutsu` against the AI's available actions, not its kit, and `libs/combat/actions.ts` ~513 (`getDefaultBasicActions`) / ~146 (`availableUserActions`) always offers the basic attack unless the AI is stealthed. Such a rule is live, not inert. `validate.py check_pool_kit` has the same exception.
+- Only that id on that action type. The other engine basic actions (`move`, `basicHeal`, `meditate`, `clear`, `cleanse`, the stances, `replacementTechnique`, `flee`) resolve the same way at source but are still refused; they are not part of the exception. Any other unequipped id is still refused (law 18), and a pool jutsu's gate must still be range+1 (law 40). The basic attack is not a pool record, so no gate arithmetic applies to it (it is range 1).
 
 ## Not finished
 
