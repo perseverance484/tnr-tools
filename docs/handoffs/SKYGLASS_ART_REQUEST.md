@@ -88,10 +88,10 @@ item icon** so the rarity frame behind it reads (spec `ICON.padding_rule`).
 
 ## 5. Variant rule (RUL-2026-10-29-049 item 3; `SKYGLASS_TEXT.md` §5)
 
-- Every variant keeps its **base weapon's silhouette**; the base's live icon is attached as the SUBJECT.
-- Skyglass appears **only as inlay and accents** (a vein, beads, a stud, a star, a seal disc).
+- Every variant keeps its **base weapon's core form, proportions and angle**, so the weapon stays recognisable; the base's live icon is attached as the SUBJECT. **Amended by RUL-2026-10-31-079:** each skin must read as a new skin, not the base, at 125 px, so it changes at least the dominant colour of the blade or body and adds one element that changes the outline.
+- Skyglass appears as **inlay, shards and accents**; every skin carries a thin pale-cyan edge light, and the twelve Skyglass-token skins share a family mark (a short torn deep-indigo pennant knotted at the guard).
 - **The Skyglass Katana stays the only all-crystal blade.** No variant may read as a crystal sword, and no blade is
-  turned to crystal, even when the base already has a coloured or glowing blade: keep the base's own blade treatment.
+  turned to crystal; a blade may be recoloured.
 - The six bases that carry two variants (Aetherion, Thornsilver, Stormrender, Oathbinder, The Unwritten, Warden's
   Bracers) must read clearly apart at 125 px; generate the Skyglass set first, then the boss set beside it.
 - The variant-token motifs (VT01-VT07) change only the motif on the approved VT00 token; the token itself stays fixed.
