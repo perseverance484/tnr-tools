@@ -237,8 +237,8 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 | Buried Cache ending | Foundry chart 15% |
 | Foundry ending | Archive chart 10% |
 | Archive ending | Reliquary Seal 25% (RUL-2026-10-28-010; its press-on room and the +20% are cut, RUL-2026-10-30-060) |
-| Watch ending | The Last Heading 25%, +20% from its press-on room |
-| Crownhold ending | one of the two rare charts 50% |
+| Watch ending | The Last Heading 25%, +20% from its press-on room (45% on a won room; the room pays no extra ladder step, RUL-2026-10-31-064 item 2) |
+| Crownhold ending | the two Epic charts as two independent drop lines: Reliquary Seal 25% and The Last Heading 25% (RUL-2026-10-31-064 item 5; replaces "one of the two rare charts 50%") |
 | Sealed Reliquary / The Fall ending | Lastlight Lantern 15% |
 | Archive Chart Case | Legendary: Lantern 3 / rare chart 7 (§3) |
 
@@ -271,7 +271,7 @@ PoE-style maps: farming the Wreck drops charts, and each chart opens an isolated
 - **Pressing on:** The Fall's press-on room drops its tainted chart 5%. The Sealed Reliquary's room is cut (RUL-2026-10-30-060 item 6).
 - **Natural:** the Archive and Watch endings drop the tainted chart directly at 1%.
 
-**Core Rot:** a stackable reagent with one job, steeping. Sources:
+**Core Rot:** a stackable, tradeable (RUL-2026-10-31-064 item 1) reagent with one job, steeping. Sources:
 - Endgame Wreck clears: 15%, as a clear drop for the Core Horror's floor (§2). Dungeons have no AI drops.
 - The common runs (Low Tide Run, Night Watch): 15% on the ending (RUL-2026-10-28-013).
 - The Core Horror's hunt runs: 40% in The Fall, the Rotted Reliquary and the Burning Heading. In hunts the Core Horror carries Core Rot as an AI drop on its quest-battle record (RUL-2026-10-28-013).
@@ -300,7 +300,7 @@ Engine facts (theninjarpg source):
 - **Drop:** an endgame Wreck clear drop at **5%, once per player**, using the dungeon `onlyOnce` flag (RUL-2026-10-29-054). About 20 clears on average.
 - **The Deck Gull, Bilge Rat, Lantern Moth and Ship's Cat are cut.**
 
-**Galley Stores** (pet progression): 20,000 pet experience (RUL-2026-10-29-039).
+**Galley Stores** (pet progression): 20,000 pet experience (RUL-2026-10-29-039). Tradeable (RUL-2026-10-31-064 item 1).
 - Found in: easy Wreck clear 10%; a pick option in the Low Tide Run, the Night Watch, the Buried Cache and the Foundry; The Fall's pick (×3); the chest of chests' Rare tier.
 
 **New art:**

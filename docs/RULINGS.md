@@ -4799,3 +4799,25 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-30: the four decisions above, relayed for this session.
 
 **Canonical destination:** `push/README.md` and `push/skyglass_update.gen.py` (item 1); `docs/design/SKYGLASS_THE_HAUL.md` (item 2); `docs/design/SKYGLASS_TEXT.md` §6.4 (item 3); `docs/design/SKYGLASS_ART_AUDIT.md` pet row (item 4, rankConcepts; the text joins the species record when approved); `push/README.md` 329 preconditions (item 4, badge).
+
+**Correction (2026-10-31, file numbers only; the ruling text above is unchanged):** push/330 and push/331 named above were already taken by another workstream (Zombie Outbreak: `330_voth_zombieo_audit_capture.json`, also 332 and 337). The token-binds manifest is now **push/338** (`338_skyglass_token_binds.json`) and the go-live manifest **push/339** (`339_skyglass_go_live.json`); read "push/330" as push/338 and "push/331" as push/339 wherever this entry names the Skyglass files. Item 4's "by hand" badge is superseded by RUL-2026-10-31-064 item 3, and the three "Not decided" questions are settled there.
+
+## RUL-2026-10-31-064 — Skyglass director decisions: tradeable Rot and Stores; Watch press-on +20% only; Crownbreaker badge by the builder; library names, Crownhold chart line and Little Horror rankConcepts approved
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / build, rewards and text
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Core Rot and Galley Stores are tradeable.** They were untradeable placeholders in push/329 (RUL-2026-10-30-063 "Not decided"); `push/skyglass_items.gen.py` `pet_and_rot` now creates both with `canBeTraded: true`, and push/329 is regenerated.
+2. **The Captain's Watch press-on room pays only +20% Last Heading** (Loot Tables §4a: "Watch ending: The Last Heading 25%, +20% from its press-on room"). A won room pays the step's own ladder ending plus the Last Heading at 45%. The extra ladder step the placeholder added (`NEXT_STEP` in `push/skyglass_update.gen.py` `watch`, go-live path) is removed.
+3. **The Crownbreaker badge is created by the builder, not by hand** (supersedes RUL-2026-10-30-063 item 4's "by hand"). Forge 0.11.0+ supports `entity: "badge"` creates. **push/340** (`push/skyglass_update.gen.py --badge`) creates it with `hidden: true` (stripped: a badge has no hidden column), name "Crownbreaker", image `art/crownhold/icon-badge-crownbreaker-v2.webp`, and the director-approved description `The throne is empty. The order still stands.` (director: avoid "crown"; simple and elegant; this is the final wording, which replaced the same day's interim "The last order went unanswered.", never run). It runs first; its id then goes into `state/crownhold/ids.json` as `badge:crownbreaker`, push/329 is regenerated, and 319 → 328 → 329 run.
+4. **The set-piece library move names in `SKYGLASS_TEXT.md` §6.4 are approved**, including "Echo of Erupting Ground" (RUL-2026-10-30-063 item 3's "proposed; the director may rename" no longer applies).
+5. **Crownhold's chart line stays as two independent 25% drop lines** (the Reliquary Seal and The Last Heading) rather than "one of the two Epic charts 50%". This was the push/329 placeholder; it is now approved.
+6. **The Little Horror's 10 rankConcepts are approved** as drafted by Claude (RUL-2026-10-30-063 item 4), ranks 1-10 Companion, Scout, Tracker, Guardian, Hunter, Warden, Sentinel, Mythic, Sovereign, Celestial.
+
+**Evidence:** Director, 2026-10-31, relayed for this session (items 1-3 first; the badge description and items 4-6 in a follow-up the same day).
+
+**Canonical destination:** `push/skyglass_items.gen.py` and `docs/design/SKYGLASS_LOOT_TABLES.md` §5 (item 1); `push/skyglass_update.gen.py` `watch` and `SKYGLASS_LOOT_TABLES.md` §4a (item 2); `push/skyglass_update.gen.py` `badge`, `push/README.md` (340 run order, preconditions, post-run steps) and `SKYGLASS_TEXT.md` text-limits table (item 3); `SKYGLASS_TEXT.md` §6.4 (item 4); `SKYGLASS_LOOT_TABLES.md` §4a and `push/skyglass_update.gen.py` `crownhold` (item 5); `docs/design/SKYGLASS_PETS.md` Little Horror kit `rankConcepts` (item 6).

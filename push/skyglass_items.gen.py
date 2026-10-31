@@ -327,10 +327,10 @@ def haul_pages():
 
 
 def pet_and_rot():
-    # Tradeability of Core Rot and Galley Stores is not ruled: placeholder untradeable (reversible), reported.
+    # Core Rot and Galley Stores are tradeable (RUL-2026-10-31-064 item 1; were untradeable placeholders).
     return [
-        create(NEW["Core Rot"], "Core Rot", T.block("item:Core Rot.description"), "RARE", "OTHER", False),
-        create(NEW["Galley Stores"], "Galley Stores", T.block("item:Galley Stores.description"), "RARE", "CONSUMABLE", False,
+        create(NEW["Core Rot"], "Core Rot", T.block("item:Core Rot.description"), "RARE", "OTHER", True),
+        create(NEW["Galley Stores"], "Galley Stores", T.block("item:Galley Stores.description"), "RARE", "CONSUMABLE", True,
                [fixed("Galley Stores: 20,000 pet experience to the active pet", pet_exp=20000)]),
     ]
 

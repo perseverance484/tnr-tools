@@ -42,7 +42,7 @@ lines exactly, and `scripts/skyglass_check.py` compares the two.
 | quest `description`, `successDescription` | 5,000 | about 900 |
 | item, variant, jutsu `description`, `battleDescription` | `text` (no hard limit) | about 1,500 (Crown's Hoard) |
 | objective `description`, choice `text` | no schema limit | about 700 |
-| badge `description` (not used here) | 500 | — |
+| badge `description` (Crownbreaker: `The throne is empty. The order still stands.`, director-approved, RUL-2026-10-31-064 item 3; push/340) | 500 | 44 |
 
 No entry needed trimming. House targets kept for the phone screen: choice text at most about 80 characters; item
 stories one line.
@@ -1092,7 +1092,7 @@ A mark and its blast share the pattern words and differ by the prefix: **Omen:**
 **Binding:** binds. `description` for every mark: `A warning mark. Whatever it marks is struck on the caster's next turn.`
 For every shared blast: `Strikes the ground its omen marked.`
 
-**Canonical names: proposed by Claude, RUL-063 item 3; director may rename.** Checked unique against each other and
+**Canonical names, director-approved (RUL-2026-10-31-064 item 4; written by Claude under RUL-063 item 3).** Checked unique against each other and
 against every jutsu name in the repository's captures (`answers/names_jutsu.json`, 1,472 rows, plus every `harvests/`
 jutsu capture: 1,550 distinct names; no match, case-insensitive). The shape notes give the pattern from harness
 `library_spec.json` (`fable/skyglass-final-sim` d5957e79): rows A are the second and fifth rows, rows B the third and sixth
@@ -1127,7 +1127,7 @@ The two Three Lights marks are answered by bespoke signatures (Maw of the Deep, 
 shared blast. The bespoke signatures, crew additions and Steady the Helm keep their names below; none of them matches a
 captured live jutsu name. **One library record does:** the Archive's Skyglass-only copy of Erupting Ground
 (`hunt-stonebound-erupting-ground`, RUL-2026-10-30-060 item 7) carries the live jutsu's name `Erupting Ground`
-(`jBRyl7F4UjTyxG5nnzLqj`). Proposed (Claude, RUL-063 item 3; director may rename): **Echo of Erupting Ground**, the
+(`jBRyl7F4UjTyxG5nnzLqj`). Approved (RUL-2026-10-31-064 item 4): **Echo of Erupting Ground**, the
 Stonebound summon being an echo; its battle line is unchanged.
 
 Bespoke signatures (their battle lines become action first; the voice lines stay):
