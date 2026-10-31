@@ -1,0 +1,10 @@
+{
+ "manifest": "push/346_skyglass_pet.json",
+ "ruling": "RUL-2026-10-31-068 item 3 (director 2026-10-31: Little Maw's damage takes 'statTypes/generalTypes like Rallying Echo (generalTypes Highest)', i.e. generalTypes [Highest] and no statTypes).",
+ "reason": "Little Maw's damage row is the live Yamabiko signature Rallying Echo's (H53FgjOyf--BMU3pY4ypk, push/345 capture tnr_results_1793460185610.json), which carries generalTypes ['Highest'] and no statTypes. At theninjarpg@3314d122 libs/combat/tags.ts damageCalc (~1437-1481) an absent statTypes adds no offence-versus-defence term and the generals term still applies, so the damage is not zeroed. Law 4's wording is a law-reconciliation item (as RUL-2026-10-31-065 item 1), not changed here. Forge check_manifest passes (L06 is a warning there).",
+ "sha256": "a2692ae4c59b46f7900dfddbaf28743f0919a645004e0feebb02c1057f973263",
+ "accepted": [
+  "ERROR  [jutsu:Little Maw]: law 4: formula effect 'damage' requires BOTH statTypes AND generalTypes; an empty one silently zeroes the damage",
+  "ERROR  lint Little Maw: L06 damage missing statTypes/generalTypes (generalTypes gap can explode damage)"
+ ]
+}

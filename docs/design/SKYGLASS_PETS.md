@@ -5,7 +5,7 @@
 Five reward-only companions from the Echo Jar (RUL-2026-10-28-011; loot tables §5b). Story: the Skyglass Project
 tested recall on the ship's animals first; their impressions were sealed in jars like Replicant Zero's.
 
-**Status:** kits approved as proposed (RUL-2026-10-28-012). The numbers are provisional until the live species and PETS jutsu catalogue is captured; nothing in this repo describes existing species yet.
+**Status:** kits approved as proposed (RUL-2026-10-28-012). The catalogue was captured by push/345 (69 species, 4 PETS jutsu); the Little Horror's numbers are final (RUL-2026-10-31-068). The cut kits below were never finalised.
 
 ## Rules every kit follows (engine)
 - **Species record:**
@@ -58,9 +58,15 @@ Epic · Support.
 - Story: the only one of the crew who ever walked off the wreck.
 
 ### Little Horror
-Legendary · Assault.
-- Innate (ENEMIES) **Rot Bite:** hit target, poison (small) for 2 rounds.
-- Signature (B) **Little Maw:** damage plus increasedamagetaken 10% for 1 round. Animation: the Core Horror's maw strip.
+Legendary · Assault. **Numbers final (RUL-2026-10-31-068);** built by push/346 (`push/skyglass_pet.gen.py`), defaults by push/347. Effect rows are shaped exactly like the live legendary species' rows in the push/345 capture (`tnr_results_1793460185610.json`); the jutsu record is the Yamabiko's Rallying Echo with these numbers.
+- `isActive: false` (reward-only; granted by The Little Horror's Jar). Description: `The Core tried to remember the ship's mascot. This is what came back: a small, damp thing with one tooth too many, and it has decided you are its crew.`
+- Innate (ENEMIES) **Rot Bite:** `poison` 25%, shaped like the Dragon's `afterburn` 25% row (target INHERIT, percentage). `rounds` 10: the engine's poison tag caps rounds at 10 (theninjarpg@3314d122 `validators/combat.ts` PoisonTag), so the template's 30 is not allowed; the director may pick any 1-10 before push/346 runs. An ENEMIES innate is applied once at battle start to every enemy (not on each hit, `libs/combat/pets.ts`); a poisoned enemy takes 25% of the chakra and stamina it spends as damage.
+- Innate (SELF) **Hungry:** `increasedamagegiven` 20% for 30 rounds, shaped like the Kitsune's 30% row; applies to the owner and the pet.
+- Signature (D) **Little Maw:** PETS, locked to the Little Horror; STUDENT / level 1; one opponent, range 4, cooldown 5, 60 AP, no pool costs. `damage` power 50 (formula, `generalTypes` [Highest], no `statTypes`, as Rallying Echo), then `increasedamagetaken` 10% for 1 round on the target. Animation: the Core Horror's maw strip, once uploaded (empty until then).
+  - Description: `The Little Horror opens a mouth far too big for its body and bites, leaving the target easier to hurt for a round.`
+  - Battle text: `%user opens a maw far too big for its body and bites down on %target.`
+- Default loadout: Little Maw (push/347, after the director publishes it).
+- **The Little Horror's Jar:** Legendary consumable, untradeable, `preventBattleUsage`, one `noncombatconsumereward` with `reward_pets` = the Little Horror; text `SKYGLASS_TEXT.md` `item:The Little Horror's Jar.description`.
 - Art direction: small, oddly cute rot-and-skyglass creature, the Core's bad copy of the ship's mascot.
 - Rank arc: oddly loyal blob with one tooth too many → towering skyglass rot-beast, still loyal.
 - **`rankConcepts`** (canonical; director-approved, RUL-2026-10-31-064 item 6). Verbatim, ranks 1-10:
