@@ -5015,3 +5015,19 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "Approve all" (the item description card set, the rounding to the nearest 5, the chart card format, the Coffer re-tier).
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §0 (items 1, 3); RUL-2026-10-28-030 (amendment note); `docs/design/SKYGLASS_TEXT.md` header, §0, §3.2, §4 (items 1, 3-5); `push/skyglass_profession_chests.gen.py`, `state/skyglass_design/chests.json` and `docs/design/SKYGLASS_PROFESSION_CHESTS.md` (item 2); `push/skyglass_items.gen.py` (renderer, Coffer contents), `push/skyglass_update.gen.py` (go-live 339) and `scripts/skyglass_check.py` (items 1, 4); push/360 for the hidden records already created.
+## RUL-2026-10-31-075 — Chart-run placeholders settled; the Rotted Reliquary's press-on room is cut
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / chart runs
+
+**Status:** ACTIVE. Amends RUL-2026-10-30-060 item 6 (the Rotted Reliquary's room was kept there).
+
+**Ruling:**
+1. **The Rotted Reliquary has no press-on room.** Replicant Zero's room and every mention of it are removed: the run ends at a single win ending after the last pair (`SKYGLASS_TEXT.md` §2.5 `w_done`). Press-on rooms remain on the Night Watch, the Captain's Watch and The Fall.
+2. **Quest ranks:** C for the Common runs, S for the Epic and tainted runs.
+3. **Failed tainted runs pay no Core Rot**; only failed Epic runs pay their 1 Core Rot (on a dialog step before the fail ending, RUL-2026-10-31-072 item 3).
+
+**Evidence:** Director, 2026-10-31: "1. Remove the bonus room and any mention of it. 2. Approved. 3. Keep."
+
+**Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §2.5; `push/skyglass_charts.gen.py`; `docs/design/SKYGLASS_LOOT_TABLES.md` §5 (the room's "optional and paid extra" line).

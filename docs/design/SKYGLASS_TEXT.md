@@ -132,8 +132,8 @@ Every run's quest description opens with the two-line stakes summary (RUL-2026-1
 harness shape (`charts_spec.json` `objectiveShape`): base fights `b1…`, the last-landing dialog `d_landing` with the
 leave / press-on choice, the press-on fight `b_press`, endings `w_leave` / `w_press`, and the fail ending `f_lost`.
 
-**Press-on rooms** (RUL-2026-10-30-060 item 6): kept on the Night Watch, the Captain's Watch, The Fall and the Rotted
-Reliquary. Cut from the Low Tide Run, the Quarantined Archive, the Sealed Reliquary and the Burning Heading. A run without a
+**Press-on rooms** (RUL-2026-10-30-060 item 6): kept on the Night Watch, the Captain's Watch and The Fall
+(the Rotted Reliquary's room was cut by RUL-2026-10-31-075). Cut from the Low Tide Run, the Quarantined Archive, the Sealed Reliquary, the Rotted Reliquary and the Burning Heading. A run without a
 room has no `d_landing`, `b_press` or `w_press`: its last fight routes to a single win ending `w_done`, and the closing line
 from the old `d_landing` opens that ending.
 
@@ -374,13 +374,11 @@ The fire takes the deck out from under you. You wake on the sand below the wreck
 ### 2.5 The Rotted Reliquary (tainted Reliquary Seal)
 
 Entry at 70% pools (first fight only); `elementalseal` for the first 2 rounds of every fight; pairs: Foundry Warden +
-Sealwright, then Skyglass Sentinel + First Blade (+ Lingering Echo); press-on: Replicant Zero (RUL-2026-10-28-013).
-Pick 2.
+Sealwright, then Skyglass Sentinel + First Blade (+ Lingering Echo); no press-on room (Replicant Zero's room cut, RUL-2026-10-31-075). Pick 2.
 
 **`quest:The Rotted Reliquary.description`**
 ```
 The seal is spent when the run starts, and you enter already worn: 70% health and chakra. They carry from fight to fight with no refills, and a lost fight ends the run.
-After the last pair, leave with what you hold or open the door the rot has added; lose there and you keep only what you held.
 
 This seal has soaked in the Core's rot, and the reliquary it opens is the one the rot remembers. The same frames, the same echoes. They come out two at a time now, and the air in there clogs the seal channels.
 ```
@@ -403,23 +401,9 @@ They fall together. The Sealwright's last words come out in the Warden's voice: 
 
 **`obj:The Rotted Reliquary/b2.description`**: `The Sentinel and the First Blade come out of one frame. The First Blade is not grinning. Nothing in here is new.`
 
-**`obj:The Rotted Reliquary/d_landing.description`** (press-on choice)
+**`obj:The Rotted Reliquary/w_done.description`** (win; follows `b2`)
 ```html
-The First Blade falls without a word, and that is the wrongest thing in the room.<br><br>Past the last frame stands a door the reliquary never had: a sliding door, a plaque that reads REPLICANT ZERO, and violet light underneath. The rot has remembered him too.<br><br><b>Leave now and keep everything you hold. Open the door and win, and the haul grows. Lose and you keep only what you hold now.</b>
-```
-- `choice[0]`: `Leave the rot behind`
-- `choice[1]`: `Open the sliding door`
-
-**`obj:The Rotted Reliquary/b_press.description`**: `Replicant Zero turns his left hand in the violet light. "They kept trying to copy me," he says. "The rot does it better."`
-
-**`obj:The Rotted Reliquary/w_leave.description`**
-```html
-You step out of the reliquary and the rot does not follow. The seal in the lock has crumbled to nothing.
-```
-
-**`obj:The Rotted Reliquary/w_press.description`**
-```html
-"The first to return," Replicant Zero says, as the rot takes him back. "Not the last." The sliding door closes on an empty room, and you take everything the reliquary held.
+The First Blade falls without a word, and that is the wrongest thing in the room.<br><br>You step out of the reliquary and the rot does not follow. The seal in the lock has crumbled to nothing.
 ```
 
 **`obj:The Rotted Reliquary/f_lost.description`**
@@ -1132,7 +1116,6 @@ Target: the first sentence of the objective that follows the boss's battle (or i
 | Arsenal Keeper (Foundry) | `d_gate`, prepend | `"Unlisted," the Keeper says as he falls, and makes a note of it.` | new |
 | Deck Warden (Foundry) | `d_racks`, prepend | `The Deck Warden sinks into the water, still counting.` | new |
 | Oathkeeper (Night Watch) | §2.2 | `"The term holds."` | new |
-| Replicant Zero (Rotted press-on) | §2.5 | `"The first to return. Not the last."` | new |
 | The Crowned Captain | Crownhold aftermath | (the crown breaks; he settles like ash) | exists |
 | Crownhold commanders | Crownhold | their after-fight dialogs | exist |
 
