@@ -1276,7 +1276,7 @@ Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.j
 Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
 and jar.
 
-## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 BUILT; exceptions accepted (RUL-2026-10-31-065 item 1); DO NOT RUN until the two text gaps are filled and 342 is regenerated
+## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); Raise the Gunwale / Called to the Archive text still to add by edit; 343 (AI copies) not built yet
 
 Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Generators: `push/skyglass_library.gen.py`
 (342). Run order and dependencies are listed per manifest; a manifest that needs ids from an earlier unrun one is built
