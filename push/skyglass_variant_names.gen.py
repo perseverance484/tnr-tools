@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""Variant naming pass and variant art (push/371; RUL-2026-10-31-082, RUL-2026-10-31-079).
+
+    python3 push/skyglass_variant_names.gen.py    # writes push/371_skyglass_variant_names.json
+
+1. itemVariant edits: every variant renamed in push/skyglass_items.gen.py VARIANT_RENAMES gets its current `name` (and
+   its `description`, read from SKYGLASS_TEXT.md section 5); every variant whose skin export exists in
+   art/skyglass_variant_skins/exports gets its `image`. Ids and base items from state/skyglass_design/design_data.json
+   (literal, from the 329/341 bundles); `itemId` is the envelope key Forge needs for a variant edit.
+2. item edits: the boss variant tokens that share a renamed variant's name get the new `name` (and their description).
+3. item edits: every other hidden record whose approved text changed with the new names (the chart cards that list the
+   boss variants): the description-only subset of push/skyglass_item_text.gen.py (push/360) and hidden_edits() (push/368)
+   whose description differs from what those manifests sent.
+Records stay hidden (no `hidden` sent). Do not hand-edit the output.
+"""
+import importlib.util
+import json
+import os
+import re
+import subprocess
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+NUM = 371
+SKINS_DIR = "art/skyglass_variant_skins/exports"
+
+
+def load(name):
+    spec = importlib.util.spec_from_file_location(name.replace(".", "_"), os.path.join(ROOT, "push", name))
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+U = load("skyglass_update.gen.py")
+IT, T = U.IT, U.IT.T
+TX = load("skyglass_item_text.gen.py")
+
+
+def slug(name):
+    return "icon-variant-" + re.sub(r"[^a-z0-9]+", "-", name.lower().replace("'", "")).strip("-") + ".webp"
+
+
+def main():
+    design = json.load(open(os.path.join(ROOT, "state/skyglass_design/design_data.json")))["variants"]
+    by_created = {d["name"]: d for k, d in design.items() if k != "_about"}
+    rows = {r[1]: r for r in IT.SKINS + IT.BOSS}  # created name -> (base, created name, description, art)
+    items, images = [], {}
+    for created, d in by_created.items():
+        current = IT.VARIANT_RENAMES.get(created, created)
+        data = {"itemId": d["base_item"]}
+        if created in IT.VARIANT_RENAMES:
+            data["name"] = current
+            data["description"] = rows[created][2]
+        art = slug(current)
+        if os.path.exists(os.path.join(ROOT, SKINS_DIR, art)):
+            data["image"] = "@img:" + art
+            images[art] = f"{SKINS_DIR}/{art}"
+        if len(data) > 1:
+            items.append({"entity": "itemVariant", "slot": "edit", "phase": 1, "targetId": d["id"],
+                          "name": f"{current} (variant): " + ", ".join(k for k in data if k != "itemId"), "data": data})
+    # boss tokens share their variant's name
+    c329 = TX.created(329)
+    tokens = TX.token_text()
+    for created, base, _story in IT.VT:
+        if created in IT.VARIANT_RENAMES:
+            items.append({"entity": "item", "slot": "edit", "phase": 1, "targetId": c329[created],
+                          "name": f"{IT.VARIANT_RENAMES[created]} (token): name and text",
+                          "data": {"name": IT.VARIANT_RENAMES[created], "description": tokens[created]}})
+    renamed_tokens = {i["targetId"] for i in items if i["entity"] == "item"}
+    # other hidden descriptions that changed: compare with what 360 and 368 sent
+    sent = {}
+    for f in ("push/360_skyglass_item_text.json", "push/368_skyglass_hidden_items.json",
+              "push/369_skyglass_core_rot_text.json", "push/370_skyglass_haul_chests.json"):  # in run order
+        for e in json.loads(subprocess.check_output(["git", "-C", ROOT, "show", f"HEAD:{f}"]))["items"]:
+            if e["entity"] == "item" and e.get("targetId") and "description" in e["data"]:
+                sent[e["targetId"]] = e["data"]["description"]
+    now = {}
+    for name in TX.CHARTS + IT.PAGES + TX.OTHERS:
+        now[c329[name]] = (name, T.block(f"item:{name}.description"))
+    for e in U.hidden_edits(os.path.join(ROOT, TX.BUNDLES[329])):
+        now[e["targetId"]] = (e["name"].split(":")[0], e["data"]["description"])
+    for tid, (name, desc) in now.items():
+        if tid in sent and sent[tid] != desc and tid not in renamed_tokens:
+            items.append({"entity": "item", "slot": "edit", "phase": 1, "targetId": tid,
+                          "name": f"{name}: text (variant names, RUL-2026-10-31-082)", "data": {"description": desc}})
+    IT.IMAGES.update(images)
+    U.write(NUM, "skyglass_variant_names", (
+        f"push/{NUM}: variant naming pass (RUL-2026-10-31-082) and the approved variant skins so far (RUL-2026-10-31-079): "
+        "variant renames with their descriptions, skin images where processed, the renamed boss tokens, and the hidden "
+        "records whose text names those variants. Records stay hidden. Generated by push/skyglass_variant_names.gen.py."),
+        items)
+
+
+if __name__ == "__main__":
+    main()

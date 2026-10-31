@@ -5141,3 +5141,20 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "We can just build our own chests brand new. That way the pre-existing assets aren't overwritten for players who still have the items and we can have the assets ready to go."; "We dont need to include its rarity in the name"; on "crate/locker" names: "players would think they were getting these exact drops"; "Approve" (the Bundle/Pack/Strongbox/Reserve set).
 
 **Canonical destination:** `push/skyglass_items.gen.py` (`HAUL_CHESTS`, `haul_chests()`); `push/skyglass_haul_chests.gen.py` (push/370); `push/skyglass_haul.gen.py` (`--chests`); `docs/design/SKYGLASS_TEXT.md` §3, §4.5.
+
+## RUL-2026-10-31-082 — Variant naming pass
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / player-facing names
+
+**Status:** ACTIVE. Renames 13 of the 19 variants (and the five boss tokens that share a variant's name). Amends RUL-2026-10-31-079 for one skin.
+
+**Ruling:**
+1. Names are short and concept-led, not an adjective glued to the base weapon's name: Mast-Lightning Stormrender → **Thunderwake**; Roll-Call Oathbinder → **Anchorline**; Chartline Ink of the Void → **Starchart**; Keelstone Embrace → **Keelstone**; Drill-Count Bracers → **Skyglass Kote**; Lastlight Dawnblade → **Lastlight Duskblade**; Skysail Whisper → **Skysail**; Hullbreaker Frostbite → **Hullbreaker**; Captain's Command Fan → **Captain's Gunbai**; Rot-Bloom Reaper → **Rotbloom**; Warden's Forge-Fists → **Forgefists**; Wayfinder's Heading → **Wayfinder**; Sealwright's Seal → **Sealscript**. Kept: Gale-Watch Aetherion, Tidewater Thornsilver, Night Watch Testament, The Unwritten Order, The First Blade, Crownbreaker.
+2. **Skyglass Kote** are made entirely of raw, gleaming skyglass crystal (armour, not a blade; the Skyglass Katana stays the only crystal blade).
+3. The text doc carries the current names; generators keep keying records by their 329 creation names (`push/skyglass_items.gen.py` `VARIANT_RENAMES`); push/371 renames the live records.
+
+**Evidence:** Director, 2026-10-31: "renamed Mast Lightning Stormrender to Thunderwake"; "We need to do a naming pass on the remaining variants, they're kinda lamely named and a mouthful"; "The Unwritten Order was good … For Eclipsed Dawnblade, why not Lastlight Duskblade. Rest looks good"; "Skyglass Kote, and make them out of skyglass crystal. Raw and gleaming".
+
+**Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §4.3, §5; `push/skyglass_items.gen.py`; `push/skyglass_variant_names.gen.py` (push/371); `docs/handoffs/SKYGLASS_ART_PROMPTS.md` (VS09).

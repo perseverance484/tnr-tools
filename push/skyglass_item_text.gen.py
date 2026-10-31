@@ -62,7 +62,7 @@ def token_text():
     i = next(i for i, l in enumerate(L) if l.startswith("**Boss variant tokens.**"))
     j = next(j for j in range(i, len(L)) if L[j].startswith("```")) + 1
     tmpl = L[j]
-    return {name: tmpl.replace("<story line>", story).replace("<Variant>", name).replace("<Base>", base)
+    return {name: tmpl.replace("<story line>", story).replace("<Variant>", IT.VARIANT_RENAMES.get(name, name)).replace("<Base>", base)
             for name, base, story in IT.VT}
 
 
