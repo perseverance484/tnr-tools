@@ -1,0 +1,10 @@
+{
+ "manifest": "push/353_skyglass_little_maw_publish.json",
+ "ruling": "RUL-2026-10-31-068 item 3 (director 2026-10-31: Little Maw's damage takes 'statTypes/generalTypes like Rallying Echo (generalTypes Highest)', i.e. generalTypes [Highest] and no statTypes).",
+ "reason": "Little Maw's effects are re-sent whole on the publish edit, so the same two law 4 / L06 diagnostics accepted for push/346 under RUL-2026-10-31-068 recur (generalTypes Highest, no statTypes, as the live Rallying Echo; at theninjarpg@3314d122 an absent statTypes drops the stat term and does not zero damage).",
+ "sha256": "ed38dfc07b72fb794c354f13670a9f12a8b98408b27e68f4e3a20bfc48e5a7b6",
+ "accepted": [
+  "ERROR  [jutsu:Little Maw]: law 4: formula effect 'damage' requires BOTH statTypes AND generalTypes; an empty one silently zeroes the damage",
+  "ERROR  lint Little Maw: L06 damage missing statTypes/generalTypes (generalTypes gap can explode damage)"
+ ]
+}
