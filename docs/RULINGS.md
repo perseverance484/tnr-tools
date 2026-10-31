@@ -4880,3 +4880,21 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "We have like 30+ ai for this event and you're telling me we need more??"; "1. Yes. Give them unique names indicating their difficulty level and we'll use the same pictures".
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` and the harness specs once re-simulated; push/344 is rebuilt to the consolidated list.
+
+## RUL-2026-10-31-069 — Walked Every Deck waits for the upstream achievement fix
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / achievements
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **The achievement persistence bug is confirmed live.** push/350/351's hidden probe ("Probe: Both Decks", `CVmmxRhrttQp6g6GBFbAG`): a `complete_specific_quest` goal on an achievement the player has not yet claimed lost its progress after a reload, as read in theninjarpg@3314d122 `libs/quest.ts` `filterQuestTrackersForDbPersist` (such goals are not on the persist keep-list for mock achievement rows).
+2. **The upstream game fix is in progress** (director). **Walked Every Deck is not built until it lands**; the event ships without it, and the Crownbreaker variant token stays hidden and unobtainable until then.
+3. When the fix lands, re-run the probe to confirm, then build Walked Every Deck. Forge's L03 rule (consecutive objectives only) will need a reviewed change so the achievement can be any-order, as its runs are cleared in any order.
+4. The probe records (Probe Deck A/B, Probe: Both Decks) stay hidden for the re-test.
+
+**Evidence:** Director, 2026-10-31: "Already checked, the achievements were bugged as you described. Upstream fix in progress".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5c (Walked Every Deck); `push/README.md` (350/351).

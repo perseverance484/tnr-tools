@@ -309,6 +309,8 @@ Engine facts (theninjarpg source):
 
 ## 5c. Completion achievement: Walked Every Deck (RUL-2026-10-28-020, revived by RUL-2026-10-29-051)
 
+**Deferred (RUL-2026-10-31-069):** the achievement is not built until the upstream fix for achievement progress on `complete_specific_quest` goals lands (bug confirmed by the push/350-351 probe). The Crownbreaker variant token stays hidden until then.
+
 **Walked Every Deck** is a one-time achievement quest. It completes when a player has cleared every chart run, using `complete_specific_quest` objectives:
 - Low Tide Run, Night Watch, Buried Cache;
 - Drowned Foundry, Quarantined Archive, Captain's Watch;
