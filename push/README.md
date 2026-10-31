@@ -1343,3 +1343,9 @@ The seventh edit hides the stray unhidden generic token item "Test Variant" (`Qe
 (battle pyramid, `0U8N6218b095-TQbWlCep`) and Zombie O (medical, `QczZtQGOuODzNVA-_rnHs`), plus
 `profile.getAi` on the two Headless Rider zombie records (`nqL-uL-Z_7I0iuowlpBDx`,
 `C2npKrdVww2J9EKsJpa1W`). Zero mutations. Results set the boss level and drive the event audit.
+
+## 332 Zombie Outbreak audit capture 2 (read-only)
+
+`332_voth_zombieo_audit_capture_2.json`: follow-up to 330. The three wave AIs, the Zombie Villager's
+rule set, the six scene assets both quests use, Zombie Claws and the virus sample, plus
+badge/AI/jutsu/asset name lists for the badge and boss name checks. Zero mutations.

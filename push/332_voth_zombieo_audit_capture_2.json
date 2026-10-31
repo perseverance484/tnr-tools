@@ -1,0 +1,121 @@
+{
+ "_note": "READ-ONLY follow-up for the Zombie Outbreak audit (from push/330 results tnr_results_1793412572981). Zero mutations. (1) profile.getAi on the three wave AIs Vanquish the Horde references (uzlBf.., TK7Uu.., vxW8l..), none of which are in any catalog: level, rank, kit, avatar. (2) ai.getAiProfile for the Zombie Villager (current Patient Zero stand-in) to confirm its claw rules survived. (3) gameAsset.get on the six scene assets both quests use, to map which pinned art is uploaded and wired. (4) item.get Zombie Claws and Zombie Virus Sample. (5) badge/AI/jutsu/asset getAllNames for the Vanquisher of the Horde badge, name dedup of the new Patient Zero boss and his signature jutsu, and the pinned art already uploaded. Upload the full results bundle.",
+ "capture": {
+  "before": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "uzlBfwiKdcH44ZZ0ZGw16"
+    },
+    "persist": "full",
+    "_name": "VotH wave 1/2 zombie"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "TK7UuEQqnlJm0s1M66-EX"
+    },
+    "persist": "full",
+    "_name": "VotH wave 3 / boss-room zombie"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "vxW8lqo2cZEhZpygev-Vs"
+    },
+    "persist": "full",
+    "_name": "VotH wave 3 zombie (second type)"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "UXMYxPQd6aL8P1YAZayYU"
+    },
+    "persist": "full",
+    "_name": "Zombie Villager rules"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "uwg7hFC813oq-wSdDwjnN"
+    },
+    "persist": "full",
+    "_name": "VotH bg: entrance/fail"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "shgHnGe2IozVvJQHI3KFg"
+    },
+    "persist": "full",
+    "_name": "VotH bg: wave 2"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "UdKP7V7mjBXZOiHyEz18g"
+    },
+    "persist": "full",
+    "_name": "VotH bg: boss room"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "nl4eaydGkyz32gk0-pSBv"
+    },
+    "persist": "full",
+    "_name": "Zombie O bg: lab"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "RPywfAw2prI6abXXI9K-f"
+    },
+    "persist": "full",
+    "_name": "Zombie O char: opening dialog"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "IRofmKdDr-8x7c0eJ7EOQ"
+    },
+    "persist": "full",
+    "_name": "Zombie O char: lab return"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "mMl6P4B7v6-_CyDo3HVG7"
+    },
+    "persist": "full",
+    "_name": "Zombie Claws"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "s9UXlJXw3CQ-IGD28b0yZ"
+    },
+    "persist": "full",
+    "_name": "Zombie Virus Sample"
+   },
+   {
+    "proc": "badge.getAllNames",
+    "input": {}
+   },
+   {
+    "proc": "profile.getAllAiNames",
+    "input": {}
+   },
+   {
+    "proc": "jutsu.getAllNames",
+    "input": {}
+   },
+   {
+    "proc": "gameAsset.getAllNames",
+    "input": {}
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
