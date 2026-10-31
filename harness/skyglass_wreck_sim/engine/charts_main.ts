@@ -358,13 +358,29 @@ if (specOut) {
       fullProfile: e.profile,
     };
   }
+  // RUL-2026-10-31-077: live records fought by a run (the Fall's and the Burning Heading's crew, the Captain as ally, Replicant
+  // Zero) get their own copies, because the live crew records become the endgame Wreck version. The row and rules as fought.
+  const liveRecords: any = {};
+  for (const r of Object.values(buildRuns(P, true)))
+    for (const f of r.fights)
+      for (const id of [...f.ids, ...(f.allies ?? [])]) {
+        if (built.newRecords[id] || liveRecords[id]) continue;
+        const e = T.enemies[id];
+        if (!e) continue;
+        const row = e.row;
+        liveRecords[id] = {
+          username: row.username, tuning: (P.stats as any)[id] ?? null,
+          fullRow: { ...Object.fromEntries(Object.entries(row).filter(([k, val]) => !RELATIONS.has(k) && !(val && typeof (val as any).getTime === "function"))), jutsus: row.jutsus.map((uj: any) => uj.jutsuId), items: (row.items ?? []).map((ui: any) => ({ itemId: ui.itemId, quantity: ui.quantity, equipped: ui.equipped })) },
+          fullProfile: e.profile,
+        };
+      }
   const jutsu: any = {};
   for (const [id, j] of Object.entries<any>(built.override.jutsu)) if (id.startsWith("chart-")) jutsu[id] = { record: j, JutsuValidator: JutsuValidator.safeParse(j).success ? "pass" : "FAIL" };
   const runs = Object.fromEntries(Object.entries(buildRuns(P, true)).map(([k, r]) => [k, { chart: r.chart, fights: r.fights.map((f) => ({ ...f, ids: f.ids.map((i) => ({ id: i, name: NAME[i] })), allies: f.allies?.map((i) => ({ id: i, name: NAME[i] })) })) }]));
   const spec = {
     generatedBy: "harness/skyglass_wreck_sim/engine/charts_main.ts --spec-out", engineRun: "c86f43f4 (harness pin); source checks cite 2af4b320",
     note: "Placeholder ids (chart-*); the builder mints real ids. Live ids are the hunts' live records upgraded in place with hunts.params.json stats (unchanged here).",
-    params: P, newAIs: ais, newJutsu: jutsu, runs,
+    params: P, newAIs: ais, liveRecords, newJutsu: jutsu, runs,
     objectiveShape: {
       "RUL-2026-10-28-022": "Battles carry no Skyglass rewards. Every run: start_battle objectives in order (consecutiveObjectives); each base fight's failObjectiveId -> fail ending (the run's consolation, e.g. 1 Core Rot on a failed rare). After the last base fight: dialog 'leave' -> win_quest ending at step N, or 'press on' -> press-on start_battle: win -> win_quest ending at step N+1; lose -> failObjectiveId -> the same win_quest ending at step N. Completion pick = quest content.reward with rewardMode choose (rewardPickCount 1; 2 on tainted).",
       givePools: "Only on the FIRST fight objective of the tainted runs (entry at 70%). On a later objective givePools REPLACES the carried pools (initiateBattle sets cur := % of effective max), which would refill or drain the player.",

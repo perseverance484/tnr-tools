@@ -278,6 +278,132 @@ the Wreck Sealwright `dg-sealwright` (no Faded version exists).
 
 Without (a)-(d), the specs here keep the current record structure, trimmed and gated.
 
+### 7. RUL-2026-10-31-077: retunes adopted, record structure final (this branch, after `990d0aa4`)
+
+**Retunes adopted** into the real params (not the `_proposed` files): `overrides/kits_endgame.params.json` (the Captain's
+endgame pools 9), `overrides/hunts.params.rul077.json` (Watch solo Captain pools 2.65), `overrides/charts.params.rul077.json`
+(Steeping Horror 5 damage rows + 35% damage given down). Everything else unchanged.
+
+**Measurements (same seeds and method as §3):**
+
+| Fight | Target | Rule-cap pass (§3) | Now |
+|---|---|---|---|
+| Endgame Wreck, runs with a wipe % (120 runs) | ~17 | 10.8 | **19.2** (boss floor wipes 26 / 146 attempts) |
+| Endgame Wreck, minutes @15 s | ~22 | 21.8 | **23.0** (p90 43.3; 97.5% within the hour) |
+| Captain's Watch (no terms), clear % | ~80 | 20 (pools 3) | **80**; phase 2 median 7 rounds (p90 8), Captain killed 80% |
+| Steeping fight, clear % | ~75 | 95 | **77.5** (31 / 40) |
+
+These equal the proposal runs (`rulecap_S_watch_p265` byte-identical per path; steeping = sweep case `steep_3.76x5_g35`;
+Wreck 19.2% / 23.0 min as `rulecap_S_wreck_cap9_120`). Results: `results/rul077_wreck_endgame_120.json`,
+`results/rul077_hunts.json`, `results/rul077_charts.json`.
+
+**Smoke, every other fight, same seeds (proves the re-keying and the new params change nothing else):**
+- Hunts foundry / archive_clean / archive_alarm1 / archive_alarm3 / cache_right: byte-identical to `rulecap_T_hunts`.
+- Charts lowtide / nightwatch / reliquary / fall / rotted / burning: byte-identical to `rulecap_T_charts` (the
+  endgame Captain pools 9 reach the charts only through `kitParams`, whose Captain values the charts override).
+- Level-50 (Faded) Wreck, 60 runs: 60 / 60 runs identical to `rulecap_T_wreck_lvl50` (8.3%, 18.8 min) with the
+  "Faded Captain" username.
+- The Haul, all six pages, the 87 path evaluations of the rule-cap pass (40 seeds, guards fixed at level 100): byte-identical to `rulecap_T_haul*` (`results/rul077_haul.json`).
+- Crownhold / Crowned Captain: not re-run; their runners import none of the changed modules or params
+  (`crownhold.ts`, `crowned_captain.ts`, `cclib.ts` read `data/crownhold_inputs.json` and the library only).
+- **Determinism note:** the endgame Wreck is not bit-identical across separate processes: a 4-seed rerun of the same
+  override matched 3 seeds exactly, and seed 1 diverged at its first boss-floor attempt (16 vs 15 rounds); the 120-run
+  aggregate equals the proposal run. `--probe-check` (same process) stays identical. The hunts, charts and level-50
+  Wreck reruns above were identical across processes.
+
+**Record structure** (`tools/records.py` → `records_spec.json`, copied to `state/skyglass_build/`). The live record of
+each crew member is the endgame Wreck version; every other use of a crew member gets its own record, one per measured
+tuning, and a fight whose row and rules are identical to another's shares its record (the hunts' Deck Warden, Seal
+Charge and Wayfinder are the Fall's and Burning Heading's; the Archive's Core Horror is the Fall's break; the Haul's
+hunter and gatherer Deck Warden / lookout pairs). The tool also checks: every record within the 20-rule cap and with
+range+1 gates on pool jutsu (0 problems), every fight resolves to a record, usernames unique among themselves and
+absent from the captured AI usernames (`harvests/`: 558 on this branch; 561 on main, checked too). Builder changes on this branch: `hunts_build.ts` writes
+`fullRow` / `fullProfile` per AI; `charts_main.ts` writes `liveRecords` (the live records a run fights); `kits.ts`
+names the level-50 Captain "Faded Captain".
+
+65 records: 9 `base:` (live, push/361), 4 `live:` (non-crew hunt records, unchanged: Foundry Warden, Arsenal Keeper,
+Core Canister, Crown Archivist), **52 new copies** (Veteran 14, Common 6, Rot-Touched 5, Faded 8, Haul 11 incl. the
+two fuse copies, one-offs 8).
+
+| Key | Username | Kind | Used by | Tuning | Rules |
+|---|---|---|---|---|---|
+| `base:deck-warden` | Deck Warden | live | endgame Wreck floor 1 wave 1; endgame Wreck floor 5 wave 1 | lvl 100, stats x5, pools x1; 3 innate rows | 13 |
+| `base:seal-charge` | Seal Charge | live | endgame Wreck floor 1 wave 1 | lvl 70, stats x10, pools x1; 0 innate rows | 4 |
+| `base:skyglass-sentinel` | Skyglass Sentinel | live | endgame Wreck floor 2 wave 1 | lvl 100, stats x5, pools x1; 3 innate rows | 9 |
+| `base:first-blade` | First Blade | live | endgame Wreck floor 2 wave 1 | lvl 100, stats x5, pools x1; 3 innate rows | 9 |
+| `base:oathkeeper` | Oathkeeper | live | endgame Wreck floor 3 wave 1 | lvl 100, stats x5, pools x1; 3 innate rows | 8 |
+| `base:wayfinder` | Wayfinder | live | endgame Wreck floor 3 wave 1 | lvl 100, stats x5, pools x1; 3 innate rows | 13 |
+| `base:core-horror` | Core Horror | live | endgame Wreck floor 4 wave 1 | lvl 100, stats x5, pools x5; 4 innate rows | 20 |
+| `base:the-captain` | The Captain | live | endgame Wreck floor 5 wave 2 | lvl 100, stats x5, pools x9; 1 innate rows | 20 |
+| `base:sealwright` | Sealwright | live | endgame Wreck floor 5 wave 2 | lvl 100, stats x5, pools x2.6; 3 innate rows | 7 |
+| `faded:deck-warden` | Faded Deck Warden | copy | Faded (level-50) Wreck floor 1 wave 1; Faded (level-50) Wreck floor 5 wave 1 | lvl 50, stats x1, pools x1; 3 innate rows | 13 |
+| `faded:seal-charge` | Faded Seal Charge | copy | Faded (level-50) Wreck floor 1 wave 1 | lvl 50, stats x1, pools x1; 0 innate rows | 4 |
+| `faded:skyglass-sentinel` | Faded Skyglass Sentinel | copy | Faded (level-50) Wreck floor 2 wave 1 | lvl 50, stats x1, pools x1; 3 innate rows | 9 |
+| `faded:first-blade` | Faded First Blade | copy | Faded (level-50) Wreck floor 2 wave 1 | lvl 50, stats x1, pools x1; 3 innate rows | 9 |
+| `faded:oathkeeper` | Faded Oathkeeper | copy | Faded (level-50) Wreck floor 3 wave 1 | lvl 50, stats x1, pools x1; 3 innate rows | 8 |
+| `faded:wayfinder` | Faded Wayfinder | copy | Faded (level-50) Wreck floor 3 wave 1 | lvl 50, stats x1, pools x1; 3 innate rows | 13 |
+| `faded:core-horror` | Faded Core Horror | copy | Faded (level-50) Wreck floor 4 wave 1 | lvl 50, stats x1, pools x6; 3 innate rows | 20 |
+| `faded:the-captain` | Faded Captain | copy | Faded (level-50) Wreck floor 5 wave 2 | lvl 50, stats x1, pools x4; 4 innate rows | 20 |
+| `veteran:deck-warden` | Veteran Deck Warden | copy | Buried Cache; Burning Heading (tainted); Captain's Watch; Drowned Foundry; The Last Heading | lvl 100, stats x5, pools x1, 0 rows | 13 |
+| `live:core-canister` | Core Canister | live | Drowned Foundry | lvl 56, stats x5, pools x1, 0 rows | 3 |
+| `live:arsenal-keeper` | Arsenal Keeper | live | Drowned Foundry | lvl 100, stats x5, pools x1, 0 rows | 8 |
+| `veteran:seal-charge` | Veteran Seal Charge | copy | Buried Cache; Drowned Foundry; Quarantined Archive; The Last Heading | lvl 70, stats x1, pools x1, 0 rows | 4 |
+| `live:foundry-warden` | Foundry Warden | live | Drowned Foundry | lvl 100, stats x5, pools x3.5, 1 rows | 20 |
+| `veteran:core-horror` | Veteran Core Horror | copy | Quarantined Archive; The Last Heading | lvl 100, stats x5, pools x2, 2 rows | 20 |
+| `veteran:skyglass-sentinel` | Veteran Skyglass Sentinel | copy | Buried Cache | lvl 100, stats x5, pools x3, 4 rows | 20 |
+| `live:crown-archivist` | Crown Archivist | live | Quarantined Archive | lvl 100, stats x2.92, pools x2, 2 rows | 7 |
+| `veteran:sealwright` | Veteran Sealwright | copy | Quarantined Archive | lvl 100, stats x5, pools x2.5, 2 rows | 17 |
+| `veteran:wayfinder` | Veteran Wayfinder | copy | Burning Heading (tainted); Captain's Watch | lvl 100, stats x5, pools x1.26, 1 rows | 20 |
+| `veteran:first-blade` | Veteran First Blade | copy | Captain's Watch | lvl 100, stats x5, pools x1.5, 2 rows | 16 |
+| `veteran:the-captain` | Veteran Captain | copy | Captain's Watch | lvl 100, stats x5, pools x2.65, 1 rows, given -10% | 20 |
+| `common:deck-warden` | Deck Warden (Chart) | copy | Tide Chart; Watch Roster | lvl 100, stats x1, pools x1, 0 rows, taken +100%, given -50% | 13 |
+| `common:seal-charge` | Seal Charge (Chart) | copy | Tide Chart; Watch Roster | lvl 70, stats x1, pools x1, 0 rows, taken +100%, given -50% | 4 |
+| `common:arsenal-keeper` | Arsenal Keeper (Chart) | copy | Tide Chart | lvl 100, stats x1, pools x1, 0 rows, taken +100%, given -50% | 10 |
+| `common:skyglass-sentinel` | Skyglass Sentinel (Chart) | copy | Tide Chart | lvl 100, stats x1, pools x1.5, 1 rows, taken +100%, given -50% | 20 |
+| `common:first-blade` | First Blade (Chart) | copy | Watch Roster | lvl 100, stats x1, pools x1.5, 1 rows, taken +100%, given -50% | 16 |
+| `common:oathkeeper` | Oathkeeper (Chart) | copy | Watch Roster | lvl 100, stats x1, pools x1, 0 rows, taken +100%, given -50% | 8 |
+| `rot:foundry-warden` | Rot-Touched Foundry Warden | copy | Rotted Reliquary (tainted) | lvl 100, stats x5, pools x1, 0 rows | 20 |
+| `rot:sealwright` | Rot-Touched Sealwright | copy | Rotted Reliquary (tainted) | lvl 100, stats x5, pools x1, 0 rows | 17 |
+| `rot:skyglass-sentinel` | Rot-Touched Skyglass Sentinel | copy | Rotted Reliquary (tainted) | lvl 100, stats x5, pools x1, 0 rows | 20 |
+| `rot:first-blade` | Rot-Touched First Blade | copy | Rotted Reliquary (tainted) | lvl 100, stats x5, pools x1, 0 rows | 16 |
+| `rot:core-horror` | Rot-Touched Core Horror | copy | Burning Heading (tainted) | lvl 100, stats x5, pools x5.5, 3 rows, given -65% | 20 |
+| `oneoff:lingering-echo-i` | Lingering Echo I | copy | Reliquary Seal; Rotted Reliquary (tainted) | lvl 100, stats x5, pools x2, 1 rows | 6 |
+| `oneoff:lingering-echo-ii` | Lingering Echo II | copy | Reliquary Seal | lvl 100, stats x5, pools x2, 1 rows | 10 |
+| `oneoff:lingering-echo-iii` | Lingering Echo III | copy | Reliquary Seal | lvl 100, stats x5, pools x2, 1 rows | 12 |
+| `oneoff:fall-arsenal-keeper` | Arsenal Keeper (Magazine) | copy | Burning Heading (tainted); The Last Heading | lvl 100, stats x5, pools x4, 0 rows, DR 30% | 12 |
+| `oneoff:steeping-horror` | Steeping Horror | copy | Steeping (the Core) | lvl 100, stats x5, pools x3.76, 5 rows, given -35% | 20 |
+| `veteran:foundry-warden` | Veteran Foundry Warden | copy | Reliquary Seal | lvl 100, stats x5, pools x1.2, 1 rows | 20 |
+| `veteran:sealwright-echo` | Veteran Sealwright (Echo) | copy | Reliquary Seal | lvl 100, stats x5, pools x1, 2 rows | 17 |
+| `veteran:skyglass-sentinel-echo` | Veteran Skyglass Sentinel (Echo) | copy | Reliquary Seal | lvl 100, stats x5, pools x2, 1 rows | 20 |
+| `veteran:first-blade-echo` | Veteran First Blade (Echo) | copy | Reliquary Seal | lvl 100, stats x5, pools x1.2, 1 rows | 16 |
+| `veteran:the-captain-fall` | Veteran Captain (Fall) | copy | The Last Heading | lvl 100, stats x5, pools x2, 0 rows, given -15% | 20 |
+| `veteran:the-captain-ally` | Veteran Captain (Ally) | copy | Burning Heading (tainted) | lvl 100, stats x5, pools x2.5, 1 rows, given -10% | 20 |
+| `haul:wayfinder` | Wayfinder (Hunter) | copy | the Haul | lvl 100, stats x3, pools x1, 2 rows, taken +100%, given -40% | 13 |
+| `haul:first-blade` | First Blade (Hunter) | copy | the Haul | lvl 100, stats x3, pools x1, 2 rows, taken +100%, given -40% | 9 |
+| `haul:deck-warden` | Deck Warden (Haul) | copy | the Haul | lvl 100, stats x3, pools x1, 2 rows, taken +100%, given -40% | 13 |
+| `haul:first-blade-steps` | First Blade (Veteran) | copy | the Haul | lvl 100, stats x3, pools x1.2, 3 rows, taken +100% | 9 |
+| `haul:deck-warden-lookout` | Deck Warden (Lookout) | copy | the Haul | lvl 100, stats x3, pools x1, 0 rows, taken +100%, given -30% | 13 |
+| `oneoff:trophy-warden` | Trophy Warden | copy | the Haul | lvl 100, stats x4, pools x1.2, 2 rows | 11 |
+| `haul:arsenal-keeper` | Arsenal Keeper (Haul) | copy | the Haul | lvl 100, stats x5, pools x1, 0 rows | 10 |
+| `haul:skyglass-sentinel` | Skyglass Sentinel (Stores) | copy | the Haul | lvl 100, stats x3, pools x1, 2 rows, taken +100%, given -40% | 9 |
+| `haul:skyglass-sentinel-steps` | Skyglass Sentinel (Veteran) | copy | the Haul | lvl 100, stats x3, pools x1.2, 3 rows, taken +100% | 9 |
+| `copy:seal-charge-haul` | Seal Charge (Haul) | copy | the Haul | lvl 70, stats x1, pools x1, 0 rows, taken +100% | 3 |
+| `copy:core-canister-haul` | Core Canister (Haul) | copy | the Haul | lvl 56, stats x1, pools x1, 0 rows, taken +100% | 3 |
+| `oneoff:stores-ward` | Stores Ward | copy | the Haul | lvl 100, stats x4, pools x1.2, 3 rows | 10 |
+| `haul:sealwright` | Sealwright's Echo | copy | the Haul | lvl 100, stats x5, pools x1, 0 rows | 17 |
+| `oneoff:crown-stonebound` | Crown Stonebound (Summoned) | copy | summoned by Rot-Touched Sealwright (Stonebound Summons); summoned by Sealwright's Echo (Stonebound Summons); summoned by Veteran Sealwright (Echo) (Stonebound Summons); summoned by Veteran Sealwright (Stonebound Summons) | summoned at 40% power / 15000 HP | (push/272) |
+
+Names for the director: "Veteran Captain", "Faded Captain" (a leading "The" dropped; free); the second Veteran records
+"Veteran Sealwright (Echo)", "Veteran Skyglass Sentinel (Echo)", "Veteran First Blade (Echo)", "Veteran Captain
+(Fall)", "Veteran Captain (Ally)"; the merged Haul guards "Deck Warden (Haul)" and "Deck Warden (Lookout)". The Captain
+as the Burning Heading's ally was measured at the final-pass hunt tuning (pools 2.5, 1 row, 10% given down; the charts
+runner reads `overrides/hunts.params.json`), so it is its own record, not the Watch's (2.65).
+
+**Open, outside RUL-077:** the four `live:` records were fought at their `hunts_spec.json` tuning ("upgraded in place"),
+but no manifest in `push/` applies that tuning to the live records yet (the Foundry Warden's 20 hunt rules, the Arsenal
+Keeper's fallback-fixed live rules, the Crown Archivist's alarm-guard rows, the Core Canister at stats x5).
+
+
 
 ---
 
