@@ -1410,9 +1410,8 @@ through once he stands on the post: theninjarpg@3314d122 `libs/combat/ai_v2.ts` 
 
 ## 371 Skyglass variant naming pass + VS01-VS04 skins (16 itemVariant edits, 11 item edits; records stay HIDDEN): READY TO RUN
 
-`371_skyglass_variant_names.json` (`python3 push/skyglass_variant_names.gen.py`; RUL-2026-10-31-082, -079): the 13
-renamed variants (name + description), the approved skins VS01-VS04 (Gale-Watch Aetherion, Tidewater Thornsilver, Night
-Watch Testament, Thunderwake; `art/skyglass_variant_skins/exports`), the five renamed boss tokens (Captain's Gunbai,
+`371_skyglass_variant_names.json` (`python3 push/skyglass_variant_names.gen.py`; RUL-2026-10-31-082, -079): the 16
+renamed variants (name + description), the approved skins VS01-VS04 (Windward, Riptide, Nightreaver, Thunderwake; `art/skyglass_variant_skins/exports`), the five renamed boss tokens (Captain's Gunbai,
 Rotbloom, Forgefists, Wayfinder, Sealscript: name + text) and the six hidden chart cards whose text lists those
 variants. Later skins: re-run the generator after each batch's intake for a new manifest number (it adds every skin
 export that exists). Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems;
