@@ -18,10 +18,10 @@
 ## 0. Every item explains itself (RUL-2026-10-28-020)
 
 Each Skyglass item's description tells the player what the item is for, in plain words, after one line of story voice.
-- **Charts and the Lantern:** which run it opens; that the chart is spent at entry; that a lost fight ends the run; that health and chakra carry between fights; the press-on choice, on runs that have one (RUL-2026-10-30-060 item 6); for rares, that steeping can twist them.
+- **Charts, the Lantern and the Haul pages** (RUL-2026-10-31-074 item 3): a lore line; the run and the Battle Arena; the difficulty in five stars (Common ★☆☆☆☆, Rare ★★☆☆☆, Epic ★★★☆☆, tainted ★★★★☆, the Lantern's Crownhold ★★★★★, the Haul pages ★★★★☆); the chance drops with their rates; the pick; the press-on choice, on runs that have one (RUL-2026-10-30-060 item 6); for the Epic charts, that steeping can twist them; and the rules footer: spent at entry, no refills between fights, how you leave once inside, and (charts) claim any waiting reward first (RUL-2026-10-31-072 item 1). Text of record: `SKYGLASS_TEXT.md` §3.2, §4.1.
 - **Core Rot:** what steeping is, where it happens, the cost (a rare chart plus 3 Rot), and the outcome on a win (tainted chart) and on a loss (the chart comes back, the Rot is spent).
 - **Tainted charts:** the twists, and that the run pays pick 2.
-- **Chests, every one:** what can drop and how common each tier is, with the real weights (e.g. "Common 69% · Rare 24% · Epic 5% · Legendary 2%"), the roll count, and any fixed reward (e.g. the Treasury's 150,000 ryo).
+- **Chests, every one:** every item that can drop and its chance, each tier with its real weight (e.g. "Common 69% · Rare 24% · Epic 5% · Legendary 2%"), the roll count, and any fixed reward (e.g. the Treasury's 150,000 ryo).
 - **The Little Horror's Jar:** the pet; that a full collection blocks opening.
 - **Skin tokens:** which skins the token unlocks, that the player must own the base weapon, and that each skin unlocks once per player.
 - **Galley Stores:** the pet exp goes to the active pet only, so the pet must be battle-ready and not on a task.
@@ -29,23 +29,34 @@ Each Skyglass item's description tells the player what the item is for, in plain
 
 Descriptions are generated from the same tables the caches are built from, so the stated rates always match the live weights.
 
-**Chest description format (RUL-2026-10-28-030).** Item descriptions render basic HTML (theninjarpg `utils/parse.ts` parseHtml). The item card already shows the cache's display name and roll odds (`layout/ItemWithEffects.tsx` ~1341), so the description adds the tiers and items:
+**Chest description format (RUL-2026-10-28-030, amended by RUL-2026-10-31-074 item 1).** Item descriptions render basic HTML (theninjarpg `utils/parse.ts` parseHtml). The item card already shows the cache's display name and roll odds (`layout/ItemWithEffects.tsx` ~1341), so the description adds the tiers and items, condensed, with the tier colour on a ◆ marker only:
 
 ```html
 <i>One line of story.</i><br><br>
-<b>Always:</b> 150,000 ryo<br>            (only when the item has a fixed reward)
-<i>3–6 rolls.</i><br>                       (only when the roll count varies)
-<b>Each roll:</b><br>
-<span style="color:#9ca3af"><b>Common 69%</b></span> · Item ×n<br>
-<span style="color:#3b82f6"><b>Rare 24%</b></span> · Item ×n<br>
-<span style="color:#a855f7"><b>Epic 5%</b></span> · Item<br>
-<span style="color:#f59e0b"><b>Legendary 2%</b></span> · Item
+<b>Always:</b> 150,000 ryo<br>                                   (only when the item has a fixed reward)
+3–6 rolls. <b>Each roll:</b><br>                                  (the roll range only when the count varies)
+<span style="color:#9ca3af">◆</span> <b>Common 69%</b> · Item ×n<br>
+<span style="color:#3b82f6">◆</span> <b>Rare 24%</b> · Item ×n, Item ×n or Item ×n <i>(8% each)</i><br>
+<span style="color:#a855f7">◆</span> <b>Epic 5%</b> · Item<br>
+<span style="color:#f59e0b">◆</span> <b>Legendary 2%</b> · Item
 ```
 
-- A tier with several options joins them with " *or* ".
-- A tier with more than 3 options lists the first three, then "and more".
+- **Only the ◆ is coloured**; the tier label stays in the theme's text colour (contrast: no single hex reads on both
+  the dark and the light item card; `docs/reviews/SKYGLASS_ITEM_DESCRIPTION_AUDIT.md` C2).
+- **Every drop is named** with its own chance; nothing is hidden behind "and more" (audit C1). Options of one tier are
+  joined with ", " and a final " or "; options at the same rate and quantity are grouped with "<i>(x% each)</i>".
+  Within a tier the engine picks one entry uniformly, so a duplicated entry is likelier: the chance shown is per option.
+- **Materials** (profession chests): "one material ×q" with the options under it on `&nbsp;&nbsp;· ` lines, grouped by
+  chance, most likely first; "×q of A, B or C <i>(x% each)</i>" for one quantity at one rate; bundles as
+  "one pair/bundle, ×q each <i>(x% each)</i>:" with one `&nbsp;&nbsp;· A + B` line each; a recipe-kit tier as
+  "a recipe kit: 2–4 of the Common materials ×q each <i>(k kits, x% each)</i>" (kits are drawn from the chest's Common
+  materials; any left out are named, "(not X)").
+- Chances: whole percent from 9.95% up, else one decimal (no trailing ".0"), ties to even.
 - Each tier name appears at most once per cache, in order of weight. **Forbidden** (red, `#ef4444`) sits above Legendary (RUL-2026-10-29-058).
-- A fixed roll count is not repeated, because the card already shows it.
+- A fixed roll count is not repeated, because the card already shows it. An item with several caches states each under
+  its own `<b>Label, n rolls:</b>` heading (Crown's Hoard).
+- The generator (`push/skyglass_items.gen.py`) renders every container from its table and must equal
+  `SKYGLASS_TEXT.md` §4.4/§4.5 byte for byte; `scripts/skyglass_check.py` checks every manifest's text against its weights.
 - The rendering is checked on the director's phone through a hidden test item before release.
 
 ## 1. Who owns what

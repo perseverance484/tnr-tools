@@ -41,7 +41,7 @@ the record exists, put its id in the design data (with the file that holds it) a
 | `design` | the design data still matches its prose sources; every id is still in the file it cites | below |
 | `picks` | each known run's `rewardMode` is `choose`, `rewardPickCount` matches, and the option cards are exactly the design's options; a retired record (the Armory Requisition) may only be hidden | loot tables §4a; RUL-2026-10-28-016 |
 | `win-only` | (a) a `start_battle` / `defeat_opponents` objective carries no reward field with a value except `reward_hunter_items(_ids)` / `reward_gathering_items(_ids)`; (b) anywhere in any manifest (quests, objectives, packages, item effects) a profession flag that is `true` has a non-empty id list | RUL-2026-10-28-022, -023 |
-| `chest-text` | every item with a `noncombatconsumereward` weighted cache follows the coloured tier-line format, with `Always:` for fixed rewards and a roll line only when the count varies (below) | loot tables §0; RUL-2026-10-28-030 |
+| `chest-text` | every item with a `noncombatconsumereward` weighted cache follows the condensed ◆ tier-line format, with every drop and its chance, `Always:` for fixed rewards and a roll line only when the count varies (below) | loot tables §0; RUL-2026-10-28-030 as amended by RUL-2026-10-31-074 |
 | `voice` | player-facing text has none of the story bible's "Never use" words (whole word, any case), no "seven-bladed" and no "hunt chart" | story bible, Voice; RUL-2026-10-29-058 item 4 |
 | `chart-tier` | chart rarity matches its tier (Common: Tide, Roster; Rare: the four former hunt charts; Epic: Reliquary Seal, Last Heading; Legendary: tainted charts, the Lantern, the Haul pages) | RUL-2026-10-29-058 item 1 (supersedes RUL-2026-10-28-028 item 4) |
 | `prof-chest` | an edited profession chest has the rarity of §4b (hunt/gather flags only while the design data requires them; §4b: "The chests need no huntable/gatherable flags."); no §4a run carries a profession drop (§4b: "Shared hunts carry no profession drops."), whether as a profession-flag reward or as a profession chest in plain `reward_items`, directly or inside a reward-package snapshot. The Haul quests are not §4a runs and are not checked here. | loot tables §4b; RUL-2026-10-29-035; RUL-2026-10-28-023 item 1 (rarity) |
@@ -71,30 +71,37 @@ asset records and the manifest's own item labels are not player-facing and are n
 the story bible at run time, so editing the bible's "Never use" line changes the check; words match whole, without
 inflection (`lift` matches "lift", not "lifts").
 
-## Chest description format (RUL-2026-10-28-030, loot tables §0)
+## Chest description format (RUL-2026-10-28-030 as amended by RUL-2026-10-31-074, loot tables §0)
 
 The format of record is the HTML template in loot tables §0; this is how the checker reads it. Every item whose effects
 include a `noncombatconsumereward` with `rewardMode: "weightedCache"` must send its `description` in the same edit (an
 edit that sets the cache without the text fails: the live text could not be shown to match). The description is split
 into lines on `<br>`; the story line and `<b>Each roll:</b>` are free text and not checked.
 
-1. **One coloured tier line per tier**, matched exactly as
-   `<span style="color:#xxxxxx"><b>{Tier} {p}%</b></span> · {items}`:
+1. **One tier line per tier, the colour on a ◆ marker**, matched exactly as
+   `<span style="color:#xxxxxx">◆</span> <b>{Tier} {p}%</b> · {items}`, followed by any continuation lines
+   `&nbsp;&nbsp;· …` that belong to it (RUL-2026-10-31-074 item 1). A line in the superseded form
+   `<span style="color:#xxxxxx"><b>{Tier} {p}%</b></span> · …` is an error:
    - colour by tier name: Common `#9ca3af` (grey), Rare `#3b82f6` (blue), Epic `#a855f7` (purple), Legendary
      `#f59e0b` (gold), Forbidden `#ef4444` (red, above Legendary; RUL-2026-10-29-058); a tier with any other name has no
      colour and fails;
    - each tier name is used by at most one tier of a cache, and a higher tier never outweighs a lower one (Common <
      Rare < Epic < Legendary < Forbidden; RUL-2026-10-29-058 item 2: "each name is used at most once per cache, in order
      of weight"); either is an error on the cache itself;
-   - `{p}` is the tier's weight in whole percent, rounded half up (weights are basis points, 10000 = 100%); zero-weight
-     tiers get no line. Same-named tiers are still summed into one line for the text comparison, so a text error is
-     reported apart from the one-name error;
-   - `{items}` lists the tier's entries in cache order, joined with ` <i>or</i> ` or ` or `; past three entries, the
-     first three then ` and more` (`, and more` accepted). An item reads `Name`, or `Name ×n` when the quantity is above
-     1. An entry that bundles several items joins them with ` + ` (the ruling does not cover bundles; this is the
-     checker's reading). Tags inside the list are ignored when comparing. An item whose name the repository does not
-     know (design data, `answers/names_item.json`, or a named item in the same manifest) makes that tier's list a
-     warning instead of a check;
+   - `{p}` is the tier's weight in percent as the text shows chances: whole percent from 9.95% up, else one decimal
+     with no trailing `.0`, ties to even (weights are basis points, 10000 = 100%); zero-weight tiers get no line.
+     Same-named tiers are still summed into one line for the text comparison, so a text error is reported apart from
+     the one-name error;
+   - `{items}` (with its continuation lines joined by ` | `, tags dropped, `&nbsp;` read as a space) must be one of the
+     forms the data allows (`tier_items_text`). An entry's chance is the tier weight over the tier's entry count,
+     summed over identical entries (the engine picks one entry uniformly). The forms: generic `A ×2, B + C or D (x%
+     each)` (all chances equal; the chance only with several options); `×q of A, B or C (x% each)` (single items, one
+     quantity, one chance); `one material ×q …` with the options grouped by chance, most likely first (single items, one
+     quantity); `one pair|bundle, ×q each (x% each):` with one `A + B` line per entry (one quantity); and the recipe-kit
+     summary `a recipe kit: lo–hi of the Common materials[ (not X)] ×q each (k kits, x% each)`, valid only when every
+     kit is drawn from the same cache's Common tier. An item reads `Name`, or `Name ×n` when the quantity is above 1. An
+     item whose name the repository does not know (design data, `answers/names_item.json`, or a named item in the same
+     manifest) makes that tier's list a warning instead of a check;
    - no line may name a tier the cache lacks, and a tier rate written outside this format (e.g. a plain
      `Legendary 2%`) fails.
 2. **`<b>Always:</b> …`** appears if and only if the item has a fixed reward (another `noncombatconsumereward` effect,
@@ -104,7 +111,7 @@ into lines on `<br>`; the story line and `<b>Each roll:</b>` are free text and n
    leaves out, and an entry the item does not grant, are both errors. An item name containing one of the separators
    would be split; none of the Skyglass items does.
 3. **A roll line** is required only when the roll count varies: `<min>–<max> rolls` (an ASCII hyphen is accepted),
-   e.g. `<i>3–6 rolls.</i>`. A fixed roll count is not required, because the item card already shows the cache's roll
+   e.g. `3–6 rolls. <b>Each roll:</b>`. A fixed roll count is not required, because the item card already shows the cache's roll
    odds; a roll line on a fixed-count cache is a warning (§0: "not repeated").
 4. **Several weighted caches on one item** (Crown's Hoard, `SKYGLASS_TEXT.md` §4.4): each cache's tier lines sit under
    its own heading line `<b>Label[, n rolls]:</b>`, where Label is a word of that cache's `displayName` (e.g.

@@ -21,9 +21,10 @@ Core Rupture blast carries the approved law-6 exception (RUL-2026-10-28-002). It
   338  the seven boss tokens bound to their variants, from 329's results (--binds). (Was 330 until 2026-10-31; renumbered
        because another workstream holds push/330, 332 and 337.)
   339  GO-LIVE (RUL-2026-10-30-063 item 1; was 331), from 329's results (--golive): every edit that changes what live players can
-       obtain or see. The 20 edits to existing items (the four Rare charts' text and tier, the Lantern, the Coffer, Sealed
+       obtain or see. The 25 edits to existing items (the four Rare charts' text and tier, the Lantern, the Coffer, Sealed
        Treasury, Archive Chart Case, Medicine Inro, Sage's Strongbox, Elemental Tool Pouch, Unmarked Cargo, the 8
-       profession chests) and the Buried Cache, Drowned Foundry, Quarantined Archive and Captain's Watch re-sent with the
+       profession chests, all in the RUL-2026-10-31-074 text; the Coffer's five contents re-tiered and re-texted) and the
+       Buried Cache (battles scaled to the player, F02), Drowned Foundry, Quarantined Archive and Captain's Watch re-sent with the
        section 4a picks, the chart-ladder, Haul-page and boss-token drops, the stakes headers and closing lines (text doc
        2.8, 2.8a, 6.1, 6.2, 8) and the Watch's dawn-watch press-on room (+20% Last Heading only, RUL-2026-10-31-064
        item 2). Runs LAST, after every other manifest of the
@@ -221,6 +222,9 @@ def cache():
         o = by_id(objs, w)
         assert o["description"].endswith(old)
         o["description"] = o["description"][:-len(old)] + new
+    for o in objs:  # F02: every Buried Cache battle scales to the player (RUL-2026-10-31-072 item 2; RUL-2026-10-28-010 item 7)
+        if o["task"] == "start_battle":
+            o["opponent_scaled_to_user"] = True
     add_drops(objs, {"w_clean", "w_late"}, [drop("Chart of the Drowned Foundry", 15)] + PAGE_DROPS)
     reward = G.items_reward((R("Medicine Inro"), 1), (R("Galley Stores"), 1), (R("Chart of the Drowned Foundry"), 1))
     return G.quest("hunt_buried_cache", "The Buried Cache", stakes("The Buried Cache", G.CACHE_PREMISE),
@@ -299,6 +303,8 @@ GO_LIVE_ITEM_EDITS = {
     "Chart of the Captain's Watch", "Lastlight Lantern", "Skyglass Coffer", "Sealed Treasury", "Archive Chart Case",
     "Medicine Inro", "Sage's Strongbox", "Elemental Tool Pouch", "Unmarked Cargo",
     *IT.PROF.values(),
+    # The Coffer's contents (RUL-2026-10-31-074 item 4): re-tier and approved text, phase 1.
+    "Skyglass Filament", "Skyglass Serum", "Fragment of the Skyglass Crown", "Skyglass Katana", "Skyglass Crystal",
 }
 # Manifest numbers. push/330, 332 and 337 belong to another workstream (Zombie Outbreak); the binds and go-live
 # manifests were 330 and 331 until 2026-10-31 and are now 338 and 339; the badge is 340.
@@ -339,7 +345,12 @@ def golive(bundle):
     b = json.load(open(bundle))
     idmap = b.get("idmap") or {}
     _, edits = split_items(IT.all_items()["items"])
-    body = phased(edits, 1) + phased([cache(), foundry(), archive(), watch()], 2)
+    runs = [cache(), foundry(), archive(), watch()]
+    for q in runs:
+        # F05 (RUL-2026-10-31-072 item 8): the re-sent live runs keep their current visibility. A Forge edit is merged
+        # over the live record, so leaving `hidden` out keeps whatever it is at run time (never re-hides a published run).
+        del q["data"]["hidden"]
+    body = phased(edits, 1) + phased(runs, 2)
     missing = set()
     body = resolve_329(body, idmap, missing)
     if missing:
@@ -347,12 +358,15 @@ def golive(bundle):
     write(GO_LIVE, "skyglass_go_live", (
         f"push/{GO_LIVE}, GO-LIVE (RUL-2026-10-30-063 item 1): DO NOT RUN until every other manifest of the Skyglass / "
         "Crownhold event has run (push/README.md lists the preconditions). Built from push/329's results bundle "
-        + os.path.basename(bundle) + " (literal ids, L01). Phase 1: the 20 edits to existing items live players can reach "
+        + os.path.basename(bundle) + " (literal ids, L01). Phase 1: the 25 edits to existing items live players can reach "
         "(the four Rare charts' text and tier, the Lantern, the Coffer, Sealed Treasury, Archive Chart Case, Medicine Inro, "
-        "Sage's Strongbox, Elemental Tool Pouch, Unmarked Cargo, the 8 profession chests). Phase 2: the Buried Cache, "
-        "Drowned Foundry, Quarantined Archive and Captain's Watch re-sent whole (section 4a picks, chart ladder, Haul pages "
-        "1.5% each, boss variant tokens 1%, stakes headers and closing lines, the Watch's dawn-watch press-on room: the "
-        "step's own ending plus the Last Heading at 45%, no extra ladder step, RUL-2026-10-31-064 item 2)."),
+        "Sage's Strongbox, Elemental Tool Pouch, Unmarked Cargo, the 8 profession chests with quantities rounded to the "
+        "nearest 5, all in the approved RUL-2026-10-31-074 text; the Coffer's contents: Skyglass Filament Common, Skyglass "
+        "Serum Rare, Fragment of the Skyglass Crown Epic, with the Katana's and the Crystal's text). Phase 2: the Buried "
+        "Cache (every battle scaled to the player, F02), Drowned Foundry, Quarantined Archive and Captain's Watch re-sent "
+        "whole (section 4a picks, chart ladder, Haul pages 1.5% each, boss variant tokens 1%, stakes headers and closing "
+        "lines, the Watch's dawn-watch press-on room: the step's own ending plus the Last Heading at 45%, no extra ladder "
+        "step, RUL-2026-10-31-064 item 2), without a hidden flag so each keeps its current visibility (F05)."),
         body)
 
 

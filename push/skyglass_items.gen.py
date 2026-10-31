@@ -93,6 +93,9 @@ LIVE["Skyglass Filament"] = _coffer_tiers[0]["entries"][0]["items"][0]["itemId"]
 LIVE["Skyglass Serum"] = _coffer_tiers[1]["entries"][0]["items"][0]["itemId"]
 LIVE["Skyglass Katana"] = _coffer_tiers[3]["entries"][0]["items"][0]["itemId"]
 assert LIVE["Skyglass Serum"] == cid("Skyglass Serum")
+# The Skyglass Crystal (12 Filaments craft one): created by push/90 (results tnr_results_1791779642866.json, srcId
+# skyglass_crystal); read from that bundle, never typed.
+LIVE["Skyglass Crystal"] = json.load(open(os.path.join(ROOT, "harvests/inbox/tnr_results_1791779642866.json")))["idmap"]["skyglass_crystal"]
 assert _coffer_tiers[2]["entries"][0]["items"][0]["itemId"] == LIVE["Fragment of the Skyglass Crown"]
 
 PROF = {  # the eight profession chests (answers/names_item.json; design_data.json profession_chests)
@@ -180,30 +183,111 @@ def _qty(n, q):
     return f"{n} ×{q}" if q > 1 else n
 
 
-def _pct(p):
-    return str(int(p / 100 + 0.5)) if (p * 10) % 1000 != 500 else str(int(p // 100) + 1)
+# ---------------------------------------------------------------------------------------------------------------
+# Container descriptions: the condensed format with a ◆ tier marker (RUL-2026-10-31-074 item 1; amends
+# RUL-2026-10-28-030; loot tables section 0). Only the ◆ carries the tier colour; the label is normal text. Every drop
+# is named, with its own chance: options of one tier at the same rate are grouped ("(x% each)"), a recipe-kit tier is
+# summarised as "(k kits, x% each)". Rendered from the cache tables, then compared byte for byte with SKYGLASS_TEXT.md.
+# ---------------------------------------------------------------------------------------------------------------
+IND = "&nbsp;&nbsp;· "
 
 
-def tier_line(name, p, ents):
-    parts = [" + ".join(_qty(n, q) for n, q in ent) for ent in ents]
-    seen = []
-    for x in parts:  # cache order; the text never repeats an entry (round-robin keeps the first three distinct)
-        seen.append(x)
-    more = len(seen) > 3
-    body = " <i>or</i> ".join(seen[:3]) + (", and more" if more else "")
-    return f'<span style="color:{COLOUR[name]}"><b>{name} {_pct(p)}%</b></span> · {body}'
+def pct(x):
+    """A chance in percent (a Fraction) as the text shows it: whole percent from 9.95% up, else one decimal without a
+    trailing '.0'; ties to even (the approved cards, RUL-2026-10-31-074)."""
+    from decimal import Decimal, ROUND_HALF_EVEN
+    d = Decimal(x.numerator) / Decimal(x.denominator)
+    if d >= Decimal("9.95"):
+        return str(d.quantize(Decimal(1), rounding=ROUND_HALF_EVEN))
+    t = str(d.quantize(Decimal("0.1"), rounding=ROUND_HALF_EVEN))
+    return t[:-2] if t.endswith(".0") else t
 
 
-def render(story, tiers, rolls=((1, 10000),), always=None, head=None):
+def _join_or(names):
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " or " + names[-1]
+
+
+def _mark(name):
+    return f'<span style="color:{COLOUR[name]}">◆</span>'
+
+
+def _rates(ents, p):
+    """Distinct single-item entries in first-appearance order, each with its chance (a Fraction, percent): the engine
+    picks one entry of a tier uniformly, so duplicated entries weigh more."""
+    from fractions import Fraction
+    per = Fraction(p, 100 * len(ents))
+    out = {}
+    for ent in ents:
+        (n, q), = ent
+        out[(n, q)] = out.get((n, q), 0) + per
+    return out
+
+
+def tier_line(name, p, ents, common=None, materials=False):
+    """One tier's block (one or more <br>-joined lines). `materials` selects the profession-chest phrasing
+    ("one material ×q" / "×q of …" / recipe kits); `common` is the chest's Common materials, for the kit summary."""
+    from fractions import Fraction
+    head = f"{_mark(name)} <b>{name} {pct(Fraction(p, 100))}%</b> · "
+    n = len(ents)
+    if all(len(e) == 1 for e in ents):
+        rates = _rates(ents, p)
+        if not materials:
+            opts = list(rates)
+            body = _join_or([_qty(nm, q) for nm, q in opts])
+            if len(opts) > 1:
+                assert len(set(rates.values())) == 1, name
+                body += f" <i>({pct(rates[opts[0]])}% each)</i>"
+            return head + body
+        qs = {q for _, q in rates}
+        assert len(qs) == 1, (name, qs)
+        q = qs.pop()
+        groups = {}
+        for (nm, _), r in sorted(rates.items(), key=lambda kv: -kv[1]):
+            groups.setdefault(r, []).append(nm)
+        if name == "Common":
+            if len(groups) == 1:
+                (r, ms), = groups.items()
+                return head + f"one material ×{q} <i>({pct(r)}% each)</i>:<br>{IND}" + ", ".join(ms)
+            return head + f"one material ×{q}<br>" + "<br>".join(
+                f"{IND}{', '.join(ms)} <i>({pct(r)}% each)</i>" if len(ms) > 1 else f"{IND}{ms[0]} <i>({pct(r)}%)</i>"
+                for r, ms in groups.items())
+        assert len(groups) == 1, name
+        (r, ms), = groups.items()
+        return head + f"×{q} of {_join_or(ms)} <i>({pct(r)}% each)</i>"
+    assert materials, name
+    per = Fraction(p, 100 * n)
+    qs = {q for e in ents for _, q in e}
+    assert len(qs) == 1, (name, qs)
+    q = qs.pop()
+    sizes = [len(e) for e in ents]
+    if name == "Rare" and n > 2 and common:
+        mats = {m for e in ents for m, _ in e}
+        if mats == set(common):
+            src = "Common materials"
+        elif mats < set(common):
+            src = f"Common materials (not {_join_or([m for m in common if m not in mats])})"
+        else:
+            src = "of: " + ", ".join(sorted(mats))
+        rng = f"{min(sizes)}" if min(sizes) == max(sizes) else f"{min(sizes)}–{max(sizes)}"
+        return head + f"a recipe kit: {rng} of the {src} ×{q} each <i>({n} kits, {pct(per)}% each)</i>"
+    label = "pair" if max(sizes) == 2 else "bundle"
+    return head + f"one {label}, ×{q} each <i>({pct(per)}% each)</i>:<br>" + "<br>".join(
+        IND + " + ".join(m for m, _ in e) for e in ents)
+
+
+def render(story, tiers, rolls=((1, 10000),), always=None, head=None, materials=False):
     out = [f"<i>{story}</i>", ""]
     if always:
         out.append("<b>Always:</b> " + always)
     counts = sorted({c for c, p in rolls if p})
-    if len(counts) > 1:
-        out.append(f"<i>{counts[0]}–{counts[-1]} rolls.</i>")
-    out.append(head or "<b>Each roll:</b>")
-    out += [tier_line(n, p, e) for n, p, e in tiers if p]
-    return "<br>".join(out).replace("</i><br><br>", "</i><br><br>", 1)
+    head = head or "<b>Each roll:</b>"
+    out.append(f"{counts[0]}–{counts[-1]} rolls. {head}" if len(counts) > 1 else head)
+    common = None
+    if materials:
+        c = [e for n, p, e in tiers if n == "Common"]
+        common = [nm for nm, _ in _rates(c[0], 1)] if c else None
+    out += [tier_line(n, p, e, common, materials) for n, p, e in tiers if p]
+    return "<br>".join(out)
 
 
 def story_of(target):
@@ -310,20 +394,13 @@ def chart_items():
     return out
 
 
+PAGES = ["Ledger Page: The Trophy Hold", "Ledger Page: The Bone Store", "Ledger Page: The Snare Room",
+         "Stores Manifest: The Overgrown Stores", "Stores Manifest: The Ore Vault", "Stores Manifest: The Bloom Cellar"]
+
+
 def haul_pages():
-    rules = T.block("item:<chart>.description") if False else None  # the rules block has no item heading
-    L = T.lines()
-    i = next(i for i, l in enumerate(L) if l.startswith("**Rules block**"))
-    j = next(j for j in range(i, len(L)) if L[j].startswith("```")) + 1
-    rules = L[j]
-    out = []
-    for name, story in T.table("### 3.2 Page items"):
-        page = name.split(": ", 1)[1]
-        chests = "Hunter's" if name.startswith("Ledger") else "Gatherer's"
-        desc = story + rules.replace("<page>", page).replace("<chests>", chests)
-        out.append(create(NEW[name], name, desc, "LEGENDARY", "OTHER", True))
-    assert len(out) == 6
-    return out
+    # Each page has its own approved block (text doc section 3.2; RUL-2026-10-31-074 item 3: the layout line differs).
+    return [create(NEW[name], name, T.block(f"item:{name}.description"), "LEGENDARY", "OTHER", True) for name in PAGES]
 
 
 def pet_and_rot():
@@ -394,6 +471,21 @@ def caches():
     return out
 
 
+def coffer_contents():
+    """The Coffer's contents (live; go-live 339 phase 1): re-tiered to the Coffer's own tiers and given the approved text
+    (RUL-2026-10-31-074 item 4; text doc section 4.6). The Serum keeps its text; the Katana keeps its rarity."""
+    def d(name):
+        return T.block(f"item:{name}.description")
+    return [
+        edit("Skyglass Filament", {"description": d("Skyglass Filament"), "rarity": "COMMON"}, "Skyglass Filament: text, Common"),
+        edit("Skyglass Serum", {"rarity": "RARE"}, "Skyglass Serum: Rare"),
+        edit("Fragment of the Skyglass Crown", {"description": d("Fragment of the Skyglass Crown"), "rarity": "EPIC"},
+             "Fragment of the Skyglass Crown: text, Epic"),
+        edit("Skyglass Katana", {"description": d("Skyglass Katana")}, "Skyglass Katana: text"),
+        edit("Skyglass Crystal", {"description": d("Skyglass Crystal")}, "Skyglass Crystal: text"),
+    ]
+
+
 def _round_robin(entries):
     """Distinct entries, most frequent first (stable), interleaved so each copy keeps its weight and the first entries
     are distinct (the text lists the first three)."""
@@ -419,7 +511,7 @@ def profession_chests():
         tiers = [(n, p, [[(i, q) for i, q in ent] for ent in _round_robin(ents)]) for n, p, ents in tables[key]]
         rolls = ((3, 6000), (4, 3000), (6, 1000))
         story = story_of(f"item:{name}.description")
-        desc = checked(f"item:{name}.description", render(story, tiers, rolls))
+        desc = checked(f"item:{name}.description", render(story, tiers, rolls, materials=True))
         rar = key.split(":")[1]
         out.append({"entity": "item", "slot": "edit", "targetId": cid(name), "phase": 1,
                     "name": f"{name}: tiers Common/Rare/Epic/Legendary (RUL-2026-10-29-058), text",
@@ -503,7 +595,8 @@ def bind_edits(idmap):
 
 def all_items():
     v, b = variants()
-    return {"items": chart_items() + haul_pages() + pet_and_rot() + tokens() + caches() + profession_chests(),
+    return {"items": chart_items() + haul_pages() + pet_and_rot() + tokens() + caches() + profession_chests()
+            + coffer_contents(),
             "variants": v, "binds": b}
 
 
@@ -527,4 +620,7 @@ if __name__ == "__main__":
     for k, v in r.items():
         print(k, len(v))
         for e in v:
+            if isinstance(e, tuple):  # binds: (token srcId, variant srcId, name)
+                print("  ", "bind", e[0], "->", e[1], "|", e[2])
+                continue
             print("  ", e["entity"], e["slot"], e.get("srcId") or e.get("targetId"), "|", e["name"])

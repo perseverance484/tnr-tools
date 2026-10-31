@@ -1,3 +1,11 @@
+"""Skyglass profession chests (RUL-2026-10-29-036, -037, -058; quantities rounded to the nearest 5 by RUL-2026-10-31-074).
+
+    python3 push/skyglass_profession_chests.gen.py [state/skyglass_design/]
+
+Reads the push/323 item captures (harvests/inbox/tnr_results_17932*.json) and <dir>/recipes.json (push/325), and writes
+<dir>/chests.json (the eight chests' tiers) and prints each chest's tables and expected value. Deterministic; do not
+hand-edit chests.json. docs/design/SKYGLASS_PROFESSION_CHESTS.md records the output.
+"""
 import json,glob,collections,itertools
 import sys; SP=sys.argv[1] if len(sys.argv)>1 else 'state/skyglass_design/'
 items={}
@@ -77,7 +85,11 @@ for p in 'HG':
             tt=[[t[0],t[1],[tuple((n,q if n.startswith('__chest__') else min(100//lot*lot,(lambda r: max(1,round(r*k/2)))(q//lot if q>=lot else 1)*lot)) for n,q in ent) for ent in t[2]]] for t in base]
             e=ev(tt,rolls,cv)
             if best is None or abs(e-OLD[(p,rar)])<abs(best[0]-OLD[(p,rar)]): best=(e,tt,k)
-        e2,tiers,f=best; cv[rar]=e2
+        e2,tiers,f=best
+        # RUL-2026-10-31-074 item 2: every quantity rounded to the nearest 5 (director 2026-10-31; readable stacks win over
+        # exact recipe lots). Epic and Legendary chests already sit on multiples of 5 and are unchanged. EV re-measured.
+        tiers=[[t[0],t[1],[tuple((n,q if n.startswith('__chest__') else min(100,5*round(q/5))) for n,q in ent) for ent in t[2]]] for t in tiers]
+        e2=ev(tiers,rolls,cv); cv[rar]=e2
         res[(p,rar)]=(tiers,rolls,e2,OLD[(p,rar)],f)
 json.dump({f"{p}:{r}":[[t[0],t[1],[[list(x) for x in en] for en in t[2]]] for t in v[0]] for (p,r),v in res.items()},open(SP+'chests.json','w'),indent=1)
 for (p,rar),(tiers,rolls,e2,old,f) in res.items():

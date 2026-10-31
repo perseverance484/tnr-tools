@@ -121,7 +121,7 @@ class TempRoot(unittest.TestCase):
         self.assertEqual(sc.Design(self.tmp).ids["crownhold_badge"], "BADGE123")
 
     def test_tier_colour_change_in_section_0_is_caught(self):
-        self.edit(sc.LOOT, '<span style="color:#3b82f6"><b>Rare', '<span style="color:#2563eb"><b>Rare')
+        self.edit(sc.LOOT, '<span style="color:#3b82f6">◆</span> <b>Rare', '<span style="color:#2563eb">◆</span> <b>Rare')
         self.assertTrue(any(f.field == "TIER_COLOURS" and "Rare" in f.msg for f in self.design_errors()))
 
     def test_forbidden_colour_is_bound_to_its_sources(self):
@@ -292,7 +292,7 @@ class Fixtures(unittest.TestCase):
         c = msgs("fail_chest_text.json")
         for want in ("stated 70% but the cache weight is 69%", "'Rare' is coloured #f59e0b", "'Epic' lists 'Sealed Treasury'",
                      "tier line for 'Mythic'", "outside the coloured tier-line format", "but the item has no fixed reward",
-                     "needs '<b>Always:</b> 150,000 ryo'", "needs a roll line '3–6 rolls'", "and more'",
+                     "needs '<b>Always:</b> 150,000 ryo'", "needs a roll line '3–6 rolls'", "(11% each)' (or 2 other allowed form(s))",
                      "same-named tiers share one", "no tier line for 'Legendary'",
                      "does not state 'Medicine Inro'", "states 'Medicine Inro ×99'",
                      "tier name 'Epic' is used by 2 tiers", "'Forbidden' is coloured #f59e0b; the format uses #ef4444",
@@ -321,16 +321,71 @@ class Units(unittest.TestCase):
         self.assertEqual(sc.pct_text(49), "0")
         self.assertEqual(sc.pct_text(100), "1")
 
+    def test_pct_shown(self):
+        F = sc.Fraction
+        self.assertEqual(sc.pct_shown(F(69)), "69")
+        self.assertEqual(sc.pct_shown(F(65, 2)), "32")    # 32.5: ties to even (the approved Strongbox card)
+        self.assertEqual(sc.pct_shown(F(35, 2)), "18")    # 17.5 -> 18
+        self.assertEqual(sc.pct_shown(F(25, 3)), "8.3")
+        self.assertEqual(sc.pct_shown(F(7, 2)), "3.5")
+        self.assertEqual(sc.pct_shown(F(4)), "4")         # no trailing '.0'
+        self.assertEqual(sc.pct_shown(F(1, 2)), "0.5")
+        self.assertEqual(sc.pct_shown(F(1990, 200)), "10")  # 9.95 and up: whole percent
+
     def test_tier_items_text(self):
         names = {"a": "Alpha", "b": "Beta", "c": "Gamma", "d": "Delta"}
         e = lambda *xs: {"items": [{"itemId": i, "quantity": q} for i, q in xs]}
-        self.assertEqual(sc.tier_items_text([e(("a", 1))], names), "Alpha")
-        self.assertEqual(sc.tier_items_text([e(("a", 3)), e(("b", 1))], names), "Alpha ×3 or Beta")
-        self.assertEqual(sc.tier_items_text([e(("a", 1)), e(("b", 1)), e(("c", 1)), e(("d", 1))], names),
-                         "Alpha or Beta or Gamma and more")
-        self.assertEqual(sc.tier_items_text([e(("a", 1), ("b", 2))], names), "Alpha + Beta ×2")
-        self.assertIsNone(sc.tier_items_text([e(("zz", 1))], names))
-        self.assertEqual(sc.norm_items("Alpha <i>or</i> Beta <i>or</i> Gamma, and more"), "Alpha or Beta or Gamma and more")
+        t = sc.tier_items_text
+        self.assertEqual(t([e(("a", 1))], names, 6900), ["Alpha"])
+        self.assertEqual(t([e(("a", 3)), e(("b", 1))], names, 700)[0], "Alpha ×3 or Beta (3.5% each)")
+        four = [e(("a", 10)), e(("b", 10)), e(("c", 10)), e(("d", 10))]
+        got = t(four, names, 600)
+        self.assertEqual(got[0], "Alpha ×10, Beta ×10, Gamma ×10 or Delta ×10 (1.5% each)")   # every drop named
+        self.assertIn("×10 of Alpha, Beta, Gamma or Delta (1.5% each)", got)
+        self.assertIn("one material ×10 (1.5% each): | Alpha, Beta, Gamma, Delta", got)
+        # duplicated entries weigh more: grouped by chance, most likely first; no generic form (chances differ)
+        dup = [e(("a", 25))] * 2 + [e(("b", 25))] * 2 + [e(("c", 25))]
+        self.assertEqual(t(dup, names, 5000), ["one material ×25 | Alpha, Beta (20% each) | Gamma (10%)"])
+        pairs = [e(("a", 15), ("b", 15)), e(("c", 15), ("a", 15))]
+        self.assertIn("one pair, ×15 each (13% each): | Alpha + Beta | Gamma + Alpha", t(pairs, names, 2600))
+        kits = [e(("a", 10), ("b", 10)), e(("b", 10), ("c", 10)), e(("a", 10), ("b", 10), ("c", 10))]
+        self.assertIn("a recipe kit: 2–3 of the Common materials (not Delta) ×10 each (3 kits, 8.7% each)",
+                      t(kits, names, 2600, common=["Alpha", "Beta", "Gamma", "Delta"]))
+        self.assertIsNone(t([e(("zz", 1))], names, 100))
+        self.assertEqual(sc.norm_items("Alpha <i>(3% each)</i>&nbsp;&nbsp;"), "Alpha (3% each)")
+
+    def test_legacy_colour_label_line_is_refused(self):
+        d = sc.Design(ROOT)
+        with open(os.path.join(FIX, "pass.json"), encoding="utf-8") as fh:
+            fx = json.load(fh)
+        coffer = next(it for it in fx["items"] if it["name"] == "Skyglass Coffer: text")
+        coffer["data"]["description"] = coffer["data"]["description"].replace(
+            '<span style="color:#9ca3af">◆</span> <b>Common 69%</b>', '<span style="color:#9ca3af"><b>Common 69%</b></span>')
+        ch = sc.Checker(d)
+        ch.run("m.json", {"items": [coffer]}, True)
+        msgs = [f.msg for f in errors(ch.findings)]
+        self.assertTrue(any("superseded colour-label tier line" in m for m in msgs), msgs)
+        self.assertTrue(any("no tier line for 'Common'" in m for m in msgs), msgs)
+
+    def test_continuation_lines_belong_to_their_tier(self):
+        d = sc.Design(ROOT)
+        names = {"x1": "Owlcat's Fur", "x2": "Glimmer Dust", "x3": "Badger Shell"}
+        d.names.update(names)
+        ents = [{"items": [{"itemId": i, "quantity": 25}]} for i in ("x1", "x1", "x2", "x2", "x3")]
+        item = {"entity": "item", "slot": "edit", "targetId": "chest", "name": "chest", "data": {
+            "description": ('<i>A chest.</i><br><br><b>Each roll:</b><br><span style="color:#9ca3af">◆</span> '
+                            '<b>Common 100%</b> · one material ×25<br>&nbsp;&nbsp;· Owlcat\'s Fur, Glimmer Dust '
+                            '<i>(40% each)</i><br>&nbsp;&nbsp;· Badger Shell <i>(20%)</i>'),
+            "effects": [{"type": "noncombatconsumereward", "rewardMode": "weightedCache", "weightedCache": {
+                "rolls": [{"count": 1, "probability": 10000}],
+                "tiers": [{"name": "Common", "probability": 10000, "entries": ents}]}}]}}
+        ch = sc.Checker(d)
+        ch.run("m.json", {"items": [item]}, True)
+        self.assertEqual([str(f) for f in ch.findings], [])
+        item["data"]["description"] = item["data"]["description"].replace("(20%)", "(25%)")
+        ch = sc.Checker(d)
+        ch.run("m.json", {"items": [item]}, True)
+        self.assertEqual(len(errors(ch.findings)), 1, [str(f) for f in ch.findings])
 
     def test_fixed_roll_line_is_not_required_and_only_warned(self):
         d = sc.Design(ROOT)
@@ -357,9 +412,10 @@ class Units(unittest.TestCase):
         dup["data"]["effects"][0]["weightedCache"]["tiers"] = tiers[:4] + [dict(tiers[3], probability=0)] + [
             dict(tiers[4], name="Legendary")]
         dup["data"]["description"] = dup["data"]["description"].replace(
-            '<span style="color:#f59e0b"><b>Legendary 7%</b></span> · Chart of the Buried Cache<br>'
-            '<span style="color:#ef4444"><b>Forbidden 3%</b></span> · Lastlight Lantern',
-            '<span style="color:#f59e0b"><b>Legendary 10%</b></span> · Chart of the Buried Cache or Lastlight Lantern')
+            '<span style="color:#f59e0b">◆</span> <b>Legendary 7%</b> · Chart of the Buried Cache<br>'
+            '<span style="color:#ef4444">◆</span> <b>Forbidden 3%</b> · Lastlight Lantern',
+            '<span style="color:#f59e0b">◆</span> <b>Legendary 10%</b> · Chart of the Buried Cache or Lastlight Lantern '
+            '<i>(5% each)</i>')
         ch = sc.Checker(d)
         ch.run("m.json", {"items": [dup]}, True)
         self.assertEqual([f.msg for f in errors(ch.findings)],
@@ -469,7 +525,7 @@ class ReviewRegressions(unittest.TestCase):
     def kit(self, always, fixed_items=(), money=0):
         return {"entity": "item", "slot": "edit", "targetId": "kit", "data": {
             "description": (f"<b>Always:</b> {always}<br>" if always is not None else "")
-            + '<span style="color:#9ca3af"><b>Common 100%</b></span> · Skyglass Coffer',
+            + '<span style="color:#9ca3af">◆</span> <b>Common 100%</b> · Skyglass Coffer',
             "effects": [{"type": "noncombatconsumereward", "rewardMode": "standard", "reward_money": money,
                          "reward_items": [{"ids": [i], "number": 100, "quantity": q} for i, q in fixed_items]},
                         {"type": "noncombatconsumereward", "rewardMode": "weightedCache", "weightedCache": {
