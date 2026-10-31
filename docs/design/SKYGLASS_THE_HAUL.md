@@ -85,7 +85,7 @@ The cut-through hazard is poison or decreasemaxpools for hunters, afterburn or i
 Finishing step 5 also ends the run.
 
 **Payout.** The haul pays at the ending as plain `reward_items` at 100%: the chests actually taken, from the 8
-profession chests (`SKYGLASS_PROFESSION_CHESTS.md`). Nothing pays per fight.
+profession chests' tiers and tables (`SKYGLASS_PROFESSION_CHESTS.md`), paid as the Haul's own new chests (RUL-2026-10-31-081: Hide Bundle … Keeper's Reserve; Stores Bundle … Quartermaster's Reserve). Nothing pays per fight.
 
 **How the engine holds the state.** A quest has no counters, so the graph encodes the state as its position: step,
 alertness, and whether a cut-through hazard is pending.

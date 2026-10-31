@@ -5124,3 +5124,20 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "Why does a failed epic run give core rot? It doesnt cost core rot so why would failing give you 1? We can leave the steeping as is", then "Cut".
 
 **Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §2.3, §2.4, §4.1, §4.2; `docs/design/SKYGLASS_LOOT_TABLES.md` §5a; `push/skyglass_charts.gen.py` (`CONSOLATION`); push/369.
+
+## RUL-2026-10-31-081 — The Haul pays its own new chests
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / items
+
+**Status:** ACTIVE. Replaces the plan to edit the eight live profession chests at go-live (RUL-2026-10-29-058 tiers and tables stay; only the records change).
+
+**Ruling:**
+1. The Haul pays **eight new hidden chests**, created by push/370; the eight live Hunter's and Gatherer's Chests are **not edited**, so players who own them keep their art, contents and text, and the new chests' art is ready before go-live.
+2. Names (no rarity in the name; the rarity frame shows the tier; no "crate" or "locker", which are the Haul's step choices): hunting pages pay **Hide Bundle → Keeper's Pack → Prize Strongbox → Keeper's Reserve**; gathering pages pay **Stores Bundle → Quartermaster's Pack → Overgrown Strongbox → Quartermaster's Reserve**.
+3. Tiers and tables are the profession chests' (chests.json); untradeable like them. The page cards' "Pays:" line and the rung-0 ending names the new chests; the PC01-PC08 art belongs to them.
+
+**Evidence:** Director, 2026-10-31: "We can just build our own chests brand new. That way the pre-existing assets aren't overwritten for players who still have the items and we can have the assets ready to go."; "We dont need to include its rarity in the name"; on "crate/locker" names: "players would think they were getting these exact drops"; "Approve" (the Bundle/Pack/Strongbox/Reserve set).
+
+**Canonical destination:** `push/skyglass_items.gen.py` (`HAUL_CHESTS`, `haul_chests()`); `push/skyglass_haul_chests.gen.py` (push/370); `push/skyglass_haul.gen.py` (`--chests`); `docs/design/SKYGLASS_TEXT.md` §3, §4.5.

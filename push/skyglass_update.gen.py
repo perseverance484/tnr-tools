@@ -302,7 +302,6 @@ GO_LIVE_ITEM_EDITS = {
     "Chart of the Buried Cache", "Chart of the Drowned Foundry", "Chart of the Quarantined Archive",
     "Chart of the Captain's Watch", "Lastlight Lantern", "Skyglass Coffer", "Sealed Treasury", "Archive Chart Case",
     "Medicine Inro", "Sage's Strongbox", "Elemental Tool Pouch", "Unmarked Cargo",
-    *IT.PROF.values(),
     # The Coffer's contents (RUL-2026-10-31-074 item 4): re-tier and approved text, phase 1.
     "Skyglass Filament", "Skyglass Serum", "Fragment of the Skyglass Crown", "Skyglass Katana", "Skyglass Crystal",
 }
@@ -388,9 +387,9 @@ def golive(bundle):
     write(GO_LIVE, "skyglass_go_live", (
         f"push/{GO_LIVE}, GO-LIVE (RUL-2026-10-30-063 item 1): DO NOT RUN until every other manifest of the Skyglass / "
         "Crownhold event has run (push/README.md lists the preconditions). Built from push/329's results bundle "
-        + os.path.basename(bundle) + " (literal ids, L01). Phase 1: the 13 edits to visible pre-existing items "
-        "(the 8 profession chests with quantities rounded to the nearest 5, in the approved RUL-2026-10-31-074 text; the "
-        "edits to the 12 hidden event records went early in push/368; the Coffer's contents: Skyglass Filament Common, Skyglass "
+        + os.path.basename(bundle) + " (literal ids, L01). Phase 1: the 5 edits to visible pre-existing items "
+        "(the edits to the 12 hidden event records went early in push/368; the eight profession chests are no longer edited, "
+        "the Haul pays its own new chests, push/370, RUL-2026-10-31-081; the Coffer's contents: Skyglass Filament Common, Skyglass "
         "Serum Rare, Fragment of the Skyglass Crown Epic, with the Katana's and the Crystal's text). Phase 2: the Buried "
         "Cache (every battle scaled to the player, F02), Drowned Foundry, Quarantined Archive and Captain's Watch re-sent "
         "whole (section 4a picks, chart ladder, Haul pages 1.5% each, boss variant tokens 1%, stakes headers and closing "
