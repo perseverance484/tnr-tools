@@ -51,21 +51,21 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | VS17 | The First Blade (variant of Aetherion) | ICON (variant) | `10_variant_aetherion` | `m_CYA2H9XDF_TbMiii8PE` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-the-first-blade.webp`) |
 | VS18 | Sealscript (variant of Whispering Dawnblade) | ICON (variant) | `22_variant_whispering_dawnblade` | `trSVpt_E_BqOJS1geL_Sn` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-sealscript.webp`) |
 | VS19 | Crownbreaker (variant of Thornsilver) | ICON (variant) | `11_variant_thornsilver` | `dt6BWKCOfuB3mPLl14-CF` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-crownbreaker.webp`) |
-| JI01 | Lastlight (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | `0F-68bxOXW_LkJnXV0lwT` | TO GENERATE |
-| JI02 | Little Maw (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | - | TO GENERATE |
-| JI03 | The Last Directive (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | `GHFMU_DDKvBBp5BEuTeah` | TO GENERATE |
-| JI04 | Extermination Order (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | `EqZsaqser8c2-KpVCaXk_` | TO GENERATE |
-| AN01 | cp_command: Ward of Command banner | ANIMATION | `35_fx_layers` | - | TO GENERATE |
-| AN02 | cc_phase_shift: shockwave flourish | ANIMATION | `35_fx_layers` | - | TO GENERATE |
-| AN03 | cp_gunwale: Raise the Gunwale barrier | gameAsset STATIC or ANIMATION | `35_fx_layers` | - | TO GENERATE |
-| AN04 | ch_enrage: The Core Rebuilds aura | ANIMATION | `35_fx_layers` | - | TO GENERATE |
-| AN05 | cc_hexweave: Hexweave hit | ANIMATION | `35_fx_layers` | - | TO GENERATE |
-| AN06 | Spreading Fire ember tile | gameAsset STATIC or ANIMATION loop | `35_fx_layers` | - | TO GENERATE |
-| AN07 | ch_bile_spit: glob in flight | ANIMATION | `35_fx_layers` | - | TO GENERATE |
-| AN08 | ch_bile_spit: splash | ANIMATION | `35_fx_layers` | - | TO GENERATE |
-| AN09 | ch_undertow: water-drag streak (OPTIONAL) | ANIMATION | `35_fx_layers` | - | TO GENERATE |
-| PT01 | The salvager (Wreck Sighted) | SCENE_CHARACTER | `25_salvager_portrait` | - | TO GENERATE |
-| AV01 | Tagwright (Crown Tagwright) | AI_AVATAR | `40_crew_avatars` | `1syezT0axWVQVgeOGN-LH` | TO GENERATE |
+| JI01 | Lastlight (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | `0F-68bxOXW_LkJnXV0lwT` | PROCESSED (`art/skyglass_jutsu_icons/exports/icon-jutsu-lastlight.webp`) |
+| JI02 | Little Maw (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | - | PROCESSED (`art/skyglass_jutsu_icons/exports/icon-jutsu-little-maw.webp`) |
+| JI03 | The Last Directive (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | `GHFMU_DDKvBBp5BEuTeah` | PROCESSED (`art/skyglass_jutsu_icons/exports/icon-jutsu-the-last-directive.webp`) |
+| JI04 | Extermination Order (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | `EqZsaqser8c2-KpVCaXk_` | PROCESSED (`art/skyglass_jutsu_icons/exports/icon-jutsu-extermination-order.webp`) |
+| AN01 | cp_command: Ward of Command banner | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
+| AN02 | cc_phase_shift: shockwave flourish | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
+| AN03 | cp_gunwale: Raise the Gunwale barrier | gameAsset STATIC or ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
+| AN04 | ch_enrage: The Core Rebuilds aura | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
+| AN05 | cc_hexweave: Hexweave hit | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
+| AN06 | Spreading Fire ember tile | gameAsset STATIC or ANIMATION loop | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
+| AN07 | ch_bile_spit: glob in flight | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
+| AN08 | ch_bile_spit: splash | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
+| AN09 | ch_undertow: water-drag streak (OPTIONAL) | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
+| PT01 | The salvager (Wreck Sighted) | SCENE_CHARACTER | `25_salvager_portrait` | - | PROCESSED (`art/skyglass_scene_chars/exports/scene_char_skyglass_salvager.webp`) |
+| AV01 | Tagwright (Crown Tagwright) | AI_AVATAR | `40_crew_avatars` | `1syezT0axWVQVgeOGN-LH` | PROCESSED (`art/crownhold/avatars/exports/avatar_crownhold_tagwright.webp`) |
 | AV02 | Lancer (Crown Lancer) | AI_AVATAR | `40_crew_avatars` | `e5ye0RlN0fManSKdD_k-o` | TO GENERATE |
 | AV03 | Honor Guard (Honor Guard) | AI_AVATAR | `40_crew_avatars` | `1orTQQ0Q9XhBvwlSZuzj5` | TO GENERATE |
 | AV04 | Runner (Crown Runner) | AI_AVATAR | `40_crew_avatars` | `-U_-iIwhGodkqdvc4GPa6` | TO GENERATE |
