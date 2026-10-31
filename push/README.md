@@ -1276,6 +1276,19 @@ Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.j
 Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
 and jar.
 
+## 350 Achievement probe (3 quest creates, HIDDEN): READY TO RUN (staff test for Walked Every Deck)
+
+`python3 push/achievement_probe.gen.py`. Tests whether an achievement nobody has started keeps
+`complete_specific_quest` progress across saves (the source reading at theninjarpg@3314d122 `libs/quest.ts`
+`filterQuestTrackersForDbPersist` says it does not). Creates "Probe Deck A", "Probe Deck B" (one click each, no
+reward) and the achievement "Probe: Both Decks" (A then B, no reward), shaped like the live "Pizza Delivery Reward".
+- Gates: `check_manifest.mjs` 0 pre-send problems. `validate.py --strict` exit 1 with 3 graph-lint diagnostics that do
+  not apply to achievements, held by `state/validate_exceptions/350_achievement_probe.json` (`validate_exception.py` exit 0).
+- **Test, on a staff character (CONTENT role or above):** complete Probe Deck A; reload (better: log out and in); open
+  Achievements and check whether "Probe: Both Decks" shows the first goal done; then complete Probe Deck B and check
+  whether the achievement completes. First goal still done after reload = Walked Every Deck can ship as designed.
+- Afterwards: leave all three hidden (or delete them).
+
 ## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 RUN and verified; 344 (AI copies) part 1 READY TO RUN, most copies BLOCKED (director decisions); 348 (Crown's Hoard, Wreck Sighted) READY TO RUN, 349 after it
 
 Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Generators: `push/skyglass_library.gen.py`
