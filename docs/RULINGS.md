@@ -4979,3 +4979,17 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "1. Do the fix 2. Scale it 3. Do the dialog. Dont worry about attempt caps for now. I'll handle the weekend window. Blank it then".
 
 **Canonical destination:** the generators and design docs named in the review's findings table.
+
+## RUL-2026-10-31-073 — The Haul does not scale to the player
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / the Haul
+
+**Status:** ACTIVE. Supersedes the Haul's `opponent_scaled_to_user` (haul spec) and the scaled half of RUL-2026-10-31-067 item 2.
+
+**Ruling:** the Haul's guards are fixed at their tuned level (level 100, the haul spec's `atLevel100` values), not scaled to the player, so pages are not worth passing to low-level accounts. The Veteran tier shared by the Rare charts and the Haul guards is a fixed level-100 record in both. The Haul targets are re-checked with unscaled guards in the RUL-066/-067 re-simulation. Item text gives the Haul pages four stars of five (the tainted runs' level), not a scaling line.
+
+**Evidence:** Director, 2026-10-31: "The Haul should not scale to the player, I dont want to encourage swapping charts to lower level accounts to complete them".
+
+**Canonical destination:** `docs/design/SKYGLASS_THE_HAUL.md`; the haul spec and harness on the re-simulation branch.
