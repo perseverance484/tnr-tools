@@ -1276,7 +1276,7 @@ Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.j
 Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
 and jar.
 
-## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 (text for Raise the Gunwale and Stonebound Summons) READY TO RUN; 344 (AI copies) part 1 READY TO RUN, most copies BLOCKED (director decisions); 348 (Crown's Hoard, Wreck Sighted) READY TO RUN, 349 after it
+## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 RUN and verified; 344 (AI copies) part 1 READY TO RUN, most copies BLOCKED (director decisions); 348 (Crown's Hoard, Wreck Sighted) READY TO RUN, 349 after it
 
 Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Generators: `push/skyglass_library.gen.py`
 (342). Run order and dependencies are listed per manifest; a manifest that needs ids from an earlier unrun one is built
@@ -1398,7 +1398,7 @@ Sighted's win grants `new_quest` → Walked Every Deck (unverified for achieveme
 every run, so it changes the design; (d) leave it out of the release. Its six missing run ids (Low Tide, Night Watch,
 Sealed Reliquary, The Fall, both tainted runs) are also still unbuilt.
 
-### 343 Skyglass library text (2 jutsu edits, stay HIDDEN): READY TO RUN
+### 343 Skyglass library text (2 jutsu edits, stay HIDDEN): RUN 2026-10-31 (tnr_results_1793427413200.json, 2/2 VERIFIED)
 
 `python3 push/skyglass_library.gen.py --text-edit <342 bundle>` (built from `tnr_results_1793426982231.json`). 342 ran with
 empty text on two moves; this sets it (RUL-2026-10-31-065 item 2; `SKYGLASS_TEXT.md` 6.3a): **Raise the Gunwale**
