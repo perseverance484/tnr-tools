@@ -1408,14 +1408,16 @@ the 20-rule cap; and a false "dead rules" error on the Crowned Captain's uncondi
 through once he stands on the post: theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~482-492). Both need a
 `state/validate_exceptions/` ledger with director acceptance when the manifests are built from the final specs.
 
-## 371 Skyglass variant naming pass + VS01-VS06 + VS08 skins (16 itemVariant edits, 11 item edits; records stay HIDDEN): READY TO RUN
+## 371 Skyglass variants: all 19 skins + naming pass (19 itemVariant edits, 11 item edits): READY TO RUN
 
-`371_skyglass_variant_names.json` (`python3 push/skyglass_variant_names.gen.py`; RUL-2026-10-31-082, -079): the 16
-renamed variants (name + description), the approved skins VS01-VS06 + VS08 (Windward, Riptide, Nightreaver, Thunderwake, Anchorline, Starfall, Keelstone; `art/skyglass_variant_skins/exports`), the five renamed boss tokens (Captain's Gunbai,
-Rotbloom, Forgefists, Wayfinder, Sealscript: name + text) and the six hidden chart cards whose text lists those
-variants. Later skins: re-run the generator after each batch's intake for a new manifest number (it adds every skin
-export that exists). Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems;
-`skyglass_check.py` 0/0. Run after 370 (it compares against what 360/368/369/370 sent).
+`371_skyglass_variant_names.json` (`python3 push/skyglass_variant_names.gen.py`; RUL-2026-10-31-079, -082): the final
+skin on all 19 variants (VS01-VS19, `art/skyglass_variant_skins/exports`), the current name and description on the 16
+renamed ones, the five renamed boss tokens (Captain's Gunbai, Rotbloom, Forgefists, Wayfinder, Sealscript: name + text)
+and the six hidden chart cards whose text lists those variants. **Variants have no hidden column** (schema
+`itemVariant`, law 16b), so they already show in each weapon's Variants list: this puts the final art and names in
+front of players for the hype the director asked for. The tokens that unlock them stay hidden until go-live; the
+Crownbreaker variant shows with its blanked description (RUL-2026-10-31-072 item 6). Gates: `validate.py --strict`
+0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems; `skyglass_check.py` 0/0. Run after 370.
 
 ## 370 Skyglass Haul chests (8 item creates HIDDEN + 6 page text edits): READY TO RUN
 
