@@ -63,7 +63,7 @@ Descriptions are generated from the same tables the caches are built from, so th
 | Skyglass Token | unlocks any one Skyglass skin (§5d) | Archive, Watch, Sealed Reliquary and The Fall picks; chest of chests Legendary; Crown's Hoard (RUL-2026-10-29-049) |
 | Trophy tokens | each unlocks one boss skin (§5d) | the Wreck bosses (5%, once per player, RUL-2026-10-30-060); chart and hunt bosses (1% hunts, 2% rares, 4% tainted); Walked Every Deck (Crownbreaker) |
 | The Little Horror's Jar | the event's one pet (§5b) | endgame Wreck clear, once per player, 5% (RUL-2026-10-29-054) |
-| Crown's Hoard | opens the Skyglass Coffer and Sealed Treasury caches together, plus a Skyglass Token (RUL-2026-10-28-013, -049) | Crownhold pick Untradeable (RUL-2026-10-31-066 item 3) |
+| Crown's Hoard | opens the Skyglass Coffer and Sealed Treasury caches together, plus a Skyglass Token (RUL-2026-10-28-013, -049) | Crownhold pick. Untradeable (RUL-2026-10-31-066 item 3) |
 | Core Rot | steeping reagent (§5) | Endgame Wreck clears, the common runs, the Core Horror's hunt runs, breaking the seal, a failed rare run (§5) |
 | Charts / Lastlight Lantern | hunt access (§5) | Wreck clear drops, the chart ladder, the Archive Chart Case |
 | Unmarked Cargo (chest of chests) | one roll of the caches above (§2) | Endgame Wreck clear 10% |
