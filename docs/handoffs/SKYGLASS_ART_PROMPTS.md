@@ -975,7 +975,7 @@ References attached: 1. fx_binding_seal.png: STYLE-ONLY: the approved Skyglass b
 Style: Edo-era Japanese fantasy ninja pixel art in the rendering of the attached Skyglass boss-FX key art: crisp pixel rendering, dark one-pixel outlines, flat cel steps, limited palette, no airbrush, no bloom. Glow is edge light only, never a painted disc, panel or halo.
 Canvas: 1254 x 1254, ONE element centred with a clear margin, nothing else on the canvas.
 Palette (control / lock): violet into ink, from #2a1640 through #6b3fa0 to a pale violet highlight; ink black #08080d.
-Subject: a tight woven knot of violet ink cords crossing over one another into a small hexagonal lattice, ink droplets flicking off its edges; cords only, no symbols.
+Subject: a tangled, irregular snarl of violet ink cords wrapping tightly around nothing, like a net cinched shut, loose cord ends whipping out on one side, ink droplets flicking off; asymmetric and organic, NOT a star, NOT a hexagram, NOT a lattice or any regular geometric figure; cords only, no symbols.
 Background: native transparency (real alpha, no grey or tinted backing, no dark fringe, no checkerboard). If transparency is not available, a MAGENTA key only (#FF00FF), flat, covering the whole canvas and every enclosed gap. Never lime.
 Avoid: no text, runes, glyphs, spell circles or symbols (the Skyglass emblem only where the subject names it); no character, face, body or hands; no scenery, floor or cast shadow; no second element; no franchise insignia.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
