@@ -159,6 +159,8 @@ def archive():
         prepend(by_id(objs, w), close("Sealwright (Archive)", "`w_clean`, `w_alarm`, prepend"))
     add_drops(objs, {"w_clean", "w_alarm"}, [drop("Reliquary Seal", 25), drop("Rotted Reliquary Seal", 1)] + PAGE_DROPS
               + [drop("Sealwright's Seal", HUNT_VARIANT)])
+    if SEAL_ECHO:  # RUL-2026-10-31-072 item 8 / -076 item 4 / -078 item 2: break the seal, echo = Veteran Core Horror
+        SEAL.break_the_seal(objs, echo_ai=SEAL_ECHO[0], core_rot=R("Core Rot"), strict=True)
     reward = G.items_reward((R("Archive Chart Case"), 1), (R("Sage's Strongbox"), 1), (R("Skyglass Token"), 1))
     return G.quest("hunt_archive", "The Quarantined Archive", stakes("The Quarantined Archive", G.H.ARCHIVE["premise"]),
                    "The archive's last seal is broken and its records are yours.", R("Chart of the Quarantined Archive"),
@@ -263,7 +265,7 @@ def phased(items, phase):
 def pack(items):
     files = {}
     used = json.dumps(items)
-    for name, path in {**G.IMAGES, **IT.IMAGES, **BADGE_IMAGES}.items():
+    for name, path in {**G.IMAGES, **IT.IMAGES, **BADGE_IMAGES, **SCENE_IMAGES}.items():
         if "@img:" + name in used:
             b = open(os.path.join(ROOT, path), "rb").read()
             files[name] = {"path": path, "sha256": hashlib.sha256(b).hexdigest(), "bytes": len(b)}
@@ -369,12 +371,42 @@ def resolve_329(o, idmap, missing):
     return o
 
 
+SEAL = load("skyglass_archive_seal.py")
+SEAL_ECHO = []  # set by golive: the Veteran Core Horror's literal id
+# Quest scenes render only as gameAsset ids (theninjarpg@3314d122 layout/Logbook.tsx ~486-525, getSceneAssets; a URL
+# shows the default background). Existing Ghost Ship scene assets (harvests/seed/43_INDEX_asset.json, folder
+# ghostship, hidden; getSceneAssets does not filter hidden) by URL; the four with no asset are created in 339 phase 1.
+SCENE_ASSET = {"hold": "yufttCkG-KsefHKuz9Q2a", "lower_hull": "dFwyPzyhUZQjDBXpJRUDJ", "cache_site": "rX78pJPETsUL2JrsSvGHn",
+               "chart_room": "ApkLYWJ3AFe8oyqQwk_8z", "deck_b": "U2pjcM1_N-HdVf928Sn5z", "helm": "-eB0frmTJss6Uco6ZoM07"}
+SCENE_NEW = {"exterior_keel_walk": "Ghost Ship Keel Walk", "reconstruction_chamber": "Ghost Ship Reconstruction Chamber",
+             "quarantined_archive": "Ghost Ship Quarantined Archive",
+             "command_observation_gallery": "Ghost Ship Observation Gallery"}
+SCENE_PFX = "sg339_scene_"
+SCENE_IMAGES = {f"scene_bg_ghost_ship_{k}.webp": f"art/ghost_ship_skyglass/scene_bg_ghost_ship_{k}.webp" for k in SCENE_NEW}
+
+
+def scene_assets():
+    return [{"entity": "asset", "slot": "create", "phase": 1, "srcId": SCENE_PFX + k, "name": n, "data": {
+        "name": n, "type": "SCENE_BACKGROUND", "image": f"@img:scene_bg_ghost_ship_{k}.webp", "folder": "ghostship",
+        "frames": 1, "speed": 1, "hidden": True, "onInitialBattleField": False, "licenseDetails": "TNR"}}
+        for k, n in SCENE_NEW.items()]
+
+
+def use_scene_assets():
+    for k in list(G.SCENE):
+        G.SCENE[k] = SCENE_ASSET[k] if k in SCENE_ASSET else "@scene:" + SCENE_PFX + k
+    assert set(G.SCENE) == set(SCENE_ASSET) | set(SCENE_NEW), set(G.SCENE)
+
+
 def golive(bundle, copies):
     # RUL-2026-10-31-077 item 2a: the four hunts fight their Veteran copies (push/344), not the live crew records,
     # which push/361 turns into the endgame Wreck version. Literal ids from 344's results bundle(s) by AI key.
     sys.path.insert(0, os.path.join(ROOT, "push"))
     import skyglass_aikeys as K
-    G.use_copies(K.Resolver(copies))
+    res = K.Resolver(copies)
+    G.use_copies(res)
+    SEAL_ECHO[:] = [res("veteran:core-horror")]
+    use_scene_assets()
     b = json.load(open(bundle))
     idmap = b.get("idmap") or {}
     _, edits = split_items(IT.all_items()["items"])
@@ -385,7 +417,7 @@ def golive(bundle, copies):
         # F05 (RUL-2026-10-31-072 item 8): the re-sent live runs keep their current visibility. A Forge edit is merged
         # over the live record, so leaving `hidden` out keeps whatever it is at run time (never re-hides a published run).
         del q["data"]["hidden"]
-    body = phased(edits, 1) + phased(runs, 2)
+    body = scene_assets() + phased(edits, 1) + phased(runs, 2)
     missing = set()
     body = resolve_329(body, idmap, missing)
     if missing:

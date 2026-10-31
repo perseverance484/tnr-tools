@@ -1,0 +1,17 @@
+{
+ "manifest": "push/339_skyglass_go_live.json",
+ "ruling": "Accepted under RUL-2026-10-31-085 item 1 (same validator false positive): 9 'build order' warnings, caused by the four scene-asset creates in phase 1 (the validator ranks the renamed gameAsset entity last).",
+ "reason": "Phase 1 creates the four missing Ghost Ship scene assets and edits the Coffer's contents; phase 2 re-sends the four hunts referencing them (@scene, resolved in-job). check_manifest.mjs: 0 pre-send problems.",
+ "sha256": "34f720bedff3ace2956b77f11a3207cfa48443a667d69bd8a14fb9e45da28411",
+ "accepted": [
+  "ERROR  manifest: build order: item appears after a later phase",
+  "ERROR  manifest: build order: item appears after a later phase",
+  "ERROR  manifest: build order: item appears after a later phase",
+  "ERROR  manifest: build order: item appears after a later phase",
+  "ERROR  manifest: build order: item appears after a later phase",
+  "ERROR  manifest: build order: quest appears after a later phase",
+  "ERROR  manifest: build order: quest appears after a later phase",
+  "ERROR  manifest: build order: quest appears after a later phase",
+  "ERROR  manifest: build order: quest appears after a later phase"
+ ]
+}
