@@ -1,0 +1,7784 @@
+{
+ "generatedBy": "engine/crowned_captain.ts",
+ "params": {
+  "name": "chain_tuned",
+  "poolsMultiplier": 3,
+  "statsMultiplier": 5.83,
+  "idgRows": 0.25,
+  "throne": [
+   9,
+   4
+  ],
+  "echoHp": 2500,
+  "echoPower": 70,
+  "echoRounds": 3,
+  "recallCd": 8,
+  "recallTarget": "EMPTY_GROUND_CLOSEST_TO_SELF",
+  "phase3Extermination": false,
+  "dropInnateSealprevent": true,
+  "afterMarkAttack": "basic",
+  "libPowers": {},
+  "libLinesFan": false,
+  "alarmStrike": null,
+  "crownsWillPower": 50,
+  "crownsWillRounds": 7,
+  "crownsWillExtraRows": 2,
+  "phase2Fillers": false,
+  "phase2Lines": true
+ },
+ "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+ "grid": {
+  "width": 12,
+  "height": 10
+ },
+ "seeds": 60,
+ "seed0": 1,
+ "start": "full",
+ "modes": {
+  "dodge_on": {
+   "summary": {
+    "fights": 60,
+    "wins": 60,
+    "winPct": 100,
+    "roundsWinMedian": 17,
+    "roundsWinP10": 14,
+    "roundsWinP90": 20,
+    "roundsAllMedian": 17,
+    "hpLeftWinMedian": 63.4,
+    "hpLeftWinP10": 53.9,
+    "hpLeftAllMedian": 63.4,
+    "bossHpLeftLossMedian": null,
+    "lossPhase": {},
+    "phaseStartRoundMedian": [
+     6,
+     10
+    ],
+    "anchorReachedPct": 100,
+    "setPieces": {
+     "crownfall": {
+      "marksPerFight": 2.8,
+      "landsPerFight": 2.8,
+      "hitsPerFight": 0,
+      "hitRatePct": 0,
+      "dmgPerHit": null
+     },
+     "command": {
+      "marksPerFight": 1.5,
+      "landsPerFight": 1.5,
+      "hitsPerFight": 0,
+      "hitRatePct": 0,
+      "dmgPerHit": null
+     },
+     "shardstorm": {
+      "marksPerFight": 2.7,
+      "landsPerFight": 2.5,
+      "hitsPerFight": 0,
+      "hitRatePct": 0,
+      "dmgPerHit": null
+     }
+    },
+    "special": {
+     "recall": {
+      "perFight": 1,
+      "firstRoundMedian": 8
+     },
+     "lastDirective": {
+      "perFight": 1,
+      "firstRoundMedian": 11
+     },
+     "extermination": {
+      "perFight": 0.5,
+      "firstRoundMedian": 8
+     }
+    },
+    "untelegraphedLands": 0,
+    "summonDamageSharePct": 27.9,
+    "bossIdleTurnPct": 6.2,
+    "playerIdleTurnPct": 0,
+    "misreadsPerFight": 0,
+    "dodgeMovesPerFight": 4.3,
+    "cleansesPerFight": 0,
+    "petBossDmgSharePct": 0.4,
+    "petAliveAtEndPct": 0,
+    "blockedMovesPerFight": 2,
+    "damageShareToPlayerPct": {
+     "Extermination Order": 40.7,
+     "Final Command": 31.3,
+     "summon": 27.9
+    }
+   },
+   "fights": [
+    {
+     "seed": 1,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7910891089108911,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 2,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 3,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8336633663366336,
+     "phaseRounds": [
+      4,
+      12
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 5,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430984,
+     "bossDmgTotal": 15150.000000000004,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 4,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      13
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 94.74659081202844,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 5,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 6,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 7,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8356435643564356,
+     "phaseRounds": [
+      4,
+      12
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 5,
+     "blockedMoves": 4,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430984,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 8,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8356435643564356,
+     "phaseRounds": [
+      4,
+      12
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 5,
+     "blockedMoves": 4,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430984,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 9,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7910891089108911,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 10,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 14,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8712871287128713,
+     "endSpFrac": 0.8554455445544554,
+     "phaseRounds": [
+      4,
+      12
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 13,
+     "playerIdleTurns": 0,
+     "playerTurns": 14,
+     "dodgeMoves": 3,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150.000000000004,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 11,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 12,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 13,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 14,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 6,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 15,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7950495049504951,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 5,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 16,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 83,
+     "bossHpPct": 0,
+     "endHpFrac": 0.8301723202972691,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7356435643564356,
+     "phaseRounds": [
+      4,
+      13
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090864,
+     "bossIdleTurns": 2,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.4831306090864,
+      "Extermination Order": 302.93986753298213
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 66.84375,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 17,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7356435643564356,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 5,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 18,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 19,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 6,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 20,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7950495049504951,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 21,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 22,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 23,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 167.2119316240569,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 24,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8712871287128713,
+     "endSpFrac": 0.8534653465346534,
+     "phaseRounds": [
+      4,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 10,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430984,
+     "bossDmgTotal": 15150.000000000002,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 25,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7356435643564356,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 26,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      13
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430984,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 27,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7910891089108911,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 28,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7910891089108911,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 29,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 6,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 30,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 14,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8712871287128713,
+     "endSpFrac": 0.8554455445544554,
+     "phaseRounds": [
+      4,
+      12
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 13,
+     "playerIdleTurns": 0,
+     "playerTurns": 14,
+     "dodgeMoves": 3,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150.000000000004,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 31,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 6,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 32,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8356435643564356,
+     "phaseRounds": [
+      4,
+      12
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 4,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15150.000000000004,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 33,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8356435643564356,
+     "phaseRounds": [
+      4,
+      12
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 5,
+     "blockedMoves": 4,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15150.000000000004,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 34,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7950495049504951,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 6,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 35,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 36,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7910891089108911,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 37,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 38,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 5,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 39,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 14,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8712871287128713,
+     "endSpFrac": 0.8554455445544554,
+     "phaseRounds": [
+      4,
+      12
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 13,
+     "playerIdleTurns": 0,
+     "playerTurns": 14,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430984,
+     "bossDmgTotal": 15150.000000000004,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 40,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 5,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 41,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8712871287128713,
+     "endSpFrac": 0.8534653465346534,
+     "phaseRounds": [
+      4,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 10,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 3,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150.000000000002,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 42,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 43,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 44,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8356435643564356,
+     "phaseRounds": [
+      4,
+      12
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 5,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430984,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 45,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8356435643564356,
+     "phaseRounds": [
+      4,
+      12
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 4,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150.000000000004,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 46,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7910891089108911,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 47,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7910891089108911,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 48,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 49,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 3,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 50,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 14,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.8712871287128713,
+     "endSpFrac": 0.8554455445544554,
+     "phaseRounds": [
+      4,
+      12
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 13,
+     "playerIdleTurns": 0,
+     "playerTurns": 14,
+     "dodgeMoves": 3,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150.000000000004,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 51,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 52,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 53,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 54,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 1,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 55,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 5,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 56,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7950495049504951,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 57,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7356435643564356,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 5,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 58,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 11,
+     "playerHpPct": 87.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.8786426991025462,
+     "endCpFrac": 0.8811881188118812,
+     "endSpFrac": 0.8693069306930693,
+     "phaseRounds": [
+      5,
+      9
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 7,
+      "lastDirective": 9,
+      "extermination": null
+     },
+     "summonDamage": 682.4831306090864,
+     "bossIdleTurns": 0,
+     "bossTurns": 10,
+     "playerIdleTurns": 0,
+     "playerTurns": 11,
+     "dodgeMoves": 3,
+     "blockedMoves": 3,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.4831306090864
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 94.74659081202844,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 59,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 20,
+     "playerHpPct": 53.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.5393548580629672,
+     "endCpFrac": 0.7574257425742574,
+     "endSpFrac": 0.7336633663366336,
+     "phaseRounds": [
+      4,
+      14
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 14,
+      "extermination": 8
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 19,
+     "playerIdleTurns": 0,
+     "playerTurns": 20,
+     "dodgeMoves": 4,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "summon": 682.483130609086,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 60,
+     "dodge": true,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 63.4,
+     "bossHpPct": 0,
+     "endHpFrac": 0.6337976991025462,
+     "endCpFrac": 0.8168316831683168,
+     "endSpFrac": 0.7930693069306931,
+     "phaseRounds": [
+      7,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": 9,
+      "lastDirective": 11,
+      "extermination": null
+     },
+     "summonDamage": 682.483130609086,
+     "bossIdleTurns": 1,
+     "bossTurns": 16,
+     "playerIdleTurns": 0,
+     "playerTurns": 17,
+     "dodgeMoves": 5,
+     "blockedMoves": 2,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "summon": 682.483130609086
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    }
+   ]
+  },
+  "dodge_off": {
+   "summary": {
+    "fights": 60,
+    "wins": 30,
+    "winPct": 50,
+    "roundsWinMedian": 14,
+    "roundsWinP10": 13,
+    "roundsWinP90": 15,
+    "roundsAllMedian": 9.5,
+    "hpLeftWinMedian": 20.3,
+    "hpLeftWinP10": 17.1,
+    "hpLeftAllMedian": 8.6,
+    "bossHpLeftLossMedian": 60.1,
+    "lossPhase": {
+     "p1": 18,
+     "p2": 12
+    },
+    "phaseStartRoundMedian": [
+     4,
+     10.5
+    ],
+    "anchorReachedPct": 100,
+    "setPieces": {
+     "crownfall": {
+      "marksPerFight": 1.8,
+      "landsPerFight": 1.5,
+      "hitsPerFight": 0.8,
+      "hitRatePct": 55.6,
+      "dmgPerHit": 2675
+     },
+     "command": {
+      "marksPerFight": 0.9,
+      "landsPerFight": 0.9,
+      "hitsPerFight": 0.9,
+      "hitRatePct": 100,
+      "dmgPerHit": 1580
+     },
+     "shardstorm": {
+      "marksPerFight": 1,
+      "landsPerFight": 0.3,
+      "hitsPerFight": 0.2,
+      "hitRatePct": 66.7,
+      "dmgPerHit": 977
+     }
+    },
+    "special": {
+     "recall": {
+      "perFight": 0.3,
+      "firstRoundMedian": 6
+     },
+     "lastDirective": {
+      "perFight": 0.5,
+      "firstRoundMedian": 11
+     },
+     "extermination": {
+      "perFight": 0.3,
+      "firstRoundMedian": 8
+     }
+    },
+    "untelegraphedLands": 0,
+    "summonDamageSharePct": 4.1,
+    "bossIdleTurnPct": 17.1,
+    "playerIdleTurnPct": 0,
+    "misreadsPerFight": 0,
+    "dodgeMovesPerFight": 0,
+    "cleansesPerFight": 0,
+    "petBossDmgSharePct": 0.5,
+    "petAliveAtEndPct": 0,
+    "blockedMovesPerFight": 0,
+    "damageShareToPlayerPct": {
+     "crownfall": 40.5,
+     "command": 26.3,
+     "Final Command": 13.9,
+     "Extermination Order": 12.3,
+     "summon": 4.1,
+     "shardstorm": 3
+    }
+   },
+   "fights": [
+    {
+     "seed": 1,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 60.2,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9584158415841584,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 6031.564070354561,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 2,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 3,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 44.2,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9455445544554455,
+     "endSpFrac": 0.9356435643564357,
+     "phaseRounds": [
+      4,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3936.437499999999
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2313.562500000001
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 3936.437499999999,
+      "command": 2313.562500000001
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430984,
+     "bossDmgTotal": 8447.722375706435,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 4,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 94.74659081202844,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 5,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 17.1,
+     "bossHpPct": 0,
+     "endHpFrac": 0.1713750000000001,
+     "endCpFrac": 0.8811881188118812,
+     "endSpFrac": 0.8613861386138614,
+     "phaseRounds": [
+      7,
+      9
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2499.7499999999995
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 1,
+       "dmg": 976.5437499999998
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": 9,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "command": 2499.7499999999995,
+      "shardstorm": 976.5437499999998
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 6,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 7,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 46.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9455445544554455,
+     "endSpFrac": 0.9376237623762376,
+     "phaseRounds": [
+      4,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3936.437499999999
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2313.562500000001
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 3936.437499999999,
+      "command": 2313.562500000001
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430893,
+     "bossDmgTotal": 8158.785268042197,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 8,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 46.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9455445544554455,
+     "endSpFrac": 0.9376237623762376,
+     "phaseRounds": [
+      4,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3936.437499999999
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2313.562500000001
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 3936.437499999999,
+      "command": 2313.562500000001
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430893,
+     "bossDmgTotal": 8158.785268042197,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 9,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 60.2,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9584158415841584,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 6031.564070354561,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 10,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 25.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.2593948580629673,
+     "endCpFrac": 0.8762376237623762,
+     "endSpFrac": 0.8564356435643564,
+     "phaseRounds": [
+      4,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1749.75
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 10,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 1749.75,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 11,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 12,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 13,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 14,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 60.2,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9584158415841584,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 6031.564070354561,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 15,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 62.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9603960396039604,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 5742.626962690327,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 16,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 79.1,
+     "bossHpPct": 0,
+     "endHpFrac": 0.790732320297269,
+     "endCpFrac": 0.8762376237623762,
+     "endSpFrac": 0.8584158415841584,
+     "phaseRounds": [
+      4,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 246.5
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 10,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090864,
+     "bossIdleTurns": 3,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 246.5,
+      "summon": 682.4831306090864,
+      "Extermination Order": 302.93986753298213
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 66.84375,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 17,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 46.8,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9455445544554455,
+     "endSpFrac": 0.9376237623762376,
+     "phaseRounds": [
+      4,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3936.437499999999
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2313.562500000001
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 3936.437499999999,
+      "command": 2313.562500000001
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 8065.72454845523,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 18,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 19,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 59.4,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9584158415841584,
+     "phaseRounds": [
+      6,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 145.72348468671407,
+     "bossDmgTotal": 6155.0063050412755,
+     "petEndHpPct": null
+    },
+    {
+     "seed": 20,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 62.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9603960396039604,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 5742.626962690327,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 21,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 17.1,
+     "bossHpPct": 0,
+     "endHpFrac": 0.1713750000000001,
+     "endCpFrac": 0.8811881188118812,
+     "endSpFrac": 0.8613861386138614,
+     "phaseRounds": [
+      7,
+      9
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2499.7499999999995
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 1,
+       "dmg": 976.5437499999998
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": 9,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "command": 2499.7499999999995,
+      "shardstorm": 976.5437499999998
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 22,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 17.1,
+     "bossHpPct": 0,
+     "endHpFrac": 0.1713750000000001,
+     "endCpFrac": 0.8811881188118812,
+     "endSpFrac": 0.8613861386138614,
+     "phaseRounds": [
+      7,
+      9
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2499.7499999999995
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 1,
+       "dmg": 976.5437499999998
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": 9,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "command": 2499.7499999999995,
+      "shardstorm": 976.5437499999998
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 23,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 59.5,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9584158415841584,
+     "phaseRounds": [
+      6,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 124.23503774937126,
+     "bossDmgTotal": 6133.517858103933,
+     "petEndHpPct": null
+    },
+    {
+     "seed": 24,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 44.2,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9455445544554455,
+     "endSpFrac": 0.9356435643564357,
+     "phaseRounds": [
+      4,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3936.437499999999
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2313.562500000001
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 3936.437499999999,
+      "command": 2313.562500000001
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430984,
+     "bossDmgTotal": 8447.722375706435,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 25,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8297029702970297,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 26,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430893,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 27,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 60,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9584158415841584,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 6053.052517291904,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 28,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 60.2,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9584158415841584,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 6031.564070354561,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 29,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 60,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9584158415841584,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 6053.052517291904,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 30,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 25.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.2593948580629673,
+     "endCpFrac": 0.8762376237623762,
+     "endSpFrac": 0.8564356435643564,
+     "phaseRounds": [
+      4,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1749.75
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 10,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 1749.75,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 31,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 60,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9584158415841584,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 6053.052517291904,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 32,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8297029702970297,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 33,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 46.6,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9455445544554455,
+     "endSpFrac": 0.9376237623762376,
+     "phaseRounds": [
+      4,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3936.437499999999
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2313.562500000001
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 3936.437499999999,
+      "command": 2313.562500000001
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 8087.212995392573,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 34,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 62,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9603960396039604,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 5764.11540962767,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 35,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 62,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9603960396039604,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 5764.11540962767,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 36,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 17.1,
+     "bossHpPct": 0,
+     "endHpFrac": 0.1713750000000001,
+     "endCpFrac": 0.8811881188118812,
+     "endSpFrac": 0.8594059405940594,
+     "phaseRounds": [
+      7,
+      9
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2499.7499999999995
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 1,
+       "dmg": 976.5437499999998
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": 9,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "command": 2499.7499999999995,
+      "shardstorm": 976.5437499999998
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 37,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 17.1,
+     "bossHpPct": 0,
+     "endHpFrac": 0.1713750000000001,
+     "endCpFrac": 0.8811881188118812,
+     "endSpFrac": 0.8613861386138614,
+     "phaseRounds": [
+      7,
+      9
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2499.7499999999995
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 1,
+       "dmg": 976.5437499999998
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": 9,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "command": 2499.7499999999995,
+      "shardstorm": 976.5437499999998
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 38,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 17.1,
+     "bossHpPct": 0,
+     "endHpFrac": 0.1713750000000001,
+     "endCpFrac": 0.8811881188118812,
+     "endSpFrac": 0.8613861386138614,
+     "phaseRounds": [
+      7,
+      9
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2499.7499999999995
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 1,
+       "dmg": 976.5437499999998
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": 9,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "command": 2499.7499999999995,
+      "shardstorm": 976.5437499999998
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 39,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 46.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9455445544554455,
+     "endSpFrac": 0.9376237623762376,
+     "phaseRounds": [
+      4,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3936.437499999999
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2313.562500000001
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 3936.437499999999,
+      "command": 2313.562500000001
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430893,
+     "bossDmgTotal": 8158.785268042197,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 40,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 62.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9603960396039604,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 5742.626962690327,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 41,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 25.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.2593948580629673,
+     "endCpFrac": 0.8762376237623762,
+     "endSpFrac": 0.8544554455445544,
+     "phaseRounds": [
+      4,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1749.75
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 10,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 1749.75,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 42,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 43,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 62.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9603960396039604,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 5742.626962690327,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 44,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 46.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9455445544554455,
+     "endSpFrac": 0.9376237623762376,
+     "phaseRounds": [
+      4,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3936.437499999999
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2313.562500000001
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 3936.437499999999,
+      "command": 2313.562500000001
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430893,
+     "bossDmgTotal": 8158.785268042197,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 45,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8297029702970297,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 46,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 60.2,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9584158415841584,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 6031.564070354561,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 47,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 17.1,
+     "bossHpPct": 0,
+     "endHpFrac": 0.1713750000000001,
+     "endCpFrac": 0.8811881188118812,
+     "endSpFrac": 0.8594059405940594,
+     "phaseRounds": [
+      7,
+      9
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2499.7499999999995
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 1,
+       "dmg": 976.5437499999998
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": 9,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "command": 2499.7499999999995,
+      "shardstorm": 976.5437499999998
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 48,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 17.1,
+     "bossHpPct": 0,
+     "endHpFrac": 0.1713750000000001,
+     "endCpFrac": 0.8811881188118812,
+     "endSpFrac": 0.8613861386138614,
+     "phaseRounds": [
+      7,
+      9
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2499.7499999999995
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 1,
+       "dmg": 976.5437499999998
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": 9,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "command": 2499.7499999999995,
+      "shardstorm": 976.5437499999998
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 49,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 17.1,
+     "bossHpPct": 0,
+     "endHpFrac": 0.1713750000000001,
+     "endCpFrac": 0.8811881188118812,
+     "endSpFrac": 0.8594059405940594,
+     "phaseRounds": [
+      7,
+      9
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2499.7499999999995
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 1,
+       "dmg": 976.5437499999998
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": 9,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "command": 2499.7499999999995,
+      "shardstorm": 976.5437499999998
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 50,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 25.9,
+     "bossHpPct": 0,
+     "endHpFrac": 0.2593948580629673,
+     "endCpFrac": 0.8762376237623762,
+     "endSpFrac": 0.8564356435643564,
+     "phaseRounds": [
+      4,
+      10
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 1749.75
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 10,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 1749.75,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15150,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 51,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 13,
+     "playerHpPct": 17.1,
+     "bossHpPct": 0,
+     "endHpFrac": 0.1713750000000001,
+     "endCpFrac": 0.8811881188118812,
+     "endSpFrac": 0.8613861386138614,
+     "phaseRounds": [
+      7,
+      9
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2499.7499999999995
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 1,
+       "hit": 1,
+       "dmg": 976.5437499999998
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 1,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": 9,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 2,
+     "bossTurns": 12,
+     "playerIdleTurns": 0,
+     "playerTurns": 13,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "Final Command": 1530.28125,
+      "command": 2499.7499999999995,
+      "shardstorm": 976.5437499999998
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 52,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 43.769696937342815,
+     "bossDmgTotal": 15149.999999999998,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 53,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 54,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 62.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9603960396039604,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 5742.626962690327,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 55,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 62.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9603960396039604,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 5742.626962690327,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 56,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 62.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9603960396039604,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 5742.626962690327,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 57,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 46.6,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9455445544554455,
+     "endSpFrac": 0.9376237623762376,
+     "phaseRounds": [
+      4,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3936.437499999999
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2313.562500000001
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 3936.437499999999,
+      "command": 2313.562500000001
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 8087.212995392573,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 58,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 5,
+     "playerHpPct": 0,
+     "bossHpPct": 47.4,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9455445544554455,
+     "endSpFrac": 0.9376237623762376,
+     "phaseRounds": [
+      4,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 3936.437499999999
+      },
+      "command": {
+       "mark": 1,
+       "land": 1,
+       "hit": 1,
+       "dmg": 2313.562500000001
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 0,
+     "bossTurns": 5,
+     "playerIdleTurns": 0,
+     "playerTurns": 5,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 3936.437499999999,
+      "command": 2313.562500000001
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 136.83041652430893,
+     "bossDmgTotal": 7970.611681727769,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 59,
+     "dodge": false,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 20.3,
+     "bossHpPct": 0,
+     "endHpFrac": 0.20283485806296728,
+     "endCpFrac": 0.8514851485148515,
+     "endSpFrac": 0.8277227722772277,
+     "phaseRounds": [
+      4,
+      11
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      },
+      "command": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 2103.25
+      },
+      "shardstorm": {
+       "mark": 2,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 1,
+      "lastDirective": 1,
+      "extermination": 1
+     },
+     "specialFirstRound": {
+      "recall": 6,
+      "lastDirective": 12,
+      "extermination": 8
+     },
+     "summonDamage": 682.4831306090857,
+     "bossIdleTurns": 3,
+     "bossTurns": 14,
+     "playerIdleTurns": 0,
+     "playerTurns": 15,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "command": 2103.25,
+      "summon": 682.4831306090857,
+      "Extermination Order": 2120.5490064973687
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 65.25814387468563,
+     "bossDmgTotal": 15149.999999999996,
+     "petEndHpPct": 0
+    },
+    {
+     "seed": 60,
+     "dodge": false,
+     "outcome": "lost",
+     "rounds": 6,
+     "playerHpPct": 0,
+     "bossHpPct": 62.1,
+     "endHpFrac": 0,
+     "endCpFrac": 0.9702970297029703,
+     "endSpFrac": 0.9603960396039604,
+     "phaseRounds": [
+      null,
+      null
+     ],
+     "anchorReached": true,
+     "sets": {
+      "crownfall": {
+       "mark": 2,
+       "land": 2,
+       "hit": 2,
+       "dmg": 4719.71875
+      },
+      "command": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      },
+      "shardstorm": {
+       "mark": 0,
+       "land": 0,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "special": {
+      "recall": 0,
+      "lastDirective": 0,
+      "extermination": 0
+     },
+     "specialFirstRound": {
+      "recall": null,
+      "lastDirective": null,
+      "extermination": null
+     },
+     "summonDamage": 0,
+     "bossIdleTurns": 1,
+     "bossTurns": 6,
+     "playerIdleTurns": 0,
+     "playerTurns": 6,
+     "dodgeMoves": 0,
+     "blockedMoves": 0,
+     "cleanses": 0,
+     "misreads": 0,
+     "dmgBySource": {
+      "crownfall": 4719.71875,
+      "Final Command": 1530.2812499999995
+     },
+     "untelegraphedLands": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 5742.626962690327,
+     "petEndHpPct": 0
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,1967 @@
+{
+ "generatedBy": "harness/skyglass_wreck_sim/engine/charts_main.ts",
+ "settings": {
+  "dodge": true,
+  "twist": true,
+  "maxRounds": 60,
+  "seeds": 40,
+  "seed0": 1,
+  "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+  "params": {
+   "stats": {
+    "texZaFi42S3EvJZBwQ8cd": {
+     "pools": 1,
+     "rows": 0
+    },
+    "wTgO-Q32caSSd0is1QIS7": {
+     "pools": 1,
+     "rows": 0,
+     "stats": 1
+    },
+    "frc9LTxqQlM7mncG4VZGK": {
+     "pools": 1,
+     "rows": 0,
+     "stats": 5
+    },
+    "2OXJEXoktxJcjqMkE851g": {
+     "pools": 1,
+     "rows": 0
+    },
+    "3V_gdHYaclMB1gTyOPAbV": {
+     "pools": 3,
+     "rows": 4
+    },
+    "AQi-bHJ-5tHXtxrnc0P9E": {
+     "pools": 2,
+     "rows": 2
+    },
+    "RBW5KsIXmTGR710D2y2Y7": {
+     "pools": 2.5,
+     "rows": 2
+    },
+    "v7T9_XdGMfP46em0dPuBc": {
+     "pools": 1.26,
+     "rows": 1
+    },
+    "d6g0mOM7RBSsYI1hrUVT9": {
+     "pools": 1.5,
+     "rows": 2
+    },
+    "QY69h271Nx9uHrBeR6jwW": {
+     "pools": 2.5,
+     "rows": 1,
+     "givenDown": 10
+    },
+    "81lnIP-q97gItQYWl5vWD": {
+     "pools": 3.5,
+     "rows": 1
+    },
+    "LZiunyinw9ScK3mh9HiR2": {
+     "pools": 2,
+     "rows": 2
+    },
+    "vjEFUJ9mb1zNTuQf4lfXv": {
+     "pools": 1.5,
+     "rows": 1
+    }
+   },
+   "echoHp": 15000,
+   "echoPower": 40,
+   "_about": "Skyglass charts (engine/charts.ts) tuned values on top of overrides/hunts.params.json. Keys are live AI ids. commons = the common-chart crew copies (scaled to the player: statsMultiplier `stats`, per id pools/rows); rares = rare-chart stat copies chart-r-*; taintedCopies = tainted pair-fight copies chart-t-*; stats.<Replicant Zero> = its solo edit; echo = Lingering Echo hazard; ember = Burning Deck; steep = Steeping Horror; tainted = tainted twists. Schema floor (insertAiSchema): statsMultiplier >= 1 and poolsMultiplier >= 1; the commons soften through innate rows instead (taken: +damage-taken % rows; givenDown: -damage-given %).",
+   "_names": {
+    "texZaFi42S3EvJZBwQ8cd": "Deck Warden",
+    "wTgO-Q32caSSd0is1QIS7": "Seal Charge",
+    "frc9LTxqQlM7mncG4VZGK": "Core Canister",
+    "2OXJEXoktxJcjqMkE851g": "Arsenal Keeper",
+    "3V_gdHYaclMB1gTyOPAbV": "Skyglass Sentinel",
+    "AQi-bHJ-5tHXtxrnc0P9E": "Core Horror",
+    "RBW5KsIXmTGR710D2y2Y7": "Sealwright",
+    "v7T9_XdGMfP46em0dPuBc": "Wayfinder",
+    "d6g0mOM7RBSsYI1hrUVT9": "First Blade",
+    "QY69h271Nx9uHrBeR6jwW": "The Captain",
+    "81lnIP-q97gItQYWl5vWD": "Foundry Warden",
+    "LZiunyinw9ScK3mh9HiR2": "Crown Archivist",
+    "0PZU_FvlbM3ErYGlD5r56": "Oathkeeper",
+    "vjEFUJ9mb1zNTuQf4lfXv": "Replicant Zero"
+   },
+   "_final_pass": "fable/skyglass-final-sim: the Fall's fire source is the Arsenal Keeper himself (RUL-2026-10-29-057 item 5; no separate hazard): a copy of the live Keeper, immobile, pools 4, fought in the powder-magazine fight; Fall press-on Captain copy 2/2 -> 2/0 + 15% givenDown (0/14 after the two-phase rebuild); Burning Heading: Core Horror tainted copy pools 5.5 / 2 rows, afterburn 4 -> 7 rounds (target 55%). Final pass (resumed): Arsenal Keeper 30% innate damage reduction (tanky; Fall 95% -> 75% at 20 seeds, dr 20/25 gave 90%). Burning Heading Core Horror tainted copy 5.5 / 2 rows -> 5.5 / 3 rows + 60% givenDown (20 seeds: 2 rows 100%, pools 6 0%: the F1 duel is a deterministic race at 2 rows; 3 rows + 60% gave 60%; at 40 seeds 60% -> 35%, 70% -> 72.5%, 80% -> 100%; adopted 65%).",
+   "echo": {
+    "pools": 2,
+    "rows": 1,
+    "fade": 10
+   },
+   "ember": {
+    "power": 5,
+    "rounds": [
+     1,
+     4,
+     7
+    ],
+    "pools": 4,
+    "dr": 30
+   },
+   "steep": {
+    "pools": 3.76,
+    "rows": 3
+   },
+   "tainted": {
+    "givePools": 70,
+    "sealRounds": 2,
+    "afterburn": 60,
+    "afterburnRounds": 7,
+    "echo": "echo2"
+   },
+   "commons": {
+    "stats": 1,
+    "byId": {
+     "3V_gdHYaclMB1gTyOPAbV": {
+      "pools": 1.5,
+      "rows": 1
+     },
+     "wTgO-Q32caSSd0is1QIS7": {
+      "pools": 1,
+      "rows": 0,
+      "stats": 1
+     },
+     "v7T9_XdGMfP46em0dPuBc": {
+      "pools": 1,
+      "rows": 0
+     },
+     "d6g0mOM7RBSsYI1hrUVT9": {
+      "pools": 1.5,
+      "rows": 1
+     }
+    },
+    "taken": [
+     100
+    ],
+    "givenDown": 50
+   },
+   "rares": {
+    "byId": {
+     "81lnIP-q97gItQYWl5vWD": {
+      "pools": 1.2,
+      "rows": 1
+     },
+     "RBW5KsIXmTGR710D2y2Y7": {
+      "pools": 1,
+      "rows": 2
+     },
+     "3V_gdHYaclMB1gTyOPAbV": {
+      "pools": 2,
+      "rows": 1
+     },
+     "d6g0mOM7RBSsYI1hrUVT9": {
+      "pools": 1.2,
+      "rows": 1
+     },
+     "AQi-bHJ-5tHXtxrnc0P9E": {
+      "pools": 2,
+      "rows": 2
+     },
+     "QY69h271Nx9uHrBeR6jwW": {
+      "pools": 2,
+      "rows": 0,
+      "givenDown": 15
+     },
+     "0PZU_FvlbM3ErYGlD5r56": {
+      "pools": 2.5,
+      "rows": 2
+     }
+    }
+   },
+   "taintedCopies": {
+    "byId": {
+     "81lnIP-q97gItQYWl5vWD": {
+      "pools": 1,
+      "rows": 0
+     },
+     "RBW5KsIXmTGR710D2y2Y7": {
+      "pools": 1,
+      "rows": 0
+     },
+     "3V_gdHYaclMB1gTyOPAbV": {
+      "pools": 1,
+      "rows": 0
+     },
+     "d6g0mOM7RBSsYI1hrUVT9": {
+      "pools": 1,
+      "rows": 0
+     },
+     "AQi-bHJ-5tHXtxrnc0P9E": {
+      "pools": 5.5,
+      "rows": 3,
+      "givenDown": 65
+     }
+    }
+   },
+   "_rul060": "RUL-2026-10-30-060 item 2 applied on top of the d5957e79 final pass: the Sealed Reliquary's Sealwright copy (rares) 1 -> 2 damage rows, pools 1 unchanged."
+  },
+  "secondsPerTurn": 15,
+  "variants": {
+   "L100": "director's endgame party member (2026-10-28): level-100 JONIN, stats at the JONIN caps, full Kitsune armour set (6 captured pieces, worn through the engine's item path), 9 PvE jutsu at the level cap 25, Fire/Wind elements"
+  }
+ },
+ "newRecords": {
+  "chart-c-deck-warden": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Deck Warden: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user"
+  },
+  "chart-c-seal-charge": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Seal Charge: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user"
+  },
+  "chart-c-arsenal-keeper": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Arsenal Keeper: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user"
+  },
+  "chart-c-skyglass-sentinel": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Skyglass Sentinel: same kit and rules, statsMultiplier 1, pools 1.5; opponent_scaled_to_user"
+  },
+  "chart-c-wayfinder": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Wayfinder: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user"
+  },
+  "chart-c-first-blade": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of First Blade: same kit and rules, statsMultiplier 1, pools 1.5; opponent_scaled_to_user"
+  },
+  "chart-c-oathkeeper": {
+   "kind": "AI (copy)",
+   "note": "common-chart copy of Oathkeeper: same kit and rules, statsMultiplier 1, pools 1; opponent_scaled_to_user"
+  },
+  "chart-r-foundry-warden": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Foundry Warden: same kit and rules, pools 1.2, 1 damage rows (unscaled)"
+  },
+  "chart-r-sealwright": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Sealwright: same kit and rules, pools 1, 2 damage rows (unscaled)"
+  },
+  "chart-r-skyglass-sentinel": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Skyglass Sentinel: same kit and rules, pools 2, 1 damage rows (unscaled)"
+  },
+  "chart-r-first-blade": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of First Blade: same kit and rules, pools 1.2, 1 damage rows (unscaled)"
+  },
+  "chart-r-core-horror": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Core Horror: same kit and rules, pools 2, 2 damage rows (unscaled)"
+  },
+  "chart-r-the-captain": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of The Captain: same kit and rules, pools 2, 0 damage rows (unscaled)"
+  },
+  "chart-r-oathkeeper": {
+   "kind": "AI (copy)",
+   "note": "rare-chart copy of Oathkeeper: same kit and rules, pools 2.5, 2 damage rows (unscaled)"
+  },
+  "chart-t-foundry-warden": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of Foundry Warden: same kit and rules, pools 1, 0 damage rows (unscaled)"
+  },
+  "chart-t-sealwright": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of Sealwright: same kit and rules, pools 1, 0 damage rows (unscaled)"
+  },
+  "chart-t-skyglass-sentinel": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of Skyglass Sentinel: same kit and rules, pools 1, 0 damage rows (unscaled)"
+  },
+  "chart-t-first-blade": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of First Blade: same kit and rules, pools 1, 0 damage rows (unscaled)"
+  },
+  "chart-t-core-horror": {
+   "kind": "AI (copy)",
+   "note": "tainted-run copy of Core Horror: same kit and rules, pools 5.5, 3 damage rows (unscaled)"
+  },
+  "chart-lingering-echo-2": {
+   "kind": "AI (hazard)",
+   "note": "Sealed Reliquary twist: immobile, casts lines (library pairs), fades at round 10",
+   "rules": [
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's blast",
+      "jutsuId": "lib-blast-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "lines: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 1)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 5
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 5)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 9
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 9)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "linger (until it fades)"
+     }
+    }
+   ]
+  },
+  "chart-lingering-echo-3": {
+   "kind": "AI (hazard)",
+   "note": "Sealed Reliquary twist: immobile, casts lines + sealLines (library pairs), fades at round 10",
+   "rules": [
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's blast",
+      "jutsuId": "lib-blast-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's blast",
+      "jutsuId": "lib-blast-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "lines: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "sealLines: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 1)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 5
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 5)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 9
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 9)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 3
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's mark (round 3)",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 7
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's mark (round 7)",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "linger (until it fades)"
+     }
+    }
+   ]
+  },
+  "chart-lingering-echo-4": {
+   "kind": "AI (hazard)",
+   "note": "Sealed Reliquary twist: immobile, casts lines + sealLines + rowsA (library pairs), fades at round 10",
+   "rules": [
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's blast",
+      "jutsuId": "lib-blast-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's blast",
+      "jutsuId": "lib-blast-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "rowsA: the echo's blast",
+      "jutsuId": "lib-blast-rows-a",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "disarm",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "lines: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "elementalseal",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "sealLines: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increaserange",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "rowsA: hold after the mark"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 1)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 7
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "lines: the echo's mark (round 7)",
+      "jutsuId": "lib-omen-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 3
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's mark (round 3)",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 9
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "sealLines: the echo's mark (round 9)",
+      "jutsuId": "lib-omen-seal-lines",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 5
+      },
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "rowsA: the echo's mark (round 5)",
+      "jutsuId": "lib-omen-rows-a",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "round_lower_than",
+       "description": "",
+       "value": 10
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "linger (until it fades)"
+     }
+    }
+   ]
+  },
+  "chart-embers-1": {
+   "kind": "jutsu",
+   "note": "ember band rows 0,1,2: drain 5% max HP per action, 10 rounds (the tag maximum)"
+  },
+  "chart-embers-2": {
+   "kind": "jutsu",
+   "note": "ember band rows 3,4: drain 5% max HP per action, 10 rounds (the tag maximum)"
+  },
+  "chart-embers-3": {
+   "kind": "jutsu",
+   "note": "ember band rows 5,6: drain 5% max HP per action, 10 rounds (the tag maximum)"
+  },
+  "chart-arsenal-keeper": {
+   "kind": "AI (copy)",
+   "note": "The Fall's fire source (RUL-2026-10-29-057 item 5): the Arsenal Keeper at the powder magazine, a copy of the live record (his live kit + 3 ember bands); immobile, pools 4, 30% damage reduction; lays ember bands at rounds 1,4,7; killing him stops the fire",
+   "rules": [
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 1
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Spreading Fire I (round 1)",
+      "jutsuId": "chart-embers-1",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 4
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Spreading Fire II (round 4)",
+      "jutsuId": "chart-embers-2",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "specific_round",
+       "description": "",
+       "value": 7
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Spreading Fire III (round 7)",
+      "jutsuId": "chart-embers-3",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "distance_lower_than",
+       "description": "Distance lower than or equal given value",
+       "value": 2,
+       "target": "RANDOM_OPPONENT"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "basic attack (was use_combo_action)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
+     }
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+      "target": "RANDOM_OPPONENT",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "wMcoazoyXaEXViSCn5weF",
+      "target": "RANDOM_OPPONENT",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "target": "RANDOM_OPPONENT",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+      "target": "SELF",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "Distance higher than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_higher_than",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "action": {
+      "description": "Select specific jutsu",
+      "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+      "target": "SELF",
+      "type": "use_specific_jutsu"
+     },
+     "conditions": [
+      {
+       "description": "Distance lower than or equal given value",
+       "target": "RANDOM_OPPONENT",
+       "type": "distance_lower_than",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "conditions": [],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "basic attack (was use_highest_power_action)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
+     }
+    },
+    {
+     "conditions": [],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "basic attack (fallback; never a set piece)",
+      "jutsuId": "basicAttack",
+      "target": "CLOSEST_OPPONENT"
+     }
+    },
+    {
+     "conditions": [],
+     "action": {
+      "type": "end_turn",
+      "description": "holds the powder magazine (immobile)"
+     }
+    }
+   ]
+  },
+  "chart-steeping-horror": {
+   "kind": "AI (copy)",
+   "note": "Core Horror copy for steeping: same shared kit and rules, no AI drop; opponent_scaled_to_user"
+  }
+ },
+ "results": [
+  {
+   "run": "reliquary",
+   "chart": "Reliquary Seal: The Sealed Reliquary",
+   "variant": "L100",
+   "dodge": true,
+   "twist": true,
+   "runs": 40,
+   "baseClear": 34,
+   "baseClearPct": 85,
+   "pressOnWon": 28,
+   "pressOnReached": 34,
+   "pressOnPctOfReached": 82.4,
+   "pressOnPctOfAll": 70,
+   "baseRoundsMedian": 36,
+   "baseMinutesMedian": 9,
+   "lossesAt": {
+    "1": 0,
+    "2": 4,
+    "3": 0,
+    "4": 2,
+    "5": 6
+   },
+   "fights": [
+    {
+     "fight": 1,
+     "label": "1st echo: Foundry Warden",
+     "pressOn": false,
+     "reached": 40,
+     "won": 40,
+     "roundsMedian": 4,
+     "roundsP90": 4,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 116.7,
+     "hpEndP10": 112.3,
+     "hpCostMedian": 7.1,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 40
+     },
+     "dodge": {
+      "threatened": 36,
+      "dodged": 36,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 39
+     },
+     "enemies": {
+      "Foundry Warden": {
+       "marksPerFight": 1,
+       "blastsPerFight": 1,
+       "blastHitPct": 0,
+       "dealtPerFight": 601,
+       "diedMedianRound": 4
+      }
+     }
+    },
+    {
+     "fight": 2,
+     "label": "2nd echo: Sealwright + Lingering Echo (Pour Line)",
+     "pressOn": false,
+     "reached": 40,
+     "won": 36,
+     "roundsMedian": 11,
+     "roundsP90": 17,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 95.2,
+     "hpEndP10": 35,
+     "hpCostMedian": 28.6,
+     "playerIdlePct": 1.1,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 36,
+      "wipe": 4
+     },
+     "dodge": {
+      "threatened": 156,
+      "dodged": 141,
+      "failedRooted": 0,
+      "failedNoPath": 15,
+      "failedOther": 0,
+      "stepsTaken": 220
+     },
+     "enemies": {
+      "Sealwright": {
+       "marksPerFight": 3.7,
+       "blastsPerFight": 3.6,
+       "blastHitPct": 9,
+       "dealtPerFight": 1435,
+       "diedMedianRound": 9
+      },
+      "Lingering Echo": {
+       "marksPerFight": 2.9,
+       "blastsPerFight": 2.2,
+       "blastHitPct": 3.4,
+       "dealtPerFight": 80,
+       "diedMedianRound": 11
+      },
+      "(summon/clone)": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 0,
+       "diedMedianRound": null
+      }
+     }
+    },
+    {
+     "fight": 3,
+     "label": "3rd echo: Skyglass Sentinel + Lingering Echo (Pour + Script)",
+     "pressOn": false,
+     "reached": 36,
+     "won": 36,
+     "roundsMedian": 10,
+     "roundsP90": 13,
+     "hpStartMedian": 119,
+     "hpEndMedian": 107.7,
+     "hpEndP10": 42.7,
+     "hpCostMedian": 5.6,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 36
+     },
+     "dodge": {
+      "threatened": 78,
+      "dodged": 74,
+      "failedRooted": 4,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 92
+     },
+     "enemies": {
+      "Skyglass Sentinel": {
+       "marksPerFight": 3.1,
+       "blastsPerFight": 2.6,
+       "blastHitPct": 1.1,
+       "dealtPerFight": 652,
+       "diedMedianRound": 7
+      },
+      "Lingering Echo": {
+       "marksPerFight": 4.2,
+       "blastsPerFight": 3.6,
+       "blastHitPct": 0,
+       "dealtPerFight": 0,
+       "diedMedianRound": 10
+      }
+     }
+    },
+    {
+     "fight": 4,
+     "label": "last echo: First Blade + Lingering Echo (Pour + Script + Tide)",
+     "pressOn": false,
+     "reached": 36,
+     "won": 34,
+     "roundsMedian": 10,
+     "roundsP90": 10,
+     "hpStartMedian": 123.8,
+     "hpEndMedian": 88.8,
+     "hpEndP10": 29.5,
+     "hpCostMedian": 13.1,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 34,
+      "wipe": 2
+     },
+     "dodge": {
+      "threatened": 102,
+      "dodged": 102,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 165
+     },
+     "enemies": {
+      "First Blade": {
+       "marksPerFight": 1.7,
+       "blastsPerFight": 1.5,
+       "blastHitPct": 0,
+       "dealtPerFight": 1104,
+       "diedMedianRound": 5
+      },
+      "Lingering Echo": {
+       "marksPerFight": 4.1,
+       "blastsPerFight": 3.4,
+       "blastHitPct": 0,
+       "dealtPerFight": 0,
+       "diedMedianRound": 8.5
+      }
+     }
+    },
+    {
+     "fight": 5,
+     "label": "PRESS ON (proposed): the Oathkeeper",
+     "pressOn": true,
+     "reached": 34,
+     "won": 28,
+     "roundsMedian": 8,
+     "roundsP90": 8,
+     "hpStartMedian": 112.6,
+     "hpEndMedian": 53.2,
+     "hpEndP10": 26.6,
+     "hpCostMedian": 66.5,
+     "playerIdlePct": 0,
+     "emberHitsMedian": 0,
+     "emberDmgMedian": 0,
+     "outcomes": {
+      "won": 28,
+      "wipe": 6
+     },
+     "dodge": {
+      "threatened": 0,
+      "dodged": 0,
+      "failedRooted": 0,
+      "failedNoPath": 0,
+      "failedOther": 0,
+      "stepsTaken": 0
+     },
+     "enemies": {
+      "Oathkeeper": {
+       "marksPerFight": 0,
+       "blastsPerFight": 0,
+       "blastHitPct": null,
+       "dealtPerFight": 4093,
+       "diedMedianRound": 8
+      }
+     }
+    }
+   ],
+   "perSeed": [
+    {
+     "seed": 1,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      117,
+      115,
+      118,
+      108,
+      53
+     ],
+     "rounds": [
+      4,
+      12,
+      11,
+      9,
+      8
+     ]
+    },
+    {
+     "seed": 2,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      119,
+      117,
+      95,
+      118,
+      53
+     ],
+     "rounds": [
+      4,
+      11,
+      13,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 3,
+     "base": false,
+     "pressOn": null,
+     "hp": [
+      117,
+      0
+     ],
+     "rounds": [
+      4,
+      21
+     ]
+    },
+    {
+     "seed": 4,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      119,
+      64,
+      62,
+      28,
+      0
+     ],
+     "rounds": [
+      4,
+      12,
+      11,
+      10,
+      7
+     ]
+    },
+    {
+     "seed": 5,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      117,
+      55,
+      54,
+      77,
+      33
+     ],
+     "rounds": [
+      4,
+      16,
+      13,
+      10,
+      7
+     ]
+    },
+    {
+     "seed": 6,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      112,
+      55,
+      74,
+      32,
+      0
+     ],
+     "rounds": [
+      4,
+      16,
+      11,
+      10,
+      6
+     ]
+    },
+    {
+     "seed": 7,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      112,
+      93,
+      116,
+      123,
+      58
+     ],
+     "rounds": [
+      4,
+      9,
+      9,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 8,
+     "base": false,
+     "pressOn": null,
+     "hp": [
+      112,
+      40,
+      26,
+      0
+     ],
+     "rounds": [
+      4,
+      18,
+      13,
+      8
+     ]
+    },
+    {
+     "seed": 9,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      117,
+      115,
+      113,
+      123,
+      53
+     ],
+     "rounds": [
+      4,
+      11,
+      12,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 10,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      112,
+      34,
+      52,
+      21,
+      0
+     ],
+     "rounds": [
+      4,
+      18,
+      10,
+      10,
+      6
+     ]
+    },
+    {
+     "seed": 11,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      112,
+      41,
+      59,
+      29,
+      0
+     ],
+     "rounds": [
+      4,
+      16,
+      10,
+      9,
+      6
+     ]
+    },
+    {
+     "seed": 12,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      112,
+      115,
+      108,
+      123,
+      56
+     ],
+     "rounds": [
+      4,
+      11,
+      10,
+      10,
+      7
+     ]
+    },
+    {
+     "seed": 13,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      119,
+      115,
+      118,
+      113,
+      58
+     ],
+     "rounds": [
+      4,
+      11,
+      11,
+      8,
+      8
+     ]
+    },
+    {
+     "seed": 14,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      112,
+      114,
+      118,
+      68,
+      28
+     ],
+     "rounds": [
+      4,
+      11,
+      10,
+      9,
+      8
+     ]
+    },
+    {
+     "seed": 15,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      112,
+      35,
+      43,
+      15,
+      0
+     ],
+     "rounds": [
+      4,
+      16,
+      10,
+      9,
+      4
+     ]
+    },
+    {
+     "seed": 16,
+     "base": true,
+     "pressOn": false,
+     "hp": [
+      112,
+      90,
+      68,
+      36,
+      0
+     ],
+     "rounds": [
+      4,
+      13,
+      13,
+      11,
+      7
+     ]
+    },
+    {
+     "seed": 17,
+     "base": false,
+     "pressOn": null,
+     "hp": [
+      117,
+      15,
+      22,
+      0
+     ],
+     "rounds": [
+      4,
+      17,
+      11,
+      9
+     ]
+    },
+    {
+     "seed": 18,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      112,
+      104,
+      124,
+      123,
+      53
+     ],
+     "rounds": [
+      4,
+      13,
+      10,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 19,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      112,
+      65,
+      88,
+      111,
+      60
+     ],
+     "rounds": [
+      4,
+      15,
+      10,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 20,
+     "base": false,
+     "pressOn": null,
+     "hp": [
+      117,
+      0
+     ],
+     "rounds": [
+      4,
+      17
+     ]
+    },
+    {
+     "seed": 21,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      119,
+      89,
+      113,
+      89,
+      54
+     ],
+     "rounds": [
+      4,
+      16,
+      10,
+      8,
+      8
+     ]
+    },
+    {
+     "seed": 22,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      119,
+      115,
+      108,
+      123,
+      53
+     ],
+     "rounds": [
+      4,
+      10,
+      9,
+      8,
+      8
+     ]
+    },
+    {
+     "seed": 23,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      112,
+      98,
+      121,
+      120,
+      65
+     ],
+     "rounds": [
+      4,
+      11,
+      10,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 24,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      117,
+      92,
+      108,
+      67,
+      24
+     ],
+     "rounds": [
+      4,
+      11,
+      9,
+      10,
+      7
+     ]
+    },
+    {
+     "seed": 25,
+     "base": false,
+     "pressOn": null,
+     "hp": [
+      117,
+      0
+     ],
+     "rounds": [
+      4,
+      23
+     ]
+    },
+    {
+     "seed": 26,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      117,
+      16,
+      39,
+      62,
+      20
+     ],
+     "rounds": [
+      4,
+      22,
+      9,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 27,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      119,
+      94,
+      116,
+      120,
+      53
+     ],
+     "rounds": [
+      4,
+      13,
+      10,
+      8,
+      8
+     ]
+    },
+    {
+     "seed": 28,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      112,
+      121,
+      124,
+      123,
+      60
+     ],
+     "rounds": [
+      4,
+      10,
+      10,
+      9,
+      8
+     ]
+    },
+    {
+     "seed": 29,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      112,
+      117,
+      124,
+      78,
+      31
+     ],
+     "rounds": [
+      4,
+      11,
+      9,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 30,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      119,
+      97,
+      115,
+      123,
+      58
+     ],
+     "rounds": [
+      4,
+      11,
+      10,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 31,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      112,
+      29,
+      24,
+      48,
+      8
+     ],
+     "rounds": [
+      4,
+      17,
+      13,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 32,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      117,
+      114,
+      118,
+      87,
+      40
+     ],
+     "rounds": [
+      4,
+      11,
+      10,
+      9,
+      8
+     ]
+    },
+    {
+     "seed": 33,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      119,
+      117,
+      98,
+      120,
+      65
+     ],
+     "rounds": [
+      4,
+      11,
+      11,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 34,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      117,
+      84,
+      106,
+      82,
+      47
+     ],
+     "rounds": [
+      4,
+      16,
+      9,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 35,
+     "base": false,
+     "pressOn": null,
+     "hp": [
+      112,
+      0
+     ],
+     "rounds": [
+      4,
+      21
+     ]
+    },
+    {
+     "seed": 36,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      119,
+      116,
+      123,
+      73,
+      27
+     ],
+     "rounds": [
+      4,
+      10,
+      9,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 37,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      117,
+      115,
+      119,
+      89,
+      47
+     ],
+     "rounds": [
+      4,
+      11,
+      11,
+      8,
+      8
+     ]
+    },
+    {
+     "seed": 38,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      117,
+      114,
+      113,
+      106,
+      53
+     ],
+     "rounds": [
+      4,
+      11,
+      9,
+      8,
+      8
+     ]
+    },
+    {
+     "seed": 39,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      112,
+      115,
+      123,
+      87,
+      40
+     ],
+     "rounds": [
+      4,
+      11,
+      11,
+      10,
+      8
+     ]
+    },
+    {
+     "seed": 40,
+     "base": true,
+     "pressOn": true,
+     "hp": [
+      117,
+      94,
+      85,
+      109,
+      58
+     ],
+     "rounds": [
+      4,
+      10,
+      12,
+      10,
+      8
+     ]
+    }
+   ]
+  }
+ ],
+ "fallbackGuard": {
+  "setPieceCasts": 668,
+  "unmarkedCasts": 0,
+  "byEnemyJutsu": {},
+  "first": []
+ },
+ "ruleCap": {
+  "cap": 20,
+  "allowOverCap": true,
+  "overCap": {
+   "Core Horror (AQi-bHJ-5tHXtxrnc0P9E)": 32,
+   "The Captain (QY69h271Nx9uHrBeR6jwW)": 28,
+   "Wayfinder (v7T9_XdGMfP46em0dPuBc)": 23,
+   "Foundry Warden (81lnIP-q97gItQYWl5vWD)": 21,
+   "Wayfinder (chart-c-wayfinder)": 23,
+   "Foundry Warden (chart-r-foundry-warden)": 21,
+   "Core Horror (chart-r-core-horror)": 32,
+   "The Captain (chart-r-the-captain)": 28,
+   "Foundry Warden (chart-t-foundry-warden)": 21,
+   "Core Horror (chart-t-core-horror)": 32,
+   "Steeping Horror (chart-steeping-horror)": 32
+  }
+ },
+ "gates": {
+  "law40": false,
+  "changedConditions": {}
+ }
+}
