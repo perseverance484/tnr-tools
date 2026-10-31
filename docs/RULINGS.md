@@ -4841,3 +4841,22 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "1. Approved. 2. Draft them".
 
 **Canonical destination:** `state/validate_exceptions/342_skyglass_library.json` (item 1); `docs/design/SKYGLASS_TEXT.md` §6 once approved (item 2).
+
+## RUL-2026-10-31-066 — Skyglass build: AI rule cap, Forge budget, Hoard, art before launch
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / build
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **AI kits over the engine's 20-rule cap are trimmed to 20** (Core Horror 32, the Captain 28, the Foundry Warden 21, the Crowned Captain 40, the Crownhold commanders 30/28 at the simulated sizes), by merging redundant rules, and the affected fights are re-simulated offline against their RUL-2026-10-30-060/-062 targets before the copies are built.
+2. **The Forge bundle budget is raised** for the next Forge change (the AI basic-attack fallback fix); the exact figure is set by that change's measured size, as RUL-2026-10-28-014 did.
+3. **Crown's Hoard is untradeable.**
+4. **All Skyglass art is done before launch** (supersedes RUL-2026-10-30-059's "placeholder art at release" for launch: records still ship hidden with placeholders, but nothing is published until the art push lands). This includes the Wreck Sighted salvager portrait, which a public quest requires.
+5. **push/344 part 1's exception ledger is accepted** (10 diagnostics: the stale `preferredStat` rule, as accepted for push/262 and push/272).
+
+**Evidence:** Director, 2026-10-31: "1. Yes … 3. Raise it … 6. Sure 7. All art gets done before launch 8. Ok".
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_FIGHTS.md` (item 1, once re-simulated); `forge/tools/check_bundle_budget.mjs` (item 2, on the Forge branch); `docs/design/SKYGLASS_LOOT_TABLES.md` (item 3); `push/README.md` (items 4-5); `state/validate_exceptions/344_skyglass_copies_1.json` (item 5).
