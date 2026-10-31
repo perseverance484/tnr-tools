@@ -1501,6 +1501,11 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
   already has the maw strip `anim_maw_v1.webp` (register UP18, made for the Core Horror's Maw of the Deep, `ch_maw`);
   Little Maw keeps Rallying Echo's animation until the director picks one.
 
+**2026-10-31 run log (373-380):** 373 first send FAILED on upload quota (nothing created), re-sent VERIFIED 7/7
+(`tnr_results_1793489703304.json`); 374 VERIFIED 2/2; 375, 376, 377 VERIFIED 12/12 each; 379 VERIFIED 3/3
+(`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
+built, gates clean, READY TO RUN.
+
 ## 379-380 Little Horror art pass: READY TO RUN (379), 380 after
 
 `379_skyglass_little_horror_art.json` (`python3 push/skyglass_little_horror_art.gen.py`; RUL-2026-10-31-085): phase 1
