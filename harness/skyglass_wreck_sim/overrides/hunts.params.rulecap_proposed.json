@@ -1,0 +1,75 @@
+{
+ "_about": "Solo-tuned AI stats for the Skyglass treasure hunts (engine/hunts.ts). Keys are live AI ids; pools = poolsMultiplier, rows = innate +100% damage-given rows (each capped at 100 by the engine, rows multiply), stats = statsMultiplier where changed from live. Crown Archivist (Archive alarm guard) and the Called to the Archive summon (Crown Stonebound: echoHp, echoPower) per RUL-2026-10-28-013.",
+ "_names": {
+  "texZaFi42S3EvJZBwQ8cd": "Deck Warden",
+  "wTgO-Q32caSSd0is1QIS7": "Seal Charge",
+  "frc9LTxqQlM7mncG4VZGK": "Core Canister",
+  "2OXJEXoktxJcjqMkE851g": "Arsenal Keeper",
+  "3V_gdHYaclMB1gTyOPAbV": "Skyglass Sentinel",
+  "AQi-bHJ-5tHXtxrnc0P9E": "Core Horror",
+  "RBW5KsIXmTGR710D2y2Y7": "Sealwright",
+  "v7T9_XdGMfP46em0dPuBc": "Wayfinder",
+  "d6g0mOM7RBSsYI1hrUVT9": "First Blade",
+  "QY69h271Nx9uHrBeR6jwW": "The Captain",
+  "81lnIP-q97gItQYWl5vWD": "Foundry Warden",
+  "LZiunyinw9ScK3mh9HiR2": "Crown Archivist"
+ },
+ "stats": {
+  "texZaFi42S3EvJZBwQ8cd": {
+   "pools": 1,
+   "rows": 0
+  },
+  "wTgO-Q32caSSd0is1QIS7": {
+   "pools": 1,
+   "rows": 0,
+   "stats": 1
+  },
+  "frc9LTxqQlM7mncG4VZGK": {
+   "pools": 1,
+   "rows": 0,
+   "stats": 5
+  },
+  "2OXJEXoktxJcjqMkE851g": {
+   "pools": 1,
+   "rows": 0
+  },
+  "3V_gdHYaclMB1gTyOPAbV": {
+   "pools": 3,
+   "rows": 4
+  },
+  "AQi-bHJ-5tHXtxrnc0P9E": {
+   "pools": 2,
+   "rows": 2
+  },
+  "RBW5KsIXmTGR710D2y2Y7": {
+   "pools": 2.5,
+   "rows": 2
+  },
+  "v7T9_XdGMfP46em0dPuBc": {
+   "pools": 1.26,
+   "rows": 1
+  },
+  "d6g0mOM7RBSsYI1hrUVT9": {
+   "pools": 1.5,
+   "rows": 2
+  },
+  "QY69h271Nx9uHrBeR6jwW": {
+   "pools": 2.65,
+   "rows": 1,
+   "givenDown": 10
+  },
+  "81lnIP-q97gItQYWl5vWD": {
+   "pools": 3.5,
+   "rows": 1
+  },
+  "LZiunyinw9ScK3mh9HiR2": {
+   "pools": 2,
+   "rows": 2
+  }
+ },
+ "echoHp": 15000,
+ "echoPower": 40,
+ "_final_pass": "fable/skyglass-final-sim: Watch Captain 2/4 -> 2.5/1 + 10% givenDown (the phase-1 duel killed a solo player by round 3-9: 7/40); Foundry Warden 2.5/1 -> 3.5/1 (97.5% -> target 80%); Cache Sentinel 3/3 -> 3/4 (RUL-2026-10-28-021: boss ~20% HP); echoPower 60 -> 40 (RUL-2026-10-28-026 item 3).",
+ "_rul060": "RUL-2026-10-30-060 item 1: The Captain's solo pools 2.5 -> 3 (1 damage row and 10% damage given down unchanged). Otherwise identical to overrides/hunts.params.json (final pass).",
+ "_rulecap_proposed": "PROPOSED, not adopted (director decision): The Captain's solo pools 2.65 instead of RUL-2026-10-30-060's 3 (1 damage row, 10% given down unchanged). Watch, no terms, 40 seeds, gates + trims: pools 2.5 97.5%, 2.6 97.5%, 2.65 80% (phase 2 median 7, p90 8), 2.75 47.5%, 3 20% (old gates and old rules at pools 3: also 20%); pools 3 + 25% / 40% given down: 20% / 37.5%."
+}

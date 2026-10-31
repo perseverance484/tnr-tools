@@ -1,6 +1,113 @@
 # Skyglass offline simulation
 
-## Final pass (2026-10-30, `fable/skyglass-final-sim`): current
+## Rule cap and law-40 gates (2026-10-31, `fable/skyglass-rule-cap`): current
+
+This section supersedes the final pass below for every AI rule list. It covers RUL-2026-10-31-066 item 1 (the 20-rule
+cap), the director's law-40 gate decision of 2026-10-31, and RUL-2026-10-31-067 (the consolidation: Faded tier applied,
+the rest measured for feasibility in §6). Zero live requests, no credentials; offline engine at the harness pin
+`c86f43f4`.
+
+### 1. The cap, and what the harness now enforces
+
+- **Cap:** `AI_PROFILE_MAX_RULES = 20` (theninjarpg@3314d122 `app/drizzle/constants.ts:1933`).
+  - Enforced in `ai.updateAiProfile` (`app/src/server/api/routers/ai.ts:87`: `input.rules.length >
+    AI_PROFILE_MAX_RULES` returns "Maximum of 20 rules allowed"). Both builders push behaviour through that route
+    (`builder_bundle.js` `aiProfPush`, Forge `profileUpdate`).
+  - The same constant caps pet instructions (`validators/pets.ts:141`).
+  - It counts the authored list only. The engine's backup rules and its appended end turn (`ai_v2.ts`) are added at
+    battle time.
+  - `createAiProfile` has no cap, but it only creates an empty profile.
+  - Rule evaluation in `ai_v2.ts` is unchanged between the harness pin and 3314d122 (the only diff is the raid-boss
+    give-up path).
+- **Harness (`engine/rulecap.ts`):**
+  - `assembleFloor` (every runner) throws on any enemy, ally or summon template over the cap.
+  - Every spec writer checks its output before writing.
+  - The static fallback audit reports `ruleCount` and flags a violation over the cap.
+  - `--allow-over-cap` downgrades the failure to a warning, only to reproduce pre-trim rule sets.
+  - Outputs carry a `ruleCap` block.
+- **Law-40 gates (`engine/gates.ts`):**
+  - Every `distance_lower_than` on a rule casting a shared-pool jutsu is set to the pool's `gate` (range + 1, from
+    `32b_DATA_pool.json`), the value Forge's `kitProblems` requires.
+  - Applied at battle assembly and in every spec writer, including the `{when, do}` summaries.
+  - `--old-gates` keeps the old values. Outputs carry a `gates` block.
+  - Non-pool jutsu keep their gates, as Forge does.
+- **Independent check** (Python, Forge's rule): 122 rule lists in the specs and Wreck overrides, 0 over the cap, 0
+  gate errors.
+
+### 2. Every AI, old → new rule count
+
+| AI (where it fights) | Old → new | What was merged or cut | Behaviour change |
+|---|---|---|---|
+| Core Horror, shared kit (endgame Wreck F4; Archive descent; Fall / Burning Heading copies; Steeping Horror) | 32 → 20 | Final-pass order kept; cut only follow-ups that (almost) never fired: Twin Kunai as the third follow-up after Collapse's and the Maw's marks (0 + 2 casts in 70 endgame appearances); the plain attacks after the two Rupture Field marks (6 casts: Rupture Field A is laid with Second Wind, leaving 20 AP), whose end turns stay; the three plain attacks below the marks (0 casts: a mark is always ready); the explicit end turn (the engine appends the same rule) | With no mark ready he ends his turn. Endgame signature 91.2% (old rules 91.8%). **Steeping fight:** his follow-ups carried that fight's damage: 5,464 → 2,331 dealt per fight, clear 77.5% → 95% (retune in §4) |
+| Faded Core Horror (level-50 Wreck) | 32 → 20 | His follow-ups are spread over all four marks (final pass: Bilge Spit after Rupture Field A 53 times). So the plain attacks are hoisted above one end turn per mark; his first mark, Omen: Last Light (no condition), stays above them | All attacks are 60 AP and all marks 40 AP: at most one attack and one mark per turn, never two marks. For the other marks the attack now comes first (same pair). A Second Wind turn is Second Wind + Last Light, or Second Wind + an attack while Last Light cools down. Signature 100%, no idle turns |
+| The Captain, shared kit (endgame Wreck boss; Captain's Watch; Fall press-on copy; Burning Heading ally) | 28 → 20 | The two after-mark blocks (Battle Trance, Second Wind, Final Command, Keelbind, end turn, once per mark) are folded into one tail below the marks, closed by the two mark end turns. Dropped "Second Wind (no mark ready)" (the tail's Second Wind serves it) and "close in (duel)" (3 casts in 70) | Phase 1 order exact. Transition exact: Steady + Gunwale + first mark in one round 95% (as before); 0 Broadside in phase 1. In a later mark turn Hold the Line can be the follow-up when the party stands 3+ hexes away (4 casts in phase 2 over 20 audited appearances). A phase-2 turn with no mark ready may open with Battle Trance. If a blast is lost (stunned to 80 AP) he may lay the other mark |
+| Wayfinder, hunt variant (Watch duel; common-chart copy; Burning Heading duel) — *not in the ruling's list* | 23 → 20 | The minor-mark blast was stated three times with identical conditions, so the two repeats could never fire; they are removed. Also dropped the third Chart Mark focus (LOWEST_HEALTH_OPPONENT; 0 casts in 70). The shared Wayfinder kit (Wreck, Haul) is unchanged | Essentially none |
+| Foundry Warden (Drowned Foundry; Reliquary / Rotted copies) | 21 → 20 | Explicit last end turn removed (the engine appends the same unconditioned rule) | None (exact) |
+| The Crowned Captain (Crownhold D5) | 40 → 20 | Kept the phase structure, all four blasts, the throne walk and an end turn after each mark. Shardstorm B is phase 3's last mark, and the phase-3 end turn follows it, so it needs no end turn of its own. Cuts follow 22 traced solo fights with the old rules. Never cast: Keelbind, Ruin Refrain, Scorching Rend, Devouring Grasp, Wind Spear, Veilstep, Solar Bow. Also cut: all three Purging Stance rules, both Countermand rules, Stolen Form (15 casts, no damage), Cursed Thread Weave (6 casts), the after-mark basic attacks, the explicit end turn | No Purging, Countermand, Stolen Form or Hexweave. Solo 100% / 50% won (dodge on / off; old rules 100% / 48.3%). Phases begin at rounds [6, 10] (old [4, 12]) |
+| Crown Armsmaster (Crownhold D2) | 30 → 20 | The turn ends after Whirlwind's and Racks Fall A's marks (their plain-attack follow-ups are cut). Racks Fall B is his last mark: it needs no end turn, and his own list follows it. The round-1 Racks Fall A rule goes: after the opening Fetters only 40-AP rules fit, and the plain Racks Fall A mark is the first of them. Also cut: the push/272 "Cataclysm on a debuffed player" rule (its plain Cataclysm stays); the explicit end turn | No plain attack in those two mark turns. After Racks Fall B: Cataclysm, Backlash Palm, Fighter's Poise or Shuriken Storm (was Backlash Palm / Shuriken Storm). Cataclysm no longer jumps ahead on a debuffed player |
+| The Second (Crownhold D4) | 28 → 20 | After the Rows A mark: Sovereign Undertow, else end turn. Rows B is his last mark: no end turn, and his own list follows it (his push/272 Undertow drags a player 4+ hexes away). Cut: Piercing Judgment and Cataclysm as after-mark follow-ups; "Cataclysm on a stunned player" (the plain Cataclysm right below covers every case: exact); the explicit end turn | After Rows B, a player within 3 hexes is no longer dragged (already in the rows) |
+
+Unchanged and within the cap: every other AI the harness builds.
+- Hunt Skyglass Sentinel: **20** (at the cap).
+- Replicant Zero 19; Sealwright (hunt and copies) 17; First Blade 16.
+- Haul guards ≤ 17; Wreck crew 4-13; Crownhold regulars ≤ 18.
+- The level-50 (Faded) Captain uses the shared Captain kit (20).
+
+**Two trims that failed and were replaced** (results kept as `results/rulecap_Tfirst_*` and `_Tsecond_*`):
+- **Core Horror, plain attacks hoisted above one end turn per mark.** Every Second Wind turn became Second Wind + a
+  plain attack instead of Second Wind + a mark, and the short endgame fight lost its Maw: signature 92% → 28%, and
+  53% with his first mark kept on top. The Second Wind heal lifts him back above 70%, so the phase-2 mark's condition
+  fails. The level-50 version keeps this form, because his first mark has no condition.
+- **Crowned Captain, cuts chosen from an older tuning file.** That trim kept the duel fillers he never casts, merged
+  phase 2 into phase 1 and dropped Crownfall's end turn. Solo win (dodge on) fell 100% → 72%, and every clean and
+  alert Crownhold chain was lost at him in about 5 rounds.
+
+### 3. Measurements (same seeds and method as the final pass)
+
+Columns:
+- **Final pass:** d5957e79 at its params.
+- **Gates only:** law-40 gates, pre-trim rules (`--allow-over-cap`).
+- **Gates + trims:** this branch.
+
+The last two columns use the RUL-2026-10-30-060 params: Watch Captain pools 3, Reliquary Sealwright 2 rows, War
+top-up at D4/D5. Where RUL-060 changed a fight, a run with old gates and old rules at the RUL-060 params separates its
+effect (in brackets). Watch phase-2 rounds are from the solo Watch.
+
+TABLE_MAIN
+
+**Haul** (no trims touch a Haul guard, so this is the law-40 gate effect alone). Exact runs, 40 seeds; "fit" = the
+6ad2a102 payout fit (`results/fit_haul_summary.json`).
+
+TABLE_HAUL
+
+**Determinism and set pieces:**
+- Wreck `--probe-check` on the endgame boss floor with pets: 2 seeds identical, also with the rule probe removed.
+- Charts `--repro` on `burning@L100@3` (208 steps) and `steeping@L100@1` (58 steps), and Haul `--repro
+  trophy@CLLCL@5` (170 lines): identical.
+- **Unmarked set pieces: 0** in every run of this pass (`fallbackGuard`).
+
+### 4. Verdicts and proposed retunes (for the director; not applied to design docs)
+
+VERDICTS
+
+### 5. Specs for the builders
+
+`state/skyglass_build/` on this branch (its README gives provenance) holds:
+- `build_spec.json`, `hunts_spec.json`, `hunts.params.json`;
+- `charts_spec.json`, `charts.params.rul060.json`, `haul_spec.json`;
+- `crowned_captain_spec.json`, `crownhold_spec.json`, `library_spec.json`.
+
+All are at most 20 rules per AI and carry law-40 gates. `charts_spec.json` and `haul_spec.json` carry `fullRow` /
+`fullProfile` (the former `specout_full.patch`, now committed). The level-50 copies are named "Faded <Name>".
+
+**On `main`, replace every `state/skyglass_build/*.json` except `library_spec.json` and `charts.params.rul060.json`.**
+None carries the proposed retunes (§4).
+
+CONSOLIDATION
+
+---
+
+## Final pass (2026-10-30, `fable/skyglass-final-sim`) (superseded for rule lists by the rule-cap section above)
 
 This section supersedes the per-harness reports (`REPORT_hunts.md`, `REPORT_charts.md`, `REPORT_crowned_captain.md`,
 the Haul section of `README.md` and report 2 below) wherever they differ.

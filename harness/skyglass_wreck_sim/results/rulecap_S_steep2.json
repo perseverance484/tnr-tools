@@ -1,0 +1,119 @@
+[
+ {
+  "case": "steep_3.76x5",
+  "run": "steeping",
+  "chart": "Steeping (the Core)",
+  "variant": "L100",
+  "dodge": true,
+  "twist": true,
+  "runs": 40,
+  "baseClear": 14,
+  "baseClearPct": 35,
+  "pressOnWon": 0,
+  "pressOnReached": 0,
+  "pressOnPctOfReached": null,
+  "pressOnPctOfAll": 0,
+  "baseRoundsMedian": 9,
+  "baseMinutesMedian": 2.3,
+  "lossesAt": {
+   "1": 26
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "steeping: Steeping Horror (scaled)",
+    "pressOn": false,
+    "reached": 40,
+    "won": 14,
+    "roundsMedian": 9,
+    "roundsP90": 10,
+    "hpStartMedian": 123.8,
+    "hpEndMedian": 68.6,
+    "hpEndP10": 1.4,
+    "hpCostMedian": 55.2,
+    "playerIdlePct": 0,
+    "emberHitsMedian": 0,
+    "emberDmgMedian": 0,
+    "outcomes": {
+     "won": 14,
+     "wipe": 26
+    },
+    "dodge": {
+     "threatened": 44,
+     "dodged": 44,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 79
+    },
+    "enemies": {
+     "Steeping Horror": {
+      "marksPerFight": 2.3,
+      "blastsPerFight": 1.1,
+      "blastHitPct": 0,
+      "dealtPerFight": 5769,
+      "diedMedianRound": 9
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "steep_3.76x6",
+  "run": "steeping",
+  "chart": "Steeping (the Core)",
+  "variant": "L100",
+  "dodge": true,
+  "twist": true,
+  "runs": 40,
+  "baseClear": 0,
+  "baseClearPct": 0,
+  "pressOnWon": 0,
+  "pressOnReached": 0,
+  "pressOnPctOfReached": null,
+  "pressOnPctOfAll": 0,
+  "baseRoundsMedian": null,
+  "baseMinutesMedian": 0,
+  "lossesAt": {
+   "1": 40
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "steeping: Steeping Horror (scaled)",
+    "pressOn": false,
+    "reached": 40,
+    "won": 0,
+    "roundsMedian": null,
+    "roundsP90": null,
+    "hpStartMedian": 123.8,
+    "hpEndMedian": null,
+    "hpEndP10": null,
+    "hpCostMedian": null,
+    "playerIdlePct": 0,
+    "emberHitsMedian": 0,
+    "emberDmgMedian": 0,
+    "outcomes": {
+     "wipe": 40
+    },
+    "dodge": {
+     "threatened": 20,
+     "dodged": 20,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 35
+    },
+    "enemies": {
+     "Steeping Horror": {
+      "marksPerFight": 1.8,
+      "blastsPerFight": 0.4,
+      "blastHitPct": 0,
+      "dealtPerFight": 11538,
+      "diedMedianRound": null
+     }
+    }
+   }
+  ]
+ }
+]

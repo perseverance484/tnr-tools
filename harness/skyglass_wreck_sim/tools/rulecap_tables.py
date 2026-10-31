@@ -83,6 +83,11 @@ def main():
     print("|---|---|---|---|---|")
     F, G, T = load("final_wreck_endgame.json"), load("rulecap_G_wreck_endgame.json"), load("rulecap_T_wreck_endgame.json")
     f, g, t = wreck(F), wreck(G), wreck(T)
+    # 120-run check (seeds 61-120 added): runs with a wipe over both halves
+    for x, n in ((g, "rulecap_G_wreck_endgame_s61.json"), (t, "rulecap_T_wreck_endgame_s61.json")):
+        e = wreck(load(n))
+        if x and e:
+            x["wipe"] = f"{x['wipe']} (120 runs: {round((x['wipe'] + e['wipe']) / 2, 1)})"
     for k, lab, tg in (("min", "Endgame Wreck, minutes @15 s", "~22"), ("wipe", "Endgame Wreck, runs with a wipe %", "~17"),
                        ("boss", "Endgame boss wave wipes / attempts", "-"), ("horrorSig", "Endgame Core Horror signature %", "-"), ("unmarked", "Endgame unmarked set pieces", "0")):
         row(lab, tg, *(x and x.get(k) for x in (f, g, t)))
@@ -104,7 +109,10 @@ def main():
         extra = f" (old gates, 2 rows: {cb[k]['clear']})" if k in cb else ""
         row(f"Chart {run}, clear %{extra}", tg[run], *(x.get(k, {}).get("clear") for x in (cf, cg, ct)))
         row(f"Chart {run}, press-on won/reached", "-", *(x.get(k, {}).get("press") for x in (cf, cg, ct)))
-    kf, kg, kt, kb = crown(load("final_crownhold_chain.json")), crown(load("rulecap_G_crown.json")), crown(load("rulecap_T_crown.json")), crown(load("rulecap_B_crown_war.json"))
+    kt = {}
+    for pol in ("clean", "alert", "war", "healing"):
+        kt.update(crown(load(f"rulecap_T_crown_{pol}.json")))
+    kf, kg, kb = crown(load("final_crownhold_chain.json")), crown(load("rulecap_G_crown.json")), crown(load("rulecap_B_crown_war.json"))
     for pol in ("healing", "clean", "alert", "war"):
         extra = f" (old gates, top-up: {kb[pol]})" if pol in kb else ""
         row(f"Crownhold {pol} route, clear %{extra}", "all routes clear", *(x.get(pol) for x in (kf, kg, kt)))
