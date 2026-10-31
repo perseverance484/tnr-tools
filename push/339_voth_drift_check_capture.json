@@ -1,0 +1,25 @@
+{
+ "_note": "READ-ONLY drift check before push/338. push/338 re-sends Vanquish the Horde as a FULL record built from the push/336 payload (VERIFIED live 2026-10-31 02:34Z, tnr_results_1793414068152). Forge's stale-record guard covers Bloodright entities only, so a quest edit overwrites whatever is live. This reads the live pyramid (persist full) and Patient Zero, so any staff edit made since is diffed and carried into a regenerated 338 instead of being overwritten. Zero mutations.",
+ "capture": {
+  "before": [
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "0U8N6218b095-TQbWlCep"
+    },
+    "persist": "full",
+    "_name": "Vanquish the Horde (live)"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Pe5J6m1sc1IMpF2HF6Rby"
+    },
+    "persist": "full",
+    "_name": "Patient Zero (live)"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
