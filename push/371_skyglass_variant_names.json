@@ -7,10 +7,11 @@
   "icon-variant-nightreaver.webp": 10104,
   "icon-variant-thunderwake.webp": 18308,
   "icon-variant-anchorline.webp": 34598,
-  "icon-variant-starfall.webp": 26018
+  "icon-variant-starfall.webp": 26018,
+  "icon-variant-keelstone.webp": 24448
  },
  "imagePack": {
-  "ref": "7736de14b2597ae0085ff9dcfc8a2fd2e23cc0bb",
+  "ref": "f5f93c6814c6edcb9c661f725864e839dd250457",
   "files": {
    "icon-variant-windward.webp": {
     "path": "art/skyglass_variant_skins/exports/icon-variant-windward.webp",
@@ -41,6 +42,11 @@
     "path": "art/skyglass_variant_skins/exports/icon-variant-starfall.webp",
     "sha256": "09451e7b759ab33354f841b1f4a7a8ad1f6ed5645e0f6a52ebbcaa0f589090c0",
     "bytes": 26018
+   },
+   "icon-variant-keelstone.webp": {
+    "path": "art/skyglass_variant_skins/exports/icon-variant-keelstone.webp",
+    "sha256": "bb7903124cf50b499981ca844e69859d4e1ce9baa766013eb2202bc03fa2a981",
+    "bytes": 24448
    }
   }
  },
@@ -128,11 +134,12 @@
    "slot": "edit",
    "phase": 1,
    "targetId": "xFyTBqje5M1_68EqRRoBu",
-   "name": "Keelstone (variant): name, description",
+   "name": "Keelstone (variant): name, description, image",
    "data": {
     "itemId": "-LzgdTM1yTjlezOyjd-6H",
     "name": "Keelstone",
-    "description": "The spear's earth crystal is a shard of skyglass cut from the wreck's keel, and the shaft is banded in ship's iron."
+    "description": "The spear's earth crystal is a shard of skyglass cut from the wreck's keel, and the shaft is banded in ship's iron.",
+    "image": "@img:icon-variant-keelstone.webp"
    }
   },
   {
