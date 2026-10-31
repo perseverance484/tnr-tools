@@ -1,0 +1,179 @@
+[
+ {
+  "case": "steep_3x5",
+  "run": "steeping",
+  "chart": "Steeping (the Core)",
+  "variant": "L100",
+  "dodge": true,
+  "twist": true,
+  "runs": 40,
+  "baseClear": 14,
+  "baseClearPct": 35,
+  "pressOnWon": 0,
+  "pressOnReached": 0,
+  "pressOnPctOfReached": null,
+  "pressOnPctOfAll": 0,
+  "baseRoundsMedian": 8,
+  "baseMinutesMedian": 2,
+  "lossesAt": {
+   "1": 26
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "steeping: Steeping Horror (scaled)",
+    "pressOn": false,
+    "reached": 40,
+    "won": 14,
+    "roundsMedian": 8,
+    "roundsP90": 9,
+    "hpStartMedian": 123.8,
+    "hpEndMedian": 1.4,
+    "hpEndP10": 1.4,
+    "hpCostMedian": 122.3,
+    "playerIdlePct": 0,
+    "emberHitsMedian": 0,
+    "emberDmgMedian": 0,
+    "outcomes": {
+     "won": 14,
+     "wipe": 26
+    },
+    "dodge": {
+     "threatened": 40,
+     "dodged": 40,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 69
+    },
+    "enemies": {
+     "Steeping Horror": {
+      "marksPerFight": 2.1,
+      "blastsPerFight": 1.5,
+      "blastHitPct": 0,
+      "dealtPerFight": 5769,
+      "diedMedianRound": 8
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "steep_2.5x5",
+  "run": "steeping",
+  "chart": "Steeping (the Core)",
+  "variant": "L100",
+  "dodge": true,
+  "twist": true,
+  "runs": 40,
+  "baseClear": 14,
+  "baseClearPct": 35,
+  "pressOnWon": 0,
+  "pressOnReached": 0,
+  "pressOnPctOfReached": null,
+  "pressOnPctOfAll": 0,
+  "baseRoundsMedian": 7,
+  "baseMinutesMedian": 1.8,
+  "lossesAt": {
+   "1": 26
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "steeping: Steeping Horror (scaled)",
+    "pressOn": false,
+    "reached": 40,
+    "won": 14,
+    "roundsMedian": 7,
+    "roundsP90": 8,
+    "hpStartMedian": 123.8,
+    "hpEndMedian": 1.4,
+    "hpEndP10": 1.4,
+    "hpCostMedian": 122.3,
+    "playerIdlePct": 0,
+    "emberHitsMedian": 0,
+    "emberDmgMedian": 0,
+    "outcomes": {
+     "won": 14,
+     "wipe": 26
+    },
+    "dodge": {
+     "threatened": 35,
+     "dodged": 35,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 64
+    },
+    "enemies": {
+     "Steeping Horror": {
+      "marksPerFight": 1.9,
+      "blastsPerFight": 1.1,
+      "blastHitPct": 0,
+      "dealtPerFight": 5769,
+      "diedMedianRound": 7
+     }
+    }
+   }
+  ]
+ },
+ {
+  "case": "steep_2x5",
+  "run": "steeping",
+  "chart": "Steeping (the Core)",
+  "variant": "L100",
+  "dodge": true,
+  "twist": true,
+  "runs": 40,
+  "baseClear": 14,
+  "baseClearPct": 35,
+  "pressOnWon": 0,
+  "pressOnReached": 0,
+  "pressOnPctOfReached": null,
+  "pressOnPctOfAll": 0,
+  "baseRoundsMedian": 7,
+  "baseMinutesMedian": 1.8,
+  "lossesAt": {
+   "1": 26
+  },
+  "fights": [
+   {
+    "fight": 1,
+    "label": "steeping: Steeping Horror (scaled)",
+    "pressOn": false,
+    "reached": 40,
+    "won": 14,
+    "roundsMedian": 7,
+    "roundsP90": 7,
+    "hpStartMedian": 123.8,
+    "hpEndMedian": 1.4,
+    "hpEndP10": 1.4,
+    "hpCostMedian": 122.3,
+    "playerIdlePct": 0,
+    "emberHitsMedian": 0,
+    "emberDmgMedian": 0,
+    "outcomes": {
+     "won": 14,
+     "wipe": 26
+    },
+    "dodge": {
+     "threatened": 34,
+     "dodged": 34,
+     "failedRooted": 0,
+     "failedNoPath": 0,
+     "failedOther": 0,
+     "stepsTaken": 63
+    },
+    "enemies": {
+     "Steeping Horror": {
+      "marksPerFight": 1.8,
+      "blastsPerFight": 1.1,
+      "blastHitPct": 0,
+      "dealtPerFight": 5769,
+      "diedMedianRound": 7
+     }
+    }
+   }
+  ]
+ }
+]

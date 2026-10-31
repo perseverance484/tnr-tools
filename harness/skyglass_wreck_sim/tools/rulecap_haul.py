@@ -19,7 +19,7 @@ def collect(files):
     return by
 
 sets = [(a.split("=", 1)[0], collect(a.split("=", 1)[1].split(","))) for a in sys.argv[1:]]
-print("| Page | Sensible route | " + " | ".join(f"{lab}: sensible clear % / EV M | {lab}: greedy LLLCC / CLLLC clear % | {lab}: best route vs sensible" for lab, _ in sets) + " |")
+print("| Page | Sensible route | " + " | ".join(f"{lab}: sensible clear % / EV M | {lab}: fit greedy route clear % | {lab}: best route vs sensible" for lab, _ in sets) + " |")
 print("|---|---|" + "---|---|---|" * len(sets))
 for pg in PAGES:
     sr = fit[pg]["sensibleRoute"]
@@ -27,7 +27,8 @@ for pg in PAGES:
     for lab, by in sets:
         P = by.get(pg, {})
         s = P.get(sr)
-        g = "/".join(str(P[x]["clearPct"]) if x in P else "-" for x in ("LLLCC", "CLLLC"))
+        gr = fit[pg]["greedy"]["route"]
+        g = f"{gr} {P[gr]['clearPct']}" if gr in P else f"{gr} -"
         if s and s["evM"]:
             best = max(P.values(), key=lambda p: p["evM"])
             cells += [f"{s['clearPct']} / {s['evM']}", g, f"{best['path']} {round(100 * best['evM'] / s['evM'])}%"]
