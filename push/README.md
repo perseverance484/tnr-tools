@@ -1364,7 +1364,7 @@ use_highest_power_* / use_random_jutsu / use_combo_action rule). Library jutsu b
 - Any later edit to a library jutsu a copy holds (e.g. the visual-asset push's animations) must unequip every copy
   first, then re-equip (laws 18 and 60).
 
-### 348 Crown's Hoard + Wreck Sighted (2 creates, HIDDEN, placeholder art): READY TO RUN; 349 (Crownhold's pick) is built from 348's results; Walked Every Deck STOPPED
+### 348 Crown's Hoard + Wreck Sighted (2 creates, HIDDEN, placeholder art): 348 RUN 2026-10-31 (tnr_results_1793459592295.json, 2/2 VERIFIED; Crown's Hoard WrnHlt3h6ZDjFaJk3i41O, Wreck Sighted v7kKhLXsX9aofQfc7BnGx); 349 READY TO RUN
 
 `python3 push/skyglass_hoard.gen.py` writes `348_skyglass_hoard_and_intro.json`. No dependency on an unrun manifest: it
 names only live ids (Skyglass Token, Tide Chart: push/329 creates, read from `tnr_results_1793424666625.json`).

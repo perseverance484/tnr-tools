@@ -58,7 +58,8 @@ class TempRoot(unittest.TestCase):
     FILES = [sc.DESIGN, sc.LOOT, sc.BIBLE, sc.RULINGS, sc.TEXT, sc.NAMES, "state/crownhold/ids.json",
              "push/skyglass_hunts.gen.py", "push/skyglass_update.gen.py", "push/elemental_pouch.gen.py",
              "push/crownhold.gen.py", "harvests/inbox/tnr_results_1793424666625.json",
-             "harvests/inbox/tnr_results_1793424865889.json"]
+             "harvests/inbox/tnr_results_1793424865889.json",
+             "harvests/inbox/tnr_results_1793459592295.json"]
 
     def setUp(self):
         self.tmp = tempfile.mkdtemp()

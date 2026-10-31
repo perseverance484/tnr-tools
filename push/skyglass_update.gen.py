@@ -236,8 +236,12 @@ def crownhold():
     r = d["content"]["reward"]
     coffer = next(x for x in r["reward_items"] if x["ids"] == [CH.ITEM["coffer"]])
     coffer["quantity"] = 3  # RUL-2026-10-29-050 item 2
-    # Crown's Hoard (no id) and the Crownbreaker badge (push/340, RUL-2026-10-31-064 item 3) join when their ids exist
-    # (state/crownhold/ids.json badge:crownbreaker; CH.quest() adds reward_badges).
+    # Crown's Hoard and the Crownbreaker badge (push/340, RUL-2026-10-31-064 item 3) join when their ids exist
+    # (state/crownhold/ids.json badge:crownbreaker; CH.quest() adds reward_badges). The Hoard (push/348) is added live
+    # by push/349; once its id is in the design data, a regenerated 329 carries it too, first card (loot tables 4a).
+    hoard_id = json.load(open(os.path.join(ROOT, "state/skyglass_design/design_data.json")))["items"]["crowns_hoard"]["id"]
+    if hoard_id and all(hoard_id not in x["ids"] for x in r["reward_items"]):
+        r["reward_items"] = [{"ids": [hoard_id], "number": 100, "quantity": 1}] + r["reward_items"]
     for o in d["content"]["objectives"]:
         if o["task"] == "win_quest":  # loot tables 4a: Crownhold ending, two independent 25% lines (RUL-2026-10-31-064 item 5)
             o["reward_items"] = list(o.get("reward_items") or []) + [drop("Reliquary Seal", 25), drop("The Last Heading", 25)]
