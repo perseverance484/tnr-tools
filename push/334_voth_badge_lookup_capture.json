@@ -1,0 +1,15 @@
+{
+ "_note": "READ-ONLY. push/333 failed: dedupNames found a live badge already named \"Vanquisher of the Horde\" that staff cannot find in the editor. badge.getAllNames with persist:\"full\" returns every badge's id, name and image so the existing one can be identified and reused (or renamed) instead of creating a duplicate. Zero mutations.",
+ "capture": {
+  "before": [
+   {
+    "proc": "badge.getAllNames",
+    "input": {},
+    "persist": "full",
+    "_name": "all badges (find Vanquisher of the Horde)"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
