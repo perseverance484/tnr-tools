@@ -73,12 +73,57 @@ The last two columns use the RUL-2026-10-30-060 params: Watch Captain pools 3, R
 top-up at D4/D5. Where RUL-060 changed a fight, a run with old gates and old rules at the RUL-060 params separates its
 effect (in brackets). Watch phase-2 rounds are from the solo Watch.
 
-TABLE_MAIN
+| Fight | Target | Final pass | Gates only | Gates + trims |
+|---|---|---|---|---|
+| Endgame Wreck, minutes @15 s | ~22 | 22.3 | 22.1 | 21.8 |
+| Endgame Wreck, runs with a wipe % | ~17 | 16.7 | 18.3 (120 runs: 17.5) | 11.7 (120 runs: 10.8) |
+| Endgame boss wave wipes / attempts | - | 10/70 | 10/71 | 7/67 |
+| Endgame Core Horror signature % | - | 94.3 | 91.8 | 91.2 |
+| Endgame unmarked set pieces | 0 | 0/538 | 0/544 | 0/514 |
+| Level-50 Wreck, minutes @15 s | - | 18.5 | 18.8 | 18.8 |
+| Level-50 Wreck, runs with a wipe % | ~10 | 10 | 13.3 | 8.3 |
+| Level-50 unmarked set pieces | 0 | 0/263 | 0/280 | 0/243 |
+| Hunt foundry, clear % | ~80 | 75 | 72.5 | 72.5 |
+| Hunt archive_clean, clear % | > alarm | 95 | 95 | 95 |
+| Hunt archive_alarm1, clear % | - | 77.5 | 77.5 | 77.5 |
+| Hunt archive_alarm3, clear % | - | 30 | 30 | 30 |
+| Hunt watch_000, clear % (old gates, pools 3: 20) | ~80 (pools 3) | 97.5 | 20 | 20 |
+| Hunt cache_right, clear % | boss ~20% HP | 95 | 95 | 95 |
+| Watch Captain phase 2 rounds | >= 6-7 | 7 (p90 11) | 5 (p90 7) | 5 (p90 7) |
+| Chart lowtide, clear % | cut room | 100.0 | 100.0 | 100.0 |
+| Chart lowtide, press-on won/reached | - | 40/40 | 40/40 | 40/40 |
+| Chart nightwatch, clear % | - | 100.0 | 100.0 | 100.0 |
+| Chart nightwatch, press-on won/reached | - | 40/40 | 40/40 | 40/40 |
+| Chart reliquary, clear % (old gates, 2 rows: 85.0) | ~80 (2 rows) | 92.5 | 85.0 | 85.0 |
+| Chart reliquary, press-on won/reached | - | 35/37 | 28/34 | 28/34 |
+| Chart rotted, clear % | ~55 | 55.0 | 55.0 | 55.0 |
+| Chart rotted, press-on won/reached | - | 8/22 | 6/22 | 6/22 |
+| Chart steeping, clear % | ~75 | 77.5 | 77.5 | 95.0 |
+| Chart steeping, press-on won/reached | - | 0/0 | 0/0 | 0/0 |
+| Chart fall, clear % | ~80 | 85.0 | 80.0 | 82.5 |
+| Chart fall, press-on won/reached | - | 17/34 | 16/32 | 17/33 |
+| Chart burning, clear % | ~55 | 47.5 | 40.0 | 52.5 |
+| Chart burning, press-on won/reached | - | 19/19 | 16/16 | 21/21 |
+| Crownhold healing route, clear % | all routes clear | 93.8 | - | 93.8 |
+| Crownhold clean route, clear % | all routes clear | 56.3 | - | 75 |
+| Crownhold alert route, clear % | all routes clear | 37.5 | - | 50 |
+| Crownhold war route, clear % (old gates, top-up: 56.3) | all routes clear | 6.3 | - | 68.8 |
+| Crowned Captain solo (dodge_on), win % | - | - | 100 | 100 |
+| Crowned Captain solo (dodge_off), win % | - | - | 48.3 | 50 |
 
 **Haul** (no trims touch a Haul guard, so this is the law-40 gate effect alone). Exact runs, 40 seeds; "fit" = the
 6ad2a102 payout fit (`results/fit_haul_summary.json`).
 
-TABLE_HAUL
+| Page | Sensible route | Fit: sensible EV M / worst route vs sensible / greedy route clear % | Now (gates, fixed level-100 guards): sensible clear % / EV M | Now: greedy route clear % | Now: best route vs sensible |
+|---|---|---|---|---|---|
+| trophy | LCC | 7.77 / CL 108.1% / CLXLL 13.4 | 95 / 7.98 | CLXLL 0 | LC 105% |
+| bone | LCC | 7.98 / LCL 109.7% / LLLCC 25 | 95 / 7.98 | LLLCC 27.5 | LCL 107% |
+| snare | CCL | 7.35 / LXL 119.1% / CLLLC 30 | 87.5 / 7.35 | CLLLC 30 | LLL 124% |
+| overgrown | CLC | 7.49 / LLL 117.7% / LLLCC 37.5 | 90 / 7.29 | LLLCC 35 | LLL 118% |
+| vault | LCC | 7.61 / CCCL 124.1% / CLCLL 55 | 70 / 7.35 | CLCLL 52.5 | CCCCL 125% |
+| bloom | LCC | 7.29 / LLCC 112.8% / LLCCL 27.5 | 90 / 7.29 | LLCCL 27.5 | LLCC 108% |
+
+Sensible mean: fit 7.58M, now 7.54M.
 
 **Determinism and set pieces:**
 - Wreck `--probe-check` on the endgame boss floor with pets: 2 seeds identical, also with the rule probe removed.
@@ -88,7 +133,29 @@ TABLE_HAUL
 
 ### 4. Verdicts and proposed retunes (for the director; not applied to design docs)
 
-VERDICTS
+| Fight | Target | Final pass | Now (gates + trims) | Verdict | Proposed change (smallest knob; files `overrides/*rulecap_proposed.json`) |
+|---|---|---|---|---|---|
+| Endgame Wreck | ~22 min, ~17% runs with a wipe | 22.3 min, 16.7% | 21.8 min, **10.8%** over 120 runs (old rules + gates: 17.5% / 120) | **drift** (boss wave wipes 13/133 vs 23/143) | **The Captain's endgame pools 7.5 → 9**: 19.2%, 23.0 min (120 runs); 10.5 gave 28.3%. About 8.6 would interpolate to ~17% (not measured) |
+| Level-50 (Faded) Wreck | ~10% | 10% | 8.3%, 18.8 min | hit | none |
+| Watch, phase 2 / clear | ≥ 6-7 rounds / ~80% | 7 / 97.5% (pools 2.5) | pools 3 (RUL-060): 5 rounds / **20%**; identical with old gates and old rules, so the cause is RUL-060 item 1, not this pass | **miss caused by RUL-060** | **Captain solo pools 2.65** (not 3): 80%, phase 2 median 7 (p90 8). Sweep: 2.5 / 2.6 97.5%, 2.75 47.5%, 3 + 25% / 40% given down 20% / 37.5% |
+| Foundry | ~80% | 75% | 72.5% (gates 72.5%) | hit (40-seed noise ±13) | none |
+| Archive clean / alarm 1 / alarm 3 | clean > alarm | 95 / 77.5 / 30 | 95 / 77.5 / 30 | hit | none |
+| Buried Cache | boss ~20% HP | 95% | 95% | hit | none |
+| Sealed Reliquary (Sealwright 2 rows) | ~80% | 92.5% (1 row) | 85% (old gates, 2 rows: 85%) | hit | none |
+| The Fall / press-on | ~80% / kept | 85% / 17 of 34 | 82.5% / 17 of 33 | hit | none |
+| Rotted Reliquary | ~55% | 55% | 55% | hit | none |
+| Burning Heading | ~55% | 47.5% | 52.5% (gates only 40%) | hit | none |
+| Steeping fight | ~75% | 77.5% | **95%** (trimmed Horror kit: his plain follow-ups carried this scaled solo fight) | **drift** | **Steeping Horror 3 → 5 damage rows + 35% damage given down** (pools 3.76): 77.5%. Sweep: 4 rows 95%, 5 rows 35%, + 15% / 25% given down 37.5%; pools 2-4.6 do not move it |
+| Crownhold healing / clean / alert / war | all routes clear | 93.8 / 56.3 / 37.5 / 6.3 | 93.8 / **75** / **50** / **68.8** (War with the RUL-060 D4/D5 top-up; old rules + top-up 56.3) | hit (16 chains each, ±12) | none. The Crowned Captain is a little easier than before; commanders 100% won |
+| Crowned Captain solo | (reference) | - | 100% / 50% (old rules 100% / 48.3%) | matches | none |
+| Haul: sensible / greedy / max route | ~7.7M / 21-38% / ≤ ~120-125% | fit 7.58M / 13-55% / 108-124% | 7.54M; greedy 27.5-52.5% on five pages, Trophy CLXLL 0% (fit 13.4%); max Snare LLL 124%, Vault CCCCL 125% | hit (gate effect only; guards fixed at level 100) | none |
+| Unmarked set pieces | 0 | 0 | 0 in every run | hit | none |
+| Determinism | identical reruns | yes | yes | hit | none |
+
+The Haul fix (director 2026-10-31): guards are fixed level-100 records (`haul_main.ts`, `--scaled` restores the old
+model; the spec writes `opponent_scaled_to_user: false` on all 1,287 battle objectives). For the level-100 endgame
+player model this is the same computation as the scaled run (`scaledRow(row, 100)` in both), so the Haul table above
+is the unscaled measurement. A lower-level player now meets level-100 guards, as intended.
 
 ### 5. Specs for the builders
 
@@ -139,7 +206,7 @@ law-40 gates, 40 seeds. They are in `results/rulecap_P_*.json`, with the params 
    - Rare copies at the hunt tuning: **Sealed Reliquary 0%** (target ~80), The Fall 82.5% with its press-on **0/33**.
    - Haul crew guards at the base (Wreck) tuning: sensible-route clears **35-65%** (EV 3.7-5.5M), against 72.5-95%
      (7.3-8.0M) at the fit.
-   - Haul gatherer pages with the Sentinel guards at the Buried Cache boss tuning (pools 3, 4 rows, stats 5): HAULPROBE.
+   - Haul gatherer pages with the Sentinel guards at the Buried Cache boss tuning (pools 3, 4 rows, stats 5): **0% on every route**, even the timid CC (Overgrown Stores, Ore Vault, Bloom Cellar; 40 seeds).
    - So each crew member's rare-hunt, rare-gauntlet and Haul roles need different rows and pools. For example, the
      Sentinel: hunt boss 3 pools / 4 rows; gauntlet copy 2 / 1; Haul crew 1 / 2 + 100% taken + 40% given down; Haul
      steps 4-5 1.2 / 3. No single tuning meets these targets.
@@ -172,6 +239,32 @@ use today):
 | Sealwright | Archive boss 2.5 / 2 | 2.6 / 3 | - | 1 / 2 | 1 / 0 | Sealwright's Echo | - |
 | Foundry Warden | Foundry boss 2.5 / 1 | - | - | 1.2 / 1 | 1 / 0 | - | - |
 | Arsenal Keeper | live | - | stats 1 | - | - | `h-keeper` | - |
+
+**Record list in the push/344 key scheme** (`srcId = "sg344_" + key`, ":" → "-"). The base tier is the live records.
+What each key would carry today, if the director keeps the current tunings:
+
+| Key | Name | Base | Used by | Tuning now (pools / damage rows / other) | Status |
+|---|---|---|---|---|---|
+| veteran:foundry-warden | Veteran Foundry Warden | live Foundry Warden (push/262) | Sealed Reliquary echo | 1.2 / 1 | = `chart-r-foundry-warden`; the Drowned Foundry boss is the live record (2.5 / 1) |
+| veteran:sealwright | Veteran Sealwright | live Sealwright | Sealed Reliquary echo | 1 / 2 (RUL-060) | = `chart-r-sealwright`; the Archive boss is the live record (2.5 / 2); Haul `g-sealwright` is 1 / 0 + stats 5 |
+| veteran:skyglass-sentinel | Veteran Skyglass Sentinel | live Skyglass Sentinel | Sealed Reliquary echo | 2 / 1 | = `chart-r-skyglass-sentinel`; Buried Cache boss 3 / 4; Haul crew 1 / 2 (+100% taken, 40% down), steps 4-5 1.2 / 3: not foldable (§6 point 2) |
+| veteran:first-blade | Veteran First Blade | live First Blade | Sealed Reliquary echo | 1.2 / 1 | = `chart-r-first-blade`; Watch 1.5 / 2; Haul crew 1 / 2, steps 4-5 1.2 / 3 |
+| veteran:core-horror | Veteran Core Horror | live Core Horror | The Fall, the break | 2 / 2 | = `chart-r-core-horror` (same as the Archive record) |
+| veteran:the-captain | Veteran The Captain | live The Captain | The Fall press-on | 2 / 0, 15% down | = `chart-r-the-captain`; Watch is the live record (proposed 2.65 / 1, 10% down) |
+| rot:foundry-warden | Rot-Touched Foundry Warden | live Foundry Warden | Rotted Reliquary | 1 / 0 | = `chart-t-foundry-warden` |
+| rot:sealwright | Rot-Touched Sealwright | live Sealwright | Rotted Reliquary | 1 / 0 | = `chart-t-sealwright` |
+| rot:skyglass-sentinel | Rot-Touched Skyglass Sentinel | live Skyglass Sentinel | Rotted Reliquary | 1 / 0 | = `chart-t-skyglass-sentinel` |
+| rot:first-blade | Rot-Touched First Blade | live First Blade | Rotted Reliquary | 1 / 0 | = `chart-t-first-blade` |
+| rot:core-horror | Rot-Touched Core Horror | live Core Horror | Burning Heading, the break | 5.5 / 3, 65% down | = `chart-t-core-horror` |
+| oneoff:lingering-echo-i / -ii / -iii | Lingering Echo | Deck Warden statline | Sealed / Rotted Reliquary twists | 2 / 1 | = `chart-lingering-echo-2/3/4` |
+| oneoff:fall-arsenal-keeper | Arsenal Keeper | live Arsenal Keeper | The Fall, powder magazine | 4 / 0, 30% damage reduction | = `chart-arsenal-keeper` |
+| oneoff:steeping-horror | Steeping Horror | live Core Horror | steeping (scaled) | 3.76 / 3 (proposed 3.76 / 5 + 35% down) | = `chart-steeping-horror` |
+| faded:deck-warden, faded:seal-charge, faded:skyglass-sentinel, faded:first-blade, faded:oathkeeper, faded:wayfinder, faded:core-horror, faded:the-captain | Faded <Name> | the live record of each | level-50 Wreck | `overrides/kits_lvl50.params.json` (level 50, statsMultiplier 1, crew 1 / 1 + 2×100% taken; Horror 6 / 2; Captain 4 / 3; boss 100% taken) | applied (names) |
+
+Not covered by any key yet: the endgame Wreck copies (`dg-*`, item 1 would move them onto the live records), the
+seven common copies (`chart-c-*`; item 1 measured infeasible below level ~100), the Haul guards (`haul-*`; item 2
+measured infeasible), `chart-r-oathkeeper` (Sealed Reliquary press-on: Oathkeeper is not in the veteran key list), and
+the Wreck Sealwright `dg-sealwright` (no Faded version exists).
 
 **Director decisions needed before the build:**
 - **(a) Which uses become the live record.** The hunts, as today, or the endgame Wreck (item 1). The other one needs
