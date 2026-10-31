@@ -6,18 +6,19 @@
 - **Live-game requests/writes:** 0
 
 Status values: **TO GENERATE** (a prompt block exists; no approved raw yet), **IN REPO** (finished file committed,
-upload only), **DERIVED** (Claude makes it by script from an approved base). Update a row when its raw is approved,
+upload only), **DERIVED** (Claude makes it by script from an approved base), **PROCESSED** (approved raw committed and
+processed to a final export; not uploaded yet), **DERIVED: DONE** (recolour exported; not uploaded yet). Update a row when its raw is approved,
 processed, and uploaded; approval, processing and upload are separate facts (`ISOLATED_ART_GENERATION.md` §4).
 
 | Code | Name | Type | Attach folder / source | Live id | Status |
 |---|---|---|---|---|---|
-| IC01 | Tide Chart | ICON | `01_chart_icons` | `H1s2IwtZ5JqgPEoJ55IVj` | TO GENERATE |
-| IC02 | Watch Roster | ICON | `01_chart_icons` | `yE8TwzygWZSNoZD5x97rW` | TO GENERATE |
-| IC03 | Reliquary Seal | ICON | `02_seal_icons` | `sVqDdYUJIxxRYbmKbbxo0` | TO GENERATE |
-| IC04 | The Last Heading | ICON | `01_chart_icons` | `s1mYHuKqw2YuzIzxVwU-_` | TO GENERATE |
-| IC05 | Core Rot | ICON | `03_reagent_icons` | `KuqLeFB12BdB-0s5O1udk` | TO GENERATE |
-| IC06 | Ledger Page (base; = Ledger Page: The Trophy Hold) | ICON | `01_chart_icons` | `JvrytTOdR1voVCoo3fckK` | TO GENERATE |
-| IC07 | Stores Manifest (base; = Stores Manifest: The Overgrown Stores) | ICON | `01_chart_icons` | `nLG6TK48xlyZ_t9R28QsY` | TO GENERATE |
+| IC01 | Tide Chart | ICON | `01_chart_icons` | `H1s2IwtZ5JqgPEoJ55IVj` | PROCESSED (`icon-tide-chart.webp`, push/352) |
+| IC02 | Watch Roster | ICON | `01_chart_icons` | `yE8TwzygWZSNoZD5x97rW` | PROCESSED (`icon-watch-roster.webp`, push/352) |
+| IC03 | Reliquary Seal | ICON | `02_seal_icons` | `sVqDdYUJIxxRYbmKbbxo0` | PROCESSED (`icon-reliquary-seal.webp`, push/352) |
+| IC04 | The Last Heading | ICON | `01_chart_icons` | `s1mYHuKqw2YuzIzxVwU-_` | PROCESSED (`icon-the-last-heading.webp`, push/352) |
+| IC05 | Core Rot | ICON | `03_reagent_icons` | `KuqLeFB12BdB-0s5O1udk` | PROCESSED (`icon-core-rot.webp`, push/352) |
+| IC06 | Ledger Page (base; = Ledger Page: The Trophy Hold) | ICON | `01_chart_icons` | `JvrytTOdR1voVCoo3fckK` | PROCESSED (`icon-ledger-page.webp`, push/352) |
+| IC07 | Stores Manifest (base; = Stores Manifest: The Overgrown Stores) | ICON | `01_chart_icons` | `nLG6TK48xlyZ_t9R28QsY` | PROCESSED (`icon-stores-manifest.webp`, push/352) |
 | IC08 | Skyglass Token | ICON | `04_reward_icons` | `nzCW7A-_AuYMzBs2wClnM` | TO GENERATE |
 | VT00 | Boss variant token BASE (VT01-VT07 attach it) | ICON | `05_variant_token` | - | TO GENERATE |
 | VT01 | Captain's Command Fan (variant token) | ICON | `05_variant_token` | `vltFmOTgOyqssIpNXvT37` | TO GENERATE |
@@ -78,12 +79,12 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | SC04 | High Command signal room (scene #37) | SCENE_BACKGROUND | `50_ship_scenes` | - | TO GENERATE |
 | SC05 | Planning hall (scene #38) | SCENE_BACKGROUND | `50_ship_scenes` | - | TO GENERATE |
 | SC06 | Throne room (Command Sanctum) (scene #45) | SCENE_BACKGROUND | `50_ship_scenes` | - | TO GENERATE |
-| DR01 | Rotted Reliquary Seal | ICON (recolour) | `from IC03` | `2sGi5SZXh2UutHmM-mIMD` | DERIVED |
-| DR02 | The Rotted Heading | ICON (recolour) | `from IC04` | `U2yJbBM6_N1xBBf0ez96F` | DERIVED |
-| DR03 | Ledger Page: The Bone Store | ICON (recolour) | `from IC06` | `uu6ETQimuBJ69jwr76IIi` | DERIVED |
-| DR04 | Ledger Page: The Snare Room | ICON (recolour) | `from IC06` | `6QgcnW0v6gZeHY474BjR0` | DERIVED |
-| DR05 | Stores Manifest: The Ore Vault | ICON (recolour) | `from IC07` | `9j4IErGW1gmZ-5FNjZMEQ` | DERIVED |
-| DR06 | Stores Manifest: The Bloom Cellar | ICON (recolour) | `from IC07` | `7Sz2ttMScKH8b10XYS12I` | DERIVED |
+| DR01 | Rotted Reliquary Seal | ICON (recolour) | `from IC03` | `2sGi5SZXh2UutHmM-mIMD` | DERIVED: DONE (rot-green seal, `icon-rotted-reliquary-seal.webp`, push/352) |
+| DR02 | The Rotted Heading | ICON (recolour) | `from IC04` | `U2yJbBM6_N1xBBf0ez96F` | DERIVED: DONE (rot-green seal, `icon-the-rotted-heading.webp`, push/352) |
+| DR03 | Ledger Page: The Bone Store | ICON (recolour) | `from IC06` | `uu6ETQimuBJ69jwr76IIi` | DERIVED: DONE (charcoal cord, `icon-ledger-page-bone-store.webp`, push/352) |
+| DR04 | Ledger Page: The Snare Room | ICON (recolour) | `from IC06` | `6QgcnW0v6gZeHY474BjR0` | DERIVED: DONE (cobalt cord, `icon-ledger-page-snare-room.webp`, push/352) |
+| DR05 | Stores Manifest: The Ore Vault | ICON (recolour) | `from IC07` | `9j4IErGW1gmZ-5FNjZMEQ` | DERIVED: DONE (violet cord, `icon-stores-manifest-ore-vault.webp`, push/352) |
+| DR06 | Stores Manifest: The Bloom Cellar | ICON (recolour) | `from IC07` | `7Sz2ttMScKH8b10XYS12I` | DERIVED: DONE (rose cord, `icon-stores-manifest-bloom-cellar.webp`, push/352) |
 | UP01 | Sealed Treasury | ICON | `art/skyglass_event_icons/exports/icon-sealed-treasury.webp` | `Ma8S90Nmbi0Xvm4u4FzJh` | IN REPO |
 | UP02 | Archive Chart Case | ICON | `art/skyglass_event_icons/exports/icon-archive-chart-case.webp` | `B48dTRsoLJGKBWIUbeUoG` | IN REPO |
 | UP03 | Chart of the Buried Cache | ICON | `art/skyglass_event_icons/exports/icon-chart-buried-cache.webp` | `nbLC37UzBamthKXvZsgQB` | IN REPO |
@@ -117,4 +118,8 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | UP31 | anim_rot_claw_v1 | ANIMATION | `art/skyglass_boss_fx/exports/anim_rot_claw_v1.webp` | - | IN REPO |
 | UP32 | anim_exposed_v1 | ANIMATION | `art/skyglass_boss_fx/exports/anim_exposed_v1.webp` | - | IN REPO |
 
-**Totals:** TO GENERATE 67 (AN09 optional) · DERIVED 6 · IN REPO 32 · 105 rows.
+**Totals:** TO GENERATE 60 (AN09 optional) · PROCESSED 7 · DERIVED: DONE 6 · IN REPO 32 · 105 rows.
+
+IC01-IC07 intake 2026-10-31: raws `art/skyglass_event_icons/raw/IC0n_raw_*.png` (unchanged originals; hashes in
+`art/skyglass_event_icons/_provenance/`), processed and recoloured by `state/skyglass_art/ic01_07_intake.py`
+(256 px lossless webp under `art/skyglass_event_icons/exports/`); upload by push/352 (`push/skyglass_chart_icons.gen.py`).
