@@ -1514,6 +1514,11 @@ committed before that run.
 
 ### 344 Skyglass AI copies, rebuilt for RUL-2026-10-31-077 (52 AI creates, HIDDEN): part 1 (48) READY TO RUN, part 2 built from part 1's results, part 3 (4) after part 2; ledgers accepted (RUL-2026-10-31-083)
 
+**ALL RUN 2026-10-31:** part 2 (`tnr_results_1793484726230.json`, 1/1 VERIFIED), part 3 (`tnr_results_1793484748665.json`,
+4/4 VERIFIED), push/361 (`tnr_results_1793484772810.json`, 9/9 VERIFIED). Built from these bundles and committed, all
+gates clean (`validate.py --strict` 0/0, `check_manifest.mjs` 0, `skyglass_check.py` 0/0): **354, 355, 356, 362, 363,
+365, 366** READY TO RUN. Still to build: 357 (from 356's bundle), 358 (from 370's bundle), 364 (from 363's bundle).
+
 **Part 1 RUN 2026-10-31** (`harvests/inbox/tnr_results_1793484364363.json`): 48/48 ok, 37 VERIFIED, 11 CONFIRMED with
 stat drift (the Haul guards, Trophy Warden, Stores Ward, Crown Stonebound (Summoned), Core Canister (Haul)). Expected:
 the server re-derives combat stats from `statsMultiplier` on every AI create/edit (`profile.ts` `scaleUserStats`, ai
