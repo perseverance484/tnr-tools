@@ -1,5 +1,5 @@
 {
- "_note": "skyglass_check fixture: passes every check (warnings only for pending ids: Galley Stores, the Skyglass Token, the Watch Roster, Crown's Hoard and the Crownbreaker badge are not created yet). Picks follow loot tables section 4a (RUL-2026-10-29-042, -048 .. -050; the Captain's Purse is 1,000,000 ryo, RUL-2026-10-28-034). No run carries a profession drop (section 4b). The Archive Chart Case text uses the Forbidden tier (RUL-2026-10-29-058); its Legendary entry is a stand-in with a known id (the real tier is the two Epic charts, not created yet).",
+ "_note": "skyglass_check fixture: passes every check (warnings only for pending ids: Crown's Hoard is not created yet; the 329/340 ids are recorded in the design data). Picks follow loot tables section 4a (RUL-2026-10-29-042, -048 .. -050; the Captain's Purse is 1,000,000 ryo, RUL-2026-10-28-034). No run carries a profession drop (section 4b). The Archive Chart Case text uses the Forbidden tier (RUL-2026-10-29-058); its Legendary entry is a stand-in with a known id (the real tier is the two Epic charts, not created yet).",
  "items": [
   {
    "entity": "quest",
@@ -50,6 +50,13 @@
        {
         "ids": [
          "ixEKlJ0MmDrX7JoMNJVhi"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "D-QTnbjgTyIVc593zzdSB"
         ],
         "number": 100,
         "quantity": 1
@@ -110,6 +117,13 @@
         ],
         "number": 100,
         "quantity": 2
+       },
+       {
+        "ids": [
+         "nzCW7A-_AuYMzBs2wClnM"
+        ],
+        "number": 100,
+        "quantity": 2
        }
       ]
      }
@@ -153,6 +167,20 @@
         ],
         "number": 100,
         "quantity": 1
+       },
+       {
+        "ids": [
+         "D-QTnbjgTyIVc593zzdSB"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "yE8TwzygWZSNoZD5x97rW"
+        ],
+        "number": 100,
+        "quantity": 1
        }
       ]
      }
@@ -193,6 +221,13 @@
        {
         "ids": [
          "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "nzCW7A-_AuYMzBs2wClnM"
         ],
         "number": 100,
         "quantity": 1
