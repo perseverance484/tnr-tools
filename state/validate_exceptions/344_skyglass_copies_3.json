@@ -1,0 +1,16 @@
+{
+ "manifest": "push/344_skyglass_copies_3.json",
+ "ruling": "PARTLY PENDING. Covered: the 4 law 14 / L05 preferredStat diagnostics (RUL-2026-10-31-066 item 5 class). PENDING director acceptance: 4 'kit is all 60 AP actions' on the four Sealwright records.",
+ "reason": "validate.py law 14 / L05 demands preferredStat on every AI create; the game's AI schema no longer has preferredStat (migration 0056) and Forge refuses the key (RUL-2026-10-25-009; Lane A fix brief state/prompt_validate_stale_rules.md). The Sealwright's hunt kit (Archive boss, Reliquary / Rotted echoes, the Haul's Sealwright's Echo) is all 60 AP actions, as the harness fought it in every one of those fights (the lint is a heuristic about exhaustion; measured clear rates already include it). check_manifest.mjs: 0 pre-send problems.",
+ "sha256": "0d454dd0686d414506e5c6922cf6b519522505882f0d6945cb2b42ee42e2a309",
+ "accepted": [
+  "ERROR  [ai:Rot-Touched Sealwright]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)",
+  "ERROR  [ai:Rot-Touched Sealwright]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Sealwright's Echo]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)",
+  "ERROR  [ai:Sealwright's Echo]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Veteran Sealwright (Echo)]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)",
+  "ERROR  [ai:Veteran Sealwright (Echo)]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Veteran Sealwright]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)",
+  "ERROR  [ai:Veteran Sealwright]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)"
+ ]
+}

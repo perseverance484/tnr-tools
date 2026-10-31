@@ -13,11 +13,14 @@ How push/skyglass_update.gen.py should include it (its owner applies this; this 
         SEAL.break_the_seal(objs, echo_ai=<the echo's AI id>, core_rot=R("Core Rot"))   # before G.quest(...)
         ...
 
-`echo_ai` is a literal id (L01). Which record fights is NOT settled (see OPEN below); until it is, pass the id the
-director picks. `core_rot` is push/329's Core Rot (KuqLeFB12BdB-0s5O1udk).
+`echo_ai` is a literal id (L01): the Veteran Core Horror (RUL-2026-10-31-076 item 4), AI key `veteran:core-horror`
+(push/skyglass_aikeys.py; resolved from push/344's results bundle, srcId sg344_veteran-core-horror; the same record as
+the Archive descent and the Fall's break). `core_rot` is push/329's Core Rot (KuqLeFB12BdB-0s5O1udk).
 
 Shape (both routes; the alarm route's nodes carry the suffix _a):
-    d_entry   (+ choice "Break the seal")  ->  d_break      dialog: the warning (an extra fight; health and chakra carry)
+    d_entry   (+ choice "Break the last seal") -> d_break   dialog: the warning (an extra fight; health and chakra
+                                                            carry); choice[1] "Leave it sealed" returns to the node
+                                                            d_entry's first choice leads to (nothing spent)
                                            ->  b_break      start_battle vs the echo; a loss fails the run (the run's
                                                             fail ending, as every other fight)
                                            ->  d_break_rot  dialog paying Core Rot x2, guaranteed (reward_items 100%;
@@ -25,19 +28,16 @@ Shape (both routes; the alarm route's nodes carry the suffix _a):
                                            ->  the node d_entry's first choice led to (d_records / d_sealwright_a)
 The fight is optional and costs carried health before the Sealwright, which is the trade.
 
-Text: read from docs/design/SKYGLASS_TEXT.md under the targets below when they exist (`obj:The Quarantined
-Archive/<node>.description`, choices via `- `choice[n]``). SKYGLASS_TEXT.md has none yet (F15), so the function uses
-PLACEHOLDER text and reports every gap in the returned list; 339 must not go live with gaps (pass strict=True to
-refuse instead).
-
-OPEN (director): the echo's AI record (not simulated by the harness; a Veteran crew copy from the rebuilt push/344,
-e.g. veteran:core-horror, is the natural candidate); the placeholder text; whether the choice is offered on the alarm
-route too (built on both here, as the loot table does not restrict it).
+Text: docs/design/SKYGLASS_TEXT.md section 2.7a (RUL-2026-10-31-078 item 2), targets `obj:The Quarantined
+Archive/<node>.description` and their `- `choice[n]`` bullets. If a target were missing the function would fall back
+to PLACEHOLDER text and report the gap (strict=True refuses instead); with the 2.7a text it reports none. Built on
+both routes (2.7a: "An optional extra fight on both routes"). The echo fight is not simulated by the harness.
 
     python3 push/skyglass_archive_seal.py --demo     # applies it to push/skyglass_hunts.gen.py's Archive, prints nodes
 """
 import importlib.util
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -47,10 +47,11 @@ T = importlib.util.module_from_spec(_s); _s.loader.exec_module(T)
 RUN = "The Quarantined Archive"
 CORE_ROT_QTY = 2
 PLACEHOLDER = {
-    "choice": "Break the seal",
+    "choice": "Break the last seal",
     "d_break": ("Behind the last seal something older presses against the plate, an echo the Core could not hold. "
                 "Breaking it will cost you before the Sealwright, and what spills out is rot."),
     "d_break.choice": "Break it",
+    "d_break.choice1": "Leave it sealed",
     "b_break": "The seal splits, and the echo behind it steps out.",
     "d_break_rot": "The echo comes apart into dark, wet timber and cloudy skyglass. You gather what the rot left.",
     "d_break_rot.choice": "Go on",
@@ -61,10 +62,11 @@ def _text(key, gaps, strict):
     node, _, part = key.partition(".")
     target = f"obj:{RUN}/{node}.description"
     try:
-        if part == "choice":
+        if part.startswith("choice"):
+            n = int(part[len("choice"):] or 0)
             ch = T.choices(target)
-            if ch:
-                return ch[0]
+            if len(ch) > n:
+                return ch[n]
             raise KeyError(target)
         return T.block(target)
     except (KeyError, StopIteration):
@@ -76,9 +78,15 @@ def _text(key, gaps, strict):
 
 def _choice_text(gaps, strict):
     try:
-        ch = T.choices(f"obj:{RUN}/d_entry.description")
-        if len(ch) >= 3:
-            return ch[2]
+        # 2.7a lists only the added bullet, `choice[2]` (choices 0-1 are the live text)
+        L = T.lines()
+        i = next(i for i, l in enumerate(L) if l.startswith(f"**`obj:{RUN}/d_entry.description`**"))
+        for l in L[i + 1:]:
+            if l.startswith("**`") or l.startswith("#"):
+                break
+            m = re.match(r"- `choice\[2\]`: `([^`]*)`", l)
+            if m:
+                return m.group(1)
         raise KeyError
     except (KeyError, StopIteration):
         if strict:
@@ -107,7 +115,9 @@ def break_the_seal(objs, echo_ai, core_rot, strict=False, routes=("", "_a")):
         entry["nextObjectiveId"] = entry["nextObjectiveId"] + [{"text": choice, "nextObjectiveId": "d_break" + sfx}]
         new.append({"id": "d_break" + sfx, "task": "dialog", "description": t["d_break"], "sceneBackground": scene,
                     "sceneCharacters": [], "nextObjectiveId": [{"text": t["d_break.choice"],
-                                                                "nextObjectiveId": "b_break" + sfx}]})
+                                                                "nextObjectiveId": "b_break" + sfx},
+                                                               {"text": t["d_break.choice1"],
+                                                                "nextObjectiveId": cont}]})
         new.append({"id": "b_break" + sfx, "task": "start_battle", "description": t["b_break"],
                     "sceneBackground": scene, "sceneCharacters": [],
                     "opponentAIs": [{"ids": [echo_ai], "number": 1, "quantity": 1}],
@@ -129,7 +139,7 @@ def _demo():
     s = importlib.util.spec_from_file_location("skyglass_hunts", os.path.join(ROOT, "push/skyglass_hunts.gen.py"))
     G = importlib.util.module_from_spec(s); s.loader.exec_module(G)
     objs = G.archive()
-    gaps = break_the_seal(objs, echo_ai="STANDINxxxxxxxxxxxxxx", core_rot="KuqLeFB12BdB-0s5O1udk")
+    gaps = break_the_seal(objs, echo_ai="STANDINxxxxxxxxxxxxxx", core_rot="KuqLeFB12BdB-0s5O1udk", strict=True)
     for o in objs:
         nxt = o.get("nextObjectiveId")
         nxt = [c["nextObjectiveId"] for c in nxt] if isinstance(nxt, list) else nxt

@@ -64,9 +64,6 @@ QUESTS = [
 ]
 SHARED = {"failDescription": "You are defeated.", "drawDescription": "The fight stalls, and the chart's way closes.",
           "fleeDescription": "You break away, and the way back closes behind you."}  # text doc section 2, shared lines
-# Text the doc does not give (reversible; listed in the manifest's _text_gaps for the director):
-GAP_SPAT_CHOICE = "Leave the pool"
-GAP_LOST = ""  # fail_quest with no description: the engine shows "Failed: <quest name>" (libs/quest.ts ~1522)
 
 
 def created_329():
@@ -121,6 +118,8 @@ def quest(slug, chart, tainted, rot, icon, col, horror, S):
     t = lambda target: fill(T.block(target), col, S)  # noqa: E731
     ch = T.choices("obj:<quest>/d_steep.description")
     assert ch == ["Steep", "Take it back"], ch
+    spat = T.choices("obj:<quest>/f_spat.description")  # SKYGLASS_TEXT.md section 2.7 (RUL-2026-10-31-078 item 1)
+    assert len(spat) == 1, spat
     item = lambda i, n: {"ids": [i], "number": 100, "quantity": n}  # noqa: E731
     scene = {"sceneBackground": HOLD, "sceneCharacters": []}
     objectives = [
@@ -136,8 +135,8 @@ def quest(slug, chart, tainted, rot, icon, col, horror, S):
         # F03: the consolation is paid on this dialog's completion, before the fail ending.
         {"id": "f_spat", "task": "dialog", "description": t("obj:<quest>/f_spat.description"), **scene,
          "reward_items": [item(chart, 1)],
-         "nextObjectiveId": [{"text": GAP_SPAT_CHOICE, "nextObjectiveId": "f_lost"}]},
-        {"id": "f_lost", "task": "fail_quest", "description": GAP_LOST, **scene},
+         "nextObjectiveId": [{"text": spat[0], "nextObjectiveId": "f_lost"}]},
+        {"id": "f_lost", "task": "fail_quest", "description": t("obj:<quest>/f_lost.description"), **scene},
         # Take it back: the chart and the 3 Core Rot paid at entry come back (F13).
         {"id": "w_back", "task": "win_quest", "description": t("obj:<quest>/w_back.description"), **scene,
          "reward_items": [item(chart, 1), item(rot, 3)]},
@@ -188,8 +187,6 @@ def build_quests(bundles, keymap):
         "come back. isolated: true. Nothing starts these until push/" + str(CHARTS_NUM) + " gives the Epic charts their "
         "use effect (built from this run's results bundle)."),
         items, {"dedupNames": True, "_aiKeys": R.used,
-                "_text_gaps": {"obj:<quest>/f_spat.choice[0]": GAP_SPAT_CHOICE,
-                               "obj:<quest>/f_lost.description": "(empty: the engine shows 'Failed: <quest name>')"},
                 "imgSizes": {k: v["bytes"] for k, v in pack["files"].items()}, "imagePack": pack})
 
 

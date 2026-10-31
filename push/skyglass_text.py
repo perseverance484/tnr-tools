@@ -32,7 +32,8 @@ def block(target):
         raise KeyError(f"SKYGLASS_TEXT.md: {len(hits)} headings for {target!r}")
     i = hits[0]
     rest = L[i][len(head):]
-    m = re.match(r"\s*(?:\([^)]*\))?\s*:\s*`(.*)`\s*$", rest)
+    m = re.match(r"\s*(?:\([^)]*\))?\s*:\s*`(.*)`\s*$", rest) or \
+        re.match(r"\s*(?:\([^)]*\))?\s*:\s*`([^`]*)`\s*\(.*\)\s*$", rest)  # inline text then a (note)
     if m:
         return m.group(1)
     j = i + 1

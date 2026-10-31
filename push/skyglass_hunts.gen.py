@@ -20,6 +20,32 @@ AI = {"Crown Archivist": "LZiunyinw9ScK3mh9HiR2",  # Archive alarm guard, RUL-20
 ITEM = {"treasury": "Ma8S90Nmbi0Xvm4u4FzJh", "chart_archive": "cRZT41zm5vhPTQwwn8vtv", "chart_watch": "aHFNuo5RkKpDcaOBLIKiu",
         "case": "B48dTRsoLJGKBWIUbeUoG", "chart_foundry": "pY-0O5Gs2n89pf0kYb5J2",
         "pouches": ["D0gtI5dOgj2dFO4VexsLJ", "ZZOrFciKSJazAtkW9nt_7", "we2DtPSH2Q5quEvxj7xO2", "hcvHkfcYHP6qBEO_dRFl6", "z9U9wvJKDGtimll6BnTuL"], "strongbox": "h-d58UCSuHN8EZKbLjT5R", "coffer": "THo7rfzP-S82_43aN8fs3", "inro": "ixEKlJ0MmDrX7JoMNJVhi"}
+# RUL-2026-10-31-077 item 2a: the live crew records become the endgame Wreck version (push/361), so the hunts fight
+# their own Veteran copies (push/344). The go-live re-send (push/339, skyglass_update.gen.py --golive --copies <344
+# bundle>) installs a push/skyglass_aikeys.py Resolver with use_copies(); the hunts' non-crew records stay live.
+# Without a resolver (the spent 265-270 regenerations) the live ids above are used.
+HUNT_KEY = {"Deck Warden": "veteran:deck-warden", "Seal Charge": "veteran:seal-charge",
+            "Core Horror": "veteran:core-horror", "Skyglass Sentinel": "veteran:skyglass-sentinel",
+            "Sealwright": "veteran:sealwright", "Wayfinder": "veteran:wayfinder", "First Blade": "veteran:first-blade",
+            "The Captain": "veteran:the-captain", "Core Canister": "live:core-canister",
+            "Arsenal Keeper": "live:arsenal-keeper", "Foundry Warden": "live:foundry-warden",
+            "Crown Archivist": "live:crown-archivist"}
+_RESOLVER = None
+
+
+def use_copies(resolver):
+    """Install the AI-key resolver: every hunt fight then names its RUL-077 record (Veteran copy or live record)."""
+    global _RESOLVER
+    _RESOLVER = resolver
+    for name, key in HUNT_KEY.items():
+        if key.startswith("live:"):
+            assert resolver(key) == AI[name], (name, key)
+
+
+def foe_id(name):
+    return _RESOLVER(HUNT_KEY[name]) if _RESOLVER else AI[name]
+
+
 PORTRAIT = {"Sealwright": "b_K8qdNI651fTsRn9tfkk", "Oathkeeper": "6iwMYC8WTCGJTf2QIYfBz", "The Captain": "xm3F2YXkNPeLWHRAUnbmF"}
 SCENE = {
     "exterior_keel_walk": "@img:scene_bg_ghost_ship_exterior_keel_walk.webp",
@@ -69,7 +95,7 @@ def battle(i, scene, text, foes, nxt, retry=None, debuffs=None):
     counts = {}
     for f in foes: counts[f] = counts.get(f, 0) + 1
     o = {"id": i, "task": "start_battle", "description": text, "sceneBackground": SCENE[scene], "sceneCharacters": [],
-         "opponentAIs": [{"ids": [AI[f]], "number": n, "quantity": 1} for f, n in counts.items()],
+         "opponentAIs": [{"ids": [foe_id(f)], "number": n, "quantity": 1} for f, n in counts.items()],
          "completionOutcome": "Win", "scaleGains": 1, "keepOriginalPools": False, "opponent_scaled_to_user": False,
          "nextObjectiveId": nxt, "failObjectiveId": FAIL_ID,
          "failDescription": "You are defeated.", "drawDescription": "The fight stalls and the moment is lost.",

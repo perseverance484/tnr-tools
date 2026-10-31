@@ -16,12 +16,12 @@ SKYGLASS_TEXT.md section 3 (read verbatim; step lines, tags, alertness and pendi
 hazard lines 3.8).
 
 Rulings applied over the spec:
-  * RUL-2026-10-31-073: the guards are NOT scaled (`opponent_scaled_to_user: false`; the spec says true). The Veteran
+  * RUL-2026-10-31-073: the guards are NOT scaled (`opponent_scaled_to_user: false`; the spec says true). The Haul
     tier is a fixed level-100 record.
   * RUL-2026-10-29-052 / RUL-2026-10-31-072 F11: the spec's `gate` (huntingRank / gatheringRank S RANK) is dropped;
     the generator refuses to emit any profession-rank field.
-  * RUL-2026-10-31-067: guards resolve by AI key (push/skyglass_aikeys.py): one Veteran record per crew member; the
-    spec's separate steps 4-5 and lookout copies map onto that crew member's Veteran (see HAUL_KEYS).
+  * RUL-2026-10-31-077 item 2c: guards resolve by AI key (push/skyglass_aikeys.py) to the Haul tier, one record per
+    measured tuning (HAUL_KEYS; identical guards share one record).
   * Chart-run shape (loot tables 5): isolated Battle Pyramid, the page is the entry item (spent at start), health and
     chakra carry, a lost/drawn/fled fight fails the run.
 Reversible placeholders (not ruled; reported): questRank A (the Rare chart runs' rank; no rank gate is ruled for the
@@ -54,24 +54,27 @@ EXP = "art/skyglass_event_icons/exports/"
 SCENE = {"hunter": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",  # hold
          "gatherer": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi"}  # lower_hull
 
-# haul_spec record -> AI key (RUL-2026-10-31-067: one Veteran per crew member serves the Haul)
+# haul_spec record -> AI key (RUL-2026-10-31-077 item 2c: the Haul tier, one record per measured tuning; identical
+# guards share one: h-warden / g-warden, h-lookout / g-lookout). Checked against state/skyglass_build/records_spec.json.
 HAUL_KEYS = {
-    "haul-h-wayfinder": "veteran:wayfinder",
-    "haul-h-blade": "veteran:first-blade",
-    "haul-h-veteran": "veteran:first-blade",
-    "haul-h-warden": "veteran:deck-warden",
-    "haul-h-lookout": "veteran:deck-warden",
-    "haul-g-warden": "veteran:deck-warden",
-    "haul-g-lookout": "veteran:deck-warden",
-    "haul-g-sentinel": "veteran:skyglass-sentinel",
-    "haul-g-veteran": "veteran:skyglass-sentinel",
-    "haul-h-keeper": "veteran:arsenal-keeper",
-    "haul-g-sealwright": "veteran:sealwright",
+    "haul-h-wayfinder": "haul:wayfinder",
+    "haul-h-blade": "haul:first-blade",
+    "haul-h-veteran": "haul:first-blade-steps",
+    "haul-h-warden": "haul:deck-warden",
+    "haul-h-lookout": "haul:deck-warden-lookout",
+    "haul-g-warden": "haul:deck-warden",
+    "haul-g-lookout": "haul:deck-warden-lookout",
+    "haul-g-sentinel": "haul:skyglass-sentinel",
+    "haul-g-veteran": "haul:skyglass-sentinel-steps",
+    "haul-h-keeper": "haul:arsenal-keeper",
+    "haul-g-sealwright": "haul:sealwright",
     "haul-trophy-warden": "oneoff:trophy-warden",
     "haul-stores-ward": "oneoff:stores-ward",
     "haul-g-charge": "copy:seal-charge-haul",
     "haul-g-canister": "copy:core-canister-haul",
 }
+for _rk, _k in HAUL_KEYS.items():
+    assert K.key_of_source("haul_spec.json", "records", _rk) == _k, (_rk, _k)
 
 # spec variant -> (329 srcId of the page, icon export (push/352), text: (table heading, after), (bullets from, to))
 PAGES = {
