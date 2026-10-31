@@ -1,0 +1,11 @@
+{
+ "manifest": "push/333_zombie_outbreak_build.json",
+ "ruling": null,
+ "reason": "validate.py law 17 predates Forge's in-job ref resolution. The three @jutsu refs in Patient Zero's equip array point at phase-1 creates in this same manifest (pz_bite, pz_claws, pz_bile); Forge resolves them from the job idmap before send and hard-fails the entry if any is unresolved (forge/src/runner/refs.mjs resolveRefs: 'an unresolved ref at send time is a hard failure, never a payload'), so nothing can be stripped server-side. Same pattern as push/279.",
+ "sha256": "195a85bf468bae07873446515f5385a089fea988d1cdff4e1705df173a8a9e6a",
+ "accepted": [
+  "ERROR  [ai:Patient Zero]: unresolved ref @jutsu:pz_bite in AI jutsus array: refs are silently STRIPPED server-side and the AI stands naked (law 17). Substitute literal ids",
+  "ERROR  [ai:Patient Zero]: unresolved ref @jutsu:pz_claws in AI jutsus array: refs are silently STRIPPED server-side and the AI stands naked (law 17). Substitute literal ids",
+  "ERROR  [ai:Patient Zero]: unresolved ref @jutsu:pz_bile in AI jutsus array: refs are silently STRIPPED server-side and the AI stands naked (law 17). Substitute literal ids"
+ ]
+}
