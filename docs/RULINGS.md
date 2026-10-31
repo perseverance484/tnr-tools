@@ -5046,7 +5046,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 3. **The easy Wreck** is the "Faded Skyglass Wreck", entrance one tile east of the endgame Wreck (sector 210, 16/6). Its clear currency is **half the endgame Wreck's** money and experience.
 4. **Break the seal (the Archive):** the echo is the **Veteran Core Horror**.
 5. **Break-the-seal text** is drafted by Claude (none exists yet); 339 does not go live with text gaps.
-6. **The endgame Wreck's clear currency** must be restated when its rewards are edited (the edit replaces the whole block): push/362 takes the live values, which the director supplies.
+6. **Clear currency is not in the design docs** (the only figures, 15,000 exp / 1,000 tokens / 1,000 prestige in `SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md`, belong to the superseded dungeon plan). push/362 and push/366 are built with currency 0 (`--currency 0,0,0,0`), and the director sets the endgame Wreck's values in game afterwards and the easy Wreck's at half of them (director 2026-10-31: "I'll set it later").
 
 **Evidence:** Director, 2026-10-31: "3. Half the currency and ryo reward of the endgame wreck. Rest is approved".
 
