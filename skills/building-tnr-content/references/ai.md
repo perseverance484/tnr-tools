@@ -737,6 +737,8 @@ Rules ride on the AI entry itself; the builder toggles the profile and pushes th
  "priority": 3}
 ```
 
+**The engine's basic attack is a `use_specific_jutsu` target without being equipped.** Write `"jutsuId": "basicAttack"`: the engine resolves the id against the AI's available actions, which always include the basic attack (range 1) unless the AI is stealthed (source-verified at theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~494, `libs/combat/actions.ts` ~513, ~146). `validate.py` and Forge 0.12.3+ accept it (director exception 2026-10-31, basic attack only). Every other `jutsuId` must be in the AI's `jutsus` array (law 18).
+
 **Gate equals range + 1, and only for SINGLE** (law 40, amended 2026-08-01 per source R49: distance = A* path length, adjacent = 2; range+1 is exact and can never fire out of range since hex distance <= path length - 1). Derive the value as registry range + 1 from the table in `32_REGISTRY_shared_ai_pool.md`. A gate above range + 1 can fire out of range and leave a human stuck in combat; a gate at or below range never misfires but wastes reach. ALL-method and SELF-target actions carry no distance condition at all.
 
 **This project runs `includeDefaultRules: false`**, so every rule set ends with an unconditional `move_towards_opponent` (law 41). Anything below that line is dead and should be deleted rather than left as documentation.
