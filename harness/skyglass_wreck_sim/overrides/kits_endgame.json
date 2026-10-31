@@ -9646,10 +9646,10 @@
     "lib-blast-scatter-b",
     "lib-blast-ring",
     "nOYLPmN3TXj6wEe_oE6HQ",
+    "lib-omen-scatter-a",
     "pUrUJX8Jml7fUIBXKsPwv",
     "LiVOnYq6qHzjB0XkIIA2e",
     "3v9c1SHlD2GLPF2HW1_Sc",
-    "lib-omen-scatter-a",
     "lib-omen-last-light",
     "lib-omen-scatter-b",
     "lib-omen-ring"
@@ -9759,6 +9759,21 @@
     {
      "conditions": [
       {
+       "type": "health_below",
+       "description": "",
+       "value": 70
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "Omen: Scatter A (phase 2)",
+      "jutsuId": "lib-omen-scatter-a",
+      "target": "SELF"
+     }
+    },
+    {
+     "conditions": [
+      {
        "type": "distance_lower_than",
        "description": "",
        "value": 4,
@@ -9858,21 +9873,6 @@
      "action": {
       "type": "end_turn",
       "description": "after lib-omen-last-light: end turn"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "health_below",
-       "description": "",
-       "value": 70
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Omen: Scatter A (phase 2)",
-      "jutsuId": "lib-omen-scatter-a",
-      "target": "SELF"
      }
     },
     {

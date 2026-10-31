@@ -95,6 +95,17 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     ["Bilge Spit (live Venom Strike)", LIVE.venomStrike, "CLOSEST_OPPONENT", [cond.near(5)]],
     ["Twin Kunai", LIVE.twinKunai, "CLOSEST_OPPONENT", [cond.near(5)]],
   ];
+  // Phase 2 (director: earlier, so Rupture Field and its pools appear): Rupture Field A, then the Maw (from round 4;
+  // its 6-round cooldown keeps it to about once a phase), then Rupture Field B.
+  const horrorMarks = [
+    ...(P.horrorMawFirst ? [mark("Omen: Last Light (Maw of the Deep, level-50 order: first)", "lastLight")] : []),
+    mark("Omen: Scatter A (phase 2)", "scatterA", [cond.hp(PH2)]),
+    ...(P.horrorMawFirst ? [] : [mark("Omen: Last Light (Maw of the Deep, from round 4)", "lastLight", [cond.roundGt(3)])]),
+    mark("Omen: Scatter B (phase 2)", "scatterB", [cond.hp(PH2)]),
+    mark("Omen: Ring (Collapse, a player within 2)", "ring", [cond.within(0, 2)]),
+    mark("Omen: Scatter A", "scatterA"),
+    mark("Omen: Scatter B", "scatterB"),
+  ];
   const horror = [
     cast(`The Core Rebuilds (live Second Wind, under ${PH2}%)`, LIVE.secondWind, "SELF", [cond.hp(PH2)]),
     blast("Maw of the Deep (signature, Exposed Seam)", "lastLight", LIB.sig.maw),
@@ -106,20 +117,16 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     // Rule cap (RUL-2026-10-31-066: the server takes at most 20 rules). The plain attacks are hoisted above the
     // after-mark end turns instead of repeated once per marker (4 x 3 rules). Every plain attack is 60 AP and every
     // mark 40 AP, so a turn still holds at most one plain attack and one mark: after a mark (60 AP left) the plain
-    // attack fires as before, else the marker's end turn closes the turn (never two marks); in a turn with no
-    // marker the plain attack now comes first and the mark follows in the 40 AP left (same pair, swapped order). Only
-    // a Second Wind turn differs: Second Wind (40) + plain attack (60) where it was Second Wind + mark.
+    // attack fires as before, else the marker's end turn closes the turn (never two marks). The first mark in his
+    // order (phase 2's Rupture Field A; level 50: Omen: Last Light) stays above the plain attacks, so a Second Wind
+    // turn is still Second Wind + that mark (a first cut that hoisted every mark below the attacks turned it into
+    // Second Wind + a plain attack and cost the short fight its Maw: signature 92% -> 28% of appearances). For the
+    // other marks a turn with no marker now opens with the plain attack and lays the mark in the 40 AP left (same
+    // pair, swapped order).
+    horrorMarks[0]!,
     ...horrorPlain.map(([n, id, t, c]) => cast(n, id, t, c)),
     ...(["ring", "scatterA", "scatterB", "lastLight"] as const).map((k) => endTurn(`after ${LIB.mark[k]}: end turn`, [cond.marker(1, mk(k))])),
-    // Phase 2 (director: earlier, so Rupture Field and its pools appear): Rupture Field A, then the Maw (from round 4;
-    // its 6-round cooldown keeps it to about once a phase), then Rupture Field B.
-    ...(P.horrorMawFirst ? [mark("Omen: Last Light (Maw of the Deep, level-50 order: first)", "lastLight")] : []),
-    mark("Omen: Scatter A (phase 2)", "scatterA", [cond.hp(PH2)]),
-    ...(P.horrorMawFirst ? [] : [mark("Omen: Last Light (Maw of the Deep, from round 4)", "lastLight", [cond.roundGt(3)])]),
-    mark("Omen: Scatter B (phase 2)", "scatterB", [cond.hp(PH2)]),
-    mark("Omen: Ring (Collapse, a player within 2)", "ring", [cond.within(0, 2)]),
-    mark("Omen: Scatter A", "scatterA"),
-    mark("Omen: Scatter B", "scatterB"),
+    ...horrorMarks.slice(1),
     endTurn("stationary: hold"),
   ];
 
