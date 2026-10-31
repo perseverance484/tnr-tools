@@ -4821,3 +4821,23 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31, relayed for this session (items 1-3 first; the badge description and items 4-6 in a follow-up the same day).
 
 **Canonical destination:** `push/skyglass_items.gen.py` and `docs/design/SKYGLASS_LOOT_TABLES.md` §5 (item 1); `push/skyglass_update.gen.py` `watch` and `SKYGLASS_LOOT_TABLES.md` §4a (item 2); `push/skyglass_update.gen.py` `badge`, `push/README.md` (340 run order, preconditions, post-run steps) and `SKYGLASS_TEXT.md` text-limits table (item 3); `SKYGLASS_TEXT.md` §6.4 (item 4); `SKYGLASS_LOOT_TABLES.md` §4a and `push/skyglass_update.gen.py` `crownhold` (item 5); `docs/design/SKYGLASS_PETS.md` Little Horror kit `rankConcepts` (item 6).
+
+## RUL-2026-10-31-065 — push/342 set-piece library: exception ledger accepted
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / build
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **The 63 strict-validation diagnostics on `push/342_skyglass_library.json` are accepted** (`state/validate_exceptions/342_skyglass_library.json`):
+   - law 6: set-piece damage power 140-220 (DamageTag power has no maximum; as RUL-2026-10-28-002);
+   - law 4 / L06: no `generalTypes` on the library damage. Verified at theninjarpg@3314d122 `libs/combat/tags.ts` `damageCalc` (~1448-1481): an absent list adds no generals term (`getLowerGenerals` returns `[]`) and the `statTypes` term still applies, so damage is not zeroed. The harness tuned without it; adding `Highest` would raise every blast. Law 4's wording is a law-reconciliation item, not changed here;
+   - L10: 100 AP set pieces, per the library recipe (Boss Fights §5a).
+   Changing any of them would change the tuned damage.
+2. **Raise the Gunwale and Called to the Archive** need description and battle text before 342 runs (both were created with empty text). Claude drafts; pending director approval.
+
+**Evidence:** Director, 2026-10-31: "1. Approved. 2. Draft them".
+
+**Canonical destination:** `state/validate_exceptions/342_skyglass_library.json` (item 1); `docs/design/SKYGLASS_TEXT.md` §6 once approved (item 2).
