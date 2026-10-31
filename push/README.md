@@ -1506,6 +1506,20 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 339 Skyglass GO-LIVE (13 entries): BUILT 2026-10-31, READY TO RUN (last)
+
+`339_skyglass_go_live.json` (`python3 push/skyglass_update.gen.py --golive harvests/inbox/tnr_results_1793424666625.json
+--copies harvests/inbox/tnr_results_1793484364363.json --copies harvests/inbox/tnr_results_1793484748665.json`).
+Phase 1: four new hidden SCENE_BACKGROUND assets (Keel Walk, Reconstruction Chamber, Quarantined Archive, Observation
+Gallery: the Ghost Ship scenes that had no asset) and the Coffer contents' five item edits (tiers and text). Phase 2: the
+Buried Cache, Drowned Foundry, Quarantined Archive and Captain's Watch re-sent whole: Veteran copies as enemies
+(RUL-077), every sceneBackground now a scene asset id (existing Ghost Ship assets or the four new ones; quest scenes
+render only as asset ids), the Archive's break-the-seal branch on both routes (echo = Veteran Core Horror, Core Rot x2,
+"Leave it sealed"), no `hidden` sent (each run keeps its visibility). Ledger `state/validate_exceptions/339_skyglass_go_live.json`
+(build-order false positives, accepted class); check_manifest 0; skyglass_check 0/0.
+**Follow-up (not in 339):** the chart runs (354, 355), Steeping (356) and the Haul (358) still carry URL scene
+backgrounds (default background shown); a re-send with the asset ids is the next build.
+
 ## 381 Little Horror text, third pass (1 petSpecies edit): READY TO RUN
 
 `381_skyglass_little_horror_text.json` (`python3 push/skyglass_little_horror_art.gen.py --species`): after the second
