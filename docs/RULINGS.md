@@ -5031,3 +5031,23 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "1. Remove the bonus room and any mention of it. 2. Approved. 3. Keep."
 
 **Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §2.5; `push/skyglass_charts.gen.py`; `docs/design/SKYGLASS_LOOT_TABLES.md` §5 (the room's "optional and paid extra" line).
+
+## RUL-2026-10-31-076 — Wave-2 build decisions (Wreck, Crownhold, break the seal)
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / build
+
+**Status:** ACTIVE. Source: the wave-2 generators (`0c3d39d1`).
+
+**Ruling:**
+1. **War-route heal top-up** (+20%, RUL-2026-10-30-060 item 3) sits on the deck 4 and deck 5 fourth-regular fights (`b4.n.f4`, `b5.n.f4`), because the War route only splits off after the terminal puzzle.
+2. **Crownhold's route heals before the Crowned Captain** (clean +35%, alarm +15%, War +20% with its buff for the whole fight; RUL-2026-10-28-026) are built by push/365.
+3. **The easy Wreck** is the "Faded Skyglass Wreck", entrance one tile east of the endgame Wreck (sector 210, 16/6). Its clear currency is **half the endgame Wreck's** money and experience.
+4. **Break the seal (the Archive):** the echo is the **Veteran Core Horror**.
+5. **Break-the-seal text** is drafted by Claude (none exists yet); 339 does not go live with text gaps.
+6. **The endgame Wreck's clear currency** must be restated when its rewards are edited (the edit replaces the whole block): push/362 takes the live values, which the director supplies.
+
+**Evidence:** Director, 2026-10-31: "3. Half the currency and ryo reward of the endgame wreck. Rest is approved".
+
+**Canonical destination:** `push/skyglass_wreck.gen.py`, `push/skyglass_crownhold_rework.gen.py`, `push/skyglass_archive_seal.py`.
