@@ -32,9 +32,9 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | IC10 | Galley Stores | ICON | `04_reward_icons` | `D-QTnbjgTyIVc593zzdSB` | TO GENERATE |
 | IC11 | Crown's Hoard | ICON | `04_reward_icons` | - | TO GENERATE |
 | IC12 | Countermand | ICON | `02_seal_icons` | `W3lOjQhhIPUYPkIZmiNum` | TO GENERATE |
-| VS01 | Gale-Watch Aetherion (variant of Aetherion) | ICON (variant) | `10_variant_aetherion` | `MXAAH-1fwPfyDJg2FnE8t` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-gale-watch-aetherion.webp`) |
-| VS02 | Tidewater Thornsilver (variant of Thornsilver) | ICON (variant) | `11_variant_thornsilver` | `YNhKQmKUjfVIPQkGlNO41` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-tidewater-thornsilver.webp`) |
-| VS03 | Night Watch Testament (variant of Night's Testament) | ICON (variant) | `12_variant_nights_testament` | `mtx4YmUu-wkKGwnOPVbYS` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-night-watch-testament.webp`) |
+| VS01 | Windward (variant of Aetherion) | ICON (variant) | `10_variant_aetherion` | `MXAAH-1fwPfyDJg2FnE8t` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-windward.webp`) |
+| VS02 | Riptide (variant of Thornsilver) | ICON (variant) | `11_variant_thornsilver` | `YNhKQmKUjfVIPQkGlNO41` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-riptide.webp`) |
+| VS03 | Nightreaver (variant of Night's Testament) | ICON (variant) | `12_variant_nights_testament` | `mtx4YmUu-wkKGwnOPVbYS` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-nightreaver.webp`) |
 | VS04 | Thunderwake (variant of Stormrender; was Thunderwake) | ICON (variant) | `13_variant_stormrender` | `_49jp25nHiH-v8ywlRdKH` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-thunderwake.webp`) |
 | VS05 | Anchorline (variant of Oathbinder) | ICON (variant) | `14_variant_oathbinder` | `umsYP0jL3emdVFDdU6Fcd` | TO GENERATE |
 | VS06 | Starchart (variant of Ink of the Void) | ICON (variant) | `15_variant_ink_of_the_void` | `1yWEP0r3elIzyScORfot4` | TO GENERATE |

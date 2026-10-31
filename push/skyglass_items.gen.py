@@ -429,6 +429,7 @@ def pet_and_rot():
 # Variant renames (RUL-2026-10-31-082): the text doc carries the CURRENT names; every generator keeps keying records
 # by the name push/329 created them with (bundles, srcIds, drops), and push/371 renames the live records.
 VARIANT_RENAMES = {  # name created by 329/341 -> current name
+    "Gale-Watch Aetherion": "Windward", "Tidewater Thornsilver": "Riptide", "Night Watch Testament": "Nightreaver",
     "Mast-Lightning Stormrender": "Thunderwake", "Roll-Call Oathbinder": "Anchorline",
     "Chartline Ink of the Void": "Starchart", "Keelstone Embrace": "Keelstone", "Drill-Count Bracers": "Skyglass Kote",
     "Lastlight Dawnblade": "Lastlight Duskblade", "Skysail Whisper": "Skysail", "Hullbreaker Frostbite": "Hullbreaker",
