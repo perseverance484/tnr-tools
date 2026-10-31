@@ -5,10 +5,12 @@
   "icon-variant-windward.webp": 22998,
   "icon-variant-riptide.webp": 20048,
   "icon-variant-nightreaver.webp": 10104,
-  "icon-variant-thunderwake.webp": 18308
+  "icon-variant-thunderwake.webp": 18308,
+  "icon-variant-anchorline.webp": 34598,
+  "icon-variant-starfall.webp": 26018
  },
  "imagePack": {
-  "ref": "9c8bef726cab27e7626013aad75b0804d7a9056f",
+  "ref": "7736de14b2597ae0085ff9dcfc8a2fd2e23cc0bb",
   "files": {
    "icon-variant-windward.webp": {
     "path": "art/skyglass_variant_skins/exports/icon-variant-windward.webp",
@@ -29,6 +31,16 @@
     "path": "art/skyglass_variant_skins/exports/icon-variant-thunderwake.webp",
     "sha256": "5c2add088f9db0efeae24938cfe4b6b5e3cc64199e00033cd977a610964d5a37",
     "bytes": 18308
+   },
+   "icon-variant-anchorline.webp": {
+    "path": "art/skyglass_variant_skins/exports/icon-variant-anchorline.webp",
+    "sha256": "45716305056ee0fbe0a411292f25e2d13fd0ac7ca2734d95dc9f6ba183ab38e6",
+    "bytes": 34598
+   },
+   "icon-variant-starfall.webp": {
+    "path": "art/skyglass_variant_skins/exports/icon-variant-starfall.webp",
+    "sha256": "09451e7b759ab33354f841b1f4a7a8ad1f6ed5645e0f6a52ebbcaa0f589090c0",
+    "bytes": 26018
    }
   }
  },
@@ -90,11 +102,12 @@
    "slot": "edit",
    "phase": 1,
    "targetId": "umsYP0jL3emdVFDdU6Fcd",
-   "name": "Anchorline (variant): name, description",
+   "name": "Anchorline (variant): name, description, image",
    "data": {
     "itemId": "ttwbJ6ZA5Id-OuBludM27",
     "name": "Anchorline",
-    "description": "Every white prayer knot on the chain is a skyglass bead now: one for each name on the duty roster."
+    "description": "Every white prayer knot on the chain is a skyglass bead now: one for each name on the duty roster.",
+    "image": "@img:icon-variant-anchorline.webp"
    }
   },
   {
@@ -102,11 +115,12 @@
    "slot": "edit",
    "phase": 1,
    "targetId": "1yWEP0r3elIzyScORfot4",
-   "name": "Starchart (variant): name, description",
+   "name": "Starfall (variant): name, description, image",
    "data": {
     "itemId": "wE1QeldWTjls2Cf43cFjf",
-    "name": "Starchart",
-    "description": "The bow's vow script is overwritten with the Wayfinder's chart lines in skyglass, corrected and corrected again."
+    "name": "Starfall",
+    "description": "The bow's vow script is overwritten with the Wayfinder's chart lines in skyglass, corrected and corrected again.",
+    "image": "@img:icon-variant-starfall.webp"
    }
   },
   {
