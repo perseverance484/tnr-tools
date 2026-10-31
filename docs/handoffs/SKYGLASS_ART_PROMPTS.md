@@ -34,6 +34,7 @@ intro quest needs a scene character). Everything else has a working placeholder 
 | 6. Salvager portrait | PT01 | 1 | `25_salvager_portrait` |
 | 7. Crownhold avatars | AV01-AV08 | 8 | `40_crew_avatars` |
 | 8. Crownhold release scenes | SC01-SC06 | 6 | `50_ship_scenes` |
+| 9. Profession chests, Legendary | PC07-PC08 | 2 | attach your Epic chest image |
 | **Total** | | **67** | |
 
 Not prompted here: the 6 recolours Claude derives by script and the 32 finished files that only need uploading (both
@@ -1347,6 +1348,46 @@ Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
 ---
+
+## 9. Profession chests, Legendary (2)
+
+The Common, Rare and Epic chests (PC01-PC06) are done (art register). Generate these two from the approved Epic chests.
+
+### PC07 · Legendary Hunter's Chest
+
+- **Target:** Legendary Hunter's Chest (Legendary profession chest, live id in `design_data.json`) · ICON (`item.image`) · Legendary; no tier seal · magenta key · priority: **go-live 339**
+- **Attach folder:** none in the zip; attach your approved Epic Hunter chest image (the silver one with the glowing seams; saved in the repo as `art/skyglass_event_icons/raw/PC05_raw_icon-epic-hunters-chest.png`) as SUBJECT: keep its chest shape, angle, proportions and hunter motif
+- **Return as:** `PC07_raw_icon-legendary-hunters-chest.png`
+- **Note:** The top of the tier ladder (iron → bronze → silver → this). It must read as the richest of the four at 125 px without any gold.
+
+```text
+Target: Legendary Hunter's Chest, one square game item icon for The Ninja RPG, the Legendary tier of a four-tier chest set.
+References attached: 1. the Epic Hunter's Chest: SUBJECT: keep its exact chest shape, angle, proportions, plank layout and hunter motif; only the materials step up. Follow the reference only for that role.
+Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
+Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
+Subject: Legendary Hunter's Chest. The same chest as the attached Epic chest, raised one tier: the iron bands and corner plates become dark blackened steel edged with thin bright skyglass crystal inlay along every band; a cluster of three faceted pale-cyan skyglass crystals grows up through the lid beside the strap, breaking the chest's outline; the cyan light seams between the planks are brighter and run around all sides; the skyglass emblem clasp is larger, set in a crystal mount. Keep the hunter's motif: the dark stitched leather strap, the big curved horn hanging from the clasp (now tipped with a skyglass point) and the three claw marks on the front, glowing cyan. No gold or yellow metal anywhere: the tier reads by crystal and light, not by gold.
+Background: transparent. If transparency is not available, a true solid flat magenta chroma key (#FF00FF) covering the whole canvas and every enclosed gap; not a checkerboard, not black, no gradient, no shadow on the key, no magenta spill on the object. (Magenta, not lime: the gatherer chest carries green leaves.)
+Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed is the Skyglass emblem, a four-point star in a diamond, as on the attached chest's clasp); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is thin seams of cyan light only); no gold, no yellow metal, no filigree, no jewels other than skyglass; no second object; no hands or people; no photorealism, no blur.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
+
+### PC08 · Legendary Gatherer's Chest
+
+- **Target:** Legendary Gatherer's Chest (Legendary profession chest, live id in `design_data.json`) · ICON (`item.image`) · Legendary; no tier seal · magenta key · priority: **go-live 339**
+- **Attach folder:** none in the zip; attach your approved Epic Gatherer chest image (the silver one with the glowing seams; saved in the repo as `art/skyglass_event_icons/raw/PC06_raw_icon-epic-gatherers-chest.png`) as SUBJECT: keep its chest shape, angle, proportions and gatherer motif
+- **Return as:** `PC08_raw_icon-legendary-gatherers-chest.png`
+- **Note:** The top of the tier ladder (iron → bronze → silver → this). It must read as the richest of the four at 125 px without any gold.
+
+```text
+Target: Legendary Gatherer's Chest, one square game item icon for The Ninja RPG, the Legendary tier of a four-tier chest set.
+References attached: 1. the Epic Gatherer's Chest: SUBJECT: keep its exact chest shape, angle, proportions, plank layout and gatherer motif; only the materials step up. Follow the reference only for that role.
+Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
+Framing: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
+Subject: Legendary Gatherer's Chest. The same chest as the attached Epic chest, raised one tier: the iron bands and corner plates become dark blackened steel edged with thin bright skyglass crystal inlay along every band; a cluster of three faceted pale-cyan skyglass crystals grows up through the lid beside the strap, breaking the chest's outline; the cyan light seams between the planks are brighter and run around all sides; the skyglass emblem clasp is larger, set in a crystal mount. Keep the gatherer's motif: the pale grey rope with its cyan thread, the sprig of green leaves and white berries at the clasp (now fuller, with a small skyglass bud among the leaves) and the leaf carved on the front, glowing cyan. No gold or yellow metal anywhere: the tier reads by crystal and light, not by gold.
+Background: transparent. If transparency is not available, a true solid flat magenta chroma key (#FF00FF) covering the whole canvas and every enclosed gap; not a checkerboard, not black, no gradient, no shadow on the key, no magenta spill on the object. (Magenta, not lime: the gatherer chest carries green leaves.)
+Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed is the Skyglass emblem, a four-point star in a diamond, as on the attached chest's clasp); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is thin seams of cyan light only); no gold, no yellow metal, no filigree, no jewels other than skyglass; no second object; no hands or people; no photorealism, no blur.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
 
 ## Claude derives these by script (no prompt)
 
