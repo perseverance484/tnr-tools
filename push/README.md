@@ -1408,10 +1408,10 @@ the 20-rule cap; and a false "dead rules" error on the Crowned Captain's uncondi
 through once he stands on the post: theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~482-492). Both need a
 `state/validate_exceptions/` ledger with director acceptance when the manifests are built from the final specs.
 
-## 371 Skyglass variant naming pass + VS01-VS06 skins (16 itemVariant edits, 11 item edits; records stay HIDDEN): READY TO RUN
+## 371 Skyglass variant naming pass + VS01-VS06 + VS08 skins (16 itemVariant edits, 11 item edits; records stay HIDDEN): READY TO RUN
 
 `371_skyglass_variant_names.json` (`python3 push/skyglass_variant_names.gen.py`; RUL-2026-10-31-082, -079): the 16
-renamed variants (name + description), the approved skins VS01-VS06 (Windward, Riptide, Nightreaver, Thunderwake, Anchorline, Starfall; `art/skyglass_variant_skins/exports`), the five renamed boss tokens (Captain's Gunbai,
+renamed variants (name + description), the approved skins VS01-VS06 + VS08 (Windward, Riptide, Nightreaver, Thunderwake, Anchorline, Starfall, Keelstone; `art/skyglass_variant_skins/exports`), the five renamed boss tokens (Captain's Gunbai,
 Rotbloom, Forgefists, Wayfinder, Sealscript: name + text) and the six hidden chart cards whose text lists those
 variants. Later skins: re-run the generator after each batch's intake for a new manifest number (it adds every skin
 export that exists). Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems;
