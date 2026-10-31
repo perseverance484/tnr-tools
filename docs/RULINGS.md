@@ -4836,7 +4836,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
    - law 4 / L06: no `generalTypes` on the library damage. Verified at theninjarpg@3314d122 `libs/combat/tags.ts` `damageCalc` (~1448-1481): an absent list adds no generals term (`getLowerGenerals` returns `[]`) and the `statTypes` term still applies, so damage is not zeroed. The harness tuned without it; adding `Highest` would raise every blast. Law 4's wording is a law-reconciliation item, not changed here;
    - L10: 100 AP set pieces, per the library recipe (Boss Fights §5a).
    Changing any of them would change the tuned damage.
-2. **Raise the Gunwale and Called to the Archive** need description and battle text before 342 runs (both were created with empty text). Claude drafts; pending director approval.
+2. **Text for the two moves 342 created empty** (342 ran before it landed; push/343 edits it in): **Raise the Gunwale** keeps its ship text, since the Captain fights only on the ship. The Sealwright's summon is renamed **Stonebound Summons** (was Called to the Archive) with location-free text, because the Sealwright fights outside the Archive (director 2026-10-31: "Relying on terrain for a jutsu means its out of place everywhere but that one quest"). Text: `SKYGLASS_TEXT.md` §6.3a.
 
 **Evidence:** Director, 2026-10-31: "1. Approved. 2. Draft them".
 

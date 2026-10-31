@@ -1276,12 +1276,22 @@ Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.j
 Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
 and jar.
 
-## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); Raise the Gunwale / Called to the Archive text still to add by edit; 343 (AI copies) not built yet
+## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 (text for Raise the Gunwale and Stonebound Summons) READY TO RUN; the AI copies become 344+
 
 Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Generators: `push/skyglass_library.gen.py`
 (342). Run order and dependencies are listed per manifest; a manifest that needs ids from an earlier unrun one is built
 by a generator mode reading that run's results bundle (the `--binds` / `--golive` / `--retry` pattern, L01), never
 committed before that run.
+
+### 343 Skyglass library text (2 jutsu edits, stay HIDDEN): READY TO RUN
+
+`python3 push/skyglass_library.gen.py --text-edit <342 bundle>` (built from `tnr_results_1793426982231.json`). 342 ran with
+empty text on two moves; this sets it (RUL-2026-10-31-065 item 2; `SKYGLASS_TEXT.md` 6.3a): **Raise the Gunwale**
+(`Iyb21Vh0j7g2eD1I-YAQw`) description and battle text, and the Sealwright's summon (`bcbOllIWqHEopmQGHKDED`) renamed
+**Stonebound Summons** with location-free text. `injectableInBattle: false` sent explicitly (law 20). 342 itself is
+regenerated with the same text (ledger rewritten, still 63 accepted diagnostics) so a rebuild matches live.
+- Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems; `skyglass_check.py` 0 errors.
+- After it runs: read back both names and texts.
 
 ### 342 Skyglass set-piece library (41 jutsu creates, HIDDEN): BUILT; exception ledger ACCEPTED (RUL-2026-10-31-065 item 1); DO NOT RUN until the Raise the Gunwale / Called to the Archive text lands and 342 is regenerated
 

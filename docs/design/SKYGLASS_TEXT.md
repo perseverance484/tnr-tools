@@ -1082,6 +1082,32 @@ The Captain falls back to his helm and takes command of the deck. He shakes off 
 %user falls back to the helm and sets both hands on the rail. "Steady. Steady."
 ```
 
+### 6.3a Raise the Gunwale and Stonebound Summons (RUL-2026-10-31-065 item 2)
+
+Raise the Gunwale is the Captain's alone (the Captain fights only on the ship), so its text may name the ship. The
+Sealwright fights in several places, so its summon is named and written without a location (renamed from "Called to the
+Archive", director 2026-10-31).
+
+**`jutsu:Raise the Gunwale.description`**
+```
+The Captain hauls up a wall of ship's timber bound in seal script. It blocks the way and has its own health: break it down or go around.
+```
+
+**`jutsu:Raise the Gunwale.battleDescription`**
+```
+%user stamps the deck, and a wall of timber and seal script rises along the gunwale.
+```
+
+**`jutsu:Stonebound Summons.description`**
+```
+Calls a Crown Stonebound to fight at the caster's side. Only one answers at a time.
+```
+
+**`jutsu:Stonebound Summons.battleDescription`**
+```
+%user breaks a seal in the air, and a Crown Stonebound steps out of the light.
+```
+
 ### 6.4 Library jutsu: themed names and action-first battle text (RUL-2026-10-28-028 item 5, -029 item 4; names RUL-2026-10-30-063 item 3)
 
 Shared marks and blasts are used by every boss, so their names stay neutral but in the story's voice. **Every library

@@ -2,7 +2,7 @@
  "manifest": "push/342_skyglass_library.json",
  "ruling": "RUL-2026-10-31-065 item 1 (director accepted the 63 diagnostics, 2026-10-31)",
  "reason": "The diagnostics are the library exactly as the final simulation pass tuned it (fable/skyglass-final-sim d5957e79, adopted by RUL-2026-10-30-060); changing any of them changes tuned damage. law 6 / damage power above 100: DamageTag uses PowerAttributes power z.coerce.number().min(0) with no maximum (theninjarpg@3314d122 validators/combat.ts ~147), as the pierce exception of RUL-2026-10-28-002. law 4 / L06 missing generalTypes: at 3314d122 an absent generalTypes adds no generals term to the formula (libs/combat/tags.ts ~1463 getLowerGenerals returns []; no detonation), and the harness damage rows were tuned without it; adding ['Highest'] would raise every blast's damage. L10 EP 100: every blast and signature is a 100 AP set piece by the library recipe (SKYGLASS_BOSS_FIGHTS.md 5a). Source evidence for law 4 is a law-reconciliation item (docs/ENGINE_LAWS.md law 4), not fixed here.",
- "sha256": "0aa124fdf4766f86b1c40791db612adf3c0fcec948d84f7b62fdb2b4b637faae",
+ "sha256": "c4bed47fa1d89cdd741b31fa9ec1c7dd0d2a69e94669aee5533f430611eba7c0",
  "accepted": [
   "ERROR  [jutsu:Binding: Seal Cross]: law 4: formula effect 'damage' requires BOTH statTypes AND generalTypes; an empty one silently zeroes the damage",
   "ERROR  [jutsu:Broadside]: law 4: formula effect 'damage' requires BOTH statTypes AND generalTypes; an empty one silently zeroes the damage",
