@@ -454,6 +454,9 @@ def check_quest(data, ctors, where, rep):
             rep.err(where, "public quest needs main sceneCharacters or sceneCharacters on every objective")
 
 
+ENGINE_BASIC_ATTACK_ID = "basicAttack"
+
+
 def check_pool_kit(data, where, rep):
     """Laws that only a machine should be trusted with: gate arithmetic, dead
     rules, and the AP economy."""
@@ -474,7 +477,12 @@ def check_pool_kit(data, where, rep):
         jid = a.get("jutsuId")
         if not jid:
             continue
-        if equipped and jid not in eq_set:
+        # The engine's own basic attack: use_specific_jutsu resolves jutsuId against the AI's
+        # available actions, which always include it (theninjarpg@3314d122 libs/combat/ai_v2.ts
+        # ~494; libs/combat/actions.ts ~513, ~146), so it is live without being equipped.
+        # Director exception 2026-10-31, basic attack only (forge pool.mjs kitProblems matches).
+        engine_basic = jid == ENGINE_BASIC_ATTACK_ID and a.get("type") == "use_specific_jutsu"
+        if equipped and jid not in eq_set and not engine_basic:
             nm = POOL_BY_ID.get(jid, {}).get("name", jid)
             rep.err(f"{where}.rules[{i}]", f"rule fires '{nm}' but that jutsu is NOT in the AI's "
                                            "jutsus array. The rule is inert and the log signature is "

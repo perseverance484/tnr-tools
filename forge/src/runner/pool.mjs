@@ -93,6 +93,16 @@ export function stuckPoolCodes(data) {
 }
 
 /**
+ * The engine's own basic attack. A `use_specific_jutsu` rule resolves its `jutsuId` against the
+ * AI's available actions, not its `jutsus` array (TheNinjaRPG@3314d122 libs/combat/ai_v2.ts ~494),
+ * and every combatant's available actions include the basic action with this id
+ * (libs/combat/actions.ts ~513 getDefaultBasicActions, added in availableUserActions ~146). So a
+ * rule firing it is live without being equipped. Director exception 2026-10-31, basic attack only:
+ * the other engine basic actions resolve the same way but are not exempted here.
+ */
+const ENGINE_BASIC_ATTACK_ID = "basicAttack";
+
+/**
  * Kit integrity for an AI entry, after resolution. Ported from validate.py check_pool_kit.
  * @returns {{errors: string[], warnings: string[]}}
  */
@@ -111,7 +121,8 @@ export function kitProblems(data) {
     if (!r || typeof r !== "object") return;
     const jid = r.action && r.action.jutsuId;
     if (!jid) return;
-    if (equipped.length && !eq.has(String(jid))) {
+    const engineBasic = jid === ENGINE_BASIC_ATTACK_ID && r.action.type === "use_specific_jutsu";
+    if (equipped.length && !eq.has(String(jid)) && !engineBasic) {
       const nm = POOL_BY_ID[jid]?.name ?? jid;
       errors.push(`rules[${i}]: fires "${nm}" but that jutsu is NOT in the AI's jutsus array. The rule is inert and the log signature is identical to a severed equip link (law 18)`);
     }

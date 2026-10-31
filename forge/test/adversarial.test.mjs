@@ -762,6 +762,34 @@ test("K3: a rule that fires a jutsu the AI does not carry is refused (law 18)", 
   } }] }), /is NOT in the AI's jutsus array/);
 });
 
+test("K3b: a rule firing the engine's basic attack is accepted unequipped; nothing else is", () => {
+  // TheNinjaRPG@3314d122 libs/combat/ai_v2.ts ~494: use_specific_jutsu resolves jutsuId against the
+  // available actions, which always carry "basicAttack" (libs/combat/actions.ts ~513, ~146).
+  // Director exception 2026-10-31, basic attack only.
+  const ai = (rules) => ({ items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: {
+    username: "X", ...AIREQ, jutsus: [POOL_RECORDS.B01.id], rules,
+  } }] });
+  const r = (jutsuId, conditions = [], type = "use_specific_jutsu") => ({ conditions, action: { type, jutsuId, target: "CLOSEST_OPPONENT" } });
+  assert.doesNotThrow(() => parseManifest(ai([
+    r(POOL_RECORDS.B01.id, [{ type: "distance_lower_than", value: POOL_RECORDS.B01.gate }]),
+    r("basicAttack"),
+    r("basicAttack", [{ type: "distance_lower_than", value: 2 }]),
+  ])));
+  // an unequipped real jutsu is still refused beside it (law 18)
+  assert.throws(() => parseManifest(ai([r("basicAttack"),
+    r(POOL_RECORDS.B07.id, [{ type: "distance_lower_than", value: POOL_RECORDS.B07.gate }])])),
+  /fires "[^"]+" but that jutsu is NOT in the AI's jutsus array/);
+  // the exception is the exact id on use_specific_jutsu only
+  for (const id of ["basicattack", "basicHeal", "move"]) {
+    assert.throws(() => parseManifest(ai([r(id)])), /is NOT in the AI's jutsus array/, id);
+  }
+  assert.throws(() => parseManifest(ai([r("basicAttack", [], "use_highest_power_jutsu")])), /is NOT in the AI's jutsus array/);
+  // and law 40's range+1 gate on a pool jutsu is unchanged
+  assert.throws(() => parseManifest(ai([r("basicAttack"),
+    r(POOL_RECORDS.B01.id, [{ type: "distance_lower_than", value: POOL_RECORDS.B01.range }])])),
+  /the gate must be 6 \(range\+1, law 40\)/);
+});
+
 test("K4: a hand-written distance gate that is not range+1 is refused (law 40)", () => {
   const withGate = (value) => ({ items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: {
     username: "X", ...AIREQ, jutsus: [POOL_RECORDS.B01.id],
