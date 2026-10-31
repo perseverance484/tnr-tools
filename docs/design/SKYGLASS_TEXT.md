@@ -124,6 +124,10 @@ The chart is yours. The Wreck waits on the shore: a dungeon for three, with a li
 - **Press-on battle** `failDescription` (it routes to the ending at the current step, RUL-2026-10-28-022):
   `You fall back, and keep only what you held.`
 
+**`quest:<chart run>.claimLine`**: `Claim any reward choice still waiting from an earlier run before you set out.`
+(F01, RUL-2026-10-31-072 item 1: appended to every chart run's quest description. It was the Lantern's old item line;
+the approved item cards carry it as "Claim any waiting reward first.", RUL-2026-10-31-074.)
+
 Every run's quest description opens with the two-line stakes summary (RUL-2026-10-28-028 item 8). Node ids follow the
 harness shape (`charts_spec.json` `objectiveShape`): base fights `b1…`, the last-landing dialog `d_landing` with the
 leave / press-on choice, the press-on fight `b_press`, endings `w_leave` / `w_press`, and the fail ending `f_lost`.
