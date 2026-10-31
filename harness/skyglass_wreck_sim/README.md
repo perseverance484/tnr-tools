@@ -8,6 +8,12 @@ the engine is a `git archive` export of a local game clone, run in a socket-deni
 
 Results and findings: `REPORT.md` (its first section, the 2026-10-30 final pass, is current). Raw results: `results/*.json`.
 
+**Rule cap and law-40 gates (2026-10-31, `fable/skyglass-rule-cap`; REPORT.md first section).** Every runner fails a battle
+or a spec with an AI over the server's 20-rule cap (`engine/rulecap.ts`; `--allow-over-cap` only to reproduce pre-trim
+rule sets) and sets every `distance_lower_than` on a rule casting a shared-pool jutsu to range + 1 (`engine/gates.ts`,
+from `32b_DATA_pool.json`; `--old-gates` for the previous gates). Outputs carry `ruleCap` and `gates` blocks. Tables:
+`python3 tools/rulecap_tables.py`, `python3 tools/rulecap_haul.py label=file,...`.
+
 **Final pass (`results/final_*.json`, tables: `python3 tools/final_tables.py`).** Every runner (`main.ts`, `hunts_main.ts`,
 `charts_main.ts`, `haul_main.ts`, `crownhold.ts`) takes:
 - `--audit-fallback /abs/out.json`: a static per-enemy, per-phase audit of fallback rules (RUL-2026-10-29-046);
