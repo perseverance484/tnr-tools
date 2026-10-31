@@ -16,6 +16,7 @@ import { JutsuValidator } from "@/validators/combat";
 import { BASE, BASIC_ATTACK, buildKits, type KitParams, LIVE, sharedRules, WRECK_NEW } from "./kits";
 import { LIB } from "./library";
 import { buildTemplates, loadJson } from "./model";
+import { assertSpecRuleCap } from "./rulecap";
 
 const args = process.argv.slice(2);
 const opt = (k: string) => {
@@ -33,6 +34,7 @@ const tuned = loadJson(join(H, "overrides/director_6wave_tuned.json"));
 (override.jutsu as any)[LIVE.coreRupture] = tuned.jutsu[LIVE.coreRupture];
 
 const ovOut = resolve(opt("override-out") ?? join(H, `overrides/kits_${version}.json`));
+assertSpecRuleCap(`kits override ${ovOut}`, override);
 writeFileSync(ovOut, `${JSON.stringify(override, null, 1)}\n`);
 console.log(`wrote ${ovOut}`);
 
@@ -102,6 +104,7 @@ const dungeonNotes = version === "lvl50"
     }
   : undefined;
 spec[version] = { params, ...(dungeonNotes ? { dungeonNotes } : {}), floors: (override as any).floors, ais, ...(Object.keys(ruleVariants).length ? { ruleVariants } : {}) };
+assertSpecRuleCap("build_spec", spec);
 writeFileSync(specPath, `${JSON.stringify(spec, null, 1)}\n`);
 console.log(`wrote ${specPath} [${version}]: ${ais.length} AIs; counts ${JSON.stringify(spec.counts)}`);
 for (const a of ais) console.log(`  ${a.username.padEnd(18)} L${a.level} HP ${a.pools.maxHealth} insertAi ${JSON.stringify(a.insertAiSchemaCheck).slice(0, 80)}`);

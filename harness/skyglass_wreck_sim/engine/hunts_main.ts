@@ -17,6 +17,8 @@ import { addQuestStartingEffects } from "@/libs/combat/questEffects";
 import { buildTemplates, enemyQueryUser, kitFor, loadDmgConfig, loadJson, PLAYER_VARIANTS, playerQueryUser, playerRules } from "./model";
 import { assembleFloor, mulberry32, phaseTrack, runFloor, seedEntropy } from "./sim";
 import { auditTemplates, fixFallback, unmarkedReport } from "./fallback";
+import { assertSpecRuleCap, overCapReport } from "./rulecap";
+import { gateReport } from "./gates";
 import { buildHunts, buildPaths, crownTemplates, DEFAULT_HUNT_PARAMS, type HuntParams, LIVE, NAME, type Path, petFor } from "./hunts";
 import { DEFAULT_PARAMS } from "./hunts";
 import { LIB } from "./library";
@@ -374,6 +376,8 @@ for (const key of paths) {
   }
 }
 out.fallbackGuard = unmarkedReport();
+out.ruleCap = overCapReport();
+out.gates = gateReport();
 console.log("fallback guard:", JSON.stringify(out.fallbackGuard));
 const outPath = opt("out");
 if (outPath) {

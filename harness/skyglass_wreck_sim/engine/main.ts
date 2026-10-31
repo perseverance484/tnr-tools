@@ -27,6 +27,8 @@ import {
 } from "./model";
 import { assembleFloor, type FloorResult, mulberry32, runFloor, seedEntropy } from "./sim";
 import { auditTemplates, unmarkedReport } from "./fallback";
+import { assertSpecRuleCap, overCapReport } from "./rulecap";
+import { gateReport } from "./gates";
 
 const args = process.argv.slice(2);
 const opt = (k: string, d?: string) => {
@@ -427,6 +429,8 @@ for (const v of variants) {
     console.log(`  ${e.name.padEnd(18)} app ${String(e.appearances).padStart(3)} sig ${String(e.signatureFiredPct).padStart(5)}% idle>r2 ${String(e.idleTurnsAfterRound2Pct).padStart(5)}% dealt ${e.dealtPerAppearance} never ${e.rulesNeverFired.join(",")}`);
 }
 out.fallbackGuard = unmarkedReport();
+out.ruleCap = overCapReport();
+out.gates = gateReport();
 console.log("fallback guard:", JSON.stringify(out.fallbackGuard));
 const outPath = opt("out");
 if (outPath) {

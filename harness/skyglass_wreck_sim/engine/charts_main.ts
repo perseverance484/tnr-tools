@@ -21,6 +21,8 @@ import { insertAiSchema } from "@/validators/aiInput";
 import { buildTemplates, enemyQueryUser, KITSUNE_SET, loadDmgConfig, loadJson, PLAYER_VARIANTS, petFor, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32, runFloor, seedEntropy } from "./sim";
 import { auditTemplates, fixFallback, unmarkedReport } from "./fallback";
+import { assertSpecRuleCap, overCapReport } from "./rulecap";
+import { gateReport } from "./gates";
 import { crownTemplates, DEFAULT_HUNT_PARAMS, DEFAULT_PARAMS, LIVE, NAME } from "./hunts";
 import { buildCharts, buildRuns, C, COMMON_CREW, COPY, type ChartParams, DEFAULT_CHART_EXTRA, type Run, scaledRow } from "./charts";
 import { LIB } from "./library";
@@ -369,6 +371,7 @@ if (specOut) {
     },
   };
   mkdirSync(dirname(resolve(specOut)), { recursive: true });
+  assertSpecRuleCap("charts_spec", spec);
   writeFileSync(resolve(specOut), `${JSON.stringify(spec, null, 1)}\n`);
   console.log(`wrote ${specOut}: ${Object.keys(ais).length} AI records, ${Object.keys(jutsu).length} jutsu; schema failures: ${Object.entries<any>(ais).filter(([, a]) => a.insertAiSchema !== "pass").map(([k]) => k).join(",") || "none"}`);
   process.exit(0);
@@ -447,6 +450,8 @@ for (const vk of variantArg)
     }
   }
 out.fallbackGuard = unmarkedReport();
+out.ruleCap = overCapReport();
+out.gates = gateReport();
 console.log("fallback guard:", JSON.stringify(out.fallbackGuard));
 const outPath = opt("out");
 if (outPath) {

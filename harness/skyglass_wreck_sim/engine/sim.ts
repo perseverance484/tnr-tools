@@ -18,6 +18,8 @@ import { performAIaction } from "@/libs/combat/ai_v2";
 import { markersOf, noteAction } from "./fallback";
 import { stillInBattle } from "@/libs/combat/actions";
 import { advanceEncounterWave, prepareEncounterWaves } from "@/libs/combat/encounters";
+import { assertRuleCap } from "./rulecap";
+import { gateProfile } from "./gates";
 import { getBattleSpawnLocations } from "@/libs/combat/participants";
 import { applySageModeAfterRoundTransition } from "@/libs/combat/process";
 import type { CompleteBattle } from "@/libs/combat/types";
@@ -204,6 +206,8 @@ export const assembleFloor = async (opts: {
    */
   allyIds?: string[];
 }): Promise<CompleteBattle> => {
+  for (const [id, row] of Object.entries<any>(opts.enemyRows ?? {})) if (row?.aiProfile && !String(row.userId ?? id).includes("user_")) gateProfile(row.aiProfile);
+  assertRuleCap(opts.enemyRows);
   const quest = opts.mode === "quest";
   const battleType = "QUEST" as never;
   const playerIds = opts.players.map((p) => p.userId);

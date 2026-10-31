@@ -20,6 +20,7 @@ import { IDS } from "./kits";
 import { buildEndgame, DEFAULT_PARAMS } from "./hunts";
 import { LIB } from "./library";
 import { buildTemplates, loadJson } from "./model";
+import { assertSpecRuleCap } from "./rulecap";
 
 const args = process.argv.slice(2);
 const opt = (k: string) => {
@@ -176,6 +177,7 @@ const spec = {
   ais, jutsu: jutsuSpec,
 };
 const out = resolve(opt("spec-out") ?? join(H, "hunts_spec.json"));
+assertSpecRuleCap("hunts_spec", spec);
 writeFileSync(out, `${JSON.stringify(spec, null, 1)}\n`);
 console.log(`wrote ${out}: ${ais.length} AIs, ${jutsuSpec.length} jutsu entries; new beyond library: ${newBeyondLibrary.length}; library records used: ${libraryUsed.length}`);
 for (const a of ais) console.log(`  ${a.username.padEnd(18)} HP ${a.pools.maxHealth} rows ${a.effects.length} rules ${a.rules.length} jutsu ${a.jutsu.length} insertAi ${JSON.stringify(a.insertAiSchemaCheck).slice(0, 60)} badRules ${a.rules.filter((r) => r.aiRule !== "ok").length}`);
