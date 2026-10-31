@@ -1276,12 +1276,68 @@ Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.j
 Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
 and jar.
 
-## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 (text for Raise the Gunwale and Stonebound Summons) READY TO RUN; the AI copies become 344+
+## 342+ Skyglass remaining manifests (HIDDEN, placeholder art): 342 RUN 2026-10-31 (tnr_results_1793426982231.json, 41/41 VERIFIED); 343 (text for Raise the Gunwale and Stonebound Summons) READY TO RUN; the AI copies become 344+; 348 (Crown's Hoard, Wreck Sighted) READY TO RUN, 349 after it
 
 Inputs: `state/skyglass_build/` (harness specs; provenance in its README). Generators: `push/skyglass_library.gen.py`
 (342). Run order and dependencies are listed per manifest; a manifest that needs ids from an earlier unrun one is built
 by a generator mode reading that run's results bundle (the `--binds` / `--golive` / `--retry` pattern, L01), never
 committed before that run.
+
+### 348 Crown's Hoard + Wreck Sighted (2 creates, HIDDEN, placeholder art): READY TO RUN; 349 (Crownhold's pick) is built from 348's results; Walked Every Deck STOPPED
+
+`python3 push/skyglass_hoard.gen.py` writes `348_skyglass_hoard_and_intro.json`. No dependency on an unrun manifest: it
+names only live ids (Skyglass Token, Tide Chart: push/329 creates, read from `tnr_results_1793424666625.json`).
+- **Crown's Hoard** (loot tables 1, 3, 4a; RUL-2026-10-28-013, RUL-2026-10-29-039 item 2 as amended by -049): one
+  Legendary consumable with three effects (as the Sealed Treasury carries two): 150,000 ryo + Skyglass Token ×1 every
+  opening, one Skyglass Coffer roll (the Coffer's table), 3/4/6 Sealed Treasury rolls (its table, 60/30/10). The
+  description is rendered from those tables and equals `SKYGLASS_TEXT.md` `item:Crown's Hoard.description`.
+  **Untradeable** is a reversible placeholder (copied from the Coffer's create; no ruling sets it).
+- **Wreck Sighted** (RUL-2026-10-28-028 item 2; text doc §1; scene `cache_site`, RUL-2026-10-30-061 item 7): two dialogs
+  and a win paying the Tide Chart ×1. Reversible placeholders, not ruled: `questType: event`, rank D, levels 1-100,
+  `maxAttempts`/`maxCompletes` 1, quest icon the engine default (art audit §J leaves it uncertain). **No scene
+  character:** the salvager portrait is not drawn (RUL-2026-10-29-057 item 7). A hidden quest saves without one, but a
+  `hidden: false` save is refused without one (theninjarpg@3314d122 `server/api/routers/quests.ts` ~866-880), and a
+  scene character is a content-asset id, not an image URL, so the default image cannot stand in. **It cannot be
+  published until the portrait (or a director-chosen stand-in asset) is set.**
+- Placeholders: `_placeholders` (both records).
+- Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems; `skyglass_check.py` 0
+  errors (the only WARN is 329's Crownhold pick: Crown's Hoard pending). `skyglass_check.py` learned to check an item with
+  several weighted caches (each under its own `<b>Label, n rolls:</b>` heading; `docs/workflows/SKYGLASS_CHECK.md` rule
+  4; tests `MultiCache`); single-cache items are checked as before. **Lane A portion:** that checker change.
+- **After it runs:** put Crown's Hoard's id (idmap `sg348_crowns_hoard`) into `state/skyglass_design/design_data.json`
+  `items.crowns_hoard` with the 348 bundle as `source`; read back the Hoard's three effects and Wreck Sighted's
+  objectives and reward. Then build 349.
+
+**349 Crownhold's pick gains Crown's Hoard (1 quest edit, stays HIDDEN): built from 348's results, not committed before
+it.** `python3 push/skyglass_hoard.gen.py --crownhold <348 results bundle>` writes `349_crownhold_hoard_pick.json`: a
+whole-record edit (quest edits do not fetch-merge) of Crownhold `fqqpkcp_L4oOsC6yyodlk`, equal to push/329's create
+(329's `@item` refs resolved from its bundle) plus the Hoard as the pick's first card (loot tables 4a). Exercised
+2026-10-31 against a synthetic 348 idmap (not committed): `validate.py --strict` 0/0, `check_manifest.mjs` 0 problems,
+`skyglass_check.py` 0 errors; the only difference from 329's record is the added card.
+- Preconditions: 348 has run and verified; Crownhold is still hidden (it must run before any publish/go-live; if
+  anything else has edited Crownhold since 329, regenerate from the current generator first).
+- Gates: the three gates above, 0 errors (the Hoard WARN clears once its id is in the design data).
+- After it runs: read back Crownhold's rewards (five pick cards: Hoard, Coffer ×3, Crown Fragment, Lastlight, badge).
+
+**Walked Every Deck: STOPPED (engine gap; director decision).** Loot tables 5c wants an achievement with one
+`complete_specific_quest` objective per run. Reading theninjarpg@3314d122 (not run):
+1. Credit is fine: a run's clear credits the objective once, on its active → completed transition; a failed run is not
+   resolved (`libs/quest.ts` ~477, ~677-700); with `consecutiveObjectives: false` all objectives count in any order
+   (`libs/objectives.ts` ~110).
+2. **Progress does not persist for most players.** A player with no QuestHistory row for an achievement carries an
+   in-memory mock (`mockAchievementHistoryEntries`, `libs/quest.ts` ~2181). `filterQuestTrackersForDbPersist`
+   (~215-260) strips a mock achievement's tracker before every save unless a goal is a location goal, a done
+   `CompletionTasks`/`bloodline_collection` goal, or a `CombatActivityTasks` counter above 0. `complete_specific_quest`
+   is none of these, so each clear is credited in memory and dropped on save; an 11-clear achievement cannot finish.
+   (A real row is written on resolve when `maxCompletes > 1`, `quests.ts` ~3311; no path writing one on partial
+   progress was found. Confirm with a hidden staff test before relying on this reading either way.)
+3. Tooling refuses it too: `validate.py` and Forge L03 require `consecutiveObjectives: true` and a win node.
+Options: (a) upstream: add `complete_specific_quest` (tracker tasks) to the mock-achievement persist rule, and teach
+validate.py / Forge an achievement exception (Lane A); (b) give every player a real history row first, e.g. Wreck
+Sighted's win grants `new_quest` → Walked Every Deck (unverified for achievements; misses players who skip the intro);
+(c) express it with a counter that does persist (`battle_pyramids_completed`), which counts any pyramid clear, not
+every run, so it changes the design; (d) leave it out of the release. Its six missing run ids (Low Tide, Night Watch,
+Sealed Reliquary, The Fall, both tainted runs) are also still unbuilt.
 
 ### 343 Skyglass library text (2 jutsu edits, stay HIDDEN): READY TO RUN
 

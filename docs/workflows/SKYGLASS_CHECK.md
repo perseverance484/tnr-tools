@@ -106,6 +106,12 @@ into lines on `<br>`; the story line and `<b>Each roll:</b>` are free text and n
 3. **A roll line** is required only when the roll count varies: `<min>–<max> rolls` (an ASCII hyphen is accepted),
    e.g. `<i>3–6 rolls.</i>`. A fixed roll count is not required, because the item card already shows the cache's roll
    odds; a roll line on a fixed-count cache is a warning (§0: "not repeated").
+4. **Several weighted caches on one item** (Crown's Hoard, `SKYGLASS_TEXT.md` §4.4): each cache's tier lines sit under
+   its own heading line `<b>Label[, n rolls]:</b>`, where Label is a word of that cache's `displayName` (e.g.
+   `<b>Coffer, 1 roll:</b>` for `Skyglass Coffer`). Each cache is checked by rules 1 and 3 against its own section
+   only; a missing or ambiguous heading, or a tier line above every heading, is an error. Here the heading's roll
+   count is checked, not warned: a fixed count must equal the cache's, and a varying count must read `<min>–<max>
+   rolls`. A single-cache item is checked exactly as before.
 
 Example (the Sealed Treasury shape):
 
