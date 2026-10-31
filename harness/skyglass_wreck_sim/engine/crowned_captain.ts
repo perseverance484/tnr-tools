@@ -17,6 +17,7 @@ import { availableUserActions, performBattleAction } from "@/libs/combat/actions
 import { alignBattle, getBattleGrid } from "@/libs/combat/util";
 import { PLAYER_VARIANTS, loadJson, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32 } from "./sim";
+import { assertSpecRuleCap } from "./rulecap";
 import {
   args, C, type Cell, coords, DONOR_SUMMON, dmg, IMG, IN, idgRowTags, J, jutsuRecord, LIB, LIB_POWERS, MARKER_TYPES, PATTERNS,
   opt, R, runFight, SIZE, STAT_PER_MULT, STATS, summarise, t0, tagBase, userJutsu, validator, aiRow, buildLibraryRecords, uniq, lineCells, key,
@@ -248,7 +249,9 @@ const main = async () => {
   const specPath = opt("write-spec");
   if (specPath) {
     mkdirSync(dirname(resolve(specPath)), { recursive: true });
-    writeFileSync(resolve(specPath), `${JSON.stringify(ccSpec(P, issues), null, 1)}\n`);
+    const spec = ccSpec(P, issues);
+    assertSpecRuleCap("crowned_captain_spec", spec);
+    writeFileSync(resolve(specPath), `${JSON.stringify(spec, null, 1)}\n`);
     console.log(`wrote ${specPath}`);
   }
   const cfg = ccFightConfig(P);

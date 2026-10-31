@@ -24,6 +24,8 @@ import { questDebuffTypes, questStartingEffectsSchema } from "@/validators/comba
 import { buildTemplates, enemyQueryUser, loadDmgConfig, loadJson, PLAYER_VARIANTS, petFor, playerQueryUser } from "./model";
 import { assembleFloor, mulberry32, runFloor, seedEntropy } from "./sim";
 import { auditTemplates, fixFallback, unmarkedReport } from "./fallback";
+import { assertSpecRuleCap, overCapReport } from "./rulecap";
+import { gateReport } from "./gates";
 import { crownTemplates, DEFAULT_HUNT_PARAMS, DEFAULT_PARAMS, LIVE, NAME } from "./hunts";
 import { buildCharts, type ChartParams, DEFAULT_CHART_EXTRA, scaledRow } from "./charts";
 import { tag } from "./kitlib";
@@ -399,7 +401,7 @@ const evalPathsMerged = async (v: Variant) => {
 const writeOut = (o: any) => {
   const out = opt("out");
   if (!out) return;
-  if (o && typeof o === "object" && !Array.isArray(o)) o.fallbackGuard = unmarkedReport();
+  if (o && typeof o === "object" && !Array.isArray(o)) { o.fallbackGuard = unmarkedReport(); o.ruleCap = overCapReport(); o.gates = gateReport(); }
   mkdirSync(dirname(resolve(out)), { recursive: true });
   writeFileSync(resolve(out), `${JSON.stringify(o, null, 1)}\n`);
   console.log(`wrote ${out}`);
@@ -469,6 +471,7 @@ if (opt("spec-out")) {
     params: P, records, counts, graphs,
   };
   mkdirSync(dirname(resolve(opt("spec-out")!)), { recursive: true });
+  assertSpecRuleCap("haul_spec", spec);
   writeFileSync(resolve(opt("spec-out")!), `${JSON.stringify(spec)}\n`);
   console.log(`wrote ${opt("spec-out")}: record schema failures ${Object.values<any>(records).filter((r) => r.insertAiSchema !== "pass").map((r) => r.key).join(",") || "none"}`);
   process.exit(0);

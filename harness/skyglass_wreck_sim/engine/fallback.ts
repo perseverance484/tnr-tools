@@ -15,6 +15,7 @@
  *   carry its marker is recorded (`unmarkedReport()`), and every runner writes the report into its output.
  */
 import { ANSWERS, MARKER_TYPES } from "./library";
+import { AI_PROFILE_MAX_RULES } from "./rulecap";
 
 export const BASIC_ATTACK = "basicAttack";
 /** `--no-fallback-fix` (any runner) rebuilds the pre-fix rules, for the before/after audit and guard counts. */
@@ -75,6 +76,8 @@ export type AuditRow = {
   phases: { band: string; terminal: string; fallback: string }[]; violations: string[];
   /** Index of the first unconditioned basic-attack rule (null: none; the enemy ends its turn when nothing else fires). */
   basicAttackRule: number | null;
+  /** Authored rules (the server caps them at AI_PROFILE_MAX_RULES = 20, RUL-2026-10-31-066). */
+  ruleCount: number;
 };
 const describe = (r: any) => {
   if (!r) return "(none)";
@@ -89,6 +92,7 @@ export const auditEnemy = (set: string, id: string, name: string, profile: any, 
   const kitSP = kitIds.filter((j) => SET_PIECE_MARK[j]);
   const violations: string[] = [];
   const idr = !!profile?.includeDefaultRules;
+  if (rules.length > AI_PROFILE_MAX_RULES) violations.push(`rule cap: ${rules.length} rules > ${AI_PROFILE_MAX_RULES} (the server rejects the profile)`);
   if (idr && kitSP.length) violations.push("includeDefaultRules: the engine's backup highest-power rules can cast a set piece unmarked");
   rules.forEach((r, i) => {
     const t = r.action?.type;
@@ -114,12 +118,15 @@ export const auditEnemy = (set: string, id: string, name: string, profile: any, 
     return { band: `${hi}-${lo}%`, terminal: describe(term), fallback: fb ? describe(fb) : "(ends turn)" };
   });
   const bi = rules.findIndex((r) => ruleJutsu(r) === BASIC_ATTACK && (r.conditions ?? []).every((c: any) => c.type === "health_below"));
-  return { set, id, name, includeDefaultRules: idr, setPiecesInKit: kitSP, lastRule: describe(rules[rules.length - 1]), phases, violations, basicAttackRule: bi < 0 ? null : bi };
+  return { set, id, name, includeDefaultRules: idr, setPiecesInKit: kitSP, lastRule: describe(rules[rules.length - 1]), phases, violations, basicAttackRule: bi < 0 ? null : bi, ruleCount: rules.length };
 };
-export const auditTemplates = (set: string, enemies: Record<string, { row: any; profile: any }>, only?: Set<string>) =>
-  Object.entries(enemies)
+export const auditTemplates = (set: string, enemies: Record<string, { row: any; profile: any }>, only?: Set<string>) => {
+  // Rule cap (RUL-2026-10-31-066): every template the runner built, fought or not.
+  for (const [id, t] of Object.entries(enemies)) console.log(`rule count ${set}: ${String(t.profile?.rules?.length ?? 0).padStart(3)} ${t.row?.username ?? id} (${id})${only && !only.has(id) ? " [not fought]" : ""}`);
+  return Object.entries(enemies)
     .filter(([id]) => !only || only.has(id))
     .map(([id, t]) => auditEnemy(set, id, t.row?.username ?? id, t.profile, (t.row?.jutsus ?? []).map((uj: any) => uj.jutsuId ?? uj.jutsu?.id)));
+};
 
 /* ------------------------------------------------------------------ runtime guard */
 const UNMARKED: { actor: string; name: string; jutsu: string; round: number; marker: string }[] = [];

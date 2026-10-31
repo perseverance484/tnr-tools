@@ -20,6 +20,8 @@
  *   regulars, War Rite (the division's buff). Quest data: push/273 (archive/spent-manifests/push-2026-10-28).
  */
 import { auditEnemy, unmarkedReport } from "./fallback";
+import { assertSpecRuleCap, overCapReport } from "./rulecap";
+import { gateReport } from "./gates";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { loadJson } from "./model";
@@ -60,6 +62,12 @@ export const CMD_DEFAULTS = {
      * division's War Rite buff for the whole fight. Chakra and stamina still carry. `null` = the pre-ruling chain.
      */
     ccTopUp: { healing: 100, clean: 35, war: 20, alert: 15, warWholeFight: true } as null | { healing: number; clean: number; war: number; alert: number; warWholeFight: boolean },
+    /**
+     * RUL-2026-10-30-060 item 3: the War route also gets its +20% heal top-up at D4 and D5. Modelled as a heal of that
+     * % of max HP on entering the division (before its regulars, where the final pass lost its War runs), added to the
+     * carried HP and capped at max; the Crowned Captain's own top-up (ccTopUp.war) still applies. `null` = final pass.
+     */
+    warDivTopUp: null as null | Record<string, number>,
   },
 };
 type CmdParams = typeof CMD_DEFAULTS;
@@ -69,6 +77,7 @@ const loadParams = (): CmdParams => {
     D3: { ...CMD_DEFAULTS.D3, ...(o.D3 ?? {}) }, D4: { ...CMD_DEFAULTS.D4, ...(o.D4 ?? {}) }, regs: { ...CMD_DEFAULTS.regs, ...(o.regs ?? {}) },
     quest: { alarm: { ...CMD_DEFAULTS.quest.alarm, ...(o.quest?.alarm ?? {}) }, warExtra: o.quest?.warExtra ?? [],
       ccTopUp: o.quest?.ccTopUp === null ? null : { ...CMD_DEFAULTS.quest.ccTopUp!, ...(o.quest?.ccTopUp ?? {}) },
+      warDivTopUp: o.quest?.warDivTopUp ?? null,
       war: Object.fromEntries(Object.entries(CMD_DEFAULTS.quest.war).map(([d, w]) => [d, { ...w, ...(o.quest?.war?.[d] ?? {}) }])) } };
 };
 
@@ -197,6 +206,8 @@ const runChain = async (P: CmdParams, policy: Policy, seed: number) => {
   let s = seed * 100;
   for (const div of ["D2", "D3", "D4", "D5"]) {
     const regs = policy === "healing" || policy === "war" ? [1, 2, 3, 4] : [1, 2, 3];
+    const divTop = policy === "war" ? P.quest.warDivTopUp?.[div] : undefined;
+    if (divTop) pools = { ...pools, hp: Math.min(1, pools.hp + divTop / 100) };
     for (const r of regs) {
       const f = await runFight(regFightConfig(`${div}.REG${r}`, P), s++, READ, { hpFrac: pools.hp, cpFrac: pools.cp, spFrac: pools.sp });
       out.fights.push({ fight: `${div}.REG${r}`, outcome: f.outcome, rounds: f.rounds, startHp: Math.round(100 * pools.hp), endHp: f.playerHpPct });
@@ -268,7 +279,9 @@ const main = async () => {
   const specPath = opt("write-spec");
   if (specPath) {
     mkdirSync(dirname(resolve(specPath)), { recursive: true });
-    writeFileSync(resolve(specPath), `${JSON.stringify(cmdSpec(P, issues), null, 1)}\n`);
+    const spec = cmdSpec(P, issues);
+    assertSpecRuleCap("crownhold_spec", spec);
+    writeFileSync(resolve(specPath), `${JSON.stringify(spec, null, 1)}\n`);
     console.log(`wrote ${specPath}`);
   }
   const auditPath = opt("audit-fallback");
@@ -358,6 +371,8 @@ const main = async () => {
     console.log(`== chain ${policy}: ${JSON.stringify(s)}`);
   }
   results.fallbackGuard = unmarkedReport();
+  results.ruleCap = overCapReport();
+  results.gates = gateReport();
   console.log("fallback guard:", JSON.stringify(results.fallbackGuard));
   const outPath = opt("out");
   if (outPath) {
