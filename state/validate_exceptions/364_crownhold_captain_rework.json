@@ -1,0 +1,12 @@
+{
+ "manifest": "push/364_crownhold_captain_rework.json",
+ "ruling": "PENDING director acceptance: 3 law-41 diagnostics (The Crowned Captain, Crown Armsmaster, The Second at the 20-rule cap, the RUL-2026-10-31-066 trims) and 1 'unconditional rule above the end; every rule below it is dead' on the Crowned Captain's rules[4].",
+ "reason": "law 41: each record carries exactly 20 rules (AI_PROFILE_MAX_RULES) with no room for a closing end_turn; the engine appends end_turn to every profile in battle (libs/combat/ai_v2.ts ~273-281), as the harness fought. rules[4] is move_towards_opponent, which sets an action only when the target is more than one hex away (theninjarpg@3314d122 libs/combat/ai_v2.ts ~482-492: path.length > 2); adjacent, it does nothing and the scan continues, so rules 5-19 are live. This is the trimmed kit fought on fable/skyglass-rule-cap (Crowned Captain solo 100% / 50%, Crownhold chains on target). check_manifest.mjs: 0 pre-send problems.",
+ "sha256": "f4b2999d869510a82919f63991e14514266370703b14744f174f0c641ea6cc5f",
+ "accepted": [
+  "ERROR  [ai:Crown Armsmaster: library set pieces (SKYGLASS_BOSS_FIGHTS 7)]: law 41: with includeDefaultRules false the final rule must be unconditional (move_towards_opponent, end_turn or use_random_jutsu) with conditions: []. Either author that rule or set includeDefaultRules: true and let the engine append its own tail",
+  "ERROR  [ai:The Crowned Captain: set pieces, Recall, The Crown's Will (SKYGLASS_BOSS_FIGHTS 3)].rules[4]: unconditional rule above the end; every rule below it is dead",
+  "ERROR  [ai:The Crowned Captain: set pieces, Recall, The Crown's Will (SKYGLASS_BOSS_FIGHTS 3)]: law 41: with includeDefaultRules false the final rule must be unconditional (move_towards_opponent, end_turn or use_random_jutsu) with conditions: []. Either author that rule or set includeDefaultRules: true and let the engine append its own tail",
+  "ERROR  [ai:The Second: library set pieces (SKYGLASS_BOSS_FIGHTS 7)]: law 41: with includeDefaultRules false the final rule must be unconditional (move_towards_opponent, end_turn or use_random_jutsu) with conditions: []. Either author that rule or set includeDefaultRules: true and let the engine append its own tail"
+ ]
+}
