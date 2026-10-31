@@ -1,0 +1,405 @@
+{
+ "ruling": "RUL-2026-10-30-060 item 4",
+ "results": "fit_haul_base_merged.json",
+ "exact": [
+  "fit_haul_exact_kept_from_final.json",
+  "fit_haul_exact_bloom.json",
+  "fit_haul_exact_bone.json",
+  "fit_haul_exact_bone2.json",
+  "fit_haul_exact_overgrown.json",
+  "fit_haul_exact_snare.json",
+  "fit_haul_exact_trophy.json",
+  "fit_haul_exact_vault.json",
+  "fit_haul_exact_vault2.json"
+ ],
+ "pages": {
+  "trophy": {
+   "step": [
+    4.2,
+    0.9,
+    1.3,
+    3.0,
+    2.7
+   ],
+   "locker": 3.3,
+   "sensible": 7.77,
+   "sensibleRoute": "LCC",
+   "worst": {
+    "route": "CL",
+    "pct": 108.1,
+    "exact": false
+   },
+   "ccPct": 54.1,
+   "greedy": {
+    "route": "CLXLL",
+    "clear": 13.4,
+    "value": 21.8
+   },
+   "routesAbove100": [
+    {
+     "route": "CL",
+     "pct": 108.1,
+     "clear": 100,
+     "value": 8.4,
+     "exact": false
+    },
+    {
+     "route": "LC",
+     "pct": 108.1,
+     "clear": 100,
+     "value": 8.4,
+     "exact": false
+    },
+    {
+     "route": "CCCCC",
+     "pct": 106.0,
+     "clear": 80,
+     "value": 10.3,
+     "exact": true
+    },
+    {
+     "route": "CCCCL",
+     "pct": 106.0,
+     "clear": 67.5,
+     "value": 12.2,
+     "exact": true
+    }
+   ]
+  },
+  "bone": {
+   "step": [
+    4.2,
+    0.9,
+    1.3,
+    1.1,
+    2.1
+   ],
+   "locker": 2.5,
+   "sensible": 7.98,
+   "sensibleRoute": "LCC",
+   "worst": {
+    "route": "LCL",
+    "pct": 109.7,
+    "exact": true
+   },
+   "ccPct": 52.6,
+   "greedy": {
+    "route": "LLLCC",
+    "clear": 25,
+    "value": 15.7
+   },
+   "routesAbove100": [
+    {
+     "route": "LCL",
+     "pct": 109.7,
+     "clear": 85,
+     "value": 10.3,
+     "exact": true
+    },
+    {
+     "route": "LCXC",
+     "pct": 105.3,
+     "clear": 100,
+     "value": 8.4,
+     "exact": true
+    },
+    {
+     "route": "CLXCC",
+     "pct": 103.3,
+     "clear": 80,
+     "value": 10.3,
+     "exact": true
+    },
+    {
+     "route": "CLXC",
+     "pct": 102.6,
+     "clear": 97.5,
+     "value": 8.4,
+     "exact": true
+    },
+    {
+     "route": "CLL",
+     "pct": 100.0,
+     "clear": 77.5,
+     "value": 10.3,
+     "exact": true
+    }
+   ]
+  },
+  "snare": {
+   "step": [
+    5.1,
+    0.9,
+    1.5,
+    1.0,
+    3.5
+   ],
+   "locker": 1.7,
+   "sensible": 7.35,
+   "sensibleRoute": "CCL",
+   "worst": {
+    "route": "LXL",
+    "pct": 119.1,
+    "exact": true
+   },
+   "ccPct": 57.1,
+   "greedy": {
+    "route": "CLLLC",
+    "clear": 30,
+    "value": 15.7
+   },
+   "routesAbove100": [
+    {
+     "route": "LXL",
+     "pct": 119.1,
+     "clear": 85,
+     "value": 10.3,
+     "exact": true
+    },
+    {
+     "route": "LCL",
+     "pct": 112.1,
+     "clear": 80,
+     "value": 10.3,
+     "exact": true
+    },
+    {
+     "route": "LCXCC",
+     "pct": 112.0,
+     "clear": 67.5,
+     "value": 12.2,
+     "exact": true
+    },
+    {
+     "route": "LCXL",
+     "pct": 108.6,
+     "clear": 77.5,
+     "value": 10.3,
+     "exact": true
+    },
+    {
+     "route": "LCXLC",
+     "pct": 107.9,
+     "clear": 65,
+     "value": 12.2,
+     "exact": true
+    },
+    {
+     "route": "LLL",
+     "pct": 107.9,
+     "clear": 65,
+     "value": 12.2,
+     "exact": true
+    },
+    {
+     "route": "CXL",
+     "pct": 104.8,
+     "clear": 91.7,
+     "value": 8.4,
+     "exact": false
+    },
+    {
+     "route": "LXC",
+     "pct": 104.8,
+     "clear": 91.7,
+     "value": 8.4,
+     "exact": false
+    }
+   ]
+  },
+  "overgrown": {
+   "step": [
+    3.7,
+    1.4,
+    1.9,
+    2.5,
+    8.6
+   ],
+   "locker": 1.1,
+   "sensible": 7.49,
+   "sensibleRoute": "CLC",
+   "worst": {
+    "route": "LLL",
+    "pct": 117.7,
+    "exact": true
+   },
+   "ccPct": 58.9,
+   "greedy": {
+    "route": "LLLCC",
+    "clear": 37.5,
+    "value": 21.0
+   },
+   "routesAbove100": [
+    {
+     "route": "LLL",
+     "pct": 117.7,
+     "clear": 90,
+     "value": 9.8,
+     "exact": true
+    },
+    {
+     "route": "LLLCC",
+     "pct": 105.1,
+     "clear": 37.5,
+     "value": 21.0,
+     "exact": true
+    },
+    {
+     "route": "LLC",
+     "pct": 102.7,
+     "clear": 95,
+     "value": 8.100000000000001,
+     "exact": true
+    }
+   ]
+  },
+  "vault": {
+   "step": [
+    4.5,
+    1.9,
+    2.2,
+    0.6,
+    0.6
+   ],
+   "locker": 1.9,
+   "sensible": 7.61,
+   "sensibleRoute": "LCC",
+   "worst": {
+    "route": "CCCL",
+    "pct": 124.1,
+    "exact": true
+   },
+   "ccPct": 62.8,
+   "greedy": {
+    "route": "CLCLL",
+    "clear": 55,
+    "value": 15.4
+   },
+   "routesAbove100": [
+    {
+     "route": "CCCL",
+     "pct": 124.1,
+     "clear": 90,
+     "value": 10.5,
+     "exact": true
+    },
+    {
+     "route": "CCCCL",
+     "pct": 120.7,
+     "clear": 87.5,
+     "value": 10.5,
+     "exact": true
+    },
+    {
+     "route": "LL",
+     "pct": 115.9,
+     "clear": 90,
+     "value": 9.8,
+     "exact": true
+    },
+    {
+     "route": "CLCLL",
+     "pct": 111.3,
+     "clear": 55,
+     "value": 15.4,
+     "exact": true
+    },
+    {
+     "route": "CCCCC",
+     "pct": 106.2,
+     "clear": 82.5,
+     "value": 9.8,
+     "exact": true
+    },
+    {
+     "route": "LCCC",
+     "pct": 104.7,
+     "clear": 75.9,
+     "value": 10.5,
+     "exact": false
+    },
+    {
+     "route": "LLCL",
+     "pct": 103.5,
+     "clear": 57.5,
+     "value": 13.7,
+     "exact": true
+    },
+    {
+     "route": "CCXL",
+     "pct": 103.4,
+     "clear": 75,
+     "value": 10.5,
+     "exact": false
+    },
+    {
+     "route": "CL",
+     "pct": 101.9,
+     "clear": 95.8,
+     "value": 8.100000000000001,
+     "exact": false
+    },
+    {
+     "route": "LCCLL",
+     "pct": 101.1,
+     "clear": 50,
+     "value": 15.4,
+     "exact": true
+    },
+    {
+     "route": "LC",
+     "pct": 101.1,
+     "clear": 95,
+     "value": 8.100000000000001,
+     "exact": true
+    },
+    {
+     "route": "CLCC",
+     "pct": 100.3,
+     "clear": 72.7,
+     "value": 10.5,
+     "exact": false
+    },
+    {
+     "route": "CCCLL",
+     "pct": 100.1,
+     "clear": 72.6,
+     "value": 10.5,
+     "exact": false
+    }
+   ]
+  },
+  "bloom": {
+   "step": [
+    4.1,
+    0.9,
+    1.9,
+    4.2,
+    5.7
+   ],
+   "locker": 1.4,
+   "sensible": 7.29,
+   "sensibleRoute": "LCC",
+   "worst": {
+    "route": "LLCC",
+    "pct": 112.8,
+    "exact": true
+   },
+   "ccPct": 60.5,
+   "greedy": {
+    "route": "LLCCL",
+    "clear": 27.5,
+    "value": 21.0
+   },
+   "routesAbove100": [
+    {
+     "route": "LLCC",
+     "pct": 112.8,
+     "clear": 60,
+     "value": 13.7,
+     "exact": true
+    }
+   ]
+  }
+ }
+}
