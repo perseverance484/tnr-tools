@@ -30,11 +30,11 @@ import { isProtected, isLimited } from "../transport/procedures.mjs";
 import { NetworkError } from "../transport/client.mjs";
 import { TransportError } from "../transport/envelope.mjs";
 import { RateLimited } from "../budget/bucket.mjs";
-import { readInput, listInput } from "../budget/reader.mjs";
+import { readInput, listInput, PAGE_LIMIT } from "../budget/reader.mjs";
 import { readIdmap, writeIdmap } from "../storage/compat.mjs";
 import { readAssetUploads, recordAssetUpload, forgetAssetUpload } from "../storage/assets.mjs";
 import { toHex } from "./imgpack.mjs";
-import { snapshotKey, MAX_FULL_CAPTURE_BYTES, PERSIST_RECORD_KEY } from "../storage/captures.mjs";
+import { snapshotKey, MAX_FULL_CAPTURE_BYTES, PERSIST_RECORD_KEY, FULL_PERSIST_PAGED_PATHS } from "../storage/captures.mjs";
 import { TERMINAL_ITEM_STATES, jobOutcome, StaleItem } from "../storage/journal.mjs";
 import { recipe, mergeForUpdate, recipeRows, updateInput, rowName } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
@@ -1005,7 +1005,10 @@ export class Runner {
       // item.getItemVariants is keyed by its itemId (PERSIST_RECORD_KEY) but is a filtered list on
       // the wire: it is read through list() with the manifest's own input, uncached, never as {id}.
       const viaList = id == null || path in PERSIST_RECORD_KEY;
-      const r = viaList ? await this.reader.list(path, { fresh: true, input: capInput }) : await this.reader.get(path, id, { fresh: true }); // RateLimited/Network propagate to run()
+      // jutsu.getAll (FULL_PERSIST_PAGED_PATHS) in full mode, with its parse-checked pet filter: one
+      // complete page through reader.page(); r.data is that page's rows. A summary request is unchanged.
+      const paged = c.persist === "full" && FULL_PERSIST_PAGED_PATHS.includes(path);
+      const r = paged ? await this.reader.page(path, capInput) : viaList ? await this.reader.list(path, { fresh: true, input: capInput }) : await this.reader.get(path, id, { fresh: true }); // RateLimited/Network propagate to run()
       // THE OBSERVED DEFECT (harvests/inbox/tnr_results_17890671*.json): five protected reads
       // came back UNAUTHORIZED, each was journaled as an ordinary failed read, the pass ran to
       // the end and the job reported "0/5 full bodies persisted · read failed". That reads as a
@@ -1013,7 +1016,7 @@ export class Runner {
       // remaining reads are not spent proving the same thing four more times.
       if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path, phase, ordinal: i });
       // The input this read was ACTUALLY called with, never the one the manifest asked for.
-      const sentInput = (!viaList ? readInput(path, id) : capInput === undefined ? listInput(path) : capInput) ?? null;
+      const sentInput = (paged ? { ...capInput, limit: PAGE_LIMIT, cursor: 0 } : !viaList ? readInput(path, id) : capInput === undefined ? listInput(path) : capInput) ?? null;
       const entry = { phase, proc: path, input: sentInput, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
       if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, sentInput, r));
       out.push(entry);

@@ -87,6 +87,15 @@ export class FakeGame {
     else if (PLACEHOLDER[path]) {
       if (this.refuse.has(path)) result = ok({ success: false, message: `Not allowed to create` });
       else { const id = nanoidLike(); const row = PLACEHOLDER[path](id, input); table.set(id, row); result = ok({ success: true, message: id }); }
+    } else if (path === "jutsu.getAll") {
+      // routers/jutsu.ts:404-431 + queries/jutsu.ts:219 at 3314d122, for the members Forge sends:
+      // jutsuType (inArray) and hidden (jutsuDatabaseFilter: absent means hidden = false), updatedAt
+      // desc, OFFSET cursor * limit, bloodline {name} joined; nextCursor null when the page is short.
+      const cursor = input.cursor ?? 0;
+      const rows = this.rows("jutsu").filter((r) => (!input.jutsuType || input.jutsuType.includes(r.jutsuType)) && r.hidden === (input.hidden ?? false))
+        .sort((a, b) => b.updatedAt - a.updatedAt).slice(cursor * input.limit, (cursor + 1) * input.limit)
+        .map((r) => ({ ...structuredClone(r), bloodline: r.bloodlineId ? { name: this.tables.bloodline.get(r.bloodlineId)?.name ?? null } : null }));
+      result = ok({ data: rows, nextCursor: rows.length < input.limit ? null : cursor + 1 });
     } else if (path === "title.getAll") {
       // routers/title.ts:30-38 at 2af4b320: every catalog title, archived too; legacy labels excluded
       result = ok(this.rows("title").filter((r) => !r.legacyOwnerId).map((r) => structuredClone(r)));
