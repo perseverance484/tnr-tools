@@ -57,7 +57,8 @@ class TempRoot(unittest.TestCase):
     PURSE = "Captain's Purse (1,000,000 ryo)"
     FILES = [sc.DESIGN, sc.LOOT, sc.BIBLE, sc.RULINGS, sc.TEXT, sc.NAMES, "state/crownhold/ids.json",
              "push/skyglass_hunts.gen.py", "push/skyglass_update.gen.py", "push/elemental_pouch.gen.py",
-             "push/crownhold.gen.py"]
+             "push/crownhold.gen.py", "harvests/inbox/tnr_results_1793424666625.json",
+             "harvests/inbox/tnr_results_1793424865889.json"]
 
     def setUp(self):
         self.tmp = tempfile.mkdtemp()
@@ -407,7 +408,7 @@ class Units(unittest.TestCase):
 
 class ReviewRegressions(unittest.TestCase):
     """REQUEST CHANGES on b1e7527b: one regression per finding."""
-    POUCH, INRO = "D0gtI5dOgj2dFO4VexsLJ", "ixEKlJ0MmDrX7JoMNJVhi"
+    POUCH, INRO, GALLEY = "D0gtI5dOgj2dFO4VexsLJ", "ixEKlJ0MmDrX7JoMNJVhi", "D-QTnbjgTyIVc593zzdSB"
 
     def findings(self, items, package_run=False):
         d = sc.Design(ROOT)
@@ -446,7 +447,8 @@ class ReviewRegressions(unittest.TestCase):
     def test_finding1_direct_cards_unchanged(self):
         q = {"entity": "quest", "slot": "edit", "targetId": "UGHSuhi83C3wRtH3FD4Eu", "data": {"content": {
              "rewardMode": "choose", "reward": {"reward_items": [{"ids": [self.POUCH], "number": 5, "quantity": 1},
-                                                                 {"ids": [self.INRO], "number": 5, "quantity": 1}]}}}}
+                                                                 {"ids": [self.INRO], "number": 5, "quantity": 1},
+                                                                 {"ids": [self.GALLEY], "number": 5, "quantity": 1}]}}}}
         self.assertEqual([str(f) for f in errors(self.findings([q]))], [])
 
     def test_finding2_retired_records_may_only_be_hidden(self):
