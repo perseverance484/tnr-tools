@@ -1142,7 +1142,7 @@ archived unrun. Built by `push/233_ethereal_rebirth_animation_v2.gen.py`, strip 
 it. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **Run 233, then 231.**
 
 
-## 340, 319, 328, 329, 338, 339 Skyglass / Crownhold update (HIDDEN, placeholder art): 340 (badge) RUN and verified; 319 / 328 / 329 READY TO RUN in that order; 338 built from 329's results; 339 GO-LIVE: DO NOT RUN until the event's remaining manifests have run
+## 340, 319, 328, 329, 338, 339 Skyglass / Crownhold update (HIDDEN, placeholder art): 340, 319, 328 RUN and verified; 329 RUN 46/47 (Roll-Call Oathbinder refused, re-sent by 341); 341 and 338 READY TO RUN; 338 built from 329's results; 339 GO-LIVE: DO NOT RUN until the event's remaining manifests have run
 
 **Renumbered 2026-10-31:** the token-binds manifest was 330 and the go-live manifest 331; they are now **338** and **339**,
 because push/330, 332 and 337 belong to the Zombie Outbreak workstream (their entries below are unchanged). The
@@ -1170,6 +1170,18 @@ so the update is split. **Run on one Forge install, in this order, and export th
      `state/crownhold/ids.json` as `badge:crownbreaker`, run `python3 push/skyglass_update.gen.py`, and re-run the gates on
      319, 328 and 329: Crownhold's pick then carries the badge (`reward_badges`) and `skyglass_check.py` verifies it. Read
      back the badge's name, image and description.
+**Run log 2026-10-31.** 319 (`tnr_results_1793424554650.json`): 21/21 VERIFIED. 328 (`tnr_results_1793424564510.json`):
+1/1 VERIFIED. 329 (`tnr_results_1793424666625.json`): 46 VERIFIED, 1 failed pre-send: Roll-Call Oathbinder at order 1,
+which the non-token variant "Headless Rider's Scythe" (`DmhRWpw13MbjnTPs4s12h`) already holds on Oathbinder (the push/326
+capture read token variants only). The generator now records that order and pins Roll-Call to order 3 (the Rot-Bloom
+Reaper took 2); a regenerated 329 matches the live orders. 319, 328 and 329 stay in `push/` because the generator rewrites
+them and the retry/go-live modes read 329. **Next, in this order:**
+- **`341_skyglass_329_retry.json`** (`--retry <329 bundle>`): Roll-Call Oathbinder re-sent alone, order 3, literal Skyglass
+  Token id. Gates: `validate.py --strict` 0/0; `check_manifest.mjs` 0; `skyglass_check.py` 0 errors.
+- **`338_skyglass_token_binds.json`** (`--binds <329 bundle>`): built now from 329's results; 7 edits. Gates as above.
+- After both: record 329's new ids in `state/skyglass_design/design_data.json` (step below), then the remaining event
+  manifests are built from them.
+
 1. **`319_skyglass_update.json`** (21 AI edits): kit off. Core Rupture off Seal Charge and Core Canister (AI Heavy Armor
    kept). The Crownhold boss (`7QofodAiUwIoM-voiA2p6`) renamed **The Crowned Captain** with the crew sprite, his Last
    Directive, Extermination Order and Countermand off (RUL-2026-10-28-003/-004). The 18 Crownhold usernames
