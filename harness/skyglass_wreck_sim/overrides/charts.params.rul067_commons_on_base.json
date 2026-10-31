@@ -1,0 +1,149 @@
+{
+ "_about": "Skyglass charts (engine/charts.ts) tuned values on top of overrides/hunts.params.json. Keys are live AI ids. commons = the common-chart crew copies (scaled to the player: statsMultiplier `stats`, per id pools/rows); rares = rare-chart stat copies chart-r-*; taintedCopies = tainted pair-fight copies chart-t-*; stats.<Replicant Zero> = its solo edit; echo = Lingering Echo hazard; ember = Burning Deck; steep = Steeping Horror; tainted = tainted twists. Schema floor (insertAiSchema): statsMultiplier >= 1 and poolsMultiplier >= 1; the commons soften through innate rows instead (taken: +damage-taken % rows; givenDown: -damage-given %).",
+ "_names": {
+  "81lnIP-q97gItQYWl5vWD": "Foundry Warden",
+  "RBW5KsIXmTGR710D2y2Y7": "Sealwright",
+  "3V_gdHYaclMB1gTyOPAbV": "Skyglass Sentinel",
+  "d6g0mOM7RBSsYI1hrUVT9": "First Blade",
+  "AQi-bHJ-5tHXtxrnc0P9E": "Core Horror",
+  "QY69h271Nx9uHrBeR6jwW": "The Captain",
+  "0PZU_FvlbM3ErYGlD5r56": "Oathkeeper",
+  "wTgO-Q32caSSd0is1QIS7": "Seal Charge",
+  "v7T9_XdGMfP46em0dPuBc": "Wayfinder",
+  "vjEFUJ9mb1zNTuQf4lfXv": "Replicant Zero"
+ },
+ "stats": {
+  "vjEFUJ9mb1zNTuQf4lfXv": {
+   "pools": 1.5,
+   "rows": 1
+  }
+ },
+ "commons": {
+  "stats": 5,
+  "taken": [
+   70
+  ],
+  "givenDown": 0,
+  "byId": {
+   "texZaFi42S3EvJZBwQ8cd": {
+    "pools": 1,
+    "rows": 2
+   },
+   "3V_gdHYaclMB1gTyOPAbV": {
+    "pools": 1,
+    "rows": 2
+   },
+   "v7T9_XdGMfP46em0dPuBc": {
+    "pools": 1,
+    "rows": 2
+   },
+   "d6g0mOM7RBSsYI1hrUVT9": {
+    "pools": 1,
+    "rows": 2
+   },
+   "0PZU_FvlbM3ErYGlD5r56": {
+    "pools": 1,
+    "rows": 2
+   },
+   "wTgO-Q32caSSd0is1QIS7": {
+    "pools": 1,
+    "rows": 0,
+    "stats": 10,
+    "taken": []
+   },
+   "2OXJEXoktxJcjqMkE851g": {
+    "pools": 1,
+    "rows": 0,
+    "stats": 5,
+    "taken": []
+   }
+  }
+ },
+ "rares": {
+  "byId": {
+   "81lnIP-q97gItQYWl5vWD": {
+    "pools": 1.2,
+    "rows": 1
+   },
+   "RBW5KsIXmTGR710D2y2Y7": {
+    "pools": 1,
+    "rows": 2
+   },
+   "3V_gdHYaclMB1gTyOPAbV": {
+    "pools": 2,
+    "rows": 1
+   },
+   "d6g0mOM7RBSsYI1hrUVT9": {
+    "pools": 1.2,
+    "rows": 1
+   },
+   "AQi-bHJ-5tHXtxrnc0P9E": {
+    "pools": 2,
+    "rows": 2
+   },
+   "QY69h271Nx9uHrBeR6jwW": {
+    "pools": 2,
+    "rows": 0,
+    "givenDown": 15
+   },
+   "0PZU_FvlbM3ErYGlD5r56": {
+    "pools": 2.5,
+    "rows": 2
+   }
+  }
+ },
+ "taintedCopies": {
+  "byId": {
+   "81lnIP-q97gItQYWl5vWD": {
+    "pools": 1,
+    "rows": 0
+   },
+   "RBW5KsIXmTGR710D2y2Y7": {
+    "pools": 1,
+    "rows": 0
+   },
+   "3V_gdHYaclMB1gTyOPAbV": {
+    "pools": 1,
+    "rows": 0
+   },
+   "d6g0mOM7RBSsYI1hrUVT9": {
+    "pools": 1,
+    "rows": 0
+   },
+   "AQi-bHJ-5tHXtxrnc0P9E": {
+    "pools": 5.5,
+    "rows": 3,
+    "givenDown": 65
+   }
+  }
+ },
+ "echo": {
+  "pools": 2,
+  "rows": 1,
+  "fade": 10
+ },
+ "ember": {
+  "power": 5,
+  "rounds": [
+   1,
+   4,
+   7
+  ],
+  "pools": 4,
+  "dr": 30
+ },
+ "steep": {
+  "pools": 3.76,
+  "rows": 3
+ },
+ "tainted": {
+  "givePools": 70,
+  "sealRounds": 2,
+  "afterburn": 60,
+  "afterburnRounds": 7,
+  "echo": "echo2"
+ },
+ "_final_pass": "fable/skyglass-final-sim: the Fall's fire source is the Arsenal Keeper himself (RUL-2026-10-29-057 item 5; no separate hazard): a copy of the live Keeper, immobile, pools 4, fought in the powder-magazine fight; Fall press-on Captain copy 2/2 -> 2/0 + 15% givenDown (0/14 after the two-phase rebuild); Burning Heading: Core Horror tainted copy pools 5.5 / 2 rows, afterburn 4 -> 7 rounds (target 55%). Final pass (resumed): Arsenal Keeper 30% innate damage reduction (tanky; Fall 95% -> 75% at 20 seeds, dr 20/25 gave 90%). Burning Heading Core Horror tainted copy 5.5 / 2 rows -> 5.5 / 3 rows + 60% givenDown (20 seeds: 2 rows 100%, pools 6 0%: the F1 duel is a deterministic race at 2 rows; 3 rows + 60% gave 60%; at 40 seeds 60% -> 35%, 70% -> 72.5%, 80% -> 100%; adopted 65%).",
+ "_rul060": "RUL-2026-10-30-060 item 2 applied on top of the d5957e79 final pass: the Sealed Reliquary's Sealwright copy (rares) 1 -> 2 damage rows, pools 1 unchanged.",
+ "_rul067_probe": "RUL-2026-10-31-067 feasibility probe: the common-chart crew at their base-record values (live statsMultiplier 5 / Seal Charge 10, endgame Wreck tuning pools 1, 2 damage rows, 70% damage taken; Arsenal Keeper at its live/hunt values), opponent_scaled_to_user as before. Kits stay the hunt kits the copies use (the base kit would be the dungeon kit for Sentinel/Wayfinder/First Blade)."
+}

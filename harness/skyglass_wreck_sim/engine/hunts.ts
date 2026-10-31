@@ -75,7 +75,8 @@ export const TERM: Record<number, any[]> = {
 /* Params                                                               */
 /* ------------------------------------------------------------------ */
 /** givenDown: one innate decreasedamagegiven % row (solo softening below the +100% rows, e.g. the Watch Captain). */
-export type Stat = { pools: number; rows: number; stats?: number; givenDown?: number };
+/** taken: innate increasedamagetaken % rows (as the Haul guards and Wreck copies carry; RUL-2026-10-31-067 tier modelling). */
+export type Stat = { pools: number; rows: number; stats?: number; givenDown?: number; taken?: number[] };
 export type HuntParams = {
   /** Solo stats per live record (poolsMultiplier, number of +100% damage rows, optional statsMultiplier). */
   stats: Record<string, Stat>;
@@ -285,7 +286,7 @@ export const buildHunts = (HP: HuntParams, kitParams: KitParams) => {
     const s = HP.stats[id]!;
     const o = {
       aiEdit: { poolsMultiplier: s.pools, ...(s.stats ? { statsMultiplier: s.stats } : {}) },
-      effects: [...idgRows(s.rows), ...(s.givenDown ? [tag("decreasedamagegiven", { power: s.givenDown, rounds: 99, calculation: "percentage", description: "Decreased damage given" })] : [])],
+      effects: [...idgRows(s.rows), ...(s.givenDown ? [tag("decreasedamagegiven", { power: s.givenDown, rounds: 99, calculation: "percentage", description: "Decreased damage given" })] : []), ...(s.taken ?? []).map((pct) => tag("increasedamagetaken", { power: pct, rounds: 99, calculation: "percentage", description: "Increased damage taken" }))],
       jutsuIds: kitOf(r.rules, id === LIVE.foundry ? [LIVE_J.quickStrike, LIVE_J.heavyStrike, LIVE_J.snare, LIVE_J.stoneward, LIVE_J.springguard, LIVE_J.windlash] : []),
       rules: r.rules, includeDefaultRules: false,
     };
