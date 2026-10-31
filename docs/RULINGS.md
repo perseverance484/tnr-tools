@@ -4940,3 +4940,20 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "Lets do a different effect if flat cost doesnt work. 10% ddg is fine".
 
 **Canonical destination:** `docs/design/SKYGLASS_PETS.md`; `push/skyglass_pet.gen.py` (push/346).
+
+## RUL-2026-10-31-071 — AI basic-attack rule exception; Forge budget figures; Little Maw published by Forge
+
+**Date:** 2026-10-31
+
+**Domain:** Forge / AI rules; Skyglass event
+
+**Status:** ACTIVE. Item 1-2 take effect when `fable/forge-basic-attack-rule` (frozen at `11abcaab712ba582e41432960a0e6e1b0e8b59c2`) passes independent review and is integrated.
+
+**Ruling:**
+1. **Exception for the engine's basic attack (for now):** an AI rule `use_specific_jutsu` whose `jutsuId` is exactly `"basicAttack"` is accepted by Forge's pre-send kit lint and `validate.py` without being in the AI's `jutsus` array. At theninjarpg@3314d122 the rule resolves the id among the AI's available actions, which always include `basicAttack` unless stealthed (`libs/combat/ai_v2.ts` ~494, `actions.ts` ~146/~513). Other engine actions (move, meditate, stances, …) are NOT exempted. Every other check stays, including law 18 for real jutsu and the law 40 range+1 gate.
+2. **Forge bundle budget** (under RUL-2026-10-31-066 item 2): 466,000 / 112,000 → **470,000 / 113,000** raw / gzip; measured at the branch head 465,670 / 112,059.
+3. **Little Maw is published by a Forge edit** (push/353: `hidden: false` on `GYy5K24tGkYIeGEJef3TW`) so push/347 can set it as the Little Horror's default. The species and the Jar stay hidden; the jutsu is unusable without the species.
+
+**Evidence:** Director, 2026-10-31: "Do an exception for basic attack for now"; "Raise it" (RUL-066 item 2); "How do I publish it? Cant forge do that".
+
+**Canonical destination:** `forge/src/runner/pool.mjs`, `skills/building-tnr-content/scripts/validate.py`, `forge/tools/check_bundle_budget.mjs` (on the branch); `push/README.md` (353).
