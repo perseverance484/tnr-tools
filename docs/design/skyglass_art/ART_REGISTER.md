@@ -55,15 +55,15 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | JI02 | Little Maw (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | - | PROCESSED (`art/skyglass_jutsu_icons/exports/icon-jutsu-little-maw.webp`) |
 | JI03 | The Last Directive (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | `GHFMU_DDKvBBp5BEuTeah` | PROCESSED (`art/skyglass_jutsu_icons/exports/icon-jutsu-the-last-directive.webp`) |
 | JI04 | Extermination Order (jutsu icon) | JUTSU_ICON | `30_jutsu_icons` | `EqZsaqser8c2-KpVCaXk_` | PROCESSED (`art/skyglass_jutsu_icons/exports/icon-jutsu-extermination-order.webp`) |
-| AN01 | cp_command: Ward of Command banner | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
-| AN02 | cc_phase_shift: shockwave flourish | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
-| AN03 | cp_gunwale: Raise the Gunwale barrier | gameAsset STATIC or ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
-| AN04 | ch_enrage: The Core Rebuilds aura | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
-| AN05 | cc_hexweave: Hexweave hit | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
-| AN06 | Spreading Fire ember tile | gameAsset STATIC or ANIMATION loop | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
-| AN07 | ch_bile_spit: glob in flight | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
-| AN08 | ch_bile_spit: splash | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
-| AN09 | ch_undertow: water-drag streak (OPTIONAL) | ANIMATION | `35_fx_layers` | - | RAW RECEIVED (`art/skyglass_boss_fx/raw/an/`; strip build pending) |
+| AN01 | cp_command: Ward of Command banner | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_command_banner_v1.webp`; `an_v1.json`) |
+| AN02 | cc_phase_shift: shockwave flourish | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_phase_shift_v1.webp`; `an_v1.json`) |
+| AN03 | cp_gunwale: Raise the Gunwale barrier | gameAsset STATIC or ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_gunwale_barrier_v1.webp`, `tile_fx_gunwale_barrier_v1.webp`; `an_v1.json`) |
+| AN04 | ch_enrage: The Core Rebuilds aura | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_core_enrage_v1.webp`; `an_v1.json`) |
+| AN05 | cc_hexweave: Hexweave hit | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_hexweave_v1.webp`; `an_v1.json`) |
+| AN06 | Spreading Fire ember tile | gameAsset STATIC or ANIMATION loop | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `tile_fx_spreading_fire_embers_v1.webp`, `anim_fx_spreading_fire_glint_v1.webp`, `anim_fx_spreading_fire_embers_v1.webp`; `an_v1.json`) |
+| AN07 | ch_bile_spit: glob in flight | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_bile_glob_v1.webp`; `an_v1.json`) |
+| AN08 | ch_bile_spit: splash | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_bile_splash_v1.webp`; `an_v1.json`) |
+| AN09 | ch_undertow: water-drag streak (OPTIONAL) | ANIMATION | `35_fx_layers` | - | PROCESSED (`art/skyglass_boss_fx/exports/`: `anim_fx_undertow_v1.webp`; `an_v1.json`) |
 | PT01 | The salvager (Wreck Sighted) | SCENE_CHARACTER | `25_salvager_portrait` | - | PROCESSED (`art/skyglass_scene_chars/exports/scene_char_skyglass_salvager.webp`) |
 | AV01 | Tagwright (Crown Tagwright) | AI_AVATAR | `40_crew_avatars` | `1syezT0axWVQVgeOGN-LH` | PROCESSED (`art/crownhold/avatars/exports/avatar_crownhold_tagwright.webp`) |
 | AV02 | Lancer (Crown Lancer) | AI_AVATAR | `40_crew_avatars` | `e5ye0RlN0fManSKdD_k-o` | TO GENERATE |
@@ -118,7 +118,13 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | UP31 | anim_rot_claw_v1 | ANIMATION | `art/skyglass_boss_fx/exports/anim_rot_claw_v1.webp` | - | IN REPO |
 | UP32 | anim_exposed_v1 | ANIMATION | `art/skyglass_boss_fx/exports/anim_exposed_v1.webp` | - | IN REPO |
 
-**Totals:** TO GENERATE 60 (AN09 optional) · PROCESSED 7 · DERIVED: DONE 6 · IN REPO 32 · 105 rows.
+**Totals:** TO GENERATE 26 · PROCESSED 41 · DERIVED: DONE 6 · IN REPO 32 · 105 rows (recounted 2026-10-31 at the AN intake).
+
+AN01-AN09 intake 2026-10-31: raws `art/skyglass_boss_fx/raw/an/AN0n_raw_fx_*.png` (native alpha, unchanged), built by
+`art/skyglass_boss_fx/animate_an.py` (drawn on the 50 px combat grid, delivered as 150 px frames, x3 nearest, to meet the
+ANIMATION target's 112 px minimum; 50 ms per frame). Frames, speed and suggested use per file: `art/skyglass_boss_fx/exports/an_v1.json`;
+previews `docs/design/skyglass_boss_fx/an_v1_*.png`. artpreflight `--type ANIMATION` 0/0 over 10 strips, `--type STATIC`
+0/0 over 2 stills. Not uploaded; no push generator or manifest touched.
 
 IC01-IC07 intake 2026-10-31: raws `art/skyglass_event_icons/raw/IC0n_raw_*.png` (unchanged originals; hashes in
 `art/skyglass_event_icons/_provenance/`), processed and recoloured by `state/skyglass_art/ic01_07_intake.py`
