@@ -1334,6 +1334,18 @@ build 347 → gates → run 347**. Publishing the jutsu does not make the pet ob
 and the jar stays hidden. Tested on stand-in ids (validate 0 errors / 0 warnings, check_manifest 0 problems); not
 committed. **Post-run check:** `petSpecies.get` shows `defaultJutsuIds` = [Little Maw's id].
 
+## 352 Skyglass chart, page and reagent icons (13 item image edits, records stay HIDDEN): READY TO RUN
+
+`python3 push/skyglass_chart_icons.gen.py` writes `352_skyglass_chart_icons.json`. It makes direct, image-only edits
+(`data` is only `image`, so `hidden` is not touched) on the hidden push/329 items, using literal ids that are checked
+by name against the 329 bundle `tnr_results_1793424666625.json`. IC01-IC07 cover the Tide Chart, Watch Roster,
+Reliquary Seal, The Last Heading, Core Rot, Ledger Page: The Trophy Hold and Stores Manifest: The Overgrown Stores.
+DR01-DR06 cover the Rotted Reliquary Seal, The Rotted Heading, and the Bone Store, Snare Room, Ore Vault and Bloom
+Cellar pages. Images: `art/skyglass_event_icons/exports/`, pinned by `imagePack` ref `609c0cfd` plus each file's sha256
+(intake notes: `art/skyglass_event_icons/_provenance/IC01-07_INTAKE.md`). There are no quest.image edits: the chart-run
+and Haul quests (icon = their chart's icon) are not built yet. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems; `skyglass_check.py` 0 errors, 0 warnings; `test_skyglass_check.py` 48 OK.
+
 ## 351 Achievement probe fix (1 quest edit, HIDDEN): RUN 2026-10-31 (tnr_results_1793457034587.json, 1/1 VERIFIED); reload test FAILED as predicted (RUL-2026-10-31-069): records kept hidden for the re-test after the upstream fix
 
 `python3 push/achievement_probe.gen.py --fix <350 bundle>` (from `tnr_results_1793456820512.json`). push/350 created Probe
