@@ -1233,22 +1233,28 @@ them and the retry/go-live modes read 329.
    required item.
 5. **339 GO-LIVE (was 331; RUL-2026-10-30-063 item 1): DO NOT RUN until the event's remaining manifests have run.** Built from
    329's results: `python3 push/skyglass_update.gen.py --golive <329 results bundle>` writes `339_skyglass_go_live.json`
-   (24 items). It names 329's new items by literal id (L01; Forge's offline plan has no retained idmap), so it cannot be
+   (29 items). It names 329's new items by literal id (L01; Forge's offline plan has no retained idmap), so it cannot be
    written before 329 has run. The generator was exercised against a synthetic idmap (2026-10-30, and again 2026-10-31
    after RUL-2026-10-31-064 with stand-in ids for every 329 srcId); neither output was committed.
-   - Phase 1, **20 item edits** to existing, reachable items: the four Rare charts' text and tier (Buried Cache, Drowned
-     Foundry, Quarantined Archive, Captain's Watch); the Lastlight Lantern (text, Legendary); the Skyglass Coffer;
-     Sealed Treasury 150,000 ryo + 3-6 rolls; Archive Chart Case 45/25/20/7/3 (its Legendary and Forbidden tiers are the
-     Epic charts and the Lantern); Medicine Inro; Sage's Strongbox; Elemental Tool Pouch; Unmarked Cargo 40/35/18/7
-     (Galley Stores and the Skyglass Token); the 8 profession chests (Common/Rare/Epic/Legendary tiers). Every chest
-     description is rendered from its cache table and equals SKYGLASS_TEXT.md section 4.
+   - Phase 1, **25 item edits** to existing, reachable items, all in the approved RUL-2026-10-31-074 text: the four
+     Rare charts' text and tier (Buried Cache, Drowned Foundry, Quarantined Archive, Captain's Watch); the Lastlight
+     Lantern (text, Legendary); the Skyglass Coffer; Sealed Treasury 150,000 ryo + 3-6 rolls; Archive Chart Case
+     45/25/20/7/3 (its Legendary and Forbidden tiers are the Epic charts and the Lantern); Medicine Inro; Sage's
+     Strongbox; Elemental Tool Pouch; Unmarked Cargo 40/35/18/7 (Galley Stores and the Skyglass Token); the 8 profession
+     chests (Common/Rare/Epic/Legendary tiers, quantities rounded to the nearest 5, RUL-2026-10-31-074 item 2); the
+     Coffer's contents (RUL-2026-10-31-074 item 4: Skyglass Filament COMMON + text, Skyglass Serum RARE, Fragment of the
+     Skyglass Crown EPIC + text, Skyglass Katana text, Skyglass Crystal text). Every container description is rendered
+     from its cache table in the condensed ◆ format and equals SKYGLASS_TEXT.md section 4 byte for byte.
    - Phase 2, the **four live chart runs** re-sent whole: the Buried Cache, Drowned Foundry, Quarantined Archive and
      Captain's Watch with the section 4a picks; chart ladder drops (Foundry chart 15%, Archive chart 10%, Reliquary Seal
      25%, Last Heading 25% / 45% after the press-on room, tainted chart 1%); Haul pages 1.5% each on every Rare-chart
      ending; boss variant tokens 1% (Foundry Warden, Sealwright, Wayfinder); stakes headers and closing lines (text doc
      2.8, 6.1, 6.2) and the Buried Cache note fix (section 8); the Captain's Watch dawn-watch press-on room (2.8a: Deck
      Warden + Wayfinder; a won room pays the step's own ending plus the Last Heading at 45%, no extra ladder step,
-     RUL-2026-10-31-064 item 2; a lost room keeps the step's ending).
+     RUL-2026-10-31-064 item 2; a lost room keeps the step's ending). Every Buried Cache battle has
+     `opponent_scaled_to_user: true` (F02, RUL-2026-10-31-072 item 2). The four runs are sent **without** `hidden`, so
+     each keeps the visibility it has when 339 runs (F05, RUL-2026-10-31-072 item 8: go-live never re-hides a run; a
+     Forge edit is merged over the live record).
    - **Preconditions, all of them:**
      1. 340, 319, 328, 329 and 338 have run and verified.
      2. Every manifest still to build (list below) has run: every item 339 makes obtainable has its content (the Epic
@@ -1259,8 +1265,12 @@ them and the retry/go-live modes read 329.
         runs and chests, and the hidden runs stay hidden until published.
      5. 339 is regenerated right before the run (`--golive` with the 329 bundle), and its gates are re-run. If any later
         manifest edits these records, regenerate it from the current generator.
-   - Gates (on the synthetic build): `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send
-     problems; `skyglass_check.py` 0 errors (11 WARN: the 329 items' ids are not yet in the design data).
+   - Gates (regenerated 2026-10-31 with `--golive harvests/inbox/tnr_results_1793424666625.json` into a scratch path, not
+     committed): `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems (28 planned
+     updates); `skyglass_check.py` 0 errors, 0 warnings.
+   - **Open before 339 runs (RUL-2026-10-31-074 cards):** the Quarantined Archive's chart text names the break-the-seal
+     fight (F15: "Breaking the seal adds a fight for 2 Core Rot"), which is ruled into the go-live build but not built
+     yet; build it before 339 runs, or take the clause out of the text doc and regenerate.
    - After it runs: read back every item edit's effects and the four runs' rewards.
 
 **Settled by the director 2026-10-31 (RUL-2026-10-31-064; were open under RUL-2026-10-30-063):**
@@ -1340,6 +1350,27 @@ refuses a hidden default (routers/petSpecies.ts), so **run order: 346 → direct
 build 347 → gates → run 347**. Publishing the jutsu does not make the pet obtainable: the species stays `isActive: false`
 and the jar stays hidden. Tested on stand-in ids (validate 0 errors / 0 warnings, check_manifest 0 problems); not
 committed. **Post-run check:** `petSpecies.get` shows `defaultJutsuIds` = [Little Maw's id].
+
+## 360 Skyglass item text for the hidden records (24 item edits + 1 itemVariant edit; records stay HIDDEN): READY TO RUN
+
+RUL-2026-10-31-074 (director "Approve all", 2026-10-31). `python3 push/skyglass_item_text.gen.py` writes
+`360_skyglass_item_text.json`: **description-only** edits (`data` is only `description`, so `hidden` and every other
+field are untouched) on the hidden records already created, with literal ids checked by name against each run's
+results bundle (329: `tnr_results_1793424666625.json`; 346: `tnr_results_1793463543589.json`; 348:
+`tnr_results_1793459592295.json`). Text read verbatim from `docs/design/SKYGLASS_TEXT.md` (§3.2, §4.1-§4.4).
+- 329: Tide Chart, Watch Roster, Reliquary Seal, The Last Heading, Rotted Reliquary Seal, The Rotted Heading; the six
+  Haul pages; Core Rot; Galley Stores; the Skyglass Token; the seven boss variant tokens (the §4.3 template, no "the
+  The …"; unlock path through the weapon's Variants list, F12).
+- 346: The Little Horror's Jar. 348: Crown's Hoard (rendered from the Coffer and Treasury tables in the ◆ format by
+  `push/skyglass_hoard.gen.py`, checked against the text doc).
+- **itemVariant edit:** the Crownbreaker variant (`dt6BWKCOfuB3mPLl14-CF` on Thornsilver) gets `description: ""`
+  (RUL-2026-10-31-072 item 6 / F09: blank until Walked Every Deck exists). Variants have no hidden state, so this is the
+  one change players can see. Forge compares `""` sent with `null` live as equal.
+- Live records are not here: their new text is in go-live 339 (above).
+- Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems (25 planned updates);
+  `skyglass_check.py` 0 errors, 0 warnings. No live read-back done; after it runs, read back the 24 descriptions and the
+  Crownbreaker variant's description.
+- Can run any time (nothing depends on it, it depends on nothing unrun). Content edits go outside event weekends (F05).
 
 ## 352 Skyglass chart, page and reagent icons (13 item image edits, records stay HIDDEN): RUN 2026-10-31 (tnr_results_1793463647707.json, 13/13 VERIFIED)
 
@@ -1479,6 +1510,9 @@ which must still match after the RUL-2026-10-31-066/-067 re-simulation lands.
   `picks.runs[].quest.id` (Walked Every Deck needs them).
 
 ### 348 Crown's Hoard + Wreck Sighted (2 creates, HIDDEN, placeholder art): 348 RUN 2026-10-31 (tnr_results_1793459592295.json, 2/2 VERIFIED; Crown's Hoard WrnHlt3h6ZDjFaJk3i41O, Wreck Sighted v7kKhLXsX9aofQfc7BnGx); 349 RUN 2026-10-31 (tnr_results_1793460192439.json, 1/1 VERIFIED)
+
+**348 archived 2026-10-31** to `archive/spent-manifests/push-2026-10-31/` (spent; its Crown's Hoard text is the
+superseded colour-label format, which `skyglass_check.py` now refuses; the live text is replaced by push/360).
 
 `python3 push/skyglass_hoard.gen.py` writes `348_skyglass_hoard_and_intro.json`. No dependency on an unrun manifest: it
 names only live ids (Skyglass Token, Tide Chart: push/329 creates, read from `tnr_results_1793424666625.json`).

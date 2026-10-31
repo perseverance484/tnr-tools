@@ -69,7 +69,7 @@ survives only in the approved place names The Trophy Hold and the Trophy Warden,
 | Haul hazard effect lines (`applyDebuffs` descriptions) | **exist** in `haul_spec.json`; one split proposed (§3.8) | harness `fable/skyglass-haul-sim` |
 | Wreck Sighted; Low Tide Run; Night Watch; Sealed Reliquary; The Fall; Rotted Reliquary; Burning Heading; both steeping quests | **new** (§1, §2) | none before |
 | The Haul: 6 pages, tags, step lines, endings | **new** (§3) | none before (only two chart descriptions in the Haul doc) |
-| Item descriptions per §0 for every Skyglass item | **approved 2026-10-31** (§3.2, §4; RUL-2026-10-31-074: condensed container format with a ◆ tier marker, star difficulty on charts and pages, the Coffer's contents in §4.6) | `push/skyglass_items.gen.py` (live records: go-live 339; hidden records: push/354) |
+| Item descriptions per §0 for every Skyglass item | **approved 2026-10-31** (§3.2, §4; RUL-2026-10-31-074: condensed container format with a ◆ tier marker, star difficulty on charts and pages, the Coffer's contents in §4.6) | `push/skyglass_items.gen.py` (live records: go-live 339; hidden records: push/360) |
 | Variant names, flavour, art lines | **new** (§5) | none |
 | Steady the Helm; boss closing lines; press-on stakes lines | **new** (§2, §6) | none |
 | Walked Every Deck | **new** (§7) | none |
