@@ -1408,14 +1408,17 @@ the 20-rule cap; and a false "dead rules" error on the Crowned Captain's uncondi
 through once he stands on the post: theninjarpg@3314d122 `libs/combat/ai_v2.ts` ~482-492). Both need a
 `state/validate_exceptions/` ledger with director acceptance when the manifests are built from the final specs.
 
-## 368 Skyglass chart cards for the five hidden pre-existing charts (5 item edits; records stay HIDDEN): READY TO RUN
+## 368 Skyglass hidden event records: go-live edits sent early (12 item edits; records stay HIDDEN): READY TO RUN
 
-`368_skyglass_chart_text.json` (`python3 push/skyglass_chart_text.gen.py`): `description` and `rarity` only for the
-Chart of the Buried Cache, Chart of the Drowned Foundry, Chart of the Quarantined Archive, Chart of the Captain's Watch
-and the Lastlight Lantern, in the approved card format (RUL-2026-10-31-074). These records are hidden (director
-2026-10-31), so the text need not wait for go-live; `hidden` is not sent, so each stays hidden. Values are taken from the
-same edits go-live push/339 builds, which re-sends them unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings;
-`check_manifest.mjs` 0 pre-send problems. Run any time; verify the five descriptions in the results bundle.
+`368_skyglass_hidden_items.json` (`python3 push/skyglass_hidden_items.gen.py`, from 329's results bundle
+`tnr_results_1793424666625.json`): the full go-live edits (approved RUL-2026-10-31-074 text, tier, contents, art) for
+the 12 hidden event records in `push/skyglass_update.gen.py` `PRE_GOLIVE_HIDDEN`: the four Rare charts, the Lastlight
+Lantern, the Skyglass Coffer, Sealed Treasury, Archive Chart Case, Medicine Inro, Sage's Strongbox, Elemental Tool Pouch
+and Unmarked Cargo. All are our own hidden creates (push/260, 270, 274), so players cannot open them (director
+2026-10-31). No `hidden` is sent, so every record stays hidden. **Go-live 339 no longer carries these**: its phase 1 is
+now only the 13 visible pre-existing items (the eight profession chests and the Coffer's five contents), phase 2 the four
+runs. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. Run any time before
+339; verify the 12 edits in the results bundle.
 
 ## 360 Skyglass item text for the hidden records (24 item edits + 1 itemVariant edit; records stay HIDDEN): READY TO RUN
 
