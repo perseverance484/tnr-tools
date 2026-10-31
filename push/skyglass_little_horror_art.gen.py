@@ -20,28 +20,28 @@ A2 = importlib.util.module_from_spec(spec); spec.loader.exec_module(A2)
 SPECIES_ID, MAW_ID = "eI2UFBlBTEhXpcHk5uBra", "GYy5K24tGkYIeGEJef3TW"
 STRIP = "art/skyglass_boss_fx/exports/anim_maw_v1_x3.webp"
 SRC = "sg379_anim_little_maw"
-# Revised after the director's first adoption render (2026-10-31: a fluffy, big-eyed cute critter). The engine prompt
-# defaults to "smooth species-specific fur" and calls it a "companion", so the text names the material explicitly:
-# hairless, slick, wood-grained hide; crystal from rank 1; small eyes; a crooked grin. Never "small", "cute", "mascot".
-ART_DIRECTION = ("Hairless: no fur, tufts or fluff anywhere. A lean, low four-legged creature built like a salamander "
-                 "crossed with a hound, rebuilt from shipwreck rot. Its hide is slick, wet and glistening, with the grain "
-                 "and seams of rotten hull planks, patched with barnacle crusts. A tail like a length of frayed, tarred "
-                 "rope. Small glinting eyes, a mouth too wide for its head with crooked, uneven teeth. Flat clusters of "
-                 "clouded crystal grow on its back like barnacles, in the palette's accent colour. Eerie, not cute.")
-DESCRIPTION = ("The Core tried to remember the ship's mascot and rebuilt it from the wreck's rot: a hairless, dripping "
-               "thing of soaked hull timber and frayed rope, crusted with clouded crystal, its grin too wide and crooked. "
+# Matched to the creature in the approved jar icon (IC09, director 2026-10-31: "look like the thing from the jar"),
+# colours left to the player's palette. The engine prompt defaults to fur and a "companion", so the material is named.
+ART_DIRECTION = ("Hairless, no fur or tufts: a round-bodied, frog-like rot creature with a plump torso, a big round "
+                 "head and four short stubby legs with soft paw pads, and a short tapering tail. Its hide is glossy and "
+                 "tar-slick, streaked with thick dripping slime in the palette's accent colour. A short row of clear, "
+                 "faceted crystal shards juts from its back like barnacles. Round eyes with a bright pinpoint highlight. "
+                 "Its signature: an enormous grin that splits its face nearly ear to ear, packed with jagged white "
+                 "teeth. Creepy-cute, mischievous, a little unsettling.")
+DESCRIPTION = ("The Core tried to remember the ship's mascot and rebuilt it from the wreck's rot: a round, tar-slick "
+               "thing dripping slime, crusted with clouded crystal, its grin far too wide and far too full of teeth. "
                "It has decided you are its crew.")
 RANKS = [
-    "A lean, hairless rot creature low on four short legs, slick wood-grained hide, a crooked grin, flat crystal barnacles on its back",
-    "Its legs lengthen and it stands steadier; the barnacles spread along its spine in a short line",
-    "Adult size, low and sturdy; ship-plank grain shows through its hide and its rope-like tail is held up",
-    "Its grin widens into a proper maw with crystal-tipped teeth; its claws look like tarred wood",
-    "The barnacles fuse into one smooth crystal plate across its shoulders, one clean shape",
-    "Seam lines painted across its body in the palette's accent colour, like caulking between hull planks",
-    "The seam lines glow faintly in its aura colour and the crystal plate lights from within",
-    "A guard of tarred rigging rope with a small crystal medallion, worn alongside any collar, scarf or charm it already has",
-    "Head raised and one forepaw lifted as if standing watch on deck; the crystal plate polished clear",
-    "The wreck's guardian: sleek and proud, its hide like lacquered hull timber, crystal catching the light, still grinning",
+    "A round, tar-slick rot creature on stubby legs with a huge toothy grin, slime dripping off it, three small crystal shards on its back",
+    "A little longer in the legs and steadier on its feet; a fourth and fifth crystal shard along its back",
+    "Full adult size, still round-bodied; the grin reaches nearly ear to ear and the slime streaks run thicker",
+    "Its teeth turn jagged and crystal-tipped and its paw claws darken; the grin is now plainly a weapon",
+    "The back shards grow into one neat, even row of clear crystal, a single clean crest",
+    "Slime streaks settle into bold painted patterns across its hide in the palette's accent colour",
+    "The slime patterns glow faintly in its aura colour and the crystal crest lights from within",
+    "A collar of tarred rigging rope with a small crystal medallion, worn alongside any collar, scarf or charm it already has",
+    "Sitting up proud with one paw raised, head high, the crystal crest polished clear, grin wide",
+    "The wreck's guardian: glossy and commanding, crest of clear crystal catching the light, the same enormous grin",
 ]
 
 
