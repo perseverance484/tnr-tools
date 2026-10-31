@@ -1,0 +1,36 @@
+{
+ "_note": "push/380: unhides the Little Maw animation asset (from tnr_results_1793489822839.json).",
+ "dedupNames": true,
+ "imgSizes": {
+  "anim_maw_v1_x3.webp": 3896
+ },
+ "imagePack": {
+  "ref": "5049c90836f2b53e3f3a2fd6c0942e8b739f1d63",
+  "files": {
+   "anim_maw_v1_x3.webp": {
+    "path": "art/skyglass_boss_fx/exports/anim_maw_v1_x3.webp",
+    "sha256": "a72f027a7866b3bd81d13c0ed754bde48b6f1ffaef1dc0124185ec014eb4e8c3",
+    "bytes": 3896
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "DXJGnbF6RUGKfK9vTc__n",
+   "name": "Little Maw bite",
+   "data": {
+    "name": "Little Maw bite",
+    "type": "ANIMATION",
+    "image": "@img:anim_maw_v1_x3.webp",
+    "folder": "SkyglassBossFX",
+    "frames": 12,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  }
+ ]
+}
