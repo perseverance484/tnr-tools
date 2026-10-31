@@ -26,8 +26,10 @@ jutsu used by other enemies and must not be re-skinned.
   makes the infection visibly linger.
 - **Infected Bite** is his heaviest single hit and the most memorable moment of the fight.
 
-The third signature, Festering Claws, stays out of this request. The cheap option is to reuse Skyglass's
-`anim_rot_claw_v1`, but that strip is already Splintered Grasp's (Skyglass boss), so reusing it is a director call.
+The third signature, **Festering Claws** `ydcbW8BIAKyYxHpnz7SDw`, reuses Skyglass's rot-claw strip (dauntless,
+2026-10-30). The strip is `art/skyglass_boss_fx/exports/anim_rot_claw_v1.webp`, drawn for Splintered Grasp. It has
+never been uploaded, so this event's manifest creates it as a shared hidden ANIMATION asset that Skyglass can reuse
+later. It needs no new art and goes on Festering Claws' damage effect only.
 
 ## 2. How the game draws it (spec `ANIMATION`; Skyglass and Hellfire measurements)
 
@@ -118,13 +120,14 @@ Rules:
    - `anim_pz_plague_spatter.webp` (appear)
    - `anim_pz_festering_pool.webp` (loop)
    - `anim_pz_death_snap.webp` (appear)
+   - `anim_rot_claw_v1.webp` (appear, reused as is for Festering Claws)
    Each must pass `artpreflight.py --type ANIMATION`.
 3. Preview:
    - A GIF of each strip on a hex board over the pyramid background, with a fighter on the target hex.
    - For the loop, the full 2-round hold, to prove it does not bury the fighter.
 4. Manifest:
-   - Three hidden ANIMATION gameAsset creates in folder `Halloween2026`.
-   - Then unequip Patient Zero, edit the two jutsu, and re-equip (law 18/60, two runs).
+   - Four hidden ANIMATION gameAsset creates in folder `Halloween2026` (three new strips plus the reused rot claw).
+   - Then unequip Patient Zero, edit the three jutsu, and re-equip (law 18/60, two runs).
    - Sound candidates (live SFX assets, to confirm by ear): WaterSFX `NThXOSKNDXPwNnGxDtH0Z` for Plague Bile, and
      Growler `yIwD2VXIm-x4EF3O8LN8E` for Infected Bite.
 
@@ -133,4 +136,4 @@ Rules:
 1. The two directions as described (section 3), including the Festering Pool loop.
 2. The bile-green accent, used on Plague Bile only.
 3. The sound picks (section 5.4).
-4. Festering Claws: leave it bare, reuse Skyglass's rot claw, or a third animation later.
+4. ~~Festering Claws~~ DECIDED 2026-10-30: reuse Skyglass's rot claw (section 1).
