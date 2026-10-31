@@ -114,20 +114,22 @@ export const sharedRules = (P: Pick<KitParams, "horrorPhase2" | "horrorMawFirst"
     blast("Collapse (ring blast)", "ring"),
     // Two-marker chain: the 60 AP left after Omen: Ring drag a far player into the ring (live pull).
     cast("Undertow (live Sovereign Undertow, during a ring mark)", LIVE.undertow, "RANDOM_OPPONENT", [cond.marker(1, mk("ring")), cond.far(4, "RANDOM_OPPONENT")]),
-    // Rule cap (RUL-2026-10-31-066: the server takes at most 20 rules). The plain attacks are hoisted above the
-    // after-mark end turns instead of repeated once per marker (4 x 3 rules). Every plain attack is 60 AP and every
-    // mark 40 AP, so a turn still holds at most one plain attack and one mark: after a mark (60 AP left) the plain
-    // attack fires as before, else the marker's end turn closes the turn (never two marks). The first mark in his
-    // order (phase 2's Rupture Field A; level 50: Omen: Last Light) stays above the plain attacks, so a Second Wind
-    // turn is still Second Wind + that mark (a first cut that hoisted every mark below the attacks turned it into
-    // Second Wind + a plain attack and cost the short fight its Maw: signature 92% -> 28% of appearances). For the
-    // other marks a turn with no marker now opens with the plain attack and lays the mark in the 40 AP left (same
-    // pair, swapped order).
-    horrorMarks[0]!,
-    ...horrorPlain.map(([n, id, t, c]) => cast(n, id, t, c)),
-    ...(["ring", "scatterA", "scatterB", "lastLight"] as const).map((k) => endTurn(`after ${LIB.mark[k]}: end turn`, [cond.marker(1, mk(k))])),
-    ...horrorMarks.slice(1),
-    endTurn("stationary: hold"),
+    // Rule cap (RUL-2026-10-31-066: the server takes at most 20 rules; this list had 32). The order is the final
+    // pass's; only follow-ups that (almost) never fired go (final pass, endgame Wreck, 70 appearances):
+    // - after Collapse's and the Maw's marks: Splintered Grasp, else Bilge Spit, else end turn (Twin Kunai as the third
+    //   follow-up fired 0 + 2 times);
+    // - after Rupture Field A / B: end turn only (their plain-attack follow-ups fired 6 times: Rupture Field A is laid
+    //   with Second Wind, 20 AP left);
+    // - the three plain attacks below the marks (0 casts: a mark is always ready) and the explicit end turn (the engine
+    //   appends the same rule): with no mark ready he now ends his turn.
+    // (A first cut hoisted the plain attacks above the end turns; it turned every Second Wind turn into Second Wind + a
+    // plain attack and cost the short fight its Maw: signature 92% -> 28-53% of appearances. Not used.)
+    ...(["ring", "lastLight"] as const).flatMap((k) => [
+      ...horrorPlain.slice(0, 2).map(([note, id, target, conds]) => cast(`after ${LIB.mark[k]}: ${note}`, id, target, [cond.marker(1, mk(k)), ...conds])),
+      endTurn(`after ${LIB.mark[k]}: end turn`, [cond.marker(1, mk(k))]),
+    ]),
+    ...(["scatterA", "scatterB"] as const).map((k) => endTurn(`after ${LIB.mark[k]}: end turn`, [cond.marker(1, mk(k))])),
+    ...horrorMarks,
   ];
 
   const duel = (t = "HIGHEST_ENMITY_OPPONENT"): [string, string, string, any[]][] => [

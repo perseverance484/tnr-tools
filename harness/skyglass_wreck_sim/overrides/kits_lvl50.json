@@ -9651,10 +9651,9 @@
     "lib-blast-scatter-b",
     "lib-blast-ring",
     "nOYLPmN3TXj6wEe_oE6HQ",
-    "lib-omen-last-light",
     "pUrUJX8Jml7fUIBXKsPwv",
     "LiVOnYq6qHzjB0XkIIA2e",
-    "3v9c1SHlD2GLPF2HW1_Sc",
+    "lib-omen-last-light",
     "lib-omen-scatter-a",
     "lib-omen-scatter-b",
     "lib-omen-ring"
@@ -9762,16 +9761,13 @@
      }
     },
     {
-     "conditions": [],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Omen: Last Light (Maw of the Deep, level-50 order: first)",
-      "jutsuId": "lib-omen-last-light",
-      "target": "SELF"
-     }
-    },
-    {
      "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
       {
        "type": "distance_lower_than",
        "description": "",
@@ -9781,7 +9777,7 @@
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Splintered Grasp (live Heavy Strike)",
+      "description": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)",
       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
       "target": "CLOSEST_OPPONENT"
      }
@@ -9789,21 +9785,11 @@
     {
      "conditions": [
       {
-       "type": "distance_lower_than",
+       "type": "has_effect",
        "description": "",
-       "value": 6,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "description": "Bilge Spit (live Venom Strike)",
-      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-      "target": "CLOSEST_OPPONENT"
-     }
-    },
-    {
-     "conditions": [
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
       {
        "type": "distance_lower_than",
        "description": "",
@@ -9813,8 +9799,8 @@
      ],
      "action": {
       "type": "use_specific_jutsu",
-      "description": "Twin Kunai",
-      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "description": "after lib-omen-ring: Bilge Spit (live Venom Strike)",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
       "target": "CLOSEST_OPPONENT"
      }
     },
@@ -9830,6 +9816,64 @@
      "action": {
       "type": "end_turn",
       "description": "after lib-omen-ring: end turn"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "description": "after lib-omen-last-light: Bilge Spit (live Venom Strike)",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "action": {
+      "type": "end_turn",
+      "description": "after lib-omen-last-light: end turn"
      }
     },
     {
@@ -9861,17 +9905,12 @@
      }
     },
     {
-     "conditions": [
-      {
-       "type": "has_effect",
-       "description": "",
-       "effectType": "summonprevent",
-       "threshold": 1
-      }
-     ],
+     "conditions": [],
      "action": {
-      "type": "end_turn",
-      "description": "after lib-omen-last-light: end turn"
+      "type": "use_specific_jutsu",
+      "description": "Omen: Last Light (Maw of the Deep, level-50 order: first)",
+      "jutsuId": "lib-omen-last-light",
+      "target": "SELF"
      }
     },
     {
@@ -9936,13 +9975,6 @@
       "description": "Omen: Scatter B",
       "jutsuId": "lib-omen-scatter-b",
       "target": "SELF"
-     }
-    },
-    {
-     "conditions": [],
-     "action": {
-      "type": "end_turn",
-      "description": "stationary: hold"
      }
     }
    ],
@@ -10448,7 +10480,7 @@
   ],
   "dg-core-horror-l50": [
    1,
-   6
+   14
   ],
   "dg-the-captain-l50": [
    0,

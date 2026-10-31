@@ -8835,10 +8835,6 @@
      "name": "Sovereign Undertow"
     },
     {
-     "id": "lib-omen-scatter-a",
-     "name": "Omen: Scatter"
-    },
-    {
      "id": "pUrUJX8Jml7fUIBXKsPwv",
      "name": "Heavy Strike"
     },
@@ -8847,8 +8843,8 @@
      "name": "Venom Strike"
     },
     {
-     "id": "3v9c1SHlD2GLPF2HW1_Sc",
-     "name": "Twin Kunai"
+     "id": "lib-omen-scatter-a",
+     "name": "Omen: Scatter"
     },
     {
      "id": "lib-omen-last-light",
@@ -8968,20 +8964,11 @@
     {
      "when": [
       {
-       "type": "health_below",
+       "type": "has_effect",
        "description": "",
-       "value": 70
-      }
-     ],
-     "do": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "lib-omen-scatter-a",
-      "target": "SELF"
-     },
-     "note": "Omen: Scatter A (phase 2)"
-    },
-    {
-     "when": [
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
       {
        "type": "distance_lower_than",
        "description": "",
@@ -8994,10 +8981,16 @@
       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
       "target": "CLOSEST_OPPONENT"
      },
-     "note": "Splintered Grasp (live Heavy Strike)"
+     "note": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)"
     },
     {
      "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
       {
        "type": "distance_lower_than",
        "description": "",
@@ -9010,23 +9003,7 @@
       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
       "target": "CLOSEST_OPPONENT"
      },
-     "note": "Bilge Spit (live Venom Strike)"
-    },
-    {
-     "when": [
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 6,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "do": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-      "target": "CLOSEST_OPPONENT"
-     },
-     "note": "Twin Kunai"
+     "note": "after lib-omen-ring: Bilge Spit (live Venom Strike)"
     },
     {
      "when": [
@@ -9041,6 +9018,64 @@
       "type": "end_turn"
      },
      "note": "after lib-omen-ring: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-last-light: end turn"
     },
     {
      "when": [
@@ -9073,16 +9108,17 @@
     {
      "when": [
       {
-       "type": "has_effect",
+       "type": "health_below",
        "description": "",
-       "effectType": "summonprevent",
-       "threshold": 1
+       "value": 70
       }
      ],
      "do": {
-      "type": "end_turn"
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-a",
+      "target": "SELF"
      },
-     "note": "after lib-omen-last-light: end turn"
+     "note": "Omen: Scatter A (phase 2)"
     },
     {
      "when": [
@@ -9147,13 +9183,6 @@
       "target": "SELF"
      },
      "note": "Omen: Scatter B"
-    },
-    {
-     "when": [],
-     "do": {
-      "type": "end_turn"
-     },
-     "note": "stationary: hold"
     }
    ],
    "insertAiSchema": "pass",
@@ -9402,10 +9431,9 @@
      "lib-blast-scatter-b",
      "lib-blast-ring",
      "nOYLPmN3TXj6wEe_oE6HQ",
-     "lib-omen-scatter-a",
      "pUrUJX8Jml7fUIBXKsPwv",
      "LiVOnYq6qHzjB0XkIIA2e",
-     "3v9c1SHlD2GLPF2HW1_Sc",
+     "lib-omen-scatter-a",
      "lib-omen-last-light",
      "lib-omen-scatter-b",
      "lib-omen-ring"
@@ -9520,20 +9548,11 @@
      {
       "conditions": [
        {
-        "type": "health_below",
+        "type": "has_effect",
         "description": "",
-        "value": 70
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "Omen: Scatter A (phase 2)",
-       "jutsuId": "lib-omen-scatter-a",
-       "target": "SELF"
-      }
-     },
-     {
-      "conditions": [
+        "effectType": "increasecooldown",
+        "threshold": 1
+       },
        {
         "type": "distance_lower_than",
         "description": "",
@@ -9543,7 +9562,7 @@
       ],
       "action": {
        "type": "use_specific_jutsu",
-       "description": "Splintered Grasp (live Heavy Strike)",
+       "description": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)",
        "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
        "target": "CLOSEST_OPPONENT"
       }
@@ -9551,21 +9570,11 @@
      {
       "conditions": [
        {
-        "type": "distance_lower_than",
+        "type": "has_effect",
         "description": "",
-        "value": 6,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "Bilge Spit (live Venom Strike)",
-       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "conditions": [
+        "effectType": "increasecooldown",
+        "threshold": 1
+       },
        {
         "type": "distance_lower_than",
         "description": "",
@@ -9575,8 +9584,8 @@
       ],
       "action": {
        "type": "use_specific_jutsu",
-       "description": "Twin Kunai",
-       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "description": "after lib-omen-ring: Bilge Spit (live Venom Strike)",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
        "target": "CLOSEST_OPPONENT"
       }
      },
@@ -9592,6 +9601,64 @@
       "action": {
        "type": "end_turn",
        "description": "after lib-omen-ring: end turn"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "summonprevent",
+        "threshold": 1
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)",
+       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "summonprevent",
+        "threshold": 1
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "after lib-omen-last-light: Bilge Spit (live Venom Strike)",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "summonprevent",
+        "threshold": 1
+       }
+      ],
+      "action": {
+       "type": "end_turn",
+       "description": "after lib-omen-last-light: end turn"
       }
      },
      {
@@ -9625,15 +9692,16 @@
      {
       "conditions": [
        {
-        "type": "has_effect",
+        "type": "health_below",
         "description": "",
-        "effectType": "summonprevent",
-        "threshold": 1
+        "value": 70
        }
       ],
       "action": {
-       "type": "end_turn",
-       "description": "after lib-omen-last-light: end turn"
+       "type": "use_specific_jutsu",
+       "description": "Omen: Scatter A (phase 2)",
+       "jutsuId": "lib-omen-scatter-a",
+       "target": "SELF"
       }
      },
      {
@@ -9698,13 +9766,6 @@
        "description": "Omen: Scatter B",
        "jutsuId": "lib-omen-scatter-b",
        "target": "SELF"
-      }
-     },
-     {
-      "conditions": [],
-      "action": {
-       "type": "end_turn",
-       "description": "stationary: hold"
       }
      }
     ],
@@ -14763,10 +14824,6 @@
      "name": "Sovereign Undertow"
     },
     {
-     "id": "lib-omen-scatter-a",
-     "name": "Omen: Scatter"
-    },
-    {
      "id": "pUrUJX8Jml7fUIBXKsPwv",
      "name": "Heavy Strike"
     },
@@ -14775,8 +14832,8 @@
      "name": "Venom Strike"
     },
     {
-     "id": "3v9c1SHlD2GLPF2HW1_Sc",
-     "name": "Twin Kunai"
+     "id": "lib-omen-scatter-a",
+     "name": "Omen: Scatter"
     },
     {
      "id": "lib-omen-last-light",
@@ -14896,20 +14953,11 @@
     {
      "when": [
       {
-       "type": "health_below",
+       "type": "has_effect",
        "description": "",
-       "value": 70
-      }
-     ],
-     "do": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "lib-omen-scatter-a",
-      "target": "SELF"
-     },
-     "note": "Omen: Scatter A (phase 2)"
-    },
-    {
-     "when": [
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
       {
        "type": "distance_lower_than",
        "description": "",
@@ -14922,10 +14970,16 @@
       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
       "target": "CLOSEST_OPPONENT"
      },
-     "note": "Splintered Grasp (live Heavy Strike)"
+     "note": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)"
     },
     {
      "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
       {
        "type": "distance_lower_than",
        "description": "",
@@ -14938,23 +14992,7 @@
       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
       "target": "CLOSEST_OPPONENT"
      },
-     "note": "Bilge Spit (live Venom Strike)"
-    },
-    {
-     "when": [
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 6,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "do": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-      "target": "CLOSEST_OPPONENT"
-     },
-     "note": "Twin Kunai"
+     "note": "after lib-omen-ring: Bilge Spit (live Venom Strike)"
     },
     {
      "when": [
@@ -14969,6 +15007,64 @@
       "type": "end_turn"
      },
      "note": "after lib-omen-ring: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-last-light: end turn"
     },
     {
      "when": [
@@ -15001,16 +15097,17 @@
     {
      "when": [
       {
-       "type": "has_effect",
+       "type": "health_below",
        "description": "",
-       "effectType": "summonprevent",
-       "threshold": 1
+       "value": 70
       }
      ],
      "do": {
-      "type": "end_turn"
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-a",
+      "target": "SELF"
      },
-     "note": "after lib-omen-last-light: end turn"
+     "note": "Omen: Scatter A (phase 2)"
     },
     {
      "when": [
@@ -15075,13 +15172,6 @@
       "target": "SELF"
      },
      "note": "Omen: Scatter B"
-    },
-    {
-     "when": [],
-     "do": {
-      "type": "end_turn"
-     },
-     "note": "stationary: hold"
     }
    ],
    "insertAiSchema": "pass",
@@ -15362,10 +15452,9 @@
      "lib-blast-scatter-b",
      "lib-blast-ring",
      "nOYLPmN3TXj6wEe_oE6HQ",
-     "lib-omen-scatter-a",
      "pUrUJX8Jml7fUIBXKsPwv",
      "LiVOnYq6qHzjB0XkIIA2e",
-     "3v9c1SHlD2GLPF2HW1_Sc",
+     "lib-omen-scatter-a",
      "lib-omen-last-light",
      "lib-omen-scatter-b",
      "lib-omen-ring"
@@ -15480,20 +15569,11 @@
      {
       "conditions": [
        {
-        "type": "health_below",
+        "type": "has_effect",
         "description": "",
-        "value": 70
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "Omen: Scatter A (phase 2)",
-       "jutsuId": "lib-omen-scatter-a",
-       "target": "SELF"
-      }
-     },
-     {
-      "conditions": [
+        "effectType": "increasecooldown",
+        "threshold": 1
+       },
        {
         "type": "distance_lower_than",
         "description": "",
@@ -15503,7 +15583,7 @@
       ],
       "action": {
        "type": "use_specific_jutsu",
-       "description": "Splintered Grasp (live Heavy Strike)",
+       "description": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)",
        "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
        "target": "CLOSEST_OPPONENT"
       }
@@ -15511,21 +15591,11 @@
      {
       "conditions": [
        {
-        "type": "distance_lower_than",
+        "type": "has_effect",
         "description": "",
-        "value": 6,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "Bilge Spit (live Venom Strike)",
-       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "conditions": [
+        "effectType": "increasecooldown",
+        "threshold": 1
+       },
        {
         "type": "distance_lower_than",
         "description": "",
@@ -15535,8 +15605,8 @@
       ],
       "action": {
        "type": "use_specific_jutsu",
-       "description": "Twin Kunai",
-       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "description": "after lib-omen-ring: Bilge Spit (live Venom Strike)",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
        "target": "CLOSEST_OPPONENT"
       }
      },
@@ -15552,6 +15622,64 @@
       "action": {
        "type": "end_turn",
        "description": "after lib-omen-ring: end turn"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "summonprevent",
+        "threshold": 1
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)",
+       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "summonprevent",
+        "threshold": 1
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "after lib-omen-last-light: Bilge Spit (live Venom Strike)",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "summonprevent",
+        "threshold": 1
+       }
+      ],
+      "action": {
+       "type": "end_turn",
+       "description": "after lib-omen-last-light: end turn"
       }
      },
      {
@@ -15585,15 +15713,16 @@
      {
       "conditions": [
        {
-        "type": "has_effect",
+        "type": "health_below",
         "description": "",
-        "effectType": "summonprevent",
-        "threshold": 1
+        "value": 70
        }
       ],
       "action": {
-       "type": "end_turn",
-       "description": "after lib-omen-last-light: end turn"
+       "type": "use_specific_jutsu",
+       "description": "Omen: Scatter A (phase 2)",
+       "jutsuId": "lib-omen-scatter-a",
+       "target": "SELF"
       }
      },
      {
@@ -15658,13 +15787,6 @@
        "description": "Omen: Scatter B",
        "jutsuId": "lib-omen-scatter-b",
        "target": "SELF"
-      }
-     },
-     {
-      "conditions": [],
-      "action": {
-       "type": "end_turn",
-       "description": "stationary: hold"
       }
      }
     ],
@@ -18157,10 +18279,6 @@
      "name": "Sovereign Undertow"
     },
     {
-     "id": "lib-omen-scatter-a",
-     "name": "Omen: Scatter"
-    },
-    {
      "id": "pUrUJX8Jml7fUIBXKsPwv",
      "name": "Heavy Strike"
     },
@@ -18169,8 +18287,8 @@
      "name": "Venom Strike"
     },
     {
-     "id": "3v9c1SHlD2GLPF2HW1_Sc",
-     "name": "Twin Kunai"
+     "id": "lib-omen-scatter-a",
+     "name": "Omen: Scatter"
     },
     {
      "id": "lib-omen-last-light",
@@ -18290,20 +18408,11 @@
     {
      "when": [
       {
-       "type": "health_below",
+       "type": "has_effect",
        "description": "",
-       "value": 70
-      }
-     ],
-     "do": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "lib-omen-scatter-a",
-      "target": "SELF"
-     },
-     "note": "Omen: Scatter A (phase 2)"
-    },
-    {
-     "when": [
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
       {
        "type": "distance_lower_than",
        "description": "",
@@ -18316,10 +18425,16 @@
       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
       "target": "CLOSEST_OPPONENT"
      },
-     "note": "Splintered Grasp (live Heavy Strike)"
+     "note": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)"
     },
     {
      "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "increasecooldown",
+       "threshold": 1
+      },
       {
        "type": "distance_lower_than",
        "description": "",
@@ -18332,23 +18447,7 @@
       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
       "target": "CLOSEST_OPPONENT"
      },
-     "note": "Bilge Spit (live Venom Strike)"
-    },
-    {
-     "when": [
-      {
-       "type": "distance_lower_than",
-       "description": "",
-       "value": 6,
-       "target": "CLOSEST_OPPONENT"
-      }
-     ],
-     "do": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
-      "target": "CLOSEST_OPPONENT"
-     },
-     "note": "Twin Kunai"
+     "note": "after lib-omen-ring: Bilge Spit (live Venom Strike)"
     },
     {
      "when": [
@@ -18363,6 +18462,64 @@
       "type": "end_turn"
      },
      "note": "after lib-omen-ring: end turn"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 4,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      },
+      {
+       "type": "distance_lower_than",
+       "description": "",
+       "value": 6,
+       "target": "CLOSEST_OPPONENT"
+      }
+     ],
+     "do": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+      "target": "CLOSEST_OPPONENT"
+     },
+     "note": "after lib-omen-last-light: Bilge Spit (live Venom Strike)"
+    },
+    {
+     "when": [
+      {
+       "type": "has_effect",
+       "description": "",
+       "effectType": "summonprevent",
+       "threshold": 1
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     },
+     "note": "after lib-omen-last-light: end turn"
     },
     {
      "when": [
@@ -18395,16 +18552,17 @@
     {
      "when": [
       {
-       "type": "has_effect",
+       "type": "health_below",
        "description": "",
-       "effectType": "summonprevent",
-       "threshold": 1
+       "value": 70
       }
      ],
      "do": {
-      "type": "end_turn"
+      "type": "use_specific_jutsu",
+      "jutsuId": "lib-omen-scatter-a",
+      "target": "SELF"
      },
-     "note": "after lib-omen-last-light: end turn"
+     "note": "Omen: Scatter A (phase 2)"
     },
     {
      "when": [
@@ -18469,13 +18627,6 @@
       "target": "SELF"
      },
      "note": "Omen: Scatter B"
-    },
-    {
-     "when": [],
-     "do": {
-      "type": "end_turn"
-     },
-     "note": "stationary: hold"
     }
    ],
    "insertAiSchema": "pass",
@@ -18740,10 +18891,9 @@
      "lib-blast-scatter-b",
      "lib-blast-ring",
      "nOYLPmN3TXj6wEe_oE6HQ",
-     "lib-omen-scatter-a",
      "pUrUJX8Jml7fUIBXKsPwv",
      "LiVOnYq6qHzjB0XkIIA2e",
-     "3v9c1SHlD2GLPF2HW1_Sc",
+     "lib-omen-scatter-a",
      "lib-omen-last-light",
      "lib-omen-scatter-b",
      "lib-omen-ring"
@@ -18858,20 +19008,11 @@
      {
       "conditions": [
        {
-        "type": "health_below",
+        "type": "has_effect",
         "description": "",
-        "value": 70
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "Omen: Scatter A (phase 2)",
-       "jutsuId": "lib-omen-scatter-a",
-       "target": "SELF"
-      }
-     },
-     {
-      "conditions": [
+        "effectType": "increasecooldown",
+        "threshold": 1
+       },
        {
         "type": "distance_lower_than",
         "description": "",
@@ -18881,7 +19022,7 @@
       ],
       "action": {
        "type": "use_specific_jutsu",
-       "description": "Splintered Grasp (live Heavy Strike)",
+       "description": "after lib-omen-ring: Splintered Grasp (live Heavy Strike)",
        "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
        "target": "CLOSEST_OPPONENT"
       }
@@ -18889,21 +19030,11 @@
      {
       "conditions": [
        {
-        "type": "distance_lower_than",
+        "type": "has_effect",
         "description": "",
-        "value": 6,
-        "target": "CLOSEST_OPPONENT"
-       }
-      ],
-      "action": {
-       "type": "use_specific_jutsu",
-       "description": "Bilge Spit (live Venom Strike)",
-       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
-       "target": "CLOSEST_OPPONENT"
-      }
-     },
-     {
-      "conditions": [
+        "effectType": "increasecooldown",
+        "threshold": 1
+       },
        {
         "type": "distance_lower_than",
         "description": "",
@@ -18913,8 +19044,8 @@
       ],
       "action": {
        "type": "use_specific_jutsu",
-       "description": "Twin Kunai",
-       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "description": "after lib-omen-ring: Bilge Spit (live Venom Strike)",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
        "target": "CLOSEST_OPPONENT"
       }
      },
@@ -18930,6 +19061,64 @@
       "action": {
        "type": "end_turn",
        "description": "after lib-omen-ring: end turn"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "summonprevent",
+        "threshold": 1
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "after lib-omen-last-light: Splintered Grasp (live Heavy Strike)",
+       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "summonprevent",
+        "threshold": 1
+       },
+       {
+        "type": "distance_lower_than",
+        "description": "",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "after lib-omen-last-light: Bilge Spit (live Venom Strike)",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "description": "",
+        "effectType": "summonprevent",
+        "threshold": 1
+       }
+      ],
+      "action": {
+       "type": "end_turn",
+       "description": "after lib-omen-last-light: end turn"
       }
      },
      {
@@ -18963,15 +19152,16 @@
      {
       "conditions": [
        {
-        "type": "has_effect",
+        "type": "health_below",
         "description": "",
-        "effectType": "summonprevent",
-        "threshold": 1
+        "value": 70
        }
       ],
       "action": {
-       "type": "end_turn",
-       "description": "after lib-omen-last-light: end turn"
+       "type": "use_specific_jutsu",
+       "description": "Omen: Scatter A (phase 2)",
+       "jutsuId": "lib-omen-scatter-a",
+       "target": "SELF"
       }
      },
      {
@@ -19036,13 +19226,6 @@
        "description": "Omen: Scatter B",
        "jutsuId": "lib-omen-scatter-b",
        "target": "SELF"
-      }
-     },
-     {
-      "conditions": [],
-      "action": {
-       "type": "end_turn",
-       "description": "stationary: hold"
       }
      }
     ],
