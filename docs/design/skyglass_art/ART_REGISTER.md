@@ -19,19 +19,19 @@ processed, and uploaded; approval, processing and upload are separate facts (`IS
 | IC05 | Core Rot | ICON | `03_reagent_icons` | `KuqLeFB12BdB-0s5O1udk` | PROCESSED (`icon-core-rot.webp`, push/352) |
 | IC06 | Ledger Page (base; = Ledger Page: The Trophy Hold) | ICON | `01_chart_icons` | `JvrytTOdR1voVCoo3fckK` | PROCESSED (`icon-ledger-page.webp`, push/352) |
 | IC07 | Stores Manifest (base; = Stores Manifest: The Overgrown Stores) | ICON | `01_chart_icons` | `nLG6TK48xlyZ_t9R28QsY` | PROCESSED (`icon-stores-manifest.webp`, push/352) |
-| IC08 | Skyglass Token | ICON | `04_reward_icons` | `nzCW7A-_AuYMzBs2wClnM` | TO GENERATE |
-| VT00 | Boss variant token BASE (VT01-VT07 attach it) | ICON | `05_variant_token` | - | TO GENERATE |
-| VT01 | Captain's Gunbai (variant token) | ICON | `05_variant_token` | `vltFmOTgOyqssIpNXvT37` | TO GENERATE |
-| VT02 | Rotbloom (variant token) | ICON | `05_variant_token` | `-7dQs2qwokuNSAS2c3X8Q` | TO GENERATE |
-| VT03 | Forgefists (variant token) | ICON | `05_variant_token` | `d96tj122ex6BnzhMDwy0s` | TO GENERATE |
-| VT04 | Wayfinder (variant token) | ICON | `05_variant_token` | `giSqzJqE6YdsrnOoy1KLV` | TO GENERATE |
-| VT05 | The First Blade (variant token) | ICON | `05_variant_token` | `5rpvgpKckgmN-vXjzJpb8` | TO GENERATE |
-| VT06 | Sealscript (variant token) | ICON | `05_variant_token` | `3ZR700BAWr_Pd3Eqnu1c9` | TO GENERATE |
-| VT07 | Crownbreaker (variant token) | ICON | `05_variant_token` | `pqKpEqo-x6BHTjxTRUEfD` | TO GENERATE |
-| IC09 | The Little Horror's Jar | ICON | `04_reward_icons` | - | TO GENERATE |
-| IC10 | Galley Stores | ICON | `04_reward_icons` | `D-QTnbjgTyIVc593zzdSB` | TO GENERATE |
-| IC11 | Crown's Hoard | ICON | `04_reward_icons` | - | TO GENERATE |
-| IC12 | Countermand | ICON | `02_seal_icons` | `W3lOjQhhIPUYPkIZmiNum` | TO GENERATE |
+| IC08 | Skyglass Token | ICON | `04_reward_icons` | `nzCW7A-_AuYMzBs2wClnM` | PROCESSED (`art/skyglass_event_icons/exports/icon-skyglass-token.webp`) |
+| VT00 | Boss variant token BASE (VT01-VT07 attach it) | ICON | `05_variant_token` | - | NOT NEEDED (VT01-VT07 delivered directly) |
+| VT01 | Captain's Gunbai (variant token) | ICON | `05_variant_token` | `vltFmOTgOyqssIpNXvT37` | PROCESSED (`art/skyglass_event_icons/exports/icon-variant-token-captains-gunbai.webp`) |
+| VT02 | Rotbloom (variant token) | ICON | `05_variant_token` | `-7dQs2qwokuNSAS2c3X8Q` | PROCESSED (`art/skyglass_event_icons/exports/icon-variant-token-rotbloom.webp`) |
+| VT03 | Forgefists (variant token) | ICON | `05_variant_token` | `d96tj122ex6BnzhMDwy0s` | PROCESSED (`art/skyglass_event_icons/exports/icon-variant-token-forgefists.webp`) |
+| VT04 | Wayfinder (variant token) | ICON | `05_variant_token` | `giSqzJqE6YdsrnOoy1KLV` | PROCESSED (`art/skyglass_event_icons/exports/icon-variant-token-wayfinder.webp`) |
+| VT05 | The First Blade (variant token) | ICON | `05_variant_token` | `5rpvgpKckgmN-vXjzJpb8` | PROCESSED (`art/skyglass_event_icons/exports/icon-variant-token-the-first-blade.webp`) |
+| VT06 | Sealscript (variant token) | ICON | `05_variant_token` | `3ZR700BAWr_Pd3Eqnu1c9` | PROCESSED (`art/skyglass_event_icons/exports/icon-variant-token-sealscript.webp`) |
+| VT07 | Crownbreaker (variant token) | ICON | `05_variant_token` | `pqKpEqo-x6BHTjxTRUEfD` | PROCESSED (`art/skyglass_event_icons/exports/icon-variant-token-crownbreaker.webp`) |
+| IC09 | The Little Horror's Jar | ICON | `04_reward_icons` | - | PROCESSED (`art/skyglass_event_icons/exports/icon-little-horrors-jar.webp`) |
+| IC10 | Galley Stores | ICON | `04_reward_icons` | `D-QTnbjgTyIVc593zzdSB` | PROCESSED (`art/skyglass_event_icons/exports/icon-galley-stores.webp`) |
+| IC11 | Crown's Hoard | ICON | `04_reward_icons` | - | PROCESSED (`art/skyglass_event_icons/exports/icon-crowns-hoard.webp`) |
+| IC12 | Countermand | ICON | `02_seal_icons` | `W3lOjQhhIPUYPkIZmiNum` | PROCESSED (`art/skyglass_event_icons/exports/icon-countermand.webp`) |
 | VS01 | Windward (variant of Aetherion) | ICON (variant) | `10_variant_aetherion` | `MXAAH-1fwPfyDJg2FnE8t` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-windward.webp`) |
 | VS02 | Riptide (variant of Thornsilver) | ICON (variant) | `11_variant_thornsilver` | `YNhKQmKUjfVIPQkGlNO41` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-riptide.webp`) |
 | VS03 | Nightreaver (variant of Night's Testament) | ICON (variant) | `12_variant_nights_testament` | `mtx4YmUu-wkKGwnOPVbYS` | PROCESSED (`art/skyglass_variant_skins/exports/icon-variant-nightreaver.webp`) |
