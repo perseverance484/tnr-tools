@@ -317,7 +317,8 @@ export const buildKits = (P: KitParams, version: "endgame" | "lvl50" = "endgame"
     return {
       id: aid(id),
       o: {
-        base: BASE[id], username: BASE[id],
+        // RUL-2026-10-31-067 item 6: the level-50 (easy) Wreck copies are the "Faded" tier, same pictures as the base.
+        base: BASE[id], username: l50 ? `Faded ${BASE[id]}` : BASE[id],
         ...(P.level ? { level: charge ? Math.min(P.level, 70) : P.level } : {}),
         aiEdit: { ...(pools !== null ? { poolsMultiplier: pools } : {}), ...(P.statsMultiplier ? { statsMultiplier: P.statsMultiplier } : {}) },
         ...(charge ? {} : { effects: [...Array.from({ length: rows }, idgRow), ...taken.map(takenRow)] }),
