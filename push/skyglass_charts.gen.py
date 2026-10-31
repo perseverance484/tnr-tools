@@ -262,10 +262,10 @@ CUT_PRESS_ON = {"lowtide", "reliquary", "burning"}
 SHARED = {"failDescription": "You are defeated.", "drawDescription": "The fight stalls, and the chart's way closes.",
           "fleeDescription": "You break away, and the way back closes behind you."}  # text doc section 2, shared lines
 PRESS_FAIL = "You fall back, and keep only what you held."
-# RUL-2026-10-31-072 item 1 (F01): every chart run's text carries the Lantern's line (SKYGLASS_TEXT.md
-# item:Lastlight Lantern.description), until the text doc gives the runs their own.
+# RUL-2026-10-31-072 item 1 (F01): every chart run's text carries the claim line. It was read from the Lantern's item
+# text; RUL-2026-10-31-074 replaced that card, so the text doc now holds it as its own target (section 2).
 CLAIM_LINE = "Claim any reward choice still waiting from an earlier run before you set out."
-assert CLAIM_LINE in T.block("item:Lastlight Lantern.description")
+assert CLAIM_LINE == T.block("quest:<chart run>.claimLine")
 # Text the doc does not have yet (F03's consolation step is new): used only while the doc lacks the target; every use
 # is listed in the manifest's `_text_gaps` for the text owner.
 GAP_TEXT = {
