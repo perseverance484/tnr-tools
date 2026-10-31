@@ -1276,7 +1276,7 @@ Epic charts' steeping effect), the six Haul quests (from the fitted `haul_spec.j
 Archive's break-the-seal echo fight, the Crowned Captain's and commanders' combat rework, and the Little Horror's species
 and jar.
 
-## 351 Achievement probe fix (1 quest edit, HIDDEN): RUN 2026-10-31 (tnr_results_1793457034587.json, 1/1 VERIFIED); awaiting the director's reload test
+## 351 Achievement probe fix (1 quest edit, HIDDEN): RUN 2026-10-31 (tnr_results_1793457034587.json, 1/1 VERIFIED); reload test FAILED as predicted (RUL-2026-10-31-069): records kept hidden for the re-test after the upstream fix
 
 `python3 push/achievement_probe.gen.py --fix <350 bundle>` (from `tnr_results_1793456820512.json`). push/350 created Probe
 Deck A (`n6JqkJiJOGHbHUWAi7XV4`) and B (`vP-JxCD0nTMkqSk1R-1wG`) and the achievement shell (`CVmmxRhrttQp6g6GBFbAG`),
