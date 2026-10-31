@@ -1517,7 +1517,7 @@ committed before that run.
 **ALL RUN 2026-10-31:** part 2 (`tnr_results_1793484726230.json`, 1/1 VERIFIED), part 3 (`tnr_results_1793484748665.json`,
 4/4 VERIFIED), push/361 (`tnr_results_1793484772810.json`, 9/9 VERIFIED). Built from these bundles and committed, all
 gates clean (`validate.py --strict` 0/0, `check_manifest.mjs` 0, `skyglass_check.py` 0/0): **354, 355, 356, 362, 363,
-365, 366** READY TO RUN. Still to build: 357 (from 356's bundle), 358 (from 370's bundle), 364 (from 363's bundle).
+365, 366** READY TO RUN. **356 first run FAILED** (`tnr_results_1793485987400.json`: "Only Battle Pyramids can isolate a run", validators/objectives.ts ~1006; the steeping quests are `special`); rebuilt with `isolated: false`, gates clean, READY TO RUN (a lost steeping fight now hospitalises the player before the chart-return dialog). 354 and 355 RUN, VERIFIED (`tnr_results_1793485965044.json`, `tnr_results_1793485978739.json`). Still to build: 357 (from 356's bundle), 358 (from 370's bundle), 364 (from 363's bundle).
 
 **Part 1 RUN 2026-10-31** (`harvests/inbox/tnr_results_1793484364363.json`): 48/48 ok, 37 VERIFIED, 11 CONFIRMED with
 stat drift (the Haul guards, Trophy Warden, Stores Ward, Crown Stonebound (Summoned), Core Canister (Haul)). Expected:

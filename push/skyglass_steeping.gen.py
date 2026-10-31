@@ -18,8 +18,9 @@ section 2.7, read verbatim by push/skyglass_text.py):
   * b_horror: the Steeping Horror (344 one-off, AI key oneoff:steeping-horror), scaled to the player, full pools.
     Win -> w_taken (the tainted chart). Loss -> f_spat, a DIALOG that hands the chart back (F03: rewards on a
     fail_quest objective are never paid, theninjarpg@3314d122 libs/quest.ts ~1514-1525, ~494-522), then f_lost.
-  * isolated: true (F32): an isolated defeat stays in the run at 1 HP (libs/combat/database.ts ~1324), so the
-    chart-return step does not wait out a hospital stay.
+  * isolated: false. The server refuses isolation on anything but a Battle Pyramid (validators/objectives.ts ~1006,
+    "Only Battle Pyramids can isolate a run"; push/356's first run failed on it), so a lost steeping fight sends the
+    player to the hospital as any quest loss does; the chart-return dialog (f_spat) follows when they wake.
 
 Why using a chart can never destroy it when the player cannot proceed (theninjarpg@3314d122, read, not run):
   server/api/routers/item.ts ~1995-2033 refuses BEFORE any debit a second effect, a chart without preventBattleUsage /
@@ -150,7 +151,7 @@ def quest(slug, chart, tainted, rot, icon, col, horror, S):
         "requiredLevel": 1, "maxLevel": 100, "prerequisiteQuestId": None, "tierLevel": None, "requiredVillage": None,
         "requiredBloodlineId": None, "startsAt": None, "endsAt": None,
         "content": {"objectives": objectives, "sceneBackground": HOLD, "sceneCharacters": [],
-                    "entryItems": [{"ids": [rot], "number": 3}], "isolated": True, "reward": {}}}}
+                    "entryItems": [{"ids": [rot], "number": 3}], "isolated": False, "reward": {}}}}
 
 
 def write(num, slug, note, items, extra=None):
@@ -184,7 +185,7 @@ def build_quests(bundles, keymap):
         f"{items[0]['name']} and {items[1]['name']}. Entry 3 Core Rot (entryItems); Steep -> the Steeping Horror "
         f"({horror}, AI key {HORROR_KEY}, from {', '.join(R.bundles) or 'keymap'}), scaled; win: the tainted chart; loss: "
         "a dialog returns the chart, then the fail ending (the Rot is spent); Take it back: the chart and the 3 Rot "
-        "come back. isolated: true. Nothing starts these until push/" + str(CHARTS_NUM) + " gives the Epic charts their "
+        "come back. Not isolated (only Battle Pyramids may be). Nothing starts these until push/" + str(CHARTS_NUM) + " gives the Epic charts their "
         "use effect (built from this run's results bundle)."),
         items, {"dedupNames": True, "_aiKeys": R.used,
                 "imgSizes": {k: v["bytes"] for k, v in pack["files"].items()}, "imagePack": pack})
