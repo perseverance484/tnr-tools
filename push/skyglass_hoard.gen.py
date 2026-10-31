@@ -142,8 +142,9 @@ def crownhold_edit(bundle):
     q = U.crownhold()
     data = resolve(copy.deepcopy(q["data"]), idmap_329())
     r = data["content"]["reward"]
-    assert all(hoard_id not in x["ids"] for x in r["reward_items"])
-    r["reward_items"] = [{"ids": [hoard_id], "number": 100, "quantity": 1}] + r["reward_items"]  # section 4a order
+    if all(hoard_id not in x["ids"] for x in r["reward_items"]):  # U.crownhold() adds it once the design id is set
+        r["reward_items"] = [{"ids": [hoard_id], "number": 100, "quantity": 1}] + r["reward_items"]  # section 4a order
+    assert r["reward_items"][0]["ids"] == [hoard_id]
     assert data["hidden"] is True  # live truth: created hidden by 329; 349 runs before any publish
     return {"entity": "quest", "slot": "edit", "targetId": target["quest"]["id"],
             "name": "Crownhold: Crown's Hoard joins the pick", "data": data}
