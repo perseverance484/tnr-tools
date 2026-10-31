@@ -1516,3 +1516,36 @@ The endgame wipe rate fell below the ~22% target because the phase-1 Broadside i
 
 - His last rule is now the named basic attack. A solo Watch Captain also stops casting unmarked Broadsides.
 - **Other enemies still end on `use_highest_power_action`.** It ranks every available action by power, so it can also cast unmarked library blasts. The Wreck crew and the Core Horror were not audited for this; the Captain's fix is the pattern if they need it.
+
+### 8. The Haul payout fit (RUL-2026-10-30-060 item 4), `fable/skyglass-haul-fit`
+
+Offline: the fights do not depend on the payout. The Trophy Hold and the Bloom Cellar gained one guard on their step-2 and
+step-3 lockers, as on the Snare Room (`engine/haul.ts`: Trophy step 2 + Wayfinder copy, step 3 + Blade copy; Bloom step 2 +
+Warden copy, step 3 + Sentinel copy), and were re-run: every legal path state-merged, 24 seeds
+(`results/fit_haul_base_dodge.json`, merged with the four unchanged pages into `results/fit_haul_base_merged.json`), then
+the top routes exactly, 40 seeds (`results/fit_haul_exact_*.json`). The exact runs also covered the Bone Store's, Ore
+Vault's, Snare Room's and Overgrown Stores' top routes that had only merged rates: the Bone Store's CLXCC is **157%** and
+the Ore Vault's CCCL **124%** at the old points (the final pass had not run them exactly).
+
+`tools/haul_payout_fit.py` keeps the greedy band ahead of the ceiling and its local search cannot leave its start on the
+Ore Vault, so the points were fitted with `tools/haul_payout_minmax.py` (global search, the ruling's 120% ceiling first,
+then sensible about 7.5M, timid CC under 75%, the greedy band, the same layout floors). Points: `results/fit_haul_points.json`;
+every route above the sensible route: `results/fit_haul_summary.json`. `haul_spec.json` is regenerated with them.
+
+| Page | Old points (steps / locker) | Fitted points | Sensible | Worst route (vs sensible) | Greedy: best-clearing 5-step 3+L route |
+|---|---|---|---|---|---|
+| Trophy Hold | 4.2 / 0.9 / 1.3 / 3 / 5.4, 2.4 | 4.2 / 0.9 / 1.3 / 3.0 / 2.7, 3.3 | LCC 7.77M | CL **108.1%** (merged, at 100% clear, so no higher) | CLXLL 13.4% clear, pays 21.8M |
+| Bone Store | 4.2 / 0.9 / 1.3 / 1.2 / 7.3, 2.5 | 4.2 / 0.9 / 1.3 / 1.1 / 2.1, 2.5 | LCC 7.98M | LCL **109.7%** (exact) | LLLCC 25% clear, pays 15.7M |
+| Snare Room | 5.2 / 0.9 / 1.5 / 1.2 / 3.5, 3.3 | 5.1 / 0.9 / 1.5 / 1.0 / 3.5, 1.7 | CCL 7.35M | LXL **119.1%** (exact) | CLLLC 30% clear, pays 15.7M |
+| Overgrown Stores | 3.7 / 1.4 / 1.9 / 2.5 / 8.6, 1.1 | unchanged | CLC 7.49M | LLL **117.7%** (exact) | LLLCC 37.5% clear, pays 21.0M |
+| Ore Vault | 4.5 / 1.9 / 2.2 / 0.6 / 0.6, 1.9 | unchanged | LCC 7.61M | CCCL **124.1%** (exact) | CLCLL 55% clear, pays 15.4M |
+| Bloom Cellar | 4.1 / 0.9 / 1.9 / 4.2 / 5.7, 1.4 | unchanged | LCC 7.29M | LLCC **112.8%** (exact) | LLCCL 27.5% clear, pays 21.0M |
+
+- **Ore Vault: 124%, points cannot reach 120%.** CCCL and LCC always reach the same rung (CCCL has every LCC point plus
+  step 4's), and CCCL clears 90% against LCC's 72.5% (the step-4 locker lost a guard, RUL-2026-10-29-045), so the ratio
+  is 90 / 72.5 whatever the points. Inside the ~125% stop line; reported, not changed.
+- **Greedy clears pay less on three pages.** Holding the ceiling and a ~7.5M sensible route caps the greedy clear at
+  15.7M (about 2.1x) on the Bone Store and the Snare Room (was 21.8M, ~3x, RUL-2026-10-29-045). On the Trophy Hold the extra
+  guards drop the best greedy route to about 13-16% clears (merged), though it still pays 21.8M. Not adopted as balance:
+  the director's.
+
