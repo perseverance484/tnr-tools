@@ -1506,6 +1506,14 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 382 Go-live retry: The Quarantined Archive (1 quest edit): READY TO RUN
+
+339 RUN 2026-10-31 (`tnr_results_1793490827321.json`): 10/13 VERIFIED (Keel Walk and Observation Gallery scene assets
+created, the five Coffer-content edits, Buried Cache, Drowned Foundry, Captain's Watch). Failed: the Reconstruction
+Chamber and Quarantined Archive scene assets (names already live from push/90, missing from the seed index) and so the
+Archive quest (unresolved @scene refs). `382_skyglass_go_live_archive_retry.json` (`--golive … --retry-archive`)
+re-sends the Archive alone with every scene as a literal asset id (push/90's two, 339's two). Gates 0/0, check_manifest 0.
+
 ## 339 Skyglass GO-LIVE (13 entries): BUILT 2026-10-31, READY TO RUN (last)
 
 `339_skyglass_go_live.json` (`python3 push/skyglass_update.gen.py --golive harvests/inbox/tnr_results_1793424666625.json
