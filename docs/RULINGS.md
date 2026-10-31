@@ -4957,3 +4957,25 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "Do an exception for basic attack for now"; "Raise it" (RUL-066 item 2); "How do I publish it? Cant forge do that".
 
 **Canonical destination:** `forge/src/runner/pool.mjs`, `skills/building-tnr-content/scripts/validate.py`, `forge/tools/check_bundle_budget.mjs` (on the branch); `push/README.md` (353).
+
+## RUL-2026-10-31-072 — Playthrough review decisions
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / flow
+
+**Status:** ACTIVE. Source: `docs/reviews/SKYGLASS_PLAYTHROUGH_REVIEW.md` (80351803).
+
+**Ruling:**
+1. **F01 (stuck at a chart's win ending with an unclaimed pick):** every chart run's text tells the player to claim any waiting reward choice before starting (the Lantern's line, applied to all charts). An upstream request (refuse the start, or allow the claim mid-run) joins the achievement fix.
+2. **F02:** the Buried Cache's battles scale to the player (`opponent_scaled_to_user`), as RUL-2026-10-28-010 and its text say.
+3. **F03:** consolation rewards on a lost run (the steeping-loss chart refund, the failed Epic run's Core Rot) are paid on a dialog step before the fail ending, never on the fail ending (the engine pays no rewards there).
+4. **F04 (lifetime attempt caps):** not addressed for now.
+5. **F06 (weekend window):** the director handles it; no content change.
+6. **F09:** the Crownbreaker variant's description is blanked until Walked Every Deck exists (RUL-2026-10-31-069).
+7. **F08 correction:** pets DO fight in the Wreck: the engine starts dungeon battles as QUEST battles. RUL-2026-10-31-070's note ("not the Wreck dungeon") is wrong and is corrected here; `SKYGLASS_PETS.md` follows.
+8. The review's other fixes are folded into the builds: Wreck Sighted names the Wreck's location and its three-player rule (F07); go-live sets runs visible rather than re-hiding them, and content edits are scheduled outside event weekends (F05); token text points to the weapon's Variants list (F12); Galley Stores states the pet appearance condition (F10); steeping charges exactly 3 Core Rot as entry items (F13); the Archive's break-the-seal fight goes into the go-live build (F15); push/347 is a go-live precondition (F16); the Haul spec's old rank gate is removed (F11); the loot tables' Core Rot AI-drop source is corrected (F17); the rank gate in F14 is checked.
+
+**Evidence:** Director, 2026-10-31: "1. Do the fix 2. Scale it 3. Do the dialog. Dont worry about attempt caps for now. I'll handle the weekend window. Blank it then".
+
+**Canonical destination:** the generators and design docs named in the review's findings table.
