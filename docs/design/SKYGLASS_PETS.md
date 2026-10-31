@@ -89,3 +89,12 @@ Forge bundle budget was raised for it (RUL-2026-10-28-014). Galley Stores uses `
 source has (theninjarpg@2af4b320 `validators/rewards.ts`:54).
 
 The jars and chests can't be built until the species ids exist.
+
+## Little Horror art pass (RUL-2026-10-31-085)
+
+The species' `artDirection` and `rankConcepts` are rewritten for the engine's pet art prompt (theninjarpg@3314d122
+`libs/pets/appearance.ts`, `libs/pets/catalogue.ts`): four legs from rank 1 (the prompt forbids adding limbs at a rank
+up), crystal as one smooth plate rather than spines (spiky or stacked layers are forbidden), one maw (no second mouth),
+no named colours, bell, scarf or eye style (the player's palette, trait and aura decide those), glow only from rank 7.
+Text of record: `push/skyglass_little_horror_art.gen.py` (`ART_DIRECTION`, `RANKS`), sent by push/379. Little Maw's
+appear animation is the maw strip (`anim_maw_v1`, 150 px frames).

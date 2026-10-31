@@ -1,6 +1,6 @@
 {
  "manifest": "push/376_skyglass_fx.json",
- "ruling": "PENDING director acceptance: 6 build-order diagnostics (validator bug).",
+ "ruling": "Accepted by RUL-2026-10-31-085: 6 build-order diagnostics (validator bug).",
  "reason": "validate.py's build-order lint ranks entities from a table keyed 'asset', but it first renames every asset entry to 'gameAsset' (validate.py ~1195-1198, the push/16 misroute fix), so an asset ranks 9 and any quest/jutsu after it is flagged. The items are phased (assets phase 1, the six jutsu edits phase 2) and Forge orders by phase then refs (check_manifest.mjs plan: assets first, 0 pre-send problems); the six jutsu edits reference the assets by @scene, so they cannot run before them. Validator bug, Lane A, not fixed here.",
  "sha256": "f716403f6d1c185ffa32f205fdf205699bbf552ce44b3e4caef6633831c8d578",
  "accepted": [

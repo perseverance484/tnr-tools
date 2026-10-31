@@ -1501,6 +1501,15 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
   already has the maw strip `anim_maw_v1.webp` (register UP18, made for the Core Horror's Maw of the Deep, `ch_maw`);
   Little Maw keeps Rallying Echo's animation until the director picks one.
 
+## 379-380 Little Horror art pass: READY TO RUN (379), 380 after
+
+`379_skyglass_little_horror_art.json` (`python3 push/skyglass_little_horror_art.gen.py`; RUL-2026-10-31-085): phase 1
+the maw animation (`anim_maw_v1_x3.webp`, 12 x 50 ms, 150 px frames) as a hidden ANIMATION asset; phase 2 Little Maw's
+damage effect uses it as appearAnimation (its sound kept) and the Little Horror species gets the refined art direction
+and rank concepts. Ledger `state/validate_exceptions/379_skyglass_little_horror_art.json` accepted (law 4 on Little Maw
+as RUL-068 item 3; build-order false positives). check_manifest 0. Then `--unhide <379 bundle>` writes 380 (unhide the
+asset).
+
 ## 372 Skyglass final art, part 1 (32 image-only edits): RUN 2026-10-31 (tnr_results_1793486970672.json, 32/32 VERIFIED)
 
 **Side effect (found 2026-10-31, repaired by 375/377):** its image edits on The Last Directive and Extermination Order (hidden jutsu) unequipped both from the Crowned Captain (`routers/jutsu.ts` ~1117, law 18). Part 2 is push/373-378 above.
