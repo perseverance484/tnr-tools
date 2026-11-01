@@ -59,7 +59,7 @@ def kits():
 
 VETERANS = {"sg344_veteran-the-captain": "76rj7djBShTY9qWtSeqCV", "sg344_veteran-the-captain-fall": "i388ELXfo2yZhv3m73N3U",
             "sg344_veteran-the-captain-ally": "rPc1p66rO4QaIKpb90KcR"}  # push/344 part 1 (tnr_results_1793484364363.json)
-STUN_IMMUNE = {BASE, FADED}
+STUN_IMMUNE = {BASE, FADED, *VETERANS.values()}  # all five (director: "Yes, for all of them")
 
 
 def rules_effects():
@@ -123,8 +123,8 @@ def main():
                       "name": f"{n}: kit back on, approach rule" + (", stun immunity" if effects is not None else ""), "data": data})
     write(400, "captains_reequip",
           "push/400, step 3 of 3 (RUL-2026-10-31-091): the push/377 kits back on all five holders, all five sharing one rule list "
-          "and all five: Stolen Form's rule cut, the basic attack gated to a player within 1, move_towards_opponent as the unconditional last rule (20 rules). The Captain and the "
-          "Faded Captain also: innate stunprevent 100 for 99 rounds.", items)
+          "and all five: Stolen Form's rule cut, the basic attack gated to a player within 1, move_towards_opponent as the unconditional last rule (20 rules), "
+          "innate stunprevent 100 for 99 rounds.", items)
 
 
 if __name__ == "__main__":
