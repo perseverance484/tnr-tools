@@ -1506,6 +1506,16 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 391-392 Crowned Captain: Countermand re-equip (2 AI edits): READY TO RUN, 391 then 392
+
+push/372's image edit saved the hidden item Countermand, which set the Crowned Captain's copy unequipped (routers/item.ts
+~864); 375/377 re-sent the same item list, which does not re-equip it. 391 sends his kit without Countermand, 392 with
+it (a fresh, equipped row). Jutsu unchanged (377's list). Gates 0/0, check_manifest 0.
+**390 run log:** 45/47 VERIFIED (`tnr_results_1793491854510.json`); both dungeons FAILED pre-send: live dungeon records
+carry a key ("requirements") the pinned contract (3314d122) does not know, and Forge refuses a save that would delete
+it. Unhide the two Wrecks in the game's editor, or re-derive `forge/src/dungeon/contract.json` from newer game source
+(Lane A).
+
 ## 390 Skyglass go-live unhide, non-quest records (47 edits): READY TO RUN
 
 `390_skyglass_unhide.json` (`python3 push/skyglass_unhide.gen.py`): `hidden:false` only (fetch-merged) on the two
