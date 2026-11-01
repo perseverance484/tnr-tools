@@ -1,0 +1,56 @@
+{
+ "_note": "push/397 READ-ONLY: the director's level-100 solo Faded Skyglass Wreck battle log (battle lIKSZTazonCWc7MgJNHZ6; logs expire after 72h) plus the Faded Captain's live record (nR5okP-MiRsnSpiJQ8CM-, push/344), embedded jutsu included. For: the Captain mostly self-buffing, stun immunity, and Keelbind's overkill damage. No mutations. Operator-run only.",
+ "capture": {
+  "before": [
+   {
+    "proc": "combat.getBattleHistoryEntry",
+    "input": {
+     "battleId": "lIKSZTazonCWc7MgJNHZ6"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "combat.getBattleEntries",
+    "input": {
+     "battleId": "lIKSZTazonCWc7MgJNHZ6",
+     "limit": 200,
+     "offset": 0,
+     "userFilter": "all",
+     "showBasicActions": true
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "combat.getBattleEntries",
+    "input": {
+     "battleId": "lIKSZTazonCWc7MgJNHZ6",
+     "limit": 200,
+     "offset": 200,
+     "userFilter": "all",
+     "showBasicActions": true
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "combat.getBattleEntries",
+    "input": {
+     "battleId": "lIKSZTazonCWc7MgJNHZ6",
+     "limit": 200,
+     "offset": 400,
+     "userFilter": "all",
+     "showBasicActions": true
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "nR5okP-MiRsnSpiJQ8CM-"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
