@@ -2147,12 +2147,6 @@ Requires Forge 0.12.2 (branch `fable/forge-pet-catalogue-reads`; handoff `docs/h
 Forge 0.12.1 refuses the manifest at parse time. Public reads, zero writes. Gates: `validate.py --strict` 0 errors,
 0 warnings; `check_manifest.mjs` 0 pre-send problems (at 0.12.2).
 
-## 402 Patient Zero re-equip (law 18/60)
-
-Staff edited Patient Zero's three signature jutsu (new icons) on 2026-11-01 while they were equipped, so he will not
-use them in battle. Phase 1 unequips all six jutsu, phase 2 re-equips the identical six; nothing else changes. Also
-reads the seven new Zombie Outbreak scene assets. Built from push/401 (`tnr_results_1793568292560`).
-
 ## 403 HELD
 
 `403_voth_boss_scene_and_scaling.json` moved to `state/held/`: the 2026-11-01 player simulation
@@ -2160,21 +2154,13 @@ reads the seven new Zombie Outbreak scene assets. Built from push/401 (`tnr_resu
 pyramid worse. The waves turn into 27-60 round slogs, and a scaled Patient Zero wins every first try at every
 level. It stays held until a director decision. The scene character can ship on its own.
 
-## 404 Zombie Claws fix
+## 406 Zombie Outbreak combat fixes
 
-`404_zombie_claws_fix.json`: Zombie Claws' damage had no `rounds` (push/264), so every hit stacked a permanent
-DoT. This made the Zombie Outbreak sample fight unwinnable below about level 60 (sim review B1).
-- Phase 1: takes the claws off all four zombies that hold them.
-- Phase 2: sets `rounds: 0` on the damage effect.
-- Phase 3: gives the claws back to the Zombie Villager, equipped.
+Built from push/405 (`tnr_results_1793572053979`); replaces 402 and 404 (built from the older capture, archived).
+- **Patient Zero:** his signature jutsu were edited again while equipped. Unequip all six jutsu, then re-equip
+  the identical six.
+- **Zombie Claws:** staff equipped them on all three wave zombies, but their damage still stacks permanently
+  (push/264). Take them off all four zombies, set `rounds: 0`, then give them back equipped.
 
-The three pyramid wave zombies held the claws unequipped (they never attacked). They are left without the item,
-so the waves are unchanged until the director decides whether they should fight. The build-order warning is
-deliberate: the phases put the AI unequip before the item edit (law 18).
-
-## 405 Zombie Outbreak recapture 2 (read-only)
-
-`405_zombie_outbreak_recapture_2.json`: 26 point reads (both quests, Patient Zero + kit + rules, the four zombies,
-Zombie Claws, the shared zombie rules, the badge and all scene assets). Staff edited the event after push/401.
-**push/402 and push/404 are HELD in `state/held/`** until they are diffed against this capture and rebuilt if needed.
+The build-order warning is deliberate: the unequip phase comes before the item edit (law 18). Read-backs follow.
 
