@@ -5262,8 +5262,8 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Status:** ACTIVE. Amends RUL-2026-10-31-088 item 3 (exp, ryo, Faded table).
 
 **Ruling:**
-1. The director set the Wrecks' clear rewards in the dungeon editor: Skyglass Wreck 50,000 ryo + 1,000 exp; Faded Skyglass Wreck 50,000 ryo + 500 exp and drops Tide Chart 35 · Watch Roster 25 · Buried Cache chart 15 · Galley Stores 20 (was 25/15/5/10). The endgame drop rows seen unchanged (Unmarked Cargo 10, Buried Cache 20).
-2. The solo pyramids follow: exp equal to their Wreck (1,000 / 500), 25,000 ryo (half the Wreck), Faded tier drops about 80% of the live Faded Wreck: Tide Chart 28 · Watch Roster 20 · Galley Stores 16 · Buried Cache 12. Full-tier drops unchanged.
+1. The director set the Wrecks' clear rewards in the dungeon editor: Skyglass Wreck 50,000 ryo + 1,000 exp; Faded Skyglass Wreck 25,000 ryo (director correction: "25000 ryo for faded skyglass wreck") + 500 exp and drops Tide Chart 35 · Watch Roster 25 · Buried Cache chart 15 · Galley Stores 20 (was 25/15/5/10). The endgame drop rows seen unchanged (Unmarked Cargo 10, Buried Cache 20).
+2. The solo pyramids follow: exp equal to their Wreck (1,000 / 500), half their Wreck's ryo (25,000 / 12,500), Faded tier drops about 80% of the live Faded Wreck: Tide Chart 28 · Watch Roster 20 · Galley Stores 16 · Buried Cache 12. Full-tier drops unchanged.
 
 **Evidence:** Director, 2026-10-31: dungeon editor screenshots (Rewards tab, both Wrecks). Item 2 is Fable's proposal following RUL-088's "slightly lower" rule, flagged in the handoff.
 
