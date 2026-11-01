@@ -202,7 +202,7 @@ Cut and not to be rebuilt: every ryo card except the Watch's Captain's Purse (RU
   - It is **open to every player**, with no rank gate (RUL-2026-10-29-052).
   - Its endings pay Hunter's or Gatherer's Chests as plain `reward_items`. The chests need no huntable/gatherable flags.
 - **Page drops,** per page (RUL-2026-10-29-053):
-  - endgame Wreck clear **2.4%**;
+  - endgame Wreck clear **3%** (RUL-2026-10-31-087: the editor takes whole numbers only; was 2.4%);
   - every Rare chart ending **1.5%**.
   - These rates are from RUL-2026-10-30-060 item 5, replacing 2% and 1.25%. They target about 1.5 Haul runs a dedicated weekend; the final pass measured 1.26 at the old rates.
   - Pages are tradeable.

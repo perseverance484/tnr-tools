@@ -1,6 +1,6 @@
 # The Haul: profession-themed push-your-luck charts
 
-**Update (RUL-2026-10-29-052):** the Haul is open to **every player**. There is no S-rank gate. Hunter and gatherer pages are themes, not requirements. The page drop rates are in loot tables §4b: endgame Wreck 2.4% and Rare-chart endings 1.5% per page (RUL-2026-10-30-060 item 5, replacing RUL-2026-10-29-053's 2% / 1.25%). The rest of this doc applies as written.
+**Update (RUL-2026-10-29-052):** the Haul is open to **every player**. There is no S-rank gate. Hunter and gatherer pages are themes, not requirements. The page drop rates are in loot tables §4b: endgame Wreck 3% (RUL-2026-10-31-087; was 2.4%) and Rare-chart endings 1.5% per page (RUL-2026-10-30-060 item 5, replacing RUL-2026-10-29-053's 2% / 1.25%). The rest of this doc applies as written.
 
 **Status:** APPROVED direction (RUL-2026-10-29-037). The payout points are fitted (RUL-2026-10-30-060 item 4; "Payout points" below) and the fit is **accepted as recorded** (RUL-2026-10-30-063 item 2).
 
