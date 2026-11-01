@@ -5296,7 +5296,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Ruling:**
 1. Unbroken Command (`0Y10JpChssDwFUxNRk6p3`, hidden AI jutsu) is fixed in place, not copied: cooldown 2 → 99, once per fight. Its holders are the five Skyglass Captains only (The Captain, Faded Captain, three Veteran Captains), so the change reaches nothing else.
 2. All five Captains (one shared rule list; the three Veterans fight the chart runs solo) no longer stand still: Stolen Form's rule is cut (15 casts, no damage in the harness), the basic attack is gated to a player within 1 hex, and move_towards_opponent is the unconditional last rule.
-3. The Captain and the Faded Captain get innate stun immunity (stunprevent 100, 99 rounds).
+3. All five Captains get innate stun immunity (stunprevent 100, 99 rounds); the Veterans added on the director's "Yes, for all of them".
 
 **Evidence:** Director, 2026-10-31, on battle `lIKSZTazonCWc7MgJNHZ6` (full Skyglass Wreck floor 5, pasted log): "He uses a buff every round, it needs a cooldown. None of his other rules fire and he casts it repeatedly"; "Well I dont want them to just stand still casting it. Wont everyone with this jutsu be affected. We should fix it not make a copy"; "also he needs stun immunity". The log: 11 casts of stacking 99-round buffs, Keelbind 4,407 → 400,930. Item 2's cut (Stolen Form) is Fable's choice to free the rule slot under the 20-rule cap, flagged in the handoff.
 
