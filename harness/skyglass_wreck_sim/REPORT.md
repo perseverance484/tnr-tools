@@ -1,5 +1,7 @@
 # Skyglass offline simulation
 
+> **2026-10-31, `fable/skyglass-kite-sim`:** solo kiter on the endgame boss floor, old vs fixed Captain (RUL-2026-10-31-091): `REPORT_kite.md`.
+
 ## Rule cap and law-40 gates (2026-10-31, `fable/skyglass-rule-cap`): current
 
 This section supersedes the final pass below for every AI rule list. It covers RUL-2026-10-31-066 item 1 (the 20-rule

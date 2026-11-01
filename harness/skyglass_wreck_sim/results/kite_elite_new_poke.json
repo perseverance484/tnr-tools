@@ -1,0 +1,2588 @@
+{
+ "generatedBy": "engine/kite.ts",
+ "enginePin": "(run.sh default)",
+ "cell": {
+  "rules": "new",
+  "mode": "poke",
+  "ucCooldown": 99,
+  "stunprevent": true,
+  "captainPools": 9,
+  "pets": 2,
+  "kiteRange": 5,
+  "kiteWaves": [
+   2
+  ],
+  "variant": "elite",
+  "dodge": true,
+  "seed0": 1,
+  "runs": 30,
+  "maxRounds": 150
+ },
+ "inMemoryChanges": [
+  "dg-the-captain aiEdit.poolsMultiplier -> 9",
+  "rules: Stolen Form (13) cut; basic attack gated player_within_range 0..1; move_towards_opponent CLOSEST_OPPONENT appended",
+  "effects: + stunprevent 100 / 99 rounds",
+  "Unbroken Command cooldown 2 -> 99"
+ ],
+ "captainRules": [
+  "0 use_specific_jutsu Broadside (signature, rows A) | [[\"has_effect\",1]]",
+  "1 use_specific_jutsu Ship's Bell (signature) | [[\"has_effect\",1]]",
+  "2 use_specific_jutsu Steady the Helm (phase 2 begins; once) | [[\"health_below\",50]]",
+  "3 use_specific_jutsu Raise the Gunwale (transition; once; he falls back behind the rail) | [[\"health_below\",50]]",
+  "4 use_specific_jutsu Omen: Binding Ring (Ship's Bell, phase 2) | [[\"health_below\",50]]",
+  "5 use_specific_jutsu Omen: Rows A (Broadside, phase 2) | [[\"health_below\",50]]",
+  "6 use_specific_jutsu Last Stand at the Helm (live Battle Trance) | [[\"health_below\",50]]",
+  "7 use_specific_jutsu Second Wind (under 25%) | [[\"health_below\",25]]",
+  "8 use_specific_jutsu Hold the Line (live Unbroken Command, opener: party 3+ hexes away) | [[\"distance_higher_than\",3]]",
+  "9 use_specific_jutsu Final Command (duel) | [[\"distance_lower_than\",4]]",
+  "10 use_specific_jutsu Keelbind (duel) | [[\"distance_lower_than\",5]]",
+  "11 end_turn after lib-omen-rows-a: end turn | [[\"has_effect\",1]]",
+  "12 end_turn after lib-omen-binding-ring: end turn | [[\"has_effect\",1]]",
+  "13 use_specific_jutsu Counter Stance (duel: a player within 2) | [[\"player_within_range\",\"0-2\"]]",
+  "14 use_specific_jutsu Suppression Writ | [[\"distance_lower_than\",4]]",
+  "15 use_specific_jutsu Unraveling Strike | [[\"distance_lower_than\",4]]",
+  "16 use_specific_jutsu Explosive Tag Cataclysm | [[\"distance_lower_than\",6]]",
+  "17 use_specific_jutsu Windlash Focus | [[\"player_within_range\",\"0-4\"]]",
+  "18 use_specific_jutsu basic attack (fallback; never a set piece) | [[\"player_within_range\",\"0-1\"]]",
+  "19 move_towards_opponent Close on the nearest player (none in reach) | []"
+ ],
+ "aggregate": {
+  "runs": 30,
+  "outcomes": {
+   "wipe": 30
+  },
+  "winPct": 0,
+  "wave2ReachedPct": 100,
+  "wave2RoundsMedian": 56,
+  "wave2RoundsP90": 59,
+  "wave1RoundsMedian": 10,
+  "playerHpAtWave2Median": 91,
+  "ucCastsMedian": 1,
+  "ucCastsMax": 1,
+  "ucCastsMean": 1,
+  "maxHitMedian": 678.7200000000012,
+  "maxHitMax": {
+   "dmg": 866.9759999999987,
+   "by": "Deck Warden",
+   "action": "Eruption: Splash",
+   "round": 3
+  },
+  "reachedPhase2Pct": 0,
+  "captainKilledPct": 0,
+  "captainMinHpMedian": 97,
+  "captainTurns": 1627,
+  "captainIdleTurns": 0,
+  "captainIdleTurnsPlayerFar": 0,
+  "captainMoveSteps": 570,
+  "sealwrightKilledPct": 0,
+  "sealwrightDiedRoundMedian": null,
+  "captainMoveTurns": 183,
+  "captainDecisions": 4402,
+  "captainDecisionsPlayerFar5": 201,
+  "captainDecisionsPetAdjacentPlayerFar": 4,
+  "deaths": {
+   "damage over time / tick on own turn (Void Pulse Barrage)": 1,
+   "The Captain / Keelbind": 3,
+   "damage over time / tick on own turn (Rejuvenating Chakra)": 5,
+   "The Captain / basic attack": 2,
+   "Sealwright / Weakening Strike": 6,
+   "The Captain / Final Command": 4,
+   "Sealwright / Sovereign Fetters": 2,
+   "damage over time / tick on own turn (end turn)": 2,
+   "The Captain / Explosive Tag Cataclysm": 1,
+   "damage over time / tick on own turn (Chakra Overflow)": 1,
+   "damage over time / tick on own turn (Shrapnel Clone Barrage)": 1,
+   "damage over time / tick on own turn (Stunning Jab)": 1,
+   "The Captain / Unraveling Strike": 1
+  },
+  "markVsBlast": {
+   "ring": 0,
+   "bell": 0,
+   "rowsA": 0,
+   "broadside": 0
+  },
+  "stunOnCaptain": 0,
+  "jabCastsW2": 178,
+  "kite": {
+   "retreatSteps": 596,
+   "approachSteps": 130,
+   "cornered": 654,
+   "pokes": 1055,
+   "humanStepsInside": 3019,
+   "humanSteps": 3086
+  }
+ },
+ "ruleTable": [
+  {
+   "index": 0,
+   "note": "Broadside (signature, rows A)",
+   "fires": 0,
+   "firedInFightsPct": 0
+  },
+  {
+   "index": 1,
+   "note": "Ship's Bell (signature)",
+   "fires": 0,
+   "firedInFightsPct": 0
+  },
+  {
+   "index": 2,
+   "note": "Steady the Helm (phase 2 begins; once)",
+   "fires": 0,
+   "firedInFightsPct": 0
+  },
+  {
+   "index": 3,
+   "note": "Raise the Gunwale (transition; once; he falls back behind the rail)",
+   "fires": 0,
+   "firedInFightsPct": 0
+  },
+  {
+   "index": 4,
+   "note": "Omen: Binding Ring (Ship's Bell, phase 2)",
+   "fires": 0,
+   "firedInFightsPct": 0
+  },
+  {
+   "index": 5,
+   "note": "Omen: Rows A (Broadside, phase 2)",
+   "fires": 0,
+   "firedInFightsPct": 0
+  },
+  {
+   "index": 6,
+   "note": "Last Stand at the Helm (live Battle Trance)",
+   "fires": 0,
+   "firedInFightsPct": 0
+  },
+  {
+   "index": 7,
+   "note": "Second Wind (under 25%)",
+   "fires": 0,
+   "firedInFightsPct": 0
+  },
+  {
+   "index": 8,
+   "note": "Hold the Line (live Unbroken Command, opener: party 3+ hexes away)",
+   "fires": 30,
+   "firedInFightsPct": 100
+  },
+  {
+   "index": 9,
+   "note": "Final Command (duel)",
+   "fires": 274,
+   "firedInFightsPct": 100
+  },
+  {
+   "index": 10,
+   "note": "Keelbind (duel)",
+   "fires": 208,
+   "firedInFightsPct": 100
+  },
+  {
+   "index": 11,
+   "note": "after lib-omen-rows-a: end turn",
+   "fires": 0,
+   "firedInFightsPct": 0
+  },
+  {
+   "index": 12,
+   "note": "after lib-omen-binding-ring: end turn",
+   "fires": 0,
+   "firedInFightsPct": 0
+  },
+  {
+   "index": 13,
+   "note": "Counter Stance (duel: a player within 2)",
+   "fires": 386,
+   "firedInFightsPct": 100
+  },
+  {
+   "index": 14,
+   "note": "Suppression Writ",
+   "fires": 266,
+   "firedInFightsPct": 100
+  },
+  {
+   "index": 15,
+   "note": "Unraveling Strike",
+   "fires": 273,
+   "firedInFightsPct": 100
+  },
+  {
+   "index": 16,
+   "note": "Explosive Tag Cataclysm",
+   "fires": 189,
+   "firedInFightsPct": 100
+  },
+  {
+   "index": 17,
+   "note": "Windlash Focus",
+   "fires": 395,
+   "firedInFightsPct": 100
+  },
+  {
+   "index": 18,
+   "note": "basic attack (fallback; never a set piece)",
+   "fires": 942,
+   "firedInFightsPct": 100
+  },
+  {
+   "index": 19,
+   "note": "Close on the nearest player (none in reach)",
+   "fires": 570,
+   "firedInFightsPct": 100
+  }
+ ],
+ "backupFires": {
+  "end turn (engine-appended rule)": 869
+ },
+ "fallbackGuard": {
+  "setPieceCasts": 121,
+  "unmarkedCasts": 0,
+  "byEnemyJutsu": {},
+  "first": []
+ },
+ "perRun": [
+  {
+   "seed": 1,
+   "outcome": "wipe",
+   "wave1Rounds": 9,
+   "wave2Rounds": 56,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 98,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 21
+   },
+   "death": {
+    "by": "damage over time",
+    "action": "tick on own turn (Void Pulse Barrage)",
+    "dmg": 421.66974964567873,
+    "round": 63,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 90,
+   "captainTurns": 54,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 15,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 6,
+    "17": 13,
+    "18": 32,
+    "19": 15
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 31
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 15,
+    "Windlash Focus": 13,
+    "Final Command": 9,
+    "Suppression Writ": 9,
+    "Explosive Tag Cataclysm": 6,
+    "Keelbind": 7,
+    "Counter Stance": 13,
+    "Unraveling Strike": 9,
+    "basic attack": 32,
+    "end turn": 31
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 8,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 5,
+   "captainDecisions": 145,
+   "captainDecisionsPlayerFar5": 7,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 17,
+    "approachSteps": 4,
+    "cornered": 23,
+    "pokes": 35,
+    "humanStepsInside": 99,
+    "humanSteps": 99
+   }
+  },
+  {
+   "seed": 2,
+   "outcome": "wipe",
+   "wave1Rounds": 9,
+   "wave2Rounds": 54,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 90,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 21
+   },
+   "death": {
+    "by": "The Captain",
+    "action": "Keelbind",
+    "dmg": 274.865194079283,
+    "round": 62,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 91,
+   "captainTurns": 53,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 9,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 6,
+    "17": 13,
+    "18": 28,
+    "19": 9
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 27
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 9,
+    "Windlash Focus": 13,
+    "Final Command": 9,
+    "Suppression Writ": 9,
+    "Explosive Tag Cataclysm": 6,
+    "Keelbind": 7,
+    "Counter Stance": 13,
+    "Unraveling Strike": 9,
+    "basic attack": 28,
+    "end turn": 27
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 3,
+   "captainDecisions": 131,
+   "captainDecisionsPlayerFar5": 5,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 7,
+    "approachSteps": 4,
+    "cornered": 24,
+    "pokes": 33,
+    "humanStepsInside": 87,
+    "humanSteps": 88
+   }
+  },
+  {
+   "seed": 3,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 55,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 97,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 22
+   },
+   "death": {
+    "by": "damage over time",
+    "action": "tick on own turn (Rejuvenating Chakra)",
+    "dmg": 235.33933361786842,
+    "round": 63,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 87,
+   "captainTurns": 53,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 14,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 6,
+    "17": 13,
+    "18": 27,
+    "19": 14
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 27
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 14,
+    "Keelbind": 7,
+    "Windlash Focus": 13,
+    "Explosive Tag Cataclysm": 6,
+    "end turn": 27,
+    "Final Command": 9,
+    "Counter Stance": 13,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "basic attack": 27
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 7,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 4,
+   "captainDecisions": 135,
+   "captainDecisionsPlayerFar5": 6,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 9,
+    "approachSteps": 4,
+    "cornered": 24,
+    "pokes": 37,
+    "humanStepsInside": 91,
+    "humanSteps": 92
+   }
+  },
+  {
+   "seed": 4,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 57,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 96,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 22
+   },
+   "death": {
+    "by": "The Captain",
+    "action": "basic attack",
+    "dmg": 28.50776031827337,
+    "round": 66,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 93,
+   "captainTurns": 56,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 30,
+   "ruleFires": {
+    "8": 1,
+    "9": 10,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 7,
+    "17": 13,
+    "18": 35,
+    "19": 30
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 29
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "Final Command": 10,
+    "move": 30,
+    "Explosive Tag Cataclysm": 7,
+    "Keelbind": 7,
+    "Counter Stance": 13,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "Windlash Focus": 13,
+    "basic attack": 35,
+    "end turn": 29
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 7,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 9,
+   "captainDecisions": 163,
+   "captainDecisionsPlayerFar5": 8,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 30,
+    "approachSteps": 1,
+    "cornered": 19,
+    "pokes": 35,
+    "humanStepsInside": 111,
+    "humanSteps": 113
+   }
+  },
+  {
+   "seed": 5,
+   "outcome": "wipe",
+   "wave1Rounds": 7,
+   "wave2Rounds": 60,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 95,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 29
+   },
+   "death": {
+    "by": "The Captain",
+    "action": "Keelbind",
+    "dmg": 25.030663427401805,
+    "round": 66,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 96,
+   "captainTurns": 59,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 22,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 8,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 7,
+    "17": 15,
+    "18": 30,
+    "19": 22
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 29
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 22,
+    "Windlash Focus": 15,
+    "Explosive Tag Cataclysm": 7,
+    "Keelbind": 8,
+    "Final Command": 9,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "Counter Stance": 13,
+    "basic attack": 30,
+    "end turn": 29
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 6,
+   "captainDecisions": 152,
+   "captainDecisionsPlayerFar5": 10,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 20,
+    "approachSteps": 2,
+    "cornered": 24,
+    "pokes": 38,
+    "humanStepsInside": 104,
+    "humanSteps": 110
+   }
+  },
+  {
+   "seed": 6,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 53,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 96,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 704.9759999999987,
+    "by": "Deck Warden",
+    "action": "Eruption: Splash",
+    "round": 3
+   },
+   "death": {
+    "by": "Sealwright",
+    "action": "Weakening Strike",
+    "dmg": 279.3547629635658,
+    "round": 61,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 86,
+   "captainTurns": 51,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 14,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 6,
+    "13": 12,
+    "14": 8,
+    "15": 9,
+    "16": 6,
+    "17": 13,
+    "18": 30,
+    "19": 14
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 29
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 14,
+    "Windlash Focus": 13,
+    "Final Command": 9,
+    "Suppression Writ": 8,
+    "Explosive Tag Cataclysm": 6,
+    "Keelbind": 6,
+    "Counter Stance": 12,
+    "Unraveling Strike": 9,
+    "basic attack": 30,
+    "end turn": 29
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 4,
+   "captainDecisions": 137,
+   "captainDecisionsPlayerFar5": 8,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 16,
+    "approachSteps": 4,
+    "cornered": 22,
+    "pokes": 35,
+    "humanStepsInside": 91,
+    "humanSteps": 93
+   }
+  },
+  {
+   "seed": 7,
+   "outcome": "wipe",
+   "wave1Rounds": 11,
+   "wave2Rounds": 55,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 97,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 23
+   },
+   "death": {
+    "by": "damage over time",
+    "action": "tick on own turn (Rejuvenating Chakra)",
+    "dmg": 255.3974047360252,
+    "round": 64,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 86,
+   "captainTurns": 53,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 25,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 12,
+    "14": 9,
+    "15": 9,
+    "16": 6,
+    "17": 13,
+    "18": 27,
+    "19": 25
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 26
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 25,
+    "Windlash Focus": 13,
+    "Explosive Tag Cataclysm": 6,
+    "Keelbind": 7,
+    "Final Command": 9,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "Counter Stance": 12,
+    "basic attack": 27,
+    "end turn": 26
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 9,
+   "captainDecisions": 144,
+   "captainDecisionsPlayerFar5": 9,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 28,
+    "approachSteps": 6,
+    "cornered": 19,
+    "pokes": 36,
+    "humanStepsInside": 107,
+    "humanSteps": 108
+   }
+  },
+  {
+   "seed": 8,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 51,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 96,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 866.9759999999987,
+    "by": "Deck Warden",
+    "action": "Eruption: Splash",
+    "round": 3
+   },
+   "death": {
+    "by": "The Captain",
+    "action": "Final Command",
+    "dmg": 157.52015940521358,
+    "round": 60,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 81,
+   "captainTurns": 50,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 24,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 6,
+    "13": 12,
+    "14": 8,
+    "15": 8,
+    "16": 6,
+    "17": 13,
+    "18": 31,
+    "19": 24
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 28
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 24,
+    "Windlash Focus": 13,
+    "Final Command": 9,
+    "Counter Stance": 12,
+    "Keelbind": 6,
+    "end turn": 28,
+    "Suppression Writ": 8,
+    "Unraveling Strike": 8,
+    "Explosive Tag Cataclysm": 6,
+    "basic attack": 31
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 8,
+   "captainDecisions": 146,
+   "captainDecisionsPlayerFar5": 6,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 26,
+    "approachSteps": 6,
+    "cornered": 15,
+    "pokes": 33,
+    "humanStepsInside": 99,
+    "humanSteps": 102
+   }
+  },
+  {
+   "seed": 9,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 55,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 96,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 22
+   },
+   "death": {
+    "by": "Sealwright",
+    "action": "Weakening Strike",
+    "dmg": 398.6977789852648,
+    "round": 64,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 91,
+   "captainTurns": 53,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 20,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 6,
+    "17": 14,
+    "18": 34,
+    "19": 20
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 30
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 20,
+    "Windlash Focus": 14,
+    "Final Command": 9,
+    "Counter Stance": 13,
+    "Keelbind": 7,
+    "end turn": 30,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "Explosive Tag Cataclysm": 6,
+    "basic attack": 34
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 8,
+   "captainDecisions": 152,
+   "captainDecisionsPlayerFar5": 5,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 24,
+    "approachSteps": 8,
+    "cornered": 20,
+    "pokes": 36,
+    "humanStepsInside": 105,
+    "humanSteps": 107
+   }
+  },
+  {
+   "seed": 10,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 53,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 96,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 22
+   },
+   "death": {
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "dmg": 153.06943140837848,
+    "round": 62,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 90,
+   "captainTurns": 52,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 8,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 12,
+    "14": 9,
+    "15": 9,
+    "16": 6,
+    "17": 13,
+    "18": 31,
+    "19": 8
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 31
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "Keelbind": 7,
+    "Final Command": 9,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "Windlash Focus": 13,
+    "Counter Stance": 12,
+    "Explosive Tag Cataclysm": 6,
+    "basic attack": 31,
+    "end turn": 31,
+    "move": 8
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 3,
+   "captainDecisions": 136,
+   "captainDecisionsPlayerFar5": 1,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 11,
+    "approachSteps": 5,
+    "cornered": 23,
+    "pokes": 35,
+    "humanStepsInside": 91,
+    "humanSteps": 92
+   }
+  },
+  {
+   "seed": 11,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 57,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 98,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 22
+   },
+   "death": {
+    "by": "Sealwright",
+    "action": "Weakening Strike",
+    "dmg": 26.93817898282458,
+    "round": 65,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 91,
+   "captainTurns": 55,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 28,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 6,
+    "17": 13,
+    "18": 35,
+    "19": 28
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 29
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "Final Command": 9,
+    "move": 28,
+    "Explosive Tag Cataclysm": 6,
+    "Keelbind": 7,
+    "Counter Stance": 13,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "Windlash Focus": 13,
+    "basic attack": 35,
+    "end turn": 29
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 7,
+   "captainDecisions": 159,
+   "captainDecisionsPlayerFar5": 10,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 28,
+    "approachSteps": 1,
+    "cornered": 18,
+    "pokes": 34,
+    "humanStepsInside": 105,
+    "humanSteps": 107
+   }
+  },
+  {
+   "seed": 12,
+   "outcome": "wipe",
+   "wave1Rounds": 6,
+   "wave2Rounds": 59,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 98,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 28
+   },
+   "death": {
+    "by": "Sealwright",
+    "action": "Weakening Strike",
+    "dmg": 102.25849363738469,
+    "round": 64,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 92,
+   "captainTurns": 57,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 20,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 10,
+    "16": 7,
+    "17": 13,
+    "18": 29,
+    "19": 20
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 28
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "Unraveling Strike": 10,
+    "move": 20,
+    "Explosive Tag Cataclysm": 7,
+    "Keelbind": 7,
+    "Windlash Focus": 13,
+    "Suppression Writ": 9,
+    "Final Command": 9,
+    "basic attack": 29,
+    "Counter Stance": 13,
+    "end turn": 28
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 5,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 6,
+   "captainDecisions": 146,
+   "captainDecisionsPlayerFar5": 10,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 16,
+    "approachSteps": 0,
+    "cornered": 23,
+    "pokes": 36,
+    "humanStepsInside": 96,
+    "humanSteps": 102
+   }
+  },
+  {
+   "seed": 13,
+   "outcome": "wipe",
+   "wave1Rounds": 8,
+   "wave2Rounds": 54,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 97,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 20
+   },
+   "death": {
+    "by": "damage over time",
+    "action": "tick on own turn (end turn)",
+    "dmg": 279.96331052824576,
+    "round": 60,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 93,
+   "captainTurns": 52,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 8,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 12,
+    "14": 9,
+    "15": 10,
+    "16": 6,
+    "17": 13,
+    "18": 32,
+    "19": 8
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 29
+   },
+   "actions": {
+    "Unraveling Strike": 10,
+    "Unbroken Command": 1,
+    "Final Command": 9,
+    "Suppression Writ": 9,
+    "Keelbind": 7,
+    "Windlash Focus": 13,
+    "Counter Stance": 12,
+    "Explosive Tag Cataclysm": 6,
+    "basic attack": 32,
+    "end turn": 29,
+    "move": 8
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 3,
+   "captainDecisions": 136,
+   "captainDecisionsPlayerFar5": 1,
+   "captainDecisionsPetAdjacentPlayerFar": 1,
+   "kite": {
+    "retreatSteps": 12,
+    "approachSteps": 6,
+    "cornered": 23,
+    "pokes": 34,
+    "humanStepsInside": 93,
+    "humanSteps": 93
+   }
+  },
+  {
+   "seed": 14,
+   "outcome": "wipe",
+   "wave1Rounds": 11,
+   "wave2Rounds": 53,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 96,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7199999999993,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 43
+   },
+   "death": {
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "dmg": 429.92970516817047,
+    "round": 63,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 88,
+   "captainTurns": 51,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 28,
+   "ruleFires": {
+    "8": 1,
+    "9": 8,
+    "10": 6,
+    "13": 12,
+    "14": 8,
+    "15": 8,
+    "16": 6,
+    "17": 12,
+    "18": 29,
+    "19": 28
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 26
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 28,
+    "Explosive Tag Cataclysm": 6,
+    "Keelbind": 6,
+    "Windlash Focus": 12,
+    "Final Command": 8,
+    "Counter Stance": 12,
+    "Suppression Writ": 8,
+    "Unraveling Strike": 8,
+    "basic attack": 29,
+    "end turn": 26
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 5,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 9,
+   "captainDecisions": 144,
+   "captainDecisionsPlayerFar5": 11,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 24,
+    "approachSteps": 3,
+    "cornered": 19,
+    "pokes": 34,
+    "humanStepsInside": 99,
+    "humanSteps": 101
+   }
+  },
+  {
+   "seed": 15,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 55,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 98,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 22
+   },
+   "death": {
+    "by": "The Captain",
+    "action": "Explosive Tag Cataclysm",
+    "dmg": 178.50387407562664,
+    "round": 64,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 89,
+   "captainTurns": 54,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 29,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 7,
+    "17": 12,
+    "18": 32,
+    "19": 29
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 27
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "Final Command": 9,
+    "move": 29,
+    "Explosive Tag Cataclysm": 7,
+    "Keelbind": 7,
+    "Counter Stance": 13,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "Windlash Focus": 12,
+    "basic attack": 32,
+    "end turn": 27
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 10,
+   "captainDecisions": 155,
+   "captainDecisionsPlayerFar5": 8,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 31,
+    "approachSteps": 3,
+    "cornered": 18,
+    "pokes": 35,
+    "humanStepsInside": 108,
+    "humanSteps": 111
+   }
+  },
+  {
+   "seed": 16,
+   "outcome": "wipe",
+   "wave1Rounds": 6,
+   "wave2Rounds": 59,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 97,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 18
+   },
+   "death": {
+    "by": "damage over time",
+    "action": "tick on own turn (Rejuvenating Chakra)",
+    "dmg": 259.267198534835,
+    "round": 64,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 94,
+   "captainTurns": 58,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 22,
+   "ruleFires": {
+    "8": 1,
+    "9": 10,
+    "10": 8,
+    "13": 14,
+    "14": 9,
+    "15": 9,
+    "16": 7,
+    "17": 14,
+    "18": 30,
+    "19": 22
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 30
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "Keelbind": 8,
+    "move": 22,
+    "Explosive Tag Cataclysm": 7,
+    "Final Command": 10,
+    "Counter Stance": 14,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "Windlash Focus": 14,
+    "basic attack": 30,
+    "end turn": 30
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 5,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 8,
+   "captainDecisions": 154,
+   "captainDecisionsPlayerFar5": 5,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 32,
+    "approachSteps": 12,
+    "cornered": 19,
+    "pokes": 37,
+    "humanStepsInside": 122,
+    "humanSteps": 123
+   }
+  },
+  {
+   "seed": 17,
+   "outcome": "wipe",
+   "wave1Rounds": 6,
+   "wave2Rounds": 59,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 95,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 18
+   },
+   "death": {
+    "by": "The Captain",
+    "action": "Final Command",
+    "dmg": 182.14604031949142,
+    "round": 64,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 94,
+   "captainTurns": 58,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 10,
+   "ruleFires": {
+    "8": 1,
+    "9": 10,
+    "10": 7,
+    "13": 14,
+    "14": 9,
+    "15": 9,
+    "16": 7,
+    "17": 14,
+    "18": 30,
+    "19": 10
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 30
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 10,
+    "Windlash Focus": 14,
+    "Explosive Tag Cataclysm": 7,
+    "Keelbind": 7,
+    "Final Command": 10,
+    "Counter Stance": 14,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "basic attack": 30,
+    "end turn": 30
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 3,
+   "captainDecisions": 141,
+   "captainDecisionsPlayerFar5": 6,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 7,
+    "approachSteps": 0,
+    "cornered": 28,
+    "pokes": 35,
+    "humanStepsInside": 91,
+    "humanSteps": 95
+   }
+  },
+  {
+   "seed": 18,
+   "outcome": "wipe",
+   "wave1Rounds": 6,
+   "wave2Rounds": 62,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 97,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 28
+   },
+   "death": {
+    "by": "damage over time",
+    "action": "tick on own turn (Rejuvenating Chakra)",
+    "dmg": 302.62449720426014,
+    "round": 66,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 94,
+   "captainTurns": 60,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 33,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 8,
+    "13": 14,
+    "14": 9,
+    "15": 9,
+    "16": 7,
+    "17": 14,
+    "18": 32,
+    "19": 33
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 31
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 33,
+    "Windlash Focus": 14,
+    "Explosive Tag Cataclysm": 7,
+    "Keelbind": 8,
+    "Final Command": 9,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "Counter Stance": 14,
+    "basic attack": 32,
+    "end turn": 31
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 5,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 10,
+   "captainDecisions": 167,
+   "captainDecisionsPlayerFar5": 13,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 40,
+    "approachSteps": 10,
+    "cornered": 21,
+    "pokes": 38,
+    "humanStepsInside": 129,
+    "humanSteps": 135
+   }
+  },
+  {
+   "seed": 19,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 56,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 94,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 32
+   },
+   "death": {
+    "by": "damage over time",
+    "action": "tick on own turn (Chakra Overflow)",
+    "dmg": 362.1563229855103,
+    "round": 64,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 91,
+   "captainTurns": 54,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 12,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 6,
+    "17": 13,
+    "18": 29,
+    "19": 12
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 27
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 12,
+    "Windlash Focus": 13,
+    "Final Command": 9,
+    "Suppression Writ": 9,
+    "Explosive Tag Cataclysm": 6,
+    "Keelbind": 7,
+    "Counter Stance": 13,
+    "Unraveling Strike": 9,
+    "basic attack": 29,
+    "end turn": 27
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 4,
+   "captainDecisions": 135,
+   "captainDecisionsPlayerFar5": 6,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 14,
+    "approachSteps": 6,
+    "cornered": 22,
+    "pokes": 36,
+    "humanStepsInside": 96,
+    "humanSteps": 98
+   }
+  },
+  {
+   "seed": 20,
+   "outcome": "wipe",
+   "wave1Rounds": 9,
+   "wave2Rounds": 56,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 96,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 21
+   },
+   "death": {
+    "by": "damage over time",
+    "action": "tick on own turn (Shrapnel Clone Barrage)",
+    "dmg": 203.4566945394698,
+    "round": 63,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 94,
+   "captainTurns": 54,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 16,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 7,
+    "17": 13,
+    "18": 34,
+    "19": 16
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 30
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "Final Command": 9,
+    "Explosive Tag Cataclysm": 7,
+    "move": 16,
+    "Keelbind": 7,
+    "Counter Stance": 13,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "Windlash Focus": 13,
+    "basic attack": 34,
+    "end turn": 30
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 6,
+   "captainDecisions": 148,
+   "captainDecisionsPlayerFar5": 4,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 16,
+    "approachSteps": 4,
+    "cornered": 21,
+    "pokes": 35,
+    "humanStepsInside": 100,
+    "humanSteps": 101
+   }
+  },
+  {
+   "seed": 21,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 55,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 97,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 22
+   },
+   "death": {
+    "by": "damage over time",
+    "action": "tick on own turn (Rejuvenating Chakra)",
+    "dmg": 242.5032909542915,
+    "round": 63,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 88,
+   "captainTurns": 53,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 18,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 12,
+    "14": 9,
+    "15": 9,
+    "16": 6,
+    "17": 12,
+    "18": 28,
+    "19": 18
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 26
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 18,
+    "Explosive Tag Cataclysm": 6,
+    "Keelbind": 7,
+    "Final Command": 9,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "Windlash Focus": 12,
+    "Counter Stance": 12,
+    "basic attack": 28,
+    "end turn": 26
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 7,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 4,
+   "captainDecisions": 137,
+   "captainDecisionsPlayerFar5": 8,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 13,
+    "approachSteps": 0,
+    "cornered": 24,
+    "pokes": 37,
+    "humanStepsInside": 89,
+    "humanSteps": 91
+   }
+  },
+  {
+   "seed": 22,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 51,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 96,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 723.4799999999996,
+    "by": "Deck Warden",
+    "action": "Eruption: Splash",
+    "round": 5
+   },
+   "death": {
+    "by": "The Captain",
+    "action": "Final Command",
+    "dmg": 344.24248474700124,
+    "round": 60,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 86,
+   "captainTurns": 50,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 9,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 6,
+    "13": 12,
+    "14": 8,
+    "15": 8,
+    "16": 6,
+    "17": 13,
+    "18": 34,
+    "19": 9
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 31
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 9,
+    "Windlash Focus": 13,
+    "Final Command": 9,
+    "Counter Stance": 12,
+    "Keelbind": 6,
+    "end turn": 31,
+    "Suppression Writ": 8,
+    "Unraveling Strike": 8,
+    "Explosive Tag Cataclysm": 6,
+    "basic attack": 34
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 4,
+   "captainDecisions": 137,
+   "captainDecisionsPlayerFar5": 3,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 10,
+    "approachSteps": 4,
+    "cornered": 23,
+    "pokes": 33,
+    "humanStepsInside": 86,
+    "humanSteps": 86
+   }
+  },
+  {
+   "seed": 23,
+   "outcome": "wipe",
+   "wave1Rounds": 13,
+   "wave2Rounds": 49,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 92,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 25
+   },
+   "death": {
+    "by": "Sealwright",
+    "action": "Weakening Strike",
+    "dmg": 227.23661447727662,
+    "round": 60,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 81,
+   "captainTurns": 47,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 10,
+   "ruleFires": {
+    "8": 1,
+    "9": 8,
+    "10": 6,
+    "13": 11,
+    "14": 8,
+    "15": 8,
+    "16": 6,
+    "17": 11,
+    "18": 25,
+    "19": 10
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 25
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "Explosive Tag Cataclysm": 6,
+    "Final Command": 8,
+    "Suppression Writ": 8,
+    "move": 10,
+    "Keelbind": 6,
+    "Windlash Focus": 11,
+    "Counter Stance": 11,
+    "Unraveling Strike": 8,
+    "basic attack": 25,
+    "end turn": 25
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 5,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 3,
+   "captainDecisions": 119,
+   "captainDecisionsPlayerFar5": 4,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 13,
+    "approachSteps": 4,
+    "cornered": 21,
+    "pokes": 30,
+    "humanStepsInside": 83,
+    "humanSteps": 85
+   }
+  },
+  {
+   "seed": 24,
+   "outcome": "wipe",
+   "wave1Rounds": 9,
+   "wave2Rounds": 55,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 97,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 20
+   },
+   "death": {
+    "by": "damage over time",
+    "action": "tick on own turn (end turn)",
+    "dmg": 17.20733452606636,
+    "round": 63,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 92,
+   "captainTurns": 54,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 31,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 10,
+    "16": 6,
+    "17": 12,
+    "18": 31,
+    "19": 31
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 26
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 31,
+    "Unraveling Strike": 10,
+    "Final Command": 9,
+    "Suppression Writ": 9,
+    "Keelbind": 7,
+    "Counter Stance": 13,
+    "Explosive Tag Cataclysm": 6,
+    "Windlash Focus": 12,
+    "basic attack": 31,
+    "end turn": 26
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 9,
+   "captainDecisions": 155,
+   "captainDecisionsPlayerFar5": 11,
+   "captainDecisionsPetAdjacentPlayerFar": 1,
+   "kite": {
+    "retreatSteps": 30,
+    "approachSteps": 5,
+    "cornered": 20,
+    "pokes": 36,
+    "humanStepsInside": 109,
+    "humanSteps": 112
+   }
+  },
+  {
+   "seed": 25,
+   "outcome": "wipe",
+   "wave1Rounds": 9,
+   "wave2Rounds": 57,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 97,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 21
+   },
+   "death": {
+    "by": "Sealwright",
+    "action": "Weakening Strike",
+    "dmg": 195.20657897916232,
+    "round": 64,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 92,
+   "captainTurns": 55,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 23,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 6,
+    "17": 14,
+    "18": 34,
+    "19": 23
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 32
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 23,
+    "Windlash Focus": 14,
+    "Keelbind": 7,
+    "end turn": 32,
+    "Explosive Tag Cataclysm": 6,
+    "Final Command": 9,
+    "Counter Stance": 13,
+    "Suppression Writ": 9,
+    "Unraveling Strike": 9,
+    "basic attack": 34
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 9,
+   "captainDecisions": 157,
+   "captainDecisionsPlayerFar5": 6,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 25,
+    "approachSteps": 8,
+    "cornered": 24,
+    "pokes": 37,
+    "humanStepsInside": 111,
+    "humanSteps": 112
+   }
+  },
+  {
+   "seed": 26,
+   "outcome": "wipe",
+   "wave1Rounds": 9,
+   "wave2Rounds": 60,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 93,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 21
+   },
+   "death": {
+    "by": "The Captain",
+    "action": "basic attack",
+    "dmg": 26.487067895153075,
+    "round": 67,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 93,
+   "captainTurns": 58,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 40,
+   "ruleFires": {
+    "8": 1,
+    "9": 10,
+    "10": 7,
+    "13": 14,
+    "14": 10,
+    "15": 10,
+    "16": 6,
+    "17": 15,
+    "18": 38,
+    "19": 40
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 30
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 40,
+    "Windlash Focus": 15,
+    "Final Command": 10,
+    "Counter Stance": 14,
+    "Keelbind": 7,
+    "end turn": 30,
+    "Suppression Writ": 10,
+    "Unraveling Strike": 10,
+    "Explosive Tag Cataclysm": 6,
+    "basic attack": 38
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 7,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 13,
+   "captainDecisions": 181,
+   "captainDecisionsPlayerFar5": 9,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 41,
+    "approachSteps": 6,
+    "cornered": 17,
+    "pokes": 36,
+    "humanStepsInside": 127,
+    "humanSteps": 130
+   }
+  },
+  {
+   "seed": 27,
+   "outcome": "wipe",
+   "wave1Rounds": 10,
+   "wave2Rounds": 53,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 98,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 723.4799999999996,
+    "by": "Deck Warden",
+    "action": "Eruption: Splash",
+    "round": 5
+   },
+   "death": {
+    "by": "The Captain",
+    "action": "Keelbind",
+    "dmg": 118.38086427217883,
+    "round": 62,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 87,
+   "captainTurns": 52,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 8,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 8,
+    "15": 9,
+    "16": 6,
+    "17": 12,
+    "18": 30,
+    "19": 8
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 30
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "Final Command": 9,
+    "Explosive Tag Cataclysm": 6,
+    "move": 8,
+    "Keelbind": 7,
+    "Counter Stance": 13,
+    "Suppression Writ": 8,
+    "Unraveling Strike": 9,
+    "Windlash Focus": 12,
+    "basic attack": 30,
+    "end turn": 30
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 5,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 3,
+   "captainDecisions": 133,
+   "captainDecisionsPlayerFar5": 2,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 9,
+    "approachSteps": 1,
+    "cornered": 24,
+    "pokes": 33,
+    "humanStepsInside": 86,
+    "humanSteps": 86
+   }
+  },
+  {
+   "seed": 28,
+   "outcome": "wipe",
+   "wave1Rounds": 9,
+   "wave2Rounds": 56,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 90,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 21
+   },
+   "death": {
+    "by": "damage over time",
+    "action": "tick on own turn (Stunning Jab)",
+    "dmg": 189.00106520352773,
+    "round": 63,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 93,
+   "captainTurns": 54,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 11,
+   "ruleFires": {
+    "8": 1,
+    "9": 9,
+    "10": 7,
+    "13": 13,
+    "14": 9,
+    "15": 9,
+    "16": 6,
+    "17": 14,
+    "18": 29,
+    "19": 11
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 30
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 11,
+    "Windlash Focus": 14,
+    "Final Command": 9,
+    "Suppression Writ": 9,
+    "Explosive Tag Cataclysm": 6,
+    "Keelbind": 7,
+    "Counter Stance": 13,
+    "Unraveling Strike": 9,
+    "basic attack": 29,
+    "end turn": 30
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 4,
+   "captainDecisions": 138,
+   "captainDecisionsPlayerFar5": 6,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 12,
+    "approachSteps": 5,
+    "cornered": 23,
+    "pokes": 34,
+    "humanStepsInside": 94,
+    "humanSteps": 96
+   }
+  },
+  {
+   "seed": 29,
+   "outcome": "wipe",
+   "wave1Rounds": 8,
+   "wave2Rounds": 59,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 98,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 20
+   },
+   "death": {
+    "by": "The Captain",
+    "action": "Unraveling Strike",
+    "dmg": 119.3060892086516,
+    "round": 66,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 91,
+   "captainTurns": 58,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 7,
+   "ruleFires": {
+    "8": 1,
+    "9": 10,
+    "10": 7,
+    "13": 14,
+    "14": 10,
+    "15": 11,
+    "16": 6,
+    "17": 14,
+    "18": 37,
+    "19": 7
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 31
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "Unraveling Strike": 11,
+    "Final Command": 10,
+    "Suppression Writ": 10,
+    "Keelbind": 7,
+    "Windlash Focus": 14,
+    "Counter Stance": 14,
+    "Explosive Tag Cataclysm": 6,
+    "basic attack": 37,
+    "end turn": 31,
+    "move": 7
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 6,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 2,
+   "captainDecisions": 148,
+   "captainDecisionsPlayerFar5": 3,
+   "captainDecisionsPetAdjacentPlayerFar": 0,
+   "kite": {
+    "retreatSteps": 15,
+    "approachSteps": 8,
+    "cornered": 26,
+    "pokes": 37,
+    "humanStepsInside": 105,
+    "humanSteps": 108
+   }
+  },
+  {
+   "seed": 30,
+   "outcome": "wipe",
+   "wave1Rounds": 6,
+   "wave2Rounds": 59,
+   "wave2Reached": true,
+   "captainKilled": false,
+   "reachedPhase2": false,
+   "captainMinHpPct": 98,
+   "ucCasts": 1,
+   "maxHit": {
+    "dmg": 678.7200000000012,
+    "by": "Sealwright",
+    "action": "Sovereign Fetters",
+    "round": 19
+   },
+   "death": {
+    "by": "The Captain",
+    "action": "Final Command",
+    "dmg": 22.08707144740464,
+    "round": 64,
+    "wave": 2
+   },
+   "playerHpAtWave2Pct": 94,
+   "captainTurns": 59,
+   "captainIdleTurns": 0,
+   "captainIdleTurnsPlayerFar": 0,
+   "captainMoveSteps": 26,
+   "ruleFires": {
+    "8": 1,
+    "9": 10,
+    "10": 7,
+    "13": 14,
+    "14": 9,
+    "15": 10,
+    "16": 7,
+    "17": 14,
+    "18": 39,
+    "19": 26
+   },
+   "backupFires": {
+    "end turn (engine-appended rule)": 34
+   },
+   "actions": {
+    "Unbroken Command": 1,
+    "move": 26,
+    "end turn": 34,
+    "Unraveling Strike": 10,
+    "Explosive Tag Cataclysm": 7,
+    "Keelbind": 7,
+    "Windlash Focus": 14,
+    "Final Command": 10,
+    "Counter Stance": 14,
+    "Suppression Writ": 9,
+    "basic attack": 39
+   },
+   "markVsBlast": {
+    "ring": 0,
+    "bell": 0,
+    "rowsA": 0,
+    "broadside": 0
+   },
+   "stunOnCaptain": 0,
+   "jabCastsW2": 4,
+   "sealwrightDiedRoundInWave": null,
+   "captainMoveTurns": 7,
+   "captainDecisions": 171,
+   "captainDecisionsPlayerFar5": 10,
+   "captainDecisionsPetAdjacentPlayerFar": 2,
+   "kite": {
+    "retreatSteps": 20,
+    "approachSteps": 0,
+    "cornered": 27,
+    "pokes": 35,
+    "humanStepsInside": 105,
+    "humanSteps": 110
+   }
+  }
+ ]
+}
