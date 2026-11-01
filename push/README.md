@@ -1506,6 +1506,14 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 396 Skyglass library blasts capture (READ-ONLY, 9 jutsu.get): READY TO RUN
+
+Director, 2026-10-31: "The eruptions dont have friendly fire toggled correctly so they hit the caster and allies". push/342
+sent `friendlyFire: "ENEMIES"` on every offensive row of the nine blasts and verified each (verdict match), and nothing
+since has edited their effects (344/361/364/375/377/391/392 only equip them). The engine honours the flag on ground
+effects (theninjarpg@3314d122 `libs/combat/process.ts` ~398-400, `checkFriendlyFire` ~165-188). This capture reads the
+live rows before any fix: an edit re-severs every holder (law 18), so a fix is an unequip / edit / re-equip cycle.
+
 ## 395 Galley Stores card text (1 item edit): READY TO RUN
 
 `python3 push/skyglass_galley.gen.py`: description only, "Gives 2,000 pet experience" (RUL-2026-10-31-090; the effect was
