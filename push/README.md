@@ -1506,7 +1506,12 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
-## 393-394 Skyglass solo chart grind (2 Battle Pyramids): 393 READY TO RUN; 394 built from 393's results
+## 395 Galley Stores card text (1 item edit): READY TO RUN
+
+`python3 push/skyglass_galley.gen.py`: description only, "Gives 2,000 pet experience" (RUL-2026-10-31-090; the effect was
+cut to 2,000 by the director in game). Gates: `validate.py --strict` 0/0; `check_manifest.mjs` 0 pre-send problems.
+
+## 393-394 Skyglass solo chart grind (2 Battle Pyramids): ON HOLD (director, RUL-2026-10-31-090: "I didnt add the pyramid"); 394 built from 393's results
 
 | # | Build | Contents |
 |---|---|---|

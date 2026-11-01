@@ -5268,3 +5268,19 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: dungeon editor screenshots (Rewards tab, both Wrecks). Item 2 is Fable's proposal following RUL-088's "slightly lower" rule, flagged in the handoff.
 
 **Canonical destination:** `push/skyglass_wreck.gen.py` (EASY; clear currency is a build argument); `push/skyglass_solo.gen.py`.
+
+## RUL-2026-10-31-090 — Galley Stores cut to 2,000 pet exp; solo pyramids not added
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / balance
+
+**Status:** ACTIVE. Amends RUL-2026-10-29-039 (Galley Stores 20,000). RUL-2026-10-31-088/-089 stay built but unrun.
+
+**Ruling:**
+1. Galley Stores gives 2,000 pet experience (was 20,000), set by the director in game. At 20,000 a high-level player farming the Faded Wreck (Galley Stores 20%, plus the Galley Stores pick on the chart runs its charts open) out-levelled a day of feeding every hour.
+2. The solo pyramids (push/393) are not added for now.
+
+**Evidence:** Director, 2026-10-31: "I didnt add the pyramid and cut Galley Stores to 2000 exp".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5b; `docs/design/SKYGLASS_TEXT.md` §4.2 (its card text, sent by push/395); `push/skyglass_items.gen.py`.
