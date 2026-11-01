@@ -1,0 +1,104 @@
+{
+ "_note": "push/402: restores Patient Zero's combat link. Staff edited his three signature jutsu (Infected Bite, Festering Claws, Plague Bile; new icons) on 2026-11-01 21:06-21:15Z while they were equipped, and Patient Zero was last saved 2026-10-31 02:34Z, so per law 18 he will not use them in battle (his rules fall through, the same signature as the Zombie Claws break in RULINGS). Phase 1 unequips everything, phase 2 re-equips the identical six jutsu in the captured order; no stat, rule or jutsu change. Also reads the seven new scene assets staff placed in Zombie Outbreak. Built from push/401 results tnr_results_1793568292560. Generated inline; do not hand-edit.",
+ "capture": {
+  "before": [
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "LDc6Cr6lYEXlX96QRr6xt"
+    },
+    "persist": "full",
+    "_name": "Zombie O bg: wrong-herb fail, sample + cure dialogs"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "OaEdzHgGwnZxnrTyfRJDg"
+    },
+    "persist": "full",
+    "_name": "Zombie O bg: opening, village, sample fight"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "7wQVz_hgvb-MUu3XnfD9P"
+    },
+    "persist": "full",
+    "_name": "Zombie O bg: bite exam, travel to lab"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "djcZNJfqwIhyNSPTW0y9l"
+    },
+    "persist": "full",
+    "_name": "Zombie O char: opening dialog"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "3iwlZSpPqheRgJ_KRKWuO"
+    },
+    "persist": "full",
+    "_name": "Zombie O char: examine the bites"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "2RKlUYQ7eQJZXnA72dwgq"
+    },
+    "persist": "full",
+    "_name": "Zombie O char: cure works"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "oTVElg7HBkd1g60Lz0SqP"
+    },
+    "persist": "full",
+    "_name": "Zombie O char: lab return"
+   }
+  ],
+  "after": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Pe5J6m1sc1IMpF2HF6Rby"
+    },
+    "persist": "full",
+    "_name": "Patient Zero after re-equip"
+   }
+  ]
+ },
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 1,
+   "targetId": "Pe5J6m1sc1IMpF2HF6Rby",
+   "name": "Patient Zero: unequip all jutsu (law 18/60: his three signature jutsu were edited while equipped)",
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 2,
+   "targetId": "Pe5J6m1sc1IMpF2HF6Rby",
+   "name": "Patient Zero: re-equip the same six jutsu",
+   "data": {
+    "jutsus": [
+     "2lWcedG9Dw528HGO4eI6R",
+     "ElSK-RCrLjddEUm76FZrs",
+     "HrNA9mD5WW2uaCdkq7Iao",
+     "taxbZNdm1Q7YL5AxaRssW",
+     "Vo8N1luCT0p48y7JzKe84",
+     "ydcbW8BIAKyYxHpnz7SDw"
+    ],
+    "items": []
+   }
+  }
+ ]
+}
