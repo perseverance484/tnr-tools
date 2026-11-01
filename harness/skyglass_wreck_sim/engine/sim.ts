@@ -16,7 +16,7 @@
 import { nanoid } from "nanoid";
 import { performAIaction } from "@/libs/combat/ai_v2";
 import { markersOf, noteAction } from "./fallback";
-import { stillInBattle } from "@/libs/combat/actions";
+import { availableUserActions, stillInBattle } from "@/libs/combat/actions";
 import { advanceEncounterWave, prepareEncounterWaves } from "@/libs/combat/encounters";
 import { assertRuleCap } from "./rulecap";
 import { gateProfile } from "./gates";
@@ -164,6 +164,21 @@ export const EMBER_ANIM = "tg_ember";
 export const DODGE_STEPS = 3;
 export type DodgeStats = { threatened: number; dodged: number; failedRooted: number; failedNoPath: number; failedOther: number; stepsTaken: number };
 
+/**
+ * Harness KITE auto-player (fable/skyglass-kite-sim; a stand-in for a person keeping range, not engine behaviour).
+ * Applies to human turns in the listed encounter waves, after the dodge pre-step (a dodge step always wins).
+ * Distances are hex distances to the nearest living opponent unit (pets/summons included).
+ *   strict: if nearer than `range`, step (engine basic Move, 10 AP, one hex) to the free unmarked neighbour that is
+ *           farthest from every opponent (ties: more free neighbours, i.e. away from corners); otherwise hold. Its own
+ *           self buffs and any attack whose range reaches from where it stands still fire; the close-in rule, the
+ *           basic-attack fallback and the engine's appended backup moves are replaced by an explicit end of turn.
+ *   poke:   hit and run. Once per turn, if an attack jutsu is ready and the AP cover the steps in plus the cast, step in
+ *           (unmarked hexes only) to that jutsu's range, cast, then retreat as `strict` with what is left.
+ * Counted in `kite`: retreat / approach steps, cornered (wanted to retreat, no farther free hex), pokes cast.
+ */
+export type KiteOpts = { mode: "strict" | "poke"; range: number; waves: number[] };
+export type KiteStats = { retreatSteps: number; approachSteps: number; cornered: number; pokes: number; humanStepsInside: number; humanSteps: number };
+
 export type FloorResult = {
   outcome: "won" | "wipe" | "ended" | "stalled";
   failedReason?: string;
@@ -185,6 +200,7 @@ export type FloorResult = {
   humanTurns: number;
   aiTurns: number;
   dodge: DodgeStats;
+  kite?: KiteStats;
 };
 
 /** Assemble one dungeon floor exactly as initiateBattle does (minus I/O). */
@@ -368,7 +384,7 @@ export const assembleFloor = async (opts: {
 };
 
 /** Run one floor battle to its dungeon outcome. */
-export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; maxRounds: number; detail?: boolean; dodge?: boolean; onAiDecision?: (b: CompleteBattle, actorUid: string, grid: any) => void }): FloorResult => {
+export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; maxRounds: number; detail?: boolean; dodge?: boolean; kite?: KiteOpts; onAiDecision?: (b: CompleteBattle, actorUid: string, grid: any) => void }): FloorResult => {
   let b = battle;
   const suid = opts.playerIds[0]!;
   const grid = getBattleGrid(1, b);
@@ -513,6 +529,55 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
     best.sort((p, q) => ed(p) - ed(q) || p.col - q.col || p.row - q.row);
     return { x: best[0].col, y: best[0].row };
   };
+  /* ---- Harness kite (KiteOpts above) ---- */
+  const kite: KiteStats = { retreatSteps: 0, approachSteps: 0, cornered: 0, pokes: 0, humanStepsInside: 0, humanSteps: 0 };
+  let kiteTurn: { key: string; cast: boolean; cornered: boolean } | null = null;
+  const kitePlan = (actor: any, orig: any[]): { rules: any[]; kind: "retreat" | "approach" | "cast" | "hold" } | null => {
+    const K = opts.kite!.range;
+    const { danger, safe } = marks();
+    if (safe.size) return null; // arena-wide mark: the dodge keeps them on a star
+    const hexes = grid.toArray();
+    const at = (u: any) => hexes.find((h: any) => h.col === u.longitude && h.row === u.latitude);
+    const here = at(actor);
+    const foes = b.usersState.filter((u) => u.direction !== actor.direction && stillInBattle(u, b.usersEffects)).map(at).filter(Boolean);
+    if (!here || !foes.length) return null;
+    const dN = (h: any) => Math.min(...foes.map((f: any) => grid.distance(h, f)));
+    const occupied = new Set<string>();
+    for (const u of b.usersState) if (u.userId !== actor.userId && stillInBattle(u, b.usersEffects)) occupied.add(`${u.longitude},${u.latitude}`);
+    for (const e of b.groundEffects as any[]) if (e.type === "barrier") occupied.add(`${e.longitude},${e.latitude}`);
+    const free = (n: any) => !occupied.has(`${n.col},${n.row}`) && !danger.has(`${n.col},${n.row}`);
+    const nbrs = (h: any) => hexes.filter((n: any) => grid.distance(h, n) === 1 && free(n));
+    const cur = dN(here);
+    const tk = `${b.round}:${actor.userId}`;
+    if (!kiteTurn || kiteTurn.key !== tk) kiteTurn = { key: tk, cast: false, cornered: false };
+    const selfRules = orig.filter((r) => r.action.type === "use_specific_jutsu" && r.action.target === "SELF");
+    const atkRules = orig.filter((r) => r.action.type === "use_specific_jutsu" && r.action.target !== "SELF");
+    const hold = { conditions: [], action: { type: "end_turn", description: "harness kite: hold at range" } };
+    const moveTo = (h: any, why: string) => [{ conditions: [], action: { type: "move_towards_opponent", target: "COORDINATE", coordinates: { longitude: h.col, latitude: h.row }, description: why } }];
+    if (opts.kite!.mode === "poke" && !kiteTurn.cast) {
+      const avail = new Set(availableUserActions(b as never, actor.userId, true, true).map((a: any) => a.id));
+      const range = (id: string) => (actor.jutsus ?? []).find((uj: any) => uj.jutsuId === id)?.jutsu?.range ?? 1;
+      const ready = atkRules.filter((r) => avail.has(r.action.jutsuId));
+      if (ready.length) {
+        const reach = Math.max(...ready.map((r) => range(r.action.jutsuId)));
+        if (cur <= reach) return { rules: [...selfRules, ...atkRules, hold], kind: "cast" };
+        if ((actor.actionPoints ?? 0) >= (cur - reach) * 10 + 60) {
+          const s = safeStep(actor, danger);
+          if (s) return { rules: moveTo({ col: s.x, row: s.y }, "harness kite: step in"), kind: "approach" };
+        }
+      }
+    }
+    if (cur < K) {
+      const opt = nbrs(here).filter((n: any) => dN(n) > cur);
+      opt.sort((p: any, q: any) => dN(q) - dN(p) || nbrs(q).length - nbrs(p).length || p.col - q.col || p.row - q.row);
+      if (opt[0]) return { rules: moveTo(opt[0], "harness kite: retreat"), kind: "retreat" };
+      if (!kiteTurn.cornered) {
+        kiteTurn.cornered = true;
+        kite.cornered++;
+      }
+    }
+    return { rules: [...selfRules, ...atkRules, hold], kind: "hold" };
+  };
   let outcome: FloorResult["outcome"] = "stalled";
   advanceEncounterWave(b, !!outcomeOf());
   registerWave();
@@ -549,6 +614,7 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
     // Harness dodge pre-step (see DANGER_ANIMS).
     let restoreRules: (() => void) | null = null;
     let dodgeStep = false;
+    const origRules: any[] | undefined = isHuman ? (b.extraState.aiProfiles as any)?.[actor.aiProfileId]?.rules : undefined;
     if (isHuman && opts.dodge) {
       const tk = `${b.round}:${actor.userId}`;
       if (!dodgeTurn || dodgeTurn.key !== tk) dodgeTurn = { key: tk, counted: false, steps: 0, done: false, lastPos: "" };
@@ -608,6 +674,30 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
         };
       }
     }
+    // Harness kite pre-step (KiteOpts): after the dodge, never instead of a dodge step.
+    let kiteKind: string | null = null;
+    if (isHuman && opts.kite && !dodgeStep && origRules && opts.kite.waves.includes(curWave().wave)) {
+      const plan = kitePlan(actor, origRules);
+      if (plan) {
+        kiteKind = plan.kind;
+        kite.humanSteps++;
+        const hexesK = grid.toArray();
+        const atK = (u: any) => hexesK.find((h: any) => h.col === u.longitude && h.row === u.latitude);
+        const hereK = atK(actor);
+        const foesK = b.usersState.filter((u) => u.direction !== actor.direction && stillInBattle(u, b.usersEffects)).map(atK).filter(Boolean);
+        if (hereK && foesK.length && Math.min(...foesK.map((f: any) => grid.distance(hereK, f))) < opts.kite.range) kite.humanStepsInside++;
+        const profile = (b.extraState.aiProfiles as any)[actor.aiProfileId];
+        profile.rules = plan.rules;
+        if (!restoreRules) {
+          const pid = actor.aiProfileId;
+          restoreRules = () => {
+            profile.rules = origRules;
+            const np = (b.extraState.aiProfiles as any)?.[pid];
+            if (np) np.rules = origRules;
+          };
+        }
+      }
+    }
     tickClock(1000);
     // Read-only audit hook (audit_rules.ts): sees the battle as the AI is about to decide.
     if (opts.onAiDecision && !isHuman) opts.onAiDecision(b, actor.userId, grid);
@@ -616,6 +706,15 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
     b = res.nextBattle;
     if (markersBefore) noteAction(markersBefore, actor, res.nextActionId, pre.actionRound);
     restoreRules?.();
+    if (kiteKind && res.nextActionId) {
+      if (kiteKind === "retreat" && res.nextActionId === "move") kite.retreatSteps++;
+      if (kiteKind === "approach" && res.nextActionId === "move") kite.approachSteps++;
+      const cast = (actor.jutsus ?? []).find((uj: any) => uj.jutsuId === res.nextActionId);
+      if (kiteKind === "cast" && cast && cast.jutsu?.target !== "SELF" && kiteTurn) {
+        kiteTurn.cast = true;
+        kite.pokes++;
+      }
+    }
     if (dodgeStep) {
       dodge.stepsTaken++;
       const me = b.usersState.find((u) => u.userId === actor.userId);
@@ -691,6 +790,7 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
   return {
     outcome, failedReason: b.extraState.dungeon?.failedReason, rounds: b.round,
     waves, steps, players, final, humanTurns, aiTurns, dodge,
+    ...(opts.kite ? { kite } : {}),
   };
 };
 

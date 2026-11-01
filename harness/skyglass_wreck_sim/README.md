@@ -8,6 +8,13 @@ the engine is a `git archive` export of a local game clone, run in a socket-deni
 
 Results and findings: `REPORT.md` (its first section, the 2026-10-30 final pass, is current). Raw results: `results/*.json`.
 
+**Solo kite grid (2026-10-31, `fable/skyglass-kite-sim`; `REPORT_kite.md`).** `engine/kite.ts` fights the endgame boss
+floor (3 Deck Wardens, then The Captain + the Sealwright) with ONE player and modelled pets, old vs fixed Captain
+(RUL-2026-10-31-091, applied in memory from the unchanged `overrides/kits_endgame.json`), close-in vs kiting
+(`sim.ts` `KiteOpts`: `kite` keeps 5+ hexes, `poke` steps in to cast and back out). Tables:
+`python3 tools/kite_tables.py`. Example:
+`TNR_ENGINE_PIN=3314d122c93e036618483d18229a793ad7ad21fd TNR_SCRIPT=kite.ts run.sh --variant average --rules new --mode kite --runs 30 --pets 2 --out $PWD/harness/skyglass_wreck_sim/results/kite_average_new_kite.json`.
+
 **Rule cap and law-40 gates (2026-10-31, `fable/skyglass-rule-cap`; REPORT.md first section).** Every runner fails a battle
 or a spec with an AI over the server's 20-rule cap (`engine/rulecap.ts`; `--allow-over-cap` only to reproduce pre-trim
 rule sets) and sets every `distance_lower_than` on a rule casting a shared-pool jutsu to range + 1 (`engine/gates.ts`,
