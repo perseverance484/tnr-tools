@@ -5284,3 +5284,20 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "I didnt add the pyramid and cut Galley Stores to 2000 exp".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §5b; `docs/design/SKYGLASS_TEXT.md` §4.2 (its card text, sent by push/395); `push/skyglass_items.gen.py`.
+
+## RUL-2026-10-31-091 — Unbroken Command once per fight; the Captains chase and resist stuns
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / boss behaviour
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. Unbroken Command (`0Y10JpChssDwFUxNRk6p3`, hidden AI jutsu) is fixed in place, not copied: cooldown 2 → 99, once per fight. Its holders are the five Skyglass Captains only (The Captain, Faded Captain, three Veteran Captains), so the change reaches nothing else.
+2. The Captain and the Faded Captain no longer stand still: Stolen Form's rule is cut (15 casts, no damage in the harness), the basic attack is gated to a player within 1 hex, and move_towards_opponent is the unconditional last rule.
+3. The Captain and the Faded Captain get innate stun immunity (stunprevent 100, 99 rounds).
+
+**Evidence:** Director, 2026-10-31, on battle `lIKSZTazonCWc7MgJNHZ6` (full Skyglass Wreck floor 5, pasted log): "He uses a buff every round, it needs a cooldown. None of his other rules fire and he casts it repeatedly"; "Well I dont want them to just stand still casting it. Wont everyone with this jutsu be affected. We should fix it not make a copy"; "also he needs stun immunity". The log: 11 casts of stacking 99-round buffs, Keelbind 4,407 → 400,930. Item 2's cut (Stolen Form) is Fable's choice to free the rule slot under the 20-rule cap, flagged in the handoff.
+
+**Canonical destination:** `push/skyglass_captain_fix.gen.py` (push/398-400); the harness specs on `fable/skyglass-rule-cap` are not yet updated (a later Lane A follow-up).

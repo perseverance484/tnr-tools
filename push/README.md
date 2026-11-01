@@ -1506,6 +1506,20 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 398-400 The Captain fix (RUL-2026-10-31-091): READY TO RUN, 398 → 399 → 400 (397 first is optional)
+
+`python3 push/skyglass_captain_fix.gen.py` writes all three.
+
+| # | Contents |
+|---|---|
+| 398 | 5 AI edits: Unbroken Command off The Captain, the Faded Captain and the three Veteran Captains (push/377 kits minus it; law 18, hidden-jutsu save) |
+| 399 | 1 jutsu edit: Unbroken Command cooldown 2 → 99 (once per fight), `injectableInBattle: false` sent explicitly (law 20; the 2026-10-12 capture's value, re-read by 397) |
+| 400 | 5 AI edits: the push/377 kits back on. The Captain and the Faded Captain also: Stolen Form's rule cut, basic attack gated to a player within 1, `move_towards_opponent` as the unconditional last rule (20 rules), innate `stunprevent` 100 for 99 rounds |
+
+- **Gates (2026-10-31):** `validate.py --strict` 0 errors 0 warnings on all three; `check_manifest.mjs` 0 pre-send problems on all three.
+- **Not simulated.** The Veteran Captains' fights (Captain's Watch, The Fall, the Burning Heading ally) also lose the repeat casts; their measured win rates assumed cooldown 2.
+- **Run 398 → 399 → 400 back to back:** between 398 and 400 the five Captains fight without Unbroken Command.
+
 ## 397 Captain fix capture (READ-ONLY: 2 profile.getAi, 1 jutsu.get): READY TO RUN
 
 The director's log (battle `lIKSZTazonCWc7MgJNHZ6`, pasted 2026-10-31) is the **full** Skyglass Wreck's floor 5 (three
