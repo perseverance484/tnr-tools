@@ -1506,6 +1506,16 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 390 Skyglass go-live unhide, non-quest records (47 edits): READY TO RUN
+
+`390_skyglass_unhide.json` (`python3 push/skyglass_unhide.gen.py`): `hidden:false` only (fetch-merged) on the two
+Wrecks, the Lastlight jutsu (Crownhold's reward; `injectableInBattle:false`, law 20) and 44 items (charts, Lantern,
+Core Rot, Galley Stores, the Jar, Haul pages, Skyglass Token + six boss tokens, Coffer, Treasury, Chart Case, Cargo,
+Hoard, Medicine Inro, Sage's Strongbox, Elemental Tool Pouch, the eight Haul chests, Countermand). Left hidden on
+purpose: Crownbreaker token (achievement deferred), the four retired element pouches and the Shinobi pouch (no drop
+uses them), Armory Requisition, enemy-only jutsu. The Little Horror species has no hidden column (stays isActive:false,
+jar only). Quests are unhidden by the quest re-sends 383+. Gates 0/0, check_manifest 0, skyglass_check 0/0.
+
 ## 382 Go-live retry: The Quarantined Archive (1 quest edit): READY TO RUN
 
 339 RUN 2026-10-31 (`tnr_results_1793490827321.json`): 10/13 VERIFIED (Keel Walk and Observation Gallery scene assets
