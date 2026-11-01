@@ -5221,3 +5221,17 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "385 approved".
 
 **Canonical destination:** the ledger.
+
+## RUL-2026-10-31-087 — Haul page drops on the endgame Wreck set to 3%
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / balance
+
+**Status:** ACTIVE. Amends RUL-2026-10-30-060 item 5 for the endgame Wreck only; Rare-chart endings stay 1.5% per page.
+
+**Ruling:** Each of the six Haul pages drops at 3% from the endgame Skyglass Wreck clear (was 2.4%). The game's dungeon editor will not publish a decimal reward chance, so the director set the six rows to 3 in the editor (Forge cannot save dungeons while the live "requirements" key is outside its pinned contract). Some page per clear goes from about 14.4% to about 18%.
+
+**Evidence:** Director, 2026-10-31: "When i try to publish the dungeon it tells me to change the decimal reward chances to whole numbers (2.4 -> 2 or 3)"; "3%".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4b; `push/skyglass_wreck.gen.py` ENDGAME (push/362 as committed keeps 2.4 as the record of what was sent; the live dungeon was edited in game).

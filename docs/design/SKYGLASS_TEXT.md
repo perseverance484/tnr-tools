@@ -628,7 +628,7 @@ Director-approved 2026-10-31 (RUL-2026-10-31-074 item 3): one lore line, the run
 five (the Haul does not scale to the player, RUL-2026-10-31-073), what it pays, the step choices with this page's
 layout (§3.3 … §3.7), and the rules footer. Rarity Legendary, tradeable. The long stories are trimmed to one line;
 the Trophy Hold's "trophies" is now "prizes" (Naming rule). The locker alert and the bonus-chest rate are left to
-the run's own text. A page drops from the endgame Wreck clear (2.4%) and every Rare-chart ending (1.5% each; loot
+the run's own text. A page drops from the endgame Wreck clear (3%, RUL-2026-10-31-087) and every Rare-chart ending (1.5% each; loot
 tables §4b); its own card does not say so.
 
 **`item:Ledger Page: The Trophy Hold.description`**
