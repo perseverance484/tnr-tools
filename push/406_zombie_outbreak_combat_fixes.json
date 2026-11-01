@@ -1,0 +1,250 @@
+{
+ "_note": "push/406: Zombie Outbreak combat fixes, built from push/405 results tnr_results_1793572053979 (replaces the held 402 and 404, which were built from the earlier capture). (1) Patient Zero: staff edited his three signature jutsu again (battle descriptions, 2026-11-01 21:25-21:52Z) while equipped, and he has not been re-saved since 2026-10-31, so per law 18 he will not use them; unequip all, re-equip the identical six. (2) Zombie Claws: push/264 gave its damage no `rounds`, so every hit stacks a permanent DoT (engine damageUser treats undefined rounds as a never-ending residual). Staff equipped the claws on all three pyramid wave zombies at 22:22Z, which in the 2026-11-01 simulation makes wave 1 kill players at every level (docs/reviews/ZOMBIE_OUTBREAK_PLAYER_SIM_2026-11-01.md). Take the claws off all four zombies, set rounds 0, give them back (equipped, as staff now have them). Read-back captures after.",
+ "capture": {
+  "before": [
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "m_Uisl1j_ZiOLzGXZsszF"
+    },
+    "persist": "full",
+    "_name": "new Zombie O bg (bites exam, cure works)"
+   }
+  ],
+  "after": [
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "mMl6P4B7v6-_CyDo3HVG7"
+    },
+    "persist": "full",
+    "_name": "Zombie Claws after"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Pe5J6m1sc1IMpF2HF6Rby"
+    },
+    "persist": "full",
+    "_name": "Patient Zero after"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "uzlBfwiKdcH44ZZ0ZGw16"
+    },
+    "persist": "full",
+    "_name": "Zombie Protector after"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "TK7UuEQqnlJm0s1M66-EX"
+    },
+    "persist": "full",
+    "_name": "Zombie Youngling after"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "vxW8lqo2cZEhZpygev-Vs"
+    },
+    "persist": "full",
+    "_name": "Elite Zombie Protector after"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "nqL-uL-Z_7I0iuowlpBDx"
+    },
+    "persist": "full",
+    "_name": "Zombie Villager after"
+   }
+  ]
+ },
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 1,
+   "targetId": "Pe5J6m1sc1IMpF2HF6Rby",
+   "name": "Patient Zero: unequip all jutsu (his three signature jutsu were edited while equipped, law 18)",
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 1,
+   "targetId": "uzlBfwiKdcH44ZZ0ZGw16",
+   "name": "Zombie Protector: take Zombie Claws off before the item edit (law 18 for items)",
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 1,
+   "targetId": "TK7UuEQqnlJm0s1M66-EX",
+   "name": "Zombie Youngling: take Zombie Claws off before the item edit (law 18 for items)",
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 1,
+   "targetId": "vxW8lqo2cZEhZpygev-Vs",
+   "name": "Elite Zombie Protector: take Zombie Claws off before the item edit (law 18 for items)",
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 1,
+   "targetId": "nqL-uL-Z_7I0iuowlpBDx",
+   "name": "Zombie Villager: take Zombie Claws off before the item edit (law 18 for items)",
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "phase": 2,
+   "targetId": "mMl6P4B7v6-_CyDo3HVG7",
+   "name": "Zombie Claws: damage becomes one-time (rounds 0); it was a permanent stacking DoT",
+   "data": {
+    "effects": [
+     {
+      "type": "damage",
+      "power": 30,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Taijutsu"
+      ],
+      "calculation": "formula",
+      "description": "Deals damage to target",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "generalTypes": [
+       "Strength",
+       "Speed"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 1,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true,
+      "rounds": 0
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 3,
+   "targetId": "Pe5J6m1sc1IMpF2HF6Rby",
+   "name": "Patient Zero: re-equip the same six jutsu",
+   "data": {
+    "jutsus": [
+     "2lWcedG9Dw528HGO4eI6R",
+     "ElSK-RCrLjddEUm76FZrs",
+     "HrNA9mD5WW2uaCdkq7Iao",
+     "taxbZNdm1Q7YL5AxaRssW",
+     "Vo8N1luCT0p48y7JzKe84",
+     "ydcbW8BIAKyYxHpnz7SDw"
+    ],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 3,
+   "targetId": "uzlBfwiKdcH44ZZ0ZGw16",
+   "name": "Zombie Protector: give Zombie Claws back (updateAi inserts held items equipped, as staff set them)",
+   "data": {
+    "jutsus": [],
+    "items": [
+     {
+      "ids": [
+       "mMl6P4B7v6-_CyDo3HVG7"
+      ],
+      "number": 0
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 3,
+   "targetId": "TK7UuEQqnlJm0s1M66-EX",
+   "name": "Zombie Youngling: give Zombie Claws back (updateAi inserts held items equipped, as staff set them)",
+   "data": {
+    "jutsus": [],
+    "items": [
+     {
+      "ids": [
+       "mMl6P4B7v6-_CyDo3HVG7"
+      ],
+      "number": 0
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 3,
+   "targetId": "vxW8lqo2cZEhZpygev-Vs",
+   "name": "Elite Zombie Protector: give Zombie Claws back (updateAi inserts held items equipped, as staff set them)",
+   "data": {
+    "jutsus": [],
+    "items": [
+     {
+      "ids": [
+       "mMl6P4B7v6-_CyDo3HVG7"
+      ],
+      "number": 0
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 3,
+   "targetId": "nqL-uL-Z_7I0iuowlpBDx",
+   "name": "Zombie Villager: give Zombie Claws back (updateAi inserts held items equipped, as staff set them)",
+   "data": {
+    "jutsus": [],
+    "items": [
+     {
+      "ids": [
+       "mMl6P4B7v6-_CyDo3HVG7"
+      ],
+      "number": 0
+     }
+    ]
+   }
+  }
+ ]
+}
