@@ -2147,9 +2147,9 @@ Requires Forge 0.12.2 (branch `fable/forge-pet-catalogue-reads`; handoff `docs/h
 Forge 0.12.1 refuses the manifest at parse time. Public reads, zero writes. Gates: `validate.py --strict` 0 errors,
 0 warnings; `check_manifest.mjs` 0 pre-send problems (at 0.12.2).
 
-## 339 Vanquish the Horde drift check (read-only)
+## 401 Zombie Outbreak progress recapture (read-only)
 
-`339_voth_drift_check_capture.json`: reads the live pyramid and Patient Zero. push/338 re-sends the quest as a full
-record from the 2026-10-31 02:34Z verified payload, and Forge only guards Bloodright entities against stale
-overwrites, so 338 is HELD in `state/held/` until this capture is diffed. Any staff edit since then is carried into a
-regenerated 338.
+`401_zombie_outbreak_recapture.json`: both event quests, Patient Zero and his three jutsu, the four zombie AIs, the
+Vanquisher badge and the six known scene assets (16 point reads, persist full). Staff edited the event after the last
+capture; this is the diff base. Replaces the unrun `339_voth_drift_check_capture` (its number collided with
+339_skyglass_go_live; archived). push/338 stays HELD in `state/held/` until it is rebuilt on this capture.
