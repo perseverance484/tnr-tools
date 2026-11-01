@@ -1563,8 +1563,8 @@ aborts on any other difference.
   (`hasQuestContentChanged`); nobody can be on a hidden quest, so run these before players have charts.
 - **Gates (2026-10-31):** `validate.py --strict`: 383 and 384 0/0; **385 exit 1**, 3 law-49 snapshot misses (Wreck
   Sighted's salvager asset is newer than the names snapshot; validate.py says a newer record resolves live), held by
-  `state/validate_exceptions/385_skyglass_publish_crownhold_hunts.json` (`validate_exception.py` exit 0; **PENDING
-  director acceptance**). `check_manifest.mjs` 0 pre-send problems on all three. `skyglass_check.py` 0/0;
+  `state/validate_exceptions/385_skyglass_publish_crownhold_hunts.json` (`validate_exception.py` exit 0; **accepted
+  by RUL-2026-10-31-086**). `check_manifest.mjs` 0 pre-send problems on all three. `skyglass_check.py` 0/0;
   `test_skyglass_check.py` 51 OK. The source generators (charts, steeping, haul, go-live `--retry-archive`, final art
   2) were re-run and reproduce their committed manifests (output discarded).
 - **After they run:** read back each quest's `hidden: false`, `content.sceneCharacters` and one node's `sceneBackground`;

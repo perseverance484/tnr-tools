@@ -5207,3 +5207,17 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "I dont like the rework to Bilgehound. Keep Little Horror just refine it"; "No that's fine" (the maw animation); "Approved." (on 373-377 and the refined concepts).
 
 **Canonical destination:** the 373-377 and 379 ledgers; `push/skyglass_little_horror_art.gen.py`; `docs/design/SKYGLASS_PETS.md`.
+
+## RUL-2026-10-31-086 — push/385 exceptions accepted
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / build
+
+**Status:** ACTIVE.
+
+**Ruling:** The three law-49 diagnostics in `state/validate_exceptions/385_skyglass_publish_crownhold_hunts.json` are accepted: Wreck Sighted's quest-level and two dialog sceneCharacters name the salvager SCENE_CHARACTER asset `Xugt7415D3-tepLfxpwM5`, created and verified by push/374 (`tnr_results_1793489718055.json`), which is newer than the validator's names_asset snapshot.
+
+**Evidence:** Director, 2026-10-31: "385 approved".
+
+**Canonical destination:** the ledger.

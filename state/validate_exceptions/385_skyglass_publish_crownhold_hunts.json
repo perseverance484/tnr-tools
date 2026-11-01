@@ -1,6 +1,6 @@
 {
  "manifest": "push/385_skyglass_publish_crownhold_hunts.json",
- "ruling": "PENDING director acceptance (not the accepted build-order class of RUL-2026-10-31-085 item 1).",
+ "ruling": "Accepted by RUL-2026-10-31-086: 3 law-49 snapshot misses on Wreck Sighted (the push/374 salvager scene character, newer than the names_asset snapshot).",
  "reason": "3 law-49 snapshot misses on Wreck Sighted: its quest-level and two dialog sceneCharacters are the salvager SCENE_CHARACTER asset Xugt7415D3-tepLfxpwM5, created by push/374 (tnr_results_1793489718055.json, srcId sg374_salvager, VERIFIED 2/2), which is newer than the answers names_asset snapshot. validate.py says so itself ('Snapshot check only: a record created since the last harvest resolves live but not here'). push/374 referenced it as @scene:sg374_salvager in-job, so the lint never saw a literal id before; this record is push/374's live record with only hidden and its cache_site URL scene changed (_diff).",
  "sha256": "bbfd9ae1ae83a9c91efbd2487cce43a52b81517583d7947e776f8c770548ff1d",
  "accepted": [
