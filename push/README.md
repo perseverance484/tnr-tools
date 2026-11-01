@@ -1506,12 +1506,13 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
-## 397 Faded Wreck solo battle capture (READ-ONLY): READY TO RUN, within 72h of 2026-10-31
+## 397 Faded Captain capture (READ-ONLY, 1 profile.getAi): READY TO RUN
 
-Battle log `lIKSZTazonCWc7MgJNHZ6` (a level-100 player soloing the Faded Skyglass Wreck; the director's reading: the Captain
-mostly self-buffs, needs stun immunity, and Keelbind did overkill damage), read with `combat.getBattleHistoryEntry` and
-`combat.getBattleEntries` (3 pages of 200), plus `profile.getAi` on the Faded Captain. The log was not opened from here
-(no live requests); battle logs expire after 72 hours (`routers/reports.ts`).
+The Faded Captain's live record (`nR5okP-MiRsnSpiJQ8CM-`) with its embedded jutsu, for the director's level-100 solo Faded
+Wreck report (battle `lIKSZTazonCWc7MgJNHZ6`: the Captain mostly self-buffs, needs stun immunity, Keelbind did overkill
+damage). The battle log itself cannot go through Forge (full persistence is limited to audited content point reads;
+`combat.getBattleEntries` is not one), and a direct fetch of the page returns only the client shell (the log loads
+through a signed-in API). The first version of this manifest asked for the log and was refused by `check_manifest.mjs`.
 
 ## 396 Skyglass library blasts capture (READ-ONLY, 9 jutsu.get): NOT NEEDED (director: the hits come from "Unholy Harvest", a summoning jutsu outside the Skyglass set and outside the repository's catalogs, not from the eruptions); kept for reference
 
