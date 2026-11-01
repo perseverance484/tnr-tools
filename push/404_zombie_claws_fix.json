@@ -1,0 +1,126 @@
+{
+ "_note": "push/404: fixes Zombie Claws (mMl6P4B7v6-_CyDo3HVG7). push/264 (2026-10-25, Claude) gave its damage effect no `rounds`, which the engine treats as a residual that never expires (libs/combat/tags.ts damageUser), so every claw hit stacked a permanent DoT; the 2026-11-01 simulation (docs/reviews/ZOMBIE_OUTBREAK_PLAYER_SIM_2026-11-01.md, B1) has the Zombie Outbreak sample fight unwinnable below about level 60. Phase 1 takes the claws off all four zombies that hold them (law 18 for items), phase 2 sets rounds 0 on the damage effect (the effect is otherwise the captured live object), phase 3 gives the claws back to the Zombie Villager only (updateAi inserts held items equipped CHEST, as it holds them now). The three pyramid wave zombies held the claws unequipped and could not use them; they are left without the item, so the waves behave exactly as live until the director decides whether the waves should fight (review B2). Built from push/401 results tnr_results_1793568292560. Read-back captures after.",
+ "capture": {
+  "before": [],
+  "after": [
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "mMl6P4B7v6-_CyDo3HVG7"
+    },
+    "persist": "full",
+    "_name": "Zombie Claws after"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "nqL-uL-Z_7I0iuowlpBDx"
+    },
+    "persist": "full",
+    "_name": "Zombie Villager after"
+   }
+  ]
+ },
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 1,
+   "targetId": "uzlBfwiKdcH44ZZ0ZGw16",
+   "name": "Zombie Protector: take Zombie Claws off before the item edit (law 18 for items, RUL-2026-10-26-008)",
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 1,
+   "targetId": "TK7UuEQqnlJm0s1M66-EX",
+   "name": "Zombie Youngling: take Zombie Claws off before the item edit (law 18 for items, RUL-2026-10-26-008)",
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 1,
+   "targetId": "vxW8lqo2cZEhZpygev-Vs",
+   "name": "Elite Zombie Protector: take Zombie Claws off before the item edit (law 18 for items, RUL-2026-10-26-008)",
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 1,
+   "targetId": "nqL-uL-Z_7I0iuowlpBDx",
+   "name": "Zombie Villager: take Zombie Claws off before the item edit (law 18 for items, RUL-2026-10-26-008)",
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "phase": 2,
+   "targetId": "mMl6P4B7v6-_CyDo3HVG7",
+   "name": "Zombie Claws: damage becomes one-time (rounds 0); it was a permanent stacking DoT",
+   "data": {
+    "effects": [
+     {
+      "type": "damage",
+      "power": 30,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Taijutsu"
+      ],
+      "calculation": "formula",
+      "description": "Deals damage to target",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "generalTypes": [
+       "Strength",
+       "Speed"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 1,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true,
+      "rounds": 0
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "phase": 3,
+   "targetId": "nqL-uL-Z_7I0iuowlpBDx",
+   "name": "Zombie Villager: give Zombie Claws back (updateAi inserts held items equipped)",
+   "data": {
+    "jutsus": [],
+    "items": [
+     {
+      "ids": [
+       "mMl6P4B7v6-_CyDo3HVG7"
+      ],
+      "number": 0
+     }
+    ]
+   }
+  }
+ ]
+}

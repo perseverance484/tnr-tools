@@ -2160,3 +2160,15 @@ reads the seven new Zombie Outbreak scene assets. Built from push/401 (`tnr_resu
 pyramid worse. The waves turn into 27-60 round slogs, and a scaled Patient Zero wins every first try at every
 level. It stays held until a director decision. The scene character can ship on its own.
 
+## 404 Zombie Claws fix
+
+`404_zombie_claws_fix.json`: Zombie Claws' damage had no `rounds` (push/264), so every hit stacked a permanent
+DoT. This made the Zombie Outbreak sample fight unwinnable below about level 60 (sim review B1).
+- Phase 1: takes the claws off all four zombies that hold them.
+- Phase 2: sets `rounds: 0` on the damage effect.
+- Phase 3: gives the claws back to the Zombie Villager, equipped.
+
+The three pyramid wave zombies held the claws unequipped (they never attacked). They are left without the item,
+so the waves are unchanged until the director decides whether they should fight. The build-order warning is
+deliberate: the phases put the AI unequip before the item edit (law 18).
+
