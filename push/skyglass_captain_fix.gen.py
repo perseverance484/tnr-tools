@@ -16,7 +16,7 @@ Fix (director: "We should fix it not make a copy"; "I dont want them to just sta
   * Unbroken Command cooldown 99: once per fight. It is an AI-type hidden jutsu held only by the five Skyglass Captains
     (The Captain, Faded Captain, the three Veteran Captains; push/377 kits). Saving a hidden jutsu and law 18 both sever
     the holders, hence 398 (off) -> 399 (edit) -> 400 (back on), the push/375-377 pattern.
-  * The Captain and the Faded Captain: Stolen Form's rule (13) is cut (15 casts, no damage, harness Crownhold report) and
+  * All five Captains (one shared rule list; the Veterans fight the chart runs solo): Stolen Form's rule (13) is cut (15 casts, no damage, harness Crownhold report) and
     move_towards_opponent ends the list (law 41's unconditional tail), with the basic attack above it gated to a player
     within 1 hex, so a player out of reach is chased. 20 rules kept.
   * The Captain and the Faded Captain: innate stunprevent 100 for 99 rounds (no Skyglass mark uses stunprevent as its
@@ -57,11 +57,20 @@ def kits():
     return out
 
 
+VETERANS = {"sg344_veteran-the-captain": "76rj7djBShTY9qWtSeqCV", "sg344_veteran-the-captain-fall": "i388ELXfo2yZhv3m73N3U",
+            "sg344_veteran-the-captain-ally": "rPc1p66rO4QaIKpb90KcR"}  # push/344 part 1 (tnr_results_1793484364363.json)
+STUN_IMMUNE = {BASE, FADED}
+
+
 def rules_effects():
     base = next(it["data"] for it in load("361_skyglass_crew_upgrade.json")["items"] if it.get("targetId") == BASE)
-    faded = next(it["data"] for it in load("344_skyglass_copies_1.json")["items"] if it.get("srcId") == "sg344_faded-the-captain")
+    m344 = {it.get("srcId"): it["data"] for it in load("344_skyglass_copies_1.json")["items"]}
+    srcs = {e["srcId"]: e["id"] for e in json.load(open(os.path.join(ROOT, "harvests/inbox/tnr_results_1793484364363.json")))["entries"]
+            if e.get("srcId") in VETERANS and e.get("state") == "ok"}
+    assert srcs == VETERANS, srcs
+    pairs = [(BASE, base), (FADED, m344["sg344_faded-the-captain"])] + [(VETERANS[k], m344[k]) for k in VETERANS]
     out = {}
-    for tid, d in ((BASE, base), (FADED, faded)):
+    for tid, d in pairs:
         rules = copy.deepcopy(d["rules"])
         assert len(rules) == 20 and rules[STOLEN_FORM_RULE]["action"]["description"].startswith("Stolen Form"), tid
         assert rules[8]["action"]["jutsuId"] == UC and rules[-1]["action"]["jutsuId"] == "basicAttack", tid
@@ -73,9 +82,12 @@ def rules_effects():
         rules[-1]["conditions"] = [{"type": "player_within_range", "description": "", "minRange": 0, "maxRange": 1}]
         rules.append(copy.deepcopy(MOVE))
         assert len(rules) == 20
-        effects = copy.deepcopy(d["effects"])
-        assert not any(e["type"] == "stunprevent" for e in effects)
-        out[tid] = (rules, effects + [copy.deepcopy(STUNPREVENT)])
+        if tid in STUN_IMMUNE:
+            effects = copy.deepcopy(d["effects"])
+            assert not any(e["type"] == "stunprevent" for e in effects)
+            out[tid] = (rules, effects + [copy.deepcopy(STUNPREVENT)])
+        else:
+            out[tid] = (rules, None)
     return out
 
 
@@ -103,14 +115,16 @@ def main():
     items = []
     for t, (n, js) in K.items():
         data = {"jutsus": js}
-        if t in RE:
-            data["rules"], data["effects"] = RE[t]
+        rules, effects = RE[t]
+        data["rules"] = rules
+        if effects is not None:
+            data["effects"] = effects
         items.append({"entity": "ai", "slot": "edit", "targetId": t,
-                      "name": f"{n}: kit back on" + (", approach rule, stun immunity" if t in RE else ""), "data": data})
+                      "name": f"{n}: kit back on, approach rule" + (", stun immunity" if effects is not None else ""), "data": data})
     write(400, "captains_reequip",
-          "push/400, step 3 of 3 (RUL-2026-10-31-091): the push/377 kits back on all five holders. The Captain and the Faded "
-          "Captain also: Stolen Form's rule cut, the basic attack gated to a player within 1, move_towards_opponent as the unconditional last rule (20 rules), innate "
-          "stunprevent 100 for 99 rounds.", items)
+          "push/400, step 3 of 3 (RUL-2026-10-31-091): the push/377 kits back on all five holders, all five sharing one rule list "
+          "and all five: Stolen Form's rule cut, the basic attack gated to a player within 1, move_towards_opponent as the unconditional last rule (20 rules). The Captain and the "
+          "Faded Captain also: innate stunprevent 100 for 99 rounds.", items)
 
 
 if __name__ == "__main__":
