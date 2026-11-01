@@ -1506,7 +1506,7 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
-## 391-392 Crowned Captain: Countermand re-equip (2 AI edits): READY TO RUN, 391 then 392
+## 391-392 Crowned Captain: Countermand re-equip (2 AI edits): RUN (391 `tnr_results_1793492957421.json` 1/1 VERIFIED; 392 `tnr_results_1793492963555.json` 1/1 VERIFIED)
 
 push/372's image edit saved the hidden item Countermand, which set the Crowned Captain's copy unequipped (routers/item.ts
 ~864); 375/377 re-sent the same item list, which does not re-equip it. 391 sends his kit without Countermand, 392 with
@@ -1526,7 +1526,7 @@ purpose: Crownbreaker token (achievement deferred), the four retired element pou
 uses them), Armory Requisition, enemy-only jutsu. The Little Horror species has no hidden column (stays isActive:false,
 jar only). Quests are unhidden by the quest re-sends 383+. Gates 0/0, check_manifest 0, skyglass_check 0/0.
 
-## 383–385 Skyglass GO-LIVE, quests (20 quest edits, PUBLISH): READY TO RUN, then 390
+## 383–385 Skyglass GO-LIVE, quests (20 quest edits, PUBLISH): RUN (383 `tnr_results_1793492872251.json` 8/8, 384 `tnr_results_1793492888772.json` 6/6, 385 `tnr_results_1793492929044.json` 6/6, all VERIFIED; postflight 0 diff/0 failed)
 
 `python3 push/skyglass_publish_quests.gen.py` writes all three. Zero live requests. Each hidden Skyglass / Crownhold quest is
 re-sent **whole, once**, from the record that last wrote it (the creating manifest, with literal ids from its results
