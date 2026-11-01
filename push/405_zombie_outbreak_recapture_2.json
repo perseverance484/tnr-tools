@@ -1,0 +1,217 @@
+{
+ "_note": "READ-ONLY Zombie Outbreak recapture 2 (2026-11-01 evening). Staff edited the event after push/401. Same 16 reads as 401 plus Zombie Claws, Patient Zero's and the shared zombie rule sets, and the seven scene assets staff placed in Zombie Outbreak (26 point reads, persist full). push/402 (Patient Zero re-equip) and push/404 (claws fix) were built from 401 and are HELD in state/held/ until they are diffed against this capture, so neither can overwrite the new edits. Zero mutations.",
+ "capture": {
+  "before": [
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "0U8N6218b095-TQbWlCep"
+    },
+    "persist": "full",
+    "_name": "Vanquish the Horde (pyramid)"
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "QczZtQGOuODzNVA-_rnHs"
+    },
+    "persist": "full",
+    "_name": "Zombie Outbreak (medical)"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Pe5J6m1sc1IMpF2HF6Rby"
+    },
+    "persist": "full",
+    "_name": "Patient Zero"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "HrNA9mD5WW2uaCdkq7Iao"
+    },
+    "persist": "full",
+    "_name": "Patient Zero: Infected Bite"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "ydcbW8BIAKyYxHpnz7SDw"
+    },
+    "persist": "full",
+    "_name": "Patient Zero: Festering Claws"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "2lWcedG9Dw528HGO4eI6R"
+    },
+    "persist": "full",
+    "_name": "Patient Zero: Plague Bile"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "uzlBfwiKdcH44ZZ0ZGw16"
+    },
+    "persist": "full",
+    "_name": "Zombie Protector (waves 1-2)"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "TK7UuEQqnlJm0s1M66-EX"
+    },
+    "persist": "full",
+    "_name": "Zombie Youngling (wave 3, boss room)"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "vxW8lqo2cZEhZpygev-Vs"
+    },
+    "persist": "full",
+    "_name": "Elite Zombie Protector (wave 3)"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "nqL-uL-Z_7I0iuowlpBDx"
+    },
+    "persist": "full",
+    "_name": "Zombie Villager (Zombie O sample fight)"
+   },
+   {
+    "proc": "badge.get",
+    "input": {
+     "id": "RAZTo1fZi988ZDuPrqVw7"
+    },
+    "persist": "full",
+    "_name": "Vanquisher of the Horde badge"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "uwg7hFC813oq-wSdDwjnN"
+    },
+    "persist": "full",
+    "_name": "Pyramid 1 bg"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "shgHnGe2IozVvJQHI3KFg"
+    },
+    "persist": "full",
+    "_name": "Pyramid 2 bg"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "UdKP7V7mjBXZOiHyEz18g"
+    },
+    "persist": "full",
+    "_name": "Pyramid 3 bg (boss room, was blank)"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "nl4eaydGkyz32gk0-pSBv"
+    },
+    "persist": "full",
+    "_name": "Lab bg"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "IRofmKdDr-8x7c0eJ7EOQ"
+    },
+    "persist": "full",
+    "_name": "Lab Tech char"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "mMl6P4B7v6-_CyDo3HVG7"
+    },
+    "persist": "full",
+    "_name": "Zombie Claws"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "bdJbhPqB6sA9Mof_KmEGA"
+    },
+    "persist": "full",
+    "_name": "Patient Zero rules"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "UXMYxPQd6aL8P1YAZayYU"
+    },
+    "persist": "full",
+    "_name": "Shared zombie rules"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "LDc6Cr6lYEXlX96QRr6xt"
+    },
+    "persist": "full",
+    "_name": "Zombie O bg (fail, sample, cure)"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "OaEdzHgGwnZxnrTyfRJDg"
+    },
+    "persist": "full",
+    "_name": "Zombie O bg (opening, village, fight)"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "7wQVz_hgvb-MUu3XnfD9P"
+    },
+    "persist": "full",
+    "_name": "Zombie O bg (bites, travel to lab)"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "djcZNJfqwIhyNSPTW0y9l"
+    },
+    "persist": "full",
+    "_name": "Zombie O char (opening)"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "3iwlZSpPqheRgJ_KRKWuO"
+    },
+    "persist": "full",
+    "_name": "Zombie O char (examine bites)"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "2RKlUYQ7eQJZXnA72dwgq"
+    },
+    "persist": "full",
+    "_name": "Zombie O char (cure works)"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "oTVElg7HBkd1g60Lz0SqP"
+    },
+    "persist": "full",
+    "_name": "Zombie O char (lab return)"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
