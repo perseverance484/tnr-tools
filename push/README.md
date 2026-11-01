@@ -1510,7 +1510,7 @@ built, gates clean, READY TO RUN.
 
 | # | Build | Contents |
 |---|---|---|
-| 393 | `python3 push/skyglass_solo.gen.py --copies harvests/inbox/tnr_results_1793484364363.json --copies harvests/inbox/tnr_results_1793484748665.json` | 2 battlepyramid quest creates, HIDDEN: "Ghostwatch" (level 80) and "Faded Ghostwatch" (level 30), names placeholder (RUL-2026-10-31-088). Free entry, isolated, 100 attempts, 5 dialog-gated scaled fights (Common-chart copies; the Steeping Horror as floor 4), the Wreck's chart table lowered; 1,000 / 500 exp and 25,000 ryo (RUL-2026-10-31-089). Icon: the Low Tide Run's (placeholder) |
+| 393 | `python3 push/skyglass_solo.gen.py --copies harvests/inbox/tnr_results_1793484364363.json --copies harvests/inbox/tnr_results_1793484748665.json` | 2 battlepyramid quest creates, HIDDEN: "Ghostwatch" (level 80) and "Faded Ghostwatch" (level 30), names placeholder (RUL-2026-10-31-088). Free entry, isolated, 100 attempts, 5 dialog-gated scaled fights (Common-chart copies; the Steeping Horror as floor 4), the Wreck's chart table lowered; 1,000 / 500 exp and 25,000 / 12,500 ryo (RUL-2026-10-31-089). Icon: the Low Tide Run's (placeholder) |
 | 394 | `python3 push/skyglass_solo.gen.py --unhide <393 bundle>` | 2 quest edits, hidden false |
 
 - **Gates (2026-10-31):** `validate.py --strict` 0 errors 0 warnings; `check_manifest.mjs` 0 pre-send problems. 394 tested on a stand-in 393 bundle (0 pre-send problems; output discarded).

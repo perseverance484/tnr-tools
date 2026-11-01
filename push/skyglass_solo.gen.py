@@ -77,7 +77,7 @@ FADED_DROPS = [("chart_tide", 28), ("chart_watch_roster", 20), ("galley_stores",
 TIERS = {
     "full": {"level": 80, "exp": 1000, "ryo": 25000, "drops": FULL_DROPS,
              "blurb": "For level 80 and up. Drops the Skyglass Wreck's charts and Core Rot."},
-    "faded": {"level": 30, "exp": 500, "ryo": 25000, "drops": FADED_DROPS,
+    "faded": {"level": 30, "exp": 500, "ryo": 12500, "drops": FADED_DROPS,
               "blurb": "For level 30 and up. Drops the Faded Wreck's charts and Galley Stores."},
 }
 LORE = ("The Ghost Ship lies broken on the shore, and its crew still stand their watch. You go in alone, through the "
