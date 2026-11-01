@@ -72,12 +72,12 @@ SHARED = {"failDescription": "You are defeated.", "drawDescription": "The fight 
 # design_data key (or literal key), chance per clear
 FULL_DROPS = [("chart_buried_cache", 15), ("chart_tide", 15), ("chart_drowned_foundry", 8), ("chart_watch_roster", 10),
               ("chart_quarantined_archive", 4), ("chart_captains_watch", 4), ("core_rot", 10)]
-FADED_DROPS = [("chart_tide", 20), ("chart_watch_roster", 12), ("galley_stores", 8), ("chart_buried_cache", 4)]
+FADED_DROPS = [("chart_tide", 28), ("chart_watch_roster", 20), ("galley_stores", 16), ("chart_buried_cache", 12)]  # ~80% of the live Faded Wreck (RUL-089)
 
 TIERS = {
-    "full": {"level": 80, "exp": 2000, "drops": FULL_DROPS,
+    "full": {"level": 80, "exp": 1000, "ryo": 25000, "drops": FULL_DROPS,
              "blurb": "For level 80 and up. Drops the Skyglass Wreck's charts and Core Rot."},
-    "faded": {"level": 30, "exp": 1000, "drops": FADED_DROPS,
+    "faded": {"level": 30, "exp": 500, "ryo": 25000, "drops": FADED_DROPS,
               "blurb": "For level 30 and up. Drops the Faded Wreck's charts and Galley Stores."},
 }
 LORE = ("The Ghost Ship lies broken on the shore, and its crew still stand their watch. You go in alone, through the "
@@ -112,7 +112,7 @@ def quest(slug, name, tier, R, ids):
                  "description": "The wheel spins free. For a moment the whole ship seems to breathe out. Then the Core "
                                 "pulls the deck back the way it was, and the watch begins again.<br><br>You climb down "
                                 "through the keel with what you took.",
-                 "reward_exp": T["exp"],
+                 "reward_exp": T["exp"], "reward_money": T["ryo"],
                  "reward_items": [{"ids": [ids[k]], "number": c, "quantity": 1} for k, c in T["drops"]]})
     objs.append({"id": "f_lost", "task": "fail_quest", **sc("cache_site"),
                  "description": "You wake on the sand below the wreck with nothing to show for it. Above you, the watch goes on."})

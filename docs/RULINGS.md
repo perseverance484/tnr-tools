@@ -5242,7 +5242,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 
 **Domain:** Skyglass event / design and balance
 
-**Status:** ACTIVE. Names are placeholders ("Ghostwatch" / "Faded Ghostwatch") until the director picks.
+**Status:** ACTIVE (item 3 amended by RUL-2026-10-31-089). Names are placeholders ("Ghostwatch" / "Faded Ghostwatch") until the director picks.
 
 **Ruling:**
 1. Solo players get a real chart source: two isolated Battle Pyramids in the Battle Arena, free to enter, 5 fights mirroring the Wreck's floors (crew, crew, crew, the Core as a stage boss, an officer pair). Every enemy is a Common-chart copy or the Steeping Horror, scaled to the player; health and chakra carry.
@@ -5252,3 +5252,19 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "I want a way for them to grind charts like the wreck, a real source. Maybe a battle pyramid"; "Leave it unlimited, come up with cooler names, and yes the concept is approved". The full-tier table is the one proposed and approved; the Faded table and the exp are Fable's proposal at the same ratio, flagged in the handoff.
 
 **Canonical destination:** `push/skyglass_solo.gen.py`; `docs/design/SKYGLASS_LOOT_TABLES.md` (to add once named).
+
+## RUL-2026-10-31-089 — Wreck clear rewards as set in the editor; solo pyramids follow
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / balance
+
+**Status:** ACTIVE. Amends RUL-2026-10-31-088 item 3 (exp, ryo, Faded table).
+
+**Ruling:**
+1. The director set the Wrecks' clear rewards in the dungeon editor: Skyglass Wreck 50,000 ryo + 1,000 exp; Faded Skyglass Wreck 50,000 ryo + 500 exp and drops Tide Chart 35 · Watch Roster 25 · Buried Cache chart 15 · Galley Stores 20 (was 25/15/5/10). The endgame drop rows seen unchanged (Unmarked Cargo 10, Buried Cache 20).
+2. The solo pyramids follow: exp equal to their Wreck (1,000 / 500), 25,000 ryo (half the Wreck), Faded tier drops about 80% of the live Faded Wreck: Tide Chart 28 · Watch Roster 20 · Galley Stores 16 · Buried Cache 12. Full-tier drops unchanged.
+
+**Evidence:** Director, 2026-10-31: dungeon editor screenshots (Rewards tab, both Wrecks). Item 2 is Fable's proposal following RUL-088's "slightly lower" rule, flagged in the handoff.
+
+**Canonical destination:** `push/skyglass_wreck.gen.py` (EASY; clear currency is a build argument); `push/skyglass_solo.gen.py`.

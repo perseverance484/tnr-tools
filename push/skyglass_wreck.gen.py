@@ -60,7 +60,7 @@ ENDGAME = [("unmarked_cargo", 10), ("chart_buried_cache", 20), ("chart_drowned_f
            ("haul_trophy_hold", 3), ("haul_bone_store", 3), ("haul_snare_room", 3),
            ("haul_overgrown_stores", 3), ("haul_ore_vault", 3), ("haul_bloom_cellar", 3),
            ("vt_captain", 5, True), ("vt_core_horror", 5, True), ("little_horror_jar", 5, True)]
-EASY = [("chart_tide", 25), ("chart_watch_roster", 15), ("chart_buried_cache", 5), ("galley_stores", 10)]
+EASY = [("chart_tide", 35), ("chart_watch_roster", 25), ("chart_buried_cache", 15), ("galley_stores", 20)]  # live, set in the editor (RUL-2026-10-31-089)
 
 
 def item_ids():
