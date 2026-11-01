@@ -1,0 +1,137 @@
+{
+ "_note": "READ-ONLY Zombie Outbreak progress recapture (2026-11-01). Staff have worked on the event since the last capture (push/336 results, 2026-10-31 02:34Z). Reads both quests, Patient Zero and his three jutsu, the four zombie AIs, the Vanquisher badge and the six known scene assets, all persist full, so their changes can be diffed, the open checklist updated, and the held push/338 rebuilt on the live record instead of overwriting it. Any new asset ids the quests now reference get a follow-up point read. Zero mutations.",
+ "capture": {
+  "before": [
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "0U8N6218b095-TQbWlCep"
+    },
+    "persist": "full",
+    "_name": "Vanquish the Horde (pyramid)"
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "QczZtQGOuODzNVA-_rnHs"
+    },
+    "persist": "full",
+    "_name": "Zombie Outbreak (medical)"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Pe5J6m1sc1IMpF2HF6Rby"
+    },
+    "persist": "full",
+    "_name": "Patient Zero"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "HrNA9mD5WW2uaCdkq7Iao"
+    },
+    "persist": "full",
+    "_name": "Patient Zero: Infected Bite"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "ydcbW8BIAKyYxHpnz7SDw"
+    },
+    "persist": "full",
+    "_name": "Patient Zero: Festering Claws"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "2lWcedG9Dw528HGO4eI6R"
+    },
+    "persist": "full",
+    "_name": "Patient Zero: Plague Bile"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "uzlBfwiKdcH44ZZ0ZGw16"
+    },
+    "persist": "full",
+    "_name": "Zombie Protector (waves 1-2)"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "TK7UuEQqnlJm0s1M66-EX"
+    },
+    "persist": "full",
+    "_name": "Zombie Youngling (wave 3, boss room)"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "vxW8lqo2cZEhZpygev-Vs"
+    },
+    "persist": "full",
+    "_name": "Elite Zombie Protector (wave 3)"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "nqL-uL-Z_7I0iuowlpBDx"
+    },
+    "persist": "full",
+    "_name": "Zombie Villager (Zombie O sample fight)"
+   },
+   {
+    "proc": "badge.get",
+    "input": {
+     "id": "RAZTo1fZi988ZDuPrqVw7"
+    },
+    "persist": "full",
+    "_name": "Vanquisher of the Horde badge"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "uwg7hFC813oq-wSdDwjnN"
+    },
+    "persist": "full",
+    "_name": "Pyramid 1 bg"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "shgHnGe2IozVvJQHI3KFg"
+    },
+    "persist": "full",
+    "_name": "Pyramid 2 bg"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "UdKP7V7mjBXZOiHyEz18g"
+    },
+    "persist": "full",
+    "_name": "Pyramid 3 bg (boss room, was blank)"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "nl4eaydGkyz32gk0-pSBv"
+    },
+    "persist": "full",
+    "_name": "Lab bg"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "IRofmKdDr-8x7c0eJ7EOQ"
+    },
+    "persist": "full",
+    "_name": "Lab Tech char"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
