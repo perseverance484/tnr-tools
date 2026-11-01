@@ -1516,7 +1516,51 @@ purpose: Crownbreaker token (achievement deferred), the four retired element pou
 uses them), Armory Requisition, enemy-only jutsu. The Little Horror species has no hidden column (stays isActive:false,
 jar only). Quests are unhidden by the quest re-sends 383+. Gates 0/0, check_manifest 0, skyglass_check 0/0.
 
-## 382 Go-live retry: The Quarantined Archive (1 quest edit): READY TO RUN
+## 383–385 Skyglass GO-LIVE, quests (20 quest edits, PUBLISH): READY TO RUN, then 390
+
+`python3 push/skyglass_publish_quests.gen.py` writes all three. Zero live requests. Each hidden Skyglass / Crownhold quest is
+re-sent **whole, once**, from the record that last wrote it (the creating manifest, with literal ids from its results
+bundle, L01), with only the go-live changes. Every manifest's `_diff` lists the changed paths per quest; the generator
+aborts on any other difference.
+- **`hidden: false`** on every quest (folded in, so no quest needs a second send).
+- **Scenes as asset ids:** every URL `sceneBackground` becomes its Ghost Ship scene asset (`skyglass_update.gen.py`
+  `SCENE_ASSET`; a quest scene renders only as a gameAsset id, theninjarpg@3314d122 `layout/Logbook.tsx` ~486-525).
+  Empty values stay empty (the client falls back to the quest-level scene).
+- **Publish rule** (`routers/quests.ts` ~866-880: a non-hidden save needs `content.sceneCharacters`, or one on every
+  objective). Of the 20 quests only Wreck Sighted passes it, so each of the other 19 gets the blank scene character as quest-level
+  `content.sceneCharacters` (director 2026-10-31: "Just use a blank character for Crownhold except for if there is a
+  boss intro scene, use the Crowned Captain's for his scene"). An objective's own characters override it (Logbook.tsx
+  ~491-498), so the Captain's Watch keeps its Oathkeeper / Captain portraits. **Blank = the existing "Blank Scene
+  Character" `1YXbXYW2wz3GETVMb6DT6`** (ghostship, 512×512, 1.1 KB; the repo's registered blank suppressor,
+  `skills/producing-tnr-art/scripts/shotlist.py`, already used this way on the Ghost Ship quests), so no new asset is
+  made. Crowned Captain portrait = the existing **"Crowned Captain Portrait" `4Cu4EBaWRsGm5J_Ld1hTt`** (push/90 set its
+  image to `scene_char_ghost_ship_crowned_captain_portrait_b.webp`, 728×728, 1:1 bust, an accepted aspect). Both are
+  hidden, which is fine: `getSceneAssets` does not filter `hidden` (`queries/asset.ts` `listGameAssetForGetSceneAssets`,
+  any type).
+
+| # | Quests (ids) | Base | Changes |
+|---|---|---|---|
+| 383 | The Low Tide Run `pFQBaJxU_8RSvSi4Kir1Z`, The Night Watch `dnzL-bDrAEVXrKB5xariu`, The Sealed Reliquary `yZoR_dPSdg8ksO77gDH_A`, The Fall `H9YInJtnzKCOEMv-sNgzP`, The Rotted Reliquary `FsuXzvaqr_R25p8cEkxoK`, The Burning Heading `ozDN-G6nGFXGgKuPZ04Gr`; Steep the Reliquary Seal `BJS92SXdrLa213PgnGs0V`, Steep the Last Heading `4-17vMCMer_Zzjcc9xNa6` | push/354, 355, 356 creates | hidden, scenes, blank |
+| 384 | The Trophy Hold `0_wTZMTqvxM-gvl_s1s7c`, The Bone Store `ww_baSsbBet0mx7MK52yI`, The Snare Room `vMh6SDID0XTrVJ0f1QmFD`, The Overgrown Stores `5y9wAYELSdNa8Jgim1sgD`, The Ore Vault `C1JPScsgSMcVXQUfuFgcs`, The Bloom Cellar `UO65dN640MgAbNBBopTVI` | push/358 creates | hidden, scenes (hold / lower_hull), blank |
+| 385 | Crownhold `fqqpkcp_L4oOsC6yyodlk` | push/373's record (asserted equal to `skyglass_final_art2.gen.py` scenes_manifest() today; @scene refs → 373 bundle ids) | hidden, blank, the Crowned Captain's portrait on his 8 boss-intro dialogs (`d5.n.boss.clean`/`.echoes`, `d5.n.boss.alert`/`.echoes`, `d5.n.protocol.b5.n.boss.{medical,combat}.{intro,echoes}`); SC01-SC06 scenes and heal top-ups unchanged |
+| 385 | Wreck Sighted `v7kKhLXsX9aofQfc7BnGx` | push/374's record (salvager `Xugt7415D3-tepLfxpwM5`) | hidden, its `cache_site` URL scenes → `rX78pJPETsUL2JrsSvGHn` (already publishable) |
+| 385 | The Buried Cache `CgwAVCyZLgNQtEnqgLxxv`, The Drowned Foundry `UGHSuhi83C3wRtH3FD4Eu`, The Captain's Watch `liljq0yVXWTSna4X6dZE1`, The Quarantined Archive `-bZ_ZoI6yrUJ_LKT9R5zm` | push/339 (3 verified) and push/382 (Archive) | hidden, blank (scenes were already asset ids) |
+
+- **382 ran** (`tnr_results_1793491138913.json`, 1/1 VERIFIED), so the Archive's live record is 382's, which is 385's base.
+- **Run order:** 383, 384, 385 (any order), then push/390 straight after (390 carries the items AND the two dungeons; the
+  dungeons hand out the charts that start these quests, so the quests should be public first). Between 385 and 390 the
+  only quest a player can start is Wreck Sighted (its Tide Chart is still hidden until 390). Editing a quest restarts its open attempts
+  (`hasQuestContentChanged`); nobody can be on a hidden quest, so run these before players have charts.
+- **Gates (2026-10-31):** `validate.py --strict`: 383 and 384 0/0; **385 exit 1**, 3 law-49 snapshot misses (Wreck
+  Sighted's salvager asset is newer than the names snapshot; validate.py says a newer record resolves live), held by
+  `state/validate_exceptions/385_skyglass_publish_crownhold_hunts.json` (`validate_exception.py` exit 0; **PENDING
+  director acceptance**). `check_manifest.mjs` 0 pre-send problems on all three. `skyglass_check.py` 0/0;
+  `test_skyglass_check.py` 51 OK. The source generators (charts, steeping, haul, go-live `--retry-archive`, final art
+  2) were re-run and reproduce their committed manifests (output discarded).
+- **After they run:** read back each quest's `hidden: false`, `content.sceneCharacters` and one node's `sceneBackground`;
+  open one chart run, one Haul raid and Crownhold's throne room as a player to see the scenes render.
+
+## 382 Go-live retry: The Quarantined Archive (1 quest edit): RUN 2026-10-31 (tnr_results_1793491138913.json, 1/1 VERIFIED)
 
 339 RUN 2026-10-31 (`tnr_results_1793490827321.json`): 10/13 VERIFIED (Keel Walk and Observation Gallery scene assets
 created, the five Coffer-content edits, Buried Cache, Drowned Foundry, Captain's Watch). Failed: the Reconstruction
