@@ -5235,3 +5235,20 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-10-31: "When i try to publish the dungeon it tells me to change the decimal reward chances to whole numbers (2.4 -> 2 or 3)"; "3%".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4b; `push/skyglass_wreck.gen.py` ENDGAME (push/362 as committed keeps 2.4 as the record of what was sent; the live dungeon was edited in game).
+
+## RUL-2026-10-31-088 — Solo chart grind: two Battle Pyramids
+
+**Date:** 2026-10-31
+
+**Domain:** Skyglass event / design and balance
+
+**Status:** ACTIVE. Names are placeholders ("Ghostwatch" / "Faded Ghostwatch") until the director picks.
+
+**Ruling:**
+1. Solo players get a real chart source: two isolated Battle Pyramids in the Battle Arena, free to enter, 5 fights mirroring the Wreck's floors (crew, crew, crew, the Core as a stage boss, an officer pair). Every enemy is a Common-chart copy or the Steeping Horror, scaled to the player; health and chakra carry.
+2. Unlimited inside the engine's cap: retryDelay none, maxAttempts/maxCompletes 100 (battlepyramid's lifetime ceiling, theninjarpg@3314d122 libs/quest.ts ~2504-2516). No daily cap (director declined it).
+3. Full tier (level 80): Buried Cache 15 · Tide Chart 15 · Drowned Foundry 8 · Watch Roster 10 · Quarantined Archive 4 · Captain's Watch 4 · Core Rot 10 (%, per clear), 2,000 exp. Faded tier (level 30): Tide Chart 20 · Watch Roster 12 · Galley Stores 8 · Buried Cache 4, 1,000 exp. Variants, the Little Horror jar, Haul pages, the Lantern and the Treasury stay Wreck-only.
+
+**Evidence:** Director, 2026-10-31: "I want a way for them to grind charts like the wreck, a real source. Maybe a battle pyramid"; "Leave it unlimited, come up with cooler names, and yes the concept is approved". The full-tier table is the one proposed and approved; the Faded table and the exp are Fable's proposal at the same ratio, flagged in the handoff.
+
+**Canonical destination:** `push/skyglass_solo.gen.py`; `docs/design/SKYGLASS_LOOT_TABLES.md` (to add once named).
