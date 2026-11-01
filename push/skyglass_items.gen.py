@@ -422,7 +422,7 @@ def pet_and_rot():
     return [
         create(NEW["Core Rot"], "Core Rot", T.block("item:Core Rot.description"), "RARE", "OTHER", True),
         create(NEW["Galley Stores"], "Galley Stores", T.block("item:Galley Stores.description"), "RARE", "CONSUMABLE", True,
-               [fixed("Galley Stores: 20,000 pet experience to the active pet", pet_exp=20000)]),
+               [fixed("Galley Stores: 2,000 pet experience to the active pet", pet_exp=2000)]),  # RUL-2026-10-31-090
     ]
 
 

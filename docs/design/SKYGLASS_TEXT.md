@@ -915,7 +915,7 @@ The six Haul pages: §3.2.
 
 **`item:Galley Stores.description`** (F10: the pet's appearance condition)
 ```html
-<i>The galley still stocks a larder for a crew that does not eat. A companion that does grows strong on it.</i><br><br>Gives <b>20,000 pet experience</b> to your active pet. It must be ready for battle, have its look generated for its current rank, and not be on a task, or the experience is lost.
+<i>The galley still stocks a larder for a crew that does not eat. A companion that does grows strong on it.</i><br><br>Gives <b>2,000 pet experience</b> to your active pet. It must be ready for battle, have its look generated for its current rank, and not be on a task, or the experience is lost.
 ```
 
 ### 4.3 Tokens

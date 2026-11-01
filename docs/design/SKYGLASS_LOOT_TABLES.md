@@ -311,7 +311,7 @@ Engine facts (theninjarpg source):
 - **Drop:** an endgame Wreck clear drop at **5%, once per player**, using the dungeon `onlyOnce` flag (RUL-2026-10-29-054). About 20 clears on average.
 - **The Deck Gull, Bilge Rat, Lantern Moth and Ship's Cat are cut.**
 
-**Galley Stores** (pet progression): 20,000 pet experience (RUL-2026-10-29-039). Tradeable (RUL-2026-10-31-064 item 1).
+**Galley Stores** (pet progression): 2,000 pet experience (RUL-2026-10-31-090; was 20,000, RUL-2026-10-29-039). Tradeable (RUL-2026-10-31-064 item 1).
 - Found in: easy Wreck clear 10%; a pick option in the Low Tide Run, the Night Watch, the Buried Cache and the Foundry; The Fall's pick (×3); the chest of chests' Rare tier.
 
 **New art:**
