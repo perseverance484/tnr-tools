@@ -2172,3 +2172,9 @@ The three pyramid wave zombies held the claws unequipped (they never attacked). 
 so the waves are unchanged until the director decides whether they should fight. The build-order warning is
 deliberate: the phases put the AI unequip before the item edit (law 18).
 
+## 405 Zombie Outbreak recapture 2 (read-only)
+
+`405_zombie_outbreak_recapture_2.json`: 26 point reads (both quests, Patient Zero + kit + rules, the four zombies,
+Zombie Claws, the shared zombie rules, the badge and all scene assets). Staff edited the event after push/401.
+**push/402 and push/404 are HELD in `state/held/`** until they are diffed against this capture and rebuilt if needed.
+
