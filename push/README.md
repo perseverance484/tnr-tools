@@ -1506,6 +1506,17 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 393-394 Skyglass solo chart grind (2 Battle Pyramids): 393 READY TO RUN; 394 built from 393's results
+
+| # | Build | Contents |
+|---|---|---|
+| 393 | `python3 push/skyglass_solo.gen.py --copies harvests/inbox/tnr_results_1793484364363.json --copies harvests/inbox/tnr_results_1793484748665.json` | 2 battlepyramid quest creates, HIDDEN: "Ghostwatch" (level 80) and "Faded Ghostwatch" (level 30), names placeholder (RUL-2026-10-31-088). Free entry, isolated, 100 attempts, 5 dialog-gated scaled fights (Common-chart copies; the Steeping Horror as floor 4), the Wreck's chart table lowered. Icon: the Low Tide Run's (placeholder) |
+| 394 | `python3 push/skyglass_solo.gen.py --unhide <393 bundle>` | 2 quest edits, hidden false |
+
+- **Gates (2026-10-31):** `validate.py --strict` 0 errors 0 warnings; `check_manifest.mjs` 0 pre-send problems. 394 tested on a stand-in 393 bundle (0 pre-send problems; output discarded).
+- **Not simulated:** five scaled fights back to back with health carrying; win rate unmeasured. Playtest while hidden, then run 394.
+- **Shared records:** the Steeping Horror and the Common copies are the same records the Steepings and Common charts fight; tuning one tunes both.
+
 ## 391-392 Crowned Captain: Countermand re-equip (2 AI edits): RUN (391 `tnr_results_1793492957421.json` 1/1 VERIFIED; 392 `tnr_results_1793492963555.json` 1/1 VERIFIED)
 
 push/372's image edit saved the hidden item Countermand, which set the Crowned Captain's copy unequipped (routers/item.ts
