@@ -1506,6 +1506,13 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 397 Faded Wreck solo battle capture (READ-ONLY): READY TO RUN, within 72h of 2026-10-31
+
+Battle log `lIKSZTazonCWc7MgJNHZ6` (a level-100 player soloing the Faded Skyglass Wreck; the director's reading: the Captain
+mostly self-buffs, needs stun immunity, and Keelbind did overkill damage), read with `combat.getBattleHistoryEntry` and
+`combat.getBattleEntries` (3 pages of 200), plus `profile.getAi` on the Faded Captain. The log was not opened from here
+(no live requests); battle logs expire after 72 hours (`routers/reports.ts`).
+
 ## 396 Skyglass library blasts capture (READ-ONLY, 9 jutsu.get): NOT NEEDED (director: the hits come from "Unholy Harvest", a summoning jutsu outside the Skyglass set and outside the repository's catalogs, not from the eruptions); kept for reference
 
 Director, 2026-10-31: "The eruptions dont have friendly fire toggled correctly so they hit the caster and allies". push/342
