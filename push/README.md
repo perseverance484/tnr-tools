@@ -1506,13 +1506,15 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
-## 397 Faded Captain capture (READ-ONLY, 1 profile.getAi): READY TO RUN
+## 397 Captain fix capture (READ-ONLY: 2 profile.getAi, 1 jutsu.get): READY TO RUN
 
-The Faded Captain's live record (`nR5okP-MiRsnSpiJQ8CM-`) with its embedded jutsu, for the director's level-100 solo Faded
-Wreck report (battle `lIKSZTazonCWc7MgJNHZ6`: the Captain mostly self-buffs, needs stun immunity, Keelbind did overkill
-damage). The battle log itself cannot go through Forge (full persistence is limited to audited content point reads;
-`combat.getBattleEntries` is not one), and a direct fetch of the page returns only the client shell (the log loads
-through a signed-in API). The first version of this manifest asked for the log and was refused by `check_manifest.mjs`.
+The director's log (battle `lIKSZTazonCWc7MgJNHZ6`, pasted 2026-10-31) is the **full** Skyglass Wreck's floor 5 (three
+Deck Wardens, then The Captain and the Sealwright: the base records), soloed by a level-100 player with two pets. The
+Captain's rule 8 (Hold the Line: live Unbroken Command when the nearest player is 3+ hexes away) fired 11 times. Each cast
+adds a 99-round +30% offence / +80% damage given that stacks, so Keelbind went from 4,407 (round 14) to 400,930 (round
+27). Between casts nothing else qualified (the player kited beyond 5 hexes; he has no approach rule) and he ended his
+turn. The Faded Captain shares the kit and the rule. Captured here: both Captains and the live Unbroken Command, for a
+cooldown-99 copy ("Hold the Line"); Unbroken Command itself is a shared live jutsu and is not edited.
 
 ## 396 Skyglass library blasts capture (READ-ONLY, 9 jutsu.get): NOT NEEDED (director: the hits come from "Unholy Harvest", a summoning jutsu outside the Skyglass set and outside the repository's catalogs, not from the eruptions); kept for reference
 

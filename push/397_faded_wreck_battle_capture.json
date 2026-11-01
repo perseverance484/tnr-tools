@@ -1,11 +1,25 @@
 {
- "_note": "push/397 READ-ONLY: the Faded Captain's live record (nR5okP-MiRsnSpiJQ8CM-, push/344), embedded jutsu included, for the director's level-100 solo Faded Wreck report (the Captain mostly self-buffs, needs stun immunity, Keelbind overkill). Battle logs cannot be captured: Forge persists full bodies only for audited content point reads, and combat.getBattleEntries is not one. No mutations. Operator-run only.",
+ "_note": "push/397 READ-ONLY: the Faded Captain's live record (nR5okP-MiRsnSpiJQ8CM-, push/344) and the live Unbroken Command (0Y10JpChssDwFUxNRk6p3), for the Captain fix: his rule 8 casts Unbroken Command (99-round buff, stacks) every time the nearest player is 3+ hexes away (director's battle lIKSZTazonCWc7MgJNHZ6, full Skyglass Wreck floor 5: cast 11 times, Keelbind 4,407 -> 400,930). The copy 'Hold the Line' (cooldown 99) is built from this capture. No mutations. Operator-run only.",
  "capture": {
   "before": [
    {
     "proc": "profile.getAi",
     "input": {
      "userId": "nR5okP-MiRsnSpiJQ8CM-"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "QY69h271Nx9uHrBeR6jwW"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "0Y10JpChssDwFUxNRk6p3"
     },
     "persist": "full"
    }
