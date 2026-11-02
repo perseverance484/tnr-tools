@@ -17,8 +17,8 @@ cooldown, flags), with a new name, Skyglass battle text, hidden: true (AIs use h
   * Undertow (Sovereign Undertow): redirection.appearAnimation = AN09 (water-drag streak).
 Only the five Core Horror records swap (Core Horror, Faded, Veteran, Rot-Touched, Steeping Horror). The Captains keep
 live Second Wind; the Second keeps live Sovereign Undertow; the Crown Stonebound keeps live Venom Strike. Swapping in a
-NEW jutsu needs no unequip (the live jutsu are not edited). Battles load only unhidden assets (law 16c): 403 unhides the
-four assets; run it before 404. (Separate manifests: validate.py's build-order lint misranks assets, RUL-2026-10-31-085 item 1.) Kits/rules: push/361 (Core Horror) and push/344 (the four copies), unchanged since.
+NEW jutsu needs no unequip (the live jutsu are not edited). Battles load only unhidden assets (law 16c): 413 unhides the
+four assets; run it before 414. (Separate manifests: validate.py's build-order lint misranks assets, RUL-2026-10-31-085 item 1.) Kits/rules: push/361 (Core Horror) and push/344 (the four copies), unchanged since.
 Do not hand-edit the outputs.
 """
 import argparse
