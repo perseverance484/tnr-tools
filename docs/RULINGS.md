@@ -5389,3 +5389,22 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-01: "Ink of the Void and the Unwritten. We should make these themed to be variants for Sayo and the Silence"; "keys do need to be tradeable because not all players are crafters. The salvage feature while nice would also make it so that crafter intermediaries are necessary which im not a huge fan of"; "1. Sounds right, approved. 2. Approved. 3. The event runs Fri-Sun indefinitely."
 
 **Canonical destination:** the economy model (`fable/skyglass-economy-model`, in progress) and the design doc.
+
+## RUL-2026-11-02-097 — The Mother of Echoes: tuning directions after the first simulation
+
+**Date:** 2026-11-02
+
+**Domain:** Skyglass event / uber encounter balance
+
+**Status:** ACTIVE. Directs tuning pass 2 on `fable/mother-of-echoes-sim` (pass 1 head 79b4d307: skilled full clear 26.7% against a 10-20% target; the average model dies in round 2; immunity changes nothing; Silence-first 33.3%).
+
+**Ruling:**
+1. **Act II threat:** the Silence's Hush pools deal heavy damage that grows over time. Act II is no longer a pure race against the enrage. The band is reached by mechanics, not by choosing damage reduction 79 or 80.
+2. **Stillness becomes a telegraphed stun,** so stun immunity is a real counter. Act II Sayo keeps stunprevent, so a stun can never cause an unmarked blast.
+3. **Average players:** recalibrate the average gear model first. Lower the Glass Lancet opener only if they still can't reach Act II. Target: under 5% full clear, and they reach Act II.
+4. **Lucid is strengthened** so the Silence-first and Sayo-first orders clear at about the same rate.
+5. **Open:** gear lifesteal and siphon still work through Movement 2's healing denial (engine limit, P3). Pass 2 keeps the fallback, where Movement 2 leans on flood damage.
+
+**Evidence:** Director, 2026-11-02, answering the five questions from pass 1: "The silences pools can deal heavy damage and grow over time"; Stillness as a stun; "Recalibrate, then soften"; "Strengthen Lucid".
+
+**Canonical destination:** `harness/skyglass_wreck_sim/mother_of_echoes_spec.json` and the design doc's Tuning section once pass 2 lands.
