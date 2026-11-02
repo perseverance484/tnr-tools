@@ -5403,8 +5403,8 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 2. **Stillness becomes a telegraphed stun,** so stun immunity is a real counter. Act II Sayo keeps stunprevent, so a stun can never cause an unmarked blast.
 3. **Average players:** recalibrate the average gear model first. Lower the Glass Lancet opener only if they still can't reach Act II. Target: under 5% full clear, and they reach Act II.
 4. **Lucid is strengthened** so the Silence-first and Sayo-first orders clear at about the same rate.
-5. **Open:** gear lifesteal and siphon still work through Movement 2's healing denial (engine limit, P3). Pass 2 keeps the fallback, where Movement 2 leans on flood damage.
+5. **Healing denial uses healing reduction** (director, 2026-11-02, amended the same morning): `decreaseheal` at 100% (theninjarpg@3314d122 tags.ts decreaseHealGiven) cuts heal, lifesteal, vamp and absorb on the consequence whatever their source, gear lifesteal included, which healprevent misses (P3). It goes on the Hush floor pools or a method ALL cast, whichever survives Clear and cleanse. It is blocked by debuffprevent. Siphon (a shield conversion) is not covered; pass 2 measures whether it matters.
 
-**Evidence:** Director, 2026-11-02, answering the five questions from pass 1: "The silences pools can deal heavy damage and grow over time"; Stillness as a stun; "Recalibrate, then soften"; "Strengthen Lucid".
+**Evidence:** Director, 2026-11-02, answering the five questions from pass 1: "The silences pools can deal heavy damage and grow over time"; Stillness as a stun; "Recalibrate, then soften"; "Strengthen Lucid"; "You can use healing reduction to prevent lifesteal. Either a floor effect or method all".
 
 **Canonical destination:** `harness/skyglass_wreck_sim/mother_of_echoes_spec.json` and the design doc's Tuning section once pass 2 lands.
