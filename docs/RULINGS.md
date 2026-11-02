@@ -5408,3 +5408,17 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02, answering the five questions from pass 1: "The silences pools can deal heavy damage and grow over time"; Stillness as a stun; "Recalibrate, then soften"; "Strengthen Lucid"; "You can use healing reduction to prevent lifesteal. Either a floor effect or method all".
 
 **Canonical destination:** `harness/skyglass_wreck_sim/mother_of_echoes_spec.json` and the design doc's Tuning section once pass 2 lands.
+
+## RUL-2026-11-02-098 — Starfall is renamed Stargazer
+
+**Date:** 2026-11-02
+
+**Domain:** Skyglass event / variant names
+
+**Status:** ACTIVE. Amends RUL-2026-10-31-082 (which named it Starfall).
+
+**Ruling:** The Skyglass variant of Ink of the Void is **Stargazer**. Its description, art and Skyglass Token gate are unchanged. The art file keeps its name (`icon-variant-starfall.webp`).
+
+**Evidence:** Director, 2026-11-02: "Change starfall to stargazer".
+
+**Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §5.1; `push/skyglass_items.gen.py` VARIANT_RENAMES; live via push/415.
