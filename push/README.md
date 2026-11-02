@@ -1506,6 +1506,12 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 416 Rotbloom image v2: READY TO RUN
+
+| # | Status | Contents |
+|---|---|---|
+| 416 | READY TO RUN; strict 0/0, check_manifest 0 problems | 1 itemVariant edit: Rotbloom (`dkkdXbwWFOGSw1nemyK7K` on Oathbinder) image → `icon-variant-rotbloom-v2.webp` (skyglass sickle on a rotten chain; image pack pinned at 937c9bad). Name and text unchanged |
+
 ## 415 Stargazer rename (RUL-2026-11-02-098): READY TO RUN
 
 | # | Status | Contents |
