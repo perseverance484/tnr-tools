@@ -1,0 +1,11 @@
+{
+ "manifest": "push/412_core_horror_fx_copies.json",
+ "ruling": "Accepted by RUL-2026-10-31-085 item 1 (class) as applied by RUL-2026-11-01-092: 3 build-order diagnostics (validator bug).",
+ "reason": "validate.py renames every asset entry to 'gameAsset' before its build-order lint ranks from a table keyed 'asset', so the four phase-1 animation assets rank 9 and the three phase-2 jutsu creates after them are flagged. Forge orders by phase then refs (check_manifest.mjs: assets first, 0 pre-send problems); the jutsu reference the assets by @scene. Validator bug, Lane A, not fixed here.",
+ "sha256": "983fa0a50561df4507d1ab9bad45160efea4c84cc1943a59c8e85f64d69512d1",
+ "accepted": [
+  "ERROR  manifest: build order: jutsu appears after a later phase",
+  "ERROR  manifest: build order: jutsu appears after a later phase",
+  "ERROR  manifest: build order: jutsu appears after a later phase"
+ ]
+}
