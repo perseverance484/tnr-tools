@@ -5371,3 +5371,21 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-01: "No badge or jutsu"; "Cut the pet as well. The Remainder should be a variant not an actual item. 3. Losses grant nothing. 4. Too generous."
 
 **Canonical destination:** the design doc's rewards section.
+
+## RUL-2026-11-01-096 — Uber variants, tradeable key, no crafter intermediaries, economy targets
+
+**Date:** 2026-11-01
+
+**Domain:** Skyglass event / rewards and economy
+
+**Status:** ACTIVE. Amends RUL-2026-11-01-093 item 2 (the key is now tradeable) and -095 item 3 (variant bases).
+
+**Ruling:**
+1. The uber variants are themed to the two bosses: **Heartglass** (Sayo) on **The Unwritten** (fan) and **The Remainder** (the Silence) on **Ink of the Void** (bow), as the director named them; Night's Testament and Oathbinder were the considered alternatives.
+2. **An Invitation in Glass is tradeable**, as are its shards and the Remnants; the variant tokens are not.
+3. **No crafter intermediaries:** crafting is gated by crafting rank (theninjarpg@3314d122 `libs/crafting.ts` getMissingCraftingRank), so every Salvage trade, the key's assembly and the Remnant exchange are built as self-service exchanges (item-started special quests with entry costs), not crafting recipes.
+4. The whole event economy is rebalanced against three player types, per weekend (the event runs Friday-Sunday indefinitely, with content added over time): Casual ~3 h, Dedicated ~10 h, Hardcore ~25 h. The Invitation's pacing before trade: Casual ~4 weekends, Dedicated 1-2, Hardcore under one.
+
+**Evidence:** Director, 2026-11-01: "Ink of the Void and the Unwritten. We should make these themed to be variants for Sayo and the Silence"; "keys do need to be tradeable because not all players are crafters. The salvage feature while nice would also make it so that crafter intermediaries are necessary which im not a huge fan of"; "1. Sounds right, approved. 2. Approved. 3. The event runs Fri-Sun indefinitely."
+
+**Canonical destination:** the economy model (`fable/skyglass-economy-model`, in progress) and the design doc.
