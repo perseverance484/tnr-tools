@@ -1,0 +1,81 @@
+{
+ "_about": "Proposed rate changes (Fable, 2026-11-01) to hit the director's Invitation pacing targets. Each change is a set of dotted-path overrides on inputs.json; model.py runs 'current' (inputs.json) and 'recommended' (all changes). Every value here is a proposal for the director, not a ruling.",
+ "changes": [
+  {
+   "id": "R1",
+   "change": "Shard of the Ledger drops on every Haul clear at 15% (was 5% per Reserve chest)",
+   "before": "5% per Keeper's/Quartermaster's Reserve chest",
+   "after": "15% per Haul clear, any page, any route",
+   "rationale": "Dead end: the max-value route pays a Reserve chest only on the Ore Vault (1 page in 6), so a sensible player gets ~0.007 Ledger shards per Haul run (~0.03 a dedicated weekend); even a Reserve-chasing route gets ~0.024. Tying it to the clear removes the route dependency and keeps the Haul's route choice about value, not shards.",
+   "set": {
+    "activities.haul.reserve_shard_mode": "per_clear",
+    "activities.haul.reserve_shard.p": 0.15
+   }
+  },
+  {
+   "id": "R2",
+   "change": "Shard of the Keel 1% -> 4% per full Wreck clear",
+   "before": "1%",
+   "after": "4%",
+   "rationale": "At 1% a dedicated player sees ~0.16 a weekend; 37% of players go 100 clears without one. 4% gives ~0.65 a dedicated weekend, so the Wreck's own shard usually arrives before Salvage has to buy it.",
+   "set": {
+    "activities.wreck_full.drops.[item=shard_keel].p": 0.04
+   }
+  },
+  {
+   "id": "R3",
+   "change": "Shard of the Crown 15% -> 40% per Crownhold clear",
+   "before": "15%",
+   "after": "40%",
+   "rationale": "Crownhold is gated by the Lantern (~1 run a dedicated weekend, ~0.3 a casual weekend), so at 15% the Crown shard is ~0.1 a dedicated weekend. 40% makes Crownhold the natural home of its shard for dedicated and hardcore players.",
+   "set": {
+    "activities.crownhold.drops.[item=shard_crown].p": 0.40
+   }
+  },
+  {
+   "id": "R4",
+   "change": "Shard of the Tide 3% -> 25% on the Sealed Reliquary, The Fall and both tainted runs",
+   "before": "3%",
+   "after": "25%",
+   "rationale": "Steeping eats most Epic charts, so a dedicated player runs only ~0.9 Epic or tainted runs a weekend (~0.6 clears). At 3% the Tide shard is ~0.03 a weekend, the rarest shard of all.",
+   "set": {
+    "activities.epic_reliquary.drops.[item=shard_tide].p": 0.25,
+    "activities.epic_fall.drops.[item=shard_tide].p": 0.25,
+    "activities.epic_fall.press_on.win_drops.[item=shard_tide].p": 0.25,
+    "activities.tainted_rotted.drops.[item=shard_tide].p": 0.25,
+    "activities.tainted_burning.drops.[item=shard_tide].p": 0.25
+   }
+  },
+  {
+   "id": "R5",
+   "change": "Salvage 3 -> 5 per full Wreck clear (Faded 1 -> 2)",
+   "before": "3 full / 1 Faded",
+   "after": "5 full / 2 Faded",
+   "rationale": "Salvage is the pacing lever: it buys whichever shard is missing, so it sets both the median and the dry-streak tail. Natural drops alone cannot reach the target because the key waits on the rarest of four.",
+   "set": {
+    "activities.wreck_full.drops.[item=salvage].qty": 5,
+    "activities.wreck_faded.drops.[item=salvage].qty": 2
+   }
+  },
+  {
+   "id": "R6",
+   "change": "Salvage exchange for any Invitation shard 100 -> 35",
+   "before": "100",
+   "after": "35",
+   "rationale": "With R5, one shard costs 7 full clears (about 4 hours of Wreck), and every uber clear's 40 Salvage refunds one shard. Note: a shard (35) is then cheaper than an Archive or Watch chart (40); the chart prices can stay, since they compete for the same Salvage.",
+   "set": {
+    "proposed.salvage_exchanges.shard_any": 35
+   }
+  },
+  {
+   "id": "R7",
+   "change": "The Remainder 8 -> 4 Remnants",
+   "before": "8 Remnants (proposed)",
+   "after": "4 Remnants",
+   "rationale": "No director target exists. At 8, a hardcore player at a 15% clear rate needs ~53 keys: ~100 weekends today, ~22 weekends even with R1-R6; casual and dedicated players never get there. At 4 it is a ~10-weekend hardcore chase (p90 ~17) and out of reach for most others. Director's call: leave at 8 if the Remainder is meant as a near-unreachable trophy.",
+   "set": {
+    "proposed.remnant_recipes.remainder": 4
+   }
+  }
+ ]
+}

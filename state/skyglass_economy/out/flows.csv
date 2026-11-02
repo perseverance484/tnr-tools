@@ -1,0 +1,946 @@
+scenario,player_type,item,direction,where,per_weekend
+current,casual,archive_chart_case,source,epic_reliquary pick,0.326
+current,casual,archive_chart_case,source,hunt_archive pick,0.712
+current,casual,archive_chart_case,source,tainted_rotted pick,0.077
+current,casual,archive_chart_case,source,wreck_full > unmarked_cargo,0.047
+current,casual,archive_chart_case,sink,opened,1.162
+current,casual,chart_archive,source,epic_reliquary pick > archive_chart_case,0.076
+current,casual,chart_archive,source,hunt_archive pick > archive_chart_case,0.185
+current,casual,chart_archive,source,hunt_foundry,0.176
+current,casual,chart_archive,source,tainted_rotted pick > archive_chart_case,0.019
+current,casual,chart_archive,source,wreck_full,0.292
+current,casual,chart_archive,source,wreck_full > unmarked_cargo > archive_chart_case,0.011
+current,casual,chart_archive,sink,hunt_archive,0.753
+current,casual,chart_buried,source,chart_roster,0.057
+current,casual,chart_buried,source,chart_tide,0.062
+current,casual,chart_buried,source,wreck_full,1.023
+current,casual,chart_buried,sink,hunt_buried,1.123
+current,casual,chart_foundry,source,epic_reliquary pick > archive_chart_case,0.146
+current,casual,chart_foundry,source,hunt_archive pick > archive_chart_case,0.320
+current,casual,chart_foundry,source,hunt_buried,0.159
+current,casual,chart_foundry,source,hunt_buried pick,1.064
+current,casual,chart_foundry,source,tainted_rotted pick > archive_chart_case,0.032
+current,casual,chart_foundry,source,wreck_full,0.595
+current,casual,chart_foundry,source,wreck_full > unmarked_cargo > archive_chart_case,0.020
+current,casual,chart_foundry,sink,hunt_foundry,2.312
+current,casual,chart_last_heading,source,crownhold,0.045
+current,casual,chart_last_heading,source,epic_reliquary pick > archive_chart_case,0.012
+current,casual,chart_last_heading,source,hunt_archive pick > archive_chart_case,0.026
+current,casual,chart_last_heading,source,hunt_watch,0.198
+current,casual,chart_last_heading,source,tainted_rotted pick > archive_chart_case,0.002
+current,casual,chart_last_heading,source,wreck_full > unmarked_cargo > archive_chart_case,0.001
+current,casual,chart_last_heading,sink,epic_fall,0.214
+current,casual,chart_last_heading,sink,steeping (won),0.070
+current,casual,chart_reliquary,source,crownhold,0.043
+current,casual,chart_reliquary,source,epic_reliquary pick > archive_chart_case,0.009
+current,casual,chart_reliquary,source,hunt_archive,0.180
+current,casual,chart_reliquary,source,hunt_archive pick > archive_chart_case,0.023
+current,casual,chart_reliquary,source,tainted_rotted pick > archive_chart_case,0.005
+current,casual,chart_reliquary,source,wreck_full > unmarked_cargo > archive_chart_case,0.001
+current,casual,chart_reliquary,sink,epic_reliquary,0.193
+current,casual,chart_reliquary,sink,steeping (won),0.066
+current,casual,chart_roster,source,wreck_full,0.513
+current,casual,chart_roster,sink,chart_roster,0.501
+current,casual,chart_rotted_heading,source,epic_fall,0.009
+current,casual,chart_rotted_heading,source,hunt_watch,0.004
+current,casual,chart_rotted_heading,source,steeping,0.070
+current,casual,chart_rotted_heading,sink,tainted_burning,0.082
+current,casual,chart_rotted_reliquary,source,hunt_archive,0.009
+current,casual,chart_rotted_reliquary,source,steeping,0.066
+current,casual,chart_rotted_reliquary,sink,tainted_rotted,0.075
+current,casual,chart_tide,source,wreck_full,0.714
+current,casual,chart_tide,sink,chart_tide,0.700
+current,casual,chart_watch,source,epic_reliquary pick > archive_chart_case,0.072
+current,casual,chart_watch,source,hunt_archive pick > archive_chart_case,0.133
+current,casual,chart_watch,source,tainted_rotted pick > archive_chart_case,0.016
+current,casual,chart_watch,source,wreck_full,0.320
+current,casual,chart_watch,source,wreck_full > unmarked_cargo > archive_chart_case,0.012
+current,casual,chart_watch,sink,hunt_watch,0.545
+current,casual,coffer,source,crownhold pick > crowns_hoard,0.194
+current,casual,coffer,source,wreck_full > unmarked_cargo,0.046
+current,casual,core_rot,source,chart_roster,0.075
+current,casual,core_rot,source,chart_tide,0.112
+current,casual,core_rot,source,epic_fall,0.077
+current,casual,core_rot,source,tainted_burning,0.022
+current,casual,core_rot,source,tainted_rotted,0.017
+current,casual,core_rot,source,wreck_full,0.755
+current,casual,core_rot,sink,steeping,0.547
+current,casual,crowns_hoard,source,crownhold pick,0.194
+current,casual,crowns_hoard,sink,opened,0.194
+current,casual,elemental_tool_pouch,source,hunt_foundry pick,1.698
+current,casual,elemental_tool_pouch,source,wreck_full > unmarked_cargo,0.112
+current,casual,galley_stores,source,wreck_full > unmarked_cargo,0.100
+current,casual,gatherer_C,source,haul,0.195
+current,casual,gatherer_L,source,haul,0.181
+current,casual,gatherer_R,source,haul,0.551
+current,casual,haul_page,source,hunt_archive,0.062
+current,casual,haul_page,source,hunt_buried,0.094
+current,casual,haul_page,source,hunt_foundry,0.149
+current,casual,haul_page,source,hunt_watch,0.038
+current,casual,haul_page,source,wreck_full,0.898
+current,casual,haul_page,sink,haul,1.224
+current,casual,hunter_C,source,haul,0.564
+current,casual,hunter_R,source,haul,0.456
+current,casual,invitation,source,assembly,0.002
+current,casual,invitation,sink,uber,0.002
+current,casual,lantern,source,epic_fall,0.030
+current,casual,lantern,source,epic_reliquary,0.029
+current,casual,lantern,source,epic_reliquary pick > archive_chart_case,0.011
+current,casual,lantern,source,hunt_archive pick > archive_chart_case,0.025
+current,casual,lantern,source,tainted_burning,0.012
+current,casual,lantern,source,tainted_rotted,0.008
+current,casual,lantern,source,tainted_rotted pick > archive_chart_case,0.002
+current,casual,lantern,source,wreck_full,0.146
+current,casual,lantern,source,wreck_full > unmarked_cargo > archive_chart_case,0.002
+current,casual,lantern,sink,crownhold,0.262
+current,casual,little_horror_jar,source,wreck_full,0.107
+current,casual,medicine_inro,source,chart_roster pick,0.501
+current,casual,medicine_inro,source,chart_tide pick,0.700
+current,casual,medicine_inro,source,wreck_full > unmarked_cargo,0.100
+current,casual,ryo,source,wreck_full,253602.786
+current,casual,sages_strongbox,source,wreck_full > unmarked_cargo,0.103
+current,casual,salvage,source,wreck_full,15.216
+current,casual,salvage,sink,exchange -> shard_keel,0.062
+current,casual,salvage,sink,exchange -> shard_ledger,11.218
+current,casual,salvage,sink,exchange -> shard_tide,0.620
+current,casual,shard_crown,source,crownhold,0.028
+current,casual,shard_crown,sink,Invitation assembly,0.002
+current,casual,shard_keel,source,salvage exchange,0.001
+current,casual,shard_keel,source,wreck_full,0.064
+current,casual,shard_keel,sink,Invitation assembly,0.002
+current,casual,shard_ledger,source,haul reserve chest,0.009
+current,casual,shard_ledger,source,salvage exchange,0.112
+current,casual,shard_ledger,sink,Invitation assembly,0.002
+current,casual,shard_tide,source,epic_fall,0.006
+current,casual,shard_tide,source,epic_reliquary,0.006
+current,casual,shard_tide,source,salvage exchange,0.006
+current,casual,shard_tide,source,tainted_burning,0.002
+current,casual,shard_tide,sink,Invitation assembly,0.002
+current,casual,skyglass_token,source,crownhold pick > crowns_hoard,0.194
+current,casual,skyglass_token,source,epic_fall pick,0.366
+current,casual,skyglass_token,source,hunt_watch pick,0.438
+current,casual,skyglass_token,source,tainted_burning pick,0.090
+current,casual,skyglass_token,source,tainted_rotted pick,0.077
+current,casual,skyglass_token,source,wreck_full > unmarked_cargo,0.014
+current,casual,treasury,source,chart_roster,0.015
+current,casual,treasury,source,chart_tide,0.010
+current,casual,treasury,source,crownhold,0.014
+current,casual,treasury,source,crownhold pick > crowns_hoard,0.194
+current,casual,treasury,source,epic_fall,0.008
+current,casual,treasury,source,epic_reliquary,0.012
+current,casual,treasury,source,hunt_archive,0.039
+current,casual,treasury,source,hunt_buried,0.020
+current,casual,treasury,source,hunt_foundry,0.078
+current,casual,treasury,source,hunt_watch,0.021
+current,casual,treasury,source,tainted_burning,0.002
+current,casual,treasury,source,tainted_burning pick,0.045
+current,casual,treasury,source,tainted_rotted,0.001
+current,casual,treasury,source,wreck_full,0.156
+current,casual,treasury,source,wreck_full > unmarked_cargo,0.021
+current,casual,unmarked_cargo,source,wreck_full,0.543
+current,casual,unmarked_cargo,sink,opened,0.543
+current,casual,vt_captain,source,wreck_full,0.112
+current,casual,vt_core_horror,source,wreck_full,0.113
+current,casual,vt_first_blade,source,epic_reliquary,0.004
+current,casual,vt_first_blade,source,tainted_rotted,0.002
+current,casual,vt_foundry_warden,source,epic_reliquary,0.003
+current,casual,vt_foundry_warden,source,hunt_foundry,0.015
+current,casual,vt_foundry_warden,source,tainted_rotted,0.003
+current,casual,vt_sealwright,source,epic_reliquary,0.002
+current,casual,vt_sealwright,source,hunt_archive,0.009
+current,casual,vt_sealwright,source,tainted_rotted,0.002
+current,casual,vt_wayfinder,source,hunt_watch,0.003
+current,casual,vt_wayfinder,source,tainted_burning,0.003
+current,casual,ryo_equivalent_value,source,all (valued items + ryo),27918679
+current,dedicated,archive_chart_case,source,epic_reliquary pick,0.837
+current,dedicated,archive_chart_case,source,hunt_archive pick,2.310
+current,dedicated,archive_chart_case,source,tainted_rotted pick,0.400
+current,dedicated,archive_chart_case,source,wreck_full > unmarked_cargo,0.153
+current,dedicated,archive_chart_case,sink,opened,3.700
+current,dedicated,chart_archive,source,epic_reliquary pick > archive_chart_case,0.214
+current,dedicated,chart_archive,source,hunt_archive pick > archive_chart_case,0.561
+current,dedicated,chart_archive,source,hunt_foundry,0.551
+current,dedicated,chart_archive,source,tainted_rotted pick > archive_chart_case,0.106
+current,dedicated,chart_archive,source,wreck_full,0.983
+current,dedicated,chart_archive,source,wreck_full > unmarked_cargo > archive_chart_case,0.034
+current,dedicated,chart_archive,sink,hunt_archive,2.441
+current,dedicated,chart_buried,source,chart_roster,0.175
+current,dedicated,chart_buried,source,chart_tide,0.251
+current,dedicated,chart_buried,source,wreck_full,3.254
+current,dedicated,chart_buried,sink,hunt_buried,3.661
+current,dedicated,chart_foundry,source,epic_reliquary pick > archive_chart_case,0.380
+current,dedicated,chart_foundry,source,hunt_archive pick > archive_chart_case,1.013
+current,dedicated,chart_foundry,source,hunt_buried,0.499
+current,dedicated,chart_foundry,source,hunt_buried pick,3.470
+current,dedicated,chart_foundry,source,tainted_rotted pick > archive_chart_case,0.171
+current,dedicated,chart_foundry,source,wreck_full,2.033
+current,dedicated,chart_foundry,source,wreck_full > unmarked_cargo > archive_chart_case,0.075
+current,dedicated,chart_foundry,sink,hunt_foundry,7.618
+current,dedicated,chart_last_heading,source,crownhold,0.174
+current,dedicated,chart_last_heading,source,epic_reliquary pick > archive_chart_case,0.024
+current,dedicated,chart_last_heading,source,hunt_archive pick > archive_chart_case,0.087
+current,dedicated,chart_last_heading,source,hunt_watch,0.602
+current,dedicated,chart_last_heading,source,tainted_rotted pick > archive_chart_case,0.014
+current,dedicated,chart_last_heading,source,wreck_full > unmarked_cargo > archive_chart_case,0.008
+current,dedicated,chart_last_heading,sink,epic_fall,0.525
+current,dedicated,chart_last_heading,sink,steeping (won),0.380
+current,dedicated,chart_reliquary,source,crownhold,0.170
+current,dedicated,chart_reliquary,source,epic_reliquary pick > archive_chart_case,0.023
+current,dedicated,chart_reliquary,source,hunt_archive,0.557
+current,dedicated,chart_reliquary,source,hunt_archive pick > archive_chart_case,0.078
+current,dedicated,chart_reliquary,source,tainted_rotted pick > archive_chart_case,0.013
+current,dedicated,chart_reliquary,source,wreck_full > unmarked_cargo > archive_chart_case,0.005
+current,dedicated,chart_reliquary,sink,epic_reliquary,0.487
+current,dedicated,chart_reliquary,sink,steeping (won),0.359
+current,dedicated,chart_roster,source,wreck_full,1.700
+current,dedicated,chart_roster,sink,chart_roster,1.685
+current,dedicated,chart_rotted_heading,source,epic_fall,0.017
+current,dedicated,chart_rotted_heading,source,hunt_watch,0.018
+current,dedicated,chart_rotted_heading,source,steeping,0.380
+current,dedicated,chart_rotted_heading,sink,tainted_burning,0.413
+current,dedicated,chart_rotted_reliquary,source,hunt_archive,0.018
+current,dedicated,chart_rotted_reliquary,source,steeping,0.359
+current,dedicated,chart_rotted_reliquary,sink,tainted_rotted,0.377
+current,dedicated,chart_tide,source,wreck_full,2.519
+current,dedicated,chart_tide,sink,chart_tide,2.499
+current,dedicated,chart_watch,source,epic_reliquary pick > archive_chart_case,0.168
+current,dedicated,chart_watch,source,hunt_archive pick > archive_chart_case,0.482
+current,dedicated,chart_watch,source,tainted_rotted pick > archive_chart_case,0.085
+current,dedicated,chart_watch,source,wreck_full,1.016
+current,dedicated,chart_watch,source,wreck_full > unmarked_cargo > archive_chart_case,0.026
+current,dedicated,chart_watch,sink,hunt_watch,1.772
+current,dedicated,coffer,source,crownhold pick > crowns_hoard,0.679
+current,dedicated,coffer,source,wreck_full > unmarked_cargo,0.156
+current,dedicated,core_rot,source,chart_roster,0.249
+current,dedicated,core_rot,source,chart_tide,0.378
+current,dedicated,core_rot,source,epic_fall,0.181
+current,dedicated,core_rot,source,tainted_burning,0.080
+current,dedicated,core_rot,source,tainted_rotted,0.084
+current,dedicated,core_rot,source,wreck_full,2.546
+current,dedicated,core_rot,sink,steeping,2.868
+current,dedicated,crowns_hoard,source,crownhold pick,0.679
+current,dedicated,crowns_hoard,sink,opened,0.679
+current,dedicated,elemental_tool_pouch,source,hunt_foundry pick,5.541
+current,dedicated,elemental_tool_pouch,source,wreck_full > unmarked_cargo,0.342
+current,dedicated,galley_stores,source,wreck_full > unmarked_cargo,0.314
+current,dedicated,gatherer_C,source,haul,0.632
+current,dedicated,gatherer_L,source,haul,0.610
+current,dedicated,gatherer_R,source,haul,1.867
+current,dedicated,haul_page,source,hunt_archive,0.215
+current,dedicated,haul_page,source,hunt_buried,0.296
+current,dedicated,haul_page,source,hunt_foundry,0.527
+current,dedicated,haul_page,source,hunt_watch,0.130
+current,dedicated,haul_page,source,wreck_full,3.010
+current,dedicated,haul_page,sink,haul,4.161
+current,dedicated,hunter_C,source,haul,1.922
+current,dedicated,hunter_R,source,haul,1.622
+current,dedicated,invitation,source,assembly,0.130
+current,dedicated,invitation,sink,uber,0.130
+current,dedicated,lantern,source,epic_fall,0.062
+current,dedicated,lantern,source,epic_reliquary,0.065
+current,dedicated,lantern,source,epic_reliquary pick > archive_chart_case,0.029
+current,dedicated,lantern,source,hunt_archive pick > archive_chart_case,0.090
+current,dedicated,lantern,source,tainted_burning,0.070
+current,dedicated,lantern,source,tainted_rotted,0.062
+current,dedicated,lantern,source,tainted_rotted pick > archive_chart_case,0.011
+current,dedicated,lantern,source,wreck_full,0.521
+current,dedicated,lantern,source,wreck_full > unmarked_cargo > archive_chart_case,0.006
+current,dedicated,lantern,sink,crownhold,0.910
+current,dedicated,little_horror_jar,source,wreck_full,0.125
+current,dedicated,medicine_inro,source,chart_roster pick,1.685
+current,dedicated,medicine_inro,source,chart_tide pick,2.499
+current,dedicated,medicine_inro,source,wreck_full > unmarked_cargo,0.359
+current,dedicated,remnant,source,uber,0.007
+current,dedicated,ryo,source,wreck_full,832164.516
+current,dedicated,sages_strongbox,source,wreck_full > unmarked_cargo,0.286
+current,dedicated,salvage,source,uber,0.274
+current,dedicated,salvage,source,wreck_full,49.930
+current,dedicated,salvage,sink,exchange -> shard_crown,6.672
+current,dedicated,salvage,sink,exchange -> shard_keel,4.365
+current,dedicated,salvage,sink,exchange -> shard_ledger,19.454
+current,dedicated,salvage,sink,exchange -> shard_tide,13.094
+current,dedicated,shard_crown,source,crownhold,0.099
+current,dedicated,shard_crown,source,salvage exchange,0.067
+current,dedicated,shard_crown,sink,Invitation assembly,0.130
+current,dedicated,shard_keel,source,salvage exchange,0.044
+current,dedicated,shard_keel,source,wreck_full,0.180
+current,dedicated,shard_keel,sink,Invitation assembly,0.130
+current,dedicated,shard_ledger,source,haul reserve chest,0.027
+current,dedicated,shard_ledger,source,salvage exchange,0.195
+current,dedicated,shard_ledger,sink,Invitation assembly,0.130
+current,dedicated,shard_tide,source,epic_fall,0.012
+current,dedicated,shard_tide,source,epic_reliquary,0.014
+current,dedicated,shard_tide,source,salvage exchange,0.131
+current,dedicated,shard_tide,source,tainted_burning,0.006
+current,dedicated,shard_tide,source,tainted_rotted,0.004
+current,dedicated,shard_tide,sink,Invitation assembly,0.130
+current,dedicated,skyglass_token,source,crownhold pick > crowns_hoard,0.679
+current,dedicated,skyglass_token,source,epic_fall pick,0.884
+current,dedicated,skyglass_token,source,hunt_watch pick,1.416
+current,dedicated,skyglass_token,source,tainted_burning pick,0.431
+current,dedicated,skyglass_token,source,tainted_rotted pick,0.400
+current,dedicated,skyglass_token,source,uber pick,0.014
+current,dedicated,skyglass_token,source,wreck_full > unmarked_cargo,0.057
+current,dedicated,treasury,source,chart_roster,0.050
+current,dedicated,treasury,source,chart_tide,0.026
+current,dedicated,treasury,source,crownhold,0.049
+current,dedicated,treasury,source,crownhold pick > crowns_hoard,0.679
+current,dedicated,treasury,source,epic_fall,0.022
+current,dedicated,treasury,source,epic_reliquary,0.028
+current,dedicated,treasury,source,hunt_archive,0.110
+current,dedicated,treasury,source,hunt_buried,0.065
+current,dedicated,treasury,source,hunt_foundry,0.273
+current,dedicated,treasury,source,hunt_watch,0.046
+current,dedicated,treasury,source,tainted_burning,0.013
+current,dedicated,treasury,source,tainted_burning pick,0.216
+current,dedicated,treasury,source,tainted_rotted,0.007
+current,dedicated,treasury,source,wreck_full,0.546
+current,dedicated,treasury,source,wreck_full > unmarked_cargo,0.057
+current,dedicated,unmarked_cargo,source,wreck_full,1.723
+current,dedicated,unmarked_cargo,sink,opened,1.723
+current,dedicated,vt_captain,source,wreck_full,0.125
+current,dedicated,vt_core_horror,source,wreck_full,0.125
+current,dedicated,vt_first_blade,source,epic_reliquary,0.014
+current,dedicated,vt_first_blade,source,tainted_rotted,0.007
+current,dedicated,vt_foundry_warden,source,epic_reliquary,0.005
+current,dedicated,vt_foundry_warden,source,hunt_foundry,0.065
+current,dedicated,vt_foundry_warden,source,tainted_rotted,0.004
+current,dedicated,vt_sealwright,source,epic_reliquary,0.008
+current,dedicated,vt_sealwright,source,hunt_archive,0.021
+current,dedicated,vt_sealwright,source,tainted_rotted,0.012
+current,dedicated,vt_wayfinder,source,hunt_watch,0.012
+current,dedicated,vt_wayfinder,source,tainted_burning,0.009
+current,dedicated,ryo_equivalent_value,source,all (valued items + ryo),93780876
+current,hardcore,archive_chart_case,source,epic_reliquary pick,1.946
+current,hardcore,archive_chart_case,source,hunt_archive pick,5.994
+current,hardcore,archive_chart_case,source,tainted_rotted pick,1.208
+current,hardcore,archive_chart_case,source,wreck_full > unmarked_cargo,0.393
+current,hardcore,archive_chart_case,sink,opened,9.540
+current,hardcore,chart_archive,source,epic_reliquary pick > archive_chart_case,0.496
+current,hardcore,chart_archive,source,hunt_archive pick > archive_chart_case,1.510
+current,hardcore,chart_archive,source,hunt_foundry,1.421
+current,hardcore,chart_archive,source,tainted_rotted pick > archive_chart_case,0.305
+current,hardcore,chart_archive,source,wreck_full,2.480
+current,hardcore,chart_archive,source,wreck_full > unmarked_cargo > archive_chart_case,0.096
+current,hardcore,chart_archive,sink,hunt_archive,6.301
+current,hardcore,chart_buried,source,chart_roster,0.433
+current,hardcore,chart_buried,source,chart_tide,0.608
+current,hardcore,chart_buried,source,wreck_full,8.125
+current,hardcore,chart_buried,sink,hunt_buried,9.146
+current,hardcore,chart_foundry,source,epic_reliquary pick > archive_chart_case,0.897
+current,hardcore,chart_foundry,source,hunt_archive pick > archive_chart_case,2.740
+current,hardcore,chart_foundry,source,hunt_buried,1.283
+current,hardcore,chart_foundry,source,hunt_buried pick,8.687
+current,hardcore,chart_foundry,source,tainted_rotted pick > archive_chart_case,0.551
+current,hardcore,chart_foundry,source,wreck_full,5.098
+current,hardcore,chart_foundry,source,wreck_full > unmarked_cargo > archive_chart_case,0.183
+current,hardcore,chart_foundry,sink,hunt_foundry,19.419
+current,hardcore,chart_last_heading,source,crownhold,0.411
+current,hardcore,chart_last_heading,source,epic_reliquary pick > archive_chart_case,0.062
+current,hardcore,chart_last_heading,source,hunt_archive pick > archive_chart_case,0.200
+current,hardcore,chart_last_heading,source,hunt_watch,1.477
+current,hardcore,chart_last_heading,source,tainted_rotted pick > archive_chart_case,0.048
+current,hardcore,chart_last_heading,source,wreck_full > unmarked_cargo > archive_chart_case,0.016
+current,hardcore,chart_last_heading,sink,epic_fall,1.232
+current,hardcore,chart_last_heading,sink,steeping (won),0.981
+current,hardcore,chart_reliquary,source,crownhold,0.403
+current,hardcore,chart_reliquary,source,epic_reliquary pick > archive_chart_case,0.056
+current,hardcore,chart_reliquary,source,hunt_archive,1.489
+current,hardcore,chart_reliquary,source,hunt_archive pick > archive_chart_case,0.195
+current,hardcore,chart_reliquary,source,tainted_rotted pick > archive_chart_case,0.042
+current,hardcore,chart_reliquary,source,wreck_full > unmarked_cargo > archive_chart_case,0.014
+current,hardcore,chart_reliquary,sink,epic_reliquary,1.161
+current,hardcore,chart_reliquary,sink,steeping (won),1.035
+current,hardcore,chart_roster,source,wreck_full,4.174
+current,hardcore,chart_roster,sink,chart_roster,4.158
+current,hardcore,chart_rotted_heading,source,epic_fall,0.023
+current,hardcore,chart_rotted_heading,source,hunt_watch,0.034
+current,hardcore,chart_rotted_heading,source,steeping,0.981
+current,hardcore,chart_rotted_heading,sink,tainted_burning,1.036
+current,hardcore,chart_rotted_reliquary,source,hunt_archive,0.052
+current,hardcore,chart_rotted_reliquary,source,steeping,1.035
+current,hardcore,chart_rotted_reliquary,sink,tainted_rotted,1.088
+current,hardcore,chart_tide,source,wreck_full,6.188
+current,hardcore,chart_tide,sink,chart_tide,6.171
+current,hardcore,chart_watch,source,epic_reliquary pick > archive_chart_case,0.373
+current,hardcore,chart_watch,source,hunt_archive pick > archive_chart_case,1.171
+current,hardcore,chart_watch,source,tainted_rotted pick > archive_chart_case,0.233
+current,hardcore,chart_watch,source,wreck_full,2.441
+current,hardcore,chart_watch,source,wreck_full > unmarked_cargo > archive_chart_case,0.069
+current,hardcore,chart_watch,sink,hunt_watch,4.281
+current,hardcore,coffer,source,crownhold pick > crowns_hoard,1.632
+current,hardcore,coffer,source,wreck_full > unmarked_cargo,0.383
+current,hardcore,core_rot,source,chart_roster,0.598
+current,hardcore,core_rot,source,chart_tide,0.950
+current,hardcore,core_rot,source,epic_fall,0.430
+current,hardcore,core_rot,source,tainted_burning,0.219
+current,hardcore,core_rot,source,tainted_rotted,0.245
+current,hardcore,core_rot,source,wreck_full,6.181
+current,hardcore,core_rot,sink,steeping,7.897
+current,hardcore,crowns_hoard,source,crownhold pick,1.632
+current,hardcore,crowns_hoard,sink,opened,1.632
+current,hardcore,elemental_tool_pouch,source,hunt_foundry pick,14.085
+current,hardcore,elemental_tool_pouch,source,wreck_full > unmarked_cargo,0.826
+current,hardcore,galley_stores,source,wreck_full > unmarked_cargo,0.737
+current,hardcore,gatherer_L,source,haul,3.402
+current,hardcore,haul_page,source,hunt_archive,0.554
+current,hardcore,haul_page,source,hunt_buried,0.819
+current,hardcore,haul_page,source,hunt_foundry,1.257
+current,hardcore,haul_page,source,hunt_watch,0.331
+current,hardcore,haul_page,source,wreck_full,7.342
+current,hardcore,haul_page,sink,haul,10.282
+current,hardcore,hunter_C,source,haul,1.581
+current,hardcore,hunter_L,source,haul,1.581
+current,hardcore,invitation,source,assembly,0.458
+current,hardcore,invitation,sink,uber,0.458
+current,hardcore,lantern,source,epic_fall,0.152
+current,hardcore,lantern,source,epic_reliquary,0.147
+current,hardcore,lantern,source,epic_reliquary pick > archive_chart_case,0.062
+current,hardcore,lantern,source,hunt_archive pick > archive_chart_case,0.177
+current,hardcore,lantern,source,tainted_burning,0.152
+current,hardcore,lantern,source,tainted_rotted,0.189
+current,hardcore,lantern,source,tainted_rotted pick > archive_chart_case,0.028
+current,hardcore,lantern,source,wreck_full,1.254
+current,hardcore,lantern,source,wreck_full > unmarked_cargo > archive_chart_case,0.016
+current,hardcore,lantern,sink,crownhold,2.175
+current,hardcore,little_horror_jar,source,wreck_full,0.125
+current,hardcore,medicine_inro,source,chart_roster pick,4.158
+current,hardcore,medicine_inro,source,chart_tide pick,6.171
+current,hardcore,medicine_inro,source,wreck_full > unmarked_cargo,0.820
+current,hardcore,remnant,source,uber,0.068
+current,hardcore,ryo,source,wreck_full,2063349.222
+current,hardcore,sages_strongbox,source,wreck_full > unmarked_cargo,0.724
+current,hardcore,salvage,source,uber,2.722
+current,hardcore,salvage,source,wreck_full,123.801
+current,hardcore,salvage,sink,exchange -> shard_crown,24.913
+current,hardcore,salvage,sink,exchange -> shard_keel,17.670
+current,hardcore,salvage,sink,exchange -> shard_ledger,33.593
+current,hardcore,salvage,sink,exchange -> shard_tide,43.333
+current,hardcore,shard_crown,source,crownhold,0.234
+current,hardcore,shard_crown,source,salvage exchange,0.249
+current,hardcore,shard_crown,sink,Invitation assembly,0.458
+current,hardcore,shard_keel,source,salvage exchange,0.177
+current,hardcore,shard_keel,source,wreck_full,0.398
+current,hardcore,shard_keel,sink,Invitation assembly,0.458
+current,hardcore,shard_ledger,source,haul reserve chest,0.254
+current,hardcore,shard_ledger,source,salvage exchange,0.336
+current,hardcore,shard_ledger,sink,Invitation assembly,0.458
+current,hardcore,shard_tide,source,epic_fall,0.022
+current,hardcore,shard_tide,source,epic_reliquary,0.027
+current,hardcore,shard_tide,source,salvage exchange,0.433
+current,hardcore,shard_tide,source,tainted_burning,0.019
+current,hardcore,shard_tide,source,tainted_rotted,0.014
+current,hardcore,shard_tide,sink,Invitation assembly,0.458
+current,hardcore,skyglass_token,source,crownhold pick > crowns_hoard,1.632
+current,hardcore,skyglass_token,source,epic_fall pick,2.029
+current,hardcore,skyglass_token,source,hunt_watch pick,3.432
+current,hardcore,skyglass_token,source,tainted_burning pick,1.051
+current,hardcore,skyglass_token,source,tainted_rotted pick,1.208
+current,hardcore,skyglass_token,source,uber pick,0.136
+current,hardcore,skyglass_token,source,wreck_full > unmarked_cargo,0.135
+current,hardcore,treasury,source,chart_roster,0.120
+current,hardcore,treasury,source,chart_tide,0.061
+current,hardcore,treasury,source,crownhold,0.105
+current,hardcore,treasury,source,crownhold pick > crowns_hoard,1.632
+current,hardcore,treasury,source,epic_fall,0.059
+current,hardcore,treasury,source,epic_reliquary,0.059
+current,hardcore,treasury,source,hunt_archive,0.302
+current,hardcore,treasury,source,hunt_buried,0.167
+current,hardcore,treasury,source,hunt_foundry,0.703
+current,hardcore,treasury,source,hunt_watch,0.122
+current,hardcore,treasury,source,tainted_burning,0.033
+current,hardcore,treasury,source,tainted_burning pick,0.526
+current,hardcore,treasury,source,tainted_rotted,0.032
+current,hardcore,treasury,source,wreck_full,1.281
+current,hardcore,treasury,source,wreck_full > unmarked_cargo,0.147
+current,hardcore,unmarked_cargo,source,wreck_full,4.165
+current,hardcore,unmarked_cargo,sink,opened,4.165
+current,hardcore,vt_captain,source,wreck_full,0.125
+current,hardcore,vt_core_horror,source,wreck_full,0.125
+current,hardcore,vt_first_blade,source,epic_reliquary,0.020
+current,hardcore,vt_first_blade,source,tainted_rotted,0.026
+current,hardcore,vt_foundry_warden,source,epic_reliquary,0.020
+current,hardcore,vt_foundry_warden,source,hunt_foundry,0.147
+current,hardcore,vt_foundry_warden,source,tainted_rotted,0.016
+current,hardcore,vt_sealwright,source,epic_reliquary,0.018
+current,hardcore,vt_sealwright,source,hunt_archive,0.064
+current,hardcore,vt_sealwright,source,tainted_rotted,0.021
+current,hardcore,vt_wayfinder,source,hunt_watch,0.042
+current,hardcore,vt_wayfinder,source,tainted_burning,0.021
+current,hardcore,ryo_equivalent_value,source,all (valued items + ryo),206037803
+recommended,casual,archive_chart_case,source,epic_reliquary pick,0.295
+recommended,casual,archive_chart_case,source,hunt_archive pick,0.679
+recommended,casual,archive_chart_case,source,tainted_rotted pick,0.078
+recommended,casual,archive_chart_case,source,wreck_full > unmarked_cargo,0.051
+recommended,casual,archive_chart_case,sink,opened,1.104
+recommended,casual,chart_archive,source,epic_reliquary pick > archive_chart_case,0.074
+recommended,casual,chart_archive,source,hunt_archive pick > archive_chart_case,0.155
+recommended,casual,chart_archive,source,hunt_foundry,0.170
+recommended,casual,chart_archive,source,tainted_rotted pick > archive_chart_case,0.021
+recommended,casual,chart_archive,source,wreck_full,0.295
+recommended,casual,chart_archive,source,wreck_full > unmarked_cargo > archive_chart_case,0.012
+recommended,casual,chart_archive,sink,hunt_archive,0.714
+recommended,casual,chart_buried,source,chart_roster,0.052
+recommended,casual,chart_buried,source,chart_tide,0.060
+recommended,casual,chart_buried,source,wreck_full,0.983
+recommended,casual,chart_buried,sink,hunt_buried,1.073
+recommended,casual,chart_foundry,source,epic_reliquary pick > archive_chart_case,0.143
+recommended,casual,chart_foundry,source,hunt_archive pick > archive_chart_case,0.301
+recommended,casual,chart_foundry,source,hunt_buried,0.164
+recommended,casual,chart_foundry,source,hunt_buried pick,1.024
+recommended,casual,chart_foundry,source,tainted_rotted pick > archive_chart_case,0.036
+recommended,casual,chart_foundry,source,wreck_full,0.612
+recommended,casual,chart_foundry,source,wreck_full > unmarked_cargo > archive_chart_case,0.024
+recommended,casual,chart_foundry,sink,hunt_foundry,2.278
+recommended,casual,chart_last_heading,source,crownhold,0.044
+recommended,casual,chart_last_heading,source,epic_reliquary pick > archive_chart_case,0.011
+recommended,casual,chart_last_heading,source,hunt_archive pick > archive_chart_case,0.032
+recommended,casual,chart_last_heading,source,hunt_watch,0.175
+recommended,casual,chart_last_heading,source,tainted_rotted pick > archive_chart_case,0.004
+recommended,casual,chart_last_heading,source,wreck_full > unmarked_cargo > archive_chart_case,0.002
+recommended,casual,chart_last_heading,sink,epic_fall,0.197
+recommended,casual,chart_last_heading,sink,steeping (won),0.067
+recommended,casual,chart_reliquary,source,crownhold,0.043
+recommended,casual,chart_reliquary,source,epic_reliquary pick > archive_chart_case,0.004
+recommended,casual,chart_reliquary,source,hunt_archive,0.167
+recommended,casual,chart_reliquary,source,hunt_archive pick > archive_chart_case,0.027
+recommended,casual,chart_reliquary,source,tainted_rotted pick > archive_chart_case,0.001
+recommended,casual,chart_reliquary,source,wreck_full > unmarked_cargo > archive_chart_case,0.001
+recommended,casual,chart_reliquary,sink,epic_reliquary,0.176
+recommended,casual,chart_reliquary,sink,steeping (won),0.065
+recommended,casual,chart_roster,source,wreck_full,0.480
+recommended,casual,chart_roster,sink,chart_roster,0.468
+recommended,casual,chart_rotted_heading,source,epic_fall,0.005
+recommended,casual,chart_rotted_heading,source,hunt_watch,0.004
+recommended,casual,chart_rotted_heading,source,steeping,0.067
+recommended,casual,chart_rotted_heading,sink,tainted_burning,0.076
+recommended,casual,chart_rotted_reliquary,source,hunt_archive,0.009
+recommended,casual,chart_rotted_reliquary,source,steeping,0.065
+recommended,casual,chart_rotted_reliquary,sink,tainted_rotted,0.074
+recommended,casual,chart_tide,source,wreck_full,0.708
+recommended,casual,chart_tide,sink,chart_tide,0.692
+recommended,casual,chart_watch,source,epic_reliquary pick > archive_chart_case,0.060
+recommended,casual,chart_watch,source,hunt_archive pick > archive_chart_case,0.144
+recommended,casual,chart_watch,source,tainted_rotted pick > archive_chart_case,0.013
+recommended,casual,chart_watch,source,wreck_full,0.321
+recommended,casual,chart_watch,source,wreck_full > unmarked_cargo > archive_chart_case,0.011
+recommended,casual,chart_watch,sink,hunt_watch,0.540
+recommended,casual,coffer,source,crownhold pick > crowns_hoard,0.181
+recommended,casual,coffer,source,wreck_full > unmarked_cargo,0.040
+recommended,casual,core_rot,source,chart_roster,0.074
+recommended,casual,core_rot,source,chart_tide,0.100
+recommended,casual,core_rot,source,epic_fall,0.066
+recommended,casual,core_rot,source,tainted_burning,0.016
+recommended,casual,core_rot,source,tainted_rotted,0.015
+recommended,casual,core_rot,source,wreck_full,0.731
+recommended,casual,core_rot,sink,steeping,0.497
+recommended,casual,crowns_hoard,source,crownhold pick,0.181
+recommended,casual,crowns_hoard,sink,opened,0.181
+recommended,casual,elemental_tool_pouch,source,hunt_foundry pick,1.637
+recommended,casual,elemental_tool_pouch,source,wreck_full > unmarked_cargo,0.087
+recommended,casual,galley_stores,source,wreck_full > unmarked_cargo,0.099
+recommended,casual,gatherer_C,source,haul,0.197
+recommended,casual,gatherer_L,source,haul,0.168
+recommended,casual,gatherer_R,source,haul,0.535
+recommended,casual,haul_page,source,hunt_archive,0.068
+recommended,casual,haul_page,source,hunt_buried,0.077
+recommended,casual,haul_page,source,hunt_foundry,0.153
+recommended,casual,haul_page,source,hunt_watch,0.042
+recommended,casual,haul_page,source,wreck_full,0.878
+recommended,casual,haul_page,sink,haul,1.199
+recommended,casual,hunter_C,source,haul,0.558
+recommended,casual,hunter_R,source,haul,0.457
+recommended,casual,invitation,source,assembly,0.211
+recommended,casual,invitation,sink,uber,0.211
+recommended,casual,lantern,source,epic_fall,0.026
+recommended,casual,lantern,source,epic_reliquary,0.017
+recommended,casual,lantern,source,epic_reliquary pick > archive_chart_case,0.003
+recommended,casual,lantern,source,hunt_archive pick > archive_chart_case,0.020
+recommended,casual,lantern,source,tainted_burning,0.011
+recommended,casual,lantern,source,tainted_rotted,0.012
+recommended,casual,lantern,source,tainted_rotted pick > archive_chart_case,0.003
+recommended,casual,lantern,source,wreck_full,0.149
+recommended,casual,lantern,source,wreck_full > unmarked_cargo > archive_chart_case,0.001
+recommended,casual,lantern,sink,crownhold,0.238
+recommended,casual,little_horror_jar,source,wreck_full,0.105
+recommended,casual,medicine_inro,source,chart_roster pick,0.468
+recommended,casual,medicine_inro,source,chart_tide pick,0.692
+recommended,casual,medicine_inro,source,wreck_full > unmarked_cargo,0.104
+recommended,casual,remnant,source,uber,0.006
+recommended,casual,ryo,source,wreck_full,246812.526
+recommended,casual,sages_strongbox,source,wreck_full > unmarked_cargo,0.079
+recommended,casual,salvage,source,uber,0.223
+recommended,casual,salvage,source,wreck_full,24.681
+recommended,casual,salvage,sink,exchange -> shard_crown,5.428
+recommended,casual,salvage,sink,exchange -> shard_keel,3.756
+recommended,casual,salvage,sink,exchange -> shard_ledger,6.557
+recommended,casual,salvage,sink,exchange -> shard_tide,6.926
+recommended,casual,shard_crown,source,crownhold,0.069
+recommended,casual,shard_crown,source,salvage exchange,0.155
+recommended,casual,shard_crown,sink,Invitation assembly,0.211
+recommended,casual,shard_keel,source,salvage exchange,0.107
+recommended,casual,shard_keel,source,wreck_full,0.196
+recommended,casual,shard_keel,sink,Invitation assembly,0.211
+recommended,casual,shard_ledger,source,haul clear,0.151
+recommended,casual,shard_ledger,source,salvage exchange,0.187
+recommended,casual,shard_ledger,sink,Invitation assembly,0.211
+recommended,casual,shard_tide,source,epic_fall,0.037
+recommended,casual,shard_tide,source,epic_reliquary,0.029
+recommended,casual,shard_tide,source,salvage exchange,0.198
+recommended,casual,shard_tide,source,tainted_burning,0.010
+recommended,casual,shard_tide,source,tainted_rotted,0.014
+recommended,casual,shard_tide,sink,Invitation assembly,0.211
+recommended,casual,skyglass_token,source,crownhold pick > crowns_hoard,0.181
+recommended,casual,skyglass_token,source,epic_fall pick,0.321
+recommended,casual,skyglass_token,source,hunt_watch pick,0.416
+recommended,casual,skyglass_token,source,tainted_burning pick,0.087
+recommended,casual,skyglass_token,source,tainted_rotted pick,0.078
+recommended,casual,skyglass_token,source,uber pick,0.011
+recommended,casual,skyglass_token,source,wreck_full > unmarked_cargo,0.018
+recommended,casual,treasury,source,chart_roster,0.011
+recommended,casual,treasury,source,chart_tide,0.007
+recommended,casual,treasury,source,crownhold,0.009
+recommended,casual,treasury,source,crownhold pick > crowns_hoard,0.181
+recommended,casual,treasury,source,epic_fall,0.008
+recommended,casual,treasury,source,epic_reliquary,0.007
+recommended,casual,treasury,source,hunt_archive,0.033
+recommended,casual,treasury,source,hunt_buried,0.017
+recommended,casual,treasury,source,hunt_foundry,0.089
+recommended,casual,treasury,source,hunt_watch,0.017
+recommended,casual,treasury,source,tainted_burning,0.001
+recommended,casual,treasury,source,tainted_burning pick,0.043
+recommended,casual,treasury,source,tainted_rotted,0.001
+recommended,casual,treasury,source,wreck_full,0.158
+recommended,casual,treasury,source,wreck_full > unmarked_cargo,0.014
+recommended,casual,unmarked_cargo,source,wreck_full,0.491
+recommended,casual,unmarked_cargo,sink,opened,0.491
+recommended,casual,vt_captain,source,wreck_full,0.104
+recommended,casual,vt_core_horror,source,wreck_full,0.107
+recommended,casual,vt_first_blade,source,epic_reliquary,0.001
+recommended,casual,vt_first_blade,source,tainted_rotted,0.003
+recommended,casual,vt_foundry_warden,source,epic_reliquary,0.003
+recommended,casual,vt_foundry_warden,source,hunt_foundry,0.020
+recommended,casual,vt_foundry_warden,source,tainted_rotted,0.003
+recommended,casual,vt_sealwright,source,epic_reliquary,0.002
+recommended,casual,vt_sealwright,source,hunt_archive,0.006
+recommended,casual,vt_sealwright,source,tainted_rotted,0.002
+recommended,casual,vt_wayfinder,source,hunt_watch,0.004
+recommended,casual,vt_wayfinder,source,tainted_burning,0.003
+recommended,casual,ryo_equivalent_value,source,all (valued items + ryo),26753119
+recommended,dedicated,archive_chart_case,source,epic_reliquary pick,0.813
+recommended,dedicated,archive_chart_case,source,hunt_archive pick,2.296
+recommended,dedicated,archive_chart_case,source,tainted_rotted pick,0.425
+recommended,dedicated,archive_chart_case,source,wreck_full > unmarked_cargo,0.132
+recommended,dedicated,archive_chart_case,sink,opened,3.667
+recommended,dedicated,chart_archive,source,epic_reliquary pick > archive_chart_case,0.203
+recommended,dedicated,chart_archive,source,hunt_archive pick > archive_chart_case,0.563
+recommended,dedicated,chart_archive,source,hunt_foundry,0.556
+recommended,dedicated,chart_archive,source,tainted_rotted pick > archive_chart_case,0.105
+recommended,dedicated,chart_archive,source,wreck_full,0.965
+recommended,dedicated,chart_archive,source,wreck_full > unmarked_cargo > archive_chart_case,0.037
+recommended,dedicated,chart_archive,sink,hunt_archive,2.417
+recommended,dedicated,chart_buried,source,chart_roster,0.178
+recommended,dedicated,chart_buried,source,chart_tide,0.252
+recommended,dedicated,chart_buried,source,wreck_full,3.248
+recommended,dedicated,chart_buried,sink,hunt_buried,3.654
+recommended,dedicated,chart_foundry,source,epic_reliquary pick > archive_chart_case,0.381
+recommended,dedicated,chart_foundry,source,hunt_archive pick > archive_chart_case,1.039
+recommended,dedicated,chart_foundry,source,hunt_buried,0.529
+recommended,dedicated,chart_foundry,source,hunt_buried pick,3.493
+recommended,dedicated,chart_foundry,source,tainted_rotted pick > archive_chart_case,0.192
+recommended,dedicated,chart_foundry,source,wreck_full,1.948
+recommended,dedicated,chart_foundry,source,wreck_full > unmarked_cargo > archive_chart_case,0.057
+recommended,dedicated,chart_foundry,sink,hunt_foundry,7.616
+recommended,dedicated,chart_last_heading,source,crownhold,0.166
+recommended,dedicated,chart_last_heading,source,epic_reliquary pick > archive_chart_case,0.026
+recommended,dedicated,chart_last_heading,source,hunt_archive pick > archive_chart_case,0.089
+recommended,dedicated,chart_last_heading,source,hunt_watch,0.577
+recommended,dedicated,chart_last_heading,source,tainted_rotted pick > archive_chart_case,0.018
+recommended,dedicated,chart_last_heading,source,wreck_full > unmarked_cargo > archive_chart_case,0.004
+recommended,dedicated,chart_last_heading,sink,epic_fall,0.526
+recommended,dedicated,chart_last_heading,sink,steeping (won),0.351
+recommended,dedicated,chart_reliquary,source,crownhold,0.162
+recommended,dedicated,chart_reliquary,source,epic_reliquary pick > archive_chart_case,0.021
+recommended,dedicated,chart_reliquary,source,hunt_archive,0.567
+recommended,dedicated,chart_reliquary,source,hunt_archive pick > archive_chart_case,0.070
+recommended,dedicated,chart_reliquary,source,tainted_rotted pick > archive_chart_case,0.012
+recommended,dedicated,chart_reliquary,source,wreck_full > unmarked_cargo > archive_chart_case,0.005
+recommended,dedicated,chart_reliquary,sink,epic_reliquary,0.476
+recommended,dedicated,chart_reliquary,sink,steeping (won),0.359
+recommended,dedicated,chart_roster,source,wreck_full,1.655
+recommended,dedicated,chart_roster,sink,chart_roster,1.640
+recommended,dedicated,chart_rotted_heading,source,epic_fall,0.014
+recommended,dedicated,chart_rotted_heading,source,hunt_watch,0.016
+recommended,dedicated,chart_rotted_heading,source,steeping,0.351
+recommended,dedicated,chart_rotted_heading,sink,tainted_burning,0.380
+recommended,dedicated,chart_rotted_reliquary,source,hunt_archive,0.031
+recommended,dedicated,chart_rotted_reliquary,source,steeping,0.359
+recommended,dedicated,chart_rotted_reliquary,sink,tainted_rotted,0.390
+recommended,dedicated,chart_tide,source,wreck_full,2.451
+recommended,dedicated,chart_tide,sink,chart_tide,2.429
+recommended,dedicated,chart_watch,source,epic_reliquary pick > archive_chart_case,0.160
+recommended,dedicated,chart_watch,source,hunt_archive pick > archive_chart_case,0.460
+recommended,dedicated,chart_watch,source,tainted_rotted pick > archive_chart_case,0.087
+recommended,dedicated,chart_watch,source,wreck_full,1.012
+recommended,dedicated,chart_watch,source,wreck_full > unmarked_cargo > archive_chart_case,0.027
+recommended,dedicated,chart_watch,sink,hunt_watch,1.732
+recommended,dedicated,coffer,source,crownhold pick > crowns_hoard,0.647
+recommended,dedicated,coffer,source,wreck_full > unmarked_cargo,0.137
+recommended,dedicated,core_rot,source,chart_roster,0.253
+recommended,dedicated,core_rot,source,chart_tide,0.357
+recommended,dedicated,core_rot,source,epic_fall,0.185
+recommended,dedicated,core_rot,source,tainted_burning,0.081
+recommended,dedicated,core_rot,source,tainted_rotted,0.093
+recommended,dedicated,core_rot,source,wreck_full,2.441
+recommended,dedicated,core_rot,sink,steeping,2.730
+recommended,dedicated,crowns_hoard,source,crownhold pick,0.647
+recommended,dedicated,crowns_hoard,sink,opened,0.647
+recommended,dedicated,elemental_tool_pouch,source,hunt_foundry pick,5.533
+recommended,dedicated,elemental_tool_pouch,source,wreck_full > unmarked_cargo,0.327
+recommended,dedicated,galley_stores,source,wreck_full > unmarked_cargo,0.307
+recommended,dedicated,gatherer_C,source,haul,0.611
+recommended,dedicated,gatherer_L,source,haul,0.601
+recommended,dedicated,gatherer_R,source,haul,1.749
+recommended,dedicated,haul_page,source,hunt_archive,0.186
+recommended,dedicated,haul_page,source,hunt_buried,0.305
+recommended,dedicated,haul_page,source,hunt_foundry,0.514
+recommended,dedicated,haul_page,source,hunt_watch,0.131
+recommended,dedicated,haul_page,source,wreck_full,2.954
+recommended,dedicated,haul_page,sink,haul,4.071
+recommended,dedicated,hunter_C,source,haul,1.946
+recommended,dedicated,hunter_R,source,haul,1.578
+recommended,dedicated,invitation,source,assembly,0.929
+recommended,dedicated,invitation,sink,uber,0.929
+recommended,dedicated,lantern,source,epic_fall,0.064
+recommended,dedicated,lantern,source,epic_reliquary,0.064
+recommended,dedicated,lantern,source,epic_reliquary pick > archive_chart_case,0.022
+recommended,dedicated,lantern,source,hunt_archive pick > archive_chart_case,0.075
+recommended,dedicated,lantern,source,tainted_burning,0.051
+recommended,dedicated,lantern,source,tainted_rotted,0.059
+recommended,dedicated,lantern,source,tainted_rotted pick > archive_chart_case,0.011
+recommended,dedicated,lantern,source,wreck_full,0.522
+recommended,dedicated,lantern,source,wreck_full > unmarked_cargo > archive_chart_case,0.001
+recommended,dedicated,lantern,sink,crownhold,0.864
+recommended,dedicated,little_horror_jar,source,wreck_full,0.125
+recommended,dedicated,medicine_inro,source,chart_roster pick,1.640
+recommended,dedicated,medicine_inro,source,chart_tide pick,2.429
+recommended,dedicated,medicine_inro,source,wreck_full > unmarked_cargo,0.336
+recommended,dedicated,remnant,source,uber,0.052
+recommended,dedicated,ryo,source,wreck_full,810172.319
+recommended,dedicated,sages_strongbox,source,wreck_full > unmarked_cargo,0.266
+recommended,dedicated,salvage,source,uber,2.095
+recommended,dedicated,salvage,source,wreck_full,81.017
+recommended,dedicated,salvage,sink,exchange -> shard_crown,24.140
+recommended,dedicated,salvage,sink,exchange -> shard_keel,12.485
+recommended,dedicated,salvage,sink,exchange -> shard_ledger,19.557
+recommended,dedicated,salvage,sink,exchange -> shard_tide,24.533
+recommended,dedicated,shard_crown,source,crownhold,0.250
+recommended,dedicated,shard_crown,source,salvage exchange,0.690
+recommended,dedicated,shard_crown,sink,Invitation assembly,0.929
+recommended,dedicated,shard_keel,source,salvage exchange,0.357
+recommended,dedicated,shard_keel,source,wreck_full,0.683
+recommended,dedicated,shard_keel,sink,Invitation assembly,0.929
+recommended,dedicated,shard_ledger,source,haul clear,0.514
+recommended,dedicated,shard_ledger,source,salvage exchange,0.559
+recommended,dedicated,shard_ledger,sink,Invitation assembly,0.929
+recommended,dedicated,shard_tide,source,epic_fall,0.109
+recommended,dedicated,shard_tide,source,epic_reliquary,0.102
+recommended,dedicated,shard_tide,source,salvage exchange,0.701
+recommended,dedicated,shard_tide,source,tainted_burning,0.045
+recommended,dedicated,shard_tide,source,tainted_rotted,0.056
+recommended,dedicated,shard_tide,sink,Invitation assembly,0.929
+recommended,dedicated,skyglass_token,source,crownhold pick > crowns_hoard,0.647
+recommended,dedicated,skyglass_token,source,epic_fall pick,0.846
+recommended,dedicated,skyglass_token,source,hunt_watch pick,1.373
+recommended,dedicated,skyglass_token,source,tainted_burning pick,0.398
+recommended,dedicated,skyglass_token,source,tainted_rotted pick,0.425
+recommended,dedicated,skyglass_token,source,uber pick,0.105
+recommended,dedicated,skyglass_token,source,wreck_full > unmarked_cargo,0.054
+recommended,dedicated,treasury,source,chart_roster,0.044
+recommended,dedicated,treasury,source,chart_tide,0.030
+recommended,dedicated,treasury,source,crownhold,0.047
+recommended,dedicated,treasury,source,crownhold pick > crowns_hoard,0.647
+recommended,dedicated,treasury,source,epic_fall,0.020
+recommended,dedicated,treasury,source,epic_reliquary,0.025
+recommended,dedicated,treasury,source,hunt_archive,0.124
+recommended,dedicated,treasury,source,hunt_buried,0.069
+recommended,dedicated,treasury,source,hunt_foundry,0.309
+recommended,dedicated,treasury,source,hunt_watch,0.057
+recommended,dedicated,treasury,source,tainted_burning,0.012
+recommended,dedicated,treasury,source,tainted_burning pick,0.199
+recommended,dedicated,treasury,source,tainted_rotted,0.007
+recommended,dedicated,treasury,source,wreck_full,0.511
+recommended,dedicated,treasury,source,wreck_full > unmarked_cargo,0.058
+recommended,dedicated,unmarked_cargo,source,wreck_full,1.616
+recommended,dedicated,unmarked_cargo,sink,opened,1.616
+recommended,dedicated,vt_captain,source,wreck_full,0.125
+recommended,dedicated,vt_core_horror,source,wreck_full,0.125
+recommended,dedicated,vt_first_blade,source,epic_reliquary,0.007
+recommended,dedicated,vt_first_blade,source,tainted_rotted,0.010
+recommended,dedicated,vt_foundry_warden,source,epic_reliquary,0.003
+recommended,dedicated,vt_foundry_warden,source,hunt_foundry,0.062
+recommended,dedicated,vt_foundry_warden,source,tainted_rotted,0.007
+recommended,dedicated,vt_sealwright,source,epic_reliquary,0.006
+recommended,dedicated,vt_sealwright,source,hunt_archive,0.023
+recommended,dedicated,vt_sealwright,source,tainted_rotted,0.011
+recommended,dedicated,vt_wayfinder,source,hunt_watch,0.019
+recommended,dedicated,vt_wayfinder,source,tainted_burning,0.006
+recommended,dedicated,ryo_equivalent_value,source,all (valued items + ryo),92217553
+recommended,hardcore,archive_chart_case,source,epic_reliquary pick,1.959
+recommended,hardcore,archive_chart_case,source,hunt_archive pick,5.797
+recommended,hardcore,archive_chart_case,source,tainted_rotted pick,1.123
+recommended,hardcore,archive_chart_case,source,wreck_full > unmarked_cargo,0.366
+recommended,hardcore,archive_chart_case,sink,opened,9.245
+recommended,hardcore,chart_archive,source,epic_reliquary pick > archive_chart_case,0.506
+recommended,hardcore,chart_archive,source,hunt_archive pick > archive_chart_case,1.440
+recommended,hardcore,chart_archive,source,hunt_foundry,1.413
+recommended,hardcore,chart_archive,source,tainted_rotted pick > archive_chart_case,0.275
+recommended,hardcore,chart_archive,source,wreck_full,2.400
+recommended,hardcore,chart_archive,source,wreck_full > unmarked_cargo > archive_chart_case,0.084
+recommended,hardcore,chart_archive,sink,hunt_archive,6.111
+recommended,hardcore,chart_buried,source,chart_roster,0.415
+recommended,hardcore,chart_buried,source,chart_tide,0.594
+recommended,hardcore,chart_buried,source,wreck_full,7.931
+recommended,hardcore,chart_buried,sink,hunt_buried,8.923
+recommended,hardcore,chart_foundry,source,epic_reliquary pick > archive_chart_case,0.875
+recommended,hardcore,chart_foundry,source,hunt_archive pick > archive_chart_case,2.602
+recommended,hardcore,chart_foundry,source,hunt_buried,1.274
+recommended,hardcore,chart_foundry,source,hunt_buried pick,8.491
+recommended,hardcore,chart_foundry,source,tainted_rotted pick > archive_chart_case,0.516
+recommended,hardcore,chart_foundry,source,wreck_full,4.886
+recommended,hardcore,chart_foundry,source,wreck_full > unmarked_cargo > archive_chart_case,0.174
+recommended,hardcore,chart_foundry,sink,hunt_foundry,18.798
+recommended,hardcore,chart_last_heading,source,crownhold,0.399
+recommended,hardcore,chart_last_heading,source,epic_reliquary pick > archive_chart_case,0.076
+recommended,hardcore,chart_last_heading,source,hunt_archive pick > archive_chart_case,0.210
+recommended,hardcore,chart_last_heading,source,hunt_watch,1.508
+recommended,hardcore,chart_last_heading,source,tainted_rotted pick > archive_chart_case,0.040
+recommended,hardcore,chart_last_heading,source,wreck_full > unmarked_cargo > archive_chart_case,0.012
+recommended,hardcore,chart_last_heading,sink,epic_fall,1.254
+recommended,hardcore,chart_last_heading,sink,steeping (won),0.988
+recommended,hardcore,chart_reliquary,source,crownhold,0.396
+recommended,hardcore,chart_reliquary,source,epic_reliquary pick > archive_chart_case,0.057
+recommended,hardcore,chart_reliquary,source,hunt_archive,1.435
+recommended,hardcore,chart_reliquary,source,hunt_archive pick > archive_chart_case,0.218
+recommended,hardcore,chart_reliquary,source,tainted_rotted pick > archive_chart_case,0.033
+recommended,hardcore,chart_reliquary,source,wreck_full > unmarked_cargo > archive_chart_case,0.012
+recommended,hardcore,chart_reliquary,sink,epic_reliquary,1.163
+recommended,hardcore,chart_reliquary,sink,steeping (won),0.987
+recommended,hardcore,chart_roster,source,wreck_full,4.033
+recommended,hardcore,chart_roster,sink,chart_roster,4.018
+recommended,hardcore,chart_rotted_heading,source,epic_fall,0.029
+recommended,hardcore,chart_rotted_heading,source,hunt_watch,0.039
+recommended,hardcore,chart_rotted_heading,source,steeping,0.988
+recommended,hardcore,chart_rotted_heading,sink,tainted_burning,1.056
+recommended,hardcore,chart_rotted_reliquary,source,hunt_archive,0.051
+recommended,hardcore,chart_rotted_reliquary,source,steeping,0.987
+recommended,hardcore,chart_rotted_reliquary,sink,tainted_rotted,1.038
+recommended,hardcore,chart_tide,source,wreck_full,6.039
+recommended,hardcore,chart_tide,sink,chart_tide,6.023
+recommended,hardcore,chart_watch,source,epic_reliquary pick > archive_chart_case,0.393
+recommended,hardcore,chart_watch,source,hunt_archive pick > archive_chart_case,1.156
+recommended,hardcore,chart_watch,source,tainted_rotted pick > archive_chart_case,0.239
+recommended,hardcore,chart_watch,source,wreck_full,2.402
+recommended,hardcore,chart_watch,source,wreck_full > unmarked_cargo > archive_chart_case,0.070
+recommended,hardcore,chart_watch,sink,hunt_watch,4.254
+recommended,hardcore,coffer,source,crownhold pick > crowns_hoard,1.578
+recommended,hardcore,coffer,source,wreck_full > unmarked_cargo,0.343
+recommended,hardcore,core_rot,source,chart_roster,0.596
+recommended,hardcore,core_rot,source,chart_tide,0.926
+recommended,hardcore,core_rot,source,epic_fall,0.382
+recommended,hardcore,core_rot,source,tainted_burning,0.228
+recommended,hardcore,core_rot,source,tainted_rotted,0.222
+recommended,hardcore,core_rot,source,wreck_full,5.954
+recommended,hardcore,core_rot,sink,steeping,7.622
+recommended,hardcore,crowns_hoard,source,crownhold pick,1.578
+recommended,hardcore,crowns_hoard,sink,opened,1.578
+recommended,hardcore,elemental_tool_pouch,source,hunt_foundry pick,13.606
+recommended,hardcore,elemental_tool_pouch,source,wreck_full > unmarked_cargo,0.772
+recommended,hardcore,galley_stores,source,wreck_full > unmarked_cargo,0.760
+recommended,hardcore,gatherer_L,source,haul,3.263
+recommended,hardcore,haul_page,source,hunt_archive,0.513
+recommended,hardcore,haul_page,source,hunt_buried,0.782
+recommended,hardcore,haul_page,source,hunt_foundry,1.171
+recommended,hardcore,haul_page,source,hunt_watch,0.325
+recommended,hardcore,haul_page,source,wreck_full,7.147
+recommended,hardcore,haul_page,sink,haul,9.921
+recommended,hardcore,hunter_C,source,haul,1.541
+recommended,hardcore,hunter_L,source,haul,1.541
+recommended,hardcore,invitation,source,assembly,2.347
+recommended,hardcore,invitation,sink,uber,2.347
+recommended,hardcore,lantern,source,epic_fall,0.153
+recommended,hardcore,lantern,source,epic_reliquary,0.145
+recommended,hardcore,lantern,source,epic_reliquary pick > archive_chart_case,0.052
+recommended,hardcore,lantern,source,hunt_archive pick > archive_chart_case,0.171
+recommended,hardcore,lantern,source,tainted_burning,0.162
+recommended,hardcore,lantern,source,tainted_rotted,0.172
+recommended,hardcore,lantern,source,tainted_rotted pick > archive_chart_case,0.019
+recommended,hardcore,lantern,source,wreck_full,1.231
+recommended,hardcore,lantern,source,wreck_full > unmarked_cargo > archive_chart_case,0.014
+recommended,hardcore,lantern,sink,crownhold,2.115
+recommended,hardcore,little_horror_jar,source,wreck_full,0.125
+recommended,hardcore,medicine_inro,source,chart_roster pick,4.018
+recommended,hardcore,medicine_inro,source,chart_tide pick,6.023
+recommended,hardcore,medicine_inro,source,wreck_full > unmarked_cargo,0.802
+recommended,hardcore,remnant,source,uber,0.348
+recommended,hardcore,remnant,sink,The Remainder,0.142
+recommended,hardcore,ryo,source,wreck_full,1999371.473
+recommended,hardcore,sages_strongbox,source,wreck_full > unmarked_cargo,0.739
+recommended,hardcore,salvage,source,uber,13.936
+recommended,hardcore,salvage,source,wreck_full,199.937
+recommended,hardcore,salvage,sink,exchange -> shard_crown,60.467
+recommended,hardcore,salvage,sink,exchange -> shard_keel,29.785
+recommended,hardcore,salvage,sink,exchange -> shard_ledger,63.679
+recommended,hardcore,salvage,sink,exchange -> shard_tide,57.691
+recommended,hardcore,shard_crown,source,crownhold,0.632
+recommended,hardcore,shard_crown,source,salvage exchange,1.728
+recommended,hardcore,shard_crown,sink,Invitation assembly,2.347
+recommended,hardcore,shard_keel,source,salvage exchange,0.851
+recommended,hardcore,shard_keel,source,wreck_full,1.605
+recommended,hardcore,shard_keel,sink,Invitation assembly,2.347
+recommended,hardcore,shard_ledger,source,haul clear,0.629
+recommended,hardcore,shard_ledger,source,salvage exchange,1.819
+recommended,hardcore,shard_ledger,sink,Invitation assembly,2.347
+recommended,hardcore,shard_tide,source,epic_fall,0.254
+recommended,hardcore,shard_tide,source,epic_reliquary,0.239
+recommended,hardcore,shard_tide,source,salvage exchange,1.648
+recommended,hardcore,shard_tide,source,tainted_burning,0.154
+recommended,hardcore,shard_tide,source,tainted_rotted,0.143
+recommended,hardcore,shard_tide,sink,Invitation assembly,2.347
+recommended,hardcore,skyglass_token,source,crownhold pick > crowns_hoard,1.578
+recommended,hardcore,skyglass_token,source,epic_fall pick,2.115
+recommended,hardcore,skyglass_token,source,hunt_watch pick,3.437
+recommended,hardcore,skyglass_token,source,tainted_burning pick,1.116
+recommended,hardcore,skyglass_token,source,tainted_rotted pick,1.123
+recommended,hardcore,skyglass_token,source,uber pick,0.697
+recommended,hardcore,skyglass_token,source,wreck_full > unmarked_cargo,0.130
+recommended,hardcore,treasury,source,chart_roster,0.121
+recommended,hardcore,treasury,source,chart_tide,0.069
+recommended,hardcore,treasury,source,crownhold,0.082
+recommended,hardcore,treasury,source,crownhold pick > crowns_hoard,1.578
+recommended,hardcore,treasury,source,epic_fall,0.074
+recommended,hardcore,treasury,source,epic_reliquary,0.059
+recommended,hardcore,treasury,source,hunt_archive,0.299
+recommended,hardcore,treasury,source,hunt_buried,0.190
+recommended,hardcore,treasury,source,hunt_foundry,0.684
+recommended,hardcore,treasury,source,hunt_watch,0.121
+recommended,hardcore,treasury,source,tainted_burning,0.026
+recommended,hardcore,treasury,source,tainted_burning pick,0.558
+recommended,hardcore,treasury,source,tainted_rotted,0.033
+recommended,hardcore,treasury,source,wreck_full,1.201
+recommended,hardcore,treasury,source,wreck_full > unmarked_cargo,0.135
+recommended,hardcore,unmarked_cargo,source,wreck_full,4.048
+recommended,hardcore,unmarked_cargo,sink,opened,4.048
+recommended,hardcore,vt_captain,source,wreck_full,0.125
+recommended,hardcore,vt_core_horror,source,wreck_full,0.125
+recommended,hardcore,vt_first_blade,source,epic_reliquary,0.017
+recommended,hardcore,vt_first_blade,source,tainted_rotted,0.024
+recommended,hardcore,vt_foundry_warden,source,epic_reliquary,0.014
+recommended,hardcore,vt_foundry_warden,source,hunt_foundry,0.136
+recommended,hardcore,vt_foundry_warden,source,tainted_rotted,0.021
+recommended,hardcore,vt_sealwright,source,epic_reliquary,0.014
+recommended,hardcore,vt_sealwright,source,hunt_archive,0.052
+recommended,hardcore,vt_sealwright,source,tainted_rotted,0.027
+recommended,hardcore,vt_wayfinder,source,hunt_watch,0.034
+recommended,hardcore,vt_wayfinder,source,tainted_burning,0.026
+recommended,hardcore,ryo_equivalent_value,source,all (valued items + ryo),199650533
