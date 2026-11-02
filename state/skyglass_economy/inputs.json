@@ -1,0 +1,2661 @@
+{
+ "_about": "Skyglass event economy model inputs. Every rate carries `source` (file:line, ruling id, harness result) or a `flag` (ASSUMPTION / PROPOSED / PLACEHOLDER). Probabilities are per run (0-1). Edit any `v` and re-run `python3 state/skyglass_economy/model.py`. Scenario overrides live in recommended.json.",
+ "meta": {
+  "repo_base": "origin/main b94ae162 (RUL-2026-11-01-095)",
+  "harness": "origin/fable/skyglass-rule-cap@3e345c20 (REPORT.md §3, §7; results/rul077_haul.json); origin/fable/skyglass-kite-sim@c546b0d7 (REPORT_kite.md: solo Captain floor, no clear time)",
+  "seconds_per_round": {
+   "v": 15,
+   "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 'minutes @15 s' (the harness converts rounds to minutes at 15 s per round)",
+   "flag": "ASSUMPTION inherited from the harness"
+  },
+  "live_requests": 0
+ },
+ "global": {
+  "overhead_min_per_run": {
+   "v": 0.5,
+   "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) overheadMin 0.5 (menu/claim time per run)",
+   "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+  },
+  "fail_time_frac": {
+   "v": 0.5,
+   "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) failFrac 0.5 (a failed run costs half a clear's minutes)",
+   "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+  },
+  "wreck_party_overhead_min": {
+   "v": 3.0,
+   "source": "party forming / walking to the Wreck between clears",
+   "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+  }
+ },
+ "values_ryo": {
+  "_note": "Ryo-equivalent market values, used for value/hour and the with-trade ryo budget. 0 = no price data.",
+  "medicine_inro": {
+   "v": 1400000.0,
+   "source": "docs/design/SKYGLASS_LOOT_TABLES.md:157 (~1.4M)"
+  },
+  "sages_strongbox": {
+   "v": 4200000.0,
+   "source": "docs/design/SKYGLASS_LOOT_TABLES.md:158 (~4.2M)"
+  },
+  "elemental_tool_pouch": {
+   "v": 5500000.0,
+   "source": "docs/design/SKYGLASS_LOOT_TABLES.md:159 (~5.5M)"
+  },
+  "treasury": {
+   "v": 8000000.0,
+   "source": "docs/design/SKYGLASS_LOOT_TABLES.md:193 (Treasury ~8M; includes its 150,000 ryo)"
+  },
+  "hunter_C": {
+   "v": 4200000.0,
+   "source": "docs/design/SKYGLASS_THE_HAUL.md:101"
+  },
+  "hunter_R": {
+   "v": 6100000.0,
+   "source": "docs/design/SKYGLASS_THE_HAUL.md:101"
+  },
+  "hunter_L": {
+   "v": 11500000.0,
+   "source": "docs/design/SKYGLASS_THE_HAUL.md:101"
+  },
+  "gatherer_C": {
+   "v": 3200000.0,
+   "source": "docs/design/SKYGLASS_THE_HAUL.md:102"
+  },
+  "gatherer_R": {
+   "v": 4900000.0,
+   "source": "docs/design/SKYGLASS_THE_HAUL.md:102"
+  },
+  "gatherer_L": {
+   "v": 10500000.0,
+   "source": "docs/design/SKYGLASS_THE_HAUL.md:102"
+  },
+  "coffer": {
+   "v": 0,
+   "source": "no market price in the repository",
+   "flag": "PLACEHOLDER 0"
+  },
+  "skyglass_token": {
+   "v": 0,
+   "source": "no market price in the repository",
+   "flag": "PLACEHOLDER 0"
+  },
+  "galley_stores": {
+   "v": 0,
+   "source": "no market price in the repository",
+   "flag": "PLACEHOLDER 0"
+  }
+ },
+ "tables": {
+  "_note": "Weighted caches: one roll picks a tier by weight, then one entry of that tier uniformly.",
+  "unmarked_cargo": {
+   "open_on_receipt": true,
+   "source": "push/skyglass_items.gen.py:351-354; docs/design/SKYGLASS_LOOT_TABLES.md:87",
+   "tiers": [
+    [
+     4000,
+     [
+      {
+       "medicine_inro": 1
+      },
+      {
+       "elemental_tool_pouch": 1
+      }
+     ]
+    ],
+    [
+     3500,
+     [
+      {
+       "sages_strongbox": 1
+      },
+      {
+       "galley_stores": 1
+      }
+     ]
+    ],
+    [
+     1800,
+     [
+      {
+       "coffer": 1
+      },
+      {
+       "archive_chart_case": 1
+      }
+     ]
+    ],
+    [
+     700,
+     [
+      {
+       "treasury": 1
+      },
+      {
+       "skyglass_token": 1
+      }
+     ]
+    ]
+   ]
+  },
+  "archive_chart_case": {
+   "open_on_receipt": true,
+   "source": "push/skyglass_items.gen.py:335-339; docs/design/SKYGLASS_LOOT_TABLES.md:120-128",
+   "tiers": [
+    [
+     4500,
+     [
+      {
+       "chart_foundry": 1
+      }
+     ]
+    ],
+    [
+     2500,
+     [
+      {
+       "chart_archive": 1
+      }
+     ]
+    ],
+    [
+     2000,
+     [
+      {
+       "chart_watch": 1
+      }
+     ]
+    ],
+    [
+     700,
+     [
+      {
+       "chart_reliquary": 1
+      },
+      {
+       "chart_last_heading": 1
+      }
+     ]
+    ],
+    [
+     300,
+     [
+      {
+       "lantern": 1
+      }
+     ]
+    ]
+   ]
+  },
+  "crowns_hoard": {
+   "open_on_receipt": true,
+   "fixed": {
+    "coffer": 1,
+    "treasury": 1,
+    "skyglass_token": 1
+   },
+   "source": "docs/design/SKYGLASS_LOOT_TABLES.md:132 (a Coffer roll + a Treasury roll + a Skyglass Token; untradeable, so opened)"
+  }
+ },
+ "activities": {
+  "wreck_full": {
+   "kind": "farm",
+   "label": "Skyglass Wreck (endgame, party of 3)",
+   "minutes": {
+    "v": 23.0,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §7: endgame Wreck 23.0 min @15 s (120 runs, p90 43.3) at RUL-077 params"
+   },
+   "clear": {
+    "v": 0.975,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §7: 97.5% within the hour"
+   },
+   "fail_minutes": {
+    "v": 60,
+    "source": "the dungeon's one-hour clock (SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md:54)"
+   },
+   "party_overhead": true,
+   "ryo": {
+    "v": 50000,
+    "source": "RUL-2026-10-31-089 item 1 (live editor)"
+   },
+   "exp": {
+    "v": 1000,
+    "source": "RUL-2026-10-31-089 item 1 (live editor)"
+   },
+   "drops": [
+    {
+     "item": "unmarked_cargo",
+     "p": 0.1,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:57; RUL-089 (row seen unchanged)"
+    },
+    {
+     "item": "chart_buried",
+     "p": 0.2,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:57; RUL-089"
+    },
+    {
+     "item": "chart_foundry",
+     "p": 0.12,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:57"
+    },
+    {
+     "item": "chart_archive",
+     "p": 0.06,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:58"
+    },
+    {
+     "item": "chart_watch",
+     "p": 0.06,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:58"
+    },
+    {
+     "item": "lantern",
+     "p": 0.03,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:58"
+    },
+    {
+     "item": "treasury",
+     "p": 0.03,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:59"
+    },
+    {
+     "item": "chart_tide",
+     "p": 0.15,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:59"
+    },
+    {
+     "item": "chart_roster",
+     "p": 0.1,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:59"
+    },
+    {
+     "item": "core_rot",
+     "p": 0.15,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:59"
+    },
+    {
+     "item": "haul_page",
+     "p": 0.03,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:60-61; RUL-2026-10-31-087 (3% each of six pages, live)",
+     "lines": 6
+    },
+    {
+     "item": "vt_captain",
+     "p": 0.05,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:62; RUL-2026-10-30-060 item 9",
+     "once": true
+    },
+    {
+     "item": "vt_core_horror",
+     "p": 0.05,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:62; RUL-2026-10-30-060 item 9",
+     "once": true
+    },
+    {
+     "item": "little_horror_jar",
+     "p": 0.05,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:62; RUL-2026-10-29-054",
+     "once": true
+    },
+    {
+     "item": "salvage",
+     "p": 1.0,
+     "qty": 3,
+     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): 3 per full Wreck clear",
+     "flag": "PROPOSED"
+    },
+    {
+     "item": "shard_keel",
+     "p": 0.01,
+     "qty": 1,
+     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): Shard of the Keel, full Wreck clear 1%",
+     "flag": "PROPOSED"
+    }
+   ]
+  },
+  "wreck_faded": {
+   "kind": "farm",
+   "label": "Faded Skyglass Wreck (level 40-60, party of 3)",
+   "minutes": {
+    "v": 18.8,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3/§7: level-50 Wreck 18.8 min @15 s"
+   },
+   "clear": {
+    "v": 0.975,
+    "source": "assumed equal to the endgame Wreck",
+    "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+   },
+   "fail_minutes": {
+    "v": 60,
+    "source": "the dungeon's one-hour clock"
+   },
+   "party_overhead": true,
+   "ryo": {
+    "v": 25000,
+    "source": "RUL-2026-10-31-089 item 1"
+   },
+   "exp": {
+    "v": 500,
+    "source": "RUL-2026-10-31-089 item 1"
+   },
+   "drops": [
+    {
+     "item": "chart_tide",
+     "p": 0.35,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:63; RUL-089"
+    },
+    {
+     "item": "chart_roster",
+     "p": 0.25,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:63; RUL-089"
+    },
+    {
+     "item": "chart_buried",
+     "p": 0.15,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:63; RUL-089"
+    },
+    {
+     "item": "galley_stores",
+     "p": 0.2,
+     "qty": 1,
+     "source": "push/skyglass_wreck.gen.py:63; RUL-089"
+    },
+    {
+     "item": "salvage",
+     "p": 1.0,
+     "qty": 1,
+     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): 1 per Faded clear",
+     "flag": "PROPOSED"
+    }
+   ]
+  },
+  "pyramid_full": {
+   "kind": "farm",
+   "label": "Solo pyramid, full tier (HELD: RUL-2026-10-31-090 item 2; optional toggle)",
+   "held": true,
+   "minutes": {
+    "v": 6.0,
+    "source": "5 scaled fights; no harness measurement exists",
+    "flag": "PLACEHOLDER"
+   },
+   "clear": {
+    "v": 0.95,
+    "source": "no harness measurement exists",
+    "flag": "PLACEHOLDER"
+   },
+   "ryo": {
+    "v": 25000,
+    "source": "push/skyglass_solo.gen.py:78; RUL-089 item 2"
+   },
+   "exp": {
+    "v": 1000,
+    "source": "push/skyglass_solo.gen.py:78"
+   },
+   "drops": [
+    {
+     "item": "chart_buried",
+     "p": 0.15,
+     "qty": 1,
+     "source": "push/skyglass_solo.gen.py:73"
+    },
+    {
+     "item": "chart_tide",
+     "p": 0.15,
+     "qty": 1,
+     "source": "push/skyglass_solo.gen.py:73"
+    },
+    {
+     "item": "chart_foundry",
+     "p": 0.08,
+     "qty": 1,
+     "source": "push/skyglass_solo.gen.py:73"
+    },
+    {
+     "item": "chart_roster",
+     "p": 0.1,
+     "qty": 1,
+     "source": "push/skyglass_solo.gen.py:73"
+    },
+    {
+     "item": "chart_archive",
+     "p": 0.04,
+     "qty": 1,
+     "source": "push/skyglass_solo.gen.py:74"
+    },
+    {
+     "item": "chart_watch",
+     "p": 0.04,
+     "qty": 1,
+     "source": "push/skyglass_solo.gen.py:74"
+    },
+    {
+     "item": "core_rot",
+     "p": 0.1,
+     "qty": 1,
+     "source": "push/skyglass_solo.gen.py:74"
+    },
+    {
+     "item": "salvage",
+     "p": 1.0,
+     "qty": 0,
+     "source": "PROPOSED by this model only if the pyramid is enabled; the brief gives Salvage to Wreck clears only",
+     "flag": "PLACEHOLDER 0"
+    }
+   ]
+  },
+  "chart_tide": {
+   "kind": "chart",
+   "tier": "common",
+   "label": "The Low Tide Run (Tide Chart)",
+   "entry": "chart_tide",
+   "minutes": {
+    "v": 2.0,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) tide 2"
+   },
+   "clear": {
+    "v": 1.0,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 chart lowtide 100%"
+   },
+   "exp": {
+    "v": 1000,
+    "source": "push/skyglass_hunts.gen.py:62 step I"
+   },
+   "drops": [
+    {
+     "item": "treasury",
+     "p": 0.01,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:185 step I; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+    },
+    {
+     "item": "chart_buried",
+     "p": 0.1,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:155"
+    },
+    {
+     "item": "core_rot",
+     "p": 0.15,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:155"
+    }
+   ],
+   "picks": {
+    "count": 1,
+    "source": "push/skyglass_charts.gen.py:149",
+    "options": [
+     {
+      "label": "Medicine Inro",
+      "items": {
+       "medicine_inro": 1
+      }
+     },
+     {
+      "label": "Galley Stores",
+      "items": {
+       "galley_stores": 1
+      }
+     },
+     {
+      "label": "Watch Roster",
+      "items": {
+       "chart_roster": 1
+      }
+     }
+    ]
+   }
+  },
+  "chart_roster": {
+   "kind": "chart",
+   "tier": "common",
+   "label": "The Night Watch (Watch Roster)",
+   "entry": "chart_roster",
+   "minutes": {
+    "v": 2.0,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) roster 2"
+   },
+   "clear": {
+    "v": 1.0,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 chart nightwatch 100%"
+   },
+   "exp": {
+    "v": 2000,
+    "source": "push/skyglass_hunts.gen.py:62 step II"
+   },
+   "drops": [
+    {
+     "item": "treasury",
+     "p": 0.02,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:192 step II; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+    },
+    {
+     "item": "chart_buried",
+     "p": 0.1,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:155"
+    },
+    {
+     "item": "core_rot",
+     "p": 0.15,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:155"
+    }
+   ],
+   "press_on": {
+    "win": {
+     "v": 1.0,
+     "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 nightwatch press-on won 40/40 (L100)"
+    },
+    "extra_minutes": {
+     "v": 1.0,
+     "source": "one more fight",
+     "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+    },
+    "fail_keeps_ending": true,
+    "win_drops": [
+     {
+      "item": "treasury",
+      "p": 0.03,
+      "qty": 1,
+      "source": "push/skyglass_charts.gen.py:171 PRESS_STEP III; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+     },
+     {
+      "item": "chart_buried",
+      "p": 0.1,
+      "qty": 1,
+      "source": "push/skyglass_charts.gen.py:155,173"
+     },
+     {
+      "item": "core_rot",
+      "p": 0.15,
+      "qty": 1,
+      "source": "push/skyglass_charts.gen.py:155"
+     }
+    ],
+    "source": "push/skyglass_charts.gen.py:387-396 (a press-on loss routes to the w_leave ending)"
+   },
+   "picks": {
+    "count": 1,
+    "source": "push/skyglass_charts.gen.py:150",
+    "options": [
+     {
+      "label": "Medicine Inro",
+      "items": {
+       "medicine_inro": 1
+      }
+     },
+     {
+      "label": "Galley Stores",
+      "items": {
+       "galley_stores": 1
+      }
+     },
+     {
+      "label": "Tide Chart",
+      "items": {
+       "chart_tide": 1
+      }
+     }
+    ]
+   }
+  },
+  "hunt_buried": {
+   "kind": "chart",
+   "tier": "rare",
+   "label": "The Buried Cache",
+   "entry": "chart_buried",
+   "minutes": {
+    "v": 2.0,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) buried 2.0"
+   },
+   "clear": {
+    "v": 0.95,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 hunt cache_right 95%"
+   },
+   "exp": {
+    "v": 2000,
+    "source": "push/skyglass_hunts.gen.py:247 w_clean step II"
+   },
+   "drops": [
+    {
+     "item": "treasury",
+     "p": 0.02,
+     "qty": 1,
+     "source": "push/skyglass_hunts.gen.py:247 step II; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+    },
+    {
+     "item": "chart_foundry",
+     "p": 0.15,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:231"
+    },
+    {
+     "item": "haul_page",
+     "p": 0.015,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:74,134,231; RUL-2026-10-30-060 item 5 (1.5% per page)",
+     "lines": 6
+    }
+   ],
+   "picks": {
+    "count": 1,
+    "source": "push/skyglass_update.gen.py:232",
+    "options": [
+     {
+      "label": "Medicine Inro",
+      "items": {
+       "medicine_inro": 1
+      }
+     },
+     {
+      "label": "Galley Stores",
+      "items": {
+       "galley_stores": 1
+      }
+     },
+     {
+      "label": "Foundry chart",
+      "items": {
+       "chart_foundry": 1
+      }
+     }
+    ]
+   }
+  },
+  "hunt_foundry": {
+   "kind": "chart",
+   "tier": "rare",
+   "label": "The Drowned Foundry",
+   "entry": "chart_foundry",
+   "minutes": {
+    "v": 4.8,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) foundry 4.8"
+   },
+   "clear": {
+    "v": 0.725,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 hunt foundry 72.5%"
+   },
+   "exp": {
+    "v": 5000,
+    "source": "docs/design/SKYGLASS_LOOT_TABLES.md:170 step V"
+   },
+   "drops": [
+    {
+     "item": "treasury",
+     "p": 0.05,
+     "qty": 1,
+     "source": "docs/design/SKYGLASS_LOOT_TABLES.md:170 step V; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+    },
+    {
+     "item": "chart_archive",
+     "p": 0.1,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:145"
+    },
+    {
+     "item": "haul_page",
+     "p": 0.015,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:145",
+     "lines": 6
+    },
+    {
+     "item": "vt_foundry_warden",
+     "p": 0.01,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:75,145"
+    }
+   ],
+   "picks": {
+    "count": 1,
+    "source": "push/skyglass_update.gen.py:146",
+    "options": [
+     {
+      "label": "Elemental Tool Pouch",
+      "items": {
+       "elemental_tool_pouch": 1
+      }
+     },
+     {
+      "label": "Medicine Inro",
+      "items": {
+       "medicine_inro": 1
+      }
+     },
+     {
+      "label": "Galley Stores",
+      "items": {
+       "galley_stores": 1
+      }
+     }
+    ]
+   }
+  },
+  "hunt_archive": {
+   "kind": "chart",
+   "tier": "rare",
+   "label": "The Quarantined Archive (clean route)",
+   "entry": "chart_archive",
+   "minutes": {
+    "v": 5.8,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) archive 5.8"
+   },
+   "clear": {
+    "v": 0.95,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 hunt archive_clean 95%"
+   },
+   "exp": {
+    "v": 5000,
+    "source": "docs/design/SKYGLASS_LOOT_TABLES.md:170 clean V"
+   },
+   "drops": [
+    {
+     "item": "treasury",
+     "p": 0.05,
+     "qty": 1,
+     "source": "docs/design/SKYGLASS_LOOT_TABLES.md:170 clean V; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+    },
+    {
+     "item": "chart_reliquary",
+     "p": 0.25,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:160"
+    },
+    {
+     "item": "chart_rotted_reliquary",
+     "p": 0.01,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:160"
+    },
+    {
+     "item": "haul_page",
+     "p": 0.015,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:160",
+     "lines": 6
+    },
+    {
+     "item": "vt_sealwright",
+     "p": 0.01,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:161"
+    }
+   ],
+   "break_seal": {
+    "core_rot": {
+     "v": 2,
+     "source": "docs/design/SKYGLASS_LOOT_TABLES.md:281 (break the seal: Core Rot x2 guaranteed)"
+    },
+    "extra_minutes": {
+     "v": 2.5,
+     "source": "one extra echo fight (Veteran Core Horror)",
+     "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+    },
+    "clear_mult": {
+     "v": 0.9,
+     "source": "no measurement of the echo fight",
+     "flag": "PLACEHOLDER"
+    }
+   },
+   "picks": {
+    "count": 1,
+    "source": "push/skyglass_update.gen.py:164",
+    "options": [
+     {
+      "label": "Archive Chart Case",
+      "items": {
+       "archive_chart_case": 1
+      }
+     },
+     {
+      "label": "Sage's Strongbox",
+      "items": {
+       "sages_strongbox": 1
+      }
+     },
+     {
+      "label": "Skyglass Token",
+      "items": {
+       "skyglass_token": 1
+      }
+     }
+    ]
+   }
+  },
+  "hunt_watch": {
+   "kind": "chart",
+   "tier": "rare",
+   "label": "The Captain's Watch (no terms)",
+   "entry": "chart_watch",
+   "minutes": {
+    "v": 6.0,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) watch 6.0"
+   },
+   "clear": {
+    "v": 0.8,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §7 Captain's Watch (no terms) 80% at pools 2.65"
+   },
+   "exp": {
+    "v": 4000,
+    "source": "docs/design/SKYGLASS_LOOT_TABLES.md:170 no terms IV"
+   },
+   "drops": [
+    {
+     "item": "treasury",
+     "p": 0.04,
+     "qty": 1,
+     "source": "docs/design/SKYGLASS_LOOT_TABLES.md:170 no terms IV; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+    },
+    {
+     "item": "chart_last_heading",
+     "p": 0.25,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:206"
+    },
+    {
+     "item": "chart_rotted_heading",
+     "p": 0.01,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:206"
+    },
+    {
+     "item": "haul_page",
+     "p": 0.015,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:206",
+     "lines": 6
+    },
+    {
+     "item": "vt_wayfinder",
+     "p": 0.01,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:207"
+    }
+   ],
+   "press_on": {
+    "win": {
+     "v": 0.872,
+     "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) watch pressWin 0.872 (final pass probe, 87% from ~22% HP)"
+    },
+    "extra_minutes": {
+     "v": 2.0,
+     "source": "one more fight",
+     "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+    },
+    "fail_keeps_ending": true,
+    "win_drops": [
+     {
+      "item": "treasury",
+      "p": 0.04,
+      "qty": 1,
+      "source": "push/skyglass_update.gen.py:202 (same step); Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+     },
+     {
+      "item": "chart_last_heading",
+      "p": 0.45,
+      "qty": 1,
+      "source": "push/skyglass_update.gen.py:208-209; RUL-064 item 2"
+     },
+     {
+      "item": "chart_rotted_heading",
+      "p": 0.01,
+      "qty": 1,
+      "source": "push/skyglass_update.gen.py:209"
+     },
+     {
+      "item": "haul_page",
+      "p": 0.015,
+      "qty": 1,
+      "source": "push/skyglass_update.gen.py:209",
+      "lines": 6
+     },
+     {
+      "item": "vt_wayfinder",
+      "p": 0.01,
+      "qty": 1,
+      "source": "push/skyglass_update.gen.py:209"
+     }
+    ],
+    "source": "push/skyglass_update.gen.py:199 (press-on loss -> the step's own ending)"
+   },
+   "picks": {
+    "count": 1,
+    "source": "push/skyglass_update.gen.py:210",
+    "options": [
+     {
+      "label": "Skyglass Coffer",
+      "items": {
+       "coffer": 1
+      }
+     },
+     {
+      "label": "Captain's Purse",
+      "items": {
+       "ryo": 1000000
+      }
+     },
+     {
+      "label": "Skyglass Token",
+      "items": {
+       "skyglass_token": 1
+      }
+     }
+    ]
+   }
+  },
+  "epic_reliquary": {
+   "kind": "chart",
+   "tier": "epic",
+   "label": "The Sealed Reliquary (Reliquary Seal)",
+   "entry": "chart_reliquary",
+   "minutes": {
+    "v": 9.0,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) reliquary 9"
+   },
+   "clear": {
+    "v": 0.85,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 chart reliquary 85% (2 rows)"
+   },
+   "exp": {
+    "v": 5000,
+    "source": "push/skyglass_charts.gen.py:199 step VI"
+   },
+   "drops": [
+    {
+     "item": "treasury",
+     "p": 0.06,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:199 step VI; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+    },
+    {
+     "item": "lantern",
+     "p": 0.15,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:156"
+    },
+    {
+     "item": "vt_foundry_warden",
+     "p": 0.02,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:158-163"
+    },
+    {
+     "item": "vt_sealwright",
+     "p": 0.02,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:158-163"
+    },
+    {
+     "item": "vt_first_blade",
+     "p": 0.02,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:158-163"
+    },
+    {
+     "item": "shard_tide",
+     "p": 0.03,
+     "qty": 1,
+     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): Shard of the Tide, Epic/tainted chart runs 3%",
+     "flag": "PROPOSED"
+    }
+   ],
+   "picks": {
+    "count": 1,
+    "source": "push/skyglass_charts.gen.py:150",
+    "options": [
+     {
+      "label": "Skyglass Coffer x2",
+      "items": {
+       "coffer": 2
+      }
+     },
+     {
+      "label": "Sealed Treasury",
+      "items": {
+       "treasury": 1
+      }
+     },
+     {
+      "label": "Skyglass Token x2",
+      "items": {
+       "skyglass_token": 2
+      }
+     },
+     {
+      "label": "Archive Chart Case x2",
+      "items": {
+       "archive_chart_case": 2
+      }
+     }
+    ]
+   }
+  },
+  "epic_fall": {
+   "kind": "chart",
+   "tier": "epic",
+   "label": "The Fall (The Last Heading)",
+   "entry": "chart_last_heading",
+   "minutes": {
+    "v": 7.0,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) fall 7"
+   },
+   "clear": {
+    "v": 0.825,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 chart fall 82.5%"
+   },
+   "exp": {
+    "v": 5000,
+    "source": "push/skyglass_charts.gen.py:207 step VI"
+   },
+   "drops": [
+    {
+     "item": "treasury",
+     "p": 0.06,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:207 step VI; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+    },
+    {
+     "item": "lantern",
+     "p": 0.15,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:156"
+    },
+    {
+     "item": "core_rot",
+     "p": 0.4,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:166"
+    },
+    {
+     "item": "shard_tide",
+     "p": 0.03,
+     "qty": 1,
+     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)",
+     "flag": "PROPOSED"
+    }
+   ],
+   "press_on": {
+    "win": {
+     "v": 0.5,
+     "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 chart fall press-on 17/33"
+    },
+    "extra_minutes": {
+     "v": 2.0,
+     "source": "one more fight",
+     "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+    },
+    "fail_keeps_ending": true,
+    "win_drops": [
+     {
+      "item": "treasury",
+      "p": 0.06,
+      "qty": 1,
+      "source": "push/skyglass_charts.gen.py:171; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+     },
+     {
+      "item": "lantern",
+      "p": 0.15,
+      "qty": 1,
+      "source": "push/skyglass_charts.gen.py:156"
+     },
+     {
+      "item": "core_rot",
+      "p": 0.4,
+      "qty": 1,
+      "source": "push/skyglass_charts.gen.py:166"
+     },
+     {
+      "item": "chart_rotted_heading",
+      "p": 0.05,
+      "qty": 1,
+      "source": "push/skyglass_charts.gen.py:173"
+     },
+     {
+      "item": "shard_tide",
+      "p": 0.03,
+      "qty": 1,
+      "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)",
+      "flag": "PROPOSED"
+     }
+    ],
+    "source": "push/skyglass_charts.gen.py:387-396"
+   },
+   "picks": {
+    "count": 1,
+    "source": "push/skyglass_charts.gen.py:151",
+    "options": [
+     {
+      "label": "Skyglass Coffer x2",
+      "items": {
+       "coffer": 2
+      }
+     },
+     {
+      "label": "Sealed Treasury",
+      "items": {
+       "treasury": 1
+      }
+     },
+     {
+      "label": "Skyglass Token x2",
+      "items": {
+       "skyglass_token": 2
+      }
+     },
+     {
+      "label": "Galley Stores x3",
+      "items": {
+       "galley_stores": 3
+      }
+     }
+    ]
+   }
+  },
+  "tainted_rotted": {
+   "kind": "chart",
+   "tier": "tainted",
+   "label": "The Rotted Reliquary (tainted)",
+   "entry": "chart_rotted_reliquary",
+   "minutes": {
+    "v": 5.9,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) t_rel 5.9"
+   },
+   "clear": {
+    "v": 0.55,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 chart rotted 55%"
+   },
+   "exp": {
+    "v": 5000,
+    "source": "push/skyglass_charts.gen.py:215 step VI"
+   },
+   "drops": [
+    {
+     "item": "treasury",
+     "p": 0.06,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:215; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+    },
+    {
+     "item": "lantern",
+     "p": 0.3,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:157"
+    },
+    {
+     "item": "core_rot",
+     "p": 0.4,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:157"
+    },
+    {
+     "item": "vt_foundry_warden",
+     "p": 0.04,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:167"
+    },
+    {
+     "item": "vt_sealwright",
+     "p": 0.04,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:167"
+    },
+    {
+     "item": "vt_first_blade",
+     "p": 0.04,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:167"
+    },
+    {
+     "item": "shard_tide",
+     "p": 0.03,
+     "qty": 1,
+     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)",
+     "flag": "PROPOSED"
+    }
+   ],
+   "picks": {
+    "count": 2,
+    "same_as": "epic_reliquary",
+    "source": "push/skyglass_charts.gen.py:154 (pick 2 from the Epic run's options)"
+   }
+  },
+  "tainted_burning": {
+   "kind": "chart",
+   "tier": "tainted",
+   "label": "The Burning Heading (tainted)",
+   "entry": "chart_rotted_heading",
+   "minutes": {
+    "v": 6.0,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) t_fall 6"
+   },
+   "clear": {
+    "v": 0.525,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 chart burning 52.5%"
+   },
+   "exp": {
+    "v": 5000,
+    "source": "push/skyglass_charts.gen.py:222"
+   },
+   "drops": [
+    {
+     "item": "treasury",
+     "p": 0.06,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:222; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+    },
+    {
+     "item": "lantern",
+     "p": 0.3,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:157"
+    },
+    {
+     "item": "core_rot",
+     "p": 0.4,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:157"
+    },
+    {
+     "item": "vt_wayfinder",
+     "p": 0.04,
+     "qty": 1,
+     "source": "push/skyglass_charts.gen.py:168"
+    },
+    {
+     "item": "shard_tide",
+     "p": 0.03,
+     "qty": 1,
+     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)",
+     "flag": "PROPOSED"
+    }
+   ],
+   "picks": {
+    "count": 2,
+    "same_as": "epic_fall",
+    "source": "push/skyglass_charts.gen.py:154"
+   }
+  },
+  "crownhold": {
+   "kind": "chart",
+   "tier": "legendary",
+   "label": "Crownhold (Lastlight Lantern; clean route)",
+   "entry": "lantern",
+   "minutes": {
+    "v": 23.2,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) crown 23.2 (clean route)"
+   },
+   "clear": {
+    "v": 0.75,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §3 Crownhold clean route 75% (gates + trims; healing 93.8, alert 50, war 68.8)"
+   },
+   "exp": {
+    "v": 5000,
+    "source": "docs/design/SKYGLASS_LOOT_TABLES.md:170 Crownhold VI"
+   },
+   "drops": [
+    {
+     "item": "treasury",
+     "p": 0.06,
+     "qty": 1,
+     "source": "docs/design/SKYGLASS_LOOT_TABLES.md:170 VI; Sealed Treasury at the ladder step % (docs/design/SKYGLASS_LOOT_TABLES.md:168-170; push/skyglass_hunts.gen.py:62-63)"
+    },
+    {
+     "item": "chart_reliquary",
+     "p": 0.25,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:253-254; RUL-064 item 5"
+    },
+    {
+     "item": "chart_last_heading",
+     "p": 0.25,
+     "qty": 1,
+     "source": "push/skyglass_update.gen.py:253-254; RUL-064 item 5"
+    },
+    {
+     "item": "shard_crown",
+     "p": 0.15,
+     "qty": 1,
+     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): Shard of the Crown, Crownhold clear 15%",
+     "flag": "PROPOSED"
+    }
+   ],
+   "picks": {
+    "count": 1,
+    "source": "docs/design/SKYGLASS_LOOT_TABLES.md:191",
+    "options": [
+     {
+      "label": "Crown's Hoard",
+      "items": {
+       "crowns_hoard": 1
+      }
+     },
+     {
+      "label": "Skyglass Coffer x3",
+      "items": {
+       "coffer": 3
+      }
+     },
+     {
+      "label": "Crownbreaker badge",
+      "items": {
+       "crownbreaker_badge": 1
+      },
+      "once": true
+     },
+     {
+      "label": "Crownhold jutsu",
+      "items": {
+       "crownhold_jutsu": 1
+      },
+      "once": true
+     },
+     {
+      "label": "Crown Fragment",
+      "items": {
+       "crown_fragment": 1
+      }
+     }
+    ]
+   }
+  },
+  "steep": {
+   "kind": "steep",
+   "label": "Steeping (Epic chart + 3 Core Rot -> tainted chart)",
+   "minutes": {
+    "v": 2.3,
+    "source": "harness results/final_economy_inputs.json (origin/fable/skyglass-rule-cap@3e345c20; final pass d5957e79) steep 2.3"
+   },
+   "win": {
+    "v": 0.775,
+    "source": "harness REPORT.md (origin/fable/skyglass-rule-cap@3e345c20) §7 steeping fight 77.5% (Steeping Horror 5 rows, 35% given down)"
+   },
+   "rot_cost": {
+    "v": 3,
+    "source": "docs/design/SKYGLASS_LOOT_TABLES.md:273"
+   },
+   "map": {
+    "chart_reliquary": "chart_rotted_reliquary",
+    "chart_last_heading": "chart_rotted_heading"
+   },
+   "source": "docs/design/SKYGLASS_LOOT_TABLES.md:268-279 (loss: chart returned, Rot spent)"
+  },
+  "haul": {
+   "kind": "haul",
+   "label": "The Haul (a Haul page; page uniform among six)",
+   "entry": "haul_page",
+   "reserve_shard": {
+    "item": "shard_ledger",
+    "p": 0.05,
+    "qty": 1,
+    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): Shard of the Ledger, 5% per Haul Reserve chest (Keeper's or Quartermaster's)",
+    "flag": "PROPOSED"
+   },
+   "reserve_shard_mode": {
+    "v": "per_reserve_chest",
+    "source": "brief: 'Haul Reserve chests ... 5%'. Alternative 'per_clear' = every Haul clear (recommended.json)"
+   },
+   "pages": {
+    "trophy": {
+     "profession": "hunter",
+     "routes": [
+      {
+       "route": "CCCCC",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.75,
+       "minutes": 5.8,
+       "evM": 7.73
+      },
+      {
+       "route": "CCCCL",
+       "chests": [
+        "R",
+        "R"
+       ],
+       "clear": 0.675,
+       "minutes": 6.2,
+       "evM": 8.24
+      },
+      {
+       "route": "CCCL",
+       "chests": [
+        "R",
+        "R"
+       ],
+       "clear": 0.475,
+       "minutes": 5.2,
+       "evM": 5.8
+      },
+      {
+       "route": "CCL",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.525,
+       "minutes": 4.1,
+       "evM": 4.41
+      },
+      {
+       "route": "CC",
+       "chests": [
+        "C"
+       ],
+       "clear": 1.0,
+       "minutes": 2.5,
+       "evM": 4.2
+      },
+      {
+       "route": "CLC",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.75,
+       "minutes": 4.1,
+       "evM": 6.3
+      },
+      {
+       "route": "CLLLC",
+       "chests": [
+        "C",
+        "R",
+        "L"
+       ],
+       "clear": 0.0,
+       "minutes": 4.2,
+       "evM": 0
+      },
+      {
+       "route": "CLL",
+       "chests": [
+        "R",
+        "R"
+       ],
+       "clear": 0.325,
+       "minutes": 4,
+       "evM": 3.97
+      },
+      {
+       "route": "CLXLL",
+       "chests": [
+        "C",
+        "R",
+        "L"
+       ],
+       "clear": 0.0,
+       "minutes": 3.9,
+       "evM": 0
+      },
+      {
+       "route": "CL",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.925,
+       "minutes": 2.7,
+       "evM": 7.77
+      },
+      {
+       "route": "LCC",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.95,
+       "minutes": 3.8,
+       "evM": 7.98
+      },
+      {
+       "route": "LCL",
+       "chests": [
+        "R",
+        "R"
+       ],
+       "clear": 0.4,
+       "minutes": 3.7,
+       "evM": 4.88
+      },
+      {
+       "route": "LC",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 1.0,
+       "minutes": 2.1,
+       "evM": 8.4
+      },
+      {
+       "route": "LLLCC",
+       "chests": [
+        "C",
+        "R",
+        "L"
+       ],
+       "clear": 0.05,
+       "minutes": 3.7,
+       "evM": 1.09
+      },
+      {
+       "route": "LLL",
+       "chests": [
+        "C",
+        "L"
+       ],
+       "clear": 0.275,
+       "minutes": 3.4,
+       "evM": 4.32
+      }
+     ]
+    },
+    "bone": {
+     "profession": "hunter",
+     "routes": [
+      {
+       "route": "CCCCC",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.525,
+       "minutes": 5.6,
+       "evM": 4.41
+      },
+      {
+       "route": "CCL",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.9,
+       "minutes": 4,
+       "evM": 7.56
+      },
+      {
+       "route": "CC",
+       "chests": [
+        "C"
+       ],
+       "clear": 1.0,
+       "minutes": 2.4,
+       "evM": 4.2
+      },
+      {
+       "route": "CLC",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.9,
+       "minutes": 3.9,
+       "evM": 7.56
+      },
+      {
+       "route": "CLL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.775,
+       "minutes": 3.7,
+       "evM": 7.98
+      },
+      {
+       "route": "CL",
+       "chests": [
+        "R"
+       ],
+       "clear": 1.0,
+       "minutes": 2.2,
+       "evM": 6.1
+      },
+      {
+       "route": "LCC",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.95,
+       "minutes": 3.9,
+       "evM": 7.98
+      },
+      {
+       "route": "LCL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.825,
+       "minutes": 3.7,
+       "evM": 8.5
+      },
+      {
+       "route": "LC",
+       "chests": [
+        "R"
+       ],
+       "clear": 1.0,
+       "minutes": 2.2,
+       "evM": 6.1
+      },
+      {
+       "route": "LLLCC",
+       "chests": [
+        "C",
+        "L"
+       ],
+       "clear": 0.275,
+       "minutes": 4.7,
+       "evM": 4.32
+      },
+      {
+       "route": "LLL",
+       "chests": [
+        "R",
+        "R"
+       ],
+       "clear": 0.6,
+       "minutes": 3.9,
+       "evM": 7.32
+      }
+     ]
+    },
+    "snare": {
+     "profession": "hunter",
+     "routes": [
+      {
+       "route": "CCCCC",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.4,
+       "minutes": 5.7,
+       "evM": 4.12
+      },
+      {
+       "route": "CCCCL",
+       "chests": [
+        "R",
+        "R"
+       ],
+       "clear": 0.325,
+       "minutes": 5.8,
+       "evM": 3.97
+      },
+      {
+       "route": "CCCL",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.45,
+       "minutes": 5.3,
+       "evM": 3.78
+      },
+      {
+       "route": "CCL",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.875,
+       "minutes": 4.2,
+       "evM": 7.35
+      },
+      {
+       "route": "CC",
+       "chests": [
+        "C"
+       ],
+       "clear": 1.0,
+       "minutes": 2.7,
+       "evM": 4.2
+      },
+      {
+       "route": "CLC",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.75,
+       "minutes": 4,
+       "evM": 6.3
+      },
+      {
+       "route": "CLLLC",
+       "chests": [
+        "C",
+        "L"
+       ],
+       "clear": 0.3,
+       "minutes": 5.2,
+       "evM": 4.71
+      },
+      {
+       "route": "CLL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.725,
+       "minutes": 4,
+       "evM": 7.47
+      },
+      {
+       "route": "CLXLL",
+       "chests": [
+        "C",
+        "L"
+       ],
+       "clear": 0.325,
+       "minutes": 4.7,
+       "evM": 5.1
+      },
+      {
+       "route": "CL",
+       "chests": [
+        "R"
+       ],
+       "clear": 0.9,
+       "minutes": 2.6,
+       "evM": 5.49
+      },
+      {
+       "route": "LCC",
+       "chests": [
+        "C",
+        "C"
+       ],
+       "clear": 0.775,
+       "minutes": 4.1,
+       "evM": 6.51
+      },
+      {
+       "route": "LCL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.825,
+       "minutes": 4.1,
+       "evM": 8.5
+      },
+      {
+       "route": "LC",
+       "chests": [
+        "R"
+       ],
+       "clear": 1.0,
+       "minutes": 2.6,
+       "evM": 6.1
+      },
+      {
+       "route": "LLLCC",
+       "chests": [
+        "C",
+        "L"
+       ],
+       "clear": 0.375,
+       "minutes": 4.7,
+       "evM": 5.89
+      },
+      {
+       "route": "LLL",
+       "chests": [
+        "R",
+        "R"
+       ],
+       "clear": 0.75,
+       "minutes": 3.6,
+       "evM": 9.15
+      },
+      {
+       "route": "LXL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.85,
+       "minutes": 2.4,
+       "evM": 8.76
+      }
+     ]
+    },
+    "overgrown": {
+     "profession": "gatherer",
+     "routes": [
+      {
+       "route": "CCCCC",
+       "chests": [
+        "R",
+        "L"
+       ],
+       "clear": 0.375,
+       "minutes": 5.2,
+       "evM": 5.78
+      },
+      {
+       "route": "CCCCL",
+       "chests": [
+        "C",
+        "R",
+        "L"
+       ],
+       "clear": 0.3,
+       "minutes": 5.3,
+       "evM": 5.58
+      },
+      {
+       "route": "CCCL",
+       "chests": [
+        "L"
+       ],
+       "clear": 0.525,
+       "minutes": 4.6,
+       "evM": 5.51
+      },
+      {
+       "route": "CCL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.825,
+       "minutes": 3.7,
+       "evM": 6.68
+      },
+      {
+       "route": "CC",
+       "chests": [
+        "R"
+       ],
+       "clear": 0.875,
+       "minutes": 2.4,
+       "evM": 4.29
+      },
+      {
+       "route": "CLC",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.9,
+       "minutes": 3.5,
+       "evM": 7.29
+      },
+      {
+       "route": "CLLLC",
+       "chests": [
+        "L",
+        "L"
+       ],
+       "clear": 0.3,
+       "minutes": 5.3,
+       "evM": 6.3
+      },
+      {
+       "route": "CLL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.85,
+       "minutes": 3.7,
+       "evM": 6.89
+      },
+      {
+       "route": "CLXLL",
+       "chests": [
+        "L",
+        "L"
+       ],
+       "clear": 0.025,
+       "minutes": 3.7,
+       "evM": 0.53
+      },
+      {
+       "route": "CL",
+       "chests": [
+        "R"
+       ],
+       "clear": 0.9,
+       "minutes": 2.3,
+       "evM": 4.41
+      },
+      {
+       "route": "LCC",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.875,
+       "minutes": 3.8,
+       "evM": 7.09
+      },
+      {
+       "route": "LCL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.825,
+       "minutes": 4,
+       "evM": 6.68
+      },
+      {
+       "route": "LC",
+       "chests": [
+        "R"
+       ],
+       "clear": 1.0,
+       "minutes": 2.6,
+       "evM": 4.9
+      },
+      {
+       "route": "LLLCC",
+       "chests": [
+        "L",
+        "L"
+       ],
+       "clear": 0.35,
+       "minutes": 5.8,
+       "evM": 7.35
+      },
+      {
+       "route": "LLL",
+       "chests": [
+        "R",
+        "R"
+       ],
+       "clear": 0.875,
+       "minutes": 4.2,
+       "evM": 8.57
+      }
+     ]
+    },
+    "vault": {
+     "profession": "gatherer",
+     "routes": [
+      {
+       "route": "CCCCC",
+       "chests": [
+        "R",
+        "R"
+       ],
+       "clear": 0.825,
+       "minutes": 5.3,
+       "evM": 8.09
+      },
+      {
+       "route": "CCCCL",
+       "chests": [
+        "L"
+       ],
+       "clear": 0.875,
+       "minutes": 5.3,
+       "evM": 9.19
+      },
+      {
+       "route": "CCCL",
+       "chests": [
+        "L"
+       ],
+       "clear": 0.875,
+       "minutes": 4.6,
+       "evM": 9.19
+      },
+      {
+       "route": "CCL",
+       "chests": [
+        "L"
+       ],
+       "clear": 0.6,
+       "minutes": 3.8,
+       "evM": 6.3
+      },
+      {
+       "route": "CC",
+       "chests": [
+        "R"
+       ],
+       "clear": 0.975,
+       "minutes": 2.5,
+       "evM": 4.78
+      },
+      {
+       "route": "CLC",
+       "chests": [
+        "L"
+       ],
+       "clear": 0.7,
+       "minutes": 3.8,
+       "evM": 7.35
+      },
+      {
+       "route": "CLLLC",
+       "chests": [
+        "R",
+        "L"
+       ],
+       "clear": 0.325,
+       "minutes": 5,
+       "evM": 5.01
+      },
+      {
+       "route": "CLL",
+       "chests": [
+        "L"
+       ],
+       "clear": 0.525,
+       "minutes": 3.9,
+       "evM": 5.51
+      },
+      {
+       "route": "CLXLL",
+       "chests": [
+        "R",
+        "L"
+       ],
+       "clear": 0.275,
+       "minutes": 5.1,
+       "evM": 4.24
+      },
+      {
+       "route": "CL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.9,
+       "minutes": 2.7,
+       "evM": 7.29
+      },
+      {
+       "route": "LCC",
+       "chests": [
+        "L"
+       ],
+       "clear": 0.7,
+       "minutes": 3.9,
+       "evM": 7.35
+      },
+      {
+       "route": "LCL",
+       "chests": [
+        "L"
+       ],
+       "clear": 0.45,
+       "minutes": 3.9,
+       "evM": 4.72
+      },
+      {
+       "route": "LC",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.925,
+       "minutes": 2.7,
+       "evM": 7.49
+      },
+      {
+       "route": "LLLCC",
+       "chests": [
+        "R",
+        "L"
+       ],
+       "clear": 0.175,
+       "minutes": 5.1,
+       "evM": 2.7
+      },
+      {
+       "route": "LLL",
+       "chests": [
+        "C",
+        "L"
+       ],
+       "clear": 0.5,
+       "minutes": 4.2,
+       "evM": 6.85
+      }
+     ]
+    },
+    "bloom": {
+     "profession": "gatherer",
+     "routes": [
+      {
+       "route": "CCCCC",
+       "chests": [
+        "R",
+        "L"
+       ],
+       "clear": 0.275,
+       "minutes": 4.8,
+       "evM": 4.24
+      },
+      {
+       "route": "CCCCL",
+       "chests": [
+        "R",
+        "L"
+       ],
+       "clear": 0.175,
+       "minutes": 4.7,
+       "evM": 2.7
+      },
+      {
+       "route": "CCCL",
+       "chests": [
+        "L"
+       ],
+       "clear": 0.425,
+       "minutes": 4.5,
+       "evM": 4.46
+      },
+      {
+       "route": "CCL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.175,
+       "minutes": 3.6,
+       "evM": 1.42
+      },
+      {
+       "route": "CC",
+       "chests": [
+        "R"
+       ],
+       "clear": 0.875,
+       "minutes": 2.4,
+       "evM": 4.29
+      },
+      {
+       "route": "CLC",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.625,
+       "minutes": 3.6,
+       "evM": 5.06
+      },
+      {
+       "route": "CLLLC",
+       "chests": [
+        "L",
+        "L"
+       ],
+       "clear": 0.0,
+       "minutes": 4,
+       "evM": 0
+      },
+      {
+       "route": "CLL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.15,
+       "minutes": 3.9,
+       "evM": 1.22
+      },
+      {
+       "route": "CLXLL",
+       "chests": [
+        "L",
+        "L"
+       ],
+       "clear": 0.0,
+       "minutes": 3.5,
+       "evM": 0
+      },
+      {
+       "route": "CL",
+       "chests": [
+        "R"
+       ],
+       "clear": 0.8,
+       "minutes": 2.7,
+       "evM": 3.92
+      },
+      {
+       "route": "LCC",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.9,
+       "minutes": 3.5,
+       "evM": 7.29
+      },
+      {
+       "route": "LCL",
+       "chests": [
+        "C",
+        "R"
+       ],
+       "clear": 0.55,
+       "minutes": 4.1,
+       "evM": 4.46
+      },
+      {
+       "route": "LC",
+       "chests": [
+        "R"
+       ],
+       "clear": 0.975,
+       "minutes": 2.3,
+       "evM": 4.78
+      },
+      {
+       "route": "LLLCC",
+       "chests": [
+        "L",
+        "L"
+       ],
+       "clear": 0.025,
+       "minutes": 4.3,
+       "evM": 0.53
+      },
+      {
+       "route": "LLL",
+       "chests": [
+        "L"
+       ],
+       "clear": 0.225,
+       "minutes": 4.1,
+       "evM": 2.36
+      }
+     ]
+    }
+   },
+   "source": "routes, chests, clear % and minutes: harness results/rul077_haul.json (origin/fable/skyglass-rule-cap@3e345c20; 40 seeds, guards fixed L100, dodge on; 'minutesAllMean' includes fails). Chest tier L = the Reserve (RUL-2026-10-31-081). Page odds uniform (docs/design/SKYGLASS_THE_HAUL.md Variety 1)."
+  },
+  "uber": {
+   "kind": "uber",
+   "label": "The Mother of Echoes (An Invitation in Glass)",
+   "entry": "invitation",
+   "minutes": {
+    "v": 32.5,
+    "source": "brief: assume ~25-40 min (midpoint)",
+    "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+   },
+   "fail_time_frac": {
+    "v": 0.6,
+    "source": "a loss usually ends in act 2-3",
+    "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+   },
+   "on_clear": [
+    {
+     "item": "salvage",
+     "p": 1.0,
+     "qty": 40,
+     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095) RUL-2026-11-01-095 item 2 (Salvage x40, proposed)",
+     "flag": "PROPOSED"
+    },
+    {
+     "item": "remnant",
+     "p": 1.0,
+     "qty": 1,
+     "source": "RUL-2026-11-01-095 item 2 (one Remnant of the Mother Glass)"
+    }
+   ],
+   "first_clear": [
+    "heartglass",
+    "title_unstilled"
+   ],
+   "picks": {
+    "count": 1,
+    "source": "RUL-2026-11-01-095 item 2",
+    "options": [
+     {
+      "label": "Crown's Hoard x2",
+      "items": {
+       "crowns_hoard": 2
+      }
+     },
+     {
+      "label": "Skyglass Coffer x5",
+      "items": {
+       "coffer": 5
+      }
+     },
+     {
+      "label": "Skyglass Token x2",
+      "items": {
+       "skyglass_token": 2
+      }
+     }
+    ]
+   },
+   "ryo_exp": {
+    "v": 0,
+    "source": "RUL-095 item 2: 'above Crownhold's top tier (proposed)'; no figure",
+    "flag": "PLACEHOLDER 0"
+   }
+  }
+ },
+ "proposed": {
+  "_note": "The new layer (not built). Every value editable.",
+  "invitation_shards": {
+   "v": [
+    "shard_keel",
+    "shard_crown",
+    "shard_tide",
+    "shard_ledger"
+   ],
+   "source": "RUL-2026-11-01-093 item 2; brief"
+  },
+  "salvage_exchanges": {
+   "chart_tide": {
+    "v": 5,
+    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
+   },
+   "chart_roster": {
+    "v": 5,
+    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
+   },
+   "chart_buried": {
+    "v": 10,
+    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
+   },
+   "chart_foundry": {
+    "v": 20,
+    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
+   },
+   "chart_archive": {
+    "v": 40,
+    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
+   },
+   "chart_watch": {
+    "v": 40,
+    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
+   },
+   "shard_any": {
+    "v": 100,
+    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095); RUL-093 item 2 (each shard craftable from 100 Salvage)"
+   }
+  },
+  "remnant_recipes": {
+   "remainder": {
+    "v": 8,
+    "source": "RUL-2026-11-01-095 item 3 (8, proposed)"
+   },
+   "heartglass_second": {
+    "v": 5,
+    "source": "RUL-2026-11-01-095 item 3 lists it (5, proposed); the brief says keep only the Remainder. Off by default",
+    "flag": "TOGGLE off"
+   },
+   "heartglass_second_enabled": {
+    "v": false,
+    "source": "brief"
+   }
+  },
+  "key_tradeable": {
+   "v": true,
+   "source": "brief says keys tradeable; RUL-2026-11-01-093 item 2 says untradeable. CONFLICT: the model never trades keys, only shards, so it does not matter here",
+   "flag": "CONFLICT"
+  }
+ },
+ "policy": {
+  "_note": "What a sensible player runs. Priority: first matching action wins each step.",
+  "priority": [
+   "salvage_shard",
+   "assemble",
+   "uber",
+   "crownhold",
+   "tainted_rotted",
+   "tainted_burning",
+   "steep",
+   "epic_reliquary",
+   "epic_fall",
+   "haul",
+   "hunt_watch",
+   "hunt_archive",
+   "hunt_foundry",
+   "hunt_buried",
+   "chart_roster",
+   "chart_tide",
+   "farm"
+  ],
+  "farm_activity": {
+   "v": "wreck_full",
+   "source": "endgame players farm the full Wreck (Keel shard + 3 Salvage)"
+  },
+  "solo_pyramid_share": {
+   "v": 0.0,
+   "source": "held content (RUL-090 item 2); set 0-1 to divert that share of farming to the full-tier solo pyramid",
+   "flag": "TOGGLE"
+  },
+  "steep": {
+   "v": true,
+   "source": "RUL-2026-10-30-060 item 10 (steeping consumes nearly all Epic charts; accepted)"
+  },
+  "press_on": {
+   "v": true,
+   "source": "push/skyglass_charts.gen.py:387-396 / push/skyglass_update.gen.py:199: a press-on loss keeps the ending, so pressing on is free upside"
+  },
+  "break_seal": {
+   "v": false,
+   "source": "no measured clear rate for the echo fight",
+   "flag": "TOGGLE"
+  },
+  "salvage_use": {
+   "v": "shards",
+   "source": "Salvage goes to Invitation shards (the missing one, rarest first)"
+  },
+  "salvage_shard_order": {
+   "v": [
+    "shard_ledger",
+    "shard_tide",
+    "shard_keel",
+    "shard_crown"
+   ],
+   "source": "rarest natural source first (from this model's baseline flows)"
+  },
+  "picks": {
+   "chart_tide": [
+    "Medicine Inro",
+    "Galley Stores",
+    "Watch Roster"
+   ],
+   "chart_roster": [
+    "Medicine Inro",
+    "Galley Stores",
+    "Tide Chart"
+   ],
+   "hunt_buried": [
+    "Foundry chart",
+    "Medicine Inro",
+    "Galley Stores"
+   ],
+   "hunt_foundry": [
+    "Elemental Tool Pouch",
+    "Medicine Inro",
+    "Galley Stores"
+   ],
+   "hunt_archive": [
+    "Archive Chart Case",
+    "Skyglass Token",
+    "Sage's Strongbox"
+   ],
+   "hunt_watch": [
+    "Skyglass Token",
+    "Skyglass Coffer",
+    "Captain's Purse"
+   ],
+   "epic_reliquary": [
+    "Archive Chart Case x2",
+    "Skyglass Token x2",
+    "Sealed Treasury",
+    "Skyglass Coffer x2"
+   ],
+   "epic_fall": [
+    "Skyglass Token x2",
+    "Sealed Treasury",
+    "Skyglass Coffer x2",
+    "Galley Stores x3"
+   ],
+   "crownhold": [
+    "Crown's Hoard",
+    "Skyglass Coffer x3",
+    "Crown Fragment",
+    "Crownbreaker badge",
+    "Crownhold jutsu"
+   ],
+   "uber": [
+    "Skyglass Token x2",
+    "Crown's Hoard x2",
+    "Skyglass Coffer x5"
+   ],
+   "_source": "sensible: chart/case cards that feed the ladder where offered; the token where no chart card exists; commons take the Inro (taking their chart card is an endless Tide<->Roster loop, see README)"
+  }
+ },
+ "player_types": {
+  "casual": {
+   "hours_per_weekend": {
+    "v": 3,
+    "source": "director targets 2026-11-01 (session brief) / RUL-2026-11-01-093"
+   },
+   "uber_clear": {
+    "v": 0.03,
+    "source": "brief: 'under 5% average'",
+    "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+   },
+   "haul_route": {
+    "v": "value",
+    "source": "max expected chest value route per page"
+   }
+  },
+  "dedicated": {
+   "hours_per_weekend": {
+    "v": 10,
+    "source": "director targets 2026-11-01 (session brief) / RUL-2026-11-01-093"
+   },
+   "uber_clear": {
+    "v": 0.05,
+    "source": "brief: average under 5%; a dedicated player at the top of it",
+    "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+   },
+   "haul_route": {
+    "v": "value",
+    "source": "max expected chest value route per page"
+   }
+  },
+  "hardcore": {
+   "hours_per_weekend": {
+    "v": 25,
+    "source": "director targets 2026-11-01 (session brief) / RUL-2026-11-01-093 (25+, use 25)"
+   },
+   "uber_clear": {
+    "v": 0.15,
+    "source": "brief: 10-20% for a strong player who knows the fight",
+    "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+   },
+   "haul_route": {
+    "v": "reserve",
+    "source": "max expected Reserve-chest route per page (chases the Ledger shard)"
+   }
+  }
+ },
+ "targets": {
+  "first_invitation_weekends": {
+   "casual": {
+    "v": 4,
+    "source": "director targets 2026-11-01 (session brief) / RUL-2026-11-01-093"
+   },
+   "dedicated": {
+    "v": [
+     1,
+     2
+    ],
+    "source": "director targets 2026-11-01 (session brief) / RUL-2026-11-01-093"
+   },
+   "hardcore": {
+    "v": 1,
+    "source": "director targets 2026-11-01 (session brief) / RUL-2026-11-01-093 (under one weekend)"
+   }
+  }
+ },
+ "trade": {
+  "_note": "With-trade variant (simple, as the brief asks): the player sells duplicate shards for missing ones 1:1 and buys missing shards with a share of their loot income.",
+  "shard_swap_ratio": {
+   "v": 1.0,
+   "source": "duplicates swap 1:1 for a missing shard",
+   "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+  },
+  "ryo_budget_fraction": {
+   "v": 0.5,
+   "source": "share of ryo + ryo-valued loot spent on shards",
+   "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+  },
+  "shard_price_ryo": {
+   "v": "auto",
+   "source": "auto = fair price: the dedicated policy's ryo-equivalent income per hour x its hours per shard produced (all sources incl. Salvage), from the no-trade flows of the same scenario",
+   "flag": "ASSUMPTION (no measured or ruled value; edit freely)"
+  }
+ },
+ "sim": {
+  "players": {
+   "v": 400,
+   "source": "Monte Carlo players per type and scenario"
+  },
+  "flow_players": {
+   "v": 200,
+   "source": "players for the per-weekend flows run"
+  },
+  "flow_weekends": {
+   "v": 8,
+   "source": "weekends simulated for flows (no early stop)"
+  },
+  "cap_hours": {
+   "v": 600,
+   "source": "a player is followed at most this many play hours; later goals are reported as '>cap' with an analytic estimate"
+  },
+  "seed": {
+   "v": 20261101,
+   "source": "fixed for reproducibility"
+  }
+ },
+ "goals": {
+  "boss_variants": {
+   "v": [
+    "vt_captain",
+    "vt_core_horror",
+    "vt_foundry_warden",
+    "vt_sealwright",
+    "vt_first_blade",
+    "vt_wayfinder"
+   ],
+   "source": "docs/design/SKYGLASS_LOOT_TABLES.md:359-367 (Crownbreaker excluded: deferred with Walked Every Deck, RUL-2026-10-31-069)"
+  },
+  "skin_tokens": {
+   "v": 12,
+   "source": "docs/design/SKYGLASS_LOOT_TABLES.md:351-355 (12 Skyglass skins, one token each)"
+  }
+ }
+}
