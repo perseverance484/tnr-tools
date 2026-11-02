@@ -5434,7 +5434,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Ruling:**
 1. **Siphon is accepted.** Healing reduction doesn't cover it, which is worth about 10 points of skilled clear rate. It's a shield, not healing.
 2. **Breathless Pull's stun is fixed and telegraphed,** marked a turn ahead like Stillness, not a 55% roll. Pass 3 retunes to the RUL-097 targets.
-3. **Act I is accepted as nearly free for skilled players,** the cost of letting average players reach Act II. It is the claude default the director did not contest.
+3. **Act I is accepted as nearly free for skilled players,** the cost of letting average players reach Act II. This was the recommended default and the director did not object.
 4. **Summon damage:** the pierce workaround stays, and an upstream bug note is prepared for the director.
 5. **Economy rates R1–R7 are approved:**
    - R1: Shard of the Ledger 15% per Haul clear (any Haul run, not only the Reserve chests).
