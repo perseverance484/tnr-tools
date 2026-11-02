@@ -1506,12 +1506,12 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
-## 411-414 Core Horror FX copies (RUL-2026-11-01-092; renumbered from 401-404, which a concurrent session used for Zombie Outbreak): 411 READY TO RUN; 412 from 411's results; 413-414 from 412's
+## 411-414 Core Horror FX copies (RUL-2026-11-01-092; renumbered from 401-404, which a concurrent session used for Zombie Outbreak): 411 RUN (tnr_results_1793626474374, 3/3 reads ok); 412 READY TO RUN; 413-414 from 412's
 
 | # | Build | Contents |
 |---|---|---|
-| 411 | committed | READ-ONLY: `jutsu.get` (full) of Second Wind, Venom Strike, Sovereign Undertow (newest repo copy is 2026-10-21) |
-| 412 | `python3 push/skyglass_core_horror_fx.gen.py --source <411 bundle>` | 4 hidden ANIMATION gameAssets (AN04, AN07, AN08, AN09; phase 1) + 3 hidden jutsu copies with the animations (phase 2, `@scene` refs): The Core Rebuilds, Bilge Spit, Undertow |
+| 411 | RUN 2026-11-02, bundle `tnr_results_1793626474374.json` | READ-ONLY: `jutsu.get` (full) of Second Wind, Venom Strike, Sovereign Undertow (newest repo copy is 2026-10-21) |
+| 412 | BUILT from the 411 bundle, READY TO RUN; strict: 3 build-order diagnostics, ledger `state/validate_exceptions/412_core_horror_fx_copies.json`; check_manifest 0 problems | 4 hidden ANIMATION gameAssets (AN04, AN07, AN08, AN09; phase 1) + 3 hidden jutsu copies with the animations (phase 2, `@scene` refs): The Core Rebuilds, Bilge Spit, Undertow |
 | 413 | `--swap <412 bundle>` | 4 asset unhides (law 16c) |
 | 414 | `--swap <412 bundle>` (same call) | 5 Core Horror AI edits: the three live ids → the copies, in the kit and in every rule (3-4 rules each) |
 
