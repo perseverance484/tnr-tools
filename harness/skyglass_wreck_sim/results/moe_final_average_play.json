@@ -1,0 +1,1708 @@
+{
+ "generatedBy": "engine/moe.ts",
+ "engine": "theninjarpg 3314d122",
+ "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+ "params": {
+  "name": "final",
+  "pools": {
+   "sayo1": 8,
+   "silence": 6,
+   "sayo2": 12,
+   "saint": 12
+  },
+  "statsMultiplier": 5.83,
+  "idg": {
+   "sayo1": 5.75,
+   "silence": 5.75,
+   "sayo2": 5.75,
+   "saint": 6.5,
+   "summons": 4.75
+  },
+  "dr": {
+   "sayo1": 15,
+   "silence": 25,
+   "sayo2": 79,
+   "saint": 60
+  },
+  "pw": {
+   "lancet": 65,
+   "thorns": 80,
+   "refract": 300,
+   "facet": 300,
+   "likenessHit": 90,
+   "stillness": 110,
+   "grasp": 30,
+   "graspDrain": 4,
+   "hushDrain": 3,
+   "hushDmg": 25,
+   "detonate": 360,
+   "quiet": 60,
+   "quietIdt": 15,
+   "shatter": 300,
+   "flood": 420,
+   "glass": 260,
+   "recastIII": 380,
+   "enrage": 600,
+   "porter": 80,
+   "hana": 8,
+   "tomo": 60,
+   "cradleDR": 90
+  },
+  "hushCount": [
+   4,
+   8,
+   12
+  ],
+  "hushUnbridledCount": 3,
+  "hushRounds": 8,
+  "hushBands": [
+   8,
+   16
+  ],
+  "feeler": {
+   "hp": 2500,
+   "power": 40,
+   "rounds": 8,
+   "listeningCd": 4
+  },
+  "likeness": {
+   "hp": 6000,
+   "power": 80,
+   "rounds": 3
+  },
+  "worn": {
+   "hp": 5000,
+   "power": 60,
+   "rounds": 8
+  },
+  "enrage": {
+   "act1": 25,
+   "act3": 30
+  },
+  "refractCd": 4,
+  "quietRounds": 6,
+  "starHush": {
+   "cd": 3,
+   "rounds": 3
+  },
+  "floodCd": 3,
+  "m2HealBlockRounds": 20,
+  "sayo2Stunprevent": true
+ },
+ "kill": "sayo",
+ "acts": [
+  1,
+  2,
+  3
+ ],
+ "runs": 30,
+ "seed0": 1,
+ "cells": {
+  "average:play": {
+   "summary": {
+    "runs": 30,
+    "fullClears": 0,
+    "fullClearPct": 0,
+    "perAct": {
+     "1": {
+      "entered": 30,
+      "won": 0,
+      "clearPctOfEntered": 0,
+      "roundsWonMedian": null,
+      "roundsAllMedian": 2,
+      "endHpWonMedianPct": null,
+      "bossHpLeftLostMedian": {
+       "sayo": 100,
+       "silence": 100
+      },
+      "deaths": {
+       "Sayo, Mother of Echoes: Glass Lancet": 28,
+       "The Silence: Stillness": 2
+      },
+      "stalled": 0,
+      "sets": {
+       "Refraction": {
+        "mark": 39,
+        "land": 11,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 0.4,
+        "dmgPerHit": null
+       }
+      },
+      "unmarked": 0,
+      "specials": {
+       "Hush": 17,
+       "Listening": 17,
+       "Cradle": 28
+      },
+      "idleTurns": {
+       "sayo": "0/50",
+       "silence": "18/37"
+      },
+      "killFirst": {},
+      "maxHitMedian": 6203,
+      "healedMedian": 0,
+      "dodgesPerFight": 0
+     },
+     "2": {
+      "entered": 0,
+      "won": 0,
+      "clearPctOfEntered": null,
+      "roundsWonMedian": null,
+      "roundsAllMedian": null,
+      "endHpWonMedianPct": null,
+      "bossHpLeftLostMedian": {},
+      "deaths": {},
+      "stalled": 0,
+      "sets": {},
+      "unmarked": 0,
+      "specials": {},
+      "idleTurns": {},
+      "killFirst": {},
+      "maxHitMedian": null,
+      "healedMedian": null,
+      "dodgesPerFight": 0
+     },
+     "3": {
+      "entered": 0,
+      "won": 0,
+      "clearPctOfEntered": null,
+      "roundsWonMedian": null,
+      "roundsAllMedian": null,
+      "endHpWonMedianPct": null,
+      "bossHpLeftLostMedian": {},
+      "deaths": {},
+      "stalled": 0,
+      "sets": {},
+      "unmarked": 0,
+      "specials": {},
+      "idleTurns": {},
+      "killFirst": {},
+      "maxHitMedian": null,
+      "healedMedian": null,
+      "dodgesPerFight": 0
+     }
+    }
+   },
+   "runs": [
+    {
+     "seed": 1,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 1,
+       "outcome": "lost",
+       "rounds": 3,
+       "endHp": 0,
+       "endCp": 0.9702970297029703,
+       "endSp": 0.9683168316831683,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 5550,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 3,
+        "moe-ai-silence": 2
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 94.22207806153892,
+        "own turn (pools/drain)": 606,
+        "Sayo, Mother of Echoes: Glass Lancet": 5549.777921938461
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 2,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 2,
+       "outcome": "lost",
+       "rounds": 3,
+       "endHp": 0,
+       "endCp": 0.9702970297029703,
+       "endSp": 0.9663366336633663,
+       "bossHpPct": {
+        "moe-ai-sayo": 99.8,
+        "moe-ai-silence": 95
+       },
+       "deathCause": "The Silence: Stillness",
+       "maxHit": {
+        "dmg": 6001,
+        "by": "The Silence: Stillness"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2
+       },
+       "bossTurns": {
+        "moe-ai-silence": 3,
+        "moe-ai-sayo": 2
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 47.11103903076946,
+        "own turn (pools/drain)": 202,
+        "The Silence: Stillness": 6000.8889609692305
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 3,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 3,
+       "outcome": "lost",
+       "rounds": 2,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6203,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 1,
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 47.11103903076946,
+        "Sayo, Mother of Echoes: Glass Lancet": 6202.8889609692305
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 4,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 4,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 5,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 5,
+       "outcome": "lost",
+       "rounds": 2,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6203,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 1,
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 47.11103903076946,
+        "Sayo, Mother of Echoes: Glass Lancet": 6202.8889609692305
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 6,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 6,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 7,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 7,
+       "outcome": "lost",
+       "rounds": 4,
+       "endHp": 0,
+       "endCp": 0.9702970297029703,
+       "endSp": 0.9683168316831683,
+       "bossHpPct": {
+        "moe-ai-sayo": 99.1,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6001,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2
+       },
+       "bossTurns": {
+        "moe-ai-silence": 3,
+        "moe-ai-sayo": 3
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 47.11103903076946,
+        "own turn (pools/drain)": 202,
+        "Sayo, Mother of Echoes: Glass Lancet": 6000.8889609692305
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 8,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 8,
+       "outcome": "lost",
+       "rounds": 4,
+       "endHp": 0,
+       "endCp": 0.9702970297029703,
+       "endSp": 0.9663366336633663,
+       "bossHpPct": {
+        "moe-ai-sayo": 99,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6001,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2
+       },
+       "bossTurns": {
+        "moe-ai-silence": 3,
+        "moe-ai-sayo": 3
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 47.11103903076946,
+        "own turn (pools/drain)": 202,
+        "Sayo, Mother of Echoes: Glass Lancet": 6000.8889609692305
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 9,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 9,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 10,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 10,
+       "outcome": "lost",
+       "rounds": 2,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6203,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 1,
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 47.11103903076946,
+        "Sayo, Mother of Echoes: Glass Lancet": 6202.8889609692305
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 11,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 11,
+       "outcome": "lost",
+       "rounds": 4,
+       "endHp": 0,
+       "endCp": 0.9702970297029703,
+       "endSp": 0.9683168316831683,
+       "bossHpPct": {
+        "moe-ai-sayo": 99.1,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6001,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2
+       },
+       "bossTurns": {
+        "moe-ai-silence": 3,
+        "moe-ai-sayo": 3
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 47.11103903076946,
+        "own turn (pools/drain)": 202,
+        "Sayo, Mother of Echoes: Glass Lancet": 6000.8889609692305
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 12,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 12,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 13,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 13,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 14,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 14,
+       "outcome": "lost",
+       "rounds": 3,
+       "endHp": 0,
+       "endCp": 0.9702970297029703,
+       "endSp": 0.9663366336633663,
+       "bossHpPct": {
+        "moe-ai-sayo": 99.8,
+        "moe-ai-silence": 95
+       },
+       "deathCause": "The Silence: Stillness",
+       "maxHit": {
+        "dmg": 6001,
+        "by": "The Silence: Stillness"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2
+       },
+       "bossTurns": {
+        "moe-ai-silence": 3,
+        "moe-ai-sayo": 2
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 47.11103903076946,
+        "own turn (pools/drain)": 202,
+        "The Silence: Stillness": 6000.8889609692305
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 15,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 15,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 16,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 16,
+       "outcome": "lost",
+       "rounds": 4,
+       "endHp": 0,
+       "endCp": 0.9702970297029703,
+       "endSp": 0.9663366336633663,
+       "bossHpPct": {
+        "moe-ai-sayo": 99,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 5550,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2
+       },
+       "bossTurns": {
+        "moe-ai-silence": 3,
+        "moe-ai-sayo": 3
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 94.22207806153892,
+        "own turn (pools/drain)": 606,
+        "Sayo, Mother of Echoes: Glass Lancet": 5549.777921938461
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 17,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 17,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 18,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 18,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 19,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 19,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 20,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 20,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 21,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 21,
+       "outcome": "lost",
+       "rounds": 2,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6203,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 1,
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 47.11103903076946,
+        "Sayo, Mother of Echoes: Glass Lancet": 6202.8889609692305
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 22,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 22,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 23,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 23,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 24,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 24,
+       "outcome": "lost",
+       "rounds": 4,
+       "endHp": 0,
+       "endCp": 0.9702970297029703,
+       "endSp": 0.9683168316831683,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 5550,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2
+       },
+       "bossTurns": {
+        "moe-ai-silence": 3,
+        "moe-ai-sayo": 3
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 94.22207806153892,
+        "own turn (pools/drain)": 606,
+        "Sayo, Mother of Echoes: Glass Lancet": 5549.777921938461
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 25,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 25,
+       "outcome": "lost",
+       "rounds": 2,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6203,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 1,
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 47.11103903076946,
+        "Sayo, Mother of Echoes: Glass Lancet": 6202.8889609692305
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 26,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 26,
+       "outcome": "lost",
+       "rounds": 4,
+       "endHp": 0,
+       "endCp": 0.9702970297029703,
+       "endSp": 0.9683168316831683,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 5550,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2
+       },
+       "bossTurns": {
+        "moe-ai-silence": 3,
+        "moe-ai-sayo": 3
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 94.22207806153892,
+        "own turn (pools/drain)": 606,
+        "Sayo, Mother of Echoes: Glass Lancet": 5549.777921938461
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 27,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 27,
+       "outcome": "lost",
+       "rounds": 3,
+       "endHp": 0,
+       "endCp": 0.9702970297029703,
+       "endSp": 0.9683168316831683,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 5550,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 3,
+        "moe-ai-silence": 2
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 94.22207806153892,
+        "own turn (pools/drain)": 606,
+        "Sayo, Mother of Echoes: Glass Lancet": 5549.777921938461
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 28,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 28,
+       "outcome": "lost",
+       "rounds": 2,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6203,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 1,
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 47.11103903076946,
+        "Sayo, Mother of Echoes: Glass Lancet": 6202.8889609692305
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 29,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 29,
+       "outcome": "lost",
+       "rounds": 4,
+       "endHp": 0,
+       "endCp": 0.9702970297029703,
+       "endSp": 0.9663366336633663,
+       "bossHpPct": {
+        "moe-ai-sayo": 99,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 5550,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2
+       },
+       "bossTurns": {
+        "moe-ai-silence": 3,
+        "moe-ai-sayo": 3
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 94.22207806153892,
+        "own turn (pools/drain)": 606,
+        "Sayo, Mother of Echoes: Glass Lancet": 5549.777921938461
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    },
+    {
+     "seed": 30,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 30,
+       "outcome": "lost",
+       "rounds": 1,
+       "endHp": 0,
+       "endCp": 0.9801980198019802,
+       "endSp": 0.9801980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {},
+       "bossTurns": {
+        "moe-ai-sayo": 1
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 6250
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

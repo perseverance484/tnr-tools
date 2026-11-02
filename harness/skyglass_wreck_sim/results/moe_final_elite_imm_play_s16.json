@@ -1,0 +1,2496 @@
+{
+ "generatedBy": "engine/moe.ts",
+ "engine": "theninjarpg 3314d122",
+ "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+ "params": {
+  "name": "final",
+  "pools": {
+   "sayo1": 8,
+   "silence": 6,
+   "sayo2": 12,
+   "saint": 12
+  },
+  "statsMultiplier": 5.83,
+  "idg": {
+   "sayo1": 5.75,
+   "silence": 5.75,
+   "sayo2": 5.75,
+   "saint": 6.5,
+   "summons": 4.75
+  },
+  "dr": {
+   "sayo1": 15,
+   "silence": 25,
+   "sayo2": 79,
+   "saint": 60
+  },
+  "pw": {
+   "lancet": 65,
+   "thorns": 80,
+   "refract": 300,
+   "facet": 300,
+   "likenessHit": 90,
+   "stillness": 110,
+   "grasp": 30,
+   "graspDrain": 4,
+   "hushDrain": 3,
+   "hushDmg": 25,
+   "detonate": 360,
+   "quiet": 60,
+   "quietIdt": 15,
+   "shatter": 300,
+   "flood": 420,
+   "glass": 260,
+   "recastIII": 380,
+   "enrage": 600,
+   "porter": 80,
+   "hana": 8,
+   "tomo": 60,
+   "cradleDR": 90
+  },
+  "hushCount": [
+   4,
+   8,
+   12
+  ],
+  "hushUnbridledCount": 3,
+  "hushRounds": 8,
+  "hushBands": [
+   8,
+   16
+  ],
+  "feeler": {
+   "hp": 2500,
+   "power": 40,
+   "rounds": 8,
+   "listeningCd": 4
+  },
+  "likeness": {
+   "hp": 6000,
+   "power": 80,
+   "rounds": 3
+  },
+  "worn": {
+   "hp": 5000,
+   "power": 60,
+   "rounds": 8
+  },
+  "enrage": {
+   "act1": 25,
+   "act3": 30
+  },
+  "refractCd": 4,
+  "quietRounds": 6,
+  "starHush": {
+   "cd": 3,
+   "rounds": 3
+  },
+  "floodCd": 3,
+  "m2HealBlockRounds": 20,
+  "sayo2Stunprevent": true
+ },
+ "kill": "sayo",
+ "acts": [
+  1,
+  2,
+  3
+ ],
+ "runs": 15,
+ "seed0": 16,
+ "cells": {
+  "elite_imm:play": {
+   "summary": {
+    "runs": 15,
+    "fullClears": 5,
+    "fullClearPct": 33.3,
+    "perAct": {
+     "1": {
+      "entered": 15,
+      "won": 12,
+      "clearPctOfEntered": 80,
+      "roundsWonMedian": 24,
+      "roundsAllMedian": 24,
+      "endHpWonMedianPct": 65.5,
+      "bossHpLeftLostMedian": {
+       "sayo": 0,
+       "silence": 27.2
+      },
+      "deaths": {
+       "The Silence: The Glass Remembers": 2,
+       "Sayo, Mother of Echoes: The Glass Remembers": 1
+      },
+      "stalled": 0,
+      "sets": {
+       "Refraction": {
+        "mark": 125,
+        "land": 67,
+        "hit": 1,
+        "dmg": 17222.52775975769,
+        "unmarked": 0,
+        "landsPerFight": 4.5,
+        "dmgPerHit": 17223
+       },
+       "Facet": {
+        "mark": 60,
+        "land": 49,
+        "hit": 5,
+        "dmg": 85724.52775975768,
+        "unmarked": 0,
+        "landsPerFight": 3.3,
+        "dmgPerHit": 17145
+       }
+      },
+      "unmarked": 0,
+      "specials": {
+       "Hush": 87,
+       "Listening": 65,
+       "Cradle": 92,
+       "Your Likeness": 15,
+       "Unbridled Hush": 94,
+       "Unbridled Listening": 37,
+       "Enrage": 3
+      },
+      "idleTurns": {
+       "silence": "114/343",
+       "sayo": "0/249"
+      },
+      "killFirst": {
+       "sayo": 14
+      },
+      "maxHitMedian": 16286,
+      "healedMedian": 17328,
+      "dodgesPerFight": 4.3
+     },
+     "2": {
+      "entered": 12,
+      "won": 12,
+      "clearPctOfEntered": 100,
+      "roundsWonMedian": 42,
+      "roundsAllMedian": 42,
+      "endHpWonMedianPct": 96,
+      "bossHpLeftLostMedian": {
+       "sayo-stilling": null
+      },
+      "deaths": {},
+      "stalled": 0,
+      "sets": {
+       "Recast": {
+        "mark": 204,
+        "land": 180,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 15,
+        "dmgPerHit": null
+       }
+      },
+      "unmarked": 0,
+      "specials": {
+       "Cycle end": 36,
+       "Worn: Porter": 12,
+       "Worn: Hana": 36,
+       "Worn: Tomo": 36
+      },
+      "idleTurns": {
+       "sayo-stilling": "0/492"
+      },
+      "killFirst": {
+       "sayo-stilling": 12
+      },
+      "maxHitMedian": 3906,
+      "healedMedian": 16640,
+      "dodgesPerFight": 5.7
+     },
+     "3": {
+      "entered": 12,
+      "won": 5,
+      "clearPctOfEntered": 41.7,
+      "roundsWonMedian": 24,
+      "roundsAllMedian": 18,
+      "endHpWonMedianPct": 20,
+      "bossHpLeftLostMedian": {
+       "saint": 36.9
+      },
+      "deaths": {
+       "Sayo, Saint of Stillness: The Quiet": 7
+      },
+      "stalled": 0,
+      "sets": {
+       "Shatterfall": {
+        "mark": 53,
+        "land": 36,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 3,
+        "dmgPerHit": null
+       },
+       "Every Name": {
+        "mark": 28,
+        "land": 23,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 1.9,
+        "dmgPerHit": null
+       },
+       "Glassfall": {
+        "mark": 5,
+        "land": 20,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 1.7,
+        "dmgPerHit": null
+       }
+      },
+      "unmarked": 0,
+      "specials": {
+       "The Quiet": 57,
+       "No One Is Mended": 11,
+       "Hush on a safe tile": 23,
+       "Breathless Pull": 10,
+       "Long Hush recast": 5
+      },
+      "idleTurns": {
+       "saint": "10/217"
+      },
+      "killFirst": {
+       "saint": 5
+      },
+      "maxHitMedian": 8937,
+      "healedMedian": 10502,
+      "dodgesPerFight": 6.1
+     }
+    }
+   },
+   "runs": [
+    {
+     "seed": 16,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 16,
+       "outcome": "lost",
+       "rounds": 26,
+       "endHp": 0,
+       "endCp": 0.8822442244224422,
+       "endSp": 0.8796039603960396,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 27.2
+       },
+       "deathCause": "The Silence: The Glass Remembers",
+       "maxHit": {
+        "dmg": 23083,
+        "by": "The Silence: The Glass Remembers"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 9,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 5,
+         "land": 5,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 6,
+        "Listening": 5,
+        "Cradle": 6,
+        "Your Likeness": 1,
+        "Unbridled Hush": 7,
+        "Unbridled Listening": 5,
+        "Enrage": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 26,
+        "moe-ai-sayo": 18
+       },
+       "bossIdle": {
+        "moe-ai-silence": 8
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 4621.377759757692,
+        "own turn (pools/drain)": 13669,
+        "Your Likeness: Your Own Strike": 38,
+        "A Feeler of the Deep: Grasp": 4,
+        "The Silence: The Glass Remembers": 23083
+       },
+       "healed": 9915.377759757692,
+       "dodges": 5,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 17,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 17,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.356762523189988,
+       "endCp": 0.9274917491749175,
+       "endSp": 0.9248514851485149,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 17223,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 9,
+         "land": 6,
+         "hit": 1,
+         "dmg": 17222.52775975769,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 3,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 6,
+        "Listening": 5,
+        "Cradle": 8,
+        "Your Likeness": 1,
+        "Unbridled Hush": 6,
+        "Unbridled Listening": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 17,
+        "moe-ai-silence": 23
+       },
+       "bossIdle": {
+        "moe-ai-silence": 8
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 8493.552759757691,
+        "own turn (pools/drain)": 13111,
+        "Sayo, Mother of Echoes: Refraction": 17222.52775975769,
+        "Your Likeness: Your Own Strike": 19,
+        "A Feeler of the Deep: Grasp": 8,
+        "The Silence: Stillness": 11600.899999999996
+       },
+       "healed": 30193,
+       "dodges": 4,
+       "cleanses": 1
+      },
+      {
+       "act": 2,
+       "seed": 17,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.8911156101818072,
+       "endCp": 0.7167326732673267,
+       "endSp": 0.7140924092409241,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307546
+       },
+       "healed": 23780,
+       "dodges": 7,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 17,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.20447172222222276,
+       "endCp": 0.6526402640264026,
+       "endSp": 0.6463696369636963,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 8937,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 3,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Hush on a safe tile": 2,
+        "Breathless Pull": 1,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {
+        "moe-ai-saint": 2
+       },
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 22253.85399999999,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999998,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 15830.965,
+       "dodges": 8,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 18,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 18,
+       "outcome": "won",
+       "rounds": 22,
+       "endHp": 0.3396063492063494,
+       "endCp": 0.9056765676567656,
+       "endSp": 0.9033663366336634,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 17195,
+        "by": "Sayo, Mother of Echoes: Facet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 7,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 4,
+         "land": 4,
+         "hit": 1,
+         "dmg": 17195.499999999996,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 5,
+        "Listening": 4,
+        "Cradle": 5,
+        "Your Likeness": 1,
+        "Unbridled Hush": 9,
+        "Unbridled Listening": 4
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 14,
+        "moe-ai-silence": 22
+       },
+       "bossIdle": {
+        "moe-ai-silence": 5
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1584.1749999999993,
+        "Your Likeness: Your Own Strike": 170.65974051076773,
+        "own turn (pools/drain)": 14357.781818035386,
+        "Sayo, Mother of Echoes: Facet": 17195.499999999996,
+        "The Silence: Stillness": 8755.899999999996,
+        "A Feeler of the Deep: Grasp": 8
+       },
+       "healed": 21269.616558546153,
+       "dodges": 6,
+       "cleanses": 1
+      },
+      {
+       "act": 2,
+       "seed": 18,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.8739727530389501,
+       "endCp": 0.6949174917491749,
+       "endSp": 0.6926072607260726,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307546
+       },
+       "healed": 23780,
+       "dodges": 7,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 18,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.1873288650793656,
+       "endCp": 0.6308250825082509,
+       "endSp": 0.6248844884488449,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 8937,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 3,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Hush on a safe tile": 2,
+        "Breathless Pull": 1,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {
+        "moe-ai-saint": 2
+       },
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 22253.85399999999,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999998,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 15830.965,
+       "dodges": 9,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 19,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 19,
+       "outcome": "won",
+       "rounds": 25,
+       "endHp": 0.8629523809523809,
+       "endCp": 0.8661056105610561,
+       "endSp": 0.8634653465346535,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 7656,
+        "by": "The Silence: Stillness"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 9,
+         "land": 5,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 5,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 6,
+        "Listening": 5,
+        "Cradle": 6,
+        "Your Likeness": 1,
+        "Unbridled Hush": 6,
+        "Unbridled Listening": 2
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 18,
+        "moe-ai-silence": 24
+       },
+       "bossIdle": {
+        "moe-ai-silence": 9
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "own turn (pools/drain)": 15437,
+        "Sayo, Mother of Echoes: Glass Lancet": 3483.1749999999993,
+        "Your Likeness: Your Own Strike": 38,
+        "The Silence: Stillness": 12066.927759757687
+       },
+       "healed": 26708.102759757687,
+       "dodges": 2,
+       "cleanses": 0
+      },
+      {
+       "act": 2,
+       "seed": 19,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.6503960396039604,
+       "endSp": 0.6477557755775577,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307546
+       },
+       "healed": 10064.858279273074,
+       "dodges": 5,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 19,
+       "outcome": "lost",
+       "rounds": 15,
+       "endHp": 0,
+       "endCp": 0.6415841584158416,
+       "endSp": 0.6363036303630363,
+       "bossHpPct": {
+        "moe-ai-saint": 36.9
+       },
+       "deathCause": "Sayo, Saint of Stillness: The Quiet",
+       "maxHit": {
+        "dmg": 8937,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 4,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Hush on a safe tile": 2,
+        "Breathless Pull": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 15
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 25725.210750000006,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999998
+       },
+       "healed": 9431.462500000001,
+       "dodges": 5,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 20,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 20,
+       "outcome": "won",
+       "rounds": 19,
+       "endHp": 0.7067793650793651,
+       "endCp": 0.9491419141914191,
+       "endSp": 0.9461716171617162,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 6004,
+        "by": "The Silence: Stillness"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 6,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 4,
+        "Listening": 3,
+        "Cradle": 4,
+        "Your Likeness": 1,
+        "Unbridled Listening": 2,
+        "Unbridled Hush": 6
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 12,
+        "moe-ai-silence": 18
+       },
+       "bossIdle": {
+        "moe-ai-silence": 5
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 4605.3499999999985,
+        "own turn (pools/drain)": 11489,
+        "The Silence: Stillness": 10692.899999999994,
+        "A Feeler of the Deep: Grasp": 4
+       },
+       "healed": 17554.799999999996,
+       "dodges": 3,
+       "cleanses": 0
+      },
+      {
+       "act": 2,
+       "seed": 20,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7334323432343234,
+       "endSp": 0.7304620462046204,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307546
+       },
+       "healed": 14983.858279273074,
+       "dodges": 5,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 20,
+       "outcome": "lost",
+       "rounds": 15,
+       "endHp": 0,
+       "endCp": 0.7246204620462047,
+       "endSp": 0.719009900990099,
+       "bossHpPct": {
+        "moe-ai-saint": 36.9
+       },
+       "deathCause": "Sayo, Saint of Stillness: The Quiet",
+       "maxHit": {
+        "dmg": 8937,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 4,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Hush on a safe tile": 2,
+        "Breathless Pull": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 15
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 25725.210750000006,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999998
+       },
+       "healed": 9431.462500000001,
+       "dodges": 4,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 21,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 21,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.20647610286483542,
+       "endCp": 0.8877227722772277,
+       "endSp": 0.8840924092409241,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 17414,
+        "by": "Sayo, Mother of Echoes: Facet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 8,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 4,
+         "land": 4,
+         "hit": 1,
+         "dmg": 17414.499999999996,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 6,
+        "Listening": 4,
+        "Cradle": 5,
+        "Your Likeness": 1,
+        "Unbridled Listening": 2,
+        "Unbridled Hush": 7
+       },
+       "bossTurns": {
+        "moe-ai-silence": 23,
+        "moe-ai-sayo": 16
+       },
+       "bossIdle": {
+        "moe-ai-silence": 7
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 4621.377759757692,
+        "own turn (pools/drain)": 6090.1527597576915,
+        "Your Likeness: Your Own Strike": 38,
+        "Sayo, Mother of Echoes: Facet": 17414.499999999996,
+        "The Silence: The Hush, Unbridled": 375,
+        "A Feeler of the Deep: Grasp": 4,
+        "The Silence: Stillness": 15533.349999999997
+       },
+       "healed": 19080.377759757692,
+       "dodges": 6,
+       "cleanses": 2
+      },
+      {
+       "act": 2,
+       "seed": 21,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.7707346578008548,
+       "endCp": 0.672013201320132,
+       "endSp": 0.6683828382838284,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307546
+       },
+       "healed": 24722,
+       "dodges": 5,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 21,
+       "outcome": "lost",
+       "rounds": 12,
+       "endHp": 0,
+       "endCp": 0.6797029702970298,
+       "endSp": 0.6737623762376238,
+       "bossHpPct": {
+        "moe-ai-saint": 51.9
+       },
+       "deathCause": "Sayo, Saint of Stillness: The Quiet",
+       "maxHit": {
+        "dmg": 7602,
+        "by": "Sayo, Saint of Stillness: Glass Lancet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 3,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Hush on a safe tile": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 12
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 20069.525750000004,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999998
+       },
+       "healed": 9797.777500000004,
+       "dodges": 3,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 22,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 22,
+       "outcome": "won",
+       "rounds": 19,
+       "endHp": 0.7067793650793651,
+       "endCp": 0.9298019801980199,
+       "endSp": 0.9271617161716171,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 6004,
+        "by": "The Silence: Stillness"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 6,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 4,
+        "Listening": 3,
+        "Cradle": 4,
+        "Your Likeness": 1,
+        "Unbridled Listening": 2,
+        "Unbridled Hush": 6
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 12,
+        "moe-ai-silence": 18
+       },
+       "bossIdle": {
+        "moe-ai-silence": 6
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "own turn (pools/drain)": 12763,
+        "Sayo, Mother of Echoes: Glass Lancet": 3104.1749999999993,
+        "The Silence: Stillness": 10692.899999999994,
+        "A Feeler of the Deep: Grasp": 4
+       },
+       "healed": 17327.624999999996,
+       "dodges": 2,
+       "cleanses": 0
+      },
+      {
+       "act": 2,
+       "seed": 22,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7140924092409241,
+       "endSp": 0.7114521452145215,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307546
+       },
+       "healed": 14983.858279273074,
+       "dodges": 5,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 22,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.2254241031746037,
+       "endCp": 0.65,
+       "endSp": 0.6437293729372937,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 8937,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 3,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Hush on a safe tile": 2,
+        "Breathless Pull": 1,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {
+        "moe-ai-saint": 2
+       },
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 22253.85399999999,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999998,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 14260.965000000002,
+       "dodges": 9,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 23,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 23,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.2891587301587303,
+       "endCp": 0.8870957095709571,
+       "endSp": 0.8844554455445545,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 17414,
+        "by": "Sayo, Mother of Echoes: Facet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 8,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 4,
+         "land": 4,
+         "hit": 1,
+         "dmg": 17414.499999999996,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 6,
+        "Listening": 4,
+        "Cradle": 5,
+        "Your Likeness": 1,
+        "Unbridled Listening": 2,
+        "Unbridled Hush": 7
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 16,
+        "moe-ai-silence": 23
+       },
+       "bossIdle": {
+        "moe-ai-silence": 7
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 4605.3499999999985,
+        "own turn (pools/drain)": 12391,
+        "Your Likeness: Your Own Strike": 38,
+        "Sayo, Mother of Echoes: Facet": 17414.499999999996,
+        "A Feeler of the Deep: Grasp": 8
+       },
+       "healed": 12065.349999999999,
+       "dodges": 4,
+       "cleanses": 1
+      },
+      {
+       "act": 2,
+       "seed": 23,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.8534330704992675,
+       "endCp": 0.6713861386138614,
+       "endSp": 0.6687458745874587,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307546
+       },
+       "healed": 24722,
+       "dodges": 5,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 23,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.16678918253968306,
+       "endCp": 0.6072937293729372,
+       "endSp": 0.601023102310231,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 8937,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 3,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Hush on a safe tile": 2,
+        "Breathless Pull": 1,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {
+        "moe-ai-saint": 2
+       },
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 22253.85399999999,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999998,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 15830.965000000004,
+       "dodges": 9,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 24,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 24,
+       "outcome": "won",
+       "rounds": 21,
+       "endHp": 0.6194076736738706,
+       "endCp": 0.9336798679867987,
+       "endSp": 0.9320297029702971,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 6289,
+        "by": "The Silence: Stillness"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 6,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 4,
+        "Listening": 3,
+        "Cradle": 4,
+        "Your Likeness": 1,
+        "Unbridled Listening": 3,
+        "Unbridled Hush": 9
+       },
+       "bossTurns": {
+        "moe-ai-silence": 21,
+        "moe-ai-sayo": 12
+       },
+       "bossIdle": {
+        "moe-ai-silence": 5
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 4621.377759757692,
+        "own turn (pools/drain)": 10967.208279273076,
+        "The Silence: Stillness": 6289.450000000001
+       },
+       "healed": 9889.377759757692,
+       "dodges": 5,
+       "cleanses": 1
+      },
+      {
+       "act": 2,
+       "seed": 24,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.717986798679868,
+       "endSp": 0.7163366336633663,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307546
+       },
+       "healed": 17736.858279273074,
+       "dodges": 5,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 24,
+       "outcome": "lost",
+       "rounds": 15,
+       "endHp": 0,
+       "endCp": 0.7091749174917492,
+       "endSp": 0.7048844884488449,
+       "bossHpPct": {
+        "moe-ai-saint": 36.9
+       },
+       "deathCause": "Sayo, Saint of Stillness: The Quiet",
+       "maxHit": {
+        "dmg": 8937,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 4,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Hush on a safe tile": 2,
+        "Breathless Pull": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 15
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 25725.210750000006,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999998
+       },
+       "healed": 9431.462500000001,
+       "dodges": 4,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 25,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 25,
+       "outcome": "won",
+       "rounds": 25,
+       "endHp": 0.8629523809523809,
+       "endCp": 0.8669306930693069,
+       "endSp": 0.863960396039604,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 7656,
+        "by": "The Silence: Stillness"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 9,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 5,
+         "land": 5,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 6,
+        "Listening": 5,
+        "Cradle": 6,
+        "Your Likeness": 1,
+        "Unbridled Hush": 6,
+        "Unbridled Listening": 2
+       },
+       "bossTurns": {
+        "moe-ai-silence": 24,
+        "moe-ai-sayo": 18
+       },
+       "bossIdle": {
+        "moe-ai-silence": 9
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 15.027759757693275,
+        "Sayo, Mother of Echoes: Glass Lancet": 3705.1749999999993,
+        "own turn (pools/drain)": 13681,
+        "Your Likeness: Your Own Strike": 38,
+        "The Silence: Stillness": 11601.899999999996
+       },
+       "healed": 24724.10275975769,
+       "dodges": 3,
+       "cleanses": 1
+      },
+      {
+       "act": 2,
+       "seed": 25,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.6512211221122112,
+       "endSp": 0.6482508250825082,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307546
+       },
+       "healed": 10064.858279273074,
+       "dodges": 5,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 25,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.2254241031746037,
+       "endCp": 0.5871287128712871,
+       "endSp": 0.5805280528052805,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 8937,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 3,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Hush on a safe tile": 2,
+        "Breathless Pull": 1,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {
+        "moe-ai-saint": 2
+       },
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 22253.85399999999,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999998,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 14260.965000000002,
+       "dodges": 9,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 26,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 26,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7186031746031746,
+       "endCp": 0.8677557755775578,
+       "endSp": 0.8651155115511551,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3705,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 8,
+         "land": 5,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 4,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 6,
+        "Listening": 4,
+        "Cradle": 5,
+        "Your Likeness": 1,
+        "Unbridled Listening": 4,
+        "Unbridled Hush": 7
+       },
+       "bossTurns": {
+        "moe-ai-silence": 23,
+        "moe-ai-sayo": 16
+       },
+       "bossIdle": {
+        "moe-ai-silence": 8
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 23.027759757693275,
+        "Sayo, Mother of Echoes: Glass Lancet": 3705.1749999999993,
+        "own turn (pools/drain)": 13246,
+        "Your Likeness: Your Own Strike": 38
+       },
+       "healed": 8148.202759757693,
+       "dodges": 5,
+       "cleanses": 1
+      },
+      {
+       "act": 2,
+       "seed": 26,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.656996699669967,
+       "endSp": 0.6543564356435644,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307546
+       },
+       "healed": 14611.858279273074,
+       "dodges": 7,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 26,
+       "outcome": "lost",
+       "rounds": 18,
+       "endHp": 0,
+       "endCp": 0.6292079207920792,
+       "endSp": 0.6235973597359736,
+       "bossHpPct": {
+        "moe-ai-saint": 27.7
+       },
+       "deathCause": "Sayo, Saint of Stillness: The Quiet",
+       "maxHit": {
+        "dmg": 8937,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 3,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Hush on a safe tile": 3,
+        "Breathless Pull": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 18
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 26795.913250000005,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999998
+       },
+       "healed": 10502.165,
+       "dodges": 6,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 27,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 27,
+       "outcome": "won",
+       "rounds": 27,
+       "endHp": 0.6890465625627596,
+       "endCp": 0.9492409240924092,
+       "endSp": 0.9462706270627063,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 5718,
+        "by": "The Silence: Stillness"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 10,
+         "land": 8,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 7,
+        "Listening": 4,
+        "Cradle": 12,
+        "Your Likeness": 1,
+        "Unbridled Listening": 2,
+        "Unbridled Hush": 6
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 20,
+        "moe-ai-silence": 26
+       },
+       "bossIdle": {
+        "moe-ai-silence": 10
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 16154.049999999996,
+        "own turn (pools/drain)": 12367,
+        "The Silence: Stillness": 8571.983279273074,
+        "A Feeler of the Deep: Grasp": 4
+       },
+       "healed": 27302,
+       "dodges": 5,
+       "cleanses": 0
+      },
+      {
+       "act": 2,
+       "seed": 27,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7384818481848184,
+       "endSp": 0.7355115511551155,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307546
+       },
+       "healed": 15542.858279273074,
+       "dodges": 7,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 27,
+       "outcome": "lost",
+       "rounds": 18,
+       "endHp": 0,
+       "endCp": 0.7106930693069307,
+       "endSp": 0.7047524752475247,
+       "bossHpPct": {
+        "moe-ai-saint": 27.7
+       },
+       "deathCause": "Sayo, Saint of Stillness: The Quiet",
+       "maxHit": {
+        "dmg": 8937,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 3,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 6,
+        "No One Is Mended": 1,
+        "Hush on a safe tile": 3,
+        "Breathless Pull": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 18
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 26795.913250000005,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999998
+       },
+       "healed": 10502.165,
+       "dodges": 6,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 28,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 28,
+       "outcome": "won",
+       "rounds": 22,
+       "endHp": 0.024683951761416544,
+       "endCp": 0.9186468646864686,
+       "endSp": 0.9146864686468646,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 17414,
+        "by": "Sayo, Mother of Echoes: Facet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 8,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 4,
+         "land": 4,
+         "hit": 1,
+         "dmg": 17414.499999999996,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 6,
+        "Listening": 4,
+        "Cradle": 5,
+        "Your Likeness": 1,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 5
+       },
+       "bossTurns": {
+        "moe-ai-silence": 21,
+        "moe-ai-sayo": 16
+       },
+       "bossIdle": {
+        "moe-ai-silence": 8
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 23.027759757693275,
+        "Sayo, Mother of Echoes: Glass Lancet": 3705.1749999999993,
+        "own turn (pools/drain)": 9967,
+        "Your Likeness: Your Own Strike": 38,
+        "Sayo, Mother of Echoes: Facet": 17414.499999999996,
+        "The Silence: Stillness": 10310.955519515383
+       },
+       "healed": 10736.202759757693,
+       "dodges": 4,
+       "cleanses": 1
+      },
+      {
+       "act": 2,
+       "seed": 28,
+       "outcome": "won",
+       "rounds": 42,
+       "endHp": 0.588956880023077,
+       "endCp": 0.702937293729373,
+       "endSp": 0.698976897689769,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 3906,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 15,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 41
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 5686.3499999999985,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 61.50827927307728
+       },
+       "healed": 24722,
+       "dodges": 5,
+       "cleanses": 0
+      },
+      {
+       "act": 3,
+       "seed": 28,
+       "outcome": "lost",
+       "rounds": 9,
+       "endHp": 0,
+       "endCp": 0.727953795379538,
+       "endSp": 0.722013201320132,
+       "bossHpPct": {
+        "moe-ai-saint": 65.7
+       },
+       "deathCause": "Sayo, Saint of Stillness: The Quiet",
+       "maxHit": {
+        "dmg": 7602,
+        "by": "Sayo, Saint of Stillness: Glass Lancet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 3,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4
+       },
+       "bossTurns": {
+        "moe-ai-saint": 9
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 10516.508250000008,
+        "Sayo, Saint of Stillness: Glass Lancet": 14006.251749999994
+       },
+       "healed": 5970.760000000002,
+       "dodges": 1,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 29,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 29,
+       "outcome": "lost",
+       "rounds": 26,
+       "endHp": 0,
+       "endCp": 0.8863696369636964,
+       "endSp": 0.8830693069306931,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 10.3
+       },
+       "deathCause": "The Silence: The Glass Remembers",
+       "maxHit": {
+        "dmg": 16286,
+        "by": "Sayo, Mother of Echoes: Facet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 9,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 5,
+         "land": 5,
+         "hit": 1,
+         "dmg": 16285.52775975769,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 6,
+        "Listening": 5,
+        "Cradle": 9,
+        "Your Likeness": 1,
+        "Unbridled Hush": 7,
+        "Unbridled Listening": 5,
+        "Enrage": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 26,
+        "moe-ai-sayo": 18
+       },
+       "bossIdle": {
+        "moe-ai-silence": 9
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 4605.3499999999985,
+        "own turn (pools/drain)": 13304,
+        "Your Likeness: Your Own Strike": 38,
+        "Sayo, Mother of Echoes: Facet": 16285.52775975769,
+        "A Feeler of the Deep: Grasp": 4,
+        "The Silence: The Glass Remembers": 10307.47224024231
+       },
+       "healed": 13044.349999999999,
+       "dodges": 7,
+       "cleanses": 1
+      }
+     ]
+    },
+    {
+     "seed": 30,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 30,
+       "outcome": "lost",
+       "rounds": 26,
+       "endHp": 0,
+       "endCp": 0.9081518151815181,
+       "endSp": 0.9068316831683169,
+       "bossHpPct": {
+        "moe-ai-sayo": 27,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: The Glass Remembers",
+       "maxHit": {
+        "dmg": 19785,
+        "by": "Sayo, Mother of Echoes: The Glass Remembers"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 13,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 9,
+         "land": 7,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 9,
+        "Listening": 7,
+        "Cradle": 8,
+        "Your Likeness": 1,
+        "Enrage": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 26,
+        "moe-ai-silence": 25
+       },
+       "bossIdle": {
+        "moe-ai-silence": 10
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 4605.3499999999985,
+        "The Silence: Stillness": 9565.252435396153,
+        "own turn (pools/drain)": 8472,
+        "A Feeler of the Deep: Grasp": 4,
+        "Sayo, Mother of Echoes: The Glass Remembers": 19784.572564603848
+       },
+       "healed": 10931.175,
+       "dodges": 4,
+       "cleanses": 1
+      }
+     ]
+    }
+   ]
+  }
+ }
+}
