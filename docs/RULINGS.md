@@ -5317,3 +5317,20 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-01: "Why didnt we use those 4 animations?"; "Make the copies."
 
 **Canonical destination:** `push/skyglass_core_horror_fx.gen.py` (push/401-404).
+
+## RUL-2026-11-01-093 — The Seedvault: an uber boss fight opened by a four-shard key
+
+**Date:** 2026-11-01
+
+**Domain:** Skyglass event / new content (design)
+
+**Status:** ACTIVE (design stage). Design of record: the Claude Doc "The Seedvault: Uber Boss Design" (https://claude.ai/artifact/NCAgKDCJSmsjMy6UgiPRZJ); a repository copy is made when the design is final.
+
+**Ruling:**
+1. The uber encounter is two new bosses, Sayo, Mother of Echoes and The Silence (a dread entity, not a command), fought solo in three acts (the two keepers together; Sayo's memory game; Sayo, Vessel of the Silence). Inspiration: Uber Shaper and Elder, The Maven. Hard through mechanics, not inflated numbers; both wear AI Heavy Armor and deal high damage.
+2. Entry is a straight boss fight, not a Nightmare Crownhold climb: the Seedvault Key, crafted from four tradeable shards (Keel: full Wreck clear 1%; Crown: Crownhold 15%; Tide: rare/tainted chart runs 3%; Ledger: Haul Reserve chests 5%), each also craftable from 100 Salvage; the key is untradeable and spent at the start.
+3. Players with the stun/seal-immune Ancient Tailed Demon bloodline are a tuning case, not the baseline.
+
+**Evidence:** Director, 2026-11-01: "I want something akin to Uber Shaper and Elder, or even the Maven from PoE"; "I recommend equipping AI Heavy Armor and giving them high amounts of damage, not moderate"; "2 new unique well named and themed bosses"; "The Silence is a better name"; "I like The Silence more as a dread entity"; "this should just be a straight boss fight done with a rare key"; "Yep, that format is approved."
+
+**Canonical destination:** the design doc above; later `docs/design/SKYGLASS_SEEDVAULT.md`.
