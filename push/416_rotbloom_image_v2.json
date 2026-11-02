@@ -1,0 +1,30 @@
+{
+ "_note": "push/416: Rotbloom's variant image -> v2, a skyglass sickle on a rotten-rope chain (director, 2026-11-02: 'update image for Rotbloom to this one. Name stays the same'). Image only; Forge's itemVariant edit re-sends the live record (name, description, token gate unchanged; the description already reads 'A sickle on a chain of rotten rope'). Variant and item ids from push/371.",
+ "dedupNames": true,
+ "imgSizes": {
+  "icon-variant-rotbloom-v2.webp": 34716
+ },
+ "imagePack": {
+  "ref": "937c9bad8be2591546ce6bf6251de390dc1354c3",
+  "files": {
+   "icon-variant-rotbloom-v2.webp": {
+    "path": "art/skyglass_variant_skins/exports/icon-variant-rotbloom-v2.webp",
+    "sha256": "355bf0c967a7959f63d0c6abffd4da159448b53b174912453beb72e232af29a7",
+    "bytes": 34716
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "itemVariant",
+   "slot": "edit",
+   "phase": 1,
+   "targetId": "dkkdXbwWFOGSw1nemyK7K",
+   "name": "Rotbloom (variant): image v2",
+   "data": {
+    "itemId": "ttwbJ6ZA5Id-OuBludM27",
+    "image": "@img:icon-variant-rotbloom-v2.webp"
+   }
+  }
+ ]
+}
