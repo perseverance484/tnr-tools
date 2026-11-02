@@ -5470,3 +5470,24 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02: "1. Yes 2. Approved 3. B, make it simpler"; Salvage "Not tradeable".
 
 **Canonical destination:** the economy build manifests (push/417+), the uber quest spec, and the design doc's Invitation and Rewards sections.
+
+## RUL-2026-11-02-101 — Telegraph marks move off `visual`; live Omen marks fixed; Etching readable for one round
+
+**Date:** 2026-11-02
+
+**Domain:** Skyglass event / combat presentation (live library marks and the uber)
+
+**Status:** ACTIVE.
+
+**Finding (reproduced offline at theninjarpg@3314d122):** after every action, `server/api/routers/combat.ts:857-859` keeps only the `visual` ground effects created in or after that action's round. A `visual` telegraph therefore disappears at the first action of the round after its cast, whatever its `rounds` value, while the eruption still lands. The director saw this live: "when I move off the tile the omen marked the effect instantly disappears". Probe: scratchpad `omen_probe/`.
+
+**Ruling:**
+1. **Telegraph art goes on a non-visual ground carrier:** `increaseregeneration`, power 1, rounds 1, friendlyFire FRIENDLY, carrying the mark's art. The `visual` is removed. Lingering-pool art goes on the lasting effect itself (friendlyFire ENEMIES).
+   - **Accepted cost:** a battle-log line on each cast ("marked the ground with increaseregeneration").
+2. **The live Skyglass Omen marks and Eruption pools are fixed now,** through an unequip, edit and re-equip set (push/430+). It is run Monday to Thursday.
+3. **The uber's Etching marks are readable for one full round** through the carrier, not flashed. The memory challenge comes from the delay before the recast.
+4. **Harness:** the uber harness models the visual filter. Earlier dodge results assumed marks that live players can't see.
+
+**Evidence:** Director, 2026-11-02: "1. Yes 2. Readable for 1 round".
+
+**Canonical destination:** `docs/design/SKYGLASS_BOSS_ANIMATIONS.md`. Its renderer description is out of date: the pin uses the pixi renderer, `libs/rendering/scenes/combatEffects.ts`, not three.js.
