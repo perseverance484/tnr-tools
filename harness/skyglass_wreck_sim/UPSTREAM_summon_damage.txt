@@ -1,0 +1,38 @@
+Upstream bug note: a summon's "damage" tags resolve with no attacker stats (theninjarpg@3314d122)
+
+Status: observed and reproduced offline (fable/mother-of-echoes-sim, engine/moe_probe.ts P8). Cause located to two
+lines of applySingleEffect; why the lookup misses the summon is not confirmed (see "Open").
+
+Observed
+- A summoned AI (the Silence's feeler, summon power 40, template statsMultiplier 5.83, five +100%/+75% damage-given
+  innate rows realised onto the summon) casts Glass Lancet (damage 65, calculation formula) on a level-100 player:
+  16-25 damage per hit. The Silence casting the same record on the same player: 1,758-2,734.
+- The same summon casting a pierce 65 record hits for 1,157.
+- Summon power (40 vs 100) barely moves the damage hit (Grasp 11 vs 21), so the summon's stats are not entering it.
+
+Where (theninjarpg@3314d122, app/src/libs/combat/process.ts)
+- process.ts:1361  const curUser = usersState.find((u) => u.userId === effect.creatorId);   // battle.usersState
+- process.ts:1362  const newUser = newUsersState.find((u) => u.userId === effect.creatorId);
+- process.ts:1416-1425  damage  -> damageUser(effect, curUser, curTarget, ...)
+- process.ts:1426-1435  pierce  -> damageUser(effect, newUser, newTarget, ...)
+- app/src/libs/combat/tags.ts:1448  damageCalc: the stat formula runs only `if (effect.calculation === "formula" && origin)`;
+  with origin undefined it returns the bare power (tags.ts:1446 `let dmg = power;`), then only modifiers apply.
+The pattern above (power-sized hits, pierce unaffected, summon power irrelevant) is exactly the origin-undefined
+branch: for a summon's damage effect, curUser (looked up in the battle's pre-action usersState) is not found, while
+newUser (the action's working copy, newUsersState) is.
+
+Repro (offline, zero live requests)
+  TNR_ENGINE_PIN=3314d122c93e036618483d18229a793ad7ad21fd TNR_SCRIPT=moe_probe.ts \
+    harness/skyglass_wreck_sim/run.sh --params $PWD/harness/skyglass_wreck_sim/overrides/moe.params.json --only P8
+  Output lines "lancet power 40: A Feeler of the Deep Glass Lancet on player" (tens) vs "silence-lancet power 40: The
+  Silence Glass Lancet on player" (thousands) vs "pierce power 40: ... Probe: pierce 65 on player" (1,157).
+  Raw step logs: harness/skyglass_wreck_sim/results/moe_probe.json (probes.P8).
+
+Open
+- Why the summon is missing from battle.usersState at resolution time is not traced (applyEffects is reached through
+  several callers, process.ts:482-806 and 2548/2669; the effect's creatorId is the summon's battle userId, set by
+  realizeTag, tags.ts:114). A one-line fix to try upstream: resolve the damage origin as `curUser ?? newUser`
+  (or use newUser for damage as pierce does), then re-run P8.
+
+Workaround in the Mother of Echoes spec: every summon attack uses pierce (the feeler's Grasp, Your Own Strike, the
+Worn's attacks). Live records cast by summons elsewhere with damage tags are likely affected the same way.

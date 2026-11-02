@@ -10,7 +10,7 @@ import { dirname, resolve } from "node:path";
 import { loadDmgConfig, loadJson } from "./model";
 import {
   AI, aiRecords, buildRecords, CYCLES, cycleCombo, FAN_OFFSETS, HEAVY_ARMOR, HEAVY_ARMOR_ID, HEAVY_ARMOR_SRC, JID, MK, moeParams, PAT, playerJutsuCatalog,
-  playerModel, rowOf, runAct, setDmgConfig, setGearOverride, STARS, validateAll, type ActCfg, type ActResult, type MoeParams, type Policy,
+  playerModel, rowOf, runAct, setDmgConfig, setGearOverride, setNoVisualFilter, STARS, validateAll, type ActCfg, type ActResult, type MoeParams, type Policy,
 } from "./moe_lib";
 
 const args = process.argv.slice(2);
@@ -20,6 +20,7 @@ const dmg = loadDmgConfig(H, opt("dmg-config", "live"));
 setDmgConfig(dmg.config);
 const PRAW = opt("params") ? loadJson(resolve(opt("params")!)) : {};
 setGearOverride(PRAW.gear ?? null, PRAW.avgGear ?? null);
+setNoVisualFilter(args.includes("--no-visual-filter"));
 const P = moeParams(PRAW);
 const RECS = buildRecords(P);
 const CAT = playerJutsuCatalog();
@@ -53,6 +54,54 @@ const spec = () => {
     jutsu: Object.values(RECS).filter((j: any) => j.id.startsWith("moe-") && !j.id.startsWith("moe-probe-")).map((j: any) => ({ id: j.id, name: j.name, usedBy: usedBy[j.id] ?? [], record: j })),
     combos: Object.fromEntries(CYCLES.map((c, i) => [`cycle ${i + 1}`, cycleCombo(c, i)])),
     playerModels: { elite: "moe_lib.ts ELITE_GEAR (+ gear override)", average: "moe_lib.ts AVG_GEAR (+ avgGear override)", gearOverride: PRAW.gear ?? null, avgGearOverride: PRAW.avgGear ?? null },
+    newJutsuCount: Object.values(RECS).filter((j: any) => j.id.startsWith("moe-") && !j.id.startsWith("moe-probe-") && !j.id.startsWith("moe-harness-")).length,
+    reusedLive: {
+      [JID.likenessCopy]: { name: "Stolen Form", holders: "34 live holders", use: "Your Likeness (summon template moe-ai-likeness); as-is, never edited", source: "data/crownhold_inputs.json capture" },
+      "AI Heavy Armor (item)": HEAVY_ARMOR_ID,
+      notReused: { "Omen: Fanned Lines (fWa0eZuv131tDQ0RQhEz_)": "reverted (pass 3): it draws its mark on a visual, which combat.ts:857-859 drops early; Shatterfall's mark is new (moe-shatterfall) on the carrier" },
+    },
+    telegraphCarrier: "Every mark rides a non-visual ground carrier (increaseregeneration, power 1, rounds 1, friendlyFire FRIENDLY) holding the art; the server drops visual ground effects early (theninjarpg@3314d122 server/api/routers/combat.ts:857-859). Battle log shows 'marked the ground with increaseregeneration'. Pools draw their art on the lasting drain / healprevent / decreaseheal effect. Etching is readable for one full round (RUL-2026-11-02-101).",
+    artPlaceholders: {
+      note: "Placeholders to replace before the manifest: @img:* for uploaded images (law 32: fresh filenames), animation ids are the art names below; every battle asset must end hidden:false (law 16c).",
+      avatars: Object.fromEntries(AIS.map((a) => [a.id, `@img:avatar_${a.id.replace("moe-ai-", "moe_")}.webp`])),
+      jutsuImages: Object.fromEntries(Object.values(RECS).filter((j: any) => j.id.startsWith("moe-") && !j.id.startsWith("moe-probe-") && !j.id.startsWith("moe-harness-")).map((j: any) => [j.id, `@img:jutsu_${j.id.replace(/-/g, "_")}.webp`])),
+      animations: [...new Set(Object.values(RECS).filter((j: any) => j.id.startsWith("moe-")).flatMap((j: any) => j.effects.flatMap((e: any) => [e.appearAnimation, e.staticAnimation, e.disappearAnimation]).filter((x: any) => x)))].sort(),
+      sharedTelegraphArt: "tg_heavy / tg_control / tg_safe / tg_linger / tg_etch: the Skyglass danger-language tiles (fable/skyglass-boss-fx); resolve to their live asset ids",
+    },
+    quest: {
+      name: "The Mother of Echoes",
+      kind: "Battle pyramid (solo), three battles, isolated; health / chakra / stamina carried between battles, no refills (battle pools are kept from one battle to the next).",
+      entry: { note: "RUL-2026-11-02-100: one of each shard, consumed at the start. No 'An Invitation in Glass' item.", items: [
+        { name: "Shard of the Keel", srcId: "TODO(economy build srcId)", quantity: 1 },
+        { name: "Shard of the Crown", srcId: "TODO(economy build srcId)", quantity: 1 },
+        { name: "Shard of the Tide", srcId: "TODO(economy build srcId)", quantity: 1 },
+        { name: "Shard of the Ledger", srcId: "TODO(economy build srcId)", quantity: 1 },
+      ] },
+      objectives: [
+        { n: 0, type: "dialog (start)", sceneBackground: "@img:scene_moe_mother_glass.webp", text: "The four shards fit together in your hands, and the seams vanish. They were never broken. They were an invitation.<br><br>Under Crownhold the Mother Glass is singing. A woman in a glasswright's apron stands before it with her back to you. \"You came. Good. I was beginning to think I had measured you wrong.\"" },
+        { n: 1, type: "battle", title: "Act I: The Glasswright and the Deep", opponents: [AI.sayo1, AI.silence], isolated: true, carryPools: true, failObjective: "end (loss: nothing granted; the shards are spent)" },
+        { n: 2, type: "dialog", text: "The deep goes quiet, but the glass does not. Sayo wipes a line of light from her sleeve. \"You read patterns well. Let us see how well you remember them.\"" },
+        { n: 3, type: "battle", title: "Act II: The Stilling", opponents: [AI.sayo2], isolated: true, carryPools: true, failObjective: "end" },
+        { n: 4, type: "dialog", text: "Every pane in the hall turns toward you. The Silence has stopped holding back, and so has she. \"Hold still. You will make for a good impression.\"" },
+        { n: 5, type: "battle", title: "Act III: A Good Impression", opponents: [AI.saint], isolated: true, carryPools: true, failObjective: "end" },
+        { n: 6, type: "win", text: "The Mother Glass cracks from the root to the crown. For the first time since the siege, Crownhold makes a sound.<br><br>You are not stilled.", rewards: {
+          firstClear: { title: "The Unstilled", variantToken: "Heartglass (The Unwritten)" },
+          everyClear: { salvage: 40, pickOne: ["Crown's Hoard x2", "Skyglass Coffer x5", "Skyglass Token x2"], experienceAndRyo: "above Crownhold's top tier (RUL-2026-11-01-095, proposed)" },
+          chance: { item: "The Remainder variant token (Ink of the Void)", pct: 25, oncePerPlayer: "if quest rewards support it (economy agent checking)" },
+          none: "No Remnants of the Mother Glass (RUL-2026-11-02-100)." } },
+      ],
+      questFlags: { consecutiveObjectives: true, hidden: true, note: "law 23: consecutiveObjectives true on create; law 16b hidden on create; exact objective field names come from the builder's guide templates (law 31), not from this summary." },
+    },
+    buildOrder: [
+      "1. Jutsu that reference no AI (all moe-* except the five summon jutsu below), hidden:true (law 16b).",
+      "2. Summon-template AIs with their jutsu: moe-ai-feeler, moe-ai-likeness (+ live Stolen Form), moe-ai-worn-porter / -hana / -tomo.",
+      "3. Summon jutsu with the created template ids as aiId (law 17 literal ids): moe-listening, moe-listening-unbridled, moe-your-likeness, moe-raise-gate-porter / -sister-hana / -cadet-tomo.",
+      "4. Boss AIs (moe-ai-sayo, -silence, -sayo-stilling, -saint) with full jutsu lists and AI Heavy Armor; rules last, with literal ids; inArena false.",
+      "5. Art assets: upload, then unhide every battle animation (law 16c).",
+      "6. The quest, then a separate publish step (law 16b).",
+      "Law 18: these records are created fresh and equipped once, so no unequip/edit/re-equip is needed at build. Any later edit to an equipped moe-* jutsu is unequip -> edit -> re-equip. Never edit Stolen Form (34 live holders).",
+      "Two AIs share the display name 'Sayo, Mother of Echoes' (Acts I and II): create by srcId, and check name collisions against live records (law 30).",
+    ],
     proofs: {
       P1: "Recast via use_combo_action, one rule per cycle (PASS; marker fallback characterised: a marker with rounds k counts in the cast turn and the next k turns). Every combo turn spends exactly 100 AP (wait enters usedActions). Interruptions restart the cycle, never detonate unmarked. Act II Sayo has innate stunprevent.",
       P2: "Cradle cast by the feeler on HIGHEST_MAX_HEALTH_ALLY, gated on Sayo's token (PASS; clear-proof; 93 -> 22).",
@@ -131,7 +180,7 @@ const main = async () => {
   const cells = opt("cells", "elite:play,elite:ignore,elite_imm:play,elite_imm:ignore,average:play")!.split(",");
   const runs = Number(opt("runs", "30"));
   const seed0 = Number(opt("seed", "1"));
-  const result: any = { generatedBy: "engine/moe.ts", engine: "theninjarpg 3314d122", dmgConfig: dmg.name, params: P, kill, acts, runs, seed0, cells: {} };
+  const result: any = { generatedBy: "engine/moe.ts", visualFilter: !args.includes("--no-visual-filter"), engine: "theninjarpg 3314d122", dmgConfig: dmg.name, params: P, kill, acts, runs, seed0, cells: {} };
   for (const c of cells) {
     const [cell, pol] = c.split(":");
     const rs: Run[] = [];
