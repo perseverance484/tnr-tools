@@ -5303,3 +5303,17 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 4. Audit of every Skyglass enemy (rules against kits, a player 6+ hexes away, stacking self-buffs): only the Captains had both faults. The Core Horrors stay put by design but their marks cover the arena; the Haul fuses, the Lingering Echoes and the Magazine Keeper are stationary by design; the Crowned Captain chases and his Last Directive (5 rounds, under 30%) does not stack in practice.
 
 **Canonical destination:** `push/skyglass_captain_fix.gen.py` (push/398-400); the harness specs on `fable/skyglass-rule-cap` are not yet updated (a later Lane A follow-up).
+
+## RUL-2026-11-01-092 — Core Horror FX copies
+
+**Date:** 2026-11-01
+
+**Domain:** Skyglass event / art and boss kits
+
+**Status:** ACTIVE. Copy names and battle text are Fable's drafts pending director approval.
+
+**Ruling:** The unused Core Horror animations ship on Skyglass-only copies of the three shared live jutsu they were drawn for, not on the live records (an edit would change their look game-wide and sever every holder, law 18): The Core Rebuilds (copy of Second Wind, AN04), Bilge Spit (copy of Venom Strike, AN07 + AN08), Undertow (copy of Sovereign Undertow, AN09). Effects, costs and flags are the live records as read by push/401. Only the five Core Horror records swap (Core Horror, Faded, Veteran, Rot-Touched, Steeping Horror); the Captains, the Second and the Crown Stonebound keep the live jutsu. Hexweave (AN05) stays unused until new content carries it.
+
+**Evidence:** Director, 2026-11-01: "Why didnt we use those 4 animations?"; "Make the copies."
+
+**Canonical destination:** `push/skyglass_core_horror_fx.gen.py` (push/401-404).
