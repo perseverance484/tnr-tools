@@ -10,7 +10,7 @@ import { dirname, resolve } from "node:path";
 import { loadDmgConfig, loadJson } from "./model";
 import {
   AI, aiRecords, buildRecords, CYCLES, cycleCombo, FAN_OFFSETS, HEAVY_ARMOR, HEAVY_ARMOR_ID, HEAVY_ARMOR_SRC, JID, MK, moeParams, PAT, playerJutsuCatalog,
-  playerModel, rowOf, runAct, setDmgConfig, STARS, validateAll, type ActCfg, type ActResult, type MoeParams, type Policy,
+  playerModel, rowOf, runAct, setDmgConfig, setGearOverride, STARS, validateAll, type ActCfg, type ActResult, type MoeParams, type Policy,
 } from "./moe_lib";
 
 const args = process.argv.slice(2);
@@ -18,7 +18,9 @@ const opt = (k: string, d?: string) => { const i = args.indexOf(`--${k}`); retur
 const H = process.env.TNR_HARNESS!;
 const dmg = loadDmgConfig(H, opt("dmg-config", "live"));
 setDmgConfig(dmg.config);
-const P = moeParams(opt("params") ? loadJson(resolve(opt("params")!)) : {});
+const PRAW = opt("params") ? loadJson(resolve(opt("params")!)) : {};
+setGearOverride(PRAW.gear ?? null, PRAW.avgGear ?? null);
+const P = moeParams(PRAW);
 const RECS = buildRecords(P);
 const CAT = playerJutsuCatalog();
 const AIS = aiRecords(P);
@@ -49,7 +51,8 @@ const spec = () => {
     markers: MK,
     ais: AIS.map((a) => ({ id: a.id, username: a.username, poolsMultiplier: a.poolsMultiplier, maxHealth: Math.round(5050 * a.poolsMultiplier), statsMultiplier: P.statsMultiplier, level: 100, rank: "JONIN", items: a.heavyArmor ? [HEAVY_ARMOR_ID] : [], jutsus: a.jutsus, effects: a.effects.map((e: any) => ({ type: e.type, power: e.power, rounds: e.rounds })), includeDefaultRules: false, rules: a.rules, ruleCount: a.rules.length, summonTemplate: !!a.summon })),
     jutsu: Object.values(RECS).filter((j: any) => j.id.startsWith("moe-")).map((j: any) => ({ id: j.id, name: j.name, usedBy: usedBy[j.id] ?? [], record: j })),
-    combos: Object.fromEntries(CYCLES.map((c, i) => [`cycle ${i + 1}`, cycleCombo(c)])),
+    combos: Object.fromEntries(CYCLES.map((c, i) => [`cycle ${i + 1}`, cycleCombo(c, i)])),
+    playerModels: { elite: "moe_lib.ts ELITE_GEAR (+ gear override)", average: "moe_lib.ts AVG_GEAR (+ avgGear override)", gearOverride: PRAW.gear ?? null, avgGearOverride: PRAW.avgGear ?? null },
     proofs: {
       P1: "Recast via use_combo_action, one rule per cycle (PASS; marker fallback characterised: a marker with rounds k counts in the cast turn and the next k turns). Every combo turn spends exactly 100 AP (wait enters usedActions). Interruptions restart the cycle, never detonate unmarked. Act II Sayo has innate stunprevent.",
       P2: "Cradle cast by the feeler on HIGHEST_MAX_HEALTH_ALLY, gated on Sayo's token (PASS; clear-proof; 93 -> 22).",

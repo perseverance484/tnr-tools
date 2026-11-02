@@ -25,7 +25,7 @@ const H = process.env.TNR_HARNESS!;
 const dmg = loadDmgConfig(H, "live");
 setDmgConfig(dmg.config);
 const PRAW = opt("params") ? JSON.parse(require("node:fs").readFileSync(opt("params")!, "utf8")) : {};
-if (PRAW.gear) setGearOverride(PRAW.gear);
+setGearOverride(PRAW.gear ?? null, PRAW.avgGear ?? null);
 const P = moeParams(opt("params") ? JSON.parse(require("node:fs").readFileSync(opt("params")!, "utf8")) : {});
 const RECS = buildRecords(P);
 const CAT = playerJutsuCatalog();
@@ -313,6 +313,116 @@ if (want("P7")) {
   }
   out.probes.P7 = res;
   log("P7 damage calibration (mean hit by jutsu, boss HP reset each step; Glass Lancet power " + P.pw.lancet + " on the player)", Object.entries(res).map(([k, v]: any) => `${k}: ${JSON.stringify(v.playerHits)} | lancet on player ${JSON.stringify(v.lancetOnPlayer)}`));
+}
+
+/* ---------------------------------------------------------------- P8: summon damage (why the feeler hits for tens) */
+if (want("P8")) {
+  const lines: string[] = [];
+  const pj = jutsu("moe-probe-pierce", { name: "Probe: pierce 65", description: "probe", battleDescription: "probe", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 0, actionCostPerc: 60, effects: [T.pierce(65)] });
+  RECS[pj.id] = pj;
+  for (const [power, mode] of [[40, "grasp"], [40, "lancet"], [40, "pierce"], [40, "silence-lancet"]] as const) {
+    const rows = rowsFor([AI.silence, AI.feeler], {
+      [AI.silence]: (a) => ({ ...a, jutsus: [...a.jutsus, JID.lancet], rules: mode === "silence-lancet" ? [R.jutsu(JID.lancet, "CLOSEST_OPPONENT", []), R.end()] : [R.jutsu(JID.listening, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [C.noSummon()]), R.end()] }),
+      [AI.feeler]: (a) => (mode === "lancet" ? { ...a, jutsus: [...a.jutsus, JID.lancet], rules: [R.jutsu(JID.lancet, "CLOSEST_OPPONENT", []), R.end()] } : mode === "pierce" ? { ...a, jutsus: [...a.jutsus, pj.id], rules: [R.jutsu(pj.id, "CLOSEST_OPPONENT", []), R.end()] } : a),
+    });
+    // the summon power lives on the Listening record
+    const lst = structuredClone(RECS[JID.listening]); lst.effects = lst.effects.map((e: any) => (e.type === "summon" ? { ...e, power } : e)); RECS[JID.listening] = lst;
+    rows[AI.silence].jutsus = rows[AI.silence].jutsus.map((uj: any) => (uj.jutsuId === JID.listening ? { ...uj, jutsu: lst } : uj));
+    let shown = false;
+    await stepper({ rows, targets: [AI.silence], positions: { [AI.silence]: [11, 4] }, playerAt: [8, 4], rounds: 4, playerRules: passive,
+      onStep: (b, s) => {
+        const f = b.usersState.find((u: any) => u.isSummon && u.username?.startsWith("A Feeler"));
+        const tpl = b.usersState.find((u: any) => u.controllerId === AI.feeler);
+        if (f && !shown) { shown = true; const si = b.usersState.find((u: any) => u.controllerId === AI.silence); lines.push(`hg feeler ${JSON.stringify(f.highestGenerals)} silence ${JSON.stringify(si.highestGenerals)} lvl ${f.level} int ${Math.round(f.intelligence)} spd ${Math.round(f.speed)} wil ${Math.round(f.willpower)} silence int ${Math.round(si.intelligence)} highestOff ${JSON.stringify(f.highestOffence)} / ${JSON.stringify(si.highestOffence)}`); lines.push(`power ${power}: feeler offence ${Math.round(f.offence)} str ${Math.round(f.strength)} (template ${Math.round(tpl?.offence ?? -1)}, statsMult ${f.statsMultiplier}) state.effects ${(f.effects ?? []).length} | usersEffects on feeler: ${fxOf(b, f.userId).join(" ")}`); }
+        if (s.actor !== "player" && (s.actionId === JID.grasp || s.actionId === JID.lancet || s.actionId === pj.id)) lines.push(`${mode} power ${power}: ${s.actor} ${s.action} on player ${JSON.stringify(s.hp)}`);
+      } });
+  }
+  out.probes.P8 = { lines };
+  log("P8 summon damage", lines);
+}
+
+/* ---------------------------------------------------------------- P4b: Act II pools escalate (The Hush Rises) */
+if (want("P4b")) {
+  const lines: string[] = [];
+  const perCycle: Record<number, { pools: number; ticks: number[] }> = {};
+  const rows = rowsFor([AI.sayo2, AI.porter, AI.hana, AI.tomo]);
+  // The player ends every turn standing still; each player step it is moved onto the newest pool (so it always stands on
+  // one) and kept alive, so the step's HP loss is that pool's tick. Detonation damage is read separately (boss steps).
+  let cycle = 0;
+  await stepper({ rows, targets: [AI.sayo2], positions: { [AI.sayo2]: [7, 5] }, playerAt: [1, 4], rounds: 46, playerRules: passive,
+    mutate: (b) => {
+      const pu = b.usersState.find((u: any) => !u.isAi && !u.petId); if (!pu) return; pu.curHealth = pu.maxHealth;
+      const pools = b.groundEffects.filter((g: any) => g.type === "drain" && (g.rounds ?? 0) > 0);
+      const free = pools.filter((g: any) => !b.usersState.some((u: any) => u !== pu && u.longitude === g.longitude && u.latitude === g.latitude));
+      const newest = free.sort((a: any, c: any) => (c.createdRound ?? 0) - (a.createdRound ?? 0))[0];
+      if (newest) { pu.longitude = newest.longitude; pu.latitude = newest.latitude; }
+    },
+    onStep: (b, s) => {
+      if (s.actionId === JID.quietFall) cycle++;
+      const c = Math.min(cycle, 3);
+      const live = b.groundEffects.filter((g: any) => g.type === "drain" && (g.rounds ?? 0) > 0).length;
+      const pc = (perCycle[c + 1] ??= { pools: 0, ticks: [] });
+      pc.pools = Math.max(pc.pools, live);
+      if (s.actor === "player" && (s.hp.player ?? 0) < 0) pc.ticks.push(-s.hp.player);
+      if (s.actionId?.startsWith("moe-hush-rises")) lines.push(`r${s.round} ${s.action} (${s.actionId.slice(-3)}) live pools after: ${live}`);
+    } });
+  const sum = Object.fromEntries(Object.entries(perCycle).map(([k, v]) => [`cycle ${k}`, { maxLivePools: v.pools, meanTick: v.ticks.length ? Math.round(v.ticks.reduce((a, c) => a + c, 0) / v.ticks.length) : null, ticks: v.ticks.length }]));
+  out.probes.P4b = { summary: sum, lines };
+  log("P4b The Hush Rises: pools and drain per player action on a pool, by Act II cycle (player HP 31,500)", [JSON.stringify(sum), ...lines.slice(0, 40)]);
+}
+
+/* ---------------------------------------------------------------- P9: telegraphed Stillness (stun) vs stun immunity */
+if (want("P9")) {
+  const res: any = {};
+  for (const model of ["elite", "elite_imm"]) {
+    const lines: string[] = [];
+    const rows = rowsFor([AI.silence, AI.feeler], { [AI.silence]: (a) => ({ ...a, rules: [R.jutsu(JID.stillnessBlast, "SELF", [C.has(MK.still)]), R.jutsu(JID.stillness, "SELF", [C.near(3)]), R.end()] }) });
+    let apAfter: number[] = [];
+    await stepper({ rows, targets: [AI.silence], positions: { [AI.silence]: [11, 4] }, playerAt: [9, 4], rounds: 7, model,
+      playerRules: [R.end()],
+      mutate: (b) => { const pu = b.usersState.find((u: any) => !u.isAi && !u.petId); if (pu) pu.curHealth = pu.maxHealth; },
+      onStep: (b, s) => {
+        const pu = b.usersState.find((u: any) => !u.isAi && !u.petId);
+        if (s.actor === "player") apAfter.push(pu.actionPoints);
+        lines.push(`r${s.round} ${String(s.actor).padEnd(12)} ${String(s.action).padEnd(20)} hp ${JSON.stringify(s.hp)} new ${s.newFx.filter((x: string) => !x.startsWith("visual")).join(",") || "-"} | marks on ground ${b.groundEffects.filter((g: any) => g.staticAnimation === "tg_control" && (g.rounds ?? 0) > 0).length}`);
+      } });
+    res[model] = { lines };
+    log(`P9 Stillness telegraph, ${model} (stands inside the reach, never moves)`, lines);
+  }
+  // Does a stunned player keep the AP to step out of a Refraction line? The marked stun (apReduction) leaves the next turn short.
+  out.probes.P9 = res;
+}
+
+/* ---------------------------------------------------------------- P3b: healing reduction (No One Is Mended) vs sustain */
+if (want("P3b")) {
+  const hit = jutsu("moe-probe-hit2", { name: "Probe: hit", description: "probe", battleDescription: "probe", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 0, actionCostPerc: 60, effects: [T.damage(40)] });
+  RECS[hit.id] = hit;
+  const cases: { label: string; script?: string; gear?: number; siphon?: number }[] = [
+    { label: "gear lifesteal 25% (present from round 0), basic attacks", gear: 25 },
+    { label: "Eclipse Drain lifesteal 35%", script: "ou7VyChQ-SFCm8T8yGS7I" },
+    { label: "Black Crow vamp 40%", script: "c-yTyBUJil8MzlAIHApUG" },
+    { label: "Inner Flame absorb 20% (+ its shield)", script: "kUcL8K94TW3iCkRcoik_7" },
+    { label: "basic Heal", script: "basicHeal" },
+    { label: "innate siphon 25% (shields)", siphon: 25 },
+    { label: "gear lifesteal 25% + Cleanse every turn", gear: 25, script: "cleanse" },
+  ];
+  const resB: any[] = [];
+  for (const mode of ["control", "floor (a)", "cast (b)"]) for (const cs of cases) {
+    const entry = mode === "floor (a)" ? JID.m2Entry : mode === "cast (b)" ? JID.m2EntryCast : null;
+    const rules = [...(entry ? [R.jutsu(entry, "SELF", [{ type: "specific_round", value: 1, description: "" }])] : []), R.jutsu(hit.id, "CLOSEST_OPPONENT", []), R.end()];
+    const rows = rowsFor([AI.saint], { [AI.saint]: (a) => ({ ...a, jutsus: [...a.jutsus, JID.m2EntryCast, hit.id], rules, effects: [] }) });
+    const m = playerModel("elite", { lifesteal: cs.gear ?? 0, siphon: cs.siphon ?? 0 });
+    const prules = [R.jutsu("basicAttack", "CLOSEST_OPPONENT", [{ type: "round_greater_than", value: 1, description: "" }]), R.end()];
+    let gained = 0, shields = 0, used = false; const fxSeen: string[] = [];
+    await stepper({ rows, targets: [AI.saint], positions: { [AI.saint]: [5, 5] }, playerAt: [4, 5], rounds: 6, model: m, playerRules: prules, seed: 3,
+      script: (b, round) => { if (round >= 2 && cs.script && (!used || cs.script === "cleanse")) { used = true; const sy = b.usersState.find((u: any) => u.controllerId === AI.saint); return { id: cs.script, at: cs.script.startsWith("c-") ? [sy.longitude, sy.latitude] : [4, 5] }; } return null; },
+      mutate: (b, round) => { const pu = b.usersState.find((u: any) => !u.isAi && !u.petId); if (pu) { if (round === 1 && !pu.__half) { pu.curHealth = Math.round(pu.maxHealth / 2); pu.__half = true; } if (cs.script === "cleanse") pu.basicActions = []; } const sy = b.usersState.find((u: any) => u.controllerId === AI.saint); if (sy) sy.curHealth = sy.maxHealth; },
+      onStep: (b, s) => { const pd = s.hp.player ?? 0; if (pd > 0) gained += pd; const pu = b.usersState.find((u: any) => !u.isAi && !u.petId); const sh = b.usersEffects.filter((e: any) => e.type === "shield" && e.targetId === pu?.userId); shields = Math.max(shields, sh.reduce((a: number, e: any) => a + (e.health ?? 0), 0));
+        if (s.actor === "player") fxSeen.push(`r${s.round}:${s.action}:${fxOf(b, pu.userId).filter((x: string) => /decreaseheal|healprevent/.test(x)).join("+") || "none"}`); } });
+    resB.push({ mode, case: cs.label, hpGained: gained, maxShield: Math.round(shields), playerFx: fxSeen.slice(0, 8) });
+  }
+  out.probes.P3b = resB;
+  log("P3b healing reduction (decreaseheal 100 + healprevent) vs sustain: player at 50% HP, HP regained over 6 rounds", resB.map((r) => `${r.mode.padEnd(9)} | ${r.case.padEnd(52)} | +${r.hpGained} HP | shield ${r.maxShield} | ${r.playerFx.join(" ")}`));
 }
 
 const outPath = opt("out");

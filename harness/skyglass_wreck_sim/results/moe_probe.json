@@ -4,7 +4,7 @@
  "probes": {
   "P0": {
    "issues": [],
-   "records": 53,
+   "records": 59,
    "ais": 9
   },
   "P1a": {
@@ -17,7 +17,7 @@
     "disarm rounds 5"
    ],
    "lines": [
-    "r1 boss Probe: six markers, rounds 0..5 rule#0 fx after: increasestat:30:r100 fleeprevent:100:r1* onehitkillprevent:100:r3* robprevent:100:r2* sealprevent:100:r4* disarm:100:r5*",
+    "r1 boss Probe: six markers, rounds 0..5 rule#0 fx after: onehitkillprevent:100:r3* increasestat:30:r100 fleeprevent:100:r1* robprevent:100:r2* sealprevent:100:r4* disarm:100:r5*",
     "r1 boss wait                         rule#2 fx after: fleeprevent:100:r1 onehitkillprevent:100:r3 robprevent:100:r2 sealprevent:100:r4 disarm:100:r5 increasestat:30:r99",
     "r2 boss wait                         rule#2 fx after: fleeprevent:100:r0 onehitkillprevent:100:r2 robprevent:100:r1 sealprevent:100:r3 disarm:100:r4 increasestat:30:r98",
     "r3 boss wait                         rule#3 fx after: onehitkillprevent:100:r1 robprevent:100:r0 sealprevent:100:r2 disarm:100:r3 increasestat:30:r97",
@@ -39,13 +39,13 @@
     {
      "round": 1,
      "actor": "Sayo, Mother of Echoes",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "Probe: six markers, rounds 0..5",
      "actionId": "moe-probe-markers",
      "hp": {},
      "newFx": [
-      "fleeprevent:100:r1->Sayo, Mother of Echoes",
       "onehitkillprevent:100:r3->Sayo, Mother of Echoes",
+      "fleeprevent:100:r1->Sayo, Mother of Echoes",
       "robprevent:100:r2->Sayo, Mother of Echoes",
       "sealprevent:100:r4->Sayo, Mother of Echoes",
       "disarm:100:r5->Sayo, Mother of Echoes"
@@ -54,7 +54,7 @@
     {
      "round": 1,
      "actor": "Sayo, Mother of Echoes",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -72,7 +72,7 @@
     {
      "round": 2,
      "actor": "Sayo, Mother of Echoes",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -90,7 +90,7 @@
     {
      "round": 3,
      "actor": "Sayo, Mother of Echoes",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -108,7 +108,7 @@
     {
      "round": 4,
      "actor": "Sayo, Mother of Echoes",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -126,7 +126,7 @@
     {
      "round": 5,
      "actor": "Sayo, Mother of Echoes",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -144,7 +144,7 @@
     {
      "round": 6,
      "actor": "Sayo, Mother of Echoes",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -162,7 +162,7 @@
     {
      "round": 7,
      "actor": "Sayo, Mother of Echoes",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -173,11 +173,11 @@
   "P1b passive player": {
    "sequence": [
     "r1:Etching(A)",
-    "r1:Glass Thorns",
+    "r1:The Hush Rises",
     "r2:Etching(B)",
-    "r2:Glass Thorns",
+    "r2:The Hush Rises",
     "r3:Etching(C)",
-    "r3:Glass Thorns",
+    "r3:The Hush Rises",
     "r4:Recast(A)",
     "r5:Recast(B)",
     "r6:Recast(C)",
@@ -187,13 +187,13 @@
     "r8:wait",
     "r9:wait",
     "r10:Etching(D)",
-    "r10:Glass Thorns",
+    "r10:The Hush Rises",
     "r11:Etching(A)",
-    "r11:Glass Thorns",
+    "r11:The Hush Rises",
     "r12:Etching(C)",
-    "r12:Glass Thorns",
+    "r12:The Hush Rises",
     "r13:Etching(B)",
-    "r13:Glass Thorns",
+    "r13:The Hush Rises",
     "r14:Recast(D)",
     "r15:Recast(A)",
     "r16:Recast(C)",
@@ -204,15 +204,15 @@
     "r19:wait",
     "r20:wait",
     "r21:Etching(C)",
-    "r21:Glass Thorns",
+    "r21:The Hush Rises",
     "r22:Etching(A)",
-    "r22:Glass Thorns",
+    "r22:The Hush Rises",
     "r23:Etching(E)",
-    "r23:Glass Thorns",
+    "r23:The Hush Rises",
     "r24:Etching(A)",
-    "r24:Glass Thorns",
+    "r24:The Hush Rises",
     "r25:Etching(B)",
-    "r25:Glass Thorns",
+    "r25:The Hush Rises",
     "r26:Recast(C)",
     "r27:Recast(A)",
     "r28:Recast(E)",
@@ -226,15 +226,15 @@
     "r33:Glass Lancet",
     "r33:wait",
     "r34:Etching(E)",
-    "r34:Glass Thorns",
+    "r34:The Hush Rises",
     "r35:Etching(B)",
-    "r35:Glass Thorns",
+    "r35:The Hush Rises",
     "r36:Etching(D)",
-    "r36:Glass Thorns",
+    "r36:The Hush Rises",
     "r37:Etching(B)",
-    "r37:Glass Thorns",
+    "r37:The Hush Rises",
     "r38:Etching(C)",
-    "r38:Glass Thorns",
+    "r38:The Hush Rises",
     "r39:Recast(E)",
     "r40:Recast(B)",
     "r41:Recast(D)",
@@ -243,22 +243,7 @@
     "r44:The Glass Falls Quiet",
     "r44:Raise Cadet Tomo",
     "r44:wait",
-    "r45:The Glass Remembers",
-    "r46:The Glass Remembers",
-    "r47:The Glass Remembers",
-    "r48:The Glass Remembers",
-    "r49:The Glass Remembers",
-    "r50:The Glass Remembers",
-    "r51:The Glass Remembers",
-    "r52:The Glass Remembers",
-    "r53:The Glass Remembers",
-    "r54:The Glass Remembers",
-    "r55:The Glass Remembers",
-    "r56:The Glass Remembers",
-    "r57:The Glass Remembers",
-    "r58:The Glass Remembers",
-    "r59:The Glass Remembers",
-    "r60:The Glass Remembers"
+    "r45:The Glass Remembers"
    ],
    "cycles": [
     {
@@ -302,119 +287,119 @@
     "r33 used tail: wait,moe-glass-lancet,wait",
     "r44 used tail: moe-the-glass-falls-quiet,moe-raise-cadet-tomo,wait"
    ],
-   "steps": 215
+   "steps": 169
   },
   "P1b player stuns her (stunprevent off)": {
    "sequence": [
     "r1:Etching(A)",
-    "r1:Glass Thorns",
+    "r1:The Hush Rises",
     "r2:Etching(B)",
     "r2:wait",
     "r3:Etching(A)",
     "r3:wait",
     "r4:Etching(A)",
-    "r4:Glass Thorns",
+    "r4:The Hush Rises",
     "r5:Etching(B)",
-    "r5:Glass Thorns",
+    "r5:The Hush Rises",
     "r6:Etching(C)",
-    "r6:Glass Thorns",
+    "r6:The Hush Rises",
     "r7:wait",
     "r8:Etching(A)",
     "r8:wait",
     "r9:Etching(A)",
-    "r9:Glass Thorns",
+    "r9:The Hush Rises",
     "r10:Etching(B)",
-    "r10:Glass Thorns",
+    "r10:The Hush Rises",
     "r11:Etching(C)",
-    "r11:Glass Thorns",
+    "r11:The Hush Rises",
     "r12:wait",
     "r13:Etching(A)",
     "r13:wait",
     "r14:Etching(A)",
-    "r14:Glass Thorns",
+    "r14:The Hush Rises",
     "r15:Etching(B)",
-    "r15:Glass Thorns",
+    "r15:The Hush Rises",
     "r16:Etching(C)",
-    "r16:Glass Thorns",
+    "r16:The Hush Rises",
     "r17:wait",
     "r18:Etching(A)",
     "r18:wait",
     "r19:Etching(A)",
-    "r19:Glass Thorns",
+    "r19:The Hush Rises",
     "r20:Etching(B)",
-    "r20:Glass Thorns",
+    "r20:The Hush Rises",
     "r21:Etching(C)",
-    "r21:Glass Thorns",
+    "r21:The Hush Rises",
     "r22:wait",
     "r23:Etching(A)",
     "r23:wait",
     "r24:Etching(A)",
-    "r24:Glass Thorns",
+    "r24:The Hush Rises",
     "r25:Etching(B)",
-    "r25:Glass Thorns",
+    "r25:The Hush Rises",
     "r26:Etching(C)",
-    "r26:Glass Thorns",
+    "r26:The Hush Rises",
     "r27:wait",
     "r28:Etching(A)",
     "r28:wait",
     "r29:Etching(A)",
-    "r29:Glass Thorns",
+    "r29:The Hush Rises",
     "r30:Etching(B)",
-    "r30:Glass Thorns",
+    "r30:The Hush Rises",
     "r31:Etching(C)",
-    "r31:Glass Thorns",
+    "r31:The Hush Rises",
     "r32:wait",
     "r33:Etching(A)",
     "r33:wait",
     "r34:Etching(A)",
-    "r34:Glass Thorns",
+    "r34:The Hush Rises",
     "r35:Etching(B)",
-    "r35:Glass Thorns",
+    "r35:The Hush Rises",
     "r36:Etching(C)",
-    "r36:Glass Thorns",
+    "r36:The Hush Rises",
     "r37:wait",
     "r38:Etching(A)",
     "r38:wait",
     "r39:Etching(A)",
-    "r39:Glass Thorns",
+    "r39:The Hush Rises",
     "r40:Etching(B)",
-    "r40:Glass Thorns",
+    "r40:The Hush Rises",
     "r41:Etching(C)",
-    "r41:Glass Thorns",
+    "r41:The Hush Rises",
     "r42:wait",
     "r43:Etching(A)",
     "r43:wait",
     "r44:Etching(A)",
-    "r44:Glass Thorns",
+    "r44:The Hush Rises",
     "r45:Etching(B)",
-    "r45:Glass Thorns",
+    "r45:The Hush Rises",
     "r46:Etching(C)",
-    "r46:Glass Thorns",
+    "r46:The Hush Rises",
     "r47:wait",
     "r48:Etching(A)",
     "r48:wait",
     "r49:Etching(A)",
-    "r49:Glass Thorns",
+    "r49:The Hush Rises",
     "r50:Etching(B)",
-    "r50:Glass Thorns",
+    "r50:The Hush Rises",
     "r51:Etching(C)",
-    "r51:Glass Thorns",
+    "r51:The Hush Rises",
     "r52:wait",
     "r53:Etching(A)",
     "r53:wait",
     "r54:Etching(A)",
-    "r54:Glass Thorns",
+    "r54:The Hush Rises",
     "r55:Etching(B)",
-    "r55:Glass Thorns",
+    "r55:The Hush Rises",
     "r56:Etching(C)",
-    "r56:Glass Thorns",
+    "r56:The Hush Rises",
     "r57:wait",
     "r58:Etching(A)",
     "r58:wait",
     "r59:Etching(A)",
-    "r59:Glass Thorns",
+    "r59:The Hush Rises",
     "r60:Etching(B)",
-    "r60:Glass Thorns"
+    "r60:The Hush Rises"
    ],
    "cycles": [
     {
@@ -426,17 +411,17 @@
     }
    ],
    "waitTrail": [
-    "r2 used tail: moe-glass-thorns,moe-etching-b,wait",
+    "r2 used tail: moe-hush-rises-i,moe-etching-b,wait",
     "r3 used tail: wait,moe-etching-a,wait",
-    "r7 used tail: moe-etching-c,moe-glass-thorns,wait",
+    "r7 used tail: moe-etching-c,moe-hush-rises-i,wait",
     "r8 used tail: wait,moe-etching-a,wait",
-    "r12 used tail: moe-etching-c,moe-glass-thorns,wait",
+    "r12 used tail: moe-etching-c,moe-hush-rises-i,wait",
     "r13 used tail: wait,moe-etching-a,wait",
-    "r17 used tail: moe-etching-c,moe-glass-thorns,wait",
+    "r17 used tail: moe-etching-c,moe-hush-rises-i,wait",
     "r18 used tail: wait,moe-etching-a,wait",
-    "r22 used tail: moe-etching-c,moe-glass-thorns,wait",
+    "r22 used tail: moe-etching-c,moe-hush-rises-i,wait",
     "r23 used tail: wait,moe-etching-a,wait",
-    "r27 used tail: moe-etching-c,moe-glass-thorns,wait",
+    "r27 used tail: moe-etching-c,moe-hush-rises-i,wait",
     "r28 used tail: wait,moe-etching-a,wait"
    ],
    "steps": 184
@@ -446,177 +431,177 @@
     {
      "round": 1,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 1,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 1,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 1,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 1,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 2,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 2,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 2,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 2,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 2,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 3,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 3,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 3,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 3,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 3,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 4,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 4,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 4,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 4,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 4,
      "recastWindow": false,
-     "dmg": 93
+     "dmg": 292
     },
     {
      "round": 5,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 5,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 5,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 5,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 5,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 6,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 6,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 6,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 6,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 6,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 7,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 7,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 7,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 7,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 7,
      "recastWindow": true,
-     "dmg": 279
+     "dmg": 877
     },
     {
      "round": 8,
@@ -636,12 +621,12 @@
     {
      "round": 8,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 8,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 9,
@@ -661,12 +646,12 @@
     {
      "round": 9,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 9,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 10,
@@ -686,532 +671,532 @@
     {
      "round": 10,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 10,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 11,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 11,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 11,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 11,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 11,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 12,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 12,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 12,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 12,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     },
     {
      "round": 12,
      "recastWindow": false,
-     "dmg": 0
+     "dmg": 292
     }
    ],
-   "meanOutside": 41,
-   "meanInWindow": 279
+   "meanOutside": 234,
+   "meanInWindow": 877
   },
   "P2": {
    "hits": [
     {
      "round": 1,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 1,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 1,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 1,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 1,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 2,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 2,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 2,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 2,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 2,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 3,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 3,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 3,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 3,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 3,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 4,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 4,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 5,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 5,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 5,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 5,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 5,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 6,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 6,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 6,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 6,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 6,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 7,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 7,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 7,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 7,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 7,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 8,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 8,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 8,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 8,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 8,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 9,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 9,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 9,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 9,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 9,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 10,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 10,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 10,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 10,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 10,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 11,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 11,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 11,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 11,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 11,
      "cradle": false,
-     "dmg": 93
+     "dmg": 1381
     },
     {
      "round": 12,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 12,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 12,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 12,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     },
     {
      "round": 12,
      "cradle": true,
-     "dmg": 22
+     "dmg": 271
     }
    ],
-   "meanWithCradle": 22,
-   "meanWithout": 93,
+   "meanWithCradle": 271,
+   "meanWithout": 1381,
    "lines": [
-    "r1 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r100 | Silence: decreasedamagetaken:-50:r100",
-    "r1 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r100 | Silence: decreasedamagetaken:-50:r100",
-    "r1 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r100 | Silence: decreasedamagetaken:-50:r100",
-    "r1 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r100 | Silence: decreasedamagetaken:-50:r100",
-    "r1 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r100 | Silence: decreasedamagetaken:-50:r100",
-    "r1 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1* decreasedamagetaken:-30:r100 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r100",
-    "r1 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1* decreasedamagetaken:-30:r100 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r100",
-    "r2 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r99 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r99",
-    "r2 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r99 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r99",
-    "r2 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r99 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r99",
-    "r2 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r99 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r99",
-    "r2 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r99 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r99",
-    "r2 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r99 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r99",
-    "r2 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r99 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r99",
-    "r3 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r98 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r98",
-    "r3 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r98 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r98",
-    "r3 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r98 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r98",
-    "r3 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r98 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r98",
-    "r3 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r98 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r98",
-    "r3 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r98 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r98",
-    "r3 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r98 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r98",
-    "r4 player                 clear          hp {} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r97 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r97",
-    "r4 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r97 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r97",
-    "r4 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r97 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r97",
-    "r4 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r97 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r97",
-    "r4 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r97 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r97",
-    "r5 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r96 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r96",
-    "r5 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r96 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r96",
-    "r5 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r96 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r96",
-    "r5 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r96 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r96",
-    "r5 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r96 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r96",
-    "r5 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r96 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r96",
-    "r5 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r96 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r96",
-    "r6 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r95 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r95",
-    "r6 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r95 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r95",
-    "r6 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r95 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r95",
-    "r6 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r95 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r95",
-    "r6 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r95 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r95",
-    "r6 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r95 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r95",
-    "r6 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r95 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r95",
+    "r1 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r100 | Silence: decreasedamagetaken:-25:r100",
+    "r1 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r100 | Silence: decreasedamagetaken:-25:r100",
+    "r1 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r100 | Silence: decreasedamagetaken:-25:r100",
+    "r1 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r100 | Silence: decreasedamagetaken:-25:r100",
+    "r1 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r100 | Silence: decreasedamagetaken:-25:r100",
+    "r1 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1* decreasedamagetaken:-15:r100 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r100",
+    "r1 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1* decreasedamagetaken:-15:r100 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r100",
+    "r2 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r99 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r99",
+    "r2 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r99 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r99",
+    "r2 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r99 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r99",
+    "r2 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r99 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r99",
+    "r2 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r99 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r99",
+    "r2 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r99 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r99",
+    "r2 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r99 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r99",
+    "r3 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r98 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r98",
+    "r3 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r98 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r98",
+    "r3 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r98 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r98",
+    "r3 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r98 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r98",
+    "r3 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r98 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r98",
+    "r3 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r98 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r98",
+    "r3 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r98 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r98",
+    "r4 player                 clear          hp {} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r97 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r97",
+    "r4 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r97 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r97",
+    "r4 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r97 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r97",
+    "r4 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r97 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r97",
+    "r4 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r97 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r97",
+    "r5 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r96 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r96",
+    "r5 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r96 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r96",
+    "r5 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r96 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r96",
+    "r5 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r96 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r96",
+    "r5 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r96 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r96",
+    "r5 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r96 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r96",
+    "r5 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r96 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r96",
+    "r6 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r95 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r95",
+    "r6 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r95 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r95",
+    "r6 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r95 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r95",
+    "r6 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r95 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r95",
+    "r6 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r95 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r95",
+    "r6 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r95 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r95",
+    "r6 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r95 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r95",
     "-- round 7: feeler killed --",
-    "r7 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r94 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r94",
-    "r7 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r94 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r94",
-    "r7 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r94 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r94",
-    "r7 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r94 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r94",
-    "r7 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r94 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r94",
+    "r7 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r94 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r94",
+    "r7 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r94 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r94",
+    "r7 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r94 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r94",
+    "r7 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r94 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r94",
+    "r7 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r94 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r94",
     "-- round 7: feeler killed --",
-    "r8 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r93 | Silence: decreasedamagetaken:-50:r93",
-    "r8 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r93 | Silence: decreasedamagetaken:-50:r93",
-    "r8 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r93 | Silence: decreasedamagetaken:-50:r93",
-    "r8 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r93 | Silence: decreasedamagetaken:-50:r93",
-    "r8 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r93 | Silence: decreasedamagetaken:-50:r93",
-    "r9 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r92 | Silence: decreasedamagetaken:-50:r92",
-    "r9 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r92 | Silence: decreasedamagetaken:-50:r92",
-    "r9 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r92 | Silence: decreasedamagetaken:-50:r92",
-    "r9 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r92 | Silence: decreasedamagetaken:-50:r92",
-    "r9 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r92 | Silence: decreasedamagetaken:-50:r92",
-    "r10 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r91 | Silence: decreasedamagetaken:-50:r91",
-    "r10 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r91 | Silence: decreasedamagetaken:-50:r91",
-    "r10 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r91 | Silence: decreasedamagetaken:-50:r91",
-    "r10 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r91 | Silence: decreasedamagetaken:-50:r91",
-    "r10 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r91 | Silence: decreasedamagetaken:-50:r91",
-    "r11 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r90 | Silence: decreasedamagetaken:-50:r90",
-    "r11 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r90 | Silence: decreasedamagetaken:-50:r90",
-    "r11 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r90 | Silence: decreasedamagetaken:-50:r90",
-    "r11 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r90 | Silence: decreasedamagetaken:-50:r90",
-    "r11 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-93} | Sayo: decreasedamagetaken:-30:r90 | Silence: decreasedamagetaken:-50:r90",
-    "r11 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1* decreasedamagetaken:-30:r90 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r90",
-    "r11 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1* decreasedamagetaken:-30:r90 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r90",
-    "r12 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r89 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r89",
-    "r12 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r89 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r89",
-    "r12 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r89 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r89",
-    "r12 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r89 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r89",
-    "r12 player                 basicAttack    hp {\"Sayo, Mother of Echoes\":-22} | Sayo: clearprevent:100:r1 decreasedamagetaken:-30:r89 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-50:r89",
-    "r12 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r89 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r89",
-    "r12 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-30:r89 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-50:r89"
+    "r8 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r93 | Silence: decreasedamagetaken:-25:r93",
+    "r8 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r93 | Silence: decreasedamagetaken:-25:r93",
+    "r8 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r93 | Silence: decreasedamagetaken:-25:r93",
+    "r8 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r93 | Silence: decreasedamagetaken:-25:r93",
+    "r8 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r93 | Silence: decreasedamagetaken:-25:r93",
+    "r9 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r92 | Silence: decreasedamagetaken:-25:r92",
+    "r9 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r92 | Silence: decreasedamagetaken:-25:r92",
+    "r9 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r92 | Silence: decreasedamagetaken:-25:r92",
+    "r9 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r92 | Silence: decreasedamagetaken:-25:r92",
+    "r9 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r92 | Silence: decreasedamagetaken:-25:r92",
+    "r10 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r91 | Silence: decreasedamagetaken:-25:r91",
+    "r10 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r91 | Silence: decreasedamagetaken:-25:r91",
+    "r10 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r91 | Silence: decreasedamagetaken:-25:r91",
+    "r10 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r91 | Silence: decreasedamagetaken:-25:r91",
+    "r10 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r91 | Silence: decreasedamagetaken:-25:r91",
+    "r11 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r90 | Silence: decreasedamagetaken:-25:r90",
+    "r11 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r90 | Silence: decreasedamagetaken:-25:r90",
+    "r11 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r90 | Silence: decreasedamagetaken:-25:r90",
+    "r11 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r90 | Silence: decreasedamagetaken:-25:r90",
+    "r11 player                 basicAttack    hp {\"player\":345,\"Sayo, Mother of Echoes\":-1381} | Sayo: decreasedamagetaken:-15:r90 | Silence: decreasedamagetaken:-25:r90",
+    "r11 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1* decreasedamagetaken:-15:r90 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r90",
+    "r11 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1* decreasedamagetaken:-15:r90 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r90",
+    "r12 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r89 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r89",
+    "r12 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r89 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r89",
+    "r12 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r89 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r89",
+    "r12 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r89 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r89",
+    "r12 player                 basicAttack    hp {\"player\":67,\"Sayo, Mother of Echoes\":-271} | Sayo: clearprevent:100:r1 decreasedamagetaken:-15:r89 decreasedamagetaken:-90:r1 | Silence: decreasedamagetaken:-25:r89",
+    "r12 A Feeler of the Deep   Cradle         hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r89 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r89",
+    "r12 A Feeler of the Deep   wait           hp {} | Sayo: clearprevent:100:r1 clearprevent:100:r1* decreasedamagetaken:-15:r89 decreasedamagetaken:-90:r1 decreasedamagetaken:-90:r1* | Silence: decreasedamagetaken:-25:r89"
    ]
   },
   "P3": [
    {
     "healprevent": false,
     "case": "gear lifesteal 25% (row from round 0), basic attacks",
-    "hpGained": 132,
+    "hpGained": 1624,
     "maxShield": 0,
     "netOnBossHitsFromR3": [
-     -49,
-     -49,
-     -49
+     -30,
+     -30,
+     -30
     ],
     "lines": [
      "r1 player wait hp {} ",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r1 Sayo, Saint  wait hp {} ",
-     "r2 player basicAttack hp {\"player\":33,\"Sayo, Saint of Stillness\":-133} ",
+     "r2 player basicAttack hp {\"player\":406,\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"player\":33,\"Sayo, Saint of Stillness\":-133} ",
+     "r3 player basicAttack hp {\"player\":406,\"Sayo, Saint of Stillness\":-1624} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"player\":33,\"Sayo, Saint of Stillness\":-133} ",
+     "r4 player basicAttack hp {\"player\":406,\"Sayo, Saint of Stillness\":-1624} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"player\":33,\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"player\":406,\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r5 Sayo, Saint  wait hp {} "
     ]
    },
    {
     "healprevent": false,
     "case": "Eclipse Drain lifesteal 35% cast AFTER the prevent",
-    "hpGained": 120,
+    "hpGained": 1476,
     "maxShield": 0,
     "netOnBossHitsFromR3": [
-     -49,
-     -49,
-     -49
+     -30,
+     -30,
+     -30
     ],
     "lines": [
      "r1 player wait hp {} ",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r1 Sayo, Saint  wait hp {} ",
      "r2 player Eclipse Drain hp {} visual:1:r0->player,increasedamagegiven:30:r2->player,lifesteal:35:r2->player",
-     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"player\":60,\"Sayo, Saint of Stillness\":-173} ",
+     "r3 player basicAttack hp {\"player\":738,\"Sayo, Saint of Stillness\":-2111} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"player\":60,\"Sayo, Saint of Stillness\":-173} ",
+     "r4 player basicAttack hp {\"player\":738,\"Sayo, Saint of Stillness\":-2111} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r5 Sayo, Saint  wait hp {} "
     ]
    },
    {
     "healprevent": false,
     "case": "Black Crow vamp 40%",
-    "hpGained": 199,
+    "hpGained": 2436,
     "maxShield": 0,
     "netOnBossHitsFromR3": [
-     -61,
-     -61,
-     -49
+     -40,
+     -40,
+     -30
     ],
     "lines": [
      "r1 player wait hp {} ",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r1 Sayo, Saint  wait hp {} ",
-     "r2 player Black Crow hp {\"player\":199,\"Sayo, Saint of Stillness\":-399} decreasedamagegiven:-20:r2->Sayo, Saint of Stillness,afterburn:25:r2->player",
-     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r2 player Black Crow hp {\"player\":2436,\"Sayo, Saint of Stillness\":-4872} decreasedamagegiven:-20:r2->Sayo, Saint of Stillness,afterburn:25:r2->player",
+     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {\"player\":-61} ",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":-40} ",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {\"player\":-61} ",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":-40} ",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r5 Sayo, Saint  wait hp {} "
     ]
    },
@@ -1219,64 +1204,64 @@
     "healprevent": false,
     "case": "innate siphon 25% (shields from damage taken)",
     "hpGained": 0,
-    "maxShield": 21,
+    "maxShield": 18,
     "netOnBossHitsFromR3": [
-     -40,
-     -39,
-     -40
+     -22,
+     -22,
+     -22
     ],
     "lines": [
      "r1 player wait hp {} ",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} shield:12:r3->player",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} shield:10:r3->player",
      "r1 Sayo, Saint  wait hp {} ",
-     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {\"player\":-37} shield:9:r3->player",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":-20} shield:8:r3->player",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {\"player\":-40} shield:10:r3->player",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":-22} shield:8:r3->player",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {\"player\":-39} shield:9:r3->player",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":-22} shield:8:r3->player",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-40} shield:10:r3->player",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-22} shield:8:r3->player",
      "r5 Sayo, Saint  wait hp {} "
     ]
    },
    {
     "healprevent": false,
     "case": "Inner Flame absorb 20% cast AFTER the prevent",
-    "hpGained": 0,
+    "hpGained": 39,
     "maxShield": 350,
     "netOnBossHitsFromR3": [
-     0,
-     0,
-     -49
+     13,
+     13,
+     -30
     ],
     "lines": [
      "r1 player wait hp {} ",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r1 Sayo, Saint  wait hp {} ",
      "r2 player Inner Flame hp {} shield:350:r2->player,absorb:20:r2->player",
-     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {} ",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":13} ",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {} ",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":13} ",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {} ",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":13} ",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r5 Sayo, Saint  wait hp {} "
     ]
    },
@@ -1286,62 +1271,62 @@
     "hpGained": 300,
     "maxShield": 0,
     "netOnBossHitsFromR3": [
-     -49,
-     -49,
-     -49
+     -30,
+     -30,
+     -30
     ],
     "lines": [
      "r1 player wait hp {} ",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r1 Sayo, Saint  wait hp {} ",
      "r2 player basicHeal hp {\"player\":300} ",
-     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r5 Sayo, Saint  wait hp {} "
     ]
    },
    {
     "healprevent": true,
     "case": "gear lifesteal 25% (row from round 0), basic attacks",
-    "hpGained": 132,
+    "hpGained": 1624,
     "maxShield": 0,
     "netOnBossHitsFromR3": [
-     -49,
-     -49,
-     -49
+     -30,
+     -30,
+     -30
     ],
     "lines": [
      "r1 player wait hp {} ",
      "r1 Sayo, Saint  Probe: healprevent 6 round hp {} healprevent:100:r6->player",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
-     "r2 player basicAttack hp {\"player\":33,\"Sayo, Saint of Stillness\":-133} ",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
+     "r2 player basicAttack hp {\"player\":406,\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"player\":33,\"Sayo, Saint of Stillness\":-133} ",
+     "r3 player basicAttack hp {\"player\":406,\"Sayo, Saint of Stillness\":-1624} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"player\":33,\"Sayo, Saint of Stillness\":-133} ",
+     "r4 player basicAttack hp {\"player\":406,\"Sayo, Saint of Stillness\":-1624} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"player\":33,\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"player\":406,\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r5 Sayo, Saint  wait hp {} "
     ]
    },
@@ -1351,30 +1336,30 @@
     "hpGained": 0,
     "maxShield": 0,
     "netOnBossHitsFromR3": [
-     -49,
-     -49,
-     -49
+     -30,
+     -30,
+     -30
     ],
     "lines": [
      "r1 player wait hp {} ",
      "r1 Sayo, Saint  Probe: healprevent 6 round hp {} healprevent:100:r6->player",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r2 player Eclipse Drain hp {} visual:1:r0->player,increasedamagegiven:30:r2->player",
-     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-173} ",
+     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-2111} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-173} ",
+     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-2111} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r5 Sayo, Saint  wait hp {} "
     ]
    },
@@ -1384,30 +1369,30 @@
     "hpGained": 0,
     "maxShield": 0,
     "netOnBossHitsFromR3": [
-     -61,
-     -61,
-     -49
+     -40,
+     -40,
+     -30
     ],
     "lines": [
      "r1 player wait hp {} ",
      "r1 Sayo, Saint  Probe: healprevent 6 round hp {} healprevent:100:r6->player",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
-     "r2 player Black Crow hp {\"Sayo, Saint of Stillness\":-399} decreasedamagegiven:-20:r2->Sayo, Saint of Stillness,afterburn:25:r2->player",
-     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
+     "r2 player Black Crow hp {\"Sayo, Saint of Stillness\":-4872} decreasedamagegiven:-20:r2->Sayo, Saint of Stillness,afterburn:25:r2->player",
+     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {\"player\":-61} ",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":-40} ",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {\"player\":-61} ",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":-40} ",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r5 Sayo, Saint  wait hp {} "
     ]
    },
@@ -1415,64 +1400,64 @@
     "healprevent": true,
     "case": "innate siphon 25% (shields from damage taken)",
     "hpGained": 0,
-    "maxShield": 21,
+    "maxShield": 18,
     "netOnBossHitsFromR3": [
-     -40,
-     -39,
-     -40
+     -22,
+     -22,
+     -22
     ],
     "lines": [
      "r1 player wait hp {} ",
      "r1 Sayo, Saint  Probe: healprevent 6 round hp {} healprevent:100:r6->player",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} shield:12:r3->player",
-     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} shield:10:r3->player",
+     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {\"player\":-37} shield:9:r3->player",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":-20} shield:8:r3->player",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {\"player\":-40} shield:10:r3->player",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":-22} shield:8:r3->player",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {\"player\":-39} shield:9:r3->player",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":-22} shield:8:r3->player",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-40} shield:10:r3->player",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-22} shield:8:r3->player",
      "r5 Sayo, Saint  wait hp {} "
     ]
    },
    {
     "healprevent": true,
     "case": "Inner Flame absorb 20% cast AFTER the prevent",
-    "hpGained": 0,
+    "hpGained": 39,
     "maxShield": 350,
     "netOnBossHitsFromR3": [
-     0,
-     0,
-     -49
+     13,
+     13,
+     -30
     ],
     "lines": [
      "r1 player wait hp {} ",
      "r1 Sayo, Saint  Probe: healprevent 6 round hp {} healprevent:100:r6->player",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r2 player Inner Flame hp {} shield:350:r2->player",
-     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {} ",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":13} ",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {} ",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":13} ",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {} ",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":13} ",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r5 Sayo, Saint  wait hp {} "
     ]
    },
@@ -1482,30 +1467,30 @@
     "hpGained": 0,
     "maxShield": 0,
     "netOnBossHitsFromR3": [
-     -49,
-     -49,
-     -49
+     -30,
+     -30,
+     -30
     ],
     "lines": [
      "r1 player wait hp {} ",
      "r1 Sayo, Saint  Probe: healprevent 6 round hp {} healprevent:100:r6->player",
-     "r1 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r1 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r2 player basicHeal hp {} ",
-     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r2 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r2 player wait hp {} ",
-     "r2 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r2 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r2 Sayo, Saint  wait hp {} ",
-     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r3 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r3 player wait hp {} ",
-     "r3 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r3 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r3 Sayo, Saint  wait hp {} ",
-     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r4 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r4 player wait hp {} ",
-     "r4 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r4 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r4 Sayo, Saint  wait hp {} ",
-     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-133} ",
+     "r5 player basicAttack hp {\"Sayo, Saint of Stillness\":-1624} ",
      "r5 player wait hp {} ",
-     "r5 Sayo, Saint  Probe: hit hp {\"player\":-49} ",
+     "r5 Sayo, Saint  Probe: hit hp {\"player\":-30} ",
      "r5 Sayo, Saint  wait hp {} "
     ]
    }
@@ -1518,26 +1503,26 @@
     "r2 player       replacementTechnique       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r8\":4,\"drain:r8\":4}",
     "r2 player       wait                       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r8\":4,\"drain:r8\":4}",
     "r2 The Silence  wait                       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r7\":4,\"drain:r7\":4}",
-    "r3 player       wait                       p@1,2 ON POOL hp {\"player\":-1818} new shield:454:r3->player | ground {\"healprevent:r7\":4,\"drain:r7\":4}",
+    "r3 player       wait                       p@1,2 ON POOL hp {\"player\":-909} new shield:227:r3->player | ground {\"healprevent:r7\":4,\"drain:r7\":4}",
     "r3 The Silence  wait                       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r6\":4,\"drain:r6\":4}",
-    "r4 player       basicHeal                  p@1,2 ON POOL hp {\"player\":-1818} new shield:454:r3->player | ground {\"healprevent:r6\":4,\"drain:r6\":4}",
+    "r4 player       basicHeal                  p@1,2 ON POOL hp {\"player\":-909} new shield:227:r3->player | ground {\"healprevent:r6\":4,\"drain:r6\":4}",
     "r4 player       wait                       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r6\":4,\"drain:r6\":4}",
     "r4 The Silence  The Hush                   p@1,2 ON POOL hp {} new - | ground {\"healprevent:r6\":4,\"healprevent:r8\":8,\"drain:r6\":4,\"drain:r8\":8}",
     "r4 The Silence  wait                       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r5\":4,\"healprevent:r8\":8,\"drain:r5\":4,\"drain:r8\":8}",
-    "r5 player       wait                       p@1,2 ON POOL hp {\"player\":-1818} new shield:454:r3->player | ground {\"healprevent:r5\":4,\"healprevent:r8\":8,\"drain:r5\":4,\"drain:r8\":8}",
+    "r5 player       wait                       p@1,2 ON POOL hp {\"player\":-909} new shield:227:r3->player | ground {\"healprevent:r5\":4,\"healprevent:r8\":8,\"drain:r5\":4,\"drain:r8\":8}",
     "r5 The Silence  wait                       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r4\":4,\"healprevent:r7\":8,\"drain:r4\":4,\"drain:r7\":8}",
-    "r6 player       wait                       p@1,2 ON POOL hp {\"player\":-1818} new shield:454:r3->player | ground {\"healprevent:r4\":4,\"healprevent:r7\":8,\"drain:r4\":4,\"drain:r7\":8}",
+    "r6 player       wait                       p@1,2 ON POOL hp {\"player\":-909} new shield:227:r3->player | ground {\"healprevent:r4\":4,\"healprevent:r7\":8,\"drain:r4\":4,\"drain:r7\":8}",
     "r6 The Silence  wait                       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r3\":4,\"healprevent:r6\":8,\"drain:r3\":4,\"drain:r6\":8}",
-    "r7 player       wait                       p@1,2 ON POOL hp {\"player\":-1818} new shield:454:r3->player | ground {\"healprevent:r3\":4,\"healprevent:r6\":8,\"drain:r3\":4,\"drain:r6\":8}",
+    "r7 player       wait                       p@1,2 ON POOL hp {\"player\":-909} new shield:227:r3->player | ground {\"healprevent:r3\":4,\"healprevent:r6\":8,\"drain:r3\":4,\"drain:r6\":8}",
     "r7 The Silence  The Hush                   p@1,2 ON POOL hp {} new - | ground {\"healprevent:r3\":4,\"healprevent:r6\":8,\"healprevent:r8\":8,\"drain:r3\":4,\"drain:r6\":8,\"drain:r8\":8}",
-    "r7 The Silence  The Hush, Unbridled        p@1,2 ON POOL hp {} new - | ground {\"healprevent:r3\":4,\"healprevent:r6\":8,\"healprevent:r8\":12,\"damage:r8\":4,\"drain:r3\":4,\"drain:r6\":8,\"drain:r8\":8}",
-    "r7 The Silence  wait                       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r2\":4,\"healprevent:r5\":8,\"healprevent:r8\":12,\"damage:r8\":4,\"drain:r2\":4,\"drain:r5\":8,\"drain:r8\":8}",
-    "r8 player       wait                       p@1,2 ON POOL hp {\"player\":-1818} new shield:454:r3->player | ground {\"healprevent:r2\":4,\"healprevent:r5\":8,\"healprevent:r8\":12,\"damage:r8\":4,\"drain:r2\":4,\"drain:r5\":8,\"drain:r8\":8}",
-    "r8 The Silence  The Hush, Unbridled        p@1,2 ON POOL hp {} new - | ground {\"healprevent:r2\":4,\"healprevent:r5\":8,\"healprevent:r8\":16,\"damage:r8\":8,\"drain:r2\":4,\"drain:r5\":8,\"drain:r8\":8}",
-    "r8 The Silence  wait                       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r1\":4,\"healprevent:r4\":8,\"healprevent:r7\":12,\"healprevent:r8\":4,\"damage:r7\":4,\"damage:r8\":4,\"drain:r1\":4,\"drain:r4\":8,\"drain:r7\":8}",
-    "r9 player       wait                       p@1,2 ON POOL hp {\"player\":-1818} new shield:454:r3->player | ground {\"healprevent:r1\":4,\"healprevent:r4\":8,\"healprevent:r7\":12,\"healprevent:r8\":4,\"damage:r7\":4,\"damage:r8\":4,\"drain:r1\":4,\"drain:r4\":8,\"drain:r7\":8}",
-    "r9 The Silence  The Hush, Unbridled        p@1,2 ON POOL hp {} new - | ground {\"healprevent:r1\":4,\"healprevent:r4\":8,\"healprevent:r7\":12,\"healprevent:r8\":8,\"damage:r7\":4,\"damage:r8\":8,\"drain:r1\":4,\"drain:r4\":8,\"drain:r7\":8}",
-    "r9 The Silence  wait                       p@1,2 hp {} new - | ground {\"healprevent:r3\":8,\"healprevent:r6\":12,\"healprevent:r7\":4,\"healprevent:r8\":4,\"damage:r6\":4,\"damage:r7\":4,\"damage:r8\":4,\"drain:r3\":8,\"drain:r6\":8}"
+    "r7 The Silence  The Hush, Unbridled        p@1,2 ON POOL hp {} new - | ground {\"healprevent:r3\":4,\"healprevent:r6\":8,\"healprevent:r8\":11,\"damage:r8\":3,\"drain:r3\":4,\"drain:r6\":8,\"drain:r8\":8}",
+    "r7 The Silence  wait                       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r2\":4,\"healprevent:r5\":8,\"healprevent:r8\":11,\"damage:r8\":3,\"drain:r2\":4,\"drain:r5\":8,\"drain:r8\":8}",
+    "r8 player       wait                       p@1,2 ON POOL hp {\"player\":-909} new shield:227:r3->player | ground {\"healprevent:r2\":4,\"healprevent:r5\":8,\"healprevent:r8\":11,\"damage:r8\":3,\"drain:r2\":4,\"drain:r5\":8,\"drain:r8\":8}",
+    "r8 The Silence  The Hush, Unbridled        p@1,2 ON POOL hp {} new - | ground {\"healprevent:r2\":4,\"healprevent:r5\":8,\"healprevent:r8\":14,\"damage:r8\":6,\"drain:r2\":4,\"drain:r5\":8,\"drain:r8\":8}",
+    "r8 The Silence  wait                       p@1,2 ON POOL hp {} new - | ground {\"healprevent:r1\":4,\"healprevent:r4\":8,\"healprevent:r7\":11,\"healprevent:r8\":3,\"damage:r7\":3,\"damage:r8\":3,\"drain:r1\":4,\"drain:r4\":8,\"drain:r7\":8}",
+    "r9 player       wait                       p@1,2 ON POOL hp {\"player\":-909} new shield:227:r3->player | ground {\"healprevent:r1\":4,\"healprevent:r4\":8,\"healprevent:r7\":11,\"healprevent:r8\":3,\"damage:r7\":3,\"damage:r8\":3,\"drain:r1\":4,\"drain:r4\":8,\"drain:r7\":8}",
+    "r9 The Silence  The Hush, Unbridled        p@1,2 ON POOL hp {} new - | ground {\"healprevent:r1\":4,\"healprevent:r4\":8,\"healprevent:r7\":11,\"healprevent:r8\":6,\"damage:r7\":3,\"damage:r8\":6,\"drain:r1\":4,\"drain:r4\":8,\"drain:r7\":8}",
+    "r9 The Silence  wait                       p@1,2 hp {} new - | ground {\"healprevent:r3\":8,\"healprevent:r6\":11,\"healprevent:r7\":3,\"healprevent:r8\":3,\"damage:r6\":3,\"damage:r7\":3,\"damage:r8\":3,\"drain:r3\":8,\"drain:r6\":8}"
    ],
    "steps": [
     {
@@ -1552,7 +1537,7 @@
     {
      "round": 1,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "The Hush",
      "actionId": "moe-hush",
      "hp": {},
@@ -1561,7 +1546,7 @@
     {
      "round": 1,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -1588,7 +1573,7 @@
     {
      "round": 2,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -1601,16 +1586,16 @@
      "action": "wait",
      "actionId": "wait",
      "hp": {
-      "player": -1818
+      "player": -909
      },
      "newFx": [
-      "shield:454:r3->player"
+      "shield:227:r3->player"
      ]
     },
     {
      "round": 3,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -1623,10 +1608,10 @@
      "action": "basicHeal",
      "actionId": "basicHeal",
      "hp": {
-      "player": -1818
+      "player": -909
      },
      "newFx": [
-      "shield:454:r3->player"
+      "shield:227:r3->player"
      ]
     },
     {
@@ -1641,7 +1626,7 @@
     {
      "round": 4,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "The Hush",
      "actionId": "moe-hush-ii",
      "hp": {},
@@ -1650,7 +1635,7 @@
     {
      "round": 4,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -1663,16 +1648,16 @@
      "action": "wait",
      "actionId": "wait",
      "hp": {
-      "player": -1818
+      "player": -909
      },
      "newFx": [
-      "shield:454:r3->player"
+      "shield:227:r3->player"
      ]
     },
     {
      "round": 5,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -1685,16 +1670,16 @@
      "action": "wait",
      "actionId": "wait",
      "hp": {
-      "player": -1818
+      "player": -909
      },
      "newFx": [
-      "shield:454:r3->player"
+      "shield:227:r3->player"
      ]
     },
     {
      "round": 6,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -1707,16 +1692,16 @@
      "action": "wait",
      "actionId": "wait",
      "hp": {
-      "player": -1818
+      "player": -909
      },
      "newFx": [
-      "shield:454:r3->player"
+      "shield:227:r3->player"
      ]
     },
     {
      "round": 7,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "The Hush",
      "actionId": "moe-hush-ii",
      "hp": {},
@@ -1725,7 +1710,7 @@
     {
      "round": 7,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "The Hush, Unbridled",
      "actionId": "moe-hush-unbridled",
      "hp": {},
@@ -1734,7 +1719,7 @@
     {
      "round": 7,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -1747,16 +1732,16 @@
      "action": "wait",
      "actionId": "wait",
      "hp": {
-      "player": -1818
+      "player": -909
      },
      "newFx": [
-      "shield:454:r3->player"
+      "shield:227:r3->player"
      ]
     },
     {
      "round": 8,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "The Hush, Unbridled",
      "actionId": "moe-hush-unbridled",
      "hp": {},
@@ -1765,7 +1750,7 @@
     {
      "round": 8,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -1778,16 +1763,16 @@
      "action": "wait",
      "actionId": "wait",
      "hp": {
-      "player": -1818
+      "player": -909
      },
      "newFx": [
-      "shield:454:r3->player"
+      "shield:227:r3->player"
      ]
     },
     {
      "round": 9,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "The Hush, Unbridled",
      "actionId": "moe-hush-unbridled",
      "hp": {},
@@ -1796,7 +1781,7 @@
     {
      "round": 9,
      "actor": "The Silence",
-     "actorUid": "0iijQGYaee0QJsq-oR9_X",
+     "actorUid": "U9KZRs9laOL0Bs7StlgY9",
      "action": "wait",
      "actionId": "wait",
      "hp": {},
@@ -1860,20 +1845,21 @@
     "r2 A Feeler of the Deep     wait                         ",
     "r2 Sayo, Mother of Echoes   Refraction                   ",
     "-- round 3: The Silence set to 0 HP (killed) --",
+    "r3 Sayo, Mother of Echoes   Lucid                        increasedamagegiven:50:r99->Sayo, Mother of Echoes",
     "r3 Sayo, Mother of Echoes   Refraction                   fleeprevent:100:r1->Sayo, Mother of Echoes",
     "r3 Sayo, Mother of Echoes   wait                         ",
-    "r4 Sayo, Mother of Echoes   Refraction                   shield:92:r3->player",
+    "r4 Sayo, Mother of Echoes   Refraction                   shield:2897:r3->player",
     "r5 Sayo, Mother of Echoes   Refraction                   increaserange:1:r1->Sayo, Mother of Echoes",
     "r5 Sayo, Mother of Echoes   wait                         ",
     "r6 Sayo, Mother of Echoes   Lucid Refraction             fleeprevent:100:r1->Sayo, Mother of Echoes",
-    "r7 Sayo, Mother of Echoes   Refraction                   shield:69:r3->player",
+    "r7 Sayo, Mother of Echoes   Refraction                   shield:2173:r3->player",
     "r8 Sayo, Mother of Echoes   Refraction                   fleeprevent:100:r1->Sayo, Mother of Echoes",
     "r8 Sayo, Mother of Echoes   wait                         ",
-    "r9 Sayo, Mother of Echoes   Refraction                   shield:75:r3->player",
+    "r9 Sayo, Mother of Echoes   Refraction                   shield:2354:r3->player",
     "r10 Sayo, Mother of Echoes   Refraction                   increaserange:1:r1->Sayo, Mother of Echoes",
     "r10 Sayo, Mother of Echoes   wait                         "
    ],
-   "steps": 33
+   "steps": 34
   },
   "P6": {
    "lines": [
@@ -1898,6 +1884,545 @@
     "r6 player                     UNAVAILABLE cleanse        player fx: cleanseprevent:100:r1 increasedamagetaken:15:r6 decreaseheal:-15:r6",
     "r6 Sayo, Saint of Stillness   wait                       player fx: cleanseprevent:100:r0 increasedamagetaken:15:r5 decreaseheal:-15:r5"
    ]
-  }
+  },
+  "P7": {
+   "elite vs moe-ai-sayo": {
+    "playerHits": {
+     "Black Crow": 4142,
+     "basicAttack": 1381
+    },
+    "lancetOnPlayer": [
+     450,
+     205,
+     365,
+     365
+    ]
+   },
+   "elite vs moe-ai-silence": {
+    "playerHits": {
+     "Black Crow": 3654,
+     "basicAttack": 1218
+    },
+    "lancetOnPlayer": []
+   },
+   "elite vs moe-ai-sayo-stilling": {
+    "playerHits": {
+     "Black Crow": 877,
+     "basicAttack": 292
+    },
+    "lancetOnPlayer": [
+     1051,
+     615,
+     990,
+     990
+    ]
+   },
+   "elite vs moe-ai-saint": {
+    "playerHits": {
+     "Black Crow": 1803,
+     "basicAttack": 601
+    },
+    "lancetOnPlayer": [
+     1862,
+     1862,
+     2527,
+     2361
+    ]
+   },
+   "average vs moe-ai-sayo": {
+    "playerHits": {
+     "Burning Coil": 1678,
+     "basicAttack": 503
+    },
+    "lancetOnPlayer": [
+     450,
+     207,
+     207,
+     207
+    ]
+   },
+   "average vs moe-ai-silence": {
+    "playerHits": {
+     "Burning Coil": 1481,
+     "basicAttack": 444
+    },
+    "lancetOnPlayer": []
+   },
+   "average vs moe-ai-sayo-stilling": {
+    "playerHits": {
+     "Burning Coil": 225,
+     "basicAttack": 67
+    },
+    "lancetOnPlayer": [
+     1051,
+     564,
+     564,
+     564
+    ]
+   },
+   "average vs moe-ai-saint": {
+    "playerHits": {
+     "Burning Coil": 730,
+     "basicAttack": 219
+    },
+    "lancetOnPlayer": [
+     1862,
+     1463,
+     1523,
+     1514
+    ]
+   }
+  },
+  "P8": {
+   "lines": [
+    "hg feeler [\"strength\",\"speed\"] silence [\"strength\",\"speed\"] lvl 100 int 1622256 spd 1622256 wil 1622256 silence int 400000 highestOff undefined / undefined",
+    "power 40: feeler offence 1622256 str 1622256 (template 1622256, statsMult 5.83) state.effects 0 | usersEffects on feeler: increasedamagegiven:100:r100 increasedamagegiven:100:r100 increasedamagegiven:100:r100 increasedamagegiven:50:r100",
+    "grasp power 40: A Feeler of the Deep Grasp on player {\"player\":-356}",
+    "grasp power 40: A Feeler of the Deep Grasp on player {\"player\":-356}",
+    "grasp power 40: A Feeler of the Deep Grasp on player {\"player\":-356}",
+    "grasp power 40: A Feeler of the Deep Grasp on player {\"player\":-356}",
+    "hg feeler [\"strength\",\"speed\"] silence [\"strength\",\"speed\"] lvl 100 int 1622256 spd 1622256 wil 1622256 silence int 400000 highestOff undefined / undefined",
+    "power 40: feeler offence 1622256 str 1622256 (template 1622256, statsMult 5.83) state.effects 0 | usersEffects on feeler: increasedamagegiven:100:r100 increasedamagegiven:100:r100 increasedamagegiven:100:r100 increasedamagegiven:50:r100",
+    "lancet power 40: A Feeler of the Deep Glass Lancet on player {\"player\":-9}",
+    "lancet power 40: A Feeler of the Deep Glass Lancet on player {\"player\":-6}",
+    "lancet power 40: A Feeler of the Deep Glass Lancet on player {\"player\":-7}",
+    "lancet power 40: A Feeler of the Deep Glass Lancet on player {\"player\":-6}",
+    "hg feeler [\"strength\",\"speed\"] silence [\"strength\",\"speed\"] lvl 100 int 1622256 spd 1622256 wil 1622256 silence int 400000 highestOff undefined / undefined",
+    "power 40: feeler offence 1622256 str 1622256 (template 1622256, statsMult 5.83) state.effects 0 | usersEffects on feeler: increasedamagegiven:100:r100 increasedamagegiven:100:r100 increasedamagegiven:100:r100 increasedamagegiven:50:r100",
+    "pierce power 40: A Feeler of the Deep Probe: pierce 65 on player {\"player\":-1157}",
+    "pierce power 40: A Feeler of the Deep Probe: pierce 65 on player {\"player\":-1157}",
+    "pierce power 40: A Feeler of the Deep Probe: pierce 65 on player {\"player\":-1157}",
+    "pierce power 40: A Feeler of the Deep Probe: pierce 65 on player {\"player\":-1157}",
+    "hg feeler [\"strength\",\"speed\"] silence [\"strength\",\"speed\"] lvl 100 int 1622256 spd 1622256 wil 1622256 silence int 400000 highestOff undefined / undefined",
+    "power 40: feeler offence 1622256 str 1622256 (template 1622256, statsMult 5.83) state.effects 0 | usersEffects on feeler: increasedamagegiven:100:r100 increasedamagegiven:100:r100 increasedamagegiven:100:r100 increasedamagegiven:50:r100",
+    "silence-lancet power 40: The Silence Glass Lancet on player {\"player\":-450}",
+    "silence-lancet power 40: The Silence Glass Lancet on player {\"player\":-290}",
+    "silence-lancet power 40: The Silence Glass Lancet on player {\"player\":-330}",
+    "silence-lancet power 40: The Silence Glass Lancet on player {\"player\":-320}"
+   ]
+  },
+  "P4b": {
+   "summary": {
+    "cycle 1": {
+     "maxLivePools": 24,
+     "meanTick": 3535,
+     "ticks": 6
+    },
+    "cycle 2": {
+     "maxLivePools": 48,
+     "meanTick": 4132,
+     "ticks": 11
+    },
+    "cycle 3": {
+     "maxLivePools": 90,
+     "meanTick": 7667,
+     "ticks": 13
+    },
+    "cycle 4": {
+     "maxLivePools": 120,
+     "meanTick": 7925,
+     "ticks": 13
+    }
+   },
+   "lines": [
+    "r1 The Hush Rises (s-i) live pools after: 8",
+    "r2 The Hush Rises (s-i) live pools after: 16",
+    "r3 The Hush Rises (s-i) live pools after: 24",
+    "r10 The Hush Rises (-ii) live pools after: 28",
+    "r11 The Hush Rises (-ii) live pools after: 32",
+    "r12 The Hush Rises (-ii) live pools after: 36",
+    "r13 The Hush Rises (-ii) live pools after: 48",
+    "r21 The Hush Rises (iii) live pools after: 30",
+    "r22 The Hush Rises (iii) live pools after: 36",
+    "r23 The Hush Rises (iii) live pools after: 54",
+    "r24 The Hush Rises (iii) live pools after: 72",
+    "r25 The Hush Rises (iii) live pools after: 90",
+    "r34 The Hush Rises (-iv) live pools after: 24",
+    "r35 The Hush Rises (-iv) live pools after: 48",
+    "r36 The Hush Rises (-iv) live pools after: 72",
+    "r37 The Hush Rises (-iv) live pools after: 96",
+    "r38 The Hush Rises (-iv) live pools after: 120"
+   ]
+  },
+  "P9": {
+   "elite": {
+    "lines": [
+     "r1 player       wait                 hp {} new - | marks on ground 0",
+     "r1 The Silence  Stillness            hp {} new robprevent:100:r1->The Silence | marks on ground 22",
+     "r1 The Silence  wait                 hp {} new - | marks on ground 22",
+     "r2 player       wait                 hp {} new - | marks on ground 22",
+     "r2 The Silence  Stillness            hp {\"player\":-1983} new stun:100:r1->player,shield:708:r3->player | marks on ground 0",
+     "r3 The Silence  wait                 hp {} new - | marks on ground 0",
+     "r4 player       wait                 hp {} new - | marks on ground 0",
+     "r4 The Silence  Stillness            hp {} new robprevent:100:r1->The Silence | marks on ground 22",
+     "r4 The Silence  wait                 hp {} new - | marks on ground 22",
+     "r5 player       wait                 hp {} new - | marks on ground 22",
+     "r5 The Silence  Stillness            hp {\"player\":-1275} new stun:100:r1->player,shield:531:r3->player | marks on ground 0",
+     "r6 The Silence  wait                 hp {} new - | marks on ground 0",
+     "r7 player       wait                 hp {} new - | marks on ground 0",
+     "r7 The Silence  Stillness            hp {} new robprevent:100:r1->The Silence | marks on ground 22",
+     "r7 The Silence  wait                 hp {} new - | marks on ground 22"
+    ]
+   },
+   "elite_imm": {
+    "lines": [
+     "r1 player       wait                 hp {} new - | marks on ground 0",
+     "r1 The Silence  Stillness            hp {} new robprevent:100:r1->The Silence | marks on ground 22",
+     "r1 The Silence  wait                 hp {} new - | marks on ground 22",
+     "r2 player       wait                 hp {} new - | marks on ground 22",
+     "r2 The Silence  Stillness            hp {\"player\":-1983} new shield:708:r3->player | marks on ground 0",
+     "r3 player       wait                 hp {} new - | marks on ground 0",
+     "r3 The Silence  wait                 hp {} new - | marks on ground 0",
+     "r4 player       wait                 hp {} new - | marks on ground 0",
+     "r4 The Silence  Stillness            hp {} new robprevent:100:r1->The Silence | marks on ground 22",
+     "r4 The Silence  wait                 hp {} new - | marks on ground 22",
+     "r5 player       wait                 hp {} new - | marks on ground 22",
+     "r5 The Silence  Stillness            hp {\"player\":-1275} new shield:531:r3->player | marks on ground 0",
+     "r6 player       wait                 hp {} new - | marks on ground 0",
+     "r6 The Silence  wait                 hp {} new - | marks on ground 0",
+     "r7 player       wait                 hp {} new - | marks on ground 0",
+     "r7 The Silence  Stillness            hp {} new robprevent:100:r1->The Silence | marks on ground 22",
+     "r7 The Silence  wait                 hp {} new - | marks on ground 22"
+    ]
+   }
+  },
+  "P3b": [
+   {
+    "mode": "control",
+    "case": "gear lifesteal 25% (present from round 0), basic attacks",
+    "hpGained": 2030,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none",
+     "r5:basicAttack:none"
+    ]
+   },
+   {
+    "mode": "control",
+    "case": "Eclipse Drain lifesteal 35%",
+    "hpGained": 1476,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:Eclipse Drain:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none"
+    ]
+   },
+   {
+    "mode": "control",
+    "case": "Black Crow vamp 40%",
+    "hpGained": 2436,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:Black Crow:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none"
+    ]
+   },
+   {
+    "mode": "control",
+    "case": "Inner Flame absorb 20% (+ its shield)",
+    "hpGained": 39,
+    "maxShield": 350,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:Inner Flame:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none"
+    ]
+   },
+   {
+    "mode": "control",
+    "case": "basic Heal",
+    "hpGained": 300,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:basicHeal:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none"
+    ]
+   },
+   {
+    "mode": "control",
+    "case": "innate siphon 25% (shields)",
+    "hpGained": 0,
+    "maxShield": 18,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none",
+     "r5:basicAttack:none"
+    ]
+   },
+   {
+    "mode": "control",
+    "case": "gear lifesteal 25% + Cleanse every turn",
+    "hpGained": 4060,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:cleanse:none",
+     "r2:UNAVAILABLE cleanse:none",
+     "r2:UNAVAILABLE cleanse:none",
+     "r3:cleanse:none",
+     "r3:UNAVAILABLE cleanse:none",
+     "r3:UNAVAILABLE cleanse:none",
+     "r4:cleanse:none"
+    ]
+   },
+   {
+    "mode": "floor (a)",
+    "case": "gear lifesteal 25% (present from round 0), basic attacks",
+    "hpGained": 0,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none",
+     "r5:basicAttack:none"
+    ]
+   },
+   {
+    "mode": "floor (a)",
+    "case": "Eclipse Drain lifesteal 35%",
+    "hpGained": 0,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:Eclipse Drain:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none"
+    ]
+   },
+   {
+    "mode": "floor (a)",
+    "case": "Black Crow vamp 40%",
+    "hpGained": 0,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:Black Crow:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none"
+    ]
+   },
+   {
+    "mode": "floor (a)",
+    "case": "Inner Flame absorb 20% (+ its shield)",
+    "hpGained": 0,
+    "maxShield": 350,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:Inner Flame:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none"
+    ]
+   },
+   {
+    "mode": "floor (a)",
+    "case": "basic Heal",
+    "hpGained": 0,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:basicHeal:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none"
+    ]
+   },
+   {
+    "mode": "floor (a)",
+    "case": "innate siphon 25% (shields)",
+    "hpGained": 0,
+    "maxShield": 18,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:basicAttack:none",
+     "r2:wait:none",
+     "r3:basicAttack:none",
+     "r3:wait:none",
+     "r4:basicAttack:none",
+     "r4:wait:none",
+     "r5:basicAttack:none"
+    ]
+   },
+   {
+    "mode": "floor (a)",
+    "case": "gear lifesteal 25% + Cleanse every turn",
+    "hpGained": 0,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:cleanse:none",
+     "r2:UNAVAILABLE cleanse:none",
+     "r2:UNAVAILABLE cleanse:none",
+     "r3:cleanse:none",
+     "r3:UNAVAILABLE cleanse:none",
+     "r3:UNAVAILABLE cleanse:none",
+     "r4:cleanse:none"
+    ]
+   },
+   {
+    "mode": "cast (b)",
+    "case": "gear lifesteal 25% (present from round 0), basic attacks",
+    "hpGained": 0,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:basicAttack:healprevent:100:r20+decreaseheal:-100:r20",
+     "r2:wait:healprevent:100:r20+decreaseheal:-100:r20",
+     "r3:basicAttack:healprevent:100:r19+decreaseheal:-100:r19",
+     "r3:wait:healprevent:100:r19+decreaseheal:-100:r19",
+     "r4:basicAttack:healprevent:100:r18+decreaseheal:-100:r18",
+     "r4:wait:healprevent:100:r18+decreaseheal:-100:r18",
+     "r5:basicAttack:healprevent:100:r17+decreaseheal:-100:r17"
+    ]
+   },
+   {
+    "mode": "cast (b)",
+    "case": "Eclipse Drain lifesteal 35%",
+    "hpGained": 0,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:Eclipse Drain:healprevent:100:r20+decreaseheal:-100:r20",
+     "r2:basicAttack:healprevent:100:r20+decreaseheal:-100:r20",
+     "r2:wait:healprevent:100:r20+decreaseheal:-100:r20",
+     "r3:basicAttack:healprevent:100:r19+decreaseheal:-100:r19",
+     "r3:wait:healprevent:100:r19+decreaseheal:-100:r19",
+     "r4:basicAttack:healprevent:100:r18+decreaseheal:-100:r18",
+     "r4:wait:healprevent:100:r18+decreaseheal:-100:r18"
+    ]
+   },
+   {
+    "mode": "cast (b)",
+    "case": "Black Crow vamp 40%",
+    "hpGained": 0,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:Black Crow:healprevent:100:r20+decreaseheal:-100:r20",
+     "r2:basicAttack:healprevent:100:r20+decreaseheal:-100:r20",
+     "r2:wait:healprevent:100:r20+decreaseheal:-100:r20",
+     "r3:basicAttack:healprevent:100:r19+decreaseheal:-100:r19",
+     "r3:wait:healprevent:100:r19+decreaseheal:-100:r19",
+     "r4:basicAttack:healprevent:100:r18+decreaseheal:-100:r18",
+     "r4:wait:healprevent:100:r18+decreaseheal:-100:r18"
+    ]
+   },
+   {
+    "mode": "cast (b)",
+    "case": "Inner Flame absorb 20% (+ its shield)",
+    "hpGained": 0,
+    "maxShield": 350,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:Inner Flame:healprevent:100:r20+decreaseheal:-100:r20",
+     "r2:basicAttack:healprevent:100:r20+decreaseheal:-100:r20",
+     "r2:wait:healprevent:100:r20+decreaseheal:-100:r20",
+     "r3:basicAttack:healprevent:100:r19+decreaseheal:-100:r19",
+     "r3:wait:healprevent:100:r19+decreaseheal:-100:r19",
+     "r4:basicAttack:healprevent:100:r18+decreaseheal:-100:r18",
+     "r4:wait:healprevent:100:r18+decreaseheal:-100:r18"
+    ]
+   },
+   {
+    "mode": "cast (b)",
+    "case": "basic Heal",
+    "hpGained": 0,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:basicHeal:healprevent:100:r20+decreaseheal:-100:r20",
+     "r2:basicAttack:healprevent:100:r20+decreaseheal:-100:r20",
+     "r2:wait:healprevent:100:r20+decreaseheal:-100:r20",
+     "r3:basicAttack:healprevent:100:r19+decreaseheal:-100:r19",
+     "r3:wait:healprevent:100:r19+decreaseheal:-100:r19",
+     "r4:basicAttack:healprevent:100:r18+decreaseheal:-100:r18",
+     "r4:wait:healprevent:100:r18+decreaseheal:-100:r18"
+    ]
+   },
+   {
+    "mode": "cast (b)",
+    "case": "innate siphon 25% (shields)",
+    "hpGained": 0,
+    "maxShield": 18,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:basicAttack:healprevent:100:r20+decreaseheal:-100:r20",
+     "r2:wait:healprevent:100:r20+decreaseheal:-100:r20",
+     "r3:basicAttack:healprevent:100:r19+decreaseheal:-100:r19",
+     "r3:wait:healprevent:100:r19+decreaseheal:-100:r19",
+     "r4:basicAttack:healprevent:100:r18+decreaseheal:-100:r18",
+     "r4:wait:healprevent:100:r18+decreaseheal:-100:r18",
+     "r5:basicAttack:healprevent:100:r17+decreaseheal:-100:r17"
+    ]
+   },
+   {
+    "mode": "cast (b)",
+    "case": "gear lifesteal 25% + Cleanse every turn",
+    "hpGained": 4060,
+    "maxShield": 0,
+    "playerFx": [
+     "r1:wait:none",
+     "r2:cleanse:healprevent:100:r0",
+     "r2:UNAVAILABLE cleanse:none",
+     "r2:UNAVAILABLE cleanse:none",
+     "r3:cleanse:none",
+     "r3:UNAVAILABLE cleanse:none",
+     "r3:UNAVAILABLE cleanse:none",
+     "r4:cleanse:none"
+    ]
+   }
+  ]
  }
 }
