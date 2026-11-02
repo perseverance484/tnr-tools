@@ -21,7 +21,7 @@ import { AiRule } from "@/validators/ai";
 import { insertAiSchema } from "@/validators/aiInput";
 import { capturedJutsu, jutsu, tag, T } from "./kitlib";
 import { aiRow, ALL, C, type Cell, color, dist, DONOR_SUMMON, IN, key, R, STAT_PER_MULT, t0 } from "./cclib";
-import { enemyQueryUser, petFor, PLAYER_VARIANTS, playerQueryUser, type PlayerVariant } from "./model";
+import { enemyQueryUser, KITSUNE_SET, petFor, PLAYER_VARIANTS, playerQueryUser, type PlayerVariant } from "./model";
 import { assembleFloor, mulberry32, seedEntropy, tickClock } from "./sim";
 import { PATTERNS as LIBP } from "./library";
 
@@ -68,15 +68,16 @@ export const MOE_DEFAULTS = {
   pools: { sayo1: 12, silence: 9, sayo2: 12, saint: 12 },
   statsMultiplier: 5.83, // JONIN cap reached; inert above
   /** +damage-given rows (each +100% max) per boss: "HIGH normal damage". */
-  idg: { sayo1: 1, silence: 1, sayo2: 1, saint: 1.5 },
+  idg: { sayo1: 5.75, silence: 5.75, sayo2: 5.75, saint: 6, summons: 4.75 },
   /** Innate decreasedamagetaken % on top of AI Heavy Armor (tankiness without HP above the stored cap). */
   dr: { sayo1: 30, silence: 50, sayo2: 30, saint: 40 },
   pw: {
-    lancet: 70, thorns: 80, refract: 150, facet: 160, likenessHit: 60, stillness: 110, grasp: 25, graspDrain: 4,
-    hushDrain: 6, hushDmg: 25, detonate: 170, quiet: 60, quietIdt: 15, shatter: 150, flood: 180, glass: 140, recastIII: 170,
-    enrage: 400, porter: 60, hana: 8, tomo: 40, cradleDR: 90,
+    lancet: 70, thorns: 80, refract: 300, facet: 340, likenessHit: 90, stillness: 110, grasp: 30, graspDrain: 4,
+    hushDrain: 4, hushDmg: 25, detonate: 360, quiet: 60, quietIdt: 15, shatter: 300, flood: 420, glass: 260, recastIII: 380,
+    enrage: 600, porter: 80, hana: 8, tomo: 60, cradleDR: 90,
   },
   hushCount: [4, 8, 12], // pools per Hush I / II / III
+  hushUnbridledCount: 3, // pools per Unbridled Hush (every turn)
   hushRounds: 8,
   hushBands: [8, 16], // Hush II from round > 8, III from round > 16
   feeler: { hp: 2500, power: 40, rounds: 8, listeningCd: 4 },
@@ -183,13 +184,13 @@ export const buildRecords = (P: MoeParams) => {
   hushRec(JID.hush[0], "The Hush", P.hushCount[0], "The floor goes quiet in patches.", true, 3);
   hushRec(JID.hush[1], "The Hush", P.hushCount[1], "The quiet spreads.", true, 3);
   hushRec(JID.hush[2], "The Hush", P.hushCount[2], "Most of the floor has stopped making any sound at all.", true, 3);
-  hushRec(JID.hushUnbridled, "The Hush, Unbridled", P.hushCount[0], "Unbridled, the quiet pours up out of the floor.", false, 1);
+  hushRec(JID.hushUnbridled, "The Hush, Unbridled", P.hushUnbridledCount, "Unbridled, the quiet pours up out of the floor.", false, 1);
   const listen = (id: string, name: string, cd: number, line: string) =>
     add(id, { name, description: "The Listening: a feeler of the deep rises and listens for movement.", battleDescription: line, target: "EMPTY_GROUND", method: "SINGLE", range: 5, cooldown: cd, actionCostPerc: 40, donor: IN.donors.summon,
       effects: [tag("summon", { aiId: AI.feeler, aiHp: P.feeler.hp, power: P.feeler.power, rounds: P.feeler.rounds, appearAnimation: "moe_feeler" })] });
   listen(JID.listening, "The Listening", P.feeler.listeningCd, "Something under the floor turns toward the sound of you.");
   listen(JID.listeningUnbridled, "The Listening, Unbridled", 1, "It does not wait any more. Another feeler rises.");
-  add(JID.stillness, { name: "Stillness", description: "A crushing weight on the closest thing that moves; it cannot move for a round.", battleDescription: "The deep presses down on %target. \"Be still.\"", target: "OTHER_USER", method: "SINGLE", range: 4, cooldown: 2, actionCostPerc: 60, effects: [heavy(p.stillness, "moe_stillness"), T.root(1)] });
+  add(JID.stillness, { name: "Stillness", description: "A crushing weight on the closest thing that moves; it cannot move for a round.", battleDescription: "The deep presses down on %target. \"Be still.\"", target: "OTHER_USER", method: "SINGLE", range: 3, cooldown: 2, actionCostPerc: 60, effects: [heavy(p.stillness, "moe_stillness"), T.root(1)] });
   /* ---- the feeler ---- */
   add(JID.cradle, { name: "Cradle", description: "While a feeler lives, the Silence holds Sayo: 90% less damage taken, and the hold cannot be cleared.", battleDescription: "The Silence cradles %target. Blows slide off the glass.", target: "ALLY", method: "SINGLE", range: 5, cooldown: 1, actionCostPerc: 40, donor: "xs-8r_KRJS8QQMpBDyhUv",
     effects: [T.pct("decreasedamagetaken", p.cradleDR, 1, { target: "INHERIT", friendlyFire: "FRIENDLY", staticAnimation: "moe_cradle" }), tag("clearprevent", { power: 100, rounds: 1, target: "INHERIT", friendlyFire: "FRIENDLY" })] });
@@ -280,13 +281,13 @@ export const silenceRules = (P: MoeParams) => [
   // Unbridled (Sayo fell first): a feeler every turn one is missing, the Hush every turn instead of every third.
   R.jutsu(JID.listeningUnbridled, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [COND.unbridled, C.noSummon()]),
   R.jutsu(JID.hushUnbridled, "SELF", [COND.unbridled]),
-  R.jutsu(JID.stillness, PL, [COND.unbridled, C.near(4)]),
+  R.jutsu(JID.stillness, PL, [COND.unbridled, C.near(3)]),
   R.end([COND.unbridled]),
   R.jutsu(JID.hush[2]!, "SELF", [COND.rg(P.hushBands[1]!)]),
   R.jutsu(JID.hush[1]!, "SELF", [COND.rg(P.hushBands[0]!)]),
   R.jutsu(JID.hush[0]!, "SELF", []),
   R.jutsu(JID.listening, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [C.noSummon()]),
-  R.jutsu(JID.stillness, PL, [C.near(4)]),
+  R.jutsu(JID.stillness, PL, [C.near(3)]),
   basic([C.near(1)]),
   R.end(),
 ];
@@ -337,8 +338,9 @@ export const saintRules = (P: MoeParams) => [
   R.jutsu(JID.quiet, PL, [C.near(5)]),
   R.jutsu(JID.shatterMark, "SELF", []),
   R.jutsu(JID.lancet, PL, [C.near(5)]),
+  // Shatterfall is caster-anchored: never move between its mark and its fall.
+  R.end([C.has(MK.shatter)]),
   { conditions: [C.far(5)], action: { type: "move_towards_opponent", target: PL, description: "Close in" } },
-  basic([C.near(1)]),
   R.end(),
 ];
 
@@ -373,7 +375,7 @@ export type AiRec = { id: string; username: string; poolsMultiplier: number; jut
 export const aiRecords = (P: MoeParams): AiRec[] => {
   const boss = (id: string, username: string, pools: number, idg: number, dr: number, jutsus: string[], rules: any[], extra: any[] = []) =>
     ({ id, username, poolsMultiplier: pools, jutsus, effects: [...idgTags(idg), ...drTag(dr), ...extra], rules, heavyArmor: true });
-  const summon = (id: string, username: string, jutsus: string[], rules: any[], effects: any[] = []) => ({ id, username, poolsMultiplier: 1, jutsus, effects, rules, heavyArmor: false, summon: true });
+  const summon = (id: string, username: string, jutsus: string[], rules: any[], effects: any[] = []) => ({ id, username, poolsMultiplier: 1, jutsus, effects: [...idgTags(P.idg.summons), ...effects], rules, heavyArmor: false, summon: true });
   const etchIds = Object.values(JID.etch), detIds = Object.values(JID.det);
   return [
     boss(AI.sayo1, "Sayo, Mother of Echoes", P.pools.sayo1, P.idg.sayo1, P.dr.sayo1,
@@ -420,6 +422,8 @@ export const validateAll = (P: MoeParams) => {
 
 /* ------------------------------------------------------------------ players */
 /** The geared level-100 model's kit (all captured player records; 9 = the JONIN equip limit). */
+let GEAR_OVERRIDE: any = null;
+export const setGearOverride = (g: any) => { GEAR_OVERRIDE = g; };
 export const ELITE_KIT = [
   "e2eC-x4UXc5m6QexNbx8w", // Chakra Overflow: self IDG
   "ou7VyChQ-SFCm8T8yGS7I", // Eclipse Drain: self lifesteal 35% + IDG 30
@@ -436,23 +440,32 @@ export const playerJutsuCatalog = () => {
   for (const id of ELITE_KIT) if (!j[id]) j[id] = capturedJutsu(id).record;
   return j;
 };
-export type PlayerModel = { variant: PlayerVariant; pets: number; immune: boolean; sustain: { lifestealGear: number; siphonInnate: number } };
-export const ELITE_GEAR = { damageGivenPct: 400, damageTakenReductionPct: 75, poolsMultiplier: 6 };
+export type PlayerModel = { variant: PlayerVariant; pets: number; immune: boolean; idgRows?: number; sustain: { lifestealGear: number; siphonInnate: number } };
+/**
+ * The geared level-100 stand-in. The harness's old `elite` tier carried one +400% gear row, but the engine realises a
+ * tag row at power <= 100, so it hit for less than the Kitsune-geared `average`. Here: the real Kitsune set, one
+ * decreasedamagetaken row, and `idgRows` +100% increasedamagegiven gear rows (gear rows fold additively into the
+ * pre-battle increase pool, process.ts computeDamagePacket), sized so that the kit's typical hit on an AI wearing only
+ * AI Heavy Armor is 5-8k (the director's logs). Pools x6 (30,300 HP).
+ */
+export const ELITE_GEAR = { damageTakenReductionPct: 75, poolsMultiplier: 6, idgRows: 20 };
 export const playerModel = (name: string, over: any = {}): PlayerModel => {
+  if (name.startsWith("elite") && over.gear === undefined && GEAR_OVERRIDE) over = { ...over, gear: GEAR_OVERRIDE };
   if (name === "average") return { variant: { ...PLAYER_VARIANTS.average! }, pets: 1, immune: false, sustain: { lifestealGear: 0, siphonInnate: 0 } };
   const g = { ...ELITE_GEAR, ...(over.gear ?? {}) };
   const v: PlayerVariant = {
     name: "elite", note: "geared level-100 model (elite gear stand-in + sustain kit)", statBudget: 1,
     stats: { offence: 1_300_000, defence: 1_300_000, generals: 400_000 }, poolsMultiplier: g.poolsMultiplier,
-    damageGivenPct: g.damageGivenPct, damageTakenReductionPct: g.damageTakenReductionPct,
+    damageGivenPct: 0, damageTakenReductionPct: g.damageTakenReductionPct, gearItemIds: KITSUNE_SET,
     elements: ["Fire", "Earth"], jutsuIds: ELITE_KIT, jutsuLevel: 25,
   };
-  return { variant: v, pets: over.pets ?? 2, immune: name === "elite_imm", sustain: { lifestealGear: over.lifesteal ?? 25, siphonInnate: over.siphon ?? 25 } };
+  return { variant: v, pets: over.pets ?? 2, immune: name === "elite_imm", idgRows: g.idgRows, sustain: { lifestealGear: over.lifesteal ?? 25, siphonInnate: over.siphon ?? 25 } };
 };
 /** Player row: the model's variant plus sustain rows (gear lifesteal on the armour row, siphon innate) and the immunity rows. */
 export const buildPlayer = (m: PlayerModel, catalog: Record<string, any>) => {
   const u: any = playerQueryUser(0, m.variant, t0.enemies["texZaFi42S3EvJZBwQ8cd"]!.row, catalog);
   const gear = u.items.find((ui: any) => ui.item?.id === "harness-gear-armor");
+  if (gear && m.idgRows) for (let i = 0; i < m.idgRows; i++) gear.item.effects.push({ ...structuredClone(gear.item.effects[0]), type: "increasedamagegiven", power: 100, direction: "offence", rounds: 100, description: "harness gear stand-in increasedamagegiven 100%" });
   if (gear && m.sustain.lifestealGear) gear.item.effects.push({ ...structuredClone(gear.item.effects[0]), type: "lifesteal", power: m.sustain.lifestealGear, rounds: 100, description: "harness gear stand-in lifesteal" });
   const innate = (type: string, power: number, extra: any = {}) => ({ ...structuredClone(tag(type, { power, rounds: 100, ...extra })), target: "INHERIT" });
   if (m.sustain.siphonInnate) u.effects.push(innate("siphon", m.sustain.siphonInnate, { calculation: "percentage" }));
@@ -527,10 +540,13 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
     {
       const p0 = pu();
       const free = (c: Cell) => !b.usersState.some((u: any) => u !== p0 && u.longitude === c[0] && u.latitude === c[1]);
-      const cands: Cell[] = [[1, 4], [1, 5], [1, 3], [1, 6]];
-      const c = cands.find(free)!;
+      // Seeded west-edge spawn (columns 0-1, rows 2-7): the run's only positional variance besides the random Hush seeds.
+      const cands: Cell[] = [];
+      for (const col of [0, 1]) for (let row = 2; row <= 7; row++) cands.push([col, row]);
+      const open = cands.filter(free);
+      const c = open[Math.floor(rand() * open.length)]!;
       [p0.longitude, p0.latitude] = c;
-      for (const pet of b.usersState.filter((u: any) => u.petId)) { const pc: Cell[] = [[0, 3], [0, 6], [0, 4], [0, 5]]; const f = pc.filter(free)[0]!; [pet.longitude, pet.latitude] = f; }
+      for (const pet of b.usersState.filter((u: any) => u.petId)) { const f = ALL.filter((x) => x[0] <= 2 && free(x)).sort((a, b) => dist(a, c) - dist(b, c))[0]!; [pet.longitude, pet.latitude] = f; }
     }
     const maxHp = getEffectiveMaxPool(pu(), b.usersEffects, "Health");
     const maxCp = getEffectiveMaxPool(pu(), b.usersEffects, "Chakra");
@@ -549,6 +565,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
     const lastBossAct = new Map<string, { id: string; round: number }[]>(); // per boss uid: its actions
     const cycleEtched = new Set<string>(); // etchings laid in the current Act II cycle (pattern keys, multiset as counts)
     const etchCount: Record<string, number> = {};
+    const markPos = new Map<string, string>(); // caster-anchored marks: where the caster stood
     const name = (id?: string) => (id ? (b.extraState.jutsus[id]?.name ?? id) : "none");
     const alive = (u: any) => u && stillInBattle(u, b.usersEffects);
     const tryAction = (actionId: string, c: Cell, actor = puid) => {
@@ -581,6 +598,12 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       const st = bossU(AI.saint);
       if (st && alive(st) && b.usersEffects.some((e: any) => e.targetId === st.userId && e.type === MK.gCs)) for (const k of recCells(cfg.recs[JID.glassRecast], [st.longitude, st.latitude])) danger.add(k);
       if (safe.size) for (const c of ALL) if (!safe.has(key(c))) danger.add(key(c));
+      // The Silence never moves: a player who plays it keeps out of Stillness reach unless the Silence is the target.
+      const si = bossU(AI.silence);
+      if (si && alive(si) && currentTarget && !currentTarget.isSummon && currentTarget.controllerId !== AI.silence) for (const c of ALL) if (dist(c, [si.longitude, si.latitude]) <= 3) linger.add(key(c));
+      // Glass Thorns (Act II): she bursts thorns within 2 of herself on every etching turn; keep 3 hexes away.
+      const s2b = bossU(AI.sayo2);
+      if (s2b && alive(s2b)) for (const c of ALL) if (dist(c, [s2b.longitude, s2b.latitude]) <= 2) linger.add(key(c));
       return { danger, linger, safe };
     };
     const free = (c: Cell) => !b.usersState.some((u: any) => u.longitude === c[0] && u.latitude === c[1] && alive(u));
@@ -617,12 +640,16 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       const es = b.usersState.filter((u: any) => u.direction === "right" && alive(u));
       if (!es.length) return null;
       const by = (aid: string) => es.find((u: any) => u.controllerId === aid || (u.isSummon && u.username?.startsWith(cfg.rows[aid]?.username ?? "@@")));
-      const order = cfg.act === 1 ? [AI.feeler, AI.likeness, cfg.killOrder === "silence" ? AI.silence : AI.sayo1, AI.sayo1, AI.silence]
+      const sayoUp = alive(bossU(AI.sayo1));
+      // Feelers matter only while Sayo lives (Cradle); after her, an Unbridled feeler a turn would only stall the player.
+      const order = cfg.act === 1 ? [...(sayoUp ? [AI.feeler] : []), AI.likeness, cfg.killOrder === "silence" ? AI.silence : AI.sayo1, AI.sayo1, AI.silence]
         : cfg.act === 2 ? [AI.hana, AI.tomo, AI.sayo2, AI.porter] : [AI.saint];
       for (const aid of order) { const u = by(aid); if (u) return u; }
       return es[0];
     };
+    let currentTarget: any = null;
     const setPlayerTarget = (target: any | null) => {
+      currentTarget = target;
       const prof = b.extraState.aiProfiles[pu().aiProfileId];
       prof.__orig ??= structuredClone(prof.rules);
       prof.rules = structuredClone(prof.__orig);
@@ -687,6 +714,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
           const s = set(sp[0]);
           if (sp[1] === "mark") {
             s.mark++;
+            markPos.set(actionId, key(aPos));
             if (sp[0] === "Recast") { const k = Object.entries(JID.etch).find(([, v]) => v === actionId)![0]; etchCount[k] = (etchCount[k] ?? 0) + 1; }
           } else {
             s.land++;
@@ -701,6 +729,8 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
               const prevTurn = hist.filter((h) => h.round === pre.actionRound - 1).map((h) => h.id);
               const thisTurn = hist.filter((h) => h.round === pre.actionRound).map((h) => h.id);
               ok = (sp[2] ?? []).some((t) => prevTurn.includes(t) || thisTurn.includes(t));
+              const anchored = cfg.recs[actionId]?.coordinateTargeting?.origin === "CASTER";
+              if (ok && anchored && (sp[2] ?? []).some((t) => markPos.has(t)) && !(sp[2] ?? []).some((t) => markPos.get(t) === key(aPos))) ok = false;
             }
             if (!ok) { s.unmarked++; res.unmarkedTotal++; }
           }
@@ -718,7 +748,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       }
       if (o.trace) {
         const bossTxt = cfg.bossIds.map((aid) => { const u = bossU(aid); return u ? `${aid.replace("moe-ai-", "")} ${(100 * Math.max(0, u.curHealth) / u.maxHealth).toFixed(0)}%` : ""; }).join(" ");
-        res.trace!.push(`r${pre.actionRound} ${(human ? "PLAYER" : actor.username ?? "?").slice(0, 22).padEnd(22)} ${String(actionId === "dodge" ? "DODGE" : name(actionId)).slice(0, 28).padEnd(28)} p@${pPos} hp ${Math.round(pAfter.curHealth)} (${pLoss ? "-" + Math.round(pLoss) : pGain ? "+" + Math.round(pGain) : "0"}) | ${bossTxt}`);
+        res.trace!.push(`r${pre.actionRound} ${(human ? `PLAYER>${(currentTarget?.username ?? "-").slice(0, 8)}` : actor.username ?? "?").slice(0, 22).padEnd(22)} ${String(actionId === "dodge" ? "DODGE" : name(actionId)).slice(0, 28).padEnd(28)} p@${pPos} hp ${Math.round(pAfter.curHealth)} (${pLoss ? "-" + Math.round(pLoss) : pGain ? "+" + Math.round(pGain) : "0"}) | ${bossTxt}`);
       }
       const side = (dir: string) => b.usersState.some((u: any) => u.direction === dir && !u.isSummon && alive(u));
       if (!alive(pu())) { res.outcome = "lost"; break; }

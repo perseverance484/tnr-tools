@@ -12,10 +12,10 @@ import { availableUserActions, actionPointsAfterAction, performBattleAction, sti
 import { alignBattle, getBattleGrid } from "@/libs/combat/util";
 import { jutsu, tag, T } from "./kitlib";
 import { C, R, type Cell } from "./cclib";
-import { loadDmgConfig } from "./model";
+import { loadDmgConfig, PLAYER_VARIANTS } from "./model";
 import { assembleFloor, mulberry32, seedEntropy, tickClock } from "./sim";
 import {
-  AI, aiRecords, buildPlayer, buildRecords, CYCLES, JID, MK, moeParams, nextComboAction, playerJutsuCatalog, playerModel, rowOf, setDmgConfig, validateAll,
+  AI, aiRecords, buildPlayer, buildRecords, CYCLES, JID, MK, moeParams, nextComboAction, playerJutsuCatalog, playerModel, rowOf, setDmgConfig, setGearOverride, validateAll,
 } from "./moe_lib";
 
 const args = process.argv.slice(2);
@@ -24,7 +24,9 @@ const only = opt("only")?.split(",");
 const H = process.env.TNR_HARNESS!;
 const dmg = loadDmgConfig(H, "live");
 setDmgConfig(dmg.config);
-const P = moeParams();
+const PRAW = opt("params") ? JSON.parse(require("node:fs").readFileSync(opt("params")!, "utf8")) : {};
+if (PRAW.gear) setGearOverride(PRAW.gear);
+const P = moeParams(opt("params") ? JSON.parse(require("node:fs").readFileSync(opt("params")!, "utf8")) : {});
 const RECS = buildRecords(P);
 const CAT = playerJutsuCatalog();
 const out: any = { generatedBy: "engine/moe_probe.ts", engine: "theninjarpg 3314d122 (git archive, offline)", probes: {} as Record<string, any> };
@@ -284,6 +286,33 @@ if (want("P6")) {
     onStep: (b, s) => { const pu = b.usersState.find((u: any) => !u.isAi && !u.petId); lines.push(`r${s.round} ${String(s.actor).padEnd(26)} ${String(s.action).padEnd(26)} player fx: ${fxOf(b, pu.userId).filter((x: string) => /increasedamagetaken|decreaseheal|cleanseprevent/.test(x)).join(" ")}`); } });
   out.probes.P6 = { lines };
   log("P6 The Quiet: cleanse attempts every player turn from round 2 (cleanse cooldown reset each step)", lines);
+}
+
+/* ---------------------------------------------------------------- P7: damage calibration (not a proof) */
+if (want("P7")) {
+  const res: any = {};
+  const atk = [...(opt("first") ? [opt("first")!] : []), "c-yTyBUJil8MzlAIHApUG", "mYCbcdDwDzJBul52HiwhC", "nS-iidYFYqWE9Z-UkC84y", "V_VY284CMTuqYqOOX5sa7", "VT7oxj_fObWuQa3Rq_BbI", "basicAttack"];
+  const avgKit = ["PQdSt0IDdYFoR44tC3Hvo", "mYCbcdDwDzJBul52HiwhC", "rBcwIiHjKOF07Yoq4wVqU", "nS-iidYFYqWE9Z-UkC84y", "basicAttack"];
+  const models: Record<string, any> = {
+    elite: playerModel("elite"), average: playerModel("average"),
+    elite_nosustain: playerModel("elite", { lifesteal: 0, siphon: 0 }),
+    elite_avgkit: (() => { const m = playerModel("elite", { lifesteal: 0, siphon: 0 }); m.variant = { ...m.variant, jutsuIds: PLAYER_VARIANTS.average!.jutsuIds, elements: ["Fire", "Wind"] }; return m; })(),
+  };
+  const bosses = (opt("bosses") ?? "sayo1,silence,sayo2,saint").split(",").map((k) => (AI as any)[k]);
+  for (const mname of (opt("models") ?? "elite,average").split(",")) for (const boss of bosses) {
+    const model = models[mname];
+    const kit = mname === "elite" || mname === "elite_nosustain" ? atk : avgKit;
+    const extra = boss === AI.sayo1 || boss === AI.silence ? [AI.feeler, AI.likeness] : boss === AI.sayo2 ? [AI.porter, AI.hana, AI.tomo] : [];
+    const rows = rowsFor([boss, ...extra], { [boss]: (a) => ({ ...a, rules: [R.jutsu(JID.lancet, "CLOSEST_OPPONENT", []), R.end()] }) });
+    const dmgBy: Record<string, number[]> = {};
+    const taken: number[] = [];
+    await stepper({ rows, targets: [boss], positions: { [boss]: [5, 5] }, playerAt: [4, 5], rounds: 4, model, playerRules: [...kit.map((j) => R.jutsu(j, "CLOSEST_OPPONENT", [])), R.end()],
+      mutate: (b) => { for (const u of b.usersState) { u.curHealth = u.maxHealth; if (!u.isAi) for (const uj of u.jutsus ?? []) uj.lastUsedRound = -100; } },
+      onStep: (b, s) => { const bu = b.usersState.find((u: any) => u.controllerId === boss); if (s.actor === "player" && s.hp[bu.username]) (dmgBy[s.action] ??= []).push(-s.hp[bu.username]); if (s.actionId === JID.lancet) taken.push(-(s.hp.player ?? 0)); } });
+    res[`${mname} vs ${boss}`] = { playerHits: Object.fromEntries(Object.entries(dmgBy).map(([k, v]) => [k, Math.round(v.reduce((a, c) => a + c, 0) / v.length)])), lancetOnPlayer: taken };
+  }
+  out.probes.P7 = res;
+  log("P7 damage calibration (mean hit by jutsu, boss HP reset each step; Glass Lancet power " + P.pw.lancet + " on the player)", Object.entries(res).map(([k, v]: any) => `${k}: ${JSON.stringify(v.playerHits)} | lancet on player ${JSON.stringify(v.lancetOnPlayer)}`));
 }
 
 const outPath = opt("out");
