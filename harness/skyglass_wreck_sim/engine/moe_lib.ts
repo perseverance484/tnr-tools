@@ -58,6 +58,8 @@ export const PAT = {
   glass: [0, 1, 2].map((k) => cellsWhere((c, r) => color([c, r]) === k)),
   flood: cellsWhere((c, r) => !isStar(c, r)),
   hushField: cellsWhere((c) => c <= 9), // where the Hush may seed (never under the Silence)
+  risesField: cellsWhere((c, r) => !isStar(c, r)), // Act II pools: anywhere but the three
+  stillReach: ALL.filter((c) => dist(c, [11, 4]) <= 3), // the Silence's post is [11, 4]
 };
 export const FAN_OFFSETS = LIBP.lines; // Shatterfall: the library's west fan, caster-anchored
 
@@ -72,11 +74,20 @@ export const MOE_DEFAULTS = {
   /** Innate decreasedamagetaken % on top of AI Heavy Armor (tankiness without HP above the stored cap). */
   dr: { sayo1: 30, silence: 50, sayo2: 30, saint: 40 },
   pw: {
-    lancet: 70, thorns: 80, refract: 300, facet: 340, likenessHit: 90, stillness: 110, grasp: 30, graspDrain: 4,
+    lancet: 70, refract: 300, facet: 340, likenessHit: 90, stillness: 110, grasp: 30, graspDrain: 4,
     hushDrain: 4, hushDmg: 25, detonate: 360, quiet: 60, quietIdt: 15, shatter: 300, flood: 420, glass: 260, recastIII: 380,
     enrage: 600, porter: 80, hana: 8, tomo: 60, cradleDR: 90,
   },
   hushCount: [4, 8, 12], // pools per Hush I / II / III
+  hushDrainBand: [3, 5, 7], // Act I: % max HP drained per action on a pool, by Hush band (RUL-2026-11-02-097 item 1)
+  /** Act II, The Hush Rises (RUL-2026-11-02-097 item 1): one cast per etching turn, per cycle: pools and % max HP per action. */
+  rises: { count: [2, 3, 4, 5], drain: [4, 6, 8, 10], rounds: 8 },
+  /** Telegraphed Stillness (RUL-2026-11-02-097 item 2): mark within 3 of the Silence, then damage + stun. */
+  still: { cd: 3, stunAp: 100, stunRounds: 1 },
+  /** Lucid (RUL-2026-11-02-097 item 4): +100% damage-given rows on Sayo when she wakes alone. */
+  lucidIdg: 1,
+  pullStunAp: 50, // Breathless Pull: AP the stun takes from the next turn
+  pullStunChance: 100, // Breathless Pull: stun power = chance it lands (tags.ts stun: Math.random() < power / 100)
   hushUnbridledCount: 3, // pools per Unbridled Hush (every turn)
   hushRounds: 8,
   hushBands: [8, 16], // Hush II from round > 8, III from round > 16
@@ -113,7 +124,8 @@ export const JID = {
   enrage: "moe-the-glass-remembers",
   etch: Object.fromEntries("ABCDE".split("").map((k) => [k, `moe-etching-${k.toLowerCase()}`])) as Record<string, string>,
   det: Object.fromEntries("ABCDE".split("").map((k) => [k, `moe-recast-${k.toLowerCase()}`])) as Record<string, string>,
-  quietFall: "moe-the-glass-falls-quiet", thorns: "moe-glass-thorns",
+  quietFall: "moe-the-glass-falls-quiet", rises: ["moe-hush-rises-i", "moe-hush-rises-ii", "moe-hush-rises-iii", "moe-hush-rises-iv"],
+  stillnessBlast: "moe-stillness-blast", lucidWake: "moe-lucid", m2EntryCast: "moe-probe-no-one-is-mended-cast",
   porter: "moe-worn-cleave", hana: "moe-worn-mending", tomo: "moe-worn-tether",
   summonPorter: "moe-raise-gate-porter", summonHana: "moe-raise-sister-hana", summonTomo: "moe-raise-cadet-tomo",
   quiet: "moe-the-quiet", shatterMark: "moe-shatterfall", shatterBlast: "moe-shatterfall-blast",
@@ -125,7 +137,7 @@ export const JID = {
 /** Marker / token types (harmless on these AIs; distinct per record). */
 export const MK = {
   // Act I
-  refractA: "increaserange", refractB: "fleeprevent", facet: "robprevent",
+  refractA: "increaserange", refractB: "fleeprevent", facet: "robprevent", still: "robprevent", // still: the Silence's own marker
   sayoToken: "onehitkillprevent", silenceToken: "sealprevent",
   // Act II
   done: "fleeprevent", counter: "increasecooldown", // counter: power 1 per cycle, no probability roll (prevent types roll power/100)
@@ -158,52 +170,60 @@ export const buildRecords = (P: MoeParams) => {
     add(id, { name, description: "Refraction: lines of light from the walls; they shatter on her next turn.", battleDescription: line, target: "GROUND", method: "COORDINATES", range: 0, cooldown: cd, actionCostPerc: cost, coordinateTargeting: field(cells), effects: [vis("tg_heavy", 1), marker(mk)] });
   mark(JID.refractA, "Refraction", PAT.refractA, MK.refractA, "%user draws three lines of light from the walls.");
   mark(JID.refractB, "Refraction", PAT.refractB, MK.refractB, "%user draws three lines of light from the walls.");
-  add(JID.facet, { name: "Facet", description: "Below 60%: her pattern also appears, mirrored.", battleDescription: "The lines split. Their mirror image glows on the far side of the hall.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 60, coordinateTargeting: field([...PAT.refractA, ...PAT.refractB]), effects: [vis("tg_heavy", 1), marker(MK.facet)] });
+  add(JID.facet, { name: "Facet", description: "Below 60%: her Refraction is drawn with its mirror image (both line sets); they shatter on her next turn.", battleDescription: "The lines split. Their mirror image glows on the far side of the hall.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: P.refractCd, actionCostPerc: 40, coordinateTargeting: field([...PAT.refractA, ...PAT.refractB]), effects: [vis("tg_heavy", 1), marker(MK.facet)] });
   const blast = (id: string, name: string, cells: Cell[], power: number, line: string, extra: any[] = []) =>
-    add(id, { name, description: "The marked lines shatter.", battleDescription: line, target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 100, coordinateTargeting: field(cells), effects: [heavy(power, "moe_refraction"), ...extra] });
+    add(id, { name, description: "The marked lines shatter.", battleDescription: line, target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(cells), effects: [heavy(power, "moe_refraction"), ...extra] });
   blast(JID.blastA, "Refraction", PAT.refractA, p.refract, "The lines shatter.");
   blast(JID.blastB, "Refraction", PAT.refractB, p.refract, "The lines shatter.");
   blast(JID.facetBlast, "Facet", [...PAT.refractA, ...PAT.refractB], p.facet, "Both images shatter at once.");
   // Lucid (the Silence fell first): the blast also draws the second set, so Refraction fires twice.
-  add(JID.lucidBlast, { name: "Lucid Refraction", description: "Lucid: the lines shatter and are drawn again at once.", battleDescription: "\"I can hear myself again.\" The lines shatter, and new ones are already drawn.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 100, coordinateTargeting: field(PAT.refractA),
+  add(JID.lucidBlast, { name: "Lucid Refraction", description: "Lucid: the lines shatter and are drawn again at once.", battleDescription: "\"I can hear myself again.\" The lines shatter, and new ones are already drawn.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(PAT.refractA),
     effects: [heavy(p.refract, "moe_refraction"), T.visual("tg_heavy", 1, { target: "COORDINATES", coordinateTargeting: field(PAT.refractB) }), marker(MK.refractB)] });
+  add(JID.lucidWake, { name: "Lucid", description: "With the Silence gone, Sayo hears herself again: her glass cuts deeper.", battleDescription: "\"I can hear myself again.\" Sayo straightens; every pane in the hall turns with her.", target: "SELF", method: "SINGLE", range: 0, cooldown: 99, actionCostPerc: 20, effects: idgTags(P.lucidIdg).map((e: any) => ({ ...e, rounds: 99, staticAnimation: "moe_lucid" })) });
   add(JID.likeness, { name: "Your Likeness", description: "Below 40%: she casts your impression from the glass for three rounds.", battleDescription: "\"Hold still. There. That is you.\" Your likeness steps out of the glass.", target: "EMPTY_GROUND", method: "SINGLE", range: 5, cooldown: 99, actionCostPerc: 60, donor: IN.donors.summon,
     effects: [tag("summon", { aiId: AI.likeness, aiHp: P.likeness.hp, power: P.likeness.power, rounds: P.likeness.rounds, appearAnimation: "moe_likeness" })] });
-  add(JID.likenessStrike, { name: "Your Own Strike", description: "Your likeness strikes with your habits.", battleDescription: "%user strikes the way you would.", target: "OTHER_USER", method: "SINGLE", range: 4, cooldown: 0, actionCostPerc: 60, effects: [heavy(p.likenessHit)] });
+  add(JID.likenessStrike, { name: "Your Own Strike", description: "Your likeness strikes with your habits.", battleDescription: "%user strikes the way you would.", target: "OTHER_USER", method: "SINGLE", range: 4, cooldown: 0, actionCostPerc: 60, effects: [T.pierce(p.likenessHit)] });
   add(JID.likenessCopy, { name: "A Good Copy", description: "Your likeness takes your strengths for itself.", battleDescription: "%user wears your strength like its own.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 99, actionCostPerc: 40, effects: [tag("copy", { power: 100, rounds: 3, calculation: "percentage" })] });
   /* ---- Act I: the Silence ---- */
-  const hushRec = (id: string, name: string, n: number, line: string, withDrain: boolean, cd: number) =>
+  const hushRec = (id: string, name: string, n: number, line: string, withDrain: boolean, cd: number, drainPct = p.hushDrain) =>
     add(id, { name, description: "The Hush: stilled pools seep up through the floor; standing in one drains you and nothing heals you.", battleDescription: line, target: "GROUND", method: "COORDINATES", range: 0, cooldown: cd, actionCostPerc: 40, coordinateTargeting: field(PAT.hushField, "RANDOM", "BATTLEFIELD", n),
       effects: [
         tag("healprevent", { power: 100, rounds: P.hushRounds, friendlyFire: "ENEMIES" }),
-        withDrain ? tag("drain", { power: p.hushDrain, rounds: P.hushRounds, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"] })
+        withDrain ? tag("drain", { power: drainPct, rounds: P.hushRounds, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"] })
           : T.pool(p.hushDmg, P.hushRounds, { appearAnimation: "moe_hush" }),
         vis("tg_linger", P.hushRounds),
       ] });
   // drain is a shared-cooldown tag: the three Hush records lock each other for 3 rounds (every third turn).
-  hushRec(JID.hush[0], "The Hush", P.hushCount[0], "The floor goes quiet in patches.", true, 3);
-  hushRec(JID.hush[1], "The Hush", P.hushCount[1], "The quiet spreads.", true, 3);
-  hushRec(JID.hush[2], "The Hush", P.hushCount[2], "Most of the floor has stopped making any sound at all.", true, 3);
+  hushRec(JID.hush[0], "The Hush", P.hushCount[0], "The floor goes quiet in patches.", true, 3, P.hushDrainBand[0]);
+  hushRec(JID.hush[1], "The Hush", P.hushCount[1], "The quiet spreads.", true, 3, P.hushDrainBand[1]);
+  hushRec(JID.hush[2], "The Hush", P.hushCount[2], "Most of the floor has stopped making any sound at all.", true, 3, P.hushDrainBand[2]);
   hushRec(JID.hushUnbridled, "The Hush, Unbridled", P.hushUnbridledCount, "Unbridled, the quiet pours up out of the floor.", false, 1);
   const listen = (id: string, name: string, cd: number, line: string) =>
     add(id, { name, description: "The Listening: a feeler of the deep rises and listens for movement.", battleDescription: line, target: "EMPTY_GROUND", method: "SINGLE", range: 5, cooldown: cd, actionCostPerc: 40, donor: IN.donors.summon,
       effects: [tag("summon", { aiId: AI.feeler, aiHp: P.feeler.hp, power: P.feeler.power, rounds: P.feeler.rounds, appearAnimation: "moe_feeler" })] });
   listen(JID.listening, "The Listening", P.feeler.listeningCd, "Something under the floor turns toward the sound of you.");
   listen(JID.listeningUnbridled, "The Listening, Unbridled", 1, "It does not wait any more. Another feeler rises.");
-  add(JID.stillness, { name: "Stillness", description: "A crushing weight on the closest thing that moves; it cannot move for a round.", battleDescription: "The deep presses down on %target. \"Be still.\"", target: "OTHER_USER", method: "SINGLE", range: 3, cooldown: 2, actionCostPerc: 60, effects: [heavy(p.stillness, "moe_stillness"), T.root(1)] });
+  // Telegraphed Stillness: the Silence never moves, so its reach (every hex within 3 of its post) is a fixed pattern.
+  // The blast is CHARACTER (it stuns) and its pattern holds the Silence's own hex, so it is always a valid cast.
+  add(JID.stillness, { name: "Stillness", description: "The deep listens around the Silence: next turn, everything within 3 is crushed and stunned.", battleDescription: "The floor around the Silence goes still. Something is listening.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: P.still.cd, actionCostPerc: 40, coordinateTargeting: field(PAT.stillReach), effects: [vis("tg_control", 1), marker(MK.still)] });
+  add(JID.stillnessBlast, { name: "Stillness", description: "Everything within 3 of the Silence is crushed and stunned.", battleDescription: "\"Be still.\"", target: "CHARACTER", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(PAT.stillReach),
+    effects: [heavy(p.stillness, "moe_stillness"), tag("stun", { power: 100, rounds: P.still.stunRounds, apReduction: P.still.stunAp, friendlyFire: "ENEMIES" })] });
   /* ---- the feeler ---- */
   add(JID.cradle, { name: "Cradle", description: "While a feeler lives, the Silence holds Sayo: 90% less damage taken, and the hold cannot be cleared.", battleDescription: "The Silence cradles %target. Blows slide off the glass.", target: "ALLY", method: "SINGLE", range: 5, cooldown: 1, actionCostPerc: 40, donor: "xs-8r_KRJS8QQMpBDyhUv",
     effects: [T.pct("decreasedamagetaken", p.cradleDR, 1, { target: "INHERIT", friendlyFire: "FRIENDLY", staticAnimation: "moe_cradle" }), tag("clearprevent", { power: 100, rounds: 1, target: "INHERIT", friendlyFire: "FRIENDLY" })] });
   add(JID.grasp, { name: "Grasp", description: "The feeler takes hold of whatever is nearest: rooted, and drained.", battleDescription: "%user closes around %target.", target: "OTHER_USER", method: "SINGLE", range: 2, cooldown: 0, actionCostPerc: 60,
-    effects: [heavy(p.grasp), T.root(1), tag("drain", { power: p.graspDrain, rounds: 2, calculation: "percentage", poolsAffected: ["Health"] })] });
+    effects: [T.pierce(p.grasp), T.root(1), tag("drain", { power: p.graspDrain, rounds: 2, calculation: "percentage", poolsAffected: ["Health"] })] });
   /* ---- Act II: Sayo (the Stilling) ---- */
   for (const k of Object.keys(PAT.etch)) {
     add(JID.etch[k]!, { name: "Etching", description: "She etches a pattern into the glass. It will remember.", battleDescription: "%user traces a pattern into the glass. It glows, then fades.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 40, coordinateTargeting: field(PAT.etch[k]!), effects: [vis("tg_etch", 1)] });
     add(JID.det[k]!, { name: "Recast", description: "The glass remembers an etching and detonates it, unmarked. While she recasts, her guard is open (x3 damage taken).", battleDescription: "The glass remembers.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 100, coordinateTargeting: field(PAT.etch[k]!), effects: [heavy(p.detonate, "moe_recast"), weaknessSelf(3)] });
   }
-  // Etching turns: Etching (40 AP) + Glass Thorns (60 AP) = exactly 100 AP. Any leftover AP ends in the engine's
-  // appended end turn, whose "wait" enters usedActions and breaks the combo (moe_probe P1b, first build).
-  add(JID.thorns, { name: "Glass Thorns", description: "Thorns of glass burst from the floor around her while she etches.", battleDescription: "Glass thorns burst up around %user.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 60, coordinateTargeting: { origin: "CASTER", selection: "ALL", coordinates: LIBP.bindingRing, randomCount: 1 }, effects: [heavy(p.thorns, "moe_thorns")] });
+  // Etching turns: Etching (40 AP) + The Hush Rises (60 AP) = exactly 100 AP. Any leftover AP ends in the engine's
+  // appended end turn, whose "wait" enters usedActions and breaks the combo (moe_probe P1b, first build). One record per
+  // cycle: the Silence's pools grow in number and strength cycle by cycle, and each lasts 8 rounds, so they pile up.
+  P.rises.count.forEach((n, i) => add(JID.rises[i]!, { name: "The Hush Rises", description: "While she etches, the Silence seeps up through the floor: stilled pools that drain and block healing, growing every cycle.", battleDescription: ["The quiet comes up through the floor.", "The quiet spreads under the glass.", "The quiet pools wherever you are not looking.", "Almost all of the floor has gone quiet."][i]!,
+    target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 60, coordinateTargeting: field(PAT.risesField, "RANDOM", "BATTLEFIELD", n),
+    effects: [tag("healprevent", { power: 100, rounds: P.rises.rounds, friendlyFire: "ENEMIES" }), tag("drain", { power: P.rises.drain[i]!, rounds: P.rises.rounds, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"] }), vis("tg_linger", P.rises.rounds)] }));
   add(JID.quietFall, { name: "The Glass Falls Quiet", description: "The cycle ends; a Worn afterimage is raised in the lull.", battleDescription: "The glass falls quiet. Something worn steps out of it.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 20, coordinateTargeting: field(STARS), effects: [vis("moe_lull", 1), marker(MK.done, 2), marker(MK.counter, 99, 1)] });
   const raise = (id: string, name: string, ai: string, line: string) =>
     add(id, { name, description: `Raises one of the Worn: ${name.replace("Raise ", "")}.`, battleDescription: line, target: "EMPTY_GROUND", method: "SINGLE", range: 4, cooldown: 0, actionCostPerc: 60, donor: IN.donors.summon,
@@ -211,20 +231,30 @@ export const buildRecords = (P: MoeParams) => {
   raise(JID.summonPorter, "Raise the Gate Porter", AI.porter, "A gate porter steps out of the glass, still holding the door.");
   raise(JID.summonHana, "Raise Sister Hana", AI.hana, "Sister Hana steps out of the glass, hands already busy.");
   raise(JID.summonTomo, "Raise Cadet Tomo", AI.tomo, "Cadet Tomo steps out of the glass, rope in hand.");
-  add(JID.porter, { name: "Doorward Sweep", description: "The porter sweeps the threshold: damage and a shove.", battleDescription: "%user sweeps the threshold clear.", target: "OTHER_USER", method: "SINGLE", range: 1, cooldown: 1, actionCostPerc: 60, effects: [heavy(p.porter), T.push(2)] });
+  add(JID.porter, { name: "Doorward Sweep", description: "The porter sweeps the threshold: damage and a shove.", battleDescription: "%user sweeps the threshold clear.", target: "OTHER_USER", method: "SINGLE", range: 1, cooldown: 1, actionCostPerc: 60, effects: [T.pierce(p.porter), T.push(2)] });
   add(JID.hana, { name: "Worn Mending", description: "Sister Hana tends Sayo, as she tended everyone.", battleDescription: "%user tends to %target.", target: "ALLY", method: "SINGLE", range: 5, cooldown: 0, actionCostPerc: 60, donor: "xs-8r_KRJS8QQMpBDyhUv", effects: [T.heal(p.hana, { friendlyFire: "FRIENDLY" })] });
-  add(JID.tomo, { name: "Cadet's Tether", description: "Tomo throws a line and hauls: pulled 3 hexes.", battleDescription: "%user hauls %target in.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 1, actionCostPerc: 60, effects: [heavy(p.tomo), T.pull(3)] });
+  add(JID.tomo, { name: "Cadet's Tether", description: "Tomo throws a line and hauls: pulled 3 hexes.", battleDescription: "%user hauls %target in.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 1, actionCostPerc: 60, effects: [T.pierce(p.tomo), T.pull(3)] });
   /* ---- Act III: Sayo, Saint of Stillness ---- */
   add(JID.quiet, { name: "The Quiet", description: "She channels: you take more damage and heal less, stacking; while she channels it cannot be cleansed.", battleDescription: "%user closes her eyes. The hall goes very quiet.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 2, actionCostPerc: 60,
     effects: [heavy(p.quiet, "moe_quiet"), T.pct("increasedamagetaken", p.quietIdt, P.quietRounds), tag("decreaseheal", { power: p.quietIdt, rounds: P.quietRounds, calculation: "percentage" }), tag("cleanseprevent", { power: 100, rounds: 1 })] });
   add(JID.shatterMark, { name: "Shatterfall", description: "A fan of cracks runs out from her; it falls on her next turn.", battleDescription: "Cracks fan out from %user's feet.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 3, actionCostPerc: 40, coordinateTargeting: { origin: "CASTER", selection: "ALL", coordinates: FAN_OFFSETS, randomCount: 1 }, effects: [vis("tg_heavy", 1), marker(MK.shatter)] });
-  add(JID.shatterBlast, { name: "Shatterfall", description: "The fan falls.", battleDescription: "The fan of glass falls.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 100, coordinateTargeting: { origin: "CASTER", selection: "ALL", coordinates: FAN_OFFSETS, randomCount: 1 }, effects: [heavy(p.shatter, "moe_shatterfall")] });
+  add(JID.shatterBlast, { name: "Shatterfall", description: "The fan falls.", battleDescription: "The fan of glass falls.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: { origin: "CASTER", selection: "ALL", coordinates: FAN_OFFSETS, randomCount: 1 }, effects: [heavy(p.shatter, "moe_shatterfall")] });
   add(JID.floodMark, { name: "Every Name in the Glass", description: "Every stilled name rises to the floor; only where the three refused stays dry.", battleDescription: "Every name in the glass rises at once. Three places stay dry: where the three refused.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: P.floodCd, actionCostPerc: 40, coordinateTargeting: field(PAT.flood),
     effects: [vis("tg_heavy", 1), T.visual("tg_safe", 1, { target: "COORDINATES", coordinateTargeting: field(STARS) }), marker(MK.flood)] });
-  add(JID.floodBlast, { name: "Every Name in the Glass", description: "The flood of names.", battleDescription: "The names flood the hall.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 100, coordinateTargeting: field(PAT.flood), effects: [heavy(p.flood, "moe_flood")] });
-  add(JID.m2Entry, { name: "No One Is Mended", description: "For the whole of Every Name in the Glass, nothing heals you.", battleDescription: "\"Nothing mends here. Nothing needs to.\"", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 99, actionCostPerc: 20,
-    effects: [tag("healprevent", { power: 100, rounds: P.m2HealBlockRounds })] });
-  add(JID.pull, { name: "Breathless Pull", description: "She draws you in, three hexes, the turn before the flood.", battleDescription: "%user breathes in, and %target is drawn toward her.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 0, actionCostPerc: 60, effects: [T.pull(3)] });
+  add(JID.floodBlast, { name: "Every Name in the Glass", description: "The flood of names.", battleDescription: "The names flood the hall.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(PAT.flood), effects: [heavy(p.flood, "moe_flood")] });
+  // RUL-2026-11-02-097 item 5 (addendum): healing REDUCTION, not healprevent. decreaseheal (percentage, power 100) cuts
+  // heal_hp, lifesteal_hp, vampRatio and absorb_hp on the consequence whatever their source, gear lifesteal included
+  // (tags.ts adjustHealGiven). It is laid as Hush ground over the whole floor, the three dry tiles included, so it
+  // re-applies to whoever stands anywhere and a Cleanse only clears it until the next step (moe_probe P3b).
+  add(JID.m2Entry, { name: "No One Is Mended", description: "For the whole of Every Name in the Glass, the Hush covers the floor: nothing mends.", battleDescription: "\"Nothing mends here. Nothing needs to.\" The quiet covers the whole floor.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 99, actionCostPerc: 20, coordinateTargeting: field(cellsWhere(() => true)),
+    effects: [tag("decreaseheal", { power: 100, rounds: P.m2HealBlockRounds, calculation: "percentage", friendlyFire: "ENEMIES" }), tag("healprevent", { power: 100, rounds: P.m2HealBlockRounds, friendlyFire: "ENEMIES" }), vis("moe_hush_floor", P.m2HealBlockRounds)] });
+  // Probe-only alternative (director's option b): the same rows cast on the player (target ALL), not ground.
+  add(JID.m2EntryCast, { name: "No One Is Mended (cast)", description: "probe: option (b)", battleDescription: "probe", target: "CHARACTER", method: "ALL", range: 0, cooldown: 99, actionCostPerc: 20,
+    effects: [tag("decreaseheal", { power: 100, rounds: P.m2HealBlockRounds, calculation: "percentage", friendlyFire: "ENEMIES" }), tag("healprevent", { power: 100, rounds: P.m2HealBlockRounds, friendlyFire: "ENEMIES" })] });
+  // RUL-2026-11-02-097 item 2: the pull also takes the breath (a partial stun, -apReduction AP next turn), after the flood is
+  // marked, so a stunned player may not reach a dry tile; stun immunity is the counter.
+  add(JID.pull, { name: "Breathless Pull", description: "She draws you in, three hexes, the turn before the flood, and takes your breath (you lose half your next turn).", battleDescription: "%user breathes in, and %target is drawn toward her, breathless.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 0, actionCostPerc: 60,
+    effects: [T.pull(3), tag("stun", { power: P.pullStunChance, rounds: 1, apReduction: P.pullStunAp })] });
   add(JID.starHush, { name: "The Hush", description: "The Hush seeps into one of the three dry places.", battleDescription: "The quiet seeps into one of the dry places.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: P.starHush.cd, actionCostPerc: 40, coordinateTargeting: field(STARS, "RANDOM", "BATTLEFIELD", 1),
     effects: [tag("healprevent", { power: 100, rounds: P.starHush.rounds, friendlyFire: "ENEMIES" }), tag("drain", { power: p.hushDrain, rounds: P.starHush.rounds, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"] }), vis("tg_linger", P.starHush.rounds)] });
   add(JID.longHush, { name: "The Long Hush", description: "Below 25%: she cannot fall for 6 rounds; the glass begins to fall.", battleDescription: "\"Not yet. You are almost a good impression.\" The ceiling begins to fall.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 99, actionCostPerc: 40, coordinateTargeting: field(PAT.glass[0]!),
@@ -257,18 +287,22 @@ const withCond = (r: any, conds: any[]) => ({ ...r, conditions: [...conds, ...r.
 
 export const sayo1Rules = (P: MoeParams) => [
   R.jutsu(JID.enrage, "SELF", [COND.rg(P.enrage.act1)]),
+  R.jutsu(JID.lucidWake, "SELF", [COND.lucid]),
   R.jutsu(JID.facetBlast, "SELF", [C.has(MK.facet)]),
   R.jutsu(JID.lucidBlast, "SELF", [COND.lucid, C.has(MK.refractA)]),
   R.jutsu(JID.blastA, "SELF", [C.has(MK.refractA)]),
   R.jutsu(JID.blastB, "SELF", [C.has(MK.refractB)]),
   R.jutsu(JID.likeness, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [C.hb(40), C.noSummon()]),
-  // After a mark (its marker is on her the same turn): Facet below 60%, else a lancet, then end turn (never two marks).
-  R.jutsu(JID.facet, "SELF", [C.hb(60), C.has(MK.refractA)]),
-  R.jutsu(JID.facet, "SELF", [C.hb(60), C.has(MK.refractB)]),
+  // After a mark (its marker is on her the same turn): a lancet, then end turn (never two marks, never two markers).
   R.jutsu(JID.lancet, PL, [C.has(MK.refractA), C.near(5)]),
   R.jutsu(JID.lancet, PL, [C.has(MK.refractB), C.near(5)]),
+  R.jutsu(JID.lancet, PL, [C.has(MK.facet), C.near(5)]),
   R.end([C.has(MK.refractA)]),
   R.end([C.has(MK.refractB)]),
+  R.end([C.has(MK.facet)]),
+  // Below 60%, Facet takes the place of Refraction while it is ready (one marker at a time: moe_probe seed 23 showed a
+  // second live marker outliving its visual when the first blast spent the next turn).
+  R.jutsu(JID.facet, "SELF", [C.hb(60)]),
   R.jutsu(JID.refractA, "SELF", []),
   R.jutsu(JID.refractB, "SELF", []),
   R.jutsu(JID.lancet, PL, [C.near(5)]),
@@ -278,16 +312,17 @@ export const sayo1Rules = (P: MoeParams) => [
 ];
 export const silenceRules = (P: MoeParams) => [
   R.jutsu(JID.enrage, "SELF", [COND.rg(P.enrage.act1)]),
+  R.jutsu(JID.stillnessBlast, "SELF", [C.has(MK.still)]),
   // Unbridled (Sayo fell first): a feeler every turn one is missing, the Hush every turn instead of every third.
   R.jutsu(JID.listeningUnbridled, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [COND.unbridled, C.noSummon()]),
   R.jutsu(JID.hushUnbridled, "SELF", [COND.unbridled]),
-  R.jutsu(JID.stillness, PL, [COND.unbridled, C.near(3)]),
+  R.jutsu(JID.stillness, "SELF", [COND.unbridled, C.near(3)]),
   R.end([COND.unbridled]),
   R.jutsu(JID.hush[2]!, "SELF", [COND.rg(P.hushBands[1]!)]),
   R.jutsu(JID.hush[1]!, "SELF", [COND.rg(P.hushBands[0]!)]),
   R.jutsu(JID.hush[0]!, "SELF", []),
   R.jutsu(JID.listening, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [C.noSummon()]),
-  R.jutsu(JID.stillness, PL, [C.near(3)]),
+  R.jutsu(JID.stillness, "SELF", [C.near(3)]),
   basic([C.near(1)]),
   R.end(),
 ];
@@ -300,7 +335,7 @@ export const likenessRules = () => [R.jutsu(JID.likenessCopy, PL, [C.near(5)]), 
 
 /** Act II etching cycles (3 / 4 / 5 / 5; cycles 3 and 4 repeat an etching out of order). */
 export const CYCLES: string[][] = [["A", "B", "C"], ["D", "A", "C", "B"], ["C", "A", "E", "A", "B"], ["E", "B", "D", "B", "C"]];
-export const cycleCombo = (seq: string[]) => [...seq.flatMap((k) => [JID.etch[k]!, JID.thorns]), ...seq.map((k) => JID.det[k]!), JID.quietFall];
+export const cycleCombo = (seq: string[], cycle: number) => [...seq.flatMap((k) => [JID.etch[k]!, JID.rises[cycle]!]), ...seq.map((k) => JID.det[k]!), JID.quietFall];
 const cnt = (n: number) => C.has(MK.counter, n);
 export const sayo2Rules = (_P: MoeParams) => [
   R.jutsu(JID.enrage, "SELF", [cnt(4)]),
@@ -309,10 +344,10 @@ export const sayo2Rules = (_P: MoeParams) => [
   R.jutsu(JID.summonPorter, "EMPTY_GROUND_CLOSEST_TO_SELF", [C.has(MK.done), C.noSummon()]),
   R.jutsu(JID.lancet, PL, [C.has(MK.done), C.near(5)]),
   R.end([C.has(MK.done)]),
-  withCond(COND.combo(cycleCombo(CYCLES[3]!)), [cnt(3)]),
-  withCond(COND.combo(cycleCombo(CYCLES[2]!)), [cnt(2)]),
-  withCond(COND.combo(cycleCombo(CYCLES[1]!)), [cnt(1)]),
-  COND.combo(cycleCombo(CYCLES[0]!)),
+  withCond(COND.combo(cycleCombo(CYCLES[3]!, 3)), [cnt(3)]),
+  withCond(COND.combo(cycleCombo(CYCLES[2]!, 2)), [cnt(2)]),
+  withCond(COND.combo(cycleCombo(CYCLES[1]!, 1)), [cnt(1)]),
+  COND.combo(cycleCombo(CYCLES[0]!, 0)),
   R.end(),
 ];
 export const wornRules = (jid: string, target = PL) => [
@@ -330,7 +365,7 @@ export const saintRules = (P: MoeParams) => [
   R.jutsu(JID.glass[2]!, "SELF", [C.has(MK.gC)]),
   R.end([C.hb(25)]),
   R.jutsu(JID.floodBlast, "SELF", [C.has(MK.flood)]),
-  R.jutsu(JID.m2Entry, PL, [C.hb(60), C.near(5)]),
+  R.jutsu(JID.m2Entry, "SELF", [C.hb(60)]),
   R.jutsu(JID.floodMark, "SELF", [C.hb(60)]),
   R.jutsu(JID.pull, PL, [C.has(MK.flood), C.near(5)]),
   R.jutsu(JID.starHush, "SELF", [C.hb(60)]),
@@ -379,13 +414,13 @@ export const aiRecords = (P: MoeParams): AiRec[] => {
   const etchIds = Object.values(JID.etch), detIds = Object.values(JID.det);
   return [
     boss(AI.sayo1, "Sayo, Mother of Echoes", P.pools.sayo1, P.idg.sayo1, P.dr.sayo1,
-      [JID.lancet, JID.enrage, JID.refractA, JID.refractB, JID.blastA, JID.blastB, JID.facet, JID.facetBlast, JID.lucidBlast, JID.likeness], sayo1Rules(P), [token(MK.sayoToken)]),
+      [JID.lancet, JID.enrage, JID.refractA, JID.refractB, JID.blastA, JID.blastB, JID.facet, JID.facetBlast, JID.lucidBlast, JID.lucidWake, JID.likeness], sayo1Rules(P), [token(MK.sayoToken)]),
     boss(AI.silence, "The Silence", P.pools.silence, P.idg.silence, P.dr.silence,
-      [JID.enrage, ...JID.hush, JID.hushUnbridled, JID.listening, JID.listeningUnbridled, JID.stillness], silenceRules(P), [token(MK.silenceToken)]),
+      [JID.enrage, ...JID.hush, JID.hushUnbridled, JID.listening, JID.listeningUnbridled, JID.stillness, JID.stillnessBlast], silenceRules(P), [token(MK.silenceToken)]),
     summon(AI.feeler, "A Feeler of the Deep", [JID.cradle, JID.grasp], feelerRules()),
     summon(AI.likeness, "Your Likeness", [JID.likenessStrike, JID.likenessCopy], likenessRules()),
     boss(AI.sayo2, "Sayo, Mother of Echoes", P.pools.sayo2, P.idg.sayo2, P.dr.sayo2,
-      [JID.lancet, JID.enrage, ...etchIds, ...detIds, JID.thorns, JID.quietFall, JID.summonPorter, JID.summonHana, JID.summonTomo], sayo2Rules(P),
+      [JID.lancet, JID.enrage, ...etchIds, ...detIds, ...JID.rises, JID.quietFall, JID.summonPorter, JID.summonHana, JID.summonTomo], sayo2Rules(P),
       [...(P.sayo2Stunprevent ? [tag("stunprevent", { power: 100, rounds: 100 })] : []), token(MK.sayoToken)]),
     summon(AI.porter, "The Gate Porter (Worn)", [JID.porter], wornRules(JID.porter)),
     summon(AI.hana, "Sister Hana (Worn)", [JID.hana], wornRules(JID.hana, "HIGHEST_MAX_HEALTH_ALLY")),
@@ -423,7 +458,19 @@ export const validateAll = (P: MoeParams) => {
 /* ------------------------------------------------------------------ players */
 /** The geared level-100 model's kit (all captured player records; 9 = the JONIN equip limit). */
 let GEAR_OVERRIDE: any = null;
-export const setGearOverride = (g: any) => { GEAR_OVERRIDE = g; };
+let AVG_OVERRIDE: any = null;
+export const setGearOverride = (g: any, avg?: any) => { GEAR_OVERRIDE = g; AVG_OVERRIDE = avg ?? null; };
+/**
+ * The average geared level-100 model (RUL-2026-11-02-097 item 3), built the same way as the elite one: the real Kitsune
+ * set and the 9-jutsu Fire/Wind endgame kit, plus gear stand-in rows, with the +100% damage rows sized so that its
+ * typical hit on an AI in AI Heavy Armor is about 45% of the elite model's (moe_probe P7). Gear assumption, documented
+ * because no player log calibrates it: the elite model's kit (the same 9 jutsu: shields, lifesteal, vamp) with about half
+ * its gear: 3 +100% gear damage rows (gear rows add to the engine's 60-point pre-battle increase pool, so hits scale with
+ * 1.6 + rows: 3 rows hit ~43% as hard as the elite's 20, moe_probe P7), pools x4 (20,200 HP before Kitsune; two-thirds of the elite's),
+ * 50% damage-taken reduction, 15% gear lifesteal and 15% siphon, one pet. (Pass 1 used the harness `average` tier: the
+ * Fire/Wind endgame kit with no sustain, no gear rows, 6,250 HP; it died in round 2.)
+ */
+export const AVG_GEAR = { damageTakenReductionPct: 50, poolsMultiplier: 4, idgRows: 3, lifesteal: 15, siphon: 15, pets: 1, kit: "elite" as "elite" | "endgame" };
 export const ELITE_KIT = [
   "e2eC-x4UXc5m6QexNbx8w", // Chakra Overflow: self IDG
   "ou7VyChQ-SFCm8T8yGS7I", // Eclipse Drain: self lifesteal 35% + IDG 30
@@ -451,7 +498,12 @@ export type PlayerModel = { variant: PlayerVariant; pets: number; immune: boolea
 export const ELITE_GEAR = { damageTakenReductionPct: 75, poolsMultiplier: 6, idgRows: 20 };
 export const playerModel = (name: string, over: any = {}): PlayerModel => {
   if (name.startsWith("elite") && over.gear === undefined && GEAR_OVERRIDE) over = { ...over, gear: GEAR_OVERRIDE };
-  if (name === "average") return { variant: { ...PLAYER_VARIANTS.average! }, pets: 1, immune: false, sustain: { lifestealGear: 0, siphonInnate: 0 } };
+  if (name === "average") {
+    const g = { ...AVG_GEAR, ...(AVG_OVERRIDE ?? {}), ...(over.gear ?? {}) };
+    const v: PlayerVariant = { ...PLAYER_VARIANTS.average!, name: "average", note: "average geared level-100 model (see AVG_GEAR)", poolsMultiplier: g.poolsMultiplier, damageGivenPct: 0, damageTakenReductionPct: g.damageTakenReductionPct,
+      ...(g.kit === "elite" ? { jutsuIds: ELITE_KIT, elements: ["Fire", "Earth"] as [string, string] } : {}) };
+    return { variant: v, pets: g.pets, immune: false, idgRows: g.idgRows, sustain: { lifestealGear: g.lifesteal, siphonInnate: g.siphon } };
+  }
   const g = { ...ELITE_GEAR, ...(over.gear ?? {}) };
   const v: PlayerVariant = {
     name: "elite", note: "geared level-100 model (elite gear stand-in + sustain kit)", statBudget: 1,
@@ -459,7 +511,7 @@ export const playerModel = (name: string, over: any = {}): PlayerModel => {
     damageGivenPct: 0, damageTakenReductionPct: g.damageTakenReductionPct, gearItemIds: KITSUNE_SET,
     elements: ["Fire", "Earth"], jutsuIds: ELITE_KIT, jutsuLevel: 25,
   };
-  return { variant: v, pets: over.pets ?? 2, immune: name === "elite_imm", idgRows: g.idgRows, sustain: { lifestealGear: over.lifesteal ?? 25, siphonInnate: over.siphon ?? 25 } };
+  return { variant: v, pets: over.pets ?? 2, immune: name === "elite_imm", idgRows: g.idgRows, sustain: { lifestealGear: over.lifesteal ?? g.lifesteal ?? 25, siphonInnate: over.siphon ?? g.siphon ?? 25 } };
 };
 /** Player row: the model's variant plus sustain rows (gear lifesteal on the armour row, siphon innate) and the immunity rows. */
 export const buildPlayer = (m: PlayerModel, catalog: Record<string, any>) => {
@@ -498,6 +550,7 @@ export const SETS: Record<string, [string, "mark" | "land", string[]?]> = {
   [JID.blastA]: ["Refraction", "land", [JID.refractA]], [JID.blastB]: ["Refraction", "land", [JID.refractB, JID.lucidBlast]],
   [JID.facet]: ["Facet", "mark"], [JID.facetBlast]: ["Facet", "land", [JID.facet]],
   [JID.lucidBlast]: ["Refraction", "land", [JID.refractA]],
+  [JID.stillness]: ["Stillness", "mark"], [JID.stillnessBlast]: ["Stillness", "land", [JID.stillness]],
   [JID.shatterMark]: ["Shatterfall", "mark"], [JID.shatterBlast]: ["Shatterfall", "land", [JID.shatterMark]],
   [JID.floodMark]: ["Every Name", "mark"], [JID.floodBlast]: ["Every Name", "land", [JID.floodMark]],
   [JID.longHush]: ["Glassfall", "mark"],
@@ -507,7 +560,7 @@ export const SETS: Record<string, [string, "mark" | "land", string[]?]> = {
 };
 for (const k of Object.keys(PAT.etch)) { SETS[JID.etch[k]!] = ["Recast", "mark"]; SETS[JID.det[k]!] = ["Recast", "land"]; }
 const SPECIAL_IDS: Record<string, string> = {
-  [JID.lucidBlast]: "Lucid", [JID.hushUnbridled]: "Unbridled Hush", [JID.listeningUnbridled]: "Unbridled Listening", [JID.cradle]: "Cradle",
+  [JID.lucidBlast]: "Lucid", [JID.lucidWake]: "Lucid (wakes)", [JID.rises[0]!]: "Hush Rises", [JID.rises[1]!]: "Hush Rises", [JID.rises[2]!]: "Hush Rises", [JID.rises[3]!]: "Hush Rises", [JID.hushUnbridled]: "Unbridled Hush", [JID.listeningUnbridled]: "Unbridled Listening", [JID.cradle]: "Cradle",
   [JID.listening]: "Listening", [JID.likeness]: "Your Likeness", [JID.enrage]: "Enrage", [JID.quiet]: "The Quiet", [JID.pull]: "Breathless Pull",
   [JID.starHush]: "Hush on a safe tile", [JID.m2Entry]: "No One Is Mended", [JID.quietFall]: "Cycle end", [JID.summonPorter]: "Worn: Porter",
   [JID.summonHana]: "Worn: Hana", [JID.summonTomo]: "Worn: Tomo", [JID.glassRecast]: "Long Hush recast", [JID.hush[0]!]: "Hush", [JID.hush[1]!]: "Hush", [JID.hush[2]!]: "Hush",
@@ -598,12 +651,6 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       const st = bossU(AI.saint);
       if (st && alive(st) && b.usersEffects.some((e: any) => e.targetId === st.userId && e.type === MK.gCs)) for (const k of recCells(cfg.recs[JID.glassRecast], [st.longitude, st.latitude])) danger.add(k);
       if (safe.size) for (const c of ALL) if (!safe.has(key(c))) danger.add(key(c));
-      // The Silence never moves: a player who plays it keeps out of Stillness reach unless the Silence is the target.
-      const si = bossU(AI.silence);
-      if (si && alive(si) && currentTarget && !currentTarget.isSummon && currentTarget.controllerId !== AI.silence) for (const c of ALL) if (dist(c, [si.longitude, si.latitude]) <= 3) linger.add(key(c));
-      // Glass Thorns (Act II): she bursts thorns within 2 of herself on every etching turn; keep 3 hexes away.
-      const s2b = bossU(AI.sayo2);
-      if (s2b && alive(s2b)) for (const c of ALL) if (dist(c, [s2b.longitude, s2b.latitude]) <= 2) linger.add(key(c));
       return { danger, linger, safe };
     };
     const free = (c: Cell) => !b.usersState.some((u: any) => u.longitude === c[0] && u.latitude === c[1] && alive(u));
