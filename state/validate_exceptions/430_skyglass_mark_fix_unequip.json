@@ -1,0 +1,12 @@
+{
+ "manifest": "push/430_skyglass_mark_fix_unequip.json",
+ "ruling": "Accepted class: RUL-2026-10-31-083 as applied by RUL-2026-10-31-085 (push/375 / 377 ledgers): 4 'kit is all 60 AP actions' diagnostics on the Sealwright copies. Application to push/430 PENDING director acceptance (RUL-2026-11-02-101).",
+ "reason": "'kit is all 60 AP actions' on the four Sealwright copies (Veteran Sealwright, Veteran Sealwright (Echo), Rot-Touched Sealwright, Sealwright's Echo): the kits RUL-2026-10-31-083 accepted (push/344 part 3, re-sent unchanged by push/377); 430 also drops Omen: Three Seal Lights (40 AP) for the unequip window only (law 18/60), and 432 restores the exact kit. The validator does not know the hidden library ids' AP, so it reports the class on 432 as well (as on 377).",
+ "sha256": "876be62d43a45ed06a931cc02867a5b4453e87a09ea543903ef2e9ef81d554a9",
+ "accepted": [
+  "ERROR  [ai:Rot-Touched Sealwright: Skyglass marks off (law 18/60)]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)",
+  "ERROR  [ai:Sealwright's Echo: Skyglass marks off (law 18/60)]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)",
+  "ERROR  [ai:Veteran Sealwright (Echo): Skyglass marks off (law 18/60)]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)",
+  "ERROR  [ai:Veteran Sealwright: Skyglass marks off (law 18/60)]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)"
+ ]
+}

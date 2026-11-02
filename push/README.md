@@ -1506,6 +1506,59 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 430-432 Skyglass mark fix (RUL-2026-11-02-101): READY TO RUN, MONDAY TO THURSDAY ONLY (ledgers PENDING director acceptance)
+
+`python3 push/skyglass_mark_fix.gen.py` writes all three (do not hand-edit). Zero live requests. Source pin
+theninjarpg@3314d122.
+
+**Run 430 → 431 → 432 back to back, Monday to Thursday only.** These are live boss and crew kits: between 430 and 432,
+50 live AIs (every Skyglass Wreck floor, the Haul, the chart runs, the Faded Wreck, Crownhold and the steeping fight)
+fight without their marks, eruption pools and Spreading Fire, and a fight already open when a kit changes plays on with
+a partial kit. Don't run the set Friday to Sunday, when players are in the event's fights.
+
+**Why (offline engine probe 2026-11-02, the Skyglass harness at theninjarpg@3314d122; probe not committed):** at the end of every `combat.performAction` request the server
+keeps only the `visual` ground effects created in the round the request started in, or later
+(`routers/combat.ts:857-859`), whatever their `rounds`. So an Omen mark vanishes after the first player action of the
+round after it was cast (move, stance or End Turn alike), while the eruption still lands on the marked hexes.
+Non-visual ground effects live by `rounds`; their copies onto a standing player are never saved (`process.ts:406-412`,
+`:1667`), so the art stays on its hex.
+
+| # | Contents |
+|---|---|
+| 430 | 50 AI edits: every edited jutsu off every holder (kit minus them, items re-sent per law 70, rules untouched). The library jutsu are hidden, and a hidden save unequips every holder (`routers/jutsu.ts:1117-1118`; law 18/60) |
+| 431 | 17 jutsu edits, `effects` + `injectableInBattle: false` (law 20). **12 Omen marks:** each tile-art `visual` becomes an `increaseregeneration` carrier (power 1, rounds 1, friendlyFire FRIENDLY, target INHERIT; Three Lights / Three Seal Lights also have a safe-star visual, which keeps target COORDINATES and its coordinates) with the same staticAssetPath, staticAnimation, appearAnimation and disappearAnimation; the self marker is unchanged. **Pools:** Eruption: Ebb Scatter / Flood Scatter (damage 30 for 2 rounds) and Spreading Fire I-III (drain 5% for 10 rounds, AN06 art from push/376): the visual's staticAssetPath, staticAnimation and appearAnimation move onto the lasting effect, which has no disappearAnimation, and the visual is dropped. `_changes` lists every edit |
+| 432 | 50 AI edits: each holder's exact current kit back on (`_holders` names the source send of each kit and item list) |
+
+- **Holders (50), from the newest run send of each AI** (the generator walks the committed results bundles in time
+  order and maps each send to its committed manifest): base crew (Deck Warden, Skyglass Sentinel, Wayfinder, Core Horror:
+  push/361; The Captain: push/400 kit, push/377 items); the Faded, Veteran, Rot-Touched, chart, Haul, Lingering Echo,
+  Steeping Horror, Trophy Warden and Stores Ward copies (push/344 part 1); the four Sealwright copies and Arsenal Keeper
+  (Magazine) (push/377); the Faded Captain and the three Veteran Captains (push/400 kits, push/377 items); Crown
+  Armsmaster, Replicant Zero and The Second (push/364); the Crowned Captain (push/392). Rules are not sent, so they stay
+  exactly as live.
+- **Who is hit doesn't change.** The carriers are FRIENDLY, and `increaseregeneration` has no combat consumer at the pin
+  (`routers/combat.ts:4102` skips it). No Skyglass rule tests that type with `has_effect`. Players never receive the
+  carrier and are no longer logged as its targets. The pools keep friendlyFire ENEMIES, and `checkFriendlyFire`
+  (`process.ts:165-186`) reads only the creator and friendlyFire.
+- **Side effect, battle log:** a non-visual ground effect with rounds logs "<caster> marked the ground with <type> for the
+  next N rounds" when cast (`process.ts:391-396`). Every Omen mark now adds "… marked the ground with
+  increaseregeneration for the next 1 rounds". The pools already logged their damage / drain line.
+- **Lifetime:** a carrier cast in round R stays up until round R+1 ends, so it is visible through the eruption. If the
+  eruption comes mid-round (the boss isn't last in the turn order), it lingers for the rest of that round. The pools
+  last exactly as long as their damage / drain.
+- **Core Horror FX (411-414):** 414 re-sends the five Core Horror kits (Core Horror, Faded, Veteran, Rot-Touched,
+  Steeping Horror), which hold Ebb / Flood Scatter's Omens and Eruptions. **Run 430-432 before 413/414.** If 414 runs
+  first, regenerate 430-432 before sending them: the generator picks up 414's kits from its bundle, and the
+  committed 432 would otherwise undo the swap. 412 is independent.
+- **Gates (2026-11-02):** `validate.py --strict` exit 1 on all three: 430 and 432 each have 4 "kit is all 60 AP"
+  diagnostics on the Sealwright copies (the RUL-2026-10-31-083 class, as push/375/377); 431 has 10 law 4 / law 6 / L06
+  diagnostics on the two Scatter eruptions (their tuned live damage, the RUL-2026-10-31-065 item 1 class). These are held
+  by `state/validate_exceptions/43{0,1,2}_*.json` (`validate_exception.py` exit 0), and their **acceptance for this set
+  is PENDING**. `check_manifest.mjs` 0 pre-send problems on all three. `skyglass_check.py` exit 0. The 17 edited records
+  pass the pinned `JutsuValidator` (offline harness).
+- **After 432:** read back each holder's jutsu list (equipped) and each edited jutsu's effects. In a fight, an Omen mark
+  should stay on screen until its eruption.
+
 ## 417-420 Uber key economy (RUL-2026-11-02-100; rates RUL-2026-11-02-099): 417 READY TO RUN (ledger PENDING director acceptance); 418-420 built from 417's results
 
 Generator: `push/skyglass_uber_economy.gen.py` (do not hand-edit its outputs). Zero live requests. Source pin

@@ -1,0 +1,18 @@
+{
+ "manifest": "push/431_skyglass_mark_fix.json",
+ "ruling": "Accepted class: RUL-2026-10-31-065 item 1 (push/342 library diagnostics; the same diagnostics on the same two records). Application to push/431 PENDING director acceptance (RUL-2026-11-02-101).",
+ "reason": "Eruption: Ebb Scatter and Flood Scatter re-send their live effects (push/342 as committed) with only the art fields moved: law 6 power 140 and law 4 / L06 missing generalTypes are the tuned library values RUL-2026-10-31-065 item 1 accepted (DamageTag power has no maximum at theninjarpg@3314d122; an absent generalTypes adds no generals term). Changing them would change tuned damage; out of scope for an art fix. All 17 records pass the pinned JutsuValidator.",
+ "sha256": "9ef23f31aa2f37f2c2f1d3dbfef276291c722b25c04b4dffa249ba9d717f592e",
+ "accepted": [
+  "ERROR  [jutsu:Eruption: Ebb Scatter: pool art on the lasting effect]: law 4: formula effect 'damage' requires BOTH statTypes AND generalTypes; an empty one silently zeroes the damage",
+  "ERROR  [jutsu:Eruption: Ebb Scatter: pool art on the lasting effect]: law 4: formula effect 'damage' requires BOTH statTypes AND generalTypes; an empty one silently zeroes the damage",
+  "ERROR  [jutsu:Eruption: Ebb Scatter: pool art on the lasting effect]: law 6: effect 'damage' power 140 exceeds the cap of 100 (rows are rounded down)",
+  "ERROR  [jutsu:Eruption: Flood Scatter: pool art on the lasting effect]: law 4: formula effect 'damage' requires BOTH statTypes AND generalTypes; an empty one silently zeroes the damage",
+  "ERROR  [jutsu:Eruption: Flood Scatter: pool art on the lasting effect]: law 4: formula effect 'damage' requires BOTH statTypes AND generalTypes; an empty one silently zeroes the damage",
+  "ERROR  [jutsu:Eruption: Flood Scatter: pool art on the lasting effect]: law 6: effect 'damage' power 140 exceeds the cap of 100 (rows are rounded down)",
+  "ERROR  lint Eruption: Ebb Scatter: pool art on the lasting effect: L06 damage missing statTypes/generalTypes (generalTypes gap can explode damage)",
+  "ERROR  lint Eruption: Ebb Scatter: pool art on the lasting effect: L06 damage missing statTypes/generalTypes (generalTypes gap can explode damage)",
+  "ERROR  lint Eruption: Flood Scatter: pool art on the lasting effect: L06 damage missing statTypes/generalTypes (generalTypes gap can explode damage)",
+  "ERROR  lint Eruption: Flood Scatter: pool art on the lasting effect: L06 damage missing statTypes/generalTypes (generalTypes gap can explode damage)"
+ ]
+}
