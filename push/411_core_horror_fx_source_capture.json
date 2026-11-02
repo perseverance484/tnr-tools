@@ -1,0 +1,30 @@
+{
+ "_note": "push/411 READ-ONLY: the three shared live jutsu the Core Horror holds (Second Wind, Venom Strike, Sovereign Undertow), read fresh so push/412 copies them exactly as they are live (the repository's newest copy is the 2026-10-21 capture tnr_results_1792983091495.json). For the Skyglass-only copies carrying AN04 / AN07-AN08 / AN09 (director 2026-11-01: \"Make the copies.\"). No mutations. Operator-run only.",
+ "capture": {
+  "before": [
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "STu1VHNcfgeC3x-UiQDgt"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "LiVOnYq6qHzjB0XkIIA2e"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "nOYLPmN3TXj6wEe_oE6HQ"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}

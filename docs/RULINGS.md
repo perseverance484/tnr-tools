@@ -5316,7 +5316,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 
 **Evidence:** Director, 2026-11-01: "Why didnt we use those 4 animations?"; "Make the copies."
 
-**Canonical destination:** `push/skyglass_core_horror_fx.gen.py` (push/401-404).
+**Canonical destination:** `push/skyglass_core_horror_fx.gen.py` (push/411-414; first numbered 401-404, renumbered for a collision with a concurrent session).
 
 ## RUL-2026-11-01-093 — The Seedvault: an uber boss fight opened by a four-shard key
 
