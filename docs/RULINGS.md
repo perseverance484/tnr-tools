@@ -5422,3 +5422,31 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02: "Change starfall to stargazer".
 
 **Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §5.1; `push/skyglass_items.gen.py` VARIANT_RENAMES; live via push/415.
+
+## RUL-2026-11-02-099 — Mother of Echoes pass-2 decisions; event economy rates approved
+
+**Date:** 2026-11-02
+
+**Domain:** Skyglass event / uber encounter balance and event economy
+
+**Status:** ACTIVE. Closes the pass-2 questions on `fable/mother-of-echoes-sim` (head c900001a) and the economy model's decisions (`fable/skyglass-economy-model` @ 5a956709).
+
+**Ruling:**
+1. **Siphon is accepted.** Healing reduction doesn't cover it, which is worth about 10 points of skilled clear rate. It's a shield, not healing.
+2. **Breathless Pull's stun is fixed and telegraphed,** marked a turn ahead like Stillness, not a 55% roll. Pass 3 retunes to the RUL-097 targets.
+3. **Act I is accepted as nearly free for skilled players,** the cost of letting average players reach Act II. It is the claude default the director did not contest.
+4. **Summon damage:** the pierce workaround stays, and an upstream bug note is prepared for the director.
+5. **Economy rates R1–R7 are approved:**
+   - R1: Shard of the Ledger 15% per Haul clear (any Haul run, not only the Reserve chests).
+   - R2: Shard of the Keel 4% per full Skyglass Wreck clear.
+   - R3: Shard of the Crown 40% per Crownhold clear.
+   - R4: Shard of the Tide 25% per Sealed Reliquary, The Fall or Rotted-run clear.
+   - R5: Salvage 5 per full Wreck clear and 2 per Faded Wreck clear.
+   - R6: one shard costs 35 Salvage.
+   - R7: The Remainder costs 4 Remnants.
+6. **The Low Tide Run / Night Watch loop is kept** as the solo chart farm.
+7. **Still open:** the First Blade and Wayfinder variant rates; re-running the model on the shorter Wreck (the director's floor trim, 2026-11-02).
+
+**Evidence:** Director, 2026-11-02, answering the pass-2 and economy questions: siphon "Accept it"; Breathless Pull "Fixed, telegraphed"; rates "R1–R6 + R7"; loop "Keep it".
+
+**Canonical destination:** the design doc (Rewards, Tuning, the Invitation), `state/skyglass_economy/recommended.json`, and the build manifests.
