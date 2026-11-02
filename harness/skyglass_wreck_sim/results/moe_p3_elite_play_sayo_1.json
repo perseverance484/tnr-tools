@@ -1,0 +1,6839 @@
+{
+ "generatedBy": "engine/moe.ts",
+ "visualFilter": true,
+ "engine": "theninjarpg 3314d122",
+ "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+ "params": {
+  "name": "pass3",
+  "pools": {
+   "sayo1": 2,
+   "silence": 1,
+   "sayo2": 12,
+   "saint": 12
+  },
+  "statsMultiplier": 5.83,
+  "idg": {
+   "sayo1": 4.5,
+   "silence": 4.5,
+   "sayo2": 5.75,
+   "saint": 6,
+   "summons": 3.5
+  },
+  "dr": {
+   "sayo1": 15,
+   "silence": 25,
+   "sayo2": 79,
+   "saint": 52
+  },
+  "pw": {
+   "pullDmg": 15,
+   "lancet": 25,
+   "refract": 300,
+   "facet": 220,
+   "likenessHit": 30,
+   "stillness": 40,
+   "grasp": 20,
+   "graspDrain": 3,
+   "hushDrain": 3,
+   "hushDmg": 25,
+   "detonate": 360,
+   "quiet": 30,
+   "quietIdt": 8,
+   "shatter": 300,
+   "flood": 420,
+   "glass": 260,
+   "recastIII": 380,
+   "enrage": 600,
+   "porter": 80,
+   "hana": 8,
+   "tomo": 60,
+   "cradleDR": 90
+  },
+  "hushCount": 6,
+  "hushPoolDrain": 4,
+  "rises": {
+   "count": 10,
+   "drain": 15,
+   "rounds": 10
+  },
+  "still": {
+   "cd": 3,
+   "stunAp": 100,
+   "stunRounds": 1
+  },
+  "lucidIdg": 0.5,
+  "pullStunAp": 100,
+  "telegraphCarrier": true,
+  "pullDist": 1,
+  "pullCd": 4,
+  "hushUnbridledCount": 3,
+  "hushRounds": 8,
+  "feeler": {
+   "hp": 2500,
+   "power": 40,
+   "rounds": 8,
+   "listeningCd": 4
+  },
+  "likeness": {
+   "hp": 6000,
+   "power": 80,
+   "rounds": 3
+  },
+  "worn": {
+   "hp": 5000,
+   "power": 60,
+   "rounds": 8
+  },
+  "enrage": {
+   "act1": 25,
+   "act3": 30
+  },
+  "refractCd": 4,
+  "quietRounds": 6,
+  "starHush": {
+   "cd": 3,
+   "rounds": 3
+  },
+  "floodCd": 3,
+  "m2HealBlockRounds": 20,
+  "sayo2Stunprevent": true
+ },
+ "kill": "sayo",
+ "acts": [
+  1,
+  2,
+  3
+ ],
+ "runs": 30,
+ "seed0": 1,
+ "cells": {
+  "elite:play": {
+   "summary": {
+    "runs": 30,
+    "fullClears": 25,
+    "fullClearPct": 83.3,
+    "perAct": {
+     "1": {
+      "entered": 30,
+      "won": 29,
+      "clearPctOfEntered": 96.7,
+      "roundsWonMedian": 10,
+      "roundsAllMedian": 10,
+      "endHpWonMedianPct": 97,
+      "bossHpLeftLostMedian": {
+       "sayo": 0,
+       "silence": 100
+      },
+      "deaths": {
+       "The Silence: The Glass Remembers": 1
+      },
+      "stalled": 0,
+      "sets": {
+       "Refraction": {
+        "mark": 68,
+        "land": 66,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 2.2,
+        "dmgPerHit": null
+       },
+       "Stillness": {
+        "mark": 35,
+        "land": 24,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 0.8,
+        "dmgPerHit": null
+       },
+       "Facet": {
+        "mark": 5,
+        "land": 3,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 0.1,
+        "dmgPerHit": null
+       }
+      },
+      "unmarked": 0,
+      "specials": {
+       "Hush": 57,
+       "Listening": 36,
+       "Cradle": 78,
+       "Unbridled Listening": 35,
+       "Unbridled Hush": 101,
+       "Your Likeness": 3,
+       "Lucid (wakes)": 5,
+       "Enrage": 1
+      },
+      "idleTurns": {
+       "sayo": "0/142",
+       "silence": "54/250"
+      },
+      "killFirst": {
+       "sayo": 25,
+       "silence": 5
+      },
+      "maxHitMedian": 553,
+      "healedMedian": 1017,
+      "dodgesPerFight": 2.4
+     },
+     "2": {
+      "entered": 29,
+      "won": 28,
+      "clearPctOfEntered": 96.6,
+      "roundsWonMedian": 31,
+      "roundsAllMedian": 31,
+      "endHpWonMedianPct": 96,
+      "bossHpLeftLostMedian": {
+       "sayo-stilling": 47
+      },
+      "deaths": {
+       "Sayo, Mother of Echoes: The Glass Remembers": 1
+      },
+      "stalled": 0,
+      "sets": {
+       "Recast": {
+        "mark": 404,
+        "land": 343,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 11.8,
+        "dmgPerHit": null
+       }
+      },
+      "unmarked": 0,
+      "specials": {
+       "Hush Rises": 403,
+       "Cycle end": 72,
+       "Worn: Porter": 29,
+       "Worn: Hana": 88,
+       "Worn: Tomo": 39,
+       "Enrage": 1
+      },
+      "idleTurns": {
+       "sayo-stilling": "0/961"
+      },
+      "killFirst": {
+       "sayo-stilling": 28
+      },
+      "maxHitMedian": 4545,
+      "healedMedian": 7194,
+      "dodgesPerFight": 4.1
+     },
+     "3": {
+      "entered": 28,
+      "won": 25,
+      "clearPctOfEntered": 89.3,
+      "roundsWonMedian": 24,
+      "roundsAllMedian": 24,
+      "endHpWonMedianPct": 75,
+      "bossHpLeftLostMedian": {
+       "saint": 14.4
+      },
+      "deaths": {
+       "Sayo, Saint of Stillness: The Glass Remembers": 3
+      },
+      "stalled": 0,
+      "sets": {
+       "Shatterfall": {
+        "mark": 136,
+        "land": 108,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 3.9,
+        "dmgPerHit": null
+       },
+       "Breathless Pull": {
+        "mark": 56,
+        "land": 28,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 1,
+        "dmgPerHit": null
+       },
+       "Every Name": {
+        "mark": 28,
+        "land": 28,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 1,
+        "dmgPerHit": null
+       },
+       "Glassfall": {
+        "mark": 28,
+        "land": 183,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 6.5,
+        "dmgPerHit": null
+       }
+      },
+      "unmarked": 0,
+      "specials": {
+       "The Quiet": 120,
+       "No One Is Mended": 28,
+       "Breathless Pull": 28,
+       "Hush on a safe tile": 52,
+       "Long Hush recast": 24,
+       "Enrage": 3
+      },
+      "idleTurns": {
+       "saint": "24/674"
+      },
+      "killFirst": {
+       "saint": 25
+      },
+      "maxHitMedian": 2781,
+      "healedMedian": 4467,
+      "dodgesPerFight": 9.2
+     }
+    }
+   },
+   "runs": [
+    {
+     "seed": 1,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 1,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 1,
+       "endCp": 0.9429702970297029,
+       "endSp": 0.9426402640264027,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 9
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 864.2915418309713,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1417.6457709154856,
+       "dodges": 2,
+       "cleanses": 1,
+       "playerActs": {
+        "move": 12,
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "wait": 6,
+        "Black Crow": 2,
+        "Burning Coil": 1,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "basicAttack": 1,
+        "dodge": 2
+       },
+       "minHpFrac": 0.964646166002683,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 1,
+       "outcome": "won",
+       "rounds": 28,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7977557755775577,
+       "endSp": 0.7898349834983498,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1502,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 9,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 27
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1502.375,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 1502.375,
+       "dodges": 2,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 7,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "Black Crow": 4,
+        "basicAttack": 23,
+        "Burning Coil": 4,
+        "wait": 19,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 4,
+        "dodge": 2
+       },
+       "minHpFrac": 0.9523055555555555,
+       "playerTurns": 28
+      },
+      {
+       "act": 3,
+       "seed": 1,
+       "outcome": "lost",
+       "rounds": 31,
+       "endHp": 0,
+       "endCp": 0.9081353135313531,
+       "endSp": 0.8972442244224422,
+       "bossHpPct": {
+        "moe-ai-saint": 14.4
+       },
+       "deathCause": "Sayo, Saint of Stillness: The Glass Remembers",
+       "maxHit": {
+        "dmg": 23634,
+        "by": "Sayo, Saint of Stillness: The Glass Remembers"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 13,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1,
+        "Enrage": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 31
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200,
+        "Sayo, Saint of Stillness: The Glass Remembers": 23634.2928
+       },
+       "healed": 4466.726400000003,
+       "dodges": 14,
+       "cleanses": 2,
+       "playerActs": {
+        "move": 16,
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "wait": 24,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 9,
+        "dodge": 14,
+        "Scorching Sun Strike": 2,
+        "Phoenix Flame Strike": 2,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 31
+      }
+     ]
+    },
+    {
+     "seed": 2,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 2,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9388478875609215,
+       "endCp": 0.961996699669967,
+       "endSp": 0.9606765676567657,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1337,
+        "by": "Your Likeness: Your Own Strike"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 4,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 3,
+        "Listening": 3,
+        "Cradle": 6,
+        "Your Likeness": 1,
+        "Unbridled Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 10,
+        "moe-ai-sayo": 9
+       },
+       "bossIdle": {
+        "moe-ai-silence": 4
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1372.9373127464569,
+        "Sayo, Mother of Echoes: Glass Lancet": 322.875,
+        "own turn (pools/drain)": 1818,
+        "Your Likeness: Your Own Strike": 1336.5623127464569
+       },
+       "healed": 2924.0830836619425,
+       "dodges": 3,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "move": 8,
+        "dodge": 3,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "wait": 5,
+        "Black Crow": 1,
+        "basicAttack": 4,
+        "Burning Coil": 1,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1
+       },
+       "minHpFrac": 0.9279021243281923,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 2,
+       "outcome": "won",
+       "rounds": 28,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.8167986798679868,
+       "endSp": 0.8078877887788779,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 9,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 27
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 5745
+       },
+       "healed": 6471,
+       "dodges": 2,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 7,
+        "dodge": 2,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "Black Crow": 4,
+        "wait": 20,
+        "Burning Coil": 4,
+        "basicAttack": 23,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 4
+       },
+       "minHpFrac": 0.7945714285714286,
+       "playerTurns": 28
+      },
+      {
+       "act": 3,
+       "seed": 2,
+       "outcome": "won",
+       "rounds": 21,
+       "endHp": 0.8138169396825397,
+       "endCp": 0.7281188118811881,
+       "endSp": 0.7152475247524752,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 4,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 3,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 20
+       },
+       "bossIdle": {
+        "moe-ai-saint": 6
+       },
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 4775.864000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3155.6288000000022,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 3,
+       "cleanses": 1,
+       "playerActs": {
+        "move": 9,
+        "Chakra Overflow": 3,
+        "Eclipse Drain": 3,
+        "Stormguard Aura": 3,
+        "Inner Flame": 3,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 12,
+        "dodge": 3,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 1,
+        "Stunning Jab": 2
+       },
+       "minHpFrac": 0.8138169396825397,
+       "playerTurns": 21
+      }
+     ]
+    },
+    {
+     "seed": 3,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 3,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9429702970297029,
+       "endSp": 0.9423102310231023,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-silence": 9,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1372.9373127464569,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1017.2915418309713,
+       "dodges": 3,
+       "cleanses": 1,
+       "playerActs": {
+        "move": 12,
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "dodge": 3,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "wait": 6,
+        "Black Crow": 2,
+        "Burning Coil": 1,
+        "basicAttack": 2,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1
+       },
+       "minHpFrac": 0.964646166002683,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 3,
+       "outcome": "won",
+       "rounds": 31,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.8002310231023102,
+       "endSp": 0.7933003300330033,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 30
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1877.375,
+        "own turn (pools/drain)": 5745
+       },
+       "healed": 7331.375,
+       "dodges": 5,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 10,
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "wait": 19,
+        "dodge": 5,
+        "Black Crow": 4,
+        "Burning Coil": 4,
+        "basicAttack": 19,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "Stunning Jab": 3
+       },
+       "minHpFrac": 0.8557142857142858,
+       "playerTurns": 31,
+       "playerEndTurns": 3
+      },
+      {
+       "act": 3,
+       "seed": 3,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.7049504950495049,
+       "endSp": 0.6943894389438944,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 9,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 13,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "dodge": 9,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 4,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 4,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9429702970297029,
+       "endSp": 0.9423102310231023,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 9
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1372.9373127464569,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1017.2915418309713,
+       "dodges": 3,
+       "cleanses": 1,
+       "playerActs": {
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "move": 13,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "Black Crow": 2,
+        "wait": 6,
+        "dodge": 3,
+        "Burning Coil": 1,
+        "basicAttack": 2,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1
+       },
+       "minHpFrac": 0.964646166002683,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 4,
+       "outcome": "won",
+       "rounds": 30,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7903300330033003,
+       "endSp": 0.7820792079207921,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 11,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 29
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 5745
+       },
+       "healed": 5454,
+       "dodges": 4,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "move": 10,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "Black Crow": 4,
+        "basicAttack": 23,
+        "Burning Coil": 4,
+        "wait": 18,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 3,
+        "dodge": 4
+       },
+       "minHpFrac": 0.8557142857142858,
+       "playerTurns": 30
+      },
+      {
+       "act": 3,
+       "seed": 4,
+       "outcome": "won",
+       "rounds": 21,
+       "endHp": 0.8138169396825397,
+       "endCp": 0.7016501650165017,
+       "endSp": 0.6894389438943894,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 4,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 3,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 20
+       },
+       "bossIdle": {
+        "moe-ai-saint": 6
+       },
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 4775.864000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3155.6288000000022,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 3,
+       "cleanses": 1,
+       "playerActs": {
+        "move": 9,
+        "Chakra Overflow": 3,
+        "Eclipse Drain": 3,
+        "Stormguard Aura": 3,
+        "Inner Flame": 3,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 12,
+        "dodge": 3,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 1,
+        "Stunning Jab": 2
+       },
+       "minHpFrac": 0.8138169396825397,
+       "playerTurns": 21
+      }
+     ]
+    },
+    {
+     "seed": 5,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 5,
+       "outcome": "won",
+       "rounds": 6,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9645214521452146,
+       "endSp": 0.9635313531353136,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 5,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 355.6457709154856,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 1,
+        "Eclipse Drain": 1,
+        "move": 9,
+        "Stormguard Aura": 1,
+        "Inner Flame": 1,
+        "wait": 2,
+        "Black Crow": 1,
+        "Burning Coil": 1,
+        "basicAttack": 3,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1
+       },
+       "minHpFrac": 0.9711428571428572,
+       "playerTurns": 6
+      },
+      {
+       "act": 2,
+       "seed": 5,
+       "outcome": "won",
+       "rounds": 31,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7945544554455446,
+       "endSp": 0.7876237623762377,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 30
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1502.375,
+        "own turn (pools/drain)": 5745
+       },
+       "healed": 6956.375,
+       "dodges": 2,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 6,
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "Black Crow": 5,
+        "basicAttack": 18,
+        "wait": 24,
+        "Burning Coil": 4,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 4,
+        "dodge": 2
+       },
+       "minHpFrac": 0.8176190476190476,
+       "playerTurns": 31
+      },
+      {
+       "act": 3,
+       "seed": 5,
+       "outcome": "won",
+       "rounds": 27,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.6827722772277228,
+       "endSp": 0.6718811881188119,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 9,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 26
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 10,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 16,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 19,
+        "Black Crow": 4,
+        "Burning Coil": 3,
+        "basicAttack": 12,
+        "dodge": 10,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 27
+      }
+     ]
+    },
+    {
+     "seed": 6,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 6,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9429702970297029,
+       "endSp": 0.9426402640264027,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 3,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 9
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1372.9373127464569,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1017.2915418309713,
+       "dodges": 3,
+       "cleanses": 1,
+       "playerActs": {
+        "move": 14,
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "Black Crow": 2,
+        "dodge": 3,
+        "Burning Coil": 1,
+        "wait": 5,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.964646166002683,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 6,
+       "outcome": "won",
+       "rounds": 38,
+       "endHp": 0.6729018124647919,
+       "endCp": 0.7574917491749175,
+       "endSp": 0.7541914191419142,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 16,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 16,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 37
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 10290,
+        "Cadet Tomo (Worn): Cadet's Tether": 6298.592907359056
+       },
+       "healed": 7194,
+       "dodges": 5,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 6,
+        "Eclipse Drain": 6,
+        "move": 8,
+        "Stormguard Aura": 6,
+        "Inner Flame": 6,
+        "dodge": 5,
+        "Black Crow": 6,
+        "wait": 34,
+        "Burning Coil": 5,
+        "Scorching Sun Strike": 5,
+        "Phoenix Flame Strike": 5,
+        "Stunning Jab": 5,
+        "basicAttack": 9
+       },
+       "minHpFrac": 0.6230605426235221,
+       "playerTurns": 38
+      },
+      {
+       "act": 3,
+       "seed": 6,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.5603127873015873,
+       "endCp": 0.6622112211221122,
+       "endSp": 0.6552805280528052,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 7586.2864000000045,
+       "dodges": 9,
+       "cleanses": 2,
+       "playerActs": {
+        "move": 13,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 17,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "dodge": 9,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.5603127873015873,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 7,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 7,
+       "outcome": "won",
+       "rounds": 6,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9677227722772277,
+       "endSp": 0.9667326732673267,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 5,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 355.6457709154856,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 0,
+       "dodges": 1,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 1,
+        "Eclipse Drain": 1,
+        "move": 10,
+        "Stormguard Aura": 1,
+        "Inner Flame": 1,
+        "Black Crow": 1,
+        "wait": 1,
+        "dodge": 1,
+        "Burning Coil": 1,
+        "basicAttack": 3,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1
+       },
+       "minHpFrac": 0.9711428571428572,
+       "playerTurns": 6
+      },
+      {
+       "act": 2,
+       "seed": 7,
+       "outcome": "won",
+       "rounds": 36,
+       "endHp": 0.777092288655268,
+       "endCp": 0.8003960396039604,
+       "endSp": 0.7947854785478548,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 14,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 14,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 35
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1502.375,
+        "own turn (pools/drain)": 5745,
+        "Cadet Tomo (Worn): Cadet's Tether": 6298.592907359056
+       },
+       "healed": 7433.375,
+       "dodges": 3,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 8,
+        "Chakra Overflow": 6,
+        "Eclipse Drain": 6,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "Black Crow": 5,
+        "basicAttack": 14,
+        "Burning Coil": 5,
+        "wait": 30,
+        "Scorching Sun Strike": 5,
+        "Phoenix Flame Strike": 5,
+        "Stunning Jab": 5,
+        "dodge": 3
+       },
+       "minHpFrac": 0.7619494315124109,
+       "playerTurns": 36
+      },
+      {
+       "act": 3,
+       "seed": 7,
+       "outcome": "won",
+       "rounds": 27,
+       "endHp": 0.6645032634920635,
+       "endCp": 0.6886138613861386,
+       "endSp": 0.679042904290429,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 9,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 26
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 7586.2864000000045,
+       "dodges": 11,
+       "cleanses": 2,
+       "playerActs": {
+        "move": 15,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "dodge": 11,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 19,
+        "Black Crow": 4,
+        "Burning Coil": 3,
+        "basicAttack": 12,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.6645032634920635,
+       "playerTurns": 27
+      }
+     ]
+    },
+    {
+     "seed": 8,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 8,
+       "outcome": "won",
+       "rounds": 20,
+       "endHp": 0.6027215747171937,
+       "endCp": 0.9471452145214522,
+       "endSp": 0.9468151815181518,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1818,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 5,
+        "Unbridled Hush": 15
+       },
+       "bossTurns": {
+        "moe-ai-silence": 19,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 3407.5203964083994,
+        "own turn (pools/drain)": 9212.75
+       },
+       "healed": 106,
+       "dodges": 2,
+       "cleanses": 1,
+       "playerActs": {
+        "Chakra Overflow": 3,
+        "Eclipse Drain": 3,
+        "move": 8,
+        "Stormguard Aura": 3,
+        "Inner Flame": 3,
+        "wait": 16,
+        "Black Crow": 1,
+        "Burning Coil": 2,
+        "Scorching Sun Strike": 2,
+        "Phoenix Flame Strike": 1,
+        "Stunning Jab": 1,
+        "basicAttack": 1,
+        "dodge": 2
+       },
+       "minHpFrac": 0.6027215747171937,
+       "playerTurns": 20,
+       "playerEndTurns": 5
+      },
+      {
+       "act": 2,
+       "seed": 8,
+       "outcome": "won",
+       "rounds": 31,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7994719471947195,
+       "endSp": 0.7932013201320132,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 30
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 14835,
+        "Sayo, Mother of Echoes: Glass Lancet": 352.375
+       },
+       "healed": 26501.375,
+       "dodges": 5,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "move": 7,
+        "dodge": 5,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "wait": 23,
+        "Black Crow": 4,
+        "Burning Coil": 4,
+        "Scorching Sun Strike": 4,
+        "basicAttack": 18,
+        "Phoenix Flame Strike": 3,
+        "Stunning Jab": 3
+       },
+       "minHpFrac": 0.45844444444444443,
+       "playerTurns": 31,
+       "playerEndTurns": 3
+      },
+      {
+       "act": 3,
+       "seed": 8,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.7041914191419142,
+       "endSp": 0.6942904290429043,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 9,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 13,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "dodge": 9,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 9,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 9,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9429702970297029,
+       "endSp": 0.9426402640264027,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 9
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1372.9373127464569,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1017.2915418309713,
+       "dodges": 3,
+       "cleanses": 1,
+       "playerActs": {
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "move": 13,
+        "dodge": 3,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "wait": 5,
+        "Black Crow": 2,
+        "Burning Coil": 1,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.964646166002683,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 9,
+       "outcome": "won",
+       "rounds": 35,
+       "endHp": 0.7700446696076491,
+       "endCp": 0.7822442244224422,
+       "endSp": 0.7776237623762376,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2100,
+        "by": "Cadet Tomo (Worn): Cadet's Tether"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 13,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 13,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 34
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 352.375,
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 6298.592907359056
+       },
+       "healed": 1516.375,
+       "dodges": 3,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 8,
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "Black Crow": 5,
+        "wait": 30,
+        "Burning Coil": 5,
+        "Scorching Sun Strike": 5,
+        "Phoenix Flame Strike": 5,
+        "Stunning Jab": 5,
+        "basicAttack": 13,
+        "dodge": 3
+       },
+       "minHpFrac": 0.7673462569092363,
+       "playerTurns": 35
+      },
+      {
+       "act": 3,
+       "seed": 9,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.6574556444444445,
+       "endCp": 0.686963696369637,
+       "endSp": 0.6787128712871288,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 7586.2864000000045,
+       "dodges": 9,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 14,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "Black Crow": 3,
+        "wait": 16,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "dodge": 9,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.6574556444444445,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 10,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 10,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9397689768976898,
+       "endSp": 0.9394389438943894,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-silence": 9,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1372.9373127464569,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1017.2915418309713,
+       "dodges": 2,
+       "cleanses": 1,
+       "playerActs": {
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "move": 13,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "Black Crow": 2,
+        "wait": 5,
+        "Burning Coil": 1,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "basicAttack": 1,
+        "dodge": 2
+       },
+       "minHpFrac": 0.964646166002683,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 10,
+       "outcome": "won",
+       "rounds": 31,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7698019801980198,
+       "endSp": 0.7638613861386139,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1200,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 30
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 909,
+       "dodges": 1,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "move": 6,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "wait": 23,
+        "Black Crow": 5,
+        "Burning Coil": 4,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 4,
+        "basicAttack": 17,
+        "dodge": 1
+       },
+       "minHpFrac": 0.9619047619047619,
+       "playerTurns": 31
+      },
+      {
+       "act": 3,
+       "seed": 10,
+       "outcome": "lost",
+       "rounds": 31,
+       "endHp": 0,
+       "endCp": 0.8801815181518152,
+       "endSp": 0.8712706270627063,
+       "bossHpPct": {
+        "moe-ai-saint": 14.4
+       },
+       "deathCause": "Sayo, Saint of Stillness: The Glass Remembers",
+       "maxHit": {
+        "dmg": 23634,
+        "by": "Sayo, Saint of Stillness: The Glass Remembers"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 13,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1,
+        "Enrage": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 31
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200,
+        "Sayo, Saint of Stillness: The Glass Remembers": 23634.2928
+       },
+       "healed": 4466.726400000003,
+       "dodges": 14,
+       "cleanses": 2,
+       "playerActs": {
+        "move": 16,
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "wait": 24,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 9,
+        "dodge": 14,
+        "Scorching Sun Strike": 2,
+        "Phoenix Flame Strike": 2,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 31
+      }
+     ]
+    },
+    {
+     "seed": 11,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 11,
+       "outcome": "won",
+       "rounds": 17,
+       "endHp": 1,
+       "endCp": 0.9404455445544554,
+       "endSp": 0.9397854785478548,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1212,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 7,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 5,
+        "Listening": 3,
+        "Cradle": 12,
+        "Your Likeness": 1,
+        "Unbridled Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 16,
+        "moe-ai-sayo": 15
+       },
+       "bossIdle": {
+        "moe-ai-silence": 9
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1147.625,
+        "A Feeler of the Deep: Grasp": 1017.2915418309713,
+        "own turn (pools/drain)": 3030
+       },
+       "healed": 5194.916541830971,
+       "dodges": 7,
+       "cleanses": 1,
+       "playerActs": {
+        "Chakra Overflow": 3,
+        "Eclipse Drain": 3,
+        "move": 12,
+        "dodge": 7,
+        "Stormguard Aura": 3,
+        "Inner Flame": 3,
+        "wait": 12,
+        "Black Crow": 2,
+        "Burning Coil": 1,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "basicAttack": 2
+       },
+       "minHpFrac": 0.9261382294947464,
+       "playerTurns": 17,
+       "playerEndTurns": 2
+      },
+      {
+       "act": 2,
+       "seed": 11,
+       "outcome": "won",
+       "rounds": 38,
+       "endHp": 0.6905526061155856,
+       "endCp": 0.7558085808580858,
+       "endSp": 0.7511881188118812,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 16,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 16,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 37
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 14835,
+        "Cadet Tomo (Worn): Cadet's Tether": 6298.592907359056
+       },
+       "healed": 11386,
+       "dodges": 5,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 6,
+        "Eclipse Drain": 6,
+        "move": 9,
+        "Stormguard Aura": 6,
+        "Inner Flame": 6,
+        "Black Crow": 6,
+        "basicAttack": 12,
+        "Burning Coil": 5,
+        "wait": 30,
+        "Scorching Sun Strike": 5,
+        "Phoenix Flame Strike": 5,
+        "Stunning Jab": 4,
+        "dodge": 5
+       },
+       "minHpFrac": 0.6176637172266967,
+       "playerTurns": 38
+      },
+      {
+       "act": 3,
+       "seed": 11,
+       "outcome": "lost",
+       "rounds": 31,
+       "endHp": 0,
+       "endCp": 0.8661881188118812,
+       "endSp": 0.8585973597359736,
+       "bossHpPct": {
+        "moe-ai-saint": 14.4
+       },
+       "deathCause": "Sayo, Saint of Stillness: The Glass Remembers",
+       "maxHit": {
+        "dmg": 18206,
+        "by": "Sayo, Saint of Stillness: The Glass Remembers"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 13,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1,
+        "Enrage": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 31
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200,
+        "Sayo, Saint of Stillness: The Glass Remembers": 18205.8528
+       },
+       "healed": 7586.2864000000045,
+       "dodges": 15,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "move": 16,
+        "dodge": 15,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "wait": 24,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 9,
+        "Scorching Sun Strike": 2,
+        "Phoenix Flame Strike": 2,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.577963580952381,
+       "playerTurns": 31
+      }
+     ]
+    },
+    {
+     "seed": 12,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 12,
+       "outcome": "won",
+       "rounds": 5,
+       "endHp": 1,
+       "endCp": 0.9694719471947195,
+       "endSp": 0.9691419141914192,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 0,
+        "by": ""
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2,
+        "Lucid (wakes)": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 2
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": "moe-ai-silence",
+       "dmgBySource": {},
+       "healed": 0,
+       "dodges": 1,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 1,
+        "Eclipse Drain": 1,
+        "move": 6,
+        "Stormguard Aura": 1,
+        "Inner Flame": 1,
+        "wait": 2,
+        "Black Crow": 1,
+        "dodge": 1,
+        "Burning Coil": 1,
+        "basicAttack": 1,
+        "Scorching Sun Strike": 1
+       },
+       "minHpFrac": 1,
+       "playerTurns": 5
+      },
+      {
+       "act": 2,
+       "seed": 12,
+       "outcome": "won",
+       "rounds": 28,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.8242574257425742,
+       "endSp": 0.8163366336633663,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1502,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 9,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 27
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1502.375,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 1502.375,
+       "dodges": 2,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 7,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "Black Crow": 4,
+        "basicAttack": 23,
+        "Burning Coil": 4,
+        "wait": 19,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 4,
+        "dodge": 2
+       },
+       "minHpFrac": 0.9523055555555555,
+       "playerTurns": 28
+      },
+      {
+       "act": 3,
+       "seed": 12,
+       "outcome": "won",
+       "rounds": 27,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.7124752475247524,
+       "endSp": 0.7005940594059406,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 9,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 26
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 10,
+       "cleanses": 2,
+       "playerActs": {
+        "move": 16,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 19,
+        "Black Crow": 4,
+        "Burning Coil": 3,
+        "basicAttack": 12,
+        "dodge": 10,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 27
+      }
+     ]
+    },
+    {
+     "seed": 13,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 13,
+       "outcome": "won",
+       "rounds": 5,
+       "endHp": 1,
+       "endCp": 0.9694719471947195,
+       "endSp": 0.9691419141914192,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 0,
+        "by": ""
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2,
+        "Lucid (wakes)": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 2
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": "moe-ai-silence",
+       "dmgBySource": {},
+       "healed": 0,
+       "dodges": 2,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 1,
+        "Eclipse Drain": 1,
+        "move": 6,
+        "dodge": 2,
+        "Stormguard Aura": 1,
+        "Inner Flame": 1,
+        "wait": 2,
+        "Black Crow": 1,
+        "Burning Coil": 1,
+        "basicAttack": 1,
+        "Scorching Sun Strike": 1
+       },
+       "minHpFrac": 1,
+       "playerTurns": 5
+      },
+      {
+       "act": 2,
+       "seed": 13,
+       "outcome": "won",
+       "rounds": 32,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7986798679867987,
+       "endSp": 0.7887788778877888,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1502,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 18,
+         "land": 8,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 17,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 4
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 32
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1502.375,
+        "Sayo, Mother of Echoes: Raise Sister Hana": 1200
+       },
+       "healed": 1502.375,
+       "dodges": 1,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 7,
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "Black Crow": 5,
+        "basicAttack": 29,
+        "Burning Coil": 5,
+        "wait": 20,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 4,
+        "dodge": 1
+       },
+       "minHpFrac": 0.9523055555555555,
+       "playerTurns": 32
+      },
+      {
+       "act": 3,
+       "seed": 13,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.7033993399339934,
+       "endSp": 0.6898679867986799,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 9,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 13,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "dodge": 9,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 14,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 14,
+       "outcome": "won",
+       "rounds": 5,
+       "endHp": 1,
+       "endCp": 0.9694719471947195,
+       "endSp": 0.9691419141914192,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 0,
+        "by": ""
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2,
+        "Lucid (wakes)": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 2,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": "moe-ai-silence",
+       "dmgBySource": {},
+       "healed": 0,
+       "dodges": 0,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 1,
+        "Eclipse Drain": 1,
+        "move": 7,
+        "Stormguard Aura": 1,
+        "Inner Flame": 1,
+        "Black Crow": 1,
+        "wait": 2,
+        "Burning Coil": 1,
+        "basicAttack": 1,
+        "Scorching Sun Strike": 1
+       },
+       "minHpFrac": 1,
+       "playerTurns": 5
+      },
+      {
+       "act": 2,
+       "seed": 14,
+       "outcome": "won",
+       "rounds": 41,
+       "endHp": 0.9241081616711411,
+       "endCp": 0.8013201320132013,
+       "endSp": 0.7930693069306931,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2100,
+        "by": "Cadet Tomo (Worn): Cadet's Tether"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 14,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 17,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 40
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 6298.592907359056
+       },
+       "healed": 5108,
+       "dodges": 6,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 6,
+        "Eclipse Drain": 6,
+        "move": 9,
+        "Stormguard Aura": 6,
+        "Inner Flame": 6,
+        "wait": 31,
+        "dodge": 6,
+        "Black Crow": 5,
+        "Burning Coil": 5,
+        "Scorching Sun Strike": 5,
+        "basicAttack": 24,
+        "Phoenix Flame Strike": 5,
+        "Stunning Jab": 4
+       },
+       "minHpFrac": 0.7673462569092363,
+       "playerTurns": 41,
+       "playerEndTurns": 4
+      },
+      {
+       "act": 3,
+       "seed": 14,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.706039603960396,
+       "endSp": 0.6941584158415841,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 5657.726400000003,
+       "dodges": 10,
+       "cleanses": 2,
+       "playerActs": {
+        "move": 13,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "dodge": 10,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "Black Crow": 3,
+        "wait": 16,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 15,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 15,
+       "outcome": "won",
+       "rounds": 7,
+       "endHp": 0.9549953723518894,
+       "endCp": 0.9668976897689769,
+       "endSp": 0.9665676567656766,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 909,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 6
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 508.6457709154856,
+        "own turn (pools/drain)": 909
+       },
+       "healed": 0,
+       "dodges": 3,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 1,
+        "Eclipse Drain": 1,
+        "move": 10,
+        "dodge": 3,
+        "Stormguard Aura": 1,
+        "Inner Flame": 1,
+        "wait": 3,
+        "Black Crow": 1,
+        "Burning Coil": 1,
+        "basicAttack": 1,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "Stunning Jab": 1
+       },
+       "minHpFrac": 0.9549953723518894,
+       "playerTurns": 7
+      },
+      {
+       "act": 2,
+       "seed": 15,
+       "outcome": "won",
+       "rounds": 31,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.796930693069307,
+       "endSp": 0.7916501650165017,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 30
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1502.375,
+        "own turn (pools/drain)": 10290
+       },
+       "healed": 12010.375,
+       "dodges": 4,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 10,
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "Black Crow": 5,
+        "wait": 22,
+        "Burning Coil": 4,
+        "basicAttack": 15,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 4,
+        "dodge": 4
+       },
+       "minHpFrac": 0.7204444444444444,
+       "playerTurns": 31
+      },
+      {
+       "act": 3,
+       "seed": 15,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.7016501650165017,
+       "endSp": 0.6927392739273928,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 9,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 14,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "Black Crow": 3,
+        "wait": 16,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "dodge": 9,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 16,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 16,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9397689768976898,
+       "endSp": 0.939108910891089,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-silence": 9,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1372.9373127464569,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1017.2915418309713,
+       "dodges": 3,
+       "cleanses": 1,
+       "playerActs": {
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "move": 12,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "wait": 6,
+        "Black Crow": 2,
+        "dodge": 3,
+        "Burning Coil": 1,
+        "basicAttack": 2,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1
+       },
+       "minHpFrac": 0.964646166002683,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 16,
+       "outcome": "won",
+       "rounds": 31,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7920792079207921,
+       "endSp": 0.7858085808580858,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 30
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 5745
+       },
+       "healed": 5454,
+       "dodges": 4,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 7,
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "dodge": 4,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "wait": 24,
+        "Black Crow": 4,
+        "Burning Coil": 4,
+        "Scorching Sun Strike": 4,
+        "basicAttack": 17,
+        "Phoenix Flame Strike": 3,
+        "Stunning Jab": 3
+       },
+       "minHpFrac": 0.8268571428571428,
+       "playerTurns": 31,
+       "playerEndTurns": 3
+      },
+      {
+       "act": 3,
+       "seed": 16,
+       "outcome": "won",
+       "rounds": 27,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.6802970297029703,
+       "endSp": 0.6700660066006601,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 9,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 26
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 10,
+       "cleanses": 2,
+       "playerActs": {
+        "move": 15,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 19,
+        "Black Crow": 4,
+        "Burning Coil": 3,
+        "basicAttack": 12,
+        "dodge": 10,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 27
+      }
+     ]
+    },
+    {
+     "seed": 17,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 17,
+       "outcome": "won",
+       "rounds": 11,
+       "endHp": 0.9492110006326876,
+       "endCp": 0.9397689768976898,
+       "endSp": 0.9377887788778878,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1337,
+        "by": "Your Likeness: Your Own Strike"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 3,
+        "Listening": 3,
+        "Cradle": 6,
+        "Your Likeness": 1,
+        "Unbridled Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 9,
+        "moe-ai-silence": 10
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 864.2915418309713,
+        "Your Likeness: Your Own Strike": 4009.6869382393706,
+        "Sayo, Mother of Echoes: Glass Lancet": 309.875,
+        "own turn (pools/drain)": 1818
+       },
+       "healed": 5402,
+       "dodges": 2,
+       "cleanses": 1,
+       "playerActs": {
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "move": 10,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "wait": 6,
+        "Black Crow": 2,
+        "basicAttack": 6,
+        "Burning Coil": 1,
+        "dodge": 2,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1
+       },
+       "minHpFrac": 0.8680363974580844,
+       "playerTurns": 11
+      },
+      {
+       "act": 2,
+       "seed": 17,
+       "outcome": "won",
+       "rounds": 32,
+       "endHp": 0.8979513978057243,
+       "endCp": 0.7975247524752476,
+       "endSp": 0.7909240924092409,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 2
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 32
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1877.375,
+        "own turn (pools/drain)": 5745,
+        "Cadet Tomo (Worn): Cadet's Tether": 2099.5309691196853
+       },
+       "healed": 8107.375,
+       "dodges": 5,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 9,
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "dodge": 5,
+        "wait": 26,
+        "Black Crow": 4,
+        "Burning Coil": 4,
+        "basicAttack": 14,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 3
+       },
+       "minHpFrac": 0.8557142857142858,
+       "playerTurns": 32,
+       "playerEndTurns": 2
+      },
+      {
+       "act": 3,
+       "seed": 17,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.7022442244224423,
+       "endSp": 0.692013201320132,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 6481.726400000003,
+       "dodges": 9,
+       "cleanses": 2,
+       "playerActs": {
+        "move": 13,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "dodge": 9,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 18,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 18,
+       "outcome": "won",
+       "rounds": 5,
+       "endHp": 1,
+       "endCp": 0.9694719471947195,
+       "endSp": 0.9691419141914192,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 0,
+        "by": ""
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2,
+        "Lucid (wakes)": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 2
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-silence",
+       "dmgBySource": {},
+       "healed": 0,
+       "dodges": 1,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 6,
+        "Chakra Overflow": 1,
+        "Eclipse Drain": 1,
+        "dodge": 1,
+        "Stormguard Aura": 1,
+        "Inner Flame": 1,
+        "Black Crow": 1,
+        "wait": 2,
+        "Burning Coil": 1,
+        "basicAttack": 1,
+        "Scorching Sun Strike": 1
+       },
+       "minHpFrac": 1,
+       "playerTurns": 5
+      },
+      {
+       "act": 2,
+       "seed": 18,
+       "outcome": "won",
+       "rounds": 28,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.8242574257425742,
+       "endSp": 0.8166666666666667,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1502,
+        "by": "Sayo, Mother of Echoes: Glass Lancet"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 10,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 28
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1502.375,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 1502.375,
+       "dodges": 2,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 8,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "Black Crow": 4,
+        "wait": 21,
+        "Burning Coil": 4,
+        "basicAttack": 22,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 4,
+        "dodge": 2
+       },
+       "minHpFrac": 0.9523055555555555,
+       "playerTurns": 28
+      },
+      {
+       "act": 3,
+       "seed": 18,
+       "outcome": "won",
+       "rounds": 27,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.7124752475247524,
+       "endSp": 0.7009240924092409,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 9,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 26
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 11,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 15,
+        "dodge": 11,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 19,
+        "Black Crow": 4,
+        "Burning Coil": 3,
+        "basicAttack": 12,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 27
+      }
+     ]
+    },
+    {
+     "seed": 19,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 19,
+       "outcome": "won",
+       "rounds": 7,
+       "endHp": 0.9549953723518894,
+       "endCp": 0.9636963696369637,
+       "endSp": 0.9630363036303631,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 909,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 6
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 508.6457709154856,
+        "own turn (pools/drain)": 909
+       },
+       "healed": 0,
+       "dodges": 2,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 1,
+        "Eclipse Drain": 1,
+        "move": 10,
+        "Stormguard Aura": 1,
+        "Inner Flame": 1,
+        "Black Crow": 1,
+        "basicAttack": 2,
+        "dodge": 2,
+        "Burning Coil": 1,
+        "Scorching Sun Strike": 1,
+        "wait": 2,
+        "Phoenix Flame Strike": 1,
+        "Stunning Jab": 1
+       },
+       "minHpFrac": 0.9549953723518894,
+       "playerTurns": 7
+      },
+      {
+       "act": 2,
+       "seed": 19,
+       "outcome": "lost",
+       "rounds": 45,
+       "endHp": 0,
+       "endCp": 0.9831353135313531,
+       "endSp": 0.9771947194719472,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 47
+       },
+       "deathCause": "Sayo, Mother of Echoes: The Glass Remembers",
+       "maxHit": {
+        "dmg": 25878,
+        "by": "Sayo, Mother of Echoes: The Glass Remembers"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 17,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 17,
+        "Cycle end": 4,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 4,
+        "Enrage": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 45
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "own turn (pools/drain)": 14835,
+        "Sayo, Mother of Echoes: Glass Lancet": 1877.375,
+        "Cadet Tomo (Worn): Cadet's Tether": 8398.123876478741,
+        "Sayo, Mother of Echoes: The Glass Remembers": 25877.87612352126
+       },
+       "healed": 20906.375,
+       "dodges": 10,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 12,
+        "Chakra Overflow": 7,
+        "Eclipse Drain": 7,
+        "dodge": 10,
+        "Stormguard Aura": 7,
+        "Inner Flame": 7,
+        "wait": 36,
+        "Black Crow": 5,
+        "Burning Coil": 4,
+        "basicAttack": 16,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 3,
+        "Stunning Jab": 2
+       },
+       "minHpFrac": 0.6230922886552681,
+       "playerTurns": 45,
+       "playerEndTurns": 8
+      }
+     ]
+    },
+    {
+     "seed": 20,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 20,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9422857142857143,
+       "endCp": 0.9429702970297029,
+       "endSp": 0.9423102310231023,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1212,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 3,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 9
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "own turn (pools/drain)": 2121,
+        "A Feeler of the Deep: Grasp": 1881.5830836619425
+       },
+       "healed": 2184.5830836619425,
+       "dodges": 5,
+       "cleanses": 1,
+       "playerActs": {
+        "move": 11,
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "dodge": 5,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "wait": 5,
+        "Black Crow": 2,
+        "Burning Coil": 1,
+        "basicAttack": 2,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1
+       },
+       "minHpFrac": 0.8988591329286839,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 20,
+       "outcome": "won",
+       "rounds": 38,
+       "endHp": 0.8401081616711411,
+       "endCp": 0.7583168316831683,
+       "endSp": 0.753036303630363,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 16,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 16,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 37
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 10290,
+        "Sayo, Mother of Echoes: Glass Lancet": 352.375,
+        "Cadet Tomo (Worn): Cadet's Tether": 6298.592907359056
+       },
+       "healed": 13722.375,
+       "dodges": 4,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 6,
+        "Eclipse Drain": 6,
+        "move": 9,
+        "Stormguard Aura": 6,
+        "Inner Flame": 6,
+        "dodge": 4,
+        "Black Crow": 6,
+        "Burning Coil": 5,
+        "basicAttack": 14,
+        "wait": 29,
+        "Scorching Sun Strike": 5,
+        "Phoenix Flame Strike": 5,
+        "Stunning Jab": 4
+       },
+       "minHpFrac": 0.7646478442108237,
+       "playerTurns": 38
+      },
+      {
+       "act": 3,
+       "seed": 20,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7275191365079365,
+       "endCp": 0.663036303630363,
+       "endSp": 0.6541254125412541,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 7586.2864000000045,
+       "dodges": 9,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 14,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "dodge": 9,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7275191365079365,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 21,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 21,
+       "outcome": "won",
+       "rounds": 7,
+       "endHp": 0.9549953723518894,
+       "endCp": 0.9668976897689769,
+       "endSp": 0.9665676567656766,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 909,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 6,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 508.6457709154856,
+        "own turn (pools/drain)": 909
+       },
+       "healed": 0,
+       "dodges": 1,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 10,
+        "Chakra Overflow": 1,
+        "Eclipse Drain": 1,
+        "Stormguard Aura": 1,
+        "Inner Flame": 1,
+        "wait": 4,
+        "Black Crow": 1,
+        "dodge": 1,
+        "Burning Coil": 1,
+        "basicAttack": 1,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "Stunning Jab": 1
+       },
+       "minHpFrac": 0.9549953723518894,
+       "playerTurns": 7
+      },
+      {
+       "act": 2,
+       "seed": 21,
+       "outcome": "won",
+       "rounds": 31,
+       "endHp": 0.8841269841269841,
+       "endCp": 0.8192079207920792,
+       "endSp": 0.8122772277227723,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 30
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 14835
+       },
+       "healed": 12603,
+       "dodges": 6,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "move": 9,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "dodge": 6,
+        "wait": 21,
+        "Black Crow": 4,
+        "Burning Coil": 4,
+        "basicAttack": 20,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 3,
+        "Stunning Jab": 3
+       },
+       "minHpFrac": 0.6841269841269841,
+       "playerTurns": 31,
+       "playerEndTurns": 2
+      },
+      {
+       "act": 3,
+       "seed": 21,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.723927392739274,
+       "endSp": 0.7133663366336633,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 6916.726400000003,
+       "dodges": 10,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 13,
+        "dodge": 10,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "Black Crow": 3,
+        "wait": 16,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 22,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 22,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 1,
+       "endCp": 0.9397689768976898,
+       "endSp": 0.9394389438943894,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 9
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1219.9373127464569,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1773.2915418309713,
+       "dodges": 2,
+       "cleanses": 1,
+       "playerActs": {
+        "move": 10,
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "Black Crow": 2,
+        "wait": 6,
+        "Burning Coil": 1,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "basicAttack": 1,
+        "dodge": 2
+       },
+       "minHpFrac": 0.9534828081958422,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 22,
+       "outcome": "won",
+       "rounds": 41,
+       "endHp": 0.9241081616711411,
+       "endCp": 0.7716171617161716,
+       "endSp": 0.7633663366336634,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2100,
+        "by": "Cadet Tomo (Worn): Cadet's Tether"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 14,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 17,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 40
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 1200,
+        "Cadet Tomo (Worn): Cadet's Tether": 6298.592907359056
+       },
+       "healed": 5108,
+       "dodges": 6,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 6,
+        "Eclipse Drain": 6,
+        "move": 9,
+        "Stormguard Aura": 6,
+        "Inner Flame": 6,
+        "wait": 34,
+        "dodge": 6,
+        "Black Crow": 5,
+        "Burning Coil": 5,
+        "basicAttack": 24,
+        "Scorching Sun Strike": 5,
+        "Phoenix Flame Strike": 5,
+        "Stunning Jab": 4
+       },
+       "minHpFrac": 0.7673462569092363,
+       "playerTurns": 41,
+       "playerEndTurns": 3
+      },
+      {
+       "act": 3,
+       "seed": 22,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.6763366336633664,
+       "endSp": 0.6644554455445545,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 5657.726400000003,
+       "dodges": 10,
+       "cleanses": 2,
+       "playerActs": {
+        "move": 13,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "dodge": 10,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "Black Crow": 3,
+        "wait": 16,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 23,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 23,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9429702970297029,
+       "endSp": 0.9423102310231023,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 9
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1372.9373127464569,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1017.2915418309713,
+       "dodges": 2,
+       "cleanses": 1,
+       "playerActs": {
+        "move": 13,
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "wait": 6,
+        "Black Crow": 2,
+        "Burning Coil": 1,
+        "basicAttack": 2,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "dodge": 2
+       },
+       "minHpFrac": 0.964646166002683,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 23,
+       "outcome": "won",
+       "rounds": 41,
+       "endHp": 0.9151875267505062,
+       "endCp": 0.7533663366336634,
+       "endSp": 0.7467656765676568,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 14,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 17,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 40
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1502.375,
+        "own turn (pools/drain)": 14835,
+        "Cadet Tomo (Worn): Cadet's Tether": 6298.592907359056
+       },
+       "healed": 20873.375,
+       "dodges": 9,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 8,
+        "Chakra Overflow": 6,
+        "Eclipse Drain": 6,
+        "Stormguard Aura": 6,
+        "Inner Flame": 6,
+        "Black Crow": 6,
+        "wait": 33,
+        "Burning Coil": 6,
+        "basicAttack": 18,
+        "Scorching Sun Strike": 6,
+        "Phoenix Flame Strike": 5,
+        "Stunning Jab": 3,
+        "dodge": 9
+       },
+       "minHpFrac": 0.705968253968254,
+       "playerTurns": 41,
+       "playerEndTurns": 1
+      },
+      {
+       "act": 3,
+       "seed": 23,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.6580858085808581,
+       "endSp": 0.6478547854785478,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 5938.726400000003,
+       "dodges": 10,
+       "cleanses": 2,
+       "playerActs": {
+        "move": 13,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "dodge": 10,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 24,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 24,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9397689768976898,
+       "endSp": 0.9394389438943894,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-silence": 9,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1372.9373127464569,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1017.2915418309713,
+       "dodges": 3,
+       "cleanses": 1,
+       "playerActs": {
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "move": 14,
+        "dodge": 3,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "wait": 5,
+        "Black Crow": 2,
+        "Burning Coil": 1,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.964646166002683,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 24,
+       "outcome": "won",
+       "rounds": 28,
+       "endHp": 0.8911746031746032,
+       "endCp": 0.7945544554455446,
+       "endSp": 0.7866336633663367,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 9,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 27
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1502.375,
+        "own turn (pools/drain)": 5745
+       },
+       "healed": 4728.375,
+       "dodges": 3,
+       "cleanses": 0,
+       "playerActs": {
+        "move": 7,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "Black Crow": 4,
+        "basicAttack": 23,
+        "Burning Coil": 4,
+        "wait": 19,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 4,
+        "dodge": 3
+       },
+       "minHpFrac": 0.8176190476190476,
+       "playerTurns": 28
+      },
+      {
+       "act": 3,
+       "seed": 24,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.6992739273927393,
+       "endSp": 0.6877227722772277,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 6694.726400000003,
+       "dodges": 9,
+       "cleanses": 2,
+       "playerActs": {
+        "move": 14,
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "dodge": 9,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 25,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 25,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9422857142857143,
+       "endCp": 0.9397689768976898,
+       "endSp": 0.9394389438943894,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1818,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 2,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-silence": 9,
+        "moe-ai-sayo": 5
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "own turn (pools/drain)": 4879.479229084514,
+        "Sayo, Mother of Echoes: Glass Lancet": 306.875,
+        "A Feeler of the Deep: Grasp": 2034.5830836619425
+       },
+       "healed": 5402.937312746457,
+       "dodges": 3,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "move": 9,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "wait": 5,
+        "Black Crow": 2,
+        "dodge": 3,
+        "Burning Coil": 1,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.8234193161323501,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 25,
+       "outcome": "won",
+       "rounds": 40,
+       "endHp": 0.9016319711949506,
+       "endCp": 0.7716171617161716,
+       "endSp": 0.7666666666666667,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2400,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 13,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 17,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 39
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 727.375,
+        "own turn (pools/drain)": 2400,
+        "Cadet Tomo (Worn): Cadet's Tether": 6298.592907359056
+       },
+       "healed": 8145.375,
+       "dodges": 4,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 6,
+        "Eclipse Drain": 6,
+        "move": 9,
+        "Stormguard Aura": 6,
+        "Inner Flame": 6,
+        "wait": 32,
+        "Black Crow": 5,
+        "Burning Coil": 5,
+        "Scorching Sun Strike": 5,
+        "Phoenix Flame Strike": 5,
+        "Stunning Jab": 4,
+        "dodge": 4,
+        "basicAttack": 14
+       },
+       "minHpFrac": 0.7695049870679664,
+       "playerTurns": 40,
+       "playerEndTurns": 4
+      },
+      {
+       "act": 3,
+       "seed": 25,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.6763366336633664,
+       "endSp": 0.6677557755775577,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 6365.726400000003,
+       "dodges": 10,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 13,
+        "dodge": 10,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 26,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 26,
+       "outcome": "lost",
+       "rounds": 26,
+       "endHp": 0,
+       "endCp": 0.9317161716171617,
+       "endSp": 0.9307260726072607,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "The Silence: The Glass Remembers",
+       "maxHit": {
+        "dmg": 11341,
+        "by": "The Silence: The Glass Remembers"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 9,
+        "Unbridled Hush": 21,
+        "Enrage": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 26,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 6459.395021901313,
+        "own turn (pools/drain)": 20411.75,
+        "The Silence: The Hush, Unbridled": 222.875,
+        "The Silence: The Glass Remembers": 11341.208832676115
+       },
+       "healed": 6935.228854577428,
+       "dodges": 3,
+       "cleanses": 1,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 7,
+        "dodge": 3,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 21,
+        "Black Crow": 2,
+        "Burning Coil": 3,
+        "Scorching Sun Strike": 2,
+        "basicAttack": 3
+       },
+       "minHpFrac": 0.3600383756405116,
+       "playerTurns": 26,
+       "playerEndTurns": 10
+      }
+     ]
+    },
+    {
+     "seed": 27,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 27,
+       "outcome": "won",
+       "rounds": 5,
+       "endHp": 1,
+       "endCp": 0.9694719471947195,
+       "endSp": 0.9691419141914192,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 0,
+        "by": ""
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2,
+        "Lucid (wakes)": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 2
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": "moe-ai-silence",
+       "dmgBySource": {},
+       "healed": 0,
+       "dodges": 1,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 1,
+        "Eclipse Drain": 1,
+        "move": 8,
+        "Stormguard Aura": 1,
+        "Inner Flame": 1,
+        "Black Crow": 1,
+        "dodge": 1,
+        "Burning Coil": 1,
+        "basicAttack": 1,
+        "wait": 1,
+        "Scorching Sun Strike": 1
+       },
+       "minHpFrac": 1,
+       "playerTurns": 5
+      },
+      {
+       "act": 2,
+       "seed": 27,
+       "outcome": "won",
+       "rounds": 28,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.8242574257425742,
+       "endSp": 0.8163366336633663,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1200,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 9,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 27
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 352.375,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 352.375,
+       "dodges": 1,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 8,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "Black Crow": 4,
+        "wait": 20,
+        "Burning Coil": 4,
+        "basicAttack": 23,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 4,
+        "dodge": 1
+       },
+       "minHpFrac": 0.9619047619047619,
+       "playerTurns": 28
+      },
+      {
+       "act": 3,
+       "seed": 27,
+       "outcome": "won",
+       "rounds": 24,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.728976897689769,
+       "endSp": 0.7174257425742574,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 9,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 13,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 17,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 11,
+        "dodge": 9,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 24
+      }
+     ]
+    },
+    {
+     "seed": 28,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 28,
+       "outcome": "won",
+       "rounds": 6,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9677227722772277,
+       "endSp": 0.9667326732673267,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 5,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 355.6457709154856,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 0,
+       "dodges": 1,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 1,
+        "Eclipse Drain": 1,
+        "move": 9,
+        "Stormguard Aura": 1,
+        "Inner Flame": 1,
+        "wait": 1,
+        "Black Crow": 1,
+        "dodge": 1,
+        "Burning Coil": 1,
+        "basicAttack": 3,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1
+       },
+       "minHpFrac": 0.9711428571428572,
+       "playerTurns": 6
+      },
+      {
+       "act": 2,
+       "seed": 28,
+       "outcome": "won",
+       "rounds": 31,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7985808580858086,
+       "endSp": 0.7926402640264026,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 12,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 12,
+        "Cycle end": 2,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 30
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 352.375,
+        "own turn (pools/drain)": 10290
+       },
+       "healed": 10351.375,
+       "dodges": 6,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 5,
+        "Eclipse Drain": 5,
+        "move": 10,
+        "Stormguard Aura": 5,
+        "Inner Flame": 5,
+        "Black Crow": 5,
+        "basicAttack": 15,
+        "Burning Coil": 4,
+        "wait": 22,
+        "Scorching Sun Strike": 4,
+        "Phoenix Flame Strike": 4,
+        "Stunning Jab": 3,
+        "dodge": 6
+       },
+       "minHpFrac": 0.724031746031746,
+       "playerTurns": 31
+      },
+      {
+       "act": 3,
+       "seed": 28,
+       "outcome": "won",
+       "rounds": 27,
+       "endHp": 0.7502950095238095,
+       "endCp": 0.6867986798679868,
+       "endSp": 0.6768976897689769,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 5,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 9,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 5,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 2,
+        "Long Hush recast": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 26
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 6306.096000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3626.3376000000026,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 10,
+       "cleanses": 2,
+       "playerActs": {
+        "Chakra Overflow": 4,
+        "Eclipse Drain": 4,
+        "move": 15,
+        "Stormguard Aura": 4,
+        "Inner Flame": 4,
+        "wait": 20,
+        "Black Crow": 4,
+        "Burning Coil": 3,
+        "basicAttack": 12,
+        "dodge": 10,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 2
+       },
+       "minHpFrac": 0.7502950095238095,
+       "playerTurns": 27
+      }
+     ]
+    },
+    {
+     "seed": 29,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 29,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 0.9711428571428572,
+       "endCp": 0.9397689768976898,
+       "endSp": 0.939108910891089,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 3,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-silence": 9,
+        "moe-ai-sayo": 4
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1372.9373127464569,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1017.2915418309713,
+       "dodges": 4,
+       "cleanses": 1,
+       "playerActs": {
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "move": 12,
+        "dodge": 4,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "wait": 6,
+        "Black Crow": 2,
+        "Burning Coil": 1,
+        "basicAttack": 2,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1
+       },
+       "minHpFrac": 0.964646166002683,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 29,
+       "outcome": "won",
+       "rounds": 43,
+       "endHp": 0.9619047619047619,
+       "endCp": 0.7641914191419142,
+       "endSp": 0.7585808580858086,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 16,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 17,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 42
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 5745,
+        "Cadet Tomo (Worn): Cadet's Tether": 6298.592907359056
+       },
+       "healed": 11752.592907359056,
+       "dodges": 6,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 7,
+        "Eclipse Drain": 7,
+        "move": 9,
+        "Stormguard Aura": 6,
+        "Inner Flame": 6,
+        "wait": 36,
+        "Black Crow": 5,
+        "Burning Coil": 5,
+        "Scorching Sun Strike": 5,
+        "Phoenix Flame Strike": 5,
+        "basicAttack": 15,
+        "dodge": 6,
+        "Stunning Jab": 5
+       },
+       "minHpFrac": 0.7646478442108237,
+       "playerTurns": 43,
+       "playerEndTurns": 5
+      },
+      {
+       "act": 3,
+       "seed": 29,
+       "outcome": "won",
+       "rounds": 21,
+       "endHp": 0.8138169396825397,
+       "endCp": 0.6755115511551155,
+       "endSp": 0.665940594059406,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 4,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 4,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 20
+       },
+       "bossIdle": {
+        "moe-ai-saint": 6
+       },
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 4775.864000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3155.6288000000022,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4466.726400000003,
+       "dodges": 4,
+       "cleanses": 1,
+       "playerActs": {
+        "Chakra Overflow": 3,
+        "Eclipse Drain": 3,
+        "move": 9,
+        "dodge": 4,
+        "Stormguard Aura": 3,
+        "Inner Flame": 3,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 12,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 1,
+        "Stunning Jab": 2
+       },
+       "minHpFrac": 0.8138169396825397,
+       "playerTurns": 21
+      }
+     ]
+    },
+    {
+     "seed": 30,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 30,
+       "outcome": "won",
+       "rounds": 10,
+       "endHp": 1,
+       "endCp": 0.9429702970297029,
+       "endSp": 0.9426402640264027,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 553,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 1,
+        "Cradle": 2,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 4
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 4,
+        "moe-ai-silence": 9
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 864.2915418309713,
+        "own turn (pools/drain)": 553.3542290845144
+       },
+       "healed": 1417.6457709154856,
+       "dodges": 3,
+       "cleanses": 1,
+       "playerActs": {
+        "move": 12,
+        "Chakra Overflow": 2,
+        "Eclipse Drain": 2,
+        "Stormguard Aura": 2,
+        "Inner Flame": 2,
+        "Black Crow": 2,
+        "dodge": 3,
+        "Burning Coil": 1,
+        "wait": 6,
+        "Scorching Sun Strike": 1,
+        "Phoenix Flame Strike": 1,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.964646166002683,
+       "playerTurns": 10
+      },
+      {
+       "act": 2,
+       "seed": 30,
+       "outcome": "won",
+       "rounds": 40,
+       "endHp": 0.8667748283378077,
+       "endCp": 0.7517161716171618,
+       "endSp": 0.7484158415841584,
+       "bossHpPct": {
+        "moe-ai-sayo-stilling": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 4545,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Recast": {
+         "mark": 17,
+         "land": 13,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush Rises": 17,
+        "Cycle end": 3,
+        "Worn: Porter": 1,
+        "Worn: Hana": 3,
+        "Worn: Tomo": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo-stilling": 39
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-sayo-stilling",
+       "dmgBySource": {
+        "own turn (pools/drain)": 5745,
+        "Cadet Tomo (Worn): Cadet's Tether": 6298.592907359056
+       },
+       "healed": 7847,
+       "dodges": 4,
+       "cleanses": 0,
+       "playerActs": {
+        "Chakra Overflow": 6,
+        "Eclipse Drain": 6,
+        "move": 10,
+        "Stormguard Aura": 6,
+        "Inner Flame": 6,
+        "Black Crow": 6,
+        "wait": 33,
+        "Burning Coil": 6,
+        "Scorching Sun Strike": 6,
+        "Phoenix Flame Strike": 5,
+        "Stunning Jab": 5,
+        "basicAttack": 9,
+        "dodge": 4
+       },
+       "minHpFrac": 0.7619494315124109,
+       "playerTurns": 40
+      },
+      {
+       "act": 3,
+       "seed": 30,
+       "outcome": "won",
+       "rounds": 21,
+       "endHp": 0.8138169396825397,
+       "endCp": 0.663036303630363,
+       "endSp": 0.6557755775577557,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2781,
+        "by": "Sayo, Saint of Stillness: The Quiet"
+       },
+       "sets": {
+        "Shatterfall": {
+         "mark": 4,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Breathless Pull": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "The Quiet": 3,
+        "No One Is Mended": 1,
+        "Breathless Pull": 1,
+        "Hush on a safe tile": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 20
+       },
+       "bossIdle": {
+        "moe-ai-saint": 6
+       },
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: The Quiet": 4775.864000000001,
+        "Sayo, Saint of Stillness: Glass Lancet": 3155.6288000000022,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 7463.726400000003,
+       "dodges": 3,
+       "cleanses": 1,
+       "playerActs": {
+        "move": 9,
+        "Chakra Overflow": 3,
+        "Eclipse Drain": 3,
+        "Stormguard Aura": 3,
+        "Inner Flame": 3,
+        "wait": 16,
+        "Black Crow": 3,
+        "Burning Coil": 3,
+        "basicAttack": 12,
+        "dodge": 3,
+        "Scorching Sun Strike": 3,
+        "Phoenix Flame Strike": 3,
+        "cleanse": 1,
+        "Stunning Jab": 2
+       },
+       "minHpFrac": 0.8138169396825397,
+       "playerTurns": 21
+      }
+     ]
+    }
+   ]
+  }
+ }
+}
