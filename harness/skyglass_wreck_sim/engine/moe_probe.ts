@@ -77,7 +77,7 @@ const stepper = async (o: {
       } else {
         const r = performAIaction(b, grid, actor.userId);
         b = r.nextBattle;
-        actionId = r.nextActionId;
+        actionId = r.nextActionId ?? (r.aiDescriptions?.length ? `DESC ${r.aiDescriptions.join("|").slice(0, 80)}` : undefined);
       }
       alignBattle(b, ar, puid);
       if (!actionId && actor.isAutoCombat) b.roundStartAt = new Date(Date.now() - 61_000);
@@ -423,6 +423,49 @@ if (want("P3b")) {
   }
   out.probes.P3b = resB;
   log("P3b healing reduction (decreaseheal 100 + healprevent) vs sustain: player at 50% HP, HP regained over 6 rounds", resB.map((r) => `${r.mode.padEnd(9)} | ${r.case.padEnd(52)} | +${r.hpGained} HP | shield ${r.maxShield} | ${r.playerFx.join(" ")}`));
+}
+
+/* ---------------------------------------------------------------- P10: telegraphed Breathless Pull (fixed stun) */
+if (want("P10")) {
+  const res: any = {};
+  for (const [model, at] of [["elite", [3, 5]], ["elite", [6, 2]], ["elite_imm", [3, 5]]] as const) {
+    const lines: string[] = [];
+    const rows = rowsFor([AI.saint], { [AI.saint]: (a) => ({ ...a, rules: [R.jutsu(JID.floodBlast, "SELF", [C.has(MK.flood)]), R.jutsu(JID.pull, "SELF", [C.has(MK.pull)]), R.jutsu(JID.floodMark, "SELF", [C.has(MK.breath)]), R.jutsu(JID.pullMark, "SELF", []), R.end()] }) });
+    await stepper({ rows, targets: [AI.saint], positions: { [AI.saint]: [8, 5] }, playerAt: at as unknown as Cell, rounds: 4, model, playerRules: [R.end()],
+      mutate: (b) => { const pu = b.usersState.find((u: any) => !u.isAi && !u.petId); if (pu) pu.curHealth = pu.maxHealth; },
+      onStep: (b, s) => { const pu = b.usersState.find((u: any) => !u.isAi && !u.petId); const g = b.groundEffects.find((x: any) => x.staticAnimation === "tg_control"); lines.push(`r${s.round} ${String(s.actor).padEnd(26)} ${String(s.action).padEnd(26)} p@${pu.longitude},${pu.latitude} hp ${JSON.stringify(s.hp)} new ${s.newFx.filter((x: string) => !x.startsWith("visual")).join(",") || "-"}${g ? ` | mark actionId ${g.actionId}` : ""}`); } });
+    res[`${model} at ${at}`] = lines;
+    log(`P10 Breathless Pull, ${model} standing at ${at}${at[0] === 6 ? " (a dry tile)" : ""}, never moves`, lines);
+  }
+  out.probes.P10 = res;
+}
+
+/* ---------------------------------------------------------------- P11: real-player hit calibration (vs the logs) */
+if (want("P11")) {
+  const res: any = {};
+  for (const mname of (opt("models") ?? "elite_real,average_real").split(",")) {
+    const hits: number[] = [];
+    const byAct: Record<string, number[]> = {};
+    const rows = rowsFor([AI.saint], { [AI.saint]: (a) => ({ ...a, rules: [R.end()], effects: [] }) });
+    await stepper({ rows, targets: [AI.saint], positions: { [AI.saint]: [5, 5] }, playerAt: [4, 5], rounds: 14, model: playerModel(mname), seed: 5,
+      mutate: (b) => { const sy = b.usersState.find((u: any) => u.controllerId === AI.saint); if (sy) sy.curHealth = sy.maxHealth; },
+      onStep: (b, s) => { const sy = b.usersState.find((u: any) => u.controllerId === AI.saint); const d = -(s.hp[sy.username] ?? 0); if (s.actor === "player" && d > 0) { hits.push(d); (byAct[s.action] ??= []).push(Math.round(d)); } } });
+    hits.sort((a, c) => a - c);
+    res[mname] = { n: hits.length, median: Math.round(hits[Math.floor(hits.length / 2)] ?? 0), p90: Math.round(hits[Math.floor(hits.length * 0.9)] ?? 0), max: Math.round(hits.at(-1) ?? 0), byAction: byAct };
+  }
+  out.probes.P11 = res;
+  log("P11 real-player hits on an AI wearing only AI Heavy Armor, 14 rounds (logs: median 5,117, p90 10,810, max 26,651)", Object.entries(res).map(([k, v]: any) => `${k}: n ${v.n} median ${v.median} p90 ${v.p90} max ${v.max} | ${JSON.stringify(Object.fromEntries(Object.entries(v.byAction).map(([a, xs]: any) => [a, Math.round(xs.reduce((x: number, y: number) => x + y, 0) / xs.length)])))}`));
+}
+
+/* ---------------------------------------------------------------- P12: reused marks (Fanned Lines -> Shatterfall; Glassfall C marker) */
+if (want("P12")) {
+  const lines: string[] = [];
+  const rows = rowsFor([AI.saint], { [AI.saint]: (a) => ({ ...a, rules: [R.jutsu(JID.shatterBlast, "SELF", [C.has(MK.shatter)]), R.end([C.has(MK.shatter)]), R.jutsu(JID.shatterMark, "SELF", []), R.end()] }) });
+  await stepper({ rows, targets: [AI.saint], positions: { [AI.saint]: [8, 5] }, playerAt: [5, 5], rounds: 7, playerRules: [R.end()],
+    mutate: (b) => { const pu = b.usersState.find((u: any) => !u.isAi && !u.petId); if (pu) pu.curHealth = pu.maxHealth; },
+    onStep: (b, s) => { if (s.actor === "player") return; const sy = b.usersState.find((u: any) => u.controllerId === AI.saint); lines.push(`r${s.round} ${String(s.action).padEnd(22)} hp ${JSON.stringify(s.hp)} saint fx: ${fxOf(b, sy.userId).filter((x: string) => /disarm|increaserange/.test(x)).join(" ") || "-"}`); } });
+  out.probes.P12 = { lines };
+  log("P12 Shatterfall on the live Omen: Fanned Lines (marker disarm): mark -> blast next turn", lines);
 }
 
 const outPath = opt("out");

@@ -1,0 +1,153 @@
+{
+ "_note": "Omen: Fanned Lines, live id fWa0eZuv131tDQ0RQhEz_ (push/342, verdict match). Payload copied from origin/main push/342_skyglass_library.json @33d5d217 (srcId sg342_lib-omen-lines); reused as-is by the Saint's Shatterfall mark (pass 3 reuse audit). Read-only reference: never edit the live record.",
+ "id": "fWa0eZuv131tDQ0RQhEz_",
+ "source": "push/342_skyglass_library.json @ origin/main 33d5d217",
+ "data": {
+  "name": "Omen: Fanned Lines",
+  "description": "A warning mark. Whatever it marks is struck on the caster's next turn.",
+  "battleDescription": "%user points across the field, and three red lines fan out from their feet.",
+  "jutsuType": "AI",
+  "jutsuRank": "D",
+  "requiredRank": "STUDENT",
+  "requiredLevel": 1,
+  "jutsuWeapon": "NONE",
+  "target": "GROUND",
+  "method": "COORDINATES",
+  "range": 0,
+  "coordinateTargeting": {
+   "origin": "CASTER",
+   "selection": "ALL",
+   "coordinates": [
+    {
+     "longitude": -1,
+     "latitude": 0
+    },
+    {
+     "longitude": -2,
+     "latitude": 0
+    },
+    {
+     "longitude": -3,
+     "latitude": 0
+    },
+    {
+     "longitude": -4,
+     "latitude": 0
+    },
+    {
+     "longitude": -5,
+     "latitude": 0
+    },
+    {
+     "longitude": -1,
+     "latitude": -1
+    },
+    {
+     "longitude": -2,
+     "latitude": -1
+    },
+    {
+     "longitude": -3,
+     "latitude": -2
+    },
+    {
+     "longitude": -4,
+     "latitude": -2
+    },
+    {
+     "longitude": -5,
+     "latitude": -3
+    },
+    {
+     "longitude": -2,
+     "latitude": 1
+    },
+    {
+     "longitude": -3,
+     "latitude": 1
+    },
+    {
+     "longitude": -4,
+     "latitude": 2
+    },
+    {
+     "longitude": -5,
+     "latitude": 2
+    },
+    {
+     "longitude": -3,
+     "latitude": -1
+    },
+    {
+     "longitude": -5,
+     "latitude": -2
+    },
+    {
+     "longitude": -1,
+     "latitude": 1
+    },
+    {
+     "longitude": -3,
+     "latitude": 2
+    },
+    {
+     "longitude": -5,
+     "latitude": 3
+    }
+   ],
+   "randomCount": 1
+  },
+  "methodSize": null,
+  "cooldown": 4,
+  "actionCostPerc": 40,
+  "healthCost": 0,
+  "chakraCost": 0.05,
+  "staminaCost": 0.05,
+  "healthCostReducePerLvl": 0,
+  "chakraCostReducePerLvl": 0,
+  "staminaCostReducePerLvl": 0,
+  "battleUsageType": "BOTH",
+  "elementClassification": "None",
+  "statClassification": "None",
+  "extraBaseCost": 0,
+  "effects": [
+   {
+    "staticAssetPath": "dGCN9ZaoyXwDK9E3ZuWgU",
+    "staticAnimation": "dL1vh_PNbZQ9m6nYwGnFa",
+    "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+    "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+    "appearSfx": "",
+    "disappearSfx": "",
+    "rounds": 1,
+    "power": 2,
+    "powerPerLevel": 0,
+    "direction": "offence",
+    "target": "INHERIT",
+    "calculation": "static",
+    "type": "visual",
+    "description": "A battlefield visual effect"
+   },
+   {
+    "staticAssetPath": "",
+    "staticAnimation": "",
+    "appearAnimation": "",
+    "disappearAnimation": "",
+    "appearSfx": "",
+    "disappearSfx": "",
+    "rounds": 1,
+    "power": 100,
+    "powerPerLevel": 0,
+    "direction": "offence",
+    "target": "SELF",
+    "calculation": "static",
+    "type": "disarm",
+    "description": "Prevents using WEAPON items in battle and hides them"
+   }
+  ],
+  "hidden": true,
+  "injectableInBattle": false,
+  "bloodlineId": "",
+  "villageId": "",
+  "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp"
+ }
+}
