@@ -5353,3 +5353,21 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-01, lore session: "make it like this, the Great Recall ... sucked them all into the Root Lattice ... The Silence is ... a separate entity drawn out of its slumber deep in the mountain ... She is not holding it back so much as succumbing to it"; "Sayo is essentially a mad genius ... the mastermind behind the entire event"; "Sayo has been luring the player. 'You will make for a good impression.'"; "Looks really good."
 
 **Canonical destination:** `docs/design/SKYGLASS_STORY_BIBLE.md` (new final chapter) and the design doc.
+
+## RUL-2026-11-01-095 — The Mother of Echoes: rewards (draft settled)
+
+**Date:** 2026-11-01
+
+**Domain:** Skyglass event / rewards
+
+**Status:** ACTIVE (values marked proposed are not yet confirmed).
+
+**Ruling:**
+1. First clear: the title **"The Unstilled"** and the **Heartglass** variant (token). No badge, no jutsu, no pet.
+2. Every clear: Salvage ×40 (proposed), one **Remnant of the Mother Glass** (a crafting material found only here), experience and ryo above Crownhold's top tier (proposed), and a pick of one: Crown's Hoard ×2, Skyglass Coffer ×5, Skyglass Token ×2. No Invitation Shards pick (director: "Too generous").
+3. Remnants craft variants only: a second **Heartglass** (5, proposed) and **The Remainder**, a variant, not an item (8, proposed).
+4. A loss grants nothing; the Invitation is spent.
+
+**Evidence:** Director, 2026-11-01: "No badge or jutsu"; "Cut the pet as well. The Remainder should be a variant not an actual item. 3. Losses grant nothing. 4. Too generous."
+
+**Canonical destination:** the design doc's rewards section.
