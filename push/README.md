@@ -1518,7 +1518,7 @@ built, gates clean, READY TO RUN.
 - **Stand-in test (2026-11-01):** 412 built from the 2026-10-21 capture and 413/414 from a fake 412 bundle: `check_manifest.mjs` 0 pre-send problems on all three; `validate.py --strict`: 412, 3 build-order diagnostics (the asset misranking accepted as a class by RUL-2026-10-31-085 item 1); 413 0/0; 414, 4 law-41 diagnostics (20-rule records ending on a set piece or the named basic attack, unchanged rules, the class accepted for these records by RUL-2026-10-31-083). Ledgers are written when the real 412/414 are built. Outputs discarded.
 - **No unequip:** the live jutsu are not edited; the Core Horrors take new jutsu ids.
 
-## 398-400 The Captain fix (RUL-2026-10-31-091): READY TO RUN, 398 → 399 → 400 (397 first is optional)
+## 398-400 The Captain fix (RUL-2026-10-31-091): RUN (400 `tnr_results_1793502343579.json` 5/5 first, an early send; then 398 `tnr_results_1793503235632.json` 5/5, 399 `tnr_results_1793503241665.json` 1/1, 400 `tnr_results_1793503258182.json` 5/5, all VERIFIED; the final 400 carries stun immunity on all five)
 
 `python3 push/skyglass_captain_fix.gen.py` writes all three.
 
