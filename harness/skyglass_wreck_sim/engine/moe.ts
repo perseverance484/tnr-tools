@@ -50,7 +50,7 @@ const spec = () => {
     arena: { grid: "12 x 10 (QUEST, level >= 50), FLAT hexes, odd columns offset", whereTheThreeRefused: STARS, patterns: { refraction: PAT.refractA, refractionMirror: PAT.refractB, etchings: PAT.etch, glassfall: PAT.glass, flood: "every hex but the three", shatterfallFanOffsets: FAN_OFFSETS } },
     markers: MK,
     ais: AIS.map((a) => ({ id: a.id, username: a.username, poolsMultiplier: a.poolsMultiplier, maxHealth: Math.round(5050 * a.poolsMultiplier), statsMultiplier: P.statsMultiplier, level: 100, rank: "JONIN", items: a.heavyArmor ? [HEAVY_ARMOR_ID] : [], jutsus: a.jutsus, effects: a.effects.map((e: any) => ({ type: e.type, power: e.power, rounds: e.rounds })), includeDefaultRules: false, rules: a.rules, ruleCount: a.rules.length, summonTemplate: !!a.summon })),
-    jutsu: Object.values(RECS).filter((j: any) => j.id.startsWith("moe-")).map((j: any) => ({ id: j.id, name: j.name, usedBy: usedBy[j.id] ?? [], record: j })),
+    jutsu: Object.values(RECS).filter((j: any) => j.id.startsWith("moe-") && !j.id.startsWith("moe-probe-")).map((j: any) => ({ id: j.id, name: j.name, usedBy: usedBy[j.id] ?? [], record: j })),
     combos: Object.fromEntries(CYCLES.map((c, i) => [`cycle ${i + 1}`, cycleCombo(c, i)])),
     playerModels: { elite: "moe_lib.ts ELITE_GEAR (+ gear override)", average: "moe_lib.ts AVG_GEAR (+ avgGear override)", gearOverride: PRAW.gear ?? null, avgGearOverride: PRAW.avgGear ?? null },
     proofs: {
