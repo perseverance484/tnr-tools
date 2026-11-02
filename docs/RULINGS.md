@@ -5334,3 +5334,22 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-01: "I want something akin to Uber Shaper and Elder, or even the Maven from PoE"; "I recommend equipping AI Heavy Armor and giving them high amounts of damage, not moderate"; "2 new unique well named and themed bosses"; "The Silence is a better name"; "I like The Silence more as a dread entity"; "this should just be a straight boss fight done with a rare key"; "Yep, that format is approved."
 
 **Canonical destination:** the design doc above; later `docs/design/SKYGLASS_SEEDVAULT.md`.
+
+## RUL-2026-11-01-094 — The uber fight's canon: Sayo, the Stilling, the Mother Glass
+
+**Date:** 2026-11-01
+
+**Domain:** Skyglass event / story (canon)
+
+**Status:** ACTIVE. Amends RUL-2026-11-01-093 (names and lore). The design doc and `docs/design/SKYGLASS_STORY_BIBLE.md` are updated from this.
+
+**Ruling:**
+1. All skyglass grows from **the Mother Glass** beneath Crownhold, found and grown by **Sayo, Mother of Echoes** (the Project's Glasswright). Its roots woke **the Silence**, an ancient stillness in the deep mountain that hungers for stillness and cannot act without an instrument.
+2. Under its influence Sayo performed **the Stilling**: on the last night of the siege she drew the entire army of Crownhold (soldiers, officers, the ship's crew, the Crowned Captain) into the Mother Glass. Crownhold stopped answering.
+3. Every afterimage in the event is one Sayo **casts** from a stilled impression, fixed at the instant of the Stilling (hence the unending siege order). A broken afterimage returns **thinner**; the Silence drinks the **remainder**.
+4. Sayo is the event's mastermind: she called the ship home, used the charts, the Lantern and Crownhold to measure and lure strong shinobi, and needed the player to break the Crown (the Crowned Captain's afterimage was the one will contesting hers). The four shards are her invitation. She wants to still the player: "You will make for a good impression."
+5. Names: the fight **The Mother of Echoes**; Acts **The Glasswright and the Deep**, **The Stilling**, **A Good Impression**; merged form **Sayo, Saint of Stillness**; movements **The Quiet**, **Every Name in the Glass**, **The Long Hush**; enrages **Unbridled** / **Lucid**; the key **An Invitation in Glass**; Witnesses **the Worn**; safe tiles **Where the Three Refused**. Naming follows four voices (Glasswright, Silence, Crownhold, the Stilling) with the glossary in the design doc. "Seedvault", "Root Lattice" and "UNTIL" are retired.
+
+**Evidence:** Director, 2026-11-01, lore session: "make it like this, the Great Recall ... sucked them all into the Root Lattice ... The Silence is ... a separate entity drawn out of its slumber deep in the mountain ... She is not holding it back so much as succumbing to it"; "Sayo is essentially a mad genius ... the mastermind behind the entire event"; "Sayo has been luring the player. 'You will make for a good impression.'"; "Looks really good."
+
+**Canonical destination:** `docs/design/SKYGLASS_STORY_BIBLE.md` (new final chapter) and the design doc.
