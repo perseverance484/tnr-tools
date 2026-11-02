@@ -1506,6 +1506,18 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 401-404 Core Horror FX copies (RUL-2026-11-01-092): 401 READY TO RUN; 402 from 401's results; 403-404 from 402's
+
+| # | Build | Contents |
+|---|---|---|
+| 401 | committed | READ-ONLY: `jutsu.get` (full) of Second Wind, Venom Strike, Sovereign Undertow (newest repo copy is 2026-10-21) |
+| 402 | `python3 push/skyglass_core_horror_fx.gen.py --source <401 bundle>` | 4 hidden ANIMATION gameAssets (AN04, AN07, AN08, AN09; phase 1) + 3 hidden jutsu copies with the animations (phase 2, `@scene` refs): The Core Rebuilds, Bilge Spit, Undertow |
+| 403 | `--swap <402 bundle>` | 4 asset unhides (law 16c) |
+| 404 | `--swap <402 bundle>` (same call) | 5 Core Horror AI edits: the three live ids → the copies, in the kit and in every rule (3-4 rules each) |
+
+- **Stand-in test (2026-11-01):** 402 built from the 2026-10-21 capture and 403/404 from a fake 402 bundle: `check_manifest.mjs` 0 pre-send problems on all three; `validate.py --strict`: 402, 3 build-order diagnostics (the asset misranking accepted as a class by RUL-2026-10-31-085 item 1); 403 0/0; 404, 4 law-41 diagnostics (20-rule records ending on a set piece or the named basic attack, unchanged rules, the class accepted for these records by RUL-2026-10-31-083). Ledgers are written when the real 402/404 are built. Outputs discarded.
+- **No unequip:** the live jutsu are not edited; the Core Horrors take new jutsu ids.
+
 ## 398-400 The Captain fix (RUL-2026-10-31-091): READY TO RUN, 398 → 399 → 400 (397 first is optional)
 
 `python3 push/skyglass_captain_fix.gen.py` writes all three.
