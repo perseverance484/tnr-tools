@@ -5450,3 +5450,23 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02, answering the pass-2 and economy questions: siphon "Accept it"; Breathless Pull "Fixed, telegraphed"; rates "R1–R6 + R7"; loop "Keep it".
 
 **Canonical destination:** the design doc (Rewards, Tuning, the Invitation), `state/skyglass_economy/recommended.json`, and the build manifests.
+
+## RUL-2026-11-02-100 — Uber key economy redesigned around the entry-battle rule; Salvage untradeable
+
+**Date:** 2026-11-02
+
+**Domain:** Skyglass event / uber key economy
+
+**Status:** ACTIVE. Amends RUL-2026-11-01-093 item 2, -095 and -096 item 3, and RUL-2026-11-02-099 item 5 R7.
+
+**Why:** theninjarpg@3314d122 `validators/objectives.ts` ~1024-1033 refuses to save any quest with `entryItems` unless one of its objectives has a battle ("Entry items require a battle objective"). This blocks the no-fight self-service exchanges.
+
+**Ruling:**
+1. **The uber's entry cost is the four shards themselves.** Shard of the Keel, Crown, Tide and Ledger, one each, are the Mother of Echoes quest's entry items and are taken when the fight starts. **There is no separate An Invitation in Glass item and no assembly exchange.** The shards trade. In the story, the four shards are her invitation.
+2. **Salvage → shard ("The Glass Answers"):** using Salvage opens a dialog where the player picks a shard. A single stilled echo then appears for one round; it doesn't attack and dies in one hit, which satisfies the battle rule. It costs 35 Salvage.
+3. **The Remainder:** there are no Remnants. The uber's clear drops The Remainder variant token at 25%, once per player (about 4 clears on average). There is no exchange and no pity. R7 is superseded.
+4. **Salvage is not tradeable.**
+
+**Evidence:** Director, 2026-11-02: "1. Yes 2. Approved 3. B, make it simpler"; Salvage "Not tradeable".
+
+**Canonical destination:** the economy build manifests (push/417+), the uber quest spec, and the design doc's Invitation and Rewards sections.
