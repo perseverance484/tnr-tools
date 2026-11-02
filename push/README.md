@@ -1506,6 +1506,12 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 415 Stargazer rename (RUL-2026-11-02-098): READY TO RUN
+
+| # | Status | Contents |
+|---|---|---|
+| 415 | READY TO RUN; strict 0/0, check_manifest 0 problems | 1 itemVariant edit: Starfall → Stargazer (variant `1yWEP0r3elIzyScORfot4` of Ink of the Void `wE1QeldWTjls2Cf43cFjf`), name only |
+
 ## 411-414 Core Horror FX copies (RUL-2026-11-01-092; renumbered from 401-404, which a concurrent session used for Zombie Outbreak): 411 RUN (tnr_results_1793626474374, 3/3 reads ok); 412 READY TO RUN; 413-414 from 412's
 
 | # | Build | Contents |
