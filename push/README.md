@@ -1506,6 +1506,28 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 433 MASTER manifest, 2026-11-02 (412 + 430 + 431 + 432 in one run): READY TO RUN, MONDAY TO THURSDAY ONLY
+
+Built by `push/master_manifest.gen.py` (copies its sources unchanged except phase numbers; do not hand-edit). One
+run in place of 412, then 430, 431, 432. **Run either 433 OR the four separate manifests, never both.**
+- Phases 1-2: push/412, 4 hidden animation assets + 3 hidden Core Horror jutsu copies.
+- Phase 10: push/430, 50 AI edits taking the 17 mark and pool jutsu off every holder.
+- Phase 20: push/431, the 17 jutsu edits (telegraph art onto the carrier; pool art onto the lasting effect).
+- Phase 30: push/432, 50 AI edits re-equipping each holder's exact kit.
+
+Gates: `check_manifest.mjs` 0 pre-send problems (planned order as above); `validate.py --strict` 138 diagnostics, all
+accepted classes, held by `state/validate_exceptions/433_master_2026-11-02.json` (`validate_exception.py` exit 0);
+`skyglass_check.py` exit 0.
+
+**After it runs:** the results bundle feeds 413/414 (`python3 push/skyglass_core_horror_fx.gen.py --swap <433 bundle>`,
+which needs 412's entries: the bundle carries their srcIds). Then read back each holder's jutsu list.
+
+Not in the master, and why:
+- **417-420** (uber key economy): 417 waits on the no-Salvage shard rates; 418-420 need 417's results.
+- **413-414**: need 412's results.
+- **440+** (the fight): the names are pending approval and Forge 0.12.4 (L16) is pending review.
+- **The Keel shard editor row:** after 419.
+
 ## 430-432 Skyglass mark fix (RUL-2026-11-02-101): READY TO RUN, MONDAY TO THURSDAY ONLY (ledgers accepted, RUL-2026-11-02-103)
 
 `python3 push/skyglass_mark_fix.gen.py` writes all three (do not hand-edit). Zero live requests. Source pin
