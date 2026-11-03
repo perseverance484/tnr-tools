@@ -1636,7 +1636,7 @@ law 4 / L06 / law 6 / L10 (the RUL-2026-10-31-065 item 1 class) and **L16 ×35 (
 refuses), law 14 `preferredStat` (the 417 class) and 2 dead-rule diagnostics; 442 L16 ×4 (Forge refuses); 443 law 14
 and L08 damage-row products (Forge warns only).
 
-## 417-420 Uber key economy (RUL-2026-11-02-104, -105): 417 READY TO RUN; 418-420 built from 417's results
+## 417-420 Uber key economy (RUL-2026-11-02-104, -105; rates approved RUL-2026-11-02-107): 417 READY TO RUN; 418-420 built from 417's results
 
 Generator: `push/skyglass_uber_economy.gen.py` (do not hand-edit its outputs). Zero live requests. Source pin
 theninjarpg@3314d122. **Rebuilt 2026-11-02 for RUL-104/-105:** Salvage, The Glass Answers and the Stilled Echo are
