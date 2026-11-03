@@ -10,22 +10,22 @@ offline-tested spec on fable/mother-of-echoes-sim.
         -> push/442_mother_of_echoes_summons.json      (HIDDEN creates: the 6 summon jutsu, aiId literal)
     python3 push/mother_of_echoes.gen.py --step bosses --bundles <440> <441> <442>
         -> push/443_mother_of_echoes_bosses.json       (HIDDEN creates: the 4 boss AIs, inArena false)
-    python3 push/mother_of_echoes.gen.py --step quest --first-clear split|every --bundles <440..443> --economy <417>
-        -> push/444_mother_of_echoes_quest.json        (the title The Unstilled + the HIDDEN battle pyramid)
-    python3 push/mother_of_echoes.gen.py --step publish --first-clear split|every --bundles <440..444> --economy <417>
-        -> push/445_mother_of_echoes_publish.json      (the quest(s) re-sent whole with hidden false)
+    python3 push/mother_of_echoes.gen.py --step quest --bundles <440..443> --economy <417>
+        -> push/444_mother_of_echoes_quest.json        (the HIDDEN battle pyramid, one repeatable quest)
+    python3 push/mother_of_echoes.gen.py --step publish --bundles <440..444> --economy <417>
+        -> push/445_mother_of_echoes_publish.json      (the quest re-sent whole with hidden false)
 
 Every step after 440 needs literal ids from earlier results bundles (law 17, ID provenance law): AI equip arrays and
 rule jutsuIds, summon aiIds and quest opponentAIs / entry items / rewards. `--bundles` takes any number of results
 bundles; ids are read from their `entries` (create, state ok) and `idmap`, only for this generator's srcIds, and every
-id a step needs must be present or the step refuses. `--economy` is push/417's results bundle (the four shards, Salvage,
-Heartglass and The Remainder).
+id a step needs must be present or the step refuses. `--economy` is push/417's results bundle (the four shards, the
+Heartglass and The Remainder tokens).
 
 Source of truth: harness/skyglass_wreck_sim/mother_of_echoes_spec.json at SPEC_REF (pinned below and in every
 manifest's _note). The spec is read with `git show`, so fetch fable/mother-of-echoes-sim first. Records are taken as
 the harness ran them (theninjarpg@3314d122 JutsuValidator / AiRule / insertAiSchema valid); this generator only
 (1) drops harness-only keys, (2) maps art names to live asset ids or placeholders, (3) maps harness ids (moe-*) to
-srcIds or literal ids, (4) makes display names unique (the game has unique name indexes on jutsu and AI usernames).
+srcIds or literal ids, (4) refuses repeated display names (the game has unique name indexes on jutsu and AI usernames).
 
 Do not hand-edit the outputs.
 """
@@ -72,22 +72,19 @@ ART_FIELDS = ("staticAssetPath", "staticAnimation", "appearAnimation", "disappea
 LIVE_ID = re.compile(r"^[A-Za-z0-9_-]{10,21}$")
 DROP_KEYS = {"id", "createdAt", "updatedAt"}
 
-ROMAN = ["", " II", " III", " IV", " V", " VI", " VII", " VIII"]
 
-# Every-clear rewards (RUL-2026-11-01-095 item 2 as amended by RUL-2026-11-02-100): ids by name from verified bundles.
+# Rewards (RUL-2026-11-01-095 item 2 as amended by RUL-2026-11-02-100, -104 (no Salvage) and -105 (no first-clear
+# mechanics, no title; every clear rolls both tradeable tokens)): pick ids by name from verified bundles.
 CROWNS_HOARD = "WrnHlt3h6ZDjFaJk3i41O"   # harvests/inbox/tnr_results_1793491854510.json (unhide, verified)
 SKYGLASS_COFFER = "THo7rfzP-S82_43aN8fs3"  # harvests/inbox/tnr_results_1793491854510.json
 SKYGLASS_TOKEN = "nzCW7A-_AuYMzBs2wClnM"   # harvests/inbox/tnr_results_1793424666625.json
 PICK = [(CROWNS_HOARD, 2), (SKYGLASS_COFFER, 5), (SKYGLASS_TOKEN, 2)]
-SALVAGE_PER_CLEAR = 40
-REMAINDER_PCT = 25
-# PROPOSED (RUL-095: "above Crownhold's top tier"; Crownhold's win pays reward_exp 5000 and no ryo). Director to set.
+TOKEN_PCT = {"heartglass": 25, "remainder": 25}  # PLACEHOLDER rates (RUL-2026-11-02-105), reversible
+# PLACEHOLDER (RUL-105: the director sets exp and ryo; Crownhold's win pays reward_exp 5000 and no ryo).
 REWARD_EXP = 7500
 REWARD_MONEY = 0
 
 Q_NAME = "The Mother of Echoes"
-Q_REPEAT_NAME = "The Mother of Echoes: Again"  # PROPOSED, only for --first-clear split
-TITLE = "The Unstilled"
 
 
 def die(msg):
@@ -119,14 +116,15 @@ def sid(hid):
 
 def unique_names(rows, key):
     """The game keeps jutsu names and AI usernames unique (theninjarpg@3314d122 drizzle/schema.ts Jutsu_name_key,
-    UserData_username_key). The first record keeps its display name; later ones get a roman suffix in spec order.
-    PLACEHOLDER naming, listed in _placeholders: cheap to rename until push/443 equips the jutsu (law 18 after that)."""
-    seen, out = {}, {}
+    UserData_username_key). Names come from the spec only (RUL-2026-11-02-105: proper names, no numbered
+    placeholders), so a repeated name refuses the build instead of being suffixed."""
+    out, seen = {}, {}
     for r in rows:
         name = key(r)
-        n = seen.get(name, 0)
-        seen[name] = n + 1
-        out[r["id"]] = name + ROMAN[n]
+        if name in seen:
+            die(f"name {name!r} is used by both {seen[name]} and {r['id']}; name them in the spec (FINAL_TEXT)")
+        seen[name] = r["id"]
+        out[r["id"]] = name
     return out
 
 
@@ -169,8 +167,6 @@ class Build:
         d["hidden"] = True
         d["image"] = PLACEHOLDER
         self.notes.append(f"jutsu {sid(jid)}: {name} (engine default image)")
-        if name != rec["name"]:
-            self.notes.append(f"jutsu {sid(jid)}: name '{name}' (unique-name placeholder for '{rec['name']}')")
         d["effects"] = [self.art(name, e) for e in rec["effects"]]
         for e in d["effects"]:
             if e.get("aiId"):
@@ -213,8 +209,6 @@ class Build:
             if it["ids"] != [HEAVY_ARMOR]:
                 die(f"{aid}: unexpected item {it}")
         self.notes.append(f"ai {sid(aid)}: {d['username']} (engine default image as avatar)")
-        if d["username"] != a["username"]:
-            self.notes.append(f"ai {sid(aid)}: username '{d['username']}' (unique-name placeholder for '{a['username']}')")
         return {"entity": "ai", "slot": "create", "srcId": sid(aid), "phase": 1, "name": d["username"], "data": d}
 
 
@@ -257,7 +251,7 @@ LOSS = {"failDescription": "The glass goes quiet around you. The shards are spen
 F_LOST = "The glass keeps what it was given. Find four more shards and come back."
 
 
-def quest_data(b, ids, econ, first_clear_rewards, max_completes, name=Q_NAME, prereq=None):
+def quest_data(b, ids, econ):
     q = b.spec["quest"]
     obj = {o["n"]: o for o in q["objectives"]}
     sc = {"sceneBackground": CORE_CHAMBER, "sceneCharacters": []}
@@ -273,50 +267,25 @@ def quest_data(b, ids, econ, first_clear_rewards, max_completes, name=Q_NAME, pr
         return {"id": oid, "task": "dialog", "description": obj[n]["text"], **sc,
                 "nextObjectiveId": [{"text": label, "nextObjectiveId": nxt}]}
 
-    win_items = [{"ids": [econ[ECON + "salvage"]], "number": 100, "quantity": SALVAGE_PER_CLEAR},
-                 {"ids": [econ[ECON + "remainder"]], "number": REMAINDER_PCT, "quantity": 1}]
     win = {"id": "w_clear", "task": "win_quest", "description": obj[6]["text"], **sc, "reward_exp": REWARD_EXP}
     if REWARD_MONEY:
         win["reward_money"] = REWARD_MONEY
-    if first_clear_rewards:
-        win_items.insert(0, {"ids": [econ[ECON + "heartglass"]], "number": 100, "quantity": 1})
-        win["reward_titles"] = ["@title:" + PFX + "title_unstilled"]
-    win["reward_items"] = win_items
+    win["reward_items"] = [{"ids": [econ[ECON + k]], "number": pct, "quantity": 1} for k, pct in TOKEN_PCT.items()]
     objs = [dialog("d_open", 0, "b_act1", "Step into the hall"),
             battle("b_act1", 1, "d_act2"), dialog("d_act2", 2, "b_act2", "Hold your ground"),
             battle("b_act2", 3, "d_act3"), dialog("d_act3", 4, "b_act3", "Do not hold still"),
             battle("b_act3", 5, "w_clear"), win,
             {"id": "f_lost", "task": "fail_quest", "description": F_LOST, **sc}]
     entry = [{"ids": [econ[ECON + k]], "number": 1} for k in ("keel", "crown", "tide", "ledger")]
-    return {"name": name, "description": Q_DESC, "successDescription": Q_SUCCESS,
+    return {"name": Q_NAME, "description": Q_DESC, "successDescription": Q_SUCCESS,
             "image": PLACEHOLDER, "questType": "battlepyramid", "questRank": "S", "hidden": True,
             "retryDelay": "none", "attemptDelay": "none", "consecutiveObjectives": True, "requiredLevel": 1,
-            "maxLevel": 100, "maxAttempts": 100, "maxCompletes": max_completes,
-            "prerequisiteQuestId": prereq, "tierLevel": None, "requiredVillage": None, "requiredBloodlineId": None,
+            "maxLevel": 100, "maxAttempts": 100, "maxCompletes": 100,
+            "prerequisiteQuestId": None, "tierLevel": None, "requiredVillage": None, "requiredBloodlineId": None,
             "startsAt": None, "endsAt": None,
             "content": {"objectives": objs, "sceneBackground": CORE_CHAMBER, "sceneCharacters": [BLANK],
                         "entryItems": entry, "isolated": True, "rewardMode": "choose", "rewardPickCount": 1,
                         "reward": {"reward_items": [{"ids": [i], "number": 100, "quantity": n} for i, n in PICK]}}}
-
-
-def quests(b, ids, econ, mode, resolve_title=None):
-    """`every`: one quest; the title is granted once (reward_titles skips owned titles: theninjarpg@3314d122
-    queries/quests.ts selectTitleForUpdateRewards), but Heartglass, an item, is paid on every clear.
-    `split`: a first-clear quest (maxCompletes 1: title + Heartglass + the every-clear rewards) and a repeatable
-    quest whose prerequisiteQuestId is the first (libs/quest.ts ~2530: listed once the first is completed)."""
-    out = []
-    if mode == "every":
-        out.append(("quest_main", quest_data(b, ids, econ, True, 100)))
-    else:
-        out.append(("quest_first", quest_data(b, ids, econ, True, 1)))
-        out.append(("quest_repeat", quest_data(b, ids, econ, False, 100, Q_REPEAT_NAME,
-                                               prereq="@quest:" + PFX + "quest_first")))
-    for _k, d in out:
-        if resolve_title:
-            for o in d["content"]["objectives"]:
-                if "reward_titles" in o:
-                    o["reward_titles"] = [resolve_title]
-    return out
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -340,9 +309,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "publish"], default="jutsu")
     ap.add_argument("--bundles", nargs="*", default=[], help="results bundles of 440-444 (any order)")
-    ap.add_argument("--economy", help="push/417 results bundle (shards, Salvage, Heartglass, The Remainder)")
-    ap.add_argument("--first-clear", choices=["split", "every"],
-                    help="how Heartglass is paid once (open decision; see push/README.md 440-445)")
+    ap.add_argument("--economy", help="push/417 results bundle (the shards, Heartglass and The Remainder tokens)")
     a = ap.parse_args()
     b = Build(load_spec())
     ids = created(a.bundles, PFX)
@@ -373,35 +340,27 @@ def main():
               f"with AI Heavy Armor ({HEAVY_ARMOR}), inArena false. Fresh creates, equipped once (law 18: any later "
               "edit to an equipped moe jutsu is unequip, edit, re-equip).", items, b.notes)
     elif a.step in ("quest", "publish"):
-        if not a.first_clear:
-            die("--first-clear split|every is required (open decision)")
         econ = created([a.economy] if a.economy else [], ECON)
-        need(econ, [ECON + k for k in ("keel", "crown", "tide", "ledger", "salvage", "heartglass", "remainder")],
-             "--economy (push/417)")
+        need(econ, [ECON + k for k in ("keel", "crown", "tide", "ledger", *TOKEN_PCT)], "--economy (push/417)")
         need(ids, [sid(t) for t in b.bosses], a.step)
+        d = quest_data(b, ids, econ)
+        notes = [f"quest {PFX}quest: image and every node's scene {CORE_CHAMBER}",
+                 f"quest {PFX}quest: reward_exp {REWARD_EXP}, reward_money {REWARD_MONEY} (director to set, RUL-2026-11-02-105)"]
+        notes += [f"quest {PFX}quest: {k} token {pct}% per clear (reversible placeholder rate, RUL-2026-11-02-105)"
+                  for k, pct in TOKEN_PCT.items()]
         if a.step == "quest":
-            items = [{"entity": "title", "slot": "create", "srcId": PFX + "title_unstilled", "phase": 1,
-                      "name": TITLE, "data": {"name": TITLE, "archived": False, "effects": [], "hidden": True}}]
-            for k, d in quests(b, ids, econ, a.first_clear):
-                items.append({"entity": "quest", "slot": "create", "srcId": PFX + k, "phase": 2, "name": d["name"],
-                              "data": d})
-            notes = [f"quest {PFX}{k}: image, scene {CORE_CHAMBER} (placeholders)" for k, _ in quests(b, ids, econ, a.first_clear)]
-            write("quest", f"push/444 (literal ids from push/417 and 440-443, law 17): the title {TITLE} (unarchived: "
-                  "a quest save refuses an archived reward title; titles have no hidden state) and the HIDDEN battle "
-                  f"pyramid ({a.first_clear}). Rewards: RUL-2026-11-01-095 / -100 / -102; exp {REWARD_EXP} PROPOSED.",
-                  items, notes)
+            write("quest", "push/444 (literal ids from push/417 and 440-443, law 17): the HIDDEN battle pyramid, one "
+                  "repeatable quest (RUL-2026-11-02-105: no first-clear mechanics, no title). Every clear rolls the "
+                  "Heartglass and The Remainder tokens (both tradeable) and a pick of one reward.",
+                  [{"entity": "quest", "slot": "create", "srcId": PFX + "quest", "phase": 1, "name": Q_NAME, "data": d}],
+                  notes)
         else:
-            keys = ["quest_main"] if a.first_clear == "every" else ["quest_first", "quest_repeat"]
-            need(ids, [PFX + k for k in keys] + [PFX + "title_unstilled"], "publish")
-            items = []
-            for k, d in quests(b, ids, econ, a.first_clear, resolve_title=ids[PFX + "title_unstilled"]):
-                if d["prerequisiteQuestId"]:
-                    d["prerequisiteQuestId"] = ids[PFX + "quest_first"]
-                d["hidden"] = False
-                items.append({"entity": "quest", "slot": "edit", "targetId": ids[PFX + k], "name": f"{d['name']}: publish",
-                              "data": d})
-            write("publish", "push/445 (literal ids): the quest(s) re-sent whole with hidden false (quest edits are "
-                  "full-record). The jutsu stay hidden (AIs use hidden jutsu; law 18).", items)
+            need(ids, [PFX + "quest"], "publish")
+            d["hidden"] = False
+            write("publish", "push/445 (literal ids): the quest re-sent whole with hidden false (quest edits are "
+                  "full-record). The jutsu stay hidden (AIs use hidden jutsu; law 18). Run after push/419.",
+                  [{"entity": "quest", "slot": "edit", "targetId": ids[PFX + "quest"], "name": f"{Q_NAME}: publish",
+                    "data": d}], notes)
 
 
 if __name__ == "__main__":
