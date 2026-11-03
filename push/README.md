@@ -1619,46 +1619,43 @@ law 4 / L06 / law 6 / L10 (the RUL-2026-10-31-065 item 1 class) and **L16 ×35 (
 refuses), law 14 `preferredStat` (the 417 class) and 2 dead-rule diagnostics; 442 L16 ×4 (Forge refuses); 443 law 14
 and L08 damage-row products (Forge warns only).
 
-## 417-420 Uber key economy (RUL-2026-11-02-100; rates RUL-2026-11-02-099): 417 READY TO RUN (ledger accepted, RUL-2026-11-02-103); 418-420 built from 417's results
+## 417-420 Uber key economy (RUL-2026-11-02-104, -105): 417 READY TO RUN; 418-420 built from 417's results
 
 Generator: `push/skyglass_uber_economy.gen.py` (do not hand-edit its outputs). Zero live requests. Source pin
-theninjarpg@3314d122. **2026-11-02:** 417 regenerated for RUL-2026-11-02-102 (The Remainder token tradeable; ledger rehashed).
+theninjarpg@3314d122. **Rebuilt 2026-11-02 for RUL-104/-105:** Salvage, The Glass Answers and the Stilled Echo are
+cut (the 417 ledger is deleted: the preferredStat diagnostic left with the echo); both tokens trade.
 
 **Run order:** run **417** → `python3 push/skyglass_uber_economy.gen.py --link <417 bundle>` (418),
-`--unhide <417 bundle>` (419), `--drops <417 bundle>` (420) → gates → run **418** → **419** → **420** → the dungeon
-editor rows below. 420 must follow 419: quest rewards do not filter hidden items, so a drop line must never name a
-hidden shard. The fight build needs the shard and token ids from 417's bundle (srcIds below).
+`--unhide <417 bundle>` (419), `--drops <417 bundle>` (420) → gates → run **418** → **419** → **420** → the Keel editor
+row below. 420 and the editor row must follow 419: quest rewards do not filter hidden items. The fight build needs the
+shard and token ids from 417's bundle (srcIds below).
 
 | # | Contents |
 |---|---|
-| 417 | HIDDEN creates. Items: Shard of the Keel `sg417_keel`, Shard of the Crown `sg417_crown`, Shard of the Tide `sg417_tide`, Shard of the Ledger `sg417_ledger` (OTHER, Legendary, tradeable, no effect; one of each is the Mother of Echoes quest's entryItems); Salvage `sg417_salvage` (CONSUMABLE, Common, untradeable); variant tokens Heartglass `sg417_heartglass` and The Remainder `sg417_remainder` (untradeable, `variantId` null). Variants (phase 2): Heartglass on The Unwritten (order 3) `sg417_var_heartglass`, The Remainder on Ink of the Void (order 2) `sg417_var_remainder`; variants have no hidden state, so both show as "Need <token>" from this run. AI: Stilled Echo `sg417_stilled_echo` (level 1, multipliers 1, stats 10, no jutsu, one unconditional `end_turn` rule). Quest: The Glass Answers `sg417_glass_answers` (special; entryItems 34 Salvage + the used one = 35; dialog: four shards or Leave the glass (refund 35); each shard branch is one fight against the Stilled Echo, not scaled, scaleGains 0, then a win paying that shard; a flee or loss goes to the fail ending and the Salvage is spent). |
-| 418 | 3 item edits: Salvage gets `noncombatquest` → The Glass Answers; Heartglass and The Remainder bound to their own variants (pipeline 2.10 step 3). Records stay hidden. |
-| 419 | Unhide: the 4 shards, Salvage, both tokens (7 item edits) and The Glass Answers (re-sent whole with literal ids). |
-| 420 | 11 live quest edits, each re-sent whole from push/383/384/385 (all VERIFIED; no later edit found) with one drop line on every `win_quest` ending: Crownhold Shard of the Crown 40%; The Sealed Reliquary, The Fall (both endings), The Rotted Reliquary, The Burning Heading Shard of the Tide 25%; the six Haul runs Shard of the Ledger 15% (every ending). `_diff` lists the paths. **These are live isolated Battle Pyramids: an edit makes any open run abandon and restart** (`libs/questRun.ts` hasQuestContentChanged), so run 420 when no one is mid-run (outside Friday-Sunday). |
+| 417 | HIDDEN creates. Shard of the Keel `sg417_keel`, Shard of the Crown `sg417_crown`, Shard of the Tide `sg417_tide`, Shard of the Ledger `sg417_ledger` (OTHER, Legendary, tradeable, no effect; one of each is the Mother of Echoes quest's entryItems, RUL-100 item 1; descriptions carry the rates). Variant tokens Heartglass `sg417_heartglass` and The Remainder `sg417_remainder` (both tradeable, RUL-102/-105, "you only ever need one" note; `variantId` null). Variants (phase 2): Heartglass on The Unwritten (order 3) `sg417_var_heartglass`, The Remainder on Ink of the Void (order 2) `sg417_var_remainder`; variants have no hidden state, so both show as "Need <token>" from this run. |
+| 418 | 2 item edits: each token bound to its own variant (pipeline 2.10 step 3). Stays hidden. |
+| 419 | 6 item edits: unhide the 4 shards and both tokens. |
+| 420 | 11 live quest edits, each re-sent whole from push/383/384/385 (all VERIFIED; no later edit found) with one drop line on every `win_quest` ending: Crownhold Shard of the Crown 100%; The Sealed Reliquary, The Fall (both endings), The Rotted Reliquary, The Burning Heading Shard of the Tide 75%; the six Haul runs Shard of the Ledger 35% (every ending). `_diff` lists the paths. **Live isolated Battle Pyramids: an edit makes any open run abandon and restart** (`libs/questRun.ts` hasQuestContentChanged), so run 420 when no one is mid-run (outside Friday-Sunday). |
 
-**Dungeon editor rows (director, after 419; Forge cannot save dungeons, the requirements drift):**
-- Skyglass Wreck (full): Shard of the Keel (id from 417's bundle, `sg417_keel`), chance 4, quantity 1.
-- Skyglass Wreck (full): Salvage (`sg417_salvage`), chance 100, quantity 5.
-- Faded Wreck: Salvage (`sg417_salvage`), chance 100, quantity 2.
+**Rates** (`RATES` in the generator) come from the economy model re-run without Salvage
+(`fable/skyglass-economy-model`, `recommended.json` S1-S4, `out/rate_search.csv`). They are proposals: the RUL-096
+pacing targets are out of reach by drops alone (Crownhold is Lantern-gated at about 0.067 clears an hour; see the
+model README). To change a rate, edit `RATES`, regenerate 417 (its descriptions carry the rates) and rebuild 420.
 
-**Placeholders:** engine default image on all 7 items, The Remainder variant and The Glass Answers' quest icon;
-the Stilled Echo uses the Faded Deck Warden's sprite. TODO: The Remainder variant art (not done yet), the four shard
-icons, Salvage, both token icons, a quest icon and an echo sprite. Heartglass variant art is final
+**Dungeon editor row (director, after 419; Forge cannot save dungeons):** Skyglass Wreck (full): Shard of the Keel
+(id from 417's bundle, `sg417_keel`), chance 15, quantity 1. No Salvage rows.
+
+**Placeholders:** engine default image on the four shards, both tokens and The Remainder variant. TODO: The Remainder
+variant art, the four shard icons and both token icons. Heartglass variant art is final
 (`art/skyglass_variant_skins/exports/icon-variant-heartglass.webp`, pinned in 417's imagePack).
 
-**Source facts used (source-verified):** using an item that starts a quest debits that one copy, then charges
-entryItems in the same transaction; a shortfall rolls the whole use back (`routers/item.ts` ~2400-2464,
-`routers/quests.ts` ~2733-2830, `server/utils/questEntry.ts`). A quest with entryItems must contain a battle
-(`validators/objectives.ts` ~1024-1033). A dialog choice routes to its own branch (`libs/quest.ts` ~1626-1661). Quest
-`reward_items` have **no once-per-player flag**: `validators/base.ts` idsWithNumberField is `{ids, number, quantity}`;
-`onlyOnce` exists only on dungeon drops (`validators/dungeon.ts:28`, `libs/dungeonRewards.ts`).
+**Source facts:** quest `reward_items` have no once-per-player flag (`validators/base.ts:20-28`; `onlyOnce` only on
+dungeon drops, `validators/dungeon.ts:28`).
 
-**Gates (2026-11-02):** 417: `validate.py --strict` exit 1, one law 14 / L05 `preferredStat` diagnostic (Forge refuses
-the key), held by `state/validate_exceptions/417_skyglass_uber_economy.json` (`validate_exception.py` exit 0; the
-RUL-2026-10-31-066 item 5 class, **acceptance PENDING**); `check_manifest.mjs` exit 0; `skyglass_check.py` exit 0.
-418-420 tested on a stand-in 417 bundle (fake ids; outputs not committed): `validate.py --strict` 0/0,
-`check_manifest.mjs` exit 0 and `skyglass_check.py` exit 0 on all three; 420 asserted identical to its sources except
-the added drop lines.
+**Gates (2026-11-02):** 417: `validate.py --strict` exit 0 (0 errors, 0 warnings), `check_manifest.mjs` exit 0,
+`skyglass_check.py` exit 0. 418-420 on a stand-in 417 bundle (fake ids; outputs not committed): all three gates exit 0
+on each; 420 asserted identical to its sources except the added drop lines.
+
 
 ## 416 Rotbloom image v2: RUN 2026-11-02 (tnr_results_1793638318441.json, 1/1 VERIFIED)
 
