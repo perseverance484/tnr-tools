@@ -1,0 +1,13 @@
+{
+ "manifest": "push/461_mother_of_echoes_templates.json",
+ "ruling": "The stale law 14 / L05 preferredStat class (RUL-2026-10-31-066 item 5), accepted for push/344 (RUL-2026-10-31-083) and push/417 (RUL-2026-11-02-103); same class, applied to these 5 hidden summon-template AI creates.",
+ "reason": "validate.py still demands preferredStat on AI creates; the game schema dropped it (migration 0056; absent at theninjarpg@3314d122) and Forge refuses the key. check_manifest.mjs: 0 pre-send problems.",
+ "sha256": "480da72899b15e0bbaa3bd2f682beee5e1d63c22d4288558fc5820eac6d42fdd",
+ "accepted": [
+  "ERROR  [ai:A Feeler of the Deep]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Cadet Tomo (Worn)]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Sister Hana (Worn)]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:The Gate Porter (Worn)]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Your Likeness]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)"
+ ]
+}
