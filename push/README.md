@@ -1506,7 +1506,7 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
-## 430-432 Skyglass mark fix (RUL-2026-11-02-101): READY TO RUN, MONDAY TO THURSDAY ONLY (ledgers PENDING director acceptance)
+## 430-432 Skyglass mark fix (RUL-2026-11-02-101): READY TO RUN, MONDAY TO THURSDAY ONLY (ledgers accepted, RUL-2026-11-02-103)
 
 `python3 push/skyglass_mark_fix.gen.py` writes all three (do not hand-edit). Zero live requests. Source pin
 theninjarpg@3314d122.
@@ -1559,7 +1559,7 @@ Non-visual ground effects live by `rounds`; their copies onto a standing player 
 - **After 432:** read back each holder's jutsu list (equipped) and each edited jutsu's effects. In a fight, an Omen mark
   should stay on screen until its eruption.
 
-## 417-420 Uber key economy (RUL-2026-11-02-100; rates RUL-2026-11-02-099): 417 READY TO RUN (ledger PENDING director acceptance); 418-420 built from 417's results
+## 417-420 Uber key economy (RUL-2026-11-02-100; rates RUL-2026-11-02-099): 417 READY TO RUN (ledger accepted, RUL-2026-11-02-103); 418-420 built from 417's results
 
 Generator: `push/skyglass_uber_economy.gen.py` (do not hand-edit its outputs). Zero live requests. Source pin
 theninjarpg@3314d122. **2026-11-02:** 417 regenerated for RUL-2026-11-02-102 (The Remainder token tradeable; ledger rehashed).

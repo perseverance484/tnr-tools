@@ -5507,3 +5507,26 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02, choosing option A ("Make The Remainder token tradeable").
 
 **Canonical destination:** `push/skyglass_uber_economy.gen.py` (TRADEABLE_TOKENS) and the design doc's Rewards section.
+
+## RUL-2026-11-02-103 — Uber pass-3 tuning calls; ledgers for 417 and 430-432 accepted
+
+**Date:** 2026-11-02
+
+**Domain:** Skyglass event / uber balance; validator exceptions
+
+**Status:** ACTIVE. Amends RUL-2026-11-02-097 (the stun-immunity target).
+
+**Ruling:**
+1. **The stun-immunity target is dropped.** A telegraphed stun is dodged by reading the mark, and reading the fight is meant to beat gear.
+2. **Lucid is toned down slightly,** so Silence-first clears within about 5 points of Sayo-first (pass 3: 20.0% against 13.3%).
+3. **Act I is eased further for average players,** so most reach Act II (pass 3: 12 of 30). Skilled clear rates must stay at 10–20%.
+4. **Validator exceptions accepted:**
+   - push/417: the `preferredStat` diagnostic on the Stilled Echo.
+   - push/430 and 432: "kit is all 60 AP" on the four Sealwright copies.
+   - push/431: the Scatter eruptions' live damage values.
+
+   Each is held exactly by its ledger in `state/validate_exceptions/`.
+
+**Evidence:** Director, 2026-11-02: "Approved 1 and 2".
+
+**Canonical destination:** the uber spec (`fable/mother-of-echoes-sim`) and the four ledgers.
