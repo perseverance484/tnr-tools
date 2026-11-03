@@ -311,20 +311,17 @@
      "once": true
     },
     {
-     "item": "salvage",
-     "p": 1.0,
-     "qty": 3,
-     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): 3 per full Wreck clear",
-     "flag": "PROPOSED"
-    },
-    {
      "item": "shard_keel",
-     "p": 0.01,
+     "p": 0.04,
      "qty": 1,
-     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): Shard of the Keel, full Wreck clear 1%",
-     "flag": "PROPOSED"
+     "source": "RUL-099 R2 (approved; built in push/420, once per clear); RUL-2026-11-02-104 baseline: the approved RUL-099 rate, re-set by recommended.json"
     }
-   ]
+   ],
+   "minutes_trim": {
+    "v": 16.0,
+    "source": "director's floor trim (2026-11-02, ~30% shorter; may not be live yet). Run with --wreck-trim",
+    "flag": "SCENARIO"
+   }
   },
   "wreck_faded": {
    "kind": "farm",
@@ -375,15 +372,13 @@
      "p": 0.2,
      "qty": 1,
      "source": "push/skyglass_wreck.gen.py:63; RUL-089"
-    },
-    {
-     "item": "salvage",
-     "p": 1.0,
-     "qty": 1,
-     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): 1 per Faded clear",
-     "flag": "PROPOSED"
     }
-   ]
+   ],
+   "minutes_trim": {
+    "v": 13.0,
+    "source": "director's floor trim (2026-11-02). Run with --wreck-trim",
+    "flag": "SCENARIO"
+   }
   },
   "pyramid_full": {
    "kind": "farm",
@@ -449,13 +444,6 @@
      "p": 0.1,
      "qty": 1,
      "source": "push/skyglass_solo.gen.py:74"
-    },
-    {
-     "item": "salvage",
-     "p": 1.0,
-     "qty": 0,
-     "source": "PROPOSED by this model only if the pyramid is enabled; the brief gives Salvage to Wreck clears only",
-     "flag": "PLACEHOLDER 0"
     }
    ]
   },
@@ -1010,10 +998,9 @@
     },
     {
      "item": "shard_tide",
-     "p": 0.03,
+     "p": 0.25,
      "qty": 1,
-     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): Shard of the Tide, Epic/tainted chart runs 3%",
-     "flag": "PROPOSED"
+     "source": "RUL-099 R4 (approved; built in push/420, once per clear); RUL-2026-11-02-104 baseline: the approved RUL-099 rate, re-set by recommended.json"
     }
    ],
    "picks": {
@@ -1085,10 +1072,9 @@
     },
     {
      "item": "shard_tide",
-     "p": 0.03,
+     "p": 0.25,
      "qty": 1,
-     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)",
-     "flag": "PROPOSED"
+     "source": "RUL-099 R4 (approved; built in push/420, once per clear); RUL-2026-11-02-104 baseline: the approved RUL-099 rate, re-set by recommended.json"
     }
    ],
    "press_on": {
@@ -1129,10 +1115,9 @@
      },
      {
       "item": "shard_tide",
-      "p": 0.03,
+      "p": 0.25,
       "qty": 1,
-      "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)",
-      "flag": "PROPOSED"
+      "source": "RUL-099 R4: the press-on ending replaces the base ending, so still one roll per clear (push/420 puts the line on both endings)"
      }
     ],
     "source": "push/skyglass_charts.gen.py:387-396"
@@ -1224,10 +1209,9 @@
     },
     {
      "item": "shard_tide",
-     "p": 0.03,
+     "p": 0.25,
      "qty": 1,
-     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)",
-     "flag": "PROPOSED"
+     "source": "RUL-099 R4 (approved; built in push/420, once per clear); RUL-2026-11-02-104 baseline: the approved RUL-099 rate, re-set by recommended.json"
     }
    ],
    "picks": {
@@ -1280,10 +1264,9 @@
     },
     {
      "item": "shard_tide",
-     "p": 0.03,
+     "p": 0.25,
      "qty": 1,
-     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)",
-     "flag": "PROPOSED"
+     "source": "RUL-099 R4 (approved; built in push/420, once per clear); RUL-2026-11-02-104 baseline: the approved RUL-099 rate, re-set by recommended.json"
     }
    ],
    "picks": {
@@ -1330,10 +1313,9 @@
     },
     {
      "item": "shard_crown",
-     "p": 0.15,
+     "p": 0.4,
      "qty": 1,
-     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): Shard of the Crown, Crownhold clear 15%",
-     "flag": "PROPOSED"
+     "source": "RUL-099 R3 (approved; built in push/420, once per clear); RUL-2026-11-02-104 baseline: the approved RUL-099 rate, re-set by recommended.json"
     }
    ],
    "picks": {
@@ -1402,14 +1384,13 @@
    "entry": "haul_page",
    "reserve_shard": {
     "item": "shard_ledger",
-    "p": 0.05,
+    "p": 0.15,
     "qty": 1,
-    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095): Shard of the Ledger, 5% per Haul Reserve chest (Keeper's or Quartermaster's)",
-    "flag": "PROPOSED"
+    "source": "RUL-099 R1 (15% per Haul clear, every ending); RUL-2026-11-02-104 baseline: the approved RUL-099 rate, re-set by recommended.json"
    },
    "reserve_shard_mode": {
-    "v": "per_reserve_chest",
-    "source": "brief: 'Haul Reserve chests ... 5%'. Alternative 'per_clear' = every Haul clear (recommended.json)"
+    "v": "per_clear",
+    "source": "RUL-099 R1: any Haul clear, any page, any route"
    },
    "pages": {
     "trophy": {
@@ -2311,23 +2292,21 @@
    },
    "on_clear": [
     {
-     "item": "salvage",
-     "p": 1.0,
-     "qty": 40,
-     "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095) RUL-2026-11-01-095 item 2 (Salvage x40, proposed)",
-     "flag": "PROPOSED"
+     "item": "remainder_token",
+     "p": 0.25,
+     "qty": 1,
+     "source": "RUL-2026-11-02-100 item 3, -102, -105: The Remainder token on every clear at a placeholder 25%",
+     "flag": "PLACEHOLDER"
     },
     {
-     "item": "remnant",
-     "p": 1.0,
+     "item": "heartglass_token",
+     "p": 0.25,
      "qty": 1,
-     "source": "RUL-2026-11-01-095 item 2 (one Remnant of the Mother Glass)"
+     "source": "RUL-2026-11-02-105 item 1: Heartglass token on every clear at a placeholder 25% (was the first-clear reward)",
+     "flag": "PLACEHOLDER"
     }
    ],
-   "first_clear": [
-    "heartglass",
-    "title_unstilled"
-   ],
+   "first_clear": [],
    "picks": {
     "count": 1,
     "source": "RUL-2026-11-01-095 item 2",
@@ -2356,7 +2335,9 @@
     "v": 0,
     "source": "RUL-095 item 2: 'above Crownhold's top tier (proposed)'; no figure",
     "flag": "PLACEHOLDER 0"
-   }
+   },
+   "_entry_note": "'invitation' is the model's name for one of each shard: RUL-100 item 1 makes the four shards the uber's entryItems (no item, no assembly step). The model bundles them at the moment of entry.",
+   "_first_clear_note": "RUL-2026-11-02-105: no first-clear reward and no title; both tokens are 25% drops on every clear."
   }
  },
  "proposed": {
@@ -2370,61 +2351,16 @@
    ],
    "source": "RUL-2026-11-01-093 item 2; brief"
   },
-  "salvage_exchanges": {
-   "chart_tide": {
-    "v": 5,
-    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
-   },
-   "chart_roster": {
-    "v": 5,
-    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
-   },
-   "chart_buried": {
-    "v": 10,
-    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
-   },
-   "chart_foundry": {
-    "v": 20,
-    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
-   },
-   "chart_archive": {
-    "v": 40,
-    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
-   },
-   "chart_watch": {
-    "v": 40,
-    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095)"
-   },
-   "shard_any": {
-    "v": 100,
-    "source": "PROPOSED (not built; session brief design A / RUL-2026-11-01-093/-095); RUL-093 item 2 (each shard craftable from 100 Salvage)"
-   }
-  },
-  "remnant_recipes": {
-   "remainder": {
-    "v": 8,
-    "source": "RUL-2026-11-01-095 item 3 (8, proposed)"
-   },
-   "heartglass_second": {
-    "v": 5,
-    "source": "RUL-2026-11-01-095 item 3 lists it (5, proposed); the brief says keep only the Remainder. Off by default",
-    "flag": "TOGGLE off"
-   },
-   "heartglass_second_enabled": {
-    "v": false,
-    "source": "brief"
-   }
-  },
   "key_tradeable": {
    "v": true,
    "source": "brief says keys tradeable; RUL-2026-11-01-093 item 2 says untradeable. CONFLICT: the model never trades keys, only shards, so it does not matter here",
    "flag": "CONFLICT"
-  }
+  },
+  "_retired": "RUL-2026-11-02-104: Salvage, its exchanges and the Remnants are cut (RUL-100 item 3 had already replaced Remnants with a 25% Remainder drop)."
  },
  "policy": {
   "_note": "What a sensible player runs. Priority: first matching action wins each step.",
   "priority": [
-   "salvage_shard",
    "assemble",
    "uber",
    "crownhold",
@@ -2444,7 +2380,7 @@
   ],
   "farm_activity": {
    "v": "wreck_full",
-   "source": "endgame players farm the full Wreck (Keel shard + 3 Salvage)"
+   "source": "endgame players farm the full Wreck (the Keel shard)"
   },
   "solo_pyramid_share": {
    "v": 0.0,
@@ -2463,19 +2399,6 @@
    "v": false,
    "source": "no measured clear rate for the echo fight",
    "flag": "TOGGLE"
-  },
-  "salvage_use": {
-   "v": "shards",
-   "source": "Salvage goes to Invitation shards (the missing one, rarest first)"
-  },
-  "salvage_shard_order": {
-   "v": [
-    "shard_ledger",
-    "shard_tide",
-    "shard_keel",
-    "shard_crown"
-   ],
-   "source": "rarest natural source first (from this model's baseline flows)"
   },
   "picks": {
    "chart_tide": [
@@ -2533,7 +2456,8 @@
     "Skyglass Coffer x5"
    ],
    "_source": "sensible: chart/case cards that feed the ladder where offered; the token where no chart card exists; commons take the Inro (taking their chart card is an endless Tide<->Roster loop, see README)"
-  }
+  },
+  "_priority_note": "'assemble' = holding one of each shard (the uber's entry, RUL-100); no exchange step (RUL-104)."
  },
  "player_types": {
   "casual": {
