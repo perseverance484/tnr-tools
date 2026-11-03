@@ -1559,6 +1559,66 @@ Non-visual ground effects live by `rounds`; their copies onto a standing player 
 - **After 432:** read back each holder's jutsu list (equipped) and each edited jutsu's effects. In a fight, an Omen mark
   should stay on screen until its eruption.
 
+## 440-445 The Mother of Echoes (the uber; RUL-2026-11-02-103 part 2): 440 BUILT, BLOCKED (Forge L16, director decision); 441-445 built from results bundles
+
+Generator: `push/mother_of_echoes.gen.py` (do not hand-edit its outputs). Zero live requests. It reads the
+offline-tested spec `harness/skyglass_wreck_sim/mother_of_echoes_spec.json` at **fable/mother-of-echoes-sim@45a06231**
+(pinned as `SPEC_REF` and in every `_note`; `git fetch origin fable/mother-of-echoes-sim` first). Source pin
+theninjarpg@3314d122. Everything is created hidden; AIs have no hidden column (law 16b) and get `inArena: false`.
+
+**Run order (whole uber, economy first):**
+1. **417** (economy creates) → build 418/419/420 from 417's bundle → run **418** → **419** → **420** (section below).
+2. **440** (47 jutsu that name no AI) → bundle B440.
+3. `--step templates --bundles B440` → **441** (5 summon-template AIs) → B441.
+4. `--step summons --bundles B440 B441` → **442** (6 summon jutsu, literal `aiId`) → B442.
+5. `--step bosses --bundles B440 B441 B442` → **443** (4 boss AIs, AI Heavy Armor, literal jutsu ids in kits and rules) → B443.
+6. `--step quest --first-clear split|every --bundles B440..B443 --economy B417` → **444** (title The Unstilled + the quest) → B444.
+7. `--step publish --first-clear <same> --bundles B440..B444 --economy B417` → **445** (quest re-sent whole, hidden false). Only after 419 (no hidden entry items or rewards).
+
+| # | Needs | Contents |
+|---|---|---|
+| 440 | nothing | 47 HIDDEN jutsu creates, srcIds `sg440_*` (Stolen Form `VuFuBtE7h5B1nnA2J1lFZ` is reused live, not created). Telegraph marks on the `increaseregeneration` carrier with the live push/431 tiles; pool art on the lasting effect |
+| 441 | B440 | Summon templates: A Feeler of the Deep, Your Likeness (+ Stolen Form), The Gate Porter / Sister Hana / Cadet Tomo (Worn) |
+| 442 | B441 | Listening, Listening Unbridled, Your Likeness, Raise the Gate Porter / Sister Hana / Cadet Tomo |
+| 443 | B440, B442 | Sayo (Act I), The Silence, Sayo (Act II), Sayo, Saint of Stillness: push/272 boss record + spec pools, effects, kits, rules |
+| 444 | B443, B417 | Title The Unstilled (unarchived: a quest save refuses an archived reward title) and the battle pyramid: isolated, entry one each of `sg417_keel/crown/tide/ledger`, three battles with pools carried (`keepOriginalPools: false`), loss → fail, nothing refunded. Win: 40 Salvage (`sg417_salvage`), The Remainder (`sg417_remainder`) 25%, exp 7500 (PROPOSED), pick one of Crown's Hoard ×2 / Skyglass Coffer ×5 / Skyglass Token ×2; first clear: The Unstilled + Heartglass (`sg417_heartglass`) |
+| 445 | B444 | Publish: the quest(s) with hidden false |
+
+**Open decisions (none settled here):**
+- **L16 (blocks 440 and 442):** Forge refuses any jutsu with cooldown < 3 and has no bypass; 35 of 440's jutsu and 4 of
+  442's are tuned at 0-2 (basic attack, Etching/Recast combos, Glassfall, the enrage). Floor 3 is not inert: in the
+  harness (20 runs) elite clears rise to 25%, average players reach Act III (11/19), ignore stays 0 (branch
+  `results/moe_p4_cdfloor3_*`). Choose: an AI-jutsu exemption to L16 (Lane A Forge change, reviewed), or floor 3 and a
+  retune pass.
+- **First clear (`--first-clear`, required):** `reward_titles` is safe on every clear (theninjarpg@3314d122
+  `queries/quests.ts` selectTitleForUpdateRewards skips owned titles). Heartglass is an item, and quest rewards have no
+  once-per-player flag. `every`: one quest, Heartglass paid every clear (untradeable duplicates). `split`: a first-clear
+  quest (maxCompletes 1) plus a repeatable copy listed after it (`prerequisiteQuestId`, `libs/quest.ts` ~2530 requires
+  completed), named "The Mother of Echoes: Again" (PROPOSED). The achievement route is blocked by the persistence bug
+  (RUL-2026-10-31-069).
+- **Unique names:** the game has unique indexes on jutsu names and AI usernames (`drizzle/schema.ts` Jutsu_name_key,
+  UserData_username_key). The spec reuses names (Refraction ×4, Etching ×5, Recast ×5, Glassfall ×5, both Act I and II
+  bosses "Sayo, Mother of Echoes", …), so later copies get a roman suffix (Refraction II-IV, Sayo, Mother of Echoes II).
+  Placeholders: renaming a jutsu is cheap until 443 equips it (law 18 after).
+- **Experience/ryo:** exp 7500, ryo 0 PROPOSED (RUL-095 "above Crownhold's top tier"; Crownhold pays exp 5000).
+- **441 (found on stand-in bundles):** Forge refuses Your Likeness's rule 0 (Stolen Form range 4 gated at distance 4;
+  law 40 wants 5). The harness rule needs the law-40 gate and a re-check before 441 runs.
+
+**Placeholders (every one is in each manifest's `_placeholders`):** engine default image on all 53 jutsu icons, the 9
+AI avatars and the quest icon; scene `reconstruction_chamber` (`81DATu13hATfbkPuLT54E`) on every quest node; the five
+Etching marks use the violet control tile (no `tg_etch` art); 30 effects in 440 and 6 in 442 (the summons) with pending art left empty (Glass Lancet,
+The Glass Remembers, Refraction/Facet/Lucid Refraction blasts, Lucid, Cradle, Recast ×5 and their open-guard statics,
+Stillness II, The Quiet, Shatterfall II, Every Name in the Glass II, Breathless Pull II, Glassfall ×5, The Glass Falls
+Quiet, No One Is Mended's floor). TODO art: avatars, jutsu icons, `tg_etch`, the moe strips, the scene.
+
+**Gates (2026-11-02):** 440: `validate.py --strict` exit 1, 114 diagnostics held by
+`state/validate_exceptions/440_mother_of_echoes_jutsu.json` (`validate_exception.py` exit 0; acceptance **PENDING**):
+law 4 / L06 / law 6 / L10 (the RUL-2026-10-31-065 item 1 class) and **L16 ×35 (new, blocking)**; `check_manifest.mjs`
+**exit 1, REFUSED (L16 ×35)**; `skyglass_check.py` exit 0. 441-445 tested on stand-in bundles (fake ids; not committed):
+444 and 445 (both `--first-clear` modes) `validate.py --strict` 0/0 and `check_manifest.mjs` exit 0; 441 law 40 (Forge
+refuses), law 14 `preferredStat` (the 417 class) and 2 dead-rule diagnostics; 442 L16 ×4 (Forge refuses); 443 law 14
+and L08 damage-row products (Forge warns only).
+
 ## 417-420 Uber key economy (RUL-2026-11-02-100; rates RUL-2026-11-02-099): 417 READY TO RUN (ledger accepted, RUL-2026-11-02-103); 418-420 built from 417's results
 
 Generator: `push/skyglass_uber_economy.gen.py` (do not hand-edit its outputs). Zero live requests. Source pin
