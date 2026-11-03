@@ -5627,3 +5627,17 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02: "Yes it covered move names too".
 
 **Canonical destination:** `harness/skyglass_wreck_sim/mother_of_echoes_spec.json` on `fable/mother-of-echoes-sim`, and push/440+.
+
+## RUL-2026-11-03-109 — push/440 validator diagnostics accepted
+
+**Date:** 2026-11-03
+
+**Domain:** Skyglass event / uber build
+
+**Status:** ACTIVE.
+
+**Ruling:** push/440 (the Mother of Echoes' 47 hidden AI jutsu) is cleared to run with its 79 `validate.py --strict` diagnostics. They are the law 4 / L06 / law 6 / L10 class (tuned damage rows without generalTypes, powers above the row cap, and set pieces above the signature EP ceiling) accepted for the Skyglass library, push/342, by RUL-2026-10-31-065 item 1. The ledger `state/validate_exceptions/440_mother_of_echoes_jutsu.json` holds them exactly. Forge 0.12.4 passes 440 with 0 pre-send problems.
+
+**Evidence:** Director, 2026-11-03: "OK on its validator diagnostics".
+
+**Canonical destination:** the 440 ledger and `push/README.md`.
