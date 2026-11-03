@@ -1581,7 +1581,7 @@ Non-visual ground effects live by `rounds`; their copies onto a standing player 
 - **After 432:** read back each holder's jutsu list (equipped) and each edited jutsu's effects. In a fight, an Omen mark
   should stay on screen until its eruption.
 
-## 440-465 The Mother of Echoes (the uber; RUL-2026-11-02-103 part 2, -105, -108): 440 READY TO RUN once its ledger is accepted (forge 0.12.4 merged 1deff89d, RUL-2026-11-02-106; update the Forge loader first); 461-465 built from results bundles
+## 440-465 The Mother of Echoes (the uber; RUL-2026-11-02-103 part 2, -105, -108): 440 READY TO RUN once its ledger is accepted (forge 0.12.4 merged, cfe8a4b1, RUL-2026-11-02-106; update the Forge loader first); 461-465 built from results bundles
 
 Generator: `push/mother_of_echoes.gen.py` (do not hand-edit its outputs). Zero live requests. It reads the
 offline-tested spec `harness/skyglass_wreck_sim/mother_of_echoes_spec.json` at **fable/mother-of-echoes-sim@dd7e33ab**

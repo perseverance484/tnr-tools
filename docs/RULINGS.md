@@ -5574,7 +5574,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 
 **Domain:** Forge tooling (Lane A) / boss authoring
 
-**Status:** ACTIVE. Reviewed and approved at c2c5f68b by ChatGPT, 2026-11-03 (the first review of 05f476fa found the missing loader release-pending marker; fixed). Merged to main at 1deff89d (base 354d5eba).
+**Status:** ACTIVE. Reviewed and approved at c2c5f68b by ChatGPT, 2026-11-03 (the first review of 05f476fa found the missing loader release-pending marker; fixed). Merged to main as rebased copies ending ae4d2eab, with the reviewed SHA recorded by the no-op merge cfe8a4b1 (base 354d5eba).
 
 **Ruling:** The L16 cooldown floor of 3 applies to player jutsu only. Jutsu with `jutsuType: "AI"` are exempt, because no player can equip them and boss set pieces need casts on exact turns (the Mother of Echoes etching and recast cycles; 35 of its jutsu have cooldowns under 3).
 - Edits that don't send `jutsuType` are still checked.
