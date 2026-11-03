@@ -1,0 +1,708 @@
+{
+ "generator": "docs/handoffs/mother_of_echoes_art_prompts.py",
+ "cards": [
+  {
+   "code": "ME01",
+   "name": "Sayo, Mother of Echoes",
+   "family": "Avatars",
+   "target": "Sayo, Mother of Echoes, AI `fJLcH1mpB1XHHGtNWwvzD` · AI_AVATAR (`userData.avatar`) · lime key (scaffold) · deliver 320px square, source 640x640",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/ghost_ship_skyglass/avatar_ghost_ship_crowned_captain_b.webp",
+     "role": "STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text"
+    }
+   ],
+   "ret": "ME01_raw_avatar_moe_sayo.png",
+   "deliver": "avatar_moe_sayo.webp",
+   "note": "Act I. Generate FIRST: it locks Sayo's design. Her glass hems are allowed for her alone. ME03 and ME04 attach the approved raw of this card as SUBJECT (one design, three looks).",
+   "prompt": "Target: Sayo, Mother of Echoes, one AI battle avatar for The Ninja RPG's Skyglass uber fight, The Mother of Echoes.\nReferences attached: 1. avatar_ghost_ship_crowned_captain_b.webp: STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text. Follow each reference only for its stated role.\nsingle ninja character, full body, dynamic combat stance, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, camera at eye level, flat 3/4 view, no low angle and no foreshortening, both arms held within the subject's own silhouette and touching nothing, at most one restrained elemental glow accent, as rim light on edges only, one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard, no shadow cast onto the green\nSUBJECT: Sayo, Mother of Echoes, the Skyglass Project's Glasswright: a tall, slender woman, calm and terribly gentle, in a long near-black Project work-coat with its sleeves bound back by a cord, skyglass-cyan piping at the collar and cuffs, and the coat's hems turned to faceted pale-cyan skyglass as if the glass is slowly climbing her; long black hair; a precise, almost kind face with pale-cyan eyes; in one gloved hand a slim glassworker's lancet of clear skyglass, the other hand open at her side. Accent: skyglass cyan.\nCostume grammar: dark layered wrap robe, neck cowl or scarf, one accent colour as piping, wrapped forearms, plain buckled belt\nNegative: no text, no UI, no watermark, no chibi, no blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo, no light field, no glow disc, no lime spill on the character, no multiple characters, no checkerboard background, no transparent-preview background, no white or grey background, no gradient green, no asset sheet, no grid, no labels, no franchise insignia, no desk, no table, no furniture, no props, nothing resting on a surface; no headband, no forehead protector, no clan symbol, no village mark, no real-world logo, ever. Generic masks, wraps, hoods and blank plates only.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "spec.prompt_scaffolds.AI_AVATAR via shotlist.render_prompt",
+   "records": [
+    "fJLcH1mpB1XHHGtNWwvzD"
+   ]
+  },
+  {
+   "code": "ME02",
+   "name": "The Silence",
+   "family": "Avatars",
+   "target": "The Silence, AI `IhNR-W1FElTsrWw1KfuQ9` · AI_AVATAR (`userData.avatar`) · alpha or magenta key (FX raw-layer card) · deliver 320px square",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/skyglass_boss_fx/raw/raw_fx_ships_bell.png",
+     "role": "STYLE-ONLY: the approved Skyglass boss-FX rendering and line weight; do not copy its subject"
+    }
+   ],
+   "ret": "ME02_raw_avatar_moe_silence.png",
+   "deliver": "avatar_moe_silence.webp",
+   "note": "Act I boss. Keep the dark mass flat and solid; it must read as a lack, not a ghost, demon or cloak with a face.",
+   "prompt": "Target: The Silence, one AI battle avatar for The Ninja RPG's Skyglass uber fight, The Mother of Echoes; drawn as one element, later keyed and padded to the square avatar.\nReferences attached: 1. raw_fx_ships_bell.png: STYLE-ONLY: the approved Skyglass boss-FX rendering and line weight; do not copy its subject. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art in the rendering of the attached Skyglass boss-FX key art: crisp pixel rendering, dark one-pixel outlines, flat cel steps, limited palette, no airbrush, no bloom. Glow is edge light only, never a painted disc, panel or halo.\nCanvas: 1254 x 1254, ONE element centred with a clear margin, nothing else on the canvas.\nSubject: The Silence, an ancient stillness from the deep mountain, not a person: a tall, faceless shape of flat, matte ink-black darkness with a soft, absolute outline, like a hole cut out of the picture in the rough shape of a hooded figure; no inner detail. Long pale bone-white feelers trail from its lower edge like roots, and a few motes of pale dust hang frozen beside it. No face, no eyes, no mouth, no hands. Dread, not monstrousness.\nBackground: native transparency (real alpha, no grey or tinted backing, no dark fringe, no checkerboard). If transparency is not available, a MAGENTA key only (#FF00FF), flat, covering the whole canvas and every enclosed gap. Never lime.\nAvoid: no text, runes, glyphs, spell circles or symbols (the Skyglass emblem only where the subject names it); no character, face, body or hands; no scenery, floor or cast shadow; no second element; no franchise insignia.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md AN card lines (the AI_AVATAR scaffold names a ninja character; this is not one)",
+   "records": [
+    "IhNR-W1FElTsrWw1KfuQ9"
+   ]
+  },
+  {
+   "code": "ME03",
+   "name": "Sayo, Glasswright of the Stilling",
+   "family": "Avatars",
+   "target": "Sayo, Glasswright of the Stilling, AI `H3pNj2qUWpMpVRINiH6Vn` · AI_AVATAR (`userData.avatar`) · lime key (scaffold) · deliver 320px square, source 640x640",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "ME01_approved.png",
+     "role": "SUBJECT: Sayo, Mother of Echoes as approved; keep her face, build, coat cut and lancet exactly, change only what the Subject says"
+    },
+    {
+     "f": "art/ghost_ship_skyglass/avatar_ghost_ship_crowned_captain_b.webp",
+     "role": "STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text"
+    }
+   ],
+   "ret": "ME03_raw_avatar_moe_sayo-stilling.png",
+   "deliver": "avatar_moe_sayo-stilling.webp",
+   "note": "Act II (the Etching cycles). Starts only after ME01 is approved.",
+   "prompt": "Target: Sayo, Glasswright of the Stilling, one AI battle avatar for The Ninja RPG's Skyglass uber fight, The Mother of Echoes.\nReferences attached: 1. ME01_approved.png: SUBJECT: Sayo, Mother of Echoes as approved; keep her face, build, coat cut and lancet exactly, change only what the Subject says. 2. avatar_ghost_ship_crowned_captain_b.webp: STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text. Follow each reference only for its stated role.\nsingle ninja character, full body, dynamic combat stance, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, camera at eye level, flat 3/4 view, no low angle and no foreshortening, both arms held within the subject's own silhouette and touching nothing, at most one restrained elemental glow accent, as rim light on edges only, one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard, no shadow cast onto the green\nSUBJECT: the same woman as the attached Sayo, now at the Stilling: her skyglass hems have climbed to her waist and up one sleeve, the glass cut with thin, straight etched lines like a castle's floor plan; she holds the lancet point-down like a scribe's stylus; her hair is tied back hard; her face is focused and cold. Accent: skyglass cyan with a thin pale-gold glint along the etched lines.\nCostume grammar: dark layered wrap robe, neck cowl or scarf, one accent colour as piping, wrapped forearms, plain buckled belt\nNegative: no text, no UI, no watermark, no chibi, no blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo, no light field, no glow disc, no lime spill on the character, no multiple characters, no checkerboard background, no transparent-preview background, no white or grey background, no gradient green, no asset sheet, no grid, no labels, no franchise insignia, no desk, no table, no furniture, no props, nothing resting on a surface; no headband, no forehead protector, no clan symbol, no village mark, no real-world logo, ever. Generic masks, wraps, hoods and blank plates only.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "spec.prompt_scaffolds.AI_AVATAR via shotlist.render_prompt",
+   "records": [
+    "H3pNj2qUWpMpVRINiH6Vn"
+   ]
+  },
+  {
+   "code": "ME04",
+   "name": "Sayo, Saint of Stillness",
+   "family": "Avatars",
+   "target": "Sayo, Saint of Stillness, AI `k0hgSrghl_KcYs9ATVDJT` · AI_AVATAR (`userData.avatar`) · lime key (scaffold) · deliver 320px square, source 640x640",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "ME01_approved.png",
+     "role": "SUBJECT: Sayo, Mother of Echoes as approved; keep her face, build, coat cut and lancet exactly, change only what the Subject says"
+    },
+    {
+     "f": "art/ghost_ship_skyglass/avatar_ghost_ship_crowned_captain_b.webp",
+     "role": "STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text"
+    }
+   ],
+   "ret": "ME04_raw_avatar_moe_saint.png",
+   "deliver": "avatar_moe_saint.webp",
+   "note": "Act III. Starts only after ME01 is approved. Must read as the same woman, ended.",
+   "prompt": "Target: Sayo, Saint of Stillness, one AI battle avatar for The Ninja RPG's Skyglass uber fight, The Mother of Echoes.\nReferences attached: 1. ME01_approved.png: SUBJECT: Sayo, Mother of Echoes as approved; keep her face, build, coat cut and lancet exactly, change only what the Subject says. 2. avatar_ghost_ship_crowned_captain_b.webp: STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text. Follow each reference only for its stated role.\nsingle ninja character, full body, dynamic combat stance, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, camera at eye level, flat 3/4 view, no low angle and no foreshortening, both arms held within the subject's own silhouette and touching nothing, at most one restrained elemental glow accent, as rim light on edges only, one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard, no shadow cast onto the green\nSUBJECT: the same woman as the attached Sayo after she gives herself to the Silence: the skyglass on her coat has gone dark from the inside, near-black, with pale-cyan light only in a few thin cracks; pale bone-white root-like feelers trail from her hems; her hair hangs perfectly still; her eyes are closed and serene, both hands open at her sides, the lancet gone. Accent: a thin pale-cyan crack light.\nCostume grammar: dark layered wrap robe, neck cowl or scarf, one accent colour as piping, wrapped forearms, plain buckled belt\nNegative: no text, no UI, no watermark, no chibi, no blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo, no light field, no glow disc, no lime spill on the character, no multiple characters, no checkerboard background, no transparent-preview background, no white or grey background, no gradient green, no asset sheet, no grid, no labels, no franchise insignia, no desk, no table, no furniture, no props, nothing resting on a surface; no headband, no forehead protector, no clan symbol, no village mark, no real-world logo, ever. Generic masks, wraps, hoods and blank plates only.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "spec.prompt_scaffolds.AI_AVATAR via shotlist.render_prompt",
+   "records": [
+    "k0hgSrghl_KcYs9ATVDJT"
+   ]
+  },
+  {
+   "code": "ME05",
+   "name": "A Feeler of the Deep",
+   "family": "Avatars",
+   "target": "A Feeler of the Deep, AI `qFKcwTUkBtRiC-uM_8xG8` · AI_AVATAR (`userData.avatar`) · alpha or magenta key (FX raw-layer card) · deliver 320px square",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/skyglass_boss_fx/raw/raw_fx_ships_bell.png",
+     "role": "STYLE-ONLY: the approved Skyglass boss-FX rendering and line weight; do not copy its subject"
+    }
+   ],
+   "ret": "ME05_raw_avatar_moe_feeler.png",
+   "deliver": "avatar_moe_feeler.webp",
+   "note": "Summon (The Listening). Keep the base cut off flat at the bottom edge so it stands, not floats.",
+   "prompt": "Target: A Feeler of the Deep, one AI battle avatar for The Ninja RPG's Skyglass uber fight, The Mother of Echoes; drawn as one element, later keyed and padded to the square avatar.\nReferences attached: 1. raw_fx_ships_bell.png: STYLE-ONLY: the approved Skyglass boss-FX rendering and line weight; do not copy its subject. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art in the rendering of the attached Skyglass boss-FX key art: crisp pixel rendering, dark one-pixel outlines, flat cel steps, limited palette, no airbrush, no bloom. Glow is edge light only, never a painted disc, panel or halo.\nCanvas: 1254 x 1254, ONE element centred with a clear margin, nothing else on the canvas.\nSubject: one pale feeler of the Silence rising from below: a single tall bone-white root-like tendril, thick at the base and tapering, its tip curled as if listening, with small dark knots along it and a few motes of pale dust frozen in the air around it. No face, no eyes, no mouth.\nBackground: native transparency (real alpha, no grey or tinted backing, no dark fringe, no checkerboard). If transparency is not available, a MAGENTA key only (#FF00FF), flat, covering the whole canvas and every enclosed gap. Never lime.\nAvoid: no text, runes, glyphs, spell circles or symbols (the Skyglass emblem only where the subject names it); no character, face, body or hands; no scenery, floor or cast shadow; no second element; no franchise insignia.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md AN card lines (the AI_AVATAR scaffold names a ninja character; this is not one)",
+   "records": [
+    "qFKcwTUkBtRiC-uM_8xG8"
+   ]
+  },
+  {
+   "code": "ME06",
+   "name": "Your Likeness",
+   "family": "Avatars",
+   "target": "Your Likeness, AI `zyOeF-rSpeXuMU7A3QQgo` · AI_AVATAR (`userData.avatar`) · lime key (scaffold) · deliver 320px square, source 640x640",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/ghost_ship_skyglass/avatar_ghost_ship_crowned_captain_b.webp",
+     "role": "STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text"
+    }
+   ],
+   "ret": "ME06_raw_avatar_moe_likeness.png",
+   "deliver": "avatar_moe_likeness.webp",
+   "note": "Summon (Your Likeness, Stolen Form). Generic on purpose: it stands for the player.",
+   "prompt": "Target: Your Likeness, one AI battle avatar for The Ninja RPG's Skyglass uber fight, The Mother of Echoes.\nReferences attached: 1. avatar_ghost_ship_crowned_captain_b.webp: STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text. Follow each reference only for its stated role.\nsingle ninja character, full body, dynamic combat stance, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, camera at eye level, flat 3/4 view, no low angle and no foreshortening, both arms held within the subject's own silhouette and touching nothing, at most one restrained elemental glow accent, as rim light on edges only, one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard, no shadow cast onto the green\nSUBJECT: Your Likeness: a shinobi-shaped echo the glass makes of whoever it faces, a lean figure in a plain hooded wrap and cloth mask whose whole surface is silvered mirror-glass, faceless under the hood, with thin pale-cyan facet lines across the body like a cut gem; a plain kunai in one hand. Accent: skyglass cyan.\nCostume grammar: dark layered wrap robe, neck cowl or scarf, one accent colour as piping, wrapped forearms, plain buckled belt\nNegative: no text, no UI, no watermark, no chibi, no blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo, no light field, no glow disc, no lime spill on the character, no multiple characters, no checkerboard background, no transparent-preview background, no white or grey background, no gradient green, no asset sheet, no grid, no labels, no franchise insignia, no desk, no table, no furniture, no props, nothing resting on a surface; no headband, no forehead protector, no clan symbol, no village mark, no real-world logo, ever. Generic masks, wraps, hoods and blank plates only.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "spec.prompt_scaffolds.AI_AVATAR via shotlist.render_prompt",
+   "records": [
+    "zyOeF-rSpeXuMU7A3QQgo"
+   ]
+  },
+  {
+   "code": "ME07",
+   "name": "The Gate Porter (Worn)",
+   "family": "Avatars",
+   "target": "The Gate Porter (Worn), AI `wivZbMygCZo6c9pRKWvCI` · AI_AVATAR (`userData.avatar`) · lime key (scaffold) · deliver 320px square, source 640x640",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/ghost_ship_skyglass/avatar_ghost_ship_crowned_captain_b.webp",
+     "role": "STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text"
+    },
+    {
+     "f": "art/crownhold/avatar_crownhold_unstable_echo_subject.webp",
+     "role": "STYLE-ONLY: how a Crownhold echo is drawn (cold violet-cyan chakra haze on dark cloth); not the figure"
+    }
+   ],
+   "ret": "ME07_raw_avatar_moe_worn-porter.png",
+   "deliver": "avatar_moe_worn-porter.webp",
+   "note": "Summon (Raise the Gate Porter). ME07-ME09 share the Worn treatment: judge ME08 and ME09 against ME07.",
+   "prompt": "Target: The Gate Porter (Worn), one AI battle avatar for The Ninja RPG's Skyglass uber fight, The Mother of Echoes.\nReferences attached: 1. avatar_ghost_ship_crowned_captain_b.webp: STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text. 2. avatar_crownhold_unstable_echo_subject.webp: STYLE-ONLY: how a Crownhold echo is drawn (cold violet-cyan chakra haze on dark cloth); not the figure. Follow each reference only for its stated role.\nsingle ninja character, full body, dynamic combat stance, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, camera at eye level, flat 3/4 view, no low angle and no foreshortening, both arms held within the subject's own silhouette and touching nothing, at most one restrained elemental glow accent, as rim light on edges only, one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard, no shadow cast onto the green\nSUBJECT: The Gate Porter, one of the Worn, an afterimage cast so many times there is almost nothing left: colours faded and washed out toward grey, the outline broken and missing in places like worn paint, eyes lit by a faint pale chakra. A stooped old castle gate porter in a plain dark watchman's coat, a paper lantern on a short pole in one hand and a heavy iron-studded club in the other. Accent: lantern amber.\nCostume grammar: dark layered wrap robe, neck cowl or scarf, one accent colour as piping, wrapped forearms, plain buckled belt\nNegative: no text, no UI, no watermark, no chibi, no blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo, no light field, no glow disc, no lime spill on the character, no multiple characters, no checkerboard background, no transparent-preview background, no white or grey background, no gradient green, no asset sheet, no grid, no labels, no franchise insignia, no desk, no table, no furniture, no props, nothing resting on a surface; no headband, no forehead protector, no clan symbol, no village mark, no real-world logo, ever. Generic masks, wraps, hoods and blank plates only.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "spec.prompt_scaffolds.AI_AVATAR via shotlist.render_prompt",
+   "records": [
+    "wivZbMygCZo6c9pRKWvCI"
+   ]
+  },
+  {
+   "code": "ME08",
+   "name": "Sister Hana (Worn)",
+   "family": "Avatars",
+   "target": "Sister Hana (Worn), AI `g6bNcftMcQ9pV_nMki7Wv` · AI_AVATAR (`userData.avatar`) · lime key (scaffold) · deliver 320px square, source 640x640",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/ghost_ship_skyglass/avatar_ghost_ship_crowned_captain_b.webp",
+     "role": "STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text"
+    },
+    {
+     "f": "art/crownhold/avatar_crownhold_unstable_echo_subject.webp",
+     "role": "STYLE-ONLY: how a Crownhold echo is drawn (cold violet-cyan chakra haze on dark cloth); not the figure"
+    }
+   ],
+   "ret": "ME08_raw_avatar_moe_worn-hana.png",
+   "deliver": "avatar_moe_worn-hana.webp",
+   "note": "Summon (Raise Sister Hana). Accent is rose, not green: the scaffold keys on lime.",
+   "prompt": "Target: Sister Hana (Worn), one AI battle avatar for The Ninja RPG's Skyglass uber fight, The Mother of Echoes.\nReferences attached: 1. avatar_ghost_ship_crowned_captain_b.webp: STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text. 2. avatar_crownhold_unstable_echo_subject.webp: STYLE-ONLY: how a Crownhold echo is drawn (cold violet-cyan chakra haze on dark cloth); not the figure. Follow each reference only for its stated role.\nsingle ninja character, full body, dynamic combat stance, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, camera at eye level, flat 3/4 view, no low angle and no foreshortening, both arms held within the subject's own silhouette and touching nothing, at most one restrained elemental glow accent, as rim light on edges only, one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard, no shadow cast onto the green\nSUBJECT: Sister Hana, one of the Worn, an afterimage cast so many times there is almost nothing left: colours faded and washed out toward grey, the outline broken and missing in places like worn paint, eyes lit by a faint pale chakra. A young castle infirmary sister in a plain grey medic's kimono and white apron, sleeves tied back, a roll of bandages held in both hands. Accent: faded rose.\nCostume grammar: dark layered wrap robe, neck cowl or scarf, one accent colour as piping, wrapped forearms, plain buckled belt\nNegative: no text, no UI, no watermark, no chibi, no blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo, no light field, no glow disc, no lime spill on the character, no multiple characters, no checkerboard background, no transparent-preview background, no white or grey background, no gradient green, no asset sheet, no grid, no labels, no franchise insignia, no desk, no table, no furniture, no props, nothing resting on a surface; no headband, no forehead protector, no clan symbol, no village mark, no real-world logo, ever. Generic masks, wraps, hoods and blank plates only.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "spec.prompt_scaffolds.AI_AVATAR via shotlist.render_prompt",
+   "records": [
+    "g6bNcftMcQ9pV_nMki7Wv"
+   ]
+  },
+  {
+   "code": "ME09",
+   "name": "Cadet Tomo (Worn)",
+   "family": "Avatars",
+   "target": "Cadet Tomo (Worn), AI `KhFglnxE7ouIDywet3BPB` · AI_AVATAR (`userData.avatar`) · lime key (scaffold) · deliver 320px square, source 640x640",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/ghost_ship_skyglass/avatar_ghost_ship_crowned_captain_b.webp",
+     "role": "STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text"
+    },
+    {
+     "f": "art/crownhold/avatar_crownhold_unstable_echo_subject.webp",
+     "role": "STYLE-ONLY: how a Crownhold echo is drawn (cold violet-cyan chakra haze on dark cloth); not the figure"
+    }
+   ],
+   "ret": "ME09_raw_avatar_moe_worn-tomo.png",
+   "deliver": "avatar_moe_worn-tomo.webp",
+   "note": "Summon (Raise Cadet Tomo). Keep him clearly young and non-threatening: a wooden sword, no blade.",
+   "prompt": "Target: Cadet Tomo (Worn), one AI battle avatar for The Ninja RPG's Skyglass uber fight, The Mother of Echoes.\nReferences attached: 1. avatar_ghost_ship_crowned_captain_b.webp: STYLE-ONLY: the Skyglass crew's rendering, palette, outline weight and how skyglass crystal sits on dark cloth; this is a different person, described by the text. 2. avatar_crownhold_unstable_echo_subject.webp: STYLE-ONLY: how a Crownhold echo is drawn (cold violet-cyan chakra haze on dark cloth); not the figure. Follow each reference only for its stated role.\nsingle ninja character, full body, dynamic combat stance, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, camera at eye level, flat 3/4 view, no low angle and no foreshortening, both arms held within the subject's own silhouette and touching nothing, at most one restrained elemental glow accent, as rim light on edges only, one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard, no shadow cast onto the green\nSUBJECT: Cadet Tomo, one of the Worn, an afterimage cast so many times there is almost nothing left: colours faded and washed out toward grey, the outline broken and missing in places like worn paint, eyes lit by a faint pale chakra. A young castle cadet in an oversized dark training uniform and a too-big padded cap, a wooden practice sword held in both hands; an earnest, lost face. Accent: faded indigo.\nCostume grammar: dark layered wrap robe, neck cowl or scarf, one accent colour as piping, wrapped forearms, plain buckled belt\nNegative: no text, no UI, no watermark, no chibi, no blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo, no light field, no glow disc, no lime spill on the character, no multiple characters, no checkerboard background, no transparent-preview background, no white or grey background, no gradient green, no asset sheet, no grid, no labels, no franchise insignia, no desk, no table, no furniture, no props, nothing resting on a surface; no headband, no forehead protector, no clan symbol, no village mark, no real-world logo, ever. Generic masks, wraps, hoods and blank plates only.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "spec.prompt_scaffolds.AI_AVATAR via shotlist.render_prompt",
+   "records": [
+    "KhFglnxE7ouIDywet3BPB"
+   ]
+  },
+  {
+   "code": "ME10",
+   "name": "The Heart of the Mother Glass",
+   "family": "Scenes",
+   "target": "The Heart of the Mother Glass · SCENE_BACKGROUND (`sceneBackground`, a gameAsset) · 3:2, no key · deliver 512px wide, webp lossy_q85",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp",
+     "role": "STYLE-ONLY: colour and lighting of the approved Skyglass scenes; do not copy its room or layout"
+    },
+    {
+     "f": "art/style_refs/scene_backgrounds/warehouse_loading_floor.webp",
+     "role": "STYLE-ONLY: how a TNR interior stages depth with no figure (style_refs.py select --target SCENE_BACKGROUND --tag interior); not its room"
+    }
+   ],
+   "ret": "ME10_raw_scene_bg_moe_heart_of_the_mother_glass.png",
+   "deliver": "scene_bg_moe_heart_of_the_mother_glass.webp",
+   "note": "Act I, the opening and the quest's top-level scene (the travel popup shows only this one, law 25). Generate first; ME11 and ME12 attach it. Reserve the lower left: the scene character renders at absolute bottom-0 w-2/5 with no horizontal offset, so it lands over the left 40%.",
+   "prompt": "Target: The Heart of the Mother Glass, one scene background for The Ninja RPG's Skyglass uber fight, The Mother of Echoes.\nReferences attached: 1. scene_bg_ghost_ship_command_observation_gallery.webp: STYLE-ONLY: colour and lighting of the approved Skyglass scenes; do not copy its room or layout. 2. warehouse_loading_floor.webp: STYLE-ONLY: how a TNR interior stages depth with no figure (style_refs.py select --target SCENE_BACKGROUND --tag interior); not its room. Follow each reference only for its stated role.\nwide game scene background, a vast cavern deep beneath an Edo mountain castle, its walls a single sheet of dark glass veined with pale-cyan light, hundreds of small pale lights suspended inside the glass like lanterns under ice, a smooth dark glass floor, thick pale roots of glass rising from below at the far right where the light falls away into flat darkness, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, atmospheric depth, foreground lower left kept open and unobstructed, no characters\nNegative: no people, no characters, no creatures, no character panels, no asset sheet, no grid, no collage, no UI frame, no text, no labels, no watermark\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "spec.prompt_scaffolds.SCENE_BACKGROUND via shotlist.render_prompt",
+   "records": [
+    "quest IBPNwhAzlAJPXoeEnp8gW content, d_open, b_act1, f_lost"
+   ]
+  },
+  {
+   "code": "ME11",
+   "name": "The Heart of the Mother Glass, the Stilling",
+   "family": "Scenes",
+   "target": "The Heart of the Mother Glass, the Stilling · SCENE_BACKGROUND (`sceneBackground`, a gameAsset) · 3:2, no key · deliver 512px wide, webp lossy_q85",
+   "priority": "P2",
+   "files": [
+    {
+     "f": "ME10_approved.png",
+     "role": "STYLE AND LAYOUT: the same cavern; keep its walls, floor and framing, change only what the text says"
+    },
+    {
+     "f": "art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp",
+     "role": "STYLE-ONLY: colour and lighting of the approved Skyglass scenes; do not copy its room or layout"
+    }
+   ],
+   "ret": "ME11_raw_scene_bg_moe_the_stilling.png",
+   "deliver": "scene_bg_moe_the_stilling.webp",
+   "note": "Act II. If short of time, Act II reuses ME10 (fallback). Reserve the lower left: the scene character renders at absolute bottom-0 w-2/5 with no horizontal offset, so it lands over the left 40%.",
+   "prompt": "Target: The Heart of the Mother Glass, the Stilling, one scene background for The Ninja RPG's Skyglass uber fight, The Mother of Echoes.\nReferences attached: 1. ME10_approved.png: STYLE AND LAYOUT: the same cavern; keep its walls, floor and framing, change only what the text says. 2. scene_bg_ghost_ship_command_observation_gallery.webp: STYLE-ONLY: colour and lighting of the approved Skyglass scenes; do not copy its room or layout. Follow each reference only for its stated role.\nwide game scene background, the same glass cavern dimmed almost to darkness, the pale lights inside the walls gone still and faint, and the glass floor scored with thin straight glowing pale-gold lines like the etched floor plan of a castle's rooms, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, atmospheric depth, foreground lower left kept open and unobstructed, no characters\nNegative: no people, no characters, no creatures, no character panels, no asset sheet, no grid, no collage, no UI frame, no text, no labels, no watermark\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "spec.prompt_scaffolds.SCENE_BACKGROUND via shotlist.render_prompt",
+   "records": [
+    "quest IBPNwhAzlAJPXoeEnp8gW d_act2, b_act2"
+   ]
+  },
+  {
+   "code": "ME12",
+   "name": "The Heart of the Mother Glass, A Good Impression",
+   "family": "Scenes",
+   "target": "The Heart of the Mother Glass, A Good Impression · SCENE_BACKGROUND (`sceneBackground`, a gameAsset) · 3:2, no key · deliver 512px wide, webp lossy_q85",
+   "priority": "P2",
+   "files": [
+    {
+     "f": "ME10_approved.png",
+     "role": "STYLE AND LAYOUT: the same cavern; keep its walls, floor and framing, change only what the text says"
+    },
+    {
+     "f": "art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp",
+     "role": "STYLE-ONLY: colour and lighting of the approved Skyglass scenes; do not copy its room or layout"
+    }
+   ],
+   "ret": "ME12_raw_scene_bg_moe_a_good_impression.png",
+   "deliver": "scene_bg_moe_a_good_impression.webp",
+   "note": "Act III and the win node. If short of time, Act III reuses ME10 (fallback). Reserve the lower left: the scene character renders at absolute bottom-0 w-2/5 with no horizontal offset, so it lands over the left 40%.",
+   "prompt": "Target: The Heart of the Mother Glass, A Good Impression, one scene background for The Ninja RPG's Skyglass uber fight, The Mother of Echoes.\nReferences attached: 1. ME10_approved.png: STYLE AND LAYOUT: the same cavern; keep its walls, floor and framing, change only what the text says. 2. scene_bg_ghost_ship_command_observation_gallery.webp: STYLE-ONLY: colour and lighting of the approved Skyglass scenes; do not copy its room or layout. Follow each reference only for its stated role.\nwide game scene background, the same glass cavern breaking apart: great cracks through the walls and floor, ink-black stillness hanging out of the cracks like smoke frozen in place, shards of glass suspended motionless in the air, the lights in the walls gone dark, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, atmospheric depth, foreground lower left kept open and unobstructed, no characters\nNegative: no people, no characters, no creatures, no character panels, no asset sheet, no grid, no collage, no UI frame, no text, no labels, no watermark\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "spec.prompt_scaffolds.SCENE_BACKGROUND via shotlist.render_prompt",
+   "records": [
+    "quest IBPNwhAzlAJPXoeEnp8gW d_act3, b_act3, w_clear"
+   ]
+  },
+  {
+   "code": "ME13",
+   "name": "The Mother of Echoes (quest icon)",
+   "family": "Icons",
+   "target": "The Mother of Echoes (quest icon), quest `IBPNwhAzlAJPXoeEnp8gW` · ICON (`quest.image`) · lime key or alpha",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp",
+     "role": "STYLE-ONLY: the pixel rendering and the skyglass cyan of the approved Skyglass icons; do not copy the crystal"
+    }
+   ],
+   "ret": "ME13_raw_quest_icon_mother_of_echoes.png",
+   "deliver": "quest_icon_mother_of_echoes.webp",
+   "note": "quest.image (a raw URL, no gameAsset). Generate before the shards: it sets the fight's look for the icon set.",
+   "prompt": "Target: The Mother of Echoes (quest icon), one square game item icon for The Ninja RPG.\nReferences attached: 1. icon_ghost_ship_skyglass_crystal.webp: STYLE-ONLY: the pixel rendering and the skyglass cyan of the approved Skyglass icons; do not copy the crystal. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.\nFraming: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.\nSubject: The Mother of Echoes: the Mother Glass itself, held as an object. A tall, faceted seed of dark skyglass, narrow at both ends, pale-cyan light deep inside it, its lower end gripped by a few thick pale bone-white roots that curl round it; one fine crack runs up its face. Legendary: no tier seal.\nBackground: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.\nAvoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels; no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md IC card lines (IC08)",
+   "records": [
+    "quest `IBPNwhAzlAJPXoeEnp8gW`"
+   ]
+  },
+  {
+   "code": "ME14",
+   "name": "Shard of the Keel",
+   "family": "Icons",
+   "target": "Shard of the Keel, item `uKnlqlfyE_k1QjLuaVml_` · ICON (`item.image`) · lime key or alpha",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp",
+     "role": "STYLE-ONLY: the pixel rendering and the skyglass cyan of the approved Skyglass icons; do not copy the crystal"
+    }
+   ],
+   "ret": "ME14_raw_icon-shard-of-the-keel.png",
+   "deliver": "icon-shard-of-the-keel.webp",
+   "note": "The four shards are one object broken four ways: the same dark skyglass, the same cut, each carrying a trace of where it was found. Already dropping live with the engine default icon. Legendary: no tier seal. Generate ME14 first and judge ME15-ME17 against it.",
+   "prompt": "Target: Shard of the Keel, one square game item icon for The Ninja RPG.\nReferences attached: 1. icon_ghost_ship_skyglass_crystal.webp: STYLE-ONLY: the pixel rendering and the skyglass cyan of the approved Skyglass icons; do not copy the crystal. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.\nFraming: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.\nSubject: Shard of the Keel: one long sliver of dark, near-black skyglass with pale-cyan light inside it, its broad end still bound to a splinter of blackened ship's keel timber by a few turns of tarred rope.\nBackground: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.\nAvoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels; no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md IC card lines (IC08)",
+   "records": [
+    "item `uKnlqlfyE_k1QjLuaVml_`"
+   ]
+  },
+  {
+   "code": "ME15",
+   "name": "Shard of the Crown",
+   "family": "Icons",
+   "target": "Shard of the Crown, item `4UNvgWIDGD9QpNVtLr1aM` · ICON (`item.image`) · lime key or alpha",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp",
+     "role": "STYLE-ONLY: the pixel rendering and the skyglass cyan of the approved Skyglass icons; do not copy the crystal"
+    }
+   ],
+   "ret": "ME15_raw_icon-shard-of-the-crown.png",
+   "deliver": "icon-shard-of-the-crown.webp",
+   "note": "The four shards are one object broken four ways: the same dark skyglass, the same cut, each carrying a trace of where it was found. Already dropping live with the engine default icon. Legendary: no tier seal.",
+   "prompt": "Target: Shard of the Crown, one square game item icon for The Ninja RPG.\nReferences attached: 1. icon_ghost_ship_skyglass_crystal.webp: STYLE-ONLY: the pixel rendering and the skyglass cyan of the approved Skyglass icons; do not copy the crystal. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.\nFraming: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.\nSubject: Shard of the Crown: one jagged frost-point of dark skyglass with pale-cyan light inside it, broken from a crown; its base keeps a small curved band of storm-grey iron.\nBackground: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.\nAvoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels; no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md IC card lines (IC08)",
+   "records": [
+    "item `4UNvgWIDGD9QpNVtLr1aM`"
+   ]
+  },
+  {
+   "code": "ME16",
+   "name": "Shard of the Tide",
+   "family": "Icons",
+   "target": "Shard of the Tide, item `KHGZAfQFosLQJ29AN2ymC` · ICON (`item.image`) · lime key or alpha",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp",
+     "role": "STYLE-ONLY: the pixel rendering and the skyglass cyan of the approved Skyglass icons; do not copy the crystal"
+    }
+   ],
+   "ret": "ME16_raw_icon-shard-of-the-tide.png",
+   "deliver": "icon-shard-of-the-tide.webp",
+   "note": "The four shards are one object broken four ways: the same dark skyglass, the same cut, each carrying a trace of where it was found. Already dropping live with the engine default icon. Legendary: no tier seal.",
+   "prompt": "Target: Shard of the Tide, one square game item icon for The Ninja RPG.\nReferences attached: 1. icon_ghost_ship_skyglass_crystal.webp: STYLE-ONLY: the pixel rendering and the skyglass cyan of the approved Skyglass icons; do not copy the crystal. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.\nFraming: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.\nSubject: Shard of the Tide: one smooth, wave-worn sliver of dark skyglass with pale-cyan light inside it, a crust of dried sea salt along one edge and a strand of dark seaweed caught round it.\nBackground: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.\nAvoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels; no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md IC card lines (IC08)",
+   "records": [
+    "item `KHGZAfQFosLQJ29AN2ymC`"
+   ]
+  },
+  {
+   "code": "ME17",
+   "name": "Shard of the Ledger",
+   "family": "Icons",
+   "target": "Shard of the Ledger, item `cGrmhfe88ACBvFk2XqvSu` · ICON (`item.image`) · lime key or alpha",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp",
+     "role": "STYLE-ONLY: the pixel rendering and the skyglass cyan of the approved Skyglass icons; do not copy the crystal"
+    }
+   ],
+   "ret": "ME17_raw_icon-shard-of-the-ledger.png",
+   "deliver": "icon-shard-of-the-ledger.webp",
+   "note": "The four shards are one object broken four ways: the same dark skyglass, the same cut, each carrying a trace of where it was found. Already dropping live with the engine default icon. Legendary: no tier seal.",
+   "prompt": "Target: Shard of the Ledger, one square game item icon for The Ninja RPG.\nReferences attached: 1. icon_ghost_ship_skyglass_crystal.webp: STYLE-ONLY: the pixel rendering and the skyglass cyan of the approved Skyglass icons; do not copy the crystal. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.\nFraming: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.\nSubject: Shard of the Ledger: one flat sliver of dark skyglass with pale-cyan light inside it, a torn scrap of yellowed ledger paper pressed into its surface with faded, unreadable brush strokes.\nBackground: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.\nAvoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels; no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md IC card lines (IC08)",
+   "records": [
+    "item `cGrmhfe88ACBvFk2XqvSu`"
+   ]
+  },
+  {
+   "code": "ME18",
+   "name": "Heartglass (token)",
+   "family": "Icons",
+   "target": "Heartglass (token), item `FmQgVG5IX3q607wcHcOGy` · ICON (`item.image`) · Legendary; no seal · lime key",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "VT00_approved.png",
+     "role": "SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif"
+    },
+    {
+     "f": "art/skyglass_event_icons/exports/icon-variant-token-captains-gunbai.webp",
+     "role": "SUBJECT, only if VT00_approved.png is not to hand: a delivered boss variant token; keep the tag exactly (shape, iron, rivets, cord, angle, size, colours) and replace only what is inside its oval window"
+    }
+   ],
+   "ret": "ME18_raw_icon-variant-token-heartglass.png",
+   "deliver": "icon-variant-token-heartglass.webp",
+   "note": "Motif follows the final Heartglass variant (art/skyglass_variant_skins/exports/icon-variant-heartglass.webp). Drops on every clear (25%).",
+   "prompt": "Target: Heartglass (token), a boss variant token, one square game item icon for The Ninja RPG.\nReferences attached: 1. VT00_approved.png: SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif. 2. icon-variant-token-captains-gunbai.webp: SUBJECT, only if VT00_approved.png is not to hand: a delivered boss variant token; keep the tag exactly (shape, iron, rivets, cord, angle, size, colours) and replace only what is inside its oval window. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.\nFraming: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.\nSubject: the attached iron trophy tag, unchanged: same shape, iron, rivets, cord, angle, size and colours. Only the oval skyglass window changes: set into it, engraved and inlaid in pale cyan skyglass with dark lines, a small open folding fan whose leaves are panes of glass, a heart-shaped glass charm at its pivot. The motif fills the window and stays inside it; nothing else is added.\nBackground: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.\nAvoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels; no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur; no change to the tag outside its window.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md VT card (VT01 lines; the VT00_approved.png base)",
+   "records": [
+    "item FmQgVG5IX3q607wcHcOGy"
+   ]
+  },
+  {
+   "code": "ME19",
+   "name": "The Remainder (token)",
+   "family": "Icons",
+   "target": "The Remainder (token), item `xCAtBCvbA2-TTV2eSe-jx` · ICON (`item.image`) · Legendary; no seal · lime key",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "VT00_approved.png",
+     "role": "SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif"
+    },
+    {
+     "f": "art/skyglass_event_icons/exports/icon-variant-token-captains-gunbai.webp",
+     "role": "SUBJECT, only if VT00_approved.png is not to hand: a delivered boss variant token; keep the tag exactly (shape, iron, rivets, cord, angle, size, colours) and replace only what is inside its oval window"
+    }
+   ],
+   "ret": "ME19_raw_icon-variant-token-the-remainder.png",
+   "deliver": "icon-variant-token-the-remainder.webp",
+   "note": "Motif must follow the director's The Remainder variant (ME20) once approved; adjust the motif words to it. Drops on every clear (25%).",
+   "prompt": "Target: The Remainder (token), a boss variant token, one square game item icon for The Ninja RPG.\nReferences attached: 1. VT00_approved.png: SUBJECT: the approved trophy-token base; keep it exactly and change only the window motif. 2. icon-variant-token-captains-gunbai.webp: SUBJECT, only if VT00_approved.png is not to hand: a delivered boss variant token; keep the tag exactly (shape, iron, rivets, cord, angle, size, colours) and replace only what is inside its oval window. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.\nFraming: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.\nSubject: the attached iron trophy tag, unchanged: same shape, iron, rivets, cord, angle, size and colours. Only the oval skyglass window changes: set into it, engraved and inlaid in pale cyan skyglass with dark lines, a small bow drawn as a flat black silhouette, pale root-like filaments trailing from its tips. The motif fills the window and stays inside it; nothing else is added.\nBackground: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.\nAvoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels; no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur; no change to the tag outside its window.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md VT card (VT01 lines; the VT00_approved.png base)",
+   "records": [
+    "item xCAtBCvbA2-TTV2eSe-jx"
+   ]
+  },
+  {
+   "code": "ME20",
+   "name": "The Remainder",
+   "family": "Icons",
+   "target": "The Remainder, item variant `f1trw5TAP7ItE-E7eh8b0` on Ink of the Void · ICON (item-variant image) · no tier seal · lime key",
+   "priority": "P1",
+   "files": [
+    {
+     "f": "base_ink_of_the_void.png",
+     "role": "SUBJECT: the live Ink of the Void icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says"
+    },
+    {
+     "f": "material_skyglass_crystal.png",
+     "role": "MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape"
+    }
+   ],
+   "ret": "ME20_raw_icon-variant-the-remainder.png",
+   "deliver": "icon-variant-the-remainder.webp",
+   "note": "IN PROGRESS with the director (his own session); this card is kept so the token (ME19) and any regeneration share one description. Zip folder `15_variant_ink_of_the_void/` of skyglass_art_refs.zip.",
+   "prompt": "Target: The Remainder, a skin of the weapon Ink of the Void, one square game item icon for The Ninja RPG.\nReferences attached: 1. base_ink_of_the_void.png: SUBJECT: the live Ink of the Void icon; keep its core form, proportions and angle so the weapon is recognisable; its colours and details change as the Subject says. 2. material_skyglass_crystal.png: MATERIAL-ONLY: how skyglass looks as an inlay; do not copy its shape. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.\nFraming: one object, three-quarter view at eye level, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.\nSubject: The Remainder. Keep the attached Ink of the Void's core form, proportions and angle so it is recognisably the same weapon, then restyle it boldly so it reads as a new skin at 125 px: both limbs become flat matte ink-black stillness with no shine at all, as if cut out of the picture; no visible bowstring glint; pale bone-white root-like filaments trailing from the tips; a few motes of pale dust hanging frozen beside the grip. Add a thin pale-cyan edge light along the whole outline.\nIt must read clearly apart from its sibling skin on the same base (Stargazer: parchment-white limbs inlaid with cyan chart lines, rigging-rope string and a brass compass charm); do not use that design.\nBackground: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap (inside loops, handles, rings and chain links); not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.\nAvoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed anywhere is the Skyglass emblem, a four-point star in a diamond or circle, and only where the subject names it); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels (dull brass fittings only where the subject says brass); no second object; no hands or people; no screens, glass tanks, machines or modern objects; no headband, clan or village symbol; no photorealism, no blur.\nThumbnail test: shrunk to 125 px beside the base, this must read as a different skin at a glance, by colour and outline, not only by small details.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md VS card (VS06 lines)",
+   "records": [
+    "itemVariant f1trw5TAP7ItE-E7eh8b0"
+   ]
+  },
+  {
+   "code": "ME21",
+   "name": "Glass Lancet (jutsu family icon)",
+   "family": "Jutsu icons",
+   "target": "Glass Lancet family, 3 AI jutsu · JUTSU_ICON (`jutsu.image`) · designed background, no key",
+   "priority": "P2",
+   "files": [
+    {
+     "f": "art/style_refs/jutsu_icons/bee/icon_bee_hemocure_v1.webp",
+     "role": "STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red"
+    },
+    {
+     "f": "art/skyglass_jutsu_icons/exports/icon-jutsu-the-last-directive.webp",
+     "role": "STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition"
+    }
+   ],
+   "ret": "ME21_raw_jutsu_moe_fam_lancet.png",
+   "deliver": "jutsu_moe_fam_lancet.webp",
+   "note": "Covers: Glass Lancet `0g0Iy9PKsIVC6ggG1Exz2`; The Glass Remembers `G_b5yaxm6GMOuQ3eaofKb`; Lucid `IOUn-UrO1gwbi4uJdwYDp`. Each family must read apart from the other five at 125 px. Export with --type JUTSU_ICON.",
+   "prompt": "Target: Glass Lancet, one square jutsu icon for The Ninja RPG, shared by the Glass Lancet family of AI-only boss techniques in The Mother of Echoes.\nReferences attached: 1. icon_bee_hemocure_v1.webp: STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red. 2. icon-jutsu-the-last-directive.webp: STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, laid out like the attached jutsu-icon exemplar: one bold technique filling the square on a designed dark background, the same framing, rendering and detail density. Crisp hard-edged pixels, clean dark outlines, flat cel shading, limited palette, no painterly blur, no bloom. Readable at 125 px. Square 1024 x 1024.\nAction: Glass Lancet: Sayo's own hand: a needle of skyglass thrown hard, and the glass's memory turned on the room.\nDominant silhouette: one long, thin needle of clear skyglass, white-hot at its point, flying diagonally across the square.\nCamera and motion: side-on, the needle crossing from lower left to upper right, its point nearest the upper corner.\nSecondary effect: a short trail of fine pale-cyan glass dust behind it.\nPalette: night ink #08080d and deep indigo #1e2d46 behind; the technique in its own colours as named.\nBackground: a designed opaque dark background (deep indigo night into near-black #08080d), part of the image. No chroma key, no transparency, no checkerboard.\nAvoid: no text, letters, kanji, runes, spell circles or floating ornamental symbols; no character, face, body, hands or fingers; no frame, border, UI or watermark; no second technique; no gold; no franchise insignia.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md JI card lines (JI01)",
+   "records": [
+    "0g0Iy9PKsIVC6ggG1Exz2",
+    "G_b5yaxm6GMOuQ3eaofKb",
+    "IOUn-UrO1gwbi4uJdwYDp"
+   ]
+  },
+  {
+   "code": "ME22",
+   "name": "Refraction (jutsu family icon)",
+   "family": "Jutsu icons",
+   "target": "Refraction family, 9 AI jutsu · JUTSU_ICON (`jutsu.image`) · designed background, no key",
+   "priority": "P2",
+   "files": [
+    {
+     "f": "art/style_refs/jutsu_icons/bee/icon_bee_hemocure_v1.webp",
+     "role": "STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red"
+    },
+    {
+     "f": "art/skyglass_jutsu_icons/exports/icon-jutsu-the-last-directive.webp",
+     "role": "STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition"
+    }
+   ],
+   "ret": "ME22_raw_jutsu_moe_fam_refraction.png",
+   "deliver": "jutsu_moe_fam_refraction.webp",
+   "note": "Covers: Refraction `yxP6zO2NmjwqnrnvNXipC`; Far Refraction `HIftLq_RQJkIUUqGgBPTE`; Facet `eYzXEQI-Vz3gSIDfP2sX3`; Refraction Breaks `qjtaZInyr1nZ5lZmSA_SS`; Far Refraction Breaks `OTcP-08or5bUKwcMjc54K`; Facet Breaks `xlmvVot9xaetibexfyc31`; Lucid Refraction `KfXRK6rC3bt4kpdtdJHDb`; Every Name in the Glass `LhyIGAqoerbh3tFbcPrdx`; The Names Flood In `4_dlB0conB-C6sfYqiU6Q`. Each family must read apart from the other five at 125 px. Export with --type JUTSU_ICON.",
+   "prompt": "Target: Refraction, one square jutsu icon for The Ninja RPG, shared by the Refraction family of AI-only boss techniques in The Mother of Echoes.\nReferences attached: 1. icon_bee_hemocure_v1.webp: STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red. 2. icon-jutsu-the-last-directive.webp: STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, laid out like the attached jutsu-icon exemplar: one bold technique filling the square on a designed dark background, the same framing, rendering and detail density. Crisp hard-edged pixels, clean dark outlines, flat cel shading, limited palette, no painterly blur, no bloom. Readable at 125 px. Square 1024 x 1024.\nAction: Refraction: Light caught in a prism and broken into lines across the floor, then the lines burst (marked rows and fields that erupt).\nDominant silhouette: one faceted skyglass prism in the centre, a single beam entering it and three hard-edged beams fanning out.\nCamera and motion: front-on, the beams spreading toward the lower edge of the square.\nSecondary effect: small ember-red sparks where the outgoing beams end (the eruption to come).\nPalette: night ink #08080d and deep indigo #1e2d46 behind; the technique in its own colours as named.\nBackground: a designed opaque dark background (deep indigo night into near-black #08080d), part of the image. No chroma key, no transparency, no checkerboard.\nAvoid: no text, letters, kanji, runes, spell circles or floating ornamental symbols; no character, face, body, hands or fingers; no frame, border, UI or watermark; no second technique; no gold; no franchise insignia.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md JI card lines (JI01)",
+   "records": [
+    "yxP6zO2NmjwqnrnvNXipC",
+    "HIftLq_RQJkIUUqGgBPTE",
+    "eYzXEQI-Vz3gSIDfP2sX3",
+    "qjtaZInyr1nZ5lZmSA_SS",
+    "OTcP-08or5bUKwcMjc54K",
+    "xlmvVot9xaetibexfyc31",
+    "KfXRK6rC3bt4kpdtdJHDb",
+    "LhyIGAqoerbh3tFbcPrdx",
+    "4_dlB0conB-C6sfYqiU6Q"
+   ]
+  },
+  {
+   "code": "ME23",
+   "name": "Etching (jutsu family icon)",
+   "family": "Jutsu icons",
+   "target": "Etching family, 10 AI jutsu · JUTSU_ICON (`jutsu.image`) · designed background, no key",
+   "priority": "P2",
+   "files": [
+    {
+     "f": "art/style_refs/jutsu_icons/bee/icon_bee_hemocure_v1.webp",
+     "role": "STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red"
+    },
+    {
+     "f": "art/skyglass_jutsu_icons/exports/icon-jutsu-the-last-directive.webp",
+     "role": "STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition"
+    }
+   ],
+   "ret": "ME23_raw_jutsu_moe_fam_etching.png",
+   "deliver": "jutsu_moe_fam_etching.webp",
+   "note": "Covers: Etching: Rime `lkcsor1I5A8gD038ncrBW`; Etching: Ember `eovhl9XyDQq1N19lDwr77`; Etching: Seam `Pr7i3DK5KiRQRePy8Xw41`; Etching: Heart `nNUaP5r8r7UxYNiAtuF0l`; Etching: Hail `2pU7fdUPQPQQjyd19JDWA`; Recast: Rime `Avu4B2M_9_SE0-Oqqhplw`; Recast: Ember `I5lwaFCaVSH6cpxAPHvFA`; Recast: Seam `54nmWiFXqvFW7u0vSG5zK`; Recast: Heart `-MtfLHClmIwSSGBIw9O7X`; Recast: Hail `lmlhn5p68Oszhj16wKbvx`. Each family must read apart from the other five at 125 px. Export with --type JUTSU_ICON.",
+   "prompt": "Target: Etching, one square jutsu icon for The Ninja RPG, shared by the Etching family of AI-only boss techniques in The Mother of Echoes.\nReferences attached: 1. icon_bee_hemocure_v1.webp: STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red. 2. icon-jutsu-the-last-directive.webp: STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, laid out like the attached jutsu-icon exemplar: one bold technique filling the square on a designed dark background, the same framing, rendering and detail density. Crisp hard-edged pixels, clean dark outlines, flat cel shading, limited palette, no painterly blur, no bloom. Readable at 125 px. Square 1024 x 1024.\nAction: Etching: Sayo scores a pattern into the glass floor; turns later, the pattern is recast as rising blades (a memory test).\nDominant silhouette: a pane of dark glass seen from above at an angle, scored with a lattice of thin pale-gold lines, three slim glass blades rising from where the lines cross.\nCamera and motion: three-quarter view from above, the pane filling the lower two thirds of the square.\nSecondary effect: a fine gold scribe-spark at the end of one line, still cutting.\nPalette: night ink #08080d and deep indigo #1e2d46 behind; the technique in its own colours as named.\nBackground: a designed opaque dark background (deep indigo night into near-black #08080d), part of the image. No chroma key, no transparency, no checkerboard.\nAvoid: no text, letters, kanji, runes, spell circles or floating ornamental symbols; no character, face, body, hands or fingers; no frame, border, UI or watermark; no second technique; no gold; no franchise insignia.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md JI card lines (JI01)",
+   "records": [
+    "lkcsor1I5A8gD038ncrBW",
+    "eovhl9XyDQq1N19lDwr77",
+    "Pr7i3DK5KiRQRePy8Xw41",
+    "nNUaP5r8r7UxYNiAtuF0l",
+    "2pU7fdUPQPQQjyd19JDWA",
+    "Avu4B2M_9_SE0-Oqqhplw",
+    "I5lwaFCaVSH6cpxAPHvFA",
+    "54nmWiFXqvFW7u0vSG5zK",
+    "-MtfLHClmIwSSGBIw9O7X",
+    "lmlhn5p68Oszhj16wKbvx"
+   ]
+  },
+  {
+   "code": "ME24",
+   "name": "Glassfall (jutsu family icon)",
+   "family": "Jutsu icons",
+   "target": "Glassfall family, 7 AI jutsu · JUTSU_ICON (`jutsu.image`) · designed background, no key",
+   "priority": "P2",
+   "files": [
+    {
+     "f": "art/style_refs/jutsu_icons/bee/icon_bee_hemocure_v1.webp",
+     "role": "STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red"
+    },
+    {
+     "f": "art/skyglass_jutsu_icons/exports/icon-jutsu-the-last-directive.webp",
+     "role": "STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition"
+    }
+   ],
+   "ret": "ME24_raw_jutsu_moe_fam_glassfall.png",
+   "deliver": "jutsu_moe_fam_glassfall.webp",
+   "note": "Covers: Shatterfall `RcMx3MCHD7dyJw_12mr_7`; Shatterfall Gives Way `cxqu1ljkSisTgPBLgYtJa`; Glassfall: First Pane `kzxTPUJ8TYJFTggSKw3zr`; Glassfall: Second Pane `6IMcG7R_uhfROlANlYmDB`; Glassfall: Last Pane `H0MMi_Stpzk8zm4HqDEbF`; Glassfall: Opening Pane `pp40FDDTbGMdwrDFTNyiF`; Glassfall: Heart Recast `3ytuMbHhF4bcE2zrePnlR`. Each family must read apart from the other five at 125 px. Export with --type JUTSU_ICON.",
+   "prompt": "Target: Glassfall, one square jutsu icon for The Ninja RPG, shared by the Glassfall family of AI-only boss techniques in The Mother of Echoes.\nReferences attached: 1. icon_bee_hemocure_v1.webp: STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red. 2. icon-jutsu-the-last-directive.webp: STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, laid out like the attached jutsu-icon exemplar: one bold technique filling the square on a designed dark background, the same framing, rendering and detail density. Crisp hard-edged pixels, clean dark outlines, flat cel shading, limited palette, no painterly blur, no bloom. Readable at 125 px. Square 1024 x 1024.\nAction: Glassfall: Panes of the Mother Glass come down on marked ground.\nDominant silhouette: a fan of five long sharp panes of falling skyglass, points down, spread like a hand of cards.\nCamera and motion: front-on, falling straight down toward the lower edge.\nSecondary effect: a thin line of shattered glints along the lower edge where the first point lands.\nPalette: night ink #08080d and deep indigo #1e2d46 behind; the technique in its own colours as named.\nBackground: a designed opaque dark background (deep indigo night into near-black #08080d), part of the image. No chroma key, no transparency, no checkerboard.\nAvoid: no text, letters, kanji, runes, spell circles or floating ornamental symbols; no character, face, body, hands or fingers; no frame, border, UI or watermark; no second technique; no gold; no franchise insignia.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md JI card lines (JI01)",
+   "records": [
+    "RcMx3MCHD7dyJw_12mr_7",
+    "cxqu1ljkSisTgPBLgYtJa",
+    "kzxTPUJ8TYJFTggSKw3zr",
+    "6IMcG7R_uhfROlANlYmDB",
+    "H0MMi_Stpzk8zm4HqDEbF",
+    "pp40FDDTbGMdwrDFTNyiF",
+    "3ytuMbHhF4bcE2zrePnlR"
+   ]
+  },
+  {
+   "code": "ME25",
+   "name": "The Hush (jutsu family icon)",
+   "family": "Jutsu icons",
+   "target": "The Hush family, 16 AI jutsu · JUTSU_ICON (`jutsu.image`) · designed background, no key",
+   "priority": "P2",
+   "files": [
+    {
+     "f": "art/style_refs/jutsu_icons/bee/icon_bee_hemocure_v1.webp",
+     "role": "STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red"
+    },
+    {
+     "f": "art/skyglass_jutsu_icons/exports/icon-jutsu-the-last-directive.webp",
+     "role": "STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition"
+    }
+   ],
+   "ret": "ME25_raw_jutsu_moe_fam_hush.png",
+   "deliver": "jutsu_moe_fam_hush.webp",
+   "note": "Covers: The Hush `kfzxZHje97anmOwwph84l`; The Hush, Unbridled `VqSpJhDUvjxLP5OtjI1mc`; The Hush Rises `F5qD1aXjt-kPQ6IR7nDoo`; Hush Where They Refused `AMNfIbTUiKsnvNfZGpAf1`; No One Is Mended `BA9V_vlnJZhA0V2tY4Ov_`; The Quiet `w6eHg1zFOrP1AhlwtyfZV`; The Long Hush `2erO3JCcfpXixrGz0NmhH`; The Glass Falls Quiet `KIwfifD8OGNVbs9I8O6Rw`; Stillness `A8c_3evIw6fOfnmKIkTgb`; Nothing Moves `scGyJW-F0Mqga4FXnj4Jf`; The Held Breath `3ShDcIL5dzj_8w60Qoo9h`; Breathless Pull `83mLMXND-9sAyN5WfmzQo`; The Listening `mqko5kLLXqGAVr6MVoKY0`; The Listening, Unbridled `q0QcFoX4HIhxO0cpYTL2N`; Cradle `DFcbOLSvYssjLzTHo_dw0`; Grasp `zHNAEQ1xmDSOzFVEqeJlS`. Each family must read apart from the other five at 125 px. Export with --type JUTSU_ICON.",
+   "prompt": "Target: The Hush, one square jutsu icon for The Ninja RPG, shared by the The Hush family of AI-only boss techniques in The Mother of Echoes.\nReferences attached: 1. icon_bee_hemocure_v1.webp: STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red. 2. icon-jutsu-the-last-directive.webp: STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, laid out like the attached jutsu-icon exemplar: one bold technique filling the square on a designed dark background, the same framing, rendering and detail density. Crisp hard-edged pixels, clean dark outlines, flat cel shading, limited palette, no painterly blur, no bloom. Readable at 125 px. Square 1024 x 1024.\nAction: The Hush: The Silence: pools that drink healing, stillness that stuns, and pale feelers that listen and hold.\nDominant silhouette: one flat pool of matte ink-black stillness seen from an angle, a single pale bone-white feeler rising out of it and curling at the tip.\nCamera and motion: three-quarter view from above, the pool low in the square, the feeler rising through the centre.\nSecondary effect: a few motes of pale dust hanging frozen in the air above the pool.\nPalette: night ink #08080d and deep indigo #1e2d46 behind; the technique in its own colours as named.\nBackground: a designed opaque dark background (deep indigo night into near-black #08080d), part of the image. No chroma key, no transparency, no checkerboard.\nAvoid: no text, letters, kanji, runes, spell circles or floating ornamental symbols; no character, face, body, hands or fingers; no frame, border, UI or watermark; no second technique; no gold; no franchise insignia.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md JI card lines (JI01)",
+   "records": [
+    "kfzxZHje97anmOwwph84l",
+    "VqSpJhDUvjxLP5OtjI1mc",
+    "F5qD1aXjt-kPQ6IR7nDoo",
+    "AMNfIbTUiKsnvNfZGpAf1",
+    "BA9V_vlnJZhA0V2tY4Ov_",
+    "w6eHg1zFOrP1AhlwtyfZV",
+    "2erO3JCcfpXixrGz0NmhH",
+    "KIwfifD8OGNVbs9I8O6Rw",
+    "A8c_3evIw6fOfnmKIkTgb",
+    "scGyJW-F0Mqga4FXnj4Jf",
+    "3ShDcIL5dzj_8w60Qoo9h",
+    "83mLMXND-9sAyN5WfmzQo",
+    "mqko5kLLXqGAVr6MVoKY0",
+    "q0QcFoX4HIhxO0cpYTL2N",
+    "DFcbOLSvYssjLzTHo_dw0",
+    "zHNAEQ1xmDSOzFVEqeJlS"
+   ]
+  },
+  {
+   "code": "ME26",
+   "name": "Echoes (jutsu family icon)",
+   "family": "Jutsu icons",
+   "target": "Echoes family, 8 AI jutsu · JUTSU_ICON (`jutsu.image`) · designed background, no key",
+   "priority": "P2",
+   "files": [
+    {
+     "f": "art/style_refs/jutsu_icons/bee/icon_bee_hemocure_v1.webp",
+     "role": "STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red"
+    },
+    {
+     "f": "art/skyglass_jutsu_icons/exports/icon-jutsu-the-last-directive.webp",
+     "role": "STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition"
+    }
+   ],
+   "ret": "ME26_raw_jutsu_moe_fam_echoes.png",
+   "deliver": "jutsu_moe_fam_echoes.webp",
+   "note": "Covers: Your Likeness `foDwd-hL5krmhFHsPtQtc`; Your Own Strike `nkNryj61h6qB3azifb8h4`; Raise the Gate Porter `l1TpeIKJyNDzQQkI1Az1K`; Raise Sister Hana `BeOpXT1M_7oRkwYCcXk6Z`; Raise Cadet Tomo `yzI6KIOPzy6P2B0U6Cqyp`; Doorward Sweep `x4aJMqXJ3kvyr0bKUZaZj`; Worn Mending `tEAiiOTcd7rTgu-nJySPv`; Cadet's Tether `rC9J4ZrjMfftPa4UmlBoV`. Each family must read apart from the other five at 125 px. Export with --type JUTSU_ICON.",
+   "prompt": "Target: Echoes, one square jutsu icon for The Ninja RPG, shared by the Echoes family of AI-only boss techniques in The Mother of Echoes.\nReferences attached: 1. icon_bee_hemocure_v1.webp: STYLE-ONLY: the approved jutsu-icon register, its layout, dark background, rendering and detail density; do not copy its orb-in-claws composition or its red. 2. icon-jutsu-the-last-directive.webp: STYLE-ONLY: the live Skyglass jutsu icon family, its skyglass shards and night palette; not its katana or composition. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art, laid out like the attached jutsu-icon exemplar: one bold technique filling the square on a designed dark background, the same framing, rendering and detail density. Crisp hard-edged pixels, clean dark outlines, flat cel shading, limited palette, no painterly blur, no bloom. Readable at 125 px. Square 1024 x 1024.\nAction: Echoes: Afterimages Sayo casts from the stilled: your own likeness, and the Worn of Crownhold.\nDominant silhouette: one tall pane of skyglass standing upright, a faded pale outline pressed against it from inside like a reflection that has stayed, its edge already cracking where it steps out.\nCamera and motion: front-on, the pane upright in the centre.\nSecondary effect: thin pale-cyan cracks spreading from the pane's lower corner.\nPalette: night ink #08080d and deep indigo #1e2d46 behind; the technique in its own colours as named.\nBackground: a designed opaque dark background (deep indigo night into near-black #08080d), part of the image. No chroma key, no transparency, no checkerboard.\nAvoid: no text, letters, kanji, runes, spell circles or floating ornamental symbols; no character, face, body, hands or fingers; no frame, border, UI or watermark; no second technique; no gold; no franchise insignia.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md JI card lines (JI01)",
+   "records": [
+    "foDwd-hL5krmhFHsPtQtc",
+    "nkNryj61h6qB3azifb8h4",
+    "l1TpeIKJyNDzQQkI1Az1K",
+    "BeOpXT1M_7oRkwYCcXk6Z",
+    "yzI6KIOPzy6P2B0U6Cqyp",
+    "x4aJMqXJ3kvyr0bKUZaZj",
+    "tEAiiOTcd7rTgu-nJySPv",
+    "rC9J4ZrjMfftPa4UmlBoV"
+   ]
+  },
+  {
+   "code": "ME27",
+   "name": "moe_cradle: Cradle (folding dark)",
+   "family": "Animation raw layers",
+   "target": "moe_cradle: Cradle (folding dark) · ANIMATION raw layer · 1254 x 1254, magenta key or alpha",
+   "priority": "P2",
+   "files": [
+    {
+     "f": "art/skyglass_boss_fx/raw/raw_fx_ships_bell.png",
+     "role": "STYLE-ONLY: the approved Skyglass boss-FX rendering and line weight; do not copy its subject"
+    }
+   ],
+   "ret": "ME27_raw_raw_fx_moe_cradle.png",
+   "deliver": "raw_fx_moe_cradle.png",
+   "note": "Buff loop on the protected boss (decreasedamagetaken staticAnimation). Claude animates it in code (art/mother_of_echoes_fx) as a slow fold-and-breathe loop that frames the portrait, then uploads.",
+   "prompt": "Target: one raw animation layer for The Ninja RPG's Skyglass uber fight, The Mother of Echoes: moe_cradle: Cradle (folding dark).\nReferences attached: 1. raw_fx_ships_bell.png: STYLE-ONLY: the approved Skyglass boss-FX rendering and line weight; do not copy its subject. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art in the rendering of the attached Skyglass boss-FX key art: crisp pixel rendering, dark one-pixel outlines, flat cel steps, limited palette, no airbrush, no bloom. Glow is edge light only, never a painted disc, panel or halo.\nCanvas: 1254 x 1254, ONE element centred with a clear margin, nothing else on the canvas.\nSubject: two great soft folds of flat matte ink-black darkness curving inward from left and right like closing wings or cupped hands, leaving a clear open space between them, a few motes of pale dust frozen at their edges.\nBackground: native transparency (real alpha, no grey or tinted backing, no dark fringe, no checkerboard). If transparency is not available, a MAGENTA key only (#FF00FF), flat, covering the whole canvas and every enclosed gap. Never lime.\nAvoid: no text, runes, glyphs, spell circles or symbols (the Skyglass emblem only where the subject names it); no character, face, body or hands; no scenery, floor or cast shadow; no second element; no franchise insignia.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md AN card lines (AN01)",
+   "records": [
+    "Cradle DFcbOLSvYssjLzTHo_dw0"
+   ]
+  },
+  {
+   "code": "ME28",
+   "name": "moe_flood: The Names Flood In (faces alight)",
+   "family": "Animation raw layers",
+   "target": "moe_flood: The Names Flood In (faces alight) · ANIMATION raw layer · 1254 x 1254, magenta key or alpha",
+   "priority": "P3",
+   "files": [
+    {
+     "f": "art/skyglass_boss_fx/raw/raw_fx_ships_bell.png",
+     "role": "STYLE-ONLY: the approved Skyglass boss-FX rendering and line weight; do not copy its subject"
+    }
+   ],
+   "ret": "ME28_raw_raw_fx_moe_flood.png",
+   "deliver": "raw_fx_moe_flood.png",
+   "note": "OPTIONAL upgrade. The Names Flood In ships with the live Skyglass Eruption; this would be its signature version. Faces are masks of light, not people.",
+   "prompt": "Target: one raw animation layer for The Ninja RPG's Skyglass uber fight, The Mother of Echoes: moe_flood: The Names Flood In (faces alight).\nReferences attached: 1. raw_fx_ships_bell.png: STYLE-ONLY: the approved Skyglass boss-FX rendering and line weight; do not copy its subject. Follow each reference only for its stated role.\nStyle: Edo-era Japanese fantasy ninja pixel art in the rendering of the attached Skyglass boss-FX key art: crisp pixel rendering, dark one-pixel outlines, flat cel steps, limited palette, no airbrush, no bloom. Glow is edge light only, never a painted disc, panel or halo.\nCanvas: 1254 x 1254, ONE element centred with a clear margin, nothing else on the canvas.\nSubject: a tight cluster of small pale masks of light with closed eyes, rising together like paper lanterns, white-cyan edge light on each; each mask is a plain smooth oval with no features but closed eyes.\nBackground: native transparency (real alpha, no grey or tinted backing, no dark fringe, no checkerboard). If transparency is not available, a MAGENTA key only (#FF00FF), flat, covering the whole canvas and every enclosed gap. Never lime.\nAvoid: no text, runes, glyphs, spell circles or symbols (the Skyglass emblem only where the subject names it); no character, face, body or hands; no scenery, floor or cast shadow; no second element; no franchise insignia.\nGenerate ONE image. Do not crop, key, resize or otherwise process it.",
+   "source": "SKYGLASS_ART_PROMPTS.md AN card lines (AN01)",
+   "records": [
+    "The Names Flood In 4_dlB0conB-C6sfYqiU6Q"
+   ]
+  }
+ ]
+}
