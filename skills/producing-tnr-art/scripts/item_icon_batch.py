@@ -9,10 +9,48 @@ import argparse
 import csv
 import hashlib
 import json
+import math
+from datetime import datetime, timezone
 from pathlib import Path
 
 CSV_FIELDS = ("role", "id", "name", "status", "captured_name", "item_type",
               "rarity", "slot", "image_url", "captured_at", "source_file", "snapshot_key")
+
+
+def capture_timestamp_key(value):
+    """Chronology key for ISO-8601 and Unix seconds/milliseconds.
+
+    Missing timestamps sort before known timestamps. Keep the original time
+    in the roster; this comparable key is only used to select provenance.
+    Invalid nonempty values fail rather than silently picking a wrong source.
+    """
+    if value is None or value == "":
+        return (0, 0.0)
+    if isinstance(value, bool):
+        raise ValueError(f"invalid capture timestamp: {value!r}")
+    if isinstance(value, (int, float)):
+        seconds = float(value)
+    elif isinstance(value, str):
+        value = value.strip()
+        if not value:
+            return (0, 0.0)
+        try:
+            seconds = float(value)
+        except ValueError:
+            try:
+                parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            except ValueError as exc:
+                raise ValueError(f"invalid capture timestamp: {value!r}") from exc
+            if parsed.tzinfo is None:
+                parsed = parsed.replace(tzinfo=timezone.utc)
+            seconds = parsed.timestamp()
+    else:
+        raise ValueError(f"invalid capture timestamp: {value!r}")
+    if not math.isfinite(seconds):
+        raise ValueError(f"invalid capture timestamp: {value!r}")
+    if abs(seconds) >= 1e11:  # Modern Unix milliseconds, not seconds.
+        seconds /= 1000.0
+    return (1, seconds)
 
 
 def digest(path):
@@ -97,7 +135,8 @@ def make_roster(wave_path, capture_paths):
             status, chosen = "IMAGE_MISSING", None
         else:
             status = "CAPTURED" if all(s["kind"] == "item.get" for _, s in hits) else "LOCAL_RECORD"
-            chosen = sorted(hits, key=lambda h: (h[1].get("captured_at") or "", h[1]["source_file"]))[-1]
+            chosen = max(hits, key=lambda h: (
+                capture_timestamp_key(h[1].get("captured_at")), h[1]["source_file"]))
         d, src = chosen if chosen else ({}, {})
         rows.append({
             "role": role, "id": entry["id"], "name": entry["name"],
