@@ -1,0 +1,12 @@
+{
+ "manifest": "push/414_core_horror_fx_swap.json",
+ "ruling": "Accepted by RUL-2026-10-31-083 (law 41 on these 20-rule records: unchanged rules ending on a set piece or the named basic attack), as RUL-2026-11-01-092 anticipated for 414.",
+ "reason": "414 swaps the three live shared jutsu ids for the push/412 copies in the five Core Horror kits and rules; every other rule is unchanged. Kits equal push/432's re-equipped kits apart from the three swapped ids (checked). check_manifest.mjs: 0 pre-send problems.",
+ "sha256": "ba4c9ddb516f50804cc3682251d900da24c66c4887b6f99e35b2ec8867b8028b",
+ "accepted": [
+  "ERROR  [ai:Core Horror: Core Horror FX copies (4 rules re-pointed)]: law 41: with includeDefaultRules false the final rule must be unconditional (move_towards_opponent, end_turn or use_random_jutsu) with conditions: []. Either author that rule or set includeDefaultRules: true and let the engine append its own tail",
+  "ERROR  [ai:Rot-Touched Core Horror: Core Horror FX copies (4 rules re-pointed)]: law 41: with includeDefaultRules false the final rule must be unconditional (move_towards_opponent, end_turn or use_random_jutsu) with conditions: []. Either author that rule or set includeDefaultRules: true and let the engine append its own tail",
+  "ERROR  [ai:Steeping Horror: Core Horror FX copies (4 rules re-pointed)]: law 41: with includeDefaultRules false the final rule must be unconditional (move_towards_opponent, end_turn or use_random_jutsu) with conditions: []. Either author that rule or set includeDefaultRules: true and let the engine append its own tail",
+  "ERROR  [ai:Veteran Core Horror: Core Horror FX copies (4 rules re-pointed)]: law 41: with includeDefaultRules false the final rule must be unconditional (move_towards_opponent, end_turn or use_random_jutsu) with conditions: []. Either author that rule or set includeDefaultRules: true and let the engine append its own tail"
+ ]
+}
