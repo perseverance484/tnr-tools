@@ -87,7 +87,10 @@ export function lintManifest(manifest) {
     }
 
     if (it.entity === "jutsu") {
-      if (d.cooldown != null && d.cooldown < 3) E(it, `L16 cooldown ${d.cooldown} below floor 3`);
+      // L16 guards player jutsu against spam. AI-only jutsu (jutsuType "AI") can never be equipped by a player, and
+      // boss set pieces need exact-turn casts (RUL-2026-11-02-106), so the floor skips them. An edit that does not
+      // send jutsuType is still checked (the lint cannot see the live type).
+      if (d.cooldown != null && d.cooldown < 3 && d.jutsuType !== "AI") E(it, `L16 cooldown ${d.cooldown} below floor 3`);
       if (d.actionCostPerc != null && d.actionCostPerc > 70) W(it, `L10 EP ${d.actionCostPerc} above signature ceiling 70`);
     }
 
