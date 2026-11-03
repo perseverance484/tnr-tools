@@ -1663,7 +1663,7 @@ committed): 461 law 14 `preferredStat` only (the 417 class; Forge passes); 462 L
 (all 6 summon jutsu are `jutsuType: "AI"`); 463 law 14 and L08 damage-row products (Forge warns only); 464 and 465
 `validate.py --strict` 0/0, `check_manifest.mjs` exit 0.
 
-## 417-420 Uber key economy (RUL-2026-11-02-104, -105; rates RUL-2026-11-02-107): 418 RUN (tnr_results_1793718923305.json, 2/2), 419 RUN (tnr_results_1793718941187.json, 6/6) and 420 RUN (tnr_results_1793718972517.json, 11/11), 2026-11-03; Keel editor row pending; 417 RUN 2026-11-03 (tnr_results_1793716872408.json, 8/8 VERIFIED, manifest hash 7c24c825 = the committed final 417); 418-420 BUILT from it, READY TO RUN (418 → 419 → 420; 420 Monday-Thursday), then the Keel editor row
+## 417-420 Uber key economy (RUL-2026-11-02-104, -105; rates RUL-2026-11-02-107): 418 RUN (tnr_results_1793718923305.json, 2/2), 419 RUN (tnr_results_1793718941187.json, 6/6) and 420 RUN (tnr_results_1793718972517.json, 11/11), 2026-11-03; Keel editor row ADDED by the director (full Wreck, 15%, 2026-11-03); 417 RUN 2026-11-03 (tnr_results_1793716872408.json, 8/8 VERIFIED, manifest hash 7c24c825 = the committed final 417); 418-420 BUILT from it, READY TO RUN (418 → 419 → 420; 420 Monday-Thursday), then the Keel editor row
 
 Generator: `push/skyglass_uber_economy.gen.py` (do not hand-edit its outputs). Zero live requests. Source pin
 theninjarpg@3314d122. **Rebuilt 2026-11-02 for RUL-104/-105:** Salvage, The Glass Answers and the Stilled Echo are
