@@ -3,7 +3,7 @@
 **Status:** staged pilot workflow; no blanket item-replacement approval. **Lead:** Art Director; **support:** Image Production.
 **Routes from:** `docs/workflows/ART_PRODUCTION.md`; also apply `docs/workflows/ISOLATED_ART_GENERATION.md` for one-image sessions, `skills/producing-tnr-art/SKILL.md` for production, and `docs/design/premium_seichi_item_icons/V10_STYLE.md` for quality direction.
 
-This is an **ICON item.image** workflow. The numeric/format/chroma/alpha/client contract remains exclusively in `skills/producing-tnr-art/data/25x_DATA_art_spec.json`; the script below is offline staging, **not** a new art format or new live API. A replacement collection groups related items and proceeds one approved subject at a time. Final selection, redesign exceptions, image approval, family acceptance, and all live-game actions belong to the director.
+This is an **ICON item.image** workflow. The established premium Tatsumaki method is **code-assisted, layered pixel construction (no AI image generation)**, unless the director explicitly rules otherwise for a named subject. The isolated-art protocol supplies one-subject/QC/approval discipline, not permission to replace this method with generative artwork. The numeric/format/chroma/alpha/client contract remains exclusively in `skills/producing-tnr-art/data/25x_DATA_art_spec.json`; the script below is offline staging, **not** a new art format or new live API. A replacement collection groups related items and proceeds one approved subject at a time. Final selection, redesign exceptions, image approval, family acceptance, and all live-game actions belong to the director.
 
 ## Phase 1 — Intake and capture (required before art)
 

@@ -18,6 +18,10 @@ The director-supplied V10 composition depicts a long diagonally oriented silver 
 - **Acceptance scope:** the director's latest instruction designates V10.1 as the active *art-direction benchmark*; V10 is superseded. It does not approve additional icon subjects, derivative exports, family sheets or live wiring.
 - **Comparison role:** other previously approved individual item icons calibrate materials/family identity. The existing kunai plan's Bloodthorn reference is a family comparator, not an equal replacement for the V10.1 quality goal.
 
+## Production method for this premium lane
+
+**Code-assisted, layered, directly authored pixel art** is the established Tatsumaki pilot method. Do **not** use AI image generation to produce the premium item-icon replacement artwork in this lane unless the director expressly changes the method for an identified subject. Use deterministic rendering/editing scripts and deliberate cluster placement, preserve layered/native sources, and inspect the actual rasterized pixels. Generative imagery from unrelated general-purpose TNR art workflows is not a substitute for this production method. This restriction applies to replacement art; deterministic contact-sheet assembly is permitted.
+
 ## 2. Large / medium / small pixel-cluster hierarchy
 
 **Large clusters — composition and volume.** Block the weapon, grip, ring, energy mass and clean negative space into unmistakable shapes. Primary clusters describe the convex blade and twisted wind volumes; broad dark groups visually support the highlights. Form reads without microdetail. Preserve the weapon's recognizable silhouette even under the effects.
