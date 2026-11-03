@@ -95,6 +95,8 @@ export const MOE_DEFAULTS = {
   pullDist: 1, // Breathless Pull: hexes drawn toward her (the stun is the threat)
   pullCd: 4, // Breathless Pull mark cooldown (one flood cycle: mark, pull + flood mark, flood, one free turn)
   hushUnbridledCount: 3, // pools per Unbridled Hush (every turn)
+  /** Analysis only (pass 4): raise every cooldown below this to it (Forge L16 refuses jutsu cooldown < 3). 0 = off. */
+  cooldownFloor: 0,
   hushRounds: 8,
   feeler: { hp: 2500, power: 40, rounds: 8, listeningCd: 4 },
   likeness: { hp: 6000, power: 80, rounds: 3 },
@@ -300,6 +302,7 @@ export const buildRecords = (P: MoeParams) => {
   // Round 4 of the Long Hush: the C third falls and, unmarked, one Act II etching (the heart of the hall) is recast.
   gf(JID.glassRecast, 2, gfMk[0]!, PAT.etch.D!, "Glass falls, and the glass remembers one more etching.");
   for (const [id, t] of Object.entries(FINAL_TEXT)) if (J[id]) { J[id].battleDescription = t.line; if (t.name) J[id].name = t.name; }
+  if (P.cooldownFloor) for (const r of Object.values(J)) if (r.cooldown < P.cooldownFloor) r.cooldown = P.cooldownFloor;
   return J;
 };
 
@@ -984,7 +987,11 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
           const after = r.nextBattle.usersState.find((u: any) => u.userId === puid)!;
           const { danger, linger } = seenCells();
           const k = `${after.longitude},${after.latitude}`;
-          if (danger.has(k) || linger.has(k)) { actionId = tryAction("wait", pPos) ? "wait" : undefined; if (!actionId) b = r.nextBattle; }
+          // Pools are crossed to reach a target that is out of reach (a player walks through a pool rather than stall);
+          // a step onto a pool is refused only when the target is already within attack range (4).
+          const tgt = currentTarget ?? chooseTarget();
+          const needApproach = !!tgt && dist([after.longitude, after.latitude], [tgt.longitude, tgt.latitude]) < dist(pPos, [tgt.longitude, tgt.latitude]) && dist(pPos, [tgt.longitude, tgt.latitude]) > 4;
+          if (danger.has(k) || (linger.has(k) && !needApproach)) { actionId = tryAction("wait", pPos) ? "wait" : undefined; if (!actionId) b = r.nextBattle; }
           else b = r.nextBattle;
         } else b = r.nextBattle;
       }
