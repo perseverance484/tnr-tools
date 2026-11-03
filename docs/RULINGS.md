@@ -5660,3 +5660,19 @@ A loss pays nothing.
 **Evidence:** Director, 2026-11-03: "50,000 ryo, 1,000 exp. Rest is approved".
 
 **Canonical destination:** `push/mother_of_echoes.gen.py` (REWARD_EXP, REWARD_MONEY, TOKEN_PCT) and push/464/465.
+
+## RUL-2026-11-03-111 — Tatsumaki's Bellow V10.1 is the Premium Seichi item-icon benchmark
+
+**Date:** 2026-11-03
+
+**Domain:** art direction / item-icon overhaul
+
+**Status:** ACTIVE. Supersedes the earlier V10 visual-quality benchmark; does not grant subject-by-subject or live publication approval.
+
+**Ruling:** The director designates **Tatsumaki's Bellow V10.1** as the *new* premium item-icon illustrative pixel-craftsmanship benchmark. Earlier V10 remains historical comparison evidence only. Item overhauls preserve their own identities and are organized into coherent approved families/waves. This art-direction choice does not change the `ICON` mechanical/art spec or allow live-game writes. Each pilot, subsequent icon, family gallery, export and live upload retains its separate approval gate.
+
+**Provenance limitation:** V10.1 image/native bytes have not yet been provided or verified in the repository task. The initiating conversation's hashed 1254px PNG represents **V10**, not V10.1. Record V10.1's actual image hash and visually inspect its pixels before claiming a reproduced V10.1 match.
+
+**Evidence:** Director, 2026-11-03: "V10.1 is the new benchmark".
+
+**Canonical destination:** `docs/design/premium_seichi_item_icons/V10_STYLE.md`, `docs/workflows/ITEM_ICON_OVERHAUL.md`, and `docs/design/item_icon_overhaul/ITEM_ICON_REGISTER.md`.
