@@ -4,6 +4,11 @@
     python3 state/skyglass_economy/model.py                 # baseline + recommended, all CSVs in out/
     python3 state/skyglass_economy/model.py --quick         # fewer players (smoke test)
     python3 state/skyglass_economy/model.py --no-impacts    # skip the per-change isolated runs
+    python3 state/skyglass_economy/model.py --wreck-trim    # the director's Wreck floor trim (minutes_trim), out_trim/
+    python3 state/skyglass_economy/model.py --search        # drop-only shard rate search (RUL-104), prints a table
+
+RUL-2026-11-02-104: no Salvage; the shards drop only. RUL-2026-11-02-105: the Heartglass and The Remainder tokens
+each drop at 25% per uber clear (placeholder); no first-clear reward, no title.
 
 Inputs: state/skyglass_economy/inputs.json (every rate with its source); scenario overrides:
 state/skyglass_economy/recommended.json. Stdlib only, deterministic for a fixed seed. Zero live requests.
@@ -11,8 +16,8 @@ state/skyglass_economy/recommended.json. Stdlib only, deterministic for a fixed 
 Model
 - Time is continuous play hours; weekend = hours / hours_per_weekend of the player type. Inventory carries over between
   weekends (the event repeats every weekend). Nothing in the event is capped per day or per weekend.
-- Each step the player takes the first available action of `policy.priority`: craft a shard from Salvage, assemble an
-  Invitation (4 distinct shards, self-service), attempt the uber, run the best chart held (Lantern, tainted, steep or
+- Each step the player takes the first available action of `policy.priority`: enter the uber when holding one of each
+  shard (the four shards are its entry items, RUL-2026-11-02-100; the model bundles them as 'invitation' at entry), run the best chart held (Lantern, tainted, steep or
   run an Epic chart, Haul page, Rare charts, Common charts), else farm the Wreck (party of three; drops per member).
 - A run's ending drops and pick pay only on a clear; a failed run costs `fail_time_frac` of its minutes (the Wreck: its
   one-hour clock). Press-on rooms are free upside (a loss keeps the ending), so the player always presses on.
@@ -41,7 +46,7 @@ ENTRY_TO_ACT = {"chart_tide": "chart_tide", "chart_roster": "chart_roster", "cha
                 "chart_reliquary": "epic_reliquary", "chart_last_heading": "epic_fall",
                 "chart_rotted_reliquary": "tainted_rotted", "chart_rotted_heading": "tainted_burning",
                 "lantern": "crownhold", "haul_page": "haul", "invitation": "uber"}
-FLOW_ITEMS = ["salvage", "core_rot", "skyglass_token", "invitation", "remnant", "galley_stores", "coffer", "treasury",
+FLOW_ITEMS = ["core_rot", "skyglass_token", "invitation", "heartglass_token", "remainder_token", "galley_stores", "coffer", "treasury",
               "archive_chart_case", "unmarked_cargo"] + SHARDS + CHART_ITEMS
 
 
@@ -262,9 +267,6 @@ class Player:
         self.ff = V(I["global"]["fail_time_frac"])
         self.boss = V(I["goals"]["boss_variants"])
         self.skins = V(I["goals"]["skin_tokens"])
-        self.remainder_cost = V(I["proposed"]["remnant_recipes"]["remainder"])
-        self.shard_cost = V(I["proposed"]["salvage_exchanges"]["shard_any"])
-        self.shard_order = V(self.P["salvage_shard_order"])
         self.haul_mode = V(self.pt["haul_route"])
         self.steep_on = V(self.P["steep"])
         self.press_on = V(self.P["press_on"])
@@ -382,9 +384,10 @@ class Player:
                 self.uber_clears += 1
                 self.roll(a["on_clear"], "uber")
                 self.do_picks("uber")
-                if "heartglass" not in self.goals:
+                if "heartglass" not in self.goals and self.inv["heartglass_token"] >= 1:
                     self.goals["heartglass"] = self.t + m / 60
-                self.craft_remnants(m)
+                if "remainder" not in self.goals and self.inv["remainder_token"] >= 1:
+                    self.goals["remainder"] = self.t + m / 60
                 return m + self.oh
             return m * V(a["fail_time_frac"]) + self.oh
         # chart runs
@@ -424,15 +427,6 @@ class Player:
             self.give(a["map"][chart], 1, "steeping")
         return V(a["minutes"]) + self.oh
 
-    def craft_remnants(self, m):
-        R = self.I["proposed"]["remnant_recipes"]
-        if "remainder" not in self.goals and self.inv["remnant"] >= self.remainder_cost:
-            self.take("remnant", self.remainder_cost, "The Remainder")
-            self.goals["remainder"] = self.t + m / 60
-        elif V(R["heartglass_second_enabled"]) and self.inv["remnant"] >= V(R["heartglass_second"]):
-            self.take("remnant", V(R["heartglass_second"]), "second Heartglass")
-            self.inv["heartglass_second"] += 1
-
     def missing_shards(self):
         return [s for s in SHARDS if self.inv[s] < 1]
 
@@ -462,18 +456,11 @@ class Player:
         if self.try_trade():
             return 0.0
         for act in self.P["priority"]:
-            if act == "salvage_shard":
-                miss = self.missing_shards()
-                if miss and V(self.P["salvage_use"]) == "shards" and inv["salvage"] >= self.shard_cost:
-                    s = next((x for x in self.shard_order if x in miss), miss[0])
-                    self.take("salvage", self.shard_cost, f"exchange -> {s}")
-                    self.give(s, 1, "salvage exchange")
-                    return 0.0
-            elif act == "assemble":
+            if act == "assemble":
                 if all(inv[s] >= 1 for s in SHARDS):
                     for s in SHARDS:
                         self.take(s, 1, "Invitation assembly")
-                    self.give("invitation", 1, "assembly")
+                    self.give("invitation", 1, "one of each shard (uber entry)")
                     self.keys_made += 1
                     self.goals.setdefault("first_invitation", self.t)
                     return 0.0
@@ -581,11 +568,105 @@ def analytic_estimates(I, ptype, stats, H):
     rate = k * c
     est = {}
     if rate > 0:
-        est["heartglass"] = math.log(2) / rate
-        est["remainder"] = V(I["proposed"]["remnant_recipes"]["remainder"]) / rate
+        ph = sum(V(d["p"]) for d in I["activities"]["uber"]["on_clear"] if d["item"] == "heartglass_token")
+        if ph > 0:
+            est["heartglass"] = math.log(2) / (rate * ph)
+        pr = sum(V(d["p"]) for d in I["activities"]["uber"]["on_clear"] if d["item"] == "remainder_token")
+        if pr > 0:
+            est["remainder"] = math.log(2) / (rate * pr)
     if k > 0:
         est["first_invitation"] = 1.0 / k
     return {g: (h, h / H) for g, h in est.items()}
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# RUL-2026-11-02-104: drop-only shard rate search
+SHARD_SITES = {  # shard -> every drop line that carries it (dotted paths for apply_changes)
+    "shard_keel": ["activities.wreck_full.drops.[item=shard_keel].p"],
+    "shard_crown": ["activities.crownhold.drops.[item=shard_crown].p"],
+    "shard_tide": ["activities.epic_reliquary.drops.[item=shard_tide].p", "activities.epic_fall.drops.[item=shard_tide].p",
+                   "activities.epic_fall.press_on.win_drops.[item=shard_tide].p",
+                   "activities.tainted_rotted.drops.[item=shard_tide].p", "activities.tainted_burning.drops.[item=shard_tide].p"],
+    "shard_ledger": ["activities.haul.reserve_shard.p"],
+}
+
+
+def with_rates(I, rates):
+    """rates: {shard: integer percent}. Returns a copy of I with every drop line of each shard set."""
+    sets = {path: rates[s] / 100.0 for s, paths in SHARD_SITES.items() for path in paths}
+    return apply_changes(I, [{"id": "rates", "set": sets}])
+
+
+def wreck_trim(I):
+    I = copy.deepcopy(I)
+    for k in ("wreck_full", "wreck_faded"):
+        I["activities"][k]["minutes"] = I["activities"][k]["minutes_trim"]
+    return I
+
+
+def first_key(I, ptype, n, seed, cap_hours=300.0):
+    """Hours to first holding one of each shard (the uber's entry), and to each shard's first copy."""
+    rng = random.Random(seed)
+    key, first = [], {s: [] for s in SHARDS}
+    for _ in range(n):
+        p = Player(I, ptype, False, rng)
+        seen = {}
+        while p.t < cap_hours and "first_invitation" not in p.goals:
+            p.t += p.step() / 60.0
+            for s in SHARDS:
+                if s not in seen and p.inv[s] >= 1:
+                    seen[s] = p.t
+        key.append(p.goals.get("first_invitation"))
+        for s in SHARDS:
+            first[s].append(seen.get(s))
+    return key, first
+
+
+def shard_rates_per_hour(I, ptype, n, seed, hours=60.0):
+    """Shard copies per play hour per 1.0 of drop chance (uber off), so rate x this = expected shards per hour."""
+    J = copy.deepcopy(I)
+    J["policy"]["priority"] = [a for a in J["policy"]["priority"] if a not in ("assemble", "uber")]
+    J = with_rates(J, {s: 100 for s in SHARDS})
+    rng = random.Random(seed)
+    got, H = defaultdict(float), 0.0
+    for _ in range(n):
+        p = Player(J, ptype, False, rng)
+        while p.t < hours:
+            p.t += p.step() / 60.0
+        for s in SHARDS:
+            got[s] += p.inv[s]
+        H += p.t
+    return {s: got[s] / H for s in SHARDS}
+
+
+def search(I0, grid, n, seed, label):
+    rows = []
+    unit = {pt: shard_rates_per_hour(I0, pt, n, seed) for pt in I0["player_types"]}
+    for keel in grid["shard_keel"]:
+        for crown in grid["shard_crown"]:
+            for tide in grid["shard_tide"]:
+                for ledger in grid["shard_ledger"]:
+                    rates = {"shard_keel": keel, "shard_crown": crown, "shard_tide": tide, "shard_ledger": ledger}
+                    I = with_rates(I0, rates)
+                    row = {"case": label, "keel": keel, "crown": crown, "tide": tide, "ledger": ledger}
+                    for pt in I0["player_types"]:
+                        H = V(I0["player_types"][pt]["hours_per_weekend"])
+                        key, first = first_key(I, pt, n, seed)
+                        s = summarize(key, H, 300.0)
+                        row[f"{pt}_p50_wk"] = fmt(s["p50_weekends"]) if s["p50_weekends"] is not None else ">cap"
+                        row[f"{pt}_p90_wk"] = fmt(s["p90_weekends"]) if s["p90_weekends"] is not None else ">cap"
+                        lam = {sh: unit[pt][sh] * rates[sh] / 100.0 for sh in SHARDS}
+                        if pt == "dedicated":
+                            for sh in SHARDS:
+                                row[f"ded_{sh[6:]}_per_wk"] = fmt(lam[sh] * H)
+                            rare = min(SHARDS, key=lambda sh: lam[sh])
+                            row["ded_rarest"] = rare[6:]
+                            row["ded_rarest_p90_first_wk"] = fmt(pct([v if v is not None else 1e9 for v in first[rare]], 0.9) / H)
+                            # dry streak: chance a dedicated player gets none of the rarest shard in a whole weekend
+                            row["ded_rarest_dry_weekend_pct"] = fmt(100.0 * math.exp(-lam[rare] * H), 1)
+                            row["ded_rarest_dry_3_weekends_pct"] = fmt(100.0 * math.exp(-3 * lam[rare] * H), 1)
+                    rows.append(row)
+    return rows, unit
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -703,8 +784,25 @@ def main():
     ap.add_argument("--changes", default=os.path.join(HERE, "recommended.json"))
     ap.add_argument("--quick", action="store_true")
     ap.add_argument("--no-impacts", action="store_true")
+    ap.add_argument("--wreck-trim", action="store_true", help="Wreck minutes = minutes_trim; outputs to out_trim/")
+    ap.add_argument("--search", action="store_true", help="drop-only shard rate grid (search_grid.json) -> rate_search.csv")
     a = ap.parse_args()
+    global OUT
     I0 = json.load(open(a.inputs))
+    if a.wreck_trim:
+        I0 = wreck_trim(I0)
+        OUT = os.path.join(HERE, "out_trim")
+    if a.search:
+        g = json.load(open(os.path.join(HERE, "search_grid.json")))
+        os.makedirs(OUT, exist_ok=True)
+        rows, unit = search(I0, g["grid"], V(g["players"]), V(I0["sim"]["seed"]), "trim" if a.wreck_trim else "current")
+        write_csv(os.path.join(OUT, "rate_search.csv"), rows)
+        with open(os.path.join(OUT, "shard_units.json"), "w") as f:
+            json.dump({"_about": "shard copies per play hour at a 100% drop chance (uber off), per player type",
+                       "units": unit}, f, indent=1)
+            f.write("\n")
+        print(f"{len(rows)} rate sets -> {os.path.relpath(os.path.join(OUT, 'rate_search.csv'), HERE)}", file=sys.stderr)
+        return
     S = I0["sim"]
     n, cap, seed = V(S["players"]), V(S["cap_hours"]), V(S["seed"])
     fn, fw = V(S["flow_players"]), V(S["flow_weekends"])

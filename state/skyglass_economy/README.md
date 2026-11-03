@@ -1,5 +1,52 @@
 # Skyglass economy model
 
+## RUL-2026-11-02-104 re-run: no Salvage, drop-only shards (2026-11-02)
+
+What changed (inputs.json is now the RUL-104 baseline; the original pre-104 analysis below is kept for history):
+- **Salvage is gone** (drops, exchanges, uber Salvage). **No Invitation item:** the model's `invitation` is one of
+  each shard, bundled at the uber's entry (RUL-100 item 1).
+- **Tokens:** Heartglass and The Remainder each drop at 25% per uber clear (placeholder; RUL-100/-102/-105). No
+  Remnants, no first-clear reward, no title.
+- **"current"** = the RUL-099 rates (Keel 4%, Crown 40%, Tide 25%, Ledger 15% per clear) without Salvage.
+  **"recommended"** = `recommended.json` S1-S4.
+- `model.py --search [--wreck-trim]` runs the rate grid in `search_grid.json` (400 players per cell, first entry only)
+  -> `out/rate_search.csv` (`out_trim/` for the trim). `--wreck-trim` uses `minutes_trim` (full Wreck 16 min, Faded
+  13 min: the director's ~30% floor trim, which may or may not be live).
+
+**Finding: the RUL-096 targets cannot be met by drops alone at any legal rate.** The targets are the same number of
+play hours for all three types (~12 h: 4×3, 1-2×10, <25). Crownhold is Lantern-gated at about **0.067 clears per play
+hour** for every type (`out/shard_units.json`), so even a 100% Crown drop gives a median of ~10 h for that shard alone,
+and the key waits on the last of four. The Tide is next (0.13 Epic/tainted clears an hour; steeping eats the Epic
+charts). Best grid result, all rates at most 100%: casual p50 ~6.5 weekends (current Wreck) / ~5.3 (trim). Reaching 4
+needs more Crownhold runs (Lantern supply) or a second Crown source; that is the director's call.
+
+**Recommended (S1-S4): Keel 15%, Crown 100%, Tide 75%, Ledger 35%** (best casual pace on the grid in both cases; the
+Crown is the wall, the others sit just above it). First entry, no trade, weekends p50 / p90:
+
+Full run (`out/time_to_goal.csv`, `out_trim/time_to_goal.csv`, seed 20261101, 400 players), first entry, weekends
+p50 / p90, no trade (with trade in brackets):
+
+| Wreck time | Casual (3 h) | Dedicated (10 h) | Hardcore (25 h) |
+|---|---|---|---|
+| current (23 min), S1-S4 | 6.8 / 16.5 (1.9 / 3.1) | 2.0 / 4.5 (0.54 / 0.89) | 0.90 / 2.0 (0.24 / 0.40) |
+| trim (16 min), S1-S4 | 5.2 / 12.8 (1.4 / 2.4) | 1.5 / 3.5 (0.43 / 0.73) | 0.76 / 1.7 (0.20 / 0.31) |
+| current, RUL-099 rates | 16.4 / 37.9 (5.2 / 8.4) | 4.7 / 11.3 (1.55 / 2.5) | 2.5 / 5.1 (0.72 / 1.15) |
+
+Rarest shard for a dedicated player at S1-S4 is the Crown (`rate_search.csv`): 0.67 a weekend (trim 0.82); p90 to the
+first copy 3.8 weekends (trim 3.0); 51% of weekends bring none (trim 44%), 13% of three-weekend stretches bring none
+(trim 8.5%).
+
+**Tokens (25% each per clear, RUL-105):** at the brief's uber clear rates (3 / 5 / 15%) each token is a long chase:
+dedicated with trade ~26-28 weekends median, hardcore no trade ~13 (with trade ~4.5); casual effectively never without
+trade. The uber clear rate, not the drop, dominates.
+
+Dedicated shards a weekend at S1-S4 (current Wreck): Keel 2.5, Crown 0.67, Tide 1.02, Ledger 1.27. The fully equal
+set (Keel 4, Crown 100, Tide 50, Ledger 18: ~0.66 each) is slower (casual 10.0 wk, dedicated 3.0) because four equal
+walls compound; the director's starting points (10/50/35/25) give casual 10.8, dedicated 3.25, hardcore 1.56.
+Trade (the pity) is in `out/time_to_goal.csv` ("with trade").
+
+---
+
 A model of the whole Skyglass event economy you can rerun, built so the director can retune any rate and see time-to-goal for three
 player types. This is analysis only: it made zero live requests and used no credentials. Nothing in `push/` or any manifest changed.
 

@@ -1,0 +1,29 @@
+id,change,parameters,before,after,rationale,isolated_dedicated_first_invitation_p50_hours
+S1,Shard of the Keel 4% -> 15% per full Wreck clear,"{""activities.wreck_full.drops.[item=shard_keel].p"": 0.15}",4%,15%,"Not the wall: with Crown at its ceiling the Keel barely moves the key (rate_search.csv), but 15% gives 2.5 a dedicated weekend so duplicates feed trade, the pity (RUL-104 item 2).",40.4
+S2,Shard of the Crown 40% -> 100% per Crownhold clear,"{""activities.crownhold.drops.[item=shard_crown].p"": 1.0}",40%,100%,"Crownhold is Lantern-gated: about 0.067 clears per play hour for every player type, so even 100% gives only 0.68 Crown shards a dedicated weekend. The Crown is the wall at any legal rate; the pacing targets are out of reach without more Crownhold runs (see README).",34.3
+S3,"Shard of the Tide 25% -> 75% (Sealed Reliquary, The Fall, both Rotted runs)","{""activities.epic_reliquary.drops.[item=shard_tide].p"": 0.75, ""activities.epic_fall.drops.[item=shard_tide].p"": 0.75, ""activities.epic_fall.press_on.win_drops.[item=shard_tide].p"": 0.75, ""activities.tainted_rotted.drops.[item=shard_tide].p"": 0.75, ""activities.tainted_burning.drops.[item=shard_tide].p"": 0.75}",25%,75%,"Epic and tainted runs are scarce (steeping eats the Epic charts): 0.13 clears an hour. 75% puts the Tide just above the Crown (0.98 a dedicated weekend), so the Tide is not a second wall.",27.2
+S4,Shard of the Ledger 15% -> 35% per Haul clear,"{""activities.haul.reserve_shard.p"": 0.35}",15%,35%,"1.27 a dedicated weekend; the hardcore Reserve-chasing route clears fewer Hauls (0.17 an hour at 100% against 0.36), and 35% keeps its p50 under one weekend.",35.6
+RESULT,casual / first_invitation / no trade,,"p50 12.65 wk, p90 29.19 wk (est 10.73)","p50 5.21 wk, p90 12.83 wk (est 4.16)","Monte Carlo, all recommended changes together",
+RESULT,casual / first_invitation / with trade,,"p50 4.24 wk, p90 6.68 wk (est 4.09)","p50 1.39 wk, p90 2.36 wk (est 1.43)","Monte Carlo, all recommended changes together",
+RESULT,casual / heartglass / no trade,,"p50 >cap wk, p90 >cap wk (est 991.67)","p50 >cap wk, p90 >cap wk (est 384.35)","Monte Carlo, all recommended changes together",
+RESULT,casual / heartglass / with trade,,"p50 >cap wk, p90 >cap wk (est 378.00)","p50 128.74 wk, p90 >cap wk (est 132.31)","Monte Carlo, all recommended changes together",
+RESULT,casual / remainder / no trade,,"p50 >cap wk, p90 >cap wk (est 991.67)","p50 >cap wk, p90 >cap wk (est 384.35)","Monte Carlo, all recommended changes together",
+RESULT,casual / remainder / with trade,,"p50 >cap wk, p90 >cap wk (est 378.00)","p50 131.45 wk, p90 >cap wk (est 132.31)","Monte Carlo, all recommended changes together",
+RESULT,casual / all_variants / no trade,,"p50 >cap wk, p90 >cap wk (est )","p50 >cap wk, p90 >cap wk (est )","Monte Carlo, all recommended changes together",
+RESULT,casual / all_variants / with trade,,"p50 >cap wk, p90 >cap wk (est )","p50 >cap wk, p90 >cap wk (est )","Monte Carlo, all recommended changes together",
+RESULT,dedicated / first_invitation / no trade,,"p50 3.87 wk, p90 8.27 wk (est 3.23)","p50 1.49 wk, p90 3.50 wk (est 1.26)","Monte Carlo, all recommended changes together",
+RESULT,dedicated / first_invitation / with trade,,"p50 1.25 wk, p90 2.07 wk (est 1.23)","p50 0.43 wk, p90 0.73 wk (est 0.43)","Monte Carlo, all recommended changes together",
+RESULT,dedicated / heartglass / no trade,,"p50 >cap wk, p90 >cap wk (est 178.89)","p50 >cap wk, p90 >cap wk (est 69.87)","Monte Carlo, all recommended changes together",
+RESULT,dedicated / heartglass / with trade,,"p50 >cap wk, p90 >cap wk (est 68.32)","p50 30.94 wk, p90 >cap wk (est 23.89)","Monte Carlo, all recommended changes together",
+RESULT,dedicated / remainder / no trade,,"p50 >cap wk, p90 >cap wk (est 178.89)","p50 >cap wk, p90 >cap wk (est 69.87)","Monte Carlo, all recommended changes together",
+RESULT,dedicated / remainder / with trade,,"p50 >cap wk, p90 >cap wk (est 68.32)","p50 24.61 wk, p90 >cap wk (est 23.89)","Monte Carlo, all recommended changes together",
+RESULT,dedicated / all_variants / no trade,,"p50 >cap wk, p90 >cap wk (est )","p50 >cap wk, p90 >cap wk (est )","Monte Carlo, all recommended changes together",
+RESULT,dedicated / all_variants / with trade,,"p50 >cap wk, p90 >cap wk (est )","p50 >cap wk, p90 >cap wk (est )","Monte Carlo, all recommended changes together",
+RESULT,hardcore / first_invitation / no trade,,"p50 1.97 wk, p90 3.94 wk (est 1.45)","p50 0.76 wk, p90 1.67 wk (est 0.57)","Monte Carlo, all recommended changes together",
+RESULT,hardcore / first_invitation / with trade,,"p50 0.59 wk, p90 0.97 wk (est 0.58)","p50 0.20 wk, p90 0.31 wk (est 0.20)","Monte Carlo, all recommended changes together",
+RESULT,hardcore / heartglass / no trade,,"p50 23.85 wk, p90 >cap wk (est 26.81)","p50 10.91 wk, p90 >cap wk (est 10.54)","Monte Carlo, all recommended changes together",
+RESULT,hardcore / heartglass / with trade,,"p50 10.67 wk, p90 >cap wk (est 10.69)","p50 3.65 wk, p90 11.58 wk (est 3.62)","Monte Carlo, all recommended changes together",
+RESULT,hardcore / remainder / no trade,,"p50 >cap wk, p90 >cap wk (est 26.81)","p50 12.44 wk, p90 >cap wk (est 10.54)","Monte Carlo, all recommended changes together",
+RESULT,hardcore / remainder / with trade,,"p50 11.23 wk, p90 >cap wk (est 10.69)","p50 3.56 wk, p90 11.08 wk (est 3.62)","Monte Carlo, all recommended changes together",
+RESULT,hardcore / all_variants / no trade,,"p50 >cap wk, p90 >cap wk (est )","p50 >cap wk, p90 >cap wk (est )","Monte Carlo, all recommended changes together",
+RESULT,hardcore / all_variants / with trade,,"p50 >cap wk, p90 >cap wk (est )","p50 23.46 wk, p90 >cap wk (est )","Monte Carlo, all recommended changes together",
