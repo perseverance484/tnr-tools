@@ -1510,9 +1510,11 @@ built, gates clean, READY TO RUN.
 
 433 ran on 2026-11-03 and was paused by the director at idx 70 (bundles `tnr_results_1793716963666.json` /
 `tnr_results_1793716966572.json`, the same job). Where it stopped:
-- **412 part (7 items): FAILED.** The 4 animation uploads were refused with "The quota has been exceeded." (the image
-  host's upload quota), so the 3 jutsu copies that reference them could not resolve. Nothing was created. 412 is re-run
-  on its own once upload quota is available; 413/414 wait for it.
+- **412 part (7 items): FAILED.** The 4 animation creates stopped with "The quota has been exceeded.": the BROWSER's
+  storage for Forge is full (the image pack is cached locally before upload; same error and fix as
+  `docs/handoffs/SKYGLASS_SESSION_HANDOFF_2026-10-25.md` §5). Nothing was sent, so the 3 jutsu copies that reference
+  them could not resolve. Fix: clear finished jobs in Forge, then re-run 412 on its own (dedupNames stops duplicates);
+  413/414 follow from its bundle.
 - **430 (50 AI unequips): all VERIFIED.** The 17 jutsu are OFF all 50 holders right now.
 - **431: 13 of 17 jutsu edits VERIFIED.** Still to do: Omen: Three-Plank Line, Spreading Fire I, II and III.
 - **432 (50 re-equips): not run.**
@@ -1523,7 +1525,7 @@ the paused 433 job in Forge first, then run 434.** Gates: `check_manifest.mjs` 0
 --strict` 4 diagnostics (the accepted all-60-AP Sealwright class), held by
 `state/validate_exceptions/434_mark_fix_resume.json`. After it runs: read back each holder's jutsu list.
 
-## 433 MASTER manifest, 2026-11-02 (412 + 430 + 431 + 432 in one run): RUN 2026-11-03, PAUSED at idx 70; resumed by 434 (412 failed: upload quota)
+## 433 MASTER manifest, 2026-11-02 (412 + 430 + 431 + 432 in one run): RUN 2026-11-03, PAUSED at idx 70; resumed by 434 (412 failed: browser storage full)
 
 Built by `push/master_manifest.gen.py` (copies its sources unchanged except phase numbers; do not hand-edit). One
 run in place of 412, then 430, 431, 432. **Run either 433 OR the four separate manifests, never both.**
