@@ -126,6 +126,11 @@ TOKENS = [  # (key, variant/token name, base name, base id, token story, variant
      "hangs unmoving where its arrows pass.", PLACEHOLDER),
 ]
 
+# RUL-2026-11-02-102: quest rewards have no once-per-player flag (validators/base.ts:20-28), so The Remainder can drop
+# again after it is unlocked. Its token trades so a duplicate is worth something; Heartglass stays untradeable.
+TRADEABLE_TOKENS = {"remainder"}
+TRADE_NOTE = "<br>Tradeable: you only ever need one, so sell the rest."
+
 Q_NAME = "The Glass Answers"
 Q_DESC = (f"Lay {COST} Salvage on the glass floor of the Core chamber. The skyglass in it hums, and far below, in the "
           "Mother Glass, something answers.\n\n"
@@ -163,8 +168,10 @@ def items():
     # ~1999-2008). The noncombatquest effect is added by 418 (the quest id does not exist yet).
     out.append(IT.create(PFX + "salvage", "Salvage", SALVAGE_DESC, "COMMON", "CONSUMABLE", False, battle="Salvage"))
     for key, v, base, _bid, story, _vdesc, _img in TOKENS:
-        out.append(IT.create(PFX + key, v, TOKEN_TMPL.format(story=story, v=v, base=base), "LEGENDARY", "CONSUMABLE",
-                             False, [IT._token_effect()], battle="Variant token"))
+        trade = key in TRADEABLE_TOKENS
+        desc = TOKEN_TMPL.format(story=story, v=v, base=base) + (TRADE_NOTE if trade else "")
+        out.append(IT.create(PFX + key, v, desc, "LEGENDARY", "CONSUMABLE",
+                             trade, [IT._token_effect()], battle="Variant token"))
     return out
 
 
@@ -261,7 +268,7 @@ def build_create():
     write(NUM, "skyglass_uber_economy", (
         f"push/{NUM}, all HIDDEN (RUL-2026-11-02-100). Phase 1: the four Invitation shards (tradeable, no effect; the "
         "Mother of Echoes quest takes one of each as entryItems), Salvage (untradeable; its use effect comes in "
-        f"push/{LINK}), the Heartglass and The Remainder variant tokens (untradeable, variantId null until push/{LINK}), "
+        f"push/{LINK}), the Heartglass (untradeable) and The Remainder (tradeable, RUL-102) variant tokens (variantId null until push/{LINK}), "
         "and the Stilled Echo AI (level 1, no jutsu, one end_turn rule). Phase 2: the Heartglass variant on The "
         "Unwritten and The Remainder on Ink of the Void (variants have no hidden state: each shows as 'Need <token>' "
         f"from this run). Phase 3: the special quest {Q_NAME} ({ENTRY} Salvage entry + the used one = {COST}; pick a "

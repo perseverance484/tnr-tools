@@ -5491,3 +5491,19 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02: "1. Yes 2. Readable for 1 round".
 
 **Canonical destination:** `docs/design/SKYGLASS_BOSS_ANIMATIONS.md`. Its renderer description is out of date: the pin uses the pixi renderer, `libs/rendering/scenes/combatEffects.ts`, not three.js.
+
+## RUL-2026-11-02-102 — The Remainder's token is tradeable
+
+**Date:** 2026-11-02
+
+**Domain:** Skyglass event / uber rewards
+
+**Status:** ACTIVE. Amends RUL-2026-11-01-096 item 2 (variant tokens untradeable) for The Remainder only, and RUL-2026-11-02-100 item 3.
+
+**Why:** quest `reward_items` have no once-per-player flag (theninjarpg@3314d122 `validators/base.ts:20-28`; `onlyOnce` exists only on dungeon drops), and items have no ownership cap. The 25% Remainder drop therefore repeats after the variant is unlocked.
+
+**Ruling:** The Remainder variant token is **tradeable**, so a duplicate is worth something; its description says only one is ever needed. Heartglass, the first-clear token, stays untradeable as the proof of a clear. Built in push/417, regenerated.
+
+**Evidence:** Director, 2026-11-02, choosing option A ("Make The Remainder token tradeable").
+
+**Canonical destination:** `push/skyglass_uber_economy.gen.py` (TRADEABLE_TOKENS) and the design doc's Rewards section.
