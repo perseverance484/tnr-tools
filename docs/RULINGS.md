@@ -5550,3 +5550,20 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02: "Honestly ditch the whole salvage thing. Needlessly complicated." Then option A: "keep the four shards, drops only, with higher rates".
 
 **Canonical destination:** `push/skyglass_uber_economy.gen.py` and the economy model (`fable/skyglass-economy-model`).
+
+## RUL-2026-11-02-105 — Uber rewards: both variant tokens farmable and tradeable; no title; proper move names
+
+**Date:** 2026-11-02
+
+**Domain:** Skyglass event / uber rewards and naming
+
+**Status:** ACTIVE. Supersedes the first-clear Heartglass and the title "The Unstilled" (RUL-2026-11-01-095, -100 item 3) and RUL-2026-11-02-102's "Heartglass stays untradeable".
+
+**Ruling:**
+1. **Both tokens drop on every clear and both trade.** The Heartglass and The Remainder tokens drop on every uber clear, at a placeholder of 25% each, and both are tradeable. There are no first-clear rewards and no title.
+2. **Exp and ryo per clear** are set later by the director (placeholder for now).
+3. **Every uber jutsu and AI gets a proper, unique name** with no numerals. The names go to the director for approval before 440 is regenerated.
+
+**Evidence:** Director, 2026-11-02: "Just make heartglass and remainder tokens that can be farmed and traded. Forget the title."; names "Proper ones."; rewards "Later".
+
+**Canonical destination:** `push/mother_of_echoes.gen.py`, `push/skyglass_uber_economy.gen.py`, and the design doc's Rewards section.
