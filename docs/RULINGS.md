@@ -5574,7 +5574,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 
 **Domain:** Forge tooling (Lane A) / boss authoring
 
-**Status:** ACTIVE once the independent review passes. The implementation is on `fable/forge-l16-ai-exempt` (base b31d50ed, head 05f476fa), pending ChatGPT review.
+**Status:** ACTIVE. Reviewed and approved at c2c5f68b by ChatGPT, 2026-11-03 (the first review of 05f476fa found the missing loader release-pending marker; fixed). Merged to main at 1deff89d (base 354d5eba).
 
 **Ruling:** The L16 cooldown floor of 3 applies to player jutsu only. Jutsu with `jutsuType: "AI"` are exempt, because no player can equip them and boss set pieces need casts on exact turns (the Mother of Echoes etching and recast cycles; 35 of its jutsu have cooldowns under 3).
 - Edits that don't send `jutsuType` are still checked.
