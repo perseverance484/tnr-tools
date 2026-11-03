@@ -23,7 +23,7 @@ This is an **ICON item.image** workflow. The numeric/format/chroma/alpha/client 
      --capture harvests/inbox/<capture-bundle>.json \
      --out work/item_icon_overhaul/W01 --require-complete
    ```
-   Repeat `--capture` for multiple source bundles. Outputs `roster.json` and `roster.csv`, recording source hash, snapshot/capture time, exact image URL and missing/conflict states. `--require-complete` exits nonzero when a candidate lacks exact confirmed `item.get` evidence. A miss means **not captured**, never **absent live**. Different images/names for the same ID are a **CONFLICT**, not silently reconciled.
+   Repeat `--capture` for multiple source bundles; **omit it for an initial no-capture draft** (all rows become `CAPTURE_MISSING`). Outputs `roster.json` and `roster.csv`, recording source hash, snapshot/capture time, exact image URL and missing/conflict states. `--require-complete` exits nonzero when a candidate lacks exact confirmed `item.get` evidence. A miss means **not captured**, never **absent live**. Different images/names for the same ID are a **CONFLICT**, not silently reconciled.
 6. **Materialize source image bytes only through the established, separately authorized artifact process.** Save each source image locally, hash it, and record exact URL + file/SHA mapping. The roster helper never fetches images and never calls the game or CDN. Keep raw source bytes in the wave archive when permitted. Create an image-map JSON `{"<item-id>": {"path":"<local-image-file>","sha256":"<actual-sha256>"}}` with explicit IDs and run:
    ```bash
    python3 skills/producing-tnr-art/scripts/item_icon_batch.py sheet \
@@ -35,9 +35,9 @@ This is an **ICON item.image** workflow. The numeric/format/chroma/alpha/client 
 
 ## Phase 2 — Benchmark, identity lock and pilot
 
-1. Study the *individual* current icon, then the *individual* Tatsumaki V10 benchmark (quality/style only), then the family references. Explicitly label every reference's role. A contact sheet is for collection QC only; **never attach a sheet as an image-generation reference**.
+1. Study the *individual* current icon, then the *individual* Tatsumaki V10.1 benchmark (quality/style only), then the family references. **V10.1 bytes are not yet pinned in the workstream:** pause benchmark-conditioned pilot production until the actual revision is supplied, hashed and visually inspected. Never substitute the known V10 PNG under the V10.1 label. Explicitly label every reference's role. A contact sheet is for collection QC only; **never attach a sheet as an image-generation reference**.
 2. Write each item identity lock: exact item/ID, captured current URL/hash, core silhouette/anatomy, orientation, material/element, heritage motif, reserved family relationship, disallowed features and allowed changes. The prior elemental-kunai redesign concept is a **proposal**; it does not overrule identity preservation without director acceptance.
-3. Choose one pilot (proposed: Ikazuchi). Make a single authored pixel-art candidate at a time. Code-assisted/layered production is valid; do not auto-pixelate a smooth painting. Use the V10 large/medium/small clusters, hue-shifted materials, sculptural energy and material/effect bounce.
+3. Choose one pilot (proposed: Ikazuchi). Make a single authored pixel-art candidate at a time. Code-assisted/layered production is valid; do not auto-pixelate a smooth painting. Use the V10.1 large/medium/small clusters, hue-shifted materials, sculptural energy and material/effect bounce.
 4. Judge its native clusters plus 125/64/32 views and material transparency. Present for **explicit director pilot approval**. Do not extrapolate approval to the rest of the set. Archive original layered/native source and accepted raw, with SHA-256 and provenance before batch production.
 
 ## Phase 3 — Batch execution, sequential gates
