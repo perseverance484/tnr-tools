@@ -5567,3 +5567,20 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02: "Just make heartglass and remainder tokens that can be farmed and traded. Forget the title."; names "Proper ones."; rewards "Later".
 
 **Canonical destination:** `push/mother_of_echoes.gen.py`, `push/skyglass_uber_economy.gen.py`, and the design doc's Rewards section.
+
+## RUL-2026-11-02-106 — Forge/validate L16 cooldown floor exempts AI-only jutsu
+
+**Date:** 2026-11-02
+
+**Domain:** Forge tooling (Lane A) / boss authoring
+
+**Status:** ACTIVE once the independent review passes. The implementation is on `fable/forge-l16-ai-exempt` (base b31d50ed, head 05f476fa), pending ChatGPT review.
+
+**Ruling:** The L16 cooldown floor of 3 applies to player jutsu only. Jutsu with `jutsuType: "AI"` are exempt, because no player can equip them and boss set pieces need casts on exact turns (the Mother of Echoes etching and recast cycles; 35 of its jutsu have cooldowns under 3).
+- Edits that don't send `jutsuType` are still checked.
+- The rule is mirrored in `validate.py`'s port of L16.
+- The alternative, raising every boss cooldown to 3 and retuning, was declined. It weakened the memory mechanic and made the fight easier (skilled clears 15% → 25%).
+
+**Evidence:** Director, 2026-11-02, choosing option 1 ("Exempt boss-only moves from L16").
+
+**Canonical destination:** `forge/src/runner/lints.mjs` and `skills/building-tnr-content/scripts/validate.py` (L16).
