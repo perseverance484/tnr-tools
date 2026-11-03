@@ -1663,7 +1663,7 @@ committed): 461 law 14 `preferredStat` only (the 417 class; Forge passes); 462 L
 (all 6 summon jutsu are `jutsuType: "AI"`); 463 law 14 and L08 damage-row products (Forge warns only); 464 and 465
 `validate.py --strict` 0/0, `check_manifest.mjs` exit 0.
 
-## 417-420 Uber key economy (RUL-2026-11-02-104, -105; rates approved RUL-2026-11-02-107): 417 READY TO RUN; 418-420 built from 417's results
+## 417-420 Uber key economy (RUL-2026-11-02-104, -105; rates RUL-2026-11-02-107): 417 RUN 2026-11-03 (tnr_results_1793716872408.json, 8/8 VERIFIED, manifest hash 7c24c825 = the committed final 417); 418-420 BUILT from it, READY TO RUN (418 → 419 → 420; 420 Monday-Thursday), then the Keel editor row
 
 Generator: `push/skyglass_uber_economy.gen.py` (do not hand-edit its outputs). Zero live requests. Source pin
 theninjarpg@3314d122. **Rebuilt 2026-11-02 for RUL-104/-105:** Salvage, The Glass Answers and the Stilled Echo are
@@ -1713,7 +1713,7 @@ on each; 420 asserted identical to its sources except the added drop lines.
 |---|---|---|
 | 415 | READY TO RUN; strict 0/0, check_manifest 0 problems | 1 itemVariant edit: Starfall → Stargazer (variant `1yWEP0r3elIzyScORfot4` of Ink of the Void `wE1QeldWTjls2Cf43cFjf`), name only |
 
-## 411-414 Core Horror FX copies (RUL-2026-11-01-092; renumbered from 401-404, which a concurrent session used for Zombie Outbreak): 411 RUN (tnr_results_1793626474374, 3/3 reads ok); 412 RUN 2026-11-03 (tnr_results_1793718189806.json, 7/7 VERIFIED, after the browser-storage failures); 413-414 BUILT from it, READY TO RUN (413 then 414; 414 Monday-Thursday)
+## 411-414 Core Horror FX copies (RUL-2026-11-01-092; renumbered from 401-404, which a concurrent session used for Zombie Outbreak): 411 RUN (tnr_results_1793626474374, 3/3 reads ok); 412 RUN 2026-11-03 (tnr_results_1793718189806.json, 7/7 VERIFIED, after the browser-storage failures); 413 RUN (tnr_results_1793718360729.json, 4/4 VERIFIED) and 414 RUN (tnr_results_1793718376068.json, 5/5 VERIFIED), 2026-11-03
 
 | # | Build | Contents |
 |---|---|---|
