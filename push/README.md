@@ -2364,3 +2364,22 @@ Built from push/405 (`tnr_results_1793572053979`); replaces 402 and 404 (built f
 
 The build-order warning is deliberate: the unequip phase comes before the item edit (law 18). Read-backs follow.
 
+
+## 441 Nightfall and Dawnbringer skins
+
+`441_dusk_dawn_variants.json`, from `push/dusk_dawn_variants.gen.py` (director, 2026-11-03). Two new crafted
+sidegrade swords host 12 token-locked skins, so Night's Testament and Aetherion keep their own variant slots.
+- **Nightfall** = stat clone of Night's Testament; crafted from Night's Testament + 10 Umbral Shards. 7 skins (full):
+  Duskshroud, Thundermourn, Cinderfang, Gravewhisper, Violet Vespers, Rimecleaver, Deepcurrent.
+- **Dawnbringer** = stat clone of Aetherion; crafted from Aetherion + 10 Aurora Shards. 5 skins, 2 slots open:
+  Solstice, Starward, Prismheart, Scarab's Oath, Verdant Vow.
+- One tradeable 1:1 token per skin (the skin icon is the token icon). No bloodline gate.
+- Everything is created **hidden**. Not in this manifest: boss loot wiring for the shards and tokens, and the unhide.
+- Shard icons are the engine placeholder until shard art exists.
+- The craft consumes the base sword even if it is equipped (crafting ignores the equip slot); the sword descriptions
+  say so.
+
+Then run `python3 push/dusk_dawn_variants.gen.py --binds <441 results bundle>` to write
+`442_dusk_dawn_token_binds.json` (pipeline 2.10 step 3). Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems. Art: `art/dusk_dawn_variants/whitekey.py` (white background keyed off;
+Prismheart, Rimecleaver, Solstice and Starward used the stricter 246 threshold), `artpreflight.py --type ICON` 0 errors.
