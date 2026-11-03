@@ -5604,3 +5604,26 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02: "Approved, no second source for crown shards." The model is on `fable/skyglass-economy-model` @ 5f44191b (`--search`, `--wreck-trim`).
 
 **Canonical destination:** `push/skyglass_uber_economy.gen.py` RATES (push/417 and 420).
+
+## RUL-2026-11-02-108 — Mother of Echoes move and AI names approved
+
+**Date:** 2026-11-02
+
+**Domain:** Skyglass event / uber naming
+
+**Status:** ACTIVE. Completes RUL-2026-11-02-105 item 3.
+
+**Ruling:** The proposed names and battle lines are approved in full.
+- **Marks and their hits:**
+  - Refraction / Refraction Breaks; Far Refraction / Far Refraction Breaks.
+  - Facet / Facet Breaks; Stillness / Nothing Moves.
+  - Shatterfall / Shatterfall Gives Way; Every Name in the Glass / The Names Flood In.
+  - The Held Breath / Breathless Pull.
+- **Etchings and Recasts:** Etching and Recast pairs Rime, Ember, Seam, Heart and Hail.
+- **Glassfall:** First Pane, Second Pane, Last Pane, Opening Pane and Heart Recast.
+- **Hush:** Hush Where They Refused.
+- **AIs:** Act I "Sayo, Mother of Echoes"; Act II "Sayo, Glasswright of the Stilling".
+
+**Evidence:** Director, 2026-11-02: "Yes it covered move names too".
+
+**Canonical destination:** `harness/skyglass_wreck_sim/mother_of_echoes_spec.json` on `fable/mother-of-echoes-sim`, and push/440+.
