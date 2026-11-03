@@ -80,10 +80,9 @@ CROWNS_HOARD = "WrnHlt3h6ZDjFaJk3i41O"   # harvests/inbox/tnr_results_1793491854
 SKYGLASS_COFFER = "THo7rfzP-S82_43aN8fs3"  # harvests/inbox/tnr_results_1793491854510.json
 SKYGLASS_TOKEN = "nzCW7A-_AuYMzBs2wClnM"   # harvests/inbox/tnr_results_1793424666625.json
 PICK = [(CROWNS_HOARD, 2), (SKYGLASS_COFFER, 5), (SKYGLASS_TOKEN, 2)]
-TOKEN_PCT = {"heartglass": 25, "remainder": 25}  # PLACEHOLDER rates (RUL-2026-11-02-105), reversible
-# PLACEHOLDER (RUL-105: the director sets exp and ryo; Crownhold's win pays reward_exp 5000 and no ryo).
-REWARD_EXP = 7500
-REWARD_MONEY = 0
+TOKEN_PCT = {"heartglass": 25, "remainder": 25}  # approved RUL-2026-11-03-110
+REWARD_EXP = 1000      # RUL-2026-11-03-110
+REWARD_MONEY = 50000   # RUL-2026-11-03-110
 
 Q_NAME = "The Mother of Echoes"
 
@@ -345,10 +344,7 @@ def main():
         need(econ, [ECON + k for k in ("keel", "crown", "tide", "ledger", *TOKEN_PCT)], "--economy (push/417)")
         need(ids, [sid(t) for t in b.bosses], a.step)
         d = quest_data(b, ids, econ)
-        notes = [f"quest {PFX}quest: image and every node's scene {CORE_CHAMBER}",
-                 f"quest {PFX}quest: reward_exp {REWARD_EXP}, reward_money {REWARD_MONEY} (director to set, RUL-2026-11-02-105)"]
-        notes += [f"quest {PFX}quest: {k} token {pct}% per clear (reversible placeholder rate, RUL-2026-11-02-105)"
-                  for k, pct in TOKEN_PCT.items()]
+        notes = [f"quest {PFX}quest: image and every node's scene {CORE_CHAMBER}"]
         if a.step == "quest":
             write("quest", "push/444 (literal ids from push/417 and 440-443, law 17): the HIDDEN battle pyramid, one "
                   "repeatable quest (RUL-2026-11-02-105: no first-clear mechanics, no title). Every clear rolls the "

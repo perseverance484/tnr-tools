@@ -5641,3 +5641,22 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-03: "OK on its validator diagnostics".
 
 **Canonical destination:** the 440 ledger and `push/README.md`.
+
+## RUL-2026-11-03-110 — Mother of Echoes clear rewards set
+
+**Date:** 2026-11-03
+
+**Domain:** Skyglass event / uber rewards
+
+**Status:** ACTIVE. Replaces the RUL-2026-11-02-105 placeholders.
+
+**Ruling:** Every clear of The Mother of Echoes pays:
+- 50,000 ryo and 1,000 experience;
+- the Heartglass token at 25% and The Remainder token at 25% (both tradeable);
+- a pick of one: Crown's Hoard ×2, Skyglass Coffer ×5, or Skyglass Token ×2.
+
+A loss pays nothing.
+
+**Evidence:** Director, 2026-11-03: "50,000 ryo, 1,000 exp. Rest is approved".
+
+**Canonical destination:** `push/mother_of_echoes.gen.py` (REWARD_EXP, REWARD_MONEY, TOKEN_PCT) and push/464/465.
