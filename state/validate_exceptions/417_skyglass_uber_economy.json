@@ -1,6 +1,6 @@
 {
  "manifest": "push/417_skyglass_uber_economy.json",
- "ruling": "Covered: the law 14 / L05 preferredStat diagnostic on the Stilled Echo create (RUL-2026-10-31-066 item 5 class, as accepted for push/344 by RUL-2026-10-31-083). Pending the director's acceptance for this manifest.",
+ "ruling": "Accepted by RUL-2026-11-02-103 (the preferredStat class; director 2026-11-02). Earlier note: Covered: the law 14 / L05 preferredStat diagnostic on the Stilled Echo create (RUL-2026-10-31-066 item 5 class, as accepted for push/344 by RUL-2026-10-31-083). Pending the director's acceptance for this manifest.",
  "reason": "validate.py law 14 / L05 demands preferredStat on every AI create; the game's AI schema no longer has preferredStat (migration 0056; absent from theninjarpg@3314d122 drizzle/schema.ts and validators) and Forge refuses the key (check_manifest.mjs: 'unknown key \"preferredStat\" for ai'; RUL-2026-10-25-009; Lane A fix brief state/prompt_validate_stale_rules.md). check_manifest.mjs: 0 pre-send problems.",
  "sha256": "cbffbfc3fb01a7375043888104b511f7799e8a498198b1e51a6ae8009528cc49",
  "accepted": [
