@@ -5530,3 +5530,23 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02: "Approved 1 and 2".
 
 **Canonical destination:** the uber spec (`fable/mother-of-echoes-sim`) and the four ledgers.
+
+## RUL-2026-11-02-104 — Salvage is cut; the four shards drop only, at rates the model sets
+
+**Date:** 2026-11-02
+
+**Domain:** Skyglass event / uber key economy
+
+**Status:** ACTIVE. Supersedes RUL-2026-11-02-099 items 5 R5 and R6 and RUL-2026-11-02-100 items 2 and 4. Amends RUL-099 items R1–R4 (the rates will be re-set).
+
+**Ruling:**
+1. **Salvage is removed entirely,** along with The Glass Answers exchange and the Stilled Echo. There are no Wreck Salvage editor rows.
+2. **The four shards stay** as the uber's entry cost (RUL-100 item 1): Keel from the full Skyglass Wreck, Crown from Crownhold, Tide from The Sealed Reliquary, The Fall and the Rotted runs, Ledger from any Haul run. They are tradeable, and trading is the pity.
+3. **Shard drop rates are raised** to hit the RUL-096 pacing targets with drops alone (Casual ~4 weekends, Dedicated 1–2, Hardcore under 1, before trade).
+   - Starting points: Keel ~10%, Crown ~50%, Tide ~35%, Ledger ~25%.
+   - The exact rates come from a re-run of the economy model without Salvage.
+4. **push/417 is rebuilt** without Salvage, the exchange or the echo. 418 is reduced to binding the tokens, and 420 carries the new rates.
+
+**Evidence:** Director, 2026-11-02: "Honestly ditch the whole salvage thing. Needlessly complicated." Then option A: "keep the four shards, drops only, with higher rates".
+
+**Canonical destination:** `push/skyglass_uber_economy.gen.py` and the economy model (`fable/skyglass-economy-model`).
