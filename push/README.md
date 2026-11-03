@@ -1600,13 +1600,13 @@ RUL-2026-10-31-066 item 5 class, **acceptance PENDING**); `check_manifest.mjs` e
 `check_manifest.mjs` exit 0 and `skyglass_check.py` exit 0 on all three; 420 asserted identical to its sources except
 the added drop lines.
 
-## 416 Rotbloom image v2: READY TO RUN
+## 416 Rotbloom image v2: RUN 2026-11-02 (tnr_results_1793638318441.json, 1/1 VERIFIED)
 
 | # | Status | Contents |
 |---|---|---|
 | 416 | READY TO RUN; strict 0/0, check_manifest 0 problems | 1 itemVariant edit: Rotbloom (`dkkdXbwWFOGSw1nemyK7K` on Oathbinder) image → `icon-variant-rotbloom-v2.webp` (skyglass sickle on a rotten chain; image pack pinned at 937c9bad). Name and text unchanged |
 
-## 415 Stargazer rename (RUL-2026-11-02-098): READY TO RUN
+## 415 Stargazer rename (RUL-2026-11-02-098): NOT RUN, superseded (the director renamed the variant to Stargazer in the editor, 2026-11-02)
 
 | # | Status | Contents |
 |---|---|---|
@@ -1656,7 +1656,7 @@ since has edited their effects (344/361/364/375/377/391/392 only equip them). Th
 effects (theninjarpg@3314d122 `libs/combat/process.ts` ~398-400, `checkFriendlyFire` ~165-188). This capture reads the
 live rows before any fix: an edit re-severs every holder (law 18), so a fix is an unequip / edit / re-equip cycle.
 
-## 395 Galley Stores card text (1 item edit): READY TO RUN
+## 395 Galley Stores card text (1 item edit): NOT RUN, superseded (the director addressed Galley Stores directly, 2026-11-02)
 
 `python3 push/skyglass_galley.gen.py`: description only, "Gives 2,000 pet experience" (RUL-2026-10-31-090; the effect was
 cut to 2,000 by the director in game). Gates: `validate.py --strict` 0/0; `check_manifest.mjs` 0 pre-send problems.
