@@ -1,0 +1,16 @@
+{
+ "manifest": "push/463_mother_of_echoes_bosses.json",
+ "ruling": "law 14 preferredStat: the accepted stale class (RUL-2026-10-31-066 item 5; RUL-083, RUL-103). L08 damage-row products (warnings): the four bosses' stacked increasedamagegiven rows are the simulator-tuned values (fable/mother-of-echoes-sim @dd7e33ab, pass 4 tables), reported to the director with 463.",
+ "reason": "Forge check_manifest.mjs: 0 pre-send problems (L08 is a warning there too). The rows are what the offline harness tuned against the real-player policy; changing them changes every clear rate.",
+ "sha256": "17e0f1ba83d38b2ab751e9a008f95f8d21ddf2416dd0f71e257b713c9c46790c",
+ "accepted": [
+  "ERROR  [ai:Sayo, Glasswright of the Stilling]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Sayo, Mother of Echoes]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Sayo, Saint of Stillness]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:The Silence]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  lint Sayo, Glasswright of the Stilling: L08 6 increasedamagegiven rows: product x56.0",
+  "ERROR  lint Sayo, Mother of Echoes: L08 5 increasedamagegiven rows: product x24.0",
+  "ERROR  lint Sayo, Saint of Stillness: L08 6 increasedamagegiven rows: product x64.0",
+  "ERROR  lint The Silence: L08 5 increasedamagegiven rows: product x24.0"
+ ]
+}
