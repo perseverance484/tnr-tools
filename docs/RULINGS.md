@@ -5584,3 +5584,23 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 **Evidence:** Director, 2026-11-02, choosing option 1 ("Exempt boss-only moves from L16").
 
 **Canonical destination:** `forge/src/runner/lints.mjs` and `skills/building-tnr-content/scripts/validate.py` (L16).
+
+## RUL-2026-11-02-107 — Shard rates approved; Crown stays single-source
+
+**Date:** 2026-11-02
+
+**Domain:** Skyglass event / uber key economy
+
+**Status:** ACTIVE. Sets the rates RUL-2026-11-02-104 left to the model.
+
+**Ruling:**
+1. **Shard drop rates:**
+   - Shard of the Keel: 15% per full Skyglass Wreck clear (editor row).
+   - Shard of the Crown: 100% per Crownhold clear.
+   - Shard of the Tide: 75% per clear of The Sealed Reliquary, The Fall, The Rotted Reliquary or The Burning Heading.
+   - Shard of the Ledger: 35% per Haul clear.
+2. **No second Crown source.** Crownhold's Lantern gate limits the Crown shard. A first entry takes Casual about 6.8 weekends (5.2 with the Wreck trim), Dedicated about 2.0 (1.5), Hardcore about 0.9 (0.8), before trade; with trade, under 2 for every type. The Casual target of about 4 is knowingly missed, and trading is the pity.
+
+**Evidence:** Director, 2026-11-02: "Approved, no second source for crown shards." The model is on `fable/skyglass-economy-model` @ 5f44191b (`--search`, `--wreck-trim`).
+
+**Canonical destination:** `push/skyglass_uber_economy.gen.py` RATES (push/417 and 420).
