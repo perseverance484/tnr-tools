@@ -1,0 +1,12 @@
+{
+ "manifest": "push/434_mark_fix_resume.json",
+ "ruling": "Accepted by RUL-2026-11-02-103 (the all-60-AP Sealwright kit class, as on 432; 434 re-sends 432's items unchanged).",
+ "reason": "Resume of push/433 after the director paused it at idx 70 (bundle tnr_results_1793716966572.json): the remaining 4 jutsu edits from 431 and the 50 re-equips from 432, unchanged. check_manifest.mjs: 0 pre-send problems.",
+ "sha256": "6ef17b42a45d584f57acedf9aa23ebfa1f30d011a440ff60ae216108af99f8b3",
+ "accepted": [
+  "ERROR  [ai:Rot-Touched Sealwright: Skyglass marks back on (law 18/60)]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)",
+  "ERROR  [ai:Sealwright's Echo: Skyglass marks back on (law 18/60)]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)",
+  "ERROR  [ai:Veteran Sealwright (Echo): Skyglass marks back on (law 18/60)]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)",
+  "ERROR  [ai:Veteran Sealwright: Skyglass marks back on (law 18/60)]: kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)"
+ ]
+}

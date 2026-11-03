@@ -1506,7 +1506,24 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
-## 433 MASTER manifest, 2026-11-02 (412 + 430 + 431 + 432 in one run): READY TO RUN, MONDAY TO THURSDAY ONLY
+## 434 Mark fix RESUME (433 paused, 2026-11-03): READY TO RUN NOW, MONDAY TO THURSDAY. URGENT: 50 live bosses are missing their mark and pool jutsu until it runs
+
+433 ran on 2026-11-03 and was paused by the director at idx 70 (bundles `tnr_results_1793716963666.json` /
+`tnr_results_1793716966572.json`, the same job). Where it stopped:
+- **412 part (7 items): FAILED.** The 4 animation uploads were refused with "The quota has been exceeded." (the image
+  host's upload quota), so the 3 jutsu copies that reference them could not resolve. Nothing was created. 412 is re-run
+  on its own once upload quota is available; 413/414 wait for it.
+- **430 (50 AI unequips): all VERIFIED.** The 17 jutsu are OFF all 50 holders right now.
+- **431: 13 of 17 jutsu edits VERIFIED.** Still to do: Omen: Three-Plank Line, Spreading Fire I, II and III.
+- **432 (50 re-equips): not run.**
+
+434 = exactly the unrun items, unchanged, same phases (4 jutsu edits, then the 50 re-equips). Built by
+`push/resume_manifest.gen.py` (generic: a manifest + its bundle → the items not yet verified). **Close/abandon
+the paused 433 job in Forge first, then run 434.** Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py
+--strict` 4 diagnostics (the accepted all-60-AP Sealwright class), held by
+`state/validate_exceptions/434_mark_fix_resume.json`. After it runs: read back each holder's jutsu list.
+
+## 433 MASTER manifest, 2026-11-02 (412 + 430 + 431 + 432 in one run): RUN 2026-11-03, PAUSED at idx 70; resumed by 434 (412 failed: upload quota)
 
 Built by `push/master_manifest.gen.py` (copies its sources unchanged except phase numbers; do not hand-edit). One
 run in place of 412, then 430, 431, 432. **Run either 433 OR the four separate manifests, never both.**
