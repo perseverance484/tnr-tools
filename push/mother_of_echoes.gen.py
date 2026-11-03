@@ -37,7 +37,7 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SPEC_REF = "45a06231b759c84705f497188d11e3bfff0f52ae"  # fable/mother-of-echoes-sim commit holding the final spec (pass 4)
+SPEC_REF = "dd7e33ab9abfc96ae1630177ea1bc386729b2c8f"  # fable/mother-of-echoes-sim commit holding the final spec (pass 4)
 SPEC_PATH = "harness/skyglass_wreck_sim/mother_of_echoes_spec.json"
 PFX = "sg440_"
 ECON = "sg417_"
