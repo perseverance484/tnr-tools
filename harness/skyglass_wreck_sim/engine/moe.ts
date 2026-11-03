@@ -7,6 +7,7 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { IN } from "./cclib";
 import { loadDmgConfig, loadJson } from "./model";
 import {
   AI, aiRecords, buildRecords, CYCLES, cycleCombo, FAN_OFFSETS, HEAVY_ARMOR, HEAVY_ARMOR_ID, HEAVY_ARMOR_SRC, JID, MK, moeParams, PAT, playerJutsuCatalog,
@@ -34,6 +35,19 @@ export const actCfgs = (killOrder: "sayo" | "silence"): ActCfg[] => [
 ];
 
 /* ------------------------------------------------------------------ spec */
+/**
+ * The AI create payload for the manifest generator (push/mother_of_echoes.gen.py on main): the Crownhold boss record
+ * (push/272 data: masteries, generals, regeneration; the server recomputes stats from statsMultiplier) with this AI's
+ * name, pools, full effect tags, jutsu, armour and rules. Ids are still harness ids (moe-*): the generator maps them to
+ * literal created ids from results bundles (law 17). The avatar is set by the generator (placeholder).
+ */
+const aiCreate = (a: (typeof AIS)[number]) => {
+  const { avatar: _a, rules: _r, jutsus: _j, items: _i, effects: _e, ...base } = IN.boss.data;
+  return {
+    ...base, username: a.username, poolsMultiplier: a.poolsMultiplier, statsMultiplier: P.statsMultiplier, hidden: true, isSummon: false,
+    includeDefaultRules: false, effects: a.effects, jutsus: a.jutsus, items: a.heavyArmor ? [{ ids: [HEAVY_ARMOR_ID], number: 0 }] : [], rules: a.rules,
+  };
+};
 const spec = () => {
   const issues = validateAll(P);
   const usedBy: Record<string, string[]> = {};
@@ -50,7 +64,7 @@ const spec = () => {
     },
     arena: { grid: "12 x 10 (QUEST, level >= 50), FLAT hexes, odd columns offset", whereTheThreeRefused: STARS, patterns: { refraction: PAT.refractA, refractionMirror: PAT.refractB, etchings: PAT.etch, glassfall: PAT.glass, flood: "every hex but the three", shatterfallFanOffsets: FAN_OFFSETS } },
     markers: MK,
-    ais: AIS.map((a) => ({ id: a.id, username: a.username, poolsMultiplier: a.poolsMultiplier, maxHealth: Math.round(5050 * a.poolsMultiplier), statsMultiplier: P.statsMultiplier, level: 100, rank: "JONIN", items: a.heavyArmor ? [HEAVY_ARMOR_ID] : [], jutsus: a.jutsus, effects: a.effects.map((e: any) => ({ type: e.type, power: e.power, rounds: e.rounds })), includeDefaultRules: false, rules: a.rules, ruleCount: a.rules.length, summonTemplate: !!a.summon })),
+    ais: AIS.map((a) => ({ id: a.id, username: a.username, poolsMultiplier: a.poolsMultiplier, maxHealth: Math.round(5050 * a.poolsMultiplier), statsMultiplier: P.statsMultiplier, level: 100, rank: "JONIN", items: a.heavyArmor ? [HEAVY_ARMOR_ID] : [], jutsus: a.jutsus, effects: a.effects.map((e: any) => ({ type: e.type, power: e.power, rounds: e.rounds })), includeDefaultRules: false, rules: a.rules, ruleCount: a.rules.length, summonTemplate: !!a.summon, create: aiCreate(a) })),
     jutsu: Object.values(RECS).filter((j: any) => j.id.startsWith("moe-") && !j.id.startsWith("moe-probe-")).map((j: any) => ({ id: j.id, name: j.name, usedBy: usedBy[j.id] ?? [], record: j })),
     combos: Object.fromEntries(CYCLES.map((c, i) => [`cycle ${i + 1}`, cycleCombo(c, i)])),
     playerModels: { elite: "moe_lib.ts ELITE_GEAR (+ gear override)", average: "moe_lib.ts AVG_GEAR (+ avgGear override)", gearOverride: PRAW.gear ?? null, avgGearOverride: PRAW.avgGear ?? null },
@@ -72,10 +86,10 @@ const spec = () => {
       name: "The Mother of Echoes",
       kind: "Battle pyramid (solo), three battles, isolated; health / chakra / stamina carried between battles, no refills (battle pools are kept from one battle to the next).",
       entry: { note: "RUL-2026-11-02-100: one of each shard, consumed at the start. No 'An Invitation in Glass' item.", items: [
-        { name: "Shard of the Keel", srcId: "TODO(economy build srcId)", quantity: 1 },
-        { name: "Shard of the Crown", srcId: "TODO(economy build srcId)", quantity: 1 },
-        { name: "Shard of the Tide", srcId: "TODO(economy build srcId)", quantity: 1 },
-        { name: "Shard of the Ledger", srcId: "TODO(economy build srcId)", quantity: 1 },
+        { name: "Shard of the Keel", srcId: "sg417_keel", quantity: 1 },
+        { name: "Shard of the Crown", srcId: "sg417_crown", quantity: 1 },
+        { name: "Shard of the Tide", srcId: "sg417_tide", quantity: 1 },
+        { name: "Shard of the Ledger", srcId: "sg417_ledger", quantity: 1 },
       ] },
       objectives: [
         { n: 0, type: "dialog (start)", sceneBackground: "@img:scene_moe_mother_glass.webp", text: "The four shards fit together in your hands, and the seams vanish. They were never broken. They were an invitation.<br><br>Under Crownhold the Mother Glass is singing. A woman in a glasswright's apron stands before it with her back to you. \"You came. Good. I was beginning to think I had measured you wrong.\"" },
@@ -85,9 +99,9 @@ const spec = () => {
         { n: 4, type: "dialog", text: "Every pane in the hall turns toward you. The Silence has stopped holding back, and so has she. \"Hold still. You will make for a good impression.\"" },
         { n: 5, type: "battle", title: "Act III: A Good Impression", opponents: [AI.saint], isolated: true, carryPools: true, failObjective: "end" },
         { n: 6, type: "win", text: "The Mother Glass cracks from the root to the crown. For the first time since the siege, Crownhold makes a sound.<br><br>You are not stilled.", rewards: {
-          firstClear: { title: "The Unstilled", variantToken: "Heartglass (The Unwritten)" },
-          everyClear: { salvage: 40, pickOne: ["Crown's Hoard x2", "Skyglass Coffer x5", "Skyglass Token x2"], experienceAndRyo: "above Crownhold's top tier (RUL-2026-11-01-095, proposed)" },
-          chance: { item: "The Remainder variant token (Ink of the Void)", pct: 25, oncePerPlayer: "if quest rewards support it (economy agent checking)" },
+          firstClear: { title: "The Unstilled", variantToken: "Heartglass (The Unwritten), srcId sg417_heartglass", mechanism: "open decision: reward_titles is idempotent (queries/quests.ts selectTitleForUpdateRewards skips owned titles) but an item reward repeats every clear; see push/mother_of_echoes.gen.py --quest" },
+          everyClear: { salvage: 40, salvageSrcId: "sg417_salvage", pickOne: ["Crown's Hoard x2", "Skyglass Coffer x5", "Skyglass Token x2"], experienceAndRyo: "above Crownhold's top tier (RUL-2026-11-01-095, proposed)" },
+          chance: { item: "The Remainder variant token (Ink of the Void), srcId sg417_remainder", pct: 25, oncePerPlayer: "no: quest reward_items have no once-per-player flag; the token is tradeable instead (RUL-2026-11-02-102)" },
           none: "No Remnants of the Mother Glass (RUL-2026-11-02-100)." } },
       ],
       questFlags: { consecutiveObjectives: true, hidden: true, note: "law 23: consecutiveObjectives true on create; law 16b hidden on create; exact objective field names come from the builder's guide templates (law 31), not from this summary." },
