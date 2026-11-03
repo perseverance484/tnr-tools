@@ -95,6 +95,7 @@ export const MOE_DEFAULTS = {
   pullDist: 1, // Breathless Pull: hexes drawn toward her (the stun is the threat)
   pullCd: 4, // Breathless Pull mark cooldown (one flood cycle: mark, pull + flood mark, flood, one free turn)
   hushUnbridledCount: 3, // pools per Unbridled Hush (every turn)
+  porterPush: 2, // Doorward Sweep shove (hexes); 0 = none
   /** Analysis only (pass 4): raise every cooldown below this to it (Forge L16 refuses jutsu cooldown < 3). 0 = off. */
   cooldownFloor: 0,
   hushRounds: 8,
@@ -257,7 +258,7 @@ export const buildRecords = (P: MoeParams) => {
   raise(JID.summonPorter, "Raise the Gate Porter", AI.porter, "A gate porter steps out of the glass, still holding the door.");
   raise(JID.summonHana, "Raise Sister Hana", AI.hana, "Sister Hana steps out of the glass, hands already busy.");
   raise(JID.summonTomo, "Raise Cadet Tomo", AI.tomo, "Cadet Tomo steps out of the glass, rope in hand.");
-  add(JID.porter, { name: "Doorward Sweep", description: "The porter sweeps the threshold: damage and a shove.", battleDescription: "%user sweeps the threshold clear.", target: "OTHER_USER", method: "SINGLE", range: 1, cooldown: 1, actionCostPerc: 60, effects: [T.pierce(p.porter), T.push(2)] });
+  add(JID.porter, { name: "Doorward Sweep", description: "The porter sweeps the threshold: damage and a shove.", battleDescription: "%user sweeps the threshold clear.", target: "OTHER_USER", method: "SINGLE", range: 1, cooldown: 1, actionCostPerc: 60, effects: [T.pierce(p.porter), ...(P.porterPush ? [T.push(P.porterPush)] : [])] });
   add(JID.hana, { name: "Worn Mending", description: "Sister Hana tends Sayo, as she tended everyone.", battleDescription: "%user tends to %target.", target: "ALLY", method: "SINGLE", range: 5, cooldown: 0, actionCostPerc: 60, donor: "xs-8r_KRJS8QQMpBDyhUv", effects: [T.heal(p.hana, { friendlyFire: "FRIENDLY" })] });
   add(JID.tomo, { name: "Cadet's Tether", description: "Tomo throws a line and hauls: pulled 3 hexes.", battleDescription: "%user hauls %target in.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 1, actionCostPerc: 60, effects: [T.pierce(p.tomo), T.pull(3)] });
   /* ---- Act III: Sayo, Saint of Stillness ---- */
@@ -318,34 +319,34 @@ const fannedLines = () => {
 export const FINAL_TEXT: Record<string, { name?: string; line: string }> = {
   "moe-glass-lancet": { line: "%user lifts one finger. A lancet of glass leaves the wall and finds %target." },
   "moe-the-glass-remembers": { line: "Every pane in the hall turns toward you at once. The glass has remembered all of you." },
-  "moe-refraction": { line: "\"Three lines. Mind them.\" Light runs in from the walls." },
-  "moe-refraction-ii": { line: "\"Three more.\" Light runs in from the other walls." },
-  "moe-refraction-blast": { line: "The lines shatter where they lie." },
-  "moe-refraction-blast-ii": { line: "The lines shatter where they lie." },
-  "moe-facet": { line: "\"Every line has a reflection.\" The lines are drawn again, mirrored across the hall." },
-  "moe-facet-blast": { line: "Both images shatter at once." },
+  "moe-refraction": { name: "Refraction", line: "\"Three lines. Mind them.\" Light runs in from the walls." },
+  "moe-refraction-ii": { name: "Far Refraction", line: "\"Three more.\" Light runs in from the far walls." },
+  "moe-refraction-blast": { name: "Refraction Breaks", line: "The lines of light shatter where they lie." },
+  "moe-refraction-blast-ii": { name: "Far Refraction Breaks", line: "The far lines shatter where they lie." },
+  "moe-facet": { name: "Facet", line: "\"Every line has a reflection.\" The lines are drawn again, mirrored across the hall." },
+  "moe-facet-blast": { name: "Facet Breaks", line: "Both images shatter at once." },
   "moe-lucid-refraction": { line: "The lines shatter, and new ones are already drawn. \"I can see it clearly now.\"" },
   "moe-lucid": { line: "The hall is suddenly very loud. %user straightens. \"I can hear myself again.\"" },
   "moe-your-likeness": { line: "\"Hold still. There. That is you.\" Your likeness steps out of the glass." },
   "moe-likeness-strike": { line: "%user strikes exactly the way you would." },
-  "moe-hush": { line: "Somewhere on the floor, sound stops. It does not come back." },
+  "moe-hush": { name: "The Hush", line: "Somewhere on the floor, sound stops. It does not come back." },
   "moe-hush-unbridled": { line: "Nothing holds the quiet back now. It pours up out of the floor." },
   "moe-listening": { line: "Something under the floor turns toward the sound of you." },
   "moe-listening-unbridled": { line: "It no longer waits to hear you. Another feeler rises." },
-  "moe-stillness": { line: "The floor around the Silence goes still. Nothing there is moving, and soon nothing will." },
-  "moe-stillness-blast": { line: "For a moment nothing near the Silence moves. Nothing can." },
+  "moe-stillness": { name: "Stillness", line: "The floor around the Silence goes still. Nothing there is moving, and soon nothing will." },
+  "moe-stillness-blast": { name: "Nothing Moves", line: "For a moment nothing near the Silence moves. Nothing can." },
   "moe-cradle": { line: "The deep closes around %target. Blows slide off the glass." },
   "moe-feeler-grasp": { line: "%user closes around %target without a sound." },
-  "moe-etching-a": { line: "%user traces the north of the hall into the glass. It glows, then fades." },
-  "moe-etching-b": { line: "%user traces the south of the hall into the glass. It glows, then fades." },
-  "moe-etching-c": { line: "%user traces the west wall into the glass. It glows, then fades." },
-  "moe-etching-d": { line: "%user traces the heart of the hall into the glass. It glows, then fades." },
-  "moe-etching-e": { line: "%user traces a scatter of points into the glass. It glows, then fades." },
-  "moe-recast-a": { line: "The glass remembers the north of the hall." },
-  "moe-recast-b": { line: "The glass remembers the south of the hall." },
-  "moe-recast-c": { line: "The glass remembers the west wall." },
-  "moe-recast-d": { line: "The glass remembers the heart of the hall." },
-  "moe-recast-e": { line: "The glass remembers every point at once." },
+  "moe-etching-a": { name: "Etching: Rime", line: "%user traces the north of the hall into the glass. It rimes over, then fades." },
+  "moe-etching-b": { name: "Etching: Ember", line: "%user traces the south of the hall into the glass. It glows like an ember, then fades." },
+  "moe-etching-c": { name: "Etching: Seam", line: "%user traces a seam down the west wall. It glows, then fades." },
+  "moe-etching-d": { name: "Etching: Heart", line: "%user traces the heart of the hall into the glass. It beats once, then fades." },
+  "moe-etching-e": { name: "Etching: Hail", line: "%user taps a scatter of points into the glass, like hail. They glow, then fade." },
+  "moe-recast-a": { name: "Recast: Rime", line: "The glass remembers the rime, and the north of the hall breaks." },
+  "moe-recast-b": { name: "Recast: Ember", line: "The glass remembers the ember, and the south of the hall breaks." },
+  "moe-recast-c": { name: "Recast: Seam", line: "The glass remembers the seam, and the west wall breaks." },
+  "moe-recast-d": { name: "Recast: Heart", line: "The glass remembers the heart, and the middle of the hall breaks." },
+  "moe-recast-e": { name: "Recast: Hail", line: "The glass remembers the hail, and every point breaks at once." },
   "moe-hush-rises": { line: "The floor stops making any sound in patches. The patches do not close." },
   "moe-the-glass-falls-quiet": { line: "%user lowers her hand. \"Again.\" Something worn steps out of the glass." },
   "moe-raise-gate-porter": { line: "The gate porter steps out of the glass, still holding a door that is not there." },
@@ -355,20 +356,20 @@ export const FINAL_TEXT: Record<string, { name?: string; line: string }> = {
   "moe-worn-mending": { line: "\"Hold still, it's nearly done.\" %user tends to %target." },
   "moe-worn-tether": { line: "\"Line's secure!\" %user hauls %target in." },
   "moe-the-quiet": { line: "%user closes her eyes. The hall goes very quiet, and you go quiet with it." },
-  "moe-shatterfall": { line: "Cracks fan out from %user's feet." },
-  "moe-shatterfall-blast": { line: "The fan of cracks gives way, and the glass beneath it falls." },
-  "moe-every-name-in-the-glass": { line: "\"Do you hear them? Every one of them stayed.\" The names rise. Three places stay dry: where the three refused." },
-  "moe-every-name-blast": { line: "Every name in the glass floods the hall." },
+  "moe-shatterfall": { name: "Shatterfall", line: "Cracks fan out from %user's feet." },
+  "moe-shatterfall-blast": { name: "Shatterfall Gives Way", line: "The fan of cracks gives way, and the glass beneath it falls." },
+  "moe-every-name-in-the-glass": { name: "Every Name in the Glass", line: "\"Do you hear them? Every one of them stayed.\" The names rise. Three places stay dry: where the three refused." },
+  "moe-every-name-blast": { name: "The Names Flood In", line: "Every name in the glass floods the hall." },
   "moe-no-one-is-mended": { line: "\"Nothing mends here. Nothing needs to.\" The quiet covers the whole floor." },
-  "moe-breathless-pull-mark": { line: "%user breathes in. The air leaves the hall, except where the three refused." },
-  "moe-breathless-pull": { line: "%user breathes out, and everyone she can reach comes with it, breathless." },
-  "moe-hush-on-the-refused": { line: "The quiet finds one of the dry places." },
+  "moe-breathless-pull-mark": { name: "The Held Breath", line: "%user breathes in. The air leaves the hall, except where the three refused." },
+  "moe-breathless-pull": { name: "Breathless Pull", line: "%user breathes out, and everyone she can reach comes with it, breathless." },
+  "moe-hush-on-the-refused": { name: "Hush Where They Refused", line: "The quiet finds one of the dry places where the three refused." },
   "moe-the-long-hush": { line: "\"Not yet. You are almost a good impression.\" The ceiling begins to fall." },
-  "moe-glassfall-a": { line: "A third of the ceiling comes down." },
-  "moe-glassfall-b": { line: "Another third of the ceiling comes down." },
-  "moe-glassfall-c": { line: "The last third of the ceiling comes down." },
-  "moe-glassfall-b-first": { line: "Another third of the ceiling comes down." },
-  "moe-glassfall-recast": { line: "The ceiling comes down, and the glass remembers one more etching." },
+  "moe-glassfall-a": { name: "Glassfall: First Pane", line: "A third of the ceiling comes down, and the next pane cracks." },
+  "moe-glassfall-b": { name: "Glassfall: Second Pane", line: "Another third of the ceiling comes down, and the next pane cracks." },
+  "moe-glassfall-c": { name: "Glassfall: Last Pane", line: "The last third of the ceiling comes down, and the first pane cracks again." },
+  "moe-glassfall-b-first": { name: "Glassfall: Opening Pane", line: "The second third of the ceiling comes down first, and the last pane cracks." },
+  "moe-glassfall-recast": { name: "Glassfall: Heart Recast", line: "The ceiling comes down, and the glass remembers the heart once more." },
 };
 /* ------------------------------------------------------------------ rules */
 const tHas = (target: string, effectType: string) => ({ type: "target_has_effect", effectType, threshold: 1, target, description: "Target has effect" });
@@ -424,11 +425,12 @@ export const silenceRules = (P: MoeParams) => [
 ];
 export const feelerRules = () => [
   R.jutsu(JID.cradle, "HIGHEST_MAX_HEALTH_ALLY", [COND.sayoAlive]),
-  R.jutsu(JID.grasp, PL, [C.near(2)]),
+  R.jutsu(JID.grasp, PL, [C.near(3)]), // Grasp range 2 -> gate 3 (law 40)
   R.end(),
 ];
 // Stolen Form is 60 AP and Your Own Strike 60 AP: one or the other per turn (copy first, while ready).
-export const likenessRules = () => [R.jutsu(JID.likenessCopy, PL, [C.near(4)]), R.jutsu(JID.likenessStrike, PL, [C.near(4)]), { conditions: [], action: { type: "move_towards_opponent", target: PL, description: "Close in" } }];
+// Stolen Form and Your Own Strike are range 4 -> gate 5 (law 40; Forge refused the gate of 4 on Stolen Form).
+export const likenessRules = () => [R.jutsu(JID.likenessCopy, PL, [C.near(5)]), R.jutsu(JID.likenessStrike, PL, [C.near(5)]), { conditions: [], action: { type: "move_towards_opponent", target: PL, description: "Close in" } }];
 
 /** Act II etching cycles (3 / 4 / 5 / 5; cycles 3 and 4 repeat an etching out of order). */
 export const CYCLES: string[][] = [["A", "B", "C"], ["D", "A", "C", "B"], ["C", "A", "E", "A", "B"], ["E", "B", "D", "B", "C"]];
@@ -448,9 +450,10 @@ export const sayo2Rules = (_P: MoeParams) => [
   R.end(),
 ];
 export const wornRules = (jid: string, target = PL) => [
-  R.jutsu(jid, target, target === PL ? [C.near(jid === JID.porter ? 1 : 5)] : [COND.sayoAlive]),
-  ...(target === PL ? [{ conditions: [], action: { type: "move_towards_opponent", target: PL, description: "Close in" } }] : []),
-  R.end(),
+  // Gate = range + 1 (law 40): Doorward Sweep range 1 -> 2 (a gate of 1 never fires), Cadet's Tether range 5 -> 6.
+  R.jutsu(jid, target, target === PL ? [C.near(jid === JID.porter ? 2 : 6)] : [COND.sayoAlive]),
+  // The unconditional move is the last rule (law 41): an end_turn under it could never fire.
+  ...(target === PL ? [{ conditions: [], action: { type: "move_towards_opponent", target: PL, description: "Close in" } }] : [R.end()]),
 ];
 export const saintRules = (P: MoeParams) => [
   R.jutsu(JID.enrage, "SELF", [COND.rg(P.enrage.act3)]),
@@ -518,7 +521,7 @@ export const aiRecords = (P: MoeParams): AiRec[] => {
       [JID.enrage, ...JID.hush, JID.hushUnbridled, JID.listening, JID.listeningUnbridled, JID.stillness, JID.stillnessBlast], silenceRules(P), [token(MK.silenceToken)]),
     summon(AI.feeler, "A Feeler of the Deep", [JID.cradle, JID.grasp], feelerRules()),
     summon(AI.likeness, "Your Likeness", [JID.likenessStrike, JID.likenessCopy], likenessRules()),
-    boss(AI.sayo2, "Sayo, Mother of Echoes", P.pools.sayo2, P.idg.sayo2, P.dr.sayo2,
+    boss(AI.sayo2, "Sayo, Glasswright of the Stilling", /* RUL-2026-11-02-105: unique AI usernames */ P.pools.sayo2, P.idg.sayo2, P.dr.sayo2,
       [JID.lancet, JID.enrage, ...etchIds, ...detIds, ...JID.rises, JID.quietFall, JID.summonPorter, JID.summonHana, JID.summonTomo], sayo2Rules(P),
       [...(P.sayo2Stunprevent ? [tag("stunprevent", { power: 100, rounds: 100 })] : []), token(MK.sayoToken)]),
     summon(AI.porter, "The Gate Porter (Worn)", [JID.porter], wornRules(JID.porter)),
