@@ -91,6 +91,38 @@ class ItemIconBatchTests(unittest.TestCase):
                                        "image": "https://example.invalid/k.webp"}])
         self.assertEqual(batch.make_roster(self.wave, [p])["rows"][1]["status"], "LOCAL_RECORD")
 
+    def test_mixed_forge_iso_and_collector_numeric_timestamps(self):
+        # Same item and art, different provenance formats: select newest,
+        # preserve raw capture time, and do not pretend collector is item.get.
+        item = self.cap("a1", "Ikazuchi Kunai", "https://example.invalid/i.webp")["data"]
+        newer = self.write("collector_new.json", {
+            "collector": "items", "t": 1793188740000,
+            "payload": {"rows": [item]}})
+        row = batch.make_roster(self.wave, [self.bundle, newer])["rows"][0]
+        self.assertEqual(row["status"], "LOCAL_RECORD")
+        self.assertEqual(row["source_file"], str(newer))
+        self.assertEqual(row["captured_at"], 1793188740000)
+        self.assertEqual(row["image_url"], item["image"])
+
+        older = self.write("collector_old.json", {
+            "collector": "items", "t": 1700000000,
+            "payload": {"rows": [item]}})
+        row = batch.make_roster(self.wave, [self.bundle, older])["rows"][0]
+        self.assertEqual(row["source_file"], str(self.bundle))
+        self.assertEqual(row["captured_at"], "2026-10-25T11:59:00Z")
+        self.assertEqual(row["status"], "LOCAL_RECORD")
+
+    def test_timestamp_normalization_and_invalid_values(self):
+        iso = batch.capture_timestamp_key("2026-10-25T11:59:00Z")
+        self.assertEqual(iso, batch.capture_timestamp_key("2026-10-25T05:59:00-06:00"))
+        self.assertEqual(iso, batch.capture_timestamp_key(1792929540))
+        self.assertEqual(iso, batch.capture_timestamp_key(1792929540000))
+        self.assertEqual(iso, batch.capture_timestamp_key("1792929540000"))
+        self.assertLess(batch.capture_timestamp_key(None), iso)
+        for bad in (True, "not-a-time", float("nan"), {"time": 123}):
+            with self.subTest(value=repr(bad)), self.assertRaisesRegex(ValueError, "invalid capture timestamp"):
+                batch.capture_timestamp_key(bad)
+
     def test_contact_sheet_deterministic_and_draft_when_incomplete(self):
         batch.save_roster(batch.make_roster(self.wave, [self.bundle]), self.root / "out")
         art = self.root / "original.png"
