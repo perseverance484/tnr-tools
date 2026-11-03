@@ -1562,7 +1562,7 @@ Non-visual ground effects live by `rounds`; their copies onto a standing player 
 ## 417-420 Uber key economy (RUL-2026-11-02-100; rates RUL-2026-11-02-099): 417 READY TO RUN (ledger PENDING director acceptance); 418-420 built from 417's results
 
 Generator: `push/skyglass_uber_economy.gen.py` (do not hand-edit its outputs). Zero live requests. Source pin
-theninjarpg@3314d122.
+theninjarpg@3314d122. **2026-11-02:** 417 regenerated for RUL-2026-11-02-102 (The Remainder token tradeable; ledger rehashed).
 
 **Run order:** run **417** → `python3 push/skyglass_uber_economy.gen.py --link <417 bundle>` (418),
 `--unhide <417 bundle>` (419), `--drops <417 bundle>` (420) → gates → run **418** → **419** → **420** → the dungeon
