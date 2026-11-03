@@ -1600,7 +1600,7 @@ Non-visual ground effects live by `rounds`; their copies onto a standing player 
 - **After 432:** read back each holder's jutsu list (equipped) and each edited jutsu's effects. In a fight, an Omen mark
   should stay on screen until its eruption.
 
-## 440-465 The Mother of Echoes (the uber; RUL-2026-11-02-103 part 2, -105, -108): 440 RUN 2026-11-03 (tnr_results_1793718889563.json, 47/47 VERIFIED); 461 RUN (tnr_results_1793719096174.json, 5/5 VERIFIED); 462 RUN (tnr_results_1793719167829.json, 6/6 VERIFIED); 463 BUILT, READY TO RUN (forge 0.12.4 merged, cfe8a4b1, RUL-2026-11-02-106; update the Forge loader first); 461-465 built from results bundles
+## 440-465 The Mother of Echoes (the uber; RUL-2026-11-02-103 part 2, -105, -108): 440 RUN 2026-11-03 (tnr_results_1793718889563.json, 47/47 VERIFIED); 461 RUN (tnr_results_1793719096174.json, 5/5 VERIFIED); 462 RUN (tnr_results_1793719167829.json, 6/6 VERIFIED); 463 RUN (tnr_results_1793719233508.json, 4/4 VERIFIED); 464 BUILT with the final rewards (RUL-2026-11-03-110), READY TO RUN (forge 0.12.4 merged, cfe8a4b1, RUL-2026-11-02-106; update the Forge loader first); 461-465 built from results bundles
 
 Generator: `push/mother_of_echoes.gen.py` (do not hand-edit its outputs). Zero live requests. It reads the
 offline-tested spec `harness/skyglass_wreck_sim/mother_of_echoes_spec.json` at **fable/mother-of-echoes-sim@dd7e33ab**
@@ -1623,7 +1623,7 @@ theninjarpg@3314d122. Everything is created hidden; AIs have no hidden column (l
 | 461 | B440 | Summon templates: A Feeler of the Deep, Your Likeness (+ Stolen Form), The Gate Porter / Sister Hana / Cadet Tomo (Worn) |
 | 462 | B461 | Listening, Listening Unbridled, Your Likeness, Raise the Gate Porter / Sister Hana / Cadet Tomo |
 | 463 | B440, B462 | Sayo, Mother of Echoes (Act I), The Silence, Sayo, Glasswright of the Stilling (Act II), Sayo, Saint of Stillness: push/272 boss record + spec pools, effects, kits, rules |
-| 464 | B463, B417 | One repeatable HIDDEN battle pyramid (RUL-2026-11-02-105: no first-clear mechanics, no title): isolated, entry one each of `sg417_keel/crown/tide/ledger`, three battles with pools carried (`keepOriginalPools: false`), loss → fail, nothing refunded. Win: Heartglass (`sg417_heartglass`) 25% and The Remainder (`sg417_remainder`) 25% (both tradeable; rates are reversible placeholders), exp 7500 / ryo 0 (placeholders, director to set), pick one of Crown's Hoard ×2 / Skyglass Coffer ×5 / Skyglass Token ×2. No Salvage (RUL-104) |
+| 464 | B463, B417 | One repeatable HIDDEN battle pyramid (RUL-2026-11-02-105: no first-clear mechanics, no title): isolated, entry one each of `sg417_keel/crown/tide/ledger`, three battles with pools carried (`keepOriginalPools: false`), loss → fail, nothing refunded. Win: Heartglass (`sg417_heartglass`) 25% and The Remainder (`sg417_remainder`) 25% (both tradeable; rates are reversible placeholders), 50,000 ryo and 1,000 exp (RUL-2026-11-03-110), pick one of Crown's Hoard ×2 / Skyglass Coffer ×5 / Skyglass Token ×2. No Salvage (RUL-104) |
 | 465 | B464 | Publish: the quest with hidden false |
 
 **Settled since the first build:**
