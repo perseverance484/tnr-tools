@@ -813,6 +813,7 @@ test("K5: the ported lints block what the container validator blocks", () => {
     [one("quest", { name: "Q", hidden: true, consecutiveObjectives: true, startsAt: "01/02/2026" }), /L04 startsAt must be plain YYYY-MM-DD/],
     [one("ai", { username: "X" }), /L05 AI create missing rank/],
     [one("jutsu", { name: "N", hidden: true, cooldown: 2 }), /L16 cooldown 2 below floor 3/],
+    [one("jutsu", { name: "N", hidden: true, cooldown: 1, jutsuType: "NINJUTSU" }), /L16 cooldown 1 below floor 3/],
     [one("jutsu", { name: "N", hidden: true, effects: [{ type: "increasestat", direction: "sideways" }] }), /L07 increasestat direction "sideways"/],
     [one("asset", { name: "A", hidden: true, url: "@img:missing.webp" }), /L17 @img:missing.webp has no imgSizes/],
     [one("item", { name: "I", hidden: true, itemType: "WEAPON", target: "SELF", method: "SINGLE", effects: [{ type: "noncombatconsumereward" }] }), /requires itemType CONSUMABLE/],
@@ -1211,4 +1212,11 @@ test("re-pin 85cecae: objectives accept the four map-location keys and still ref
   for (const t of ["dialog", "start_battle", "collect_item"]) for (const k of Object.keys(keys))
     assert.ok(v.nested.objectives[t].includes(k), `${t}.${k}`);
   assert.match(v.problems("quest", quest({ locationNmae: "x" })).join(";"), /unknown key "locationNmae"/);
+});
+
+test("K5b: L16 exempts AI-only jutsu (RUL-2026-11-02-106)", () => {
+  const m = { items: [{ entity: "jutsu", slot: "create", name: "N", srcId: "n",
+    data: { name: "N", hidden: true, cooldown: 0, jutsuType: "AI" } }] };
+  const r = parseManifest(m);
+  assert.doesNotMatch(r.warnings.join(";"), /L16/);
 });
