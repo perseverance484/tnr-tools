@@ -5,15 +5,15 @@ offline-tested spec on fable/mother-of-echoes-sim.
     python3 push/mother_of_echoes.gen.py
         -> push/440_mother_of_echoes_jutsu.json        (HIDDEN creates: every new jutsu that names no AI)
     python3 push/mother_of_echoes.gen.py --step templates --bundles <440 bundle>
-        -> push/441_mother_of_echoes_templates.json    (HIDDEN creates: the 5 summon-template AIs)
-    python3 push/mother_of_echoes.gen.py --step summons --bundles <440> <441>
-        -> push/442_mother_of_echoes_summons.json      (HIDDEN creates: the 6 summon jutsu, aiId literal)
-    python3 push/mother_of_echoes.gen.py --step bosses --bundles <440> <441> <442>
-        -> push/443_mother_of_echoes_bosses.json       (HIDDEN creates: the 4 boss AIs, inArena false)
-    python3 push/mother_of_echoes.gen.py --step quest --bundles <440..443> --economy <417>
-        -> push/444_mother_of_echoes_quest.json        (the HIDDEN battle pyramid, one repeatable quest)
-    python3 push/mother_of_echoes.gen.py --step publish --bundles <440..444> --economy <417>
-        -> push/445_mother_of_echoes_publish.json      (the quest re-sent whole with hidden false)
+        -> push/461_mother_of_echoes_templates.json    (HIDDEN creates: the 5 summon-template AIs)
+    python3 push/mother_of_echoes.gen.py --step summons --bundles <440> <461>
+        -> push/462_mother_of_echoes_summons.json      (HIDDEN creates: the 6 summon jutsu, aiId literal)
+    python3 push/mother_of_echoes.gen.py --step bosses --bundles <440> <461> <462>
+        -> push/463_mother_of_echoes_bosses.json       (HIDDEN creates: the 4 boss AIs, inArena false)
+    python3 push/mother_of_echoes.gen.py --step quest --bundles <440, 461-463> --economy <417>
+        -> push/464_mother_of_echoes_quest.json        (the HIDDEN battle pyramid, one repeatable quest)
+    python3 push/mother_of_echoes.gen.py --step publish --bundles <440, 461-464> --economy <417>
+        -> push/465_mother_of_echoes_publish.json      (the quest re-sent whole with hidden false)
 
 Every step after 440 needs literal ids from earlier results bundles (law 17, ID provenance law): AI equip arrays and
 rule jutsuIds, summon aiIds and quest opponentAIs / entry items / rewards. `--bundles` takes any number of results
@@ -41,7 +41,8 @@ SPEC_REF = "dd7e33ab9abfc96ae1630177ea1bc386729b2c8f"  # fable/mother-of-echoes-
 SPEC_PATH = "harness/skyglass_wreck_sim/mother_of_echoes_spec.json"
 PFX = "sg440_"
 ECON = "sg417_"
-N = {"jutsu": 440, "templates": 441, "summons": 442, "bosses": 443, "quest": 444, "publish": 445}
+# 441 was taken by a concurrent session (push/441_dusk_dawn_variants.json); later steps use 461-465.
+N = {"jutsu": 440, "templates": 461, "summons": 462, "bosses": 463, "quest": 464, "publish": 465}
 SLUG = {"jutsu": "mother_of_echoes_jutsu", "templates": "mother_of_echoes_templates",
         "summons": "mother_of_echoes_summons", "bosses": "mother_of_echoes_bosses",
         "quest": "mother_of_echoes_quest", "publish": "mother_of_echoes_publish"}
