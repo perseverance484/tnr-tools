@@ -1073,7 +1073,8 @@ def lint_entries(items, rep, blob):
                 E("L13 create without hidden:true")
         if ent == "jutsu":
             cd = d.get("cooldown")
-            if cd is not None and isinstance(cd, (int, float)) and cd < 3:
+            # AI-only jutsu are exempt (RUL-2026-11-02-106; mirrors forge/src/runner/lints.mjs L16)
+            if cd is not None and isinstance(cd, (int, float)) and cd < 3 and d.get("jutsuType") != "AI":
                 E("L16 cooldown %s below floor 3" % cd)
             ep = d.get("actionCostPerc")
             if ep is not None and isinstance(ep, (int, float)) and ep > 70:
