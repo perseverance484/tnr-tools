@@ -82,14 +82,14 @@ cross-checks every reference's recorded source URL, capture path and snapshot ke
 Byte-level integrity alone would let a pack hash perfectly while being severed from the approved
 capture; `materialize` runs the same check and downloads nothing until it passes.
 
-## Premium item-icon overhaul — V10 quality pilot
+## Premium item-icon overhaul — V10.1 quality benchmark
 
 For an existing `item.image` overhaul, read `docs/design/premium_seichi_item_icons/V10_STYLE.md`, `docs/workflows/ITEM_ICON_OVERHAUL.md` and the active wave's `ITEM_ICON_REGISTER.md` **in addition to** this skill. This is a style/coordination overlay, not a new target or numeric contract. Item/bloodline images remain `ICON`: transparent **lossless WebP** and the current spec-driven dimensions, frame margin, alpha and byte limits; the opaque `JUTSU_ICON` exception never applies.
 
 **Required reference order for each item:**
 
 1. **Current/live item** — use a successful full `item.get` capture with exact ID/name/image and the *actual image bytes* when available; mark stale/missing provenance instead of pretending a name catalog or art index establishes live state. Lock defining silhouette and construction.
-2. **Director-approved individual quality benchmark** — initially Tatsumaki's Bellow V10 for **illustrative pixel craftsmanship**, never automatic approval to copy its kunai form or green wind effect. The received image is not yet archived as a verified native/export in Git; see the style contract provenance note.
+2. **Director-approved individual quality benchmark** — currently Tatsumaki's Bellow V10.1 for **illustrative pixel craftsmanship**, never automatic approval to copy its kunai form or green wind effect. V10.1's actual source bytes are still pending; the received, hashed PNG documented in the style contract is V10 *only*. Do not claim a visually verified V10.1 match until its individual pixels are supplied, archived and inspected.
 3. **Family context** — individual approved/current siblings for relative anatomy, palette/element distinctions and thumbnail confusion checks. Do not feed the assembled contact sheet to an image-generation model.
 
 **Premium-overhaul visual QC:** author a hierarchy of large shape/volume clusters, medium sculptural planes/eddies and sparse small highlights; use material-specific hue-shifted ramps; make supernatural energy twist/occlude, originate from and cast light onto the weapon; keep clean silhouette/negative space and one dominant focal light. Reject parallel decorative bands, pasted-on ribbons, pillow shading, randomly peppered texture, painterly blur and smooth art post-pixelated with a filter. Check actual pixels at 256, game-delivery 125, and 64/32 stress sizes; verify material and sibling distinction at each scale. The art spec remains the sole numerical authority even where these review sizes are quoted for visual QC.

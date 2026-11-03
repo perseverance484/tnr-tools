@@ -10,7 +10,7 @@ This workflow coordinates ChatGPT's Art Director / Image Production roles with t
 
 **Bloodright showcase posters are a specialized presentation exception.** For those, read and follow `docs/workflows/BLOODRIGHT_POSTERS.md` first. Its approved Ethereal Monarch poster is the primary **information-presentation** reference, not a universal visual-style template; the normal in-game raw-art prohibition on text/UI does not apply to the composed showcase poster itself.
 
-**Premium item-icon overhaul:** For replacement of existing `item.image` icons by coherent family/wave, use `docs/workflows/ITEM_ICON_OVERHAUL.md` and `docs/design/premium_seichi_item_icons/V10_STYLE.md`. The V10 benchmark is an illustrative craftsmanship target, not blanket subject approval; item exports still use the spec's transparent `ICON` contract. Intake/roster/sheet assembly is offline and never contacts the game.
+**Premium item-icon overhaul:** For replacement of existing `item.image` icons by coherent family/wave, use `docs/workflows/ITEM_ICON_OVERHAUL.md` and `docs/design/premium_seichi_item_icons/V10_STYLE.md`. The active V10.1 benchmark is an illustrative craftsmanship target (V10 predecessor superseded; V10.1 source bytes still pending), not blanket subject approval; item exports still use the spec's transparent `ICON` contract. Intake/roster/sheet assembly is offline and never contacts the game.
 
 ## 1. Establish the target
 

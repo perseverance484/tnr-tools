@@ -8,8 +8,9 @@
 
 | Reference | Role | Provenance | Status |
 |---|---|---|---|
-| **Tatsumaki's Bellow V10** | Illustrative pixel craftsmanship; sculpted green spirit-wind, cool steel, hue-shifted light, purposeful pixel clusters | Director-supplied 2026-11-03 PNG; SHA-256 `bd359f3d678ce9bb361ffb3097f19fb99d7a190ea2a417a18c81a4ff8119d017`; attached to initiating conversation, **not committed** | **STYLE BENCHMARK** only; native/source archive and lossless export still pending |
-| Bloodthorn Kunai | Existing recognizable kunai construction / family comparator | `art/item_icons/kunai/refs/ref_bloodthorn_kunai_live.webp` | Context reference; **not V10-quality certification** |
+| **Tatsumaki's Bellow V10.1** | **ACTIVE** benchmark for Premium Seichi item-icon illustrative pixel craftsmanship, per director 2026-11-03 | Director designated revision; actual V10.1 source image, native file and checksum **not yet supplied/verified here** | **ACTIVE ART-DIRECTION BENCHMARK; BYTE/PIXEL VERIFICATION PENDING**; do not treat predecessor PNG as this revision |
+| Tatsumaki's Bellow **V10** (superseded) | Predecessor observed example (green sculptural spirit-wind, cool steel, deliberate clusters) | Director-supplied 2026-11-03 PNG; SHA-256 `bd359f3d678ce9bb361ffb3097f19fb99d7a190ea2a417a18c81a4ff8119d017`; attached to initiating conversation, **not committed** | **SUPERSEDED AS BENCHMARK**; historical comparison only |
+| Bloodthorn Kunai | Existing recognizable kunai construction / family comparator | `art/item_icons/kunai/refs/ref_bloodthorn_kunai_live.webp` | Context reference; **not V10.1-quality certification** |
 | Plain Kunai | Baseline ring/handle silhouette reference | `art/item_icons/kunai/refs/ref_kunai_live.webp` | Context reference only |
 
 ## Proposed replacement wave W01 — Elemental Kunai
@@ -18,11 +19,11 @@ This continues the existing `docs/design/kunai_family/PROJECT.md` and its prior 
 
 | Item (id) | Current/source icon reference | Replacement wave/family | Benchmark family | Status | Export / QC / live-wiring notes |
 |---|---|---|---|---|---|
-| **Ikazuchi Kunai** (`GMF1JZ0MChUHc7AtnKABw`) | `art/item_icons/kunai/refs/ref_ikazuchi_kunai_live.webp` (historical) | W01 / elemental kunai; **pilot** | V10 craft / kunai anatomy | **PILOT PROPOSED — RECAPTURE** | Historical black tile/noisy lightning; lock or explicitly approve silhouette changes; no accepted new export; no wiring |
-| **Katon Kunai** (`sXaqXBYXGHvK75D7Bpo1h`) | `art/item_icons/kunai/refs/ref_katon_kunai_live.webp` (historical) | W01 / elemental kunai | V10 craft / kunai pilot | **CAPTURE NEEDED** | Keep fire identity distinct; no approved export or wiring |
-| **Stonefall Kunai** (`4ILs8HFIRQG56ygG-uGrW`) | **Not archived / not verified** (family plan noted census gap) | W01 / elemental kunai | V10 craft / kunai pilot | **CAPTURE NEEDED** | Verify identity, type, current image and earth treatment before brief |
-| **Wave Kunai** (`tFH-9RLeCUcVByQbqd2ic`) | **Not archived / not verified** | W01 / elemental kunai | V10 craft / kunai pilot | **CAPTURE NEEDED** | Verify identity, type, current image and water treatment before brief |
-| **Zephyrfang Kunai** (`RIK6tVrKHPEJHz8B_y9dK`) | **Not archived / not verified** | W01 / elemental kunai | V10 craft / kunai pilot | **CAPTURE NEEDED** | Verify identity, type, current image and wind treatment; compare distinctness with Tatsumaki, never clone its swirls |
+| **Ikazuchi Kunai** (`GMF1JZ0MChUHc7AtnKABw`) | `art/item_icons/kunai/refs/ref_ikazuchi_kunai_live.webp` (historical) | W01 / elemental kunai; **pilot** | V10.1 craft / kunai anatomy | **PILOT PROPOSED — RECAPTURE** | Historical black tile/noisy lightning; lock or explicitly approve silhouette changes; no accepted new export; no wiring |
+| **Katon Kunai** (`sXaqXBYXGHvK75D7Bpo1h`) | `art/item_icons/kunai/refs/ref_katon_kunai_live.webp` (historical) | W01 / elemental kunai | V10.1 craft / kunai pilot | **CAPTURE NEEDED** | Keep fire identity distinct; no approved export or wiring |
+| **Stonefall Kunai** (`4ILs8HFIRQG56ygG-uGrW`) | **Not archived / not verified** (family plan noted census gap) | W01 / elemental kunai | V10.1 craft / kunai pilot | **CAPTURE NEEDED** | Verify identity, type, current image and earth treatment before brief |
+| **Wave Kunai** (`tFH-9RLeCUcVByQbqd2ic`) | **Not archived / not verified** | W01 / elemental kunai | V10.1 craft / kunai pilot | **CAPTURE NEEDED** | Verify identity, type, current image and water treatment before brief |
+| **Zephyrfang Kunai** (`RIK6tVrKHPEJHz8B_y9dK`) | **Not archived / not verified** | W01 / elemental kunai | V10.1 craft / kunai pilot | **CAPTURE NEEDED** | Verify identity, type, current image and wind treatment; compare distinctness with Tatsumaki, never clone its swirls |
 
 ## Per-item register fields and state gates
 
@@ -32,4 +33,4 @@ Suggested status progression: `PROPOSED` → `SOURCE_CAPTURED` → `IDENTITY_LOC
 
 ## First intake decision
 
-**Proposed first pilot: Ikazuchi Kunai**, based on the existing research and stored live-reference bytes. The director must accept its identity-lock/redesign exception, pilot artwork and eventual 5-item family presentation. Current full `item.get` records and snapshots still must be captured by an operator-approved workflow; no source URL is inferred from an old catalog. **No batch is ready for live wiring.**
+**Proposed first pilot: Ikazuchi Kunai**, based on the existing research and stored live-reference bytes. The director must accept its identity-lock/redesign exception, pilot artwork and eventual 5-item family presentation. Current full `item.get` records and snapshots still must be captured by an operator-approved workflow; no source URL is inferred from an old catalog. **V10.1's exact image remains an intake dependency. No batch is ready for live wiring.**
