@@ -96,6 +96,8 @@ export const MOE_DEFAULTS = {
   pullCd: 4, // Breathless Pull mark cooldown (one flood cycle: mark, pull + flood mark, flood, one free turn)
   hushUnbridledCount: 3, // pools per Unbridled Hush (every turn)
   porterPush: 2, // Doorward Sweep shove (hexes); 0 = none
+  /** Pass 5 (RUL-2026-11-04-113): eruptions as a fixed share of an endgame max HP (elite model 31,500). */
+  eruption: { on: false, hp: 31500, act1: 40, act2: 60, act3: 80 } as { on: boolean; hp: number; act1: number; act2: number; act3: number },
   /** Analysis only (pass 4): raise every cooldown below this to it (Forge L16 refuses jutsu cooldown < 3). 0 = off. */
   cooldownFloor: 0,
   hushRounds: 8,
@@ -183,10 +185,22 @@ const ALLGEN = ["Highest", "Strength", "Intelligence", "Willpower", "Speed"];
 const weaknessSelf = (mult: number, anim = "moe_guard_open") =>
   tag("weakness", { target: "SELF", rounds: 1, dmgModifier: mult, statTypes: ALLSTATS, generalTypes: ALLGEN, power: 100, staticAnimation: anim });
 const heavy = (power: number, anim = "dt_heavy") => T.damage(power, { appearAnimation: anim });
+/**
+ * Pass 5 (RUL-2026-11-04-113): a telegraphed eruption hits a player still standing in it for a fixed share of an
+ * endgame player's max HP. `pierce` with calculation static: damageCalc returns the bare power for any non-formula
+ * effect (theninjarpg@3314d122 libs/combat/tags.ts:1438-1497); pierce runs after every damage modifier
+ * (process.ts:497-511, 741-756), so decreasedamagetaken and the boss's increasedamagegiven rows never touch it, and it
+ * destroys shields instead of being absorbed (process.ts:842-877). dmgModifier is set to 1 because the PierceTag default
+ * is 2 (damageCalc multiplies by it, tags.ts:1488-1490). Off = the pass-4 formula hit.
+ */
+let ERUPT: { on: boolean; hp: number; pct: Record<number, number> } = { on: false, hp: 31500, pct: { 1: 40, 2: 60, 3: 80 } };
+const erupt = (act: number, power: number, anim: string) =>
+  ERUPT.on ? T.pierce(Math.round((ERUPT.hp * ERUPT.pct[act]!) / 100), { calculation: "static", dmgModifier: 1, description: "Pierces target", appearAnimation: anim }) : heavy(power, anim);
 
 /* ------------------------------------------------------------------ records */
 export const buildRecords = (P: MoeParams) => {
   CARRIER_ON = P.telegraphCarrier !== false;
+  ERUPT = { on: !!P.eruption?.on, hp: P.eruption?.hp ?? 31500, pct: { 1: P.eruption?.act1 ?? 40, 2: P.eruption?.act2 ?? 60, 3: P.eruption?.act3 ?? 80 } };
   const J: Record<string, any> = {};
   const add = (id: string, f: Parameters<typeof jutsu>[1]) => { J[id] = jutsu(id, f); return id; };
   const p = P.pw;
@@ -200,13 +214,13 @@ export const buildRecords = (P: MoeParams) => {
   mark(JID.refractB, "Refraction", PAT.refractB, MK.refractB, "%user draws three lines of light from the walls.");
   add(JID.facet, { name: "Facet", description: "Below 60%: her Refraction is drawn with its mirror image (both line sets); they shatter on her next turn.", battleDescription: "The lines split. Their mirror image glows on the far side of the hall.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: P.refractCd, actionCostPerc: 40, coordinateTargeting: field([...PAT.refractA, ...PAT.refractB]), effects: [carrier("tg_heavy"), marker(MK.facet)] });
   const blast = (id: string, name: string, cells: Cell[], power: number, line: string, extra: any[] = []) =>
-    add(id, { name, description: "The marked lines shatter.", battleDescription: line, target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(cells), effects: [heavy(power, "moe_refraction"), ...extra] });
+    add(id, { name, description: "The marked lines shatter.", battleDescription: line, target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(cells), effects: [erupt(1, power, "moe_refraction"), ...extra] });
   blast(JID.blastA, "Refraction", PAT.refractA, p.refract, "The lines shatter.");
   blast(JID.blastB, "Refraction", PAT.refractB, p.refract, "The lines shatter.");
   blast(JID.facetBlast, "Facet", [...PAT.refractA, ...PAT.refractB], p.facet, "Both images shatter at once.");
   // Lucid (the Silence fell first): the blast also draws the second set, so Refraction fires twice.
   add(JID.lucidBlast, { name: "Lucid Refraction", description: "Lucid: the lines shatter and are drawn again at once.", battleDescription: "\"I can hear myself again.\" The lines shatter, and new ones are already drawn.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(PAT.refractA),
-    effects: [heavy(p.refract, "moe_refraction"), carrier("tg_heavy", 1, field(PAT.refractB)), marker(MK.refractB)] });
+    effects: [erupt(1, p.refract, "moe_refraction"), carrier("tg_heavy", 1, field(PAT.refractB)), marker(MK.refractB)] });
   add(JID.lucidWake, { name: "Lucid", description: "With the Silence gone, Sayo hears herself again: her glass cuts deeper.", battleDescription: "\"I can hear myself again.\" Sayo straightens; every pane in the hall turns with her.", target: "SELF", method: "SINGLE", range: 0, cooldown: 99, actionCostPerc: 20, effects: idgTags(P.lucidIdg).map((e: any) => ({ ...e, rounds: 99, staticAnimation: "moe_lucid" })) });
   add(JID.likeness, { name: "Your Likeness", description: "Below 40%: she casts your impression from the glass for three rounds.", battleDescription: "\"Hold still. There. That is you.\" Your likeness steps out of the glass.", target: "EMPTY_GROUND", method: "SINGLE", range: 5, cooldown: 99, actionCostPerc: 60, donor: IN.donors.summon,
     effects: [tag("summon", { aiId: AI.likeness, aiHp: P.likeness.hp, power: P.likeness.power, rounds: P.likeness.rounds, appearAnimation: "moe_likeness" })] });
@@ -234,7 +248,7 @@ export const buildRecords = (P: MoeParams) => {
   // The blast is CHARACTER (it stuns) and its pattern holds the Silence's own hex, so it is always a valid cast.
   add(JID.stillness, { name: "Stillness", description: "The deep listens around the Silence: next turn, everything within 3 is crushed and stunned.", battleDescription: "The floor around the Silence goes still. Something is listening.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: P.still.cd, actionCostPerc: 40, coordinateTargeting: field(PAT.stillReach), effects: [carrier("tg_control"), marker(MK.still)] });
   add(JID.stillnessBlast, { name: "Stillness", description: "Everything within 3 of the Silence is crushed and stunned.", battleDescription: "\"Be still.\"", target: "CHARACTER", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(PAT.stillReach),
-    effects: [heavy(p.stillness, "moe_stillness"), tag("stun", { power: 100, rounds: P.still.stunRounds, apReduction: P.still.stunAp, friendlyFire: "ENEMIES" })] });
+    effects: [erupt(1, p.stillness, "moe_stillness"), tag("stun", { power: 100, rounds: P.still.stunRounds, apReduction: P.still.stunAp, friendlyFire: "ENEMIES" })] });
   /* ---- the feeler ---- */
   add(JID.cradle, { name: "Cradle", description: "While a feeler lives, the Silence holds Sayo: 90% less damage taken, and the hold cannot be cleared.", battleDescription: "The Silence cradles %target. Blows slide off the glass.", target: "ALLY", method: "SINGLE", range: 5, cooldown: 1, actionCostPerc: 40, donor: "xs-8r_KRJS8QQMpBDyhUv",
     effects: [T.pct("decreasedamagetaken", p.cradleDR, 1, { target: "INHERIT", friendlyFire: "FRIENDLY", staticAnimation: "moe_cradle" }), tag("clearprevent", { power: 100, rounds: 1, target: "INHERIT", friendlyFire: "FRIENDLY" })] });
@@ -243,7 +257,7 @@ export const buildRecords = (P: MoeParams) => {
   /* ---- Act II: Sayo (the Stilling) ---- */
   for (const k of Object.keys(PAT.etch)) {
     add(JID.etch[k]!, { name: "Etching", description: "She etches a pattern into the glass. It will remember.", battleDescription: "%user traces a pattern into the glass. It glows, then fades.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 40, coordinateTargeting: field(PAT.etch[k]!), effects: [carrier("tg_etch")] }); // RUL-2026-11-02-101: readable for one full round
-    add(JID.det[k]!, { name: "Recast", description: "The glass remembers an etching and detonates it, unmarked. While she recasts, her guard is open (x3 damage taken).", battleDescription: "The glass remembers.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 100, coordinateTargeting: field(PAT.etch[k]!), effects: [heavy(p.detonate, "moe_recast"), weaknessSelf(3)] });
+    add(JID.det[k]!, { name: "Recast", description: "The glass remembers an etching and detonates it, unmarked. While she recasts, her guard is open (x3 damage taken).", battleDescription: "The glass remembers.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 100, coordinateTargeting: field(PAT.etch[k]!), effects: [erupt(2, p.detonate, "moe_recast"), weaknessSelf(3)] });
   }
   // Etching turns: Etching (40 AP) + The Hush Rises (60 AP) = exactly 100 AP. Any leftover AP ends in the engine's
   // appended end turn, whose "wait" enters usedActions and breaks the combo (moe_probe P1b, first build). One record per
@@ -267,10 +281,10 @@ export const buildRecords = (P: MoeParams) => {
   // Shatterfall's mark stays NEW (pass 3: the live Omen: Fanned Lines carries its art on a visual, which the server drops
   // early; editing that shared record would ripple to its holders). Same 19-hex fan, with the carrier.
   add(JID.shatterMark, { name: "Shatterfall", description: "A fan of cracks runs out from her; it falls on her next turn.", battleDescription: "Cracks fan out from %user's feet.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 3, actionCostPerc: 40, coordinateTargeting: { origin: "CASTER", selection: "ALL", coordinates: FAN_OFFSETS, randomCount: 1 }, effects: [carrier("tg_heavy"), marker(MK.shatter)] });
-  add(JID.shatterBlast, { name: "Shatterfall", description: "The fan falls.", battleDescription: "The fan of glass falls.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: { origin: "CASTER", selection: "ALL", coordinates: FAN_OFFSETS, randomCount: 1 }, effects: [heavy(p.shatter, "moe_shatterfall")] });
+  add(JID.shatterBlast, { name: "Shatterfall", description: "The fan falls.", battleDescription: "The fan of glass falls.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: { origin: "CASTER", selection: "ALL", coordinates: FAN_OFFSETS, randomCount: 1 }, effects: [erupt(3, p.shatter, "moe_shatterfall")] });
   add(JID.floodMark, { name: "Every Name in the Glass", description: "Every stilled name rises to the floor; only where the three refused stays dry.", battleDescription: "Every name in the glass rises at once. Three places stay dry: where the three refused.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: P.floodCd, actionCostPerc: 40, coordinateTargeting: field(PAT.flood),
     effects: [carrier("tg_heavy"), carrier("tg_safe", 1, field(STARS)), marker(MK.flood)] });
-  add(JID.floodBlast, { name: "Every Name in the Glass", description: "The flood of names.", battleDescription: "The names flood the hall.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(PAT.flood), effects: [heavy(p.flood, "moe_flood")] });
+  add(JID.floodBlast, { name: "Every Name in the Glass", description: "The flood of names.", battleDescription: "The names flood the hall.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(PAT.flood), effects: [erupt(3, p.flood, "moe_flood")] });
   // RUL-2026-11-02-097 item 5 (addendum): healing REDUCTION, not healprevent. decreaseheal (percentage, power 100) cuts
   // heal_hp, lifesteal_hp, vampRatio and absorb_hp on the consequence whatever their source, gear lifesteal included
   // (tags.ts adjustHealGiven). It is laid as Hush ground over the whole floor, the three dry tiles included, so it
@@ -295,7 +309,7 @@ export const buildRecords = (P: MoeParams) => {
   const gfMk = [MK.gA, MK.gB, MK.gC];
   const gf = (id: string, k: number, nextMk: string, extra: Cell[] = [], line = "Glass falls.") =>
     add(id, { name: "Glassfall", description: "The marked third of the hall is crushed; the next third is marked.", battleDescription: line, target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 100, coordinateTargeting: field([...PAT.glass[k]!, ...extra.filter((c) => !PAT.glass[k]!.some((g) => key(g) === key(c)))]),
-      effects: [heavy(extra.length ? Math.max(p.glass, p.recastIII) : p.glass, "moe_glassfall"), carrier("tg_heavy", 1, field(PAT.glass[(k + 1) % 3]!)), marker(nextMk)] });
+      effects: [erupt(3, extra.length ? Math.max(p.glass, p.recastIII) : p.glass, "moe_glassfall"), carrier("tg_heavy", 1, field(PAT.glass[(k + 1) % 3]!)), marker(nextMk)] });
   gf(JID.glass[0]!, 0, gfMk[1]!);
   gf(JID.glass[1]!, 1, gfMk[2]!);
   gf(JID.glass[2]!, 2, gfMk[0]!);
@@ -826,6 +840,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       act: cfg.act, seed: o.seed, outcome: "stalled", rounds: 0, endHp: 0, endCp: 0, endSp: 0, bossHpPct: {}, deathCause: null, maxHit: { dmg: 0, by: "" },
       sets: {}, unmarkedTotal: 0, specials: {}, bossTurns: {}, bossIdle: {}, killFirst: null, dmgBySource: {}, healed: 0, dodges: 0, cleanses: 0, ...(o.trace ? { trace: [] } : {}),
     };
+    (res as any).maxHp = maxHp;
     const set = (k: string) => (res.sets[k] ??= { mark: 0, land: 0, hit: 0, dmg: 0, unmarked: 0 });
     const actionRounds: number[] = [];
     const turnActs = new Map<string, string[]>();
