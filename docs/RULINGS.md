@@ -5680,9 +5680,12 @@ A loss pays nothing.
    - **Act II (Glasswright of the Stilling):** half turned to etched glass, stilled faces pressing outward, the etching lattice behind her.
    - **Act III (Saint of Stillness):** dark cracked glass and black tears, lifted on the Silence's feelers, with a halo of frozen shards.
    - **House-style exceptions for her alone:** the avatar scaffold's eye-level, no-props and no-halo clauses are waived. Glow stays edge-only, and the halo pieces are solid objects.
-3. **Approved art:**
-   - ME01 v2 (Sayo, Act I): `art/mother_of_echoes/raw/ME01_raw_avatar_moe_sayo_v2.png`.
-   - ME02 (The Silence): `art/mother_of_echoes/raw/ME02_raw_avatar_moe_silence.png`.
+3. **Approved art** (raws in `art/mother_of_echoes/raw/`, keyed exports in `exports/`, all preflight 0/0):
+   - ME01 v2 (Sayo, Act I).
+   - ME02 (The Silence).
+   - ME03 (Act II): Act I's fan breaking, half her body turned to glass; no faces on her body.
+   - ME04 (Act III): **entirely glass, the Silence's black filling her from inside**. That's the arc's end: she stilled herself into glass, and the Silence wears the result.
+   - Director, 2026-11-03: "I'm happy with these 3", then on ME04: "shouldn't she be fully glass and the silence corrupts her?" → "There we go".
 
 **Evidence:** Director, 2026-11-03: "she reads more like an NPC than a pinnacle boss … her different forms are just outfit changes"; on the v2 raw, "This looks much better. And thematically The Silence can be her shadow that suddenly detaches itself"; "The Silence is pretty dang good".
 
