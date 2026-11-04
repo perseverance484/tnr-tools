@@ -5687,3 +5687,21 @@ A loss pays nothing.
 **Evidence:** Director, 2026-11-03: "she reads more like an NPC than a pinnacle boss … her different forms are just outfit changes"; on the v2 raw, "This looks much better. And thematically The Silence can be her shadow that suddenly detaches itself"; "The Silence is pretty dang good".
 
 **Canonical destination:** `docs/handoffs/MOTHER_OF_ECHOES_ART_PROMPTS.md` (ME01/ME03/ME04) and the generator's dialog text.
+
+## RUL-2026-11-03-112 — Skyglass boss set-piece animations (push/470+): diagnostics, window strip, Maw held, Splintered Grasp skipped
+
+**Date:** 2026-11-03
+
+**Domain:** Skyglass event / boss animations and content gates
+
+**Status:** ACTIVE. Applies to push/470-475 (`push/skyglass_boss_fx_ship.gen.py`).
+
+**Ruling:**
+1. **Two new validator diagnostic classes are accepted**, both live values re-sent unchanged on legacy Ghost Ship records: Final Command's damage without generalTypes (law 4 / L06) and Keelbind's drain power 505 (law 6). They are ledgered in `state/validate_exceptions/` when 471-475 are built.
+2. **The burst-window strip (`anim_exposed_v1_x3d`) plays ONCE:** it goes on the weakness effect's `appearAnimation` (not a `staticAnimation` loop) on Maw of the Deep, Quench and Lowered Guard.
+3. **Maw of the Deep's arena animation (`maw_field`) is HELD BACK:** another workstream is designing a composite multi-tile Maw. Maw of the Deep's damage `appearAnimation` stays empty (unchanged) and the `maw_field` asset is dropped from push/470. Maw still gets the window strip, played once.
+4. **Splintered Grasp is skipped:** no copy, no upload of `anim_rot_claw_v1`.
+
+**Evidence:** Director, 2026-11-03 (relayed by the coordinator): decisions on push/470+ items 1-4 as above.
+
+**Canonical destination:** `push/skyglass_boss_fx_ship.gen.py` (SLOTS, ASSETS, WINDOW_FIELD) and the push/README.md 470-475 entry.
