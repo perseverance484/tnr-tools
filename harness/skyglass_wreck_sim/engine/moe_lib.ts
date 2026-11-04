@@ -354,9 +354,26 @@ export const buildRecords = (P: MoeParams) => {
   // Breathless Pull, which stays as is) by bossDmgScale, a multiplier on effect power (damage is linear in power:
   // tags.ts powerEffect epScale = power / ep_normalization).
   if (DEBUFF.on) {
-    const acts: [number, string[]][] = [[1, [JID.blastA, JID.blastB, JID.facetBlast, JID.lucidBlast, JID.stillnessBlast]], [2, Object.values(JID.det)],
-      [3, [JID.shatterBlast, JID.floodBlast, ...JID.glass, JID.glassFirstB, JID.glassRecast]]];
-    for (const [act, ids] of acts) for (const id of ids) { const r = J[id]!; r.target = "CHARACTER"; r.effects.push(...eruptDebuff(act)); }
+    // Option 4 (director 2026-11-04). Act II: the five Recasts become CHARACTER casts with Sayo's own post (7,5) in the
+    // pattern, so a cast is always valid (actions.ts refuses a CHARACTER cast with no unit on its hexes); the debuff lands on
+    // the player with its own rounds. Her own hex is never hit (friendlyFire ENEMIES). Nothing Moves already holds the
+    // Silence's hex. Acts I and III: the eruption stays GROUND and leaves a heal-block + damage-taken pool on its own
+    // pattern hexes only (ground tags are placed on the cast's pattern, actions.ts:1063-1100), drawn as a lingering pool.
+    const SAYO2_POST: Cell = [7, 5];
+    for (const id of Object.values(JID.det)) {
+      const r = J[id]!; r.target = "CHARACTER";
+      const cs = r.coordinateTargeting.coordinates;
+      if (!cs.some((c: any) => c.longitude === SAYO2_POST[0] && c.latitude === SAYO2_POST[1])) cs.push({ longitude: SAYO2_POST[0], latitude: SAYO2_POST[1] });
+      r.effects.push(...eruptDebuff(2));
+    }
+    J[JID.stillnessBlast]!.effects.push(...eruptDebuff(1));
+    const pool = (act: number) => {
+      const d = DEBUFF.pct[act]; if (!d) return [];
+      return [tag("decreaseheal", { power: d.dh, rounds: d.poolRounds ?? d.rounds, calculation: "percentage", friendlyFire: "ENEMIES", description: "The broken glass", ...poolArt("tg_linger") }),
+        T.pct("increasedamagetaken", d.idt, d.poolRounds ?? d.rounds, { friendlyFire: "ENEMIES", description: "The broken glass" })];
+    };
+    for (const id of [JID.blastA, JID.blastB, JID.facetBlast, JID.lucidBlast]) J[id]!.effects.push(...pool(1));
+    for (const id of [JID.shatterBlast, JID.floodBlast, ...JID.glass, JID.glassFirstB, JID.glassRecast]) J[id]!.effects.push(...pool(3));
   }
   const SUMMON_HITS = new Set([JID.grasp, JID.likenessStrike, JID.porter, JID.tomo]);
   for (const [id, r] of Object.entries<any>(J)) if (id !== JID.pull) for (const e of r.effects) if ((e.type === "damage" || e.type === "pierce") && e.calculation === "formula") {
@@ -1177,7 +1194,10 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
 const wantsCleanse = (b: any, puid: string, real = false) =>
   b.usersEffects.filter((e: any) => e.targetId === puid && e.type === "increasedamagetaken" && (e.rounds ?? 0) > 0).length >= 2 ||
   // real player (logs): Cleanse right after a root or a drain from an enemy action (not ground pools, which re-apply)
-  (real && b.usersEffects.some((e: any) => e.targetId === puid && !e.fromGround && (e.type === "moveprevent" || e.type === "drain") && (e.rounds ?? 0) > 0 && e.creatorId !== puid));
+  (real && b.usersEffects.some((e: any) => e.targetId === puid && !e.fromGround && (e.type === "moveprevent" || e.type === "drain") && (e.rounds ?? 0) > 0 && e.creatorId !== puid)) ||
+  // skilled (pass 6): Cleanse the eruption debuff (Act II, Nothing Moves) when it is on and HP is below 70%
+  (real && SKILLED && (() => { const u = b.usersState.find((x: any) => x.userId === puid); return u && u.curHealth / u.maxHealth < 0.7; })() &&
+    b.usersEffects.some((e: any) => e.targetId === puid && !e.fromGround && e.type === "decreaseheal" && e.creatorId !== puid && (e.rounds ?? 0) > 0));
 /** Real player (logs): Clear the target right after it gains a clearable combat buff (not innate rows; not clear-proof). */
 const wantsClear = (b: any, t: any) =>
   !b.usersEffects.some((e: any) => e.targetId === t.userId && e.type === "clearprevent" && (e.rounds ?? 0) > 0) &&
