@@ -16,7 +16,7 @@ offline-tested spec on fable/mother-of-echoes-sim.
 The final push (2026-11-04; docs/design/MOTHER_OF_ECHOES_ART.md; law 16b/16c, law 18) is TWO jobs. It supersedes the
 old --step publish (465), which is gone:
     python3 push/mother_of_echoes.gen.py --step final --bundles <440, 461-463> --economy <417>
-        -> push/466_mother_of_echoes_final.json        (JOB 1, phases 10-50: hidden art assets, item art, law 18
+        -> push/466_mother_of_echoes_final.json        (JOB 1, phases 10, 30-50: hidden art assets, law 18
                                                          unequip, the 53 jutsu with art, the 9 AIs re-equipped with
                                                          avatars; everything that fights stays hidden)
     python3 push/mother_of_echoes.gen.py --step golive --bundles <440, 461-464> --economy <417> --from <466 bundle>
@@ -622,18 +622,17 @@ def phased(groups):
 def step_final(spec, ids, econ_path):
     fx = {k: "@scene:" + AID + k for k in FX}  # in-job refs: resolved in data at send time (refs.mjs)
     a_items, a_paths = assets_items()
-    i_items, i_paths = item_art_items(econ_path)
     b = Build(spec)
     u_items = unequip_items(b, ids)
     j_items, j_paths, j_notes = jutsu_art_items(spec, ids, fx)
     r_items, r_paths, r_notes = reequip_items(spec, ids)
-    items = phased([(10, a_items), (20, i_items), (30, u_items), (40, j_items), (50, r_items)])
+    # Item art (phase 20 in the first master build) ran standalone as push/468 (built by item_art_items, c0509237).
+    items = phased([(10, a_items), (30, u_items), (40, j_items), (50, r_items)])
     write("final", (
         f"push/{N['final']}, JOB 1 of 2 of the Mother of Echoes final push (docs/design/MOTHER_OF_ECHOES_ART.md; "
         f"zero live requests to build). Phase 10: {len(a_items)} HIDDEN gameAssets (law 16b, folder MotherOfEchoes): "
-        f"the {len(FX)} code-built FX and the {len(SCENES)} act scenes. Phase 20: {len(i_items)} item edits: shard and "
-        "token icons, both variants' final images (Heartglass = the approved heart-crowned fan), Heartglass token and "
-        "variant text matched to that art (these items are visible: this shows at once). Phase 30: law 18 step 1, every "
+        f"the {len(FX)} code-built FX and the {len(SCENES)} act scenes. (No phase 20: the shard, token and variant art "
+        "ran standalone as push/468.) Phase 30: law 18 step 1, every "
         f"moe jutsu off its {len(u_items)} AIs (saving a hidden jutsu sets equipped false on its holders, "
         "queries/jutsu.ts:662; an unchanged kit inserts nothing, routers/profile.ts computeUserContentChanges). Phase "
         f"40: all {len(j_items)} moe jutsu re-sent from the spec with family icons and FX (FX by in-job @scene refs, "
@@ -641,7 +640,7 @@ def step_final(spec, ids, econ_path):
         f"{len(r_items)} AIs re-sent whole with avatars, re-equipping every moe jutsu; rules re-sent. Everything that "
         "fights stays HIDDEN and the quest stays hidden: a pause anywhere strands nothing a player can reach (resume "
         f"from the paused job). Keep the results bundle: push/{N['golive']} (job 2) is built from it."),
-        items, j_notes + r_notes, extra=pack(a_paths + i_paths + j_paths + r_paths))
+        items, j_notes + r_notes, extra=pack(a_paths + j_paths + r_paths))
 
 
 def step_golive(b, ids, econ, bundle):
