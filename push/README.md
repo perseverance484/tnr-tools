@@ -1506,6 +1506,79 @@ unequipped since. 375/377 take both off and put both back, which repairs that.
 (`tnr_results_1793489822839.json`). **378** (`--unhide` 376 bundle, 6 asset edits) and **380** (`--unhide` 379 bundle)
 built, gates clean, READY TO RUN.
 
+## 470-475 Skyglass boss set-piece animations, shipped: 470 READY TO RUN (any day); 471-475 built from 470's bundle, kit edits MONDAY TO THURSDAY ONLY
+
+The boss strips drawn 2026-10-28 (`art/skyglass_boss_fx/boss_fx.py`, `docs/design/skyglass_boss_fx/boss_reel.mp4`)
+were never uploaded. `python3 push/skyglass_boss_fx_ship.gen.py` writes 470; `--from <470 bundle>` writes 471-475
+(do not hand-edit). Zero live requests to build. Source pin theninjarpg@3314d122 (pixi renderer,
+`libs/rendering/scenes/combatEffects.ts`: one sprite of 2.5 x hex height per effect; appear plays once, static loops).
+
+**Strips:** `art/skyglass_boss_fx/deliver_boss.py` -> `exports/anim_<id>_v1_x3d.webp` + `boss_v1_x3d.json`, the AN-set
+convention of push/376 (`an_v1.json`): 150 px frames (x3 nearest), speed 50 ms per frame, and the reel's 130-alpha fades
+turned into an ordered dither (as animate_an.py) so alpha is 0/255 and the strips pass `artpreflight.py --type
+ANIMATION` (0 errors; the 50 px originals fail min_width and soft_edges). Fresh filenames (law 32). **Previews (look
+before running 470):** `docs/design/skyglass_boss_fx/ship_battle.mp4` and `ship_keys_*.png` (`ship_preview.py`).
+
+| Move (live id) | Effect | Field | Strip (frames x 50 ms) |
+|---|---|---|---|
+| Ship's Bell (`4mu7BPrMKOHXmvp5WKMmw`) | [0] damage | appear | ships_bell (14) |
+| Broadside (`CxGrWF_wJepsT6W4MNkuq`) | [0] damage | appear | broadside_field (10) |
+| Command Absolute (`fXqcnsFlK-1w7rweBanZY`) | [0] damage | appear | command_absolute_field (12) |
+| Crownfall (`ee4hRc-GiwDJkqCcnMDaX`) | [0] damage | appear | crownfall (12) |
+| Maw of the Deep (`_hxcJFYdxVOsjs0ryzrFq`) | [0] damage / [2] weakness SELF | appear / static | maw_field (12) / exposed (10) |
+| Quench (`5x2F8btsK8Gvfr0o3WtiE`) | [0] damage / [1] weakness SELF | appear / static | quench (12) / exposed |
+| Lowered Guard (`sOooIuNeKScLskCCtgBMY`) | [0] weakness SELF | static | exposed |
+| Binding: Seal Cross (`F6uu9fki0KdceKzxLVvKi`) | [0] damage | appear | chain_wrap (10) (RUL-2026-10-30-061 item 10) |
+| Chain Hook / Mould Cage (`kjtW0Yjc3-QfJzrvrLyUT`) | [0] damage | appear | chain_wrap |
+| Keelbind (`PdD44PGaNv4MN5fOALhAF`) | [0] damage | appear | chain_wrap |
+| Final Command (`X2P22h8ApDmTZHjWpNO87`) | [0] damage | appear | crimson_strike (8) |
+| Stonebound Summons (`bcbOllIWqHEopmQGHKDED`), Recall (`ag8guPcS5Lkw_YwK3YyFG`) | [0] summon | appear | recall (14) |
+| The Crown's Will (`UTLj47puRAwSnFwiSKCuN`) | [0] increasedamagegiven (jutsu SELF) | static | crown_aura (32) |
+
+The arena-wide pieces (Maw, Command Absolute, Broadside) take the field variants (director 2026-10-28). The one burst
+window strip (`exposed`) serves every window (RUL-2026-10-28-028 item 6; art audit H2). No slot is on a `visual`
+(RUL-2026-11-02-101); the generator asserts it. The Little Maw's asset (push/379, full-size maw) is not reused.
+
+| # | Contents |
+|---|---|
+| 470 | 11 HIDDEN ANIMATION gameAssets (phase 1; imagePack pinned to the commit carrying the strips) + READ-ONLY `jutsu.get` captures of the 14 jutsu. Nothing else changes; safe any day |
+| 471 | 11 asset unhides by literal id (law 16c; the 412 -> 413 pattern) |
+| 472 | AI edits: the edited jutsu off every holder (law 18/60; they are hidden, so the edit's save would unequip them anyway, `routers/jutsu.ts:1117-1118`); items re-sent (law 70, in-job refs resolved to literal ids), rules untouched |
+| 473 | 14 jutsu edits, built from 470's live captures: only the art fields above change, plus `injectableInBattle: false` (law 20, as 431). Stops on any drift from the repository's records |
+| 474 | AI edits: each holder's exact current kit back on |
+| 475 | MASTER of 471 -> 472 -> 473 -> 474 (phases 0/10/20/30, `master_manifest.gen.py`). Run 475 OR the four, never both |
+
+**Run order:** 470 (results) -> regenerate with `--from` -> 471 -> 472 -> 473 -> 474 (or 475). 470 is kept apart
+because a failed asset upload must never strand AIs mid-way through the kit edits (the 433 lesson). Between 472 and 474
+the holders fight without these moves, so **472-474 / 475 run back to back, Monday to Thursday only**.
+
+**Holders** (stand-in build 2026-11-03; regenerate for the real list): 45 AIs, from the newest run kit send of each
+(`skyglass_mark_fix.gen.py` holders(), own outputs excluded): Lowered Guard 17, Keelbind 11, Chain Hook 8, Seal Cross
+8, Final Command 7, Maw / Broadside / Ship's Bell / Command Absolute 5 each, Stonebound Summons 4, Quench 2, The
+Crown's Will / Recall / Crownfall 1 each. Kit sources: push/433-434 (39), push/414 (5 Core Horrors), push/172 (the
+legacy Ghost Ship Crowned Captain `fDU9jCPZtH7YHbdQPO9RF`, matching its 2026-10-25 capture). No uber AI (440-464)
+holds any of them. The push/81-84 census holders of Keelbind / Final Command are all found.
+
+**Gates (stand-in 470 bundle, scratch only):** `check_manifest.mjs` 0 pre-send problems on 470-475; `skyglass_check.py`
+exit 0; `validate.py --strict` exit 0 on 470 and 471. Expected on the real build (ledgers to be written then, in
+`state/validate_exceptions/`): 472/474 4 each, the all-60-AP Sealwright class (RUL-2026-11-02-103); 473 23: the
+law 4 / law 6 / L06 values of the nine library set pieces, identical to the push/342 diagnostics RUL-2026-10-31-065
+item 1 accepted, **plus two NEW (legacy records, live values re-sent unchanged): Final Command law 4 + L06 (no
+generalTypes) and Keelbind law 6 (drain power 505)**, which need acceptance; 475 adds the build-order misranking class
+(RUL-2026-10-31-085).
+
+**Still pending:** Splintered Grasp (`anim_rot_claw_v1`): the live move is the shared pool jutsu Heavy Strike (S01,
+`pUrUJX8Jml7fUIBXKsPwv`), held across the game; it needs a Skyglass-only copy (as RUL-2026-11-01-092) or a decision.
+The Last Directive blaze (art audit H4: crown_aura "may serve"). Steady the Helm gets no flourish (RUL-2026-10-30-061
+item 10). **Open choice:** the window strip is a loop (staticAnimation, as designed) that covers the boss's portrait
+for the window round; `WINDOW_FIELD = "appearAnimation"` in the generator plays it once instead.
+
+**If Forge says "The quota has been exceeded."** clear finished jobs / Forge browser storage and re-run 470 on its own
+(dedupNames stops duplicates), as in the 433 entry.
+
+**After 474:** read back each holder's jutsu list and each edited jutsu's effects; test-play in the Proving Ground
+(RUL-2026-10-28-028 item 7).
+
 ## 434 Mark fix RESUME (433 paused, 2026-11-03): RUN 2026-11-03 (tnr_results_1793717178748.json, 54/54 VERIFIED)
 
 433 ran on 2026-11-03 and was paused by the director at idx 70 (bundles `tnr_results_1793716963666.json` /
