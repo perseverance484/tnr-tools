@@ -1,18 +1,18 @@
 {
- "source": "art/mother_of_echoes_fx/build_fx.py (pixel art in code; re-exports of art/skyglass_boss_fx strips)",
+ "source": "art/mother_of_echoes_fx/build_fx.py (pixel art in code)",
  "renderer": "theninjarpg@3314d122 libs/rendering/scenes/combatEffects.ts (pixi): one square sprite per hex, tile.height * 2.5; staticAssetPath stretched to the hex box under the actors",
  "layout": "vertical strip, one square frame per row",
  "speed_unit": "ms per frame (gameAsset.speed)",
  "assets": [
   {
-   "file": "art/mother_of_echoes_fx/exports/tile_moe_etch_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/tile_moe_etch_v2.webp",
    "type": "STATIC",
    "frames": 1,
    "speed": null,
    "duration_ms": null,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 566,
+   "bytes": 612,
    "use": "staticAssetPath",
    "serves": [
     "tg_etch"
@@ -110,80 +110,94 @@
    "note": "The Listening: a pale feeler rises and curls its tip (summon flourish)"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_lull_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_lull_v2.webp",
    "type": "ANIMATION",
    "frames": 32,
    "speed": 50,
    "duration_ms": 1600,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 368,
+   "bytes": 572,
    "use": "static",
    "serves": [
     "moe_lull"
    ],
-   "note": "The Glass Falls Quiet: glass dust drifting down at the hex sides (portrait-clear loop)"
+   "note": "The Glass Falls Quiet: glass dust drifting down beside Sayo; staticAnimation of the jutsu's fleeprevent (SELF, 2 rounds), moved off the visual the server drops (RUL-2026-11-02-101); clears an AI portrait"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_stillness_v1.webp",
-   "type": "ANIMATION",
-   "frames": 10,
-   "speed": 50,
-   "duration_ms": 500,
-   "frame_px": 150,
-   "drawn_grid_px": 50,
-   "bytes": 3914,
-   "use": "appear",
-   "serves": [
-    "moe_stillness"
-   ],
-   "note": "Nothing Moves: the violet lock (dt_control family) on the stunned hex; pairs with tg_control. Re-export x3 (nearest) of art/skyglass_boss_fx/exports/anim_chain_wrap_v1.webp (boss_fx.py, director key art 2026-10-28), its 130 alpha step turned into an ordered dither (spec soft-edge ceiling); not live before this."
-  },
-  {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_breathless_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_still_dark_v1.webp",
    "type": "ANIMATION",
    "frames": 12,
    "speed": 50,
    "duration_ms": 600,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 14040,
+   "bytes": 1740,
+   "use": "appear",
+   "serves": [
+    "moe_stillness"
+   ],
+   "note": "Nothing Moves: darkness closes in from the rim, a deep-violet edge, the dust stops"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_breath_draw_v1.webp",
+   "type": "ANIMATION",
+   "frames": 12,
+   "speed": 50,
+   "duration_ms": 600,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 1418,
    "use": "appear",
    "serves": [
     "moe_breathless"
    ],
-   "note": "Breathless Pull: chains lock and the seal stamps (violet control family); pairs with tg_control. Re-export x3 (nearest) of art/skyglass_boss_fx/exports/anim_command_absolute_v1.webp (boss_fx.py, director key art 2026-10-28), its 130 alpha step turned into an ordered dither (spec soft-edge ceiling); not live before this."
+   "note": "Breathless Pull: breath drawn out of the hex, up and away; a violet lock closes at the feet"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_lucid_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_lucid_aura_v1.webp",
    "type": "ANIMATION",
    "frames": 32,
    "speed": 50,
    "duration_ms": 1600,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 13830,
+   "bytes": 2702,
    "use": "static",
    "serves": [
     "moe_lucid"
    ],
-   "note": "Lucid: a ring of skyglass shards circling Sayo (buff loop; keeps the portrait clear). Re-export x3 (nearest) of art/skyglass_boss_fx/exports/anim_crown_aura_v1.webp (boss_fx.py, director key art 2026-10-28), its 130 alpha step turned into an ordered dither (spec soft-edge ceiling); not live before this."
+   "note": "Lucid: eight cold skyglass facets circling Sayo, white on the beat (AI portrait clear)"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_echo_rise_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_likeness_rise_v1.webp",
    "type": "ANIMATION",
    "frames": 14,
    "speed": 50,
    "duration_ms": 700,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 4232,
+   "bytes": 972,
    "use": "appear",
    "serves": [
-    "moe_likeness",
+    "moe_likeness"
+   ],
+   "note": "Your Likeness: a silvered-glass silhouette rises from the floor and cracks"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_worn_rise_v1.webp",
+   "type": "ANIMATION",
+   "frames": 14,
+   "speed": 50,
+   "duration_ms": 700,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 470,
+   "use": "appear",
+   "serves": [
     "moe_worn"
    ],
-   "note": "Your Likeness and the Worn: an echo pulled up out of the glass (summon flourish). Re-export x3 (nearest) of art/skyglass_boss_fx/exports/anim_recall_v1.webp (boss_fx.py, director key art 2026-10-28), its 130 alpha step turned into an ordered dither (spec soft-edge ceiling); not live before this."
+   "note": "The Worn: a faded, broken echo pulled up out of the glass"
   }
  ]
 }
