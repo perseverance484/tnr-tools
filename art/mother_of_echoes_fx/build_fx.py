@@ -858,6 +858,78 @@ def build_feeler():
 # The Names Flood In keeps the reuse-live Eruption strip (Z9j8J7ZmAjiaxH2S4nDy8, the doc's P1 source).
 
 
+# ------------------------------------------------------------------------------------------------ moe_flood (mask)
+MASK_KEYS = os.path.join(ROOT, 'art', 'mother_of_echoes', 'raw', 'fx_flood_mask_keys.png')   # director, 3 keyframes
+
+
+def mask_keys():
+    """The director's three lime-keyed keyframes (whole, cracked, burst), each cropped and fitted to the 50 px grid
+    at 38 px tall with hard alpha, colours kept flat (the source is already 5 flat colours)."""
+    src = Image.open(MASK_KEYS).convert('RGBA')
+    px_ = src.load()
+    for y in range(src.height):
+        for x in range(src.width):
+            r, g, b, a = px_[x, y]
+            if g > 170 and r < 110 and b < 110:
+                px_[x, y] = (0, 0, 0, 0)
+    w3 = src.width // 3
+    out = []
+    for k in range(3):
+        part = src.crop((k * w3, 0, (k + 1) * w3, src.height))
+        part = part.crop(part.getbbox())
+        h = 38 if k < 2 else 44
+        part = part.resize((max(1, round(part.width * h / part.height)), h), Image.BOX)
+        a = part.getchannel('A').point(lambda v: 255 if v >= 128 else 0)
+        part.putalpha(a)
+        out.append(part)
+    return out
+
+
+def build_flood_mask():
+    """The Names Flood In (heavy payoff): one great glass mask rises out of the hex, holds, its eyes snap open as
+    ember cracks split it with a white flash, then it bursts into chunky shards that fly apart. 14 frames, one-shot.
+    The director's keyframes are drawn for the 50 px delivery (bold outline, 5 flat colours)."""
+    whole, cracked, burst = mask_keys()
+    fr = []
+
+    def put(img, scale=1.0, dy=0, flash=False):
+        f = frame()
+        im = img
+        if scale != 1.0:
+            im = img.resize((max(1, round(img.width * scale)), max(1, round(img.height * scale))), Image.NEAREST)
+        if flash:  # whiten the fill, keep the dark outline so the silhouette holds
+            im = im.copy()
+            q = im.load()
+            for y in range(im.height):
+                for x in range(im.width):
+                    r, g, b, al = q[x, y]
+                    if al and r + g + b > 150:
+                        q[x, y] = (min(255, r + (255 - r) * 3 // 5), min(255, g + (255 - g) * 3 // 5),
+                                   min(255, b + (255 - b) * 3 // 5), al)
+        f.alpha_composite(im, ((N - im.width) // 2, (N - im.height) // 2 + 2 + dy))
+        return f
+
+    for sc, dy in ((0.55, 8), (0.8, 4), (1.0, 0)):      # rises and swells out of the floor
+        fr.append(put(whole, sc, dy))
+    fr += [put(whole), put(whole)]                     # holds: the calm before
+    fr.append(put(cracked, flash=True))                # the eyes open, white flash
+    fr += [put(cracked), put(cracked)]                 # cracks burn
+    fr.append(put(burst, 0.9, flash=True))             # it bursts
+    for sc in (1.0, 1.08, 1.14):                       # shards fly apart
+        fr.append(put(burst, sc))
+    shards = put(burst, 1.18)                          # last frame: shards only, the star gone
+    a = shards.getchannel('A').load()
+    p_ = shards.load()
+    for y in range(N):
+        for x in range(N):
+            r, g, b, al = p_[x, y]
+            if al and r - b > 30:                       # drop the ember star and its cream core
+                p_[x, y] = (0, 0, 0, 0)
+    fr.append(shards)
+    fr.append(frame())
+    return fr
+
+
 def export():
     os.makedirs(EXPORTS, exist_ok=True)
     rows = []
@@ -909,6 +981,10 @@ def export():
              'The Worn (summon flourish): grey-brown ash wells up out of the glass round the summon', False)):
         fr = fn()
         save(name, strip(fr), len(fr), use, serves, note)
+    fm = build_flood_mask()
+    save('anim_moe_flood_mask_v1.webp', strip(fm), len(fm), 'appear', ['moe_flood'],
+         'The Names Flood In: one great glass mask rises, its eyes snap open as ember cracks split it, then it bursts '
+         'into chunky shards (director keyframes ME28b, drawn for the 50 px delivery)')
     meta = {'source': 'art/mother_of_echoes_fx/build_fx.py (pixel art in code)',
             'renderer': 'theninjarpg@3314d122 libs/rendering/scenes/combatEffects.ts (pixi): one square sprite per hex, '
                         'tile.height * 2.5; staticAssetPath stretched to the hex box under the actors',

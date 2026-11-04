@@ -107,6 +107,7 @@ FX = {
     "likeness": ("anim_moe_likeness_ring_v2.webp", "Mother of Echoes FX - Your Likeness"),
     "worn": ("anim_moe_worn_ash_v2.webp", "Mother of Echoes FX - Raise the Worn"),
     "cradle": ("anim_moe_cradle_v2.webp", "Mother of Echoes FX - Cradle"),
+    "flood": ("anim_moe_flood_mask_v1.webp", "Mother of Echoes FX - The Names Flood In"),
 }
 SCENES = {  # key -> (file, name, quest nodes). "content" is the quest-level sceneBackground.
     "heart": ("scene_moe_heart.webp", "Mother of Echoes Scene - The Heart of the Mother Glass",
@@ -119,11 +120,12 @@ ERUPTION, CRYSTAL_SHARD = "Z9j8J7ZmAjiaxH2S4nDy8", "TAu9k8ifgteP6HBofoKn7"  # li
 # Art slot -> asset key (466) or live id. tg_etch and moe_hush_floor fill all four fields; moe_lull moves (below).
 SLOT_FX = {"moe_recast": "recast", "moe_guard_open": "guard_open", "moe_quiet": "quiet", "moe_lancet": "lancet",
            "moe_feeler": "feeler", "moe_stillness": "still", "moe_breathless": "breath", "moe_lucid": "lucid",
-           "moe_likeness": "likeness", "moe_worn": "worn", "moe_cradle": "cradle"}
-SLOT_LIVE = {"moe_refraction": ERUPTION, "moe_enrage": ERUPTION, "moe_flood": ERUPTION,
+           "moe_likeness": "likeness", "moe_worn": "worn", "moe_cradle": "cradle",
+           "moe_flood": "flood"}
+SLOT_LIVE = {"moe_refraction": ERUPTION, "moe_enrage": ERUPTION,
              "moe_shatterfall": CRYSTAL_SHARD, "moe_glassfall": CRYSTAL_SHARD}
-SLOT_PENDING = {}  # every slot is drawn. The Flood faces signature is not shipped (art QA 2026-11-04: the ME28 faces
-# fail at the 50 px CDN rendition), so moe_flood keeps the live Eruption.
+SLOT_PENDING = {}  # every slot is drawn. moe_flood: the director's glass-mask keyframes (ME28b, drawn for the 50 px
+# CDN rendition) replace the ME28 faces, which failed the art QA (2026-11-04) and are not shipped.
 # The lull rides the jutsu's fleeprevent (SELF, 2 rounds) as its staticAnimation, not the visual (the server drops
 # visual ground effects at the next action, RUL-2026-11-02-101). The visual keeps its live appear/vanish.
 LULL_MOVE = ("visual", "fleeprevent")
