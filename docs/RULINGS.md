@@ -5728,3 +5728,22 @@ A loss pays nothing.
 **Evidence:** Director, 2026-11-04: "Since theres 2 crowns hoards you already get 2 and its better to just pick that, yeah? Why dont we look at balancing our options here", then "A, update thread post. Will be released this friday".
 
 **Canonical destination:** `push/mother_of_echoes.gen.py` (PICK) and push/465.
+
+## RUL-2026-11-04-115 — push/466 (Mother of Echoes final job) validator diagnostics accepted
+
+**Date:** 2026-11-04
+
+**Domain:** Skyglass event / validator exceptions
+
+**Status:** ACTIVE.
+
+**Ruling:** The director accepts push/466's diagnostics, all of already-accepted classes:
+1. 79 law 4 / L06 / law 6 / L10 on the 53 moe jutsu, line for line the push/440 ledger (RUL-2026-11-03-109);
+2. 4 L08 increasedamagegiven products, the push/461/463 class;
+3. 71 build-order misrankings of a phased manifest (RUL-2026-10-31-085 item 1).
+
+The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA filename changes) as long as the diagnostics stay within these three classes; the ledger is re-written with `--write` on each rebuild, and any new class needs a new acceptance.
+
+**Evidence:** Director, 2026-11-04: "I accept them."
+
+**Canonical destination:** `state/validate_exceptions/466_mother_of_echoes_final.json`.
