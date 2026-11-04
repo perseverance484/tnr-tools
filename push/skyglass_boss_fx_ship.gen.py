@@ -15,12 +15,13 @@ Strips: art/skyglass_boss_fx/deliver_boss.py -> exports/anim_<id>_v1_x3d.webp (1
 the AN-set convention of push/376, exports/an_v1.json). Mapping (design ids in push/342 and push/363 `_placeholders`;
 docs/design/SKYGLASS_ART_AUDIT.md H2; RUL-2026-10-30-061 item 10: the violet Binding blast reuses chain_wrap;
 RUL-2026-10-28-028 item 6: every burst window uses the one window strip, anim_exposed): see SLOTS. The arena-wide set
-pieces (Maw of the Deep, Command Absolute, Broadside) take the field variants (director 2026-10-28, boss_fx.py
-field_variants).
+pieces (Command Absolute, Broadside) take the field variants (director 2026-10-28, boss_fx.py field_variants).
+RUL-2026-11-03-112: the window strip plays once (appearAnimation); Maw of the Deep's arena hit (maw_field) is held back
+for a composite Maw, so its damage appearAnimation stays empty; Splintered Grasp is skipped.
 
 Not edited: Splintered Grasp is the live pool jutsu Heavy Strike (S01, pUrUJX8Jml7fUIBXKsPwv), held by AIs across the
-game; editing it would change its look everywhere and sever holders the repository cannot see (as RUL-2026-11-01-092
-for Second Wind / Venom Strike / Sovereign Undertow, which took Skyglass-only copies). Its strip waits for a decision.
+game; editing it would change its look everywhere and sever holders the repository cannot see. Skipped: no copy, no
+upload (RUL-2026-11-03-112 item 4).
 
 Edits are built from 470's fresh captures (the live records), changing only the named art fields; each capture is
 compared with the repository's expectation (push/342 / 344 part 2 / 363 creates and edits, the 2026-10-25 capture for
@@ -57,7 +58,6 @@ ASSETS = {
     "broadside_field": "Skyglass FX - Broadside",
     "command_absolute_field": "Skyglass FX - Command Absolute",
     "crownfall": "Skyglass FX - Crownfall",
-    "maw_field": "Skyglass FX - Maw of the Deep",
     "quench": "Skyglass FX - Quench",
     "exposed": "Skyglass FX - Exposed window",
     "recall": "Skyglass FX - Recall",
@@ -65,10 +65,9 @@ ASSETS = {
     "crimson_strike": "Skyglass FX - Final Command",
     "chain_wrap": "Skyglass FX - Chain wrap",
 }
-# The window strip's field. The design placeholders put it on the weakness's staticAnimation (a loop for the
-# window's round); a loop over the boss covers his portrait, so "appearAnimation" (once, as the window opens) is the
-# alternative. Director's call; see push/README.md 470-475.
-WINDOW_FIELD = "staticAnimation"
+# The window strip plays ONCE, as the window opens (RUL-2026-11-03-112 item 2; the design placeholders had a
+# staticAnimation loop, which covered the boss's portrait for the window round).
+WINDOW_FIELD = "appearAnimation"
 
 # live jutsu id -> (name, source, [(effect index, effect type, effect target, field, strip, design id)])
 SLOTS = {
@@ -76,8 +75,8 @@ SLOTS = {
     "CxGrWF_wJepsT6W4MNkuq": ("Broadside", "342", [(0, "damage", "INHERIT", "appearAnimation", "broadside_field", "cp_broadside")]),
     "fXqcnsFlK-1w7rweBanZY": ("Command Absolute", "342", [(0, "damage", "INHERIT", "appearAnimation", "command_absolute_field", "cc_command_absolute")]),
     "ee4hRc-GiwDJkqCcnMDaX": ("Crownfall", "342", [(0, "damage", "INHERIT", "appearAnimation", "crownfall", "cc_crownfall")]),
-    "_hxcJFYdxVOsjs0ryzrFq": ("Maw of the Deep", "342", [(0, "damage", "INHERIT", "appearAnimation", "maw_field", "ch_maw"),
-                                                         (2, "weakness", "SELF", WINDOW_FIELD, "exposed", "ch_exposed")]),
+    # damage [0] appearAnimation (ch_maw) stays empty: maw_field HELD BACK for a composite Maw (RUL-2026-11-03-112 item 3)
+    "_hxcJFYdxVOsjs0ryzrFq": ("Maw of the Deep", "342", [(2, "weakness", "SELF", WINDOW_FIELD, "exposed", "ch_exposed")]),
     "5x2F8btsK8Gvfr0o3WtiE": ("Quench", "342", [(0, "damage", "INHERIT", "appearAnimation", "quench", "fw_quench"),
                                                 (1, "weakness", "SELF", WINDOW_FIELD, "exposed", "fw_cracked")]),
     "sOooIuNeKScLskCCtgBMY": ("Lowered Guard", "342", [(0, "weakness", "SELF", WINDOW_FIELD, "exposed", "lg_lowered")]),
@@ -89,7 +88,9 @@ SLOTS = {
     "PdD44PGaNv4MN5fOALhAF": ("Keelbind", "capture", [(0, "damage", "INHERIT", "appearAnimation", "chain_wrap", "Keelbind")]),
     "X2P22h8ApDmTZHjWpNO87": ("Final Command", "capture", [(0, "damage", "INHERIT", "appearAnimation", "crimson_strike", "cp_final_command")]),
 }
-NOT_EDITED = {"pUrUJX8Jml7fUIBXKsPwv": "Heavy Strike (Splintered Grasp; shared pool S01): anim_rot_claw_v1 waits for a copy decision"}
+NOT_SHIPPED = {"pUrUJX8Jml7fUIBXKsPwv": "Heavy Strike (Splintered Grasp; shared pool S01): skipped, no copy, no upload (RUL-2026-11-03-112 item 4)",
+              "_hxcJFYdxVOsjs0ryzrFq": "Maw of the Deep damage[0].appearAnimation: left empty, maw_field held back (RUL-2026-11-03-112 item 3)"}
+HELD = {"maw_field"}  # delivered by deliver_boss.py but not uploaded (RUL-2026-11-03-112 item 3)
 LIB, LIB_BUNDLE = "push/342_skyglass_library.json", "harvests/inbox/tnr_results_1793426982231.json"
 CC, CC_BUNDLE = "push/363_crownhold_captain_jutsu.json", "harvests/inbox/tnr_results_1793486035765.json"
 SUMMON = "push/344_skyglass_copies_2.json"
@@ -138,7 +139,7 @@ def pack(paths):
 # ------------------------------------------------------------------------------------------------ 470
 def build_assets():
     meta = {a["id"]: a for a in jload(META)["assets"]}
-    assert set(meta) == set(ASSETS), sorted(set(meta) ^ set(ASSETS))
+    assert set(meta) == set(ASSETS) | HELD and not HELD & set(ASSETS), sorted(set(meta) ^ (set(ASSETS) | HELD))
     used = {s for _, _, slots in SLOTS.values() for *_, s, _ in slots}
     assert used == set(ASSETS), sorted(used ^ set(ASSETS))
     items = []
@@ -285,7 +286,7 @@ def build_from(bundle, accept_drift):
         "_note": (f"push/{NUM['edit']}, step 2 of 3 (after push/{NUM['unequip']}): the boss set-piece animations onto "
                   "their moves. Built from push/" + str(NUM["assets"]) + "'s live captures; only the art fields in "
                   "_changes differ (plus injectableInBattle false, law 20, as push/431). The jutsu stay hidden. " + pre),
-        "_changes": changes, "_drift": drift, "_notEdited": NOT_EDITED, "items": edits})
+        "_changes": changes, "_drift": drift, "_notShipped": NOT_SHIPPED, "items": edits})
     write("reequip", {
         "_note": (f"push/{NUM['reequip']}, step 3 of 3 (after push/{NUM['edit']}): every holder from push/{NUM['unequip']} "
                   "gets its exact current kit back (the newest run send carrying jutsus) and its items; rules "

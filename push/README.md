@@ -1509,7 +1509,8 @@ built, gates clean, READY TO RUN.
 ## 470-475 Skyglass boss set-piece animations, shipped: 470 READY TO RUN (any day); 471-475 built from 470's bundle, kit edits MONDAY TO THURSDAY ONLY
 
 The boss strips drawn 2026-10-28 (`art/skyglass_boss_fx/boss_fx.py`, `docs/design/skyglass_boss_fx/boss_reel.mp4`)
-were never uploaded. `python3 push/skyglass_boss_fx_ship.gen.py` writes 470; `--from <470 bundle>` writes 471-475
+were never uploaded. Director's decisions: **RUL-2026-11-03-112** (window strip plays once; Maw's arena hit held back;
+Splintered Grasp skipped; two new diagnostic classes accepted). `python3 push/skyglass_boss_fx_ship.gen.py` writes 470; `--from <470 bundle>` writes 471-475
 (do not hand-edit). Zero live requests to build. Source pin theninjarpg@3314d122 (pixi renderer,
 `libs/rendering/scenes/combatEffects.ts`: one sprite of 2.5 x hex height per effect; appear plays once, static loops).
 
@@ -1525,9 +1526,9 @@ before running 470):** `docs/design/skyglass_boss_fx/ship_battle.mp4` and `ship_
 | Broadside (`CxGrWF_wJepsT6W4MNkuq`) | [0] damage | appear | broadside_field (10) |
 | Command Absolute (`fXqcnsFlK-1w7rweBanZY`) | [0] damage | appear | command_absolute_field (12) |
 | Crownfall (`ee4hRc-GiwDJkqCcnMDaX`) | [0] damage | appear | crownfall (12) |
-| Maw of the Deep (`_hxcJFYdxVOsjs0ryzrFq`) | [0] damage / [2] weakness SELF | appear / static | maw_field (12) / exposed (10) |
-| Quench (`5x2F8btsK8Gvfr0o3WtiE`) | [0] damage / [1] weakness SELF | appear / static | quench (12) / exposed |
-| Lowered Guard (`sOooIuNeKScLskCCtgBMY`) | [0] weakness SELF | static | exposed |
+| Maw of the Deep (`_hxcJFYdxVOsjs0ryzrFq`) | [2] weakness SELF (damage [0] stays EMPTY: maw_field held back) | appear | exposed (10) |
+| Quench (`5x2F8btsK8Gvfr0o3WtiE`) | [0] damage / [1] weakness SELF | appear / appear | quench (12) / exposed |
+| Lowered Guard (`sOooIuNeKScLskCCtgBMY`) | [0] weakness SELF | appear | exposed |
 | Binding: Seal Cross (`F6uu9fki0KdceKzxLVvKi`) | [0] damage | appear | chain_wrap (10) (RUL-2026-10-30-061 item 10) |
 | Chain Hook / Mould Cage (`kjtW0Yjc3-QfJzrvrLyUT`) | [0] damage | appear | chain_wrap |
 | Keelbind (`PdD44PGaNv4MN5fOALhAF`) | [0] damage | appear | chain_wrap |
@@ -1535,14 +1536,16 @@ before running 470):** `docs/design/skyglass_boss_fx/ship_battle.mp4` and `ship_
 | Stonebound Summons (`bcbOllIWqHEopmQGHKDED`), Recall (`ag8guPcS5Lkw_YwK3YyFG`) | [0] summon | appear | recall (14) |
 | The Crown's Will (`UTLj47puRAwSnFwiSKCuN`) | [0] increasedamagegiven (jutsu SELF) | static | crown_aura (32) |
 
-The arena-wide pieces (Maw, Command Absolute, Broadside) take the field variants (director 2026-10-28). The one burst
-window strip (`exposed`) serves every window (RUL-2026-10-28-028 item 6; art audit H2). No slot is on a `visual`
+The arena-wide pieces (Command Absolute, Broadside) take the field variants (director 2026-10-28). The one burst
+window strip (`exposed`) serves every window (RUL-2026-10-28-028 item 6; art audit H2) and plays ONCE as the window
+opens (RUL-2026-11-03-112 item 2). `anim_maw_field_v1_x3d.webp` is delivered but NOT uploaded: another workstream is
+designing a composite multi-tile Maw (RUL-2026-11-03-112 item 3). No slot is on a `visual`
 (RUL-2026-11-02-101); the generator asserts it. The Little Maw's asset (push/379, full-size maw) is not reused.
 
 | # | Contents |
 |---|---|
-| 470 | 11 HIDDEN ANIMATION gameAssets (phase 1; imagePack pinned to 6efec2f7, the commit carrying the strips) + READ-ONLY `jutsu.get` captures of the 14 jutsu. Nothing else changes; safe any day |
-| 471 | 11 asset unhides by literal id (law 16c; the 412 -> 413 pattern) |
+| 470 | 10 HIDDEN ANIMATION gameAssets (phase 1; imagePack pinned to 6efec2f7, the commit carrying the strips) + READ-ONLY `jutsu.get` captures of the 14 jutsu. Nothing else changes; safe any day |
+| 471 | 10 asset unhides by literal id (law 16c; the 412 -> 413 pattern) |
 | 472 | AI edits: the edited jutsu off every holder (law 18/60; they are hidden, so the edit's save would unequip them anyway, `routers/jutsu.ts:1117-1118`); items re-sent (law 70, in-job refs resolved to literal ids), rules untouched |
 | 473 | 14 jutsu edits, built from 470's live captures: only the art fields above change, plus `injectableInBattle: false` (law 20, as 431). Stops on any drift from the repository's records |
 | 474 | AI edits: each holder's exact current kit back on |
@@ -1552,26 +1555,26 @@ window strip (`exposed`) serves every window (RUL-2026-10-28-028 item 6; art aud
 because a failed asset upload must never strand AIs mid-way through the kit edits (the 433 lesson). Between 472 and 474
 the holders fight without these moves, so **472-474 / 475 run back to back, Monday to Thursday only**.
 
-**Holders** (stand-in build 2026-11-03; regenerate for the real list): 45 AIs, from the newest run kit send of each
+**Holders** (stand-in build 2026-11-03, rebuilt for RUL-2026-11-03-112, unchanged; regenerate for the real list): 45 AIs, from the newest run kit send of each
 (`skyglass_mark_fix.gen.py` holders(), own outputs excluded): Lowered Guard 17, Keelbind 11, Chain Hook 8, Seal Cross
 8, Final Command 7, Maw / Broadside / Ship's Bell / Command Absolute 5 each, Stonebound Summons 4, Quench 2, The
 Crown's Will / Recall / Crownfall 1 each. Kit sources: push/433-434 (39), push/414 (5 Core Horrors), push/172 (the
 legacy Ghost Ship Crowned Captain `fDU9jCPZtH7YHbdQPO9RF`, matching its 2026-10-25 capture). No uber AI (440-464)
 holds any of them. The push/81-84 census holders of Keelbind / Final Command are all found.
 
-**Gates (stand-in 470 bundle, scratch only):** `check_manifest.mjs` 0 pre-send problems on 470-475; `skyglass_check.py`
-exit 0; `validate.py --strict` exit 0 on 470 and 471. Expected on the real build (ledgers to be written then, in
-`state/validate_exceptions/`): 472/474 4 each, the all-60-AP Sealwright class (RUL-2026-11-02-103); 473 23: the
-law 4 / law 6 / L06 values of the nine library set pieces, identical to the push/342 diagnostics RUL-2026-10-31-065
-item 1 accepted, **plus two NEW (legacy records, live values re-sent unchanged): Final Command law 4 + L06 (no
-generalTypes) and Keelbind law 6 (drain power 505)**, which need acceptance; 475 adds the build-order misranking class
-(RUL-2026-10-31-085).
+**Gates (2026-11-03, after RUL-2026-11-03-112; 471-475 from a stand-in 470 bundle, scratch only):** 470: `validate.py
+--strict` exit 0 (0 diagnostics), `check_manifest.mjs` 0 pre-send problems, `skyglass_check.py` exit 0. 471-475:
+`check_manifest.mjs` 0 pre-send problems on all, `skyglass_check.py` exit 0, `validate.py --strict` exit 0 on 471 and
+exit 1 on 472 (4), 473 (23), 474 (4), 475 (135), all accepted classes. **Write the ledgers in `state/validate_exceptions/`
+when the real 471-475 are built** (`validate_exception.py --write`): 472/474, the all-60-AP Sealwright class
+(RUL-2026-11-02-103); 473, the law 4 / law 6 / L06 values of the nine library set pieces (the push/342 diagnostics,
+RUL-2026-10-31-065 item 1; Maw's are still re-sent, unchanged) plus Final Command law 4 + L06 and Keelbind law 6
+(drain 505), accepted by RUL-2026-11-03-112 item 1; 475, all of these plus build-order misranking (RUL-2026-10-31-085).
 
-**Still pending:** Splintered Grasp (`anim_rot_claw_v1`): the live move is the shared pool jutsu Heavy Strike (S01,
-`pUrUJX8Jml7fUIBXKsPwv`), held across the game; it needs a Skyglass-only copy (as RUL-2026-11-01-092) or a decision.
-The Last Directive blaze (art audit H4: crown_aura "may serve"). Steady the Helm gets no flourish (RUL-2026-10-30-061
-item 10). **Open choice:** the window strip is a loop (staticAnimation, as designed) that covers the boss's portrait
-for the window round; `WINDOW_FIELD = "appearAnimation"` in the generator plays it once instead.
+**Not shipped:** Maw of the Deep's arena hit (`maw_field`, held for the composite Maw; RUL-2026-11-03-112 item 3).
+Splintered Grasp (`anim_rot_claw_v1`; the live move is the shared pool jutsu Heavy Strike, S01): skipped, no copy, no
+upload (RUL-2026-11-03-112 item 4). The Last Directive blaze (art audit H4: crown_aura "may serve"), still open. Steady
+the Helm gets no flourish (RUL-2026-10-30-061 item 10).
 
 **If Forge says "The quota has been exceeded."** clear finished jobs / Forge browser storage and re-run 470 on its own
 (dedupNames stops duplicates), as in the 433 entry.

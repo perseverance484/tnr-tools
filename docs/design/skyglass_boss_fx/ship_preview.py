@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Battle-frame previews of the eleven boss strips as they ship (push/470+): the delivered *_v1_x3d.webp files on the
-battle still, at the pixi renderer's sizes, each on the hexes its move hits.
+battle still, at the pixi renderer's sizes, each on the hexes its move hits. maw_field is not shown: it is held back
+for a composite Maw (RUL-2026-11-03-112 item 3).
 
     python3 docs/design/skyglass_boss_fx/ship_preview.py
 
@@ -59,9 +60,7 @@ PH = [
     ('command_absolute_field', 'Command Absolute (every hex but the safe one, field variant)', False,
      [c for c in ARENA if c != SAFE], None),
     ('crownfall', 'Crownfall (blade line)', False, [(q, 0) for q in range(-1, 3)], None),
-    ('maw_field', 'Maw of the Deep (every hex but the safe one, field variant)', False,
-     [c for c in ARENA if c != SAFE], None),
-    ('exposed', 'Maw / Quench / Lowered Guard window on the boss (loop)', True, [BOSS], 30),
+    ('exposed', 'Maw / Quench / Lowered Guard window on the boss (plays once, RUL-2026-11-03-112)', False, [BOSS], None),
     ('quench', 'Quench (every hex but the safe one, full size)', False, [c for c in ARENA if c != SAFE], None),
     ('recall', 'Recall / Stonebound Summons (summon flourish)', False, [(-1, -1), (-1, 1)], None),
     ('crown_aura', "The Crown's Will on the Crowned Captain (loop)", True, [BOSS], 64),
@@ -113,6 +112,9 @@ def keys(frames, marks):
 
 if __name__ == '__main__':
     frames, marks = render()
+    for old in os.listdir(HERE):
+        if old.startswith('ship_keys_'):
+            os.remove(os.path.join(HERE, old))
     written = keys(frames, marks)
     with tempfile.TemporaryDirectory() as t:
         for i, f in enumerate(frames):
