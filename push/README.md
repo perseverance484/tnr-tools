@@ -1541,7 +1541,7 @@ window strip (`exposed`) serves every window (RUL-2026-10-28-028 item 6; art aud
 
 | # | Contents |
 |---|---|
-| 470 | 11 HIDDEN ANIMATION gameAssets (phase 1; imagePack pinned to the commit carrying the strips) + READ-ONLY `jutsu.get` captures of the 14 jutsu. Nothing else changes; safe any day |
+| 470 | 11 HIDDEN ANIMATION gameAssets (phase 1; imagePack pinned to 6efec2f7, the commit carrying the strips) + READ-ONLY `jutsu.get` captures of the 14 jutsu. Nothing else changes; safe any day |
 | 471 | 11 asset unhides by literal id (law 16c; the 412 -> 413 pattern) |
 | 472 | AI edits: the edited jutsu off every holder (law 18/60; they are hidden, so the edit's save would unequip them anyway, `routers/jutsu.ts:1117-1118`); items re-sent (law 70, in-job refs resolved to literal ids), rules untouched |
 | 473 | 14 jutsu edits, built from 470's live captures: only the art fields above change, plus `injectableInBattle: false` (law 20, as 431). Stops on any drift from the repository's records |
