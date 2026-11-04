@@ -13,7 +13,27 @@ offline-tested spec on fable/mother-of-echoes-sim.
     python3 push/mother_of_echoes.gen.py --step quest --bundles <440, 461-463> --economy <417>
         -> push/464_mother_of_echoes_quest.json        (the HIDDEN battle pyramid, one repeatable quest)
     python3 push/mother_of_echoes.gen.py --step publish --bundles <440, 461-464> --economy <417>
-        -> push/465_mother_of_echoes_publish.json      (the quest re-sent whole with hidden false)
+        -> push/465_mother_of_echoes_publish.json      (the quest re-sent whole with hidden false, with its art:
+                                                         needs --assets <466 bundle> too)
+
+The art pass (docs/design/MOTHER_OF_ECHOES_ART.md; law 16b/16c, law 18). Run order: 466 -> (bundle) 467, 468 -> 480 ->
+481 -> 482 -> 465.
+    python3 push/mother_of_echoes.gen.py --step assets
+        -> push/466_mother_of_echoes_art_assets.json   (HIDDEN gameAssets: the 15 code-built FX, the 3 act scenes)
+    python3 push/mother_of_echoes.gen.py --step unhide --assets <466 bundle>
+        -> push/467_mother_of_echoes_art_unhide.json   (the 15 FX unhidden, law 16c; scenes need no unhide)
+    python3 push/mother_of_echoes.gen.py --step items --economy <417 bundle>
+        -> push/468_mother_of_echoes_item_art.json     (shard, token and variant images; Heartglass text to the art)
+    python3 push/mother_of_echoes.gen.py --step unequip --bundles <440, 461-463>
+        -> push/480_mother_of_echoes_unequip.json      (law 18 step 1: every moe jutsu off its 9 AIs)
+    python3 push/mother_of_echoes.gen.py --step jutsu_art --bundles <440, 461-463> --assets <466 bundle>
+        -> push/481_mother_of_echoes_jutsu_art.json    (law 18 step 2: all 53 moe jutsu re-sent from the spec with
+                                                         family icons and FX ids; still hidden)
+    python3 push/mother_of_echoes.gen.py --step reequip --bundles <440, 461-463>
+        -> push/482_mother_of_echoes_reequip.json      (law 18 step 3: the 9 AIs re-sent whole from the spec with
+                                                         avatars, so every moe jutsu inserts a fresh, equipped row)
+481 and 482 take every record from the spec at SPEC_REF, so a re-tune (pass 5) is a SPEC_REF bump and a rebuild of
+480-482: tuning and art land together.
 
 Every step after 440 needs literal ids from earlier results bundles (law 17, ID provenance law): AI equip arrays and
 rule jutsuIds, summon aiIds and quest opponentAIs / entry items / rewards. `--bundles` takes any number of results
@@ -30,6 +50,8 @@ srcIds or literal ids, (4) refuses repeated display names (the game has unique n
 Do not hand-edit the outputs.
 """
 import argparse
+import hashlib
+import importlib.util
 import json
 import os
 import re
@@ -68,7 +90,86 @@ TG = {
                   "appearAnimation": APPEAR, "disappearAnimation": ""},
 }
 # tg_etch has no live art yet: the Etching marks borrow the violet control tile so they stay readable (RUL-101 item 3).
-TG_STANDIN = {"tg_etch": "tg_control"}
+TG_STANDIN = {"tg_etch": "tg_control"}  # used by the 440-464 creates only; the art pass (481) maps tg_etch to 466's assets
+
+# ---------------------------------------------------------------------------------------------------------------
+# Art pass (466-468, 480-482; docs/design/MOTHER_OF_ECHOES_ART.md). Files are pinned by the newest commit touching them.
+# ---------------------------------------------------------------------------------------------------------------
+N.update({"assets": 466, "unhide": 467, "items": 468, "unequip": 480, "jutsu_art": 481, "reequip": 482})
+SLUG.update({"assets": "mother_of_echoes_art_assets", "unhide": "mother_of_echoes_art_unhide",
+             "items": "mother_of_echoes_item_art", "unequip": "mother_of_echoes_unequip",
+             "jutsu_art": "mother_of_echoes_jutsu_art", "reequip": "mother_of_echoes_reequip"})
+ART = "art/mother_of_echoes/exports/"
+FXDIR = "art/mother_of_echoes_fx/exports/"
+FX_META = "art/mother_of_echoes_fx/exports/moe_fx_v1.json"
+AID = "sg466_"
+# Code-built FX: asset key -> (file, display name). Frames, speed and type come from FX_META.
+FX = {
+    "etch_tile": ("tile_moe_etch_v2.webp", "Mother of Echoes FX - Etching mark"),
+    "etch_glint": ("anim_moe_etch_glint_v1.webp", "Mother of Echoes FX - Etching glint"),
+    "recast": ("anim_moe_recast_v1.webp", "Mother of Echoes FX - Recast"),
+    "guard_open": ("anim_moe_guard_open_v1.webp", "Mother of Echoes FX - Guard open"),
+    "quiet": ("anim_moe_quiet_v1.webp", "Mother of Echoes FX - The Quiet"),
+    "lancet": ("anim_moe_lancet_v1.webp", "Mother of Echoes FX - Glass Lancet"),
+    "feeler": ("anim_moe_feeler_v1.webp", "Mother of Echoes FX - The Listening"),
+    "lull": ("anim_moe_lull_v2.webp", "Mother of Echoes FX - The Glass Falls Quiet"),
+    "still": ("anim_moe_still_dark_v1.webp", "Mother of Echoes FX - Nothing Moves"),
+    "breath": ("anim_moe_breath_draw_v1.webp", "Mother of Echoes FX - Breathless Pull"),
+    "lucid": ("anim_moe_lucid_aura_v1.webp", "Mother of Echoes FX - Lucid"),
+    "likeness": ("anim_moe_likeness_rise_v1.webp", "Mother of Echoes FX - Your Likeness"),
+    "worn": ("anim_moe_worn_rise_v1.webp", "Mother of Echoes FX - Raise the Worn"),
+    "cradle": ("anim_moe_cradle_v1.webp", "Mother of Echoes FX - Cradle"),
+    "flood": ("anim_moe_flood_faces_v1.webp", "Mother of Echoes FX - The Names Flood In"),
+}
+SCENES = {  # key -> (file, name, quest nodes). "content" is the quest-level sceneBackground.
+    "heart": ("scene_moe_heart.webp", "Mother of Echoes Scene - The Heart of the Mother Glass",
+              ("content", "d_open", "b_act1", "f_lost")),
+    "stilling": ("scene_moe_stilling.webp", "Mother of Echoes Scene - The Stilling", ("d_act2", "b_act2")),
+    "impression": ("scene_moe_impression.webp", "Mother of Echoes Scene - A Good Impression",
+                   ("d_act3", "b_act3", "w_clear")),
+}
+ERUPTION, CRYSTAL_SHARD = "Z9j8J7ZmAjiaxH2S4nDy8", "TAu9k8ifgteP6HBofoKn7"  # live Skyglass Blast strips (reuse live)
+# Art slot -> asset key (466) or live id. tg_etch and moe_hush_floor fill all four fields; moe_lull moves (below).
+SLOT_FX = {"moe_recast": "recast", "moe_guard_open": "guard_open", "moe_quiet": "quiet", "moe_lancet": "lancet",
+           "moe_feeler": "feeler", "moe_stillness": "still", "moe_breathless": "breath", "moe_lucid": "lucid",
+           "moe_likeness": "likeness", "moe_worn": "worn", "moe_cradle": "cradle", "moe_flood": "flood"}
+SLOT_LIVE = {"moe_refraction": ERUPTION, "moe_enrage": ERUPTION,
+             "moe_shatterfall": CRYSTAL_SHARD, "moe_glassfall": CRYSTAL_SHARD}
+SLOT_PENDING = {}  # every slot is drawn (Cradle and the Flood faces signature: main dd65aae6)
+# The lull rides the jutsu's fleeprevent (SELF, 2 rounds) as its staticAnimation, not the visual (the server drops
+# visual ground effects at the next action, RUL-2026-11-02-101). The visual keeps its live appear/vanish.
+LULL_MOVE = ("visual", "fleeprevent")
+FAMILY_FILES = {f: f"{ART}icon-jutsu-moe-{f}.webp" for f in
+                ("lancet", "refraction", "etching", "glassfall", "hush", "echoes")}
+FAMILY = {  # the art list's family table (ME21-ME26), by jutsu name
+    "lancet": ["Glass Lancet", "The Glass Remembers", "Lucid"],
+    "refraction": ["Refraction", "Far Refraction", "Facet", "Refraction Breaks", "Far Refraction Breaks",
+                   "Facet Breaks", "Lucid Refraction", "Every Name in the Glass", "The Names Flood In"],
+    "etching": ["Etching: Rime", "Etching: Ember", "Etching: Seam", "Etching: Heart", "Etching: Hail",
+                "Recast: Rime", "Recast: Ember", "Recast: Seam", "Recast: Heart", "Recast: Hail"],
+    "glassfall": ["Shatterfall", "Shatterfall Gives Way", "Glassfall: First Pane", "Glassfall: Second Pane",
+                  "Glassfall: Last Pane", "Glassfall: Opening Pane", "Glassfall: Heart Recast"],
+    "hush": ["The Hush", "The Hush, Unbridled", "The Hush Rises", "Hush Where They Refused", "No One Is Mended",
+             "The Quiet", "The Long Hush", "The Glass Falls Quiet", "Stillness", "Nothing Moves", "The Held Breath",
+             "Breathless Pull", "The Listening", "The Listening, Unbridled", "Cradle", "Grasp"],
+    "echoes": ["Your Likeness", "Your Own Strike", "Raise the Gate Porter", "Raise Sister Hana", "Raise Cadet Tomo",
+               "Doorward Sweep", "Worn Mending", "Cadet's Tether"],
+}
+AVATARS = {  # harness AI id -> export (RUL-2026-11-03-111; Act I is the approved v2)
+    "moe-ai-sayo": "avatar_moe_sayo_v2.webp", "moe-ai-silence": "avatar_moe_silence.webp",
+    "moe-ai-sayo-stilling": "avatar_moe_sayo_stilling.webp", "moe-ai-saint": "avatar_moe_saint.webp",
+    "moe-ai-feeler": "avatar_moe_feeler.webp", "moe-ai-likeness": "avatar_moe_likeness.webp",
+    "moe-ai-worn-porter": "avatar_moe_worn_porter.webp", "moe-ai-worn-hana": "avatar_moe_worn_hana.webp",
+    "moe-ai-worn-tomo": "avatar_moe_worn_tomo.webp",
+}
+QUEST_ICON = ART + "icon-quest-mother-of-echoes.webp"
+SHARD_ICONS = {k: f"{ART}icon-shard-{k}.webp" for k in ("keel", "crown", "tide", "ledger")}
+TOKEN_ICONS = {"heartglass": ART + "icon-variant-token-heartglass.webp",
+               "remainder": ART + "icon-variant-token-remainder.webp"}
+VARIANT_ICONS = {  # NOT icon-variant-heartglass-v2 (not the approved image) nor the 417 original
+    "heartglass": "art/skyglass_variant_skins/exports/icon-variant-heartglass-approved.webp",
+    "remainder": "art/skyglass_variant_skins/exports/icon-variant-the-remainder.webp",
+}
 ART_FIELDS = ("staticAssetPath", "staticAnimation", "appearAnimation", "disappearAnimation")
 LIVE_ID = re.compile(r"^[A-Za-z0-9_-]{10,21}$")
 DROP_KEYS = {"id", "createdAt", "updatedAt"}
@@ -129,8 +230,10 @@ def unique_names(rows, key):
 
 
 class Build:
-    def __init__(self, spec):
+    def __init__(self, spec, fx=None, art=False):
         self.spec = spec
+        self.fx = fx      # 466 asset ids by FX key (jutsu_art step only)
+        self.final_art = art  # art pass: real images instead of the engine default
         self.jutsu = {j["id"]: j for j in spec["jutsu"]}
         self.ais = {a["id"]: a for a in spec["ais"]}
         self.jname = unique_names(spec["jutsu"], lambda j: j["record"]["name"])
@@ -140,10 +243,20 @@ class Build:
         self.summon_jutsu = [jid for jid in self.jutsu if jid in summon]
         self.plain_jutsu = [jid for jid in self.jutsu if jid not in summon]
         self.templates = [a["id"] for a in spec["ais"] if a["summonTemplate"]]
+        self.family = {n: f for f, names in FAMILY.items() for n in names}
+        if art:
+            names = set(self.jname.values())
+            if names != set(self.family):
+                die(f"family table vs spec jutsu: missing {sorted(names - set(self.family))}, "
+                    f"stale {sorted(set(self.family) - names)}")
+            if set(AVATARS) != set(self.ais):
+                die(f"avatar table vs spec AIs: {sorted(set(AVATARS) ^ set(self.ais))}")
         self.bosses = [a["id"] for a in spec["ais"] if not a["summonTemplate"]]
 
     # ---- jutsu -----------------------------------------------------------------------------------------------
     def art(self, label, eff):
+        if self.fx is not None:
+            return self.art_final(label, eff)
         e = dict(eff)
         for f in ART_FIELDS:
             v = e.get(f) or ""
@@ -159,15 +272,50 @@ class Build:
                 die(f"{label}: unknown art name {v!r} in {f}")
         return e
 
+    def art_final(self, label, eff):
+        """Art pass: every slot name resolves to a 466 asset, a live id, or (P2 not drawn) empty."""
+        e = dict(eff)
+        etch = {"staticAssetPath": self.fx["etch_tile"], "staticAnimation": self.fx["etch_glint"],
+                "appearAnimation": APPEAR, "disappearAnimation": VANISH}
+        for f in ART_FIELDS:
+            v = e.get(f) or ""
+            if v == "tg_etch":
+                e[f] = etch[f]
+            elif v in TG:
+                e[f] = TG[v][f]
+            elif v == "moe_hush_floor":
+                e[f] = TG["tg_linger"][f]
+            elif v in SLOT_FX:
+                e[f] = self.fx[SLOT_FX[v]]
+            elif v in SLOT_LIVE:
+                e[f] = SLOT_LIVE[v]
+            elif v in SLOT_PENDING:
+                e[f] = ""
+                self.notes.append(f"{label}: effects[{e['type']}].{f} {v}: {SLOT_PENDING[v]}")
+            elif v == "moe_lull":
+                e[f] = ""  # moved to the fleeprevent effect (jutsu_data)
+            elif v.startswith(("moe_", "tg_")) or (v and not LIVE_ID.match(v)):
+                die(f"{label}: art name {v!r} in {f} has no mapping in the art pass")
+        return e
+
     def jutsu_data(self, jid, ids=None):
         rec = self.jutsu[jid]["record"]
         name = self.jname[jid]
         d = {k: v for k, v in rec.items() if k not in DROP_KEYS and v is not None}
         d["name"] = name
         d["hidden"] = True
-        d["image"] = PLACEHOLDER
-        self.notes.append(f"jutsu {sid(jid)}: {name} (engine default image)")
+        if self.final_art:
+            d["image"] = "@img:" + os.path.basename(FAMILY_FILES[self.family[name]])
+        else:
+            d["image"] = PLACEHOLDER
+            self.notes.append(f"jutsu {sid(jid)}: {name} (engine default image)")
         d["effects"] = [self.art(name, e) for e in rec["effects"]]
+        if self.fx is not None and any(e.get("staticAnimation") == "moe_lull" for e in rec["effects"]):
+            src = [e["type"] for e in rec["effects"] if e.get("staticAnimation") == "moe_lull"]
+            dst = [i for i, e in enumerate(d["effects"]) if e["type"] == LULL_MOVE[1]]
+            if src != [LULL_MOVE[0]] or len(dst) != 1:
+                die(f"{name}: moe_lull expects one {LULL_MOVE[0]} and one {LULL_MOVE[1]} effect, got {src} / {dst}")
+            d["effects"][dst[0]]["staticAnimation"] = self.fx["lull"]
         for e in d["effects"]:
             if e.get("aiId"):
                 if ids is None:
@@ -192,7 +340,7 @@ class Build:
         a = self.ais[aid]
         d = json.loads(json.dumps(a["create"]))
         d["username"] = self.aname[aid]
-        d["avatar"] = PLACEHOLDER
+        d["avatar"] = "@img:" + AVATARS[aid] if self.final_art else PLACEHOLDER
         d["inArena"] = False
         d["hidden"] = True
         d["jutsus"] = [self.lit(j, ids) for j in d["jutsus"]]
@@ -208,7 +356,8 @@ class Build:
         for it in d["items"]:
             if it["ids"] != [HEAVY_ARMOR]:
                 die(f"{aid}: unexpected item {it}")
-        self.notes.append(f"ai {sid(aid)}: {d['username']} (engine default image as avatar)")
+        if not self.final_art:
+            self.notes.append(f"ai {sid(aid)}: {d['username']} (engine default image as avatar)")
         return {"entity": "ai", "slot": "create", "srcId": sid(aid), "phase": 1, "name": d["username"], "data": d}
 
 
@@ -265,7 +414,8 @@ DIALOG_OVERRIDES = {
 }
 
 
-def quest_data(b, ids, econ):
+def quest_data(b, ids, econ, scenes=None):
+    """scenes: SCENES key -> 466 asset id (the publish); None keeps the CORE_CHAMBER placeholder (464)."""
     q = b.spec["quest"]
     obj = {o["n"]: o for o in q["objectives"]}
     sc = {"sceneBackground": CORE_CHAMBER, "sceneCharacters": []}
@@ -291,13 +441,23 @@ def quest_data(b, ids, econ):
             battle("b_act3", 5, "w_clear"), win,
             {"id": "f_lost", "task": "fail_quest", "description": F_LOST, **sc}]
     entry = [{"ids": [econ[ECON + k]], "number": 1} for k in ("keel", "crown", "tide", "ledger")]
+    content_bg = CORE_CHAMBER
+    if scenes is not None:
+        node = {n: scenes[k] for k, (_, _, nodes) in SCENES.items() for n in nodes}
+        got = {o["id"] for o in objs}
+        if set(node) - {"content"} != got:
+            die(f"scene table vs quest nodes: {sorted((set(node) - {'content'}) ^ got)}")
+        for o in objs:
+            o["sceneBackground"] = node[o["id"]]
+        content_bg = node["content"]
     return {"name": Q_NAME, "description": Q_DESC, "successDescription": Q_SUCCESS,
-            "image": PLACEHOLDER, "questType": "battlepyramid", "questRank": "S", "hidden": True,
+            "image": PLACEHOLDER if scenes is None else "@img:" + os.path.basename(QUEST_ICON),
+            "questType": "battlepyramid", "questRank": "S", "hidden": True,
             "retryDelay": "none", "attemptDelay": "none", "consecutiveObjectives": True, "requiredLevel": 1,
             "maxLevel": 100, "maxAttempts": 100, "maxCompletes": 100,
             "prerequisiteQuestId": None, "tierLevel": None, "requiredVillage": None, "requiredBloodlineId": None,
             "startsAt": None, "endsAt": None,
-            "content": {"objectives": objs, "sceneBackground": CORE_CHAMBER, "sceneCharacters": [BLANK],
+            "content": {"objectives": objs, "sceneBackground": content_bg, "sceneCharacters": [BLANK],
                         "entryItems": entry, "isolated": True, "rewardMode": "choose", "rewardPickCount": 1,
                         "reward": {"reward_items": [{"ids": [i], "number": 100, "quantity": n} for i, n in PICK]}}}
 
@@ -305,10 +465,43 @@ def quest_data(b, ids, econ):
 # ---------------------------------------------------------------------------------------------------------------
 # Output
 # ---------------------------------------------------------------------------------------------------------------
-def write(step, note, items, notes=None):
+def pack(paths):
+    """imagePack pinned to the newest commit touching the files; the working copy must equal that commit."""
+    paths = sorted(set(paths))
+    ref = subprocess.check_output(["git", "-C", ROOT, "log", "-1", "--format=%H", "HEAD", "--", *paths], text=True).strip()
+    if not ref:
+        die(f"not committed: {paths}")
+    files = {}
+    for p in paths:
+        disk = open(os.path.join(ROOT, p), "rb").read()
+        try:
+            same = subprocess.check_output(["git", "-C", ROOT, "show", f"{ref}:{p}"], stderr=subprocess.DEVNULL) == disk
+        except subprocess.CalledProcessError:
+            same = False
+        if not same:
+            die(f"{p}: working copy differs from {ref} (commit it first)")
+        name = os.path.basename(p)
+        if name in files:
+            die(f"two files named {name}")
+        files[name] = {"path": p, "sha256": hashlib.sha256(disk).hexdigest(), "bytes": len(disk)}
+    return {"imgSizes": {k: v["bytes"] for k, v in files.items()}, "imagePack": {"ref": ref, "files": files}}
+
+
+def img_paths(items, pool):
+    """The files behind every @img ref in items, looked up by basename in pool."""
+    by = {os.path.basename(p): p for p in pool}
+    used = set(re.findall(r'"@img:([^"]+)"', json.dumps(items)))
+    if used - set(by):
+        die(f"@img refs without a file: {sorted(used - set(by))}")
+    return [by[u] for u in used]
+
+
+def write(step, note, items, notes=None, extra=None):
     m = {"_note": f"{note} Spec: fable/mother-of-echoes-sim@{SPEC_REF}:{SPEC_PATH}. "
                   "Generated by push/mother_of_echoes.gen.py; do not hand-edit.",
          "dedupNames": True}
+    if extra:
+        m.update(extra)
     if notes:
         m["_placeholders"] = sorted(set(notes))
     m["items"] = items
@@ -319,14 +512,173 @@ def write(step, note, items, notes=None):
     print(f"push/{N[step]}_{SLUG[step]}.json: {len(items)} items")
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# Art pass
+# ---------------------------------------------------------------------------------------------------------------
+def fx_meta():
+    meta = {os.path.basename(a["file"]): a for a in json.load(open(os.path.join(ROOT, FX_META)))["assets"]}
+    files = {f for f, _ in FX.values()}
+    if files != set(meta):
+        die(f"FX table vs {FX_META}: {sorted(files ^ set(meta))}")
+    return meta
+
+
+def asset_ids(path):
+    """466's created asset ids by FX/SCENES key; refuses an incomplete bundle."""
+    got = created([path] if path else [], AID)
+    need(got, [AID + k for k in (*FX, *SCENES)], "--assets (push/466)")
+    return {k: got[AID + k] for k in (*FX, *SCENES)}
+
+
+def asset_row(name, typ, frames, speed, hidden):
+    return {"name": name, "type": typ, "folder": "MotherOfEchoes", "frames": frames, "speed": speed,
+            "hidden": hidden, "onInitialBattleField": False, "licenseDetails": "TNR"}
+
+
+def step_assets():
+    meta = fx_meta()
+    items, paths = [], []
+    for k, (f, name) in FX.items():
+        a = meta[f]
+        typ = a["type"]
+        frames, speed = (1, 1) if typ == "STATIC" else (a["frames"], a["speed"])
+        if typ not in ("STATIC", "ANIMATION") or (typ == "ANIMATION" and speed != 50):
+            die(f"{f}: unexpected {typ} speed {speed}")
+        items.append({"entity": "asset", "slot": "create", "phase": 1, "srcId": AID + k, "name": name,
+                      "data": {**asset_row(name, typ, frames, speed, True), "image": "@img:" + f}})
+        paths.append(FXDIR + f)
+    for k, (f, name, _) in SCENES.items():
+        items.append({"entity": "asset", "slot": "create", "phase": 1, "srcId": AID + k, "name": name,
+                      "data": {**asset_row(name, "SCENE_BACKGROUND", 1, 1, True), "image": "@img:" + f}})
+        paths.append(ART + f)
+    write("assets", (
+        f"push/{N['assets']} (art pass step 1; any time, nothing live changes): {len(FX)} code-built FX "
+        f"(art/mother_of_echoes_fx, {os.path.basename(FX_META)}) and the {len(SCENES)} act scenes as HIDDEN gameAssets "
+        f"(law 16b). Keep the results bundle: push/{N['unhide']}, {N['jutsu_art']} and {N['publish']} are built from it."),
+        items, extra=pack(paths))
+
+
+def step_unhide(aids):
+    meta = fx_meta()
+    items = []
+    for k, (f, name) in FX.items():
+        typ = meta[f]["type"]
+        frames, speed = (1, 1) if typ == "STATIC" else (meta[f]["frames"], meta[f]["speed"])
+        items.append({"entity": "asset", "slot": "edit", "phase": 1, "targetId": aids[k], "name": f"{name}: unhide",
+                      "data": asset_row(name, typ, frames, speed, False)})
+    write("unhide", (
+        f"push/{N['unhide']} (after push/{N['assets']}; literal ids from its bundle): the {len(items)} FX assets "
+        "unhidden (law 16c: battles load only unhidden assets). The scene assets stay hidden (gameAsset.getSceneAssets "
+        f"does not filter hidden). Run before push/{N['jutsu_art']}."), items)
+
+
+def step_items(econ_path):
+    spec_ = importlib.util.spec_from_file_location("uber_econ", os.path.join(ROOT, "push/skyglass_uber_economy.gen.py"))
+    E = importlib.util.module_from_spec(spec_)
+    spec_.loader.exec_module(E)
+    got = created([econ_path] if econ_path else [], ECON)
+    keys = [ECON + k for k in SHARD_ICONS] + [ECON + k for k in TOKEN_ICONS] + [ECON + "var_" + k for k in TOKEN_ICONS]
+    need(got, keys, "--economy (push/417)")
+    names = {k: n for k, n, *_ in E.SHARDS}
+    items = [{"entity": "item", "slot": "edit", "phase": 1, "targetId": got[ECON + k], "name": f"{names[k]}: icon",
+              "data": {"image": "@img:" + os.path.basename(p)}} for k, p in SHARD_ICONS.items()]
+    for key, v, base, bid, story, vdesc, _img in E.TOKENS:
+        trade = key in E.TRADEABLE_TOKENS
+        desc = E.TOKEN_TMPL.format(story=story, v=v, base=base) + (E.TRADE_NOTE if trade else "")
+        items.append({"entity": "item", "slot": "edit", "phase": 1, "targetId": got[ECON + key],
+                      "name": f"{v} (token): icon and text", "data": {"image": "@img:" + os.path.basename(TOKEN_ICONS[key]),
+                                                                       "description": desc}})
+        items.append({"entity": "itemVariant", "slot": "edit", "phase": 1, "targetId": got[ECON + "var_" + key],
+                      "name": f"{v} (variant): final image and text",
+                      "data": {"itemId": bid, "image": "@img:" + os.path.basename(VARIANT_ICONS[key]),
+                               "description": vdesc}})
+    paths = [*SHARD_ICONS.values(), *TOKEN_ICONS.values(), *VARIANT_ICONS.values()]
+    write("items", (
+        f"push/{N['items']} (literal ids from push/417's bundle; any time): the four shard icons, both token icons, and "
+        "both variants' final images (Heartglass: the director-approved heart-crowned fan, "
+        f"{os.path.basename(VARIANT_ICONS['heartglass'])}; The Remainder: the director's black-glass bow). Heartglass "
+        "token and variant text rewritten to match the approved art (no faces); The Remainder text unchanged. "
+        "Fetch-merge item edits; Forge's itemVariant edit re-sends the live variant (push/416 precedent). These items "
+        "and variants are already visible, so this shows at once."), items, extra=pack(paths))
+
+
+def kit_ids(b, ids):
+    """Every created moe jutsu id (the art pass edits all of them)."""
+    return {ids[sid(j)] for j in b.jutsu}
+
+
+def step_unequip(b, ids):
+    need(ids, [sid(j) for j in b.jutsu] + [sid(a) for a in b.ais], "unequip")
+    moe = kit_ids(b, ids)
+    items = []
+    for aid in [*b.templates, *b.bosses]:
+        full = b.ai_entry(aid, ids)["data"]
+        keep = [j for j in full["jutsus"] if j not in moe]
+        items.append({"entity": "ai", "slot": "edit", "phase": 1, "targetId": ids[sid(aid)],
+                      "name": f"{full['username']}: moe jutsu off (law 18)",
+                      "data": {"jutsus": keep, "items": full["items"]}})
+    write("unequip", (
+        f"push/{N['unequip']} (law 18 step 1 of 3; literal ids): every moe jutsu off its {len(items)} AIs (kit minus the "
+        f"moe jutsu, items re-sent, rules untouched; the push/375 precedent). Saving a hidden jutsu sets equipped false "
+        "on every holder (theninjarpg@3314d122 queries/jutsu.ts:662), and re-sending an unchanged kit inserts nothing "
+        f"(routers/profile.ts computeUserContentChanges), so the kit must change. Run {N['unequip']} -> "
+        f"{N['jutsu_art']} -> {N['reequip']} back to back. All hidden; nothing is live."), items)
+
+
+def step_jutsu_art(spec, ids, aids):
+    b = Build(spec, fx=aids, art=True)
+    need(ids, [sid(j) for j in b.jutsu] + [sid(t) for t in b.templates], "jutsu_art")
+    items = []
+    for jid in [*b.plain_jutsu, *b.summon_jutsu]:
+        d = b.jutsu_data(jid, ids if jid in b.summon_jutsu else None)
+        items.append({"entity": "jutsu", "slot": "edit", "phase": 1, "targetId": ids[sid(jid)],
+                      "name": f"{d['name']}: art", "data": d})
+    write("jutsu_art", (
+        f"push/{N['jutsu_art']} (law 18 step 2 of 3; after push/{N['unequip']} and push/{N['unhide']}; literal ids): "
+        f"all {len(items)} moe jutsu re-sent whole from the spec with their family icon (ME21-ME26) and FX: tg_etch -> "
+        f"push/{N['assets']}'s Etching tile and glint; moe_* slots -> push/{N['assets']}'s strips or the live Skyglass "
+        "Blast strips (art list; The Names Flood In now has its own faces signature); The Glass Falls Quiet's lull moved onto its fleeprevent (RUL-2026-11-02-101). Still "
+        "hidden."), items, b.notes, extra=pack(img_paths(items, FAMILY_FILES.values())))
+
+
+def step_reequip(spec, ids):
+    b = Build(spec, art=True)
+    need(ids, [sid(j) for j in b.jutsu] + [sid(a) for a in b.ais], "reequip")
+    items = []
+    for aid in [*b.templates, *b.bosses]:
+        e = b.ai_entry(aid, ids)
+        items.append({"entity": "ai", "slot": "edit", "phase": 1, "targetId": ids[sid(aid)],
+                      "name": f"{e['name']}: avatar and kit back (law 18)", "data": e["data"]})
+    write("reequip", (
+        f"push/{N['reequip']} (law 18 step 3 of 3; after push/{N['jutsu_art']}; literal ids): the {len(items)} AIs re-sent "
+        "whole from the spec with their avatars (ME01-ME09; Act I is the approved v2), so every moe jutsu inserts a "
+        "fresh, equipped row. Rules re-sent (Forge's rules step)."), items, b.notes,
+        extra=pack(img_paths(items, [ART + f for f in AVATARS.values()])))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "publish"], default="jutsu")
+    ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "publish", "assets",
+                                       "unhide", "items", "unequip", "jutsu_art", "reequip"], default="jutsu")
+    ap.add_argument("--assets", help="push/466 results bundle (the art-pass assets)")
     ap.add_argument("--bundles", nargs="*", default=[], help="results bundles of 440-444 (any order)")
     ap.add_argument("--economy", help="push/417 results bundle (the shards, Heartglass and The Remainder tokens)")
     a = ap.parse_args()
-    b = Build(load_spec())
+    if a.step == "assets":
+        return step_assets()
+    if a.step == "unhide":
+        return step_unhide(asset_ids(a.assets))
+    if a.step == "items":
+        return step_items(a.economy)
+    spec = load_spec()
+    b = Build(spec)
     ids = created(a.bundles, PFX)
+    if a.step == "unequip":
+        return step_unequip(b, ids)
+    if a.step == "jutsu_art":
+        return step_jutsu_art(spec, ids, asset_ids(a.assets))
+    if a.step == "reequip":
+        return step_reequip(spec, ids)
 
     if a.step == "jutsu":
         items = [b.jutsu_entry(j) for j in b.plain_jutsu]
@@ -357,8 +709,12 @@ def main():
         econ = created([a.economy] if a.economy else [], ECON)
         need(econ, [ECON + k for k in ("keel", "crown", "tide", "ledger", *TOKEN_PCT)], "--economy (push/417)")
         need(ids, [sid(t) for t in b.bosses], a.step)
-        d = quest_data(b, ids, econ)
-        notes = [f"quest {PFX}quest: image and every node's scene {CORE_CHAMBER}"]
+        if a.step == "publish":
+            d = quest_data(b, ids, econ, asset_ids(a.assets))
+            notes = []
+        else:
+            d = quest_data(b, ids, econ)
+            notes = [f"quest {PFX}quest: image and every node's scene {CORE_CHAMBER}"]
         if a.step == "quest":
             write("quest", "push/444 (literal ids from push/417 and 440-443, law 17): the HIDDEN battle pyramid, one "
                   "repeatable quest (RUL-2026-11-02-105: no first-clear mechanics, no title). Every clear rolls the "
@@ -368,10 +724,14 @@ def main():
         else:
             need(ids, [PFX + "quest"], "publish")
             d["hidden"] = False
-            write("publish", "push/445 (literal ids): the quest re-sent whole with hidden false (quest edits are "
-                  "full-record). The jutsu stay hidden (AIs use hidden jutsu; law 18). Run after push/419.",
-                  [{"entity": "quest", "slot": "edit", "targetId": ids[PFX + "quest"], "name": f"{Q_NAME}: publish",
-                    "data": d}], notes)
+            items = [{"entity": "quest", "slot": "edit", "targetId": ids[PFX + "quest"], "name": f"{Q_NAME}: publish",
+                      "data": d}]
+            write("publish", (
+                f"push/{N['publish']} (literal ids; LAST, after push/{N['reequip']}): the quest re-sent whole with hidden "
+                f"false (quest edits are full-record), with its icon (ME13) and the three act scenes from "
+                f"push/{N['assets']} (heart: content, d_open, b_act1, f_lost; stilling: d_act2, b_act2; impression: "
+                "d_act3, b_act3, w_clear). The jutsu and AIs stay hidden (AIs use hidden jutsu)."),
+                items, notes, extra=pack([QUEST_ICON]))
 
 
 if __name__ == "__main__":
