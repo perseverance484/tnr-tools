@@ -100,6 +100,8 @@ export const MOE_DEFAULTS = {
   ramp: { pct: 0, rounds: 99 },
   /** Pass 6: multiplier on every boss-side formula hit (see buildRecords). */
   bossDmgScale: 1,
+  /** Pass 6: the skilled player policy for every _real profile (see realRules). */
+  skilledPolicy: false,
   /** Pass 6: extra multiplier on the summons' hits (Grasp, Your Own Strike, Doorward Sweep, Cadet's Tether). */
   summonDmgScale: 1,
   /** Pass 5 (RUL-2026-11-04-113): eruptions as a fixed share of an endgame max HP (elite model 31,500). */
@@ -206,6 +208,7 @@ const erupt = (act: number, power: number, anim: string) =>
 /* ------------------------------------------------------------------ records */
 export const buildRecords = (P: MoeParams) => {
   CARRIER_ON = P.telegraphCarrier !== false;
+  SKILLED = !!P.skilledPolicy;
   ERUPT = { on: !!P.eruption?.on, hp: P.eruption?.hp ?? 31500, pct: { 1: P.eruption?.act1 ?? 40, 2: P.eruption?.act2 ?? 60, 3: P.eruption?.act3 ?? 80 } };
   const J: Record<string, any> = {};
   const add = (id: string, f: Parameters<typeof jutsu>[1]) => { J[id] = jutsu(id, f); return id; };
@@ -722,6 +725,32 @@ const realRules = (kit: string[], jutsu: Record<string, any>) => {
   const I = (id: string, target: string, conditions: any[] = []) => ({ conditions, action: { type: "use_specific_item", itemId: id, target, description: "" } });
   const self = kit.filter((id) => jutsu[id]?.target === "SELF");
   const atk = (ap: number) => kit.filter((id) => jutsu[id] && jutsu[id].target !== "SELF" && jutsu[id].actionCostPerc === ap);
+  if (SKILLED) {
+    // Pass 6 skilled policy (director 2026-11-04 item 3), used by every _real profile:
+    // - recovery is saved for real damage: the Energy Potion only below 50% HP (right after an eruption or a ramp
+    //   hit), never topped up early; the Stamina Pill (DR 20) when hurt, the Chakra Pill (IDG 15, lifesteal 20) into an opening;
+    // - defend when hurt: the self mitigation/sustain jutsu (shields, damage-taken cuts, lifesteal) go first below 65% HP;
+    // - burst into openings: while the target carries weakness (Sayo's x3 guard-open after a Recast) or while its own
+    //   lifesteal is up, the strongest available attack goes first (use_highest_power_action);
+    // - otherwise the strongest affordable attack every action (no fixed 60/40/20 rotation), then buffs, then weapons.
+    const tHasE = (t: string) => ({ type: "target_has_effect", effectType: t, threshold: 1, target: PLR, description: "" });
+    const hasE = (t: string) => ({ type: "has_effect", effectType: t, threshold: 1, description: "" });
+    const best = (c: any[] = []) => ({ conditions: c, action: { type: "use_highest_power_action", effect: "damage", target: PLR, description: "" } });
+    return [
+      I("h-mvWaKK5vNNOwS5Y9KQj", "SELF", [hb(50)]),
+      J("rkFJGghHPLsaj9S_rVeoV", "SELF", [r1]), J("e2eC-x4UXc5m6QexNbx8w", "SELF", [r1]), I("_8HEbybzN5QPX8vUG24Tk", "SELF", [r1]),
+      ...self.map((id) => J(id, "SELF", [hb(65)])),
+      I("GNGrfEDnxbRBgOHHCjPX3", "SELF", [hb(65)]), // Stamina Pill: DR 20
+      I("tZTvqYWiAc_OrY64nDvIo", "SELF", [tHasE("weakness")]), // Chakra Pill (IDG 15, lifesteal 20) into the guard-open window
+      best([tHasE("weakness")]),
+      best([hasE("lifesteal")]),
+      best(),
+      ...self.map((id) => J(id, "SELF")),
+      I("wE1QeldWTjls2Cf43cFjf", PLR, [near(4)]),
+      { conditions: [{ type: "distance_higher_than", value: 2, target: PLR, description: "" }], action: { type: "move_towards_opponent", target: PLR, description: "" } },
+      best(),
+    ];
+  }
   return [
     I("h-mvWaKK5vNNOwS5Y9KQj", "SELF", [hb(45)]),
     I("GNGrfEDnxbRBgOHHCjPX3", "SELF", [hb(65)]),
@@ -746,6 +775,8 @@ const realModel = (base: PlayerModel, name: string): PlayerModel => {
   return { ...base, variant, idgRows: avg ? REAL_GEAR_ROWS.average : REAL_GEAR_ROWS.elite, pets: avg ? base.pets : 2, real: { readP: name.includes("perfect") ? 1 : avg ? REAL_READ.average : REAL_READ.elite, items: REAL_ITEMS } };
 };
 export const REAL_READ = { elite: 0.85, average: 0.7 };
+let SKILLED = false;
+export const setSkilled = (v: boolean) => { SKILLED = v; };
 /** Gear damage rows for the real kit, calibrated like the elite model (moe_probe P11): 4 rows put its hits on an AI in
  * AI Heavy Armor at median 4,944 / p90 9,248 against the logs' 5,117 / 10,810. Average: 1 row (~46% of the elite's hits). */
 export const REAL_GEAR_ROWS = { elite: 4, average: 1 };
