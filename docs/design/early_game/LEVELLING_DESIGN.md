@@ -1,6 +1,6 @@
 # A clean levelling experience, levels 1-70: design proposal (draft 1)
 
-**Status: PROPOSAL.** Nothing here is approved content. Story frame, names, level windows, reward values and publishing are the director's decisions (CLAUDE.md section 10). Reward amounts are deliberately left as placeholders.
+**Status: SPINE SHAPE APPROVED (RUL-2026-11-04-116); everything else PROPOSAL.** No content is approved for building yet. Story frame, names, level windows, reward values and publishing are the director's decisions (CLAUDE.md section 10). Reward amounts are deliberately left as placeholders.
 
 - **Evidence:** `LEVEL_1_70_INVENTORY.md` (engine, activities, pyramids) and `sweep/` (every captured quest with requiredLevel ≤ 70, classified; reproducible with `python3 -I sweep/build.py`).
 - **Tier labels:** CAP = live record (capture), SV = source-verified at TheNinjaRPG@3314d122, PROPOSAL = new.
