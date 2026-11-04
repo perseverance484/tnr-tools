@@ -12,28 +12,18 @@ offline-tested spec on fable/mother-of-echoes-sim.
         -> push/463_mother_of_echoes_bosses.json       (HIDDEN creates: the 4 boss AIs, inArena false)
     python3 push/mother_of_echoes.gen.py --step quest --bundles <440, 461-463> --economy <417>
         -> push/464_mother_of_echoes_quest.json        (the HIDDEN battle pyramid, one repeatable quest)
-    python3 push/mother_of_echoes.gen.py --step publish --bundles <440, 461-464> --economy <417>
-        -> push/465_mother_of_echoes_publish.json      (the quest re-sent whole with hidden false, with its art:
-                                                         needs --assets <466 bundle> too)
 
-The art pass (docs/design/MOTHER_OF_ECHOES_ART.md; law 16b/16c, law 18). Run order: 466 -> (bundle) 467, 468 -> 480 ->
-481 -> 482 -> 465.
-    python3 push/mother_of_echoes.gen.py --step assets
-        -> push/466_mother_of_echoes_art_assets.json   (HIDDEN gameAssets: the 15 code-built FX, the 3 act scenes)
-    python3 push/mother_of_echoes.gen.py --step unhide --assets <466 bundle>
-        -> push/467_mother_of_echoes_art_unhide.json   (the 15 FX unhidden, law 16c; scenes need no unhide)
-    python3 push/mother_of_echoes.gen.py --step items --economy <417 bundle>
-        -> push/468_mother_of_echoes_item_art.json     (shard, token and variant images; Heartglass text to the art)
-    python3 push/mother_of_echoes.gen.py --step unequip --bundles <440, 461-463>
-        -> push/480_mother_of_echoes_unequip.json      (law 18 step 1: every moe jutsu off its 9 AIs)
-    python3 push/mother_of_echoes.gen.py --step jutsu_art --bundles <440, 461-463> --assets <466 bundle>
-        -> push/481_mother_of_echoes_jutsu_art.json    (law 18 step 2: all 53 moe jutsu re-sent from the spec with
-                                                         family icons and FX ids; still hidden)
-    python3 push/mother_of_echoes.gen.py --step reequip --bundles <440, 461-463>
-        -> push/482_mother_of_echoes_reequip.json      (law 18 step 3: the 9 AIs re-sent whole from the spec with
-                                                         avatars, so every moe jutsu inserts a fresh, equipped row)
-481 and 482 take every record from the spec at SPEC_REF, so a re-tune (pass 5) is a SPEC_REF bump and a rebuild of
-480-482: tuning and art land together.
+The final push (2026-11-04; docs/design/MOTHER_OF_ECHOES_ART.md; law 16b/16c, law 18) is TWO jobs. It supersedes the
+old --step publish (465), which is gone:
+    python3 push/mother_of_echoes.gen.py --step final --bundles <440, 461-463> --economy <417>
+        -> push/466_mother_of_echoes_final.json        (JOB 1, phases 10-50: hidden art assets, item art, law 18
+                                                         unequip, the 53 jutsu with art, the 9 AIs re-equipped with
+                                                         avatars; everything that fights stays hidden)
+    python3 push/mother_of_echoes.gen.py --step golive --bundles <440, 461-464> --economy <417> --from <466 bundle>
+        -> push/467_mother_of_echoes_go_live.json      (JOB 2: the FX unhidden, then the quest published with its art)
+Job 2 needs job 1's bundle for one reason: the FX unhide is an edit, Forge sends an edit's targetId as written (no
+@ref resolution there), and lint L13 refuses creating them visible. 466 and 467 take every jutsu/AI record from the
+spec at SPEC_REF, so a re-tune (pass 6) is the one-line SPEC_REF bump plus a rebuild of 466.
 
 Every step after 440 needs literal ids from earlier results bundles (law 17, ID provenance law): AI equip arrays and
 rule jutsuIds, summon aiIds and quest opponentAIs / entry items / rewards. `--bundles` takes any number of results
@@ -93,12 +83,10 @@ TG = {
 TG_STANDIN = {"tg_etch": "tg_control"}  # used by the 440-464 creates only; the art pass (481) maps tg_etch to 466's assets
 
 # ---------------------------------------------------------------------------------------------------------------
-# Art pass (466-468, 480-482; docs/design/MOTHER_OF_ECHOES_ART.md). Files are pinned by the newest commit touching them.
+# Art pass (466-467; docs/design/MOTHER_OF_ECHOES_ART.md). Files are pinned by the newest commit touching them.
 # ---------------------------------------------------------------------------------------------------------------
-N.update({"assets": 466, "unhide": 467, "items": 468, "unequip": 480, "jutsu_art": 481, "reequip": 482})
-SLUG.update({"assets": "mother_of_echoes_art_assets", "unhide": "mother_of_echoes_art_unhide",
-             "items": "mother_of_echoes_item_art", "unequip": "mother_of_echoes_unequip",
-             "jutsu_art": "mother_of_echoes_jutsu_art", "reequip": "mother_of_echoes_reequip"})
+N.update({"final": 466, "golive": 467})  # 465 (the bare publish) is superseded by 467
+SLUG.update({"final": "mother_of_echoes_final", "golive": "mother_of_echoes_go_live"})
 ART = "art/mother_of_echoes/exports/"
 FXDIR = "art/mother_of_echoes_fx/exports/"
 FX_META = "art/mother_of_echoes_fx/exports/moe_fx_v1.json"
@@ -526,7 +514,7 @@ def fx_meta():
 def asset_ids(path):
     """466's created asset ids by FX/SCENES key; refuses an incomplete bundle."""
     got = created([path] if path else [], AID)
-    need(got, [AID + k for k in (*FX, *SCENES)], "--assets (push/466)")
+    need(got, [AID + k for k in (*FX, *SCENES)], "--from (push/466 results)")
     return {k: got[AID + k] for k in (*FX, *SCENES)}
 
 
@@ -535,7 +523,7 @@ def asset_row(name, typ, frames, speed, hidden):
             "hidden": hidden, "onInitialBattleField": False, "licenseDetails": "TNR"}
 
 
-def step_assets():
+def assets_items():
     meta = fx_meta()
     items, paths = [], []
     for k, (f, name) in FX.items():
@@ -544,35 +532,28 @@ def step_assets():
         frames, speed = (1, 1) if typ == "STATIC" else (a["frames"], a["speed"])
         if typ not in ("STATIC", "ANIMATION") or (typ == "ANIMATION" and speed != 50):
             die(f"{f}: unexpected {typ} speed {speed}")
-        items.append({"entity": "asset", "slot": "create", "phase": 1, "srcId": AID + k, "name": name,
+        items.append({"entity": "asset", "slot": "create", "srcId": AID + k, "name": name,
                       "data": {**asset_row(name, typ, frames, speed, True), "image": "@img:" + f}})
         paths.append(FXDIR + f)
     for k, (f, name, _) in SCENES.items():
-        items.append({"entity": "asset", "slot": "create", "phase": 1, "srcId": AID + k, "name": name,
+        items.append({"entity": "asset", "slot": "create", "srcId": AID + k, "name": name,
                       "data": {**asset_row(name, "SCENE_BACKGROUND", 1, 1, True), "image": "@img:" + f}})
         paths.append(ART + f)
-    write("assets", (
-        f"push/{N['assets']} (art pass step 1; any time, nothing live changes): {len(FX)} code-built FX "
-        f"(art/mother_of_echoes_fx, {os.path.basename(FX_META)}) and the {len(SCENES)} act scenes as HIDDEN gameAssets "
-        f"(law 16b). Keep the results bundle: push/{N['unhide']}, {N['jutsu_art']} and {N['publish']} are built from it."),
-        items, extra=pack(paths))
+    return items, paths
 
 
-def step_unhide(aids):
+def unhide_items(aids):
     meta = fx_meta()
     items = []
     for k, (f, name) in FX.items():
         typ = meta[f]["type"]
         frames, speed = (1, 1) if typ == "STATIC" else (meta[f]["frames"], meta[f]["speed"])
-        items.append({"entity": "asset", "slot": "edit", "phase": 1, "targetId": aids[k], "name": f"{name}: unhide",
+        items.append({"entity": "asset", "slot": "edit", "targetId": aids[k], "name": f"{name}: unhide",
                       "data": asset_row(name, typ, frames, speed, False)})
-    write("unhide", (
-        f"push/{N['unhide']} (after push/{N['assets']}; literal ids from its bundle): the {len(items)} FX assets "
-        "unhidden (law 16c: battles load only unhidden assets). The scene assets stay hidden (gameAsset.getSceneAssets "
-        f"does not filter hidden). Run before push/{N['jutsu_art']}."), items)
+    return items
 
 
-def step_items(econ_path):
+def item_art_items(econ_path):
     spec_ = importlib.util.spec_from_file_location("uber_econ", os.path.join(ROOT, "push/skyglass_uber_economy.gen.py"))
     E = importlib.util.module_from_spec(spec_)
     spec_.loader.exec_module(E)
@@ -580,105 +561,124 @@ def step_items(econ_path):
     keys = [ECON + k for k in SHARD_ICONS] + [ECON + k for k in TOKEN_ICONS] + [ECON + "var_" + k for k in TOKEN_ICONS]
     need(got, keys, "--economy (push/417)")
     names = {k: n for k, n, *_ in E.SHARDS}
-    items = [{"entity": "item", "slot": "edit", "phase": 1, "targetId": got[ECON + k], "name": f"{names[k]}: icon",
+    items = [{"entity": "item", "slot": "edit", "targetId": got[ECON + k], "name": f"{names[k]}: icon",
               "data": {"image": "@img:" + os.path.basename(p)}} for k, p in SHARD_ICONS.items()]
     for key, v, base, bid, story, vdesc, _img in E.TOKENS:
         trade = key in E.TRADEABLE_TOKENS
         desc = E.TOKEN_TMPL.format(story=story, v=v, base=base) + (E.TRADE_NOTE if trade else "")
-        items.append({"entity": "item", "slot": "edit", "phase": 1, "targetId": got[ECON + key],
-                      "name": f"{v} (token): icon and text", "data": {"image": "@img:" + os.path.basename(TOKEN_ICONS[key]),
-                                                                       "description": desc}})
-        items.append({"entity": "itemVariant", "slot": "edit", "phase": 1, "targetId": got[ECON + "var_" + key],
+        items.append({"entity": "item", "slot": "edit", "targetId": got[ECON + key],
+                      "name": f"{v} (token): icon and text",
+                      "data": {"image": "@img:" + os.path.basename(TOKEN_ICONS[key]), "description": desc}})
+        items.append({"entity": "itemVariant", "slot": "edit", "targetId": got[ECON + "var_" + key],
                       "name": f"{v} (variant): final image and text",
                       "data": {"itemId": bid, "image": "@img:" + os.path.basename(VARIANT_ICONS[key]),
                                "description": vdesc}})
-    paths = [*SHARD_ICONS.values(), *TOKEN_ICONS.values(), *VARIANT_ICONS.values()]
-    write("items", (
-        f"push/{N['items']} (literal ids from push/417's bundle; any time): the four shard icons, both token icons, and "
-        "both variants' final images (Heartglass: the director-approved heart-crowned fan, "
-        f"{os.path.basename(VARIANT_ICONS['heartglass'])}; The Remainder: the director's black-glass bow). Heartglass "
-        "token and variant text rewritten to match the approved art (no faces); The Remainder text unchanged. "
-        "Fetch-merge item edits; Forge's itemVariant edit re-sends the live variant (push/416 precedent). These items "
-        "and variants are already visible, so this shows at once."), items, extra=pack(paths))
+    return items, [*SHARD_ICONS.values(), *TOKEN_ICONS.values(), *VARIANT_ICONS.values()]
 
 
-def kit_ids(b, ids):
-    """Every created moe jutsu id (the art pass edits all of them)."""
-    return {ids[sid(j)] for j in b.jutsu}
-
-
-def step_unequip(b, ids):
+def unequip_items(b, ids):
     need(ids, [sid(j) for j in b.jutsu] + [sid(a) for a in b.ais], "unequip")
-    moe = kit_ids(b, ids)
+    moe = {ids[sid(j)] for j in b.jutsu}
     items = []
     for aid in [*b.templates, *b.bosses]:
         full = b.ai_entry(aid, ids)["data"]
-        keep = [j for j in full["jutsus"] if j not in moe]
-        items.append({"entity": "ai", "slot": "edit", "phase": 1, "targetId": ids[sid(aid)],
+        items.append({"entity": "ai", "slot": "edit", "targetId": ids[sid(aid)],
                       "name": f"{full['username']}: moe jutsu off (law 18)",
-                      "data": {"jutsus": keep, "items": full["items"]}})
-    write("unequip", (
-        f"push/{N['unequip']} (law 18 step 1 of 3; literal ids): every moe jutsu off its {len(items)} AIs (kit minus the "
-        f"moe jutsu, items re-sent, rules untouched; the push/375 precedent). Saving a hidden jutsu sets equipped false "
-        "on every holder (theninjarpg@3314d122 queries/jutsu.ts:662), and re-sending an unchanged kit inserts nothing "
-        f"(routers/profile.ts computeUserContentChanges), so the kit must change. Run {N['unequip']} -> "
-        f"{N['jutsu_art']} -> {N['reequip']} back to back. All hidden; nothing is live."), items)
+                      "data": {"jutsus": [j for j in full["jutsus"] if j not in moe], "items": full["items"]}})
+    return items
 
 
-def step_jutsu_art(spec, ids, aids):
-    b = Build(spec, fx=aids, art=True)
+def jutsu_art_items(spec, ids, fx):
+    b = Build(spec, fx=fx, art=True)
     need(ids, [sid(j) for j in b.jutsu] + [sid(t) for t in b.templates], "jutsu_art")
     items = []
     for jid in [*b.plain_jutsu, *b.summon_jutsu]:
         d = b.jutsu_data(jid, ids if jid in b.summon_jutsu else None)
-        items.append({"entity": "jutsu", "slot": "edit", "phase": 1, "targetId": ids[sid(jid)],
-                      "name": f"{d['name']}: art", "data": d})
-    write("jutsu_art", (
-        f"push/{N['jutsu_art']} (law 18 step 2 of 3; after push/{N['unequip']} and push/{N['unhide']}; literal ids): "
-        f"all {len(items)} moe jutsu re-sent whole from the spec with their family icon (ME21-ME26) and FX: tg_etch -> "
-        f"push/{N['assets']}'s Etching tile and glint; moe_* slots -> push/{N['assets']}'s strips or the live Skyglass "
-        "Blast strips (art list; The Names Flood In now has its own faces signature); The Glass Falls Quiet's lull moved onto its fleeprevent (RUL-2026-11-02-101). Still "
-        "hidden."), items, b.notes, extra=pack(img_paths(items, FAMILY_FILES.values())))
+        items.append({"entity": "jutsu", "slot": "edit", "targetId": ids[sid(jid)], "name": f"{d['name']}: art",
+                      "data": d})
+    return items, [FAMILY_FILES[b.family[i["data"]["name"]]] for i in items], b.notes
 
 
-def step_reequip(spec, ids):
+def reequip_items(spec, ids):
     b = Build(spec, art=True)
     need(ids, [sid(j) for j in b.jutsu] + [sid(a) for a in b.ais], "reequip")
     items = []
     for aid in [*b.templates, *b.bosses]:
         e = b.ai_entry(aid, ids)
-        items.append({"entity": "ai", "slot": "edit", "phase": 1, "targetId": ids[sid(aid)],
+        items.append({"entity": "ai", "slot": "edit", "targetId": ids[sid(aid)],
                       "name": f"{e['name']}: avatar and kit back (law 18)", "data": e["data"]})
-    write("reequip", (
-        f"push/{N['reequip']} (law 18 step 3 of 3; after push/{N['jutsu_art']}; literal ids): the {len(items)} AIs re-sent "
-        "whole from the spec with their avatars (ME01-ME09; Act I is the approved v2), so every moe jutsu inserts a "
-        "fresh, equipped row. Rules re-sent (Forge's rules step)."), items, b.notes,
-        extra=pack(img_paths(items, [ART + f for f in AVATARS.values()])))
+    return items, [ART + f for f in AVATARS.values()], b.notes
+
+
+def phased(groups):
+    """[(phase, items)] -> one item list; Forge runs by phase, then manifest order (manifest.mjs planOrder)."""
+    out = []
+    for ph, items in groups:
+        for it in items:
+            out.append({**it, "phase": ph})
+    return out
+
+
+def step_final(spec, ids, econ_path):
+    fx = {k: "@scene:" + AID + k for k in FX}  # in-job refs: resolved in data at send time (refs.mjs)
+    a_items, a_paths = assets_items()
+    i_items, i_paths = item_art_items(econ_path)
+    b = Build(spec)
+    u_items = unequip_items(b, ids)
+    j_items, j_paths, j_notes = jutsu_art_items(spec, ids, fx)
+    r_items, r_paths, r_notes = reequip_items(spec, ids)
+    items = phased([(10, a_items), (20, i_items), (30, u_items), (40, j_items), (50, r_items)])
+    write("final", (
+        f"push/{N['final']}, JOB 1 of 2 of the Mother of Echoes final push (docs/design/MOTHER_OF_ECHOES_ART.md; "
+        f"zero live requests to build). Phase 10: {len(a_items)} HIDDEN gameAssets (law 16b, folder MotherOfEchoes): "
+        f"the {len(FX)} code-built FX and the {len(SCENES)} act scenes. Phase 20: {len(i_items)} item edits: shard and "
+        "token icons, both variants' final images (Heartglass = the approved heart-crowned fan), Heartglass token and "
+        "variant text matched to that art (these items are visible: this shows at once). Phase 30: law 18 step 1, every "
+        f"moe jutsu off its {len(u_items)} AIs (saving a hidden jutsu sets equipped false on its holders, "
+        "queries/jutsu.ts:662; an unchanged kit inserts nothing, routers/profile.ts computeUserContentChanges). Phase "
+        f"40: all {len(j_items)} moe jutsu re-sent from the spec with family icons and FX (FX by in-job @scene refs, "
+        "resolved at send; the lull on The Glass Falls Quiet's fleeprevent). Phase 50: law 18 step 3, the "
+        f"{len(r_items)} AIs re-sent whole with avatars, re-equipping every moe jutsu; rules re-sent. Everything that "
+        "fights stays HIDDEN and the quest stays hidden: a pause anywhere strands nothing a player can reach (resume "
+        f"from the paused job). Keep the results bundle: push/{N['golive']} (job 2) is built from it."),
+        items, j_notes + r_notes, extra=pack(a_paths + i_paths + j_paths + r_paths))
+
+
+def step_golive(b, ids, econ, bundle):
+    aids = asset_ids(bundle)
+    u_items = unhide_items(aids)
+    d = quest_data(b, ids, econ, aids)
+    d["hidden"] = False
+    q = [{"entity": "quest", "slot": "edit", "targetId": ids[PFX + "quest"], "name": f"{Q_NAME}: publish", "data": d}]
+    write("golive", (
+        f"push/{N['golive']}, JOB 2 of 2 (after push/{N['final']}; literal asset ids from its results bundle). Phase 10: "
+        f"the {len(u_items)} FX assets unhidden (law 16c: battles load only unhidden assets). Phase 20: the quest "
+        "re-sent whole with hidden false, its icon (ME13) and the three act scenes (heart: content, d_open, b_act1, "
+        "f_lost; stilling: d_act2, b_act2; impression: d_act3, b_act3, w_clear). Why a second job: an unhide is an edit "
+        "and Forge sends an edit's targetId as written (runner.mjs _fill: item.entityId ?? item.targetId; refs.mjs "
+        "resolves @refs in data only), and lint L13 refuses a create with hidden:false, so the FX cannot be created "
+        "or unhidden visible inside job 1. Publishing here, after the unhide, means the fight never goes live with "
+        "invisible marks."), phased([(10, u_items), (20, q)]), extra=pack([QUEST_ICON]))
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "publish", "assets",
-                                       "unhide", "items", "unequip", "jutsu_art", "reequip"], default="jutsu")
-    ap.add_argument("--assets", help="push/466 results bundle (the art-pass assets)")
-    ap.add_argument("--bundles", nargs="*", default=[], help="results bundles of 440-444 (any order)")
+    ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "final", "golive"],
+                    default="jutsu")
+    ap.add_argument("--bundles", nargs="*", default=[], help="results bundles of 440 and 461-464 (any order)")
     ap.add_argument("--economy", help="push/417 results bundle (the shards, Heartglass and The Remainder tokens)")
+    ap.add_argument("--from", dest="frm", help="push/466 (job 1) results bundle: the art assets' ids (golive)")
     a = ap.parse_args()
-    if a.step == "assets":
-        return step_assets()
-    if a.step == "unhide":
-        return step_unhide(asset_ids(a.assets))
-    if a.step == "items":
-        return step_items(a.economy)
     spec = load_spec()
     b = Build(spec)
     ids = created(a.bundles, PFX)
-    if a.step == "unequip":
-        return step_unequip(b, ids)
-    if a.step == "jutsu_art":
-        return step_jutsu_art(spec, ids, asset_ids(a.assets))
-    if a.step == "reequip":
-        return step_reequip(spec, ids)
+    if a.step == "final":
+        return step_final(spec, ids, a.economy)
+    if a.step == "golive":
+        econ = created([a.economy] if a.economy else [], ECON)
+        need(econ, [ECON + k for k in ("keel", "crown", "tide", "ledger", *TOKEN_PCT)], "--economy (push/417)")
+        need(ids, [sid(t) for t in b.bosses] + [PFX + "quest"], "golive")
+        return step_golive(b, ids, econ, a.frm)
 
     if a.step == "jutsu":
         items = [b.jutsu_entry(j) for j in b.plain_jutsu]
@@ -705,34 +705,16 @@ def main():
         write("bosses", f"push/443 (from push/440 and 442's bundles; literal ids, law 17): the {len(items)} boss AIs "
               f"with AI Heavy Armor ({HEAVY_ARMOR}), inArena false. Fresh creates, equipped once (law 18: any later "
               "edit to an equipped moe jutsu is unequip, edit, re-equip).", items, b.notes)
-    elif a.step in ("quest", "publish"):
+    elif a.step == "quest":
         econ = created([a.economy] if a.economy else [], ECON)
         need(econ, [ECON + k for k in ("keel", "crown", "tide", "ledger", *TOKEN_PCT)], "--economy (push/417)")
         need(ids, [sid(t) for t in b.bosses], a.step)
-        if a.step == "publish":
-            d = quest_data(b, ids, econ, asset_ids(a.assets))
-            notes = []
-        else:
-            d = quest_data(b, ids, econ)
-            notes = [f"quest {PFX}quest: image and every node's scene {CORE_CHAMBER}"]
-        if a.step == "quest":
-            write("quest", "push/444 (literal ids from push/417 and 440-443, law 17): the HIDDEN battle pyramid, one "
-                  "repeatable quest (RUL-2026-11-02-105: no first-clear mechanics, no title). Every clear rolls the "
-                  "Heartglass and The Remainder tokens (both tradeable) and a pick of one reward.",
-                  [{"entity": "quest", "slot": "create", "srcId": PFX + "quest", "phase": 1, "name": Q_NAME, "data": d}],
-                  notes)
-        else:
-            need(ids, [PFX + "quest"], "publish")
-            d["hidden"] = False
-            items = [{"entity": "quest", "slot": "edit", "targetId": ids[PFX + "quest"], "name": f"{Q_NAME}: publish",
-                      "data": d}]
-            write("publish", (
-                f"push/{N['publish']} (literal ids; LAST, after push/{N['reequip']}): the quest re-sent whole with hidden "
-                f"false (quest edits are full-record), with its icon (ME13) and the three act scenes from "
-                f"push/{N['assets']} (heart: content, d_open, b_act1, f_lost; stilling: d_act2, b_act2; impression: "
-                "d_act3, b_act3, w_clear). The jutsu and AIs stay hidden (AIs use hidden jutsu)."),
-                items, notes, extra=pack([QUEST_ICON]))
-
+        d = quest_data(b, ids, econ)
+        write("quest", "push/444 (literal ids from push/417 and 440-443, law 17): the HIDDEN battle pyramid, one "
+              "repeatable quest (RUL-2026-11-02-105: no first-clear mechanics, no title). Every clear rolls the "
+              "Heartglass and The Remainder tokens (both tradeable) and a pick of one reward.",
+              [{"entity": "quest", "slot": "create", "srcId": PFX + "quest", "phase": 1, "name": Q_NAME, "data": d}],
+              [f"quest {PFX}quest: image and every node's scene {CORE_CHAMBER}"])
 
 if __name__ == "__main__":
     main()
