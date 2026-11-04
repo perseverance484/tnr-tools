@@ -5,14 +5,14 @@
  "speed_unit": "ms per frame (gameAsset.speed)",
  "assets": [
   {
-   "file": "art/mother_of_echoes_fx/exports/tile_moe_etch_v2.webp",
+   "file": "art/mother_of_echoes_fx/exports/tile_moe_etch_v3.webp",
    "type": "STATIC",
    "frames": 1,
    "speed": null,
    "duration_ms": null,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 612,
+   "bytes": 450,
    "use": "staticAssetPath",
    "serves": [
     "tg_etch"
@@ -50,19 +50,19 @@
    "note": "Recast: the etched lattice flashes back and glass blades rise along it, then shatter (the Etching comes due)"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_guard_open_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_guard_open_v2.webp",
    "type": "ANIMATION",
    "frames": 16,
    "speed": 50,
    "duration_ms": 800,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 674,
+   "bytes": 2258,
    "use": "static",
    "serves": [
     "moe_guard_open"
    ],
-   "note": "Guard open (the Recast weakness): splinters circle the hex rim, gold on the beat (portrait-clear loop)"
+   "note": "Guard open (Recast weakness, on Sayo): a cracked ring of etched gold glass round her portrait; the plates push out and flare white on the beat (portrait-clear loop)"
   },
   {
    "file": "art/mother_of_echoes_fx/exports/anim_moe_quiet_v1.webp",
@@ -80,64 +80,64 @@
    "note": "The Quiet: an ink ring closes on the target, a bone-white hush, the dust stops"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_lancet_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_lancet_v2.webp",
    "type": "ANIMATION",
-   "frames": 10,
+   "frames": 11,
    "speed": 50,
-   "duration_ms": 500,
+   "duration_ms": 550,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 484,
+   "bytes": 772,
    "use": "appear",
    "serves": [
     "moe_lancet"
    ],
-   "note": "Glass Lancet: a skyglass needle streaks in and splinters"
+   "note": "Glass Lancet: a thick outlined skyglass needle streaks in, white impact star held 2 frames, splinters"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_feeler_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_feeler_v2.webp",
    "type": "ANIMATION",
    "frames": 14,
    "speed": 50,
    "duration_ms": 700,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 930,
+   "bytes": 1266,
    "use": "appear",
    "serves": [
     "moe_feeler"
    ],
-   "note": "The Listening: a pale feeler rises and curls its tip (summon flourish)"
+   "note": "The Listening (summon flourish): ink ripples at the root, bone wisps curl up beside the summoned feeler"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_lull_v2.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_lull_v3.webp",
    "type": "ANIMATION",
    "frames": 32,
    "speed": 50,
    "duration_ms": 1600,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 572,
+   "bytes": 1770,
    "use": "static",
    "serves": [
     "moe_lull"
    ],
-   "note": "The Glass Falls Quiet: glass dust drifting down beside Sayo; staticAnimation of the jutsu's fleeprevent (SELF, 2 rounds), moved off the visual the server drops (RUL-2026-11-02-101); clears an AI portrait"
+   "note": "The Glass Falls Quiet: 2x2 glass dust and two dust curtains drifting down beside Sayo; staticAnimation of the jutsu's fleeprevent (SELF, 2 rounds), moved off the visual the server drops (RUL-2026-11-02-101); clears an AI portrait"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_still_dark_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_still_dark_v2.webp",
    "type": "ANIMATION",
    "frames": 12,
    "speed": 50,
    "duration_ms": 600,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 1740,
+   "bytes": 1698,
    "use": "appear",
    "serves": [
     "moe_stillness"
    ],
-   "note": "Nothing Moves: darkness closes in from the rim, a deep-violet edge, the dust stops"
+   "note": "Nothing Moves: a solid ink ring closes in from the rim, a crisp violet edge, the dust stops"
   },
   {
    "file": "art/mother_of_echoes_fx/exports/anim_moe_breath_draw_v1.webp",
@@ -155,14 +155,14 @@
    "note": "Breathless Pull: breath drawn out of the hex, up and away; a violet lock closes at the feet"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_cradle_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_cradle_v2.webp",
    "type": "ANIMATION",
    "frames": 16,
    "speed": 50,
    "duration_ms": 800,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 4914,
+   "bytes": 4628,
    "use": "static",
    "serves": [
     "moe_cradle"
@@ -185,49 +185,34 @@
    "note": "Lucid: eight cold skyglass facets circling Sayo, white on the beat (AI portrait clear)"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_likeness_rise_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_likeness_ring_v2.webp",
    "type": "ANIMATION",
    "frames": 14,
    "speed": 50,
    "duration_ms": 700,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 972,
+   "bytes": 1632,
    "use": "appear",
    "serves": [
     "moe_likeness"
    ],
-   "note": "Your Likeness: a silvered-glass silhouette rises from the floor and cracks"
+   "note": "Your Likeness (summon flourish): a silvered-glass ring closes on the summon, cracks and bursts into shards"
   },
   {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_worn_rise_v1.webp",
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_worn_ash_v2.webp",
    "type": "ANIMATION",
    "frames": 14,
    "speed": 50,
    "duration_ms": 700,
    "frame_px": 150,
    "drawn_grid_px": 50,
-   "bytes": 470,
+   "bytes": 2020,
    "use": "appear",
    "serves": [
     "moe_worn"
    ],
-   "note": "The Worn: a faded, broken echo pulled up out of the glass"
-  },
-  {
-   "file": "art/mother_of_echoes_fx/exports/anim_moe_flood_faces_v1.webp",
-   "type": "ANIMATION",
-   "frames": 14,
-   "speed": 50,
-   "duration_ms": 700,
-   "frame_px": 150,
-   "drawn_grid_px": 150,
-   "bytes": 39974,
-   "use": "appear",
-   "serves": [
-    "moe_flood"
-   ],
-   "note": "The Names Flood In (signature, ME28 director layer): sleeping glass faces rise on cyan wisps, wake white as the hit lands, then come apart into dust"
+   "note": "The Worn (summon flourish): grey-brown ash wells up out of the glass round the summon"
   }
  ]
 }

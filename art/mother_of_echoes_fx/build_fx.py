@@ -213,12 +213,12 @@ def build_etch_tile():
     bright gold-white cut inside it, so it holds on snow and on dark floors alike, and the region carries a darker
     smoked haze. Still a lattice (no ring, chain, pool or star), still gold and white."""
     t = Image.new('RGBA', (N, N), (0, 0, 0, 0))
-    hz = Image.new('RGBA', (N, N), (0, 0, 0, 0))
-    for y in range(N):
-        for x in range(N):
-            r = math.hypot((x - 25) / 25, (y - 25) / 25)
-            px(hz, x, y, ETCH_DARK if r < 0.6 else SCORE, keep=0.375 if r < 0.6 else 0.25)
-    t.alpha_composite(hz)
+    # v3 (art QA): the v2 1 px Bayer haze became a screen door after the 50 px CDN rendition and pixi's linear
+    # stretch; the region is now tinted by sparse solid 2x2 score chips set between the spokes instead.
+    for x, y in ((12, 15), (38, 15), (12, 35), (38, 35), (18, 6), (32, 6), (18, 44), (32, 44), (5, 25), (45, 25)):
+        for dx in (0, 1):
+            for dy in (0, 1):
+                px(t, x + dx, y + dy, ETCH_DARK)
     d = ImageDraw.Draw(t)
     diag = {k: e for k, e in T_ENDS.items() if k not in ('T', 'B')}
     vert = {k: T_ENDS[k] for k in ('T', 'B')}
@@ -335,30 +335,6 @@ def build_recast():
 
 
 # ------------------------------------------------------------------------------------------------ moe_guard_open
-def build_guard_open():
-    """Weakness after a Recast: four splinters of the shattered glass circle the hex rim, catching gold light on the
-    beat. Portrait-clear loop (they pass behind the portraits at the front and back); a quarter turn per beat, so
-    the loop is seamless."""
-    fr = []
-    for i in range(BEAT):
-        f = frame()
-        hot = i in (0, 1)
-        for k in range(4):
-            ang = 2 * math.pi * (k / 4 + i / (BEAT * 4)) + 0.4
-            x, y = round(25 + math.cos(ang) * 19), round(25 + math.sin(ang) * 9.5)
-            shard = [(0, -3, ETCH_HOT if hot else GLASS_L), (-1, -2, GLASS_L), (0, -2, WHITE if hot else GLASS_L),
-                     (1, -2, GLASS_M), (-1, -1, GLASS_L), (0, -1, GLASS_L), (1, -1, GLASS_M), (-1, 0, GLASS_L),
-                     (0, 0, GLASS_M), (1, 0, GLASS_M), (0, 1, GLASS_M)]
-            for dx, dy, col in shard:
-                px(f, x + dx, y + dy, col)
-            for dx, dy in ((0, -4), (-2, -2), (2, -2), (-2, -1), (2, -1), (-2, 0), (2, 0), (-1, 1), (1, 1), (0, 2)):
-                px(f, x + dx, y + dy, GLASS_D)
-            if hot:
-                px(f, x + 3, y - 3, ETCH_HOT)
-                px(f, x - 3, y - 4, ETCH_MID)
-        fr.append(f)
-    return mind_portrait(fr)
-
 
 # ------------------------------------------------------------------------------------------------ moe_quiet
 def ellipse(f, cx, cy, rx, ry, rgb, n=48, keep=1.0):
@@ -401,113 +377,10 @@ def build_quiet():
 
 
 # ------------------------------------------------------------------------------------------------ moe_lancet
-def build_lancet():
-    """Glass Lancet: a needle of skyglass streaks in from the upper left, strikes, and splinters. 10 frames."""
-    a, b = (4.0, 3.0), (25.0, 20.0)
-    dx, dy = b[0] - a[0], b[1] - a[1]
-    L = math.hypot(dx, dy)
-    ux, uy = dx / L, dy / L
-    rng = [(math.cos(t) * s, math.sin(t) * s) for t, s in ((3.6, 1.8), (4.2, 2.2), (4.9, 1.6), (5.6, 2.0), (0.4, 1.5), (2.6, 1.7))]
-    fr = []
-    for i in range(10):
-        f = frame()
-        if i <= 3:
-            tip = lerp(a, b, (i + 1) / 4)
-            for k in range(1, 7):  # trail
-                px(f, tip[0] - ux * (k + 7), tip[1] - uy * (k + 7), CYAN_D if k > 3 else CYAN, keep=1.0 if k < 4 else 0.5)
-            for k in range(8):  # the needle: white core, cyan edge, dark under-edge
-                x, y = tip[0] - ux * k, tip[1] - uy * k
-                px(f, x, y, WHITE if k < 5 else GLASS_L)
-                px(f, x - uy, y + ux, CYAN)
-                px(f, x + uy, y - ux, CYAN_D if k > 1 else CYAN)
-        if i == 4:
-            for s in range(-4, 5):
-                px(f, b[0] + s, b[1], WHITE if abs(s) < 3 else CYAN)
-                px(f, b[0], b[1] + s * 0.75, WHITE if abs(s) < 3 else CYAN)
-            ellipse(f, b[0], b[1], 6, 4, CYAN, n=16)
-        if i >= 5:
-            t = i - 4
-            keep = 1.0 if t < 3 else 0.5 if t < 5 else 0.25
-            for vx, vy in rng:
-                x, y = b[0] + vx * t * 1.3, b[1] + vy * t * 1.3 + 0.3 * t * t
-                px(f, x, y, GLASS_L if t < 3 else CYAN, keep)
-                px(f, x + 1, y + 1, CYAN_D, keep)
-        fr.append(f)
-    return fr
-
 
 # ------------------------------------------------------------------------------------------------ moe_feeler
-def build_feeler():
-    """The Listening: a pale feeler of the Silence rises from the floor, curls its tip as if listening, and the dust
-    around it stops. 14 frames, one-shot (the summon appears where it stands)."""
-    base = (25, 34)
-    lengths = [0, 5, 10, 15, 20, 24, 27, 28, 28, 28, 28, 28, 28, 28]
-    motes = [(16, 14), (34, 12), (14, 24), (37, 22), (20, 8), (31, 27)]
-    fr = []
-    for i in range(14):
-        f = frame()
-        if i <= 4:  # the floor gives: an ink ripple at the root
-            r = 3 + i * 1.5
-            ellipse(f, base[0], base[1] + 1, r, r * 0.35, INK, n=36, keep=1.0 if i < 3 else 0.5)
-        Lh = lengths[i]
-        keep = 1.0 if i < 11 else 0.5 if i < 13 else 0.25
-        if Lh:
-            pts = []
-            n = max(2, Lh)
-            for k in range(n + 1):
-                s = k / n
-                x = base[0] + 3.2 * math.sin(s * 3.6 + i * 0.25) * s
-                y = base[1] - Lh * s
-                pts.append((x, y, s))
-            # curl the tip toward the listener's right
-            if Lh >= 24:
-                tx, ty, _ = pts[-1]
-                for k, (cx, cy) in enumerate(((tx + 1, ty - 1), (tx + 2, ty), (tx + 2, ty + 1), (tx + 1, ty + 2))):
-                    pts.append((cx, cy, 1.0))
-            for x, y, s in pts:
-                th = 2.4 * (1 - s) + 0.6
-                for o in range(-int(th) - 1, int(th) + 2):
-                    if abs(o) <= th:
-                        col = BONE if o <= 0 else BONE_S
-                        px(f, x + o, y, col, keep)
-                    elif abs(o) <= th + 1:
-                        px(f, x + o, y, BONE_D, keep)
-            for s_knot in (0.3, 0.55, 0.78):
-                for x, y, s in pts:
-                    if abs(s - s_knot) < 0.5 / max(2, Lh) + 0.02:
-                        px(f, x, y, BONE_D, keep)
-                        px(f, x + 1, y, BONE_D, keep)
-                        break
-        if i >= 7:
-            for mx, my in motes:
-                px(f, mx, my, DUST, keep)
-        fr.append(f)
-    return fr
-
 
 # ------------------------------------------------------------------------------------------------ moe_lull
-def build_lull():
-    """The Glass Falls Quiet: the breath between cycles, shown on Sayo for the two rounds her fleeprevent marker lasts
-    (moved off the `visual`, which the server drops at the next action, RUL-2026-11-02-101). Motes of pale glass
-    dust drift down at her sides and settle, clear of her AI-sized portrait. Two beats (1.6 s), deliberately quiet."""
-    period = BEAT * 2
-    motes = [(6, 0), (8, 11), (43, 5), (45, 19), (7, 22), (42, 27), (11, 15), (39, 9)]
-    (pcx, pcy), pr = AI_DISC
-    fr = []
-    for i in range(period):
-        f = frame()
-        for x0, t0 in motes:
-            k = (i - t0) % period
-            y = 6 + k * 0.9
-            x = x0 + (1 if (k // 6) % 2 else 0)
-            if math.hypot(x - pcx, y - pcy) <= pr + 1:
-                continue
-            keep = 1.0 if k < 18 else 0.5 if k < 26 else 0.25
-            px(f, x, y, DUST, keep)
-            px(f, x, y + 1, GLASS_D, keep)
-        fr.append(f)
-    return fr
-
 
 # ------------------------------------------------------------------------------------------------ figures
 VIOLET = (96, 66, 150)
@@ -545,39 +418,6 @@ def fig_pixels():
 
 
 # ------------------------------------------------------------------------------------------------ moe_stillness
-def build_stillness():
-    """Nothing Moves (the control mark comes due as a stun): darkness closes in from the hex rim over the stunned
-    fighter, a thin deep-violet edge keeping the control family, and the dust in the air stops where it is; then
-    the dark lets go and the frozen dust hangs on a moment. 12 frames, one-shot. Mother Glass language: ink and
-    frozen dust, no chains or seals (those are Crownhold's)."""
-    motes = [(14, 12), (35, 10), (11, 22), (39, 20), (18, 30), (33, 31), (25, 6), (29, 18), (20, 19)]
-    fr = []
-    for i in range(12):
-        f = frame()
-        if i <= 9:
-            close = min(1.0, (i + 1) / 6)                 # 0 -> 1 over 6 frames, then holds
-            release = 0.0 if i < 8 else (i - 7) / 3        # lets go on 8-9
-            inner = 1.0 - 0.72 * close + 0.5 * release     # inner edge of the dark, as a fraction of the rim
-            for y in range(N):
-                for x in range(N):
-                    r = math.hypot((x - 25) / 22, (y - 22) / 14)
-                    if r > 1.0:
-                        continue
-                    if r >= inner:
-                        depth = (r - inner) / max(0.01, 1.0 - inner)
-                        keep = (0.5 + 0.5 * min(1, depth * 2)) * (1 - 0.6 * release)
-                        px(f, x, y, INK if depth > 0.25 else VIOLET_D, keep)
-                    elif r >= inner - 0.07:
-                        px(f, x, y, VIOLET, 0.75 * (1 - release))
-        if i >= 3:
-            keep = 1.0 if i < 10 else 0.5
-            for mx, my in motes:
-                px(f, mx, my, DUST, keep)
-                if i in (5, 6):
-                    px(f, mx + 1, my, WHITE, keep)
-        fr.append(f)
-    return fr
-
 
 # ------------------------------------------------------------------------------------------------ moe_breathless
 def build_breathless():
@@ -657,74 +497,8 @@ def build_lucid():
 
 
 # ------------------------------------------------------------------------------------------------ moe_likeness
-def build_likeness():
-    """Your Likeness: a glass silhouette of a fighter rises out of the floor, built from the feet up in silvered
-    glass with pale-cyan facet lines, flashes white when whole, then cracks as the summon takes its place.
-    14 frames, one-shot."""
-    inside, edge = fig_pixels()
-    top, bottom = min(y for _, y in inside), max(y for _, y in inside)
-    fr = []
-    for i in range(14):
-        f = frame()
-        if i <= 3:                                          # the floor gives: a glint line where it will rise
-            for k in range(-8 - i * 2, 9 + i * 2):
-                px(f, 25 + k, 35, WHITE if abs(k) < 4 else GLASS_L, 1.0 if abs(k) < 8 else 0.5)
-        reveal = bottom - (bottom - top + 1) * min(1.0, (i + 1) / 7)
-        keep = 1.0 if i < 11 else 0.5 if i < 13 else 0.25
-        for (x, y) in inside:
-            if y < reveal:
-                continue
-            if (x, y) in edge:
-                col = WHITE if i == 7 else GLASS_D
-            elif (x + y) % 5 == 0:
-                col = CYAN                                   # diagonal facet lines
-            else:
-                col = GLASS_L if x <= 25 else GLASS_M
-            px(f, x, y, col, keep)
-        if 0 < reveal - bottom + (bottom - top) and i < 7:   # the rising edge glows
-            for (x, y) in inside:
-                if abs(y - reveal) < 1:
-                    px(f, x, y, WHITE)
-        if i >= 9:                                           # it cracks as the summon takes its place
-            for k, (x0, y0) in enumerate(((22, 15), (28, 20), (24, 26))):
-                for j in range(i - 7):
-                    px(f, x0 + (j if k % 2 else -j) * 0.7, y0 + j, CYAN_D, keep)
-        fr.append(f)
-    return fr
-
 
 # ------------------------------------------------------------------------------------------------ moe_worn
-def build_worn():
-    """The Worn: a thinned echo is pulled up out of the glass, a fighter's shape gone faded grey and broken, half its
-    pixels missing and its outline worn through, trailing threads back to the floor; it never finishes and fades
-    as the summon appears. 14 frames, one-shot."""
-    inside, edge = fig_pixels()
-    top, bottom = min(y for _, y in inside), max(y for _, y in inside)
-    GREY, GREY_D = (150, 150, 158), (78, 78, 90)
-    fr = []
-    for i in range(14):
-        f = frame()
-        lift = max(0, 6 - i) * 2                              # pulled up from below the floor line
-        cut = 35                                             # the floor: nothing shows below it
-        keep = 0.5 if i < 10 else 0.25 if i < 12 else 0.125
-        for (x, y) in inside:
-            yy = y + lift
-            if yy > cut:
-                continue
-            if (x, y) in edge:
-                px(f, x, yy, GREY_D, 0.75 if i < 10 else keep)
-            else:
-                px(f, x, yy, GREY if x <= 25 else GREY_D, keep)
-        if i <= 9:                                           # threads back to the glass
-            for x0 in (21, 24, 27, 29):
-                for y in range(28 + lift // 2, 36):
-                    px(f, x0 + (y % 3 == 0), y, GREY, 0.5)
-        if i <= 4:                                           # the floor line it is pulled through
-            for k in range(-10, 11):
-                px(f, 25 + k, 35, GLASS_M if abs(k) < 7 else GREY_D, 0.75)
-        fr.append(f)
-    return fr
-
 
 # ------------------------------------------------------------------------------------------------ moe_cradle
 def build_cradle():
@@ -757,7 +531,7 @@ def build_cradle():
                     deg = 90 + side * (u * 128)                      # from straight under her up past the shoulder
                     rr = pr + 3.0 + 1.6 * math.sin(u * 11 + off + ph * (1 if k else -1))
                     if u < 0.12:                                     # the root rises out of the floor
-                        rr += (0.12 - u) * 40
+                        rr += (0.12 - u) * 12
                     r = math.radians(deg)
                     pts.append((pcx + rr * math.cos(r), pcy + rr * math.sin(r), u))
                 tx, ty, _ = pts[-1]                                  # the tip lifts and hooks over the shoulder
@@ -777,46 +551,311 @@ def build_cradle():
     return fr
 
 # ------------------------------------------------------------------------------------------------ moe_flood (signature)
-FACES_RAW = os.path.join(ROOT, 'art', 'mother_of_echoes', 'raw', 'fx_names_flood_faces.png')   # ME28, director
 
 
-def build_flood():
-    """The Names Flood In, signature version (ME28): the director's sleeping glass faces rise up through the hex on
-    cyan wisps, wake white all at once as the hit lands, then come apart into dust. Drawn at the delivered 150 px
-    (the faces would not survive the 50 px grid), hard alpha, dithered fades. 14 frames, one-shot."""
-    D = N * SCALE
-    src = Image.open(FACES_RAW).convert('RGBA')
-    src = src.crop(src.getchannel('A').point(lambda v: 255 if v >= 128 else 0).getbbox())
-    h = int(D * 0.86)
-    src = src.resize((max(1, round(src.width * h / src.height)), h), Image.LANCZOS)
-    src.putalpha(src.getchannel('A').point(lambda v: 255 if v >= 128 else 0))
-    white = Image.new('RGBA', src.size, (*WHITE, 255))
+
+
+# ------------------------------------------------------------------------------------------------ v2 polish (art QA)
+# The CDN delivers every strip at 50 px wide (theninjarpg@3314d122 primitives/animation.ts rendition 50) and pixi
+# stretches it ~3.3x with LINEAR filtering (combatEffects.ts never passes nearest): 1 px dithers turn to haze, so the
+# v2 builders below use solid clusters of 2-3 px, 1 px dark outlines, and fade by shrinking or dropping whole
+# clusters instead of ordered dithering.
+ORE = (196, 92, 40)          # ember (the heavy-damage family)
+ORE_HOT = (255, 196, 120)
+
+
+def blob(f, x, y, rgb, r=1):
+    """A solid square cluster (2r x 2r px, r=1 -> 2x2)."""
+    for dx in range(-r + 1, r + 1):
+        for dy in range(-r + 1, r + 1):
+            px(f, x + dx, y + dy, rgb)
+
+
+def outline_alpha(f, rgb):
+    """1 px dark outline round every opaque pixel cluster (4-neighbour), drawn under the cluster."""
+    a = f.getchannel('A').load()
+    pts = [(x, y) for y in range(f.height) for x in range(f.width)
+           if not a[x, y] and any(0 <= x + dx < f.width and 0 <= y + dy < f.height and a[x + dx, y + dy]
+                                  for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))]
+    for x, y in pts:
+        f.putpixel((x, y), (*rgb, 255))
+    return f
+
+
+def thick_arc(f, cx, cy, r, a0, a1, layers, ry_scale=1.0):
+    """An arc from a0 to a1 (degrees) drawn as concentric 1 px rings, layers = [(dr, rgb), ...]."""
+    for dr, col in layers:
+        rr = r + dr
+        n = max(8, int(abs(a1 - a0) / 360 * 2 * math.pi * rr * 3))
+        for k in range(n + 1):
+            a = math.radians(a0 + (a1 - a0) * k / n)
+            px(f, cx + rr * math.cos(a), cy + rr * math.sin(a) * ry_scale, col)
+
+
+def build_guard_open():
+    """Weakness after a Recast, on SAYO (Recast's weakness targets SELF: her guard opens, x3 damage taken). A bold
+    ring of etched gold glass round her portrait, cracked into six plates; on the 0.8 s beat the plates push outward
+    and flare white along their cut, so the gaps open: punish now. Etching gold/white with near-black score lines
+    (the Etching family, so it reads as the mark's payoff, distinct from Lucid's cyan facets). Off her face: every
+    pixel sits outside her AI-sized portrait. 16 frames, one beat."""
+    (pcx, pcy), pr = AI_DISC
+    plates = [(-150, -95), (-85, -30), (-20, 35), (45, 100), (110, 165), (175, 210)]
     fr = []
-    for i in range(14):
-        rise = max(0, 6 - i) * 4                       # rises out of the floor
-        keep = min(1.0, (i + 1) / 5) if i < 10 else (13 - i) / 4
-        img = src
-        if 6 <= i <= 9:                                # they wake: a white flash on the hit
-            img = Image.blend(src, white, 0.65 if i in (7, 8) else 0.3)
-            img.putalpha(src.getchannel('A'))
-        f = Image.new('RGBA', (D, D), (0, 0, 0, 0))
-        f.alpha_composite(img, ((D - img.width) // 2, (D - img.height) // 2 + rise - (i - 9) * 3 * (i > 9)))
-        am = f.getchannel('A')
-        a = am.load()
-        for y in range(D):
-            for x in range(D):
-                if a[x, y] and BAYER[(y // 2) % 4][(x // 2) % 4] >= keep * 16:   # 2 px dither cells read at size
-                    a[x, y] = 0
-        f.putalpha(am)
+    for i in range(BEAT):
+        f = frame()
+        p = pulse(i)
+        push = 1.5 * p
+        for a0, a1 in plates:
+            mid = math.radians((a0 + a1) / 2)
+            ox, oy = math.cos(mid) * push, math.sin(mid) * push
+            hot = p > 0.7
+            thick_arc(f, pcx + ox, pcy + oy, pr + 1.5, a0, a1,
+                      [(0.0, SCORE), (1.0, ETCH_HOT if hot else ETCH_MID), (2.0, WHITE if hot else ETCH_HOT),
+                       (3.0, ETCH_MID), (4.0, SCORE)])
+            # a crack spike off the plate's outer edge
+            r0 = pr + 1.5 + 4
+            for s in range(3):
+                x = pcx + ox + (r0 + s) * math.cos(mid)
+                y = pcy + oy + (r0 + s) * math.sin(mid)
+                px(f, x, y, ETCH_HOT if hot and s < 2 else SCORE)
+        if p > 0.85:  # the beat: white sparks leap from the opened gaps
+            for a0, _ in plates:
+                g = math.radians(a0 - 2.5)
+                for s in (6.5, 8.0):
+                    blob(f, pcx + (pr + s) * math.cos(g), pcy + (pr + s) * math.sin(g), WHITE)
+        fr.append(f)
+    mask = Image.new('L', (N, N), 0)
+    ImageDraw.Draw(mask).ellipse([pcx - pr, pcy - pr, pcx + pr, pcy + pr], fill=255)
+    out = []
+    for f in fr:
+        a = f.getchannel('A')
+        a.paste(0, (0, 0), mask)
+        f.putalpha(a)
+        out.append(f)
+    return out
+
+
+def build_lancet():
+    """Glass Lancet: a thick skyglass needle with a dark outline streaks in from the upper left (4 frames), strikes
+    in a white impact star held 2 frames, then splinters into solid 2 px chips. 11 frames."""
+    a, b = (3.0, 2.0), (25.0, 21.0)
+    dx, dy = b[0] - a[0], b[1] - a[1]
+    L = math.hypot(dx, dy)
+    ux, uy = dx / L, dy / L
+    chips = [(math.cos(t) * s, math.sin(t) * s) for t, s in ((3.5, 2.0), (4.3, 2.3), (5.0, 1.8), (5.7, 2.2), (0.5, 1.7), (2.5, 1.9))]
+    fr = []
+    for i in range(11):
+        f = frame()
+        if i <= 3:
+            tip = lerp(a, b, (i + 1) / 4)
+            n = frame()
+            for k in range(11):                                   # body, 3 px wide
+                x, y = tip[0] - ux * k, tip[1] - uy * k
+                for o in (-1, 0, 1):
+                    col = WHITE if (o == 0 and k < 6) else GLASS_L if o <= 0 else CYAN
+                    px(n, x - uy * o, y + ux * o, col)
+            outline_alpha(n, GLASS_D)
+            f.alpha_composite(n)
+            for k in range(3):                                    # short cyan trail, solid
+                blob(f, tip[0] - ux * (13 + 3 * k), tip[1] - uy * (13 + 3 * k), CYAN if k < 2 else CYAN_D)
+        if i in (4, 5, 6):                                        # impact star, held
+            r = {4: 9, 5: 8, 6: 5}[i]
+            n = frame()
+            for s in range(-r, r + 1):
+                for o in (0, 1) if abs(s) < r - 1 else (0,):
+                    px(n, b[0] + s, b[1] + o, WHITE if abs(s) < r - 2 else CYAN)
+                    px(n, b[0] + o, b[1] + s * 0.8, WHITE if abs(s) < r - 2 else CYAN)
+            for s in range(-(r // 2), r // 2 + 1):
+                px(n, b[0] + s, b[1] + s, GLASS_L)
+                px(n, b[0] + s, b[1] - s, GLASS_L)
+            outline_alpha(n, GLASS_D)
+            f.alpha_composite(n)
+        if i >= 6:
+            t = i - 5
+            for k, (vx, vy) in enumerate(chips):
+                if t > 4 and k % 2:
+                    continue                                       # fade by dropping whole chips
+                x, y = b[0] + vx * t * 1.4, b[1] + vy * t * 1.4 + 0.3 * t * t
+                blob(f, x, y, GLASS_L if t < 3 else CYAN)
+                px(f, x + 1, y + 1, GLASS_D)
         fr.append(f)
     return fr
 
 
-def strip_hi(frames):
-    s = Image.new('RGBA', (frames[0].width, frames[0].height * len(frames)))
-    for i, f in enumerate(frames):
-        s.paste(fill_under(f.copy()), (0, i * f.height))
-    return s
+def build_lull():
+    """The Glass Falls Quiet: the breath between cycles on Sayo (fleeprevent, SELF, 2 rounds). Sixteen 2x2 motes of
+    pale glass dust drift down at her sides, each with a dark under-pixel, and two faint 2 px dust curtains hang at
+    the frame's edges. Clear of her AI-sized portrait. Two beats (1.6 s), loops seamlessly."""
+    period = BEAT * 2
+    motes = [(4, 0), (7, 11), (10, 22), (5, 5), (8, 27), (11, 15), (3, 19), (9, 8),
+             (46, 3), (43, 19), (40, 9), (45, 27), (42, 14), (47, 23), (39, 1), (44, 30)]
+    (pcx, pcy), pr = AI_DISC
+    fr = []
+    for i in range(period):
+        f = frame()
+        for x0 in (2, 48):                                        # dust curtains: short solid dashes falling
+            for k in range(4):
+                y = (i * 1.5 + k * 12) % 44
+                for yy in range(3):
+                    px(f, x0, y + yy, GLASS_M)
+                    px(f, x0 + (1 if x0 < 25 else -1), y + yy, DUST)
+        for x0, t0 in motes:
+            k = (i + t0) % period
+            y = 2 + k * 1.3
+            x = x0 + (1 if (k // 8) % 2 else 0)
+            if math.hypot(x - pcx, y - pcy) <= pr + 2:
+                continue
+            blob(f, x, y, DUST)
+            px(f, x, y + 1, GLASS_D)
+            px(f, x + 1, y + 1, GLASS_D)
+        fr.append(f)
+    return fr
+
+
+def build_stillness():
+    """Nothing Moves (the control mark comes due as a stun): a solid ring of ink closes in from the hex rim over the
+    stunned fighter, its inner edge a crisp 1 px deep violet, and the dust stops in 2x2 motes; then the ring lets go
+    by thinning, never dithering. 12 frames, one-shot."""
+    motes = [(14, 12), (35, 10), (11, 22), (39, 20), (18, 30), (33, 31), (25, 6), (29, 18), (20, 19)]
+    cx, cy, RX, RY = 25, 22, 22, 14
+    fr = []
+    for i in range(12):
+        f = frame()
+        if i <= 10:
+            close = min(1.0, (i + 1) / 6)
+            release = 0.0 if i < 8 else (i - 7) / 3.5
+            inner = 1.0 - 0.66 * close + 0.6 * release
+            outer = 1.0 - 0.25 * release
+            for y in range(N):
+                for x in range(N):
+                    r = math.hypot((x - cx) / RX, (y - cy) / RY)
+                    if inner <= r <= outer:
+                        px(f, x, y, INK if r > inner + 0.06 else VIOLET)
+                    elif outer < r <= outer + 0.05:
+                        px(f, x, y, VIOLET_D)
+        if i >= 3:
+            for k, (mx, my) in enumerate(motes):
+                if i >= 10 and k % 2:
+                    continue
+                blob(f, mx, my, WHITE if i in (5, 6) else DUST)
+        fr.append(f)
+    return fr
+
+
+def build_likeness():
+    """Your Likeness (summon flourish): the summoned avatar is already on screen, so this frames it. A ring of
+    silvered glass closes round its portrait, flashes white, cracks, and bursts outward into solid 2-3 px shards.
+    14 frames, one-shot."""
+    (pcx, pcy), pr = AI_DISC
+    shards = [(a, 1.6 + 0.4 * (k % 3)) for k, a in enumerate(range(0, 360, 30))]
+    fr = []
+    for i in range(14):
+        f = frame()
+        if i <= 5:
+            r = pr + 9 - 7 * min(1.0, i / 4)
+            thick_arc(f, pcx, pcy, r, 0, 360, [(0.0, GLASS_D), (1.0, WHITE if i == 5 else GLASS_L), (2.0, GLASS_M), (3.0, GLASS_D)])
+            if i >= 4:                                             # cracks run across the ring
+                for a in range(15, 360, 60):
+                    g = math.radians(a)
+                    for s in range(5):
+                        px(f, pcx + (r - 1 + s) * math.cos(g), pcy + (r - 1 + s) * math.sin(g), GLASS_D)
+        if i >= 6:
+            t = i - 5
+            for k, (a, sp) in enumerate(shards):
+                if t > 6 and k % 2:
+                    continue
+                g = math.radians(a + 8 * t)
+                rr = pr + 2 + sp * t * 1.6
+                x, y = pcx + rr * math.cos(g), pcy + rr * math.sin(g) + 0.25 * t * t
+                n = frame()
+                blob(n, x, y, GLASS_L if k % 3 else WHITE)
+                px(n, x + 1, y - 1, CYAN)
+                outline_alpha(n, GLASS_D)
+                f.alpha_composite(n)
+        fr.append(f)
+    mask = Image.new('L', (N, N), 0)
+    ImageDraw.Draw(mask).ellipse([pcx - pr + 3, pcy - pr + 3, pcx + pr - 3, pcy + pr - 3], fill=255)
+    out = []
+    for f in fr:
+        a = f.getchannel('A')
+        a.paste(0, (0, 0), mask)
+        f.putalpha(a)
+        out.append(f)
+    return out
+
+
+def build_worn():
+    """The Worn (summon flourish): an upwell of grey-brown ash out of the glass round the summoned avatar's feet:
+    solid 2x2 clumps boil up from the floor ring and rise along its sides, thinning as they climb. 14 frames."""
+    (pcx, pcy), pr = AI_DISC
+    ASH, ASH_D, ASH_L = (128, 118, 112), (58, 52, 56), (186, 178, 168)
+    rng = [((k * 37) % 23 - 11, (k * 53) % 7, (k * 29) % 5) for k in range(26)]
+    fr = []
+    for i in range(14):
+        f = frame()
+        if i <= 6:                                                 # the floor ring the ash breaks through
+            rx = 8 + i * 2
+            n = frame()
+            ellipse(n, 25, 37, rx, rx * 0.32, ASH_L if i < 3 else ASH, n=200)
+            ellipse(n, 25, 37.8, rx, rx * 0.32, ASH_D, n=200)
+            ellipse(n, 25, 38.6, rx, rx * 0.32, ASH_D, n=200)
+            f.alpha_composite(n)
+        for k, (xo, d0, sp) in enumerate(rng):
+            t = i - d0 * 0.6
+            if t < 0:
+                continue
+            y = 38 - t * (1.6 + sp * 0.3)
+            side = -1 if xo < 0 else 1
+            x = 25 + xo * 1.5 + side * max(0, (34 - y)) * 0.45
+            if y < 4 or (i > 10 and k % 2):
+                continue
+            if math.hypot(x - pcx, y - pcy) < pr - 2:
+                x = pcx + side * (pr + 1)                           # keep the face clear: rise along the sides
+            col = ASH_L if t < 3 else ASH if t < 7 else ASH_D
+            n2 = frame()
+            blob(n2, x, y, col, r=2 if t < 5 else 1)
+            outline_alpha(n2, ASH_D)
+            f.alpha_composite(n2)
+        fr.append(f)
+    return fr
+
+
+def build_feeler():
+    """The Listening (summon flourish): an ink ripple spreads at the summoned feeler's root and pale bone wisps curl
+    up beside it and drop away. Frames the avatar instead of drawing a second feeler. 14 frames, one-shot."""
+    fr = []
+    for i in range(14):
+        f = frame()
+        if i <= 9:                                                 # ink ripples
+            for j, d in enumerate((0, 3)):
+                t = i - d
+                if 0 <= t <= 6:
+                    rx = 5 + t * 2.4
+                    ellipse(f, 25, 37, rx, rx * 0.33, INK, n=200)
+                    ellipse(f, 25, 37.8, rx, rx * 0.33, VIOLET if t < 4 else INK, n=200)
+                    ellipse(f, 25, 38.6, rx, rx * 0.33, INK, n=200)
+        for side in (-1, 1):                                       # two wisps either side
+            for w, x0 in enumerate((14, 9)):
+                t = i - 2 - w * 2
+                if t < 0 or t > 10:
+                    continue
+                h = min(14, t * 2.5)
+                for s in range(int(h)):
+                    y = 37 - s
+                    x = 25 + side * (x0 + 2 * math.sin(s / 3 + t * 0.4))
+                    if t > 7 and s < (t - 7) * 4:
+                        continue                                   # it drops away from the root up
+                    px(f, x, y, BONE)
+                    px(f, x + side, y, BONE_S)
+                    px(f, x - side, y, BONE_D)
+        fr.append(f)
+    return fr
+
+
+# ------------------------------------------------------------------------------------------------ moe_flood
+# Not built (art QA, 2026-11-04): the director's ME28 faces could not hold up at the 50 px CDN rendition (v1 drawn at
+# 150 px lost two-thirds of its detail; 50 px rebuilds read as blank tiles and stacked into columns across a field).
+# The Names Flood In keeps the reuse-live Eruption strip (Z9j8J7ZmAjiaxH2S4nDy8, the doc's P1 source).
 
 
 def export():
@@ -830,10 +869,10 @@ def export():
         assert size < MAX_BYTES, (name, size)
         rows.append({'file': f'art/mother_of_echoes_fx/exports/{name}', 'type': kind, 'frames': frames,
                      'speed': MS if kind == 'ANIMATION' else None, 'duration_ms': frames * MS if kind == 'ANIMATION' else None,
-                     'frame_px': N * SCALE, 'drawn_grid_px': N if name != 'anim_moe_flood_faces_v1.webp' else N * SCALE, 'bytes': size, 'use': use, 'serves': serves, 'note': note})
+                     'frame_px': N * SCALE, 'drawn_grid_px': N, 'bytes': size, 'use': use, 'serves': serves, 'note': note})
         print(f'{name}: {kind} {frames} frame(s), {size} bytes')
 
-    save('tile_moe_etch_v2.webp', build_etch_tile(), 1, 'staticAssetPath', ['tg_etch'],
+    save('tile_moe_etch_v3.webp', build_etch_tile(), 1, 'staticAssetPath', ['tg_etch'],
          'The Etching mark, STATIC still under the characters, stretched to the hex box; the lattice joins seamlessly '
          'across a field', kind='STATIC')
     g = build_etch_glint()
@@ -843,36 +882,33 @@ def export():
     for name, fn, use, serves, note, loop in (
             ('anim_moe_recast_v1.webp', build_recast, 'appear', ['moe_recast'],
              'Recast: the etched lattice flashes back and glass blades rise along it, then shatter (the Etching comes due)', False),
-            ('anim_moe_guard_open_v1.webp', build_guard_open, 'static', ['moe_guard_open'],
-             'Guard open (the Recast weakness): splinters circle the hex rim, gold on the beat (portrait-clear loop)', True),
+            ('anim_moe_guard_open_v2.webp', build_guard_open, 'static', ['moe_guard_open'],
+             'Guard open (Recast weakness, on Sayo): a cracked ring of etched gold glass round her portrait; the plates push '
+             'out and flare white on the beat (portrait-clear loop)', True),
             ('anim_moe_quiet_v1.webp', build_quiet, 'appear', ['moe_quiet'],
              'The Quiet: an ink ring closes on the target, a bone-white hush, the dust stops', False),
-            ('anim_moe_lancet_v1.webp', build_lancet, 'appear', ['moe_lancet'],
-             'Glass Lancet: a skyglass needle streaks in and splinters', False),
-            ('anim_moe_feeler_v1.webp', build_feeler, 'appear', ['moe_feeler'],
-             'The Listening: a pale feeler rises and curls its tip (summon flourish)', False),
-            ('anim_moe_lull_v2.webp', build_lull, 'static', ['moe_lull'],
-             'The Glass Falls Quiet: glass dust drifting down beside Sayo; staticAnimation of the jutsu\'s fleeprevent '
+            ('anim_moe_lancet_v2.webp', build_lancet, 'appear', ['moe_lancet'],
+             'Glass Lancet: a thick outlined skyglass needle streaks in, white impact star held 2 frames, splinters', False),
+            ('anim_moe_feeler_v2.webp', build_feeler, 'appear', ['moe_feeler'],
+             'The Listening (summon flourish): ink ripples at the root, bone wisps curl up beside the summoned feeler', False),
+            ('anim_moe_lull_v3.webp', build_lull, 'static', ['moe_lull'],
+             'The Glass Falls Quiet: 2x2 glass dust and two dust curtains drifting down beside Sayo; staticAnimation of the jutsu\'s fleeprevent '
              '(SELF, 2 rounds), moved off the visual the server drops (RUL-2026-11-02-101); clears an AI portrait', True),
-            ('anim_moe_still_dark_v1.webp', build_stillness, 'appear', ['moe_stillness'],
-             'Nothing Moves: darkness closes in from the rim, a deep-violet edge, the dust stops', False),
+            ('anim_moe_still_dark_v2.webp', build_stillness, 'appear', ['moe_stillness'],
+             'Nothing Moves: a solid ink ring closes in from the rim, a crisp violet edge, the dust stops', False),
             ('anim_moe_breath_draw_v1.webp', build_breathless, 'appear', ['moe_breathless'],
              'Breathless Pull: breath drawn out of the hex, up and away; a violet lock closes at the feet', False),
-            ('anim_moe_cradle_v1.webp', build_cradle, 'static', ['moe_cradle'],
+            ('anim_moe_cradle_v2.webp', build_cradle, 'static', ['moe_cradle'],
              'Cradle: pale feelers rise at Sayo\'s sides and cup beneath her, an ink hold throbbing violet on the beat; '
              'staticAnimation of the decreasedamagetaken effect (while a feeler lives she takes 90% less); AI portrait clear', True),
             ('anim_moe_lucid_aura_v1.webp', build_lucid, 'static', ['moe_lucid'],
              'Lucid: eight cold skyglass facets circling Sayo, white on the beat (AI portrait clear)', True),
-            ('anim_moe_likeness_rise_v1.webp', build_likeness, 'appear', ['moe_likeness'],
-             'Your Likeness: a silvered-glass silhouette rises from the floor and cracks', False),
-            ('anim_moe_worn_rise_v1.webp', build_worn, 'appear', ['moe_worn'],
-             'The Worn: a faded, broken echo pulled up out of the glass', False)):
+            ('anim_moe_likeness_ring_v2.webp', build_likeness, 'appear', ['moe_likeness'],
+             'Your Likeness (summon flourish): a silvered-glass ring closes on the summon, cracks and bursts into shards', False),
+            ('anim_moe_worn_ash_v2.webp', build_worn, 'appear', ['moe_worn'],
+             'The Worn (summon flourish): grey-brown ash wells up out of the glass round the summon', False)):
         fr = fn()
         save(name, strip(fr), len(fr), use, serves, note)
-    fl = build_flood()
-    save('anim_moe_flood_faces_v1.webp', strip_hi(fl), len(fl), 'appear', ['moe_flood'],
-         'The Names Flood In (signature, ME28 director layer): sleeping glass faces rise on cyan wisps, wake white as '
-         'the hit lands, then come apart into dust')
     meta = {'source': 'art/mother_of_echoes_fx/build_fx.py (pixel art in code)',
             'renderer': 'theninjarpg@3314d122 libs/rendering/scenes/combatEffects.ts (pixi): one square sprite per hex, '
                         'tile.height * 2.5; staticAssetPath stretched to the hex box under the actors',
