@@ -106,10 +106,11 @@ def shard_desc(story, drop):
 TOKEN_TMPL = ("<i>{story}</i><br><br>Unlocks <b>{v}</b>, a variant of <b>{base}</b> (new look and name, same stats). "
               "You must own {base}: open it, choose <b>Variants</b>, then <b>Use {v}</b>. Once per player.")
 TOKENS = [  # (key, variant/token name, base name, base id, token story, variant description, image)
+    # Text matches the director-approved art (2026-11-04: a heart-crowned fan, no faces); push/468 carries it live.
     ("heartglass", "Heartglass", "The Unwritten", UNWRITTEN,
-     "Cut from Sayo's own glass. Every pane still holds a face, and every face is listening.",
-     "The Unwritten remade in thin panes of cyan glass, a faint face pressed behind each. When it opens, the faces "
-     "turn toward your target.", "@img:icon-variant-heartglass.webp"),
+     "Sayo's own fan, paned in cyan Mother Glass and crowned with a heart of crystal.",
+     "The Unwritten remade as Sayo's own fan, paned in cyan Mother Glass and crowned with a heart of crystal. It "
+     "catches the light like it remembers.", "@img:icon-variant-heartglass.webp"),
     ("remainder", "The Remainder", "Ink of the Void", INK_OF_THE_VOID,
      "What the Silence did not finish drinking. It makes no sound at all.",
      "Ink of the Void gone matte black and still. It drinks the light around it, its string never glints, and dust "
