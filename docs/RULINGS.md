@@ -5747,3 +5747,35 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-04: "I accept them."
 
 **Canonical destination:** `state/validate_exceptions/466_mother_of_echoes_final.json`.
+
+## RUL-2026-11-04-116 — Early-game levelling spine approved (shape)
+
+**Date:** 2026-11-04
+
+**Domain:** Early game, levels 1-70 / story spine / PvE loop
+
+**Status:** ACTIVE.
+
+**Ruling:** The director approves the spine shape in `docs/design/early_game/LEVELLING_DESIGN.md` (draft 1, `fable/early-game-sim@88b3440`):
+1. **Village-neutral spine.**
+2. **The Kuroganekai case continues past level 30.**
+   - The case officer stays the patron through 57; Global ANBU takes over at Jonin.
+   - Chapter 2 runs 30-57 in three acts (Waystation, The Sealed Route, Tide at Kaiyo), and the commander is named at the end of Act III.
+   - Chapter 3 runs 57-70 and draws on the Fifth Element / Heart of Balance.
+3. **Chapter shape:** story step → repeatable contract → capstone pyramid → rank exam or chapter close.
+4. **Capstones:** Howling Hills, Skychain Monastery and The Drowned Fleet become the three Chunin-era capstones. Two new capstones sit at about 60-64 and 66-70.
+5. **Systems in the spine:** onboarding steps for the trade choice, the other professions, pets, medical and clans at levels 10-20; the Field Office daily board.
+6. **Still open:**
+   - chapter names and the commander's name
+   - scaled vs fixed capstones
+   - mission pay scale
+   - engagement targets
+   - the hidden profession dailies
+   - reward values
+   - the evidence list (doc section 7)
+
+   No content is built or pushed on this ruling.
+
+**Evidence:** Director, 2026-11-04: "Yes, approved. Give it to me formatted as a discord thread for review."
+
+**Canonical destination:** `docs/design/early_game/LEVELLING_DESIGN.md`.
