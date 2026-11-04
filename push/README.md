@@ -1703,15 +1703,13 @@ theninjarpg@3314d122. Everything is created hidden; AIs have no hidden column (l
 | 465 | — | SUPERSEDED by 467 (the publish now rides job 2 of the final push, with its art) |
 
 **Final push (2026-11-04; the director: one master; docs/design/MOTHER_OF_ECHOES_ART.md).** Two jobs, same generator.
-Replaces the separate art-pass files (466-468, 480-482, 465), which are gone.
+Replaces the separate art-pass files (466, 467, 480-482, 465), which are gone; 468 ran standalone and is kept as the record.
 
-1. **466** `466_mother_of_echoes_final.json`, JOB 1, 97 items, one imagePack (dd65aae6, 41 files):
+1. **466** `466_mother_of_echoes_final.json`, JOB 1, 89 items, one imagePack (dd65aae6, 33 files):
    - phase 10: 18 HIDDEN gameAssets (law 16b), folder MotherOfEchoes: 15 code-built FX (Etching tile + glint, Recast,
      guard open, The Quiet, Glass Lancet, The Listening, the lull, Nothing Moves, Breathless Pull, Lucid, Your Likeness,
      Raise the Worn, Cradle, The Names Flood In faces) and the 3 act scenes;
-   - phase 20: 8 item edits: 4 shard icons, 2 token icons + Heartglass token text, 2 variant images + Heartglass variant
-     text (Heartglass = `icon-variant-heartglass-approved.webp`, NOT v2; text matched to the no-faces art). These are
-     visible, so they show at once;
+   - (no phase 20: the item art ran standalone as push/468, below);
    - phase 30: law 18 step 1, every moe jutsu off its 9 AIs (Your Likeness keeps Stolen Form);
    - phase 40: all 53 moe jutsu re-sent from the spec with family icons (ME21-ME26) and FX by in-job `@scene` refs (only
      `image` and the 4 animation fields differ from 440/462); the lull on The Glass Falls Quiet's `fleeprevent`;
@@ -1728,6 +1726,12 @@ Replaces the separate art-pass files (466-468, 480-482, 465), which are gone.
    quest re-sent whole with hidden false, its icon and the three act scenes (heart: content, d_open, b_act1, f_lost;
    stilling: d_act2, b_act2; impression: d_act3, b_act3, w_clear), pick Hoard ×1 / Coffer ×5 / Token ×3.
 
+**468 Item art: RUN 2026-11-04 standalone (tnr_results_1793814749136.json, 8/8 VERIFIED; forge manifest hash 86a07f93 =
+the committed `468_mother_of_echoes_item_art.json`, restored from c0509237 as the record of what ran).** Four shard
+icons, both token icons, both variants' final images (Heartglass = `icon-variant-heartglass-approved.webp`, not v2) and
+the Heartglass token and variant text matched to the no-faces art (`skyglass_uber_economy.gen.py` TOKENS). Built by
+the generator's `item_art_items()`; it is no longer a phase of 466.
+
 **Why job 2 needs B466 (the only bundle dependency):** the FX must end visible (law 16c), but Forge's lint L13 refuses a
 create with `hidden: false`, and an unhide is an edit whose `targetId` Forge sends as written (`runner.mjs` `_fill`:
 `item.entityId ?? item.targetId`; `refs.mjs` resolves `@refs` in `data` only), so it cannot target an in-job create.
@@ -1736,9 +1740,9 @@ Publishing in job 2, after the unhide, keeps the fight from going live with invi
 **Tuning:** pass 5 was rejected (player HP model). 466 is built from the current `SPEC_REF` (dd7e33ab) for validation;
 pass 6 is the one line `SPEC_REF = "<sha>"` in `push/mother_of_echoes.gen.py`, then rebuild 466 and `--write` its ledger.
 
-**Gates (2026-11-04):** 466: `validate.py --strict` exit 1, 162 diagnostics held by
+**Gates (2026-11-04):** 466: `validate.py --strict` exit 1, 154 diagnostics held by
 `state/validate_exceptions/466_mother_of_echoes_final.json` (`validate_exception.py` exit 0; acceptance PENDING): 79 the
-440 class line for line, 4 L08 products (the 461/463 class), 79 build-order misrankings (RUL-2026-10-31-085 item 1);
+440 class line for line, 4 L08 products (the 461/463 class), 71 build-order misrankings (RUL-2026-10-31-085 item 1);
 `check_manifest.mjs` exit 0 (0 pre-send problems). 467 on a stand-in B466 (not committed): `validate.py` 1 build-order
 line (ledger PENDING, written after the real build), `check_manifest.mjs` exit 0. `skyglass_check.py` exit 0.
 
