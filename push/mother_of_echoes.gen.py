@@ -93,21 +93,20 @@ FX_META = "art/mother_of_echoes_fx/exports/moe_fx_v1.json"
 AID = "sg466_"
 # Code-built FX: asset key -> (file, display name). Frames, speed and type come from FX_META.
 FX = {
-    "etch_tile": ("tile_moe_etch_v2.webp", "Mother of Echoes FX - Etching mark"),
+    "etch_tile": ("tile_moe_etch_v3.webp", "Mother of Echoes FX - Etching mark"),
     "etch_glint": ("anim_moe_etch_glint_v1.webp", "Mother of Echoes FX - Etching glint"),
     "recast": ("anim_moe_recast_v1.webp", "Mother of Echoes FX - Recast"),
-    "guard_open": ("anim_moe_guard_open_v1.webp", "Mother of Echoes FX - Guard open"),
+    "guard_open": ("anim_moe_guard_open_v2.webp", "Mother of Echoes FX - Guard open"),
     "quiet": ("anim_moe_quiet_v1.webp", "Mother of Echoes FX - The Quiet"),
-    "lancet": ("anim_moe_lancet_v1.webp", "Mother of Echoes FX - Glass Lancet"),
-    "feeler": ("anim_moe_feeler_v1.webp", "Mother of Echoes FX - The Listening"),
-    "lull": ("anim_moe_lull_v2.webp", "Mother of Echoes FX - The Glass Falls Quiet"),
-    "still": ("anim_moe_still_dark_v1.webp", "Mother of Echoes FX - Nothing Moves"),
+    "lancet": ("anim_moe_lancet_v2.webp", "Mother of Echoes FX - Glass Lancet"),
+    "feeler": ("anim_moe_feeler_v2.webp", "Mother of Echoes FX - The Listening"),
+    "lull": ("anim_moe_lull_v3.webp", "Mother of Echoes FX - The Glass Falls Quiet"),
+    "still": ("anim_moe_still_dark_v2.webp", "Mother of Echoes FX - Nothing Moves"),
     "breath": ("anim_moe_breath_draw_v1.webp", "Mother of Echoes FX - Breathless Pull"),
     "lucid": ("anim_moe_lucid_aura_v1.webp", "Mother of Echoes FX - Lucid"),
-    "likeness": ("anim_moe_likeness_rise_v1.webp", "Mother of Echoes FX - Your Likeness"),
-    "worn": ("anim_moe_worn_rise_v1.webp", "Mother of Echoes FX - Raise the Worn"),
-    "cradle": ("anim_moe_cradle_v1.webp", "Mother of Echoes FX - Cradle"),
-    "flood": ("anim_moe_flood_faces_v1.webp", "Mother of Echoes FX - The Names Flood In"),
+    "likeness": ("anim_moe_likeness_ring_v2.webp", "Mother of Echoes FX - Your Likeness"),
+    "worn": ("anim_moe_worn_ash_v2.webp", "Mother of Echoes FX - Raise the Worn"),
+    "cradle": ("anim_moe_cradle_v2.webp", "Mother of Echoes FX - Cradle"),
 }
 SCENES = {  # key -> (file, name, quest nodes). "content" is the quest-level sceneBackground.
     "heart": ("scene_moe_heart.webp", "Mother of Echoes Scene - The Heart of the Mother Glass",
@@ -120,10 +119,11 @@ ERUPTION, CRYSTAL_SHARD = "Z9j8J7ZmAjiaxH2S4nDy8", "TAu9k8ifgteP6HBofoKn7"  # li
 # Art slot -> asset key (466) or live id. tg_etch and moe_hush_floor fill all four fields; moe_lull moves (below).
 SLOT_FX = {"moe_recast": "recast", "moe_guard_open": "guard_open", "moe_quiet": "quiet", "moe_lancet": "lancet",
            "moe_feeler": "feeler", "moe_stillness": "still", "moe_breathless": "breath", "moe_lucid": "lucid",
-           "moe_likeness": "likeness", "moe_worn": "worn", "moe_cradle": "cradle", "moe_flood": "flood"}
-SLOT_LIVE = {"moe_refraction": ERUPTION, "moe_enrage": ERUPTION,
+           "moe_likeness": "likeness", "moe_worn": "worn", "moe_cradle": "cradle"}
+SLOT_LIVE = {"moe_refraction": ERUPTION, "moe_enrage": ERUPTION, "moe_flood": ERUPTION,
              "moe_shatterfall": CRYSTAL_SHARD, "moe_glassfall": CRYSTAL_SHARD}
-SLOT_PENDING = {}  # every slot is drawn (Cradle and the Flood faces signature: main dd65aae6)
+SLOT_PENDING = {}  # every slot is drawn. The Flood faces signature is not shipped (art QA 2026-11-04: the ME28 faces
+# fail at the 50 px CDN rendition), so moe_flood keeps the live Eruption.
 # The lull rides the jutsu's fleeprevent (SELF, 2 rounds) as its staticAnimation, not the visual (the server drops
 # visual ground effects at the next action, RUL-2026-11-02-101). The visual keeps its live appear/vanish.
 LULL_MOVE = ("visual", "fleeprevent")
@@ -143,8 +143,12 @@ FAMILY = {  # the art list's family table (ME21-ME26), by jutsu name
     "echoes": ["Your Likeness", "Your Own Strike", "Raise the Gate Porter", "Raise Sister Hana", "Raise Cadet Tomo",
                "Doorward Sweep", "Worn Mending", "Cadet's Tether"],
 }
+# The Silence rim-lit proposal (art QA 2026-11-04; art/mother_of_echoes/rim_silence.py). Set True once the director
+# approves it; the original stays wired until then.
+SILENCE_RIM = False
 AVATARS = {  # harness AI id -> export (RUL-2026-11-03-111; Act I is the approved v2)
-    "moe-ai-sayo": "avatar_moe_sayo_v2.webp", "moe-ai-silence": "avatar_moe_silence.webp",
+    "moe-ai-sayo": "avatar_moe_sayo_v2.webp",
+    "moe-ai-silence": "avatar_moe_silence_rim.webp" if SILENCE_RIM else "avatar_moe_silence.webp",
     "moe-ai-sayo-stilling": "avatar_moe_sayo_stilling.webp", "moe-ai-saint": "avatar_moe_saint.webp",
     "moe-ai-feeler": "avatar_moe_feeler.webp", "moe-ai-likeness": "avatar_moe_likeness.webp",
     "moe-ai-worn-porter": "avatar_moe_worn_porter.webp", "moe-ai-worn-hana": "avatar_moe_worn_hana.webp",
