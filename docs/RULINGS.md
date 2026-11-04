@@ -5654,6 +5654,7 @@ The intent is that veterans' runs stay varied: the ideal route depends on the pa
 - 50,000 ryo and 1,000 experience;
 - the Heartglass token at 25% and The Remainder token at 25% (both tradeable);
 - a pick of one: Crown's Hoard ×2, Skyglass Coffer ×5, or Skyglass Token ×2.
+  (Superseded by RUL-2026-11-04-114: Crown's Hoard ×1, Skyglass Coffer ×5, Skyglass Token ×3.)
 
 A loss pays nothing.
 
@@ -5708,3 +5709,22 @@ A loss pays nothing.
 **Evidence:** Director, 2026-11-03 (relayed by the coordinator): decisions on push/470+ items 1-4 as above.
 
 **Canonical destination:** `push/skyglass_boss_fx_ship.gen.py` (SLOTS, ASSETS, WINDOW_FIELD) and the push/README.md 470-475 entry.
+
+## RUL-2026-11-04-114 — Mother of Echoes reward pick rebalanced; release Friday
+
+**Date:** 2026-11-04
+
+**Domain:** Skyglass event / uber rewards
+
+**Status:** ACTIVE. Amends the pick in RUL-2026-11-03-110; the ryo, experience and variant-token rates are unchanged.
+
+**Ruling:**
+1. **The clear pick is one of: Crown's Hoard ×1, Skyglass Coffer ×5, or Skyglass Token ×3.**
+   - Hoard ×2 strictly dominated Token ×2. Each Hoard guarantees a Coffer roll, a Sealed Treasury and a Skyglass Token (`docs/design/SKYGLASS_LOOT_TABLES.md` §1).
+   - Now each option has its own job: the Hoard is the all-rounder, the Coffers are for gear, the Tokens are for skins.
+   - Tokens step one above the rare-run picks (×2), and Coffers two above Crownhold (×3).
+2. **Release:** the director plans to release The Mother of Echoes on Friday 2026-11-06.
+
+**Evidence:** Director, 2026-11-04: "Since theres 2 crowns hoards you already get 2 and its better to just pick that, yeah? Why dont we look at balancing our options here", then "A, update thread post. Will be released this friday".
+
+**Canonical destination:** `push/mother_of_echoes.gen.py` (PICK) and push/465.
