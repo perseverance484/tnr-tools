@@ -2522,3 +2522,12 @@ Then run `python3 push/dusk_dawn_variants.gen.py --binds <441 results bundle>` t
 `442_dusk_dawn_token_binds.json` (pipeline 2.10 step 3). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems. Art: `art/dusk_dawn_variants/whitekey.py` (white background keyed off;
 Prismheart, Rimecleaver, Solstice and Starward used the stricter 246 threshold), `artpreflight.py --type ICON` 0 errors.
+
+## 469 The Mother of Echoes practice fight (HIDDEN, never published)
+
+| # | Build | Contents |
+|---|---|---|
+| 469 | `python3 push/mother_of_echoes_practice.gen.py --bundles <440, 461-464 bundles> --economy <417 bundle>` | 1 quest create, HIDDEN: "The Mother of Echoes (Practice)". The real quest's three battles against the same boss AIs (literal ids from 463), no entry items, no rewards. Tuning and art edits to the boss records (466) show here too. The director asked to reuse Faded Ghostwatch, but push/393 never ran (RUL-2026-10-31-090), so this is a fresh create. |
+
+- **Gates (2026-11-04):** `validate.py --strict` 0 errors 0 warnings; `check_manifest.mjs` 0 pre-send problems; `skyglass_check.py` exit 0.
+- **Playtest after 466:** until 466 runs, the boss records carry the pass-4 tuning (made for 30,000-HP players), so a 5k player is overmatched by design error, not by the final tuning.
