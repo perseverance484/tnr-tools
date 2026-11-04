@@ -96,6 +96,12 @@ export const MOE_DEFAULTS = {
   pullCd: 4, // Breathless Pull mark cooldown (one flood cycle: mark, pull + flood mark, flood, one free turn)
   hushUnbridledCount: 3, // pools per Unbridled Hush (every turn)
   porterPush: 2, // Doorward Sweep shove (hexes); 0 = none
+  /** Pass 6 ramp: each Glass Lancet stacks +pct% damage given on its caster for `rounds` (0 = off). */
+  ramp: { pct: 0, rounds: 99 },
+  /** Pass 6: multiplier on every boss-side formula hit (see buildRecords). */
+  bossDmgScale: 1,
+  /** Pass 6: extra multiplier on the summons' hits (Grasp, Your Own Strike, Doorward Sweep, Cadet's Tether). */
+  summonDmgScale: 1,
   /** Pass 5 (RUL-2026-11-04-113): eruptions as a fixed share of an endgame max HP (elite model 31,500). */
   eruption: { on: false, hp: 31500, act1: 40, act2: 60, act3: 80 } as { on: boolean; hp: number; act1: number; act2: number; act3: number },
   /** Analysis only (pass 4): raise every cooldown below this to it (Forge L16 refuses jutsu cooldown < 3). 0 = off. */
@@ -205,7 +211,12 @@ export const buildRecords = (P: MoeParams) => {
   const add = (id: string, f: Parameters<typeof jutsu>[1]) => { J[id] = jutsu(id, f); return id; };
   const p = P.pw;
   /* ---- shared ---- */
-  add(JID.lancet, { name: "Glass Lancet", description: "A needle of skyglass, thrown hard.", battleDescription: "%user flicks a lancet of glass at %target.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 1, actionCostPerc: 60, effects: [heavy(p.lancet, "moe_lancet")] });
+  add(JID.lancet, { name: "Glass Lancet", description: "A needle of skyglass, thrown hard.", battleDescription: "%user flicks a lancet of glass at %target.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 1, actionCostPerc: 60, effects: [heavy(p.lancet, "moe_lancet"),
+    // Pass 6 ramp (director 2026-11-04: a gradual clock instead of a wall): every Lancet also leaves her a lasting,
+    // unclearable +ramp.pct% damage given. Each cast is a separate instance (BATTLE_TAG_STACKING, drizzle/constants.ts:1968;
+    // util.ts:1352-1358) and in-battle increases multiply with no cap (process.ts:2225-2231), so her filler grows with
+    // every Lancet she throws. Eruptions are pierce and ignore it (process.ts:497-511).
+    ...(P.ramp.pct ? [T.pct("increasedamagegiven", P.ramp.pct, P.ramp.rounds, { target: "SELF", description: "The glass hungers" }), tag("clearprevent", { power: 100, rounds: P.ramp.rounds, target: "SELF" })] : [])] });
   add(JID.enrage, { name: "The Glass Remembers", description: "Enrage: every surface of the hall answers at once.", battleDescription: "Every pane in the hall turns toward you at once.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 100, coordinateTargeting: field(cellsWhere(() => true)), effects: [heavy(p.enrage, "moe_enrage")] });
   /* ---- Act I: Sayo ---- */
   const mark = (id: string, name: string, cells: Cell[], mk: string, line: string, cost = 40, cd = P.refractCd) =>
@@ -318,6 +329,14 @@ export const buildRecords = (P: MoeParams) => {
   gf(JID.glassRecast, 2, gfMk[0]!, PAT.etch.D!, "Glass falls, and the glass remembers one more etching.");
   for (const [id, t] of Object.entries(FINAL_TEXT)) if (J[id]) { J[id].battleDescription = t.line; if (t.name) J[id].name = t.name; }
   if (P.cooldownFloor) for (const r of Object.values(J)) if (r.cooldown < P.cooldownFloor) r.cooldown = P.cooldownFloor;
+  // Pass 6 (5,050 HP players): scale every formula hit on the boss side (not the fixed eruptions, not the %-drains, not
+  // Breathless Pull, which stays as is) by bossDmgScale, a multiplier on effect power (damage is linear in power:
+  // tags.ts powerEffect epScale = power / ep_normalization).
+  const SUMMON_HITS = new Set([JID.grasp, JID.likenessStrike, JID.porter, JID.tomo]);
+  for (const [id, r] of Object.entries<any>(J)) if (id !== JID.pull) for (const e of r.effects) if ((e.type === "damage" || e.type === "pierce") && e.calculation === "formula") {
+    const k = P.bossDmgScale * (SUMMON_HITS.has(id) ? P.summonDmgScale : 1);
+    if (k !== 1) e.power = Math.max(1, Math.round(e.power * k));
+  }
   return J;
 };
 
@@ -724,7 +743,7 @@ const realRules = (kit: string[], jutsu: Record<string, any>) => {
 const realModel = (base: PlayerModel, name: string): PlayerModel => {
   const avg = name.startsWith("average");
   const variant = { ...base.variant, name: base.variant.name + "_real", jutsuIds: REAL_KIT, elements: ["Wind", "Fire"] as [string, string] };
-  return { ...base, variant, idgRows: avg ? REAL_GEAR_ROWS.average : REAL_GEAR_ROWS.elite, pets: avg ? base.pets : 2, real: { readP: avg ? REAL_READ.average : REAL_READ.elite, items: REAL_ITEMS } };
+  return { ...base, variant, idgRows: avg ? REAL_GEAR_ROWS.average : REAL_GEAR_ROWS.elite, pets: avg ? base.pets : 2, real: { readP: name.includes("perfect") ? 1 : avg ? REAL_READ.average : REAL_READ.elite, items: REAL_ITEMS } };
 };
 export const REAL_READ = { elite: 0.85, average: 0.7 };
 /** Gear damage rows for the real kit, calibrated like the elite model (moe_probe P11): 4 rows put its hits on an AI in
