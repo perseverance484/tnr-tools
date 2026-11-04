@@ -1691,7 +1691,7 @@ theninjarpg@3314d122. Everything is created hidden; AIs have no hidden column (l
 5. `--step summons --bundles B440 B461` → **462** (6 summon jutsu, literal `aiId`) → B462.
 6. `--step bosses --bundles B440 B461 B462` → **463** (4 boss AIs, AI Heavy Armor, literal jutsu ids in kits and rules) → B463.
 7. `--step quest --bundles B440..B463 --economy B417` → **464** (the quest) → B464.
-8. `--step publish --bundles B440..B464 --economy B417` → **465** (quest re-sent whole, hidden false). Only after 419 (no hidden entry items or rewards).
+8. Final push (below): `--step final` → **466** (job 1) → B466 → `--step golive ... --from B466` → **467** (job 2: FX unhide, then the publish). Replaces the old `--step publish` / 465.
 
 | # | Needs | Contents |
 |---|---|---|
@@ -1700,40 +1700,47 @@ theninjarpg@3314d122. Everything is created hidden; AIs have no hidden column (l
 | 462 | B461 | Listening, Listening Unbridled, Your Likeness, Raise the Gate Porter / Sister Hana / Cadet Tomo |
 | 463 | B440, B462 | Sayo, Mother of Echoes (Act I), The Silence, Sayo, Glasswright of the Stilling (Act II), Sayo, Saint of Stillness: push/272 boss record + spec pools, effects, kits, rules |
 | 464 | B463, B417 | One repeatable HIDDEN battle pyramid (RUL-2026-11-02-105: no first-clear mechanics, no title): isolated, entry one each of `sg417_keel/crown/tide/ledger`, three battles with pools carried (`keepOriginalPools: false`), loss → fail, nothing refunded. Win: Heartglass (`sg417_heartglass`) 25% and The Remainder (`sg417_remainder`) 25% (both tradeable; rates are reversible placeholders), 50,000 ryo and 1,000 exp (RUL-2026-11-03-110), pick one of Crown's Hoard ×2 / Skyglass Coffer ×5 / Skyglass Token ×2. No Salvage (RUL-104) |
-| 465 | B464, B466 | Publish, LAST: the quest re-sent whole with hidden false, its icon (ME13) and the three act scenes from 466; pick Crown's Hoard ×1 / Skyglass Coffer ×5 / Skyglass Token ×3 (RUL-2026-11-04-114) |
+| 465 | — | SUPERSEDED by 467 (the publish now rides job 2 of the final push, with its art) |
 
-**Art pass (2026-11-04; docs/design/MOTHER_OF_ECHOES_ART.md; every slot with a committed file).** Same generator. Run
-order: **466 → (bundle B466) build 467, 481, 465 → run 467 → 468 → 480 → 481 → 482 → 465.** 480-482 run back to back
-(law 18). 466, 468, 480, 482 are committed; 467, 481 and 465 need B466:
+**Final push (2026-11-04; the director: one master; docs/design/MOTHER_OF_ECHOES_ART.md).** Two jobs, same generator.
+Replaces the separate art-pass files (466-468, 480-482, 465), which are gone.
 
-```
-python3 push/mother_of_echoes.gen.py --step unhide --assets B466
-python3 push/mother_of_echoes.gen.py --step jutsu_art --bundles B440 B461 B462 B463 --assets B466
-python3 scripts/validate_exception.py state/validate_exceptions/481_mother_of_echoes_jutsu_art.json --write
-python3 push/mother_of_echoes.gen.py --step publish --bundles B440 B461 B462 B463 B464 --economy B417 --assets B466
-```
-(B440 `tnr_results_1793718889563`, B461 `..._1793719096174`, B462 `..._1793719167829`, B463 `..._1793719233508`,
-B464 `..._1793719388089`, B417 `..._1793716872408`, all in harvests/inbox.)
+1. **466** `466_mother_of_echoes_final.json`, JOB 1, 97 items, one imagePack (dd65aae6, 41 files):
+   - phase 10: 18 HIDDEN gameAssets (law 16b), folder MotherOfEchoes: 15 code-built FX (Etching tile + glint, Recast,
+     guard open, The Quiet, Glass Lancet, The Listening, the lull, Nothing Moves, Breathless Pull, Lucid, Your Likeness,
+     Raise the Worn, Cradle, The Names Flood In faces) and the 3 act scenes;
+   - phase 20: 8 item edits: 4 shard icons, 2 token icons + Heartglass token text, 2 variant images + Heartglass variant
+     text (Heartglass = `icon-variant-heartglass-approved.webp`, NOT v2; text matched to the no-faces art). These are
+     visible, so they show at once;
+   - phase 30: law 18 step 1, every moe jutsu off its 9 AIs (Your Likeness keeps Stolen Form);
+   - phase 40: all 53 moe jutsu re-sent from the spec with family icons (ME21-ME26) and FX by in-job `@scene` refs (only
+     `image` and the 4 animation fields differ from 440/462); the lull on The Glass Falls Quiet's `fleeprevent`;
+   - phase 50: law 18 step 3, the 9 AIs re-sent whole with avatars (Act I = `avatar_moe_sayo_v2`), rules re-sent.
+   Everything that fights and the quest stay hidden, so a pause anywhere strands nothing a player can reach.
+2. Build **467** from 466's results bundle (B466):
+   ```
+   python3 push/mother_of_echoes.gen.py --step golive --bundles B440 B461 B462 B463 B464 --economy B417 --from B466
+   python3 scripts/validate_exception.py state/validate_exceptions/467_mother_of_echoes_go_live.json --write
+   ```
+   (B440 `tnr_results_1793718889563`, B461 `..._1793719096174`, B462 `..._1793719167829`, B463 `..._1793719233508`,
+   B464 `..._1793719388089`, B417 `..._1793716872408`, all in harvests/inbox.)
+3. **467** `467_mother_of_echoes_go_live.json`, JOB 2, 16 items: phase 10 the 15 FX unhidden (law 16c); phase 20 the
+   quest re-sent whole with hidden false, its icon and the three act scenes (heart: content, d_open, b_act1, f_lost;
+   stilling: d_act2, b_act2; impression: d_act3, b_act3, w_clear), pick Hoard ×1 / Coffer ×5 / Token ×3.
 
-| # | Needs | Contents |
-|---|---|---|
-| 466 | nothing | 18 HIDDEN gameAssets (law 16b), folder MotherOfEchoes: the 15 code-built FX (`art/mother_of_echoes_fx`, `moe_fx_v1.json`: Etching tile + glint, Recast, guard open, The Quiet, Glass Lancet, The Listening, the lull, Nothing Moves, Breathless Pull, Lucid, Your Likeness, Raise the Worn, Cradle, The Names Flood In faces) and the 3 act scenes |
-| 467 | B466 | The 15 FX unhidden (law 16c); scenes stay hidden (getSceneAssets does not filter hidden) |
-| 468 | B417 | Four shard icons, both token icons, both variants' final images (Heartglass: `icon-variant-heartglass-approved.webp`, NOT v2); Heartglass token and variant text rewritten to the approved art (no faces). Shows at once (these are visible) |
-| 480 | B440-B463 | Law 18 step 1: every moe jutsu off its 9 AIs (kit minus moe jutsu; Your Likeness keeps Stolen Form) |
-| 481 | B440-B463, B466 | Law 18 step 2: all 53 moe jutsu re-sent from the spec with family icons (ME21-ME26) and FX; only `image` and the 4 animation fields change (verified against 440/462). The lull moves to The Glass Falls Quiet's `fleeprevent` |
-| 482 | B440-B463 | Law 18 step 3: the 9 AIs re-sent whole from the spec with avatars (ME01-ME09; Act I = `avatar_moe_sayo_v2`), re-equipping every moe jutsu; rules re-sent |
+**Why job 2 needs B466 (the only bundle dependency):** the FX must end visible (law 16c), but Forge's lint L13 refuses a
+create with `hidden: false`, and an unhide is an edit whose `targetId` Forge sends as written (`runner.mjs` `_fill`:
+`item.entityId ?? item.targetId`; `refs.mjs` resolves `@refs` in `data` only), so it cannot target an in-job create.
+Publishing in job 2, after the unhide, keeps the fight from going live with invisible marks.
 
-**Pass 5 (eruptions 40/60/80%):** 481 and 482 take every record from the spec at `SPEC_REF`, so the retune is the one
-line `SPEC_REF = "<pass-5 sha>"` in `push/mother_of_echoes.gen.py` plus a rebuild of 480-482 (and their ledgers):
-tuning and art land in the same run.
+**Tuning:** pass 5 was rejected (player HP model). 466 is built from the current `SPEC_REF` (dd7e33ab) for validation;
+pass 6 is the one line `SPEC_REF = "<sha>"` in `push/mother_of_echoes.gen.py`, then rebuild 466 and `--write` its ledger.
 
-**Gates (2026-11-04):** 466, 468, 480: `validate.py --strict` 0/0, `check_manifest.mjs` exit 0. 482: validate exit 1, 4
-diagnostics (L08 increasedamagegiven products on Act II/III Sayo, the 463 class) held by
-`state/validate_exceptions/482_mother_of_echoes_reequip.json` (acceptance PENDING); check exit 0. 467, 481, 465 on a
-stand-in B466 (fake ids, not committed): 467 and 465 0/0 and check exit 0; 481 the same 79 diagnostics as the accepted
-440 ledger (class and count), check exit 0; its ledger `481_mother_of_echoes_jutsu_art.json` (PENDING) is written after
-the real build. `skyglass_check.py` exit 0.
+**Gates (2026-11-04):** 466: `validate.py --strict` exit 1, 162 diagnostics held by
+`state/validate_exceptions/466_mother_of_echoes_final.json` (`validate_exception.py` exit 0; acceptance PENDING): 79 the
+440 class line for line, 4 L08 products (the 461/463 class), 79 build-order misrankings (RUL-2026-10-31-085 item 1);
+`check_manifest.mjs` exit 0 (0 pre-send problems). 467 on a stand-in B466 (not committed): `validate.py` 1 build-order
+line (ledger PENDING, written after the real build), `check_manifest.mjs` exit 0. `skyglass_check.py` exit 0.
 
 **Settled since the first build:**
 - **Names (RUL-2026-11-02-108):** every jutsu and AI name is unique and approved; Etching / Recast pair by a shared image
