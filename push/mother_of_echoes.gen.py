@@ -251,6 +251,20 @@ LOSS = {"failDescription": "The glass goes quiet around you. The shards are spen
 F_LOST = "The glass keeps what it was given. Find four more shards and come back."
 
 
+# RUL-2026-11-03-111: the Silence rides in Sayo's shadow; it stands up off the floor at the start and folds back
+# into her for Act III. These override the spec's dialog text (ids: d_open = n0, d_act3 = n4); 465 carries them live.
+DIALOG_OVERRIDES = {
+    "d_open": ("The four shards fit together in your hands, and the seams vanish. They were never broken. They were an "
+               "invitation.<br><br>Under Crownhold the Mother Glass is singing. Sayo hangs in the air before it, her hair "
+               "drifting as if the hall were full of water, her fan open behind her like a halo. \"You came. Good. I was "
+               "beginning to think I had measured you wrong.\"<br><br>She turns to face you. Her shadow does not turn "
+               "with her. It stays where it was. Then it stands up off the floor, and keeps standing."),
+    "d_act3": ("Every pane in the hall turns toward you. The dark at the edge of the light folds itself small and slides "
+               "back across the floor into Sayo's shadow. Her eyes close. When she speaks again, nothing moves her lips. "
+               "\"Hold still. You will make for a good impression.\""),
+}
+
+
 def quest_data(b, ids, econ):
     q = b.spec["quest"]
     obj = {o["n"]: o for o in q["objectives"]}
@@ -264,7 +278,7 @@ def quest_data(b, ids, econ):
                 "opponent_scaled_to_user": False, "nextObjectiveId": nxt, "failObjectiveId": "f_lost", **LOSS}
 
     def dialog(oid, n, nxt, label):
-        return {"id": oid, "task": "dialog", "description": obj[n]["text"], **sc,
+        return {"id": oid, "task": "dialog", "description": DIALOG_OVERRIDES.get(oid, obj[n]["text"]), **sc,
                 "nextObjectiveId": [{"text": label, "nextObjectiveId": nxt}]}
 
     win = {"id": "w_clear", "task": "win_quest", "description": obj[6]["text"], **sc, "reward_exp": REWARD_EXP}

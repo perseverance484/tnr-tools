@@ -5660,3 +5660,30 @@ A loss pays nothing.
 **Evidence:** Director, 2026-11-03: "50,000 ryo, 1,000 exp. Rest is approved".
 
 **Canonical destination:** `push/mother_of_echoes.gen.py` (REWARD_EXP, REWARD_MONEY, TOKEN_PCT) and push/464/465.
+
+## RUL-2026-11-03-111 — The Silence rides in Sayo's shadow; Sayo's boss presentation
+
+**Date:** 2026-11-03
+
+**Domain:** Skyglass event / uber canon and art direction
+
+**Status:** ACTIVE. Extends RUL-2026-11-01-094. The Silence is still the ancient stillness from the deep mountain, not a part of Sayo.
+
+**Ruling:**
+1. **The Silence and her shadow:**
+   - **Its vessel:** the Silence lives in Sayo's shadow. That is why "her shadow does not move when she does".
+   - **Act I:** her shadow stands up off the floor and becomes the Silence.
+   - **Act III:** it folds back into her, and she becomes its vessel (the Saint of Stillness).
+   - **Where it shows:** the quest's opening and Act III dialog (`push/mother_of_echoes.gen.py` DIALOG_OVERRIDES, carried live by push/465).
+2. **Sayo's avatars read as a pinnacle boss, not an NPC.** Her forms transform her body, not her outfit:
+   - **Act I (Mother of Echoes):** floating, her hair drifting as if underwater, light veins under her skin, the Heartglass fan open as a halo.
+   - **Act II (Glasswright of the Stilling):** half turned to etched glass, stilled faces pressing outward, the etching lattice behind her.
+   - **Act III (Saint of Stillness):** dark cracked glass and black tears, lifted on the Silence's feelers, with a halo of frozen shards.
+   - **House-style exceptions for her alone:** the avatar scaffold's eye-level, no-props and no-halo clauses are waived. Glow stays edge-only, and the halo pieces are solid objects.
+3. **Approved art:**
+   - ME01 v2 (Sayo, Act I): `art/mother_of_echoes/raw/ME01_raw_avatar_moe_sayo_v2.png`.
+   - ME02 (The Silence): `art/mother_of_echoes/raw/ME02_raw_avatar_moe_silence.png`.
+
+**Evidence:** Director, 2026-11-03: "she reads more like an NPC than a pinnacle boss … her different forms are just outfit changes"; on the v2 raw, "This looks much better. And thematically The Silence can be her shadow that suddenly detaches itself"; "The Silence is pretty dang good".
+
+**Canonical destination:** `docs/handoffs/MOTHER_OF_ECHOES_ART_PROMPTS.md` (ME01/ME03/ME04) and the generator's dialog text.
