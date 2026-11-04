@@ -726,6 +726,99 @@ def build_worn():
     return fr
 
 
+# ------------------------------------------------------------------------------------------------ moe_cradle
+def build_cradle():
+    """Cradle (while a feeler lives, the Silence holds Sayo: 90% less damage taken). A static loop on Sayo: pale
+    feelers of the Silence rise from the floor beneath her and wind up around her in a braided ring, two lifting
+    their tips over her shoulders, over an ink hold that throbs violet on the shared 0.8 s beat. Everything stays
+    outside her AI-sized portrait, so she reads clearly as held and the player looks for the feeler to kill.
+    16 frames, one beat."""
+    (pcx, pcy), pr = AI_DISC
+    fr = []
+
+    def outside(x, y):
+        return math.hypot(x - pcx, y - pcy) > pr + 0.6
+
+    for i in range(BEAT):
+        f = frame()
+        p = pulse(i)
+        ph = 2 * math.pi * i / BEAT
+        # the ink hold: a dark band round the lower two thirds of her portrait, violet on the beat
+        for deg in range(150, 391, 2):
+            r = math.radians(deg)
+            for dr, col, keep in ((1.0, VIOLET if p > 0.55 else VIOLET_D, 1.0), (2.0, INK, 0.75), (3.0, VIOLET_D, 0.25 + 0.5 * p)):
+                px(f, pcx + (pr + dr) * math.cos(r), pcy + (pr + dr) * math.sin(r), col, keep)
+        # four feelers braid round her: each starts on the floor under her and winds up one side
+        for side in (-1, 1):
+            for k, off in enumerate((0.0, math.pi)):
+                pts = []
+                for t in range(0, 61):
+                    u = t / 60
+                    deg = 90 + side * (u * 128)                      # from straight under her up past the shoulder
+                    rr = pr + 3.0 + 1.6 * math.sin(u * 11 + off + ph * (1 if k else -1))
+                    if u < 0.12:                                     # the root rises out of the floor
+                        rr += (0.12 - u) * 40
+                    r = math.radians(deg)
+                    pts.append((pcx + rr * math.cos(r), pcy + rr * math.sin(r), u))
+                tx, ty, _ = pts[-1]                                  # the tip lifts and hooks over the shoulder
+                for j in range(1, 6):
+                    a2 = math.radians(j * 30)
+                    pts.append((tx - side * 1.4 * math.sin(a2), ty - 1.6 * j * 0.5 - 0.6 * p, 1.0))
+                for x, y, u in pts:
+                    th = 1.1 * (1 - u) + 0.35
+                    for o in (-1, 0, 1):
+                        if abs(o) <= th and outside(x + o * 0.0, y + o):
+                            px(f, x, y + o, BONE if o <= 0 else BONE_S)
+                    if outside(x, y + th + 1):
+                        px(f, x, y + th + 1, BONE_D)
+        for mx, my in ((5, 6), (45, 9), (3, 44), (47, 46)):
+            px(f, mx, my, DUST, 1.0 if (i // 4) % 2 == 0 else 0.5)
+        fr.append(f)
+    return fr
+
+# ------------------------------------------------------------------------------------------------ moe_flood (signature)
+FACES_RAW = os.path.join(ROOT, 'art', 'mother_of_echoes', 'raw', 'fx_names_flood_faces.png')   # ME28, director
+
+
+def build_flood():
+    """The Names Flood In, signature version (ME28): the director's sleeping glass faces rise up through the hex on
+    cyan wisps, wake white all at once as the hit lands, then come apart into dust. Drawn at the delivered 150 px
+    (the faces would not survive the 50 px grid), hard alpha, dithered fades. 14 frames, one-shot."""
+    D = N * SCALE
+    src = Image.open(FACES_RAW).convert('RGBA')
+    src = src.crop(src.getchannel('A').point(lambda v: 255 if v >= 128 else 0).getbbox())
+    h = int(D * 0.86)
+    src = src.resize((max(1, round(src.width * h / src.height)), h), Image.LANCZOS)
+    src.putalpha(src.getchannel('A').point(lambda v: 255 if v >= 128 else 0))
+    white = Image.new('RGBA', src.size, (*WHITE, 255))
+    fr = []
+    for i in range(14):
+        rise = max(0, 6 - i) * 4                       # rises out of the floor
+        keep = min(1.0, (i + 1) / 5) if i < 10 else (13 - i) / 4
+        img = src
+        if 6 <= i <= 9:                                # they wake: a white flash on the hit
+            img = Image.blend(src, white, 0.65 if i in (7, 8) else 0.3)
+            img.putalpha(src.getchannel('A'))
+        f = Image.new('RGBA', (D, D), (0, 0, 0, 0))
+        f.alpha_composite(img, ((D - img.width) // 2, (D - img.height) // 2 + rise - (i - 9) * 3 * (i > 9)))
+        am = f.getchannel('A')
+        a = am.load()
+        for y in range(D):
+            for x in range(D):
+                if a[x, y] and BAYER[(y // 2) % 4][(x // 2) % 4] >= keep * 16:   # 2 px dither cells read at size
+                    a[x, y] = 0
+        f.putalpha(am)
+        fr.append(f)
+    return fr
+
+
+def strip_hi(frames):
+    s = Image.new('RGBA', (frames[0].width, frames[0].height * len(frames)))
+    for i, f in enumerate(frames):
+        s.paste(fill_under(f.copy()), (0, i * f.height))
+    return s
+
+
 def export():
     os.makedirs(EXPORTS, exist_ok=True)
     rows = []
@@ -737,7 +830,7 @@ def export():
         assert size < MAX_BYTES, (name, size)
         rows.append({'file': f'art/mother_of_echoes_fx/exports/{name}', 'type': kind, 'frames': frames,
                      'speed': MS if kind == 'ANIMATION' else None, 'duration_ms': frames * MS if kind == 'ANIMATION' else None,
-                     'frame_px': N * SCALE, 'drawn_grid_px': N, 'bytes': size, 'use': use, 'serves': serves, 'note': note})
+                     'frame_px': N * SCALE, 'drawn_grid_px': N if name != 'anim_moe_flood_faces_v1.webp' else N * SCALE, 'bytes': size, 'use': use, 'serves': serves, 'note': note})
         print(f'{name}: {kind} {frames} frame(s), {size} bytes')
 
     save('tile_moe_etch_v2.webp', build_etch_tile(), 1, 'staticAssetPath', ['tg_etch'],
@@ -765,6 +858,9 @@ def export():
              'Nothing Moves: darkness closes in from the rim, a deep-violet edge, the dust stops', False),
             ('anim_moe_breath_draw_v1.webp', build_breathless, 'appear', ['moe_breathless'],
              'Breathless Pull: breath drawn out of the hex, up and away; a violet lock closes at the feet', False),
+            ('anim_moe_cradle_v1.webp', build_cradle, 'static', ['moe_cradle'],
+             'Cradle: pale feelers rise at Sayo\'s sides and cup beneath her, an ink hold throbbing violet on the beat; '
+             'staticAnimation of the decreasedamagetaken effect (while a feeler lives she takes 90% less); AI portrait clear', True),
             ('anim_moe_lucid_aura_v1.webp', build_lucid, 'static', ['moe_lucid'],
              'Lucid: eight cold skyglass facets circling Sayo, white on the beat (AI portrait clear)', True),
             ('anim_moe_likeness_rise_v1.webp', build_likeness, 'appear', ['moe_likeness'],
@@ -773,6 +869,10 @@ def export():
              'The Worn: a faded, broken echo pulled up out of the glass', False)):
         fr = fn()
         save(name, strip(fr), len(fr), use, serves, note)
+    fl = build_flood()
+    save('anim_moe_flood_faces_v1.webp', strip_hi(fl), len(fl), 'appear', ['moe_flood'],
+         'The Names Flood In (signature, ME28 director layer): sleeping glass faces rise on cyan wisps, wake white as '
+         'the hit lands, then come apart into dust')
     meta = {'source': 'art/mother_of_echoes_fx/build_fx.py (pixel art in code)',
             'renderer': 'theninjarpg@3314d122 libs/rendering/scenes/combatEffects.ts (pixi): one square sprite per hex, '
                         'tile.height * 2.5; staticAssetPath stretched to the hex box under the actors',
