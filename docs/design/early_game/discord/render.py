@@ -175,7 +175,39 @@ f"<div class='tl'>{nodes()}</div>"
 "<div class='b' style='--c:#f2c46d'><div class='bt'>WEEKLY</div><div class='bn'>Capstone</div><div class='bd'>Clear your band's pyramid</div></div>"
 "</div><div class='foot'>Uses objective counters no live quest uses yet: herbs gathered, creatures hunted, items crafted.</div>")
 
-IMAGES = {"1_thread_breaks": IMG1, "2_violet_road": IMG2, "3_capstone_ladder": IMG3, "4_systems_and_dailies": IMG4}
+# ---------- 5. The case at a glance ----------
+LEADS = [
+    ("10-24","The case desk","Ledgers, conductors, a violet-veined shard","#2f6f55",""),
+    ("24-30","The stronghold","Only a depot. The commander needs a name.","#2f6f55",""),
+    ("30-40","Post road · Howling Hills","A tally: “high route, Skychain, paid in full”","#6c4bb8",""),
+    ("39-48","Skychain Monastery","The courier ledger ends at Kaiyo","#7d58d0",""),
+    ("48-56","Kaiyo · The Drowned Fleet","The commander is named. The parts are an engine.","#9a74e8",""),
+    ("57-64","Jonin Exam · The Foundry","Blacksteel is iron soaked in Null Chakra","#b4532f",""),
+    ("64-70","Heart of Balance","The engine at the first Kage's seal","#f2c46d","end"),
+]
+def leads():
+    out = []
+    for i, (lv, name, clue, col, end) in enumerate(LEADS):
+        if i: out.append("<div class='ar'></div>")
+        out.append(f"<div class='ld {end}' style='--c:{col}'><div class='lv'>Lv {lv}</div><div class='nm'>{name}</div><div class='cl'>{clue}</div></div>")
+    return "".join(out)
+IMG5 = ("""
+.ld{display:grid;grid-template-columns:120px 380px 1fr;align-items:center;gap:16px;background:#1d1b25;border:1px solid #2c2938;border-left:8px solid var(--c);border-radius:12px;padding:16px 20px}
+.ld .lv{font-weight:800;color:var(--c);font-size:18px;filter:brightness(1.3)}
+.ld .nm{font-family:Lora,serif;font-weight:700;font-size:25px;color:#f4efe3}
+.ld .cl{font-size:18px;color:#cfc8b8}
+.ld.end{background:rgba(242,196,109,.12);border-color:#f2c46d}.ld.end .cl{color:#f4efe3}
+.ar{width:2px;height:22px;background:#4a4658;margin:0 0 0 60px;position:relative}
+.ar:after{content:'';position:absolute;left:-5px;bottom:-2px;border:6px solid transparent;border-top:8px solid #4a4658}
+.leg2{display:flex;gap:18px;margin-top:22px;font-size:15px;color:#b9b2a3}.leg2 i{display:inline-block;width:14px;height:14px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+""", "<div class='kicker'>The Kuroganekai case · levels 10-70</div><h1>Every lead points to the Heart of Balance</h1>"
+"<div class='sub'>Each place hands the player the clue that leads to the next.</div>"
+f"{leads()}"
+"<div class='leg2'><span><i style='background:#2f6f55'></i>Ch.1 Academy &amp; Genin (live)</span><span><i style='background:#7d58d0'></i>Ch.2 The Violet Road</span><span><i style='background:#b4532f'></i>Ch.3 The Fifth Seal</span></div>"
+"<div class='foot'>Working titles. The commander's name and motive are open for review.</div>")
+
+IMAGES = {"5_case_at_a_glance": IMG5,
+"1_thread_breaks": IMG1, "2_violet_road": IMG2, "3_capstone_ladder": IMG3, "4_systems_and_dailies": IMG4}
 
 if __name__ == "__main__":
     with sync_playwright() as p:
