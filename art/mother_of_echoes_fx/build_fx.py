@@ -41,7 +41,6 @@ from PIL import Image, ImageDraw
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 EXPORTS = os.path.join(HERE, 'exports')
-SKY = os.path.join(ROOT, 'art', 'skyglass_boss_fx', 'exports')
 N = 50              # drawn grid (frame px)
 MS = 50             # ms per frame (gameAsset.speed)
 BEAT = 16           # 16 x 50 ms = 0.8 s shared pulse
@@ -62,6 +61,7 @@ T_ENDS = {'T': (25, 0), 'B': (25, 50), 'UL': (6.25, 12.5), 'LL': (6.25, 37.5), '
 # ------------------------------------------------------------------------------------------------ palettes
 INK = (14, 12, 18)
 ETCH_DARK = (58, 44, 30)
+SCORE = (24, 16, 10)         # the scored groove: near-black brown, the contrast on a light board
 ETCH_DIM = (150, 118, 64)
 ETCH_MID = (222, 184, 104)
 ETCH_HOT = (255, 238, 196)
@@ -208,23 +208,25 @@ def etch_lines(img, ends, centre, widths=(4, 2, 1), cols=None, scale=1.0):
 
 def build_etch_tile():
     """Drawn in tile space, which the game stretches 2:1 onto the hex box, so line widths are compensated: the
-    vertical axis is drawn half as wide as the diagonals and every spoke lands about equally thick on screen. A
-    sparse ordered-dither haze (denser at the centre, thin at the edge) tints the marked region without a fill
-    boundary, so neighbouring tiles cannot show a seam."""
+    vertical axis is drawn about half as wide as the diagonals and every spoke lands about equally thick on screen.
+    v2 (director, 2026-11-03: "reads faint on a light board"): each spoke is a deep near-black scored groove with a
+    bright gold-white cut inside it, so it holds on snow and on dark floors alike, and the region carries a darker
+    smoked haze. Still a lattice (no ring, chain, pool or star), still gold and white."""
     t = Image.new('RGBA', (N, N), (0, 0, 0, 0))
     hz = Image.new('RGBA', (N, N), (0, 0, 0, 0))
     for y in range(N):
         for x in range(N):
             r = math.hypot((x - 25) / 25, (y - 25) / 25)
-            px(hz, x, y, ETCH_DIM if r < 0.55 else ETCH_DARK, keep=0.25 if r < 0.55 else 0.125)
+            px(hz, x, y, ETCH_DARK if r < 0.6 else SCORE, keep=0.375 if r < 0.6 else 0.25)
     t.alpha_composite(hz)
     d = ImageDraw.Draw(t)
     diag = {k: e for k, e in T_ENDS.items() if k not in ('T', 'B')}
     vert = {k: T_ENDS[k] for k in ('T', 'B')}
-    etch_lines(t, diag, (25, 25), widths=(4, 2, 1))
-    etch_lines(t, vert, (25, 25), widths=(2, 1, 1))
-    # the cut's origin: a small hard-edged nick of white at the centre
-    d.rectangle([23, 21, 27, 29], fill=(*ETCH_DARK, 255))
+    bold = [(SCORE, ETCH_MID, ETCH_HOT), (SCORE, ETCH_HOT, WHITE)]
+    etch_lines(t, diag, (25, 25), widths=(6, 3, 1), cols=bold)
+    etch_lines(t, vert, (25, 25), widths=(3, 2, 1), cols=bold)
+    # the cut's origin: a hard-edged nick of white in a dark socket at the centre
+    d.rectangle([22, 20, 28, 30], fill=(*SCORE, 255))
     d.rectangle([24, 22, 26, 28], fill=(*ETCH_HOT, 255))
     d.line([(25, 23), (25, 27)], fill=(*WHITE, 255))
     t = clip(t, poly_mask(T_HEX))
@@ -485,49 +487,243 @@ def build_feeler():
 
 # ------------------------------------------------------------------------------------------------ moe_lull
 def build_lull():
-    """The Glass Falls Quiet: the breath between cycles. A few motes of pale glass dust drift down at the hex's
-    sides and settle. Two beats (1.6 s), portrait-clear, deliberately quiet."""
+    """The Glass Falls Quiet: the breath between cycles, shown on Sayo for the two rounds her fleeprevent marker lasts
+    (moved off the `visual`, which the server drops at the next action, RUL-2026-11-02-101). Motes of pale glass
+    dust drift down at her sides and settle, clear of her AI-sized portrait. Two beats (1.6 s), deliberately quiet."""
     period = BEAT * 2
-    motes = [(8, 0), (12, 11), (39, 5), (43, 19), (10, 22), (41, 27)]
+    motes = [(6, 0), (8, 11), (43, 5), (45, 19), (7, 22), (42, 27), (11, 15), (39, 9)]
+    (pcx, pcy), pr = AI_DISC
     fr = []
     for i in range(period):
         f = frame()
         for x0, t0 in motes:
             k = (i - t0) % period
-            y = 12 + k * 0.7
+            y = 6 + k * 0.9
             x = x0 + (1 if (k // 6) % 2 else 0)
+            if math.hypot(x - pcx, y - pcy) <= pr + 1:
+                continue
             keep = 1.0 if k < 18 else 0.5 if k < 26 else 0.25
             px(f, x, y, DUST, keep)
+            px(f, x, y + 1, GLASS_D, keep)
         fr.append(f)
-    return mind_portrait(fr)
+    return fr
 
 
-# ------------------------------------------------------------------------------------------------ re-exports
-REEXPORTS = {
-    # new file: (source strip in art/skyglass_boss_fx/exports, spec art names served, use, note)
-    'anim_moe_stillness_v1.webp': ('anim_chain_wrap_v1.webp', ['moe_stillness'], 'appear',
-                                   'Nothing Moves: the violet lock (dt_control family) on the stunned hex; pairs with tg_control'),
-    'anim_moe_breathless_v1.webp': ('anim_command_absolute_v1.webp', ['moe_breathless'], 'appear',
-                                    'Breathless Pull: chains lock and the seal stamps (violet control family); pairs with tg_control'),
-    'anim_moe_lucid_v1.webp': ('anim_crown_aura_v1.webp', ['moe_lucid'], 'static',
-                               'Lucid: a ring of skyglass shards circling Sayo (buff loop; keeps the portrait clear)'),
-    'anim_moe_echo_rise_v1.webp': ('anim_recall_v1.webp', ['moe_likeness', 'moe_worn'], 'appear',
-                                   'Your Likeness and the Worn: an echo pulled up out of the glass (summon flourish)'),
-}
+# ------------------------------------------------------------------------------------------------ figures
+VIOLET = (96, 66, 150)
+VIOLET_D = (44, 30, 72)
+AI_DISC = ((25, 17), 16.5)   # an AI avatar: h * 1.6 across at 0.9 h (combatActorParts), in frame px
 
 
-def harden(img):
-    """Partial alpha (the boss_fx strips' 130 step) becomes full-alpha pixels kept by an ordered dither in proportion
-    to their alpha, as animate_an.py does for its fades: the soft-edge share then passes the spec ceiling and the
-    look at 50 px is unchanged. Works on the 50 px grid, before the x3 delivery scale."""
-    g = img.copy()
-    p = g.load()
-    for y in range(g.height):
-        for x in range(g.width):
-            r, gg, b, a = p[x, y]
-            if 0 < a < 255:
-                p[x, y] = (r, gg, b, 255 if BAYER[y % 4][x % 4] < a / 255 * 16 else 0)
-    return g
+def figure_mask():
+    """A plain standing shinobi silhouette (hood, shoulders, arms at the sides, two legs) on the 50 px grid, feet
+    on the hex centre's front edge: about 1.1 hex heights tall, the height of a fighter's marker."""
+    m = Image.new('L', (N, N), 0)
+    d = ImageDraw.Draw(m)
+    d.ellipse([22, 9, 28, 16], fill=255)                                  # hooded head
+    d.polygon([(21, 13), (25, 7), (29, 13)], fill=255)                    # hood peak
+    d.polygon([(20, 17), (30, 17), (31, 27), (19, 27)], fill=255)        # torso
+    d.polygon([(18, 18), (20, 17), (20, 26), (18, 25)], fill=255)        # left arm
+    d.polygon([(30, 17), (32, 18), (32, 25), (30, 26)], fill=255)        # right arm
+    d.rectangle([21, 27, 24, 34], fill=255)                               # legs
+    d.rectangle([26, 27, 29, 34], fill=255)
+    return m
+
+
+FIG = None
+
+
+def fig_pixels():
+    global FIG
+    if FIG is None:
+        m = figure_mask().load()
+        inside = {(x, y) for y in range(N) for x in range(N) if m[x, y]}
+        edge = {(x, y) for (x, y) in inside if any((x + dx, y + dy) not in inside
+                                                   for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))}
+        FIG = (inside, edge)
+    return FIG
+
+
+# ------------------------------------------------------------------------------------------------ moe_stillness
+def build_stillness():
+    """Nothing Moves (the control mark comes due as a stun): darkness closes in from the hex rim over the stunned
+    fighter, a thin deep-violet edge keeping the control family, and the dust in the air stops where it is; then
+    the dark lets go and the frozen dust hangs on a moment. 12 frames, one-shot. Mother Glass language: ink and
+    frozen dust, no chains or seals (those are Crownhold's)."""
+    motes = [(14, 12), (35, 10), (11, 22), (39, 20), (18, 30), (33, 31), (25, 6), (29, 18), (20, 19)]
+    fr = []
+    for i in range(12):
+        f = frame()
+        if i <= 9:
+            close = min(1.0, (i + 1) / 6)                 # 0 -> 1 over 6 frames, then holds
+            release = 0.0 if i < 8 else (i - 7) / 3        # lets go on 8-9
+            inner = 1.0 - 0.72 * close + 0.5 * release     # inner edge of the dark, as a fraction of the rim
+            for y in range(N):
+                for x in range(N):
+                    r = math.hypot((x - 25) / 22, (y - 22) / 14)
+                    if r > 1.0:
+                        continue
+                    if r >= inner:
+                        depth = (r - inner) / max(0.01, 1.0 - inner)
+                        keep = (0.5 + 0.5 * min(1, depth * 2)) * (1 - 0.6 * release)
+                        px(f, x, y, INK if depth > 0.25 else VIOLET_D, keep)
+                    elif r >= inner - 0.07:
+                        px(f, x, y, VIOLET, 0.75 * (1 - release))
+        if i >= 3:
+            keep = 1.0 if i < 10 else 0.5
+            for mx, my in motes:
+                px(f, mx, my, DUST, keep)
+                if i in (5, 6):
+                    px(f, mx + 1, my, WHITE, keep)
+        fr.append(f)
+    return fr
+
+
+# ------------------------------------------------------------------------------------------------ moe_breathless
+def build_breathless():
+    """Breathless Pull: the air is drawn out of the hex. Pale breath-streaks run in from the rim, gather above the
+    fighter and stream away upward (toward the one who breathed in; a hex sprite cannot aim at her, so the pull
+    reads as up and away), then a small deep-violet lock closes at the feet (the stun) and the dust stops. Plays
+    only on hit hexes; the three dry tiles, Where the Three Refused, keep their tg_safe art and never show it.
+    12 frames, one-shot."""
+    starts = [(6, 25), (44, 25), (12, 33), (38, 33), (12, 17), (38, 17), (25, 36), (19, 36), (31, 36)]
+    apex = (25, 4)
+    fr = []
+    for i in range(12):
+        f = frame()
+        if i <= 8:
+            for k, (sx, sy) in enumerate(starts):
+                for j in range(5):                         # a dashed streak: five beads moving along a curve
+                    t = (i / 8) * 1.25 - j * 0.07 - (k % 3) * 0.04
+                    if not 0 <= t <= 1:
+                        continue
+                    cx, cy = 25 + (sx - 25) * 0.3, 14
+                    x = (1 - t) ** 2 * sx + 2 * (1 - t) * t * cx + t * t * apex[0]
+                    y = (1 - t) ** 2 * sy + 2 * (1 - t) * t * cy + t * t * apex[1]
+                    kp = 1.0 if j < 3 else 0.5
+                    px(f, x, y, WHITE if j == 0 else DUST if j < 3 else GLASS_M, kp)
+                    px(f, x + 1, y, CYAN if j < 2 else GLASS_M, kp)      # two pixels wide, cold-edged
+                    px(f, x, y + 1, GLASS_D, kp)                        # dark under-edge: reads on a light board
+                    px(f, x + 1, y + 1, GLASS_D, kp)
+        if 4 <= i <= 8:                                    # the drawn breath leaves at the top
+            for k in range(3):
+                px(f, 24 + k, 3 - (i - 4) * 0.5, DUST, 0.75)
+        if i >= 6:                                         # the lock at the feet
+            r = {6: 9, 7: 7, 8: 6}.get(i, 6)
+            keep = 1.0 if i < 10 else 0.5
+            ellipse(f, 25, 32, r, r * 0.4, VIOLET, n=40, keep=keep)
+            ellipse(f, 25, 32.6, r, r * 0.4, VIOLET_D, n=40, keep=keep)
+            if i == 6:
+                ellipse(f, 25, 32, r + 2, (r + 2) * 0.4, WHITE, n=40, keep=0.5)
+        if i >= 7:
+            for mx, my in ((15, 20), (36, 18), (19, 9), (32, 27), (13, 28)):
+                px(f, mx, my, DUST, 1.0 if i < 10 else 0.5)
+        fr.append(f)
+    return fr
+
+
+# ------------------------------------------------------------------------------------------------ moe_lucid
+def build_lucid():
+    """Lucid, on Sayo alone: a slow ring of cold skyglass facets turns round her portrait, white on the beat, with
+    a cold glint along the lower rim. Two beats (1.6 s); an eighth of a turn per loop so it is seamless. Keeps her
+    (AI-sized) portrait clear. Distinct from the Crowned Captain's frost crown: no crown points, no full ring of
+    crystal, eight separate facets and open sky between them."""
+    period = BEAT * 2
+    (pcx, pcy), pr = AI_DISC
+    fr = []
+    for i in range(period):
+        f = frame()
+        hot = i in (0, 1, 16, 17)
+        for k in range(8):
+            ang = 2 * math.pi * (k / 8 + i / (period * 8))
+            x, y = round(25 + math.cos(ang) * 21), round(18 + math.sin(ang) * 17)
+            for dx, dy, col in ((0, -2, WHITE if hot else CYAN), (-1, -1, GLASS_L), (0, -1, WHITE if hot else GLASS_L),
+                                (1, -1, CYAN), (-1, 0, GLASS_L), (0, 0, CYAN), (1, 0, CYAN_D), (0, 1, CYAN_D)):
+                px(f, x + dx, y + dy, col)
+            for dx, dy in ((0, -3), (-2, -1), (2, -1), (-2, 0), (2, 0), (-1, 1), (1, 1), (0, 2)):
+                px(f, x + dx, y + dy, GLASS_D)
+        for k in range(-7, 8):                             # the cold rim under her, brightest on the beat
+            px(f, 25 + k * 1.6, 36 - abs(k) * 0.25, WHITE if hot and abs(k) < 3 else CYAN, 1.0 if abs(k) < 5 else 0.5)
+        fr.append(f)
+    mask = Image.new('L', (N, N), 0)
+    ImageDraw.Draw(mask).ellipse([pcx - pr, pcy - pr, pcx + pr, pcy + pr], fill=255)
+    out = []
+    for f in fr:
+        a = f.getchannel('A')
+        a.paste(0, (0, 0), mask)
+        f.putalpha(a)
+        out.append(f)
+    return out
+
+
+# ------------------------------------------------------------------------------------------------ moe_likeness
+def build_likeness():
+    """Your Likeness: a glass silhouette of a fighter rises out of the floor, built from the feet up in silvered
+    glass with pale-cyan facet lines, flashes white when whole, then cracks as the summon takes its place.
+    14 frames, one-shot."""
+    inside, edge = fig_pixels()
+    top, bottom = min(y for _, y in inside), max(y for _, y in inside)
+    fr = []
+    for i in range(14):
+        f = frame()
+        if i <= 3:                                          # the floor gives: a glint line where it will rise
+            for k in range(-8 - i * 2, 9 + i * 2):
+                px(f, 25 + k, 35, WHITE if abs(k) < 4 else GLASS_L, 1.0 if abs(k) < 8 else 0.5)
+        reveal = bottom - (bottom - top + 1) * min(1.0, (i + 1) / 7)
+        keep = 1.0 if i < 11 else 0.5 if i < 13 else 0.25
+        for (x, y) in inside:
+            if y < reveal:
+                continue
+            if (x, y) in edge:
+                col = WHITE if i == 7 else GLASS_D
+            elif (x + y) % 5 == 0:
+                col = CYAN                                   # diagonal facet lines
+            else:
+                col = GLASS_L if x <= 25 else GLASS_M
+            px(f, x, y, col, keep)
+        if 0 < reveal - bottom + (bottom - top) and i < 7:   # the rising edge glows
+            for (x, y) in inside:
+                if abs(y - reveal) < 1:
+                    px(f, x, y, WHITE)
+        if i >= 9:                                           # it cracks as the summon takes its place
+            for k, (x0, y0) in enumerate(((22, 15), (28, 20), (24, 26))):
+                for j in range(i - 7):
+                    px(f, x0 + (j if k % 2 else -j) * 0.7, y0 + j, CYAN_D, keep)
+        fr.append(f)
+    return fr
+
+
+# ------------------------------------------------------------------------------------------------ moe_worn
+def build_worn():
+    """The Worn: a thinned echo is pulled up out of the glass, a fighter's shape gone faded grey and broken, half its
+    pixels missing and its outline worn through, trailing threads back to the floor; it never finishes and fades
+    as the summon appears. 14 frames, one-shot."""
+    inside, edge = fig_pixels()
+    top, bottom = min(y for _, y in inside), max(y for _, y in inside)
+    GREY, GREY_D = (150, 150, 158), (78, 78, 90)
+    fr = []
+    for i in range(14):
+        f = frame()
+        lift = max(0, 6 - i) * 2                              # pulled up from below the floor line
+        cut = 35                                             # the floor: nothing shows below it
+        keep = 0.5 if i < 10 else 0.25 if i < 12 else 0.125
+        for (x, y) in inside:
+            yy = y + lift
+            if yy > cut:
+                continue
+            if (x, y) in edge:
+                px(f, x, yy, GREY_D, 0.75 if i < 10 else keep)
+            else:
+                px(f, x, yy, GREY if x <= 25 else GREY_D, keep)
+        if i <= 9:                                           # threads back to the glass
+            for x0 in (21, 24, 27, 29):
+                for y in range(28 + lift // 2, 36):
+                    px(f, x0 + (y % 3 == 0), y, GREY, 0.5)
+        if i <= 4:                                           # the floor line it is pulled through
+            for k in range(-10, 11):
+                px(f, 25 + k, 35, GLASS_M if abs(k) < 7 else GREY_D, 0.75)
+        fr.append(f)
+    return fr
 
 
 def export():
@@ -544,7 +740,7 @@ def export():
                      'frame_px': N * SCALE, 'drawn_grid_px': N, 'bytes': size, 'use': use, 'serves': serves, 'note': note})
         print(f'{name}: {kind} {frames} frame(s), {size} bytes')
 
-    save('tile_moe_etch_v1.webp', build_etch_tile(), 1, 'staticAssetPath', ['tg_etch'],
+    save('tile_moe_etch_v2.webp', build_etch_tile(), 1, 'staticAssetPath', ['tg_etch'],
          'The Etching mark, STATIC still under the characters, stretched to the hex box; the lattice joins seamlessly '
          'across a field', kind='STATIC')
     g = build_etch_glint()
@@ -562,19 +758,22 @@ def export():
              'Glass Lancet: a skyglass needle streaks in and splinters', False),
             ('anim_moe_feeler_v1.webp', build_feeler, 'appear', ['moe_feeler'],
              'The Listening: a pale feeler rises and curls its tip (summon flourish)', False),
-            ('anim_moe_lull_v1.webp', build_lull, 'static', ['moe_lull'],
-             'The Glass Falls Quiet: glass dust drifting down at the hex sides (portrait-clear loop)', True)):
+            ('anim_moe_lull_v2.webp', build_lull, 'static', ['moe_lull'],
+             'The Glass Falls Quiet: glass dust drifting down beside Sayo; staticAnimation of the jutsu\'s fleeprevent '
+             '(SELF, 2 rounds), moved off the visual the server drops (RUL-2026-11-02-101); clears an AI portrait', True),
+            ('anim_moe_still_dark_v1.webp', build_stillness, 'appear', ['moe_stillness'],
+             'Nothing Moves: darkness closes in from the rim, a deep-violet edge, the dust stops', False),
+            ('anim_moe_breath_draw_v1.webp', build_breathless, 'appear', ['moe_breathless'],
+             'Breathless Pull: breath drawn out of the hex, up and away; a violet lock closes at the feet', False),
+            ('anim_moe_lucid_aura_v1.webp', build_lucid, 'static', ['moe_lucid'],
+             'Lucid: eight cold skyglass facets circling Sayo, white on the beat (AI portrait clear)', True),
+            ('anim_moe_likeness_rise_v1.webp', build_likeness, 'appear', ['moe_likeness'],
+             'Your Likeness: a silvered-glass silhouette rises from the floor and cracks', False),
+            ('anim_moe_worn_rise_v1.webp', build_worn, 'appear', ['moe_worn'],
+             'The Worn: a faded, broken echo pulled up out of the glass', False)):
         fr = fn()
         save(name, strip(fr), len(fr), use, serves, note)
-    for name, (src, serves, use, note) in REEXPORTS.items():
-        s = Image.open(os.path.join(SKY, src)).convert('RGBA')
-        frames = s.height // s.width
-        assert s.width == N and s.height == N * frames, (src, s.size)
-        save(name, harden(s).resize((s.width * SCALE, s.height * SCALE), Image.NEAREST), frames, use, serves,
-             f'{note}. Re-export x{SCALE} (nearest) of art/skyglass_boss_fx/exports/{src} (boss_fx.py, director key '
-             f'art 2026-10-28), its 130 alpha step turned into an ordered dither (spec soft-edge ceiling); not live '
-             f'before this.')
-    meta = {'source': 'art/mother_of_echoes_fx/build_fx.py (pixel art in code; re-exports of art/skyglass_boss_fx strips)',
+    meta = {'source': 'art/mother_of_echoes_fx/build_fx.py (pixel art in code)',
             'renderer': 'theninjarpg@3314d122 libs/rendering/scenes/combatEffects.ts (pixi): one square sprite per hex, '
                         'tile.height * 2.5; staticAssetPath stretched to the hex box under the actors',
             'layout': 'vertical strip, one square frame per row', 'speed_unit': 'ms per frame (gameAsset.speed)',

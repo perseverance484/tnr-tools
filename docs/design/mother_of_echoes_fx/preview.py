@@ -48,14 +48,18 @@ def tile(path):
 
 M = lambda n: os.path.join(MOE, n)
 S = lambda n: os.path.join(SKY, n)
-TILES = {'etch': tile(M('tile_moe_etch_v1.webp')), 'heavy': tile(S('tile_heavy_v3.webp')),
+TILES = {'etch': tile(M('tile_moe_etch_v2.webp')), 'heavy': tile(S('tile_heavy_v3.webp')),
          'control': tile(S('tile_control_v3.webp')), 'linger': tile(S('tile_linger_v3.webp')),
          'safe': tile(S('tile_safe_v3.webp'))}
 GLINT = {'etch': clip_frames(M('anim_moe_etch_glint_v1.webp')), 'heavy': clip_frames(S('anim_heavy_glint_v3.webp')),
          'control': clip_frames(S('anim_control_glint_v3.webp')), 'linger': clip_frames(S('anim_linger_glint_v3.webp')),
          'safe': clip_frames(S('anim_safe_glint_v3.webp'))}
-CLIP = {n: clip_frames(M(f'anim_moe_{n}_v1.webp')) for n in
-        ('recast', 'guard_open', 'quiet', 'lancet', 'feeler', 'lull', 'stillness', 'breathless', 'lucid', 'echo_rise')}
+FILES = {'recast': 'anim_moe_recast_v1.webp', 'guard_open': 'anim_moe_guard_open_v1.webp',
+         'quiet': 'anim_moe_quiet_v1.webp', 'lancet': 'anim_moe_lancet_v1.webp', 'feeler': 'anim_moe_feeler_v1.webp',
+         'lull': 'anim_moe_lull_v2.webp', 'stillness': 'anim_moe_still_dark_v1.webp',
+         'breathless': 'anim_moe_breath_draw_v1.webp', 'lucid': 'anim_moe_lucid_aura_v1.webp',
+         'likeness': 'anim_moe_likeness_rise_v1.webp', 'worn': 'anim_moe_worn_rise_v1.webp'}
+CLIP = {n: clip_frames(M(f)) for n, f in FILES.items()}
 
 bg = Image.open(STILL).convert('RGBA')
 m = Image.new('L', bg.size, 0)
@@ -67,6 +71,8 @@ box = m.getbbox(); TOK = bg.crop(box); TOK.putalpha(m.crop(box)); OFF = (box[0] 
 # Each phase: (name, length in ticks, ground tiles {kind: cells}, loops {clip: cells}, one-shots {clip: cells}, chars)
 CHARS = [(0, 0), (2, -1), (-2, 0)]
 BAND = [(q, r) for q in range(-3, 4) for r in (-1, 0)]                  # an Etching band, two rows deep
+SAFE3 = [(-2, 0), (1, 1), (3, 0)]
+SAYO = (0, -2)
 OTHERS = {'heavy': [(-3, 1)], 'control': [(-1, 1)], 'linger': [(1, 1)], 'safe': [(3, 1)]}
 PH = [
     ('etch_field', 48, {'etch': BAND, **OTHERS}, {'etch': BAND, **OTHERS}, {}, CHARS),
@@ -77,16 +83,24 @@ PH = [
     ('quiet', 12, {}, {}, {'quiet': [(2, -1)]}, CHARS),
     ('feeler', 14, {}, {}, {'feeler': [(1, 0)]}, CHARS),
     ('stillness', 10, {}, {}, {'stillness': [(0, 0)]}, CHARS),
-    ('breathless', 12, {}, {}, {'breathless': [(-2, 0)]}, CHARS),
-    ('echo_rise', 14, {}, {}, {'echo_rise': [(-1, 0), (1, -1)]}, CHARS),
-    ('lucid', 32, {}, {'lucid': [(0, -2)]}, {}, CHARS + [(0, -2)]),
-    ('lull', 32, {}, {'lull': [(q, r) for q in range(-2, 3) for r in (-1, 0)]}, {}, CHARS),
+    # Breathless Pull: the hit hexes play it; the three dry tiles (tg_safe, Where the Three Refused) do not
+    ('breathless', 12, {'safe': SAFE3}, {'safe': SAFE3}, {'breathless': [(0, 0), (2, -1)]}, CHARS + [(-1, 1)]),
+    ('likeness', 14, {}, {}, {'likeness': [(-1, 0)]}, CHARS),
+    ('worn', 14, {}, {}, {'worn': [(1, -1), (-3, 0)]}, CHARS),
+    # Lucid and the lull ride effects on Sayo herself (an AI portrait, h * 1.6 across)
+    ('lucid', 32, {}, {'lucid': [SAYO]}, {}, CHARS, [SAYO]),
+    ('lull', 32, {}, {'lull': [SAYO]}, {}, CHARS, [SAYO]),
 ]
+
+
+TOK_AI = TOK.resize((round(TOK.width * 1.6), round(TOK.height * 1.6)), Image.BILINEAR)
 
 
 def render():
     frames, marks = [], {}
-    for name, length, under, loops, shots, chars in PH:
+    for ph in PH:
+        name, length, under, loops, shots, chars = ph[:6]
+        ais = ph[6] if len(ph) > 6 else []
         start = len(frames)
         for t in range(length):
             im = bg.copy()
@@ -97,6 +111,9 @@ def render():
             for c in chars:
                 x, y = centre(*c)
                 im.alpha_composite(TOK, (int(x + OFF[0]), int(y + OFF[1])))
+            for c in ais:   # an AI avatar disc, h * 1.6 across, centred 0.4 h above the hex centre
+                x, y = centre(*c)
+                im.alpha_composite(TOK_AI, (int(x - TOK_AI.width / 2), int(y - 0.4 * HH - TOK_AI.height / 2 + 4)))
             for kind, cells in loops.items():
                 fr = (GLINT.get(kind) or CLIP[kind])
                 f = fr[t % len(fr)]
@@ -117,7 +134,7 @@ def render():
 def keys(frames, marks):
     picks = {'etch_field': [0, 4, 8], 'recast': [0, 2, 4, 7], 'guard_open': [0, 6], 'lancet': [2, 4, 6],
              'quiet': [2, 5, 8], 'feeler': [3, 7, 11], 'stillness': [2, 5, 8], 'breathless': [2, 5, 9],
-             'echo_rise': [3, 7, 12], 'lucid': [0, 8], 'lull': [0, 12]}
+             'likeness': [3, 7, 11], 'worn': [3, 7, 11], 'lucid': [0, 8], 'lull': [0, 12]}
     out = []
     for name, ticks in picks.items():
         s, n = marks[name]
