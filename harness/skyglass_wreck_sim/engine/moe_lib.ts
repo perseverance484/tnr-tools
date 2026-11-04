@@ -102,6 +102,8 @@ export const MOE_DEFAULTS = {
   bossDmgScale: 1,
   /** Pass 6: the skilled player policy for every _real profile (see realRules). */
   skilledPolicy: false,
+  /** Pass 6: cleansable debuff left by an eruption hit, per act ({dh, idt, rounds}); the cast becomes CHARACTER. */
+  eruptDebuff: { on: false } as { on: boolean; act1?: any; act2?: any; act3?: any },
   /** Pass 6: extra multiplier on the summons' hits (Grasp, Your Own Strike, Doorward Sweep, Cadet's Tether). */
   summonDmgScale: 1,
   /** Pass 5 (RUL-2026-11-04-113): eruptions as a fixed share of an endgame max HP (elite model 31,500). */
@@ -204,11 +206,27 @@ const heavy = (power: number, anim = "dt_heavy") => T.damage(power, { appearAnim
 let ERUPT: { on: boolean; hp: number; pct: Record<number, number> } = { on: false, hp: 31500, pct: { 1: 40, 2: 60, 3: 80 } };
 const erupt = (act: number, power: number, anim: string) =>
   ERUPT.on ? T.pierce(Math.round((ERUPT.hp * ERUPT.pct[act]!) / 100), { calculation: "static", dmgModifier: 1, description: "Pierces target", appearAnimation: anim }) : heavy(power, anim);
+/**
+ * Pass 6 (director 2026-11-04): a hit also leaves a cleansable debuff. On a GROUND cast every tag becomes a ground effect
+ * that only follows the player while he stands on the hex (process.ts:395-412: a 1-round copy per pass), so the debuff
+ * rides a CHARACTER cast instead (actions.ts:1125-1158: user effects on the unit standing on each pattern hex, with the
+ * tag's own rounds). decreaseheal runs after the damage passes and cuts heal / lifesteal / vamp / absorb
+ * (process.ts:803; tags.ts:1100-1145); both tags are negative statuses (validators/combat.ts:1437-1475), so a Cleanse
+ * removes them (tags.ts:1263-1271, removeEffects).
+ */
+let DEBUFF: { on: boolean; pct: Record<number, { dh: number; idt: number; rounds: number }> } = { on: false, pct: {} };
+const eruptDebuff = (act: number) => {
+  const d = DEBUFF.on ? DEBUFF.pct[act] : undefined;
+  if (!d) return [];
+  return [tag("decreaseheal", { power: d.dh, rounds: d.rounds, calculation: "percentage", friendlyFire: "ENEMIES", description: "The glass remembers you" }),
+    T.pct("increasedamagetaken", d.idt, d.rounds, { friendlyFire: "ENEMIES", description: "The glass remembers you" })];
+};
 
 /* ------------------------------------------------------------------ records */
 export const buildRecords = (P: MoeParams) => {
   CARRIER_ON = P.telegraphCarrier !== false;
   SKILLED = !!P.skilledPolicy;
+  DEBUFF = { on: !!P.eruptDebuff?.on, pct: { 1: P.eruptDebuff?.act1, 2: P.eruptDebuff?.act2, 3: P.eruptDebuff?.act3 } as any };
   ERUPT = { on: !!P.eruption?.on, hp: P.eruption?.hp ?? 31500, pct: { 1: P.eruption?.act1 ?? 40, 2: P.eruption?.act2 ?? 60, 3: P.eruption?.act3 ?? 80 } };
   const J: Record<string, any> = {};
   const add = (id: string, f: Parameters<typeof jutsu>[1]) => { J[id] = jutsu(id, f); return id; };
@@ -335,6 +353,11 @@ export const buildRecords = (P: MoeParams) => {
   // Pass 6 (5,050 HP players): scale every formula hit on the boss side (not the fixed eruptions, not the %-drains, not
   // Breathless Pull, which stays as is) by bossDmgScale, a multiplier on effect power (damage is linear in power:
   // tags.ts powerEffect epScale = power / ep_normalization).
+  if (DEBUFF.on) {
+    const acts: [number, string[]][] = [[1, [JID.blastA, JID.blastB, JID.facetBlast, JID.lucidBlast, JID.stillnessBlast]], [2, Object.values(JID.det)],
+      [3, [JID.shatterBlast, JID.floodBlast, ...JID.glass, JID.glassFirstB, JID.glassRecast]]];
+    for (const [act, ids] of acts) for (const id of ids) { const r = J[id]!; r.target = "CHARACTER"; r.effects.push(...eruptDebuff(act)); }
+  }
   const SUMMON_HITS = new Set([JID.grasp, JID.likenessStrike, JID.porter, JID.tomo]);
   for (const [id, r] of Object.entries<any>(J)) if (id !== JID.pull) for (const e of r.effects) if ((e.type === "damage" || e.type === "pierce") && e.calculation === "formula") {
     const k = P.bossDmgScale * (SUMMON_HITS.has(id) ? P.summonDmgScale : 1);
