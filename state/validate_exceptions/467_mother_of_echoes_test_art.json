@@ -1,0 +1,9 @@
+{
+ "manifest": "push/467_mother_of_echoes_test_art.json",
+ "ruling": "PENDING director acceptance. One 'build order' misranking: the quest edit (phase 20) after the asset unhides (phase 10); validate.py ignores phases. Same false-positive class as RUL-2026-10-31-085 item 1.",
+ "reason": "Test art job built from push/466's results bundle (harvests/inbox/tnr_results_1793846634826.json).",
+ "sha256": "74e411a2142c8ee5b592793bcb36c9617a3a35e668c4f0c452eb14f10d2237d3",
+ "accepted": [
+  "ERROR  manifest: build order: quest appears after a later phase"
+ ]
+}

@@ -1705,6 +1705,12 @@ theninjarpg@3314d122. Everything is created hidden; AIs have no hidden column (l
 **Final push (2026-11-04; the director: one master; docs/design/MOTHER_OF_ECHOES_ART.md).** Two jobs, same generator.
 Replaces the separate art-pass files (466, 467, 480-482, 465), which are gone; 468 ran standalone and is kept as the record.
 
+**Run log (2026-11-05 UTC).** 466 ran ahead of the tuning (director: art for the tester now; built from the live spec dd7e33ab, so no tuning change): `harvests/inbox/tnr_results_1793846634826.json`, forge 0.12.4, manifest hash 53bb0976, 89 items: 18 asset creates, 9 unequips, 53 jutsu and 9 re-equips VERIFIED; the 9 re-equips report CONFIRMED with stat drift only (sent 1,391,300, live 1,622,256 on all six stats; the server's scaleEditedAi recomputes stats from statsMultiplier, exactly as at push/463's create), avatars, kits, rules and items match. The FX are still hidden.
+
+**467 test art** `467_mother_of_echoes_test_art.json` (`python3 push/mother_of_echoes_test_art.gen.py --bundles B440 B461 B462 B463 B464 --economy B417 --from B466`), 16 items: phase 10 the 15 FX assets unhidden; phase 20 the practice quest (469, `YDmKO6fp2vBRnTf7fHWQZ`) re-sent whole with its icon and the three act scenes, still hidden. The real quest stays hidden. Gates: `validate.py --strict` 0 errors, 1 warning (build order: the quest after a later phase; validate ignores phases), ledger `state/validate_exceptions/467_mother_of_echoes_test_art.json` PENDING director acceptance; `check_manifest` 0 pre-send problems; `skyglass_check` 0.
+
+**Still to come:** the pass-6 tuning job (jutsu and AIs re-sent from the new SPEC_REF with the same unequip, edit, re-equip sequence; `--step final` rebuilt, its asset phase dropped since the assets exist), then the go-live, now **477** (`--step golive`; was 467).
+
 1. **466** `466_mother_of_echoes_final.json`, JOB 1, 88 items, one imagePack (12e54c08, 32 files; the art-QA polish):
    - phase 10: 17 HIDDEN gameAssets (law 16b), folder MotherOfEchoes: 14 code-built FX (Etching tile v3 + glint, Recast,
      guard open v2 (on Sayo), The Quiet, Glass Lancet v2, The Listening v2, the lull v3, Nothing Moves v2, Breathless

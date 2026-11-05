@@ -85,7 +85,7 @@ TG_STANDIN = {"tg_etch": "tg_control"}  # used by the 440-464 creates only; the 
 # ---------------------------------------------------------------------------------------------------------------
 # Art pass (466-467; docs/design/MOTHER_OF_ECHOES_ART.md). Files are pinned by the newest commit touching them.
 # ---------------------------------------------------------------------------------------------------------------
-N.update({"final": 466, "golive": 467})  # 465 (the bare publish) is superseded by 467
+N.update({"final": 466, "golive": 477})  # 465 (the bare publish) superseded; 467 became the test-art job (push/mother_of_echoes_test_art.gen.py), so the go-live is 477
 SLUG.update({"final": "mother_of_echoes_final", "golive": "mother_of_echoes_go_live"})
 ART = "art/mother_of_echoes/exports/"
 FXDIR = "art/mother_of_echoes_fx/exports/"
