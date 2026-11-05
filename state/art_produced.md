@@ -30,3 +30,8 @@ Byte ledger source for pack `imgSizes` at packaging time. Fresh filename (_b, _c
 | headless_rider_horror_02_village_dawn.webp | SCENE_BACKGROUND | 1536x1024 | 312808 |
 | headless_rider_horror_03_ruined_village.webp | SCENE_BACKGROUND | 1536x1024 | 263972 |
 | headless_rider_horror_04_river.webp | SCENE_BACKGROUND | 1536x1024 | 306426 |
+
+## Flaming Sword icon (2026-11-05, push/471)
+| file | type | px | bytes | QC |
+|---|---|---|---|---|
+| icon-flaming-sword.webp | ICON 1:1 | 256x256 | 23142 | raw REJECT (painted checkerboard, RGB) - salvaged by border flood-fill + 2 enclosed pockets removed; chroma.py ICON; hard-alpha downscale; preflight 0/0; dark-QC clean; awaiting dauntless eye |
