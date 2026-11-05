@@ -1,138 +1,151 @@
-# DRIFT.md - upstream contract drift (2026-11-04)
+# DRIFT.md - upstream contract drift (2026-11-05)
 
-Upstream: studie-tech/TheNinjaRPG@d0fc2210740543ece8b3a9464e7de1018b060c4e
+Upstream: studie-tech/TheNinjaRPG@89e8f2985d4d83219cb97f674eb04829a46d5e55
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
 ~~~
 == 45c_DATA_constructors ==
 REMOVALS
-  enum-member  allObjectiveSchema.SimpleObjective.reward_mastery_rank  ADEPT
-  enum-member  allObjectiveSchema.SimpleObjective.reward_mastery_rank  LEGENDARY
-  enum-member  allObjectiveSchema.SimpleObjective.reward_mastery_rank  MASTER
-  enum-member  allObjectiveSchema.SimpleObjective.reward_mastery_rank  NONE
-  enum-member  allObjectiveSchema.SimpleObjective.reward_mastery_rank  NOVICE
-  enum-member  allObjectiveSchema.SimpleObjective.reward_mastery_stat  None
-  enum-member  allObjectiveSchema.SimpleObjective.reward_rank  CHUNIN
-  enum-member  allObjectiveSchema.SimpleObjective.reward_rank  ELDER
-  enum-member  allObjectiveSchema.SimpleObjective.reward_rank  ELITE JONIN
-  enum-member  allObjectiveSchema.SimpleObjective.reward_rank  GENIN
-  enum-member  allObjectiveSchema.SimpleObjective.reward_rank  JONIN
-  enum-member  allObjectiveSchema.SimpleObjective.reward_rank  NONE
-  enum-member  allObjectiveSchema.SimpleObjective.reward_rank  STUDENT
-  enum-member  allObjectiveSchema.SimpleObjective.reward_village_membership  AKASUMI
-  enum-member  allObjectiveSchema.SimpleObjective.reward_village_membership  AKIKAZE
-  enum-member  allObjectiveSchema.SimpleObjective.reward_village_membership  HYORIN
-  enum-member  allObjectiveSchema.SimpleObjective.reward_village_membership  NONE
-  enum-member  allObjectiveSchema.SimpleObjective.reward_village_membership  SHIROHANA
-  enum-member  allObjectiveSchema.SimpleObjective.reward_village_membership  TSUKIMORI
-  enum-member  allObjectiveSchema.SimpleObjective.task  a_crimes_total
-  enum-member  allObjectiveSchema.SimpleObjective.task  a_missions_total
-  enum-member  allObjectiveSchema.SimpleObjective.task  arena_kills
-  enum-member  allObjectiveSchema.SimpleObjective.task  b_crimes_total
-  enum-member  allObjectiveSchema.SimpleObjective.task  b_missions_total
-  enum-member  allObjectiveSchema.SimpleObjective.task  battle_pyramids_completed
-  enum-member  allObjectiveSchema.SimpleObjective.task  c_crimes_total
-  enum-member  allObjectiveSchema.SimpleObjective.task  c_missions_total
-  enum-member  allObjectiveSchema.SimpleObjective.task  combined_mission_effort
-  enum-member  allObjectiveSchema.SimpleObjective.task  crafting_experience
-  enum-member  allObjectiveSchema.SimpleObjective.task  crafting_experience_gained
-  enum-member  allObjectiveSchema.SimpleObjective.task  creatures_hunted
-  enum-member  allObjectiveSchema.SimpleObjective.task  d_crimes_total
-  enum-member  allObjectiveSchema.SimpleObjective.task  d_missions_total
-  enum-member  allObjectiveSchema.SimpleObjective.task  days_as_kage
-  enum-member  allObjectiveSchema.SimpleObjective.task  days_in_village
-  enum-member  allObjectiveSchema.SimpleObjective.task  dungeons_completed
-  enum-member  allObjectiveSchema.SimpleObjective.task  errands_total
-  enum-member  allObjectiveSchema.SimpleObjective.task  espionage
-  enum-member  allObjectiveSchema.SimpleObjective.task  events_completed
-  enum-member  allObjectiveSchema.SimpleObjective.task  farming_collection_log
-  enum-member  allObjectiveSchema.SimpleObjective.task  farming_level
-  enum-member  allObjectiveSchema.SimpleObjective.task  gathering_experience
-  enum-member  allObjectiveSchema.SimpleObjective.task  gathering_experience_gained
-  enum-member  allObjectiveSchema.SimpleObjective.task  herbs_gathered
-  enum-member  allObjectiveSchema.SimpleObjective.task  hunting_experience
-  enum-member  allObjectiveSchema.SimpleObjective.task  hunting_experience_gained
-  enum-member  allObjectiveSchema.SimpleObjective.task  items_crafted
-  enum-member  allObjectiveSchema.SimpleObjective.task  jutsus_mastered
-  enum-member  allObjectiveSchema.SimpleObjective.task  medical_experience
-  enum-member  allObjectiveSchema.SimpleObjective.task  medical_experience_gained
-  enum-member  allObjectiveSchema.SimpleObjective.task  minutes_passed
-  enum-member  allObjectiveSchema.SimpleObjective.task  minutes_training
-  enum-member  allObjectiveSchema.SimpleObjective.task  overworld_ai_fought
-  enum-member  allObjectiveSchema.SimpleObjective.task  overworld_quests_completed
-  enum-member  allObjectiveSchema.SimpleObjective.task  plants_fertilized
-  enum-member  allObjectiveSchema.SimpleObjective.task  plants_harvested
-  enum-member  allObjectiveSchema.SimpleObjective.task  plants_watered
-  enum-member  allObjectiveSchema.SimpleObjective.task  pvp_kills
-  enum-member  allObjectiveSchema.SimpleObjective.task  pvp_participated
-  enum-member  allObjectiveSchema.SimpleObjective.task  raids_completed
-  ... 1248 more
+  enum-member  AllTags.absorb.calculation  percentage
+  enum-member  AllTags.absorb.elements  Boil
+  enum-member  AllTags.absorb.elements  Crystal
+  enum-member  AllTags.absorb.elements  Dust
+  enum-member  AllTags.absorb.elements  Earth
+  enum-member  AllTags.absorb.elements  Explosion
+  enum-member  AllTags.absorb.elements  Fire
+  enum-member  AllTags.absorb.elements  Ice
+  enum-member  AllTags.absorb.elements  Lava
+  enum-member  AllTags.absorb.elements  Light
+  enum-member  AllTags.absorb.elements  Lightning
+  enum-member  AllTags.absorb.elements  Magnet
+  enum-member  AllTags.absorb.elements  Metal
+  enum-member  AllTags.absorb.elements  None
+  enum-member  AllTags.absorb.elements  Sand
+  enum-member  AllTags.absorb.elements  Scorch
+  enum-member  AllTags.absorb.elements  Shadow
+  enum-member  AllTags.absorb.elements  Storm
+  enum-member  AllTags.absorb.elements  Water
+  enum-member  AllTags.absorb.elements  Wind
+  enum-member  AllTags.absorb.elements  Wood
+  enum-member  AllTags.absorb.elements  Yin-Yang
+  enum-member  AllTags.absorb.friendlyFire  ALL
+  enum-member  AllTags.absorb.friendlyFire  ENEMIES
+  enum-member  AllTags.absorb.friendlyFire  FRIENDLY
+  enum-member  AllTags.absorb.generalTypes  Highest
+  enum-member  AllTags.absorb.generalTypes  Intelligence
+  enum-member  AllTags.absorb.generalTypes  Speed
+  enum-member  AllTags.absorb.generalTypes  Strength
+  enum-member  AllTags.absorb.generalTypes  Willpower
+  enum-member  AllTags.absorb.poolsAffected  Chakra
+  enum-member  AllTags.absorb.poolsAffected  Health
+  enum-member  AllTags.absorb.poolsAffected  Stamina
+  enum-member  AllTags.absorb.target  COORDINATES
+  enum-member  AllTags.absorb.target  INHERIT
+  enum-member  AllTags.absorb.target  SELF
+  enum-member  AllTags.activatesagemode.calculation  static
+  enum-member  AllTags.activatesagemode.friendlyFire  ALL
+  enum-member  AllTags.activatesagemode.friendlyFire  ENEMIES
+  enum-member  AllTags.activatesagemode.friendlyFire  FRIENDLY
+  enum-member  AllTags.activatesagemode.target  COORDINATES
+  enum-member  AllTags.activatesagemode.target  INHERIT
+  enum-member  AllTags.activatesagemode.target  SELF
+  enum-member  AllTags.afterburn.calculation  percentage
+  enum-member  AllTags.afterburn.calculation  static
+  enum-member  AllTags.afterburn.elements  Boil
+  enum-member  AllTags.afterburn.elements  Crystal
+  enum-member  AllTags.afterburn.elements  Dust
+  enum-member  AllTags.afterburn.elements  Earth
+  enum-member  AllTags.afterburn.elements  Explosion
+  enum-member  AllTags.afterburn.elements  Fire
+  enum-member  AllTags.afterburn.elements  Ice
+  enum-member  AllTags.afterburn.elements  Lava
+  enum-member  AllTags.afterburn.elements  Light
+  enum-member  AllTags.afterburn.elements  Lightning
+  enum-member  AllTags.afterburn.elements  Magnet
+  enum-member  AllTags.afterburn.elements  Metal
+  enum-member  AllTags.afterburn.elements  None
+  enum-member  AllTags.afterburn.elements  Sand
+  enum-member  AllTags.afterburn.elements  Scorch
+  ... 4434 more
 ADDITIONS
   enum-member  AllObjectives.tag_usage_win.tagType  curse
   enum-member  AllObjectives.tag_usage_win.tagType  parry
-  enum-member  AllTags.curse.friendlyFire  ALL
-  enum-member  AllTags.curse.friendlyFire  ENEMIES
-  enum-member  AllTags.curse.friendlyFire  FRIENDLY
-  enum-member  AllTags.curse.target  COORDINATES
-  enum-member  AllTags.curse.target  INHERIT
-  enum-member  AllTags.curse.target  SELF
-  enum-member  AllTags.parry.elements  Boil
-  enum-member  AllTags.parry.elements  Crystal
-  enum-member  AllTags.parry.elements  Dust
-  enum-member  AllTags.parry.elements  Earth
-  enum-member  AllTags.parry.elements  Explosion
-  enum-member  AllTags.parry.elements  Fire
-  enum-member  AllTags.parry.elements  Ice
-  enum-member  AllTags.parry.elements  Lava
-  enum-member  AllTags.parry.elements  Light
-  enum-member  AllTags.parry.elements  Lightning
-  enum-member  AllTags.parry.elements  Magnet
-  enum-member  AllTags.parry.elements  Metal
-  enum-member  AllTags.parry.elements  None
-  enum-member  AllTags.parry.elements  Sand
-  enum-member  AllTags.parry.elements  Scorch
-  enum-member  AllTags.parry.elements  Shadow
-  enum-member  AllTags.parry.elements  Storm
-  enum-member  AllTags.parry.elements  Water
-  enum-member  AllTags.parry.elements  Wind
-  enum-member  AllTags.parry.elements  Wood
-  enum-member  AllTags.parry.elements  Yin-Yang
-  enum-member  AllTags.parry.friendlyFire  ALL
-  enum-member  AllTags.parry.friendlyFire  ENEMIES
-  enum-member  AllTags.parry.friendlyFire  FRIENDLY
-  enum-member  AllTags.parry.generalTypes  Highest
-  enum-member  AllTags.parry.generalTypes  Intelligence
-  enum-member  AllTags.parry.generalTypes  Speed
-  enum-member  AllTags.parry.generalTypes  Strength
-  enum-member  AllTags.parry.generalTypes  Willpower
-  enum-member  AllTags.parry.target  COORDINATES
-  enum-member  AllTags.parry.target  INHERIT
-  enum-member  AllTags.parry.target  SELF
-  union-variant  AllTags  curse
-  union-variant  AllTags  parry
-  variant-field  AllTags.curse  appearAnimation
-  variant-field  AllTags.curse  appearSfx
-  variant-field  AllTags.curse  calculation
-  variant-field  AllTags.curse  coordinateTargeting
-  variant-field  AllTags.curse  description
-  variant-field  AllTags.curse  direction
-  variant-field  AllTags.curse  disappearAnimation
-  variant-field  AllTags.curse  disappearSfx
-  variant-field  AllTags.curse  friendlyFire
-  variant-field  AllTags.curse  power
-  variant-field  AllTags.curse  powerPerLevel
-  variant-field  AllTags.curse  rounds
-  variant-field  AllTags.curse  staticAnimation
-  variant-field  AllTags.curse  staticAssetPath
-  variant-field  AllTags.curse  target
-  variant-field  AllTags.curse  timeTracker
-  variant-field  AllTags.curse  type
-  variant-field  AllTags.parry  appearAnimation
-  ... 18 more
+  enum-member  AllTags.DecreaseStatTag.calculation  percentage
+  enum-member  AllTags.DecreaseStatTag.calculation  static
+  enum-member  AllTags.DecreaseStatTag.direction  both
+  enum-member  AllTags.DecreaseStatTag.direction  defence
+  enum-member  AllTags.DecreaseStatTag.direction  offence
+  enum-member  AllTags.DecreaseStatTag.elements  Boil
+  enum-member  AllTags.DecreaseStatTag.elements  Crystal
+  enum-member  AllTags.DecreaseStatTag.elements  Dust
+  enum-member  AllTags.DecreaseStatTag.elements  Earth
+  enum-member  AllTags.DecreaseStatTag.elements  Explosion
+  enum-member  AllTags.DecreaseStatTag.elements  Fire
+  enum-member  AllTags.DecreaseStatTag.elements  Ice
+  enum-member  AllTags.DecreaseStatTag.elements  Lava
+  enum-member  AllTags.DecreaseStatTag.elements  Light
+  enum-member  AllTags.DecreaseStatTag.elements  Lightning
+  enum-member  AllTags.DecreaseStatTag.elements  Magnet
+  enum-member  AllTags.DecreaseStatTag.elements  Metal
+  enum-member  AllTags.DecreaseStatTag.elements  None
+  enum-member  AllTags.DecreaseStatTag.elements  Sand
+  enum-member  AllTags.DecreaseStatTag.elements  Scorch
+  enum-member  AllTags.DecreaseStatTag.elements  Shadow
+  enum-member  AllTags.DecreaseStatTag.elements  Storm
+  enum-member  AllTags.DecreaseStatTag.elements  Water
+  enum-member  AllTags.DecreaseStatTag.elements  Wind
+  enum-member  AllTags.DecreaseStatTag.elements  Wood
+  enum-member  AllTags.DecreaseStatTag.elements  Yin-Yang
+  enum-member  AllTags.DecreaseStatTag.friendlyFire  ALL
+  enum-member  AllTags.DecreaseStatTag.friendlyFire  ENEMIES
+  enum-member  AllTags.DecreaseStatTag.friendlyFire  FRIENDLY
+  enum-member  AllTags.DecreaseStatTag.generalTypes  Highest
+  enum-member  AllTags.DecreaseStatTag.generalTypes  Intelligence
+  enum-member  AllTags.DecreaseStatTag.generalTypes  Speed
+  enum-member  AllTags.DecreaseStatTag.generalTypes  Strength
+  enum-member  AllTags.DecreaseStatTag.generalTypes  Willpower
+  enum-member  AllTags.DecreaseStatTag.statTypes  Bukijutsu
+  enum-member  AllTags.DecreaseStatTag.statTypes  Genjutsu
+  enum-member  AllTags.DecreaseStatTag.statTypes  Highest
+  enum-member  AllTags.DecreaseStatTag.statTypes  Ninjutsu
+  enum-member  AllTags.DecreaseStatTag.statTypes  None
+  enum-member  AllTags.DecreaseStatTag.statTypes  Taijutsu
+  enum-member  AllTags.DecreaseStatTag.target  COORDINATES
+  enum-member  AllTags.DecreaseStatTag.target  INHERIT
+  enum-member  AllTags.DecreaseStatTag.target  SELF
+  enum-member  AllTags.IncreaseStatTag.calculation  percentage
+  enum-member  AllTags.IncreaseStatTag.calculation  static
+  enum-member  AllTags.IncreaseStatTag.direction  both
+  enum-member  AllTags.IncreaseStatTag.direction  defence
+  enum-member  AllTags.IncreaseStatTag.direction  offence
+  enum-member  AllTags.IncreaseStatTag.elements  Boil
+  enum-member  AllTags.IncreaseStatTag.elements  Crystal
+  enum-member  AllTags.IncreaseStatTag.elements  Dust
+  enum-member  AllTags.IncreaseStatTag.elements  Earth
+  enum-member  AllTags.IncreaseStatTag.elements  Explosion
+  enum-member  AllTags.IncreaseStatTag.elements  Fire
+  enum-member  AllTags.IncreaseStatTag.elements  Ice
+  enum-member  AllTags.IncreaseStatTag.elements  Lava
+  enum-member  AllTags.IncreaseStatTag.elements  Light
+  enum-member  AllTags.IncreaseStatTag.elements  Lightning
+  ... 215 more
 
-BREAKING: 1308 change(s) - DO NOT ADOPT (exit 1)
+BREAKING: 4494 change(s) - DO NOT ADOPT (exit 1)
 == 45d_DATA_entity_schemas ==
+CHANGES
+  now-required  item  parentItemId  optional -> required
+  now-required  item  requiredSkillId  optional -> required
+  now-required  jutsu  bloodlineReskinId  optional -> required
+  now-required  jutsu  parentJutsuId  optional -> required
+  now-required  jutsu  requiredPetSpeciesId  optional -> required
+  now-required  jutsu  requiredSkillId  optional -> required
+  now-required  jutsu  reskinParentJutsuId  optional -> required
+  type-changed  item  parentItemId  string -> (none)
+  type-changed  jutsu  bloodlineReskinId  string -> (none)
+  type-changed  jutsu  parentJutsuId  string -> (none)
+  type-changed  jutsu  reskinParentJutsuId  string -> (none)
+  type-changed  quest  petTaskMinutes  preprocess -> ref
 ADDITIONS
   field  gameAsset  lpcConfig
   field  item  lpcColor
@@ -140,53 +153,132 @@ ADDITIONS
   field  itemVariant  lpcColor
   field  itemVariant  lpcProfile
 
-no breaking changes: 5 addition(s), safe to adopt (exit 0)
+BREAKING: 12 change(s) - DO NOT ADOPT (exit 1)
 == 45e_DATA_constants ==
 REMOVALS
-  const-member  CURRENCY_TYPES  MONEY
-  const-member  CURRENCY_TYPES  REPUTATION
-  const-member  CURRENCY_TYPES  SEICHI_SILVER
-  const-member  IMG_URL_ASSISTANT_ALTERNATIVES  https://ui0arpl8sm.ufs.sh/f/content-2bwqugh_JdcS55ALvzfhV.webp
-  const-member  IMG_URL_ASSISTANT_ALTERNATIVES  https://ui0arpl8sm.ufs.sh/f/content-6jMP1VF5X1Zu2wppt4vec.webp
-  const-member  IMG_URL_ASSISTANT_ALTERNATIVES  https://ui0arpl8sm.ufs.sh/f/content-NBVEXpYD8aRhwFof6jq45.webp
-  const-member  IMG_URL_ASSISTANT_ALTERNATIVES  https://ui0arpl8sm.ufs.sh/f/content-jMcyVJrtGlAclqlBlbJFR.webp
-  const-member  IMG_URL_ASSISTANT_ALTERNATIVES  https://ui0arpl8sm.ufs.sh/f/content-jlYDeVvWQIv0UDYJndtBn.webp
-  const-member  IMG_URL_ASSISTANT_ALTERNATIVES  https://ui0arpl8sm.ufs.sh/f/content-r6_prvN1P_dntlkbOEJSL.webp
-  const-member  PveBattleTypes  ARENA
-  const-member  PveBattleTypes  CLAN_CHALLENGE
-  const-member  PveBattleTypes  HUNTING
-  const-member  PveBattleTypes  OVERWORLD
-  const-member  PveBattleTypes  QUEST
-  const-member  PveBattleTypes  RAID
-  const-member  PveBattleTypes  RANDOM_ENCOUNTER
-  const-member  PveBattleTypes  TERRITORY_WAR
-  const-member  PveBattleTypes  TRAINING
-  const-member  PveBattleTypes  VILLAGE_PROTECTOR
+  const-member  AvailableEffectTypes  absorb
+  const-member  AvailableEffectTypes  activatesagemode
+  const-member  AvailableEffectTypes  afterburn
+  const-member  AvailableEffectTypes  barrier
+  const-member  AvailableEffectTypes  buffprevent
+  const-member  AvailableEffectTypes  cleanse
+  const-member  AvailableEffectTypes  cleanseprevent
+  const-member  AvailableEffectTypes  clear
+  const-member  AvailableEffectTypes  clearprevent
+  const-member  AvailableEffectTypes  clone
+  const-member  AvailableEffectTypes  consume
+  const-member  AvailableEffectTypes  copy
+  const-member  AvailableEffectTypes  damage
+  const-member  AvailableEffectTypes  debuffprevent
+  const-member  AvailableEffectTypes  decreaseaggro
+  const-member  AvailableEffectTypes  decreasecooldown
+  const-member  AvailableEffectTypes  decreasedamagegiven
+  const-member  AvailableEffectTypes  decreasedamagetaken
+  const-member  AvailableEffectTypes  decreaseheal
+  const-member  AvailableEffectTypes  decreasemastery
+  const-member  AvailableEffectTypes  decreasemaxpools
+  const-member  AvailableEffectTypes  decreasepoolcost
+  const-member  AvailableEffectTypes  decreasepotency
+  const-member  AvailableEffectTypes  decreasestat
+  const-member  AvailableEffectTypes  diffuse
+  const-member  AvailableEffectTypes  disarm
+  const-member  AvailableEffectTypes  drain
+  const-member  AvailableEffectTypes  elementalseal
+  const-member  AvailableEffectTypes  finalstand
+  const-member  AvailableEffectTypes  flee
+  const-member  AvailableEffectTypes  fleeprevent
+  const-member  AvailableEffectTypes  heal
+  const-member  AvailableEffectTypes  healprevent
+  const-member  AvailableEffectTypes  immunity
+  const-member  AvailableEffectTypes  increaseaggro
+  const-member  AvailableEffectTypes  increasecooldown
+  const-member  AvailableEffectTypes  increasedamagegiven
+  const-member  AvailableEffectTypes  increasedamagetaken
+  const-member  AvailableEffectTypes  increaseheal
+  const-member  AvailableEffectTypes  increasemastery
+  const-member  AvailableEffectTypes  increasemaxpools
+  const-member  AvailableEffectTypes  increasepoolcost
+  const-member  AvailableEffectTypes  increasepotency
+  const-member  AvailableEffectTypes  increaserange
+  const-member  AvailableEffectTypes  increaseregeneration
+  const-member  AvailableEffectTypes  increasestat
+  const-member  AvailableEffectTypes  injectjutsus
+  const-member  AvailableEffectTypes  lifesteal
+  const-member  AvailableEffectTypes  marriageslotincrease
+  const-member  AvailableEffectTypes  mirror
+  const-member  AvailableEffectTypes  move
+  const-member  AvailableEffectTypes  moveprevent
+  const-member  AvailableEffectTypes  noncombatconsumereward
+  const-member  AvailableEffectTypes  noncombatgainskill
+  const-member  AvailableEffectTypes  noncombatincreasereskins
+  const-member  AvailableEffectTypes  noncombatquest
+  const-member  AvailableEffectTypes  onehitkill
+  const-member  AvailableEffectTypes  onehitkillprevent
+  const-member  AvailableEffectTypes  pierce
+  const-member  AvailableEffectTypes  poison
+  ... 157 more
 ADDITIONS
   const-member  ActiveBanStates  BAN_ACTIVATED
   const-member  ActiveBanStates  BAN_ESCALATED
-  const-member  AvailableEffectTypes  curse
-  const-member  AvailableEffectTypes  parry
+  const-member  AvailableEffectTypes  DecreaseStatTag
+  const-member  AvailableEffectTypes  IncreaseStatTag
+  const-member  AvailableEffectTypes  RedirectionTag
+  const-member  AvailableEffectTypes  defence
+  const-member  AvailableEffectTypes  offence
   const-member  FARM_SHOP_ENTRY_TYPES  EXTRACTOR
   const-member  FARM_SHOP_ENTRY_TYPES  FERTILIZER
   const-member  FARM_SHOP_ENTRY_TYPES  PLOT
   const-member  FARM_SHOP_ENTRY_TYPES  SEED
   const-member  GameAssetTypes  LPC
+  const-member  MISSION_HALL_QUEST_TYPES  crime
+  const-member  MISSION_HALL_QUEST_TYPES  errand
+  const-member  MISSION_HALL_QUEST_TYPES  medical
+  const-member  MISSION_HALL_QUEST_TYPES  mission
+  const-member  MISSION_HALL_QUEST_TYPES  pvp
+  const-member  MISSION_HALL_QUEST_TYPES  war
+  const-member  MISSION_HALL_SOLO_QUEST_TYPES  crime
+  const-member  MISSION_HALL_SOLO_QUEST_TYPES  errand
+  const-member  MISSION_HALL_SOLO_QUEST_TYPES  medical
+  const-member  MISSION_HALL_SOLO_QUEST_TYPES  mission
+  const-member  MISSION_HALL_SOLO_QUEST_TYPES  pvp
   const-member  OBJECTIVE_TAG_TYPES  curse
   const-member  OBJECTIVE_TAG_TYPES  parry
+  const-member  PET_TASK_QUEST_TYPES  gathering
+  const-member  PET_TASK_QUEST_TYPES  hunting
   const-member  POST_DAMAGE_MODIFIER_TYPES  parry
   const-member  POST_PIERCE_TAGS  parry
-  const-member  PotencyTagTypes  curse
-  const-member  PotencyTagTypes  parry
-  const-member  allState  spriteAction
-  const-member  allState  spriteAppearance
-  const-member  damageDerivedTagTypes  parry
-  const-member  publicState  spriteAction
-  const-member  publicState  spriteAppearance
-  const-member  questBuffTypes  curse
-  const-member  questBuffTypes  parry
-  const-member  tagTypes  curse
-  const-member  tagTypes  parry
+  const-member  PRE_BATTLE_SOURCE_TYPES  accessory
+  const-member  PRE_BATTLE_SOURCE_TYPES  armor
+  const-member  PRE_BATTLE_SOURCE_TYPES  elementalMastery
+  const-member  PRE_BATTLE_SOURCE_TYPES  keystone
+  const-member  PRE_BATTLE_SOURCE_TYPES  ranked
+  const-member  PRE_BATTLE_SOURCE_TYPES  skill
+  const-member  PRE_BATTLE_SOURCE_TYPES  village
+  const-member  PassiveSnapshotTasks  a_crimes_total
+  const-member  PassiveSnapshotTasks  a_missions_total
+  const-member  PassiveSnapshotTasks  b_crimes_total
+  const-member  PassiveSnapshotTasks  b_missions_total
+  const-member  PassiveSnapshotTasks  battle_pyramids_completed
+  const-member  PassiveSnapshotTasks  bloodline_collection
+  const-member  PassiveSnapshotTasks  c_crimes_total
+  const-member  PassiveSnapshotTasks  c_missions_total
+  const-member  PassiveSnapshotTasks  crafting_experience
+  const-member  PassiveSnapshotTasks  d_crimes_total
+  const-member  PassiveSnapshotTasks  d_missions_total
+  const-member  PassiveSnapshotTasks  days_as_kage
+  const-member  PassiveSnapshotTasks  days_in_village
+  const-member  PassiveSnapshotTasks  dungeons_completed
+  const-member  PassiveSnapshotTasks  errands_total
+  const-member  PassiveSnapshotTasks  events_completed
+  const-member  PassiveSnapshotTasks  farming_collection_log
+  const-member  PassiveSnapshotTasks  farming_level
+  const-member  PassiveSnapshotTasks  gathering_experience
+  const-member  PassiveSnapshotTasks  hunting_experience
+  const-member  PassiveSnapshotTasks  medical_experience
+  const-member  PassiveSnapshotTasks  minutes_passed
+  const-member  PassiveSnapshotTasks  overworld_quests_completed
+  const-member  PassiveSnapshotTasks  raids_completed
+  ... 24 more
 
-BREAKING: 19 change(s) - DO NOT ADOPT (exit 1)
+BREAKING: 217 change(s) - DO NOT ADOPT (exit 1)
 ~~~
