@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pass 5 (RUL-2026-11-04-113) edit rows: the eruption effect each live Mother of Echoes jutsu needs.
+"""Pass 5 (RUL-2026-11-04-113) / pass 6 edit rows: every change each live Mother of Echoes jutsu needs vs the built spec.
 
     python3 harness/skyglass_wreck_sim/tools/moe_eruption_rows.py <spec.json> <440 bundle> <463 bundle> > rows.json
 
@@ -20,15 +20,30 @@ for p in sys.argv[2:]:
             ids[e["srcId"]] = e["id"]
 old = {j["id"]: j["record"] for j in spec_old["jutsu"]}
 rows = []
+newJutsu = []  # pass 6: records the built spec does not have (e.g. the follow-the-player marks) are creates, not edits
 for j in spec_new["jutsu"]:
+    if j["id"] not in old:
+        newJutsu.append({"jutsu": j["record"]["name"], "srcId": sid(j["id"])})
+        continue
     o, n = old[j["id"]], j["record"]
-    for i, (eo, en) in enumerate(zip(o["effects"], n["effects"])):
+    holders = [a["id"] for a in spec_new["ais"] if j["id"] in a["create"]["jutsus"]]
+    hold = [{"srcId": sid(h), "liveId": ids.get(sid(h))} for h in holders]
+    # Pass 6: record-level fields (target CHARACTER for the Act II Recasts, patterns, cooldowns) and effects appended
+    # or removed (the eruption debuff, the Lancet ramp) are edits too; zip() alone dropped them.
+    top = {k: [o.get(k), n.get(k)] for k in sorted(set(o) | set(n)) if k != "effects" and o.get(k) != n.get(k)}
+    if top:
+        rows.append({"jutsu": n["name"], "srcId": sid(j["id"]), "liveId": ids.get(sid(j["id"])), "effectIndex": None, "changes": top, "holders": hold})
+    eo_all, en_all = o["effects"], n["effects"]
+    for i in range(max(len(eo_all), len(en_all))):
+        eo = eo_all[i] if i < len(eo_all) else None
+        en = en_all[i] if i < len(en_all) else None
         if eo == en:
             continue
-        diff = {k: [eo.get(k), en.get(k)] for k in sorted(set(eo) | set(en)) if eo.get(k) != en.get(k)}
-        holders = [a["id"] for a in spec_new["ais"] if j["id"] in a["create"]["jutsus"]]
-        rows.append({"jutsu": n["name"], "srcId": sid(j["id"]), "liveId": ids.get(sid(j["id"])), "effectIndex": i,
-                     "changes": diff, "holders": [{"srcId": sid(h), "liveId": ids.get(sid(h))} for h in holders]})
+        if eo is None or en is None:
+            diff = {"added" if eo is None else "removed": en if eo is None else eo}
+        else:
+            diff = {k: [eo.get(k), en.get(k)] for k in sorted(set(eo) | set(en)) if eo.get(k) != en.get(k)}
+        rows.append({"jutsu": n["name"], "srcId": sid(j["id"]), "liveId": ids.get(sid(j["id"])), "effectIndex": i, "changes": diff, "holders": hold})
 missing = [r["srcId"] for r in rows if not r["liveId"]] + [h["srcId"] for r in rows for h in r["holders"] if not h["liveId"]]
-json.dump({"builtFrom": BUILT, "rows": rows, "missingIds": sorted(set(missing))}, sys.stdout, indent=1)
+json.dump({"builtFrom": BUILT, "rows": rows, "newJutsu": newJutsu, "missingIds": sorted(set(missing))}, sys.stdout, indent=1)
 print()
