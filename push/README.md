@@ -2529,7 +2529,7 @@ Prismheart, Rimecleaver, Solstice and Starward used the stricter 246 threshold),
 
 | # | Build | Contents |
 |---|---|---|
-| 469 | `python3 push/mother_of_echoes_practice.gen.py --bundles <440, 461-464 bundles> --economy <417 bundle>` | 1 quest create, HIDDEN: "The Mother of Echoes (Practice)". The real quest's three battles against the same boss AIs (literal ids from 463), no entry items, no rewards. Tuning and art edits to the boss records (466) show here too. The director asked to reuse Faded Ghostwatch, but push/393 never ran (RUL-2026-10-31-090), so this is a fresh create. |
+| 469 | `python3 push/mother_of_echoes_practice.gen.py --bundles <440, 461-464 bundles> --economy <417 bundle>` | 1 quest create, HIDDEN: "The Mother of Echoes (Practice)". The real quest's three battles against the same boss AIs (literal ids from 463), no entry items, and the real rewards (50,000 ryo, 1,000 exp, both variant tokens at 25%, the Hoard 1 / Coffer 5 / Token 3 pick) for the director's tester (2026-11-04: "Put the rewards on it for my tester, no requirements just hidden"). Hidden is the only gate on those free rewards, so it is never published. Tuning and art edits to the boss records (466) show here too. The director asked to reuse Faded Ghostwatch, but push/393 never ran (RUL-2026-10-31-090), so this is a fresh create. |
 
 - **Gates (2026-11-04):** `validate.py --strict` 0 errors 0 warnings; `check_manifest.mjs` 0 pre-send problems; `skyglass_check.py` exit 0.
 - **Playtest after 466:** until 466 runs, the boss records carry the pass-4 tuning (made for 30,000-HP players), so a 5k player is overmatched by design error, not by the final tuning.

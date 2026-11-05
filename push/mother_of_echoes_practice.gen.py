@@ -6,8 +6,9 @@ playtest. Zero live requests.
         -> push/469_mother_of_echoes_practice.json
 
 Same three battles against the same live boss AIs as the real quest (push/464), so every tuning or art edit to those
-records (push/466) shows here too. Differences from the real quest: no entry items (no shards spent), no rewards (no
-ryo, exp, tokens or pick), its own name, and it stays hidden for good (never published). The director asked to reuse
+records (push/466) shows here too. Differences from the real quest: no entry items (no shards needed); the real rewards stay (ryo, exp, both variant-token rolls and the pick) so the director's tester
+can check the reward screen (director, 2026-11-04: "Put the rewards on it for my tester, no requirements just
+hidden"). Its own name, and it stays hidden for good (never published): hidden is the only gate on free rewards. The director asked to reuse
 an existing quest (Faded Ghostwatch, push/393), but 393 never ran (RUL-2026-10-31-090), so there is no record to
 swap; this is a fresh create. Built by importing push/mother_of_echoes.gen.py's quest_data (one source for the
 fight); do not hand-edit the output.
@@ -24,8 +25,8 @@ _s.loader.exec_module(moe)
 
 NUM = 469
 NAME = "The Mother of Echoes (Practice)"
-DESC = ("Practice fight for The Mother of Echoes. The same three battles against the same enemies, with no shards "
-        "spent and no rewards. Health, chakra and stamina carry between battles with no refills, as in the real "
+DESC = ("Test fight for The Mother of Echoes. The same three battles against the same enemies and the same rewards, "
+        "with no shards needed. Health, chakra and stamina carry between battles with no refills, as in the real "
         "fight.")
 
 
@@ -40,25 +41,19 @@ def main():
     moe.need(econ, [moe.ECON + k for k in ("keel", "crown", "tide", "ledger", *moe.TOKEN_PCT)], "--economy")
     moe.need(ids, [moe.sid(t) for t in b.bosses], "practice")
     d = moe.quest_data(b, ids, econ)
-    d.update({"name": NAME, "description": DESC, "successDescription": "Practice complete. The real glass is waiting.",
-              "hidden": True})
+    d.update({"name": NAME, "description": DESC, "hidden": True})
     c = d["content"]
-    c["entryItems"] = []
-    for k in ("rewardMode", "rewardPickCount", "reward"):
-        c.pop(k, None)
+    c["entryItems"] = []  # no shards: the director's tester enters freely; the real rewards stay (hidden quest)
     for o in c["objectives"]:
-        if o["task"] == "win_quest":
-            for k in ("reward_exp", "reward_money", "reward_items"):
-                o.pop(k, None)
         if o["task"] == "fail_quest":
             o["description"] = "Practice over. Try again whenever you like."
         for k in ("failDescription", "drawDescription", "fleeDescription"):
             if k in o:
                 o[k] = "Practice over."
         if o["id"] == "d_open":
-            o["description"] = "<i>Practice.</i> No shards are spent and nothing is won.<br><br>" + o["description"]
+            o["description"] = "<i>Test run.</i> No shards are needed.<br><br>" + o["description"]
     m = {"_note": (f"push/{NUM}: the HIDDEN Mother of Echoes practice fight (director, 2026-11-04). Same battles and "
-                   "boss AIs as push/464 (literal ids, law 17), no entry items, no rewards, never published. Generated "
+                   "boss AIs as push/464 (literal ids, law 17), no entry items, the real rewards, never published (hidden is the only gate). Generated "
                    "by push/mother_of_echoes_practice.gen.py; do not hand-edit."),
          "items": [{"entity": "quest", "slot": "create", "srcId": "sg469_practice", "phase": 1, "name": NAME,
                     "data": d}]}
