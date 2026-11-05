@@ -85,8 +85,8 @@ TG_STANDIN = {"tg_etch": "tg_control"}  # used by the 440-464 creates only; the 
 # ---------------------------------------------------------------------------------------------------------------
 # Art pass (466-467; docs/design/MOTHER_OF_ECHOES_ART.md). Files are pinned by the newest commit touching them.
 # ---------------------------------------------------------------------------------------------------------------
-N.update({"final": 466, "golive": 477})  # 465 (the bare publish) superseded; 467 became the test-art job (push/mother_of_echoes_test_art.gen.py), so the go-live is 477
-SLUG.update({"final": "mother_of_echoes_final", "golive": "mother_of_echoes_go_live"})
+N.update({"final": 466, "golive": 477, "tune": 476})  # 465 (the bare publish) superseded; 467 became the test-art job (push/mother_of_echoes_test_art.gen.py), so the go-live is 477
+SLUG.update({"final": "mother_of_echoes_final", "golive": "mother_of_echoes_go_live", "tune": "mother_of_echoes_tune"})
 ART = "art/mother_of_echoes/exports/"
 FXDIR = "art/mother_of_echoes_fx/exports/"
 FX_META = "art/mother_of_echoes_fx/exports/moe_fx_v1.json"
@@ -136,12 +136,14 @@ FAMILY = {  # the art list's family table (ME21-ME26), by jutsu name
     "refraction": ["Refraction", "Far Refraction", "Facet", "Refraction Breaks", "Far Refraction Breaks",
                    "Facet Breaks", "Lucid Refraction", "Every Name in the Glass", "The Names Flood In"],
     "etching": ["Etching: Rime", "Etching: Ember", "Etching: Seam", "Etching: Heart", "Etching: Hail",
-                "Recast: Rime", "Recast: Ember", "Recast: Seam", "Recast: Heart", "Recast: Hail"],
+                "Recast: Rime", "Recast: Ember", "Recast: Seam", "Recast: Heart", "Recast: Hail",
+                "The Glass Turns"],  # pass 6 follow-the-player mark (Act II Sayo's etching family)
     "glassfall": ["Shatterfall", "Shatterfall Gives Way", "Glassfall: First Pane", "Glassfall: Second Pane",
                   "Glassfall: Last Pane", "Glassfall: Opening Pane", "Glassfall: Heart Recast"],
     "hush": ["The Hush", "The Hush, Unbridled", "The Hush Rises", "Hush Where They Refused", "No One Is Mended",
              "The Quiet", "The Long Hush", "The Glass Falls Quiet", "Stillness", "Nothing Moves", "The Held Breath",
-             "Breathless Pull", "The Listening", "The Listening, Unbridled", "Cradle", "Grasp"],
+             "Breathless Pull", "The Listening", "The Listening, Unbridled", "Cradle", "Grasp",
+             "The Silence Turns"],  # pass 6 follow-the-player mark (the Silence's hush family)
     "echoes": ["Your Likeness", "Your Own Strike", "Raise the Gate Porter", "Raise Sister Hana", "Raise Cadet Tomo",
                "Doorward Sweep", "Worn Mending", "Cadet's Tether"],
 }
@@ -164,6 +166,7 @@ VARIANT_ICONS = {  # NOT icon-variant-heartglass-v2 (not the approved image) nor
     "heartglass": "art/skyglass_variant_skins/exports/icon-variant-heartglass-approved.webp",
     "remainder": "art/skyglass_variant_skins/exports/icon-variant-the-remainder.webp",
 }
+PASS6_NEW = ("The Silence Turns", "The Glass Turns")  # jutsu pass 6 adds (no live record before push/476)
 ART_FIELDS = ("staticAssetPath", "staticAnimation", "appearAnimation", "disappearAnimation")
 LIVE_ID = re.compile(r"^[A-Za-z0-9_-]{10,21}$")
 DROP_KEYS = {"id", "createdAt", "updatedAt"}
@@ -189,7 +192,20 @@ def die(msg):
 # ---------------------------------------------------------------------------------------------------------------
 # Spec
 # ---------------------------------------------------------------------------------------------------------------
+# Dev-only dry run (never for a committed manifest): MOE_SPEC_FILE=<spec.json> MOE_OUT_DIR=<dir outside push/> builds
+# from an unpinned spec file into a scratch directory, to prove a step against a spec before its SHA is pinned.
+DRY_SPEC = os.environ.get("MOE_SPEC_FILE")
+DRY_OUT = os.environ.get("MOE_OUT_DIR")
+
+
 def load_spec():
+    if DRY_SPEC:
+        if not DRY_OUT or os.path.abspath(DRY_OUT).startswith(os.path.join(ROOT, "push")):
+            die("MOE_SPEC_FILE needs MOE_OUT_DIR outside push/ (dry runs never write a committed manifest)")
+        spec = json.load(open(DRY_SPEC))
+        if not str(spec.get("validation", "")).startswith("valid"):
+            die(f"{DRY_SPEC} does not validate: {spec.get('validation')}")
+        return spec
     if not re.fullmatch(r"[0-9a-f]{40}", SPEC_REF):
         die("SPEC_REF is not pinned to a fable/mother-of-echoes-sim commit")
     try:
@@ -240,7 +256,8 @@ class Build:
         self.family = {n: f for f, names in FAMILY.items() for n in names}
         if art:
             names = set(self.jname.values())
-            if names != set(self.family):
+            optional = set(PASS6_NEW)  # absent from pre-pass-6 specs
+            if names != set(self.family) - (optional - names):
                 die(f"family table vs spec jutsu: missing {sorted(names - set(self.family))}, "
                     f"stale {sorted(set(self.family) - names)}")
             if set(AVATARS) != set(self.ais):
@@ -499,11 +516,13 @@ def write(step, note, items, notes=None, extra=None):
     if notes:
         m["_placeholders"] = sorted(set(notes))
     m["items"] = items
-    path = os.path.join(ROOT, f"push/{N[step]}_{SLUG[step]}.json")
+    path = os.path.join(DRY_OUT or os.path.join(ROOT, "push"), f"{N[step]}_{SLUG[step]}.json")
+    if DRY_SPEC:
+        m["_note"] = "DRY RUN from an unpinned spec file; not for the builder. " + m["_note"]
     with open(path, "w") as f:
         json.dump(m, f, indent=1, ensure_ascii=False)
         f.write("\n")
-    print(f"push/{N[step]}_{SLUG[step]}.json: {len(items)} items")
+    print(f"{os.path.relpath(path, ROOT)}: {len(items)} items")
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -649,6 +668,50 @@ def step_final(spec, ids, econ_path):
         items, j_notes + r_notes, extra=pack(a_paths + j_paths + r_paths))
 
 
+def step_tune(spec, ids, bundle):
+    """push/476: the pass-6 tuning on the live hidden records (one job, literal 466 asset ids, no new art files).
+    Phase 10 creates the jutsu the spec has but no bundle id covers (pass 6's follow-the-player marks); phase 20 is law
+    18 step 1 (moe jutsu off the 9 AIs); phase 30 re-sends every existing moe jutsu from the spec with the 466 art;
+    phase 40 re-sends the 9 AIs whole (avatars, kits incl. the new jutsu by in-job @jutsu refs, rules, rows, DR)."""
+    fx = asset_ids(bundle)
+    b = Build(spec, fx=fx, art=True)
+    new = [j for j in b.jutsu if sid(j) not in ids]
+    if any(j in b.summon_jutsu for j in new):
+        die(f"new summon jutsu {new}: a summon names a template AI; build it in its own step")
+    allids = {**ids, **{sid(j): "@jutsu:" + sid(j) for j in new}}
+    need(allids, [sid(j) for j in b.jutsu] + [sid(a) for a in b.ais], "tune")
+    c_items = []
+    for j in new:
+        e = b.jutsu_entry(j)
+        e.pop("phase", None)
+        c_items.append(e)
+    u_items = unequip_items(b, allids)
+    j_items = []
+    for jid in [*b.plain_jutsu, *b.summon_jutsu]:
+        if jid in new:
+            continue
+        d = b.jutsu_data(jid, ids if jid in b.summon_jutsu else None)
+        j_items.append({"entity": "jutsu", "slot": "edit", "targetId": ids[sid(jid)], "name": f"{d['name']}: tuning",
+                        "data": d})
+    r_items = []
+    for aid in [*b.templates, *b.bosses]:
+        e = b.ai_entry(aid, allids)
+        r_items.append({"entity": "ai", "slot": "edit", "targetId": ids[sid(aid)],
+                        "name": f"{e['name']}: tuning, kit back (law 18)", "data": e["data"]})
+    paths = [FAMILY_FILES[b.family[i["data"]["name"]]] for i in c_items + j_items] + [ART + f for f in AVATARS.values()]
+    items = phased([(10, c_items), (20, u_items), (30, j_items), (40, r_items)])
+    write("tune", (
+        f"push/{N['tune']}: the Mother of Echoes pass-6 tuning (spec at fable/mother-of-echoes-sim {SPEC_REF[:8]}) on the "
+        f"live HIDDEN records, art as push/{N['final']} (literal asset ids from its results bundle; no new art files). "
+        f"Phase 10: {len(c_items)} new HIDDEN jutsu ({', '.join(b.jname[j] for j in new) or 'none'}). Phase 20: law 18 "
+        f"step 1, every moe jutsu off its {len(u_items)} AIs. Phase 30: the {len(j_items)} existing moe jutsu re-sent "
+        f"from the spec. Phase 40: the {len(r_items)} AIs re-sent whole (avatars, kits incl. the new jutsu by in-job "
+        "@jutsu refs, rules, damage rows, damage reduction), re-equipping every moe jutsu. Everything stays hidden; a "
+        "pause strands nothing a player can reach (resume the paused job). The practice quest (push/469) and the real "
+        "quest point at the same boss ids, so both pick this up."),
+        items, b.notes, extra=pack(paths))
+
+
 def step_golive(b, ids, econ, bundle):
     aids = asset_ids(bundle)
     u_items = unhide_items(aids)
@@ -668,7 +731,7 @@ def step_golive(b, ids, econ, bundle):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "final", "golive"],
+    ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "final", "golive", "tune"],
                     default="jutsu")
     ap.add_argument("--bundles", nargs="*", default=[], help="results bundles of 440 and 461-464 (any order)")
     ap.add_argument("--economy", help="push/417 results bundle (the shards, Heartglass and The Remainder tokens)")
@@ -679,6 +742,10 @@ def main():
     ids = created(a.bundles, PFX)
     if a.step == "final":
         return step_final(spec, ids, a.economy)
+    if a.step == "tune":
+        if not a.frm:
+            die("--step tune needs --from <push/466 results bundle> (the art asset ids)")
+        return step_tune(spec, ids, a.frm)
     if a.step == "golive":
         econ = created([a.economy] if a.economy else [], ECON)
         need(econ, [ECON + k for k in ("keel", "crown", "tide", "ledger", *TOKEN_PCT)], "--economy (push/417)")
