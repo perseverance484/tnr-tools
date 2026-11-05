@@ -113,7 +113,8 @@ export const MOE_DEFAULTS = {
   /** Pass 6: extra multiplier on the summons' hits (Grasp, Your Own Strike, Doorward Sweep, Cadet's Tether). */
   summonDmgScale: 1,
   /** Pass 5 (RUL-2026-11-04-113): eruptions as a fixed share of an endgame max HP (elite model 31,500). */
-  eruption: { on: false, hp: 31500, act1: 40, act2: 60, act3: 80 } as { on: boolean; hp: number; act1: number; act2: number; act3: number },
+  /** Pass 6 loop 11 (director 2026-11-05): `recast` is the Act II Recasts' own share (default: act2); Nothing Moves keeps act2's. */
+  eruption: { on: false, hp: 31500, act1: 40, act2: 60, act3: 80 } as { on: boolean; hp: number; act1: number; act2: number; act3: number; recast?: number },
   /** Analysis only (pass 4): raise every cooldown below this to it (Forge L16 refuses jutsu cooldown < 3). 0 = off. */
   cooldownFloor: 0,
   hushRounds: 8,
@@ -209,9 +210,9 @@ const heavy = (power: number, anim = "dt_heavy") => T.damage(power, { appearAnim
  * destroys shields instead of being absorbed (process.ts:842-877). dmgModifier is set to 1 because the PierceTag default
  * is 2 (damageCalc multiplies by it, tags.ts:1488-1490). Off = the pass-4 formula hit.
  */
-let ERUPT: { on: boolean; hp: number; pct: Record<number, number> } = { on: false, hp: 31500, pct: { 1: 40, 2: 60, 3: 80 } };
-const erupt = (act: number, power: number, anim: string) =>
-  ERUPT.on ? T.pierce(Math.round((ERUPT.hp * ERUPT.pct[act]!) / 100), { calculation: "static", dmgModifier: 1, description: "Pierces target", appearAnimation: anim }) : heavy(power, anim);
+let ERUPT: { on: boolean; hp: number; pct: Record<number, number>; recast?: number } = { on: false, hp: 31500, pct: { 1: 40, 2: 60, 3: 80 } };
+const erupt = (act: number, power: number, anim: string, pct = ERUPT.pct[act]!) =>
+  ERUPT.on ? T.pierce(Math.round((ERUPT.hp * pct) / 100), { calculation: "static", dmgModifier: 1, description: "Pierces target", appearAnimation: anim }) : heavy(power, anim);
 /**
  * Pass 6 (director 2026-11-04): a hit also leaves a cleansable debuff. On a GROUND cast every tag becomes a ground effect
  * that only follows the player while he stands on the hex (process.ts:395-412: a 1-round copy per pass), so the debuff
@@ -233,7 +234,7 @@ export const buildRecords = (P: MoeParams) => {
   CARRIER_ON = P.telegraphCarrier !== false;
   SKILLED = !!P.skilledPolicy;
   DEBUFF = { on: !!P.eruptDebuff?.on, pct: { 1: P.eruptDebuff?.act1, 2: P.eruptDebuff?.act2, 3: P.eruptDebuff?.act3 } as any };
-  ERUPT = { on: !!P.eruption?.on, hp: P.eruption?.hp ?? 31500, pct: { 1: P.eruption?.act1 ?? 40, 2: P.eruption?.act2 ?? 60, 3: P.eruption?.act3 ?? 80 } };
+  ERUPT = { on: !!P.eruption?.on, hp: P.eruption?.hp ?? 31500, pct: { 1: P.eruption?.act1 ?? 40, 2: P.eruption?.act2 ?? 60, 3: P.eruption?.act3 ?? 80 }, recast: P.eruption?.recast };
   const J: Record<string, any> = {};
   const add = (id: string, f: Parameters<typeof jutsu>[1]) => { J[id] = jutsu(id, f); return id; };
   const p = P.pw;
@@ -295,7 +296,7 @@ export const buildRecords = (P: MoeParams) => {
   /* ---- Act II: Sayo (the Stilling) ---- */
   for (const k of Object.keys(PAT.etch)) {
     add(JID.etch[k]!, { name: "Etching", description: "She etches a pattern into the glass. It will remember.", battleDescription: "%user traces a pattern into the glass. It glows, then fades.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 40, coordinateTargeting: field(PAT.etch[k]!), effects: [carrier("tg_etch")] }); // RUL-2026-11-02-101: readable for one full round
-    add(JID.det[k]!, { name: "Recast", description: "The glass remembers an etching and detonates it, unmarked. While she recasts, her guard is open (x3 damage taken).", battleDescription: "The glass remembers.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 100, coordinateTargeting: field(PAT.etch[k]!), effects: [erupt(2, p.detonate, "moe_recast"), weaknessSelf(3)] });
+    add(JID.det[k]!, { name: "Recast", description: "The glass remembers an etching and detonates it, unmarked. While she recasts, her guard is open (x3 damage taken).", battleDescription: "The glass remembers.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 100, coordinateTargeting: field(PAT.etch[k]!), effects: [erupt(2, p.detonate, "moe_recast", ERUPT.recast ?? ERUPT.pct[2]!), weaknessSelf(3)] });
   }
   // Etching turns: Etching (40 AP) + The Hush Rises (60 AP) = exactly 100 AP. Any leftover AP ends in the engine's
   // appended end turn, whose "wait" enters usedActions and breaks the combo (moe_probe P1b, first build). One record per
@@ -701,7 +702,7 @@ export type PlayerModel = { variant: PlayerVariant; pets: number; immune: boolea
  */
 export const ELITE_GEAR = { damageTakenReductionPct: 75, poolsMultiplier: 6, idgRows: 20 };
 export const playerModel = (name: string, over: any = {}): PlayerModel => {
-  if (name.endsWith("_real")) return realModel(playerModel(name.slice(0, -5), over), name);
+  if (name.endsWith("_real")) return realModel(playerModel(name.slice(0, -5).replace("_perfect", ""), over), name);
   if (name.startsWith("elite") && over.gear === undefined && GEAR_OVERRIDE) over = { ...over, gear: GEAR_OVERRIDE };
   if (name === "average") {
     const g = { ...AVG_GEAR, ...(AVG_OVERRIDE ?? {}), ...(over.gear ?? {}) };
@@ -882,7 +883,9 @@ export type ActResult = {
   bossHpPct: Record<string, number>; deathCause: string | null; maxHit: { dmg: number; by: string };
   sets: Record<string, SetStat>; unmarkedTotal: number; specials: Record<string, number>; bossTurns: Record<string, number>; bossIdle: Record<string, number>;
   killFirst: string | null; dmgBySource: Record<string, number>; healed: number; dodges: number; cleanses: number; trace?: string[];
-  misreads?: number; clears?: number; playerActs?: Record<string, number>; playerTurns?: number; playerEndTurns?: number; minHpFrac?: number;
+  misreads?: number; recastMisreads?: number; clears?: number; lancet?: { n: number; sum: number; max: number; pctOfMax: number[] };
+  /** Solvability (director 2026-11-05): player turns checked; turns with no free hex within reach (5) clear of every live mark (+ pools). */
+  solv?: { turns: number; noSafe: number; noSafeInclPools: number; noSafeRounds: number[] }; playerActs?: Record<string, number>; playerTurns?: number; playerEndTurns?: number; minHpFrac?: number;
 };
 /** Set-piece bookkeeping: action id -> [set name, role, telegraph id(s)]. */
 export const SETS: Record<string, [string, "mark" | "land", string[]?]> = {
@@ -978,6 +981,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       const danger = new Set<string>();
       const safe = new Set<string>();
       const linger = new Set<string>();
+      const recast = new Set<string>();
       for (const g of b.groundEffects as any[]) {
         if (!es.has(g.creatorId)) continue;
         if ((g.rounds ?? 0) <= 0 && !g.castThisRound) continue;
@@ -994,16 +998,16 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       const s2 = bossU(AI.sayo2);
       if (s2 && alive(s2)) {
         const nxt = nextComboAction(b, s2);
-        if (nxt && Object.values(JID.det).includes(nxt)) for (const k of recCells(cfg.recs[nxt], [s2.longitude, s2.latitude])) danger.add(k);
+        if (nxt && Object.values(JID.det).includes(nxt)) for (const k of recCells(cfg.recs[nxt], [s2.longitude, s2.latitude])) { danger.add(k); recast.add(k); }
       }
       const st = bossU(AI.saint);
       if (st && alive(st) && b.usersEffects.some((e: any) => e.targetId === st.userId && e.type === MK.gCs)) for (const k of recCells(cfg.recs[JID.glassRecast], [st.longitude, st.latitude])) danger.add(k);
       if (safe.size) for (const c of ALL) if (!safe.has(key(c))) danger.add(key(c));
-      return { danger, linger, safe };
+      return { danger, linger, safe, recast };
     };
     // A player remembers, for the rest of its turn, the marks it saw at the start of the turn (the server may have dropped
     // their visuals by its second action).
-    const turnSeen = new Map<string, { danger: Set<string>; linger: Set<string>; safe: Set<string> }>();
+    const turnSeen = new Map<string, { danger: Set<string>; linger: Set<string>; safe: Set<string>; recast: Set<string> }>();
     const seenCells = () => {
       const now = dangerCells();
       const k = `${b.round}`;
@@ -1012,6 +1016,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       for (const x of now.danger) prev.danger.add(x);
       for (const x of now.linger) prev.linger.add(x);
       for (const x of now.safe) prev.safe.add(x);
+      for (const x of now.recast) prev.recast.add(x);
       return prev;
     };
     const free = (c: Cell) => !b.usersState.some((u: any) => u.longitude === c[0] && u.latitude === c[1] && alive(u));
@@ -1025,10 +1030,35 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       if (sig && sig !== lastSig) { lastSig = sig; reading = readRand() < readP; if (!reading) res.misreads = (res.misreads ?? 0) + 1; }
       return sig ? reading : true;
     };
+    // Loop 11 (director 2026-11-05): a misread Recast counts as standing in its pattern (only misreaders pay; readP 1 never
+    // reaches this). While the misread pattern is live the player steps onto its nearest hex and holds it.
+    let recastPin: Set<string> | null = null;
+    let misstep = false;
+    const pinnedStay = (to: string) => !!recastPin && recastPin.size > 0 && !recastPin.has(to) && recastPin.has(key([pu().longitude, pu().latitude]));
     const dodgeStep = (): boolean => {
       const here: Cell = [pu().longitude, pu().latitude];
-      const { danger, linger } = seenCells();
-      if (!reads(danger)) return false;
+      const { danger, linger, recast } = seenCells();
+      if (!recast.size) recastPin = null;
+      if (!reads(danger)) {
+        if (!recast.size || recast.has(key(here))) { if (recast.size) recastPin = recast; return false; }
+        if (recastPin !== recast) { recastPin = recast; res.recastMisreads = (res.recastMisreads ?? 0) + 1; }
+        // nearest free pattern hex, walking; Replacement when 2+ away
+        const prev = new Map<string, string | null>([[key(here), null]]);
+        const q: Cell[] = [here];
+        let goal: string | null = null;
+        while (q.length && !goal) {
+          const c = q.shift()!;
+          for (const n of ALL) if (!prev.has(key(n)) && dist(c, n) === 1 && free(n)) { prev.set(key(n), key(c)); if (recast.has(key(n))) { goal = key(n); break; } q.push(n); }
+        }
+        if (!goal) return false;
+        const gc = goal.split(",").map(Number) as Cell;
+        misstep = true;
+        if (dist(here, gc) >= 2 && dist(here, gc) <= 5 && tryAction("replacementTechnique", gc)) return true;
+        let st = goal;
+        while (prev.get(st) !== key(here)) st = prev.get(st)!;
+        if (tryAction("move", st.split(",").map(Number) as Cell)) return true;
+        misstep = false; return false;
+      }
       const bad = (k: string) => danger.has(k) || linger.has(k);
       if (!bad(key(here))) return false;
       const acts = availableUserActions(b, puid, true, true);
@@ -1102,7 +1132,19 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       const pPos: Cell = [pu().longitude, pu().latitude];
       const aPos: Cell = [actor.longitude, actor.latitude];
       let actionId: string | undefined;
-      if (human && o.policy === "play" && dodgeStep()) { actionId = "dodge"; res.dodges++; }
+      // Solvability (director 2026-11-05): at the start of every player turn, is there a free hex within reach (Replacement
+      // range 5, or the hex he stands on) that no live mark covers? Ground truth, independent of the player's read.
+      if (human && turnActs.get(tk)!.length === 0) {
+        const { danger, linger } = dangerCells();
+        const sv = (res.solv ??= { turns: 0, noSafe: 0, noSafeInclPools: 0, noSafeRounds: [] });
+        sv.turns++;
+        if (danger.size) {
+          const reach = ALL.filter((c) => (key(c) === key(pPos) || free(c)) && dist(c, pPos) <= 5).map(key);
+          if (!reach.some((k) => !danger.has(k))) { sv.noSafe++; sv.noSafeRounds.push(pre.actionRound); }
+          if (!reach.some((k) => !danger.has(k) && !linger.has(k))) sv.noSafeInclPools++;
+        }
+      }
+      if (human && o.policy === "play" && (misstep = false, dodgeStep())) { if (misstep) actionId = "misstep"; else { actionId = "dodge"; res.dodges++; } }
       else if (human && o.policy !== "ignore" && wantsCleanse(b, puid, !!o.model.real) && tryAction("cleanse", pPos)) { actionId = "cleanse"; res.cleanses++; }
       else if (human && o.policy !== "ignore" && o.model.real && (() => { const t = chooseTarget(); return t && wantsClear(b, t) && dist(pPos, [t.longitude, t.latitude]) <= 4 && tryAction("clear", [t.longitude, t.latitude]); })()) { actionId = "clear"; res.clears = (res.clears ?? 0) + 1; }
       else {
@@ -1124,7 +1166,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
           // a step onto a pool is refused only when the target is already within attack range (4).
           const tgt = currentTarget ?? chooseTarget();
           const needApproach = !!tgt && dist([after.longitude, after.latitude], [tgt.longitude, tgt.latitude]) < dist(pPos, [tgt.longitude, tgt.latitude]) && dist(pPos, [tgt.longitude, tgt.latitude]) > 4;
-          if (danger.has(k) || (linger.has(k) && !needApproach)) { actionId = tryAction("wait", pPos) ? "wait" : undefined; if (!actionId) b = r.nextBattle; }
+          if (pinnedStay(k) || (danger.has(k) && !recastPin?.has(k)) || (linger.has(k) && !needApproach)) { actionId = tryAction("wait", pPos) ? "wait" : undefined; if (!actionId) b = r.nextBattle; }
           else b = r.nextBattle;
         } else if (human && o.policy === "camp" && (actionId === "move" || actionId === "replacementTechnique")) {
           // camp: holds the act's best fixed hex (fewest marks in the coverage audit) and never moves
@@ -1150,6 +1192,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       if (pLoss > 0) {
         const label = isEnemy ? `${actor.isSummon ? actor.username : (actor.username ?? "")}: ${src}` : src;
         res.dmgBySource[label] = (res.dmgBySource[label] ?? 0) + pLoss;
+        if (isEnemy && !actor.isSummon && actionId === JID.lancet) { const l = (res.lancet ??= { n: 0, sum: 0, max: 0, pctOfMax: [] }); l.n++; l.sum += pLoss; l.max = Math.max(l.max, pLoss); l.pctOfMax.push(Math.round(1000 * pLoss / maxHp) / 10); }
         if (pLoss > res.maxHit.dmg) res.maxHit = { dmg: Math.round(pLoss), by: label };
         if (pAfter.curHealth <= 0 && !res.deathCause) res.deathCause = label;
       }
@@ -1194,7 +1237,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       }
       if (o.trace) {
         const bossTxt = cfg.bossIds.map((aid) => { const u = bossU(aid); return u ? `${aid.replace("moe-ai-", "")} ${(100 * Math.max(0, u.curHealth) / u.maxHealth).toFixed(0)}%` : ""; }).join(" ");
-        res.trace!.push(`r${pre.actionRound} ${(human ? `PLAYER>${(currentTarget?.username ?? "-").slice(0, 8)}` : actor.username ?? "?").slice(0, 22).padEnd(22)} ${String(actionId === "dodge" ? "DODGE" : name(actionId)).slice(0, 28).padEnd(28)} p@${pPos} hp ${Math.round(pAfter.curHealth)} (${pLoss ? "-" + Math.round(pLoss) : pGain ? "+" + Math.round(pGain) : "0"}) | ${bossTxt}`);
+        res.trace!.push(`r${pre.actionRound} ${(human ? `PLAYER>${(currentTarget?.username ?? "-").slice(0, 8)}` : actor.username ?? "?").slice(0, 22).padEnd(22)} ${String(actionId === "dodge" ? "DODGE" : actionId === "misstep" ? "MISSTEP (misread Recast)" : name(actionId)).slice(0, 28).padEnd(28)} p@${pPos} hp ${Math.round(pAfter.curHealth)} (${pLoss ? "-" + Math.round(pLoss) : pGain ? "+" + Math.round(pGain) : "0"}) | ${bossTxt}`);
       }
       const side = (dir: string) => b.usersState.some((u: any) => u.direction === dir && !u.isSummon && alive(u));
       if (!alive(pu())) { res.outcome = "lost"; break; }
