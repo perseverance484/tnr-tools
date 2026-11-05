@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Pass 5 (RUL-2026-11-04-113) / pass 6 edit rows: every change each live Mother of Echoes jutsu needs vs the built spec.
 
-    python3 harness/skyglass_wreck_sim/tools/moe_eruption_rows.py <spec.json> <440 bundle> <463 bundle> > rows.json
+    python3 harness/skyglass_wreck_sim/tools/moe_eruption_rows.py <spec.json> <results bundle>... > rows.json
+    (pass 6: the 440 and 461-464 bundles, harvests/inbox/tnr_results_{1793718889563,1793719096174,1793719167829,
+    1793719233508,1793719388089}.json on main; jutsu rows, boss-level aiRows, newJutsu/newAi creates)
 
 Compares the pass-4 spec as built (dd7e33ab, what push/440 created) with the given spec and lists every jutsu whose
 effects changed: live id (from push/440's results bundle), the changed effect index and its old/new fields, and the
@@ -44,6 +46,19 @@ for j in spec_new["jutsu"]:
         else:
             diff = {k: [eo.get(k), en.get(k)] for k in sorted(set(eo) | set(en)) if eo.get(k) != en.get(k)}
         rows.append({"jutsu": n["name"], "srcId": sid(j["id"]), "liveId": ids.get(sid(j["id"])), "effectIndex": i, "changes": diff, "holders": hold})
-missing = [r["srcId"] for r in rows if not r["liveId"]] + [h["srcId"] for r in rows for h in r["holders"] if not h["liveId"]]
-json.dump({"builtFrom": BUILT, "rows": rows, "newJutsu": newJutsu, "missingIds": sorted(set(missing))}, sys.stdout, indent=1)
+# Pass 6: boss-level rows. Each AI's create payload vs the built one, field by field (effects carry the damage rows and DR,
+# jutsus the new follow-the-player marks, rules their new rules). Lists are whole-field replacements: rules are ordered
+# and reference jutsu by harness id, which the generator maps to literal created ids (law 17).
+old_ai = {a["id"]: a["create"] for a in spec_old["ais"]}
+aiRows, newAi = [], []
+for a in spec_new["ais"]:
+    if a["id"] not in old_ai:
+        newAi.append({"ai": a["username"], "srcId": sid(a["id"])})
+        continue
+    o, n = old_ai[a["id"]], a["create"]
+    diff = {k: [o.get(k), n.get(k)] for k in sorted(set(o) | set(n)) if o.get(k) != n.get(k)}
+    if diff:
+        aiRows.append({"ai": a["username"], "srcId": sid(a["id"]), "liveId": ids.get(sid(a["id"])), "changes": diff})
+missing = [r["srcId"] for r in rows if not r["liveId"]] + [h["srcId"] for r in rows for h in r["holders"] if not h["liveId"]] + [r["srcId"] for r in aiRows if not r["liveId"]]
+json.dump({"builtFrom": BUILT, "rows": rows, "newJutsu": newJutsu, "aiRows": aiRows, "newAi": newAi, "missingIds": sorted(set(missing))}, sys.stdout, indent=1)
 print()

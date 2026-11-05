@@ -110,6 +110,8 @@ export const MOE_DEFAULTS = {
   skilledPolicy: false,
   /** Pass 6: cleansable debuff left by an eruption hit, per act ({dh, idt, rounds}); the cast becomes CHARACTER. */
   eruptDebuff: { on: false } as { on: boolean; act1?: any; act2?: any; act3?: any },
+  /** Pass 6 (director 2026-11-05 probe): Glass Lancet cooldown (1 = every turn it is free). */
+  lancetCd: 1,
   /** Pass 6: extra multiplier on the summons' hits (Grasp, Your Own Strike, Doorward Sweep, Cadet's Tether). */
   summonDmgScale: 1,
   /** Pass 5 (RUL-2026-11-04-113): eruptions as a fixed share of an endgame max HP (elite model 31,500). */
@@ -239,7 +241,7 @@ export const buildRecords = (P: MoeParams) => {
   const add = (id: string, f: Parameters<typeof jutsu>[1]) => { J[id] = jutsu(id, f); return id; };
   const p = P.pw;
   /* ---- shared ---- */
-  add(JID.lancet, { name: "Glass Lancet", description: "A needle of skyglass, thrown hard.", battleDescription: "%user flicks a lancet of glass at %target.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: 1, actionCostPerc: 60, effects: [heavy(p.lancet, "moe_lancet"),
+  add(JID.lancet, { name: "Glass Lancet", description: "A needle of skyglass, thrown hard.", battleDescription: "%user flicks a lancet of glass at %target.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: P.lancetCd ?? 1, actionCostPerc: 60, effects: [heavy(p.lancet, "moe_lancet"),
     // Pass 6 ramp (director 2026-11-04: a gradual clock instead of a wall): every Lancet also leaves her a lasting,
     // unclearable +ramp.pct% damage given. Each cast is a separate instance (BATTLE_TAG_STACKING, drizzle/constants.ts:1968;
     // util.ts:1352-1358) and in-battle increases multiply with no cap (process.ts:2225-2231), so her filler grows with
