@@ -100,6 +100,10 @@ export const MOE_DEFAULTS = {
   ramp: { pct: 0, rounds: 99 },
   /** Pass 6: multiplier on every boss-side formula hit (see buildRecords). */
   bossDmgScale: 1,
+  /** Pass 6: the player-anchored mark (Act I: the Silence; Act II: Sayo on lull turns); % of max HP drained. */
+  turnMark: { on: false, act1: 60, act2: 70, cd: 3 },
+  /** Pass 6: Etching: Heart covers the east block too (columns 4-11, rows 3-6), closing Act II's 8 never-marked hexes. */
+  etchDWide: false,
   /** Pass 6: cooldown of the Act I blasts (2 let a mark's blast slip a round when the blast was still cooling: an unmarked hit). */
   act1BlastCd: 2,
   /** Pass 6: the skilled player policy for every _real profile (see realRules). */
@@ -143,7 +147,7 @@ export const JID = {
   likeness: "moe-your-likeness", likenessStrike: "moe-likeness-strike", likenessCopy: "VuFuBtE7h5B1nnA2J1lFZ" /* Stolen Form (live, reused) */,
   hush: ["moe-hush", "moe-hush", "moe-hush"], hushUnbridled: "moe-hush-unbridled", listening: "moe-listening",
   listeningUnbridled: "moe-listening-unbridled", stillness: "moe-stillness", cradle: "moe-cradle", grasp: "moe-feeler-grasp",
-  enrage: "moe-the-glass-remembers",
+  enrage: "moe-the-glass-remembers", turnI: "moe-the-silence-turns", turnII: "moe-the-glass-turns",
   etch: Object.fromEntries("ABCDE".split("").map((k) => [k, `moe-etching-${k.toLowerCase()}`])) as Record<string, string>,
   det: Object.fromEntries("ABCDE".split("").map((k) => [k, `moe-recast-${k.toLowerCase()}`])) as Record<string, string>,
   // Pass 3 merge: one Hush record for Act I and one Hush Rises record for Act II (the arrays keep the cycle / band
@@ -377,6 +381,21 @@ export const buildRecords = (P: MoeParams) => {
     for (const id of [JID.blastA, JID.blastB, JID.facetBlast, JID.lucidBlast]) J[id]!.effects.push(...pool(1));
     for (const id of [JID.shatterBlast, JID.floodBlast, ...JID.glass, JID.glassFirstB, JID.glassRecast]) J[id]!.effects.push(...pool(3));
   }
+  if (P.turnMark.on) {
+    /**
+     * Pass 6 player-anchored mark (director 2026-11-04 live feedback: a safe spot must not stay safe). A GROUND cast
+     * centred on the tile the AI picks for CLOSEST_OPPONENT (AOE_CIRCLE_SPAWN: the target hex and its ring,
+     * libs/combat/targeting.ts:33-35), drawn with the heavy tile, holding a Health drain as a % of max HP. The drain
+     * does nothing on its cast round (tags.ts:2152-2156: !isNew && !castThisRound) and, as a ground effect, reaches a
+     * unit only while it stands on the hex (process.ts:395-412) on that unit's own action: stay and it lands next turn,
+     * step off and it misses. Telegraphed one turn ahead, follows the player, no new blast record needed.
+     */
+    const turn = (id: string, name: string, pct: number, line: string) => add(id, { name, description: "The floor under you goes still; it breaks next turn unless you move.", battleDescription: line, target: "GROUND", method: "AOE_CIRCLE_SPAWN", range: 5, cooldown: P.turnMark.cd, actionCostPerc: 40,
+      effects: [carrier("tg_heavy"), tag("drain", { power: pct, rounds: 1, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], description: "The floor breaks" })] });
+    turn(JID.turnI, "The Silence Turns", P.turnMark.act1, "The floor under %target goes still. Something below has turned toward it.");
+    turn(JID.turnII, "The Glass Turns", P.turnMark.act2, "The glass under %target remembers the weight of you.");
+  }
+  if (P.etchDWide) J[JID.det.D!]!.coordinateTargeting = field(cellsWhere((c, r) => c >= 4 && r >= 3 && r <= 6));
   const SUMMON_HITS = new Set([JID.grasp, JID.likenessStrike, JID.porter, JID.tomo]);
   for (const [id, r] of Object.entries<any>(J)) if (id !== JID.pull) for (const e of r.effects) if ((e.type === "damage" || e.type === "pierce") && e.calculation === "formula") {
     const k = P.bossDmgScale * (SUMMON_HITS.has(id) ? P.summonDmgScale : 1);
@@ -495,6 +514,7 @@ export const silenceRules = (P: MoeParams) => [
   R.jutsu(JID.hushUnbridled, "SELF", [COND.unbridled]),
   R.jutsu(JID.stillness, "SELF", [COND.unbridled, C.near(3)]),
   R.end([COND.unbridled]),
+  ...(P.turnMark.on ? [R.jutsu(JID.turnI, "HIGHEST_MAX_HEALTH_OPPONENT", [])] : []),
   R.jutsu(JID.hush[0]!, "SELF", []),
   R.jutsu(JID.listening, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [C.noSummon()]),
   R.jutsu(JID.stillness, "SELF", [C.near(3)]),
@@ -519,6 +539,7 @@ export const sayo2Rules = (_P: MoeParams) => [
   R.jutsu(JID.summonTomo, "EMPTY_GROUND_CLOSEST_TO_SELF", [C.has(MK.done), cnt(3), C.noSummon()]),
   R.jutsu(JID.summonHana, "EMPTY_GROUND_CLOSEST_TO_SELF", [C.has(MK.done), cnt(2), C.noSummon()]),
   R.jutsu(JID.summonPorter, "EMPTY_GROUND_CLOSEST_TO_SELF", [C.has(MK.done), C.noSummon()]),
+  ...(_P.turnMark.on ? [R.jutsu(JID.turnII, "HIGHEST_MAX_HEALTH_OPPONENT", [C.has(MK.done)])] : []),
   R.jutsu(JID.lancet, PL, [C.has(MK.done), C.near(5)]),
   R.end([C.has(MK.done)]),
   withCond(COND.combo(cycleCombo(CYCLES[3]!, 3)), [cnt(3)]),
@@ -596,11 +617,11 @@ export const aiRecords = (P: MoeParams): AiRec[] => {
     boss(AI.sayo1, "Sayo, Mother of Echoes", P.pools.sayo1, P.idg.sayo1, P.dr.sayo1,
       [JID.lancet, JID.enrage, JID.refractA, JID.refractB, JID.blastA, JID.blastB, JID.facet, JID.facetBlast, JID.lucidBlast, JID.lucidWake, JID.likeness], sayo1Rules(P), [token(MK.sayoToken)]),
     boss(AI.silence, "The Silence", P.pools.silence, P.idg.silence, P.dr.silence,
-      [JID.enrage, ...JID.hush, JID.hushUnbridled, JID.listening, JID.listeningUnbridled, JID.stillness, JID.stillnessBlast], silenceRules(P), [token(MK.silenceToken)]),
+      [JID.enrage, ...JID.hush, JID.hushUnbridled, JID.listening, JID.listeningUnbridled, JID.stillness, JID.stillnessBlast, ...(P.turnMark.on ? [JID.turnI] : [])], silenceRules(P), [token(MK.silenceToken)]),
     summon(AI.feeler, "A Feeler of the Deep", [JID.cradle, JID.grasp], feelerRules()),
     summon(AI.likeness, "Your Likeness", [JID.likenessStrike, JID.likenessCopy], likenessRules()),
     boss(AI.sayo2, "Sayo, Glasswright of the Stilling", /* RUL-2026-11-02-105: unique AI usernames */ P.pools.sayo2, P.idg.sayo2, P.dr.sayo2,
-      [JID.lancet, JID.enrage, ...etchIds, ...detIds, ...JID.rises, JID.quietFall, JID.summonPorter, JID.summonHana, JID.summonTomo], sayo2Rules(P),
+      [JID.lancet, JID.enrage, ...etchIds, ...detIds, ...JID.rises, JID.quietFall, JID.summonPorter, JID.summonHana, JID.summonTomo, ...(P.turnMark.on ? [JID.turnII] : [])], sayo2Rules(P),
       [...(P.sayo2Stunprevent ? [tag("stunprevent", { power: 100, rounds: 100 })] : []), token(MK.sayoToken)]),
     summon(AI.porter, "The Gate Porter (Worn)", [JID.porter], wornRules(JID.porter)),
     summon(AI.hana, "Sister Hana (Worn)", [JID.hana], wornRules(JID.hana, "HIGHEST_MAX_HEALTH_ALLY")),
@@ -844,7 +865,7 @@ export const buildPlayer = (m: PlayerModel, catalog: Record<string, any>) => {
 };
 
 /* ------------------------------------------------------------------ the fight runner */
-export type Policy = "play" | "ignore";
+export type Policy = "play" | "ignore" | "camp";
 export type ActCfg = {
   act: 1 | 2 | 3;
   bossIds: string[]; // AI ids placed as targets
@@ -919,6 +940,8 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       const open = cands.filter(free);
       const c = open[Math.floor(rand() * open.length)]!;
       [p0.longitude, p0.latitude] = c;
+      // camp profile: the act's best never-marked hex within reach of the bosses (pass 6 coverage audit)
+      if (o.policy === "camp") { const camp = ({ 1: [7, 3], 2: [10, 4], 3: [6, 2] } as Record<number, Cell>)[cfg.act]!; if (free(camp)) [p0.longitude, p0.latitude] = camp; }
       for (const pet of b.usersState.filter((u: any) => u.petId)) { const f = ALL.filter((x) => x[0] <= 2 && free(x)).sort((a, b) => dist(a, c) - dist(b, c))[0]!; [pet.longitude, pet.latitude] = f; }
     }
     const maxHp = getEffectiveMaxPool(pu(), b.usersEffects, "Health");
@@ -1080,10 +1103,10 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       const aPos: Cell = [actor.longitude, actor.latitude];
       let actionId: string | undefined;
       if (human && o.policy === "play" && dodgeStep()) { actionId = "dodge"; res.dodges++; }
-      else if (human && o.policy === "play" && wantsCleanse(b, puid, !!o.model.real) && tryAction("cleanse", pPos)) { actionId = "cleanse"; res.cleanses++; }
-      else if (human && o.policy === "play" && o.model.real && (() => { const t = chooseTarget(); return t && wantsClear(b, t) && dist(pPos, [t.longitude, t.latitude]) <= 4 && tryAction("clear", [t.longitude, t.latitude]); })()) { actionId = "clear"; res.clears = (res.clears ?? 0) + 1; }
+      else if (human && o.policy !== "ignore" && wantsCleanse(b, puid, !!o.model.real) && tryAction("cleanse", pPos)) { actionId = "cleanse"; res.cleanses++; }
+      else if (human && o.policy !== "ignore" && o.model.real && (() => { const t = chooseTarget(); return t && wantsClear(b, t) && dist(pPos, [t.longitude, t.latitude]) <= 4 && tryAction("clear", [t.longitude, t.latitude]); })()) { actionId = "clear"; res.clears = (res.clears ?? 0) + 1; }
       else {
-        if (human) setPlayerTarget(o.policy === "play" ? chooseTarget() : null);
+        if (human) setPlayerTarget(o.policy !== "ignore" ? chooseTarget() : null);
         const r = performAIaction(b, grid, actor.userId);
         actionId = r.nextActionId;
         // While the caster carries a disarm marker (the live Omen: Fanned Lines' marker) the engine performs its next
@@ -1103,6 +1126,9 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
           const needApproach = !!tgt && dist([after.longitude, after.latitude], [tgt.longitude, tgt.latitude]) < dist(pPos, [tgt.longitude, tgt.latitude]) && dist(pPos, [tgt.longitude, tgt.latitude]) > 4;
           if (danger.has(k) || (linger.has(k) && !needApproach)) { actionId = tryAction("wait", pPos) ? "wait" : undefined; if (!actionId) b = r.nextBattle; }
           else b = r.nextBattle;
+        } else if (human && o.policy === "camp" && (actionId === "move" || actionId === "replacementTechnique")) {
+          // camp: holds the act's best fixed hex (fewest marks in the coverage audit) and never moves
+          actionId = tryAction("wait", pPos) ? "wait" : undefined; if (!actionId) b = r.nextBattle;
         } else b = r.nextBattle;
       }
       const post = alignBattle(b, actionRounds, puid);
