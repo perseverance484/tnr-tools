@@ -35,3 +35,4 @@ Byte ledger source for pack `imgSizes` at packaging time. Fresh filename (_b, _c
 | file | type | px | bytes | QC |
 |---|---|---|---|---|
 | icon-flaming-sword.webp | ICON 1:1 | 256x256 | 23142 | raw REJECT (painted checkerboard, RGB) - salvaged by border flood-fill + 2 enclosed pockets removed; chroma.py ICON; hard-alpha downscale; preflight 0/0; dark-QC clean; awaiting dauntless eye |
+| icon-tatsumakis-bellow.webp | ICON 1:1 | 256x256 | 55858 | native alpha: body 240-253 snapped opaque, <=8 haze cleared; square pad, hard-alpha downscale; preflight 0/0; dark-QC clean; awaiting dauntless eye |
