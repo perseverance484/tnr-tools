@@ -1709,7 +1709,13 @@ Replaces the separate art-pass files (466, 467, 480-482, 465), which are gone; 4
 
 **467 test art** `467_mother_of_echoes_test_art.json` (`python3 push/mother_of_echoes_test_art.gen.py --bundles B440 B461 B462 B463 B464 --economy B417 --from B466`), 16 items: phase 10 the 15 FX assets unhidden; phase 20 the practice quest (469, `YDmKO6fp2vBRnTf7fHWQZ`) re-sent whole with its icon and the three act scenes, still hidden. The real quest stays hidden. Gates: `validate.py --strict` 0 errors, 1 warning (build order: the quest after a later phase; validate ignores phases), ledger `state/validate_exceptions/467_mother_of_echoes_test_art.json` PENDING director acceptance; `check_manifest` 0 pre-send problems; `skyglass_check` 0.
 
-**Still to come:** the pass-6 tuning job (jutsu and AIs re-sent from the new SPEC_REF with the same unequip, edit, re-equip sequence; `--step final` rebuilt, its asset phase dropped since the assets exist), then the go-live, now **477** (`--step golive`; was 467).
+**476 pass-6 tuning** (`--step tune`; built only once the sim's final spec SHA is pinned). One job on the live hidden records, art unchanged (literal 466 asset ids): phase 10 creates the jutsu the spec has and no bundle covers (pass 6: The Silence Turns, family hush; The Glass Turns, family etching; heavy mark tile), phase 20 law 18 unequip of the 9 AIs, phase 30 the existing moe jutsu re-sent from the spec, phase 40 the 9 AIs re-sent whole (new jutsu by in-job `@jutsu:` refs, which forge resolves at send and refuses if unresolved; ENGINE_LAWS 17 allows refs run in the same session as their creates). Build:
+1. Set `SPEC_REF` in `push/mother_of_echoes.gen.py` to the final sim commit (one line).
+2. `python3 push/mother_of_echoes.gen.py --step tune --bundles B440 B461 B462 B463 --from B466` (B466 = `harvests/inbox/tnr_results_1793846634826.json`).
+3. Gates; ledger `state/validate_exceptions/476_mother_of_echoes_tune.json` (`--write`). Provisional build on the loop-10 params (dry run, 73 items: 2 + 9 + 53 + 9): accepted classes (build order 53, law 4/L06 5, L10 18, law 6 on formula damage 1) plus two NEW classes needing director acceptance: law 6 on the flat `pierce` eruptions (17; the engine's PowerAttributes power has no max, validators/combat.ts:147-149, so 3,030-6,500 saves) and law 17 on the two in-job `@jutsu` refs in AI kits (2). `check_manifest` 0, `skyglass_check` 0.
+Dry runs: `MOE_SPEC_FILE=<spec.json> MOE_OUT_DIR=<dir outside push/>` builds any step from an unpinned spec into a scratch directory (never committed).
+
+**Still to come:** the go-live, **477** (`--step golive`; was 467), after 476.
 
 1. **466** `466_mother_of_echoes_final.json`, JOB 1, 88 items, one imagePack (12e54c08, 32 files; the art-QA polish):
    - phase 10: 17 HIDDEN gameAssets (law 16b), folder MotherOfEchoes: 14 code-built FX (Etching tile v3 + glint, Recast,
