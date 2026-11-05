@@ -30,17 +30,10 @@ DESC = ("Test fight for The Mother of Echoes. The same three battles against the
         "fight.")
 
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--bundles", nargs="*", default=[], help="results bundles of 440 and 461-464")
-    ap.add_argument("--economy", help="push/417 results bundle")
-    a = ap.parse_args()
-    b = moe.Build(moe.load_spec())
-    ids = moe.created(a.bundles, moe.PFX)
-    econ = moe.created([a.economy] if a.economy else [], moe.ECON)
-    moe.need(econ, [moe.ECON + k for k in ("keel", "crown", "tide", "ledger", *moe.TOKEN_PCT)], "--economy")
-    moe.need(ids, [moe.sid(t) for t in b.bosses], "practice")
-    d = moe.quest_data(b, ids, econ)
+def practice_data(b, ids, econ, scenes=None):
+    """The practice quest record: the real quest_data (scenes: 466 asset ids, or None for the placeholder chamber)
+    with no entry items, practice wording, the real rewards, hidden. Used for the 469 create and later edits."""
+    d = moe.quest_data(b, ids, econ, scenes)
     d.update({"name": NAME, "description": DESC, "hidden": True})
     c = d["content"]
     c["entryItems"] = []  # no shards: the director's tester enters freely; the real rewards stay (hidden quest)
@@ -52,6 +45,20 @@ def main():
                 o[k] = "Practice over."
         if o["id"] == "d_open":
             o["description"] = "<i>Test run.</i> No shards are needed.<br><br>" + o["description"]
+    return d
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("--bundles", nargs="*", default=[], help="results bundles of 440 and 461-464")
+    ap.add_argument("--economy", help="push/417 results bundle")
+    a = ap.parse_args()
+    b = moe.Build(moe.load_spec())
+    ids = moe.created(a.bundles, moe.PFX)
+    econ = moe.created([a.economy] if a.economy else [], moe.ECON)
+    moe.need(econ, [moe.ECON + k for k in ("keel", "crown", "tide", "ledger", *moe.TOKEN_PCT)], "--economy")
+    moe.need(ids, [moe.sid(t) for t in b.bosses], "practice")
+    d = practice_data(b, ids, econ)
     m = {"_note": (f"push/{NUM}: the HIDDEN Mother of Echoes practice fight (director, 2026-11-04). Same battles and "
                    "boss AIs as push/464 (literal ids, law 17), no entry items, the real rewards, never published (hidden is the only gate). Generated "
                    "by push/mother_of_echoes_practice.gen.py; do not hand-edit."),

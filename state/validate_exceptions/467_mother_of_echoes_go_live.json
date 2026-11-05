@@ -1,7 +1,0 @@
-{
- "manifest": "push/467_mother_of_echoes_go_live.json",
- "ruling": "PENDING director acceptance. One 'build order' misranking (quest after the asset unhides; RUL-2026-10-31-085 item 1).",
- "reason": "Job 2, built from job 1's results bundle; not committed until that bundle exists. After building it run: python3 scripts/validate_exception.py state/validate_exceptions/467_mother_of_echoes_go_live.json --write and confirm the single build-order line.",
- "sha256": "",
- "accepted": []
-}
