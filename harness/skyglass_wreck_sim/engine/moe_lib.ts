@@ -100,6 +100,8 @@ export const MOE_DEFAULTS = {
   ramp: { pct: 0, rounds: 99 },
   /** Pass 6: multiplier on every boss-side formula hit (see buildRecords). */
   bossDmgScale: 1,
+  /** Pass 6: cooldown of the Act I blasts (2 let a mark's blast slip a round when the blast was still cooling: an unmarked hit). */
+  act1BlastCd: 2,
   /** Pass 6: the skilled player policy for every _real profile (see realRules). */
   skilledPolicy: false,
   /** Pass 6: cleansable debuff left by an eruption hit, per act ({dh, idt, rounds}); the cast becomes CHARACTER. */
@@ -246,12 +248,12 @@ export const buildRecords = (P: MoeParams) => {
   mark(JID.refractB, "Refraction", PAT.refractB, MK.refractB, "%user draws three lines of light from the walls.");
   add(JID.facet, { name: "Facet", description: "Below 60%: her Refraction is drawn with its mirror image (both line sets); they shatter on her next turn.", battleDescription: "The lines split. Their mirror image glows on the far side of the hall.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: P.refractCd, actionCostPerc: 40, coordinateTargeting: field([...PAT.refractA, ...PAT.refractB]), effects: [carrier("tg_heavy"), marker(MK.facet)] });
   const blast = (id: string, name: string, cells: Cell[], power: number, line: string, extra: any[] = []) =>
-    add(id, { name, description: "The marked lines shatter.", battleDescription: line, target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(cells), effects: [erupt(1, power, "moe_refraction"), ...extra] });
+    add(id, { name, description: "The marked lines shatter.", battleDescription: line, target: "GROUND", method: "COORDINATES", range: 0, cooldown: P.act1BlastCd, actionCostPerc: 100, coordinateTargeting: field(cells), effects: [erupt(1, power, "moe_refraction"), ...extra] });
   blast(JID.blastA, "Refraction", PAT.refractA, p.refract, "The lines shatter.");
   blast(JID.blastB, "Refraction", PAT.refractB, p.refract, "The lines shatter.");
   blast(JID.facetBlast, "Facet", [...PAT.refractA, ...PAT.refractB], p.facet, "Both images shatter at once.");
   // Lucid (the Silence fell first): the blast also draws the second set, so Refraction fires twice.
-  add(JID.lucidBlast, { name: "Lucid Refraction", description: "Lucid: the lines shatter and are drawn again at once.", battleDescription: "\"I can hear myself again.\" The lines shatter, and new ones are already drawn.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(PAT.refractA),
+  add(JID.lucidBlast, { name: "Lucid Refraction", description: "Lucid: the lines shatter and are drawn again at once.", battleDescription: "\"I can hear myself again.\" The lines shatter, and new ones are already drawn.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: P.act1BlastCd, actionCostPerc: 100, coordinateTargeting: field(PAT.refractA),
     effects: [erupt(1, p.refract, "moe_refraction"), carrier("tg_heavy", 1, field(PAT.refractB)), marker(MK.refractB)] });
   add(JID.lucidWake, { name: "Lucid", description: "With the Silence gone, Sayo hears herself again: her glass cuts deeper.", battleDescription: "\"I can hear myself again.\" Sayo straightens; every pane in the hall turns with her.", target: "SELF", method: "SINGLE", range: 0, cooldown: 99, actionCostPerc: 20, effects: idgTags(P.lucidIdg).map((e: any) => ({ ...e, rounds: 99, staticAnimation: "moe_lucid" })) });
   add(JID.likeness, { name: "Your Likeness", description: "Below 40%: she casts your impression from the glass for three rounds.", battleDescription: "\"Hold still. There. That is you.\" Your likeness steps out of the glass.", target: "EMPTY_GROUND", method: "SINGLE", range: 5, cooldown: 99, actionCostPerc: 60, donor: IN.donors.summon,
