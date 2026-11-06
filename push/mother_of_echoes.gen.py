@@ -49,7 +49,7 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SPEC_REF = "780907a7dd281717cc08b443919a9982618676d2"  # fable/mother-of-echoes-sim: pass 6 calibrated to the live log (2026-11-05), ground Recasts; the last spec with only director-approved changes
+SPEC_REF = "fd3531153df7a1dfa9f4e559b39d1ad50055a0f6"  # fable/mother-of-echoes-sim final spec (pin cb755375): director 2026-11-06 (a)+(b), 85 jutsu, An Absence
 SPEC_PATH = "harness/skyglass_wreck_sim/mother_of_echoes_spec.json"
 PFX = "sg440_"
 ECON = "sg417_"
@@ -186,7 +186,13 @@ FORMS = (("sayo1", "Sayo"), ("silence", "The Silence"), ("sayo2", "The Glasswrig
 FX4 = {f"entrance_{k}": (f"anim_moe_entrance_{k}_a5.webp", f"Mother of Echoes FX - {n} enters") for k, n in FORMS}
 # The final tuning job's art (director 2026-11-05: the Refraction line is the bar; omens / payoffs / lingering ground;
 # no sickly green, colours per enemy; the floor as a stage; MOTHER_OF_ECHOES_ART.md "Art direction"):
-FX4.update({f"rbreak_{s_}{c}": (f"anim_moe_rbreak_{s_}{c}_a6.webp", f"Mother of Echoes FX - Refraction breaks, {s_.upper()} {c}")
+FX4.update({f"rbreak_{s_}{c}": (f"anim_moe_rbreak_{s_}{c}_a6_ff.webp", f"Mother of Echoes FX - Refraction breaks, {s_.upper()} {c}")
+            for s_, cols in (("l", range(0, 9)), ("r", range(3, 12))) for c in cols})   # + the faint-floor settle (2026-11-06)
+# The Saint's v2 lines (final spec fd353115): the approved line recoloured into the Remainder (build_fx_rline3.py), the
+# marks as they are, the breaks with the faint-floor settle on the Act III floor.
+FX4.update({f"rbreak3_{s_}{c}": (f"anim_moe_rbreak3_{s_}{c}_a14_ff.webp", f"Mother of Echoes FX - Black Refraction breaks, {s_.upper()} {c}")
+            for s_, cols in (("l", range(0, 9)), ("r", range(3, 12))) for c in cols})
+FX4.update({f"rmark3_{s_}{c}": (f"anim_moe_rmark3_{s_}{c}_a14.webp", f"Mother of Echoes FX - Black Refraction runs in, {s_.upper()} {c}")
             for s_, cols in (("l", range(0, 9)), ("r", range(3, 12))) for c in cols})
 FX4.update({f"rmark_{s_}{c}": (f"anim_moe_rmark_{s_}{c}_a6.webp", f"Mother of Echoes FX - Refraction runs in, {s_.upper()} {c}")
             for s_, cols in (("l", range(0, 9)), ("r", range(3, 12))) for c in cols})
@@ -226,8 +232,10 @@ for _r in (json.load(open(os.path.join(ROOT, PAINT_META)))["slices"] if os.path.
 # (build_faint_floor.py settle) leaves the floor at 18%, so nothing vivid shows under it before the break.
 PAINT_SLOTS = {"moe_recast": "recast", "moe_glassfall": "glassfall", "moe_flood": "flood", "moe_enrage": "enrage",
                "moe_shatterfall": "shatterfall"}
-FAINT_FLOOR = ("Recast:", "Glassfall:", "The Names Flood In", "Shatterfall Gives Way")
-FX4.update({"floor_ii_faint": ("tile_moe_recast_floor_faint_a14.webp", "Mother of Echoes floor - shattered etch (faint)"),
+FAINT_FLOOR = ("Refraction Breaks", "Far Refraction Breaks", "Facet Breaks", "Lucid Refraction", "Lucid Black Refraction",
+               "Black Facet", "Recast:", "Glassfall:", "The Names Flood In", "Shatterfall Gives Way")
+FX4.update({"floor_i_faint": ("tile_moe_floor_i_faint_a14.webp", "Mother of Echoes floor - crazed Heartglass (faint)"),
+            "floor_ii_faint": ("tile_moe_recast_floor_faint_a14.webp", "Mother of Echoes floor - shattered etch (faint)"),
             "floor_iii_faint": ("tile_moe_floor_iii_faint_a14.webp", "Mother of Echoes floor - blackened obsidian (faint)")})
 # Lingering ground by owner (no bile anywhere): the payoff's settle carries the arrival, so the floor has no appear and
 # no loop (stacking rules 1-2). The Hush family is the Silence's whatever boss casts it.
@@ -236,6 +244,8 @@ FLOOR_BY_NAME = (("No One Is Mended", "floor_mended"), ("The Hush", "floor_silen
                  ("An Absence", "floor_silence"), ("Recast:", "floor_ii"))
 # Refraction lines (fixed rows: L = columns 0-8 from the left wall, R = 3-11 from the right): the mark's arrival and the
 # break as the sliced Refraction line, one visual tag per (side, column).
+REFRACTION_BY_ID = {"moe-saint-refraction": "rmark3", "moe-saint-lucid-refraction": "rbreak3",   # the Saint's v2 lines
+                    "moe-saint-facet": "rbreak3", "moe-saint-facet-breaks": "rbreak3"}
 REFRACTION_SLICES = {"Refraction": "rmark", "Far Refraction": "rmark", "Facet": "rmark",
                      "Refraction Breaks": "rbreak", "Far Refraction Breaks": "rbreak", "Facet Breaks": "rbreak",
                      "Lucid Refraction": "rbreak"}
@@ -256,7 +266,8 @@ SCENE_CHARS = {
 # Which act's material a boss (or its summon) fights in. The Silence is the Remainder's own material.
 BOSS_ACT = {"Sayo, Mother of Echoes": "i", "Your Likeness": "i", "Sayo, Glasswright of the Stilling": "ii",
             "The Gate Porter (Worn)": "ii", "Sister Hana (Worn)": "ii", "Cadet Tomo (Worn)": "ii",
-            "The Silence": "iii", "A Feeler of the Deep": "iii", "Sayo, Saint of Stillness": "iii"}
+            "The Silence": "iii", "A Feeler of the Deep": "iii", "Sayo, Saint of Stillness": "iii",
+            "An Absence": "iii"}   # the Silence's summon (final spec fd353115): the Remainder's material, like her
 TG3 = {  # telegraph name -> per-field key (FX2 or FX3) by act. No disappearAnimation on any ground mark: a ground tag's
     # disappear clip is re-spawned on whoever stands on it at every effect pass (process.ts:1667-1684,
     # docs/design/COMBAT_ANIMATION_ENGINE.md section 5.3), so a vanish would pop repeatedly on a player in a mark or on
@@ -346,6 +357,16 @@ FAMILY = {  # the art list's family table (ME21-ME26), by jutsu name
     "echoes": ["Your Likeness", "Your Own Strike", "Raise the Gate Porter", "Raise Sister Hana", "Raise Cadet Tomo",
                "Doorward Sweep", "Worn Mending", "Cadet's Tether"],
 }
+# The final spec's new records (fd353115) by their SPEC name: the once-per-act entrances take their form's family,
+# An Absence's casts the Silence's, the Saint's Act III v2 moves the family of the move they echo. A record renamed by
+# push/mother_of_echoes_act3_text.json keeps the family of its spec name (Build.family).
+FAMILY["lancet"] += ["Heartglass", "Remainder Lancet"]
+FAMILY["refraction"] += ["Every Line Through You", "The Names Flood In: Rime", "The Names Flood In: Ember",
+                         "The Names Flood In: Heart"]
+FAMILY["etching"] += ["The Stilling"]
+FAMILY["glassfall"] += ["A Good Impression", "Glassfall: First Echo", "Glassfall: Second Echo", "Glassfall: Last Echo"]
+FAMILY["hush"] += ["The Deep Listens", "An Absence", "The Absence Opens", "Hold Still", "The Silence Holds Her",
+                   "The Names Stir"]
 # The Silence rim-lit proposal (art QA 2026-11-04; art/mother_of_echoes/rim_silence.py). Set True once the director
 # approves it; the original stays wired until then.
 SILENCE_RIM = False
@@ -401,6 +422,13 @@ DRY_OUT = os.environ.get("MOE_OUT_DIR")
 # The director-approved jutsu text pass (2026-11-05; docs/design/MOTHER_OF_ECHOES_JUTSU_TEXT.md): description, and
 # battleDescription where rewritten, by jutsu name. Applied over the spec's text in every jutsu record built here.
 JUTSU_TEXT = json.load(open(os.path.join(ROOT, "push", "mother_of_echoes_text.json")))["jutsu"]
+# Act III v2 / pass-6 records by SPEC ID (the spec repeats names on purpose; the game keeps jutsu names unique,
+# Jutsu_name_key): game names and text for the records the name table must tell apart. Player-facing: director-owned.
+ACT3_TEXT_PATH = os.path.join(ROOT, "push", "mother_of_echoes_act3_text.json")
+ACT3_TEXT = json.load(open(ACT3_TEXT_PATH)) if os.path.exists(ACT3_TEXT_PATH) else {"names": {}, "jutsu": {}}
+# The battle-log lines that carry each move's clue (director 2026-11-05: descriptions are staff-only). by_name over the
+# spec's own record name; act3v2_by_id by spec id (names repeat there). Applied by the final build only.
+LOG_LINES = json.load(open(os.path.join(ROOT, "push", "mother_of_echoes_log_lines.json")))
 
 
 def load_spec():
@@ -463,7 +491,8 @@ class Build:
         self.stack = stack or final
         self.jutsu = {j["id"]: j for j in spec["jutsu"]}
         self.ais = {a["id"]: a for a in spec["ais"]}
-        self.jname = unique_names(spec["jutsu"], lambda j: j["record"]["name"])
+        self.jname = unique_names(spec["jutsu"], lambda j: ACT3_TEXT["names"].get(j["id"], j["record"]["name"]))
+        self.jid_of = {n: jid for jid, n in self.jname.items()}
         self.aname = unique_names(spec["ais"], lambda a: a["username"])
         self.notes = []
         summon = {jid for jid, j in self.jutsu.items() if any(e.get("aiId") for e in j["record"]["effects"])}
@@ -471,6 +500,9 @@ class Build:
         self.plain_jutsu = [jid for jid in self.jutsu if jid not in summon]
         self.templates = [a["id"] for a in spec["ais"] if a["summonTemplate"]]
         self.family = {n: f for f, names in FAMILY.items() for n in names}
+        for jid, j in self.jutsu.items():            # a renamed record keeps the family of its spec name
+            if self.jname[jid] not in self.family and j["record"]["name"] in self.family:
+                self.family[self.jname[jid]] = self.family[j["record"]["name"]]
         if art:
             names = set(self.jname.values())
             optional = set(PASS6_NEW)  # absent from pre-pass-6 specs
@@ -547,10 +579,10 @@ class Build:
             return key + "_faint"
         return key
 
-    def refraction_slices(self, label, rec, d):
+    def refraction_slices(self, label, rec, d, kind=None):
         """The sliced Refraction line: blank the per-hex arrival / payoff and add one visual tag per (row side, column)."""
-        kind = REFRACTION_SLICES[label]
-        slot = "tg_heavy" if kind == "rmark" else "moe_refraction"
+        kind = kind or REFRACTION_SLICES[label]
+        slot = {"rmark": "tg_heavy", "rmark3": "tg_heavy", "rbreak": "moe_refraction", "rbreak3": "moe_shatterfall"}[kind]
         for src, e in zip(rec["effects"], d["effects"]):
             if src.get("appearAnimation") == slot and src.get("target") != "COORDINATES":
                 e["appearAnimation"] = ""
@@ -585,9 +617,9 @@ class Build:
         for f in ART_FIELDS:
             v = e.get(f) or ""
             tg = "tg_linger" if v == "moe_hush_floor" else v
-            if self.final and v == "tg_etch":                       # QA B2: the final set only; nothing old under it
+            if self.final and v == "tg_etch" and self.paint_region(label, "etch"):   # QA B2: nothing old under it
                 e[f] = ""   # director 2026-11-05: no residual; the picture lives in the carve (per-hex visuals)
-            elif self.final and v in PAINT_SLOTS:                          # the painted per-hex visuals carry it
+            elif self.final and v in PAINT_SLOTS and self.paint_region(label, PAINT_SLOTS[v]):   # painted per hex
                 e[f] = ""                                                     # the region breaks as row-band visuals
             elif v == "tg_etch":
                 e[f] = etch[f]
@@ -667,10 +699,33 @@ class Build:
                 e["staticAnimation"] = ""
                 self.notes.append(f"{label}: mark field of {n} hexes keeps its tile, loses its loop (stacking rule 2)")
 
+    def paint_region(self, name, pre):
+        """The painted region a cast uses, or None when nothing is painted for it (it keeps the legacy art and the build
+        notes it). Generic regions (flood, enrage, shatterfall) belong to one record's hexes: another record carrying the
+        same slot over other hexes (the Saint's v2 casts) falls back instead of tearing. A named region (Etching: X,
+        Recast: X, Glassfall: X) whose hexes disagree still refuses in painted()."""
+        suffix = name.split(": ")[-1].lower().replace(" ", "_")
+        generic = pre in ("flood", "enrage", "shatterfall")
+        region = f"{pre}_{suffix}" if (not generic or ": " in name) else pre   # The Names Flood In: Rime -> flood_rime
+        if region not in PAINTED:
+            return None
+        if generic and region == pre:
+            rec = self.jutsu[self.jid_of[name]]["record"]
+            ct = rec.get("coordinateTargeting") or {}
+            have = {(c["longitude"], c["latitude"]) for c in ct.get("coordinates", [])}
+            if ct.get("origin") == "CASTER":
+                have.add((0, 0))
+            if have != set(PAINTED[region]):
+                return None
+        return region
+
     def painted(self, name, rec, pre):
         """One visual tag per hex carrying that hex's slice of the region's painting (PAINT_META). CASTER regions
         (Shatterfall) also carry her own hex (0, 0)."""
-        region = pre if pre in ("flood", "enrage", "shatterfall") else f"{pre}_{name.split(': ')[-1].lower().replace(' ', '_')}"
+        region = self.paint_region(name, pre)
+        if region is None:
+            self.notes.append(f"{name}: no painting for its {pre} cast yet: legacy art (bands / per-hex) kept")
+            return []
         ct = rec["coordinateTargeting"]
         have = {(c["longitude"], c["latitude"]) for c in ct["coordinates"]}
         if ct["origin"] == "CASTER":
@@ -716,6 +771,11 @@ class Build:
         d["name"] = name
         d["hidden"] = True
         d.update(JUTSU_TEXT.get(name, {}))  # approved text pass (push/mother_of_echoes_text.json)
+        d.update(ACT3_TEXT["jutsu"].get(jid, {}))   # by spec id (push/mother_of_echoes_act3_text.json)
+        if self.final:                               # the clue lives in the log line (LOG_LINES)
+            line = LOG_LINES["act3v2_by_id"].get(jid) or LOG_LINES["by_name"].get(rec["name"])
+            if line:
+                d["battleDescription"] = line
         if self.final_art:
             d["image"] = "@img:" + os.path.basename(FAMILY_FILES[self.family[name]])
         else:
@@ -724,7 +784,9 @@ class Build:
         d["effects"] = [self.art(name, e) for e in rec["effects"]]
         if self.fx2 is not None and self.stack:
             self.stack_rules(name, rec, d)
-        if self.fx2 is not None and not (self.final and any(e.get("appearAnimation") in PAINT_SLOTS for e in rec["effects"])):
+        if self.fx2 is not None and not (self.final and jid in REFRACTION_BY_ID) and not (self.final and any(e.get("appearAnimation") in PAINT_SLOTS and
+                                                            self.paint_region(name, PAINT_SLOTS[e["appearAnimation"]])
+                                                            for e in rec["effects"])):
             d["effects"] += self.mosaic(name, rec)
         if self.final:
             for src in rec["effects"]:
@@ -734,6 +796,8 @@ class Build:
                     d["effects"] += self.painted(name, rec, pre)
         if self.final and name in REFRACTION_SLICES:
             d["effects"] += self.refraction_slices(name, rec, d)
+        if self.final and jid in REFRACTION_BY_ID:
+            d["effects"] += self.refraction_slices(name, rec, d, REFRACTION_BY_ID[jid])
         if self.final and any(e.get("appearAnimation") == "moe_absence_burst" for e in rec["effects"]):
             d["effects"].append({**VISUAL, "appearAnimation": self.fx2["absence_burst"],
                                  "coordinateTargeting": {"origin": "CASTER", "selection": "ALL",
@@ -990,6 +1054,8 @@ def asset_ids(path):
 def asset_row(name, typ, frames, speed, hidden, folder="MotherOfEchoes"):
     """folder defaults to the historical "MotherOfEchoes" so the already-run steps regenerate byte-identically; the final
     job and the re-folder edits pass the convention folder (LIB, below)."""
+    if not (1 <= frames <= 100 and 1 <= speed <= 100):     # validators/asset.ts (cb755375): frames and speed 1-100
+        die(f"asset {name!r}: frames {frames} / speed {speed} outside 1-100")
     return {"name": name, "type": typ, "folder": folder, "frames": frames, "speed": speed,
             "hidden": hidden, "onInitialBattleField": False, "licenseDetails": "TNR"}
 
@@ -998,10 +1064,18 @@ def asset_row(name, typ, frames, speed, hidden, folder="MotherOfEchoes"):
 # ---- the shared asset library (director 2026-11-05: "sectioned and labelled by event and use") ---------------------
 # GameAssetLibrary folders are flat strings searchable by folder and name: " - " separates, never "/". Every asset this
 # event uploads or re-files carries a convention folder and a unique human name "MoE <Act>: <Move> - <part>".
-LIB = "Skyglass - Mother of Echoes"
-LIB_FOLDERS = {f"{LIB} - Act I", f"{LIB} - Act II", f"{LIB} - Act III", f"{LIB} - Floors",
-               f"{LIB} - Entrances and Auras", f"{LIB} - Scenes", f"{LIB} - Shared"}
-LIB_SLICES = f"{LIB} - Slices - "
+LIB = "SkyglassMotherOfEchoes"     # RUL-2026-11-06-130 (amends RUL-127): the game validates folder ^[a-zA-Z0-9]*$, <= 191
+LIB_FOLDERS = {LIB + "ActI", LIB + "ActII", LIB + "ActIII", LIB + "Floors", LIB + "EntrancesAndAuras", LIB + "Scenes",
+               LIB + "Shared"}
+LIB_SLICES = LIB + "Slices"
+FOLDER_RE = re.compile(r"^[a-zA-Z0-9]{1,191}$")          # theninjarpg cb755375 validators/asset.ts:17-21
+
+
+def camel(text):
+    """'Glassfall First Pane' / 'Act III' -> 'GlassfallFirstPane' / 'ActIII': alphanumeric only."""
+    return "".join(w[:1].upper() + w[1:] for w in re.split(r"[^A-Za-z0-9]+", text) if w)
+
+
 EA = "Entrances and Auras"
 LABELS = {  # key -> (folder suffix, "MoE ..." name): the assets this event still CREATES (FX4). The live assets are
     # re-filed by the coordinator's push/asset_library_refolder.gen.py (RUL-127); these names never collide with its.
@@ -1017,6 +1091,7 @@ LABELS = {  # key -> (folder suffix, "MoE ..." name): the assets this event stil
     "floor_i": ("Floors", "MoE Floor: Sayo I - crazed Heartglass"), "floor_ii": ("Floors", "MoE Floor: Recast - shattered etch"),
     "floor_iii": ("Floors", "MoE Floor: Saint - blackened obsidian"), "floor_silence": ("Floors", "MoE Floor: The Silence - ink and frost"),
     "floor_mended": ("Floors", "MoE Floor: No One Is Mended - unmended"),
+    "floor_i_faint": ("Floors", "MoE Floor: Sayo I - crazed Heartglass (faint)"),
     "floor_ii_faint": ("Floors", "MoE Floor: Recast - shattered etch (faint)"),
     "floor_iii_faint": ("Floors", "MoE Floor: Saint - blackened obsidian (faint)"),
     "absence_rise": ("Act I", "MoE I: An Absence - arrives"), "absence_idle": ("Act I", "MoE I: An Absence - waits"),
@@ -1025,7 +1100,8 @@ LABELS = {  # key -> (folder suffix, "MoE ..." name): the assets this event stil
 PAINT_MOVES = {"etch": ("II", "Etching"), "recast": ("II", "Recast"), "glassfall": ("III", "Glassfall"),
                "flood": ("III", "The Names Flood In"), "enrage": ("III", "The Glass Remembers"),
                "shatterfall": ("III", "Shatterfall Gives Way")}
-SLICE_MOVES = {"rbreak": ("I", "Refraction Breaks"), "rmark": ("I", "Refraction Mark"), "etch": ("II", "Etching"),
+SLICE_MOVES = {"rbreak": ("I", "Refraction Breaks"), "rmark": ("I", "Refraction Mark"),
+               "rbreak3": ("III", "Black Refraction Breaks"), "rmark3": ("III", "Black Refraction Mark"), "etch": ("II", "Etching"),
                "recast": ("II", "Recast"), "glassfall": ("III", "Glassfall"), "shatterfall": ("III", "Shatterfall Gives Way")}
 
 
@@ -1033,11 +1109,11 @@ def lib_label(key):
     """(folder, name) for an asset key under the library convention."""
     if key in LABELS:
         sub, name = LABELS[key]
-        return f"{LIB} - {sub}", name
-    m = re.fullmatch(r"(rbreak|rmark)_([lr])(\d+)", key)
+        return LIB + camel(sub), name
+    m = re.fullmatch(r"(rbreak3|rmark3|rbreak|rmark)_([lr])(\d+)", key)
     if m:
         act, move = SLICE_MOVES[m.group(1)]
-        return LIB_SLICES + move, f"MoE {act}: {move} - slice {m.group(2).upper()} c{int(m.group(3)):02d}"
+        return LIB_SLICES + camel(move), f"MoE {act}: {move} - slice {m.group(2).upper()} c{int(m.group(3)):02d}"
     m = re.fullmatch(r"([a-z_]+)~(s(\d+)|(-?\d+)_(-?\d+))", key)
     if m:
         region = m.group(1)
@@ -1052,21 +1128,24 @@ def lib_label(key):
             part = "piece centre" if (dx, dy) == (0, 0) else f"piece dx{dx:+d} dy{dy:+d}"
         else:
             part = f"slice c{int(m.group(4)):02d}r{int(m.group(5)):02d}"
-        return LIB_SLICES + move, f"MoE {act}: {move} - {part}"
+        return LIB_SLICES + camel(move), f"MoE {act}: {move} - {part}"
     die(f"no library label for asset key {key!r} (add it to LABELS)")
 
 
 def lib_gate(rows):
-    """Every asset has a convention folder and a unique convention name (director 2026-11-05)."""
+    """Every asset has a convention folder (CamelCase, the game's folder regex) and a unique convention name."""
     seen = {}
     for key, folder, name in rows:
-        if not (folder in LIB_FOLDERS or folder.startswith(LIB_SLICES)) or "/" in folder:
-            die(f"asset {key}: folder {folder!r} is not a library convention folder")
+        if not (folder in LIB_FOLDERS or folder.startswith(LIB_SLICES)) or not FOLDER_RE.fullmatch(folder):
+            die(f"asset {key}: folder {folder!r} is not a library convention folder (^[a-zA-Z0-9]*$, RUL-130)")
+        if not 1 <= len(name) <= 191:
+            die(f"asset {key}: name {name!r} is not 1-191 characters")
         if not re.fullmatch(r"MoE (I|II|III|Floor|Boss|Scene): [^/]+ - [^/]+", name):
             die(f"asset {key}: name {name!r} does not follow 'MoE <Act>: <Move> - <part>'")
         if name in seen:
             die(f"asset names collide: {key} and {seen[name]} are both {name!r}")
         seen[name] = key
+
 
 def assets_items():
     meta = fx_meta()
@@ -1484,10 +1563,136 @@ def step_golive(b, ids, econ, bundle, art2_bundle):
         "invisible marks."), phased([(10, u_items), (20, q)]), extra=pack([QUEST_ICON]))
 
 
+
+# ---------------------------------------------------------------------------------------------------------------
+# The final tuning job (B1): push/501, paired with the unhide job push/502
+# ---------------------------------------------------------------------------------------------------------------
+N.update({"final_tuning": 501, "final_unhide": 502})
+SLUG.update({"final_tuning": "mother_of_echoes_final_tuning", "final_unhide": "mother_of_echoes_final_unhide"})
+
+
+def final_build(spec, ids, fx_bundle, art2_bundle):
+    """Build(final=True) over the final spec: what B1 sends and the art it references."""
+    fx = asset_ids(fx_bundle)
+    refs = custom_fx_refs(art2_bundle)
+    refs.update({k: "@scene:" + AID4 + k for k in FX4})        # created in this job (phase 10), resolved at send
+    b = Build(spec, fx=fx, art=True, fx2=refs, final=True)
+    held = {j for a in spec["ais"] for j in a["create"]["jutsus"] if j in b.jutsu}
+    new_j = [j for j in b.jutsu if j in held and sid(j) not in ids]
+    new_ai = [a for a in b.ais if sid(a) not in ids]
+    allids = {**ids, **{sid(j): "@jutsu:" + sid(j) for j in new_j}, **{sid(a): "@ai:" + sid(a) for a in new_ai}}
+    return b, held, new_j, new_ai, allids
+
+
+def step_final_tuning(spec, ids, fx_bundle, art2_bundle):
+    """push/501, the Mother of Echoes final tuning job (spec fd353115; RUL-2026-11-05/06 art and the director's
+    2026-11-06 approvals). Phases:
+    10  the final art set, HIDDEN (law 16b), library folders and names: only the assets a sent record references;
+    20  the new plain jutsu (HIDDEN), by in-job @scene art refs;
+    30  the new AI An Absence (summon template, kit by in-job @jutsu refs);
+    40  the new summon jutsu (aiId by in-job @ai ref);
+    50  law 18 step 1: every live moe AI's moe jutsu off;
+    60  every live moe jutsu the final kits hold, re-sent whole from the spec (text, log lines, art);
+    70  law 18 step 3: the live AIs re-sent whole, re-equipping their kits (incl. the new jutsu by @jutsu refs).
+    Records no AI holds any more stay live, hidden and untouched (director 2026-11-06)."""
+    b, held, new_j, new_ai, allids = final_build(spec, ids, fx_bundle, art2_bundle)
+    for a in b.ais:
+        if sid(a) not in ids and not b.ais[a]["summonTemplate"]:
+            die(f"new boss AI {a}: B1 creates only summon templates (the bosses are live)")
+    need(allids, [sid(j) for j in held] + [sid(a) for a in b.ais], "final_tuning")
+    plain_new = [j for j in new_j if j not in b.summon_jutsu]
+    summon_new = [j for j in new_j if j in b.summon_jutsu]
+    c_items = []
+    for j in plain_new:
+        e = b.jutsu_entry(j)
+        e.pop("phase", None)
+        c_items.append(e)
+    ai_new = []
+    for a in new_ai:
+        e = b.ai_entry(a, allids)
+        e.pop("phase", None)
+        ai_new.append(e)
+    s_items = []
+    for j in summon_new:
+        e = b.jutsu_entry(j, allids)
+        e.pop("phase", None)
+        s_items.append(e)
+    live_ais = [a for a in [*b.templates, *b.bosses] if a not in new_ai]
+    moe_live = {ids[sid(j)] for j in b.jutsu if sid(j) in ids}
+    u_items = []
+    for aid in live_ais:
+        full = b.ai_entry(aid, allids)["data"]
+        u_items.append({"entity": "ai", "slot": "edit", "targetId": ids[sid(aid)],
+                        "name": f"{full['username']}: moe jutsu off (law 18)",
+                        "data": {"jutsus": [j for j in full["jutsus"] if j not in moe_live and not j.startswith("@")],
+                                 "items": full["items"]}})
+    j_items = []
+    for jid in [j for j in b.jutsu if j in held and j not in new_j]:
+        d = b.jutsu_data(jid, allids if jid in b.summon_jutsu else None)
+        j_items.append({"entity": "jutsu", "slot": "edit", "targetId": ids[sid(jid)], "name": f"{d['name']}: final",
+                        "data": d})
+    r_items = []
+    for aid in live_ais:
+        e = b.ai_entry(aid, allids)
+        r_items.append({"entity": "ai", "slot": "edit", "targetId": ids[sid(aid)],
+                        "name": f"{e['name']}: final, kit back (law 18)", "data": e["data"]})
+    sent = json.dumps([i["data"] for i in c_items + ai_new + s_items + j_items + r_items])
+    used = [k for k in FX4 if "@scene:" + AID4 + k in sent]
+    unused = sorted(set(FX4) - set(used))
+    a_items, a_paths = [], []
+    rows = {r[0]: r for r in fx2_rows(only4=True)}
+    lib_gate([(k, *lib_label(k)) for k in used])
+    for k in used:
+        _, f, _desc, typ, frames, speed, path = rows[k]
+        folder, name = lib_label(k)
+        a_items.append({"entity": "asset", "slot": "create", "srcId": AID4 + k, "name": name,
+                        "data": {**asset_row(name, typ, frames, speed, True, folder), "image": "@img:" + f}})
+        a_paths.append(path)
+    paths = a_paths + [FAMILY_FILES[b.family[i["data"]["name"]]] for i in c_items + s_items + j_items] + \
+        [ART + AVATARS[a] for a in b.ais]
+    items = phased([(10, a_items), (20, c_items), (30, ai_new), (40, s_items), (50, u_items), (60, j_items),
+                    (70, r_items)])
+    unheld = sorted(b.jname[j] for j in b.jutsu if j not in held)
+    write("final_tuning", (
+        f"push/{N['final_tuning']}: the Mother of Echoes FINAL TUNING job (B1; spec fable/mother-of-echoes-sim "
+        f"{SPEC_REF[:8]}, engine cb755375; zero live requests to build). Pairs with push/{N['final_unhide']} (built "
+        f"from this job's results bundle). Phase 10: {len(a_items)} HIDDEN gameAssets (law 16b) in the library "
+        "convention (RUL-127: 'Skyglass - Mother of Echoes - ...' folders, 'MoE <Act>: <Move> - <part>' names): only "
+        f"assets a sent record references ({len(unused)} built assets are left out: no live caster, or the Saint "
+        f"entrance, post-launch). Phase 20: {len(c_items)} new HIDDEN jutsu. Phase 30: {len(ai_new)} new summon "
+        f"template AI ({', '.join(b.aname[a] for a in new_ai) or 'none'}). Phase 40: {len(s_items)} new summon "
+        f"jutsu. Phase 50: law 18 step 1, moe jutsu off the {len(u_items)} live AIs. Phase 60: {len(j_items)} live moe "
+        f"jutsu re-sent whole (director-approved text and names incl. push/mother_of_echoes_act3_text.json; battle-log "
+        f"lines push/mother_of_echoes_log_lines.json; the final art). Phase 70: law 18 step 3, the {len(r_items)} "
+        "live AIs re-sent whole, kits back incl. the new jutsu. Everything that fights stays HIDDEN until push/"
+        f"{N['final_unhide']} unhides the art (law 16c: hidden animations do not play in battle). Untouched, live and "
+        f"hidden: {len(unheld)} records no final kit holds ({', '.join(unheld)}). A pause strands nothing a player can "
+        "reach: resume the paused job."),
+        items, b.notes, extra={**pack(paths), "_unused_assets": unused})
+
+
+def step_final_unhide(final_bundle):
+    """push/502: unhide every asset push/501 created (law 16c), by literal id from its results bundle."""
+    got = created([final_bundle], AID4)
+    if not got:
+        die("--from carries no push/501 asset creates")
+    rows = {r[0]: r for r in fx2_rows(only4=True)}
+    items = []
+    for s_, aid in sorted(got.items()):
+        k = s_[len(AID4):]
+        _, f, _desc, typ, frames, speed, _ = rows[k]
+        folder, name = lib_label(k)
+        items.append({"entity": "asset", "slot": "edit", "targetId": aid, "name": f"{name}: unhide",
+                      "data": asset_row(name, typ, frames, speed, False, folder)})
+    write("final_unhide", (
+        f"push/{N['final_unhide']}: unhide the {len(items)} assets push/{N['final_tuning']} created (law 16c: battles "
+        "load only hidden=false assets). Literal ids from push/501's results bundle. Run it right after 501."), items)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "final", "golive", "tune",
-                                               "art2", "art2_unhide"],
+                                               "art2", "art2_unhide", "final_tuning", "final_unhide"],
                     default="jutsu")
     ap.add_argument("--bundles", nargs="*", default=[], help="results bundles of 440 and 461-464 (any order)")
     ap.add_argument("--economy", help="push/417 results bundle (the shards, Heartglass and The Remainder tokens)")
@@ -1501,6 +1706,14 @@ def main():
     ids = created(a.bundles, PFX)
     if a.step == "final":
         return step_final(spec, ids, a.economy)
+    if a.step == "final_tuning":
+        if not (a.frm and a.art2):
+            die("--step final_tuning needs --from <push/466 results> and --art2-from <push/478 results>")
+        return step_final_tuning(spec, ids, a.frm, a.art2)
+    if a.step == "final_unhide":
+        if not a.frm:
+            die("--step final_unhide needs --from <push/501 results bundle>")
+        return step_final_unhide(a.frm)
     if a.step == "tune":
         if not a.frm:
             die("--step tune needs --from <push/466 results bundle> (the art asset ids)")

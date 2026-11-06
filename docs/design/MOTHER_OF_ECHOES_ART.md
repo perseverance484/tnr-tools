@@ -639,12 +639,14 @@ every asset is sectioned by event and use. Two owners: the coordinator re-files 
 job, FX4 and the painted slices) are labelled in `push/mother_of_echoes.gen.py` (`LIB`, `LABELS`, `lib_label`,
 `lib_gate`); this section only describes the rule.
 
-**Folders** (flat strings, " - " as the separator, never "/"): `Skyglass - Mother of Echoes - Act I` (Sayo I, the
-Silence, the Feeler, An Absence), `- Act II` (Etchings, Recasts, the Worn, the Stilling), `- Act III` (the Saint,
-Glassfall, the Flood, Every Name, the enrage), `- Floors` (lingering ground by owner), `- Entrances and Auras`,
-`- Scenes`, `- Shared` (cross-act marks, guard window, safe pane, echo strike, pull), and
-`- Slices - <Move>`: every per-hex slice of a sliced painting, one folder per move (e.g. `... - Slices - Glassfall
-First Pane`), so hundreds of single-hex slices stay out of the browsable folders. SkyglassBossFX -> `Skyglass - Boss FX`.
+**Folders** (RUL-2026-11-06-130, amending RUL-127: the game validates `folder` as `^[a-zA-Z0-9]*$`, at most 191,
+theninjarpg cb755375 `validators/asset.ts:17-21`, so folders are CamelCase with no separators):
+`SkyglassMotherOfEchoesActI` (Sayo I, the Silence, the Feeler, An Absence), `...ActII` (Etchings, Recasts, the Worn,
+the Stilling), `...ActIII` (the Saint, Glassfall, the Flood, Every Name, the enrage), `...Floors` (lingering ground by
+owner), `...EntrancesAndAuras`, `...Scenes`, `...Shared` (cross-act marks, guard window, safe pane, echo strike, pull),
+and `SkyglassMotherOfEchoesSlices<Move>` (the move CamelCased, alphanumeric only, e.g. `...SlicesGlassfallFirstEcho`):
+every per-hex slice of a sliced painting, one folder per move, so hundreds of single-hex slices stay out of the
+browsable folders. The same validator caps `frames` and `speed` at 1-100 (`asset_row` refuses anything outside).
 
 **New names:** `MoE <Act|Floor|Boss|Scene>: <Move> - <part>` (e.g. `MoE II: Recast Rime - slice c04r06`,
 `MoE I: Refraction Breaks - slice L c03`, `MoE III: Glassfall First Pane - slice c06r02`, `MoE Boss: Sayo - entrance`).
