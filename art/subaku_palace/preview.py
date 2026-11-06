@@ -33,7 +33,7 @@ def arg(name, default=None):
     return ARGS[ARGS.index(name) + 1] if name in ARGS else default
 
 
-EXP = os.path.join(HERE, 'exports')
+EXP = os.path.join(HERE, 'exports' if os.environ.get('SBK_VARIANT', 'cover') == 'cover' else 'exports_light')
 OUT = arg('--out', os.path.join(HERE, 'previews'))
 W, H = 12, 10
 HW, HH, CP, RP = 132, 66, 99, 66
@@ -213,7 +213,7 @@ def main():
         cf = [f.crop(box) for f in frames]
         cname = f'subaku_close_{board}{tag}'
         cf[0].save(os.path.join(OUT, cname + '.gif'), save_all=True, append_images=cf[1:], duration=50, loop=0)
-        picks = [t for t in ((0, 5, 10, 15, 20, 25, 30, 35) if ROUGH else (0, 6, 8, 10, 12, 14, 16, 19, 21, 23, 29, NT - 1)) if t < NT]
+        picks = [t for t in ((0, 7, 12, 17, 22, 27, 29, 35) if ROUGH else (0, 6, 8, 10, 12, 14, 16, 19, 21, 23, 29, NT - 1)) if t < NT]
         sw, sh = frames[0].width // 2, frames[0].height // 2
         sheet = Image.new('RGB', (sw * 4, sh * 3 + 18), (12, 14, 18))
         ImageDraw.Draw(sheet).text((4, 3), f'{name}  ticks {picks} @50 ms  |  50 px rendition + linear, true size shown at 1/2  |'

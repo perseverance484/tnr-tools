@@ -1,0 +1,327 @@
+{
+ "ratio": 2.5,
+ "speed": 50,
+ "tile": "rails_rest",
+ "order": "rings_light_nospill",
+ "variant": "light",
+ "assets": {
+  "anim_sbk_wave_b0_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 36,
+   "speed": 50,
+   "reach_norm": 1.5
+  },
+  "anim_sbk_wave_b1_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 36,
+   "speed": 50,
+   "reach_norm": 1.5
+  },
+  "anim_sbk_wave_b2_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 36,
+   "speed": 50,
+   "reach_norm": 1.5
+  },
+  "anim_sbk_wave_b3_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 36,
+   "speed": 50,
+   "reach_norm": 1.5
+  },
+  "anim_sbk_wave_b4_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 36,
+   "speed": 50,
+   "reach_norm": 1.5
+  },
+  "anim_sbk_wave_b5_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 36,
+   "speed": 50,
+   "reach_norm": 1.04
+  },
+  "anim_sbk_wave_b6_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 36,
+   "speed": 50,
+   "reach_norm": 1.04
+  },
+  "anim_sbk_seal_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 36,
+   "speed": 50
+  },
+  "tile_sbk_domain_v3.webp": {
+   "type": "STATIC"
+  }
+ },
+ "groups": [
+  {
+   "asset": "anim_sbk_wave_b0_v1.webp",
+   "lands_tick": 7,
+   "offsets": [
+    {
+     "longitude": -1,
+     "latitude": 0
+    },
+    {
+     "longitude": 0,
+     "latitude": -1
+    },
+    {
+     "longitude": 0,
+     "latitude": 1
+    },
+    {
+     "longitude": 1,
+     "latitude": 0
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b1_v1.webp",
+   "lands_tick": 9,
+   "offsets": [
+    {
+     "longitude": -1,
+     "latitude": -1
+    },
+    {
+     "longitude": -1,
+     "latitude": 1
+    },
+    {
+     "longitude": 1,
+     "latitude": -1
+    },
+    {
+     "longitude": 1,
+     "latitude": 1
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b2_v1.webp",
+   "lands_tick": 11,
+   "offsets": [
+    {
+     "longitude": -2,
+     "latitude": -1
+    },
+    {
+     "longitude": -2,
+     "latitude": 0
+    },
+    {
+     "longitude": -2,
+     "latitude": 1
+    },
+    {
+     "longitude": 0,
+     "latitude": -2
+    },
+    {
+     "longitude": 0,
+     "latitude": 2
+    },
+    {
+     "longitude": 2,
+     "latitude": -1
+    },
+    {
+     "longitude": 2,
+     "latitude": 0
+    },
+    {
+     "longitude": 2,
+     "latitude": 1
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b3_v1.webp",
+   "lands_tick": 13,
+   "offsets": [
+    {
+     "longitude": -1,
+     "latitude": -2
+    },
+    {
+     "longitude": -1,
+     "latitude": 2
+    },
+    {
+     "longitude": 1,
+     "latitude": -2
+    },
+    {
+     "longitude": 1,
+     "latitude": 2
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b4_v1.webp",
+   "lands_tick": 15,
+   "offsets": [
+    {
+     "longitude": -3,
+     "latitude": -1
+    },
+    {
+     "longitude": -3,
+     "latitude": 0
+    },
+    {
+     "longitude": -3,
+     "latitude": 1
+    },
+    {
+     "longitude": -2,
+     "latitude": -2
+    },
+    {
+     "longitude": -2,
+     "latitude": 2
+    },
+    {
+     "longitude": 0,
+     "latitude": -3
+    },
+    {
+     "longitude": 0,
+     "latitude": 3
+    },
+    {
+     "longitude": 2,
+     "latitude": -2
+    },
+    {
+     "longitude": 2,
+     "latitude": 2
+    },
+    {
+     "longitude": 3,
+     "latitude": -1
+    },
+    {
+     "longitude": 3,
+     "latitude": 0
+    },
+    {
+     "longitude": 3,
+     "latitude": 1
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b5_v1.webp",
+   "lands_tick": 17,
+   "offsets": [
+    {
+     "longitude": -3,
+     "latitude": -2
+    },
+    {
+     "longitude": -3,
+     "latitude": 2
+    },
+    {
+     "longitude": -1,
+     "latitude": -3
+    },
+    {
+     "longitude": -1,
+     "latitude": 3
+    },
+    {
+     "longitude": 1,
+     "latitude": -3
+    },
+    {
+     "longitude": 1,
+     "latitude": 3
+    },
+    {
+     "longitude": 3,
+     "latitude": -2
+    },
+    {
+     "longitude": 3,
+     "latitude": 2
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b6_v1.webp",
+   "lands_tick": 19,
+   "offsets": [
+    {
+     "longitude": -4,
+     "latitude": -2
+    },
+    {
+     "longitude": -4,
+     "latitude": -1
+    },
+    {
+     "longitude": -4,
+     "latitude": 0
+    },
+    {
+     "longitude": -4,
+     "latitude": 1
+    },
+    {
+     "longitude": -4,
+     "latitude": 2
+    },
+    {
+     "longitude": -2,
+     "latitude": -3
+    },
+    {
+     "longitude": -2,
+     "latitude": 3
+    },
+    {
+     "longitude": 0,
+     "latitude": -4
+    },
+    {
+     "longitude": 0,
+     "latitude": 4
+    },
+    {
+     "longitude": 2,
+     "latitude": -3
+    },
+    {
+     "longitude": 2,
+     "latitude": 3
+    },
+    {
+     "longitude": 4,
+     "latitude": -2
+    },
+    {
+     "longitude": 4,
+     "latitude": -1
+    },
+    {
+     "longitude": 4,
+     "latitude": 0
+    },
+    {
+     "longitude": 4,
+     "latitude": 1
+    },
+    {
+     "longitude": 4,
+     "latitude": 2
+    }
+   ]
+  }
+ ]
+}

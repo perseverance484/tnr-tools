@@ -233,6 +233,8 @@ def sample(x, y):
     if inside:
         neg_over, _, s, l = min(inside)              # the main current wins where it crosses an arc
         c = rail_colour(s, l)
+        if MODE == 'rest':                        # the domain at rest: the rails engraved in dark, unlit gold
+            c = tuple(int(v * 0.6) for v in c)
         if MODE == 'dim':                         # an empty engraving: the rails' shape in near-black bronze
             c = tuple(int(v * 0.30) for v in rail_colour(s, -l))
         if neg_over == 0 and MODE != 'dim' and any(o == 1 and 1.0 < abs(ss) <= 1.45 for ss, _, o in feats):
