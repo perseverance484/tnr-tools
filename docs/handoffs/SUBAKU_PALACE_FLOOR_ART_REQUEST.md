@@ -1,14 +1,14 @@
 # Art request (optional): Subaku Palace domain floor, painted finish
 
-- **Context:** the domain floor ships as a programmatic tile (`art/subaku_palace/floor.py`, 'flow'):
+- **Context:** the domain floor ships as a programmatic tile (`art/subaku_palace/floor.py`, 'bold flow'):
   - exact edge-midpoint joins (RUL-2026-11-05-125);
   - dark basalt flagstones with ember joints;
-  - calligraphic currents of demon gold, with eddies and curls.
+  - one bold bevelled demon-gold current per hex, with one spiral curl.
 - **Why optional:** the game delivers static art at a 50 px rendition (engine doc 3.4), so painted detail finer than
   1/50 of the tile is lost. Run this only if the director wants richer stone and gold texture at that scale.
 - **Why components, not a finished tile:** the joins depend on exact geometry, which a generator cannot hit.
   `floor.py` will map S3 onto the hex lattice (an affine map of a seamless square texture is lattice-periodic) and
-  warp B3 along the exact current, eddy and curl paths.
+  warp B3 along the exact current and curl paths.
 - **Live-game requests/writes:** 0.
 
 ~~~text
@@ -41,7 +41,7 @@ Return each image as soon as it is made, labelled S3_DEMON_BASALT and B3_DEMON_G
 1. Raw QC: S3 is full bleed and seamless; B3 has real alpha, is symmetric top to bottom, and is seamless left to right.
 2. `floor.py`:
    - samples S3 through the lattice map in place of the Voronoi stone, keeping the ember-joint mask;
-   - warps B3 along the current (with its width swell), the eddies and the curls, with the profile centred so the
+   - warps B3 along the current (with its width swell) and the curl, with the profile centred so the
      joins stay exact;
    - re-exports the 150 px tile and rebuilds the strips from the same field.
 3. Rebuild the true-scale composites and get director acceptance before upload.
