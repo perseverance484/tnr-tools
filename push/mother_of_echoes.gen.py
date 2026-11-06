@@ -437,6 +437,8 @@ ACT3_TEXT_PATH = os.path.join(ROOT, "push", "mother_of_echoes_act3_text.json")
 ACT3_TEXT = json.load(open(ACT3_TEXT_PATH)) if os.path.exists(ACT3_TEXT_PATH) else {"names": {}, "jutsu": {}}
 # The battle-log lines that carry each move's clue (director 2026-11-05: descriptions are staff-only). by_name over the
 # spec's own record name; act3v2_by_id by spec id (names repeat there). Applied by the final build only.
+TEXT_FROM = {f"moe-hush-rises-{x}": "The Hush Rises" for x in "abcde"}  # the Glasswright's Hush patterns (coordinator
+# 2026-11-06): The Hush Rises' approved description and log line, never the sim's raw text
 LOG_LINES = json.load(open(os.path.join(ROOT, "push", "mother_of_echoes_log_lines.json")))
 
 
@@ -781,8 +783,10 @@ class Build:
         d["hidden"] = True
         d.update(JUTSU_TEXT.get(name, {}))  # approved text pass (push/mother_of_echoes_text.json)
         d.update(ACT3_TEXT["jutsu"].get(jid, {}))   # by spec id (push/mother_of_echoes_act3_text.json)
+        if jid in TEXT_FROM:                         # a pattern variant reads as the move it varies (approved text)
+            d.update(JUTSU_TEXT.get(TEXT_FROM[jid], {}))
         if self.final:                               # the clue lives in the log line (LOG_LINES)
-            line = LOG_LINES["act3v2_by_id"].get(jid) or LOG_LINES["by_name"].get(rec["name"])
+            line = LOG_LINES["act3v2_by_id"].get(jid) or LOG_LINES["by_name"].get(TEXT_FROM.get(jid, rec["name"]))
             if line:
                 d["battleDescription"] = line
         if self.final_art:
@@ -1646,7 +1650,7 @@ def step_final_tuning(spec, ids, fx_bundle, art2_bundle):
         r_items.append({"entity": "ai", "slot": "edit", "targetId": ids[sid(aid)],
                         "name": f"{e['name']}: final, kit back (law 18)", "data": e["data"]})
     sent = json.dumps([i["data"] for i in c_items + ai_new + s_items + j_items + r_items])
-    used = [k for k in FX4 if "@scene:" + AID4 + k in sent]
+    used = [k for k in FX4 if f'"@scene:{AID4}{k}"' in sent]     # the whole ref: floor_i must not match floor_i_faint
     unused = sorted(set(FX4) - set(used))
     a_items, a_paths = [], []
     rows = {r[0]: r for r in fx2_rows(only4=True)}
@@ -1666,7 +1670,8 @@ def step_final_tuning(spec, ids, fx_bundle, art2_bundle):
         f"push/{N['final_tuning']}: the Mother of Echoes FINAL TUNING job (B1; spec fable/mother-of-echoes-sim "
         f"{SPEC_REF[:8]}, engine cb755375; zero live requests to build). Pairs with push/{N['final_unhide']} (built "
         f"from this job's results bundle). Phase 10: {len(a_items)} HIDDEN gameAssets (law 16b) in the library "
-        "convention (RUL-127: 'Skyglass - Mother of Echoes - ...' folders, 'MoE <Act>: <Move> - <part>' names): only "
+        "convention (RUL-127 as amended by RUL-2026-11-06-130: CamelCase folders 'SkyglassMotherOfEchoes<Section>' and "
+        "'SkyglassMotherOfEchoesSlices<Move>', the game's ^[a-zA-Z0-9]*$; 'MoE <Act>: <Move> - <part>' names): only "
         f"assets a sent record references ({len(unused)} built assets are left out: no live caster, or the Saint "
         f"entrance, post-launch). Phase 20: {len(c_items)} new HIDDEN jutsu. Phase 30: {len(ai_new)} new summon "
         f"template AI ({', '.join(b.aname[a] for a in new_ai) or 'none'}). Phase 40: {len(s_items)} new summon "
