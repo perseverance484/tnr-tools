@@ -134,6 +134,96 @@
    ]
   },
   {
+   "jutsu": "Refraction",
+   "srcId": "sg440_refraction",
+   "liveId": "yxP6zO2NmjwqnrnvNXipC",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 10,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "percentage",
+     "type": "reflect",
+     "description": "Heartglass: every pane turns your light back at you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Far Refraction",
+   "srcId": "sg440_refraction_ii",
+   "liveId": "HIftLq_RQJkIUUqGgBPTE",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 10,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "percentage",
+     "type": "reflect",
+     "description": "Heartglass: every pane turns your light back at you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Facet",
+   "srcId": "sg440_facet",
+   "liveId": "eYzXEQI-Vz3gSIDfP2sX3",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 10,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "percentage",
+     "type": "reflect",
+     "description": "Heartglass: every pane turns your light back at you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
    "jutsu": "Refraction Breaks",
    "srcId": "sg440_refraction_blast",
    "liveId": "qjtaZInyr1nZ5lZmSA_SS",
@@ -560,6 +650,39 @@
    ]
   },
   {
+   "jutsu": "The Hush",
+   "srcId": "sg440_hush",
+   "liveId": "kfzxZHje97anmOwwph84l",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+     "disappearAnimation": "",
+     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 10,
+     "powerPerLevel": 0,
+     "direction": "defence",
+     "target": "SELF",
+     "calculation": "percentage",
+     "type": "absorb",
+     "description": "The deep drinks the sound of every blow",
+     "poolsAffected": [
+      "Health"
+     ]
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    }
+   ]
+  },
+  {
    "jutsu": "The Hush, Unbridled",
    "srcId": "sg440_hush_unbridled",
    "liveId": "VqSpJhDUvjxLP5OtjI1mc",
@@ -568,6 +691,279 @@
     "power": [
      25,
      18
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    }
+   ]
+  },
+  {
+   "jutsu": "The Hush, Unbridled",
+   "srcId": "sg440_hush_unbridled",
+   "liveId": "VqSpJhDUvjxLP5OtjI1mc",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+     "disappearAnimation": "",
+     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 10,
+     "powerPerLevel": 0,
+     "direction": "defence",
+     "target": "SELF",
+     "calculation": "percentage",
+     "type": "absorb",
+     "description": "The deep drinks the sound of every blow",
+     "poolsAffected": [
+      "Health"
+     ]
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    }
+   ]
+  },
+  {
+   "jutsu": "Stillness",
+   "srcId": "sg440_stillness",
+   "liveId": "A8c_3evIw6fOfnmKIkTgb",
+   "effectIndex": null,
+   "changes": {
+    "coordinateTargeting": [
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 10,
+        "latitude": 2
+       },
+       {
+        "longitude": 11,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 11,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 10,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 10,
+        "latitude": 5
+       },
+       {
+        "longitude": 11,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 11,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 7
+       },
+       {
+        "longitude": 11,
+        "latitude": 7
+       }
+      ],
+      "randomCount": 1
+     },
+     null
+    ],
+    "method": [
+     "COORDINATES",
+     "AOE_SPIRAL_SHOOT"
+    ],
+    "range": [
+     0,
+     3
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    }
+   ]
+  },
+  {
+   "jutsu": "Nothing Moves",
+   "srcId": "sg440_stillness_blast",
+   "liveId": "scGyJW-F0Mqga4FXnj4Jf",
+   "effectIndex": null,
+   "changes": {
+    "coordinateTargeting": [
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 10,
+        "latitude": 2
+       },
+       {
+        "longitude": 11,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 11,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 10,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 10,
+        "latitude": 5
+       },
+       {
+        "longitude": 11,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 11,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 7
+       },
+       {
+        "longitude": 11,
+        "latitude": 7
+       }
+      ],
+      "randomCount": 1
+     },
+     null
+    ],
+    "method": [
+     "COORDINATES",
+     "AOE_SPIRAL_SHOOT"
+    ],
+    "range": [
+     0,
+     3
     ]
    },
    "holders": [
@@ -698,6 +1094,37 @@
    ]
   },
   {
+   "jutsu": "Etching: Rime",
+   "srcId": "sg440_etching_a",
+   "liveId": "lkcsor1I5A8gD038ncrBW",
+   "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
+     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+     "disappearAnimation": "",
+     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+     "disappearSfx": "",
+     "rounds": 2,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "static",
+     "type": "shield",
+     "description": "The Stilling: an etched pane holds in front of her",
+     "health": 600
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
    "jutsu": "Recast: Rime",
    "srcId": "sg440_recast_a",
    "liveId": "Avu4B2M_9_SE0-Oqqhplw",
@@ -790,6 +1217,37 @@
      "calculation": "percentage",
      "type": "increasedamagetaken",
      "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Etching: Ember",
+   "srcId": "sg440_etching_b",
+   "liveId": "eovhl9XyDQq1N19lDwr77",
+   "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
+     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+     "disappearAnimation": "",
+     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+     "disappearSfx": "",
+     "rounds": 2,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "static",
+     "type": "shield",
+     "description": "The Stilling: an etched pane holds in front of her",
+     "health": 600
     }
    },
    "holders": [
@@ -902,6 +1360,37 @@
    ]
   },
   {
+   "jutsu": "Etching: Seam",
+   "srcId": "sg440_etching_c",
+   "liveId": "Pr7i3DK5KiRQRePy8Xw41",
+   "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
+     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+     "disappearAnimation": "",
+     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+     "disappearSfx": "",
+     "rounds": 2,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "static",
+     "type": "shield",
+     "description": "The Stilling: an etched pane holds in front of her",
+     "health": 600
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
    "jutsu": "Recast: Seam",
    "srcId": "sg440_recast_c",
    "liveId": "54nmWiFXqvFW7u0vSG5zK",
@@ -994,6 +1483,37 @@
      "calculation": "percentage",
      "type": "increasedamagetaken",
      "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Etching: Heart",
+   "srcId": "sg440_etching_d",
+   "liveId": "nNUaP5r8r7UxYNiAtuF0l",
+   "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
+     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+     "disappearAnimation": "",
+     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+     "disappearSfx": "",
+     "rounds": 2,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "static",
+     "type": "shield",
+     "description": "The Stilling: an etched pane holds in front of her",
+     "health": 600
     }
    },
    "holders": [
@@ -1344,6 +1864,37 @@
    ]
   },
   {
+   "jutsu": "Etching: Hail",
+   "srcId": "sg440_etching_e",
+   "liveId": "2pU7fdUPQPQQjyd19JDWA",
+   "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
+     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+     "disappearAnimation": "",
+     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+     "disappearSfx": "",
+     "rounds": 2,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "static",
+     "type": "shield",
+     "description": "The Stilling: an etched pane holds in front of her",
+     "health": 600
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
    "jutsu": "Recast: Hail",
    "srcId": "sg440_recast_e",
    "liveId": "lmlhn5p68Oszhj16wKbvx",
@@ -1491,6 +2042,36 @@
      30,
      2
     ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Shatterfall",
+   "srcId": "sg440_shatterfall",
+   "liveId": "RcMx3MCHD7dyJw_12mr_7",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 15,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "percentage",
+     "type": "lifesteal",
+     "description": "The Remainder: the black glass feeds on what it cuts"
+    }
    },
    "holders": [
     {
@@ -3612,6 +4193,21 @@
         "jutsuId": "basicAttack",
         "target": "CLOSEST_OPPONENT",
         "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_higher_than",
+         "value": 7,
+         "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+         "description": "Out of reach"
+        }
+       ],
+       "action": {
+        "type": "move_towards_opponent",
+        "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+        "description": "The Silence drifts closer"
        }
       },
       {

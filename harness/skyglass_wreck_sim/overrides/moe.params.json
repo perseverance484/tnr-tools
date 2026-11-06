@@ -1,5 +1,5 @@
 {
- "name": "pass6-live1",
+ "name": "pass6-final-live",
  "pools": {
   "sayo1": 2.0,
   "silence": 1.0,
@@ -102,5 +102,31 @@
  },
  "etchDWide": true,
  "liveSpawn": true,
- "recastGround": true
+ "recastGround": true,
+ "silenceStalk": true,
+ "stillAnchored": true,
+ "bossAura": {
+  "on": true,
+  "sayo1": {
+   "type": "reflect",
+   "power": 10,
+   "rounds": 3
+  },
+  "silence": {
+   "type": "absorb",
+   "power": 10,
+   "rounds": 3
+  },
+  "sayo2": {
+   "type": "shield",
+   "health": 600,
+   "rounds": 2
+  },
+  "saint": {
+   "type": "lifesteal",
+   "power": 15,
+   "rounds": 3
+  }
+ },
+ "noPoolReentry": true
 }

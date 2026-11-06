@@ -111,6 +111,16 @@ export const MOE_DEFAULTS = {
   skilledPolicy: false,
   /** Pass 6: cleansable debuff left by an eruption hit, per act ({dh, idt, rounds}); the cast becomes CHARACTER. */
   eruptDebuff: { on: false } as { on: boolean; act1?: any; act2?: any; act3?: any },
+  /** Director 2026-11-05 proposal: per-boss SELF buffs (see buildRecords). */
+  bossAura: { on: false } as any,
+  /** Sim-only: visual "piece" tags on the signature moves (art pass identity check). */
+  visualPieces: false,
+  /** Policy fix: never step back onto a pool hex the player dodged off earlier in the same round. */
+  noPoolReentry: false,
+  /** Director 2026-11-05: the Silence steps toward the highest-HP opponent when it is out of the Silence Turns' reach. */
+  silenceStalk: false,
+  /** Director 2026-11-05: Stillness (mark and Nothing Moves) covers the hexes within 3 of the Silence wherever she stands. */
+  stillAnchored: false,
   /** Pass 6 live calibration: Act II Recasts stay GROUND (debuff as a pool) instead of CHARACTER + Sayo's post. */
   recastGround: false,
   /** Pass 6 (director 2026-11-05 probe): Glass Lancet cooldown (1 = every turn it is free). */
@@ -237,6 +247,7 @@ const eruptDebuff = (act: number) => {
 /* ------------------------------------------------------------------ records */
 export const buildRecords = (P: MoeParams) => {
   CARRIER_ON = P.telegraphCarrier !== false;
+  P_NO_REENTRY = !!P.noPoolReentry;
   SKILLED = !!P.skilledPolicy;
   DEBUFF = { on: !!P.eruptDebuff?.on, pct: { 1: P.eruptDebuff?.act1, 2: P.eruptDebuff?.act2, 3: P.eruptDebuff?.act3 } as any };
   ERUPT = { on: !!P.eruption?.on, hp: P.eruption?.hp ?? 31500, pct: { 1: P.eruption?.act1 ?? 40, 2: P.eruption?.act2 ?? 60, 3: P.eruption?.act3 ?? 80 }, recast: P.eruption?.recast };
@@ -290,9 +301,12 @@ export const buildRecords = (P: MoeParams) => {
   listen(JID.listeningUnbridled, "The Listening, Unbridled", 1, "It does not wait any more. Another feeler rises.");
   // Telegraphed Stillness: the Silence never moves, so its reach (every hex within 3 of its post) is a fixed pattern.
   // The blast is CHARACTER (it stuns) and its pattern holds the Silence's own hex, so it is always a valid cast.
-  add(JID.stillness, { name: "Stillness", description: "The deep listens around the Silence: next turn, everything within 3 is crushed and stunned.", battleDescription: "The floor around the Silence goes still. Something is listening.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: P.still.cd, actionCostPerc: 40, coordinateTargeting: field(PAT.stillReach), effects: [carrier("tg_control"), marker(MK.still)] });
-  add(JID.stillnessBlast, { name: "Stillness", description: "Everything within 3 of the Silence is crushed and stunned.", battleDescription: "\"Be still.\"", target: "CHARACTER", method: "COORDINATES", range: 0, cooldown: 2, actionCostPerc: 100, coordinateTargeting: field(PAT.stillReach),
-    effects: [erupt(1, p.stillness, "moe_stillness"), tag("stun", { power: 100, rounds: P.still.stunRounds, apReduction: P.still.stunAp, friendlyFire: "ENEMIES" })] });
+  // Director 2026-11-05: Stillness is anchored to the Silence (she spawns at random and now moves): AOE_SPIRAL_SHOOT with
+  // range 3 covers every hex within 3 of the caster, her own excluded (libs/combat/targeting.ts spiral around the caster).
+  const stillGeo = P.stillAnchored ? { method: "AOE_SPIRAL_SHOOT", range: 3 } : { method: "COORDINATES", range: 0, coordinateTargeting: field(PAT.stillReach) };
+  add(JID.stillness, { name: "Stillness", description: "The deep listens around the Silence: next turn, everything within 3 is crushed and stunned.", battleDescription: "The floor around the Silence goes still. Something is listening.", target: "GROUND", ...stillGeo, cooldown: P.still.cd, actionCostPerc: 40, effects: [carrier("tg_control"), marker(MK.still)] } as any);
+  add(JID.stillnessBlast, { name: "Stillness", description: "Everything within 3 of the Silence is crushed and stunned.", battleDescription: "\"Be still.\"", target: "CHARACTER", ...stillGeo, cooldown: 2, actionCostPerc: 100,
+    effects: [erupt(1, p.stillness, "moe_stillness"), tag("stun", { power: 100, rounds: P.still.stunRounds, apReduction: P.still.stunAp, friendlyFire: "ENEMIES" })] } as any);
   /* ---- the feeler ---- */
   add(JID.cradle, { name: "Cradle", description: "While a feeler lives, the Silence holds Sayo: 90% less damage taken, and the hold cannot be cleared.", battleDescription: "The Silence cradles %target. Blows slide off the glass.", target: "ALLY", method: "SINGLE", range: 5, cooldown: 1, actionCostPerc: 40, donor: "xs-8r_KRJS8QQMpBDyhUv",
     effects: [T.pct("decreasedamagetaken", p.cradleDR, 1, { target: "INHERIT", friendlyFire: "FRIENDLY", staticAnimation: "moe_cradle" }), tag("clearprevent", { power: 100, rounds: 1, target: "INHERIT", friendlyFire: "FRIENDLY" })] });
@@ -410,6 +424,22 @@ export const buildRecords = (P: MoeParams) => {
     turn(JID.turnII, "The Glass Turns", P.turnMark.act2, "The glass under %target remembers the weight of you.");
   }
   if (P.etchDWide) J[JID.det.D!]!.coordinateTargeting = field(cellsWhere((c, r) => c >= 4 && r >= 3 && r <= 6));
+  // Director 2026-11-05 (proposal, awaiting approval): a real, thematic SELF buff per boss, POSITIVE power only (the client
+  // cannot draw negative-power tags), riding a move the boss opens the act with and repeats, so it is refreshed all act.
+  // Each cast is a separate instance (BATTLE_TAG_STACKING, drizzle/constants.ts:1968); rounds are kept near the move's
+  // repeat period so at most ~2 instances overlap. bossAura: { sayo1, silence, sayo2, saint }: { type, power | health, rounds }.
+  if (P.bossAura?.on) {
+    const aura = (a: any, desc: string) => a.type === "shield" ? tag("shield", { power: 100, health: a.health, rounds: a.rounds, target: "SELF", description: desc })
+      : tag(a.type, { power: a.power, rounds: a.rounds, target: "SELF", calculation: "percentage", description: desc });
+    const put = (ids: string[], a: any, desc: string) => { if (a) for (const id of new Set(ids)) J[id]!.effects.push(aura(a, desc)); };
+    put([JID.refractA, JID.refractB, JID.facet], P.bossAura.sayo1, "Heartglass: every pane turns your light back at you");
+    put([JID.hush[0]!, JID.hushUnbridled], P.bossAura.silence, "The deep drinks the sound of every blow");
+    put(Object.values(JID.etch), P.bossAura.sayo2, "The Stilling: an etched pane holds in front of her");
+    put([JID.shatterMark], P.bossAura.saint, "The Remainder: the black glass feeds on what it cuts");
+  }
+  // Art pass simulation (2026-11-05): visual-only "piece" tags on the signature moves (no gameplay handler); the
+  // generator on main adds the real ones at build time. Sim-only switch for the fixed-seed identity check.
+  if (P.visualPieces) for (const id of [JID.floodMark, JID.floodBlast, JID.shatterBlast, ...JID.glass, JID.glassFirstB, JID.glassRecast, JID.enrage, ...Object.values(JID.det)]) J[id]?.effects.push(vis("moe_piece", 1));
   const SUMMON_HITS = new Set([JID.grasp, JID.likenessStrike, JID.porter, JID.tomo]);
   for (const [id, r] of Object.entries<any>(J)) if (id !== JID.pull) for (const e of r.effects) if ((e.type === "damage" || e.type === "pierce") && e.calculation === "formula") {
     const k = P.bossDmgScale * (SUMMON_HITS.has(id) ? P.summonDmgScale : 1);
@@ -533,6 +563,12 @@ export const silenceRules = (P: MoeParams) => [
   R.jutsu(JID.listening, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [C.noSummon()]),
   R.jutsu(JID.stillness, "SELF", [C.near(3)]),
   basic([C.near(1)]),
+  // Director 2026-11-05: the Silence stalks the player. When the highest-HP opponent (the Silence Turns' target) is out of
+  // the Turns' reach (range 5 = path length 6, law 40 convention: ai_v2.ts getDistance is the A* path length, origin
+  // included), she steps toward it (ai_v2.ts:482-491, one hex per move action); placed last so every cast rule above is
+  // tried first. She never steps while Stillness is pending: the blast (rule 1) comes first on her next turn, and the mark
+  // needs the player within 3, so no step can follow it in the same turn.
+  ...(P.silenceStalk ? [{ conditions: [{ type: "distance_higher_than", value: 7, target: "HIGHEST_MAX_HEALTH_OPPONENT", description: "Out of reach" }], action: { type: "move_towards_opponent", target: "HIGHEST_MAX_HEALTH_OPPONENT", description: "The Silence drifts closer" } }] : []),
   R.end(),
 ];
 export const feelerRules = () => [
@@ -677,6 +713,7 @@ let AVG_OVERRIDE: any = null;
 export const setGearOverride = (g: any, avg?: any) => { GEAR_OVERRIDE = g; AVG_OVERRIDE = avg ?? null; };
 /** Pass 6 live calibration: seat combatants like the server (random spawn blocks) instead of the fixed posts. */
 let LIVE_SPAWN = false;
+let P_NO_REENTRY = false;
 export const setLiveSpawn = (on: boolean) => { LIVE_SPAWN = on; };
 /**
  * The average geared level-100 model (RUL-2026-11-02-097 item 3), built the same way as the elite one: the real Kitsune
@@ -1073,6 +1110,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
     // reaches this). While the misread pattern is live the player steps onto its nearest hex and holds it.
     let recastPin: Set<string> | null = null;
     let misstep = false;
+    const dodgedFrom = new Set<string>(); let dodgedRound = -1;
     const pinnedStay = (to: string) => !!recastPin && recastPin.size > 0 && !recastPin.has(to) && recastPin.has(key([pu().longitude, pu().latitude]));
     const dodgeStep = (): boolean => {
       const here: Cell = [pu().longitude, pu().latitude];
@@ -1183,7 +1221,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
           if (!reach.some((k) => !danger.has(k) && !linger.has(k))) sv.noSafeInclPools++;
         }
       }
-      if (human && o.policy === "play" && (misstep = false, dodgeStep())) { if (misstep) actionId = "misstep"; else { actionId = "dodge"; res.dodges++; } }
+      if (human && o.policy === "play" && (misstep = false, dodgeStep())) { if (misstep) actionId = "misstep"; else { actionId = "dodge"; res.dodges++; if (P_NO_REENTRY) { if (dodgedRound !== b.round) { dodgedFrom.clear(); dodgedRound = b.round; } dodgedFrom.add(key(pPos)); } } }
       else if (human && o.policy !== "ignore" && wantsCleanse(b, puid, !!o.model.real) && tryAction("cleanse", pPos)) { actionId = "cleanse"; res.cleanses++; }
       else if (human && o.policy !== "ignore" && o.model.real && (() => { const t = chooseTarget(); return t && wantsClear(b, t) && dist(pPos, [t.longitude, t.latitude]) <= 4 && tryAction("clear", [t.longitude, t.latitude]); })()) { actionId = "clear"; res.clears = (res.clears ?? 0) + 1; }
       else {
@@ -1205,7 +1243,8 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
           // a step onto a pool is refused only when the target is already within attack range (4).
           const tgt = currentTarget ?? chooseTarget();
           const needApproach = !!tgt && dist([after.longitude, after.latitude], [tgt.longitude, tgt.latitude]) < dist(pPos, [tgt.longitude, tgt.latitude]) && dist(pPos, [tgt.longitude, tgt.latitude]) > 4;
-          if (pinnedStay(k) || (danger.has(k) && !recastPin?.has(k)) || (linger.has(k) && !needApproach)) { actionId = tryAction("wait", pPos) ? "wait" : undefined; if (!actionId) b = r.nextBattle; }
+          const reentry = P_NO_REENTRY && linger.has(k) && dodgedRound === b.round && dodgedFrom.has(k);
+          if (pinnedStay(k) || (danger.has(k) && !recastPin?.has(k)) || (linger.has(k) && (!needApproach || reentry))) { actionId = tryAction("wait", pPos) ? "wait" : undefined; if (!actionId) b = r.nextBattle; }
           else b = r.nextBattle;
         } else if (human && o.policy === "camp" && (actionId === "move" || actionId === "replacementTechnique")) {
           // camp: holds the act's best fixed hex (fewest marks in the coverage audit) and never moves
