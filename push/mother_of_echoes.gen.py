@@ -223,9 +223,11 @@ PAINT_SHARED = ("flood", "enrage")   # lattice-periodic fields: hexes share stri
 _pkey = {}
 for _r in (json.load(open(os.path.join(ROOT, PAINT_META)))["slices"] if os.path.exists(os.path.join(ROOT, PAINT_META)) else []):
     if _r["file"] not in _pkey:
-        _n = sum(1 for k in _pkey.values() if k.startswith(_r["region"] + "~"))
-        _pkey[_r["file"]] = (f"{_r['region']}~s{_n:02d}" if _r["region"] in PAINT_SHARED
-                             else f"{_r['region']}~{_r['col']}_{_r['row']}")
+        # srcIds stay inside the ref charset ([A-Za-z0-9_-]: validate.py, refs.mjs): "__" joins region and cell, "m" is minus
+        _n = sum(1 for k in _pkey.values() if k.startswith(_r["region"] + "__"))
+        _cell = lambda v: f"m{-v}" if v < 0 else str(v)
+        _pkey[_r["file"]] = (f"{_r['region']}__s{_n:02d}" if _r["region"].split("_")[0] in PAINT_SHARED
+                             else f"{_r['region']}__{_cell(_r['col'])}_{_cell(_r['row'])}")
         FX4[_pkey[_r["file"]]] = (_r["file"], f"Mother of Echoes FX - {_r['region']} {_r['col']},{_r['row']}")
     PAINTED.setdefault(_r["region"], {})[(_r["col"], _r["row"])] = _pkey[_r["file"]]
 # Faint lingering floors (director 2026-11-06, approved at 18%): a payoff that carries the vivid settle itself
@@ -792,7 +794,7 @@ class Build:
             for src in rec["effects"]:
                 slot = src.get("appearAnimation")
                 pre = {**PAINT_SLOTS, "tg_etch": "etch"}.get(slot)
-                if pre and src.get("target") != "COORDINATES":
+                if pre and src.get("target") != "COORDINATES" and jid not in REFRACTION_BY_ID:   # the Saint's lines slice
                     d["effects"] += self.painted(name, rec, pre)
         if self.final and name in REFRACTION_SLICES:
             d["effects"] += self.refraction_slices(name, rec, d)
@@ -1114,7 +1116,7 @@ def lib_label(key):
     if m:
         act, move = SLICE_MOVES[m.group(1)]
         return LIB_SLICES + camel(move), f"MoE {act}: {move} - slice {m.group(2).upper()} c{int(m.group(3)):02d}"
-    m = re.fullmatch(r"([a-z_]+)~(s(\d+)|(-?\d+)_(-?\d+))", key)
+    m = re.fullmatch(r"([a-z_]+?)__(s(\d+)|(m?\d+)_(m?\d+))", key)
     if m:
         region = m.group(1)
         base, _, sub = region.partition("_")
@@ -1124,10 +1126,10 @@ def lib_label(key):
         if m.group(3):
             part = f"strip {int(m.group(3)):02d}"
         elif base == "shatterfall":
-            dx, dy = int(m.group(4)), int(m.group(5))
+            dx, dy = (int(v.replace("m", "-")) for v in (m.group(4), m.group(5)))
             part = "piece centre" if (dx, dy) == (0, 0) else f"piece dx{dx:+d} dy{dy:+d}"
         else:
-            part = f"slice c{int(m.group(4)):02d}r{int(m.group(5)):02d}"
+            part = f"slice c{int(m.group(4).replace('m', '-')):02d}r{int(m.group(5).replace('m', '-')):02d}"
         return LIB_SLICES + camel(move), f"MoE {act}: {move} - {part}"
     die(f"no library label for asset key {key!r} (add it to LABELS)")
 
