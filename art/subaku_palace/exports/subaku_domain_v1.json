@@ -6,59 +6,59 @@
  "assets": {
   "anim_sbk_wave_b0_v1.webp": {
    "type": "ANIMATION",
-   "frames": 32,
+   "frames": 36,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2256
+   "bytes": 3312
   },
   "anim_sbk_wave_b1_v1.webp": {
    "type": "ANIMATION",
-   "frames": 32,
+   "frames": 36,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2268
+   "bytes": 3326
   },
   "anim_sbk_wave_b2_v1.webp": {
    "type": "ANIMATION",
-   "frames": 32,
+   "frames": 36,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2292
+   "bytes": 3338
   },
   "anim_sbk_wave_b3_v1.webp": {
    "type": "ANIMATION",
-   "frames": 32,
+   "frames": 36,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2304
+   "bytes": 3350
   },
   "anim_sbk_wave_b4_v1.webp": {
    "type": "ANIMATION",
-   "frames": 32,
+   "frames": 36,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2328
+   "bytes": 3362
   },
   "anim_sbk_wave_b5_v1.webp": {
    "type": "ANIMATION",
-   "frames": 32,
+   "frames": 36,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2332
+   "bytes": 3374
   },
   "anim_sbk_wave_b6_v1.webp": {
    "type": "ANIMATION",
-   "frames": 32,
+   "frames": 36,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2342
+   "bytes": 3386
   },
   "anim_sbk_seal_v1.webp": {
    "type": "ANIMATION",
-   "frames": 32,
+   "frames": 36,
    "speed": 50,
    "use": "ground tag (decreasedamagegiven) appearAnimation, 60 hexes",
-   "bytes": 430
+   "bytes": 626
   },
   "tile_sbk_domain_v3.webp": {
    "type": "STATIC",
@@ -91,7 +91,7 @@
   },
   {
    "asset": "anim_sbk_wave_b1_v1.webp",
-   "lands_tick": 8,
+   "lands_tick": 9,
    "offsets": [
     {
      "longitude": -1,
@@ -113,7 +113,7 @@
   },
   {
    "asset": "anim_sbk_wave_b2_v1.webp",
-   "lands_tick": 10,
+   "lands_tick": 11,
    "offsets": [
     {
      "longitude": -2,
@@ -151,7 +151,7 @@
   },
   {
    "asset": "anim_sbk_wave_b3_v1.webp",
-   "lands_tick": 11,
+   "lands_tick": 13,
    "offsets": [
     {
      "longitude": -1,
@@ -173,7 +173,7 @@
   },
   {
    "asset": "anim_sbk_wave_b4_v1.webp",
-   "lands_tick": 13,
+   "lands_tick": 15,
    "offsets": [
     {
      "longitude": -3,
@@ -227,7 +227,7 @@
   },
   {
    "asset": "anim_sbk_wave_b5_v1.webp",
-   "lands_tick": 14,
+   "lands_tick": 17,
    "offsets": [
     {
      "longitude": -3,
@@ -265,7 +265,7 @@
   },
   {
    "asset": "anim_sbk_wave_b6_v1.webp",
-   "lands_tick": 16,
+   "lands_tick": 19,
    "offsets": [
     {
      "longitude": -4,
@@ -335,15 +335,12 @@
   }
  ],
  "handoff_check": {
-  "handoff": {
-   "mean_abs": 16.3,
-   "share_over_32": 0.169,
-   "pixels": 1667
-  },
+  "handoff": "exact by construction: behind the trail the clip is transparent and the real tile shows; the last non-empty frame (land + SPAN + TRAIL) holds only lit rail pixels",
   "late_pop": {
-   "mean_abs": 21.9,
-   "share_over_32": 0.185,
-   "pixels": 1667
-  }
+   "mean_abs": 24.8,
+   "share_over_32": 0.246,
+   "pixels": 6240
+  },
+  "gold_visible_t0": 0.014
  }
 }

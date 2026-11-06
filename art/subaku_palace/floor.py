@@ -47,7 +47,7 @@ ARC_W = 0.075
 AMP = 0.16
 LIGHT = (-0.6, -0.8)
 BLEED = 0.06
-MODE = 'full'     # 'dim': the rails engraved but unlit (the cast's cover, before the gold forms)
+MODE = 'full'     # 'stone': the floor with no gold at all (the cast's cover, before the gold blooms)
 
 _rnd = random.Random(23)
 NSEED = 16
@@ -219,7 +219,7 @@ def sample(x, y):
         c = [c[j] * (1 - f) + EMBER[1][j] * f for j in range(3)]
     c = tuple(max(0, min(255, int(v))) for v in c)
     gold = chan = 0
-    feats = features(x, y)
+    feats = [] if MODE == 'stone' else features(x, y)
     for s, _, _ in feats:
         if 1.0 < abs(s) <= 1.32:
             c = tuple(int(v * 0.40) for v in c)

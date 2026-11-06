@@ -156,7 +156,8 @@ def main():
     boxes = fighter_boxes()
     tag = f"_r{BD.RATIO:g}_{meta['tile']}_{meta['order']}" + ('_odd' if ODD else '_even') + ('_pulse' if PULSE else '')
     report = {}
-    for dark in (False, True):
+    ROUGH = '--rough' in ARGS
+    for dark in ((True,) if ROUGH else (False, True)):
         bg = real_board(dark)
         frames, cover, buried = [], [], {c: 0.0 for c in boxes}
         for t in range(NT):
@@ -212,7 +213,7 @@ def main():
         cf = [f.crop(box) for f in frames]
         cname = f'subaku_close_{board}{tag}'
         cf[0].save(os.path.join(OUT, cname + '.gif'), save_all=True, append_images=cf[1:], duration=50, loop=0)
-        picks = [t for t in (0, 4, 7, 9, 12, 15, 17, 20, 23, 27, 33, NT - 1) if t < NT]
+        picks = [t for t in ((0, 5, 10, 15, 20, 25, 30, 35) if ROUGH else (0, 7, 9, 11, 13, 15, 17, 19, 23, 27, 29, NT - 1)) if t < NT]
         sw, sh = frames[0].width // 2, frames[0].height // 2
         sheet = Image.new('RGB', (sw * 4, sh * 3 + 18), (12, 14, 18))
         ImageDraw.Draw(sheet).text((4, 3), f'{name}  ticks {picks} @50 ms  |  50 px rendition + linear, true size shown at 1/2  |'
