@@ -1715,6 +1715,8 @@ Replaces the separate art-pass files (466, 467, 480-482, 465), which are gone; 4
 3. Gates; ledger `state/validate_exceptions/476_mother_of_echoes_tune.json` (`--write`). Provisional build on the loop-10 params (dry run, 73 items: 2 + 9 + 53 + 9): accepted classes (build order 53, law 4/L06 5, L10 18, law 6 on formula damage 1) plus two NEW classes needing director acceptance: law 6 on the flat `pierce` eruptions (17; the engine's PowerAttributes power has no max, validators/combat.ts:147-149, so 3,030-6,500 saves) and law 17 on the two in-job `@jutsu` refs in AI kits (2). `check_manifest` 0, `skyglass_check` 0.
 Dry runs: `MOE_SPEC_FILE=<spec.json> MOE_OUT_DIR=<dir outside push/>` builds any step from an unpinned spec into a scratch directory (never committed).
 
+**476 built (2026-11-05)** from SPEC_REF 7fdaa5da (final pass-6 spec), 73 items (2 / 9 / 53 / 9). Settings (director 2026-11-04/05): eruptions 3,030 (I) / 6,500 (Act II Recasts) / 6,500 (III), option-4 debuffs, Glass Lancet ~10% of 6,250 first hit with a capped ramp (7% per cast, 9-round stacks), follow-the-player marks 40/50% cooldown 4, Sayo II DR 55, Saint DR 40. Sim loop 13 (20 runs): perfect 7, real 1, average 0, ignore 0, camp 0. Gates: `validate.py --strict` 25 errors / 79 warnings held by the ledger (accepted classes plus two NEW classes PENDING director acceptance: law 6 on 17 flat pierce eruptions, law 17 on 2 in-job @jutsu refs); `check_manifest` 0 pre-send problems; `skyglass_check` 0. Run after 467, then test on 469.
+
 **Still to come:** the go-live, **477** (`--step golive`; was 467), after 476.
 
 1. **466** `466_mother_of_echoes_final.json`, JOB 1, 88 items, one imagePack (12e54c08, 32 files; the art-QA polish):
