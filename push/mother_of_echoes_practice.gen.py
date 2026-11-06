@@ -43,7 +43,7 @@ def practice_data(b, ids, econ, scenes=None):
         for k in ("failDescription", "drawDescription", "fleeDescription"):
             if k in o:
                 o[k] = "Practice over."
-        if o["id"] == "d_open":
+        if o["id"] == "d_intro1":
             o["description"] = "<i>Test run.</i> No shards are needed.<br><br>" + o["description"]
     return d
 

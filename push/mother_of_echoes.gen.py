@@ -111,7 +111,7 @@ FX = {
 }
 SCENES = {  # key -> (file, name, quest nodes). "content" is the quest-level sceneBackground.
     "heart": ("scene_moe_heart.webp", "Mother of Echoes Scene - The Heart of the Mother Glass",
-              ("content", "d_open", "b_act1", "f_lost")),
+              ("content", "d_intro1", "d_intro2", "d_open", "b_act1", "f_lost")),
     "stilling": ("scene_moe_stilling.webp", "Mother of Echoes Scene - The Stilling", ("d_act2", "b_act2")),
     "impression": ("scene_moe_impression.webp", "Mother of Echoes Scene - A Good Impression",
                    ("d_act3", "b_act3", "w_clear")),
@@ -420,15 +420,27 @@ F_LOST = "The glass keeps what it was given. Find four more shards and come back
 # RUL-2026-11-03-111: the Silence rides in Sayo's shadow; it stands up off the floor at the start and folds back
 # into her for Act III. These override the spec's dialog text (ids: d_open = n0, d_act3 = n4); 465 carries them live.
 DIALOG_OVERRIDES = {
-    "d_open": ("The four shards fit together in your hands, and the seams vanish. They were never broken. They were an "
-               "invitation.<br><br>Under Crownhold the Mother Glass is singing. Sayo hangs in the air before it, her hair "
-               "drifting as if the hall were full of water, her fan open behind her like a halo. \"You came. Good. I was "
-               "beginning to think I had measured you wrong.\"<br><br>She turns to face you. Her shadow does not turn "
-               "with her. It stays where it was. Then it stands up off the floor, and keeps standing."),
+    "d_open": ("She studies you the way she studied them. \"There is room in the glass for one more.\"<br><br>She "
+               "turns to the wall, as if choosing a place for you. Her shadow does not turn with her. It stays where it "
+               "was. Then it stands up off the floor."),
     "d_act3": ("Every pane in the hall turns toward you. The dark at the edge of the light folds itself small and slides "
                "back across the floor into Sayo's shadow. Her eyes close. When she speaks again, nothing moves her lips. "
                "\"Hold still. You will make for a good impression.\""),
 }
+
+
+# The opening build-up (director, 2026-11-05: "the opening scene is exactly 1 dialog with no exposition ... Could use a
+# little build up"; Sayo's villain reveal: she stilled everyone and put them in the glass). Two scenes before d_open.
+INTRO = [
+    ("d_intro1", "The four shards fit together in your hands, and the seams vanish. They were never broken. They were an "
+                 "invitation.<br><br>They pull you down, past where Crownhold's stair ends, into a hall of glass. Every "
+                 "pane holds a face. The Deck Warden. The Captain. The guards you cut down. Their eyes are open, and "
+                 "none of them blink.", "Go deeper"),
+    ("d_intro2", "She hangs in the air before the Mother Glass, her fan open behind her like a halo.<br><br>\"Lovely, "
+                 "aren't they? Every one of them held still for me.\" She smiles at the faces. \"The ship, the castle, "
+                 "all of it. I never lost them. I kept them.\"<br><br>\"And you have been cutting them out of my glass, "
+                 "one by one. How interesting.\"", "You did this"),
+]
 
 
 def quest_data(b, ids, econ, scenes=None):
@@ -452,7 +464,10 @@ def quest_data(b, ids, econ, scenes=None):
     if REWARD_MONEY:
         win["reward_money"] = REWARD_MONEY
     win["reward_items"] = [{"ids": [econ[ECON + k]], "number": pct, "quantity": 1} for k, pct in TOKEN_PCT.items()]
-    objs = [dialog("d_open", 0, "b_act1", "Step into the hall"),
+    intro = [{"id": oid, "task": "dialog", "description": text, **sc,
+              "nextObjectiveId": [{"text": label, "nextObjectiveId": (INTRO[i + 1][0] if i + 1 < len(INTRO) else "d_open")}]}
+             for i, (oid, text, label) in enumerate(INTRO)]
+    objs = [*intro, dialog("d_open", 0, "b_act1", "Step into the hall"),
             battle("b_act1", 1, "d_act2"), dialog("d_act2", 2, "b_act2", "Hold your ground"),
             battle("b_act2", 3, "d_act3"), dialog("d_act3", 4, "b_act3", "Do not hold still"),
             battle("b_act3", 5, "w_clear"), win,
