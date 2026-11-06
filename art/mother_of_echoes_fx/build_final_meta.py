@@ -25,9 +25,11 @@ def main():
             raise SystemExit(f"FX4 {k}: {f} missing")
         im = Image.open(p)
         static = f.startswith("tile_")
-        rows.append({"file": M.FXDIR + f, "type": "STATIC" if static else "ANIMATION",
+        folder, name = M.lib_label(k)                    # the library convention (folder + "MoE <Act>: <Move> - <part>")
+        rows.append({"key": k, "folder": folder, "name": name, "file": M.FXDIR + f, "type": "STATIC" if static else "ANIMATION",
                      "frames": 1 if static else im.height // im.width, "speed": None if static else 50,
                      "bytes": os.path.getsize(p)})
+    M.lib_gate([(r["key"], r["folder"], r["name"]) for r in rows])
     with open(os.path.join(ROOT, M.FX4_META), "w") as fh:
         json.dump({"source": "art/mother_of_echoes_fx/build_final_meta.py (from push/mother_of_echoes.gen.py FX4)",
                    "assets": rows}, fh, indent=1)

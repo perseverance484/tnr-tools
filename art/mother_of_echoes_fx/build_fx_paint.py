@@ -44,11 +44,28 @@ def hex_poly(cx, cy, w=40, h=20):
             (cx + w / 4, cy + h / 2), (cx - w / 4, cy + h / 2)]
 
 
+def cluster(f, x, y, col, out):
+    """A4.cluster for a canvas of any size (QA X2: A4.cluster draws on a 50 px frame composited at (0, 0), so on a
+    region canvas every chunk beyond it was lost). A 3 px blob outlined 1 px, drawn on a local 9 x 9 patch."""
+    x, y = int(round(x)), int(round(y))
+    n = Image.new("RGBA", (9, 9), (0, 0, 0, 0))
+    F.blob(n, 4, 4, col, r=1)
+    F.outline_alpha(n, out)
+    f.alpha_composite(n, (x - 4, y - 4)) if 0 <= x - 4 and 0 <= y - 4 and x + 5 <= f.width and y + 5 <= f.height else \
+        _paste_clipped(f, n, x - 4, y - 4)
+
+
+def _paste_clipped(f, n, ox, oy):
+    box = (max(0, -ox), max(0, -oy), min(n.width, f.width - ox), min(n.height, f.height - oy))
+    if box[0] < box[2] and box[1] < box[3]:
+        f.alpha_composite(n.crop(box), (ox + box[0], oy + box[1]))
+
+
 def region_mask(cv):
     m = Image.new("L", (cv.w, cv.h), 0)
     d = ImageDraw.Draw(m)
     for k in cv.cells:
-        d.polygon(hex_poly(*cv.c(*k), 42, 22), fill=255)    # 1 px past the footprint so slices overlap, not gap
+        d.polygon(hex_poly(*cv.c(*k), 41, 21), fill=255)    # the footprint + the 1 px overlap only (QA S5)
     return m
 
 
@@ -76,26 +93,26 @@ def dither_keep(f, keep):
 
 def recast_region(cells, frames=24, seed=7):
     """One Recast as one picture over its whole region (QA B6: not a per-hex stamp), sliced exactly (BATTLEFIELD).
-    0-5 the floor plan she cut is redrawn white-gold top to bottom, scribe sparks on the cutting front; 6-7 HOLD hot;
-    8 one pale frame; 9-12 panes of pale glass stand up along the scores (each its own size, placed across the region,
-    not per hex); 13-14 the Remainder's black cracks race up them; 15-18 they shatter, chunks thrown and falling, black
-    cracks run along the lattice; 19-23 it settles: the lattice dims to the recast floor's broken gold and black and
-    dissolves (dither) onto the floor tile under it."""
+    Remember (SAYO_BIBLE.md 2.2): the return replays the original shape first, in the same place. The Etching's lattice
+    is ONE floor plan across the hall (etch_tile: verticals every 15 px at x = 7.5 mod 15, rows every 10 px at
+    y = 5 mod 10), so the Recast redraws exactly that lattice, cell for cell, over its own mark.
+    0-5 the plan is redrawn white-gold top to bottom over the mark, scribe sparks on the front (slow: 3 rows a frame);
+    6-8 HOLD hot (three identical frames: skew-safe); 9-12 the plan's cells stand up out of the floor as panes of pale
+    glass, scored gold, lit top-left, each showing its thickness; 13-14 the Remainder's black cracks race up them;
+    15-18 they shatter along the scores, pieces thrown and falling; 19-23 it settles: the lattice dims to the recast
+    floor's broken gold and black and dissolves (dither) onto the floor tile under it."""
     cv = MZ.Canvas(cells)
     rm = region_mask(cv)
     x0, y0, x1, y1 = rm.getbbox()
     rnd = random.Random(seed)
-    hs = list(range(y0 + 7, y1, 20))
-    vs = list(range(x0 + 12, x1, 30))
-    hgaps = {(k, xa): rnd.random() < 0.3 for k in range(len(hs)) for xa in range(x0, x1, 15)}
-    vgaps = {(k, ya): rnd.random() < 0.3 for k in range(len(vs)) for ya in range(y0, y1, 10)}
-    panes = []
+    hs = [y for y in range(y0 - 10, y1 + 10) if y % 10 == 5]
+    vs = [x for x in range(x0 - 15, x1 + 15) if x % 15 == 7]
+    panes = []                                               # the plan's own cells, the ones whose middle is ours
     for y in hs:
-        x = x0 + rnd.uniform(3, 8)
-        while x < x1 - 4:
-            if rm.getpixel((int(x), int(y))):
-                panes.append((x, y, rnd.uniform(9, 18), rnd.uniform(4, 7), rnd.uniform(-0.12, 0.12), rnd.random()))
-            x += rnd.uniform(7, 12)
+        for x in vs:
+            mx, my = x + 7, y + 5
+            if 0 <= mx < cv.w and 0 <= my < cv.h and rm.getpixel((mx, my)) and rnd.random() < 0.5:
+                panes.append((x, y, rnd.uniform(0.75, 1.0), rnd.random(), rnd.choice((-1, 1))))
 
     def lattice(f, col, width, ycut=None, keep=1.0, crack=False):
         lat = cv.frame()
@@ -104,82 +121,337 @@ def recast_region(cells, frames=24, seed=7):
         for k, y in enumerate(hs):
             if y > yc:
                 continue
-            for xa in range(x0, x1, 15):
-                if hgaps[(k, xa)]:
-                    continue
-                d.line([(xa, y + 1), (xa + 15, y + 1)], fill=(*SCORE, 255))
-                d.line([(xa, y), (xa + 15, y)], fill=(*col, 255), width=width)
-                if crack and (k + xa) % 3 == 0:
-                    d.line([(xa + 3, y - 1), (xa + 11, y + 2)], fill=(*CRACK, 255), width=2)
-        for k, x in enumerate(vs):
-            for ya in range(y0, int(yc), 10):
-                if vgaps[(k, ya)]:
-                    continue
-                d.line([(x + 1, ya), (x + 1, min(yc, ya + 10))], fill=(*SCORE, 255))
-                d.line([(x, ya), (x, min(yc, ya + 10))], fill=(*col, 255), width=width)
+            d.line([(x0 - 2, y + width), (x1 + 2, y + width)], fill=(*SCORE, 255))
+            d.line([(x0 - 2, y), (x1 + 2, y)], fill=(*col, 255), width=width)
+            if crack:
+                for x in vs[k % 3::3]:
+                    d.line([(x + 3, y - 1), (x + 10, y + 2)], fill=(*CRACK, 255), width=2)
+        for x in vs:
+            d.line([(x + width, y0 - 2), (x + width, min(yc, y1 + 2))], fill=(*SCORE, 255))
+            d.line([(x, y0 - 2), (x, min(yc, y1 + 2))], fill=(*col, 255), width=width)
         f.alpha_composite(dither_keep(masked(lat, rm), keep))
+
+    def slab(f, x, y, lift, k_crack, flip):
+        """One cell standing up: its face lifted `lift` px, the thickness showing below it, lit top-left."""
+        n = cv.frame()
+        d = ImageDraw.Draw(n)
+        fx0, fx1, fy0, fy1 = x + 2, x + 14, y + 2 - lift, y + 9 - lift
+        d.rectangle([fx0, fy1, fx1, y + 9], fill=(*STEEL_S, 255))              # the pane's thickness
+        d.rectangle([fx0, fy0, fx1, fy1], fill=(*STEEL_L, 255))                # its face
+        d.line([(fx0, fy0), (fx1, fy0)], fill=(*WHITE, 255))
+        d.line([(fx0, fy0), (fx0, fy1)], fill=(*WHITE, 255))
+        d.line([(fx0 + 1, (fy0 + fy1) // 2), (fx1 - 1, (fy0 + fy1) // 2)], fill=(*GOLD, 255))   # its score
+        if k_crack > 0:
+            cx_ = fx0 + 6 + 2 * flip
+            d.line([(cx_, fy1), (cx_ - 2 * flip, fy1 - (fy1 - fy0) * min(1, k_crack))], fill=(*CRACK, 255), width=2)
+        F.outline_alpha(n, SCORE)
+        f.alpha_composite(masked(n, rm))
 
     out = []
     for i in range(frames):
         f = cv.frame()
         if i < 6:
             ycut = y0 + (y1 - y0) * (i + 1) / 6
-            lattice(f, GOLD, 1, ycut)
-            for x in vs + [x0 + 6, x1 - 6]:
-                A4.star(f, x, ycut, WHITE, 2)
-        elif i < 8:
+            lattice(f, GOLD_HOT, 2, ycut)                    # brighter and wider than the mark it redraws
+            for x in vs:
+                if x0 <= x <= x1:
+                    A4.star(f, x, ycut, WHITE, 2)
+        elif i < 9:                                          # the HOLD: three identical frames
             lattice(f, GOLD_HOT, 2)
-        elif i == 8:
-            pale = cv.frame()
-            ImageDraw.Draw(pale).rectangle((x0, y0, x1, y1), fill=(*STEEL_L, 255))
-            f.alpha_composite(dither_keep(masked(pale, rm), 0.5))
-            lattice(f, WHITE, 2)
-        elif i < 19:
+            for x in vs[1::2]:
+                for y in hs[1::2]:
+                    if rm.getpixel((max(0, min(cv.w - 1, x)), max(0, min(cv.h - 1, y)))):
+                        A4.star(f, x, y, WHITE, 2)
+        elif i < 15:                                         # the cells stand up; the Remainder's cracks race up them
             v = i - 9
-            lattice(f, GOLD if v < 6 else GOLD_DIM, 1, crack=v >= 4)
-            for k, (bx, by, h, w, tilt, ph) in enumerate(panes):
-                if v < 6:
-                    g = min(1.0, (v + 1) / 3) * (0.85 + 0.3 * ph)
-                    hh = h * g
-                    n = cv.frame()
-                    dd = ImageDraw.Draw(n)
-                    tx = bx + tilt * hh
-                    top = [(tx - w * 0.65, by - hh), (tx + w * 0.65, by - hh)]
-                    dd.polygon([(bx - w / 2, by), top[0], top[1], (bx + w / 2, by)], fill=(*STEEL_S, 255))
-                    dd.polygon([(bx - w / 2, by), top[0], (tx, by - hh), (bx, by)], fill=(*STEEL_L, 255))
-                    dd.line([top[0], (bx - w / 2, by)], fill=(*WHITE, 255))
-                    dd.line([(bx - w * 0.5, by - hh * 0.5), (bx + w * 0.5, by - hh * 0.5)], fill=(*GOLD, 255))
-                    if v >= 4:
-                        c = (v - 3) / 2
-                        dd.line([(bx, by), (bx + tilt * hh * c + (1 if k % 2 else -1), by - hh * min(1, c))],
-                                fill=(*CRACK, 255), width=2)
-                    F.outline_alpha(n, SCORE)
-                    f.alpha_composite(n)
-                else:
-                    u = v - 6
-                    for j in range(3):
-                        cx = bx + (j - 1) * (2 + u * 1.3)
-                        cy = by - h * (0.25 + 0.25 * j) + 0.45 * u * u
-                        if cy < by + 3:
-                            A4.cluster(f, cx, cy, (STEEL_L, STEEL_S, CRACK)[j], SCORE)
-        else:                                                    # settle onto the floor: dim, then dissolve
+            lattice(f, GOLD, 1, crack=v >= 4)
+            for (x, y, hk, ph, flip) in sorted(panes, key=lambda p: p[1]):
+                lift = round(6 * hk * min(1.0, (v + 1 - ph) / 3)) if v + 1 > ph else 0
+                if lift > 0:
+                    slab(f, x, y, lift, (v - 3) / 2 if v >= 4 else 0, flip)
+        elif i < 19:                                         # they shatter along the scores
+            u = i - 14
+            lattice(f, GOLD_DIM, 1, crack=True)
+            for (x, y, hk, ph, flip) in panes:
+                top = y + 2 - round(6 * hk)
+                for j, (dx, col) in enumerate(((-1, STEEL_L), (1, STEEL_S), (0, CRACK))):
+                    px_ = x + 8 + dx * (3 + 1.6 * u) + flip
+                    py_ = top + 2 + 3 * j - 2.2 * u + 0.6 * u * u
+                    if py_ < y + 12 and (j < 2 or u < 3):
+                        cluster(f, px_, py_, col, SCORE)
+            f = masked(f, rm)
+        else:                                                # settle onto the floor: dim, then dissolve
             keep = 1.0 - (i - 18) / 5
             lattice(f, GOLD_DIM, 1, keep=keep, crack=True)
         out.append(f)
     return cv, out
 
 
-def recast_regions(spec_path):
+def recast_regions(spec_path, only=None):
     """Every Recast region in the spec, painted and sliced: {name: {(col, row): frames}}."""
     spec = json.load(open(spec_path))
     out = {}
     for j in spec["jutsu"]:
         r = j["record"]
-        if r["name"].startswith("Recast:"):
+        if r["name"].startswith("Recast:") and (only is None or r["name"].split(": ")[1].lower() in only):
             cells = [(c["longitude"], c["latitude"]) for c in r["coordinateTargeting"]["coordinates"]]
             cv, fr = recast_region(cells, seed=sum(map(ord, r["name"])))
             out[r["name"].split(": ")[1].lower()] = cv.slices(fr)
     return out
+
+
+# ------------------------------------------------------------------------------------------------ Glassfall (S9)
+R3 = dict(deep=(8, 10, 15), body=(18, 23, 30), lit=(39, 50, 60), frame=(20, 42, 51), vdim=(47, 92, 106),
+          vlit=(146, 182, 191), hot=(200, 250, 255), void=(16, 8, 30), bone=(235, 236, 235))   # SAYO_BIBLE.md 5.1, Act III
+EMB = dict(deep=(92, 30, 18), red=(214, 58, 26), yel=(255, 206, 84))                        # ember: heavy only
+
+
+def glassfall_region(cells, frames=27, seed=11):
+    """Glassfall: ONE thorned black pane, the size of the hall, falls point first; the third it lands on shows it
+    (SAYO_BIBLE.md 3.4). The pane is drawn at the scale of the whole field, so every hex of the third carries an aligned
+    piece of the same picture: its lozenge frame bars, one diagonal sheen, and cracks radiating from ONE point of fall.
+    0-4 the shadow grows and the frame's shadow sharpens as the pane nears; 5 it arrives point first (white at the
+    point); 6 the flash; 7-9 HOLD (identical frames: skew-safe); 10-14 the cracks run out from the point of fall as one
+    wave across the hall; 15-19 the pane gives way: its pieces part and fall over the void; 20-25 it settles onto the
+    Act III floor: the cracks freeze to teal and dissolve (dither) onto the floor tile under it."""
+    cv = MZ.Canvas(cells)
+    rm = region_mask(cv)
+    rnd = random.Random(seed)
+    pts = [(x, y) for y in range(cv.h) for x in range(cv.w) if rm.getpixel((x, y))]
+    xs = [cv.c(*k)[0] for k in cells]; ys = [cv.c(*k)[1] for k in cells]
+    aim = (min(xs) + (max(xs) - min(xs)) * rnd.uniform(0.38, 0.62), min(ys) + (max(ys) - min(ys)) * rnd.uniform(0.3, 0.5))
+    imp = min((cv.c(*k) for k in cells), key=lambda c: math.hypot(c[0] - aim[0], c[1] - aim[1]))   # on a hex of the third
+    dmax = max(math.hypot(x - imp[0], 2 * (y - imp[1])) for x, y in pts)
+    PER, NS = 54, 13                                         # lozenge frame period; radial crack count
+    rays = sorted(rnd.uniform(0, 2 * math.pi) for _ in range(NS))
+
+    def bar(x, y, ox=0, oy=0):
+        u, v = (x - ox) - 1.6 * (y - oy), (x - ox) + 1.6 * (y - oy)
+        du, dv = u % PER, v % PER
+        return min(du, PER - du) < 1.3 or min(dv, PER - dv) < 1.3, min(du, PER - du) < 2.6 or min(dv, PER - dv) < 2.6
+
+    def sheen(x, y):
+        s_ = ((0.55 * x + y) % 96) / 96
+        return s_ < 0.16, abs(s_ - 0.16) < 0.012
+
+    def crack(x, y):
+        a_ = math.atan2(2 * (y - imp[1]), x - imp[0]) % (2 * math.pi)
+        d_ = math.hypot(x - imp[0], 2 * (y - imp[1]))
+        for k, r in enumerate(rays):
+            wob = 0.035 * math.sin(d_ / 9 + k)
+            da = (a_ - r - wob + math.pi) % (2 * math.pi) - math.pi
+            if abs(da) * d_ < 0.8:
+                return True, d_ / dmax
+        return False, d_ / dmax
+
+    info = {}
+    for x, y in pts:
+        b_core, b_wide = bar(x, y)
+        s_lit, s_edge = sheen(x, y)
+        c_on, d = crack(x, y)
+        a_ = math.atan2(2 * (y - imp[1]), x - imp[0]) % (2 * math.pi)
+        sector = sum(1 for r in rays if r < a_) % NS
+        piece = (int(((x - 1.6 * y) // PER)), int(((x + 1.6 * y) // PER)), sector)
+        info[(x, y)] = (b_core, b_wide, s_lit, s_edge, c_on, d, piece)
+    thorn = [p for p, v in info.items() if v[0] and (p[0] * 3 + p[1]) % 9 == 0]
+    rim = {p for p in info if any(not rm.getpixel((min(cv.w - 1, max(0, p[0] + dx)), min(cv.h - 1, max(0, p[1] + dy))))
+                                  for dx, dy in ((2, 0), (0, 1), (-2, 0), (0, -1)))}
+    cen = {}
+    for p, v in info.items():
+        cen.setdefault(v[6], []).append(p)
+    cen = {k: (sum(q[0] for q in v) / len(v), sum(q[1] for q in v) / len(v)) for k, v in cen.items()}
+
+    def pane_col(p, hot):
+        b_core, b_wide, s_lit, s_edge, c_on, d, _ = info[p]
+        if b_core:
+            return R3["hot"] if hot == 2 else R3["vlit"] if hot else R3["frame"]
+        if b_wide:
+            return R3["frame"] if not hot else R3["vdim"]
+        if s_edge:
+            return R3["vlit"]
+        return R3["lit"] if s_lit else R3["body"]
+
+    def pane(f, hot=0, rim_col=None):
+        px = f.load()
+        for p in info:
+            px[p] = (*pane_col(p, hot), 255)
+        if rim_col:
+            for p in rim:
+                if (p[0] + p[1]) % 2 == 0 or rim_col == WHITE:
+                    px[p] = (*rim_col, 255)
+        for (x, y) in thorn:
+            for t in range(1, 4):
+                F.px(f, x, y - t, R3["deep"] if t < 3 else R3["vdim"])
+
+    body = set()                                             # QA S4: the LPC body on each hex of the third
+    for k in cells:
+        bx, by = cv.c(*k)
+        for y in range(int(by) - 16, int(by) + 6):
+            for x in range(int(bx) - 6, int(bx) + 7):
+                body.add((x, y))
+
+    out = []
+    for i in range(frames):
+        f = cv.frame()
+        px = f.load()
+        if i < 5:                                            # the PANE's shadow: a lozenge, growing and sharpening
+            g = (i + 1) / 5
+            A_ = dmax * (0.35 + 0.8 * g)                     # its half-diagonal: the pane nears, the shadow spreads
+            off = (1 - g) * 8                                # the frame bars' shadow converges on the frame
+            for p, v in info.items():
+                px[p] = (*R3["body"], 255)                   # QA S1: the hall floor as it stands, covered; the break reveals
+                q = abs(p[0] - imp[0]) / A_ + abs(2 * (p[1] - imp[1])) / (0.62 * A_)
+                if q > 1:
+                    continue
+                if q > 1 - 0.035 * (1 + g):                  # the shadow's edge: light spilling round the pane
+                    px[p] = (*(R3["vlit"] if g > 0.5 else R3["vdim"]), 255)
+                elif q > 1 - 0.09:
+                    px[p] = (*R3["deep"], 255)
+                elif bar(p[0], p[1], off, off * 0.5)[1 if g < 0.6 else 0]:
+                    px[p] = (*R3["deep"], 255)               # the frame's shadow
+                elif F.BAYER[p[1] % 4][p[0] % 4] < (0.35 + 0.5 * g) * 16:
+                    px[p] = (*R3["deep"], 255)               # the glass's shadow: dark, deepening
+            if i >= 2:
+                A4.star(f, imp[0], imp[1], R3["vlit"] if i < 4 else R3["hot"], i)
+        elif i == 5:                                         # it arrives, point first
+            pane(f, hot=1)
+            A4.star(f, imp[0], imp[1], WHITE, 7)
+        elif i < 8:                                          # the flash: two identical frames, no per-hex rim (QA S2)
+            pane(f, hot=2)
+            A4.star(f, imp[0], imp[1], WHITE, 9)
+        elif i < 11:                                         # HOLD: three identical frames, rimmed in lit vein (QA S3)
+            pane(f, hot=1, rim_col=R3["vlit"])
+            A4.star(f, imp[0], imp[1], R3["hot"], 4)
+        elif i < 16:                                         # the crack wave runs out from the point of fall
+            u = (i - 10) / 5
+            pane(f, hot=0)
+            for p, v in info.items():
+                if v[4] and v[5] < u:
+                    px[p] = (*(R3["hot"] if v[5] > u - 0.18 else R3["vlit"]), 255)
+                elif v[4] and v[5] < u + 0.05 and (p[0] + p[1]) % 2:
+                    px[p] = (*WHITE, 255)
+        elif i < 21:                                         # it gives way: the pieces part and fall over the void
+            t = i - 15
+            for p in info:
+                if F.BAYER[p[1] % 4][p[0] % 4] < (0.6 - 0.09 * t) * 16:
+                    px[p] = (*R3["void"], 255)
+            lay = cv.frame(); lp = lay.load()
+            keep = 1.0 - 0.13 * t
+            for p, v in info.items():
+                cx, cy = cen[v[6]]
+                vx, vy = cx - imp[0], cy - imp[1]
+                n = max(1.0, math.hypot(vx, vy))
+                dx = vx / n * (1.5 * t)
+                dy = vy / n * 0.7 * t - 2.0 * t + 0.42 * t * t
+                q = (int(round(p[0] + dx)), int(round(p[1] + dy)))
+                if 0 <= q[0] < cv.w and 0 <= q[1] < cv.h and F.BAYER[q[1] % 4][q[0] % 4] < keep * 16:
+                    c = R3["vlit"] if v[4] and t < 3 else pane_col(p, 0)
+                    lp[q] = (*c, 255)
+            f.alpha_composite(lay)
+            for k, (cx, cy) in list(cen.items())[::4]:
+                F.px(f, cx + (hash(k) % 3 - 1) * t, cy - 2 * t + 0.5 * t * t, R3["hot"] if t < 3 else R3["vlit"])
+        else:                                                # settle onto the Act III floor; the last frame is empty
+            keep = 1.0 - (i - 20) / (frames - 21)
+            for p, v in info.items():
+                if v[4] and F.BAYER[p[1] % 4][p[0] % 4] < keep * 16:
+                    px[p] = (*(R3["vlit"] if i < 23 else R3["vdim"]), 255)
+                elif v[0] and F.BAYER[p[1] % 4][p[0] % 4] < keep * 0.5 * 16:
+                    px[p] = (*R3["frame"], 255)
+        if i < 16:                                           # QA S4: open the glass over the fighter's body
+            for p in body:
+                if p in info and F.BAYER[p[1] % 4][p[0] % 4] >= 0.45 * 16:
+                    px[p] = (0, 0, 0, 0)
+        out.append(masked(f, rm))
+    return cv, out
+
+
+def painted_regions(spec_path, prefix, painter, only=None):
+    """Every region in the spec whose name starts with `prefix`, painted by `painter` and sliced: {name: slices}."""
+    spec = json.load(open(spec_path))
+    out = {}
+    for j in spec["jutsu"]:
+        r = j["record"]
+        key = r["name"].split(": ")[-1].lower().replace(" ", "_")
+        if r["name"].startswith(prefix) and (only is None or key in only):
+            cells = [(c["longitude"], c["latitude"]) for c in r["coordinateTargeting"]["coordinates"]]
+            cv, fr = painter(cells, seed=sum(map(ord, r["name"])))
+            out[key] = cv.slices(fr)
+    return out
+
+
+# ------------------------------------------------------------------------------------------------ Shatterfall (S9)
+SF_LEAD = 2                 # frames per rank: the crack runs out from her at 15 px a frame
+
+
+def _crack(f, a, b, col, rnd, w=2):
+    """A crack from a to b with one jittered knee; endpoints exact (they are the shared hex vertices)."""
+    mx, my = (a[0] + b[0]) / 2 + rnd.uniform(-2, 2), (a[1] + b[1]) / 2 + rnd.uniform(-1.5, 1.5)
+    d = ImageDraw.Draw(f)
+    for p0, p1 in ((a, (mx, my)), ((mx, my), b)):
+        d.line([(p0[0], p0[1] + 1), (p1[0], p1[1] + 1)], fill=(*SCORE, 255), width=w)
+        d.line([p0, p1], fill=(*col, 255), width=w)
+
+
+def shatterfall_piece(rank, seed, frames=26):
+    """One hex of Shatterfall Gives Way (CASTER origin; S9). Her offsets are added to her column as written, so a hex's
+    neighbours sit half a row up or down by HER column's parity: exact slices of one painting would tear on one parity.
+    What joins in both parities: hex VERTICES. A hex's west vertex is always its west neighbour's upper-right or
+    lower-right vertex, whichever parity she stands on. So each piece draws its crack centre -> west vertex AND forks
+    centre -> upper-right and lower-right: the network is continuous from her outward in either parity (the unused fork
+    reads as a branch). The approved burst (build_fx_a3.burst III, the director's reference wave) erupts on each hex as
+    the crack passes; ranks fire SF_LEAD frames apart from her. The crack stays, dims, and dissolves onto the pool."""
+    rnd = random.Random(seed)
+    C, W, UR, LR = (25, 25), (5, 25), (35, 15), (35, 35)
+    burst = A.burst("III", scale=1.1, wide=True)
+    lead = (rank - 1) * SF_LEAD + 1
+    flip = rnd.random() < 0.5
+    out = []
+    for i in range(frames):
+        f = F.frame()
+        t = i - lead
+        if t >= 0:
+            hot = R3["hot"] if t < 2 else R3["vlit"] if t < 9 else R3["vdim"]
+            cr = F.frame()
+            if t >= 0:
+                _crack(cr, UR, C, hot, random.Random(seed + 1))
+                _crack(cr, LR, C, hot, random.Random(seed + 2))
+            if t >= 1:
+                _crack(cr, C, W, hot, random.Random(seed + 3))
+            keep = 1.0 if t < 12 else max(0.0, 1 - (t - 11) / 6)
+            f.alpha_composite(dither_keep(cr, keep))
+            if t == 0:
+                A4.star(f, 30, 25, WHITE, 2)
+            if t == 1:
+                A4.star(f, 15, 25, WHITE, 3)
+            b = t + 1                                           # the burst, from its anticipation frame
+            if 0 <= b < len(burst):
+                g = burst[b].transpose(Image.FLIP_LEFT_RIGHT) if flip else burst[b]
+                f.alpha_composite(g)
+        out.append(f)
+    return out
+
+
+def shatterfall_centre(frames=26):
+    """Her own hex: the floor under her heats (ember ring), a teal-white flash at her feet, and the fan of cracks
+    leaves her: to her west vertex (the vertex every west-side piece joins) and two short forks."""
+    C = (25, 25)
+    out = []
+    for i in range(frames):
+        f = F.frame()
+        if i <= 1:
+            F.ground_ring(f, F.GRX - 1, F.GRY - 0.5, [(0, EMB["yel"] if i else EMB["red"]), (1, SCORE)])
+        if 1 <= i < 16:
+            col = R3["hot"] if i < 4 else R3["vlit"] if i < 10 else R3["vdim"]
+            cr = F.frame()
+            _crack(cr, C, (5, 25), col, random.Random(5))
+            _crack(cr, C, (15, 15), col, random.Random(6))
+            _crack(cr, C, (15, 35), col, random.Random(7))
+            f.alpha_composite(dither_keep(cr, 1.0 if i < 11 else max(0.0, 1 - (i - 10) / 6)))
+        if i == 1:
+            A4.star(f, 25, 25, WHITE, 5)
+        out.append(f)
+    return out
+
 
 
 # ------------------------------------------------------------------------------------------------ the lingering surface
@@ -365,8 +637,49 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     ap.add_argument("--cells", default="seam", help="seam: Recast: Seam's region (columns 0-3, every row)")
+    ap.add_argument("--spec", help="QA B6: paint every Recast region in this spec (anim_moe_recast_<region>_p<col>_<row>_a13)")
+    ap.add_argument("--shatterfall", action="store_true", help="with --spec: Shatterfall Gives Way pieces (CASTER)")
+    ap.add_argument("--glassfall", action="store_true", help="with --spec: paint every Glassfall pane instead")
+    ap.add_argument("--regions", default="", help="with --spec: a comma list of region names (default: all)")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
+    if a.spec and a.shatterfall:
+        spec = json.load(open(a.spec))
+        rec = next(j["record"] for j in spec["jutsu"] if j["record"]["name"] == "Shatterfall Gives Way")
+        rows = []
+        name = "anim_moe_shatterfall_c_a13.webp"
+        F.strip(shatterfall_centre()).save(os.path.join(a.out, name), lossless=True, quality=100, method=6)
+        rows.append({"file": name, "region": "shatterfall", "dx": 0, "dy": 0, "rank": 0, "frames": 26})
+        for c in rec["coordinateTargeting"]["coordinates"]:
+            dx, dy = c["longitude"], c["latitude"]
+            name = f"anim_moe_shatterfall_{-dx}_{dy + 5}_a13.webp"
+            F.strip(shatterfall_piece(abs(dx), seed=100 * dx + dy)).save(os.path.join(a.out, name), lossless=True, quality=100, method=6)
+            rows.append({"file": name, "region": "shatterfall", "dx": dx, "dy": dy, "rank": abs(dx), "frames": 26})
+        json.dump({"slices": rows}, open(os.path.join(a.out, "moe_fx_shatterfall.json"), "w"), indent=1)
+        print(len(rows), "Shatterfall pieces")
+        return
+    if a.spec and a.glassfall:
+        only = set(a.regions.split(",")) if a.regions else None
+        rows = []
+        for region, sl_ in painted_regions(a.spec, "Glassfall:", glassfall_region, only).items():
+            for (col, row), sl in sorted(sl_.items()):
+                name = f"anim_moe_glassfall_{region}_p{col}_{row}_a13.webp"
+                F.strip(sl).save(os.path.join(a.out, name), lossless=True, quality=100, method=6)
+                rows.append({"file": name, "region": region, "col": col, "row": row, "frames": len(sl)})
+        json.dump({"slices": rows}, open(os.path.join(a.out, f"moe_fx_glassfall_{a.regions or 'all'}.json"), "w"), indent=1)
+        print(len(rows), "Glassfall slices")
+        return
+    if a.spec:
+        only = set(a.regions.split(",")) if a.regions else None
+        rows = []
+        for region, sl_ in recast_regions(a.spec, only).items():
+            for (col, row), sl in sorted(sl_.items()):
+                name = f"anim_moe_recast_{region}_p{col}_{row}_a13.webp"
+                F.strip(sl).save(os.path.join(a.out, name), lossless=True, quality=100, method=6)
+                rows.append({"file": name, "region": region, "col": col, "row": row, "frames": len(sl)})
+        json.dump({"slices": rows}, open(os.path.join(a.out, f"moe_fx_recast_{a.regions or 'all'}.json"), "w"), indent=1)
+        print(len(rows), "Recast slices")
+        return
     cells = [(c, r) for c in range(4) for r in range(10)]
     cv, fr = recast_region(cells)
     rows = []
