@@ -95,13 +95,13 @@ a white four-point star. Payoffs follow anticipation, impact (white frame), foll
 
 | Was (live) | Now | Slots |
 |---|---|---|
-| Skyglass heavy tile + loop + mark appear/vanish | `tile_moe_heavy_v1`, `anim_moe_heavy_glint_v1`, `anim_moe_heavy_appear_v1` | tg_heavy (14 marks, incl. The Silence Turns / The Glass Turns) |
-| Skyglass control tile + loop + appear/vanish | `tile_moe_control_v1`, `anim_moe_control_glint_v1`, `anim_moe_control_appear_v1` | tg_control (Stillness, The Held Breath); the lull visual's appear |
-| Skyglass lingering pool tile + bubbles + appear | `tile_moe_linger_v1`, `anim_moe_linger_glint_v1`, `anim_moe_linger_appear_v1` | tg_linger (the eruption pools), moe_hush_floor |
+| Skyglass heavy tile + loop + mark appear/vanish | per act (art3): `tile_moe_heavy_{i,ii,iii}_a3`, `anim_moe_heavy_glint_{i,ii,iii}_a3`, `anim_moe_heavy_appear_{i,ii,iii}_a3` (the v1 strips are retired) | tg_heavy (14 marks: Sayo I in I, The Glass Turns in II, the Saint and The Silence Turns in III) |
+| Skyglass control tile + loop + appear/vanish | `tile_moe_control_dark_a3` (art3; both holders are Act III material), `anim_moe_control_glint_v1`, `anim_moe_control_appear_v1` | tg_control (Stillness, The Held Breath); the lull visual's appear |
+| Skyglass lingering pool tile + bubbles + appear | `tile_moe_linger_v1` (Acts I-II) or `tile_moe_linger_dark_a3` (the Silence, Act III, No One Is Mended), `anim_moe_linger_glint_v1`, `anim_moe_linger_appear_v1` | tg_linger (the eruption pools), moe_hush_floor |
 | Skyglass safe tile + loop + appear/vanish | `tile_moe_safe_v1`, `anim_moe_safe_glint_v1`, `anim_moe_safe_appear_v1` | tg_safe (Every Name in the Glass, The Held Breath) |
 | mark appear `bJy2IjRKmAVYEoXUYmXv5` on the Etchings | `anim_moe_etch_appear_v1` | tg_etch |
-| Eruption `Z9j8J7ZmAjiaxH2S4nDy8` | `anim_moe_refraction_blast_v1`, `anim_moe_enrage_v1` | moe_refraction, moe_enrage |
-| Crystal Shard `TAu9k8ifgteP6HBofoKn7` | `anim_moe_glassfall_v1`, `anim_moe_shatterfall_v1` | moe_glassfall, moe_shatterfall |
+| Eruption `Z9j8J7ZmAjiaxH2S4nDy8` | `anim_moe_refraction_a3` (Heartglass); The Glass Remembers as the `anim_moe_enrage_w0..3_a3` wave | moe_refraction, moe_enrage |
+| Crystal Shard `TAu9k8ifgteP6HBofoKn7` | waves: `anim_moe_glassfall_w0..2_a3`, `anim_moe_shatterfall_w0..4_a3` | moe_glassfall, moe_shatterfall |
 | library pierce `dBatQkc1Ts2ask5ZN-A3p` | `anim_moe_grasp_v1` (Grasp), `anim_moe_echo_strike_v1` (Your Own Strike, Doorward Sweep, Cadet's Tether) | summon strikes |
 | library shove `FZNt0vFGXlOZeagmPneqc` | `anim_moe_pull_v1` (Breathless Pull, Cadet's Tether), `anim_moe_shove_v1` (Doorward Sweep) | redirection |
 | library heal `I9aYhT5wMB` | `anim_moe_mend_v1` | Worn Mending |
@@ -127,16 +127,63 @@ What the player sees, slot by slot (categories from COMBAT_ANIMATION_ENGINE.md s
 | tg_heavy / tg_control / tg_safe / tg_etch marks (`increaseregeneration`, ground, rounds 1) | yes: tile under fighters + loop + appear | cast in round N, on screen for the rest of N and all of N+1, still showing after its eruption in N+1 | appear 2x (client + server visual), 3x on an occupied hex in the cast round; loop and tile 1x |
 | tg_linger eruption pools (`increasedamagetaken`, ground, rounds 1) | yes, also under an occupant | with the eruption, for the rest of that round and the next | appear 2x empty / 3x occupied |
 | moe_hush_floor (No One Is Mended, `healprevent`, ground) | yes | for its rounds | appear 2x / 3x |
-| moe_refraction, moe_glassfall, moe_shatterfall, moe_flood, moe_enrage (instant ground `pierce` / `damage`) | yes, as the server visual | the snapshot of the cast | 1x on an empty hex, 2x on an occupied one |
+| moe_refraction (instant ground `pierce`; the wave payoffs moved to the visual bands, Art3 below) | yes, as the server visual | the snapshot of the cast | 1x on an empty hex, 2x on an occupied one |
 | Grasp, echo strike (character `pierce`, rounds 0) | yes, server visual at the target | the snapshot of the cast | 1x |
 | pull / shove (`redirection`) | yes | the snapshot of the cast, at the target's OLD hex (the fighter walks, the clip does not follow) | 1x |
 | mend (`heal`, rounds 0) | yes | the snapshot of the cast | 1x |
 | Cradle loop (`clearprevent` on Sayo, rounds 1) | yes (was never visible) | while the feeler holds her | loop 1x |
 | the lull visual's appear | yes | the snapshot of the cast | 1x |
 
-Not used: a per-effect COORDINATES mosaic (section 4.2) for the payoffs. It would mean splitting each eruption's pierce
-into several COORDINATES tags on the tuning records (owned by the pass-6 spec); the per-hex payoffs already read as one
-collapse across a field at battle size (review renders in the push/478 report).
+### Art3 (push/478 rebuilt, director 2026-11-05: "a high end boss fight ... showcase the top end of what our engine is capable of. Pull out all the stops")
+
+Built by `art/mother_of_echoes_fx/build_fx_a3.py` (exports `*_a3.webp`, `moe_fx_a3.json`); wired by
+`push/mother_of_echoes.gen.py` (`FX3`, `TG3`, `SLOT3`, `MOSAIC`, `SFX_BY_NAME`, `SCENE_CHARS`). Director decisions, same
+day:
+
+1. **Material arc approved, with fixes.** "When she starts out it's Skyglass, crystal, reflections and light. Then she
+   gets corrupted by the Silence and it becomes black corrupted shadow moves." Palettes are measured from the approved
+   variants: Act I = Heartglass (`art/skyglass_variant_skins/raw/ME40_raw_icon-variant-heartglass_approved.png`: framed
+   facets, the heart crown, prismatic glints); Act III = the Remainder (`variant_the_remainder.png`: thorned shards,
+   smoke in the glass, glowing crack veins); Act II is the turn. Fixes applied: the ember outer rim stays on heavy in all
+   three acts; the Act II heavy and Recast show the Remainder's black cracks and smoke creeping into the Heartglass (it
+   does not read as Act I gold); Act III spikes carry brighter teal-cyan veins and edge light for dark boards. A jutsu's
+   act is its holders' (`BOSS_ACT`; The Silence and its feeler are Remainder material). The Glass Remembers is one record
+   shared by all four bosses, so it has one look: the corrupted wave (the glass remembering what it holds).
+2. **Mosaics approved.** The signature payoffs play as a wave: the hit's own appear is blanked and one zero-impact
+   `visual` tag per band (target COORDINATES, the cast's own origin, a subset of its tiles, power 2) carries a strip led
+   by `band x 3` blank frames. The Glass Remembers: 4 column bands; The Names Flood In: 4 bands out from the field
+   centre; Shatterfall Gives Way: 5 bands by rank out from the Saint (CASTER cone); the five Glassfall panes: 3 column
+   bands. Engine basis: a COORDINATES tag is stamped only on its own tiles (`actions.ts:1063-1071`; the cast's tiles are
+   the union, `util.ts getActionAffectedTiles`), a `visual` has no server duplicate (`process.ts:432`), no occupant copy
+   (`:399`) and no gameplay handler, and power 2 is never hidden (`combatEffects.ts:183-187`). Recasts are not mosaicked:
+   they are CHARACTER casts, so bands over the etching would draw a payoff where no one is hit and turn a no-target cast
+   into a landed one. The sim confirms identical clear rates on a fixed-seed rerun (the tags change no numbers).
+3. **Boss auras and act-start flourishes approved**, not as 1-power carriers: a real thematic positive-power buff per
+   boss (Act I Sayo, the Silence, Act II Sayo, the Saint), designed and balanced by the sim. The strips
+   (`anim_moe_aura_*_a3`, `anim_moe_flourish_*_a3`) ship hidden-then-unhidden with the set and are wired when the buff
+   tags land.
+4. **Sound: existing in-game SFX, one per cast.** The client plays `appearSfx` once per new effect record
+   (`combatEffects.ts:35-41`, `:106`), so a sound on a 100-tile tag plays 100 times. Single-target and CHARACTER casts
+   carry it on their art-bearing hit; ground casts on a one-tile `visual` at the caster. Map: Lightning (the Refraction
+   payoffs, Lucid), Sword Clash (Recasts), Earth (Glassfall, Shatterfall Gives Way, The Glass Remembers, The Names Flood
+   In), Sword (Glass Lancet), Wind (every mark, Breathless Pull), Smoke (the hushes, Nothing Moves, The Quiet, the lull,
+   Cradle, every summon), Punch (Grasp, Doorward Sweep, Cadet's Tether, Your Own Strike), Heal (Worn Mending).
+5. **Dialog portraits: Sayo only.** SCENE_CHARACTER 2:3 crops (341x512) of the approved avatars: Act I Sayo in
+   `d_intro1`, `d_intro2` and `d_open` (not the Silence), the Glasswright in `d_act2`, the Saint in `d_act3`
+   (`scene_moe_sayo_a3`, `scene_moe_sayo_stilling_a3`, `scene_moe_saint_a3`). They ride the practice quest edit
+   (push/479) and the go-live (push/477, `--art2-from`).
+
+Also replaced: the summon entrances (`moe_feeler`, `moe_likeness`, `moe_worn`) by `anim_moe_rise_*_a3` (the summon
+climbs out of cracking glass, bone cords for the feeler), and Recast by `anim_moe_recast_a3` (etched lattice, Heartglass
+blades, black cracks race up and shatter).
+
+What the player sees for the new carriers (COMBAT_ANIMATION_ENGINE.md section 1.3 categories):
+
+| Slot (carrier) | Visible? | When | Times drawn |
+|---|---|---|---|
+| wave bands (`visual`, COORDINATES, rounds 1) | yes | the snapshot of the cast, band k starting k x 150 ms later | 1x per hex (no server duplicate, no occupant copy); the blanked hit draws nothing |
+| sound carrier (`visual` at the caster, no art) | sound only | the cast | 1 sound per cast |
+| heavy marks per act | as the tg_heavy row above | | |
 
 ## Jutsu icons: six families for 53 jutsu
 
