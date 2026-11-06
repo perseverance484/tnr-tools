@@ -5919,3 +5919,34 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director decisions relayed by the coordinator, 2026-11-05: "Landing APPROVED"; "Close time: extend to Monday night UTC (endsAt one day later, so it closes Tuesday 00:00 UTC = Monday 6pm Central)"; "Wreck Sighted is the tutorial one-time quest. The pages are the repeatable challenge board."; "HE will delete the old live Wreck Sighted himself; we build the new one as a fresh one-time quest"; veterans seeing it is intended ("they never got a good overview"); "a high quality introduction to the event. We want to cover the event without spoilers or hand holding."
 
 **Canonical destination:** `docs/design/EVENT_JOURNAL.md` §5-6a; `docs/design/SKYGLASS_TEXT.md` §1a; `push/skyglass_intro.gen.py` (push/497); `push/skyglass_journal.gen.py` (push/490).
+
+## RUL-2026-11-05-123 — Mother of Echoes launch text and presentation approved; difficulty marker ★★★★★✦; hint text readable in battle
+
+**Date:** 2026-11-05
+
+**Domain:** content design / the Mother of Echoes finale (player experience)
+
+**Status:** ACTIVE. Rides go-live push/477. Open: the exact text of the act-interlude and win-scene openers and the trimmed scenes (drafted in `docs/design/MOTHER_OF_ECHOES_EXPERIENCE.md` §4-§6, built into 477 for the director's read-back).
+
+**Ruling:**
+1. **Experience doc launch fixes approved** (`MOTHER_OF_ECHOES_EXPERIENCE.md` §8, X4-X7, X13, X14):
+   - act-specific loss lines on `b_act1`-`b_act3`, and a distinct fail node `F_LOST` (§5.1 drafts verbatim);
+   - win `successDescription` "Sayo is still. You are not.";
+   - openers on `d_act2`, `d_act3`, `w_clear`;
+   - no Sayo portrait on `d_intro1`, and scenes trimmed to about 220 characters or split;
+   - a plain rewards line on the quest card;
+   - the operations rule that the quest record is not edited while the event is live; hotfixes go through AI and jutsu records only.
+2. **Difficulty marker:** the Mother of Echoes card and her four shards read `Difficulty: ★★★★★✦`. That is one past Crownhold's ★★★★★: the scale players know, then her glass.
+3. **X9 resolved:** players can read the boss jutsu descriptions in battle, so the hint-voice text stays in the descriptions.
+4. **Sayo bible (`docs/design/SAYO_BIBLE.md` §7):** the coordinator's recommendations are taken as approved under the same "All approved". The director can override any of them.
+   - the bible itself, including its details marked "[proposed]";
+   - one neutral Lancet look;
+   - a visible loop for the Lancet ramp;
+   - a loop for The Long Hush final stand;
+   - Recasts played as a wave, subject to the stacking pass;
+   - etching gold as an exception to the art bible's no-gold rule.
+5. **Act III v2 ships with the fight on Friday 2026-11-06** (`docs/design/MOTHER_OF_ECHOES_ACT3.md` §6, as recommended). Phase I's bar of 50% versus lethal is settled by the full-fight sim results.
+
+**Evidence:** Director, 2026-11-05: "Approve, ship it Friday" (Act III); "All approved. Let's work on a good symbol. Yes, they can read them in battle."; marker choice "Five stars + a shard".
+
+**Canonical destination:** `push/mother_of_echoes.gen.py` (477 text), `docs/design/MOTHER_OF_ECHOES_EXPERIENCE.md`, `docs/design/SAYO_BIBLE.md`, `docs/design/MOTHER_OF_ECHOES_ACT3.md`.
