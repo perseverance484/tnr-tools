@@ -228,6 +228,340 @@
     "moe_flood"
    ],
    "note": "The Names Flood In: one great glass mask rises, its eyes snap open as ember cracks split it, then it bursts into chunky shards (director keyframes ME28b, drawn for the 50 px delivery)"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/tile_moe_heavy_v1.webp",
+   "type": "STATIC",
+   "frames": 1,
+   "speed": null,
+   "duration_ms": null,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 628,
+   "use": "staticAssetPath",
+   "serves": [
+    "tg_heavy"
+   ],
+   "note": "Heavy mark (Sayo): smoked-glass disc ringed by ember-edged glass facets, six ember cracks to a white-hot core"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_heavy_glint_v1.webp",
+   "type": "ANIMATION",
+   "frames": 16,
+   "speed": 50,
+   "duration_ms": 800,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 568,
+   "use": "static",
+   "serves": [
+    "tg_heavy"
+   ],
+   "note": "Heavy loop: ember flares and lifting embers at the ring's ends on the 0.8 s beat (portrait-clear)"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_heavy_appear_v1.webp",
+   "type": "ANIMATION",
+   "frames": 10,
+   "speed": 50,
+   "duration_ms": 500,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 1074,
+   "use": "appear",
+   "serves": [
+    "tg_heavy"
+   ],
+   "note": "Heavy mark arrives: ember-edged glass shards drop onto the ring, it rings white, cracks run in"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/tile_moe_control_v1.webp",
+   "type": "STATIC",
+   "frames": 1,
+   "speed": null,
+   "duration_ms": null,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 566,
+   "use": "staticAssetPath",
+   "serves": [
+    "tg_control"
+   ],
+   "note": "Control/lock mark (Sayo): a ring of faceted violet glass links on ink, a closed glass eye (the hush) at the centre"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_control_glint_v1.webp",
+   "type": "ANIMATION",
+   "frames": 16,
+   "speed": 50,
+   "duration_ms": 800,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 328,
+   "use": "static",
+   "serves": [
+    "tg_control"
+   ],
+   "note": "Control loop: the links tighten on the beat at the ring's ends; a white glint runs round (portrait-clear)"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_control_appear_v1.webp",
+   "type": "ANIMATION",
+   "frames": 9,
+   "speed": 50,
+   "duration_ms": 450,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 684,
+   "use": "appear",
+   "serves": [
+    "tg_control",
+    "moe_lull_visual"
+   ],
+   "note": "Control mark arrives: violet glass links whip round and snap shut with an ink flash"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/tile_moe_linger_v1.webp",
+   "type": "STATIC",
+   "frames": 1,
+   "speed": null,
+   "duration_ms": null,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 668,
+   "use": "staticAssetPath",
+   "serves": [
+    "tg_linger",
+    "moe_hush_floor"
+   ],
+   "note": "Lingering pool (Sayo): a crazed glass pane with bile seeping up through its cracks"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_linger_glint_v1.webp",
+   "type": "ANIMATION",
+   "frames": 24,
+   "speed": 50,
+   "duration_ms": 1200,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 476,
+   "use": "static",
+   "serves": [
+    "tg_linger",
+    "moe_hush_floor"
+   ],
+   "note": "Linger loop: bile bubbles swell and pop at the pool's ends, 1.2 s (portrait-clear)"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_linger_appear_v1.webp",
+   "type": "ANIMATION",
+   "frames": 10,
+   "speed": 50,
+   "duration_ms": 500,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 894,
+   "use": "appear",
+   "serves": [
+    "tg_linger",
+    "moe_hush_floor"
+   ],
+   "note": "Lingering pool arrives: the glass crazes and bile wells up through the cracks"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/tile_moe_safe_v1.webp",
+   "type": "STATIC",
+   "frames": 1,
+   "speed": null,
+   "duration_ms": null,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 452,
+   "use": "staticAssetPath",
+   "serves": [
+    "tg_safe"
+   ],
+   "note": "Safe hex (Sayo): a cut-glass cyan diamond pane with a white four-point star"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_safe_glint_v1.webp",
+   "type": "ANIMATION",
+   "frames": 32,
+   "speed": 50,
+   "duration_ms": 1600,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 488,
+   "use": "static",
+   "serves": [
+    "tg_safe"
+   ],
+   "note": "Safe loop: calm light rising at the diamond's points, a soft star twinkle, 1.6 s (portrait-clear)"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_safe_appear_v1.webp",
+   "type": "ANIMATION",
+   "frames": 10,
+   "speed": 50,
+   "duration_ms": 500,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 696,
+   "use": "appear",
+   "serves": [
+    "tg_safe"
+   ],
+   "note": "Safe hex arrives: a cyan beam rises, the star opens white, the diamond rim draws"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_etch_appear_v1.webp",
+   "type": "ANIMATION",
+   "frames": 9,
+   "speed": 50,
+   "duration_ms": 450,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 694,
+   "use": "appear",
+   "serves": [
+    "tg_etch"
+   ],
+   "note": "Etching arrives: a white scribe spark cuts the lattice out from the centre, the cut flares gold"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_refraction_blast_v1.webp",
+   "type": "ANIMATION",
+   "frames": 12,
+   "speed": 50,
+   "duration_ms": 600,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 1850,
+   "use": "appear",
+   "serves": [
+    "moe_refraction"
+   ],
+   "note": "Refraction Breaks: the line of light flares and shatters; an ember-hearted glass column bursts up and rains back"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_glassfall_v1.webp",
+   "type": "ANIMATION",
+   "frames": 13,
+   "speed": 50,
+   "duration_ms": 650,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 2080,
+   "use": "appear",
+   "serves": [
+    "moe_glassfall"
+   ],
+   "note": "Glassfall pane: a pane falls point-first, white-hot ember impact, shatters into chunks"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_shatterfall_v1.webp",
+   "type": "ANIMATION",
+   "frames": 15,
+   "speed": 50,
+   "duration_ms": 750,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 2482,
+   "use": "appear",
+   "serves": [
+    "moe_shatterfall"
+   ],
+   "note": "Shatterfall Gives Way: two broad panes crash down, the hex erupts white-hot, a ring shock runs out"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_enrage_v1.webp",
+   "type": "ANIMATION",
+   "frames": 13,
+   "speed": 50,
+   "duration_ms": 650,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 2592,
+   "use": "appear",
+   "serves": [
+    "moe_enrage"
+   ],
+   "note": "The Glass Remembers: a crown of ember-hearted glass spikes closes in and bursts white on every hex"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_grasp_v1.webp",
+   "type": "ANIMATION",
+   "frames": 12,
+   "speed": 50,
+   "duration_ms": 600,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 1030,
+   "use": "appear",
+   "serves": [
+    "moe_grasp"
+   ],
+   "note": "Grasp: bone feelers whip up out of an ink ripple and clench over the target"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_echo_strike_v1.webp",
+   "type": "ANIMATION",
+   "frames": 11,
+   "speed": 50,
+   "duration_ms": 550,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 990,
+   "use": "appear",
+   "serves": [
+    "moe_echo_strike"
+   ],
+   "note": "The echoes' strikes (Your Own Strike, Doorward Sweep, Cadet's Tether): a slash of silvered glass, ash and chips"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_pull_v1.webp",
+   "type": "ANIMATION",
+   "frames": 10,
+   "speed": 50,
+   "duration_ms": 500,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 1266,
+   "use": "appear",
+   "serves": [
+    "moe_pull"
+   ],
+   "note": "Pull (Breathless Pull, Cadet's Tether): ink streaks rush in to the target and lock in a violet knot"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_shove_v1.webp",
+   "type": "ANIMATION",
+   "frames": 10,
+   "speed": 50,
+   "duration_ms": 500,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 1130,
+   "use": "appear",
+   "serves": [
+    "moe_shove"
+   ],
+   "note": "Push (Doorward Sweep): an arc of ash and dark glass bursts outward from the target"
+  },
+  {
+   "file": "art/mother_of_echoes_fx/exports/anim_moe_mend_v1.webp",
+   "type": "ANIMATION",
+   "frames": 13,
+   "speed": 50,
+   "duration_ms": 650,
+   "frame_px": 150,
+   "drawn_grid_px": 50,
+   "bytes": 1080,
+   "use": "appear",
+   "serves": [
+    "moe_mend"
+   ],
+   "note": "Worn Mending: warm bone light motes rise and gather into a soft glint over the mended summon"
   }
  ]
 }
