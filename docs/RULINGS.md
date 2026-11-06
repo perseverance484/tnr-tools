@@ -6017,3 +6017,32 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-05: "1. Hold 2. Keep it 3. Upgrade them." This answered the coordinator's questions on the stamp, the cyan and the post-launch deferral.
 
 **Canonical destination:** `docs/design/MOTHER_OF_ECHOES_ART.md`; `docs/design/SAYO_BIBLE.md` §5.
+
+## RUL-2026-11-05-127 — Uploaded assets are sectioned and labelled in the game's asset library
+
+**Date:** 2026-11-05
+
+**Domain:** art pipeline / gameAsset records (folder and name)
+
+**Status:** ACTIVE. Applies to every asset this repository uploads from now on. Existing Mother of Echoes and Skyglass Boss FX assets are re-foldered and renamed in the final tuning job.
+
+**Ruling:**
+1. **Folder.** Every uploaded gameAsset gets a flat `folder` string that names its event or owner and its use, separated by " - " (never "/"). The game's library (GameAssetLibrary) browses by folder with counts and searches by folder and name.
+   - Mother of Echoes:
+     - `Skyglass - Mother of Echoes - Act I`
+     - `Skyglass - Mother of Echoes - Act II`
+     - `Skyglass - Mother of Echoes - Act III`
+     - `Skyglass - Mother of Echoes - Floors`
+     - `Skyglass - Mother of Echoes - Entrances and Auras`
+   - Per-hex slices of a sliced painting go in their own folder per move: `Skyglass - Mother of Echoes - Slices - <Move>`. This keeps hundreds of single-hex pieces out of the browsable folders.
+   - Skyglass boss FX: `Skyglass - Boss FX`.
+   - A player jutsu's art goes in `Jutsu - <Jutsu name>`, for example `Jutsu - Subaku Palace`.
+2. **Name.** Every name is human-readable and unique, and says where the asset is used. Examples:
+   - `MoE II: Recast Rime - slice c04r06`
+   - `MoE I: Refraction - mark`
+   - `Subaku Palace: ring 3 wave`
+3. **Build gate.** Each builder gates on the convention, so an asset without a convention folder and name refuses to build.
+
+**Evidence:** Director, 2026-11-05: "Im worried all these animations will overload that area and make it hard for people to sort through. Make sure ours are properly sectioned off and labelled for the event and areas they are used, etc."
+
+**Canonical destination:** `docs/design/MOTHER_OF_ECHOES_ART.md` (asset convention); `docs/design/SUBAKU_PALACE_ANIMATION.md` (asset table); `push/mother_of_echoes.gen.py` (folder and name builder).
