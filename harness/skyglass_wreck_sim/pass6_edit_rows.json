@@ -243,25 +243,11 @@
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
-    ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+     "The glass breaks"
     ],
     "power": [
      300,
-     3030
-    ],
-    "residualModifier": [
-     1,
-     0
-    ],
-    "type": [
-     "damage",
-     "pierce"
+     1050
     ]
    },
    "holders": [
@@ -276,6 +262,37 @@
    "srcId": "sg440_refraction_blast",
    "liveId": "qjtaZInyr1nZ5lZmSA_SS",
    "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 0,
+     "power": 15,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "static",
+     "type": "onehitkill",
+     "description": "The glass may remember you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Refraction Breaks",
+   "srcId": "sg440_refraction_blast",
+   "liveId": "qjtaZInyr1nZ5lZmSA_SS",
+   "effectIndex": 2,
    "changes": {
     "added": {
      "staticAssetPath": "tg_linger",
@@ -306,7 +323,7 @@
    "jutsu": "Refraction Breaks",
    "srcId": "sg440_refraction_blast",
    "liveId": "qjtaZInyr1nZ5lZmSA_SS",
-   "effectIndex": 2,
+   "effectIndex": 3,
    "changes": {
     "added": {
      "staticAssetPath": "",
@@ -345,25 +362,11 @@
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
-    ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+     "The glass breaks"
     ],
     "power": [
      300,
-     3030
-    ],
-    "residualModifier": [
-     1,
-     0
-    ],
-    "type": [
-     "damage",
-     "pierce"
+     1050
     ]
    },
    "holders": [
@@ -378,6 +381,37 @@
    "srcId": "sg440_refraction_blast_ii",
    "liveId": "OTcP-08or5bUKwcMjc54K",
    "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 0,
+     "power": 15,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "static",
+     "type": "onehitkill",
+     "description": "The glass may remember you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Far Refraction Breaks",
+   "srcId": "sg440_refraction_blast_ii",
+   "liveId": "OTcP-08or5bUKwcMjc54K",
+   "effectIndex": 2,
    "changes": {
     "added": {
      "staticAssetPath": "tg_linger",
@@ -408,7 +442,7 @@
    "jutsu": "Far Refraction Breaks",
    "srcId": "sg440_refraction_blast_ii",
    "liveId": "OTcP-08or5bUKwcMjc54K",
-   "effectIndex": 2,
+   "effectIndex": 3,
    "changes": {
     "added": {
      "staticAssetPath": "",
@@ -447,25 +481,11 @@
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
-    ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+     "The glass breaks"
     ],
     "power": [
      220,
-     3030
-    ],
-    "residualModifier": [
-     1,
-     0
-    ],
-    "type": [
-     "damage",
-     "pierce"
+     1050
     ]
    },
    "holders": [
@@ -480,6 +500,37 @@
    "srcId": "sg440_facet_blast",
    "liveId": "xlmvVot9xaetibexfyc31",
    "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 0,
+     "power": 15,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "static",
+     "type": "onehitkill",
+     "description": "The glass may remember you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Facet Breaks",
+   "srcId": "sg440_facet_blast",
+   "liveId": "xlmvVot9xaetibexfyc31",
+   "effectIndex": 2,
    "changes": {
     "added": {
      "staticAssetPath": "tg_linger",
@@ -510,7 +561,7 @@
    "jutsu": "Facet Breaks",
    "srcId": "sg440_facet_blast",
    "liveId": "xlmvVot9xaetibexfyc31",
-   "effectIndex": 2,
+   "effectIndex": 3,
    "changes": {
     "added": {
      "staticAssetPath": "",
@@ -549,25 +600,11 @@
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
-    ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+     "The glass breaks"
     ],
     "power": [
      300,
-     3030
-    ],
-    "residualModifier": [
-     1,
-     0
-    ],
-    "type": [
-     "damage",
-     "pierce"
+     1050
     ]
    },
    "holders": [
@@ -585,7 +622,11 @@
    "changes": {
     "appearAnimation": [
      "tg_heavy",
-     "tg_linger"
+     ""
+    ],
+    "calculation": [
+     "percentage",
+     "static"
     ],
     "coordinateTargeting": [
      {
@@ -707,7 +748,7 @@
     ],
     "description": [
      "Telegraph: the marked ground",
-     "The broken glass"
+     "The glass may remember you"
     ],
     "disappearAnimation": [
      "tg_heavy",
@@ -719,15 +760,19 @@
     ],
     "power": [
      1,
-     50
+     15
+    ],
+    "rounds": [
+     1,
+     0
     ],
     "staticAnimation": [
      "tg_heavy",
-     "tg_linger"
+     ""
     ],
     "staticAssetPath": [
      "tg_heavy",
-     "tg_linger"
+     ""
     ],
     "target": [
      "COORDINATES",
@@ -735,7 +780,7 @@
     ],
     "type": [
      "increaseregeneration",
-     "decreaseheal"
+     "onehitkill"
     ]
    },
    "holders": [
@@ -751,6 +796,10 @@
    "liveId": "KfXRK6rC3bt4kpdtdJHDb",
    "effectIndex": 2,
    "changes": {
+    "appearAnimation": [
+     "",
+     "tg_linger"
+    ],
     "calculation": [
      "static",
      "percentage"
@@ -765,7 +814,15 @@
     ],
     "power": [
      100,
-     20
+     50
+    ],
+    "staticAnimation": [
+     "",
+     "tg_linger"
+    ],
+    "staticAssetPath": [
+     "",
+     "tg_linger"
     ],
     "target": [
      "SELF",
@@ -773,8 +830,39 @@
     ],
     "type": [
      "fleeprevent",
-     "increasedamagetaken"
+     "decreaseheal"
     ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Lucid Refraction",
+   "srcId": "sg440_lucid_refraction",
+   "liveId": "KfXRK6rC3bt4kpdtdJHDb",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
    },
    "holders": [
     {
@@ -2583,25 +2671,45 @@
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
-    ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+     "The glass breaks"
     ],
     "power": [
      40,
-     3030
+     1050
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    }
+   ]
+  },
+  {
+   "jutsu": "Nothing Moves",
+   "srcId": "sg440_stillness_blast",
+   "liveId": "scGyJW-F0Mqga4FXnj4Jf",
+   "effectIndex": 1,
+   "changes": {
+    "apReduction": [
+     100,
+     null
     ],
-    "residualModifier": [
+    "description": [
+     "placeholder",
+     "The glass may remember you"
+    ],
+    "power": [
+     100,
+     15
+    ],
+    "rounds": [
      1,
      0
     ],
     "type": [
-     "damage",
-     "pierce"
+     "stun",
+     "onehitkill"
     ]
    },
    "holders": [
@@ -2616,6 +2724,38 @@
    "srcId": "sg440_stillness_blast",
    "liveId": "scGyJW-F0Mqga4FXnj4Jf",
    "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "static",
+     "type": "stun",
+     "description": "placeholder",
+     "apReduction": 100
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    }
+   ]
+  },
+  {
+   "jutsu": "Nothing Moves",
+   "srcId": "sg440_stillness_blast",
+   "liveId": "scGyJW-F0Mqga4FXnj4Jf",
+   "effectIndex": 3,
    "changes": {
     "added": {
      "staticAssetPath": "",
@@ -2646,7 +2786,7 @@
    "jutsu": "Nothing Moves",
    "srcId": "sg440_stillness_blast",
    "liveId": "scGyJW-F0Mqga4FXnj4Jf",
-   "effectIndex": 3,
+   "effectIndex": 4,
    "changes": {
     "added": {
      "staticAssetPath": "",
@@ -2715,31 +2855,43 @@
    "liveId": "Avu4B2M_9_SE0-Oqqhplw",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      360,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": [
@@ -2817,31 +2969,43 @@
    "liveId": "I5lwaFCaVSH6cpxAPHvFA",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      360,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": [
@@ -2919,31 +3083,43 @@
    "liveId": "54nmWiFXqvFW7u0vSG5zK",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      360,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": [
@@ -3012,6 +3188,248 @@
     {
      "srcId": "sg440_ai_sayo_stilling",
      "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Etching: Heart",
+   "srcId": "sg440_etching_d",
+   "liveId": "nNUaP5r8r7UxYNiAtuF0l",
+   "effectIndex": null,
+   "changes": {
+    "coordinateTargeting": [
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       }
+      ],
+      "randomCount": 1
+     },
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 4
+       },
+       {
+        "longitude": 10,
+        "latitude": 5
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 11,
+        "latitude": 3
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 5
+       },
+       {
+        "longitude": 11,
+        "latitude": 6
+       }
+      ],
+      "randomCount": 1
+     }
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    },
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
     }
    ]
   },
@@ -3259,31 +3677,43 @@
    "liveId": "-MtfLHClmIwSSGBIw9O7X",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      360,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": [
@@ -3361,31 +3791,43 @@
    "liveId": "lmlhn5p68Oszhj16wKbvx",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      360,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": [
@@ -3449,6 +3891,64 @@
      "type": "increasedamagetaken",
      "description": "The broken glass"
     }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "The Hush Rises",
+   "srcId": "sg440_hush_rises",
+   "liveId": "F5qD1aXjt-kPQ6IR7nDoo",
+   "effectIndex": 1,
+   "changes": {
+    "allowBloodlineDamageDecrease": [
+     null,
+     true
+    ],
+    "allowBloodlineDamageIncrease": [
+     null,
+     true
+    ],
+    "calculation": [
+     "percentage",
+     "static"
+    ],
+    "description": [
+     "placeholder",
+     "Deals damage to target"
+    ],
+    "dmgModifier": [
+     null,
+     1
+    ],
+    "poolsAffected": [
+     [
+      "Health"
+     ],
+     null
+    ],
+    "power": [
+     15,
+     200
+    ],
+    "residualModifier": [
+     null,
+     1
+    ],
+    "statTypes": [
+     null,
+     [
+      "None"
+     ]
+    ],
+    "type": [
+     "drain",
+     "damage"
+    ]
    },
    "holders": [
     {
@@ -3512,31 +4012,43 @@
    "liveId": "cxqu1ljkSisTgPBLgYtJa",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      300,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": []
@@ -3599,31 +4111,43 @@
    "liveId": "4_dlB0conB-C6sfYqiU6Q",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      420,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": []
@@ -3686,31 +4210,43 @@
    "liveId": "kzxTPUJ8TYJFTggSKw3zr",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      260,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": []
@@ -3773,31 +4309,43 @@
    "liveId": "6IMcG7R_uhfROlANlYmDB",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      260,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": []
@@ -3860,31 +4408,43 @@
    "liveId": "H0MMi_Stpzk8zm4HqDEbF",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      260,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": []
@@ -3947,31 +4507,43 @@
    "liveId": "pp40FDDTbGMdwrDFTNyiF",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      260,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": []
@@ -4034,31 +4606,43 @@
    "liveId": "3ytuMbHhF4bcE2zrePnlR",
    "effectIndex": 0,
    "changes": {
+    "allowBloodlineDamageDecrease": [
+     true,
+     null
+    ],
+    "allowBloodlineDamageIncrease": [
+     true,
+     null
+    ],
     "calculation": [
      "formula",
      "static"
     ],
     "description": [
      "Deals damage to target",
-     "Pierces target"
+     "The glass remembers"
     ],
-    "generalTypes": [
-     null,
-     [
-      "Highest"
-     ]
+    "dmgModifier": [
+     1,
+     null
     ],
     "power": [
      380,
-     6500
+     100
     ],
     "residualModifier": [
      1,
-     0
+     null
+    ],
+    "statTypes": [
+     [
+      "None"
+     ],
+     null
     ],
     "type": [
      "damage",
-     "pierce"
+     "onehitkill"
     ]
    },
    "holders": []
@@ -6241,7 +6825,7 @@
         {
          "type": "has_effect",
          "effectType": "increasecooldown",
-         "threshold": 3,
+         "threshold": 4,
          "description": "Has effect"
         }
        ],
@@ -7051,7 +7635,7 @@
        "conditions": [
         {
          "type": "round_greater_than",
-         "value": 36,
+         "value": 17,
          "description": "Current round is higher than specified value"
         }
        ],
@@ -7174,7 +7758,7 @@
         },
         {
          "type": "has_effect",
-         "effectType": "fleeprevent",
+         "effectType": "onehitkillprevent",
          "threshold": 1,
          "description": "Has effect"
         },
