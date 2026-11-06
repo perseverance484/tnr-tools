@@ -5980,3 +5980,23 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-05: "I want all the boss animations to look as cool as refraction. That is my standard now for all the abilities."; "We can paint a picture or tell a story with these … Omens should use the normal language we've established with the circles and marks on the ground, but the eruptions and real abilities should be like refraction."; "avoid the sickly green concept entirely and look at thematic color schemes and animations that make sense for both enemies. I want this fight to look good, high quality, premium."; "I want the player to feel like the enemy and their moves are interacting with the terrain and the player needs to adjust and adapt, react. The goal is to make it feel like a stage and they are dealing with the hazards."
 
 **Canonical destination:** `docs/design/MOTHER_OF_ECHOES_ART.md` (Art direction section); `docs/design/SAYO_BIBLE.md` §5 (palette revision).
+
+## RUL-2026-11-05-125 — Subaku Palace animation remake: v2 exact-geometry domain tile; ring-wave visual tags accepted
+
+**Date:** 2026-11-05
+
+**Domain:** art / player event jutsu Subaku Palace (`jELEiw5W3N4m2R3oJm3Pk`)
+
+**Status:** ACTIVE. The mechanics are unchanged; any change to balance needs a separate approval.
+
+**Ruling:**
+1. **The animation is remade under RUL-2026-11-05-124 standards.**
+   - The domain is summoned ring by ring outward from the caster, with energy running along the gold bands across the hexes and the red cracks flaring.
+   - The burning-gold sigil and the red sandstone oni gates rise on the caster's hex, ending in a palace beat.
+   - Quality comes first ("if this works it could be a big deal").
+2. **A v2 domain tile ships, replacing the live one.** It keeps the same identity: dark cracked stone, bevelled burnished gold bands, red cracks. Its bands meet exactly at every hex-edge midpoint, so the current runs unbroken. The live tile interlocks only about 1 in 3 band ends.
+3. **Visual-only tags may add lines to the player-facing jutsu details.** Up to 7 ring-band tags are allowed for the spread.
+
+**Evidence:** Director, 2026-11-05: "I want to do a new Subaku Palace animation and effect etc now that we have an updated understanding"; "show it actually spawning in like a domain being summoned, energy running down the gold lines"; "If this works it could be a big deal so I'd like to pay extra attention to detail"; "1. Approved. 2. Yes" (the v2 tile; the details lines).
+
+**Canonical destination:** `art/subaku_palace/` (TIMING.md and the design doc).
