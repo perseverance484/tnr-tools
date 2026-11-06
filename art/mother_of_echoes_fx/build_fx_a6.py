@@ -212,7 +212,7 @@ def doorward_sweep():
     pool colour): the bar draws back (2 frames), sweeps through the target in a wide flat arc (3 frames), HOLDS on
     contact (2 frames), ash chips scatter, the arc's trail fades. 14 frames."""
     out = []
-    cx, cy = 25, 22
+    cx, cy = 25, 20
     for i in range(14):
         f = F.frame()
         if i < 2:                                                # wind-up: the bar's end at the right, a lantern glint
@@ -221,22 +221,22 @@ def doorward_sweep():
             t = (i - 1) / 3
             a1 = -40 + 220 * t
             n = F.frame()
-            for w, col in ((3, ASH[1]), (1, ASH[2])):
-                F.thick_arc(n, cx, cy, 15, max(-40, a1 - 70), a1, [(k, col) for k in range(w)], ry_scale=0.45)
+            for w, col in ((5, ASH[1]), (2, ASH[2])):
+                F.thick_arc(n, cx, cy, 18, max(-40, a1 - 80), a1, [(k - 2, col) for k in range(w)], ry_scale=0.62)
             F.outline_alpha(n, ASH[0])
             f.alpha_composite(n)
-            x, y = cx + 15 * math.cos(math.radians(a1)), cy + 15 * 0.45 * math.sin(math.radians(a1))
+            x, y = cx + 18 * math.cos(math.radians(a1)), cy + 18 * 0.62 * math.sin(math.radians(a1))
             A4.cluster(f, x, y, LANTERN, ASH[0])
         elif i < 7:                                              # the held contact: the arc stops, the bar's end on them
             n = F.frame()
-            F.thick_arc(n, cx, cy, 15, 40, 180, [(0, ASH[2]), (1, ASH[1]), (2, ASH[1])], ry_scale=0.45)
+            F.thick_arc(n, cx, cy, 18, 40, 180, [(-2, ASH[1]), (-1, ASH[2]), (0, ASH[2]), (1, ASH[1]), (2, ASH[1])], ry_scale=0.62)
             F.outline_alpha(n, ASH[0])
             f.alpha_composite(n)
             A4.star(f, cx - 6, cy + 4, (255, 255, 250), 3)
         else:                                                    # ash chips scatter and fall; the trail fades
             v = i - 7
             if v < 3:
-                F.thick_arc(f, cx, cy, 15, 60 + 25 * v, 180, [(0, ASH[1])], ry_scale=0.45)
+                F.thick_arc(f, cx, cy, 18, 60 + 25 * v, 180, [(0, ASH[1]), (1, ASH[1])], ry_scale=0.62)
             for k, (dx, dy) in enumerate(((-9, -2), (-4, -5), (3, -4), (-12, 2), (6, 1))):
                 if v > 4 and k % 2:
                     continue
