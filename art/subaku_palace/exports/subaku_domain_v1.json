@@ -1,7 +1,7 @@
 {
  "ratio": 2.5,
  "speed": 50,
- "tile": "boldflow",
+ "tile": "rails",
  "order": "rings",
  "assets": {
   "anim_sbk_wave_b0_v1.webp": {
@@ -9,61 +9,61 @@
    "frames": 32,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 4886
+   "bytes": 2256
   },
   "anim_sbk_wave_b1_v1.webp": {
    "type": "ANIMATION",
    "frames": 32,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 4918
+   "bytes": 2268
   },
   "anim_sbk_wave_b2_v1.webp": {
    "type": "ANIMATION",
    "frames": 32,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 4932
+   "bytes": 2292
   },
   "anim_sbk_wave_b3_v1.webp": {
    "type": "ANIMATION",
    "frames": 32,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 4952
+   "bytes": 2304
   },
   "anim_sbk_wave_b4_v1.webp": {
    "type": "ANIMATION",
    "frames": 32,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 5004
+   "bytes": 2328
   },
   "anim_sbk_wave_b5_v1.webp": {
    "type": "ANIMATION",
    "frames": 32,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 4928
+   "bytes": 2332
   },
   "anim_sbk_wave_b6_v1.webp": {
    "type": "ANIMATION",
    "frames": 32,
    "speed": 50,
    "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 4880
+   "bytes": 2342
   },
   "anim_sbk_seal_v1.webp": {
    "type": "ANIMATION",
    "frames": 32,
    "speed": 50,
    "use": "ground tag (decreasedamagegiven) appearAnimation, 60 hexes",
-   "bytes": 804
+   "bytes": 430
   },
   "tile_sbk_domain_v3.webp": {
    "type": "STATIC",
    "use": "ground tag staticAssetPath (3 rounds)",
-   "bytes": 16900
+   "bytes": 14646
   }
  },
  "groups": [
@@ -91,7 +91,7 @@
   },
   {
    "asset": "anim_sbk_wave_b1_v1.webp",
-   "lands_tick": 9,
+   "lands_tick": 8,
    "offsets": [
     {
      "longitude": -1,
@@ -151,7 +151,7 @@
   },
   {
    "asset": "anim_sbk_wave_b3_v1.webp",
-   "lands_tick": 12,
+   "lands_tick": 11,
    "offsets": [
     {
      "longitude": -1,
@@ -227,7 +227,7 @@
   },
   {
    "asset": "anim_sbk_wave_b5_v1.webp",
-   "lands_tick": 15,
+   "lands_tick": 14,
    "offsets": [
     {
      "longitude": -3,
@@ -333,5 +333,17 @@
     }
    ]
   }
- ]
+ ],
+ "handoff_check": {
+  "handoff": {
+   "mean_abs": 16.3,
+   "share_over_32": 0.169,
+   "pixels": 1667
+  },
+  "late_pop": {
+   "mean_abs": 21.9,
+   "share_over_32": 0.185,
+   "pixels": 1667
+  }
+ }
 }
