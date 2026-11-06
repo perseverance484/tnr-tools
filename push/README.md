@@ -1717,6 +1717,8 @@ Dry runs: `MOE_SPEC_FILE=<spec.json> MOE_OUT_DIR=<dir outside push/>` builds any
 
 **476 built (2026-11-05)** from SPEC_REF 7fdaa5da (final pass-6 spec), 73 items (2 / 9 / 53 / 9). Settings (director 2026-11-04/05): eruptions 3,030 (I) / 6,500 (Act II Recasts) / 6,500 (III), option-4 debuffs, Glass Lancet ~10% of 6,250 first hit with a capped ramp (7% per cast, 9-round stacks), follow-the-player marks 40/50% cooldown 4, Sayo II DR 55, Saint DR 40. Sim loop 13 (20 runs): perfect 7, real 1, average 0, ignore 0, camp 0. Gates: `validate.py --strict` 25 errors / 79 warnings held by the ledger (accepted classes plus two NEW classes PENDING director acceptance: law 6 on 17 flat pierce eruptions, law 17 on 2 in-job @jutsu refs); `check_manifest` 0 pre-send problems; `skyglass_check` 0. Run after 467, then test on 469.
 
+**Run log (2026-11-05 UTC).** 467 ran: `harvests/inbox/tnr_results_1793847106353.json`, manifest hash 9a991533, 16/16 VERIFIED (15 FX unhidden; practice quest scenes and icon). 476 ran: `harvests/inbox/tnr_results_1793925607180.json`, hash 5d8f3ad5: 2 jutsu creates, 9 unequips and 53 jutsu edits VERIFIED; the 9 re-equips CONFIRMED with the same scaleEditedAi stat drift only (sent 1,391,300, live 1,622,256 on all six stats), as at 463 and 466.
+
 **Still to come:** the go-live, **477** (`--step golive`; was 467), after 476.
 
 1. **466** `466_mother_of_echoes_final.json`, JOB 1, 88 items, one imagePack (12e54c08, 32 files; the art-QA polish):
