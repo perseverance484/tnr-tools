@@ -1676,9 +1676,9 @@ Non-visual ground effects live by `rounds`; their copies onto a standing player 
 - **After 432:** read back each holder's jutsu list (equipped) and each edited jutsu's effects. In a fight, an Omen mark
   should stay on screen until its eruption.
 
-## 483-485 Skyglass story pass (RUL-2026-11-05-117; docs/design/SKYGLASS_STORY_AUDIT.md): BUILT, NOT RUN
+## 483-488 Skyglass story pass (RUL-2026-11-05-117, -118; docs/design/SKYGLASS_STORY_AUDIT.md): 483-487 BUILT, NOT RUN; 488 waits on 487
 
-`python3 push/skyglass_story_pass.gen.py` writes all three. Zero live requests to build. The text belongs to its owners
+`python3 push/skyglass_story_pass.gen.py` writes 483-487. `python3 push/skyglass_story_pass.gen.py --law18 <487 bundle>` writes 488. Zero live requests to build. The text belongs to its owners
 (`push/crownhold.gen.py`, `state/skyglass_hunts/hunts.py`, `docs/design/SKYGLASS_TEXT.md`,
 `push/skyglass_uber_economy.gen.py`). The generator only carries that text onto the live records and stops on any
 drift. Each manifest has a `_diff`.
@@ -1692,6 +1692,9 @@ live, published quests. 485 is description-only.
 | 483 | 1 AI edit, 1 quest edit | **Replicant Zero → The First Impression**: username-only edit on `vjEFUJ9mb1zNTuQf4lfXv`. Forge fetch-merges the kit. updateAi rescales stats on the write (law 71, expected). If the name is refused as taken (law 66), stop: the fix is a new name, not a retry. **Crownhold** (`fqqpkcp_L4oOsC6yyodlk`) is re-sent whole from push/420 with 16 node descriptions changed: aftermath R2; register R6 + D2; the First Impression and "the Glasswright brought back" R5/D3; siege ring R7; the Silence R8; the Crowned Captain's doubt R9; glass hall R13a; drill scroll R13c. |
 | 484 | 2 quest edits | **The Quarantined Archive** (`-bZ_ZoI6yrUJ_LKT9R5zm`, from push/385). Its icon `@img` is sent as push/385's resolved URL. The unsent report to the Glasswright goes on `d_records` (R4), and the `d_entry` choice becomes "Read the buried reports" (R13b). **The Fall** (`H9YInJtnzKCOEMv-sNgzP`, from push/420): `w_press` becomes "We were called home. I only held the heading." (R10). |
 | 485 | 4 item edits | **The four Invitation shards** (push/417 ids): story line only. Each gains the thumbprint, and the Tide line now covers both run families (R11). |
+| 486 | 2 item edits | **The director's text** (RUL-2026-11-05-118): Skyglass Katana (`ZSUdrzzgorepP4CQrBfEk`) and Skyglass Serum (`XhilCv1Hq4eNt-Wddok-m`). Description only, from `SKYGLASS_TEXT.md` §4.6. |
+| 487 | READ-ONLY, 17 reads | `jutsu.get` on Unbroken Command, Core Rupture and Echo of Erupting Ground. `profile.getAi` on the 14 AIs the repository knows to hold them: the five Captains, the legacy Crowned Captain `fDU9jCPZtH7YHbdQPO9RF` (push/172 kit, to confirm), seven Seal Charges and Core Canisters, and Crown Stonebound (Summoned). |
+| 488 | built from the 487 bundle | Law 18 in order (ENGINE_LAWS 60). Phase 10 takes the three jutsu off every holder the capture confirms. Phase 20 edits the jutsu, sending `injectableInBattle` as captured (law 20): Unbroken Command battleDescription, Core Rupture description (director text), Echo of Erupting Ground description (R13d). Phase 30 puts each holder's captured kit back. The dry run on reconstructed kits gave 31 items. `validate.py --strict` flags the phased build order (the RUL-2026-10-31-085 class), so write the ledger with `--write` and leave it PENDING for the director. |
 
 - **Gates (2026-11-05):**
   - `validate.py --strict`: 0 errors, 0 warnings on each; no ledger needed.
@@ -1701,8 +1704,8 @@ live, published quests. 485 is description-only.
 - **Not in these jobs:**
   - **Mother of Echoes R3/R14 and the Worn text** (`INTRO` in `push/mother_of_echoes.gen.py`; `push/mother_of_echoes_text.json`) ride go-live **477**, which re-sends the main quest and the jutsu. **478** (built, on hold) predates the Worn text, and its rebuild picks it up.
   - **The practice quest** (469) keeps 481's intro until its next re-send. Do not re-run `--quest-only`, which would overwrite the 481 run record.
-  - **Echo of Erupting Ground (R13d):** the text is in `SKYGLASS_TEXT.md` §6.4 and `push/skyglass_library.gen.py`. Its live edit needs the law-18 order (unequip, edit, re-equip) on its one holder, Crown Stonebound (Summoned) (`5z1MpmR9JC4StefFEDUuM`, push/344). A read-only capture of that AI's live kit comes first, so the re-equip resends it exactly. It is not built yet.
-  - **Director-owned text (D4)** is not built: Katana, Serum, Unbroken Command, Core Rupture.
+  - **Echo of Erupting Ground (R13d), Unbroken Command and Core Rupture** ride 488, which is built only from the 487 capture so the re-equip resends each live kit exactly.
+  - **Core Rupture's battleDescription** still says "containment seal … device": the director's text replaced the description (RUL-2026-11-05-118 item 1), and a battle line waits on the director.
 
 ## 440-465 The Mother of Echoes (the uber; RUL-2026-11-02-103 part 2, -105, -108): 440 RUN 2026-11-03 (tnr_results_1793718889563.json, 47/47 VERIFIED); 461 RUN (tnr_results_1793719096174.json, 5/5 VERIFIED); 462 RUN (tnr_results_1793719167829.json, 6/6 VERIFIED); 463 RUN (tnr_results_1793719233508.json, 4/4 VERIFIED); 464 BUILT with the final rewards (RUL-2026-11-03-110), READY TO RUN (forge 0.12.4 merged, cfe8a4b1, RUL-2026-11-02-106; update the Forge loader first); 461-465 built from results bundles
 

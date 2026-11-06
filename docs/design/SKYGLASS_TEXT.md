@@ -1055,9 +1055,14 @@ A hair-thin strand of skyglass pulled from the wreck's hull, still holding the s
 A shard of the Skyglass Crown, threaded with dormant command seals. Gather five and they can be joined into <b>The Skyglass Crown</b>.
 ```
 
-**`item:Skyglass Katana.description`** (LEGENDARY, rarity unchanged)
+**`item:Skyglass Katana.description`** (LEGENDARY, rarity unchanged; director text RUL-2026-11-05-118, was "…borne by the Captain's most faithful reconstruction. Its command seals resist interference…")
 ```html
-A crystal-edged sword borne by the Captain's most faithful reconstruction. Its command seals resist interference, turning a measure of the wielder's damage into a brief protective shield.
+A crystal-edged sword carried by the most faithful of the Captain's echoes. The command seals along its spine still answer him, turning a measure of every blow into a brief ward of glass.
+```
+
+**`item:Skyglass Serum.description`** (director text RUL-2026-11-05-118; was "…sealed for the Ghost Ship's longest chakra operations…")
+```html
+A concentrated restorative sealed for the Ghost Ship's longest night watches. The medicine is still potent, though the crew it was brewed for has long since gone still.
 ```
 
 **`item:Skyglass Crystal.description`** (rarity unchanged)
@@ -1246,6 +1251,16 @@ captured live jutsu name. **One library record does:** the Archive's Skyglass-on
 (`hunt-stonebound-erupting-ground`, RUL-2026-10-30-060 item 7) carries the live jutsu's name `Erupting Ground`
 (`jBRyl7F4UjTyxG5nnzLqj`). Approved (RUL-2026-10-31-064 item 4): **Echo of Erupting Ground**, the
 Stonebound summon being an echo; its battle line is unchanged.
+
+**`jutsu:Unbroken Command.battleDescription`** (director text RUL-2026-11-05-118; was "…old orders burning through their reconstructed form…")
+```
+%user calls on an order that was never rescinded, and the old command burns through their glass-bound body as their offensive power rises.
+```
+
+**`jutsu:Core Rupture.description`** (director text RUL-2026-11-05-118, relayed as its battleDescription but written as the description it rewrites: was "A containment seal ruptures, destroying the casting device in a piercing chakra blast that staggers nearby enemies.")
+```
+A binding seal ruptures, and the vessel that held it bursts in a piercing chakra blast that staggers nearby enemies.
+```
 
 **`jutsu:Echo of Erupting Ground.description`** (story pass 2026-11-05, audit R13d: replaces the copied designer note "Shared pool record A3. Balance values pending sign-off. (Skyglass copy: damage hits enemies only.)")
 ```
