@@ -628,3 +628,19 @@ The Saint idled on 0% of her turns. Act III is no longer where perfect play is l
    - A cooldown of 1 doesn't block this, because the engine treats an action as ready once rounds passed ≥ cooldown (actions.ts:316-318).
    - No intended break is lost: the chain already spaces breaks at least 4 rounds apart.
 3. **Lethal hits are `onehitkill` power 100 with target INHERIT.** The captured donor shape has target SELF, which cast the kill on the Saint herself.
+4. **Nothing Moves cooldown went from 0 to 3.** Its pierce could re-fire the round after its mark with nothing drawn (1 unwarned blast in 240 runs, seed 408). The shared-cooldown table locks only the caster's *other* pierce actions, not the same jutsu, so the "one flat pierce per caster per 3 rounds" spacing (RUL-2026-11-06-128) has to be enforced by the jutsu's own cooldown.
+
+**Final spec:** `fable/mother-of-echoes-sim` @ fd3531153df7a1dfa9f4e559b39d1ad50055a0f6 (engine cb755375). It is variant (a)+(b): Act III enrage at round 17, plus a 15% Act I OHKO chance.
+
+Final confirmation, 30 runs per profile:
+
+| Profile | Clears |
+|---|---|
+| Perfect | 18/30 (60%) |
+| Real | 3/30 (10%) |
+| Real, Silence first | 3/30 (10%) |
+| Average, camp, ignore | 0/30 each |
+
+- Unwarned blasts: 0.
+- Panes landing on safe hexes: 0.
+- Recasts on unetched hexes: 0.
