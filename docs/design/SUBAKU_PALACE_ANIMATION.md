@@ -52,9 +52,11 @@ it carries no loop. Clips keep out of every fighter and every meter row (`keepou
 On the true-scale composite, both column parities, measured with the independent reviewer's renderer
 (`qa_render.py`, actual sprite and meter alpha): every enemy's body is covered at most 15 % on any frame, and its
 meters at most 11 %; no frame exceeds 25 % for any enemy. The floor clips cover the caster 0 %. The caster's own
-meter rows (shown only on hover or selection) are covered up to 40 % on ticks 19-21, by the centre strip (v4) and
-nothing else. Its arch and palace eave cross them during ticks 15-24, an exception the director accepted on
-2026-11-05 ("keep the arch").
+meter rows are crossed by the centre strip's moon-gate arch and nothing else: on ticks 24-33 in v5 (the roof wings now
+sit below the rows), up to 33 % of the rows by the build's rectangle (the reviewer's renderer measured 40 % on v4; to
+re-measure on v5). The director accepted this on 2026-11-05 ("keep the arch") on the understanding that those rows show
+only on hover or selection. That holds for other viewers only: the casting player always sees their own rows
+(theninjarpg cb755375 `combat.ts:420` passes the viewer's userId as `selectedId`; `combatActors.ts:516-520`).
 In the keep-out zone the real tile shows through from tick 0: a column of formed gold at each hex centre, where
 the bloom starts anyway.
 
@@ -128,7 +130,7 @@ Asset library (RUL-2026-11-05-127): every upload goes in the folder **`Jutsu - S
 | `exports/anim_sbk_wave_b4_v1.webp` | `Subaku Palace: ring 3 wave` | ANIMATION | 32 x 50 | visual tag b4 |
 | `exports/anim_sbk_wave_b5_v1.webp` | `Subaku Palace: ring 3.5 wave` | ANIMATION | 32 x 50 | visual tag b5 |
 | `exports/anim_sbk_wave_b6_v1.webp` | `Subaku Palace: ring 4 wave` | ANIMATION | 32 x 50 | visual tag b6 |
-| `gates/exports/anim_sbk_gates_rise_v4.webp` (centre half; v2 superseded after QA) | `Subaku Palace: gates rise` | ANIMATION | 38 x 50 | SELF `increasedamagegiven`: `appearAnimation`; `appearSfx` Earth `XBlRonNjvwAZx1_HFpHdM` |
+| `gates/exports/anim_sbk_gates_rise_v5.webp` (centre half; v2 and v4 superseded after QA) | `Subaku Palace: gates rise` | ANIMATION | 44 x 50 | SELF `increasedamagegiven`: `appearAnimation`; `appearSfx` Earth `XBlRonNjvwAZx1_HFpHdM` |
 
 The SELF `increasedamagegiven` effect's `staticAssetPath` and `staticAnimation` are **cleared** (no dais, no loop).
 The 7 band tags carry no sound and no static slots.

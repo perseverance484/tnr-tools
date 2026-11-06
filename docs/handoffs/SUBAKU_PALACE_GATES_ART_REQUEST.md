@@ -2,7 +2,7 @@
 
 - **For:** the art director (Image Production)
 - **From:** Fable / Claude (2026-11-05)
-- **Status:** OPTIONAL. The programmatic strip ships now: `art/subaku_palace/gates/exports/anim_sbk_gates_rise_v4.webp` (2.5 hex-height clip, LPC caster; see the gates README). Painted gate, palace and sigil layers would be reduced to the same 50 px grid, keep-clear zones and beat.
+- **Status:** OPTIONAL. The programmatic strip ships now: `art/subaku_palace/gates/exports/anim_sbk_gates_rise_v5.webp` (2.5 hex-height clip, LPC caster; see the gates README). Painted gate, palace and sigil layers would be reduced to the same 50 px grid, keep-clear zones and beat.
 - **Jutsu:** Subaku Palace `jELEiw5W3N4m2R3oJm3Pk` (player EVENT). Battle text: "gates of red sandstone carved with snarling
   faces tear free of the ground, and the shadow of the demon palace falls across the field".
 - **Style references (attach, style only):** `art/subaku_palace/refs/ref_domain_tile_c_1254.png` (material: charcoal
