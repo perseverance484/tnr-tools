@@ -5844,3 +5844,24 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
   - push/486 (the two items);
   - push/487 (read-only capture);
   - push/488 (built from 487: the jutsu in law-18 order). All from `push/skyglass_story_pass.gen.py`.
+
+## RUL-2026-11-05-119 — Director sign-offs: ledgers, Sayo stun immunity, framework answers, one master manifest
+
+**Date:** 2026-11-05
+
+**Domain:** Skyglass event / Mother of Echoes / event framework
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. Validator ledgers accepted: push/476 (new classes: law 6 on flat pierce eruptions; law 17 on in-job @jutsu refs), push/478 (same classes, no new one), push/467 (build-order false positive), and the 489 master (the union of its sources' classes plus build-order misrankings from phase bases).
+2. Sayo is stun immune in all three forms; it replaces the "Act I marks drawn for 2 rounds" fix for the late, unwarned Refraction blast (the player drained her AP with stuns).
+3. A 1-round mark outliving its own eruption is accepted (the eruption pool art sits over it on hit hexes).
+4. The three who refused as Act III allies: discussed post-launch; possibly summoned with a special item.
+5. The fight script (docs/design/MOTHER_OF_ECHOES_FIGHT_SCRIPT.md) is the design target alongside the clear rates.
+6. Event framework (docs/design/EVENT_STRUCTURE.md, RUL-2026-11-05-116) answers: Skyglass's pacing targets are the default for future events, with per-event overrides; at least one route to a key outcome must be playable (trade alone does not count); the no-crafter-intermediary rule applies to finale inputs only; a gamble may starve other content only with explicit director approval; difficulty stars STAY on pyramids ("I want players to know what they're getting into with an item they can lose on use"); the Skyglass finale setup and doc fixes are scheduled as Skyglass work. Open: the in-game "what have I done" place (question 10).
+7. All unrun changes combined into one master manifest (push/489).
+
+**Evidence:** Director, 2026-11-05: "Yes - 1 2 3 / 4. Make her stun immune, that solves that. / 5. Accept / 6. Yes we'll discuss adding it post launch. Maybe you can summon them using a special item or something idk. / 7. Ok / 8. Yes / 9. No, at least on route must be playable. / 10. How would that work? Are we already doing that? / 11. Yup, exactly. / 12. Correct. / 13. No, we keep those on the pyramids. I want players to know what they're getting into with an item they can lose on use. / 14. Yes / Make me one manifest for all unpushed changes".
+
+**Canonical destination:** the ledgers in state/validate_exceptions/, push/489, docs/design/EVENT_STRUCTURE.md, the Mother of Echoes spec (stun immunity).
