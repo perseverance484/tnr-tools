@@ -59,95 +59,127 @@ def masked(f, m):
 
 
 # ------------------------------------------------------------------------------------------------ the payoff
+STEEL_L, STEEL_S = (222, 226, 236), (91, 103, 134)   # pale steel glass (no safe-cyan fill; QA S7, bible 5.1 revision)
+
+
+def dither_keep(f, keep):
+    """Fade a frame with the ordered dither (hard alpha): keep < 1 drops pixels by the Bayer threshold."""
+    if keep >= 1:
+        return f
+    px = f.load()
+    for y in range(f.height):
+        for x in range(f.width):
+            if px[x, y][3] and F.BAYER[y % 4][x % 4] >= keep * 16:
+                px[x, y] = (0, 0, 0, 0)
+    return f
+
+
 def recast_region(cells, frames=24, seed=7):
+    """One Recast as one picture over its whole region (QA B6: not a per-hex stamp), sliced exactly (BATTLEFIELD).
+    0-5 the floor plan she cut is redrawn white-gold top to bottom, scribe sparks on the cutting front; 6-7 HOLD hot;
+    8 one pale frame; 9-12 panes of pale glass stand up along the scores (each its own size, placed across the region,
+    not per hex); 13-14 the Remainder's black cracks race up them; 15-18 they shatter, chunks thrown and falling, black
+    cracks run along the lattice; 19-23 it settles: the lattice dims to the recast floor's broken gold and black and
+    dissolves (dither) onto the floor tile under it."""
     cv = MZ.Canvas(cells)
     rm = region_mask(cv)
-    bb = rm.getbbox()
-    x0, y0, x1, y1 = bb
+    x0, y0, x1, y1 = rm.getbbox()
     rnd = random.Random(seed)
-    # the lattice she cut: horizontal scores every half row, verticals every half column, as a floor plan (gaps)
-    hs = [y for y in range(y0 + 7, y1, 20)]                  # one score a row, one a column: a floor plan, not a grid
-    vs = [x for x in range(x0 + 12, x1, 30)]
-    gaps = {(o, k): rnd.random() < 0.35 for o in "hv" for k in range(40)}
-    hseg = [(y, xa, xb) for y in hs for xa, xb in [(x0, x1)] if True]
-    blades = []
-    for y in hs:                                              # panes stand up along the row scores
-        x = x0 + 6
+    hs = list(range(y0 + 7, y1, 20))
+    vs = list(range(x0 + 12, x1, 30))
+    hgaps = {(k, xa): rnd.random() < 0.3 for k in range(len(hs)) for xa in range(x0, x1, 15)}
+    vgaps = {(k, ya): rnd.random() < 0.3 for k in range(len(vs)) for ya in range(y0, y1, 10)}
+    panes = []
+    for y in hs:
+        x = x0 + rnd.uniform(3, 8)
         while x < x1 - 4:
-            if rm.getpixel((int(x), int(y))) and rnd.random() < 0.85:
-                blades.append((x + rnd.uniform(-1.5, 1.5), y, rnd.uniform(10, 16), rnd.uniform(5, 7), rnd.uniform(-0.1, 0.1)))
-            x += rnd.uniform(8, 11)
+            if rm.getpixel((int(x), int(y))):
+                panes.append((x, y, rnd.uniform(9, 18), rnd.uniform(4, 7), rnd.uniform(-0.12, 0.12), rnd.random()))
+            x += rnd.uniform(7, 12)
+
+    def lattice(f, col, width, ycut=None, keep=1.0, crack=False):
+        lat = cv.frame()
+        d = ImageDraw.Draw(lat)
+        yc = y1 if ycut is None else ycut
+        for k, y in enumerate(hs):
+            if y > yc:
+                continue
+            for xa in range(x0, x1, 15):
+                if hgaps[(k, xa)]:
+                    continue
+                d.line([(xa, y + 1), (xa + 15, y + 1)], fill=(*SCORE, 255))
+                d.line([(xa, y), (xa + 15, y)], fill=(*col, 255), width=width)
+                if crack and (k + xa) % 3 == 0:
+                    d.line([(xa + 3, y - 1), (xa + 11, y + 2)], fill=(*CRACK, 255), width=2)
+        for k, x in enumerate(vs):
+            for ya in range(y0, int(yc), 10):
+                if vgaps[(k, ya)]:
+                    continue
+                d.line([(x + 1, ya), (x + 1, min(yc, ya + 10))], fill=(*SCORE, 255))
+                d.line([(x, ya), (x, min(yc, ya + 10))], fill=(*col, 255), width=width)
+        f.alpha_composite(dither_keep(masked(lat, rm), keep))
+
     out = []
-    RUN, HOLD = 6, 2
     for i in range(frames):
         f = cv.frame()
-        lat = cv.frame()
-        if i < RUN + HOLD + 1:                               # the lattice redraws in the order she cut it
-            ycut = y0 + (y1 - y0) * min(1.0, (i + 1) / RUN)
-            hot = i >= RUN
-            d = ImageDraw.Draw(lat)
-            col = WHITE if hot and i == RUN + HOLD else (GOLD_HOT if hot else GOLD)
-            for k, y in enumerate(hs):
-                if y <= ycut:
-                    for xa in range(x0, x1, 15):             # rooms: a score with doorways left out
-                        if gaps[("h", (k * 7 + xa // 15) % 40)]:
-                            continue
-                        d.line([(xa, y + 1), (xa + 15, y + 1)], fill=(*SCORE, 255), width=1)
-                        d.line([(xa, y), (xa + 15, y)], fill=(*col, 255), width=2 if hot else 1)
-            for k, x in enumerate(vs):
-                for ya in range(y0, int(ycut), 10):
-                    if gaps[("v", (k * 5 + ya // 10) % 40)]:
-                        continue
-                    d.line([(x + 1, ya), (x + 1, min(ycut, ya + 10))], fill=(*SCORE, 255))
-                    d.line([(x, ya), (x, min(ycut, ya + 10))], fill=(*col, 255), width=2 if hot else 1)
-            if not hot:                                      # the scribe sparks at the cutting edge
-                for x in vs[::2]:
-                    A4.star(lat, x, ycut, WHITE, 2)
-            if i == RUN + HOLD:                              # the pale frame: the whole region lights
-                pale = cv.frame()
-                ImageDraw.Draw(pale).rectangle(bb, fill=(*GLASS_L, 255))
-                for y in range(y0, y1):
-                    for x in range(x0, x1):
-                        if F.BAYER[y % 4][x % 4] >= 8:
-                            pale.putpixel((x, y), (0, 0, 0, 0))
-                f.alpha_composite(masked(pale, rm))
-            f.alpha_composite(masked(lat, rm))
-        else:                                                # blades stand up along the scores, crack, shatter
-            v = i - (RUN + HOLD + 1)
-            for k, (bx, by, h, w, tilt) in enumerate(blades):
+        if i < 6:
+            ycut = y0 + (y1 - y0) * (i + 1) / 6
+            lattice(f, GOLD, 1, ycut)
+            for x in vs + [x0 + 6, x1 - 6]:
+                A4.star(f, x, ycut, WHITE, 2)
+        elif i < 8:
+            lattice(f, GOLD_HOT, 2)
+        elif i == 8:
+            pale = cv.frame()
+            ImageDraw.Draw(pale).rectangle((x0, y0, x1, y1), fill=(*STEEL_L, 255))
+            f.alpha_composite(dither_keep(masked(pale, rm), 0.5))
+            lattice(f, WHITE, 2)
+        elif i < 19:
+            v = i - 9
+            lattice(f, GOLD if v < 6 else GOLD_DIM, 1, crack=v >= 4)
+            for k, (bx, by, h, w, tilt, ph) in enumerate(panes):
                 if v < 6:
-                    g = min(1.0, (v + 1) / 3)
+                    g = min(1.0, (v + 1) / 3) * (0.85 + 0.3 * ph)
                     hh = h * g
                     n = cv.frame()
                     dd = ImageDraw.Draw(n)
-                    tx = bx + tilt * hh                     # a pane, wider at the top (bible 5.4), framed
-                    top = [(tx - w * 0.7, by - hh), (tx + w * 0.7, by - hh)]
-                    dd.polygon([(bx - w / 2, by), top[0], top[1], (bx + w / 2, by)], fill=(*GLASS_B, 255))
-                    dd.polygon([(bx - w / 2, by), top[0], (tx, by - hh), (bx, by)], fill=(*GLASS_L, 255))
+                    tx = bx + tilt * hh
+                    top = [(tx - w * 0.65, by - hh), (tx + w * 0.65, by - hh)]
+                    dd.polygon([(bx - w / 2, by), top[0], top[1], (bx + w / 2, by)], fill=(*STEEL_S, 255))
+                    dd.polygon([(bx - w / 2, by), top[0], (tx, by - hh), (bx, by)], fill=(*STEEL_L, 255))
                     dd.line([top[0], (bx - w / 2, by)], fill=(*WHITE, 255))
-                    dd.line([(bx - w * 0.55, by - hh * 0.5), (bx + w * 0.55, by - hh * 0.5)], fill=(*GOLD, 255))
-                    tip = (tx, by - hh)
-                    if v >= 3:                               # the Remainder's black crack races up the blade
-                        c = (v - 2) / 3
-                        dd.line([(bx, by), (bx + tilt * hh * c + (1 if k % 2 else -1), by - hh * c)], fill=(*CRACK, 255), width=2)
+                    dd.line([(bx - w * 0.5, by - hh * 0.5), (bx + w * 0.5, by - hh * 0.5)], fill=(*GOLD, 255))
+                    if v >= 4:
+                        c = (v - 3) / 2
+                        dd.line([(bx, by), (bx + tilt * hh * c + (1 if k % 2 else -1), by - hh * min(1, c))],
+                                fill=(*CRACK, 255), width=2)
                     F.outline_alpha(n, SCORE)
                     f.alpha_composite(n)
-                else:                                        # shatter: chunks thrown, then fall
+                else:
                     u = v - 6
-                    if u > 8 or (u > 5 and k % 2):
-                        continue
                     for j in range(3):
-                        cx = bx + (j - 1) * (2 + u * 1.2)
-                        cy = by - h * (0.25 + 0.25 * j) + 0.4 * u * u
-                        A4.cluster(f, cx, cy, (GLASS_L, GLASS_B, CRACK)[j], SCORE)
-            if v < 3:                                        # the scores stay lit under the rising blades
-                lat = cv.frame()
-                d = ImageDraw.Draw(lat)
-                for y in hs:
-                    d.line([(x0, y), (x1, y)], fill=(*GOLD, 255))
-                f.alpha_composite(masked(lat, rm))
+                        cx = bx + (j - 1) * (2 + u * 1.3)
+                        cy = by - h * (0.25 + 0.25 * j) + 0.45 * u * u
+                        if cy < by + 3:
+                            A4.cluster(f, cx, cy, (STEEL_L, STEEL_S, CRACK)[j], SCORE)
+        else:                                                    # settle onto the floor: dim, then dissolve
+            keep = 1.0 - (i - 18) / 5
+            lattice(f, GOLD_DIM, 1, keep=keep, crack=True)
         out.append(f)
     return cv, out
+
+
+def recast_regions(spec_path):
+    """Every Recast region in the spec, painted and sliced: {name: {(col, row): frames}}."""
+    spec = json.load(open(spec_path))
+    out = {}
+    for j in spec["jutsu"]:
+        r = j["record"]
+        if r["name"].startswith("Recast:"):
+            cells = [(c["longitude"], c["latitude"]) for c in r["coordinateTargeting"]["coordinates"]]
+            cv, fr = recast_region(cells, seed=sum(map(ord, r["name"])))
+            out[r["name"].split(": ")[1].lower()] = cv.slices(fr)
+    return out
 
 
 # ------------------------------------------------------------------------------------------------ the lingering surface

@@ -191,14 +191,14 @@ FX4.update({f"rbreak_{s_}{c}": (f"anim_moe_rbreak_{s_}{c}_a6.webp", f"Mother of 
 FX4.update({f"rmark_{s_}{c}": (f"anim_moe_rmark_{s_}{c}_a6.webp", f"Mother of Echoes FX - Refraction runs in, {s_.upper()} {c}")
             for s_, cols in (("l", range(0, 9)), ("r", range(3, 12))) for c in cols})
 FX4.update({
-    "lancet6": ("anim_moe_lancet_a6.webp", "Mother of Echoes FX - Glass Lancet (held star)"),
+    "lancet6": ("anim_moe_lancet_a12.webp", "Mother of Echoes FX - Glass Lancet (held star)"),
     "sweep6": ("anim_moe_doorward_sweep_a6.webp", "Mother of Echoes FX - Doorward Sweep"),
-    "quiet6": ("anim_moe_quiet_a6.webp", "Mother of Echoes FX - The Quiet (ink lids)"),
+    "quiet6": ("anim_moe_quiet_a12.webp", "Mother of Echoes FX - The Quiet (ink lids)"),
     "etch_plan": ("tile_moe_etch_plan_a10.webp", "Mother of Echoes FX - Etching mark (floor plan)"),
-    "heavy_tile_iii_b": ("tile_moe_heavy_iii_a11.webp", "Mother of Echoes FX - Heavy mark (Act III, ember rim)"),
-    "heavy_appear_iii_b": ("anim_moe_heavy_appear_iii_a11.webp", "Mother of Echoes FX - Heavy mark arrives dark (Act III)"),
-    "close_in_iii": ("anim_moe_close_in_iii_a11.webp", "Mother of Echoes FX - The floor closes in (the Silence)"),
-    "close_in_ii": ("anim_moe_close_in_ii_a11.webp", "Mother of Echoes FX - The floor closes in (the Glasswright)"),
+    "heavy_tile_iii_b": ("tile_moe_heavy_iii_a12.webp", "Mother of Echoes FX - Heavy mark (Act III, ember rim)"),
+    "heavy_appear_iii_b": ("anim_moe_heavy_appear_iii_a12.webp", "Mother of Echoes FX - Heavy mark arrives dark (Act III)"),
+    "close_in_iii": ("anim_moe_close_in_iii_a12.webp", "Mother of Echoes FX - The floor closes in (the Silence)"),
+    "close_in_ii": ("anim_moe_close_in_ii_a12.webp", "Mother of Echoes FX - The floor closes in (the Glasswright)"),
     **{f"recast_b{k}": (f"anim_moe_recast_b{k}_a10.webp", f"Mother of Echoes FX - Recast breaks, row {k}") for k in range(10)},
     **{f"etch_b{k}": (f"anim_moe_etch_b{k}_a10.webp", f"Mother of Echoes FX - Etching carved, row {k}") for k in range(10)},
     "floor_i": ("tile_moe_floor_i_a8.webp", "Mother of Echoes floor - crazed Heartglass"),
@@ -497,12 +497,8 @@ class Build:
                 "appearAnimation": APPEAR, "disappearAnimation": VANISH}
         for f in ART_FIELDS:
             v = e.get(f) or ""
-            if v == "tg_etch" and self.final:
-                e[f] = self.fx2["etch_plan"] if f == "staticAssetPath" else ""   # the carve is the row-band visuals
-            elif v == "tg_etch":
+            if v == "tg_etch":
                 e[f] = etch[f]
-            elif self.final and v == "moe_recast":
-                e[f] = ""                                                     # the region breaks as row-band visuals
             elif v in TG:
                 e[f] = TG[v][f]
             elif v == "moe_hush_floor":
@@ -570,7 +566,11 @@ class Build:
         for f in ART_FIELDS:
             v = e.get(f) or ""
             tg = "tg_linger" if v == "moe_hush_floor" else v
-            if v == "tg_etch":
+            if self.final and v == "tg_etch":                       # QA B2: the final set only; nothing old under it
+                e[f] = self.fx2["etch_plan"] if f == "staticAssetPath" else ""   # the carve is the row-band visuals
+            elif self.final and v == "moe_recast":
+                e[f] = ""                                                     # the region breaks as row-band visuals
+            elif v == "tg_etch":
                 e[f] = etch[f]
             elif self.final and tg == "tg_linger":
                 e[f] = self.fx2[self.floor_of(label)] if f == "staticAssetPath" else ""
@@ -1202,6 +1202,17 @@ def custom_fx_refs(art2_bundle, art4_bundle=None):
     else:
         refs.update({k: "@scene:" + AID4 + k for k in FX4})
     return refs
+
+
+FX4_HELD = {k for k in FX4 if k.startswith("entrance_") or k.startswith("absence_")}  # wired when the sim's records land
+
+
+def final_reference_gate(build, items):
+    """QA B2 gate: every asset the final job creates is referenced by a re-sent jutsu, or explicitly held (FX4_HELD)."""
+    used = json.dumps([i["data"] for i in items])
+    missing = sorted(k for k in FX4 if k not in FX4_HELD and build.fx2[k] not in used)
+    if missing:
+        die(f"final-set assets nothing references (not held): {missing}")
 
 
 def fx4_create_items():
