@@ -85,16 +85,14 @@ def unit_frames(cv, rm, kind, seed=5, frames=24):
                 elif s_ and F.BAYER[p[1] % 4][p[0] % 4] < g * 16:
                     px[p] = (*(R3["deep"] if corrupt else R3["frame"]), 255)
         elif i == 4:                                         # the wave's white crest: this band's front arriving
-            for p, (s_, v_) in cls.items():
+            for p, (s_, v_) in cls.items():              # lines only: no flat pale fill (it tore under skew, QA S4)
                 if v_ or s_:
                     px[p] = (*WHITE, 255)
-                elif F.BAYER[p[1] % 4][p[0] % 4] < 4:
-                    px[p] = (*R3["hot"], 255)
         elif i < 7:                                          # HOLD: two identical frames
             for p, (s_, v_) in cls.items():
                 if v_ or s_:
                     px[p] = (*(R3["hot"] if v_ else (R3["vdim"] if not corrupt else R3["void"])), 255)
-                elif corrupt and F.BAYER[p[1] % 4][p[0] % 4] < 5:
+                elif corrupt and F.BAYER[p[1] % 4][p[0] % 4] < 2:     # a sparse void tint, low contrast (QA S4)
                     px[p] = (*R3["void"], 255)
         elif i < 12:                                         # shards stand up out of the seams over the void bloom
             v = i - 6
@@ -160,25 +158,32 @@ def main():
     names = {"flood": "The Names Flood In", "enrage": "The Glass Remembers"}
     rows = []
     for kind in a.which.split(","):
-        rec = next(j["record"] for j in spec["jutsu"] if j["record"]["name"] == names[kind])
+        # a spec id (e.g. moe-saint-flood-rime) paints that record; its region is <field>_<spec id> in the gen
+        byid = {j["id"]: j for j in spec["jutsu"]}
+        if kind in byid:
+            rec, region, field = byid[kind]["record"], None, ("flood" if "flood" in kind else "enrage")
+            region = f"{field}_{kind.split('-')[-1]}"          # moe-saint-flood-rime -> flood_rime (the gen's region)
+        else:
+            rec = next(j["record"] for j in spec["jutsu"] if j["record"]["name"] == names[kind])
+            region, field = kind, kind
         cells = [(c["longitude"], c["latitude"]) for c in rec["coordinateTargeting"]["coordinates"]]
         cv = MZ.Canvas(BOARD)
         sub = MZ.Canvas(BOARD)
         sub.cells = list(cells)
         rm = P.region_mask(sub)
-        fr = unit_frames(cv, rm, kind)
+        fr = unit_frames(cv, rm, field)
         sl = cv.slices(fr)
-        bd = bands(kind, cells)
+        bd = bands(field, cells)
         uniq = {}
         for k in sorted(cells):
             strip = [F.frame() for _ in range(bd[k] * LEAD)] + sl[k]
             data = strip_bytes(strip)
             h = hashlib.sha1(data).hexdigest()[:10]
             if h not in uniq:
-                fn = f"anim_moe_{kind}_s{len(uniq):02d}_a14.webp"
+                fn = f"anim_moe_{region.replace('moe-saint-', '')}_s{len(uniq):02d}_a14.webp"
                 open(os.path.join(a.out, fn), "wb").write(data)
                 uniq[h] = fn
-            rows.append({"file": uniq[h], "region": kind, "col": k[0], "row": k[1], "frames": len(strip), "band": bd[k]})
+            rows.append({"file": uniq[h], "region": region, "col": k[0], "row": k[1], "frames": len(strip), "band": bd[k]})
         print(kind, len(cells), "hexes ->", len(uniq), "unique strips")
     json.dump({"slices": rows}, open(os.path.join(a.out, f"moe_fx_field_{a.which.replace(',', '_')}.json"), "w"), indent=1)
 

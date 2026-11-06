@@ -224,19 +224,19 @@ def in_hex(cv, k, x, y):
     return dy <= 10 and dx <= 20 - dy
 
 
-def touch_every_hex(cv, cells, S, name, rnd):
+def touch_every_hex(cv, cells, S, name, rnd, force=()):
     """QA E2 (director: option 2): every hex the Recast hits carries part of the picture. Each untouched hex gets the
     motif's own element joined to the picture: Rime a frost crystal, Ember a flame-tongue, Seam a splinter crack from
     the scar to it (the scar's splinters spread across its whole field)."""
     def touched(k):
         return any(in_hex(cv, k, x, y) for (x, y, t, w) in S)
     for k in sorted(cells, key=lambda k: (k[1], k[0])):
-        if touched(k):
+        if touched(k) and k not in force:
             continue
         cx, cy = cv.c(*k)
         near = min(S, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2)
-        t0 = min(0.85, near[2] + 0.08)
-        if name == "rime":
+        t0 = min(0.8, near[2] + 0.08)
+        if name in ("rime", "heart", "hail"):                 # frost crystal / seal tick / star point: all read as marks
             for q in range(6):
                 a = math.pi * q / 3 + rnd.uniform(-0.2, 0.2)
                 tip = (cx + 8 * math.cos(a), cy + 4.4 * math.sin(a))
@@ -250,7 +250,8 @@ def touch_every_hex(cv, cells, S, name, rnd):
             for q in range(1, 5):
                 u = q / 4
                 pts.append((near[0] + (cx - near[0]) * u + rnd.uniform(-3, 3), near[1] + (cy - near[1]) * u + rnd.uniform(-2, 2)))
-            S += poly(pts, near[2], near[2] + 0.12, 1)
+            ts = min(0.8, near[2])                            # inside the carve (t <= 1), or it never draws
+            S += poly(pts, ts, ts + 0.12, 2 if k in force else 1)
     missing = [k for k in cells if not touched(k)]
     if missing:
         raise SystemExit(f"{name}: the picture still misses {missing}")
@@ -397,6 +398,18 @@ def recast(cv, rm, S, frames=24, seed=3):
     return out
 
 
+MIN_COVER = 0.03                    # QA F4: every hex of the region shows >= 3% of its footprint at the glow
+_HEXM = Image.new("L", (50, 50), 0)
+ImageDraw.Draw(_HEXM).polygon([(5, 25), (15, 15), (35, 15), (45, 25), (35, 35), (15, 35)], fill=255)
+_HEXA = sum(1 for v in _HEXM.getdata() if v)
+
+
+def coverage(frame):
+    """Share of the hex footprint (clip coords) a 50 px slice frame covers."""
+    a = frame.getchannel("A")
+    return sum(1 for x, y in zip(a.getdata(), _HEXM.getdata()) if x and y) / _HEXA
+
+
 def hex_tile(cv, k, img):
     """A hex's own part of a ground painting as a static tile: its w x h box onto the 50 px tile, hex-masked."""
     cx, cy = cv.c(*k)
@@ -434,14 +447,25 @@ def main():
         rnd = random.Random(sum(map(ord, name)))
         got = MOTIFS[name](cv, ec, rnd)
         S = got[0] if isinstance(got, tuple) else got
-        if name in ("rime", "ember", "seam"):
-            S = touch_every_hex(cv, rc, S, name, rnd)
+        S = touch_every_hex(cv, rc, S, name, rnd)            # every picture touches every hex its Recast hits
         for kind, cells, frames in (("etch", ec, None), ("recast", rc, None)):
             sub = MZ.Canvas(BOARD)
             sub.cells = list(cells)
             rm = P.region_mask(sub)
             fr = etching(cv, rm, S) if kind == "etch" else recast(cv, rm, S)
             sl = cv.slices(fr)
+            if kind == "etch":                                # QA F4: gate on rendered pixels at the glow, not vertices
+                for _try in range(3):
+                    thin = [k for k in cells if coverage(sl[k][11]) < MIN_COVER]
+                    if not thin:
+                        break
+                    print(f"{name}: thin hexes {thin}; adding marks", flush=True)
+                    S = touch_every_hex(cv, cells, S, name, rnd, force=set(thin))
+                    fr = etching(cv, rm, S)
+                    sl = cv.slices(fr)
+                else:
+                    raise SystemExit(f"{name}: still thin after 3 passes: {thin}")
+                print(f"{name}: min hex coverage {min(coverage(sl[k][11]) for k in cells):.1%}", flush=True)
             for k in cells:
                 fn = f"anim_moe_{kind}2_{name}_p{k[0]}_{k[1]}_a14.webp"
                 F.strip(sl[k]).save(os.path.join(a.out, fn), lossless=True, quality=100, method=6)

@@ -26,7 +26,8 @@ _s.loader.exec_module(F)
 EXPORTS = os.path.join(HERE, "exports")
 FAINT = 0.18
 FADE = 7
-TILES = {"tile_moe_recast_floor_a8.webp": "tile_moe_recast_floor_faint_a14.webp",
+TILES = {"tile_moe_floor_i_a8.webp": "tile_moe_floor_i_faint_a14.webp",
+         "tile_moe_recast_floor_a8.webp": "tile_moe_recast_floor_faint_a14.webp",
          "tile_moe_floor_iii_a8.webp": "tile_moe_floor_iii_faint_a14.webp"}
 
 
@@ -52,35 +53,51 @@ def tiles():
         print(dst)
 
 
+BODY = (19, 15, 31, 30)              # the fighter's legs and torso in a 50 px clip over its own hex (LPC envelope)
+
+
 def settle(src, meta, region, floor, brk, out):
+    """QA S1: the fade ends in three gentle steps below the faint level, so the hand-off to the faint tile does not pop.
+    QA S2: the in-clip vivid floor is at most 50% (ordered dither) over the fighter's body window.
+    QA S3: every slice of the region starts its fade on the same frame (strips padded to the region's longest)."""
     os.makedirs(out, exist_ok=True)
     m = Image.new("L", (40, 20), 0)
     ImageDraw.Draw(m).polygon([(0, 10), (10, 0), (30, 0), (40, 10), (30, 20), (10, 20)], fill=255)
     hexfloor = Image.new("RGBA", (50, 50), (0, 0, 0, 0))     # the floor in the clip's own hex footprint (40 x 20 at 5, 15)
     hexfloor.paste(tile50(floor).resize((40, 20), Image.NEAREST), (5, 15), m)
+    body = dither(hexfloor.crop(BODY), 0.5)
+    hexfloor.paste((0, 0, 0, 0), BODY)
+    hexfloor.alpha_composite(body, BODY[:2])
     rows = [r for r in json.load(open(os.path.join(src, meta)))["slices"] if r["region"] == region]
-    done, new = {}, []
+    strips = {}
     for r in rows:
-        if r["file"] not in done:
-            st = Image.open(os.path.join(src, r["file"])).convert("RGBA")
-            st = st.resize((st.width // 3, st.height // 3), Image.NEAREST)
-            fr = [st.crop((0, i * 50, 50, i * 50 + 50)) for i in range(st.height // st.width)]
-            lead = next((i for i, f in enumerate(fr) if f.getbbox()), 0)
-            outf = []
-            for i, f in enumerate(fr):
-                t = i - lead
-                if t >= brk:
-                    g = Image.new("RGBA", (50, 50), (0, 0, 0, 0))
-                    g.alpha_composite(dither(hexfloor, min(1.0, 0.5 + 0.25 * (t - brk))))
-                    g.alpha_composite(f)
-                    f = g
-                outf.append(f)
-            for k in range(FADE):                           # the vivid floor fades down onto the faint tile
-                keep = 1.0 - (k + 1) / FADE * (1 - FAINT)
-                outf.append(dither(hexfloor, keep) if k < FADE - 1 else Image.new("RGBA", (50, 50), (0, 0, 0, 0)))
-            fn = r["file"].replace(".webp", "_ff.webp")
-            F.strip(outf).save(os.path.join(out, fn), lossless=True, quality=100, method=6)
-            done[r["file"]] = (fn, len(outf))
+        if r["file"] in strips:
+            continue
+        st = Image.open(os.path.join(src, r["file"])).convert("RGBA")
+        st = st.resize((st.width // 3, st.height // 3), Image.NEAREST)
+        fr = [st.crop((0, i * 50, 50, i * 50 + 50)) for i in range(st.height // st.width)]
+        lead = next((i for i, f in enumerate(fr) if f.getbbox()), 0)
+        outf = []
+        for i, f in enumerate(fr):
+            t = i - lead
+            if t >= brk:
+                g = Image.new("RGBA", (50, 50), (0, 0, 0, 0))
+                g.alpha_composite(dither(hexfloor, min(1.0, 0.5 + 0.25 * (t - brk))))
+                g.alpha_composite(f)
+                f = g
+            outf.append(f)
+        strips[r["file"]] = outf
+    longest = max(len(v) for v in strips.values())
+    keeps = [1.0 - (k + 1) / FADE * (1 - FAINT) for k in range(FADE)] + [0.12, 0.06, 0.0]
+    done, new = {}, []
+    for fname, outf in strips.items():
+        outf = outf + [hexfloor.copy() for _ in range(longest - len(outf))]
+        for keep in keeps:
+            outf.append(dither(hexfloor, keep) if keep > 0 else Image.new("RGBA", (50, 50), (0, 0, 0, 0)))
+        fn = fname.replace(".webp", "_ff.webp")
+        F.strip(outf).save(os.path.join(out, fn), lossless=True, quality=100, method=6)
+        done[fname] = (fn, len(outf))
+    for r in rows:
         fn, n = done[r["file"]]
         new.append({**r, "file": fn, "frames": n})
     stem = os.path.splitext(os.path.basename(meta))[0]

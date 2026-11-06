@@ -62,10 +62,17 @@ def _paste_clipped(f, n, ox, oy):
 
 
 def region_mask(cv):
+    """The cast's hexes, exact: the union of their footprints minus every OTHER board hex's footprint (PIL fills a
+    polygon's boundary, so adjacent footprints share a 1 px edge; without the subtraction a slice leaked 1-2 px into a
+    neighbouring safe hex, QA S5)."""
     m = Image.new("L", (cv.w, cv.h), 0)
     d = ImageDraw.Draw(m)
     for k in cv.cells:
-        d.polygon(hex_poly(*cv.c(*k), 40, 20), fill=255)    # the footprint; PIL fills the boundary, so neighbours meet (QA S5, nit)
+        d.polygon(hex_poly(*cv.c(*k), 40, 20), fill=255)
+    own = set(cv.cells)
+    for k in [(c, r) for c in range(12) for r in range(10)]:
+        if k not in own:
+            d.polygon(hex_poly(*cv.c(*k), 40, 20), fill=0)
     return m
 
 
