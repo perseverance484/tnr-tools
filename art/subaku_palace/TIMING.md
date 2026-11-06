@@ -17,7 +17,7 @@ centre). The ratio-1 build is kept only as a note (design doc).
   edges in 8 ticks, so each ring ignites when the previous ring's head is halfway out and the blooms overlap into one
   front. Where the head passes the cover opens on the real tile; a 3-tick lit-rail trail follows.
 
-| Tick | Domain floor (`exports/`) | Centre (`gates/exports/anim_sbk_gates_rise_v5.webp`, SELF appear) |
+| Tick | Domain floor (`exports/`) | Centre (`gates/exports/anim_sbk_gates_rise_v6.webp`, SELF appear) |
 |---|---|---|
 | 0-6 | The domain is bare stone (no gold on the 56 band hexes). | The sigil kindles (0-5); its bands flash at the edge midpoints (6). |
 | **7** | **Ring 1 ignites** (band 1.0). | **Gates on ring 1 tear up.** |
