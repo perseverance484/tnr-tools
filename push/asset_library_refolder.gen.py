@@ -2,11 +2,12 @@
 """Asset-library re-folder (RUL-2026-11-05-127): give the live Mother of Echoes and Skyglass Boss FX assets convention
 folders and names, by literal id. Zero live requests to build.
 
-    python3 push/asset_library_refolder.gen.py --capture <push/499 results bundle>
+    python3 push/asset_library_refolder.gen.py [--bundles <results bundles>]
         -> push/500_asset_library_refolder.json
 
-Input: the read-only push/499 capture (gameAsset.getAllNames per type: id, name, image, folder). Only rows whose folder
-is MotherOfEchoes or SkyglassBossFX are touched. Each edit sends {name, folder} only; the builder fetch-merges the rest
+Input: the results bundles of the jobs that created the assets (default: every bundle in harvests/inbox), joined to
+the names our manifests gave them. Only assets created in folder MotherOfEchoes or SkyglassBossFX are touched. (The
+push/499 list capture confirmed the library but persists only row counts, so it cannot supply ids.) Each edit sends {name, folder} only; the builder fetch-merges the rest
 (type, frames, speed, hidden, image unchanged). Ids never change, so every jutsu, AI and quest reference stays valid.
 
 Classification is by the asset's current name (the names our generators gave them, unique in the game). A row this
@@ -45,24 +46,32 @@ def die(msg):
     sys.exit(f"asset_library_refolder.gen.py: {msg}")
 
 
-def rows_from(bundle):
-    out = {}
-    for c in bundle.get("captures") or []:
-        if c.get("proc") != "gameAsset.getAllNames" or not c.get("ok"):
+def rows_from(bundle_paths):
+    """Live ids from the results bundles of the jobs that created the assets (create entries, state ok), joined to the
+    name, type and folder our manifests gave them. getAllNames list captures persist only row counts (forge summary
+    mode), so push/499 could confirm the library's size but not carry ids; the creating bundles carry them exactly."""
+    import glob
+    made = {}
+    for mp in sorted(glob.glob(os.path.join(ROOT, "push", "[0-9]*_*.json"))):
+        try:
+            m = json.load(open(mp))
+        except (ValueError, OSError):
             continue
-        typ = (c.get("input") or {}).get("type")
-        data = c.get("data")
-        if isinstance(data, dict):
-            data = data.get("rows") or data.get("data")
-        if not isinstance(data, list):
-            die(f"capture for {typ} carries no row list (re-run push/499 and keep the full bundle)")
-        for r in data:
-            out[r["id"]] = {**r, "type": typ}
-    got = {r["type"] for r in out.values()}
-    if not set(TYPES) <= got | {None}:
-        missing = set(TYPES) - got
-        if missing:
-            print(f"note: no rows captured for {sorted(missing)}", file=sys.stderr)
+        for it in m.get("items") or []:
+            d = it.get("data") or {}
+            if it.get("entity") == "asset" and it.get("slot") == "create" and d.get("folder") in OLD_FOLDERS:
+                made[it["srcId"]] = {"name": it["name"], "type": d.get("type"), "folder": d["folder"]}
+    out = {}
+    for bp in bundle_paths:
+        b = json.load(open(bp))
+        for e in b.get("entries") or []:
+            s = e.get("srcId") or ""
+            if e.get("entity") == "asset" and e.get("slot") == "create" and e.get("state") == "ok" and s in made:
+                out[e["id"]] = {"id": e["id"], **made[s], "srcId": s}
+    missing = sorted(set(made) - {r["srcId"] for r in out.values()})
+    if missing:
+        print(f"note: {len(missing)} manifest-created assets have no ok create entry in the bundles given "
+              f"(never run, or bundle not supplied): {missing[:8]}{' ...' if len(missing) > 8 else ''}", file=sys.stderr)
     return out
 
 
@@ -90,13 +99,14 @@ def new_name(row, group):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--capture", required=True, help="push/499 results bundle")
+    ap.add_argument("--bundles", nargs="*", help="results bundles of the creating jobs (default: harvests/inbox/*)")
     a = ap.parse_args()
-    rows = rows_from(json.load(open(a.capture)))
+    import glob
+    rows = rows_from(a.bundles or sorted(glob.glob(os.path.join(ROOT, "harvests", "inbox", "tnr_results_*.json"))))
     mine = sorted((r for r in rows.values() if r.get("folder") in OLD_FOLDERS), key=lambda r: (r["folder"], r["name"]))
     if not mine:
-        die("no MotherOfEchoes / SkyglassBossFX rows in the capture")
-    taken = {r["name"] for r in rows.values()}
+        die("no MotherOfEchoes / SkyglassBossFX assets found in the bundles")
+    taken = {r["name"] for r in rows.values()}  # our own assets; the game keeps no name-uniqueness on gameAsset
     items, unknown, plan = [], [], {}
     for r in mine:
         g = classify(r)
@@ -116,8 +126,8 @@ def main():
     if unknown:
         die("unclassified assets (add a RULES entry): " + "; ".join(unknown))
     m = {"_note": (f"push/{NUM}: asset-library re-folder (RUL-2026-11-05-127). {len(items)} existing assets (folders "
-                   "MotherOfEchoes, SkyglassBossFX) get convention folders and names by literal id from the push/499 "
-                   "capture; each edit sends only name and folder (fetch-merge keeps type, frames, speed, hidden, "
+                   "MotherOfEchoes, SkyglassBossFX) get convention folders and names by literal id from the creating jobs' results "
+                   "bundles; each edit sends only name and folder (fetch-merge keeps type, frames, speed, hidden, "
                    "image). Ids are unchanged, so no jutsu, AI or quest reference moves. Generated by "
                    "push/asset_library_refolder.gen.py; do not hand-edit."),
          "plan": {k: sorted(v) for k, v in sorted(plan.items())}, "items": items}
