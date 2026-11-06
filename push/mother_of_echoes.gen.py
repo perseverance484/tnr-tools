@@ -192,6 +192,8 @@ FX4.update({f"rmark_{s_}{c}": (f"anim_moe_rmark_{s_}{c}_a6.webp", f"Mother of Ec
             for s_, cols in (("l", range(0, 9)), ("r", range(3, 12))) for c in cols})
 FX4.update({
     "lancet6": ("anim_moe_lancet_a6.webp", "Mother of Echoes FX - Glass Lancet (held star)"),
+    "sweep6": ("anim_moe_doorward_sweep_a6.webp", "Mother of Echoes FX - Doorward Sweep"),
+    "quiet6": ("anim_moe_quiet_a6.webp", "Mother of Echoes FX - The Quiet (ink lids)"),
     "floor_i": ("tile_moe_floor_i_a8.webp", "Mother of Echoes floor - crazed Heartglass"),
     "floor_ii": ("tile_moe_recast_floor_a8.webp", "Mother of Echoes floor - shattered etch"),
     "floor_iii": ("tile_moe_floor_iii_a8.webp", "Mother of Echoes floor - blackened obsidian"),
@@ -563,6 +565,10 @@ class Build:
                 e[f] = self.fx2[self.floor_of(label)] if f == "staticAssetPath" else ""
             elif self.final and v == "moe_lancet":
                 e[f] = self.fx2["lancet6"]
+            elif self.final and v == "moe_quiet":
+                e[f] = self.fx2["quiet6"]
+            elif self.final and label == "Doorward Sweep" and e["type"] == "pierce" and v:
+                e[f] = self.fx2["sweep6"]
             elif self.final and v in ("moe_absence_rise", "moe_absence_idle"):
                 e[f] = self.fx2[v[4:]]
             elif self.final and v == "moe_absence_burst":
