@@ -353,3 +353,113 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ------------------------------------------------------------------------------------------------ periodic slices
+# One slice for every hex of any region: the composition is lattice-periodic (column pitch 30, row pitch 20, odd
+# columns 10 lower, in clip pixels), so the slice of one hex is the slice of every hex, and neighbours join seamlessly.
+# The wave comes from row bands: band k leads k * BAND_LEAD frames (the order she cut it, top to bottom). Shared by
+# every Etching and every Recast, whatever the region's shape (10 strips each instead of one per hex).
+BAND_LEAD = 1
+N_BANDS = 10
+CELL = [(c, r) for c in range(-2, 3) for r in range(-2, 3)]
+
+
+def periodic_slice(draw):
+    """draw(f, cx, cy, i) paints frame i of one cell's content around (cx, cy); returns the central hex's slice."""
+    cv = MZ.Canvas(CELL)
+    frames = []
+    for i in range(draw.frames):
+        f = cv.frame()
+        for k in CELL:
+            draw(f, *cv.c(*k), i)
+        frames.append(f)
+    return cv.slices(frames)[(0, 0)]
+
+
+def _recast_cell(f, cx, cy, i):
+    hot = 6 <= i < 8
+    if i < 9:                                                    # the lattice redrawn: rows every 10, columns every 15
+        u = min(1.0, (i + 1) / 6)
+        col = WHITE if i == 8 else (GOLD_HOT if hot else GOLD)
+        for dy in (-5, 5):
+            x0 = cx - 15
+            F.seg(f, (x0, cy + dy + 1), (x0 + 30 * u, cy + dy + 1), SCORE)
+            F.seg(f, (x0, cy + dy), (x0 + 30 * u, cy + dy), col)
+        for dx in (-7.5, 7.5):
+            if dx < 0 or i >= 3:                                 # a doorway: one wall comes later
+                F.seg(f, (cx + dx + 1, cy - 10), (cx + dx + 1, cy - 10 + 20 * u), SCORE)
+                F.seg(f, (cx + dx, cy - 10), (cx + dx, cy - 10 + 20 * u), col)
+        if i < 6:
+            A4.star(f, cx - 15 + 30 * u, cy + 5, WHITE, 1)
+    else:                                                        # panes stand up along the lower score, crack, shatter
+        v = i - 9
+        for k, (bx, hk) in enumerate(((cx - 9, 9), (cx, 12), (cx + 9, 8))):
+            by = cy + 5
+            if v < 5:
+                h = hk * min(1.0, (v + 1) / 3)
+                n = F.frame() if f.size == (F.N, F.N) else Image.new("RGBA", f.size, (0, 0, 0, 0))
+                d = ImageDraw.Draw(n)
+                d.polygon([(bx - 3, by), (bx - 4, by - h), (bx + 4, by - h), (bx + 3, by)], fill=(91, 103, 134, 255))
+                d.polygon([(bx - 3, by), (bx - 4, by - h), (bx, by - h), (bx, by)], fill=(222, 226, 236, 255))
+                d.line([(bx - 4, by - h), (bx - 3, by)], fill=(*WHITE, 255))
+                d.line([(bx - 4, by - h * 0.5), (bx + 4, by - h * 0.5)], fill=(*GOLD, 255))
+                if v >= 3:
+                    d.line([(bx, by), (bx + (1 if k % 2 else -1), by - h * (v - 2) / 2)], fill=(*CRACK, 255), width=2)
+                F.outline_alpha(n, SCORE)
+                f.alpha_composite(n)
+            elif v < 11:
+                u = v - 5
+                for j in range(2):
+                    A4.cluster(f, bx + (j * 2 - 1) * (2 + u), by - 8 + 4 * j + 0.35 * u * u, ((222, 226, 236), CRACK)[j], SCORE)
+
+
+_recast_cell.frames = 20
+
+
+def _etch_cell(f, cx, cy, i):
+    """The scribe carves the lattice (white spark, the cut flares gold), then it dims toward the etch tile."""
+    u = min(1.0, (i + 1) / 6)
+    col = WHITE if i < 6 else (GOLD_HOT if i < 9 else (GOLD if i < 12 else GOLD_DIM))
+    for dy in (-5, 5):
+        F.seg(f, (cx - 15, cy + dy + 1), (cx - 15 + 30 * u, cy + dy + 1), SCORE)
+        F.seg(f, (cx - 15, cy + dy), (cx - 15 + 30 * u, cy + dy), col)
+    for dx in (-7.5, 7.5):
+        if dx < 0 or i >= 3:
+            F.seg(f, (cx + dx, cy - 10), (cx + dx, cy - 10 + 20 * u), col)
+    if i < 6:
+        A4.star(f, cx - 15 + 30 * u, cy - 5, WHITE, 2)
+        A4.cluster(f, cx - 15 + 30 * u - 3, cy - 4, GOLD_HOT, SCORE)
+
+
+_etch_cell.frames = 14
+
+
+def periodic_sets():
+    rec, etch = periodic_slice(_recast_cell), periodic_slice(_etch_cell)
+    out = []
+    for k in range(N_BANDS):
+        out.append((f"anim_moe_recast_b{k}_a10.webp", A.delayed(rec, k * BAND_LEAD), f"Recast region breaks, row band {k}"))
+        out.append((f"anim_moe_etch_b{k}_a10.webp", A.delayed(etch, k * BAND_LEAD), f"Etching carved, row band {k}"))
+    return out
+
+
+def etch_tile():
+    """The Etching's mark (the omen) drawn as the carve leaves it: the floor-plan lattice in gold on a faint pale wash,
+    the same lines as _etch_cell (clip +-5 rows, +-7.5 columns map to tile +-12.5, +-9.375), so the carve lands on its
+    own mark and the region reads as one etched sheet."""
+    t = F.frame()
+    d = ImageDraw.Draw(t)
+    for y in (12.5, 37.5):
+        d.line([(0, y + 1.5), (50, y + 1.5)], fill=(*SCORE, 255), width=2)
+        d.line([(0, y), (50, y)], fill=(*GOLD, 255), width=2)
+    for x in (15.625, 34.375):
+        d.line([(x + 1.5, 0), (x + 1.5, 50)], fill=(*SCORE, 255), width=2)
+        d.line([(x, 0), (x, 50)], fill=(*GOLD, 255), width=2)
+    for x, y in ((15.625, 12.5), (34.375, 12.5), (15.625, 37.5), (34.375, 37.5)):
+        F.blob(t, x, y, GOLD_HOT, r=2)
+    m = Image.new("L", (50, 50), 0)
+    ImageDraw.Draw(m).polygon(F.T_HEX, fill=255)
+    out = Image.new("RGBA", (50, 50), (0, 0, 0, 0))
+    out.paste(t, (0, 0), m)
+    return F.tile_out(out)
