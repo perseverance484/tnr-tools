@@ -276,3 +276,67 @@ def the_quiet():
                 A4.cluster(f, cx + dx, cy + dy + v, (206, 210, 222), INK2)
         out.append(f)
     return A4.edge_check("the quiet", out)
+
+
+# ------------------------------------------------------------------------------------------------ batch 4: follow marks, Act III heavy tune
+EMB, EMB_Y = F.EMBER_RED, F.EMBER_YEL
+
+
+def heavy_tile_iii_b():
+    """Act III heavy mark, tuned for dark floors (stacking rule 7): the same ring with a 2 px ember rim and a hot
+    yellow inner line, so the omen survives obsidian, ink and frost under it."""
+    t = Image.open(os.path.join(F.EXPORTS, "tile_moe_heavy_iii_a3.webp")).convert("RGBA").resize((50, 50), Image.NEAREST)
+    d = ImageDraw.Draw(t)
+    d.polygon(A.poly10(25.0), outline=(*EMB, 255))
+    d.polygon(A.poly10(24.2), outline=(*EMB, 255))
+    d.polygon(A.poly10(23.4), outline=(*EMB_Y, 255))
+    return F.tile_out(t)
+
+
+def heavy_appear_iii_b(ring_inner=None):
+    """Act III heavy arrival (SAYO_BIBLE.md section 6 tune): it arrives DARK, an obsidian ring with a lit teal inner
+    edge and the ember rim, slamming down and contracting; then ember chips fall (never rise)."""
+    INKc = (14, 10, 22)
+    fr = []
+    for i in range(10):
+        f = F.frame()
+        if i <= 3:
+            s_ = {0: 1.08, 1: 1.05, 2: 1.02, 3: 1.0}[i]
+            F.ground_ring(f, (F.GRX - 1) * s_, (F.GRY - 0.5) * s_,
+                          [(-1, ring_inner or A.PAL["III"]["vein"]), (0, INKc if ring_inner is None else SCORE), (1, EMB_Y), (2, EMB)])
+        else:
+            t = i - 3
+            for k in range(8):
+                if t > 4 and k % 2:
+                    continue
+                g = math.radians(k * 45 + 20)
+                x0, y0 = 25 + (F.GRX - 1) * math.cos(g), 25 + (F.GRY - 0.5) * math.sin(g)
+                A4.cluster(f, x0 + math.cos(g) * t * 0.6, y0 + 0.3 * t * t, EMB_Y if t < 3 else EMB, SCORE)
+        fr.append(f)
+    return fr
+
+
+def close_in(act):
+    """The follow mark (The Silence Turns / The Glass Turns, SAYO_BIBLE.md 3.7): the floor goes still before it
+    breaks. Ink (III) or black cracks (II) run in from the hex's corners and close on it (5 frames), HOLD while the
+    ember rim heats (2 frames), then the act's heavy mark arrives. Same strip on all seven hexes: drawn symmetric, so
+    the ring reads as the floor closing on the player whatever their column."""
+    p = A.PAL["II" if act == "ii" else "III"]
+    line = (14, 10, 22) if act == "iii" else p["vein"]
+    fr = []
+    for i in range(7):
+        f = F.frame()
+        t = min(1.0, (i + 1) / 5)
+        for k in range(6):
+            a = math.radians(k * 60)
+            x0, y0 = 25 + 17 * math.cos(a), 25 + 8.5 * math.sin(a)
+            x1, y1 = x0 + (25 - x0) * t * 0.8, y0 + (25 - y0) * t * 0.8
+            n = F.frame()
+            ImageDraw.Draw(n).line([(x0, y0), (x1, y1)], fill=(*line, 255), width=2)
+            F.outline_alpha(n, (70, 84, 98) if act == "iii" else SCORE)
+            f.alpha_composite(n)
+        if i >= 5:                                               # the hold: the rim heats, nothing moves
+            F.ground_ring(f, F.GRX - 1, F.GRY - 0.5, [(0, EMB), (1, EMB_Y)])
+        fr.append(f)
+    tail = heavy_appear_iii_b() if act == "iii" else heavy_appear_iii_b(ring_inner=A.PAL["II"]["hot"])
+    return A4.edge_check(f"close_in {act}", fr + tail)

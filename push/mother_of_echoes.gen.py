@@ -195,6 +195,10 @@ FX4.update({
     "sweep6": ("anim_moe_doorward_sweep_a6.webp", "Mother of Echoes FX - Doorward Sweep"),
     "quiet6": ("anim_moe_quiet_a6.webp", "Mother of Echoes FX - The Quiet (ink lids)"),
     "etch_plan": ("tile_moe_etch_plan_a10.webp", "Mother of Echoes FX - Etching mark (floor plan)"),
+    "heavy_tile_iii_b": ("tile_moe_heavy_iii_a11.webp", "Mother of Echoes FX - Heavy mark (Act III, ember rim)"),
+    "heavy_appear_iii_b": ("anim_moe_heavy_appear_iii_a11.webp", "Mother of Echoes FX - Heavy mark arrives dark (Act III)"),
+    "close_in_iii": ("anim_moe_close_in_iii_a11.webp", "Mother of Echoes FX - The floor closes in (the Silence)"),
+    "close_in_ii": ("anim_moe_close_in_ii_a11.webp", "Mother of Echoes FX - The floor closes in (the Glasswright)"),
     **{f"recast_b{k}": (f"anim_moe_recast_b{k}_a10.webp", f"Mother of Echoes FX - Recast breaks, row {k}") for k in range(10)},
     **{f"etch_b{k}": (f"anim_moe_etch_b{k}_a10.webp", f"Mother of Echoes FX - Etching carved, row {k}") for k in range(10)},
     "floor_i": ("tile_moe_floor_i_a8.webp", "Mother of Echoes floor - crazed Heartglass"),
@@ -570,6 +574,17 @@ class Build:
                 e[f] = etch[f]
             elif self.final and tg == "tg_linger":
                 e[f] = self.fx2[self.floor_of(label)] if f == "staticAssetPath" else ""
+            elif self.final and tg == "tg_heavy" and f in ("staticAssetPath", "appearAnimation") and (
+                    label in ("The Silence Turns", "The Glass Turns") or self.act_of(label) == "iii"):
+                act = self.act_of(label)
+                if f == "appearAnimation" and label in ("The Silence Turns", "The Glass Turns"):
+                    e[f] = self.fx2["close_in_iii" if act == "iii" else "close_in_ii"]
+                elif act == "iii":
+                    e[f] = self.fx2["heavy_tile_iii_b" if f == "staticAssetPath" else "heavy_appear_iii_b"]
+                else:
+                    e[f] = self.fx2[TG3["tg_heavy"](act)[f]]
+            elif self.final and label == "The Glass Falls Quiet" and e["type"] == "visual" and f == "appearAnimation":
+                e[f] = ""   # the rest beat: no violet lock (SAYO_BIBLE.md 6 rewire); the lull loop carries it
             elif self.final and v == "moe_lancet":
                 e[f] = self.fx2["lancet6"]
             elif self.final and v == "moe_quiet":
