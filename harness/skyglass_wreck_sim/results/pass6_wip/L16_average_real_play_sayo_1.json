@@ -1,0 +1,2340 @@
+{
+ "generatedBy": "engine/moe.ts",
+ "visualFilter": true,
+ "engine": "theninjarpg 3314d122",
+ "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+ "params": {
+  "name": "pass6-live4",
+  "pools": {
+   "sayo1": 2,
+   "silence": 1,
+   "sayo2": 12,
+   "saint": 12
+  },
+  "statsMultiplier": 5.83,
+  "idg": {
+   "sayo1": 2,
+   "silence": 0.3,
+   "sayo2": 2.27,
+   "saint": 2.41,
+   "summons": 3.5
+  },
+  "dr": {
+   "sayo1": 15,
+   "silence": 25,
+   "sayo2": 55,
+   "saint": 40
+  },
+  "pw": {
+   "pullDmg": 15,
+   "lancet": 25,
+   "refract": 300,
+   "facet": 220,
+   "likenessHit": 30,
+   "stillness": 40,
+   "grasp": 20,
+   "graspDrain": 1,
+   "hushDrain": 3,
+   "hushDmg": 25,
+   "detonate": 360,
+   "quiet": 3.43,
+   "quietIdt": 8,
+   "shatter": 300,
+   "flood": 420,
+   "glass": 260,
+   "recastIII": 380,
+   "enrage": 600,
+   "porter": 40,
+   "hana": 8,
+   "tomo": 60,
+   "cradleDR": 90
+  },
+  "hushCount": 6,
+  "hushPoolDrain": 2,
+  "rises": {
+   "count": 10,
+   "drain": 15,
+   "rounds": 10
+  },
+  "still": {
+   "cd": 3,
+   "stunAp": 100,
+   "stunRounds": 1
+  },
+  "lucidIdg": 0.2,
+  "pullStunAp": 100,
+  "telegraphCarrier": true,
+  "pullDist": 1,
+  "pullCd": 4,
+  "hushUnbridledCount": 2,
+  "porterPush": 1,
+  "ramp": {
+   "pct": 7,
+   "rounds": 9
+  },
+  "bossDmgScale": 0.7,
+  "turnMark": {
+   "on": true,
+   "act1": 40,
+   "act2": 50,
+   "cd": 4
+  },
+  "etchDWide": true,
+  "act1BlastCd": 2,
+  "skilledPolicy": true,
+  "eruptDebuff": {
+   "on": true,
+   "act1": {
+    "dh": 50,
+    "idt": 20,
+    "rounds": 3,
+    "poolRounds": 1
+   },
+   "act2": {
+    "dh": 50,
+    "idt": 20,
+    "rounds": 3,
+    "poolRounds": 3
+   },
+   "act3": {
+    "dh": 50,
+    "idt": 20,
+    "rounds": 3,
+    "poolRounds": 3
+   }
+  },
+  "bossAura": {
+   "on": true,
+   "sayo1": {
+    "type": "reflect",
+    "power": 10,
+    "rounds": 3
+   },
+   "silence": {
+    "type": "shield",
+    "health": 400,
+    "rounds": 3
+   },
+   "sayo2": {
+    "type": "shield",
+    "health": 600,
+    "rounds": 2
+   },
+   "saint": {
+    "type": "shield",
+    "health": 800,
+    "rounds": 3
+   }
+  },
+  "visualPieces": false,
+  "sayoStunImmune": true,
+  "gcdSafeBlasts": true,
+  "markArtRounds": 1,
+  "noPoolReentry": true,
+  "silenceStalk": true,
+  "stillAnchored": true,
+  "recastGround": true,
+  "lancetCd": 1,
+  "summonDmgScale": 0.4,
+  "eruption": {
+   "on": true,
+   "hp": 5050,
+   "act1": 60,
+   "act2": 70,
+   "act3": 128.7128712871287,
+   "recast": 128.7128712871287
+  },
+  "cooldownFloor": 0,
+  "hushRounds": 8,
+  "feeler": {
+   "hp": 2500,
+   "power": 40,
+   "rounds": 8,
+   "listeningCd": 4
+  },
+  "likeness": {
+   "hp": 6000,
+   "power": 80,
+   "rounds": 3
+  },
+  "worn": {
+   "hp": 5000,
+   "power": 60,
+   "rounds": 8
+  },
+  "enrage": {
+   "act1": 60,
+   "act3": 80
+  },
+  "refractCd": 4,
+  "quietRounds": 6,
+  "starHush": {
+   "cd": 3,
+   "rounds": 3
+  },
+  "floodCd": 3,
+  "m2HealBlockRounds": 20,
+  "sayo2Stunprevent": true,
+  "gear": {
+   "poolsMultiplier": 1,
+   "damageTakenReductionPct": 1,
+   "incTakenPct": 152
+  },
+  "avgGear": {
+   "poolsMultiplier": 1,
+   "damageTakenReductionPct": 1,
+   "incTakenPct": 152
+  },
+  "liveSpawn": true
+ },
+ "kill": "sayo",
+ "acts": [
+  1,
+  2,
+  3
+ ],
+ "runs": 20,
+ "seed0": 1,
+ "cells": {
+  "average_real:play": {
+   "summary": {
+    "runs": 20,
+    "fullClears": 0,
+    "fullClearPct": 0,
+    "perAct": {
+     "1": {
+      "entered": 20,
+      "won": 0,
+      "clearPctOfEntered": 0,
+      "roundsWonMedian": null,
+      "roundsAllMedian": 11,
+      "endHpWonMedianPct": null,
+      "bossHpLeftLostMedian": {
+       "sayo": 59.05,
+       "silence": 99.9
+      },
+      "deaths": {
+       "Sayo, Mother of Echoes: Refraction": 5,
+       "own turn (pools/drain)": 8,
+       "Sayo, Mother of Echoes: Glass Lancet": 1,
+       "The Silence: Stillness": 2,
+       "A Feeler of the Deep: Grasp": 2,
+       "Your Likeness: Your Own Strike": 2
+      },
+      "stalled": 0,
+      "sets": {
+       "Refraction": {
+        "mark": 107,
+        "land": 104,
+        "hit": 17,
+        "dmg": 37094.61463682961,
+        "unmarked": 1,
+        "landsPerFight": 5.2,
+        "dmgPerHit": 2182
+       },
+       "Stillness": {
+        "mark": 18,
+        "land": 15,
+        "hit": 0,
+        "dmg": 13405.372918331024,
+        "unmarked": 1,
+        "landsPerFight": 0.8,
+        "dmgPerHit": null
+       },
+       "Facet": {
+        "mark": 20,
+        "land": 16,
+        "hit": 2,
+        "dmg": 6060,
+        "unmarked": 0,
+        "landsPerFight": 0.8,
+        "dmgPerHit": 3030
+       }
+      },
+      "unmarked": 2,
+      "specials": {
+       "Listening": 64,
+       "Cradle": 127,
+       "Hush": 42,
+       "Your Likeness": 7,
+       "Unbridled Listening": 1,
+       "Unbridled Hush": 3
+      },
+      "idleTurns": {
+       "sayo": "0/247",
+       "silence": "87/247"
+      },
+      "killFirst": {
+       "sayo": 1
+      },
+      "maxHitMedian": 3030,
+      "healedMedian": 627,
+      "dodgesPerFight": 5.4
+     },
+     "2": {
+      "entered": 0,
+      "won": 0,
+      "clearPctOfEntered": null,
+      "roundsWonMedian": null,
+      "roundsAllMedian": null,
+      "endHpWonMedianPct": null,
+      "bossHpLeftLostMedian": {},
+      "deaths": {},
+      "stalled": 0,
+      "sets": {},
+      "unmarked": 0,
+      "specials": {},
+      "idleTurns": {},
+      "killFirst": {},
+      "maxHitMedian": null,
+      "healedMedian": null,
+      "dodgesPerFight": 0
+     },
+     "3": {
+      "entered": 0,
+      "won": 0,
+      "clearPctOfEntered": null,
+      "roundsWonMedian": null,
+      "roundsAllMedian": null,
+      "endHpWonMedianPct": null,
+      "bossHpLeftLostMedian": {},
+      "deaths": {},
+      "stalled": 0,
+      "sets": {},
+      "unmarked": 0,
+      "specials": {},
+      "idleTurns": {},
+      "killFirst": {},
+      "maxHitMedian": null,
+      "healedMedian": null,
+      "dodgesPerFight": 0
+     }
+    }
+   },
+   "runs": [
+    {
+     "seed": 1,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 1,
+       "outcome": "lost",
+       "rounds": 10,
+       "endHp": 0,
+       "endCp": 0.9292079207920793,
+       "endSp": 0.9292079207920793,
+       "bossHpPct": {
+        "moe-ai-sayo": 73.2,
+        "moe-ai-silence": 48.9
+       },
+       "deathCause": "Sayo, Mother of Echoes: Refraction",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 5,
+         "land": 5,
+         "hit": 2,
+         "dmg": 3927.4062687253545,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Listening": 3,
+        "Cradle": 3,
+        "Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 10,
+        "moe-ai-silence": 9
+       },
+       "bossIdle": {
+        "moe-ai-silence": 4
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 365.78119382393675,
+        "Sayo, Mother of Echoes: Glass Lancet": 250.94477606249984,
+        "Sayo, Mother of Echoes: Refraction": 3927.4062687253545,
+        "own turn (pools/drain)": 2120
+       },
+       "healed": 414.13223861179085,
+       "dodges": 6,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 10,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "cleanse": 1,
+        "Captain's Decree (equivalent)": 1,
+        "Tempest Cleave": 2,
+        "Ink of the Void": 1,
+        "dodge": 6,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 6,
+        "move": 3,
+        "Shrapnel Clone Barrage": 1,
+        "Kunai": 1,
+        "Energy Potion": 1,
+        "Stamina Pill": 1
+       },
+       "minHpFrac": 0.14358500299605667,
+       "misreads": 3,
+       "lancet": {
+        "n": 1,
+        "sum": 250.94477606249984,
+        "max": 250.94477606249984,
+        "pctOfMax": [
+         4
+        ]
+       },
+       "playerTurns": 10
+      }
+     ]
+    },
+    {
+     "seed": 2,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 2,
+       "outcome": "lost",
+       "rounds": 11,
+       "endHp": 0,
+       "endCp": 0.7725742574257426,
+       "endSp": 0.7725742574257426,
+       "bossHpPct": {
+        "moe-ai-sayo": 93.5,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "own turn (pools/drain)",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 5,
+         "land": 5,
+         "hit": 2,
+         "dmg": 5151,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 2,
+        "Cradle": 10
+       },
+       "bossTurns": {
+        "moe-ai-silence": 10,
+        "moe-ai-sayo": 10
+       },
+       "bossIdle": {
+        "moe-ai-silence": 4
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Refraction": 5151,
+        "own turn (pools/drain)": 465.9120731003545,
+        "Sayo, Mother of Echoes: Glass Lancet": 480.494195625,
+        "A Feeler of the Deep: Grasp": 152.5937312746455
+       },
+       "healed": 0,
+       "dodges": 6,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 11,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "wait": 6,
+        "dodge": 6,
+        "move": 7,
+        "Stamina Pill": 1,
+        "Tempest Cleave": 1,
+        "Kunai": 1
+       },
+       "minHpFrac": 0,
+       "misreads": 2,
+       "lancet": {
+        "n": 1,
+        "sum": 480.494195625,
+        "max": 480.494195625,
+        "pctOfMax": [
+         7.7
+        ]
+       },
+       "playerTurns": 11
+      }
+     ]
+    },
+    {
+     "seed": 3,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 3,
+       "outcome": "lost",
+       "rounds": 23,
+       "endHp": 0,
+       "endCp": 0.9826732673267327,
+       "endSp": 0.9826732673267327,
+       "bossHpPct": {
+        "moe-ai-sayo": 80,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Refraction",
+       "maxHit": {
+        "dmg": 2020,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 11,
+         "land": 11,
+         "hit": 1,
+         "dmg": 1521.7164998028359,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 4,
+        "Listening": 6,
+        "Cradle": 6
+       },
+       "bossTurns": {
+        "moe-ai-silence": 22,
+        "moe-ai-sayo": 22
+       },
+       "bossIdle": {
+        "moe-ai-silence": 6
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 1174.7498501971643,
+        "own turn (pools/drain)": 4117,
+        "Sayo, Mother of Echoes: Glass Lancet": 664.5336499999999,
+        "Sayo, Mother of Echoes: Refraction": 1521.7164998028359
+       },
+       "healed": 1228,
+       "dodges": 12,
+       "cleanses": 2,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 22,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 4,
+        "Chakra Overflow": 4,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 12,
+        "Earthen Bastion": 3,
+        "Eclipse Drain": 3,
+        "move": 11,
+        "Tempest Cleave": 3,
+        "wait": 13,
+        "Kunai": 2,
+        "Shrapnel Clone Barrage": 3,
+        "Captain's Decree (equivalent)": 2,
+        "Stamina Pill": 2,
+        "cleanse": 1,
+        "Energy Potion": 2,
+        "Ink of the Void": 1,
+        "Dragon King's Impact": 1
+       },
+       "minHpFrac": 0.26788963697239704,
+       "misreads": 3,
+       "lancet": {
+        "n": 1,
+        "sum": 664.5336499999999,
+        "max": 664.5336499999999,
+        "pctOfMax": [
+         10.6
+        ]
+       },
+       "playerTurns": 22,
+       "playerEndTurns": 1
+      }
+     ]
+    },
+    {
+     "seed": 4,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 4,
+       "outcome": "lost",
+       "rounds": 25,
+       "endHp": 0,
+       "endCp": 0.996039603960396,
+       "endSp": 0.996039603960396,
+       "bossHpPct": {
+        "moe-ai-sayo": 34,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Glass Lancet",
+       "maxHit": {
+        "dmg": 2070,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 11,
+         "land": 11,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 4,
+        "Listening": 5,
+        "Cradle": 15,
+        "Your Likeness": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 25,
+        "moe-ai-silence": 24
+       },
+       "bossIdle": {
+        "moe-ai-silence": 13
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1485.020995619738,
+        "own turn (pools/drain)": 4261,
+        "A Feeler of the Deep: Grasp": 915.5623876478735,
+        "Your Likeness: Your Own Strike": 356.41661673238855
+       },
+       "healed": 768,
+       "dodges": 10,
+       "cleanses": 2,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 25,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 4,
+        "Chakra Overflow": 4,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 10,
+        "Earthen Bastion": 3,
+        "Eclipse Drain": 3,
+        "wait": 14,
+        "move": 11,
+        "Tempest Cleave": 2,
+        "Kunai": 3,
+        "cleanse": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Shrapnel Clone Barrage": 2,
+        "Ink of the Void": 1,
+        "Dragon King's Impact": 2,
+        "basicAttack": 1,
+        "Wind Style: Sky Dragon": 2,
+        "Energy Potion": 3,
+        "Stamina Pill": 3,
+        "clear": 1
+       },
+       "minHpFrac": 0.00249281193419808,
+       "lancet": {
+        "n": 4,
+        "sum": 1485.020995619738,
+        "max": 612.6110054999999,
+        "pctOfMax": [
+         9.8,
+         5.9,
+         7.8,
+         0.2
+        ]
+       },
+       "misreads": 4,
+       "clears": 1,
+       "playerTurns": 25
+      }
+     ]
+    },
+    {
+     "seed": 5,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 5,
+       "outcome": "lost",
+       "rounds": 19,
+       "endHp": 0,
+       "endCp": 0.7789039603960396,
+       "endSp": 0.7755376237623762,
+       "bossHpPct": {
+        "moe-ai-sayo": 0,
+        "moe-ai-silence": 0
+       },
+       "deathCause": "The Silence: Stillness",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "The Silence: Stillness"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 5,
+         "land": 5,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 3,
+         "land": 4,
+         "hit": 0,
+         "dmg": 3958.4666496056707,
+         "unmarked": 1
+        },
+        "Facet": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 1,
+       "specials": {
+        "Hush": 3,
+        "Listening": 3,
+        "Cradle": 5,
+        "Your Likeness": 1,
+        "Unbridled Listening": 1,
+        "Unbridled Hush": 3
+       },
+       "bossTurns": {
+        "moe-ai-silence": 19,
+        "moe-ai-sayo": 14
+       },
+       "bossIdle": {
+        "moe-ai-silence": 5
+       },
+       "killFirst": "moe-ai-sayo",
+       "dmgBySource": {
+        "own turn (pools/drain)": 2266,
+        "A Feeler of the Deep: Grasp": 1220.7498501971643,
+        "Sayo, Mother of Echoes: Glass Lancet": 550.5336500000003,
+        "Your Likeness: Your Own Strike": 1069.249850197165,
+        "The Silence: Stillness": 3958.4666496056707
+       },
+       "healed": 2815,
+       "dodges": 4,
+       "cleanses": 2,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 18,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 4,
+        "Tempest Cleave": 3,
+        "wait": 6,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "move": 9,
+        "Shrapnel Clone Barrage": 3,
+        "Kunai": 3,
+        "Dragon King's Impact": 2,
+        "cleanse": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Wind Style: Sky Dragon": 1,
+        "Ink of the Void": 2,
+        "Typhon Burst": 1,
+        "basicAttack": 3,
+        "Multi-Layered Gale": 1,
+        "Energy Potion": 1,
+        "Stamina Pill": 2
+       },
+       "minHpFrac": 0.4350146519526804,
+       "lancet": {
+        "n": 1,
+        "sum": 550.5336500000003,
+        "max": 550.5336500000003,
+        "pctOfMax": [
+         8.8
+        ]
+       },
+       "unwarned": 1,
+       "playerTurns": 18
+      }
+     ]
+    },
+    {
+     "seed": 6,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 6,
+       "outcome": "lost",
+       "rounds": 20,
+       "endHp": 0,
+       "endCp": 0.8874257425742574,
+       "endSp": 0.8874257425742574,
+       "bossHpPct": {
+        "moe-ai-sayo": 36.7,
+        "moe-ai-silence": 52.8
+       },
+       "deathCause": "own turn (pools/drain)",
+       "maxHit": {
+        "dmg": 2070,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 7,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 3,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Listening": 5,
+        "Cradle": 9,
+        "Hush": 3,
+        "Your Likeness": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 19,
+        "moe-ai-silence": 19
+       },
+       "bossIdle": {
+        "moe-ai-silence": 7
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 2197.178100524811,
+        "A Feeler of the Deep: Grasp": 869.5623876478737,
+        "own turn (pools/drain)": 4721.71339609915,
+        "Your Likeness: Your Own Strike": 1069.2498501971656
+       },
+       "healed": 2607.7037344689998,
+       "dodges": 6,
+       "cleanses": 2,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 20,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 6,
+        "Stamina Pill": 4,
+        "Earthen Bastion": 3,
+        "Eclipse Drain": 3,
+        "Kunai": 3,
+        "Tempest Cleave": 3,
+        "move": 4,
+        "Shrapnel Clone Barrage": 2,
+        "wait": 4,
+        "Dragon King's Impact": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Ink of the Void": 1,
+        "Energy Potion": 3,
+        "Typhon Burst": 1,
+        "cleanse": 1,
+        "clear": 1
+       },
+       "minHpFrac": 0,
+       "lancet": {
+        "n": 5,
+        "sum": 2197.178100524811,
+        "max": 812.3783401969504,
+        "pctOfMax": [
+         6.4,
+         13,
+         0.6,
+         6.7,
+         8.4
+        ]
+       },
+       "misreads": 2,
+       "clears": 1,
+       "playerTurns": 20
+      }
+     ]
+    },
+    {
+     "seed": 7,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 7,
+       "outcome": "lost",
+       "rounds": 8,
+       "endHp": 0,
+       "endCp": 0.9232673267326733,
+       "endSp": 0.9232673267326733,
+       "bossHpPct": {
+        "moe-ai-sayo": 60.1,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "own turn (pools/drain)",
+       "maxHit": {
+        "dmg": 2121,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 4,
+         "land": 3,
+         "hit": 1,
+         "dmg": 2121,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Listening": 2,
+        "Cradle": 4,
+        "Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 7,
+        "moe-ai-sayo": 7
+       },
+       "bossIdle": {
+        "moe-ai-silence": 2
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "own turn (pools/drain)": 3389.671747651063,
+        "Sayo, Mother of Echoes: Refraction": 2121,
+        "A Feeler of the Deep: Grasp": 411.781193823937,
+        "Sayo, Mother of Echoes: Glass Lancet": 816.5470585249998
+       },
+       "healed": 489,
+       "dodges": 4,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 8,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 1,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Tempest Cleave": 1,
+        "Captain's Decree (equivalent)": 1,
+        "dodge": 4,
+        "Energy Potion": 2,
+        "Earthen Bastion": 1,
+        "Stamina Pill": 2,
+        "wait": 2,
+        "Eclipse Drain": 1,
+        "move": 3,
+        "Ink of the Void": 1,
+        "Shrapnel Clone Barrage": 1,
+        "Kunai": 1,
+        "Dragon King's Impact": 1
+       },
+       "minHpFrac": 0,
+       "misreads": 1,
+       "lancet": {
+        "n": 2,
+        "sum": 816.5470585249998,
+        "max": 633.4937758849999,
+        "pctOfMax": [
+         2.9,
+         10.1
+        ]
+       },
+       "playerTurns": 8
+      }
+     ]
+    },
+    {
+     "seed": 8,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 8,
+       "outcome": "lost",
+       "rounds": 8,
+       "endHp": 0,
+       "endCp": 0.9232673267326733,
+       "endSp": 0.9232673267326733,
+       "bossHpPct": {
+        "moe-ai-sayo": 84.6,
+        "moe-ai-silence": 71.5
+       },
+       "deathCause": "own turn (pools/drain)",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 4,
+         "land": 3,
+         "hit": 1,
+         "dmg": 3030,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Listening": 2,
+        "Cradle": 6,
+        "Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 7,
+        "moe-ai-sayo": 7
+       },
+       "bossIdle": {
+        "moe-ai-silence": 3
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "own turn (pools/drain)": 2079.515269614064,
+        "A Feeler of the Deep: Grasp": 411.7811938239365,
+        "Sayo, Mother of Echoes: Glass Lancet": 1171.2035365619997,
+        "Sayo, Mother of Echoes: Refraction": 3030
+       },
+       "healed": 442.5,
+       "dodges": 2,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 8,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 1,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 2,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "move": 3,
+        "wait": 1,
+        "Tempest Cleave": 1,
+        "Kunai": 1,
+        "Shrapnel Clone Barrage": 1,
+        "Captain's Decree (equivalent)": 1,
+        "cleanse": 1,
+        "Ink of the Void": 1,
+        "Energy Potion": 1,
+        "Stamina Pill": 1,
+        "Dragon King's Impact": 1
+       },
+       "minHpFrac": 0,
+       "lancet": {
+        "n": 2,
+        "sum": 1171.2035365619997,
+        "max": 764.5925310619998,
+        "pctOfMax": [
+         6.5,
+         12.2
+        ]
+       },
+       "misreads": 1,
+       "playerTurns": 8
+      }
+     ]
+    },
+    {
+     "seed": 9,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 9,
+       "outcome": "lost",
+       "rounds": 7,
+       "endHp": 0,
+       "endCp": 0.7287029702970297,
+       "endSp": 0.7287029702970297,
+       "bossHpPct": {
+        "moe-ai-sayo": 56.2,
+        "moe-ai-silence": 90.3
+       },
+       "deathCause": "Sayo, Mother of Echoes: Refraction",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 4,
+         "hit": 2,
+         "dmg": 3067.4062687253545,
+         "unmarked": 1
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 3030,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 1,
+       "specials": {
+        "Hush": 1,
+        "Listening": 2,
+        "Cradle": 4
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 7,
+        "moe-ai-silence": 6
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 346.6110054999999,
+        "A Feeler of the Deep: Grasp": 259.1874625492912,
+        "Sayo, Mother of Echoes: Refraction": 3067.4062687253545,
+        "The Silence: Stillness": 3030
+       },
+       "healed": 453.2047367746454,
+       "dodges": 2,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 6,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 1,
+        "Chakra Overflow": 1,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 2,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "move": 2,
+        "Tempest Cleave": 1,
+        "Kunai": 1,
+        "wait": 2,
+        "Shrapnel Clone Barrage": 1,
+        "Captain's Decree (equivalent)": 1,
+        "Dragon King's Impact": 1,
+        "cleanse": 1,
+        "Ink of the Void": 1
+       },
+       "minHpFrac": 0.9274872421160567,
+       "misreads": 2,
+       "lancet": {
+        "n": 1,
+        "sum": 346.6110054999999,
+        "max": 346.6110054999999,
+        "pctOfMax": [
+         5.5
+        ]
+       },
+       "unwarned": 1,
+       "playerTurns": 6
+      }
+     ]
+    },
+    {
+     "seed": 10,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 10,
+       "outcome": "lost",
+       "rounds": 21,
+       "endHp": 0,
+       "endCp": 0.9128643564356436,
+       "endSp": 0.9128643564356436,
+       "bossHpPct": {
+        "moe-ai-sayo": 58,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "A Feeler of the Deep: Grasp",
+       "maxHit": {
+        "dmg": 2120,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 6,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 4,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 4,
+        "Listening": 6,
+        "Cradle": 10
+       },
+       "bossTurns": {
+        "moe-ai-silence": 21,
+        "moe-ai-sayo": 20
+       },
+       "bossIdle": {
+        "moe-ai-silence": 9
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "own turn (pools/drain)": 6497.437612352126,
+        "Sayo, Mother of Echoes: Glass Lancet": 265.94477606249984,
+        "A Feeler of the Deep: Grasp": 1175.7498501971647
+       },
+       "healed": 1689.1322386117906,
+       "dodges": 9,
+       "cleanses": 2,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 21,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 2,
+        "Shrapnel Clone Barrage": 2,
+        "Ink of the Void": 1,
+        "dodge": 9,
+        "Earthen Bastion": 3,
+        "Eclipse Drain": 3,
+        "wait": 11,
+        "move": 6,
+        "Kunai": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 1,
+        "Stamina Pill": 4,
+        "Energy Potion": 2,
+        "cleanse": 1
+       },
+       "minHpFrac": 0.00016,
+       "lancet": {
+        "n": 1,
+        "sum": 265.94477606249984,
+        "max": 265.94477606249984,
+        "pctOfMax": [
+         4.3
+        ]
+       },
+       "misreads": 2,
+       "playerTurns": 21,
+       "playerEndTurns": 2
+      }
+     ]
+    },
+    {
+     "seed": 11,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 11,
+       "outcome": "lost",
+       "rounds": 17,
+       "endHp": 0,
+       "endCp": 0.9210891089108911,
+       "endSp": 0.9197029702970297,
+       "bossHpPct": {
+        "moe-ai-sayo": 21.1,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "own turn (pools/drain)",
+       "maxHit": {
+        "dmg": 2070,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 6,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 3,
+        "Listening": 4,
+        "Cradle": 8,
+        "Your Likeness": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 16,
+        "moe-ai-sayo": 16
+       },
+       "bossIdle": {
+        "moe-ai-silence": 6
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 1859.7744261530129,
+        "own turn (pools/drain)": 4486.007067276594,
+        "A Feeler of the Deep: Grasp": 762.9686563732275,
+        "Your Likeness: Your Own Strike": 1069.2498501971654
+       },
+       "healed": 1928,
+       "dodges": 4,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 17,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 4,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "wait": 5,
+        "move": 5,
+        "Tempest Cleave": 2,
+        "Shrapnel Clone Barrage": 2,
+        "Kunai": 3,
+        "Dragon King's Impact": 2,
+        "Captain's Decree (equivalent)": 2,
+        "cleanse": 1,
+        "Ink of the Void": 2,
+        "Wind Style: Sky Dragon": 1,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1,
+        "Energy Potion": 2,
+        "Stamina Pill": 2,
+        "clear": 1,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0,
+       "lancet": {
+        "n": 4,
+        "sum": 1859.7744261530129,
+        "max": 633.4937758850001,
+        "pctOfMax": [
+         6.7,
+         10.1,
+         7,
+         5.9
+        ]
+       },
+       "misreads": 5,
+       "clears": 1,
+       "playerTurns": 17
+      }
+     ]
+    },
+    {
+     "seed": 12,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 12,
+       "outcome": "lost",
+       "rounds": 10,
+       "endHp": 0,
+       "endCp": 0.9270297029702971,
+       "endSp": 0.9270297029702971,
+       "bossHpPct": {
+        "moe-ai-sayo": 74.8,
+        "moe-ai-silence": 71.7
+       },
+       "deathCause": "Sayo, Mother of Echoes: Refraction",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 5,
+         "land": 5,
+         "hit": 2,
+         "dmg": 4213.4062687253545,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Listening": 3,
+        "Cradle": 7,
+        "Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 10,
+        "moe-ai-silence": 9
+       },
+       "bossIdle": {
+        "moe-ai-silence": 1
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "own turn (pools/drain)": 2140,
+        "Sayo, Mother of Echoes: Glass Lancet": 398.6110054999999,
+        "A Feeler of the Deep: Grasp": 259.18746254929124,
+        "Sayo, Mother of Echoes: Refraction": 4213.4062687253545
+       },
+       "healed": 761.2047367746454,
+       "dodges": 4,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 10,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 4,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "move": 3,
+        "wait": 3,
+        "Tempest Cleave": 1,
+        "Kunai": 2,
+        "Shrapnel Clone Barrage": 1,
+        "Captain's Decree (equivalent)": 1,
+        "Dragon King's Impact": 1,
+        "Ink of the Void": 1,
+        "Wind Style: Sky Dragon": 1,
+        "Energy Potion": 1,
+        "Stamina Pill": 1
+       },
+       "minHpFrac": 0.15958500299605669,
+       "misreads": 2,
+       "lancet": {
+        "n": 1,
+        "sum": 398.6110054999999,
+        "max": 398.6110054999999,
+        "pctOfMax": [
+         6.4
+        ]
+       },
+       "playerTurns": 10
+      }
+     ]
+    },
+    {
+     "seed": 13,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 13,
+       "outcome": "lost",
+       "rounds": 14,
+       "endHp": 0,
+       "endCp": 0.9561316831683169,
+       "endSp": 0.9561316831683169,
+       "bossHpPct": {
+        "moe-ai-sayo": 11.9,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "own turn (pools/drain)",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 5,
+         "land": 5,
+         "hit": 1,
+         "dmg": 3030,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Listening": 4,
+        "Hush": 2,
+        "Cradle": 3,
+        "Your Likeness": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 13,
+        "moe-ai-silence": 13
+       },
+       "bossIdle": {
+        "moe-ai-silence": 6
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 518.3749250985825,
+        "own turn (pools/drain)": 5574.79574643723,
+        "Sayo, Mother of Echoes: Refraction": 3030,
+        "Sayo, Mother of Echoes: Glass Lancet": 889.4294916994102,
+        "Your Likeness: Your Own Strike": 712.8332334647771
+       },
+       "healed": 4475.4333967,
+       "dodges": 5,
+       "cleanses": 2,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 14,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 5,
+        "Kunai": 3,
+        "Tempest Cleave": 2,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "move": 5,
+        "Captain's Decree (equivalent)": 2,
+        "Shrapnel Clone Barrage": 2,
+        "Ink of the Void": 2,
+        "Dragon King's Impact": 1,
+        "wait": 4,
+        "Energy Potion": 2,
+        "Stamina Pill": 2,
+        "Wind Style: Sky Dragon": 1,
+        "clear": 1
+       },
+       "minHpFrac": 0,
+       "misreads": 3,
+       "lancet": {
+        "n": 3,
+        "sum": 889.4294916994102,
+        "max": 490.10267215755994,
+        "pctOfMax": [
+         5.2,
+         1.2,
+         7.8
+        ]
+       },
+       "clears": 1,
+       "playerTurns": 14
+      }
+     ]
+    },
+    {
+     "seed": 14,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 14,
+       "outcome": "lost",
+       "rounds": 12,
+       "endHp": 0,
+       "endCp": 1,
+       "endSp": 1,
+       "bossHpPct": {
+        "moe-ai-sayo": 77.8,
+        "moe-ai-silence": 99.8
+       },
+       "deathCause": "own turn (pools/drain)",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 6,
+         "land": 5,
+         "hit": 1,
+         "dmg": 3030,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 3,
+        "Cradle": 5
+       },
+       "bossTurns": {
+        "moe-ai-silence": 11,
+        "moe-ai-sayo": 11
+       },
+       "bossIdle": {
+        "moe-ai-silence": 4
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Mother of Echoes: Glass Lancet": 613.0606415225002,
+        "A Feeler of the Deep: Grasp": 259.187462549291,
+        "own turn (pools/drain)": 2597.751895928209,
+        "Sayo, Mother of Echoes: Refraction": 3030
+       },
+       "healed": 250,
+       "dodges": 8,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 12,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 8,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "move": 7,
+        "Tempest Cleave": 2,
+        "Kunai": 1,
+        "wait": 6,
+        "Shrapnel Clone Barrage": 1,
+        "Stamina Pill": 2,
+        "Dragon King's Impact": 1,
+        "Captain's Decree (equivalent)": 1,
+        "Energy Potion": 1
+       },
+       "minHpFrac": 0,
+       "lancet": {
+        "n": 2,
+        "sum": 613.0606415225002,
+        "max": 436.4937758850001,
+        "pctOfMax": [
+         2.8,
+         7
+        ]
+       },
+       "misreads": 1,
+       "playerTurns": 12,
+       "playerEndTurns": 1
+      }
+     ]
+    },
+    {
+     "seed": 15,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 15,
+       "outcome": "lost",
+       "rounds": 6,
+       "endHp": 0,
+       "endCp": 0.8356336633663366,
+       "endSp": 0.8356336633663366,
+       "bossHpPct": {
+        "moe-ai-sayo": 81.7,
+        "moe-ai-silence": 99.8
+       },
+       "deathCause": "The Silence: Stillness",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 3,
+         "hit": 1,
+         "dmg": 3030,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 3386.9062687253545,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Listening": 2,
+        "Cradle": 2,
+        "Hush": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 6,
+        "moe-ai-silence": 6
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "The Silence: Stillness": 3386.9062687253545,
+        "A Feeler of the Deep: Grasp": 129.5937312746455,
+        "Sayo, Mother of Echoes: Refraction": 3030
+       },
+       "healed": 296.5,
+       "dodges": 1,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 5,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 1,
+        "Chakra Overflow": 1,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 1,
+        "Tempest Cleave": 1,
+        "wait": 1,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "move": 4,
+        "Shrapnel Clone Barrage": 1,
+        "Kunai": 1,
+        "cleanse": 1,
+        "Captain's Decree (equivalent)": 1
+       },
+       "minHpFrac": 0.66064,
+       "misreads": 1,
+       "playerTurns": 5
+      }
+     ]
+    },
+    {
+     "seed": 16,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 16,
+       "outcome": "lost",
+       "rounds": 13,
+       "endHp": 0,
+       "endCp": 0.9861287128712871,
+       "endSp": 0.9833564356435643,
+       "bossHpPct": {
+        "moe-ai-sayo": 33.2,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Your Likeness: Your Own Strike",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "Sayo, Mother of Echoes: Facet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 5,
+         "land": 5,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 2,
+         "land": 1,
+         "hit": 1,
+         "dmg": 3030,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Listening": 4,
+        "Cradle": 6,
+        "Hush": 2,
+        "Your Likeness": 1
+       },
+       "bossTurns": {
+        "moe-ai-silence": 13,
+        "moe-ai-sayo": 13
+       },
+       "bossIdle": {
+        "moe-ai-silence": 5
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 823.5623876478735,
+        "own turn (pools/drain)": 2370,
+        "Sayo, Mother of Echoes: Glass Lancet": 1815.28357070375,
+        "Sayo, Mother of Echoes: Facet": 3030,
+        "Your Likeness: Your Own Strike": 659.1540416483765
+       },
+       "healed": 2448,
+       "dodges": 7,
+       "cleanses": 2,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 13,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 7,
+        "Kunai": 2,
+        "Tempest Cleave": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "wait": 4,
+        "move": 7,
+        "Shrapnel Clone Barrage": 1,
+        "Captain's Decree (equivalent)": 2,
+        "Dragon King's Impact": 1,
+        "Wind Style: Sky Dragon": 1,
+        "Stamina Pill": 1,
+        "Ink of the Void": 1,
+        "Energy Potion": 1,
+        "basicAttack": 2,
+        "clear": 1
+       },
+       "minHpFrac": 0.10013198913210138,
+       "lancet": {
+        "n": 3,
+        "sum": 1815.28357070375,
+        "max": 633.4937758849999,
+        "pctOfMax": [
+         9.1,
+         9.8,
+         10.1
+        ]
+       },
+       "misreads": 1,
+       "clears": 1,
+       "playerTurns": 13
+      }
+     ]
+    },
+    {
+     "seed": 17,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 17,
+       "outcome": "lost",
+       "rounds": 11,
+       "endHp": 0,
+       "endCp": 0.863059405940594,
+       "endSp": 0.863059405940594,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 99.8
+       },
+       "deathCause": "own turn (pools/drain)",
+       "maxHit": {
+        "dmg": 2121,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 5,
+         "land": 5,
+         "hit": 1,
+         "dmg": 2121,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 2,
+        "Cradle": 9
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 10,
+        "moe-ai-silence": 10
+       },
+       "bossIdle": {
+        "moe-ai-silence": 3
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "own turn (pools/drain)": 3064.289799676063,
+        "Sayo, Mother of Echoes: Refraction": 2121,
+        "Sayo, Mother of Echoes: Glass Lancet": 606.9290064999999,
+        "A Feeler of the Deep: Grasp": 457.7811938239371
+       },
+       "healed": 0,
+       "dodges": 6,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 11,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "wait": 4,
+        "dodge": 6,
+        "Stamina Pill": 3,
+        "move": 9,
+        "Energy Potion": 2,
+        "Captain's Decree (equivalent)": 1,
+        "Tempest Cleave": 1,
+        "cleanse": 1,
+        "Shrapnel Clone Barrage": 1
+       },
+       "minHpFrac": 0,
+       "misreads": 3,
+       "lancet": {
+        "n": 2,
+        "sum": 606.9290064999999,
+        "max": 352.39535650000005,
+        "pctOfMax": [
+         4.1,
+         5.6
+        ]
+       },
+       "playerTurns": 11
+      }
+     ]
+    },
+    {
+     "seed": 18,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 18,
+       "outcome": "lost",
+       "rounds": 10,
+       "endHp": 0,
+       "endCp": 0.9301980198019802,
+       "endSp": 0.9301980198019802,
+       "bossHpPct": {
+        "moe-ai-sayo": 100,
+        "moe-ai-silence": 99.8
+       },
+       "deathCause": "A Feeler of the Deep: Grasp",
+       "maxHit": {
+        "dmg": 2121,
+        "by": "Sayo, Mother of Echoes: Refraction"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 5,
+         "land": 5,
+         "hit": 1,
+         "dmg": 2121,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Listening": 2,
+        "Cradle": 9,
+        "Hush": 2
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 10,
+        "moe-ai-silence": 10
+       },
+       "bossIdle": {
+        "moe-ai-silence": 5
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "own turn (pools/drain)": 4040,
+        "Sayo, Mother of Echoes: Refraction": 2121,
+        "A Feeler of the Deep: Grasp": 89
+       },
+       "healed": 0,
+       "dodges": 6,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 10,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "wait": 7,
+        "dodge": 6,
+        "Energy Potion": 2,
+        "Stamina Pill": 2,
+        "move": 6
+       },
+       "minHpFrac": 0.01424,
+       "misreads": 1,
+       "playerTurns": 10
+      }
+     ]
+    },
+    {
+     "seed": 19,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 19,
+       "outcome": "lost",
+       "rounds": 9,
+       "endHp": 0,
+       "endCp": 0.996039603960396,
+       "endSp": 0.996039603960396,
+       "bossHpPct": {
+        "moe-ai-sayo": 34.1,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Your Likeness: Your Own Strike",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "The Silence: Stillness"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 3030,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 2,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 1,
+        "Listening": 2,
+        "Cradle": 3,
+        "Your Likeness": 1
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 9,
+        "moe-ai-silence": 8
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "own turn (pools/drain)": 2175,
+        "Sayo, Mother of Echoes: Glass Lancet": 896.2035365619997,
+        "A Feeler of the Deep: Grasp": 259.187462549291,
+        "The Silence: Stillness": 3030,
+        "Your Likeness: Your Own Strike": 382.60900088870926
+       },
+       "healed": 493,
+       "dodges": 5,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 8,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 1,
+        "Chakra Overflow": 1,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 5,
+        "Tempest Cleave": 1,
+        "move": 5,
+        "Shrapnel Clone Barrage": 1,
+        "Kunai": 1,
+        "Dragon King's Impact": 1,
+        "Captain's Decree (equivalent)": 1,
+        "Wind Style: Sky Dragon": 1,
+        "wait": 1,
+        "basicAttack": 1,
+        "Typhon Burst": 1,
+        "Ink of the Void": 1,
+        "clear": 1,
+        "Energy Potion": 1,
+        "Stamina Pill": 1
+       },
+       "minHpFrac": 0.07308558643493132,
+       "lancet": {
+        "n": 2,
+        "sum": 896.2035365619997,
+        "max": 465.6110054999999,
+        "pctOfMax": [
+         7.4,
+         6.9
+        ]
+       },
+       "misreads": 2,
+       "clears": 1,
+       "playerTurns": 8
+      }
+     ]
+    },
+    {
+     "seed": 20,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 1,
+       "seed": 20,
+       "outcome": "lost",
+       "rounds": 8,
+       "endHp": 0,
+       "endCp": 0.9745544554455445,
+       "endSp": 0.9745544554455445,
+       "bossHpPct": {
+        "moe-ai-sayo": 37.8,
+        "moe-ai-silence": 100
+       },
+       "deathCause": "Sayo, Mother of Echoes: Refraction",
+       "maxHit": {
+        "dmg": 3030,
+        "by": "Sayo, Mother of Echoes: Facet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 3,
+         "hit": 1,
+         "dmg": 730.679330850709,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 1,
+         "land": 1,
+         "hit": 1,
+         "dmg": 3030,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Hush": 2,
+        "Listening": 2,
+        "Cradle": 3
+       },
+       "bossTurns": {
+        "moe-ai-sayo": 8,
+        "moe-ai-silence": 7
+       },
+       "bossIdle": {
+        "moe-ai-silence": 3
+       },
+       "killFirst": null,
+       "dmgBySource": {
+        "A Feeler of the Deep: Grasp": 365.78119382393675,
+        "own turn (pools/drain)": 2188,
+        "Sayo, Mother of Echoes: Facet": 3030,
+        "Sayo, Mother of Echoes: Glass Lancet": 845.1332065999998,
+        "Sayo, Mother of Echoes: Refraction": 730.679330850709
+       },
+       "healed": 909.5937312746455,
+       "dodges": 0,
+       "cleanses": 1,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 8,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "cleanse": 1,
+        "Captain's Decree (equivalent)": 1,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "move": 4,
+        "Tempest Cleave": 1,
+        "Kunai": 2,
+        "Shrapnel Clone Barrage": 1,
+        "Ink of the Void": 1,
+        "Dragon King's Impact": 1,
+        "basicAttack": 1,
+        "wait": 1,
+        "Energy Potion": 1,
+        "Stamina Pill": 1,
+        "Wind Style: Sky Dragon": 1
+       },
+       "minHpFrac": 0.11690869293611345,
+       "misreads": 2,
+       "lancet": {
+        "n": 1,
+        "sum": 845.1332065999998,
+        "max": 845.1332065999998,
+        "pctOfMax": [
+         13.5
+        ]
+       },
+       "playerTurns": 8
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

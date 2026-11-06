@@ -1,5 +1,5 @@
 {
- "name": "pass6-final-live",
+ "name": "pass6-live6",
  "pools": {
   "sayo1": 2.0,
   "silence": 1.0,
@@ -14,8 +14,8 @@
  },
  "idg": {
   "saint": 2.41,
-  "sayo1": 2.56,
-  "silence": 0.62,
+  "sayo1": 2.0,
+  "silence": 0.3,
   "summons": 3.5,
   "sayo2": 2.27
  },
@@ -114,7 +114,7 @@
   },
   "silence": {
    "type": "absorb",
-   "power": 10,
+   "power": 35,
    "rounds": 3
   },
   "sayo2": {
@@ -123,10 +123,15 @@
    "rounds": 2
   },
   "saint": {
-   "type": "lifesteal",
-   "power": 15,
+   "type": "shield",
+   "health": 800,
    "rounds": 3
   }
  },
- "noPoolReentry": true
+ "noPoolReentry": true,
+ "markArtRounds": 1,
+ "gcdSafeBlasts": false,
+ "sayoStunImmune": true,
+ "rampClearable": true,
+ "act1Stagger": true
 }

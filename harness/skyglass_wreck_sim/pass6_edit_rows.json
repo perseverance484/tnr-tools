@@ -66,44 +66,6 @@
    ]
   },
   {
-   "jutsu": "Glass Lancet",
-   "srcId": "sg440_glass_lancet",
-   "liveId": "0g0Iy9PKsIVC6ggG1Exz2",
-   "effectIndex": 2,
-   "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "",
-     "appearAnimation": "",
-     "disappearAnimation": "",
-     "appearSfx": "",
-     "disappearSfx": "",
-     "rounds": 9,
-     "power": 100,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "static",
-     "type": "clearprevent",
-     "description": "placeholder"
-    }
-   },
-   "holders": [
-    {
-     "srcId": "sg440_ai_sayo",
-     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
-    },
-    {
-     "srcId": "sg440_ai_sayo_stilling",
-     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
-    },
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
-  },
-  {
    "jutsu": "The Glass Remembers",
    "srcId": "sg440_the_glass_remembers",
    "liveId": "G_b5yaxm6GMOuQ3eaofKb",
@@ -663,7 +625,7 @@
      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
      "disappearSfx": "",
      "rounds": 3,
-     "power": 10,
+     "power": 35,
      "powerPerLevel": 0,
      "direction": "defence",
      "target": "SELF",
@@ -714,7 +676,7 @@
      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
      "disappearSfx": "",
      "rounds": 3,
-     "power": 10,
+     "power": 35,
      "powerPerLevel": 0,
      "direction": "defence",
      "target": "SELF",
@@ -2058,19 +2020,20 @@
    "changes": {
     "added": {
      "staticAssetPath": "",
-     "staticAnimation": "",
-     "appearAnimation": "",
+     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
+     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
      "disappearAnimation": "",
-     "appearSfx": "",
+     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
      "disappearSfx": "",
      "rounds": 3,
-     "power": 15,
+     "power": 100,
      "powerPerLevel": 0,
      "direction": "offence",
      "target": "SELF",
-     "calculation": "percentage",
-     "type": "lifesteal",
-     "description": "The Remainder: the black glass feeds on what it cuts"
+     "calculation": "static",
+     "type": "shield",
+     "description": "The Remainder: the black glass feeds on what it cuts",
+     "health": 800
     }
    },
    "holders": [
@@ -2969,22 +2932,6 @@
        "appearSfx": "",
        "disappearSfx": "",
        "rounds": 100,
-       "power": 56,
-       "powerPerLevel": 0,
-       "direction": "offence",
-       "target": "INHERIT",
-       "calculation": "percentage",
-       "type": "increasedamagegiven",
-       "description": "Increased damage given"
-      },
-      {
-       "staticAssetPath": "",
-       "staticAnimation": "",
-       "appearAnimation": "",
-       "disappearAnimation": "",
-       "appearSfx": "",
-       "disappearSfx": "",
-       "rounds": 100,
        "power": 15,
        "powerPerLevel": 0,
        "direction": "offence",
@@ -2994,6 +2941,22 @@
        "elements": [],
        "type": "decreasedamagetaken",
        "description": "Decreased damage taken"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "stunprevent",
+       "description": "Nothing stills the Mother of Echoes"
       },
       {
        "staticAssetPath": "",
@@ -3786,7 +3749,7 @@
        "appearSfx": "",
        "disappearSfx": "",
        "rounds": 100,
-       "power": 62,
+       "power": 30,
        "powerPerLevel": 0,
        "direction": "offence",
        "target": "INHERIT",
@@ -4132,7 +4095,13 @@
        }
       },
       {
-       "conditions": [],
+       "conditions": [
+        {
+         "type": "round_greater_than",
+         "value": 3,
+         "description": "Current round is higher than specified value"
+        }
+       ],
        "action": {
         "type": "use_specific_jutsu",
         "jutsuId": "moe-the-silence-turns",
@@ -4154,6 +4123,11 @@
         {
          "type": "does_not_have_summon",
          "description": "Does not have a summon active"
+        },
+        {
+         "type": "round_greater_than",
+         "value": 1,
+         "description": "Current round is higher than specified value"
         }
        ],
        "action": {
@@ -4441,6 +4415,22 @@
        "elements": [],
        "type": "decreasedamagetaken",
        "description": "Decreased damage taken"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "stunprevent",
+       "description": "Nothing stills the Mother of Echoes"
       },
       {
        "staticAssetPath": "",
@@ -5223,6 +5213,22 @@
        "elements": [],
        "type": "decreasedamagetaken",
        "description": "Decreased damage taken"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "stunprevent",
+       "description": "Nothing stills the Mother of Echoes"
       }
      ]
     ],
