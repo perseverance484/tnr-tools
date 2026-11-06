@@ -1,0 +1,6826 @@
+{
+ "builtFrom": "dd7e33ab9abfc96ae1630177ea1bc386729b2c8f",
+ "rows": [
+  {
+   "jutsu": "Glass Lancet",
+   "srcId": "sg440_glass_lancet",
+   "liveId": "0g0Iy9PKsIVC6ggG1Exz2",
+   "effectIndex": 0,
+   "changes": {
+    "power": [
+     25,
+     18
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    },
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    },
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glass Lancet",
+   "srcId": "sg440_glass_lancet",
+   "liveId": "0g0Iy9PKsIVC6ggG1Exz2",
+   "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 9,
+     "power": 7,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "percentage",
+     "type": "increasedamagegiven",
+     "description": "The glass hungers"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    },
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    },
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glass Lancet",
+   "srcId": "sg440_glass_lancet",
+   "liveId": "0g0Iy9PKsIVC6ggG1Exz2",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 9,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "static",
+     "type": "clearprevent",
+     "description": "placeholder"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    },
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    },
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "The Glass Remembers",
+   "srcId": "sg440_the_glass_remembers",
+   "liveId": "G_b5yaxm6GMOuQ3eaofKb",
+   "effectIndex": 0,
+   "changes": {
+    "power": [
+     600,
+     420
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    },
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    },
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    },
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Refraction Breaks",
+   "srcId": "sg440_refraction_blast",
+   "liveId": "qjtaZInyr1nZ5lZmSA_SS",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     300,
+     3030
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Refraction Breaks",
+   "srcId": "sg440_refraction_blast",
+   "liveId": "qjtaZInyr1nZ5lZmSA_SS",
+   "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "tg_linger",
+     "staticAnimation": "tg_linger",
+     "appearAnimation": "tg_linger",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Refraction Breaks",
+   "srcId": "sg440_refraction_blast",
+   "liveId": "qjtaZInyr1nZ5lZmSA_SS",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Far Refraction Breaks",
+   "srcId": "sg440_refraction_blast_ii",
+   "liveId": "OTcP-08or5bUKwcMjc54K",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     300,
+     3030
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Far Refraction Breaks",
+   "srcId": "sg440_refraction_blast_ii",
+   "liveId": "OTcP-08or5bUKwcMjc54K",
+   "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "tg_linger",
+     "staticAnimation": "tg_linger",
+     "appearAnimation": "tg_linger",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Far Refraction Breaks",
+   "srcId": "sg440_refraction_blast_ii",
+   "liveId": "OTcP-08or5bUKwcMjc54K",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Facet Breaks",
+   "srcId": "sg440_facet_blast",
+   "liveId": "xlmvVot9xaetibexfyc31",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     220,
+     3030
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Facet Breaks",
+   "srcId": "sg440_facet_blast",
+   "liveId": "xlmvVot9xaetibexfyc31",
+   "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "tg_linger",
+     "staticAnimation": "tg_linger",
+     "appearAnimation": "tg_linger",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Facet Breaks",
+   "srcId": "sg440_facet_blast",
+   "liveId": "xlmvVot9xaetibexfyc31",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Lucid Refraction",
+   "srcId": "sg440_lucid_refraction",
+   "liveId": "KfXRK6rC3bt4kpdtdJHDb",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     300,
+     3030
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Lucid Refraction",
+   "srcId": "sg440_lucid_refraction",
+   "liveId": "KfXRK6rC3bt4kpdtdJHDb",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "tg_linger",
+     "staticAnimation": "tg_linger",
+     "appearAnimation": "tg_linger",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Lucid Refraction",
+   "srcId": "sg440_lucid_refraction",
+   "liveId": "KfXRK6rC3bt4kpdtdJHDb",
+   "effectIndex": 4,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Your Own Strike",
+   "srcId": "sg440_likeness_strike",
+   "liveId": "nkNryj61h6qB3azifb8h4",
+   "effectIndex": 0,
+   "changes": {
+    "power": [
+     30,
+     8
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_likeness",
+     "liveId": "zyOeF-rSpeXuMU7A3QQgo"
+    }
+   ]
+  },
+  {
+   "jutsu": "The Hush, Unbridled",
+   "srcId": "sg440_hush_unbridled",
+   "liveId": "VqSpJhDUvjxLP5OtjI1mc",
+   "effectIndex": 1,
+   "changes": {
+    "power": [
+     25,
+     18
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    }
+   ]
+  },
+  {
+   "jutsu": "Nothing Moves",
+   "srcId": "sg440_stillness_blast",
+   "liveId": "scGyJW-F0Mqga4FXnj4Jf",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     40,
+     3030
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    }
+   ]
+  },
+  {
+   "jutsu": "Nothing Moves",
+   "srcId": "sg440_stillness_blast",
+   "liveId": "scGyJW-F0Mqga4FXnj4Jf",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    }
+   ]
+  },
+  {
+   "jutsu": "Nothing Moves",
+   "srcId": "sg440_stillness_blast",
+   "liveId": "scGyJW-F0Mqga4FXnj4Jf",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    }
+   ]
+  },
+  {
+   "jutsu": "Grasp",
+   "srcId": "sg440_feeler_grasp",
+   "liveId": "zHNAEQ1xmDSOzFVEqeJlS",
+   "effectIndex": 0,
+   "changes": {
+    "power": [
+     20,
+     6
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_feeler",
+     "liveId": "qFKcwTUkBtRiC-uM_8xG8"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Rime",
+   "srcId": "sg440_recast_a",
+   "liveId": "Avu4B2M_9_SE0-Oqqhplw",
+   "effectIndex": null,
+   "changes": {
+    "coordinateTargeting": [
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 1
+       },
+       {
+        "longitude": 4,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 0
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 2
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 1
+       },
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 0
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 1
+       },
+       {
+        "longitude": 8,
+        "latitude": 2
+       },
+       {
+        "longitude": 9,
+        "latitude": 0
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 10,
+        "latitude": 0
+       },
+       {
+        "longitude": 10,
+        "latitude": 1
+       },
+       {
+        "longitude": 10,
+        "latitude": 2
+       },
+       {
+        "longitude": 11,
+        "latitude": 0
+       },
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 11,
+        "latitude": 2
+       }
+      ],
+      "randomCount": 1
+     },
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 1
+       },
+       {
+        "longitude": 4,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 0
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 2
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 1
+       },
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 0
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 1
+       },
+       {
+        "longitude": 8,
+        "latitude": 2
+       },
+       {
+        "longitude": 9,
+        "latitude": 0
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 10,
+        "latitude": 0
+       },
+       {
+        "longitude": 10,
+        "latitude": 1
+       },
+       {
+        "longitude": 10,
+        "latitude": 2
+       },
+       {
+        "longitude": 11,
+        "latitude": 0
+       },
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 11,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       }
+      ],
+      "randomCount": 1
+     }
+    ],
+    "target": [
+     "GROUND",
+     "CHARACTER"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Rime",
+   "srcId": "sg440_recast_a",
+   "liveId": "Avu4B2M_9_SE0-Oqqhplw",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     360,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Rime",
+   "srcId": "sg440_recast_a",
+   "liveId": "Avu4B2M_9_SE0-Oqqhplw",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Rime",
+   "srcId": "sg440_recast_a",
+   "liveId": "Avu4B2M_9_SE0-Oqqhplw",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Ember",
+   "srcId": "sg440_recast_b",
+   "liveId": "I5lwaFCaVSH6cpxAPHvFA",
+   "effectIndex": null,
+   "changes": {
+    "coordinateTargeting": [
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 7
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 9
+       },
+       {
+        "longitude": 2,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 3,
+        "latitude": 8
+       },
+       {
+        "longitude": 3,
+        "latitude": 9
+       },
+       {
+        "longitude": 4,
+        "latitude": 7
+       },
+       {
+        "longitude": 4,
+        "latitude": 8
+       },
+       {
+        "longitude": 4,
+        "latitude": 9
+       },
+       {
+        "longitude": 5,
+        "latitude": 7
+       },
+       {
+        "longitude": 5,
+        "latitude": 8
+       },
+       {
+        "longitude": 5,
+        "latitude": 9
+       },
+       {
+        "longitude": 6,
+        "latitude": 7
+       },
+       {
+        "longitude": 6,
+        "latitude": 8
+       },
+       {
+        "longitude": 6,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 7
+       },
+       {
+        "longitude": 7,
+        "latitude": 8
+       },
+       {
+        "longitude": 7,
+        "latitude": 9
+       },
+       {
+        "longitude": 8,
+        "latitude": 7
+       },
+       {
+        "longitude": 8,
+        "latitude": 8
+       },
+       {
+        "longitude": 8,
+        "latitude": 9
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 9,
+        "latitude": 8
+       },
+       {
+        "longitude": 9,
+        "latitude": 9
+       },
+       {
+        "longitude": 10,
+        "latitude": 7
+       },
+       {
+        "longitude": 10,
+        "latitude": 8
+       },
+       {
+        "longitude": 10,
+        "latitude": 9
+       },
+       {
+        "longitude": 11,
+        "latitude": 7
+       },
+       {
+        "longitude": 11,
+        "latitude": 8
+       },
+       {
+        "longitude": 11,
+        "latitude": 9
+       }
+      ],
+      "randomCount": 1
+     },
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 7
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 9
+       },
+       {
+        "longitude": 2,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 3,
+        "latitude": 8
+       },
+       {
+        "longitude": 3,
+        "latitude": 9
+       },
+       {
+        "longitude": 4,
+        "latitude": 7
+       },
+       {
+        "longitude": 4,
+        "latitude": 8
+       },
+       {
+        "longitude": 4,
+        "latitude": 9
+       },
+       {
+        "longitude": 5,
+        "latitude": 7
+       },
+       {
+        "longitude": 5,
+        "latitude": 8
+       },
+       {
+        "longitude": 5,
+        "latitude": 9
+       },
+       {
+        "longitude": 6,
+        "latitude": 7
+       },
+       {
+        "longitude": 6,
+        "latitude": 8
+       },
+       {
+        "longitude": 6,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 7
+       },
+       {
+        "longitude": 7,
+        "latitude": 8
+       },
+       {
+        "longitude": 7,
+        "latitude": 9
+       },
+       {
+        "longitude": 8,
+        "latitude": 7
+       },
+       {
+        "longitude": 8,
+        "latitude": 8
+       },
+       {
+        "longitude": 8,
+        "latitude": 9
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 9,
+        "latitude": 8
+       },
+       {
+        "longitude": 9,
+        "latitude": 9
+       },
+       {
+        "longitude": 10,
+        "latitude": 7
+       },
+       {
+        "longitude": 10,
+        "latitude": 8
+       },
+       {
+        "longitude": 10,
+        "latitude": 9
+       },
+       {
+        "longitude": 11,
+        "latitude": 7
+       },
+       {
+        "longitude": 11,
+        "latitude": 8
+       },
+       {
+        "longitude": 11,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       }
+      ],
+      "randomCount": 1
+     }
+    ],
+    "target": [
+     "GROUND",
+     "CHARACTER"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Ember",
+   "srcId": "sg440_recast_b",
+   "liveId": "I5lwaFCaVSH6cpxAPHvFA",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     360,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Ember",
+   "srcId": "sg440_recast_b",
+   "liveId": "I5lwaFCaVSH6cpxAPHvFA",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Ember",
+   "srcId": "sg440_recast_b",
+   "liveId": "I5lwaFCaVSH6cpxAPHvFA",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Seam",
+   "srcId": "sg440_recast_c",
+   "liveId": "54nmWiFXqvFW7u0vSG5zK",
+   "effectIndex": null,
+   "changes": {
+    "coordinateTargeting": [
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 0,
+        "latitude": 5
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 0,
+        "latitude": 7
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 5
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 9
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 5
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 3,
+        "latitude": 8
+       },
+       {
+        "longitude": 3,
+        "latitude": 9
+       }
+      ],
+      "randomCount": 1
+     },
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 0,
+        "latitude": 5
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 0,
+        "latitude": 7
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 5
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 9
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 5
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 3,
+        "latitude": 8
+       },
+       {
+        "longitude": 3,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       }
+      ],
+      "randomCount": 1
+     }
+    ],
+    "target": [
+     "GROUND",
+     "CHARACTER"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Seam",
+   "srcId": "sg440_recast_c",
+   "liveId": "54nmWiFXqvFW7u0vSG5zK",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     360,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Seam",
+   "srcId": "sg440_recast_c",
+   "liveId": "54nmWiFXqvFW7u0vSG5zK",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Seam",
+   "srcId": "sg440_recast_c",
+   "liveId": "54nmWiFXqvFW7u0vSG5zK",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Heart",
+   "srcId": "sg440_recast_d",
+   "liveId": "-MtfLHClmIwSSGBIw9O7X",
+   "effectIndex": null,
+   "changes": {
+    "coordinateTargeting": [
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       }
+      ],
+      "randomCount": 1
+     },
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 4
+       },
+       {
+        "longitude": 10,
+        "latitude": 5
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 11,
+        "latitude": 3
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 5
+       },
+       {
+        "longitude": 11,
+        "latitude": 6
+       }
+      ],
+      "randomCount": 1
+     }
+    ],
+    "target": [
+     "GROUND",
+     "CHARACTER"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Heart",
+   "srcId": "sg440_recast_d",
+   "liveId": "-MtfLHClmIwSSGBIw9O7X",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     360,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Heart",
+   "srcId": "sg440_recast_d",
+   "liveId": "-MtfLHClmIwSSGBIw9O7X",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Heart",
+   "srcId": "sg440_recast_d",
+   "liveId": "-MtfLHClmIwSSGBIw9O7X",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Hail",
+   "srcId": "sg440_recast_e",
+   "liveId": "lmlhn5p68Oszhj16wKbvx",
+   "effectIndex": null,
+   "changes": {
+    "coordinateTargeting": [
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 9
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 7
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 7
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 9
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 10,
+        "latitude": 0
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 9
+       },
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 7
+       }
+      ],
+      "randomCount": 1
+     },
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 9
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 7
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 7
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 9
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 10,
+        "latitude": 0
+       },
+       {
+        "longitude": 10,
+        "latitude": 3
+       },
+       {
+        "longitude": 10,
+        "latitude": 6
+       },
+       {
+        "longitude": 10,
+        "latitude": 9
+       },
+       {
+        "longitude": 11,
+        "latitude": 1
+       },
+       {
+        "longitude": 11,
+        "latitude": 4
+       },
+       {
+        "longitude": 11,
+        "latitude": 7
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       }
+      ],
+      "randomCount": 1
+     }
+    ],
+    "target": [
+     "GROUND",
+     "CHARACTER"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Hail",
+   "srcId": "sg440_recast_e",
+   "liveId": "lmlhn5p68Oszhj16wKbvx",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     360,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Hail",
+   "srcId": "sg440_recast_e",
+   "liveId": "lmlhn5p68Oszhj16wKbvx",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Recast: Hail",
+   "srcId": "sg440_recast_e",
+   "liveId": "lmlhn5p68Oszhj16wKbvx",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The glass remembers you"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo_stilling",
+     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
+    }
+   ]
+  },
+  {
+   "jutsu": "Doorward Sweep",
+   "srcId": "sg440_worn_cleave",
+   "liveId": "x4aJMqXJ3kvyr0bKUZaZj",
+   "effectIndex": 0,
+   "changes": {
+    "power": [
+     40,
+     11
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_worn_porter",
+     "liveId": "wivZbMygCZo6c9pRKWvCI"
+    }
+   ]
+  },
+  {
+   "jutsu": "Cadet's Tether",
+   "srcId": "sg440_worn_tether",
+   "liveId": "rC9J4ZrjMfftPa4UmlBoV",
+   "effectIndex": 0,
+   "changes": {
+    "power": [
+     60,
+     17
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_worn_tomo",
+     "liveId": "KhFglnxE7ouIDywet3BPB"
+    }
+   ]
+  },
+  {
+   "jutsu": "The Quiet",
+   "srcId": "sg440_the_quiet",
+   "liveId": "w6eHg1zFOrP1AhlwtyfZV",
+   "effectIndex": 0,
+   "changes": {
+    "power": [
+     30,
+     2
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Shatterfall Gives Way",
+   "srcId": "sg440_shatterfall_blast",
+   "liveId": "cxqu1ljkSisTgPBLgYtJa",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     300,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Shatterfall Gives Way",
+   "srcId": "sg440_shatterfall_blast",
+   "liveId": "cxqu1ljkSisTgPBLgYtJa",
+   "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "tg_linger",
+     "staticAnimation": "tg_linger",
+     "appearAnimation": "tg_linger",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Shatterfall Gives Way",
+   "srcId": "sg440_shatterfall_blast",
+   "liveId": "cxqu1ljkSisTgPBLgYtJa",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "The Names Flood In",
+   "srcId": "sg440_every_name_blast",
+   "liveId": "4_dlB0conB-C6sfYqiU6Q",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     420,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "The Names Flood In",
+   "srcId": "sg440_every_name_blast",
+   "liveId": "4_dlB0conB-C6sfYqiU6Q",
+   "effectIndex": 1,
+   "changes": {
+    "added": {
+     "staticAssetPath": "tg_linger",
+     "staticAnimation": "tg_linger",
+     "appearAnimation": "tg_linger",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "The Names Flood In",
+   "srcId": "sg440_every_name_blast",
+   "liveId": "4_dlB0conB-C6sfYqiU6Q",
+   "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: First Pane",
+   "srcId": "sg440_glassfall_a",
+   "liveId": "kzxTPUJ8TYJFTggSKw3zr",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     260,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: First Pane",
+   "srcId": "sg440_glassfall_a",
+   "liveId": "kzxTPUJ8TYJFTggSKw3zr",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "tg_linger",
+     "staticAnimation": "tg_linger",
+     "appearAnimation": "tg_linger",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: First Pane",
+   "srcId": "sg440_glassfall_a",
+   "liveId": "kzxTPUJ8TYJFTggSKw3zr",
+   "effectIndex": 4,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Second Pane",
+   "srcId": "sg440_glassfall_b",
+   "liveId": "6IMcG7R_uhfROlANlYmDB",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     260,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Second Pane",
+   "srcId": "sg440_glassfall_b",
+   "liveId": "6IMcG7R_uhfROlANlYmDB",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "tg_linger",
+     "staticAnimation": "tg_linger",
+     "appearAnimation": "tg_linger",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Second Pane",
+   "srcId": "sg440_glassfall_b",
+   "liveId": "6IMcG7R_uhfROlANlYmDB",
+   "effectIndex": 4,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Last Pane",
+   "srcId": "sg440_glassfall_c",
+   "liveId": "H0MMi_Stpzk8zm4HqDEbF",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     260,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Last Pane",
+   "srcId": "sg440_glassfall_c",
+   "liveId": "H0MMi_Stpzk8zm4HqDEbF",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "tg_linger",
+     "staticAnimation": "tg_linger",
+     "appearAnimation": "tg_linger",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Last Pane",
+   "srcId": "sg440_glassfall_c",
+   "liveId": "H0MMi_Stpzk8zm4HqDEbF",
+   "effectIndex": 4,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Opening Pane",
+   "srcId": "sg440_glassfall_b_first",
+   "liveId": "pp40FDDTbGMdwrDFTNyiF",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     260,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Opening Pane",
+   "srcId": "sg440_glassfall_b_first",
+   "liveId": "pp40FDDTbGMdwrDFTNyiF",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "tg_linger",
+     "staticAnimation": "tg_linger",
+     "appearAnimation": "tg_linger",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Opening Pane",
+   "srcId": "sg440_glassfall_b_first",
+   "liveId": "pp40FDDTbGMdwrDFTNyiF",
+   "effectIndex": 4,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Heart Recast",
+   "srcId": "sg440_glassfall_recast",
+   "liveId": "3ytuMbHhF4bcE2zrePnlR",
+   "effectIndex": 0,
+   "changes": {
+    "calculation": [
+     "formula",
+     "static"
+    ],
+    "description": [
+     "Deals damage to target",
+     "Pierces target"
+    ],
+    "generalTypes": [
+     null,
+     [
+      "Highest"
+     ]
+    ],
+    "power": [
+     380,
+     6500
+    ],
+    "residualModifier": [
+     1,
+     0
+    ],
+    "type": [
+     "damage",
+     "pierce"
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Heart Recast",
+   "srcId": "sg440_glassfall_recast",
+   "liveId": "3ytuMbHhF4bcE2zrePnlR",
+   "effectIndex": 3,
+   "changes": {
+    "added": {
+     "staticAssetPath": "tg_linger",
+     "staticAnimation": "tg_linger",
+     "appearAnimation": "tg_linger",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "decreaseheal",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  },
+  {
+   "jutsu": "Glassfall: Heart Recast",
+   "srcId": "sg440_glassfall_recast",
+   "liveId": "3ytuMbHhF4bcE2zrePnlR",
+   "effectIndex": 4,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 3,
+     "power": 20,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "The broken glass"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_saint",
+     "liveId": "k0hgSrghl_KcYs9ATVDJT"
+    }
+   ]
+  }
+ ],
+ "newJutsu": [
+  {
+   "jutsu": "The Silence Turns",
+   "srcId": "sg440_the_silence_turns"
+  },
+  {
+   "jutsu": "The Glass Turns",
+   "srcId": "sg440_the_glass_turns"
+  }
+ ],
+ "aiRows": [
+  {
+   "ai": "Sayo, Mother of Echoes",
+   "srcId": "sg440_ai_sayo",
+   "liveId": "fJLcH1mpB1XHHGtNWwvzD",
+   "changes": {
+    "effects": [
+     [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 50,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 15,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "friendlyFire": "ALL",
+       "calculation": "percentage",
+       "elements": [],
+       "type": "decreasedamagetaken",
+       "description": "Decreased damage taken"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "onehitkillprevent",
+       "description": "placeholder"
+      }
+     ],
+     [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 45,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 15,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "friendlyFire": "ALL",
+       "calculation": "percentage",
+       "elements": [],
+       "type": "decreasedamagetaken",
+       "description": "Decreased damage taken"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "onehitkillprevent",
+       "description": "placeholder"
+      }
+     ]
+    ],
+    "rules": [
+     [
+      {
+       "conditions": [
+        {
+         "type": "round_greater_than",
+         "value": 30,
+         "description": "Current round is higher than specified value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-glass-remembers",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "onehitkillprevent",
+         "threshold": 1,
+         "target": "LOWEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-lucid",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "robprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-facet-blast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "onehitkillprevent",
+         "threshold": 1,
+         "target": "LOWEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-lucid-refraction",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-refraction-blast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-refraction-blast-ii",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 40,
+         "description": "Health below given percentage"
+        },
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-your-likeness",
+        "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "robprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "robprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 60,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-facet",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-refraction",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-refraction-ii",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_higher_than",
+         "value": 6,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance higher than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "move_towards_opponent",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Keep 5 hexes"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 1,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "basicAttack",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      }
+     ],
+     [
+      {
+       "conditions": [
+        {
+         "type": "round_greater_than",
+         "value": 60,
+         "description": "Current round is higher than specified value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-glass-remembers",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "onehitkillprevent",
+         "threshold": 1,
+         "target": "LOWEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-lucid",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "robprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-facet-blast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "onehitkillprevent",
+         "threshold": 1,
+         "target": "LOWEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-lucid-refraction",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-refraction-blast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-refraction-blast-ii",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 40,
+         "description": "Health below given percentage"
+        },
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-your-likeness",
+        "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "robprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "robprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 60,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-facet",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-refraction",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-refraction-ii",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_higher_than",
+         "value": 6,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance higher than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "move_towards_opponent",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Keep 5 hexes"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 1,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "basicAttack",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "ai": "The Silence",
+   "srcId": "sg440_ai_silence",
+   "liveId": "IhNR-W1FElTsrWw1KfuQ9",
+   "changes": {
+    "effects": [
+     [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 50,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 25,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "friendlyFire": "ALL",
+       "calculation": "percentage",
+       "elements": [],
+       "type": "decreasedamagetaken",
+       "description": "Decreased damage taken"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "sealprevent",
+       "description": "placeholder"
+      }
+     ],
+     [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 50,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 25,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "friendlyFire": "ALL",
+       "calculation": "percentage",
+       "elements": [],
+       "type": "decreasedamagetaken",
+       "description": "Decreased damage taken"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "sealprevent",
+       "description": "placeholder"
+      }
+     ]
+    ],
+    "jutsus": [
+     [
+      "moe-the-glass-remembers",
+      "moe-hush",
+      "moe-hush-unbridled",
+      "moe-listening",
+      "moe-listening-unbridled",
+      "moe-stillness",
+      "moe-stillness-blast"
+     ],
+     [
+      "moe-the-glass-remembers",
+      "moe-hush",
+      "moe-hush-unbridled",
+      "moe-listening",
+      "moe-listening-unbridled",
+      "moe-stillness",
+      "moe-stillness-blast",
+      "moe-the-silence-turns"
+     ]
+    ],
+    "rules": [
+     [
+      {
+       "conditions": [
+        {
+         "type": "round_greater_than",
+         "value": 30,
+         "description": "Current round is higher than specified value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-glass-remembers",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "robprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-stillness-blast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "sealprevent",
+         "threshold": 1,
+         "target": "HIGHEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        },
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-listening-unbridled",
+        "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "sealprevent",
+         "threshold": 1,
+         "target": "HIGHEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-hush-unbridled",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "sealprevent",
+         "threshold": 1,
+         "target": "HIGHEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        },
+        {
+         "type": "distance_lower_than",
+         "value": 3,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-stillness",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "sealprevent",
+         "threshold": 1,
+         "target": "HIGHEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-hush",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-listening",
+        "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 3,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-stillness",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 1,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "basicAttack",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      }
+     ],
+     [
+      {
+       "conditions": [
+        {
+         "type": "round_greater_than",
+         "value": 60,
+         "description": "Current round is higher than specified value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-glass-remembers",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "robprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-stillness-blast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "sealprevent",
+         "threshold": 1,
+         "target": "HIGHEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        },
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-listening-unbridled",
+        "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "sealprevent",
+         "threshold": 1,
+         "target": "HIGHEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-hush-unbridled",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "sealprevent",
+         "threshold": 1,
+         "target": "HIGHEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        },
+        {
+         "type": "distance_lower_than",
+         "value": 3,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-stillness",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "target_has_effect",
+         "effectType": "sealprevent",
+         "threshold": 1,
+         "target": "HIGHEST_MAX_HEALTH_ALLY",
+         "description": "Target has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-silence-turns",
+        "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-hush",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-listening",
+        "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 3,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-stillness",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 1,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "basicAttack",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "ai": "Sayo, Glasswright of the Stilling",
+   "srcId": "sg440_ai_sayo_stilling",
+   "liveId": "H3pNj2qUWpMpVRINiH6Vn",
+   "changes": {
+    "effects": [
+     [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 75,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 79,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "friendlyFire": "ALL",
+       "calculation": "percentage",
+       "elements": [],
+       "type": "decreasedamagetaken",
+       "description": "Decreased damage taken"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "stunprevent",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "onehitkillprevent",
+       "description": "placeholder"
+      }
+     ],
+     [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 18,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 55,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "friendlyFire": "ALL",
+       "calculation": "percentage",
+       "elements": [],
+       "type": "decreasedamagetaken",
+       "description": "Decreased damage taken"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "stunprevent",
+       "description": "placeholder"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "calculation": "static",
+       "type": "onehitkillprevent",
+       "description": "placeholder"
+      }
+     ]
+    ],
+    "jutsus": [
+     [
+      "moe-glass-lancet",
+      "moe-the-glass-remembers",
+      "moe-etching-a",
+      "moe-etching-b",
+      "moe-etching-c",
+      "moe-etching-d",
+      "moe-etching-e",
+      "moe-recast-a",
+      "moe-recast-b",
+      "moe-recast-c",
+      "moe-recast-d",
+      "moe-recast-e",
+      "moe-hush-rises",
+      "moe-the-glass-falls-quiet",
+      "moe-raise-gate-porter",
+      "moe-raise-sister-hana",
+      "moe-raise-cadet-tomo"
+     ],
+     [
+      "moe-glass-lancet",
+      "moe-the-glass-remembers",
+      "moe-etching-a",
+      "moe-etching-b",
+      "moe-etching-c",
+      "moe-etching-d",
+      "moe-etching-e",
+      "moe-recast-a",
+      "moe-recast-b",
+      "moe-recast-c",
+      "moe-recast-d",
+      "moe-recast-e",
+      "moe-hush-rises",
+      "moe-the-glass-falls-quiet",
+      "moe-raise-gate-porter",
+      "moe-raise-sister-hana",
+      "moe-raise-cadet-tomo",
+      "moe-the-glass-turns"
+     ]
+    ],
+    "rules": [
+     [
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 4,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-glass-remembers",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 3,
+         "description": "Has effect"
+        },
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-raise-cadet-tomo",
+        "target": "EMPTY_GROUND_CLOSEST_TO_SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 2,
+         "description": "Has effect"
+        },
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-raise-sister-hana",
+        "target": "EMPTY_GROUND_CLOSEST_TO_SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-raise-gate-porter",
+        "target": "EMPTY_GROUND_CLOSEST_TO_SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 3,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_combo_action",
+        "comboIds": [
+         "moe-etching-e",
+         "moe-hush-rises",
+         "moe-etching-b",
+         "moe-hush-rises",
+         "moe-etching-d",
+         "moe-hush-rises",
+         "moe-etching-b",
+         "moe-hush-rises",
+         "moe-etching-c",
+         "moe-hush-rises",
+         "moe-recast-e",
+         "moe-recast-b",
+         "moe-recast-d",
+         "moe-recast-b",
+         "moe-recast-c",
+         "moe-the-glass-falls-quiet"
+        ],
+        "target": "SELF",
+        "description": "Use combo"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 2,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_combo_action",
+        "comboIds": [
+         "moe-etching-c",
+         "moe-hush-rises",
+         "moe-etching-a",
+         "moe-hush-rises",
+         "moe-etching-e",
+         "moe-hush-rises",
+         "moe-etching-a",
+         "moe-hush-rises",
+         "moe-etching-b",
+         "moe-hush-rises",
+         "moe-recast-c",
+         "moe-recast-a",
+         "moe-recast-e",
+         "moe-recast-a",
+         "moe-recast-b",
+         "moe-the-glass-falls-quiet"
+        ],
+        "target": "SELF",
+        "description": "Use combo"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_combo_action",
+        "comboIds": [
+         "moe-etching-d",
+         "moe-hush-rises",
+         "moe-etching-a",
+         "moe-hush-rises",
+         "moe-etching-c",
+         "moe-hush-rises",
+         "moe-etching-b",
+         "moe-hush-rises",
+         "moe-recast-d",
+         "moe-recast-a",
+         "moe-recast-c",
+         "moe-recast-b",
+         "moe-the-glass-falls-quiet"
+        ],
+        "target": "SELF",
+        "description": "Use combo"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_combo_action",
+        "comboIds": [
+         "moe-etching-a",
+         "moe-hush-rises",
+         "moe-etching-b",
+         "moe-hush-rises",
+         "moe-etching-c",
+         "moe-hush-rises",
+         "moe-recast-a",
+         "moe-recast-b",
+         "moe-recast-c",
+         "moe-the-glass-falls-quiet"
+        ],
+        "target": "SELF",
+        "description": "Use combo"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      }
+     ],
+     [
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 4,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-glass-remembers",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 3,
+         "description": "Has effect"
+        },
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-raise-cadet-tomo",
+        "target": "EMPTY_GROUND_CLOSEST_TO_SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 2,
+         "description": "Has effect"
+        },
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-raise-sister-hana",
+        "target": "EMPTY_GROUND_CLOSEST_TO_SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-raise-gate-porter",
+        "target": "EMPTY_GROUND_CLOSEST_TO_SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-glass-turns",
+        "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 3,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_combo_action",
+        "comboIds": [
+         "moe-etching-e",
+         "moe-hush-rises",
+         "moe-etching-b",
+         "moe-hush-rises",
+         "moe-etching-d",
+         "moe-hush-rises",
+         "moe-etching-b",
+         "moe-hush-rises",
+         "moe-etching-c",
+         "moe-hush-rises",
+         "moe-recast-e",
+         "moe-recast-b",
+         "moe-recast-d",
+         "moe-recast-b",
+         "moe-recast-c",
+         "moe-the-glass-falls-quiet"
+        ],
+        "target": "SELF",
+        "description": "Use combo"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 2,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_combo_action",
+        "comboIds": [
+         "moe-etching-c",
+         "moe-hush-rises",
+         "moe-etching-a",
+         "moe-hush-rises",
+         "moe-etching-e",
+         "moe-hush-rises",
+         "moe-etching-a",
+         "moe-hush-rises",
+         "moe-etching-b",
+         "moe-hush-rises",
+         "moe-recast-c",
+         "moe-recast-a",
+         "moe-recast-e",
+         "moe-recast-a",
+         "moe-recast-b",
+         "moe-the-glass-falls-quiet"
+        ],
+        "target": "SELF",
+        "description": "Use combo"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_combo_action",
+        "comboIds": [
+         "moe-etching-d",
+         "moe-hush-rises",
+         "moe-etching-a",
+         "moe-hush-rises",
+         "moe-etching-c",
+         "moe-hush-rises",
+         "moe-etching-b",
+         "moe-hush-rises",
+         "moe-recast-d",
+         "moe-recast-a",
+         "moe-recast-c",
+         "moe-recast-b",
+         "moe-the-glass-falls-quiet"
+        ],
+        "target": "SELF",
+        "description": "Use combo"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_combo_action",
+        "comboIds": [
+         "moe-etching-a",
+         "moe-hush-rises",
+         "moe-etching-b",
+         "moe-hush-rises",
+         "moe-etching-c",
+         "moe-hush-rises",
+         "moe-recast-a",
+         "moe-recast-b",
+         "moe-recast-c",
+         "moe-the-glass-falls-quiet"
+        ],
+        "target": "SELF",
+        "description": "Use combo"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "ai": "Sayo, Saint of Stillness",
+   "srcId": "sg440_ai_saint",
+   "liveId": "k0hgSrghl_KcYs9ATVDJT",
+   "changes": {
+    "effects": [
+     [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 52,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "friendlyFire": "ALL",
+       "calculation": "percentage",
+       "elements": [],
+       "type": "decreasedamagetaken",
+       "description": "Decreased damage taken"
+      }
+     ],
+     [
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 100,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 31,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "INHERIT",
+       "calculation": "percentage",
+       "type": "increasedamagegiven",
+       "description": "Increased damage given"
+      },
+      {
+       "staticAssetPath": "",
+       "staticAnimation": "",
+       "appearAnimation": "",
+       "disappearAnimation": "",
+       "appearSfx": "",
+       "disappearSfx": "",
+       "rounds": 100,
+       "power": 40,
+       "powerPerLevel": 0,
+       "direction": "offence",
+       "target": "SELF",
+       "friendlyFire": "ALL",
+       "calculation": "percentage",
+       "elements": [],
+       "type": "decreasedamagetaken",
+       "description": "Decreased damage taken"
+      }
+     ]
+    ],
+    "rules": [
+     [
+      {
+       "conditions": [
+        {
+         "type": "round_greater_than",
+         "value": 30,
+         "description": "Current round is higher than specified value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-glass-remembers",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 25,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-long-hush",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "elementalseal",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glassfall-recast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "decreasecooldown",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "onehitkillprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glassfall-b-first",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "robprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glassfall-a",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "onehitkillprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glassfall-b",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "disarm",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glassfall-c",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 25,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-shatterfall-blast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-every-name-blast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "summonprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-breathless-pull",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-every-name-in-the-glass",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 60,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-no-one-is-mended",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 60,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-breathless-pull-mark",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 60,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-hush-on-the-refused",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-quiet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-shatterfall",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "move_towards_opponent",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Close in"
+       }
+      }
+     ],
+     [
+      {
+       "conditions": [
+        {
+         "type": "round_greater_than",
+         "value": 80,
+         "description": "Current round is higher than specified value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-glass-remembers",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 25,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-long-hush",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "elementalseal",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glassfall-recast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "decreasecooldown",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "onehitkillprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glassfall-b-first",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "robprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glassfall-a",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "onehitkillprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glassfall-b",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "disarm",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glassfall-c",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 25,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-shatterfall-blast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-every-name-blast",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "summonprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-breathless-pull",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-every-name-in-the-glass",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 60,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-no-one-is-mended",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 60,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-breathless-pull-mark",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 60,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-hush-on-the-refused",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-the-quiet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-shatterfall",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-glass-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increaserange",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "move_towards_opponent",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Close in"
+       }
+      }
+     ]
+    ]
+   }
+  }
+ ],
+ "newAi": [],
+ "missingIds": []
+}
