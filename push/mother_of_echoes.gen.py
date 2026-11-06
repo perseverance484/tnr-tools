@@ -173,6 +173,30 @@ FX3 = {
 # Drawn for the per-boss act buffs the sim designs (director 2026-11-05: a real thematic positive-power buff per boss,
 # not a 1-power carrier). Created and unhidden with the set; wired when the buff tags land (coordinated via main).
 FX3_UNWIRED = {k for k in FX3 if k.startswith(("aura_", "flourish_"))}
+# Boss entrances (art4; director after the live test, 2026-11-05: "Boss intro animation was a bit underwhelming but the
+# aura was cool"): art/mother_of_echoes_fx/build_fx_a4.py. One 30-frame signature entrance per form on the full clip
+# square, and a two-band ring of ground pieces round her hex timed to its reveal. They replace the art3 flourishes.
+# Wiring is by slot name, so the spec decides the carrier: an effect whose appearAnimation is "moe_entrance" gets her
+# form's entrance (and a staticAnimation "moe_aura" her approved art3 aura), and the cast gains the ring as zero-impact
+# visual tags at CASTER offsets. Today no boss jutsu carries "moe_entrance" (the art3 flourishes and auras were created
+# and unhidden by push/489 and 496 but never wired): the carrier is the sim's once-per-act buff (ENTRANCE_NOTE).
+FX4_META = "art/mother_of_echoes_fx/exports/moe_fx_a4.json"
+FORMS = (("sayo1", "Sayo"), ("silence", "The Silence"), ("sayo2", "The Glasswright"), ("saint", "The Saint"))
+FX4 = {
+    **{f"entrance_{k}": (f"anim_moe_entrance_{k}_a4.webp", f"Mother of Echoes FX - {n} enters") for k, n in FORMS},
+    **{f"entrance_ring_{k}_w{b}": (f"anim_moe_entrance_ring_{k}_w{b}_a4.webp",
+                                    f"Mother of Echoes FX - {n} enters, ring {b + 1}") for k, n in FORMS for b in (0, 1)},
+}
+FORM = {"Sayo, Mother of Echoes": "sayo1", "The Silence": "silence", "Sayo, Glasswright of the Stilling": "sayo2",
+        "Sayo, Saint of Stillness": "saint"}
+# CASTER offsets are added to the caster's column and row as written (targeting.ts:63-70), so a ring cannot follow the
+# odd-q stagger: band 0 is the 3 x 3 box round her (her 6 neighbours plus 2 hexes at distance 2, above or below by her
+# column's parity), band 1 the next ring out at the same columns and two columns over.
+ENTRANCE_RING = ([{"longitude": dq, "latitude": dr} for dq in (-1, 0, 1) for dr in (-1, 0, 1) if (dq, dr) != (0, 0)],
+                 [{"longitude": dq, "latitude": dr} for dq, dr in ((0, -2), (0, 2), (-2, 0), (2, 0), (-2, -1), (2, -1),
+                                                                   (-2, 1), (2, 1))])
+ENTRANCE_NOTE = ("the entrance plays when its carrier is cast, every time: it needs a once-per-act cast (a first rule "
+                 "gated on the buff's own absence), which is the sim's act buff (director 2026-11-05)")
 # Dialog portraits (director 2026-11-05): SCENE_CHARACTER 2:3 crops of the approved avatars, Sayo only. Act I Sayo in
 # the three opening scenes (not the Silence), her act forms for the interludes. key -> (file, name, dialog nodes).
 SCENE_CHARS = {
@@ -451,6 +475,12 @@ class Build:
                 die(f"{label}: art name {v!r} in {f} has no mapping in the art pass")
         return e
 
+    def form_of(self, label):
+        forms = {FORM.get(u, "?") for u in self.holders.get(label, ())}
+        if len(forms) != 1 or "?" in forms:
+            die(f"{label}: held by {sorted(self.holders.get(label, ()))}; an entrance needs one boss form (FORM)")
+        return forms.pop()
+
     def act_of(self, label):
         """The act material a jutsu fights in: every AI holding it must share one act (BOSS_ACT)."""
         acts = {BOSS_ACT.get(u, "?") for u in self.holders.get(label, ())}
@@ -474,6 +504,10 @@ class Build:
                 e[f] = self.fx2[k] if k else ""
             elif v in MOSAIC:
                 e[f] = ""
+            elif v == "moe_entrance":
+                e[f] = self.fx2[f"entrance_{self.form_of(label)}"]
+            elif v == "moe_aura":
+                e[f] = self.fx2[f"aura_{self.form_of(label)}"]
             elif v in SLOT3:
                 e[f] = self.fx2[SLOT3[v]]
             elif v in SLOT_FX:
@@ -534,6 +568,12 @@ class Build:
         d["effects"] = [self.art(name, e) for e in rec["effects"]]
         if self.fx2 is not None:
             d["effects"] += self.mosaic(name, rec)
+            if any(e.get("appearAnimation") == "moe_entrance" for e in rec["effects"]):
+                form = self.form_of(name)
+                d["effects"] += [{**VISUAL, "appearAnimation": self.fx2[f"entrance_ring_{form}_w{b}"],
+                                  "coordinateTargeting": {"origin": "CASTER", "selection": "ALL", "coordinates": cs},
+                                  "description": f"{name}: entrance ring {b + 1} (art only)"}
+                                 for b, cs in enumerate(ENTRANCE_RING)]
         if self.fx is not None and any(e.get("staticAnimation") == "moe_lull" for e in rec["effects"]):
             src = [e["type"] for e in rec["effects"] if e.get("staticAnimation") == "moe_lull"]
             dst = [i for i, e in enumerate(d["effects"]) if e["type"] == LULL_MOVE[1]]
@@ -977,9 +1017,10 @@ def move_off_negative(d):
     return moves
 
 
-def fx2_rows():
-    """The push/478 asset rows: FX2 (moe_fx_v1.json), FX3 (moe_fx_a3.json), then the scene characters."""
-    if set(FX2) & set(FX3) or (set(FX2) | set(FX3)) & set(SCENE_CHARS):
+def fx2_rows(only4=False):
+    """The push/478 asset rows: FX2 (moe_fx_v1.json), FX3 (moe_fx_a3.json), then the scene characters. only4: the
+    art4 entrance rows alone (FX4, moe_fx_a4.json), for the final tuning job."""
+    if set(FX2) & set(FX3) or set(FX4) & (set(FX2) | set(FX3)) or (set(FX2) | set(FX3) | set(FX4)) & set(SCENE_CHARS):
         die("FX2 / FX3 / SCENE_CHARS keys overlap")
     meta = fx_meta()
     a3 = json.load(open(os.path.join(ROOT, FX3_META)))
@@ -989,8 +1030,12 @@ def fx2_rows():
     sc3 = {os.path.basename(a["file"]) for a in a3["scene_characters"]}
     if {f for f, _, _ in SCENE_CHARS.values()} != sc3:
         die(f"SCENE_CHARS vs {FX3_META}: {sorted({f for f, _, _ in SCENE_CHARS.values()} ^ sc3)}")
+    meta4 = {os.path.basename(a["file"]): a for a in json.load(open(os.path.join(ROOT, FX4_META)))["assets"]}
+    if {f for f, _ in FX4.values()} != set(meta4):
+        die(f"FX4 table vs {FX4_META}: {sorted({f for f, _ in FX4.values()} ^ set(meta4))}")
     rows = []
-    for table, m, d in ((FX2, meta, FXDIR), (FX3, meta3, FXDIR)):
+    tables = ((FX4, meta4, FXDIR),) if only4 else ((FX2, meta, FXDIR), (FX3, meta3, FXDIR))
+    for table, m, d in tables:
         for k, (f, name) in table.items():
             a = m[f]
             typ = a["type"]
@@ -998,9 +1043,48 @@ def fx2_rows():
             if typ not in ("STATIC", "ANIMATION") or (typ == "ANIMATION" and speed != 50):
                 die(f"{f}: unexpected {typ} speed {speed}")
             rows.append((k, f, name, typ, frames, speed, d + f))
+    if only4:
+        return rows
     for k, (f, name, _) in SCENE_CHARS.items():
         rows.append((k, f, name, "SCENE_CHARACTER", 1, 1, ART + f))
     return rows
+
+
+AID4 = "sg498_"
+
+
+def custom_fx_refs(art2_bundle, art4_bundle=None):
+    """The custom set as the final tuning job needs it: FX2, FX3 and the portraits by literal id from the push/478 run
+    (it ran inside the push/489 master: harvests/inbox/tnr_results_1793931586141.json), FX4 by literal id from an art4
+    bundle, or by in-job @scene ref when the same job creates them (fx4_create_items, phase before the jutsu)."""
+    got = created([art2_bundle], AID2)
+    keys2 = [k for k, *_ in fx2_rows()]
+    need(got, [AID2 + k for k in keys2 if k not in FX2], "--art2-from (push/478 results)")
+    refs = {k: got[AID2 + k] for k in keys2 if AID2 + k in got}
+    if art4_bundle:
+        g4 = created([art4_bundle], AID4)
+        need(g4, [AID4 + k for k in FX4], "--art4-from")
+        refs.update({k: g4[AID4 + k] for k in FX4})
+    else:
+        refs.update({k: "@scene:" + AID4 + k for k in FX4})
+    return refs
+
+
+def fx4_create_items():
+    """The art4 entrance assets, created HIDDEN (law 16b); a later job unhides them (law 16c, art4_unhide_items)."""
+    items, paths = [], []
+    for k, f, name, typ, frames, speed, path in fx2_rows(only4=True):
+        items.append({"entity": "asset", "slot": "create", "srcId": AID4 + k, "name": name,
+                      "data": {**asset_row(name, typ, frames, speed, True), "image": "@img:" + f}})
+        paths.append(path)
+    return items, paths
+
+
+def art4_unhide_items(art4_bundle):
+    g4 = created([art4_bundle], AID4)
+    need(g4, [AID4 + k for k in FX4], "art4 unhide")
+    return [{"entity": "asset", "slot": "edit", "targetId": g4[AID4 + k], "name": f"{name}: unhide",
+             "data": asset_row(name, typ, frames, speed, False)} for k, f, name, typ, frames, speed, _ in fx2_rows(True)]
 
 
 def sfx_for(name):

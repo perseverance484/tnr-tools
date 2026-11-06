@@ -185,6 +185,51 @@ What the player sees for the new carriers (COMBAT_ANIMATION_ENGINE.md section 1.
 | sound carrier (`visual` at the caster, no art) | sound only | the cast | 1 sound per cast |
 | heavy marks per act | as the tg_heavy row above | | |
 
+### Art4: boss entrances, slice mosaics, frequent-move set pieces (director after the live test, 2026-11-05)
+
+**Entrances** ("Boss intro animation was a bit underwhelming but the aura was cool"). `build_fx_a4.py` draws one
+30-frame signature entrance per form on the full clip square (anticipation, a 2-frame reveal hold, settle), with the
+portrait disc kept clear except for a one-frame rim flash, plus a two-band ring of ground pieces round her hex timed
+to land on the reveal: Act I Sayo, Heartglass light spirals in, the fan of framed Heartglass blades opens behind her
+with a prismatic burst, a palisade of panes springs up round her; the Silence, the ink spreads and a hooded shadow far
+larger than her stands up off the floor with teal veins and bone wisps, shadow tendrils stand up round her, then
+smoke; Act II, the gold etch ring is traced and ignites, spokes flare, the Remainder's black cracks creep over it, the
+lattice ignites and cracks on the hexes round her; Act III, black glass gathers in and bursts out as thorns with lit
+teal veins and bone tendrils, black thorns burst up round her. The approved art3 auras are unchanged.
+
+Finding: no boss jutsu carries a flourish or an aura today. push/478 created them and push/489/496 unhid them, but no
+spec effect names them (they were held for the sim's act buffs), so what the tester saw at the start of each act is
+the first move's own art. Every boss's first cast also repeats (Sayo I opens with Refraction, the Silence with The
+Silence Turns, the Glasswright with her combo, the Saint with Shatterfall or The Quiet), so an entrance on any of them
+would replay all act long. The carrier has to be a once-per-act cast: a first rule gated on the absence of the buff it
+applies, which is the sim's act buff. The generator wires by slot name: an effect with appearAnimation `moe_entrance`
+gets her form's entrance, staticAnimation `moe_aura` her art3 aura, and the cast gains the ring as zero-impact visual
+tags at CASTER offsets. CASTER offsets are added to her column and row as written (`targeting.ts:63-70`), so the ring
+cannot follow the odd-q stagger: band 0 is the 3 x 3 box round her (her 6 neighbours plus 2 hexes at distance 2, above
+or below by her column's parity). The 12 assets are created HIDDEN by the final tuning job (`fx4_create_items`,
+srcIds `sg498_*`) and unhidden by a follow-up (`art4_unhide_items`); `custom_fx_refs` gives that job the live custom
+set by literal id from the push/489 run.
+
+**Slice mosaics** ("you can also have them each play a different frame of a larger animation to make one big
+effect"). `build_fx_mosaic.py` draws one composition on a canvas at the clip's own density and cuts it into per-hex
+clips. Geometry (section 3.1): tile box hexSize x 0.5 hexSize, columns 0.75 hexSize apart, rows one tile height apart,
+odd columns half a row lower (honeycomb-grid offset -1, odd-q, `util.ts:3419`); a clip is 2.5 tile heights square
+from the 50 px rendition, so one source pixel is 1/20 tile height on every hex: column pitch 30, row pitch 20,
+odd-column drop 10, clip 50 x 50 source px. Each hex carries only the canvas pixels it owns (nearest covered centre in
+the hex metric, inside its clip square) plus a 1 px overlap so linear filtering opens no seam. Prototype: Refraction
+along row 1, 12 slices: at true size it reads as one continuous line of light running in from both walls, a white
+flash, and a palisade of shards crossing hex seams with no visible joins. Timing: all slices of one cast arrive in one
+snapshot and start when their own texture is ready (`combatEffects.ts:157-166`, `:212`), so once loaded they start on
+the same frame; on the first cast of a battle each waits for its own texture (2.4), and a 0-2 frame stagger reads as a
+ripple, not a tear. Limits: BATTLEFIELD patterns know each hex's column parity, so they slice exactly; CASTER and TARGET
+patterns do not (her or the target's parity decides which offsets are neighbours), so those keep per-hex pieces;
+cost is one asset per distinct slice (a Refraction row: 12; Facet's paired rows: 24).
+
+**Frequent-move set pieces** (Refraction / Far Refraction / Facet marks and Breaks, Lucid Refraction, The Silence
+Turns, Stillness, the Hush pools, Etchings, Recasts) are drafted as band waves (`build_fx_a4.py --drafts`) and are
+held, with the slice versions, until docs/design/SAYO_BIBLE.md lands (coordinator, 2026-11-05); they will be aligned to
+it before they are exported or wired.
+
 ## Jutsu icons: six families for 53 jutsu
 
 The Skyglass event shipped 4 icons across every AI kit; these are AI-only jutsu nobody equips. Six family icons (ME21-ME26) cover all 53, one technique silhouette each; the per-jutsu `@img:jutsu_moe_*.webp` slots in `artPlaceholders` all point at their family file (one upload per family). The table above lists every jutsu per family with its live id.
