@@ -1,0 +1,337 @@
+{
+ "ratio": 2.5,
+ "speed": 50,
+ "tile": "flow",
+ "order": "rings",
+ "assets": {
+  "anim_sbk_wave_b0_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 32,
+   "speed": 50,
+   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
+   "bytes": 5980
+  },
+  "anim_sbk_wave_b1_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 32,
+   "speed": 50,
+   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
+   "bytes": 5996
+  },
+  "anim_sbk_wave_b2_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 32,
+   "speed": 50,
+   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
+   "bytes": 6002
+  },
+  "anim_sbk_wave_b3_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 32,
+   "speed": 50,
+   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
+   "bytes": 5982
+  },
+  "anim_sbk_wave_b4_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 32,
+   "speed": 50,
+   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
+   "bytes": 5972
+  },
+  "anim_sbk_wave_b5_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 32,
+   "speed": 50,
+   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
+   "bytes": 5930
+  },
+  "anim_sbk_wave_b6_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 32,
+   "speed": 50,
+   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
+   "bytes": 5890
+  },
+  "anim_sbk_seal_v1.webp": {
+   "type": "ANIMATION",
+   "frames": 32,
+   "speed": 50,
+   "use": "ground tag (decreasedamagegiven) appearAnimation, 60 hexes",
+   "bytes": 846
+  },
+  "tile_sbk_domain_v3.webp": {
+   "type": "STATIC",
+   "use": "ground tag staticAssetPath (3 rounds)",
+   "bytes": 19330
+  }
+ },
+ "groups": [
+  {
+   "asset": "anim_sbk_wave_b0_v1.webp",
+   "lands_tick": 7,
+   "offsets": [
+    {
+     "longitude": -1,
+     "latitude": 0
+    },
+    {
+     "longitude": 0,
+     "latitude": -1
+    },
+    {
+     "longitude": 0,
+     "latitude": 1
+    },
+    {
+     "longitude": 1,
+     "latitude": 0
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b1_v1.webp",
+   "lands_tick": 9,
+   "offsets": [
+    {
+     "longitude": -1,
+     "latitude": -1
+    },
+    {
+     "longitude": -1,
+     "latitude": 1
+    },
+    {
+     "longitude": 1,
+     "latitude": -1
+    },
+    {
+     "longitude": 1,
+     "latitude": 1
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b2_v1.webp",
+   "lands_tick": 10,
+   "offsets": [
+    {
+     "longitude": -2,
+     "latitude": -1
+    },
+    {
+     "longitude": -2,
+     "latitude": 0
+    },
+    {
+     "longitude": -2,
+     "latitude": 1
+    },
+    {
+     "longitude": 0,
+     "latitude": -2
+    },
+    {
+     "longitude": 0,
+     "latitude": 2
+    },
+    {
+     "longitude": 2,
+     "latitude": -1
+    },
+    {
+     "longitude": 2,
+     "latitude": 0
+    },
+    {
+     "longitude": 2,
+     "latitude": 1
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b3_v1.webp",
+   "lands_tick": 12,
+   "offsets": [
+    {
+     "longitude": -1,
+     "latitude": -2
+    },
+    {
+     "longitude": -1,
+     "latitude": 2
+    },
+    {
+     "longitude": 1,
+     "latitude": -2
+    },
+    {
+     "longitude": 1,
+     "latitude": 2
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b4_v1.webp",
+   "lands_tick": 13,
+   "offsets": [
+    {
+     "longitude": -3,
+     "latitude": -1
+    },
+    {
+     "longitude": -3,
+     "latitude": 0
+    },
+    {
+     "longitude": -3,
+     "latitude": 1
+    },
+    {
+     "longitude": -2,
+     "latitude": -2
+    },
+    {
+     "longitude": -2,
+     "latitude": 2
+    },
+    {
+     "longitude": 0,
+     "latitude": -3
+    },
+    {
+     "longitude": 0,
+     "latitude": 3
+    },
+    {
+     "longitude": 2,
+     "latitude": -2
+    },
+    {
+     "longitude": 2,
+     "latitude": 2
+    },
+    {
+     "longitude": 3,
+     "latitude": -1
+    },
+    {
+     "longitude": 3,
+     "latitude": 0
+    },
+    {
+     "longitude": 3,
+     "latitude": 1
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b5_v1.webp",
+   "lands_tick": 15,
+   "offsets": [
+    {
+     "longitude": -3,
+     "latitude": -2
+    },
+    {
+     "longitude": -3,
+     "latitude": 2
+    },
+    {
+     "longitude": -1,
+     "latitude": -3
+    },
+    {
+     "longitude": -1,
+     "latitude": 3
+    },
+    {
+     "longitude": 1,
+     "latitude": -3
+    },
+    {
+     "longitude": 1,
+     "latitude": 3
+    },
+    {
+     "longitude": 3,
+     "latitude": -2
+    },
+    {
+     "longitude": 3,
+     "latitude": 2
+    }
+   ]
+  },
+  {
+   "asset": "anim_sbk_wave_b6_v1.webp",
+   "lands_tick": 16,
+   "offsets": [
+    {
+     "longitude": -4,
+     "latitude": -2
+    },
+    {
+     "longitude": -4,
+     "latitude": -1
+    },
+    {
+     "longitude": -4,
+     "latitude": 0
+    },
+    {
+     "longitude": -4,
+     "latitude": 1
+    },
+    {
+     "longitude": -4,
+     "latitude": 2
+    },
+    {
+     "longitude": -2,
+     "latitude": -3
+    },
+    {
+     "longitude": -2,
+     "latitude": 3
+    },
+    {
+     "longitude": 0,
+     "latitude": -4
+    },
+    {
+     "longitude": 0,
+     "latitude": 4
+    },
+    {
+     "longitude": 2,
+     "latitude": -3
+    },
+    {
+     "longitude": 2,
+     "latitude": 3
+    },
+    {
+     "longitude": 4,
+     "latitude": -2
+    },
+    {
+     "longitude": 4,
+     "latitude": -1
+    },
+    {
+     "longitude": 4,
+     "latitude": 0
+    },
+    {
+     "longitude": 4,
+     "latitude": 1
+    },
+    {
+     "longitude": 4,
+     "latitude": 2
+    }
+   ]
+  }
+ ]
+}
