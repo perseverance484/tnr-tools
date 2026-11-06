@@ -126,98 +126,124 @@ def idle():
     return A4.edge_check("absence idle", out)
 
 
+FROST = (150, 160, 174)
+FROST_D = (70, 84, 98)
+
+
+def frost_bit(f, x, y):
+    A4.cluster(f, x, y, FROST, INK)
+
+
+def splash(f, cx, cy, r, lobes, rot, squash=0.6, seed=0):
+    """A jagged ink splash: a body with pointed lobes, outlined matte (no gloss), teal cracks inside."""
+    rnd = random.Random(seed)
+    pts = []
+    for k in range(lobes * 2):
+        a = math.radians(rot + k * 180 / lobes)
+        rr = r * (1.0 if k % 2 == 0 else 0.45) * rnd.uniform(0.85, 1.1)
+        pts.append((cx + rr * math.cos(a), cy + rr * squash * math.sin(a)))
+    n = F.frame()
+    ImageDraw.Draw(n).polygon(pts, fill=(*INK, 255))
+    F.outline_alpha(n, (206, 210, 222))          # frost on the edge: the ink reads against ink floors and dark boards
+    F.outline_alpha(n, INK)
+    f.alpha_composite(n)
+
+
 def burst():
-    """Inhale (5 frames: ink and motes drawn in, the knot swells and the veins brighten) -> HOLD (2 frames: the knot
-    contracts hard, veins white, nothing moves) -> burst (one white-teal frame, then ink thrown out across the clip in
-    heavy splashes and droplets) -> settle (droplets fall to the floor). 18 frames."""
+    """The eruption, one picture in the centre clip (the column stagger stops exact slicing for a summon-relative cast,
+    so the whole explosion lives in the clip centred on the Absence and reaches into its neighbours; the ring pieces
+    carry the splatter beyond). Inhale (6 frames: frost and ink stream in, the knot swells, veins brighten) -> HOLD
+    (2 frames: a ring of frost frozen mid-air round a white-veined knot; nothing moves) -> one white-teal frame ->
+    burst (ink thrown out in pointed petals, frost shattering outward, teal cracks running across the floor) ->
+    settle (the ink drops to a stain, frost drifts down). 22 frames."""
     rnd = random.Random(5)
-    drops = [(rnd.uniform(0, 360), rnd.uniform(0.7, 1.0), rnd.choice((1, 1, 2))) for _ in range(16)]
+    shards = [(rnd.uniform(0, 360), rnd.uniform(0.75, 1.0)) for _ in range(12)]
     out = []
-    for i in range(18):
+    for i in range(22):
         f = F.frame()
-        if i < 5:
-            u = (i + 1) / 5
+        if i < 6:                                                # inhale
+            u = A4.ease((i + 1) / 6)
+            for k in range(12):
+                a = math.radians(k * 30 + 15 + 20 * u)
+                r = 21 - 13 * u
+                (frost_bit if k % 2 else (lambda f_, x_, y_: A4.cluster(f_, x_, y_, INK, INK_HI)))(
+                    f, CX + r * math.cos(a), CY + r * 0.6 * math.sin(a))
+            F.ground_ring(f, 12 - 4 * u, 6 - 2 * u, [(0, INK), (1, INK)], cx=CX, cy=CY + 3)
+            knot(f, 6 + 3 * u, 1.0 + 0.6 * u)
+        elif i < 8:                                              # the hold: frost frozen mid-air, stillness
             for k in range(10):
-                a = math.radians(k * 36 + 10)
-                r = 22 - 15 * u
-                A4.cluster(f, CX + r * math.cos(a), CY + r * 0.7 * math.sin(a), INK if k % 3 else VEIN, INK_HI)
-            knot(f, 7 + 2 * u, 1.0 + u * 0.4)
-        elif i < 7:                                              # the hold
-            knot(f, 5, 2.0)
-            F.ground_ring(f, 9, 5, [(0, INK), (1, VEIN)], cx=CX, cy=CY + 3)
-        elif i == 7:                                             # the impact frame
-            F.ground_ring(f, 6, 4, [(0, VEIN_LIT), (1, (255, 255, 250)), (2, VEIN_LIT), (3, INK)], cx=CX, cy=CY)
+                a = math.radians(k * 36)
+                frost_bit(f, CX + 11 * math.cos(a), CY + 7 * math.sin(a) - 2)
+            knot(f, 6, 2.0)
+        elif i == 8:                                             # the impact frame
+            F.ground_ring(f, 7, 4, [(0, VEIN_LIT), (1, (255, 255, 250)), (2, VEIN_LIT), (3, INK)], cx=CX, cy=CY)
             knot(f, 4, 2.0)
-        else:                                                    # ink thrown out: splashes and droplets
-            v = i - 8
+        else:                                                    # the burst and its settle
+            v = i - 9
             t = A4.ease((v + 1) / 4)
-            if v < 4:                                            # ink streaks thrown radially, thick, teal-cored
-                for k in range(8):
-                    a = math.radians(k * 45 + 22)
-                    r0, r1 = 3 + 6 * t, 8 + 13 * t
-                    p0 = (CX + r0 * math.cos(a), CY + r0 * 0.6 * math.sin(a))
-                    p1 = (CX + r1 * math.cos(a), CY + r1 * 0.6 * math.sin(a))
+            if v < 3:                                            # the frost shock runs out (value, not colour)
+                F.ground_ring(f, 9 + 5 * v, 5 + 3 * v, [(0, (206, 210, 222)), (1, (255, 255, 250)), (2, INK)], cx=CX, cy=CY + 1)
+            if v < 8:                                            # teal cracks run out across the floor
+                for k in range(6):
+                    a = math.radians(k * 60 + 30)
+                    L = 6 + 14 * min(1, v / 3)
+                    p0 = (CX, CY + 2)
+                    p1 = (CX + L * math.cos(a), CY + 2 + L * 0.5 * math.sin(a))
+                    F.seg(f, p0, p1, VEIN_LIT if v < 3 else VEIN)
+            if v < 7:                                            # the ink petals
+                splash(f, CX, CY - (2 if v < 3 else 0) + 0.4 * max(0, v - 3) ** 2, 6 + 11 * t, 7, 10 + v * 3,
+                       0.62, seed=v)
+                if v < 4:
+                    splash(f, CX, CY, 4 + 4 * t, 5, 40, 0.62, seed=11)
+            else:                                                # settled: a stain, the last ink beading
+                w = 1 - (v - 7) / 6
+                if w > 0:
                     n = F.frame()
-                    ImageDraw.Draw(n).line([p0, p1], fill=(*INK, 255), width=3)
+                    ImageDraw.Draw(n).ellipse([CX - 12 * w - 3, CY - 4 * w, CX + 12 * w + 3, CY + 4 * w + 1], fill=(*INK, 255))
                     F.outline_alpha(n, INK_HI)
-                    if v < 2:
-                        F.seg(n, p0, p1, VEIN)
                     f.alpha_composite(n)
-            for k in range(7):                                   # heavy splash lobes
-                a = math.radians(k * 51 + 8)
-                r = 4 + 12 * t
-                x, y = CX + r * math.cos(a), CY + r * 0.6 * math.sin(a) - (3 - 0.4 * v if v < 6 else 0)
-                if v < 7:
-                    dot(f, x, y, 4.5 - 0.35 * v, rim=v > 3)
-            for a, s, sz in drops:                               # droplets fly out and fall
-                r = (6 + 15 * s) * t
+            for a, sp in shards:                                 # frost shattering outward, then drifting down
+                r = (5 + 15 * sp) * t
                 x = CX + r * math.cos(math.radians(a))
-                y = CY + r * 0.6 * math.sin(math.radians(a)) - 6 * math.sin(math.pi * min(1, v / 8)) + 0.2 * v * v
-                if v < 9 and 5 <= x <= 45 and 5 <= y <= 45:
-                    A4.cluster(f, x, y, VEIN if (v < 2 and sz == 2) else INK, INK_HI)
-            if v < 3:                                            # the floor shock: a lit ring running out
-                F.ground_ring(f, 9 + 5 * v, 5 + 3 * v, [(0, VEIN_LIT), (1, INK), (2, INK)], cx=CX, cy=CY)
+                y = CY + r * 0.6 * math.sin(math.radians(a)) - 7 * math.sin(math.pi * min(1, v / 7)) + 0.15 * v * v
+                if v < 11 and 5 <= x <= 45 and 5 <= y <= 45:
+                    frost_bit(f, x, y)
         out.append(f)
     return A4.edge_check("absence burst", out)
 
 
-# The dot layout in TILE space (50 x 50 art, drawn under the fighters as a 2:1 box: one tile is 40 x 20 clip pixels).
-SPLAT_DOTS = [(25, 25, 7), (12, 19, 4.5), (38, 18, 5), (40, 33, 4), (11, 34, 4.5), (25, 41, 4), (26, 9, 3.5), (33, 27, 3)]
-
-
-def to_clip(x, y, r):
-    """Tile-space dot -> clip-space ellipse centre and radii (the tile box is 40 x 20 at the clip's centre)."""
-    return 5 + 0.8 * x, 15 + 0.4 * y, 0.8 * r, 0.4 * r
+SPLAT_LEAD = 9
 
 
 def splat():
-    """The pool's appear on each of the 7 hexes, led SPLAT_LEAD frames to land on the burst: ink drops come down onto
-    the hex and spread to the tile's dot layout, a teal glint in the biggest, then hold for the tile under them."""
+    """The splatter on each of the seven hexes (one strip for all: drawn symmetric, so the column stagger cannot break
+    it), led to land on the burst: ink drops fall in, splash into a small star-shaped stain with radial streaks, frost
+    flecks settle on it, it holds, then gives way to the floor tile under it."""
     out = [F.frame() for _ in range(SPLAT_LEAD)]
-    for i in range(8):
+    for i in range(10):
         f = F.frame()
-        u = A4.ease((i + 1) / 4)
-        for k, d0 in enumerate(SPLAT_DOTS):
-            x, y, rx, ry = to_clip(*d0)
-            if i < 2:
-                A4.cluster(f, x, y - 8 + 4 * i, INK, INK_HI)    # falling
-            else:
-                g = (0.6 + 0.4 * u) * (1.2 if i == 3 else 1.0)  # lands a little wide, then settles to the tile
-                dot(f, x, y, max(1.5, rx * g), rim=True, ry=max(1.0, ry * g))
-                if k == 0 and i in (4, 5):
-                    A4.cluster(f, x - 1, y - 1, VEIN_LIT, INK)
+        if i < 2:
+            for k in range(5):
+                A4.cluster(f, 25 + (k - 2) * 6, 17 + 4 * i + (k % 2) * 2, INK, INK_HI)
+        elif i < 8:
+            u = A4.ease((i - 1) / 3)
+            splash(f, 25, 25, 5 + 7 * u, 6, 15, 0.5, seed=3)
+            for k in range(6):                                   # radial streaks
+                a = math.radians(k * 60)
+                p0 = (25 + (6 + 5 * u) * math.cos(a), 25 + (3 + 2.5 * u) * math.sin(a))
+                p1 = (25 + (9 + 9 * u) * math.cos(a), 25 + (4.5 + 4.5 * u) * math.sin(a))
+                n = F.frame()
+                ImageDraw.Draw(n).line([p0, p1], fill=(*INK, 255), width=2)
+                F.outline_alpha(n, (206, 210, 222))
+                f.alpha_composite(n)
+            if i >= 4:
+                for x, y in ((20, 23), (31, 26), (26, 29)):
+                    frost_bit(f, x, y)
+        else:
+            for x, y in ((20, 23), (31, 26), (26, 29)):
+                frost_bit(f, x, y + (i - 7))
         out.append(f)
     return A4.edge_check("absence splat", out)
-
-
-def tile():
-    """The pool tile: the same dot layout, bile rim, sparse teal glints, on a faint ink stain (2:1 floor tile)."""
-    t = F.frame()
-    for x, y, r in SPLAT_DOTS:
-        dot(t, x, y, r, rim=True, ry=r)
-    for x, y in ((23, 23), (37, 16), (10, 33)):
-        A4.cluster(t, x, y, VEIN, INK)
-    return F.tile_out(F.clip(t, F.poly_mask(F.T_HEX)))
 
 
 def main():
@@ -228,16 +254,12 @@ def main():
     rows = []
     for name, frames, note in (("anim_moe_absence_rise_a7.webp", rise(), "An Absence arrives (summon appear)"),
                                ("anim_moe_absence_idle_a7.webp", idle(), "An Absence waits (summon loop, tightening)"),
-                               ("anim_moe_absence_burst_a7.webp", burst(), "An Absence erupts (centre clip)"),
-                               ("anim_moe_absence_splat_a7.webp", splat(), "An Absence: ink lands on the 7 hexes")):
+                               ("anim_moe_absence_burst_a9.webp", burst(), "An Absence erupts: one painted burst in the centre clip"),
+                               ("anim_moe_absence_splat_a9.webp", splat(), "An Absence: the splatter on the seven hexes (symmetric)")):
         p = os.path.join(a.out, name)
         F.strip(frames).save(p, lossless=True, quality=100, method=6)
         rows.append({"file": f"art/mother_of_echoes_fx/exports/{name}", "type": "ANIMATION", "frames": len(frames),
                      "speed": F.MS, "bytes": os.path.getsize(p), "note": note})
-    p = os.path.join(a.out, "tile_moe_absence_dots_a7.webp")
-    tile().save(p, lossless=True, quality=100, method=6)
-    rows.append({"file": "art/mother_of_echoes_fx/exports/tile_moe_absence_dots_a7.webp", "type": "STATIC", "frames": 1,
-                 "speed": None, "bytes": os.path.getsize(p), "note": "An Absence's pool: ink dots, bile rim"})
     p = os.path.join(a.avatar_out, "avatar_moe_absence_a7.webp")
     avatar().save(p, lossless=True, quality=100, method=6)
     with open(os.path.join(a.out, "moe_fx_absence.json"), "w") as fh:
