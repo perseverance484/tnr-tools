@@ -556,18 +556,161 @@ def setpieces():
     return out
 
 
+# ------------------------------------------------------------------------------------------------ entrances v2 (restrained)
+# Director on the first entrances (2026-11-05): "far too large and gaudy, especially since the bosses spawn in together;
+# they clip; lower quality than the Refraction". v2 keeps to her own clip, small, in the bible's beat (SAYO_BIBLE.md
+# 3.7, 3 the beat): anticipation (the rim heats) -> HOLD (nothing moves) -> one impact frame -> follow-through -> settle
+# into the aura. No ground ring. Every cluster 2-3 px with an outline; nothing within 2 px of the frame edge (no clip).
+E2_LEN = 20
+SAFE_EDGE = 2
+
+
+def pane(f, deg, r0, r1, half_w, fill, edge, frame):
+    """A small trapezoid pane (wider at the outer end), framed: the fan's pane, bible 5.4."""
+    a0, a1 = math.radians(deg - half_w * 0.6), math.radians(deg + half_w * 0.6)
+    b0, b1 = math.radians(deg - half_w), math.radians(deg + half_w)
+    pts = [(PCX + r0 * math.cos(a0), PCY + r0 * math.sin(a0)), (PCX + r1 * math.cos(b0), PCY + r1 * math.sin(b0)),
+           (PCX + r1 * math.cos(b1), PCY + r1 * math.sin(b1)), (PCX + r0 * math.cos(a1), PCY + r0 * math.sin(a1))]
+    n = F.frame()
+    d = ImageDraw.Draw(n)
+    d.polygon(pts, fill=(*fill, 255))
+    d.line([pts[1], pts[2]], fill=(*edge, 255), width=1)
+    F.outline_alpha(n, frame)
+    f.alpha_composite(n)
+
+
+FAN = [200, 172, 144, 340, 8, 36]       # three panes each side of her, upper flanks round to the shoulders (in frame)
+
+
+def cluster(f, x, y, col, out):
+    n = F.frame()
+    F.blob(n, x, y, col, r=1)
+    F.outline_alpha(n, out)
+    f.alpha_composite(n)
+
+
+def flank_arc(f, r, layers):
+    """An arc round her portrait on the flanks and below only: above her head is outside the clip square."""
+    for a0, a1 in ((150, 210), (330, 390), (30, 150)):
+        F.thick_arc(f, PCX, PCY, r, a0, a1, layers)
+
+
+def e2_sayo1():
+    """The Heartglass fan opens behind her into a halo, pane by pane; one white frame; the panes settle to glints."""
+    p = PAL["I"]
+    fr = []
+    for i in range(E2_LEN):
+        f = F.frame()
+        shown = min(len(FAN), i + 1) if i < 6 else len(FAN)
+        for k in range(shown):
+            hot = i in (7, 8)
+            if i >= 13 and k % 2 == (i - 13) % 2 and i >= 16:
+                continue
+            pane(f, FAN[k], PR, PR + 4, 9, WHITE if i == 9 else (p["hot"] if hot else p["lite"]),
+                 WHITE if hot or i == 9 else p["glint"], p["frame"])
+        if i in (6, 7, 8):                                   # anticipation: the rim heats (held, nothing moves)
+            flank_arc(f, PR + 0.5, [(0, p["hot"])])
+        if 10 <= i <= 13:                                    # follow-through: three prismatic glints, 2 x 2, outlined
+            for k, (a, c) in enumerate(((172, PRISM[0]), (8, PRISM[1]), (90, PRISM[2]))):
+                x, y = at(PR + 1.5 + 0.3 * (i - 10), a)
+                cluster(f, x, y, c, p["seam"])
+        fr.append(f)
+    return disc_clear(fr, flash=(9,))
+
+
+def e2_silence():
+    """Her shadow peels up off the floor into a standing ink hood; held; it sinks back. Frozen dust only."""
+    fr = []
+    for i in range(E2_LEN):
+        f = F.frame()
+        rise = ease(i / 7) if i < 12 else max(0.0, 1 - (i - 12) / 7)
+        if rise > 0.05:
+            n = F.frame()
+            d = ImageDraw.Draw(n)
+            top = PCY + PR - rise * (2 * PR + 3)             # the hood's crown climbs from her feet past her head
+            d.ellipse([PCX - PR - 3, max(SAFE_EDGE + 1, top), PCX + PR + 3, PCY + PR + 4], fill=(*INK, 255))
+            d.ellipse([PCX - 9 - 4 * rise, PCY + PR + 1, PCX + 9 + 4 * rise, PCY + PR + 6], fill=(*INK, 255))
+            F.outline_alpha(n, PAL["III"]["frame"])
+            f.alpha_composite(n)
+        if i in (9, 10):                                     # the hold: the hood's rim lit once
+            flank_arc(f, PR + 2, [(0, (128, 92, 196)), (1, INK)])
+        if 11 <= i <= 17:                                    # frozen dust lifts off the hood, held still mid-air
+            for k, a in enumerate((160, 200, 340, 20)):
+                x, y = at(PR + 1.5, a)
+                cluster(f, x, y - min(3, i - 11), (206, 210, 222), INK)
+        fr.append(f)
+    return disc_clear(fr, flash=())
+
+
+def e2_sayo2():
+    """The fan cracks and the lattice draws itself behind her: the Act I panes, a held beat, a black crack runs through
+    them, white-gold frame, the gold scores draw along the panes and settle dim."""
+    p = PAL["II"]
+    fr = []
+    for i in range(E2_LEN):
+        f = F.frame()
+        for k, a in enumerate(FAN):
+            pane(f, a, PR, PR + 4, 9, F.ETCH_HOT if i == 8 else PAL["I"]["lite"],
+                 F.ETCH_MID if i >= 9 else PAL["I"]["glint"], SCORE)
+            if i >= 6:                                       # the crack runs through each pane in turn
+                if k <= (i - 6) * 2:
+                    x0, y0 = at(PR + 0.5, a - 4); x1, y1 = at(PR + 3.5, a + 5)
+                    F.seg(f, (x0, y0), (x1, y1), p["vein"])
+                    F.seg(f, (x0 + 1, y0), (x1 + 1, y1), p["vein"])
+            if i >= 9:                                       # the score draws along the pane, then dims
+                L = min(1.0, (i - 9) / 3)
+                x0, y0 = at(PR + 2, a - 7); x1, y1 = at(PR + 2, a - 7 + 14 * L)
+                F.seg(f, (x0, y0), (x1, y1), F.ETCH_HOT if i < 13 else F.ETCH_DIM)
+        if i in (4, 5):
+            flank_arc(f, PR + 0.5, [(0, F.ETCH_MID)])
+        fr.append(f)
+    return disc_clear(fr, flash=(8,))
+
+
+def e2_saint():
+    """The ink folds small and slides into her; held; one teal-white frame; the halo of frozen shards rings out round
+    her and settles into the aura's thorns."""
+    v = PAL["III"]
+    fr = []
+    for i in range(E2_LEN):
+        f = F.frame()
+        if i < 7:                                            # the ink folds in toward her
+            r = PR + 3 - i * 0.4
+            flank_arc(f, r, [(0, INK), (1, INK), (2, v["frame"])])
+        elif i in (7, 8):                                    # hold
+            flank_arc(f, PR + 1, [(0, INK), (1, v["vein"])])
+        elif i == 9:                                         # the impact frame
+            flank_arc(f, PR + 1, [(0, VEIN_LIT), (1, WHITE), (2, VEIN_LIT)])
+        if i >= 10:                                          # the halo of hooked thorns rings out, then holds
+            u = ease((i - 10) / 3)
+            for k, a in enumerate(FAN):
+                x0, y0 = at(PR + 0.5 + u, a)
+                thorn(f, x0, y0, a, 2 + 1.5 * u, 1.5, i < 13 and k % 2 == 0)
+        fr.append(f)
+    return disc_clear(fr, flash=(9,))
+
+
+def edge_check(name, frames):
+    for i, f in enumerate(frames):
+        a = f.getchannel("A")
+        bb = a.getbbox()
+        if bb and (bb[0] < SAFE_EDGE or bb[1] < SAFE_EDGE or bb[2] > N - SAFE_EDGE or bb[3] > N - SAFE_EDGE):
+            raise SystemExit(f"{name}: frame {i} touches the clip edge {bb} (it would be cut)")
+    return frames
+
+
+def entrances2():
+    return [(f"anim_moe_entrance_{k}_a5.webp", edge_check(k, fn()), f"Entrance v2 ({k}): {note}") for k, fn, note in (
+        ("sayo1", e2_sayo1, "the Heartglass fan opens pane by pane, held, one white frame"),
+        ("silence", e2_silence, "her shadow peels up into an ink hood, held, frozen dust"),
+        ("sayo2", e2_sayo2, "the fan cracks and the gold lattice draws itself, held"),
+        ("saint", e2_saint, "the ink folds into her, teal-white frame, a halo of hooked thorns"))]
+
+
 def assets():
-    out = []
-    for which, fn, note in (("sayo1", flourish_sayo1, "Heartglass light gathers, the fan opens, prismatic burst"),
-                            ("silence", flourish_silence, "the ink spreads and her shadow stands up off the floor"),
-                            ("sayo2", flourish_sayo2, "the gold etch ring ignites, black cracks creep in"),
-                            ("saint", flourish_saint, "black glass bursts as thorns with lit teal veins and bone tendrils")):
-        out.append((f"anim_moe_entrance_{which}_a4.webp", fn(), f"Entrance ({which}): {note}"))
-        p = piece(which)
-        for k in range(2):
-            out.append((f"anim_moe_entrance_ring_{which}_w{k}_a4.webp", A.delayed(p, REVEAL + k * WAVE),
-                        f"Entrance ring ({which}) band {k} (lead {REVEAL + k * WAVE})"))
-    return out
+    """The shipped entrances (v2). The v1 entrances and their ground rings (director: too large and gaudy) are retired
+    before upload; flourish_* and piece() stay in this file for reference only."""
+    return entrances2()
 
 
 def export(out_dir=None, drafts=False):
