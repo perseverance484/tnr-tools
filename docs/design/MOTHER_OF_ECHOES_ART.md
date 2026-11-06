@@ -630,34 +630,26 @@ The Skyglass event shipped 4 icons across every AI kit; these are AI-only jutsu 
 6. **AI portraits:** they are 1.6 hex-heights across (player pins 1.2), so the portrait-clear loops clear player portraits only.
 7. **Preview limits:** the battle still is a three.js-era capture rescaled to pixi geometry, and its token is approximate. `artpreflight.py` cannot check per-frame squareness (no `--frames`); `build_fx.py` asserts it.
 
-## Asset library convention (director, 2026-11-05)
+## Asset library convention (director, 2026-11-05; RUL-127)
 
-The event's art must not flood the shared GameAssetLibrary (flat `folder` strings, searchable by folder and name).
-Every asset this event uploads or re-files is sectioned by event and use. The rule lives in code
-(`push/mother_of_echoes.gen.py`: `LIB`, `LABELS`, `lib_label`, `lib_gate`); this section only describes it.
+The event's art must not flood the shared GameAssetLibrary (flat `folder` strings, searchable by folder and name), so
+every asset is sectioned by event and use. Two owners: the coordinator re-files the EXISTING live assets by literal id
+(push/499 capture, `push/asset_library_refolder.gen.py` -> push/500; names `MoE I: <move>`, `MoE II: ...`,
+`MoE III: ...`, `MoE Floor: ...`, `MoE Boss: ...`, `MoE Scene: ...`). The assets this event still CREATES (the final
+job, FX4 and the painted slices) are labelled in `push/mother_of_echoes.gen.py` (`LIB`, `LABELS`, `lib_label`,
+`lib_gate`); this section only describes the rule.
 
-**Folders** (flat strings, " - " as the separator, never "/"):
+**Folders** (flat strings, " - " as the separator, never "/"): `Skyglass - Mother of Echoes - Act I` (Sayo I, the
+Silence, the Feeler, An Absence), `- Act II` (Etchings, Recasts, the Worn, the Stilling), `- Act III` (the Saint,
+Glassfall, the Flood, Every Name, the enrage), `- Floors` (lingering ground by owner), `- Entrances and Auras`,
+`- Scenes`, `- Shared` (cross-act marks, guard window, safe pane, echo strike, pull), and
+`- Slices - <Move>`: every per-hex slice of a sliced painting, one folder per move (e.g. `... - Slices - Glassfall
+First Pane`), so hundreds of single-hex slices stay out of the browsable folders. SkyglassBossFX -> `Skyglass - Boss FX`.
 
-| Folder | Holds |
-|---|---|
-| `Skyglass - Mother of Echoes - Act I` | Sayo I, the Silence, the Feeler and An Absence moves |
-| `Skyglass - Mother of Echoes - Act II` | Etchings, Recasts, the Worn, the Stilling |
-| `Skyglass - Mother of Echoes - Act III` | the Saint, Glassfall, the Flood, Every Name, the enrage |
-| `Skyglass - Mother of Echoes - Floors` | lingering ground, by owner |
-| `Skyglass - Mother of Echoes - Entrances and Auras` | entrances, auras, flourishes |
-| `Skyglass - Mother of Echoes - Scenes` | quest scene backgrounds and characters (added: the director's list named no folder for them) |
-| `Skyglass - Mother of Echoes - Slices - <Move>` | every per-hex slice of a sliced painting, one folder per move (e.g. `... - Slices - Glassfall First Pane`), so hundreds of single-hex slices stay out of the browsable folders |
-| `Skyglass - Boss FX` | the 28 SkyglassBossFX assets (names kept) |
-
-**Names:** `MoE <Act>: <Move> - <part>` (e.g. `MoE II: Recast Rime - slice c04r06`, `MoE I: Refraction Breaks - slice L c03`,
-`MoE III: Glassfall First Pane - slice c06r02`); floors `MoE Floor: <owner> - <surface>`; scenes `MoE Scene: <title>`.
-Names are unique. `lib_gate` refuses any asset without a convention folder and name, or with a duplicate name; it runs
-on the final job's create rows, on `exports/moe_fx_final.json` (written with `folder` and `name` per asset by
-`build_final_meta.py`) and on the re-file edits.
-
-**Existing assets keep their ids.** `--step refolder` writes `mother_of_echoes_refolder_items.json`: one `edit` item
-per already-live asset (assets fetch-merge on edit, so each carries only `folder` and `name`). Ids resolve by srcId from
-the push/466 and push/478 bundles (75 today); pass `--library` (a GameAssetLibrary dump) to re-file the SkyglassBossFX
-rows and to list any MotherOfEchoes rows the bundles do not resolve (listed, never guessed). The historical steps
-(466, 478) still regenerate with folder `MotherOfEchoes`, byte-identical to what was pushed. Hidden status is unchanged:
-law 16b/16c (created hidden, unhidden by a later edit).
+**New names:** `MoE <Act|Floor|Boss|Scene>: <Move> - <part>` (e.g. `MoE II: Recast Rime - slice c04r06`,
+`MoE I: Refraction Breaks - slice L c03`, `MoE III: Glassfall First Pane - slice c06r02`, `MoE Boss: Sayo - entrance`).
+The ` - <part>` keeps them distinct from the re-filed live names; checked against the re-folder generator's names for
+every live asset our generators made: no collisions. `lib_gate` refuses an asset without a convention folder and name
+or with a duplicate name, on the final job's create rows and on `exports/moe_fx_final.json` (which `build_final_meta.py`
+writes with `folder` and `name` per asset). The historical steps (466, 478) still regenerate with folder
+`MotherOfEchoes`, byte-identical to what was pushed. Hidden status follows law 16b/16c (created hidden, unhidden after).
