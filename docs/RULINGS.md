@@ -5950,3 +5950,32 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-05: "Approve, ship it Friday" (Act III); "All approved. Let's work on a good symbol. Yes, they can read them in battle."; marker choice "Five stars + a shard".
 
 **Canonical destination:** `push/mother_of_echoes.gen.py` (477 text), `docs/design/MOTHER_OF_ECHOES_EXPERIENCE.md`, `docs/design/SAYO_BIBLE.md`, `docs/design/MOTHER_OF_ECHOES_ACT3.md`.
+
+## RUL-2026-11-05-124 — Mother of Echoes art direction: omens are marks, payoffs and lingering ground are painted pictures, no sickly green
+
+**Date:** 2026-11-05
+
+**Domain:** art direction / the Mother of Echoes finale
+
+**Status:** ACTIVE, standing. It replaces the per-hex drafts.
+
+**Ruling:**
+1. **Omens** are the telegraph marks shown the round before a payoff. They keep the established Skyglass ground language (circles and marks on the hex), because their job is clarity.
+2. **Payoffs** are painted as one picture of the ability across the area it affects, sliced across the hexes like the Refraction line. This covers:
+   - eruptions, breaks, Glassfall, the Flood, the Recasts and Shatterfall;
+   - An Absence's burst;
+   - every other real ability.
+
+   Moves placed relative to the caster or the target use one centre clip plus overlapping pieces that survive the hex stagger.
+3. **Lingering ground** (pools, No One Is Mended, the Hush, flood residue, splatter) shows the floor as the ability left it: one continuous painted surface of stained, frozen, cracked or blackened glass. It is static and reads as "don't stand here" through its material. It keeps a clear edge and never covers a safe hex.
+4. **Colour:**
+   - No sickly green or toxic read anywhere in the fight. This overrides the Sayo bible's "bile on lingering pools".
+   - Each effect takes the palette of the enemy that owns it:
+     - Sayo: Heartglass light, turning into the Remainder's black glass with teal cracks.
+     - The Silence: matte ink with teal veins, frost and stillness.
+   - Danger reads through material and value contrast. Cyan stays reserved for safe hexes.
+5. **Quality bar:** the Refraction slice line, for every boss ability. The fight should look "good, high quality, premium".
+
+**Evidence:** Director, 2026-11-05: "I want all the boss animations to look as cool as refraction. That is my standard now for all the abilities."; "We can paint a picture or tell a story with these … Omens should use the normal language we've established with the circles and marks on the ground, but the eruptions and real abilities should be like refraction."; "avoid the sickly green concept entirely and look at thematic color schemes and animations that make sense for both enemies. I want this fight to look good, high quality, premium."
+
+**Canonical destination:** `docs/design/MOTHER_OF_ECHOES_ART.md` (Art direction section); `docs/design/SAYO_BIBLE.md` §5 (palette revision).
