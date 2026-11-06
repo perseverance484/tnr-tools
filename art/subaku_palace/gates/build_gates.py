@@ -3,18 +3,18 @@
 
     python3 art/subaku_palace/gates/build_gates.py [--out DIR] [--sheet PNG]
 
-SHIPPING BUILD. Target geometry (art/subaku_palace/TIMING.md v4, director 2026-11-05): effect clips 2.5 hex heights
+SHIPPING BUILD. Target geometry (art/subaku_palace/TIMING.md v5, director 2026-11-05): effect clips 2.5 hex heights
 square (the ratio-1 change 338126cb is to be reverted upstream), players drawn as LPC character avatars. The ratio-1
 note build is build_gates_ratio1.py.
 
-One asset, the appear on the SELF tag (increasedamagegiven): anim_sbk_gates_rise_v5, 44 frames x 50 ms. No static
+One asset, the appear on the SELF tag (increasedamagegiven): anim_sbk_gates_rise_v6, 44 frames x 50 ms. No static
 loop, no dais (director: the sigil is symbolic and fades within the cast).
 
-- 0-5    the sigil burns into the ground at the caster's feet: a spark, two arcs sweeping round to close a flat
-         bevelled ring (0.05-0.25 h above the hex bottom), then the inner ring and cracks, and a swell.
+- 0-5    the sigil burns into the ground round the caster's feet: a spark, two arcs sweeping round to close a
+         bevelled ring 30 x 8 px (0-0.4 h above the hex bottom), then ember cracks and a swell.
 - 6      its bands flash white-hot to the hex's edge midpoints and run past them: the energy leaves the hex.
-- 7-9    ring 1 ignites: two red sandstone oni gates tear up in three heaves (25 %, 60 %, 100 %), a burst of stone
-         chips off each top. Flared roofs with upturned eaves, a horn-crested lintel, a two-tone snarling face
+- 7-9    ring 1 ignites: two red sandstone oni gates tear up in three heaves (25 %, 60 %, 100 %), 2 px sandstone
+         shards knocked off each top and falling; the ring draws in to 18 x 8 px to stay whole between them. Flared roofs with upturned eaves, a horn-crested lintel, a two-tone snarling face
          (10 x 11) with burning eyes.
 - 14-20  as the bloom spreads, the palace rises behind them: two three-tier pagoda towers and roof wings.
 - 21-23  the sigil cools to demon gold; out from 24.
@@ -29,7 +29,8 @@ centred 0.825 h above the hex bottom; a typical body, mapped by LPC rows, spans 
 (headgear) to 31 (feet at y 30.3). Keep-clear zones, gated at 0 % on every frame:
 - ENVELOPE  the caster's body: nothing is drawn over it (the sigil and palace pass behind it).
 - METERS    the lower neighbour's HP/SP/CP rows, which fall inside this clip at 0.2-0.6 h above this hex's bottom
-            (x 15-34, y 23-31).
+            (x 15-34, y 23-31), for everything but the sigil. The sigil ring (QA r3) is masked only by ENVELOPE;
+            its cover of these rows is reported in the JSON.
 The caster's own meters (x 15-34, y 3-11) are reported, not gated: the moon-gate arch's top crosses them on ticks
 24-33 (director, 2026-11-05: keep the arch). They are ALWAYS visible to the casting player: combat.ts:420 passes the
 viewer's own userId as selectedId, and combatActors.ts:516-520 shows a fighter's meters when it is selected or
@@ -54,9 +55,9 @@ SCALE = 3
 MS = 50
 MAX_BYTES = 460800
 SAFE_EDGE = 2
-VER = "v5"
+VER = "v6"
 
-# ------------------------------------------------------------------------------------------------ timing (TIMING.md v4)
+# ------------------------------------------------------------------------------------------------ timing (TIMING.md v5)
 RING1 = 7               # ring 1 ignites; the gates heave up 7-9
 SEAL_PEAK = 29          # the floor's final pulse peaks (white-hot channels)
 LEN = 44
@@ -71,13 +72,13 @@ PALACE_SINK = 6         # 31-36
 GATE_SINK_AT = 33
 GATE_SINK = 9           # 33-41; 42-43 empty
 
-# ------------------------------------------------------------------------------------------------ palette (TIMING.md v4)
+# ------------------------------------------------------------------------------------------------ palette (TIMING.md v5)
 SHADOW = (22, 10, 9)
 SS_D, SS_M, SS, SS_L, SS_HI = (90, 30, 20), (122, 42, 28), (168, 67, 42), (201, 101, 61), (227, 144, 106)
 G_DEEP, G_MID, G_BRI = (138, 90, 18), (196, 138, 28), (232, 180, 58)
 B1, B2, WHITE = (255, 207, 74), (255, 229, 138), (255, 244, 200)
 E0, E1, E2, E3 = (110, 12, 8), (184, 28, 16), (255, 74, 28), (255, 150, 60)
-ST, ST_L = (44, 40, 40), (60, 54, 53)                     # basalt (TIMING.md v4: #2c2828, #3c3635)
+ST, ST_L = (44, 40, 40), (60, 54, 53)                     # basalt (TIMING.md v5: #2c2828, #3c3635)
 PALETTE = {SHADOW, SS_D, SS_M, SS, SS_L, SS_HI, G_DEEP, G_MID, G_BRI, B1, B2, WHITE, E0, E1, E2, E3, ST, ST_L}
 
 CX, CY = 24.5, 25.0
@@ -239,25 +240,38 @@ def check(frames):
         raise SystemExit(f"white-hot on frames {hot}, allowed only {SPOKES} and {HOLD[0]}")
     if any(f.getchannel("A").getbbox() for f in frames[-2:]):
         raise SystemExit("the last two frames must be empty")
-    for name, m in (("the caster's LPC envelope", ENV), ("the lower neighbour's meters", METERS)):
-        c = coverage(frames, m)
-        if max(c) > 0:
-            raise SystemExit(f"{name} is {max(c):.1%} covered on frame {c.index(max(c))}")
+    c = coverage(frames, ENV)
+    if max(c) > 0:
+        raise SystemExit(f"the caster's LPC envelope is {max(c):.1%} covered on frame {c.index(max(c))}")
+    c = coverage(rise(with_sigil=False), METERS)                # gates, palace, chips: never on the lower meters
+    if max(c) > 0:
+        raise SystemExit(f"the lower neighbour's meters are {max(c):.1%} covered on frame {c.index(max(c))}")
 
 
 # ------------------------------------------------------------------------------------------------ the sigil
-# A flat ring burned into the ground at the caster's feet: 0.05-0.25 h above the hex bottom (y 30-34). Its back half
-# passes behind the legs and under the lower neighbour's meter rows (both keep-clear), so what shows is the front arc
-# below the feet and the two flanks.
-SIG_C = (CX, 32.0)
-SIG_RX, SIG_RY = 17.0, 2.2
+# A ring burned into the ground round the caster's feet, 30 x 8 px (x 10-39, y 27-35; 0-0.4 h above the hex bottom),
+# drawn in to 18 x 8 (x 16-33) by the gates' heaves so it stays whole between them.
+# Only the stretch of its back arc behind the legs is hidden (the LPC envelope). Once the gates stand, their slabs
+# cover the ring's two ends, so it reads as a ring between them. QA 2026-11-06 (r3): the sigil may pass under the
+# lower neighbour's meter rows; everything else stays gated off them (reported in the JSON).
+SIG_C = (CX, 31.0)
+SIG_RX, SIG_RY = 15.0, 4.0
+SIG_RX_TIGHT = 9.0                   # from tick 9 the ring has drawn in between the standing gates (x 16-33)
+
+
+def sig_rx(i):
+    """30 px wide while it builds (0-7), drawn in by the gates' heaves (8: 12 px half-width, 9 on: 9)."""
+    return SIG_RX if i <= RING1 else (12.0 if i == RING1 + 1 else SIG_RX_TIGHT)
+
+
+_RX = [SIG_RX]                       # the half-width for the frame being drawn (set in sigil())
 SIG_OUT = SIG_COOL_AT + 3            # gone from tick 24: the sigil fades within the cast
 SPOKE_EDGES = [(10, 30), (40, 30), (25, 35), (10, 20), (40, 20)]   # the top midpoint lies behind the head
 
 
 def ell(r, deg):
     a = math.radians(deg)
-    return SIG_C[0] + SIG_RX * r * math.cos(a), SIG_C[1] + SIG_RY * r * math.sin(a)
+    return SIG_C[0] + _RX[0] * r * math.cos(a), SIG_C[1] + SIG_RY * r * math.sin(a)
 
 
 def sigil_cols(i):
@@ -272,7 +286,7 @@ def sigil_cols(i):
 
 def spoke_pts(edge, start, end, n=10):
     ex, ey = edge
-    sx, sy = ell(1.0, math.degrees(math.atan2((ey - SIG_C[1]) / SIG_RY, (ex - SIG_C[0]) / SIG_RX)))
+    sx, sy = ell(1.0, math.degrees(math.atan2((ey - SIG_C[1]) / SIG_RY, (ex - SIG_C[0]) / _RX[0])))
     return [(sx + (ex - sx) * (start + (end - start) * s / n), sy + (ey - sy) * (start + (end - start) * s / n))
             for s in range(n + 1)]
 
@@ -283,6 +297,7 @@ def sigil(i):
     white-hot out to the hex's edge midpoints and past them. Then a steady ring with pulses running out along the
     bands, white-hot on the seal peak, cooling 22-24, out at 25."""
     f = frame()
+    _RX[0] = sig_rx(i)
     cols = sigil_cols(i)
     if cols is None:
         return f
@@ -290,7 +305,7 @@ def sigil(i):
     if i == 0:
         for dx, c in ((0, B2), (-1, B2), (1, B1), (-2, B1), (2, G_MID)):
             px(f, SIG_C[0] + dx, SIG_C[1] + SIG_RY, c)
-        return clear_mask(f, KEEP)
+        return clear_mask(f, ENV)
     sweep = 180 * clamp01(i / 4)                        # degrees each way from the front (90 deg = front centre)
     for d in range(0, 361, 2):
         off = min(abs(d - 90), 360 - abs(d - 90))
@@ -300,19 +315,16 @@ def sigil(i):
         px(f, x, y - 0.5, top)
         px(f, x, y + 0.5, body)
         if i >= 4:                                      # the band thickens outward as it closes
-            px(f, x + (1 if math.cos(math.radians(d)) > 0.3 else -1 if math.cos(math.radians(d)) < -0.3 else 0),
-               y, body)
+            ox, oy = math.cos(math.radians(d)), math.sin(math.radians(d))
+            px(f, x + (1 if ox > 0.5 else -1 if ox < -0.5 else 0), y + (1 if oy > 0.5 else 0), body)
     if i in (1, 2, 3):                                  # the arcs' heads
         for d in (90 - sweep, 90 + sweep):
             x, y = ell(1.0, d)
             px(f, x, y, B2)
-    if i >= 5:                                          # the inner ring and the ember cracks between the rings
-        for d in range(0, 360, 6):
-            x, y = ell(0.62, d)
-            px(f, x, y, body)
-        for d in (20, 160, 60, 120):
-            x, y = ell(0.82, d)
-            px(f, x, y, E2 if i < SIG_COOL_AT else E1)
+    if i >= 5:                                          # ember cracks in the band's front
+        for d in (35, 145, 70, 110):
+            x, y = ell(1.0, d)
+            px(f, x, y + 0.5, E2 if i < SIG_COOL_AT else E1)
     if i == 5:                                          # the swell before the release
         for d in range(0, 360, 4):
             x, y = ell(1.06, d)
@@ -331,7 +343,7 @@ def sigil(i):
             pts = spoke_pts(e, 0.0, 1.0)
             x, y = pts[((i - SPOKES) * 2) % len(pts)]
             px(f, x, y, B2)
-    return clear_mask(f, KEEP)
+    return clear_mask(f, ENV)
 
 
 # ------------------------------------------------------------------------------------------------ the gates
@@ -431,31 +443,29 @@ def torn_ground(i):
 
 
 def chips(i):
-    """Stone chips burst off each gate's top as it heaves up (7, 8, 9): up and back down within 4 ticks, in the open
-    air above the gate (the gate fills the strip between the frame margin and the caster)."""
+    """Sandstone shards (2 x 1 px, no outline) knocked off each gate's top as it heaves up (7, 8, 9): a short hop,
+    then they fall past the gate's flank within 4 ticks."""
     f = frame()
     rnd = random.Random(3)
     for k in range(6):
         born = k % 3
-        vx = rnd.uniform(-0.9, 0.9)                     # drawn before any skip: each chip keeps its own path
-        vy = rnd.uniform(-3.4, -2.6)
-        x0 = rnd.uniform(5, 11)
+        vx = rnd.uniform(-0.8, -0.2)                    # outward, drawn before any skip: each shard keeps its path
+        vy = rnd.uniform(-1.6, -0.8)
+        x0 = rnd.uniform(4, 9)
         tt = i - RING1 - born
-        if not 0 <= tt < 4:
+        if not 0 <= tt < 5:
             continue
         top = GATE_BASE - GH * RISE_STAGES[born]
         x = x0 + vx * tt
-        y = top - 4 + vy * tt + 0.9 * tt * tt
-        now_top = GATE_BASE - GH * gate_up(i)           # stay above the gate as it keeps rising
-        if not (SAFE_EDGE + 1 <= x <= 15 and SAFE_EDGE + 1 <= y <= now_top - 3):
+        y = top - 2 + vy * tt + 1.4 * tt * tt
+        now_top = GATE_BASE - GH * gate_up(i)
+        if x < SAFE_EDGE or y < SAFE_EDGE or y > GATE_BASE - 1:
             continue
-        n = frame()
-        c = SS_L if k % 2 else ST_L
-        for dx, dy in ((0, 0), (1, 0), (0, 1), (1, 1)):
-            px(n, x + dx, y + dy, c)
-        px(n, x, y, SS_HI if k % 2 else ST_L)
-        outline_alpha(n)
-        f.alpha_composite(n)
+        if y >= now_top - 1 and x >= GATE_X + 1:        # in front of the gate's face: skip (it reads as a hole)
+            continue
+        c1, c2 = (SS_HI, SS_L) if k % 2 else (SS_L, SS)
+        px(f, x, y, c1)
+        px(f, x + 1, y, c2)
     return clear_mask(mirrored(f), KEEP)
 
 
@@ -552,16 +562,17 @@ def palace_layer(i):
 
 
 # ------------------------------------------------------------------------------------------------ assets
-def rise():
+def rise(with_sigil=True):
     fr = []
     for i in range(LEN):
         f = frame()
-        f.alpha_composite(sigil(i))
+        if with_sigil:
+            f.alpha_composite(sigil(i))
         f.alpha_composite(palace_layer(i))
         f.alpha_composite(torn_ground(i))
         f.alpha_composite(gates_layer(i))
         f.alpha_composite(chips(i))
-        fr.append(clear_mask(f, KEEP))
+        fr.append(clear_mask(f, ENV) if with_sigil else clear_mask(f, KEEP))
     return fr
 
 
@@ -570,6 +581,7 @@ def export(out_dir, sheet=None):
     r = rise()
     check(r)
     own = coverage(r, own_meters_mask())
+    lower = coverage(r, METERS)                                 # the sigil alone (QA r3)
     name = f"anim_sbk_gates_rise_{VER}.webp"
     p = os.path.join(out_dir, name)
     strip(r).save(p, lossless=True, quality=100, method=6)
@@ -579,13 +591,16 @@ def export(out_dir, sheet=None):
            "bytes": size,
            "slot": "appearAnimation on the SELF increasedamagegiven effect; no staticAnimation, no staticAssetPath",
            "geometry": "clip 2.5 hex heights (EFFECT_ANIMATION_HEX_RATIO 2.5); caster an LPC character avatar",
-           "lpc_envelope_cover_max": 0.0, "lower_neighbour_meters_cover_max": 0.0,
+           "lpc_envelope_cover_max": 0.0,
+           "lower_neighbour_meters_cover_max_sigil_only": max(lower),
+           "lower_neighbour_meters_cover_frames": [k for k, v in enumerate(lower) if v],
            "own_meters_cover_max": max(own), "own_meters_cover_frames": [k for k, v in enumerate(own) if v]}
     with open(os.path.join(out_dir, f"sbk_gates_{VER}.json"), "w") as fh:
-        json.dump({"source": "art/subaku_palace/gates/build_gates.py", "timing": "art/subaku_palace/TIMING.md v4",
+        json.dump({"source": "art/subaku_palace/gates/build_gates.py", "timing": "art/subaku_palace/TIMING.md v5",
                    "ring1": RING1, "seal_peak": SEAL_PEAK, "assets": [row]}, fh, indent=1)
         fh.write("\n")
-    print(row["file"], len(r), size, "own meters cover max", max(own))
+    print(row["file"], len(r), size, "own meters cover max", max(own), "lower meters (sigil) max", max(lower),
+          [k for k, v in enumerate(lower) if v])
     if sheet:
         raw_sheet(r, sheet)
 

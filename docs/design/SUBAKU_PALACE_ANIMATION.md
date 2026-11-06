@@ -29,7 +29,7 @@ Build target (director, 2026-11-05): 2.5-hex-height clips and LPC character avat
      lit rails drawn over it, and the trail fades out;
    - the last head reaches the rim on tick 27.
 3. **The gates (7-19).** Red sandstone oni gates tear out of the ground on ring 1, and the palace with its moon gate
-   rises behind the caster (centre strip, gates v5).
+   rises behind the caster (centre strip, gates v6).
 4. **The held beat (28-30).** The rim has formed. Every rail face in the domain burns solid at once, the channels
    white-hot on tick 29 (the seal, the ground appear), and the palace's held beat lands on 29-30.
 5. **The settle (31-43).** The gates sink; nothing on the floor animates after tick 30.
@@ -56,10 +56,12 @@ sprite and meter alpha), on both column parities with identical numbers:
 - frames with an enemy's body more than 25 % covered: ring 1 16-19 (0.8-0.95 s), ring 2 21 (LPC), AI originals on rings 2-3 24-26, and
   ring 4 29 (1.45 s, the maximum: its head stands in the outer neighbour, whose bloom passes last);
 - meter rows follow the same pass, 19-28 frames.
-The caster's own
-meter rows are crossed by the centre strip's moon-gate arch and nothing else: on ticks 24-33 in v5 (the roof wings now
+The centre strip's
+sigil ring (ticks 4-23) crosses the lower neighbour's meter rows, up to 16 % of them (QA r3: a real ground ring,
+hidden only behind the legs); its gates, palace and shards never do. The caster's own
+meter rows are crossed by the centre strip's moon-gate arch and nothing else: on ticks 24-33 in v6 (the roof wings now
 sit below the rows), up to 33 % of the rows by the build's rectangle (the reviewer's renderer measured 40 % on v4; to
-re-measure on v5). The director accepted this on 2026-11-05 ("keep the arch") on the understanding that those rows show
+re-measure on v6). The director accepted this on 2026-11-05 ("keep the arch") on the understanding that those rows show
 only on hover or selection. That holds for other viewers only: the casting player always sees their own rows
 (theninjarpg cb755375 `combat.ts:420` passes the viewer's userId as `selectedId`; `combatActors.ts:516-520`).
 
@@ -132,7 +134,7 @@ Asset library (RUL-2026-11-05-127): every upload goes in the folder **`Jutsu - S
 | `exports/anim_sbk_wave_b4_v1.webp` | `Subaku Palace: ring 3 wave` | ANIMATION | 36 x 50 | visual tag b4 |
 | `exports/anim_sbk_wave_b5_v1.webp` | `Subaku Palace: ring 3.5 wave` | ANIMATION | 36 x 50 | visual tag b5 |
 | `exports/anim_sbk_wave_b6_v1.webp` | `Subaku Palace: ring 4 wave` | ANIMATION | 36 x 50 | visual tag b6 |
-| `gates/exports/anim_sbk_gates_rise_v5.webp` (centre half; v2 and v4 superseded after QA) | `Subaku Palace: gates rise` | ANIMATION | 44 x 50 | SELF `increasedamagegiven`: `appearAnimation`; `appearSfx` Earth `XBlRonNjvwAZx1_HFpHdM` |
+| `gates/exports/anim_sbk_gates_rise_v6.webp` (centre half; v2, v4 and v5 superseded after QA) | `Subaku Palace: gates rise` | ANIMATION | 44 x 50 | SELF `increasedamagegiven`: `appearAnimation`; `appearSfx` Earth `XBlRonNjvwAZx1_HFpHdM` |
 
 The SELF `increasedamagegiven` effect's `staticAssetPath` and `staticAnimation` are **cleared** (no dais, no loop).
 The 7 band tags carry no sound and no static slots.
