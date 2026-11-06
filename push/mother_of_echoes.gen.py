@@ -179,11 +179,39 @@ FX3_UNWIRED = {k for k in FX3 if k.startswith(("aura_", "flourish_"))}
 # Wiring is by slot name, so the spec decides the carrier: an effect whose appearAnimation is "moe_entrance" gets her
 # form's entrance (and a staticAnimation "moe_aura" her approved art3 aura). Today no boss jutsu carries "moe_entrance" (the art3 flourishes and auras were created
 # and unhidden by push/489 and 496 but never wired): the carrier is the sim's once-per-act buff (ENTRANCE_NOTE).
-FX4_META = "art/mother_of_echoes_fx/exports/moe_fx_a4.json"
+FX4_META = "art/mother_of_echoes_fx/exports/moe_fx_final.json"  # every asset the final tuning job creates
 FORMS = (("sayo1", "Sayo"), ("silence", "The Silence"), ("sayo2", "The Glasswright"), ("saint", "The Saint"))
 # v2 (director 2026-11-05: the first entrances were "far too large and gaudy ... they clip"): small, inside her clip, the
 # bible's held beat, no ground ring. The v1 strips (_a4) and their rings were retired before upload.
 FX4 = {f"entrance_{k}": (f"anim_moe_entrance_{k}_a5.webp", f"Mother of Echoes FX - {n} enters") for k, n in FORMS}
+# The final tuning job's art (director 2026-11-05: the Refraction line is the bar; omens / payoffs / lingering ground;
+# no sickly green, colours per enemy; the floor as a stage; MOTHER_OF_ECHOES_ART.md "Art direction"):
+FX4.update({f"rbreak_{s_}{c}": (f"anim_moe_rbreak_{s_}{c}_a6.webp", f"Mother of Echoes FX - Refraction breaks, {s_.upper()} {c}")
+            for s_, cols in (("l", range(0, 9)), ("r", range(3, 12))) for c in cols})
+FX4.update({f"rmark_{s_}{c}": (f"anim_moe_rmark_{s_}{c}_a6.webp", f"Mother of Echoes FX - Refraction runs in, {s_.upper()} {c}")
+            for s_, cols in (("l", range(0, 9)), ("r", range(3, 12))) for c in cols})
+FX4.update({
+    "lancet6": ("anim_moe_lancet_a6.webp", "Mother of Echoes FX - Glass Lancet (held star)"),
+    "floor_i": ("tile_moe_floor_i_a8.webp", "Mother of Echoes floor - crazed Heartglass"),
+    "floor_ii": ("tile_moe_recast_floor_a8.webp", "Mother of Echoes floor - shattered etch"),
+    "floor_iii": ("tile_moe_floor_iii_a8.webp", "Mother of Echoes floor - blackened obsidian"),
+    "floor_silence": ("tile_moe_floor_silence_a8.webp", "Mother of Echoes floor - ink and frost"),
+    "floor_mended": ("tile_moe_mended_floor_a8.webp", "Mother of Echoes floor - nothing is mended"),
+    "absence_rise": ("anim_moe_absence_rise_a7.webp", "Mother of Echoes FX - An Absence arrives"),
+    "absence_idle": ("anim_moe_absence_idle_a7.webp", "Mother of Echoes FX - An Absence waits"),
+    "absence_burst": ("anim_moe_absence_burst_a9.webp", "Mother of Echoes FX - An Absence erupts"),
+    "absence_splat": ("anim_moe_absence_splat_a9.webp", "Mother of Echoes FX - An Absence splatters"),
+})
+# Lingering ground by owner (no bile anywhere): the payoff's settle carries the arrival, so the floor has no appear and
+# no loop (stacking rules 1-2). The Hush family is the Silence's whatever boss casts it.
+FLOOR_BY_ACT = {"i": "floor_i", "ii": "floor_ii", "iii": "floor_iii"}
+FLOOR_BY_NAME = (("No One Is Mended", "floor_mended"), ("The Hush", "floor_silence"), ("Hush ", "floor_silence"),
+                 ("An Absence", "floor_silence"), ("Recast:", "floor_ii"))
+# Refraction lines (fixed rows: L = columns 0-8 from the left wall, R = 3-11 from the right): the mark's arrival and the
+# break as the sliced Refraction line, one visual tag per (side, column).
+REFRACTION_SLICES = {"Refraction": "rmark", "Far Refraction": "rmark", "Facet": "rmark",
+                     "Refraction Breaks": "rbreak", "Far Refraction Breaks": "rbreak", "Facet Breaks": "rbreak",
+                     "Lucid Refraction": "rbreak"}
 FORM = {"Sayo, Mother of Echoes": "sayo1", "The Silence": "silence", "Sayo, Glasswright of the Stilling": "sayo2",
         "Sayo, Saint of Stillness": "saint"}
 ENTRANCE_NOTE = ("the entrance plays when its carrier is cast, every time: it needs a once-per-act cast (a first rule "
@@ -302,6 +330,7 @@ AVATARS = {  # harness AI id -> export (RUL-2026-11-03-111; Act I is the approve
     "moe-ai-worn-porter": "avatar_moe_worn_porter.webp", "moe-ai-worn-hana": "avatar_moe_worn_hana.webp",
     "moe-ai-worn-tomo": "avatar_moe_worn_tomo.webp",
 }
+AVATARS_OPTIONAL = {"moe-ai-absence": "avatar_moe_absence_a7.webp"}  # An Absence (the sim's anti-camping summon, 2026-11-05)
 QUEST_ICON = ART + "icon-quest-mother-of-echoes.webp"
 SHARD_ICONS = {k: f"{ART}icon-shard-{k}.webp" for k in ("keel", "crown", "tide", "ledger")}
 TOKEN_ICONS = {"heartglass": ART + "icon-variant-token-heartglass.webp",
@@ -398,12 +427,13 @@ BUFF_TYPES = ("absorb", "shield", "reflect", "lifesteal")
 
 
 class Build:
-    def __init__(self, spec, fx=None, art=False, fx2=None, stack=False):
+    def __init__(self, spec, fx=None, art=False, fx2=None, stack=False, final=False):
         self.spec = spec
         self.fx = fx      # 466 asset ids by FX key (jutsu_art step only)
         self.fx2 = fx2    # push/478 custom set: FX2 key -> asset ref (None: the live borrowed strips)
         self.final_art = art  # art pass: real images instead of the engine default
-        self.stack = stack    # stacking-pass rules (STACK_RULES)
+        self.final = final    # the final tuning job's art (FX4 set, floors by owner, slices); implies the stacking rules
+        self.stack = stack or final
         self.jutsu = {j["id"]: j for j in spec["jutsu"]}
         self.ais = {a["id"]: a for a in spec["ais"]}
         self.jname = unique_names(spec["jutsu"], lambda j: j["record"]["name"])
@@ -420,6 +450,7 @@ class Build:
             if names != set(self.family) - (optional - names):
                 die(f"family table vs spec jutsu: missing {sorted(names - set(self.family))}, "
                     f"stale {sorted(set(self.family) - names)}")
+            AVATARS.update({k: v for k, v in AVATARS_OPTIONAL.items() if k in self.ais})
             if set(AVATARS) != set(self.ais):
                 die(f"avatar table vs spec AIs: {sorted(set(AVATARS) ^ set(self.ais))}")
         self.bosses = [a["id"] for a in spec["ais"] if not a["summonTemplate"]]
@@ -482,6 +513,34 @@ class Build:
             die(f"{label}: held by {sorted(self.holders.get(label, ()))}; an entrance needs one boss form (FORM)")
         return forms.pop()
 
+    def floor_of(self, label):
+        for prefix, key in FLOOR_BY_NAME:
+            if label == prefix or label.startswith(prefix):
+                return key
+        return FLOOR_BY_ACT[self.act_of(label)]
+
+    def refraction_slices(self, label, rec, d):
+        """The sliced Refraction line: blank the per-hex arrival / payoff and add one visual tag per (row side, column)."""
+        kind = REFRACTION_SLICES[label]
+        slot = "tg_heavy" if kind == "rmark" else "moe_refraction"
+        for src, e in zip(rec["effects"], d["effects"]):
+            if src.get("appearAnimation") == slot and src.get("target") != "COORDINATES":
+                e["appearAnimation"] = ""
+        rows = {}
+        for c in rec["coordinateTargeting"]["coordinates"]:
+            rows.setdefault(c["latitude"], []).append(c["longitude"])
+        tags = {}
+        for lat, cols in rows.items():
+            side = "l" if sorted(cols) == list(range(0, 9)) else "r" if sorted(cols) == list(range(3, 12)) else None
+            if side is None:
+                die(f"{label}: row {lat} is not a 9-hex wall line ({sorted(cols)}); the Refraction slices need one")
+            for c in cols:
+                tags.setdefault((side, c), []).append({"longitude": c, "latitude": lat})
+        return [{**VISUAL, "appearAnimation": self.fx2[f"{kind}_{side}{c}"],
+                 "coordinateTargeting": {"origin": "BATTLEFIELD", "selection": "ALL", "coordinates": coords},
+                 "description": f"{label}: the line, {side.upper()} column {c} (art only)"}
+                for (side, c), coords in sorted(tags.items())]
+
     def act_of(self, label):
         """The act material a jutsu fights in: every AI holding it must share one act (BOSS_ACT)."""
         acts = {BOSS_ACT.get(u, "?") for u in self.holders.get(label, ())}
@@ -500,6 +559,16 @@ class Build:
             tg = "tg_linger" if v == "moe_hush_floor" else v
             if v == "tg_etch":
                 e[f] = etch[f]
+            elif self.final and tg == "tg_linger":
+                e[f] = self.fx2[self.floor_of(label)] if f == "staticAssetPath" else ""
+            elif self.final and v == "moe_lancet":
+                e[f] = self.fx2["lancet6"]
+            elif self.final and v in ("moe_absence_rise", "moe_absence_idle"):
+                e[f] = self.fx2[v[4:]]
+            elif self.final and v == "moe_absence_burst":
+                e[f] = ""   # the burst rides one centre visual (jutsu_data), not every hex of the cast
+            elif self.final and v == "tg_absence":
+                e[f] = {"staticAssetPath": self.fx2["floor_silence"], "appearAnimation": self.fx2["absence_splat"]}.get(f, "")
             elif tg in TG3:
                 k = TG3[tg](self.act_of(label))[f]
                 e[f] = self.fx2[k] if k else ""
@@ -594,6 +663,13 @@ class Build:
             self.stack_rules(name, rec, d)
         if self.fx2 is not None:
             d["effects"] += self.mosaic(name, rec)
+        if self.final and name in REFRACTION_SLICES:
+            d["effects"] += self.refraction_slices(name, rec, d)
+        if self.final and any(e.get("appearAnimation") == "moe_absence_burst" for e in rec["effects"]):
+            d["effects"].append({**VISUAL, "appearAnimation": self.fx2["absence_burst"],
+                                 "coordinateTargeting": {"origin": "CASTER", "selection": "ALL",
+                                                         "coordinates": [{"longitude": 0, "latitude": 0}]},
+                                 "description": f"{name}: the burst (art only)"})
         if self.fx is not None and any(e.get("staticAnimation") == "moe_lull" for e in rec["effects"]):
             src = [e["type"] for e in rec["effects"] if e.get("staticAnimation") == "moe_lull"]
             dst = [i for i, e in enumerate(d["effects"]) if e["type"] == LULL_MOVE[1]]

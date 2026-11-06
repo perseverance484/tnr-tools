@@ -319,7 +319,7 @@ def floor_i():
 
 def floor_silence():
     """The Silence (the Hush, An Absence): matte ink that reflects nothing, frost lying in it, teal only in the veins."""
-    return _veined_tile(41, (14, 12, 18), (70, 84, 98), (96, 214, 236), [(206, 210, 222), (206, 210, 222)],
+    return _veined_tile(41, (14, 12, 18), (39, 50, 60), (47, 92, 106), [(206, 210, 222), (206, 210, 222)],
                         frost=((70, 84, 98), (150, 160, 174)), nveins=3, step=6, wdark=2)
 
 
