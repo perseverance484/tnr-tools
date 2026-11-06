@@ -194,6 +194,9 @@ FX4.update({
     "lancet6": ("anim_moe_lancet_a6.webp", "Mother of Echoes FX - Glass Lancet (held star)"),
     "sweep6": ("anim_moe_doorward_sweep_a6.webp", "Mother of Echoes FX - Doorward Sweep"),
     "quiet6": ("anim_moe_quiet_a6.webp", "Mother of Echoes FX - The Quiet (ink lids)"),
+    "etch_plan": ("tile_moe_etch_plan_a10.webp", "Mother of Echoes FX - Etching mark (floor plan)"),
+    **{f"recast_b{k}": (f"anim_moe_recast_b{k}_a10.webp", f"Mother of Echoes FX - Recast breaks, row {k}") for k in range(10)},
+    **{f"etch_b{k}": (f"anim_moe_etch_b{k}_a10.webp", f"Mother of Echoes FX - Etching carved, row {k}") for k in range(10)},
     "floor_i": ("tile_moe_floor_i_a8.webp", "Mother of Echoes floor - crazed Heartglass"),
     "floor_ii": ("tile_moe_recast_floor_a8.webp", "Mother of Echoes floor - shattered etch"),
     "floor_iii": ("tile_moe_floor_iii_a8.webp", "Mother of Echoes floor - blackened obsidian"),
@@ -490,8 +493,12 @@ class Build:
                 "appearAnimation": APPEAR, "disappearAnimation": VANISH}
         for f in ART_FIELDS:
             v = e.get(f) or ""
-            if v == "tg_etch":
+            if v == "tg_etch" and self.final:
+                e[f] = self.fx2["etch_plan"] if f == "staticAssetPath" else ""   # the carve is the row-band visuals
+            elif v == "tg_etch":
                 e[f] = etch[f]
+            elif self.final and v == "moe_recast":
+                e[f] = ""                                                     # the region breaks as row-band visuals
             elif v in TG:
                 e[f] = TG[v][f]
             elif v == "moe_hush_floor":
@@ -669,6 +676,16 @@ class Build:
             self.stack_rules(name, rec, d)
         if self.fx2 is not None:
             d["effects"] += self.mosaic(name, rec)
+        if self.final:
+            for src in rec["effects"]:
+                kind = {"moe_recast": "recast_b", "tg_etch": "etch_b"}.get(src.get("appearAnimation"))
+                if kind and src.get("target") != "COORDINATES":
+                    rows = {}
+                    for c in rec["coordinateTargeting"]["coordinates"]:
+                        rows.setdefault(c["latitude"], []).append({"longitude": c["longitude"], "latitude": c["latitude"]})
+                    d["effects"] += [{**VISUAL, "appearAnimation": self.fx2[f"{kind}{lat}"],
+                                      "coordinateTargeting": {"origin": "BATTLEFIELD", "selection": "ALL", "coordinates": cs},
+                                      "description": f"{name}: row {lat} (art only)"} for lat, cs in sorted(rows.items())]
         if self.final and name in REFRACTION_SLICES:
             d["effects"] += self.refraction_slices(name, rec, d)
         if self.final and any(e.get("appearAnimation") == "moe_absence_burst" for e in rec["effects"]):
