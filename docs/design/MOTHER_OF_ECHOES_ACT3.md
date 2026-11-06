@@ -618,3 +618,13 @@ The Saint idled on 0% of her turns. Act III is no longer where perfect play is l
   - A pool on the side-step hexes of the Hold Still bar or the Every Line column.
   - A pool on the ring 4 hexes from her while she is cradled: that is where the Clear has to be cast from, just outside
     Stillness.
+
+**Fixes to make Act III v2 behave correctly on the upstream engine (cb755375), from the sim agent, 2026-11-06:**
+1. **The Phase II cycle-end marker moved from `fleeprevent` to `onehitkillprevent`.**
+   - The Refraction opener (MK3.a) and pane C also used `fleeprevent`.
+   - As a result, the Phase II Hush let Lucid Refraction fire with nothing drawn: 10 unwarned blasts and 5 perfect-play deaths in 30 runs.
+2. **Facet Breaks cooldown went from 0 to 2.**
+   - It could re-fire the round after its own break while its marker was still live: 1 unwarned blast in 240 runs.
+   - A cooldown of 1 doesn't block this, because the engine treats an action as ready once rounds passed ≥ cooldown (actions.ts:316-318).
+   - No intended break is lost: the chain already spaces breaks at least 4 rounds apart.
+3. **Lethal hits are `onehitkill` power 100 with target INHERIT.** The captured donor shape has target SELF, which cast the kill on the Saint herself.
