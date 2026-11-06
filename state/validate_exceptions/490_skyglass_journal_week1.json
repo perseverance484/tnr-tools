@@ -2,7 +2,7 @@
  "manifest": "push/490_skyglass_journal_week1.json",
  "ruling": "Accepted by RUL-2026-11-05-121 item D6 (director 2026-11-05: accept 'so long as that won't bug'). Classes: (1) the no-win-node lint, as push/351: a consecutive quest resolves when every node on the walked path is done (theninjarpg@3314d122 libs/objectives.ts 110-140), on the player's claim (routers/quests.ts checkRewards); no win node is needed and none can be gated after the entries (libs/objectives.ts 151-186); (2) the law-49 snapshot lint on the salvager scene character Xugt7415D3-tepLfxpwM5, a SCENE_CHARACTER gameAsset created and verified by push/374 (tnr_results_1793502324082.json, idmap sg374_salvager), newer than the answers snapshot.",
  "reason": "Both diagnostics are checks that do not apply: the first models linear quests, the second is a snapshot check on a record created and verified since the last harvest.",
- "sha256": "2dc0d1d364824aade702d1b72e61f1a45b5634fa8950c24a858efd83b91f07f5",
+ "sha256": "50052ed56b3685738111f8a87c5da2342b2b89356f8ed2377058ee3b062995f6",
  "accepted": [
   "ERROR  [quest:The Watch Log: First Page]: no win_quest / fail_quest / reset_quest node: nothing marks the quest complete",
   "ERROR  lint The Watch Log: First Page: T1 law 49: content sceneCharacters 'Xugt7415D3-tepLfxpwM5' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here"
