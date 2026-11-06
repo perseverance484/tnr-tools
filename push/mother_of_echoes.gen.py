@@ -212,11 +212,23 @@ FX4.update({
 # one visual tag per hex, BATTLEFIELD origin so every slice lands where it was cut. Etchings carve a picture per region
 # and the Recast erupts along the same picture (build_fx_etch.py); Glassfall panes (build_fx_paint.py --glassfall).
 PAINT_META = "art/mother_of_echoes_fx/exports/moe_fx_painted_a14.json"
-PAINTED = {}
+PAINTED = {}                     # region -> {(col, row): FX4 key}; CASTER regions use (dx, dy), her own hex (0, 0)
+PAINT_SHARED = ("flood", "enrage")   # lattice-periodic fields: hexes share strips (one asset per distinct strip)
+_pkey = {}
 for _r in (json.load(open(os.path.join(ROOT, PAINT_META)))["slices"] if os.path.exists(os.path.join(ROOT, PAINT_META)) else []):
-    PAINTED.setdefault(_r["region"], set()).add((_r["col"], _r["row"]))
-    FX4[f"{_r['region']}_{_r['col']}_{_r['row']}"] = (
-        _r["file"], f"Mother of Echoes FX - {_r['region'].replace('_', ' ').title()}, {_r['col']},{_r['row']}")
+    if _r["file"] not in _pkey:
+        _n = sum(1 for k in _pkey.values() if k.startswith(_r["region"] + "~"))
+        _pkey[_r["file"]] = (f"{_r['region']}~s{_n:02d}" if _r["region"] in PAINT_SHARED
+                             else f"{_r['region']}~{_r['col']}_{_r['row']}")
+        FX4[_pkey[_r["file"]]] = (_r["file"], f"Mother of Echoes FX - {_r['region']} {_r['col']},{_r['row']}")
+    PAINTED.setdefault(_r["region"], {})[(_r["col"], _r["row"])] = _pkey[_r["file"]]
+# Faint lingering floors (director 2026-11-06, approved at 18%): a payoff that carries the vivid settle itself
+# (build_faint_floor.py settle) leaves the floor at 18%, so nothing vivid shows under it before the break.
+PAINT_SLOTS = {"moe_recast": "recast", "moe_glassfall": "glassfall", "moe_flood": "flood", "moe_enrage": "enrage",
+               "moe_shatterfall": "shatterfall"}
+FAINT_FLOOR = ("Recast:", "Glassfall:", "The Names Flood In", "Shatterfall Gives Way")
+FX4.update({"floor_ii_faint": ("tile_moe_recast_floor_faint_a14.webp", "Mother of Echoes floor - shattered etch (faint)"),
+            "floor_iii_faint": ("tile_moe_floor_iii_faint_a14.webp", "Mother of Echoes floor - blackened obsidian (faint)")})
 # Lingering ground by owner (no bile anywhere): the payoff's settle carries the arrival, so the floor has no appear and
 # no loop (stacking rules 1-2). The Hush family is the Silence's whatever boss casts it.
 FLOOR_BY_ACT = {"i": "floor_i", "ii": "floor_ii", "iii": "floor_iii"}
@@ -529,10 +541,11 @@ class Build:
         return forms.pop()
 
     def floor_of(self, label):
-        for prefix, key in FLOOR_BY_NAME:
-            if label == prefix or label.startswith(prefix):
-                return key
-        return FLOOR_BY_ACT[self.act_of(label)]
+        key = next((k for p_, k in FLOOR_BY_NAME if label == p_ or label.startswith(p_)), None) or \
+            FLOOR_BY_ACT[self.act_of(label)]
+        if self.final and any(label.startswith(p_) for p_ in FAINT_FLOOR):
+            return key + "_faint"
+        return key
 
     def refraction_slices(self, label, rec, d):
         """The sliced Refraction line: blank the per-hex arrival / payoff and add one visual tag per (row side, column)."""
@@ -574,7 +587,7 @@ class Build:
             tg = "tg_linger" if v == "moe_hush_floor" else v
             if self.final and v == "tg_etch":                       # QA B2: the final set only; nothing old under it
                 e[f] = ""   # director 2026-11-05: no residual; the picture lives in the carve (per-hex visuals)
-            elif self.final and v in ("moe_recast", "moe_glassfall"):   # the painted per-hex visuals carry it
+            elif self.final and v in PAINT_SLOTS:                          # the painted per-hex visuals carry it
                 e[f] = ""                                                     # the region breaks as row-band visuals
             elif v == "tg_etch":
                 e[f] = etch[f]
@@ -655,14 +668,18 @@ class Build:
                 self.notes.append(f"{label}: mark field of {n} hexes keeps its tile, loses its loop (stacking rule 2)")
 
     def painted(self, name, rec, pre):
-        """One visual tag per hex carrying that hex's slice of the region's painting (PAINT_META)."""
-        region = f"{pre}_{name.split(': ')[-1].lower().replace(' ', '_')}"
+        """One visual tag per hex carrying that hex's slice of the region's painting (PAINT_META). CASTER regions
+        (Shatterfall) also carry her own hex (0, 0)."""
+        region = pre if pre in ("flood", "enrage", "shatterfall") else f"{pre}_{name.split(': ')[-1].lower().replace(' ', '_')}"
         ct = rec["coordinateTargeting"]
         have = {(c["longitude"], c["latitude"]) for c in ct["coordinates"]}
-        if ct["origin"] != "BATTLEFIELD" or ct["selection"] != "ALL" or have != PAINTED.get(region, set()):
+        if ct["origin"] == "CASTER":
+            have.add((0, 0))
+        got = PAINTED.get(region, {})
+        if ct["origin"] not in ("BATTLEFIELD", "CASTER") or ct["selection"] != "ALL" or have != set(got):
             die(f"{name}: the painted slices for {region} do not match its region (repaint and re-export)")
-        return [{**VISUAL, "appearAnimation": self.fx2[f"{region}_{c}_{r}"],
-                 "coordinateTargeting": {"origin": "BATTLEFIELD", "selection": "ALL",
+        return [{**VISUAL, "appearAnimation": self.fx2[got[(c, r)]],
+                 "coordinateTargeting": {"origin": ct["origin"], "selection": "ALL",
                                          "coordinates": [{"longitude": c, "latitude": r}]},
                  "description": f"{name}: {c},{r} (art only)"} for c, r in sorted(have)]
 
@@ -707,12 +724,12 @@ class Build:
         d["effects"] = [self.art(name, e) for e in rec["effects"]]
         if self.fx2 is not None and self.stack:
             self.stack_rules(name, rec, d)
-        if self.fx2 is not None and not (self.final and any(e.get("appearAnimation") == "moe_glassfall" for e in rec["effects"])):
+        if self.fx2 is not None and not (self.final and any(e.get("appearAnimation") in PAINT_SLOTS for e in rec["effects"])):
             d["effects"] += self.mosaic(name, rec)
         if self.final:
             for src in rec["effects"]:
                 slot = src.get("appearAnimation")
-                pre = {"moe_recast": "recast", "tg_etch": "etch", "moe_glassfall": "glassfall"}.get(slot)
+                pre = {**PAINT_SLOTS, "tg_etch": "etch"}.get(slot)
                 if pre and src.get("target") != "COORDINATES":
                     d["effects"] += self.painted(name, rec, pre)
         if self.final and name in REFRACTION_SLICES:
@@ -1000,9 +1017,14 @@ LABELS = {  # key -> (folder suffix, "MoE ..." name): the assets this event stil
     "floor_i": ("Floors", "MoE Floor: Sayo I - crazed Heartglass"), "floor_ii": ("Floors", "MoE Floor: Recast - shattered etch"),
     "floor_iii": ("Floors", "MoE Floor: Saint - blackened obsidian"), "floor_silence": ("Floors", "MoE Floor: The Silence - ink and frost"),
     "floor_mended": ("Floors", "MoE Floor: No One Is Mended - unmended"),
+    "floor_ii_faint": ("Floors", "MoE Floor: Recast - shattered etch (faint)"),
+    "floor_iii_faint": ("Floors", "MoE Floor: Saint - blackened obsidian (faint)"),
     "absence_rise": ("Act I", "MoE I: An Absence - arrives"), "absence_idle": ("Act I", "MoE I: An Absence - waits"),
     "absence_burst": ("Act I", "MoE I: An Absence - erupts"), "absence_splat": ("Act I", "MoE I: An Absence - splatters"),
 }
+PAINT_MOVES = {"etch": ("II", "Etching"), "recast": ("II", "Recast"), "glassfall": ("III", "Glassfall"),
+               "flood": ("III", "The Names Flood In"), "enrage": ("III", "The Glass Remembers"),
+               "shatterfall": ("III", "Shatterfall Gives Way")}
 SLICE_MOVES = {"rbreak": ("I", "Refraction Breaks"), "rmark": ("I", "Refraction Mark"), "etch": ("II", "Etching"),
                "recast": ("II", "Recast"), "glassfall": ("III", "Glassfall"), "shatterfall": ("III", "Shatterfall Gives Way")}
 
@@ -1016,12 +1038,21 @@ def lib_label(key):
     if m:
         act, move = SLICE_MOVES[m.group(1)]
         return LIB_SLICES + move, f"MoE {act}: {move} - slice {m.group(2).upper()} c{int(m.group(3)):02d}"
-    m = re.fullmatch(r"(etch|recast|glassfall)_([a-z_]+)_(\d+)_(\d+)", key)
+    m = re.fullmatch(r"([a-z_]+)~(s(\d+)|(-?\d+)_(-?\d+))", key)
     if m:
-        act, move = SLICE_MOVES[m.group(1)]
-        region = m.group(2).replace("_", " ").title()
-        return (LIB_SLICES + f"{move} {region}",
-                f"MoE {act}: {move} {region} - slice c{int(m.group(3)):02d}r{int(m.group(4)):02d}")
+        region = m.group(1)
+        base, _, sub = region.partition("_")
+        act, move = PAINT_MOVES[base]
+        if sub:
+            move = f"{move} {sub.replace('_', ' ').title()}"
+        if m.group(3):
+            part = f"strip {int(m.group(3)):02d}"
+        elif base == "shatterfall":
+            dx, dy = int(m.group(4)), int(m.group(5))
+            part = "piece centre" if (dx, dy) == (0, 0) else f"piece dx{dx:+d} dy{dy:+d}"
+        else:
+            part = f"slice c{int(m.group(4)):02d}r{int(m.group(5)):02d}"
+        return LIB_SLICES + move, f"MoE {act}: {move} - {part}"
     die(f"no library label for asset key {key!r} (add it to LABELS)")
 
 

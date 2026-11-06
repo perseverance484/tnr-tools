@@ -34,7 +34,8 @@ MZ, A4, A, F = P.MZ, P.A4, P.A, P.F
 WHITE, SCORE, GOLD_HOT, GOLD, GOLD_DIM, CRACK = P.WHITE, P.SCORE, P.GOLD_HOT, P.GOLD, P.GOLD_DIM, P.CRACK
 STEEL_L, STEEL_S = P.STEEL_L, P.STEEL_S
 SMOKE = P.SMOKE
-COVER = (30, 28, 38)                # the etched glass floor, intact (Act II seam/frame family, dark)
+COVER = (30, 28, 38)
+COVER_KEEP = float(os.environ.get("MOE_RECAST_COVER", "0.75"))   # 0 = no cover (if the faint floor is approved)                # the etched glass floor, intact (Act II seam/frame family, dark)
 
 
 def cells_of(cv, rm):
@@ -71,19 +72,21 @@ def motif_rime(cv, cells, rnd):
     xs = sorted({cv.c(*k)[0] for k in cells})
     top = min(cv.c(*k)[1] for k in cells) - 8
     bot = max(cv.c(*k)[1] for k in cells) + 6
-    roots = [xs[1] + 8, (xs[0] + xs[-1]) / 2 + rnd.uniform(-8, 8), xs[-2] - 8]
-    for j, rx in enumerate(roots):
-        ang = math.pi / 2 + (-0.55, 0.15, 0.6)[j]
-        x, y = rx, top
+    span = xs[-1] - xs[0]
+    roots = [(xs[0] + 6 + span * (q + 0.5) / 6 + rnd.uniform(-6, 6), top, math.pi / 2 + (0.55 if q % 2 else -0.55))
+             for q in range(6)]                               # QA E2: fronds across the whole north
+    roots += [(xs[0] - 12, (top + bot) / 2, 0.15), (xs[-1] + 12, (top + bot) / 2, math.pi - 0.15)]   # and from both walls
+    for j, (rx, ry, ang) in enumerate(roots):
+        x, y = rx, ry
         stem = [(x, y)]
-        L = (bot - top) * 1.9
+        L = (bot - top) * (1.7 if j < 6 else 2.4)
         for k in range(26):
-            ang += rnd.uniform(-0.08, 0.08) + (0.02 if j == 0 else -0.02 if j == 2 else 0)
+            ang += rnd.uniform(-0.08, 0.08)
             x += math.cos(ang) * L / 26
             y += 0.5 * math.sin(ang) * L / 26
             stem.append((x, y))
-        t0 = 0.05 * j
-        S += poly(stem, t0, t0 + 0.55, 2)
+        t0 = 0.04 * j
+        S += poly(stem, t0, t0 + 0.5, 2)
         for k in range(3, len(stem) - 2, 3):              # pinnate branches, alternating sides, shorter toward the tip
             for side in (-1, 1):
                 bx, by = stem[k]
@@ -158,6 +161,14 @@ def motif_ember(cv, cells, rnd):
             S += poly([(tx, cy - 1), (tx + 5 * side, cy - 9)], 0.45 + 0.4 * q / 6, 0.5 + 0.4 * q / 6, 2)
             S += poly([(tx, cy + 1), (tx + 5 * side, cy + 9)], 0.45 + 0.4 * q / 6, 0.5 + 0.4 * q / 6, 2)
         S += poly([(x_end, cy), (x_end - 7 * side, cy - 12), (x_end - 15 * side, cy - 8)], 0.85, 0.95, 3)
+        for q in range(1, 9):                                 # QA E2: flame-tongues up and thorned branches down the bar
+            tx = cx + side * (44 + (abs(x_end - cx) - 50) * q / 9)
+            tq = 0.5 + 0.4 * q / 9
+            h = rnd.uniform(14, 24)
+            tongue = [(tx + math.sin(u * 4 + q) * 3 * u, cy - 3 - h * u) for u in [k / 8 for k in range(9)]]
+            S += poly(tongue, tq, tq + 0.08, 2)
+            S += poly([(tx + 6 * side, cy + 2), (tx + 10 * side, cy + 10), (tx + 7 * side, cy + 18 + rnd.uniform(0, 6))],
+                      tq + 0.02, tq + 0.1, 2)
     return S
 
 
@@ -206,6 +217,45 @@ def motif_hail(cv, cells, rnd):
             S += poly([(cx + r0 * math.cos(a), cy + 1 + r0 * 0.72 * math.sin(a)),
                        (cx + r1 * math.cos(a), cy + 1 + r1 * 0.72 * math.sin(a))], t0 + 0.1, t0 + 0.14, 1)
     return S
+
+def in_hex(cv, k, x, y):
+    cx, cy = cv.c(*k)
+    dx, dy = abs(x - cx), abs(y - cy)
+    return dy <= 10 and dx <= 20 - dy
+
+
+def touch_every_hex(cv, cells, S, name, rnd):
+    """QA E2 (director: option 2): every hex the Recast hits carries part of the picture. Each untouched hex gets the
+    motif's own element joined to the picture: Rime a frost crystal, Ember a flame-tongue, Seam a splinter crack from
+    the scar to it (the scar's splinters spread across its whole field)."""
+    def touched(k):
+        return any(in_hex(cv, k, x, y) for (x, y, t, w) in S)
+    for k in sorted(cells, key=lambda k: (k[1], k[0])):
+        if touched(k):
+            continue
+        cx, cy = cv.c(*k)
+        near = min(S, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2)
+        t0 = min(0.85, near[2] + 0.08)
+        if name == "rime":
+            for q in range(6):
+                a = math.pi * q / 3 + rnd.uniform(-0.2, 0.2)
+                tip = (cx + 8 * math.cos(a), cy + 4.4 * math.sin(a))
+                S += poly([(cx, cy), tip], t0, t0 + 0.08, 1)
+                S += poly([((cx + tip[0]) / 2, (cy + tip[1]) / 2),
+                           ((cx + tip[0]) / 2 + 3 * math.cos(a + 0.9), (cy + tip[1]) / 2 + 1.6 * math.sin(a + 0.9))], t0 + 0.05, t0 + 0.09, 1)
+        elif name == "ember":
+            S += poly([(cx + math.sin(u * 4) * 3 * u, cy + 5 - 16 * u) for u in [q / 8 for q in range(9)]], t0, t0 + 0.08, 2)
+        else:
+            pts = [(near[0], near[1])]
+            for q in range(1, 5):
+                u = q / 4
+                pts.append((near[0] + (cx - near[0]) * u + rnd.uniform(-3, 3), near[1] + (cy - near[1]) * u + rnd.uniform(-2, 2)))
+            S += poly(pts, near[2], near[2] + 0.12, 1)
+    missing = [k for k in cells if not touched(k)]
+    if missing:
+        raise SystemExit(f"{name}: the picture still misses {missing}")
+    return S
+
 
 MOTIFS = {"rime": motif_rime, "heart": motif_heart, "ember": motif_ember, "seam": motif_seam, "hail": motif_hail}
 
@@ -286,13 +336,12 @@ def recast(cv, rm, S, frames=24, seed=3):
         for x in range(cv.w):
             if m[x, y]:
                 cp[x, y] = (*COVER, 255)
-    body = set()                                             # the LPC body keep-out (QA S4): the glass thins there
-    for k in cells_of(cv, rm):
-        bx, by = cv.c(*k)
-        body.update((x, y) for y in range(int(by) - 16, int(by) + 6) for x in range(int(bx) - 6, int(bx) + 7))
-    for (x, y) in body:
-        if 0 <= x < cv.w and 0 <= y < cv.h and cp[x, y][3] and F.BAYER[y % 4][x % 4] >= 0.45 * 16:
-            cp[x, y] = (0, 0, 0, 0)
+    # the fighter must read through it (QA S4): a uniform 75% ordered dither, not a per-hex body hole (holes stacked
+    # into vertical stripes down every column)
+    for y in range(cv.h):
+        for x in range(cv.w):
+            if cp[x, y][3] and F.BAYER[y % 4][x % 4] >= COVER_KEEP * 16:
+                cp[x, y] = (0, 0, 0, 0)
     out = []
     for i in range(frames):
         f = cv.frame()
@@ -385,6 +434,8 @@ def main():
         rnd = random.Random(sum(map(ord, name)))
         got = MOTIFS[name](cv, ec, rnd)
         S = got[0] if isinstance(got, tuple) else got
+        if name in ("rime", "ember", "seam"):
+            S = touch_every_hex(cv, rc, S, name, rnd)
         for kind, cells, frames in (("etch", ec, None), ("recast", rc, None)):
             sub = MZ.Canvas(BOARD)
             sub.cells = list(cells)
