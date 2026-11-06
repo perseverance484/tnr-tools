@@ -5747,3 +5747,22 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-04: "I accept them."
 
 **Canonical destination:** `state/validate_exceptions/466_mother_of_echoes_final.json`.
+
+## RUL-2026-11-05-116 — Event structure framework: Skyglass is the reference; diegetic progression
+
+**Date:** 2026-11-05
+
+**Domain:** content design / all events
+
+**Status:** ACTIVE. The principles are the director's; the framework's checks, templates and anti-patterns are Claude's drafting, open to revision. Its open questions (§8: standard pacing targets, minimum routes, the progress surface, crafting gates on sinks, starved nodes, stated tier labels, Skyglass follow-ups) are not settled by this entry.
+
+**Ruling:**
+1. **Future events are structured on the Skyglass model:** interlocking content that feeds each other; an economy of sources and sinks; progression and depth; player agency (more than one route to an outcome, X → Y and Y → X, free to change approach); and legibility (the player can see what they did, what is ahead and behind, and trace their progress).
+2. **Diegetic progression:** every event has an explicit progression ladder for designers (tiers from entry to finale, with prerequisites and gates) that players never see as numbers. Each rung is expressed in the world: an item that is the prerequisite, places that read as deeper, and enemies, dialog and descriptions that signal the tier. Designers fix the start and the end first, then fill the rungs with story and worldbuilding.
+3. **The framework is recorded** in `docs/design/EVENT_STRUCTURE.md`, with the Skyglass event mapped as the reference in `docs/design/SKYGLASS_EVENT_MAP.md`.
+
+**Evidence:** Director, 2026-11-05, verbatim:
+- "I kind of see this event as the holy grail of content development for tnr. Not because it is perfect, but because it is the flagship that features how I think content should be structured. It should feed into each other and create an economy of sorts where doing this part of an event feeds into that one, unlocks this or that, makes this possible. It creates a sense of progression and depth for the player, allowing them to engage with content with agency. Being free to choose their approach and pursue their desired outcome and being able to adjust that approach at will is what defines a good game to me. Knowing they can do X thing to get Y outcome or Y to get X and so on. Being able to explore a game and know what you did, what's in front and behind you, trace your progress, it's important. We should look into recording a cohesive event structure future development can draw on."
+- "It used to be that games just labeled things Level 1, Level 2 and it was obvious what your progression was and what the prerequisites were. Now a good game to me tells you that kind of information by weaving it into the story rather than telling it to the players face. You are at Level 1 of the Skyglass Wreck because you've just got a chart that leads to some buried chest in the sand, and Level 100 because you've got 4 fragments that unlock a hidden area that leads to the Final Boss Sayo who blows up the floor and shoots death everywhere and has an immunity phase from her shadow and yadda yadda. We tell a story, paint a picture, but the underlying framework is there. We can say where we start and end and then fill in the gaps with the story and worldbuilding."
+
+**Canonical destination:** `docs/design/EVENT_STRUCTURE.md` (routed from `docs/00_INDEX.md` task routing: event design).
