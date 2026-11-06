@@ -550,6 +550,13 @@ battle stills with three fighters standing in the field (`docs/design/mother_of_
 
 Everything else in section 4 meets the bible. The Shatterfall Gives Way wave is the quality bar for the rest.
 
+**Landed alongside this draft (art4, `97641d00`, not audited here):** `build_fx_a4.py` draws one 30-frame signature
+entrance per form (Act I fan opening with a prismatic burst, the Silence's shadow standing up off the floor, Act II gold
+etch ring under creeping black cracks, Act III thorns and bone tendrils) with a reveal hold. Those entrances match the
+flourish brief in section 3.7 and **supersede the art3 flourish redo** above once they pass section 5.7.
+`build_fx_mosaic.py` prototypes slicing one composition across hexes, starting with the Refraction line: that is the
+route for the Refraction Breaks redo (section 4.1).
+
 ## 7. Open decisions (director)
 
 1. Approve this bible (Sayo's chakra as held light, the held frame as her signature, the Silence as absence).
