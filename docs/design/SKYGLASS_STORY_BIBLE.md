@@ -2,15 +2,17 @@
 
 Canon for every player-facing line in the Skyglass event: the Wreck dungeon, the charts and their runs (two common, four hunt and two rare charts, the tainted rares, and the
 Lantern to Crownhold), Crownhold, the items and the pets. Drafted 2026-10-28 from the director's narrative changes
-(RUL-2026-10-28-003/-004/-005); the charts, Core Rot and pets from RUL-2026-10-28-009 … -019. Where a surface
-disagrees with this file, the surface is rewritten.
+(RUL-2026-10-28-003/-004/-005); the charts, Core Rot and pets from RUL-2026-10-28-009 … -019; the final chapter (Sayo,
+the Stilling, the Mother Glass, the Silence) from RUL-2026-11-01-094, RUL-2026-11-03-111 and RUL-2026-11-05-117. Where a
+surface disagrees with this file, the surface is rewritten.
 
 ## The story in one breath
 
 A generation ago, the mountain fortress of Crownhold learned to call its dead back as afterimages and bind them to
 service through a crown of skyglass. Its war-ship sailed the sky for decades with a crew that could not die, could not
 rest and could not be relieved. Now the ship has come down broken on the shore, and its crew still stand their watch.
-Follow their charts, and the last light out of Crownhold leads you to the man who never let any of them go.
+Follow their charts, and the last light out of Crownhold leads you to the man who wore the crown. Break it, and the
+shards lead you under the mountain, to the woman who never let any of them go.
 
 ## Canon
 
@@ -21,7 +23,7 @@ Follow their charts, and the last light out of Crownhold leads you to the man wh
   - They repeat what they were: the drill, the ledger, the watch.
   - Most never fully understand what happened. The strongest know exactly how long it has been.
   - They are **never relieved**.
-- **Replicant Zero** was the first one Crownhold brought back: a medic, recalled in a sealing jar, "the first to return".
+- **The First Impression** (formerly Replicant Zero, renamed RUL-2026-11-05-117) was the first one the Glasswright brought back: a medic, recalled in a sealing jar, "the first to return". The name pays off Sayo's "You will make for a good impression"; the plaque reads THE FIRST IMPRESSION.
 - **The Command Crown** is pale skyglass grown in jagged frost points around one tall central blade. Its wearer commands every afterimage, near or far: the castle's officers and the ship's crew alike.
 - **The Crowned Captain** is Crownhold's commander and the crown's wearer.
   - He built the command "so it would outlast us," and it has.
@@ -36,14 +38,14 @@ Follow their charts, and the last light out of Crownhold leads you to the man wh
   - "They built this ship to cross any wall and outlast any siege. No one asked what outlasting everything would cost."
   - This is why the two look alike. Players beat the Captain at the wreck, then meet the same mask again at Crownhold: "I defeated you once!" / "I control... many echoes."
   - No line refers to the old Ghost Ship quests, which are being retired. The hints are subtle: he touches his bare head above the mask; "I wear his mask."
-- **The Silence.** A generation ago Crownhold stopped answering. Its living people are gone. Its last directive is not: *preserve command, preserve the crew, hold until the mission is done*. None is relieved. No one living remembers what the mission was.
+- **The Silence (the night it came).** A generation ago Crownhold stopped answering. Crownhold's officers date it "the Silence": the night the Silence came up out of the mountain and Sayo stilled the castle (see the final chapter). The officers do not know what it was. Its living people are gone. Its last directive is not: *preserve command, preserve the crew, hold until the mission is done*. None is relieved. No one living remembers what the mission was.
 - **The Ghost Ship.** For decades the war-ship crossed the sky on routes that no longer exist, appearing where no ship belonged, the Wayfinder correcting its charts against a world that kept changing.
 - **The Wreck (now).**
   - The ship has come down on the shore with its Core cracked.
   - It still mends itself, and its interior shifts as it does: halls close, stairs move, rooms come and go. A chart taken from the wreck is only good while the ship still holds that shape.
   - The crew still stand their watch.
 - **The Lastlight Lantern** holds Crownhold's last signal, caught in skyglass. The crew still obey the order it carries. Its light points home to Crownhold.
-- **The end.** Breaking the Command Crown frees every echo it holds: the officers on the mountain, and the crew on the shore. Its blades scatter as the **Fragments of the Skyglass Crown**.
+- **The end of Crownhold** (amended RUL-2026-11-05-117). Breaking the Command Crown breaks *his* hold: the officers on the mountain and the crew on the shore lower their blades and fade, and it looks like release. It is not. Their impressions go back into the Mother Glass, thinner each time (RUL-2026-11-01-094 §3), and far beneath the throne room the glass rings once. Its blades scatter as the **Fragments of the Skyglass Crown**; one splinter is the Shard of the Crown, the last of her invitation.
   - The event stays repeatable. Each player's story is their own, and the wreck keeps mending until someone breaks the crown again.
 
 ## The charts, the rot and the ship's echoes
@@ -59,9 +61,26 @@ Follow their charts, and the last light out of Crownhold leads you to the man wh
 - **Steeping** is soaking a chart in the Core's rot until the run it leads to is twisted. The rot either takes the chart or spits it out.
 - **Tainted runs** are the rare runs as the rot remembers them: the **Rotted Reliquary** and the **Burning Heading**. The same rooms, harder, and wrong in ways the crew can feel.
 - **Galley Stores.** The galley still stocks a larder for a crew that does not eat. A companion that does eat grows strong on it.
-- **The Echo Jars.** The Project's first recalls were not people but the ship's animals, their impressions sealed in jars like Replicant Zero's. Opening a jar binds its echo to the one who opens it.
+- **The Echo Jars.** The Project's first recalls were not people but the ship's animals, their impressions sealed in jars like the First Impression's. Opening a jar binds its echo to the one who opens it.
   - The pets are echoes bound to a living master instead of to the crown. **Breaking the crown does not release them.**
 - **The Crown's Hoard** is what the crown kept for itself: Crownhold's own coffers, treasury and jars, gathered beneath the throne.
+
+## The final chapter: the Glasswright, the Stilling and the Mother of Echoes
+
+Canon from RUL-2026-11-01-094, RUL-2026-11-03-111 and RUL-2026-11-05-117. There was **no shogunate sealing** and no
+outside power that sealed Crownhold away. Everything that holds still in this event, Sayo stilled.
+
+- **The Mother Glass.** All skyglass grows from one root crystal beneath Crownhold, found and grown by **Sayo**, the Skyglass Project's **Glasswright**. The Core, the crown, the lanterns and every shard are splinters of it.
+- **The Silence.** Its roots reached an ancient stillness asleep in the deep mountain. The Silence hungers for stillness and cannot act without an instrument. It rides in **Sayo's shadow**: her shadow does not move when she does. Sayo is not holding it back so much as succumbing to it.
+- **The siege and the Stilling.** Crownhold was besieged; its maps still show the ring of enemy camps drawn tight around the mountain. On the last night of the siege Sayo performed **the Stilling**: she drew the entire army of Crownhold (soldiers, officers, the ship's crew, the Crowned Captain) into the Mother Glass. Crownhold stopped answering. Most dates in the Archivist's register are that one night.
+- **The echoes are hers.** Every afterimage in the event is one Sayo casts from a stilled impression, fixed at the instant of the Stilling; that is why the siege order never ends. The Crowned Captain *commands* them through his crown; she *keeps* them. A broken afterimage returns to the glass **thinner**, and the Silence drinks the **remainder**.
+- **The crown contested her.** The Crowned Captain's afterimage was the one will that contested hers: "Some nights it does not answer me at once." She needed someone to break the crown.
+- **The three who refused** are the Worn: **the Gate Porter, Sister Hana and Cadet Tomo**. On the night of the Stilling they would not hold still (the porter would not open his door, the sister would not stop tending the wounded, the cadet ran), so the glass could only keep them worn thin. In the Archivist's register their three names have no word beside them. In her fight they are the Worn she raises, and the three places where the names cannot rise are where they refused.
+- **She called the ship home and measured the player.** The ship's last heading was hers ("We were called home. I only held the heading."). The charts, the Lantern and Crownhold measured and lured strong shinobi; the Night Watch roster with your name in a hand you do not know is hers.
+- **The four shards are her invitation** (Keel, Crown, Tide and Ledger), each a splinter of the Mother Glass with a small thumbprint pressed in while the glass was soft. Together they open the way to the hall of glass under Crownhold, where every pane holds a face with its eyes open.
+- **The reveal.** "Every one of them held still for me. The ship, the castle, all of it. I never lost them. I kept them. ... And you have been cutting them out of my glass, one by one." She wants to still the player: "You will make for a good impression."
+- **The fight** is The Mother of Echoes, in three acts: The Glasswright and the Deep (Sayo with the Silence standing up out of her shadow), The Stilling (Sayo, Glasswright of the Stilling), A Good Impression (the Silence folds back into her: Sayo, Saint of Stillness). When the Mother Glass cracks from the root to the crown, Crownhold makes a sound for the first time since the siege.
+- **Foreshadowing in play order** (RUL-2026-11-05-117): the Night Watch roster's unknown hand; the Archive's unsent report to "the Glasswright"; the Fall's "We were called home"; in Crownhold the register's one night and three unmarked names, the First Impression brought back by the Glasswright, the siege ring, "the Silence came up out of the mountain", the crown that does not always answer, and the glass that rings under the throne; the shards' thumbprint.
 
 ## Locked to the existing art (director, 2026-10-28: no redraws of existing art)
 
@@ -104,13 +123,16 @@ echoes, which reward veterans without excluding anyone.
 | The Drowned Foundry | the ship mends itself forever; routine without need | the works stop, for the first time |
 | The Quarantined Archive | the Sealwright's buried reports: the impressions are fraying, and the orders to continue come from Crownhold | the first name of Crownhold, and the crown |
 | The Captain's Watch | the Captain's humanity, and a hint that he is someone else's echo | "I wear his mask." |
-| Crownhold | the source: the Crowned Captain and his crown | the crown breaks; every echo lets go |
+| Crownhold | the crown: the Crowned Captain, and hints of the Glasswright, the siege and the Silence | the crown breaks; it looks like release; glass rings beneath the throne |
+| The four shards | a splinter of the Mother Glass with her thumbprint: her invitation | the way under the mountain |
+| The Mother of Echoes | the source: Sayo, the Stilling and the Silence in her shadow | the Mother Glass cracks; Crownhold makes a sound |
 
 ## Voice
 
 - **Tone:** Edo-era Japanese fantasy, quiet and melancholy, with dry humour from the afterimages. Short sentences at the moments that matter.
 - **"Relieved" carries the story's weight.** It belongs to the refrain ("None is relieved", "No one is relieved"). Its only other use is the two titles that answer it: Relief of the Watch and Who Relieved the Captain. (Both titles are deferred, RUL-2026-10-29-041; until they return, the refrain is its only use.)
-- **Never use:** technology words such as system, network, lattice, interface, protocol, terminal, personnel, maintenance, conduit, lift, reactor, data, scan, unit.
+- **Never use:** technology words such as system, network, lattice, interface, protocol, terminal, personnel, maintenance, conduit, lift, reactor, data, scan, unit, lab, laboratory, relay, capacitor.
+- **Avoid too** (not machine-checked: live legacy text still carries some, RUL-2026-11-05-117 D4): research division, reconstruction, interference, incident report, manual, device.
 - **Use instead:** seal-work, seal channels, the Core, recall, impression, afterimage, echo, watch, post, order, directive, rite, shrine.
 - **Characters:**
   - **Deck Warden:** the drill. Counts things. "No one is relieved."
@@ -123,4 +145,8 @@ echoes, which reward veterans without excluding anyone.
   - **Foundry Warden:** never set down his forge maul.
   - **Core Horror:** what the Core builds when the impression is too damaged to follow. It does not speak.
   - **The Captain:** tired, honest, still dutiful.
-  - **The Crowned Captain:** certain. He thinks he gave his people a gift.
+  - **The Crowned Captain:** certain. He thinks he gave his people a gift. Only the crown hesitates.
+  - **The First Impression:** curious, clinical. The first one the Glasswright brought back; "I would like a copy."
+  - **Sayo, Mother of Echoes:** precise and patient, fond of her glass and of the faces in it. Never shouts. "Hold still."
+  - **The Silence:** never speaks. Stillness, dark and the drinking of what is left.
+  - **The Worn** (the Gate Porter, Sister Hana, Cadet Tomo): worn thin; still doing the one thing they refused to stop doing.

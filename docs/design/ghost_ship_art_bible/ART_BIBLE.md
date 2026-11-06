@@ -17,9 +17,11 @@ wins until the spec is changed.
 
 ## 1. The world
 
-An Edo-era Japanese fantasy. The Skyglass Project was a secret shogunate programme that learned to bind chakra into a pale
-cyan crystal, skyglass. Its warship lies wrecked on a beach; its mountain castle, Crownhold, went dark. What walks there
-now are **chakra impressions**: shinobi recalled from the crystal's memory, still obeying the last order. Everything is
+An Edo-era Japanese fantasy. The Skyglass Project was a secret programme of Crownhold's shinobi command that learned to bind
+chakra into a pale cyan crystal, skyglass, grown by its Glasswright, Sayo, from the Mother Glass under the castle (no
+shogunate; story bible final chapter, RUL-2026-11-05-117). Its warship lies wrecked on a beach; its mountain castle, Crownhold, went dark. What walks there
+now are **chakra impressions**: shinobi Sayo stilled into the glass on the last night of the siege, recalled from the
+crystal's memory and still obeying the last order. Everything is
 hand-made from wood, rope, iron, lacquer, paper and cloth. Skyglass is the only wonder, and it is always a crystal object.
 
 ## 2. Technology ceiling (hard rule)

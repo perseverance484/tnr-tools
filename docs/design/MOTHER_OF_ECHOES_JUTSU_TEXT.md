@@ -198,17 +198,17 @@
 ### Raise the Gate Porter
 
 - **Current:** Raises one of the Worn: the Gate Porter.
-- **Proposed:** The gate porter steps out of the glass, still holding a door that is not there. He keeps his threshold close and clears it of anyone who stands too near, wherever the step back lands them.
+- **Proposed:** The gate porter steps out of the glass, thin as old paper, still holding a door that is not there. On the night of the Stilling he would not open it, and he has not let go of it since. He keeps his threshold close and clears it of anyone who stands too near, wherever the step back lands them. *(story pass 2026-11-05: the three who refused are the Worn)*
 
 ### Raise Sister Hana
 
 - **Current:** Raises one of the Worn: Sister Hana.
-- **Proposed:** Sister Hana steps out of the glass, hands already busy with someone else's wounds. She mends Sayo as she mended everyone, and she will not stop on her own.
+- **Proposed:** Sister Hana steps out of the glass, worn thin, hands already busy with someone else's wounds. When the hall went still she would not stop tending them, and the glass could only keep what was left of her. She mends Sayo as she mended everyone, and she will not stop on her own. *(story pass 2026-11-05: the three who refused are the Worn)*
 
 ### Raise Cadet Tomo
 
 - **Current:** Raises one of the Worn: Cadet Tomo.
-- **Proposed:** Cadet Tomo steps out of the glass, rope in hand, waiting for an order. His line reaches a long way, and it does not care what floor it drags you across.
+- **Proposed:** Cadet Tomo steps out of the glass, faint at the edges, rope in hand, waiting for an order. He was told to hold still that night and ran instead, so the glass only half caught him. His line reaches a long way, and it does not care what floor it drags you across. *(story pass 2026-11-05: the three who refused are the Worn)*
 
 ## Act II: the Worn (echoes)
 
@@ -247,7 +247,7 @@
 ### Every Name in the Glass
 
 - **Current:** Every stilled name rises to the floor; only where the three refused stays dry.
-- **Proposed:** "Do you hear them? Every one of them stayed." Every stilled name rises to the floor at once, and the whole hall glows with them, except three places: where the three refused.
+- **Proposed:** "Do you hear them? Every one of them stayed." Every stilled name rises to the floor at once, and the whole hall glows with them, except three places: where the porter, the sister and the cadet refused to hold still. *(story pass 2026-11-05: the three who refused are the Worn)*
 
 ### The Names Flood In
 

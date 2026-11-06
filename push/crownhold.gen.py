@@ -163,6 +163,9 @@ CROWN_FRAGMENT = "ayiRmSjWs05lMPyL3G-1d"  # Fragment of the Skyglass Crown
 # Director 2026-10-26 (RUL-2026-10-26-003): short ninja-world names. USERNAME = the live AI name (a "Crown " prefix on
 # the one-word titles, because usernames are unique across all users, players included: engine law 66). PROSE = how the
 # quest text names them (no prefix). Replicant Zero and Supreme Commander Arakane keep their names.
+# RUL-2026-11-05 story pass (D3): Replicant Zero is renamed The First Impression (a bare multi-word title, like The
+# Second); PROSE carries it into the quest text and push/483 renames the live AI (vjEFUJ9mb1zNTuQf4lfXv).
+FIRST_IMPRESSION = "The First Impression"
 USERNAME = {
     "Master of Arms": "Crown Armsmaster", "Bastion Proving Proctor": "Crown Trialmaster",
     "Ordnance Quartermaster": "Crown Tagwright", "Prototype Lancer Unit": "Crown Lancer",
@@ -186,6 +189,7 @@ PROSE = [  # longest first
     ("Directive Herald", "Herald"), ("Master of Arms", "Armsmaster"), ("The Grand Marshal", "The Second"),
     ("the Grand Marshal", "the Second"), ("Grand Marshal", "Second"), ("Order-Bearer", "Sealbearer"),
     ("Aide-de-Camp", "Runner"), ("Quartermaster", "Tagwright"),
+    ("REPLICANT ZERO", "THE FIRST IMPRESSION"), ("Replicant Zero", "the First Impression"),  # story pass D3
     # RUL-2026-10-26-004: Edo command shrines, not terminals (node ids such as d2.n.terminal are ids, not prose)
     ("Military Command Terminal", "command shrine"), ("command terminal", "command shrine"),
     ("The terminal", "The shrine"), ("the terminal", "the shrine"),
@@ -265,24 +269,25 @@ OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text
         "\n\nThe Healing Rite will wash you in the armoury's restorative mist: you enter the fight fully recovered. The War "
         "Rite will instead brace you against his Sovereign Fetters, so his stuns will not hold you."),
     "d3.n.f1": (
-        "Beyond the armoury's back stair, the air turns cold and blue. The Skyglass Research Division is an archive hall: tall "
+        "Beyond the armoury's back stair, the air turns cold and blue. The Skyglass Project's glass hall is an archive: tall "
         "shelves of paper-tagged boxes, each holding a skyglass crystal with a faint, sleeping light.\n\nThe Archivist looks "
         "up from a ledger and frowns at you. \"You are not on the register,\" it says, as if that were the stranger thing. "
         "\"Understand what you are walking through. An impression repeats. An original hesitates.\"\n\nIt closes the "
         "ledger, and it does not hesitate."),
     "d3.n.f2": (
         "The Archivist unravels into the shelves. The register it carried lists names (Skyglass researchers, smiths, "
-        "officers), each with a date and the word RECALLED.\n\nThe sealing-jar halls beyond are lit by a single tall "
+        "officers), each with a date and the word RECALLED. Most of the dates are the same night. Three names have no word "
+        "beside them at all.\n\nThe sealing-jar halls beyond are lit by a single tall "
         "skyglass lantern. The Binder stands beneath it, deep-hooded, a great iron sealing key in its hand. You notice the "
         "lantern throws the Binder's shadow across the floor, and the Binder notices you noticing.\n\n\"Impressions never "
         "cast a shadow under the skyglass lantern,\" it says. \"You do. Hold still to be sealed.\""),
     "d3.n.f3": (
         "In the last jar hall, a shinobi steps out of the dark, his outline wavering at the edges as if it cannot decide where "
         "to stop. The tag on his sash reads IX. His voice seems to come from a half-step behind him.\n\n\"They kept trying,"
-        "\" he says. \"Every one of us carries his scar: the burn from Replicant Zero's first failed recall. Every one of us "
+        "\" he says. \"Every one of us carries his scar: the burn from the First Impression's failed recall. Every one of us "
         "but the copies. I am not a copy. I am not finished.\"\n\nHe lunges with his sai."),
     "d3.n.terminal": (
-        "A command shrine stands at the sliding door of the recall chamber. The plaque beside the door reads REPLICANT ZERO, "
+        "A command shrine stands at the sliding door of the recall chamber. The plaque beside the door reads THE FIRST IMPRESSION, "
         "and beneath it, smaller: THE FIRST TO RETURN.\n\nThe shrine offers the back stair behind the sealing jars, locked "
         "until you name the one original among three recalled shinobi. Or ask for passage the proper way, and face the "
         "chamber's last guardian: the Stonebound, the one they kept."),
@@ -294,21 +299,21 @@ OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text
     "d3.n.boss.clean": (
         "The stair lets you into the recall chamber from the gallery behind the shoji. On the tatami below, a tall medic in a "
         "high-collared coat turns his own left hand in the lantern light, a small ball of violet healing chakra resting above "
-        "his palm.\n\n\"Jar A,\" says Replicant Zero, without turning. \"Correct. I was the first one they brought back, you "
-        "know. My body died in that jar. I did not.\" He looks at you, interested. \"Let us see what you are made of. I would "
+        "his palm.\n\n\"Jar A,\" says the First Impression, without turning. \"Correct. I was the first one the Glasswright brought "
+        "back, you know. My body died in that jar. I did not.\" He looks at you, interested. \"Let us see what you are made of. I would "
         "like a copy.\""),
     "d3.n.boss.alert": (
         "The jar seals burst with a crack and the chamber floods with cold blue light. Every seal frame in the room turns "
-        "toward you.\n\n\"Wrong one,\" says Replicant Zero, closing his hand around a ball of violet chakra. \"The chamber's "
-        "wards are already waking. I was the first one they brought back. My body died in that jar. I did not.\" He smiles. "
+        "toward you.\n\n\"Wrong one,\" says the First Impression, closing his hand around a ball of violet chakra. \"The chamber's "
+        "wards are already waking. I was the first one the Glasswright brought back. My body died in that jar. I did not.\" He smiles. "
         "\"Neither will you leave.\""),
     "d3.n.protocol": (
         "The Stonebound collapses into crystal dust, and the chamber's rites wake.\n\nThe Healing Rite will lay you on the "
         "recall table: you enter the fight fully recovered. The War Rite will instead surge your chakra, increasing the damage "
         "you deal for the opening rounds."),
     "d4.n.f1": (
-        "Above the research division, Crownhold becomes a war headquarters. Maps of borders that no longer exist cover the "
-        "walls of High Command. Signal bells still ring down the corridors.\n\nThe Signaller turns from a board of bell-cords, "
+        "Above the glass hall, Crownhold becomes a war headquarters. Maps of borders that no longer exist cover the walls of "
+        "High Command, and on every one the same ring of enemy camps is drawn tight around this mountain. Signal bells still ring down the corridors.\n\nThe Signaller turns from a board of bell-cords, "
         "war fan raised. \"Orders arrive by this room or they do not arrive,\" it says. \"And only orders countersigned by "
         "the Second carry two seals. Remember that, intruder. You will not live to use it.\""),
     "d4.n.f2": (
@@ -352,12 +357,14 @@ OVERRIDE = {  # whole-node text, Edo pass (RUL-2026-10-26-005); the package text
         "The Sealbearer falls, and its blank command seal shatters on the floor. The shrine wakes the Sanctum's last two rites."
         "\n\nThe Healing Rite will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. The War "
         "Rite is the Sanctum's last field directive: for the opening rounds, nothing the Crowned Captain does can weaken you."),
-    "d.aftermath": (  # RUL-2026-10-28-004: the crown is the root; breaking it frees every afterimage, ship and castle
+    "d.aftermath": (  # RUL-2026-10-28-004 as amended by RUL-2026-11-01-094 / the story-pass ruling: breaking the crown
+        # breaks its hold, not Sayo's; the echoes go back to the Mother Glass under Crownhold (it rings below the throne)
         "The Crowned Captain falls to one knee. The Command Crown cracks through its central blade, and its points "
         "break away and shatter on the stone. All through the mountain, something lets go. Then he is only "
         "chakra, settling over the floor of the throne room like ash.\n\nThe signal bells stop. Down every stair you "
-        "climbed, the officers who still stood lower their blades and fade, released at last. Far away on the shore, the "
-        "Skyglass wreck goes quiet: its crew were his echoes too.\n\nShards of the broken crown lie scattered across "
+        "climbed, the officers who still stood lower their blades and fade. It looks like release. Far away on the shore, the "
+        "Skyglass wreck goes quiet: its crew answered to his crown too.\n\nFar beneath the throne room, glass rings once, "
+        "like a struck bell, and is still.\n\nShards of the broken crown lie scattered across "
         "the throne room floor, still faintly cold with skyglass light. On the wall behind the throne, his last directive is "
         "carved in his own hand: PRESERVE COMMAND. PRESERVE THE CREW. HOLD UNTIL THE MISSION IS DONE. Beneath it, where the "
         "mission should be written, the stone is blank."),
@@ -378,6 +385,18 @@ PROTOCOL_INTRO = ("The rite takes hold, and the Sanctum door opens on the throne
                   "around one tall blade. Every officer you passed on the way up, and every hand aboard the Skyglass ship, "
                   "answered to that crown.<br><br>You know that mask. You have fought it before.")
 FAIL_TEXT = "You fall, and Crownhold does not let you up. You wake outside the gate in the snow, and the Lantern has gone dark."
+# Story pass (docs/design/SKYGLASS_STORY_AUDIT.md R8, R9, R13c; approved 2026-11-05): exact replacements on nodes whose
+# text comes from the package script. Each old string must occur exactly once in its node.
+STORY_PASS = {
+    "d4.n.f3": [("Since the Silence fell over this mountain", "Since the Silence came up out of the mountain")],
+    "d5.n.f3": [("as if from a manual worn thin with use", "as if from a drill scroll worn thin with use")],
+    "d5.n.boss.clean": [('I built this command so it would outlast us."',
+                         'I built this command so it would outlast us." He touches the crown, as if to quiet it. "Some '
+                         'nights it does not answer me at once."')],
+    "d5.n.boss.alert": [('I built this command to outlast us all."',
+                         'I built this command to outlast us all." He touches the crown, as if to quiet it. "Some nights '
+                         'it does not answer me at once."')],
+}
 WIN_TEXT = "Crownhold falls silent behind you. The crown that held its officers and the Skyglass crew is broken."
 
 
@@ -388,7 +407,8 @@ def prose(t):
         t = t.replace(a, b)
     for a, b in PROSE + BOSS_PROSE:
         t = t.replace(a, b)
-    return re.sub(r'(^|[.!?]"? |\n)the Crowned Captain', lambda m: m.group(1) + "The Crowned Captain", t)
+    t = re.sub(r'(^|[.!?]"? |\n)the Crowned Captain', lambda m: m.group(1) + "The Crowned Captain", t)
+    return re.sub(r'(^|[.!?]"? |\n)the First Impression', lambda m: m.group(1) + "The First Impression", t)
 
 
 def qtag(t, kind):
@@ -417,6 +437,9 @@ def quest():
                           "the crew, hold until the mission is done.")
         if nid in ("d5.n.boss.clean", "d5.n.boss.alert"):
             t = t.replace(" He turns.", " " + CROWN + "\n\nHe turns.").replace(" He turns from the window.", " " + CROWN + "\n\nHe turns from the window.")
+        for a, b in STORY_PASS.get(nid, []):
+            assert t.count(a) == 1, (nid, a)
+            t = t.replace(a, b)
         return t
 
     for n in nodes:

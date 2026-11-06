@@ -641,11 +641,13 @@ DIALOG_OVERRIDES = {
 INTRO = [
     ("d_intro1", "The four shards fit together in your hands, and the seams vanish. They were never broken. They were an "
                  "invitation.<br><br>They pull you down, past where Crownhold's stair ends, into a hall of glass. Every "
-                 "pane holds a face. The Deck Warden. The Captain. The guards you cut down. Their eyes are open, and "
+                 "pane holds a face. The Deck Warden. The Captain, twice: once bareheaded, once crowned. The guards you cut down. "
+                 "Their eyes are open, and "
                  "none of them blink.", "Go deeper"),
     ("d_intro2", "She hangs in the air before the Mother Glass, her fan open behind her like a halo.<br><br>\"Lovely, "
                  "aren't they? Every one of them held still for me.\" She smiles at the faces. \"The ship, the castle, "
-                 "all of it. I never lost them. I kept them.\"<br><br>\"And you have been cutting them out of my glass, "
+                 "all of it. I never lost them. I kept them.\" She inclines her head, as if you had asked. \"Sayo. I grew the "
+                 "glass.\"<br><br>\"And you have been cutting them out of my glass, "
                  "one by one. How interesting.\"", "You did this"),
 ]
 
