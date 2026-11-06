@@ -104,6 +104,9 @@ sees their own rows (theninjarpg cb755375 `combat.ts:420` passes the viewer's us
 
 ## 3. Assets (built; artpreflight 0 errors / 0 warnings)
 
+Upload: push/503 (creates, hidden, with a read-only capture of the jutsu), push/504 (unhide, from the 503 bundle),
+push/505 (the jutsu, suggest mode, from the 503 bundle). See section 3b.
+
 Asset library (RUL-2026-11-05-127, folder name per RUL-2026-11-06-130: `^[a-zA-Z0-9]*$`): every upload goes in the folder
 **`JutsuSubakuPalace`**, named
 `Subaku Palace: <part>`.
@@ -136,6 +139,9 @@ the corner-to-corner canvas the game stretches):
 - Bleed (QA r4 B1): the tile carries 0.06 radius of the neighbouring hexes' own content past its edge, his dark rim
   is replaced by the inner pixels so bands run unbroken across the seam, and alpha is 255. No pale seam shows on snow
   at 50 px.
+- His red veins (QA r5; RUL-125 names the red cracks): each glowing joint is widened to about 16 source px along
+  the dark mortar, in his red (`#840603`, a `#ac0e06` core), so it survives the 50 px rendition (78 red pixels at
+  50 px; it had 0). The rim repeat is 0.035 r, which removes the faint grey lines along the horizontal edges.
 - Delivered as a 96-colour lossless palette WebP, 128 px, about 10 KB (QA r4 S3; the band strips are about 1.4 KB).
 - Side by side (hi-res, 1x true scale, 3x, the 50 px rendition, and tiled at true scale on snow):
   `docs/design/subaku_palace/tile_original_vs_new.png`.
@@ -143,14 +149,14 @@ the corner-to-corner canvas the game stretches):
 | File | Library name | Type | Frames x ms | Slot (proposed) |
 |---|---|---|---|---|
 | `exports/tile_sbk_domain_v4.webp` (128 px palette, about 10 KB, `classic.py`) | `Subaku Palace: domain floor` | STATIC | 1 | ground `decreasedamagegiven`: `staticAssetPath` (replaces DemonCastleFloor `zEvI0yd_As_FzNyrr5Iq4`) |
-| `exports/anim_sbk_seal_v1.webp` | `Subaku Palace: domain seal` | ANIMATION | 36 x 50 | ground `decreasedamagegiven`: `appearAnimation` (replaces the library clip `c4FqDZWFZOdWn86o6nPL7`); `appearSfx` blank |
-| `exports/anim_sbk_wave_b0_v1.webp` | `Subaku Palace: ring 1 wave` | ANIMATION | 36 x 50 | visual tag b0: COORDINATES, origin CASTER, offsets in `subaku_domain_v1.json`, power 2, rounds 1, `appearAnimation` |
-| `exports/anim_sbk_wave_b1_v1.webp` | `Subaku Palace: ring 1.5 wave` | ANIMATION | 36 x 50 | visual tag b1 (as b0) |
-| `exports/anim_sbk_wave_b2_v1.webp` | `Subaku Palace: ring 2 wave` | ANIMATION | 36 x 50 | visual tag b2 |
-| `exports/anim_sbk_wave_b3_v1.webp` | `Subaku Palace: ring 2.5 wave` | ANIMATION | 36 x 50 | visual tag b3 |
-| `exports/anim_sbk_wave_b4_v1.webp` | `Subaku Palace: ring 3 wave` | ANIMATION | 36 x 50 | visual tag b4 |
-| `exports/anim_sbk_wave_b5_v1.webp` | `Subaku Palace: ring 3.5 wave` | ANIMATION | 36 x 50 | visual tag b5 |
-| `exports/anim_sbk_wave_b6_v1.webp` | `Subaku Palace: ring 4 wave` | ANIMATION | 36 x 50 | visual tag b6 |
+| `exports/anim_sbk_seal_v2.webp` | `Subaku Palace: domain seal` | ANIMATION | 36 x 50 | ground `decreasedamagegiven`: `appearAnimation` (replaces the library clip `c4FqDZWFZOdWn86o6nPL7`); `appearSfx` blank |
+| `exports/anim_sbk_wave_b0_v2.webp` | `Subaku Palace: ring 1 wave` | ANIMATION | 36 x 50 | visual tag b0: COORDINATES, origin CASTER, offsets in `subaku_domain_v1.json`, power 2, rounds 1, `appearAnimation` |
+| `exports/anim_sbk_wave_b1_v2.webp` | `Subaku Palace: ring 1.5 wave` | ANIMATION | 36 x 50 | visual tag b1 (as b0) |
+| `exports/anim_sbk_wave_b2_v2.webp` | `Subaku Palace: ring 2 wave` | ANIMATION | 36 x 50 | visual tag b2 |
+| `exports/anim_sbk_wave_b3_v2.webp` | `Subaku Palace: ring 2.5 wave` | ANIMATION | 36 x 50 | visual tag b3 |
+| `exports/anim_sbk_wave_b4_v2.webp` | `Subaku Palace: ring 3 wave` | ANIMATION | 36 x 50 | visual tag b4 |
+| `exports/anim_sbk_wave_b5_v2.webp` | `Subaku Palace: ring 3.5 wave` | ANIMATION | 36 x 50 | visual tag b5 |
+| `exports/anim_sbk_wave_b6_v2.webp` | `Subaku Palace: ring 4 wave` | ANIMATION | 36 x 50 | visual tag b6 |
 | `gates/exports/anim_sbk_gates_rise_v6.webp` (centre half; v2, v4 and v5 superseded after QA) | `Subaku Palace: gates rise` | ANIMATION | 44 x 50 | SELF `increasedamagegiven`: `appearAnimation`; `appearSfx` Earth `XBlRonNjvwAZx1_HFpHdM` |
 
 The SELF `increasedamagegiven` effect's `staticAssetPath` and `staticAnimation` are **cleared** (no dais, no loop).

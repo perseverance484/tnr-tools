@@ -51,7 +51,7 @@ OUTLINE = 0.008
 CAP = 0.30                        # his segment caps: a dark joint across the band every 0.30 of arc length
 LIGHT = (-0.6, -0.8)              # his bevel light, from the upper left
 BLEED = 0.06                      # content past the hex edge (the neighbours' continuation), so no seam opens
-RIM = 0.02                        # his dark rim is removed: the last 0.02 in from each edge repeats the inner pixels
+RIM = 0.035                       # his dark rim is removed: the last 0.035 in from each edge repeats the inner pixels
 
 
 def edge_point(k, u):
@@ -390,8 +390,23 @@ def build(gold_scale=1.0):
     for y in range(N):
         for x in range(N):
             r, g, b, a = op[x, y]
-            if a > 200 and r > 110 and r > 2.2 * g and r > 2.2 * b and not rp[x, y]:
+            if a > 200 and r > 70 and r > 1.8 * g and r > 1.8 * b and not rp[x, y]:
                 kp[x, y] = 255                       # his red mortar glow
+    # QA r5: his red veins must survive the 50 px rendition (ref a reads red-veined; RUL-125 names the red cracks).
+    # Widen each glowing joint to ~16 source px (0.8 px at 50) along the dark mortar it sits in, in his red
+    # (ref a mean #7f0302), with a hotter core, never over a band or its outline.
+    grow = crack.filter(ImageFilter.MaxFilter(17))
+    gp_ = grow.load()
+    core_m = crack.filter(ImageFilter.MaxFilter(7)).load()
+    for y in range(N):
+        for x in range(N):
+            if not gp_[x, y] or rp[x, y] or bp[x, y]:
+                continue
+            r, g, b, a = op[x, y]
+            if r + g + b > 150 and not kp[x, y]:      # stone face, not mortar: leave it
+                continue
+            op[x, y] = (172, 14, 6, a) if core_m[x, y] else (132, 6, 3, a)
+            kp[x, y] = 255
     return can, out, rail, chan, crack
 
 

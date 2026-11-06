@@ -135,7 +135,7 @@ def fighter_boxes():
 def main():
     os.makedirs(OUT, exist_ok=True)
     tile = Q.tile(os.path.join(EXP, BD.TILE_NAME if os.path.exists(os.path.join(EXP, BD.TILE_NAME)) else 'tile_sbk_domain_v3.webp'))
-    seal = load_clip('anim_sbk_seal_v1.webp')
+    seal = load_clip('anim_sbk_seal_v2.webp') or load_clip('anim_sbk_seal_v1.webp')
     pulse = load_clip('anim_sbk_pulse_loop_v1.webp') if PULSE else None
     import json
     meta = json.load(open(os.path.join(EXP, 'subaku_domain_v1.json')))
