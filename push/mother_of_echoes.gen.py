@@ -194,13 +194,10 @@ FX4.update({
     "lancet6": ("anim_moe_lancet_a12.webp", "Mother of Echoes FX - Glass Lancet (held star)"),
     "sweep6": ("anim_moe_doorward_sweep_a6.webp", "Mother of Echoes FX - Doorward Sweep"),
     "quiet6": ("anim_moe_quiet_a12.webp", "Mother of Echoes FX - The Quiet (ink lids)"),
-    "etch_plan": ("tile_moe_etch_plan_a10.webp", "Mother of Echoes FX - Etching mark (floor plan)"),
     "heavy_tile_iii_b": ("tile_moe_heavy_iii_a12.webp", "Mother of Echoes FX - Heavy mark (Act III, ember rim)"),
     "heavy_appear_iii_b": ("anim_moe_heavy_appear_iii_a12.webp", "Mother of Echoes FX - Heavy mark arrives dark (Act III)"),
     "close_in_iii": ("anim_moe_close_in_iii_a12.webp", "Mother of Echoes FX - The floor closes in (the Silence)"),
     "close_in_ii": ("anim_moe_close_in_ii_a12.webp", "Mother of Echoes FX - The floor closes in (the Glasswright)"),
-    **{f"recast_b{k}": (f"anim_moe_recast_b{k}_a10.webp", f"Mother of Echoes FX - Recast breaks, row {k}") for k in range(10)},
-    **{f"etch_b{k}": (f"anim_moe_etch_b{k}_a10.webp", f"Mother of Echoes FX - Etching carved, row {k}") for k in range(10)},
     "floor_i": ("tile_moe_floor_i_a8.webp", "Mother of Echoes floor - crazed Heartglass"),
     "floor_ii": ("tile_moe_recast_floor_a8.webp", "Mother of Echoes floor - shattered etch"),
     "floor_iii": ("tile_moe_floor_iii_a8.webp", "Mother of Echoes floor - blackened obsidian"),
@@ -211,6 +208,15 @@ FX4.update({
     "absence_burst": ("anim_moe_absence_burst_a9.webp", "Mother of Echoes FX - An Absence erupts"),
     "absence_splat": ("anim_moe_absence_splat_a9.webp", "Mother of Echoes FX - An Absence splatters"),
 })
+# Painted regions (S9, QA B6; director 2026-11-05 "premium high quality"): each region is ONE painting sliced per hex,
+# one visual tag per hex, BATTLEFIELD origin so every slice lands where it was cut. Etchings carve a picture per region
+# and the Recast erupts along the same picture (build_fx_etch.py); Glassfall panes (build_fx_paint.py --glassfall).
+PAINT_META = "art/mother_of_echoes_fx/exports/moe_fx_painted_a14.json"
+PAINTED = {}
+for _r in (json.load(open(os.path.join(ROOT, PAINT_META)))["slices"] if os.path.exists(os.path.join(ROOT, PAINT_META)) else []):
+    PAINTED.setdefault(_r["region"], set()).add((_r["col"], _r["row"]))
+    FX4[f"{_r['region']}_{_r['col']}_{_r['row']}"] = (
+        _r["file"], f"Mother of Echoes FX - {_r['region'].replace('_', ' ').title()}, {_r['col']},{_r['row']}")
 # Lingering ground by owner (no bile anywhere): the payoff's settle carries the arrival, so the floor has no appear and
 # no loop (stacking rules 1-2). The Hush family is the Silence's whatever boss casts it.
 FLOOR_BY_ACT = {"i": "floor_i", "ii": "floor_ii", "iii": "floor_iii"}
@@ -567,8 +573,8 @@ class Build:
             v = e.get(f) or ""
             tg = "tg_linger" if v == "moe_hush_floor" else v
             if self.final and v == "tg_etch":                       # QA B2: the final set only; nothing old under it
-                e[f] = self.fx2["etch_plan"] if f == "staticAssetPath" else ""   # the carve is the row-band visuals
-            elif self.final and v == "moe_recast":
+                e[f] = ""   # director 2026-11-05: no residual; the picture lives in the carve (per-hex visuals)
+            elif self.final and v in ("moe_recast", "moe_glassfall"):   # the painted per-hex visuals carry it
                 e[f] = ""                                                     # the region breaks as row-band visuals
             elif v == "tg_etch":
                 e[f] = etch[f]
@@ -648,6 +654,18 @@ class Build:
                 e["staticAnimation"] = ""
                 self.notes.append(f"{label}: mark field of {n} hexes keeps its tile, loses its loop (stacking rule 2)")
 
+    def painted(self, name, rec, pre):
+        """One visual tag per hex carrying that hex's slice of the region's painting (PAINT_META)."""
+        region = f"{pre}_{name.split(': ')[-1].lower().replace(' ', '_')}"
+        ct = rec["coordinateTargeting"]
+        have = {(c["longitude"], c["latitude"]) for c in ct["coordinates"]}
+        if ct["origin"] != "BATTLEFIELD" or ct["selection"] != "ALL" or have != PAINTED.get(region, set()):
+            die(f"{name}: the painted slices for {region} do not match its region (repaint and re-export)")
+        return [{**VISUAL, "appearAnimation": self.fx2[f"{region}_{c}_{r}"],
+                 "coordinateTargeting": {"origin": "BATTLEFIELD", "selection": "ALL",
+                                         "coordinates": [{"longitude": c, "latitude": r}]},
+                 "description": f"{name}: {c},{r} (art only)"} for c, r in sorted(have)]
+
     def mosaic(self, label, rec):
         """The band visuals for a MOSAIC slot: one visual tag per band, the cast's own origin, its tiles split by band."""
         slots = [e.get("appearAnimation") for e in rec["effects"] if e.get("appearAnimation") in MOSAIC]
@@ -689,18 +707,14 @@ class Build:
         d["effects"] = [self.art(name, e) for e in rec["effects"]]
         if self.fx2 is not None and self.stack:
             self.stack_rules(name, rec, d)
-        if self.fx2 is not None:
+        if self.fx2 is not None and not (self.final and any(e.get("appearAnimation") == "moe_glassfall" for e in rec["effects"])):
             d["effects"] += self.mosaic(name, rec)
         if self.final:
             for src in rec["effects"]:
-                kind = {"moe_recast": "recast_b", "tg_etch": "etch_b"}.get(src.get("appearAnimation"))
-                if kind and src.get("target") != "COORDINATES":
-                    rows = {}
-                    for c in rec["coordinateTargeting"]["coordinates"]:
-                        rows.setdefault(c["latitude"], []).append({"longitude": c["longitude"], "latitude": c["latitude"]})
-                    d["effects"] += [{**VISUAL, "appearAnimation": self.fx2[f"{kind}{lat}"],
-                                      "coordinateTargeting": {"origin": "BATTLEFIELD", "selection": "ALL", "coordinates": cs},
-                                      "description": f"{name}: row {lat} (art only)"} for lat, cs in sorted(rows.items())]
+                slot = src.get("appearAnimation")
+                pre = {"moe_recast": "recast", "tg_etch": "etch", "moe_glassfall": "glassfall"}.get(slot)
+                if pre and src.get("target") != "COORDINATES":
+                    d["effects"] += self.painted(name, rec, pre)
         if self.final and name in REFRACTION_SLICES:
             d["effects"] += self.refraction_slices(name, rec, d)
         if self.final and any(e.get("appearAnimation") == "moe_absence_burst" for e in rec["effects"]):
@@ -956,10 +970,110 @@ def asset_ids(path):
     return {k: got[AID + k] for k in (*FX, *SCENES)}
 
 
-def asset_row(name, typ, frames, speed, hidden):
-    return {"name": name, "type": typ, "folder": "MotherOfEchoes", "frames": frames, "speed": speed,
+def asset_row(name, typ, frames, speed, hidden, folder="MotherOfEchoes"):
+    """folder defaults to the historical "MotherOfEchoes" so the already-run steps regenerate byte-identically; the final
+    job and the re-folder edits pass the convention folder (LIB, below)."""
+    return {"name": name, "type": typ, "folder": folder, "frames": frames, "speed": speed,
             "hidden": hidden, "onInitialBattleField": False, "licenseDetails": "TNR"}
 
+
+
+# ---- the shared asset library (director 2026-11-05: "sectioned and labelled by event and use") ---------------------
+# GameAssetLibrary folders are flat strings searchable by folder and name: " - " separates, never "/". Every asset this
+# event uploads or re-files carries a convention folder and a unique human name "MoE <Act>: <Move> - <part>".
+LIB = "Skyglass - Mother of Echoes"
+LIB_FOLDERS = {f"{LIB} - Act I", f"{LIB} - Act II", f"{LIB} - Act III", f"{LIB} - Floors",
+               f"{LIB} - Entrances and Auras", f"{LIB} - Scenes"}
+LIB_SLICES = f"{LIB} - Slices - "
+SKYGLASS_BOSS_FX_FOLDER = "Skyglass - Boss FX"
+EA = "Entrances and Auras"
+LABELS = {  # key -> (folder suffix, "MoE ..." name); every non-slice key of FX, SCENES, FX2, FX3, SCENE_CHARS, FX4
+    # FX (push/466)
+    "etch_tile": ("Act II", "MoE II: Etching - mark (v1)"), "etch_glint": ("Act II", "MoE II: Etching - glint"),
+    "recast": ("Act II", "MoE II: Recast - burst (v1)"), "guard_open": ("Act II", "MoE II: Guard Open - loop"),
+    "quiet": ("Act III", "MoE III: The Quiet - lids (v1)"), "lancet": ("Act I", "MoE I: Glass Lancet - hit (v2)"),
+    "feeler": ("Act I", "MoE I: The Listening - feeler"), "lull": ("Act II", "MoE II: The Glass Falls Quiet - lull"),
+    "still": ("Act I", "MoE I: Nothing Moves - still"), "breath": ("Act III", "MoE III: Breathless Pull - draw"),
+    "lucid": (EA, "MoE I: Lucid - aura"), "likeness": ("Act I", "MoE I: Your Likeness - ring"),
+    "worn": ("Act II", "MoE II: Raise the Worn - ash"), "cradle": ("Act I", "MoE I: Cradle - hold"),
+    "flood": ("Act III", "MoE III: The Names Flood In - mask"),
+    # SCENES / SCENE_CHARS (quest scenes)
+    "heart": ("Scenes", "MoE Scene: The Heart of the Mother Glass"), "stilling": ("Scenes", "MoE Scene: The Stilling"),
+    "impression": ("Scenes", "MoE Scene: A Good Impression"), "sc_sayo": ("Scenes", "MoE Scene: Sayo - character"),
+    "sc_stilling": ("Scenes", "MoE Scene: Sayo, Glasswright - character"),
+    "sc_saint": ("Scenes", "MoE Scene: Sayo, Saint of Stillness - character"),
+    # FX2 (push/478)
+    "control_glint": ("Act I", "MoE I: Hush Lock - loop"), "control_appear": ("Act I", "MoE I: Hush Lock - arrives"),
+    "linger_tile": ("Floors", "MoE Floor: Seeping Pool - tile (v1)"), "linger_glint": ("Floors", "MoE Floor: Seeping Pool - loop"),
+    "linger_appear": ("Floors", "MoE Floor: Seeping Pool - arrives"), "safe_tile": ("Act III", "MoE III: Safe Pane - tile"),
+    "safe_glint": ("Act III", "MoE III: Safe Pane - loop"), "safe_appear": ("Act III", "MoE III: Safe Pane - arrives"),
+    "etch_appear": ("Act II", "MoE II: Etching - cut (v1)"), "grasp": ("Act I", "MoE I: Grasp - hit"),
+    "echo_strike": ("Act I", "MoE I: Echo Strike - hit"), "pull": ("Act I", "MoE I: Pull - hit"),
+    "shove": ("Act I", "MoE I: Shove - hit"), "mend": ("Act II", "MoE II: Worn Mending - heal"),
+    # FX3 (push/478)
+    **{f"heavy_{part}_{a}": (f"Act {a.upper()}", f"MoE {a.upper()}: Heavy Mark - {lbl}")
+       for a in ("i", "ii", "iii") for part, lbl in (("tile", "tile"), ("glint", "loop"), ("appear", "arrives"))},
+    "control_dark": ("Act I", "MoE I: Hush Lock - mark (the Silence)"),
+    "linger_dark": ("Floors", "MoE Floor: Seeping Pool - tile (the Remainder)"),
+    "refraction": ("Act I", "MoE I: Refraction - burst (a3)"), "recast@FX3": ("Act II", "MoE II: Recast - the turn (a3)"),
+    **{f"enrage_w{k}": ("Act III", f"MoE III: The Glass Remembers - wave {k + 1}") for k in range(4)},
+    **{f"shatterfall_w{k}": ("Act III", f"MoE III: Shatterfall Gives Way - wave {k + 1}") for k in range(5)},
+    **{f"glassfall_w{k}": ("Act III", f"MoE III: Glassfall - wave {k + 1}") for k in range(3)},
+    **{f"flood_w{k}": ("Act III", f"MoE III: The Names Flood In - wave {k + 1}") for k in range(4)},
+    "rise_feeler": ("Act I", "MoE I: The Listening - rises"), "rise_likeness": ("Act I", "MoE I: Your Likeness - rises"),
+    "rise_worn": ("Act II", "MoE II: Raise the Worn - rises"),
+    **{f"aura_{k}": (EA, f"MoE {a}: {n} - aura") for k, a, n in (("sayo1", "I", "Sayo"), ("silence", "I", "The Silence"),
+                                                               ("sayo2", "II", "The Glasswright"), ("saint", "III", "The Saint"))},
+    **{f"flourish_{k}": (EA, f"MoE {a}: {n} - flourish") for k, a, n in (("sayo1", "I", "Sayo"), ("silence", "I", "The Silence"),
+                                                                       ("sayo2", "II", "The Glasswright"), ("saint", "III", "The Saint"))},
+    # FX4 (the final job)
+    **{f"entrance_{k}": (EA, f"MoE {a}: {n} - entrance") for k, a, n in (("sayo1", "I", "Sayo"), ("silence", "I", "The Silence"),
+                                                                       ("sayo2", "II", "The Glasswright"), ("saint", "III", "The Saint"))},
+    "lancet6": ("Act I", "MoE I: Glass Lancet - held star"), "sweep6": ("Act II", "MoE II: Doorward Sweep - sweep"),
+    "quiet6": ("Act III", "MoE III: The Quiet - ink lids"),
+    "heavy_tile_iii_b": ("Act III", "MoE III: Heavy Mark - tile (ember rim)"),
+    "heavy_appear_iii_b": ("Act III", "MoE III: Heavy Mark - arrives dark"),
+    "close_in_iii": ("Act III", "MoE III: The Floor Closes In - the Silence"),
+    "close_in_ii": ("Act II", "MoE II: The Floor Closes In - the Glasswright"),
+    "floor_i": ("Floors", "MoE Floor: Sayo I - crazed Heartglass"), "floor_ii": ("Floors", "MoE Floor: Recast - shattered etch"),
+    "floor_iii": ("Floors", "MoE Floor: Saint - blackened obsidian"), "floor_silence": ("Floors", "MoE Floor: The Silence - ink and frost"),
+    "floor_mended": ("Floors", "MoE Floor: No One Is Mended - unmended"),
+    "absence_rise": ("Act I", "MoE I: An Absence - arrives"), "absence_idle": ("Act I", "MoE I: An Absence - waits"),
+    "absence_burst": ("Act I", "MoE I: An Absence - erupts"), "absence_splat": ("Act I", "MoE I: An Absence - splatters"),
+}
+SLICE_MOVES = {"rbreak": ("I", "Refraction Breaks"), "rmark": ("I", "Refraction Mark"), "etch": ("II", "Etching"),
+               "recast": ("II", "Recast"), "glassfall": ("III", "Glassfall"), "shatterfall": ("III", "Shatterfall Gives Way")}
+
+
+def lib_label(key):
+    """(folder, name) for an asset key under the library convention."""
+    if key in LABELS:
+        sub, name = LABELS[key]
+        return f"{LIB} - {sub}", name
+    m = re.fullmatch(r"(rbreak|rmark)_([lr])(\d+)", key)
+    if m:
+        act, move = SLICE_MOVES[m.group(1)]
+        return LIB_SLICES + move, f"MoE {act}: {move} - slice {m.group(2).upper()} c{int(m.group(3)):02d}"
+    m = re.fullmatch(r"(etch|recast|glassfall)_([a-z_]+)_(\d+)_(\d+)", key)
+    if m:
+        act, move = SLICE_MOVES[m.group(1)]
+        region = m.group(2).replace("_", " ").title()
+        return (LIB_SLICES + f"{move} {region}",
+                f"MoE {act}: {move} {region} - slice c{int(m.group(3)):02d}r{int(m.group(4)):02d}")
+    die(f"no library label for asset key {key!r} (add it to LABELS)")
+
+
+def lib_gate(rows):
+    """Every asset has a convention folder and a unique convention name (director 2026-11-05)."""
+    seen = {}
+    for key, folder, name in rows:
+        if not (folder in LIB_FOLDERS or folder.startswith(LIB_SLICES)) or "/" in folder:
+            die(f"asset {key}: folder {folder!r} is not a library convention folder")
+        if not re.fullmatch(r"MoE (I|II|III|Floor|Scene): [^/]+ - [^/]+|MoE Scene: [^/]+", name):
+            die(f"asset {key}: name {name!r} does not follow 'MoE <Act>: <Move> - <part>'")
+        if name in seen:
+            die(f"asset names collide: {key} and {seen[name]} are both {name!r}")
+        seen[name] = key
 
 def assets_items():
     meta = fx_meta()
@@ -1218,9 +1332,12 @@ def final_reference_gate(build, items):
 def fx4_create_items():
     """The art4 entrance assets, created HIDDEN (law 16b); a later job unhides them (law 16c, art4_unhide_items)."""
     items, paths = [], []
-    for k, f, name, typ, frames, speed, path in fx2_rows(only4=True):
+    rows = fx2_rows(only4=True)
+    lib_gate([(k, *lib_label(k)) for k, *_ in rows])
+    for k, f, _desc, typ, frames, speed, path in rows:
+        folder, name = lib_label(k)
         items.append({"entity": "asset", "slot": "create", "srcId": AID4 + k, "name": name,
-                      "data": {**asset_row(name, typ, frames, speed, True), "image": "@img:" + f}})
+                      "data": {**asset_row(name, typ, frames, speed, True, folder), "image": "@img:" + f}})
         paths.append(path)
     return items, paths
 
@@ -1228,8 +1345,38 @@ def fx4_create_items():
 def art4_unhide_items(art4_bundle):
     g4 = created([art4_bundle], AID4)
     need(g4, [AID4 + k for k in FX4], "art4 unhide")
-    return [{"entity": "asset", "slot": "edit", "targetId": g4[AID4 + k], "name": f"{name}: unhide",
-             "data": asset_row(name, typ, frames, speed, False)} for k, f, name, typ, frames, speed, _ in fx2_rows(True)]
+    return [{"entity": "asset", "slot": "edit", "targetId": g4[AID4 + k], "name": f"{lib_label(k)[1]}: unhide",
+             "data": asset_row(lib_label(k)[1], typ, frames, speed, False, lib_label(k)[0])}
+            for k, f, _desc, typ, frames, speed, _ in fx2_rows(True)]
+
+
+def refolder_items(fx_bundle, art2_bundle, library=None):
+    """Edit items for the coordinator's final job: re-file the event's EXISTING assets (ids kept) to the library
+    convention. Assets fetch-merge on edit, so each item carries only folder and name. By srcId from the push/466
+    (FX, SCENES) and push/478 (FX2, FX3, SCENE_CHARS) bundles; `library` (optional JSON list of {id, name, folder}, a
+    GameAssetLibrary dump) adds the rest: folder SkyglassBossFX -> "Skyglass - Boss FX" (names kept); any other
+    MotherOfEchoes row not resolved by srcId is reported, not guessed."""
+    items, rows, have = [], [], set()
+    g1 = created([fx_bundle], AID)
+    g2 = created([art2_bundle], AID2)
+    for keys, g, pre in (((*FX, *SCENES), g1, AID), ((*FX2, *FX3, *SCENE_CHARS), g2, AID2)):
+        for k in keys:
+            if pre + k not in g:
+                continue
+            folder, name = lib_label(f"{k}@FX3" if pre == AID2 and k in FX3 and f"{k}@FX3" in LABELS else k)
+            rows.append((k, folder, name))
+            have.add(g[pre + k])
+            items.append({"entity": "asset", "slot": "edit", "targetId": g[pre + k], "name": f"{name}: re-file",
+                          "data": {"folder": folder, "name": name}})
+    lib_gate(rows)
+    unresolved = []
+    for a in json.load(open(library)) if library else []:
+        if a.get("folder") == "SkyglassBossFX":
+            items.append({"entity": "asset", "slot": "edit", "targetId": a["id"], "name": f"{a['name']}: re-file",
+                          "data": {"folder": SKYGLASS_BOSS_FX_FOLDER}})
+        elif a.get("folder") == "MotherOfEchoes" and a["id"] not in have:
+            unresolved.append((a["id"], a.get("name")))
+    return items, unresolved
 
 
 def sfx_for(name):
@@ -1375,19 +1522,26 @@ def step_golive(b, ids, econ, bundle, art2_bundle):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "final", "golive", "tune",
+    ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "final", "golive", "tune", "refolder",
                                                "art2", "art2_unhide"],
                     default="jutsu")
     ap.add_argument("--bundles", nargs="*", default=[], help="results bundles of 440 and 461-464 (any order)")
     ap.add_argument("--economy", help="push/417 results bundle (the shards, Heartglass and The Remainder tokens)")
     ap.add_argument("--from", dest="frm", help="push/466 (job 1) results bundle: the art assets' ids (golive, tune, "
                     "art2); push/478's for art2_unhide")
+    ap.add_argument("--library", help="refolder: a GameAssetLibrary dump (JSON list of {id, name, folder})")
     ap.add_argument("--art2-from", dest="art2", help="push/478 results bundle: the dialog portraits (golive)")
     ap.add_argument("--scenes", help="push/466 results bundle: the act scenes (art2_unhide's practice-quest edit)")
     a = ap.parse_args()
     spec = load_spec()
     b = Build(spec)
     ids = created(a.bundles, PFX)
+    if a.step == "refolder":                                 # library re-file edits for the coordinator's final job
+        items, unresolved = refolder_items(a.frm, a.art2, a.library)
+        out = os.path.join(os.environ.get("MOE_OUT_DIR", "push"), "mother_of_echoes_refolder_items.json")
+        json.dump({"items": items, "unresolved": unresolved}, open(out, "w"), indent=1)
+        print(f"{len(items)} re-file edits -> {out}; {len(unresolved)} MotherOfEchoes rows unresolved (need --library)")
+        return
     if a.step == "final":
         return step_final(spec, ids, a.economy)
     if a.step == "tune":
