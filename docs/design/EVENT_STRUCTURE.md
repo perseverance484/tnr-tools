@@ -122,7 +122,9 @@ A new event's design doc carries these sections, in this order. Skyglass's versi
    descriptions; NPC dialog and closing lines; the Logbook (quest log); titles, badges and achievements; variants listed on
    their base weapon. Mark any surface that is deferred or blocked upstream. Each event also writes a **journal**: a
    weekly roadmap quest whose entries count as the player plays, one page per weekend (pattern, engine limits and
-   template: `docs/design/EVENT_JOURNAL.md`, RUL-2026-11-05-120, -121). One badge per event, not per page.
+   template: `docs/design/EVENT_JOURNAL.md`, RUL-2026-11-05-120 to -122). One badge per event, not per page. The
+   event's front door is a one-time tutorial quest (Skyglass: Wreck Sighted) that explains the event in the fiction,
+   hands over the first rung's object and points at the weekly pages on the Information Board.
 10. **Pacing targets.** Expected hours and clears per player type, rates per weekend for each headline reward, clear-rate
     targets per node, and the pacing of the finale's inputs. Values are the director's ([[D-reserved-dauntless]]); see §8 Q1.
 11. **The finale.** It consumes the event's currencies (at least one from each pillar), it pays back into the event's shared

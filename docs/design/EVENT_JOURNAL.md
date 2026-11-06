@@ -1,8 +1,8 @@
 # The event journal: a weekly roadmap quest
 
-**Status:** ACTIVE (RUL-2026-11-05-120; decisions D1-D6 settled by RUL-2026-11-05-121). The idea, the decisions and the
-Week 1 rewards are the director's; the shape, the pages and the text are Claude's drafts. Open: the landing proposal
-(section 6, for approval) and the image.
+**Status:** ACTIVE (RUL-2026-11-05-120; D1-D6 settled by RUL-2026-11-05-121; landing, close time and the Wreck Sighted tutorial by RUL-2026-11-05-122). The idea, the decisions and the
+Week 1 rewards are the director's; the shape, the pages and the text are Claude's drafts. Open: the page image (QI01) and the
+tutorial's text (section 6a).
 **Date:** 2026-11-05. **Repository baseline:** `perseverance484/tnr-tools` main at `213ffabf`. **Game-source pin:**
 `studie-tech/TheNinjaRPG` at `3314d122` (read with `git show`, not run). Zero live requests.
 **Framework:** `docs/design/EVENT_STRUCTURE.md` (P5 legibility, P6 diegetic progression). **First build:**
@@ -43,7 +43,7 @@ counts. The page is gone when the tide turns at the end of the weekend.
 | **No ending step can wait for the entries.** For the same reason a final dialog or `win_quest` after the chain is live from the start, not after the entries | as above | The ending is the engine's own (section 4): the claim that completes the page |
 | Each objective's rewards pay once, when the player claims it (the gift icon); the quest-level reward pays on completion | `libs/quest.ts` 494-520; `layout/Objective.tsx` 99-112 | Per-entry and completion rewards are both native |
 | The Logbook shows each entry as the engine's fixed task title ("Complete Specific Quest") with a Goal x/N bar; the entry's own text is behind a (?) icon, and a non-location entry's reward is not listed | `layout/Objective.tsx` 142-180, 184-214; ENGINE_LAWS law 53 | The quest description carries the whole page; each entry's text names its own reward |
-| `startsAt`/`endsAt` are SQL `DATE`s with no time. Starting compares the date string with the current UTC ISO time; the active set uses `new Date(date)`, which is UTC midnight | `drizzle/schema.ts` 4333-4334; `routers/quests.ts` 2682-2687; `libs/quest.ts` 2456-2459, 140-153; `queries/quests.ts` 1384-1385 | A page opens **00:00 UTC on its Friday** and closes **00:00 UTC on its Monday** (Sunday 19:00 US Eastern). **Inferred:** an expired page stops counting and its unclaimed rewards cannot be claimed; it may still hold one of the four event slots until abandoned |
+| `startsAt`/`endsAt` are SQL `DATE`s with no time. Starting compares the date string with the current UTC ISO time; the active set uses `new Date(date)`, which is UTC midnight | `drizzle/schema.ts` 4333-4334; `routers/quests.ts` 2682-2687; `libs/quest.ts` 2456-2459, 140-153; `queries/quests.ts` 1384-1385 | A page opens **00:00 UTC on its startsAt** and closes **00:00 UTC on its endsAt**. Pages set endsAt to the Tuesday, so they close at the end of Monday UTC (Monday 18:00 US Central, RUL-2026-11-05-122 item 2). **Inferred:** an expired page stops counting and its unclaimed rewards cannot be claimed; it may still hold one of the four event slots until abandoned |
 | An item can start only a `special` quest; special quests list nowhere and have no completion caps | `server/api/routers/item.ts` 1995-2022; `libs/quest.ts` 2518-2520 | Option for handing the page over as an object (D2), and the route for the Wreck tally (D1) |
 | Editing a live event quest does not restart open attempts (only pyramids and isolated runs restart) | `libs/questRun.ts` 22-30 | A typo fix on a live page is safe |
 
@@ -51,7 +51,7 @@ counts. The page is gone when the tide turns at the end of the weekend.
 
 | Content (`SKYGLASS_EVENT_MAP.md` §1) | Task | Ids (harvested bundles) |
 |---|---|---|
-| N0 Wreck Sighted | `complete_specific_quest` new players only; use `move_to_location` sector 210 for everyone | `v7kKhLXsX9aofQfc7BnGx` |
+| N0 Wreck Sighted | not used: one-time per player; use `move_to_location` sector 210 for everyone | old `v7kKhLXsX9aofQfc7BnGx` (to be deleted); new from push/497 |
 | N1/N2 the party Wrecks | **not trackable** (section 2); D1 | — |
 | N3/N4 commons | `complete_specific_quest` | Low Tide `pFQBaJxU_8RSvSi4Kir1Z`, Night Watch `dnzL-bDrAEVXrKB5xariu` |
 | N5-N8 Rare runs | `complete_specific_quest` | Buried Cache `CgwAVCyZLgNQtEnqgLxxv`, Foundry `UGHSuhi83C3wRtH3FD4Eu`, Archive `-bZ_ZoI6yrUJ_LKT9R5zm`, Captain's Watch `liljq0yVXWTSna4X6dZE1` |
@@ -87,7 +87,7 @@ the player's claim. The last order's gift icon in the Logbook is the claim butto
 the game shows "Finished: The Watch Log: First Page" with the "Page complete" line above and the Token
 (`layout/Logbook.tsx` 903-931; `libs/quest.ts` 436-497). The page's description ends "Claiming the last order completes
 the page." A dialog ending was rejected: it would be clickable from the first minute and say "Page complete" early.
-**Window (D4):** 2026-11-06 00:00 UTC to 2026-11-09 00:00 UTC, with the release; it is hidden until published, so in
+**Window (D4, RUL-2026-11-05-122 item 2):** 2026-11-06 00:00 UTC to 2026-11-10 00:00 UTC (the end of Monday UTC), with the release; it is hidden until published, so in
 practice it opens at publish.
 
 Reward rationale: every reward is an existing event item that feeds the next rung or the shared containers (P1), none
@@ -96,8 +96,8 @@ one Crownhold pick. The values are the director's (`[[D-reserved-dauntless]]`).
 
 ## 5. Rotation and template
 
-**Rotation.** One quest record per weekend, `startsAt` the Friday, `endsAt` the Monday (the event runs Friday-Sunday,
-RUL-2026-11-01-096 item 4), `maxCompletes: 1`, `retryDelay: none`. Last weekend's page expires on its own; the new page
+**Rotation.** One quest record per weekend, `startsAt` the Friday, `endsAt` the Tuesday, so it opens 00:00 UTC Friday and
+closes 00:00 UTC Tuesday (the event runs Friday-Sunday, RUL-2026-11-01-096 item 4; Monday is grace, RUL-2026-11-05-122), `maxCompletes: 1`, `retryDelay: none`. Last weekend's page expires on its own; the new page
 is a new record ("Second Page", "Third Page"). Only one page is ever in its window, so only one can be taken. Pages are
 reusable: an old page can return later as a new record with new dates.
 
@@ -113,14 +113,16 @@ reusable: an old page can return later as a new record with new dates.
 2. **Entries:** 4-7, from the event's trackable actions (section 2's list); every entry is a quest id set, a jutsu or
    an item use, or a location. Climb the ladder from the entry rung; the last entry is the stretch.
 3. **Each entry's text:** one line in voice, then one plain line naming exactly what counts and its reward.
-4. **The quest description** carries the whole page (voice lines, the numbered plain list, the rules: counts only
-   while held, any order, claim before the weekend ends).
-5. **Rewards:** event items only, nothing that is a gate or finale input, values set by the director.
-6. **No per-page badge:** one badge for the whole event keeps it exclusive (D5).
-7. **Checks:** no entry depends on a once-only quest, a dungeon, steeping's refund path, or "obtain"; every listed
+4. **The quest description** opens with one plain line for the dashboard card ("This weekend's orders: N to claim,
+   <reward> for all N."), then carries the whole page (voice lines, the numbered plain list, the rules: counts only
+   while held, any order, claim before it closes).
+5. **Dates:** startsAt the Friday, endsAt the Tuesday (open 00:00 UTC Friday, closed 00:00 UTC Tuesday).
+6. **Rewards:** event items only, nothing that is a gate or finale input, values set by the director.
+7. **No per-page badge:** one badge for the whole event keeps it exclusive (D5).
+8. **Checks:** no entry depends on a once-only quest, a dungeon, steeping's refund path, or "obtain"; every listed
    quest id is live; the page passes `validate.py` (ledgered win-node lint), `check_manifest`, the event's own check.
 
-## 6. Landing: how players find the page (D2 proposal, for approval)
+## 6. Landing: how players find the page (APPROVED, RUL-2026-11-05-122 item 1)
 
 What the engine offers (theninjarpg@3314d122):
 
@@ -134,25 +136,51 @@ What the engine offers (theninjarpg@3314d122):
 | Started by an item | `special` quests only, listed nowhere | `routers/item.ts` 1995-2022 |
 | Text in existing entry points | any quest, dialog or item text can name the page; Wreck Sighted is the first thing a new player reads | `push/374_skyglass_wreck_sighted_salvager.json` |
 
-**Recommendation (the "weekend challenge pass"):**
-1. Keep the dated `event` quest. It lands on the Information Board and, more importantly, as an Events card on every
-   player's profile dashboard, with its own image, for exactly the weekend.
-2. Make it read as a weekly pass where players see it first: a distinct page image (a torn log page with the bell
-   mark; art request), and a card description whose first line is plain: "This weekend's orders: 5 to claim, a Skyglass
-   Token for all five." The voice follows.
-3. Point to it from the event's own entry points (text edits, built only on approval): Wreck Sighted's last line ("Each
-   weekend I dry another page of their watch log. It will be on the Information Board."), and the same line on the
-   salvager's Haul or chart rules text where it fits. Announce each page in the weekend post.
-4. Later, if the director wants the page handed over at the Wreck: an `overworld` quest at a salvager placement.
+**Approved landing (the "weekend challenge board"):**
+1. The page is a dated `event` quest: it lands on the Information Board and as an Events card on every player's
+   profile dashboard, with its own image, for exactly its window.
+2. The card's first line is plain: "This weekend's orders: 5 to claim, a Skyglass Token for all five." (built).
+3. Its own image: QI01, prompt in `docs/handoffs/SKYGLASS_ART_PROMPTS.md` §10 (register `docs/design/skyglass_art/ART_REGISTER.md`).
+4. Wreck Sighted points to it (section 6a). Announce each page in the weekend post.
+
+### 6a. The front door: Wreck Sighted, the one-time tutorial
+
+**The event's front door is two quests with two jobs** (director, 2026-11-05: "Wreck Sighted is the tutorial one-time
+quest. The pages are the repeatable challenge board."):
+- **Wreck Sighted** (push/497, a NEW hidden one-time quest; the director deletes the old live one himself): six short
+  salvager scenes that show the whole event through what she has seen, never as instructions (the Wreck and its crew;
+  charts and the deeper runs they lead to; the lantern and Crownhold; the Haul's sealed stores; four shards and
+  something beneath, hinted, never named; trade; a new page each weekend on the Information Board), a skip on the
+  first scene, then the starting Tide Chart. Text of
+  record: `docs/design/SKYGLASS_TEXT.md` §1a.
+- **The pages** (push/490 and successors): the repeatable weekly board, unchanged.
+
+**Engine facts.** One completion per player per quest id (`libs/quest.ts` 2503-2513): the new record is a new id, so
+**players who finished the old Wreck Sighted will see the new one once** and get a second Tide Chart, by intent
+(director: "they never got a good overview"). Deleting a quest is an in-game editor action for content roles; it also deletes every player's
+history rows for that quest (`routers/quests.ts` 1090-1125). Forge cannot delete. Forge only refuses a duplicate live
+name when a manifest sets `dedupNames` (`forge/src/runner/runner.mjs` 932-973); push/497 does not, so it can run
+before or after the old one is deleted.
+
+**References to the old id `v7kKhLXsX9aofQfc7BnGx`** (searched the whole repository and every harvested capture):
+- live records: **none**. No captured quest names it as `prerequisiteQuestId`, `completeQuestIds` or `newQuestIds`.
+  The journal pages count the Wreck by location, not by this quest. An in-game editor edit since the last capture
+  would not show here.
+- spent manifests (already run, history only): push/374 and push/385 (edits of the old record); their generators
+  `push/skyglass_final_art2.gen.py` (`WRECK_SIGHTED_ID`), `push/skyglass_publish_quests.gen.py` and the original
+  create in `push/skyglass_hoard.gen.py` (push/348). They are not re-run, so nothing breaks.
+- docs: `push/README.md` (348, 385 and the 1450 phase note: history), this file's section 3 row (updated), and
+  `docs/design/SKYGLASS_TEXT.md` §1 (the old text, kept as the record of what was live).
+- Nothing needs a new id: no record points at Wreck Sighted. After push/497 runs, put the new id in section 3.
 
 ## 7. Director decisions (RUL-2026-11-05-121)
 
 | # | Decision |
 |---|---|
 | D1 | No Wreck tally. Wreck dungeon clears stay off the pages; the director asks upstream for dungeon-clear tracking |
-| D2 | A dated quest, YES. The landing is section 6's proposal, awaiting approval |
+| D2 | A dated quest, YES. Landing approved (section 6, RUL-2026-11-05-122) |
 | D3 | Week 1 rewards approved as drafted |
-| D4 | Week 1 opens with the fight: Friday 2026-11-06, closing Monday 2026-11-09 (00:00 UTC both) |
+| D4 | Week 1 opens with the fight on Friday 2026-11-06; it now closes 2026-11-10 00:00 UTC (RUL-2026-11-05-122 item 2) |
 | D5 | No badge per page; one badge for the whole event |
 | D6 | The two validator diagnostics accepted; an ending players can see (section 4) |
 

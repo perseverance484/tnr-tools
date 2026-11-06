@@ -35,7 +35,8 @@ intro quest needs a scene character). Everything else has a working placeholder 
 | 7. Crownhold avatars | AV01-AV08 | 8 | `40_crew_avatars` |
 | 8. Crownhold release scenes | SC01-SC06 | 6 | `50_ship_scenes` |
 | 9. Haul chests, Legendary | PC07-PC08 | 2 | attach your Epic chest image |
-| **Total** | | **67** | |
+| 10. Quest icons | QI01 | 1 | `01_chart_icons` |
+| **Total** | | **68** | |
 
 Not prompted here: the 6 recolours Claude derives by script and the 32 finished files that only need uploading (both
 listed at the end); the violet Binding blast (reuses `anim_chain_wrap_v1.webp`, RUL-2026-10-30-061 item 10); the
@@ -1386,6 +1387,31 @@ Framing: one object, three-quarter view at eye level, centred, a small even marg
 Subject: Quartermaster's Reserve. The same chest as the attached Epic chest, raised one tier: the iron bands and corner plates become dark blackened steel edged with thin bright skyglass crystal inlay along every band; a cluster of three faceted pale-cyan skyglass crystals grows up through the lid beside the strap, breaking the chest's outline; the cyan light seams between the planks are brighter and run around all sides; the skyglass emblem clasp is larger, set in a crystal mount. Keep the gatherer's motif: the pale grey rope with its cyan thread, the sprig of green leaves and white berries at the clasp (now fuller, with a small skyglass bud among the leaves) and the leaf carved on the front, glowing cyan. No gold or yellow metal anywhere: the tier reads by crystal and light, not by gold.
 Background: transparent. If transparency is not available, a true solid flat magenta chroma key (#FF00FF) covering the whole canvas and every enclosed gap; not a checkerboard, not black, no gradient, no shadow on the key, no magenta spill on the object. (Magenta, not lime: the gatherer chest carries green leaves.)
 Avoid: no text, letters, numbers, kanji, runes or symbols (the only mark allowed is the Skyglass emblem, a four-point star in a diamond, as on the attached chest's clasp); no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is thin seams of cyan light only); no gold, no yellow metal, no filigree, no jewels other than skyglass; no second object; no hands or people; no photorealism, no blur.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
+
+## 10. Quest icons (1)
+
+### QI01 · The Watch Log (weekly page)
+
+- **Target:** the weekly page quest "The Watch Log: First Page" and every later page, push/490 · ICON (`quest.image`; the
+  quest listing and the profile dashboard card render it square, like an item icon) · lime key · priority: before the
+  page is published (it ships with the placeholder until then)
+- **Attach folder:** `01_chart_icons/`: `chart_captains_watch.png` (STYLE-ONLY: the live Skyglass chart family, its paper,
+  ink and rendering; do not copy its subject or layout); `anchor_skyglass_crystal.png` (STYLE-ONLY: the pixel rendering
+  and the skyglass cyan of the approved Skyglass icons; do not copy the crystal)
+- **Return as:** `QI01_raw_icon-watch-log-page.png`
+- **Note:** Must read apart from IC02 (Watch Roster, a rolled duty roster) and IC06 (a torn loose ledger page tied with a
+  cord): this is one flat page held down by a stone.
+
+```text
+Target: The Watch Log, one square game quest icon for The Ninja RPG.
+References attached: 1. chart_captains_watch.png: STYLE-ONLY: the live Skyglass chart family, its paper, ink and rendering; do not copy its subject or layout. 2. anchor_skyglass_crystal.png: STYLE-ONLY: the pixel rendering and the skyglass cyan of the approved Skyglass icons; do not copy the crystal. Follow each reference only for its stated role.
+Style: Edo-era Japanese fantasy ninja pixel art, matching the Skyglass crew and their item icons: crisp hard-edged pixels at medium-high density, clean dark outlines about one art pixel wide, flat cel shading in two or three steps per material, limited palette, soft even lighting. No airbrush, bloom or painterly gradients; not chunky low-res pixel art, not smooth illustration. Palette: blue-black lacquered wood, storm-grey iron, weathered leather and rope, deep indigo cloth, and one pale skyglass-cyan accent (#98c1cc brightening to near-white). Skyglass is a faceted crystal object or inlay, never a glowing field.
+Framing: one object, seen from slightly above, centred, a small even margin on every side, a strong silhouette that reads at 125 px. Square 1024 x 1024.
+Subject: a single page from a ship's watch log, dried by a fire: one sheet of dark weathered paper with salt-stained, slightly curled edges, held flat at one corner by a smooth grey beach stone. On the page, five short horizontal brush strokes in dark ink, one under the other like a list of orders, and a small pale cyan tick mark beside the top stroke. Lines and marks only, no writing or numbers.
+Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the whole canvas and every enclosed gap; not a checkerboard, no gradient, no shadow on the key, no lime spill on the object.
+Avoid: no text, letters, numbers, kanji, runes or symbols; no frame, border, medal ring, UI or watermark; no table, surface, ground or cast shadow; no glow halo, aura, light disc or light field (glow is a thin edge light only); no gold, no filigree, no jewels; no second object besides the stone; no roller, no cord, no scroll rod; no hands or people; no screens, machines or modern objects; no photorealism, no blur.
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 

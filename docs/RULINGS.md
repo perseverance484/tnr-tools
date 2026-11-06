@@ -5901,3 +5901,21 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director decisions relayed by the coordinator, 2026-11-05: "D1: drop the Wreck tally workaround … the director will ask upstream for dungeon-clear tracking"; "D2: YES to a dated quest, but 'we need to figure out a good way to land it. This is like their weekend event challenge reward pass type thing.'"; "D3: rewards APPROVED as drafted"; "D4: Week 1 ships with the fight … start Friday 2026-11-06 (the release)"; "D5: NO badge per page; one badge for the whole event is enough ('want them to feel a bit exclusive')"; "D6: accept the two validator exceptions 'so long as that won't bug or anything', and he wants an ENDING STEP so players know they finished — 'like a claim button'".
 
 **Canonical destination:** `docs/design/EVENT_JOURNAL.md`; `push/skyglass_journal.gen.py` and push/490; `state/validate_exceptions/490_skyglass_journal_week1.json`.
+
+## RUL-2026-11-05-122 — Event journal landing approved; pages close Tuesday 00:00 UTC; Wreck Sighted rebuilt as the event's one-time introduction
+
+**Date:** 2026-11-05
+
+**Domain:** content design / event journal and the Skyglass front door
+
+**Status:** ACTIVE. Open: the director's review of the introduction text (`docs/design/SKYGLASS_TEXT.md` §1a) before push/497 runs; the page image (QI01).
+
+**Ruling:**
+1. **Landing approved** (EVENT_JOURNAL.md §6): the page is a dated `event` quest (Information Board and the profile dashboard's Events cards); the card's first line is plain ("This weekend's orders: 5 to claim, a Skyglass Token for all five."); the page gets its own image (QI01, `docs/handoffs/SKYGLASS_ART_PROMPTS.md` §10); Wreck Sighted points to the board.
+2. **Close time:** pages run startsAt the Friday to endsAt the Tuesday, so they close 00:00 UTC Tuesday (Monday 18:00 US Central). Week 1: 2026-11-06 to 2026-11-10. The template follows.
+3. **Wreck Sighted is the one-time event introduction; the pages are the repeatable challenge board.** It is built as a NEW one-time quest (push/497, hidden until the director publishes it), with the starting Tide Chart and a pointer to the weekly pages; the director deletes the old live Wreck Sighted (`v7kKhLXsX9aofQfc7BnGx`) himself. No per-event copies. Veterans of the old quest see the new one once, by intent. The text is "a high quality introduction to the event … without spoilers or hand holding": the event's whole shape in the salvager's voice, the ladder left to infer, nothing below Crownhold named.
+4. A combined front-door page (introduction plus orders in one quest) was considered and dropped.
+
+**Evidence:** Director decisions relayed by the coordinator, 2026-11-05: "Landing APPROVED"; "Close time: extend to Monday night UTC (endsAt one day later, so it closes Tuesday 00:00 UTC = Monday 6pm Central)"; "Wreck Sighted is the tutorial one-time quest. The pages are the repeatable challenge board."; "HE will delete the old live Wreck Sighted himself; we build the new one as a fresh one-time quest"; veterans seeing it is intended ("they never got a good overview"); "a high quality introduction to the event. We want to cover the event without spoilers or hand holding."
+
+**Canonical destination:** `docs/design/EVENT_JOURNAL.md` §5-6a; `docs/design/SKYGLASS_TEXT.md` §1a; `push/skyglass_intro.gen.py` (push/497); `push/skyglass_journal.gen.py` (push/490).
