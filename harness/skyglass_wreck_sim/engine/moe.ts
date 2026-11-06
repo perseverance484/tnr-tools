@@ -30,7 +30,7 @@ const AIS = aiRecords(P);
 const rows = (ids: string[]) => Object.fromEntries(ids.map((id) => [id, rowOf(AIS.find((a) => a.id === id)!, RECS, P)]));
 
 export const actCfgs = (killOrder: "sayo" | "silence"): ActCfg[] => [
-  { act: 1, bossIds: [AI.sayo1, AI.silence], rows: rows([AI.sayo1, AI.silence, AI.feeler, AI.likeness]), recs: RECS, positions: { [AI.sayo1]: [8, 5], [AI.silence]: [11, 4] }, maxRounds: P.enrage.act1 + 8, killOrder },
+  { act: 1, bossIds: [AI.sayo1, AI.silence], rows: rows([AI.sayo1, AI.silence, AI.feeler, AI.likeness, ...(P.absence?.on ? [AI.absence] : [])]), recs: RECS, positions: { [AI.sayo1]: [8, 5], [AI.silence]: [11, 4] }, maxRounds: P.enrage.act1 + 8, killOrder },
   { act: 2, bossIds: [AI.sayo2], rows: rows([AI.sayo2, AI.porter, AI.hana, AI.tomo]), recs: RECS, positions: { [AI.sayo2]: [7, 5] }, maxRounds: 60 },
   { act: 3, bossIds: [AI.saint], rows: rows([AI.saint]), recs: RECS, positions: { [AI.saint]: [8, 5] }, maxRounds: P.enrage.act3 + 8 },
 ];
