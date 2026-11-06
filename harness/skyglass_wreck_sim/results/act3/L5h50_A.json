@@ -1,0 +1,6038 @@
+{
+ "generatedBy": "engine/moe.ts",
+ "visualFilter": true,
+ "engine": "theninjarpg 3314d122",
+ "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+ "params": {
+  "name": "act3v2-L5",
+  "pools": {
+   "sayo1": 2,
+   "silence": 1,
+   "sayo2": 12,
+   "saint": 12
+  },
+  "statsMultiplier": 5.83,
+  "idg": {
+   "sayo1": 2,
+   "silence": 0.3,
+   "sayo2": 2.27,
+   "saint": 2.41,
+   "summons": 3.5
+  },
+  "dr": {
+   "sayo1": 15,
+   "silence": 25,
+   "sayo2": 55,
+   "saint": 25
+  },
+  "pw": {
+   "pullDmg": 15,
+   "lancet": 25,
+   "refract": 300,
+   "facet": 220,
+   "likenessHit": 30,
+   "stillness": 40,
+   "grasp": 20,
+   "graspDrain": 1,
+   "hushDrain": 3,
+   "hushDmg": 25,
+   "detonate": 360,
+   "quiet": 3.43,
+   "quietIdt": 8,
+   "shatter": 300,
+   "flood": 420,
+   "glass": 260,
+   "recastIII": 380,
+   "enrage": 600,
+   "porter": 40,
+   "hana": 8,
+   "tomo": 60,
+   "cradleDR": 90
+  },
+  "hushCount": 6,
+  "hushPoolDrain": 2,
+  "rises": {
+   "count": 10,
+   "drain": 15,
+   "rounds": 10
+  },
+  "still": {
+   "cd": 3,
+   "stunAp": 100,
+   "stunRounds": 1
+  },
+  "lucidIdg": 0.2,
+  "pullStunAp": 100,
+  "telegraphCarrier": true,
+  "pullDist": 1,
+  "pullCd": 4,
+  "hushUnbridledCount": 2,
+  "porterPush": 1,
+  "ramp": {
+   "pct": 7,
+   "rounds": 9
+  },
+  "bossDmgScale": 0.7,
+  "turnMark": {
+   "on": true,
+   "act1": 40,
+   "act2": 50,
+   "cd": 4
+  },
+  "etchDWide": true,
+  "act1BlastCd": 2,
+  "skilledPolicy": true,
+  "eruptDebuff": {
+   "on": true,
+   "act1": {
+    "dh": 50,
+    "idt": 20,
+    "rounds": 3,
+    "poolRounds": 1
+   },
+   "act2": {
+    "dh": 50,
+    "idt": 20,
+    "rounds": 3,
+    "poolRounds": 3
+   },
+   "act3": {
+    "dh": 50,
+    "idt": 20,
+    "rounds": 3,
+    "poolRounds": 3
+   }
+  },
+  "bossAura": {
+   "on": true,
+   "sayo1": {
+    "type": "reflect",
+    "power": 10,
+    "rounds": 3
+   },
+   "silence": {
+    "type": "absorb",
+    "power": 35,
+    "rounds": 3
+   },
+   "sayo2": {
+    "type": "shield",
+    "health": 600,
+    "rounds": 2
+   },
+   "saint": {
+    "type": "shield",
+    "health": 800,
+    "rounds": 3
+   }
+  },
+  "visualPieces": false,
+  "rampClearable": true,
+  "act1Stagger": true,
+  "sayoStunImmune": true,
+  "gcdSafeBlasts": false,
+  "markArtRounds": 1,
+  "noPoolReentry": true,
+  "silenceStalk": true,
+  "stillAnchored": true,
+  "recastGround": true,
+  "lancetCd": 1,
+  "summonDmgScale": 0.4,
+  "eruption": {
+   "on": true,
+   "hp": 5050,
+   "act1": 60,
+   "act2": 70,
+   "act3": 128.7128712871287,
+   "recast": 128.7128712871287
+  },
+  "cooldownFloor": 0,
+  "hushRounds": 8,
+  "feeler": {
+   "hp": 2500,
+   "power": 40,
+   "rounds": 8,
+   "listeningCd": 4
+  },
+  "likeness": {
+   "hp": 6000,
+   "power": 80,
+   "rounds": 3
+  },
+  "worn": {
+   "hp": 5000,
+   "power": 60,
+   "rounds": 8
+  },
+  "enrage": {
+   "act1": 60,
+   "act3": 36
+  },
+  "refractCd": 4,
+  "quietRounds": 6,
+  "starHush": {
+   "cd": 3,
+   "rounds": 3
+  },
+  "floodCd": 3,
+  "m2HealBlockRounds": 20,
+  "sayo2Stunprevent": true,
+  "act3v2": {
+   "on": true,
+   "holdStillPct": 50,
+   "guardFlood": 3,
+   "guardFacet": 4,
+   "cradleDR": 75
+  },
+  "gear": {
+   "poolsMultiplier": 1,
+   "damageTakenReductionPct": 1,
+   "incTakenPct": 152
+  },
+  "avgGear": {
+   "poolsMultiplier": 1,
+   "damageTakenReductionPct": 1,
+   "incTakenPct": 152
+  },
+  "liveSpawn": true
+ },
+ "kill": "sayo",
+ "acts": [
+  3
+ ],
+ "runs": 20,
+ "seed0": 1,
+ "cells": {
+  "elite_perfect_real:play": {
+   "summary": {
+    "runs": 20,
+    "fullClears": 20,
+    "fullClearPct": 100,
+    "perAct": {
+     "3": {
+      "entered": 20,
+      "won": 20,
+      "clearPctOfEntered": 100,
+      "roundsWonMedian": 18,
+      "roundsAllMedian": 18,
+      "endHpWonMedianPct": 100,
+      "bossHpLeftLostMedian": {
+       "saint": null
+      },
+      "deaths": {},
+      "stalled": 0,
+      "sets": {
+       "Refraction": {
+        "mark": 58,
+        "land": 116,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 5.8,
+        "dmgPerHit": null
+       },
+       "Stillness": {
+        "mark": 36,
+        "land": 0,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 0,
+        "dmgPerHit": null
+       },
+       "Facet": {
+        "mark": 0,
+        "land": 58,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 2.9,
+        "dmgPerHit": null
+       },
+       "Hold Still": {
+        "mark": 64,
+        "land": 0,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 0,
+        "dmgPerHit": null
+       },
+       "Etched star": {
+        "mark": 25,
+        "land": 0,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 0,
+        "dmgPerHit": null
+       },
+       "Every Name": {
+        "mark": 25,
+        "land": 25,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 1.3,
+        "dmgPerHit": null
+       },
+       "Glassfall": {
+        "mark": 13,
+        "land": 18,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 0.9,
+        "dmgPerHit": null
+       },
+       "Every Line": {
+        "mark": 19,
+        "land": 0,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 0,
+        "dmgPerHit": null
+       }
+      },
+      "unmarked": 0,
+      "specials": {
+       "Remainder Lancet": 85,
+       "The Names Stir (warning)": 19,
+       "No One Is Mended (v2)": 20,
+       "Hush Rises (III)": 34,
+       "Hush on a star": 19
+      },
+      "idleTurns": {
+       "saint": "0/368"
+      },
+      "killFirst": {
+       "saint": 20
+      },
+      "apPerTurn": {
+       "move": 8,
+       "attack": 49,
+       "buff": 24,
+       "answer": 4,
+       "other": 0,
+       "unspent": 15,
+       "turnsUnspent20Pct": 31
+      },
+      "bossIdlePct": {
+       "saint": 0
+      },
+      "dmgSplit": {
+       "readablePct": 42,
+       "fillerPct": 58,
+       "enragePct": 0,
+       "perFight": 3144
+      },
+      "roundsWonP25P75": [
+       17,
+       23
+      ],
+      "clears": 23,
+      "cleanses": 0,
+      "solvNoSafe": 9,
+      "phaseStartMedian": {
+       "II": 13,
+       "III": 17
+      },
+      "maxHitMedian": 1200,
+      "healedMedian": 5485,
+      "dodgesPerFight": 9.2
+     }
+    }
+   },
+   "runs": [
+    {
+     "seed": 1,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 1,
+       "outcome": "won",
+       "rounds": 13,
+       "endHp": 1,
+       "endCp": 0.5252306930693069,
+       "endSp": 0.5232504950495049,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 914,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 12
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1934.7694386408493
+       },
+       "healed": 5059.769438640849,
+       "dodges": 4,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 13,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 13,
+        "move": 70,
+        "attack": 740,
+        "buff": 340,
+        "answer": 60,
+        "other": 0,
+        "unspent": 90,
+        "turnsUnspent20": 2
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 4,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "move": 2,
+        "Stamina Pill": 1,
+        "Tempest Cleave": 2,
+        "wait": 4,
+        "clear": 1,
+        "Captain's Decree (equivalent)": 2,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Kunai": 3,
+        "Dragon King's Impact": 2,
+        "Ink of the Void": 1,
+        "Wind Style: Sky Dragon": 1,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 9
+       },
+       "playerTurns": 13
+      }
+     ]
+    },
+    {
+     "seed": 2,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 2,
+       "outcome": "won",
+       "rounds": 16,
+       "endHp": 1,
+       "endCp": 0.5425574257425743,
+       "endSp": 0.5405772277227723,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2525,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 3,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 15
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 441.76691109199965,
+        "own turn (pools/drain)": 2525
+       },
+       "healed": 6091.766911092,
+       "dodges": 9,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 16,
+        "noSafe": 0,
+        "noSafeInclPools": 1,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 16,
+        "move": 130,
+        "attack": 840,
+        "buff": 360,
+        "answer": 60,
+        "other": 0,
+        "unspent": 210,
+        "turnsUnspent20": 5
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 9,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 9,
+        "Stamina Pill": 2,
+        "Tempest Cleave": 2,
+        "Kunai": 3,
+        "clear": 1,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Typhon Burst": 1,
+        "Ink of the Void": 2,
+        "Multi-Layered Gale": 1,
+        "move": 1,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 9,
+        "III": 13
+       },
+       "playerTurns": 16
+      }
+     ]
+    },
+    {
+     "seed": 3,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 3,
+       "outcome": "won",
+       "rounds": 14,
+       "endHp": 1,
+       "endCp": 0.5281019801980198,
+       "endSp": 0.5281019801980198,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 244,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 2,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 2,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 13
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 243.74169688799975
+       },
+       "healed": 3368.7416968879998,
+       "dodges": 5,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 14,
+        "noSafe": 0,
+        "noSafeInclPools": 2,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 14,
+        "move": 60,
+        "attack": 800,
+        "buff": 300,
+        "answer": 60,
+        "other": 0,
+        "unspent": 180,
+        "turnsUnspent20": 5
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 1,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "Stamina Pill": 1,
+        "Tempest Cleave": 2,
+        "Captain's Decree (equivalent)": 2,
+        "clear": 1,
+        "Ink of the Void": 2,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Kunai": 2,
+        "Dragon King's Impact": 2,
+        "wait": 6,
+        "Wind Style: Sky Dragon": 2,
+        "dodge": 5,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 5,
+        "III": 10
+       },
+       "playerTurns": 14
+      }
+     ]
+    },
+    {
+     "seed": 4,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 4,
+       "outcome": "won",
+       "rounds": 17,
+       "endHp": 1,
+       "endCp": 0.4692871287128712,
+       "endSp": 0.4692871287128712,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 838,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 5,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 16
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 2360.1654863290996
+       },
+       "healed": 5485.1654863291,
+       "dodges": 6,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 17,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 17,
+        "move": 100,
+        "attack": 780,
+        "buff": 440,
+        "answer": 60,
+        "other": 0,
+        "unspent": 320,
+        "turnsUnspent20": 7
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "Stamina Pill": 1,
+        "dodge": 6,
+        "wait": 9,
+        "Chakra Pill": 4,
+        "Tempest Cleave": 2,
+        "Kunai": 3,
+        "clear": 1,
+        "Shrapnel Clone Barrage": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Ink of the Void": 1,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1,
+        "move": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13
+       },
+       "playerTurns": 17,
+       "playerEndTurns": 1
+      }
+     ]
+    },
+    {
+     "seed": 5,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 5,
+       "outcome": "won",
+       "rounds": 26,
+       "endHp": 0.7122928797031779,
+       "endCp": 0.17621089108910892,
+       "endSp": 0.17027029702970298,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1200,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 4,
+         "land": 8,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 6,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 3,
+        "Hush on a star": 2
+       },
+       "bossTurns": {
+        "moe-ai-saint": 25
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 3865.7190187272754,
+        "own turn (pools/drain)": 1604
+       },
+       "healed": 6796.549516872137,
+       "dodges": 13,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 26,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         20
+        ]
+       },
+       "ap": {
+        "turns": 26,
+        "move": 260,
+        "attack": 1220,
+        "buff": 540,
+        "answer": 120,
+        "other": 0,
+        "unspent": 460,
+        "turnsUnspent20": 9
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "Stamina Pill": 1,
+        "dodge": 13,
+        "wait": 12,
+        "Tempest Cleave": 4,
+        "Captain's Decree (equivalent)": 3,
+        "Chakra Pill": 5,
+        "move": 8,
+        "clear": 2,
+        "Ink of the Void": 3,
+        "Shrapnel Clone Barrage": 3,
+        "Kunai": 4,
+        "Dragon King's Impact": 3,
+        "Wind Style: Sky Dragon": 2,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1,
+        "basicAttack": 3
+       },
+       "minHpFrac": 0.5,
+       "clears": 2,
+       "phaseAt": {
+        "II": 17,
+        "III": 25
+       },
+       "playerTurns": 26
+      }
+     ]
+    },
+    {
+     "seed": 6,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 6,
+       "outcome": "won",
+       "rounds": 21,
+       "endHp": 0.808,
+       "endCp": 0.3440326732673267,
+       "endSp": 0.3440326732673267,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2525,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 3,
+        "Hush on a star": 2
+       },
+       "bossTurns": {
+        "moe-ai-saint": 21
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1227.0539642550002,
+        "own turn (pools/drain)": 4280
+       },
+       "healed": 7432.053964255,
+       "dodges": 12,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 21,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 21,
+        "move": 170,
+        "attack": 1020,
+        "buff": 560,
+        "answer": 60,
+        "other": 0,
+        "unspent": 290,
+        "turnsUnspent20": 5
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "Stamina Pill": 2,
+        "dodge": 12,
+        "wait": 9,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 3,
+        "clear": 1,
+        "Chakra Pill": 5,
+        "Shrapnel Clone Barrage": 3,
+        "Ink of the Void": 3,
+        "Dragon King's Impact": 2,
+        "Kunai": 3,
+        "move": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13
+       },
+       "playerTurns": 21
+      }
+     ]
+    },
+    {
+     "seed": 7,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 7,
+       "outcome": "won",
+       "rounds": 19,
+       "endHp": 1,
+       "endCp": 0.4165178217821782,
+       "endSp": 0.4165178217821782,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2525,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 3,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 18
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "own turn (pools/drain)": 2525,
+        "Sayo, Saint of Stillness: Remainder Lancet": 867.297660704
+       },
+       "healed": 6517.297660704,
+       "dodges": 10,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 19,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 19,
+        "move": 150,
+        "attack": 880,
+        "buff": 460,
+        "answer": 60,
+        "other": 0,
+        "unspent": 350,
+        "turnsUnspent20": 7
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "Stamina Pill": 2,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 2,
+        "dodge": 10,
+        "wait": 10,
+        "Chakra Pill": 4,
+        "Shrapnel Clone Barrage": 2,
+        "Ink of the Void": 2,
+        "Dragon King's Impact": 2,
+        "Kunai": 3,
+        "move": 2,
+        "Wind Style: Sky Dragon": 2,
+        "clear": 1,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13,
+        "III": 17
+       },
+       "playerTurns": 19
+      }
+     ]
+    },
+    {
+     "seed": 8,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 8,
+       "outcome": "won",
+       "rounds": 20,
+       "endHp": 1,
+       "endCp": 0.39601287128712864,
+       "endSp": 0.39601287128712864,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 924,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 2,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 19
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 2151.3001882528497
+       },
+       "healed": 5276.30018825285,
+       "dodges": 10,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 20,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 20,
+        "move": 170,
+        "attack": 1120,
+        "buff": 440,
+        "answer": 60,
+        "other": 0,
+        "unspent": 210,
+        "turnsUnspent20": 4
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "Stamina Pill": 1,
+        "dodge": 10,
+        "wait": 8,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 3,
+        "clear": 1,
+        "Chakra Pill": 4,
+        "Shrapnel Clone Barrage": 3,
+        "Ink of the Void": 2,
+        "Dragon King's Impact": 2,
+        "Kunai": 4,
+        "Wind Style: Sky Dragon": 2,
+        "Typhon Burst": 2,
+        "move": 3,
+        "Multi-Layered Gale": 2
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13,
+        "III": 18
+       },
+       "playerTurns": 20
+      }
+     ]
+    },
+    {
+     "seed": 9,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 9,
+       "outcome": "won",
+       "rounds": 30,
+       "endHp": 0.808,
+       "endCp": 0.22344554455445537,
+       "endSp": 0.21750495049504942,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1200,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 6,
+         "land": 12,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 9,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 9,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 29
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 4636.51075373676,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 7761.51075373676,
+       "dodges": 12,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 30,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 30,
+        "move": 240,
+        "attack": 1300,
+        "buff": 800,
+        "answer": 120,
+        "other": 0,
+        "unspent": 540,
+        "turnsUnspent20": 9
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 4,
+        "Chakra Overflow": 4,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 4,
+        "Eclipse Drain": 3,
+        "Stamina Pill": 3,
+        "dodge": 12,
+        "wait": 10,
+        "Chakra Pill": 5,
+        "Tempest Cleave": 4,
+        "Kunai": 5,
+        "clear": 2,
+        "Captain's Decree (equivalent)": 3,
+        "Energy Potion": 1,
+        "move": 9,
+        "Shrapnel Clone Barrage": 3,
+        "Dragon King's Impact": 3,
+        "Ink of the Void": 3,
+        "Wind Style: Sky Dragon": 3,
+        "basicAttack": 3,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.478549731008344,
+       "clears": 2,
+       "phaseAt": {
+        "II": 25,
+        "III": 29
+       },
+       "playerTurns": 30,
+       "playerEndTurns": 1
+      }
+     ]
+    },
+    {
+     "seed": 10,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 10,
+       "outcome": "won",
+       "rounds": 13,
+       "endHp": 1,
+       "endCp": 0.5252306930693069,
+       "endSp": 0.5252306930693069,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 914,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 12
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1934.7694386408493
+       },
+       "healed": 5059.769438640849,
+       "dodges": 3,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 13,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 13,
+        "move": 60,
+        "attack": 720,
+        "buff": 340,
+        "answer": 60,
+        "other": 0,
+        "unspent": 120,
+        "turnsUnspent20": 3
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 3,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 6,
+        "Stamina Pill": 1,
+        "move": 2,
+        "Tempest Cleave": 2,
+        "clear": 1,
+        "Captain's Decree (equivalent)": 2,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Kunai": 3,
+        "Dragon King's Impact": 2,
+        "Ink of the Void": 1,
+        "Wind Style: Sky Dragon": 1,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 9
+       },
+       "playerTurns": 13
+      }
+     ]
+    },
+    {
+     "seed": 11,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 11,
+       "outcome": "won",
+       "rounds": 17,
+       "endHp": 1,
+       "endCp": 0.4692871287128712,
+       "endSp": 0.4673069306930692,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 838,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 16
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 2360.1654863290996
+       },
+       "healed": 5485.1654863291,
+       "dodges": 8,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 17,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 17,
+        "move": 130,
+        "attack": 800,
+        "buff": 440,
+        "answer": 60,
+        "other": 0,
+        "unspent": 270,
+        "turnsUnspent20": 6
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "Stamina Pill": 1,
+        "move": 2,
+        "wait": 6,
+        "dodge": 8,
+        "Chakra Pill": 4,
+        "Tempest Cleave": 2,
+        "Kunai": 3,
+        "clear": 1,
+        "Shrapnel Clone Barrage": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Ink of the Void": 1,
+        "Typhon Burst": 1,
+        "basicAttack": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13
+       },
+       "playerTurns": 17
+      }
+     ]
+    },
+    {
+     "seed": 12,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 12,
+       "outcome": "won",
+       "rounds": 18,
+       "endHp": 1,
+       "endCp": 0.383349504950495,
+       "endSp": 0.38136930693069304,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 703,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 18
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1644.1472093537095
+       },
+       "healed": 4769.1472093537095,
+       "dodges": 8,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 18,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 18,
+        "move": 160,
+        "attack": 900,
+        "buff": 440,
+        "answer": 60,
+        "other": 0,
+        "unspent": 240,
+        "turnsUnspent20": 5
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 8,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "wait": 6,
+        "Stamina Pill": 1,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 2,
+        "clear": 1,
+        "Chakra Pill": 4,
+        "Shrapnel Clone Barrage": 2,
+        "Ink of the Void": 2,
+        "move": 5,
+        "Dragon King's Impact": 2,
+        "Kunai": 3,
+        "Wind Style: Sky Dragon": 2,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13,
+        "III": 17
+       },
+       "playerTurns": 18
+      }
+     ]
+    },
+    {
+     "seed": 13,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 13,
+       "outcome": "won",
+       "rounds": 21,
+       "endHp": 0.808,
+       "endCp": 0.2957158415841584,
+       "endSp": 0.2957158415841584,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2525,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 3,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 20
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1154.599474955,
+        "own turn (pools/drain)": 3725
+       },
+       "healed": 6804.599474955,
+       "dodges": 11,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 21,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 21,
+        "move": 160,
+        "attack": 1020,
+        "buff": 600,
+        "answer": 60,
+        "other": 0,
+        "unspent": 260,
+        "turnsUnspent20": 4
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 11,
+        "Earthen Bastion": 3,
+        "Eclipse Drain": 2,
+        "wait": 9,
+        "Stamina Pill": 2,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 3,
+        "clear": 1,
+        "Chakra Pill": 5,
+        "Shrapnel Clone Barrage": 3,
+        "Ink of the Void": 3,
+        "Dragon King's Impact": 2,
+        "Kunai": 3,
+        "move": 3,
+        "Wind Style: Sky Dragon": 2,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13
+       },
+       "playerTurns": 21
+      }
+     ]
+    },
+    {
+     "seed": 14,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 14,
+       "outcome": "won",
+       "rounds": 23,
+       "endHp": 0.78384,
+       "endCp": 0.28313861386138606,
+       "endSp": 0.2811584158415841,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1200,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 3,
+        "Hush on a star": 2
+       },
+       "bossTurns": {
+        "moe-ai-saint": 22
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1226.46053599875,
+        "own turn (pools/drain)": 2159
+       },
+       "healed": 5159.46053599875,
+       "dodges": 12,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 23,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 23,
+        "move": 200,
+        "attack": 1080,
+        "buff": 540,
+        "answer": 60,
+        "other": 0,
+        "unspent": 420,
+        "turnsUnspent20": 10
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 3,
+        "Eclipse Drain": 1,
+        "Stamina Pill": 1,
+        "move": 4,
+        "dodge": 12,
+        "wait": 13,
+        "Chakra Pill": 5,
+        "Tempest Cleave": 3,
+        "Kunai": 4,
+        "clear": 1,
+        "Shrapnel Clone Barrage": 3,
+        "Captain's Decree (equivalent)": 3,
+        "Dragon King's Impact": 2,
+        "Ink of the Void": 2,
+        "Wind Style: Sky Dragon": 2,
+        "basicAttack": 1,
+        "Typhon Burst": 2,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13,
+        "III": 21
+       },
+       "playerTurns": 23,
+       "playerEndTurns": 1
+      }
+     ]
+    },
+    {
+     "seed": 15,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 15,
+       "outcome": "won",
+       "rounds": 18,
+       "endHp": 1,
+       "endCp": 0.3831514851485148,
+       "endSp": 0.3831514851485148,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 663,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 18
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1726.6016986537097,
+        "own turn (pools/drain)": 404
+       },
+       "healed": 5255.60169865371,
+       "dodges": 8,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 18,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 18,
+        "move": 160,
+        "attack": 860,
+        "buff": 440,
+        "answer": 60,
+        "other": 0,
+        "unspent": 280,
+        "turnsUnspent20": 6
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "Stamina Pill": 1,
+        "dodge": 8,
+        "wait": 6,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 2,
+        "clear": 1,
+        "Chakra Pill": 4,
+        "Shrapnel Clone Barrage": 2,
+        "Ink of the Void": 2,
+        "move": 5,
+        "Dragon King's Impact": 2,
+        "Kunai": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13,
+        "III": 17
+       },
+       "playerTurns": 18
+      }
+     ]
+    },
+    {
+     "seed": 16,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 16,
+       "outcome": "won",
+       "rounds": 17,
+       "endHp": 1,
+       "endCp": 0.5168148514851485,
+       "endSp": 0.5148346534653465,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2525,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 3,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 16
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 441.76691109199965,
+        "own turn (pools/drain)": 2929
+       },
+       "healed": 6495.766911092,
+       "dodges": 12,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 17,
+        "noSafe": 0,
+        "noSafeInclPools": 2,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 17,
+        "move": 170,
+        "attack": 860,
+        "buff": 340,
+        "answer": 60,
+        "other": 0,
+        "unspent": 270,
+        "turnsUnspent20": 7
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 1,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 12,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 10,
+        "Stamina Pill": 2,
+        "Tempest Cleave": 3,
+        "Kunai": 3,
+        "clear": 1,
+        "Chakra Pill": 4,
+        "Shrapnel Clone Barrage": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Typhon Burst": 1,
+        "Ink of the Void": 1,
+        "Multi-Layered Gale": 1,
+        "move": 2,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 9,
+        "III": 13
+       },
+       "playerTurns": 17
+      }
+     ]
+    },
+    {
+     "seed": 17,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 17,
+       "outcome": "won",
+       "rounds": 17,
+       "endHp": 1,
+       "endCp": 0.48562376237623756,
+       "endSp": 0.48562376237623756,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 838,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 16
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 2360.1654863290996
+       },
+       "healed": 5485.1654863291,
+       "dodges": 7,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 17,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 17,
+        "move": 110,
+        "attack": 780,
+        "buff": 440,
+        "answer": 60,
+        "other": 0,
+        "unspent": 310,
+        "turnsUnspent20": 8
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 7,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 10,
+        "Stamina Pill": 1,
+        "move": 1,
+        "Chakra Pill": 4,
+        "Tempest Cleave": 2,
+        "Kunai": 3,
+        "clear": 1,
+        "Shrapnel Clone Barrage": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Ink of the Void": 1,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13
+       },
+       "playerTurns": 17
+      }
+     ]
+    },
+    {
+     "seed": 18,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 18,
+       "outcome": "won",
+       "rounds": 23,
+       "endHp": 0.7514806041603441,
+       "endCp": 0.22492376237623762,
+       "endSp": 0.22492376237623762,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1200,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 3,
+        "Hush on a star": 2
+       },
+       "bossTurns": {
+        "moe-ai-saint": 23
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 2078.8456989528495,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 4850.599474955,
+       "dodges": 12,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 23,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 23,
+        "move": 200,
+        "attack": 1180,
+        "buff": 540,
+        "answer": 60,
+        "other": 0,
+        "unspent": 320,
+        "turnsUnspent20": 7
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 12,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "wait": 11,
+        "Stamina Pill": 1,
+        "move": 5,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 3,
+        "clear": 1,
+        "Chakra Pill": 5,
+        "Shrapnel Clone Barrage": 3,
+        "Ink of the Void": 2,
+        "Dragon King's Impact": 3,
+        "Kunai": 4,
+        "Wind Style: Sky Dragon": 3,
+        "Typhon Burst": 2,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13,
+        "III": 21
+       },
+       "playerTurns": 23
+      }
+     ]
+    },
+    {
+     "seed": 19,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 19,
+       "outcome": "won",
+       "rounds": 16,
+       "endHp": 1,
+       "endCp": 0.48226039603960397,
+       "endSp": 0.48226039603960397,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2525,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 3,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 2,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 15
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 441.76691109199965,
+        "own turn (pools/drain)": 2525
+       },
+       "healed": 6091.766911092,
+       "dodges": 7,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 16,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 16,
+        "move": 100,
+        "attack": 840,
+        "buff": 400,
+        "answer": 60,
+        "other": 0,
+        "unspent": 200,
+        "turnsUnspent20": 6
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 1,
+        "Stamina Pill": 2,
+        "dodge": 7,
+        "Tempest Cleave": 2,
+        "Kunai": 4,
+        "move": 1,
+        "clear": 1,
+        "wait": 8,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Typhon Burst": 1,
+        "Ink of the Void": 2,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 9,
+        "III": 14
+       },
+       "playerTurns": 16
+      }
+     ]
+    },
+    {
+     "seed": 20,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 20,
+       "outcome": "won",
+       "rounds": 25,
+       "endHp": 0.808,
+       "endCp": 0.4719603960396039,
+       "endSp": 0.4679999999999999,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1200,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 4,
+         "land": 8,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 5,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 7,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 2,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 24
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 3497.522775526398,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 6622.522775526398,
+       "dodges": 15,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 25,
+        "noSafe": 1,
+        "noSafeInclPools": 2,
+        "noSafeRounds": [
+         20
+        ]
+       },
+       "ap": {
+        "turns": 25,
+        "move": 240,
+        "attack": 1200,
+        "buff": 620,
+        "answer": 120,
+        "other": 0,
+        "unspent": 320,
+        "turnsUnspent20": 4
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 4,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 15,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "wait": 10,
+        "Stamina Pill": 2,
+        "move": 6,
+        "Chakra Pill": 5,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 3,
+        "clear": 2,
+        "Energy Potion": 1,
+        "Shrapnel Clone Barrage": 3,
+        "Kunai": 4,
+        "Dragon King's Impact": 2,
+        "Ink of the Void": 3,
+        "Wind Style: Sky Dragon": 2,
+        "Typhon Burst": 2,
+        "Multi-Layered Gale": 2,
+        "basicAttack": 2
+       },
+       "minHpFrac": 0.430069731008344,
+       "clears": 2,
+       "phaseAt": {
+        "II": 17,
+        "III": 22
+       },
+       "playerTurns": 25
+      }
+     ]
+    }
+   ]
+  },
+  "elite_real:play": {
+   "summary": {
+    "runs": 20,
+    "fullClears": 10,
+    "fullClearPct": 50,
+    "perAct": {
+     "3": {
+      "entered": 20,
+      "won": 10,
+      "clearPctOfEntered": 50,
+      "roundsWonMedian": 17.5,
+      "roundsAllMedian": 16,
+      "endHpWonMedianPct": 100,
+      "bossHpLeftLostMedian": {
+       "saint": 26.549999999999997
+      },
+      "deaths": {
+       "Sayo, Saint of Stillness: Glassfall": 3,
+       "Sayo, Saint of Stillness: Every Name": 4,
+       "own turn (pools/drain)": 3
+      },
+      "stalled": 0,
+      "sets": {
+       "Refraction": {
+        "mark": 49,
+        "land": 98,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 4.9,
+        "dmgPerHit": null
+       },
+       "Stillness": {
+        "mark": 29,
+        "land": 1,
+        "hit": 1,
+        "dmg": 2500,
+        "unmarked": 0,
+        "landsPerFight": 0.1,
+        "dmgPerHit": 2500
+       },
+       "Facet": {
+        "mark": 0,
+        "land": 50,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 1,
+        "landsPerFight": 2.5,
+        "dmgPerHit": null
+       },
+       "Hold Still": {
+        "mark": 52,
+        "land": 0,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 0,
+        "dmgPerHit": null
+       },
+       "Etched star": {
+        "mark": 20,
+        "land": 0,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 0,
+        "dmgPerHit": null
+       },
+       "Every Name": {
+        "mark": 20,
+        "land": 20,
+        "hit": 4,
+        "dmg": 21566.564092326604,
+        "unmarked": 0,
+        "landsPerFight": 1,
+        "dmgPerHit": 5392
+       },
+       "Glassfall": {
+        "mark": 11,
+        "land": 14,
+        "hit": 3,
+        "dmg": 12500,
+        "unmarked": 0,
+        "landsPerFight": 0.7,
+        "dmgPerHit": 4167
+       },
+       "Every Line": {
+        "mark": 14,
+        "land": 0,
+        "hit": 0,
+        "dmg": 0,
+        "unmarked": 0,
+        "landsPerFight": 0,
+        "dmgPerHit": null
+       }
+      },
+      "unmarked": 1,
+      "specials": {
+       "Remainder Lancet": 76,
+       "The Names Stir (warning)": 16,
+       "No One Is Mended (v2)": 18,
+       "Hush Rises (III)": 26,
+       "Hush on a star": 14
+      },
+      "idleTurns": {
+       "saint": "0/307"
+      },
+      "killFirst": {
+       "saint": 12
+      },
+      "apPerTurn": {
+       "move": 6,
+       "attack": 48,
+       "buff": 27,
+       "answer": 4,
+       "other": 0,
+       "unspent": 14,
+       "turnsUnspent20Pct": 32
+      },
+      "bossIdlePct": {
+       "saint": 0
+      },
+      "dmgSplit": {
+       "readablePct": 75,
+       "fillerPct": 25,
+       "enragePct": 0,
+       "perFight": 5810
+      },
+      "roundsWonP25P75": [
+       13,
+       21
+      ],
+      "clears": 22,
+      "cleanses": 0,
+      "solvNoSafe": 6,
+      "phaseStartMedian": {
+       "II": 13,
+       "III": 18
+      },
+      "maxHitMedian": 2525,
+      "healedMedian": 5261,
+      "dodgesPerFight": 5.9
+     }
+    }
+   },
+   "runs": [
+    {
+     "seed": 1,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 1,
+       "outcome": "won",
+       "rounds": 13,
+       "endHp": 1,
+       "endCp": 0.5252306930693069,
+       "endSp": 0.5232504950495049,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 914,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 12
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1934.7694386408493
+       },
+       "healed": 5059.769438640849,
+       "dodges": 4,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 13,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 13,
+        "move": 70,
+        "attack": 740,
+        "buff": 340,
+        "answer": 60,
+        "other": 0,
+        "unspent": 90,
+        "turnsUnspent20": 2
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 4,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "move": 2,
+        "Stamina Pill": 1,
+        "Tempest Cleave": 2,
+        "wait": 4,
+        "clear": 1,
+        "Captain's Decree (equivalent)": 2,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Kunai": 3,
+        "Dragon King's Impact": 2,
+        "Ink of the Void": 1,
+        "Wind Style: Sky Dragon": 1,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 9
+       },
+       "playerTurns": 13
+      }
+     ]
+    },
+    {
+     "seed": 2,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 2,
+       "outcome": "lost",
+       "rounds": 14,
+       "endHp": 0,
+       "endCp": 0.5554386138613862,
+       "endSp": 0.5534584158415842,
+       "bossHpPct": {
+        "moe-ai-saint": 16.2
+       },
+       "deathCause": "Sayo, Saint of Stillness: Glassfall",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Saint of Stillness: Glassfall"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 1,
+         "hit": 1,
+         "dmg": 6250,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 3,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 14
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 441.76691109199965,
+        "own turn (pools/drain)": 2525,
+        "Sayo, Saint of Stillness: Glassfall": 6250
+       },
+       "healed": 6091.766911092,
+       "dodges": 5,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 14,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 14,
+        "move": 80,
+        "attack": 700,
+        "buff": 360,
+        "answer": 60,
+        "other": 0,
+        "unspent": 200,
+        "turnsUnspent20": 5
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 5,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 8,
+        "Stamina Pill": 2,
+        "Tempest Cleave": 2,
+        "Kunai": 3,
+        "clear": 1,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 1,
+        "Captain's Decree (equivalent)": 1,
+        "Typhon Burst": 1,
+        "Ink of the Void": 1,
+        "Multi-Layered Gale": 1,
+        "move": 1,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 9,
+        "III": 13
+       },
+       "misreads": 1,
+       "playerTurns": 14
+      }
+     ]
+    },
+    {
+     "seed": 3,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 3,
+       "outcome": "lost",
+       "rounds": 8,
+       "endHp": 0,
+       "endCp": 0.7231613861386139,
+       "endSp": 0.7231613861386139,
+       "bossHpPct": {
+        "moe-ai-saint": 41.5
+       },
+       "deathCause": "Sayo, Saint of Stillness: Every Name",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Saint of Stillness: Every Name"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 1,
+         "dmg": 6250,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 2,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 8
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 243.74169688799975,
+        "Sayo, Saint of Stillness: Every Name": 6250
+       },
+       "healed": 3368.7416968879998,
+       "dodges": 0,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 8,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 8,
+        "move": 0,
+        "attack": 400,
+        "buff": 260,
+        "answer": 60,
+        "other": 0,
+        "unspent": 80,
+        "turnsUnspent20": 2
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 1,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "Stamina Pill": 1,
+        "Tempest Cleave": 1,
+        "Captain's Decree (equivalent)": 1,
+        "clear": 1,
+        "Ink of the Void": 1,
+        "Chakra Pill": 1,
+        "Shrapnel Clone Barrage": 1,
+        "Kunai": 1,
+        "Dragon King's Impact": 1,
+        "wait": 2,
+        "Wind Style: Sky Dragon": 1,
+        "Typhon Burst": 1
+       },
+       "minHpFrac": 0.5,
+       "misreads": 2,
+       "clears": 1,
+       "phaseAt": {
+        "II": 5
+       },
+       "playerTurns": 8
+      }
+     ]
+    },
+    {
+     "seed": 4,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 4,
+       "outcome": "won",
+       "rounds": 19,
+       "endHp": 0.92384,
+       "endCp": 0.36631980198019803,
+       "endSp": 0.36631980198019803,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2500,
+        "by": "Sayo, Saint of Stillness: Stillness"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 1
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 1,
+         "hit": 1,
+         "dmg": 2500,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 1,
+       "specials": {
+        "Remainder Lancet": 5,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 18
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1644.9192623312501,
+        "Sayo, Saint of Stillness: Stillness": 2500
+       },
+       "healed": 6793.91926233125,
+       "dodges": 6,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 18,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 18,
+        "move": 90,
+        "attack": 780,
+        "buff": 540,
+        "answer": 60,
+        "other": 0,
+        "unspent": 330,
+        "turnsUnspent20": 7
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "Stamina Pill": 2,
+        "dodge": 6,
+        "wait": 9,
+        "Chakra Pill": 4,
+        "Tempest Cleave": 3,
+        "Kunai": 3,
+        "clear": 1,
+        "Shrapnel Clone Barrage": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Ink of the Void": 1,
+        "Typhon Burst": 1,
+        "move": 1
+       },
+       "minHpFrac": 0.5,
+       "misreads": 3,
+       "clears": 1,
+       "unwarned": 1,
+       "phaseAt": {
+        "II": 14,
+        "III": 18
+       },
+       "playerTurns": 18,
+       "playerEndTurns": 1
+      }
+     ]
+    },
+    {
+     "seed": 5,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 5,
+       "outcome": "won",
+       "rounds": 13,
+       "endHp": 1,
+       "endCp": 0.5181019801980198,
+       "endSp": 0.5141415841584158,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 914,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 13
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1934.7694386408493
+       },
+       "healed": 5059.769438640849,
+       "dodges": 2,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 13,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 13,
+        "move": 60,
+        "attack": 760,
+        "buff": 340,
+        "answer": 60,
+        "other": 0,
+        "unspent": 80,
+        "turnsUnspent20": 3
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "Stamina Pill": 1,
+        "move": 3,
+        "Tempest Cleave": 2,
+        "Kunai": 3,
+        "clear": 1,
+        "Captain's Decree (equivalent)": 2,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "wait": 4,
+        "Dragon King's Impact": 2,
+        "Ink of the Void": 1,
+        "Wind Style: Sky Dragon": 1,
+        "dodge": 2,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1,
+        "basicAttack": 2
+       },
+       "minHpFrac": 0.5,
+       "misreads": 1,
+       "clears": 1,
+       "phaseAt": {
+        "II": 9
+       },
+       "playerTurns": 13
+      }
+     ]
+    },
+    {
+     "seed": 6,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 6,
+       "outcome": "won",
+       "rounds": 21,
+       "endHp": 0.808,
+       "endCp": 0.40393366336633657,
+       "endSp": 0.40393366336633657,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 1200,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 2,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 20
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 2151.3001882528497,
+        "own turn (pools/drain)": 1200
+       },
+       "healed": 5276.30018825285,
+       "dodges": 13,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 21,
+        "noSafe": 1,
+        "noSafeInclPools": 2,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 21,
+        "move": 190,
+        "attack": 1160,
+        "buff": 420,
+        "answer": 60,
+        "other": 0,
+        "unspent": 270,
+        "turnsUnspent20": 8
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "Stamina Pill": 1,
+        "dodge": 13,
+        "wait": 9,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 3,
+        "clear": 1,
+        "Chakra Pill": 5,
+        "Kunai": 4,
+        "Shrapnel Clone Barrage": 3,
+        "Ink of the Void": 3,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Typhon Burst": 2,
+        "move": 3,
+        "Multi-Layered Gale": 2
+       },
+       "minHpFrac": 0.5,
+       "misreads": 2,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13,
+        "III": 18
+       },
+       "playerTurns": 21
+      }
+     ]
+    },
+    {
+     "seed": 7,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 7,
+       "outcome": "won",
+       "rounds": 19,
+       "endHp": 1,
+       "endCp": 0.4165178217821782,
+       "endSp": 0.4165178217821782,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2525,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 3,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 18
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "own turn (pools/drain)": 2525,
+        "Sayo, Saint of Stillness: Remainder Lancet": 867.297660704
+       },
+       "healed": 6517.297660704,
+       "dodges": 10,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 19,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 19,
+        "move": 150,
+        "attack": 880,
+        "buff": 460,
+        "answer": 60,
+        "other": 0,
+        "unspent": 350,
+        "turnsUnspent20": 7
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "Stamina Pill": 2,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 2,
+        "dodge": 10,
+        "wait": 10,
+        "Chakra Pill": 4,
+        "Shrapnel Clone Barrage": 2,
+        "Ink of the Void": 2,
+        "Dragon King's Impact": 2,
+        "Kunai": 3,
+        "move": 2,
+        "Wind Style: Sky Dragon": 2,
+        "clear": 1,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "misreads": 2,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13,
+        "III": 17
+       },
+       "playerTurns": 19
+      }
+     ]
+    },
+    {
+     "seed": 8,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 8,
+       "outcome": "lost",
+       "rounds": 16,
+       "endHp": 0,
+       "endCp": 0.46018118811881187,
+       "endSp": 0.46018118811881187,
+       "bossHpPct": {
+        "moe-ai-saint": 36.9
+       },
+       "deathCause": "Sayo, Saint of Stillness: Every Name",
+       "maxHit": {
+        "dmg": 6250,
+        "by": "Sayo, Saint of Stillness: Every Name"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 1,
+         "dmg": 6250,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 5,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 16
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 2118.039098284249,
+        "own turn (pools/drain)": 2525,
+        "Sayo, Saint of Stillness: Every Name": 6250
+       },
+       "healed": 7768.039098284249,
+       "dodges": 4,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 16,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 16,
+        "move": 100,
+        "attack": 760,
+        "buff": 480,
+        "answer": 120,
+        "other": 0,
+        "unspent": 140,
+        "turnsUnspent20": 3
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "Stamina Pill": 2,
+        "dodge": 4,
+        "wait": 4,
+        "Tempest Cleave": 2,
+        "Captain's Decree (equivalent)": 2,
+        "clear": 2,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Ink of the Void": 2,
+        "Dragon King's Impact": 2,
+        "Kunai": 3,
+        "Wind Style: Sky Dragon": 1,
+        "move": 4,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 2,
+       "misreads": 2,
+       "phaseAt": {
+        "II": 13
+       },
+       "playerTurns": 16
+      }
+     ]
+    },
+    {
+     "seed": 9,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 9,
+       "outcome": "lost",
+       "rounds": 5,
+       "endHp": 0,
+       "endCp": 1,
+       "endSp": 1,
+       "bossHpPct": {
+        "moe-ai-saint": 99.9
+       },
+       "deathCause": "own turn (pools/drain)",
+       "maxHit": {
+        "dmg": 2525,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 2
+       },
+       "bossTurns": {
+        "moe-ai-saint": 4
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "own turn (pools/drain)": 3125
+       },
+       "healed": 0,
+       "dodges": 1,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 5,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 5,
+        "move": 20,
+        "attack": 0,
+        "buff": 240,
+        "answer": 0,
+        "other": 0,
+        "unspent": 240,
+        "turnsUnspent20": 3
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 1,
+        "Chakra Overflow": 1,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "Stamina Pill": 1,
+        "dodge": 1,
+        "wait": 2,
+        "Chakra Pill": 1,
+        "Energy Potion": 1,
+        "move": 1
+       },
+       "minHpFrac": 0,
+       "misreads": 2,
+       "playerTurns": 5,
+       "playerEndTurns": 1
+      }
+     ]
+    },
+    {
+     "seed": 10,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 10,
+       "outcome": "won",
+       "rounds": 13,
+       "endHp": 1,
+       "endCp": 0.5252306930693069,
+       "endSp": 0.5252306930693069,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 914,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 12
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1934.7694386408493
+       },
+       "healed": 5059.769438640849,
+       "dodges": 3,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 13,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 13,
+        "move": 60,
+        "attack": 720,
+        "buff": 340,
+        "answer": 60,
+        "other": 0,
+        "unspent": 120,
+        "turnsUnspent20": 3
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 3,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 6,
+        "Stamina Pill": 1,
+        "move": 2,
+        "Tempest Cleave": 2,
+        "clear": 1,
+        "Captain's Decree (equivalent)": 2,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Kunai": 3,
+        "Dragon King's Impact": 2,
+        "Ink of the Void": 1,
+        "Wind Style: Sky Dragon": 1,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "misreads": 1,
+       "phaseAt": {
+        "II": 9
+       },
+       "playerTurns": 13
+      }
+     ]
+    },
+    {
+     "seed": 11,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 11,
+       "outcome": "won",
+       "rounds": 22,
+       "endHp": 0.00016,
+       "endCp": 0.5754356435643564,
+       "endSp": 0.5714752475247524,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 5050,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 2,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 21
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 958.0539642549998,
+        "own turn (pools/drain)": 10963
+       },
+       "healed": 8797.053964255,
+       "dodges": 11,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 22,
+        "noSafe": 1,
+        "noSafeInclPools": 3,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 22,
+        "move": 180,
+        "attack": 980,
+        "buff": 700,
+        "answer": 60,
+        "other": 0,
+        "unspent": 280,
+        "turnsUnspent20": 5
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 3,
+        "Eclipse Drain": 3,
+        "Stamina Pill": 3,
+        "move": 3,
+        "wait": 7,
+        "dodge": 11,
+        "Chakra Pill": 5,
+        "Tempest Cleave": 3,
+        "Kunai": 3,
+        "clear": 1,
+        "Shrapnel Clone Barrage": 3,
+        "Captain's Decree (equivalent)": 2,
+        "Dragon King's Impact": 2,
+        "Energy Potion": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Ink of the Void": 2,
+        "basicAttack": 2,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.00016,
+       "misreads": 4,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13,
+        "III": 18
+       },
+       "playerTurns": 22
+      }
+     ]
+    },
+    {
+     "seed": 12,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 12,
+       "outcome": "won",
+       "rounds": 15,
+       "endHp": 1,
+       "endCp": 0.5064188118811881,
+       "endSp": 0.5044386138613861,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 703,
+        "by": "Sayo, Saint of Stillness: Remainder Lancet"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 3,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 15
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1154.599474955
+       },
+       "healed": 4279.599474955,
+       "dodges": 6,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 15,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 15,
+        "move": 100,
+        "attack": 840,
+        "buff": 340,
+        "answer": 60,
+        "other": 0,
+        "unspent": 160,
+        "turnsUnspent20": 3
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 6,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 7,
+        "Stamina Pill": 1,
+        "Tempest Cleave": 2,
+        "Captain's Decree (equivalent)": 2,
+        "clear": 1,
+        "Chakra Pill": 3,
+        "Kunai": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Ink of the Void": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1,
+        "move": 2,
+        "basicAttack": 1
+       },
+       "minHpFrac": 0.5,
+       "misreads": 2,
+       "clears": 1,
+       "phaseAt": {
+        "II": 9,
+        "III": 13
+       },
+       "playerTurns": 15
+      }
+     ]
+    },
+    {
+     "seed": 13,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 13,
+       "outcome": "lost",
+       "rounds": 20,
+       "endHp": 0,
+       "endCp": 0.41630990099009896,
+       "endSp": 0.41630990099009896,
+       "bossHpPct": {
+        "moe-ai-saint": 14.9
+       },
+       "deathCause": "own turn (pools/drain)",
+       "maxHit": {
+        "dmg": 5050,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 2,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 19
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 2078.8456989528495,
+        "own turn (pools/drain)": 6250
+       },
+       "healed": 5203.8456989528495,
+       "dodges": 9,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 20,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         16
+        ]
+       },
+       "ap": {
+        "turns": 20,
+        "move": 130,
+        "attack": 1040,
+        "buff": 480,
+        "answer": 60,
+        "other": 0,
+        "unspent": 290,
+        "turnsUnspent20": 8
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 9,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 9,
+        "Stamina Pill": 2,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 3,
+        "clear": 1,
+        "Chakra Pill": 4,
+        "Kunai": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Ink of the Void": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Typhon Burst": 2,
+        "move": 2,
+        "Multi-Layered Gale": 2,
+        "Energy Potion": 1
+       },
+       "minHpFrac": 0,
+       "misreads": 3,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13,
+        "III": 18
+       },
+       "playerTurns": 20
+      }
+     ]
+    },
+    {
+     "seed": 14,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 14,
+       "outcome": "won",
+       "rounds": 26,
+       "endHp": 0.808,
+       "endCp": 0.2450198019801979,
+       "endSp": 0.23907920792079196,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2525,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 4,
+         "land": 8,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 6,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 3,
+        "Hush on a star": 2
+       },
+       "bossTurns": {
+        "moe-ai-saint": 25
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 2352.635611451667,
+        "own turn (pools/drain)": 4280
+       },
+       "healed": 8557.635611451668,
+       "dodges": 13,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 26,
+        "noSafe": 1,
+        "noSafeInclPools": 1,
+        "noSafeRounds": [
+         20
+        ]
+       },
+       "ap": {
+        "turns": 26,
+        "move": 240,
+        "attack": 1080,
+        "buff": 640,
+        "answer": 120,
+        "other": 0,
+        "unspent": 520,
+        "turnsUnspent20": 10
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 3,
+        "Eclipse Drain": 3,
+        "Stamina Pill": 2,
+        "move": 7,
+        "wait": 13,
+        "dodge": 13,
+        "Chakra Pill": 5,
+        "Tempest Cleave": 4,
+        "Kunai": 5,
+        "clear": 2,
+        "Captain's Decree (equivalent)": 3,
+        "Shrapnel Clone Barrage": 3,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Ink of the Void": 2,
+        "basicAttack": 3,
+        "Typhon Burst": 1
+       },
+       "minHpFrac": 0.5,
+       "misreads": 2,
+       "clears": 2,
+       "phaseAt": {
+        "II": 17,
+        "III": 25
+       },
+       "playerTurns": 26
+      }
+     ]
+    },
+    {
+     "seed": 15,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 15,
+       "outcome": "lost",
+       "rounds": 20,
+       "endHp": 0,
+       "endCp": 0.7877980198019802,
+       "endSp": 0.7877980198019802,
+       "bossHpPct": {
+        "moe-ai-saint": 48.4
+       },
+       "deathCause": "Sayo, Saint of Stillness: Every Name",
+       "maxHit": {
+        "dmg": 3056,
+        "by": "Sayo, Saint of Stillness: Every Name"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 4,
+         "land": 8,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 6,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 3,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 1,
+         "dmg": 3055.8103163244514,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 5,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 20
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1753.4621301755487,
+        "own turn (pools/drain)": 5050,
+        "Sayo, Saint of Stillness: Every Name": 3055.8103163244514
+       },
+       "healed": 6734.2724465,
+       "dodges": 6,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 20,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 20,
+        "move": 80,
+        "attack": 820,
+        "buff": 680,
+        "answer": 120,
+        "other": 0,
+        "unspent": 300,
+        "turnsUnspent20": 5
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 3,
+        "Eclipse Drain": 3,
+        "Stamina Pill": 4,
+        "dodge": 6,
+        "wait": 6,
+        "Tempest Cleave": 3,
+        "Captain's Decree (equivalent)": 3,
+        "clear": 2,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 3,
+        "Ink of the Void": 3,
+        "move": 1,
+        "Dragon King's Impact": 2,
+        "Kunai": 2,
+        "Wind Style: Sky Dragon": 1,
+        "Energy Potion": 2
+       },
+       "minHpFrac": 0.4839606041603441,
+       "clears": 2,
+       "misreads": 3,
+       "phaseAt": {
+        "II": 17
+       },
+       "playerTurns": 20
+      }
+     ]
+    },
+    {
+     "seed": 16,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 16,
+       "outcome": "lost",
+       "rounds": 15,
+       "endHp": 0,
+       "endCp": 0.5242405940594059,
+       "endSp": 0.5183,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": "Sayo, Saint of Stillness: Glassfall",
+       "maxHit": {
+        "dmg": 5050,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 2,
+         "hit": 1,
+         "dmg": 1200,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 15
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 1934.7694386408493,
+        "own turn (pools/drain)": 5050,
+        "Sayo, Saint of Stillness: Glassfall": 1200
+       },
+       "healed": 5059.769438640849,
+       "dodges": 3,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 15,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 15,
+        "move": 60,
+        "attack": 940,
+        "buff": 300,
+        "answer": 60,
+        "other": 0,
+        "unspent": 140,
+        "turnsUnspent20": 5
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 1,
+        "Chakra Overflow": 1,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 3,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 8,
+        "Stamina Pill": 2,
+        "Tempest Cleave": 2,
+        "Kunai": 3,
+        "clear": 1,
+        "Captain's Decree (equivalent)": 2,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Dragon King's Impact": 2,
+        "Ink of the Void": 2,
+        "Wind Style: Sky Dragon": 2,
+        "basicAttack": 3,
+        "Typhon Burst": 2,
+        "Multi-Layered Gale": 1,
+        "move": 2,
+        "Energy Potion": 1
+       },
+       "minHpFrac": 0.192,
+       "misreads": 3,
+       "clears": 1,
+       "phaseAt": {
+        "II": 9,
+        "III": 13
+       },
+       "playerTurns": 15
+      }
+     ]
+    },
+    {
+     "seed": 17,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 17,
+       "outcome": "lost",
+       "rounds": 16,
+       "endHp": 0,
+       "endCp": 0.48661386138613855,
+       "endSp": 0.48661386138613855,
+       "bossHpPct": {
+        "moe-ai-saint": 13.9
+       },
+       "deathCause": "Sayo, Saint of Stillness: Every Name",
+       "maxHit": {
+        "dmg": 6011,
+        "by": "Sayo, Saint of Stillness: Every Name"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 4,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 1,
+         "dmg": 6010.7537760021505,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 4,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 16
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 2360.1654863290996,
+        "Sayo, Saint of Stillness: Every Name": 6010.7537760021505
+       },
+       "healed": 5245.91926233125,
+       "dodges": 6,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 16,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 16,
+        "move": 90,
+        "attack": 760,
+        "buff": 420,
+        "answer": 60,
+        "other": 0,
+        "unspent": 270,
+        "turnsUnspent20": 6
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 3,
+        "Chakra Overflow": 3,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 6,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 9,
+        "Stamina Pill": 1,
+        "move": 1,
+        "Chakra Pill": 3,
+        "Tempest Cleave": 2,
+        "Kunai": 3,
+        "clear": 1,
+        "Shrapnel Clone Barrage": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 1,
+        "Ink of the Void": 2,
+        "Typhon Burst": 1,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "misreads": 2,
+       "clears": 1,
+       "phaseAt": {
+        "II": 13
+       },
+       "playerTurns": 16
+      }
+     ]
+    },
+    {
+     "seed": 18,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 18,
+       "outcome": "lost",
+       "rounds": 22,
+       "endHp": 0,
+       "endCp": 0.25492079207920787,
+       "endSp": 0.25492079207920787,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": "Sayo, Saint of Stillness: Glassfall",
+       "maxHit": {
+        "dmg": 5050,
+        "by": "Sayo, Saint of Stillness: Glassfall"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 3,
+         "land": 6,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 3,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 2,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 1,
+         "hit": 1,
+         "dmg": 5050,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 5,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 3,
+        "Hush on a star": 2
+       },
+       "bossTurns": {
+        "moe-ai-saint": 22
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 2978.1809276980466,
+        "own turn (pools/drain)": 1200,
+        "Sayo, Saint of Stillness: Glassfall": 5050
+       },
+       "healed": 6103.180927698047,
+       "dodges": 7,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 22,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 22,
+        "move": 210,
+        "attack": 1120,
+        "buff": 460,
+        "answer": 120,
+        "other": 0,
+        "unspent": 290,
+        "turnsUnspent20": 7
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 7,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 2,
+        "wait": 9,
+        "Stamina Pill": 1,
+        "move": 9,
+        "Chakra Pill": 5,
+        "Tempest Cleave": 3,
+        "Kunai": 4,
+        "clear": 2,
+        "Shrapnel Clone Barrage": 3,
+        "Captain's Decree (equivalent)": 3,
+        "Dragon King's Impact": 3,
+        "Wind Style: Sky Dragon": 2,
+        "Typhon Burst": 2,
+        "Ink of the Void": 2,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "misreads": 3,
+       "clears": 2,
+       "phaseAt": {
+        "II": 13,
+        "III": 21
+       },
+       "playerTurns": 22
+      }
+     ]
+    },
+    {
+     "seed": 19,
+     "cleared": true,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 19,
+       "outcome": "won",
+       "rounds": 16,
+       "endHp": 1,
+       "endCp": 0.48226039603960397,
+       "endSp": 0.48226039603960397,
+       "bossHpPct": {
+        "moe-ai-saint": 0
+       },
+       "deathCause": null,
+       "maxHit": {
+        "dmg": 2525,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 2,
+         "land": 4,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Stillness": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Etched star": {
+         "mark": 1,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Name": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Glassfall": {
+         "mark": 1,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Every Line": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 3,
+        "The Names Stir (warning)": 1,
+        "No One Is Mended (v2)": 1,
+        "Hush Rises (III)": 2,
+        "Hush on a star": 1
+       },
+       "bossTurns": {
+        "moe-ai-saint": 15
+       },
+       "bossIdle": {},
+       "killFirst": "moe-ai-saint",
+       "dmgBySource": {
+        "Sayo, Saint of Stillness: Remainder Lancet": 441.76691109199965,
+        "own turn (pools/drain)": 2525
+       },
+       "healed": 6091.766911092,
+       "dodges": 7,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 16,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 16,
+        "move": 100,
+        "attack": 840,
+        "buff": 400,
+        "answer": 60,
+        "other": 0,
+        "unspent": 200,
+        "turnsUnspent20": 6
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 2,
+        "Chakra Overflow": 2,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "Earthen Bastion": 2,
+        "Eclipse Drain": 1,
+        "Stamina Pill": 2,
+        "dodge": 7,
+        "Tempest Cleave": 2,
+        "Kunai": 4,
+        "move": 1,
+        "clear": 1,
+        "wait": 8,
+        "Chakra Pill": 3,
+        "Shrapnel Clone Barrage": 2,
+        "Dragon King's Impact": 2,
+        "Wind Style: Sky Dragon": 2,
+        "Captain's Decree (equivalent)": 2,
+        "Typhon Burst": 1,
+        "Ink of the Void": 2,
+        "Multi-Layered Gale": 1
+       },
+       "minHpFrac": 0.5,
+       "clears": 1,
+       "phaseAt": {
+        "II": 9,
+        "III": 14
+       },
+       "playerTurns": 16
+      }
+     ]
+    },
+    {
+     "seed": 20,
+     "cleared": false,
+     "acts": [
+      {
+       "act": 3,
+       "seed": 20,
+       "outcome": "lost",
+       "rounds": 5,
+       "endHp": 0,
+       "endCp": 1,
+       "endSp": 1,
+       "bossHpPct": {
+        "moe-ai-saint": 100
+       },
+       "deathCause": "own turn (pools/drain)",
+       "maxHit": {
+        "dmg": 2525,
+        "by": "own turn (pools/drain)"
+       },
+       "sets": {
+        "Refraction": {
+         "mark": 1,
+         "land": 2,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Hold Still": {
+         "mark": 2,
+         "land": 0,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        },
+        "Facet": {
+         "mark": 0,
+         "land": 1,
+         "hit": 0,
+         "dmg": 0,
+         "unmarked": 0
+        }
+       },
+       "unmarkedTotal": 0,
+       "specials": {
+        "Remainder Lancet": 2
+       },
+       "bossTurns": {
+        "moe-ai-saint": 4
+       },
+       "bossIdle": {},
+       "killFirst": null,
+       "dmgBySource": {
+        "own turn (pools/drain)": 3125
+       },
+       "healed": 0,
+       "dodges": 2,
+       "cleanses": 0,
+       "maxHp": 6250,
+       "solv": {
+        "turns": 5,
+        "noSafe": 0,
+        "noSafeInclPools": 0,
+        "noSafeRounds": []
+       },
+       "ap": {
+        "turns": 5,
+        "move": 40,
+        "attack": 0,
+        "buff": 240,
+        "answer": 0,
+        "other": 0,
+        "unspent": 220,
+        "turnsUnspent20": 3
+       },
+       "playerActs": {
+        "Wind Release: Whirlwind Demise": 1,
+        "Chakra Overflow": 1,
+        "Colored Jewel of the Dragon's Neck": 1,
+        "dodge": 2,
+        "Earthen Bastion": 1,
+        "Eclipse Drain": 1,
+        "wait": 3,
+        "Stamina Pill": 1,
+        "move": 2,
+        "Chakra Pill": 1,
+        "Energy Potion": 1
+       },
+       "minHpFrac": 0,
+       "misreads": 1,
+       "playerTurns": 5
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

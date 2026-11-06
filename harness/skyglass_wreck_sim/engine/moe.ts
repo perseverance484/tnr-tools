@@ -139,7 +139,8 @@ const runEncounter = async (seed: number, cell: string, policy: Policy, kill: "s
   for (const cfg of cfgs) {
     if (!actsWanted.includes(cfg.act)) continue;
     reached = cfg.act;
-    const r = await runAct(cfg, { seed, policy, model, start, trace, catalog: CAT });
+    const sh = opt("start-hp");
+    const r = await runAct(cfg, { seed, policy, model, start: start ?? (sh ? { hp: Number(sh) } : undefined), trace, catalog: CAT });
     acts.push(r);
     if (r.outcome !== "won") break;
     start = { hp: r.endHp, cp: r.endCp, sp: r.endSp };
@@ -172,6 +173,14 @@ const summarise = (runs: Run[], acts: number[]) => {
       roundsWonMedian: med(won.map((x) => x.rounds)), roundsAllMedian: med(rs.map((x) => x.rounds)), endHpWonMedianPct: med(won.map((x) => Math.round(100 * x.endHp))),
       bossHpLeftLostMedian: Object.fromEntries(Object.keys(rs[0]?.bossHpPct ?? {}).map((k) => [k.replace("moe-ai-", ""), med(rs.filter((x) => x.outcome !== "won").map((x) => x.bossHpPct[k]!))])),
       deaths, stalled: rs.filter((x) => x.outcome === "stalled").length, sets, unmarked: rs.reduce((s, x) => s + x.unmarkedTotal, 0), specials, idleTurns: idle, killFirst,
+      // Act III review (2026-11-05): AP per player turn by category, boss idle %, damage taken readable / filler / enrage.
+      apPerTurn: (() => { const t = rs.reduce((s, x) => s + (x.ap?.turns ?? 0), 0) || 1; const f = (k: string) => Math.round(rs.reduce((s, x) => s + ((x.ap as any)?.[k] ?? 0), 0) / t); return { move: f("move"), attack: f("attack"), buff: f("buff"), answer: f("answer"), other: f("other"), unspent: f("unspent"), turnsUnspent20Pct: Math.round(100 * rs.reduce((s, x) => s + (x.ap?.turnsUnspent20 ?? 0), 0) / t) }; })(),
+      bossIdlePct: Object.fromEntries(Object.keys(turns).map((k) => [k.replace("moe-ai-", ""), Math.round((100 * (idl[k] ?? 0)) / Math.max(1, turns[k]!))])),
+      dmgSplit: (() => { const c = { readable: 0, filler: 0, enrage: 0 }; for (const x of rs) for (const [k, v] of Object.entries(x.dmgBySource)) { if (/Lancet|The Quiet|Strike|Sweep|Tether|Grasp|basicAttack|Attack/.test(k)) c.filler += v; else if (/Remembers|Enrage/.test(k)) c.enrage += v; else c.readable += v; } const t = c.readable + c.filler + c.enrage || 1; return { readablePct: Math.round(100 * c.readable / t), fillerPct: Math.round(100 * c.filler / t), enragePct: Math.round(100 * c.enrage / t), perFight: Math.round(t / Math.max(1, rs.length)) }; })(),
+      roundsWonP25P75: (() => { const w = won.map((x) => x.rounds).sort((a, b) => a - b); return w.length ? [w[Math.floor(w.length * 0.25)], w[Math.min(w.length - 1, Math.floor(w.length * 0.75))]] : null; })(),
+      clears: rs.reduce((s, x) => s + (x.clears ?? 0), 0), cleanses: rs.reduce((s, x) => s + (x.cleanses ?? 0), 0),
+      solvNoSafe: rs.reduce((s, x) => s + (x.solv?.noSafe ?? 0), 0),
+      phaseStartMedian: { II: med(rs.map((x) => (x as any).phaseAt?.II).filter((v) => v !== undefined)), III: med(rs.map((x) => (x as any).phaseAt?.III).filter((v) => v !== undefined)) },
       maxHitMedian: med(rs.map((x) => x.maxHit.dmg)), healedMedian: med(rs.map((x) => Math.round(x.healed))), dodgesPerFight: Math.round((10 * rs.reduce((s, x) => s + x.dodges, 0)) / Math.max(1, rs.length)) / 10,
     };
   }
