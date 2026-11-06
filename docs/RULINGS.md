@@ -6140,8 +6140,8 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 
 **Ruling:**
 1. The push/501 ledger's new class is accepted: static damage / OHKO-only records with no engine cap (theninjarpg cb755375 `validators/combat.ts:637`). That covers the 11 law-6 lines (power 1050 on the Act I blasts, 200 on the Hush patterns) and the L06 / L10 lines on those records.
-2. push/506 is the master for one director run: 501 (phases 0-70), 503 (100s), 490 (200s), 500 (300s). 497 is excluded because the master's dedupNames would refuse "Wreck Sighted" while the old live quest exists; 497 runs on its own when the director deletes the old quest.
-3. The follow-ups are built from 506's results bundle: 502 (MoE unhide), 504 (Subaku unhide), 505 (Subaku jutsu).
+2. push/506 is the master for one director run: 501 (phases 0-70), 490 (100s), 500 (200s). Subaku Palace (503) is dropped from it for now (director, 2026-11-06: "Drop subaku palace art for now"); 503 stays on main, unrun. 497 is excluded because the master's dedupNames would refuse "Wreck Sighted" while the old live quest exists; 497 runs on its own when the director deletes the old quest.
+3. push/502 (the MoE unhide) is built from 506's results bundle.
 
 **Evidence:** Director, 2026-11-06: "All approved, create a master manifest."
 

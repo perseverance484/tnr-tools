@@ -1,8 +1,8 @@
 {
  "manifest": "push/506_master_2026-11-06.json",
- "ruling": "Accepted classes only, each already accepted for its source: the push/501 ledger (precedent classes, and the static damage / OHKO-only class accepted by RUL-2026-11-06-131) and the push/490 ledger (RUL-2026-11-05-121 D6). push/500 and push/503 report 0 diagnostics on their own. Any build-order misranking introduced by combining phased sources is the RUL-2026-10-31-085 item 1 class.",
- "reason": "Master of 501 (MoE final tuning, phases 0-70), 503 (Subaku Palace art, 100s), 490 (The Watch Log week 1, 200s) and 500 (asset folders, 300s). 497 is excluded: dedupNames would refuse 'Wreck Sighted' while the old live quest exists.",
- "sha256": "ba634cf24e0d05d28f35f01130f8892219640356c29105bbe75a4408c45c7215",
+ "ruling": "Accepted classes only, each already accepted for its source: the push/501 ledger (precedent classes, and the static damage / OHKO-only class accepted by RUL-2026-11-06-131) and the push/490 ledger (RUL-2026-11-05-121 D6). push/500 reports 0 diagnostics on their own. Any build-order misranking introduced by combining phased sources is the RUL-2026-10-31-085 item 1 class.",
+ "reason": "Master of 501 (MoE final tuning, phases 0-70), 490 (The Watch Log week 1, 100s) and 500 (asset folders, 200s). 503 (Subaku Palace art) dropped by the director 2026-11-06. 497 is excluded: dedupNames would refuse 'Wreck Sighted' while the old live quest exists.",
+ "sha256": "3ba30cc525b7b02f3780f0077069255b344f0c2a9a4fdf30bbd42a2f893d857e",
  "accepted": [
   "ERROR  [ai:An Absence]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
   "ERROR  [ai:An Absence]: unresolved ref @jutsu:sg440_absence_opens in AI jutsus array: refs are silently STRIPPED server-side and the AI stands naked (law 17). Substitute literal ids",
