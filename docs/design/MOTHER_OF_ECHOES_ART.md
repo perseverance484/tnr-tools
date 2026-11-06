@@ -207,7 +207,7 @@ applies, which is the sim's act buff. The generator wires by slot name: an effec
 gets her form's entrance, staticAnimation `moe_aura` her art3 aura, and the cast gains the ring as zero-impact visual
 tags at CASTER offsets. CASTER offsets are added to her column and row as written (`targeting.ts:63-70`), so the ring
 cannot follow the odd-q stagger: band 0 is the 3 x 3 box round her (her 6 neighbours plus 2 hexes at distance 2, above
-or below by her column's parity). The 12 assets are created HIDDEN by the final tuning job (`fx4_create_items`,
+or below by her column's parity). The entrance assets (4 after the v2 rework, see "Stacking pass") are created HIDDEN by the final tuning job (`fx4_create_items`,
 srcIds `sg498_*`) and unhidden by a follow-up (`art4_unhide_items`); `custom_fx_refs` gives that job the live custom
 set by literal id from the push/489 run.
 
@@ -230,6 +230,280 @@ cost is one asset per distinct slice (a Refraction row: 12; Facet's paired rows:
 Turns, Stillness, the Hush pools, Etchings, Recasts) are drafted as band waves (`build_fx_a4.py --drafts`) and are
 held, with the slice versions, until docs/design/SAYO_BIBLE.md lands (coordinator, 2026-11-05); they will be aligned to
 it before they are exported or wired.
+
+## Stacking pass (whole fight, 2026-11-05)
+
+**Brief (coordinator for the director):** know exactly what the player sees each round when several effects play at once,
+and cut or re-time anything that clutters or cannot be read, before anything else is wired. Release Friday.
+
+**Method.**
+1. Rounds and casts come from the sim, not guesses: seeded traces of the latest spec (`fable/mother-of-echoes-sim` @
+   `3eb8abab`, `overrides/moe.params.json` "pass6-live8", read only, run in a private worktree), perfect and real player,
+   seeds 1-3, every act; Act III v2 from the prototype's trace (`fable/mother-of-echoes-act3` @ `f064d5dd`, loop L5).
+   The player's own kit comes from the director's two logs (`harvests/battle_logs/moe_practice_dauntless_2026-11-05*.txt`:
+   Glass Lancet, Grasp, Cradle, Facet, Refraction, Stillness, The Silence Turns against Captain's Decree, Thunderclap
+   Strike, Forbidden Chakra Fury, Dragon's Tomb, stances, Chakra Shield, Replacement).
+2. Each cast maps to the clips the live build plays (the generator's own `Build` on that spec, the custom set by
+   literal id from the push/489 run), with the engine's rules (COMBAT_ANIMATION_ENGINE.md): an effect with rounds R cast
+   in round N shows through N+R; appears play once (ground marks 2x / 3x occupied, identical frames, so overdraw
+   only matters between different records); static loops and tiles last the effect's life; **all clips draw over every
+   fighter, static tiles under them** (3.2); records stack in creation order, newest on top; all AI clips of one
+   snapshot start together; the killing blow is not animated.
+3. The busiest moments were composited from the real strips at true client scale (132 x 66 px tiles, 165 px clip
+   square from the 50 px rendition, linear filtering) on a full 12 x 10 arena, light and dark. Player and library
+   strips the session cannot fetch (no CDN access from the shell) use same-size stand-ins, labelled.
+   Harness: `scratchpad/custom/stack/` (cooccur.py, composite.py, moments.py); GIFs and key sheets in `stack/gif/`.
+
+**Units.** "Appear-hexes" = hexes on which a one-shot clip starts this round; "loop-hexes" = hexes with a looping clip
+on screen (each draws over the fighters for its whole life); "tile-hexes" = static art under the fighters.
+
+### Co-occurrence (per act, the six busiest rounds of each run)
+
+#### Perfect player, seed 1, Act 1 (won, 3 rounds)
+
+Per round: appear-hexes median 56 / max 71; loop-hexes median 69 / max 96 (after the stacking rules: median 33 / max 33); tile-hexes (marks + pools under the fighters) median 69 / max 96.
+
+| Round | Boss side casts | Player casts | Appears (hexes) | Loops on screen (hexes) | Marks / pools under (hexes) |
+|---|---|---|---|---|---|
+| 1 | Refraction, Glass Lancet, The Hush, Stillness | Wind Release: Whirlwind Demi, Chakra Overflow, _8HEbybzN5QPX8vUG24Tk | 71 | 69 | 63 / 6 |
+| 2 | Refraction Breaks, Nothing Moves | Tempest Cleave, Captain's Decree (equivalent | 56 | 96 | 63 / 33 |
+| 3 | - | Shrapnel Clone Barrage | 0 | 33 | 0 / 33 |
+
+#### Perfect player, seed 1, Act 2 (won, 30 rounds)
+
+Per round: appear-hexes median 48 / max 80; loop-hexes median 115 / max 186 (after the stacking rules: median 42 / max 53); tile-hexes (marks + pools under the fighters) median 112 / max 184.
+
+| Round | Boss side casts | Player casts | Appears (hexes) | Loops on screen (hexes) | Marks / pools under (hexes) |
+|---|---|---|---|---|---|
+| 6 | Recast: Seam | Wind Style: Sky Dragon | 80 | 144 | 0 / 142 |
+| 11 | Etching: Heart, The Hush Rises, Doorward Sweep | Eclipse Drain, Tempest Cleave | 49 | 151 | 108 / 40 |
+| 17 | Recast: Seam | Wind Release: Whirlwind Demi | 80 | 150 | 0 / 148 |
+| 18 | Recast: Ember | Chakra Overflow, Earthen Bastion | 72 | 186 | 0 / 184 |
+| 28 | Recast: Seam | Shrapnel Clone Barrage, wE1QeldWTjls2Cf43cFjf | 80 | 129 | 36 / 90 |
+| 29 | Recast: Rime | tZTvqYWiAc_OrY64nDvIo, Dragon King's Impact, u9mXSgVW_QjkRzCejGXZ1 | 72 | 129 | 0 / 126 |
+
+#### Perfect player, seed 1, Act 3 (won, 56 rounds)
+
+Per round: appear-hexes median 30 / max 240; loop-hexes median 102 / max 397 (after the stacking rules: median 8 / max 24); tile-hexes (marks + pools under the fighters) median 102 / max 396.
+
+| Round | Boss side casts | Player casts | Appears (hexes) | Loops on screen (hexes) | Marks / pools under (hexes) |
+|---|---|---|---|---|---|
+| 23 | The Names Flood In | Wind Style: Sky Dragon, wE1QeldWTjls2Cf43cFjf | 234 | 376 | 120 / 256 |
+| 25 | The Held Breath, Shatterfall | Multi-Layered Gale, Wind Release: Whirlwind Demi | 140 | 378 | 139 / 238 |
+| 31 | Breathless Pull, Every Name in the Glass | - | 124 | 381 | 240 / 140 |
+| 32 | The Names Flood In | u9mXSgVW_QjkRzCejGXZ1 | 234 | 377 | 120 / 257 |
+| 34 | The Held Breath, Shatterfall | - | 140 | 378 | 139 / 238 |
+| 41 | The Names Flood In | - | 234 | 377 | 120 / 257 |
+
+#### Real player, seed 1, Act 1 (won, 3 rounds)
+
+Per round: appear-hexes median 56 / max 71; loop-hexes median 69 / max 96 (after the stacking rules: median 33 / max 33); tile-hexes (marks + pools under the fighters) median 69 / max 96.
+
+| Round | Boss side casts | Player casts | Appears (hexes) | Loops on screen (hexes) | Marks / pools under (hexes) |
+|---|---|---|---|---|---|
+| 1 | Refraction, Glass Lancet, The Hush, Stillness | Wind Release: Whirlwind Demi, Chakra Overflow, _8HEbybzN5QPX8vUG24Tk | 71 | 69 | 63 / 6 |
+| 2 | Refraction Breaks, Nothing Moves | Tempest Cleave, Captain's Decree (equivalent | 56 | 96 | 63 / 33 |
+| 3 | - | Shrapnel Clone Barrage | 0 | 33 | 0 / 33 |
+
+#### Real player, seed 1, Act 2 (lost, 17 rounds)
+
+Per round: appear-hexes median 49 / max 80; loop-hexes median 111 / max 151 (after the stacking rules: median 38 / max 44); tile-hexes (marks + pools under the fighters) median 108 / max 148.
+
+| Round | Boss side casts | Player casts | Appears (hexes) | Loops on screen (hexes) | Marks / pools under (hexes) |
+|---|---|---|---|---|---|
+| 4 | Recast: Rime | Shrapnel Clone Barrage, wE1QeldWTjls2Cf43cFjf | 72 | 105 | 36 / 66 |
+| 6 | Recast: Seam | Wind Style: Sky Dragon | 80 | 144 | 0 / 142 |
+| 10 | Etching: Heart, Etching: Rime, Doorward Sweep | Chakra Overflow, Earthen Bastion, u9mXSgVW_QjkRzCejGXZ1 | 76 | 104 | 72 / 30 |
+| 11 | Etching: Heart, The Hush Rises, Doorward Sweep | Eclipse Drain, Tempest Cleave | 49 | 151 | 108 / 40 |
+| 16 | Recast: Rime | tZTvqYWiAc_OrY64nDvIo | 72 | 111 | 0 / 108 |
+| 17 | Recast: Seam | Wind Release: Whirlwind Demi, Chakra Overflow | 80 | 150 | 0 / 148 |
+
+#### Perfect player, seed 2, Act 1 (won, 23 rounds)
+
+Per round: appear-hexes median 5 / max 109; loop-hexes median 40 / max 122 (after the stacking rules: median 13 / max 41); tile-hexes (marks + pools under the fighters) median 40 / max 120.
+
+| Round | Boss side casts | Player casts | Appears (hexes) | Loops on screen (hexes) | Marks / pools under (hexes) |
+|---|---|---|---|---|---|
+| 1 | The Hush, Stillness, Refraction, Glass Lancet | Wind Release: Whirlwind Demi, Chakra Overflow, _8HEbybzN5QPX8vUG24Tk | 71 | 69 | 63 / 6 |
+| 2 | Nothing Moves, Refraction Breaks | Earthen Bastion, Eclipse Drain | 56 | 96 | 63 / 33 |
+| 7 | The Hush, The Listening, Cradle, Grasp, Facet, Glass Lancet | Shrapnel Clone Barrage, wE1QeldWTjls2Cf43cFjf | 64 | 67 | 54 / 12 |
+| 8 | Cradle, Facet Breaks | - | 108 | 122 | 54 / 66 |
+| 13 | The Hush, Your Likeness, Facet, Stolen Form | Wind Style: Sky Dragon, Captain's Decree (equivalent | 62 | 66 | 54 / 12 |
+| 14 | Facet Breaks, Your Own Strike | GNGrfEDnxbRBgOHHCjPX3, Shrapnel Clone Barrage, u9mXSgVW_QjkRzCejGXZ1 | 109 | 120 | 54 / 66 |
+
+Not in the live catalogue (new in this spec, placeholder art or no art): Your Likeness:Stolen Form.
+
+#### Perfect player, seed 2, Act 2 (lost, 18 rounds)
+
+Per round: appear-hexes median 49 / max 80; loop-hexes median 112 / max 151 (after the stacking rules: median 38 / max 44); tile-hexes (marks + pools under the fighters) median 110 / max 148.
+
+| Round | Boss side casts | Player casts | Appears (hexes) | Loops on screen (hexes) | Marks / pools under (hexes) |
+|---|---|---|---|---|---|
+| 4 | Recast: Rime | - | 72 | 105 | 36 / 66 |
+| 6 | Recast: Seam | GNGrfEDnxbRBgOHHCjPX3, Tempest Cleave | 80 | 144 | 0 / 142 |
+| 10 | Etching: Heart, Etching: Rime, Doorward Sweep | Chakra Overflow, Earthen Bastion, GNGrfEDnxbRBgOHHCjPX3 | 76 | 104 | 72 / 30 |
+| 11 | Etching: Heart, The Hush Rises, Doorward Sweep | Eclipse Drain, Wind Style: Sky Dragon | 49 | 151 | 108 / 40 |
+| 16 | Recast: Rime | Wind Release: Whirlwind Demi, tZTvqYWiAc_OrY64nDvIo, Captain's Decree (equivalent | 72 | 111 | 0 / 108 |
+| 17 | Recast: Seam | h-mvWaKK5vNNOwS5Y9KQj, Chakra Overflow, Earthen Bastion | 80 | 150 | 0 / 148 |
+
+#### Real player, seed 2, Act 1 (won, 23 rounds)
+
+Per round: appear-hexes median 5 / max 109; loop-hexes median 40 / max 122 (after the stacking rules: median 13 / max 41); tile-hexes (marks + pools under the fighters) median 40 / max 120.
+
+| Round | Boss side casts | Player casts | Appears (hexes) | Loops on screen (hexes) | Marks / pools under (hexes) |
+|---|---|---|---|---|---|
+| 1 | The Hush, Stillness, Refraction, Glass Lancet | Wind Release: Whirlwind Demi, Chakra Overflow, _8HEbybzN5QPX8vUG24Tk | 71 | 69 | 63 / 6 |
+| 2 | Nothing Moves, Refraction Breaks | Earthen Bastion, Eclipse Drain | 56 | 96 | 63 / 33 |
+| 7 | The Hush, The Listening, Cradle, Grasp, Facet, Glass Lancet | Shrapnel Clone Barrage, wE1QeldWTjls2Cf43cFjf | 64 | 67 | 54 / 12 |
+| 8 | Cradle, Facet Breaks | - | 108 | 122 | 54 / 66 |
+| 13 | The Hush, Your Likeness, Facet, Stolen Form | Wind Style: Sky Dragon, Captain's Decree (equivalent | 62 | 66 | 54 / 12 |
+| 14 | Facet Breaks, Your Own Strike | GNGrfEDnxbRBgOHHCjPX3, Shrapnel Clone Barrage, u9mXSgVW_QjkRzCejGXZ1 | 109 | 120 | 54 / 66 |
+
+Not in the live catalogue (new in this spec, placeholder art or no art): Your Likeness:Stolen Form.
+
+#### Real player, seed 2, Act 2 (lost, 18 rounds)
+
+Per round: appear-hexes median 49 / max 80; loop-hexes median 112 / max 151 (after the stacking rules: median 38 / max 44); tile-hexes (marks + pools under the fighters) median 110 / max 148.
+
+| Round | Boss side casts | Player casts | Appears (hexes) | Loops on screen (hexes) | Marks / pools under (hexes) |
+|---|---|---|---|---|---|
+| 4 | Recast: Rime | - | 72 | 105 | 36 / 66 |
+| 6 | Recast: Seam | GNGrfEDnxbRBgOHHCjPX3, Tempest Cleave | 80 | 144 | 0 / 142 |
+| 10 | Etching: Heart, Etching: Rime, Doorward Sweep | Chakra Overflow, Earthen Bastion, GNGrfEDnxbRBgOHHCjPX3 | 76 | 104 | 72 / 30 |
+| 11 | Etching: Heart, The Hush Rises, Doorward Sweep | Eclipse Drain, Wind Style: Sky Dragon | 49 | 151 | 108 / 40 |
+| 16 | Recast: Rime | Wind Release: Whirlwind Demi, tZTvqYWiAc_OrY64nDvIo, Captain's Decree (equivalent | 72 | 111 | 0 / 108 |
+| 17 | Recast: Seam | h-mvWaKK5vNNOwS5Y9KQj, Chakra Overflow, Earthen Bastion | 80 | 150 | 0 / 148 |
+
+#### Act III v2 prototype (fable/mother-of-echoes-act3 f064d5dd, loop L5 trace), Act 3 (won, 16 rounds)
+
+Per round: appear-hexes median 50 / max 120; loop-hexes median 120 / max 287 (after the stacking rules: median 11 / max 27); tile-hexes (marks + pools under the fighters) median 120 / max 286.
+
+| Round | Boss side casts | Player casts | Appears (hexes) | Loops on screen (hexes) | Marks / pools under (hexes) |
+|---|---|---|---|---|---|
+| 4 | Facet Breaks, Hold Still | Shrapnel Clone Barrage, u9mXSgVW_QjkRzCejGXZ1 | 108 | 108 | 54 / 54 |
+| 8 | Facet Breaks, The Silence Holds Her | Multi-Layered Gale, u9mXSgVW_QjkRzCejGXZ1 | 108 | 108 | 54 / 54 |
+| 9 | No One Is Mended | tZTvqYWiAc_OrY64nDvIo, Tempest Cleave | 120 | 174 | 0 / 174 |
+| 10 | Etching: Rime, The Hush Rises | Captain's Decree (equivalent, wE1QeldWTjls2Cf43cFjf | 47 | 167 | 36 / 130 |
+| 11 | Every Name in the Glass | Shrapnel Clone Barrage, Wind Release: Whirlwind Demi | 120 | 287 | 156 / 130 |
+| 12 | The Names Flood In: Rime | Dragon King's Impact, u9mXSgVW_QjkRzCejGXZ1 | 0 | 251 | 120 / 130 |
+
+Not in the live catalogue (new in this spec, placeholder art or no art): Sayo:A Good Impression, Sayo:Every Line Through You, Sayo:Glassfall: First Echo, Sayo:Glassfall: Second Echo, Sayo:Hold Still, Sayo:Remainder Lancet, Sayo:The Names Flood In: Rime, Sayo:The Names Stir, Sayo:The Silence Holds Her.
+
+
+### Busiest moments, composited and scored
+
+Scores: (a) the hexes dangerous next turn are readable; (b) the player and bosses are findable; (c) the boss's state
+(aura, guard, Cradle) reads. ✔ yes, ~ with effort, ✘ no. Coverage = share of the arena under any clip pixel (peak over
+the 1.5 s), "3+ clips" = hexes with three or more clip records on them.
+
+| Moment (GIF `stack/gif/<id>_{light,dark}.gif`) | Peak / mean coverage | Clip records | 3+ clips | (a) | (b) | (c) | What breaks |
+|---|---|---|---|---|---|---|---|
+| m1 Act I opening: Refraction marks + Lancet + Hush pools + Stillness | 28% / 12% | 134 | 9 | ✔ | ~ | ~ | the Stillness field (now 32-36 hexes round the moving Silence) puts 36 violet loops over both bosses; Hush pools land on Refraction lines and their newer tiles cover the mark tile |
+| m2 Act I payoff: Refraction Breaks + Nothing Moves + Cradle + Grasp + Lucid | 29% / 14% | 152 | 28 | ~ | ~ | ✘ | Sayo carries Lucid + Cradle + the reflect buff at once; 27 bile pool loops start over last round's marks |
+| m3 Act I: Facet (54) + The Silence Turns + likeness strike | 38% / 13% | 157 | 32 | ~ | ✔ | ~ | 54 heavy loops; the Silence Turns ring under the player is one of 61 identical heavy rings |
+| m4 Act II: Recast + next Etching + The Glass Turns + Worn | 43% / 20% | 264 | 47 | ~ | ~ | ✘ | the Recast pool is a 40-hex bright bile block for 3 rounds; Hush Rises adds 10 bright pools a cast for 10 rounds; the library shield loop restacks on Sayo every Etching |
+| m5 Act III: Every Name (117 heavy + 3 safe) + Breathless Pull on No One Is Mended | **68%** / 27% | 403 | **120** | ~ | ✘ | ✘ | every hex carries a heavy loop over a bile loop; the player and the Saint sit under 3 loops; the three safe diamonds are the only message and compete with 117 rims |
+| m6 Act III: The Names Flood In over Every Name and No One Is Mended | **88%** / 58% | 591 | 117 | ✘ | ✘ | ✘ | the flood masks' clip squares overlap the refuge hexes, so the player on a safe hex is under masks for ~0.7 s; after it, 120 hexes bubble bile for 20 rounds |
+| m7 Act III: Glassfall Second Pane over the First Pane's pools + Shatterfall pools | 52% / 30% | 303 | 49 | **✘** | ~ | ~ | the next pane's Act III heavy tile (obsidian, teal) disappears into dark pools on the dark board; the pool tile is created after the mark tile in the same cast and covers it where they overlap |
+| m8 Act III v2: Silence Holds Her + Hold Still bar + etched stars + echo pane + next lines | 33% / 16% | 107 | 4 | ~ | ✔ | ✔ | two of three etched stars are under the still-floor field and the echo pane's pools; the Hold Still bar (heavy III) sits next to Act I echo lines (heavy I) and reads as part of them |
+
+### Problems, ranked
+
+1. **Persistent pool loops over the whole floor (Act III, Act II).** No One Is Mended lays 120 bile loops for 20 rounds;
+   The Names Flood In 117 for 3; the Recasts 32-42 for 3; Hush Rises 10 a cast for 10 rounds. Every later telegraph sits
+   under a bubbling field, and every loop draws over the fighters. Act III loop-hexes: median 102, max 397 a round.
+2. **Act III telegraphs camouflaged.** The Remainder heavy tile is dark-on-dark beside dark pools; on the dark board the
+   next Glassfall pane is unreadable (m7). The Hush Rises / Act II pool and Act III pools also share the bile glint.
+3. **Field waves overlap the refuges.** A clip is 2.5 hex heights square, so a band on the hex next to a safe hex paints
+   over it (m6). The safe hex, and the player standing on it, vanish for the payoff's length.
+4. **Big mark fields as loops.** Every Name (117), The Held Breath (117), Facet (54), the Glassfall marks (36-42),
+   Stillness (36), the Etchings (36-42): one loop per hex, all over the fighters. Peak coverage 68% (m5).
+5. **Boss state buried.** The approved boss buffs (reflect on the Refraction marks, absorb on the Hush, shield on the
+   Etchings and Shatterfall) still carry another event's library strips (`FZNt0vFGXlOZeagmPneqc` shove,
+   `VMft99LeB_qQggEw_GrKi` barrier loop). They re-apply every cast and tag stacking is on, so 2-3 out-of-phase loops pile
+   on the boss with Lucid and Cradle (m2, m4, m5). The spec at `3eb8abab` also makes the current generator refuse to
+   build (an unmapped live strip); the stacking rules blank them.
+6. **Stillness now follows the Silence (AOE_SPIRAL_SHOOT, range 3, up to 36 hexes).** A violet field the size of a third of
+   the arena moves with her and covers both bosses in Act I (m1).
+7. **Telegraph tiles hidden by later tiles.** Static art stacks newest on top: a Hush pool cast after a Refraction mark
+   covers it; within one cast the pool effect is created after the next-pane mark (Glassfall) and covers it where they
+   overlap.
+8. **Hue collisions** (SAYO_BIBLE.md 5.1 grammar): Act III vein teal `#60d6ec` against safe cyan `#98d6e8` in Every Name
+   and The Held Breath; ember yellow `#ffce54` on the Act II heavy rim against etch gold `#deb868` (the bible's heavy_ii
+   tune, "add gold scoring", would make this worse: use the black crack only); the mend's gold motes against the etch
+   (bible); violet `control_appear` on The Glass Falls Quiet, the rest beat (bible rewire).
+9. **Act III v2:** the etched stars (lethal memory) can be covered by the still floor and the echo pools; the Hold Still bar
+   needs its own read next to the Act I echo lines.
+
+### Rules (visual budget and layering)
+
+Layering priority: **telegraph > threat landing > boss state > flavour.**
+
+1. **Pools: a tile, not a loop, above 10 hexes.** The tile under the fighters carries the warning; the arrival plays once.
+   (`STACK_RULES["pool_loop_max"]`; reversible.)
+2. **Mark fields: a tile, not a loop, above 30 hexes.** Lines and rings (Refraction 27, the follow rings 7, the Hold Still
+   bar 3, safe hexes) keep their loops; fields keep the tile and the arrival. (`STACK_RULES["mark_loop_max"]`.) Where the
+   whole board is marked, the loop belongs on the exception (the safe hexes), which keeps theirs.
+3. **One payoff family per round on screen.** A field-wide wave (Glass Remembers, Flood, Glassfall, Shatterfall, Recast)
+   does not share a round with another field-wide wave; a second big cast in the same snapshot keeps its tiles and drops
+   its arrival.
+4. **Refuges are never painted.** Pieces next to a safe hex must stay inside their own hex: the slice mosaic does this by
+   construction (each hex paints only the pixels it owns), so Flood and the Glassfall panes move to slices first.
+5. **Boss state rides one non-stacking carrier per act** (the entrance / aura buff). Recurring buffs carry no loop and no
+   library appear.
+6. **Telegraph tiles are created last** in their record (the next-pane mark after the pool), so the newest static art on
+   a hex is the warning.
+7. **Act III marks keep a lit edge:** the ember rim on the Remainder heavy tile must survive a dark pool under it (tune
+   `tile_moe_heavy_iii_a3` / `heavy_appear_iii`: the bible's "arrive dark with teal veins" plus a 2 px ember rim).
+8. **Every strip passes SAYO_BIBLE.md 5.7 on the stacked board,** not alone: the composite harness is the check.
+
+### Applied now (reversible, visual only, no timing change)
+
+- `push/mother_of_echoes.gen.py`: `Build(stack=True)` applies rules 1, 2 and 5 (loops off pools > 10 and mark fields > 30
+  hexes; the library strips on the boss buffs blanked). Opt-in, so push/478 and the jobs that ran regenerate
+  unchanged; the final tuning build passes `stack=True`. Effect on the traced runs (loop-hexes a round, median / max):
+  Act I 40 / 122 → 13 / 41; Act II 112 / 151 → 38 / 44; Act III 102 / 397 → 8 / 24. After-renders: `stack/gif/*_after_*`.
+- Entrances v2 (`anim_moe_entrance_*_a5`, below); the v1 strips and their ground rings are retired before upload.
+
+### Requests for the sim agent (they change records the sim owns; outcomes must be re-confirmed)
+
+- **R1 (rule 6):** reorder effects so a cast's next-pane / next-line mark comes after its pool effect (Glassfall panes,
+  Lucid Refraction). Art order only; please confirm a fixed-seed rerun is identical.
+- **R2 (problem 7):** keep the Hush's random pools off the current Refraction / Far Refraction lines (exclude those rows
+  from `hushField` while a line mark is down, or draw from the off-line rows).
+- **R3 (problem 6):** Stillness as the ring at distance 3 (or 2-3) round the Silence instead of the full spiral, so the
+  field does not cover both bosses; or accept it with the loop off (applied).
+- **R4 (rule 3):** no field-wide payoff in the same snapshot as another (The Held Breath + Shatterfall share rounds in Act
+  III; Every Name + Breathless Pull).
+- **R5 (rule 5):** one aura-carrying buff per boss that does not re-apply (the entrance carrier), and the recurring buffs
+  without art.
+
+### SAYO_BIBLE.md section 6 items that cause clutter or misreads (fix these first)
+
+| Item | Clutter / readability effect | Priority |
+|---|---|---|
+| The Hush Rises pool (rewire: the bright pool) | bright bile across Act II for 10 rounds a cast, the same glint as the Recast pools | 1 |
+| `anim_moe_heavy_appear_iii_a3` (tune) and the Act III heavy tile | the Act III telegraph disappears on dark pools (m7) | 1 |
+| `anim_moe_lucid_aura_v1` (redo: duplicate orbit) | stacks with the Act I aura, Cradle and the reflect buff on Sayo (m2) | 2 |
+| `anim_moe_control_glint_v1`, `anim_moe_breath_draw_v1` (1-2 px particles) | haze across the 36-hex Stillness field (now loop-off by rule 2) | 2 |
+| The Glass Falls Quiet visual (`control_appear`, rewire) | the rest beat reads as a lock | 2 |
+| `tile_moe_heavy_ii_a3` (tune) | Act II vs Act I: use the black crack, not gold scoring (etch-gold collision) | 3 |
+| `anim_moe_mend_v1` (gold) | gold on a heal next to etch gold | 3 |
+| `anim_moe_refraction_a3`, `anim_moe_quiet_v1`, `anim_moe_echo_strike_v1`, `anim_moe_rise_feeler_a3` | quality and material, not clutter | 4 |
+| flourishes (`*_flourish_*_a3`) | superseded by the entrances v2 | done |
+
+### Entrances v2 and the slice upgrade
+
+The director judged the first entrances "far too large and gaudy, especially since the bosses spawn in together; they
+clip". v2 (`build_fx_a4.py` `entrances2`, `anim_moe_entrance_{sayo1,silence,sayo2,saint}_a5`): 20 frames, inside her own
+clip (a build check fails any frame within 2 px of the edge), no ground ring, the bible 3.7 brief and beat: Act I the
+fan opens pane by pane round her flanks, the rim heats, a held beat, one white frame, three prismatic 2 x 2 glints; the
+Silence's shadow peels up into an ink hood, a held violet rim, frozen dust only; Act II the fan's panes, a black crack
+runs through them, a white-gold frame, the gold scores draw and dim; Act III the ink folds into her, held, one teal-white
+frame, a small halo of hooked thorns. Both Act I bosses enter on the same tick without crowding
+(`scratchpad/custom/review5/`). Wiring is unchanged (`moe_entrance` / `moe_aura` slots; the carrier is the sim's
+once-per-act buff, R5). The fixed-position set pieces (Refraction / Far Refraction / Facet marks and breaks, Etchings,
+Recasts, Stillness) go to slice mosaics at the Refraction line's standard next, with rule 4 built in.
 
 ## Jutsu icons: six families for 53 jutsu
 

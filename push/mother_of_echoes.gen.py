@@ -175,26 +175,17 @@ FX3 = {
 FX3_UNWIRED = {k for k in FX3 if k.startswith(("aura_", "flourish_"))}
 # Boss entrances (art4; director after the live test, 2026-11-05: "Boss intro animation was a bit underwhelming but the
 # aura was cool"): art/mother_of_echoes_fx/build_fx_a4.py. One 30-frame signature entrance per form on the full clip
-# square, and a two-band ring of ground pieces round her hex timed to its reveal. They replace the art3 flourishes.
+# square, held beat, inside her own clip (v2, below). They replace the art3 flourishes.
 # Wiring is by slot name, so the spec decides the carrier: an effect whose appearAnimation is "moe_entrance" gets her
-# form's entrance (and a staticAnimation "moe_aura" her approved art3 aura), and the cast gains the ring as zero-impact
-# visual tags at CASTER offsets. Today no boss jutsu carries "moe_entrance" (the art3 flourishes and auras were created
+# form's entrance (and a staticAnimation "moe_aura" her approved art3 aura). Today no boss jutsu carries "moe_entrance" (the art3 flourishes and auras were created
 # and unhidden by push/489 and 496 but never wired): the carrier is the sim's once-per-act buff (ENTRANCE_NOTE).
 FX4_META = "art/mother_of_echoes_fx/exports/moe_fx_a4.json"
 FORMS = (("sayo1", "Sayo"), ("silence", "The Silence"), ("sayo2", "The Glasswright"), ("saint", "The Saint"))
-FX4 = {
-    **{f"entrance_{k}": (f"anim_moe_entrance_{k}_a4.webp", f"Mother of Echoes FX - {n} enters") for k, n in FORMS},
-    **{f"entrance_ring_{k}_w{b}": (f"anim_moe_entrance_ring_{k}_w{b}_a4.webp",
-                                    f"Mother of Echoes FX - {n} enters, ring {b + 1}") for k, n in FORMS for b in (0, 1)},
-}
+# v2 (director 2026-11-05: the first entrances were "far too large and gaudy ... they clip"): small, inside her clip, the
+# bible's held beat, no ground ring. The v1 strips (_a4) and their rings were retired before upload.
+FX4 = {f"entrance_{k}": (f"anim_moe_entrance_{k}_a5.webp", f"Mother of Echoes FX - {n} enters") for k, n in FORMS}
 FORM = {"Sayo, Mother of Echoes": "sayo1", "The Silence": "silence", "Sayo, Glasswright of the Stilling": "sayo2",
         "Sayo, Saint of Stillness": "saint"}
-# CASTER offsets are added to the caster's column and row as written (targeting.ts:63-70), so a ring cannot follow the
-# odd-q stagger: band 0 is the 3 x 3 box round her (her 6 neighbours plus 2 hexes at distance 2, above or below by her
-# column's parity), band 1 the next ring out at the same columns and two columns over.
-ENTRANCE_RING = ([{"longitude": dq, "latitude": dr} for dq in (-1, 0, 1) for dr in (-1, 0, 1) if (dq, dr) != (0, 0)],
-                 [{"longitude": dq, "latitude": dr} for dq, dr in ((0, -2), (0, 2), (-2, 0), (2, 0), (-2, -1), (2, -1),
-                                                                   (-2, 1), (2, 1))])
 ENTRANCE_NOTE = ("the entrance plays when its carrier is cast, every time: it needs a once-per-act cast (a first rule "
                  "gated on the buff's own absence), which is the sim's act buff (director 2026-11-05)")
 # Dialog portraits (director 2026-11-05): SCENE_CHARACTER 2:3 crops of the approved avatars, Sayo only. Act I Sayo in
@@ -397,12 +388,22 @@ def unique_names(rows, key):
     return out
 
 
+# Stacking pass (docs/design/MOTHER_OF_ECHOES_ART.md "Stacking pass", 2026-11-05): visual-only budget rules, opt-in per
+# build (Build(stack=True)) so the jobs that already ran regenerate unchanged. Static loops draw OVER every fighter
+# (COMBAT_ANIMATION_ENGINE.md 3.2) and never stop for the effect's life; the tile under the fighters carries the
+# telegraph. A pool or a mark field bigger than its cap keeps its tile and its arrival, and loses its loop.
+STACK_RULES = {"pool_loop_max": 10, "mark_loop_max": 30}
+LIB_BUFF_PLACEHOLDERS = {"FZNt0vFGXlOZeagmPneqc", "VMft99LeB_qQggEw_GrKi"}  # library shove / shield strips on the boss buffs
+BUFF_TYPES = ("absorb", "shield", "reflect", "lifesteal")
+
+
 class Build:
-    def __init__(self, spec, fx=None, art=False, fx2=None):
+    def __init__(self, spec, fx=None, art=False, fx2=None, stack=False):
         self.spec = spec
         self.fx = fx      # 466 asset ids by FX key (jutsu_art step only)
         self.fx2 = fx2    # push/478 custom set: FX2 key -> asset ref (None: the live borrowed strips)
         self.final_art = art  # art pass: real images instead of the engine default
+        self.stack = stack    # stacking-pass rules (STACK_RULES)
         self.jutsu = {j["id"]: j for j in spec["jutsu"]}
         self.ais = {a["id"]: a for a in spec["ais"]}
         self.jname = unique_names(spec["jutsu"], lambda j: j["record"]["name"])
@@ -512,6 +513,8 @@ class Build:
                 e[f] = self.fx2[SLOT3[v]]
             elif v in SLOT_FX:
                 e[f] = self.fx[SLOT_FX[v]]
+            elif self.stack and v in LIB_BUFF_PLACEHOLDERS and e["type"] in BUFF_TYPES:
+                e[f] = ""  # another event's strip restacking on the boss every cast: blanked (stacking pass rule 5)
             elif (v, e["type"]) in LIB2:
                 k = LIB2[(v, e["type"])](label, e)
                 e[f] = self.fx2[k] if k else ""
@@ -526,6 +529,27 @@ class Build:
             elif v:
                 die(f"{label}: unknown art {v!r} in {f}")
         return e
+
+    def hexes(self, rec, e):
+        """How many hexes an effect's art lands on (the cast's own pattern, a RANDOM pick, or its own COORDINATES)."""
+        if e.get("target") == "SELF":
+            return 1
+        ct = e.get("coordinateTargeting") if e.get("target") == "COORDINATES" else rec.get("coordinateTargeting")
+        if ct:
+            return ct.get("randomCount", len(ct["coordinates"])) if ct.get("selection") == "RANDOM" else len(ct["coordinates"])
+        return {"AOE_CIRCLE_SPAWN": 7, "AOE_SPIRAL_SHOOT": 36}.get(rec.get("method"), 1)
+
+    def stack_rules(self, label, rec, d):
+        pools = {self.fx2.get(k) for k in ("linger_tile", "linger_dark")}
+        marks = {self.fx2.get(k) for k in self.fx2 if k.startswith(("heavy_tile", "control_"))} | {self.fx.get("etch_tile")}
+        for src, e in zip(rec["effects"], d["effects"]):
+            n = self.hexes(rec, src)
+            if e.get("staticAssetPath") in pools and n > STACK_RULES["pool_loop_max"] and e.get("staticAnimation"):
+                e["staticAnimation"] = ""
+                self.notes.append(f"{label}: pool on {n} hexes keeps its tile, loses its loop (stacking rule 1)")
+            elif e.get("staticAssetPath") in marks and n > STACK_RULES["mark_loop_max"] and e.get("staticAnimation"):
+                e["staticAnimation"] = ""
+                self.notes.append(f"{label}: mark field of {n} hexes keeps its tile, loses its loop (stacking rule 2)")
 
     def mosaic(self, label, rec):
         """The band visuals for a MOSAIC slot: one visual tag per band, the cast's own origin, its tiles split by band."""
@@ -566,14 +590,10 @@ class Build:
             d["image"] = PLACEHOLDER
             self.notes.append(f"jutsu {sid(jid)}: {name} (engine default image)")
         d["effects"] = [self.art(name, e) for e in rec["effects"]]
+        if self.fx2 is not None and self.stack:
+            self.stack_rules(name, rec, d)
         if self.fx2 is not None:
             d["effects"] += self.mosaic(name, rec)
-            if any(e.get("appearAnimation") == "moe_entrance" for e in rec["effects"]):
-                form = self.form_of(name)
-                d["effects"] += [{**VISUAL, "appearAnimation": self.fx2[f"entrance_ring_{form}_w{b}"],
-                                  "coordinateTargeting": {"origin": "CASTER", "selection": "ALL", "coordinates": cs},
-                                  "description": f"{name}: entrance ring {b + 1} (art only)"}
-                                 for b, cs in enumerate(ENTRANCE_RING)]
         if self.fx is not None and any(e.get("staticAnimation") == "moe_lull" for e in rec["effects"]):
             src = [e["type"] for e in rec["effects"] if e.get("staticAnimation") == "moe_lull"]
             dst = [i for i, e in enumerate(d["effects"]) if e["type"] == LULL_MOVE[1]]
