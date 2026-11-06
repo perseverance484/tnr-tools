@@ -26,9 +26,14 @@ def main():
         for r in json.load(open(os.path.join(d, meta)))["slices"]:
             region = f"{prefix}_{r['region']}" if prefix else r["region"]
             shutil.copyfile(os.path.join(d, r["file"]), os.path.join(EXPORTS, r["file"]))
-            new.append({"file": r["file"], "region": region, "col": r["col"], "row": r["row"], "frames": r["frames"]})
+            col, row = (r["col"], r["row"]) if "col" in r else (r["dx"], r["dy"])     # CASTER pieces: offsets from her
+            new.append({"file": r["file"], "region": region, "col": col, "row": row, "frames": r["frames"]})
     regions = {r["region"] for r in new}
     rows = [r for r in have if r["region"] not in regions] + new
+    keep = {r["file"] for r in rows}
+    for r in have:                                    # retire the files of re-adopted regions nothing references now
+        if r["file"] not in keep and os.path.exists(os.path.join(EXPORTS, r["file"])):
+            os.remove(os.path.join(EXPORTS, r["file"]))
     keys = [(r["region"], r["col"], r["row"]) for r in rows]
     if len(keys) != len(set(keys)):
         raise SystemExit("duplicate (region, col, row) rows")
