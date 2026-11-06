@@ -196,7 +196,7 @@ export const JID = {
   enrage: "moe-the-glass-remembers", turnI: "moe-the-silence-turns", turnII: "moe-the-glass-turns",
   turnIBreak: "moe-the-silence-turns-break", turnIIBreak: "moe-the-glass-turns-break",
   absence: "moe-an-absence", absenceGather: "moe-absence-settles", absenceOpen: "moe-absence-opens",
-  entrySayo1: "moe-entrance-heartglass", entrySilence: "moe-entrance-deep", entrySayo2: "moe-entrance-stilling",
+  glassHolds: "moe-the-glass-holds", entrySayo1: "moe-entrance-heartglass", entrySilence: "moe-entrance-deep", entrySayo2: "moe-entrance-stilling",
   etch: Object.fromEntries("ABCDE".split("").map((k) => [k, `moe-etching-${k.toLowerCase()}`])) as Record<string, string>,
   det: Object.fromEntries("ABCDE".split("").map((k) => [k, `moe-recast-${k.toLowerCase()}`])) as Record<string, string>,
   // Pass 3 merge: one Hush record for Act I and one Hush Rises record for Act II (the arrays keep the cycle / band
@@ -369,6 +369,7 @@ export const buildRecords = (P: MoeParams) => {
   POTION_FIX = !!P.potionFix;
   SHARED_CD = P.sharedCooldowns ?? null;
   RISES_K = !!P.hushOffMarks;
+  RECAST_GAP = P.recastGap ?? 0;
   DEBUG_TRACE = !!(P as any).debugTrace;
   A3_ON = !!a3(P).on; A3_POLICY = a3(P);
   MARK_ART = P.markArtRounds ?? 1;
@@ -625,6 +626,8 @@ export const buildRecords = (P: MoeParams) => {
   // by its mark's marker.
   if (P.gcdSafeBlasts) for (const id of [JID.blastA, JID.blastB, JID.facetBlast, JID.lucidBlast, JID.stillnessBlast, JID.shatterBlast, JID.floodBlast]) J[id]!.cooldown = 0;
   if (P.etchDWide) J[JID.det.D!]!.coordinateTargeting = field(cellsWhere((c, r) => c >= 4 && r >= 3 && r <= 6));
+  if (P.recastGap) add(JID.glassHolds, { name: "The Glass Holds", description: "She waits for the glass to remember the next pattern.", battleDescription: "%user holds still. The glass is still remembering.", target: "SELF", method: "SINGLE", range: 0, cooldown: 0, actionCostPerc: 100,
+    effects: [vis("moe_lull", 1)] });
   // QA B4: one Rises record per Etching, its pools drawn off that Etching's pattern (the omen drawn in the same turn).
   if (P.hushOffMarks) for (const k of Object.keys(PAT.etch)) {
     const pat = new Set(recCells(J[JID.det[k]!], [0, 0]));
@@ -873,7 +876,12 @@ export const likenessRules = () => [R.jutsu(JID.likenessCopy, PL, [C.near(5)]), 
 export const CYCLES: string[][] = [["A", "B", "C"], ["D", "A", "C", "B"], ["C", "A", "E", "A", "B"], ["E", "B", "D", "B", "C"]];
 export const risesK = (k: string) => `moe-hush-rises-${k.toLowerCase()}`;
 let RISES_K = false;
-export const cycleCombo = (seq: string[], cycle: number) => [...seq.flatMap((k) => [JID.etch[k]!, RISES_K ? risesK(k) : JID.rises[cycle]!]), ...seq.map((k) => JID.det[k]!), JID.quietFall];
+let RECAST_GAP = 0;
+// Upstream fallback (default shared-cooldown table, pierce 3): each Recast locks her other pierce actions for 3 rounds
+// (actions.ts applyActionCooldowns, b54541f1), so recastGap > 0 puts that many "The Glass Holds" turns (no shared tag)
+// between Recasts: one Recast per 3 rounds.
+export const cycleCombo = (seq: string[], cycle: number) => [...seq.flatMap((k) => [JID.etch[k]!, RISES_K ? risesK(k) : JID.rises[cycle]!]),
+  ...seq.flatMap((k, i) => [JID.det[k]!, ...(i < seq.length - 1 ? Array.from({ length: RECAST_GAP }, () => JID.glassHolds) : [])]), JID.quietFall];
 const cnt = (n: number) => C.has(MK.counter, n);
 export const sayo2Rules = (_P: MoeParams) => [
   ...(_P.entrance?.on ? [R.jutsu(JID.entrySayo2, "SELF", [])] : []),
@@ -1008,7 +1016,7 @@ export const aiRecords = (P: MoeParams): AiRec[] => {
       R.jutsu(JID.absenceOpen, "SELF", []), R.end()])] : []),
     summon(AI.likeness, "Your Likeness", [JID.likenessStrike, JID.likenessCopy], likenessRules()),
     boss(AI.sayo2, "Sayo, Glasswright of the Stilling", /* RUL-2026-11-02-105: unique AI usernames */ P.pools.sayo2, P.idg.sayo2, P.dr.sayo2,
-      [JID.lancet, JID.enrage, ...etchIds, ...detIds, ...JID.rises, ...(P.hushOffMarks ? Object.keys(PAT.etch).map(risesK) : []), JID.quietFall, JID.summonPorter, JID.summonHana, JID.summonTomo, ...(P.turnMark.on ? [JID.turnII, ...(P.turnMark.ring ? [JID.turnIIBreak] : [])] : [])], sayo2Rules(P),
+      [JID.lancet, JID.enrage, ...etchIds, ...detIds, ...JID.rises, ...(P.hushOffMarks ? Object.keys(PAT.etch).map(risesK) : []), ...(P.recastGap ? [JID.glassHolds] : []), JID.quietFall, JID.summonPorter, JID.summonHana, JID.summonTomo, ...(P.turnMark.on ? [JID.turnII, ...(P.turnMark.ring ? [JID.turnIIBreak] : [])] : [])], sayo2Rules(P),
       [...(P.sayo2Stunprevent ? [tag("stunprevent", { power: 100, rounds: 100 })] : []), token(MK.sayoToken)]),
     summon(AI.porter, "The Gate Porter (Worn)", [JID.porter], wornRules(JID.porter)),
     summon(AI.hana, "Sister Hana (Worn)", [JID.hana], wornRules(JID.hana, "HIGHEST_MAX_HEALTH_ALLY")),
