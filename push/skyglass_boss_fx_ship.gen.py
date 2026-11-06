@@ -5,11 +5,11 @@
         -> push/470_skyglass_boss_fx_assets.json   11 hidden ANIMATION gameAssets (phase 1, imagePack pinned) and
                                                     READ-ONLY jutsu.get captures of the 14 edited jutsu (before)
     python3 push/skyglass_boss_fx_ship.gen.py --from <470 results bundle>
-        -> push/471_skyglass_boss_fx_unhide.json    11 asset unhides by literal id (law 16c)
-        -> push/472_skyglass_boss_fx_unequip.json   AI edits: the edited jutsu off every holder (law 18/60)
-        -> push/473_skyglass_boss_fx.json           14 jutsu edits: art fields only + injectableInBattle false (law 20)
-        -> push/474_skyglass_boss_fx_reequip.json   AI edits: each holder's exact current kit back on
-        -> push/475_skyglass_boss_fx_master.json    471-474 in one run (push/master_manifest.gen.py, phases 0/10/20/30)
+        -> push/491_skyglass_boss_fx_unhide.json    11 asset unhides by literal id (law 16c)
+        -> push/492_skyglass_boss_fx_unequip.json   AI edits: the edited jutsu off every holder (law 18/60)
+        -> push/493_skyglass_boss_fx.json           14 jutsu edits: art fields only + injectableInBattle false (law 20)
+        -> push/494_skyglass_boss_fx_reequip.json   AI edits: each holder's exact current kit back on
+        -> push/495_skyglass_boss_fx_master.json    491-494 in one run (push/master_manifest.gen.py, phases 0/10/20/30)
 
 Strips: art/skyglass_boss_fx/deliver_boss.py -> exports/anim_<id>_v1_x3d.webp (150 px frames, 50 ms, alpha 0/255;
 the AN-set convention of push/376, exports/an_v1.json). Mapping (design ids in push/342 and push/363 `_placeholders`;
@@ -44,7 +44,7 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-NUM = {"assets": 470, "unhide": 471, "unequip": 472, "edit": 473, "reequip": 474, "master": 475}
+NUM = {"assets": 470, "unhide": 491, "unequip": 492, "edit": 493, "reequip": 494, "master": 495}  # 471 was taken by push/471_flaming_sword_icon (another session); renumbered 2026-11-05
 SLUG = {"assets": "skyglass_boss_fx_assets", "unhide": "skyglass_boss_fx_unhide", "unequip": "skyglass_boss_fx_unequip",
         "edit": "skyglass_boss_fx", "reequip": "skyglass_boss_fx_reequip", "master": "skyglass_boss_fx_master"}
 PFX = "sg470_"

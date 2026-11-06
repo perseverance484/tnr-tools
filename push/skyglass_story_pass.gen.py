@@ -273,8 +273,8 @@ def capture():
 
 def law18(bundle):
     d = json.load(open(bundle))
-    if (d.get("journal") or {}).get("manifestNumber") != 487:
-        die(f"{bundle} is not the push/487 capture")
+    if (d.get("journal") or {}).get("manifestNumber") not in (487, 489):  # 489: the master that carried 487's reads
+        die(f"{bundle} is not the push/487 capture (or the push/489 master that carried it)")
     caps = {(c["proc"], json.dumps(c["input"], sort_keys=True)): c for c in d.get("captures") or []}
 
     def cap(proc, inp):
