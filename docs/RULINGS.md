@@ -6000,3 +6000,20 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-05: "I want to do a new Subaku Palace animation and effect etc now that we have an updated understanding"; "show it actually spawning in like a domain being summoned, energy running down the gold lines"; "If this works it could be a big deal so I'd like to pay extra attention to detail"; "1. Approved. 2. Yes" (the v2 tile; the details lines).
 
 **Canonical destination:** `art/subaku_palace/` (TIMING.md and the design doc).
+
+## RUL-2026-11-05-126 — Mother of Echoes QA decisions: Recast repaint required, Refraction cyan exception, field waves upgraded for Friday
+
+**Date:** 2026-11-05
+
+**Domain:** art / the Mother of Echoes finale (independent QA follow-up)
+
+**Status:** ACTIVE. The final tuning job is gated on these items and on the QA re-check.
+
+**Ruling:**
+1. **Recasts must be painted as one sliced composition per region, not the per-hex stamp.** If the repaint is not ready, the stamp version does not ship. The QA finding was B6.
+2. **Exception for Refraction cyan:** the Refraction family keeps its Heartglass cyan fill, which is the director's 10/10 bar. This is an explicit exception to "cyan only for safe hexes" (RUL-2026-11-05-124 item 4). The QA finding was S8.
+3. **Glassfall, the Flood, the enrage and the Shatterfall waves are upgraded to full sliced paintings at the Refraction bar.** They are not deferred to post-launch. The QA finding was S9.
+
+**Evidence:** Director, 2026-11-05: "1. Hold 2. Keep it 3. Upgrade them." This answered the coordinator's questions on the stamp, the cyan and the post-launch deferral.
+
+**Canonical destination:** `docs/design/MOTHER_OF_ECHOES_ART.md`; `docs/design/SAYO_BIBLE.md` §5.
