@@ -363,7 +363,7 @@ You run the gangway as the hull breaks behind you. When you look back, the ship 
 
 **`obj:The Fall/w_press.description`**
 ```html
-The Captain lets go of the wheel for the first time. "Then it is done," he says, as the deck tips. "It was done a long time ago." When the smoke clears you are on the sand, and the wreck is only a wreck again.
+The Captain lets go of the wheel for the first time. "Then it is done," he says, as the deck tips. "We were called home. I only held the heading." When the smoke clears you are on the sand, and the wreck is only a wreck again.
 ```
 
 **`obj:The Fall/f_lost.description`**
@@ -1138,7 +1138,7 @@ Target: the first sentence of the objective that follows the boss's battle (or i
 | Boss | Where | Line | Status |
 |---|---|---|---|
 | The Captain (Watch) | `d_gallery_*` | `"The ship died once. The crown disagreed."` | exists |
-| The Captain (The Fall press-on) | `w_press` | `"Then it is done. It was done a long time ago."` | new, §2.4 |
+| The Captain (The Fall press-on) | `w_press` | `"Then it is done. We were called home. I only held the heading."` | story pass 2026-11-05 (was "It was done a long time ago."), §2.4 |
 | Core Horror (Archive) | `d_conduit` | `The Core Horror comes apart, and the frame around it is already sketching it back together.` | exists |
 | Core Horror (Fall, Burning Heading, steeping) | §2.4, §2.6, §2.7 | it does not speak; the line is narration | new |
 | Foundry Warden (Foundry) | `d_pour`, prepend | `"Finished," the Warden says, as if he does not believe it, and cools into a shell of skyglass.` (replaces "The Warden cools into a shell of skyglass.") | new |
@@ -1246,6 +1246,11 @@ captured live jutsu name. **One library record does:** the Archive's Skyglass-on
 (`hunt-stonebound-erupting-ground`, RUL-2026-10-30-060 item 7) carries the live jutsu's name `Erupting Ground`
 (`jBRyl7F4UjTyxG5nnzLqj`). Approved (RUL-2026-10-31-064 item 4): **Echo of Erupting Ground**, the
 Stonebound summon being an echo; its battle line is unchanged.
+
+**`jutsu:Echo of Erupting Ground.description`** (story pass 2026-11-05, audit R13d: replaces the copied designer note "Shared pool record A3. Balance values pending sign-off. (Skyglass copy: damage hits enemies only.)")
+```
+Calls the ground under the target up in a column of rock. An echo of the Stonebound's old technique; it strikes only enemies.
+```
 
 Bespoke signatures (their battle lines become action first; the voice lines stay):
 

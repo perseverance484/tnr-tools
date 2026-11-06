@@ -5766,3 +5766,54 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 - "It used to be that games just labeled things Level 1, Level 2 and it was obvious what your progression was and what the prerequisites were. Now a good game to me tells you that kind of information by weaving it into the story rather than telling it to the players face. You are at Level 1 of the Skyglass Wreck because you've just got a chart that leads to some buried chest in the sand, and Level 100 because you've got 4 fragments that unlock a hidden area that leads to the Final Boss Sayo who blows up the floor and shoots death everywhere and has an immunity phase from her shadow and yadda yadda. We tell a story, paint a picture, but the underlying framework is there. We can say where we start and end and then fill in the gaps with the story and worldbuilding."
 
 **Canonical destination:** `docs/design/EVENT_STRUCTURE.md` (routed from `docs/00_INDEX.md` task routing: event design).
+
+## RUL-2026-11-05-117 — Skyglass story pass: the audit's edits approved; the three who refused are the Worn; Replicant Zero becomes The First Impression
+
+**Date:** 2026-11-05
+
+**Domain:** Skyglass event / story and player-facing text
+
+**Status:** ACTIVE. Decides `docs/design/SKYGLASS_STORY_AUDIT.md` (D1–D5). Extends RUL-2026-11-01-094 and RUL-2026-11-03-111; amends RUL-2026-10-28-004 (breaking the crown no longer frees the echoes) and RUL-2026-10-26-003 (Replicant Zero's kept name).
+
+**Ruling:**
+1. **D1: every recommended edit is approved** (audit R1–R14):
+   - R1: go-live 477 carries the reveal opening and the approved jutsu text to the main quest.
+   - R2: Crownhold's aftermath no longer releases the echoes, and glass rings once under the throne.
+   - R3: Sayo names herself in the reveal ("Sayo. I grew the glass.").
+   - R4: the Archive gets an unsent report to "the Glasswright".
+   - R5: the First Impression was brought back by the Glasswright.
+   - R6: the Archivist's register says most dates are the same night.
+   - R7: High Command's maps show the siege ring.
+   - R8: "the Silence came up out of the mountain".
+   - R9: the Crowned Captain's crack of doubt.
+   - R10: The Fall's "We were called home. I only held the heading."
+   - R11: the Tide shard's line covers both run families, and every shard carries a thumbprint.
+   - R12: the story bible and the art bible are updated.
+   - R13: vocabulary (glass hall, buried reports, drill scroll, the Echo of Erupting Ground description).
+   - R14: "The Captain, twice: once bareheaded, once crowned" in the reveal.
+2. **D2: "the three who refused" are the three Worn**: the Gate Porter, Sister Hana and Cadet Tomo.
+   - On the night of the Stilling they would not hold still, so Sayo could only keep them worn thin.
+   - Seeded lightly in three places:
+     - the register's "Three names have no word beside them at all.";
+     - one hint each in Raise the Gate Porter, Raise Sister Hana and Raise Cadet Tomo;
+     - Every Name in the Glass, whose safe places are now "where the porter, the sister and the cadet refused to hold still".
+3. **D3: Replicant Zero is renamed The First Impression.** It pays off "You will make for a good impression."
+   - The live username is the bare title, a multi-word name like The Second (RUL-2026-10-26-003).
+   - The quest text, plaque and objectives follow. The R5 line stays under the new name.
+4. **D4: director-owned text keeps its words for now.** The Skyglass Katana, Skyglass Serum, Unbroken Command and Core Rupture are not edited; main brings before/after drafts to the director.
+5. **D5: the story bible gets the final chapter, and the art bible §1 drops "shogunate".**
+   - The chapter: Sayo stilled everyone and kept them in the glass, and there was no shogunate or sealing.
+   - Breaking the crown does not free the echoes.
+
+**Evidence:** Director decisions relayed by the coordinator, 2026-11-05: "D1: APPROVE ALL recommended edits"; "D2: 'The three who refused' = the three Worn summons: the Gate Porter, Sister Hana and Cadet Tomo. They are the ones who would not hold still on the night of the Stilling, so Sayo could only keep them worn thin"; "D3: rename Replicant Zero to 'The First Impression' (it pays off Sayo's 'You will make for a good impression')"; "D4: the director wants to see before/after for his item/jutsu text with technology words"; "D5: YES, update the story bible and the art bible".
+
+**Canonical destination:**
+- Text owners:
+  - `push/crownhold.gen.py` (Crownhold, the rename);
+  - `state/skyglass_hunts/hunts.py` (Archive);
+  - `docs/design/SKYGLASS_TEXT.md` (The Fall §2.4; the Echo of Erupting Ground description, §6.4);
+  - `push/skyglass_uber_economy.gen.py` (shards);
+  - `push/mother_of_echoes.gen.py` `INTRO` (reveal);
+  - `push/mother_of_echoes_text.json` (Worn and Every Name).
+- Canon: `docs/design/SKYGLASS_STORY_BIBLE.md` (final chapter) and `docs/design/ghost_ship_art_bible/ART_BIBLE.md` §1.
+- Live edits: push/483–485 (`push/skyglass_story_pass.gen.py`). The Mother of Echoes text rides go-live 477.

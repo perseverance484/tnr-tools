@@ -90,7 +90,8 @@ SHARDS = [  # (key, name, story line, drop line)
      "A splinter of the Mother Glass, fallen from the broken Command Crown.",
      rate("crown", "Crownhold")),
     ("tide", "Shard of the Tide",
-     "A splinter of the Mother Glass, washed out of the echoes the Core could not hold.",
+     "A splinter of the Mother Glass, left behind by what the Core cannot let go: the reliquary's echoes, and the "
+     "night of the fall.",
      rate("tide", "The Sealed Reliquary, The Fall and both Legendary chart runs")),
     ("ledger", "Shard of the Ledger",
      "A splinter of the Mother Glass, entered in the stores ledger and never claimed.",
@@ -99,8 +100,12 @@ SHARDS = [  # (key, name, story line, drop line)
 SHARDS_BY_KEY = {k: n for k, n, *_ in SHARDS}
 
 
+# Story pass (docs/design/SKYGLASS_STORY_AUDIT.md R11, approved 2026-11-05): every shard carries her mark.
+THUMBPRINT = " A small thumbprint is pressed into it, made while the glass was soft."
+
+
 def shard_desc(story, drop):
-    return f"<i>{story}</i><br><br><b>Drops:</b> {drop}<br>{INVITE}"
+    return f"<i>{story}{THUMBPRINT}</i><br><br><b>Drops:</b> {drop}<br>{INVITE}"
 
 
 TOKEN_TMPL = ("<i>{story}</i><br><br>Unlocks <b>{v}</b>, a variant of <b>{base}</b> (new look and name, same stats). "

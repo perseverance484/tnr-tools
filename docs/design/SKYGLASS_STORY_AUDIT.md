@@ -1,6 +1,6 @@
 # Skyglass event: story audit against the Mother of Echoes reveal
 
-**Status:** REVIEW ONLY (Lane B design text, 2026-11-05). Nothing in this file is applied. Every proposed line needs
+**Status:** DECIDED 2026-11-05 (RUL-2026-11-05-117): every recommendation is approved, and the edits are applied in the generators and built as push/483–485. D2: the three who refused are the Worn. D3: Replicant Zero is renamed The First Impression. D4 is pending with main. D5 is done. The text below is the original review, kept as written. *Original status:* REVIEW ONLY (Lane B design text, 2026-11-05). Nothing in this file is applied. Every proposed line needs
 the director's approval before a generator or manifest changes (CLAUDE.md §10). Zero live requests were made; no live
 record was read or written. Base: `origin/main` at `6289a3e1`.
 

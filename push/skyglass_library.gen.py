@@ -107,12 +107,13 @@ def text_tables():
     i = next(i for i, l in enumerate(L) if l.startswith("Fixes to crew additions"))
     ward = re.search(r"Proposed: `([^`]+)`", " ".join(L[i:i + 3])).group(1)
     echo_name = re.search(r"\*\*(Echo of Erupting Ground)\*\*", " ".join(T.lines())).group(1)
+    echo_desc = T.block("jutsu:Echo of Erupting Ground.description")  # story pass 2026-11-05 (audit R13d)
     embers_desc = re.search(r"`description` \(all three\): `([^`]+)`", _para("- `description` (all three)")).group(1)
     eb = _para("- `battleDescription`: I ")
     embers_battle = [re.search(rf"{n} `([^`]+)`", eb).group(1) for n in ("I", "II", "III")]
     helm = {"description": T.block("jutsu:Steady the Helm.description"),
             "battleDescription": T.block("jutsu:Steady the Helm.battleDescription")}
-    return dict(lib=lib, mark=mark_desc, blast=blast_desc, sig=sig, ward=ward, echo=echo_name,
+    return dict(lib=lib, mark=mark_desc, blast=blast_desc, sig=sig, ward=ward, echo=echo_name, echo_desc=echo_desc,
                 embers=(embers_desc, embers_battle), helm=helm)
 
 
@@ -214,7 +215,7 @@ def library(placeholders, gaps, notes):
         elif g == "crew addition":
             name, desc, battle = rec["name"], rec["description"], rec["battleDescription"]
         elif rid == "hunt-stonebound-erupting-ground":
-            name, desc, battle = TX["echo"], rec["description"], rec["battleDescription"]
+            name, desc, battle = TX["echo"], TX["echo_desc"], rec["battleDescription"]
         else:
             raise SystemExit(f"unclassified library record {rid}")
         out.append(jutsu(rid, cooldown_floor(L, rid, rec, notes), name, desc, battle, placeholders))
