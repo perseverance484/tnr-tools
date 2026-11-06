@@ -6107,3 +6107,25 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-06: "Approve, faint floor too. Descriptions are fine."; "Light only, no spill. Do a final polish pass and try to make it resemble the old hex as much as possible".
 
 **Canonical destination:** `push/mother_of_echoes_act3_text.json`; `docs/design/MOTHER_OF_ECHOES_ART.md`; `docs/design/SUBAKU_PALACE_ANIMATION.md`.
+
+## RUL-2026-11-06-130 — Asset folder names are letters and digits only (amends RUL-2026-11-05-127 item 1)
+
+**Date:** 2026-11-06
+
+**Domain:** art pipeline / gameAsset folder
+
+**Status:** ACTIVE. Supersedes the " - "-separated folder strings in RUL-2026-11-05-127 item 1. Names are unaffected.
+
+**Ruling:**
+- The game validates `folder` as `^[a-zA-Z0-9]*$` (max 191) (theninjarpg cb755375 `validators/asset.ts:17-21`). The director reported that push/500 v1 failed every write.
+- Folders are now CamelCase with no separators:
+  - `SkyglassMotherOfEchoesActI`, `SkyglassMotherOfEchoesActII`, `SkyglassMotherOfEchoesActIII`
+  - `SkyglassMotherOfEchoesFloors`, `SkyglassMotherOfEchoesEntrancesAndAuras`, `SkyglassMotherOfEchoesScenes`, `SkyglassMotherOfEchoesShared`
+  - `SkyglassMotherOfEchoesSlices<Move>`, e.g. `SkyglassMotherOfEchoesSlicesGlassfallFirstEcho`
+  - `SkyglassBossFX`
+  - `Jutsu<Name>`, e.g. `JutsuSubakuPalace`
+- Every generator's convention gate checks the regex.
+
+**Evidence:** Director, 2026-11-06: "500 is currently failing every write. Folder names can only contain numbers and letters".
+
+**Canonical destination:** `push/asset_library_refolder.gen.py`; the folder builders in `push/mother_of_echoes.gen.py` and `art/subaku_palace/`.

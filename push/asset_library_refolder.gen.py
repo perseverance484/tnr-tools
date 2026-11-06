@@ -24,11 +24,15 @@ NUM = 500
 OLD_FOLDERS = {"MotherOfEchoes", "SkyglassBossFX"}
 TYPES = ("STATIC", "ANIMATION", "SCENE_BACKGROUND", "SCENE_CHARACTER")
 
-F = "Skyglass - Mother of Echoes - "
+# Folder names must match ^[a-zA-Z0-9]*$, max 191 (theninjarpg cb755375 validators/asset.ts:17-21), so CamelCase
+# with no separators. The director found push/500 v1 (" - " separators) failing every write, 2026-11-06.
+F = "SkyglassMotherOfEchoes"
 FOLDERS = {
-    "I": F + "Act I", "II": F + "Act II", "III": F + "Act III", "floor": F + "Floors",
-    "boss": F + "Entrances and Auras", "scene": F + "Scenes", "shared": F + "Shared", "bossfx": "Skyglass - Boss FX",
+    "I": F + "ActI", "II": F + "ActII", "III": F + "ActIII", "floor": F + "Floors",
+    "boss": F + "EntrancesAndAuras", "scene": F + "Scenes", "shared": F + "Shared", "bossfx": "SkyglassBossFX",
 }
+FOLDER_RE = re.compile(r"^[a-zA-Z0-9]{1,191}$")
+assert all(FOLDER_RE.match(v) for v in FOLDERS.values()), "folder names must be letters and digits only"
 
 # Keyword -> group, first match wins. Matched against the lower-cased current name.
 RULES = [
@@ -117,9 +121,13 @@ def main():
         if name != r["name"] and name in taken:
             die(f"new name {name!r} collides with an existing asset")
         taken.add(name)
-        data = {"folder": FOLDERS[g]}
+        data = {}
+        if FOLDERS[g] != r["folder"]:
+            data["folder"] = FOLDERS[g]
         if name != r["name"]:
             data["name"] = name
+        if not data:
+            continue
         items.append({"entity": "asset", "slot": "edit", "targetId": r["id"], "phase": 10,
                       "name": f"{r['name']}: folder", "data": data})
         plan.setdefault(FOLDERS[g], []).append(name)
