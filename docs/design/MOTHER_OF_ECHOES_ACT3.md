@@ -570,3 +570,51 @@ and the validated spec are under `harness/skyglass_wreck_sim/results/act3/`.
 9. **Enrage at round 36** (was 80).
 10. **Text and art.** A [TXT] pass for 24 records; the optional new art (the Stir preview, a column drop, a corrupted
     etch lattice); `w_clear` opening on the last pane.
+
+---
+
+## 7. Ship pass (2026-11-05, RUL-2026-11-05-123 item 5: ships Friday 2026-11-06)
+
+The director approved the direction and decisions 1–9 as recommended above. Decision 10, the text, is drafted but still
+pending. Package: `fable/mother-of-echoes-act3` @ `11ec84e4`, one commit on top of `fable/mother-of-echoes-sim` @
+`3eb8abab`.
+
+**Changes since section 5:**
+- **The player's own hex is never part of a follow mark.** The live log confirms a ground drain binds whoever stands on
+  its hex when any action resolves (sim agent, `3eb8abab`), so a mark that includes the player's hex cannot be dodged.
+  Hold Still is now (0, ±1), (0, ±2) and Every Line Through You is (0, ±1…4). The player can step aside or hold still;
+  walking along the line is what kills. No Act III mark is a ring, so there is no two-drain trap.
+- **The Act II etchings are reused** (`moe-etching-a/-b/-d`). That leaves 21 new records; the Saint holds 25 jutsu.
+- **Phase I line pools last 1 round instead of 3.** Hold Still and Every Line fire only within 3 hexes; otherwise she
+  walks toward the player. Without these, a pool-aware player and a Saint casting from 4–5 hexes stalled into the enrage.
+- **Tuning, with two deviations from the approved numbers, both needed for a real climax:**
+  - Facet Breaks stays ×4, panes ×2, Cradle 70% damage reduction.
+  - **The flood is ×2, not ×3.**
+  - **Phase III starts below 35%, not 25%.**
+  - With ×3 and 25%, the flood window killed her before Phase III in 8 of 20 runs.
+- **Decision 3 by the full-fight rule:** full-fight perfect play cleared 9/20 (45%), below 50%, so the Hold Still bar
+  stays at 50%. A lethal bar gave the identical 9/20: no player in the sim ever stood on it.
+
+**Results (20 seeds):**
+
+| Run | Perfect | Real | Average | Ignore | Camp | Rounds (median) | Phases I / II / III |
+|---|---|---|---|---|---|---|---|
+| Act III alone, from full HP | 20/20 | 11/20 | – | – | – | 17 | 8 / 4 / 5 (19 of 20 reach III) |
+| Full fight, Acts I–III | **9/20** (Act I 16/20, Act II 10/16, Act III 9/10, 1 enrage) | **0/20** (11 die to Act II Recasts) | 0/20 | 0/20 | 0/20 | – | – |
+
+The Saint idled on 0% of her turns. Act III is no longer where perfect play is lost; Acts I and II are.
+
+**An Absence (the Silence's anti-camping summon, being added by the sim agent):**
+- **No room left.** Act III v2 uses all 20 rules, and every turn spends exactly 100 AP: a 60+40 chain in Phases I and
+  III, the 100-AP combo in Phase II.
+- **Phase II needs no new rule.** An Absence can replace one Hush Rises step in the Phase II combo (C4: Hush on a star
+  plus An Absence instead of Rises).
+- **Phase I would need a slot.** The only slot that can safely be freed is rule 13, the end turn on phase ≥ 1, which
+  matters only if a combo step fails (never seen). An Absence would then replace the Lancet or Hold Still as the 40-AP
+  extra.
+- **Phase III needs nothing.** Every Line already does anti-camping.
+- **Unfair combinations to keep out:**
+  - A pool beside a star during C2–C3: the stars are 3–4 hexes apart, the etching removes one and the Hush another.
+  - A pool on the side-step hexes of the Hold Still bar or the Every Line column.
+  - A pool on the ring 4 hexes from her while she is cradled: that is where the Clear has to be cast from, just outside
+    Stillness.
