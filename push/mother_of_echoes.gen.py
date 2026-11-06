@@ -198,6 +198,11 @@ DRY_SPEC = os.environ.get("MOE_SPEC_FILE")
 DRY_OUT = os.environ.get("MOE_OUT_DIR")
 
 
+# The director-approved jutsu text pass (2026-11-05; docs/design/MOTHER_OF_ECHOES_JUTSU_TEXT.md): description, and
+# battleDescription where rewritten, by jutsu name. Applied over the spec's text in every jutsu record built here.
+JUTSU_TEXT = json.load(open(os.path.join(ROOT, "push", "mother_of_echoes_text.json")))["jutsu"]
+
+
 def load_spec():
     if DRY_SPEC:
         if not DRY_OUT or os.path.abspath(DRY_OUT).startswith(os.path.join(ROOT, "push")):
@@ -315,6 +320,7 @@ class Build:
         d = {k: v for k, v in rec.items() if k not in DROP_KEYS and v is not None}
         d["name"] = name
         d["hidden"] = True
+        d.update(JUTSU_TEXT.get(name, {}))  # approved text pass (push/mother_of_echoes_text.json)
         if self.final_art:
             d["image"] = "@img:" + os.path.basename(FAMILY_FILES[self.family[name]])
         else:

@@ -1,6 +1,6 @@
 # The Mother of Echoes: jutsu text pass
 
-**Status: DRAFT, pending director approval (2026-11-05).** Nothing here is live. The machine-readable copy is `push/mother_of_echoes_text.json` (not wired into `push/mother_of_echoes.gen.py` yet).
+**Status: APPROVED by the director, 2026-11-05 (Refraction and Far Refraction reworded at his request: "What kind of boss says 'three lines. Mind them' thats very drab").**
 
 ## Voice and the hint rule
 
@@ -26,12 +26,12 @@
 ### Refraction
 
 - **Current:** Refraction: lines of light from the walls; they shatter on her next turn.
-- **Proposed:** "Three lines. Mind them." Light runs in from the walls and lies across the floor, very bright and very still. Light like that does not stay whole for long.
+- **Proposed:** "Hold still. I want to see you in the light." Light runs in from the walls and lies across the floor, very bright and very still. Light like that does not stay whole for long. *(battle line: "Hold still. I want to see you in the light." Light runs in from the walls.)*
 
 ### Far Refraction
 
 - **Current:** Refraction: lines of light from the walls; they shatter on her next turn.
-- **Proposed:** "Three more." Light runs in from the far walls, laid across the floor where the first lines were not. It is just as bright, and just as brittle.
+- **Proposed:** "Turn. I haven't seen this side of you." Light runs in from the far walls, laid across the floor where the first lines were not. It is just as bright, and just as brittle. *(battle line: "Turn. I haven't seen this side of you." Light runs in from the far walls.)*
 
 ### Facet
 
