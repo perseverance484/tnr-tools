@@ -1721,6 +1721,8 @@ Dry runs: `MOE_SPEC_FILE=<spec.json> MOE_OUT_DIR=<dir outside push/>` builds any
 
 **Jutsu text pass (APPROVED by the director, 2026-11-05; Refraction and Far Refraction reworded at his request):** `push/mother_of_echoes_text.json` (55 jutsu, by name; review doc `docs/design/MOTHER_OF_ECHOES_JUTSU_TEXT.md`), applied by `push/mother_of_echoes.gen.py` (`JUTSU_TEXT`) to every jutsu record it builds. It ships with the next jutsu re-send (the recalibrated tuning job); 476 already ran and stays as the record of what ran.
 
+**481 practice intro** `481_mother_of_echoes_practice_intro.json` (`python3 push/mother_of_echoes_test_art.gen.py --quest-only --bundles B440 B461 B462 B463 B464 --economy B417 --from B466`), 1 item: the practice quest (469, `YDmKO6fp2vBRnTf7fHWQZ`) re-sent whole with the opening build-up (director 2026-11-05: two new dialog scenes, `d_intro1` "Go deeper" and `d_intro2` "You did this", Sayo's villain reveal; `d_open` rewritten as the shadow scene), its icon and the three act scenes; still hidden. The same INTRO rides the go-live (477) quest. Gates: `validate.py --strict` 0/0, `check_manifest` 0 pre-send problems, `skyglass_check` 0.
+
 **Still to come:** the go-live, **477** (`--step golive`; was 467), after 476.
 
 1. **466** `466_mother_of_echoes_final.json`, JOB 1, 88 items, one imagePack (12e54c08, 32 files; the art-QA polish):
