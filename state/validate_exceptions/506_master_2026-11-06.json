@@ -1,8 +1,8 @@
 {
  "manifest": "push/506_master_2026-11-06.json",
- "ruling": "Accepted classes only, each already accepted for its source: the push/501 ledger (precedent classes, and the static damage / OHKO-only class accepted by RUL-2026-11-06-131) and the push/490 ledger (RUL-2026-11-05-121 D6). push/500 reports 0 diagnostics on their own. Any build-order misranking introduced by combining phased sources is the RUL-2026-10-31-085 item 1 class. Plus the push/497 ledger's accepted class(es).",
- "reason": "Master of 501 (MoE final tuning, phases 0-70), 490 (The Watch Log week 1, 100s), 500 (asset folders, 200s) and 497 (the new Wreck Sighted, 300s; the director deleted the old one first, 2026-11-06). 503 (Subaku Palace art) dropped by the director 2026-11-06.",
- "sha256": "3f64975dda30979b5b8cbcab7f6fb7cf7ee71453465c2fa702dbb57e0d06e7e7",
+ "ruling": "Accepted classes only: the push/501 ledger (precedent classes, and the static damage / OHKO-only class accepted by RUL-2026-11-06-131). push/500 reports 0 diagnostics on its own.",
+ "reason": "Master of 501 (MoE final tuning, phases 0-70) and 500 (asset folders, 100s). 490 and 497 removed: both already ran on 2026-11-05 (hidden creates); push/507 publishes them. 503 dropped by the director.",
+ "sha256": "7f051bc0ccc2de2e4a4751e5cf140cc510c1007d5d27099ad1784e8f49e6abfa",
  "accepted": [
   "ERROR  [ai:An Absence]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
   "ERROR  [ai:An Absence]: unresolved ref @jutsu:sg440_absence_opens in AI jutsus array: refs are silently STRIPPED server-side and the AI stands naked (law 17). Substitute literal ids",
@@ -54,7 +54,6 @@
   "ERROR  [jutsu:The Hush Rises: final]: law 6: effect 'damage' power 200 exceeds the cap of 100 (rows are rounded down)",
   "ERROR  [jutsu:The Hush Spreads]: law 6: effect 'damage' power 200 exceeds the cap of 100 (rows are rounded down)",
   "ERROR  [jutsu:The Hush, Unbridled: final]: law 4: formula effect 'damage' requires BOTH statTypes AND generalTypes; an empty one silently zeroes the damage",
-  "ERROR  [quest:The Watch Log: First Page]: no win_quest / fail_quest / reset_quest node: nothing marks the quest complete",
   "ERROR  lint Every Name Remembered: L10 EP 100 above signature ceiling 70",
   "ERROR  lint Facet Breaks: final: L06 damage missing statTypes/generalTypes (generalTypes gap can explode damage)",
   "ERROR  lint Facet Breaks: final: L10 EP 100 above signature ceiling 70",
@@ -88,14 +87,6 @@
   "ERROR  lint The Names Flood In: Ember: L10 EP 100 above signature ceiling 70",
   "ERROR  lint The Names Flood In: Heart: L10 EP 100 above signature ceiling 70",
   "ERROR  lint The Names Flood In: Rime: L10 EP 100 above signature ceiling 70",
-  "ERROR  lint The Watch Log: First Page: T1 law 49: content sceneCharacters 'Xugt7415D3-tepLfxpwM5' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here",
-  "ERROR  lint Wreck Sighted: T1 law 49: content sceneCharacters 'Xugt7415D3-tepLfxpwM5' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here",
-  "ERROR  lint Wreck Sighted: T1 law 49: objective d_charts sceneCharacters 'Xugt7415D3-tepLfxpwM5' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here",
-  "ERROR  lint Wreck Sighted: T1 law 49: objective d_lantern sceneCharacters 'Xugt7415D3-tepLfxpwM5' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here",
-  "ERROR  lint Wreck Sighted: T1 law 49: objective d_page sceneCharacters 'Xugt7415D3-tepLfxpwM5' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here",
-  "ERROR  lint Wreck Sighted: T1 law 49: objective d_shards sceneCharacters 'Xugt7415D3-tepLfxpwM5' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here",
-  "ERROR  lint Wreck Sighted: T1 law 49: objective d_word sceneCharacters 'Xugt7415D3-tepLfxpwM5' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here",
-  "ERROR  lint Wreck Sighted: T1 law 49: objective d_wreck sceneCharacters 'Xugt7415D3-tepLfxpwM5' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here",
   "ERROR  manifest: build order: ai appears after a later phase",
   "ERROR  manifest: build order: ai appears after a later phase",
   "ERROR  manifest: build order: ai appears after a later phase",
@@ -184,8 +175,6 @@
   "ERROR  manifest: build order: jutsu appears after a later phase",
   "ERROR  manifest: build order: jutsu appears after a later phase",
   "ERROR  manifest: build order: jutsu appears after a later phase",
-  "ERROR  manifest: build order: jutsu appears after a later phase",
-  "ERROR  manifest: build order: quest appears after a later phase",
-  "ERROR  manifest: build order: quest appears after a later phase"
+  "ERROR  manifest: build order: jutsu appears after a later phase"
  ]
 }

@@ -6140,8 +6140,10 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 
 **Ruling:**
 1. The push/501 ledger's new class is accepted: static damage / OHKO-only records with no engine cap (theninjarpg cb755375 `validators/combat.ts:637`). That covers the 11 law-6 lines (power 1050 on the Act I blasts, 200 on the Hush patterns) and the L06 / L10 lines on those records.
-2. push/506 is the master for one director run: 501 (phases 0-70), 490 (100s), 500 (200s), 497 (300s; the director deleted the old live Wreck Sighted first, so dedupNames passes: "Already deleted wreck sighted it can be rolled in"). Subaku Palace (503) is dropped from it for now (director, 2026-11-06: "Drop subaku palace art for now"); 503 stays on main, unrun.
+2. push/506 is the master for one director run: 501 (phases 0-70) and 500 (100s). Subaku Palace (503) is dropped for now (director: "Drop subaku palace art for now"). 490 and 497 are not in it: both already ran 2026-11-05 as hidden creates (tnr_results_1793933588063 / _1793933653675).
 3. push/502 (the MoE unhide) is built from 506's results bundle.
+
+4. Release today without the boss (director: "We cant release the final boss until the animation update but we can let the shards drop ... release the page the wreck sighted update and whatnot so we can go live today"): push/507 publishes The Watch Log: First Page (with its icon) and the new Wreck Sighted. The shards already drop (push/419, 420 ran); Shard of the Keel is the director's editor row. The Mother of Echoes quest stays hidden until the clip-size update; push/477 (go-live) waits for it.
 
 **Evidence:** Director, 2026-11-06: "All approved, create a master manifest."
 
