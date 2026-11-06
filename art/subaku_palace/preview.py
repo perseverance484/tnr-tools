@@ -148,7 +148,7 @@ def main():
                 waves.append((c, fr))
     domain = cells_in(4, CASTER)
     # the centre half (gates agent, art/subaku_palace/gates): all on the SELF increasedamagegiven record
-    gname = os.environ.get('SBK_GATES_STRIP', 'anim_sbk_gates_rise_v4.webp' if BD.RATIO > 1.5 else 'anim_sbk_gates_rise_v3.webp')
+    gname = os.environ.get('SBK_GATES_STRIP', 'anim_sbk_gates_rise_v5.webp' if BD.RATIO > 1.5 else 'anim_sbk_gates_rise_v3.webp')
     gates = load_clip(gname, GATES) if '--no-gates' not in ARGS else None
     # director 2026-11-05: no lingering buff animation and no dais (the sigil is symbolic and fades after round one)
     master = load_clip('anim_sbk_master_loop_v2.webp', GATES) if '--master' in ARGS else None

@@ -17,7 +17,7 @@ centre). The ratio-1 build is kept only as a note (design doc).
   from the centre to the edges in 5 ticks, so it reaches the next ring as that ring ignites. Behind the head the
   clip shows the finished floor. One trail later the clip dissolves to the real tile (3 ticks).
 
-| Tick | Domain floor (`exports/`) | Centre (`gates/exports/anim_sbk_gates_rise_v4.webp`, SELF appear) |
+| Tick | Domain floor (`exports/`) | Centre (`gates/exports/anim_sbk_gates_rise_v5.webp`, SELF appear) |
 |---|---|---|
 | 0-6 | The domain is bare stone (no gold anywhere on the 56 band hexes). | The sigil kindles (0-5); its bands flash at the edge midpoints (6). |
 | **7** | **Ring 1 ignites** (band 1.0). | **Gates on ring 1 tear up (7-12).** |
