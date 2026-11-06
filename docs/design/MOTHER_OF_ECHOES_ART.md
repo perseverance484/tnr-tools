@@ -492,6 +492,42 @@ Layering priority: **telegraph > threat landing > boss state > flavour.**
 | `anim_moe_refraction_a3`, `anim_moe_quiet_v1`, `anim_moe_echo_strike_v1`, `anim_moe_rise_feeler_a3` | quality and material, not clutter | 4 |
 | flourishes (`*_flourish_*_a3`) | superseded by the entrances v2 | done |
 
+### Ability quality bar: audit and worklist (director's standing directive, 2026-11-05)
+
+"Every boss ability animation must look as cool as the Refraction slice-mosaic line." Read as a bar, not a technique:
+fixed board patterns (BATTLEFIELD origin) are sliced; moves relative to her or the target (CASTER / TARGET origin,
+CHARACTER, RANDOM, single-target, summons, auras) get per-hex pieces at the same craft: one strong idea from the bible's
+verbs (SAYO_BIBLE.md 3), a clean read at 50 px, the held frame, anticipation → payoff → settle, nothing gaudy, nothing
+clipped, and it must pass the stacked board (rules above). Ordered by how often a player sees it: boss casts counted
+over the six seeded traces of `3eb8abab` (perfect and real, seeds 1-3) plus the director's two logs.
+
+| # | Move (casts in traces) | Pattern → technique | Now | Verdict | When |
+|---|---|---|---|---|---|
+| 1 | Glass Lancet (64; every act) | single target → per-hex | `anim_moe_lancet_v2`: readable, generic | **upgrade**: the hand's verb (3.1), a glass needle drawn from the wall, a held glint, one cut | Friday |
+| 2 | Refraction / Far Refraction marks (14) | BATTLEFIELD lines → **slice** | per-hex heavy ring + loop | **redo as slices**: light runs in from the walls along the line, the beam holds, the line sets as glass (the Refraction line's arrival) | Friday |
+| 3 | Refraction / Far / Facet Breaks, Lucid Refraction (14) | BATTLEFIELD lines → **slice** | radial burst per hex (bible: redo) | **redo as slices**: the prototype line (director: 10/10); Facet mirrored across the hall | Friday |
+| 4 | Facet marks (6) | BATTLEFIELD paired rows → **slice** | per-hex | **redo as slices** (paired rows, mirrored run) | Friday |
+| 5 | The Hush, Unbridled, Hush Rises, Hush Where They Refused (94) | RANDOM → per-hex | bright bile pool appear, bile loop | **redo**: absence spreading (3.5): a dark pool wells up and closes inward; bible rewire (Hush Rises gets the dark pool); loop off over 10 hexes | Friday |
+| 6 | Doorward Sweep, Cadet's Tether, Your Own Strike (62+) | single target → per-hex | one crescent for three actors (bible: redo) | **redo**: the Porter's sweep, Tomo's rope, the likeness's mirror slash | Friday (sweep), post-launch (others) |
+| 7 | The Quiet (25) | single target → per-hex | 1 px dotted ring (bible: redo) | **redo**: ink lids closing | Friday |
+| 8 | Etchings (75) | BATTLEFIELD regions → **slice** | per-hex lattice cut | **redo as slices**: the scribe carves the region in one sequence (3.3) | Friday |
+| 9 | Recasts (46) | BATTLEFIELD regions (ground casts) → **slice** | per-hex `anim_moe_recast_a3` | **redo as slices**: the remembered region breaks as one wave, black cracks creeping (bible open decision 5) | Friday |
+| 10 | Shatterfall marks (23) / Shatterfall Gives Way (21) | CASTER cone → per-hex | the Gives Way wave is the bible's quality bar | **keep** the wave; tune the cone's marks (Act III heavy, rule 7) | Friday (marks) |
+| 11 | The Held Breath (13), Every Name in the Glass (7) | BATTLEFIELD field + 3 safe → **slice** | per-hex rings over 117 hexes | **redo**: the field as one slice (the floor goes still), the safe hexes stay their own pieces; loops off (rule 2) | post-launch |
+| 12 | Grasp (12), Cradle (8) | single target / ally → per-hex | Grasp reads; Cradle loop reads | **keep**, polish post-launch | post-launch |
+| 13 | The Silence Turns (6), The Glass Turns (9) | AOE_CIRCLE_SPAWN → per-hex | heavy ring per hex | **upgrade**: dark closes in on the player (draft `close_in`), held, mark lands; flexible for the pending mark + eruption change | Friday |
+| 14 | Stillness (6), Nothing Moves (4) | spiral round the Silence / CHARACTER → per-hex | violet field, ink burst | **upgrade**: the ring closes inward (draft `still`), loop off (rule 2) | post-launch |
+| 15 | The Glass Falls Quiet (9) | 3 hexes | violet lock on the rest beat (bible: rewire) | **rewire** to a calm cyan breath | Friday (wiring) |
+| 16 | Summons: The Listening, Raise the Worn, Your Likeness (32) | EMPTY_GROUND single → per-hex | rises; feeler is Heartglass cyan (bible: tune) | **tune** feeler to Remainder; keep the others | post-launch |
+| 17 | Worn Mending (9) | ally → per-hex | gold motes (bible: tune) | **tune** to ash and rose | post-launch |
+| 18 | The Names Flood In (6), Glassfall panes (2+), The Glass Remembers | BATTLEFIELD → **slice** | waves (per-hex delays) | **upgrade to slices** (rule 4: refuges never painted) | post-launch |
+| 19 | No One Is Mended (2), The Long Hush (2) | BATTLEFIELD field | pool tile; no final-stand art | **add** the Long Hush stand loop (bible missing) | post-launch |
+| 20 | Entrances v2, auras | self → per-hex | v2 restrained (this pass); Saint aura shards read as triangles | **tune** the Saint aura; wire with the sim's carrier | with R5 |
+| 21 | Act III v2: Hold Still bar, The Silence Holds Her, etched stars, echo panes | TARGET bar / self / BATTLEFIELD | placeholders (Act III heavy, Cradle, etch, glassfall) | Hold Still: its own still-bar piece; echo panes as slices of the act they echo; stars kept clear of fields (problem 9) | with Act III v2 (post-launch unless it ships Friday) |
+
+**At the bar now:** Shatterfall Gives Way's wave, the Refraction line prototype (not wired). **Friday's tuning job:** rows
+1-10, 13, 15 (by frequency). **Post-launch:** 11, 12, 14, 16-21. Batches go to the director as GIFs as each finishes.
+
 ### Entrances v2 and the slice upgrade
 
 The director judged the first entrances "far too large and gaudy, especially since the bosses spawn in together; they
