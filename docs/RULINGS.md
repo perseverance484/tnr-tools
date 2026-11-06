@@ -5872,7 +5872,7 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 
 **Domain:** content design / all events (Skyglass first)
 
-**Status:** ACTIVE for the idea; the design in `docs/design/EVENT_JOURNAL.md` is PROPOSED, and its decisions D1-D6 (how the party Wreck is counted, how players get the page, rewards, dates, a badge trace, the push/490 validator ledger) are open.
+**Status:** ACTIVE. Its decisions D1-D6 are settled by RUL-2026-11-05-121.
 
 **Ruling:**
 1. Each event gets a journal: one quest per weekend, taken at the start, whose entries are tracker objectives that count while it is active. It is the event's roadmap and makes each weekend differ; it need not cover every piece of content. A new journal is written for each event.
@@ -5881,3 +5881,23 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-05: "Design that tracker thing. That journal is how each weekend differs. You take that at the start and it defines your weekend or something. Lets work that out its a great idea. Its like an event roadmap and we can write a new one for each event. Like challenge players to do the rotted heading this weekend, or use a lastlight lantern, etc etc. It doesnt have to map every piece of content because that wouldnt be possible but like a good first one would involve doing the wreck sighted, 3 skyglass wreck dungeons, etc."
 
 **Canonical destination:** `docs/design/EVENT_JOURNAL.md` (referenced from `docs/design/EVENT_STRUCTURE.md` §2 item 9); `push/skyglass_journal.gen.py`.
+
+## RUL-2026-11-05-121 — Event journal decisions D1-D6: no Wreck tally, dated quest, rewards approved, Week 1 with the release, one event badge, ledger and an ending
+
+**Date:** 2026-11-05
+
+**Domain:** content design / event journal (Skyglass Week 1, push/490)
+
+**Status:** ACTIVE. Settles `docs/design/EVENT_JOURNAL.md` D1-D6 (RUL-2026-11-05-120). Open: the landing proposal (EVENT_JOURNAL.md section 6) awaits approval; the page image.
+
+**Ruling:**
+1. **D1:** no Wreck tally workaround. Wreck dungeon clears stay off the pages; the director will ask upstream for dungeon-clear tracking.
+2. **D2:** the page is a dated quest. The director asked for a good way to land it, as the players' weekend challenge pass; the source research and recommendation are EVENT_JOURNAL.md section 6.
+3. **D3:** the Week 1 rewards are approved as drafted (Tide Chart, Medicine Inro, Archive Chart Case, Skyglass Coffer, Sealed Treasury per entry; a Skyglass Token on completion).
+4. **D4:** Week 1 ships with the fight: startsAt 2026-11-06, endsAt 2026-11-09. The engine stores plain dates, so the page opens 00:00 UTC Friday and closes 00:00 UTC Monday (theninjarpg@3314d122 `drizzle/schema.ts` 4333-4334; `routers/quests.ts` 2682-2687; `libs/quest.ts` 2456-2459).
+5. **D5:** no badge per page; one badge for the whole event ("want them to feel a bit exclusive").
+6. **D6:** the two validate.py diagnostics on push/490 are accepted (no win node; the salvager id newer than the snapshot), on the condition that they do not bug. The director wants an ending step players can see, "like a claim button". No objective can wait for the any-order entries (availability walks links and never checks done, `libs/objectives.ts` 151-186, `libs/quest.ts` 1655-1662), so the ending is the claim of the last order, which completes the page and shows "Finished: <name>" with the "Page complete" line and the Token (`layout/Logbook.tsx` 903-931).
+
+**Evidence:** Director decisions relayed by the coordinator, 2026-11-05: "D1: drop the Wreck tally workaround … the director will ask upstream for dungeon-clear tracking"; "D2: YES to a dated quest, but 'we need to figure out a good way to land it. This is like their weekend event challenge reward pass type thing.'"; "D3: rewards APPROVED as drafted"; "D4: Week 1 ships with the fight … start Friday 2026-11-06 (the release)"; "D5: NO badge per page; one badge for the whole event is enough ('want them to feel a bit exclusive')"; "D6: accept the two validator exceptions 'so long as that won't bug or anything', and he wants an ENDING STEP so players know they finished — 'like a claim button'".
+
+**Canonical destination:** `docs/design/EVENT_JOURNAL.md`; `push/skyglass_journal.gen.py` and push/490; `state/validate_exceptions/490_skyglass_journal_week1.json`.

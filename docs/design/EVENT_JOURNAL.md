@@ -1,7 +1,8 @@
 # The event journal: a weekly roadmap quest
 
-**Status:** PROPOSED design (RUL-2026-11-05-120). The idea and its purpose are the director's; the shape, the Skyglass
-pages, the text and every reward are Claude's drafts and wait on the decisions in section 6.
+**Status:** ACTIVE (RUL-2026-11-05-120; decisions D1-D6 settled by RUL-2026-11-05-121). The idea, the decisions and the
+Week 1 rewards are the director's; the shape, the pages and the text are Claude's drafts. Open: the landing proposal
+(section 6, for approval) and the image.
 **Date:** 2026-11-05. **Repository baseline:** `perseverance484/tnr-tools` main at `213ffabf`. **Game-source pin:**
 `studie-tech/TheNinjaRPG` at `3314d122` (read with `git show`, not run). Zero live requests.
 **Framework:** `docs/design/EVENT_STRUCTURE.md` (P5 legibility, P6 diegetic progression). **First build:**
@@ -34,14 +35,15 @@ counts. The page is gone when the tide turns at the end of the weekend.
 | Tracker tasks: `craft_specific_item`, `train_specific_jutsu`, `complete_specific_quest`, `buy_item` (NPC shop only), `use_specific_item_combat`, `use_specific_jutsu_combat`, `tag_usage_win`, `damage_dealt`; each has a `value` (a count) | `validators/objectives.ts` 288-297, 695-773 | "3 times" is native. There is no "obtain an item" task: only craft, buy and use |
 | `complete_specific_quest` credits +1 once per active -> completed transition of any listed quest; repeats count again; a failed run never resolves | `libs/quest.ts` 677-693 (emit), 1584-1595 (match), 1884 (done at `value`) | "Win the Low Tide Run or the Night Watch 2 times in total" is one entry |
 | Progress counts only while the journal is active: trackers are built for active quests only | `libs/quest.ts` 1038-1074 (`getNewTrackers` over `getUserQuests`) | Nothing done before taking the page counts; say so on the page |
-| **Dungeons cannot be tracked.** Dungeon battles return before any tracker task; the dungeon reward claim emits none; `dungeons_completed` is a lifetime count of every dungeon | `libs/combat/database.ts` 1206; `server/api/routers/dungeon.ts` 466-472; `libs/quest.ts` 1403-1406; `server/utils/achievementObjectives.ts` 56-61 | "3 Skyglass Wreck dungeons" needs a workaround (D1). Item and jutsu use inside the Wreck does not count either |
+| **Dungeons cannot be tracked** (pages leave the Wreck off until upstream adds it, D1). Dungeon battles return before any tracker task; the dungeon reward claim emits none; `dungeons_completed` is a lifetime count of every dungeon | `libs/combat/database.ts` 1206; `server/api/routers/dungeon.ts` 466-472; `libs/quest.ts` 1403-1406; `server/utils/achievementObjectives.ts` 56-61 | "3 Skyglass Wreck dungeons" is left off (D1). Item and jutsu use inside the Wreck does not count either |
 | A one-shot quest cannot be re-credited: Wreck Sighted is `maxCompletes: 1` | `push/374_skyglass_wreck_sighted_salvager.json` | A veteran can never satisfy "complete Wreck Sighted"; the page uses "go to the Wreck" (`move_to_location`) instead |
 | Battlepyramid chart runs are ordinary quests and do credit it; a journal (`event`) and a run (`battlepyramid`) can be active together (event limit 4, pyramid limit 1) | `libs/quest.ts` 2910-2930; `drizzle/constants.ts` 1072 | Chart runs, tainted runs, Crownhold, the Haul and the Mother of Echoes are all trackable by quest id |
 | A non-consecutive quest completes when every objective is done; a consecutive one when every node on the walked path is done | `libs/objectives.ts` 110-140 | No win node is needed |
-| Forge L03 refuses a quest create without `consecutiveObjectives: true` | `forge/src/runner/lints.mjs` 77 | The entries form one chain. A chain of non-dialog nodes is all live from its first node (`references/quest.md` appendix §2), so they still count in any order. **Behaviour to confirm** in the staff test (section 7) |
+| Forge L03 refuses a quest create without `consecutiveObjectives: true` | `forge/src/runner/lints.mjs` 77 | The entries form one chain. Availability walks the chain's links and never checks done; a non-dialog node links on to the next on its first touch (`libs/objectives.ts` 151-186; `libs/quest.ts` 1655-1662), and `profile.getUser` touches every active quest on each load (`routers/profile.ts` 3396-3403). So the whole chain is live within a load or two and counts in any order. **Behaviour to confirm** in the staff test (section 8) |
+| **No ending step can wait for the entries.** For the same reason a final dialog or `win_quest` after the chain is live from the start, not after the entries | as above | The ending is the engine's own (section 4): the claim that completes the page |
 | Each objective's rewards pay once, when the player claims it (the gift icon); the quest-level reward pays on completion | `libs/quest.ts` 494-520; `layout/Objective.tsx` 99-112 | Per-entry and completion rewards are both native |
 | The Logbook shows each entry as the engine's fixed task title ("Complete Specific Quest") with a Goal x/N bar; the entry's own text is behind a (?) icon, and a non-location entry's reward is not listed | `layout/Objective.tsx` 142-180, 184-214; ENGINE_LAWS law 53 | The quest description carries the whole page; each entry's text names its own reward |
-| `startsAt`/`endsAt` are plain dates; past `endsAt` the quest drops out of the active set | `validators/objectives.ts` 939-940; `libs/quest.ts` 2456-2459, 140-153 | One page per weekend. **Inferred:** an expired page stops counting and its unclaimed rewards cannot be claimed; it may still hold one of the four event slots until abandoned |
+| `startsAt`/`endsAt` are SQL `DATE`s with no time. Starting compares the date string with the current UTC ISO time; the active set uses `new Date(date)`, which is UTC midnight | `drizzle/schema.ts` 4333-4334; `routers/quests.ts` 2682-2687; `libs/quest.ts` 2456-2459, 140-153; `queries/quests.ts` 1384-1385 | A page opens **00:00 UTC on its Friday** and closes **00:00 UTC on its Monday** (Sunday 19:00 US Eastern). **Inferred:** an expired page stops counting and its unclaimed rewards cannot be claimed; it may still hold one of the four event slots until abandoned |
 | An item can start only a `special` quest; special quests list nowhere and have no completion caps | `server/api/routers/item.ts` 1995-2022; `libs/quest.ts` 2518-2520 | Option for handing the page over as an object (D2), and the route for the Wreck tally (D1) |
 | Editing a live event quest does not restart open attempts (only pyramids and isolated runs restart) | `libs/questRun.ts` 22-30 | A typo fix on a live page is safe |
 
@@ -71,15 +73,22 @@ and a veteran has a full weekend. Casual players (~3 h) earn the first entries; 
 > *The salvager has dried a page of the Ghost Ship's watch log and weighted it under a stone for you. It is one
 > watch's orders, in the officer's brush. Your name is written in at the top, in the same ink.*
 
-| # | Order (in voice) | Plain line | Counts | Reward on claim (PLACEHOLDER, D3) |
+| # | Order (in voice) | Plain line | Counts | Reward on claim (approved, D3) |
 |---|---|---|---|---|
 | 1 | Walk the tideline where she lies. The page's first order is only to look at her. | Go to the Skyglass Wreck (sector 210) | `move_to_location` | Tide Chart |
-| (W) | Stand three full watches aboard her, with two others beside you. | Clear the Skyglass Wreck 3 times | **only with D1** (`--tally-quest-id`) | Galley Stores |
 | 2 | Stand two low watches: the breach the low tide opens, and the night roster with your name on it. | Win the Low Tide Run or the Night Watch, 2 times in total | 2 | Medicine Inro |
 | 3 | Follow one of the crew's own charts below the waterline: what they buried, the works, the archive or the helm. | Win one Rare run once | 1 | Archive Chart Case |
 | 4 | Go down where the Core could not hold them: to the reliquary, or to the night she fell. | Win the Sealed Reliquary, The Fall or a rotted run once | 1 | Skyglass Coffer |
 | 5 | Carry the last light home. The lantern still points the way to Crownhold. | Win Crownhold once (its way in is a Lastlight Lantern) | 1 | Sealed Treasury |
-| — | *Every order answered:* "The next tide brings the next page." | finish all entries | — | Skyglass Token (PLACEHOLDER) |
+| — | **Page complete.** *Every order is answered, and the salvager folds the page into her coat with the others. "The next tide brings the next page."* | claim the last order | — | Skyglass Token |
+
+**The ending (D6).** No objective can wait for the others (section 2), so the page ends the way every TNR quest ends:
+the player's claim. The last order's gift icon in the Logbook is the claim button; that claim completes the page and
+the game shows "Finished: The Watch Log: First Page" with the "Page complete" line above and the Token
+(`layout/Logbook.tsx` 903-931; `libs/quest.ts` 436-497). The page's description ends "Claiming the last order completes
+the page." A dialog ending was rejected: it would be clickable from the first minute and say "Page complete" early.
+**Window (D4):** 2026-11-06 00:00 UTC to 2026-11-09 00:00 UTC, with the release; it is hidden until published, so in
+practice it opens at publish.
 
 Reward rationale: every reward is an existing event item that feeds the next rung or the shared containers (P1), none
 is a gate item (no Lantern, shard or Epic chart), and the page pays at most one Token and one Coffer a weekend, below
@@ -95,8 +104,8 @@ reusable: an old page can return later as a new record with new dates.
 | Page | Theme | Entries (sketch) |
 |---|---|---|
 | Second: "The Rotted Heading" | the rot | The Captain's Watch ×1; The Fall ×1; The Burning Heading ×1; The Rotted Reliquary ×1; drink a Skyglass Serum in a run ×1 |
-| Third: "The Stores" | the Haul | any Haul run ×2; any Rare run ×2 (the pages drop there); a common run ×2; Wreck ×2 (D1) |
-| Fourth: "Her Invitation" | the finale | an Epic or tainted run ×2 (Tide shard); a Haul run ×1 (Ledger); Crownhold ×1 (Crown); Wreck ×2 (Keel, D1); the Mother of Echoes ×1 as the stretch |
+| Third: "The Stores" | the Haul | any Haul run ×2; any Rare run ×2 (the pages drop there); a common run ×2 |
+| Fourth: "Her Invitation" | the finale | an Epic or tainted run ×2 (Tide shard); a Haul run ×1 (Ledger); Crownhold ×1 (Crown); the Mother of Echoes ×1 as the stretch (the Keel shard's Wreck stays off, D1) |
 | Fifth: "Every Deck" | a full tour | one entry per Rare run, ×1 each; raise the Lastlight in battle ×1 |
 
 **Template for any event** (an event sheet adds this as part of item 9, legibility):
@@ -107,21 +116,47 @@ reusable: an old page can return later as a new record with new dates.
 4. **The quest description** carries the whole page (voice lines, the numbered plain list, the rules: counts only
    while held, any order, claim before the weekend ends).
 5. **Rewards:** event items only, nothing that is a gate or finale input, values set by the director.
-6. **Checks:** no entry depends on a once-only quest, a dungeon, steeping's refund path, or "obtain"; every listed
+6. **No per-page badge:** one badge for the whole event keeps it exclusive (D5).
+7. **Checks:** no entry depends on a once-only quest, a dungeon, steeping's refund path, or "obtain"; every listed
    quest id is live; the page passes `validate.py` (ledgered win-node lint), `check_manifest`, the event's own check.
 
-## 6. Director decisions (recommendations)
+## 6. Landing: how players find the page (D2 proposal, for approval)
 
-| # | Decision | Options | Recommendation |
-|---|---|---|---|
-| D1 | **How the party Wreck counts** (the engine cannot see dungeon clears) | (a) a Watch Tally: the Wreck drops one per clear (100%, set in the dungeon editor), untradeable; using it starts a one-click `special` quest the page counts. One item, one quest, one editor change. (b) upstream: emit a tracker task on the dungeon claim (studie-tech change). (c) leave the Wreck off the pages | **(a) now, (b) asked upstream.** Until then Week 1 ships without the Wreck entry |
-| D2 | **How a player gets the page** | (a) an `event` quest in the event list, dated per weekend (built). (b) an item from the salvager that starts a `special` quest: more diegetic, but an item has to reach every player every weekend | **(a)**; the quest text makes it the salvager's page |
-| D3 | **Rewards** | per entry and on completion; the table in section 4 | Approve or replace the section 4 values |
-| D4 | **Dates and launch** | first weekend; whether Week 1 runs with or after go-live 477 | First weekend after go-live |
-| D5 | **A lasting trace** | a badge per completed page (a "what have I done" record, framework Q3) | Yes, once art exists; not in Week 1 |
-| D6 | **Validator ledger** | accept the two diagnostics in `state/validate_exceptions/490_skyglass_journal_week1.json` | Accept (same class as push/351) |
+What the engine offers (theninjarpg@3314d122):
 
-## 7. Staff test before any publish
+| Surface | What it does for an `event` quest | Citation |
+|---|---|---|
+| Administration Building, "Information Board" | lists every available event quest in the player's village; this is where it is started | `app/[shell]/adminbuilding/page.tsx` 26-35; `routers/quests.ts` 403-435; `libs/quest.ts` 3115-3121 |
+| **Profile dashboard, Events cards** | the closest thing to "featured on login": the profile's content cards list available event quests (name, description, image, "Administration Building", Auto Travel), second after missions; the card appears and disappears on its dates. The end date is not shown | `libs/profileDashboard.ts` 587-641, 684-700; `layout/ProfileDashboard.tsx` 216-240 |
+| Logbook | the page once taken: the five bars, gift claims, the "Finished" toast | `layout/Objective.tsx`; `layout/Logbook.tsx` 903-931 |
+| Login notification / pinned quest | none found for quests | searched `app/src` for featured / pinned quest surfaces: none |
+| Start at an NPC | only the NPC-only `overworld` type is started from an overworld placement; a later option for "the salvager at the Wreck hands you the page", but it needs a placement made in the game's overworld editor and loses the Information Board and dashboard listing | `drizzle/constants.ts` 1071; `routers/quests.ts` 394-398 |
+| Started by an item | `special` quests only, listed nowhere | `routers/item.ts` 1995-2022 |
+| Text in existing entry points | any quest, dialog or item text can name the page; Wreck Sighted is the first thing a new player reads | `push/374_skyglass_wreck_sighted_salvager.json` |
+
+**Recommendation (the "weekend challenge pass"):**
+1. Keep the dated `event` quest. It lands on the Information Board and, more importantly, as an Events card on every
+   player's profile dashboard, with its own image, for exactly the weekend.
+2. Make it read as a weekly pass where players see it first: a distinct page image (a torn log page with the bell
+   mark; art request), and a card description whose first line is plain: "This weekend's orders: 5 to claim, a Skyglass
+   Token for all five." The voice follows.
+3. Point to it from the event's own entry points (text edits, built only on approval): Wreck Sighted's last line ("Each
+   weekend I dry another page of their watch log. It will be on the Information Board."), and the same line on the
+   salvager's Haul or chart rules text where it fits. Announce each page in the weekend post.
+4. Later, if the director wants the page handed over at the Wreck: an `overworld` quest at a salvager placement.
+
+## 7. Director decisions (RUL-2026-11-05-121)
+
+| # | Decision |
+|---|---|
+| D1 | No Wreck tally. Wreck dungeon clears stay off the pages; the director asks upstream for dungeon-clear tracking |
+| D2 | A dated quest, YES. The landing is section 6's proposal, awaiting approval |
+| D3 | Week 1 rewards approved as drafted |
+| D4 | Week 1 opens with the fight: Friday 2026-11-06, closing Monday 2026-11-09 (00:00 UTC both) |
+| D5 | No badge per page; one badge for the whole event |
+| D6 | The two validator diagnostics accepted; an ending players can see (section 4) |
+
+## 8. Staff test before any publish
 
 On a staff character, with push/490 run (hidden): take "The Watch Log: First Page"; reload; win a Low Tide Run. The
 Logbook should show entry 2 at 1/2 (this confirms the chain is all live and counts in any order). Walk to sector 210:
