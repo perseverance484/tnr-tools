@@ -6046,3 +6046,34 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-05: "Im worried all these animations will overload that area and make it hard for people to sort through. Make sure ours are properly sectioned off and labelled for the event and areas they are used, etc."
 
 **Canonical destination:** `docs/design/MOTHER_OF_ECHOES_ART.md` (asset convention); `docs/design/SUBAKU_PALACE_ANIMATION.md` (asset table); `push/mother_of_echoes.gen.py` (folder and name builder).
+
+## RUL-2026-11-06-128 — Mother of Echoes final tuning on the upstream engine; faint floors; Subaku bloom and arch
+
+**Date:** 2026-11-06
+
+**Domain:** balance and art / the Mother of Echoes finale; player jutsu Subaku Palace
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Damage model under the shared cooldowns** (the director, 2026-11-05). Upstream b54541f1 made shared cooldowns fire for every action, and pierce stays on the table for PvP balance. So:
+   - lethal hits use `onehitkill` power 100 with target INHERIT;
+   - non-lethal hits use plain damage tuned to about 2,500 on an average Kitsune-geared player;
+   - remaining flat hits use pierce, spaced one per caster per 3 rounds;
+   - the Hush Rises uses static ground damage.
+2. **Tuning, variant (a)+(b)** (the director: "Approve"):
+   - The Act III enrage moves to round 17 (was 36).
+   - Act I's warned plain-damage blasts carry a 15% `onehitkill` chance.
+   - Prototype results on cb755375, default table: perfect 18/30, real 3/30.
+   - Known trade-off: some of perfect play's Act III losses are to the clock. A reading-based alternative, a chance on Nothing Moves, is possible post-launch.
+3. **Enforcement fixes** (MOTHER_OF_ECHOES_ACT3.md §7): the cycle-end marker moves to `onehitkillprevent`, and Facet Breaks gets cooldown 2.
+4. **Etching: Heart widened to 32 hexes** to match Recast: Heart (the director: "Widen").
+5. **Faint floors:** each lingering payoff floor is a faint tile at about 18%. The payoff animation carries the vivid aftermath and fades down to it, because the engine shows a ground effect's static tile with no delay (combatEffects.ts).
+6. **Etching pictures are extended so they touch every hex their Recast hits** (QA E2). This was coordinator-decided while the director's answer was pending; the director can override it.
+7. **Subaku Palace:**
+   - The arch stays, although it crosses the caster's own meters, which are always visible to that player (the director: "Keep it").
+   - The bloom direction is approved: tick 0 is all stone, and the gold blooms outward over about 1 s ("pretty good, needs polish").
+
+**Evidence:** Director, 2026-11-06: "1. Approve 2. Keep it 3. Yeah its pretty good. Needs polish. 4. Sure." (answers to the enrage, arch, bloom and faint-floor questions); 2026-11-05: the OHKO and damage-model direction, "Widen".
+
+**Canonical destination:** `docs/design/MOTHER_OF_ECHOES_ACT3.md`, `docs/design/MOTHER_OF_ECHOES_ART.md`, `docs/design/SUBAKU_PALACE_ANIMATION.md`, and the sim params on `fable/mother-of-echoes-sim`.
