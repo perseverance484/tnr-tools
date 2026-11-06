@@ -228,7 +228,8 @@ export const J3 = {
   opener: "moe-saint-refraction", lucid: "moe-saint-lucid-refraction", facet: "moe-saint-facet", facetBreak: "moe-saint-facet-breaks",
   holdStill: "moe-saint-hold-still", silenceHolds: "moe-saint-the-silence-holds-her", nothingMoves: "moe-saint-nothing-moves",
   lancet: "moe-saint-remainder-lancet", stir: "moe-saint-the-names-stir", mended: "moe-saint-no-one-is-mended",
-  etch: { A: "moe-saint-etching-rime", B: "moe-saint-etching-ember", D: "moe-saint-etching-heart" } as Record<string, string>,
+  // Director 2026-11-05 (decision 8): Phase II reuses Act II's Etching records as they are (same pattern, AP, cooldown, art).
+  etch: { A: "moe-etching-a", B: "moe-etching-b", D: "moe-etching-d" } as Record<string, string>,
   flood: { A: "moe-saint-flood-rime", B: "moe-saint-flood-ember", D: "moe-saint-flood-heart" } as Record<string, string>,
   everyName: "moe-saint-every-name", rises: "moe-saint-hush-rises", starHush: "moe-saint-hush-where-they-refused",
   impression: "moe-saint-a-good-impression", pane: ["moe-saint-echo-pane-a", "moe-saint-echo-pane-b", "moe-saint-echo-pane-c"], everyLine: "moe-saint-every-line",
@@ -257,6 +258,12 @@ export const A3_DEFAULTS = {
   echoes: ["refractA", "D", "C"],
   /** Phase III line length (hexes north and south of the player). */
   lineArm: 4,
+  /** Phase I Hold Still bar length (hexes north and south of the player; the player's own hex is never included). */
+  barArm: 2,
+  /** Phase I line-break pools (rounds). */
+  linePoolRounds: 1,
+  /** HP gates: the warning, Phase II, Phase III. */
+  stirGate: 70, p2Gate: 60, p3Gate: 25,
   /** Sim policy: drink the Energy Potion once the heal cut is announced, below this HP %. 0 = never. */
   topUpBelow: 75,
   /** Sim policy: Clear the Saint for her Cradle, or for the ramp at this many live stacks. */
@@ -272,7 +279,11 @@ const A3_PANE = (A3: typeof A3_DEFAULTS, k: number) => unionCells(PAT.glass[k]!,
  * the falling third and its echo marked as well the first prototype trapped 4 of 20 perfect players; any side step clears
  * a column (four of six neighbours).
  */
-const A3_CROSS = (arm: number) => [{ longitude: 0, latitude: 0 }, ...Array.from({ length: arm }, (_, i) => i + 1).flatMap((d) => [
+// Ship pass (2026-11-05): the player's own hex is NOT in the pattern. A ground drain binds whoever stands on its hex when
+// any action resolves (process.ts:396-412; live log 2 #64-#65, sim agent 3eb8abab), so a follow mark ON the player is on
+// him from her cast and cannot be dodged (the same ring trap as Act I's Silence Turns). Without the centre the column
+// only binds a player who steps onto it: step aside (or hold still), never along it.
+const A3_CROSS = (arm: number) => [...Array.from({ length: arm }, (_, i) => i + 1).flatMap((d) => [
   { longitude: 0, latitude: d }, { longitude: 0, latitude: -d }])];
 export const a3PhaseCombo = (A3: typeof A3_DEFAULTS) => A3.order.flatMap((k) => [J3.etch[k]!, J3.rises, J3.everyName, J3.flood[k]!, J3.starHush, J3.rises]);
 const marker = (type: string, rounds = 1, power?: number) => tag(type, {
@@ -555,11 +566,14 @@ export const buildRecords = (P: MoeParams) => {
   // generator on main adds the real ones at build time. Sim-only switch for the fixed-seed identity check.
   const A3 = a3(P);
   if (A3.on) {
-    const pool3 = () => {
+    // Phase I lines break every turn, so their pools last A3.linePoolRounds (1, like Act I's): 3-round pools on both line
+    // sets carpeted the floor and a pool-aware player (sim agent 3eb8abab) could no longer walk to her (4 of 20 stalls).
+    const pool3 = (rounds?: number) => {
       const d = DEBUFF.on ? DEBUFF.pct[3] as any : undefined;
       if (!d) return [];
-      return [tag("decreaseheal", { power: d.dh, rounds: d.poolRounds ?? d.rounds, calculation: "percentage", friendlyFire: "ENEMIES", description: "The broken glass", ...poolArt("tg_linger") }),
-        T.pct("increasedamagetaken", d.idt, d.poolRounds ?? d.rounds, { friendlyFire: "ENEMIES", description: "The broken glass" })];
+      const r = rounds ?? d.poolRounds ?? d.rounds;
+      return [tag("decreaseheal", { power: d.dh, rounds: r, calculation: "percentage", friendlyFire: "ENEMIES", description: "The broken glass", ...poolArt("tg_linger") }),
+        T.pct("increasedamagetaken", d.idt, r, { friendlyFire: "ENEMIES", description: "The broken glass" })];
     };
     const ground = (id: string, name: string, line: string, desc: string, cells: Cell[], cost: number, cd: number, effects: any[]) =>
       add(id, { name, description: desc, battleDescription: line, target: "GROUND", method: "COORDINATES", range: 0, cooldown: cd, actionCostPerc: cost, coordinateTargeting: field(cells), effects });
@@ -568,16 +582,16 @@ export const buildRecords = (P: MoeParams) => {
     /* Phase I: Lucid */
     ground(J3.opener, "Refraction", "\"Hold still. I want to see you in the light.\" Three lines of black glass run in from the walls.", "Three lines of glass; they break on her next turn, and she draws the next lines as they break.", PAT.refractA, 60, A3.openerCd, [carrier("tg_heavy", 1), marker(MK3.a)]);
     ground(J3.lucid, "Lucid Refraction", "The lines break, and three more are already drawn.", "The marked lines break; the far lines are drawn in the same breath.", PAT.refractA, 60, 0,
-      [erupt(3, p.refract, "moe_shatterfall"), ...pool3(), carrier("tg_heavy", 1, field(PAT.refractB)), marker(MK3.b)]);
+      [erupt(3, p.refract, "moe_shatterfall"), ...pool3(A3.linePoolRounds), carrier("tg_heavy", 1, field(PAT.refractB)), marker(MK3.b)]);
     ground(J3.facet, "Facet", "\"Every line has a reflection.\" The far lines break, and both images are drawn at once.", "The far lines break; both line sets and their mirror are drawn. Only the gaps are safe.", PAT.refractB, 60, 0,
-      [erupt(3, p.refract, "moe_shatterfall"), ...pool3(), carrier("tg_heavy", 1, field(facetCells)), marker(MK3.f)]);
+      [erupt(3, p.refract, "moe_shatterfall"), ...pool3(A3.linePoolRounds), carrier("tg_heavy", 1, field(facetCells)), marker(MK3.f)]);
     ground(J3.facetBreak, "Facet Breaks", "Both images break at once, and for a moment her guard hangs open.", "Both images break. Her guard is open for a moment afterwards.", facetCells, 60, 0,
-      [erupt(3, p.refract, "moe_shatterfall"), ...pool3(), weaknessSelf(A3.guardFacet), marker(MK3.clean)]);
+      [erupt(3, p.refract, "moe_shatterfall"), ...pool3(A3.linePoolRounds), weaknessSelf(A3.guardFacet), marker(MK3.clean)]);
     // A three-hex bar through the player (origin TARGET). Not Act I's radius-1 ring: a ground drain is copied onto whoever
     // ends an action on it and that copy lasts the round (process.ts:395-412), so walking out of a ring takes two actions
     // and two drains unless Replacement (cooldown 2) is up; the lines already spend Replacement. Any side step clears a bar.
-    add(J3.holdStill, { name: "Hold Still", description: "The glass under you and either side of you goes still. It breaks the next time you act there.", battleDescription: "\"Hold still.\" The glass under %target goes quiet.", target: "GROUND", method: "COORDINATES", range: 5, cooldown: 0, actionCostPerc: 40,
-      coordinateTargeting: { origin: "TARGET", selection: "ALL", coordinates: [{ longitude: 0, latitude: 0 }, { longitude: 0, latitude: 1 }, { longitude: 0, latitude: -1 }], randomCount: 1 },
+    add(J3.holdStill, { name: "Hold Still", description: "The glass north and south of you goes still. Anyone who steps onto it there will wish they had held still.", battleDescription: "\"Hold still.\" The glass either side of %target goes quiet.", target: "GROUND", method: "COORDINATES", range: 5, cooldown: 0, actionCostPerc: 40,
+      coordinateTargeting: { origin: "TARGET", selection: "ALL", coordinates: A3_CROSS(A3.barArm), randomCount: 1 },
       effects: [carrier("tg_heavy", 1), tag("drain", { power: A3.holdStillPct, rounds: 1, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], description: "The floor breaks" })] });
     add(J3.silenceHolds, { name: "The Silence Holds Her", description: "The Silence folds around her: she takes far less damage and drinks what does land, and the floor within 3 of her goes still. There is no feeler to cut. The hold is hers, and a clean break would shatter it.", battleDescription: "The Silence folds around %user. The floor around her goes still.", target: "GROUND", method: "AOE_SPIRAL_SHOOT", range: 3, cooldown: A3.cradleCd, actionCostPerc: 40,
       effects: [carrier("tg_control", 1), marker(MK3.still), T.pct("decreasedamagetaken", A3.cradleDR, A3.cradleRounds, { target: "SELF", description: "The Silence holds her" }),
@@ -591,9 +605,7 @@ export const buildRecords = (P: MoeParams) => {
     ground(J3.mended, "No One Is Mended", "\"Nothing mends here. Nothing needs to.\" The quiet covers the floor, everywhere but where the three refused.", "Nothing mends anywhere but the three dry places.", notStars, 100, 99,
       [tag("decreaseheal", { power: 100, rounds: A3.mendedRounds, calculation: "percentage", friendlyFire: "ENEMIES" }), tag("healprevent", { power: 100, rounds: A3.mendedRounds, friendlyFire: "ENEMIES", ...poolArt("moe_hush_floor") }), marker(MK3.phase, 99, 1)]);
     const EN: Record<string, string> = { A: "Rime", B: "Ember", D: "Heart", C: "Seam" };
-    const where: Record<string, string> = { A: "the north of the hall", B: "the south of the hall", D: "the heart of the hall", C: "a seam down the west wall" };
     for (const k of Object.keys(J3.etch)) {
-      ground(J3.etch[k]!, `Etching: ${EN[k]}`, `%user traces ${where[k]} into the black glass. It glows, then fades.`, "She etches a region the glass will remember.", PAT.etch[k]!, 40, 0, [carrier("tg_etch", 1)]);
       ground(J3.flood[k]!, `The Names Flood In: ${EN[k]}`, `Every name in the glass floods the hall, and the glass remembers the ${EN[k]!.toLowerCase()}. She has nothing left to breathe; her guard hangs open.`, "Everything but the three dry places floods, and so does the etching she drew two turns ago. Her guard is open afterwards.",
         unionCells(notStars, PAT.etch[k]!), 100, 0, [erupt(3, p.flood, "moe_flood"), weaknessSelf(A3.guardFlood)]);
     }
@@ -614,9 +626,16 @@ export const buildRecords = (P: MoeParams) => {
       ground(J3.pane[k]!, `Glassfall: ${["First", "Second", "Last"][k]} Echo`, `A third of the ceiling falls, and with it ${echoName(A3.echoes[k]!)}. The next pane cracks.`, "The marked pane falls with its echo; the next is marked. Her guard is open.", A3_PANE(A3, k), 60, 0,
         [erupt(3, p.glass, "moe_glassfall"), ...pool3(), weaknessSelf(A3.guardPane), carrier("tg_heavy", 1, field(A3_PANE(A3, n))), paneMk(n)]);
     }
-    add(J3.everyLine, { name: "Every Line Through You", description: "Lines of glass run through you in every direction. They break the next time you act there.", battleDescription: "\"Hold still.\" Every line in the hall runs through %target.", target: "GROUND", method: "COORDINATES", range: 5, cooldown: 0, actionCostPerc: 40,
+    add(J3.everyLine, { name: "Every Line Through You", description: "A line of glass runs north and south through where you stand. Step onto it and it takes you.", battleDescription: "\"Hold still.\" Every line in the hall runs through %target.", target: "GROUND", method: "COORDINATES", range: 5, cooldown: 0, actionCostPerc: 40,
       coordinateTargeting: { origin: "TARGET", selection: "ALL", coordinates: A3_CROSS(A3.lineArm), randomCount: 1 },
       effects: [carrier("tg_heavy", 1), tag("drain", { power: A3.everyLinePct, rounds: 1, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], description: "The lines break" })] });
+  }
+  // Act III v2 text pass (push/mother_of_echoes_act3_text.json, pending director approval), keyed by spec id.
+  if (A3.on) {
+    const f = join(process.env.TNR_REPO!, "push/mother_of_echoes_act3_text.json");
+    let A3_TEXT: Record<string, { name?: string; description?: string; battleDescription?: string }> = {};
+    try { A3_TEXT = JSON.parse(readFileSync(f, "utf8")).jutsu ?? {}; } catch { A3_TEXT = {}; }
+    for (const [id, t] of Object.entries(A3_TEXT)) if (J[id]) { if (t.name) J[id].name = t.name; if (t.description) J[id].description = t.description; if (t.battleDescription) J[id].battleDescription = t.battleDescription; }
   }
   if (P.visualPieces) for (const id of [JID.floodMark, JID.floodBlast, JID.shatterBlast, ...JID.glass, JID.glassFirstB, JID.glassRecast, JID.enrage, ...Object.values(JID.det)]) J[id]?.effects.push(vis("moe_piece", 1));
   const SUMMON_HITS = new Set([JID.grasp, JID.likenessStrike, JID.porter, JID.tomo]);
@@ -784,6 +803,7 @@ export const wornRules = (jid: string, target = PL) => [
   // The unconditional move is the last rule (law 41): an end_turn under it could never fire.
   ...(target === PL ? [{ conditions: [], action: { type: "move_towards_opponent", target: PL, description: "Close in" } }] : [R.end()]),
 ];
+const A3_GATE = 4;
 const toHigh = (v: number, type: "distance_lower_than" | "distance_higher_than" = "distance_lower_than") => ({ type, value: v, target: "HIGHEST_MAX_HEALTH_OPPONENT", description: "Distance to the player" });
 /** Act III redesign rules (20; see J3). Phase III first, then the Phase II combo, then the Phase I chain and its extras. */
 export const saintRulesV2 = (P: MoeParams) => {
@@ -794,25 +814,28 @@ export const saintRulesV2 = (P: MoeParams) => {
     R.jutsu(J3.pane[0]!, "SELF", [C.has(MK3.gA), ph(2)]),
     R.jutsu(J3.pane[1]!, "SELF", [C.has(MK3.gB), ph(2)]),
     R.jutsu(J3.pane[2]!, "SELF", [C.has(MK3.gC), ph(2)]),
-    R.jutsu(J3.everyLine, "HIGHEST_MAX_HEALTH_OPPONENT", [ph(2), toHigh(6)]),
+    R.jutsu(J3.everyLine, "HIGHEST_MAX_HEALTH_OPPONENT", [ph(2), toHigh(A3_GATE)]),
     // Phase III: she walks to the player (first prototype: she stood still, the player could not cross the marked floor to
     // reach her open guard, and 2 of 20 perfect runs stalled into the enrage). Beside the player the move fails and the
     // turn ends at the combo rule, whose first step needs AP she no longer has after a pane and Every Line.
     { conditions: [ph(2)], action: { type: "move_towards_opponent", target: "HIGHEST_MAX_HEALTH_OPPONENT", description: "She comes to you" } },
-    R.jutsu(J3.impression, "SELF", [C.hb(25), C.has(MK3.cycleEnd, 1), ph(1)]),
+    R.jutsu(J3.impression, "SELF", [C.hb(A3.p3Gate), C.has(MK3.cycleEnd, 1), ph(1)]),
     withCond(COND.combo(a3PhaseCombo(A3)), [ph(1)]),
     R.jutsu(J3.facetBreak, "SELF", [C.has(MK3.f)]),
     R.jutsu(J3.facet, "SELF", [C.has(MK3.b)]),
     R.jutsu(J3.lucid, "SELF", [C.has(MK3.a)]),
-    R.jutsu(J3.mended, "SELF", [C.hb(60), C.has(MK3.clean)]),
+    R.jutsu(J3.mended, "SELF", [C.hb(A3.p2Gate), C.has(MK3.clean)]),
     R.end([ph(1)]),
     R.jutsu(J3.nothingMoves, "SELF", [C.has(MK3.still)]),
-    R.jutsu(J3.stir, "SELF", [C.hb(70)]),
+    R.jutsu(J3.stir, "SELF", [C.hb(A3.stirGate)]),
     R.jutsu(J3.opener, "SELF", []),
     R.jutsu(J3.silenceHolds, "SELF", [C.hb(A3.cradleGate)]),
     R.jutsu(J3.lancet, PL, [C.near(5)]),
-    R.jutsu(J3.holdStill, "HIGHEST_MAX_HEALTH_OPPONENT", [toHigh(6)]),
-    { conditions: [], action: { type: "move_towards_opponent", target: PL, description: "Close in" } },
+    // Hold Still and Every Line only within 3 hexes (path 4): farther out she walks in instead. With the full range-5 gate
+    // she cast it every turn from 4-5 hexes and never closed, while a pool-aware player held his hex (3 of 20 stalls).
+    R.jutsu(J3.holdStill, "HIGHEST_MAX_HEALTH_OPPONENT", [toHigh(A3_GATE)]),
+    // Toward the player, not the closest opponent: a pet beside her held her in place while the player stood off.
+    { conditions: [], action: { type: "move_towards_opponent", target: "HIGHEST_MAX_HEALTH_OPPONENT", description: "Close in" } },
   ];
 };
 export const saintRules = (P: MoeParams) => [
@@ -1193,7 +1216,7 @@ Object.assign(SETS, {
   [J3.holdStill]: ["Hold Still", "mark"], [J3.everyLine]: ["Every Line", "mark"], [J3.everyName]: ["Every Name", "mark"],
   [J3.impression]: ["Glassfall", "mark"], [J3.pane[0]!]: ["Glassfall", "land", [J3.impression, J3.pane[2]!]], [J3.pane[1]!]: ["Glassfall", "land", [J3.impression, J3.pane[0]!]], [J3.pane[2]!]: ["Glassfall", "land", [J3.pane[1]!]],
 });
-for (const k of Object.keys(J3.etch)) { SETS[J3.etch[k]!] = ["Etched star", "mark"]; SETS[J3.flood[k]!] = ["Every Name", "land", [J3.everyName]]; }
+for (const k of Object.keys(J3.etch)) { SETS[J3.flood[k]!] = ["Every Name", "land", [J3.everyName]]; }
 const SPECIAL_IDS: Record<string, string> = {
   [J3.stir]: "The Names Stir (warning)", [J3.mended]: "No One Is Mended (v2)", [J3.starHush]: "Hush on a star", [J3.rises]: "Hush Rises (III)", [J3.lancet]: "Remainder Lancet",
   [JID.lucidBlast]: "Lucid", [JID.lucidWake]: "Lucid (wakes)", [JID.rises[0]!]: "Hush Rises", [JID.rises[1]!]: "Hush Rises", [JID.rises[2]!]: "Hush Rises", [JID.rises[3]!]: "Hush Rises", [JID.hushUnbridled]: "Unbridled Hush", [JID.listeningUnbridled]: "Unbridled Listening", [JID.cradle]: "Cradle",
@@ -1602,7 +1625,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
         lastBossAct.set(actor.userId, hist);
       }
       if (isEnemy && actionId && SPECIAL_IDS[actionId]) res.specials[SPECIAL_IDS[actionId]!] = (res.specials[SPECIAL_IDS[actionId]!] ?? 0) + 1;
-      if (isEnemy && (actionId === J3.mended || actionId === J3.impression)) ((res as any).phaseAt ??= {})[actionId === J3.mended ? "II" : "III"] ??= pre.actionRound;
+      if (isEnemy && (actionId === J3.mended || actionId === J3.impression)) ((res as any).phaseAt ??= {})[actionId === J3.mended ? "II" : "III"] ??= pre.actionRound; if (isEnemy && (actionId === J3.mended || actionId === J3.impression)) ((res as any).phaseHp ??= {})[actionId === J3.mended ? "II" : "III"] ??= Math.round(100 * actor.curHealth / actor.maxHealth);
       for (const aid of cfg.bossIds) {
         const u = bossU(aid);
         const a = alive(u);
