@@ -96,8 +96,8 @@ def build_create():
 
 def bundle_ids(path):
     d = json.load(open(path))
-    if (d.get('journal') or {}).get('manifestNumber') != N_CREATE:
-        raise SystemExit(f'{path} is not the push/{N_CREATE} results bundle')
+    if (d.get('journal') or {}).get('manifestNumber') not in (N_CREATE, 506):   # 506: the master that carries 503
+        raise SystemExit(f'{path} is not the push/{N_CREATE} (or master push/506) results bundle')
     idmap = d.get('idmap') or {}
     ids = {src: idmap.get(src) for src, *_ in ASSETS}
     missing = [s for s, v in ids.items() if not v]
