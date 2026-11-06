@@ -492,6 +492,44 @@ Layering priority: **telegraph > threat landing > boss state > flavour.**
 | `anim_moe_refraction_a3`, `anim_moe_quiet_v1`, `anim_moe_echo_strike_v1`, `anim_moe_rise_feeler_a3` | quality and material, not clutter | 4 |
 | flourishes (`*_flourish_*_a3`) | superseded by the entrances v2 | done |
 
+### Art direction: omens, payoffs, lingering ground (director, 2026-11-05; standing, overrides the per-hex drafts)
+
+The director, on the Lancet and the Refraction line: "it seems you feel obligated to mimic the other set pieces in the
+event and create individual tiles. We can paint a picture or tell a story with these. We can animate the ability as it
+would appear on the battlefield, and the ground as it would appear in full because of the ability being used. We don't
+need to mark each hex as unsafe toxic bubbles or use circles. Omens should use the normal language we've established
+with the circles and marks on the ground, but the eruptions and real abilities should be like refraction."
+
+1. **Omens** (telegraph marks, the round before) keep the established ground language: circles and marks on the hex,
+   readable and consistent with the rest of Skyglass. Their job is clarity.
+2. **Payoffs** (eruptions, breaks, Glassfall, Flood, Recasts, Shatterfall, An Absence's burst, every real ability) are
+   painted as one picture of the ability happening across the whole area it affects, sliced across the hexes like the
+   Refraction line.
+3. **Lingering ground** (pools, No One Is Mended, the Hush, the flood residue, the splatter) shows the floor as it looks
+   because the ability happened: one continuous painted surface (stained, frozen, cracked or blackened glass), no per-hex
+   bubbles or circles, static or nearly so (stacking rules 1-2), reading "don't stand here" through the material, with
+   the area's edge clear, never over a safe hex.
+
+**Honest limits (engine, theninjarpg@3314d122):**
+- *Payoffs on fixed board positions* (BATTLEFIELD patterns: the Refraction family, Etchings, Recasts, Glassfall,
+  Flood, The Glass Remembers, Every Name) slice exactly: one visual tag per hex (or per column where rows repeat), each
+  carrying its own slice; the cost is one asset per distinct slice (a 40-hex Recast region: 40).
+- *Payoffs relative to her or the target* (CASTER / TARGET origins: Shatterfall Gives Way, The Silence Turns, An
+  Absence, Hold Still): the offsets are added to her column as written, so a neighbour hex sits half a row higher or
+  lower by her column's parity and exact slices tear on one of the two parities. What works: one large clip centred
+  on the origin (2.5 hex heights, 1.25 hex widths) carrying the whole picture, plus a few overlapping per-hex pieces
+  whose art is radially symmetric or vertical, so a half-row shift does not break the image. The picture's reach is
+  bounded by that centre clip; beyond it the pieces are separate (they can share a continuous theme, not exact
+  pixels).
+- *Lingering ground* is static art (`staticAssetPath`) on the lasting effect: one asset per effect, drawn as the same
+  tile on every hex of that effect. A per-hex unique painting would need one carrier effect per hex, which changes the
+  records the sim owns. What works now: a **lattice-periodic surface**: one tile whose pattern repeats with the hex
+  grid's period (column pitch 0.75 hexSize with the odd-column drop, row pitch one tile height), so the floor reads as
+  one continuous painted surface across the area with no hex seams, and the area's edge is the hex boundary. Single
+  scattered hexes (the Hush's random pools) are a patch of that surface on one hex.
+- *Static loops* still draw over the fighters (3.2), so lingering surfaces stay static (rule 1-2); any life in them
+  comes from the payoff's settle frames, not a loop.
+
 ### Ability quality bar: audit and worklist (director's standing directive, 2026-11-05)
 
 "Every boss ability animation must look as cool as the Refraction slice-mosaic line." Read as a bar, not a technique:
