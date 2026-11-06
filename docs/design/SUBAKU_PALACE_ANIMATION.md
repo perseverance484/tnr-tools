@@ -31,9 +31,9 @@ Build target (director, 2026-11-05): 2.5-hex-height clips and LPC character avat
    - ring 4's light stays inside its own hexes (no spill onto the bare board past the rim).
 3. **The gates (7-19).** Red sandstone oni gates tear out of the ground on ring 1, and the palace with its moon gate
    rises behind the caster (centre strip, gates v6).
-4. **The final pulse (27-32).** Every band in the domain flares together at its own width, ramping
+4. **The final pulse (26-32).** Every band in the domain flares together, uncut, on its core, ramping 18 /
    40 / 75 / 100 / 70 / 40 / 15 %, white-hot on tick 29 (the seal, the ground appear), with the palace's held beat on
-   29-30. The pulse stays off the fighter column (the LPC silhouette, +-0.2 h) and the meter rows.
+   29-30. The bands are lit whole (QA r4: the earlier fighter cuts chopped them into dashes).
 5. **The settle (31-43).** The gates sink; nothing on the floor animates after tick 32.
 6. **The 3 rounds.** The director's own tile (the live DemonCastleFloor, ref a / ref c), changed only where its band
    ends missed their neighbours (section 3). It lies under the fighters, with no loop. The caster's own hex stays
@@ -47,14 +47,15 @@ a white-hot head (`#fff4c8`) and a burning trail (`#ffe58a`, `#ffcf4a`).
 **Alongside other effects.** The floor is static art: it draws under fighters, highlights and every other clip, and
 it carries no loop. The clips draw only on the bands, about 2 px wide on the 50 px clip. Measured with the independent
 reviewer's renderer (`qa_render.py`, actual sprite and meter alpha), both column parities:
-- an enemy's body is at most 28 % covered, on 2 frames at most (the wide AI avatar beside the caster, as a head
-  passes); every LPC enemy is at most 21 %, on no frame over 25 %; meter rows are at most 28 %, on 3 frames at most;
-- during the final pulse no body is more than 19 % covered and no meter row more than 9 %;
-- frame to frame, the largest whole-arena change is 5.4 (mean absolute, 0-255), as the pulse switches on and off.
+- every LPC enemy body is at most 23 % covered, on no frame over 25 %; the wide AI avatar beside the caster is at
+  most 33 %, on 6 frames, as heads pass (the bands are thicker now, at his width);
+- meter rows: LPC at most 23 %; the AI avatars' higher rows at most 41 %, on 5-6 frames;
+- during the final pulse no body is more than 13 % covered and no LPC meter row more than 23 %;
+- frame to frame, the largest whole-arena change is 3.4 (mean absolute, 0-255, light board).
 The centre strip's
 sigil ring (ticks 4-23) crosses the lower neighbour's meter rows, up to 16 % of them (QA r3: a real ground ring,
 hidden only behind the legs); its gates, palace and shards never do. The caster's own
-meter rows are crossed by the centre strip's moon-gate arch and nothing else (36 % on the reviewer's renderer, ticks
+meter rows are crossed by the centre strip's moon-gate arch and nothing else (38 % on the reviewer's renderer, ticks
 24-33). The director accepted this on 2026-11-05 ("keep the arch"; RUL-2026-11-06-128). The casting player always
 sees their own rows (theninjarpg cb755375 `combat.ts:420` passes the viewer's userId as `selectedId`;
 `combatActors.ts:516-520`).
@@ -98,7 +99,7 @@ sees their own rows (theninjarpg cb755375 `combat.ts:420` passes the viewer's us
 - 4 rim hexes per parity are in the domain on one parity only, so they carry no band tag. They are the top four rim
   hexes on an even column and the bottom four on an odd one.
 - **Ruled (director 2026-11-06): light-only, no spill.** These hexes rest like their neighbours and flare in the
-  final pulse (27-32). Extending ring 4's light into them would also paint lit bands onto the bare board past the rim
+  final pulse (26-32). Extending ring 4's light into them would also paint lit bands onto the bare board past the rim
   on every other side; a strip cannot tell the two apart.
 
 ## 3. Assets (built; artpreflight 0 errors / 0 warnings)
@@ -114,29 +115,34 @@ the corner-to-corner canvas the game stretches):
   no partner (only the L / bottom-left arc and the S / bracket pairs come close). That is why the live floor reads as
   repeated hooks.
 - Kept: his five elements, his stone and mortar glow, his burnished gold texture (sampled from his L), his band width
-  (0.104 radius against his 0.105), his dark rim.
+  (thickened to 0.128 so it reads at his visible width at 50 px), his bevel (lit from the upper left) and his
+  segment caps (a dark joint every 0.30 along each band).
 - Changed, only to make every end meet:
-  - the S band leaves the upper-left edge horizontally as his does (u 0.28, his 0.30); its lower end comes down to
+  - the S band leaves the upper-left edge horizontally as his does (u 0.24, his 0.30); its lower end comes down to
     the bottom edge at 0.15 (his ran out through the lower-right edge near the bottom corner);
   - the top-left L: his, its ends at 0.20 (his 0.216) and the upper-left midpoint (his 0.483);
   - the top-right arc: his, from the top edge at 0.85 to the upper-right midpoint;
   - the bottom-left arc: his sweep up from the bottom edge at 0.80 (his 0.81), now ending at the lower-left midpoint
     (his ran on to the left corner);
-  - the right bracket: his chamfered bracket, attached to the lower-right edge at the midpoint and at 0.72 (his
+  - the right bracket: his chamfered bracket, attached to the lower-right edge at the midpoint and at 0.76, with his crisp 45-degree corners (his
     straddled the right corner);
   - the profile: a symmetric double rail (two rails, a dark groove) at his total width, because his wide-plus-narrow
     pair cannot keep its narrow rail on a consistent side across a seam;
   - where an old band no longer runs, his stone is filled in from a rotated or mirrored copy of his own tile (one
     symmetry per hole, with a mortar line round it).
 - Pairs, all exact in position and direction: L top / bottom-left arc (0.20 / 0.80); L left / bracket (0.50 / 0.50);
-  S left / bracket (0.28 / 0.72); S bottom / top-right arc (0.15 / 0.85); bottom-left arc / top-right arc (the
+  S left / bracket (0.24 / 0.76); S bottom / top-right arc (0.15 / 0.85); bottom-left arc / top-right arc (the
   midpoints). `python3 classic.py` prints the join check.
-- Side by side (hi-res, 1x true scale, 3x, the 50 px rendition, and tiled at true scale):
+- Bleed (QA r4 B1): the tile carries 0.06 radius of the neighbouring hexes' own content past its edge, his dark rim
+  is replaced by the inner pixels so bands run unbroken across the seam, and alpha is 255. No pale seam shows on snow
+  at 50 px.
+- Delivered as a 96-colour lossless palette WebP, 128 px, about 10 KB (QA r4 S3; the band strips are about 1.4 KB).
+- Side by side (hi-res, 1x true scale, 3x, the 50 px rendition, and tiled at true scale on snow):
   `docs/design/subaku_palace/tile_original_vs_new.png`.
 
 | File | Library name | Type | Frames x ms | Slot (proposed) |
 |---|---|---|---|---|
-| `exports/tile_sbk_domain_v3.webp` (128 px, `classic.py`) | `Subaku Palace: domain floor` | STATIC | 1 | ground `decreasedamagegiven`: `staticAssetPath` (replaces DemonCastleFloor `zEvI0yd_As_FzNyrr5Iq4`) |
+| `exports/tile_sbk_domain_v4.webp` (128 px palette, about 10 KB, `classic.py`) | `Subaku Palace: domain floor` | STATIC | 1 | ground `decreasedamagegiven`: `staticAssetPath` (replaces DemonCastleFloor `zEvI0yd_As_FzNyrr5Iq4`) |
 | `exports/anim_sbk_seal_v1.webp` | `Subaku Palace: domain seal` | ANIMATION | 36 x 50 | ground `decreasedamagegiven`: `appearAnimation` (replaces the library clip `c4FqDZWFZOdWn86o6nPL7`); `appearSfx` blank |
 | `exports/anim_sbk_wave_b0_v1.webp` | `Subaku Palace: ring 1 wave` | ANIMATION | 36 x 50 | visual tag b0: COORDINATES, origin CASTER, offsets in `subaku_domain_v1.json`, power 2, rounds 1, `appearAnimation` |
 | `exports/anim_sbk_wave_b1_v1.webp` | `Subaku Palace: ring 1.5 wave` | ANIMATION | 36 x 50 | visual tag b1 (as b0) |
@@ -151,7 +157,7 @@ The SELF `increasedamagegiven` effect's `staticAssetPath` and `staticAnimation` 
 The 7 band tags carry no sound and no static slots.
 
 Builders (Pillow only): `classic.py` (the resting tile and its band masks), `build_domain.py` (strips and offsets;
-`SBK_VARIANT=cover` builds the reference cover variant into `exports_cover/` from `floor.py`'s 'rails' tile),
+`SBK_VARIANT=cover` builds the reference cover variant into `reference/cover_variant_DO_NOT_UPLOAD/` (never upload) from `floor.py`'s 'rails' tile),
 `preview.py` (the true-scale composite). It imports the Mother of Echoes `qa_preview.py` read-only. Exploration patterns
 (palace lattice, swirl, streams; the superseded 'flow' and 'bold flow' floors are in git history at 5f2c6a07 and be8646d1) are in `tile_v2.py`. The director's four reference tiles are in `refs/`. Ref a
 (`677f13a9`) is taken as the live DemonCastleFloor because it is the only one that fills the 2:1 box. No hash is

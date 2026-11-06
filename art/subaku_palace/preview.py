@@ -33,7 +33,7 @@ def arg(name, default=None):
     return ARGS[ARGS.index(name) + 1] if name in ARGS else default
 
 
-EXP = os.path.join(HERE, 'exports' if os.environ.get('SBK_VARIANT', 'light') == 'light' else 'exports_cover')
+EXP = os.path.join(HERE, 'exports' if os.environ.get('SBK_VARIANT', 'light') == 'light' else os.path.join('reference', 'cover_variant_DO_NOT_UPLOAD'))
 OUT = arg('--out', os.path.join(HERE, 'previews'))
 W, H = 12, 10
 HW, HH, CP, RP = 132, 66, 99, 66
@@ -134,7 +134,7 @@ def fighter_boxes():
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    tile = Q.tile(os.path.join(EXP, 'tile_sbk_domain_v3.webp'))
+    tile = Q.tile(os.path.join(EXP, BD.TILE_NAME if os.path.exists(os.path.join(EXP, BD.TILE_NAME)) else 'tile_sbk_domain_v3.webp'))
     seal = load_clip('anim_sbk_seal_v1.webp')
     pulse = load_clip('anim_sbk_pulse_loop_v1.webp') if PULSE else None
     import json
