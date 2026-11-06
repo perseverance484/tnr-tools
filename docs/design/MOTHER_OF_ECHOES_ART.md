@@ -61,19 +61,19 @@ One design, three files. ME01 (Act I) is generated first and locks her face, bui
 |---|---|---|---|---|---|---|
 | `tg_etch` | Etching mark, still tile (staticAssetPath, under the characters) | STATIC tile | Etching: Rime `lkcsor1I5A8gD038ncrBW`; Etching: Ember `eovhl9XyDQq1N19lDwr77`; Etching: Seam `Pr7i3DK5KiRQRePy8Xw41`; Etching: Heart `nNUaP5r8r7UxYNiAtuF0l`; Etching: Hail `2pU7fdUPQPQQjyd19JDWA` | P1 | code | `art/mother_of_echoes_fx/exports/tile_moe_etch_v3.webp` (v3, art QA: the v2 1 px Bayer haze became a screen door after the 50 px CDN rendition, so the region is tinted by sparse solid 2x2 score chips; lattice unchanged) |
 | `tg_etch` | Etching mark, loop (staticAnimation) | ANIMATION | same 5 Etchings | P1 | code | `anim_moe_etch_glint_v1.webp` (built now) |
-| `tg_etch` | Etching mark, appear / disappear | ANIMATION | same 5 Etchings | P1 | reuse live | `bJy2IjRKmAVYEoXUYmXv5` / `k8J4ic-KEz9ewEq1gAszr` (as every live mark, push/431) |
+| `tg_etch` | Etching mark, appear / disappear | ANIMATION | same 5 Etchings | P1 | code (push/478) | appear `anim_moe_etch_appear_v1.webp` (a white scribe spark cuts the lattice out, the cut flares gold); no disappear (see Custom set) |
 | `moe_recast` | Recast hit: the lattice flashes back, glass blades rise and shatter | ANIMATION (appear) | Recast: Rime `Avu4B2M_9_SE0-Oqqhplw`; Recast: Ember `I5lwaFCaVSH6cpxAPHvFA`; Recast: Seam `54nmWiFXqvFW7u0vSG5zK`; Recast: Heart `-MtfLHClmIwSSGBIw9O7X`; Recast: Hail `lmlhn5p68Oszhj16wKbvx` | P1 | code | `anim_moe_recast_v1.webp` (built now; pairs with tg_etch) |
-| `moe_refraction` | Refraction / Facet breaks (heavy-mark payoff) | ANIMATION (appear) | Refraction Breaks `qjtaZInyr1nZ5lZmSA_SS`; Far Refraction Breaks `OTcP-08or5bUKwcMjc54K`; Facet Breaks `xlmvVot9xaetibexfyc31`; Lucid Refraction `KfXRK6rC3bt4kpdtdJHDb` | P1 | reuse live | Skyglass Blast - Eruption `Z9j8J7ZmAjiaxH2S4nDy8` (dt_heavy) |
-| `moe_shatterfall` | Shatterfall Gives Way | ANIMATION (appear) | Shatterfall Gives Way `cxqu1ljkSisTgPBLgYtJa` | P1 | reuse live | Skyglass Blast - Crystal Shard `TAu9k8ifgteP6HBofoKn7` (dt_shard) |
-| `moe_glassfall` | Glassfall panes (hit, then the next pane is marked) | ANIMATION (appear) | Glassfall: First Pane `kzxTPUJ8TYJFTggSKw3zr`; Glassfall: Second Pane `6IMcG7R_uhfROlANlYmDB`; Glassfall: Last Pane `H0MMi_Stpzk8zm4HqDEbF`; Glassfall: Opening Pane `pp40FDDTbGMdwrDFTNyiF`; Glassfall: Heart Recast `3ytuMbHhF4bcE2zrePnlR` | P1 | reuse live | Crystal Shard `TAu9k8ifgteP6HBofoKn7` (dt_shard) |
+| `moe_refraction` | Refraction / Facet breaks (heavy-mark payoff) | ANIMATION (appear) | Refraction Breaks `qjtaZInyr1nZ5lZmSA_SS`; Far Refraction Breaks `OTcP-08or5bUKwcMjc54K`; Facet Breaks `xlmvVot9xaetibexfyc31`; Lucid Refraction `KfXRK6rC3bt4kpdtdJHDb` | P1 | code (push/478) | `anim_moe_refraction_blast_v1.webp` (was the live Eruption) |
+| `moe_shatterfall` | Shatterfall Gives Way | ANIMATION (appear) | Shatterfall Gives Way `cxqu1ljkSisTgPBLgYtJa` | P1 | code (push/478) | `anim_moe_shatterfall_v1.webp` (was the live Crystal Shard) |
+| `moe_glassfall` | Glassfall panes (hit, then the next pane is marked) | ANIMATION (appear) | Glassfall: First Pane `kzxTPUJ8TYJFTggSKw3zr`; Glassfall: Second Pane `6IMcG7R_uhfROlANlYmDB`; Glassfall: Last Pane `H0MMi_Stpzk8zm4HqDEbF`; Glassfall: Opening Pane `pp40FDDTbGMdwrDFTNyiF`; Glassfall: Heart Recast `3ytuMbHhF4bcE2zrePnlR` | P1 | code (push/478) | `anim_moe_glassfall_v1.webp` (was the live Crystal Shard) |
 | `moe_flood` | The Names Flood In (heavy field payoff) | ANIMATION (appear) | The Names Flood In `4_dlB0conB-C6sfYqiU6Q` | P1 | director + code | `anim_moe_flood_mask_v1.webp`: the director's glass-mask keyframes (ME28b, `art/mother_of_echoes/raw/fx_flood_mask_keys.png`, drawn for the 50 px rendition) animated in `build_fx.py` `build_flood_mask`: rise, hold, eyes-open flash with ember cracks, burst, shards fly. Replaces the live Eruption reuse (2026-11-04) |
 | `moe_stillness` | Nothing Moves (control-mark stun payoff) | ANIMATION (appear) | Nothing Moves `scGyJW-F0Mqga4FXnj4Jf` | P1 | code | `anim_moe_still_dark_v2.webp` (v2: a solid ink ring with a crisp 1 px violet edge closes from the rim; no checker halo), the dust stops in the air |
 | `moe_breathless` | Breathless Pull (control-mark pull + stun payoff) | ANIMATION (appear) | Breathless Pull `83mLMXND-9sAyN5WfmzQo` | P1 | code | `anim_moe_breath_draw_v1.webp` (built now): breath drawn in from the rim and away upward, a violet lock at the feet; plays only on hit hexes, so the three dry tiles (tg_safe) stay clear |
-| `moe_hush_floor` | No One Is Mended floor (healing cut pool) | STATIC tile + ANIMATION | No One Is Mended `BA9V_vlnJZhA0V2tY4Ov_` | P1 | reuse live | Lingering Pool tile `PoG_KDERWlvyj7MsKSDW2` (staticAssetPath), bubbles `qlGYJizxxxdd794Jea6lB` (staticAnimation), appear `bJy2IjRKmAVYEoXUYmXv5`: map as tg_linger |
+| `moe_hush_floor` | No One Is Mended floor (healing cut pool) | STATIC tile + ANIMATION | No One Is Mended `BA9V_vlnJZhA0V2tY4Ov_` | P1 | code (push/478) | as tg_linger (custom set); art carried on `healprevent`, not `decreaseheal` (see Custom set) |
 | `moe_guard_open` | Guard open: the Recast weakness on SAYO (the weakness targets SELF: her guard opens) | ANIMATION (static loop) | Recast: Rime `Avu4B2M_9_SE0-Oqqhplw`; Recast: Ember `I5lwaFCaVSH6cpxAPHvFA`; Recast: Seam `54nmWiFXqvFW7u0vSG5zK`; Recast: Heart `-MtfLHClmIwSSGBIw9O7X`; Recast: Hail `lmlhn5p68Oszhj16wKbvx` | P2 | code | `anim_moe_guard_open_v2.webp` (v2, art QA: a bold cracked ring of etched gold glass round her portrait, plates push out and flare white on the beat; v1's splinters were invisible) |
 | `moe_quiet` | The Quiet hit | ANIMATION (appear) | The Quiet `w6eHg1zFOrP1AhlwtyfZV` | P2 | code | `anim_moe_quiet_v1.webp` |
 | `moe_lancet` | Glass Lancet hit | ANIMATION (appear) | Glass Lancet `0g0Iy9PKsIVC6ggG1Exz2` | P2 | code | `anim_moe_lancet_v2.webp` (v2: thick outlined needle, white impact star held 2 frames) |
-| `moe_enrage` | The Glass Remembers (round-30 enrage hit) | ANIMATION (appear) | The Glass Remembers `G_b5yaxm6GMOuQ3eaofKb` | P2 | reuse live | Eruption `Z9j8J7ZmAjiaxH2S4nDy8` |
+| `moe_enrage` | The Glass Remembers (round-30 enrage hit) | ANIMATION (appear) | The Glass Remembers `G_b5yaxm6GMOuQ3eaofKb` | P2 | code (push/478) | `anim_moe_enrage_v1.webp` (was the live Eruption) |
 | `moe_lucid` | Lucid (Sayo enrage buff aura) | ANIMATION (static loop) | Lucid `IOUn-UrO1gwbi4uJdwYDp` | P2 | code | `anim_moe_lucid_aura_v1.webp` (built now): eight cold skyglass facets circling Sayo alone, white on the beat; keeps her AI-sized portrait clear |
 | `moe_likeness` | Your Likeness summon flourish | ANIMATION (appear) | Your Likeness `foDwd-hL5krmhFHsPtQtc` | P2 | code | `anim_moe_likeness_ring_v2.webp` (v2, art QA: frames the summoned avatar instead of drawing a second figure: a silvered-glass ring closes, cracks and bursts into shards) |
 | `moe_worn` | Raise the Worn summon flourish | ANIMATION (appear) | Raise the Gate Porter `l1TpeIKJyNDzQQkI1Az1K`; Raise Sister Hana `BeOpXT1M_7oRkwYCcXk6Z`; Raise Cadet Tomo `yzI6KIOPzy6P2B0U6Cqyp` | P2 | code | `anim_moe_worn_ash_v2.webp` (v2: grey-brown ash wells up out of the glass round the summon in solid clusters; v1 was invisible on snow) |
@@ -83,6 +83,60 @@ One design, three files. ME01 (Act I) is generated first and locks her face, bui
 | `moe_flood` (upgrade) | The Names Flood In, signature version (faces alight) | ANIMATION (appear) | The Names Flood In `4_dlB0conB-C6sfYqiU6Q` | P3 | director | NOT SHIPPED (art QA 2026-11-04): the ME28 faces did not hold up at the 50 px CDN rendition (the 150 px v1 lost its detail; 50 px rebuilds read as blank tiles and stacked into columns across a field). The flood keeps the reuse-live Eruption |
 
 Already wired and live, no work: `tg_heavy`, `tg_control`, `tg_linger`, `tg_safe` (push/431 tiles and loops, `state/skyglass_fx/asset_ids.json`), and the library hits the spec names by id (`dBatQkc1Ts2ask5ZN-A3p` pierce, `FZNt0vFGXlOZeagmPneqc` shove, `I9aYhT5wMB` heal, `bJy2IjRKmAVYEoXUYmXv5` / `k8J4ic-KEz9ewEq1gAszr` appear/vanish). No scene characters: the quest shows the Blank Scene Character by design.
+
+### Custom set (push/478, director 2026-11-05: "we're borrowing a lot of animations from elsewhere in the event instead of making our own")
+
+Every slot that borrowed a live Skyglass or library strip now has its own, built in `art/mother_of_echoes_fx/build_fx.py`
+(`CUSTOM`). The event's danger grammar is kept (docs/design/SKYGLASS_BOSS_ANIMATIONS.md readability rules: shape carries
+the meaning, colour confirms it), drawn in Sayo's glass: heavy is a ten-sided ring of red-to-yellow ember glass facets
+round a near-black ground with four thin cracks; control is fourteen faceted violet glass links round an ink ground
+with a closed glass eye (the hush); linger is bile welling up through crazed glass; safe is a cut-glass cyan diamond with
+a white four-point star. Payoffs follow anticipation, impact (white frame), follow-through and settle.
+
+| Was (live) | Now | Slots |
+|---|---|---|
+| Skyglass heavy tile + loop + mark appear/vanish | `tile_moe_heavy_v1`, `anim_moe_heavy_glint_v1`, `anim_moe_heavy_appear_v1` | tg_heavy (14 marks, incl. The Silence Turns / The Glass Turns) |
+| Skyglass control tile + loop + appear/vanish | `tile_moe_control_v1`, `anim_moe_control_glint_v1`, `anim_moe_control_appear_v1` | tg_control (Stillness, The Held Breath); the lull visual's appear |
+| Skyglass lingering pool tile + bubbles + appear | `tile_moe_linger_v1`, `anim_moe_linger_glint_v1`, `anim_moe_linger_appear_v1` | tg_linger (the eruption pools), moe_hush_floor |
+| Skyglass safe tile + loop + appear/vanish | `tile_moe_safe_v1`, `anim_moe_safe_glint_v1`, `anim_moe_safe_appear_v1` | tg_safe (Every Name in the Glass, The Held Breath) |
+| mark appear `bJy2IjRKmAVYEoXUYmXv5` on the Etchings | `anim_moe_etch_appear_v1` | tg_etch |
+| Eruption `Z9j8J7ZmAjiaxH2S4nDy8` | `anim_moe_refraction_blast_v1`, `anim_moe_enrage_v1` | moe_refraction, moe_enrage |
+| Crystal Shard `TAu9k8ifgteP6HBofoKn7` | `anim_moe_glassfall_v1`, `anim_moe_shatterfall_v1` | moe_glassfall, moe_shatterfall |
+| library pierce `dBatQkc1Ts2ask5ZN-A3p` | `anim_moe_grasp_v1` (Grasp), `anim_moe_echo_strike_v1` (Your Own Strike, Doorward Sweep, Cadet's Tether) | summon strikes |
+| library shove `FZNt0vFGXlOZeagmPneqc` | `anim_moe_pull_v1` (Breathless Pull, Cadet's Tether), `anim_moe_shove_v1` (Doorward Sweep) | redirection |
+| library heal `I9aYhT5wMB` | `anim_moe_mend_v1` | Worn Mending |
+| mark vanish `k8J4ic-KEz9ewEq1gAszr` | none (dropped) | every ground mark; the lull visual |
+
+Engine rules applied (docs/design/COMBAT_ANIMATION_ENGINE.md at 2e66800b; theninjarpg@3314d122):
+- **No disappear clip on any ground mark** (section 5.3): a ground tag's disappear is re-spawned on whoever stands on it at
+  every effect pass (`process.ts:1667-1684`), so it would pop repeatedly on a player in a mark or on the safe hex. A
+  `visual` never plays its disappear at all, so the lull's vanish was dead wiring.
+- **Art moved off tags that go negative when cast** (section 5.1; `tags.ts` :847/:892/:977/:1062/:1173/:1816; the client
+  hides power <= 0, `combatEffects.ts:183-187`, `:215`). An occupant's `fromGround` copy shares the ground effect's id
+  (`process.ts:398-411`), so pool art on `decreaseheal` vanished under anyone standing in it, and Cradle's loop on
+  `decreasedamagetaken` never rendered. Moved (push/478, 13 jutsu): every eruption pool (Refraction / Far Refraction /
+  Facet Breaks, Lucid Refraction, Shatterfall Gives Way, The Names Flood In, the five Glassfall panes) `decreaseheal ->
+  increasedamagetaken`; No One Is Mended `decreaseheal -> healprevent`; Cradle `decreasedamagetaken -> clearprevent`.
+- Strips stay on the 50 px grid (the CDN `?width=50` rendition, `primitives/animation.ts`), solid 2-3 px clusters, hard
+  alpha, 1 px clear frame margin, 9-15 frames (0.45-0.75 s), well under 80 frames.
+
+What the player sees, slot by slot (categories from COMBAT_ANIMATION_ENGINE.md section 1.3):
+
+| Slot (carrier) | Visible? | When | Times drawn |
+|---|---|---|---|
+| tg_heavy / tg_control / tg_safe / tg_etch marks (`increaseregeneration`, ground, rounds 1) | yes: tile under fighters + loop + appear | cast in round N, on screen for the rest of N and all of N+1, still showing after its eruption in N+1 | appear 2x (client + server visual), 3x on an occupied hex in the cast round; loop and tile 1x |
+| tg_linger eruption pools (`increasedamagetaken`, ground, rounds 1) | yes, also under an occupant | with the eruption, for the rest of that round and the next | appear 2x empty / 3x occupied |
+| moe_hush_floor (No One Is Mended, `healprevent`, ground) | yes | for its rounds | appear 2x / 3x |
+| moe_refraction, moe_glassfall, moe_shatterfall, moe_flood, moe_enrage (instant ground `pierce` / `damage`) | yes, as the server visual | the snapshot of the cast | 1x on an empty hex, 2x on an occupied one |
+| Grasp, echo strike (character `pierce`, rounds 0) | yes, server visual at the target | the snapshot of the cast | 1x |
+| pull / shove (`redirection`) | yes | the snapshot of the cast, at the target's OLD hex (the fighter walks, the clip does not follow) | 1x |
+| mend (`heal`, rounds 0) | yes | the snapshot of the cast | 1x |
+| Cradle loop (`clearprevent` on Sayo, rounds 1) | yes (was never visible) | while the feeler holds her | loop 1x |
+| the lull visual's appear | yes | the snapshot of the cast | 1x |
+
+Not used: a per-effect COORDINATES mosaic (section 4.2) for the payoffs. It would mean splitting each eruption's pierce
+into several COORDINATES tags on the tuning records (owned by the pass-6 spec); the per-hex payoffs already read as one
+collapse across a field at battle size (review renders in the push/478 report).
 
 ## Jutsu icons: six families for 53 jutsu
 
