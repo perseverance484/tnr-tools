@@ -20,8 +20,8 @@ The shipped build (light-only, no spill; RUL-2026-11-06-128 and the director's p
 - the seal (ground appear, all 60 hexes, x2, hard alpha): the final pulse, every band at its own width ramping 27-32
   (white-hot on 29), off the fighter column and meter rows.
 
-Exports (exports/): tile_sbk_domain_v4.webp (STATIC 128 px, palette, about 10 KB), anim_sbk_wave_b{k}_v1.webp (k = 0..6, 36 x 50 ms,
-150 px frames), anim_sbk_seal_v1.webp (36 x 50 ms), subaku_domain_v1.json (the band offsets).
+Exports (exports/): tile_sbk_domain_v4.webp (STATIC 128 px, palette, about 10 KB), anim_sbk_wave_b{k}_v2.webp (k = 0..6, 36 x 50 ms,
+150 px frames), anim_sbk_seal_v2.webp (36 x 50 ms), subaku_domain_v1.json (the band offsets).
 """
 import json
 import math
@@ -327,15 +327,15 @@ def main_light():
             'assets': {}, 'groups': []}
     G2 = groups()
     for k, (land, offs) in enumerate(G2):
-        name = f'anim_sbk_wave_b{k}_v1.webp'
+        name = f'anim_sbk_wave_b{k}_v2.webp'
         ext = EXT['rim'] if k >= 5 else EXT['b']
         strip([light_frame(L, t, land, ext) for t in range(NF)]).save(os.path.join(OUT, name), lossless=True, method=6)
         meta['assets'][name] = {'type': 'ANIMATION', 'frames': NF, 'speed': SPEED, 'reach_norm': 1 + ext}
         meta['groups'].append({'asset': name, 'lands_tick': land,
                                'offsets': [{'longitude': c, 'latitude': r} for c, r in offs]})
-    strip([light_seal(L, t) for t in range(NF)]).save(os.path.join(OUT, 'anim_sbk_seal_v1.webp'), lossless=True,
+    strip([light_seal(L, t) for t in range(NF)]).save(os.path.join(OUT, 'anim_sbk_seal_v2.webp'), lossless=True,
                                                       method=6)
-    meta['assets']['anim_sbk_seal_v1.webp'] = {'type': 'ANIMATION', 'frames': NF, 'speed': SPEED}
+    meta['assets']['anim_sbk_seal_v2.webp'] = {'type': 'ANIMATION', 'frames': NF, 'speed': SPEED}
     meta['assets'][TILE_NAME] = {'type': 'STATIC', 'use': 'ground tag staticAssetPath (3 rounds)'}
     for n in meta['assets']:
         meta['assets'][n]['bytes'] = os.path.getsize(os.path.join(OUT, n))

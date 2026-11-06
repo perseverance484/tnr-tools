@@ -63,7 +63,7 @@ for _, land, cs in BANDS:
         d = dist(c, CASTER); true_land = int(4 + 3 * d + 0.5)
         ringerr.append((c, d, land, land - true_land))
 TILE = Q.tile(A + 'exports/tile_sbk_domain_v4.webp')
-SEAL = Q.clip(A + 'exports/anim_sbk_seal_v1.webp')
+SEAL = Q.clip(A + 'exports/anim_sbk_seal_v2.webp')
 GATES = Q.clip(A + 'gates/exports/anim_sbk_gates_rise_v6.webp')
 WAVE = {a: Q.clip(A + 'exports/' + a) for a, _, _ in BANDS}
 # fighters: caster LPC; enemies LPC at ring1 above/below, ring 2, ring 4; AI originals at ring 1/3
