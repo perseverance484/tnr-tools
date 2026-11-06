@@ -201,6 +201,12 @@ def sample(x, y):
     c = [v * k for v in col]
     glow = tuple(sorted((i1, i2))) in GLOWING
     taper = max(0.0, min(1.0, corner / 0.16)) if glow else 0.0
+    if MODE == 'stone':
+        # the cover: the same joints, thinner and darker, and none where a rail will lie (in the tile the rails hide
+        # them, so the bare-stone cover would otherwise show embers the finished floor does not)
+        if any(abs(s) <= 1.35 for s, _, _ in features(x, y)):
+            taper = 0.0
+        taper *= 0.55
     crack = 0
     if e < 0.026:
         c = list(MORTAR)

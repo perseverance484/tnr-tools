@@ -22,16 +22,19 @@ Build target (director, 2026-11-05): 2.5-hex-height clips and LPC character avat
    the jagged hex edges. At the caster's feet the burning-gold sigil kindles and spirals out (centre strip).
 2. **The bloom (7-30).** The gold blooms outward from the caster as one wave:
    - ring 1 ignites on tick 7, and the next half-ring band every 2 ticks (ring 4 on 19);
-   - in each hex a white-hot head runs out along the rails from the centre to the edges over 8 ticks, with a stepped
-     burning trail and the red cracks flaring a tick behind it;
-   - each ring ignites when the previous ring's head is halfway out, so the blooms overlap into one continuous front;
+   - in each hex the light runs out along the rails from the centre to the edge midpoints in 4 ticks: a bright node
+     filling the rail at the head, a 2-tick burning trail on the rail face (decaying as shortening runs, nothing
+     smaller than 2 x 2 px), and the red cracks flaring a tick behind it;
+   - each ring's rails reach the next ring's as it ignites, so the light runs on as one outward front;
    - where the head has passed, the cover is gone: the real tile (and any fighter or meter row) shows, with only the
      lit rails drawn over it, and the trail fades out;
-   - the last head reaches the rim on tick 27.
+   - the last head reaches the rim on tick 23; the last band clip ends on 25.
 3. **The gates (7-19).** Red sandstone oni gates tear out of the ground on ring 1, and the palace with its moon gate
    rises behind the caster (centre strip, gates v6).
-4. **The held beat (28-30).** The rim has formed. Every rail face in the domain burns solid at once, the channels
-   white-hot on tick 29 (the seal, the ground appear), and the palace's held beat lands on 29-30.
+4. **The final pulse (27-32).** The rim has formed. The domain's rails light at their own width, ramping
+   40 / 75 / 100 / 70 / 40 / 15 %, white-hot on tick 29 (the seal, the ground appear), and the palace's held beat
+   lands on 29-30. The pulse stays off the fighter standing areas and meter rows: on its ticks no enemy body is more
+   than 10 % covered, and no meter row more than 4 %.
 5. **The settle (31-43).** The gates sink; nothing on the floor animates after tick 30.
 6. **The 3 rounds.** A static floor in the director's reference style (refs a-d). Dark basalt flagstones with a
    fine grain and their own tones, faint red light in the mortar, and whole joints glowing ember that taper out at the
@@ -51,11 +54,16 @@ recessed groove (`#46280a`) between them. The cast's burning current (`#ffcf4a` 
 it carries no loop. **The cover has no fighter keep-out** (director, 2026-11-05: "I don't care if the animation covers
 the fighter for a moment"). A fighter in the domain is hidden by its hex's stone (and, above the hex top, by the
 next hex's) from tick 0 until the bloom reaches it. Nothing lingers: the cover opens where the head passes, and only
-the lit rails remain for the 3-tick trail. Measured with the independent reviewer's renderer (`qa_render.py`, actual
+the lit rails remain for the 2-tick trail. Measured with the independent reviewer's renderer (`qa_render.py`, actual
 sprite and meter alpha), on both column parities with identical numbers:
-- frames with an enemy's body more than 25 % covered: ring 1 16-19 (0.8-0.95 s), ring 2 21 (LPC), AI originals on rings 2-3 24-26, and
-  ring 4 29 (1.45 s, the maximum: its head stands in the outer neighbour, whose bloom passes last);
-- meter rows follow the same pass, 19-28 frames.
+- frames with an enemy's body more than 25 % covered: ring 1 11-14 (0.55-0.7 s), ring 2 16 (LPC), AI originals on
+  rings 2-3 19-21, and ring 4 24 (1.2 s, the maximum: its head stands in the outer neighbour, whose bloom passes
+  last);
+- meter rows follow the same pass, 15-24 frames;
+- the caster: the ring-1 cover is notched at its bottom centre (+-0.18 h up to 0.45 h, and the meter rows
+  +-0.52 h at 0.22-0.6 h), so the caster's head and meters stay clear during the anticipation. Body at most 17 %;
+- frame to frame, the largest whole-arena change is 3.5 (mean absolute, 0-255; QA r3 measured 23.6 and 26.2 on
+  the old seal).
 The centre strip's
 sigil ring (ticks 4-23) crosses the lower neighbour's meter rows, up to 16 % of them (QA r3: a real ground ring,
 hidden only behind the legs); its gates, palace and shards never do. The caster's own
@@ -85,10 +93,12 @@ only on hover or selection. That holds for other viewers only: the casting playe
   band hex starts as its own floor with no gold, and the gold blooms outward and uncovers the real tile as it passes.
 - **The hand-off is exact by construction.** Behind the trail the clip is transparent, so what shows is the tile
   itself. The cover's stone is built from the tile's own on-screen render (the floor without gold), exactly centred.
-  At tick 0 the cover hides 98.6 % of the gold pixels; the rest show at the jagged hex edges of the 50 px clip.
+  The cover grows 1 px wherever the tile's gold crosses the hex border, so no gold flecks show at the edge midpoints.
+  At tick 0 it hides 98.4 % of the gold pixels (measured on a non-notched band hex); the ring-1 notch shows a little
+  more on those 4 hexes. The cover's embers are thinner and darker than the tile's, with none where a rail will lie.
   (`exports/subaku_domain_v1.json`, `handoff_check`.)
 - **Direction inside a hex.** All hexes in one tag show identical pixels, so a strip cannot know which edge its
-  current enters by. Each hex blooms from its own centre. The ring timing (4 ticks a ring, 8 ticks a bloom) chains
+  current enters by. Each hex blooms from its own centre. The ring timing (4 ticks a ring, 4 ticks centre to edge) chains
   them into one outward front. A current entering from the caster's side would need ring x direction groups, about
   40 tags against the 7 allowed.
 - **Load order (QA B4).** Each record's clip starts when its own images are ready. Every band strip is
@@ -96,8 +106,8 @@ only on hover or selection. That holds for other viewers only: the casting playe
   - **Tile late, clips on time:** the cover is opaque stone, so a late tile is hidden while the hex is still covered.
     Only a hex whose bloom has already passed would show bare board until the tile arrives.
   - **Clips late, tile on time** (simulated with the reviewer's renderer, every band strip 4 ticks late): the finished
-    floor shows for those 4 ticks, then the stone cover pops on (a whole-frame mean change of 6.6) and the bloom
-    plays in full, 4 ticks late. If only some strips are late, only their rings flash the finished floor first.
+    floor shows for those 4 ticks, then the stone cover pops on (a whole-frame mean change of 6.6, re-measured
+    on this build) and the bloom plays in full, 4 ticks late. If only some strips are late, only their rings flash the finished floor first.
   - Sizes: the floor tile is 128 px (the spec minimum), about 15 KB. The band strips are about 3 KB each. Size alone
     does not set the load order, so neither case can be ruled out.
 - **A unique painted swirl across the domain is not possible.** Every hex in one tag shows identical pixels.
@@ -114,7 +124,8 @@ only on hover or selection. That holds for other viewers only: the casting playe
 - On both parities, 40 of the 56 band hexes ignite exactly on their ring; the other 16 within 100 ms.
 - 4 rim hexes per parity are in the domain on one parity only, so they carry no band tag. They are the top four rim
   hexes on an even column and the bottom four on an odd one.
-- **Accepted:** these hexes show the finished tile from tick 0, with the final pulse on 28-30. A neighbour's clip cannot
+- **Pending the director's ruling** (QA is asking him): these hexes show the finished tile from tick 0, with the final
+  pulse on 27-32. A neighbour's clip cannot
   extend to cover them, because the same strip would then also paint past the rim onto the bare board on every
   other side.
 
