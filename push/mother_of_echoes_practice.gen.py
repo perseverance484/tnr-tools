@@ -30,10 +30,10 @@ DESC = ("Test fight for The Mother of Echoes. The same three battles against the
         "fight.")
 
 
-def practice_data(b, ids, econ, scenes=None):
+def practice_data(b, ids, econ, scenes=None, chars=None):
     """The practice quest record: the real quest_data (scenes: 466 asset ids, or None for the placeholder chamber)
     with no entry items, practice wording, the real rewards, hidden. Used for the 469 create and later edits."""
-    d = moe.quest_data(b, ids, econ, scenes)
+    d = moe.quest_data(b, ids, econ, scenes, chars)
     d.update({"name": NAME, "description": DESC, "hidden": True})
     c = d["content"]
     c["entryItems"] = []  # no shards: the director's tester enters freely; the real rewards stay (hidden quest)

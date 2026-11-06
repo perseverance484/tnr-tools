@@ -118,15 +118,15 @@ SCENES = {  # key -> (file, name, quest nodes). "content" is the quest-level sce
                    ("d_act3", "b_act3", "w_clear")),
 }
 ERUPTION, CRYSTAL_SHARD = "Z9j8J7ZmAjiaxH2S4nDy8", "TAu9k8ifgteP6HBofoKn7"  # live Skyglass Blast strips (reuse live)
-# Custom set (push/478, director 2026-11-05: no borrowed animations). Every slot that borrowed a live Skyglass or
-# library strip gets a Mother of Echoes strip keeping the event's danger grammar (art/mother_of_echoes_fx/build_fx.py
-# CUSTOM; docs/design/MOTHER_OF_ECHOES_ART.md). Asset key -> (file, display name); srcId AID2 + key.
+# Custom set (push/478, director 2026-11-05: no borrowed animations; art3 brief, same day: "a high end boss fight ...
+# pull out all the stops"). Every slot that borrowed a live Skyglass or library strip gets a Mother of Echoes strip
+# keeping the event's danger grammar, and the material follows the story: Act I Heartglass (crystal, framed facets),
+# Act II the turn (the Remainder's black cracks and smoke creeping into the Heartglass), Act III the Remainder (thorned
+# dark shards, teal-cyan vein light). docs/design/MOTHER_OF_ECHOES_ART.md. Asset key -> (file, display name); srcId
+# AID2 + key. FX2: art/mother_of_echoes_fx/build_fx.py CUSTOM (moe_fx_v1.json); FX3: build_fx_a3.py (moe_fx_a3.json).
 AID2 = "sg478_"
+PRACTICE_QUEST = "YDmKO6fp2vBRnTf7fHWQZ"  # push/469 run: harvests/inbox/tnr_results_1793840873454.json (VERIFIED)
 FX2 = {
-    "heavy_tile": ("tile_moe_heavy_v1.webp", "Mother of Echoes FX - Heavy mark"),
-    "heavy_glint": ("anim_moe_heavy_glint_v1.webp", "Mother of Echoes FX - Heavy mark loop"),
-    "heavy_appear": ("anim_moe_heavy_appear_v1.webp", "Mother of Echoes FX - Heavy mark arrives"),
-    "control_tile": ("tile_moe_control_v1.webp", "Mother of Echoes FX - Hush lock mark"),
     "control_glint": ("anim_moe_control_glint_v1.webp", "Mother of Echoes FX - Hush lock loop"),
     "control_appear": ("anim_moe_control_appear_v1.webp", "Mother of Echoes FX - Hush lock arrives"),
     "linger_tile": ("tile_moe_linger_v1.webp", "Mother of Echoes FX - Seeping pool"),
@@ -136,31 +136,109 @@ FX2 = {
     "safe_glint": ("anim_moe_safe_glint_v1.webp", "Mother of Echoes FX - Safe pane loop"),
     "safe_appear": ("anim_moe_safe_appear_v1.webp", "Mother of Echoes FX - Safe pane arrives"),
     "etch_appear": ("anim_moe_etch_appear_v1.webp", "Mother of Echoes FX - Etching cut"),
-    "refraction": ("anim_moe_refraction_blast_v1.webp", "Mother of Echoes FX - Refraction Breaks"),
-    "glassfall": ("anim_moe_glassfall_v1.webp", "Mother of Echoes FX - Glassfall"),
-    "shatterfall": ("anim_moe_shatterfall_v1.webp", "Mother of Echoes FX - Shatterfall Gives Way"),
-    "enrage": ("anim_moe_enrage_v1.webp", "Mother of Echoes FX - The Glass Remembers"),
     "grasp": ("anim_moe_grasp_v1.webp", "Mother of Echoes FX - Grasp"),
     "echo_strike": ("anim_moe_echo_strike_v1.webp", "Mother of Echoes FX - Echo strike"),
     "pull": ("anim_moe_pull_v1.webp", "Mother of Echoes FX - Pull"),
     "shove": ("anim_moe_shove_v1.webp", "Mother of Echoes FX - Shove"),
     "mend": ("anim_moe_mend_v1.webp", "Mother of Echoes FX - Worn Mending"),
 }
-TG2 = {  # telegraph name -> FX2 key per field. No disappearAnimation on any ground mark: a ground tag's
+FX3_META = "art/mother_of_echoes_fx/exports/moe_fx_a3.json"
+ROMAN = {"i": "I", "ii": "II", "iii": "III"}
+FX3 = {
+    **{f"heavy_tile_{a}": (f"tile_moe_heavy_{a}_a3.webp", f"Mother of Echoes FX - Heavy mark (Act {r})")
+       for a, r in ROMAN.items()},
+    **{f"heavy_glint_{a}": (f"anim_moe_heavy_glint_{a}_a3.webp", f"Mother of Echoes FX - Heavy mark loop (Act {r})")
+       for a, r in ROMAN.items()},
+    **{f"heavy_appear_{a}": (f"anim_moe_heavy_appear_{a}_a3.webp", f"Mother of Echoes FX - Heavy mark arrives (Act {r})")
+       for a, r in ROMAN.items()},
+    "control_dark": ("tile_moe_control_dark_a3.webp", "Mother of Echoes FX - Hush lock mark (the Silence)"),
+    "linger_dark": ("tile_moe_linger_dark_a3.webp", "Mother of Echoes FX - Seeping pool (the Remainder)"),
+    "refraction": ("anim_moe_refraction_a3.webp", "Mother of Echoes FX - Refraction Breaks (Heartglass)"),
+    "recast": ("anim_moe_recast_a3.webp", "Mother of Echoes FX - Recast (the turn)"),
+    **{f"enrage_w{k}": (f"anim_moe_enrage_w{k}_a3.webp", f"Mother of Echoes FX - The Glass Remembers, wave {k + 1}")
+       for k in range(4)},
+    **{f"shatterfall_w{k}": (f"anim_moe_shatterfall_w{k}_a3.webp", f"Mother of Echoes FX - Shatterfall, wave {k + 1}")
+       for k in range(5)},
+    **{f"glassfall_w{k}": (f"anim_moe_glassfall_w{k}_a3.webp", f"Mother of Echoes FX - Glassfall, wave {k + 1}")
+       for k in range(3)},
+    **{f"flood_w{k}": (f"anim_moe_flood_w{k}_a3.webp", f"Mother of Echoes FX - The Names Flood In, wave {k + 1}")
+       for k in range(4)},
+    **{f"rise_{k}": (f"anim_moe_rise_{k}_a3.webp", f"Mother of Echoes FX - {n} rises") for k, n in
+       (("feeler", "A feeler"), ("likeness", "Your likeness"), ("worn", "The Worn"))},
+    **{f"aura_{k}": (f"anim_moe_aura_{k}_a3.webp", f"Mother of Echoes FX - {n} aura") for k, n in
+       (("sayo1", "Sayo"), ("silence", "The Silence"), ("sayo2", "The Glasswright"), ("saint", "The Saint"))},
+    **{f"flourish_{k}": (f"anim_moe_flourish_{k}_a3.webp", f"Mother of Echoes FX - {n} rises to fight") for k, n in
+       (("sayo1", "Sayo"), ("silence", "The Silence"), ("sayo2", "The Glasswright"), ("saint", "The Saint"))},
+}
+# Drawn for the per-boss act buffs the sim designs (director 2026-11-05: a real thematic positive-power buff per boss,
+# not a 1-power carrier). Created and unhidden with the set; wired when the buff tags land (coordinated via main).
+FX3_UNWIRED = {k for k in FX3 if k.startswith(("aura_", "flourish_"))}
+# Dialog portraits (director 2026-11-05): SCENE_CHARACTER 2:3 crops of the approved avatars, Sayo only. Act I Sayo in
+# the three opening scenes (not the Silence), her act forms for the interludes. key -> (file, name, dialog nodes).
+SCENE_CHARS = {
+    "sc_sayo": ("scene_moe_sayo_a3.webp", "Mother of Echoes Scene Character - Sayo",
+                ("d_intro1", "d_intro2", "d_open")),
+    "sc_stilling": ("scene_moe_sayo_stilling_a3.webp", "Mother of Echoes Scene Character - Sayo, Glasswright",
+                    ("d_act2",)),
+    "sc_saint": ("scene_moe_saint_a3.webp", "Mother of Echoes Scene Character - Sayo, Saint of Stillness",
+                 ("d_act3",)),
+}
+# Which act's material a boss (or its summon) fights in. The Silence is the Remainder's own material.
+BOSS_ACT = {"Sayo, Mother of Echoes": "i", "Your Likeness": "i", "Sayo, Glasswright of the Stilling": "ii",
+            "The Gate Porter (Worn)": "ii", "Sister Hana (Worn)": "ii", "Cadet Tomo (Worn)": "ii",
+            "The Silence": "iii", "A Feeler of the Deep": "iii", "Sayo, Saint of Stillness": "iii"}
+TG3 = {  # telegraph name -> per-field key (FX2 or FX3) by act. No disappearAnimation on any ground mark: a ground tag's
     # disappear clip is re-spawned on whoever stands on it at every effect pass (process.ts:1667-1684,
     # docs/design/COMBAT_ANIMATION_ENGINE.md section 5.3), so a vanish would pop repeatedly on a player in a mark or on
     # the safe hex. The mark simply goes when it expires.
-    "tg_heavy": {"staticAssetPath": "heavy_tile", "staticAnimation": "heavy_glint", "appearAnimation": "heavy_appear",
-                 "disappearAnimation": None},
-    "tg_control": {"staticAssetPath": "control_tile", "staticAnimation": "control_glint",
-                   "appearAnimation": "control_appear", "disappearAnimation": None},
-    "tg_safe": {"staticAssetPath": "safe_tile", "staticAnimation": "safe_glint", "appearAnimation": "safe_appear",
-                "disappearAnimation": None},
-    "tg_linger": {"staticAssetPath": "linger_tile", "staticAnimation": "linger_glint",
-                  "appearAnimation": "linger_appear", "disappearAnimation": None},
+    "tg_heavy": lambda act: {"staticAssetPath": f"heavy_tile_{act}", "staticAnimation": f"heavy_glint_{act}",
+                             "appearAnimation": f"heavy_appear_{act}", "disappearAnimation": None},
+    "tg_control": lambda act: {"staticAssetPath": "control_dark", "staticAnimation": "control_glint",
+                               "appearAnimation": "control_appear", "disappearAnimation": None},
+    "tg_safe": lambda act: {"staticAssetPath": "safe_tile", "staticAnimation": "safe_glint",
+                            "appearAnimation": "safe_appear", "disappearAnimation": None},
+    "tg_linger": lambda act: {"staticAssetPath": "linger_dark" if act == "iii" else "linger_tile",
+                              "staticAnimation": "linger_glint", "appearAnimation": "linger_appear",
+                              "disappearAnimation": None},
 }
-SLOT2 = {"moe_refraction": "refraction", "moe_enrage": "enrage", "moe_shatterfall": "shatterfall",
-         "moe_glassfall": "glassfall"}
+SLOT3 = {"moe_refraction": "refraction", "moe_recast": "recast", "moe_feeler": "rise_feeler",
+         "moe_likeness": "rise_likeness", "moe_worn": "rise_worn"}
+# Mosaics (director 2026-11-05, approved): the signature payoffs play as a wave. The hit's own appear is blanked and one
+# zero-impact visual tag per band (target COORDINATES, the cast's own origin, a subset of its tiles) carries a strip
+# whose frames are led by band * WAVE_LEAD blank frames. A visual tag is stamped only on its own tiles
+# (actions.ts:1063-1071, util.ts getActionAffectedTiles), has no server duplicate (process.ts:432), no occupant copy
+# (process.ts:399), no gameplay handler, and power 2 is never hidden (combatEffects.ts:183-187).
+MOSAIC = {  # art slot -> (FX3 key prefix, band count, band(longitude, latitude))
+    "moe_enrage": ("enrage_w", 4, lambda lon, lat: lon // 3),  # 12 columns, swept in 4 bands
+    "moe_flood": ("flood_w", 4, lambda lon, lat: min(3, int(4 * max(abs(lon - 5.5) / 6, abs(lat - 4.5) / 5)))),
+    "moe_shatterfall": ("shatterfall_w", 5, lambda lon, lat: abs(lon) - 1),  # CASTER cone, near rank first
+    "moe_glassfall": ("glassfall_w", 3, lambda lon, lat: lon // 4),
+}
+# Recasts are not mosaicked: they are CHARACTER casts (a hit lands only on an occupied etched hex), so a band of visual
+# tags over the etching would draw a payoff where no one is hit and change a no-target cast into a landed one.
+# Sound (director 2026-11-05): existing in-game SFX only, one per cast. The client plays appearSfx once per NEW effect
+# record (combatEffects.ts:35-41, :106), so a sound on a 100-tile tag plays 100 times. Single-target and CHARACTER casts
+# carry it on their art-bearing hit (one record per target); ground casts on a one-tile visual at the caster.
+SFX = {"lightning": "eJCEtS5_P_pW_VPc6ttRh", "sword_clash": "PFY2oXpwIpNwUOx327WCm", "earth": "XBlRonNjvwAZx1_HFpHdM",
+       "sword": "muq1tu3xvolOsUHm-NqBr", "wind": "oDdj-mBmiWTswFi_NkOqc", "smoke": "16vlpusdcPY8Ki3zE4qOs",
+       "punch": "874ccOJkc8HPAzQgmzgQ8", "heal": "4iG_WpgEmPGUzHn8z129r"}
+SFX_BY_NAME = [  # (name or prefix, sound): first match wins
+    ("Refraction Breaks", "lightning"), ("Far Refraction Breaks", "lightning"), ("Facet Breaks", "lightning"),
+    ("Lucid Refraction", "lightning"), ("Lucid", "lightning"), ("Recast:", "sword_clash"),
+    ("Glassfall:", "earth"), ("Shatterfall Gives Way", "earth"), ("The Glass Remembers", "earth"),
+    ("The Names Flood In", "earth"), ("Glass Lancet", "sword"), ("Breathless Pull", "wind"),
+    ("Refraction", "wind"), ("Far Refraction", "wind"), ("Facet", "wind"), ("Etching:", "wind"),
+    ("Shatterfall", "wind"), ("Every Name in the Glass", "wind"), ("The Held Breath", "wind"), ("Stillness", "wind"),
+    ("The Long Hush", "wind"), ("The Silence Turns", "wind"), ("The Glass Turns", "wind"),
+    ("The Hush", "smoke"), ("Hush Where They Refused", "smoke"), ("No One Is Mended", "smoke"),
+    ("Nothing Moves", "smoke"), ("The Quiet", "smoke"), ("The Glass Falls Quiet", "smoke"), ("Cradle", "smoke"),
+    ("The Listening", "smoke"), ("Your Likeness", "smoke"), ("Raise ", "smoke"),
+    ("Grasp", "punch"), ("Doorward Sweep", "punch"), ("Cadet's Tether", "punch"), ("Your Own Strike", "punch"),
+    ("Worn Mending", "heal"),
+]
+VISUAL = {"staticAssetPath": "", "staticAnimation": "", "appearAnimation": "", "disappearAnimation": "",
+          "appearSfx": "", "disappearSfx": "", "rounds": 1, "power": 2, "powerPerLevel": 0, "direction": "offence",
+          "target": "COORDINATES", "calculation": "static", "type": "visual"}
 # Library strips the spec names by literal id -> FX2 key, by (id, effect type, detail).
 LIB2 = {("dBatQkc1Ts2ask5ZN-A3p", "pierce"): lambda name, e: "grasp" if name == "Grasp" else "echo_strike",
         ("FZNt0vFGXlOZeagmPneqc", "redirection"): lambda name, e: "shove" if e.get("direction") == "push" else "pull",
@@ -320,6 +398,11 @@ class Build:
             if set(AVATARS) != set(self.ais):
                 die(f"avatar table vs spec AIs: {sorted(set(AVATARS) ^ set(self.ais))}")
         self.bosses = [a["id"] for a in spec["ais"] if not a["summonTemplate"]]
+        self.holders = {}  # jutsu name -> the AI usernames holding it
+        for a in spec["ais"]:
+            for j in a["create"]["jutsus"]:
+                if j in self.jname:
+                    self.holders.setdefault(self.jname[j], set()).add(a["username"])
 
     # ---- jutsu -----------------------------------------------------------------------------------------------
     def art(self, label, eff):
@@ -368,8 +451,16 @@ class Build:
                 die(f"{label}: art name {v!r} in {f} has no mapping in the art pass")
         return e
 
+    def act_of(self, label):
+        """The act material a jutsu fights in: every AI holding it must share one act (BOSS_ACT)."""
+        acts = {BOSS_ACT.get(u, "?") for u in self.holders.get(label, ())}
+        if len(acts) != 1 or "?" in acts:
+            die(f"{label}: held by {sorted(self.holders.get(label, ()))}; no single act material (BOSS_ACT)")
+        return acts.pop()
+
     def art_custom(self, label, eff):
-        """push/478: as art_final, but every borrowed live strip resolves to the custom set (FX2)."""
+        """push/478: as art_final, but every borrowed live strip resolves to the custom set (FX2, FX3 by act). A
+        MOSAIC slot is blanked here; jutsu_data adds its band visuals."""
         e = dict(eff)
         etch = {"staticAssetPath": self.fx["etch_tile"], "staticAnimation": self.fx["etch_glint"],
                 "appearAnimation": self.fx2["etch_appear"], "disappearAnimation": ""}
@@ -378,11 +469,13 @@ class Build:
             tg = "tg_linger" if v == "moe_hush_floor" else v
             if v == "tg_etch":
                 e[f] = etch[f]
-            elif tg in TG2:
-                k = TG2[tg][f]
+            elif tg in TG3:
+                k = TG3[tg](self.act_of(label))[f]
                 e[f] = self.fx2[k] if k else ""
-            elif v in SLOT2:
-                e[f] = self.fx2[SLOT2[v]]
+            elif v in MOSAIC:
+                e[f] = ""
+            elif v in SLOT3:
+                e[f] = self.fx2[SLOT3[v]]
             elif v in SLOT_FX:
                 e[f] = self.fx[SLOT_FX[v]]
             elif (v, e["type"]) in LIB2:
@@ -400,6 +493,32 @@ class Build:
                 die(f"{label}: unknown art {v!r} in {f}")
         return e
 
+    def mosaic(self, label, rec):
+        """The band visuals for a MOSAIC slot: one visual tag per band, the cast's own origin, its tiles split by band."""
+        slots = [e.get("appearAnimation") for e in rec["effects"] if e.get("appearAnimation") in MOSAIC]
+        if not slots:
+            return []
+        if len(slots) != 1 or rec.get("method") != "COORDINATES" or rec.get("target") != "GROUND":
+            die(f"{label}: a mosaic needs one {sorted(MOSAIC)} slot on a GROUND COORDINATES cast")
+        prefix, n, band = MOSAIC[slots[0]]
+        ct = rec["coordinateTargeting"]
+        if ct["selection"] != "ALL":
+            die(f"{label}: a mosaic splits an ALL pattern, got {ct['selection']}")
+        bands = [[] for _ in range(n)]
+        for c in ct["coordinates"]:
+            k = band(c["longitude"], c["latitude"])
+            if not 0 <= k < n:
+                die(f"{label}: tile {c} falls outside the {n} bands")
+            bands[k].append({"longitude": c["longitude"], "latitude": c["latitude"]})
+        out = []
+        for k, coords in enumerate(bands):
+            if not coords:
+                continue
+            out.append({**VISUAL, "appearAnimation": self.fx2[f"{prefix}{k}"],
+                        "coordinateTargeting": {"origin": ct["origin"], "selection": "ALL", "coordinates": coords},
+                        "description": f"{label}: wave {k + 1} of {n} (art only)"})
+        return out
+
     def jutsu_data(self, jid, ids=None):
         rec = self.jutsu[jid]["record"]
         name = self.jname[jid]
@@ -413,6 +532,8 @@ class Build:
             d["image"] = PLACEHOLDER
             self.notes.append(f"jutsu {sid(jid)}: {name} (engine default image)")
         d["effects"] = [self.art(name, e) for e in rec["effects"]]
+        if self.fx2 is not None:
+            d["effects"] += self.mosaic(name, rec)
         if self.fx is not None and any(e.get("staticAnimation") == "moe_lull" for e in rec["effects"]):
             src = [e["type"] for e in rec["effects"] if e.get("staticAnimation") == "moe_lull"]
             dst = [i for i, e in enumerate(d["effects"]) if e["type"] == LULL_MOVE[1]]
@@ -529,8 +650,9 @@ INTRO = [
 ]
 
 
-def quest_data(b, ids, econ, scenes=None):
-    """scenes: SCENES key -> 466 asset id (the publish); None keeps the CORE_CHAMBER placeholder (464)."""
+def quest_data(b, ids, econ, scenes=None, chars=None):
+    """scenes: SCENES key -> 466 asset id (the publish); None keeps the CORE_CHAMBER placeholder (464). chars:
+    SCENE_CHARS key -> 478 asset id (the dialog portraits); None keeps every node's sceneCharacters empty."""
     q = b.spec["quest"]
     obj = {o["n"]: o for o in q["objectives"]}
     sc = {"sceneBackground": CORE_CHAMBER, "sceneCharacters": []}
@@ -568,6 +690,14 @@ def quest_data(b, ids, econ, scenes=None):
         for o in objs:
             o["sceneBackground"] = node[o["id"]]
         content_bg = node["content"]
+    if chars is not None:
+        node = {n: chars[k] for k, (_, _, nodes) in SCENE_CHARS.items() for n in nodes}
+        got = {o["id"] for o in objs if o["task"] == "dialog"}
+        if set(node) - got:
+            die(f"scene-character nodes not in the quest's dialogs: {sorted(set(node) - got)}")
+        for o in objs:
+            if o["id"] in node:
+                o["sceneCharacters"] = [node[o["id"]]]
     return {"name": Q_NAME, "description": Q_DESC, "successDescription": Q_SUCCESS,
             "image": PLACEHOLDER if scenes is None else "@img:" + os.path.basename(QUEST_ICON),
             "questType": "battlepyramid", "questRank": "S", "hidden": True,
@@ -638,8 +768,8 @@ def write(step, note, items, notes=None, extra=None):
 def fx_meta():
     meta = {os.path.basename(a["file"]): a for a in json.load(open(os.path.join(ROOT, FX_META)))["assets"]}
     files = {f for f, _ in FX.values()} | {f for f, _ in FX2.values()}
-    if files != set(meta):
-        die(f"FX table vs {FX_META}: {sorted(files ^ set(meta))}")
+    if files - set(meta):  # moe_fx_v1.json also lists the first custom heavy and payoff strips the art3 set retired
+        die(f"FX table vs {FX_META}: {sorted(files - set(meta))}")
     return meta
 
 
@@ -846,37 +976,79 @@ def move_off_negative(d):
 
 
 def fx2_rows():
+    """The push/478 asset rows: FX2 (moe_fx_v1.json), FX3 (moe_fx_a3.json), then the scene characters."""
+    if set(FX2) & set(FX3) or (set(FX2) | set(FX3)) & set(SCENE_CHARS):
+        die("FX2 / FX3 / SCENE_CHARS keys overlap")
     meta = fx_meta()
+    a3 = json.load(open(os.path.join(ROOT, FX3_META)))
+    meta3 = {os.path.basename(a["file"]): a for a in a3["assets"]}
+    if {f for f, _ in FX3.values()} != set(meta3):
+        die(f"FX3 table vs {FX3_META}: {sorted({f for f, _ in FX3.values()} ^ set(meta3))}")
+    sc3 = {os.path.basename(a["file"]) for a in a3["scene_characters"]}
+    if {f for f, _, _ in SCENE_CHARS.values()} != sc3:
+        die(f"SCENE_CHARS vs {FX3_META}: {sorted({f for f, _, _ in SCENE_CHARS.values()} ^ sc3)}")
     rows = []
-    for k, (f, name) in FX2.items():
-        a = meta[f]
-        typ = a["type"]
-        frames, speed = (1, 1) if typ == "STATIC" else (a["frames"], a["speed"])
-        if typ not in ("STATIC", "ANIMATION") or (typ == "ANIMATION" and speed != 50):
-            die(f"{f}: unexpected {typ} speed {speed}")
-        rows.append((k, f, name, typ, frames, speed))
+    for table, m, d in ((FX2, meta, FXDIR), (FX3, meta3, FXDIR)):
+        for k, (f, name) in table.items():
+            a = m[f]
+            typ = a["type"]
+            frames, speed = (1, 1) if typ == "STATIC" else (a["frames"], a["speed"])
+            if typ not in ("STATIC", "ANIMATION") or (typ == "ANIMATION" and speed != 50):
+                die(f"{f}: unexpected {typ} speed {speed}")
+            rows.append((k, f, name, typ, frames, speed, d + f))
+    for k, (f, name, _) in SCENE_CHARS.items():
+        rows.append((k, f, name, "SCENE_CHARACTER", 1, 1, ART + f))
     return rows
 
 
+def sfx_for(name):
+    for k, v in SFX_BY_NAME:
+        if name == k or name.startswith(k):
+            return v
+    return None
+
+
+def add_sfx(d, rec):
+    """One existing sound per cast (director 2026-11-05). A single-target or CHARACTER cast makes one record per hit
+    character, so its art-bearing hit carries the sound; a ground cast stamps every tile, so a one-tile visual at the
+    caster carries it. Returns where it went."""
+    key = sfx_for(d["name"])
+    if key is None:
+        die(f"{d['name']}: no sound (SFX_BY_NAME)")
+    if rec.get("method") == "SINGLE" or rec.get("target") == "CHARACTER":
+        host = next((e for e in d["effects"] if e["type"] not in NEGATIVE_TAGS and e["type"] != "visual"
+                     and any(e.get(f) for f in ART_FIELDS)), None)
+        if host is None:
+            die(f"{d['name']}: no art-bearing positive hit to carry the sound")
+        host["appearSfx"] = SFX[key]
+        return f"{key} on {host['type']}"
+    d["effects"].append({**VISUAL, "appearSfx": SFX[key],
+                         "coordinateTargeting": {"origin": "CASTER", "selection": "ALL",
+                                                 "coordinates": [{"longitude": 0, "latitude": 0}]},
+                         "description": f"{d['name']}: sound (art only)"})
+    return f"{key} on a caster visual"
+
+
 def step_art2(spec, ids, bundle):
-    """push/478: the custom set (no borrowed animations; director 2026-11-05). Phase 10 creates the FX2 assets HIDDEN
-    (law 16b); phase 20 is law 18 step 1 (moe jutsu off the 9 AIs); phase 30 re-sends every moe jutsu from the spec
-    with the custom set by in-job @scene refs and the 466 art by literal ids; phase 40 re-sends the 9 AIs whole
-    (re-equip). Tuning is whatever SPEC_REF holds, so a SPEC_REF bump rebuilds this with no art change."""
+    """push/478: the custom set (no borrowed animations; director 2026-11-05) with the art3 material arc, mosaics, one
+    sound per cast and the dialog portraits. Phase 10 creates the assets HIDDEN (law 16b); phase 20 is law 18 step 1
+    (moe jutsu off the 9 AIs); phase 30 re-sends every moe jutsu from the spec with the custom set by in-job @scene refs
+    and the 466 art by literal ids; phase 40 re-sends the 9 AIs whole (re-equip). Tuning is whatever SPEC_REF holds, so
+    a SPEC_REF bump rebuilds this with no art change."""
     fx = asset_ids(bundle)
-    fx2 = {k: "@scene:" + AID2 + k for k in FX2}
+    rows = fx2_rows()
+    fx2 = {k: "@scene:" + AID2 + k for k, *_ in rows}
     b = Build(spec, fx=fx, art=True, fx2=fx2)
     need(ids, [sid(j) for j in b.jutsu] + [sid(a) for a in b.ais], "art2 (the 476 bundle holds the pass-6 jutsu ids)")
-    a_items, paths = [], []
-    for k, f, name, typ, frames, speed in fx2_rows():
-        a_items.append({"entity": "asset", "slot": "create", "srcId": AID2 + k, "name": name,
-                        "data": {**asset_row(name, typ, frames, speed, True), "image": "@img:" + f}})
-        paths.append(FXDIR + f)
     u_items = unequip_items(b, ids)
-    j_items, moved = [], []
+    j_items, moved, sounds, waves = [], [], {}, []
     for jid in [*b.plain_jutsu, *b.summon_jutsu]:
         d = b.jutsu_data(jid, ids if jid in b.summon_jutsu else None)
         moved += move_off_negative(d)
+        nwave = sum(1 for e in d["effects"] if e["type"] == "visual" and e.get("target") == "COORDINATES")
+        if nwave:
+            waves.append(f"{d['name']} ({nwave})")
+        sounds.setdefault(add_sfx(d, b.jutsu[jid]["record"]).split(" on ")[0], []).append(d["name"])
         j_items.append({"entity": "jutsu", "slot": "edit", "targetId": ids[sid(jid)], "name": f"{d['name']}: custom art",
                         "data": d})
     r_items = []
@@ -885,49 +1057,85 @@ def step_art2(spec, ids, bundle):
         r_items.append({"entity": "ai", "slot": "edit", "targetId": ids[sid(aid)],
                         "name": f"{e['name']}: kit back (law 18)", "data": e["data"]})
     used = {v for i in j_items for e in i["data"]["effects"] for f in ART_FIELDS for v in [e.get(f) or ""]}
-    unused = sorted(k for k in FX2 if fx2[k] not in used)
-    if unused:
-        die(f"custom assets no jutsu uses: {unused}")
+    unused3 = sorted(k for k in FX3 if fx2[k] not in used and k not in FX3_UNWIRED)
+    if unused3:
+        die(f"art3 assets no jutsu uses: {unused3}")
+    a_items, paths = [], []
+    for k, f, name, typ, frames, speed, path in rows:
+        if k in FX2 and fx2[k] not in used:
+            continue  # an FX2 fallback no slot needs this spec
+        a_items.append({"entity": "asset", "slot": "create", "srcId": AID2 + k, "name": name,
+                        "data": {**asset_row(name, typ, frames, speed, True), "image": "@img:" + f}})
+        paths.append(path)
     paths += [FAMILY_FILES[b.family[i["data"]["name"]]] for i in j_items] + [ART + f for f in AVATARS.values()]
     items = phased([(10, a_items), (20, u_items), (30, j_items), (40, r_items)])
+    nsc = len(SCENE_CHARS)
     write("art2", (
         f"push/{N['art2']}: the Mother of Echoes custom animation set (director 2026-11-05: no borrowed animations; "
-        "art/mother_of_echoes_fx/build_fx.py CUSTOM, docs/design/MOTHER_OF_ECHOES_ART.md). Phase 10: "
-        f"{len(a_items)} HIDDEN gameAssets (law 16b): the Sayo-styled danger-grammar tiles, loops, appear and vanish "
-        "strips (heavy, control, linger, safe, etch) and the custom payoffs (Refraction Breaks, Glassfall, Shatterfall, "
-        "The Glass Remembers, Grasp, the echoes' strike, pull, shove, Worn Mending). Phase 20: law 18 step 1, every moe "
-        f"jutsu off its {len(u_items)} AIs. Phase 30: all {len(j_items)} moe jutsu re-sent from the spec at "
-        f"{SPEC_REF[:8]} (tuning unchanged) with the custom set by in-job @scene refs and the push/466 art by literal "
-        f"ids; art on tags that go negative when cast moved to a positive sibling ({len(moved)}: "
-        f"{'; '.join(moved)}; COMBAT_ANIMATION_ENGINE.md 5.1), and no ground mark carries a disappear clip (5.3). "
-        f"Phase 40: the {len(r_items)} AIs re-sent whole, re-equipping every moe jutsu. Everything stays hidden. "
-        f"The new assets play only after push/{N['art2_unhide']} unhides them (built from this job's results bundle; "
-        "an unhide cannot run in-job: Forge sends an edit's targetId as written and lint L13 refuses hidden:false "
-        "creates)."), items, b.notes, extra=pack(paths))
+        "art3: \"a high end boss fight ... pull out all the stops\"; docs/design/MOTHER_OF_ECHOES_ART.md). Phase 10: "
+        f"{len(a_items)} HIDDEN gameAssets (law 16b): the act-material danger grammar (heavy marks in Heartglass, the "
+        "turn and the Remainder; the Silence's dark lock and pools), the custom payoffs and their wave strips, the "
+        f"summon rises, {len(FX3_UNWIRED)} boss aura and act-start strips held for the sim's act buffs (not wired yet), "
+        f"and {nsc} SCENE_CHARACTER dialog portraits (Sayo only; used by the quest edits, push/{N['art2_unhide']} and "
+        f"push/{N['golive']}). Phase 20: law 18 step 1, every moe jutsu off its {len(u_items)} AIs. Phase 30: all "
+        f"{len(j_items)} moe jutsu re-sent from the spec at {SPEC_REF[:8]} (tuning unchanged) with the custom set by "
+        "in-job @scene refs and the push/466 art by literal ids. Art on tags that go negative when cast moved to a "
+        f"positive sibling ({len(moved)}: {'; '.join(moved)}; COMBAT_ANIMATION_ENGINE.md 5.1); no ground mark carries "
+        "a disappear clip (5.3). Mosaics: the hit's own appear is blanked and zero-impact visual tags (power 2, target "
+        f"COORDINATES, a subset of the cast's tiles, no gameplay handler) play the wave by band: {'; '.join(waves)}. "
+        "One existing in-game sound per cast (an art-bearing single hit, or a one-tile visual at the caster): "
+        f"{'; '.join(f'{k}: {len(v)}' for k, v in sorted(sounds.items()))}. The visual tags change no numbers; the sim "
+        "confirms identical clear rates on a fixed-seed rerun. Phase 40: the "
+        f"{len(r_items)} AIs re-sent whole, re-equipping every moe jutsu. Everything stays hidden. The new FX play only "
+        f"after push/{N['art2_unhide']} unhides them (built from this job's results bundle; an unhide cannot run "
+        "in-job: Forge sends an edit's targetId as written and lint L13 refuses hidden:false creates)."),
+        items, b.notes, extra=pack(paths))
 
 
-def step_art2_unhide(bundle):
+def scene_char_ids(bundle):
     got = created([bundle], AID2)
-    need(got, [AID2 + k for k in FX2], "--from (push/478 results)")
+    need(got, [AID2 + k for k in SCENE_CHARS], "--art2-from (push/478 results)")
+    return {k: got[AID2 + k] for k in SCENE_CHARS}
+
+
+def step_art2_unhide(bundle, b, ids, econ, scenes_bundle):
+    """push/479: unhide the 478 FX (law 16c) and re-send the practice quest whole with the dialog portraits."""
+    got = created([bundle], AID2)
+    rows = [r for r in fx2_rows() if r[3] != "SCENE_CHARACTER" and AID2 + r[0] in got]
+    missing = sorted(k for k in FX3 if AID2 + k not in got)
+    if missing:
+        die(f"--from (push/478 results) lacks {missing}")
     items = [{"entity": "asset", "slot": "edit", "targetId": got[AID2 + k], "name": f"{name}: unhide",
-              "data": asset_row(name, typ, frames, speed, False)} for k, f, name, typ, frames, speed in fx2_rows()]
+              "data": asset_row(name, typ, frames, speed, False)} for k, f, name, typ, frames, speed, _ in rows]
+    _s = importlib.util.spec_from_file_location("moe_practice", os.path.join(ROOT, "push",
+                                                                             "mother_of_echoes_practice.gen.py"))
+    P = importlib.util.module_from_spec(_s)
+    _s.loader.exec_module(P)
+    d = P.practice_data(b, ids, econ, asset_ids(scenes_bundle), chars=scene_char_ids(bundle))
+    q = [{"entity": "quest", "slot": "edit", "targetId": PRACTICE_QUEST, "name": f"{P.NAME}: dialog portraits",
+          "data": d}]
     write("art2_unhide", (
-        f"push/{N['art2_unhide']} (after push/{N['art2']}; literal asset ids from its results bundle): the "
-        f"{len(items)} custom Mother of Echoes FX assets unhidden (law 16c: battles load only unhidden assets)."),
-        items)
+        f"push/{N['art2_unhide']} (after push/{N['art2']}; literal asset ids from its results bundle). Phase 10: the "
+        f"{len(items)} custom Mother of Echoes FX assets unhidden (law 16c: battles load only unhidden assets; the "
+        "scene characters need none, gameAsset.getSceneAssets does not filter hidden). Phase 20: the practice quest "
+        f"(push/469, {PRACTICE_QUEST}) re-sent whole (quest edits do not fetch-merge) with Sayo's dialog portraits "
+        "(Act I Sayo in d_intro1, d_intro2 and d_open; the Glasswright in d_act2; the Saint in d_act3), the opening "
+        "build-up, its icon and the act scenes; still hidden."),
+        phased([(10, items), (20, q)]), extra=pack([QUEST_ICON]))
 
 
-def step_golive(b, ids, econ, bundle):
+def step_golive(b, ids, econ, bundle, art2_bundle):
     aids = asset_ids(bundle)
     u_items = unhide_items(aids)
-    d = quest_data(b, ids, econ, aids)
+    d = quest_data(b, ids, econ, aids, chars=scene_char_ids(art2_bundle))
     d["hidden"] = False
     q = [{"entity": "quest", "slot": "edit", "targetId": ids[PFX + "quest"], "name": f"{Q_NAME}: publish", "data": d}]
     write("golive", (
         f"push/{N['golive']}, JOB 2 of 2 (after push/{N['final']}; literal asset ids from its results bundle). Phase 10: "
         f"the {len(u_items)} FX assets unhidden (law 16c: battles load only unhidden assets). Phase 20: the quest "
         "re-sent whole with hidden false, its icon (ME13) and the three act scenes (heart: content, d_open, b_act1, "
-        "f_lost; stilling: d_act2, b_act2; impression: d_act3, b_act3, w_clear). Why a second job: an unhide is an edit "
+        "f_lost; stilling: d_act2, b_act2; impression: d_act3, b_act3, w_clear) and Sayo's dialog portraits from "
+        f"push/{N['art2']} (Act I Sayo in d_intro1, d_intro2, d_open; the Glasswright in d_act2; the Saint in d_act3). Why a second job: an unhide is an edit "
         "and Forge sends an edit's targetId as written (runner.mjs _fill: item.entityId ?? item.targetId; refs.mjs "
         "resolves @refs in data only), and lint L13 refuses a create with hidden:false, so the FX cannot be created "
         "or unhidden visible inside job 1. Publishing here, after the unhide, means the fight never goes live with "
@@ -941,7 +1149,10 @@ def main():
                     default="jutsu")
     ap.add_argument("--bundles", nargs="*", default=[], help="results bundles of 440 and 461-464 (any order)")
     ap.add_argument("--economy", help="push/417 results bundle (the shards, Heartglass and The Remainder tokens)")
-    ap.add_argument("--from", dest="frm", help="push/466 (job 1) results bundle: the art assets' ids (golive)")
+    ap.add_argument("--from", dest="frm", help="push/466 (job 1) results bundle: the art assets' ids (golive, tune, "
+                    "art2); push/478's for art2_unhide")
+    ap.add_argument("--art2-from", dest="art2", help="push/478 results bundle: the dialog portraits (golive)")
+    ap.add_argument("--scenes", help="push/466 results bundle: the act scenes (art2_unhide's practice-quest edit)")
     a = ap.parse_args()
     spec = load_spec()
     b = Build(spec)
@@ -955,12 +1166,21 @@ def main():
     if a.step in ("art2", "art2_unhide"):
         if not a.frm:
             die(f"--step {a.step} needs --from <push/466 results bundle> (art2) or <push/478 results bundle> (art2_unhide)")
-        return step_art2(spec, ids, a.frm) if a.step == "art2" else step_art2_unhide(a.frm)
+        if a.step == "art2":
+            return step_art2(spec, ids, a.frm)
+        econ = created([a.economy] if a.economy else [], ECON)
+        need(econ, [ECON + k for k in ("keel", "crown", "tide", "ledger", *TOKEN_PCT)], "--economy (push/417)")
+        need(ids, [sid(t) for t in b.bosses], "art2_unhide")
+        if not a.scenes:
+            die("--step art2_unhide needs --scenes <push/466 results bundle> (the practice quest's act scenes)")
+        return step_art2_unhide(a.frm, Build(spec, art=True), ids, econ, a.scenes)
     if a.step == "golive":
         econ = created([a.economy] if a.economy else [], ECON)
         need(econ, [ECON + k for k in ("keel", "crown", "tide", "ledger", *TOKEN_PCT)], "--economy (push/417)")
         need(ids, [sid(t) for t in b.bosses] + [PFX + "quest"], "golive")
-        return step_golive(b, ids, econ, a.frm)
+        if not a.art2:
+            die("--step golive needs --art2-from <push/478 results bundle> (the dialog portraits)")
+        return step_golive(b, ids, econ, a.frm, a.art2)
 
     if a.step == "jutsu":
         items = [b.jutsu_entry(j) for j in b.plain_jutsu]
