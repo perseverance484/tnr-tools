@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-05)
+# DRIFT.md - upstream contract drift (2026-11-06)
 
-Upstream: studie-tech/TheNinjaRPG@89e8f2985d4d83219cb97f674eb04829a46d5e55
+Upstream: studie-tech/TheNinjaRPG@15a37ea5bd72adc093b0d77d501fcaccf888fb55
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -225,6 +225,9 @@ ADDITIONS
   const-member  AvailableEffectTypes  RedirectionTag
   const-member  AvailableEffectTypes  defence
   const-member  AvailableEffectTypes  offence
+  const-member  BULK_SELL_WARN_RARITIES  EPIC
+  const-member  BULK_SELL_WARN_RARITIES  LEGENDARY
+  const-member  BULK_SELL_WARN_RARITIES  RARE
   const-member  FARM_SHOP_ENTRY_TYPES  EXTRACTOR
   const-member  FARM_SHOP_ENTRY_TYPES  FERTILIZER
   const-member  FARM_SHOP_ENTRY_TYPES  PLOT
@@ -275,10 +278,7 @@ ADDITIONS
   const-member  PassiveSnapshotTasks  gathering_experience
   const-member  PassiveSnapshotTasks  hunting_experience
   const-member  PassiveSnapshotTasks  medical_experience
-  const-member  PassiveSnapshotTasks  minutes_passed
-  const-member  PassiveSnapshotTasks  overworld_quests_completed
-  const-member  PassiveSnapshotTasks  raids_completed
-  ... 24 more
+  ... 31 more
 
 BREAKING: 217 change(s) - DO NOT ADOPT (exit 1)
 ~~~
