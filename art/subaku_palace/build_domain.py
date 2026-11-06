@@ -12,23 +12,23 @@ Engine (docs/design/COMBAT_ANIMATION_ENGINE.md; theninjarpg@3314d122 and upstrea
 - Clips: EFFECT_ANIMATION_HEX_RATIO tile heights square (2.5; the director's build target, 2026-11-05), from the
   50 px rendition, linear, drawn OVER the fighters. Static art: under the fighters, stretched to the 2:1 hex box.
 
-How the domain reads as summoned on a floor that is already there (revised after QA on be8646d1):
-- no veil: the floor is visible from tick 0 (and a veil drew over fighters and meters);
-- each band's strip lights its OWN hex only: on the landing tick the channels go white-hot and the rail faces burn,
-  then the tail cools over 3 ticks and recedes outward toward the next ring; the cracks flare a tick behind. The
-  bands land 1-2 ticks apart, so the light steps out ring by ring along the woven rails;
-- every strip is self-contained (no cross-hex overshoot), so a strip that loads late (each record starts when its own
-  images are ready) at worst lights its ring a little late; it never runs back over a lit ring or spills past the rim;
-- keep-outs: no clip pixel over the hex's own fighter, the lower hex's head and meters, or the diagonal neighbours'
-  meters (see keepout());
-- the seal (the ground appear, all 60 hexes, x2, hard alpha so the duplicate changes nothing): the held beat, the
-  whole rail face burning solid on ticks 19-21, white-hot channels on 20.
+How the domain reads as summoned on a floor that is already there (the director's arrival, 2026-11-05/06;
+RUL-2026-11-06-128):
+- each band's strip covers its WHOLE hex with the floor without any gold (no fighter keep-out, by the director's
+  choice), so tick 0 shows the domain as bare stone;
+- the bloom: rings ignite 4 ticks apart (ring 1 on 7, ring 4 on 19); in each hex a white-hot head runs out along the
+  rails from the centre to the edges over 8 ticks, so the blooms overlap into one outward front; where the head
+  passes the cover opens on the real tile (exact hand-off), with a 3-tick stepped lit-rail trail and the cracks
+  flaring behind it;
+- every strip is self-contained (its own hex only, no cross-hex light), so a late strip only delays its own rings;
+- the seal (the ground appear, all 60 hexes, x2, hard alpha so the duplicate changes nothing): the final pulse, the
+  whole rail face burning solid on ticks 28-30, white-hot channels on 29.
 
 Exports:
-- tile_sbk_domain_v3.webp (STATIC 128 px, the spec minimum, small so it loads first): the ground tag's staticAssetPath (3 rounds).
+- tile_sbk_domain_v3.webp (STATIC 128 px, the spec minimum): the ground tag's staticAssetPath (3 rounds).
   floor.py, 'rails'.
-- anim_sbk_wave_b{k}_v1.webp (k = 0..6, 32 x 50 ms, 150 px frames): the band visual tags' appearAnimation.
-- anim_sbk_seal_v1.webp (32 x 50 ms): the ground tag's appearAnimation.
+- anim_sbk_wave_b{k}_v1.webp (k = 0..6, 36 x 50 ms, 150 px frames): the band visual tags' appearAnimation.
+- anim_sbk_seal_v1.webp (36 x 50 ms): the ground tag's appearAnimation.
 """
 import json
 import math
@@ -44,9 +44,10 @@ import floor as FL  # noqa: E402
 OUT = os.path.join(HERE, 'exports')
 RATIO = float(os.environ.get('SBK_RATIO', '2.5'))
 CLIP = 100            # authoring size; finished on the 50 px grid, exported x3 nearest (150 px)
-NF = 32
+NF = 36
 SPEED = 50
-SEAL_PEAK = 20
+SEAL_PEAK = 29
+SEAL = SEAL_PEAK                 # the final pulse, all 60 hexes, as the last ring's head leaves the rim (27)
 # a band lights its OWN hex only (plus a 0.04 seam margin): each band is self-contained, so a late-loading strip
 # cannot run back over a lit ring, and nothing spills past the rim onto the bare board (QA B3/B4, 2026-11-05)
 EMBER = [(110, 12, 8), (184, 28, 16), (255, 74, 28), (255, 150, 60)]
@@ -54,29 +55,17 @@ BURN = [(255, 207, 74), (255, 229, 138), (255, 244, 200)]
 SEAL_FACE = (236, 176, 70)       # the rail face burning at about 70 % toward the burning gold
 GRID, EXPORT = 50, 3
 HW_S, HH_S = 132, 66             # the true-scale hex box on screen (the live still's scale)
-BLOOM = 4                        # ticks for the gold to form from the hex centre to its edges
-DISSOLVE = 3                     # once formed, an ordered dissolve hands over to the real tile at once (the clip is
-                                 # coarser than the tile: 50 px over 2.5 h, so the less of it on screen the better)
+SPAN = 8                         # ticks for the gold to bloom from a hex's centre to its edges: twice the ring
+                                 # interval (4), so the next ring ignites when this one's head is halfway out and the
+                                 # blooms overlap into one continuous outward front (director 2026-11-06: polish)
+TRAIL = 3                        # ticks of burning trail behind the head
 BAYER = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]]
 
 
 def keepout(n=GRID):
-    """255 where a clip may paint (n px clip). Tile heights: x from the hex centre, y up from the hex bottom.
-    K1 the hex's own fighter (centre column +-0.35 h from the bottom up; +-0.55 h from 1.25 h up: its meters, LPC
-    hudTop 1.5 h, AI originals 1.99 h);
-    K2 the lower hex's fighter head and meters (+-0.55 h, 0.15-1.0 h: LPC meters at 0.3-0.5 h, AI at 0.8-1.0 h); K3 the diagonal neighbours (|x| >= 1 h,
-    y >= 0.7 h). From combatActors.ts (LPC 1.35 h, feet 0.234 h; AI 1.6 h at 0.9 h) and the meter rows."""
-    k = Image.new('L', (n, n), 255)
-    p = k.load()
-    h = n / RATIO
-    for py in range(n):
-        for px in range(n):
-            x = abs(px + 0.5 - n / 2) / h
-            y = (n / 2 + h / 2 - (py + 0.5)) / h
-            if (x <= 0.35 and y >= 0.0) or (x <= 0.55 and y >= 1.25) or (x <= 0.55 and 0.15 <= y <= 1.0) \
-                    or (x >= 1.0 and y >= 0.7):
-                p[px, py] = 0
-    return k
+    """No keep-out (director 2026-11-05: "I don't care if the animation covers the fighter for a moment"). The cover
+    takes the whole hex; it leaves each fighter and meter row as soon as that hex's bloom has passed."""
+    return Image.new('L', (n, n), 255)
 
 
 def screen_look(tile_img):
@@ -95,69 +84,66 @@ def layers(tile_full, tile_dim):
     G, C, K, A, R = FL.field_masks(CLIP, RATIO)
     g50 = lambda m: m.resize((GRID, GRID), Image.BOX).point(lambda v: 255 if v >= 100 else 0)
     T, T_screen = screen_look(tile_full)
-    D, _ = screen_look(tile_dim)
+    D, S_screen = screen_look(tile_dim)
     cover = T.getchannel('A').point(lambda v: 255 if v >= 128 else 0)
     ko = keepout()
     area = ImageChops.multiply(cover, ko)
     Rn = R.resize((GRID, GRID), Image.NEAREST)
     return {'T': T, 'D': D, 'area': area, 'gold': ImageChops.multiply(g50(G), area),
             'chan': ImageChops.multiply(g50(C), area), 'crack': ImageChops.multiply(g50(K), area), 'R': Rn,
-            'T_screen': T_screen, 'ko': ko}
+            'T_screen': T_screen, 'S_screen': S_screen, 'ko': ko}
 
 
 def solid(frame, mask, colour):
     frame.paste(Image.new('RGBA', frame.size, colour + (255,)), (0, 0), mask)
 
 
-def band(L, lo, hi):
-    """Pixels whose hex norm (0 centre, 1 edge) is in [lo, hi)."""
-    return L['R'].point(lambda v: 255 if int(127.5 * lo) <= v < int(127.5 * hi) else 0)
+def arrival(L, t, land, lo, hi):
+    """Pixels the bloom front reached in [lo, hi) ticks before t: arrival = land + hex norm x SPAN."""
+    def sel(v):
+        n = v / 127.5
+        a = land + n * SPAN
+        return 255 if lo <= t - a < hi else 0
+    return L['R'].point(sel)
 
 
 def wave_frame(L, t, land):
-    """The director's arrival (2026-11-05). Each hex of the band (keep-outs aside) is covered by its own floor with the
-    gold engraved but unlit, so the domain reads as empty stone. On the landing tick the gold forms from the hex
-    centre outward over 4 ticks: a white-hot head along the rails, a burning trail, the cracks flaring behind; behind
-    the trail the clip shows the tile's on-screen look. Then an ordered dissolve over 3 ticks hands over to the real
-    tile underneath. The seal's held beat (19-21) is on the ground strip, under the clips, seen once they are gone."""
+    """The director's arrival (2026-11-05). Until the bloom reaches it, the whole hex is covered with its floor
+    WITHOUT gold, so the domain reads as bare stone. The bloom ignites at the hex centre on the band's landing tick and
+    spreads to the edges over SPAN ticks. Where the head arrives the cover opens at once: the real tile (and any
+    fighter, any meter row) shows through, with only the lit rails drawn over it, a white-hot head and then a burning
+    trail, while the cracks flare behind it. Nothing of the clip lingers past the trail, and the hand-off is exact,
+    because what shows is the tile itself."""
     f = Image.new('RGBA', (GRID, GRID), (0, 0, 0, 0))
-    hold_to = land + BLOOM - 1
-    if t > hold_to + DISSOLVE:
+    if t > land + SPAN + TRAIL:
         return f
-    u = t - land
-    # front radius (hex norm): 0.35, 0.7, 1.05 on the first three ticks; the fourth is the plain formed floor
-    r = 0.0 if u < 0 else (9.0 if u >= BLOOM - 1 else 0.35 * (u + 1))
-    formed = band(L, 0, max(0.0, r - 0.35))
-    front = band(L, max(0.0, r - 0.35), r)
-    ahead = band(L, r, 9)
+    ahead = arrival(L, t, land, -99, 0)
     f.paste(L['D'], (0, 0), ImageChops.multiply(L['area'], ahead))
-    f.paste(L['T'], (0, 0), ImageChops.multiply(L['area'], ImageChops.add(formed, front)))
-    if 0 <= u < BLOOM - 1:
-        solid(f, ImageChops.multiply(L['gold'], front), BURN[0])
-        solid(f, ImageChops.multiply(L['chan'], front), BURN[2])
-        trail = band(L, max(0.0, r - 0.7), max(0.0, r - 0.35))
-        solid(f, ImageChops.multiply(L['chan'], trail), BURN[1])
-        solid(f, ImageChops.multiply(L['crack'], trail), EMBER[3])
-    if t > hold_to:                                                     # ordered dissolve
-        cut = (t - hold_to) * 16 / DISSOLVE
-        a = f.getchannel('A')
-        ap = a.load()
-        for y in range(GRID):
-            for x in range(GRID):
-                if BAYER[y % 4][x % 4] < cut:
-                    ap[x, y] = 0
-        f.putalpha(a)
+    # a crisp head (one tick, 0.125 hex radius wide): the rail face burning, its channel white-hot; then a stepped
+    # trail: the face lit gold and the channel burning for a tick, the channel cooling over two more; the cracks
+    # flare a tick behind the head
+    head = arrival(L, t, land, 0, 1)
+    trail1 = arrival(L, t, land, 1, 2)
+    trail2 = arrival(L, t, land, 2, TRAIL + 1)
+    solid(f, ImageChops.multiply(L['gold'], head), BURN[1])
+    solid(f, ImageChops.multiply(L['chan'], head), BURN[2])
+    solid(f, ImageChops.multiply(L['gold'], trail1), BURN[0])
+    solid(f, ImageChops.multiply(L['chan'], trail1), BURN[1])
+    solid(f, ImageChops.multiply(L['chan'], trail2), BURN[0])
+    solid(f, ImageChops.multiply(L['crack'], trail1), EMBER[3])
+    solid(f, ImageChops.multiply(L['crack'], trail2), EMBER[2])
     return f
 
 
 def seal_frame(L, t):
-    """The ground appear (all 60 hexes, x2, drawn under the band clips): the held beat 19-21, the whole rail face
-    burning solid and the channels white-hot on 20. By then rings 1-3 have dissolved; ring 4 is mid-dissolve."""
+    """The ground appear (all 60 hexes, x2, drawn under the band clips): the final pulse 28-30, the whole rail face
+    burning solid and the channels white-hot on 29. It shows where the band clips have dissolved (rings 1-3, and the
+    untagged rim hexes); ring 4 is mid-dissolve."""
     f = Image.new('RGBA', (GRID, GRID), (0, 0, 0, 0))
-    if 19 <= t <= 21:
+    if SEAL - 1 <= t <= SEAL + 1:
         solid(f, L['gold'], SEAL_FACE)
-        solid(f, L['chan'], BURN[2] if t == 20 else BURN[0])
-        solid(f, L['crack'], EMBER[3] if t == 20 else EMBER[2])
+        solid(f, L['chan'], BURN[2] if t == SEAL else BURN[0])
+        solid(f, L['crack'], EMBER[3] if t == SEAL else EMBER[2])
     return f
 
 
@@ -190,17 +176,28 @@ def handoff_check(L):
         return img50.convert('RGBa').transform((k, k), Image.AFFINE, (50 / k, 0, (50 / k - 1) / 2, 0, 50 / k,
                                                                          (50 / k - 1) / 2),
                                                resample=Image.BILINEAR).convert('RGBA')
-    held = wave_frame(L, 7 + BLOOM - 1, 7)
+    held = wave_frame(L, 7 + SPAN + TRAIL, 7)        # the last frame with anything in it: only lit rails
     first = wave_frame(L, 0, 7)
     area = on_screen(Image.merge('RGBA', [L['area']] * 4)).getchannel('A').point(lambda v: 255 if v >= 250 else 0)
     out = {}
-    for name, fr in (('handoff', held), ('late_pop', first)):
+    out['handoff'] = ('exact by construction: behind the trail the clip is transparent and the real tile shows; '
+                      'the last non-empty frame (land + SPAN + TRAIL) holds only lit rail pixels')
+    for name, fr in (('late_pop', first),):
         s = on_screen(to_pixels(fr).resize((GRID, GRID), Image.NEAREST))
         a, b = s.convert('RGB'), L['T_screen'].convert('RGB')
         d = ImageChops.difference(a, b).convert('L')
         px = [v for v, m in zip(d.getdata(), area.getdata()) if m]
         out[name] = {'mean_abs': round(sum(px) / len(px), 1), 'share_over_32': round(sum(v > 32 for v in px) / len(px),
                                                                                        3), 'pixels': len(px)}
+    # gold visible through the cover at tick 0 (on screen): tile pixels that differ from the stone-only floor by more
+    # than 32 and are not under an opaque clip pixel
+    T_s, S_s = L['T_screen'].convert('RGB'), L['S_screen'].convert('RGB')
+    gold = ImageChops.difference(T_s, S_s).convert('L').point(lambda v: 255 if v > 32 else 0)
+    cov = on_screen(to_pixels(first).resize((GRID, GRID), Image.NEAREST)).getchannel('A')
+    hexa = L['T_screen'].getchannel('A').point(lambda v: 255 if v >= 128 else 0)
+    trip = list(zip(gold.getdata(), cov.getdata(), hexa.getdata()))
+    gp = sum(1 for g, c, h in trip if h and g)
+    out['gold_visible_t0'] = round(sum(1 for g, c, h in trip if h and g and c < 128) / max(1, gp), 3)
     return out
 
 
@@ -208,11 +205,11 @@ BANDS = [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0]
 
 
 def land_tick(b):
-    """Whole bands land on their ring's tick (4 + 3 d). A half band holds ring d on one parity and d + 1 on the
-    other: it lands at 3 d + 5, rounded toward the earlier ring (QA S5): 50 ms late on one parity, 100 ms early on
-    the other."""
+    """Rings ignite 4 ticks apart: whole bands at 3 + 4 d (ring 1 on tick 7, ring 4 on 19). A half band holds ring d on
+    one parity and d + 1 on the other: it ignites exactly between them, at 5 + 4 d (100 ms late on one parity, 100 ms
+    early on the other)."""
     d = math.floor(b)
-    return 4 + 3 * d + (1 if b != d else 0)
+    return 3 + 4 * d + (2 if b != d else 0)
 
 
 def _cube(c, r):
@@ -243,7 +240,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     tile_full = FL.tile(size=128)
     tile_full.save(os.path.join(OUT, 'tile_sbk_domain_v3.webp'), lossless=True, method=6)
-    FL.MODE = 'dim'
+    FL.MODE = 'stone'
     tile_dim = FL.tile(size=128)
     FL.MODE = 'full'
     L = layers(tile_full, tile_dim)
