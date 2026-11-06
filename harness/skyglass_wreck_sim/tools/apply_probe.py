@@ -32,6 +32,10 @@ b2 = (
     "            ruleType: rule.action.type, totalRules: aiProfile?.rules.length ?? 0,\n"
     "          });\n"
 )
+# Upstream (cb755375) dropped the AP pre-check: the performed-action branch is `if (result) {`.
+if src.count(a2) != 1 and src.count("        if (result) {\n") == 1:
+    a2 = "        if (result) {\n"
+    b2 = b2.replace("        if (check.canAct && result) {\n", a2)
 for a in (a1, a2):
     if src.count(a) != 1:
         raise SystemExit(f"anchor not found exactly once: {a!r}")

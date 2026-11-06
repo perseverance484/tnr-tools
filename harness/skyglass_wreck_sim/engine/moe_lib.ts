@@ -115,6 +115,8 @@ export const MOE_DEFAULTS = {
   bossAura: { on: false } as any,
   /** Sim-only: visual "piece" tags on the signature moves (art pass identity check). */
   visualPieces: false,
+  /** Upstream shared-cooldown table ({ tag: rounds }); null = 3314d122 behaviour. */
+  sharedCooldowns: null as Record<string, number> | null,
   /** Art R5: once-per-act entrance/aura buff per boss ({ on, sayo1, silence, sayo2 }: { type, power | health }). */
   entrance: { on: false } as any,
   /** Art R3: Stillness as a 2-3 ring around the Silence. */
@@ -365,6 +367,7 @@ export const buildRecords = (P: MoeParams) => {
   RAMP_CLEARABLE = !!P.rampClearable;
   POOL_AWARE = !!P.poolAware;
   POTION_FIX = !!P.potionFix;
+  SHARED_CD = P.sharedCooldowns ?? null;
   RISES_K = !!P.hushOffMarks;
   DEBUG_TRACE = !!(P as any).debugTrace;
   A3_ON = !!a3(P).on; A3_POLICY = a3(P);
@@ -1053,6 +1056,7 @@ let P_NO_REENTRY = false;
 let RAMP_CLEARABLE = false;
 let POOL_AWARE = false;
 let POTION_FIX = false;
+let SHARED_CD: Record<string, number> | null = null;
 let DEBUG_TRACE = false;
 let A3_ON = false;
 let A3_POLICY: any = null;
@@ -1351,6 +1355,11 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
     if (pets) player.activePetId = pets[0]!.id;
     let b: any = await assembleFloor({ players: [player], enemyRows: cfg.rows, floor: { kind: "boss", waves: [{ aiIds: cfg.bossIds, delayRounds: 0 }] }, rand, initialBarriers: false, dmgConfig: dmgCfg(), mode: "quest", ...(pets ? { pets } : {}) });
     for (const [id, r] of Object.entries(cfg.recs)) if (!b.extraState.jutsus[id]) b.extraState.jutsus[id] = r;
+    // Upstream (theninjarpg 0ca33612 / b54541f1, in cb755375): shared cooldowns are a per-battle table loaded from the DB
+    // (battle.extraState.sharedCooldowns, actions.ts applyActionCooldowns), and any action carrying a listed tag locks
+    // every other action of its user that carries the same tag, cooldown 0 or not. sharedCooldowns models that table
+    // (default: migration 0136's list); absent = the 3314d122 behaviour (constants list, cooldown > 0 only).
+    if (SHARED_CD) b.extraState.sharedCooldowns = { ...SHARED_CD };
     if (o.model.pets > 1) addClonePet(b, player.userId);
     const puid = player.userId;
     const pu = () => b.usersState.find((u: any) => u.userId === puid)!;
