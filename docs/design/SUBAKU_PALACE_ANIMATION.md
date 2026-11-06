@@ -176,6 +176,28 @@ captured for the live asset, and fetching it would be a live request. Provenance
   plays once.
 - This follows the director's "one Earth sound" (2026-11-05). On band tag b0 it would play 4 times (QA S6).
 
+## 3b. Upload (push/503-505; generator `push/subaku_palace.gen.py`)
+
+1. **push/503** (direct, committed): creates the 10 assets **hidden** (law 16b) in folder `JutsuSubakuPalace` with the
+   names in the table above, and reads the jutsu back in full (`jutsu.get`, persist full). It changes no jutsu. An
+   edit replaces the effects array, so the edit must be built from the live record, and the repository holds no full
+   capture of this jutsu.
+2. **push/504** (direct, built from the 503 bundle: `python3 push/subaku_palace.gen.py unhide <bundle>`): unhides the 10
+   assets by literal id (law 16c). Run before 505.
+3. **push/505** (suggest mode, the player-jutsu precedent push/240; `... jutsu <bundle>`): the jutsu edit from the
+   captured record.
+   - Ground: the domain floor (`staticAssetPath`) and the seal (`appearAnimation`); the Heal `appearSfx` cleared.
+   - SELF: the gates rise (`appearAnimation`), Earth `appearSfx` (once per cast); `staticAssetPath` and
+     `staticAnimation` cleared.
+   - 7 ring-band visual tags, appended after the two mechanics effects.
+   - Every other field is re-sent as captured, with `injectableInBattle` at its live value. The generator refuses a
+     record whose mechanics differ from the design (SELF 30 % for 2 rounds; ground 15 % for 3 rounds), or that
+     already carries visual tags.
+   - Law 18: no AI in the repository's records holds this player EVENT jutsu.
+Checks: 503 passes `validate.py --strict` (0/0) and `forge/tools/check_manifest.mjs` (0 pre-send problems). 504 and 505
+were dry-run on a labelled synthetic bundle (not committed) and pass both. artpreflight on all 10 files: 0/0.
+Live-game requests: 0; nothing was run live.
+
 ## 4. Mechanics: unchanged (director 2026-11-05)
 
 No mechanic change. The caster's hole stays empty after the cast. Enemies standing in the palace deal 15 % less for
