@@ -5817,3 +5817,30 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
   - `push/mother_of_echoes_text.json` (Worn and Every Name).
 - Canon: `docs/design/SKYGLASS_STORY_BIBLE.md` (final chapter) and `docs/design/ghost_ship_art_bible/ART_BIBLE.md` §1.
 - Live edits: push/483–485 (`push/skyglass_story_pass.gen.py`). The Mother of Echoes text rides go-live 477.
+
+## RUL-2026-11-05-118 — Skyglass story pass: director text for four legacy records; the Worn stay within her reach
+
+**Date:** 2026-11-05
+
+**Domain:** Skyglass event / player-facing text and canon
+
+**Status:** ACTIVE. Settles RUL-2026-11-05-117 item 4 (D4) and extends its item 2 (D2).
+
+**Ruling:**
+1. **D4 approved with the director's own text:**
+   - Skyglass Katana description: "A crystal-edged sword carried by the most faithful of the Captain's echoes. The command seals along its spine still answer him, turning a measure of every blow into a brief ward of glass."
+   - Skyglass Serum description: "A concentrated restorative sealed for the Ghost Ship's longest night watches. The medicine is still potent, though the crew it was brewed for has long since gone still."
+   - Unbroken Command battleDescription: "%user calls on an order that was never rescinded, and the old command burns through their glass-bound body as their offensive power rises."
+   - Core Rupture: "A binding seal ruptures, and the vessel that held it bursts in a piercing chakra blast that staggers nearby enemies."
+     - The text was relayed as the battleDescription. It rewrites the live **description** word for word ("A containment seal ruptures, destroying the casting device in a piercing chakra blast that staggers nearby enemies."), and it has no `%user`. It is applied as the description.
+     - The live battleDescription ("%user's containment seal splits, consuming the device…") keeps its words until the director confirms or supplies one.
+2. **The three who refused exist only within reach of her glass.** That is why the player meets the Gate Porter, Sister Hana and Cadet Tomo only in the boss fight. No other surface may show them. The Worn-raising jutsu hints carry it ("He has never stood farther from her glass than this; she cannot let him", "She comes no farther than Sayo can reach", "He can run no farther than her reach now").
+
+**Evidence:** Director decisions relayed by the coordinator, 2026-11-05: "D4 APPROVED with these exact texts"; "it's why they only show up in the boss fight, she can't let them go far beyond her reach."
+
+**Canonical destination:**
+- Text: `docs/design/SKYGLASS_TEXT.md` §4.6 (Katana, Serum) and §6.4 (Unbroken Command, Core Rupture), `push/mother_of_echoes_text.json` (the Worn), and `docs/design/SKYGLASS_STORY_BIBLE.md` (final chapter).
+- Live edits:
+  - push/486 (the two items);
+  - push/487 (read-only capture);
+  - push/488 (built from 487: the jutsu in law-18 order). All from `push/skyglass_story_pass.gen.py`.

@@ -198,17 +198,17 @@
 ### Raise the Gate Porter
 
 - **Current:** Raises one of the Worn: the Gate Porter.
-- **Proposed:** The gate porter steps out of the glass, thin as old paper, still holding a door that is not there. On the night of the Stilling he would not open it, and he has not let go of it since. He keeps his threshold close and clears it of anyone who stands too near, wherever the step back lands them. *(story pass 2026-11-05: the three who refused are the Worn)*
+- **Proposed:** The gate porter steps out of the glass, thin as old paper, still holding the door he would not open on the night of the Stilling. He has never stood farther from her glass than this; she cannot let him. He keeps his threshold close and clears it of anyone who stands too near, wherever the step back lands them. *(story pass 2026-11-05: the three who refused are the Worn, kept within her reach; RUL-2026-11-05-117/-118)*
 
 ### Raise Sister Hana
 
 - **Current:** Raises one of the Worn: Sister Hana.
-- **Proposed:** Sister Hana steps out of the glass, worn thin, hands already busy with someone else's wounds. When the hall went still she would not stop tending them, and the glass could only keep what was left of her. She mends Sayo as she mended everyone, and she will not stop on her own. *(story pass 2026-11-05: the three who refused are the Worn)*
+- **Proposed:** Sister Hana steps out of the glass, worn thin, hands already busy with someone else's wounds; she would not stop tending them when the hall went still. She comes no farther than Sayo can reach, and there she mends Sayo as she mended everyone. She will not stop on her own. *(story pass 2026-11-05: the three who refused are the Worn, kept within her reach; RUL-2026-11-05-117/-118)*
 
 ### Raise Cadet Tomo
 
 - **Current:** Raises one of the Worn: Cadet Tomo.
-- **Proposed:** Cadet Tomo steps out of the glass, faint at the edges, rope in hand, waiting for an order. He was told to hold still that night and ran instead, so the glass only half caught him. His line reaches a long way, and it does not care what floor it drags you across. *(story pass 2026-11-05: the three who refused are the Worn)*
+- **Proposed:** Cadet Tomo steps out of the glass, faint at the edges, rope in hand; told to hold still that night, he ran, and the glass only half caught him. He can run no farther than her reach now. His line reaches a long way, and it does not care what floor it drags you across. *(story pass 2026-11-05: the three who refused are the Worn, kept within her reach; RUL-2026-11-05-117/-118)*
 
 ## Act II: the Worn (echoes)
 
