@@ -5865,3 +5865,19 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-05: "Yes - 1 2 3 / 4. Make her stun immune, that solves that. / 5. Accept / 6. Yes we'll discuss adding it post launch. Maybe you can summon them using a special item or something idk. / 7. Ok / 8. Yes / 9. No, at least on route must be playable. / 10. How would that work? Are we already doing that? / 11. Yup, exactly. / 12. Correct. / 13. No, we keep those on the pyramids. I want players to know what they're getting into with an item they can lose on use. / 14. Yes / Make me one manifest for all unpushed changes".
 
 **Canonical destination:** the ledgers in state/validate_exceptions/, push/489, docs/design/EVENT_STRUCTURE.md, the Mother of Echoes spec (stun immunity).
+
+## RUL-2026-11-05-120 — The event journal: a weekly roadmap quest for every event
+
+**Date:** 2026-11-05
+
+**Domain:** content design / all events (Skyglass first)
+
+**Status:** ACTIVE for the idea; the design in `docs/design/EVENT_JOURNAL.md` is PROPOSED, and its decisions D1-D6 (how the party Wreck is counted, how players get the page, rewards, dates, a badge trace, the push/490 validator ledger) are open.
+
+**Ruling:**
+1. Each event gets a journal: one quest per weekend, taken at the start, whose entries are tracker objectives that count while it is active. It is the event's roadmap and makes each weekend differ; it need not cover every piece of content. A new journal is written for each event.
+2. The Skyglass Week 1 journal is built hidden as push/490 with placeholder rewards. It leaves out "3 Skyglass Wreck dungeons" until D1, because the engine credits no tracker for dungeon clears (theninjarpg@3314d122 `libs/combat/database.ts` 1206; `server/api/routers/dungeon.ts` 466-472).
+
+**Evidence:** Director, 2026-11-05: "Design that tracker thing. That journal is how each weekend differs. You take that at the start and it defines your weekend or something. Lets work that out its a great idea. Its like an event roadmap and we can write a new one for each event. Like challenge players to do the rotted heading this weekend, or use a lastlight lantern, etc etc. It doesnt have to map every piece of content because that wouldnt be possible but like a good first one would involve doing the wreck sighted, 3 skyglass wreck dungeons, etc."
+
+**Canonical destination:** `docs/design/EVENT_JOURNAL.md` (referenced from `docs/design/EVENT_STRUCTURE.md` §2 item 9); `push/skyglass_journal.gen.py`.

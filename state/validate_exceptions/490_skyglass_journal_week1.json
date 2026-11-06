@@ -1,0 +1,10 @@
+{
+ "manifest": "push/490_skyglass_journal_week1.json",
+ "ruling": "PENDING director acceptance (event journal, docs/design/EVENT_JOURNAL.md section 6). Proposed classes: (1) the no-win-node lint, as accepted for the push/351 achievement probe: a journal is tracker goals in one chain with no win node, and the engine resolves a consecutive quest when every node on the walked path is done (theninjarpg@3314d122 libs/objectives.ts 110-140), so a win_quest is not needed; (2) the law-49 snapshot lint on the salvager scene character Xugt7415D3-tepLfxpwM5, a SCENE_CHARACTER gameAsset created by push/374 after the last harvest (results tnr_results_1793502324082.json, idmap sg374_salvager).",
+ "reason": "Both diagnostics are checks that do not apply: the first models linear quests, the second is a snapshot check on a record created and verified since the last harvest.",
+ "sha256": "417e5601bbf243fce394d796eb1d704d1559db3892be98f03b67d3135b049071",
+ "accepted": [
+  "ERROR  [quest:The Watch Log: First Page]: no win_quest / fail_quest / reset_quest node: nothing marks the quest complete",
+  "ERROR  lint The Watch Log: First Page: T1 law 49: content sceneCharacters 'Xugt7415D3-tepLfxpwM5' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here"
+ ]
+}
