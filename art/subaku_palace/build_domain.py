@@ -25,7 +25,7 @@ How the domain reads as summoned on a floor that is already there:
 - the cracks flare a tick behind the front, then everything settles to the static floor.
 
 Exports:
-- tile_sbk_domain_v3.webp (STATIC 150 px): the ground tag's staticAssetPath (3 rounds). floor.py, 'flow'.
+- tile_sbk_domain_v3.webp (STATIC 150 px): the ground tag's staticAssetPath (3 rounds). floor.py, 'bold flow'.
 - anim_sbk_wave_b{k}_v1.webp (k = 0..6, 32 x 50 ms, 150 px frames): the band visual tags' appearAnimation.
 - anim_sbk_seal_v1.webp (32 x 50 ms): the ground tag's appearAnimation (all 60 hexes, x2: hard alpha, so the
   duplicate changes nothing).
@@ -193,7 +193,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     FL.tile().save(os.path.join(OUT, 'tile_sbk_domain_v3.webp'), lossless=True, method=6)
     L = layers()
-    meta = {'ratio': RATIO, 'speed': SPEED, 'tile': 'flow', 'order': 'rings', 'assets': {}, 'groups': []}
+    meta = {'ratio': RATIO, 'speed': SPEED, 'tile': 'boldflow', 'order': 'rings', 'assets': {}, 'groups': []}
     G = groups()
     for k, (land, offs) in enumerate(G):
         name = f'anim_sbk_wave_b{k}_v1.webp'

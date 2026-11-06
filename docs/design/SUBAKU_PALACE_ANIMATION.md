@@ -27,18 +27,21 @@ Build target (director, 2026-11-05): 2.5-hex-height clips and LPC character avat
 4. **The held beat (20-21).** The rim has landed. One breath of light runs through every channel of the domain at
    once (the seal), and the palace stands, white-hot for one tick.
 5. **The settle (22-37).** The gates sink, the currents cool, and the frame ends on the floor's look.
-6. **The 3 rounds.** A static floor of dark warm basalt flagstones with ember-glowing joints, crossed by long
-   calligraphic currents of demon gold. The currents swell mid-hex and sweep diagonally across the whole domain.
-   Thin eddy filaments link them, and small spiral curls shed off them into the stone. The floor is one continuous
-   surface with exact joins at every hex edge, under the fighters, with no loop.
+6. **The 3 rounds.** A static floor of dark warm basalt flagstones with ember-glowing joints. Bold, bevelled
+   currents of burnished demon gold sweep across it (director 2026-11-05: bolder and sparser, toward his original
+   tile). There is one current per hex, swelling mid-hex and lit from the upper left. They join hex to hex into long
+   diagonal currents 1.5 hex radii apart, with broad dark stone between. Each current throws one bold spiral curl
+   into the stone. There are no corner arcs, which read as fish scale at 50 px. Every join at an edge midpoint is
+   exact, so the floor reads as one surface. It lies under the fighters, with no loop.
+   The caster's own hex stays empty after the cast (director 2026-11-05: it has no in-game effect either).
 7. **The self-buff.** The gates and palace are the master's moment. Per the director, the sigil is symbolic and
    fades in the cast: there is no lingering buff loop and no dais.
 
 **Light and dark boards.** The domain is a dark field (stone mean about `#30292a`), so its edge reads hard on snow and
-by its gold on night boards. The rest gold is deliberately quiet (`#9c6c22` to `#d8b266`), so the cast's burning
-current (`#ffcf4a` to `#fff4c8`) reads clearly against it.
+by its gold on night boards. The rest gold is burnished (`#603a0e` to `#f0cc7c`, bevelled). The cast's burning current
+(`#ffcf4a` to `#fff4c8`, white-hot head) is brighter still, and it runs along the engraved channel at each band's centre.
 **Alongside other effects.** The floor is static art: it draws under fighters, highlights and every other clip, and
-it carries no loop. Peak clip coverage of the arena during the cast is 43 % (mean 18 %). The largest share of any enemy's avatar
+it carries no loop. Peak clip coverage of the arena during the cast is 43 % (mean 17 %). The largest share of any enemy's avatar
 box under an opaque clip pixel is 32 %, for under one second, as the veil passes. The centre strip covers the LPC
 head/torso core 0 % and the LPC body box at most 9.8 %. Measured on the true-scale composite, both column parities.
 
@@ -82,24 +85,18 @@ head/torso core 0 % and the LPC body box at most 9.8 %. Measured on the true-sca
 
 Builders (Pillow only): `floor.py` (the periodic field and the tile), `build_domain.py` (strips and offsets),
 `preview.py` (the true-scale composite). It imports the Mother of Echoes `qa_preview.py` read-only. Exploration patterns
-(palace lattice, swirl, streams) are in `tile_v2.py`. The director's four reference tiles are in `refs/`. Ref a
+(palace lattice, swirl, streams; the superseded thin 'flow' is in git history at 5f2c6a07) are in `tile_v2.py`. The director's four reference tiles are in `refs/`. Ref a
 (`677f13a9`) is taken as the live DemonCastleFloor because it is the only one that fills the 2:1 box. No hash is
 captured for the live asset, and fetching it would be a live request. Provenance and preflight: `_provenance/`.
 
-**Sound.** The live ground tag carries `appearSfx` Heal (`4iG_WpgEmPGUzHn8z129r`). The client plays it once per new
-record, so it fires about 120 times per cast. Proposed: blank it, and put one existing sound (Earth,
-`XBlRonNjvwAZx1_HFpHdM`) on band tag b0 only (4 records), or on the SELF effect. This is the director's call.
+**Sound (director 2026-11-05).** Remove the ground tag's `appearSfx` Heal (`4iG_WpgEmPGUzHn8z129r`). It plays
+once per new record, about 120 times per cast. Put Earth (`XBlRonNjvwAZx1_HFpHdM`) as `appearSfx` on band tag b0 only
+(ring 1: 4 records on the same tick).
 
-## 4. Mechanics (unchanged; options for the director, not applied)
+## 4. Mechanics: unchanged (director 2026-11-05)
 
-1. **No change (default).** The floor already is the stage: enemies standing in the palace deal 15 % less for
-   3 rounds, and the master deals 30 % more for 2.
-2. **Close the hole under the caster.** Add one COORDINATES copy of the ground `decreasedamagegiven` (ENEMIES,
-   3 rounds) at CASTER (0,0). The floor then shows under the caster and stays when they walk off, and an enemy who
-   steps onto that hex is weakened too. It is one more effect line, a tiny balance change, and it is the only way to
-   paint that hex for 3 rounds: a visual tag would vanish at N+1.
-3. **Master's buff lasts as long as the palace.** SELF `increasedamagegiven` rounds 2 → 3. A real balance increase, and it
-   makes the "while the palace stands" fantasy literal.
+No mechanic change. The caster's hole stays empty after the cast. Enemies standing in the palace deal 15 % less for
+3 rounds; the master deals 30 % more for 2.
 
 ## 5. Ratio-1 note (338126cb; the director expects it reverted)
 

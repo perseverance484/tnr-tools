@@ -34,16 +34,16 @@ The cracks flare one tick behind the head. Strip lengths: band and seal strips 3
 - Tile box 132 x 66 px. Clip 165 px square, from the 50 px rendition, linear.
 - Frames are authored on the 50 px grid with hard alpha and exported x3 nearest (150 px).
 - The caster's own hex is NOT in the AOE_SPIRAL_SHOOT footprint (`targeting.ts:56-58`). After the cast it shows the
-  bare board (no dais, director 2026-11-05).
+  bare board (no dais, no mechanic change, director 2026-11-05).
 
 ## Palette (no green)
 
 | Role | Hex |
 |---|---|
 | shadow / veil | `#160a09` |
-| stone (warm basalt, from the director's tile) | `#2c2624` `#342d2a` `#262120` `#3a322e` |
+| stone (warm basalt, from the director's tile) | `#2a2422` `#322b28` `#241f1e` `#38302c` |
 | red sandstone (gates) | `#5a1e14` `#7a2a1c` `#a8432a` `#c9653d` `#e3906a` |
-| demon gold at rest (floor bands, quiet) | `#54320c` `#7c5014` `#9c6c22` `#ba8c3a` `#d8b266` |
+| demon gold at rest (floor bands, bevelled) | outline `#281506`, `#603a0e` `#8c5c18` `#b4802a` `#d6a446` `#f0cc7c` |
 | demon gold (lit body) | `#8a5a12` `#c48a1c` `#e8b43a` |
 | burning gold (energy) | `#ffcf4a` `#ffe58a` `#fff4c8` (white-hot only in the head) |
 | ember (cracks) | `#6e0c08` `#b81c10` `#ff4a1c` `#ff963c` |
