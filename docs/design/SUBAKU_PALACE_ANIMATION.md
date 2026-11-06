@@ -44,7 +44,8 @@ by its gold on night boards. The rest gold is burnished (`#603a0e` to `#f0cc7c`,
 it carries no loop. Peak clip coverage of the arena during the cast is 43 % (mean 17 %). The largest share of any enemy's avatar
 box under an opaque clip pixel is 32 %, for under one second, as the veil passes. The centre strip (v4) covers the
 caster's LPC body envelope 0 % and the lower neighbour's meter rows 0 % on every frame (build-gated); its arch and
-palace eave cross the caster's own meter rows (shown only on hover or selection) during ticks 15-24. Measured on the true-scale composite, both column parities.
+palace eave cross the caster's own meter rows (shown only on hover or selection) during ticks 15-24, an exception the
+director accepted on 2026-11-05 ("keep the arch"). Measured on the true-scale composite, both column parities.
 
 ## 2. Engine reality (what made the design)
 

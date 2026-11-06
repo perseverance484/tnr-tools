@@ -43,8 +43,9 @@ Gated at 0% on every frame (`build_gates.py` exits otherwise):
 - **The lower neighbour's HP/SP/CP rows:** they fall inside this clip at 0.2-0.6 h above this hex's bottom (x 15-34,
   y 23-31). The sigil's front arc sits above them at y 22.5. The bottom band and the hex's bottom midpoint are not used.
 
-Reported, not gated: the caster's own meter rows (x 15-34, y 3-11). They are shown only on hover or selection, and the
-arch top and roof wings cross them on ticks 15-24 (up to 36.7% of the rows).
+**Accepted exception (director, 2026-11-05: "keep the arch"):** the caster's own meter rows (x 15-34, y 3-11). They are
+shown only on hover or selection. The arch top and roof wings cross them on ticks 15-24 (up to 36.7% of the rows).
+This is reported in `sbk_gates_v4.json`, not gated.
 
 The composition is mirror-symmetric about x -> 49 - x (the clip centre lies between pixels 24 and 25), inside a 2 px
 margin.
