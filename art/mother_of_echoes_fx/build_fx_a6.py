@@ -199,3 +199,80 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ------------------------------------------------------------------------------------------------ batch 2 (per-hex)
+ASH = ((58, 52, 56), (128, 118, 112), (186, 178, 168))
+LANTERN = (232, 170, 84)
+INK2 = (14, 12, 18)
+
+
+def doorward_sweep():
+    """The Gate Porter's sweep (SAYO_BIBLE.md 3.6, the Worn: ash, one lantern-amber accent; never ember, violet or a
+    pool colour): the bar draws back (2 frames), sweeps through the target in a wide flat arc (3 frames), HOLDS on
+    contact (2 frames), ash chips scatter, the arc's trail fades. 14 frames."""
+    out = []
+    cx, cy = 25, 22
+    for i in range(14):
+        f = F.frame()
+        if i < 2:                                                # wind-up: the bar's end at the right, a lantern glint
+            A4.cluster(f, 41 - i, 14 + i, LANTERN, ASH[0])
+        elif i < 5:                                              # the sweep: a flat arc right to left through the target
+            t = (i - 1) / 3
+            a1 = -40 + 220 * t
+            n = F.frame()
+            for w, col in ((3, ASH[1]), (1, ASH[2])):
+                F.thick_arc(n, cx, cy, 15, max(-40, a1 - 70), a1, [(k, col) for k in range(w)], ry_scale=0.45)
+            F.outline_alpha(n, ASH[0])
+            f.alpha_composite(n)
+            x, y = cx + 15 * math.cos(math.radians(a1)), cy + 15 * 0.45 * math.sin(math.radians(a1))
+            A4.cluster(f, x, y, LANTERN, ASH[0])
+        elif i < 7:                                              # the held contact: the arc stops, the bar's end on them
+            n = F.frame()
+            F.thick_arc(n, cx, cy, 15, 40, 180, [(0, ASH[2]), (1, ASH[1]), (2, ASH[1])], ry_scale=0.45)
+            F.outline_alpha(n, ASH[0])
+            f.alpha_composite(n)
+            A4.star(f, cx - 6, cy + 4, (255, 255, 250), 3)
+        else:                                                    # ash chips scatter and fall; the trail fades
+            v = i - 7
+            if v < 3:
+                F.thick_arc(f, cx, cy, 15, 60 + 25 * v, 180, [(0, ASH[1])], ry_scale=0.45)
+            for k, (dx, dy) in enumerate(((-9, -2), (-4, -5), (3, -4), (-12, 2), (6, 1))):
+                if v > 4 and k % 2:
+                    continue
+                A4.cluster(f, cx - 2 + dx * (1 + 0.12 * v), cy + 2 + dy + 0.3 * v * v, ASH[2] if k % 2 else ASH[1], ASH[0])
+        out.append(f)
+    return A4.edge_check("doorward sweep", out)
+
+
+def the_quiet():
+    """The Quiet (the Saint): ink lids close over the target like an eye shutting (3 frames), HELD shut (2 frames, one
+    teal seam), open again (2 frames) and leave frozen dust settling. Clear of the portrait except the held beat."""
+    out = []
+    cx, cy, rx, ry = 25, 18, 15, 10
+    for i in range(13):
+        f = F.frame()
+        if i < 2:                                                # anticipation: the lids gather at the rim
+            F.thick_arc(f, cx, cy, rx + 2, 200, 340, [(0, INK2), (1, INK2)], ry_scale=ry / rx)
+            F.thick_arc(f, cx, cy, rx + 2, 20, 160, [(0, INK2), (1, INK2)], ry_scale=ry / rx)
+        elif i < 7:
+            close = A4.ease((i - 1) / 3) if i < 5 else 1.0
+            n = F.frame()
+            d = ImageDraw.Draw(n)
+            gap = (1 - close) * ry
+            d.chord([cx - rx, cy - ry - 2, cx + rx, cy - gap + ry * 0.3], 180, 360, fill=(*INK2, 255))
+            d.chord([cx - rx, cy + gap - ry * 0.3, cx + rx, cy + ry + 2], 0, 180, fill=(*INK2, 255))
+            F.outline_alpha(n, (70, 84, 98))
+            f.alpha_composite(n)
+            if i >= 5:                                           # held shut: one teal seam, nothing moves
+                F.seg(f, (cx - rx + 2, cy), (cx + rx - 2, cy), A.PAL["III"]["vein"])
+        elif i < 9:                                              # they open
+            open_ = (i - 6) / 3
+            F.thick_arc(f, cx, cy, rx + 1 + 2 * open_, 200, 340, [(0, INK2), (1, INK2)], ry_scale=ry / rx)
+            F.thick_arc(f, cx, cy, rx + 1 + 2 * open_, 20, 160, [(0, INK2), (1, INK2)], ry_scale=ry / rx)
+        else:                                                    # frozen dust settles
+            v = i - 9
+            for k, (dx, dy) in enumerate(((-12, -3), (11, -2), (-8, 6), (9, 7))):
+                A4.cluster(f, cx + dx, cy + dy + v, (206, 210, 222), INK2)
+        out.append(f)
+    return A4.edge_check("the quiet", out)
