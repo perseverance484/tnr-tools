@@ -1,5 +1,5 @@
 {
- "name": "pass6-final",
+ "name": "pass6-live1",
  "pools": {
   "sayo1": 2.0,
   "silence": 1.0,
@@ -13,11 +13,11 @@
   "saint": 40
  },
  "idg": {
-  "saint": 5.31,
-  "sayo1": 5.45,
-  "silence": 3.5,
+  "saint": 2.41,
+  "sayo1": 2.56,
+  "silence": 0.62,
   "summons": 3.5,
-  "sayo2": 5.18
+  "sayo2": 2.27
  },
  "pw": {
   "lancet": 25,
@@ -56,10 +56,14 @@
   "recast": 128.7128712871287
  },
  "gear": {
-  "poolsMultiplier": 1
+  "poolsMultiplier": 1,
+  "damageTakenReductionPct": 1,
+  "incTakenPct": 152
  },
  "avgGear": {
-  "poolsMultiplier": 1
+  "poolsMultiplier": 1,
+  "damageTakenReductionPct": 1,
+  "incTakenPct": 152
  },
  "bossDmgScale": 0.7,
  "ramp": {
@@ -96,5 +100,7 @@
   "act2": 50,
   "cd": 4
  },
- "etchDWide": true
+ "etchDWide": true,
+ "liveSpawn": true,
+ "recastGround": true
 }

@@ -15,6 +15,7 @@ import { nanoid } from "nanoid";
 import { performAIaction } from "@/libs/combat/ai_v2";
 import { availableUserActions, actionPointsAfterAction, performBattleAction, stillInBattle } from "@/libs/combat/actions";
 import { applySageModeAfterRoundTransition } from "@/libs/combat/process";
+import { getBattleSpawnLocations } from "@/libs/combat/participants";
 import { alignBattle, getBattleGrid, getEffectiveMaxPool } from "@/libs/combat/util";
 import { StatTypes } from "@/drizzle/constants";
 import { AiRule } from "@/validators/ai";
@@ -110,6 +111,8 @@ export const MOE_DEFAULTS = {
   skilledPolicy: false,
   /** Pass 6: cleansable debuff left by an eruption hit, per act ({dh, idt, rounds}); the cast becomes CHARACTER. */
   eruptDebuff: { on: false } as { on: boolean; act1?: any; act2?: any; act3?: any },
+  /** Pass 6 live calibration: Act II Recasts stay GROUND (debuff as a pool) instead of CHARACTER + Sayo's post. */
+  recastGround: false,
   /** Pass 6 (director 2026-11-05 probe): Glass Lancet cooldown (1 = every turn it is free). */
   lancetCd: 1,
   /** Pass 6: extra multiplier on the summons' hits (Grasp, Your Own Strike, Doorward Sweep, Cadet's Tether). */
@@ -368,19 +371,27 @@ export const buildRecords = (P: MoeParams) => {
     // the player with its own rounds. Her own hex is never hit (friendlyFire ENEMIES). Nothing Moves already holds the
     // Silence's hex. Acts I and III: the eruption stays GROUND and leaves a heal-block + damage-taken pool on its own
     // pattern hexes only (ground tags are placed on the cast's pattern, actions.ts:1063-1100), drawn as a lingering pool.
-    const SAYO2_POST: Cell = [7, 5];
-    for (const id of Object.values(JID.det)) {
-      const r = J[id]!; r.target = "CHARACTER";
-      const cs = r.coordinateTargeting.coordinates;
-      if (!cs.some((c: any) => c.longitude === SAYO2_POST[0] && c.latitude === SAYO2_POST[1])) cs.push({ longitude: SAYO2_POST[0], latitude: SAYO2_POST[1] });
-      r.effects.push(...eruptDebuff(2));
-    }
-    J[JID.stillnessBlast]!.effects.push(...eruptDebuff(1));
     const pool = (act: number) => {
       const d = DEBUFF.pct[act]; if (!d) return [];
       return [tag("decreaseheal", { power: d.dh, rounds: d.poolRounds ?? d.rounds, calculation: "percentage", friendlyFire: "ENEMIES", description: "The broken glass", ...poolArt("tg_linger") }),
         T.pct("increasedamagetaken", d.idt, d.poolRounds ?? d.rounds, { friendlyFire: "ENEMIES", description: "The broken glass" })];
     };
+    const SAYO2_POST: Cell = [7, 5];
+    // Live calibration (2026-11-05): the server seats Sayo II on a random cell of the right spawn block (x 8-9, y 1-7,
+    // routers/combat.ts:3867-3880), never on (7,5), so a CHARACTER Recast with nobody on its hexes is refused
+    // (actions.ts:1009-1021 -> ActionNotPossibleError, actions.ts:1421-1425) and her combo stalls on Etching (sim with
+    // liveSpawn: 42 marks, 0 Recasts). recastGround keeps the Recasts GROUND on their etched pattern (always valid) and
+    // lays the debuff as a pool on that pattern, like Acts I and III; at 6,500 a Recast is lethal, so the debuff only ever
+    // met a dead player anyway.
+    for (const id of Object.values(JID.det)) {
+      const r = J[id]!;
+      if (P.recastGround) { r.effects.push(...pool(2)); continue; }
+      r.target = "CHARACTER";
+      const cs = r.coordinateTargeting.coordinates;
+      if (!cs.some((c: any) => c.longitude === SAYO2_POST[0] && c.latitude === SAYO2_POST[1])) cs.push({ longitude: SAYO2_POST[0], latitude: SAYO2_POST[1] });
+      r.effects.push(...eruptDebuff(2));
+    }
+    J[JID.stillnessBlast]!.effects.push(...eruptDebuff(1));
     for (const id of [JID.blastA, JID.blastB, JID.facetBlast, JID.lucidBlast]) J[id]!.effects.push(...pool(1));
     for (const id of [JID.shatterBlast, JID.floodBlast, ...JID.glass, JID.glassFirstB, JID.glassRecast]) J[id]!.effects.push(...pool(3));
   }
@@ -664,6 +675,9 @@ export const validateAll = (P: MoeParams) => {
 let GEAR_OVERRIDE: any = null;
 let AVG_OVERRIDE: any = null;
 export const setGearOverride = (g: any, avg?: any) => { GEAR_OVERRIDE = g; AVG_OVERRIDE = avg ?? null; };
+/** Pass 6 live calibration: seat combatants like the server (random spawn blocks) instead of the fixed posts. */
+let LIVE_SPAWN = false;
+export const setLiveSpawn = (on: boolean) => { LIVE_SPAWN = on; };
 /**
  * The average geared level-100 model (RUL-2026-11-02-097 item 3), built the same way as the elite one: the real Kitsune
  * set and the 9-jutsu Fire/Wind endgame kit, plus gear stand-in rows, with the +100% damage rows sized so that its
@@ -860,6 +874,13 @@ export const buildPlayer = (m: PlayerModel, catalog: Record<string, any>) => {
   }
   const gear = u.items.find((ui: any) => ui.item?.id === "harness-gear-armor");
   if (gear && m.idgRows) for (let i = 0; i < m.idgRows; i++) gear.item.effects.push({ ...structuredClone(gear.item.effects[0]), type: "increasedamagegiven", power: 100, direction: "offence", rounds: 100, description: "harness gear stand-in increasedamagegiven 100%" });
+  // Live calibration (director's log, 2026-11-05; harvests/battle_logs/moe_practice_dauntless_2026-11-05.txt on main):
+  // gear.incTakenPct / avgGear.incTakenPct add an increasedamagetaken % row to the gear armor. Armor percentage rows are
+  // consolidated into the pre-battle pools (process.ts:1752-1779): incPoints = 60 + this (process.ts:2218-2223), so the
+  // player's formula damage taken is raised by (160 + X) / 160 before the DR pool, and the 5% floor rises with it.
+  const incTaken = (m.variant.name.startsWith("average") ? AVG_OVERRIDE : GEAR_OVERRIDE)?.incTakenPct ?? 0;
+  // One row per 100 points: a single row's power is clamped at 100 (observed: 300 / 358 / 420 all gave +100).
+  for (let left = incTaken; gear && left > 0; left -= 100) gear.item.effects.push({ ...structuredClone(gear.item.effects[0]), type: "increasedamagetaken", power: Math.min(100, left), direction: "defence", rounds: 100, description: "live calibration: increasedamagetaken" });
   if (gear && m.sustain.lifestealGear) gear.item.effects.push({ ...structuredClone(gear.item.effects[0]), type: "lifesteal", power: m.sustain.lifestealGear, rounds: 100, description: "harness gear stand-in lifesteal" });
   const innate = (type: string, power: number, extra: any = {}) => ({ ...structuredClone(tag(type, { power, rounds: 100, ...extra })), target: "INHERIT" });
   if (m.sustain.siphonInnate) u.effects.push(innate("siphon", m.sustain.siphonInnate, { calculation: "percentage" }));
@@ -934,9 +955,25 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
     const puid = player.userId;
     const pu = () => b.usersState.find((u: any) => u.userId === puid)!;
     const bossU = (aid: string) => b.usersState.find((u: any) => u.controllerId === aid && !u.isSummon);
-    for (const [aid, c] of Object.entries(cfg.positions ?? {})) { const u = bossU(aid); if (u) [u.longitude, u.latitude] = c; }
+    if (!LIVE_SPAWN) for (const [aid, c] of Object.entries(cfg.positions ?? {})) { const u = bossU(aid); if (u) [u.longitude, u.latitude] = c; }
+    // Live spawn (director's log 2026-11-05: Sayo I5 = (8,4), the Silence J7 = (9,6)): the server seats every combatant
+    // on a random cell of its side's spawn block (theninjarpg@3314d122 server/api/routers/combat.ts:3867-3880, unseeded
+    // node:crypto; blocks from libs/combat/participants.ts:34-55 with COMBAT_BORDER_* = 2/2/2/0, libs/combat/constants.ts:23-26:
+    // 12 x 10 field: right x 8-9, left x 3-4, y 1-7). The harness draws the same blocks with the run's seeded stream.
+    if (LIVE_SPAWN) {
+      const taken: string[] = [];
+      const seat = (u: any, dir: "left" | "right") => {
+        const open = getBattleSpawnLocations(W, H, dir).filter((l) => !taken.includes(`${l.x},${l.y}`));
+        const l = open[Math.floor(rand() * open.length)]!;
+        taken.push(`${l.x},${l.y}`); u.longitude = l.x; u.latitude = l.y;
+      };
+      for (const aid of cfg.bossIds) { const u = bossU(aid); if (u) seat(u, "right"); }
+      seat(pu(), "left");
+      for (const pet of b.usersState.filter((u: any) => u.petId || (u.isSummon && u.direction === "left"))) seat(pet, "left");
+      if (o.policy === "camp") { const camp = ({ 1: [7, 3], 2: [10, 4], 3: [6, 2] } as Record<number, Cell>)[cfg.act]!; if (!b.usersState.some((u: any) => u.longitude === camp[0] && u.latitude === camp[1])) [pu().longitude, pu().latitude] = camp; }
+    }
     // Player side spawns on the west edge (column 0-1), facing the bosses.
-    {
+    if (!LIVE_SPAWN) {
       const p0 = pu();
       const free = (c: Cell) => !b.usersState.some((u: any) => u !== p0 && u.longitude === c[0] && u.latitude === c[1]);
       // Seeded west-edge spawn (columns 0-1, rows 2-7): the run's only positional variance besides the random Hush seeds.
