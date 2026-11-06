@@ -6,28 +6,58 @@
 Items keep their source order; each source's phases are remapped so sources run strictly in the order given:
 an item's new phase is PHASE_BASE + (its phase or 0). Forge runs items by phase, then manifest order
 (forge/src/runner/manifest.mjs:321-325), so a later source never starts before an earlier one finishes queueing.
-imagePack / imgSizes are merged (at most one imagePack ref is allowed). Sources are copied, never edited.
+imagePack / imgSizes are merged. Two different imagePack refs are re-pinned to the later one only when every file of
+the earlier pack is byte-identical (sha256) at the later commit and the earlier commit is its ancestor; otherwise the
+build stops. Capture blocks (capture.before / capture.after) are concatenated in source order. Sources are copied,
+never edited.
 """
+import hashlib
 import json
 import os
+import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+def git(*a):
+    return subprocess.run(["git", "-C", ROOT, *a], capture_output=True)
+
+
+def repin(a, b, path):
+    """One imagePack ref for two packs: the later commit, if it holds every file of both byte-identically."""
+    ra, rb = a["ref"], b["ref"]
+    later = rb if git("merge-base", "--is-ancestor", ra, rb).returncode == 0 else ra
+    if git("merge-base", "--is-ancestor", ra if later == rb else rb, later).returncode != 0:
+        raise SystemExit(f"{path}: imagePack refs {ra[:10]} / {rb[:10]} are not on one line; run it separately")
+    for files in (a["files"], b["files"]):
+        for name, f in files.items():
+            blob = git("show", f"{later}:{f['path']}")
+            if blob.returncode != 0 or hashlib.sha256(blob.stdout).hexdigest() != f["sha256"]:
+                raise SystemExit(f"{path}: {f['path']} is not byte-identical at {later[:10]}; run it separately")
+    return later
+
+
 def main():
     out, srcs = sys.argv[1], sys.argv[2:]
     items, notes, pack, sizes, dedup = [], [], None, {}, False
+    capture = {"before": [], "after": []}
     for spec in srcs:
         path, _, base = spec.partition(":")
         base = int(base or 0)
         d = json.load(open(os.path.join(ROOT, path)))
         dedup = dedup or bool(d.get("dedupNames"))
         if d.get("imagePack"):
-            if pack and pack["ref"] != d["imagePack"]["ref"]:
-                raise SystemExit(f"{path}: a second imagePack ref; run it separately")
-            pack = pack or {"ref": d["imagePack"]["ref"], "files": {}}
-            pack["files"].update(d["imagePack"]["files"])
+            ref = d["imagePack"]["ref"]
+            if pack and pack["ref"] != ref:
+                pack["ref"] = repin(pack, d["imagePack"], path)
+            pack = pack or {"ref": ref, "files": {}}
+            for name, f in d["imagePack"]["files"].items():
+                if name in pack["files"] and pack["files"][name]["sha256"] != f["sha256"]:
+                    raise SystemExit(f"{path}: {name} differs from an earlier source's copy")
+                pack["files"][name] = f
+        for k in ("before", "after"):
+            capture[k] += (d.get("capture") or {}).get(k, [])
         sizes.update(d.get("imgSizes", {}))
         for it in d["items"]:
             it = dict(it)
@@ -42,6 +72,8 @@ def main():
         m["imgSizes"] = sizes
     if pack:
         m["imagePack"] = pack
+    if capture["before"] or capture["after"]:
+        m["capture"] = capture
     with open(os.path.join(ROOT, out), "w") as f:
         json.dump(m, f, indent=1, ensure_ascii=False)
         f.write("\n")

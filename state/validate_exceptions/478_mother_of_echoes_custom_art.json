@@ -1,8 +1,8 @@
 {
  "manifest": "push/478_mother_of_echoes_custom_art.json",
- "ruling": "PENDING director acceptance. No new class: build-order misrankings of a phased manifest (RUL-2026-10-31-085 item 1); law 4 / L06 generalTypes on formula damage, L10 EP above signature ceiling, law 6 on formula damage and L08 increasedamagegiven products (RUL-2026-11-04-115, the 440/463 ledgers); law 6 on the 17 flat pierce eruptions (the push/476 ledger class, still pending there; the engine's PowerAttributes.power has no maximum, validators/combat.ts:147-149). The jutsu tuning is unchanged from push/476 (SPEC_REF); only art fields, the approved text pass and zero-impact visual tags (art3 mosaic bands and one sound carrier per ground cast; power 2, no gameplay handler) differ; the 122 diagnostics are the same set as the first 478 build.",
+ "ruling": "Accepted by the director, RUL-2026-11-05-119. No new class: build-order misrankings of a phased manifest (RUL-2026-10-31-085 item 1); law 4 / L06 generalTypes on formula damage, L10 EP above signature ceiling, law 6 on formula damage and L08 increasedamagegiven products (RUL-2026-11-04-115, the 440/463 ledgers); law 6 on the 17 flat pierce eruptions (the push/476 ledger class, still pending there; the engine's PowerAttributes.power has no maximum, validators/combat.ts:147-149). The jutsu tuning is unchanged from push/476 (SPEC_REF); only art fields, the approved text pass and zero-impact visual tags (art3 mosaic bands and one sound carrier per ground cast; power 2, no gameplay handler) differ; the 122 diagnostics are the same set as the first 478 build.",
  "reason": "Custom animation set job built from SPEC_REF with the 440/461-463 and 476 bundles and 466's asset ids.",
- "sha256": "8b17b2daf5eeb17941738ff3b22a69cfd87550ee4c657473d414aa0331d68c1b",
+ "sha256": "f0b47c7ac1947cc90f6e64c9a760bd9f04adee36050bd051f94e5807b8358bc0",
  "accepted": [
   "ERROR  [jutsu:Breathless Pull: custom art]: law 4: formula effect 'damage' requires BOTH statTypes AND generalTypes; an empty one silently zeroes the damage",
   "ERROR  [jutsu:Facet Breaks: custom art]: law 6: effect 'pierce' power 3030 exceeds the cap of 100 (rows are rounded down)",
@@ -44,9 +44,6 @@
   "ERROR  lint Recast: Rime: custom art: L10 EP 100 above signature ceiling 70",
   "ERROR  lint Recast: Seam: custom art: L10 EP 100 above signature ceiling 70",
   "ERROR  lint Refraction Breaks: custom art: L10 EP 100 above signature ceiling 70",
-  "ERROR  lint Sayo, Glasswright of the Stilling: kit back (law 18): L08 6 increasedamagegiven rows: product x37.8",
-  "ERROR  lint Sayo, Mother of Echoes: kit back (law 18): L08 6 increasedamagegiven rows: product x46.4",
-  "ERROR  lint Sayo, Saint of Stillness: kit back (law 18): L08 6 increasedamagegiven rows: product x41.9",
   "ERROR  lint Shatterfall Gives Way: custom art: L10 EP 100 above signature ceiling 70",
   "ERROR  lint The Glass Remembers: custom art: L06 damage missing statTypes/generalTypes (generalTypes gap can explode damage)",
   "ERROR  lint The Glass Remembers: custom art: L10 EP 100 above signature ceiling 70",
