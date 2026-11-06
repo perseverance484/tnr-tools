@@ -184,7 +184,7 @@ def recast_floor(seed=11):
             pts.append((x, y))
         cracks.append(pts)
     scores = [(rnd.uniform(0, V2[0]), rnd.uniform(0, V1[1]), rnd.choice("hv"), rnd.uniform(8, 16) * S) for _ in range(5)]
-    chips = [(rnd.uniform(0, V2[0]), rnd.uniform(0, V1[1]), rnd.choice((GLASS_L, GLASS_B, WHITE))) for _ in range(6)]
+    chips = [(rnd.uniform(0, V2[0]), rnd.uniform(0, V1[1]), rnd.choice((WHITE, GOLD_DIM, (222, 226, 236)))) for _ in range(6)]
     smoke = [(rnd.uniform(0, V2[0]), rnd.uniform(0, V1[1]), rnd.uniform(7, 12) * S) for _ in range(3)]
 
     def base(d, ox, oy):
@@ -200,7 +200,7 @@ def recast_floor(seed=11):
         for pts in cracks:
             q = [(ox + x, oy + y) for x, y in pts]
             d.line(q, fill=(*CRACK, 255), width=2 * S)
-            d.line([(x - S, y - S) for x, y in q], fill=(*GLASS_L, 255), width=S)       # the lit edge (upper left)
+            d.line([(x - S, y - S) for x, y in q], fill=(222, 226, 236, 255), width=S)  # the lit edge (upper left)
         for x, y, c in chips:
             d.rectangle([ox + x - S, oy + y - S, ox + x + S, oy + y + S], fill=(*c, 255))
 
@@ -208,7 +208,7 @@ def recast_floor(seed=11):
     big, c = periodic(lambda d, ox, oy: None)
     W, H = big.size
     ground = Image.new("RGBA", (W, H), (*P2["deep"], 255))
-    lift, _ = periodic(lambda d, ox, oy: [d.line([(ox + x, oy + y) for x, y in pts], fill=(*GLASS_B, 255), width=4 * S)
+    lift, _ = periodic(lambda d, ox, oy: [d.line([(ox + x, oy + y) for x, y in pts], fill=(91, 103, 134, 255), width=4 * S)
                                            for pts in cracks])   # a lit sheen along every crack: reads on dark boards
     ground.alpha_composite(lift)
     sm, _ = periodic(base)
@@ -267,6 +267,68 @@ def mended_floor(seed=23):
     return F.tile_out(t)
 
 
+def _veined_tile(seed, ground, crack_dark, crack_lit, flecks, frost=None, nveins=4, step=6, wdark=3, lit_w=1):
+    """A lattice-periodic floor: ground colour, optional matte frost patches, crack network (dark body + lit core),
+    2-3 px flecks. One period, repeated on the hex lattice (seamless across hexes)."""
+    rnd = random.Random(seed)
+    veins = []
+    for _ in range(nveins):
+        x, y = rnd.uniform(0, V2[0]), rnd.uniform(0, V1[1])
+        pts = [(x, y)]
+        ang = rnd.uniform(0, 2 * math.pi)
+        for _ in range(8):
+            ang += rnd.uniform(-0.8, 0.8)
+            x, y = x + step * S * math.cos(ang), y + step * S * math.sin(ang)
+            pts.append((x, y))
+        veins.append(pts)
+    pts_f = [(rnd.uniform(0, V2[0]), rnd.uniform(0, V1[1]), rnd.choice(flecks)) for _ in range(7)]
+    patches = [(rnd.uniform(0, V2[0]), rnd.uniform(0, V1[1]), rnd.uniform(5, 10) * S) for _ in range(4)] if frost else []
+
+    def body(d, ox, oy):
+        for x, y, r in patches:
+            d.ellipse([ox + x - r, oy + y - r * 0.55, ox + x + r, oy + y + r * 0.55], fill=(*frost[0], 255))
+            d.ellipse([ox + x - r * 0.55, oy + y - r * 0.3, ox + x + r * 0.45, oy + y + r * 0.28], fill=(*frost[1], 255))
+
+    def lines(d, ox, oy):
+        for pts in veins:
+            q = [(ox + x, oy + y) for x, y in pts]
+            d.line(q, fill=(*crack_dark, 255), width=wdark * S)
+            d.line(q, fill=(*crack_lit, 255), width=lit_w * S)
+        for x, y, c in pts_f:
+            d.rectangle([ox + x - S, oy + y - S, ox + x + S, oy + y + S], fill=(*c, 255))
+
+    big, c = periodic(lambda d, ox, oy: None)
+    g = Image.new("RGBA", big.size, (*ground, 255))
+    for fn in (body, lines):
+        layer, _ = periodic(fn)
+        g.alpha_composite(layer)
+    tile = g.crop((c[0] - 25 * S, c[1] - 25 * S, c[0] + 25 * S, c[1] + 25 * S)).resize((50, 50), Image.NEAREST)
+    m = Image.new("L", (50, 50), 0)
+    ImageDraw.Draw(m).polygon(F.T_HEX, fill=255)
+    t = Image.new("RGBA", (50, 50), (0, 0, 0, 0))
+    t.paste(tile, (0, 0), m)
+    return F.tile_out(t)
+
+
+def floor_i():
+    """Sayo, Act I: crazed white glass where the line broke; hairline cracks in gunmetal with white-gold lit cores,
+    a few prismatic glints. Bright on the dark board; the gunmetal network carries it on the light one."""
+    return _veined_tile(31, (176, 184, 200), (35, 34, 49), (255, 255, 250), [(255, 170, 170), (190, 180, 255), (255, 238, 196)],
+                        frost=((214, 220, 232), (236, 240, 246)), nveins=5, step=5, wdark=3)
+
+
+def floor_silence():
+    """The Silence (the Hush, An Absence): matte ink that reflects nothing, frost lying in it, teal only in the veins."""
+    return _veined_tile(41, (14, 12, 18), (70, 84, 98), (96, 214, 236), [(206, 210, 222), (206, 210, 222)],
+                        frost=((70, 84, 98), (150, 160, 174)), nveins=3, step=6, wdark=2)
+
+
+def floor_iii():
+    """Sayo, Act III (the Remainder): blackened obsidian, teal cracks frozen mid-run, bone flecks."""
+    return _veined_tile(53, (18, 23, 30), (20, 42, 51), (146, 182, 191), [(235, 236, 235), (170, 172, 176)],
+                        nveins=4, step=6, wdark=4)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
@@ -282,6 +344,9 @@ def main():
         rows.append({"file": name, "col": col, "row": row, "frames": len(sl)})
     recast_floor().save(os.path.join(a.out, "tile_moe_recast_floor_a8.webp"), lossless=True, quality=100, method=6)
     mended_floor().save(os.path.join(a.out, "tile_moe_mended_floor_a8.webp"), lossless=True, quality=100, method=6)
+    for name, fn in (("tile_moe_floor_i_a8.webp", floor_i), ("tile_moe_floor_silence_a8.webp", floor_silence),
+                     ("tile_moe_floor_iii_a8.webp", floor_iii)):
+        fn().save(os.path.join(a.out, name), lossless=True, quality=100, method=6)
     json.dump({"slices": rows}, open(os.path.join(a.out, "moe_fx_paint.json"), "w"), indent=1)
     print(len(rows), "slices + 1 tile")
 

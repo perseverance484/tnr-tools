@@ -388,6 +388,14 @@ asset per band, and pieces start within a texture load of each other, not frame-
 
 ### 5.1 Palette per act
 
+> **Revision (director 2026-11-05: no sickly green; colours per enemy).** No bile, acid or toxic green anywhere in this
+> fight: lingering ground and pools take the colour of the enemy that made them and read as danger through material
+> and value contrast (frozen, stilled, shattered, blackened, ember-edged), never through a hazard colour. Cyan is
+> reserved for safe hexes: in danger art, Heartglass cyan appears only as thin facet lines and glints, never as a fill.
+> Etch gold stays distinct from ember (gold is the scored line, ember only the heavy rim and shard edge). The tables
+> below and the grammar constants carry the revision; sections outside 5 are unchanged and still mention bile pools
+> (read them through this revision).
+
 Measured from the approved variants and the art3 builder (`build_fx_a3.py` `PAL`, `build_fx.py` constants).
 
 **Act I: Heartglass (light).**
@@ -440,8 +448,19 @@ Measured from the approved variants and the art3 builder (`build_fx_a3.py` `PAL`
 **The Worn:** ash `#3a3438` `#807670` `#bab2a8`, each with one small accent kept from their avatar (the Porter's lantern
 amber, Hana's rose, Tomo's cyan-violet frays).
 
-**Grammar constants (every act; `SKYGLASS_BOSS_ANIMATIONS.md` owns them):** ember `#5c1e12` `#d63a1a` `#ffce54`; score
-outline `#18100a`; bile `#34460e` `#96ba28` `#d6ee68`; safe cyan `#98d6e8` `#cef4fc`.
+**Grammar constants (every act; `SKYGLASS_BOSS_ANIMATIONS.md` owns the event-wide set; this fight's revision, director
+2026-11-05):** ember `#5c1e12` `#d63a1a` `#ffce54` (heavy only); score outline `#18100a`; safe cyan `#98d6e8` `#cef4fc`
+(safe only); violet (control only, as the Silence's table); **no bile in this fight.**
+
+**Lingering ground, by owner (replaces the bile pool):**
+
+| Owner / act | The floor after the ability | Hex |
+|---|---|---|
+| Sayo, Act I (Heartglass) | crazed white glass: hairline facet cracks in white and white-gold, gunmetal grout, prismatic 2x2 glints at crack junctions (few) | ground `#d8dde6`, crack `#3e3c54`, lit crack `#fffffa` / `#ffeec4`, glint `#ffaaaa` `#beb4ff` |
+| Sayo, Act II (the turn) | shattered etched glass: dim gold scores broken, black cracks across them, smoke stains | ground `#0e1016`, smoke `#27323c`, score `#967640`, crack `#080a0f`, lit edge `#9ad0e3` |
+| Sayo, Act III (the Remainder) | blackened obsidian, teal cracks frozen mid-run, bone flecks | ground `#12171e`, crack `#142a33` / `#60d6ec`, bone `#ebeceb` |
+| The Silence (Hush, An Absence) | matte ink that reflects nothing, frost lying in it, teal only in veins | ink `#0e0c12`, frost `#27323c` / `#465462`, frozen dust `#ced2de`, vein `#2f5c6a` / `#60d6ec` |
+| The Worn | ash only (they never leave ground) | ash table above |
 
 Two bones are in use: `build_fx.py` `#e4dece` (warm) and `build_fx_a3.py` `#ebeceb` (the Remainder's cord). New work
 uses `#ebeceb`.
@@ -475,10 +494,10 @@ uses `#ebeceb`.
 
 | Act | Allowed particles |
 |---|---|
-| I | prismatic 2x2 glints; white four-point stars; cyan facet chips; frozen dust |
+| I | prismatic 2x2 glints; white four-point stars; white-gold facet chips (cyan chips only on safe art); frozen dust |
 | II | gold scribe sparks; white-gold lattice flashes; black crack ticks; first smoke wisps; ash (the Worn) |
 | III | black flecks; smoke curls inside glass; teal vein sparks; bone motes; frozen dust |
-| Silence | frozen dust only |
+| Silence | frozen dust; frost flakes on its ground (matte, never glossy) |
 | Heavy (all acts) | ember chips off the rim and shard edges, falling, never rising like flame |
 
 Every particle is a solid 2-3 px cluster with an outline. A 1 px particle is haze after the 50 px rendition and the
@@ -513,7 +532,7 @@ battle stills with three fighters standing in the field (`docs/design/mother_of_
 3. **Family:** the shape and motion verb match section 3 (lines split, etches replay, panes fall, hushes close inward,
    echoes rise).
 4. **Act material:** palette only from the act's table (5.1); a shared record uses its agreed neutral or corrupted look.
-5. **Grammar colours:** ember only on heavy, violet only on control, bile only on linger, safe cyan only on safe, etch
+5. **Grammar colours:** ember only on heavy, violet only on control, no bile anywhere (lingering ground in its owner's material, table 5.1), safe cyan only on safe, etch
    gold only on etch.
 6. **The beat:** anticipation, hold, impact frame, follow-through, settle; 9-15 frames at 50 ms; the hold is present on
    every Sayo payoff.
