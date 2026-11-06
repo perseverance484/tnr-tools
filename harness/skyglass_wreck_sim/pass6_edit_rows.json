@@ -20,10 +20,6 @@
     {
      "srcId": "sg440_ai_sayo_stilling",
      "liveId": "H3pNj2qUWpMpVRINiH6Vn"
-    },
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
     }
    ]
   },
@@ -58,10 +54,6 @@
     {
      "srcId": "sg440_ai_sayo_stilling",
      "liveId": "H3pNj2qUWpMpVRINiH6Vn"
-    },
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
     }
    ]
   },
@@ -144,36 +136,6 @@
    ]
   },
   {
-   "jutsu": "Refraction",
-   "srcId": "sg440_refraction",
-   "liveId": "yxP6zO2NmjwqnrnvNXipC",
-   "effectIndex": 3,
-   "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "",
-     "appearAnimation": "",
-     "disappearAnimation": "",
-     "appearSfx": "",
-     "disappearSfx": "",
-     "rounds": 3,
-     "power": 10,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "percentage",
-     "type": "reflect",
-     "description": "Heartglass: every pane turns your light back at you"
-    }
-   },
-   "holders": [
-    {
-     "srcId": "sg440_ai_sayo",
-     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
-    }
-   ]
-  },
-  {
    "jutsu": "Far Refraction",
    "srcId": "sg440_refraction_ii",
    "liveId": "HIftLq_RQJkIUUqGgBPTE",
@@ -222,36 +184,6 @@
    ]
   },
   {
-   "jutsu": "Far Refraction",
-   "srcId": "sg440_refraction_ii",
-   "liveId": "HIftLq_RQJkIUUqGgBPTE",
-   "effectIndex": 3,
-   "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "",
-     "appearAnimation": "",
-     "disappearAnimation": "",
-     "appearSfx": "",
-     "disappearSfx": "",
-     "rounds": 3,
-     "power": 10,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "percentage",
-     "type": "reflect",
-     "description": "Heartglass: every pane turns your light back at you"
-    }
-   },
-   "holders": [
-    {
-     "srcId": "sg440_ai_sayo",
-     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
-    }
-   ]
-  },
-  {
    "jutsu": "Facet",
    "srcId": "sg440_facet",
    "liveId": "eYzXEQI-Vz3gSIDfP2sX3",
@@ -290,36 +222,6 @@
      "calculation": "static",
      "type": "cleanseprevent",
      "description": "The glass holds its breath"
-    }
-   },
-   "holders": [
-    {
-     "srcId": "sg440_ai_sayo",
-     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
-    }
-   ]
-  },
-  {
-   "jutsu": "Facet",
-   "srcId": "sg440_facet",
-   "liveId": "eYzXEQI-Vz3gSIDfP2sX3",
-   "effectIndex": 3,
-   "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "",
-     "appearAnimation": "",
-     "disappearAnimation": "",
-     "appearSfx": "",
-     "disappearSfx": "",
-     "rounds": 3,
-     "power": 10,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "percentage",
-     "type": "reflect",
-     "description": "Heartglass: every pane turns your light back at you"
     }
    },
    "holders": [
@@ -903,27 +805,1270 @@
    "jutsu": "The Hush",
    "srcId": "sg440_hush",
    "liveId": "kfzxZHje97anmOwwph84l",
-   "effectIndex": 2,
+   "effectIndex": null,
    "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "",
-     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
-     "disappearAnimation": "",
-     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
-     "disappearSfx": "",
-     "rounds": 3,
-     "power": 35,
-     "powerPerLevel": 0,
-     "direction": "defence",
-     "target": "SELF",
-     "calculation": "percentage",
-     "type": "absorb",
-     "description": "The deep drinks the sound of every blow",
-     "poolsAffected": [
-      "Health"
-     ]
+    "coordinateTargeting": [
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "RANDOM",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 0,
+        "latitude": 5
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 0,
+        "latitude": 7
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 5
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 9
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 5
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 3,
+        "latitude": 8
+       },
+       {
+        "longitude": 3,
+        "latitude": 9
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 1
+       },
+       {
+        "longitude": 4,
+        "latitude": 2
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 7
+       },
+       {
+        "longitude": 4,
+        "latitude": 8
+       },
+       {
+        "longitude": 4,
+        "latitude": 9
+       },
+       {
+        "longitude": 5,
+        "latitude": 0
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 7
+       },
+       {
+        "longitude": 5,
+        "latitude": 8
+       },
+       {
+        "longitude": 5,
+        "latitude": 9
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 1
+       },
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 7
+       },
+       {
+        "longitude": 6,
+        "latitude": 8
+       },
+       {
+        "longitude": 6,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 0
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 7
+       },
+       {
+        "longitude": 7,
+        "latitude": 8
+       },
+       {
+        "longitude": 7,
+        "latitude": 9
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 1
+       },
+       {
+        "longitude": 8,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 7
+       },
+       {
+        "longitude": 8,
+        "latitude": 8
+       },
+       {
+        "longitude": 8,
+        "latitude": 9
+       },
+       {
+        "longitude": 9,
+        "latitude": 0
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 9,
+        "latitude": 8
+       },
+       {
+        "longitude": 9,
+        "latitude": 9
+       }
+      ],
+      "randomCount": 6
+     },
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "RANDOM",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 9
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 9
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 9
+       },
+       {
+        "longitude": 5,
+        "latitude": 0
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 9
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 0
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 9
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 9
+       },
+       {
+        "longitude": 9,
+        "latitude": 0
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 9,
+        "latitude": 9
+       }
+      ],
+      "randomCount": 6
+     }
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_silence",
+     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
     }
+   ]
+  },
+  {
+   "jutsu": "The Hush, Unbridled",
+   "srcId": "sg440_hush_unbridled",
+   "liveId": "VqSpJhDUvjxLP5OtjI1mc",
+   "effectIndex": null,
+   "changes": {
+    "coordinateTargeting": [
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "RANDOM",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 1
+       },
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 0,
+        "latitude": 5
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 0,
+        "latitude": 7
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 5
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 7
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 9
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 5
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 7
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 4
+       },
+       {
+        "longitude": 3,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 7
+       },
+       {
+        "longitude": 3,
+        "latitude": 8
+       },
+       {
+        "longitude": 3,
+        "latitude": 9
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 1
+       },
+       {
+        "longitude": 4,
+        "latitude": 2
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 4
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 7
+       },
+       {
+        "longitude": 4,
+        "latitude": 8
+       },
+       {
+        "longitude": 4,
+        "latitude": 9
+       },
+       {
+        "longitude": 5,
+        "latitude": 0
+       },
+       {
+        "longitude": 5,
+        "latitude": 1
+       },
+       {
+        "longitude": 5,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 4
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 7
+       },
+       {
+        "longitude": 5,
+        "latitude": 8
+       },
+       {
+        "longitude": 5,
+        "latitude": 9
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 1
+       },
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 4
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 7
+       },
+       {
+        "longitude": 6,
+        "latitude": 8
+       },
+       {
+        "longitude": 6,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 0
+       },
+       {
+        "longitude": 7,
+        "latitude": 1
+       },
+       {
+        "longitude": 7,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 4
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 7
+       },
+       {
+        "longitude": 7,
+        "latitude": 8
+       },
+       {
+        "longitude": 7,
+        "latitude": 9
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 1
+       },
+       {
+        "longitude": 8,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 4
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 7
+       },
+       {
+        "longitude": 8,
+        "latitude": 8
+       },
+       {
+        "longitude": 8,
+        "latitude": 9
+       },
+       {
+        "longitude": 9,
+        "latitude": 0
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 4
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 9,
+        "latitude": 8
+       },
+       {
+        "longitude": 9,
+        "latitude": 9
+       }
+      ],
+      "randomCount": 2
+     },
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "RANDOM",
+      "coordinates": [
+       {
+        "longitude": 0,
+        "latitude": 0
+       },
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       },
+       {
+        "longitude": 0,
+        "latitude": 4
+       },
+       {
+        "longitude": 0,
+        "latitude": 6
+       },
+       {
+        "longitude": 0,
+        "latitude": 8
+       },
+       {
+        "longitude": 0,
+        "latitude": 9
+       },
+       {
+        "longitude": 1,
+        "latitude": 0
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 3
+       },
+       {
+        "longitude": 1,
+        "latitude": 4
+       },
+       {
+        "longitude": 1,
+        "latitude": 6
+       },
+       {
+        "longitude": 1,
+        "latitude": 8
+       },
+       {
+        "longitude": 1,
+        "latitude": 9
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 3
+       },
+       {
+        "longitude": 2,
+        "latitude": 4
+       },
+       {
+        "longitude": 2,
+        "latitude": 6
+       },
+       {
+        "longitude": 2,
+        "latitude": 8
+       },
+       {
+        "longitude": 2,
+        "latitude": 9
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 3
+       },
+       {
+        "longitude": 3,
+        "latitude": 6
+       },
+       {
+        "longitude": 3,
+        "latitude": 9
+       },
+       {
+        "longitude": 4,
+        "latitude": 0
+       },
+       {
+        "longitude": 4,
+        "latitude": 3
+       },
+       {
+        "longitude": 4,
+        "latitude": 6
+       },
+       {
+        "longitude": 4,
+        "latitude": 9
+       },
+       {
+        "longitude": 5,
+        "latitude": 0
+       },
+       {
+        "longitude": 5,
+        "latitude": 3
+       },
+       {
+        "longitude": 5,
+        "latitude": 6
+       },
+       {
+        "longitude": 5,
+        "latitude": 9
+       },
+       {
+        "longitude": 6,
+        "latitude": 0
+       },
+       {
+        "longitude": 6,
+        "latitude": 3
+       },
+       {
+        "longitude": 6,
+        "latitude": 6
+       },
+       {
+        "longitude": 6,
+        "latitude": 9
+       },
+       {
+        "longitude": 7,
+        "latitude": 0
+       },
+       {
+        "longitude": 7,
+        "latitude": 3
+       },
+       {
+        "longitude": 7,
+        "latitude": 6
+       },
+       {
+        "longitude": 7,
+        "latitude": 9
+       },
+       {
+        "longitude": 8,
+        "latitude": 0
+       },
+       {
+        "longitude": 8,
+        "latitude": 3
+       },
+       {
+        "longitude": 8,
+        "latitude": 6
+       },
+       {
+        "longitude": 8,
+        "latitude": 9
+       },
+       {
+        "longitude": 9,
+        "latitude": 0
+       },
+       {
+        "longitude": 9,
+        "latitude": 1
+       },
+       {
+        "longitude": 9,
+        "latitude": 3
+       },
+       {
+        "longitude": 9,
+        "latitude": 5
+       },
+       {
+        "longitude": 9,
+        "latitude": 6
+       },
+       {
+        "longitude": 9,
+        "latitude": 7
+       },
+       {
+        "longitude": 9,
+        "latitude": 9
+       }
+      ],
+      "randomCount": 2
+     }
+    ]
    },
    "holders": [
     {
@@ -942,39 +2087,6 @@
      25,
      18
     ]
-   },
-   "holders": [
-    {
-     "srcId": "sg440_ai_silence",
-     "liveId": "IhNR-W1FElTsrWw1KfuQ9"
-    }
-   ]
-  },
-  {
-   "jutsu": "The Hush, Unbridled",
-   "srcId": "sg440_hush_unbridled",
-   "liveId": "VqSpJhDUvjxLP5OtjI1mc",
-   "effectIndex": 2,
-   "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "",
-     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
-     "disappearAnimation": "",
-     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
-     "disappearSfx": "",
-     "rounds": 3,
-     "power": 35,
-     "powerPerLevel": 0,
-     "direction": "defence",
-     "target": "SELF",
-     "calculation": "percentage",
-     "type": "absorb",
-     "description": "The deep drinks the sound of every blow",
-     "poolsAffected": [
-      "Health"
-     ]
-    }
    },
    "holders": [
     {
@@ -1085,15 +2197,133 @@
       ],
       "randomCount": 1
      },
-     null
-    ],
-    "method": [
-     "COORDINATES",
-     "AOE_SPIRAL_SHOOT"
-    ],
-    "range": [
-     0,
-     3
+     {
+      "origin": "CASTER",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": -1,
+        "latitude": -3
+       },
+       {
+        "longitude": 0,
+        "latitude": -3
+       },
+       {
+        "longitude": 1,
+        "latitude": -3
+       },
+       {
+        "longitude": -3,
+        "latitude": -2
+       },
+       {
+        "longitude": -2,
+        "latitude": -2
+       },
+       {
+        "longitude": -1,
+        "latitude": -2
+       },
+       {
+        "longitude": 0,
+        "latitude": -2
+       },
+       {
+        "longitude": 1,
+        "latitude": -2
+       },
+       {
+        "longitude": 2,
+        "latitude": -2
+       },
+       {
+        "longitude": 3,
+        "latitude": -2
+       },
+       {
+        "longitude": -3,
+        "latitude": -1
+       },
+       {
+        "longitude": -2,
+        "latitude": -1
+       },
+       {
+        "longitude": 2,
+        "latitude": -1
+       },
+       {
+        "longitude": 3,
+        "latitude": -1
+       },
+       {
+        "longitude": -3,
+        "latitude": 0
+       },
+       {
+        "longitude": -2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": -3,
+        "latitude": 1
+       },
+       {
+        "longitude": -2,
+        "latitude": 1
+       },
+       {
+        "longitude": -1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": -2,
+        "latitude": 2
+       },
+       {
+        "longitude": -1,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       }
+      ],
+      "randomCount": 1
+     }
     ]
    },
    "holders": [
@@ -1205,15 +2435,133 @@
       ],
       "randomCount": 1
      },
-     null
-    ],
-    "method": [
-     "COORDINATES",
-     "AOE_SPIRAL_SHOOT"
-    ],
-    "range": [
-     0,
-     3
+     {
+      "origin": "CASTER",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": -1,
+        "latitude": -3
+       },
+       {
+        "longitude": 0,
+        "latitude": -3
+       },
+       {
+        "longitude": 1,
+        "latitude": -3
+       },
+       {
+        "longitude": -3,
+        "latitude": -2
+       },
+       {
+        "longitude": -2,
+        "latitude": -2
+       },
+       {
+        "longitude": -1,
+        "latitude": -2
+       },
+       {
+        "longitude": 0,
+        "latitude": -2
+       },
+       {
+        "longitude": 1,
+        "latitude": -2
+       },
+       {
+        "longitude": 2,
+        "latitude": -2
+       },
+       {
+        "longitude": 3,
+        "latitude": -2
+       },
+       {
+        "longitude": -3,
+        "latitude": -1
+       },
+       {
+        "longitude": -2,
+        "latitude": -1
+       },
+       {
+        "longitude": 2,
+        "latitude": -1
+       },
+       {
+        "longitude": 3,
+        "latitude": -1
+       },
+       {
+        "longitude": -3,
+        "latitude": 0
+       },
+       {
+        "longitude": -2,
+        "latitude": 0
+       },
+       {
+        "longitude": 2,
+        "latitude": 0
+       },
+       {
+        "longitude": 3,
+        "latitude": 0
+       },
+       {
+        "longitude": -3,
+        "latitude": 1
+       },
+       {
+        "longitude": -2,
+        "latitude": 1
+       },
+       {
+        "longitude": -1,
+        "latitude": 1
+       },
+       {
+        "longitude": 1,
+        "latitude": 1
+       },
+       {
+        "longitude": 2,
+        "latitude": 1
+       },
+       {
+        "longitude": 3,
+        "latitude": 1
+       },
+       {
+        "longitude": -2,
+        "latitude": 2
+       },
+       {
+        "longitude": -1,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 2
+       },
+       {
+        "longitude": 1,
+        "latitude": 2
+       },
+       {
+        "longitude": 2,
+        "latitude": 2
+       },
+       {
+        "longitude": 0,
+        "latitude": 3
+       }
+      ],
+      "randomCount": 1
+     }
     ]
    },
    "holders": [
@@ -1362,37 +2710,6 @@
    ]
   },
   {
-   "jutsu": "Etching: Rime",
-   "srcId": "sg440_etching_a",
-   "liveId": "lkcsor1I5A8gD038ncrBW",
-   "effectIndex": 1,
-   "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
-     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
-     "disappearAnimation": "",
-     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
-     "disappearSfx": "",
-     "rounds": 2,
-     "power": 100,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "static",
-     "type": "shield",
-     "description": "The Stilling: an etched pane holds in front of her",
-     "health": 600
-    }
-   },
-   "holders": [
-    {
-     "srcId": "sg440_ai_sayo_stilling",
-     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
-    }
-   ]
-  },
-  {
    "jutsu": "Recast: Rime",
    "srcId": "sg440_recast_a",
    "liveId": "Avu4B2M_9_SE0-Oqqhplw",
@@ -1485,37 +2802,6 @@
      "calculation": "percentage",
      "type": "increasedamagetaken",
      "description": "The broken glass"
-    }
-   },
-   "holders": [
-    {
-     "srcId": "sg440_ai_sayo_stilling",
-     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
-    }
-   ]
-  },
-  {
-   "jutsu": "Etching: Ember",
-   "srcId": "sg440_etching_b",
-   "liveId": "eovhl9XyDQq1N19lDwr77",
-   "effectIndex": 1,
-   "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
-     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
-     "disappearAnimation": "",
-     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
-     "disappearSfx": "",
-     "rounds": 2,
-     "power": 100,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "static",
-     "type": "shield",
-     "description": "The Stilling: an etched pane holds in front of her",
-     "health": 600
     }
    },
    "holders": [
@@ -1628,37 +2914,6 @@
    ]
   },
   {
-   "jutsu": "Etching: Seam",
-   "srcId": "sg440_etching_c",
-   "liveId": "Pr7i3DK5KiRQRePy8Xw41",
-   "effectIndex": 1,
-   "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
-     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
-     "disappearAnimation": "",
-     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
-     "disappearSfx": "",
-     "rounds": 2,
-     "power": 100,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "static",
-     "type": "shield",
-     "description": "The Stilling: an etched pane holds in front of her",
-     "health": 600
-    }
-   },
-   "holders": [
-    {
-     "srcId": "sg440_ai_sayo_stilling",
-     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
-    }
-   ]
-  },
-  {
    "jutsu": "Recast: Seam",
    "srcId": "sg440_recast_c",
    "liveId": "54nmWiFXqvFW7u0vSG5zK",
@@ -1751,37 +3006,6 @@
      "calculation": "percentage",
      "type": "increasedamagetaken",
      "description": "The broken glass"
-    }
-   },
-   "holders": [
-    {
-     "srcId": "sg440_ai_sayo_stilling",
-     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
-    }
-   ]
-  },
-  {
-   "jutsu": "Etching: Heart",
-   "srcId": "sg440_etching_d",
-   "liveId": "nNUaP5r8r7UxYNiAtuF0l",
-   "effectIndex": 1,
-   "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
-     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
-     "disappearAnimation": "",
-     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
-     "disappearSfx": "",
-     "rounds": 2,
-     "power": 100,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "static",
-     "type": "shield",
-     "description": "The Stilling: an etched pane holds in front of her",
-     "health": 600
     }
    },
    "holders": [
@@ -2132,37 +3356,6 @@
    ]
   },
   {
-   "jutsu": "Etching: Hail",
-   "srcId": "sg440_etching_e",
-   "liveId": "2pU7fdUPQPQQjyd19JDWA",
-   "effectIndex": 1,
-   "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
-     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
-     "disappearAnimation": "",
-     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
-     "disappearSfx": "",
-     "rounds": 2,
-     "power": 100,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "static",
-     "type": "shield",
-     "description": "The Stilling: an etched pane holds in front of her",
-     "health": 600
-    }
-   },
-   "holders": [
-    {
-     "srcId": "sg440_ai_sayo_stilling",
-     "liveId": "H3pNj2qUWpMpVRINiH6Vn"
-    }
-   ]
-  },
-  {
    "jutsu": "Recast: Hail",
    "srcId": "sg440_recast_e",
    "liveId": "lmlhn5p68Oszhj16wKbvx",
@@ -2311,43 +3504,7 @@
      2
     ]
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
-  },
-  {
-   "jutsu": "Shatterfall",
-   "srcId": "sg440_shatterfall",
-   "liveId": "RcMx3MCHD7dyJw_12mr_7",
-   "effectIndex": 2,
-   "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "VMft99LeB_qQggEw_GrKi",
-     "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
-     "disappearAnimation": "",
-     "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
-     "disappearSfx": "",
-     "rounds": 3,
-     "power": 100,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "static",
-     "type": "shield",
-     "description": "The Remainder: the black glass feeds on what it cuts",
-     "health": 800
-    }
-   },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Shatterfall Gives Way",
@@ -2382,12 +3539,7 @@
      "pierce"
     ]
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Shatterfall Gives Way",
@@ -2413,12 +3565,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Shatterfall Gives Way",
@@ -2444,12 +3591,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "The Names Flood In",
@@ -2484,12 +3626,7 @@
      "pierce"
     ]
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "The Names Flood In",
@@ -2515,12 +3652,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "The Names Flood In",
@@ -2546,12 +3678,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: First Pane",
@@ -2586,12 +3713,7 @@
      "pierce"
     ]
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: First Pane",
@@ -2617,12 +3739,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: First Pane",
@@ -2648,12 +3765,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Second Pane",
@@ -2688,12 +3800,7 @@
      "pierce"
     ]
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Second Pane",
@@ -2719,12 +3826,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Second Pane",
@@ -2750,12 +3852,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Last Pane",
@@ -2790,12 +3887,7 @@
      "pierce"
     ]
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Last Pane",
@@ -2821,12 +3913,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Last Pane",
@@ -2852,12 +3939,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Opening Pane",
@@ -2892,12 +3974,7 @@
      "pierce"
     ]
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Opening Pane",
@@ -2923,12 +4000,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Opening Pane",
@@ -2954,12 +4026,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Heart Recast",
@@ -2994,12 +4061,7 @@
      "pierce"
     ]
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Heart Recast",
@@ -3025,12 +4087,7 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   },
   {
    "jutsu": "Glassfall: Heart Recast",
@@ -3056,22 +4113,137 @@
      "description": "The broken glass"
     }
    },
-   "holders": [
-    {
-     "srcId": "sg440_ai_saint",
-     "liveId": "k0hgSrghl_KcYs9ATVDJT"
-    }
-   ]
+   "holders": []
   }
  ],
  "newJutsu": [
   {
-   "jutsu": "The Silence Turns",
-   "srcId": "sg440_the_silence_turns"
+   "jutsu": "Heartglass",
+   "srcId": "sg440_entrance_heartglass"
   },
   {
-   "jutsu": "The Glass Turns",
-   "srcId": "sg440_the_glass_turns"
+   "jutsu": "The Deep Listens",
+   "srcId": "sg440_entrance_deep"
+  },
+  {
+   "jutsu": "The Stilling",
+   "srcId": "sg440_entrance_stilling"
+  },
+  {
+   "jutsu": "An Absence",
+   "srcId": "sg440_an_absence"
+  },
+  {
+   "jutsu": "An Absence",
+   "srcId": "sg440_absence_settles"
+  },
+  {
+   "jutsu": "The Absence Opens",
+   "srcId": "sg440_absence_opens"
+  },
+  {
+   "jutsu": "The Hush Rises",
+   "srcId": "sg440_hush_rises_a"
+  },
+  {
+   "jutsu": "The Hush Rises",
+   "srcId": "sg440_hush_rises_b"
+  },
+  {
+   "jutsu": "The Hush Rises",
+   "srcId": "sg440_hush_rises_c"
+  },
+  {
+   "jutsu": "The Hush Rises",
+   "srcId": "sg440_hush_rises_d"
+  },
+  {
+   "jutsu": "The Hush Rises",
+   "srcId": "sg440_hush_rises_e"
+  },
+  {
+   "jutsu": "Refraction",
+   "srcId": "sg440_saint_refraction"
+  },
+  {
+   "jutsu": "Lucid Refraction",
+   "srcId": "sg440_saint_lucid_refraction"
+  },
+  {
+   "jutsu": "Facet",
+   "srcId": "sg440_saint_facet"
+  },
+  {
+   "jutsu": "Facet Breaks",
+   "srcId": "sg440_saint_facet_breaks"
+  },
+  {
+   "jutsu": "Hold Still",
+   "srcId": "sg440_saint_hold_still"
+  },
+  {
+   "jutsu": "The Silence Holds Her",
+   "srcId": "sg440_saint_the_silence_holds_her"
+  },
+  {
+   "jutsu": "Nothing Moves",
+   "srcId": "sg440_saint_nothing_moves"
+  },
+  {
+   "jutsu": "Remainder Lancet",
+   "srcId": "sg440_saint_remainder_lancet"
+  },
+  {
+   "jutsu": "The Names Stir",
+   "srcId": "sg440_saint_the_names_stir"
+  },
+  {
+   "jutsu": "No One Is Mended",
+   "srcId": "sg440_saint_no_one_is_mended"
+  },
+  {
+   "jutsu": "The Names Flood In: Rime",
+   "srcId": "sg440_saint_flood_rime"
+  },
+  {
+   "jutsu": "The Names Flood In: Ember",
+   "srcId": "sg440_saint_flood_ember"
+  },
+  {
+   "jutsu": "The Names Flood In: Heart",
+   "srcId": "sg440_saint_flood_heart"
+  },
+  {
+   "jutsu": "Every Name in the Glass",
+   "srcId": "sg440_saint_every_name"
+  },
+  {
+   "jutsu": "The Hush Rises",
+   "srcId": "sg440_saint_hush_rises"
+  },
+  {
+   "jutsu": "Hush Where They Refused",
+   "srcId": "sg440_saint_hush_where_they_refused"
+  },
+  {
+   "jutsu": "A Good Impression",
+   "srcId": "sg440_saint_a_good_impression"
+  },
+  {
+   "jutsu": "Glassfall: First Echo",
+   "srcId": "sg440_saint_echo_pane_a"
+  },
+  {
+   "jutsu": "Glassfall: Second Echo",
+   "srcId": "sg440_saint_echo_pane_b"
+  },
+  {
+   "jutsu": "Glassfall: Last Echo",
+   "srcId": "sg440_saint_echo_pane_c"
+  },
+  {
+   "jutsu": "Every Line Through You",
+   "srcId": "sg440_saint_every_line"
   }
  ],
  "aiRows": [
@@ -3280,6 +4452,36 @@
        "type": "onehitkillprevent",
        "description": "placeholder"
       }
+     ]
+    ],
+    "jutsus": [
+     [
+      "moe-glass-lancet",
+      "moe-the-glass-remembers",
+      "moe-refraction",
+      "moe-refraction-ii",
+      "moe-refraction-blast",
+      "moe-refraction-blast-ii",
+      "moe-facet",
+      "moe-facet-blast",
+      "moe-lucid-refraction",
+      "moe-lucid",
+      "moe-your-likeness"
+     ],
+     [
+      "moe-entrance-heartglass",
+      "moe-glass-lancet",
+      "moe-the-glass-remembers",
+      "moe-refraction",
+      "moe-refraction-ii",
+      "moe-refraction-blast",
+      "moe-refraction-blast-ii",
+      "moe-facet",
+      "moe-facet-blast",
+      "moe-lucid-refraction",
+      "moe-lucid",
+      "moe-your-likeness",
+      "moe-an-absence"
      ]
     ],
     "rules": [
@@ -3604,6 +4806,15 @@
      ],
      [
       {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-entrance-heartglass",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
        "conditions": [
         {
          "type": "round_greater_than",
@@ -3729,7 +4940,7 @@
        "conditions": [
         {
          "type": "has_effect",
-         "effectType": "increaserange",
+         "effectType": "cleanseprevent",
          "threshold": 1,
          "description": "Has effect"
         },
@@ -3751,86 +4962,33 @@
        "conditions": [
         {
          "type": "has_effect",
-         "effectType": "fleeprevent",
+         "effectType": "cleanseprevent",
          "threshold": 1,
          "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "end_turn",
+        "description": "End turn"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "does_not_have_summon",
+         "description": "Does not have a summon active"
         },
         {
-         "type": "distance_lower_than",
-         "value": 5,
-         "target": "CLOSEST_OPPONENT",
-         "description": "Distance lower than or equal given value"
+         "type": "round_greater_than",
+         "value": 2,
+         "description": "Current round is higher than specified value"
         }
        ],
        "action": {
         "type": "use_specific_jutsu",
-        "jutsuId": "moe-glass-lancet",
-        "target": "CLOSEST_OPPONENT",
+        "jutsuId": "moe-an-absence",
+        "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
         "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "has_effect",
-         "effectType": "robprevent",
-         "threshold": 1,
-         "description": "Has effect"
-        },
-        {
-         "type": "distance_lower_than",
-         "value": 5,
-         "target": "CLOSEST_OPPONENT",
-         "description": "Distance lower than or equal given value"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-glass-lancet",
-        "target": "CLOSEST_OPPONENT",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "has_effect",
-         "effectType": "increaserange",
-         "threshold": 1,
-         "description": "Has effect"
-        }
-       ],
-       "action": {
-        "type": "end_turn",
-        "description": "End turn"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "has_effect",
-         "effectType": "fleeprevent",
-         "threshold": 1,
-         "description": "Has effect"
-        }
-       ],
-       "action": {
-        "type": "end_turn",
-        "description": "End turn"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "has_effect",
-         "effectType": "robprevent",
-         "threshold": 1,
-         "description": "Has effect"
-        }
-       ],
-       "action": {
-        "type": "end_turn",
-        "description": "End turn"
        }
       },
       {
@@ -4116,14 +5274,14 @@
       "moe-stillness-blast"
      ],
      [
+      "moe-entrance-deep",
       "moe-the-glass-remembers",
       "moe-hush",
       "moe-hush-unbridled",
       "moe-listening",
       "moe-listening-unbridled",
       "moe-stillness",
-      "moe-stillness-blast",
-      "moe-the-silence-turns"
+      "moe-stillness-blast"
      ]
     ],
     "rules": [
@@ -4300,6 +5458,15 @@
      ],
      [
       {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-entrance-deep",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
        "conditions": [
         {
          "type": "round_greater_than",
@@ -4404,21 +5571,6 @@
        "action": {
         "type": "end_turn",
         "description": "End turn"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "round_greater_than",
-         "value": 3,
-         "description": "Current round is higher than specified value"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-the-silence-turns",
-        "target": "HIGHEST_MAX_HEALTH_OPPONENT",
-        "description": "Select specific jutsu"
        }
       },
       {
@@ -4718,7 +5870,7 @@
        "appearSfx": "",
        "disappearSfx": "",
        "rounds": 100,
-       "power": 55,
+       "power": 59,
        "powerPerLevel": 0,
        "direction": "offence",
        "target": "SELF",
@@ -4799,6 +5951,7 @@
       "moe-raise-cadet-tomo"
      ],
      [
+      "moe-entrance-stilling",
       "moe-glass-lancet",
       "moe-the-glass-remembers",
       "moe-etching-a",
@@ -4812,11 +5965,15 @@
       "moe-recast-d",
       "moe-recast-e",
       "moe-hush-rises",
+      "moe-hush-rises-a",
+      "moe-hush-rises-b",
+      "moe-hush-rises-c",
+      "moe-hush-rises-d",
+      "moe-hush-rises-e",
       "moe-the-glass-falls-quiet",
       "moe-raise-gate-porter",
       "moe-raise-sister-hana",
-      "moe-raise-cadet-tomo",
-      "moe-the-glass-turns"
+      "moe-raise-cadet-tomo"
      ]
     ],
     "rules": [
@@ -5071,11 +6228,20 @@
      ],
      [
       {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-entrance-stilling",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
        "conditions": [
         {
          "type": "has_effect",
          "effectType": "increasecooldown",
-         "threshold": 4,
+         "threshold": 3,
          "description": "Has effect"
         }
        ],
@@ -5165,22 +6331,6 @@
          "effectType": "fleeprevent",
          "threshold": 1,
          "description": "Has effect"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-the-glass-turns",
-        "target": "HIGHEST_MAX_HEALTH_OPPONENT",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "has_effect",
-         "effectType": "fleeprevent",
-         "threshold": 1,
-         "description": "Has effect"
         },
         {
          "type": "distance_lower_than",
@@ -5223,15 +6373,15 @@
         "type": "use_combo_action",
         "comboIds": [
          "moe-etching-e",
-         "moe-hush-rises",
+         "moe-hush-rises-e",
          "moe-etching-b",
-         "moe-hush-rises",
+         "moe-hush-rises-b",
          "moe-etching-d",
-         "moe-hush-rises",
+         "moe-hush-rises-d",
          "moe-etching-b",
-         "moe-hush-rises",
+         "moe-hush-rises-b",
          "moe-etching-c",
-         "moe-hush-rises",
+         "moe-hush-rises-c",
          "moe-recast-e",
          "moe-recast-b",
          "moe-recast-d",
@@ -5256,15 +6406,15 @@
         "type": "use_combo_action",
         "comboIds": [
          "moe-etching-c",
-         "moe-hush-rises",
+         "moe-hush-rises-c",
          "moe-etching-a",
-         "moe-hush-rises",
+         "moe-hush-rises-a",
          "moe-etching-e",
-         "moe-hush-rises",
+         "moe-hush-rises-e",
          "moe-etching-a",
-         "moe-hush-rises",
+         "moe-hush-rises-a",
          "moe-etching-b",
-         "moe-hush-rises",
+         "moe-hush-rises-b",
          "moe-recast-c",
          "moe-recast-a",
          "moe-recast-e",
@@ -5289,13 +6439,13 @@
         "type": "use_combo_action",
         "comboIds": [
          "moe-etching-d",
-         "moe-hush-rises",
+         "moe-hush-rises-d",
          "moe-etching-a",
-         "moe-hush-rises",
+         "moe-hush-rises-a",
          "moe-etching-c",
-         "moe-hush-rises",
+         "moe-hush-rises-c",
          "moe-etching-b",
-         "moe-hush-rises",
+         "moe-hush-rises-b",
          "moe-recast-d",
          "moe-recast-a",
          "moe-recast-c",
@@ -5312,11 +6462,11 @@
         "type": "use_combo_action",
         "comboIds": [
          "moe-etching-a",
-         "moe-hush-rises",
+         "moe-hush-rises-a",
          "moe-etching-b",
-         "moe-hush-rises",
+         "moe-hush-rises-b",
          "moe-etching-c",
-         "moe-hush-rises",
+         "moe-hush-rises-c",
          "moe-recast-a",
          "moe-recast-b",
          "moe-recast-c",
@@ -5516,7 +6666,7 @@
        "appearSfx": "",
        "disappearSfx": "",
        "rounds": 100,
-       "power": 40,
+       "power": 25,
        "powerPerLevel": 0,
        "direction": "offence",
        "target": "SELF",
@@ -5542,6 +6692,54 @@
        "type": "stunprevent",
        "description": "Nothing stills the Mother of Echoes"
       }
+     ]
+    ],
+    "jutsus": [
+     [
+      "moe-glass-lancet",
+      "moe-the-glass-remembers",
+      "moe-the-quiet",
+      "moe-shatterfall",
+      "moe-shatterfall-blast",
+      "moe-every-name-in-the-glass",
+      "moe-every-name-blast",
+      "moe-no-one-is-mended",
+      "moe-breathless-pull-mark",
+      "moe-breathless-pull",
+      "moe-hush-on-the-refused",
+      "moe-the-long-hush",
+      "moe-glassfall-a",
+      "moe-glassfall-b",
+      "moe-glassfall-c",
+      "moe-glassfall-b-first",
+      "moe-glassfall-recast"
+     ],
+     [
+      "moe-the-glass-remembers",
+      "moe-saint-refraction",
+      "moe-saint-lucid-refraction",
+      "moe-saint-facet",
+      "moe-saint-facet-breaks",
+      "moe-saint-hold-still",
+      "moe-saint-the-silence-holds-her",
+      "moe-saint-nothing-moves",
+      "moe-saint-remainder-lancet",
+      "moe-saint-the-names-stir",
+      "moe-saint-no-one-is-mended",
+      "moe-etching-a",
+      "moe-etching-b",
+      "moe-etching-d",
+      "moe-saint-flood-rime",
+      "moe-saint-flood-ember",
+      "moe-saint-flood-heart",
+      "moe-saint-every-name",
+      "moe-saint-hush-rises",
+      "moe-saint-hush-where-they-refused",
+      "moe-saint-a-good-impression",
+      "moe-saint-echo-pane-a",
+      "moe-saint-echo-pane-b",
+      "moe-saint-echo-pane-c",
+      "moe-saint-every-line"
      ]
     ],
     "rules": [
@@ -5853,7 +7051,7 @@
        "conditions": [
         {
          "type": "round_greater_than",
-         "value": 80,
+         "value": 36,
          "description": "Current round is higher than specified value"
         }
        ],
@@ -5867,16 +7065,166 @@
       {
        "conditions": [
         {
-         "type": "health_below",
-         "value": 25,
-         "description": "Health below given percentage"
+         "type": "has_effect",
+         "effectType": "disarm",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 2,
+         "description": "Has effect"
         }
        ],
        "action": {
         "type": "use_specific_jutsu",
-        "jutsuId": "moe-the-long-hush",
+        "jutsuId": "moe-saint-echo-pane-a",
         "target": "SELF",
         "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "summonprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 2,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-echo-pane-b",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 2,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-echo-pane-c",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 2,
+         "description": "Has effect"
+        },
+        {
+         "type": "distance_lower_than",
+         "value": 4,
+         "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+         "description": "Distance to the player"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-every-line",
+        "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 2,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "move_towards_opponent",
+        "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+        "description": "She comes to you"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 35,
+         "description": "Health below given percentage"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-a-good-impression",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "increasecooldown",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_combo_action",
+        "comboIds": [
+         "moe-etching-a",
+         "moe-saint-hush-rises",
+         "moe-saint-every-name",
+         "moe-saint-flood-rime",
+         "moe-saint-hush-where-they-refused",
+         "moe-saint-hush-rises",
+         "moe-etching-b",
+         "moe-saint-hush-rises",
+         "moe-saint-every-name",
+         "moe-saint-flood-ember",
+         "moe-saint-hush-where-they-refused",
+         "moe-saint-hush-rises",
+         "moe-etching-d",
+         "moe-saint-hush-rises",
+         "moe-saint-every-name",
+         "moe-saint-flood-heart",
+         "moe-saint-hush-where-they-refused",
+         "moe-saint-hush-rises"
+        ],
+        "target": "SELF",
+        "description": "Use combo"
        }
       },
       {
@@ -5890,122 +7238,7 @@
        ],
        "action": {
         "type": "use_specific_jutsu",
-        "jutsuId": "moe-glassfall-recast",
-        "target": "SELF",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "has_effect",
-         "effectType": "decreasecooldown",
-         "threshold": 1,
-         "description": "Has effect"
-        },
-        {
-         "type": "has_effect",
-         "effectType": "onehitkillprevent",
-         "threshold": 1,
-         "description": "Has effect"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-glassfall-b-first",
-        "target": "SELF",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "has_effect",
-         "effectType": "robprevent",
-         "threshold": 1,
-         "description": "Has effect"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-glassfall-a",
-        "target": "SELF",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "has_effect",
-         "effectType": "onehitkillprevent",
-         "threshold": 1,
-         "description": "Has effect"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-glassfall-b",
-        "target": "SELF",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "has_effect",
-         "effectType": "disarm",
-         "threshold": 1,
-         "description": "Has effect"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-glassfall-c",
-        "target": "SELF",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "health_below",
-         "value": 25,
-         "description": "Health below given percentage"
-        }
-       ],
-       "action": {
-        "type": "end_turn",
-        "description": "End turn"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "has_effect",
-         "effectType": "increaserange",
-         "threshold": 1,
-         "description": "Has effect"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-shatterfall-blast",
-        "target": "SELF",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "has_effect",
-         "effectType": "fleeprevent",
-         "threshold": 1,
-         "description": "Has effect"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-every-name-blast",
+        "jutsuId": "moe-saint-facet-breaks",
         "target": "SELF",
         "description": "Select specific jutsu"
        }
@@ -6021,7 +7254,44 @@
        ],
        "action": {
         "type": "use_specific_jutsu",
-        "jutsuId": "moe-breathless-pull",
+        "jutsuId": "moe-saint-facet",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "has_effect",
+         "effectType": "fleeprevent",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-lucid-refraction",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 60,
+         "description": "Health below given percentage"
+        },
+        {
+         "type": "has_effect",
+         "effectType": "disarm",
+         "threshold": 1,
+         "description": "Has effect"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-no-one-is-mended",
         "target": "SELF",
         "description": "Select specific jutsu"
        }
@@ -6036,117 +7306,102 @@
         }
        ],
        "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-every-name-in-the-glass",
-        "target": "SELF",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "health_below",
-         "value": 60,
-         "description": "Health below given percentage"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-no-one-is-mended",
-        "target": "SELF",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "health_below",
-         "value": 60,
-         "description": "Health below given percentage"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-breathless-pull-mark",
-        "target": "SELF",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "health_below",
-         "value": 60,
-         "description": "Health below given percentage"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-hush-on-the-refused",
-        "target": "SELF",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "distance_lower_than",
-         "value": 5,
-         "target": "CLOSEST_OPPONENT",
-         "description": "Distance lower than or equal given value"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-the-quiet",
-        "target": "CLOSEST_OPPONENT",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-shatterfall",
-        "target": "SELF",
-        "description": "Select specific jutsu"
-       }
-      },
-      {
-       "conditions": [
-        {
-         "type": "distance_lower_than",
-         "value": 5,
-         "target": "CLOSEST_OPPONENT",
-         "description": "Distance lower than or equal given value"
-        }
-       ],
-       "action": {
-        "type": "use_specific_jutsu",
-        "jutsuId": "moe-glass-lancet",
-        "target": "CLOSEST_OPPONENT",
-        "description": "Select specific jutsu"
+        "type": "end_turn",
+        "description": "End turn"
        }
       },
       {
        "conditions": [
         {
          "type": "has_effect",
-         "effectType": "increaserange",
+         "effectType": "robprevent",
          "threshold": 1,
          "description": "Has effect"
         }
        ],
        "action": {
-        "type": "end_turn",
-        "description": "End turn"
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-nothing-moves",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 70,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-the-names-stir",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-refraction",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "health_below",
+         "value": 95,
+         "description": "Health below given percentage"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-the-silence-holds-her",
+        "target": "SELF",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 5,
+         "target": "CLOSEST_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-remainder-lancet",
+        "target": "CLOSEST_OPPONENT",
+        "description": "Select specific jutsu"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 4,
+         "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+         "description": "Distance to the player"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "jutsuId": "moe-saint-hold-still",
+        "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+        "description": "Select specific jutsu"
        }
       },
       {
        "conditions": [],
        "action": {
         "type": "move_towards_opponent",
-        "target": "CLOSEST_OPPONENT",
+        "target": "HIGHEST_MAX_HEALTH_OPPONENT",
         "description": "Close in"
        }
       }
@@ -6155,6 +7410,11 @@
    }
   }
  ],
- "newAi": [],
+ "newAi": [
+  {
+   "ai": "An Absence",
+   "srcId": "sg440_ai_absence"
+  }
+ ],
  "missingIds": []
 }

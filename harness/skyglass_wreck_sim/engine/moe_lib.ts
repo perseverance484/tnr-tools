@@ -115,6 +115,12 @@ export const MOE_DEFAULTS = {
   bossAura: { on: false } as any,
   /** Sim-only: visual "piece" tags on the signature moves (art pass identity check). */
   visualPieces: false,
+  /** Art R5: once-per-act entrance/aura buff per boss ({ on, sayo1, silence, sayo2 }: { type, power | health }). */
+  entrance: { on: false } as any,
+  /** Art R3: Stillness as a 2-3 ring around the Silence. */
+  stillRing: false,
+  /** Art R2 / QA B4: Hush pools off Refraction lines; Hush Rises off Etching patterns. */
+  hushOffMarks: false,
   /** Director 2026-11-05 (approved): An Absence (anti-camping omen-then-pool summon, Act I). */
   absence: { on: false } as any,
   /** Policy: the Energy Potion (Chakra/Stamina only) is not used as an HP heal. */
@@ -188,6 +194,7 @@ export const JID = {
   enrage: "moe-the-glass-remembers", turnI: "moe-the-silence-turns", turnII: "moe-the-glass-turns",
   turnIBreak: "moe-the-silence-turns-break", turnIIBreak: "moe-the-glass-turns-break",
   absence: "moe-an-absence", absenceGather: "moe-absence-settles", absenceOpen: "moe-absence-opens",
+  entrySayo1: "moe-entrance-heartglass", entrySilence: "moe-entrance-deep", entrySayo2: "moe-entrance-stilling",
   etch: Object.fromEntries("ABCDE".split("").map((k) => [k, `moe-etching-${k.toLowerCase()}`])) as Record<string, string>,
   det: Object.fromEntries("ABCDE".split("").map((k) => [k, `moe-recast-${k.toLowerCase()}`])) as Record<string, string>,
   // Pass 3 merge: one Hush record for Act I and one Hush Rises record for Act II (the arrays keep the cycle / band
@@ -358,6 +365,7 @@ export const buildRecords = (P: MoeParams) => {
   RAMP_CLEARABLE = !!P.rampClearable;
   POOL_AWARE = !!P.poolAware;
   POTION_FIX = !!P.potionFix;
+  RISES_K = !!P.hushOffMarks;
   DEBUG_TRACE = !!(P as any).debugTrace;
   A3_ON = !!a3(P).on; A3_POLICY = a3(P);
   MARK_ART = P.markArtRounds ?? 1;
@@ -366,6 +374,15 @@ export const buildRecords = (P: MoeParams) => {
   ERUPT = { on: !!P.eruption?.on, hp: P.eruption?.hp ?? 31500, pct: { 1: P.eruption?.act1 ?? 40, 2: P.eruption?.act2 ?? 60, 3: P.eruption?.act3 ?? 80 }, recast: P.eruption?.recast };
   const J: Record<string, any> = {};
   const add = (id: string, f: Parameters<typeof jutsu>[1]) => { J[id] = jutsu(id, f); return id; };
+  // Art R2 / QA B4 (2026-11-05): the Hush family's random pools stay off the hexes a lethal or marked pattern can occupy
+  // (RANDOM coordinate selection draws from the listed cells only, util.ts:3302-3335): the Hush off both Refraction line
+  // sets, the Hush Rises off every Etching pattern (a Recast's omen is never under ink).
+  if (P.hushOffMarks) {
+    const lines = new Set([...PAT.refractA, ...PAT.refractB].map(key));
+    PAT.hushField = PAT.hushField.filter((c) => !lines.has(key(c)));
+    // Rises: every Etching pattern together covers the whole field (a static exclusion leaves 0 of 117 hexes), so each
+    // Etching gets its own Rises record that skips the pattern drawn in the same turn (see RISES_K below).
+  }
   const p = P.pw;
   /* ---- shared ---- */
   add(JID.lancet, { name: "Glass Lancet", description: "A needle of skyglass, thrown hard.", battleDescription: "%user flicks a lancet of glass at %target.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: P.lancetCd ?? 1, actionCostPerc: 60, effects: [heavy(p.lancet, "moe_lancet"),
@@ -418,7 +435,11 @@ export const buildRecords = (P: MoeParams) => {
   // The blast is CHARACTER (it stuns) and its pattern holds the Silence's own hex, so it is always a valid cast.
   // Director 2026-11-05: Stillness is anchored to the Silence (she spawns at random and now moves): AOE_SPIRAL_SHOOT with
   // range 3 covers every hex within 3 of the caster, her own excluded (libs/combat/targeting.ts spiral around the caster).
-  const stillGeo = P.stillAnchored ? { method: "AOE_SPIRAL_SHOOT", range: 3 } : { method: "COORDINATES", range: 0, coordinateTargeting: field(PAT.stillReach) };
+  // Art R3 / QA S12 (2026-11-05): stillRing makes Stillness a ring 2-3 hexes from the Silence (caster-anchored offsets,
+  // targeting.ts:63-71) instead of the radius-3 disc, so it no longer blankets both bosses.
+  const STILL_RING = ALL.filter((c) => { const d = dist(c, [6, 4]); return d >= 2 && d <= 3; }).map((c) => ({ longitude: c[0] - 6, latitude: c[1] - 4 }));
+  const stillGeo = P.stillRing ? { method: "COORDINATES", range: 0, coordinateTargeting: { origin: "CASTER", selection: "ALL", coordinates: STILL_RING, randomCount: 1 } }
+    : P.stillAnchored ? { method: "AOE_SPIRAL_SHOOT", range: 3 } : { method: "COORDINATES", range: 0, coordinateTargeting: field(PAT.stillReach) };
   add(JID.stillness, { name: "Stillness", description: "The deep listens around the Silence: next turn, everything within 3 is crushed and stunned.", battleDescription: "The floor around the Silence goes still. Something is listening.", target: "GROUND", ...stillGeo, cooldown: P.still.cd, actionCostPerc: 40, effects: [carrier("tg_control"), marker(MK.still)] } as any);
   add(JID.stillnessBlast, { name: "Stillness", description: "Everything within 3 of the Silence is crushed and stunned.", battleDescription: "\"Be still.\"", target: "CHARACTER", ...stillGeo, cooldown: 2, actionCostPerc: 100,
     effects: [erupt(1, p.stillness, "moe_stillness"), tag("stun", { power: 100, rounds: P.still.stunRounds, apReduction: P.still.stunAp, friendlyFire: "ENEMIES" })] } as any);
@@ -558,6 +579,17 @@ export const buildRecords = (P: MoeParams) => {
       J[JID.stillness]!.effects.push(tag("cleanseprevent", { power: 100, rounds: 1, target: "SELF", description: "The deep holds its breath" }));
     }
   }
+  // Art R5 / QA S1 (2026-11-05): one non-reapplying, aura-carrying buff per boss, cast once as the act's first action:
+  // cooldown 99 (longer than any act) and the first rule, so it fires once, on her first turn (10 AP). Slots:
+  // appear moe_entrance, static moe_aura. It replaces the per-cast bossAura strips (which re-applied and stacked).
+  if (P.entrance?.on) {
+    const ent = (id: string, name: string, line: string, a: any) => add(id, { name, description: "Her presence settles over the hall.", battleDescription: line, target: "SELF", method: "SINGLE", range: 0, cooldown: 99, actionCostPerc: 10,
+      effects: [a.type === "shield" ? tag("shield", { power: 100, health: a.health, rounds: 99, target: "SELF", appearAnimation: "moe_entrance", staticAnimation: "moe_aura" })
+        : tag(a.type, { power: a.power, rounds: 99, target: "SELF", calculation: "percentage", appearAnimation: "moe_entrance", staticAnimation: "moe_aura" })] });
+    ent(JID.entrySayo1, "Heartglass", "Every pane in the hall turns its light toward you.", P.entrance.sayo1);
+    ent(JID.entrySilence, "The Deep Listens", "The floor around the Silence stops making sound.", P.entrance.silence);
+    ent(JID.entrySayo2, "The Stilling", "The glass in front of her holds still.", P.entrance.sayo2);
+  }
   // Director 2026-11-05 (approved): An Absence, the anti-camping omen. Sayo summons it onto the empty hex closest to the
   // player (EMPTY_GROUND_CLOSEST_TO_OPPONENT, ai_v2.ts:362-376). Its first turn draws the omen (heavy art on every hex
   // within 1 of it: AOE_SPIRAL_SHOOT range 1, its own hex excluded) and cannot pool: "Settles" is cooldown 99 and its
@@ -567,10 +599,10 @@ export const buildRecords = (P: MoeParams) => {
   if (P.absence?.on) {
     const A = P.absence;
     add(JID.absence, { name: "An Absence", description: "Something settles beside you; the floor there stops making sound.", battleDescription: "An Absence settles beside %target. The floor there has stopped making sound.", target: "EMPTY_GROUND", method: "SINGLE", range: 5, cooldown: A.cd, actionCostPerc: 20, donor: IN.donors.summon,
-      effects: [tag("summon", { aiId: AI.absence, aiHp: A.hp, power: P.feeler.power, rounds: 3, appearAnimation: "moe_absence" })] });
-    add(JID.absenceGather, { name: "An Absence", description: "The quiet gathers around it; it opens next turn.", battleDescription: "The floor around %user goes silent.", target: "GROUND", method: "AOE_SPIRAL_SHOOT", range: 1, cooldown: 99, actionCostPerc: 100, effects: [carrier("tg_heavy", 1)] } as any);
+      effects: [tag("summon", { aiId: AI.absence, aiHp: A.hp, power: P.feeler.power, rounds: 3, appearAnimation: "moe_absence_rise", staticAnimation: "moe_absence_idle" })] });
+    add(JID.absenceGather, { name: "An Absence", description: "The quiet gathers around it; it opens next turn.", battleDescription: "The floor around %user goes silent.", target: "GROUND", method: "AOE_SPIRAL_SHOOT", range: 1, cooldown: 99, actionCostPerc: 100, effects: [carrier("tg_heavy", 1)] } as any); // the established omen mark
     add(JID.absenceOpen, { name: "The Absence Opens", description: "Whatever stood near it is not heard again.", battleDescription: "The Absence opens. Whatever stood near it is not heard again.", target: "GROUND", method: "AOE_SPIRAL_SHOOT", range: 1, cooldown: 99, actionCostPerc: 100,
-      effects: [tag("healprevent", { power: 100, rounds: A.poolRounds, friendlyFire: "ENEMIES" }), tag("drain", { power: A.drain, rounds: A.poolRounds, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], ...poolArt("tg_linger") }), ...poolVis(A.poolRounds)] } as any);
+      effects: [tag("healprevent", { power: 100, rounds: A.poolRounds, friendlyFire: "ENEMIES", appearAnimation: "moe_absence_burst" }), tag("drain", { power: A.drain, rounds: A.poolRounds, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], ...poolArt("tg_absence") }), ...poolVis(A.poolRounds)] } as any);
   }
   // Director 2026-11-05 (approved): Act I spacing. The marks (Refraction, Far Refraction, Facet) get cooldown 6 and a
   // SELF cleanseprevent, itself a shared-cooldown tag (drizzle/constants.ts:261-279), so casting one mark locks the other
@@ -590,6 +622,13 @@ export const buildRecords = (P: MoeParams) => {
   // by its mark's marker.
   if (P.gcdSafeBlasts) for (const id of [JID.blastA, JID.blastB, JID.facetBlast, JID.lucidBlast, JID.stillnessBlast, JID.shatterBlast, JID.floodBlast]) J[id]!.cooldown = 0;
   if (P.etchDWide) J[JID.det.D!]!.coordinateTargeting = field(cellsWhere((c, r) => c >= 4 && r >= 3 && r <= 6));
+  // QA B4: one Rises record per Etching, its pools drawn off that Etching's pattern (the omen drawn in the same turn).
+  if (P.hushOffMarks) for (const k of Object.keys(PAT.etch)) {
+    const pat = new Set(recCells(J[JID.det[k]!], [0, 0]));
+    const r = structuredClone(J[JID.rises[0]!]); r.id = risesK(k);
+    r.coordinateTargeting = { ...r.coordinateTargeting, coordinates: PAT.risesField.filter((c) => !pat.has(key(c))).map(xy) };
+    J[r.id] = r;
+  }
   // Director 2026-11-05 (proposal, awaiting approval): a real, thematic SELF buff per boss, POSITIVE power only (the client
   // cannot draw negative-power tags), riding a move the boss opens the act with and repeats, so it is refreshed all act.
   // Each cast is a separate instance (BATTLE_TAG_STACKING, drizzle/constants.ts:1968); rounds are kept near the move's
@@ -765,6 +804,7 @@ const basic = (conds: any[] = []) => R.jutsu("basicAttack", PL, conds);
 const withCond = (r: any, conds: any[]) => ({ ...r, conditions: [...conds, ...r.conditions] });
 
 export const sayo1Rules = (P: MoeParams) => [
+  ...(P.entrance?.on ? [R.jutsu(JID.entrySayo1, "SELF", [])] : []),
   R.jutsu(JID.enrage, "SELF", [COND.rg(P.enrage.act1)]),
   R.jutsu(JID.lucidWake, "SELF", [COND.lucid]),
   R.jutsu(JID.facetBlast, "SELF", [C.has(MK.facet)]),
@@ -794,6 +834,7 @@ export const sayo1Rules = (P: MoeParams) => [
   R.end(),
 ];
 export const silenceRules = (P: MoeParams) => [
+  ...(P.entrance?.on ? [R.jutsu(JID.entrySilence, "SELF", [])] : []),
   R.jutsu(JID.enrage, "SELF", [COND.rg(P.enrage.act1)]),
   R.jutsu(JID.stillnessBlast, "SELF", [C.has(MK.still)]),
   ...(P.turnMark.on && P.turnMark.ring ? [R.jutsu(JID.turnIBreak, "SELF", [C.has("increaserange")])] : []),
@@ -827,10 +868,13 @@ export const likenessRules = () => [R.jutsu(JID.likenessCopy, PL, [C.near(5)]), 
 
 /** Act II etching cycles (3 / 4 / 5 / 5; cycles 3 and 4 repeat an etching out of order). */
 export const CYCLES: string[][] = [["A", "B", "C"], ["D", "A", "C", "B"], ["C", "A", "E", "A", "B"], ["E", "B", "D", "B", "C"]];
-export const cycleCombo = (seq: string[], cycle: number) => [...seq.flatMap((k) => [JID.etch[k]!, JID.rises[cycle]!]), ...seq.map((k) => JID.det[k]!), JID.quietFall];
+export const risesK = (k: string) => `moe-hush-rises-${k.toLowerCase()}`;
+let RISES_K = false;
+export const cycleCombo = (seq: string[], cycle: number) => [...seq.flatMap((k) => [JID.etch[k]!, RISES_K ? risesK(k) : JID.rises[cycle]!]), ...seq.map((k) => JID.det[k]!), JID.quietFall];
 const cnt = (n: number) => C.has(MK.counter, n);
 export const sayo2Rules = (_P: MoeParams) => [
-  R.jutsu(JID.enrage, "SELF", [cnt(4)]),
+  ...(_P.entrance?.on ? [R.jutsu(JID.entrySayo2, "SELF", [])] : []),
+  R.jutsu(JID.enrage, "SELF", [cnt(_P.act2EnrageCycle ?? 4)]),
   ...(_P.turnMark.on && _P.turnMark.ring ? [R.jutsu(JID.turnIIBreak, "SELF", [C.has("increaserange")])] : []),
   R.jutsu(JID.summonTomo, "EMPTY_GROUND_CLOSEST_TO_SELF", [C.has(MK.done), cnt(3), C.noSummon()]),
   R.jutsu(JID.summonHana, "EMPTY_GROUND_CLOSEST_TO_SELF", [C.has(MK.done), cnt(2), C.noSummon()]),
@@ -940,8 +984,9 @@ const drTag = (pct: number) => (pct > 0 ? [tag("decreasedamagetaken", { power: p
 
 export type AiRec = { id: string; username: string; poolsMultiplier: number; jutsus: string[]; effects: any[]; rules: any[]; heavyArmor: boolean; summon?: boolean };
 export const aiRecords = (P: MoeParams): AiRec[] => {
+  const entryOf: Record<string, string> = P.entrance?.on ? { [AI.sayo1]: JID.entrySayo1, [AI.silence]: JID.entrySilence, [AI.sayo2]: JID.entrySayo2 } : {};
   const boss = (id: string, username: string, pools: number, idg: number, dr: number, jutsus: string[], rules: any[], extra: any[] = []) =>
-    ({ id, username, poolsMultiplier: pools, jutsus: [...new Set(jutsus)], effects: [...idgTags(idg), ...drTag(dr), ...(P.sayoStunImmune && [AI.sayo1, AI.sayo2, AI.saint].includes(id) ? stunImmune() : []), ...extra], rules, heavyArmor: true });
+    ({ id, username, poolsMultiplier: pools, jutsus: [...new Set([...(entryOf[id] ? [entryOf[id]!] : []), ...jutsus])], effects: [...idgTags(idg), ...drTag(dr), ...(P.sayoStunImmune && [AI.sayo1, AI.sayo2, AI.saint].includes(id) ? stunImmune() : []), ...extra], rules, heavyArmor: true });
   // Director 2026-11-05: Sayo (all three forms) is stun immune: innate stunprevent 100 (positive power), checked by the
   // stun tag before it lands (theninjarpg@3314d122 libs/combat/tags.ts:2749; StunPreventTag validators/combat.ts:1041-1047).
   function stunImmune() { return [tag("stunprevent", { power: 100, rounds: 100, calculation: "percentage", description: "Nothing stills the Mother of Echoes" })]; }
@@ -953,10 +998,14 @@ export const aiRecords = (P: MoeParams): AiRec[] => {
     boss(AI.silence, "The Silence", P.pools.silence, P.idg.silence, P.dr.silence,
       [JID.enrage, ...JID.hush, JID.hushUnbridled, JID.listening, JID.listeningUnbridled, JID.stillness, JID.stillnessBlast, ...(P.turnMark.on ? [JID.turnI, ...(P.turnMark.ring ? [JID.turnIBreak] : [])] : [])], silenceRules(P), [token(MK.silenceToken)]),
     summon(AI.feeler, "A Feeler of the Deep", [JID.cradle, JID.grasp], feelerRules()),
-    ...(P.absence?.on ? [summon(AI.absence, "An Absence", [JID.absenceGather, JID.absenceOpen], [R.jutsu(JID.absenceGather, "SELF", []), R.jutsu(JID.absenceOpen, "SELF", []), R.end()])] : []),
+    ...(P.absence?.on ? [summon(AI.absence, "An Absence", [JID.absenceGather, JID.absenceOpen], [R.jutsu(JID.absenceGather, "SELF", []),
+      // Art R2: EMPTY_GROUND_CLOSEST_TO_OPPONENT cannot exclude marked hexes (ai_v2.ts getTargetableTiles filters units and
+      // barriers only), so the Absence holds its pool while Sayo has a live line (cleanseprevent rides every mark).
+      R.end([tHas("HIGHEST_MAX_HEALTH_ALLY", "cleanseprevent")]),
+      R.jutsu(JID.absenceOpen, "SELF", []), R.end()])] : []),
     summon(AI.likeness, "Your Likeness", [JID.likenessStrike, JID.likenessCopy], likenessRules()),
     boss(AI.sayo2, "Sayo, Glasswright of the Stilling", /* RUL-2026-11-02-105: unique AI usernames */ P.pools.sayo2, P.idg.sayo2, P.dr.sayo2,
-      [JID.lancet, JID.enrage, ...etchIds, ...detIds, ...JID.rises, JID.quietFall, JID.summonPorter, JID.summonHana, JID.summonTomo, ...(P.turnMark.on ? [JID.turnII, ...(P.turnMark.ring ? [JID.turnIIBreak] : [])] : [])], sayo2Rules(P),
+      [JID.lancet, JID.enrage, ...etchIds, ...detIds, ...JID.rises, ...(P.hushOffMarks ? Object.keys(PAT.etch).map(risesK) : []), JID.quietFall, JID.summonPorter, JID.summonHana, JID.summonTomo, ...(P.turnMark.on ? [JID.turnII, ...(P.turnMark.ring ? [JID.turnIIBreak] : [])] : [])], sayo2Rules(P),
       [...(P.sayo2Stunprevent ? [tag("stunprevent", { power: 100, rounds: 100 })] : []), token(MK.sayoToken)]),
     summon(AI.porter, "The Gate Porter (Worn)", [JID.porter], wornRules(JID.porter)),
     summon(AI.hana, "Sister Hana (Worn)", [JID.hana], wornRules(JID.hana, "HIGHEST_MAX_HEALTH_ALLY")),
@@ -1263,7 +1312,9 @@ export const SETS: Record<string, [string, "mark" | "land", string[]?]> = {
   [JID.glass[1]!]: ["Glassfall", "land", [JID.glass[0]!]], [JID.glassFirstB]: ["Glassfall", "land", [JID.glass[0]!]],
   [JID.glass[2]!]: ["Glassfall", "land", [JID.glass[1]!]], [JID.glassRecast]: ["Glassfall", "land", [JID.glassFirstB]],
 };
+const SPECIAL_IDS_EXTRA: Record<string, string> = {};
 for (const k of Object.keys(PAT.etch)) { SETS[JID.etch[k]!] = ["Recast", "mark"]; SETS[JID.det[k]!] = ["Recast", "land"]; }
+for (const k of Object.keys(PAT.etch)) SPECIAL_IDS_EXTRA[risesK(k)] = "Hush Rises";
 // Act III redesign bookkeeping (the role is the land unless noted; the marks ride the previous land).
 Object.assign(SETS, {
   [J3.opener]: ["Refraction", "mark"], [J3.lucid]: ["Refraction", "land", [J3.opener]], [J3.facet]: ["Refraction", "land", [J3.lucid]],
@@ -1382,7 +1433,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
         const drawn = g.type === "visual" || g.type === "increaseregeneration";
         if (drawn && (g.staticAnimation === "tg_heavy" || g.staticAnimation === "tg_control")) danger.add(k);
         if (drawn && g.staticAnimation === "tg_safe") safe.add(k);
-        if (g.staticAnimation === "tg_linger") linger.add(k);
+        if (g.staticAnimation === "tg_linger" || g.staticAnimation === "tg_absence") linger.add(k);
       }
       // Memory: the next Recast detonation (Act II) and the Long Hush recast (Act III).
       const s2 = bossU(AI.sayo2);
@@ -1430,7 +1481,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
     let recastPin: Set<string> | null = null;
     let misstep = false;
     const dodgedFrom = new Set<string>(); let dodgedRound = -1;
-    let sitPos = ""; let sitHp: number | null = null; let sitRun = 0;
+    let sitPos = ""; let sitHp: number | null = null; let sitRun = 0; let stagePos = "";
     const pinnedStay = (to: string) => !!recastPin && recastPin.size > 0 && !recastPin.has(to) && recastPin.has(key([pu().longitude, pu().latitude]));
     const dodgeStep = (): boolean => {
       const here: Cell = [pu().longitude, pu().latitude];
@@ -1558,6 +1609,10 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
         sitPos = key(pPos); sitHp = hpNow;
         const { danger, linger } = dangerCells();
         const sv = (res.solv ??= { turns: 0, noSafe: 0, noSafeInclPools: 0, noSafeRounds: [] });
+        // Stage metric (director 2026-11-05): hazard hexes on the floor at each player turn start, and how often he
+        // starts a turn on a different hex than the last.
+        const st = ((res as any).stage ??= { hazards: [] as number[], turns: 0, moved: 0 });
+        st.hazards.push(new Set([...danger, ...linger]).size); st.turns++; if (stagePos && stagePos !== key(pPos)) st.moved++; stagePos = key(pPos);
         sv.turns++;
         if (danger.size) {
           const reach = ALL.filter((c) => (key(c) === key(pPos) || free(c)) && dist(c, pPos) <= 5).map(key);
@@ -1679,7 +1734,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
         hist.push({ id: actionId, round: pre.actionRound });
         lastBossAct.set(actor.userId, hist);
       }
-      if (isEnemy && actionId && SPECIAL_IDS[actionId]) res.specials[SPECIAL_IDS[actionId]!] = (res.specials[SPECIAL_IDS[actionId]!] ?? 0) + 1;
+      { const sp = actionId ? (SPECIAL_IDS[actionId] ?? SPECIAL_IDS_EXTRA[actionId]) : undefined; if (isEnemy && sp) res.specials[sp] = (res.specials[sp] ?? 0) + 1; }
       if (isEnemy && (actionId === J3.mended || actionId === J3.impression)) ((res as any).phaseAt ??= {})[actionId === J3.mended ? "II" : "III"] ??= pre.actionRound; if (isEnemy && (actionId === J3.mended || actionId === J3.impression)) ((res as any).phaseHp ??= {})[actionId === J3.mended ? "II" : "III"] ??= Math.round(100 * actor.curHealth / actor.maxHealth);
       for (const aid of cfg.bossIds) {
         const u = bossU(aid);
