@@ -1,6 +1,7 @@
 # The Mother of Echoes: complete art list
 
 - **For:** the director (generation) and Fable (code-built FX, intake, upload manifests). **Prompts:** `docs/handoffs/MOTHER_OF_ECHOES_ART_PROMPTS.md` (codes ME01-ME28).
+- **Character and visual bible:** `docs/design/SAYO_BIBLE.md` (DRAFT, pending director approval): who Sayo is, her chakra nature, the six move families as visual grammar, per-move animation specs with an art3 audit, and the palette and consistency rules every new strip is checked against.
 - **Records:** ids from the committed results bundles (417, 440, 461-464), collected in `docs/handoffs/mother_of_echoes_record_ids.json`. Art slots: `artPlaceholders` in `harness/skyglass_wreck_sim/mother_of_echoes_spec.json` at `fable/mother-of-echoes-sim@dd7e33ab` (the generator's `SPEC_REF`).
 - **Canon:** RUL-2026-11-01-093..095, RUL-2026-11-02-108 (names); cut and not drawn: An Invitation in Glass, Remnant of the Mother Glass, all Salvage art (RUL-2026-11-02-104/-105).
 - **Delivery (art QA 2026-11-04):** every strip is delivered at 50 px wide (`primitives/animation.ts` rendition 50, `utils/image.ts` `?width=50`) and pixi stretches it ~3.3x with LINEAR filtering (`combatEffects.ts` never passes nearest). Draw on the 50 px grid in solid 2-3 px clusters with dark outlines; 1 px dithers become haze. Appear and static loops start together; the client never plays `disappearAnimation` (the server spawns it as a visual).
