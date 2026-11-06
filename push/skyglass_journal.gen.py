@@ -2,7 +2,8 @@
 """Skyglass event journal, week 1: "The Watch Log: First Page". One event quest create, HIDDEN.
 
     python3 push/skyglass_journal.gen.py                      -> push/490_skyglass_journal_week1.json
-    (--friday YYYY-MM-DD overrides the weekend; default 2026-11-06, the release, RUL-2026-11-05-121 D4)
+    (--friday YYYY-MM-DD overrides the weekend; default 2026-11-06, the release, RUL-2026-11-05-121 D4; endsAt is the
+     Tuesday after, so the page closes 00:00 UTC Tuesday = Monday evening US, RUL-2026-11-05-122 item 2)
 
 Design: docs/design/EVENT_JOURNAL.md (the journal pattern and the Skyglass rotation). Zero live requests.
 
@@ -24,7 +25,7 @@ Engine facts this build rests on (theninjarpg@3314d122, read, not run; full cita
     "Finished: <name>" with successDescription and the completion reward (layout/Logbook.tsx 903-931).
   * Each objective's reward pays once when the player claims it in the Logbook (libs/quest.ts 494-497); the
     quest-level reward pays when every entry is done.
-  * Dates are SQL DATEs (drizzle/schema.ts 4333-4334): a page opens 00:00 UTC Friday and closes 00:00 UTC Monday
+  * Dates are SQL DATEs (drizzle/schema.ts 4333-4334): a page opens 00:00 UTC on its startsAt and closes 00:00 UTC on its endsAt
     (routers/quests.ts 2682-2687; libs/quest.ts 2456-2459; queries/quests.ts 1384-1385).
 
 Rewards approved as drafted (RUL-2026-11-05-121 D3). Still open: the image (placeholder: Wreck Sighted's) and the
@@ -63,7 +64,7 @@ I = {
     "skyglass_token": "nzCW7A-_AuYMzBs2wClnM",
 }
 SALVAGER = "Xugt7415D3-tepLfxpwM5"  # scene character, push/374 (tnr_results_1793502324082.json idmap sg374_salvager)
-BG = "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJyX6gwPukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp"  # Wreck Sighted's shore scene
+BG = "rX78pJPETsUL2JrsSvGHn"  # Wreck Sighted's shore scene, as the asset id push/385 sends (live record)
 IMG = "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp"  # PLACEHOLDER (Wreck Sighted's)
 WRECK = {"sector": 210, "longitude": 15, "latitude": 6}  # endgame Wreck tile (SKYGLASS_EVENT_MAP.md N2); x/y assumed
 
@@ -131,22 +132,26 @@ def plain_list(objs):
                    for n, o in enumerate(objs, 1))
 
 
+NUMWORD = {3: "three", 4: "four", 5: "five", 6: "six", 7: "seven"}
+
+
 def quest(objs, friday):
     starts = ends = None
     if friday:
         d = datetime.date.fromisoformat(friday)
         assert d.weekday() == 4, f"{friday} is not a Friday"
-        starts, ends = d.isoformat(), (d + datetime.timedelta(days=3)).isoformat()
+        starts, ends = d.isoformat(), (d + datetime.timedelta(days=4)).isoformat()
     n = len(objs)
-    desc = ("The salvager has dried a page of the Ghost Ship's watch log and weighted it under a stone for "
+    desc = (f"This weekend's orders: {n} to claim, a Skyglass Token for all {NUMWORD[n]}.<br><br>"
+            "The salvager has dried a page of the Ghost Ship's watch log and weighted it under a stone for "
             "you. It is one watch's orders, in the officer's brush. Your name is written in at the top, in the same "
             "ink.<br><br><i>" + "<br>".join(o["description"].split("<br><br>", 1)[0].split(". ")[0].rstrip(".") + "."
                                               for o in objs) + "</i><br><br>"
             f"<b>This weekend's orders</b>, in any order:{plain_list(objs)}<br><br>"
             "Orders count only while you carry this page: nothing you did before taking it counts. Claim each order's "
             f"reward in the Logbook when it is done, and finish all {n} for the page's last reward, a Skyglass Token. The page "
-            "is gone "
-            "when the weekend ends, so claim before then. Claiming the last order completes the page.")
+            "closes at the end of Monday (00:00 UTC Tuesday), so claim before then. Claiming the last order completes "
+            "the page.")
     return {"entity": "quest", "slot": "create", "srcId": f"sg{NUM}_journal_w1", "phase": 1,
             "name": "The Watch Log: First Page",
             "data": {"name": "The Watch Log: First Page", "description": desc, "image": IMG,
@@ -164,15 +169,15 @@ def quest(objs, friday):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--friday", default="2026-11-06", help="weekend start (a Friday); endsAt is the Monday after")
+    ap.add_argument("--friday", default="2026-11-06", help="weekend start (a Friday); endsAt is the Tuesday after")
     a = ap.parse_args()
     objs = entries()
     q = quest(objs, a.friday)
     note = (f"push/{NUM}, HIDDEN. The Skyglass event journal, week 1 (docs/design/EVENT_JOURNAL.md; RUL-2026-11-05-120, "
             f"-121): one event quest, {len(objs)} tracker entries in one chain (consecutive for Forge L03; all live at "
             "once, so any order), per-entry rewards on claim and a Skyglass Token on completion (approved, D3). Window "
-            f"{q['data']['startsAt']} 00:00 UTC to {q['data']['endsAt']} 00:00 UTC (D4). No Wreck entry (D1). Lands in the "
-            "Administration Building and the profile dashboard's Events cards (D2). Placeholder image. Staff test: take it, "
+            f"{q['data']['startsAt']} 00:00 UTC to {q['data']['endsAt']} 00:00 UTC (D4; RUL-2026-11-05-122 item 2). No Wreck entry (D1). Lands in the "
+            "Administration Building and the profile dashboard's Events cards (D2). Placeholder image until QI01 (docs/handoffs/SKYGLASS_ART_PROMPTS.md). Staff test: take it, "
             "reload, win a Low Tide Run; the Logbook should show 1/2. Generated by push/skyglass_journal.gen.py; do not "
             "hand-edit.")
     with open(OUT, "w", encoding="utf-8") as fh:

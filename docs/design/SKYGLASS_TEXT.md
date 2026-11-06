@@ -115,6 +115,75 @@ The chart is yours. The Wreck waits on the shore: a dungeon for three, with a li
 
 ---
 
+## 1a. Wreck Sighted, new: the event introduction (RUL-2026-11-05-122; DRAFT for the director, not live)
+
+A fresh one-time quest (`push/skyglass_intro.gen.py`, push/497, a hidden create) that replaces the live Wreck Sighted
+(§1, `v7kKhLXsX9aofQfc7BnGx`), which the director deletes himself. Veterans of the old one see it once, by intent
+("they never got a good overview"). Brief: "a high quality introduction to the event … without spoilers or hand
+holding": the whole shape of the event in the salvager's voice and what she has seen, never instructions or menus; the
+ladder is left for the player to infer (EVENT_STRUCTURE P6); whatever waits below Crownhold is hinted, never named.
+Node ids: `d_word` -> `d_wreck` -> `d_charts` -> `d_lantern` -> `d_shards` -> `d_page` -> `w_done` (reward Tide Chart
+×1, as §1). `d_word`'s second choice goes straight to `w_done`.
+
+**`quest:Wreck Sighted (tutorial).name`**
+```
+Wreck Sighted
+```
+
+**`quest:Wreck Sighted (tutorial).description`**
+```
+The Ghost Ship has come down on the coast. A salvager on the shore has watched everyone who went aboard, and remembers who came back.
+```
+
+**`quest:Wreck Sighted (tutorial).successDescription`**
+```
+You have your first chart. The Battle Arena takes it, the Information Board has this weekend's page, and the Wreck has more.
+```
+
+**`obj:Wreck Sighted (tutorial)/d_word.description`**
+```html
+The Ghost Ship hung over this coast longer than anyone's grandmother could remember. Three nights ago she came down.<br><br>A salvager sits at a driftwood fire below the wreck, mending a net. She does not look up. "Another one come to pick her bones. Sit, then. She's had better than you."
+```
+- `choice[0]`: `Tell me about her`
+- `choice[1]`: `I've seen wrecks before`
+
+**`obj:Wreck Sighted (tutorial)/d_wreck.description`**
+```html
+She lies on her side, and her crew still stand their posts on the tilted deck. Not ghosts. Worse: they remember their orders.<br><br>"Nobody goes aboard alone and comes back. Go in threes. The ones who come back bring coin, stores and paper. <b>Charts</b>, wet ones, drawn by the crew themselves."
+```
+- `choice[0]`: `Why would the dead draw maps?`
+
+**`obj:Wreck Sighted (tutorial)/d_charts.description`**
+```html
+"Each chart is the way into one corner of her, and she doesn't hold still, so it's good once. Folk run them alone, out of the <b>Battle Arena</b>, and what you carry in is all you get.<br><br>The low-tide charts and the rosters take you to the lower decks. Down there are the crew's own charts: what they buried, the works, the archive, the helm. And those lead to the places the crew sealed shut."
+```
+- `choice[0]`: `What did they seal?`
+
+**`obj:Wreck Sighted (tutorial)/d_lantern.description`**
+```html
+"Some come back from the deep with a <b>lantern</b> that won't go out. It points at the mountain, at <b>Crownhold</b>, the castle she sailed from. Someone still sits its throne and still gives orders.<br><br>Others come back with a ledger page or a stores list, and go looking for holds no chart shows. They come back heavy, or not at all."
+```
+- `choice[0]`: `You've watched a lot of them come back`
+
+**`obj:Wreck Sighted (tutorial)/d_shards.description`**
+```html
+"Four of them brought me <b>shards</b>. One off the wreck, one from the castle, one from the deep decks, one from the sealed stores. Different hands, same glass. Lay them side by side and they ring.<br><br>Under Crownhold the stair stops where the rock does. I've stood at the bottom. Something beneath it listens back."
+```
+- `choice[0]`: `Where would you start?`
+
+**`obj:Wreck Sighted (tutorial)/d_page.description`**
+```html
+"Small. And what you can't use, trade. Every chart and every shard has a buyer, so no road's ever closed for good.<br><br>I keep their <b>watch log</b>, too. It washes up a page at a time. I dry one each weekend and pin it on the <b>Information Board</b>: one watch's orders. Lately the name at the top isn't one of theirs."
+```
+- `choice[0]`: `Take the chart`
+
+**`obj:Wreck Sighted (tutorial)/w_done.description`** (win_quest; reward Tide Chart ×1)
+```html
+She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at one corner. "Low tide opens her lower hull. Don't sit on it. She's already changing shape."
+```
+
+---
+
 ## 2. Chart runs
 
 **Shared lines** (every chart run battle unless a node gives its own):

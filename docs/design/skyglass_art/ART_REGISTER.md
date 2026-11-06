@@ -149,3 +149,9 @@ push/370 picks each image up once its export exists; the two Legendary chests sh
 | PC08 | Quartermaster's Reserve | ICON | (director-generated) | see design_data.json | PROCESSED (`art/skyglass_event_icons/exports/icon-legendary-gatherers-chest.webp`) |
 
 FX frame size (director 2026-10-31): AN01-AN09 strips keep 150 px frames (drawn on the 50 px grid, delivered 3x) per the ANIMATION spec's 112 px minimum.
+
+## Quest icons (QI01; RUL-2026-11-05-122 item 1)
+
+| Code | Asset | Type | Folder | Live id | Status |
+|---|---|---|---|---|---|
+| QI01 | The Watch Log (weekly page quest icon) | ICON (`quest.image`, rendered by ContentImage like an item icon) | `01_chart_icons` | push/490 (not run) | TO GENERATE (prompt: `docs/handoffs/SKYGLASS_ART_PROMPTS.md` §10) |
