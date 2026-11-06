@@ -1,0 +1,32 @@
+{
+ "source": "art/subaku_palace/gates/build_gates.py",
+ "timing": "art/subaku_palace/TIMING.md v2",
+ "ring1": 7,
+ "seal_peak": 20,
+ "assets": [
+  {
+   "file": "art/subaku_palace/gates/exports/anim_sbk_gates_rise_v4.webp",
+   "type": "ANIMATION",
+   "frames": 38,
+   "speed": 50,
+   "bytes": 4548,
+   "slot": "appearAnimation on the SELF increasedamagegiven effect; no staticAnimation, no staticAssetPath",
+   "geometry": "clip 2.5 hex heights (EFFECT_ANIMATION_HEX_RATIO 2.5); caster an LPC character avatar",
+   "lpc_envelope_cover_max": 0.0,
+   "lower_neighbour_meters_cover_max": 0.0,
+   "own_meters_cover_max": 0.367,
+   "own_meters_cover_frames": [
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+   ]
+  }
+ ]
+}
