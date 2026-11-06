@@ -115,6 +115,12 @@ export const MOE_DEFAULTS = {
   bossAura: { on: false } as any,
   /** Sim-only: visual "piece" tags on the signature moves (art pass identity check). */
   visualPieces: false,
+  /** Director 2026-11-05 proposal: Grasp cooldown (0 = every turn; 2 = root every other round). */
+  graspCd: 0,
+  /** Policy (2026-11-05 pool audit): walk paths never cross pools, never step onto a pool to approach. */
+  poolAware: false,
+  /** Director 2026-11-05 (approved): Act I mark spacing (see buildRecords). */
+  act1Spacing: false,
   /** Director 2026-11-05 (fight script): the Lancet ramp carries no clearprevent. */
   rampClearable: false,
   /** Director 2026-11-05: The Silence Turns from round 4, the first Listening from round 2. */
@@ -264,6 +270,7 @@ export const buildRecords = (P: MoeParams) => {
   CARRIER_ON = P.telegraphCarrier !== false;
   P_NO_REENTRY = !!P.noPoolReentry;
   RAMP_CLEARABLE = !!P.rampClearable;
+  POOL_AWARE = !!P.poolAware;
   MARK_ART = P.markArtRounds ?? 1;
   SKILLED = !!P.skilledPolicy;
   DEBUFF = { on: !!P.eruptDebuff?.on, pct: { 1: P.eruptDebuff?.act1, 2: P.eruptDebuff?.act2, 3: P.eruptDebuff?.act3 } as any };
@@ -329,7 +336,7 @@ export const buildRecords = (P: MoeParams) => {
   /* ---- the feeler ---- */
   add(JID.cradle, { name: "Cradle", description: "While a feeler lives, the Silence holds Sayo: 90% less damage taken, and the hold cannot be cleared.", battleDescription: "The Silence cradles %target. Blows slide off the glass.", target: "ALLY", method: "SINGLE", range: 5, cooldown: 1, actionCostPerc: 40, donor: "xs-8r_KRJS8QQMpBDyhUv",
     effects: [T.pct("decreasedamagetaken", p.cradleDR, 1, { target: "INHERIT", friendlyFire: "FRIENDLY", staticAnimation: "moe_cradle" }), tag("clearprevent", { power: 100, rounds: 1, target: "INHERIT", friendlyFire: "FRIENDLY" })] });
-  add(JID.grasp, { name: "Grasp", description: "The feeler takes hold of whatever is nearest: rooted, and drained.", battleDescription: "%user closes around %target.", target: "OTHER_USER", method: "SINGLE", range: 2, cooldown: 0, actionCostPerc: 60,
+  add(JID.grasp, { name: "Grasp", description: "The feeler takes hold of whatever is nearest: rooted, and drained.", battleDescription: "%user closes around %target.", target: "OTHER_USER", method: "SINGLE", range: 2, cooldown: P.graspCd ?? 0, actionCostPerc: 60,
     effects: [T.pierce(p.grasp), T.root(1), tag("drain", { power: p.graspDrain, rounds: 2, calculation: "percentage", poolsAffected: ["Health"] })] });
   /* ---- Act II: Sayo (the Stilling) ---- */
   for (const k of Object.keys(PAT.etch)) {
@@ -441,6 +448,16 @@ export const buildRecords = (P: MoeParams) => {
       effects: [carrier("tg_heavy", 1), tag("drain", { power: pct, rounds: 1, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], description: "The floor breaks" })] });
     turn(JID.turnI, "The Silence Turns", P.turnMark.act1, "The floor under %target goes still. Something below has turned toward it.");
     turn(JID.turnII, "The Glass Turns", P.turnMark.act2, "The glass under %target remembers the weight of you.");
+  }
+  // Director 2026-11-05 (approved): Act I spacing. The marks (Refraction, Far Refraction, Facet) get cooldown 6 and a
+  // SELF cleanseprevent, itself a shared-cooldown tag (drizzle/constants.ts:261-279), so casting one mark locks the other
+  // marks for SHARED_COOLDOWN_ROUNDS = 3 (actions.ts:1461-1490). Marks therefore come at least 3 rounds apart and each
+  // blast (1 round after its mark, cooldown kept) always falls after the previous blast's 3-round pierce lock: mark A,
+  // blast A, rest, mark B, blast B, rest. Lucid Refraction no longer redraws the far set in the same action (its follow-up
+  // blast would sit inside its own pierce lock); Lucid keeps its +20% and rest-free blasts.
+  if (P.act1Spacing) {
+    for (const id of [JID.refractA, JID.refractB, JID.facet]) { J[id]!.cooldown = 6; J[id]!.effects.push(tag("cleanseprevent", { power: 100, rounds: 1, target: "SELF", description: "The glass holds its breath" })); }
+    J[JID.lucidBlast]!.effects = J[JID.lucidBlast]!.effects.filter((e: any) => !(e.type === "increaseregeneration" || e.type === MK.refractB));
   }
   // GCD fix (2026-11-05 trace, Silence-first seed 18): pierce is a shared-cooldown tag (drizzle/constants.ts:261-279;
   // applyActionCooldowns, actions.ts:1461-1490): casting any action with cooldown > 0 that carries pierce locks every
@@ -570,7 +587,7 @@ export const sayo1Rules = (P: MoeParams) => [
   // second live marker outliving its visual when the first blast spent the next turn).
   R.jutsu(JID.facet, "SELF", [C.hb(60)]),
   R.jutsu(JID.refractA, "SELF", []),
-  R.jutsu(JID.refractB, "SELF", []),
+  R.jutsu(JID.refractB, "SELF", P.act1Spacing ? [COND.rg(3)] : []),
   R.jutsu(JID.lancet, PL, [C.near(5)]),
   { conditions: [C.far(6)], action: { type: "move_towards_opponent", target: PL, description: "Keep 5 hexes" } },
   basic([C.near(1)]),
@@ -745,6 +762,7 @@ export const setGearOverride = (g: any, avg?: any) => { GEAR_OVERRIDE = g; AVG_O
 let LIVE_SPAWN = false;
 let P_NO_REENTRY = false;
 let RAMP_CLEARABLE = false;
+let POOL_AWARE = false;
 export const setLiveSpawn = (on: boolean) => { LIVE_SPAWN = on; };
 /**
  * The average geared level-100 model (RUL-2026-11-02-097 item 3), built the same way as the elite one: the real Kitsune
@@ -1144,6 +1162,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
     let recastPin: Set<string> | null = null;
     let misstep = false;
     const dodgedFrom = new Set<string>(); let dodgedRound = -1;
+    let sitPos = ""; let sitHp: number | null = null; let sitRun = 0;
     const pinnedStay = (to: string) => !!recastPin && recastPin.size > 0 && !recastPin.has(to) && recastPin.has(key([pu().longitude, pu().latitude]));
     const dodgeStep = (): boolean => {
       const here: Cell = [pu().longitude, pu().latitude];
@@ -1182,7 +1201,20 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
         const d = depth.get(key(c))!;
         if (d > 0 && !bad(key(c))) found.push({ c, d, lingerOnly: false });
         if (d >= 8) continue;
-        for (const n of ALL) if (!prev.has(key(n)) && dist(c, n) === 1 && free(n)) { prev.set(key(n), key(c)); depth.set(key(n), d + 1); q.push(n); }
+        // pool-aware (2026-11-05 audit): a walking path never crosses a pool hex (each action begun on one drains 15%);
+        // Replacement still jumps to any clean hex within 5.
+        for (const n of ALL) if (!prev.has(key(n)) && dist(c, n) === 1 && free(n) && !(POOL_AWARE && linger.has(key(n)))) { prev.set(key(n), key(c)); depth.set(key(n), d + 1); q.push(n); }
+      }
+      // pool-aware: no clean hex by a pool-free walk -> Replacement to the nearest clean hex within 5, before any pool.
+      if (POOL_AWARE && !found.length) {
+        const jump = ALL.filter((c) => free(c) && !bad(key(c)) && dist(here, c) >= 1 && dist(here, c) <= 5).sort((a, c) => dist(here, a) - dist(here, c))[0];
+        if (jump && tryAction("replacementTechnique", jump)) return true;
+        // still on a blast: walk the old way (pools allowed) rather than stand in it
+        if (danger.has(key(here))) {
+          const prev2 = new Map<string, string | null>([[key(here), null]]); const q2: Cell[] = [here]; let goal: string | null = null;
+          while (q2.length && !goal) { const c = q2.shift()!; for (const n of ALL) if (!prev2.has(key(n)) && dist(c, n) === 1 && free(n)) { prev2.set(key(n), key(c)); if (!danger.has(key(n))) { goal = key(n); break; } q2.push(n); } }
+          if (goal) { let st = goal; while (prev2.get(st) !== key(here)) st = prev2.get(st)!; return tryAction("move", st.split(",").map(Number) as Cell); }
+        }
       }
       // If no clean cell exists, accept a linger (Hush) cell outside the blast.
       if (!found.length && danger.has(key(here))) for (const [k, d] of depth) if (d > 0 && !danger.has(k)) found.push({ c: k.split(",").map(Number) as Cell, d, lingerOnly: true });
@@ -1247,6 +1279,14 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       // Solvability (director 2026-11-05): at the start of every player turn, is there a free hex within reach (Replacement
       // range 5, or the hex he stands on) that no live mark covers? Ground truth, independent of the player's read.
       if (human && turnActs.get(tk)!.length === 0) {
+        // Safe-sit audit (director 2026-11-05): consecutive player turns begun on the same hex with no loss from the
+        // boss side since the previous turn start.
+        const hpNow = pu().curHealth;
+        const sameHex = sitPos === key(pPos);
+        const unhurt = sitHp !== null && hpNow >= sitHp;
+        sitRun = sameHex && unhurt ? sitRun + 1 : 0;
+        (res as any).maxSafeSit = Math.max((res as any).maxSafeSit ?? 0, sitRun);
+        sitPos = key(pPos); sitHp = hpNow;
         const { danger, linger } = dangerCells();
         const sv = (res.solv ??= { turns: 0, noSafe: 0, noSafeInclPools: 0, noSafeRounds: [] });
         sv.turns++;
@@ -1279,7 +1319,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
           const tgt = currentTarget ?? chooseTarget();
           const needApproach = !!tgt && dist([after.longitude, after.latitude], [tgt.longitude, tgt.latitude]) < dist(pPos, [tgt.longitude, tgt.latitude]) && dist(pPos, [tgt.longitude, tgt.latitude]) > 4;
           const reentry = P_NO_REENTRY && linger.has(k) && dodgedRound === b.round && dodgedFrom.has(k);
-          if (pinnedStay(k) || (danger.has(k) && !recastPin?.has(k)) || (linger.has(k) && (!needApproach || reentry))) { actionId = tryAction("wait", pPos) ? "wait" : undefined; if (!actionId) b = r.nextBattle; }
+          if (pinnedStay(k) || (danger.has(k) && !recastPin?.has(k)) || (linger.has(k) && (POOL_AWARE || !needApproach || reentry))) { actionId = tryAction("wait", pPos) ? "wait" : undefined; if (!actionId) b = r.nextBattle; }
           else b = r.nextBattle;
         } else if (human && o.policy === "camp" && (actionId === "move" || actionId === "replacementTechnique")) {
           // camp: holds the act's best fixed hex (fewest marks in the coverage audit) and never moves
@@ -1358,6 +1398,22 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       if (o.trace) {
         const bossTxt = cfg.bossIds.map((aid) => { const u = bossU(aid); return u ? `${aid.replace("moe-ai-", "")} ${(100 * Math.max(0, u.curHealth) / u.maxHealth).toFixed(0)}%` : ""; }).join(" ");
         res.trace!.push(`r${pre.actionRound} ${(human ? `PLAYER>${(currentTarget?.username ?? "-").slice(0, 8)}` : actor.username ?? "?").slice(0, 22).padEnd(22)} ${String(actionId === "dodge" ? "DODGE" : actionId === "misstep" ? "MISSTEP (misread Recast)" : name(actionId)).slice(0, 28).padEnd(28)} p@${pPos} hp ${Math.round(pAfter.curHealth)} (${pLoss ? "-" + Math.round(pLoss) : pGain ? "+" + Math.round(pGain) : "0"}) | ${bossTxt}`);
+      }
+      if (human && pLoss > 0) {
+        // Own-turn loss by cause (pool-death audit, director 2026-11-05): the ground under the player when he acted, and
+        // the drains on him.
+        const here0 = `${pPos[0]},${pPos[1]}`;
+        const gs = (b.groundEffects as any[]).filter((e) => `${e.longitude},${e.latitude}` === here0 && (e.rounds ?? 0) > 0).map((e) => String(e.actionId ?? ""));
+        const onP = b.usersEffects.filter((e: any) => e.targetId === puid && e.type === "drain" && (e.rounds ?? 0) > 0 && !e.fromGround).map((e: any) => String(e.actionId ?? ""));
+        const cause = gs.some((x) => x.includes("turns")) ? "follow-mark ring" : gs.some((x) => x.includes("hush") || x.includes("rises")) ? "Hush / Rises pool" : gs.some((x) => x.includes("refraction") || x.includes("facet") || x.includes("stillness") || x.includes("blast") || x.includes("shatter") || x.includes("glass")) ? "eruption pool" : onP.some((x) => x.includes("grasp")) ? "Grasp drain" : gs.length ? `other ground` : "recoil / reflect / other";
+        const ob = ((res as any).ownTurnBy ??= {}); ob[cause] = (ob[cause] ?? 0) + pLoss;
+        if (pAfter.curHealth <= 0) (res as any).ownTurnDeath = cause;
+      }
+      if (o.trace && human && pLoss > 0) {
+        const here = `${pPos[0]},${pPos[1]}`;
+        const g = (b.groundEffects as any[]).filter((e) => `${e.longitude},${e.latitude}` === here && (e.rounds ?? 0) > 0).map((e) => `${e.type}:${e.actionId ?? ""}`);
+        const fx = b.usersEffects.filter((e: any) => e.targetId === puid && ["drain", "poison", "moveprevent", "stun", "healprevent", "decreaseheal"].includes(e.type) && (e.rounds ?? 0) > 0).map((e: any) => `${e.type}${e.fromGround ? "(ground)" : ""}:${e.actionId ?? ""}`);
+        res.trace!.push(`   (own-turn loss ${Math.round(pLoss)} at ${here}; ground ${[...new Set(g)].join(",") || "-"}; on player ${[...new Set(fx)].join(",") || "-"})`);
       }
       if (o.trace && isEnemy && !actor.isSummon && (actionId === "wait" || !actionId)) res.trace!.push(`   (${actor.username?.slice(0, 12)} waits; effects: ${[...new Set(b.usersEffects.filter((e: any) => e.targetId === actor.userId && (e.rounds ?? 0) > 0).map((e: any) => e.type))].join(",")})`);
       const side = (dir: string) => b.usersState.some((u: any) => u.direction === dir && !u.isSummon && alive(u));

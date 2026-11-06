@@ -99,7 +99,55 @@
    "jutsu": "Refraction",
    "srcId": "sg440_refraction",
    "liveId": "yxP6zO2NmjwqnrnvNXipC",
+   "effectIndex": null,
+   "changes": {
+    "cooldown": [
+     4,
+     6
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Refraction",
+   "srcId": "sg440_refraction",
+   "liveId": "yxP6zO2NmjwqnrnvNXipC",
    "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "static",
+     "type": "cleanseprevent",
+     "description": "The glass holds its breath"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Refraction",
+   "srcId": "sg440_refraction",
+   "liveId": "yxP6zO2NmjwqnrnvNXipC",
+   "effectIndex": 3,
    "changes": {
     "added": {
      "staticAssetPath": "",
@@ -129,7 +177,55 @@
    "jutsu": "Far Refraction",
    "srcId": "sg440_refraction_ii",
    "liveId": "HIftLq_RQJkIUUqGgBPTE",
+   "effectIndex": null,
+   "changes": {
+    "cooldown": [
+     4,
+     6
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Far Refraction",
+   "srcId": "sg440_refraction_ii",
+   "liveId": "HIftLq_RQJkIUUqGgBPTE",
    "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "static",
+     "type": "cleanseprevent",
+     "description": "The glass holds its breath"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Far Refraction",
+   "srcId": "sg440_refraction_ii",
+   "liveId": "HIftLq_RQJkIUUqGgBPTE",
+   "effectIndex": 3,
    "changes": {
     "added": {
      "staticAssetPath": "",
@@ -159,7 +255,55 @@
    "jutsu": "Facet",
    "srcId": "sg440_facet",
    "liveId": "eYzXEQI-Vz3gSIDfP2sX3",
+   "effectIndex": null,
+   "changes": {
+    "cooldown": [
+     4,
+     6
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Facet",
+   "srcId": "sg440_facet",
+   "liveId": "eYzXEQI-Vz3gSIDfP2sX3",
    "effectIndex": 2,
+   "changes": {
+    "added": {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 100,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "static",
+     "type": "cleanseprevent",
+     "description": "The glass holds its breath"
+    }
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_sayo",
+     "liveId": "fJLcH1mpB1XHHGtNWwvzD"
+    }
+   ]
+  },
+  {
+   "jutsu": "Facet",
+   "srcId": "sg440_facet",
+   "liveId": "eYzXEQI-Vz3gSIDfP2sX3",
+   "effectIndex": 3,
    "changes": {
     "added": {
      "staticAssetPath": "",
@@ -535,25 +679,162 @@
    "jutsu": "Lucid Refraction",
    "srcId": "sg440_lucid_refraction",
    "liveId": "KfXRK6rC3bt4kpdtdJHDb",
-   "effectIndex": 3,
+   "effectIndex": 1,
    "changes": {
-    "added": {
-     "staticAssetPath": "tg_linger",
-     "staticAnimation": "tg_linger",
-     "appearAnimation": "tg_linger",
-     "disappearAnimation": "",
-     "appearSfx": "",
-     "disappearSfx": "",
-     "rounds": 1,
-     "power": 50,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "INHERIT",
-     "friendlyFire": "ENEMIES",
-     "calculation": "percentage",
-     "type": "decreaseheal",
-     "description": "The broken glass"
-    }
+    "appearAnimation": [
+     "tg_heavy",
+     "tg_linger"
+    ],
+    "coordinateTargeting": [
+     {
+      "origin": "BATTLEFIELD",
+      "selection": "ALL",
+      "coordinates": [
+       {
+        "longitude": 3,
+        "latitude": 8
+       },
+       {
+        "longitude": 4,
+        "latitude": 8
+       },
+       {
+        "longitude": 5,
+        "latitude": 8
+       },
+       {
+        "longitude": 6,
+        "latitude": 8
+       },
+       {
+        "longitude": 7,
+        "latitude": 8
+       },
+       {
+        "longitude": 8,
+        "latitude": 8
+       },
+       {
+        "longitude": 9,
+        "latitude": 8
+       },
+       {
+        "longitude": 10,
+        "latitude": 8
+       },
+       {
+        "longitude": 11,
+        "latitude": 8
+       },
+       {
+        "longitude": 0,
+        "latitude": 5
+       },
+       {
+        "longitude": 1,
+        "latitude": 5
+       },
+       {
+        "longitude": 2,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 5
+       },
+       {
+        "longitude": 4,
+        "latitude": 5
+       },
+       {
+        "longitude": 5,
+        "latitude": 5
+       },
+       {
+        "longitude": 6,
+        "latitude": 5
+       },
+       {
+        "longitude": 7,
+        "latitude": 5
+       },
+       {
+        "longitude": 8,
+        "latitude": 5
+       },
+       {
+        "longitude": 3,
+        "latitude": 2
+       },
+       {
+        "longitude": 4,
+        "latitude": 2
+       },
+       {
+        "longitude": 5,
+        "latitude": 2
+       },
+       {
+        "longitude": 6,
+        "latitude": 2
+       },
+       {
+        "longitude": 7,
+        "latitude": 2
+       },
+       {
+        "longitude": 8,
+        "latitude": 2
+       },
+       {
+        "longitude": 9,
+        "latitude": 2
+       },
+       {
+        "longitude": 10,
+        "latitude": 2
+       },
+       {
+        "longitude": 11,
+        "latitude": 2
+       }
+      ],
+      "randomCount": 1
+     },
+     null
+    ],
+    "description": [
+     "Telegraph: the marked ground",
+     "The broken glass"
+    ],
+    "disappearAnimation": [
+     "tg_heavy",
+     ""
+    ],
+    "friendlyFire": [
+     "FRIENDLY",
+     "ENEMIES"
+    ],
+    "power": [
+     1,
+     50
+    ],
+    "staticAnimation": [
+     "tg_heavy",
+     "tg_linger"
+    ],
+    "staticAssetPath": [
+     "tg_heavy",
+     "tg_linger"
+    ],
+    "target": [
+     "COORDINATES",
+     "INHERIT"
+    ],
+    "type": [
+     "increaseregeneration",
+     "decreaseheal"
+    ]
    },
    "holders": [
     {
@@ -566,25 +847,32 @@
    "jutsu": "Lucid Refraction",
    "srcId": "sg440_lucid_refraction",
    "liveId": "KfXRK6rC3bt4kpdtdJHDb",
-   "effectIndex": 4,
+   "effectIndex": 2,
    "changes": {
-    "added": {
-     "staticAssetPath": "",
-     "staticAnimation": "",
-     "appearAnimation": "",
-     "disappearAnimation": "",
-     "appearSfx": "",
-     "disappearSfx": "",
-     "rounds": 1,
-     "power": 20,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "INHERIT",
-     "friendlyFire": "ENEMIES",
-     "calculation": "percentage",
-     "type": "increasedamagetaken",
-     "description": "The broken glass"
-    }
+    "calculation": [
+     "static",
+     "percentage"
+    ],
+    "description": [
+     "placeholder",
+     "The broken glass"
+    ],
+    "friendlyFire": [
+     null,
+     "ENEMIES"
+    ],
+    "power": [
+     100,
+     20
+    ],
+    "target": [
+     "SELF",
+     "INHERIT"
+    ],
+    "type": [
+     "fleeprevent",
+     "increasedamagetaken"
+    ]
    },
    "holders": [
     {
@@ -1034,6 +1322,24 @@
     {
      "srcId": "sg440_ai_silence",
      "liveId": "IhNR-W1FElTsrWw1KfuQ9"
+    }
+   ]
+  },
+  {
+   "jutsu": "Grasp",
+   "srcId": "sg440_feeler_grasp",
+   "liveId": "zHNAEQ1xmDSOzFVEqeJlS",
+   "effectIndex": null,
+   "changes": {
+    "cooldown": [
+     0,
+     2
+    ]
+   },
+   "holders": [
+    {
+     "srcId": "sg440_ai_feeler",
+     "liveId": "qFKcwTUkBtRiC-uM_8xG8"
     }
    ]
   },
@@ -3552,7 +3858,13 @@
        }
       },
       {
-       "conditions": [],
+       "conditions": [
+        {
+         "type": "round_greater_than",
+         "value": 3,
+         "description": "Current round is higher than specified value"
+        }
+       ],
        "action": {
         "type": "use_specific_jutsu",
         "jutsuId": "moe-refraction-ii",
