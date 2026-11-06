@@ -65,7 +65,7 @@ def region_mask(cv):
     m = Image.new("L", (cv.w, cv.h), 0)
     d = ImageDraw.Draw(m)
     for k in cv.cells:
-        d.polygon(hex_poly(*cv.c(*k), 41, 21), fill=255)    # the footprint + the 1 px overlap only (QA S5)
+        d.polygon(hex_poly(*cv.c(*k), 40, 20), fill=255)    # the footprint; PIL fills the boundary, so neighbours meet (QA S5, nit)
     return m
 
 

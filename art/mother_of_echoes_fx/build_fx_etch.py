@@ -34,6 +34,11 @@ MZ, A4, A, F = P.MZ, P.A4, P.A, P.F
 WHITE, SCORE, GOLD_HOT, GOLD, GOLD_DIM, CRACK = P.WHITE, P.SCORE, P.GOLD_HOT, P.GOLD, P.GOLD_DIM, P.CRACK
 STEEL_L, STEEL_S = P.STEEL_L, P.STEEL_S
 SMOKE = P.SMOKE
+COVER = (30, 28, 38)                # the etched glass floor, intact (Act II seam/frame family, dark)
+
+
+def cells_of(cv, rm):
+    return [k for k in BOARD if rm.getpixel(tuple(int(v) for v in cv.c(*k)))]
 BOARD = [(c, r) for c in range(12) for r in range(10)]
 
 
@@ -125,29 +130,34 @@ def motif_heart(cv, cells, rnd, centre_cells=None):
 
 
 def motif_ember(cv, cells, rnd):
-    """A burning brand: a crest pressed into the floor. A long bar across the region, a diamond at its middle, three
-    flames rising out of the diamond, thorned hooks at the bar's ends; carved from the middle outward."""
+    """A burning brand pressed into the floor (bold enough to read at 50 px): a wide double-lined diamond crest, three
+    tall flame shapes rising out of it (outlined teardrops with a lit core), a thick bar out to both ends with thorned
+    hooks; carved from the crest outward."""
     xs = [cv.c(*k)[0] for k in cells]; ys = [cv.c(*k)[1] for k in cells]
-    cx, cy = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2 + 2
+    cx, cy = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2 + 8
     S = []
-    S += poly([(cx - 28, cy), (cx, cy - 15), (cx + 28, cy), (cx, cy + 15), (cx - 28, cy)], 0.0, 0.3, 2)       # diamond
-    S += poly([(cx - 14, cy), (cx, cy - 7), (cx + 14, cy), (cx, cy + 7), (cx - 14, cy)], 0.25, 0.4, 1)
-    for k, dx in enumerate((-12, 0, 12)):                     # three flames out of the diamond
-        h = 13 if dx == 0 else 9
-        base = (cx + dx, cy - 3)
-        pts = [base]
-        for q in range(1, 9):
-            u = q / 8
-            pts.append((cx + dx + math.sin(u * 5 + k) * 3 * (1 - u), cy - 3 - h * u))
-        S += poly(pts, 0.32 + 0.05 * k, 0.5 + 0.05 * k, 2 if dx == 0 else 1)
-    for side in (-1, 1):                                      # the bar, out to both ends, thorned hooks
+    S += poly([(cx - 40, cy), (cx, cy - 20), (cx + 40, cy), (cx, cy + 20), (cx - 40, cy)], 0.0, 0.25, 3)
+    S += poly([(cx - 28, cy), (cx, cy - 13), (cx + 28, cy), (cx, cy + 13), (cx - 28, cy)], 0.2, 0.32, 2)
+    for k, (dx, h, wd) in enumerate(((-17, 22, 7), (0, 30, 9), (17, 22, 7))):    # flames: outlined teardrops
+        bx, by = cx + dx, cy - 6
+        left, right = [], []
+        for q in range(11):
+            u = q / 10
+            half = wd * math.sin(math.pi * min(1, u * 1.15)) * (1 - u) ** 0.35
+            sway = math.sin(u * 4 + k * 1.3) * 3 * u
+            y = by - h * u
+            left.append((bx + sway - half, y)); right.append((bx + sway + half, y))
+        t0 = 0.3 + 0.06 * k
+        S += poly(left + right[::-1], t0, t0 + 0.22, 2)
+        S += poly([(bx, by - 2), (bx + math.sin(k) * 2, by - h * 0.55)], t0 + 0.1, t0 + 0.22, 2)       # the lit core
+    for side in (-1, 1):                                      # the thick bar, thorned hooks
         x_end = (max(xs) - 6) if side > 0 else (min(xs) + 6)
-        S += poly([(cx + 28 * side, cy), (x_end, cy)], 0.45, 0.85, 2)
+        S += poly([(cx + 40 * side, cy), (x_end, cy)], 0.45, 0.85, 3)
         for q in range(1, 6):
-            tx = cx + side * (28 + (abs(x_end - cx) - 28) * q / 6)
-            S += poly([(tx, cy), (tx + 4 * side, cy - 6)], 0.45 + 0.4 * q / 6, 0.5 + 0.4 * q / 6, 1)
-            S += poly([(tx, cy), (tx + 4 * side, cy + 6)], 0.45 + 0.4 * q / 6, 0.5 + 0.4 * q / 6, 1)
-        S += poly([(x_end, cy), (x_end - 6 * side, cy - 9), (x_end - 12 * side, cy - 6)], 0.85, 0.95, 2)
+            tx = cx + side * (40 + (abs(x_end - cx) - 40) * q / 6)
+            S += poly([(tx, cy - 1), (tx + 5 * side, cy - 9)], 0.45 + 0.4 * q / 6, 0.5 + 0.4 * q / 6, 2)
+            S += poly([(tx, cy + 1), (tx + 5 * side, cy + 9)], 0.45 + 0.4 * q / 6, 0.5 + 0.4 * q / 6, 2)
+        S += poly([(x_end, cy), (x_end - 7 * side, cy - 12), (x_end - 15 * side, cy - 8)], 0.85, 0.95, 3)
     return S
 
 
@@ -174,19 +184,28 @@ def motif_seam(cv, cells, rnd):
 
 
 def motif_hail(cv, cells, rnd):
-    """Struck star-points: one eight-pointed star on each hex of the scatter, each struck at its own moment."""
+    """Struck star-points: on each hex of the scatter a five-pointed star, outlined (the shape reads as a star, not a
+    cross, at 50 px), with three short impact ticks round it; each strikes at its own moment."""
     S = []
     order = list(cells)
     rnd.shuffle(order)
     for j, k in enumerate(order):
         cx, cy = cv.c(*k)
         t0 = 0.75 * j / len(order)
-        for q in range(8):
-            a = math.pi * q / 4
-            r = 9 if q % 2 == 0 else 5
-            S += poly([(cx, cy), (cx + r * math.cos(a), cy + r * 0.55 * math.sin(a))], t0, t0 + 0.12, 2 if q % 2 == 0 else 1)
+        rot = rnd.uniform(-0.35, 0.35)
+        size = rnd.uniform(0.75, 1.2)                        # QA: stars vary in size and rotation
+        pts = []
+        for q in range(11):
+            a = -math.pi / 2 + rot + math.pi * q / 5
+            r = (11 if q % 2 == 0 else 4.5) * size
+            pts.append((cx + r * math.cos(a), cy + 1 + r * 0.72 * math.sin(a)))
+        S += poly(pts, t0, t0 + 0.12, 2)
+        for q in range(5):                                    # one radiating impact: five short rays between the points
+            a = -math.pi / 2 + rot + math.pi * (2 * q + 1) / 5
+            r0, r1 = 7 * size, 14 * size
+            S += poly([(cx + r0 * math.cos(a), cy + 1 + r0 * 0.72 * math.sin(a)),
+                       (cx + r1 * math.cos(a), cy + 1 + r1 * 0.72 * math.sin(a))], t0 + 0.1, t0 + 0.14, 1)
     return S
-
 
 MOTIFS = {"rime": motif_rime, "heart": motif_heart, "ember": motif_ember, "seam": motif_seam, "hail": motif_hail}
 
@@ -230,8 +249,8 @@ def etching(cv, rm, S, frames=22):
         elif i < 13:
             draw_lines(f, S, 1.0, GOLD_HOT, glow=True)
         else:
-            u = (i - 12) / (frames - 13)
-            draw_lines(f, S, 1.0, GOLD if u < 0.4 else GOLD_DIM, keep=1.0 - 0.75 * u)
+            u = (i - 12) / (frames - 13)                     # QA E3: cools and fades fully to 0 by the last frame
+            draw_lines(f, S, 1.0, GOLD if u < 0.4 else GOLD_DIM, keep=max(0.0, 1.0 - u))
         out.append(P.masked(f, rm))
     return out
 
@@ -261,9 +280,24 @@ def recast(cv, rm, S, frames=24, seed=3):
             h = min(room(x, y) - 1, rnd.randint(7, 14) if w > 1 else rnd.randint(4, 8))
             if h >= 3:
                 shards.append((x, y, h, rnd.choice((2, 2, 3)), rnd.uniform(-0.25, 0.25), t))
+    cover = cv.frame()                                       # QA E7: the etched floor, intact, until the shatter reveals
+    cp = cover.load()                                        # the recast floor (as Glassfall does)
+    for y in range(cv.h):
+        for x in range(cv.w):
+            if m[x, y]:
+                cp[x, y] = (*COVER, 255)
+    body = set()                                             # the LPC body keep-out (QA S4): the glass thins there
+    for k in cells_of(cv, rm):
+        bx, by = cv.c(*k)
+        body.update((x, y) for y in range(int(by) - 16, int(by) + 6) for x in range(int(bx) - 6, int(bx) + 7))
+    for (x, y) in body:
+        if 0 <= x < cv.w and 0 <= y < cv.h and cp[x, y][3] and F.BAYER[y % 4][x % 4] >= 0.45 * 16:
+            cp[x, y] = (0, 0, 0, 0)
     out = []
     for i in range(frames):
         f = cv.frame()
+        if i < 12:
+            f.alpha_composite(cover if i < 11 else P.dither_keep(cover.copy(), 0.5))
         if i < 3:
             draw_lines(f, S, 1.0, GOLD_DIM)
             draw_lines(f, S, (i + 1) / 3, WHITE, front=0.15)
