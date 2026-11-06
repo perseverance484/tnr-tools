@@ -703,6 +703,8 @@ export const runFloor = (battle: CompleteBattle, opts: { playerIds: string[]; ma
     if (opts.onAiDecision && !isHuman) opts.onAiDecision(b, actor.userId, grid);
     const markersBefore = isHuman ? null : markersOf(b, actor.userId);
     const res = performAIaction(b, grid, actor.userId);
+    if ((globalThis as any).__DEBUG_LOG) for (const e of (res as any).nextActionEffects ?? []) console.log(`      LOG r${b.round} ${e.txt}`);
+    if ((globalThis as any).__DEBUG_LOG) { const nb: any = res.nextBattle; console.log(`      GROUND ${nb.groundEffects.filter((g: any) => g.type !== 'visual').map((g: any) => `${g.type}@${g.longitude},${g.latitude} r${g.rounds} new${g.isNew}`).slice(0, 4).join(' ')} | UE ${nb.usersEffects.filter((e: any) => e.type === 'onehitkill' || e.type === 'pierce').map((e: any) => `${e.type}->${e.targetId?.slice(0, 6)} r${e.rounds} new${e.isNew} g${e.fromGround}`).join(' ')}`); }
     b = res.nextBattle;
     if (markersBefore) noteAction(markersBefore, actor, res.nextActionId, pre.actionRound);
     restoreRules?.();

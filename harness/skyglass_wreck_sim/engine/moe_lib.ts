@@ -115,6 +115,15 @@ export const MOE_DEFAULTS = {
   bossAura: { on: false } as any,
   /** Sim-only: visual "piece" tags on the signature moves (art pass identity check). */
   visualPieces: false,
+  /** Upstream fallback: static lethal Recast power (0 = pierce as before); static Rises ground damage per action. */
+  lethalStatic: 0,
+  risesStatic: 0,
+  /** Director 2026-11-05 (final): an eruption sized at >= 100% of max HP becomes `onehitkill` power 100 (no damage packet). */
+  ohko: false,
+  /** Director 2026-11-05: onehitkill chance (%) riding each warned non-lethal eruption, by act ({} = off). */
+  ohkoChance: {} as Record<string, number>,
+  /** Director 2026-11-05 (final): an eruption below 100% becomes plain static `damage` of this power (DR applies); 0 = pierce. */
+  softDamage: 0,
   /** Upstream shared-cooldown table ({ tag: rounds }); null = 3314d122 behaviour. */
   sharedCooldowns: null as Record<string, number> | null,
   /** Art R5: once-per-act entrance/aura buff per boss ({ on, sayo1, silence, sayo2 }: { type, power | health }). */
@@ -257,7 +266,10 @@ export const MK3 = {
   // appear on none, summonprevent and elementalseal on one each (harvests/inbox/tnr_results_1792732003454.json). Her
   // jutsu carry jutsuWeapon NONE, so disarm hides nothing. Reuse across phases is safe because every Phase III rule also
   // requires phase >= 2 and the Phase III entry phase >= 1.
-  clean: "disarm", cycleEnd: "fleeprevent", gA: "disarm", gB: "summonprevent", gC: "fleeprevent",
+  // Upstream run (cb755375): cycleEnd shared fleeprevent with `a`, so the Phase II Hush gave the Saint the Refraction
+  // opener's marker and Lucid Refraction (or pane C, also fleeprevent) fired with nothing drawn (10 unwarned blasts in 30
+  // perfect runs, 5 deaths). onehitkillprevent is on no other Saint rule and on 1 of 1,682 captured jutsu (an AI jutsu).
+  clean: "disarm", cycleEnd: "onehitkillprevent", gA: "disarm", gB: "summonprevent", gC: "fleeprevent",
 };
 export const A3_DEFAULTS = {
   on: false,
@@ -342,8 +354,19 @@ const heavy = (power: number, anim = "dt_heavy") => T.damage(power, { appearAnim
  * is 2 (damageCalc multiplies by it, tags.ts:1488-1490). Off = the pass-4 formula hit.
  */
 let ERUPT: { on: boolean; hp: number; pct: Record<number, number>; recast?: number } = { on: false, hp: 31500, pct: { 1: 40, 2: 60, 3: 80 } };
+/**
+ * Director 2026-11-05 (final): lethal casts use `onehitkill` power 100 (theninjarpg@cb755375 tags.ts:2349-2370 sets
+ * curHealth 0 unless the target holds onehitkillprevent; process.ts:1541-1550 records only instantKillDamage, which
+ * process.ts:543-556 strips before the damage-consequence pass, so no recoil / reflect / absorb / lifesteal answers it;
+ * Final Stand lives only in the damage path, tags.ts:2259-2285). onehitkill is not on the shared-cooldown table
+ * (migration 0136). Non-lethal eruptions become plain static `damage` that DR reduces (computeDamagePacket,
+ * process.ts:2233-2380). Same isTargetOrNew gate as pierce, so ground binding is unchanged.
+ */
+let OHKO = { on: false, soft: 0 };
 const erupt = (act: number, power: number, anim: string, pct = ERUPT.pct[act]!) =>
-  ERUPT.on ? T.pierce(Math.round((ERUPT.hp * pct) / 100), { calculation: "static", dmgModifier: 1, description: "Pierces target", appearAnimation: anim }) : heavy(power, anim);
+  ERUPT.on && OHKO.on && pct >= 100 ? tag("onehitkill", { power: 100, rounds: 0, target: "INHERIT", friendlyFire: "ENEMIES", description: "The glass remembers", appearAnimation: anim })
+  : ERUPT.on && OHKO.soft > 0 && pct < 100 ? T.damage(OHKO.soft, { calculation: "static", description: "The glass breaks", appearAnimation: anim })
+  : ERUPT.on ? T.pierce(Math.round((ERUPT.hp * pct) / 100), { calculation: "static", dmgModifier: 1, description: "Pierces target", appearAnimation: anim }) : heavy(power, anim);
 /**
  * Pass 6 (director 2026-11-04): a hit also leaves a cleansable debuff. On a GROUND cast every tag becomes a ground effect
  * that only follows the player while he stands on the hex (process.ts:395-412: a 1-round copy per pass), so the debuff
@@ -375,6 +398,7 @@ export const buildRecords = (P: MoeParams) => {
   MARK_ART = P.markArtRounds ?? 1;
   SKILLED = !!P.skilledPolicy;
   DEBUFF = { on: !!P.eruptDebuff?.on, pct: { 1: P.eruptDebuff?.act1, 2: P.eruptDebuff?.act2, 3: P.eruptDebuff?.act3 } as any };
+  OHKO = { on: !!P.ohko, soft: P.softDamage ?? 0 };
   ERUPT = { on: !!P.eruption?.on, hp: P.eruption?.hp ?? 31500, pct: { 1: P.eruption?.act1 ?? 40, 2: P.eruption?.act2 ?? 60, 3: P.eruption?.act3 ?? 80 }, recast: P.eruption?.recast };
   const J: Record<string, any> = {};
   const add = (id: string, f: Parameters<typeof jutsu>[1]) => { J[id] = jutsu(id, f); return id; };
@@ -625,9 +649,27 @@ export const buildRecords = (P: MoeParams) => {
   // 0 of 27 hexes drawn). With cooldown 0 a blast imposes no lock (applyGcd needs cooldown > 0); each blast stays gated
   // by its mark's marker.
   if (P.gcdSafeBlasts) for (const id of [JID.blastA, JID.blastB, JID.facetBlast, JID.lucidBlast, JID.stillnessBlast, JID.shatterBlast, JID.floodBlast]) J[id]!.cooldown = 0;
-  if (P.etchDWide) J[JID.det.D!]!.coordinateTargeting = field(cellsWhere((c, r) => c >= 4 && r >= 3 && r <= 6));
+  // Director 2026-11-05 (QA S6, WIDEN): the Etching draws the same 32 hexes the Recast detonates; before this only the
+  // Recast was widened, so cols 9-11 rows 3-6 (12 hexes) took a lethal hit with no omen.
+  if (P.etchDWide) for (const id of (P as any).etchDLegacy ? [JID.det.D!] : [JID.det.D!, JID.etch.D!]) /* etchDLegacy: pre-S6 audit regression only */ J[id]!.coordinateTargeting = field(cellsWhere((c, r) => c >= 4 && r >= 3 && r <= 6));
   if (P.recastGap) add(JID.glassHolds, { name: "The Glass Holds", description: "She waits for the glass to remember the next pattern.", battleDescription: "%user holds still. The glass is still remembering.", target: "SELF", method: "SINGLE", range: 0, cooldown: 0, actionCostPerc: 100,
     effects: [vis("moe_lull", 1)] });
+  // Upstream shared-cooldown table (pierce and drain locked per caster, b54541f1): lethalStatic turns the Act II Recasts
+  // into a static `damage` hit (not on the table) sized so even the 5% DR floor kills (process.ts:2324-2329, re-applied
+  // after keystone DR); damage of any non-formula calculation is the bare power (tags.ts:1346-1356). risesStatic swaps
+  // the Hush Rises drain for persistent static ground damage (DR applies; calibrated per action).
+  // Director 2026-11-05: on warned, dodgeable non-lethal eruptions only (the soft `damage` of erupt(), which only telegraphed
+  // blasts use), add onehitkill at power = chance % (tags.ts:2358: Math.random() < power / 100) beside the plain damage.
+  if (P.ohko && P.softDamage && P.ohkoChance) for (const [id, r] of Object.entries<any>(J)) {
+    const i = r.effects.findIndex((e: any) => e.type === "damage" && e.description === "The glass breaks");
+    const act = id.startsWith("moe-saint") ? 3 : 1; const ch = (P.ohkoChance as any)[act] ?? 0;
+    if (i >= 0 && ch > 0) r.effects.splice(i + 1, 0, tag("onehitkill", { power: ch, rounds: 0, target: "INHERIT", friendlyFire: "ENEMIES", description: "The glass may remember you" }));
+  }
+  if (P.lethalStatic && !P.ohko) for (const id of Object.values(JID.det)) {
+    const r = J[id]!; const i = r.effects.findIndex((e: any) => e.type === "pierce");
+    if (i >= 0) r.effects[i] = T.damage(P.lethalStatic, { calculation: "static", appearAnimation: r.effects[i].appearAnimation, description: "The glass remembers" });
+  }
+  if (P.risesStatic) { const r = J[JID.rises[0]!]!; const i = r.effects.findIndex((e: any) => e.type === "drain"); if (i >= 0) r.effects[i] = T.pool(P.risesStatic, P.rises.rounds, { calculation: "static", staticAnimation: r.effects[i].staticAnimation, staticAssetPath: r.effects[i].staticAssetPath, appearAnimation: r.effects[i].appearAnimation }); }
   // QA B4: one Rises record per Etching, its pools drawn off that Etching's pattern (the omen drawn in the same turn).
   if (P.hushOffMarks) for (const k of Object.keys(PAT.etch)) {
     const pat = new Set(recCells(J[JID.det[k]!], [0, 0]));
@@ -671,7 +713,7 @@ export const buildRecords = (P: MoeParams) => {
       [erupt(3, p.refract, "moe_shatterfall"), ...pool3(A3.linePoolRounds), carrier("tg_heavy", 1, field(PAT.refractB)), marker(MK3.b)]);
     ground(J3.facet, "Facet", "\"Every line has a reflection.\" The far lines break, and both images are drawn at once.", "The far lines break; both line sets and their mirror are drawn. Only the gaps are safe.", PAT.refractB, 60, 0,
       [erupt(3, p.refract, "moe_shatterfall"), ...pool3(A3.linePoolRounds), carrier("tg_heavy", 1, field(facetCells)), marker(MK3.f)]);
-    ground(J3.facetBreak, "Facet Breaks", "Both images break at once, and for a moment her guard hangs open.", "Both images break. Her guard is open for a moment afterwards.", facetCells, 60, 0,
+    ground(J3.facetBreak, "Facet Breaks", "Both images break at once, and for a moment her guard hangs open.", "Both images break. Her guard is open for a moment afterwards.", facetCells, 60, 2 /* no re-fire the round after its own break (CV3 ignore seed 408: an unwarned second break); cooldown 1 would not block it: actions.ts:316-318 roundsPassed >= cooldown; the Phase I chain spaces breaks 4 rounds apart */,
       [erupt(3, p.refract, "moe_shatterfall"), ...pool3(A3.linePoolRounds), weaknessSelf(A3.guardFacet), marker(MK3.clean)]);
     // A three-hex bar through the player (origin TARGET). Not Act I's radius-1 ring: a ground drain is copied onto whoever
     // ends an action on it and that copy lasts the round (process.ts:395-412), so walking out of a ring takes two actions
@@ -1423,6 +1465,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
     const lastBossAct = new Map<string, { id: string; round: number }[]>(); // per boss uid: its actions
     const cycleEtched = new Set<string>(); // etchings laid in the current Act II cycle (pattern keys, multiset as counts)
     const etchCount: Record<string, number> = {};
+    const etchDrawn = new Map<string, Set<string>>();
     const markPos = new Map<string, string>(); // caster-anchored marks: where the caster stood
     const name = (id?: string) => (id ? (b.extraState.jutsus[id]?.name ?? id) : "none");
     const alive = (u: any) => u && stillInBattle(u, b.usersEffects);
@@ -1609,6 +1652,8 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       const hpBefore = new Map(b.usersState.map((u: any) => [u.userId, u.curHealth]));
       // Telegraph audit: the drawn danger art (tg_heavy carriers / visuals) on the floor just before this action.
       const drawnBefore = new Set<string>((b.groundEffects as any[]).filter((g) => (g.type === "visual" || g.type === "increaseregeneration") && (g.staticAnimation === "tg_heavy" || g.staticAnimation === "tg_control") && ((g.rounds ?? 0) > 0 || g.castThisRound)).map((g) => `${g.longitude},${g.latitude}`));
+      // QA S7 gate: the live safe marks (tg_safe carriers of Every Name / The Held Breath, boss side) just before this action.
+      const safeBefore = new Set<string>((b.groundEffects as any[]).filter((g) => (g.type === "visual" || g.type === "increaseregeneration") && g.staticAnimation === "tg_safe" && ((g.rounds ?? 0) > 0 || g.castThisRound)).map((g) => `${g.longitude},${g.latitude}`));
       const pPos: Cell = [pu().longitude, pu().latitude];
       const aPos: Cell = [actor.longitude, actor.latitude];
       const apBefore = human ? (pu().actionPoints ?? 0) : 0;
@@ -1720,14 +1765,23 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
           if (sp[1] === "mark") {
             s.mark++;
             markPos.set(actionId, key(aPos));
-            if (sp[0] === "Recast") { const k = Object.entries(JID.etch).find(([, v]) => v === actionId)![0]; etchCount[k] = (etchCount[k] ?? 0) + 1; }
+            if (sp[0] === "Recast") { const k = Object.entries(JID.etch).find(([, v]) => v === actionId)![0]; etchCount[k] = (etchCount[k] ?? 0) + 1; etchDrawn.set(k, recCells(cfg.recs[actionId], aPos)); }
           } else {
             s.land++;
             const cells = recCells(cfg.recs[actionId], aPos);
+            if (sp[0] === "Glassfall" && safeBefore.size) {
+              const onSafe = [...cells].filter((k) => safeBefore.has(k));
+              if (onSafe.length) { const g = ((res as any).paneOnSafe ??= { n: 0, hitPlayer: 0, by: {} as Record<string, number>, hexes: {} as Record<string, number> }); g.n++; if (onSafe.includes(key(pPos))) g.hitPlayer++; g.by[name(actionId)] = (g.by[name(actionId)] ?? 0) + 1; for (const k of onSafe) g.hexes[k] = (g.hexes[k] ?? 0) + 1;
+                if (o.trace) res.trace!.push(`   S7 GATE: ${name(actionId)} landed on live safe hexes ${onSafe.join(" ")}`); }
+            }
             if (cells.has(key(pPos)) || pLoss > 0) { s.hit += cells.has(key(pPos)) ? 1 : 0; s.dmg += pLoss; }
             let ok: boolean;
             if (sp[0] === "Recast") {
               const k = Object.entries(JID.det).find(([, v]) => v === actionId)![0];
+              // Audit (QA S6): every Recast hex must have been drawn by its Etching (tg_etch).
+              const drew = etchDrawn.get(k); const bare = drew ? [...cells].filter((c) => !drew.has(c)) : [];
+              if (bare.length) { const u = ((res as any).recastUnetched ??= { n: 0, hexes: 0, hitPlayer: 0 }); u.n++; u.hexes = Math.max(u.hexes, bare.length); if (bare.includes(key(pPos))) u.hitPlayer++;
+                if (o.trace) res.trace!.push(`   UNETCHED ${name(actionId)}: ${bare.length} hexes never drawn by its Etching`); }
               ok = (etchCount[k] ?? 0) > 0;
               if (ok) etchCount[k]!--;
             } else {
