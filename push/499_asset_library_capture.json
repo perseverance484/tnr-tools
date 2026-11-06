@@ -1,0 +1,57 @@
+{
+ "_note": "push/499: READ-ONLY capture of the game asset library (gameAsset.getAllNames per type: id, name, image, folder). Zero mutations. It is the input for the asset-library re-folder job (RUL-2026-11-05-127): the existing Mother of Echoes (folder MotherOfEchoes) and Skyglass Boss FX (folder SkyglassBossFX) assets get convention folders and names by literal id. The per-type split records each asset's type, which getAllNames does not return. Operator-run only. Keep the full results bundle.",
+ "capture": {
+  "before": [
+   {
+    "proc": "gameAsset.getAllNames",
+    "input": {
+     "type": "STATIC"
+    },
+    "select": [
+     "id",
+     "name",
+     "image",
+     "folder"
+    ]
+   },
+   {
+    "proc": "gameAsset.getAllNames",
+    "input": {
+     "type": "ANIMATION"
+    },
+    "select": [
+     "id",
+     "name",
+     "image",
+     "folder"
+    ]
+   },
+   {
+    "proc": "gameAsset.getAllNames",
+    "input": {
+     "type": "SCENE_BACKGROUND"
+    },
+    "select": [
+     "id",
+     "name",
+     "image",
+     "folder"
+    ]
+   },
+   {
+    "proc": "gameAsset.getAllNames",
+    "input": {
+     "type": "SCENE_CHARACTER"
+    },
+    "select": [
+     "id",
+     "name",
+     "image",
+     "folder"
+    ]
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
