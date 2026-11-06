@@ -51,6 +51,9 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SPEC_REF = "fd3531153df7a1dfa9f4e559b39d1ad50055a0f6"  # fable/mother-of-echoes-sim final spec (pin cb755375): director 2026-11-06 (a)+(b), 85 jutsu, An Absence
 SPEC_PATH = "harness/skyglass_wreck_sim/mother_of_echoes_spec.json"
+STEP_SPEC_REF = {  # the spec each already-run step was built from (its manifest's _note); SPEC_REF serves the rest
+    "final": "dd7e33ab9abfc96ae1630177ea1bc386729b2c8f", "tune": "7fdaa5da7dc2ff8f3657be9aef5f0ea1e019ceac",
+    "art2": "780907a7dd281717cc08b443919a9982618676d2", "art2_unhide": "780907a7dd281717cc08b443919a9982618676d2"}
 PFX = "sg440_"
 ECON = "sg417_"
 # 441 was taken by a concurrent session (push/441_dusk_dawn_variants.json); later steps use 461-465.
@@ -362,6 +365,10 @@ FAMILY = {  # the art list's family table (ME21-ME26), by jutsu name
 # The final spec's new records (fd353115) by their SPEC name: the once-per-act entrances take their form's family,
 # An Absence's casts the Silence's, the Saint's Act III v2 moves the family of the move they echo. A record renamed by
 # push/mother_of_echoes_act3_text.json keeps the family of its spec name (Build.family).
+FINAL_NEW = ("Heartglass", "Remainder Lancet", "Every Line Through You", "The Names Flood In: Rime",
+             "The Names Flood In: Ember", "The Names Flood In: Heart", "The Stilling", "A Good Impression",
+             "Glassfall: First Echo", "Glassfall: Second Echo", "Glassfall: Last Echo", "The Deep Listens", "An Absence",
+             "The Absence Opens", "Hold Still", "The Silence Holds Her", "The Names Stir")   # absent before fd353115
 FAMILY["lancet"] += ["Heartglass", "Remainder Lancet"]
 FAMILY["refraction"] += ["Every Line Through You", "The Names Flood In: Rime", "The Names Flood In: Ember",
                          "The Names Flood In: Heart"]
@@ -507,7 +514,7 @@ class Build:
                 self.family[self.jname[jid]] = self.family[j["record"]["name"]]
         if art:
             names = set(self.jname.values())
-            optional = set(PASS6_NEW)  # absent from pre-pass-6 specs
+            optional = set(PASS6_NEW) | set(FINAL_NEW)  # absent from pre-pass-6 / pre-final specs
             if names != set(self.family) - (optional - names):
                 die(f"family table vs spec jutsu: missing {sorted(names - set(self.family))}, "
                     f"stale {sorted(set(self.family) - names)}")
@@ -1703,6 +1710,8 @@ def main():
     ap.add_argument("--art2-from", dest="art2", help="push/478 results bundle: the dialog portraits (golive)")
     ap.add_argument("--scenes", help="push/466 results bundle: the act scenes (art2_unhide's practice-quest edit)")
     a = ap.parse_args()
+    global SPEC_REF
+    SPEC_REF = STEP_SPEC_REF.get(a.step, SPEC_REF)   # an already-run step rebuilds from its own spec (byte-identical)
     spec = load_spec()
     b = Build(spec)
     ids = created(a.bundles, PFX)
