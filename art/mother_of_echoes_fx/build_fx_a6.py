@@ -29,7 +29,8 @@ _s.loader.exec_module(MZ)
 A4, A, F = MZ.A4, MZ.A, MZ.F
 PAL, PRISM, WHITE, SCORE = A.PAL, MZ.PRISM, F.WHITE, F.SCORE
 ROW = [(c, 1) for c in range(12)]
-MG = dict(body=(150, 206, 226), lite=(206, 240, 248), edge=(70, 108, 132), deep=(24, 34, 46))  # neutral Mother Glass
+MG = dict(body=(214, 218, 228), lite=(250, 248, 240), edge=(91, 103, 134), deep=(24, 26, 36), chip=(255, 238, 196))
+# neutral Mother Glass (QA S7: no safe-cyan; clear glass in pale steel and white, white-gold chips)
 
 
 def rmark_line(cells, frames=20):
@@ -145,7 +146,7 @@ def lancet():
                 if v > 4 and k % 2:
                     continue
                 A4.cluster(f, tip[0] + dx * (1 + 0.2 * v), tip[1] + dy + 0.35 * v * v,
-                           MG["lite"] if k % 2 else MG["body"], MG["deep"])
+                           MG["chip"] if k % 2 else MG["body"], MG["deep"])
         out.append(f)
     return A4.edge_check("lancet", out)
 
@@ -265,7 +266,7 @@ def the_quiet():
             F.outline_alpha(n, (70, 84, 98))
             f.alpha_composite(n)
             if i >= 5:                                           # held shut: one teal seam, nothing moves
-                F.seg(f, (cx - rx + 2, cy), (cx + rx - 2, cy), A.PAL["III"]["vein"])
+                F.seg(f, (cx - rx + 2, cy), (cx + rx - 2, cy), (146, 182, 191))
         elif i < 9:                                              # they open
             open_ = (i - 6) / 3
             F.thick_arc(f, cx, cy, rx + 1 + 2 * open_, 200, 340, [(0, INK2), (1, INK2)], ry_scale=ry / rx)
@@ -282,38 +283,62 @@ def the_quiet():
 EMB, EMB_Y = F.EMBER_RED, F.EMBER_YEL
 
 
+VEIN_DIM, VEIN_LITB = (47, 92, 106), (146, 182, 191)   # SAYO_BIBLE.md 5.1: the variant's dim and lit veins (not #60d6ec)
+OBS, OBS_L = (18, 23, 30), (39, 50, 60)
+
+
 def heavy_tile_iii_b():
-    """Act III heavy mark, tuned for dark floors (stacking rule 7): the same ring with a 2 px ember rim and a hot
-    yellow inner line, so the omen survives obsidian, ink and frost under it."""
-    t = Image.open(os.path.join(F.EXPORTS, "tile_moe_heavy_iii_a3.webp")).convert("RGBA").resize((50, 50), Image.NEAREST)
+    """Act III heavy mark (QA B5): ember-rimmed obsidian, dim veins with a lit 1 px core, an ember core. No fill near
+    safe cyan anywhere; the ember rim (2 px + a hot inner line) is what reads on dark floors."""
+    t = F.frame()
     d = ImageDraw.Draw(t)
-    d.polygon(A.poly10(25.0), outline=(*EMB, 255))
-    d.polygon(A.poly10(24.2), outline=(*EMB, 255))
-    d.polygon(A.poly10(23.4), outline=(*EMB_Y, 255))
-    return F.tile_out(t)
+    d.polygon(A.poly10(25.0), fill=(*EMB, 255))
+    d.polygon(A.poly10(23.6), fill=(*EMB_Y, 255))
+    d.polygon(A.poly10(22.6), fill=(*SCORE, 255))
+    d.polygon(A.poly10(21.6), fill=(*OBS_L, 255))
+    d.polygon(A.poly10(19.4), fill=(*OBS, 255))
+    for k in range(10):                                          # thorns on the rim, dark
+        g = math.radians(k * 36)
+        d.polygon([(25 + 21 * math.cos(g - 0.08), 25 + 21 * math.sin(g - 0.08)), (25 + 24 * math.cos(g), 25 + 24 * math.sin(g)),
+                   (25 + 21 * math.cos(g + 0.08), 25 + 21 * math.sin(g + 0.08))], fill=(*OBS_L, 255))
+    for a_, wob in ((30, 16), (128, 13), (212, 17), (300, 14)):
+        pts = F.jag(25, 25, 4.5, 18, a_, wob, steps=5)
+        d.line(pts, fill=(*VEIN_DIM, 255), width=2)
+        d.line(pts[1:4], fill=(*VEIN_LITB, 255), width=1)
+    d.ellipse([20, 20, 30, 30], fill=(*SCORE, 255))
+    d.ellipse([21.5, 21.5, 28.5, 28.5], fill=(*EMB, 255))
+    d.ellipse([23, 23, 27, 27], fill=(*EMB_Y, 255))
+    m = Image.new("L", (50, 50), 0)
+    ImageDraw.Draw(m).polygon(A.poly10(25.0), fill=255)
+    out = Image.new("RGBA", (50, 50), (0, 0, 0, 0))
+    out.paste(t, (0, 0), m)
+    return F.tile_out(out)
 
 
 def heavy_appear_iii_b(ring_inner=None):
-    """Act III heavy arrival (SAYO_BIBLE.md section 6 tune): it arrives DARK, an obsidian ring with a lit teal inner
-    edge and the ember rim, slamming down and contracting; then ember chips fall (never rise)."""
+    """Act III heavy arrival (QA S4, B5): 3 anticipation frames (the rim heats where it will land, nothing else
+    moves), then it arrives DARK: an obsidian ring with a dim vein inner edge and the ember rim, contracting; ember
+    chips fall (never rise), all inside the clip."""
     INKc = (14, 10, 22)
+    inner = ring_inner or VEIN_DIM
     fr = []
-    for i in range(10):
+    for i in range(13):
         f = F.frame()
-        if i <= 3:
-            s_ = {0: 1.08, 1: 1.05, 2: 1.02, 3: 1.0}[i]
-            F.ground_ring(f, (F.GRX - 1) * s_, (F.GRY - 0.5) * s_,
-                          [(-1, ring_inner or A.PAL["III"]["vein"]), (0, INKc if ring_inner is None else SCORE), (1, EMB_Y), (2, EMB)])
+        if i < 3:
+            F.ground_ring(f, F.GRX - 1, F.GRY - 0.5, [(0, EMB if i < 2 else EMB_Y)])
+        elif i <= 6:
+            s_ = {3: 1.08, 4: 1.05, 5: 1.02, 6: 1.0}[i]
+            F.ground_ring(f, (F.GRX - 1) * s_, (F.GRY - 0.5) * s_, [(-1, inner), (0, INKc if ring_inner is None else SCORE), (1, EMB_Y), (2, EMB)])
         else:
-            t = i - 3
+            t = i - 6
             for k in range(8):
                 if t > 4 and k % 2:
                     continue
                 g = math.radians(k * 45 + 20)
-                x0, y0 = 25 + (F.GRX - 1) * math.cos(g), 25 + (F.GRY - 0.5) * math.sin(g)
-                A4.cluster(f, x0 + math.cos(g) * t * 0.6, y0 + 0.3 * t * t, EMB_Y if t < 3 else EMB, SCORE)
+                x0, y0 = 25 + (F.GRX - 3) * math.cos(g), 25 + (F.GRY - 1.5) * math.sin(g)
+                A4.cluster(f, x0 + math.cos(g) * t * 0.4, y0 + 0.25 * t * t, EMB_Y if t < 3 else EMB, SCORE)
         fr.append(f)
-    return fr
+    return A4.edge_check("heavy appear iii", fr)
 
 
 def close_in(act):

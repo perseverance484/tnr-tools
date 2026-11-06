@@ -392,6 +392,8 @@ asset per band, and pieces start within a texture load of each other, not frame-
 > fight: lingering ground and pools take the colour of the enemy that made them and read as danger through material
 > and value contrast (frozen, stilled, shattered, blackened, ember-edged), never through a hazard colour. Cyan is
 > reserved for safe hexes: in danger art, Heartglass cyan appears only as thin facet lines and glints, never as a fill.
+> **Exception (director 2026-11-05):** the Refraction family's Heartglass cyan (the line's arrival and break) keeps its
+> cyan fill; it is the fight's quality bar. Everywhere else in danger art the rule above holds.
 > Etch gold stays distinct from ember (gold is the scored line, ember only the heavy rim and shard edge). The tables
 > below and the grammar constants carry the revision; sections outside 5 are unchanged and still mention bile pools
 > (read them through this revision).
