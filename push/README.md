@@ -1719,7 +1719,7 @@ Dry runs: `MOE_SPEC_FILE=<spec.json> MOE_OUT_DIR=<dir outside push/>` builds any
 
 **Run log (2026-11-05 UTC).** 467 ran: `harvests/inbox/tnr_results_1793847106353.json`, manifest hash 9a991533, 16/16 VERIFIED (15 FX unhidden; practice quest scenes and icon). 476 ran: `harvests/inbox/tnr_results_1793925607180.json`, hash 5d8f3ad5: 2 jutsu creates, 9 unequips and 53 jutsu edits VERIFIED; the 9 re-equips CONFIRMED with the same scaleEditedAi stat drift only (sent 1,391,300, live 1,622,256 on all six stats), as at 463 and 466.
 
-**Jutsu text pass (DRAFT, pending director approval):** `push/mother_of_echoes_text.json` (55 jutsu, by name) with the review doc `docs/design/MOTHER_OF_ECHOES_JUTSU_TEXT.md`; not wired into the generator until approved.
+**Jutsu text pass (APPROVED by the director, 2026-11-05; Refraction and Far Refraction reworded at his request):** `push/mother_of_echoes_text.json` (55 jutsu, by name; review doc `docs/design/MOTHER_OF_ECHOES_JUTSU_TEXT.md`), applied by `push/mother_of_echoes.gen.py` (`JUTSU_TEXT`) to every jutsu record it builds. It ships with the next jutsu re-send (the recalibrated tuning job); 476 already ran and stays as the record of what ran.
 
 **Still to come:** the go-live, **477** (`--step golive`; was 467), after 476.
 
