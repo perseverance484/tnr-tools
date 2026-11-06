@@ -11,7 +11,7 @@ import { IN } from "./cclib";
 import { loadDmgConfig, loadJson } from "./model";
 import {
   AI, aiRecords, buildRecords, CYCLES, cycleCombo, FAN_OFFSETS, HEAVY_ARMOR, HEAVY_ARMOR_ID, HEAVY_ARMOR_SRC, JID, MK, moeParams, PAT, playerJutsuCatalog,
-  playerModel, rowOf, runAct, setDmgConfig, setGearOverride, setNoVisualFilter, STARS, validateAll, type ActCfg, type ActResult, type MoeParams, type Policy,
+  playerModel, rowOf, runAct, setDmgConfig, setGearOverride, setLiveSpawn, setNoVisualFilter, STARS, validateAll, type ActCfg, type ActResult, type MoeParams, type Policy,
 } from "./moe_lib";
 
 const args = process.argv.slice(2);
@@ -22,6 +22,7 @@ setDmgConfig(dmg.config);
 const PRAW = opt("params") ? loadJson(resolve(opt("params")!)) : {};
 setGearOverride(PRAW.gear ?? null, PRAW.avgGear ?? null);
 setNoVisualFilter(args.includes("--no-visual-filter"));
+setLiveSpawn(!!PRAW.liveSpawn);
 const P = moeParams(PRAW);
 const RECS = buildRecords(P);
 const CAT = playerJutsuCatalog();
