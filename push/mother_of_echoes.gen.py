@@ -1486,7 +1486,7 @@ def step_golive(b, ids, econ, bundle, art2_bundle):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "final", "golive", "tune"
+    ap.add_argument("--step", choices=["jutsu", "templates", "summons", "bosses", "quest", "final", "golive", "tune",
                                                "art2", "art2_unhide"],
                     default="jutsu")
     ap.add_argument("--bundles", nargs="*", default=[], help="results bundles of 440 and 461-464 (any order)")
