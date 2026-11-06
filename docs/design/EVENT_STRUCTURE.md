@@ -120,7 +120,9 @@ A new event's design doc carries these sections, in this order. Skyglass's versi
 8. **The progression ladder** (P3, P6). The rung table of §3, with each rung's diegetic signal.
 9. **Legibility surfaces** (P5). Which surface answers each of the four questions: item descriptions; quest and run
    descriptions; NPC dialog and closing lines; the Logbook (quest log); titles, badges and achievements; variants listed on
-   their base weapon. Mark any surface that is deferred or blocked upstream.
+   their base weapon. Mark any surface that is deferred or blocked upstream. Each event also writes a **journal**: a
+   weekly roadmap quest whose entries count as the player plays, one page per weekend (pattern, engine limits and
+   template: `docs/design/EVENT_JOURNAL.md`, RUL-2026-11-05-120).
 10. **Pacing targets.** Expected hours and clears per player type, rates per weekend for each headline reward, clear-rate
     targets per node, and the pacing of the finale's inputs. Values are the director's ([[D-reserved-dauntless]]); see §8 Q1.
 11. **The finale.** It consumes the event's currencies (at least one from each pillar), it pays back into the event's shared
@@ -291,6 +293,8 @@ None of these is decided here; each is a placeholder until ruled.
   second route (as for the Keel and Crown shards)?
 - **Q3. Progress surface.** Which in-game surface should carry "what have I done" for events while titles and
   achievements are deferred or blocked upstream (a completion quest, a ledger item, titles once the fix lands)?
+  *(Proposed answer: the event journal, `docs/design/EVENT_JOURNAL.md`; its Logbook bars carry "what can I do now"
+  and "what have I done" for the weekend. Not ruled.)*
 - **Q4. Crafting gates on sinks.** Does RUL-2026-11-01-096's "no crafter intermediaries" apply to every event sink, or
   only to finale inputs?
 - **Q5. Starved nodes.** When a gamble consumes the input of a node (steeping vs the Epic runs), is that acceptable by
