@@ -163,6 +163,8 @@ export const MOE_DEFAULTS = {
   floodCd: 3,
   m2HealBlockRounds: 20,
   sayo2Stunprevent: true,
+  /** Act III redesign prototype (docs/design/MOTHER_OF_ECHOES_ACT3.md, 2026-11-05): see A3_DEFAULTS. */
+  act3v2: { on: false } as any,
 };
 export type MoeParams = typeof MOE_DEFAULTS;
 export const moeParams = (over: any = {}): MoeParams => {
@@ -212,6 +214,84 @@ export const MK = {
   shatter: "increaserange", flood: "fleeprevent", gA: "robprevent", gB: "onehitkillprevent", gC: "disarm", gCs: "elementalseal",
   firstPass: "decreasecooldown",
 };
+/**
+ * Act III redesign (prototype; docs/design/MOTHER_OF_ECHOES_ACT3.md). The Saint uses Acts I-II's vocabulary, evolved:
+ * Phase I "Lucid" (100-60%): Refraction every turn (break + redraw), Facet with a x3 open guard, Hold Still (the follow
+ * ring), The Silence Holds Her (self-Cradle + Stillness: Clear is the answer), the Remainder Lancet (clearable ramp).
+ * Phase II "Every Name, Remembered" (60-25%): a warned heal cut that spares the three stars; a 4-turn combo: Etching of
+ * the Act II region holding one star (+ Hush Rises) -> Every Name (stars shown) -> The Names Flood In over everything
+ * but the stars AND the remembered etching (x4 open guard) -> Hush on a star (+ Rises).
+ * Phase III "A Good Impression" (<25%): a rolling clock: each turn a third of the hall falls together with one echo of
+ * an earlier act (Act I lines, Act II Heart, Act II Seam), the next is marked, her guard is open x2, and Every Line
+ * Through You (the follow mark multiplied: a cross through the player, lethal) lands on a step-off.
+ * Engine rules this relies on: every eruption has cooldown 0 (pierce / drain / stun are shared-cooldown tags,
+ * drizzle/constants.ts:261-282; applyActionCooldowns locks every other action sharing one for 3 rounds when the cast
+ * has cooldown > 0, actions.ts:1461-1490); chain records cost 60 AP and extras 40 so no mark erupts in its own turn;
+ * phase markers are negative types so a Clear (removeEffects, tags.ts:1179-1235) never cancels a lethal set piece, while
+ * Stillness's marker is positive (robprevent) so a Clear cancels Nothing Moves, as in Act I.
+ */
+export const J3 = {
+  opener: "moe-saint-refraction", lucid: "moe-saint-lucid-refraction", facet: "moe-saint-facet", facetBreak: "moe-saint-facet-breaks",
+  holdStill: "moe-saint-hold-still", silenceHolds: "moe-saint-the-silence-holds-her", nothingMoves: "moe-saint-nothing-moves",
+  lancet: "moe-saint-remainder-lancet", stir: "moe-saint-the-names-stir", mended: "moe-saint-no-one-is-mended",
+  // Director 2026-11-05 (decision 8): Phase II reuses Act II's Etching records as they are (same pattern, AP, cooldown, art).
+  etch: { A: "moe-etching-a", B: "moe-etching-b", D: "moe-etching-d" } as Record<string, string>,
+  flood: { A: "moe-saint-flood-rime", B: "moe-saint-flood-ember", D: "moe-saint-flood-heart" } as Record<string, string>,
+  everyName: "moe-saint-every-name", rises: "moe-saint-hush-rises", starHush: "moe-saint-hush-where-they-refused",
+  impression: "moe-saint-a-good-impression", pane: ["moe-saint-echo-pane-a", "moe-saint-echo-pane-b", "moe-saint-echo-pane-c"], everyLine: "moe-saint-every-line",
+};
+export const MK3 = {
+  a: "fleeprevent", b: "summonprevent", f: "elementalseal", still: "robprevent", phase: "increasecooldown",
+  // decrease* tags are stored with negative power once cast, so a has_effect threshold never passes on them: no decrease*
+  // markers. Player kits put increasedamagetaken (223 of 1,237 captured jutsu) and decreasedamagegiven (114) on the boss,
+  // which would trip such a marker (first prototype run: 11 unmarked panes); fleeprevent, disarm and increasecooldown
+  // appear on none, summonprevent and elementalseal on one each (harvests/inbox/tnr_results_1792732003454.json). Her
+  // jutsu carry jutsuWeapon NONE, so disarm hides nothing. Reuse across phases is safe because every Phase III rule also
+  // requires phase >= 2 and the Phase III entry phase >= 1.
+  clean: "disarm", cycleEnd: "fleeprevent", gA: "disarm", gB: "summonprevent", gC: "fleeprevent",
+};
+export const A3_DEFAULTS = {
+  on: false,
+  holdStillPct: 50, everyLinePct: 100,
+  cradleDR: 85, cradleAbsorb: 30, cradleRounds: 3, cradleCd: 6, cradleGate: 95,
+  stillPierce: 2500, stillStunAp: 100,
+  guardFacet: 3, guardFlood: 4, guardPane: 2,
+  lancetCd: 2, lancetCost: 40, openerCd: 4,
+  rises: { count: 6, drain: 8, rounds: 6 }, starHush: { drain: 3, rounds: 3 }, mendedRounds: 10,
+  /** Phase II etching order (Act II regions; each holds one star: Rime the north, Ember the south, Heart the middle). */
+  order: ["A", "B", "D"],
+  /** Phase III echo per pane (Act I lines / Act II regions). */
+  echoes: ["refractA", "D", "C"],
+  /** Phase III line length (hexes north and south of the player). */
+  lineArm: 4,
+  /** Phase I Hold Still bar length (hexes north and south of the player; the player's own hex is never included). */
+  barArm: 2,
+  /** Phase I line-break pools (rounds). */
+  linePoolRounds: 1,
+  /** HP gates: the warning, Phase II, Phase III. */
+  stirGate: 70, p2Gate: 60, p3Gate: 25,
+  /** Sim policy: drink the Energy Potion once the heal cut is announced, below this HP %. 0 = never. */
+  topUpBelow: 75,
+  /** Sim policy: Clear the Saint for her Cradle, or for the ramp at this many live stacks. */
+  clearRampStacks: 3,
+};
+export const a3 = (P: any) => ({ ...A3_DEFAULTS, ...(P.act3v2 ?? {}) }) as typeof A3_DEFAULTS;
+const A3_ECHO = (k: string): Cell[] => (k === "refractA" ? PAT.refractA : k === "refractB" ? PAT.refractB : PAT.etch[k]!);
+const unionCells = (...xs: Cell[][]) => [...new Map(xs.flat().map((c) => [key(c), c])).values()];
+const A3_PANE = (A3: typeof A3_DEFAULTS, k: number) => unionCells(PAT.glass[k]!, A3_ECHO(A3.echoes[k]!));
+/**
+ * Every Line Through You: the column through the target hex, `arm` hexes either way (origin TARGET, libs/combat/targeting.ts
+ * COORDINATES TARGET). A column, not a cross: a cross through a hex leaves only two of its six neighbours clear, and with
+ * the falling third and its echo marked as well the first prototype trapped 4 of 20 perfect players; any side step clears
+ * a column (four of six neighbours).
+ */
+// Ship pass (2026-11-05): the player's own hex is NOT in the pattern. A ground drain binds whoever stands on its hex when
+// any action resolves (process.ts:396-412; live log 2 #64-#65, sim agent 3eb8abab), so a follow mark ON the player is on
+// him from her cast and cannot be dodged (the same ring trap as Act I's Silence Turns). Without the centre the column
+// only binds a player who steps onto it: step aside (or hold still), never along it.
+const A3_CROSS = (arm: number) => [...Array.from({ length: arm }, (_, i) => i + 1).flatMap((d) => [
+  { longitude: 0, latitude: d }, { longitude: 0, latitude: -d }])];
+export const a3PhaseCombo = (A3: typeof A3_DEFAULTS) => A3.order.flatMap((k) => [J3.etch[k]!, J3.rises, J3.everyName, J3.flood[k]!, J3.starHush, J3.rises]);
 const marker = (type: string, rounds = 1, power?: number) => tag(type, {
   power: power ?? (["increasecooldown", "decreasecooldown", "increaserange"].includes(type) ? 1 : 100), rounds, target: "SELF",
   ...(["increasecooldown", "decreasecooldown", "increaserange"].includes(type) ? { actionsAffected: [], calculation: "static" } : {}),
@@ -278,6 +358,8 @@ export const buildRecords = (P: MoeParams) => {
   RAMP_CLEARABLE = !!P.rampClearable;
   POOL_AWARE = !!P.poolAware;
   POTION_FIX = !!P.potionFix;
+  DEBUG_TRACE = !!(P as any).debugTrace;
+  A3_ON = !!a3(P).on; A3_POLICY = a3(P);
   MARK_ART = P.markArtRounds ?? 1;
   SKILLED = !!P.skilledPolicy;
   DEBUFF = { on: !!P.eruptDebuff?.on, pct: { 1: P.eruptDebuff?.act1, 2: P.eruptDebuff?.act2, 3: P.eruptDebuff?.act3 } as any };
@@ -523,6 +605,79 @@ export const buildRecords = (P: MoeParams) => {
   }
   // Art pass simulation (2026-11-05): visual-only "piece" tags on the signature moves (no gameplay handler); the
   // generator on main adds the real ones at build time. Sim-only switch for the fixed-seed identity check.
+  const A3 = a3(P);
+  if (A3.on) {
+    // Phase I lines break every turn, so their pools last A3.linePoolRounds (1, like Act I's): 3-round pools on both line
+    // sets carpeted the floor and a pool-aware player (sim agent 3eb8abab) could no longer walk to her (4 of 20 stalls).
+    const pool3 = (rounds?: number) => {
+      const d = DEBUFF.on ? DEBUFF.pct[3] as any : undefined;
+      if (!d) return [];
+      const r = rounds ?? d.poolRounds ?? d.rounds;
+      return [tag("decreaseheal", { power: d.dh, rounds: r, calculation: "percentage", friendlyFire: "ENEMIES", description: "The broken glass", ...poolArt("tg_linger") }),
+        T.pct("increasedamagetaken", d.idt, r, { friendlyFire: "ENEMIES", description: "The broken glass" })];
+    };
+    const ground = (id: string, name: string, line: string, desc: string, cells: Cell[], cost: number, cd: number, effects: any[]) =>
+      add(id, { name, description: desc, battleDescription: line, target: "GROUND", method: "COORDINATES", range: 0, cooldown: cd, actionCostPerc: cost, coordinateTargeting: field(cells), effects });
+    const facetCells = unionCells(PAT.refractA, PAT.refractB);
+    const notStars = PAT.flood;
+    /* Phase I: Lucid */
+    ground(J3.opener, "Refraction", "\"Hold still. I want to see you in the light.\" Three lines of black glass run in from the walls.", "Three lines of glass; they break on her next turn, and she draws the next lines as they break.", PAT.refractA, 60, A3.openerCd, [carrier("tg_heavy", 1), marker(MK3.a)]);
+    ground(J3.lucid, "Lucid Refraction", "The lines break, and three more are already drawn.", "The marked lines break; the far lines are drawn in the same breath.", PAT.refractA, 60, 0,
+      [erupt(3, p.refract, "moe_shatterfall"), ...pool3(A3.linePoolRounds), carrier("tg_heavy", 1, field(PAT.refractB)), marker(MK3.b)]);
+    ground(J3.facet, "Facet", "\"Every line has a reflection.\" The far lines break, and both images are drawn at once.", "The far lines break; both line sets and their mirror are drawn. Only the gaps are safe.", PAT.refractB, 60, 0,
+      [erupt(3, p.refract, "moe_shatterfall"), ...pool3(A3.linePoolRounds), carrier("tg_heavy", 1, field(facetCells)), marker(MK3.f)]);
+    ground(J3.facetBreak, "Facet Breaks", "Both images break at once, and for a moment her guard hangs open.", "Both images break. Her guard is open for a moment afterwards.", facetCells, 60, 0,
+      [erupt(3, p.refract, "moe_shatterfall"), ...pool3(A3.linePoolRounds), weaknessSelf(A3.guardFacet), marker(MK3.clean)]);
+    // A three-hex bar through the player (origin TARGET). Not Act I's radius-1 ring: a ground drain is copied onto whoever
+    // ends an action on it and that copy lasts the round (process.ts:395-412), so walking out of a ring takes two actions
+    // and two drains unless Replacement (cooldown 2) is up; the lines already spend Replacement. Any side step clears a bar.
+    add(J3.holdStill, { name: "Hold Still", description: "The glass north and south of you goes still. Anyone who steps onto it there will wish they had held still.", battleDescription: "\"Hold still.\" The glass either side of %target goes quiet.", target: "GROUND", method: "COORDINATES", range: 5, cooldown: 0, actionCostPerc: 40,
+      coordinateTargeting: { origin: "TARGET", selection: "ALL", coordinates: A3_CROSS(A3.barArm), randomCount: 1 },
+      effects: [carrier("tg_heavy", 1), tag("drain", { power: A3.holdStillPct, rounds: 1, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], description: "The floor breaks" })] });
+    add(J3.silenceHolds, { name: "The Silence Holds Her", description: "The Silence folds around her: she takes far less damage and drinks what does land, and the floor within 3 of her goes still. There is no feeler to cut. The hold is hers, and a clean break would shatter it.", battleDescription: "The Silence folds around %user. The floor around her goes still.", target: "GROUND", method: "AOE_SPIRAL_SHOOT", range: 3, cooldown: A3.cradleCd, actionCostPerc: 40,
+      effects: [carrier("tg_control", 1), marker(MK3.still), T.pct("decreasedamagetaken", A3.cradleDR, A3.cradleRounds, { target: "SELF", description: "The Silence holds her" }),
+        tag("absorb", { power: A3.cradleAbsorb, rounds: A3.cradleRounds, target: "SELF", calculation: "percentage", description: "The deep drinks every blow", staticAnimation: "moe_cradle" })] } as any);
+    add(J3.nothingMoves, { name: "Nothing Moves", description: "Everything within 3 of her is crushed and stunned.", battleDescription: "For a moment nothing near her moves. Nothing can.", target: "CHARACTER", method: "AOE_SPIRAL_SHOOT", range: 3, cooldown: 0, actionCostPerc: 40,
+      effects: [T.pierce(A3.stillPierce, { calculation: "static", dmgModifier: 1, description: "Pierces target", appearAnimation: "moe_stillness" }), tag("stun", { power: 100, rounds: 1, apReduction: A3.stillStunAp, friendlyFire: "ENEMIES" })] } as any);
+    add(J3.lancet, { name: "Remainder Lancet", description: "A needle of black glass. Each one steadies her hand; a clean break washes the steadiness away.", battleDescription: "%user flicks a lancet of black glass at %target.", target: "OTHER_USER", method: "SINGLE", range: 5, cooldown: A3.lancetCd, actionCostPerc: A3.lancetCost,
+      effects: [heavy(p.lancet, "moe_lancet"), ...(P.ramp.pct ? [T.pct("increasedamagegiven", P.ramp.pct, P.ramp.rounds, { target: "SELF", description: "The glass hungers" })] : [])] });
+    /* Phase II: Every Name, Remembered */
+    ground(J3.stir, "The Names Stir", "The names press up against the glass from below. \"Soon nothing here will mend. Except where the three refused.\"", "A warning: when she is pushed below 60%, nothing mends anywhere but the three dry places.", notStars, 20, 99, [carrier("moe_hush_floor", 1)]);
+    ground(J3.mended, "No One Is Mended", "\"Nothing mends here. Nothing needs to.\" The quiet covers the floor, everywhere but where the three refused.", "Nothing mends anywhere but the three dry places.", notStars, 100, 99,
+      [tag("decreaseheal", { power: 100, rounds: A3.mendedRounds, calculation: "percentage", friendlyFire: "ENEMIES" }), tag("healprevent", { power: 100, rounds: A3.mendedRounds, friendlyFire: "ENEMIES", ...poolArt("moe_hush_floor") }), marker(MK3.phase, 99, 1)]);
+    const EN: Record<string, string> = { A: "Rime", B: "Ember", D: "Heart", C: "Seam" };
+    for (const k of Object.keys(J3.etch)) {
+      ground(J3.flood[k]!, `The Names Flood In: ${EN[k]}`, `Every name in the glass floods the hall, and the glass remembers the ${EN[k]!.toLowerCase()}. She has nothing left to breathe; her guard hangs open.`, "Everything but the three dry places floods, and so does the etching she drew two turns ago. Her guard is open afterwards.",
+        unionCells(notStars, PAT.etch[k]!), 100, 0, [erupt(3, p.flood, "moe_flood"), weaknessSelf(A3.guardFlood)]);
+    }
+    ground(J3.everyName, "Every Name in the Glass", "\"Do you hear them? Every one of them stayed.\" The names rise. Three places stay dry: where the three refused.", "Every name rises; next turn they flood everything but the three dry places.", notStars, 100, 0,
+      [carrier("tg_heavy", 1), carrier("tg_safe", 1, field(STARS))]);
+    add(J3.rises, { name: "The Hush Rises", description: "Stilled pools seep up through the floor.", battleDescription: "The floor stops making any sound in patches.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 60, coordinateTargeting: field(PAT.risesField, "RANDOM", "BATTLEFIELD", A3.rises.count),
+      effects: [tag("healprevent", { power: 100, rounds: A3.rises.rounds, friendlyFire: "ENEMIES" }), tag("drain", { power: A3.rises.drain, rounds: A3.rises.rounds, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], ...poolArt("tg_linger") })] });
+    add(J3.starHush, { name: "Hush Where They Refused", description: "The quiet seeps into one of the three dry places.", battleDescription: "The quiet finds one of the dry places where the three refused.", target: "GROUND", method: "COORDINATES", range: 0, cooldown: 0, actionCostPerc: 40, coordinateTargeting: field(STARS, "RANDOM", "BATTLEFIELD", 1),
+      effects: [tag("healprevent", { power: 100, rounds: A3.starHush.rounds, friendlyFire: "ENEMIES" }), tag("drain", { power: A3.starHush.drain, rounds: A3.starHush.rounds, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], ...poolArt("tg_linger") }), marker(MK3.cycleEnd)] });
+    /* Phase III: A Good Impression */
+    const gMk = [MK3.gA, MK3.gB, MK3.gC];
+    const paneMk = (k: number) => marker(gMk[k]!);
+    ground(J3.impression, "A Good Impression", "\"There. Hold still, and you will make a good impression.\" The ceiling cracks, and the glass begins to remember everything.", "Below 25%: every turn a third of the ceiling falls with an echo of the fight, and the next is marked. She holds nothing back, so her guard stays open.", A3_PANE(A3, 0), 60, 99,
+      [carrier("tg_heavy", 1), paneMk(0), marker(MK3.phase, 99, 1)]);
+    const echoName = (k: string) => (k === "refractA" ? "the first lines she ever drew" : k === "refractB" ? "the far lines" : `the ${EN[k]!.toLowerCase()}`);
+    for (let k = 0; k < 3; k++) {
+      const n = (k + 1) % 3;
+      ground(J3.pane[k]!, `Glassfall: ${["First", "Second", "Last"][k]} Echo`, `A third of the ceiling falls, and with it ${echoName(A3.echoes[k]!)}. The next pane cracks.`, "The marked pane falls with its echo; the next is marked. Her guard is open.", A3_PANE(A3, k), 60, 0,
+        [erupt(3, p.glass, "moe_glassfall"), ...pool3(), weaknessSelf(A3.guardPane), carrier("tg_heavy", 1, field(A3_PANE(A3, n))), paneMk(n)]);
+    }
+    add(J3.everyLine, { name: "Every Line Through You", description: "A line of glass runs north and south through where you stand. Step onto it and it takes you.", battleDescription: "\"Hold still.\" Every line in the hall runs through %target.", target: "GROUND", method: "COORDINATES", range: 5, cooldown: 0, actionCostPerc: 40,
+      coordinateTargeting: { origin: "TARGET", selection: "ALL", coordinates: A3_CROSS(A3.lineArm), randomCount: 1 },
+      effects: [carrier("tg_heavy", 1), tag("drain", { power: A3.everyLinePct, rounds: 1, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], description: "The lines break" })] });
+  }
+  // Act III v2 text pass (push/mother_of_echoes_act3_text.json, pending director approval), keyed by spec id.
+  if (A3.on) {
+    const f = join(process.env.TNR_REPO!, "push/mother_of_echoes_act3_text.json");
+    let A3_TEXT: Record<string, { name?: string; description?: string; battleDescription?: string }> = {};
+    try { A3_TEXT = JSON.parse(readFileSync(f, "utf8")).jutsu ?? {}; } catch { A3_TEXT = {}; }
+    for (const [id, t] of Object.entries(A3_TEXT)) if (J[id]) { if (t.name) J[id].name = t.name; if (t.description) J[id].description = t.description; if (t.battleDescription) J[id].battleDescription = t.battleDescription; }
+  }
   if (P.visualPieces) for (const id of [JID.floodMark, JID.floodBlast, JID.shatterBlast, ...JID.glass, JID.glassFirstB, JID.glassRecast, JID.enrage, ...Object.values(JID.det)]) J[id]?.effects.push(vis("moe_piece", 1));
   const SUMMON_HITS = new Set([JID.grasp, JID.likenessStrike, JID.porter, JID.tomo]);
   for (const [id, r] of Object.entries<any>(J)) if (id !== JID.pull) for (const e of r.effects) if ((e.type === "damage" || e.type === "pierce") && e.calculation === "formula") {
@@ -695,6 +850,41 @@ export const wornRules = (jid: string, target = PL) => [
   // The unconditional move is the last rule (law 41): an end_turn under it could never fire.
   ...(target === PL ? [{ conditions: [], action: { type: "move_towards_opponent", target: PL, description: "Close in" } }] : [R.end()]),
 ];
+const A3_GATE = 4;
+const toHigh = (v: number, type: "distance_lower_than" | "distance_higher_than" = "distance_lower_than") => ({ type, value: v, target: "HIGHEST_MAX_HEALTH_OPPONENT", description: "Distance to the player" });
+/** Act III redesign rules (20; see J3). Phase III first, then the Phase II combo, then the Phase I chain and its extras. */
+export const saintRulesV2 = (P: MoeParams) => {
+  const A3 = a3(P);
+  const ph = (n: number) => C.has(MK3.phase, n);
+  return [
+    R.jutsu(JID.enrage, "SELF", [COND.rg(P.enrage.act3)]),
+    R.jutsu(J3.pane[0]!, "SELF", [C.has(MK3.gA), ph(2)]),
+    R.jutsu(J3.pane[1]!, "SELF", [C.has(MK3.gB), ph(2)]),
+    R.jutsu(J3.pane[2]!, "SELF", [C.has(MK3.gC), ph(2)]),
+    R.jutsu(J3.everyLine, "HIGHEST_MAX_HEALTH_OPPONENT", [ph(2), toHigh(A3_GATE)]),
+    // Phase III: she walks to the player (first prototype: she stood still, the player could not cross the marked floor to
+    // reach her open guard, and 2 of 20 perfect runs stalled into the enrage). Beside the player the move fails and the
+    // turn ends at the combo rule, whose first step needs AP she no longer has after a pane and Every Line.
+    { conditions: [ph(2)], action: { type: "move_towards_opponent", target: "HIGHEST_MAX_HEALTH_OPPONENT", description: "She comes to you" } },
+    R.jutsu(J3.impression, "SELF", [C.hb(A3.p3Gate), C.has(MK3.cycleEnd, 1), ph(1)]),
+    withCond(COND.combo(a3PhaseCombo(A3)), [ph(1)]),
+    R.jutsu(J3.facetBreak, "SELF", [C.has(MK3.f)]),
+    R.jutsu(J3.facet, "SELF", [C.has(MK3.b)]),
+    R.jutsu(J3.lucid, "SELF", [C.has(MK3.a)]),
+    R.jutsu(J3.mended, "SELF", [C.hb(A3.p2Gate), C.has(MK3.clean)]),
+    R.end([ph(1)]),
+    R.jutsu(J3.nothingMoves, "SELF", [C.has(MK3.still)]),
+    R.jutsu(J3.stir, "SELF", [C.hb(A3.stirGate)]),
+    R.jutsu(J3.opener, "SELF", []),
+    R.jutsu(J3.silenceHolds, "SELF", [C.hb(A3.cradleGate)]),
+    R.jutsu(J3.lancet, PL, [C.near(5)]),
+    // Hold Still and Every Line only within 3 hexes (path 4): farther out she walks in instead. With the full range-5 gate
+    // she cast it every turn from 4-5 hexes and never closed, while a pool-aware player held his hex (3 of 20 stalls).
+    R.jutsu(J3.holdStill, "HIGHEST_MAX_HEALTH_OPPONENT", [toHigh(A3_GATE)]),
+    // Toward the player, not the closest opponent: a pet beside her held her in place while the player stood off.
+    { conditions: [], action: { type: "move_towards_opponent", target: "HIGHEST_MAX_HEALTH_OPPONENT", description: "Close in" } },
+  ];
+};
 export const saintRules = (P: MoeParams) => [
   R.jutsu(JID.enrage, "SELF", [COND.rg(P.enrage.act3)]),
   R.jutsu(JID.longHush, "SELF", [C.hb(25)]),
@@ -771,6 +961,8 @@ export const aiRecords = (P: MoeParams): AiRec[] => {
     summon(AI.porter, "The Gate Porter (Worn)", [JID.porter], wornRules(JID.porter)),
     summon(AI.hana, "Sister Hana (Worn)", [JID.hana], wornRules(JID.hana, "HIGHEST_MAX_HEALTH_ALLY")),
     summon(AI.tomo, "Cadet Tomo (Worn)", [JID.tomo], wornRules(JID.tomo)),
+    a3(P).on ? boss(AI.saint, "Sayo, Saint of Stillness", P.pools.saint, P.idg.saint, P.dr.saint,
+      [JID.enrage, J3.opener, J3.lucid, J3.facet, J3.facetBreak, J3.holdStill, J3.silenceHolds, J3.nothingMoves, J3.lancet, J3.stir, J3.mended, ...Object.values(J3.etch), ...Object.values(J3.flood), J3.everyName, J3.rises, J3.starHush, J3.impression, ...J3.pane, J3.everyLine], saintRulesV2(P)) :
     boss(AI.saint, "Sayo, Saint of Stillness", P.pools.saint, P.idg.saint, P.dr.saint,
       [JID.lancet, JID.enrage, JID.quiet, JID.shatterMark, JID.shatterBlast, JID.floodMark, JID.floodBlast, JID.m2Entry, JID.pullMark, JID.pull, JID.starHush, JID.longHush, ...JID.glass, JID.glassFirstB, JID.glassRecast], saintRules(P)),
   ];
@@ -812,6 +1004,9 @@ let P_NO_REENTRY = false;
 let RAMP_CLEARABLE = false;
 let POOL_AWARE = false;
 let POTION_FIX = false;
+let DEBUG_TRACE = false;
+let A3_ON = false;
+let A3_POLICY: any = null;
 export const setLiveSpawn = (on: boolean) => { LIVE_SPAWN = on; };
 /**
  * The average geared level-100 model (RUL-2026-11-02-097 item 3), built the same way as the elite one: the real Kitsune
@@ -1047,6 +1242,8 @@ export type ActResult = {
   misreads?: number; recastMisreads?: number; clears?: number; lancet?: { n: number; sum: number; max: number; pctOfMax: number[] };
   /** Solvability (director 2026-11-05): player turns checked; turns with no free hex within reach (5) clear of every live mark (+ pools). */
   solv?: { turns: number; noSafe: number; noSafeInclPools: number; noSafeRounds: number[] }; playerActs?: Record<string, number>; playerTurns?: number; playerEndTurns?: number; minHpFrac?: number;
+  /** Act III review (2026-11-05): AP spent per player turn by category, and turns that ended with >= 20 AP unspent. */
+  ap?: { turns: number; move: number; attack: number; buff: number; answer: number; other: number; unspent: number; turnsUnspent20: number };
 };
 /** Set-piece bookkeeping: action id -> [set name, role, telegraph id(s)]. */
 export const SETS: Record<string, [string, "mark" | "land", string[]?]> = {
@@ -1067,7 +1264,16 @@ export const SETS: Record<string, [string, "mark" | "land", string[]?]> = {
   [JID.glass[2]!]: ["Glassfall", "land", [JID.glass[1]!]], [JID.glassRecast]: ["Glassfall", "land", [JID.glassFirstB]],
 };
 for (const k of Object.keys(PAT.etch)) { SETS[JID.etch[k]!] = ["Recast", "mark"]; SETS[JID.det[k]!] = ["Recast", "land"]; }
+// Act III redesign bookkeeping (the role is the land unless noted; the marks ride the previous land).
+Object.assign(SETS, {
+  [J3.opener]: ["Refraction", "mark"], [J3.lucid]: ["Refraction", "land", [J3.opener]], [J3.facet]: ["Refraction", "land", [J3.lucid]],
+  [J3.facetBreak]: ["Facet", "land", [J3.facet]], [J3.silenceHolds]: ["Stillness", "mark"], [J3.nothingMoves]: ["Stillness", "land", [J3.silenceHolds]],
+  [J3.holdStill]: ["Hold Still", "mark"], [J3.everyLine]: ["Every Line", "mark"], [J3.everyName]: ["Every Name", "mark"],
+  [J3.impression]: ["Glassfall", "mark"], [J3.pane[0]!]: ["Glassfall", "land", [J3.impression, J3.pane[2]!]], [J3.pane[1]!]: ["Glassfall", "land", [J3.impression, J3.pane[0]!]], [J3.pane[2]!]: ["Glassfall", "land", [J3.pane[1]!]],
+});
+for (const k of Object.keys(J3.etch)) { SETS[J3.flood[k]!] = ["Every Name", "land", [J3.everyName]]; }
 const SPECIAL_IDS: Record<string, string> = {
+  [J3.stir]: "The Names Stir (warning)", [J3.mended]: "No One Is Mended (v2)", [J3.starHush]: "Hush on a star", [J3.rises]: "Hush Rises (III)", [J3.lancet]: "Remainder Lancet",
   [JID.lucidBlast]: "Lucid", [JID.lucidWake]: "Lucid (wakes)", [JID.rises[0]!]: "Hush Rises", [JID.rises[1]!]: "Hush Rises", [JID.rises[2]!]: "Hush Rises", [JID.rises[3]!]: "Hush Rises", [JID.hushUnbridled]: "Unbridled Hush", [JID.listeningUnbridled]: "Unbridled Listening", [JID.cradle]: "Cradle",
   [JID.listening]: "Listening", [JID.likeness]: "Your Likeness", [JID.enrage]: "Enrage", [JID.quiet]: "The Quiet", [JID.pull]: "Breathless Pull",
   [JID.starHush]: "Hush on a safe tile", [JID.m2Entry]: "No One Is Mended", [JID.quietFall]: "Cycle end", [JID.summonPorter]: "Worn: Porter",
@@ -1144,6 +1350,8 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
     const set = (k: string) => (res.sets[k] ??= { mark: 0, land: 0, hit: 0, dmg: 0, unmarked: 0 });
     const actionRounds: number[] = [];
     const turnActs = new Map<string, string[]>();
+    const apTurn: Record<string, number> = {};
+    let topUpId = "";
     const lastBossAct = new Map<string, { id: string; round: number }[]>(); // per boss uid: its actions
     const cycleEtched = new Set<string>(); // etchings laid in the current Act II cycle (pattern keys, multiset as counts)
     const etchCount: Record<string, number> = {};
@@ -1183,7 +1391,12 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
         if (nxt && Object.values(JID.det).includes(nxt)) for (const k of recCells(cfg.recs[nxt], [s2.longitude, s2.latitude])) { danger.add(k); recast.add(k); }
       }
       const st = bossU(AI.saint);
-      if (st && alive(st) && b.usersEffects.some((e: any) => e.targetId === st.userId && e.type === MK.gCs)) for (const k of recCells(cfg.recs[JID.glassRecast], [st.longitude, st.latitude])) danger.add(k);
+      if (A3_ON && st && alive(st)) {
+        // Memory (Act III Phase II): the flood that comes next also takes the region she etched two turns ago.
+        const nxt = nextComboAction(b, st);
+        if (nxt && Object.values(J3.flood).includes(nxt)) for (const k of recCells(cfg.recs[nxt], [st.longitude, st.latitude])) { danger.add(k); recast.add(k); }
+      }
+      if (!A3_ON && st && alive(st) && b.usersEffects.some((e: any) => e.targetId === st.userId && e.type === MK.gCs)) for (const k of recCells(cfg.recs[JID.glassRecast], [st.longitude, st.latitude])) danger.add(k);
       if (safe.size) for (const c of ALL) if (!safe.has(key(c))) danger.add(key(c));
       return { danger, linger, safe, recast };
     };
@@ -1330,6 +1543,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       const drawnBefore = new Set<string>((b.groundEffects as any[]).filter((g) => (g.type === "visual" || g.type === "increaseregeneration") && (g.staticAnimation === "tg_heavy" || g.staticAnimation === "tg_control") && ((g.rounds ?? 0) > 0 || g.castThisRound)).map((g) => `${g.longitude},${g.latitude}`));
       const pPos: Cell = [pu().longitude, pu().latitude];
       const aPos: Cell = [actor.longitude, actor.latitude];
+      const apBefore = human ? (pu().actionPoints ?? 0) : 0;
       let actionId: string | undefined;
       // Solvability (director 2026-11-05): at the start of every player turn, is there a free hex within reach (Replacement
       // range 5, or the hex he stands on) that no live mark covers? Ground truth, independent of the player's read.
@@ -1353,7 +1567,16 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       }
       if (human && o.policy === "play" && (misstep = false, dodgeStep())) { if (misstep) actionId = "misstep"; else { actionId = "dodge"; res.dodges++; if (P_NO_REENTRY) { if (dodgedRound !== b.round) { dodgedFrom.clear(); dodgedRound = b.round; } dodgedFrom.add(key(pPos)); } } }
       else if (human && o.policy !== "ignore" && wantsCleanse(b, puid, !!o.model.real) && tryAction("cleanse", pPos)) { actionId = "cleanse"; res.cleanses++; }
-      else if (human && o.policy !== "ignore" && o.model.real && (() => { const t = chooseTarget(); return t && wantsClear(b, t) && dist(pPos, [t.longitude, t.latitude]) <= 4 && tryAction("clear", [t.longitude, t.latitude]); })()) { actionId = "clear"; res.clears = (res.clears ?? 0) + 1; }
+      else if (human && o.policy === "play" && A3_ON && cfg.act === 3 && o.model.real && A3_POLICY.topUpBelow && (() => {
+        // The heal cut was announced (The Names Stir) and has not landed: top up now (the read the warning asks for).
+        const st = bossU(AI.saint);
+        const stirred = st && (lastBossAct.get(st.userId) ?? []).some((h) => h.id === J3.stir) && !(lastBossAct.get(st.userId) ?? []).some((h) => h.id === J3.mended);
+        if (!stirred || pu().curHealth / maxHp >= A3_POLICY.topUpBelow / 100) return false;
+        // The real kit's HP sustain is lifesteal (Eclipse Drain, the Chakra Pill, gear); the Energy Potion restores chakra and stamina only.
+        for (const id of ["ou7VyChQ-SFCm8T8yGS7I", "tZTvqYWiAc_OrY64nDvIo"]) if (!b.usersEffects.some((e: any) => e.targetId === puid && e.type === "lifesteal" && e.creatorId === puid && (e.rounds ?? 0) > 0 && (e.rounds ?? 0) < 100) && tryAction(id, pPos)) { topUpId = id; return true; }
+        return false;
+      })()) { actionId = topUpId; res.specials["Top-up after the warning"] = (res.specials["Top-up after the warning"] ?? 0) + 1; }
+      else if (human && o.policy !== "ignore" && o.model.real && (() => { const t = chooseTarget(); return t && (A3_ON && cfg.act === 3 ? wantsClearA3(b, t) : wantsClear(b, t)) && dist(pPos, [t.longitude, t.latitude]) <= 4 && tryAction("clear", [t.longitude, t.latitude]); })()) { actionId = "clear"; res.clears = (res.clears ?? 0) + 1; }
       else {
         if (human) setPlayerTarget(o.policy !== "ignore" ? chooseTarget() : null);
         const r = performAIaction(b, grid, actor.userId);
@@ -1380,6 +1603,19 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
           // camp: holds the act's best fixed hex (fewest marks in the coverage audit) and never moves
           actionId = tryAction("wait", pPos) ? "wait" : undefined; if (!actionId) b = r.nextBattle;
         } else b = r.nextBattle;
+      }
+      if (human) {
+        // AP review: what this action cost and what kind of action it was (wait / none = unspent).
+        const spent = Math.max(0, apBefore - (pu().actionPoints ?? 0));
+        const a = (res.ap ??= { turns: 0, move: 0, attack: 0, buff: 0, answer: 0, other: 0, unspent: 0, turnsUnspent20: 0 });
+        const tkAp = `${b.round}`;
+        const id = actionId ?? "none";
+        const rec = b.extraState.jutsus[id] ?? (o.model.real ? capturedItems()[id] : undefined);
+        const hurts = (r: any) => !!r && r.target !== "SELF" && (r.effects ?? []).some((e: any) => ["damage", "pierce", "elementaldamage", "afterburn"].includes(e.type));
+        const cat = ["dodge", "move", "replacementTechnique", "misstep"].includes(id) ? "move" : ["clear", "cleanse"].includes(id) ? "answer"
+          : id === "basicAttack" || hurts(rec) ? "attack" : rec ? "buff" : ["wait", "none"].includes(id) ? "" : "other";
+        if (cat) (a as any)[cat] += spent;
+        (apTurn as any)[tkAp] = ((apTurn as any)[tkAp] ?? 0) + (cat ? spent : 0);
       }
       const post = alignBattle(b, actionRounds, puid);
       if (post.progressRound) applySageModeAfterRoundTransition(b);
@@ -1444,6 +1680,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
         lastBossAct.set(actor.userId, hist);
       }
       if (isEnemy && actionId && SPECIAL_IDS[actionId]) res.specials[SPECIAL_IDS[actionId]!] = (res.specials[SPECIAL_IDS[actionId]!] ?? 0) + 1;
+      if (isEnemy && (actionId === J3.mended || actionId === J3.impression)) ((res as any).phaseAt ??= {})[actionId === J3.mended ? "II" : "III"] ??= pre.actionRound; if (isEnemy && (actionId === J3.mended || actionId === J3.impression)) ((res as any).phaseHp ??= {})[actionId === J3.mended ? "II" : "III"] ??= Math.round(100 * actor.curHealth / actor.maxHealth);
       for (const aid of cfg.bossIds) {
         const u = bossU(aid);
         const a = alive(u);
@@ -1452,6 +1689,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       }
       if (o.trace) {
         const bossTxt = cfg.bossIds.map((aid) => { const u = bossU(aid); return u ? `${aid.replace("moe-ai-", "")} ${(100 * Math.max(0, u.curHealth) / u.maxHealth).toFixed(0)}%` : ""; }).join(" ");
+        if (DEBUG_TRACE && !human && !actor.isSummon && actor.direction === "right") { const au = b.usersState.find((x: any) => x.userId === actor.userId); res.trace!.push(`   [dbg ${actor.username?.slice(0, 10)} ap ${au?.actionPoints} fx ${b.usersEffects.filter((e: any) => e.targetId === actor.userId && !(e.rounds >= 80)).map((e: any) => `${e.type}:${e.power}/${e.rounds}`).join(",")}]`); }
         res.trace!.push(`r${pre.actionRound} ${(human ? `PLAYER>${(currentTarget?.username ?? "-").slice(0, 8)}` : actor.username ?? "?").slice(0, 22).padEnd(22)} ${String(actionId === "dodge" ? "DODGE" : actionId === "misstep" ? "MISSTEP (misread Recast)" : name(actionId)).slice(0, 28).padEnd(28)} p@${pPos} hp ${Math.round(pAfter.curHealth)} (${pLoss ? "-" + Math.round(pLoss) : pGain ? "+" + Math.round(pGain) : "0"}) | ${bossTxt}`);
       }
       if (human && pLoss > 0) {
@@ -1476,6 +1714,7 @@ export const runAct = async (cfg: ActCfg, o: FightOpts): Promise<ActResult> => {
       if (!side("right")) { res.outcome = "won"; break; }
     }
     for (const [k, acts] of turnActs) if (k.split(":")[1] === puid) { res.playerTurns = (res.playerTurns ?? 0) + 1; if (acts.every((x) => x === "wait" || x === "none")) res.playerEndTurns = (res.playerEndTurns ?? 0) + 1; }
+    if (res.ap) { const ts = Object.values(apTurn); res.ap.turns = ts.length; res.ap.unspent = ts.reduce((s, v) => s + Math.max(0, 100 - v), 0); res.ap.turnsUnspent20 = ts.filter((v) => v <= 80).length; }
     for (const [k, acts] of turnActs) {
       const uid = k.split(":")[1]!;
       const u = b.usersState.find((x: any) => x.userId === uid);
@@ -1502,6 +1741,12 @@ const wantsCleanse = (b: any, puid: string, real = false) =>
   (real && SKILLED && (() => { const u = b.usersState.find((x: any) => x.userId === puid); return u && u.curHealth / u.maxHealth < 0.7; })() &&
     b.usersEffects.some((e: any) => e.targetId === puid && !e.fromGround && e.type === "decreaseheal" && e.creatorId !== puid && (e.rounds ?? 0) > 0));
 /** Real player (logs): Clear the target right after it gains a clearable combat buff (not innate rows; not clear-proof). */
+/** Act III redesign: Clear her Cradle (jutsu decreasedamagetaken), or the ramp once it carries A3.clearRampStacks stacks. */
+const wantsClearA3 = (b: any, t: any) => {
+  const live = (type: string) => b.usersEffects.filter((e: any) => e.targetId === t.userId && e.type === type && e.fromType === "jutsu" && e.creatorId === t.userId && (e.rounds ?? 0) > 0 && (e.rounds ?? 0) < 100);
+  if (b.usersEffects.some((e: any) => e.targetId === t.userId && e.type === "clearprevent" && (e.rounds ?? 0) > 0)) return false;
+  return live("decreasedamagetaken").length > 0 || live("increasedamagegiven").length >= (A3_POLICY?.clearRampStacks ?? 3);
+};
 const wantsClear = (b: any, t: any) =>
   !b.usersEffects.some((e: any) => e.targetId === t.userId && e.type === "clearprevent" && (e.rounds ?? 0) > 0) &&
   // Ramp worth clearing: 3+ live Lancet stacks (about +22%); any other clearable buff (the Silence's absorb) as before.

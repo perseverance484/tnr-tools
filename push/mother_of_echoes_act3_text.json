@@ -1,0 +1,111 @@
+{
+ "_note": "DRAFT, PENDING DIRECTOR APPROVAL (2026-11-05). Act III v2 (the Saint) jutsu text, RUL-2026-11-05-123 item 5. Same voice and hint rule as docs/design/MOTHER_OF_ECHOES_JUTSU_TEXT.md (hint, don't instruct; accurate clues; 1-3 sentences); players can read boss descriptions in battle (director, 2026-11-05). Keyed by spec id, not by name as push/mother_of_echoes_text.json is, because several names repeat Act I / Act II / old Act III records (Refraction, Lucid Refraction, Facet, Facet Breaks, Nothing Moves, The Hush Rises, Every Name in the Glass, No One Is Mended, Hush Where They Refused). The three Etchings are Act II's records reused as they are (moe-etching-a/-b/-d) and keep their approved Act II text. The prototype applies this file over the act3v2 records (engine/moe_lib.ts, A3_TEXT).",
+ "status": "pending",
+ "jutsu": {
+  "moe-saint-refraction": {
+   "name": "Refraction",
+   "description": "\"Hold still. I want to see you in the light.\" Lines of black glass run in from the walls and lie across the floor. She no longer waits between one line and the next.",
+   "battleDescription": "\"Hold still. I want to see you in the light.\" Black glass runs in from the walls."
+  },
+  "moe-saint-lucid-refraction": {
+   "name": "Lucid Refraction",
+   "description": "The lines break where they lie, and the far lines are already drawn. There is always glass waiting to break now; she has stopped pausing to think.",
+   "battleDescription": "The lines break, and three more are already drawn."
+  },
+  "moe-saint-facet": {
+   "name": "Facet",
+   "description": "\"Every line has a reflection.\" The far lines break, and every line is drawn again beside its double. Between a line and its reflection the floor is narrow, and it is all there is.",
+   "battleDescription": "\"Every line has a reflection.\" The far lines break, and both images are drawn at once."
+  },
+  "moe-saint-facet-breaks": {
+   "name": "Facet Breaks",
+   "description": "Every line and its reflection break together. Something that large takes all of her: for a breath afterwards her guard hangs wide open, wider than it ever did in the Stilling.",
+   "battleDescription": "Both images break at once, and for a moment her guard hangs open."
+  },
+  "moe-saint-hold-still": {
+   "name": "Hold Still",
+   "description": "\"Hold still.\" The glass to the north and south of you goes quiet. It does not mind you staying where you are; it minds where you would go.",
+   "battleDescription": "\"Hold still.\" The glass either side of %target goes quiet."
+  },
+  "moe-saint-the-silence-holds-her": {
+   "name": "The Silence Holds Her",
+   "description": "The Silence folds around her the way it once folded around her through the feelers, but there is no feeler now to cut. The hold is hers: blows slide off it and feed it, and the floor close about her goes still. One clean break would shatter all of it at once.",
+   "battleDescription": "The Silence folds around %user. The floor around her goes still."
+  },
+  "moe-saint-nothing-moves": {
+   "name": "Nothing Moves",
+   "description": "The stillness about her closes. Whatever was standing that near her stops, and does not move again until she allows it.",
+   "battleDescription": "For a moment nothing near her moves. Nothing can."
+  },
+  "moe-saint-remainder-lancet": {
+   "name": "Remainder Lancet",
+   "description": "A needle of black glass, flicked from the wall faster than the old ones. Each one steadies her hand for the next; time lets the steadiness go, and so does a clean break.",
+   "battleDescription": "%user flicks a lancet of black glass at %target."
+  },
+  "moe-saint-the-names-stir": {
+   "name": "The Names Stir",
+   "description": "The names press up against the glass from below, waiting for her to weaken a little more. When they rise, the quiet will cover the floor and nothing on it will mend, except where the three refused. What you carry in is all you will have.",
+   "battleDescription": "The names press up against the glass from below. \"Soon nothing here will mend. Except where the three refused.\""
+  },
+  "moe-saint-no-one-is-mended": {
+   "name": "No One Is Mended",
+   "description": "\"Nothing mends here. Nothing needs to.\" The quiet covers the floor, and for a long while no wound on it will close. Only where the three refused do wounds still mend.",
+   "battleDescription": "\"Nothing mends here. Nothing needs to.\" The quiet covers the floor, everywhere but where the three refused."
+  },
+  "moe-saint-hush-rises": {
+   "name": "The Hush Rises",
+   "description": "While she remembers, stilled pools seep up through the floor. Standing in one empties you, and nothing mends there.",
+   "battleDescription": "The floor stops making any sound in patches."
+  },
+  "moe-saint-every-name": {
+   "name": "Every Name in the Glass",
+   "description": "\"Do you hear them? Every one of them stayed.\" The names rise under the whole floor except the three places where the porter, the sister and the cadet refused. But the glass also remembers what she traced into it, and memory does not always agree with the light.",
+   "battleDescription": "\"Do you hear them? Every one of them stayed.\" The names rise. Three places stay dry: where the three refused."
+  },
+  "moe-saint-flood-rime": {
+   "name": "The Names Flood In: Rime",
+   "description": "Every name floods the hall, and the glass remembers the rime she traced along the north of it, dry place and all. Emptied, she has nothing left to guard herself with for a breath.",
+   "battleDescription": "Every name in the glass floods the hall, and the glass remembers the rime. Her guard hangs open."
+  },
+  "moe-saint-flood-ember": {
+   "name": "The Names Flood In: Ember",
+   "description": "Every name floods the hall, and the glass remembers the ember she traced across the south of it, dry place and all. Emptied, she has nothing left to guard herself with for a breath.",
+   "battleDescription": "Every name in the glass floods the hall, and the glass remembers the ember. Her guard hangs open."
+  },
+  "moe-saint-flood-heart": {
+   "name": "The Names Flood In: Heart",
+   "description": "Every name floods the hall, and the glass remembers the heart she traced at its middle, dry place and all. Emptied, she has nothing left to guard herself with for a breath.",
+   "battleDescription": "Every name in the glass floods the hall, and the glass remembers the heart. Her guard hangs open."
+  },
+  "moe-saint-hush-where-they-refused": {
+   "name": "Hush Where They Refused",
+   "description": "The quiet finds one of the three dry places and seeps into it. Whoever waits there empties and cannot mend, and two places remain.",
+   "battleDescription": "The quiet finds one of the dry places where the three refused."
+  },
+  "moe-saint-a-good-impression": {
+   "name": "A Good Impression",
+   "description": "\"There. Hold still, and you will make a good impression.\" The ceiling cracks, and the glass begins to give back everything she ever drew in it. She holds nothing back now, not even her guard.",
+   "battleDescription": "\"There. Hold still, and you will make a good impression.\" The ceiling cracks."
+  },
+  "moe-saint-echo-pane-a": {
+   "name": "Glassfall: First Echo",
+   "description": "A third of the ceiling falls, and with it the first lines she ever drew, in the light they were drawn in. The next pane is already cracking, and she guards nothing while it falls.",
+   "battleDescription": "A third of the ceiling falls, and with it the first lines she ever drew. The next pane cracks."
+  },
+  "moe-saint-echo-pane-b": {
+   "name": "Glassfall: Second Echo",
+   "description": "A third of the ceiling falls, and with it the heart she etched in the Stilling. The next pane is already cracking, and she guards nothing while it falls.",
+   "battleDescription": "A third of the ceiling falls, and with it the heart. The next pane cracks."
+  },
+  "moe-saint-echo-pane-c": {
+   "name": "Glassfall: Last Echo",
+   "description": "A third of the ceiling falls, and with it the seam she traced down the west wall. The first pane cracks again; the ceiling goes round the hall the way a clock does.",
+   "battleDescription": "A third of the ceiling falls, and with it the seam. The first pane cracks again."
+  },
+  "moe-saint-every-line": {
+   "name": "Every Line Through You",
+   "description": "\"Hold still.\" A line of glass runs north and south through where you stand. It will bear one who stays; it will not bear one who walks along it.",
+   "battleDescription": "\"Hold still.\" A line of glass runs through %target."
+  }
+ }
+}
