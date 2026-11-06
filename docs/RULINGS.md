@@ -6077,3 +6077,33 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-06: "1. Approve 2. Keep it 3. Yeah its pretty good. Needs polish. 4. Sure." (answers to the enrage, arch, bloom and faint-floor questions); 2026-11-05: the OHKO and damage-model direction, "Widen".
 
 **Canonical destination:** `docs/design/MOTHER_OF_ECHOES_ACT3.md`, `docs/design/MOTHER_OF_ECHOES_ART.md`, `docs/design/SUBAKU_PALACE_ANIMATION.md`, and the sim params on `fable/mother-of-echoes-sim`.
+
+## RUL-2026-11-06-129 — Mother of Echoes: new-record names, Refraction faint floor, Act III text, Subaku light-only
+
+**Date:** 2026-11-06
+
+**Domain:** content text and art / the Mother of Echoes finale; Subaku Palace
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **New jutsu names approved.** The game keeps jutsu names unique, so these records get their own names:
+   - The Absence Settles
+   - The Hush Spreads, The Hush Pools, The Hush Gathers, The Hush Deepens, The Hush Lingers
+   - Black Refraction, Lucid Black Refraction, Black Facet, Black Facet Breaks
+   - Nothing Moves Again, No One Will Be Mended, Every Name Remembered
+   - The Remainder's Hush, Hush Where They Stood
+2. **The faint floor (RUL-128 item 5) also applies to the Refraction line.** Its approved animation is unchanged.
+3. **The Act III v2 jutsu descriptions are approved as drafted** (`push/mother_of_echoes_act3_text.json`).
+4. **Subaku Palace ships the light-only, no-spill arrival.**
+   - The resting tile is visible from tick 0, with unlit burnished rails, and stays as close to the original live tile as the exact edge joins allow.
+   - The bloom is drawn on the rails only, so fighters are never covered.
+   - The 4 untaggable rim hexes join the final pulse only.
+5. **Launch-scope calls, coordinator-decided:**
+   - The Saint has no entrance animation at launch, because her rules are full (20/20).
+   - The 15 retired Act III v1 records stay live but hidden and unequipped.
+   - The Act III v2 Echo panes and Flood variants are painted before the final job. The Saint's three line casts are painted only if time allows.
+
+**Evidence:** Director, 2026-11-06: "Approve, faint floor too. Descriptions are fine."; "Light only, no spill. Do a final polish pass and try to make it resemble the old hex as much as possible".
+
+**Canonical destination:** `push/mother_of_echoes_act3_text.json`; `docs/design/MOTHER_OF_ECHOES_ART.md`; `docs/design/SUBAKU_PALACE_ANIMATION.md`.
