@@ -2,7 +2,7 @@
 
 - **For:** the art director (Image Production)
 - **From:** Fable / Claude (2026-11-05)
-- **Status:** OPTIONAL. The programmatic version ships now: `art/subaku_palace/gates/` (`anim_sbk_gates_rise_v2`,
+- **Status:** OPTIONAL, and largely superseded: at the 1 hex-height clip (theninjarpg 338126cb) a gate is 7 x 26 px on the 50 px grid. Useful only for the 2.5 fallback (`build_gates_ratio25.py`). The programmatic version ships now: `art/subaku_palace/gates/` (`anim_sbk_gates_rise_v2`,
   `anim_sbk_master_loop_v2`, `tile_sbk_dais_v2`; see its README.md). These layers would replace the hand-placed
   gate face and palace silhouette with painted ones, which Claude reduces to the 50 px grid and animates with the same
   script and the same beat.

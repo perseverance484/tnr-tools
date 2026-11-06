@@ -1,0 +1,20 @@
+{
+ "source": "art/subaku_palace/gates/build_gates.py",
+ "timing": "art/subaku_palace/TIMING.md v1",
+ "ring1": 7,
+ "seal_peak": 20,
+ "assets": [
+  {
+   "file": "art/subaku_palace/gates/exports/anim_sbk_gates_rise_v3.webp",
+   "type": "ANIMATION",
+   "frames": 38,
+   "speed": 50,
+   "bytes": 3930,
+   "slot": "appearAnimation on the SELF increasedamagegiven effect (no staticAnimation, no staticAssetPath)",
+   "clip": "1 hex height (EFFECT_ANIMATION_HEX_RATIO = 1, theninjarpg cb755375)",
+   "lpc_body_cover_max": 0.1,
+   "lpc_core_cover_max": 0.0,
+   "legacy_marker_cover_max": 0.265
+  }
+ ]
+}

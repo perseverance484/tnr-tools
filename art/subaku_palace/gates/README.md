@@ -1,78 +1,90 @@
-# Subaku Palace: the centre payoff (sigil, gates, palace, the master's buff)
+# Subaku Palace: the centre payoff (sigil, oni gates, palace beat)
 
-Jutsu: Subaku Palace `jELEiw5W3N4m2R3oJm3Pk` (player EVENT, 40 AP, AOE_SPIRAL_SHOOT, range 4). SELF +30% damage given
-for 2 rounds; ground: enemies -15% damage given for 3 rounds. Battle text (`EVENT_JUTSU_STORY_TEXT.md`): "a sigil of
-burning gold spirals outward ... gates of red sandstone carved with snarling faces tear free of the ground, and the
-shadow of the demon palace falls across the field". The domain floor is the other half (`art/subaku_palace/`,
+Jutsu: Subaku Palace `jELEiw5W3N4m2R3oJm3Pk` (player EVENT, AOE_SPIRAL_SHOOT, range 4). SELF +30% damage given for
+2 rounds; ground: enemies -15% damage given for 3 rounds. The domain floor is the other half (`art/subaku_palace/`;
 `TIMING.md` owns the shared clock and palette). Live-game requests: 0. No jutsu mechanics changed.
 
-Build: `python3 art/subaku_palace/gates/build_gates.py [--sheet PNG]` (Pillow only) writes `exports/` and
-`exports/sbk_gates_v2.json`.
+Director, 2026-11-05: the sigil is symbolic. It plays in the cast and fades within it. There is no dais tile and no
+lingering buff loop. Combatants are character avatars, not portraits.
 
 ## Assets
 
-| File | Type | Frames x ms | Bytes | Slot (proposed) |
+| File | Geometry | Frames x ms | Bytes | Build |
 |---|---|---|---|---|
-| `exports/anim_sbk_gates_rise_v2.webp` | ANIMATION | 38 x 50 (1.9 s) | 6,374 | `appearAnimation` on the SELF `increasedamagegiven` effect |
-| `exports/anim_sbk_master_loop_v2.webp` | ANIMATION | 16 x 50 (0.8 s loop) | 994 | `staticAnimation` on the same effect (2 rounds) |
-| `exports/tile_sbk_dais_v2.webp` | STATIC | 1 | 1,042 | `staticAssetPath` on the same effect |
+| `exports/anim_sbk_gates_rise_v3.webp` | **main** (1 hex-height clip, LPC character avatars) | 38 x 50 | 3,930 | `build_gates.py` |
+| `exports/anim_sbk_gates_rise_v2.webp` | fallback for **3314d122** (2.5 hex-height clip, portrait marker and disc) | 38 x 50 | 6,374 | `build_gates_ratio25.py` |
 
-All three hang off the one existing SELF effect, so no tag is added. The director has accepted extra SELF visual tags if
-they are wanted later, for example a split appear. Assets are created hidden and unhidden by a follow-up (engine doc
-5.2).
+Proposed slot: `appearAnimation` on the existing SELF `increasedamagegiven` effect. Leave its `staticAnimation` and
+`staticAssetPath` empty. Ship exactly one of the two strips, the one that matches the deployed geometry.
 
-## The beat (ticks of 50 ms; TIMING.md v1: ring 1 lands on 7, the seal pulse peaks on 20)
+## Engine geometry (theninjarpg origin/main cb755375, fetched from GitHub)
+
+| Fact | Source |
+|---|---|
+| The effect clip is ONE hex height square (`EFFECT_ANIMATION_HEX_RATIO = 1`; it was 2.5 at 3314d122, changed in 338126cb, 2026-11-02) | `app/src/libs/rendering/animation.ts:72` |
+| The clip is centred on the hex, anchor 0.5, fetched as a 50 px rendition and sampled linearly | `scenes/combatEffects.ts:126,130`; `primitives/animation.ts:16,65` |
+| The hex is w = 2h (`HEX_ASPECT_RATIO = 0.5`), so the clip spans the hex from its flat top edge to its flat bottom edge, across the middle half of its width | `app/drizzle/constants.ts:941` |
+| Static ground art (`staticAssetPath`) is sized to the hex box (`size: tile.height, width: tile.width`) at any clip ratio, and draws under the fighters | `scenes/combatEffects.ts:139-152`, z 5.25 (`:23`) |
+| Clips draw over the fighters AND their HP/SP/CP meters (effects are the last child of the world) | `scenes/combat.ts:172-174` |
+| Player with `spriteAppearance` (303c6cbc, 2026-10-30): a layered LPC character 1.35h square, centred at 0.825h above the hex bottom | `scenes/combatActors.ts:36,604-618` |
+| LPC layers are 64 px frames scaled 1/64 into a unit square; feet at row 60, so groundY = 0.234h | `primitives/character.ts:56`; `combatActors.ts:98` |
+| The footprint varies: headgear fills the frame top (`:262`); oversized weapons use larger sheets that overrun the unit square (`character.ts:34`); facing changes with movement | |
+| Player without `spriteAppearance`: the old marker (h wide) plus a masked disc | `combatActors.ts:620-636` |
+| AI originals: 1.6h tall, preserveAspect, centred 0.9h | `combatActors.ts:595` |
+| The clan badge sits at x = 0.9w, outside a 1-hex clip | `combatActors.ts:646` |
+
+On the 50 px frame of a 1-hex clip, a typical LPC body (LPC px x 18-46, y 10-62) covers x 10-40 from above the
+frame down to y 40, with the feet at y 38. The head and shoulders are above the clip.
+
+## The beat (v3; TIMING.md v1: ring 1 lands on 7, the seal pulse peaks on 20)
 
 | Ticks | Centre |
 |---|---|
-| 0-5 | The sigil kindles at the caster's feet: a spark, then two burning-gold arms spiral out and the bevelled outer ring closes. The back arc passes behind the portrait. |
-| 6 | The six bands flash white-hot along the edge midpoints and run past the hex edge. The energy leaves the hex the tick before ring 1. |
-| 7-12 | Ring 1 lands. Two red sandstone gates tear up out of the stone with an overshoot. Each is crowned with a snarling oni face: V brows, slanted burning eyes, upper and lower fangs, an ember throat, a demon-gold collar. The torn lip glows with embers and chips arc out and fall back. |
-| 13-19 | The palace rises behind the caster: two three-tier pagoda towers (shadow roofs, demon-gold ridges with upturned tips, ember windows) and a lacquered wall with a moon gate whose round door is cut round the caster's pin. The gold arch traces up from both jambs to a horned oni crest. |
-| 20-21 | The held beat, on the seal peak. Nothing moves. Ridges, crest and eyes are white-hot on 20 only, then burning gold on 21. |
-| 22-37 | The settle. The palace sinks back (22-27) and the gates sink into the floor (24-32), shedding embers. The sigil cools from burning to demon gold, and its last frames match the dais under it, so the appear ends on the floor's look. |
-| 0 onward | The buff loop runs on the same clock (it draws over the appear): ember licks along both flanks, motes rising, demon-gold glints at the hex's side vertices on the beat (peak frame 0). |
+| 0-5 | The burning-gold sigil kindles at the caster's feet and spirals out over the ground around them. |
+| 6 | The bands flash white-hot and run out of the frame toward the hex's lower edges: the energy leaves the hex. |
+| 7-12 | On ring 1, two red sandstone gates, each crowned with a snarling oni face, tear up on either side of the caster, throwing chips. |
+| 13-19 | Pagoda roofs stack on both gates (gold ridges, upturned outer tips, finials). The two gate-towers flanking the caster are the palace's front. |
+| 20-21 | The held beat on the seal peak. Nothing moves. Ridges, finials and oni eyes are white-hot on 20 only. |
+| 22-35 | The roofs fold, the gates sink back into the floor shedding embers, and the sigil cools to demon gold and goes out. |
+| 36-37 | Empty. Nothing lingers. |
 
-## Rules this meets (checked by the build; it exits non-zero otherwise)
+**Limit of the 1-hex clip:** nothing can draw above the hex's top edge, while the character stands about 1.2h tall. So
+the gate-towers top out around the caster's chest, and no palace can rise behind or above them. The 2.5 fallback
+(v2) has room for a full palace and moon gate. A taller centre beat on main would need a different carrier, such as
+neighbouring-hex visual tags. That is a director decision.
 
-- **Clip square:** 2.5 hex heights, authored on the 50 px rendition grid and exported x3 nearest (150 px frames). No pixel
-  is within 2 px of the frame edge on any frame, so nothing clips.
-- **The caster stays readable:** the moon gate's door, the sigil's back arc and the sinking palace all keep the avatar
-  disc (r 8) clear. It is covered 0% on every frame. The build fails above 8%.
-- **The loop is restrained:** 1.2-2.5% of the frame, peaking on frame 0. Nothing falls inside this hex's pin box, the
-  pin of the hex below, or the clan badge (`build_fx.portrait_mask` geometry).
-- **Palette:** every opaque pixel is from `TIMING.md` (shadow, red sandstone x5, demon gold x3, burning gold x3, ember
-  x4) or the domain tile's basalt (`#1f1111 #2b1c1a #362521`). White-hot `#fff4c8` appears on ticks 6 and 20 only. There
-  is no green, violet or cyan.
-- **Overdraw:** alpha is hard (0/255) everywhere, so an extra copy of a frame changes nothing. The appear plays once
-  anyway: it is on a damage-modifier tag, which the client draws once (engine doc 0.4).
-- **Preflight:** `artpreflight.py --type ANIMATION` (2 strips) and `--type STATIC` (dais) both return 0 errors and
-  0 warnings. The reports are in `_provenance/`, with `SHA256SUMS`.
+## Checks (`build_gates.py` exits non-zero otherwise)
 
-## Composite order (a note for the floor's preview)
+- No pixel is within 2 px of the frame edge on any frame.
+- Every opaque pixel is in the TIMING.md palette (plus two basalt shades from the domain tile). Alpha is hard (0/255).
+- White-hot appears on ticks 6 and 20 only. The last two frames are empty.
+- **LPC head/torso core** (x 14-36): 0% covered on every frame. **Whole LPC envelope** (arms to x 10-40): at most 10%. That
+  is the gates standing in front of the arms' outer edges, which they physically do (gate base y 45, feet y 38). The
+  cap is 12%.
+- Legacy marker coverage, for a player without a character appearance, is 26.5% at most. It is reported, not gated:
+  the marker spans the whole clip width.
+- The envelope is a model, not real LPC art (none is in the repo). Headgear and oversized weapons extend it.
+- `artpreflight.py --type ANIMATION` on both strips: 0 errors, 0 warnings (`_provenance/`).
 
-Within one sync, ground effects are created before user effects (`combatEffects.ts:55-66`, engine doc 3.2). That
-covers the ground tag's records, its server `visual`s and the band visual tags. So the SELF appear and loop draw over
-the seal and band clips, not under them. The previews here use that order.
+## Previews
 
-## Previews (true scale, the shared harness `scratchpad/custom/qa_preview.py`, imported unmodified)
+The main-geometry preview draws:
+- the clip at 66 px on a 132 x 66 hex;
+- an LPC stand-in caster mapped by LPC rows;
+- AI enemies at 1.6h;
+- the floor half's static tile.
 
-The arena is 12 x 10, with the caster plus three enemies, on the domain half's WIP floor (`tile_sbk_domain_v3`, band
-waves, seal) for both column parities. GIFs and key sheets are in the handoff. `keys_phone_59px.png` shows the 59 px
-clip of a 400 px phone canvas, the 50 px read.
+The floor's wave and seal clips are left out: they were authored for a 2.5h clip. The script lives in the session
+scratchpad, `sbk_view/preview_main.py`, and imports `qa_preview.py` with `CLIP_RATIO=1`.
 
-## Open (user-owned decisions; proposals only)
+The harness itself is not modified. Note that its `LPC=1` stand-in draws the body over the whole 1.35h frame, which
+puts the head too high and the feet too low.
 
-1. **The dais lasts 2 rounds and the floor 3.** In round 3 the caster's hex goes back to bare board inside the domain. Options:
-   - accept it, as a tell that the buff ended;
-   - put the dais on a zero-impact SELF visual tag with rounds 3 (a record change for the director).
-2. **The dais follows the caster.** It is a user effect, drawn on the target's current hex. A caster who walks away
-   carries the hub and leaves a bare hole at the domain's centre. The alternative is a COORDINATES carrier at the cast
-   hex, which also changes the record.
-3. **TIMING.md's centre column** (gates 17-24, hold 24-30, settle 30-38) predates the coordinator's ruling: gates on
-   ring 1 (tick 7), hold on the seal peak (tick 20). These assets follow the ruling. The floor half owns TIMING.md and
-   should update that column.
-4. **Dais exits.** The six bands leave at the edge midpoints, matching the approved exact-geometry floor's interlock. If
-   the final floor tile moves its band exits, re-sync `EDGE_MID` and rebuild (one constant).
-5. **Painted layers (optional upgrade):** `docs/handoffs/SUBAKU_PALACE_GATES_ART_REQUEST.md`. The programmatic version
-   ships meanwhile.
+## Open
+
+1. **Which geometry is deployed.** Character avatars are confirmed live (so 303c6cbc is deployed). The 1-hex clip
+   (338126cb) is assumed live until confirmed.
+2. **TIMING.md's centre column** predates the ruling that puts the gates on ring 1 and the hold on the seal peak. The
+   floor half owns that file.
+3. **Painted layers (optional):** `docs/handoffs/SUBAKU_PALACE_GATES_ART_REQUEST.md`. Those were sized for the 2.5 clip; at
+   1 hex the gate is 7 x 26 px, so painting buys little.
