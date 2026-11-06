@@ -1,0 +1,173 @@
+{
+ "_note": "DRAFT pending director approval (2026-11-05). Mother of Echoes jutsu text by jutsu name; see docs/design/MOTHER_OF_ECHOES_JUTSU_TEXT.md. Not wired into push/mother_of_echoes.gen.py.",
+ "jutsu": {
+  "Glass Lancet": {
+   "description": "She lifts one finger, and a sliver of the wall comes for you. Every lancet she throws steadies the next, and nothing can wash that steadiness from her hand; only time lets it go."
+  },
+  "Lucid": {
+   "description": "While her shadow stands beside her, she cannot hear herself think. Silence it, and Sayo hears every thought again, and her glass cuts deeper for it."
+  },
+  "Refraction": {
+   "description": "\"Three lines. Mind them.\" Light runs in from the walls and lies across the floor, very bright and very still. Light like that does not stay whole for long."
+  },
+  "Far Refraction": {
+   "description": "\"Three more.\" Light runs in from the far walls, laid across the floor where the first lines were not. It is just as bright, and just as brittle."
+  },
+  "Facet": {
+   "description": "Once her glass is badly cracked, every line she draws has a reflection, mirrored across the hall. The gaps between a line and its double are narrow, and they are all there is."
+  },
+  "Refraction Breaks": {
+   "description": "The lines of light shatter where they lie, and whoever stood on one is cut deep. For a moment the broken glass stays sharp underfoot: wounds taken there close slowly and open wider."
+  },
+  "Far Refraction Breaks": {
+   "description": "The far lines shatter where they lie. The shards stay sharp a moment longer than the light, and nothing standing in them mends well or bleeds little."
+  },
+  "Facet Breaks": {
+   "description": "The lines and their reflection shatter together. Where both images broke, the floor stays jagged for a moment, and nothing on it mends well."
+  },
+  "Lucid Refraction": {
+   "description": "\"I can see it clearly now.\" The lines shatter, and new ones are already lying where the light falls. She no longer needs to pause between one thought and the next."
+  },
+  "Your Likeness": {
+   "description": "\"Hold still. There. That is you.\" When she is badly hurt, she pours an impression of you out of the glass. It fights the way you fight, but an impression is thin, and it does not last."
+  },
+  "The Glass Remembers": {
+   "description": "The hall is patient, but not forever. Linger too long in her house and every pane turns toward you at once, and there is no floor left that is not glass."
+  },
+  "The Hush": {
+   "description": "Where her shadow passes, sound stops and does not come back. The still pools it leaves stay a long time; whatever stands in them slowly empties, and no wound there will close."
+  },
+  "The Hush, Unbridled": {
+   "description": "Nothing holds the quiet back now. It pours up through the floor faster than it ever did, and the pools it leaves wound whatever stands in them. Clean floor grows scarce.",
+   "battleDescription": "Nothing holds the quiet back now. It pours up out of the floor in still, dark pools."
+  },
+  "Stillness": {
+   "description": "The floor around the Silence goes still, and everything near her begins to stop. Nothing close to her moves for long. The far side of the hall is still loud."
+  },
+  "Nothing Moves": {
+   "description": "For a moment nothing near the Silence moves, and nothing can. Those it holds are crushed, and for a few rounds after their wounds close slowly and open easily, until something clean washes the stillness off."
+  },
+  "The Listening": {
+   "description": "Something under the floor turns toward the sound of you. A feeler of the deep rises and listens, and while any part of the deep still lives in the hall, it keeps hold of her."
+  },
+  "The Listening, Unbridled": {
+   "description": "It no longer waits to hear you. The feelers rise one after another now, and as long as one of them lives, the deep keeps its hold on her."
+  },
+  "The Silence Turns": {
+   "description": "Her shadow turns toward the weight of you. The floor under your feet goes still before it breaks, and it takes a great deal from whatever is still standing on it.",
+   "battleDescription": "The floor under %target goes still. Something below has turned toward it."
+  },
+  "Cradle": {
+   "description": "The deep closes around her like cupped hands, and blows slide off the glass. It holds her only while something of the deep still lives in the hall, and nothing can pry the hold loose but that."
+  },
+  "Grasp": {
+   "description": "The feeler closes around whatever is nearest, without a sound. What it holds cannot move for a moment and slowly empties, and the floor beneath a held thing does not wait for it."
+  },
+  "Your Own Strike": {
+   "description": "Your likeness strikes exactly the way you would, straight through the guard you trust. It has learned only your habits, and only for a little while."
+  },
+  "Etching: Rime": {
+   "description": "She traces the north of the hall into the glass. It rimes over, glows, and fades. The glass forgets nothing she draws."
+  },
+  "Etching: Ember": {
+   "description": "She traces the south of the hall into the glass. It glows like an ember, then fades from sight, but not from the glass."
+  },
+  "Etching: Seam": {
+   "description": "She traces a seam down the west wall. It glows, then sinks into the glass, which keeps it the way a scar keeps a cut."
+  },
+  "Etching: Heart": {
+   "description": "She traces the heart of the hall into the glass. It beats once, then fades. The glass keeps the rhythm long after the light is gone."
+  },
+  "Etching: Hail": {
+   "description": "She taps a scatter of points into the glass, like hail. Each one glows and fades, and each one is remembered, exactly where it fell."
+  },
+  "Recast: Rime": {
+   "description": "The glass remembers the rime, and the north of the hall breaks with nothing to show where. Only someone who also remembers will be standing elsewhere. For a breath after the glass answers her, her own guard hangs open."
+  },
+  "Recast: Ember": {
+   "description": "The glass remembers the ember, and the south of the hall breaks without a mark. The ember was shown once, and once is all it gets. While the glass answers, she is open to anyone who stayed whole."
+  },
+  "Recast: Seam": {
+   "description": "The glass remembers the seam, and the west wall breaks, unmarked. The scar was always there for anyone who watched it sink in. Her guard stays open for a breath after the glass answers."
+  },
+  "Recast: Heart": {
+   "description": "The glass remembers the heart, and the middle of the hall breaks, unmarked. The edges that never glowed are the only ones it does not remember. For a breath afterward her own guard hangs open."
+  },
+  "Recast: Hail": {
+   "description": "The glass remembers every point of hail, and all of them break at once, unmarked. Between the points it remembers there is room to stand. In the moment the glass answers, she stands open."
+  },
+  "The Hush Rises": {
+   "description": "While she etches, the Silence seeps up through the floor in still patches that never close. More of them rise every time she draws, and whatever stands in one empties fast and cannot mend."
+  },
+  "The Glass Falls Quiet": {
+   "description": "\"Again.\" She lowers her hand, and for a moment the hall rests. In the lull, someone worn steps out of the glass, and the next pattern is already waiting in her fingers."
+  },
+  "The Glass Turns": {
+   "description": "In the lull, the glass remembers the weight of you. The floor where you stand goes still before it breaks, and it takes a great deal from whatever has not moved.",
+   "battleDescription": "The glass under %target remembers the weight of you."
+  },
+  "Raise the Gate Porter": {
+   "description": "The gate porter steps out of the glass, still holding a door that is not there. He keeps his threshold close and clears it of anyone who stands too near, wherever the step back lands them."
+  },
+  "Raise Sister Hana": {
+   "description": "Sister Hana steps out of the glass, hands already busy with someone else's wounds. She mends Sayo as she mended everyone, and she will not stop on her own."
+  },
+  "Raise Cadet Tomo": {
+   "description": "Cadet Tomo steps out of the glass, rope in hand, waiting for an order. His line reaches a long way, and it does not care what floor it drags you across."
+  },
+  "Doorward Sweep": {
+   "description": "\"Gate's closed.\" The gate porter sweeps the threshold clear with a heavy blow, and whoever stood there is put a step outside, onto whatever floor was behind them."
+  },
+  "Worn Mending": {
+   "description": "\"Hold still, it's nearly done.\" Sister Hana tends Sayo, closing her wounds a little at a time. She has done this for so long she no longer knows how to stop; someone will have to stop her."
+  },
+  "Cadet's Tether": {
+   "description": "\"Line's secure!\" Tomo throws his line and hauls, and you come in several steps with it. The rope does not look down at the floor it pulls you over."
+  },
+  "The Quiet": {
+   "description": "She closes her eyes and the hall goes quiet, and you go quiet with it. Each time, a little more of you stops mending and a little more gives way, and while her eyes are closed nothing can wash it off."
+  },
+  "Shatterfall": {
+   "description": "Cracks fan out from her feet across the glass. Glass that cracked like that will not hold anyone's weight for long, and no one standing in the fan has ever walked out of the fall."
+  },
+  "Shatterfall Gives Way": {
+   "description": "The fan of cracks gives way, and the glass beneath it falls. Those who were standing in it do not come back up, and the broken edges stay sharp underfoot for a while after."
+  },
+  "Every Name in the Glass": {
+   "description": "\"Do you hear them? Every one of them stayed.\" Every stilled name rises to the floor at once, and the whole hall glows with them, except three places: where the three refused."
+  },
+  "The Names Flood In": {
+   "description": "Every name in the glass floods the hall. They take everyone who stands among them; only the three who refused were never theirs, and the ground where they stood stays dry."
+  },
+  "No One Is Mended": {
+   "description": "\"Nothing mends here. Nothing needs to.\" While the names rise, the quiet covers the whole floor, and for a long time no wound anywhere will close. What you carried in is all you will have."
+  },
+  "Hush Where They Refused": {
+   "description": "The quiet finds one of the three dry places and seeps into it. That place is no longer dry; whoever waits there empties and cannot mend, and two places remain."
+  },
+  "The Held Breath": {
+   "description": "She breathes in, and the air leaves the hall, except where the three refused. Something that large will have to be breathed out again, and everyone it reaches will go with it."
+  },
+  "Breathless Pull": {
+   "description": "The breath she took is spent. Everyone it reaches is drawn toward her and left breathless, unable to move from wherever the breath set them down. The three dry places keep their air."
+  },
+  "The Long Hush": {
+   "description": "\"Not yet. You are almost a good impression.\" When she is nearly broken, the hush holds her up and she will not fall, but no hush lasts. Above, the ceiling begins to come down."
+  },
+  "Glassfall: First Pane": {
+   "description": "A third of the ceiling comes down where the glass was marked, and the next pane cracks. The ceiling has three panes, and it falls one third at a time."
+  },
+  "Glassfall: Second Pane": {
+   "description": "Another third of the ceiling comes down, and the next pane cracks. What was marked falls; what is newly marked will fall next."
+  },
+  "Glassfall: Last Pane": {
+   "description": "The last third of the ceiling comes down, and the first pane cracks again. The fall goes round the hall the way a clock does."
+  },
+  "Glassfall: Opening Pane": {
+   "description": "This time the second third comes down first, and the last pane cracks. The ceiling keeps its marks honest even when it does not keep its order."
+  },
+  "Glassfall: Heart Recast": {
+   "description": "The ceiling comes down, and the glass remembers the heart once more. Whoever learned where the heart was drawn in the Stilling remembers it too."
+  }
+ }
+}

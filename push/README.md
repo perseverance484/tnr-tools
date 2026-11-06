@@ -1719,6 +1719,8 @@ Dry runs: `MOE_SPEC_FILE=<spec.json> MOE_OUT_DIR=<dir outside push/>` builds any
 
 **Run log (2026-11-05 UTC).** 467 ran: `harvests/inbox/tnr_results_1793847106353.json`, manifest hash 9a991533, 16/16 VERIFIED (15 FX unhidden; practice quest scenes and icon). 476 ran: `harvests/inbox/tnr_results_1793925607180.json`, hash 5d8f3ad5: 2 jutsu creates, 9 unequips and 53 jutsu edits VERIFIED; the 9 re-equips CONFIRMED with the same scaleEditedAi stat drift only (sent 1,391,300, live 1,622,256 on all six stats), as at 463 and 466.
 
+**Jutsu text pass (DRAFT, pending director approval):** `push/mother_of_echoes_text.json` (55 jutsu, by name) with the review doc `docs/design/MOTHER_OF_ECHOES_JUTSU_TEXT.md`; not wired into the generator until approved.
+
 **Still to come:** the go-live, **477** (`--step golive`; was 467), after 476.
 
 1. **466** `466_mother_of_echoes_final.json`, JOB 1, 88 items, one imagePack (12e54c08, 32 files; the art-QA polish):
