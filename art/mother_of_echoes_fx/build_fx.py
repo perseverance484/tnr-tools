@@ -930,6 +930,926 @@ def build_flood_mask():
     return fr
 
 
+# ================================================================================================================
+# Custom set (director, 2026-11-05: "we're borrowing a lot of animations from elsewhere in the event instead of
+# making our own"). Every Mother of Echoes slot that borrowed a live Skyglass/library strip gets its own, drawn in
+# Sayo's glass look but keeping the event's danger GRAMMAR (docs/design/SKYGLASS_BOSS_ANIMATIONS.md readability
+# rules): heavy = ember ring with cracks, control = violet links in a ring, linger = bile seep, safe = cyan
+# four-point star in a diamond; shape carries the meaning, colour confirms it. Here the ring is cracked glass, the
+# links are faceted violet glass, the seep wells through crazed glass, the safe diamond is a cut glass pane.
+# All on the 50 px grid in solid clusters (the CDN 50 px rendition + pixi's linear stretch), 1 px dark outlines.
+# ================================================================================================================
+EMBER_D = (92, 30, 18)
+EMBER_DEEP = (34, 14, 14)
+EMBER_RED = (214, 58, 26)
+EMBER_YEL = (255, 206, 84)
+BILE = (150, 186, 40)
+BILE_HOT = (214, 238, 104)
+BILE_D = (52, 70, 14)
+BILE_DEEP = (22, 30, 10)
+VIOLET_L = (176, 140, 232)
+VIOLET_M = (128, 92, 196)
+CYAN_L = (206, 244, 252)
+ASH = (128, 118, 112)
+ASH_D = (58, 52, 56)
+ASH_L = (186, 178, 168)
+TC = (25, 25)          # tile-space centre (the 50 px STATIC is stretched to the hex box, 2:1)
+GC, GRX, GRY = (25, 25), 19.0, 9.5     # the hex's ground ellipse in animation-frame px
+
+
+def disc_mask(cx, cy, r, ry=None):
+    m = Image.new('L', (N, N), 0)
+    ry = r if ry is None else ry
+    ImageDraw.Draw(m).ellipse([cx - r, cy - ry, cx + r, cy + ry], fill=255)
+    return m
+
+
+def tile_out(t):
+    """Tile export: RGB filled under transparency, delivered x3 nearest (150 px), like tile_moe_etch."""
+    return fill_under(t).resize((N * SCALE, N * SCALE), Image.NEAREST)
+
+
+def jag(cx, cy, r0, r1, a, wob, steps=7):
+    """A jagged crack polyline from radius r0 to r1 along angle a (degrees), deterministic zig-zag."""
+    pts = []
+    for k in range(steps + 1):
+        t = k / steps
+        r = r0 + (r1 - r0) * t
+        g = math.radians(a + (wob if k % 2 else -wob) * (0.3 + t))
+        pts.append((cx + r * math.cos(g), cy + r * math.sin(g)))
+    return pts
+
+
+# ------------------------------------------------------------------------------------------------ heavy (tile + loop)
+HEAVY_CRACKS = (15, 82, 150, 214, 286, 340)
+
+
+def build_tile_heavy():
+    """Heavy: the Skyglass heavy silhouette (a bright ember ring round a near-black ground, thin jagged cracks) cut
+    as glass: the ring is a ten-sided band of red-to-yellow facets split by dark seams, white sheen on its upper-left
+    plates, and four thin jagged cracks with white-hot cores run from the rim to a small smouldering core."""
+    t = frame()
+    d = ImageDraw.Draw(t)
+    poly = lambda r, rot=18: [(25 + r * math.cos(math.radians(k * 36 + rot)), 25 + r * math.sin(math.radians(k * 36 + rot))) for k in range(10)]
+    d.polygon(poly(24.6), fill=(*SCORE, 255))
+    d.polygon(poly(23.2), fill=(*EMBER_RED, 255))
+    d.polygon(poly(21.2), fill=(*EMBER_YEL, 255))
+    d.polygon(poly(19.6), fill=(*EMBER_RED, 255))
+    d.polygon(poly(18), fill=(*SCORE, 255))
+    d.polygon(poly(17), fill=(*EMBER_DEEP, 255))
+    for k in range(10):                                          # facet seams
+        g = math.radians(k * 36 + 18)
+        d.line([(25 + 17.5 * math.cos(g), 25 + 17.5 * math.sin(g)), (25 + 24 * math.cos(g), 25 + 24 * math.sin(g))], fill=(*SCORE, 255), width=1)
+    for k in (5, 6):                                             # sheen on the upper-left plates
+        g = math.radians(k * 36 + 36)
+        blob(t, 25 + 21.5 * math.cos(g), 25 + 21.5 * math.sin(g), WHITE)
+    for a, wob in ((30, 16), (128, 13), (212, 17), (300, 14)):    # four thin jagged cracks
+        pts = jag(25, 25, 4.5, 18, a, wob, steps=5)
+        d.line(pts, fill=(*EMBER_RED, 255), width=2)
+        d.line(pts[1:4], fill=(*EMBER_YEL, 255), width=1)
+    d.ellipse([20, 20, 30, 30], fill=(*SCORE, 255))
+    d.ellipse([21.5, 21.5, 28.5, 28.5], fill=(*EMBER_RED, 255))
+    d.ellipse([23, 23, 27, 27], fill=(*EMBER_YEL, 255))
+    d.rectangle([24, 24, 26, 26], fill=(*WHITE, 255))
+    return tile_out(t)
+
+
+def side_mask():
+    """Loops sit over the actors: keep them to the hex's left and right ends (the portrait-clear junctions)."""
+    m = Image.new('L', (N, N), 255)
+    return m
+
+
+def build_heavy_glint():
+    """Heavy loop: ember flares run along the ring at the hex's left and right ends and embers lift off them, the
+    whole field pulsing on the shared 0.8 s beat. Portrait-clear."""
+    fr = []
+    for i in range(BEAT):
+        f = frame()
+        p = pulse(i)
+        hot = p > 0.6
+        for side in (-1, 1):
+            for k in range(7):                                  # the ring's end arc, thick
+                a = math.radians((180 if side < 0 else 0) + (k - 3) * 9)
+                x, y = GC[0] + (GRX - 1) * math.cos(a), GC[1] + (GRY - 0.5) * math.sin(a)
+                blob(f, x, y, ORE_HOT if hot else ORE)
+                px(f, x, y + 1.5, EMBER_D)
+            for k, (dx, h0) in enumerate(((2, 0), (5, 5), (0, 9))):   # embers lifting
+                y = GC[1] - 2 - ((i + h0) % BEAT) * 0.9
+                x = GC[0] + side * (GRX - 3 + dx * 0.6)
+                if y > 5:
+                    blob(f, x, y, ORE_HOT if (i + h0) % BEAT < 6 else ORE, r=1)
+        if i == 0:
+            for side in (-1, 1):
+                blob(f, GC[0] + side * (GRX - 1), GC[1], WHITE, r=2)
+        fr.append(f)
+    return mind_portrait(fr)
+
+
+# ------------------------------------------------------------------------------------------------ control (hush)
+def build_tile_control():
+    """Control/lock: the Skyglass control silhouette (a bright violet chain ring) as fourteen faceted violet glass
+    links, alternating solid and open, round an ink ground with a closed glass eye (the hush) at the centre."""
+    t = frame()
+    d = ImageDraw.Draw(t)
+    d.ellipse([0.5, 0.5, 49.5, 49.5], fill=(*INK, 255))
+    d.ellipse([12, 12, 38, 38], fill=(*VIOLET_D, 255))
+    n = 14
+    for k in range(n):
+        g = math.radians(k * 360 / n)
+        cx, cy = 25 + 19.2 * math.cos(g), 25 + 19.2 * math.sin(g)
+        tang = g + math.pi / 2
+        ux, uy, vx, vy = math.cos(tang), math.sin(tang), math.cos(g), math.sin(g)
+        L, W = (4.6, 3.2) if k % 2 == 0 else (4.6, 2.0)
+        corners = [(cx + ux * L + vx * W, cy + uy * L + vy * W), (cx - ux * L + vx * W, cy - uy * L + vy * W),
+                   (cx - ux * L - vx * W, cy - uy * L - vy * W), (cx + ux * L - vx * W, cy + uy * L - vy * W)]
+        d.polygon(corners, fill=(*VIOLET_L, 255), outline=(*INK, 255))
+        inner = [(cx + (x - cx) * 0.5, cy + (y - cy) * 0.5) for x, y in corners]
+        d.polygon(inner, fill=(*(INK if k % 2 == 0 else VIOLET_M), 255))
+    for k in range(0, n, 2):                                     # glass glints on the solid links, upper-left lit
+        g = math.radians(k * 360 / n)
+        if math.cos(g) + math.sin(g) < 0:
+            blob(t, 25 + 20.5 * math.cos(g), 25 + 20.5 * math.sin(g), WHITE, r=1)
+    # the closed eye
+    d.polygon([(13, 25), (19, 19), (31, 19), (37, 25), (31, 31), (19, 31)], fill=(*VIOLET_M, 255), outline=(*INK, 255))
+    d.polygon([(16, 25), (20, 21.5), (30, 21.5), (34, 25), (30, 28.5), (20, 28.5)], fill=(*VIOLET_L, 255))
+    d.line([(14, 25), (36, 25)], fill=(*INK, 255), width=3)
+    for x in (18, 22, 26, 30, 33):
+        d.line([(x, 27), (x - 1, 30)], fill=(*INK, 255), width=1)
+    return tile_out(clip(t, disc_mask(25, 25, 24.8)))
+
+
+def build_control_glint():
+    """Control loop: a violet glint runs round the links and the link ends tighten on the beat at the hex's sides.
+    Portrait-clear."""
+    fr = []
+    for i in range(BEAT):
+        f = frame()
+        p = pulse(i)
+        for side in (-1, 1):
+            for k in range(3):
+                a = math.radians((180 if side < 0 else 0) + (k - 1) * 14)
+                x, y = GC[0] + (GRX - 1.5 - p) * math.cos(a), GC[1] + (GRY - 1) * math.sin(a)
+                blob(f, x, y, VIOLET_L if p > 0.6 else VIOLET_M)
+                px(f, x + side, y, INK)
+        k = i % BEAT                                            # the travelling glint
+        a = math.radians(180 + k * (360 / BEAT))
+        x, y = GC[0] + (GRX - 1) * math.cos(a), GC[1] + (GRY - 0.5) * math.sin(a)
+        blob(f, x, y, WHITE)
+        fr.append(f)
+    return mind_portrait(fr)
+
+
+# ------------------------------------------------------------------------------------------------ linger
+def build_tile_linger():
+    """Lingering: the Skyglass seep silhouette (an irregular bile blotch with dark gaps) as bile welling up through
+    crazed glass: overlapping lumps, a web of bright cracks, bubbles."""
+    t = frame()
+    d = ImageDraw.Draw(t)
+    lumps = [(25, 25, 15), (14, 18, 8), (36, 17, 8), (39, 31, 8), (13, 33, 8), (25, 39, 8), (25, 10, 7), (8, 25, 6), (42, 24, 6)]
+    for x, y, r in lumps:
+        d.ellipse([x - r - 1.5, y - r - 1.5, x + r + 1.5, y + r + 1.5], fill=(*BILE_DEEP, 255))
+    for x, y, r in lumps:
+        d.ellipse([x - r, y - r, x + r, y + r], fill=(96, 124, 26, 255))
+    for x, y, r in lumps[:6]:
+        d.ellipse([x - r * 0.55, y - r * 0.55, x + r * 0.55, y + r * 0.55], fill=(*BILE_DEEP, 255))
+    for a in (20, 80, 140, 200, 260, 320):
+        pts = jag(25, 25, 2, 21, a, 13, steps=6)
+        d.line(pts, fill=(*BILE, 255), width=2)
+        d.line(pts[:3], fill=(*BILE_HOT, 255), width=1)
+    for x, y in ((17, 18), (33, 15), (37, 32), (17, 34), (26, 26), (9, 24), (41, 22), (25, 40)):
+        blob(t, x, y, BILE_HOT)
+        px(t, x - 1, y - 1, WHITE)
+    return tile_out(clip(t, disc_mask(25, 25, 24.5)))
+
+
+def build_linger_glint():
+    """Linger loop: bubbles swell and pop at the pool's left and right ends; 1.2 s (24 frames). Portrait-clear."""
+    fr = []
+    for i in range(24):
+        f = frame()
+        for side, ph in ((-1, 0), (1, 12)):
+            t = (i + ph) % 24
+            x = GC[0] + side * (GRX - 4)
+            y = GC[1] + 1
+            if t < 10:
+                r = 1 + t // 4
+                n = frame()
+                ellipse(n, x, y - t * 0.3, r + 0.5, r * 0.8 + 0.5, BILE, n=40)
+                blob(n, x - 1, y - t * 0.3 - r * 0.5, BILE_HOT)
+                outline_alpha(n, BILE_DEEP)
+                f.alpha_composite(n)
+            elif t < 13:
+                for dx, dy in ((-2, -2), (2, -2), (0, -4)):
+                    blob(f, x + dx * (t - 9), y - 3 + dy * (t - 9) * 0.6, BILE_HOT)
+        fr.append(f)
+    return mind_portrait(fr)
+
+
+# ------------------------------------------------------------------------------------------------ safe
+def build_tile_safe():
+    """Safe: a cut-glass diamond pane in Skyglass cyan with a white four-point star rising from its centre: the
+    Skyglass safe silhouette, the most inviting thing on the board."""
+    t = frame()
+    d = ImageDraw.Draw(t)
+    dia = [(25, 1), (49, 25), (25, 49), (1, 25)]
+    d.polygon(dia, fill=(*GLASS_D, 255))
+    d.polygon([(25, 4), (46, 25), (25, 46), (4, 25)], fill=(*CYAN_D, 255))
+    d.polygon([(25, 7), (43, 25), (25, 43), (7, 25)], fill=(*CYAN, 255))
+    # facets: light upper-left faces, mid lower-right
+    d.polygon([(25, 7), (7, 25), (25, 25)], fill=(*CYAN_L, 255))
+    d.polygon([(25, 43), (43, 25), (25, 25)], fill=(*CYAN_D, 255))
+    d.polygon([(25, 12), (38, 25), (25, 38), (12, 25)], fill=(*CYAN_D, 255))
+    d.polygon([(25, 14), (36, 25), (25, 36), (14, 25)], fill=(*CYAN, 255))
+    # the star
+    star = [(25, 9), (28, 22), (41, 25), (28, 28), (25, 41), (22, 28), (9, 25), (22, 22)]
+    d.polygon(star, fill=(*GLASS_D, 255))
+    star_in = [(25, 11), (27.2, 22.8), (39, 25), (27.2, 27.2), (25, 39), (22.8, 27.2), (11, 25), (22.8, 22.8)]
+    d.polygon(star_in, fill=(*WHITE, 255))
+    d.line([(25, 12), (25, 38)], fill=(*CYAN_L, 255))
+    d.rectangle([24, 24, 26, 26], fill=(*WHITE, 255))
+    return tile_out(t)
+
+
+def build_safe_glint():
+    """Safe loop: calm light rising at the diamond's left and right points and a soft star twinkle there, 1.6 s
+    (32 frames). Portrait-clear."""
+    fr = []
+    for i in range(32):
+        f = frame()
+        for side, ph in ((-1, 0), (1, 16)):
+            t = (i + ph) % 32
+            x = GC[0] + side * (GRX - 2)
+            for k in range(3):
+                y = GC[1] - ((t + k * 10) % 32) * 0.7
+                if y > 6:
+                    blob(f, x + (k - 1) * 2 * side, y, CYAN_L if k == 1 else CYAN)
+            r = 3 if t == 0 else 2 if t in (1, 31) else 1 if t in (2, 30) else 0
+            if r:
+                for s in range(1, r + 1):
+                    for dx, dy in ((s, 0), (-s, 0), (0, s), (0, -s)):
+                        px(f, x + dx, GC[1] + dy, WHITE)
+                px(f, x, GC[1], WHITE)
+        fr.append(f)
+    return mind_portrait(fr)
+
+
+# ------------------------------------------------------------------------------------------------ mark appear / vanish
+def ground_ring(f, rx, ry, layers, cx=25, cy=25, a0=0, a1=360):
+    for dr, col in layers:
+        n = max(16, int(abs(a1 - a0) / 360 * 2 * math.pi * max(rx, ry) * 3))
+        for k in range(n + 1):
+            a = math.radians(a0 + (a1 - a0) * k / n)
+            px(f, cx + (rx + dr) * math.cos(a), cy + (ry + dr * 0.5) * math.sin(a), col)
+
+
+def build_heavy_appear():
+    """Heavy mark arrives: a white-hot ring slams down a little wider than the hex and contracts onto the mark's rim,
+    then ember sparks kick up off the rim and fall back (the tile under it holds the mark). 10 frames, one-shot."""
+    fr = []
+    sparks = [(k * 45 + 20, 1.0 + 0.3 * (k % 3)) for k in range(8)]
+    for i in range(10):
+        f = frame()
+        if i <= 3:
+            s = {0: 1.35, 1: 1.18, 2: 1.05, 3: 1.0}[i]
+            rx, ry = (GRX - 1) * s, (GRY - 0.5) * s
+            ground_ring(f, rx, ry, [(0, WHITE), (1, EMBER_YEL), (-1, EMBER_YEL), (2, EMBER_RED), (-2, EMBER_RED)] if i < 3
+                        else [(0, EMBER_YEL), (1, EMBER_RED), (-1, EMBER_RED)])
+        if 3 <= i <= 9:
+            t = i - 2
+            for k, (a, sp) in enumerate(sparks):
+                if t > 5 and k % 2:
+                    continue
+                g = math.radians(a)
+                x0, y0 = 25 + (GRX - 1) * math.cos(g), 25 + (GRY - 0.5) * math.sin(g)
+                x, y = x0 + math.cos(g) * t * 0.9, y0 - sp * t * 2.4 + 0.45 * t * t
+                n = frame()
+                blob(n, x, y, WHITE if t < 2 else EMBER_YEL if t < 4 else EMBER_RED)
+                outline_alpha(n, SCORE)
+                f.alpha_composite(n)
+        fr.append(f)
+    return fr
+
+
+def build_heavy_vanish():
+    """Heavy mark clears (spawned as its own visual when the mark expires): the ring gives one last dull glow, cracks
+    apart into ember chips and they rise as ash. 8 frames."""
+    fr = []
+    for i in range(8):
+        f = frame()
+        if i <= 1:
+            ground_ring(f, GRX - 1, GRY - 0.5, [(0, EMBER_RED), (1, EMBER_D)])
+        if i >= 1:
+            t = i - 1
+            for k in range(10):
+                if t > 3 and k % 2:
+                    continue
+                g = math.radians(k * 36 + 10)
+                x, y = 25 + (GRX - 1) * math.cos(g), 25 + (GRY - 0.5) * math.sin(g) - t * 2.2
+                n = frame()
+                blob(n, x, y, EMBER_RED if t < 2 else ASH_L if t < 4 else ASH)
+                outline_alpha(n, ASH_D)
+                f.alpha_composite(n)
+        fr.append(f)
+    return fr
+
+
+def build_control_appear():
+    """Control mark arrives: violet glass links whip round the ring from the left and snap shut with an ink flash.
+    9 frames, one-shot."""
+    fr = []
+    for i in range(9):
+        f = frame()
+        if i <= 4:
+            span = 72 * (i + 1)
+            for k in range(0, span, 24):
+                a = math.radians(180 + k)
+                x, y = 25 + (GRX - 1) * math.cos(a), 25 + (GRY - 0.5) * math.sin(a)
+                n = frame()
+                blob(n, x, y, VIOLET_L if k > span - 30 else VIOLET_M)
+                px(n, x + 1, y, VIOLET)
+                outline_alpha(n, INK)
+                f.alpha_composite(n)
+        if 5 <= i <= 6:
+            ground_ring(f, GRX - 2, GRY - 1, [(0, WHITE if i == 5 else VIOLET_L), (1, VIOLET_M), (-1, VIOLET_M), (2, INK), (-2, INK)])
+        if 7 <= i <= 8:
+            ground_ring(f, GRX - 2, GRY - 1, [(0, VIOLET_M), (1, INK)])
+        fr.append(f)
+    return fr
+
+
+def build_control_vanish():
+    """Control mark clears: the links unclasp and drop as ink. 8 frames."""
+    fr = []
+    for i in range(8):
+        f = frame()
+        for k in range(10):
+            if i > 3 and k % 2:
+                continue
+            a = math.radians(k * 36)
+            x = 25 + (GRX - 1 + i * 0.8) * math.cos(a)
+            y = 25 + (GRY - 0.5 + i * 0.3) * math.sin(a) + i * 0.8
+            blob(f, x, y, VIOLET_M if i < 3 else VIOLET if i < 6 else VIOLET_D)
+        fr.append(f)
+    return fr
+
+
+def build_safe_appear():
+    """Safe mark arrives: a cyan beam rises from the hex, the star opens out of it white, the diamond rim draws.
+    10 frames, one-shot."""
+    fr = []
+    dia = [(25, 25 - GRY + 0.5), (25 + GRX - 1, 25), (25, 25 + GRY - 0.5), (25 - GRX + 1, 25)]
+    for i in range(10):
+        f = frame()
+        if i <= 4:
+            h = 6 + i * 6
+            for y in range(int(25 - h), 26):
+                px(f, 24, y, CYAN_L)
+                px(f, 25, y, WHITE)
+                px(f, 26, y, CYAN)
+        if 2 <= i <= 7:
+            r = min(7, 2 + (i - 2) * 2)
+            n = frame()
+            for s in range(-r, r + 1):
+                px(n, 25 + s, 25 - 8, WHITE if abs(s) < r - 1 else CYAN)
+                px(n, 25, 25 - 8 + s, WHITE if abs(s) < r - 1 else CYAN)
+            outline_alpha(n, CYAN_D)
+            f.alpha_composite(n)
+        if i >= 3:
+            for a, b in zip(dia, dia[1:] + dia[:1]):
+                seg(f, a, b, WHITE if i in (3, 4) else CYAN, keep=1.0 if i < 9 else 0.5)
+        fr.append(f)
+    return fr
+
+
+def build_safe_vanish():
+    """Safe mark clears: the star lifts away and the diamond rim dims out. 8 frames."""
+    fr = []
+    dia = [(25, 25 - GRY + 0.5), (25 + GRX - 1, 25), (25, 25 + GRY - 0.5), (25 - GRX + 1, 25)]
+    for i in range(8):
+        f = frame()
+        if i < 6:
+            y = 17 - i * 2.5
+            r = 4 - i // 2
+            for s in range(-r, r + 1):
+                px(f, 25 + s, y, CYAN_L)
+                px(f, 25, y + s, CYAN_L)
+            blob(f, 25, y, WHITE)
+        if i < 5:
+            for a, b in zip(dia, dia[1:] + dia[:1]):
+                seg(f, a, b, CYAN if i < 3 else CYAN_D)
+        fr.append(f)
+    return fr
+
+
+def build_etch_appear():
+    """Etching mark arrives: a white scribe spark cuts the lattice out from the centre along its six spokes, the cut
+    flares gold, then settles (the tile holds the mark). 9 frames, one-shot."""
+    fr = []
+    for i in range(9):
+        f = frame()
+        t = min(1.0, (i + 1) / 5)
+        for e in ENDS.values():
+            b = lerp(C, e, t)
+            seg(f, C, b, ETCH_HOT if i < 5 else ETCH_MID)
+            seg(f, (C[0], C[1] + 1), (b[0], b[1] + 1), SCORE)
+            if i < 5:
+                blob(f, b[0], b[1], WHITE)
+        if i in (5, 6):
+            for e in ENDS.values():
+                seg(f, C, e, WHITE)
+            blob(f, 25, 25, WHITE, r=2)
+        if i >= 7:
+            fr.append(clip(f, poly_mask(HEX)))
+            continue
+        fr.append(clip(f, poly_mask(HEX)) if i >= 5 else f)
+    return fr
+
+
+def build_etch_vanish():
+    """Etching mark clears: the lattice cools from gold to dark score and fades, spoke by spoke. 8 frames."""
+    fr = []
+    for i in range(8):
+        f = frame()
+        for k, e in enumerate(ENDS.values()):
+            if k < i - 1:
+                continue
+            seg(f, C, e, ETCH_MID if i < 3 else ETCH_DIM if i < 6 else ETCH_DARK)
+        fr.append(clip(f, poly_mask(HEX)))
+    return fr
+
+
+def build_linger_appear():
+    """Lingering pool arrives (as the Skyglass seep erupting into its pool): the glass cracks, a bile splash heaves
+    up out of the centre in fat outlined globs and slaps back down across the pool. 10 frames."""
+    fr = []
+    globs = [(-9, 2.2, 3), (9, 2.2, 3), (-4, 3.2, 2), (4, 3.0, 2), (0, 3.8, 3), (-14, 1.4, 2), (14, 1.4, 2)]
+    for i in range(10):
+        f = frame()
+        if i <= 2:
+            for a in (20, 80, 140, 200, 260, 320):
+                g = math.radians(a)
+                r = (i + 1) / 3
+                seg(f, (25, 25), (25 + (GRX - 2) * r * math.cos(g), 25 + (GRY - 1) * r * math.sin(g)), BILE_HOT)
+        if 2 <= i <= 9:
+            t = i - 1
+            for k, (dx, up, r) in enumerate(globs):
+                if t > 6 and k % 2:
+                    continue
+                x = 25 + dx * min(1.0, t / 3)
+                y = 25 - up * t * 2.2 + 0.75 * t * t
+                if y > 27:
+                    y = 27
+                n = frame()
+                ImageDraw.Draw(n).ellipse([x - r, y - r * 0.8, x + r, y + r * 0.8], fill=(*BILE, 255))
+                blob(n, x - r * 0.4, y - r * 0.4, BILE_HOT)
+                outline_alpha(n, BILE_DEEP)
+                f.alpha_composite(n)
+        fr.append(f)
+    return fr
+
+
+def shard_poly(f, cx, cy, h, w, tilt=0.0, hot=False, outline=True):
+    """A glass shard, point up: light left face, mid right face, ember (or white) edge, dark outline."""
+    n = frame()
+    d = ImageDraw.Draw(n)
+    tip = (cx + tilt * h, cy - h)
+    left, right = (cx - w / 2, cy), (cx + w / 2, cy)
+    mid = (cx + tilt * h * 0.5, cy - h * 0.15)
+    d.polygon([left, tip, mid], fill=(*(WHITE if hot else GLASS_L), 255))
+    d.polygon([mid, tip, right], fill=(*(ORE_HOT if hot else GLASS_M), 255))
+    d.line([tip, right], fill=(*ORE_HOT, 255))
+    if outline:
+        outline_alpha(n, SCORE)
+    f.alpha_composite(n)
+
+
+def burst_chunks(f, cx, cy, t, n=8, sp=2.2, cols=(GLASS_L, ORE_HOT, GLASS_M), grav=0.35, drop=0):
+    for k in range(n):
+        if drop and t > drop and k % 2:
+            continue
+        a = math.radians(-160 + k * (140 / max(1, n - 1)))
+        s = sp * (0.8 + 0.25 * (k % 3))
+        x, y = cx + math.cos(a) * s * t * 1.4, cy + math.sin(a) * s * t + grav * t * t
+        m = frame()
+        blob(m, x, y, cols[k % len(cols)], r=1 if t > 3 else 2 if k % 2 == 0 else 1)
+        outline_alpha(m, SCORE)
+        f.alpha_composite(m)
+
+
+def build_refraction_blast():
+    """Refraction Breaks (heavy payoff): the line of light across the hex flares white, then shatters, a column of
+    ember-hearted glass shards bursts up out of it and rains back as chunks. Tall, fast, loud. 12 frames."""
+    fr = []
+    for i in range(12):
+        f = frame()
+        if i <= 1:                                             # the light line flares across the hex
+            for o, col in ((0, WHITE), (-1, CYAN_L), (1, CYAN_L), (2, CYAN_D)):
+                seg(f, (6, 25 + o), (44, 25 + o), col)
+            if i == 1:
+                blob(f, 25, 25, WHITE, r=3)
+        if i == 2:                                              # white flash, the line breaks
+            ground_ring(f, GRX - 2, GRY - 1, [(0, WHITE), (1, ORE_HOT), (-1, WHITE), (2, ORE)])
+            for x in range(8, 43, 5):
+                blob(f, x, 25, WHITE)
+        if 2 <= i <= 6:                                        # the shard column
+            g = {2: 0.4, 3: 0.85, 4: 1.0, 5: 0.9, 6: 0.6}[i]
+            for dx, h, w, tilt in ((-9, 13, 5, -0.25), (9, 12, 5, 0.25), (-4, 20, 6, -0.08), (4, 19, 6, 0.1), (0, 25, 7, 0.0)):
+                shard_poly(f, 25 + dx, 27, h * g, w, tilt, hot=(i == 3))
+            if i >= 3:
+                for x in (18, 25, 32):
+                    blob(f, x, 27, ORE_HOT, r=2)
+        if i >= 6:
+            burst_chunks(f, 25, 12, i - 5, n=9, sp=2.4, drop=4)
+            ground_ring(f, GRX - 2 + (i - 6), GRY - 1 + (i - 6) * 0.5, [(0, ORE if i < 9 else EMBER_D)])
+        fr.append(f)
+    return fr
+
+
+def big_pane(f, cx, tip_y, h, w, hot=False):
+    """A tall pane of glass falling point-first: lit left face, mid right face, white leading edge, dark outline."""
+    n = frame()
+    d = ImageDraw.Draw(n)
+    top = tip_y - h
+    d.polygon([(cx - w / 2, top), (cx, top), (cx, tip_y)], fill=(*(WHITE if hot else GLASS_L), 255))
+    d.polygon([(cx, top), (cx + w / 2, top), (cx, tip_y)], fill=(*(GLASS_L if hot else GLASS_M), 255))
+    d.line([(cx - w / 2, top), (cx, tip_y)], fill=(*WHITE, 255))
+    d.line([(cx - w / 2 + 2, top + 3), (cx + 1, top + h * 0.6)], fill=(*GLASS_D, 255))
+    outline_alpha(n, SCORE)
+    f.alpha_composite(n)
+
+
+def ember_column(f, cx, base, h, w):
+    """The heavy detonation's column (dt_heavy's grammar): ember shards bursting up, white at the core."""
+    for dx, hh, ww, tilt in ((-w * 0.45, h * 0.55, w * 0.35, -0.3), (w * 0.45, h * 0.6, w * 0.35, 0.3),
+                             (-w * 0.2, h * 0.85, w * 0.4, -0.1), (w * 0.2, h * 0.8, w * 0.4, 0.12), (0, h, w * 0.5, 0)):
+        n = frame()
+        d = ImageDraw.Draw(n)
+        tip = (cx + dx + tilt * hh, base - hh)
+        d.polygon([(cx + dx - ww / 2, base), tip, (cx + dx + ww / 2, base)], fill=(*EMBER_RED, 255))
+        d.polygon([(cx + dx - ww / 4, base), (tip[0], tip[1] + hh * 0.3), (cx + dx + ww / 4, base)], fill=(*EMBER_YEL, 255))
+        outline_alpha(n, EMBER_DEEP)
+        f.alpha_composite(n)
+    blob(f, cx, base - 3, WHITE, r=2)
+
+
+def thick_tendril(f, pts, base_w=3.0, col=BONE, side=BONE_S):
+    n = frame()
+    L = len(pts)
+    for s, (x, y) in enumerate(pts):
+        w = max(1.0, base_w * (1 - s / max(1, L)) + 0.6)
+        for o in range(-int(w), int(w) + 1):
+            if abs(o) <= w:
+                px(n, x + o, y, col if o <= 0 else side)
+    outline_alpha(n, BONE_D)
+    f.alpha_composite(n)
+
+
+def build_glassfall():
+    """Glassfall pane (lethal heavy payoff): anticipation, the pane's shadow darkens the hex; a tall pane falls
+    point-first; impact frame white; an ember column bursts up through the shattering glass; chunks rain and the
+    scorch settles. 13 frames (0.65 s)."""
+    fr = []
+    for i in range(13):
+        f = frame()
+        if i <= 3:                                             # shadow grows, pane falls
+            r = 4 + i * 2.5
+            ImageDraw.Draw(f).ellipse([25 - r * 1.4, 26 - r * 0.45, 25 + r * 1.4, 26 + r * 0.45], fill=(*EMBER_DEEP, 255))
+            big_pane(f, 25, -6 + i * 10.5, 26, 14)
+        if i == 4:                                             # impact: the whole hex flashes white
+            big_pane(f, 25, 27, 20, 14, hot=True)
+            ground_ring(f, GRX - 1, GRY - 0.5, [(0, WHITE), (1, WHITE), (-1, EMBER_YEL), (2, EMBER_YEL)])
+        if 5 <= i <= 8:
+            g = {5: 0.7, 6: 1.0, 7: 0.85, 8: 0.5}[i]
+            ember_column(f, 25, 28, 26 * g, 16)
+            ground_ring(f, GRX - 1, GRY - 0.5, [(0, EMBER_YEL if i < 7 else EMBER_RED), (1, EMBER_RED)])
+        if i >= 6:
+            burst_chunks(f, 25, 14, i - 5, n=10, sp=2.8, drop=5)
+        if i >= 9:
+            ground_ring(f, GRX - 2, GRY - 1, [(0, EMBER_D)])
+        fr.append(f)
+    return fr
+
+
+def build_shatterfall():
+    """Shatterfall Gives Way (Act III, lethal, a field of hexes): the ceiling-pane gives way. Anticipation: cracks
+    spider across a dark shadow; one broad pane crashes edge-first; white impact; a broad ember eruption tears up
+    through it; glass rains and the floor smoulders. Compact per hex so a field reads as one collapse. 15 frames."""
+    fr = []
+    for i in range(15):
+        f = frame()
+        if i <= 4:
+            r = 6 + i * 2.5
+            ImageDraw.Draw(f).ellipse([25 - r * 1.3, 26 - r * 0.42, 25 + r * 1.3, 26 + r * 0.42], fill=(*EMBER_DEEP, 255))
+            if i >= 2:                                           # the falling slab, edge-first
+                y = -20 + (i - 2) * 16
+                n = frame()
+                d = ImageDraw.Draw(n)
+                d.polygon([(13, y), (37, y - 3), (35, y + 8), (15, y + 11)], fill=(*GLASS_L, 255))
+                d.polygon([(25, y - 1.5), (37, y - 3), (35, y + 8), (25, y + 9.5)], fill=(*GLASS_M, 255))
+                d.line([(13, y), (37, y - 3)], fill=(*WHITE, 255))
+                d.line([(19, y + 1), (23, y + 9)], fill=(*GLASS_D, 255))
+                d.line([(29, y - 1), (31, y + 8)], fill=(*GLASS_D, 255))
+                outline_alpha(n, SCORE)
+                f.alpha_composite(n)
+        if i == 5:
+            n = frame()
+            ImageDraw.Draw(n).ellipse([25 - 21, 25 - 10, 25 + 21, 25 + 10], fill=(*WHITE, 255))
+            ImageDraw.Draw(n).ellipse([25 - 17, 25 - 8, 25 + 17, 25 + 8], fill=(*EMBER_YEL, 255))
+            outline_alpha(n, EMBER_RED)
+            f.alpha_composite(n)
+        if 6 <= i <= 10:
+            g = {6: 0.75, 7: 1.0, 8: 0.95, 9: 0.7, 10: 0.4}[i]
+            ember_column(f, 18, 28, 20 * g, 12)
+            ember_column(f, 32, 28, 22 * g, 12)
+            ember_column(f, 25, 30, 30 * g, 16)
+        if i >= 7:
+            burst_chunks(f, 25, 10, i - 6, n=12, sp=3.0, drop=5)
+        if i >= 9:
+            ground_ring(f, GRX - 2, GRY - 1, [(0, EMBER_RED if i < 12 else EMBER_D), (1, EMBER_D)])
+        fr.append(f)
+    return fr
+
+
+def build_enrage():
+    """The Glass Remembers (the late backstop, field-wide): every hex grows a crown of outlined glass spikes that
+    heat from white to ember and close inward, then a white-hot ember column erupts from the centre. 13 frames."""
+    fr = []
+    spikes = [(k * 45, 7 + (k % 2) * 3) for k in range(8)]
+    for i in range(13):
+        f = frame()
+        if i <= 6:
+            g = min(1.0, (i + 1) / 4)
+            pull = 0 if i < 4 else (i - 3) * 0.12
+            for a, h in sorted(spikes, key=lambda s: math.sin(math.radians(s[0]))):
+                r = math.radians(a)
+                bx = 25 + (GRX - 4) * (1 - pull) * math.cos(r)
+                by = 25 + (GRY - 2) * (1 - pull) * math.sin(r) + 2
+                shard_poly(f, bx, by, h * g, 5, -math.cos(r) * 0.4, hot=(i in (3, 4)))
+            ground_ring(f, GRX - 3, GRY - 1.5, [(0, EMBER_YEL if i >= 3 else EMBER_RED), (1, EMBER_D)])
+        if i == 6:
+            blob(f, 25, 22, WHITE, r=4)
+        if 7 <= i <= 10:
+            g = {7: 0.8, 8: 1.0, 9: 0.8, 10: 0.45}[i]
+            ember_column(f, 25, 29, 28 * g, 18)
+        if i >= 8:
+            burst_chunks(f, 25, 14, i - 7, n=10, sp=2.6, drop=3)
+        fr.append(f)
+    return fr
+
+
+def build_grasp():
+    """Grasp (the Feeler's strike: pierce + root): anticipation, an ink ripple opens under the target; three thick
+    bone feelers whip up and curl over it; the clench (white flash, violet hold, held two frames); they sink back
+    into the ink. 12 frames."""
+    fr = []
+    roots = [(-13, 36), (13, 36), (0, 38)]
+    for i in range(12):
+        f = frame()
+        if i <= 10:
+            r = min(1.0, (i + 1) / 3) if i < 8 else (11 - i) / 3
+            n = frame()
+            ImageDraw.Draw(n).ellipse([25 - 17 * r, 36 - 5 * r, 25 + 17 * r, 36 + 5 * r], fill=(*INK, 255))
+            ImageDraw.Draw(n).ellipse([25 - 13 * r, 36 - 3.5 * r, 25 + 13 * r, 36 + 3.5 * r], fill=(*VIOLET_D, 255))
+            f.alpha_composite(n)
+        if 1 <= i <= 10:
+            g = min(1.0, i / 3) if i <= 7 else (10 - i) / 3
+            for k, (rx, ry) in enumerate(roots):
+                h = 25 * g
+                pts = []
+                steps = max(2, int(h))
+                for s in range(steps + 1):
+                    u = s / steps
+                    curl = (1 if rx < 0 else -1 if rx > 0 else 0.4) * (u ** 2.2) * (13 if i >= 3 else 6)
+                    pts.append((25 + rx * (1 - u * 0.5) + curl, ry - s))
+                thick_tendril(f, pts, base_w=2.2 if k < 2 else 1.6)
+        if i in (4, 5):                                         # the clench, held
+            n = frame()
+            for side in (-1, 1):                                # the hold: violet glints where the tips lock, off the face
+                blob(n, 25 + side * 9, 12, VIOLET_L, r=2)
+                blob(n, 25 + side * 9, 12, WHITE)
+            blob(n, 25, 4, WHITE, r=2 if i == 4 else 1)
+            outline_alpha(n, INK)
+            f.alpha_composite(n)
+        fr.append(f)
+    return fr
+
+
+def build_echo_strike():
+    """The echoes' strikes (Your Own Strike, Doorward Sweep, Cadet's Tether): anticipation glint; a broad crescent
+    of dark silvered glass sweeps through the target; impact held white for two frames; the crescent breaks into
+    falling shards and ash. 11 frames."""
+    cx, cy, R = 30, 30, 20
+    fr = []
+    for i in range(11):
+        f = frame()
+        if i == 0:
+            blob(f, 9, 12, WHITE, r=2)
+            px(f, 6, 12, CYAN); px(f, 12, 12, CYAN); px(f, 9, 9, CYAN); px(f, 9, 15, CYAN)
+        if 1 <= i <= 3:
+            a1 = {1: 200, 2: 250, 3: 300}[i]
+            n = frame()
+            for a in range(160, a1 + 1, 2):
+                g = math.radians(a)
+                th = 4.5 * math.sin(math.pi * (a - 160) / max(20, a1 - 160))
+                for o in range(0, int(th) + 1):
+                    col = GLASS_L if o == 0 else GLASS_M if o < th - 1 else GLASS_D
+                    px(n, cx + (R - o) * math.cos(g), cy + (R - o) * math.sin(g) * 0.8, col)
+            g = math.radians(a1)
+            blob(n, cx + R * math.cos(g), cy + R * math.sin(g) * 0.8, WHITE, r=2)
+            outline_alpha(n, SCORE)
+            f.alpha_composite(n)
+        if i in (4, 5):
+            n = frame()
+            for a in range(160, 301, 2):
+                g = math.radians(a)
+                th = 4.5 * math.sin(math.pi * (a - 160) / 140)
+                for o in range(0, int(th) + 1):
+                    px(n, cx + (R - o) * math.cos(g), cy + (R - o) * math.sin(g) * 0.8, WHITE if i == 4 else GLASS_L)
+            outline_alpha(n, GLASS_D)
+            f.alpha_composite(n)
+            blob(f, 25, 22, WHITE, r=3 if i == 4 else 2)
+        if i >= 6:
+            t = i - 5
+            for k, a in enumerate(range(175, 300, 18)):
+                if t > 3 and k % 2:
+                    continue
+                g = math.radians(a)
+                x0, y0 = cx + (R - 2) * math.cos(g), cy + (R - 2) * math.sin(g) * 0.8
+                x, y = x0 + math.cos(g) * t * 1.6, y0 + math.sin(g) * t * 1.2 + 0.35 * t * t
+                n = frame()
+                blob(n, x, y, GLASS_L if k % 2 else ASH_L, r=2 if t < 3 else 1)
+                outline_alpha(n, SCORE)
+                f.alpha_composite(n)
+        fr.append(f)
+    return fr
+
+
+def build_pull():
+    """Pull (Breathless Pull, Cadet's Tether): six ink tendrils with bone hooks lash in from the frame's edge, catch
+    at the target's centre and yank tight into a violet knot that pulses and closes. 10 frames."""
+    dirs = [k * 60 + 30 for k in range(6)]
+    fr = []
+    for i in range(10):
+        f = frame()
+        if i <= 5:
+            reach = min(1.0, (i + 1) / 4)
+            for a in dirs:
+                g = math.radians(a)
+                p0 = (25 + 23 * math.cos(g), 25 + 21 * math.sin(g))
+                p1 = (25 + 23 * (1 - reach * 0.85) * math.cos(g), 25 + 21 * (1 - reach * 0.85) * math.sin(g))
+                if i >= 4:
+                    p0 = lerp(p0, p1, (i - 3) * 0.4)
+                n = frame()
+                for o in (-1, 0, 1):
+                    seg(n, (p0[0], p0[1] + o), (p1[0], p1[1] + o), VIOLET_M if o < 1 else VIOLET)
+                blob(n, p1[0], p1[1], BONE, r=2)
+                outline_alpha(n, INK)
+                f.alpha_composite(n)
+        if 4 <= i <= 9:
+            r = {4: 4, 5: 7, 6: 6, 7: 5, 8: 3, 9: 2}[i]
+            n = frame()
+            ImageDraw.Draw(n).ellipse([25 - r, 25 - r * 0.8, 25 + r, 25 + r * 0.8], fill=(*(VIOLET_L if i in (5, 6) else VIOLET_M), 255))
+            if i in (5, 6):
+                blob(n, 25, 25, WHITE, r=2)
+            outline_alpha(n, INK)
+            f.alpha_composite(n)
+        fr.append(f)
+    return fr
+
+
+def build_shove():
+    """Push (Doorward Sweep): a white impact at the target's centre, then a thick shock-arc of ash and dark glass
+    blasts outward both ways, throwing chunks, and thins out. 10 frames."""
+    fr = []
+    for i in range(10):
+        f = frame()
+        if i <= 1:
+            n = frame()
+            ImageDraw.Draw(n).ellipse([25 - 7 + i * 2, 22 - 5 + i, 25 + 7 - i * 2, 22 + 5 - i], fill=(*WHITE, 255))
+            outline_alpha(n, ASH_D)
+            f.alpha_composite(n)
+        if 1 <= i <= 7:
+            r = 6 + (i - 1) * 3
+            th = 4 if i < 4 else 3 if i < 6 else 2
+            n = frame()
+            for a in range(-60, 61, 3):
+                g = math.radians(a)
+                for side in (-1, 1):
+                    for o in range(th):
+                        x = 25 + side * (r - o) * math.cos(g)
+                        y = 24 + (r - o) * 0.6 * math.sin(g)
+                        px(n, x, y, ASH_L if o == 0 else ASH)
+            outline_alpha(n, ASH_D)
+            f.alpha_composite(n)
+        if i >= 3:
+            t = i - 2
+            for side in (-1, 1):
+                for k, (dy, sp) in enumerate(((-5, 1.0), (0, 1.3), (5, 0.9))):
+                    if t > 4 and k != 1:
+                        continue
+                    n = frame()
+                    blob(n, 25 + side * (8 + t * 3.2 * sp), 24 + dy + 0.3 * t * t, GLASS_L if k == 1 else ASH_L, r=2 if t < 3 else 1)
+                    outline_alpha(n, SCORE)
+                    f.alpha_composite(n)
+        fr.append(f)
+    return fr
+
+
+def build_mend():
+    """Worn Mending (heal on a Worn ally): a warm bone ring blooms at its feet, eight motes of warm light spiral up
+    its sides and gather above its head into a soft four-point glint that blooms and fades. Warm bone-gold, not cyan
+    (cyan means safe). 13 frames."""
+    MEND = (240, 220, 160)
+    MEND_D = (150, 126, 80)
+    fr = []
+    for i in range(13):
+        f = frame()
+        if i <= 5:
+            r = 6 + i * 2.6
+            ground_ring(f, r, r * 0.32, [(0, MEND if i < 4 else MEND_D), (1, MEND_D)], cy=36)
+        for k in range(8):
+            t = i - (k % 4) * 0.8
+            if t < 0 or t > 8:
+                continue
+            side = -1 if k % 2 else 1
+            y = 36 - t * 3.4
+            x = 25 + side * (15 - t * 0.9) + side * math.sin(t * 0.9 + k) * 1.5
+            n = frame()
+            blob(n, x, y, WHITE if t < 2 else MEND, r=2 if t < 5 else 1)
+            outline_alpha(n, MEND_D)
+            f.alpha_composite(n)
+        if 7 <= i <= 12:
+            r = {7: 2, 8: 4, 9: 6, 10: 5, 11: 3, 12: 1}[i]
+            n = frame()
+            for s in range(1, r + 1):
+                for ddx, ddy in ((s, 0), (-s, 0), (0, s), (0, -s)):
+                    px(n, 25 + ddx, 4 + 1 + ddy * 0.8, WHITE if s <= max(1, r // 2) else MEND)
+            blob(n, 25, 5, WHITE)
+            outline_alpha(n, MEND_D)
+            f.alpha_composite(n)
+        fr.append(f)
+    return fr
+
+
+CUSTOM = (
+    # (file, builder, kind, use, serves, note)
+    ('tile_moe_heavy_v1.webp', build_tile_heavy, 'STATIC', 'staticAssetPath', ['tg_heavy'],
+     'Heavy mark (Sayo): smoked-glass disc ringed by ember-edged glass facets, six ember cracks to a white-hot core'),
+    ('anim_moe_heavy_glint_v1.webp', build_heavy_glint, 'ANIMATION', 'static', ['tg_heavy'],
+     'Heavy loop: ember flares and lifting embers at the ring\'s ends on the 0.8 s beat (portrait-clear)'),
+    ('anim_moe_heavy_appear_v1.webp', build_heavy_appear, 'ANIMATION', 'appear', ['tg_heavy'],
+     'Heavy mark arrives: ember-edged glass shards drop onto the ring, it rings white, cracks run in'),
+    ('tile_moe_control_v1.webp', build_tile_control, 'STATIC', 'staticAssetPath', ['tg_control'],
+     'Control/lock mark (Sayo): a ring of faceted violet glass links on ink, a closed glass eye (the hush) at the centre'),
+    ('anim_moe_control_glint_v1.webp', build_control_glint, 'ANIMATION', 'static', ['tg_control'],
+     'Control loop: the links tighten on the beat at the ring\'s ends; a white glint runs round (portrait-clear)'),
+    ('anim_moe_control_appear_v1.webp', build_control_appear, 'ANIMATION', 'appear', ['tg_control', 'moe_lull_visual'],
+     'Control mark arrives: violet glass links whip round and snap shut with an ink flash'),
+    ('tile_moe_linger_v1.webp', build_tile_linger, 'STATIC', 'staticAssetPath', ['tg_linger', 'moe_hush_floor'],
+     'Lingering pool (Sayo): a crazed glass pane with bile seeping up through its cracks'),
+    ('anim_moe_linger_glint_v1.webp', build_linger_glint, 'ANIMATION', 'static', ['tg_linger', 'moe_hush_floor'],
+     'Linger loop: bile bubbles swell and pop at the pool\'s ends, 1.2 s (portrait-clear)'),
+    ('anim_moe_linger_appear_v1.webp', build_linger_appear, 'ANIMATION', 'appear', ['tg_linger', 'moe_hush_floor'],
+     'Lingering pool arrives: the glass crazes and bile wells up through the cracks'),
+    ('tile_moe_safe_v1.webp', build_tile_safe, 'STATIC', 'staticAssetPath', ['tg_safe'],
+     'Safe hex (Sayo): a cut-glass cyan diamond pane with a white four-point star'),
+    ('anim_moe_safe_glint_v1.webp', build_safe_glint, 'ANIMATION', 'static', ['tg_safe'],
+     'Safe loop: calm light rising at the diamond\'s points, a soft star twinkle, 1.6 s (portrait-clear)'),
+    ('anim_moe_safe_appear_v1.webp', build_safe_appear, 'ANIMATION', 'appear', ['tg_safe'],
+     'Safe hex arrives: a cyan beam rises, the star opens white, the diamond rim draws'),
+    ('anim_moe_etch_appear_v1.webp', build_etch_appear, 'ANIMATION', 'appear', ['tg_etch'],
+     'Etching arrives: a white scribe spark cuts the lattice out from the centre, the cut flares gold'),
+    ('anim_moe_refraction_blast_v1.webp', build_refraction_blast, 'ANIMATION', 'appear', ['moe_refraction'],
+     'Refraction Breaks: the line of light flares and shatters; an ember-hearted glass column bursts up and rains back'),
+    ('anim_moe_glassfall_v1.webp', build_glassfall, 'ANIMATION', 'appear', ['moe_glassfall'],
+     'Glassfall pane: a pane falls point-first, white-hot ember impact, shatters into chunks'),
+    ('anim_moe_shatterfall_v1.webp', build_shatterfall, 'ANIMATION', 'appear', ['moe_shatterfall'],
+     'Shatterfall Gives Way: two broad panes crash down, the hex erupts white-hot, a ring shock runs out'),
+    ('anim_moe_enrage_v1.webp', build_enrage, 'ANIMATION', 'appear', ['moe_enrage'],
+     'The Glass Remembers: a crown of ember-hearted glass spikes closes in and bursts white on every hex'),
+    ('anim_moe_grasp_v1.webp', build_grasp, 'ANIMATION', 'appear', ['moe_grasp'],
+     'Grasp: bone feelers whip up out of an ink ripple and clench over the target'),
+    ('anim_moe_echo_strike_v1.webp', build_echo_strike, 'ANIMATION', 'appear', ['moe_echo_strike'],
+     'The echoes\' strikes (Your Own Strike, Doorward Sweep, Cadet\'s Tether): a slash of silvered glass, ash and chips'),
+    ('anim_moe_pull_v1.webp', build_pull, 'ANIMATION', 'appear', ['moe_pull'],
+     'Pull (Breathless Pull, Cadet\'s Tether): ink streaks rush in to the target and lock in a violet knot'),
+    ('anim_moe_shove_v1.webp', build_shove, 'ANIMATION', 'appear', ['moe_shove'],
+     'Push (Doorward Sweep): an arc of ash and dark glass bursts outward from the target'),
+    ('anim_moe_mend_v1.webp', build_mend, 'ANIMATION', 'appear', ['moe_mend'],
+     'Worn Mending: warm bone light motes rise and gather into a soft glint over the mended summon'),
+)
+
+
+def export_custom(save):
+    for name, fn, kind, use, serves, note in CUSTOM:
+        out = fn()
+        if kind == 'STATIC':
+            save(name, out, 1, use, serves, note, kind='STATIC')
+        else:
+            save(name, strip(out), len(out), use, serves, note)
+
+
 def export():
     os.makedirs(EXPORTS, exist_ok=True)
     rows = []
@@ -985,6 +1905,7 @@ def export():
     save('anim_moe_flood_mask_v1.webp', strip(fm), len(fm), 'appear', ['moe_flood'],
          'The Names Flood In: one great glass mask rises, its eyes snap open as ember cracks split it, then it bursts '
          'into chunky shards (director keyframes ME28b, drawn for the 50 px delivery)')
+    export_custom(save)
     meta = {'source': 'art/mother_of_echoes_fx/build_fx.py (pixel art in code)',
             'renderer': 'theninjarpg@3314d122 libs/rendering/scenes/combatEffects.ts (pixi): one square sprite per hex, '
                         'tile.height * 2.5; staticAssetPath stretched to the hex box under the actors',
