@@ -1,69 +1,60 @@
 {
  "ratio": 2.5,
  "speed": 50,
- "tile": "rails",
- "order": "rings",
+ "tile": "classic",
+ "order": "light",
+ "variant": "light",
+ "rest_scale": 1.0,
  "assets": {
   "anim_sbk_wave_b0_v1.webp": {
    "type": "ANIMATION",
    "frames": 36,
    "speed": 50,
-   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2250
+   "reach_norm": 1.5
   },
   "anim_sbk_wave_b1_v1.webp": {
    "type": "ANIMATION",
    "frames": 36,
    "speed": 50,
-   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2582
+   "reach_norm": 1.5
   },
   "anim_sbk_wave_b2_v1.webp": {
    "type": "ANIMATION",
    "frames": 36,
    "speed": 50,
-   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2596
+   "reach_norm": 1.5
   },
   "anim_sbk_wave_b3_v1.webp": {
    "type": "ANIMATION",
    "frames": 36,
    "speed": 50,
-   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2610
+   "reach_norm": 1.5
   },
   "anim_sbk_wave_b4_v1.webp": {
    "type": "ANIMATION",
    "frames": 36,
    "speed": 50,
-   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2624
+   "reach_norm": 1.5
   },
   "anim_sbk_wave_b5_v1.webp": {
    "type": "ANIMATION",
    "frames": 36,
    "speed": 50,
-   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2650
+   "reach_norm": 1.04
   },
   "anim_sbk_wave_b6_v1.webp": {
    "type": "ANIMATION",
    "frames": 36,
    "speed": 50,
-   "use": "visual tag (COORDINATES, origin CASTER) appearAnimation",
-   "bytes": 2668
+   "reach_norm": 1.04
   },
   "anim_sbk_seal_v1.webp": {
    "type": "ANIMATION",
    "frames": 36,
-   "speed": 50,
-   "use": "ground tag (decreasedamagegiven) appearAnimation, 60 hexes",
-   "bytes": 616
+   "speed": 50
   },
   "tile_sbk_domain_v3.webp": {
-   "type": "STATIC",
-   "use": "ground tag staticAssetPath (3 rounds)",
-   "bytes": 14646
+   "type": "STATIC"
   }
  },
  "groups": [
@@ -333,14 +324,5 @@
     }
    ]
   }
- ],
- "handoff_check": {
-  "handoff": "exact by construction: behind the trail the clip is transparent and the real tile shows; the last non-empty frame (land + SPAN + TRAIL) holds only lit rail pixels",
-  "late_pop": {
-   "mean_abs": 26.3,
-   "share_over_32": 0.262,
-   "pixels": 6428
-  },
-  "gold_visible_t0": 0.016
- }
+ ]
 }
