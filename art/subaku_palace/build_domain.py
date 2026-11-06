@@ -41,7 +41,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import floor as FL  # noqa: E402
 
-OUT = os.path.join(HERE, 'exports')
+VARIANT = os.environ.get('SBK_VARIANT', 'cover')      # 'cover' (shipped candidate) or 'light' (director, 2026-11-06)
+OUT = os.path.join(HERE, 'exports' if VARIANT == 'cover' else 'exports_light')
+EXT = {'b': 0.5, 'rim': float(os.environ.get('SBK_RIM_EXT', '1.1'))}  # light variant: how far past its own edge a band's light runs (hex norm), inner / ring 4
 RATIO = float(os.environ.get('SBK_RATIO', '2.5'))
 CLIP = 100            # authoring size; finished on the 50 px grid, exported x3 nearest (150 px)
 NF = 36
@@ -224,6 +226,84 @@ def strip(frames):
     return s
 
 
+def light_layers(G, C, K, R, tile_full):
+    """Full-clip rail masks for the light variant (no hex limit: the light runs on into the neighbours)."""
+    b50 = lambda m, th: m.resize((GRID, GRID), Image.BOX).point(lambda v: 255 if v >= th else 0)
+    T, _ = screen_look(tile_full)
+    own = T.getchannel('A').point(lambda v: 255 if v >= 128 else 0)
+    return {'rail': b50(G, 170), 'chan': b50(C, 100), 'crack': b50(K, 100), 'R': R.resize((GRID, GRID), Image.NEAREST),
+            'own': own, 'seal_ko': seal_keepout()}
+
+
+COOL = [BURN[0], GOLD[2], (196, 150, 66), (150, 112, 44)]     # the trail cooling back to the resting rail
+
+
+def light_frame(L, t, land, ext):
+    """Light only (director 2026-11-06): nothing but rail pixels is drawn, so the resting tile and every fighter stay
+    visible. The light runs from the hex centre out along the rails at SPAN ticks per hex radius and on past the edge
+    to norm 1 + ext (into the neighbours, which are unlit at that moment, so the current flows hex to hex): a bright
+    node at the head (white-hot channel, burning rail), then the rail cools over 4 ticks back to the resting gold.
+    Every run smaller than 2 x 2 px is dropped (no glitter)."""
+    f = Image.new('RGBA', (GRID, GRID), (0, 0, 0, 0))
+    lim = int(127.5 * (1 + ext))
+
+    def age(lo, hi):
+        def sel(v):
+            if v > lim:
+                return 0
+            a = land + v / 127.5 * SPAN
+            return 255 if lo <= t - a < hi else 0
+        return L['R'].point(sel)
+    for k in range(len(COOL) - 1, -1, -1):
+        solid(f, clean2(ImageChops.multiply(L['rail'], age(k + 1, k + 2))), COOL[k])
+    head = age(0, 1)
+    node = ImageChops.multiply(ImageChops.multiply(L['chan'], head).filter(ImageFilter.MaxFilter(3)), L['rail'])
+    solid(f, clean2(ImageChops.lighter(node, ImageChops.multiply(L['rail'], head))), BURN[1])
+    solid(f, node, BURN[2])
+    solid(f, clean2(ImageChops.multiply(L['crack'], age(1, 2))), EMBER[3])
+    solid(f, clean2(ImageChops.multiply(L['crack'], age(2, 3))), EMBER[2])
+    return f
+
+
+def light_seal(L, t):
+    """The final pulse, light variant: the grooves only (own hex, off fighter areas and meter rows), ramping 27-32,
+    white-hot on 29 (the gates' held beat)."""
+    f = Image.new('RGBA', (GRID, GRID), (0, 0, 0, 0))
+    k = SEAL_RAMP.get(t)
+    if not k:
+        return f
+    lerp = lambda a, b, u: tuple(int(a[i] + (b[i] - a[i]) * u) for i in range(3))
+    col = BURN[2] if k >= 1.0 else lerp((120, 84, 30), BURN[1], k / 0.75) if k <= 0.75 else lerp(BURN[1], BURN[2], (k - 0.75) / 0.25)
+    solid(f, ImageChops.multiply(ImageChops.multiply(L['chan'], L['own']), L['seal_ko']), col)
+    return f
+
+
+def main_light():
+    os.makedirs(OUT, exist_ok=True)
+    FL.MODE = 'rest'
+    tile_rest = FL.tile(size=128)
+    FL.MODE = 'full'
+    tile_rest.save(os.path.join(OUT, 'tile_sbk_domain_v3.webp'), lossless=True, method=6)
+    G, C, K, A, R = FL.field_masks(CLIP, RATIO)
+    L = light_layers(G, C, K, R, tile_rest)
+    meta = {'ratio': RATIO, 'speed': SPEED, 'tile': 'rails_rest', 'order': 'rings_light' + ('_nospill' if EXT['rim'] < 0.1 else ''), 'variant': 'light',
+            'assets': {}, 'groups': []}
+    G2 = groups()
+    for k, (land, offs) in enumerate(G2):
+        name = f'anim_sbk_wave_b{k}_v1.webp'
+        ext = EXT['rim'] if k >= 5 else EXT['b']
+        strip([light_frame(L, t, land, ext) for t in range(NF)]).save(os.path.join(OUT, name), lossless=True, method=6)
+        meta['assets'][name] = {'type': 'ANIMATION', 'frames': NF, 'speed': SPEED, 'reach_norm': 1 + ext}
+        meta['groups'].append({'asset': name, 'lands_tick': land,
+                               'offsets': [{'longitude': c, 'latitude': r} for c, r in offs]})
+    strip([light_seal(L, t) for t in range(NF)]).save(os.path.join(OUT, 'anim_sbk_seal_v1.webp'), lossless=True,
+                                                      method=6)
+    meta['assets']['anim_sbk_seal_v1.webp'] = {'type': 'ANIMATION', 'frames': NF, 'speed': SPEED}
+    meta['assets']['tile_sbk_domain_v3.webp'] = {'type': 'STATIC'}
+    json.dump(meta, open(os.path.join(OUT, 'subaku_domain_v1.json'), 'w'), indent=1)
+    print('ok light', [(land, len(o)) for land, o in G2])
+
+
 def handoff_check(L):
     """The clip's held frame vs the tile, both on screen at true scale, over the covered area: mean abs difference
     (0-255) and the share of pixels off by more than 32. Also the cover's first frame vs the tile (the pop a late
@@ -325,4 +405,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main_light() if VARIANT == 'light' else main()
