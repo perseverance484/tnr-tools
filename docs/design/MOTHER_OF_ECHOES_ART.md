@@ -510,6 +510,26 @@ with the circles and marks on the ground, but the eruptions and real abilities s
    bubbles or circles, static or nearly so (stacking rules 1-2), reading "don't stand here" through the material, with
    the area's edge clear, never over a safe hex.
 
+**The stage (director, 2026-11-05; RUL-124):** "I want the player to feel like the enemy and their moves are interacting
+with the terrain and the player needs to adjust and adapt, react. The goal is to make it feel like a stage and they are
+dealing with the hazards."
+
+1. **Cause and effect.** Every payoff visibly does something to the floor, and the floor it leaves is the hazard the
+   player works around next: the break cracks the glass (Act I crazed white glass), the Hush stills and frosts it (the
+   Silence's ink and frost), the Recast shatters the etched floor, the flood leaves it blackened (Act III obsidian).
+   The payoff's settle frames end on the floor's look, so the static floor reads as what the move left.
+2. **The stage tells the act's story as it accumulates.** Act I's floor ends scarred with crazed glass; Act II's etched
+   lattice keeps showing faintly where she cut it; Act III's floor is obsidian and frost. Within the stacking budget
+   (rules 1-2: floors are static tiles, no loops), the aftermath reads as one continuous, changing stage, not stamps.
+3. **Where enemies' effects meet** (polish, not a blocker): the Silence's ink seeping into Sayo's cracks, a pane
+   landing on frozen floor. Floors are drawn so overlaps compose (newest on top, edges that read either way).
+4. **Clarity first.** Omens and safe hexes always read on top of whatever the stage has become (tiles created last,
+   rule 6; the cyan diamond and the ember rim are reserved and never appear in a floor).
+
+**Colour (director, 2026-11-05: "avoid the sickly green concept entirely"):** no bile, acid or toxic green; each effect
+takes its owner's palette (SAYO_BIBLE.md 5.1 as revised the same day); danger reads through material and value
+contrast; cyan only on safe hexes; etch gold distinct from ember.
+
 **Honest limits (engine, theninjarpg@3314d122):**
 - *Payoffs on fixed board positions* (BATTLEFIELD patterns: the Refraction family, Etchings, Recasts, Glassfall,
   Flood, The Glass Remembers, Every Name) slice exactly: one visual tag per hex (or per column where rows repeat), each
