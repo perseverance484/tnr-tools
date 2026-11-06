@@ -1,34 +1,27 @@
 #!/usr/bin/env python3
 """Subaku Palace: the domain floor and its ring-by-ring summoning (Pillow only).
 
-    python3 build_domain.py        # writes exports/ and exports/subaku_domain_v1.json
+    python3 build_domain.py                    # the shipped build: light-only (director 2026-11-06) -> exports/
+    SBK_VARIANT=cover python3 build_domain.py  # the reference cover variant -> exports_cover/
 
 Engine (docs/design/COMBAT_ANIMATION_ENGINE.md; theninjarpg@3314d122 and upstream main cb755375, read, never run):
 - AOE_SPIRAL_SHOOT stamps the ground tag on spiral(caster, 4) minus the caster's hex (targeting.ts:56-58): 60 hexes in
-  one action, so every record starts on the same tick. There is no per-tag delay field in the game source, and static
-  art (staticAssetPath) is drawn from the record's first ready frame for its whole life, so the floor is present
-  from tick 0. Ring order is baked into strips carried by visual-only COORDINATES tags (origin CASTER), one per
-  half-ring band (7, RUL-2026-11-05-125).
-- Clips: EFFECT_ANIMATION_HEX_RATIO tile heights square (2.5; the director's build target, 2026-11-05), from the
-  50 px rendition, linear, drawn OVER the fighters. Static art: under the fighters, stretched to the 2:1 hex box.
+  one snapshot; there is no per-tag delay, and static art shows from the record's first frame. Ring order is baked
+  into strips carried by visual-only COORDINATES tags (origin CASTER), one per half-ring band (7,
+  RUL-2026-11-05-125). Each record's clip starts when its own images are ready.
+- Clips: 2.5 tile heights square, from the 50 px rendition, linear, drawn OVER the fighters. Static art: under the
+  fighters, stretched to the 2:1 hex box.
 
-How the domain reads as summoned on a floor that is already there (the director's arrival, 2026-11-05/06;
-RUL-2026-11-06-128):
-- each band's strip covers its WHOLE hex with the floor without any gold (no fighter keep-out, by the director's
-  choice), so tick 0 shows the domain as bare stone;
-- the bloom: rings ignite 4 ticks apart (ring 1 on 7, ring 4 on 19); in each hex the light runs along the rails from
-  the centre to the edge midpoints in 4 ticks (a bright node at the head, a 2-tick trail on the rail, nothing under
-  2 x 2 px, the cracks flaring behind); where the head passes the cover opens on the real tile (exact hand-off);
-  the ring-1 cover is notched to keep the caster's head and meters clear;
-- every strip is self-contained (its own hex only, no cross-hex light), so a late strip only delays its own rings;
-- the seal (the ground appear, all 60 hexes, x2, hard alpha so the duplicate changes nothing): the final pulse, the
-  rails at their own width ramping 27-32 (white-hot on 29), off fighter standing areas and meter rows.
+The shipped build (light-only, no spill; RUL-2026-11-06-128 and the director's pick):
+- the resting tile is the director's own floor (classic.py), present from tick 0;
+- each band strip draws only band pixels: the light runs from the hex centre out along the bands (4 ticks per hex
+  radius, on into the neighbours to 1.5 radii; ring 4 stays in its own hexes), a white-hot head, cooling over 3 ticks
+  back to his gold, the mortar flaring behind; rings ignite 4 ticks apart (ring 1 on 7, ring 4 on 19);
+- the seal (ground appear, all 60 hexes, x2, hard alpha): the final pulse, every band at its own width ramping 27-32
+  (white-hot on 29), off the fighter column and meter rows.
 
-Exports:
-- tile_sbk_domain_v3.webp (STATIC 128 px, the spec minimum): the ground tag's staticAssetPath (3 rounds).
-  floor.py, 'rails'.
-- anim_sbk_wave_b{k}_v1.webp (k = 0..6, 36 x 50 ms, 150 px frames): the band visual tags' appearAnimation.
-- anim_sbk_seal_v1.webp (36 x 50 ms): the ground tag's appearAnimation.
+Exports (exports/): tile_sbk_domain_v3.webp (STATIC 128 px), anim_sbk_wave_b{k}_v1.webp (k = 0..6, 36 x 50 ms,
+150 px frames), anim_sbk_seal_v1.webp (36 x 50 ms), subaku_domain_v1.json (the band offsets).
 """
 import json
 import math
@@ -41,9 +34,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import floor as FL  # noqa: E402
 
-VARIANT = os.environ.get('SBK_VARIANT', 'cover')      # 'cover' (shipped candidate) or 'light' (director, 2026-11-06)
-OUT = os.path.join(HERE, 'exports' if VARIANT == 'cover' else 'exports_light')
-EXT = {'b': 0.5, 'rim': float(os.environ.get('SBK_RIM_EXT', '1.1'))}  # light variant: how far past its own edge a band's light runs (hex norm), inner / ring 4
+# 'light' (default; the director's pick, 2026-11-06: light-only, no spill) or 'cover' (the reference variant)
+VARIANT = os.environ.get('SBK_VARIANT', 'light')
+OUT = os.path.join(HERE, 'exports' if VARIANT == 'light' else 'exports_cover')
+REST_SCALE = float(os.environ.get('SBK_REST_SCALE', '1.0'))   # the resting gold vs his original (1.0 = his colour)
+EXT = {'b': 0.5, 'rim': float(os.environ.get('SBK_RIM_EXT', '0.04'))}   # rim 0.04: no spill (director)  # light variant: how far past its own edge a band's light runs (hex norm), inner / ring 4
 RATIO = float(os.environ.get('SBK_RATIO', '2.5'))
 CLIP = 100            # authoring size; finished on the 50 px grid, exported x3 nearest (150 px)
 NF = 36
@@ -84,9 +79,9 @@ def keepout(n=GRID):
 
 def seal_keepout(n=GRID):
     """255 where the final pulse may paint: off the fighter standing areas and meter rows inside the hex (QA r3 B1):
-    the hex's own fighter (+-0.35 h, from 0.15 h up), the lower hex's fighter head (+-0.35 h, up to 0.45 h) and its
+    the fighter column (the LPC silhouette, +-0.2 h, the hex's own fighter and the lower hex's head) and the lower hex's
     meter rows (+-0.52 h; LPC 0.22-0.6 h, AI originals 0.72-1.07 h; combatActors.ts:116-146)."""
-    return _mask(n, lambda x, y: not ((x <= 0.35 and y >= 0.0) or (x <= 0.52 and 0.22 <= y <= 0.6)
+    return _mask(n, lambda x, y: not ((x <= 0.20 and y >= 0.0) or (x <= 0.52 and 0.22 <= y <= 0.6)
                                       or (x <= 0.52 and 0.72 <= y <= 1.07)))
 
 
@@ -231,19 +226,33 @@ def light_layers(G, C, K, R, tile_full):
     b50 = lambda m, th: m.resize((GRID, GRID), Image.BOX).point(lambda v: 255 if v >= th else 0)
     T, _ = screen_look(tile_full)
     own = T.getchannel('A').point(lambda v: 255 if v >= 128 else 0)
-    return {'rail': b50(G, 170), 'chan': b50(C, 100), 'crack': b50(K, 100), 'R': R.resize((GRID, GRID), Image.NEAREST),
+    return {'rail': b50(G, 120), 'chan': b50(C, 60), 'crack': b50(K, 90), 'R': R.resize((GRID, GRID), Image.NEAREST),
             'own': own, 'seal_ko': seal_keepout()}
 
 
-COOL = [BURN[0], GOLD[2], (196, 150, 66), (150, 112, 44)]     # the trail cooling back to the resting rail
+COOL = [BURN[1], BURN[0], (240, 186, 84)]                     # the trail cooling back to his resting gold
+
+
+def no_specks(m):
+    """Drop isolated pixels (no 8-neighbour in the mask): no 1 px glitter, while 2 px-wide band runs survive."""
+    src = m.load()
+    out = m.copy()
+    dst = out.load()
+    w, h = m.size
+    for y in range(h):
+        for x in range(w):
+            if src[x, y] and not any(src[x + dx, y + dy] for dx in (-1, 0, 1) for dy in (-1, 0, 1)
+                                     if (dx or dy) and 0 <= x + dx < w and 0 <= y + dy < h):
+                dst[x, y] = 0
+    return out
 
 
 def light_frame(L, t, land, ext):
-    """Light only (director 2026-11-06): nothing but rail pixels is drawn, so the resting tile and every fighter stay
-    visible. The light runs from the hex centre out along the rails at SPAN ticks per hex radius and on past the edge
-    to norm 1 + ext (into the neighbours, which are unlit at that moment, so the current flows hex to hex): a bright
-    node at the head (white-hot channel, burning rail), then the rail cools over 4 ticks back to the resting gold.
-    Every run smaller than 2 x 2 px is dropped (no glitter)."""
+    """Light only (director 2026-11-06): nothing but the bands is drawn, so the resting tile and every fighter stay
+    visible. The light runs from the hex centre out along the bands at SPAN ticks per hex radius, on past the edge to
+    norm 1 + ext (into the neighbours, which are unlit at that moment, so the current flows hex to hex). The head is a
+    node: the band white-hot at its own width; then the band cools over 3 ticks back to his resting gold.
+    Isolated pixels are dropped (no glitter)."""
     f = Image.new('RGBA', (GRID, GRID), (0, 0, 0, 0))
     lim = int(127.5 * (1 + ext))
 
@@ -255,13 +264,11 @@ def light_frame(L, t, land, ext):
             return 255 if lo <= t - a < hi else 0
         return L['R'].point(sel)
     for k in range(len(COOL) - 1, -1, -1):
-        solid(f, clean2(ImageChops.multiply(L['rail'], age(k + 1, k + 2))), COOL[k])
-    head = age(0, 1)
-    node = ImageChops.multiply(ImageChops.multiply(L['chan'], head).filter(ImageFilter.MaxFilter(3)), L['rail'])
-    solid(f, clean2(ImageChops.lighter(node, ImageChops.multiply(L['rail'], head))), BURN[1])
-    solid(f, node, BURN[2])
-    solid(f, clean2(ImageChops.multiply(L['crack'], age(1, 2))), EMBER[3])
-    solid(f, clean2(ImageChops.multiply(L['crack'], age(2, 3))), EMBER[2])
+        solid(f, no_specks(ImageChops.multiply(L['rail'], age(k + 1, k + 2))), COOL[k])
+    core = ImageChops.multiply(L['rail'], age(0, 1))
+    solid(f, no_specks(core), BURN[2])
+    solid(f, no_specks(ImageChops.multiply(L['crack'], age(1, 2))), EMBER[3])
+    solid(f, no_specks(ImageChops.multiply(L['crack'], age(2, 3))), EMBER[2])
     return f
 
 
@@ -273,20 +280,41 @@ def light_seal(L, t):
     if not k:
         return f
     lerp = lambda a, b, u: tuple(int(a[i] + (b[i] - a[i]) * u) for i in range(3))
-    col = BURN[2] if k >= 1.0 else lerp((120, 84, 30), BURN[1], k / 0.75) if k <= 0.75 else lerp(BURN[1], BURN[2], (k - 0.75) / 0.25)
-    solid(f, ImageChops.multiply(ImageChops.multiply(L['chan'], L['own']), L['seal_ko']), col)
+    col = BURN[2] if k >= 1.0 else lerp((226, 170, 70), BURN[1], k / 0.75) if k <= 0.75 else lerp(BURN[1], BURN[2], (k - 0.75) / 0.25)
+    solid(f, ImageChops.multiply(ImageChops.multiply(L['rail'], L['own']), L['seal_ko']), col)
     return f
 
 
+def classic_masks(rail, chan, crack, clip=CLIP):
+    """The classic tile's rail / groove / mortar-glow masks over one clip square centred on a hex, with the
+    neighbours tiled round it (the same periodic surface the floor shows), plus the hex-norm map."""
+    import classic as CL
+    G, Cm, K, R = (Image.new('L', (clip, clip), 0) for _ in range(4))
+    gp, cp, kp, rp = G.load(), Cm.load(), K.load(), R.load()
+    rl, cl, kl = rail.load(), chan.load(), crack.load()
+    n = rail.width
+    for py in range(clip):
+        for px in range(clip):
+            x = (px + 0.5 - clip / 2) / clip * RATIO
+            y = (py + 0.5 - clip / 2) / clip * RATIO * math.sqrt(3)
+            lx, ly = FL.reduce(x, y)
+            X, Y = CL.to_px(lx, ly)
+            X, Y = min(n - 1, max(0, int(X))), min(n - 1, max(0, int(Y)))
+            gp[px, py], cp[px, py], kp[px, py] = rl[X, Y], cl[X, Y], kl[X, Y]
+            rp[px, py] = min(255, int(max(abs(y) / (math.sqrt(3) / 2), (math.sqrt(3) * abs(x) + abs(y)) / math.sqrt(3))
+                                      * 127.5))
+    return G, Cm, K, R
+
+
 def main_light():
+    import classic as CL
     os.makedirs(OUT, exist_ok=True)
-    FL.MODE = 'rest'
-    tile_rest = FL.tile(size=128)
-    FL.MODE = 'full'
+    tile_rest, _, rail, chan, crack = CL.tile(size=128, gold_scale=REST_SCALE)
     tile_rest.save(os.path.join(OUT, 'tile_sbk_domain_v3.webp'), lossless=True, method=6)
-    G, C, K, A, R = FL.field_masks(CLIP, RATIO)
+    G, C, K, R = classic_masks(rail, chan, crack)
     L = light_layers(G, C, K, R, tile_rest)
-    meta = {'ratio': RATIO, 'speed': SPEED, 'tile': 'rails_rest', 'order': 'rings_light' + ('_nospill' if EXT['rim'] < 0.1 else ''), 'variant': 'light',
+    meta = {'ratio': RATIO, 'speed': SPEED, 'tile': 'classic', 'order': 'light' + ('' if EXT['rim'] < 0.1 else '_rimext'),
+            'variant': 'light', 'rest_scale': REST_SCALE,
             'assets': {}, 'groups': []}
     G2 = groups()
     for k, (land, offs) in enumerate(G2):

@@ -1,13 +1,14 @@
 # Subaku Palace: the domain summoning (design, assets, engine limits)
 
-Status: design and built strips, 2026-11-05. **No manifest yet.** Jutsu `jELEiw5W3N4m2R3oJm3Pk` (player EVENT, A rank,
+Status: design and built strips, 2026-11-06 (final polish: light-only, the director's tile). **No manifest yet.** Jutsu `jELEiw5W3N4m2R3oJm3Pk` (player EVENT, A rank,
 JONIN, level 25, 40 AP, cooldown 7, 500 chakra and 500 stamina; AOE_SPIRAL_SHOOT, target GROUND, range 4).
 Mechanics are unchanged: SELF `increasedamagegiven` 30 % for 2 rounds; GROUND `decreasedamagegiven` 15 % on ENEMIES for
 3 rounds.
 
 Rulings: RUL-2026-11-05-124 (payoffs as one picture, the stage, no sickly green, premium), RUL-2026-11-05-125
 (the remake; the exact-geometry tile ships; up to 7 visual-tag lines in the jutsu details), RUL-2026-11-05-127
-(asset library) and RUL-2026-11-06-128 item 7 (the bloom direction approved; the arch kept). Text of record:
+(asset library) and RUL-2026-11-06-128 item 7 (the bloom direction approved; the arch kept). Director,
+2026-11-06: light-only arrival with no spill; the resting tile to resemble his original as closely as possible. Text of record:
 `docs/design/jutsu_overhaul/EVENT_JUTSU_STORY_TEXT.md`. Shared clock and palette: `art/subaku_palace/TIMING.md`.
 Centre half (sigil, gates, palace): `art/subaku_palace/gates/README.md`.
 
@@ -15,63 +16,48 @@ Live-game requests: 0. Game source read at theninjarpg `3314d122` and upstream m
 
 ## 1. What the player sees
 
-Build target (director, 2026-11-05): 2.5-hex-height clips and LPC character avatars.
+Build target (director, 2026-11-05): 2.5-hex-height clips and LPC character avatars. Arrival (director, 2026-11-06):
+**light only**, with no cover and no spill.
 
-1. **Anticipation (ticks 0-6).** The domain lies as bare stone: every band hex is covered whole by its own floor with
-   no gold at all (the director's arrival, 2026-11-05/06). Only 1.4 % of the floor's gold pixels show at tick 0, at
-   the jagged hex edges. At the caster's feet the burning-gold sigil kindles and spirals out (centre strip).
-2. **The bloom (7-30).** The gold blooms outward from the caster as one wave:
+1. **Anticipation (ticks 0-6).** The domain is there from tick 0: the director's own floor at rest, with dark basalt
+   plates, red glow in the mortar and his burnished double-rail gold, unlit. At the caster's feet the burning-gold
+   sigil kindles and spirals out (centre strip).
+2. **The bloom (7-25).** The gold lights up outward from the caster as one wave:
    - ring 1 ignites on tick 7, and the next half-ring band every 2 ticks (ring 4 on 19);
-   - in each hex the light runs out along the rails from the centre to the edge midpoints in 4 ticks: a bright node
-     filling the rail at the head, a 2-tick burning trail on the rail face (decaying as shortening runs, nothing
-     smaller than 2 x 2 px), and the red cracks flaring a tick behind it;
-   - each ring's rails reach the next ring's as it ignites, so the light runs on as one outward front;
-   - where the head has passed, the cover is gone: the real tile (and any fighter or meter row) shows, with only the
-     lit rails drawn over it, and the trail fades out;
-   - the last head reaches the rim on tick 23; the last band clip ends on 25.
+   - in each hex a white-hot head runs out along his bands from the centre to the edges in 4 ticks (on into the
+     neighbours, up to 1.5 hex radii from the centre, so the current flows from hex to hex); the band then cools over
+     3 ticks (burning, then lit gold) back to his resting gold; the red mortar flares a tick behind the head;
+   - only band pixels are drawn: no cover, so the fighters, their meter rows and the floor stay visible throughout;
+   - ring 4's light stays inside its own hexes (no spill onto the bare board past the rim).
 3. **The gates (7-19).** Red sandstone oni gates tear out of the ground on ring 1, and the palace with its moon gate
    rises behind the caster (centre strip, gates v6).
-4. **The final pulse (27-32).** The rim has formed. The domain's rails light at their own width, ramping
-   40 / 75 / 100 / 70 / 40 / 15 %, white-hot on tick 29 (the seal, the ground appear), and the palace's held beat
-   lands on 29-30. The pulse stays off the fighter standing areas and meter rows: on its ticks no enemy body is more
-   than 10 % covered, and no meter row more than 4 %.
-5. **The settle (31-43).** The gates sink; nothing on the floor animates after tick 30.
-6. **The 3 rounds.** A static floor in the director's reference style (refs a-d). Dark basalt flagstones with a
-   fine grain and their own tones, faint red light in the mortar, and whole joints glowing ember that taper out at the
-   stone corners. Over them runs a woven lattice of crisp double-rail demon gold: one gentle S current per hex, from
-   the lower-left to the upper-right edge midpoint, weaving over two large arcs (M1-M3 and M0-M4). Hex to hex the
-   currents run at 150 deg and the arcs chain at 60 deg across them, so the gold reads as one woven surface, not
-   parallel stripes. It has no curls. Every band leaves its hex at an edge midpoint with the same width and a
-   symmetric profile, so every join is exact. It lies under the fighters, with no loop.
-   The caster's own hex stays empty after the cast (director 2026-11-05: it has no in-game effect either).
+4. **The final pulse (27-32).** Every band in the domain flares together at its own width, ramping
+   40 / 75 / 100 / 70 / 40 / 15 %, white-hot on tick 29 (the seal, the ground appear), with the palace's held beat on
+   29-30. The pulse stays off the fighter column (the LPC silhouette, +-0.2 h) and the meter rows.
+5. **The settle (31-43).** The gates sink; nothing on the floor animates after tick 32.
+6. **The 3 rounds.** The director's own tile (the live DemonCastleFloor, ref a / ref c), changed only where its band
+   ends missed their neighbours (section 3). It lies under the fighters, with no loop. The caster's own hex stays
+   empty after the cast (director 2026-11-05: it has no in-game effect either).
 7. **The self-buff.** The gates and palace are the master's moment. Per the director, the sigil is symbolic and
    fades in the cast: there is no lingering buff loop and no dais.
 
-**Light and dark boards.** The domain is a dark field (stone mean about `#30292a`), so its edge reads hard on snow and
-by its gold on night boards. The rails are burnished demon gold (`#764a12` to `#fadc96`) with a
-recessed groove (`#46280a`) between them. The cast's burning current (`#ffcf4a` to `#fff4c8`) runs in that groove.
+**Light and dark boards.** The domain is his dark basalt field, so its edge reads hard on snow and by its gold on night
+boards. At rest the bands are his own burnished gold, unchanged (`SBK_REST_SCALE` 1.0). The bloom is clearly brighter:
+a white-hot head (`#fff4c8`) and a burning trail (`#ffe58a`, `#ffcf4a`).
 **Alongside other effects.** The floor is static art: it draws under fighters, highlights and every other clip, and
-it carries no loop. **The cover has no fighter keep-out** (director, 2026-11-05: "I don't care if the animation covers
-the fighter for a moment"). A fighter in the domain is hidden by its hex's stone (and, above the hex top, by the
-next hex's) from tick 0 until the bloom reaches it. Nothing lingers: the cover opens where the head passes, and only
-the lit rails remain for the 2-tick trail. Measured with the independent reviewer's renderer (`qa_render.py`, actual
-sprite and meter alpha), on both column parities with identical numbers:
-- frames with an enemy's body more than 25 % covered: ring 1 11-14 (0.55-0.7 s), ring 2 16 (LPC), AI originals on
-  rings 2-3 19-21, and ring 4 24 (1.2 s, the maximum: its head stands in the outer neighbour, whose bloom passes
-  last);
-- meter rows follow the same pass, 15-24 frames;
-- the caster: the ring-1 cover is notched at its bottom centre (+-0.18 h up to 0.45 h, and the meter rows
-  +-0.52 h at 0.22-0.6 h), so the caster's head and meters stay clear during the anticipation. Body at most 17 %;
-- frame to frame, the largest whole-arena change is 3.5 (mean absolute, 0-255; QA r3 measured 23.6 and 26.2 on
-  the old seal).
+it carries no loop. The clips draw only on the bands, about 2 px wide on the 50 px clip. Measured with the independent
+reviewer's renderer (`qa_render.py`, actual sprite and meter alpha), both column parities:
+- an enemy's body is at most 28 % covered, on 2 frames at most (the wide AI avatar beside the caster, as a head
+  passes); every LPC enemy is at most 21 %, on no frame over 25 %; meter rows are at most 28 %, on 3 frames at most;
+- during the final pulse no body is more than 19 % covered and no meter row more than 9 %;
+- frame to frame, the largest whole-arena change is 5.4 (mean absolute, 0-255), as the pulse switches on and off.
 The centre strip's
 sigil ring (ticks 4-23) crosses the lower neighbour's meter rows, up to 16 % of them (QA r3: a real ground ring,
 hidden only behind the legs); its gates, palace and shards never do. The caster's own
-meter rows are crossed by the centre strip's moon-gate arch and nothing else: on ticks 24-33 in v6 (the roof wings now
-sit below the rows), up to 33 % of the rows by the build's rectangle (the reviewer's renderer measured 40 % on v4; to
-re-measure on v6). The director accepted this on 2026-11-05 ("keep the arch") on the understanding that those rows show
-only on hover or selection. That holds for other viewers only: the casting player always sees their own rows
-(theninjarpg cb755375 `combat.ts:420` passes the viewer's userId as `selectedId`; `combatActors.ts:516-520`).
+meter rows are crossed by the centre strip's moon-gate arch and nothing else (36 % on the reviewer's renderer, ticks
+24-33). The director accepted this on 2026-11-05 ("keep the arch"; RUL-2026-11-06-128). The casting player always
+sees their own rows (theninjarpg cb755375 `combat.ts:420` passes the viewer's userId as `selectedId`;
+`combatActors.ts:516-520`).
 
 ## 2. Engine reality (what made the design)
 
@@ -89,34 +75,21 @@ only on hover or selection. That holds for other viewers only: the casting playe
 | Each record's clip starts when its own images are ready, so records of one cast can start a few ticks apart. | QA B4; `combatEffects.ts:118-160` |
 
 **What follows.**
-- The floor is present from tick 0. The arrival is drawn by the band clips covering it (the director's idea): each
-  band hex starts as its own floor with no gold, and the gold blooms outward and uncovers the real tile as it passes.
-- **The hand-off is exact by construction.** Behind the trail the clip is transparent, so what shows is the tile
-  itself. The cover's stone is built from the tile's own on-screen render (the floor without gold), exactly centred.
-  The cover grows 1 px wherever the tile's gold crosses the hex border, so no gold flecks show at the edge midpoints.
-  At tick 0 it hides 98.4 % of the gold pixels (measured on a non-notched band hex); the ring-1 notch shows a little
-  more on those 4 hexes. The cover's embers are thinner and darker than the tile's, with none where a rail will lie.
-  (`exports/subaku_domain_v1.json`, `handoff_check`.)
+- The floor is present from tick 0, so the arrival is light, not reveal: the director's tile rests unlit and the
+  bloom races along its bands. There is no cover, so there is no hand-off, nothing hides a fighter, and the untagged
+  rim hexes simply rest like their neighbours.
 - **Direction inside a hex.** All hexes in one tag show identical pixels, so a strip cannot know which edge its
-  current enters by. Each hex blooms from its own centre. The ring timing (4 ticks a ring, 4 ticks centre to edge) chains
-  them into one outward front. A current entering from the caster's side would need ring x direction groups, about
-  40 tags against the 7 allowed.
+  current enters by. Each hex lights from its own centre; the light runs on into the neighbours, and the ring timing
+  (4 ticks a ring, 4 ticks centre to edge) chains it into one outward front. A current entering only from the
+  caster's side would need ring x direction groups, about 40 tags against the 7 allowed.
 - **Load order (QA B4).** Each record's clip starts when its own images are ready. Every band strip is
-  self-contained: it lights only its own hex and depends on no neighbour.
-  - **Tile late, clips on time:** the cover is opaque stone, so a late tile is hidden while the hex is still covered.
-    Only a hex whose bloom has already passed would show bare board until the tile arrives.
-  - **Clips late, tile on time** (simulated with the reviewer's renderer, every band strip 4 ticks late): the finished
-    floor shows for those 4 ticks, then the stone cover pops on (a whole-frame mean change of 6.6, re-measured
-    on this build) and the bloom plays in full, 4 ticks late. If only some strips are late, only their rings flash the finished floor first.
-  - Sizes: the floor tile is 128 px (the spec minimum), about 15 KB. The band strips are about 3 KB each. Size alone
-    does not set the load order, so neither case can be ruled out.
+  self-contained. A late strip only lights its rings late; a late tile leaves the bare board under the light until
+  it arrives. Nothing pops: the light draws on the floor, never over a cover.
 - **A unique painted swirl across the domain is not possible.** Every hex in one tag shows identical pixels.
 - **Tile variants are not possible either** (one `staticAssetPath` per ground tag). They would mean splitting the
   enemy-weakening ground effect into 2-3 COORDINATES copies:
   - mechanically identical, but more effect lines;
   - the 4 parity-only rim hexes would lose the debuff.
-  - So the floor is one tile, and the repeat is broken inside it: the woven lattice (two directions), per-pixel grain,
-    16 stones per hex in 7 tones, and tapered joints.
 
 **Parity error (every caster column).**
 - Whole bands ignite on their ring's tick, 3 + 4 d. A half band holds ring d on one parity and ring d + 1 on the
@@ -124,19 +97,46 @@ only on hover or selection. That holds for other viewers only: the casting playe
 - On both parities, 40 of the 56 band hexes ignite exactly on their ring; the other 16 within 100 ms.
 - 4 rim hexes per parity are in the domain on one parity only, so they carry no band tag. They are the top four rim
   hexes on an even column and the bottom four on an odd one.
-- **Pending the director's ruling** (QA is asking him): these hexes show the finished tile from tick 0, with the final
-  pulse on 27-32. A neighbour's clip cannot
-  extend to cover them, because the same strip would then also paint past the rim onto the bare board on every
-  other side.
+- **Ruled (director 2026-11-06): light-only, no spill.** These hexes rest like their neighbours and flare in the
+  final pulse (27-32). Extending ring 4's light into them would also paint lit bands onto the bare board past the rim
+  on every other side; a strip cannot tell the two apart.
 
 ## 3. Assets (built; artpreflight 0 errors / 0 warnings)
 
-Asset library (RUL-2026-11-05-127): every upload goes in the folder **`Jutsu - Subaku Palace`**, named
+Asset library (RUL-2026-11-05-127, folder name per RUL-2026-11-06-130: `^[a-zA-Z0-9]*$`): every upload goes in the folder
+**`JutsuSubakuPalace`**, named
 `Subaku Palace: <part>`.
+
+**The resting tile** (`classic.py`; the director's ref c, the hi-res live floor, cropped to its hex and resampled to
+the corner-to-corner canvas the game stretches):
+- Join rule: across edge k a neighbour shows its edge k + 3, so a band leaving edge k at u with outward direction d
+  needs one leaving edge k + 3 at 1 - u with outward direction d + 180. Measured on his tile, 11 of its band ends have
+  no partner (only the L / bottom-left arc and the S / bracket pairs come close). That is why the live floor reads as
+  repeated hooks.
+- Kept: his five elements, his stone and mortar glow, his burnished gold texture (sampled from his L), his band width
+  (0.104 radius against his 0.105), his dark rim.
+- Changed, only to make every end meet:
+  - the S band leaves the upper-left edge horizontally as his does (u 0.28, his 0.30); its lower end comes down to
+    the bottom edge at 0.15 (his ran out through the lower-right edge near the bottom corner);
+  - the top-left L: his, its ends at 0.20 (his 0.216) and the upper-left midpoint (his 0.483);
+  - the top-right arc: his, from the top edge at 0.85 to the upper-right midpoint;
+  - the bottom-left arc: his sweep up from the bottom edge at 0.80 (his 0.81), now ending at the lower-left midpoint
+    (his ran on to the left corner);
+  - the right bracket: his chamfered bracket, attached to the lower-right edge at the midpoint and at 0.72 (his
+    straddled the right corner);
+  - the profile: a symmetric double rail (two rails, a dark groove) at his total width, because his wide-plus-narrow
+    pair cannot keep its narrow rail on a consistent side across a seam;
+  - where an old band no longer runs, his stone is filled in from a rotated or mirrored copy of his own tile (one
+    symmetry per hole, with a mortar line round it).
+- Pairs, all exact in position and direction: L top / bottom-left arc (0.20 / 0.80); L left / bracket (0.50 / 0.50);
+  S left / bracket (0.28 / 0.72); S bottom / top-right arc (0.15 / 0.85); bottom-left arc / top-right arc (the
+  midpoints). `python3 classic.py` prints the join check.
+- Side by side (hi-res, 1x true scale, 3x, the 50 px rendition, and tiled at true scale):
+  `docs/design/subaku_palace/tile_original_vs_new.png`.
 
 | File | Library name | Type | Frames x ms | Slot (proposed) |
 |---|---|---|---|---|
-| `exports/tile_sbk_domain_v3.webp` (128 px) | `Subaku Palace: domain floor` | STATIC | 1 | ground `decreasedamagegiven`: `staticAssetPath` (replaces DemonCastleFloor `zEvI0yd_As_FzNyrr5Iq4`) |
+| `exports/tile_sbk_domain_v3.webp` (128 px, `classic.py`) | `Subaku Palace: domain floor` | STATIC | 1 | ground `decreasedamagegiven`: `staticAssetPath` (replaces DemonCastleFloor `zEvI0yd_As_FzNyrr5Iq4`) |
 | `exports/anim_sbk_seal_v1.webp` | `Subaku Palace: domain seal` | ANIMATION | 36 x 50 | ground `decreasedamagegiven`: `appearAnimation` (replaces the library clip `c4FqDZWFZOdWn86o6nPL7`); `appearSfx` blank |
 | `exports/anim_sbk_wave_b0_v1.webp` | `Subaku Palace: ring 1 wave` | ANIMATION | 36 x 50 | visual tag b0: COORDINATES, origin CASTER, offsets in `subaku_domain_v1.json`, power 2, rounds 1, `appearAnimation` |
 | `exports/anim_sbk_wave_b1_v1.webp` | `Subaku Palace: ring 1.5 wave` | ANIMATION | 36 x 50 | visual tag b1 (as b0) |
@@ -150,7 +150,8 @@ Asset library (RUL-2026-11-05-127): every upload goes in the folder **`Jutsu - S
 The SELF `increasedamagegiven` effect's `staticAssetPath` and `staticAnimation` are **cleared** (no dais, no loop).
 The 7 band tags carry no sound and no static slots.
 
-Builders (Pillow only): `floor.py` (the periodic field and the tile), `build_domain.py` (strips and offsets),
+Builders (Pillow only): `classic.py` (the resting tile and its band masks), `build_domain.py` (strips and offsets;
+`SBK_VARIANT=cover` builds the reference cover variant into `exports_cover/` from `floor.py`'s 'rails' tile),
 `preview.py` (the true-scale composite). It imports the Mother of Echoes `qa_preview.py` read-only. Exploration patterns
 (palace lattice, swirl, streams; the superseded 'flow' and 'bold flow' floors are in git history at 5f2c6a07 and be8646d1) are in `tile_v2.py`. The director's four reference tiles are in `refs/`. Ref a
 (`677f13a9`) is taken as the live DemonCastleFloor because it is the only one that fills the 2:1 box. No hash is
@@ -177,11 +178,12 @@ maintained. The gates agent's `anim_sbk_gates_rise_v3` (`gates/build_gates_ratio
 
 ## 6. Previews (true scale: 132 x 66 hex, 165 px clip, 50 px rendition, linear; LPC stand-in, labelled)
 
-Contact sheets in `docs/design/subaku_palace/`, with the independent reviewer's renderer run on this build (`qa_render_paths_patched.py`: only its asset/output paths and the gates strip name changed) and its stats (`qa_reviewer_render_*.json`, including the load-skew simulation). The GIFs (arena 12 x 10 and close-up, light and dark, even and odd
+Contact sheets in `docs/design/subaku_palace/`, with the independent reviewer's renderer run on this build (`qa_render_paths_patched.py`: only its asset/output paths and the gates strip name changed) and its stats (`qa_reviewer_render_*.json`, the clips-late case is moot without a cover). The GIFs (arena 12 x 10 and close-up, light and dark, even and odd
 caster columns) are regenerated by `preview.py [--odd]`. The board is the real battle still tiled by its own hex
 period. The dark board is the harness's night grade.
 
 ## 7. Raw art
 
-None is needed: the tile and strips are delivered at the 50 px rendition, where the programmatic finish holds.
-An optional painted finish for the stone and the gold is in `docs/handoffs/SUBAKU_PALACE_FLOOR_ART_REQUEST.md`.
+None is needed: the resting tile is the director's own art (ref c), with its bands redrawn only to join. The earlier
+optional painted-finish request (`docs/handoffs/SUBAKU_PALACE_FLOOR_ART_REQUEST.md`) applied to the procedural floor
+and is superseded.

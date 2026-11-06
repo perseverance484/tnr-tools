@@ -33,7 +33,7 @@ def arg(name, default=None):
     return ARGS[ARGS.index(name) + 1] if name in ARGS else default
 
 
-EXP = os.path.join(HERE, 'exports' if os.environ.get('SBK_VARIANT', 'cover') == 'cover' else 'exports_light')
+EXP = os.path.join(HERE, 'exports' if os.environ.get('SBK_VARIANT', 'light') == 'light' else 'exports_cover')
 OUT = arg('--out', os.path.join(HERE, 'previews'))
 W, H = 12, 10
 HW, HH, CP, RP = 132, 66, 99, 66
