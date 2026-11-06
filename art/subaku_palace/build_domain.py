@@ -2,7 +2,7 @@
 """Subaku Palace: the domain floor and its ring-by-ring summoning (Pillow only).
 
     python3 build_domain.py                    # the shipped build: light-only (director 2026-11-06) -> exports/
-    SBK_VARIANT=cover python3 build_domain.py  # the reference cover variant -> exports_cover/
+    SBK_VARIANT=cover python3 build_domain.py  # the reference cover variant -> reference/cover_variant_DO_NOT_UPLOAD/
 
 Engine (docs/design/COMBAT_ANIMATION_ENGINE.md; theninjarpg@3314d122 and upstream main cb755375, read, never run):
 - AOE_SPIRAL_SHOOT stamps the ground tag on spiral(caster, 4) minus the caster's hex (targeting.ts:56-58): 60 hexes in
@@ -20,7 +20,7 @@ The shipped build (light-only, no spill; RUL-2026-11-06-128 and the director's p
 - the seal (ground appear, all 60 hexes, x2, hard alpha): the final pulse, every band at its own width ramping 27-32
   (white-hot on 29), off the fighter column and meter rows.
 
-Exports (exports/): tile_sbk_domain_v3.webp (STATIC 128 px), anim_sbk_wave_b{k}_v1.webp (k = 0..6, 36 x 50 ms,
+Exports (exports/): tile_sbk_domain_v4.webp (STATIC 128 px, palette, about 10 KB), anim_sbk_wave_b{k}_v1.webp (k = 0..6, 36 x 50 ms,
 150 px frames), anim_sbk_seal_v1.webp (36 x 50 ms), subaku_domain_v1.json (the band offsets).
 """
 import json
@@ -36,7 +36,8 @@ import floor as FL  # noqa: E402
 
 # 'light' (default; the director's pick, 2026-11-06: light-only, no spill) or 'cover' (the reference variant)
 VARIANT = os.environ.get('SBK_VARIANT', 'light')
-OUT = os.path.join(HERE, 'exports' if VARIANT == 'light' else 'exports_cover')
+OUT = os.path.join(HERE, 'exports' if VARIANT == 'light' else os.path.join('reference', 'cover_variant_DO_NOT_UPLOAD'))
+TILE_NAME = 'tile_sbk_domain_v4.webp'   # v4: the director's tile, joined (QA r4 nit: bumped before upload)
 REST_SCALE = float(os.environ.get('SBK_REST_SCALE', '1.0'))   # the resting gold vs his original (1.0 = his colour)
 EXT = {'b': 0.5, 'rim': float(os.environ.get('SBK_RIM_EXT', '0.04'))}   # rim 0.04: no spill (director)  # light variant: how far past its own edge a band's light runs (hex norm), inner / ring 4
 RATIO = float(os.environ.get('SBK_RATIO', '2.5'))
@@ -183,7 +184,7 @@ def wave_frame(L, t, land, notch=False):
     return f
 
 
-SEAL_RAMP = {27: 0.40, 28: 0.75, 29: 1.00, 30: 0.70, 31: 0.40, 32: 0.15}   # QA r3 B1
+SEAL_RAMP = {26: 0.18, 27: 0.40, 28: 0.75, 29: 1.00, 30: 0.70, 31: 0.40, 32: 0.15}   # QA r3 B1, r4 B2 pre-step
 GROOVE_C = (70, 40, 10)          # the tile's rail groove (floor.py GROOVE)
 
 
@@ -226,7 +227,13 @@ def light_layers(G, C, K, R, tile_full):
     b50 = lambda m, th: m.resize((GRID, GRID), Image.BOX).point(lambda v: 255 if v >= th else 0)
     T, _ = screen_look(tile_full)
     own = T.getchannel('A').point(lambda v: 255 if v >= 128 else 0)
-    return {'rail': b50(G, 120), 'chan': b50(C, 60), 'crack': b50(K, 90), 'R': R.resize((GRID, GRID), Image.NEAREST),
+    side = Image.new('L', (GRID, GRID), 0)                   # QA r4 S2: light stops 1.15 h out (|x| <= 1.15 tile heights)
+    sp = side.load()
+    for yy in range(GRID):
+        for xx in range(GRID):
+            if abs(xx + 0.5 - GRID / 2) / (GRID / RATIO) <= 1.15:
+                sp[xx, yy] = 255
+    return {'side': side, 'rail_core': b50(G, 200), 'rail': b50(G, 120), 'chan': b50(C, 60), 'crack': b50(K, 90), 'R': R.resize((GRID, GRID), Image.NEAREST),
             'own': own, 'seal_ko': seal_keepout()}
 
 
@@ -262,7 +269,7 @@ def light_frame(L, t, land, ext):
                 return 0
             a = land + v / 127.5 * SPAN
             return 255 if lo <= t - a < hi else 0
-        return L['R'].point(sel)
+        return ImageChops.multiply(L['R'].point(sel), L['side'])
     for k in range(len(COOL) - 1, -1, -1):
         solid(f, no_specks(ImageChops.multiply(L['rail'], age(k + 1, k + 2))), COOL[k])
     core = ImageChops.multiply(L['rail'], age(0, 1))
@@ -273,15 +280,17 @@ def light_frame(L, t, land, ext):
 
 
 def light_seal(L, t):
-    """The final pulse, light variant: the grooves only (own hex, off fighter areas and meter rows), ramping 27-32,
-    white-hot on 29 (the gates' held beat)."""
+    """The final pulse, light variant: every band of the own hex, uncut (QA r4 B2: the fighter cuts chopped the bands
+    into dashes; fighters stay under 24 % without them), ramping 26-32 from an 18 % pre-step, white-hot on 29 (the
+    gates' held beat)."""
     f = Image.new('RGBA', (GRID, GRID), (0, 0, 0, 0))
     k = SEAL_RAMP.get(t)
     if not k:
         return f
     lerp = lambda a, b, u: tuple(int(a[i] + (b[i] - a[i]) * u) for i in range(3))
-    col = BURN[2] if k >= 1.0 else lerp((226, 170, 70), BURN[1], k / 0.75) if k <= 0.75 else lerp(BURN[1], BURN[2], (k - 0.75) / 0.25)
-    solid(f, ImageChops.multiply(ImageChops.multiply(L['rail'], L['own']), L['seal_ko']), col)
+    col = BURN[2] if k >= 1.0 else lerp((206, 150, 58), BURN[1], k / 0.75) if k <= 0.75 else lerp(BURN[1], BURN[2], (k - 0.75) / 0.25)
+    solid(f, no_specks(ImageChops.multiply(L['rail_core'], L['own'])), col)   # uncut, on the band's core
+    # (QA r4 B2: whole bands, no dash grid; the core keeps fighters as covered as the thin r3 rails did)
     return f
 
 
@@ -310,7 +319,7 @@ def main_light():
     import classic as CL
     os.makedirs(OUT, exist_ok=True)
     tile_rest, _, rail, chan, crack = CL.tile(size=128, gold_scale=REST_SCALE)
-    tile_rest.save(os.path.join(OUT, 'tile_sbk_domain_v3.webp'), lossless=True, method=6)
+    tile_rest.save(os.path.join(OUT, TILE_NAME), lossless=True, method=6)
     G, C, K, R = classic_masks(rail, chan, crack)
     L = light_layers(G, C, K, R, tile_rest)
     meta = {'ratio': RATIO, 'speed': SPEED, 'tile': 'classic', 'order': 'light' + ('' if EXT['rim'] < 0.1 else '_rimext'),
@@ -327,7 +336,9 @@ def main_light():
     strip([light_seal(L, t) for t in range(NF)]).save(os.path.join(OUT, 'anim_sbk_seal_v1.webp'), lossless=True,
                                                       method=6)
     meta['assets']['anim_sbk_seal_v1.webp'] = {'type': 'ANIMATION', 'frames': NF, 'speed': SPEED}
-    meta['assets']['tile_sbk_domain_v3.webp'] = {'type': 'STATIC'}
+    meta['assets'][TILE_NAME] = {'type': 'STATIC', 'use': 'ground tag staticAssetPath (3 rounds)'}
+    for n in meta['assets']:
+        meta['assets'][n]['bytes'] = os.path.getsize(os.path.join(OUT, n))
     json.dump(meta, open(os.path.join(OUT, 'subaku_domain_v1.json'), 'w'), indent=1)
     print('ok light', [(land, len(o)) for land, o in G2])
 

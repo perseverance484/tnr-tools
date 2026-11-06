@@ -13,17 +13,17 @@ Join rule: across edge k a neighbour shows its edge k + 3, so a band leaving edg
 needs a band leaving edge k + 3 at 1 - u with outward direction d + 180. Measured on ref c, 11 of its band ends have
 no partner (only the L / bottom-left arc and the S / bracket pairs come close). The layout below keeps his five
 elements and moves only their ends:
-- S band: leaves the upper-left edge horizontally (his) at u 0.28 (his 0.30); its lower end comes down to the bottom
+- S band: leaves the upper-left edge horizontally (his) at u 0.24 (his 0.30); its lower end comes down to the bottom
   edge at 0.15, heading down (his ran out through the lower-right edge near the bottom corner);
 - top-left L: his: vertical from the top edge at 0.20 (his 0.216), a chamfered corner, horizontal to the upper-left
   midpoint (his 0.48);
 - top-right arc: his, round the top-right corner from the top edge at 0.85 to the upper-right midpoint;
 - bottom-left arc: his sweep up from the bottom edge at 0.80 (his 0.81), now ending at the lower-left midpoint (his
   ran on to the left corner);
-- right bracket: his chamfered bracket, attached to the lower-right edge at the midpoint and at 0.72 (his straddled
+- right bracket: his chamfered bracket, attached to the lower-right edge at the midpoint and at 0.76 (his straddled
   the right corner).
 Pairs: L top / bottom-left arc (0.20 / 0.80, vertical); L left / bracket (0.50 / 0.50, horizontal); S left / bracket
-(0.28 / 0.72, horizontal); S bottom / top-right arc (0.15 / 0.85, vertical); bottom-left arc / top-right arc (the
+(0.24 / 0.76, horizontal); S bottom / top-right arc (0.15 / 0.85, vertical); bottom-left arc / top-right arc (the
 midpoints, square to the edges). Every end is exact in position and direction.
 Profile: his band total width (0.105 radius) as a symmetric double rail (two rails, a dark groove between), because
 his wide-plus-narrow pair cannot keep its narrow rail on a consistent side across a seam. The rails are textured with
@@ -44,10 +44,14 @@ H = SQ3 / 2
 C = [(math.cos(math.radians(60 * k)), math.sin(math.radians(60 * k))) for k in range(6)]
 PX = 2.0 / N                      # hex units per canvas pixel (x); y is the same after the square resample (H / (N/2))
 
-RAIL = 0.043                      # one rail's width
-GROOVE = 0.018
-HALF = RAIL + GROOVE / 2          # band half-width: 0.052 (total 0.104, his 0.105)
-OUTLINE = 0.007
+RAIL = 0.058                      # one rail's width (QA r4: thickened toward his visible width at 50 px)
+GROOVE = 0.012
+HALF = RAIL + GROOVE / 2          # band half-width: 0.064
+OUTLINE = 0.008
+CAP = 0.30                        # his segment caps: a dark joint across the band every 0.30 of arc length
+LIGHT = (-0.6, -0.8)              # his bevel light, from the upper left
+BLEED = 0.06                      # content past the hex edge (the neighbours' continuation), so no seam opens
+RIM = 0.02                        # his dark rim is removed: the last 0.02 in from each edge repeats the inner pixels
 
 
 def edge_point(k, u):
@@ -111,12 +115,12 @@ def dir_vec(deg):
 
 def layout():
     P = {}
-    # S: upper-left edge (e3) at 0.28, travelling right (0 deg); bottom edge (e1) at 0.15, travelling down (90 deg)
-    s0, s1 = edge_point(3, 0.28), edge_point(1, 0.15)
+    # S: upper-left edge (e3) at 0.24, travelling right (0 deg); bottom edge (e1) at 0.15, travelling down (90 deg)
+    s0, s1 = edge_point(3, 0.24), edge_point(1, 0.15)
     m = (-0.02, 0.18)                                   # the diagonal run through the middle, at 50 deg
     t = dir_vec(50)
     P['S'] = cubic(s0, (s0[0] + 0.45, s0[1]), (m[0] - t[0] * 0.30, m[1] - t[1] * 0.30), m) + \
-        cubic(m, (m[0] + t[0] * 0.30, m[1] + t[1] * 0.30), (s1[0], s1[1] - 0.35), s1)[1:]
+        cubic(m, (m[0] + t[0] * 0.30, m[1] + t[1] * 0.30), (s1[0], s1[1] - 0.22), s1)[1:]
     # L: top edge (e4) at 0.20 straight down, chamfer, left to M3 (e3 at 0.50)
     l0, l1 = edge_point(4, 0.20), edge_point(3, 0.50)
     ch = 0.10
@@ -130,10 +134,10 @@ def layout():
     b0, b1 = edge_point(1, 0.80), edge_point(2, 0.50)
     o = dir_vec(150)
     P['BL'] = cubic(b0, (b0[0], b0[1] - 0.45), (b1[0] - o[0] * 0.40, b1[1] - o[1] * 0.40), b1)
-    # bracket: lower-right edge (e0) at 0.50 and 0.72, both horizontal; a chamfered "[" between them
-    k0, k1 = edge_point(0, 0.50), edge_point(0, 0.72)
-    xl = 0.47
-    c2 = 0.06
+    # bracket: lower-right edge (e0) at 0.50 and 0.76, both horizontal; a chamfered "[" between them
+    k0, k1 = edge_point(0, 0.50), edge_point(0, 0.76)
+    xl = 0.40                                         # his bracket: a deep '[' with crisp 45 deg corners
+    c2 = 0.045
     P['BR'] = line(k0, (xl + c2, k0[1])) + line((xl + c2, k0[1]), (xl, k0[1] + c2))[1:] + \
         line((xl, k0[1] + c2), (xl, k1[1] - c2))[1:] + line((xl, k1[1] - c2), (xl + c2, k1[1]))[1:] + \
         line((xl + c2, k1[1]), k1)[1:]
@@ -142,8 +146,8 @@ def layout():
 
 def ends():
     """(edge, u, outward direction deg) for every band end, for the join check."""
-    return [(3, 0.28, 180), (1, 0.15, 90), (4, 0.20, 270), (3, 0.50, 180), (4, 0.85, 270), (5, 0.50, 330),
-            (1, 0.80, 90), (2, 0.50, 150), (0, 0.50, 0), (0, 0.72, 0)]
+    return [(3, 0.24, 180), (1, 0.15, 90), (4, 0.20, 270), (3, 0.50, 180), (4, 0.85, 270), (5, 0.50, 330),
+            (1, 0.80, 90), (2, 0.50, 150), (0, 0.50, 0), (0, 0.76, 0)]
 
 
 def check_joins():
@@ -352,6 +356,11 @@ def build(gold_scale=1.0):
         if d > HALF:                                      # the dark bevel outline
             op[x, y] = (28, 16, 8, a)
             continue
+        ph = s % CAP
+        if ph < 0.010:                                    # his segment cap: a dark joint across the band
+            op[x, y] = (30, 17, 8, a)
+            rp[x, y] = 255
+            continue
         if d < GROOVE / 2:                                # the groove between the rails
             op[x, y] = (34, 20, 10, a)
             cp[x, y] = 255
@@ -364,6 +373,16 @@ def build(gold_scale=1.0):
         ty = ty if ty < th else 2 * th - 1 - ty              # mirror-repeat along the band
         cr, cg, cb = tp[tx, ty]
         k = gold_scale
+        # his bevel: the rail's outer edge catches the light where it faces the upper left, falls dark where it
+        # faces away; its inner edge (by the groove) sits a step darker; the joint behind each cap catches light
+        nx, ny = -tvec[1] * side, tvec[0] * side
+        lit = nx * LIGHT[0] + ny * LIGHT[1]
+        if across > 0.72:
+            k *= 1.0 + 0.32 * lit if lit > 0 else 1.0 + 0.40 * lit
+        elif across < 0.18:
+            k *= 0.78
+        if 0.010 <= ph < 0.019:
+            k *= 1.3
         op[x, y] = (min(255, int(cr * k)), min(255, int(cg * k)), min(255, int(cb * k)), a)
         rp[x, y] = 255
     crack = Image.new('L', (N, N), 0)
@@ -376,10 +395,52 @@ def build(gold_scale=1.0):
     return can, out, rail, chan, crack
 
 
-def tile(size=128, gold_scale=1.0):
-    """The export: the 1024 canvas reduced to the delivery size (box filter, premultiplied)."""
+def edge_dist(x, y):
+    """Distance to the hex boundary and the nearest edge's inward normal (regular flat-top hex)."""
+    best = None
+    for k in range(6):
+        a = math.radians(60 * k + 30)
+        nx, ny = math.cos(a), math.sin(a)                 # outward normal of edge k
+        d = H - (x * nx + y * ny)
+        if best is None or d < best[0]:
+            best = (d, -nx, -ny)
+    return best
+
+
+def finalize(out):
+    """Bleed and rim (QA r4 B1): every pixel within BLEED past the hex edge takes the content of the neighbouring hex
+    (the same tile, so it is the exact continuation); his dark rim is replaced by repeating the pixels RIM in from
+    each edge, so bands run unbroken across the seam; alpha is 255 throughout."""
+    import floor as FL
+    src = out.load()
+    fin = Image.new('RGBA', (N, N), (0, 0, 0, 0))
+    fp = fin.load()
+    for py in range(N):
+        for px in range(N):
+            x, y = to_hex(px, py)
+            if not inside(x, y, BLEED):
+                continue
+            lx, ly = FL.reduce(x, y)
+            d, nx, ny = edge_dist(lx, ly)
+            if d < RIM:
+                lx, ly = lx + nx * (RIM - d), ly + ny * (RIM - d)
+            X, Y = to_px(lx, ly)
+            r, g, b, _ = src[min(N - 1, max(0, int(X))), min(N - 1, max(0, int(Y)))]
+            fp[px, py] = (r, g, b, 255)
+    return fin
+
+
+def tile(size=128, gold_scale=1.0, colours=96):
+    """The export: the finished canvas reduced to the delivery size (box filter), alpha 255 inside the bleed, and
+    reduced to a palette (lossless WebP stores <= 256 colours as a palette, so the floor loads small)."""
     _, out, rail, chan, crack = build(gold_scale)
-    return out.convert('RGBa').resize((size, size), Image.BOX).convert('RGBA'), out, rail, chan, crack
+    fin = finalize(out)
+    small = fin.convert('RGBa').resize((size, size), Image.BOX).convert('RGBA')
+    a = small.getchannel('A').point(lambda v: 255 if v >= 128 else 0)
+    q = small.convert('RGB').quantize(colors=colours, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+    small = q.convert('RGB').convert('RGBA')
+    small.putalpha(a)
+    return small, fin, rail, chan, crack
 
 
 def crossings(rail_m, inset=0.03):
@@ -416,5 +477,5 @@ if __name__ == '__main__':
     can, out, rail, chan, crack = build()
     cache = os.path.join(HERE, '.cache')                 # build intermediates, not delivered
     os.makedirs(cache, exist_ok=True)
-    out.save(os.path.join(cache, 'classic_1024.png'))
+    finalize(out).save(os.path.join(cache, 'classic_1024.png'))
     print('rail crossings (centre, width) per edge:', crossings(rail))

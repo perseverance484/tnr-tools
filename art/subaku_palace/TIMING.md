@@ -1,6 +1,6 @@
 # Subaku Palace: shared timing and palette (domain floor and centre payoff)
 
-Status: v7, 2026-11-06 (the director's pick: light-only, no spill, his own tile; RUL-2026-11-06-128). The domain-floor half
+Status: v7.1, 2026-11-06 (QA r4: tile v4 with bleed, uncut pulse with pre-step) (the director's pick: light-only, no spill, his own tile; RUL-2026-11-06-128). The domain-floor half
 (`build_domain.py`, `classic.py`) owns this file. The centre half
 (`gates/`) syncs to it. Change it only by agreement. Live-game requests: 0.
 
@@ -24,13 +24,13 @@ centre). The ratio-1 build is kept only as a note (design doc).
 | **7** | **Ring 1 ignites** (band 1.0). | **Gates on ring 1 tear up.** |
 | 9 / 11 / 13 / 15 / 17 / 19 | Bands 1.5 / 2.0 / 2.5 / 3.0 / 3.5 / 4.0 ignite. | The palace rises. |
 | 23-25 | The last head reaches the rim (ring 4's light stays in its own hexes: no spill); the last band clip ends on 25. | |
-| **27-32** | **The final pulse (the seal, ground appear, all 60 hexes):** every band flares at its own width, ramping 40 / 75 / 100 / 70 / 40 / 15 %, white-hot on 29, off the fighter column (+-0.2 h) and the meter rows. | **Held beat 29-30.** |
+| **26-32** | **The final pulse (the seal, ground appear, all 60 hexes):** every band flares uncut on its core, ramping 18 / 40 / 75 / 100 / 70 / 40 / 15 %, white-hot on 29. | **Held beat 29-30.** |
 | 33-43 | The floor rests. | The settle (v6 runs to 43). |
 | ≥ 44 | The floor is static for 3 rounds. | Nothing lingers. |
 
 Ignition tick of band b: whole b = d at `3 + 4*d`. Half b = d + 0.5 at `5 + 4*d`, exactly between its two rings
 (100 ms late on one parity, 100 ms early on the other). Strip lengths: band and seal strips 36 frames; the centre
-strip 44 (v6). Fighters are never covered by a cover: only band pixels are drawn (body at most 28 %, 2 frames).
+strip 44 (v6). Fighters are never covered by a cover: only band pixels are drawn (LPC body at most 23 %; the wide AI avatar beside the caster 33 % on 6 frames).
 
 ## Geometry (true scale in the previews)
 
