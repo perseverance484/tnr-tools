@@ -1,5 +1,5 @@
 {
- "name": "pass6-final-act3v2c",
+ "name": "pass6-upstream-static",
  "pools": {
   "sayo1": 2.0,
   "silence": 1.0,
@@ -43,7 +43,7 @@
  "hushPoolDrain": 2,
  "enrage": {
   "act1": 60,
-  "act3": 36
+  "act3": 17
  },
  "hushUnbridledCount": 2,
  "porterPush": 1,
@@ -156,7 +156,7 @@
   "p3Gate": 35,
   "on": true
  },
- "act2EnrageCycle": 3,
+ "act2EnrageCycle": 4,
  "stillRing": true,
  "hushOffMarks": true,
  "entrance": {
@@ -173,5 +173,31 @@
    "type": "shield",
    "health": 600
   }
+ },
+ "sharedCooldowns": {
+  "barrier": 3,
+  "buffprevent": 3,
+  "cleanse": 3,
+  "cleanseprevent": 3,
+  "clear": 3,
+  "clearprevent": 3,
+  "consume": 3,
+  "siphon": 3,
+  "debuffprevent": 3,
+  "drain": 3,
+  "increasepoolcost": 3,
+  "moveprevent": 3,
+  "pierce": 3,
+  "poison": 3,
+  "seal": 3,
+  "stun": 3,
+  "summon": 3,
+  "vamp": 3
+ },
+ "risesStatic": 200,
+ "ohko": true,
+ "softDamage": 1050,
+ "ohkoChance": {
+  "1": 15
  }
 }
