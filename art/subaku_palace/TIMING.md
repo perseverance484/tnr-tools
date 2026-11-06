@@ -14,7 +14,7 @@ centre). The ratio-1 build is kept only as a note (design doc).
 - The floor (static art on the ground tag) is visible from tick 0 on all 60 hexes. The game has no per-tag delay,
   so the spread is drawn by clips over it. Each band strip holds its own hex in shadow until its band lands.
 
-| Tick | Domain floor (`exports/`) | Centre (`gates/exports/anim_sbk_gates_rise_v2.webp`, SELF appear) |
+| Tick | Domain floor (`exports/`) | Centre (`gates/exports/anim_sbk_gates_rise_v4.webp`, SELF appear) |
 |---|---|---|
 | 0-5 | The 56 band hexes are veiled (a 50 % dither). The floor shows dim through it. | The sigil kindles at the caster's feet. |
 | 6 | | The sigil's bands flash at the edge midpoints. |

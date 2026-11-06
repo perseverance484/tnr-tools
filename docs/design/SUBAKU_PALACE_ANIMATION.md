@@ -42,8 +42,9 @@ by its gold on night boards. The rest gold is burnished (`#603a0e` to `#f0cc7c`,
 (`#ffcf4a` to `#fff4c8`, white-hot head) is brighter still, and it runs along the engraved channel at each band's centre.
 **Alongside other effects.** The floor is static art: it draws under fighters, highlights and every other clip, and
 it carries no loop. Peak clip coverage of the arena during the cast is 43 % (mean 17 %). The largest share of any enemy's avatar
-box under an opaque clip pixel is 32 %, for under one second, as the veil passes. The centre strip covers the LPC
-head/torso core 0 % and the LPC body box at most 9.8 %. Measured on the true-scale composite, both column parities.
+box under an opaque clip pixel is 32 %, for under one second, as the veil passes. The centre strip (v4) covers the
+caster's LPC body envelope 0 % and the lower neighbour's meter rows 0 % on every frame (build-gated); its arch and
+palace eave cross the caster's own meter rows (shown only on hover or selection) during ticks 15-24. Measured on the true-scale composite, both column parities.
 
 ## 2. Engine reality (what made the design)
 
@@ -81,7 +82,7 @@ head/torso core 0 % and the LPC body box at most 9.8 %. Measured on the true-sca
 | `tile_sbk_domain_v3.webp` (150 px) | STATIC | 1 | ground `decreasedamagegiven`: `staticAssetPath` (replaces DemonCastleFloor `zEvI0yd_As_FzNyrr5Iq4`) |
 | `anim_sbk_seal_v1.webp` | ANIMATION | 32 x 50 | ground `decreasedamagegiven`: `appearAnimation` (replaces the library clip `c4FqDZWFZOdWn86o6nPL7`) |
 | `anim_sbk_wave_b0_v1` … `b6_v1.webp` | ANIMATION | 32 x 50 each | 7 new visual tags: COORDINATES, origin CASTER, the offsets in `subaku_domain_v1.json`, power 2, rounds 1, `appearAnimation` |
-| `gates/exports/anim_sbk_gates_rise_v2.webp` (centre half) | ANIMATION | 38 x 50 | SELF `increasedamagegiven`: `appearAnimation` |
+| `gates/exports/anim_sbk_gates_rise_v4.webp` (centre half; v2 superseded after QA) | ANIMATION | 38 x 50 | SELF `increasedamagegiven`: `appearAnimation` |
 
 Builders (Pillow only): `floor.py` (the periodic field and the tile), `build_domain.py` (strips and offsets),
 `preview.py` (the true-scale composite). It imports the Mother of Echoes `qa_preview.py` read-only. Exploration patterns
@@ -103,7 +104,7 @@ No mechanic change. The caster's hole stays empty after the cast. Enemies standi
 At `EFFECT_ANIMATION_HEX_RATIO = 1` a clip is h x h: it covers the hex's central rectangle and never the wing triangles
 where columns meet. Lit currents break at every column seam, a veil would draw dark boxes, and painted slices cannot
 tile. The static floor still fills the hex. `SBK_RATIO=1 python3 build_domain.py` builds strips for that geometry: no
-veil, currents faded at the clip sides. The gates agent's `anim_sbk_gates_rise_v3` is the ratio-1 centre.
+veil, currents faded at the clip sides. The gates agent's `anim_sbk_gates_rise_v3` (`gates/build_gates_ratio1.py`) is the ratio-1 centre.
 
 ## 6. Previews (true scale: 132 x 66 hex, 165 px clip, 50 px rendition, linear; LPC stand-in, labelled)
 

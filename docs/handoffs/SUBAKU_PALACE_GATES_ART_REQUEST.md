@@ -2,10 +2,7 @@
 
 - **For:** the art director (Image Production)
 - **From:** Fable / Claude (2026-11-05)
-- **Status:** OPTIONAL, and largely superseded: at the 1 hex-height clip (theninjarpg 338126cb) a gate is 7 x 26 px on the 50 px grid. Useful only for the 2.5 fallback (`build_gates_ratio25.py`). The programmatic version ships now: `art/subaku_palace/gates/` (`anim_sbk_gates_rise_v2`,
-  `anim_sbk_master_loop_v2`, `tile_sbk_dais_v2`; see its README.md). These layers would replace the hand-placed
-  gate face and palace silhouette with painted ones, which Claude reduces to the 50 px grid and animates with the same
-  script and the same beat.
+- **Status:** OPTIONAL. The programmatic strip ships now: `art/subaku_palace/gates/exports/anim_sbk_gates_rise_v4.webp` (2.5 hex-height clip, LPC caster; see the gates README). Painted gate, palace and sigil layers would be reduced to the same 50 px grid, keep-clear zones and beat.
 - **Jutsu:** Subaku Palace `jELEiw5W3N4m2R3oJm3Pk` (player EVENT). Battle text: "gates of red sandstone carved with snarling
   faces tear free of the ground, and the shadow of the demon palace falls across the field".
 - **Style references (attach, style only):** `art/subaku_palace/refs/ref_domain_tile_c_1254.png` (material: charcoal
