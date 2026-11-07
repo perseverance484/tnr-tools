@@ -1,0 +1,105 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-07T06:00:33.374Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Forge Write Probe",
+   "srcId": "probe508_mcp_write",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 29,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "eNYSdZBAqB6KgtDtymG2Z"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "probe508_mcp_write": "eNYSdZBAqB6KgtDtymG2Z"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "508-mw5zsy7c",
+  "manifestPath": "push/508_forge_mcp_write_probe.json",
+  "manifestNumber": 508,
+  "manifestHash": "485ccaee",
+  "startedAt": "2026-11-07T05:58:33.010Z",
+  "updatedAt": "2026-11-07T06:00:33.370Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Forge Write Probe",
+    "srcId": "probe508_mcp_write",
+    "targetId": null,
+    "payloadHash": "15be86a9",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "eNYSdZBAqB6KgtDtymG2Z",
+    "snapshotKey": "tnr_forge_snap_v1:508-mw5zsy7c:jutsu",
+    "sentAt": "2026-11-07T06:00:07.046Z",
+    "createSentAt": "2026-11-07T05:58:42.330Z",
+    "confirmedAt": "2026-11-07T06:00:21.033Z",
+    "verifiedAt": "2026-11-07T06:00:33.369Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "name",
+     "description",
+     "extraBaseCost",
+     "effects",
+     "target",
+     "range",
+     "cooldown",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "battleDescription",
+     "jutsuRank",
+     "actionCostPerc",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "method",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

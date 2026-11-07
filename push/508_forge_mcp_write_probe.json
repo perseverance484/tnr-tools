@@ -1,0 +1,42 @@
+{
+  "_note": "Forge MCP runner first live write probe (2026-11-07). One hidden AI-type jutsu that nothing equips, no image upload. Afterwards the probe record is deleted on the director's per-record yes. Proves create, update and read-back verify over the game connection.",
+  "items": [
+    {
+      "entity": "jutsu",
+      "slot": "create",
+      "srcId": "probe508_mcp_write",
+      "name": "Forge Write Probe",
+      "data": {
+        "name": "Forge Write Probe",
+        "description": "Test record for the Forge game-connection runner. Hidden. Safe to delete.",
+        "extraBaseCost": 0,
+        "effects": [],
+        "target": "SELF",
+        "range": 0,
+        "cooldown": 99,
+        "bloodlineId": "",
+        "requiredLevel": 1,
+        "requiredRank": "STUDENT",
+        "jutsuType": "AI",
+        "image": "https://utfs.io/f/Hzww9EQvYURJg3eqdoucU9cpECTimBdjaqbNn7vQsxGR1wLk",
+        "jutsuWeapon": "NONE",
+        "statClassification": "None",
+        "elementClassification": "None",
+        "battleDescription": "Nothing happens.",
+        "jutsuRank": "D",
+        "actionCostPerc": 10,
+        "staminaCost": 0.05,
+        "chakraCost": 0.05,
+        "staminaCostReducePerLvl": 0,
+        "chakraCostReducePerLvl": 0,
+        "healthCostReducePerLvl": 0,
+        "healthCost": 0,
+        "villageId": "",
+        "method": "SINGLE",
+        "hidden": true,
+        "injectableInBattle": false,
+        "battleUsageType": "BOTH"
+      }
+    }
+  ]
+}
