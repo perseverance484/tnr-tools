@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-06)
+# DRIFT.md - upstream contract drift (2026-11-07)
 
-Upstream: studie-tech/TheNinjaRPG@15a37ea5bd72adc093b0d77d501fcaccf888fb55
+Upstream: studie-tech/TheNinjaRPG@95c0898497053cd2094b74bca1f5b9cc293fa2c5
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -216,10 +216,26 @@ REMOVALS
   const-member  AvailableEffectTypes  onehitkillprevent
   const-member  AvailableEffectTypes  pierce
   const-member  AvailableEffectTypes  poison
-  ... 157 more
+  ... 164 more
 ADDITIONS
+  const-member  ABANDONABLE_QUEST_TYPES  battlepyramid
+  const-member  ABANDONABLE_QUEST_TYPES  crime
+  const-member  ABANDONABLE_QUEST_TYPES  errand
+  const-member  ABANDONABLE_QUEST_TYPES  event
+  const-member  ABANDONABLE_QUEST_TYPES  gathering
+  const-member  ABANDONABLE_QUEST_TYPES  hunting
+  const-member  ABANDONABLE_QUEST_TYPES  mastery
+  const-member  ABANDONABLE_QUEST_TYPES  medical
+  const-member  ABANDONABLE_QUEST_TYPES  mission
+  const-member  ABANDONABLE_QUEST_TYPES  overworld
+  const-member  ABANDONABLE_QUEST_TYPES  pvp
+  const-member  ABANDONABLE_QUEST_TYPES  special
+  const-member  ABANDONABLE_QUEST_TYPES  story
+  const-member  ABANDONABLE_QUEST_TYPES  war
   const-member  ActiveBanStates  BAN_ACTIVATED
   const-member  ActiveBanStates  BAN_ESCALATED
+  const-member  ActiveSilenceStates  SILENCE_ACTIVATED
+  const-member  ActiveSilenceStates  TIMEOUT_ACTIVATED
   const-member  AvailableEffectTypes  DecreaseStatTag
   const-member  AvailableEffectTypes  IncreaseStatTag
   const-member  AvailableEffectTypes  RedirectionTag
@@ -244,6 +260,10 @@ ADDITIONS
   const-member  MISSION_HALL_SOLO_QUEST_TYPES  medical
   const-member  MISSION_HALL_SOLO_QUEST_TYPES  mission
   const-member  MISSION_HALL_SOLO_QUEST_TYPES  pvp
+  const-member  NonBattleItemTypes  COOKING
+  const-member  NonBattleItemTypes  CRYSTAL
+  const-member  NonBattleItemTypes  FURNITURE
+  const-member  NonBattleItemTypes  MATERIAL
   const-member  OBJECTIVE_TAG_TYPES  curse
   const-member  OBJECTIVE_TAG_TYPES  parry
   const-member  PET_TASK_QUEST_TYPES  gathering
@@ -258,27 +278,7 @@ ADDITIONS
   const-member  PRE_BATTLE_SOURCE_TYPES  skill
   const-member  PRE_BATTLE_SOURCE_TYPES  village
   const-member  PassiveSnapshotTasks  a_crimes_total
-  const-member  PassiveSnapshotTasks  a_missions_total
-  const-member  PassiveSnapshotTasks  b_crimes_total
-  const-member  PassiveSnapshotTasks  b_missions_total
-  const-member  PassiveSnapshotTasks  battle_pyramids_completed
-  const-member  PassiveSnapshotTasks  bloodline_collection
-  const-member  PassiveSnapshotTasks  c_crimes_total
-  const-member  PassiveSnapshotTasks  c_missions_total
-  const-member  PassiveSnapshotTasks  crafting_experience
-  const-member  PassiveSnapshotTasks  d_crimes_total
-  const-member  PassiveSnapshotTasks  d_missions_total
-  const-member  PassiveSnapshotTasks  days_as_kage
-  const-member  PassiveSnapshotTasks  days_in_village
-  const-member  PassiveSnapshotTasks  dungeons_completed
-  const-member  PassiveSnapshotTasks  errands_total
-  const-member  PassiveSnapshotTasks  events_completed
-  const-member  PassiveSnapshotTasks  farming_collection_log
-  const-member  PassiveSnapshotTasks  farming_level
-  const-member  PassiveSnapshotTasks  gathering_experience
-  const-member  PassiveSnapshotTasks  hunting_experience
-  const-member  PassiveSnapshotTasks  medical_experience
-  ... 31 more
+  ... 53 more
 
-BREAKING: 217 change(s) - DO NOT ADOPT (exit 1)
+BREAKING: 224 change(s) - DO NOT ADOPT (exit 1)
 ~~~
