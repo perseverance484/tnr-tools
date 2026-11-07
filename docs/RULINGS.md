@@ -6148,3 +6148,21 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-06: "All approved, create a master manifest."
 
 **Canonical destination:** `state/validate_exceptions/501_mother_of_echoes_final_tuning.json`; `state/validate_exceptions/506_master_2026-11-06.json`; `push/506_master_2026-11-06.json`.
+
+## RUL-2026-11-06-132 — Claude may write to the live game through the TNR connector
+
+**Date:** 2026-11-06
+
+**Domain:** live-game boundary / delivery
+
+**Status:** ACTIVE. Amends CLAUDE.md §6 and the standing "the director runs every manifest" rule.
+
+**Ruling:**
+1. Claude may read and write the live game through the director's custom TNR connector. Writes still require that the job's gates pass (validate.py --strict, check_manifest, the validate-exception ledger) and that the director says go for that job; only who presses the switch changes.
+2. Connector writes follow the Forge laws: hidden create then unhide, law 18 unequip / edit / re-equip, jutsu and quest edits as full records read back first, assets fetch-merged. Each run leaves a results bundle in `harvests/inbox` so the bundle-driven follow-ups (502, 504, 505, 477) keep working.
+3. Off-limits through the connector: payments and purchases, account deletion, other players' accounts or data, moderation, and any delete without a per-record yes.
+4. New images still upload through Forge (no upload endpoint on the connector).
+
+**Evidence:** Director, 2026-11-06: "you can write to the game. We just put it through validation first. ... I still say go. So nothing really changes at all except efficiency."
+
+**Canonical destination:** `CLAUDE.md` §6.
