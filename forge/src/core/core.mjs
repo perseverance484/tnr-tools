@@ -17,6 +17,7 @@ import { prepareCollection } from "../bloodright/collection.mjs";
 import { parseManifest, planOrder, ManifestError } from "../runner/manifest.mjs";
 import { collectRefs } from "../runner/refs.mjs";
 import { manifestNumber, manifestSummary, GH } from "../github.mjs";
+import { LOCK_PATH, parseLock, blockReason } from "../runner/runlock.mjs";
 import { JournalError } from "../storage/journal.mjs";
 import { blockedPaths, imagePicks, resumeBlockedReason, runHeadline, unusablePicks } from "./facts.mjs";
 import { resolveCaptures, buildBundle, bundleName, repoSyncReady, inboxPath } from "./results.mjs";
@@ -57,6 +58,7 @@ export class ForgeCore {
     if (missing.length) throw new Error(`ForgeCore is missing required dependencies: ${missing.join(", ")}`);
     for (const k of [...REQUIRED_DEPS, ...OPTIONAL_DEPS]) if (d[k] != null) this[k] = d[k];
     this.now = d.now ?? (() => Date.now());
+    this.runHolder = d.runHolder ?? null; // set by a host that claims the run lock (the MCP runner); the browser never claims
     this.authBusy = false;
     this.state = { screen: "jobs", jobId: null, picker: null, pickerAt: null, pickerError: null, selected: null, opening: null, openError: null, running: null, runningNote: "" };
     this._listeners = new Set();
@@ -311,8 +313,29 @@ export class ForgeCore {
     finally { this._starting = false; this.changed(); }
   }
 
+  /**
+   * The run lock (RUL-2026-11-07-133), read fresh at the tap: a Claude session or Duet may be writing
+   * on this account over the game connection, and the two runners cannot see each other's spend of
+   * the shared rate limits. The browser never claims; it starts only while nobody holds the lock.
+   * A missing file is a free lock. Any other read failure warns and lets the operator proceed: the
+   * lock protects the rate budget, and a GitHub hiccup must not lock the operator out of the game.
+   */
+  async _runLockBlock() {
+    let text = null;
+    try { text = await this.github.text(LOCK_PATH); }
+    catch (e) {
+      if (e?.status === 404) return null;
+      this.say(`Could not read the run lock (${e?.message ?? e}); make sure no Claude session or Duet is running a job`, "warn", 9000);
+      return null;
+    }
+    try { return blockReason(parseLock(text), this.runHolder, this.now()); }
+    catch (e) { this.say(`The run lock is unreadable (${e.message}); make sure no other runner is active`, "warn", 9000); return null; }
+  }
+
   async _startSelected(s, collection = null) {
     if (s.problems.length) return this.say("Resolve the preview problems before starting", "bad");
+    const locked = await this._runLockBlock();
+    if (locked) { this.say(`Not started: ${locked}. Nothing was sent.`, "bad", 12000); return this.changed(); }
     // Re-read the gate at the moment of the tap, not at selection time: the operator may have been
     // sitting on this screen while the session expired.
     const blocked = this.blockedPaths(s.plan, s.manifest);
@@ -385,6 +408,8 @@ export class ForgeCore {
     // Re-read at the moment of the tap: the state may have changed since the screen rendered.
     const blocked = this.resumeBlockedReason(job);
     if (blocked) { this.say(blocked, "bad", 9000); return this.changed(); }
+    const locked = await this._runLockBlock();
+    if (locked) { this.say(`Not resumed: ${locked}. Nothing was sent.`, "bad", 12000); return this.changed(); }
     if (!this.runner.manifests.has(jobId)) {
       try {
         const text = job.manifestPath?.startsWith("bloodright-job:")

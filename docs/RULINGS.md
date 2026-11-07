@@ -6166,3 +6166,20 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-06: "you can write to the game. We just put it through validation first. ... I still say go. So nothing really changes at all except efficiency."
 
 **Canonical destination:** `CLAUDE.md` §6.
+
+## RUL-2026-11-07-133 — One game writer at a time: the run lock and the run queue
+
+**Date:** 2026-11-07
+
+**Domain:** delivery / live-game boundary
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. One runner works on the director's account at a time, whether it is the browser tab, a Claude session or Duet. The runners share the game connection's 30 calls a minute and the game's per-procedure limit, whose mutation overruns fine 1% of money and bank, and none of them can see the others' spend.
+2. The lock is `state/run_lock.json` on `main`, written only by `forge/tools/run_lock.mjs` (claim, heartbeat, release, TTL default 60 minutes). `forge/tools/mcp_run.mjs` refuses to run unless its `--holder` holds it. Browser Forge refuses Start and Resume while anyone holds it. Bulk live reads take the lock too.
+3. `state/run_queue.json` lists live jobs, ready or waiting, with their runner and what they wait for. Whoever builds, runs or unblocks a job updates its row.
+
+**Evidence:** Director, 2026-11-07: "Is it safe for you and duet to use forge/access the game at the same time on my account? Wont you go over the limit since your forge instances dont account for each other?", then "Go" on the plan.
+
+**Canonical destination:** `docs/workflows/FORGE_MCP_RUNNER.md`; `forge/src/runner/runlock.mjs`; `forge/tools/run_lock.mjs`; `state/run_queue.json`.
