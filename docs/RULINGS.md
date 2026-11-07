@@ -6217,3 +6217,21 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-07: "Let's plan how to optimize now that our workflow has changed", "Go", then "Sure, go ahead. Then there were still steps 2-9 to do".
 
 **Canonical destination:** `docs/workflows/OPERATING_MODEL.md`.
+
+## RUL-2026-11-07-136 — The salvager's thread: Wreck Sighted becomes the in-game explainer; a repeatable copy
+
+**Date:** 2026-11-07
+
+**Domain:** content design / the Skyglass front door
+
+**Status:** ACTIVE. Open: the director's playtest of the hidden At the Salvager's Fire (push/509) before push/510; the six salvager poses (PT02-PT07).
+
+**Ruling:**
+1. **Wreck Sighted explains everything, plainly.** It becomes the Discord thread inside the game: a menu at the salvager's fire with seven topics (getting aboard, charts, the deep, the Haul, shards, trading, the watch log). Each answer is her line, then one plain line in italics on exactly how it works. This supersedes RUL-2026-11-05-122 item 3's text brief ("without spoilers or hand holding"); the tier is still told by the fiction and the boss below Crownhold is still not named.
+2. **A second, repeatable quest is approved:** At the Salvager's Fire, the same scenes, no reward, on the Information Board for anyone who wants the explainer again (maxAttempts and maxCompletes 100, the validator's maximum).
+3. **The menu is an explainer, not a story choice.** ENGINE_LAWS 27's CYOA rule (choices close doors; no hub that re-offers everything) does not apply to explainer quests; the loop is a reset_quest to the menu (laws 87, 88).
+4. **Boards, not posters.** The scene is a 3:2 frame at 512 px with the salvager over the left 40% and the dialog box over the bottom third, so each scene shows a board made for the clear zone, composed by script from existing item icons (`art/skyglass_thread/compose_boards.py`). The salvager's poses point at the board; until PT02-PT07 exist every scene uses PT01.
+
+**Evidence:** Director, 2026-11-07: "I want to find a way to essentially make Wreck Sighted work like our Discord Thread and explain everything a player needs to know. Perhaps we could even include our infographics as scene backgrounds and have a scene character that explains things and points at stuff on the infographics with different poses between scenes", then "scan all the skyglass event mechanics and info and create a player friendly tutorial that matches the theme of the event and explains everything clearly. The 2nd quest for people to repeat for info is approved. Proceed".
+
+**Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §1b (text of record); `push/skyglass_thread.gen.py` (push/509, push/510); `docs/handoffs/SKYGLASS_ART_PROMPTS.md` §11 (poses).

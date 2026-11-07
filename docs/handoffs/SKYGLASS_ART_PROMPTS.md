@@ -1415,6 +1415,103 @@ Avoid: no text, letters, numbers, kanji, runes or symbols; no frame, border, med
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
+## 11. Salvager poses for the thread (6; RUL-2026-11-07-136)
+
+The salvager's thread (`SKYGLASS_TEXT.md` §1b, push/509-510) ships with PT01 on every scene. These six poses replace it scene by scene in a later small job (generator `SCENE_POSE` table), so every pose faces the board on the viewer's right: she always stands in the left 40% of the scene.
+
+- **Attach for every pose:** `scene_char_skyglass_salvager.png` (IDENTITY: the same woman, face, clothes, colours and proportions; only the pose changes) and `sealwright_portrait.png` (STYLE-ONLY: the Skyglass pixel rendering).
+- **Return as:** `PTnn_raw_scene_char_skyglass_salvager_<pose>.png`. One isolated session per pose (RUL-2026-10-14-001).
+
+### PT02 · The salvager, pointing at the board
+
+- **Used on:** the menu, the hulls, the ladder, the seals, the shards' sources, the orders
+
+```text
+Target: the salvager, one full-body dialog portrait for The Ninja RPG, pose: pointing at the board.
+References attached: 1. scene_char_skyglass_salvager.png: IDENTITY: the same woman, face, clothes, colours and proportions; change only the pose. 2. sealwright_portrait.png: STYLE-ONLY: the Skyglass pixel rendering, darkness and line weight; not the character. Follow each reference only for its stated role.
+Style: Edo-era Japanese fantasy pixel art matching the Skyglass crew's portraits: crisp pixel lineart, flat cel shading in two or three steps, limited dark palette, soft even lighting; no airbrush, bloom or painterly gradients. Camera at eye level, flat three-quarter view turned toward the viewer's RIGHT, no low angle, no foreshortening. Single figure, full body, head to feet visible with a clear margin, on a 2:3 portrait canvas, 1024 x 1536. Grounded adult proportions, not chibi, no anime-scaled eyes.
+Subject: the SAME woman as the identity reference, unchanged: a coast salvager, soaked and salt-stained; a tenugui tied over her hair, a short indigo work jacket with the sleeves rolled and tied back with a cord, dark tapered trousers, straw waraji over tabi, a coil of wet rope at her hip. A civilian, not a ninja.
+Pose: she points to the viewer's right at shoulder height with her right arm, index finger extended, as if showing something pinned on a board beside her; her other hand rests on the rope at her hip; a dry, patient expression. The pointing arm stays inside the canvas with margin.
+Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the entire canvas, not a checkerboard, no shadow on the key, no lime spill on her.
+Avoid: no text, letters or symbols; no headband, forehead protector, clan or village symbol; no weapon or armour; no aura, halo or glow; no scenery, floor or furniture; no second character; no gold; no blur, no smooth painterly rendering. Keep every limb inside a 2:3 frame: nothing may reach past the right edge.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
+
+### PT03 · The salvager, three fingers raised
+
+- **Used on:** go in threes
+
+```text
+Target: the salvager, one full-body dialog portrait for The Ninja RPG, pose: three fingers raised.
+References attached: 1. scene_char_skyglass_salvager.png: IDENTITY: the same woman, face, clothes, colours and proportions; change only the pose. 2. sealwright_portrait.png: STYLE-ONLY: the Skyglass pixel rendering, darkness and line weight; not the character. Follow each reference only for its stated role.
+Style: Edo-era Japanese fantasy pixel art matching the Skyglass crew's portraits: crisp pixel lineart, flat cel shading in two or three steps, limited dark palette, soft even lighting; no airbrush, bloom or painterly gradients. Camera at eye level, flat three-quarter view turned toward the viewer's RIGHT, no low angle, no foreshortening. Single figure, full body, head to feet visible with a clear margin, on a 2:3 portrait canvas, 1024 x 1536. Grounded adult proportions, not chibi, no anime-scaled eyes.
+Subject: the SAME woman as the identity reference, unchanged: a coast salvager, soaked and salt-stained; a tenugui tied over her hair, a short indigo work jacket with the sleeves rolled and tied back with a cord, dark tapered trousers, straw waraji over tabi, a coil of wet rope at her hip. A civilian, not a ninja.
+Pose: she holds up her right hand at chest height with three fingers raised, palm toward the viewer, the way you count people off; her left hand on her hip; a stern, warning look.
+Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the entire canvas, not a checkerboard, no shadow on the key, no lime spill on her.
+Avoid: no text, letters or symbols; no headband, forehead protector, clan or village symbol; no weapon or armour; no aura, halo or glow; no scenery, floor or furniture; no second character; no gold; no blur, no smooth painterly rendering. Keep every limb inside a 2:3 frame: nothing may reach past the right edge.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
+
+### PT04 · The salvager, pointing up and away
+
+- **Used on:** the lantern and Crownhold, below Crownhold
+
+```text
+Target: the salvager, one full-body dialog portrait for The Ninja RPG, pose: pointing up and away.
+References attached: 1. scene_char_skyglass_salvager.png: IDENTITY: the same woman, face, clothes, colours and proportions; change only the pose. 2. sealwright_portrait.png: STYLE-ONLY: the Skyglass pixel rendering, darkness and line weight; not the character. Follow each reference only for its stated role.
+Style: Edo-era Japanese fantasy pixel art matching the Skyglass crew's portraits: crisp pixel lineart, flat cel shading in two or three steps, limited dark palette, soft even lighting; no airbrush, bloom or painterly gradients. Camera at eye level, flat three-quarter view turned toward the viewer's RIGHT, no low angle, no foreshortening. Single figure, full body, head to feet visible with a clear margin, on a 2:3 portrait canvas, 1024 x 1536. Grounded adult proportions, not chibi, no anime-scaled eyes.
+Subject: the SAME woman as the identity reference, unchanged: a coast salvager, soaked and salt-stained; a tenugui tied over her hair, a short indigo work jacket with the sleeves rolled and tied back with a cord, dark tapered trousers, straw waraji over tabi, a coil of wet rope at her hip. A civilian, not a ninja.
+Pose: she points up and to the viewer's right with her right arm raised at about forty-five degrees, toward a mountain far away; chin lifted, eyes following her hand; her left hand loose at her side.
+Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the entire canvas, not a checkerboard, no shadow on the key, no lime spill on her.
+Avoid: no text, letters or symbols; no headband, forehead protector, clan or village symbol; no weapon or armour; no aura, halo or glow; no scenery, floor or furniture; no second character; no gold; no blur, no smooth painterly rendering. Keep every limb inside a 2:3 frame: nothing may reach past the right edge.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
+
+### PT05 · The salvager, a shard in her palm
+
+- **Used on:** the four shards
+
+```text
+Target: the salvager, one full-body dialog portrait for The Ninja RPG, pose: a shard in her palm.
+References attached: 1. scene_char_skyglass_salvager.png: IDENTITY: the same woman, face, clothes, colours and proportions; change only the pose. 2. sealwright_portrait.png: STYLE-ONLY: the Skyglass pixel rendering, darkness and line weight; not the character. Follow each reference only for its stated role.
+Style: Edo-era Japanese fantasy pixel art matching the Skyglass crew's portraits: crisp pixel lineart, flat cel shading in two or three steps, limited dark palette, soft even lighting; no airbrush, bloom or painterly gradients. Camera at eye level, flat three-quarter view turned toward the viewer's RIGHT, no low angle, no foreshortening. Single figure, full body, head to feet visible with a clear margin, on a 2:3 portrait canvas, 1024 x 1536. Grounded adult proportions, not chibi, no anime-scaled eyes.
+Subject: the SAME woman as the identity reference, unchanged: a coast salvager, soaked and salt-stained; a tenugui tied over her hair, a short indigo work jacket with the sleeves rolled and tied back with a cord, dark tapered trousers, straw waraji over tabi, a coil of wet rope at her hip. A civilian, not a ninja.
+Pose: she holds her open right hand out at waist height, palm up, with one small faceted pale-cyan crystal shard resting in it; she looks down at it, wary. The shard is the only accent: pale skyglass cyan, no glow beyond a thin edge light.
+Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the entire canvas, not a checkerboard, no shadow on the key, no lime spill on her.
+Avoid: no text, letters or symbols; no headband, forehead protector, clan or village symbol; no weapon or armour; no aura, halo or glow; no scenery, floor or furniture; no second character; no gold; no blur, no smooth painterly rendering. Keep every limb inside a 2:3 frame: nothing may reach past the right edge.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
+
+### PT06 · The salvager, mending the net, seated
+
+- **Used on:** the opening scene
+
+```text
+Target: the salvager, one full-body dialog portrait for The Ninja RPG, pose: mending the net, seated.
+References attached: 1. scene_char_skyglass_salvager.png: IDENTITY: the same woman, face, clothes, colours and proportions; change only the pose. 2. sealwright_portrait.png: STYLE-ONLY: the Skyglass pixel rendering, darkness and line weight; not the character. Follow each reference only for its stated role.
+Style: Edo-era Japanese fantasy pixel art matching the Skyglass crew's portraits: crisp pixel lineart, flat cel shading in two or three steps, limited dark palette, soft even lighting; no airbrush, bloom or painterly gradients. Camera at eye level, flat three-quarter view turned toward the viewer's RIGHT, no low angle, no foreshortening. Single figure, full body, head to feet visible with a clear margin, on a 2:3 portrait canvas, 1024 x 1536. Grounded adult proportions, not chibi, no anime-scaled eyes.
+Subject: the SAME woman as the identity reference, unchanged: a coast salvager, soaked and salt-stained; a tenugui tied over her hair, a short indigo work jacket with the sleeves rolled and tied back with a cord, dark tapered trousers, straw waraji over tabi, a coil of wet rope at her hip. A civilian, not a ninja.
+Pose: she sits on a low driftwood log seen side-on, a fishing net across her knees, hands working a knot, head down, not looking up. The log is the only prop and is cut off cleanly at the canvas edge; no ground plane.
+Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the entire canvas, not a checkerboard, no shadow on the key, no lime spill on her.
+Avoid: no text, letters or symbols; no headband, forehead protector, clan or village symbol; no weapon or armour; no aura, halo or glow; no scenery, floor or furniture; no second character; no gold; no blur, no smooth painterly rendering. Keep every limb inside a 2:3 frame: nothing may reach past the right edge.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
+
+### PT07 · The salvager, arms crossed
+
+- **Used on:** trading, Skyglass Tokens, the closing line
+
+```text
+Target: the salvager, one full-body dialog portrait for The Ninja RPG, pose: arms crossed.
+References attached: 1. scene_char_skyglass_salvager.png: IDENTITY: the same woman, face, clothes, colours and proportions; change only the pose. 2. sealwright_portrait.png: STYLE-ONLY: the Skyglass pixel rendering, darkness and line weight; not the character. Follow each reference only for its stated role.
+Style: Edo-era Japanese fantasy pixel art matching the Skyglass crew's portraits: crisp pixel lineart, flat cel shading in two or three steps, limited dark palette, soft even lighting; no airbrush, bloom or painterly gradients. Camera at eye level, flat three-quarter view turned toward the viewer's RIGHT, no low angle, no foreshortening. Single figure, full body, head to feet visible with a clear margin, on a 2:3 portrait canvas, 1024 x 1536. Grounded adult proportions, not chibi, no anime-scaled eyes.
+Subject: the SAME woman as the identity reference, unchanged: a coast salvager, soaked and salt-stained; a tenugui tied over her hair, a short indigo work jacket with the sleeves rolled and tied back with a cord, dark tapered trousers, straw waraji over tabi, a coil of wet rope at her hip. A civilian, not a ninja.
+Pose: she stands with her arms crossed, weight on one leg, head tilted, a dry half-smile; the look of someone who has seen many people sell what they found.
+Background: transparent. If transparency is not available, a true solid flat lime-green chroma key (#00FF00) covering the entire canvas, not a checkerboard, no shadow on the key, no lime spill on her.
+Avoid: no text, letters or symbols; no headband, forehead protector, clan or village symbol; no weapon or armour; no aura, halo or glow; no scenery, floor or furniture; no second character; no gold; no blur, no smooth painterly rendering. Keep every limb inside a 2:3 frame: nothing may reach past the right edge.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
+
 ## Claude derives these by script (no prompt)
 
 From the approved bases, by a hue shift confined to one isolated region (request §7). If a returned base makes the
