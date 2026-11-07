@@ -799,6 +799,7 @@ export class Runner {
       for (let cursor = 0, page = 0; ; page++) {
         if (page >= 60) return { hit: null, complete: false };
         this._requireAuth("contentReview.getQueue", item.idx);
+        { const why = this.lease?.check(); if (why) throw new Paused("RUN_LOCK", { detail: why }); } // RUL-2026-11-07-133
         const r = await this.client.call("contentReview.getQueue", { status, entityType, source: "STAFF", cursor, limit: 50 });
         if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path: "contentReview.getQueue", idx: item.idx });
         if (!r.ok) throw new Paused("NETWORK", { idx: item.idx, detail: `contentReview.getQueue failed: ${r.error?.message ?? "error"}` });

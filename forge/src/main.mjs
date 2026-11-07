@@ -69,11 +69,11 @@ export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(
   deps.assetCache = new AssetCache(indexedDB, clock);
   deps.digest = digest;
   deps.session = new CookieSession({ fetchImpl, origin: "" });
-  deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
-  // The run lock's sending side (RUL-2026-11-07-133). While a run holds a lease, the reader's reads
-  // and the runner's writes are refused before they are sent once the lease is lost or within its
-  // stop margin; the runner sees a pause, not a send.
+  // The run lock's sending side (RUL-2026-11-07-133). While a run holds a lease, every request the
+  // browser client would send is refused at dispatch once the lease is lost or within its stop
+  // margin (the MCP host gates its wire instead); the runner sees a pause, not a send.
   deps.lease = lease ?? new Lease(clock);
+  deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`), gate: () => deps.lease.check() });
   // The auth gate is part of the shipped graph, not a UI decoration: the Runner consults it
   // before every protected send, so a wiring mistake here fails the suite rather than shipping.
   deps.auth = new AuthState({ client: deps.client, runtime, clock, state: authState });

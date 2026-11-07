@@ -1,3 +1,4 @@
+import { Paused } from "../runner/paused.mjs";
 // The tRPC client. Groups calls into homogeneous batches (queries GET, mutations POST),
 // issues them through the Session, decodes per index. No retry logic lives here: a fetch that
 // throws is reported as NETWORK, and it is the caller's job to treat that as AMBIGUOUS for a
@@ -30,7 +31,7 @@ export class TrpcClient {
    * @param {number} [opts.maxUrlLength=8000]  GET batches longer than this are split.
    * @param {(rec: object) => void} [opts.onExchange]  observer for the UI/journal (no secrets).
    */
-  constructor(session, { maxBatch = 20, maxUrlLength = 8000, onExchange = null, endpoint } = {}) {
+  constructor(session, { maxBatch = 20, maxUrlLength = 8000, onExchange = null, endpoint, gate = null } = {}) {
     if (!(session instanceof Session)) throw new TransportError("TrpcClient needs a Session");
     if (!Number.isInteger(maxBatch) || maxBatch < 1) throw new TransportError("maxBatch must be an integer >= 1");
     if (!Number.isInteger(maxUrlLength) || maxUrlLength < 64) throw new TransportError("maxUrlLength must be an integer >= 64");
@@ -39,6 +40,8 @@ export class TrpcClient {
     this.maxUrlLength = maxUrlLength;
     this.onExchange = onExchange;
     this.endpoint = endpoint;
+    // The run lock (RUL-2026-11-07-133): () => null | reason, asked before every request leaves.
+    this.gate = gate;
   }
 
   /** One call. Resolves to a decoded element {ok, data} | {ok:false, error}; rejects NetworkError. */
@@ -88,6 +91,8 @@ export class TrpcClient {
   async _send(calls, kind) {
     const req = buildRequest(calls, kind, { endpoint: this.endpoint });
     const paths = calls.map((c) => c.path);
+    const why = this.gate?.();
+    if (why) throw new Paused("RUN_LOCK", { detail: why, paths, kind, sent: false, notDispatched: true });
     let res;
     try {
       res = await this.session.fetch(req.url, { method: req.method, headers: req.headers, body: req.body });

@@ -322,8 +322,9 @@ export class ForgeCore {
     if (this._starting || this.state.running) return this.say("a job is already running", "warn");
     const s = this.state.selected; if (!s) return;
     this._starting = true; this._collectionStop = false;
+    const owner = (this._runOwner = {});
     try { await this._startSelected(s); }
-    finally { await this._releaseRunLock(); this._starting = false; this.changed(); }
+    finally { await this._releaseRunLock(owner); this._runOwner = null; this._starting = false; this.changed(); }
   }
 
   /**
@@ -353,6 +354,7 @@ export class ForgeCore {
       const body = claimBody({ holder: "browser", job, token: newToken(), ttlMinutes: this.runLockTtl, now, instance });
       try { await this.lockStore.write(JSON.stringify(body, null, 1) + "\n", `run-lock: claim by browser (${job})`, cur.sha); }
       catch (e) { if (e.conflict) continue; return `could not claim the run lock (${e.message})`; }
+      this._lockOwner = this._runOwner ?? null;
       this.lease.begin({ token: body.token, holder: "browser", expiresAt: body.expiresAt, renewer: () => this._renewRunLock(), renewEveryMs: renewEveryMs(this.runLockTtl) });
       clearInterval(this._lockTimer);
       this._lockTimer = setInterval(() => { this.lease.renewNow(); }, renewEveryMs(this.runLockTtl));
@@ -379,8 +381,10 @@ export class ForgeCore {
     }
   }
 
-  async _releaseRunLock() {
+  async _releaseRunLock(owner) {
     if (this.runLockMode !== "claim" || !this.lease?.active) return;
+    if (!owner || this._lockOwner !== owner) return; // only the invocation that claimed releases
+    this._lockOwner = null;
     clearInterval(this._lockTimer); this._lockTimer = null;
     const token = this.lease.token;
     this.lease.end(); // stop sending first, then hand the lock back
@@ -464,7 +468,16 @@ export class ForgeCore {
   }
 
   async resumeJob(jobId) {
+    // Serialized before the first await, with Start: two taps cannot both pass this line, so the
+    // losing one never reaches the cleanup that releases the winner's claim (RUL-2026-11-07-133).
     if (this._starting || this.state.running) return this.say("a job is already running", "warn");
+    this._starting = true;
+    const owner = (this._runOwner = {});
+    try { return await this._resumeJob(jobId); }
+    finally { await this._releaseRunLock(owner); this._runOwner = null; this._starting = false; this.changed(); }
+  }
+
+  async _resumeJob(jobId) {
     const job = this.journal.get(jobId);
     // Re-read at the moment of the tap: the state may have changed since the screen rendered.
     const blocked = this.resumeBlockedReason(job);
@@ -508,8 +521,7 @@ export class ForgeCore {
     } catch (e) { return this.fail("resume: prepare repo-backed images", e); }
     this.go("run", { jobId });
     const hasSent = job.items.some((i) => i.state === "SENT");
-    try { await this.drive(jobId, () => (hasSent ? this.runner.resume(jobId) : this.runner.run(jobId))); }
-    finally { await this._releaseRunLock(); }
+    await this.drive(jobId, () => (hasSent ? this.runner.resume(jobId) : this.runner.run(jobId)));
   }
 
   /**

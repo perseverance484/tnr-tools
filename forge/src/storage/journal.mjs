@@ -395,17 +395,23 @@ export class Journal {
     // lease; re-acquiring the lease proves nothing. Its state stands: nothing is sent or withdrawn.
     const ours = () => { const job = this._mustRead(jobId), it = job.items[idx]; return job.state === "RUNNING" && it.state === "SENT" && it.attempt === attempt; };
     if (!ours()) { const job = this._mustRead(jobId); throw new StaleItem(`item ${idx} is ${job.items[idx].state}, job ${job.state}: another tab took over; nothing sent`); }
+    const withdraw = (e) => {
+      if (!ours()) return;
+      const job = this._mustRead(jobId);
+      job.items[idx] = { ...prior, attempt, withdrawn: { at: nowIso(this.clock), reason: String(e && e.message).slice(0, MAX_TEXT) } };
+      this._write(job);
+    };
     if (beforeDispatch) {
-      try { beforeDispatch(); } catch (e) {
-        if (ours()) {
-          const job = this._mustRead(jobId);
-          job.items[idx] = { ...prior, attempt, withdrawn: { at: nowIso(this.clock), reason: String(e && e.message).slice(0, MAX_TEXT) } };
-          this._write(job);
-        }
-        throw e;
-      }
+      try { beforeDispatch(); } catch (e) { withdraw(e); throw e; }
     }
-    return await thunk();
+    try { return await thunk(); }
+    catch (e) {
+      // A transport that refused at its own last moment, with nothing on the wire (the run-lock gate
+      // after a pacer's wait: RUL-2026-11-07-133), says so with notDispatched; that attempt is
+      // withdrawn exactly as a beforeDispatch refusal is. Any other failure may have been sent.
+      if (e && e.notDispatched === true) withdraw(e);
+      throw e;
+    }
   }
 
   /** Set non-reserved fields on an item without a state change. Still flushes. */
