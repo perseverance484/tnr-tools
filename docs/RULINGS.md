@@ -6252,3 +6252,21 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-07: "Good mockup but it needs to be higher quality. I want this to be a premium informational quest/tutorial, those graphics arent selling it for me. We can use an image generator if needed", then, on the painted-scene prototype: "It works. I think she needs a couple different poses too, shes currently holding out the chart in every scene which is only suitable for one scene".
 
 **Canonical destination:** `art/skyglass_thread/compose_boards.py`; `docs/handoffs/SKYGLASS_ART_PROMPTS.md` §11-12; `push/skyglass_thread.gen.py`.
+
+## RUL-2026-11-07-138 — The salvager's thread: accuracy pass, Friday to Sunday, a chests topic
+
+**Date:** 2026-11-07
+
+**Domain:** content design / the Skyglass front door
+
+**Status:** ACTIVE. Ships in push/510 (text) and push/511 (three boards). Wreck Sighted is released with Duet's change that makes it an overworld quest from the salvager NPC.
+
+**Ruling:**
+1. **Accuracy fixes** to `SKYGLASS_TEXT.md` §1b, checked against `SKYGLASS_EVENT_MAP.md` and the owners it cites: press-on rooms keep what you held on a loss; the Captain's Watch chart comes only from the endgame Wreck or an Archive Chart Case; claim waiting rewards first; steep from the inventory; Core Rot and Haul page sources; the Haul keeps nothing on a loss; the full untradeable list; the token's 12 weapons and once-per-skin; what the last fight pays; no "any time" or "never closed" claims (attempt caps are 100); no "three nights ago".
+2. **The event runs Friday to Sunday** and the thread says so (RUL-2026-11-01-096 item 4, now stated to players).
+3. **A chests topic** (three scenes: containers, supplies and the pet, crafting) answers "what is this reward for".
+4. **Times stay as written:** "Monday 6 PM Central" is not adjusted for daylight time.
+
+**Evidence:** Director, 2026-11-07, on the accuracy review: "Yes, fix it. Fri-Sun approved. Dont worry about the time", then "This will be releasing alongside Duets update to make wreck sighted an overworold NPC quest granted by the same NPC".
+
+**Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §1b; `push/skyglass_thread.gen.py`; `art/skyglass_thread/compose_boards.py`.

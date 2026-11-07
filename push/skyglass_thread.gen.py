@@ -2,7 +2,8 @@
 """The salvager's thread: Wreck Sighted rebuilt as an in-game explainer, plus a repeatable copy (RUL-2026-11-07-136).
 
     python3 push/skyglass_thread.gen.py create                  -> push/509_skyglass_thread_create.json  (browser: images)
-    python3 push/skyglass_thread.gen.py golive --from <509 bundle> --live <Wreck Sighted read>
+    python3 push/skyglass_thread.gen.py extra                   -> push/511_skyglass_thread_boards.json  (browser: images)
+    python3 push/skyglass_thread.gen.py golive --from <509 bundle> <511 bundle> --live <Wreck Sighted read>
                                                                 -> push/510_skyglass_thread_golive.json  (connector)
 
 509 creates, all HIDDEN: 17 scene-background boards (art/skyglass_thread/compose_boards.py) and the new repeatable quest
@@ -49,25 +50,29 @@ BOARDS = [  # key, topic label for the asset name
     ("shards", "four shards"), ("below", "below Crownhold"), ("trade", "trade"), ("token", "Skyglass Token"),
     ("logboard", "the watch log"), ("orders", "a page's orders"),
 ]
+# Added after 509 ran (RUL-2026-11-07-138): created hidden by push/511 (browser), unhidden by 510.
+BOARDS_511 = [("chests", "the chests"), ("supplies", "supplies"), ("craft", "crafting")]
+JOB = {k: 509 for k, _ in BOARDS} | {k: 511 for k, _ in BOARDS_511}
 
 # node, board (None = the shore), next nodes; "END" marks a topic's last scene (Ask something else / I'm ready)
 TOPICS = [
     ("a_threes", "threes", ["a_hulls"]), ("a_hulls", "hulls", ["a_loot"]), ("a_loot", "loot", "END"),
     ("c_once", "once", ["c_ladder"]), ("c_ladder", "ladder", ["c_pick"]), ("c_pick", "pick", "END"),
+    ("x_chests", "chests", ["x_supplies"]), ("x_supplies", "supplies", ["x_craft"]), ("x_craft", "craft", "END"),
     ("p_seals", "seals", ["p_rot"]), ("p_rot", "rot", ["p_lantern"]), ("p_lantern", "lantern", "END"),
     ("h_haul", "haul", "END"),
     ("s_four", "shards", ["s_below"]), ("s_below", "below", "END"),
     ("t_trade", "trade", ["t_token"]), ("t_token", "token", "END"),
     ("w_board", "logboard", ["w_orders"]), ("w_orders", "orders", "END"),
 ]
-MENU_TOPICS = ["a_threes", "c_once", "p_seals", "h_haul", "s_four", "t_trade", "w_board"]  # in menu-choice order
+MENU_TOPICS = ["a_threes", "c_once", "x_chests", "p_seals", "h_haul", "s_four", "t_trade", "w_board"]  # in menu-choice order
 
 # The pose each scene wants (docs/handoffs/SKYGLASS_ART_PROMPTS.md section 11). Until a pose's scene-character id is
 # added to POSE_IDS, its scenes fall back to PT01, so adding a pose later is a one-line change and a quest edit.
 POSE_IDS = {"PT01": SALVAGER}
 SCENE_POSE = {
     "d_open": "PT06", "d_menu": "PT02", "a_threes": "PT03", "a_hulls": "PT02", "a_loot": "PT01", "c_once": "PT01",
-    "c_ladder": "PT02", "c_pick": "PT01", "p_seals": "PT02", "p_rot": "PT01", "p_lantern": "PT04", "h_haul": "PT02",
+    "c_ladder": "PT02", "c_pick": "PT01", "x_chests": "PT02", "x_supplies": "PT05", "x_craft": "PT02", "p_seals": "PT02", "p_rot": "PT01", "p_lantern": "PT04", "h_haul": "PT02",
     "s_four": "PT05", "s_below": "PT04", "t_trade": "PT07", "t_token": "PT07", "w_board": "PT02", "w_orders": "PT02",
     "z_chart": "PT01", "z_bye": "PT07", "r_menu": "PT02",
 }
@@ -84,7 +89,7 @@ QUESTS = {
 
 
 def scene(board):
-    return SHORE if board is None else f"@scene:sg509_board_{board}"
+    return SHORE if board is None else f"@scene:sg{JOB[board]}_board_{board}"
 
 
 def dialog(node, board, text, choices):
@@ -163,9 +168,9 @@ def check_graph(objs):
             assert "—" not in o["description"], o["id"]
 
 
-def image_pack():
+def image_pack(boards):
     files, sizes, refs = {}, {}, set()
-    for key, _ in BOARDS:
+    for key, _ in boards:
         path = f"{EXPORTS}/board-{key}.webp"
         disk = open(os.path.join(ROOT, path), "rb").read()
         ref = subprocess.check_output(["git", "-C", ROOT, "log", "-1", "--format=%H", "HEAD", "--", path], text=True).strip()
@@ -191,6 +196,8 @@ def fire_quest_data():
 
 
 def create():
+    assert not os.path.exists(os.path.join(ROOT, "push/509_skyglass_thread_create.json")), \
+        "push/509 already ran (lock claim 13d91e6, manifest 8603e09); it is the record, do not regenerate it"
     items = []
     for key, topic in BOARDS:
         name = f"Skyglass thread: board - {topic}"
@@ -199,15 +206,30 @@ def create():
                       "data": dict(asset_row(name, True), image=f"@img:sg-thread-board-{key}.webp")})
     data = fire_quest_data()
     items.append({"entity": "quest", "slot": "create", "srcId": "sg509_fire", "phase": 2, "name": data["name"], "data": data})
-    sizes, pack = image_pack()
+    sizes, pack = image_pack(BOARDS)
     objectives("wreck")  # the Wreck Sighted graph must build too; it ships in 510
     note = ("push/509, HIDDEN: the salvager's thread (RUL-2026-11-07-136). 17 scene-background boards (folder "
             f"{FOLDER}) and the new repeatable quest At the Salvager's Fire (event, maxAttempts/maxCompletes 100, no "
-            "reward): a menu at the fire with seven topics, each 1 to 3 scenes, ending on Ask something else (reset to "
+            "reward): a menu at the fire with eight topics, each 1 to 3 scenes, ending on Ask something else (reset to "
             "the menu) or That's all for now. Staff can play it hidden. Wreck Sighted is NOT touched here: push/510 "
             "rewrites it onto the same nodes after the director's playtest. Generated by push/skyglass_thread.gen.py; "
             "do not hand-edit.")
     write(509, "create", {"_note": note, "dedupNames": True, "imgSizes": sizes, "imagePack": pack, "items": items})
+
+
+def extra():
+    """push/511: the three chests-topic boards, hidden (browser Forge: images)."""
+    items = []
+    for key, topic in BOARDS_511:
+        name = f"Skyglass thread: board - {topic}"
+        items.append({"entity": "asset", "slot": "create", "srcId": f"sg511_board_{key}", "phase": 1, "name": name,
+                      "data": dict(asset_row(name, True), image=f"@img:sg-thread-board-{key}.webp")})
+    sizes, pack = image_pack(BOARDS_511)
+    objectives("wreck"), objectives("fire")  # both graphs must build with the new topic
+    note = ("push/511, HIDDEN: three scene-background boards for the salvager's new chests topic (RUL-2026-11-07-138), "
+            f"folder {FOLDER}. 510 is built from the 509 and 511 bundles and publishes them with the thread. Generated by "
+            "push/skyglass_thread.gen.py extra; do not hand-edit.")
+    write(511, "boards", {"_note": note, "dedupNames": True, "imgSizes": sizes, "imagePack": pack, "items": items})
 
 
 def created(path):
@@ -215,10 +237,10 @@ def created(path):
     b = json.load(open(path))
     got = {}
     for e in b.get("entries") or []:
-        if e.get("slot") == "create" and e.get("state") == "ok" and e.get("id") and (e.get("srcId") or "").startswith("sg509_"):
+        if e.get("slot") == "create" and e.get("state") == "ok" and e.get("id") and (e.get("srcId") or "").startswith(("sg509_", "sg511_")):
             got[e["srcId"]] = e["id"]
     for k, v in (b.get("idmap") or {}).items():
-        if k.startswith("sg509_"):
+        if k.startswith(("sg509_", "sg511_")):
             got.setdefault(k, v)
     return got
 
@@ -228,10 +250,13 @@ def asset_row(name, hidden):
             "onInitialBattleField": False, "licenseDetails": "TNR"}
 
 
-def golive(bundle_path, live_path):
-    ids = created(bundle_path)
-    miss = [k for k in [f"sg509_board_{b}" for b, _ in BOARDS] + ["sg509_fire"] if k not in ids]
-    assert not miss, f"the 509 bundle lacks {miss}"
+def golive(bundle_paths, live_path):
+    ids = {}
+    for path in bundle_paths:
+        ids.update(created(path))
+    miss = [k for k in [f"sg{JOB[b]}_board_{b}" for b in JOB] + ["sg509_fire"] if k not in ids]
+    assert not miss, f"the 509/511 bundles lack {miss}"
+    bundle_path = " + ".join(os.path.basename(p) for p in bundle_paths)
     live = json.load(open(live_path))
     live = live.get("data", live)
     assert live.get("id") in (None, WRECK_SIGHTED_ID) and live.get("name") == "Wreck Sighted", "wrong live record"
@@ -243,9 +268,9 @@ def golive(bundle_path, live_path):
         assert "@scene:" not in s
         return json.loads(s)
     items = []
-    for key, topic in BOARDS:
+    for key, topic in BOARDS + BOARDS_511:
         name = f"Skyglass thread: board - {topic}"
-        items.append({"entity": "asset", "slot": "edit", "targetId": ids[f"sg509_board_{key}"], "phase": 1,
+        items.append({"entity": "asset", "slot": "edit", "targetId": ids[f"sg{JOB[key]}_board_{key}"], "phase": 1,
                       "name": f"{name}: unhide", "data": asset_row(name, False)})
     fire = fire_quest_data()
     fire["hidden"] = False
@@ -257,8 +282,8 @@ def golive(bundle_path, live_path):
                             sceneCharacters=[SALVAGER])
     items.append({"entity": "quest", "slot": "edit", "targetId": WRECK_SIGHTED_ID, "phase": 2,
                   "name": "Wreck Sighted: the salvager's thread", "data": wreck})
-    note = ("push/510, LIVE: unhide the 17 thread boards and At the Salvager's Fire, and rewrite Wreck Sighted "
-            f"({WRECK_SIGHTED_ID}) onto the thread's nodes. Built from {os.path.basename(bundle_path)} and a live read "
+    note = ("push/510, LIVE: unhide the 20 thread boards and At the Salvager's Fire, and rewrite Wreck Sighted "
+            f"({WRECK_SIGHTED_ID}) onto the thread's nodes. Built from {bundle_path} and a live read "
             f"of Wreck Sighted ({os.path.basename(live_path)}). Players mid-way through the old Wreck Sighted keep their "
             "attempt; editing a live event quest does not restart it.")
     write(510, "golive", {"_note": note, "items": items})
@@ -274,14 +299,16 @@ def write(num, tag, obj):
 
 def main():
     ap = argparse.ArgumentParser(description="the salvager's thread")
-    ap.add_argument("step", choices=["create", "golive"])
-    ap.add_argument("--from", dest="bundle")
+    ap.add_argument("step", choices=["create", "extra", "golive"])
+    ap.add_argument("--from", dest="bundle", nargs="+")
     ap.add_argument("--live")
     a = ap.parse_args()
     if a.step == "create":
         create()
+    elif a.step == "extra":
+        extra()
     else:
-        assert a.bundle and a.live, "golive needs --from <509 bundle> and --live <Wreck Sighted read>"
+        assert a.bundle and a.live, "golive needs --from <509 bundle> <511 bundle> and --live <Wreck Sighted read>"
         golive(a.bundle, a.live)
 
 
