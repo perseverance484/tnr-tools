@@ -6235,3 +6235,20 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-07: "I want to find a way to essentially make Wreck Sighted work like our Discord Thread and explain everything a player needs to know. Perhaps we could even include our infographics as scene backgrounds and have a scene character that explains things and points at stuff on the infographics with different poses between scenes", then "scan all the skyglass event mechanics and info and create a player friendly tutorial that matches the theme of the event and explains everything clearly. The 2nd quest for people to repeat for info is approved. Proceed".
 
 **Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §1b (text of record); `push/skyglass_thread.gen.py` (push/509, push/510); `docs/handoffs/SKYGLASS_ART_PROMPTS.md` §11 (poses).
+
+## RUL-2026-11-07-137 — The salvager's thread: painted scenes under lacquer panels; she gets her poses
+
+**Date:** 2026-11-07
+
+**Domain:** art direction / the Skyglass front door
+
+**Status:** ACTIVE. Open: TP01-TP03 (three new scene backgrounds) and PT02-PT07 (poses); each swaps in by a one-line change.
+
+**Ruling:**
+1. **Premium, not flat.** The v1 driftwood-card boards are retired. Each thread scene is approved scene art of the place she is talking about, with one dark lacquer panel (Shippori Mincho heading, real item icons, Inter captions at 12 px or more) in the clear zone. This amends RUL-2026-11-07-136 item 4; the frame rules there stand.
+2. **Three new paintings** where no scene exists: the salvager's camp (opening, menu, endings), the Wreck broken in two, the Information Board (`SKYGLASS_ART_PROMPTS.md` §12). A borrowed scene stands in meanwhile.
+3. **She needs more than one pose.** PT01 (holding out the chart) suits one scene only; PT02-PT07 (§11) replace it scene by scene through the generator's `SCENE_POSE` table.
+
+**Evidence:** Director, 2026-11-07: "Good mockup but it needs to be higher quality. I want this to be a premium informational quest/tutorial, those graphics arent selling it for me. We can use an image generator if needed", then, on the painted-scene prototype: "It works. I think she needs a couple different poses too, shes currently holding out the chart in every scene which is only suitable for one scene".
+
+**Canonical destination:** `art/skyglass_thread/compose_boards.py`; `docs/handoffs/SKYGLASS_ART_PROMPTS.md` §11-12; `push/skyglass_thread.gen.py`.
