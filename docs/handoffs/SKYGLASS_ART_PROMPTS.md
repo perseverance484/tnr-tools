@@ -1512,6 +1512,61 @@ Avoid: no text, letters or symbols; no headband, forehead protector, clan or vil
 Generate ONE image. Do not crop, key, resize or otherwise process it.
 ```
 
+## 12. Thread scene backgrounds (3; RUL-2026-11-07-137)
+
+The salvager's thread puts its lacquer info panels over approved scene art (`compose_boards.py`). Three topics have no scene of their own and borrow one until these land.
+
+### TP01 · The salvager's camp
+
+- **Target:** The salvager's camp · SCENE_BACKGROUND (`sceneBackground`), 3:2 · no key · priority: **thread** (a borrowed scene is live meanwhile)
+- **Attach folder:** `50_ship_scenes/`: `colour_scene_observation_gallery.png` (STYLE-ONLY); `pixel_style_captain_portrait.png` (STYLE-ONLY)
+- **Return as:** `TP01_raw_scene_bg_skyglass_salvager_camp.png`
+- **Note:** Delivery file `scene_bg_skyglass_salvager_camp.webp`. Used on: the opening, the menu and both endings (the hero image of the thread). Replaces the PLACEHOLDER base in `art/skyglass_thread/compose_boards.py` (one line).
+
+```text
+Target: The salvager's camp on the shore, one scene background for The Ninja RPG's Skyglass ghost-ship event.
+References attached: 1. colour_scene_observation_gallery.png: STYLE-ONLY: colour and lighting of the approved ship scenes; do not copy its room or layout. 2. pixel_style_captain_portrait.png: STYLE-ONLY: the pixel rendering only; not the character. Follow each reference only for its stated role.
+Style: Edo-era Japanese fantasy, PREMIUM PIXEL ART game scene background in the same pixel rendering as the pixel-style reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), colour and light as the colour reference: night, deep indigo and storm-grey, cold blue fill, skyglass-cyan light as the focal light, wet sand, wet timber. Wide 3:2 landscape, 1536 x 1024. Composition for a dialog scene: keep the left 40% of the frame and the bottom third calm, dark and low-detail (the speaker stands bottom-left and the dialog box covers the bottom); keep the upper-right area quiet enough to take an overlaid panel; put the focal subject in the centre-right middle band. Camera at eye level, a few paces back from the fire.
+Subject: a salvager's camp on a moonlit beach: a small driftwood fire with a skyglass-cyan glow in its embers, a rough driftwood board staked in the sand with wet sea charts pinned to it to dry (lines and unreadable strokes only), a mended net over a beached rowboat, coils of rope, a few crates stencilled with no marks; behind, out past the surf, the dark broken hull of a great wrecked ship catching faint cyan light.
+Background: none; this is the full scene, edge to edge. No chroma key, no frame.
+Avoid: no people, characters, creatures or silhouettes; no text, letters, kanji, signs or readable writing (charts and pages show only lines and unreadable strokes); no screens, machines, cables or guns; no crowns; no gold or filigree; no UI, frame, watermark, collage or grid.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
+
+### TP02 · The Wreck, broken in two
+
+- **Target:** The Wreck, broken in two · SCENE_BACKGROUND (`sceneBackground`), 3:2 · no key · priority: **thread** (a borrowed scene is live meanwhile)
+- **Attach folder:** `50_ship_scenes/`: `colour_scene_observation_gallery.png` (STYLE-ONLY); `pixel_style_captain_portrait.png` (STYLE-ONLY)
+- **Return as:** `TP02_raw_scene_bg_skyglass_wreck_from_above.png`
+- **Note:** Delivery file `scene_bg_skyglass_wreck_from_above.webp`. Used on: "she broke in two" (the two hulls). Replaces the PLACEHOLDER base in `art/skyglass_thread/compose_boards.py` (one line).
+
+```text
+Target: The great ghost ship wrecked in two on the shore, one scene background for The Ninja RPG's Skyglass ghost-ship event.
+References attached: 1. colour_scene_observation_gallery.png: STYLE-ONLY: colour and lighting of the approved ship scenes; do not copy its room or layout. 2. pixel_style_captain_portrait.png: STYLE-ONLY: the pixel rendering only; not the character. Follow each reference only for its stated role.
+Style: Edo-era Japanese fantasy, PREMIUM PIXEL ART game scene background in the same pixel rendering as the pixel-style reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), colour and light as the colour reference: night, deep indigo and storm-grey, cold blue fill, skyglass-cyan light as the focal light, wet sand, wet timber. Wide 3:2 landscape, 1536 x 1024. Composition for a dialog scene: keep the left 40% of the frame and the bottom third calm, dark and low-detail (the speaker stands bottom-left and the dialog box covers the bottom); keep the upper-right area quiet enough to take an overlaid panel; put the focal subject in the centre-right middle band. Camera high, a three-quarter bird's-eye view looking down on the shore.
+Subject: a great Edo-era sailing warship broken into two separate halves on a moonlit shore: the smaller bow half lies in the shallows, dim and faded, grey timber; the larger stern half lies farther up the sand, its seams leaking cold skyglass-cyan light; a wide gap of wet sand and surf between the halves; tiny lantern points near each half for scale; dark cliffs behind.
+Background: none; this is the full scene, edge to edge. No chroma key, no frame.
+Avoid: no people, characters, creatures or silhouettes; no text, letters, kanji, signs or readable writing (charts and pages show only lines and unreadable strokes); no screens, machines, cables or guns; no crowns; no gold or filigree; no UI, frame, watermark, collage or grid.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
+
+### TP03 · The Information Board
+
+- **Target:** The Information Board · SCENE_BACKGROUND (`sceneBackground`), 3:2 · no key · priority: **thread** (a borrowed scene is live meanwhile)
+- **Attach folder:** `50_ship_scenes/`: `colour_scene_observation_gallery.png` (STYLE-ONLY); `pixel_style_captain_portrait.png` (STYLE-ONLY)
+- **Return as:** `TP03_raw_scene_bg_skyglass_information_board.png`
+- **Note:** Delivery file `scene_bg_skyglass_information_board.webp`. Used on: the watch log and this weekend's orders. Replaces the PLACEHOLDER base in `art/skyglass_thread/compose_boards.py` (one line).
+
+```text
+Target: A village Information Board at night, one scene background for The Ninja RPG's Skyglass ghost-ship event.
+References attached: 1. colour_scene_observation_gallery.png: STYLE-ONLY: colour and lighting of the approved ship scenes; do not copy its room or layout. 2. pixel_style_captain_portrait.png: STYLE-ONLY: the pixel rendering only; not the character. Follow each reference only for its stated role.
+Style: Edo-era Japanese fantasy, PREMIUM PIXEL ART game scene background in the same pixel rendering as the pixel-style reference (crisp hard-edged pixels, clean dark outlines, flat cel shading with deliberate highlight steps, limited palette, no painterly blur), colour and light as the colour reference: night, deep indigo and storm-grey, cold blue fill, skyglass-cyan light as the focal light, wet sand, wet timber. Wide 3:2 landscape, 1536 x 1024. Composition for a dialog scene: keep the left 40% of the frame and the bottom third calm, dark and low-detail (the speaker stands bottom-left and the dialog box covers the bottom); keep the upper-right area quiet enough to take an overlaid panel; put the focal subject in the centre-right middle band. Camera at eye level, square-on to the board.
+Subject: inside a village administration hall at night: a large timber notice board under a small tiled roof, its face covered with old notices, and one weathered, sea-stained logbook page pinned dead centre, edges curled, lit by a skyglass-cyan paper lantern hanging beside it (all writing is unreadable strokes); tatami and polished boards in front, shoji behind.
+Background: none; this is the full scene, edge to edge. No chroma key, no frame.
+Avoid: no people, characters, creatures or silhouettes; no text, letters, kanji, signs or readable writing (charts and pages show only lines and unreadable strokes); no screens, machines, cables or guns; no crowns; no gold or filigree; no UI, frame, watermark, collage or grid.
+Generate ONE image. Do not crop, key, resize or otherwise process it.
+```
+
 ## Claude derives these by script (no prompt)
 
 From the approved bases, by a hue shift confined to one isolated region (request §7). If a returned base makes the
