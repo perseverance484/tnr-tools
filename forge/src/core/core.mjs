@@ -16,8 +16,8 @@ import { prepareCollection } from "../bloodright/collection.mjs";
 
 import { parseManifest, planOrder, ManifestError } from "../runner/manifest.mjs";
 import { collectRefs } from "../runner/refs.mjs";
-import { manifestNumber, manifestSummary, GH } from "../github.mjs";
-import { LOCK_PATH, parseLock, blockReason } from "../runner/runlock.mjs";
+import { manifestNumber, manifestSummary, GH, readExact, writeExact } from "../github.mjs";
+import { LOCK_PATH, parseLock, lockState, claimDecision, claimBody, renewBody, releaseBody, newToken, renewEveryMs, QUIET_MS } from "../runner/runlock.mjs";
 import { JournalError } from "../storage/journal.mjs";
 import { blockedPaths, imagePicks, resumeBlockedReason, runHeadline, unusablePicks } from "./facts.mjs";
 import { resolveCaptures, buildBundle, bundleName, repoSyncReady, inboxPath } from "./results.mjs";
@@ -58,7 +58,20 @@ export class ForgeCore {
     if (missing.length) throw new Error(`ForgeCore is missing required dependencies: ${missing.join(", ")}`);
     for (const k of [...REQUIRED_DEPS, ...OPTIONAL_DEPS]) if (d[k] != null) this[k] = d[k];
     this.now = d.now ?? (() => Date.now());
-    this.runHolder = d.runHolder ?? null; // set by a host that claims the run lock (the MCP runner); the browser never claims
+    // The run lock (RUL-2026-11-07-133). "claim": this core takes the lock itself for every run
+    // (the browser). "external": the host claimed it and maintains d.lease (the MCP runner).
+    this.lease = d.lease;
+    this.runLockMode = d.runLockMode ?? "claim";
+    this.runLockTtl = d.runLockTtl ?? 20;
+    this.sleep = d.sleep ?? ((t) => new Promise((r) => setTimeout(r, t)));
+    // Compare-and-swap access to state/run_lock.json: the GitHub contents API in the browser; a
+    // harness may inject its own store with the same contract (read -> {text, sha}; write throws
+    // an error with .conflict when the sha is stale).
+    this.lockStore = d.lockStore ?? {
+      read: () => readExact(this.github, LOCK_PATH),
+      write: (text, message, sha) => writeExact(this.github, LOCK_PATH, text, message, sha),
+    };
+    this._lockTimer = null;
     this.authBusy = false;
     this.state = { screen: "jobs", jobId: null, picker: null, pickerAt: null, pickerError: null, selected: null, opening: null, openError: null, running: null, runningNote: "" };
     this._listeners = new Set();
@@ -310,32 +323,80 @@ export class ForgeCore {
     const s = this.state.selected; if (!s) return;
     this._starting = true; this._collectionStop = false;
     try { await this._startSelected(s); }
-    finally { this._starting = false; this.changed(); }
+    finally { await this._releaseRunLock(); this._starting = false; this.changed(); }
   }
 
   /**
-   * The run lock (RUL-2026-11-07-133), read fresh at the tap: a Claude session or Duet may be writing
-   * on this account over the game connection, and the two runners cannot see each other's spend of
-   * the shared rate limits. The browser never claims; it starts only while nobody holds the lock.
-   * A missing file is a free lock. Any other read failure warns and lets the operator proceed: the
-   * lock protects the rate budget, and a GitHub hiccup must not lock the operator out of the game.
+   * Claim the run lock for this run (browser mode), or confirm the host's claim (external mode).
+   * Returns null when the run may proceed, else why not. The browser waits out a short quiet period
+   * (the previous runner's calls still count in the game's rolling minute) rather than refusing.
    */
-  async _runLockBlock() {
-    let text = null;
-    try { text = await this.github.text(LOCK_PATH); }
-    catch (e) {
-      if (e?.status === 404) return null;
-      this.say(`Could not read the run lock (${e?.message ?? e}); make sure no Claude session or Duet is running a job`, "warn", 9000);
+  // Lock times come from the lease's clock, the one its expiry is checked against.
+  async _acquireRunLock(job) {
+    if (!this.lease) return null;
+    if (this.runLockMode === "external") return this.lease.active ? this.lease.check() : "the host has not claimed the run lock";
+    if (this.lease.active) return this.lease.check(); // a collection: the first tree claimed for all
+    for (let tries = 0; tries < 6; tries++) {
+      let cur;
+      try { cur = await this.lockStore.read(); } catch (e) { return `could not read the run lock (${e.message})`; }
+      let lock;
+      try { lock = parseLock(cur.text); } catch (e) { return `the run lock is unreadable (${e.message})`; }
+      const now = this.lease.clock();
+      const instance = `browser:${this.runner.tabId}`;
+      const d = claimDecision(lock, now, instance);
+      if (!d.ok) {
+        if (d.held || d.waitMs > QUIET_MS + 5000) return d.reason;
+        this.say(`Waiting ${Math.ceil(d.waitMs / 1000)} s: ${d.reason.replace(/, so wait \d+ s$/, "")}`, "warn", d.waitMs);
+        await this.sleep(d.waitMs + 250);
+        continue;
+      }
+      const body = claimBody({ holder: "browser", job, token: newToken(), ttlMinutes: this.runLockTtl, now, instance });
+      try { await this.lockStore.write(JSON.stringify(body, null, 1) + "\n", `run-lock: claim by browser (${job})`, cur.sha); }
+      catch (e) { if (e.conflict) continue; return `could not claim the run lock (${e.message})`; }
+      this.lease.begin({ token: body.token, holder: "browser", expiresAt: body.expiresAt, renewer: () => this._renewRunLock(), renewEveryMs: renewEveryMs(this.runLockTtl) });
+      clearInterval(this._lockTimer);
+      this._lockTimer = setInterval(() => { this.lease.renewNow(); }, renewEveryMs(this.runLockTtl));
+      this._lockTimer?.unref?.();
       return null;
     }
-    try { return blockReason(parseLock(text), this.runHolder, this.now()); }
-    catch (e) { this.say(`The run lock is unreadable (${e.message}); make sure no other runner is active`, "warn", 9000); return null; }
+    return "the run lock kept changing while claiming it; another runner is active";
+  }
+
+  /** Renew this core's claim. A confirmed loss stops the lease at once; a failed write leaves it to run out. */
+  async _renewRunLock() {
+    if (this.runLockMode !== "claim" || !this.lease?.active) return;
+    const token = this.lease.token;
+    try {
+      const cur = await this.lockStore.read();
+      const lock = parseLock(cur.text);
+      if (lock.token !== token) { this.lease.lose(`the run lock was taken by ${lock.holder ?? "nobody"} while this run held it`); return; }
+      if (!lockState(lock, this.lease.clock()).held) { this.lease.lose("the run lock expired before it was renewed"); return; }
+      const body = renewBody(lock, { ttlMinutes: this.runLockTtl, now: this.lease.clock() });
+      await this.lockStore.write(JSON.stringify(body, null, 1) + "\n", "run-lock: heartbeat by browser", cur.sha);
+      this.lease.renewed(body.expiresAt);
+    } catch (e) {
+      this.say(`Could not renew the run lock (${e.message}); the run pauses if it cannot be renewed in time`, "warn", 9000);
+    }
+  }
+
+  async _releaseRunLock() {
+    if (this.runLockMode !== "claim" || !this.lease?.active) return;
+    clearInterval(this._lockTimer); this._lockTimer = null;
+    const token = this.lease.token;
+    this.lease.end(); // stop sending first, then hand the lock back
+    for (let tries = 0; tries < 3; tries++) {
+      try {
+        const cur = await this.lockStore.read();
+        const lock = parseLock(cur.text);
+        if (lock.token !== token) return;
+        await this.lockStore.write(JSON.stringify(releaseBody(lock, { now: this.lease.clock() }), null, 1) + "\n", "run-lock: release by browser", cur.sha);
+        return;
+      } catch (e) { if (!e.conflict) { this.say(`Could not release the run lock (${e.message}); it expires on its own`, "warn", 9000); return; } }
+    }
   }
 
   async _startSelected(s, collection = null) {
     if (s.problems.length) return this.say("Resolve the preview problems before starting", "bad");
-    const locked = await this._runLockBlock();
-    if (locked) { this.say(`Not started: ${locked}. Nothing was sent.`, "bad", 12000); return this.changed(); }
     // Re-read the gate at the moment of the tap, not at selection time: the operator may have been
     // sitting on this screen while the session expired.
     const blocked = this.blockedPaths(s.plan, s.manifest);
@@ -408,8 +469,6 @@ export class ForgeCore {
     // Re-read at the moment of the tap: the state may have changed since the screen rendered.
     const blocked = this.resumeBlockedReason(job);
     if (blocked) { this.say(blocked, "bad", 9000); return this.changed(); }
-    const locked = await this._runLockBlock();
-    if (locked) { this.say(`Not resumed: ${locked}. Nothing was sent.`, "bad", 12000); return this.changed(); }
     if (!this.runner.manifests.has(jobId)) {
       try {
         const text = job.manifestPath?.startsWith("bloodright-job:")
@@ -449,7 +508,8 @@ export class ForgeCore {
     } catch (e) { return this.fail("resume: prepare repo-backed images", e); }
     this.go("run", { jobId });
     const hasSent = job.items.some((i) => i.state === "SENT");
-    await this.drive(jobId, () => (hasSent ? this.runner.resume(jobId) : this.runner.run(jobId)));
+    try { await this.drive(jobId, () => (hasSent ? this.runner.resume(jobId) : this.runner.run(jobId))); }
+    finally { await this._releaseRunLock(); }
   }
 
   /**
@@ -468,6 +528,8 @@ export class ForgeCore {
 
   async drive(jobId, fn) {
     if (this.state.running) return this.say("a job is already running", "warn");
+    const locked = await this._acquireRunLock(this.journal.get(jobId)?.manifestPath ?? jobId);
+    if (locked) { this.say(`Not run: ${locked}. Nothing was sent.`, "bad", 12000); return this.changed(); }
     this.state.running = jobId; this.state.runningNote = "";
     this.changed();
     this.notify({ type: "driving", jobId });

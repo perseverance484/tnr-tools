@@ -23,5 +23,23 @@ export function composeForTest({ game = new FakeGame(), storage = new MemoryStor
     client: client ?? new FakeClient(game),
     sleep: async (ms) => clock.tick(ms),
   });
-  return { ...deps, game, storage, idb, clock };
+  // The run lock: an in-memory compare-and-swap store, free at the start (RUL-2026-11-07-133).
+  return { ...deps, lockStore: memoryLockStore(), game, storage, idb, clock };
+}
+
+/** state/run_lock.json as the browser sees it through the contents API: text + sha, writes CAS on the sha. */
+export function memoryLockStore(text = null) {
+  let sha = text == null ? null : "s0", n = 0;
+  const store = {
+    writes: [],
+    async read() { return { text, sha }; },
+    async write(t, message, expectSha) {
+      if ((expectSha ?? null) !== sha) { const e = new Error("changed by someone else"); e.conflict = true; e.status = 409; throw e; }
+      text = t; sha = `s${++n}`; store.writes.push({ message, text: t });
+      return true;
+    },
+    set(t) { text = t; sha = `x${++n}`; },
+    get text() { return text; },
+  };
+  return store;
 }

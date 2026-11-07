@@ -16,7 +16,7 @@ const TERMINAL = ["VERIFIED", "FAILED", "SKIPPED"];
 
 // Pause reasons in the operator's words. The code itself stays in the journal and the bundle.
 const PAUSE_WORDS = {
-  USER: "Paused by you", SESSION: "Paused: signed out of the game", NETWORK: "Paused: connection problem",
+  USER: "Paused by you", RUN_LOCK: "Paused: the run lock lapsed or was taken", SESSION: "Paused: signed out of the game", NETWORK: "Paused: connection problem",
   TOO_MANY_REQUESTS: "Paused: game rate limit reached", ORPHANED: "Paused: an item needs your decision",
   DEPENDENCY: "Paused: waiting on an earlier item", UNDECODABLE_RESPONSE: "Paused: unreadable game reply",
   AMBIGUOUS: "Paused: last write uncertain", VISIBILITY: "Paused: record not visible",

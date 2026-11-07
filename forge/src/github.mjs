@@ -66,6 +66,35 @@ export class Github {
   }
 }
 
+/**
+ * Compare-and-swap file access for the run lock (RUL-2026-11-07-133). read() returns the text and
+ * blob sha (both null when the file does not exist); write() succeeds only against that sha (or
+ * creates only when it was absent), so a lock changed by anyone in between is a conflict, never
+ * an overwrite. Lives outside Github.put on purpose: put re-reads the sha itself and so overwrites.
+ */
+export async function readExact(gh, path) {
+  const r = await gh.fetchImpl(gh._url(path) + `&t=${Date.now()}`, { headers: { ...gh._headers(), "cache-control": "no-cache" } });
+  if (r.status === 404) return { text: null, sha: null };
+  if (!r.ok) throw new GithubError(`read ${path}: HTTP ${r.status}`, { status: r.status });
+  const j = await r.json();
+  const bin = atob(String(j.content ?? "").replace(/\s/g, ""));
+  return { text: new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0))), sha: j.sha ?? null };
+}
+
+export async function writeExact(gh, path, contentText, message, sha) {
+  if (!gh._pat()) throw new GithubError("no GitHub token stored; Settings > GitHub", { status: 401 });
+  const body = { message, content: b64utf8(contentText), branch: gh.cfg.branch };
+  if (sha) body.sha = sha;
+  const r = await gh.fetchImpl(`https://api.github.com/repos/${gh.cfg.owner}/${gh.cfg.repo}/contents/${path}`, {
+    method: "PUT", headers: { ...gh._headers(), "content-type": "application/json" }, body: JSON.stringify(body),
+  });
+  if (r.status === 200 || r.status === 201) return true;
+  const t = await r.text().catch(() => "");
+  // 409: the sha is stale. 422: "sha wasn't supplied" (the file appeared since it was read absent).
+  if (r.status === 409 || r.status === 422) throw new GithubError(`write ${path}: changed by someone else`, { status: r.status, conflict: true });
+  throw new GithubError(`write ${path}: HTTP ${r.status} ${t.slice(0, 140)}`, { status: r.status });
+}
+
 export function b64utf8(s) {
   const bytes = new TextEncoder().encode(s);
   let bin = "";

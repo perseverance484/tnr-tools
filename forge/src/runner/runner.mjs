@@ -56,9 +56,8 @@ const randomTab = () => Math.random().toString(36).slice(2, 10) + Math.random().
 
 export { StaleItem };
 const moved = (journal, jobId, e) => new StaleItem(`job ${jobId} is ${journal.get(jobId).state}: another tab moved it (${e?.message})`);
-export class Paused extends Error {
-  constructor(reason, info = {}) { super(`paused: ${reason}`); this.name = "Paused"; this.reason = reason; Object.assign(this, info); }
-}
+import { Paused } from "./paused.mjs";
+export { Paused };
 const isTransport = (e) => e instanceof NetworkError || e instanceof TransportError;
 
 /**
@@ -288,6 +287,9 @@ export class Runner {
         // the user makes it, because later items may reference the id it is waiting on
         if (item.state === "ORPHANED") throw new Paused("ORPHANED", { idx: i, detail: item.error ?? null });
         if (this.pauseRequested) throw new Paused("USER", { idx: i });
+        // The run lock (RUL-2026-11-07-133): renew when due, then stop here if the lease is gone.
+        if (this.lease?.due()) await this.lease.renewNow();
+        { const why = this.lease?.check(); if (why) throw new Paused("RUN_LOCK", { idx: i, detail: why }); }
         this._emit("item:start", { jobId, idx: i, name: item.name ?? null, entity: item.entity ?? null, phase: item.phase ?? null });
         if (isBloodrightEntity(item.entity)) {
           for (const dep of order[i].deps ?? []) {
@@ -683,7 +685,11 @@ export class Runner {
     this._fresh(jobId, item.idx, expect);
     // and once more after the write-ahead yield, at the last moment before dispatch (review R1)
     const decoded = await this.journal.withSent(jobId, item.idx, patch, () => this.client.call(path, input),
-      () => { this.budget?.assertNotTripped?.(); this._lease(jobId); });
+      () => {
+        this.budget?.assertNotTripped?.(); this._lease(jobId);
+        // The run lock (RUL-2026-11-07-133): a lapsed or lost lease withdraws the write unsent.
+        const why = this.lease?.check(); if (why) throw new Paused("RUN_LOCK", { idx: item.idx, detail: why });
+      });
     if (decoded && decoded.ok === false && decoded.error && decoded.error.code === "TOO_MANY_REQUESTS") {
       let limited = null;
       try { if (this.budget) this.budget.observe([decoded], [path]); } catch (e) { if (!(e instanceof RateLimited)) throw e; limited = e; }
