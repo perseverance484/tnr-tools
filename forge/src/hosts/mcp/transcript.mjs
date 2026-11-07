@@ -25,6 +25,8 @@ import { dirname, join, resolve, sep } from "node:path";
 import { homedir } from "node:os";
 
 const SAVED = /^Error: result \(([\d,]+) characters[^)]*\) exceeds maximum allowed tokens\. Output has been saved to (\S+?\.txt)\./;
+// Newer Claude Code: a large result is kept in a file and the record holds only a preview.
+const PERSISTED = /^<persisted-output>\r?\nOutput too large \([^)]*\)\. Full output saved to: (\S+)\r?\n/;
 const FILTERS = ["select", "search", "maxLength"];
 
 /** JSON with object keys sorted, for comparing inputs regardless of key order. */
@@ -135,6 +137,8 @@ export class TranscriptAnswerer {
     else if (Array.isArray(block.content) && block.content.every((c) => c?.type === "text")) text = block.content.map((c) => c.text).join("");
     else { this._note({ type: "passed-over", reason: "the result is not plain text" }); return null; }
     if (block.is_error === true) return { toolError: text };
+    const persisted = PERSISTED.exec(text);
+    if (persisted) return this._persisted(resolve(persisted[1]));
     const saved = SAVED.exec(text);
     if (!saved) return { text };
     const file = resolve(saved[2]);
@@ -144,5 +148,19 @@ export class TranscriptAnswerer {
     const body = readFileSync(file, "utf8");
     if (body.length !== want) { this._note({ type: "passed-over", reason: `the saved output has ${body.length} characters, the notice says ${want}` }); return null; }
     return { text: body };
+  }
+
+  /** The full result of a persisted-output notice: plain text, or the result's content blocks as JSON. */
+  _persisted(file) {
+    if (!file.startsWith(this.folder)) { this._note({ type: "passed-over", reason: "the saved output is outside the session folder" }); return null; }
+    if (!existsSync(file)) { this._note({ type: "passed-over", reason: "the saved output file is missing" }); return null; }
+    const body = readFileSync(file, "utf8");
+    if (!file.endsWith(".json")) return { text: body };
+    let blocks;
+    try { blocks = JSON.parse(body); } catch { this._note({ type: "passed-over", reason: "the saved output is not valid JSON" }); return null; }
+    if (typeof blocks === "string") return { text: blocks };
+    if (Array.isArray(blocks) && blocks.length && blocks.every((c) => c?.type === "text" && typeof c.text === "string")) return { text: blocks.map((c) => c.text).join("") };
+    this._note({ type: "passed-over", reason: "the saved output is not plain text" });
+    return null;
   }
 }
