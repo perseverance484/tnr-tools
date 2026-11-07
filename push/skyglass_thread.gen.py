@@ -1,0 +1,289 @@
+#!/usr/bin/env python3
+"""The salvager's thread: Wreck Sighted rebuilt as an in-game explainer, plus a repeatable copy (RUL-2026-11-07-136).
+
+    python3 push/skyglass_thread.gen.py create                  -> push/509_skyglass_thread_create.json  (browser: images)
+    python3 push/skyglass_thread.gen.py golive --from <509 bundle> --live <Wreck Sighted read>
+                                                                -> push/510_skyglass_thread_golive.json  (connector)
+
+509 creates, all HIDDEN: 17 scene-background boards (art/skyglass_thread/compose_boards.py) and the new repeatable quest
+At the Salvager's Fire. Staff can play hidden quests (libs/quest.ts canPlayHiddenQuests), so the director plays the Fire
+quest before anything players see changes.
+
+510 (after the director's playtest): unhides the boards and the Fire quest, and rewrites the live Wreck Sighted
+(_zp1l7Y9a_77pgonAdsYx, published by push/507) onto the same nodes. The edit replaces the whole record, so it is built
+from a fresh live read (--live, a JSON file of quest.get for that id); every field not listed in EDIT_FIELDS is copied
+from the read unchanged.
+
+Both quests share every node; text of record is docs/design/SKYGLASS_TEXT.md section 1b, copied verbatim through
+push/skyglass_text.py. Scene rules: one scene character per node (ENGINE_LAWS 48), the salvager PT01 on every scene;
+the boards keep the left 40% and the bottom third clear (laws 50, 79). The graph is acyclic (law 87); "Ask something
+else" is a reset_quest whose resetObjectiveId is the menu, a dialog node (law 88). Every reset and win is preceded by a
+dialog (law 47). Do not hand-edit the outputs.
+"""
+import argparse
+import hashlib
+import json
+import os
+import re
+import subprocess
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "push"))
+import skyglass_text as T  # noqa: E402
+
+SHARED = "Salvager's thread"
+WRECK_Q, FIRE_Q = "Wreck Sighted (thread)", "At the Salvager's Fire"
+WRECK_SIGHTED_ID = "_zp1l7Y9a_77pgonAdsYx"   # live, published by push/507
+TIDE_CHART = "H1s2IwtZ5JqgPEoJ55IVj"
+SALVAGER = "Xugt7415D3-tepLfxpwM5"           # PT01 scene character (push/374)
+SHORE = "rX78pJPETsUL2JrsSvGHn"              # the shore scene background (push/385)
+QUEST_IMG = "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp"  # Wreck Sighted icon
+FOLDER = "SkyglassSalvagersThread"
+EXPORTS = "art/skyglass_thread/exports"
+
+BOARDS = [  # key, topic label for the asset name
+    ("menu", "the board"), ("threes", "go in threes"), ("hulls", "two hulls"), ("loot", "what comes back"),
+    ("once", "a chart is good once"), ("ladder", "the chart ladder"), ("pick", "pick a reward"),
+    ("seals", "the sealed runs"), ("rot", "steeping"), ("lantern", "lantern and Crownhold"), ("haul", "the Haul"),
+    ("shards", "four shards"), ("below", "below Crownhold"), ("trade", "trade"), ("token", "Skyglass Token"),
+    ("logboard", "the watch log"), ("orders", "a page's orders"),
+]
+
+# node, board (None = the shore), next nodes; "END" marks a topic's last scene (Ask something else / I'm ready)
+TOPICS = [
+    ("a_threes", "threes", ["a_hulls"]), ("a_hulls", "hulls", ["a_loot"]), ("a_loot", "loot", "END"),
+    ("c_once", "once", ["c_ladder"]), ("c_ladder", "ladder", ["c_pick"]), ("c_pick", "pick", "END"),
+    ("p_seals", "seals", ["p_rot"]), ("p_rot", "rot", ["p_lantern"]), ("p_lantern", "lantern", "END"),
+    ("h_haul", "haul", "END"),
+    ("s_four", "shards", ["s_below"]), ("s_below", "below", "END"),
+    ("t_trade", "trade", ["t_token"]), ("t_token", "token", "END"),
+    ("w_board", "logboard", ["w_orders"]), ("w_orders", "orders", "END"),
+]
+MENU_TOPICS = ["a_threes", "c_once", "p_seals", "h_haul", "s_four", "t_trade", "w_board"]  # in menu-choice order
+
+# The pose each scene wants (docs/handoffs/SKYGLASS_ART_PROMPTS.md section 11). Until a pose's scene-character id is
+# added to POSE_IDS, its scenes fall back to PT01, so adding a pose later is a one-line change and a quest edit.
+POSE_IDS = {"PT01": SALVAGER}
+SCENE_POSE = {
+    "d_open": "PT06", "d_menu": "PT02", "a_threes": "PT03", "a_hulls": "PT02", "a_loot": "PT01", "c_once": "PT01",
+    "c_ladder": "PT02", "c_pick": "PT01", "p_seals": "PT02", "p_rot": "PT01", "p_lantern": "PT04", "h_haul": "PT02",
+    "s_four": "PT05", "s_below": "PT04", "t_trade": "PT07", "t_token": "PT07", "w_board": "PT02", "w_orders": "PT02",
+    "z_chart": "PT01", "z_bye": "PT07", "r_menu": "PT02",
+}
+
+
+def pose(node):
+    return POSE_IDS.get(SCENE_POSE.get(node, "PT01"), SALVAGER)
+
+
+QUESTS = {
+    "wreck": {"q": WRECK_Q, "end": "z_chart", "reward_items": [{"ids": [TIDE_CHART], "number": 100, "quantity": 1}]},
+    "fire": {"q": FIRE_Q, "end": "z_bye", "reward_items": []},
+}
+
+
+def scene(board):
+    return SHORE if board is None else f"@scene:sg509_board_{board}"
+
+
+def dialog(node, board, text, choices):
+    return {"id": node, "task": "dialog", "description": text, "sceneBackground": scene(board),
+            "sceneCharacters": [pose(node)], "nextObjectiveId": [{"text": t, "nextObjectiveId": n} for t, n in choices]}
+
+
+def objectives(which):
+    spec = QUESTS[which]
+    q = spec["q"]
+    back = T.block(f"obj:{SHARED}/back.choice")
+    ready = T.block(f"obj:{q}/ready.choice")
+    out = [dialog("d_open", None, T.block(f"obj:{SHARED}/d_open.description"),
+                  zip(T.choices(f"obj:{SHARED}/d_open.description"), ["d_menu"]))]
+    menu_ch = T.choices(f"obj:{SHARED}/d_menu.description")
+    assert len(menu_ch) == len(MENU_TOPICS), menu_ch
+    out.append(dialog("d_menu", "menu", T.block(f"obj:{SHARED}/d_menu.description"),
+                      list(zip(menu_ch, MENU_TOPICS)) + [(ready, spec["end"])]))
+    for node, board, nexts in TOPICS:
+        target = f"obj:{SHARED}/{node}.description"
+        if nexts == "END":
+            assert T.choices(target) == [], node
+            ch = [(back, "r_menu"), (ready, spec["end"])]
+        else:
+            texts = T.choices(target)
+            assert len(texts) == len(nexts), (node, texts)
+            ch = list(zip(texts, nexts))
+        out.append(dialog(node, board, T.block(target), ch))
+    out.append({"id": "r_menu", "task": "reset_quest", "description": "Back to the fire.", "resetObjectiveId": "d_menu",
+                "sceneBackground": scene("menu"), "sceneCharacters": [pose("r_menu")]})
+    end_target = f"obj:{q}/{spec['end']}.description"
+    out.append(dialog(spec["end"], None, T.block(end_target), zip(T.choices(end_target), ["w_done"])))
+    win = {"id": "w_done", "task": "win_quest", "description": T.block(f"obj:{q}/w_done.description"),
+           "sceneBackground": SHORE, "sceneCharacters": []}
+    if spec["reward_items"]:
+        win["reward_items"] = spec["reward_items"]
+    out.append(win)
+    check_graph(out)
+    return out
+
+
+def check_graph(objs):
+    """Every edge resolves, every node is reachable, no cycle through nextObjectiveId (law 87)."""
+    ids = {o["id"] for o in objs}
+    edges = {o["id"]: [c["nextObjectiveId"] for c in o.get("nextObjectiveId", [])] for o in objs}
+    for o in objs:
+        for n in edges[o["id"]]:
+            assert n in ids, (o["id"], n)
+        if o["task"] == "reset_quest":
+            assert o["resetObjectiveId"] in ids
+    seen, stack = set(), ["d_open"]
+    while stack:
+        n = stack.pop()
+        if n not in seen:
+            seen.add(n)
+            stack.extend(edges[n])
+    assert seen == ids, ids - seen
+    state = {}
+
+    def visit(n):
+        state[n] = 1
+        for m in edges[n]:
+            assert state.get(m) != 1, f"cycle at {n}->{m}"
+            if m not in state:
+                visit(m)
+        state[n] = 2
+    visit("d_open")
+    for o in objs:  # law 47: a dialog precedes every silent terminal
+        if o["task"] in ("reset_quest", "win_quest"):
+            parents = [p for p, e in edges.items() if o["id"] in e]
+            assert parents and all(next(x for x in objs if x["id"] == p)["task"] == "dialog" for p in parents)
+    for o in objs:
+        if o["task"] == "dialog":
+            plain = re.sub("<[^>]+>", "", o["description"])
+            assert len(plain) <= 360, (o["id"], len(plain))
+            assert "—" not in o["description"], o["id"]
+
+
+def image_pack():
+    files, sizes, refs = {}, {}, set()
+    for key, _ in BOARDS:
+        path = f"{EXPORTS}/board-{key}.webp"
+        disk = open(os.path.join(ROOT, path), "rb").read()
+        ref = subprocess.check_output(["git", "-C", ROOT, "log", "-1", "--format=%H", "HEAD", "--", path], text=True).strip()
+        assert ref and subprocess.check_output(["git", "-C", ROOT, "show", f"{ref}:{path}"]) == disk, f"{path}: commit it first"
+        refs.add(ref)
+        name = f"sg-thread-board-{key}.webp"
+        files[name] = {"path": path, "sha256": hashlib.sha256(disk).hexdigest(), "bytes": len(disk)}
+        sizes[name] = len(disk)
+    ref = subprocess.check_output(["git", "-C", ROOT, "log", "-1", "--format=%H", "HEAD", "--", EXPORTS], text=True).strip()
+    return sizes, {"ref": ref, "files": files}
+
+
+def fire_quest_data():
+    return {"name": T.block(f"quest:{FIRE_Q}.name"), "description": T.block(f"quest:{FIRE_Q}.description"),
+            "image": QUEST_IMG, "questType": "event", "questRank": "D",
+            "successDescription": T.block(f"quest:{FIRE_Q}.successDescription"),
+            "retryDelay": "none", "attemptDelay": "none", "consecutiveObjectives": True, "hidden": True,
+            "requiredLevel": 1, "maxLevel": 100, "maxAttempts": 100, "maxCompletes": 100,  # validator max 100 each
+            "prerequisiteQuestId": None, "tierLevel": None, "requiredVillage": None, "requiredBloodlineId": None,
+            "startsAt": None, "endsAt": None,
+            "content": {"objectives": objectives("fire"), "sceneBackground": SHORE, "sceneCharacters": [SALVAGER],
+                        "entryItems": [], "reward": {}}}
+
+
+def create():
+    items = []
+    for key, topic in BOARDS:
+        name = f"Skyglass thread: board - {topic}"
+        assert re.fullmatch(r"[A-Za-z0-9]*", FOLDER)
+        items.append({"entity": "asset", "slot": "create", "srcId": f"sg509_board_{key}", "phase": 1, "name": name,
+                      "data": dict(asset_row(name, True), image=f"@img:sg-thread-board-{key}.webp")})
+    data = fire_quest_data()
+    items.append({"entity": "quest", "slot": "create", "srcId": "sg509_fire", "phase": 2, "name": data["name"], "data": data})
+    sizes, pack = image_pack()
+    objectives("wreck")  # the Wreck Sighted graph must build too; it ships in 510
+    note = ("push/509, HIDDEN: the salvager's thread (RUL-2026-11-07-136). 17 scene-background boards (folder "
+            f"{FOLDER}) and the new repeatable quest At the Salvager's Fire (event, maxAttempts/maxCompletes 100, no "
+            "reward): a menu at the fire with seven topics, each 1 to 3 scenes, ending on Ask something else (reset to "
+            "the menu) or That's all for now. Staff can play it hidden. Wreck Sighted is NOT touched here: push/510 "
+            "rewrites it onto the same nodes after the director's playtest. Generated by push/skyglass_thread.gen.py; "
+            "do not hand-edit.")
+    write(509, "create", {"_note": note, "dedupNames": True, "imgSizes": sizes, "imagePack": pack, "items": items})
+
+
+def created(path):
+    """srcId -> created id, from a Forge/connector results bundle (entries with slot create, state ok; then idmap)."""
+    b = json.load(open(path))
+    got = {}
+    for e in b.get("entries") or []:
+        if e.get("slot") == "create" and e.get("state") == "ok" and e.get("id") and (e.get("srcId") or "").startswith("sg509_"):
+            got[e["srcId"]] = e["id"]
+    for k, v in (b.get("idmap") or {}).items():
+        if k.startswith("sg509_"):
+            got.setdefault(k, v)
+    return got
+
+
+def asset_row(name, hidden):
+    return {"name": name, "type": "SCENE_BACKGROUND", "folder": FOLDER, "frames": 1, "speed": 1, "hidden": hidden,
+            "onInitialBattleField": False, "licenseDetails": "TNR"}
+
+
+def golive(bundle_path, live_path):
+    ids = created(bundle_path)
+    miss = [k for k in [f"sg509_board_{b}" for b, _ in BOARDS] + ["sg509_fire"] if k not in ids]
+    assert not miss, f"the 509 bundle lacks {miss}"
+    live = json.load(open(live_path))
+    live = live.get("data", live)
+    assert live.get("id") in (None, WRECK_SIGHTED_ID) and live.get("name") == "Wreck Sighted", "wrong live record"
+
+    def resolve(objs):
+        s = json.dumps(objs)
+        for src, real in ids.items():
+            s = s.replace(f"@scene:{src}", real)
+        assert "@scene:" not in s
+        return json.loads(s)
+    items = []
+    for key, topic in BOARDS:
+        name = f"Skyglass thread: board - {topic}"
+        items.append({"entity": "asset", "slot": "edit", "targetId": ids[f"sg509_board_{key}"], "phase": 1,
+                      "name": f"{name}: unhide", "data": asset_row(name, False)})
+    fire = fire_quest_data()
+    fire["hidden"] = False
+    fire["content"]["objectives"] = resolve(fire["content"]["objectives"])
+    items.append({"entity": "quest", "slot": "edit", "targetId": ids["sg509_fire"], "phase": 2,
+                  "name": "At the Salvager's Fire: publish", "data": fire})
+    wreck = {k: v for k, v in live.items() if k not in ("id", "createdAt", "updatedAt")}
+    wreck["content"] = dict(live["content"], objectives=resolve(objectives("wreck")), sceneBackground=SHORE,
+                            sceneCharacters=[SALVAGER])
+    items.append({"entity": "quest", "slot": "edit", "targetId": WRECK_SIGHTED_ID, "phase": 2,
+                  "name": "Wreck Sighted: the salvager's thread", "data": wreck})
+    note = ("push/510, LIVE: unhide the 17 thread boards and At the Salvager's Fire, and rewrite Wreck Sighted "
+            f"({WRECK_SIGHTED_ID}) onto the thread's nodes. Built from {os.path.basename(bundle_path)} and a live read "
+            f"of Wreck Sighted ({os.path.basename(live_path)}). Players mid-way through the old Wreck Sighted keep their "
+            "attempt; editing a live event quest does not restart it.")
+    write(510, "golive", {"_note": note, "items": items})
+
+
+def write(num, tag, obj):
+    out = os.path.join(ROOT, f"push/{num}_skyglass_thread_{tag}.json")
+    with open(out, "w", encoding="utf-8") as fh:
+        json.dump(obj, fh, indent=1, ensure_ascii=False)
+        fh.write("\n")
+    print(f"{os.path.relpath(out, ROOT)}: {len(obj['items'])} items")
+
+
+def main():
+    ap = argparse.ArgumentParser(description="the salvager's thread")
+    ap.add_argument("step", choices=["create", "golive"])
+    ap.add_argument("--from", dest="bundle")
+    ap.add_argument("--live")
+    a = ap.parse_args()
+    if a.step == "create":
+        create()
+    else:
+        assert a.bundle and a.live, "golive needs --from <509 bundle> and --live <Wreck Sighted read>"
+        golive(a.bundle, a.live)
+
+
+if __name__ == "__main__":
+    main()
