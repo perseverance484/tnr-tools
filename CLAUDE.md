@@ -92,11 +92,13 @@ Do not repeatedly merge `main` into an active task branch merely to hide diverge
 
 ## 6. Live-game boundary
 
-Repository write access is not live-game authorization.
+Repository write access is not live-game authorization. The director's TNR connector is the one authorized live path (RUL-2026-11-06-132).
 
-- Claude/Fable does not push the live game.
-- The user-controlled builder action remains the normal game-write step.
-- Do not obtain, request, fabricate, synthesise, or expose live session cookies/credentials.
+- Live **reads** through the TNR connector are allowed for verification and captures.
+- Live **writes** through the TNR connector are allowed only after the job's repository gates pass and the director says go for that job. They follow the same laws as a Forge run (hidden create then unhide, law 18 unequip/edit/re-equip, full-record edits read back first) and leave a results bundle in `harvests/inbox`.
+- Never through the connector: payments or purchases (`paypal`, `stripe`, `purchases`, `merch`), `accountDeletion`, other players' accounts or data, moderation (`reports`, bans), or any delete without a per-record yes from the director.
+- New image uploads still go through Forge (the connector has no upload endpoint); the director's Forge run remains the path for those jobs.
+- Do not obtain, request, fabricate, synthesise, or expose live session cookies/credentials; the connector holds its own.
 - A task that says zero live requests means zero live requests.
 - Prefer pinned source, local checkout, fixtures, in-process harnesses, and committed captures.
 - Read the game source; do not run it unless a task explicitly authorizes execution.
