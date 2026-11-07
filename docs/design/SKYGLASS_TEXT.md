@@ -189,13 +189,13 @@ She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at
 The Discord threads, in the game. Wreck Sighted becomes a menu at the salvager's fire: the player picks a topic, she
 answers in 1 to 4 short scenes while pointing at a board of pinned pages, then the player asks something else or leaves.
 Every scene is her line first, then one plain line in italics saying exactly how it works (EVENT_STRUCTURE P6: the tier
-is told by the fiction, the mechanics are told plainly). This supersedes §1a's "no hand holding" brief.
+is told by the fiction, the mechanics are told plainly). This supersedes §1a's "no hand holding" brief. Accuracy pass and the chests topic: RUL-2026-11-07-138.
 
 Two quests share every node (`push/skyglass_thread.gen.py`):
 - **Wreck Sighted** (the live record, edited in place): one time, pays the Tide Chart.
 - **At the Salvager's Fire** (new): repeatable, no reward, for anyone who wants the explainer again.
 
-Graph: `d_open` -> `d_menu` -> seven topics -> each topic's last scene offers `r_menu` (a `reset_quest` back to
+Graph: `d_open` -> `d_menu` -> eight topics -> each topic's last scene offers `r_menu` (a `reset_quest` back to
 `d_menu`) or the ending. Node ids are the generator's; the board each scene shows is in the generator's `SCENES` table.
 Text-box budget: about 330 characters per scene, so it fits the 128 px dialog box on a phone without much scrolling.
 
@@ -206,7 +206,7 @@ At the Salvager's Fire
 
 **`quest:At the Salvager's Fire.description`**
 ```
-The salvager's fire still burns below the Wreck. Sit with her any time and ask about getting aboard, the charts, the deep, the Haul, the shards, trading or the watch log.
+The salvager's fire still burns below the Wreck. Sit with her and ask about getting aboard, the charts, the chests, the deep, the Haul, the shards, trading or the watch log.
 ```
 
 **`quest:At the Salvager's Fire.successDescription`**
@@ -216,7 +216,7 @@ The fire's there when you need it.
 
 **`obj:Salvager's thread/d_open.description`**
 ```html
-The Ghost Ship hung over this coast longer than anyone's grandmother could remember. Three nights ago she came down.<br><br>A salvager mends a net by a driftwood fire below the wreck. "Another one come to pick her bones. Sit, then. Ask."
+The Ghost Ship hung over this coast longer than anyone's grandmother could remember. Now she has come down.<br><br>A salvager mends a net by a driftwood fire below the wreck. "Another one come to pick her bones. Sit, then. Ask."
 ```
 - `choice[0]`: `Sit by the fire`
 
@@ -226,17 +226,18 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 ```
 - `choice[0]`: `How do I get aboard her?`
 - `choice[1]`: `What are these charts?`
-- `choice[2]`: `What's down in the deep?`
-- `choice[3]`: `What are ledger pages?`
-- `choice[4]`: `What are the shards for?`
-- `choice[5]`: `Can I trade what I find?`
-- `choice[6]`: `What's the watch log?`
+- `choice[2]`: `What's in the chests?`
+- `choice[3]`: `What's down in the deep?`
+- `choice[4]`: `What's the Haul?`
+- `choice[5]`: `What are the shards for?`
+- `choice[6]`: `Can I trade what I find?`
+- `choice[7]`: `What's the watch log?`
 
 **`obj:Salvager's thread/back.choice`**: `Ask something else`
 
 **`obj:Salvager's thread/a_threes.description`**
 ```html
-"Nobody goes aboard alone and comes back. Go in threes."<br><br><i>The Wreck is a party dungeon in sector 210. It takes exactly 3 players, and a run lasts up to an hour.</i>
+"Nobody goes aboard alone and comes back. Go in threes."<br><br><i>She is ashore Friday to Sunday, every weekend. The Wreck is a party dungeon in sector 210. It takes exactly 3 players, and a run lasts up to an hour.</i>
 ```
 - `choice[0]`: `Which part of her?`
 
@@ -253,19 +254,36 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/c_once.description`**
 ```html
-"Each chart is the way into one corner of her, and she doesn't hold still, so it's good once."<br><br><i>Take a chart to the <b>Battle Arena</b> and run it alone. The chart is spent when the run starts. Health and chakra carry from fight to fight, and a lost fight ends the run.</i>
+"Each chart is the way into one corner of her, and she doesn't hold still, so it's good once."<br><br><i>Take a chart to the <b>Battle Arena</b> and run it alone; claim any waiting reward first. The chart is spent when the run starts. Health and chakra carry from fight to fight, and a lost fight ends the run.</i>
 ```
 - `choice[0]`: `Where do they lead?`
 
 **`obj:Salvager's thread/c_ladder.description`**
 ```html
-"The low-tide charts and the rosters take you to the lower decks. Down there are the crew's own charts: what they buried, the works, the archive, the helm. Those lead to the places the crew sealed shut."<br><br><i>Each run can drop the chart to a deeper one.</i>
+"The low-tide charts and the rosters take you to the lower decks. Down there are the crew's own charts: what they buried, the works, the archive, the helm. Those lead to the places the crew sealed shut."<br><br><i>Most runs can drop the next chart down. The Captain's Watch chart comes only from the endgame Wreck or an Archive Chart Case.</i>
 ```
 - `choice[0]`: `What do I get for winning?`
 
 **`obj:Salvager's thread/c_pick.description`**
 ```html
-"Win, and the crew lets you choose what to carry out."<br><br><i>A winning ending lets you pick one reward from a short list and pays EXP. Nothing is paid for a lost run. Every chart shows its difficulty in stars.</i>
+"Win, and the crew lets you choose what to carry out."<br><br><i>A winning ending lets you pick one reward from a short list and pays EXP. Some runs end in a last room: leave with what you hold, or press on for more and keep only that if you lose. Any other loss pays nothing. Every chart shows its difficulty in stars.</i>
+```
+
+**`obj:Salvager's thread/x_chests.description`**
+```html
+"The crew sealed their crates well. Prying them open is half the fun."<br><br><i>A <b>Skyglass Coffer</b> holds Filament, Serum, a Crown Fragment or, rarely, the Skyglass Katana. A <b>Sealed Treasury</b> holds ryo, Imperial Gold, Rare Jewels and Unobtanium. <b>Crown's Hoard</b> holds a Coffer, a Treasury and a Skyglass Token. <b>Unmarked Cargo</b> could be anything.</i>
+```
+- `choice[0]`: `And the supplies?`
+
+**`obj:Salvager's thread/x_supplies.description`**
+```html
+"Pills, kunai, dried fish. They ate better than we do."<br><br><i>Medicine Inro: healing and chakra pills. Sage's Strongbox: battle potions and rarer pills. Elemental Tool Pouch: Elemental Kunai and tools. Galley Stores: 2,000 EXP for an eligible active pet. Little Horror's Jar, a rare drop from the endgame Wreck, is the event's pet.</i>
+```
+- `choice[0]`: `And the glass?`
+
+**`obj:Salvager's thread/x_craft.description`**
+```html
+"The glass itself is worth more than anything they packed, if you know how to work it."<br><br><i>12 Skyglass Filament craft a Skyglass Crystal, and 5 Fragments of the Skyglass Crown craft <b>The Skyglass Crown</b>. Both need a crafting rank; without one, trade them to someone who has it.</i>
 ```
 
 **`obj:Salvager's thread/p_seals.description`**
@@ -276,7 +294,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/p_rot.description`**
 ```html
-"Soak a sealed chart in <b>Core Rot</b> and the rot remembers the place worse."<br><br><i>Use an Epic chart with 3 Core Rot to steep it, then win one fight. You get the tainted chart: a harder run where you pick 2 rewards. Lose, and the chart comes back but the Rot is spent.</i>
+"Soak a sealed chart in <b>Core Rot</b> and the rot remembers the place worse."<br><br><i>Use an Epic chart from your inventory with 3 Core Rot, then win one fight. You get the tainted chart: a harder run where you pick 2 rewards. Lose, and the chart comes back but the Rot is spent. Core Rot drops from the endgame Wreck, the low-tide runs, The Fall and the tainted runs.</i>
 ```
 - `choice[0]`: `And past that?`
 
@@ -287,7 +305,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/h_haul.description`**
 ```html
-"Others come back with a ledger page or a stores list, and go looking for holds no chart shows. They come back heavy, or not at all."<br><br><i>A page opens The Haul: up to 5 steps where you choose a crate, a locker, to cut through, or to leave. The deeper you go, the bigger the chests of profession materials. A lost fight ends the run.</i>
+"Some bring back a ledger page or a stores list and go after holds no chart shows. They come back heavy, or not at all."<br><br><i>A page opens The Haul: up to 5 steps of crate, locker or cut through. Deeper, bigger chests of profession materials. Leave after any step to keep them; lose a fight and you keep nothing. Pages drop from the endgame Wreck and the Rare runs.</i>
 ```
 
 **`obj:Salvager's thread/s_four.description`**
@@ -298,18 +316,18 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/s_below.description`**
 ```html
-"Under Crownhold the stair stops where the rock does. I've stood at the bottom. Something beneath it listens back."<br><br><i>One of each shard opens the last fight, below Crownhold. You go alone, all four are spent when it starts, and a loss pays nothing.</i>
+"Under Crownhold the stair stops where the rock does. I've stood at the bottom. Something beneath it listens back."<br><br><i>One of each shard opens the last fight, below Crownhold. You go alone, all four are spent when it starts, and a loss pays nothing. A win pays ryo, EXP and a pick of Crown's Hoard, Coffers or Tokens.</i>
 ```
 
 **`obj:Salvager's thread/t_trade.description`**
 ```html
-"What you can't use, trade. Every chart and every shard has a buyer, so no road's ever closed for good."<br><br><i>Charts, Core Rot, ledger pages, shards and Skyglass Tokens can be traded. Crown's Hoard and a few once-only rewards cannot.</i>
+"What you can't use, trade. Every chart and every shard has a buyer."<br><br><i>Charts, Core Rot, Haul pages, shards and Skyglass Tokens can be traded. Crown's Hoard, Unmarked Cargo, the Haul's chests and some once-only rewards cannot.</i>
 ```
 - `choice[0]`: `What's a Skyglass Token?`
 
 **`obj:Salvager's thread/t_token.description`**
 ```html
-"The crew's colours still take to steel."<br><br><i>A Skyglass Token unlocks any one of the 12 Skyglass skins on a weapon you already own. A boss's own token unlocks that boss's skin.</i>
+"The crew's colours still take to steel."<br><br><i>A Skyglass Token unlocks one Skyglass skin, once, on a weapon you already own: Aetherion, Thornsilver, Night's Testament, Stormrender, Oathbinder, Ink of the Void, The Unwritten, Gaea's Embrace, Warden's Bracers, Eclipsed Dawnblade, Zephyr's Whisper or Yuki's Frostbite. A boss's own token unlocks that boss's skin.</i>
 ```
 
 **`obj:Salvager's thread/w_board.description`**
@@ -327,7 +345,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Wreck Sighted (thread)/z_chart.description`**
 ```html
-She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at one corner. "Low tide opens her lower hull. Don't sit on it. She's already changing shape."<br><br><i>The fire stays lit: <b>At the Salvager's Fire</b> on the Information Board runs this again any time.</i>
+She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at one corner. "Low tide opens her lower hull. Don't sit on it. She's already changing shape."<br><br><i>The fire stays lit: <b>At the Salvager's Fire</b> on the Information Board runs this again.</i>
 ```
 - `choice[0]`: `Take the chart`
 
