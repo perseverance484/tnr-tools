@@ -25,6 +25,30 @@ repo. Server-side calls also skip the BotID check that guards browser mutations 
 2. Approve it on the game's own sign-in page when asked. That grant is the only credential, and
    it can be revoked from Claude's connector settings or the game account at any time.
 
+## The run lock: one writer at a time
+
+Every runner on the account (the browser tab, a Claude session, Duet) spends the same two limits
+without seeing the others: the game connection's 30 calls per minute per user, and the game's 60
+per minute per procedure, whose mutation overruns fine the account 1% of money and bank
+(TheNinjaRPG `app/src/server/api/trpc.ts` `enforceRateLimit`; `app/src/app/api/mcp/[[...transport]]/route.ts`).
+So only one runner works at a time (RUL-2026-11-07-133). The lock is `state/run_lock.json` on
+`main`; a claim is a commit pushed to `main`, so git's fast-forward check decides between two
+claimers.
+
+```
+node forge/tools/run_lock.mjs status
+node forge/tools/run_lock.mjs claim   --holder claude --job "push/502" [--ttl 60]
+node forge/tools/run_lock.mjs release --holder claude
+```
+
+`run` and `resume` need `--holder NAME` and refuse, before any game call, unless NAME holds the
+lock on `origin/main`. They extend it every 15 minutes and release it when the process exits
+(`--keep-lock` keeps it, to chain the next job). A lock nobody extends expires after its TTL
+(default 60 minutes). The browser never claims: Start and Resume read the lock at the tap and
+refuse while anyone holds it (a missing file is free; a read failure warns and lets the operator
+go on). Bulk live reads (scans, inventories) take the lock too: they spend the same 30 per minute.
+What is waiting to run, and on what, is `state/run_queue.json`.
+
 ## A run (the Claude session holding the connection)
 
 From the repository root, on an up-to-date `main` checkout:
@@ -36,7 +60,7 @@ node forge/tools/mcp_run.mjs plan push/412_x.json
 Offline. Parses, plans and pre-send validates exactly as Forge does when a manifest is opened.
 
 ```
-node forge/tools/mcp_run.mjs run push/412_x.json --state <state dir> --transcript auto
+node forge/tools/mcp_run.mjs run push/412_x.json --holder claude --state <state dir> --transcript auto
 ```
 
 Run it in the background. For every game call it writes `<state dir>/exchange/request.json`:

@@ -7,8 +7,11 @@
 //       plan and any problems. Nothing is sent (a Bloodright collection is the exception: Forge
 //       reads the live inventory when one is opened, so plan refuses those).
 //
-//   node forge/tools/mcp_run.mjs run    push/412_x.json --state DIR [--allowance 20] [--transcript auto|PATH] [--inbox DIR]
-//   node forge/tools/mcp_run.mjs resume JOB_ID         --state DIR [--transcript auto|PATH] [--inbox DIR]
+//   node forge/tools/mcp_run.mjs run    push/412_x.json --holder NAME --state DIR [--allowance 20] [--transcript auto|PATH] [--inbox DIR] [--keep-lock]
+//   node forge/tools/mcp_run.mjs resume JOB_ID         --holder NAME --state DIR [--transcript auto|PATH] [--inbox DIR] [--keep-lock]
+//       Both need the run lock on main held by NAME first (forge/tools/run_lock.mjs claim; RUL-2026-11-07-133):
+//       checked before the first game call, extended every 15 minutes while the job runs, and released when
+//       the run returns unless --keep-lock (to chain the next job).
 //       Live. Every game call is written to DIR/exchange/request.json and waits for its answer
 //       (see exchange.mjs); the session holding the game connection makes each call. With
 //       --transcript, the answer is taken from that session's own record of the call
@@ -38,6 +41,8 @@ import { McpBridgeClient, Pacer, DEFAULT_MCP_ALLOWANCE } from "../src/hosts/mcp/
 import { FileExchange, FileStorage } from "../src/hosts/mcp/exchange.mjs";
 import { FileIDB } from "../src/hosts/mcp/idbfile.mjs";
 import { TranscriptAnswerer, findTranscript } from "../src/hosts/mcp/transcript.mjs";
+import { blockReason, LOCK_PATH } from "../src/runner/runlock.mjs";
+import { fetchLock, heartbeat, release } from "./run_lock.mjs";
 
 const REPO = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
 
@@ -57,7 +62,12 @@ function localGithub(inbox = null) {
         return { name, path, sha: null, size: statSync(join(REPO, path)).size, type: "file" };
       });
     },
-    async text(path) { return readFileSync(join(REPO, path), "utf8"); },
+    async text(path) {
+      // The run lock lives on origin/main, not in this checkout (which may be stale): read it there.
+      if (path === LOCK_PATH) return JSON.stringify(fetchLock().lock);
+      try { return readFileSync(join(REPO, path), "utf8"); }
+      catch (e) { if (e.code === "ENOENT") e.status = 404; throw e; }
+    },
     async raw(path) { const b = readFileSync(join(REPO, path)); return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength); },
     async put(path, text) {
       if (!/^harvests\/inbox\/[^/]+\.json$/.test(path)) throw new Error("the MCP host only writes results bundles to harvests/inbox/");
@@ -70,7 +80,7 @@ function localGithub(inbox = null) {
   };
 }
 
-async function build({ stateDir, live }) {
+async function build({ stateDir, live, holder = null }) {
   mkdirSync(stateDir, { recursive: true });
   const storage = new FileStorage(join(stateDir, "storage.json"));
   // Results go to the local inbox; there is no PAT on this host (the flag only selects the path).
@@ -95,7 +105,7 @@ async function build({ stateDir, live }) {
   const deps = compose({ storage, indexedDB: idb.factory, fetchImpl: refuseFetch, client, authState: AUTH.UNKNOWN, tabId: "mcp-" + process.pid, log: () => {} });
   const inbox = arg("--inbox");
   deps.github = localGithub(inbox ? resolve(inbox) : null);
-  const core = new ForgeCore({ version: "forge-mcp", storage, ...deps });
+  const core = new ForgeCore({ version: "forge-mcp", storage, runHolder: holder, ...deps });
   core.subscribe((n) => {
     if (n.type === "message") out({ type: "message", kind: n.kind ?? null, text: n.text });
     else if (n.type === "export") out({ type: "export", name: n.name }); // sync failed: bundle handed back
@@ -145,7 +155,28 @@ async function main() {
     return;
   }
   if (cmd === "run" || cmd === "resume") {
-    const { core, deps } = await build({ stateDir, live: true });
+    // The run lock before anything touches the game: one writer per account (RUL-2026-11-07-133).
+    const holder = arg("--holder") ?? die("run and resume need --holder NAME, the run-lock holder");
+    let lockErr;
+    try { const why = blockReason(fetchLock().lock, holder, Date.now()); if (why) lockErr = why; }
+    catch (e) { lockErr = "could not read the run lock: " + String(e?.message || e).trim(); }
+    if (lockErr) die(lockErr + "; nothing was sent", 4);
+    out({ type: "lock", holder });
+    const beat = setInterval(() => {
+      try { heartbeat(holder); out({ type: "lock", holder, heartbeat: true }); }
+      catch (e) { out({ type: "message", kind: "bad", text: "run-lock heartbeat failed: " + String(e?.message || e).trim() }); }
+    }, 15 * 60000);
+    beat.unref?.();
+    // "exit" (not "beforeExit") so a refusal or crash after the claim releases too; the release is
+    // synchronous git, which an exit handler may run.
+    const keep = process.argv.includes("--keep-lock");
+    process.on("exit", () => {
+      clearInterval(beat);
+      if (keep) return;
+      try { release(holder); out({ type: "lock", holder, released: true }); }
+      catch (e) { out({ type: "message", kind: "bad", text: "run-lock release failed (release it by hand): " + String(e?.message || e).trim() }); }
+    });
+    const { core, deps } = await build({ stateDir, live: true, holder });
     await core.recheckAuth(); // no page runtime on this host: probe only
     if (!deps.auth.ready) die(`the game connection is not confirmed (${deps.auth.state}${deps.auth.detail ? ": " + deps.auth.detail : ""}); nothing was sent`, 3);
     out({ type: "auth", state: deps.auth.state });

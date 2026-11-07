@@ -6622,6 +6622,32 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     };
   }
 
+  var LOCK_PATH = "state/run_lock.json";
+  function parseLock(text) {
+    if (text == null || String(text).trim() === "") return { holder: null };
+    let j;
+    try {
+      j = JSON.parse(text);
+    } catch {
+      throw new Error(`${LOCK_PATH} is not JSON`);
+    }
+    if (!j || typeof j !== "object" || Array.isArray(j)) throw new Error(`${LOCK_PATH} is not an object`);
+    if (j.holder != null && (typeof j.holder !== "string" || !j.holder.trim())) throw new Error(`${LOCK_PATH}: holder must be a non-empty string or null`);
+    if (j.holder != null && Number.isNaN(Date.parse(j.expiresAt))) throw new Error(`${LOCK_PATH}: a held lock needs an ISO expiresAt`);
+    return j;
+  }
+  function lockState(lock, now) {
+    if (!lock || lock.holder == null) return { held: false, holder: null, expired: false, minutesLeft: 0 };
+    const left = (Date.parse(lock.expiresAt) - now) / 6e4;
+    return { held: left > 0, holder: lock.holder, expired: left <= 0, minutesLeft: Math.max(0, Math.ceil(left)) };
+  }
+  function blockReason(lock, holder, now) {
+    const s = lockState(lock, now);
+    if (!s.held) return holder ? `${holder} has not claimed the run lock (node forge/tools/run_lock.mjs claim --holder ${holder} --job ...)` : null;
+    if (holder && s.holder === holder) return null;
+    return `the run lock is held by ${s.holder}${lock.job ? ` (${lock.job})` : ""} for up to ${s.minutesLeft} more minute(s); wait for it to finish, or for it to release the lock`;
+  }
+
   async function resolveCaptures({ journal, cache }, jobId) {
     const job = journal.get(jobId);
     const patch = {};
@@ -6707,6 +6733,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (missing.length) throw new Error(`ForgeCore is missing required dependencies: ${missing.join(", ")}`);
       for (const k of [...REQUIRED_DEPS, ...OPTIONAL_DEPS]) if (d[k] != null) this[k] = d[k];
       this.now = d.now ?? (() => Date.now());
+      this.runHolder = d.runHolder ?? null;
       this.authBusy = false;
       this.state = { screen: "jobs", jobId: null, picker: null, pickerAt: null, pickerError: null, selected: null, opening: null, openError: null, running: null, runningNote: "" };
       this._listeners =  new Set();
@@ -6959,8 +6986,29 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         this.changed();
       }
     }
+    async _runLockBlock() {
+      let text = null;
+      try {
+        text = await this.github.text(LOCK_PATH);
+      } catch (e) {
+        if (e?.status === 404) return null;
+        this.say(`Could not read the run lock (${e?.message ?? e}); make sure no Claude session or Duet is running a job`, "warn", 9e3);
+        return null;
+      }
+      try {
+        return blockReason(parseLock(text), this.runHolder, this.now());
+      } catch (e) {
+        this.say(`The run lock is unreadable (${e.message}); make sure no other runner is active`, "warn", 9e3);
+        return null;
+      }
+    }
     async _startSelected(s, collection = null) {
       if (s.problems.length) return this.say("Resolve the preview problems before starting", "bad");
+      const locked = await this._runLockBlock();
+      if (locked) {
+        this.say(`Not started: ${locked}. Nothing was sent.`, "bad", 12e3);
+        return this.changed();
+      }
       const blocked = this.blockedPaths(s.plan, s.manifest);
       if (blocked.length) {
         this.say(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9e3);
@@ -7023,6 +7071,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       const blocked = this.resumeBlockedReason(job);
       if (blocked) {
         this.say(blocked, "bad", 9e3);
+        return this.changed();
+      }
+      const locked = await this._runLockBlock();
+      if (locked) {
+        this.say(`Not resumed: ${locked}. Nothing was sent.`, "bad", 12e3);
         return this.changed();
       }
       if (!this.runner.manifests.has(jobId)) {
