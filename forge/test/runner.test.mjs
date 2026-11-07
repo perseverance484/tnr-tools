@@ -362,7 +362,9 @@ const PRE_0056_HISTORY_PROBLEM = /unknown key "(ninjutsu|genjutsu|taijutsu|bukij
 const PRE_0056_HISTORY = new Set(["47_one_perfect_crop_core_manifest.json", "56_wind_beneath_ruins.json", "61_jellyfish_coast_quest.json", "62_jellyfish_coast_recovery.json"]);
 test("compatibility: staged manifests parse, plan and pass Forge pre-send validation", async () => {
   const dir = new URL("../../push/", import.meta.url);
-  for (const f of readdirSync(dir).filter((name) => name.endsWith(".json")).sort()) {
+  // Staged manifests are numbered (NNN_*.json). Un-numbered JSON in push/ is generator input (e.g. the
+  // Mother of Echoes text tables), not a manifest.
+  for (const f of readdirSync(dir).filter((name) => /^\d+_.*\.json$/.test(name)).sort()) {
     // Bloodright collection envelopes are not item manifests (Forge routes them to the collection
     // importer), so they get the collection's own offline check instead of checkManifest.
     const raw = JSON.parse(readFileSync(new URL(f, dir), "utf8"));
