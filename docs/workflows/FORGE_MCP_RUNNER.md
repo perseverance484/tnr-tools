@@ -5,8 +5,9 @@ and results bundle are used; only the wire changes. Instead of the signed-in gam
 call goes through the game's own MCP endpoint, called by a Claude session that has the game
 connected as a connector.
 
-Code: `forge/src/hosts/mcp/` (bridge, pacer, file hand-off), `forge/tools/mcp_run.mjs` (CLI),
-tests in `forge/test/mcp.bridge.test.mjs`. The userscript bundle does not import any of it.
+Code: `forge/src/hosts/mcp/` (bridge, pacer, file hand-off, transcript answers, durable capture
+store), `forge/tools/mcp_run.mjs` (CLI), tests in `forge/test/mcp.bridge.test.mjs` and
+`forge/test/mcp.durable.test.mjs`. The userscript bundle does not import any of it.
 
 ## Why this works
 
@@ -35,7 +36,7 @@ node forge/tools/mcp_run.mjs plan push/412_x.json
 Offline. Parses, plans and pre-send validates exactly as Forge does when a manifest is opened.
 
 ```
-node forge/tools/mcp_run.mjs run push/412_x.json --state <state dir>
+node forge/tools/mcp_run.mjs run push/412_x.json --state <state dir> --transcript auto
 ```
 
 Run it in the background. For every game call it writes `<state dir>/exchange/request.json`:
@@ -45,15 +46,32 @@ Run it in the background. For every game call it writes `<state dir>/exchange/re
  "kind": "query" | "mutation", "answerFile": "answer-<id>.txt", "errorFile": "answer-<id>.error.txt"}
 ```
 
-The session makes exactly that `callEndpoint` call with exactly those arguments, then writes the
-tool result's text verbatim to `<state dir>/exchange/<answerFile>`. If the tool call itself
-failed, it writes the failure text to `<errorFile>` instead. Never edit, summarise or reformat an
-answer: Forge verifies writes against it and stores captures from it.
+The session makes exactly that `callEndpoint` call with exactly those arguments, and nothing else:
+no `select`, `search` or `maxLength`, which would filter the answer.
+
+With `--transcript auto`, that is all the session does. The runner reads the session's own record
+of the call (its Claude Code transcript, found from `CLAUDE_CODE_SESSION_ID`; or pass a path) and
+writes the answer file itself, byte for byte (`transcript.mjs`). Only a call recorded after the
+request was written can answer it, and each call answers one request. A result too large to show
+in the conversation is saved by Claude Code to a file; the runner reads that file, after checking
+it sits in the session's folder and has exactly the length the notice states. A result marked as
+a tool error goes to the error file. The run log prints one `answered` line per call.
+
+Without `--transcript` (or if a call is passed over, which the log says), the session writes the
+tool result's text verbatim to `<state dir>/exchange/<answerFile>`, or the failure text to
+`<errorFile>` when the tool call itself failed. Never edit, summarise or reformat an answer: Forge
+verifies writes against it and stores captures from it.
 
 When the job ends, the results bundle is written to `harvests/inbox/` in the working tree (the
-CLI's "committed" line means written there). Commit it to `main` as usual. `resume <jobId>` picks
-up a paused job, and `jobs` lists the journal. Both use the same `--state` directory. Keep it in
-`/mnt/project-files/` so a later session can resume.
+CLI's "committed" line means written there), or to `--inbox <dir>`. Commit it to `main` as usual.
+`resume <jobId>` picks up a paused or crashed job, and `jobs` lists the journal. Both use the same
+`--state` directory. Keep it in `/mnt/project-files/` so a later session can resume.
+
+The state directory holds everything a resume needs: `storage.json` (journal, send logs, id map,
+pacer window) and `captures.idb` (the capture cache and the immutable full-capture snapshots,
+`idbfile.mjs`). Each committed IndexedDB transaction is on disk before Forge continues, so a job
+that dies mid-run and resumes in a new process still exports the exact bodies its full captures
+read, rather than "snapshot is gone".
 
 ## What the host refuses
 
@@ -75,7 +93,10 @@ up a paused job, and `jobs` lists the journal. Both use the same `--state` direc
 
 ## Known risks
 
-- **Answers travel through the session.** A large record (a full quest or AI) is copied from the
-  tool result into the answer file. Keep answers verbatim. A capture whose text was damaged would
-  carry the damage, while a damaged read-back shows up as a mismatch rather than a false pass.
-- **Not yet run live.** The first live run should be a small read-only capture.
+- **Answers come from the session record.** With `--transcript`, nothing is retyped. If Claude
+  Code ever changes its transcript format, calls stop matching and the run simply waits; answer
+  by hand as above. Answers written by hand must stay verbatim: a damaged capture carries the
+  damage, while a damaged read-back shows up as a mismatch rather than a false pass.
+- **Live so far: reads only.** `push/00_forge_readonly_smoke.json` ran live on 2026-11-07, twice
+  (the second time answered entirely from the transcript, including a 320,135-character answer).
+  No write has been sent over the connection yet.

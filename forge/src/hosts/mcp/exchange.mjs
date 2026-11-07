@@ -9,6 +9,8 @@
 //   3. It writes the tool result's text, VERBATIM, to <dir>/<answerFile>; or, when the tool call
 //      itself failed, the failure text to <dir>/<errorFile>.
 //   4. Forge reads the answer, removes both files, and moves on.
+// With an `answerer` (transcript.mjs), step 3 happens here: the answer is taken from the session's
+// own record of the call and written to the answer file unchanged. Writing it by hand still works.
 // The id carries a per-process run id, so an answer left behind by an earlier process can never
 // be taken as the answer to a new request.
 
@@ -51,10 +53,12 @@ export class FileExchange {
    * @param {number} [o.timeoutMs] give up on one answer after this long (the call is then
    *   treated as a network failure: ambiguous for a mutation, which reconciliation settles)
    * @param {(req: object) => void} [o.onRequest]  told when a request is waiting
+   * @param {{mark: () => void, poll: (args: object) => ({text: string}|{toolError: string}|null)}} [o.answerer]
+   *   finds the answer in the session's own record (TranscriptAnswerer)
    */
-  constructor({ dir, pollMs = 500, timeoutMs = 30 * 60_000, onRequest = null, runId = randomBytes(4).toString("hex") }) {
+  constructor({ dir, pollMs = 500, timeoutMs = 30 * 60_000, onRequest = null, answerer = null, runId = randomBytes(4).toString("hex") }) {
     mkdirSync(dir, { recursive: true });
-    Object.assign(this, { dir, pollMs, timeoutMs, onRequest, runId });
+    Object.assign(this, { dir, pollMs, timeoutMs, onRequest, answerer, runId });
   }
 
   async send(req) {
@@ -63,6 +67,7 @@ export class FileExchange {
     const errorFile = `answer-${id}.error.txt`;
     const reqPath = join(this.dir, "request.json");
     const full = { id, tool: req.tool, arguments: req.arguments, kind: req.kind, answerFile, errorFile };
+    if (this.answerer) this.answerer.mark(); // before the request exists, so no later call is missed
     writeAtomic(reqPath, JSON.stringify(full, null, 1));
     if (this.onRequest) { try { this.onRequest(full); } catch { /* observer only */ } }
     const started = Date.now();
@@ -71,6 +76,10 @@ export class FileExchange {
     for (;;) {
       if (existsSync(e)) { const toolError = readFileSync(e, "utf8"); this._clear(reqPath, a, e); return { toolError }; }
       if (existsSync(a)) { const text = readFileSync(a, "utf8"); this._clear(reqPath, a, e); return { text }; }
+      if (this.answerer) {
+        const got = this.answerer.poll(req.arguments);
+        if (got) { writeAtomic(got.toolError !== undefined ? e : a, got.toolError ?? got.text); continue; }
+      }
       if (Date.now() - started > this.timeoutMs) {
         this._clear(reqPath);
         throw new Error(`no answer to ${req.arguments.endpointName} (${id}) within ${Math.round(this.timeoutMs / 1000)} s`);
