@@ -1,108 +1,14 @@
 {
-  "_note": "Live game jobs, ready or waiting, in run order (RUL-2026-11-07-133). One writer at a time: claim the run lock (node forge/tools/run_lock.mjs claim) before any job, release after. runner: connector = a Claude/Duet session over the game connection (forge/tools/mcp_run.mjs); browser = Forge in a signed-in tab (image uploads). status: ready | waiting | parked | done. Whoever builds, runs or unblocks a job updates its row in the same commit.",
-  "jobs": [
-    {
-      "id": "506",
-      "manifest": "push/506_master_2026-11-06.json",
-      "what": "Mother of Echoes final tuning (501, 973 hidden assets) + asset folders (500)",
-      "runner": "browser",
-      "status": "waiting",
-      "waitsFor": [
-        "upstream clip-size revert (EFFECT_ANIMATION_HEX_RATIO 2.5)",
-        "director go"
-      ],
-      "note": "If the asset cleanup deletes the 75 existing MoE assets first, regenerate 501/506 at go-live (new ids)."
-    },
-    {
-      "id": "502",
-      "manifest": null,
-      "what": "Mother of Echoes unhide",
-      "runner": "connector",
-      "status": "waiting",
-      "waitsFor": [
-        "506 results bundle"
-      ],
-      "build": "python3 push/mother_of_echoes.gen.py --step final_unhide --from <506 bundle>"
-    },
-    {
-      "id": "469-test",
-      "manifest": null,
-      "what": "Live test of the fight on practice quest 469 (visual + mechanics)",
-      "runner": "duet-browser",
-      "status": "waiting",
-      "waitsFor": [
-        "502"
-      ]
-    },
-    {
-      "id": "477",
-      "manifest": null,
-      "what": "Mother of Echoes go-live",
-      "runner": "connector",
-      "status": "waiting",
-      "waitsFor": [
-        "469-test",
-        "director go"
-      ],
-      "build": "python3 push/mother_of_echoes.gen.py --step golive"
-    },
-    {
-      "id": "503",
-      "manifest": "push/503_subaku_palace_assets.json",
-      "what": "Subaku Palace art (hidden)",
-      "runner": "browser",
-      "status": "parked",
-      "waitsFor": [
-        "director: 'Drop subaku palace art for now'"
-      ]
-    },
-    {
-      "id": "504-505",
-      "manifest": null,
-      "what": "Subaku unhide + jutsu edit",
-      "runner": "connector",
-      "status": "parked",
-      "waitsFor": [
-        "503 results bundle"
-      ],
-      "build": "python3 push/subaku_palace.gen.py unhide|jutsu <503 bundle>"
-    },
-    {
-      "id": "asset-cleanup",
-      "manifest": null,
-      "what": "Delete unused director-made assets (incl. Mother of Echoes art until go-live)",
-      "runner": "connector",
-      "status": "waiting",
-      "waitsFor": [
-        "Duet's jutsu/quest scan finished",
-        "reference inventory",
-        "director go on the list"
-      ],
-      "note": "gameAsset.delete has no reference check (asset.ts:274-320): the inventory is the only safety net."
-    },
-    {
-      "id": "509",
-      "manifest": "push/509_skyglass_thread_create.json",
-      "what": "Salvager's thread: 17 board assets + At the Salvager's Fire quest (all hidden)",
-      "runner": "browser",
-      "status": "ready",
-      "waitsFor": [
-        "director go"
-      ],
-      "note": "Image job (17 scene backgrounds, v2 lacquer panels, RUL-2026-11-07-137; imagePack pinned to 27c8966), so browser Forge. Hidden; staff can play the Fire quest to test."
-    },
-    {
-      "id": "510",
-      "manifest": null,
-      "what": "Salvager's thread go-live: unhide boards + Fire quest, rewrite Wreck Sighted (_zp1l7Y9a_77pgonAdsYx) onto the thread",
-      "runner": "connector",
-      "status": "waiting",
-      "waitsFor": [
-        "509 results bundle",
-        "director playtest of the hidden Fire quest",
-        "director go"
-      ],
-      "build": "python3 push/skyglass_thread.gen.py golive --from <509 bundle> --live <live read of Wreck Sighted>"
-    }
-  ]
+ "_note": "Live game jobs, ready or waiting, in run order (RUL-2026-11-07-133). One writer at a time: claim the run lock (node forge/tools/run_lock.mjs claim) before any job, release after. runner: connector = a Claude/Duet session over the game connection (forge/tools/mcp_run.mjs); browser = Forge in a signed-in tab (image uploads). status: ready | waiting | parked | done. Whoever builds, runs or unblocks a job updates its row in the same commit.",
+ "jobs": [
+  {"id": "506", "manifest": "push/506_master_2026-11-06.json", "what": "Mother of Echoes final tuning (501, 973 hidden assets) + asset folders (500)", "runner": "browser", "status": "waiting", "waitsFor": ["upstream clip-size revert (EFFECT_ANIMATION_HEX_RATIO 2.5)", "director go"], "note": "If the asset cleanup deletes the 75 existing MoE assets first, regenerate 501/506 at go-live (new ids)."},
+  {"id": "502", "manifest": null, "what": "Mother of Echoes unhide", "runner": "connector", "status": "waiting", "waitsFor": ["506 results bundle"], "build": "python3 push/mother_of_echoes.gen.py --step final_unhide --from <506 bundle>"},
+  {"id": "469-test", "manifest": null, "what": "Live test of the fight on practice quest 469 (visual + mechanics)", "runner": "duet-browser", "status": "waiting", "waitsFor": ["502"]},
+  {"id": "477", "manifest": null, "what": "Mother of Echoes go-live", "runner": "connector", "status": "waiting", "waitsFor": ["469-test", "director go"], "build": "python3 push/mother_of_echoes.gen.py --step golive"},
+  {"id": "503", "manifest": "push/503_subaku_palace_assets.json", "what": "Subaku Palace art (hidden)", "runner": "browser", "status": "parked", "waitsFor": ["director: 'Drop subaku palace art for now'"]},
+  {"id": "504-505", "manifest": null, "what": "Subaku unhide + jutsu edit", "runner": "connector", "status": "parked", "waitsFor": ["503 results bundle"], "build": "python3 push/subaku_palace.gen.py unhide|jutsu <503 bundle>"},
+  {"id": "asset-cleanup", "manifest": null, "what": "Delete unused director-made assets (incl. Mother of Echoes art until go-live)", "runner": "connector", "status": "waiting", "waitsFor": ["Duet's jutsu/quest scan finished", "reference inventory", "director go on the list"], "note": "gameAsset.delete has no reference check (asset.ts:274-320): the inventory is the only safety net."},
+  {"id": "509", "manifest": "push/509_skyglass_thread_create.json", "what": "Salvager's thread: 17 board assets + At the Salvager's Fire quest (all hidden)", "runner": "browser", "status": "ready", "waitsFor": ["director go"], "note": "Image job (17 scene backgrounds, v2 lacquer panels, RUL-2026-11-07-137; imagePack pinned to 27c8966), so browser Forge. Hidden; staff can play the Fire quest to test."},
+  {"id": "510", "manifest": null, "what": "Salvager's thread go-live: unhide boards + Fire quest, rewrite Wreck Sighted (_zp1l7Y9a_77pgonAdsYx) onto the thread", "runner": "connector", "status": "waiting", "waitsFor": ["509 results bundle", "director playtest of the hidden Fire quest", "director go"], "build": "python3 push/skyglass_thread.gen.py golive --from <509 bundle> --live <live read of Wreck Sighted>"}
+ ]
 }
