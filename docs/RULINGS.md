@@ -6197,3 +6197,23 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-07, "Yes" to the proposed 482,000 / 117,000.
 
 **Canonical destination:** `forge/tools/check_bundle_budget.mjs`.
+
+## RUL-2026-11-07-135 — Operating model: go cards, connector-first, small jobs, live checks
+
+**Date:** 2026-11-07
+
+**Domain:** delivery workflow
+
+**Status:** ACTIVE.
+
+**Ruling:** The routine is `docs/workflows/OPERATING_MODEL.md`:
+- Jobs reach the director as go cards, and "go A→B" approves a chain built from A's results bundle.
+- Image jobs run in browser Forge, preferably in Duet's signed-in browser. Everything else runs over the connector.
+- Live reads replace capture jobs.
+- Jobs stay small. Masters are only for browser image runs.
+- Art changes are checked live (Duet's screenshots plus the connector's battle data) before go-live.
+- Deletes ship with an unused-proof inventory and the director's go on the list.
+
+**Evidence:** Director, 2026-11-07: "Let's plan how to optimize now that our workflow has changed", "Go", then "Sure, go ahead. Then there were still steps 2-9 to do".
+
+**Canonical destination:** `docs/workflows/OPERATING_MODEL.md`.
