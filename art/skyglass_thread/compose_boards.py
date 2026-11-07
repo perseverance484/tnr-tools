@@ -33,6 +33,9 @@ BASES = {  # board -> scene art (repo path)
     "once": SC + "chart_room.webp",
     "ladder": SC + "lower_hull.webp",
     "pick": SC + "command_observation_gallery.webp",
+    "chests": SC + "hold.webp",
+    "supplies": SC + "deck_b.webp",
+    "craft": SC + "reconstruction_chamber.webp",
     "seals": SC + "quarantined_archive.webp",
     "rot": SC + "reconstruction_chamber.webp",
     "lantern": "crownhold/scenes/exports/scene_bg_crownhold_gate.webp",
@@ -56,6 +59,11 @@ ICON = {
     "katana": "ghost_ship_skyglass/icon_ghost_ship_skyglass_katana.webp", "keel": MOE + "keel.webp",
     "crown": MOE + "crown.webp", "tideshard": MOE + "tide.webp", "ledgershard": MOE + "ledger.webp",
     "log": "skyglass_journal/exports/icon-quest-watch-log.webp",
+    "treasury": EV + "sealed-treasury.webp", "cargo": EV + "unmarked-cargo.webp", "pouch": EV + "tool-pouch-katon.webp",
+    "jar": EV + "little-horrors-jar.webp", "filament": "ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp",
+    "crystal": "ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp",
+    "fragment": "ghost_ship_skyglass/icon_ghost_ship_skyglass_crown_fragment.webp",
+    "skycrown": "ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp",
 }
 
 
@@ -191,6 +199,29 @@ def b_pick(b):
     b.text(b.mx, 160, "every chart shows its stars", 12, MUTED, "Inter-600")
 
 
+def b_chests(b):
+    b.panel(y1=164, title="What the crates hold")
+    b.row(["coffer", "treasury", "hoard", "cargo"], 48, 48, ["COFFER", "TREASURY", "HOARD", "CARGO"], gap=16)
+    b.text(b.mx, 128, "glass \u00b7 ryo and metals \u00b7 both \u00b7 anything", 12, MUTED, "Inter-600")
+
+
+def b_supplies(b):
+    b.panel(y1=196, title="The crew's supplies")
+    b.row(["pouch", "stores", "jar"], 46, 52, ["KUNAI", "PET EXP", "THE PET"], gap=26)
+    b.text(b.mx, 130, "pills, potions, kunai", 12, MUTED, "Inter-600")
+    b.text(b.mx, 150, "and a pet of your own", 12, MUTED, "Inter-600")
+
+
+def b_craft(b):
+    b.panel(y1=206, title="Working the glass")
+    for y, a, n, c, cap in ((44, "filament", "12", "crystal", "CRYSTAL"), (110, "fragment", "5", "skycrown", "CROWN")):
+        b.chip(a, PX0 + 54, y, 44)
+        b.text(PX0 + 108, y + 15, f"\u00d7{n}", 14, anchor="lt")
+        b.arrow(PX0 + 140, y + 22, PX0 + 168)
+        b.chip(c, PX0 + 178, y, 44, cap)
+    b.text(b.mx, 182, "needs a crafting rank", 12, MUTED, "Inter-600")
+
+
 def b_seals(b):
     b.panel(y1=196, title="What the crew sealed")
     b.chip("seal", b.mx - 92, 48, 66, "RELIQUARY")
@@ -274,7 +305,7 @@ def b_orders(b):
 
 BOARDS = {
     "menu": b_menu, "threes": b_threes, "hulls": b_hulls, "loot": b_loot, "once": b_once, "ladder": b_ladder,
-    "pick": b_pick, "seals": b_seals, "rot": b_rot, "lantern": b_lantern, "haul": b_haul, "shards": b_shards,
+    "pick": b_pick, "chests": b_chests, "supplies": b_supplies, "craft": b_craft, "seals": b_seals, "rot": b_rot, "lantern": b_lantern, "haul": b_haul, "shards": b_shards,
     "below": b_below, "trade": b_trade, "token": b_token, "logboard": b_logboard, "orders": b_orders,
 }
 
