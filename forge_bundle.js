@@ -304,19 +304,26 @@
         const job = this._mustRead(jobId);
         throw new StaleItem(`item ${idx} is ${job.items[idx].state}, job ${job.state}: another tab took over; nothing sent`);
       }
+      const withdraw = (e) => {
+        if (!ours()) return;
+        const job = this._mustRead(jobId);
+        job.items[idx] = { ...prior, attempt, withdrawn: { at: nowIso(this.clock), reason: String(e && e.message).slice(0, MAX_TEXT) } };
+        this._write(job);
+      };
       if (beforeDispatch) {
         try {
           beforeDispatch();
         } catch (e) {
-          if (ours()) {
-            const job = this._mustRead(jobId);
-            job.items[idx] = { ...prior, attempt, withdrawn: { at: nowIso(this.clock), reason: String(e && e.message).slice(0, MAX_TEXT) } };
-            this._write(job);
-          }
+          withdraw(e);
           throw e;
         }
       }
-      return await thunk();
+      try {
+        return await thunk();
+      } catch (e) {
+        if (e && e.notDispatched === true) withdraw(e);
+        throw e;
+      }
     }
     annotate(jobId, idx, patch) {
       const job = this._mustRead(jobId);
@@ -1042,6 +1049,15 @@
     }
     describe() {
       return { state: this.state, detail: this.detail, at: this.at };
+    }
+  };
+
+  var Paused = class extends Error {
+    constructor(reason, info = {}) {
+      super(`paused: ${reason}`);
+      this.name = "Paused";
+      this.reason = reason;
+      Object.assign(this, info);
     }
   };
 
@@ -1958,7 +1974,7 @@
     }
   };
   var TrpcClient = class {
-    constructor(session, { maxBatch = 20, maxUrlLength = 8e3, onExchange = null, endpoint } = {}) {
+    constructor(session, { maxBatch = 20, maxUrlLength = 8e3, onExchange = null, endpoint, gate = null } = {}) {
       if (!(session instanceof Session)) throw new TransportError("TrpcClient needs a Session");
       if (!Number.isInteger(maxBatch) || maxBatch < 1) throw new TransportError("maxBatch must be an integer >= 1");
       if (!Number.isInteger(maxUrlLength) || maxUrlLength < 64) throw new TransportError("maxUrlLength must be an integer >= 64");
@@ -1967,6 +1983,7 @@
       this.maxUrlLength = maxUrlLength;
       this.onExchange = onExchange;
       this.endpoint = endpoint;
+      this.gate = gate;
     }
     async call(path, input) {
       const [r] = await this.batch([{ path, input }]);
@@ -2012,6 +2029,8 @@
     async _send(calls, kind) {
       const req = buildRequest(calls, kind, { endpoint: this.endpoint });
       const paths = calls.map((c) => c.path);
+      const why = this.gate?.();
+      if (why) throw new Paused("RUN_LOCK", { detail: why, paths, kind, sent: false, notDispatched: true });
       let res;
       try {
         res = await this.session.fetch(req.url, { method: req.method, headers: req.headers, body: req.body });
@@ -2377,15 +2396,6 @@
         };
       }
       return { paths: out, tripped: this.log.tripped(), waits: this.waits, margin: this.margin };
-    }
-  };
-
-  var Paused = class extends Error {
-    constructor(reason, info = {}) {
-      super(`paused: ${reason}`);
-      this.name = "Paused";
-      this.reason = reason;
-      Object.assign(this, info);
     }
   };
 
@@ -4752,6 +4762,10 @@
         for (let cursor = 0, page = 0; ; page++) {
           if (page >= 60) return { hit: null, complete: false };
           this._requireAuth("contentReview.getQueue", item.idx);
+          {
+            const why = this.lease?.check();
+            if (why) throw new Paused("RUN_LOCK", { detail: why });
+          }
           const r = await this.client.call("contentReview.getQueue", { status, entityType, source: "STAFF", cursor, limit: 50 });
           if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path: "contentReview.getQueue", idx: item.idx });
           if (!r.ok) throw new Paused("NETWORK", { idx: item.idx, detail: `contentReview.getQueue failed: ${r.error?.message ?? "error"}` });
@@ -7128,10 +7142,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (!s) return;
       this._starting = true;
       this._collectionStop = false;
+      const owner = this._runOwner = {};
       try {
         await this._startSelected(s);
       } finally {
-        await this._releaseRunLock();
+        await this._releaseRunLock(owner);
+        this._runOwner = null;
         this._starting = false;
         this.changed();
       }
@@ -7169,6 +7185,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           if (e.conflict) continue;
           return `could not claim the run lock (${e.message})`;
         }
+        this._lockOwner = this._runOwner ?? null;
         this.lease.begin({ token: body.token, holder: "browser", expiresAt: body.expiresAt, renewer: () => this._renewRunLock(), renewEveryMs: renewEveryMs(this.runLockTtl) });
         clearInterval(this._lockTimer);
         this._lockTimer = setInterval(() => {
@@ -7200,8 +7217,10 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         this.say(`Could not renew the run lock (${e.message}); the run pauses if it cannot be renewed in time`, "warn", 9e3);
       }
     }
-    async _releaseRunLock() {
+    async _releaseRunLock(owner) {
       if (this.runLockMode !== "claim" || !this.lease?.active) return;
+      if (!owner || this._lockOwner !== owner) return;
+      this._lockOwner = null;
       clearInterval(this._lockTimer);
       this._lockTimer = null;
       const token = this.lease.token;
@@ -7281,6 +7300,18 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     async resumeJob(jobId) {
       if (this._starting || this.state.running) return this.say("a job is already running", "warn");
+      this._starting = true;
+      const owner = this._runOwner = {};
+      try {
+        return await this._resumeJob(jobId);
+      } finally {
+        await this._releaseRunLock(owner);
+        this._runOwner = null;
+        this._starting = false;
+        this.changed();
+      }
+    }
+    async _resumeJob(jobId) {
       const job = this.journal.get(jobId);
       const blocked = this.resumeBlockedReason(job);
       if (blocked) {
@@ -7320,11 +7351,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
       this.go("run", { jobId });
       const hasSent = job.items.some((i) => i.state === "SENT");
-      try {
-        await this.drive(jobId, () => hasSent ? this.runner.resume(jobId) : this.runner.run(jobId));
-      } finally {
-        await this._releaseRunLock();
-      }
+      await this.drive(jobId, () => hasSent ? this.runner.resume(jobId) : this.runner.run(jobId));
     }
     go(screen, patch = {}) {
       if (!SCREENS.includes(screen)) throw new Error(`unknown screen ${JSON.stringify(screen)}`);
@@ -8165,8 +8192,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     deps.assetCache = new AssetCache(indexedDB, clock);
     deps.digest = digest;
     deps.session = new CookieSession({ fetchImpl, origin: "" });
-    deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
     deps.lease = lease ?? new Lease(clock);
+    deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`), gate: () => deps.lease.check() });
     deps.auth = new AuthState({ client: deps.client, runtime, clock, state: authState });
     deps.budget = new Budget({ storage, clock, ...sleep ? { sleep } : {} });
     deps.reader = new CachedReader({ client: deps.client, cache: deps.cache, budget: deps.budget, lease: deps.lease });

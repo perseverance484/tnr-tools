@@ -212,7 +212,7 @@ export function leaseGatedTransport(transport, lease) {
   return {
     send(req) {
       const why = lease.check();
-      if (why) throw new Paused("RUN_LOCK", { detail: why });
+      if (why) throw new Paused("RUN_LOCK", { detail: why, sent: false, notDispatched: true });
       return transport.send(req);
     },
   };

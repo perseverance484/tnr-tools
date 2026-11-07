@@ -17,6 +17,9 @@ import { parseLock, lockState, blockReason, claimDecision, claimBody, renewBody,
 import { ForgeCore } from "../src/core/core.mjs";
 import { composeForTest, memoryLockStore } from "./compose.mjs";
 import { McpBridgeClient, leaseGatedTransport } from "../src/hosts/mcp/bridge.mjs";
+import { TrpcClient } from "../src/transport/client.mjs";
+import { CookieSession } from "../src/transport/session.mjs";
+import { parseManifest } from "../src/runner/manifest.mjs";
 
 const TOOL = join(dirname(fileURLToPath(import.meta.url)), "..", "tools", "run_lock.mjs");
 const T0 = Date.parse("2026-11-07T06:00:00Z");
@@ -228,7 +231,8 @@ test("R2: a lease lost mid-run pauses the job before the next write; that write 
 test("R2: renewRunLock notices the lock was taken and stops the lease; a failed write leaves it to run out", async () => {
   const { core, lockStore, d } = browserCore();
   const store = lockStore;
-  // claim by hand through the core, as drive() does
+  // claim by hand through the core, as drive() does inside a Start
+  const owner = (core._runOwner = {});
   assert.equal(await core._acquireRunLock("push/46_lock.json"), null);
   assert.equal(core.lease.check(), null);
   const realWrite = store.write;
@@ -239,16 +243,17 @@ test("R2: renewRunLock notices the lock was taken and stops the lease; a failed 
   store.set(JSON.stringify(claimBody({ holder: "duet", job: "x", token: tok(), ttlMinutes: 60, now: d.clock() })));
   await core._renewRunLock();
   assert.match(core.lease.check(), /taken by duet/);
-  await core._releaseRunLock();
+  await core._releaseRunLock(owner);
   assert.equal(parseLock(store.text).holder, "duet", "releasing a lost claim never frees someone else's lock");
 });
 
 test("R2: an unrenewed browser lease stops sending a minute before expiry", async () => {
   const { core, d } = browserCore();
+  const owner = (core._runOwner = {});
   assert.equal(await core._acquireRunLock("j"), null);
   d.clock.tick(20 * 60000 - STOP_MARGIN_MS);
   assert.match(core.lease.check(), /ran out/);
-  await core._releaseRunLock();
+  await core._releaseRunLock(owner);
 });
 
 test("R4: the same runner instance re-claiming skips the quiet period; any other instance waits", () => {
@@ -282,4 +287,70 @@ test("R2: the runner renews between items when due, on the run's own clock (no w
   await core.startJob();
   assert.equal(creates(d), 2, "the second item ran: the lease was renewed, not run out");
   assert.ok(lockStore.writes.some((w) => /heartbeat/.test(w.message)));
+});
+
+// ------------------------------------------------------------------ re-review of 6e6bb430
+const pausedJob = async () => {
+  const b = browserCore();
+  let first = true;
+  b.d.runner.on((e) => { if (e.type === "item:end" && e.idx === 0 && first) { first = false; b.core.lease.lose("taken"); } });
+  await b.core.selectManifest(ENTRY);
+  await b.core.startJob();
+  const jobId = b.d.journal.listJobs()[0].jobId ?? b.d.journal.listJobs()[0].id;
+  assert.equal(b.d.journal.get(jobId).state, "PAUSED");
+  return { ...b, jobId };
+};
+
+test("F1: two overlapping Resume taps: one runs under its own claim, the other is turned away and releases nothing", async () => {
+  const { core, d, lockStore, said, jobId } = await pausedJob();
+  const during = [];
+  d.runner.on((e) => { if (e.type === "item:start") during.push({ active: core.lease.active, lock: parseLock(lockStore.text) }); });
+  d.clock.tick(QUIET_MS); // the first run's release starts a quiet period only for OTHER instances; be safe anyway
+  await Promise.all([core.resumeJob(jobId), core.resumeJob(jobId)]);
+  assert.ok(during.length >= 1, "the resumed item ran");
+  for (const s of during) { assert.equal(s.active, true, "the lease stayed active while items ran"); assert.equal(s.lock.holder, "browser"); assert.ok(s.lock.token); }
+  assert.ok(said.some((m) => /a job is already running/.test(m.text)), "the second tap was turned away");
+  assert.equal(d.journal.get(jobId).state, "DONE");
+  assert.equal(parseLock(lockStore.text).token, null, "released once, at the end");
+  assert.equal(creates(d), 2);
+});
+
+test("F2: the suggestion scan stops at the lease: no further page is requested once it lapses", async () => {
+  const { d } = browserCore();
+  const lease = d.runner.lease;
+  lease.begin({ token: tok(), holder: "browser", expiresAt: new Date(d.clock() + 30 * 60000).toISOString() });
+  const pages = [];
+  d.runner.client = { call: async (path, input) => { pages.push(input.cursor); lease.lose("taken"); return { ok: true, data: { items: [], nextCursor: input.cursor + 1 } }; } };
+  await assert.rejects(d.runner._findSuggestion({ idx: 0, entity: "jutsu", entityId: "x", suggestTitle: "t" }, ["PENDING"]), (e) => e.name === "Paused" && e.reason === "RUN_LOCK");
+  assert.deepEqual(pages, [0], "page one went out before the loss; page two never did");
+  lease.end();
+});
+
+test("F2: the browser client refuses at dispatch while the lease is gone; nothing is fetched", async () => {
+  let fetched = 0, why = "the run lock was taken";
+  const c = new TrpcClient(new CookieSession({ fetchImpl: async () => { fetched++; return new Response("[]"); } }), { gate: () => why });
+  await assert.rejects(c.call("jutsu.getAll", {}), (e) => e.name === "Paused" && e.reason === "RUN_LOCK" && e.notDispatched === true && e.sent === false);
+  assert.equal(fetched, 0);
+  why = null;
+  await c.call("jutsu.getAll", {}).catch(() => {}); // passes the gate (the empty reply is not the point here)
+  assert.equal(fetched, 1);
+});
+
+test("F3: a connector write refused at the wire after the pacer is withdrawn, not left SENT", async () => {
+  const d = composeForTest({ client: null });
+  let now = d.clock();
+  const sent = [];
+  const transport = leaseGatedTransport({ send: async (r) => { sent.push(r); return { text: "{}" }; } }, d.lease);
+  // the pacer's wait carries the clock past the stop margin
+  d.runner.client = new McpBridgeClient({ transport, pacer: { acquire: async () => { d.clock.tick(40 * 60000); } } });
+  d.lease.begin({ token: tok(), holder: "claude", expiresAt: new Date(now + 30 * 60000).toISOString() });
+  const m = { items: [{ entity: "jutsu", slot: "create", name: "Wire A", srcId: "wa", data: { name: "Wire A", description: "d", hidden: true, effects: [{ type: "damage", power: 150 }] } }] };
+  d.runner.plan(m, { jobId: "w1" });
+  const s = await d.runner.run("w1");
+  assert.equal(sent.length, 0, "nothing reached the session");
+  assert.equal(s.state, "PAUSED"); assert.equal(s.pause.reason, "RUN_LOCK");
+  const it = d.journal.get("w1").items[0];
+  assert.notEqual(it.state, "SENT", "withdrawn: no reconciliation needed");
+  assert.ok(it.withdrawn, "the withdrawal is recorded");
+  d.lease.end();
 });
