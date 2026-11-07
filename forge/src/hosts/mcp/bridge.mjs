@@ -44,6 +44,26 @@ export const PACER_KEY = "tnr_forge_mcp_sendlog_v1";
 
 const ERROR_PREFIX = /^Error calling ([^:]+): ([\s\S]*)$/;
 
+// DATES ON THE WAY OUT. The MCP wire is plain JSON both ways, so a fetch-merged record carries its
+// timestamps as ISO strings (see above), but some write procedures type those fields as z.date()
+// with no coercion. profile.updateAi refused job 509's An Absence edit on exactly that: eleven
+// "expected date, received string" issues for joinedVillageAt, createdAt, regenAt and the rest.
+// JSON cannot carry a Date, and every such field on these procedures is optional and left as it is
+// when absent, so the timestamp strings are dropped from the payload before it is sent.
+const ISO_TIMESTAMP = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/;
+export const MCP_DATE_STRIP = { "profile.updateAi": "data" };
+
+/** Return the input with ISO timestamp strings dropped from the record MCP_DATE_STRIP names. */
+export function stripWireDates(path, input) {
+  const key = MCP_DATE_STRIP[path];
+  if (!key || !input || typeof input !== "object") return input;
+  const rec = input[key];
+  if (!rec || typeof rec !== "object" || Array.isArray(rec)) return input;
+  const kept = {};
+  for (const [k, v] of Object.entries(rec)) if (!(typeof v === "string" && ISO_TIMESTAMP.test(v))) kept[k] = v;
+  return { ...input, [key]: kept };
+}
+
 // The game's own wording, app/src/server/api/trpc.ts at 15a37ea.
 const RATE_LIMIT_TEXT = /You're moving too fast!|You are moving too fast|You are acting too fast|Too many requests for this page|Too many sign-in attempts/;
 const UNAUTHORIZED_TEXT = /^Unauthorized for tRPC endpoint\.|^No user ID or IP found for rate limit middleware/;
@@ -184,7 +204,7 @@ export class McpBridgeClient {
     if (this.pacer) await this.pacer.acquire();
     const seq = ++this.seq;
     const args = { endpointName: path };
-    if (input !== undefined) args.input = input;
+    if (input !== undefined) args.input = stripWireDates(path, input);
     let answer;
     try { answer = await this.transport.send({ seq, tool: MCP_TOOL, arguments: args, kind }); }
     catch (e) {

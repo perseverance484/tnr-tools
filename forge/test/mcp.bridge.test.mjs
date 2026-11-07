@@ -183,3 +183,13 @@ test("file storage survives a restart", () => {
   b.removeItem("k");
   assert.equal(new FileStorage(join(dir, "s.json")).getItem("k"), null);
 });
+
+test("stripWireDates drops ISO timestamp strings from profile.updateAi data only", async () => {
+  const { stripWireDates } = await import("../src/hosts/mcp/bridge.mjs");
+  const input = { id: "a", data: { userId: "a", username: "An Absence", createdAt: "2026-11-07T23:49:59.078Z", regenAt: "2026-11-07T23:49:59Z", travelFinishAt: null, npcTitle: "2026", jutsus: ["x"] } };
+  const out = stripWireDates("profile.updateAi", input);
+  assert.deepEqual(out, { id: "a", data: { userId: "a", username: "An Absence", travelFinishAt: null, npcTitle: "2026", jutsus: ["x"] } });
+  assert.equal(input.data.createdAt, "2026-11-07T23:49:59.078Z"); // caller's object untouched
+  assert.equal(stripWireDates("jutsu.update", input), input);
+  assert.equal(stripWireDates("profile.updateAi", undefined), undefined);
+});
