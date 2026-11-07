@@ -8,7 +8,9 @@ import { UTApi, UTFile } from "uploadthing/server";
 const LIST = "state/moe_upload/upload_list.json";
 const OUT = "state/moe_upload/uploaded.json";
 if (!process.env.UPLOADTHING_TOKEN) { console.error("UPLOADTHING_TOKEN secret is not set"); process.exit(2); }
-const utapi = new UTApi({ token: process.env.UPLOADTHING_TOKEN });
+// Accept the whole line the dashboard's "Copy v7" gives (UPLOADTHING_TOKEN='...') as well as the bare value.
+const token = process.env.UPLOADTHING_TOKEN.trim().replace(/^UPLOADTHING_TOKEN\s*=\s*/, "").replace(/^['"]|['"]$/g, "");
+const utapi = new UTApi({ token });
 const list = JSON.parse(readFileSync(LIST, "utf8")).files;
 const done = existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")) : { files: {} };
 const todo = list.filter((f) => !done.files[f.srcId]);
