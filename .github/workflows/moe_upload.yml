@@ -1,0 +1,43 @@
+name: moe-uploadthing
+# One-off: upload the remaining Mother of Echoes animations to the director's own UploadThing app.
+# Runs only on the duet/moe-uploadthing branch. Results are committed back to that branch.
+on:
+  push:
+    branches: [duet/moe-uploadthing]
+    paths: ["state/moe_upload/upload_list.json", "state/moe_upload/run.txt", ".github/scripts/ut_upload.mjs", ".github/workflows/moe_upload.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: moe-uploadthing, cancel-in-progress: false }
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: { lfs: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Gate (runs only when state/moe_upload/run.txt says go)
+        id: gate
+        run: grep -qx "go" state/moe_upload/run.txt && echo "go=1" >> "$GITHUB_OUTPUT" || echo "run.txt is not go; nothing uploaded"
+      - if: steps.gate.outputs.go == '1'
+        run: npm install --no-save --no-package-lock uploadthing@7
+        working-directory: /tmp
+      - name: Upload
+        if: steps.gate.outputs.go == '1'
+        env:
+          UPLOADTHING_TOKEN: ${{ secrets.UPLOADTHING_TOKEN }}
+          NODE_PATH: /tmp/node_modules
+        run: |
+          ln -s /tmp/node_modules node_modules
+          node .github/scripts/ut_upload.mjs
+      - name: Commit results
+        if: always() && steps.gate.outputs.go == '1'
+        run: |
+          rm -f node_modules
+          git config user.name "github-actions[bot]"
+          git config user.email "41898729+github-actions[bot]@users.noreply.github.com"
+          git add state/moe_upload/uploaded.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "moe upload: results [skip ci]"
+          git push origin HEAD:duet/moe-uploadthing || true
