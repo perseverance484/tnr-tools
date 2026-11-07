@@ -1,11 +1,10 @@
 {
- "holder": "claude",
- "job": "asset-cleanup inventory (read-only)",
- "token": "435c61c86e5e4e8a8964ff135ed29679",
- "instance": null,
- "ttlMinutes": 90,
- "claimedAt": "2026-11-07T14:57:27.150Z",
- "heartbeatAt": "2026-11-07T14:57:27.150Z",
- "expiresAt": "2026-11-07T16:27:27.150Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "claude",
+ "releasedInstance": null,
+ "releasedJob": "asset-cleanup inventory (read-only)",
+ "releasedAt": "2026-11-07T15:26:56.696Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
