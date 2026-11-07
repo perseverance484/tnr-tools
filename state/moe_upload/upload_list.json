@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live.",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded).",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -8086,6 +8086,19 @@
    "size": [
     50,
     50
+   ]
+  },
+  {
+   "srcId": "@img:avatar_moe_absence_a7.webp",
+   "file": "avatar_moe_absence_a7.webp",
+   "path": "art/mother_of_echoes/exports/avatar_moe_absence_a7.webp",
+   "sha256": "a5b7c0df89e8d5944bd01c66d7657de86119d723d6fae04ef1e83ffc25f68644",
+   "bytes": 594,
+   "srcPath": "art/mother_of_echoes/exports/avatar_moe_absence_a7.webp",
+   "srcSha256": "a5b7c0df89e8d5944bd01c66d7657de86119d723d6fae04ef1e83ffc25f68644",
+   "size": [
+    1152,
+    1152
    ]
   }
  ]
