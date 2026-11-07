@@ -74,7 +74,10 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // AI basic-attack rule exception (Forge 0.12.3, 2026-10-31): base 465,508 / 111,989, measured 465,670 /
 // 112,059, over by 59 gzip. Raised to 470,000 / 113,000 under RUL-2026-10-31-066 item 2 (the director
 // raised it in advance for this change; the figure is set from this measurement, as RUL-2026-10-28-014 did).
-export const BUDGET = { raw: 470_000, gzip: 113_000 };
+// Run lock (Forge 0.12.4 + fable/run-lock, 2026-11-07): base 465,694 raw, measured 478,000 / 115,408 with
+// the browser claim, lease enforcement and the lock modules. Raised to 482,000 / 117,000 by the director
+// (RUL-2026-11-07-134).
+export const BUDGET = { raw: 482_000, gzip: 117_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

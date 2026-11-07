@@ -6183,3 +6183,17 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-07: "Is it safe for you and duet to use forge/access the game at the same time on my account? Wont you go over the limit since your forge instances dont account for each other?", then "Go" on the plan.
 
 **Canonical destination:** `docs/workflows/FORGE_MCP_RUNNER.md`; `forge/src/runner/runlock.mjs`; `forge/tools/run_lock.mjs`; `state/run_queue.json`.
+
+## RUL-2026-11-07-134 — Forge bundle budget raised for the run lock
+
+**Date:** 2026-11-07
+
+**Domain:** forge / bundle budget
+
+**Status:** ACTIVE.
+
+**Ruling:** The checked bundle budget is raised from 470,000 raw / 113,000 gzip to 482,000 / 117,000, set from the run-lock measurement of 478,000 / 115,408 (fable/run-lock 6e6bb430). This is the same practice as RUL-2026-10-28-014 and RUL-2026-10-31-066.
+
+**Evidence:** Director, 2026-11-07, "Yes" to the proposed 482,000 / 117,000.
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs`.
