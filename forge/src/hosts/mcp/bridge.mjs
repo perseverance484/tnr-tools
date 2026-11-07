@@ -1,3 +1,4 @@
+import { Paused } from "../../runner/paused.mjs";
 // The game-connection transport: Forge's runner, driven through the game's own MCP endpoint
 // (https://www.theninja-rpg.com/api/mcp) instead of a signed-in browser tab.
 //
@@ -188,6 +189,9 @@ export class McpBridgeClient {
     try { answer = await this.transport.send({ seq, tool: MCP_TOOL, arguments: args, kind }); }
     catch (e) {
       this._observe({ kind, paths: [path], status: null, error: String(e && e.message) });
+      // A run-lock refusal at the wire (mcp_run.mjs) was never sent: it pauses the job as itself,
+      // not as a connection failure that would leave a mutation ambiguous.
+      if (e instanceof Paused) throw e;
       if (e instanceof NetworkError || e instanceof TransportError) throw e;
       throw new NetworkError(e, { paths: [path], kind, phase: "connect" });
     }
@@ -197,4 +201,19 @@ export class McpBridgeClient {
   }
 
   _observe(rec) { if (this.onExchange) { try { this.onExchange(rec); } catch { /* never break transport */ } } }
+}
+
+/**
+ * The run lock at the wire (RUL-2026-11-07-133): the lease is checked after the pacer's wait, at the
+ * last moment before a request is handed to the session, because a pacer sleep can outlast the
+ * stop margin. A refusal throws a Paused-shaped error, which the bridge passes through unsent.
+ */
+export function leaseGatedTransport(transport, lease) {
+  return {
+    send(req) {
+      const why = lease.check();
+      if (why) throw new Paused("RUN_LOCK", { detail: why });
+      return transport.send(req);
+    },
+  };
 }

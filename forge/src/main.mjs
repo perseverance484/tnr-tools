@@ -15,6 +15,7 @@ import { Budget } from "./budget/bucket.mjs";
 import { CachedReader } from "./budget/reader.mjs";
 import { Validator } from "./runner/validate.mjs";
 import { Runner } from "./runner/runner.mjs";
+import { Lease } from "./runner/runlock.mjs";
 import { Reconciler } from "./reconcile/reconciler.mjs";
 import { Github } from "./github.mjs";
 import { App } from "./ui/app.mjs";
@@ -57,7 +58,7 @@ export function sha256(bytes, subtle = globalThis.crypto && globalThis.crypto.su
  */
 export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(), tabId,
                           log = () => {}, client = null, sleep, runtime = null, authState = AUTH.UNKNOWN,
-                          digest = sha256, imageProbe = null } = {}) {
+                          digest = sha256, imageProbe = null, lease = null } = {}) {
   const deps = {};
   deps.journal = new Journal(storage, clock);
   deps.cache = new CaptureCache(indexedDB, clock);
@@ -69,11 +70,15 @@ export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(
   deps.digest = digest;
   deps.session = new CookieSession({ fetchImpl, origin: "" });
   deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
+  // The run lock's sending side (RUL-2026-11-07-133). While a run holds a lease, the reader's reads
+  // and the runner's writes are refused before they are sent once the lease is lost or within its
+  // stop margin; the runner sees a pause, not a send.
+  deps.lease = lease ?? new Lease(clock);
   // The auth gate is part of the shipped graph, not a UI decoration: the Runner consults it
   // before every protected send, so a wiring mistake here fails the suite rather than shipping.
   deps.auth = new AuthState({ client: deps.client, runtime, clock, state: authState });
   deps.budget = new Budget({ storage, clock, ...(sleep ? { sleep } : {}) });
-  deps.reader = new CachedReader({ client: deps.client, cache: deps.cache, budget: deps.budget });
+  deps.reader = new CachedReader({ client: deps.client, cache: deps.cache, budget: deps.budget, lease: deps.lease });
   deps.reconciler = new Reconciler({ storage, reader: deps.reader, clock, journal: deps.journal });
   deps.github = new Github({ fetchImpl, storage });
   deps.uploader = new Uploader({ session: deps.session, fetchImpl, clock, ...(sleep ? { sleep } : {}) });
@@ -83,10 +88,11 @@ export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(
   deps.runner = new Runner({
     journal: deps.journal, client: deps.client, reader: deps.reader, cache: deps.cache, repoCache: deps.repoCache,
     budget: deps.budget, validator: deps.validator, uploader: deps.uploader, imageProbe,
-    reconciler: deps.reconciler, auth: deps.auth, digest: deps.digest, storage, clock, tabId, log,
+    reconciler: deps.reconciler, auth: deps.auth, digest: deps.digest, storage, clock, tabId, log, lease: deps.lease,
   });
   return deps;
 }
+
 
 /**
  * Boot. Three outcomes, decided by where the tab is and whether this tab has been armed:

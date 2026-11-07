@@ -32,21 +32,32 @@ without seeing the others: the game connection's 30 calls per minute per user, a
 per minute per procedure, whose mutation overruns fine the account 1% of money and bank
 (TheNinjaRPG `app/src/server/api/trpc.ts` `enforceRateLimit`; `app/src/app/api/mcp/[[...transport]]/route.ts`).
 So only one runner works at a time (RUL-2026-11-07-133). The lock is `state/run_lock.json` on
-`main`; a claim is a commit pushed to `main`, so git's fast-forward check decides between two
-claimers.
+`main`, written only against the version just read (a fast-forward push from the CLI, a sha-checked
+contents-API PUT from the browser), so two claimers cannot both win.
 
 ```
 node forge/tools/run_lock.mjs status
-node forge/tools/run_lock.mjs claim   --holder claude --job "push/502" [--ttl 60]
-node forge/tools/run_lock.mjs release --holder claude
+node forge/tools/run_lock.mjs claim   --holder claude --job "push/502" [--ttl 60] [--wait] [--instance <state dir>]
+    -> {"type":"claimed","token":"...", ...}
+node forge/tools/run_lock.mjs release --token <token>
 ```
 
-`run` and `resume` need `--holder NAME` and refuse, before any game call, unless NAME holds the
-lock on `origin/main`. They extend it every 15 minutes and release it when the process exits
-(`--keep-lock` keeps it, to chain the next job). A lock nobody extends expires after its TTL
-(default 60 minutes). The browser never claims: Start and Resume read the lock at the tap and
-refuse while anyone holds it (a missing file is free; a read failure warns and lets the operator
-go on). Bulk live reads (scans, inventories) take the lock too: they spend the same 30 per minute.
+- **Ownership is the token** a claim prints. `--holder` is only a label: two sessions both called
+  `claude` cannot both hold the lock, renew it or release each other's.
+- **Every runner claims for its whole run.** `mcp_run.mjs run|resume` need `--token` (or
+  `RUN_LOCK_TOKEN`) and refuse before any game call unless that claim holds the lock. The browser
+  claims when a run starts (label `browser`, 20-minute TTL) and releases when it stops.
+- **A lapsed or lost lease stops sending.** The holder renews every third of its TTL. Every game
+  call is refused a minute before the last *confirmed* expiry, and at once when a renewal finds the
+  lock taken; the job pauses as `RUN_LOCK` with the next write withdrawn, not left ambiguous. A
+  failed renewal write only warns; the lease then runs out on its own.
+- **Handing over waits out the rolling minute.** Releasing does not clear the server's window, so
+  a new claim within 65 s of the previous holder's release (or of a lapsed claim's expiry) is
+  refused, or waited out with `--wait`; the browser waits by itself. The same runner instance
+  re-claiming (same browser tab; same `--instance`) skips the wait, since its own pacer already
+  carries those calls. To chain jobs without a gap, run with `--keep-lock`.
+- **Bulk live reads take the lock too**; they spend the same 30 per minute.
+
 What is waiting to run, and on what, is `state/run_queue.json`.
 
 ## A run (the Claude session holding the connection)
@@ -60,7 +71,7 @@ node forge/tools/mcp_run.mjs plan push/412_x.json
 Offline. Parses, plans and pre-send validates exactly as Forge does when a manifest is opened.
 
 ```
-node forge/tools/mcp_run.mjs run push/412_x.json --holder claude --state <state dir> --transcript auto
+node forge/tools/mcp_run.mjs run push/412_x.json --token <token> --state <state dir> --transcript auto
 ```
 
 Run it in the background. For every game call it writes `<state dir>/exchange/request.json`:

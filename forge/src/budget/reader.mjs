@@ -1,3 +1,4 @@
+import { Paused } from "../runner/paused.mjs";
 import { stableStringify } from "../storage/hash.mjs";
 // Cache-first reads under the budget (spec section 6, requirement 1). Every read goes:
 // capture cache -> (miss) budget.acquire -> transport -> cache.put -> budget.observe.
@@ -63,7 +64,11 @@ function stableInput(v) {
 function sameInput(a, b) { return a === b || stableInput(a) === stableInput(b); }
 
 export class CachedReader {
-  constructor({ client, cache, budget, maxBatch = 20 }) {
+  /** The client, once the run lock's lease allows a send (RUL-2026-11-07-133); else a RUN_LOCK pause, unsent. */
+  _gated() { const why = this.lease?.check(); if (why) throw new Paused("RUN_LOCK", { detail: why }); return this.client; }
+
+  constructor({ client, cache, budget, maxBatch = 20, lease = null }) {
+    this.lease = lease;
     this.client = client; this.cache = cache; this.budget = budget; this.maxBatch = maxBatch;
     this.stats = { hits: 0, misses: 0, requests: 0 };
   }
@@ -113,7 +118,7 @@ export class CachedReader {
       const idxs = misses.slice(pos, pos + room);
       await this.budget.acquire(path, idxs.length);
       this.stats.requests++;
-      const results = await this.client.batch(idxs.map((i) => ({ path, input: readInput(path, ids[i]) })));
+      const results = await this._gated().batch(idxs.map((i) => ({ path, input: readInput(path, ids[i]) })));
       // cache ok results first, then let observe() throw if any index was limited
       for (let j = 0; j < idxs.length; j++) {
         const r = results[j];
@@ -153,7 +158,7 @@ export class CachedReader {
     this.stats.misses++;
     await this.budget.acquire(path, 1);
     this.stats.requests++;
-    const [r] = await this.client.batch([{ path, input: sent }]);
+    const [r] = await this._gated().batch([{ path, input: sent }]);
     if (r.ok && cacheable) await this.cache.put({ path, id: "", input: sent ?? null, data: r.data });
     this.budget.observe([r], [path]);
     return r;
@@ -170,7 +175,7 @@ export class CachedReader {
   async page(path, input) {
     await this.budget.acquire(path, 1);
     this.stats.requests++;
-    const [r] = await this.client.batch([{ path, input: { ...input, limit: PAGE_LIMIT, cursor: 0 } }]);
+    const [r] = await this._gated().batch([{ path, input: { ...input, limit: PAGE_LIMIT, cursor: 0 } }]);
     this.budget.observe([r], [path]);
     if (!r.ok) return r;
     const { data, nextCursor } = r.data ?? {};
@@ -188,7 +193,7 @@ export class CachedReader {
     const query = async sent => {
       await this.budget.acquire(path, 1);
       this.stats.requests++;
-      const [r] = await this.client.batch([{ path, input: sent }]);
+      const [r] = await this._gated().batch([{ path, input: sent }]);
       this.budget.observe([r], [path]);
       return r;
     };

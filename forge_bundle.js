@@ -998,7 +998,7 @@
       return { present: true, loaded: !!r.loaded, signedIn: r.signedIn === null || r.signedIn === void 0 ? null : !!r.signedIn };
     }
     async waitForRuntime({ timeoutMs = 15e3, pollMs = 100, sleep } = {}) {
-      const wait = sleep ?? ((ms) => new Promise((r) => setTimeout(r, ms)));
+      const wait = sleep ?? ((ms2) => new Promise((r) => setTimeout(r, ms2)));
       const deadline = this.clock() + timeoutMs;
       let status = this.runtimeStatus();
       while (!(status.present && status.loaded) && this.clock() < deadline) {
@@ -2075,7 +2075,7 @@
   var TRANSIENT = /unable to validate/i;
   var RETRY_DELAYS_MS = Object.freeze([1e4, 3e4, 6e4]);
   var MIN_GAP_MS = 3e3;
-  var realSleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  var realSleep = (ms2) => new Promise((r) => setTimeout(r, ms2));
   var Uploader = class {
     constructor({ session, fetchImpl, slug = "imageUploader", sleep = realSleep, clock = () => Date.now(), retryDelays = RETRY_DELAYS_MS, minGapMs = MIN_GAP_MS }) {
       if (!SLUGS[slug]) throw new UploadError("unknown slug " + slug);
@@ -2107,12 +2107,12 @@
         }
       }
     }
-    async _wait(ms, onWait) {
-      while (ms > 0) {
+    async _wait(ms2, onWait) {
+      while (ms2 > 0) {
         if (onWait) onWait();
-        const step = Math.min(ms, 1e4);
+        const step = Math.min(ms2, 1e4);
         await this.sleep(step);
-        ms -= step;
+        ms2 -= step;
       }
     }
     async _once(file) {
@@ -2266,7 +2266,7 @@
     constructor({
       storage,
       clock = () => Date.now(),
-      sleep = (ms) => new Promise((r) => setTimeout(r, ms)),
+      sleep = (ms2) => new Promise((r) => setTimeout(r, ms2)),
       limit = SERVER_LIMIT,
       windowMs = SERVER_WINDOW_MS,
       margin = DEFAULT_MARGIN,
@@ -2380,6 +2380,15 @@
     }
   };
 
+  var Paused = class extends Error {
+    constructor(reason, info = {}) {
+      super(`paused: ${reason}`);
+      this.name = "Paused";
+      this.reason = reason;
+      Object.assign(this, info);
+    }
+  };
+
   function stableStringify(v) {
     if (v && typeof v === "object" && typeof v.toJSON === "function") v = v.toJSON();
     if (v === void 0) return "null";
@@ -2426,7 +2435,13 @@
     return a === b || stableInput(a) === stableInput(b);
   }
   var CachedReader = class {
-    constructor({ client, cache, budget, maxBatch = 20 }) {
+    _gated() {
+      const why = this.lease?.check();
+      if (why) throw new Paused("RUN_LOCK", { detail: why });
+      return this.client;
+    }
+    constructor({ client, cache, budget, maxBatch = 20, lease = null }) {
+      this.lease = lease;
       this.client = client;
       this.cache = cache;
       this.budget = budget;
@@ -2471,7 +2486,7 @@
         const idxs = misses.slice(pos, pos + room);
         await this.budget.acquire(path, idxs.length);
         this.stats.requests++;
-        const results = await this.client.batch(idxs.map((i) => ({ path, input: readInput(path, ids[i]) })));
+        const results = await this._gated().batch(idxs.map((i) => ({ path, input: readInput(path, ids[i]) })));
         for (let j = 0; j < idxs.length; j++) {
           const r = results[j];
           out[idxs[j]] = r;
@@ -2496,7 +2511,7 @@
       this.stats.misses++;
       await this.budget.acquire(path, 1);
       this.stats.requests++;
-      const [r] = await this.client.batch([{ path, input: sent }]);
+      const [r] = await this._gated().batch([{ path, input: sent }]);
       if (r.ok && cacheable) await this.cache.put({ path, id: "", input: sent ?? null, data: r.data });
       this.budget.observe([r], [path]);
       return r;
@@ -2504,7 +2519,7 @@
     async page(path, input) {
       await this.budget.acquire(path, 1);
       this.stats.requests++;
-      const [r] = await this.client.batch([{ path, input: { ...input, limit: PAGE_LIMIT, cursor: 0 } }]);
+      const [r] = await this._gated().batch([{ path, input: { ...input, limit: PAGE_LIMIT, cursor: 0 } }]);
       this.budget.observe([r], [path]);
       if (!r.ok) return r;
       const { data, nextCursor } = r.data ?? {};
@@ -2521,7 +2536,7 @@
       const query = async (sent) => {
         await this.budget.acquire(path, 1);
         this.stats.requests++;
-        const [r] = await this.client.batch([{ path, input: sent }]);
+        const [r] = await this._gated().batch([{ path, input: sent }]);
         this.budget.observe([r], [path]);
         return r;
       };
@@ -4188,14 +4203,6 @@
   };
   var randomTab = () => Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
   var moved = (journal, jobId, e) => new StaleItem(`job ${jobId} is ${journal.get(jobId).state}: another tab moved it (${e?.message})`);
-  var Paused = class extends Error {
-    constructor(reason, info = {}) {
-      super(`paused: ${reason}`);
-      this.name = "Paused";
-      this.reason = reason;
-      Object.assign(this, info);
-    }
-  };
   var isTransport = (e) => e instanceof NetworkError || e instanceof TransportError;
   function protectedPathsFor(order, manifest) {
     const paths =  new Set();
@@ -4350,6 +4357,11 @@
           if (["VERIFIED", "FAILED", "SKIPPED"].includes(item.state)) continue;
           if (item.state === "ORPHANED") throw new Paused("ORPHANED", { idx: i, detail: item.error ?? null });
           if (this.pauseRequested) throw new Paused("USER", { idx: i });
+          if (this.lease?.due()) await this.lease.renewNow();
+          {
+            const why = this.lease?.check();
+            if (why) throw new Paused("RUN_LOCK", { idx: i, detail: why });
+          }
           this._emit("item:start", { jobId, idx: i, name: item.name ?? null, entity: item.entity ?? null, phase: item.phase ?? null });
           if (isBloodrightEntity(item.entity)) {
             for (const dep of order[i].deps ?? []) {
@@ -4647,6 +4659,8 @@
         () => {
           this.budget?.assertNotTripped?.();
           this._lease(jobId);
+          const why = this.lease?.check();
+          if (why) throw new Paused("RUN_LOCK", { idx: item.idx, detail: why });
         }
       );
       if (decoded && decoded.ok === false && decoded.error && decoded.error.code === "TOO_MANY_REQUESTS") {
@@ -5061,6 +5075,136 @@
     return { ...o, id: id2 };
   }
 
+  var LOCK_PATH = "state/run_lock.json";
+  var DEFAULT_TTL_MINUTES = 60;
+  var MIN_TTL_MINUTES = 5;
+  var QUIET_MS = 65e3;
+  var STOP_MARGIN_MS = 6e4;
+  var ms = (iso) => Date.parse(iso);
+  function parseLock(text) {
+    if (text == null || String(text).trim() === "") return { holder: null, token: null };
+    let j;
+    try {
+      j = JSON.parse(text);
+    } catch {
+      throw new Error(`${LOCK_PATH} is not JSON`);
+    }
+    if (!j || typeof j !== "object" || Array.isArray(j)) throw new Error(`${LOCK_PATH} is not an object`);
+    if (j.token != null) {
+      if (typeof j.token !== "string" || j.token.length < 16) throw new Error(`${LOCK_PATH}: token must be a string of 16+ characters`);
+      if (Number.isNaN(ms(j.expiresAt))) throw new Error(`${LOCK_PATH}: a held lock needs an ISO expiresAt`);
+    }
+    return { holder: null, token: null, ...j };
+  }
+  function lockState(lock, now) {
+    if (!lock || lock.token == null) return { held: false, holder: null, job: null, expired: false, minutesLeft: 0 };
+    const left = (ms(lock.expiresAt) - now) / 6e4;
+    return { held: left > 0, holder: lock.holder ?? "?", job: lock.job ?? null, expired: left <= 0, minutesLeft: Math.max(0, Math.ceil(left)) };
+  }
+  function quietUntil(lock) {
+    if (!lock) return 0;
+    if (lock.token != null) return ms(lock.expiresAt) + QUIET_MS;
+    return lock.releasedAt ? ms(lock.releasedAt) + QUIET_MS : 0;
+  }
+  function claimDecision(lock, now, instance = null) {
+    const s = lockState(lock, now);
+    if (s.held) return { ok: false, held: true, waitMs: ms(lock.expiresAt) + QUIET_MS - now, reason: `the run lock is held by ${s.holder}${s.job ? ` (${s.job})` : ""} for up to ${s.minutesLeft} more minute(s)` };
+    const mine = instance != null && (lock?.releasedInstance === instance || lock?.token != null && lock?.instance === instance);
+    const q = mine ? 0 : quietUntil(lock);
+    if (now < q) return { ok: false, held: false, waitMs: q - now, reason: `the previous runner (${lock.holder ?? lock.releasedBy ?? "?"}) finished less than a minute ago; its calls still count against the game's rolling minute, so wait ${Math.ceil((q - now) / 1e3)} s` };
+    return { ok: true };
+  }
+  function newToken() {
+    const c = globalThis.crypto;
+    if (c?.randomUUID) return c.randomUUID().replace(/-/g, "");
+    if (c?.getRandomValues) return Array.from(c.getRandomValues(new Uint8Array(16)), (b) => b.toString(16).padStart(2, "0")).join("");
+    throw new Error("no secure random source for a run-lock token");
+  }
+  function checkTtl(ttlMinutes) {
+    if (!Number.isFinite(ttlMinutes) || ttlMinutes < MIN_TTL_MINUTES || ttlMinutes > 240) throw new Error(`run-lock TTL must be ${MIN_TTL_MINUTES}-240 minutes`);
+    return ttlMinutes;
+  }
+  var renewEveryMs = (ttlMinutes) => Math.min(15 * 6e4, checkTtl(ttlMinutes) * 6e4 / 3);
+  function claimBody({ holder, job, token, ttlMinutes = DEFAULT_TTL_MINUTES, now, instance = null }) {
+    if (!holder || typeof holder !== "string") throw new Error("a claim needs a holder label");
+    if (!token) throw new Error("a claim needs a token");
+    checkTtl(ttlMinutes);
+    const t = new Date(now).toISOString();
+    return {
+      holder,
+      job: job ?? null,
+      token,
+      instance,
+      ttlMinutes,
+      claimedAt: t,
+      heartbeatAt: t,
+      expiresAt: new Date(now + ttlMinutes * 6e4).toISOString(),
+      note: "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+    };
+  }
+  function renewBody(lock, { ttlMinutes = DEFAULT_TTL_MINUTES, now }) {
+    checkTtl(ttlMinutes);
+    return { ...lock, ttlMinutes, heartbeatAt: new Date(now).toISOString(), expiresAt: new Date(now + ttlMinutes * 6e4).toISOString() };
+  }
+  function releaseBody(lock, { now }) {
+    return {
+      holder: null,
+      token: null,
+      job: null,
+      releasedBy: lock?.holder ?? null,
+      releasedInstance: lock?.instance ?? null,
+      releasedJob: lock?.job ?? null,
+      releasedAt: new Date(now).toISOString(),
+      note: "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+    };
+  }
+  var Lease = class {
+    constructor(clock = () => Date.now()) {
+      this.clock = clock;
+      this.end();
+    }
+    begin({ token, holder, expiresAt, renewer = null, renewEveryMs: renewEveryMs2 = null }) {
+      this.token = token;
+      this.holder = holder;
+      this.expiresAt = ms(expiresAt);
+      this.lost = null;
+      this.active = true;
+      this.renewer = renewer;
+      this.renewEvery = renewEveryMs2;
+      this.lastRenew = this.clock();
+    }
+    due() {
+      return !!(this.active && !this.lost && this.renewer && this.renewEvery && this.clock() - this.lastRenew >= this.renewEvery);
+    }
+    async renewNow() {
+      if (!this.active || !this.renewer) return;
+      this.lastRenew = this.clock();
+      await this.renewer();
+    }
+    renewed(expiresAt) {
+      if (this.active && !this.lost) this.expiresAt = Math.max(this.expiresAt, ms(expiresAt));
+    }
+    lose(reason) {
+      if (this.active) this.lost = reason || "the run lock was lost";
+    }
+    end() {
+      this.active = false;
+      this.token = null;
+      this.holder = null;
+      this.expiresAt = 0;
+      this.lost = null;
+      this.renewer = null;
+      this.renewEvery = null;
+      this.lastRenew = 0;
+    }
+    check() {
+      if (!this.active) return null;
+      if (this.lost) return this.lost;
+      if (this.clock() >= this.expiresAt - STOP_MARGIN_MS) return "the run-lock lease ran out before it could be renewed";
+      return null;
+    }
+  };
+
   var SNAP_PREFIX = "tnr_forge_snap_v1:";
   var Reconciler = class {
     constructor({ storage, reader, clock = () => Date.now(), journal }) {
@@ -5280,6 +5424,28 @@
       return { sha: j.content?.sha ?? null, htmlUrl: j.content?.html_url ?? null };
     }
   };
+  async function readExact(gh, path) {
+    const r = await gh.fetchImpl(gh._url(path) + `&t=${Date.now()}`, { headers: { ...gh._headers(), "cache-control": "no-cache" } });
+    if (r.status === 404) return { text: null, sha: null };
+    if (!r.ok) throw new GithubError(`read ${path}: HTTP ${r.status}`, { status: r.status });
+    const j = await r.json();
+    const bin = atob(String(j.content ?? "").replace(/\s/g, ""));
+    return { text: new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0))), sha: j.sha ?? null };
+  }
+  async function writeExact(gh, path, contentText, message, sha) {
+    if (!gh._pat()) throw new GithubError("no GitHub token stored; Settings > GitHub", { status: 401 });
+    const body = { message, content: b64utf8(contentText), branch: gh.cfg.branch };
+    if (sha) body.sha = sha;
+    const r = await gh.fetchImpl(`https://api.github.com/repos/${gh.cfg.owner}/${gh.cfg.repo}/contents/${path}`, {
+      method: "PUT",
+      headers: { ...gh._headers(), "content-type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    if (r.status === 200 || r.status === 201) return true;
+    const t = await r.text().catch(() => "");
+    if (r.status === 409 || r.status === 422) throw new GithubError(`write ${path}: changed by someone else`, { status: r.status, conflict: true });
+    throw new GithubError(`write ${path}: HTTP ${r.status} ${t.slice(0, 140)}`, { status: r.status });
+  }
   function b64utf8(s) {
     const bytes = new TextEncoder().encode(s);
     let bin = "";
@@ -5723,6 +5889,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   var TERMINAL = ["VERIFIED", "FAILED", "SKIPPED"];
   var PAUSE_WORDS = {
     USER: "Paused by you",
+    RUN_LOCK: "Paused: the run lock lapsed or was taken",
     SESSION: "Paused: signed out of the game",
     NETWORK: "Paused: connection problem",
     TOO_MANY_REQUESTS: "Paused: game rate limit reached",
@@ -6366,7 +6533,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     return Object.entries(obj3 || {}).filter(([, v]) => v != null && v !== "").map(([k, v]) => `${k}: ${typeof v === "number" && v > 1e12 ? new Date(v).toLocaleString() : typeof v === "object" ? JSON.stringify(v) : v}`).join(" \xB7 ") || "\u2014";
   }
 
-  var realSleep2 = (ms) => new Promise((r) => setTimeout(r, ms));
+  var realSleep2 = (ms2) => new Promise((r) => setTimeout(r, ms2));
   var BOUND_READ_RETRY_MS = Object.freeze([3e3, 1e4]);
   async function readBoundSkills(reader, ids, { sleep = realSleep2, delays = BOUND_READ_RETRY_MS } = {}) {
     const found =  new Map();
@@ -6622,32 +6789,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     };
   }
 
-  var LOCK_PATH = "state/run_lock.json";
-  function parseLock(text) {
-    if (text == null || String(text).trim() === "") return { holder: null };
-    let j;
-    try {
-      j = JSON.parse(text);
-    } catch {
-      throw new Error(`${LOCK_PATH} is not JSON`);
-    }
-    if (!j || typeof j !== "object" || Array.isArray(j)) throw new Error(`${LOCK_PATH} is not an object`);
-    if (j.holder != null && (typeof j.holder !== "string" || !j.holder.trim())) throw new Error(`${LOCK_PATH}: holder must be a non-empty string or null`);
-    if (j.holder != null && Number.isNaN(Date.parse(j.expiresAt))) throw new Error(`${LOCK_PATH}: a held lock needs an ISO expiresAt`);
-    return j;
-  }
-  function lockState(lock, now) {
-    if (!lock || lock.holder == null) return { held: false, holder: null, expired: false, minutesLeft: 0 };
-    const left = (Date.parse(lock.expiresAt) - now) / 6e4;
-    return { held: left > 0, holder: lock.holder, expired: left <= 0, minutesLeft: Math.max(0, Math.ceil(left)) };
-  }
-  function blockReason(lock, holder, now) {
-    const s = lockState(lock, now);
-    if (!s.held) return holder ? `${holder} has not claimed the run lock (node forge/tools/run_lock.mjs claim --holder ${holder} --job ...)` : null;
-    if (holder && s.holder === holder) return null;
-    return `the run lock is held by ${s.holder}${lock.job ? ` (${lock.job})` : ""} for up to ${s.minutesLeft} more minute(s); wait for it to finish, or for it to release the lock`;
-  }
-
   async function resolveCaptures({ journal, cache }, jobId) {
     const job = journal.get(jobId);
     const patch = {};
@@ -6733,7 +6874,15 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (missing.length) throw new Error(`ForgeCore is missing required dependencies: ${missing.join(", ")}`);
       for (const k of [...REQUIRED_DEPS, ...OPTIONAL_DEPS]) if (d[k] != null) this[k] = d[k];
       this.now = d.now ?? (() => Date.now());
-      this.runHolder = d.runHolder ?? null;
+      this.lease = d.lease;
+      this.runLockMode = d.runLockMode ?? "claim";
+      this.runLockTtl = d.runLockTtl ?? 20;
+      this.sleep = d.sleep ?? ((t) => new Promise((r) => setTimeout(r, t)));
+      this.lockStore = d.lockStore ?? {
+        read: () => readExact(this.github, LOCK_PATH),
+        write: (text, message, sha) => writeExact(this.github, LOCK_PATH, text, message, sha)
+      };
+      this._lockTimer = null;
       this.authBusy = false;
       this.state = { screen: "jobs", jobId: null, picker: null, pickerAt: null, pickerError: null, selected: null, opening: null, openError: null, running: null, runningNote: "" };
       this._listeners =  new Set();
@@ -6801,8 +6950,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       this.notify({ type: "error", context, text: `${context}: ${msg}`, level: "bad", ms: 9e3 });
       return msg;
     }
-    say(text, level = "info", ms = 4e3) {
-      this.notify({ type: "message", text, level, ms });
+    say(text, level = "info", ms2 = 4e3) {
+      this.notify({ type: "message", text, level, ms: ms2 });
     }
     changed() {
       this.notify({ type: "changed" });
@@ -6982,33 +7131,98 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       try {
         await this._startSelected(s);
       } finally {
+        await this._releaseRunLock();
         this._starting = false;
         this.changed();
       }
     }
-    async _runLockBlock() {
-      let text = null;
-      try {
-        text = await this.github.text(LOCK_PATH);
-      } catch (e) {
-        if (e?.status === 404) return null;
-        this.say(`Could not read the run lock (${e?.message ?? e}); make sure no Claude session or Duet is running a job`, "warn", 9e3);
+    async _acquireRunLock(job) {
+      if (!this.lease) return null;
+      if (this.runLockMode === "external") return this.lease.active ? this.lease.check() : "the host has not claimed the run lock";
+      if (this.lease.active) return this.lease.check();
+      for (let tries = 0; tries < 6; tries++) {
+        let cur;
+        try {
+          cur = await this.lockStore.read();
+        } catch (e) {
+          return `could not read the run lock (${e.message})`;
+        }
+        let lock;
+        try {
+          lock = parseLock(cur.text);
+        } catch (e) {
+          return `the run lock is unreadable (${e.message})`;
+        }
+        const now = this.lease.clock();
+        const instance = `browser:${this.runner.tabId}`;
+        const d = claimDecision(lock, now, instance);
+        if (!d.ok) {
+          if (d.held || d.waitMs > QUIET_MS + 5e3) return d.reason;
+          this.say(`Waiting ${Math.ceil(d.waitMs / 1e3)} s: ${d.reason.replace(/, so wait \d+ s$/, "")}`, "warn", d.waitMs);
+          await this.sleep(d.waitMs + 250);
+          continue;
+        }
+        const body = claimBody({ holder: "browser", job, token: newToken(), ttlMinutes: this.runLockTtl, now, instance });
+        try {
+          await this.lockStore.write(JSON.stringify(body, null, 1) + "\n", `run-lock: claim by browser (${job})`, cur.sha);
+        } catch (e) {
+          if (e.conflict) continue;
+          return `could not claim the run lock (${e.message})`;
+        }
+        this.lease.begin({ token: body.token, holder: "browser", expiresAt: body.expiresAt, renewer: () => this._renewRunLock(), renewEveryMs: renewEveryMs(this.runLockTtl) });
+        clearInterval(this._lockTimer);
+        this._lockTimer = setInterval(() => {
+          this.lease.renewNow();
+        }, renewEveryMs(this.runLockTtl));
+        this._lockTimer?.unref?.();
         return null;
       }
+      return "the run lock kept changing while claiming it; another runner is active";
+    }
+    async _renewRunLock() {
+      if (this.runLockMode !== "claim" || !this.lease?.active) return;
+      const token = this.lease.token;
       try {
-        return blockReason(parseLock(text), this.runHolder, this.now());
+        const cur = await this.lockStore.read();
+        const lock = parseLock(cur.text);
+        if (lock.token !== token) {
+          this.lease.lose(`the run lock was taken by ${lock.holder ?? "nobody"} while this run held it`);
+          return;
+        }
+        if (!lockState(lock, this.lease.clock()).held) {
+          this.lease.lose("the run lock expired before it was renewed");
+          return;
+        }
+        const body = renewBody(lock, { ttlMinutes: this.runLockTtl, now: this.lease.clock() });
+        await this.lockStore.write(JSON.stringify(body, null, 1) + "\n", "run-lock: heartbeat by browser", cur.sha);
+        this.lease.renewed(body.expiresAt);
       } catch (e) {
-        this.say(`The run lock is unreadable (${e.message}); make sure no other runner is active`, "warn", 9e3);
-        return null;
+        this.say(`Could not renew the run lock (${e.message}); the run pauses if it cannot be renewed in time`, "warn", 9e3);
+      }
+    }
+    async _releaseRunLock() {
+      if (this.runLockMode !== "claim" || !this.lease?.active) return;
+      clearInterval(this._lockTimer);
+      this._lockTimer = null;
+      const token = this.lease.token;
+      this.lease.end();
+      for (let tries = 0; tries < 3; tries++) {
+        try {
+          const cur = await this.lockStore.read();
+          const lock = parseLock(cur.text);
+          if (lock.token !== token) return;
+          await this.lockStore.write(JSON.stringify(releaseBody(lock, { now: this.lease.clock() }), null, 1) + "\n", "run-lock: release by browser", cur.sha);
+          return;
+        } catch (e) {
+          if (!e.conflict) {
+            this.say(`Could not release the run lock (${e.message}); it expires on its own`, "warn", 9e3);
+            return;
+          }
+        }
       }
     }
     async _startSelected(s, collection = null) {
       if (s.problems.length) return this.say("Resolve the preview problems before starting", "bad");
-      const locked = await this._runLockBlock();
-      if (locked) {
-        this.say(`Not started: ${locked}. Nothing was sent.`, "bad", 12e3);
-        return this.changed();
-      }
       const blocked = this.blockedPaths(s.plan, s.manifest);
       if (blocked.length) {
         this.say(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9e3);
@@ -7073,11 +7287,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         this.say(blocked, "bad", 9e3);
         return this.changed();
       }
-      const locked = await this._runLockBlock();
-      if (locked) {
-        this.say(`Not resumed: ${locked}. Nothing was sent.`, "bad", 12e3);
-        return this.changed();
-      }
       if (!this.runner.manifests.has(jobId)) {
         try {
           const text = job.manifestPath?.startsWith("bloodright-job:") ? (await this.repoCache.get("bloodright.manifest", job.manifestPath))?.data : job.manifestPath ? await this.github.text(job.manifestPath) : null;
@@ -7111,7 +7320,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
       this.go("run", { jobId });
       const hasSent = job.items.some((i) => i.state === "SENT");
-      await this.drive(jobId, () => hasSent ? this.runner.resume(jobId) : this.runner.run(jobId));
+      try {
+        await this.drive(jobId, () => hasSent ? this.runner.resume(jobId) : this.runner.run(jobId));
+      } finally {
+        await this._releaseRunLock();
+      }
     }
     go(screen, patch = {}) {
       if (!SCREENS.includes(screen)) throw new Error(`unknown screen ${JSON.stringify(screen)}`);
@@ -7124,6 +7337,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     async drive(jobId, fn) {
       if (this.state.running) return this.say("a job is already running", "warn");
+      const locked = await this._acquireRunLock(this.journal.get(jobId)?.manifestPath ?? jobId);
+      if (locked) {
+        this.say(`Not run: ${locked}. Nothing was sent.`, "bad", 12e3);
+        return this.changed();
+      }
       this.state.running = jobId;
       this.state.runningNote = "";
       this.changed();
@@ -7365,11 +7583,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         replace(this.$main, h("div", { class: "f-banner bad" }, h("b", {}, "This screen failed to render. "), h("div", { class: "f-err" }, String(e && e.stack || e))));
       }
     }
-    toast(text, kind = "info", ms = 4e3) {
+    toast(text, kind = "info", ms2 = 4e3) {
       const el = h("div", { class: "f-banner " + kind, title: "tap to dismiss", onClick: () => el.remove() }, text);
       this.$toast.appendChild(el);
       while (this.$toast.childElementCount > 2) this.$toast.firstElementChild.remove();
-      setTimeout(() => el.remove(), ms);
+      setTimeout(() => el.remove(), ms2);
     }
     fail(context, e) {
       this.core.fail(context, e);
@@ -7937,7 +8155,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     runtime = null,
     authState = AUTH.UNKNOWN,
     digest = sha256,
-    imageProbe = null
+    imageProbe = null,
+    lease = null
   } = {}) {
     const deps = {};
     deps.journal = new Journal(storage, clock);
@@ -7947,9 +8166,10 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     deps.digest = digest;
     deps.session = new CookieSession({ fetchImpl, origin: "" });
     deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
+    deps.lease = lease ?? new Lease(clock);
     deps.auth = new AuthState({ client: deps.client, runtime, clock, state: authState });
     deps.budget = new Budget({ storage, clock, ...sleep ? { sleep } : {} });
-    deps.reader = new CachedReader({ client: deps.client, cache: deps.cache, budget: deps.budget });
+    deps.reader = new CachedReader({ client: deps.client, cache: deps.cache, budget: deps.budget, lease: deps.lease });
     deps.reconciler = new Reconciler({ storage, reader: deps.reader, clock, journal: deps.journal });
     deps.github = new Github({ fetchImpl, storage });
     deps.uploader = new Uploader({ session: deps.session, fetchImpl, clock, ...sleep ? { sleep } : {} });
@@ -7971,7 +8191,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       storage,
       clock,
       tabId,
-      log
+      log,
+      lease: deps.lease
     });
     return deps;
   }
