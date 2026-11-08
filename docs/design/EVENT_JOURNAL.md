@@ -61,7 +61,7 @@ counts. The page is gone when the tide turns at the end of the weekend.
 | N14 the Haul | `complete_specific_quest`, any of six | Trophy Hold `0_wTZMTqvxM-gvl_s1s7c`, Bone Store `ww_baSsbBet0mx7MK52yI`, Snare Room `vMh6SDID0XTrVJ0f1QmFD`, Overgrown Stores `5y9wAYELSdNa8Jgim1sgD`, Ore Vault `C1JPScsgSMcVXQUfuFgcs`, Bloom Cellar `UO65dN640MgAbNBBopTVI` |
 | N15 Crownhold ("use a Lastlight Lantern") | `complete_specific_quest`; the Lantern is an entry item, consumed at the start, not "used", so winning Crownhold is the honest proxy | `fqqpkcp_L4oOsC6yyodlk` |
 | Lastlight jutsu (Crownhold pick) | `use_specific_jutsu_combat` | `0F-68bxOXW_LkJnXV0lwT` |
-| Skyglass Serum | `use_specific_item_combat` (counts in chart runs, never in the Wreck); confirm it is usable in battle before using it | `XhilCv1Hq4eNt-Wddok-m` |
+| Skyglass Serum | not usable: `preventBattleUsage` is true (item.get 2026-11-08), so no in-battle order can count it. Check that flag before any `use_specific_item_combat` order | `XhilCv1Hq4eNt-Wddok-m` |
 | N16 the Mother of Echoes | `complete_specific_quest` (exclude the practice quest) | `IBPNwhAzlAJPXoeEnp8gW` |
 | Holding shards, charts, tokens | **not trackable** (no "obtain" task) | — |
 
@@ -103,7 +103,7 @@ reusable: an old page can return later as a new record with new dates.
 
 | Page | Theme | Entries (sketch) |
 |---|---|---|
-| Second: "The Rotted Heading" (built: push/512, rewards a draft for the director) | the rot | The Captain's Watch ×1 (Archive Chart Case); drink a Skyglass Serum in battle ×1 (Medicine Inro); The Fall ×1 (Galley Stores); The Rotted Reliquary ×1 (Skyglass Coffer); The Burning Heading ×1 (Sealed Treasury); all five: Skyglass Token. Window 2026-11-13 to 2026-11-17 00:00 UTC |
+| Second: "The Rotted Heading" (built: push/512, rewards a draft for the director) | the rot | The Captain's Watch ×1 (Archive Chart Case); the Low Tide Run or the Night Watch ×1 (Medicine Inro; replaced the Serum order 2026-11-08, the Serum can't be used in battle); The Fall ×1 (Galley Stores); The Rotted Reliquary ×1 (Skyglass Coffer); The Burning Heading ×1 (Sealed Treasury); all five: Skyglass Token. Window 2026-11-13 to 2026-11-17 00:00 UTC |
 | Third: "The Stores" | the Haul | any Haul run ×2; any Rare run ×2 (the pages drop there); a common run ×2 |
 | Fourth: "Her Invitation" | the finale | an Epic or tainted run ×2 (Tide shard); a Haul run ×1 (Ledger); Crownhold ×1 (Crown); the Mother of Echoes ×1 as the stretch (the Keel shard's Wreck stays off, D1) |
 | Fifth: "Every Deck" | a full tour | one entry per Rare run, ×1 each; raise the Lastlight in battle ×1 |

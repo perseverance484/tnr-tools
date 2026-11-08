@@ -2,7 +2,7 @@
  "manifest": "push/512_skyglass_journal_page2.json",
  "ruling": "Same two classes RUL-2026-11-05-121 item D6 accepted for page 1 (push/490), carried to page 2 under RUL-2026-11-08-139: (1) the no-win-node lint: a page has no ending node by design; with consecutiveObjectives false after the publish edit (push/513) it completes when every order is done (TheNinjaRPG libs/objectives.ts isQuestComplete), on the player's claim; (2) the law-49 snapshot lint on the salvager scene character Xugt7415D3-tepLfxpwM5, a SCENE_CHARACTER gameAsset created and verified by push/374 (tnr_results_1793502324082.json), newer than the answers snapshot.",
  "reason": "Both diagnostics are checks that do not apply: the first models linear quests, the second is a snapshot check on a record created and verified since the last harvest.",
- "sha256": "9cb5aa230477f08f9ef64ed87157605d12282534b4a238782911222c82415033",
+ "sha256": "b59c46a306c39ff9801d2639cdf83d73bc7cb28e267eec00dea50e58a70a94bd",
  "accepted": [
   "ERROR  [quest:The Watch Log: Second Page]: no win_quest / fail_quest / reset_quest node: nothing marks the quest complete",
   "ERROR  lint The Watch Log: Second Page: T1 law 49: content sceneCharacters 'Xugt7415D3-tepLfxpwM5' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here"

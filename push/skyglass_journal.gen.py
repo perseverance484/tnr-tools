@@ -63,10 +63,9 @@ Q = {
     "burning_heading": "ozDN-G6nGFXGgKuPZ04Gr",   # The Burning Heading  tnr_results_1793485978739.json
     "crownhold": "fqqpkcp_L4oOsC6yyodlk",       # Crownhold             tnr_results_1793424666625.json
 }
-# Item ids for use_specific_item_combat orders (live reads):
-USE = {
-    "skyglass_serum": "XhilCv1Hq4eNt-Wddok-m",  # Skyglass Serum: CONSUMABLE, heal, SELF (item.get 2026-11-08)
-}
+# Item ids for use_specific_item_combat orders (live reads). Check preventBattleUsage before using one:
+# Skyglass Serum (XhilCv1Hq4eNt-Wddok-m) has preventBattleUsage true (item.get 2026-11-08), so it can't be an order.
+USE = {}
 # Reward items (state/skyglass_design/design_data.json). Values approved as drafted (RUL-2026-11-05-121 D3).
 I = {
     "tide_chart": "H1s2IwtZ5JqgPEoJ55IVj",
@@ -149,13 +148,12 @@ def entries_page2():
               ("archive_chart_case", "an Archive Chart Case"),
               "The helm is quiet. Whatever she saw from it, she did not tell you.",
               completeQuestIds=runs("captains_watch"), value=1),
-        entry("j2_serum", "use_specific_item_combat",
-              "Drink what the night watch drank, and keep standing.",
-              "<b>Drink a Skyglass Serum in battle once.</b> Any chart run counts; fights inside the Wreck dungeons "
-              "do not.",
+        entry("j2_night_watch", "complete_specific_quest",
+              "Stand the night watch the medicine was brewed for, and keep standing.",
+              "<b>Win the Low Tide Run or the Night Watch once.</b>",
               ("medicine_inro", "a Medicine Inro"),
-              "Seal-light closes the cut. It tastes of salt and old lamp oil.",
-              useItemIds=[USE["skyglass_serum"]], value=1),
+              "The watch is stood. The roster has a second mark beside your name.",
+              completeQuestIds=runs("low_tide", "night_watch"), value=1),
         entry("j2_fall", "complete_specific_quest",
               "Live through the night she fell, and climb back out.",
               "<b>Win The Fall once.</b>",

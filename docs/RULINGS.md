@@ -6287,3 +6287,4 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 
 **Canonical destination:** `docs/design/EVENT_JOURNAL.md` sections 2 and 5; `push/skyglass_journal.gen.py`; push/512.
 
+**Amended 2026-11-08:** order 2 of the Second Page was "drink a Skyglass Serum in battle". The director: "I dont think Skyglass Serum can be consumed in combat, it should have the toggle to disable use in battle". Live item.get confirms `preventBattleUsage: true`. Order 2 is now "Win the Low Tide Run or the Night Watch once" (reward unchanged, Medicine Inro). Any future `use_specific_item_combat` order checks `preventBattleUsage` on a live read first.
