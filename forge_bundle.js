@@ -387,7 +387,7 @@
 
   var contract_default2 = JSON.parse(`{"_meta":{"source":"studie-tech/TheNinjaRPG","pin":"2aed7e4903cc68e18c01e0adb7aec8f39ddffc64","files":{"router":"app/src/server/api/routers/contentReview.ts","validators":"app/src/validators/contentReview.ts","constants":"app/drizzle/constants.ts","submit":"app/src/libs/contentReview/submit.ts"},"citations":{"contentReview.create":"contentReview.ts:305 create: protectedProcedure, input staffCreateProposalSchema, output baseServerResponse {success, message:'Sent for review'}; canSuggestContent(role)","contentReview.getQueue":"contentReview.ts:91 getQueue: protectedProcedure, input reviewQueueSchema {status, entityType?, cursor?, limit<=50}; non-reviewers see only their own","contentReview.getProposal":"contentReview.ts:185 getProposal: protectedProcedure, input {id}; null when absent or not visible","aiEditableKeys":"libs/contentReview/entities.ts AI_EDITABLE_KEYS: the only AI fields the desk keeps (editableOf)"},"notSuggestible":{"quest":"quests.get masks hideLocation objectives (sector 1337) and tracked coordinates for callers who cannot change content (libs/quest.ts controlShownQuestLocationInformation); a suggestion built from it would overwrite the real objectives on approval"}},"procedures":{"contentReview.create":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"contentReview.getQueue":{"kind":"query","limited":false,"mcp":false,"auth":"protected"},"contentReview.getProposal":{"kind":"query","limited":false,"mcp":false,"auth":"protected"}},"entityTypes":{"jutsu":"JUTSU","item":"ITEM","bloodline":"BLOODLINE","asset":"GAME_ASSET","ai":"AI"},"categories":["GRAMMAR","BALANCE","SOUND","ANIMATION","VISUAL","CONSISTENCY","NEW_CONTENT"],"titleLength":{"min":3,"max":120},"rationaleLength":{"min":10,"max":4000},"statuses":["PENDING","APPLIED","REJECTED","OUTDATED","REVERTED"],"aiEditableKeys":["username","npcTitle","avatar","avatar3d","avatarFacing","gender","level","regeneration","rank","bloodlineId","offence","defence","ninjutsuMastery","genjutsuMastery","taijutsuMastery","bukijutsuMastery","bloodlineMastery","sageMastery","statsMultiplier","poolsMultiplier","strength","intelligence","willpower","speed","isSummon","inArena","inShrines","primaryElement","secondaryElement","preferredGeneral1","preferredGeneral2","anbuId","clanId","jutsus","items","effects"]}`);
 
-  var contract_default3 = JSON.parse('{"_meta":{"pin":"3314d122c93e036618483d18229a793ad7ad21fd","scope":"Dungeon definitions only (coop.dungeon.save / coop.dungeon.getAll); lobby, run and claim procedures are out of scope","sources":{"app/src/validators/dungeon.ts":"273106cdc6735260f993fcbaea85f299b1a3f7bef2d93751ca269ad5ae03c152","app/src/server/api/routers/dungeon.ts":"56464424c185cefc16d75636b3e2620f23277c829176ea39b3d76d0b15525cd9","app/src/validators/coop.ts":"e4e3c2c5b8e2a7bb865967933b0c51ce5968199fee5e274a27b7b66edf95e450","app/src/validators/mapLocation.ts":"274f5a713ba37c6dea42102071a29fb3ecfca4d563d19a663e3fb6e9f8222b0e","app/drizzle/constants.ts":"f39417940b09b02549170302bc7b17345bb20199ab5e6ae2428ff1ef0bad0e6c","app/src/libs/dungeonRewards.ts":"2f10a5e9fe846845c04df8ed2605a874608a8f56ce556ce5379573abadf7fc82","app/src/server/api/root.ts":"30654af86921d736c2f0bb7d7787c3825954bee55a9684e29cab19d1fc60f7c4","app/src/server/api/routers/coop.ts":"2ef0395758c845fe4f5dbc093a3b1a9b38b8bd27915a07e511c8a51508eac898","app/src/queries/dungeon.ts":"06ce1e246a83f8dd3761375c3f0e54d3bb878cfea0da8a50a8d3c4fb71b3a21f"}},"contentFields":["name","description","structureAssetId","structureScale","sector","longitude","latitude","expiresAt","hidden","background","tiers","rewards"],"rewardFields":["money","experience","tokens","prestige","drops"],"dropFields":["type","id","chance","onlyOnce","quantity","package"],"dropFlags":["onlyOnce"],"floorFields":["kind","waves"],"waveFields":["aiIds","delayRounds"],"floorKinds":["floor","mini-boss","boss"],"dropTypes":["item","jutsu","cache","package"],"biomes":["ocean","ground","dessert","ice","snow","arena","default"],"bounds":{"nameMax":100,"descriptionMax":2000,"structureAssetIdMax":191,"structureScale":{"min":0.2,"max":5,"default":1},"sector":{"min":0,"max":1943},"longitude":{"min":0,"max":25},"latitude":{"min":0,"max":25},"maxTiers":4,"floorsPerTier":5,"maxWaves":5,"maxMobs":10,"maxWaveDelayRounds":20,"maxDrops":100,"chance":{"min":1,"max":100},"maxRewardQuantity":100,"maxRewardAmount":1000000000,"maxGrantedItems":2000},"defaults":{"content":{"description":"","structureAssetId":"","structureScale":1,"hidden":true,"background":"default"},"rewards":{"money":0,"experience":0,"tokens":0,"prestige":0,"drops":[]},"drop":{"quantity":1},"wave":{"delayRounds":0}},"facts":{"partySize":3,"runSeconds":3600,"inactiveRounds":3},"procedures":{"coop.dungeon.getAll":{"kind":"query","limited":false,"mcp":false,"auth":"protected"},"coop.dungeon.save":{"kind":"mutation","limited":true,"mcp":false,"auth":"protected"}}}');
+  var contract_default3 = JSON.parse('{"_meta":{"pin":"d6cdee0f30662fd129c310a55223befdea88364e","scope":"Dungeon definitions only (coop.dungeon.save / coop.dungeon.getAll); lobby, run and claim procedures are out of scope","sources":{"app/src/validators/dungeon.ts":"04f8a5e9ef4a3791d4722973d028250b2730b9444406964e58bbebd81f6671eb","app/src/server/api/routers/dungeon.ts":"026853d1887fc09712991d167241b4d6a72d85defdbb2e4bddc69b07c430bd01","app/src/validators/coop.ts":"52afe32565c828e3eb3358224cbcbed1c22c958e31c1735c2a9708428fd8e7c0","app/src/validators/mapLocation.ts":"9ff36dae5df8bc24ce714bdc1c57e6bb37e0d9590a8d442695ca625dc7d0d344","app/drizzle/constants.ts":"5086087836dff3aa0dcf7b5fc93b6b9b3dc8e73abc2a654e19f924a84adada95","app/src/libs/dungeonRewards.ts":"a676a0248e114758844549d328bfcf9514c3de83019a43f8e4e2a4ed34304452","app/src/server/api/root.ts":"00d9dfbab2279b7d114745074da6d6631bd1c362ba17c5313ceb35790ccdca65","app/src/server/api/routers/coop.ts":"2ef0395758c845fe4f5dbc093a3b1a9b38b8bd27915a07e511c8a51508eac898","app/src/queries/dungeon.ts":"85c35eab103c6c10bb328b15717a0aeecb5a5a29a7b86743111af1009db9e1f9","app/src/validators/travel.ts":"886e32fa4cc3ff7b5b1468977c269523428835379bb743ab6d66e58c1f0fd088"}},"contentFields":["requirements","name","description","structureAssetId","structureScale","sector","longitude","latitude","expiresAt","hidden","background","tiers","rewards"],"rewardFields":["money","experience","tokens","prestige","drops"],"dropFields":["type","id","chance","onlyOnce","quantity","package"],"dropFlags":["onlyOnce"],"floorFields":["kind","waves"],"waveFields":["aiIds","delayRounds","arrival"],"requirementFields":["requiredLevel","prerequisiteQuestName","requiredItemName","prerequisiteQuestId","requiredItemId","requiredItemQuantity","maxAttempts","maxCompletes","attemptDelay","retryDelay"],"arrivalFields":["announce","log","tier","color","glow"],"floorKinds":["floor","mini-boss","boss"],"dropTypes":["item","jutsu","cache","package"],"biomes":["ocean","ground","dessert","ice","snow","arena","default"],"bounds":{"nameMax":100,"descriptionMax":2000,"structureAssetIdMax":191,"structureScale":{"min":0.2,"max":5,"default":1},"sector":{"min":0,"max":1943},"longitude":{"min":0,"max":25},"latitude":{"min":0,"max":25},"maxTiers":4,"floorsPerTier":5,"maxWaves":5,"maxMobs":10,"maxWaveDelayRounds":20,"maxDrops":100,"chance":{"min":1,"max":100},"maxRewardQuantity":100,"maxRewardAmount":1000000000,"maxGrantedItems":2000,"requiredLevel":{"min":1,"max":110},"requiredItemQuantity":{"min":1,"max":9999},"maxAttemptsMin":1,"maxCompletesMin":1,"retryDelays":["daily","weekly","monthly","none"],"arrival":{"announce":{"min":1,"max":32},"log":{"min":1,"max":200},"tier":{"min":1,"max":4},"colorMax":16777215,"glowMax":16777215}},"defaults":{"content":{"description":"","structureAssetId":"","structureScale":1,"hidden":true,"background":"default"},"rewards":{"money":0,"experience":0,"tokens":0,"prestige":0,"drops":[]},"drop":{"quantity":1},"wave":{"delayRounds":0},"requirements":{"requiredLevel":1,"prerequisiteQuestId":null,"requiredItemId":null,"requiredItemQuantity":1,"maxAttempts":null,"maxCompletes":null,"attemptDelay":"none","retryDelay":"none"}},"facts":{"partySize":3,"runSeconds":3600,"inactiveRounds":3},"procedures":{"coop.dungeon.getAll":{"kind":"query","limited":false,"mcp":false,"auth":"protected"},"coop.dungeon.save":{"kind":"mutation","limited":true,"mcp":false,"auth":"protected"}}}');
 
   var PROCEDURES = Object.freeze({
     ...contract_default.procedures,
@@ -2686,10 +2686,15 @@
     const out = [];
     const why = "schema drift: the pinned contract does not know it and a save would delete it; re-derive src/dungeon/contract.json first";
     unknownKeys(content, contract_default3.contentFields, "live content", out, why);
+    if (obj2(content.requirements)) unknownKeys(content.requirements, contract_default3.requirementFields, "live requirements", out, why);
     if (Array.isArray(content.tiers)) content.tiers.forEach((tier, ti) => Array.isArray(tier) && tier.forEach((f, fi) => {
       if (!obj2(f)) return;
       unknownKeys(f, contract_default3.floorFields, `live tiers[${ti}][${fi}]`, out, why);
-      if (Array.isArray(f.waves)) f.waves.forEach((w, wi) => obj2(w) && unknownKeys(w, contract_default3.waveFields, `live tiers[${ti}][${fi}].waves[${wi}]`, out, why));
+      if (Array.isArray(f.waves)) f.waves.forEach((w, wi) => {
+        if (!obj2(w)) return;
+        unknownKeys(w, contract_default3.waveFields, `live tiers[${ti}][${fi}].waves[${wi}]`, out, why);
+        if (obj2(w.arrival)) unknownKeys(w.arrival, contract_default3.arrivalFields, `live tiers[${ti}][${fi}].waves[${wi}].arrival`, out, why);
+      });
     }));
     if (obj2(content.rewards)) {
       unknownKeys(content.rewards, contract_default3.rewardFields, "live rewards", out, why);
@@ -2735,6 +2740,7 @@
     );
     check(d.hidden === void 0 || typeof d.hidden === "boolean", "hidden must be boolean");
     check(d.background === void 0 || contract_default3.biomes.includes(d.background), `background must be one of ${contract_default3.biomes.join(", ")}`);
+    requirementProblems(d.requirements, out);
     tierProblems(d.tiers, out);
     rewardProblems(d.rewards, out, preCreate || "rewards" in data);
     const packages = packageDrops(d);
@@ -2742,6 +2748,42 @@
       out.push(`rewards: package drop(s) ${packages.join(", ")}: coop.dungeon.save re-copies every package snapshot from the CURRENT catalog, which Forge cannot read, so stored package rewards may change. Set "refreshPackages": true to accept that`);
     }
     return out;
+  }
+  function requirementProblems(r, out) {
+    if (r === void 0) return;
+    if (!obj2(r)) {
+      out.push("requirements must be an object (null is not accepted)");
+      return;
+    }
+    unknownKeys(r, contract_default3.requirementFields, "requirements", out);
+    const R = D.requirements;
+    const v = (k) => r[k] === void 0 ? R[k] : r[k];
+    if (!int2(v("requiredLevel"), B.requiredLevel.min, B.requiredLevel.max)) out.push(`requirements.requiredLevel must be an integer ${B.requiredLevel.min}..${B.requiredLevel.max}`);
+    for (const k of ["prerequisiteQuestName", "requiredItemName"]) if (r[k] !== void 0 && !str2(r[k])) out.push(`requirements.${k} must be text`);
+    for (const [k, ref] of [["prerequisiteQuestId", "quest"], ["requiredItemId", "item"]]) {
+      if (v(k) === null) continue;
+      const p = idProblem(v(k), [ref], `requirements.${k}`);
+      if (p) out.push(p);
+    }
+    if (!int2(v("requiredItemQuantity"), B.requiredItemQuantity.min, B.requiredItemQuantity.max)) out.push(`requirements.requiredItemQuantity must be an integer ${B.requiredItemQuantity.min}..${B.requiredItemQuantity.max}`);
+    for (const [k, min] of [["maxAttempts", B.maxAttemptsMin], ["maxCompletes", B.maxCompletesMin]]) {
+      if (v(k) !== null && !int2(v(k), min, Number.MAX_SAFE_INTEGER)) out.push(`requirements.${k} must be null (no cap) or an integer of at least ${min}`);
+    }
+    for (const k of ["attemptDelay", "retryDelay"]) if (!B.retryDelays.includes(v(k))) out.push(`requirements.${k} must be one of ${B.retryDelays.join(", ")}`);
+  }
+  function arrivalProblems(a, w, out) {
+    if (a === void 0) return;
+    const where = `${w}.arrival`;
+    if (!obj2(a)) {
+      out.push(`${where} must be an object`);
+      return;
+    }
+    unknownKeys(a, contract_default3.arrivalFields, where, out);
+    const A = B.arrival;
+    for (const k of ["announce", "log"]) if (!(str2(a[k]) && a[k].length >= A[k].min && a[k].length <= A[k].max)) out.push(`${where}.${k} must be text of ${A[k].min}..${A[k].max} characters`);
+    if (!int2(a.tier, A.tier.min, A.tier.max)) out.push(`${where}.tier must be an integer ${A.tier.min}..${A.tier.max}`);
+    if (!int2(a.color, 0, A.colorMax)) out.push(`${where}.color must be an integer 0..${A.colorMax}`);
+    if (!int2(a.glow, 0, A.glowMax)) out.push(`${where}.glow must be an integer 0..${A.glowMax}`);
   }
   function tierProblems(tiers, out) {
     if (!Array.isArray(tiers) || tiers.length < 1 || tiers.length > B.maxTiers) {
@@ -2784,6 +2826,7 @@
           const delay = wave.delayRounds === void 0 ? D.wave.delayRounds : wave.delayRounds;
           if (!int2(delay, 0, B.maxWaveDelayRounds)) out.push(`${w}.delayRounds must be an integer 0..${B.maxWaveDelayRounds} (null is not accepted)`);
           else if (wi === 0 && delay !== 0) out.push(`${w}.delayRounds must be 0: the first wave starts immediately`);
+          arrivalProblems(wave.arrival, w, out);
         });
       });
     });
@@ -2846,6 +2889,8 @@
       return r;
     };
     const n = fill(D.content, c);
+    if (n.requirements === void 0) n.requirements = structuredClone(D.requirements);
+    else if (obj2(n.requirements)) n.requirements = fill(D.requirements, n.requirements);
     if (str2(n.name)) n.name = n.name.trim();
     if (n.expiresAt !== null && validDate(n.expiresAt)) n.expiresAt = new Date(n.expiresAt).toISOString();
     if (Array.isArray(n.tiers)) {
