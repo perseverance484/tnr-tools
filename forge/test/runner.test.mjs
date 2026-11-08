@@ -183,6 +183,24 @@ test("ai with rules: create -> updateAi(kit re-sent) -> toggle -> updateAiProfil
   assert.ok(!("rules" in upd.input.data)); assert.deepEqual(upd.input.data.jutsus, []); assert.equal(upd.input.data.isAi, true);
 });
 
+test("refs inside ai rules: @jutsu resolves before updateAiProfile and the read-back verifies", async () => {
+  // MoE push/509 item 653: the rules phase sent "@jutsu:..." literally, so the server refused the write.
+  const h = harness();
+  h.runner.plan({ items: [
+    M.oneJutsu.items[0],
+    { entity: "ai", slot: "create", name: "Absence", srcId: "abs", data: { username: "Absence", level: 10, ...AIREQ,
+      rules: [{ conditions: [], action: { type: "use_specific_jutsu", target: "SELF", jutsuId: "@jutsu:ember", description: "Select specific jutsu" } }],
+      includeDefaultRules: false } },
+  ] }, { jobId: "rr1" });
+  const s = await h.runner.run("rr1");
+  assert.equal(s.counts.VERIFIED, 2, JSON.stringify(s));
+  const jid = h.game.rows("jutsu")[0].id;
+  const prof = h.game.tables.aiProfile.get(h.game.rows("ai")[0].aiProfileId);
+  assert.equal(prof.rules[0].action.jutsuId, jid);
+  const upd = h.game.calls.find((c) => c.path === "ai.updateAiProfile");
+  assert.ok(!JSON.stringify(upd.input).includes("@jutsu:"));
+});
+
 test("refs: @ai:boss resolves to the id minted earlier in the same job", async () => {
   const h = harness();
   h.runner.plan(M.refChain, { jobId: "r1" });

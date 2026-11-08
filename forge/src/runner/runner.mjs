@@ -857,7 +857,9 @@ export class Runner {
 
   async _rules(jobId, item, planned, userId) {
     const rc = recipe("aiProfile");
-    const rules = planned.data.rules ?? [];
+    // Rules carry @jutsu refs (a boss's entrance or summon jutsu). They are resolved like any
+    // other payload, and an unresolved one refuses the send (refs.mjs: never a literal payload).
+    const rules = (await this._resolved({ rules: planned.data.rules ?? [] }, jobId)).rules;
     const includeDefaultRules = planned.data.includeDefaultRules !== false;
     if (item.entity === "aiProfile") {
       const problems = this.validator.problems("aiProfile", planned.data, null);
@@ -927,7 +929,7 @@ export class Runner {
         // Structural, not textual. The server re-emits the rules in schema key order, so a
         // stringify comparison here reported every landed Godstorm AI-profile write as drift
         // while the two payloads were the same document (deepEqualPayload, validate.mjs).
-        if (!deepEqualPayload(planned.data.rules ?? [], pr.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
+        if (!deepEqualPayload(data.rules ?? [], pr.data.rules ?? [])) diffs.push({ key: "rules", sent: data.rules, live: pr.data.rules });
         if (planned.data.includeDefaultRules !== undefined && pr.data.includeDefaultRules !== planned.data.includeDefaultRules) diffs.push({ key: "includeDefaultRules", sent: planned.data.includeDefaultRules, live: pr.data.includeDefaultRules });
       } else { this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" }); return; }
     }

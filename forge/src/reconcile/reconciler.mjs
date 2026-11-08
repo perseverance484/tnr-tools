@@ -223,7 +223,7 @@ export class Reconciler {
     if (!item.aiProfileId) return { action: "orphan", candidates: [], note: "rules sent but no aiProfileId recorded" };
     const prof = this._ensureSession("ai.getAiProfile", await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true }));
     if (!prof.ok || !prof.data) return { action: "orphan", candidates: [], note: "ai.getAiProfile unavailable" };
-    const want = ctx.planned ? ctx.planned.data.rules ?? [] : null;
+    const want = ctx.planned ? resolveRefs(ctx.planned.data.rules ?? [], ctx.lookup ?? (() => undefined)).value : null;
     const wantDefault = ctx.planned ? ctx.planned.data.includeDefaultRules : undefined;
     // Same structural comparison the verify path uses: a resumed job must not declare a landed
     // rules write ORPHANED because zod handed the object back in schema key order.
