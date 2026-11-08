@@ -6288,3 +6288,17 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Canonical destination:** `docs/design/EVENT_JOURNAL.md` sections 2 and 5; `push/skyglass_journal.gen.py`; push/512.
 
 **Amended 2026-11-08:** order 2 of the Second Page was "drink a Skyglass Serum in battle". The director: "I dont think Skyglass Serum can be consumed in combat, it should have the toggle to disable use in battle". Live item.get confirms `preventBattleUsage: true`. Order 2 is now "Win the Low Tide Run or the Night Watch once" (reward unchanged, Medicine Inro). Any future `use_specific_item_combat` order checks `preventBattleUsage` on a live read first.
+
+## RUL-2026-11-08-136 — Forge bundle budget raised to 490,000 / 119,000
+
+**Date:** 2026-11-08
+
+**Domain:** forge / bundle budget
+
+**Status:** ACTIVE.
+
+**Ruling:** The checked bundle budget is raised from 482,000 / 117,000 to 490,000 raw / 119,000 gzip. The bundle rebuilt after the dungeon contract re-pin (595af9f6) measured 482,780 / 116,496.
+
+**Evidence:** Director, 2026-11-08: "Size approved."
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs`.
