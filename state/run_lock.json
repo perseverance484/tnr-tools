@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "claude",
- "releasedInstance": "/mnt/project-files/tnr/forge_state/wl512",
- "releasedJob": "push/514 Skyglass Wreck expiry",
- "releasedAt": "2026-11-08T15:39:07.361Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "claude",
+ "job": "push/512 retry Watch Log Second Page",
+ "token": "200c00de3edf45098c02817bad57f9e5",
+ "instance": "/mnt/project-files/tnr/forge_state/wl512",
+ "ttlMinutes": 30,
+ "claimedAt": "2026-11-08T15:45:04.908Z",
+ "heartbeatAt": "2026-11-08T15:45:04.908Z",
+ "expiresAt": "2026-11-08T16:15:04.908Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
