@@ -1,0 +1,67 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-08T15:36:26.304Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "failed",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 1,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "The Watch Log: Second Page",
+   "srcId": "sg512_journal_p2",
+   "entity": "quest",
+   "slot": "create",
+   "op": "create",
+   "state": "error",
+   "forgeState": "FAILED",
+   "phase": "create",
+   "detail": "create refused: Complete or abandon your isolated Battle Pyramid before starting outside activities.",
+   "verdict": null,
+   "asserted": null,
+   "diffs": [],
+   "id": null
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "512-mw7zv610",
+  "manifestPath": "push/512_skyglass_journal_page2.json",
+  "manifestNumber": 512,
+  "manifestHash": "78c82182",
+  "startedAt": "2026-11-08T15:35:48.806Z",
+  "updatedAt": "2026-11-08T15:36:26.300Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "create",
+    "name": "The Watch Log: Second Page",
+    "srcId": "sg512_journal_p2",
+    "targetId": null,
+    "payloadHash": "f5a04337",
+    "state": "FAILED",
+    "phase": "create",
+    "entityId": null,
+    "snapshotKey": "tnr_forge_snap_v1:512-mw7zv610:quest",
+    "sentAt": "2026-11-08T15:36:03.315Z",
+    "createSentAt": "2026-11-08T15:36:03.315Z",
+    "confirmedAt": null,
+    "verifiedAt": null,
+    "error": "create refused: Complete or abandon your isolated Battle Pyramid before starting outside activities.",
+    "attempt": 1
+   }
+  ]
+ }
+}
