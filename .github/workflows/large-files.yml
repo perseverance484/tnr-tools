@@ -1,0 +1,10 @@
+name: large-files
+on: [push, pull_request]
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No new file over 5 MB (scripts/check_large_files.py)
+        run: python3 scripts/check_large_files.py
