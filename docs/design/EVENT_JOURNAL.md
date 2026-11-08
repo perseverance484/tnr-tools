@@ -1,6 +1,6 @@
 # The event journal: a weekly roadmap quest
 
-**Status:** ACTIVE (RUL-2026-11-05-120; D1-D6 settled by RUL-2026-11-05-121; landing, close time and the Wreck Sighted tutorial by RUL-2026-11-05-122). The idea, the decisions and the
+**Status:** ACTIVE (RUL-2026-11-08-139: every order open at once; RUL-2026-11-05-120; D1-D6 settled by RUL-2026-11-05-121; landing, close time and the Wreck Sighted tutorial by RUL-2026-11-05-122). The idea, the decisions and the
 Week 1 rewards are the director's; the shape, the pages and the text are Claude's drafts. Open: the page image (QI01) and the
 tutorial's text (section 6a).
 **Date:** 2026-11-05. **Repository baseline:** `perseverance484/tnr-tools` main at `213ffabf`. **Game-source pin:**
@@ -39,7 +39,7 @@ counts. The page is gone when the tide turns at the end of the weekend.
 | A one-shot quest cannot be re-credited: Wreck Sighted is `maxCompletes: 1` | `push/374_skyglass_wreck_sighted_salvager.json` | A veteran can never satisfy "complete Wreck Sighted"; the page uses "go to the Wreck" (`move_to_location`) instead |
 | Battlepyramid chart runs are ordinary quests and do credit it; a journal (`event`) and a run (`battlepyramid`) can be active together (event limit 4, pyramid limit 1) | `libs/quest.ts` 2910-2930; `drizzle/constants.ts` 1072 | Chart runs, tainted runs, Crownhold, the Haul and the Mother of Echoes are all trackable by quest id |
 | A non-consecutive quest completes when every objective is done; a consecutive one when every node on the walked path is done | `libs/objectives.ts` 110-140 | No win node is needed |
-| Forge L03 refuses a quest create without `consecutiveObjectives: true` | `forge/src/runner/lints.mjs` 77 | The entries form one chain. Availability walks the chain's links and never checks done; a non-dialog node links on to the next on its first touch (`libs/objectives.ts` 151-186; `libs/quest.ts` 1655-1662), and `profile.getUser` touches every active quest on each load (`routers/profile.ts` 3396-3403). So the whole chain is live within a load or two and counts in any order. **Behaviour to confirm** in the staff test (section 8) |
+| Forge L03 refuses a quest create without `consecutiveObjectives: true`, **but a consecutive page shows only its first order** | `forge/src/runner/lints.mjs` 77; TheNinjaRPG `libs/objectives.ts` (`isQuestObjectiveAvailable`, `selectedObjectivePath`); `libs/quest.ts` (the availability skip before task matching) | The earlier reading here (the whole chain goes live within a load or two) was wrong. The engine links a consecutive chain one step per tracker pass and skips every order off the walked path, so players saw only order 1 and later orders did not count. Week 1 went live that way on 2026-11-06; the director set it to `false` in the editor on 2026-11-07. **Pages now create with `true` (L03) and publish with `false`** (RUL-2026-11-08-139). Safe: a page has no win, dialog or battle node (law 23's danger), and a non-consecutive quest completes when every objective is done |
 | **No ending step can wait for the entries.** For the same reason a final dialog or `win_quest` after the chain is live from the start, not after the entries | as above | The ending is the engine's own (section 4): the claim that completes the page |
 | Each objective's rewards pay once, when the player claims it (the gift icon); the quest-level reward pays on completion | `libs/quest.ts` 494-520; `layout/Objective.tsx` 99-112 | Per-entry and completion rewards are both native |
 | The Logbook shows each entry as the engine's fixed task title ("Complete Specific Quest") with a Goal x/N bar; the entry's own text is behind a (?) icon, and a non-location entry's reward is not listed | `layout/Objective.tsx` 142-180, 184-214; ENGINE_LAWS law 53 | The quest description carries the whole page; each entry's text names its own reward |
@@ -103,7 +103,7 @@ reusable: an old page can return later as a new record with new dates.
 
 | Page | Theme | Entries (sketch) |
 |---|---|---|
-| Second: "The Rotted Heading" | the rot | The Captain's Watch ×1; The Fall ×1; The Burning Heading ×1; The Rotted Reliquary ×1; drink a Skyglass Serum in a run ×1 |
+| Second: "The Rotted Heading" (built: push/512, rewards a draft for the director) | the rot | The Captain's Watch ×1 (Archive Chart Case); drink a Skyglass Serum in battle ×1 (Medicine Inro); The Fall ×1 (Galley Stores); The Rotted Reliquary ×1 (Skyglass Coffer); The Burning Heading ×1 (Sealed Treasury); all five: Skyglass Token. Window 2026-11-13 to 2026-11-17 00:00 UTC |
 | Third: "The Stores" | the Haul | any Haul run ×2; any Rare run ×2 (the pages drop there); a common run ×2 |
 | Fourth: "Her Invitation" | the finale | an Epic or tainted run ×2 (Tide shard); a Haul run ×1 (Ledger); Crownhold ×1 (Crown); the Mother of Echoes ×1 as the stretch (the Keel shard's Wreck stays off, D1) |
 | Fifth: "Every Deck" | a full tour | one entry per Rare run, ×1 each; raise the Lastlight in battle ×1 |
@@ -117,6 +117,12 @@ reusable: an old page can return later as a new record with new dates.
    <reward> for all N."), then carries the whole page (voice lines, the numbered plain list, the rules: counts only
    while held, any order, claim before it closes).
 5. **Dates:** startsAt the Friday, endsAt the Tuesday (open 00:00 UTC Friday, closed 00:00 UTC Tuesday).
+5a. **Two jobs per page** (RUL-2026-11-08-139): `push/skyglass_journal.gen.py --page N` creates it hidden with
+   `consecutiveObjectives: true` (Forge L03); `... publish --page N --from <bundle>` re-sends it with `hidden: false`
+   and `consecutiveObjectives: false`, so every order is open at once. The page still lists only from its startsAt, so
+   the publish can run any day before. Pages after the first reuse the live QI01 icon, so both jobs run over the
+   connector. **Do not re-run push/507**: it re-sends Week 1 with `consecutiveObjectives: true` and would undo the
+   director's fix.
 6. **Rewards:** event items only, nothing that is a gate or finale input, values set by the director.
 7. **No per-page badge:** one badge for the whole event keeps it exclusive (D5).
 8. **Checks:** no entry depends on a once-only quest, a dungeon, steeping's refund path, or "obtain"; every listed

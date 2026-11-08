@@ -6270,3 +6270,20 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-07, on the accuracy review: "Yes, fix it. Fri-Sun approved. Dont worry about the time", then "This will be releasing alongside Duets update to make wreck sighted an overworold NPC quest granted by the same NPC".
 
 **Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §1b; `push/skyglass_thread.gen.py`; `art/skyglass_thread/compose_boards.py`.
+
+## RUL-2026-11-08-139 — Watch Log pages open every order at once; the Second Page is written
+
+**Date:** 2026-11-08
+
+**Domain:** content design / event journal (Skyglass pages)
+
+**Status:** ACTIVE. Open: the director's review of the Second Page's text and draft rewards before push/512 runs.
+
+**Ruling:**
+1. **Every order on a page is open at once.** A consecutive page shows players only its first order (the engine walks the chain one link per tracker pass and skips orders off the walked path). Pages are created hidden with `consecutiveObjectives: true` for Forge L03 and published with `consecutiveObjectives: false` and `hidden: false` in one edit. Supersedes the chain reading in `EVENT_JOURNAL.md` section 2. Week 1 was fixed live by the director in the editor; push/507 must not be re-run.
+2. **The Second Page, "The Rotted Heading"** (EVENT_JOURNAL.md section 5) is built hidden as push/512, for the weekend of 2026-11-13; push/513 (its publish) is generated from push/512's results bundle. Its rewards are a draft until the director approves them.
+
+**Evidence:** Director, 2026-11-07, on the live First Page: "The first page says in any order yet I only see the first objective. Is it set to sequential?", then "It was, I fixed it". Director, 2026-11-08: "Go ahead and update the Watch Log template and write the next one".
+
+**Canonical destination:** `docs/design/EVENT_JOURNAL.md` sections 2 and 5; `push/skyglass_journal.gen.py`; push/512.
+
