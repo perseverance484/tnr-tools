@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-07)
+# DRIFT.md - upstream contract drift (2026-11-08)
 
-Upstream: studie-tech/TheNinjaRPG@95c0898497053cd2094b74bca1f5b9cc293fa2c5
+Upstream: studie-tech/TheNinjaRPG@d6cdee0f30662fd129c310a55223befdea88364e
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -244,11 +244,22 @@ ADDITIONS
   const-member  BULK_SELL_WARN_RARITIES  EPIC
   const-member  BULK_SELL_WARN_RARITIES  LEGENDARY
   const-member  BULK_SELL_WARN_RARITIES  RARE
+  const-member  BossFightBattleTypes  ARENA
+  const-member  BossFightBattleTypes  HUNTING
+  const-member  BossFightBattleTypes  OVERWORLD
+  const-member  BossFightBattleTypes  QUEST
+  const-member  BossFightBattleTypes  RANDOM_ENCOUNTER
   const-member  FARM_SHOP_ENTRY_TYPES  EXTRACTOR
   const-member  FARM_SHOP_ENTRY_TYPES  FERTILIZER
   const-member  FARM_SHOP_ENTRY_TYPES  PLOT
   const-member  FARM_SHOP_ENTRY_TYPES  SEED
   const-member  GameAssetTypes  LPC
+  const-member  HP_DAMAGE_KEYS  afterburn
+  const-member  HP_DAMAGE_KEYS  damage
+  const-member  HP_DAMAGE_KEYS  drain_hp
+  const-member  HP_DAMAGE_KEYS  poison
+  const-member  HP_DAMAGE_KEYS  residual
+  const-member  HP_DAMAGE_KEYS  wound
   const-member  MISSION_HALL_QUEST_TYPES  crime
   const-member  MISSION_HALL_QUEST_TYPES  errand
   const-member  MISSION_HALL_QUEST_TYPES  medical
@@ -267,18 +278,7 @@ ADDITIONS
   const-member  OBJECTIVE_TAG_TYPES  curse
   const-member  OBJECTIVE_TAG_TYPES  parry
   const-member  PET_TASK_QUEST_TYPES  gathering
-  const-member  PET_TASK_QUEST_TYPES  hunting
-  const-member  POST_DAMAGE_MODIFIER_TYPES  parry
-  const-member  POST_PIERCE_TAGS  parry
-  const-member  PRE_BATTLE_SOURCE_TYPES  accessory
-  const-member  PRE_BATTLE_SOURCE_TYPES  armor
-  const-member  PRE_BATTLE_SOURCE_TYPES  elementalMastery
-  const-member  PRE_BATTLE_SOURCE_TYPES  keystone
-  const-member  PRE_BATTLE_SOURCE_TYPES  ranked
-  const-member  PRE_BATTLE_SOURCE_TYPES  skill
-  const-member  PRE_BATTLE_SOURCE_TYPES  village
-  const-member  PassiveSnapshotTasks  a_crimes_total
-  ... 53 more
+  ... 78 more
 
 BREAKING: 224 change(s) - DO NOT ADOPT (exit 1)
 ~~~
