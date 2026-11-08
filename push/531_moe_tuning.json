@@ -1,0 +1,361 @@
+{
+ "_note": "push/531: Mother of Echoes tuning (2026-11-08, director: '20,000 HP sounds good. I want to avoid top ups if possible, would rather tune. The idea is that fight 1 is 8-10 rounds. Fight 2 is 12-14. Fight 3 is ~17'; players heal with basic heals, consumables and lifesteal). QA3: act 1 took 19 rounds; act 2 dealt ~800/round to a 5,050 HP player against a 60,600 HP boss with 59% damage reduction, death at R11. Changes, AI records only (no jutsu edits, so no law 18 cycle): act 1 Sayo pools x2->x1 (10,100->5,050 HP) and her 15% damage reduction removed; the Silence's 25% damage reduction removed; act 2 Glasswright pools x12->x4 (60,600->20,200 HP), damage given +227%->+27%, damage taken -59%->-35%; act 3 Saint of Stillness pools x12->x4 (20,200 HP), damage given +241%->+41%, damage taken -25%->-30%; Gate Porter, Sister Hana, Cadet Tomo (Worn) damage given +350%->+50%. Damage modifiers are additive on base damage (tags.ts adjustDamage). Effects arrays hand-built from live reads 2026-11-08; scaleEditedAi keeps stats and recomputes pools.",
+ "items": [
+  {
+   "entity": "ai",
+   "name": "Sayo, Mother of Echoes (act 1): 5,050 HP, no damage reduction",
+   "phase": 10,
+   "slot": "edit",
+   "targetId": "fJLcH1mpB1XHHGtNWwvzD",
+   "data": {
+    "poolsMultiplier": 1,
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "stunprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Nothing stills the Mother of Echoes",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "onehitkillprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "name": "The Silence: no damage reduction",
+   "phase": 10,
+   "slot": "edit",
+   "targetId": "IhNR-W1FElTsrWw1KfuQ9",
+   "data": {
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 30,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "sealprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "name": "Sayo, Glasswright (act 2): 20,200 HP, damage given +27%, damage taken -35%",
+   "phase": 10,
+   "slot": "edit",
+   "targetId": "H3pNj2qUWpMpVRINiH6Vn",
+   "data": {
+    "poolsMultiplier": 4,
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 27,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "decreasedamagetaken",
+      "power": 35,
+      "rounds": 100,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Decreased damage taken",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "elements": [],
+      "friendlyFire": "ALL"
+     },
+     {
+      "type": "stunprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Nothing stills the Mother of Echoes",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "stunprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "onehitkillprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "name": "Sayo, Saint of Stillness (act 3): 20,200 HP, damage given +41%, damage taken -30%",
+   "phase": 10,
+   "slot": "edit",
+   "targetId": "k0hgSrghl_KcYs9ATVDJT",
+   "data": {
+    "poolsMultiplier": 4,
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 41,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "decreasedamagetaken",
+      "power": 30,
+      "rounds": 100,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Decreased damage taken",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "elements": [],
+      "friendlyFire": "ALL"
+     },
+     {
+      "type": "stunprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Nothing stills the Mother of Echoes",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "name": "The Gate Porter (Worn): damage given +50% (was +350%)",
+   "phase": 10,
+   "slot": "edit",
+   "targetId": "wivZbMygCZo6c9pRKWvCI",
+   "data": {
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 50,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "name": "Sister Hana (Worn): damage given +50% (was +350%)",
+   "phase": 10,
+   "slot": "edit",
+   "targetId": "g6bNcftMcQ9pV_nMki7Wv",
+   "data": {
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 50,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "name": "Cadet Tomo (Worn): damage given +50% (was +350%)",
+   "phase": 10,
+   "slot": "edit",
+   "targetId": "KhFglnxE7ouIDywet3BPB",
+   "data": {
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 50,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  }
+ ]
+}
