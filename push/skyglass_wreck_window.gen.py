@@ -3,11 +3,13 @@
 
     python3 push/skyglass_wreck_window.gen.py close 2026-11-10T00:00:00.000Z   # push/514: expire Mon 6 PM Central
     python3 push/skyglass_wreck_window.gen.py reopen                            # clears expiresAt for Friday
-    python3 push/skyglass_wreck_window.gen.py weekend [NUM] [--from YYYY-MM-DD]  # weekly: open now, close next Mon 6 PM Central
+    python3 push/skyglass_wreck_window.gen.py weekend [NUM] [--from YYYY-MM-DD]  # weekly: open now, close 00:00 UTC next Tuesday
 
 `weekend` is the weekly routine's one save (director 2026-11-08: "just a scheduled task"): run it on the
-event Friday and both Wrecks open at once and expire at the coming Monday 6 PM America/Chicago, so no
-separate close is needed. The instant follows daylight saving (00:00 UTC Tue in CST, 23:00 UTC Mon in CDT).
+event Friday at 00:00 UTC Saturday (Friday 6 PM Central in CST, 7 PM in CDT), the instant the week's Watch Log
+page opens (its startsAt is Saturday's date), and both Wrecks open at once and expire 00:00 UTC on the Tuesday
+after, the instant the page's endsAt closes it. No separate close is needed. Everything sits on UTC midnights
+because a quest's startsAt/endsAt are SQL DATEs (00:00 UTC only), so page and Wrecks stay aligned through DST.
 
 Only content.expiresAt is sent; Forge fetch-merges the rest of each dungeon. An expired dungeon is off
 getAvailable and refuses new lobbies (TheNinjaRPG routers/dungeon.ts getAvailable, create); runs already
@@ -22,11 +24,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DUNGEONS = {"Skyglass Wreck": "RHqzYdY4EAQA9HwsBKWDS", "Faded Skyglass Wreck": "j4QEUtjbK_lbOYUPVoidk"}  # push/390
 
 
-def next_monday_close(today):
-    """The Monday 6 PM America/Chicago on or after `today` (a date), as a UTC ISO instant."""
-    monday = today + timedelta(days=(0 - today.weekday()) % 7)
-    local = datetime.combine(monday, time(18, 0), tzinfo=ZoneInfo("America/Chicago"))
-    return local.astimezone(ZoneInfo("UTC")).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+def next_tuesday_close(today):
+    """00:00 UTC on the first Tuesday after `today` (the event Friday's date), as an ISO instant: the moment the
+    week's page (endsAt = that Tuesday) closes."""
+    tuesday = today + timedelta(days=((1 - today.weekday()) % 7) or 7)
+    return datetime.combine(tuesday, time(0, 0)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
 
 
 def main():
@@ -39,7 +41,7 @@ def main():
         if "--from" in args:
             i = args.index("--from"); start = date.fromisoformat(args[i + 1]); del args[i:i + 2]
         num = int(args[0]) if args else 515
-        at = next_monday_close(start)
+        at = next_tuesday_close(start)
         verb = f"open for the weekend, expire at {at}"
     elif mode == "reopen":
         num, at, verb = int(sys.argv[2]) if len(sys.argv) > 2 else 515, None, "reopen (expiresAt cleared)"
