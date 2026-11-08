@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "claude",
- "releasedInstance": "/mnt/project-files/tnr/forge_state/wl512",
- "releasedJob": "526 rename, 517 create, 519 create",
- "releasedAt": "2026-11-08T17:23:40.989Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "claude",
+ "job": "526 rename, 517/518 create+publish, 519 create",
+ "token": "76aa14b54b544c48b8e0ded3f585ac2e",
+ "instance": "/mnt/project-files/tnr/forge_state/wl512",
+ "ttlMinutes": 30,
+ "claimedAt": "2026-11-08T17:43:23.133Z",
+ "heartbeatAt": "2026-11-08T17:43:23.133Z",
+ "expiresAt": "2026-11-08T18:13:23.133Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
