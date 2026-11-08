@@ -1,0 +1,99 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-08T15:39:06.636Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "failed",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 2,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Skyglass Wreck: expire at 2026-11-10T00:00:00.000Z",
+   "srcId": null,
+   "entity": "dungeon",
+   "slot": "edit",
+   "op": "update",
+   "state": "error",
+   "forgeState": "FAILED",
+   "phase": "update",
+   "detail": "pre-send validation: live content: unknown key \"requirements\" (schema drift: the pinned contract does not know it and a save would delete it; re-derive src/dungeon/contract.json first)",
+   "verdict": null,
+   "asserted": null,
+   "diffs": [],
+   "id": "RHqzYdY4EAQA9HwsBKWDS"
+  },
+  {
+   "name": "Faded Skyglass Wreck: expire at 2026-11-10T00:00:00.000Z",
+   "srcId": null,
+   "entity": "dungeon",
+   "slot": "edit",
+   "op": "update",
+   "state": "error",
+   "forgeState": "FAILED",
+   "phase": "update",
+   "detail": "pre-send validation: live content: unknown key \"requirements\" (schema drift: the pinned contract does not know it and a save would delete it; re-derive src/dungeon/contract.json first)",
+   "verdict": null,
+   "asserted": null,
+   "diffs": [],
+   "id": "j4QEUtjbK_lbOYUPVoidk"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "514-mw7zyncc",
+  "manifestPath": "push/514_skyglass_wreck_window.json",
+  "manifestNumber": 514,
+  "manifestHash": "97d6d0c3",
+  "startedAt": "2026-11-08T15:38:31.213Z",
+  "updatedAt": "2026-11-08T15:39:06.634Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "dungeon",
+    "op": "update",
+    "name": "Skyglass Wreck: expire at 2026-11-10T00:00:00.000Z",
+    "srcId": null,
+    "targetId": "RHqzYdY4EAQA9HwsBKWDS",
+    "payloadHash": "abc6370f",
+    "state": "FAILED",
+    "phase": "update",
+    "entityId": "RHqzYdY4EAQA9HwsBKWDS",
+    "snapshotKey": null,
+    "sentAt": null,
+    "createSentAt": null,
+    "confirmedAt": null,
+    "verifiedAt": null,
+    "error": "pre-send validation: live content: unknown key \"requirements\" (schema drift: the pinned contract does not know it and a save would delete it; re-derive src/dungeon/contract.json first)"
+   },
+   {
+    "idx": 1,
+    "entity": "dungeon",
+    "op": "update",
+    "name": "Faded Skyglass Wreck: expire at 2026-11-10T00:00:00.000Z",
+    "srcId": null,
+    "targetId": "j4QEUtjbK_lbOYUPVoidk",
+    "payloadHash": "cfa29bbb",
+    "state": "FAILED",
+    "phase": "update",
+    "entityId": "j4QEUtjbK_lbOYUPVoidk",
+    "snapshotKey": null,
+    "sentAt": null,
+    "createSentAt": null,
+    "confirmedAt": null,
+    "verifiedAt": null,
+    "error": "pre-send validation: live content: unknown key \"requirements\" (schema drift: the pinned contract does not know it and a save would delete it; re-derive src/dungeon/contract.json first)"
+   }
+  ]
+ }
+}
