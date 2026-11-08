@@ -10,7 +10,7 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
-export const PIN = "3314d122c93e036618483d18229a793ad7ad21fd";
+export const PIN = "d6cdee0f30662fd129c310a55223befdea88364e";
 const FILES = Object.freeze({
   validator: "app/src/validators/dungeon.ts",
   router: "app/src/server/api/routers/dungeon.ts",
@@ -22,6 +22,8 @@ const FILES = Object.freeze({
   coopRouter: "app/src/server/api/routers/coop.ts",
   // 3314d122 moved the router's database statements into src/queries (one module per router)
   queries: "app/src/queries/dungeon.ts",
+  // d6cdee0f: tile coordinates moved to shared travel schemas
+  travel: "app/src/validators/travel.ts",
 });
 
 const fail = (m) => { throw new Error(m); };
@@ -93,18 +95,32 @@ function shaped(defs, templates, where) {
 const MSG = String.raw`(?:,"[^"]*")?`;
 const T = {
   content: {
+    // d6cdee0f: quest-style entry rules (level, prerequisite quest, entry item, attempt and clear caps, cooldowns)
+    requirements: /^dungeonRequirementsSchema\.prefault\(\{\}\)$/,
     name: new RegExp(String.raw`^z\.string\(\)\.trim\(\)\.min\(1${MSG}\)\.max\((\d+)\)$`),
     description: /^z\.string\(\)\.max\((\d+)\)\.prefault\(""\)$/,
     structureAssetId: /^mapLocationFields\.structureAssetId$/,
     structureScale: /^mapLocationFields\.structureScale$/,
     sector: /^z\.number\(\)\.int\(\)\.min\(MAP_SECTOR_ID_MIN\)\.max\(MAP_SECTOR_ID_MAX\)$/,
-    longitude: /^z\.number\(\)\.int\(\)\.min\(0\)\.max\(SECTOR_WIDTH-1\)$/,
-    latitude: /^z\.number\(\)\.int\(\)\.min\(0\)\.max\(SECTOR_HEIGHT-1\)$/,
+    longitude: /^sectorLongitudeSchema$/,
+    latitude: /^sectorLatitudeSchema$/,
     expiresAt: /^z\.coerce\.date\(\)\.nullable\(\)$/,
     hidden: /^z\.boolean\(\)\.prefault\((true|false)\)$/,
     background: /^z\.enum\(COMBAT_BIOMES\)\.prefault\("([\w-]+)"\)$/,
     tiers: /^z\.array\(z\.array\(dungeonFloorSchema\)\.length\(DUNGEON_FLOORS_PER_TIER\)\)\.min\(1\)\.max\(DUNGEON_MAX_TIERS\)$/,
     rewards: /^z\.object\(\{.*\}\)$/,
+  },
+  requirements: {
+    requiredLevel: /^z\.number\(\)\.int\(\)\.min\((\d+)\)\.max\(MAX_PLAYER_LEVEL\)\.prefault\((\d+)\)$/,
+    prerequisiteQuestName: /^z\.string\(\)\.optional\(\)$/,
+    requiredItemName: /^z\.string\(\)\.optional\(\)$/,
+    prerequisiteQuestId: /^z\.string\(\)\.min\(1\)\.nullable\(\)\.prefault\(null\)$/,
+    requiredItemId: /^z\.string\(\)\.min\(1\)\.nullable\(\)\.prefault\(null\)$/,
+    requiredItemQuantity: /^z\.number\(\)\.int\(\)\.min\((\d+)\)\.max\(MAX_ITEM_STACK_SIZE\)\.prefault\((\d+)\)$/,
+    maxAttempts: /^z\.number\(\)\.int\(\)\.min\((\d+)\)\.nullable\(\)\.prefault\(null\)$/,
+    maxCompletes: /^z\.number\(\)\.int\(\)\.min\((\d+)\)\.nullable\(\)\.prefault\(null\)$/,
+    attemptDelay: /^z\.enum\(RetryQuestDelays\)\.prefault\("(\w+)"\)$/,
+    retryDelay: /^z\.enum\(RetryQuestDelays\)\.prefault\("(\w+)"\)$/,
   },
   rewards: {
     money: /^z\.number\(\)\.min\(0\)\.max\(DUNGEON_MAX_REWARD_AMOUNT\)\.prefault\((\d+)\)$/,
@@ -129,6 +145,15 @@ const T = {
   wave: {
     aiIds: new RegExp(String.raw`^z\.array\(z\.string\(\)\.min\(1${MSG}\)\)\.min\(1\)$`),
     delayRounds: /^z\.number\(\)\.int\(\)\.min\(0\)\.max\(ENCOUNTER_MAX_WAVE_DELAY_ROUNDS\)\.prefault\((\d+)\)$/,
+    // d6cdee0f: a wave can be the previous boss's next form
+    arrival: /^bossArrivalSchema\.optional\(\)$/,
+  },
+  arrival: {
+    announce: /^z\.string\(\)\.min\((\d+)\)\.max\((\d+)\)$/,
+    log: /^z\.string\(\)\.min\((\d+)\)\.max\((\d+)\)$/,
+    tier: /^z\.number\(\)\.int\(\)\.min\((\d+)\)\.max\(TRANSFORMATION_TIERS\.length\)$/,
+    color: /^z\.number\(\)\.int\(\)\.min\(0\)\.max\((0x[0-9a-fA-F]+)\)$/,
+    glow: /^z\.number\(\)\.int\(\)\.min\(0\)\.max\((0x[0-9a-fA-F]+)\)$/,
   },
   mapLocation: {
     structureAssetId: /^z\.string\(\)\.max\((\d+)\)\.prefault\(""\)$/,
@@ -373,6 +398,7 @@ export function derive(root) {
   const mapLocation = read(FILES.mapLocation);
   const constants = read(FILES.constants);
   const rewardsLib = read(FILES.rewards);
+  const travel = read(FILES.travel);
   const c = constantEvaluator(constants);
 
   const dropBlock = block(validator, "const dungeonDropSchema", "/** Enemy templates");
@@ -383,6 +409,8 @@ export function derive(root) {
   const waveBlock = block(coop, "export const encounterWaveSchema = z.object({", "\n});");
   const mapBlock = block(mapLocation, "export const mapLocationFields = {", "\n};");
   const saveBlock = block(validator, "export const saveDungeonSchema = z.object({", "\n});");
+  const requirementsBlock = block(validator, "export const dungeonRequirementsSchema = z.object({", "\n});");
+  const arrivalBlock = block(coop, "export const bossArrivalSchema = z.object({", "\n});");
 
   // Each member is matched against its whole zod chain (T above), so the bounds below are the
   // constants the schema is bound to, not just constants that happen to exist.
@@ -392,6 +420,19 @@ export function derive(root) {
   const drop = shaped(members(block(dropBlock, ".object({", "  .refine("), 4, "dungeonDropSchema"), T.drop, "dungeonDropSchema");
   const floor = shaped(members(floorBlock, 2, "dungeonFloorSchema"), T.floor, "dungeonFloorSchema");
   const wave = shaped(members(waveBlock, 2, "encounterWaveSchema"), T.wave, "encounterWaveSchema");
+  const req = shaped(members(requirementsBlock, 2, "dungeonRequirementsSchema"), T.requirements, "dungeonRequirementsSchema");
+  const arrival = shaped(members(arrivalBlock, 2, "bossArrivalSchema"), T.arrival, "bossArrivalSchema");
+  // The tile schemas the content binds by name, read whole from travel.ts.
+  one(travel, /export const sectorLongitudeSchema = z\s*\.int\(\)\s*\.min\(0\)\s*\.max\(SECTOR_WIDTH - 1\);/, "sectorLongitudeSchema bounds");
+  one(travel, /export const sectorLatitudeSchema = z\s*\.int\(\)\s*\.min\(0\)\s*\.max\(SECTOR_HEIGHT - 1\);/, "sectorLatitudeSchema bounds");
+  for (const [name, path] of [["sectorLongitudeSchema", "travel"], ["sectorLatitudeSchema", "travel"], ["dungeonRequirementsSchema", null]]) {
+    if (path) one(validator, new RegExp(`import \\{[^}]*\\b${name}\\b[^}]*\\} from "@/validators/${path}";`), `${name} import`);
+  }
+  one(validator, /import \{ type CoopRoster, encounterWaveSchema \} from "@\/validators\/coop";/, "encounterWaveSchema import");
+  const delays = quoted(one(constants, /^export const RetryQuestDelays = \[([^\]]*)\] as const;/m, "RetryQuestDelays")[1]);
+  for (const k of ["attemptDelay", "retryDelay"]) if (!delays.includes(req[k][1])) fail(`requirements.${k} default ${req[k][1]} is not a retry delay`);
+  const transformationTiers = [...block(constants, "export const TRANSFORMATION_TIERS = [", "] as const").matchAll(/^\s*(?:\{ )?tier: (\d+),/gm)].map((m) => Number(m[1]));
+  if (!transformationTiers.length || transformationTiers.some((t, i) => t !== i + 1)) fail(`TRANSFORMATION_TIERS tiers ${transformationTiers.join(",")} are not 1..n`);
   const map = shaped(members(mapBlock, 2, "mapLocationFields"), T.mapLocation, "mapLocationFields");
   shaped(members(saveBlock, 2, "saveDungeonSchema"), T.save, "saveDungeonSchema");
   one(router, /^  save: protectedProcedure\s*\.use\(ratelimitMiddleware\)\s*\.input\(saveDungeonSchema\)\s*\.mutation\(/m, "save input binding");
@@ -409,7 +450,9 @@ export function derive(root) {
   one(rewardsLib, /export const dungeonRewardError/, "reward bound check");
   one(rewardsLib, /total > DUNGEON_MAX_GRANTED_ITEMS/, "granted-item bound binding");
   one(rewardsLib, /amounts\[field\] > DUNGEON_MAX_REWARD_AMOUNT/, "scalar reward bound binding");
-  one(router, /effect\.rewardMode === "weightedCache"/, "cache drop rule");
+  // d6cdee0f: the weighted-cache test moved to libs/weightedCache (isWeightedCacheEffect)
+  one(router, /drop\.type === "cache" &&\s*!items\s*\.find\(\(entry\) => entry\.id === drop\.id\)\s*\?\.effects\.some\(isWeightedCacheEffect\)/, "cache drop rule");
+  one(router, /^import \{ isWeightedCacheEffect \} from "@\/libs\/weightedCache";$/m, "cache drop rule import");
   one(router, /input\.content\.structureAssetId \? findMapAssetForSave\(ctx\.drizzle, input\) : null/, "entrance asset lookup (router)");
   one(read(FILES.queries), /findMapAssetForSave = \([\s\S]{0,160}client\.query\.mapAsset\.findFirst\(\{[\s\S]{0,80}eq\(mapAsset\.id, input\.content\.structureAssetId\)/, "entrance asset lookup (mapAsset)");
   one(router, /drops\.map\(\(\{ package: _snapshot, \.\.\.drop \}\)/, "server-side package snapshot copy");
@@ -439,6 +482,18 @@ export function derive(root) {
     maxRewardQuantity: c("DUNGEON_MAX_REWARD_QUANTITY"),
     maxRewardAmount: c("DUNGEON_MAX_REWARD_AMOUNT"),
     maxGrantedItems: c("DUNGEON_MAX_GRANTED_ITEMS"),
+    requiredLevel: { min: Number(req.requiredLevel[1]), max: c("MAX_PLAYER_LEVEL") },
+    requiredItemQuantity: { min: Number(req.requiredItemQuantity[1]), max: c("MAX_ITEM_STACK_SIZE") },
+    maxAttemptsMin: Number(req.maxAttempts[1]),
+    maxCompletesMin: Number(req.maxCompletes[1]),
+    retryDelays: delays,
+    arrival: {
+      announce: { min: Number(arrival.announce[1]), max: Number(arrival.announce[2]) },
+      log: { min: Number(arrival.log[1]), max: Number(arrival.log[2]) },
+      tier: { min: Number(arrival.tier[1]), max: transformationTiers.length },
+      colorMax: Number(arrival.color[1]),
+      glowMax: Number(arrival.glow[1]),
+    },
   };
   // What zod fills in for an absent (undefined, never null) member: the read-back comparison
   // normalises both sides with these, so an omitted key and its stored default compare equal.
@@ -447,6 +502,11 @@ export function derive(root) {
     rewards: Object.fromEntries([...["money", "experience", "tokens", "prestige"].map((k) => [k, Number(rewards[k][1])]), ["drops", []]]),
     drop: { quantity: Number(drop.quantity[1]) },
     wave: { delayRounds: Number(wave.delayRounds[1]) },
+    requirements: {
+      requiredLevel: Number(req.requiredLevel[2]), prerequisiteQuestId: null, requiredItemId: null,
+      requiredItemQuantity: Number(req.requiredItemQuantity[2]), maxAttempts: null, maxCompletes: null,
+      attemptDelay: req.attemptDelay[1], retryDelay: req.retryDelay[1],
+    },
   };
   const facts = {
     partySize: c("DUNGEON_PARTY_SIZE"),
@@ -473,6 +533,7 @@ export function derive(root) {
     contentFields: Object.keys(content), rewardFields: Object.keys(rewards), dropFields: Object.keys(drop),
     ...(drop.onlyOnce ? { dropFlags: Object.keys(drop).filter((k) => /^z\.boolean\(\)/.test(drop[k].input)) } : {}),
     floorFields: Object.keys(floor), waveFields: Object.keys(wave),
+    requirementFields: Object.keys(req), arrivalFields: Object.keys(arrival),
     floorKinds, dropTypes, biomes, bounds, defaults, facts, procedures,
   };
 }

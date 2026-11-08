@@ -64,10 +64,15 @@ export function liveDrift(content) {
   const out = [];
   const why = "schema drift: the pinned contract does not know it and a save would delete it; re-derive src/dungeon/contract.json first";
   unknownKeys(content, CONTRACT.contentFields, "live content", out, why);
+  if (obj(content.requirements)) unknownKeys(content.requirements, CONTRACT.requirementFields, "live requirements", out, why);
   if (Array.isArray(content.tiers)) content.tiers.forEach((tier, ti) => Array.isArray(tier) && tier.forEach((f, fi) => {
     if (!obj(f)) return;
     unknownKeys(f, CONTRACT.floorFields, `live tiers[${ti}][${fi}]`, out, why);
-    if (Array.isArray(f.waves)) f.waves.forEach((w, wi) => obj(w) && unknownKeys(w, CONTRACT.waveFields, `live tiers[${ti}][${fi}].waves[${wi}]`, out, why));
+    if (Array.isArray(f.waves)) f.waves.forEach((w, wi) => {
+      if (!obj(w)) return;
+      unknownKeys(w, CONTRACT.waveFields, `live tiers[${ti}][${fi}].waves[${wi}]`, out, why);
+      if (obj(w.arrival)) unknownKeys(w.arrival, CONTRACT.arrivalFields, `live tiers[${ti}][${fi}].waves[${wi}].arrival`, out, why);
+    });
   }));
   if (obj(content.rewards)) {
     unknownKeys(content.rewards, CONTRACT.rewardFields, "live rewards", out, why);
@@ -120,6 +125,7 @@ export function dungeonProblems(data, live = null, { preCreate = false, refreshP
   check(d.hidden === undefined || typeof d.hidden === "boolean", "hidden must be boolean");
   check(d.background === undefined || CONTRACT.biomes.includes(d.background), `background must be one of ${CONTRACT.biomes.join(", ")}`);
 
+  requirementProblems(d.requirements, out);
   tierProblems(d.tiers, out);
   // A package snapshot the manifest wrote is refused; one inherited from the live row is the
   // server's own copy and is not the client's to author (review F4).
@@ -129,6 +135,44 @@ export function dungeonProblems(data, live = null, { preCreate = false, refreshP
     out.push(`rewards: package drop(s) ${packages.join(", ")}: coop.dungeon.save re-copies every package snapshot from the CURRENT catalog, which Forge cannot read, so stored package rewards may change. Set "refreshPackages": true to accept that`);
   }
   return out;
+}
+
+/**
+ * dungeonRequirementsSchema: quest-style entry rules. Absent means the schema default ({} filled
+ * member by member); zod's prefault fills undefined only, so an explicit null is refused where the
+ * member is not nullable. The names are display copies the editor keeps beside the ids.
+ */
+function requirementProblems(r, out) {
+  if (r === undefined) return;
+  if (!obj(r)) { out.push("requirements must be an object (null is not accepted)"); return; }
+  unknownKeys(r, CONTRACT.requirementFields, "requirements", out);
+  const R = D.requirements;
+  const v = (k) => (r[k] === undefined ? R[k] : r[k]);
+  if (!int(v("requiredLevel"), B.requiredLevel.min, B.requiredLevel.max)) out.push(`requirements.requiredLevel must be an integer ${B.requiredLevel.min}..${B.requiredLevel.max}`);
+  for (const k of ["prerequisiteQuestName", "requiredItemName"]) if (r[k] !== undefined && !str(r[k])) out.push(`requirements.${k} must be text`);
+  for (const [k, ref] of [["prerequisiteQuestId", "quest"], ["requiredItemId", "item"]]) {
+    if (v(k) === null) continue;
+    const p = idProblem(v(k), [ref], `requirements.${k}`);
+    if (p) out.push(p);
+  }
+  if (!int(v("requiredItemQuantity"), B.requiredItemQuantity.min, B.requiredItemQuantity.max)) out.push(`requirements.requiredItemQuantity must be an integer ${B.requiredItemQuantity.min}..${B.requiredItemQuantity.max}`);
+  for (const [k, min] of [["maxAttempts", B.maxAttemptsMin], ["maxCompletes", B.maxCompletesMin]]) {
+    if (v(k) !== null && !int(v(k), min, Number.MAX_SAFE_INTEGER)) out.push(`requirements.${k} must be null (no cap) or an integer of at least ${min}`);
+  }
+  for (const k of ["attemptDelay", "retryDelay"]) if (!B.retryDelays.includes(v(k))) out.push(`requirements.${k} must be one of ${B.retryDelays.join(", ")}`);
+}
+
+/** bossArrivalSchema: the wave is the previous enemy's next form. */
+function arrivalProblems(a, w, out) {
+  if (a === undefined) return;
+  const where = `${w}.arrival`;
+  if (!obj(a)) { out.push(`${where} must be an object`); return; }
+  unknownKeys(a, CONTRACT.arrivalFields, where, out);
+  const A = B.arrival;
+  for (const k of ["announce", "log"]) if (!(str(a[k]) && a[k].length >= A[k].min && a[k].length <= A[k].max)) out.push(`${where}.${k} must be text of ${A[k].min}..${A[k].max} characters`);
+  if (!int(a.tier, A.tier.min, A.tier.max)) out.push(`${where}.tier must be an integer ${A.tier.min}..${A.tier.max}`);
+  if (!int(a.color, 0, A.colorMax)) out.push(`${where}.color must be an integer 0..${A.colorMax}`);
+  if (!int(a.glow, 0, A.glowMax)) out.push(`${where}.glow must be an integer 0..${A.glowMax}`);
 }
 
 function tierProblems(tiers, out) {
@@ -164,6 +208,7 @@ function tierProblems(tiers, out) {
         const delay = wave.delayRounds === undefined ? D.wave.delayRounds : wave.delayRounds;
         if (!int(delay, 0, B.maxWaveDelayRounds)) out.push(`${w}.delayRounds must be an integer 0..${B.maxWaveDelayRounds} (null is not accepted)`);
         else if (wi === 0 && delay !== 0) out.push(`${w}.delayRounds must be 0: the first wave starts immediately`);
+        arrivalProblems(wave.arrival, w, out);
       });
     });
   });
@@ -232,6 +277,9 @@ export function normalizeDungeon(c) {
     return r;
   };
   const n = fill(D.content, c);
+  // requirements prefaults to {}, then each member to its own default
+  if (n.requirements === undefined) n.requirements = structuredClone(D.requirements);
+  else if (obj(n.requirements)) n.requirements = fill(D.requirements, n.requirements);
   if (str(n.name)) n.name = n.name.trim();
   if (n.expiresAt !== null && validDate(n.expiresAt)) n.expiresAt = new Date(n.expiresAt).toISOString();
   if (Array.isArray(n.tiers)) {

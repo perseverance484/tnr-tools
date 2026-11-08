@@ -1,20 +1,22 @@
 {
   "_meta": {
-    "pin": "3314d122c93e036618483d18229a793ad7ad21fd",
+    "pin": "d6cdee0f30662fd129c310a55223befdea88364e",
     "scope": "Dungeon definitions only (coop.dungeon.save / coop.dungeon.getAll); lobby, run and claim procedures are out of scope",
     "sources": {
-      "app/src/validators/dungeon.ts": "273106cdc6735260f993fcbaea85f299b1a3f7bef2d93751ca269ad5ae03c152",
-      "app/src/server/api/routers/dungeon.ts": "56464424c185cefc16d75636b3e2620f23277c829176ea39b3d76d0b15525cd9",
-      "app/src/validators/coop.ts": "e4e3c2c5b8e2a7bb865967933b0c51ce5968199fee5e274a27b7b66edf95e450",
-      "app/src/validators/mapLocation.ts": "274f5a713ba37c6dea42102071a29fb3ecfca4d563d19a663e3fb6e9f8222b0e",
-      "app/drizzle/constants.ts": "f39417940b09b02549170302bc7b17345bb20199ab5e6ae2428ff1ef0bad0e6c",
-      "app/src/libs/dungeonRewards.ts": "2f10a5e9fe846845c04df8ed2605a874608a8f56ce556ce5379573abadf7fc82",
-      "app/src/server/api/root.ts": "30654af86921d736c2f0bb7d7787c3825954bee55a9684e29cab19d1fc60f7c4",
+      "app/src/validators/dungeon.ts": "04f8a5e9ef4a3791d4722973d028250b2730b9444406964e58bbebd81f6671eb",
+      "app/src/server/api/routers/dungeon.ts": "026853d1887fc09712991d167241b4d6a72d85defdbb2e4bddc69b07c430bd01",
+      "app/src/validators/coop.ts": "52afe32565c828e3eb3358224cbcbed1c22c958e31c1735c2a9708428fd8e7c0",
+      "app/src/validators/mapLocation.ts": "9ff36dae5df8bc24ce714bdc1c57e6bb37e0d9590a8d442695ca625dc7d0d344",
+      "app/drizzle/constants.ts": "5086087836dff3aa0dcf7b5fc93b6b9b3dc8e73abc2a654e19f924a84adada95",
+      "app/src/libs/dungeonRewards.ts": "a676a0248e114758844549d328bfcf9514c3de83019a43f8e4e2a4ed34304452",
+      "app/src/server/api/root.ts": "00d9dfbab2279b7d114745074da6d6631bd1c362ba17c5313ceb35790ccdca65",
       "app/src/server/api/routers/coop.ts": "2ef0395758c845fe4f5dbc093a3b1a9b38b8bd27915a07e511c8a51508eac898",
-      "app/src/queries/dungeon.ts": "06ce1e246a83f8dd3761375c3f0e54d3bb878cfea0da8a50a8d3c4fb71b3a21f"
+      "app/src/queries/dungeon.ts": "85c35eab103c6c10bb328b15717a0aeecb5a5a29a7b86743111af1009db9e1f9",
+      "app/src/validators/travel.ts": "886e32fa4cc3ff7b5b1468977c269523428835379bb743ab6d66e58c1f0fd088"
     }
   },
   "contentFields": [
+    "requirements",
     "name",
     "description",
     "structureAssetId",
@@ -52,7 +54,27 @@
   ],
   "waveFields": [
     "aiIds",
-    "delayRounds"
+    "delayRounds",
+    "arrival"
+  ],
+  "requirementFields": [
+    "requiredLevel",
+    "prerequisiteQuestName",
+    "requiredItemName",
+    "prerequisiteQuestId",
+    "requiredItemId",
+    "requiredItemQuantity",
+    "maxAttempts",
+    "maxCompletes",
+    "attemptDelay",
+    "retryDelay"
+  ],
+  "arrivalFields": [
+    "announce",
+    "log",
+    "tier",
+    "color",
+    "glow"
   ],
   "floorKinds": [
     "floor",
@@ -107,7 +129,39 @@
     },
     "maxRewardQuantity": 100,
     "maxRewardAmount": 1000000000,
-    "maxGrantedItems": 2000
+    "maxGrantedItems": 2000,
+    "requiredLevel": {
+      "min": 1,
+      "max": 110
+    },
+    "requiredItemQuantity": {
+      "min": 1,
+      "max": 9999
+    },
+    "maxAttemptsMin": 1,
+    "maxCompletesMin": 1,
+    "retryDelays": [
+      "daily",
+      "weekly",
+      "monthly",
+      "none"
+    ],
+    "arrival": {
+      "announce": {
+        "min": 1,
+        "max": 32
+      },
+      "log": {
+        "min": 1,
+        "max": 200
+      },
+      "tier": {
+        "min": 1,
+        "max": 4
+      },
+      "colorMax": 16777215,
+      "glowMax": 16777215
+    }
   },
   "defaults": {
     "content": {
@@ -129,6 +183,16 @@
     },
     "wave": {
       "delayRounds": 0
+    },
+    "requirements": {
+      "requiredLevel": 1,
+      "prerequisiteQuestId": null,
+      "requiredItemId": null,
+      "requiredItemQuantity": 1,
+      "maxAttempts": null,
+      "maxCompletes": null,
+      "attemptDelay": "none",
+      "retryDelay": "none"
     }
   },
   "facts": {

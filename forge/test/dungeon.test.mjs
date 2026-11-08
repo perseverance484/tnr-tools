@@ -8,7 +8,7 @@ import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { IDBFactory } from "fake-indexeddb";
-import { dungeonProblems, CONTRACT } from "../src/dungeon/validate.mjs";
+import { dungeonProblems, CONTRACT, liveDrift, mergeDungeon, normalizeDungeon, dungeonDiffs } from "../src/dungeon/validate.mjs";
 import { parseManifest, planOrder, ManifestError, MAX_DUNGEON_WRITES } from "../src/runner/manifest.mjs";
 import { mergeForUpdate, recipe } from "../src/runner/recipes.mjs";
 import { checkManifest } from "../tools/check_manifest.mjs";
@@ -38,8 +38,8 @@ const harness = (opts = {}) => composeForTest({ game: new FakeGame(), storage: n
 
 // ------------------------------------------------------------------ contract
 test("contract: derived from the pin, covering every rule the validator mirrors", () => {
-  assert.equal(CONTRACT._meta.pin, "3314d122c93e036618483d18229a793ad7ad21fd");
-  assert.deepEqual(CONTRACT.contentFields, ["name", "description", "structureAssetId", "structureScale", "sector", "longitude", "latitude", "expiresAt", "hidden", "background", "tiers", "rewards"]);
+  assert.equal(CONTRACT._meta.pin, "d6cdee0f30662fd129c310a55223befdea88364e");
+  assert.deepEqual(CONTRACT.contentFields, ["requirements", "name", "description", "structureAssetId", "structureScale", "sector", "longitude", "latitude", "expiresAt", "hidden", "background", "tiers", "rewards"]);
   assert.deepEqual(CONTRACT.dropFields, ["type", "id", "chance", "onlyOnce", "quantity", "package"]);
   assert.deepEqual(CONTRACT.dropFlags, ["onlyOnce"]); // 3314d122: z.boolean().optional(), once per player and dungeon
   assert.deepEqual(CONTRACT.floorKinds, ["floor", "mini-boss", "boss"]);
@@ -47,6 +47,57 @@ test("contract: derived from the pin, covering every rule the validator mirrors"
   assert.equal(B.floorsPerTier, 5); assert.equal(B.maxTiers, 4); assert.equal(B.maxWaves, 5); assert.equal(B.maxMobs, 10);
   assert.equal(B.sector.max, 1943); assert.equal(B.longitude.max, 25); assert.equal(B.maxRewardAmount, 1e9);
   assert.deepEqual(CONTRACT.facts, { partySize: 3, runSeconds: 3600, inactiveRounds: 3 });
+  // d6cdee0f: quest-style entry rules and boss-form waves
+  assert.deepEqual(CONTRACT.requirementFields, ["requiredLevel", "prerequisiteQuestName", "requiredItemName", "prerequisiteQuestId", "requiredItemId", "requiredItemQuantity", "maxAttempts", "maxCompletes", "attemptDelay", "retryDelay"]);
+  assert.deepEqual(CONTRACT.waveFields, ["aiIds", "delayRounds", "arrival"]);
+  assert.deepEqual(B.retryDelays, ["daily", "weekly", "monthly", "none"]);
+  assert.equal(B.requiredLevel.max, 110);
+});
+
+// ------------------------------------------------------------------ entry rules (d6cdee0f)
+// The Skyglass Wrecks' live entry rules (2026-11-08): an expiry edit must keep them.
+const wreckRules = { requiredLevel: 80, retryDelay: "daily", maxCompletes: 100, maxAttempts: null, attemptDelay: "none", requiredItemId: null, requiredItemQuantity: 1, prerequisiteQuestId: null };
+const liveWreck = () => ({ id: "w1", updatedAt: "2026-11-07T00:00:00.000Z", content: { ...content({ hidden: false, expiresAt: null }), requirements: { ...wreckRules } } });
+
+test("entry rules: a live Wreck with requirements is no longer schema drift", () => {
+  assert.deepEqual(liveDrift(liveWreck().content), []);
+  const odd = liveWreck(); odd.content.requirements.newRule = 1;
+  assert.match(liveDrift(odd.content).join(), /live requirements: unknown key "newRule"/);
+});
+
+test("entry rules: an expiry-only edit is accepted and sends the requirements unchanged", () => {
+  const live = liveWreck(), data = { expiresAt: "2026-11-10T00:00:00.000Z" };
+  assert.deepEqual(dungeonProblems(data, live), []);
+  const sent = mergeDungeon(live, data);
+  assert.deepEqual(sent.requirements, wreckRules);
+  assert.equal(sent.expiresAt, "2026-11-10T00:00:00.000Z");
+  assert.deepEqual(dungeonDiffs(data, sent), []);
+});
+
+test("entry rules: bounds and enums follow dungeonRequirementsSchema", () => {
+  const bad = (r) => dungeonProblems({ ...content(), requirements: r }, null, { preCreate: true }).join();
+  assert.equal(bad({}), "");
+  assert.equal(bad({ requiredLevel: 30, retryDelay: "weekly", maxCompletes: 5, requiredItemId: "@item:key", prerequisiteQuestId: "q1" }), "");
+  assert.match(bad({ requiredLevel: 0 }), /requiredLevel must be an integer 1\.\.110/);
+  assert.match(bad({ retryDelay: "hourly" }), /retryDelay must be one of/);
+  assert.match(bad({ maxCompletes: 0 }), /maxCompletes must be null/);
+  assert.match(bad({ requiredItemId: "@jutsu:x" }), /requiredItemId/);
+  assert.match(bad(null), /requirements must be an object/);
+  assert.match(bad({ cap: 1 }), /unknown key "cap"/);
+});
+
+test("entry rules: an absent requirements object reads back as the schema defaults", () => {
+  const n = normalizeDungeon({ ...content() });
+  assert.deepEqual(n.requirements, CONTRACT.defaults.requirements);
+  assert.deepEqual(normalizeDungeon({ ...content(), requirements: { requiredLevel: 30 } }).requirements, { ...CONTRACT.defaults.requirements, requiredLevel: 30 });
+});
+
+test("boss forms: a wave arrival is checked against bossArrivalSchema", () => {
+  const c = content();
+  c.tiers[0][1].waves.push({ aiIds: ["ai-x"], delayRounds: 1, arrival: { announce: "RISE", log: "It rises again.", tier: 2, color: 0xff0000, glow: 0x00ff00 } });
+  assert.deepEqual(dungeonProblems(c, null, { preCreate: true }), []);
+  c.tiers[0][1].waves[1].arrival.tier = 9;
+  assert.match(dungeonProblems(c, null, { preCreate: true }).join(), /arrival\.tier must be an integer 1\.\.4/);
 });
 
 test("contract: tools/derive_dungeon.mjs --check against a game checkout, when one is supplied", { skip: !process.env.TNR_GAME_CHECKOUT && "set TNR_GAME_CHECKOUT to a checkout at the pin" }, () => {
