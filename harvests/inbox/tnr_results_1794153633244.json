@@ -1,0 +1,119 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-08T16:00:33.244Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 2,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Skyglass Wreck: expire at 2026-11-10T00:00:00.000Z",
+   "srcId": null,
+   "entity": "dungeon",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "RHqzYdY4EAQA9HwsBKWDS"
+  },
+  {
+   "name": "Faded Skyglass Wreck: expire at 2026-11-10T00:00:00.000Z",
+   "srcId": null,
+   "entity": "dungeon",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "j4QEUtjbK_lbOYUPVoidk"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "sg512_journal_p2": "V-i3ZcAqPu0hB3G9IEzGo"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "514-mw80o7kv",
+  "manifestPath": "push/514_skyglass_wreck_window.json",
+  "manifestNumber": 514,
+  "manifestHash": "97d6d0c3",
+  "startedAt": "2026-11-08T15:58:23.851Z",
+  "updatedAt": "2026-11-08T16:00:33.241Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "dungeon",
+    "op": "update",
+    "name": "Skyglass Wreck: expire at 2026-11-10T00:00:00.000Z",
+    "srcId": null,
+    "targetId": "RHqzYdY4EAQA9HwsBKWDS",
+    "payloadHash": "abc6370f",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "RHqzYdY4EAQA9HwsBKWDS",
+    "snapshotKey": null,
+    "sentAt": "2026-11-08T15:58:37.403Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-08T15:59:19.209Z",
+    "verifiedAt": "2026-11-08T15:59:33.263Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "expiresAt"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 1,
+    "entity": "dungeon",
+    "op": "update",
+    "name": "Faded Skyglass Wreck: expire at 2026-11-10T00:00:00.000Z",
+    "srcId": null,
+    "targetId": "j4QEUtjbK_lbOYUPVoidk",
+    "payloadHash": "cfa29bbb",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "j4QEUtjbK_lbOYUPVoidk",
+    "snapshotKey": null,
+    "sentAt": "2026-11-08T15:59:51.000Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-08T16:00:19.400Z",
+    "verifiedAt": "2026-11-08T16:00:33.240Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "expiresAt"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
