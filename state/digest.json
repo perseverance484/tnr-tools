@@ -1,78 +1,62 @@
 {
-  "generated": "2026-10-17",
-  "session": "Art tooling: isolated art-generation protocol (PR #31) and JUTSU_ICON opaque preflight (PR #34) integrated; protocol finalized; BBE jutsu-icon collection closed on dauntless's report",
-  "state_line": "ISOLATED ART-GENERATION WORKFLOW FINAL. docs/workflows/ISOLATED_ART_GENERATION.md is the final protocol (RUL-2026-10-14-001) and its tooling contract is integrated: jutsu.image has its own JUTSU_ICON spec target with alpha optional, so a designed opaque background passes artpreflight; item and bloodline icons stay on ICON and still require alpha; --max-bytes enforces any workstream byte cap; --type is always passed in the workflow. ChatGPT's F1 finding was corrected; the focused re-review was done at dauntless's direction by a separate Claude reviewer agent (PASS WITH NOTES). BBE jutsu-icon collection CLOSED 2026-10-17 on dauntless's report; its exports and uploads are not recorded in the repository. Other workstream entries below are carried from the 2026-09-20 digest and were NOT reverified this session.",
+  "generated": "2026-11-08",
+  "session": "State refresh (2026-11-08): the digest had not been updated since 2026-10-17. Rewritten from main@05982ffa, state/run_queue.json and the open branches; the 2026-10-17 digest is archived at archive/state/digest_2026-10-17_isolated_art.json.",
+  "state_line": "Skyglass event LIVE: the Watch Log (First Page, Second Page) and both Skyglass Wrecks run on a weekly Friday 6 PM Central release. Mother of Echoes (the finale) stays HIDDEN until the upstream clip-size revert (EFFECT_ANIMATION_HEX_RATIO 2.5). Its art was uploaded by Duet on branch duet/moe-uploadthing (not merged; see in_progress). Delivery changed 2026-11-06/07: agents write the live game through the director's TNR connector after gates and the director's go (RUL-2026-11-06-132), one runner at a time under the run lock (RUL-2026-11-07-133), routine in docs/workflows/OPERATING_MODEL.md (RUL-2026-11-07-135). What is waiting to run is state/run_queue.json, which is the live job board; this file is the orientation.",
   "verified_at_close": [
-    "doctrinemap -> 21 assertion(s), 18 referenced, 16 surface(s) scanned; 0 error(s), 0 warning(s)",
-    "doctrine projections -> all projections current (exit 0)",
-    "packs/TOCs -> all packs and TOCs current (exit 0)",
-    "lawmap -> 93 laws, 93 matrix rows, 77 citations across 36 files; 0 errors, 5 warnings (16d, 18, 37, 61, 69; pre-existing)",
-    "parity tnr_results_1791906972359.json -> RED (EXIT 1): validate.py --parity raises TypeError on the bundle's checks:null. Pre-existing (bundle committed 2026-10-13 at 057acdd; validate.py untouched this session); not fixed and not reported green. session_close.py run without --guards because of it.",
-    "artpreflight_selftest.py on main@0c74ef7 -> 98 passed, 0 failed; shotlist 23/0, rawqc OK, style_refs passed",
-    "Live-game requests 0; live-game writes 0; credentials none."
+    "doctrinemap -> 21 assertion(s), 18 referenced, 16 surface(s) scanned; 0 error(s), 0 warning(s) (main@05982ffa, 2026-11-08)",
+    "render_doctrine.py --check -> all projections current (exit 0)",
+    "build_packs.py --check -> all packs and TOCs current (exit 0)",
+    "lawmap -> 93 laws, 93 matrix rows, 80 citations across 42 files; 0 errors, 5 warnings (pre-existing)",
+    "forge CI on main -> RED since 595af9f6: forge_bundle.js not rebuilt after a forge/src change. Rebuild on fable/forge-bundle-rebuild (9944a8bc); bundle 482,780 raw is 780 bytes over the 482,000 budget, pending the director.",
+    "validate.py --parity -> RED on bundles whose checks is null (TypeError), carried from 2026-10-13, not fixed."
   ],
   "in_progress": {
-    "isolated_art_workflow": "FINAL. Protocol docs/workflows/ISOLATED_ART_GENERATION.md; tooling integrated at main@0c74ef7 (PR #34). BBE register closed 2026-10-17 and kept as the worked example.",
-    "forge_size_pass": "COMPLETE / integrated at 05e7156 and released in Forge 0.5.1. Budget ratchet now 354000 raw/78000 gzip; measured 339669/74926. [carried from 2026-09-20; not reverified 2026-10-17]",
-    "godstorm_publication": "The three new Stormcourt assets and the Stormcourt quest are live but HIDDEN, as doctrine requires. Publishing is a separate step that waits on the content admin's go-ahead and is dauntless's to perform. [carried from 2026-09-20; not reverified 2026-10-17]",
-    "forge_next_phase1": "NEXT IMPLEMENTATION WORK per RUL-2026-09-20-004. READY/FROZEN contract remains on main at state/prompt_forge_next_phase1.md; implementation still has not begun. [carried from 2026-09-20; not reverified 2026-10-17]",
-    "branch_cleanup": "Approved keep/delete plan remains on main at docs/reviews/FORGE_NEXT_BRANCH_CLEANUP_FINAL.md. Redundant refs still present. [carried from 2026-09-20; not reverified 2026-10-17]",
-    "quest_studio_phase_s": "Accepted source chatgpt/forge-quest-studio-foundation@5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15 retained; not integrated. [carried from 2026-09-20; not reverified 2026-10-17]",
-    "forge_presentation_studio": "P0/P1 COMPLETE / integrated and released in Forge 0.5.1. Design contract ACCEPTED (RUL-2026-09-20-001); decoration off, binaries uncommitted (RUL-2026-09-20-002/003). P2 renderer is QUEUED BEHIND Forge Next Phase 1 (RUL-2026-09-20-004); its brief is ChatGPT's to write and is unblocked. Art prerequisites still gate P2: source-archive resolution at 1bca57ee, the approved-derivative path, and MIME/dimensions - 5 of 23 registry entries have verified bytes today. [carried from 2026-09-20; not reverified 2026-10-17]"
+    "mother_of_echoes": "Final tuning (501) and art. Duet uploaded the art to the director's UploadThing and ran follow-ups on duet/moe-uploadthing (14 commits ahead, 86 behind main, unmerged; its push numbers 509/511/512 collide with different jobs on main). Next: reconcile that branch into main, then unhide (502), live test on practice quest 469, go-live (477) after the clip-size revert. run_queue rows 506/502 do not yet reflect Duet's upload.",
+    "skyglass_watch_log": "Pages 1-2 live; pages 3 (Stolen Stores) and 4 (Her Invitation, needs Mother of Echoes live) created as drafts awaiting the director's go on rewards; rename of page 2 awaits the director's go on names (run_queue 517-520, 526).",
+    "skyglass_salvager_thread": "509/511 (main numbering) ready for a browser image run; 510 go-live waits on both and a director playtest.",
+    "subaku_palace": "Art done and reviewed; parked by the director (503/504/505).",
+    "asset_cleanup": "Delete unused director-made assets. Inventory started 2026-11-07, paused. gameAsset.delete has no reference check, so the inventory is the safety net.",
+    "afterburn_report": "Players report enemies taking afterburn from round 1 on the Skyglass Wreck boss floor (battle NgHl3Qk6oHffHNE6CWfzk). Narrowed to a 50% afterburn on the opening wave only; not our content. Needs one read of a live boss-floor battle's effects to name the source.",
+    "repo_cleanup": "Audit 2026-11-08 (see next): Forge CI, this refresh, RULINGS split, archiving spent manifests/state/docs, legacy builder files, branch pruning, large files."
   },
   "decisions": [
-    "2026-10-14 RULED (dauntless): Art Studio + isolated per-image generation conversations; newly produced jutsu icons carry designed backgrounds and transparency is not required; BBE jutsu-icon exports must be under 80,000 bytes. RUL-2026-10-14-001.",
-    "2026-10-17 DIRECTED (dauntless): ChatGPT out of tokens; finish the JUTSU_ICON F1 re-review and integration without it. Substitute review by a separate Claude reviewer agent, recorded in docs/reviews/JUTSU_ICON_F1_FOCUSED_REREVIEW_20261017.md. One-off process deviation, not a precedent."
+    "2026-11-06 RULED (director): agents may write the live game through the TNR connector after gates and the director's go. RUL-2026-11-06-132.",
+    "2026-11-07 RULED (director): one runner at a time, run lock + run queue. RUL-2026-11-07-133; bundle budget 482,000/117,000 RUL-2026-11-07-134; operating model RUL-2026-11-07-135.",
+    "2026-11-08 DIRECTED (director): repository cleanup and optimization, starting with the Forge CI fix and this state refresh."
   ],
   "deployed": [
-    "main@f083ddecfd400431ae2160d814546dab30f54f15: PR #31 merged - docs/workflows/ISOLATED_ART_GENERATION.md, docs/design/blue_blade_eyes/JUTSU_ICON_REGISTER.md + SOURCE_EVIDENCE.json, RUL-2026-10-14-001. Review record docs/reviews/ISOLATED_ART_GENERATION_PR31_INDEPENDENT_REVIEW_2026-10-14.md.",
-    "main@0c74ef724f2d622816ef9d228572f76dbf24b24b: PR #34 merged - 25x_DATA_art_spec.json JUTSU_ICON target, artpreflight.py alpha policy + allow-listed jutsu inference + --max-bytes, selftest 38 -> 98, docs. Reviewed code head fe3712129c3bd86f10bdf9e7eadf2539ebd10d70.",
-    "dist/producing-tnr-art.zip rebuilt by skillpack.yml; packaged spec/artpreflight/selftest/SKILL.md byte-identical to source. Skill reinstall by dauntless not yet done.",
-    "Protocol finalized: ISOLATED_ART_GENERATION.md status FINAL, BBE-specific limits generalised to per-collection registers, collection-closing rule added; BBE register marked CLOSED."
+    "main@526752b2: run lock (reviewed by the director, 3 rounds); released to the browser as Forge 0.12.5 (b7601ffb, loader re-pinned by release_pin.yml).",
+    "push/507: The Watch Log First Page and the new Wreck Sighted published (2026-11-06).",
+    "push/512, 513, 514, 516, 525 (main numbering): Watch Log Second Page created, published, retimed; Wreck windows set (2026-11-08, connector runs)."
   ],
   "open_by_owner": {
-    "dauntless": [
-      "Decide whether jutsu icons get their own prompt scaffold (art direction).",
-      "Reinstall the producing-tnr-art skill from dist/ to pick up JUTSU_ICON.",
-      "Godstorm repair is complete and verified; nothing further is owed on it. The three new assets and the quest are live but hidden. [carried from 2026-09-20]",
-      "Publishing the Godstorm content is a separate step and waits on the content admin's go-ahead. [carried from 2026-09-20]",
-      "Optionally delete redundant branch refs per docs/reviews/FORGE_NEXT_BRANCH_CLEANUP_FINAL.md. [carried from 2026-09-20]"
+    "director": [
+      "Bundle budget: approve a raise (Forge CI is red until the bundle fits; the rebuilt bundle is 780 bytes over 482,000).",
+      "Go on Watch Log pages 3-4 rewards and the page names (517, 519, 526).",
+      "Salvager's thread: browser image runs 509/511 (main numbering) and the playtest before 510.",
+      "Mother of Echoes: go-live after the clip-size revert; decide how Duet's duet/moe-uploadthing work lands on main."
+    ],
+    "duet": [
+      "Reconcile duet/moe-uploadthing with main (rebase or merge, renumber its 509/511/512 to unused numbers, update run_queue 506/502).",
+      "Its Forge changes on that branch (b935b18e, e077a73f, 067b20b2) need independent review before they reach main; CI on b935b18e is red.",
+      "Claim the run lock as --holder duet, and commit under its own name, so its runs and commits are distinguishable from Claude's."
     ],
     "claude": [
-      "mission.py --selftest cannot find its data outside /mnt/project in the cloud container (pre-existing; not touched).",
-      "P0 size pass and P1 dossier/spec/lint are integrated and released; no further R1-R3 correction remains. [carried from 2026-09-20]",
-      "After director acceptance of the design contract, prepare the concrete P2 brief including source-archive resolution, approved derivatives, MIME/dimensions and exact-art readiness. Keep renderer delivery separate from installed Android acceptance. [carried from 2026-09-20]",
-      "If any approved art/godstorm bytes change, regenerate the pack under its existing workflow; do not re-derive shipped art or alter historical captures. [carried from 2026-09-20]"
+      "Repo cleanup steps 3-8 (RULINGS split, archive spent manifests/state/docs, legacy builder files, branch pruning, large files, history-rewrite decision).",
+      "Asset-cleanup inventory; afterburn report (needs a live boss-floor read)."
     ],
     "chatgpt": [
-      "Optional: cross-model re-review of PR #34 when tokens allow; the focused re-review was a Claude substitute.",
-      "Design contract/Godstorm reference at chatgpt/forge-presentation-studio-design@4532ef917a1dfb40d00c554fd7f065e13216afc7 remains a proposal awaiting director acceptance before P2. [carried from 2026-09-20]",
-      "Continue design/review ownership; Fable retains implementation ownership. R1-R3 closure report is pinned at 939168b6045e2469ec2c9934429b2c61b4ef1a9a. [carried from 2026-09-20]"
-    ],
-    "legacy_content_state": [
-      "The 2026-09-08 mission/law queue is still unreverified. lawmap.py reports 0 errors and 5 pre-existing classification warnings (laws 16d, 18, 37, 61, 69), which belong to the legacy law-provenance workstream and were deliberately not touched."
+      "Review fable/forge-bundle-rebuild, fable/state-refresh, and Duet's Forge commits."
     ]
   },
   "rulings_open": [
-    "Whether the pre-upload re-hash stays permanently, or identity alone suffices once the Forge size pass runs. Reviewer accepted it for now.",
-    "Repository path prefix policy for packs (any safe repo-relative path vs an art/ allowlist) remains intentionally open; digest plus commit bind the bytes either way.",
-    "Whether validate.py should learn the imagePack key by INVOKING the Node contract rather than duplicating it.",
-    "Legacy law-provenance issues, including laws 19/23/37, remain outside this work and must be reverified from their owning evidence.",
-    "Forge Next Phase 2+ director choices remain deferred until the brief for the phase that needs them. The Presentation Studio decisions are settled (RUL-2026-09-20-001..004)."
+    "Whether to rewrite git history to drop large preview GIFs and raw art (main force-push; breaks existing clones). Not proposed yet.",
+    "Legacy law-provenance issues, including laws 19/23/37, remain outside current work and must be reverified from their owning evidence."
   ],
-  "next": "The isolated art-generation workflow is final; use it for the next art collection, with --type JUTSU_ICON for jutsu icons. The 2026-09-20 carried next step (Forge Next Phase 1 from state/prompt_forge_next_phase1.md) has not been reverified against work merged since; confirm before picking it up.",
+  "next": "Read state/run_queue.json for what is waiting to run. Lane A: repo cleanup per the 2026-11-08 audit (Forge CI first). Lane B: Skyglass weekly releases and Watch Log pages as the queue says; Mother of Echoes waits on the clip-size revert.",
   "token_ledger": [],
   "board": {
-    "forge_next": {
-      "phase_0": "COMPLETE / integrated",
-      "phase_1": "READY / FROZEN; implementation not begun at closeout",
-      "phase_s_quest_studio": "accepted source retained; not integrated",
-      "phase_2_plus": "not begun",
-      "cleanup": "selective consolidation complete; redundant branch-ref deletion pending",
-      "image_packs": "COMPLETE / integrated / released as 0.5.0 / first production run verified end to end by content",
-      "bundle_budget": "354000 raw/78000 gzip; size pass integrated and released in Forge 0.5.1; measured 339669/74926."
-    },
-    "legacy_state_notice": "Global state before this closeout was a 2026-09-08 mission-flatten digest and was not reliable as current Forge state. It is archived verbatim; live/content claims from it must be reverified before use.",
+    "legacy_state_notice": "Rewritten 2026-11-08 after three weeks without an update; entries from before 2026-11-06 were dropped as superseded (archive/state/digest_2026-10-17_isolated_art.json keeps them).",
     "godstorm_53": "RUN AND VERIFIED on Forge 0.5.0 (9/9 match); manifest archived; live content is hidden pending a publishing decision",
     "forge_presentation_studio": {
       "phase_p0": "COMPLETE / integrated / released in Forge 0.5.1",
@@ -108,9 +92,12 @@
       "bbe_collection": "CLOSED 2026-10-17 (dauntless report); exports/uploads not recorded in repo",
       "unverified": "whether an opaque jutsu icon hides a rarity frame in game"
     },
-    "carried_state_notice": "2026-10-17: only this session's art-tooling entries were verified. Every other entry is carried verbatim from the 2026-09-20 digest; work merged since then (e.g. Ghost Ship Skyglass releases, QW-1 workstream starter) is not summarised here - read docs/RULINGS.md and docs/reviews/ before relying on any carried line."
+    "carried_state_notice": "2026-10-17: only this session's art-tooling entries were verified. Every other entry is carried verbatim from the 2026-09-20 digest; work merged since then (e.g. Ghost Ship Skyglass releases, QW-1 workstream starter) is not summarised here - read docs/RULINGS.md and docs/reviews/ before relying on any carried line.",
+    "forge": {
+      "release": "0.12.5 (run lock), loader pinned to b7601ffb",
+      "bundle_budget": "482,000 raw / 117,000 gzip (RUL-2026-11-07-134)",
+      "ci": "red on main since 595af9f6 (bundle not rebuilt); fix on fable/forge-bundle-rebuild"
+    }
   },
-  "ruled_this_session": [
-    "RUL-2026-10-14-001"
-  ]
+  "ruled_this_session": []
 }
