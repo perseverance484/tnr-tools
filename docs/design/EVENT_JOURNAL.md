@@ -108,7 +108,7 @@ reusable: an old page can return later as a new record with new dates.
 |---|---|---|
 | Second: "The Rotted Heading" (built: push/512, rewards a draft for the director) | the rot | The Captain's Watch ×1 (Archive Chart Case); the Low Tide Run or the Night Watch ×1 (Medicine Inro; replaced the Serum order 2026-11-08, the Serum can't be used in battle); The Fall ×1 (Galley Stores); The Rotted Reliquary ×1 (Skyglass Coffer); The Burning Heading ×1 (Sealed Treasury); all five: Skyglass Token. Window 2026-11-13 to 2026-11-17 00:00 UTC |
 | Third: "The Stores" (built: push/517, rewards a draft) | the Haul | a common run ×2 (Tide Chart); a Rare run ×2 (Archive Chart Case); any Haul room ×2 (Galley Stores); The Sealed Reliquary or The Fall ×1 (Skyglass Coffer); all four: Skyglass Token. Window 2026-11-21 to 2026-11-24 00:00 UTC |
-| Fourth: "Her Invitation" (built: push/519, rewards a draft) | the finale | a common run ×1 (Medicine Inro); a Rare run ×1 (Archive Chart Case); a Haul room ×1 (Galley Stores); an Epic or tainted run ×2 (Skyglass Coffer); Crownhold ×1 (Sealed Treasury); all five: Skyglass Token. The Mother of Echoes stays off until she is live; the Lastlight jutsu stays off (only a Crownhold pick has it). Window 2026-11-28 to 2026-12-01 00:00 UTC |
+| Fourth: "Her Invitation" (built: push/519, rewards a draft) | the finale | a common run ×1 (Medicine Inro); a Rare run ×1 (Archive Chart Case); a Haul room ×1 (Galley Stores); an Epic or tainted run ×2 (Skyglass Coffer); Crownhold ×1 (Sealed Treasury); the Mother of Echoes ×1 as the stretch (Sealed Treasury; director 2026-11-08, needs her live by 2026-11-28); all six: Skyglass Token. The Lastlight jutsu stays off (only a Crownhold pick has it). Window 2026-11-28 to 2026-12-01 00:00 UTC |
 | Fifth: "Every Deck" | a full tour | one entry per Rare run, ×1 each; raise the Lastlight in battle ×1 |
 
 **Template for any event** (an event sheet adds this as part of item 9, legibility):
@@ -119,6 +119,7 @@ reusable: an old page can return later as a new record with new dates.
 4. **The quest description** opens with one plain line for the dashboard card ("This weekend's orders: N to claim,
    <reward> for all N."), then carries the whole page (voice lines, the numbered plain list, the rules: counts only
    while held, any order, claim before it closes).
+4a. **Orders first** (pages 3 on, director 2026-11-08): the Logbook titles each card by its task ("1. Complete Specific Quest") and keeps the order's own text behind the card's ?, so the page text opens with the numbered orders, matching the card numbers.
 5. **Dates:** startsAt the Saturday, endsAt the Tuesday (open 00:00 UTC Saturday = Friday 6 PM Central with the Wrecks,
    closed 00:00 UTC Tuesday). Hide the Wednesday after (`push/skyglass_journal.gen.py hide`, hidden true only).
 5a. **Two jobs per page** (RUL-2026-11-08-139): `push/skyglass_journal.gen.py --page N` creates it hidden with

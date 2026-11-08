@@ -73,6 +73,9 @@ Q = {
     "overgrown_stores": "5y9wAYELSdNa8Jgim1sgD",  # The Overgrown Stores
     "ore_vault": "C1JPScsgSMcVXQUfuFgcs",       # The Ore Vault
     "bloom_cellar": "UO65dN640MgAbNBBopTVI",    # The Bloom Cellar
+    # N16, the real fight, not the practice quest. Live read 2026-11-08: hidden true (not live yet); its go-live is
+    # its own job (run_queue 477). The director put it on page 4 (2026-11-08); page 4 needs it live by 2026-11-28.
+    "mother_of_echoes": "IBPNwhAzlAJPXoeEnp8gW",
 }
 COMMONS = ("low_tide", "night_watch")
 RARES = ("buried_cache", "foundry", "archive", "captains_watch")
@@ -223,8 +226,8 @@ def entries_page3():
 
 
 def entries_page4():
-    """Her Invitation: the finale (EVENT_JOURNAL.md section 5), a climb from the watch to the throne. The Mother of
-    Echoes stays off until she is live; the Lastlight jutsu stays off because only a Crownhold pick has it."""
+    """Her Invitation: the finale (EVENT_JOURNAL.md section 5), a climb from the watch to the throne and the Mother of
+    Echoes as the stretch (director 2026-11-08). The Lastlight jutsu stays off because only a Crownhold pick has it."""
     return [
         entry("j4_watch", "complete_specific_quest",
               "Stand one more watch before you go. The roster still keeps your name.",
@@ -257,6 +260,12 @@ def entries_page4():
               ("sealed_treasury", "a Sealed Treasury"),
               "The throne is empty. The page that called you there is still warm.",
               completeQuestIds=runs("crownhold"), value=1),
+        entry("j4_mother", "complete_specific_quest",
+              "Answer the one who wrote it. She is waiting below the throne.",
+              "<b>Win The Mother of Echoes once.</b>",
+              ("sealed_treasury", "a Sealed Treasury"),
+              "Her voice stops. For the first time since the Wreck came down, the glass is quiet.",
+              completeQuestIds=runs("mother_of_echoes"), value=1),
     ]
 
 
@@ -295,12 +304,14 @@ PAGES = {
     # From page 3 a page opens on Saturday's date (00:00 UTC = Friday 6 PM Central) with the Wrecks (start_offset 1)
     3: {"num": 517, "out": "push/517_skyglass_journal_page3.json", "srcId": "sg517_journal_p3",
         "publish_num": 518, "publish_out": "push/518_skyglass_journal_page3_publish.json", "start_offset": 1,
+        "orders_first": True,
         "name": "The Watch Log: Third Page", "friday": "2026-11-20", "entries": entries_page3, "intro": PAGE3_INTRO,
         "success": ("Page complete. The salvager counts the stores twice and comes up one short. \"Something down "
                     "there is eating them.\""),
         "image": "live", "rewards": "DRAFT, awaiting the director"},
     4: {"num": 519, "out": "push/519_skyglass_journal_page4.json", "srcId": "sg519_journal_p4",
         "publish_num": 520, "publish_out": "push/520_skyglass_journal_page4_publish.json", "start_offset": 1,
+        "orders_first": True,
         "name": "The Watch Log: Fourth Page", "friday": "2026-11-27", "entries": entries_page4, "intro": PAGE4_INTRO,
         "success": ("Page complete. The salvager will not touch this one. She asks you to keep it, and to tell her "
                     "if it writes back."),
@@ -324,6 +335,15 @@ def quest(page, objs, friday):
         starts = (d + datetime.timedelta(days=page.get("start_offset", 0))).isoformat()
         ends = (d + datetime.timedelta(days=4)).isoformat()
     n = len(objs)
+    if page.get("orders_first"):
+        # The Logbook titles every card by its task ("1. Complete Specific Quest") and keeps an order's own text
+        # behind the card's ? (layout/Objective.tsx, libs/objectives.ts getObjectiveImage). The page text shows
+        # above the cards, so it opens with the numbered orders, matching the cards' numbers (director 2026-11-08).
+        return _quest(page, objs, starts, ends,
+                      f"<b>This weekend's orders</b> ({n} to claim, a Skyglass Token for all {NUMWORD[n]}):"
+                      f"{plain_list(objs)}<br><br>" + page["intro"] + "<br><br>"
+                      "Do them in any order. Orders count only while you carry this page. Claim each reward from "
+                      "its card when it's done; the page closes at the end of Monday (00:00 UTC Tuesday).")
     desc = (f"This weekend's orders: {n} to claim, a Skyglass Token for all {NUMWORD[n]}.<br><br>"
             + page["intro"] + "<br><br><i>" + "<br>".join(o["description"].split("<br><br>", 1)[0].split(". ")[0].rstrip(".") + "."
                                               for o in objs) + "</i><br><br>"
@@ -332,6 +352,10 @@ def quest(page, objs, friday):
             f"reward in the Logbook when it is done, and finish all {n} for the page's last reward, a Skyglass Token. The page "
             "closes at the end of Monday (00:00 UTC Tuesday), so claim before then. Claiming the last order completes "
             "the page.")
+    return _quest(page, objs, starts, ends, desc)
+
+
+def _quest(page, objs, starts, ends, desc):
     return {"entity": "quest", "slot": "create", "srcId": page["srcId"], "phase": 1,
             "name": page["name"],
             "data": {"name": page["name"], "description": desc, "image": IMG if page["image"] == "pack" else ICON_LIVE,
