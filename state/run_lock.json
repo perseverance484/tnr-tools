@@ -1,11 +1,10 @@
 {
- "holder": "claude",
- "job": "push/514 Skyglass Wreck expiry",
- "token": "829e57f9ccb84bab80f6334e32572b90",
- "instance": "/mnt/project-files/tnr/forge_state/wl512",
- "ttlMinutes": 30,
- "claimedAt": "2026-11-08T15:38:03.079Z",
- "heartbeatAt": "2026-11-08T15:38:03.079Z",
- "expiresAt": "2026-11-08T16:08:03.079Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "claude",
+ "releasedInstance": "/mnt/project-files/tnr/forge_state/wl512",
+ "releasedJob": "push/514 Skyglass Wreck expiry",
+ "releasedAt": "2026-11-08T15:39:07.361Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
