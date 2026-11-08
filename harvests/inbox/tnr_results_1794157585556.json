@@ -1,0 +1,77 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-08T17:06:25.555Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "The Watch Log: Second Page: page text",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "V-i3ZcAqPu0hB3G9IEzGo"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "sg512_journal_p2": "V-i3ZcAqPu0hB3G9IEzGo"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "525-mw831w3h",
+  "manifestPath": "push/525_skyglass_journal_page2_text.json",
+  "manifestNumber": 525,
+  "manifestHash": "2dbd996b",
+  "startedAt": "2026-11-08T17:05:01.387Z",
+  "updatedAt": "2026-11-08T17:06:25.552Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "update",
+    "name": "The Watch Log: Second Page: page text",
+    "srcId": null,
+    "targetId": "V-i3ZcAqPu0hB3G9IEzGo",
+    "payloadHash": "3766c1b4",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "V-i3ZcAqPu0hB3G9IEzGo",
+    "snapshotKey": null,
+    "sentAt": "2026-11-08T17:05:18.032Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-08T17:06:10.282Z",
+    "verifiedAt": "2026-11-08T17:06:25.551Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "description"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
