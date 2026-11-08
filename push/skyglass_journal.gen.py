@@ -297,6 +297,10 @@ PAGES = {
         # first published by push/513 (startsAt Friday = Thu 6 PM CT); push/516 re-times it to open Friday 6 PM CT
         # push/512 created it with the old Friday startsAt; the re-send moves it to Saturday's date
         "first_publish_num": 513, "publish_num": 516, "publish_out": "push/516_skyglass_journal_page2_retime.json", "publish_starts": "2026-11-14",
+        # push/512 ran with the long text; push/525 (`text` mode) re-sends the description in the challenge layout
+        "historic_create": True, "text_num": 525,
+        "hook": ("The second page came up from the deep hold, rotted half through. What's left of the brush points "
+                 "down, to the rooms the Core spoiled."),
         "name": "The Watch Log: Second Page", "friday": "2026-11-13", "entries": entries_page2, "intro": PAGE2_INTRO,
         "success": ("Page complete. The rot stops at your name. The salvager reads it twice before she folds it away. "
                     "\"That one came up from further down than the last.\""),
@@ -304,19 +308,38 @@ PAGES = {
     # From page 3 a page opens on Saturday's date (00:00 UTC = Friday 6 PM Central) with the Wrecks (start_offset 1)
     3: {"num": 517, "out": "push/517_skyglass_journal_page3.json", "srcId": "sg517_journal_p3",
         "publish_num": 518, "publish_out": "push/518_skyglass_journal_page3_publish.json", "start_offset": 1,
-        "orders_first": True,
+        "hook": ("The third page turned up in a galley ration tin. A list of rooms, and how much was taken from "
+                 "each."),
         "name": "The Watch Log: Third Page", "friday": "2026-11-20", "entries": entries_page3, "intro": PAGE3_INTRO,
         "success": ("Page complete. The salvager counts the stores twice and comes up one short. \"Something down "
                     "there is eating them.\""),
         "image": "live", "rewards": "DRAFT, awaiting the director"},
     4: {"num": 519, "out": "push/519_skyglass_journal_page4.json", "srcId": "sg519_journal_p4",
         "publish_num": 520, "publish_out": "push/520_skyglass_journal_page4_publish.json", "start_offset": 1,
-        "orders_first": True,
+        "hook": ("The fourth page was left on the throne at Crownhold, face up. The brush isn't the officer's. Under "
+                 "your name, one word: come."),
         "name": "The Watch Log: Fourth Page", "friday": "2026-11-27", "entries": entries_page4, "intro": PAGE4_INTRO,
         "success": ("Page complete. The salvager will not touch this one. She asks you to keep it, and to tell her "
                     "if it writes back."),
         "image": "live", "rewards": "DRAFT, awaiting the director"},
 }
+
+
+def challenge_text(page, objs):
+    """Director's layout (2026-11-08): "Short story hook -> Challenges and their associated reward -> Rules".
+    The Logbook titles every card by its task ("1. Complete Specific Quest") and keeps a challenge's own text behind
+    the card's ? (layout/Objective.tsx, libs/objectives.ts getObjectiveImage); the page text shows above the cards,
+    so the numbered challenges here match the cards' numbers."""
+    n = len(objs)
+    lines = []
+    for i, o in enumerate(objs, 1):
+        plain, rew = o["description"].split("<br><br>", 1)[1].split(" Reward when you claim it: ")
+        lines.append(f"{i}. {plain} <i>Reward: {rew.rstrip('.')}.</i>")
+    return (f"<i>{page['hook']}</i><br><br>"
+            "<b>This weekend's challenges</b><br>" + "<br>".join(lines) +
+            f"<br><b>All {NUMWORD[n]}:</b> a Skyglass Token.<br><br>"
+            "<b>Rules</b><br>Only wins after you take this page count. Do them in any order, and claim each reward "
+            "from its card in the Logbook. The page closes at the end of Monday (00:00 UTC Tuesday).")
 
 
 def plain_list(objs):
@@ -335,15 +358,8 @@ def quest(page, objs, friday):
         starts = (d + datetime.timedelta(days=page.get("start_offset", 0))).isoformat()
         ends = (d + datetime.timedelta(days=4)).isoformat()
     n = len(objs)
-    if page.get("orders_first"):
-        # The Logbook titles every card by its task ("1. Complete Specific Quest") and keeps an order's own text
-        # behind the card's ? (layout/Objective.tsx, libs/objectives.ts getObjectiveImage). The page text shows
-        # above the cards, so it opens with the numbered orders, matching the cards' numbers (director 2026-11-08).
-        return _quest(page, objs, starts, ends,
-                      f"<b>This weekend's orders</b> ({n} to claim, a Skyglass Token for all {NUMWORD[n]}):"
-                      f"{plain_list(objs)}<br><br>" + page["intro"] + "<br><br>"
-                      "Do them in any order. Orders count only while you carry this page. Claim each reward from "
-                      "its card when it's done; the page closes at the end of Monday (00:00 UTC Tuesday).")
+    if page.get("hook") and not page.get("historic_create"):
+        return _quest(page, objs, starts, ends, challenge_text(page, objs))
     desc = (f"This weekend's orders: {n} to claim, a Skyglass Token for all {NUMWORD[n]}.<br><br>"
             + page["intro"] + "<br><br><i>" + "<br>".join(o["description"].split("<br><br>", 1)[0].split(". ")[0].rstrip(".") + "."
                                               for o in objs) + "</i><br><br>"
@@ -468,15 +484,36 @@ def build_hide(n, num, live_id=None):
     print(f"{rel}: hide {page['name']} -> {qid}")
 
 
+def build_text(n):
+    """A live page's description re-sent in the challenge layout (description only; Forge fetch-merges the rest)."""
+    page = PAGES[n]
+    qid = LIVE_IDS.get(n)
+    if not (qid and page.get("text_num") and page.get("hook")):
+        raise SystemExit(f"page {n} has no live id, text_num or hook")
+    desc = challenge_text(page, chained(page["entries"]()))
+    out = {"_note": (f"push/{page['text_num']}: {page['name']} ({qid}) page text in the director's layout (2026-11-08: "
+                     "short hook, challenges with their rewards, rules). description only; Forge fetch-merges the rest. "
+                     "Generated by push/skyglass_journal.gen.py text; do not hand-edit."),
+           "items": [{"entity": "quest", "slot": "edit", "targetId": qid, "phase": 10,
+                      "name": f"{page['name']}: page text", "data": {"description": desc}}]}
+    rel = f"push/{page['text_num']}_skyglass_journal_page{n}_text.json"
+    with open(os.path.join(ROOT, rel), "w", encoding="utf-8") as fh:
+        json.dump(out, fh, indent=1, ensure_ascii=False)
+        fh.write("\n")
+    print(f"{rel}: page text for {page['name']} -> {qid}")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", nargs="?", default="create", choices=["create", "publish", "hide"])
+    ap.add_argument("mode", nargs="?", default="create", choices=["create", "publish", "hide", "text"])
     ap.add_argument("--page", type=int, default=1, choices=sorted(PAGES))
     ap.add_argument("--friday", help="override the page's weekend start (a Friday); endsAt is the Tuesday after")
     ap.add_argument("--from", dest="bundle", help="publish: the create job's results bundle")
     ap.add_argument("--num", type=int, help="hide: the job number for the output file")
     ap.add_argument("--id", help="hide: the page's live quest id when LIVE_IDS lacks it")
     a = ap.parse_args()
+    if a.mode == "text":
+        return build_text(a.page)
     if a.mode == "hide":
         if not a.num:
             ap.error("hide needs --num <job number>")
