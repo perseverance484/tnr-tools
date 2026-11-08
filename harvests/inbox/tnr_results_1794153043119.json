@@ -1,0 +1,97 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-08T15:50:43.119Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "The Watch Log: Second Page: publish",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 21,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "V-i3ZcAqPu0hB3G9IEzGo"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "sg512_journal_p2": "V-i3ZcAqPu0hB3G9IEzGo"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "513-mw80cvcu",
+  "manifestPath": "push/513_skyglass_journal_page2_publish.json",
+  "manifestNumber": 513,
+  "manifestHash": "0b863857",
+  "startedAt": "2026-11-08T15:49:34.790Z",
+  "updatedAt": "2026-11-08T15:50:43.117Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "update",
+    "name": "The Watch Log: Second Page: publish",
+    "srcId": null,
+    "targetId": "V-i3ZcAqPu0hB3G9IEzGo",
+    "payloadHash": "bcfa318d",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "V-i3ZcAqPu0hB3G9IEzGo",
+    "snapshotKey": null,
+    "sentAt": "2026-11-08T15:49:48.316Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-08T15:50:28.919Z",
+    "verifiedAt": "2026-11-08T15:50:43.115Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "name",
+     "description",
+     "image",
+     "questType",
+     "questRank",
+     "successDescription",
+     "retryDelay",
+     "attemptDelay",
+     "consecutiveObjectives",
+     "hidden",
+     "requiredLevel",
+     "maxLevel",
+     "maxAttempts",
+     "maxCompletes",
+     "prerequisiteQuestId",
+     "tierLevel",
+     "requiredVillage",
+     "requiredBloodlineId",
+     "startsAt",
+     "endsAt",
+     "content"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

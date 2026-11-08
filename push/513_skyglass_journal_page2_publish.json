@@ -1,0 +1,164 @@
+{
+ "_note": "push/513: publish The Watch Log: Second Page (V-i3ZcAqPu0hB3G9IEzGo, created by push/512). Re-sends the committed create data whole with hidden false and consecutiveObjectives false, so every order is open at once (RUL-2026-11-08-139); the page still lists only from its startsAt. Built from tnr_results_1794152841684.json by push/skyglass_journal.gen.py publish; do not hand-edit.",
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "V-i3ZcAqPu0hB3G9IEzGo",
+   "phase": 10,
+   "name": "The Watch Log: Second Page: publish",
+   "data": {
+    "name": "The Watch Log: Second Page",
+    "description": "This weekend's orders: 5 to claim, a Skyglass Token for all five.<br><br>The second page came up from the deep hold, and the rot has been at it. Half the officer's brush is eaten through, and what is left points down, to the rooms the Core spoiled. Your name is at the top again, in the same ink.<br><br><i>Stand the captain's own watch on the helm deck.<br>Stand the night watch the medicine was brewed for, and keep standing.<br>Live through the night she fell, and climb back out.<br>Open the reliquary after the rot got in.<br>Follow the rotted heading the wrong way, through the fire.</i><br><br><b>This weekend's orders</b>, in any order:<br>1. <b>Win The Captain's Watch once.</b><br>2. <b>Win the Low Tide Run or the Night Watch once.</b><br>3. <b>Win The Fall once.</b><br>4. <b>Win The Rotted Reliquary once.</b> Its seal comes from steeping a Reliquary Seal with 3 Core Rot.<br>5. <b>Win The Burning Heading once.</b> The Rotted Heading comes from steeping The Last Heading with 3 Core Rot.<br><br>Orders count only while you carry this page: nothing you did before taking it counts. Claim each order's reward in the Logbook when it is done, and finish all 5 for the page's last reward, a Skyglass Token. The page closes at the end of Monday (00:00 UTC Tuesday), so claim before then. Claiming the last order completes the page.",
+    "image": "https://ui0arpl8sm.ufs.sh/f/4xb_93fgzp68t83owGoQQ.webp",
+    "questType": "event",
+    "questRank": "D",
+    "successDescription": "Page complete. The rot stops at your name. The salvager reads it twice before she folds it away. \"That one came up from further down than the last.\"",
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "consecutiveObjectives": false,
+    "hidden": false,
+    "requiredLevel": 1,
+    "maxLevel": 100,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "prerequisiteQuestId": null,
+    "tierLevel": null,
+    "requiredVillage": null,
+    "requiredBloodlineId": null,
+    "startsAt": "2026-11-13",
+    "endsAt": "2026-11-17",
+    "content": {
+     "objectives": [
+      {
+       "id": "j2_helm",
+       "task": "complete_specific_quest",
+       "description": "Stand the captain's own watch on the helm deck. She still keeps it.<br><br><b>Win The Captain's Watch once.</b> Reward when you claim it: an Archive Chart Case.",
+       "successDescription": "The helm is quiet. Whatever she saw from it, she did not tell you.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "B48dTRsoLJGKBWIUbeUoG"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "liljq0yVXWTSna4X6dZE1"
+       ],
+       "value": 1,
+       "nextObjectiveId": "j2_night_watch"
+      },
+      {
+       "id": "j2_night_watch",
+       "task": "complete_specific_quest",
+       "description": "Stand the night watch the medicine was brewed for, and keep standing.<br><br><b>Win the Low Tide Run or the Night Watch once.</b> Reward when you claim it: a Medicine Inro.",
+       "successDescription": "The watch is stood. The roster has a second mark beside your name.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "ixEKlJ0MmDrX7JoMNJVhi"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "pFQBaJxU_8RSvSi4Kir1Z",
+        "dnzL-bDrAEVXrKB5xariu"
+       ],
+       "value": 1,
+       "nextObjectiveId": "j2_fall"
+      },
+      {
+       "id": "j2_fall",
+       "task": "complete_specific_quest",
+       "description": "Live through the night she fell, and climb back out.<br><br><b>Win The Fall once.</b> Reward when you claim it: Galley Stores.",
+       "successDescription": "You came back up. The crew who rode her down did not.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "D-QTnbjgTyIVc593zzdSB"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "H9YInJtnzKCOEMv-sNgzP"
+       ],
+       "value": 1,
+       "nextObjectiveId": "j2_rot_seal"
+      },
+      {
+       "id": "j2_rot_seal",
+       "task": "complete_specific_quest",
+       "description": "Open the reliquary after the rot got in.<br><br><b>Win The Rotted Reliquary once.</b> Its seal comes from steeping a Reliquary Seal with 3 Core Rot. Reward when you claim it: a Skyglass Coffer.",
+       "successDescription": "The reliquary is open. What grew inside it is not.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "THo7rfzP-S82_43aN8fs3"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "FsuXzvaqr_R25p8cEkxoK"
+       ],
+       "value": 1,
+       "nextObjectiveId": "j2_burning"
+      },
+      {
+       "id": "j2_burning",
+       "task": "complete_specific_quest",
+       "description": "Follow the rotted heading the wrong way, through the fire.<br><br><b>Win The Burning Heading once.</b> The Rotted Heading comes from steeping The Last Heading with 3 Core Rot. Reward when you claim it: a Sealed Treasury.",
+       "successDescription": "The heading burns out in your hand. Somewhere below, the glass rings again.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "ozDN-G6nGFXGgKuPZ04Gr"
+       ],
+       "value": 1
+      }
+     ],
+     "sceneBackground": "rX78pJPETsUL2JrsSvGHn",
+     "sceneCharacters": [
+      "Xugt7415D3-tepLfxpwM5"
+     ],
+     "entryItems": [],
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "nzCW7A-_AuYMzBs2wClnM"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ]
+     }
+    }
+   }
+  }
+ ]
+}
