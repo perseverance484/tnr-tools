@@ -77,7 +77,9 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // Run lock (Forge 0.12.4 + fable/run-lock, 2026-11-07): base 465,694 raw, measured 478,000 / 115,408 with
 // the browser claim, lease enforcement and the lock modules. Raised to 482,000 / 117,000 by the director
 // (RUL-2026-11-07-134).
-export const BUDGET = { raw: 482_000, gzip: 117_000 };
+// Dungeon contract re-pin (595af9f6, 2026-11-08): measured 482,780 / 116,496. Raised to 490,000 / 119,000
+// for headroom by the director (RUL-2026-11-08-136).
+export const BUDGET = { raw: 490_000, gzip: 119_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

@@ -6324,3 +6324,16 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-09: "1. Authorized. 2. We'll review in detail 3. We'll review when that happens 4. Whatever is appropriate 5. Separate Claude agent ... Fable 5.2 medium 6. As soon as they are complete".
 
 **Canonical destination:** `state/prompt_skill_overhaul.md` §2 and §11.
+## RUL-2026-11-08-136 — Forge bundle budget raised to 490,000 / 119,000
+
+**Date:** 2026-11-08
+
+**Domain:** forge / bundle budget
+
+**Status:** ACTIVE.
+
+**Ruling:** The checked bundle budget is raised from 482,000 / 117,000 to 490,000 raw / 119,000 gzip. The bundle rebuilt after the dungeon contract re-pin (595af9f6) measured 482,780 / 116,496.
+
+**Evidence:** Director, 2026-11-08: "Size approved."
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs`.
