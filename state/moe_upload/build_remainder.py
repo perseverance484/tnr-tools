@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build push/509 (the rest of push/506) for the game-connection runner, from:
+"""Build push/527 (the rest of push/506; it ran as push/509 before the 2026-11-08 renumber) for the game-connection runner, from:
   - push/506_master_2026-11-06.json
   - the 2026-11-06 browser run's idmap (harvests/inbox/tnr_results_1794006062657.json): 351 asset creates done,
     plus the image URLs of the files it uploaded
@@ -48,5 +48,7 @@ out = {"_note": "push/509: the rest of push/506 (MoE final tuning 501 + asset fo
        "(director, 2026-11-07: the game connection has no upload). Assets are created HIDDEN; push/502 unhides.",
        "items": items, "dedupNames": M.get("dedupNames", True)}
 if "imgSizes" in M: out["imgSizes"] = M["imgSizes"]
-json.dump(out, open("push/509_mother_of_echoes_remainder.json", "w"), indent=1)
+# The _note text above keeps "push/509" on purpose: the committed manifest and its results bundle
+# (manifestHash) carry that text, so a rebuild must match them byte for byte.
+json.dump(out, open("push/527_mother_of_echoes_remainder.json", "w"), indent=1)
 print(len(items), "items")
