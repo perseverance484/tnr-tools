@@ -3,6 +3,11 @@
 
     python3 push/skyglass_wreck_window.gen.py close 2026-11-10T00:00:00.000Z   # push/514: expire Mon 6 PM Central
     python3 push/skyglass_wreck_window.gen.py reopen                            # clears expiresAt for Friday
+    python3 push/skyglass_wreck_window.gen.py weekend [NUM] [--from YYYY-MM-DD]  # weekly: open now, close next Mon 6 PM Central
+
+`weekend` is the weekly routine's one save (director 2026-11-08: "just a scheduled task"): run it on the
+event Friday and both Wrecks open at once and expire at the coming Monday 6 PM America/Chicago, so no
+separate close is needed. The instant follows daylight saving (00:00 UTC Tue in CST, 23:00 UTC Mon in CDT).
 
 Only content.expiresAt is sent; Forge fetch-merges the rest of each dungeon. An expired dungeon is off
 getAvailable and refuses new lobbies (TheNinjaRPG routers/dungeon.ts getAvailable, create); runs already
@@ -10,15 +15,32 @@ started keep their snapshot and finish. Dungeons have no start date, so each eve
 Do not hand-edit the output.
 """
 import json, os, sys
+from datetime import date, datetime, time, timedelta
+from zoneinfo import ZoneInfo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DUNGEONS = {"Skyglass Wreck": "RHqzYdY4EAQA9HwsBKWDS", "Faded Skyglass Wreck": "j4QEUtjbK_lbOYUPVoidk"}  # push/390
+
+
+def next_monday_close(today):
+    """The Monday 6 PM America/Chicago on or after `today` (a date), as a UTC ISO instant."""
+    monday = today + timedelta(days=(0 - today.weekday()) % 7)
+    local = datetime.combine(monday, time(18, 0), tzinfo=ZoneInfo("America/Chicago"))
+    return local.astimezone(ZoneInfo("UTC")).strftime("%Y-%m-%dT%H:%M:%S.000Z")
 
 
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else ""
     if mode == "close" and len(sys.argv) == 3:
         num, at, verb = 514, sys.argv[2], "expire at " + sys.argv[2]
+    elif mode == "weekend":
+        args = sys.argv[2:]
+        start = datetime.now(ZoneInfo("America/Chicago")).date()
+        if "--from" in args:
+            i = args.index("--from"); start = date.fromisoformat(args[i + 1]); del args[i:i + 2]
+        num = int(args[0]) if args else 515
+        at = next_monday_close(start)
+        verb = f"open for the weekend, expire at {at}"
     elif mode == "reopen":
         num, at, verb = int(sys.argv[2]) if len(sys.argv) > 2 else 515, None, "reopen (expiresAt cleared)"
     else:
