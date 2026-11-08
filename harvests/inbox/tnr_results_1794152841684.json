@@ -1,0 +1,97 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-08T15:47:21.684Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "The Watch Log: Second Page",
+   "srcId": "sg512_journal_p2",
+   "entity": "quest",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 21,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "V-i3ZcAqPu0hB3G9IEzGo"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "sg512_journal_p2": "V-i3ZcAqPu0hB3G9IEzGo"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "512-mw807mu8",
+  "manifestPath": "push/512_skyglass_journal_page2.json",
+  "manifestNumber": 512,
+  "manifestHash": "78c82182",
+  "startedAt": "2026-11-08T15:45:30.480Z",
+  "updatedAt": "2026-11-08T15:47:21.680Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "create",
+    "name": "The Watch Log: Second Page",
+    "srcId": "sg512_journal_p2",
+    "targetId": null,
+    "payloadHash": "f5a04337",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "V-i3ZcAqPu0hB3G9IEzGo",
+    "snapshotKey": "tnr_forge_snap_v1:512-mw807mu8:quest",
+    "sentAt": "2026-11-08T15:46:24.854Z",
+    "createSentAt": "2026-11-08T15:45:44.513Z",
+    "confirmedAt": "2026-11-08T15:47:03.470Z",
+    "verifiedAt": "2026-11-08T15:47:21.678Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "name",
+     "description",
+     "image",
+     "questType",
+     "questRank",
+     "successDescription",
+     "retryDelay",
+     "attemptDelay",
+     "consecutiveObjectives",
+     "hidden",
+     "requiredLevel",
+     "maxLevel",
+     "maxAttempts",
+     "maxCompletes",
+     "prerequisiteQuestId",
+     "tierLevel",
+     "requiredVillage",
+     "requiredBloodlineId",
+     "startsAt",
+     "endsAt",
+     "content"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
