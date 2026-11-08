@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded).",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled).",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -8100,6 +8100,20 @@
     1152,
     1152
    ]
+  },
+  {
+   "srcId": "fix506_etch_seam__3_9",
+   "file": "anim_moe_etch2_seam_p3_9_a14.webp",
+   "path": "state/moe_upload/w50/anim_moe_etch2_seam_p3_9_a14.webp",
+   "sha256": "62d608805f058c0df1a93dea3ffd7c1e287e51c3a4ce25286f13fcd627477a12",
+   "bytes": 306,
+   "srcPath": "art/mother_of_echoes_fx/exports/anim_moe_etch2_seam_p3_9_a14.webp",
+   "srcSha256": "e3b1cc29b287de274af63c73f219c140b17b54c7c94c2a684ae7058caafd89e2",
+   "size": [
+    50,
+    1100
+   ],
+   "assetId": "GT5IvHAP5vaPg-wCa0E8u"
   }
  ]
 }
