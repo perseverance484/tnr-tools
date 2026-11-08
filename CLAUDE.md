@@ -156,7 +156,7 @@ Do not silently settle balance, reward values, rarity, publishing, art direction
 
 If implementation needs a user-owned decision, isolate it, explain the practical consequence/options, and proceed only after approval or an explicitly approved reversible placeholder.
 
-When a ruling materially affects future work, preserve its history in `docs/RULINGS.md`, then update the actual canonical owner of the operative rule when required.
+When a ruling materially affects future work, preserve its history in the rulings ledger (index `docs/RULINGS.md`; append the entry to `docs/rulings/<YYYY-MM>.md` and run `python3 scripts/rulings_index.py`), then update the actual canonical owner of the operative rule when required.
 
 ## 11. Lane A implementation handoff
 

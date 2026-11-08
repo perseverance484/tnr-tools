@@ -40,7 +40,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 DESIGN = "state/skyglass_design/design_data.json"
 LOOT = "docs/design/SKYGLASS_LOOT_TABLES.md"
 BIBLE = "docs/design/SKYGLASS_STORY_BIBLE.md"
-RULINGS = "docs/RULINGS.md"
+RULINGS = "docs/rulings/2026-10.md"  # the Skyglass chart-tier and reward rulings (docs/RULINGS.md is the index since 2026-11-08)
 TEXT = "docs/design/SKYGLASS_TEXT.md"
 NAMES = "answers/names_item.json"
 
