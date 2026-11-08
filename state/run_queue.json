@@ -1,31 +1,289 @@
 {
- "_note": "Live game jobs, ready or waiting, in run order (RUL-2026-11-07-133). One writer at a time: claim the run lock (node forge/tools/run_lock.mjs claim) before any job, release after. runner: connector = a Claude/Duet session over the game connection (forge/tools/mcp_run.mjs); browser = Forge in a signed-in tab (image uploads). status: ready | waiting | parked | done. Whoever builds, runs or unblocks a job updates its row in the same commit.",
- "jobs": [
-  {"id": "506", "manifest": "push/506_master_2026-11-06.json", "what": "Mother of Echoes final tuning (501, 973 hidden assets) + asset folders (500)", "runner": "browser", "status": "done", "waitsFor": [], "note": "Ran in parts. Browser Forge 2026-11-06: 351 of 973 asset creates (idmap in harvests/inbox/tnr_results_1794006062657.json). The rest ran over the connector as push/527 (ran as 509, job 509-mw6olw1l, 2026-11-07/08; images on the director's UploadThing via state/moe_upload): INCOMPLETE, 703 verified, 9 confirmed with drift, 1 failed (An Absence AI update, finished by 528), 73 asset-folder edits skipped and not re-run (harvests/inbox/tnr_results_1794101314895.json). Clip size: art authored for ratio 1; the director's working assumption is 2.5 (carry to 477). Job numbers renumbered 2026-11-08 (509->527, 510->528, 511->529, 512->530): the bundles keep the numbers they ran under."},
-  {"id": "502", "manifest": "push/502_mother_of_echoes_final_unhide.json", "what": "Mother of Echoes unhide", "runner": "connector", "status": "done", "waitsFor": [], "build": "python3 push/mother_of_echoes.gen.py --step final_unhide --from harvests/inbox/tnr_results_1794101314895.json", "note": "Two manifests: push/502 (the 622 assets 527 created) and push/502b_mother_of_echoes_final_unhide_506.json (the 351 from the 2026-11-06 browser run; same build --from harvests/inbox/tnr_results_1794006062657.json, saved as 502b). Both rebuild byte-identical. Unhides were sent by hand over the connector on 2026-11-08, not through mcp_run, so there is no results bundle; the Mother of Echoes thread read back 1028 MoE ANIMATION assets, all hidden=false (~06:45 UTC). The Etching Seam c03r09 slice was uploaded and filled separately (state/moe_upload, results commit 'moe upload: results')."},
-  {"id": "527", "manifest": "push/527_mother_of_echoes_remainder.json", "what": "Mother of Echoes remainder: 506 minus the 351 browser creates, images on the director's UploadThing", "runner": "connector", "status": "done", "waitsFor": [], "build": "python3 state/moe_upload/build_remainder.py", "note": "Ran as push/509 (job 509-mw6olw1l), INCOMPLETE: 703 verified, 9 confirmed, 1 failed (finished by 528), 73 asset-folder edits skipped (harvests/inbox/tnr_results_1794101314895.json). Ledger state/validate_exceptions/527_mother_of_echoes_remainder.json."},
-  {"id": "528", "manifest": "push/528_moe_absence_fix.json", "what": "Finish An Absence (527 item 653, the AI update that failed on date fields)", "runner": "connector", "status": "done", "waitsFor": [], "note": "Ran as push/510 (job 510-mw75meu0) 2026-11-08 01:30 UTC: confirmed; verify shows drift on offence/defence/intelligence/speed (harvests/inbox/tnr_results_1794101493272.json)."},
-  {"id": "529", "manifest": "push/529_moe_act1_fixes.json", "what": "Mother of Echoes act-1 QA fixes (Nothing Moves/Stillness ring, An Absence text and duration)", "runner": "connector", "status": "done", "waitsFor": [], "note": "Ran as push/511 (job 511-mw80th1k) 2026-11-08: 7/7 verified (harvests/inbox/tnr_results_1794154122914.json)."},
-  {"id": "530", "manifest": "push/530_moe_omen_fixes.json", "what": "Mother of Echoes omen fixes (Absence timing, Lucid Refraction break, Silence holds after Stillness)", "runner": "connector", "status": "done", "waitsFor": [], "note": "Ran as push/512 (job 512-mw835xs8) 2026-11-08: 5/5 verified (harvests/inbox/tnr_results_1794158060125.json)."},
-  {"id": "469-test", "manifest": null, "what": "Live test of the fight on practice quest 469 (visual + mechanics)", "runner": "duet-browser", "status": "ready", "waitsFor": [], "note": "Practice runs on dauntless 2026-11-08 after 529 and 530 (Act 1 won, Act 2 lost; HP carries over between acts by design). Ongoing in the Mother of Echoes thread."},
-  {"id": "477", "manifest": null, "what": "Mother of Echoes go-live", "runner": "connector", "status": "waiting", "waitsFor": ["469-test", "director go"], "build": "python3 push/mother_of_echoes.gen.py --step golive"},
-  {"id": "503", "manifest": "push/503_subaku_palace_assets.json", "what": "Subaku Palace art (hidden)", "runner": "browser", "status": "parked", "waitsFor": ["director: 'Drop subaku palace art for now'"]},
-  {"id": "504-505", "manifest": null, "what": "Subaku unhide + jutsu edit", "runner": "connector", "status": "parked", "waitsFor": ["503 results bundle"], "build": "python3 push/subaku_palace.gen.py unhide|jutsu <503 bundle>"},
-  {"id": "asset-cleanup", "manifest": null, "what": "Delete unused director-made assets (incl. Mother of Echoes art until go-live)", "runner": "connector", "status": "waiting", "waitsFor": ["Duet's jutsu/quest scan finished", "reference inventory", "director go on the list"], "note": "gameAsset.delete has no reference check (asset.ts:274-320): the inventory is the only safety net."},
-  {"id": "509", "manifest": "push/509_skyglass_thread_create.json", "what": "Salvager's thread: 17 board assets + At the Salvager's Fire quest (all hidden)", "runner": "browser", "status": "ready", "waitsFor": ["director go"], "note": "Image job (17 scene backgrounds, v2 lacquer panels, RUL-2026-11-07-137; imagePack pinned to 27c8966), so browser Forge. Hidden; staff can play the Fire quest to test."},
-  {"id": "511", "manifest": "push/511_skyglass_thread_boards.json", "what": "Salvager's thread: 3 chests-topic boards (hidden)", "runner": "browser", "status": "ready", "waitsFor": ["director go"], "note": "Image job, so browser Forge. Added after 509 ran (RUL-2026-11-07-138); can run right after 509."},
-  {"id": "510", "manifest": null, "what": "Salvager's thread go-live: unhide boards + Fire quest, rewrite Wreck Sighted (_zp1l7Y9a_77pgonAdsYx) onto the thread", "runner": "connector", "status": "waiting", "waitsFor": ["509 results bundle", "511 results bundle", "Duet's Wreck Sighted overworld-NPC change", "director playtest of the hidden Fire quest", "director go"], "build": "python3 push/skyglass_thread.gen.py golive --from <509 bundle> <511 bundle> --live <live read of Wreck Sighted taken AFTER Duet's change>", "note": "Rewrites the whole Wreck Sighted record: build from a read taken after Duet's overworld change so questType and placement carry over (golive copies every field but content.objectives/scene). Also rewrites the Fire quest with the RUL-138 text. The shards and 'below Crownhold' scenes describe the Mother of Echoes fight (477): if 510 goes first, they point at a hidden fight."},
-  {"id": "512", "manifest": "push/512_skyglass_journal_page2.json", "what": "The Watch Log: Second Page (hidden create, window 2026-11-13 to 11-17)", "runner": "connector", "status": "done", "waitsFor": [], "note": "Director go 2026-11-08 15:34 UTC (rewards approved with it). First try 2026-11-08 15:36 UTC refused before anything was created: \"Complete or abandon your isolated Battle Pyramid before starting outside activities.\" (tnr_results_1794152186305.json). Re-run 512 as-is once the account is free; go 512->513 covers the publish. No image job: reuses the live QI01 icon. Done 2026-11-08 15:47 UTC: created hidden as V-i3ZcAqPu0hB3G9IEzGo, verified (tnr_results_1794152841684.json)."},
-  {"id": "514", "manifest": "push/514_skyglass_wreck_window.json", "what": "Both Skyglass Wrecks expire Mon 2026-11-09 6 PM Central (expiresAt 2026-11-10T00:00Z)", "runner": "connector", "status": "done", "waitsFor": [], "note": "Asked for 2026-11-08 (director: hide the Wrecks when the event ends). First run 15:41 UTC refused pre-send, nothing sent (tnr_results_1794152346636.json). Or the director sets it in the dungeon editor. Reopen for Friday: python3 push/skyglass_wreck_window.gen.py reopen. Unblocked by the d6cdee0f contract re-pin (director's yes, relayed 2026-11-08). Done 2026-11-08 16:00 UTC: both read back expiresAt 2026-11-10T00:00:00.000Z with requirements unchanged (Skyglass Wreck level 80, Faded level 30; daily retry, 100 clears) (tnr_results_1794153633244.json)."},
-  {"id": "513", "manifest": "push/513_skyglass_journal_page2_publish.json", "what": "Publish the Second Page: hidden false, every order open at once (consecutiveObjectives false)", "runner": "connector", "status": "done", "waitsFor": [], "build": "python3 push/skyglass_journal.gen.py publish --page 2 --from <512 bundle>", "note": "Can run any day before Friday 2026-11-13: the page lists only from its startsAt. Done 2026-11-08 15:50 UTC: readback hidden false, consecutiveObjectives false, startsAt 2026-11-13 (tnr_results_1794153043119.json)."},
-  {"id": "515", "manifest": null, "what": "Weekly Friday release: reopen both Skyglass Wrecks at 00:00 UTC Saturday (Fri 6 PM Central), expiring 00:00 UTC the Tuesday after, the same instants the week's Watch Log page opens and closes", "runner": "connector", "status": "waiting", "waitsFor": ["the weekly routine's Friday run (director's standing go 2026-11-08)"], "build": "python3 push/skyglass_wreck_window.gen.py weekend 515", "note": "Director 2026-11-08: Wrecks and the new page release together every Friday, close Monday evening. Dungeons have no start date, so each week is a save of expiresAt only (Forge fetch-merge, contract d6cdee0f keeps requirements). Rebuild at run time (the build defaults to today's Chicago date). Readback: expiresAt, hidden false, requirements lvl 80 / lvl 30, retryDelay daily, maxCompletes 100. Skip the reopen if no page opens that Saturday. First run Fri 2026-11-13 (manifest built and checked: expiresAt 2026-11-17T00:00Z)."},
-  {"id": "516", "manifest": "push/516_skyglass_journal_page2_retime.json", "what": "Re-time the Second Page to open 2026-11-14 00:00 UTC (Fri 6 PM Central) with the Wrecks", "runner": "connector", "status": "done", "waitsFor": [], "build": "python3 push/skyglass_journal.gen.py publish --page 2 --from harvests/inbox/tnr_results_1794152841684.json", "note": "Director 2026-11-08: \"Friday for both. Align them to release at the same time.\" Done 2026-11-08 16:22 UTC: only startsAt changed (2026-11-13 -> 2026-11-14); readback hidden false, consecutiveObjectives false, endsAt 2026-11-17 (tnr_results_1794154934340.json)."},
-  {"id": "517", "manifest": "push/517_skyglass_journal_page3.json", "what": "The Watch Log: Stolen Stores (5 challenges; hidden create, window 2026-11-21 to 11-24 00:00 UTC = Fri 6 PM to Mon 6 PM Central)", "runner": "connector", "status": "done", "waitsFor": [], "build": "python3 push/skyglass_journal.gen.py --page 3", "note": "Created AgGR962c3XNo6Pr0up2qT hidden, verified 2026-11-08 17:46 UTC on the director's go (\"Yes\" to rename and stage).", "result": "tnr_results_1794160015319.json"},
-  {"id": "518", "manifest": "push/518_skyglass_journal_page3_publish.json", "what": "Publish the Third Page: hidden false, every order open at once; it lists only from startsAt 2026-11-21", "runner": "connector", "status": "done", "waitsFor": [], "build": "python3 push/skyglass_journal.gen.py publish --page 3 --from <517 bundle>", "result": "tnr_results_1794160115789.json", "note": "Published 2026-11-08 17:48 UTC: hidden false, startsAt 2026-11-21, endsAt 2026-11-24. Schedule page 3 set published."},
-  {"id": "519", "manifest": "push/519_skyglass_journal_page4.json", "what": "The Watch Log: Her Invitation (5 challenges, Mother of Echoes as the stretch; hidden create, window 2026-11-28 to 12-01 00:00 UTC)", "runner": "connector", "status": "done", "waitsFor": [], "build": "python3 push/skyglass_journal.gen.py --page 4", "note": "Created I_cEOGSfFuahaJlR3FnWC hidden, verified 2026-11-08 17:50 UTC. Do not publish (520) or mark it published in the schedule while The Mother of Echoes (IBPNwhAzlAJPXoeEnp8gW) is hidden.", "result": "tnr_results_1794160239097.json"},
-  {"id": "520", "manifest": "push/520_skyglass_journal_page4_publish.json", "what": "Publish the Fourth Page: hidden false, every order open at once; it lists only from startsAt 2026-11-28", "runner": "connector", "status": "waiting", "waitsFor": ["Mother of Echoes live (job 477)", "the director's go on going live"], "build": "python3 push/skyglass_journal.gen.py publish --page 4 --from <519 bundle>", "note": "Built from tnr_results_1794160239097.json. Run only once The Mother of Echoes is live, before Fri 2026-11-27 6 PM Central; then set the schedule's page 4 published true."},
-  {"id": "525", "manifest": "push/525_skyglass_journal_page2_text.json", "what": "Second Page text in the director's layout: short hook, challenges with rewards, rules", "runner": "connector", "status": "done", "waitsFor": [], "build": "python3 push/skyglass_journal.gen.py text --page 2", "note": "Director 2026-11-08: \"Short story hook -> Challenges and their associated reward -> Rules\". Done 2026-11-08 17:06 UTC, description only changed (tnr_results_1794157585556.json)."},
-  {"id": "526", "manifest": "push/526_skyglass_journal_page2_rename.json", "what": "Rename the Second Page to The Watch Log: The Rotted Heading", "runner": "connector", "status": "done", "waitsFor": [], "build": "python3 push/skyglass_journal.gen.py rename --page 2", "note": "Renamed 2026-11-08 17:44 UTC (first try at 17:24 refused while the account was in a Battle Pyramid practice run). Keeps the \"The Watch Log\" prefix.", "result": "tnr_results_1794159896158.json"},
-  {"id": "531", "manifest": "push/531_moe_tuning.json", "what": "Mother of Echoes tuning: act HP and damage for one carried-over health bar (act 1 8-10 rounds, act 2 12-14 at ~20k HP, act 3 ~17)", "runner": "connector", "status": "done", "waitsFor": [], "note": "Ran 2026-11-08 by Duet over the connector, by hand: the runner sent profile.updateAi with date strings (rejected) and took a saved-output preview as a full read, so it was stopped before any bad write. All 7 edits sent by hand from fresh full reads (dates dropped) and read back: act 1 Sayo 5,050 HP; Silence no DR; Glasswright 20,200 HP +27%/-35%; Saint of Stillness 20,200 HP +41%/-30%; Porter, Hana, Tomo +50%. Jutsu links intact on all 7. Evidence: state/results/531_moe_tuning.md."}
- ]
+  "_note": "Live game jobs, ready or waiting, in run order (RUL-2026-11-07-133). One writer at a time: claim the run lock (node forge/tools/run_lock.mjs claim) before any job, release after. runner: connector = a Claude/Duet session over the game connection (forge/tools/mcp_run.mjs); browser = Forge in a signed-in tab (image uploads). status: ready | waiting | parked | done. Whoever builds, runs or unblocks a job updates its row in the same commit.",
+  "jobs": [
+    {
+      "id": "506",
+      "manifest": "push/506_master_2026-11-06.json",
+      "what": "Mother of Echoes final tuning (501, 973 hidden assets) + asset folders (500)",
+      "runner": "browser",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Ran in parts. Browser Forge 2026-11-06: 351 of 973 asset creates (idmap in harvests/inbox/tnr_results_1794006062657.json). The rest ran over the connector as push/527 (ran as 509, job 509-mw6olw1l, 2026-11-07/08; images on the director's UploadThing via state/moe_upload): INCOMPLETE, 703 verified, 9 confirmed with drift, 1 failed (An Absence AI update, finished by 528), 73 asset-folder edits skipped and not re-run (harvests/inbox/tnr_results_1794101314895.json). Clip size: art authored for ratio 1; the director's working assumption is 2.5 (carry to 477). Job numbers renumbered 2026-11-08 (509->527, 510->528, 511->529, 512->530): the bundles keep the numbers they ran under."
+    },
+    {
+      "id": "502",
+      "manifest": "push/502_mother_of_echoes_final_unhide.json",
+      "what": "Mother of Echoes unhide",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/mother_of_echoes.gen.py --step final_unhide --from harvests/inbox/tnr_results_1794101314895.json",
+      "note": "Two manifests: push/502 (the 622 assets 527 created) and push/502b_mother_of_echoes_final_unhide_506.json (the 351 from the 2026-11-06 browser run; same build --from harvests/inbox/tnr_results_1794006062657.json, saved as 502b). Both rebuild byte-identical. Unhides were sent by hand over the connector on 2026-11-08, not through mcp_run, so there is no results bundle; the Mother of Echoes thread read back 1028 MoE ANIMATION assets, all hidden=false (~06:45 UTC). The Etching Seam c03r09 slice was uploaded and filled separately (state/moe_upload, results commit 'moe upload: results')."
+    },
+    {
+      "id": "527",
+      "manifest": "push/527_mother_of_echoes_remainder.json",
+      "what": "Mother of Echoes remainder: 506 minus the 351 browser creates, images on the director's UploadThing",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 state/moe_upload/build_remainder.py",
+      "note": "Ran as push/509 (job 509-mw6olw1l), INCOMPLETE: 703 verified, 9 confirmed, 1 failed (finished by 528), 73 asset-folder edits skipped (harvests/inbox/tnr_results_1794101314895.json). Ledger state/validate_exceptions/527_mother_of_echoes_remainder.json."
+    },
+    {
+      "id": "528",
+      "manifest": "push/528_moe_absence_fix.json",
+      "what": "Finish An Absence (527 item 653, the AI update that failed on date fields)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Ran as push/510 (job 510-mw75meu0) 2026-11-08 01:30 UTC: confirmed; verify shows drift on offence/defence/intelligence/speed (harvests/inbox/tnr_results_1794101493272.json)."
+    },
+    {
+      "id": "529",
+      "manifest": "push/529_moe_act1_fixes.json",
+      "what": "Mother of Echoes act-1 QA fixes (Nothing Moves/Stillness ring, An Absence text and duration)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Ran as push/511 (job 511-mw80th1k) 2026-11-08: 7/7 verified (harvests/inbox/tnr_results_1794154122914.json)."
+    },
+    {
+      "id": "530",
+      "manifest": "push/530_moe_omen_fixes.json",
+      "what": "Mother of Echoes omen fixes (Absence timing, Lucid Refraction break, Silence holds after Stillness)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Ran as push/512 (job 512-mw835xs8) 2026-11-08: 5/5 verified (harvests/inbox/tnr_results_1794158060125.json)."
+    },
+    {
+      "id": "469-test",
+      "manifest": null,
+      "what": "Live test of the fight on practice quest 469 (visual + mechanics)",
+      "runner": "duet-browser",
+      "status": "ready",
+      "waitsFor": [],
+      "note": "Practice runs on dauntless 2026-11-08 after 529 and 530 (Act 1 won, Act 2 lost; HP carries over between acts by design). Ongoing in the Mother of Echoes thread."
+    },
+    {
+      "id": "477",
+      "manifest": null,
+      "what": "Mother of Echoes go-live",
+      "runner": "connector",
+      "status": "waiting",
+      "waitsFor": [
+        "469-test",
+        "director go"
+      ],
+      "build": "python3 push/mother_of_echoes.gen.py --step golive"
+    },
+    {
+      "id": "503",
+      "manifest": "push/503_subaku_palace_assets.json",
+      "what": "Subaku Palace art (hidden)",
+      "runner": "browser",
+      "status": "parked",
+      "waitsFor": [
+        "director: 'Drop subaku palace art for now'"
+      ]
+    },
+    {
+      "id": "504-505",
+      "manifest": null,
+      "what": "Subaku unhide + jutsu edit",
+      "runner": "connector",
+      "status": "parked",
+      "waitsFor": [
+        "503 results bundle"
+      ],
+      "build": "python3 push/subaku_palace.gen.py unhide|jutsu <503 bundle>"
+    },
+    {
+      "id": "asset-cleanup",
+      "manifest": null,
+      "what": "Delete unused director-made assets (incl. Mother of Echoes art until go-live)",
+      "runner": "connector",
+      "status": "waiting",
+      "waitsFor": [
+        "Duet's jutsu/quest scan finished",
+        "reference inventory",
+        "director go on the list"
+      ],
+      "note": "gameAsset.delete has no reference check (asset.ts:274-320): the inventory is the only safety net."
+    },
+    {
+      "id": "509",
+      "manifest": "push/509_skyglass_thread_create.json",
+      "what": "Salvager's thread: 17 board assets + At the Salvager's Fire quest (all hidden)",
+      "runner": "browser",
+      "status": "ready",
+      "waitsFor": [
+        "director go"
+      ],
+      "note": "Image job (17 scene backgrounds, v2 lacquer panels, RUL-2026-11-07-137; imagePack pinned to 27c8966), so browser Forge. Hidden; staff can play the Fire quest to test."
+    },
+    {
+      "id": "511",
+      "manifest": "push/511_skyglass_thread_boards.json",
+      "what": "Salvager's thread: 3 chests-topic boards (hidden)",
+      "runner": "browser",
+      "status": "ready",
+      "waitsFor": [
+        "director go"
+      ],
+      "note": "Image job, so browser Forge. Added after 509 ran (RUL-2026-11-07-138); can run right after 509."
+    },
+    {
+      "id": "510",
+      "manifest": null,
+      "what": "Salvager's thread go-live: unhide boards + Fire quest, rewrite Wreck Sighted (_zp1l7Y9a_77pgonAdsYx) onto the thread",
+      "runner": "connector",
+      "status": "waiting",
+      "waitsFor": [
+        "509 results bundle",
+        "511 results bundle",
+        "Duet's Wreck Sighted overworld-NPC change",
+        "director playtest of the hidden Fire quest",
+        "director go"
+      ],
+      "build": "python3 push/skyglass_thread.gen.py golive --from <509 bundle> <511 bundle> --live <live read of Wreck Sighted taken AFTER Duet's change>",
+      "note": "Rewrites the whole Wreck Sighted record: build from a read taken after Duet's overworld change so questType and placement carry over (golive copies every field but content.objectives/scene). Also rewrites the Fire quest with the RUL-138 text. The shards and 'below Crownhold' scenes describe the Mother of Echoes fight (477): if 510 goes first, they point at a hidden fight."
+    },
+    {
+      "id": "512",
+      "manifest": "push/512_skyglass_journal_page2.json",
+      "what": "The Watch Log: Second Page (hidden create, window 2026-11-13 to 11-17)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Director go 2026-11-08 15:34 UTC (rewards approved with it). First try 2026-11-08 15:36 UTC refused before anything was created: \"Complete or abandon your isolated Battle Pyramid before starting outside activities.\" (tnr_results_1794152186305.json). Re-run 512 as-is once the account is free; go 512->513 covers the publish. No image job: reuses the live QI01 icon. Done 2026-11-08 15:47 UTC: created hidden as V-i3ZcAqPu0hB3G9IEzGo, verified (tnr_results_1794152841684.json)."
+    },
+    {
+      "id": "514",
+      "manifest": "push/514_skyglass_wreck_window.json",
+      "what": "Both Skyglass Wrecks expire Mon 2026-11-09 6 PM Central (expiresAt 2026-11-10T00:00Z)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Asked for 2026-11-08 (director: hide the Wrecks when the event ends). First run 15:41 UTC refused pre-send, nothing sent (tnr_results_1794152346636.json). Or the director sets it in the dungeon editor. Reopen for Friday: python3 push/skyglass_wreck_window.gen.py reopen. Unblocked by the d6cdee0f contract re-pin (director's yes, relayed 2026-11-08). Done 2026-11-08 16:00 UTC: both read back expiresAt 2026-11-10T00:00:00.000Z with requirements unchanged (Skyglass Wreck level 80, Faded level 30; daily retry, 100 clears) (tnr_results_1794153633244.json)."
+    },
+    {
+      "id": "513",
+      "manifest": "push/513_skyglass_journal_page2_publish.json",
+      "what": "Publish the Second Page: hidden false, every order open at once (consecutiveObjectives false)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/skyglass_journal.gen.py publish --page 2 --from <512 bundle>",
+      "note": "Can run any day before Friday 2026-11-13: the page lists only from its startsAt. Done 2026-11-08 15:50 UTC: readback hidden false, consecutiveObjectives false, startsAt 2026-11-13 (tnr_results_1794153043119.json)."
+    },
+    {
+      "id": "515",
+      "manifest": null,
+      "what": "Weekly Friday release: reopen both Skyglass Wrecks at 00:00 UTC Saturday (Fri 6 PM Central), expiring 00:00 UTC the Tuesday after, the same instants the week's Watch Log page opens and closes",
+      "runner": "connector",
+      "status": "waiting",
+      "waitsFor": [
+        "the weekly routine's Friday run (director's standing go 2026-11-08)"
+      ],
+      "build": "python3 push/skyglass_wreck_window.gen.py weekend 515",
+      "note": "Director 2026-11-08: Wrecks and the new page release together every Friday, close Monday evening. Dungeons have no start date, so each week is a save of expiresAt only (Forge fetch-merge, contract d6cdee0f keeps requirements). Rebuild at run time (the build defaults to today's Chicago date). Readback: expiresAt, hidden false, requirements lvl 80 / lvl 30, retryDelay daily, maxCompletes 100. Skip the reopen if no page opens that Saturday. First run Fri 2026-11-13 (manifest built and checked: expiresAt 2026-11-17T00:00Z)."
+    },
+    {
+      "id": "516",
+      "manifest": "push/516_skyglass_journal_page2_retime.json",
+      "what": "Re-time the Second Page to open 2026-11-14 00:00 UTC (Fri 6 PM Central) with the Wrecks",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/skyglass_journal.gen.py publish --page 2 --from harvests/inbox/tnr_results_1794152841684.json",
+      "note": "Director 2026-11-08: \"Friday for both. Align them to release at the same time.\" Done 2026-11-08 16:22 UTC: only startsAt changed (2026-11-13 -> 2026-11-14); readback hidden false, consecutiveObjectives false, endsAt 2026-11-17 (tnr_results_1794154934340.json)."
+    },
+    {
+      "id": "517",
+      "manifest": "push/517_skyglass_journal_page3.json",
+      "what": "The Watch Log: Stolen Stores (5 challenges; hidden create, window 2026-11-21 to 11-24 00:00 UTC = Fri 6 PM to Mon 6 PM Central)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/skyglass_journal.gen.py --page 3",
+      "note": "Created AgGR962c3XNo6Pr0up2qT hidden, verified 2026-11-08 17:46 UTC on the director's go (\"Yes\" to rename and stage).",
+      "result": "tnr_results_1794160015319.json"
+    },
+    {
+      "id": "518",
+      "manifest": "push/518_skyglass_journal_page3_publish.json",
+      "what": "Publish the Third Page: hidden false, every order open at once; it lists only from startsAt 2026-11-21",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/skyglass_journal.gen.py publish --page 3 --from <517 bundle>",
+      "result": "tnr_results_1794160115789.json",
+      "note": "Published 2026-11-08 17:48 UTC: hidden false, startsAt 2026-11-21, endsAt 2026-11-24. Schedule page 3 set published."
+    },
+    {
+      "id": "519",
+      "manifest": "push/519_skyglass_journal_page4.json",
+      "what": "The Watch Log: Her Invitation (5 challenges, Mother of Echoes as the stretch; hidden create, window 2026-11-28 to 12-01 00:00 UTC)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/skyglass_journal.gen.py --page 4",
+      "note": "Created I_cEOGSfFuahaJlR3FnWC hidden, verified 2026-11-08 17:50 UTC. Do not publish (520) or mark it published in the schedule while The Mother of Echoes (IBPNwhAzlAJPXoeEnp8gW) is hidden.",
+      "result": "tnr_results_1794160239097.json"
+    },
+    {
+      "id": "520",
+      "manifest": "push/520_skyglass_journal_page4_publish.json",
+      "what": "Publish the Fourth Page: hidden false, every order open at once; it lists only from startsAt 2026-11-28",
+      "runner": "connector",
+      "status": "waiting",
+      "waitsFor": [
+        "Mother of Echoes live (job 477)",
+        "the director's go on going live"
+      ],
+      "build": "python3 push/skyglass_journal.gen.py publish --page 4 --from <519 bundle>",
+      "note": "Built from tnr_results_1794160239097.json. Run only once The Mother of Echoes is live, before Fri 2026-11-27 6 PM Central; then set the schedule's page 4 published true."
+    },
+    {
+      "id": "525",
+      "manifest": "push/525_skyglass_journal_page2_text.json",
+      "what": "Second Page text in the director's layout: short hook, challenges with rewards, rules",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/skyglass_journal.gen.py text --page 2",
+      "note": "Director 2026-11-08: \"Short story hook -> Challenges and their associated reward -> Rules\". Done 2026-11-08 17:06 UTC, description only changed (tnr_results_1794157585556.json)."
+    },
+    {
+      "id": "526",
+      "manifest": "push/526_skyglass_journal_page2_rename.json",
+      "what": "Rename the Second Page to The Watch Log: The Rotted Heading",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/skyglass_journal.gen.py rename --page 2",
+      "note": "Renamed 2026-11-08 17:44 UTC (first try at 17:24 refused while the account was in a Battle Pyramid practice run). Keeps the \"The Watch Log\" prefix.",
+      "result": "tnr_results_1794159896158.json"
+    },
+    {
+      "id": "531",
+      "manifest": "push/531_moe_tuning.json",
+      "what": "Mother of Echoes tuning: act HP and damage for one carried-over health bar (act 1 8-10 rounds, act 2 12-14 at ~20k HP, act 3 ~17)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Ran 2026-11-08 by Duet over the connector, by hand: the runner sent profile.updateAi with date strings (rejected) and took a saved-output preview as a full read, so it was stopped before any bad write. All 7 edits sent by hand from fresh full reads (dates dropped) and read back: act 1 Sayo 5,050 HP; Silence no DR; Glasswright 20,200 HP +27%/-35%; Saint of Stillness 20,200 HP +41%/-30%; Porter, Hana, Tomo +50%. Jutsu links intact on all 7. Evidence: state/results/531_moe_tuning.md."
+    },
+    {
+      "id": "532",
+      "manifest": "push/532_moe_silence_absorb.json",
+      "what": "Mother of Echoes act 1: The Silence's The Deep Listens absorb 35% -> 10% so act 1 lands near 8-10 rounds",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Ran 2026-11-08 18:44 UTC by Duet over the connector, by hand, law 18 cycle (unequip from The Silence, edit, re-equip). Read back: absorb 10, only The Silence uses it, 8/8 jutsus equipped, 5,050 HP. Evidence: state/results/532_moe_silence_absorb.md."
+    }
+  ]
 }

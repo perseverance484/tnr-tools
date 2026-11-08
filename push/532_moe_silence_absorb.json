@@ -1,0 +1,82 @@
+{
+ "name": "532 MoE: The Silence heals less from damage",
+ "notes": "Act 1 rerun 2 took 12 rounds (target 8-10): the Silence's The Deep Listens converted 35% of damage to health. Cut to 10%. Law 18 cycle: unequip from The Silence, edit, re-equip. Hand-sent on Nov 8 18:44 UTC; all read back.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "phase": 10,
+   "slot": "edit",
+   "name": "The Deep Listens: absorb 10",
+   "id": "WyurLfWSUSGU1pIoBPObD",
+   "data": {
+    "name": "The Deep Listens",
+    "image": "https://ui0arpl8sm.ufs.sh/f/tTUMGYff8L72ewNF8J7XA.webp",
+    "description": "Her presence settles over the hall.",
+    "battleDescription": "The floor around the Silence stops making sound.",
+    "extraBaseCost": 0,
+    "jutsuWeapon": "NONE",
+    "jutsuType": "AI",
+    "requiredPetSpeciesId": null,
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "methodSize": null,
+    "target": "SELF",
+    "range": 0,
+    "statClassification": "None",
+    "elementClassification": "None",
+    "hidden": true,
+    "injectableInBattle": false,
+    "healthCost": 0,
+    "chakraCost": 0.05,
+    "staminaCost": 0.05,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "actionCostPerc": 10,
+    "cooldown": 99,
+    "requiredSkillId": null,
+    "bloodlineId": "",
+    "requiredBloodlineItemId": null,
+    "villageId": "",
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "-vVzJeyPySAtHw0vXAjjn",
+      "appearAnimation": "FfwM0q-BshcqpMIz3IZtw",
+      "disappearAnimation": "",
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "disappearSfx": "",
+      "rounds": 99,
+      "power": 10,
+      "powerPerLevel": 0,
+      "direction": "defence",
+      "target": "SELF",
+      "calculation": "percentage",
+      "type": "absorb",
+      "description": " placeholder",
+      "poolsAffected": [
+       "Health"
+      ]
+     }
+    ],
+    "battleUsageType": "BOTH",
+    "reskinParentJutsuId": null,
+    "bloodlineReskinId": null,
+    "parentJutsuId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null
+   }
+  }
+ ]
+}
